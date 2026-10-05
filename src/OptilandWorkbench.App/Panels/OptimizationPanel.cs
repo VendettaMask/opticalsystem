@@ -26,7 +26,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
     private readonly DataGrid _grid;
     private readonly string[] _operandCodes;
     private readonly IReadOnlyDictionary<string, MeritOperandTypeDto> _operandTypes;
-    private readonly DataGridColumn[] _parameterColumns = new DataGridColumn[7];
+    private readonly DataGridColumn[] _parameterColumns = new DataGridColumn[8];
     private readonly ComboBox _optimizerPicker = new() { MinWidth = 165, SelectedIndex = 0 };
     private readonly NumericUpDown _iterationsInput = new()
     {
@@ -392,7 +392,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         if (SelectedVariables().Count == 0)
         {
             _operationStatus.MarkFailed("缺少可优化变量");
-            _result.Text = "请先在镜头数据中将至少一个曲率半径或厚度设置为变量。";
+            _result.Text = "请先设置优化变量（表面、物理膜层或多配置单元格）。";
             return;
         }
 
@@ -459,20 +459,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
             : $"变量 {selectedVariables.Count} 个";
     }
 
-    private IReadOnlyList<string> SelectedVariables()
-    {
-        var surfaces = _prescription.GetSurfaces();
-        var lastSurfaceNumber = surfaces.Count == 0 ? -1 : surfaces.Max(surface => surface.Number);
-        return surfaces
-            .Where(surface => surface.Number > 0 && surface.Number < lastSurfaceNumber)
-            .SelectMany(surface => new[]
-            {
-                surface.RadiusVariable ? $"面 {surface.Number} 半径" : null,
-                surface.ThicknessVariable ? $"面 {surface.Number} 厚度" : null
-            })
-            .OfType<string>()
-            .ToArray();
-    }
+    private IReadOnlyList<string> SelectedVariables() => _optimization.GetMarkedVariables().Select(variable => variable.Name).ToArray();
 
     private static DataGridTextColumn TextColumn(string header, string property, double width, bool readOnly = false) => new()
     {
@@ -528,8 +515,9 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         {
             var label = row?.ParameterLabel(index) ?? $"参数 {index + 1}";
             _parameterColumns[index].Header = string.IsNullOrWhiteSpace(label) ? "—" : label;
-            _parameterColumns[index].IsVisible = row is null || row.IsParameterEditable(index)
-                || !label.Equals("Unused", StringComparison.OrdinalIgnoreCase);
+            _parameterColumns[index].IsVisible = row is null ? index < 7
+                : !string.IsNullOrWhiteSpace(label) && (row.IsParameterEditable(index)
+                    || !label.Equals("Unused", StringComparison.OrdinalIgnoreCase));
         }
     }
 

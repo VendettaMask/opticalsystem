@@ -11,7 +11,9 @@ public sealed class WorkflowTests
     private readonly DesignService _service = new();
 
     [Theory]
-    [InlineData(DesignKind.Antireflection)] [InlineData(DesignKind.HighReflector)] [InlineData(DesignKind.NarrowBand)]
+    [InlineData(DesignKind.Antireflection)]
+    [InlineData(DesignKind.HighReflector)]
+    [InlineData(DesignKind.NarrowBand)]
     public void RealExamplesGenerateOptimizeAndVerifyWithoutChangingInput(DesignKind kind)
     {
         var input = Examples.Create(kind);
@@ -166,7 +168,7 @@ public sealed class WorkflowTests
     {
         var d = _service.Generate(Examples.Create(DesignKind.Antireflection));
         d = d with { Settings = d.Settings with { ToleranceTrials = 3 }, Result = null };
-        Assert.Equal(_service.Tolerance(d), _service.Tolerance(d));
+        Assert.Equal(JsonSerializer.Serialize(_service.Tolerance(d), Experiment.JsonOptions), JsonSerializer.Serialize(_service.Tolerance(d), Experiment.JsonOptions));
     }
 
     [Fact]

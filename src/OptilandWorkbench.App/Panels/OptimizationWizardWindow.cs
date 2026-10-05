@@ -243,8 +243,7 @@ public sealed class OptimizationWizardWindow : Window
             ? Math.Max(1, _prescription.GetWavelengths().Count)
             : 1;
         var common = _includeCommon.IsChecked == true ? 2 : 0;
-        var variables = _prescription.GetSurfaces().Sum(surface =>
-            (surface.RadiusVariable ? 1 : 0) + (surface.ThicknessVariable ? 1 : 0));
+        var variables = _optimization.GetMarkedVariables().Count;
         var rings = IntegerValue(_rings, 3);
         var arms = IntegerValue(_arms, 6);
         var obscuration = DoubleValue(_obscuration, 0);

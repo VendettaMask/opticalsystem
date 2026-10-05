@@ -1,0 +1,86 @@
+{
+  "date": "2026-09-29",
+  "scope": "Third batch: incidence extrema, current surface parameters, catalog glass cost, bounding cylinder, cardinal planes",
+  "registered": 383,
+  "executable_before": 172,
+  "executable_after": 180,
+  "compatibility_only_after": 203,
+  "added_codes": [
+    "CARD",
+    "CVOL",
+    "GCOS",
+    "MNAI",
+    "MXAI",
+    "PMGT",
+    "PMLT",
+    "PMVA"
+  ],
+  "cumulative_added_since_124": 56,
+  "verification": {
+    "debug": {
+      "total": 499,
+      "passed": 499,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 92,
+      "trx": "third-batch-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 499,
+      "passed": 499,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 92,
+      "trx": "third-batch-release.trx",
+      "log": "release.log"
+    }
+  },
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "external_reference": {
+    "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/079-cardinalpoints/data.txt",
+    "sha256": "0ba397287cf041f4248c0feb608bfa3c3e1816e87860014ed8e1c43d1557c0c9",
+    "unchanged_from_git_head": true,
+    "opticstudio_version": "2026 R1",
+    "system": "123456.ZMX",
+    "wavelength_nm": 440,
+    "surface_range": [
+      1,
+      22
+    ],
+    "orientation": "YZ",
+    "cardinal_outputs_checked": 12,
+    "absolute_tolerance_lens_units": 1e-06,
+    "scope": "Current Workbench calculation compared to existing committed capture; not a new capture or native MFE slot capture; not all-model or all-mode parity"
+  },
+  "historical_reference": "Frozen historical assets unchanged; no new Optiland comparisons",
+  "not_performed": [
+    "full product suite",
+    "full external comparison matrix",
+    "new Zemax captures",
+    "laboratory full suites",
+    "native desktop walkthrough",
+    "screenshot review",
+    "installer validation"
+  ],
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Services/Paraxial.cs": "3e2e3eae16f428be30821dc28425e2ae6fb4a8bc5d323744c6beb76ed0f695de",
+    "src/OptilandWorkbench.Core/Services/Paraxial.CardinalData.cs": "147dd7a649fecc6ceb6032c26b0025d29b992c2d97a99786c70aef6f480f668f",
+    "src/OptilandWorkbench.Core/Services/SurfaceParameterData.cs": "f997300a627728a4110e66a9e95a205617469113d94ad3b88aeb62e573f607c8",
+    "src/OptilandWorkbench.Core/Services/SurfaceManufacturingMetrics.cs": "4014d5c9213365056c48469700bf6c5a61eedf9fe55cb10ba8dbd1d904a1f7b1",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.IncidenceCardinal.cs": "b3522ede23d7544738f398ab7662202fc6058c3e039a1fdc7b32c790a34c638f",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.SequentialData.cs": "a85d53154efa18bc57ebcd754aa27788f8a7c5950fee55c914d1e20c403f4740",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "676a80577c748deb5b6cd1a8e232330579a1c36583f6a4a1c3025889ebf0a4f7",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "605277a96830fae2e83d06f661e64376ac96574403db4ee7ce5a49cf47d8ba1b",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "028efec2b0f7fd8c87e837beb7fae8e8ac0b7a46ca274f8c3f3e78b31e2a757a",
+    "tests/OptilandWorkbench.Tests/IncidenceCardinalOperandTests.cs": "94f9eb57392301138ba6de847b7ec9e3d95facc07b707bfecdb2920cb7f47fae",
+    "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs": "271a991f71ecdd0e11ef6b472c97d6b464087b07fce1092b922bc63735eec8f9",
+    "tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj": "073a8893312e3931cb326c62fb15a4175089c9552c32753f8e842c11e3ddaa56"
+  },
+  "format_whitespace_verify": "passed",
+  "git_diff_check": "passed",
+  "documentation_third_batch_links_checked": 30
+}

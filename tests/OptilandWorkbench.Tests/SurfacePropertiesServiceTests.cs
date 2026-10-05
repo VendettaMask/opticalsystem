@@ -13,6 +13,26 @@ namespace OptilandWorkbench.Tests;
 
 public sealed class SurfacePropertiesServiceTests
 {
+    [Theory]
+    [InlineData(0)]
+    [InlineData(double.PositiveInfinity)]
+    [InlineData(25.5)]
+    public void SwitchingToStandardKeepsTheCurrentRadiusInsteadOfInventingCurvature(double radius)
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var runtime = new WorkbenchRuntime(optic);
+        var surface = optic.SurfaceGroup.Items[1];
+        surface.Geometry = new EvenAsphereGeometry(radius, -0.7, new[] { 1.25e-5 });
+
+        runtime.ApplySurfaceComponents(surface, "标准面", WorkbenchMapper.ToSurfaceDto(surface).ApertureKind);
+
+        var standard = Assert.IsType<StandardGeometry>(surface.Geometry);
+        Assert.Equal(radius, standard.Radius);
+        Assert.Equal(radius, surface.Radius);
+        Assert.Equal(-0.7, surface.Conic);
+        if (radius == 0 || double.IsInfinity(radius)) Assert.Equal(0, standard.Sag(1, 2));
+    }
+
     [Fact]
     public async Task ComponentsAndPropertiesCommitTogetherUndoAndRoundTrip()
     {

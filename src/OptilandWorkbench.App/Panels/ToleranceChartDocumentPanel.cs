@@ -72,7 +72,9 @@ internal static class ToleranceChartBuilder
                     Kind: AnalysisSeriesKind.Bar,
                     Name: "Monte Carlo 试验",
                     ColorIndex: 0,
-                    Opacity: 0.82)
+                    Opacity: 0.82,
+                    XQuantity: CriterionQuantity(criterion), XUnit: CriterionUnit(criterion),
+                    YQuantity: AnalysisAxisQuantity.Count, YUnit: AnalysisAxisUnit.Dimensionless)
             },
             new AnalysisPlotOptionsDto(
                 Title: "Monte Carlo 评价值直方图",
@@ -91,7 +93,11 @@ internal static class ToleranceChartBuilder
         ToleranceCriterion criterion,
         double yieldLimit)
     {
-        var values = TrialValues(result);
+        var fieldMargins = criterion == ToleranceCriterion.Mtf && result?.MtfSettings?.SeparateFields == true
+            && result.TrialRows.Any(row => row.AcceptanceMargin.HasValue);
+        var higher = criterion == ToleranceCriterion.Mtf;
+        var trialCount = result?.TrialRows.Count ?? 0;
+        var values = fieldMargins ? result!.TrialRows.Select(row => row.AcceptanceMargin ?? double.NaN).Where(double.IsFinite).ToArray() : TrialValues(result);
         if (values.Length == 0)
         {
             return Empty("Monte Carlo 良率", "尚未运行 Monte Carlo 公差分析，或结果中没有有效数值。");
@@ -100,12 +106,12 @@ internal static class ToleranceChartBuilder
         Array.Sort(values);
         var points = new List<AnalysisPointDto>(values.Length + 1)
         {
-            new(values[0], 0)
+            new(values[0], higher ? values.Length * 100.0 / trialCount : 0)
         };
         points.AddRange(values.Select((value, index) =>
-            new AnalysisPointDto(value, (index + 1) * 100.0 / values.Length)));
+            new AnalysisPointDto(value, (higher ? values.Length - index : index + 1) * 100.0 / trialCount)));
 
-        var axisLabel = CriterionAxisLabel(criterion);
+        var axisLabel = fieldMargins ? "最差视场 MTF 验收余量" : CriterionAxisLabel(criterion);
         var series = new List<AnalysisSeriesDto>
         {
             new(
@@ -113,14 +119,17 @@ internal static class ToleranceChartBuilder
                 "累计通过率 (%)",
                 points,
                 Kind: AnalysisSeriesKind.Line,
-                Name: "累计分布",
+                Name: higher ? "≥ 此值的通过率（含失效试验）" : "≤ 此值的通过率（含失效试验）",
                 ColorIndex: 0,
                 ShowMarkers: values.Length <= 50,
                 LineWidth: 2,
-                MarkerSize: 2.6)
+                MarkerSize: 2.6,
+                XQuantity: CriterionQuantity(criterion), XUnit: CriterionUnit(criterion),
+                YQuantity: AnalysisAxisQuantity.Probability, YUnit: AnalysisAxisUnit.Percent)
         };
 
-        var hasLimit = double.IsFinite(yieldLimit) && yieldLimit > 0;
+        var hasLimit = fieldMargins || (double.IsFinite(yieldLimit) && yieldLimit > 0);
+        var threshold = fieldMargins ? 0 : yieldLimit;
         if (hasLimit)
         {
             series.Add(new AnalysisSeriesDto(
@@ -128,21 +137,25 @@ internal static class ToleranceChartBuilder
                 "累计通过率 (%)",
                 new[]
                 {
-                    new AnalysisPointDto(yieldLimit, 0),
-                    new AnalysisPointDto(yieldLimit, 100)
+                    new AnalysisPointDto(threshold, 0),
+                    new AnalysisPointDto(threshold, 100)
                 },
                 Kind: AnalysisSeriesKind.Line,
-                Name: "合格上限",
+                Name: fieldMargins ? "全部视场合格（余量 ≥ 0）" : higher ? "合格下限" : "合格上限",
                 LineStyle: AnalysisLineStyle.Dashed,
                 ColorIndex: 3,
-                LineWidth: 1.5));
+                LineWidth: 1.5,
+                XQuantity: CriterionQuantity(criterion), XUnit: CriterionUnit(criterion),
+                YQuantity: AnalysisAxisQuantity.Probability, YUnit: AnalysisAxisUnit.Percent));
         }
 
-        var passed = hasLimit ? values.Count(value => value <= yieldLimit) : 0;
+        var passed = hasLimit ? (result!.TrialRows.Any(row => row.Passed.HasValue)
+            ? result.TrialRows.Count(row => row.Passed == true)
+            : values.Count(value => higher ? value >= threshold : value <= threshold)) : 0;
         var summary = hasLimit
-            ? $"合格上限：{Format(yieldLimit)}    合格样本：{passed} / {values.Length}    "
-              + $"估算良率：{passed * 100.0 / values.Length:0.###}%"
-            : $"样本数：{values.Length}    未设置合格上限；曲线显示评价值的累计分布。";
+            ? $"{(fieldMargins ? "逐视场合格余量" : higher ? "合格下限" : "合格上限")}：{Format(threshold)}    合格样本：{passed} / {trialCount}    "
+              + $"估算良率：{passed * 100.0 / trialCount:0.###}%"
+            : $"样本数：{values.Length}    未设置合格限值；曲线显示评价值的累计分布。";
 
         return new ToleranceChartView(
             series,
@@ -165,19 +178,35 @@ internal static class ToleranceChartBuilder
 
     private static double[] TrialValues(TolerancingResultDto? result) =>
         result?.TrialRows
-            .Select(row => TryParse(row.CompensatedMerit, out var compensated)
+            .Select(row => row.CriterionValue ?? (TryParse(row.CompensatedMerit, out var compensated)
                 ? compensated
                 : TryParse(row.Merit, out var merit)
                     ? merit
-                    : double.NaN)
+                    : double.NaN))
             .Where(double.IsFinite)
             .ToArray()
         ?? Array.Empty<double>();
 
     private static string CriterionAxisLabel(ToleranceCriterion criterion) =>
-        criterion == ToleranceCriterion.RmsWavefront
-            ? "RMS 波前误差 (waves)"
-            : "RMS 点列半径 (mm)";
+        criterion switch
+        {
+            ToleranceCriterion.Mtf => "MTF（无量纲）",
+            ToleranceCriterion.RmsWavefront => "RMS 波前误差 (waves)",
+            _ => "RMS 点列半径 (mm)"
+        };
+
+    private static AnalysisAxisQuantity CriterionQuantity(ToleranceCriterion criterion) => criterion switch
+    {
+        ToleranceCriterion.Mtf => AnalysisAxisQuantity.Modulation,
+        ToleranceCriterion.RmsWavefront => AnalysisAxisQuantity.WavefrontError,
+        _ => AnalysisAxisQuantity.Radius
+    };
+    private static AnalysisAxisUnit CriterionUnit(ToleranceCriterion criterion) => criterion switch
+    {
+        ToleranceCriterion.Mtf => AnalysisAxisUnit.Dimensionless,
+        ToleranceCriterion.RmsWavefront => AnalysisAxisUnit.Wave,
+        _ => AnalysisAxisUnit.Millimeter
+    };
 
     private static bool TryParse(string text, out double value)
     {

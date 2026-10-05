@@ -38,6 +38,7 @@
           Link="Validation\History\optiland-0.5.8\%(RecursiveDir)%(Filename)%(Extension)"
           CopyToOutputDirectory="PreserveNewest" />
     <None Include="Fixtures\beam-expander-266nm-6x.zmx" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Fixtures\zemax-2026-r1-official-merit-operand-catalog.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="Fixtures\zmax_38668.ZMX" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\packaging\macos\Info.plist"
           Link="Fixtures\macos-Info.plist"
@@ -47,6 +48,15 @@
           CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\source\123456.ZMX"
           Link="Fixtures\zemax-123456.ZMX"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\079-cardinalpoints\data.txt"
+          Link="Fixtures\zemax-123456-cardinal-points.txt"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\078-sagtable\data.txt"
+          Link="Fixtures\zemax-123456-sag-table.txt"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\008-longitudinalaberration\data.json"
+          Link="Fixtures\zemax-123456-longitudinal-aberration.json"
           CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\010-seidelcoefficients\data.txt"
           Link="Fixtures\zemax-123456-seidel-coefficients.txt"

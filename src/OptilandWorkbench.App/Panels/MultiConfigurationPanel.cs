@@ -10,7 +10,7 @@ using OptilandWorkbench.App.ViewModels;
 
 namespace OptilandWorkbench.App.Panels;
 
-public sealed class MultiConfigurationPanel : UserControl, IDisposable
+public sealed partial class MultiConfigurationPanel : UserControl, IDisposable
 {
     private readonly IPrescriptionService _prescription;
     private readonly IMultiConfigurationService _configurations;
@@ -27,7 +27,7 @@ public sealed class MultiConfigurationPanel : UserControl, IDisposable
     private readonly ComboBox _surfacePicker = new() { MinWidth = 220 };
     private readonly NumericUpDown _thicknessInput = new()
     {
-        Minimum = 0,
+        Minimum = -1_000_000,
         Maximum = 1_000_000,
         Increment = 1,
         Value = 5,
@@ -45,6 +45,7 @@ public sealed class MultiConfigurationPanel : UserControl, IDisposable
         _prescription = prescription;
         _configurations = configurations;
         _events = events;
+        this.BindThemeResource(BackgroundProperty, ThemeResourceBindings.Surface);
         _configGrid.BindThemeResource(DataGrid.RowBackgroundProperty, ThemeResourceBindings.Surface);
         ConfigureGrid();
         var addButton = new Button { Content = new LocalIconLabel("plus", "新增配置"), MinWidth = 96 };
@@ -58,6 +59,7 @@ public sealed class MultiConfigurationPanel : UserControl, IDisposable
             }
         };
         var applyButton = new Button { Content = new LocalIconLabel("check", "应用厚度"), MinWidth = 96 };
+        applyButton.Classes.Add("accent");
         applyButton.Click += (_, _) => ApplyThickness();
         var toolbar = new WrapPanel
         {
@@ -79,7 +81,16 @@ public sealed class MultiConfigurationPanel : UserControl, IDisposable
         DockPanel.SetDock(_summary, Avalonia.Controls.Dock.Bottom);
         root.Children.Add(toolbar);
         root.Children.Add(_summary);
-        root.Children.Add(_configGrid);
+        var pages = new TabControl
+        {
+            ItemsSource = new[]
+            {
+                new TabItem { Header = "配置", Content = _configGrid },
+                new TabItem { Header = "操作数行表", Content = BuildOperandTable() }
+            }
+        };
+        pages.SelectionChanged += (_, _) => toolbar.IsVisible = pages.SelectedIndex != 1;
+        root.Children.Add(pages);
         Content = root;
         _events.Changed += OnWorkspaceChanged;
         Refresh();
@@ -98,7 +109,7 @@ public sealed class MultiConfigurationPanel : UserControl, IDisposable
 
     private void ConfigureGrid()
     {
-        _configGrid.Columns.Add(new DataGridTextColumn { Header = "#", Binding = new Binding(nameof(MultiConfigurationRowDto.Index)), Width = new DataGridLength(56) });
+        _configGrid.Columns.Add(new DataGridTextColumn { Header = "#", Binding = new Binding(nameof(MultiConfigurationRowDto.Number)), Width = new DataGridLength(56) });
         _configGrid.Columns.Add(new DataGridTextColumn { Header = "名称", Binding = new Binding(nameof(MultiConfigurationRowDto.Name)), Width = new DataGridLength(120) });
         _configGrid.Columns.Add(new DataGridCheckBoxColumn { Header = "当前", Binding = new Binding(nameof(MultiConfigurationRowDto.Active)), IsReadOnly = true, Width = new DataGridLength(70) });
         _configGrid.Columns.Add(new DataGridTextColumn { Header = "表面数", Binding = new Binding(nameof(MultiConfigurationRowDto.SurfaceCount)), Width = new DataGridLength(86) });
@@ -135,6 +146,7 @@ public sealed class MultiConfigurationPanel : UserControl, IDisposable
         _surfacePicker.SelectedItem = surfaces.FirstOrDefault(surface => surface.Number == selectedSurface)
             ?? surfaces.ElementAtOrDefault(Math.Min(2, Math.Max(0, surfaces.Length - 1)));
         _summary.Text = $"配置数：{rows.Count}    当前系统表面数：{surfaces.Length}";
+        RefreshOperandTable();
     }
 
     private void ApplyThickness()

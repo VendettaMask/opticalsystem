@@ -30,6 +30,11 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
     {
     }
 
+    public IReadOnlyList<OptimizationVariableResultDto> GetMarkedVariables()
+    {
+        lock (Gate) return Runtime.GetMarkedOptimizationVariables();
+    }
+
     public IReadOnlyList<string> OptimizerNames => Runtime.OptimizerNames;
 
     public IReadOnlyList<MeritOperandTypeDto> GetMeritOperandTypes()
@@ -77,10 +82,11 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
         lock (Gate)
         {
             var operands = Runtime.CurrentOptic.MeritFunctionOperands.ToArray();
-            var evaluations = MeritFunctionCatalog.EvaluateAll(Runtime.CurrentOptic, operands);
+            var evaluations = MeritFunctionCatalog.EvaluateAll(Runtime.CreateMeritConfigurationContext(), operands);
             var weightSum = operands
                 .Where(operand => operand.Enabled
-                    && MeritFunctionCatalog.CanonicalType(operand.Type) is not ("BLNK" or "DMFS"))
+                    && MeritFunctionCatalog.CanonicalType(operand.Type) is not ("BLNK" or "DMFS" or "REQS")
+                    && !MeritFunctionCatalog.IsSystemStateOperand(operand.Type))
                 .Sum(operand => Math.Abs(operand.Weight));
             return operands
                 .Select((operand, index) =>
@@ -118,7 +124,9 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
                         rawData?[0],
                         rawData?[1],
                         rawData?[2],
-                        rawData?[3]);
+                        rawData?[3],
+                        rawData is { Length: > 4 } ? rawData[4] : null,
+                        rawData is { Length: > 5 } ? rawData[5] : null);
                 })
                 .ToArray();
         }
@@ -171,7 +179,11 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
                             operand.ZemaxData1 ?? operand.Hx,
                             operand.ZemaxData2 ?? operand.Hy,
                             operand.ZemaxData3 ?? operand.Px,
-                            operand.ZemaxData4 ?? operand.Py
+                            operand.ZemaxData4 ?? operand.Py,
+                            .. operand.ZemaxData5.HasValue || operand.ZemaxData6.HasValue || (!forceCompatibilityOnly && descriptor.Parameters.Count > 6)
+                                ? new[] { operand.ZemaxData5 ?? 0 } : Array.Empty<double>(),
+                            .. operand.ZemaxData6.HasValue || (!forceCompatibilityOnly && descriptor.Parameters.Count > 7)
+                                ? new[] { operand.ZemaxData6 ?? 0 } : Array.Empty<double>()
                         ]
                         : []
                 };
@@ -203,7 +215,7 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
             result[index] = parameter.ValueKind switch
             {
                 ZemaxOperandParameterValueKind.Field => operand.Field,
-                ZemaxOperandParameterValueKind.Wavelength => operand.Wavelength,
+                ZemaxOperandParameterValueKind.Wavelength or ZemaxOperandParameterValueKind.SignedWavelength => operand.Wavelength,
                 ZemaxOperandParameterValueKind.Surface => operand.Surface,
                 ZemaxOperandParameterValueKind.EndSurface => operand.Wavelength,
                 ZemaxOperandParameterValueKind.RowReference => operand.Surface,
@@ -223,23 +235,28 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
             return null;
         }
 
-        if (operand.ZemaxDataParameters is { Length: >= 4 })
+        // Incomplete extended compatibility rows must never acquire a synthetic
+        // Data5 merely by being displayed, edited elsewhere, or saved again.
+        if (operand.CompatibilityOnly && descriptor.Parameters.Count > 6 && operand.ZemaxDataParameters.Length < 5)
         {
-            return
-            [
-                operand.ZemaxDataParameters[0],
-                operand.ZemaxDataParameters[1],
-                operand.ZemaxDataParameters[2],
-                operand.ZemaxDataParameters[3]
-            ];
+            var preserved = new[] { operand.Hx, operand.Hy, operand.Px, operand.Py };
+            operand.ZemaxDataParameters.CopyTo(preserved, 0);
+            return preserved;
         }
 
-        var result = new[] { operand.Hx, operand.Hy, operand.Px, operand.Py };
+        if (operand.ZemaxDataParameters is { Length: >= 4 })
+        {
+            return operand.ZemaxDataParameters.ToArray();
+        }
+
+        var result = new[] { operand.Hx, operand.Hy, operand.Px, operand.Py, 0.0, 0.0 }
+            .Take(Math.Max(4, descriptor.Parameters.Count - 2)).ToArray();
         foreach (var parameter in descriptor.Parameters.Where(parameter => parameter.Slot.StartsWith("Data", StringComparison.Ordinal)))
         {
             var index = int.Parse(parameter.Slot.AsSpan(4), System.Globalization.CultureInfo.InvariantCulture) - 1;
             result[index] = parameter.ValueKind switch
             {
+                ZemaxOperandParameterValueKind.Wavelength => operand.Wavelength,
                 ZemaxOperandParameterValueKind.Field => operand.Field,
                 ZemaxOperandParameterValueKind.NormalizedField when parameter.DisplayName == "Hx" => operand.Hx,
                 ZemaxOperandParameterValueKind.NormalizedField when parameter.DisplayName == "Hy" => operand.Hy,
@@ -276,6 +293,8 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
                 "Data2" => data[1],
                 "Data3" => data[2],
                 "Data4" => data[3],
+                "Data5" => data.Length > 4 ? data[4] : 0,
+                "Data6" => data.Length > 5 ? data[5] : 0,
                 _ => 0
             };
             switch (parameter.ValueKind)
@@ -286,6 +305,7 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
                     break;
                 case ZemaxOperandParameterValueKind.EndSurface:
                 case ZemaxOperandParameterValueKind.RowRangeEnd:
+                case ZemaxOperandParameterValueKind.SignedWavelength:
                 case ZemaxOperandParameterValueKind.Wavelength:
                     definition.Wavelength = checked((int)raw);
                     break;
@@ -369,7 +389,7 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
             var editable = Runtime.Surfaces
                 .Where(surface => surface.Number > 0 && surface.Number < lastSurfaceNumber)
                 .ToArray();
-            if (editable.Length == 0)
+            if (editable.Length == 0 && mode != OptimizationVariableUpdateMode.ClearAll)
             {
                 return new OptimizationVariableUpdateResultDto(mode, 0, 0);
             }
@@ -384,18 +404,34 @@ internal sealed partial class OptimizationService : WorkbenchServiceBase, IOptim
                         surface.ThicknessVariable = false;
                         break;
                     case OptimizationVariableUpdateMode.SetAllRadii:
-                        surface.RadiusVariable = !Runtime.CurrentOptic.Pickups.RadiusPickups
+                        surface.RadiusVariable = !Runtime.IsMultiConfigurationPickupTarget(surface.Number, "radius") && !Runtime.CurrentOptic.Pickups.RadiusPickups
                             .Any(pickup => pickup.TargetSurface == surface.Number);
                         break;
                     case OptimizationVariableUpdateMode.SetAllThicknesses:
-                        surface.ThicknessVariable = true;
+                        surface.ThicknessVariable = !Runtime.IsMultiConfigurationPickupTarget(surface.Number, "thickness")
+                            && !Runtime.CurrentOptic.Pickups.ThicknessPickups.Any(p => p.TargetSurface == surface.Number);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(mode));
                 }
             }
 
-            Runtime.CommitSurfaceEdit(editable[0], nameof(OpticalSurface.RadiusVariable));
+            if (mode == OptimizationVariableUpdateMode.ClearAll)
+            {
+                Runtime.ClearMultiConfigurationVariables();
+                Runtime.ClearGradientIndexVariables();
+                foreach (var surface in Runtime.Surfaces.Where(s => s.CoatingModel is CoherentMultilayerCoating))
+                {
+                    var coating = (CoherentMultilayerCoating)surface.CoatingModel;
+                    surface.CoatingModel = new CoherentMultilayerCoating(coating.Layers.Select(layer => layer with
+                    {
+                        Parameters = layer.Adjustment with { MultiplierVariable = false, IndexVariable = false, ExtinctionVariable = false }
+                    }));
+                }
+                Runtime.CurrentOptic.InvalidateRayTraceCache();
+            }
+            if (Runtime.Surfaces.Count > 0)
+                Runtime.CommitSurfaceEdit(editable.FirstOrDefault() ?? Runtime.Surfaces[0], nameof(OpticalSurface.RadiusVariable));
             return new OptimizationVariableUpdateResultDto(
                 mode,
                 editable.Count(surface => surface.RadiusVariable),

@@ -188,6 +188,7 @@ public sealed class WorkspaceDockFactory : Factory
 
     public override void InitLayout(IDockable layout)
     {
+        ConsolidateMaterialLibraries(layout);
         ContextLocator = EnumerateDockables(layout)
             .Where(dockable => !string.IsNullOrWhiteSpace(dockable.Id))
             .GroupBy(dockable => dockable.Id, StringComparer.Ordinal)
@@ -226,7 +227,7 @@ public sealed class WorkspaceDockFactory : Factory
         _descriptors.Clear();
         foreach (var descriptor in descriptors)
         {
-            _descriptors[descriptor.Id] = descriptor;
+            _descriptors[descriptor.Id] = NormalizeMaterialLibrary(descriptor);
         }
 
         var primaryId = _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
@@ -248,13 +249,20 @@ public sealed class WorkspaceDockFactory : Factory
 
     public Document OpenDocument(WorkspaceDocumentDescriptor descriptor)
     {
-        _descriptors[descriptor.Id] = descriptor;
+        descriptor = NormalizeMaterialLibrary(descriptor);
         var existing = RootLayout is null
             ? null
             : EnumerateDockables(RootLayout).OfType<Document>()
-                .FirstOrDefault(document => document.Id == descriptor.Id);
+                .FirstOrDefault(document => document.Id == descriptor.Id
+                    || (descriptor.TypeId == WorkspaceDocumentTypes.MaterialLibrary
+                        && Descriptor(document.Id)?.TypeId == WorkspaceDocumentTypes.MaterialLibrary));
         if (existing is not null)
         {
+            if (existing.Id == descriptor.Id)
+            {
+                _descriptors[descriptor.Id] = descriptor;
+            }
+
             SetActiveDockable(existing);
             if (existing.Owner is IDock owner)
             {
@@ -265,6 +273,7 @@ public sealed class WorkspaceDockFactory : Factory
             return existing;
         }
 
+        _descriptors[descriptor.Id] = descriptor;
         var document = CreateDocument(descriptor);
         var target = ActiveDocumentDock() ?? PrimaryDocumentDock
             ?? throw new InvalidOperationException("工作区中没有文档停靠区域。");
@@ -273,6 +282,69 @@ public sealed class WorkspaceDockFactory : Factory
         SetFocusedDockable(target, document);
         RaiseLayoutChanged();
         return document;
+    }
+
+    private static WorkspaceDocumentDescriptor NormalizeMaterialLibrary(WorkspaceDocumentDescriptor descriptor) =>
+        descriptor.TypeId is WorkspaceDocumentTypes.MaterialLibrary or WorkspaceDocumentTypes.GlassCatalog
+            ? descriptor with { TypeId = WorkspaceDocumentTypes.MaterialLibrary, Title = "材料库" }
+            : descriptor;
+
+    private void ConsolidateMaterialLibraries(IDockable layout)
+    {
+        var dockables = EnumerateDockables(layout).ToArray();
+        var libraries = dockables.OfType<Document>()
+            .Where(document => Descriptor(document.Id)?.TypeId == WorkspaceDocumentTypes.MaterialLibrary)
+            .OrderByDescending(document => document.Id == "document:material-library")
+            .ToArray();
+        if (libraries.Length == 0)
+        {
+            return;
+        }
+
+        // Preserve the retained page's saved position and ID, including legacy-only layouts.
+        libraries[0].Title = "材料库";
+        var duplicateIds = libraries.Skip(1).Select(document => document.Id).ToHashSet(StringComparer.Ordinal);
+        if (duplicateIds.Count == 0)
+        {
+            return;
+        }
+
+        foreach (var dockable in dockables)
+        {
+            if (dockable is IDock dock)
+            {
+                RemoveDuplicates(dock.VisibleDockables);
+            }
+
+            if (dockable is IRootDock root)
+            {
+                RemoveDuplicates(root.HiddenDockables);
+                RemoveDuplicates(root.LeftPinnedDockables);
+                RemoveDuplicates(root.RightPinnedDockables);
+                RemoveDuplicates(root.TopPinnedDockables);
+                RemoveDuplicates(root.BottomPinnedDockables);
+            }
+        }
+
+        foreach (var id in duplicateIds)
+        {
+            _descriptors.Remove(id);
+        }
+
+        if (layout is IRootDock rootLayout)
+        {
+            WorkspaceDockLayoutSerializer.NormalizeDockRelations(rootLayout);
+            WorkspaceDockLayoutSerializer.RemoveEmptyFloatingWindows(rootLayout);
+        }
+
+        void RemoveDuplicates(IList<IDockable>? collection)
+        {
+            if (collection is null) return;
+            for (var index = collection.Count - 1; index >= 0; index--)
+            {
+                if (duplicateIds.Contains(collection[index].Id)) collection.RemoveAt(index);
+            }
+        }
     }
 
     public WorkspaceDocumentDescriptor? Descriptor(string id)
@@ -500,7 +572,6 @@ public sealed class WorkspaceDockFactory : Factory
                 _application.Documents,
                 _application.Lenses,
                 _application.Events),
-            WorkspaceDocumentTypes.GlassCatalog => new GlassCatalogPanel(_application.Materials),
             WorkspaceDocumentTypes.MaterialAnalysis => new MaterialAnalysisPanel(
                 _application.Materials,
                 MaterialAnalysisKindFrom(descriptor.Settings)),

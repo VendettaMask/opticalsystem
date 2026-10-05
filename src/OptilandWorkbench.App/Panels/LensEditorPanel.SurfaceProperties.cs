@@ -18,6 +18,8 @@ public sealed partial class LensEditorPanel
     private readonly ContentControl _propertyPageHost = new() { HorizontalContentAlignment = HorizontalAlignment.Stretch };
     private readonly CheckBox _stopSurface = new() { Name = "SurfaceIsStop", Content = "使此表面为光阑" };
     private readonly TextBox _surfaceCoating = new() { Name = "SurfaceCoating", PlaceholderText = "None" };
+    private readonly Button _gradientIndexEditor = new() { Content = "编辑 GRIN 材料…", Name = "EditGradientIndexMaterial" };
+    private readonly Button _physicalCoatingEditor = new() { Content = "编辑物理膜层…", Name = "EditPhysicalCoating" };
     private readonly TextBlock _drawingSummary = PropertyNote("");
     private readonly TextBlock _coordinatesSummary = PropertyNote("");
     private readonly TextBlock _scatterSummary = PropertyNote("");
@@ -146,6 +148,7 @@ public sealed partial class LensEditorPanel
         var typePage = new WrapPanel { Name = "SurfaceTypePage", Orientation = Orientation.Horizontal };
         var typeFields = PropertyStack(
             PropertyRow("表面类型：", _geometryPicker),
+            BuildGradientIndexEditorButton(),
             PropertyRow("表面颜色：", UnavailablePicker("默认颜色")),
             PropertyRow("表面透明度：", UnavailablePicker("100%")),
             PropertyRow("行颜色：", UnavailablePicker("默认颜色")),
@@ -190,6 +193,7 @@ public sealed partial class LensEditorPanel
             [SurfacePropertyPage.Coating] = PropertyStack(
                 PropertyRow("膜层名称：", _surfaceCoating),
                 _coatingModelSummary,
+                BuildCoatingEditorButton(),
                 PropertyNote("留空或 None 表示无膜层。名称编辑沿用镜头数据表：非 None 使用实验性透过率起伏近似，不是完整多层薄膜求解。名称未变时保留原有膜层模型。")),
             [SurfacePropertyPage.Import] = PropertyStack(
                 _importSummary,
@@ -263,18 +267,55 @@ public sealed partial class LensEditorPanel
         return _propertyBody;
     }
 
+    private Button BuildGradientIndexEditorButton()
+    {
+        _gradientIndexEditor.Click += async (_, _) =>
+        {
+            if (_grid.SelectedItem is not SurfaceEditorRow row || !_gradientIndexEditor.IsEnabled) return;
+            if (TopLevel.GetTopLevel(this) is Window owner)
+                await new GradientIndexMaterialEditorWindow(_prescription, _events, row.Number).ShowDialog(owner);
+        };
+        return _gradientIndexEditor;
+    }
+
+    private Button BuildCoatingEditorButton()
+    {
+        var button = _physicalCoatingEditor;
+        button.Click += async (_, _) =>
+        {
+            if (_grid.SelectedItem is not SurfaceEditorRow row) return;
+            if (!row.GeometryComputable || row.Number == 0)
+            {
+                _componentSummary.Text = "物面或未支持的面型不能编辑物理膜层。";
+                return;
+            }
+            if (TopLevel.GetTopLevel(this) is Window owner)
+                await new CoatingLayerEditorWindow(_prescription, _events, row.Number).ShowDialog(owner);
+        };
+        return button;
+    }
+
     private void LoadSurfaceProperties(SurfaceEditorRow row)
     {
+        _gradientIndexEditor.IsEnabled = row.GeometryComputable && row.Number > 0 && !row.IsLastSurface
+            && double.IsFinite(row.Thickness) && row.Thickness > 0 && !row.Material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase);
+        var gradientReason = _gradientIndexEditor.IsEnabled ? null : "GRIN 材料需要具有有限正厚度及下一边界的可计算透射面。";
+        ToolTip.SetTip(_gradientIndexEditor, gradientReason);
+        Avalonia.Automation.AutomationProperties.SetHelpText(_gradientIndexEditor, gradientReason ?? "创建或编辑当前表面后的 GRIN 材料及系数变量。");
         _stopSurface.IsChecked = row.IsStop;
         _stopSurface.IsEnabled = row.GeometryComputable && row.Number > 0 && !row.IsLastSurface && !row.IsStop;
         ToolTip.SetTip(_stopSurface, row.IsStop ? "要移动光阑，请选择另一个表面并将其设为光阑。" : "应用后将此表面设为唯一光阑。");
         _surfaceCoating.Text = row.Coating;
         _surfaceCoating.IsEnabled = row.GeometryComputable;
+        _physicalCoatingEditor.IsEnabled = row.GeometryComputable && row.Number > 0;
+        var coatingReason = _physicalCoatingEditor.IsEnabled ? null : "物面或未支持的面型不能编辑物理膜层。";
+        ToolTip.SetTip(_physicalCoatingEditor, coatingReason);
+        Avalonia.Automation.AutomationProperties.SetHelpText(_physicalCoatingEditor, coatingReason ?? "打开当前表面的物理膜层编辑器。");
         _drawingSummary.Text = $"表面 {row.Number}：{row.SurfaceRole}\n当前净半径：{row.SemiDiameterDisplay} mm\n机械半直径：{row.MechanicalSemiDiameterDisplay} mm";
         _apertureSummary.Text = $"当前物理孔径：{row.ApertureKind}";
         _coatingModelSummary.Text = $"当前膜层模型：{row.CoatingKind}";
         _interactionSummary.Text = $"当前交互模型：{row.InteractionKind}";
-        _importSummary.Text = $"当前表面类型：{row.GeometryKind}\n计算/编辑状态：{(row.GeometryComputable ? "已支持" : "不支持，保留导入数据，只读")}";
+        _importSummary.Text = $"当前表面类型：{row.SurfaceType}\n计算/编辑状态：{(row.GeometryComputable ? "已支持" : "不支持，保留导入数据，只读")}";
         _scatterSummary.Text = row.Inspection is { } details
             ? $"当前散射模型：{(details.ScatteringKind == "none" ? "无" : details.ScatteringKind)}"
             : "当前散射模型：—";

@@ -1,0 +1,164 @@
+[
+  {
+    "kind": "Antireflection",
+    "Name": "\u793A\u4F8B\u4E00 \u00B7 \u53EF\u89C1\u5149\u51CF\u53CD\u819C",
+    "Passed": true,
+    "Metrics": {
+      "PeakWavelengthNanometers": 600,
+      "PeakTransmittance": 0.9601999078347645,
+      "LeftHalfMaximumNanometers": null,
+      "RightHalfMaximumNanometers": null,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.00021016518139923418,
+      "MaximumReflectance": 0.0009030973810769321
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 8,
+        "Requirement": "\u2264 8",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u6CE2\u6BB5\u6700\u5927 R (%)",
+        "Actual": 0.09030973810769322,
+        "Requirement": "\u2264 2",
+        "Passed": true
+      }
+    ],
+    "SamplingConverged": true,
+    "VerificationSamples": 801,
+    "Run": {
+      "Algorithm": "\u7ED3\u6784\u679A\u4E3E \u002B \u591A\u8D77\u70B9 Damped Least Squares",
+      "AlgorithmVersion": "bounded-structure-multistart/1",
+      "StopReason": "\u8D77\u70B9\u9884\u7B97\u5B8C\u6210\uFF1B\u8FBE\u6807\u7531\u72EC\u7ACB\u590D\u9A8C\u5224\u5B9A",
+      "Evaluations": 550,
+      "Iterations": 89,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/1"
+    },
+    "ReopenIdentical": true
+  },
+  {
+    "kind": "HighReflector",
+    "Name": "\u793A\u4F8B\u4E8C \u00B7 550 nm \u9AD8\u53CD\u819C",
+    "Passed": false,
+    "Metrics": {
+      "PeakWavelengthNanometers": 520,
+      "PeakTransmittance": 0.0013979659762554638,
+      "LeftHalfMaximumNanometers": null,
+      "RightHalfMaximumNanometers": 530.1196206048071,
+      "FwhmNanometers": null,
+      "MinimumReflectance": 0.9573978235328912,
+      "MaximumReflectance": 0.9682679041848421
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 24,
+        "Requirement": "\u2264 32",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u6CE2\u6BB5\u6700\u4F4E R (%)",
+        "Actual": 95.73978235328912,
+        "Requirement": "\u2265 98",
+        "Passed": false
+      }
+    ],
+    "SamplingConverged": true,
+    "VerificationSamples": 801,
+    "Run": {
+      "Algorithm": "\u7ED3\u6784\u679A\u4E3E \u002B \u591A\u8D77\u70B9 Damped Least Squares",
+      "AlgorithmVersion": "bounded-structure-multistart/1",
+      "StopReason": "\u8D77\u70B9\u9884\u7B97\u5B8C\u6210\uFF1B\u8FBE\u6807\u7531\u72EC\u7ACB\u590D\u9A8C\u5224\u5B9A",
+      "Evaluations": 14419,
+      "Iterations": 480,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/1"
+    },
+    "ReopenIdentical": true
+  },
+  {
+    "kind": "NarrowBand",
+    "Name": "\u793A\u4F8B\u4E09 \u00B7 550 nm \u7A84\u5E26\u6EE4\u5149\u7247",
+    "Passed": false,
+    "Metrics": {
+      "PeakWavelengthNanometers": 549.9597617056857,
+      "PeakTransmittance": 0.6929996678512258,
+      "LeftHalfMaximumNanometers": 540.2662584455353,
+      "RightHalfMaximumNanometers": 560.2275965567768,
+      "FwhmNanometers": 19.961338111241503,
+      "MinimumReflectance": 0.011512638119881603,
+      "MaximumReflectance": 0.8550013585725112
+    },
+    "Checks": [
+      {
+        "Name": "\u5C42\u6570",
+        "Actual": 17,
+        "Requirement": "\u2264 39",
+        "Passed": true
+      },
+      {
+        "Name": "\u7269\u7406\u539A\u5EA6\u7EA6\u675F (nm)",
+        "Actual": null,
+        "Requirement": "2\u20132000",
+        "Passed": true
+      },
+      {
+        "Name": "\u5CF0\u503C\u4F4D\u7F6E (nm)",
+        "Actual": 549.9597617056857,
+        "Requirement": "550 \u00B1 0.5",
+        "Passed": true
+      },
+      {
+        "Name": "FWHM (nm)",
+        "Actual": 19.961338111241503,
+        "Requirement": "15 \u00B1 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u5CF0\u503C T (%)",
+        "Actual": 69.29996678512258,
+        "Requirement": "\u2265 75",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A490\u2013510 nm",
+        "Actual": 0.9495968725842068,
+        "Requirement": "\u2265 1",
+        "Passed": false
+      },
+      {
+        "Name": "\u622A\u6B62 OD\uFF1A590\u2013610 nm",
+        "Actual": 1.0842923712993326,
+        "Requirement": "\u2265 1",
+        "Passed": true
+      }
+    ],
+    "SamplingConverged": true,
+    "VerificationSamples": 9669,
+    "Run": {
+      "Algorithm": "\u7ED3\u6784\u679A\u4E3E \u002B \u591A\u8D77\u70B9 Damped Least Squares",
+      "AlgorithmVersion": "bounded-structure-multistart/1",
+      "StopReason": "\u8D77\u70B9\u9884\u7B97\u5B8C\u6210\uFF1B\u8FBE\u6807\u7531\u72EC\u7ACB\u590D\u9A8C\u5224\u5B9A",
+      "Evaluations": 9934,
+      "Iterations": 480,
+      "RandomSeed": 1234,
+      "SolverVersion": "coherent-scattering/1"
+    },
+    "ReopenIdentical": true
+  }
+]

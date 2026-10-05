@@ -88,7 +88,7 @@ internal static class ThemeRegistry
         PixelTheme.Variant,
         PixelTheme.Palette,
         PixelThemeIconPack.Instance,
-        new FontFamily("avares://OptilandWorkbench.App/Assets/Fonts#Fusion Pixel 10px Mono zh_hans"),
+        new FontFamily($"avares://{typeof(ThemeRegistry).Assembly.GetName().Name}/Assets/Fonts#Fusion Pixel 10px Mono zh_hans"),
         TextRenderingMode.Alias,
         ThemeChromeProfile.CreatePixel(),
         PixelThemeDecorationRenderer.Instance,

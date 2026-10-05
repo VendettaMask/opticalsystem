@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Headless;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
@@ -62,6 +63,9 @@ public sealed class LensMaterialRowThemeTests
                     {
                         if (row.DataContext is not SurfaceEditorRow item) continue;
                         var hasMaterial = !string.IsNullOrWhiteSpace(item.MaterialDisplay);
+                        var typeCell = grid.Columns[1].GetCellContent(row)!;
+                        var labels = typeCell.GetVisualDescendants().OfType<TextBlock>().Select(text => text.Text).ToArray();
+                        Assert.Equal(new[] { item.SurfaceRole, item.SurfaceType }, labels);
                         Assert.Equal(hasMaterial, row.Classes.Contains("glass-material-row"));
                         if (!row.IsSelected)
                             Equal(hasMaterial ? "#EAF1FF" : "#FFFFFF", Background(row).Fill);
@@ -93,6 +97,22 @@ public sealed class LensMaterialRowThemeTests
                     .Where(r => r.HasOpticalMaterial).Select(r => r.Number));
                 AssertMaterialRows();
                 Capture(window, "material-rows-tessar.png");
+
+                var propertiesToggle = panel.GetVisualDescendants().OfType<Button>()
+                    .Single(button => button.Name == "SurfacePropertiesToggle");
+                propertiesToggle.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                Render(window);
+                foreach (var number in new[] { 9, 5, 0, 7, 2, 9, 0 })
+                {
+                    grid.ScrollIntoView(Item(number), grid.Columns[0]);
+                    Away();
+                    AssertMaterialRows();
+                    if (number == 5) Capture(window, "material-rows-recycled-stop.png");
+                    if (number == 9) Capture(window, "material-rows-recycled-image.png");
+                }
+                Capture(window, "material-rows-recycled-roles.png");
+                propertiesToggle.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                Render(window);
 
                 var materialRow = Row(3);
                 var point = materialRow.TranslatePoint(new Point(18, 18), window)!.Value;

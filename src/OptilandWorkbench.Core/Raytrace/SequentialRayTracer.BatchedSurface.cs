@@ -33,6 +33,7 @@ public sealed partial class SequentialRayTracer
         bool[]? hasFinalOpticalPath)
     {
         if ((surfaceIndex == 0 && ObjectConjugate.IsInfinite(surface))
+            || surface.MaterialAfter is GradientIndexMaterial
             || !request.UseBatchedBackend
             || surface.Geometry is not (PlaneGeometry or StandardGeometry)
             || surface.PhysicalAperture is not (null or CircularAperture)
@@ -251,7 +252,9 @@ public sealed partial class SequentialRayTracer
                             segmentLength,
                             segmentOpticalPathLength,
                             cumulativePaths[rayIndex],
-                            cumulativeOpticalPaths[rayIndex]);
+                            cumulativeOpticalPaths[rayIndex],
+                            RefractiveIndexBefore: refractiveIndexBefore,
+                            RefractiveIndexAfter: workspace.RefractiveIndexAfter[localIndex]);
                         active[rayIndex] = false;
                     }
                     else
@@ -292,7 +295,11 @@ public sealed partial class SequentialRayTracer
                             segmentOpticalPathLength,
                             cumulativePaths[rayIndex],
                             cumulativeOpticalPaths[rayIndex],
-                            InteractionKind: kind);
+                            InteractionKind: kind,
+                            IncidentDirection: incoming.Direction,
+                            PhaseInclusiveOpticalPathLength: propagatedOpd,
+                            RefractiveIndexBefore: refractiveIndexBefore,
+                            RefractiveIndexAfter: workspace.RefractiveIndexAfter[localIndex]);
                     }
                 }
 

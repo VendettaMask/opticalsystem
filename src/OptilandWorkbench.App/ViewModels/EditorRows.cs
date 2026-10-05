@@ -41,15 +41,21 @@ public sealed class SurfaceEditorRow
                 : IsStop
                     ? "光阑"
                     : "普通面";
-        SurfaceType = GeometryKind is "平面" or "标准球面/圆锥" ? "标准面" : GeometryKind;
+        SurfaceType = SurfaceTypeForGeometry(GeometryKind);
         GeometryComputable = source.GeometryComputable;
         Inspection = source.Inspection;
         MechanicalSemiDiameter = source.MechanicalSemiDiameter ?? SemiDiameter;
+        ExtensionZone = source.ChipZone ?? 0;
+        ThermalExpansionPpmPerC = source.ThermalExpansionPpmPerC;
         CanOptimize = Number > 0 && !isLastSurface;
         IsLastSurface = isLastSurface;
     }
 
     public int Number { get; }
+
+    internal static string SurfaceTypeForGeometry(string geometryKind) =>
+        geometryKind is "平面" or "标准球面/圆锥" ? "标准面" : geometryKind;
+
     public string Label { get; set; }
     public double Radius { get; set; }
     public double Thickness { get; set; }
@@ -72,11 +78,8 @@ public sealed class SurfaceEditorRow
                 return;
             }
 
-            if (double.TryParse(text, NumberStyles.Float, CultureInfo.CurrentCulture, out var current)
-                || double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out current))
-            {
-                Radius = Math.Abs(current) <= 1e-15 ? 0 : current;
-            }
+            var current = ParseNumber(text, "曲率半径请输入有限数值；平面可输入“无限”或 ∞。");
+            Radius = Math.Abs(current) <= 1e-15 ? 0 : current;
         }
     }
 
@@ -93,11 +96,16 @@ public sealed class SurfaceEditorRow
             }
 
             var text = value?.Trim() ?? string.Empty;
-            if (double.TryParse(text, NumberStyles.Float, CultureInfo.CurrentCulture, out var current)
-                || double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out current))
+            if (Number == 0 && (text is "∞" or "无限"
+                || text.Equals("inf", StringComparison.OrdinalIgnoreCase)
+                || text.Equals("infinity", StringComparison.OrdinalIgnoreCase)))
             {
-                Thickness = current;
+                Thickness = double.PositiveInfinity;
+                return;
             }
+            Thickness = ParseNumber(text, Number == 0
+                ? "物面厚度请输入有限数值或 ∞。"
+                : "厚度请输入有限数值。");
         }
     }
     public string Material { get; set; }
@@ -119,12 +127,22 @@ public sealed class SurfaceEditorRow
         set
         {
             var text = value?.Trim() ?? string.Empty;
-            if (double.TryParse(text, NumberStyles.Float, CultureInfo.CurrentCulture, out var current)
-                || double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out current))
-            {
-                SemiDiameter = Math.Max(0.1, current);
-            }
+            const string error = "净口径请输入不小于 0.1 的有限数值。";
+            var current = ParseNumber(text, error);
+            if (current < 0.1) throw new FormatException(error);
+            SemiDiameter = current;
         }
+    }
+
+    private static double ParseNumber(string text, string error)
+    {
+        if ((double.TryParse(text, NumberStyles.Float, CultureInfo.CurrentCulture, out var value)
+            || double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out value))
+            && double.IsFinite(value))
+        {
+            return value;
+        }
+        throw new FormatException(error);
     }
     public double Conic { get; set; }
     public bool IsStop { get; set; }
@@ -146,13 +164,30 @@ public sealed class SurfaceEditorRow
     public SurfaceInspectionDto? Inspection { get; }
     public string SurfaceRole { get; }
     public string SurfaceType { get; }
-    public double ExtensionZone { get; } = 0;
+    public double ExtensionZone { get; private set; }
+    public string ExtensionZoneDisplay
+    {
+        get => NumericDisplayFormatter.Format(ExtensionZone);
+        set
+        {
+            const string error = "延伸区请输入有限非负数值，单位为 mm。";
+            var current = ParseNumber(value?.Trim() ?? string.Empty, error);
+            if (current < 0 || !double.IsFinite(SemiDiameter + current)) throw new FormatException(error);
+            ExtensionZone = current;
+        }
+    }
     public double MechanicalSemiDiameter { get; set; }
     public string MechanicalSemiDiameterDisplay => NumericDisplayFormatter.Format(MechanicalSemiDiameter);
-    public string ThermalExpansionDisplay => string.Equals(Material, "Air", StringComparison.OrdinalIgnoreCase)
-        || string.IsNullOrWhiteSpace(Material)
-            ? "0.000"
-            : "-";
+    public double? ThermalExpansionPpmPerC { get; private set; }
+    public string ThermalExpansionDisplay
+    {
+        get => ThermalExpansionPpmPerC is { } value ? NumericDisplayFormatter.Format(value) : "未提供";
+        set
+        {
+            if (value?.Trim() == "未提供" && ThermalExpansionPpmPerC is null) return;
+            ThermalExpansionPpmPerC = ParseNumber(value?.Trim() ?? string.Empty, "TCE 请输入有限数值，单位为 10⁻⁶/°C；允许负值。");
+        }
+    }
 
     public SurfaceRowDto ToDto() => new(
         Number,
@@ -177,7 +212,9 @@ public sealed class SurfaceEditorRow
         SemiDiameterFixed,
         GeometryComputable,
         Inspection,
-        RadiusSolve);
+        RadiusSolve,
+        ThermalExpansionPpmPerC: ThermalExpansionPpmPerC,
+        ChipZone: ExtensionZone);
 
     public override string ToString() => $"{Number}: {Label}";
 }
@@ -213,6 +250,9 @@ public sealed class MeritOperandEditorRow
         PolychromaticReference = source.PolychromaticReference;
         CompatibilityOnly = source.CompatibilityOnly;
         ApplyTypeMetadata(typeMetadata);
+        CompatibilityOnly |= source.CompatibilityOnly;
+        _preserveMissingData5 = CompatibilityOnly && !source.ZemaxData5.HasValue;
+        _preserveMissingData6 = CompatibilityOnly && !source.ZemaxData6.HasValue;
         if (HasZemaxParameters)
         {
             Parameter1 = source.ZemaxInt1 ?? source.Surface;
@@ -221,6 +261,8 @@ public sealed class MeritOperandEditorRow
             Parameter4 = source.ZemaxData2 ?? source.Hy;
             Parameter5 = source.ZemaxData3 ?? source.Px;
             Parameter6 = source.ZemaxData4 ?? source.Py;
+            Parameter7 = source.ZemaxData5 ?? 0;
+            Parameter8 = source.ZemaxData6 ?? 0;
         }
         else
         {
@@ -265,8 +307,11 @@ public sealed class MeritOperandEditorRow
     public double Parameter5 { get; set; }
     public double Parameter6 { get; set; }
     public double Parameter7 { get; set; }
+    public double Parameter8 { get; set; }
 
-    public bool HasZemaxParameters => _typeMetadata?.Parameters is { Count: 6 };
+    private readonly bool _preserveMissingData5;
+    private readonly bool _preserveMissingData6;
+    public bool HasZemaxParameters => _typeMetadata?.Parameters is { Count: >= 6 and <= 8 };
 
     public void ApplyTypeMetadata(MeritOperandTypeDto? metadata)
     {
@@ -279,7 +324,7 @@ public sealed class MeritOperandEditorRow
 
     public string ParameterLabel(int index)
     {
-        if (HasZemaxParameters && index < 6)
+        if (HasZemaxParameters && index >= 0 && index < _typeMetadata!.Parameters!.Count)
         {
             var parameter = _typeMetadata!.Parameters![index];
             return string.IsNullOrWhiteSpace(parameter.Unit)
@@ -307,7 +352,7 @@ public sealed class MeritOperandEditorRow
 
     public bool IsParameterEditable(int index) =>
         HasZemaxParameters
-            ? index < 6 && _typeMetadata!.Parameters![index].IsEditable && !CompatibilityOnly
+            ? index >= 0 && index < _typeMetadata!.Parameters!.Count && _typeMetadata.Parameters[index].IsEditable && !CompatibilityOnly
             : index is >= 0 and < 7;
 
     public bool IsDirective => Type.Equals("DMFS", StringComparison.OrdinalIgnoreCase);
@@ -359,7 +404,9 @@ public sealed class MeritOperandEditorRow
             HasZemaxParameters ? Parameter3 : null,
             HasZemaxParameters ? Parameter4 : null,
             HasZemaxParameters ? Parameter5 : null,
-            HasZemaxParameters ? Parameter6 : null);
+            HasZemaxParameters ? Parameter6 : null,
+            HasZemaxParameters && _typeMetadata!.Parameters!.Count > 6 && !(CompatibilityOnly && _preserveMissingData5) ? Parameter7 : null,
+            HasZemaxParameters && _typeMetadata!.Parameters!.Count > 7 && !(CompatibilityOnly && _preserveMissingData6) ? Parameter8 : null);
     }
 
     private static int CheckedInteger(double value)
@@ -383,6 +430,9 @@ public sealed class FieldEditorRow
         Y = source.Y;
         VignetteFactorX = source.VignetteFactorX;
         VignetteFactorY = source.VignetteFactorY;
+        VignetteDecenterX = source.VignetteDecenterX;
+        VignetteDecenterY = source.VignetteDecenterY;
+        VignetteAngleDegrees = source.VignetteAngleDegrees;
         Weight = source.Weight;
     }
 
@@ -392,9 +442,12 @@ public sealed class FieldEditorRow
     public double Y { get; set; }
     public double VignetteFactorX { get; set; }
     public double VignetteFactorY { get; set; }
+    public double VignetteDecenterX { get; set; }
+    public double VignetteDecenterY { get; set; }
+    public double VignetteAngleDegrees { get; set; }
     public double Weight { get; set; }
 
-    public FieldRowDto ToDto() => new(Index, Label, X, Y, VignetteFactorX, VignetteFactorY, Weight);
+    public FieldRowDto ToDto() => new(Index, Label, X, Y, VignetteFactorX, VignetteFactorY, Weight, VignetteDecenterX, VignetteDecenterY, VignetteAngleDegrees);
 }
 
 public sealed class WavelengthEditorRow

@@ -1,0 +1,61 @@
+{
+  "verified_at": "2026-09-28T12:17:57.691802+08:00",
+  "scope": "Standard surface UI includes planes; preserve radius when applying standard geometry; legacy storage compatible",
+  "tests": {
+    "components-debug.trx": {
+      "total": 11,
+      "passed": 11,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "components-release.trx": {
+      "total": 11,
+      "passed": 11,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "surface-debug.trx": {
+      "total": 27,
+      "passed": 27,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "surface-release.trx": {
+      "total": 27,
+      "passed": 27,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "surface-skia.trx": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "notExecuted": 0
+    }
+  },
+  "app_outputs": {
+    "Debug": {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "023c89ab4b7fac761d504fe72f72ab9c4db2cda40f9a771a30c90033e7408780"
+    },
+    "Release": {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "49486196047a4ba3498943d7e93a9b7a3b7141129c73d30a61c538a05024142c"
+    }
+  },
+  "sources": {
+    "src/OptilandWorkbench.App/ViewModels/EditorRows.cs": "2b6287eac52ff676199c97c24c31c0f6f3889a31259324e7a87dd4cf0e98d890",
+    "src/OptilandWorkbench.App/Panels/LensEditorPanel.cs": "129dc428494703984272b9a240995ff56fcbc4b4e42625c8377239c915790638",
+    "src/OptilandWorkbench.App/Panels/LensEditorPanel.SurfaceProperties.cs": "d4942d817820f2cace57100a59c0fa11df3fa04c90abb0f0210cb7a7b6265d6b",
+    "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Components.cs": "900fceb5da3fcf1880fe8749b3415550cf477b0c9bf42fe8a35808ea6fbad498",
+    "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Localization.cs": "493740ab2f9fb6f3d23b25e0c710ccdc04e05c67312d409c68c1c8c8a92233f4",
+    "tests/OptilandWorkbench.Tests/SurfacePropertiesServiceTests.cs": "f1b5baffeb966f75c33dbf0e58298d11c7f61fd2b7d8b77cf73c0d5ad0a61f2d",
+    "tests/OptilandWorkbench.Tests/SurfacePropertiesPanelTests.cs": "b27453840ede5745c068a1a6e6505b6578d4f5dd38485057bc3295a525f31030"
+  },
+  "not_run": [
+    "Full suite",
+    "Native desktop end-to-end acceptance",
+    "Laboratory suites",
+    "Zemax baseline integrity and external numerical comparison"
+  ]
+}

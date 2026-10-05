@@ -300,7 +300,7 @@ public sealed class OpticSnapshotValidationTests
         var valid = Optic.CreateDemo().ToSnapshot();
         var operand = new MeritOperandSnapshot(
             Enabled: false,
-            Type: "ABCD",
+            Type: "DISA",
             Surface: 0,
             Field: 0,
             Wavelength: 0,
@@ -377,7 +377,7 @@ public sealed class OpticSnapshotValidationTests
             {
                 new(
                     Enabled: false,
-                    Type: "ABCD",
+                    Type: "DISA",
                     Surface: 1,
                     Field: 0,
                     Wavelength: 15,
@@ -394,7 +394,7 @@ public sealed class OpticSnapshotValidationTests
         var restored = Optic.FromSnapshot(legacy);
         var operand = Assert.Single(restored.MeritFunctionOperands);
 
-        Assert.Equal("ABCD", operand.Type);
+        Assert.Equal("DISA", operand.Type);
         Assert.False(operand.Enabled);
         Assert.Equal(15, operand.Wavelength);
     }

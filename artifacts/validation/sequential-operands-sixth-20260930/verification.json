@@ -1,0 +1,95 @@
+{
+  "date": "2026-09-30",
+  "scope": "Sixth batch: spherical Seidel wave coefficients and Petzval curvature; PETZ correction",
+  "registered": 383,
+  "executable_before": 188,
+  "executable_after": 193,
+  "compatibility_only_after": 190,
+  "added_codes": [
+    "ASTI",
+    "COMA",
+    "FCUR",
+    "PETC",
+    "SPHA"
+  ],
+  "corrected_existing_codes": [
+    "PETZ"
+  ],
+  "cumulative_added_since_124": 69,
+  "verification": {
+    "debug": {
+      "total": 722,
+      "passed": 722,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 67,
+      "captured_wave_coefficient_columns": 4,
+      "existing_seidel_report_tests": 10,
+      "analysis_gui_contract_tests": 1,
+      "trx": "sixth-batch-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 722,
+      "passed": 722,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 67,
+      "captured_wave_coefficient_columns": 4,
+      "existing_seidel_report_tests": 10,
+      "analysis_gui_contract_tests": 1,
+      "trx": "sixth-batch-release.trx",
+      "log": "release.log"
+    }
+  },
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "external_reference": {
+    "integrity": "The two named baseline files exactly match committed HEAD and both Debug/Release fixtures; not a whole-baseline integrity audit.",
+    "recalculation": "Current Core SPHA/COMA/ASTI/FCUR at captured 440 nm, all physical and image rows and the total, with the committed 123456 source settings.",
+    "numerical_comparison": "Every compared value has absolute error <= 1e-6 waves; existing four-table Seidel report regression also passes.",
+    "not_validated": "No new native MFE slot captures; does not establish full operand/mode equivalence."
+  },
+  "runtime_scope": {
+    "seidel": "Centered unrotated homogeneous spherical/plane refractive system; non-refracting plane image; shared paraxial rays and primary-stop normalization.",
+    "petzval": "Centered unrotated homogeneous standard conic/plane refractive system; preserves image index and ignores object/image radii.",
+    "unsupported": "Seidel conic/asphere contributions, decenter/tilt, reflection, GRIN, thin lens, phase/diffraction return explicit errors; report/diagram return unavailable."
+  },
+  "historical_reference": "Frozen assets untouched; no added Optiland comparisons",
+  "not_performed": [
+    "full product suite",
+    "laboratory full suites",
+    "full external comparison matrix",
+    "new Zemax captures",
+    "native desktop walkthrough",
+    "screenshot review",
+    "installer validation"
+  ],
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Services/SeidelMetrics.cs": "06f8f63d161f0e0c3bebb6a90077cc99c485dbdfacda5f1040e39a665e518d63",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.Seidel.cs": "4d7a9d03435cfc34ec22f756829e2150842685cb6b2b42ef9805948e5325948a",
+    "src/OptilandWorkbench.Core/Analysis/Reports/SeidelCoefficientsAnalysis.cs": "7cddc06fb336ff0bf08e14818897b3a3d28cfe27b86c84728b6c58b974268d2d",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "3847e95d3c4fc9d6a0498d4dfa92a8cd81a01b198ab2e0b956b11de94c132a59",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "fddfd6ebb05814b3ce816289ca38177af0da119349f2bbfa0abb5d8f542791d2",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "21398e238ae199beeede620c2ede88d60012040a0c854b59386e7b41f0abae80",
+    "tests/OptilandWorkbench.Tests/SeidelOperandTests.cs": "b34807c52681c9d4c3f1a7af73cc47999c61af85602f1c9e99a7b8487c052b05",
+    "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs": "ce8793c3021c0ac90cc9725dee7adb68e6bfff9e7b3f1659cc7aea3f40d2ac60"
+  },
+  "selected_capture_sha256": {
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.txt": "dbb741fc9f07d6d55a9d7d6acdad2bfe91f45e3b5b365bb14c51e1d6b8f2a6f0"
+  },
+  "default_binary_sha256": {
+    "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll": "62d0e42c6a0bf108dcbca8a14d2dadcb1c567396086d3b13b12c15ce4b19eea4",
+    "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll": "acec66dd732ff7535608a858cf69bf1eaa2d59a80017b30518aa1ed0b859a874",
+    "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll": "9758b38792de2d04a6a2c10337f683085aa8ad428e4eb443b073aa93b5707231",
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "9333ae7220d0ecf489f3651ea2a5ffa4fe4c008e1e0239ef1936780920850222",
+    "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll": "75fddd316f11281cb9f1f1d1a0ead865ce9cf07e05d90668eb99d97843fdf8e6",
+    "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll": "dabd6be50be05a1ad10a324484409871decfafc8ecc5065588de48114e277b9a"
+  },
+  "format_whitespace_verify": "passed",
+  "git_diff_check": "passed",
+  "documentation_sixth_batch_links_checked": 32
+}

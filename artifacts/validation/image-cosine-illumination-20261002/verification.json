@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-02T09:58:25.567575+00:00",
+  "scope": "Optional uniform image-direction-cosine grid with inverse formal ray tracing and axis-referenced illumination service. Existing analysis defaults unchanged. RELI and EFNO not yet wired as merit operands.",
+  "gitHead": "4cce1d475465550f92b0a26cc893e411445cdc48",
+  "operandStatus": {
+    "registeredOfficial": 383,
+    "limitedExecutable": 298,
+    "compatibilityOnly": 85,
+    "localExtensions": 4,
+    "newlyExecutableThisChange": 0
+  },
+  "verification": {
+    "debug": {
+      "trx": {
+        "path": "artifacts/validation/image-cosine-illumination-20261002/image-cosine-debug.trx",
+        "sha256": "3d78eef8786e20f59e6f1d106c72c830438b0cf8894263860ef3e4afde1c07f3",
+        "bytes": 286452
+      },
+      "total": 193,
+      "passed": 193,
+      "failed": 0,
+      "skipped": 0
+    },
+    "release": {
+      "trx": {
+        "path": "artifacts/validation/image-cosine-illumination-20261002/image-cosine-release.trx",
+        "sha256": "1625f0404ddb69f4266dfe06d63ec0011938cf7b1962a7beb765fa0f42a5b180",
+        "bytes": 287220
+      },
+      "total": 193,
+      "passed": 193,
+      "failed": 0,
+      "skipped": 0
+    },
+    "newCasesIncluded": 23,
+    "existingCasesIncluded": 170,
+    "filter": {
+      "path": "artifacts/validation/image-cosine-illumination-20261002/test-filter.txt",
+      "sha256": "e3d8e2f0a891474178f0d54e1fde79c674910e929de3bb733d89a77b1fc24edf",
+      "bytes": 833
+    },
+    "compileWarnings": 0,
+    "compileErrors": 0,
+    "buildLogs": [
+      {
+        "path": "artifacts/validation/image-cosine-illumination-20261002/debug.log",
+        "sha256": "d147c0061037a4878a1165639f6a4f89311aca32e6e95e11acf175fb14f83e8b",
+        "bytes": 1418
+      },
+      {
+        "path": "artifacts/validation/image-cosine-illumination-20261002/release.log",
+        "sha256": "7aec994eb1ef344c687f7b560c3d172b8e7ba409cd4f4ab90d7d0dc51d4022a1",
+        "bytes": 1435
+      }
+    ],
+    "format": "Passed, exit 0",
+    "gitDiffCheck": "Passed",
+    "localLinksChecked": 1144
+  },
+  "baselineIntegrity": {
+    "scope": "Five selected committed Zemax source/relative-illumination assets",
+    "files": [
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+        "sha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+        "bytes": 68676,
+        "byteEqualHead": true
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/data.json",
+        "sha256": "21a2b9517dcb9c4e479e2b8e221a8ba334c3a35a46b654d39575b7d0338f534b",
+        "bytes": 2821,
+        "byteEqualHead": true
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/data.txt",
+        "sha256": "416d1466c5450e3ac4536ed68bd8c6e9db6e37223668d525d4e565dc8a261cbc",
+        "bytes": 2004,
+        "byteEqualHead": true
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/settings.cfg",
+        "sha256": "771862ac443a583fce03458d116d98f2f1867814fc2ac33c0fbce05fcc4e89ac",
+        "bytes": 18448,
+        "byteEqualHead": true
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/status.json",
+        "sha256": "ab7d009fdafd063cfe29000d3da526db73b8e571be343ec29591bb6f21272a86",
+        "bytes": 731,
+        "byteEqualHead": true
+      }
+    ]
+  },
+  "workbenchRecalculation": {
+    "newGridDebugReleaseExactlyEqual": true,
+    "existingAdaptiveDebugReleaseExactlyEqual": true,
+    "existingAdaptiveOutputUnchangedFromCoatingStage": true,
+    "newGridStudies": [
+      {
+        "Density": 10,
+        "EffectiveFNumbers": [
+          2.8404872253695492,
+          2.8513239378387008,
+          2.885688913385175
+        ],
+        "RelativeIllumination": [
+          1,
+          0.9924132650264196,
+          0.9689171856500567
+        ],
+        "ValidGridRays": [
+          80,
+          80,
+          80
+        ],
+        "TraceNodes": [
+          575,
+          563,
+          599
+        ],
+        "axisRelativeDifferenceFromFixedCapture": 0.012271446113327485,
+        "edgeAbsoluteDifferenceFromFixedCapture": 0.0033742150464588505,
+        "nativeAcceptanceThreshold": null
+      },
+      {
+        "Density": 20,
+        "EffectiveFNumbers": [
+          2.8583757050373504,
+          2.8692807012730612,
+          2.9036723850571904
+        ],
+        "RelativeIllumination": [
+          1,
+          0.9924132390035401,
+          0.9690437730519688
+        ],
+        "ValidGridRays": [
+          316,
+          316,
+          316
+        ],
+        "TraceNodes": [
+          1599,
+          1617,
+          1746
+        ],
+        "axisRelativeDifferenceFromFixedCapture": 0.006051047726846574,
+        "edgeAbsoluteDifferenceFromFixedCapture": 0.00324762764454678,
+        "nativeAcceptanceThreshold": null
+      },
+      {
+        "Density": 40,
+        "EffectiveFNumbers": [
+          2.8583768252175807,
+          2.8692496707075787,
+          2.903489148917871
+        ],
+        "RelativeIllumination": [
+          1,
+          0.992435482620751,
+          0.9691668471941722
+        ],
+        "ValidGridRays": [
+          1264,
+          1264,
+          1264
+        ],
+        "TraceNodes": [
+          5551,
+          5626,
+          6064
+        ],
+        "axisRelativeDifferenceFromFixedCapture": 0.006050658204236109,
+        "edgeAbsoluteDifferenceFromFixedCapture": 0.003124553502343308,
+        "nativeAcceptanceThreshold": null
+      }
+    ],
+    "defaultAdaptiveOutput": "RMSE=0.0014395487; max=0.0031274627; edge=0.969163938\nEffectiveFNumbers=[2.8668857109658967,2.866992737729122,2.8673139984338953,2.8678500346206084,2.868601749825943,2.8695704110161815,2.8707576505351864,2.872165468516778,2.8737962356826525,2.875652696428563,2.8777379720725382,2.8800555641094547,2.8826093572781315,2.8854036222036745,2.8884430173255855,2.8917325897591404,2.8952777746638763,2.899084392603905,2.903158644412129,2.9075071021902534,2.9121366968751157]\nSampledPupilNodeCounts=[2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473]\nDensityStudy={\"Density\":5,\"FieldMillimeters\":[0,2.25,4.5],\"EffectiveFNumbers\":[2.8673791377382485,2.878233977196554,2.9126411583308967],\"RelativeIllumination\":[1,0.9924715149479897,0.9691617775496111],\"SampledPupilNodeCounts\":[1129,1129,1129]}\nDensityStudy={\"Density\":20,\"FieldMillimeters\":[0,2.25,4.5],\"EffectiveFNumbers\":[2.866761750970437,2.8776132274447717,2.912009336760632],\"RelativeIllumination\":[1,0.9924722225226017,0.9691648988669981],\"SampledPupilNodeCounts\":[6673,6673,6673]}\nDensityStudy={\"Density\":40,\"FieldMillimeters\":[0,2.25,4.5],\"EffectiveFNumbers\":[2.86673076154367,2.877582041112021,2.911977493772616],\"RelativeIllumination\":[1,0.99247227743211,0.9691651414523755],\"SampledPupilNodeCounts\":[20473,20473,20473]}"
+  },
+  "numericalComparison": {
+    "capturedAxisEffectiveFNumber": 2.87577716994446,
+    "capturedEdgeRelativeIllumination": 0.9722914006965155,
+    "newGridStatus": "Unrated native difference; new sampling is not certified native-equivalent",
+    "existingAdaptiveGate": "Unchanged RMSE <= 0.002 and maximum <= 0.004, passed; existing absolute EF discrepancy remains unrated",
+    "FCGT": "Previous Difference retained; not rerun in this scope"
+  },
+  "implementation": {
+    "defaultSampling": "AdaptivePupil",
+    "optionalSampling": "UniformImageCosine",
+    "grid": "Samp x Samp equal-area midpoint cells in image-tangent cosine bounding box, inverse-traced per accepted sample",
+    "samplingRange": [
+      5,
+      128
+    ],
+    "maximumSeedRings": 8,
+    "boundaryVertices": "max(64, 8*Samp)",
+    "inverseIterations": 20,
+    "lineSearchSteps": 12,
+    "unsupportedBehavior": "Explicit failure; no fallback to adaptive pupil mesh",
+    "relativeReference": "Actual (0,0), five vignetting factors cleared on isolated copy, physical masks retained, no clamp to one"
+  },
+  "remainingWork": [
+    "Native cell placement and boundary-weight verification",
+    "Native absolute effective F-number discrepancy",
+    "RELI/EFNO merit edit/save/import/optimization integration",
+    "Full complex-medium polarization coverage"
+  ],
+  "earlierIterations": [
+    {
+      "artifact": {
+        "path": "artifacts/validation/image-cosine-illumination-20261002/image-cosine-smoke.trx",
+        "sha256": "495e632fb3363239bd1112657fd6d6a8e306059a506b28be490e7ccc4ad56d03",
+        "bytes": 36327
+      },
+      "result": "18 passed, 1 fixture failure: absorbing Cooke catalog glass used in a transparent-polarization test. Changed fixture to explicit transparent material; did not loosen unsupported-physics boundary."
+    },
+    {
+      "artifact": {
+        "path": "artifacts/validation/image-cosine-illumination-20261002/image-cosine-smoke-v2.trx",
+        "sha256": "a6efacfcbf83e1b04bc29cc716ca2f2fc049dceca355674b001c9c50f81c44da",
+        "bytes": 35795
+      },
+      "result": "23/23 after corrected fixture and added axis-reference/degenerate-map checks."
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs",
+      "sha256": "055f0af7edb3c61590633226a3fc1358732b553c95476fc27720081e71a56f56",
+      "bytes": 19112
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/IlluminationMetrics.ImageCosine.cs",
+      "sha256": "993018b54c49d25be81c348f3cf7e6533caf72d6a17c877cfbf8a84de8045ad0",
+      "bytes": 8970
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ImageCosineIlluminationTests.cs",
+      "sha256": "f5872396240f9828ed624cb47ef510d918e5d5f9b2d44b8bd2b611c848f900d2",
+      "bytes": 12529
+    }
+  ],
+  "documentation": [
+    {
+      "path": "docs/COHERENT_COATING_TRANSPORT_2026-10-02.md",
+      "sha256": "4bd810a180a16e8abccbefb0ef8a2ed15b564ed50712cf6c51c4a7a5d317132c",
+      "bytes": 6613
+    },
+    {
+      "path": "docs/ILLUMINATION_POLARIZATION_2026-10-02.md",
+      "sha256": "8b2c86b79ce9207c98c8c2a5294978680dbcb1cc1e0ce4f9ad696859c7b0fd06",
+      "bytes": 7964
+    },
+    {
+      "path": "docs/ILLUMINATION_CORE_2026-10-02.md",
+      "sha256": "c98e849623b884928ca199916f442f5221b3959acf61d6f365255e1124211830",
+      "bytes": 7693
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "sha256": "a697ecd59f45bc47af1c27e33fa55342a7db6d630157383bf001a4bdb53e88b5",
+      "bytes": 30480
+    },
+    {
+      "path": "docs/ZEMAX_OPERAND_SUPPORT.md",
+      "sha256": "db5d069d8eeb17673093600e3a2e561d07aca5653684b89d99cac4a034bdb714",
+      "bytes": 136049
+    },
+    {
+      "path": "docs/NUMERICAL_PARITY.md",
+      "sha256": "70195ebad278404c4fd2f5aea4eb4a6cf2c6eb5f9fb26a3c5f33ef8147b1b6af",
+      "bytes": 14581
+    },
+    {
+      "path": "docs/CODE_READING_MAP.md",
+      "sha256": "0c1dca3bfddf9c5104ae2b89ce1aca0114b63c87cd2600623c0b707a0bf14ac9",
+      "bytes": 130706
+    },
+    {
+      "path": "docs/CURRENT_STATUS.md",
+      "sha256": "638ac33dd59d6e8a721526f19febbe513b2ecace12d16b5043181765e18ccaea",
+      "bytes": 19777
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "c4ebfb9e406c622742188a4f2cc1c49eb906f60e51017e8f3ac04d1da630dad4",
+      "bytes": 23130
+    },
+    {
+      "path": "docs/BUILD_AND_RELEASE.md",
+      "sha256": "836ae828a948efbf6a63f1d6d4eeef899e675185158583e9cd468e4d7251839a",
+      "bytes": 146970
+    },
+    {
+      "path": "docs/IMAGE_COSINE_ILLUMINATION_2026-10-02.md",
+      "sha256": "2a3dfa7ba80a7dd7aee3457c9c907b619c6d0a0fef195a8ce5f3734b170acdbb",
+      "bytes": 6436
+    }
+  ],
+  "defaultOutputBinaries": [
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "cb27d72116349721f66521f87d1976ae632f9cb98fb5314a30dac14861ff586e",
+      "bytes": 5177856
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll",
+      "sha256": "3c4ead2e2114caad400549f2714a6cea57b08e76a130dd69992df7a32c71ca99",
+      "bytes": 990720
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "5773a8fadcf69c96ac4a0fa38c4dd19a6fef3d37ab7c7b71ade880d5ccec3a10",
+      "bytes": 25725440
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll",
+      "sha256": "a1bc6f2129172f693b5ff1512baacd1ce484d873b02bc11e1d7aca32275498bc",
+      "bytes": 2107392
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "03093d9a29caba5b06929ff733c6877a12a681f50f7ec85005c482c00327ebe7",
+      "bytes": 5072896
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll",
+      "sha256": "f1c827fb04fee947d01a31c54ce5b865e3d17276563520e8703d481decc7b68b",
+      "bytes": 962048
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "1980022356a8036e37a8b141cb18317293d9db8e34a4eb1674e2254016fb91b2",
+      "bytes": 25649152
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Tests.dll",
+      "sha256": "33a503d1b03b14ca1512017cddef85b8ef40ecdd60ecec2531d8bebb07b404a3",
+      "bytes": 2014720
+    }
+  ],
+  "full2308OperandRegressionRerun": false,
+  "coatingLaboratoryRerun": false,
+  "newNativeZemaxCaptures": false,
+  "historicalOptilandRegenerated": false,
+  "uiModifiedOrRendered": false,
+  "fullProductReleaseVerified": false
+}

@@ -1,0 +1,1357 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-02T06:03:11.720051+00:00",
+  "scope": "Shared scalar illumination Core foundation; targeted regression only; RELI and EFNO remain compatibility-only.",
+  "gitHead": "4cce1d475465550f92b0a26cc893e411445cdc48",
+  "operandStatus": {
+    "registeredOfficial": 383,
+    "limitedExecutable": 298,
+    "compatibilityOnly": 85,
+    "newlyExecutableThisChange": 0,
+    "RELI": "compatibility-only",
+    "EFNO": "compatibility-only"
+  },
+  "verification": {
+    "targetedFilter": "FullyQualifiedName~IlluminationMetricTests|FullyQualifiedName~RelativeIlluminationTests|FullyQualifiedName~ZemaxRelativeIlluminationParityTests|FullyQualifiedName~SampledApertureDiagnosticTests|FullyQualifiedName~SampledRayAimingConsistencyTests|FullyQualifiedName~PupilVignettingTests|FullyQualifiedName~FrozenAnalysisRegressionTests.ImageSimulation|FullyQualifiedName~AnalysisGuiContractTests.ImageSimulation",
+    "runs": {
+      "Debug": {
+        "artifact": {
+          "path": "artifacts/validation/illumination-core-20261002/illumination-debug-verified.trx",
+          "bytes": 122655,
+          "sha256": "1acccdcb1b6a06fd4144910c1ce998f6560265f5b35bf6d035a972d0044f5421"
+        },
+        "counts": {
+          "total": 83,
+          "executed": 83,
+          "passed": 83,
+          "failed": 0,
+          "error": 0,
+          "timeout": 0,
+          "aborted": 0,
+          "inconclusive": 0,
+          "passedButRunAborted": 0,
+          "notRunnable": 0,
+          "notExecuted": 0,
+          "disconnected": 0,
+          "warning": 0,
+          "completed": 0,
+          "inProgress": 0,
+          "pending": 0
+        },
+        "times": {
+          "creation": "2026-10-02T13:47:01.5637190+08:00",
+          "queuing": "2026-10-02T13:47:01.5637190+08:00",
+          "start": "2026-10-02T13:47:00.7782430+08:00",
+          "finish": "2026-10-02T13:50:03.2921030+08:00"
+        },
+        "elapsedSeconds": 182.51386,
+        "classes": {
+          "AnalysisGuiContractTests": 1,
+          "FrozenAnalysisRegressionTests": 12,
+          "IlluminationMetricTests": 26,
+          "PupilVignettingTests": 20,
+          "RelativeIlluminationTests": 7,
+          "SampledApertureDiagnosticTests": 6,
+          "SampledRayAimingConsistencyTests": 10,
+          "ZemaxRelativeIlluminationParityTests": 1
+        },
+        "cases": [
+          {
+            "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.ImageSimulationOffersMultipleSelectableSourceImages",
+            "durationSeconds": 0.9036929,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationAnalysisUsesFrozenSideBySideRgbContract",
+            "durationSeconds": 181.5590643,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationDiffractionBasisPreservesUnitEnergyAndReportsFallback",
+            "durationSeconds": 0.0097664,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationDistortionGridKeepsLateralColorAgainstPrimaryReference",
+            "durationSeconds": 0.016228,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationGuardBandIsBlackInsteadOfReflected",
+            "durationSeconds": 0.0014463,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationPipelineUsesBlackGuardBandAndSelectedMode",
+            "durationSeconds": 0.2639624,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationPsfModeIsHonored",
+            "durationSeconds": 0.0035402,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationRejectsPreparedImageAboveMemoryBudget",
+            "durationSeconds": 0.0051715,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationSourcePatternsProduceValidRgbImages(pattern: ColorChart)",
+            "durationSeconds": 0.0139424,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationSourcePatternsProduceValidRgbImages(pattern: DistortionGrid)",
+            "durationSeconds": 0.0069549,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationSourcePatternsProduceValidRgbImages(pattern: ResolutionTarget)",
+            "durationSeconds": 0.0012105,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationSourcePatternsProduceValidRgbImages(pattern: SiemensStar)",
+            "durationSeconds": 0.0039295,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationSupportsSinglePointPsfFieldGrid",
+            "durationSeconds": 0.0014194,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.BulkAbsorptionRetainsAngleDependentPathTransmission",
+            "durationSeconds": 0.0763008,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.CancellationAndInvalidMetricSettingsDoNotReturnPlausibleValues",
+            "durationSeconds": 0.0011099,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.ConstantWeightShortcutMatchesGeneralInteriorQuadrature",
+            "durationSeconds": 0.1209019,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.DiagnosticMaskDoesNotTurnBlockedChiefIntoAcceptedImageRay",
+            "durationSeconds": 0.0010472,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.DisconnectedTransmittingRegionsDoNotRequireAVisibleChiefRay",
+            "durationSeconds": 0.6649157,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.FullAndObscuredConesMatchIndependentSolidAngleIntegral(outer: 0.5, inner: 0)",
+            "durationSeconds": 0.5071185,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.FullAndObscuredConesMatchIndependentSolidAngleIntegral(outer: 0.80000000000000004, inner: 0.40000000000000002)",
+            "durationSeconds": 1.5567596,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.FullAndObscuredConesMatchIndependentSolidAngleIntegral(outer: 0.90000000000000002, inner: 0)",
+            "durationSeconds": 1.4204444,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.FullAndObscuredConesMatchIndependentSolidAngleIntegral(outer: 1, inner: 0)",
+            "durationSeconds": 0.071719,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.FullAndObscuredConesMatchIndependentSolidAngleIntegral(outer: 1, inner: 0.29999999999999999)",
+            "durationSeconds": 0.73692,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.FullyDarkPupilProducesUnavailableCurveAndBlackSimulatedImage",
+            "durationSeconds": 0.1719164,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.ImageTiltIncludesIncidenceProjection",
+            "durationSeconds": 0.0197192,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.ImmersionUsesIncidentImageConeWithoutApplyingRefractiveIndexTwice",
+            "durationSeconds": 0.017377,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.InvalidAnalysisWavelengthIsNotSilentlyClamped",
+            "durationSeconds": 0.0003326,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.NonuniformAndDarkRimPupilsIntegrateInteriorTransmission(model: \"cosine\")",
+            "durationSeconds": 0.0810049,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.NonuniformAndDarkRimPupilsIntegrateInteriorTransmission(model: \"gaussian\")",
+            "durationSeconds": 0.105328,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.NonuniformAndDarkRimPupilsIntegrateInteriorTransmission(model: \"hann\")",
+            "durationSeconds": 0.0696126,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.NonuniformAndDarkRimPupilsIntegrateInteriorTransmission(model: \"polynomial\")",
+            "durationSeconds": 0.0693957,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.OffCenterInteriorObscurationSubtractsItsOwnAngularArea",
+            "durationSeconds": 0.3635553,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.ParallelFieldsPreserveOrderValuesAndOriginalErrors",
+            "durationSeconds": 0.1554898,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.PreparedPupilSamplerMatchesFormalIndividualGeneration(infinite: False)",
+            "durationSeconds": 0.00042,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.PreparedPupilSamplerMatchesFormalIndividualGeneration(infinite: True)",
+            "durationSeconds": 0.0027883,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.ScalarTransmissionControlsEqualIrradianceFNumber(transmission: 0)",
+            "durationSeconds": 0.0695181,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.ScalarTransmissionControlsEqualIrradianceFNumber(transmission: 0.25)",
+            "durationSeconds": 0.07821,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.ScalarTransmissionControlsEqualIrradianceFNumber(transmission: 1)",
+            "durationSeconds": 0.0683031,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.TwoDimensionalTransmissionUsesInteriorWeights",
+            "durationSeconds": 0.0693735,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.ClearVignettingResetsAllFiveFactorsOnAnIsolatedCopy",
+            "durationSeconds": 0.0056489,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: -90, x: -0.32500000000000001, y: -0.29999999999999999)",
+            "durationSeconds": 8.44e-05,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: 0, x: 0.29999999999999999, y: -0.32500000000000001)",
+            "durationSeconds": 4.96e-05,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: 180, x: -0.29999999999999999, y: 0.32500000000000001)",
+            "durationSeconds": 7e-07,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: 90, x: 0.32500000000000001, y: 0.29999999999999999)",
+            "durationSeconds": 1.1e-06,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.FiveFactorsRoundTripZmxProjectDtoAndUnrelatedFieldEdits",
+            "durationSeconds": 0.5899005,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.GenerateForAndNormalizedBundlesShareTheSameDecenteredPupil(normalized: False)",
+            "durationSeconds": 0.0019087,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.GenerateForAndNormalizedBundlesShareTheSameDecenteredPupil(normalized: True)",
+            "durationSeconds": 0.0038789,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: False, angle: 0)",
+            "durationSeconds": 9.57e-05,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: False, angle: 90)",
+            "durationSeconds": 9.05e-05,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: True, angle: 0)",
+            "durationSeconds": 0.0022829,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: True, angle: 90)",
+            "durationSeconds": 0.0002323,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.NewFactorsDetachMutatedOpticFromSharedTraceCache(component: \"angle\")",
+            "durationSeconds": 0.0001011,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.NewFactorsDetachMutatedOpticFromSharedTraceCache(component: \"x\")",
+            "durationSeconds": 0.0001939,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.NewFactorsDetachMutatedOpticFromSharedTraceCache(component: \"y\")",
+            "durationSeconds": 0.0047955,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.NonFiniteNewFactorsFailModelAndSnapshotValidation(component: \"angle\")",
+            "durationSeconds": 7.73e-05,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.NonFiniteNewFactorsFailModelAndSnapshotValidation(component: \"x\")",
+            "durationSeconds": 0.0005015,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.NonFiniteNewFactorsFailModelAndSnapshotValidation(component: \"y\")",
+            "durationSeconds": 3.76e-05,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.OldSnapshotWithoutNewFieldsKeepsIdentityTransform",
+            "durationSeconds": 0.0034573,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.RemovingFactorsPreservesRuntimeMaterialAndSourceData",
+            "durationSeconds": 0.2355909,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.RelativeIlluminationTests.ClippedCircularPupilIntegratesTheTransmittedConeInsteadOfDroppingItsRim(radius: 0.5)",
+            "durationSeconds": 1.3545038,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.RelativeIlluminationTests.ClippedCircularPupilIntegratesTheTransmittedConeInsteadOfDroppingItsRim(radius: 0.90000000000000002)",
+            "durationSeconds": 2.8804549,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.RelativeIlluminationTests.ConnectorExposesRelativeIlluminationAnalysisContract",
+            "durationSeconds": 5.5734636,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.RelativeIlluminationTests.RelativeIlluminationProducesNormalizedFiniteCurve(sampleName: \"cooke\", createOptic: Func`1 { Method = OptilandWorkbench.Core.Optic CreateCookeTriplet(), Target = null })",
+            "durationSeconds": 28.5811819,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.RelativeIlluminationTests.RelativeIlluminationProducesNormalizedFiniteCurve(sampleName: \"tessar\", createOptic: Func`1 { Method = OptilandWorkbench.Core.Optic CreateTessarLens(), Target = null })",
+            "durationSeconds": 28.7332782,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.RelativeIlluminationTests.RelativeIlluminationUsesIndependentRadialFieldScan",
+            "durationSeconds": 17.885666,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.RelativeIlluminationTests.RemovingVignettingFactorsRestoresFullPupilWithoutMutatingOptic",
+            "durationSeconds": 4.270117,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledApertureDiagnosticTests.MissedIntersectionDoesNotInventAnImageOrAnApertureMargin",
+            "durationSeconds": 0.0002657,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledApertureDiagnosticTests.PlaneReportsSignedPhysicalClearanceWithoutChangingNormalClipping(height: 0, expected: 2)",
+            "durationSeconds": 0.0004631,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledApertureDiagnosticTests.PlaneReportsSignedPhysicalClearanceWithoutChangingNormalClipping(height: 2, expected: 0)",
+            "durationSeconds": 0.2408918,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledApertureDiagnosticTests.PlaneReportsSignedPhysicalClearanceWithoutChangingNormalClipping(height: 3, expected: -1)",
+            "durationSeconds": 0.0034852,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledApertureDiagnosticTests.UnclippedDiagnosticsUseFormalSpectralWeightsAndDoNotReplacePhysicalMetrics",
+            "durationSeconds": 0.0107158,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledApertureDiagnosticTests.UnsupportedAperturesAndCancelledDiagnosticsFailExplicitly",
+            "durationSeconds": 0.0007169,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.AggregateSpotUsesTheSameAimedRaysAsTheFormalEngine(aiming: False)",
+            "durationSeconds": 0.0050733,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.AggregateSpotUsesTheSameAimedRaysAsTheFormalEngine(aiming: True)",
+            "durationSeconds": 0.0843111,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.DisablingVignettingFactorsAlsoDisablesThemForStopTargets(aiming: False)",
+            "durationSeconds": 0.0002519,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.DisablingVignettingFactorsAlsoDisablesThemForStopTargets(aiming: True)",
+            "durationSeconds": 0.0267416,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.EnvelopeUsesAimedSurfaceInterceptsAndLeavesOtherSettingsUnchanged(aiming: False)",
+            "durationSeconds": 0.0093627,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.EnvelopeUsesAimedSurfaceInterceptsAndLeavesOtherSettingsUnchanged(aiming: True)",
+            "durationSeconds": 0.1048886,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.SampledSpotMatchesFormalDiagramWithTheSameAimingSetting(aiming: False)",
+            "durationSeconds": 0.0117941,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.SampledSpotMatchesFormalDiagramWithTheSameAimingSetting(aiming: True)",
+            "durationSeconds": 0.1115425,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.UnclippedDiagnosticsFollowAimingAndRetainPhysicalObstruction(aiming: False)",
+            "durationSeconds": 0.2575405,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.UnclippedDiagnosticsFollowAimingAndRetainPhysicalObstruction(aiming: True)",
+            "durationSeconds": 0.1449617,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.ZemaxRelativeIlluminationParityTests.ChiefRayTangentPupilProjectionMatchesZemax123456",
+            "durationSeconds": 22.4034757,
+            "outcome": "Passed"
+          }
+        ]
+      },
+      "Release": {
+        "artifact": {
+          "path": "artifacts/validation/illumination-core-20261002/illumination-release.trx",
+          "bytes": 122983,
+          "sha256": "a819b2f16b064475e709d80d11b5ecd72de93eb4c1f18dd72c1bd72b193fc374"
+        },
+        "counts": {
+          "total": 83,
+          "executed": 83,
+          "passed": 83,
+          "failed": 0,
+          "error": 0,
+          "timeout": 0,
+          "aborted": 0,
+          "inconclusive": 0,
+          "passedButRunAborted": 0,
+          "notRunnable": 0,
+          "notExecuted": 0,
+          "disconnected": 0,
+          "warning": 0,
+          "completed": 0,
+          "inProgress": 0,
+          "pending": 0
+        },
+        "times": {
+          "creation": "2026-10-02T13:42:45.3077470+08:00",
+          "queuing": "2026-10-02T13:42:45.3077470+08:00",
+          "start": "2026-10-02T13:42:44.5001750+08:00",
+          "finish": "2026-10-02T13:43:38.2659860+08:00"
+        },
+        "elapsedSeconds": 53.765811,
+        "classes": {
+          "AnalysisGuiContractTests": 1,
+          "FrozenAnalysisRegressionTests": 12,
+          "IlluminationMetricTests": 26,
+          "PupilVignettingTests": 20,
+          "RelativeIlluminationTests": 7,
+          "SampledApertureDiagnosticTests": 6,
+          "SampledRayAimingConsistencyTests": 10,
+          "ZemaxRelativeIlluminationParityTests": 1
+        },
+        "cases": [
+          {
+            "name": "OptilandWorkbench.Tests.AnalysisGuiContractTests.ImageSimulationOffersMultipleSelectableSourceImages",
+            "durationSeconds": 0.6778389,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationAnalysisUsesFrozenSideBySideRgbContract",
+            "durationSeconds": 52.7870325,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationDiffractionBasisPreservesUnitEnergyAndReportsFallback",
+            "durationSeconds": 0.0079326,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationDistortionGridKeepsLateralColorAgainstPrimaryReference",
+            "durationSeconds": 0.0253802,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationGuardBandIsBlackInsteadOfReflected",
+            "durationSeconds": 0.0004713,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationPipelineUsesBlackGuardBandAndSelectedMode",
+            "durationSeconds": 0.2556912,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationPsfModeIsHonored",
+            "durationSeconds": 0.0112564,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationRejectsPreparedImageAboveMemoryBudget",
+            "durationSeconds": 0.0060205,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationSourcePatternsProduceValidRgbImages(pattern: ColorChart)",
+            "durationSeconds": 0.0087715,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationSourcePatternsProduceValidRgbImages(pattern: DistortionGrid)",
+            "durationSeconds": 0.0073976,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationSourcePatternsProduceValidRgbImages(pattern: ResolutionTarget)",
+            "durationSeconds": 0.0013584,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationSourcePatternsProduceValidRgbImages(pattern: SiemensStar)",
+            "durationSeconds": 0.0040521,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationSupportsSinglePointPsfFieldGrid",
+            "durationSeconds": 0.0005692,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.BulkAbsorptionRetainsAngleDependentPathTransmission",
+            "durationSeconds": 0.0281234,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.CancellationAndInvalidMetricSettingsDoNotReturnPlausibleValues",
+            "durationSeconds": 0.0004479,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.ConstantWeightShortcutMatchesGeneralInteriorQuadrature",
+            "durationSeconds": 0.034438,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.DiagnosticMaskDoesNotTurnBlockedChiefIntoAcceptedImageRay",
+            "durationSeconds": 0.0013962,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.DisconnectedTransmittingRegionsDoNotRequireAVisibleChiefRay",
+            "durationSeconds": 0.7800337,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.FullAndObscuredConesMatchIndependentSolidAngleIntegral(outer: 0.5, inner: 0)",
+            "durationSeconds": 0.2067672,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.FullAndObscuredConesMatchIndependentSolidAngleIntegral(outer: 0.80000000000000004, inner: 0.40000000000000002)",
+            "durationSeconds": 0.5624373,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.FullAndObscuredConesMatchIndependentSolidAngleIntegral(outer: 0.90000000000000002, inner: 0)",
+            "durationSeconds": 0.7504828,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.FullAndObscuredConesMatchIndependentSolidAngleIntegral(outer: 1, inner: 0)",
+            "durationSeconds": 0.0286119,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.FullAndObscuredConesMatchIndependentSolidAngleIntegral(outer: 1, inner: 0.29999999999999999)",
+            "durationSeconds": 0.2908192,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.FullyDarkPupilProducesUnavailableCurveAndBlackSimulatedImage",
+            "durationSeconds": 0.0940606,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.ImageTiltIncludesIncidenceProjection",
+            "durationSeconds": 0.0072067,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.ImmersionUsesIncidentImageConeWithoutApplyingRefractiveIndexTwice",
+            "durationSeconds": 0.0073283,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.InvalidAnalysisWavelengthIsNotSilentlyClamped",
+            "durationSeconds": 0.0002486,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.NonuniformAndDarkRimPupilsIntegrateInteriorTransmission(model: \"cosine\")",
+            "durationSeconds": 0.0760837,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.NonuniformAndDarkRimPupilsIntegrateInteriorTransmission(model: \"gaussian\")",
+            "durationSeconds": 0.0852668,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.NonuniformAndDarkRimPupilsIntegrateInteriorTransmission(model: \"hann\")",
+            "durationSeconds": 0.0880533,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.NonuniformAndDarkRimPupilsIntegrateInteriorTransmission(model: \"polynomial\")",
+            "durationSeconds": 0.0900406,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.OffCenterInteriorObscurationSubtractsItsOwnAngularArea",
+            "durationSeconds": 0.1289998,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.ParallelFieldsPreserveOrderValuesAndOriginalErrors",
+            "durationSeconds": 0.0651076,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.PreparedPupilSamplerMatchesFormalIndividualGeneration(infinite: False)",
+            "durationSeconds": 0.0019746,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.PreparedPupilSamplerMatchesFormalIndividualGeneration(infinite: True)",
+            "durationSeconds": 0.0016137,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.ScalarTransmissionControlsEqualIrradianceFNumber(transmission: 0)",
+            "durationSeconds": 0.0738267,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.ScalarTransmissionControlsEqualIrradianceFNumber(transmission: 0.25)",
+            "durationSeconds": 0.07525,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.ScalarTransmissionControlsEqualIrradianceFNumber(transmission: 1)",
+            "durationSeconds": 0.0796681,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.IlluminationMetricTests.TwoDimensionalTransmissionUsesInteriorWeights",
+            "durationSeconds": 0.0269573,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.ClearVignettingResetsAllFiveFactorsOnAnIsolatedCopy",
+            "durationSeconds": 0.0089051,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: -90, x: -0.32500000000000001, y: -0.29999999999999999)",
+            "durationSeconds": 0.0001713,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: 0, x: 0.29999999999999999, y: -0.32500000000000001)",
+            "durationSeconds": 8.18e-05,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: 180, x: -0.29999999999999999, y: 0.32500000000000001)",
+            "durationSeconds": 1.5e-06,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: 90, x: 0.32500000000000001, y: 0.29999999999999999)",
+            "durationSeconds": 2.4e-06,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.FiveFactorsRoundTripZmxProjectDtoAndUnrelatedFieldEdits",
+            "durationSeconds": 0.499131,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.GenerateForAndNormalizedBundlesShareTheSameDecenteredPupil(normalized: False)",
+            "durationSeconds": 0.0021149,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.GenerateForAndNormalizedBundlesShareTheSameDecenteredPupil(normalized: True)",
+            "durationSeconds": 0.0035911,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: False, angle: 0)",
+            "durationSeconds": 0.0002248,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: False, angle: 90)",
+            "durationSeconds": 0.0002054,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: True, angle: 0)",
+            "durationSeconds": 0.0039465,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: True, angle: 90)",
+            "durationSeconds": 0.0014395,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.NewFactorsDetachMutatedOpticFromSharedTraceCache(component: \"angle\")",
+            "durationSeconds": 0.0001143,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.NewFactorsDetachMutatedOpticFromSharedTraceCache(component: \"x\")",
+            "durationSeconds": 0.0002566,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.NewFactorsDetachMutatedOpticFromSharedTraceCache(component: \"y\")",
+            "durationSeconds": 0.0089175,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.NonFiniteNewFactorsFailModelAndSnapshotValidation(component: \"angle\")",
+            "durationSeconds": 9.17e-05,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.NonFiniteNewFactorsFailModelAndSnapshotValidation(component: \"x\")",
+            "durationSeconds": 0.0004957,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.NonFiniteNewFactorsFailModelAndSnapshotValidation(component: \"y\")",
+            "durationSeconds": 4.27e-05,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.OldSnapshotWithoutNewFieldsKeepsIdentityTransform",
+            "durationSeconds": 0.0042896,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.PupilVignettingTests.RemovingFactorsPreservesRuntimeMaterialAndSourceData",
+            "durationSeconds": 0.2438998,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.RelativeIlluminationTests.ClippedCircularPupilIntegratesTheTransmittedConeInsteadOfDroppingItsRim(radius: 0.5)",
+            "durationSeconds": 1.3514719,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.RelativeIlluminationTests.ClippedCircularPupilIntegratesTheTransmittedConeInsteadOfDroppingItsRim(radius: 0.90000000000000002)",
+            "durationSeconds": 1.3347869,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.RelativeIlluminationTests.ConnectorExposesRelativeIlluminationAnalysisContract",
+            "durationSeconds": 1.5489896,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.RelativeIlluminationTests.RelativeIlluminationProducesNormalizedFiniteCurve(sampleName: \"cooke\", createOptic: Func`1 { Method = OptilandWorkbench.Core.Optic CreateCookeTriplet(), Target = null })",
+            "durationSeconds": 10.0519002,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.RelativeIlluminationTests.RelativeIlluminationProducesNormalizedFiniteCurve(sampleName: \"tessar\", createOptic: Func`1 { Method = OptilandWorkbench.Core.Optic CreateTessarLens(), Target = null })",
+            "durationSeconds": 7.8023243,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.RelativeIlluminationTests.RelativeIlluminationUsesIndependentRadialFieldScan",
+            "durationSeconds": 5.7648293,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.RelativeIlluminationTests.RemovingVignettingFactorsRestoresFullPupilWithoutMutatingOptic",
+            "durationSeconds": 2.6003938,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledApertureDiagnosticTests.MissedIntersectionDoesNotInventAnImageOrAnApertureMargin",
+            "durationSeconds": 0.0002407,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledApertureDiagnosticTests.PlaneReportsSignedPhysicalClearanceWithoutChangingNormalClipping(height: 0, expected: 2)",
+            "durationSeconds": 0.0006144,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledApertureDiagnosticTests.PlaneReportsSignedPhysicalClearanceWithoutChangingNormalClipping(height: 2, expected: 0)",
+            "durationSeconds": 0.2536086,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledApertureDiagnosticTests.PlaneReportsSignedPhysicalClearanceWithoutChangingNormalClipping(height: 3, expected: -1)",
+            "durationSeconds": 0.0051265,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledApertureDiagnosticTests.UnclippedDiagnosticsUseFormalSpectralWeightsAndDoNotReplacePhysicalMetrics",
+            "durationSeconds": 0.0198221,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledApertureDiagnosticTests.UnsupportedAperturesAndCancelledDiagnosticsFailExplicitly",
+            "durationSeconds": 0.0010277,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.AggregateSpotUsesTheSameAimedRaysAsTheFormalEngine(aiming: False)",
+            "durationSeconds": 0.0068979,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.AggregateSpotUsesTheSameAimedRaysAsTheFormalEngine(aiming: True)",
+            "durationSeconds": 0.1356198,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.DisablingVignettingFactorsAlsoDisablesThemForStopTargets(aiming: False)",
+            "durationSeconds": 0.0005789,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.DisablingVignettingFactorsAlsoDisablesThemForStopTargets(aiming: True)",
+            "durationSeconds": 0.0307129,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.EnvelopeUsesAimedSurfaceInterceptsAndLeavesOtherSettingsUnchanged(aiming: False)",
+            "durationSeconds": 0.0215443,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.EnvelopeUsesAimedSurfaceInterceptsAndLeavesOtherSettingsUnchanged(aiming: True)",
+            "durationSeconds": 0.1272177,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.SampledSpotMatchesFormalDiagramWithTheSameAimingSetting(aiming: False)",
+            "durationSeconds": 0.0116747,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.SampledSpotMatchesFormalDiagramWithTheSameAimingSetting(aiming: True)",
+            "durationSeconds": 0.1029689,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.UnclippedDiagnosticsFollowAimingAndRetainPhysicalObstruction(aiming: False)",
+            "durationSeconds": 0.2804753,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.UnclippedDiagnosticsFollowAimingAndRetainPhysicalObstruction(aiming: True)",
+            "durationSeconds": 0.2050171,
+            "outcome": "Passed"
+          },
+          {
+            "name": "OptilandWorkbench.Tests.ZemaxRelativeIlluminationParityTests.ChiefRayTangentPupilProjectionMatchesZemax123456",
+            "durationSeconds": 8.4110454,
+            "outcome": "Passed"
+          }
+        ]
+      },
+      "DebugAbsoluteObservation": {
+        "artifact": {
+          "path": "artifacts/validation/illumination-core-20261002/absolute-fnumber-debug.trx",
+          "bytes": 3699,
+          "sha256": "7f5c5087b44d86489cf17b9904588720cb4a68a63d4284fffcd24476a14f111b"
+        },
+        "counts": {
+          "total": 1,
+          "executed": 1,
+          "passed": 1,
+          "failed": 0,
+          "error": 0,
+          "timeout": 0,
+          "aborted": 0,
+          "inconclusive": 0,
+          "passedButRunAborted": 0,
+          "notRunnable": 0,
+          "notExecuted": 0,
+          "disconnected": 0,
+          "warning": 0,
+          "completed": 0,
+          "inProgress": 0,
+          "pending": 0
+        },
+        "times": {
+          "creation": "2026-10-02T13:52:41.5241670+08:00",
+          "queuing": "2026-10-02T13:52:41.5241670+08:00",
+          "start": "2026-10-02T13:52:30.8941800+08:00",
+          "finish": "2026-10-02T13:52:41.5259720+08:00"
+        },
+        "elapsedSeconds": 10.631792,
+        "classes": {
+          "ZemaxRelativeIlluminationParityTests": 1
+        },
+        "cases": [
+          {
+            "name": "OptilandWorkbench.Tests.ZemaxRelativeIlluminationParityTests.ChiefRayTangentPupilProjectionMatchesZemax123456",
+            "durationSeconds": 9.9059189,
+            "outcome": "Passed"
+          }
+        ]
+      },
+      "ReleaseAbsoluteObservation": {
+        "artifact": {
+          "path": "artifacts/validation/illumination-core-20261002/absolute-fnumber-release.trx",
+          "bytes": 3703,
+          "sha256": "a295dec7619bcbbb8dac8ffc06918bc4c5f26326d6d808e3fad0defaff699378"
+        },
+        "counts": {
+          "total": 1,
+          "executed": 1,
+          "passed": 1,
+          "failed": 0,
+          "error": 0,
+          "timeout": 0,
+          "aborted": 0,
+          "inconclusive": 0,
+          "passedButRunAborted": 0,
+          "notRunnable": 0,
+          "notExecuted": 0,
+          "disconnected": 0,
+          "warning": 0,
+          "completed": 0,
+          "inProgress": 0,
+          "pending": 0
+        },
+        "times": {
+          "creation": "2026-10-02T13:48:56.2260940+08:00",
+          "queuing": "2026-10-02T13:48:56.2260940+08:00",
+          "start": "2026-10-02T13:48:50.4438540+08:00",
+          "finish": "2026-10-02T13:48:56.2290540+08:00"
+        },
+        "elapsedSeconds": 5.7852,
+        "classes": {
+          "ZemaxRelativeIlluminationParityTests": 1
+        },
+        "cases": [
+          {
+            "name": "OptilandWorkbench.Tests.ZemaxRelativeIlluminationParityTests.ChiefRayTangentPupilProjectionMatchesZemax123456",
+            "durationSeconds": 4.7676208,
+            "outcome": "Passed"
+          }
+        ]
+      }
+    },
+    "newIlluminationCasesIncludedInEach83": 26,
+    "repeatObservationRunsAreNotAddedTo83": true,
+    "repeatChange": "Only two output log lines added to the existing Zemax parity test after the final 83-case runs; product logic unchanged.",
+    "full2308OperandRegressionRerun": false,
+    "defaultOutputBuilds": true,
+    "compileDiagnosticsInFinalLogs": {
+      "warnings": 0,
+      "errors": 0
+    },
+    "logs": [
+      {
+        "path": "artifacts/validation/illumination-core-20261002/debug-verified.log",
+        "bytes": 13396,
+        "sha256": "44e25827f66da472fae02d43c881621a6e93708a4aaf2dea626467ff87d575f9"
+      },
+      {
+        "path": "artifacts/validation/illumination-core-20261002/release.log",
+        "bytes": 13397,
+        "sha256": "de73838e9df3105ee79d57d3b7912f994fac61840316ff7ebf10c26e3ebc977c"
+      },
+      {
+        "path": "artifacts/validation/illumination-core-20261002/absolute-fnumber-debug.log",
+        "bytes": 1410,
+        "sha256": "052d6bb5c365b844348cebde2ec87a09a5299bbc47245e89a084703aa7688c32"
+      },
+      {
+        "path": "artifacts/validation/illumination-core-20261002/absolute-fnumber-release.log",
+        "bytes": 1426,
+        "sha256": "6a46033b7679e10f3d224dc6b30a4b9f51862c88c4a4916783ca0b0df4ba4a4b"
+      }
+    ],
+    "format": {
+      "passed": true,
+      "tool": "dotnet format whitespace --no-restore --verify-no-changes",
+      "includedFiles": [
+        "src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs",
+        "src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs",
+        "src/OptilandWorkbench.Core/Raytrace/RayGenerator.cs",
+        "src/OptilandWorkbench.Core/Analysis/RelativeIlluminationAnalysis.cs",
+        "src/OptilandWorkbench.Core/Analysis/ImageSimulationEngine.cs",
+        "tests/OptilandWorkbench.Tests/IlluminationMetricTests.cs",
+        "tests/OptilandWorkbench.Tests/ZemaxRelativeIlluminationParityTests.cs"
+      ],
+      "log": {
+        "path": "artifacts/validation/illumination-core-20261002/format.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "gitDiffCheck": {
+      "exitCode": 0,
+      "log": {
+        "path": "artifacts/validation/illumination-core-20261002/git-diff-check.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "localNoteLinksExist": [
+      "src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs",
+      "src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs",
+      "src/OptilandWorkbench.Core/Raytrace/RayGenerator.cs",
+      "src/OptilandWorkbench.Core/Analysis/RelativeIlluminationAnalysis.cs",
+      "src/OptilandWorkbench.Core/Analysis/ImageSimulationEngine.cs",
+      "tests/OptilandWorkbench.Tests/IlluminationMetricTests.cs",
+      "artifacts/validation/illumination-core-20261002/effective-fnumber-comparison.csv"
+    ]
+  },
+  "baselineIntegrity": {
+    "scope": "Five selected assets only, including source and relative-illumination capture; this is not a new capture or full archive integrity audit.",
+    "version": "Zemax OpticStudio 2026 R1",
+    "files": [
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+        "bytes": 68676,
+        "sha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+        "headSha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+        "byteEqualHead": true
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/data.json",
+        "bytes": 2821,
+        "sha256": "21a2b9517dcb9c4e479e2b8e221a8ba334c3a35a46b654d39575b7d0338f534b",
+        "headSha256": "21a2b9517dcb9c4e479e2b8e221a8ba334c3a35a46b654d39575b7d0338f534b",
+        "byteEqualHead": true
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/data.txt",
+        "bytes": 2004,
+        "sha256": "416d1466c5450e3ac4536ed68bd8c6e9db6e37223668d525d4e565dc8a261cbc",
+        "headSha256": "416d1466c5450e3ac4536ed68bd8c6e9db6e37223668d525d4e565dc8a261cbc",
+        "byteEqualHead": true
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/settings.cfg",
+        "bytes": 18448,
+        "sha256": "771862ac443a583fce03458d116d98f2f1867814fc2ac33c0fbce05fcc4e89ac",
+        "headSha256": "771862ac443a583fce03458d116d98f2f1867814fc2ac33c0fbce05fcc4e89ac",
+        "byteEqualHead": true
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/status.json",
+        "bytes": 731,
+        "sha256": "ab7d009fdafd063cfe29000d3da526db73b8e571be343ec29591bb6f21272a86",
+        "headSha256": "ab7d009fdafd063cfe29000d3da526db73b8e571be343ec29591bb6f21272a86",
+        "byteEqualHead": true
+      }
+    ]
+  },
+  "workbenchRecalculation": {
+    "analysis": "RelativeIlluminationAnalysis",
+    "source": "123456.ZMX",
+    "wavelengthMicrometers": 0.44,
+    "rayDensity": 10,
+    "fieldCount": 21,
+    "scanDirection": "+y",
+    "removeVignettingFactors": true,
+    "projection": "Image-surface normal at chief intercept, incident direction cosines",
+    "integration": "Adaptive full-pupil scalar quadrature",
+    "debugReleaseAbsoluteValuesExactlyEqual": true,
+    "sampledPupilNodeCounts": [
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473
+    ],
+    "nodeCountMeaning": "Pupil integration nodes; does not include internal ray-aiming solver traces."
+  },
+  "numericalComparison": {
+    "relativeIllumination": {
+      "reference": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/data.json",
+      "normalization": "Scan peak",
+      "rmse": 0.0014395486563645071,
+      "maximumAbsoluteError": 0.0031274626913352366,
+      "edge": 0.9691639380051803,
+      "existingAcceptanceLimits": {
+        "rmse": 0.002,
+        "maximumAbsoluteError": 0.004
+      },
+      "passedExistingGate": true,
+      "previousMethodApproximateErrors": {
+        "rmse": 0.00043423449,
+        "max": 0.00081915922
+      },
+      "improvesPreviousCapturedAgreement": false
+    },
+    "effectiveFNumber": {
+      "reference": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/data.json",
+      "referenceColumn": 1,
+      "referencePrecision": "Full precision JSON values; UTF-16 text has six-decimal display rounding and was independently cross-checked.",
+      "maximumAbsoluteError": 0.00889145897856336,
+      "maximumRelativeError": 0.0030918455962062876,
+      "onAxisZemax": 2.87577716994446,
+      "onAxisWorkbench": 2.8668857109658967,
+      "acceptanceThreshold": null,
+      "status": "Measured difference only, not rated or certified as native EFNO equivalence",
+      "comparison": {
+        "path": "artifacts/validation/illumination-core-20261002/effective-fnumber-comparison.csv",
+        "bytes": 1914,
+        "sha256": "d3a2fe842564a036bc3a3fc1744be31eafef124349670189fafd9b6898b73d88"
+      }
+    },
+    "validity": "Captured file, analysis settings and 2026 R1 version only; not universal defaults or native MFE operand validation."
+  },
+  "performance": {
+    "timingsAreObservationalNotControlledBenchmarks": true,
+    "maximumParallelFields": 4,
+    "maximumNodesPerField": 1000000,
+    "uniformOpenModelShortcut": "Constant weight only; tested against general quadrature; full interior geometry mesh retained."
+  },
+  "sourceFiles": [
+    {
+      "path": "src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs",
+      "bytes": 16570,
+      "sha256": "e23a8313517365cdd99b6163bed0e136609c20a269ea2359e6ee84da42d6470a"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs",
+      "bytes": 5988,
+      "sha256": "ffe31c127bce9466159e7db1c15beddd33092aa540c4c0df2423e8ac18989165"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/RayGenerator.cs",
+      "bytes": 47854,
+      "sha256": "52375e64e2e2dda7ddf5213256c83448830b297dd3ac1be6a5c584543b1a2e28"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/RelativeIlluminationAnalysis.cs",
+      "bytes": 6803,
+      "sha256": "23b1dc7662fc3ace78338eef737da63f420307f17d0315b406dcda2002bca94e"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/ImageSimulationEngine.cs",
+      "bytes": 52715,
+      "sha256": "b09e326cc08b56056edf394336054f8801edae3015cd83006f71e63d2fbda44b"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/IlluminationMetricTests.cs",
+      "bytes": 14007,
+      "sha256": "18180e194ae31867c8d5cf36748a7d10d70d902dad5c46065ef310ee35ae3bbb"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxRelativeIlluminationParityTests.cs",
+      "bytes": 2195,
+      "sha256": "5acb98068b05c94680d94bdcb31d28d1d276d24a4d2d78fd4915efa4c5e0644a"
+    }
+  ],
+  "documentation": [
+    {
+      "path": "docs/ILLUMINATION_CORE_2026-10-02.md",
+      "bytes": 7004,
+      "sha256": "69530f745d28398b23d11d9a2007e123bda67fccfc47911e18a0bc3137b84862"
+    },
+    {
+      "path": "docs/ZEMAX_OPERAND_SUPPORT.md",
+      "bytes": 135182,
+      "sha256": "a17c3725f8d34320cbc26f9ce5d8a26842c8d9cbb6e9dc0388c609e9a0f54b32"
+    },
+    {
+      "path": "docs/CURRENT_STATUS.md",
+      "bytes": 18114,
+      "sha256": "809e0101046186bac90addddfe784c2ec9ff42018c978cc1b93664c472c2728b"
+    },
+    {
+      "path": "docs/CODE_READING_MAP.md",
+      "bytes": 130049,
+      "sha256": "d9246676b774d558565780c1e95598187195b79dbb8fb2df9a15de9568ef6887"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "bytes": 29362,
+      "sha256": "ffd0cfcbb93c3f63496b7aa52fd6f932ca607ccec971d31d232047311ede2ab2"
+    },
+    {
+      "path": "docs/NUMERICAL_PARITY.md",
+      "bytes": 13403,
+      "sha256": "a5ef34fdd17ac8eb97de7324210ad0b7c309df9de934146c579762dc66cb6b13"
+    },
+    {
+      "path": "docs/README.md",
+      "bytes": 22484,
+      "sha256": "8e6d53ca61b0019dcfd9a8c321001171afa53d22eb9ff99da794987bcebe1f3a"
+    },
+    {
+      "path": "docs/BUILD_AND_RELEASE.md",
+      "bytes": 141027,
+      "sha256": "59c0fae22772acab4b5b5c3fba47537a8c4ebfb590c31135470e2179fe5bcd78"
+    }
+  ],
+  "defaultOutputBinaries": [
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "bytes": 5146624,
+      "sha256": "64367baf29321d76180f38381a1b265b15acef842cc7b4705d9eeb1468e1f669"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll",
+      "bytes": 990208,
+      "sha256": "57814b1f784d6d4a6e5b9135a64b3a9d25d6e69e35abddc4a2af8f7593727408"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "bytes": 25725440,
+      "sha256": "27e7683de3225e20b682c31e40fd2cf472868e6cccaf484a5de2cbd7e68a85ed"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll",
+      "bytes": 2071040,
+      "sha256": "89c4706de92e4b8fa47e0348dd4310f2b464c4f0d6743d11a188480aaa0845e3"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "bytes": 5043200,
+      "sha256": "dc5d510561c0bda28823e7a3baa5722f1cdcca8e70be8239a0a68bf44ea7d435"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll",
+      "bytes": 962048,
+      "sha256": "226e9737818fa4968468dcb9cdc3fd23bebcb3927a93b328ad10808ee4604e51"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "bytes": 25649152,
+      "sha256": "5931757be1b9bb885a64e30c93d3131926c16bb9375357f06381e08cc03a07cb"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Tests.dll",
+      "bytes": 1979904,
+      "sha256": "cfd311fd513b84ac3f83094fd62129725e503803f71c57ec203cf3fab35d7084"
+    }
+  ],
+  "earlierIterations": {
+    "smoke.log": "Initial adaptive error estimator failed convergence and node-budget cases; superseded.",
+    "smoke-v2.log": "Uniform-angle mesh stopped for runtime; superseded.",
+    "smoke-v3.log": "Uniform-angle mesh stopped for runtime; immersion fixture used legacy material text before correction; superseded.",
+    "smoke-v4.trx": "21/21 intermediate pass.",
+    "smoke-v5.trx": "20/21; radius-0.5 boundary error exceeded unchanged gate; fixed adaptive boundary chord refinement.",
+    "smoke-v6.trx": "23/23 intermediate pass.",
+    "illumination-debug.trx": "80/80 before constant-weight shortcut and bounded parallel fields.",
+    "illumination-debug-final.trx": "82/82 before bounded parallel fields.",
+    "finalAuthority": [
+      "illumination-debug-verified.trx",
+      "illumination-release.trx",
+      "absolute-fnumber-debug.trx",
+      "absolute-fnumber-release.trx"
+    ]
+  },
+  "remaining": [
+    "Polarized Fresnel/Jones power transport and coating behavior",
+    "Native Samp and projection agreement; absolute effective-F discrepancy remains",
+    "RELI axis normalization and EFNO merit evaluation plus edit/save/import/optimization wiring",
+    "Subsampling aperture islands or caustics need convergence studies; detected folds and unresolved boundaries reject",
+    "General nonuniform-transmission path remains relatively expensive"
+  ],
+  "screenshotOnlyReview": {
+    "performed": false
+  },
+  "newNativeZemaxCaptures": false,
+  "historicalOptilandRegenerated": false,
+  "productUiAcceptancePerformed": false,
+  "fullProductReleaseVerified": false
+}

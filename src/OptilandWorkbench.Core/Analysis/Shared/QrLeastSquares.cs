@@ -1,8 +1,10 @@
+using OptilandWorkbench.Core.Services;
+
 namespace OptilandWorkbench.Core.Analysis;
 
 internal static class QrLeastSquares
 {
-    public static double[] Solve(double[,] matrix, double[] target)
+    public static double[] Solve(double[,] matrix, double[] target, bool requireFullRank = false)
     {
         ArgumentNullException.ThrowIfNull(matrix);
         ArgumentNullException.ThrowIfNull(target);
@@ -19,6 +21,21 @@ internal static class QrLeastSquares
         var work = (double[,])matrix.Clone();
         for (var column = 0; column < columns; column++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            var originalNorm = 0.0;
+            for (var row = 0; row < rows; row++) originalNorm += matrix[row, column] * matrix[row, column];
+            if (requireFullRank)
+            {
+                // A second orthogonalization pass prevents high-order, clipped-pupil
+                // columns from losing orthogonality. Accumulate corrections into R.
+                for (var previous = 0; previous < column; previous++)
+                {
+                    var correction = 0.0;
+                    for (var row = 0; row < rows; row++) correction += q[row, previous] * work[row, column];
+                    r[previous, column] += correction;
+                    for (var row = 0; row < rows; row++) work[row, column] -= correction * q[row, previous];
+                }
+            }
             var norm = 0.0;
             for (var row = 0; row < rows; row++)
             {
@@ -26,10 +43,12 @@ internal static class QrLeastSquares
             }
 
             norm = Math.Sqrt(norm);
-            if (norm <= 1e-14)
+            if (norm <= (requireFullRank ? Math.Max(1e-14, 1e-12 * Math.Sqrt(originalNorm)) : 1e-14))
             {
+                if (requireFullRank) throw new InvalidOperationException("拟合矩阵不满秩，无法唯一确定全部系数。");
                 continue;
             }
+            if (!double.IsFinite(norm)) throw new InvalidOperationException("拟合矩阵包含非有限值。");
 
             r[column, column] = norm;
             for (var row = 0; row < rows; row++)
@@ -65,6 +84,7 @@ internal static class QrLeastSquares
         var result = new double[columns];
         for (var row = columns - 1; row >= 0; row--)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var value = projectedTarget[row];
             for (var column = row + 1; column < columns; column++)
             {
@@ -72,6 +92,7 @@ internal static class QrLeastSquares
             }
 
             result[row] = Math.Abs(r[row, row]) <= 1e-14 ? 0 : value / r[row, row];
+            if (!double.IsFinite(result[row])) throw new InvalidOperationException("拟合系数不是有限值。");
         }
 
         return result;

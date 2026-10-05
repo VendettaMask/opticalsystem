@@ -28,9 +28,14 @@ public sealed class SolveManager
         }
 
         var image = _optic.SurfaceGroup.Items[^1];
-        var poweredTrack = _optic.SurfaceGroup.Items.Take(_optic.SurfaceGroup.Items.Count - 1)
-            .Where((surface, index) => index != 0 || !ObjectConjugate.IsInfinite(surface))
-            .Sum(surface => surface.Thickness);
-        image.Thickness = Math.Max(0, DesiredBackFocus - poweredTrack);
+        image.Thickness = CalculateImageThickness(_optic.SurfaceGroup.Items.Select(surface => surface.Thickness).ToArray());
+    }
+
+    public double CalculateImageThickness(IReadOnlyList<double> thicknesses)
+    {
+        if (thicknesses.Count < 2) throw new ArgumentException("后焦距求解至少需要两个表面。", nameof(thicknesses));
+        var poweredTrack = thicknesses.Take(thicknesses.Count - 1)
+            .Where((thickness, index) => index != 0 || !double.IsPositiveInfinity(thickness)).Sum();
+        return Math.Max(0, DesiredBackFocus - poweredTrack);
     }
 }

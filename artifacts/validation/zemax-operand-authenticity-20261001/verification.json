@@ -1,0 +1,167 @@
+{
+  "date": "2026-10-01",
+  "scope": "Official operand name audit and honest UI classification; no new optical calculation",
+  "registered": 383,
+  "official_api_name_count": 448,
+  "matched_official_names": 383,
+  "executable_partial_modes": 291,
+  "compatibility_preserved": 92,
+  "compatibility_breakdown": {
+    "documented_unused_excluded_from_implementation_backlog": 5,
+    "api_names_needing_definition": 2,
+    "documented_functions_not_connected": 85
+  },
+  "verification": {
+    "debug": {
+      "total": 2057,
+      "passed": 2057,
+      "failed": 0,
+      "skipped": 0,
+      "new_tests": 12,
+      "previous_batch_tests": 2045,
+      "trx": "authenticity-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 2057,
+      "passed": 2057,
+      "failed": 0,
+      "skipped": 0,
+      "new_tests": 12,
+      "previous_batch_tests": 2045,
+      "trx": "authenticity-release.trx",
+      "log": "release.log"
+    }
+  },
+  "format_verification": "Passed",
+  "git_diff_check": "Passed",
+  "new_document_links_checked": 40,
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "external_reference": {
+    "integrity": "14 selected committed assets byte-equal HEAD; not a full baseline integrity audit.",
+    "recalculation": "Current Core and existing fixed-file/settings analysis regressions.",
+    "huygens_analysis_comparison": {
+      "debug": {
+        "direction_values": 18,
+        "maximum_absolute_error": 0.011900434932046483,
+        "analysis_regression_budget": 0.03,
+        "status": "WithinRegressionBudget",
+        "native_MFE_parity": "NotVerified"
+      },
+      "release": {
+        "direction_values": 18,
+        "maximum_absolute_error": 0.011900434932046483,
+        "analysis_regression_budget": 0.03,
+        "status": "WithinRegressionBudget",
+        "native_MFE_parity": "NotVerified"
+      }
+    },
+    "existing_distortion_comparison": {
+      "debug": {
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm",
+          "samples": 9
+        },
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm",
+          "samples": 9
+        },
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        }
+      },
+      "release": {
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm",
+          "samples": 9
+        },
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm",
+          "samples": 9
+        },
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        }
+      }
+    },
+    "new_native_capture": "None; official published names do not prove runtime availability, parameters, or numerical equivalence.",
+    "screenshots": "No screenshot review."
+  },
+  "all_operands_completion_goal": "Active, not complete; 85 documented functions, 2 definitions, and partial modes remain.",
+  "not_performed": [
+    "new Zemax execution",
+    "full product suite",
+    "laboratory full suites",
+    "installer validation"
+  ],
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "d4aeda3afb73521442522557ef076192bb7e3a32cf6753376db2d24f68a2d22f",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "e26be3093b5cf5bd3768ffbbfe4d1f877550e046c25931b7ee366b2fc51e6fdc",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "f8dc82f0e540436055e1424ba75e986edaddf9c4592b31bc17e364bcecef107e",
+    "tests/OptilandWorkbench.Tests/OperandAuthenticityTests.cs": "83303b6c4fa02928ed52b26fae62e780805fde96dfe643040efb02169288a167",
+    "tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj": "16c205dd9096b8589b9692dfdd0ebeafe4a852f67ebc23c89142a5024ae17658",
+    "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+    "docs/ZEMAX_OPERAND_AUTHENTICITY_AUDIT_2026-10-01.md": "1e66887e9a770a3ff891337d81513031f64e4a7315b7bc46e1919aaed415de24"
+  },
+  "selected_capture_sha256": {
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.txt": "dbb741fc9f07d6d55a9d7d6acdad2bfe91f45e3b5b365bb14c51e1d6b8f2a6f0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/049-rmsfield/data.json": "7badd81b3adbd9bd694e4cabfce3d58e45c863866ed77d4337a33f3321290e87",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/052-rmsfocus/data.json": "a90eabe523007f995e10c685622025b34d47c87b25d627e56ddda16020765240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/055-wavefrontmap/data.json": "e9cfe98cfb64ec684976ee786fd33b8844d24995be084941bedbe7537c911e62",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/data.json": "ef6a44cbe999be4ae54c8d2b8dc3854434e0565b9bd28266138eeebcc900f57a",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/025-huygensmtfvsfield/data.json": "9b00c750481cb73adb741f47c00ca66232dd3374765e2fa68a59bca1c6c99323",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/028-huygensthroughfocusmtf/data.json": "dc115e8bd603af3b3a1686fe7c2c0ec4530d9220d235c5af1ce0cd9004147240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/004-fieldcurvatureanddistortion/data.json": "a93a1aeff36e6bf4856ff41ad22844022b8dcc6cbde2a8038853da1d3090bd73",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/settings.cfg": "afc322d75c819f36e8c1aece2d4600c3fbdc687a4e0e6d8badb4e0e646917790",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/data.json": "1ddb61139e42585f144329c430a85ebc7685eb92416783cf85f653822cc64eb0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/settings.cfg": "5ac71deed1902825151e0e78d082850bf0f28ac4b9c2f16934a2003ad9980f69",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/034-diffractionencircledenergy/data.json": "b6b2928cd6cbc41bb078f38598065be4ba6977e0c4d29c2a040ce62c640af48e",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/034-diffractionencircledenergy/settings.cfg": "77f92a4185b82ebf31f8f27419b921ff52f1909ec65ce67074ba2680978b1a0d"
+  },
+  "default_binary_sha256": {
+    "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll": "73234ed972bca43c71323202a65017303cfbf4465ce7175a81e5957673dc7478",
+    "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll": "ce0ffbb65eb62219482bda4f64df19951eb0dba153f69e830c67ec911ed3e535",
+    "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll": "6521df0b555a69552eecff425ef4bf879b44cd8634a0f314ff4b2585ecd60919",
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "3625781212995ed17203de10d74301250fe8b1e155b82c4d4359c3eb9b61e268",
+    "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll": "2999898db6dc475e22057dcb1b7ddcf3964f6fbcd4d1f7af0c638e319a70f88e",
+    "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll": "7ae99cdfdc9f435a575717e8e2040183934b57e4191db94b49c3f19011c824f3"
+  }
+}

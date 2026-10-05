@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-01",
+  "scope": "Operand help presentation hierarchy only",
+  "verification": {
+    "debug": {
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0,
+      "trx": "hierarchy-debug.trx"
+    },
+    "release": {
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0,
+      "trx": "hierarchy-release.trx"
+    }
+  },
+  "rendering": "8 actual Avalonia/Skia frames; Light/Dark overview, GRIN family, code search and 680 DIP narrow window; visually reviewed",
+  "categories": {
+    "一阶与系统数据": 34,
+    "光线与坐标": 65,
+    "像质与分析": 95,
+    "面形与制造": 75,
+    "材料与介质": 35,
+    "光束与专项": 33,
+    "数学与控制": 39,
+    "扩展与保留": 11
+  },
+  "families": 51,
+  "published_entries": 387,
+  "official_registered_codes": 383,
+  "local_extensions": 4,
+  "executable_official_codes_unchanged": 291,
+  "format_check": "Passed",
+  "diff_check": "Passed",
+  "checked_document_links": 25,
+  "source_sha256": {
+    "src/OptilandWorkbench.App/Panels/OperandHelpPanel.cs": "5feedb3ff6f7189aa8c28ebb9bf4790dde7fdf204a6066a5b011d3511d78fecc",
+    "src/OptilandWorkbench.App/Panels/OperandHelpProjection.cs": "7ccb489c7dda1363635c2e412f5b873e85b7a14c9b8ce14fc6c25d16533f33ec",
+    "src/OptilandWorkbench.App/Panels/OperandHelpTaxonomy.cs": "09bd83087873a6183fe8d23938c45b8f41f0bbebfb09ae9052869279256302f5",
+    "tests/OptilandWorkbench.Tests/OperandHelpTests.cs": "d3d6fd44554847aa0eab749310c1b6b0f20e2e449ac1ca8fe9ce65d3ca0eb715"
+  },
+  "screenshots_sha256": {
+    "screenshots/operand-help-dark-grin-family.png": "4931c9a326fa4cb6e2a9c4f0315ea161430146ab60fb374ab967eef00d4e98a0",
+    "screenshots/operand-help-dark-grin-search.png": "d215edfd52c1f250a38130cba2a85d089fa8517e8adbe0ed17fbad500360c104",
+    "screenshots/operand-help-dark-narrow.png": "d10d3786f0f8fe5b35f4874a011d956a1e1a57d9e5033ed37db8e0ad4adc1226",
+    "screenshots/operand-help-dark-overview.png": "b7a2162a25b866c08499232f594773a4e0e053841ad42fe34aca9183a84613c1",
+    "screenshots/operand-help-light-grin-family.png": "100e1fd9158f5170e53f4bb286bf0e548f037cbe114d28c81226ce57ab74293f",
+    "screenshots/operand-help-light-grin-search.png": "7a548521461426f1d2946b88d2eba4dc60912bf2fafc54c0dfd20a0fe1b14152",
+    "screenshots/operand-help-light-narrow.png": "4804fc75f8e7ae9f84b61203c901be3aaf27629d02eec3e1ac83fb31f3beb403",
+    "screenshots/operand-help-light-overview.png": "743e3016bc2817aad5ce546028c9eadb986ced089c95a5e4d638cb7e3560daa8"
+  },
+  "default_app_binary_sha256": {
+    "Debug": "3542377b536bd1b2eca190dbff9bb94e77bb4813c55e97c420fbc3ce8d10b1cd",
+    "Release": "41739bf4353d9aae6c3802c1805df372c3cc2e6c68029d82d5e87aea1cdd7ad7"
+  },
+  "not_performed": [
+    "full optical regression rerun",
+    "new Zemax capture or numerical comparison",
+    "native desktop walkthrough",
+    "full product suite",
+    "installer validation"
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "date": "2026-10-02",
+  "scope": "Read-only recheck of existing operand-help hierarchy after stage 28; no source or test changes.",
+  "levels": [
+    "功能大类",
+    "操作数族",
+    "具体操作数"
+  ],
+  "categoryCount": 8,
+  "familyCount": 51,
+  "entryCount": 387,
+  "verification": {
+    "debug": {
+      "trx": {
+        "path": "artifacts/validation/operand-help-current-20261002/help-debug.trx",
+        "sha256": "fbf2c0e1a5b74847461a8b32d2095735cc44b607644b985f36d673e56f05905f",
+        "bytes": 29459
+      },
+      "total": 19,
+      "passed": 19,
+      "failed": 0,
+      "log": {
+        "path": "artifacts/validation/operand-help-current-20261002/debug.log",
+        "sha256": "9b1ca11a93e9f341f34d55a5cd4d10be6e8938fd5a6ad0bec9abc9eb6b4a9eee",
+        "bytes": 1401
+      }
+    },
+    "release": {
+      "trx": {
+        "path": "artifacts/validation/operand-help-current-20261002/help-release.trx",
+        "sha256": "d00cf4349cb7fabb2e62fb31bb448c27d45c8fff2292e7b5857c9867b3c07d8f",
+        "bytes": 29535
+      },
+      "total": 19,
+      "passed": 19,
+      "failed": 0,
+      "log": {
+        "path": "artifacts/validation/operand-help-current-20261002/release.log",
+        "sha256": "516b83f259e61cb9090ac96cd96e8fefb41dc8fa1b03c53295e2c0a67c141eb6",
+        "bytes": 1417
+      }
+    }
+  },
+  "testFilter": "FullyQualifiedName~OperandHelpTests|FullyQualifiedName~OperandAuthenticityTests|FullyQualifiedName~LayeringArchitectureTests.AppUiFontSizesUseTypographyTokens",
+  "sourceFiles": [
+    {
+      "path": "src/OptilandWorkbench.App/Panels/OperandHelpPanel.cs",
+      "sha256": "07926d39d2b54750748d0868808481d399b56b05e75a35cdec5354452a82ceb1",
+      "bytes": 22264
+    },
+    {
+      "path": "src/OptilandWorkbench.App/Panels/OperandHelpProjection.cs",
+      "sha256": "c5476a6bf45adc88497dd0234200fd1512b068e741f4f324252e90501fb06102",
+      "bytes": 3607
+    },
+    {
+      "path": "src/OptilandWorkbench.App/Panels/OperandHelpTaxonomy.cs",
+      "sha256": "1cddeadad1181f410fa752be6ec97c3a35da12fe4fed62a7a6f61c889a6e2ea7",
+      "bytes": 8338
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/OperandHelpTests.cs",
+      "sha256": "9891cf245a411803563a3e366a6febd6ca134277fe751599ae556377344d686f",
+      "bytes": 13984
+    }
+  ],
+  "documentation": [
+    {
+      "path": "docs/OPERAND_HELP_HIERARCHY_2026-10-01.md",
+      "sha256": "bd6f56d5b2459bf6fe1c3a07df0d963bef927ea2fc453dd8580e2ae910b8a319",
+      "bytes": 7197
+    },
+    {
+      "path": "docs/BUILD_AND_RELEASE.md",
+      "sha256": "6164118899e6213afbd34efa0126959c9fa5232c613b6bb18cca387295bc19fa",
+      "bytes": 151645
+    }
+  ],
+  "defaultAppBinaries": [
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "a486579b740d542ca858dfd1d925b32445a9096becdf1ca27bb3265896f23d39",
+      "bytes": 25725440
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "f476ae8bffb404387b19eb1ecae39eeacfe0081e7153b0d562384def6b465554",
+      "bytes": 25649152
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "artifacts/validation/operand-help-current-20261002/screenshots/operand-help-dark-grin-family.png",
+      "sha256": "f39f7f6eb5b6cdf595f5b1132cb6af9fb22fccd770cfbc679d054d4ce955a801",
+      "bytes": 180849
+    },
+    {
+      "path": "artifacts/validation/operand-help-current-20261002/screenshots/operand-help-dark-grin-search.png",
+      "sha256": "b668ffc8d036944027dfd8b85242f213066c00a2dd735105c2c3ec304f9b931d",
+      "bytes": 120846
+    },
+    {
+      "path": "artifacts/validation/operand-help-current-20261002/screenshots/operand-help-dark-narrow.png",
+      "sha256": "62973190991145e0528dbe2db50db2ccf3d1c05301bb4aa0e5e0f543932873c6",
+      "bytes": 106396
+    },
+    {
+      "path": "artifacts/validation/operand-help-current-20261002/screenshots/operand-help-dark-overview.png",
+      "sha256": "1b77743c0e4547a0bf5ba2e2b0f17050167a073633a84419fd824f8c6afa578e",
+      "bytes": 92927
+    },
+    {
+      "path": "artifacts/validation/operand-help-current-20261002/screenshots/operand-help-light-grin-family.png",
+      "sha256": "a05edc339d0f757a2b17f519da3f26250441b452888e0b490d876116e7bd412d",
+      "bytes": 175564
+    },
+    {
+      "path": "artifacts/validation/operand-help-current-20261002/screenshots/operand-help-light-grin-search.png",
+      "sha256": "bfc0f1c5fad183c4ef04450d76b3e8b1d41a3d3897e755fb00a2cb5f7942f386",
+      "bytes": 120337
+    },
+    {
+      "path": "artifacts/validation/operand-help-current-20261002/screenshots/operand-help-light-narrow.png",
+      "sha256": "5ac9ea74380e17de919517e113930f8a55777b1d762d7cc5cebe877b92757968",
+      "bytes": 106132
+    },
+    {
+      "path": "artifacts/validation/operand-help-current-20261002/screenshots/operand-help-light-overview.png",
+      "sha256": "2c534a73be95cf599852466bd380652f928447808a3882e95eabda55a41d1c11",
+      "bytes": 93140
+    }
+  ],
+  "visualReview": "Reviewed all eight current Avalonia/Skia frames: explicit levels, group nesting, separate support status, parent paths in search and narrow layout.",
+  "nativeDesktopWalkthrough": false,
+  "opticalEquivalenceCertification": false,
+  "fullRegressionRerun": false
+}

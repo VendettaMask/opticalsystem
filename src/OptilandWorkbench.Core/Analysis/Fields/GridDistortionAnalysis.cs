@@ -133,8 +133,7 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
                 var predictedRadius = Math.Sqrt((predicted.X * predicted.X) + (predicted.Y * predicted.Y));
                 if (predictedRadius > 1e-30)
                 {
-                    var actualRadius = Math.Sqrt((imageX * imageX) + (imageY * imageY));
-                    var distortion = 100 * (actualRadius - predictedRadius) / predictedRadius;
+                    var distortion = 100 * DistortionMetrics.SignedVectorDifference(imageX, imageY, predicted.X, predicted.Y) / predictedRadius;
                     if (Math.Abs(distortion) > Math.Abs(maximumDistortion))
                     {
                         maximumDistortion = distortion;

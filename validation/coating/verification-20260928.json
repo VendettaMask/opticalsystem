@@ -1,0 +1,348 @@
+{
+  "date": "2026-09-28",
+  "scope": "Daily coating design, not full product or cross-platform release certification",
+  "tests": [
+    {
+      "file": "artifacts/validation/coating-20260928/coating-daily-release.trx",
+      "sha256": "cbbcc29bce807ab9bcd470b857aa56781f3b863774688df86c7a974eaa3a8b3b",
+      "counters": {
+        "total": "44",
+        "executed": "44",
+        "passed": "44",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "file": "artifacts/validation/coating-20260928/coating-daily-debug.trx",
+      "sha256": "afd774665efdcb5d91fd15f18d6e076b85f7296d78f12f7940aa57ce831d52bd",
+      "counters": {
+        "total": "44",
+        "executed": "44",
+        "passed": "44",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "file": "artifacts/validation/coating-20260928/coating-daily-formal.trx",
+      "sha256": "7c73c961ff7b2c394935d8c4a9f536f8fb9ccfd13e426aafbd77d4d2e28381eb",
+      "counters": {
+        "total": "226",
+        "executed": "226",
+        "passed": "226",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    }
+  ],
+  "sources": {
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/App.cs": "17609d7f608f0c7046e110279cae6c4990aab461c63e64dad6901575c8aa45e5",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/MainWindow.Materials.cs": "1bebfd5aa0a5805149386fc3b63211b442caa8b9ae4538ab713905c211d4eff1",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/MainWindow.cs": "b247c77b55789de3cb3837396fad0e6bbfbc6e8c82f2b4efc44818cad0391425",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/MaterialEditorWindow.cs": "fe110d10d3f4dd4a5510430b1fdee2fde7872dd4d8c1e7fde845c7ccd1220827",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/OptilandWorkbench.CoatingDesign.App.csproj": "26102031f4d13dd0fe9a9e70a3bf879c6f6db266bbd7766bbafa70834d6e16ec",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/Program.cs": "95f39352bd82e811c1c36fb0ca8e557889d5b6eedb92f2d687f64ce7d9183f93",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/SpectrumPlot.cs": "58e050bb00b8dfe57b0281493a748204f560be83db0b78c8723ec4ccdc4ebb0a",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/packages.lock.json": "1bfc96dfba63abede2fa082433388fc901b6b929cfae7f036f827aac77d5145f",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/DesignService.Search.cs": "abde2889283fe90464374a1c3401bcf001ab99a88330127d68fd5bf5641229c4",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/DesignService.cs": "845b65e992c6650c42ea361241253a7544c2904bb9a68420f69f537f93c92233",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/Examples.cs": "fa82593542dfc0d4d4ad396afe92013e4b249dac9ae3ef132063e55b7d558ae7",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/Experiment.cs": "a689b05dff01327cb5321d0b56dc87a4a5163f2fd8b0139013461e84a2485655",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/ExperimentSession.cs": "d8ef9154a11e18e34af166c8eb948b5eb2c7697f06c7355c21a0adfde601ccd1",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/ExperimentStore.cs": "6960fc8b75f64d08468da19f8245053e5bf0314f7488bab3ccafb11c9418904d",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/MaterialLibrary.cs": "445b5908df89dc52e19b11410a3a30612ade384792092a9ba131483d663f28ea",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/MaterialTable.cs": "37e6e8f43226588b19e64d290534c724eeb2ff5817ca09d46e84ab0ac5d602dd",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/OptilandWorkbench.CoatingDesign.Engine.csproj": "fcab62da84dbff7f8235976f6e3b17068043bcbce6f60cb58d6a1ac79a94a05a",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/packages.lock.json": "f2ecb3478938f1449a89a8f4bff8e72cbb930fee6900e388047ac706dae782b0",
+    "labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/DailyDesignTests.cs": "5b597177caa59d7f5c5b40ce50b574aa3973499e79bef5ecb6ddf1a165a74930",
+    "labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/DesktopTests.cs": "9538b00517cd6d93e6a9b408c7c3747758d13f6b052d35e538f9b902baa0bb59",
+    "labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/OptilandWorkbench.CoatingDesign.Tests.csproj": "282ee3f46b9fbe9389c4548d60794c69ff3cb3c95d6d86ec9060470c27194957",
+    "labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/ThinFilmPhysicsTests.cs": "194f7e10daf3f67e474324dcc5815ad8d071a4c60c848a81d41211760bff8268",
+    "labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/WorkflowTests.cs": "834a430476144d527068488e60bb5945a7d14b60d0b00aeaaa05295d4f670715",
+    "labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/packages.lock.json": "04e614e3c600b97d5434115186bfc1832a47fdda8c9ee7b985076dfdc1ddb856",
+    "src/OptilandWorkbench.App/BrandAssets.cs": "f9495a64710317e6d683583aa1c3bba9ecaf49f46e274122f62710010efa3b33",
+    "src/OptilandWorkbench.App/Controls/ControlAvailability.cs": "dfdc9936e67ce6acbbb6a1cde598b1dab38df21a043302516bec99587ae24864",
+    "src/OptilandWorkbench.App/Controls/LocalIcon.cs": "99bf470f6da3f29ac1d16bae016933ff2f33558f1d35b9efaa75ca8de64783e7",
+    "src/OptilandWorkbench.App/Controls/UiDensity.cs": "d6b363ea3d465ab2fdf4dcdd195a00627411b8fe1f63122364a6b3c45794a566",
+    "src/OptilandWorkbench.App/Services/ThemeAssetBindings.cs": "9a7e92ce662b2f8eef7717b029d8c82d3d85db4f33313ae757356625279cf4b1",
+    "src/OptilandWorkbench.App/Services/ThemeLayoutResources.cs": "a9b60f5f06deb5822f9bc3fdd01441ae73298b4d38be895fe71706f3b10797b1",
+    "src/OptilandWorkbench.App/Services/ThemeResourceBindings.cs": "dc19e37edbc921af87fd2435e362a113e97797ae69741405e4424c7a52aecb74",
+    "src/OptilandWorkbench.App/Theming/BlueThemeStyles.cs": "f9c990fb5fa4156dfc44ed2bdcfd12e948d794284a09b3302d7a8aa859fe2683",
+    "src/OptilandWorkbench.App/Theming/BlueThemeTokens.cs": "74ba484023e7b2f445c097d3483778d8b7c3ce1eb240f9f77578fb4def5beab6",
+    "src/OptilandWorkbench.App/Theming/IsekaiTheme.cs": "7633ef9c28675c30510dd21d588756f44aa2c128a6c6464a488b89dd4f0d4f0f",
+    "src/OptilandWorkbench.App/Theming/IsekaiThemeDecorationRenderer.cs": "08d19b599a9f5be8cbde998c36b4967a1b7cb076798153d381a070d48c00a091",
+    "src/OptilandWorkbench.App/Theming/IsekaiThemeIconPack.cs": "e4b5baa2d7de3ca97180d59da744ba5829411600bafeb33a902095d9a5f4ff2a",
+    "src/OptilandWorkbench.App/Theming/LightTheme.cs": "cd43ee62ded4c8d55819a315a93932ea5eecebf49a352555a50880a899dbe5e0",
+    "src/OptilandWorkbench.App/Theming/MainWindowTitleBar.cs": "ec696853929504366a630d90d33a0cebb131fb72f400e936bb0b714ee567fb54",
+    "src/OptilandWorkbench.App/Theming/PixelTheme.cs": "81145eff64d0c1175cd0195b2090400b462df3de8a8280b424e40a9fd39568f6",
+    "src/OptilandWorkbench.App/Theming/PixelThemeDecorationRenderer.cs": "82f2c3d082ec6c71e524e361fe7217f05868d9c6d6f5bb5ffd5db0a37af62754",
+    "src/OptilandWorkbench.App/Theming/PixelThemeIconPack.cs": "912d06afdfe55f81af6a509b45410db7e5ef8c6072422d92c99372c88b9b0638",
+    "src/OptilandWorkbench.App/Theming/StandardActionButtonStyles.cs": "72c42fb3b234a7a23ace533e9d2e14584b0f4329d543d87f93e4ac0d5e862af2",
+    "src/OptilandWorkbench.App/Theming/ThemeApplicationService.cs": "7c42a7e725f06a43199fc3bae8e6d71f4ab1c0c0db04b9a534ccfa3be2abe388",
+    "src/OptilandWorkbench.App/Theming/ThemeChrome.cs": "f49587ff293de6f05c6985548a1599468747dfc0e83b7ac659e1dfcabb4291d8",
+    "src/OptilandWorkbench.App/Theming/ThemePalette.cs": "4248258444087ee0d4c91bd60ee0cf3201e660311c0e9776966cbe5c4b1406f9",
+    "src/OptilandWorkbench.App/Theming/ThemeRegistry.cs": "8bb8231cb077f0a495427590cd6414fb055217e4b0f4d9cdf7ee28e3c1a61612",
+    "src/OptilandWorkbench.Core/Coatings/CoatingModels.cs": "77332cf1e4a07b29e57b809b585f60ffd625252c1d916aa399bc6f313cdfcdec",
+    "src/OptilandWorkbench.Core/Coatings/CoherentThinFilmSolver.cs": "31967f56a6d0c7e3ed43b1c5f54601cbd32ca39d451469bfcc06b3e6d242acd0",
+    "src/OptilandWorkbench.Core/Coatings/ThinFilmSpectrum.cs": "b5939b61e8e70672c53febcb81c636a5614303cce72d3af6186660e6b2ddcc08",
+    "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/Data/films.json": "8943ce49029843865e0d8a9434426bf232acd62be833da9adc121c9b9dedd572"
+  },
+  "examples": [
+    {
+      "kind": "Antireflection",
+      "Name": "示例一 · 可见光减反膜",
+      "Passed": true,
+      "Metrics": {
+        "PeakWavelengthNanometers": 600,
+        "PeakTransmittance": 0.9601999078347645,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.00021016518139923418,
+        "MaximumReflectance": 0.0009030973810769321
+      },
+      "Checks": [
+        {
+          "Name": "层数",
+          "Actual": 8,
+          "Requirement": "≤ 8",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "2–2000",
+          "Passed": true
+        },
+        {
+          "Name": "波段最大 R (%)",
+          "Actual": 0.09030973810769322,
+          "Requirement": "≤ 2",
+          "Passed": true
+        }
+      ],
+      "SamplingConverged": true,
+      "VerificationSamples": 801,
+      "Run": {
+        "Algorithm": "结构枚举 + 多起点 Damped Least Squares",
+        "AlgorithmVersion": "bounded-structure-multistart/1",
+        "StopReason": "起点预算完成；达标由独立复验判定",
+        "Evaluations": 550,
+        "Iterations": 89,
+        "RandomSeed": 1234,
+        "SolverVersion": "coherent-scattering/1"
+      },
+      "ReopenIdentical": true
+    },
+    {
+      "kind": "HighReflector",
+      "Name": "示例二 · 550 nm 高反膜",
+      "Passed": false,
+      "Metrics": {
+        "PeakWavelengthNanometers": 520,
+        "PeakTransmittance": 0.0013979659762554638,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": 530.1196206048071,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.9573978235328912,
+        "MaximumReflectance": 0.9682679041848421
+      },
+      "Checks": [
+        {
+          "Name": "层数",
+          "Actual": 24,
+          "Requirement": "≤ 32",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "2–2000",
+          "Passed": true
+        },
+        {
+          "Name": "波段最低 R (%)",
+          "Actual": 95.73978235328912,
+          "Requirement": "≥ 98",
+          "Passed": false
+        }
+      ],
+      "SamplingConverged": true,
+      "VerificationSamples": 801,
+      "Run": {
+        "Algorithm": "结构枚举 + 多起点 Damped Least Squares",
+        "AlgorithmVersion": "bounded-structure-multistart/1",
+        "StopReason": "起点预算完成；达标由独立复验判定",
+        "Evaluations": 14419,
+        "Iterations": 480,
+        "RandomSeed": 1234,
+        "SolverVersion": "coherent-scattering/1"
+      },
+      "ReopenIdentical": true
+    },
+    {
+      "kind": "NarrowBand",
+      "Name": "示例三 · 550 nm 窄带滤光片",
+      "Passed": false,
+      "Metrics": {
+        "PeakWavelengthNanometers": 549.9597617056857,
+        "PeakTransmittance": 0.6929996678512258,
+        "LeftHalfMaximumNanometers": 540.2662584455353,
+        "RightHalfMaximumNanometers": 560.2275965567768,
+        "FwhmNanometers": 19.961338111241503,
+        "MinimumReflectance": 0.011512638119881603,
+        "MaximumReflectance": 0.8550013585725112
+      },
+      "Checks": [
+        {
+          "Name": "层数",
+          "Actual": 17,
+          "Requirement": "≤ 39",
+          "Passed": true
+        },
+        {
+          "Name": "物理厚度约束 (nm)",
+          "Actual": null,
+          "Requirement": "2–2000",
+          "Passed": true
+        },
+        {
+          "Name": "峰值位置 (nm)",
+          "Actual": 549.9597617056857,
+          "Requirement": "550 ± 0.5",
+          "Passed": true
+        },
+        {
+          "Name": "FWHM (nm)",
+          "Actual": 19.961338111241503,
+          "Requirement": "15 ± 1",
+          "Passed": false
+        },
+        {
+          "Name": "峰值 T (%)",
+          "Actual": 69.29996678512258,
+          "Requirement": "≥ 75",
+          "Passed": false
+        },
+        {
+          "Name": "截止 OD：490–510 nm",
+          "Actual": 0.9495968725842068,
+          "Requirement": "≥ 1",
+          "Passed": false
+        },
+        {
+          "Name": "截止 OD：590–610 nm",
+          "Actual": 1.0842923712993326,
+          "Requirement": "≥ 1",
+          "Passed": true
+        }
+      ],
+      "SamplingConverged": true,
+      "VerificationSamples": 9669,
+      "Run": {
+        "Algorithm": "结构枚举 + 多起点 Damped Least Squares",
+        "AlgorithmVersion": "bounded-structure-multistart/1",
+        "StopReason": "起点预算完成；达标由独立复验判定",
+        "Evaluations": 9934,
+        "Iterations": 480,
+        "RandomSeed": 1234,
+        "SolverVersion": "coherent-scattering/1"
+      },
+      "ReopenIdentical": true
+    }
+  ],
+  "nativeMac": {
+    "verified": [
+      "native window startup",
+      "generate AR",
+      "optimize AR",
+      "save with native file picker",
+      "switch example clears results",
+      "open saved experiment with native picker and recalculate",
+      "theme selection",
+      "material editor displayed"
+    ],
+    "file": "artifacts/validation/coating-20260928/native-verified.coating.json",
+    "fileSha256": "32e1a1d276b963d3fbe57b13040e2836b80e28c7c7cf01df45fef9f2beed8fa0",
+    "note": "Temporary bundle built from default Release apphost; native screenshots and AX operations are in task tool output. PNG files below are Headless Skia, not native screenshots.",
+    "testedBinaryHashes": {
+      "OptilandWorkbench.CoatingDesign.App.dll": "0d90646f2fa86465e396555ab66e08606d64d518bab302b85b7b41a71ad862d9",
+      "OptilandWorkbench.CoatingDesign.Engine.dll": "da9e1c425c2161bbb88a1236cc2bff78408a24bf91f4d164cc9c61ce6b4a94d9",
+      "OptilandWorkbench.Core.dll": "f2d036bc8ea3eefcf21a867c4e4c6f1720c89ec2c34d6b2635e67412fbbdd1b2"
+    },
+    "scopeNote": "Native workflow used the recorded bundle. Subsequent material-dialog font propagation and immutable plot-brush fixes were covered by final Debug/Release Headless tests; do not infer signed or cross-platform certification."
+  },
+  "renderedEvidence": {
+    "artifacts/validation/coating-20260928/ar-1200-900.png": "0dee2a7e61623d1f4ded052fedf33d802f5c71b39de402727fc985e8fc043fc8",
+    "artifacts/validation/coating-20260928/ar-820-640.png": "17837020cfd48ee07cd9efc1269913dce20feb50ad0db7ff47eb3d7183cf8f66",
+    "artifacts/validation/coating-20260928/ar-820-900.png": "7a07a91508272071663d6992b021b770eb00b3154f2cd460b1e2d75257f378e2",
+    "artifacts/validation/coating-20260928/material-editor.png": "3119b0b7f3e6a2bf5222c386f2736e3566bcfdbc96328835930996e3028d5b12",
+    "artifacts/validation/coating-20260928/narrow-1200-900.png": "98f350552f22cee91b43e9e1314609276c3d63d5c055c5417b969afb9cc9b2f2",
+    "artifacts/validation/coating-20260928/narrow-820-640.png": "3c09784af3ecda84631ac66e377d747c7de63f4a6a1f835aa0976c2a9b6d0d8c",
+    "artifacts/validation/coating-20260928/narrow-820-900.png": "3230fb1642a90d4b31c022f6cd274810cf868a8a78324c2657e76924fa50b822",
+    "artifacts/validation/coating-20260928/theme-0-820.png": "57ba074fe462aa00bdf51c1d206147293ab44bf189cf52eb5391d604089153c4",
+    "artifacts/validation/coating-20260928/theme-1-820.png": "a66fc57983e8129a221a3ffd73d26165ce1d5b83160ad91f9c59877e38efc6ae",
+    "artifacts/validation/coating-20260928/theme-2-820.png": "41c35a4c195c9fdd373f36cd7b57bf7d948fbdc76b3719e66ba35a9b260d89cc",
+    "artifacts/validation/coating-20260928/theme-3-820.png": "e0d9f8e88a0f87cc8b837143c62e9a5a47daa5085afcad53b1322eff6678f058",
+    "artifacts/validation/coating-20260928/theme-4-820.png": "11fd2ce5b13bf01260ea3d28de80f5f7d878db922bf471f1a498ab9fa5eca7ca"
+  },
+  "unsupported": [
+    "anisotropy",
+    "incoherent substrate backside",
+    "roughness/scattering",
+    "index/extinction tolerance and compensation",
+    "arbitrary target analytic multicavity synthesis",
+    "needle insertion",
+    "TFStudio file interchange",
+    "formal ray trace bridge",
+    "production control"
+  ],
+  "notVerified": [
+    "Windows/Linux native",
+    "signed installers",
+    "full formal test suite"
+  ],
+  "validationNotes": [
+    "An intermediate material-dialog run exposed a static mutable plot brush owned by an earlier headless UI dispatcher; immutable curve brushes fixed it. Final tests both pass.",
+    "An intermediate default build met an unfinished parallel Core merit-operand edit. It was not reverted; after that workspace edit was corrected, lab and formal targeted tests were rerun successfully."
+  ],
+  "documentationChecks": {
+    "documents": 17,
+    "localLinks": 937,
+    "missingLinks": 0
+  }
+}

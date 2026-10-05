@@ -1,0 +1,174 @@
+{
+  "date": "2026-09-30",
+  "scope": "Eleventh batch: generalized distortion, reference matrix, distortion upper bound, SMIA-TV and sagittal/tangential field curvature",
+  "registered": 383,
+  "executable_before": 243,
+  "executable_after": 249,
+  "compatibility_only_after": 134,
+  "added_codes": [
+    "ABCD",
+    "DIMX",
+    "DISG",
+    "FCGS",
+    "FCGT",
+    "SMIA"
+  ],
+  "cumulative_added_since_124": 125,
+  "verification": {
+    "debug": {
+      "total": 1281,
+      "passed": 1281,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 94,
+      "previous_batch_tests": 1173,
+      "additional_adjacent_tests": 14,
+      "trx": "eleventh-batch-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 1281,
+      "passed": 1281,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 94,
+      "previous_batch_tests": 1173,
+      "additional_adjacent_tests": 14,
+      "trx": "eleventh-batch-release.trx",
+      "log": "release.log"
+    }
+  },
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "support_boundaries": {
+    "common": "Focal image space only; unavailable/vignetted/invalid rays report errors.",
+    "distortion": "Current generalized grid-distortion Jacobian. Reference Field=0 means axial; DIMX Field=0 selects maximum radial defined field, never scans a global maximum. Maximum angular field must be below 90 degrees. Real image fields use formal launch conversion.",
+    "signed_wave": "DISG Wave positive: percent, negative: absolute index plus signed mm; zero is a storable editing placeholder but evaluation rejects it; Int32.MinValue rejected. Typed SignedWavelength survives UI/import/snapshot validation.",
+    "smia": "Six real chief rays; full X/Y width; Axial reference only; off-axis reference rejected pending native convention validation. Rectangle must stay within defined normalized [-1,1] field limits. Missing/vignetted rays error rather than successful zero.",
+    "field_curvature": "Formal parabasal trace +/-1e-5. Tangential uses physical radial direction, tangent of angles for angular fields; sagittal orthogonal. Planar untilted image only, with image Z rotation supported. Parallel rays error.",
+    "known_residual": "FCGT fixed captured-angle comparison has up to 2.16e-5 mm residual. Accuracy target stays 1e-5 mm and comparison status is Difference. A separate 3e-5 mm regression budget only bounds this known error; it is not native parity.",
+    "not_added": "DIST/DISA/DISC/ZERN and other remaining codes retain compatibility-only status."
+  },
+  "external_reference": {
+    "integrity": "Nine selected baseline assets byte-equal committed HEAD; not entire baseline audit.",
+    "recalculation": "Current formal Core recalculation plus existing fixed-fixture regressions with captured file/settings/version.",
+    "numerical_comparison": {
+      "debug": {
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm",
+          "samples": 9
+        },
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm",
+          "samples": 9
+        },
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        }
+      },
+      "release": {
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm",
+          "samples": 9
+        },
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm",
+          "samples": 9
+        }
+      }
+    },
+    "sampling": "For each of three captured wavelengths, axial, half and maximum captured angular field; nine samples per operand, not a complete curve certification.",
+    "new_native_capture": "None; analysis-capture comparison is not native MFE slot or full numerical equivalence proof.",
+    "screenshots": "No screenshot review."
+  },
+  "remaining_category_counts_overlap": true,
+  "unique_remaining": 134,
+  "not_performed": [
+    "full product suite",
+    "laboratory full suites",
+    "full external comparison matrix",
+    "new Zemax captures",
+    "native desktop walkthrough",
+    "screenshot review",
+    "installer validation"
+  ],
+  "historical_reference": "Frozen assets untouched; no new Optiland comparisons",
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Services/DistortionMetrics.cs": "6811e3d56524573d4b0d7b955af636e694aaa9c750b8b982cf963a178d9ac25b",
+    "src/OptilandWorkbench.Core/Services/FieldCurvatureMetrics.cs": "aa3bffd09d8c9b642a9c1873e93c3c7a39c0405a2620d0860eee54ada28b7db7",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.Distortion.cs": "f799947e21ae1a468ccfe60b91af012fce94f9db7a2e8daaf7eca9f3624587a2",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "4b0835d805929d2b38be23794585b0a208ec638c40caf6458d174cda01a964bc",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "e93d1b5e534deee1b229b53434b01943620c1984c0107770927044d6f68dfca9",
+    "src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs": "88c28dea64bc78c76204b53be3b4c970957b1cb8dbc0157149cf107021ed4d64",
+    "src/OptilandWorkbench.Core/Analysis/Shared/AnalysisTrace.cs": "857131e910b3b272c874aba2c2a22003f6c779435c2cce7820e055b2531f05b5",
+    "src/OptilandWorkbench.Core/Analysis/Fields/DistortionAnalyses.cs": "9c305a2046234d530bf175d2d54025079e4c78a1ebecfd4f4e49fa9185b06248",
+    "src/OptilandWorkbench.Application/Services/OptimizationService.cs": "8bbe36cbbf12fd6b82561c7754c610bffaffddae7eb28a2c68b8f258f4788bd5",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "89b6aeaaf9738fa4554acb84a2ded76e70086ecb08c9dbdb725bca1d5ba3095f",
+    "src/OptilandWorkbench.App/Panels/OperandHelpPanel.cs": "8f3db79c001ce637cc6e695529c5d94a6eb8c1880448493caa14047aae41fb67",
+    "tests/OptilandWorkbench.Tests/DistortionOperandTests.cs": "b5b9fa94cb26964f7e3ccafaa744f984412edbad69bcbd76310e7df7e4dc741f",
+    "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs": "3e55da8bf10bbe36ebbfdd60d8e29435fda4d1ebfbadfd365693d5c762416d77",
+    "tests/OptilandWorkbench.Tests/OpticSnapshotValidationTests.cs": "3a732de9d3ab4a72c6db9345c823ea79626da68c5896f87a3006e327b78db371",
+    "tests/OptilandWorkbench.Tests/OperandHelpTests.cs": "17a717fdfca672e5bcc2ee0c3c89075610642cd77e9bc7c2c576978f620ff419",
+    "tests/OptilandWorkbench.Tests/OptilandParityTests.cs": "8afca952d24c21c71fe89976d9ca85687bd332b9352cbb9a7a6b205f9e51aa48",
+    "tests/OptilandWorkbench.Tests/WorkbenchApplicationTests.cs": "d59d93c8f9410c742bec0718368073a07d992f9dd262fdee94b5cd8e752313cd"
+  },
+  "selected_capture_sha256": {
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.txt": "dbb741fc9f07d6d55a9d7d6acdad2bfe91f45e3b5b365bb14c51e1d6b8f2a6f0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/049-rmsfield/data.json": "7badd81b3adbd9bd694e4cabfce3d58e45c863866ed77d4337a33f3321290e87",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/052-rmsfocus/data.json": "a90eabe523007f995e10c685622025b34d47c87b25d627e56ddda16020765240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/055-wavefrontmap/data.json": "e9cfe98cfb64ec684976ee786fd33b8844d24995be084941bedbe7537c911e62",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/data.json": "ef6a44cbe999be4ae54c8d2b8dc3854434e0565b9bd28266138eeebcc900f57a",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/025-huygensmtfvsfield/data.json": "9b00c750481cb73adb741f47c00ca66232dd3374765e2fa68a59bca1c6c99323",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/028-huygensthroughfocusmtf/data.json": "dc115e8bd603af3b3a1686fe7c2c0ec4530d9220d235c5af1ce0cd9004147240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/004-fieldcurvatureanddistortion/data.json": "a93a1aeff36e6bf4856ff41ad22844022b8dcc6cbde2a8038853da1d3090bd73"
+  },
+  "default_binary_sha256": {
+    "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll": "596e3aa7247a59e50449edc4af29147e04f6cd6b77d3cc354499edb22f08a3ea",
+    "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll": "27db7a2666929e22b6cf2d4f89a606d8a4267c6b49dae343ccd246eb9baf4784",
+    "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll": "8c4f0b2b59eda37cfc24d0f1e2e7e88e188e798a59aca2e9189ad86eedfe5718",
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "8e1d4ef4cf598c719cf6ba0825207c65074cbad3614d2752f816ca486b25960b",
+    "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll": "07aad96c0b2da127324f08df7b17973f395352860ca0063e9ad65e2c3eb442be",
+    "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll": "a25a756897702761077505aa9182efc0fab57891505ad95cc23df36ceca13d5e"
+  },
+  "new_document_links_checked": 39
+}

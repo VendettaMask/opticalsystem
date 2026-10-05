@@ -27,7 +27,10 @@ public sealed record LoadedOpticalDocument(
     IReadOnlyList<Optic> Configurations,
     int ActiveConfigurationIndex,
     IReadOnlyList<MultiConfigurationLinkOverride>? BrokenLinks = null,
-    NonSequentialDocument? NonSequentialDocument = null);
+    NonSequentialDocument? NonSequentialDocument = null,
+    IReadOnlyList<MultiConfigurationOperand>? OperandRows = null,
+    IReadOnlyList<MultiConfigurationVariable>? OperandVariables = null,
+    IReadOnlyList<MultiConfigurationPickup>? OperandPickups = null);
 
 [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 public partial class WorkbenchRuntime

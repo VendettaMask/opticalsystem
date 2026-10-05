@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="3a688351-f033-4a82-aede-ca568295e45b" name="@starlabdeMacBook-Air 2026-10-05 16:21:20" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-05T16:21:20.6378130+08:00" queuing="2026-10-05T16:21:20.6378130+08:00" start="2026-10-05T16:21:17.1450270+08:00" finish="2026-10-05T16:21:21.0746960+08:00" />
+  <TestSettings name="default" id="72753fef-7dfa-4e4a-a484-212fe8040335">
+    <Deployment runDeploymentRoot="_starlabdeMacBook-Air_2026-10-05_16_21_20" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="c82c6c35-e491-443d-9f78-95a215fd060c" testId="661ab375-99b5-6778-3eda-e18e4ffdeca0" testName="OptilandWorkbench.Tests.CompactSidebarTests.ExpandedSystemEditorsFitWithoutHorizontalScrolling(width: 240, scaling: 1)" computerName="starlabdeMacBook-Air" duration="00:00:00.8285435" startTime="2026-10-05T16:21:20.2251290+08:00" endTime="2026-10-05T16:21:21.0493670+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c82c6c35-e491-443d-9f78-95a215fd060c">
+      <Output>
+        <ErrorInfo>
+          <Message>Light/240/current/SCHOTT: item right 192, visible right 176, item 0, 0, 192, 42, viewport 0, 0, 192, 130, min width 0</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.CompactSidebarTests.&lt;&gt;c__DisplayClass1_0.&lt;ExpandedSystemEditorsFitWithoutHorizontalScrolling&gt;b__0() in /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/CompactSidebarTests.cs:line 109
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;Dispatch&gt;b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+--- End of stack trace from previous location ---
+   at OptilandWorkbench.Tests.CompactSidebarTests.ExpandedSystemEditorsFitWithoutHorizontalScrolling(Double width, Double scaling) in /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/CompactSidebarTests.cs:line 36
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b84b0cbb-a544-4258-946c-90b8cc5047d7" testId="b73c416b-d56f-a332-e7cd-c5a84406ce6a" testName="OptilandWorkbench.Tests.CompactSidebarTests.ExpandedSystemEditorsFitWithoutHorizontalScrolling(width: 280, scaling: 2)" computerName="starlabdeMacBook-Air" duration="00:00:02.3940391" startTime="2026-10-05T16:21:17.8201880+08:00" endTime="2026-10-05T16:21:20.2203670+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b84b0cbb-a544-4258-946c-90b8cc5047d7">
+      <Output>
+        <ErrorInfo>
+          <Message>Light/280/current/SCHOTT: item right 232, visible right 216, item 0, 0, 232, 42, viewport 0, 0, 232, 130, min width 0</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.CompactSidebarTests.&lt;&gt;c__DisplayClass1_0.&lt;ExpandedSystemEditorsFitWithoutHorizontalScrolling&gt;b__0() in /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/CompactSidebarTests.cs:line 109
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;Dispatch&gt;b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+--- End of stack trace from previous location ---
+   at OptilandWorkbench.Tests.CompactSidebarTests.ExpandedSystemEditorsFitWithoutHorizontalScrolling(Double width, Double scaling) in /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/CompactSidebarTests.cs:line 36
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.CompactSidebarTests.ExpandedSystemEditorsFitWithoutHorizontalScrolling(width: 240, scaling: 1)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="661ab375-99b5-6778-3eda-e18e4ffdeca0">
+      <Execution id="c82c6c35-e491-443d-9f78-95a215fd060c" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.CompactSidebarTests" name="ExpandedSystemEditorsFitWithoutHorizontalScrolling" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.CompactSidebarTests.ExpandedSystemEditorsFitWithoutHorizontalScrolling(width: 280, scaling: 2)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="b73c416b-d56f-a332-e7cd-c5a84406ce6a">
+      <Execution id="b84b0cbb-a544-4258-946c-90b8cc5047d7" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.CompactSidebarTests" name="ExpandedSystemEditorsFitWithoutHorizontalScrolling" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="661ab375-99b5-6778-3eda-e18e4ffdeca0" executionId="c82c6c35-e491-443d-9f78-95a215fd060c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b73c416b-d56f-a332-e7cd-c5a84406ce6a" executionId="b84b0cbb-a544-4258-946c-90b8cc5047d7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.07]   Discovering: OptilandWorkbench.Tests
+[xUnit.net 00:00:00.30]   Discovered:  OptilandWorkbench.Tests
+[xUnit.net 00:00:00.31]   Starting:    OptilandWorkbench.Tests
+[xUnit.net 00:00:02.72]       Light/280/current/SCHOTT: item right 232, visible right 216, item 0, 0, 232, 42, viewport 0, 0, 232, 130, min width 0
+[xUnit.net 00:00:02.72]       Stack Trace:
+[xUnit.net 00:00:02.72]         /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/CompactSidebarTests.cs(109,0): at OptilandWorkbench.Tests.CompactSidebarTests.&lt;&gt;c__DisplayClass1_0.&lt;ExpandedSystemEditorsFitWithoutHorizontalScrolling&gt;b__0()
+[xUnit.net 00:00:02.72]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;Dispatch&gt;b__0()
+[xUnit.net 00:00:02.72]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+[xUnit.net 00:00:02.72]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.72]         /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/CompactSidebarTests.cs(36,0): at OptilandWorkbench.Tests.CompactSidebarTests.ExpandedSystemEditorsFitWithoutHorizontalScrolling(Double width, Double scaling)
+[xUnit.net 00:00:02.72]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:03.55]       Light/240/current/SCHOTT: item right 192, visible right 176, item 0, 0, 192, 42, viewport 0, 0, 192, 130, min width 0
+[xUnit.net 00:00:03.55]       Stack Trace:
+[xUnit.net 00:00:03.55]         /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/CompactSidebarTests.cs(109,0): at OptilandWorkbench.Tests.CompactSidebarTests.&lt;&gt;c__DisplayClass1_0.&lt;ExpandedSystemEditorsFitWithoutHorizontalScrolling&gt;b__0()
+[xUnit.net 00:00:03.55]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;Dispatch&gt;b__0()
+[xUnit.net 00:00:03.55]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+[xUnit.net 00:00:03.55]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:03.55]         /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/CompactSidebarTests.cs(36,0): at OptilandWorkbench.Tests.CompactSidebarTests.ExpandedSystemEditorsFitWithoutHorizontalScrolling(Double width, Double scaling)
+[xUnit.net 00:00:03.55]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:03.55]   Finished:    OptilandWorkbench.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="starlabdeMacBook-Air" outcome="Error" timestamp="2026-10-05T16:21:20.2215380+08:00">
+        <Text>[xUnit.net 00:00:02.72]     OptilandWorkbench.Tests.CompactSidebarTests.ExpandedSystemEditorsFitWithoutHorizontalScrolling(width: 280, scaling: 2) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="starlabdeMacBook-Air" outcome="Error" timestamp="2026-10-05T16:21:21.0496620+08:00">
+        <Text>[xUnit.net 00:00:03.55]     OptilandWorkbench.Tests.CompactSidebarTests.ExpandedSystemEditorsFitWithoutHorizontalScrolling(width: 240, scaling: 1) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

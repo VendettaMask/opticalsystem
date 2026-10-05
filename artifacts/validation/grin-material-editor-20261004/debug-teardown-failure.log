@@ -1,0 +1,25 @@
+/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:07:04.18]     OptilandWorkbench.Tests.FieldCurvatureFooterTests.ProductAndDocumentRegionKeepsTheSameBoundsAcrossAnalysisKinds(width: 600, theme: "Light") [FAIL]
+  失败 OptilandWorkbench.Tests.FieldCurvatureFooterTests.ProductAndDocumentRegionKeepsTheSameBoundsAcrossAnalysisKinds(width: 600, theme: "Light") [4 ms]
+  错误消息:
+   System.AggregateException : One or more errors occurred. (The collection argument is empty and has been marked as complete with regards to additions.)
+---- System.InvalidOperationException : The collection argument is empty and has been marked as complete with regards to additions.
+  堆栈跟踪:
+     at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait()
+   at Avalonia.Headless.HeadlessUnitTestSession.Dispose()
+   at OptilandWorkbench.Tests.SafeHeadlessUnitTestSession.Dispose() in /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/WavefrontSurfaceRenderTests.cs:line 131
+   at OptilandWorkbench.Tests.FieldCurvatureFooterTests.ProductAndDocumentRegionKeepsTheSameBoundsAcrossAnalysisKinds(Double width, String theme) in /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/FieldCurvatureFooterTests.cs:line 121
+   at OptilandWorkbench.Tests.FieldCurvatureFooterTests.ProductAndDocumentRegionKeepsTheSameBoundsAcrossAnalysisKinds(Double width, String theme)
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at System.Collections.Concurrent.BlockingCollection`1.Take(CancellationToken cancellationToken)
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass18_0.<StartNew>b__0()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+结果文件: /Users/starlab/Documents/opticalsystem/artifacts/validation/grin-material-editor-20261004/debug.trx
+
+失败!  - 失败:     1，通过:  3425，已跳过:     0，总计:  3426，持续时间: 7 m 5 s - OptilandWorkbench.Tests.dll (net10.0)

@@ -33,6 +33,100 @@ public sealed class SurfacePropertiesPanelTests
     }
 
     [Fact]
+    public async Task StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload()
+    {
+        using var session = HeadlessUnitTestSession.StartNew(typeof(SurfacePropertiesPanelTests));
+        await session.Dispatch(async () =>
+        {
+            using var application = WorkbenchApplication.Create("cooke");
+            using var editor = new LensEditorPanel(application.Prescription, application.Events, new SurfaceSelectionService());
+            var window = new Window { Width = 1200, Height = 780, Content = editor };
+            var path = Path.Combine(Path.GetTempPath(), $"standard-plane-{Guid.NewGuid():N}.staropt");
+            try
+            {
+                window.Show();
+                Render(window);
+                Click(Find<Button>(editor, "SurfacePropertiesToggle"));
+                Render(window);
+                var grid = Find<DataGrid>(editor, "LensSurfaceGrid");
+                var geometry = Find<ComboBox>(editor, "SurfaceGeometry");
+                var apply = Find<Button>(editor, "ApplySurfaceProperties");
+                Assert.Single(geometry.Items.Cast<string>(), item => item == "标准面");
+                Assert.DoesNotContain("平面", geometry.Items.Cast<string>());
+                Assert.DoesNotContain("标准球面/圆锥", geometry.Items.Cast<string>());
+                Assert.Contains("平面光栅", geometry.Items.Cast<string>());
+
+                foreach (var number in new[] { 0, application.Prescription.GetSurfaces().Count - 1 })
+                {
+                    grid.SelectedItem = grid.ItemsSource.Cast<SurfaceEditorRow>().Single(row => row.Number == number);
+                    Render(window);
+                    var before = application.Prescription.GetSurfaces()[number];
+                    Assert.Equal("标准面", geometry.SelectedItem);
+                    MouseClick(window, apply);
+                    var after = application.Prescription.GetSurfaces()[number];
+                    Assert.Equal(before.GeometryKind, after.GeometryKind);
+                    Assert.Equal(before.Radius, after.Radius);
+                    Assert.Equal(before.Conic, after.Conic);
+                    Assert.Equal(before.Thickness, after.Thickness);
+                }
+
+                grid.SelectedItem = grid.ItemsSource.Cast<SurfaceEditorRow>().Single(row => row.Number == 1);
+                grid.ScrollIntoView(grid.SelectedItem, grid.Columns[3]);
+                Render(window);
+                void EditRadiusAndApply(string text)
+                {
+                    var radius = grid.GetVisualDescendants().OfType<DataGridRow>()
+                        .Single(row => row.DataContext is SurfaceEditorRow { Number: 1 })
+                        .GetVisualDescendants().OfType<Grid>().Single(cell => cell.Name == "RadiusSolveCell")
+                        .GetVisualDescendants().OfType<TextBox>().Single();
+                    radius.Focus();
+                    radius.SelectAll();
+                    window.KeyTextInput(text);
+                    // Applying immediately after numeric LostFocus must not restore an old geometry.
+                    MouseClick(window, apply);
+                    Assert.Equal("标准面", geometry.SelectedItem);
+                    Assert.Equal("标准面", Assert.IsType<SurfaceEditorRow>(grid.SelectedItem).SurfaceType);
+                }
+
+                EditRadiusAndApply("∞");
+                Assert.Equal(0, application.Prescription.GetSurfaces()[1].Radius);
+                Assert.Equal("无限", Assert.IsType<SurfaceEditorRow>(grid.SelectedItem).RadiusDisplay);
+                Capture(window, "standard-surface-infinite-radius.png");
+                EditRadiusAndApply("25.5");
+                Assert.Equal(25.5, application.Prescription.GetSurfaces()[1].Radius);
+                Assert.True(application.Documents.Undo()); // Component apply.
+                Assert.True(application.Documents.Undo()); // Radius edit.
+                Render(window);
+                Assert.Equal(0, application.Prescription.GetSurfaces()[1].Radius);
+                Assert.Equal("标准面", geometry.SelectedItem);
+                Assert.True(application.Documents.Redo());
+                Assert.True(application.Documents.Redo());
+                Render(window);
+                Assert.Equal(25.5, application.Prescription.GetSurfaces()[1].Radius);
+
+                geometry.SelectedItem = "平面光栅";
+                MouseClick(window, apply);
+                Assert.Equal("平面光栅", geometry.SelectedItem);
+                geometry.SelectedItem = "标准面";
+                MouseClick(window, apply);
+                Assert.Equal(0, application.Prescription.GetSurfaces()[1].Radius);
+                Assert.False(Find<StackPanel>(editor, "SurfaceGratingProperties").IsVisible);
+                await application.Documents.SaveAsync(path);
+                await application.Documents.OpenAsync(path);
+                Render(window);
+                Assert.Equal(0, application.Prescription.GetSurfaces()[1].Radius);
+                Assert.Equal("标准面", geometry.SelectedItem);
+                return true;
+            }
+            finally
+            {
+                window.Close();
+                if (File.Exists(path)) File.Delete(path);
+            }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
     public async Task MechanicalSemiDiameterUsesDisplayPrecisionInGridAndDrawingSummaryWithoutChangingData()
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(SurfacePropertiesPanelTests));
@@ -268,7 +362,7 @@ public sealed class SurfacePropertiesPanelTests
                 Click(Find<Button>(editor, "RevertSurfaceProperties"));
                 window.UpdateLayout();
                 Assert.False(grating.IsVisible);
-                Assert.Equal("标准球面/圆锥", geometry.SelectedItem);
+                Assert.Equal("标准面", geometry.SelectedItem);
 
                 foreach (var theme in new[] { "Light", "Dark", IsekaiTheme.SettingsValue, PixelTheme.SettingsValue })
                 {

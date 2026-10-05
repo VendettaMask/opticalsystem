@@ -20,7 +20,12 @@ public sealed record OpticSnapshot(
     bool RayAimingEnabled = false,
     bool ImageSpaceAfocal = false,
     List<SurfaceValuePickupSnapshot>? ThicknessPickups = null,
-    List<SurfaceValuePickupSnapshot>? SemiDiameterPickups = null);
+    List<SurfaceValuePickupSnapshot>? SemiDiameterPickups = null,
+    int GlobalReferenceSurfaceNumber = 1,
+    PolarizationSnapshot? Polarization = null);
+
+public sealed record PolarizationSnapshot(bool Unpolarized, double Jx, double Jy,
+    double XPhaseDegrees, double YPhaseDegrees, string ReferenceAxis);
 
 public sealed record EnvironmentSnapshot(
     bool MatchRefractiveIndexData = true,
@@ -62,7 +67,10 @@ public sealed record FieldPointSnapshot(
     double YAngleDegrees,
     double Weight,
     double VignetteFactorX = 0,
-    double VignetteFactorY = 0);
+    double VignetteFactorY = 0,
+    double VignetteDecenterX = 0,
+    double VignetteDecenterY = 0,
+    double VignetteAngleDegrees = 0);
 
 public sealed record WavelengthSnapshot(
     string Label,
@@ -104,7 +112,9 @@ public sealed record SurfaceSnapshot(
     CoordinateSystemSnapshot? CoordinateSystem = null,
     double? MechanicalSemiDiameter = null,
     int MechanicalSemiDiameterSolveCode = 0,
-    bool SemiDiameterDefinesPhysicalAperture = false);
+    bool SemiDiameterDefinesPhysicalAperture = false,
+    double? ThermalExpansionPpmPerC = null,
+    double ChipZone = 0);
 
 public sealed record CoordinateSystemSnapshot(
     double OriginX,

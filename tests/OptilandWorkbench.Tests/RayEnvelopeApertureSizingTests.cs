@@ -12,6 +12,21 @@ public sealed class RayEnvelopeApertureSizingTests
     private static readonly PupilSample[] Pupils = [new(0, 0, 1), new(0, 1, 1), new(0, -1, 1), new(1, 0, 1), new(-1, 0, 1)];
 
     [Fact]
+    public void MechanicalEnvelopeIncludesExistingChipZonesWithoutEnlargingTraceApertures()
+    {
+        var optic = Plate(); optic.SurfaceGroup.Items[1].ChipZone = 1;
+        optic.SurfaceGroup.Items[2].ChipZone = 2;
+        var result = Size(optic, 0); Assert.True(result.Applied);
+        foreach (var surface in optic.SurfaceGroup.Items.Skip(1).Take(2))
+        {
+            Assert.Equal(2.2, surface.SemiDiameter, 10);
+            Assert.Equal(4.2, surface.MechanicalSemiDiameter, 10);
+            Assert.Equal(2.2, Assert.IsType<CircularAperture>(surface.PhysicalAperture).Radius, 10);
+        }
+        Assert.Equal(1, optic.SurfaceGroup.Items[1].ChipZone); Assert.Equal(2, optic.SurfaceGroup.Items[2].ChipZone);
+    }
+
+    [Fact]
     public void EnvelopeGrowsAndShrinksBothFacesFromTheCurrentBeam()
     {
         var optic = Plate();

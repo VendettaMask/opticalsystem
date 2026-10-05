@@ -42,6 +42,12 @@ internal static class ZemaxZmxReader
         var configuredSurfaces = ConfigureSurfaces(document, configurationIndex);
         var converted = ConvertSurfaces(optic, configuredSurfaces, document.GlassCatalogs);
         InstallConvertedSurfaces(optic, converted);
+        var sourceSurfaceNumbers = configuredSurfaces
+            .Where(surface => !surface.Type.Equals("COORDBRK", StringComparison.OrdinalIgnoreCase))
+            .Select(surface => surface.Number).ToArray();
+        optic.GlobalReferenceSurfaceNumber = Array.IndexOf(sourceSurfaceNumbers, document.GlobalReferenceSurfaceNumber);
+        if (optic.GlobalReferenceSurfaceNumber < 0)
+            throw new NotSupportedException($"全局参考面 {document.GlobalReferenceSurfaceNumber} 不存在或为坐标断点；不能转换到物理表面。");
         InstallSemiDiameterPickups(optic, configuredSurfaces);
 
         ConfigureAperture(optic, document, configurationIndex);
@@ -217,6 +223,9 @@ internal static class ZemaxZmxReader
                     document.RayAimingEnabled = tokens.Length > 2
                         && RequiredInt(tokens, 2, command) != 0;
                     break;
+                case "GLRS":
+                    document.GlobalReferenceSurfaceNumber = RequiredInt(tokens, 1, command);
+                    break;
                 case "FTYP":
                     ReadConfiguration(document, tokens);
                     break;
@@ -247,8 +256,13 @@ internal static class ZemaxZmxReader
                         Math.Abs(ScaleLength(document, RequiredDouble(tokens, 1, command)));
                     break;
                 case "VDXN":
+                    document.VignetteDecenterX = ReadValues(tokens, 1, document.FieldCount);
+                    break;
                 case "VDYN":
+                    document.VignetteDecenterY = ReadValues(tokens, 1, document.FieldCount);
+                    break;
                 case "VANN":
+                    document.VignetteAngle = ReadValues(tokens, 1, document.FieldCount);
                     break;
                 case "WAVM":
                     ReadWavelength(document, tokens);
@@ -300,6 +314,8 @@ internal static class ZemaxZmxReader
                 case "RSRH":
                     ReadRmsSpotMeritOperand(document, tokens, command);
                     break;
+                case "CENX":
+                case "CENY":
                 case "MECS":
                 case "MECT":
                 case "EFFL":
@@ -311,6 +327,92 @@ internal static class ZemaxZmxReader
                 case "EXPD":
                 case "ISNA":
                 case "ISFN":
+                    ReadStandardMeritOperand(document, tokens, command);
+                    break;
+                // These native parameter layouts still require captured-file validation.
+                case "RRET":
+                case "CMGT":
+                case "CMLT":
+                case "CMVA":
+                case "CIGT":
+                case "CILT":
+                case "CIVA":
+                case "CEGT":
+                case "CELT":
+                case "CEVA":
+                case "CODA":
+                case "HYLD":
+                case "DLTN":
+                case "GRMN":
+                case "GRMX":
+                case "I1GT":
+                case "I1LT":
+                case "I1VA":
+                case "I2GT":
+                case "I2LT":
+                case "I2VA":
+                case "I3GT":
+                case "I3LT":
+                case "I3VA":
+                case "I4GT":
+                case "I4LT":
+                case "I4VA":
+                case "I5GT":
+                case "I5LT":
+                case "I5VA":
+                case "I6GT":
+                case "I6LT":
+                case "I6VA":
+                case "BFSD":
+                case "TSAG":
+                case "RELI":
+                case "EFNO":
+                case "DIST":
+                case "DISA":
+                case "MECA":
+                case "ZERN":
+                case "FDMO":
+                case "FDRE":
+                case "PRIM":
+                case "SVIG":
+                case "IMSF":
+                case "SPHS":
+                case "PSLP":
+                case "DPHS":
+                case "QSLP":
+                case "DENC":
+                case "DENF":
+                case "SSAG":
+                case "SSLP":
+                case "SCRV":
+                case "GENC":
+                case "GENF":
+                case "ERFP":
+                case "VOLU":
+                case "TMAS":
+                case "DSAG":
+                case "DSLP":
+                case "DCRV":
+                // The native surface TCE record has not been validated against a capture.
+                case "TCVA":
+                case "TCGT":
+                case "TCLT":
+                    ReadPreservedMeritOperand(document, tokens, command);
+                    break;
+                case "MTHA":
+                case "MTHS":
+                case "MTHT":
+                case "MTHN":
+                case "MTHX":
+                case "MNRE":
+                case "MNRI":
+                case "MXRE":
+                case "MXRI":
+                    // Native extended MFE text layout has not been validated against a capture.
+                    // Keep the exact record instead of silently losing the seventh parameter.
+                    ReadPreservedMeritOperand(document, tokens, command);
+                    break;
+                case "TFNO":
                 case "SFNO":
                 case "WFNO":
                 case "WLEN":
@@ -407,7 +509,11 @@ internal static class ZemaxZmxReader
                 case "OPVA":
                     ReadMathMeritOperand(document, tokens, command);
                     break;
+                case "MCOV":
+                case "MCOG":
+                case "MCOL":
                 case "CONF":
+                case "ZTHI":
                     ReadPreservedMeritOperand(document, tokens, command);
                     break;
                 case "MNUM":
@@ -494,9 +600,12 @@ internal static class ZemaxZmxReader
                         : string.Empty;
                     break;
                 default:
-                    if (ZemaxOperandRegistry.TryGet(command, out _))
+                    if (ZemaxOperandRegistry.TryGet(command, out var operandDescriptor))
                     {
-                        ReadPreservedMeritOperand(document, tokens, command);
+                        if (operandDescriptor.SupportLevel == ZemaxOperandSupportLevel.Executable)
+                            ReadSystemMeritOperand(document, tokens, command);
+                        else
+                            ReadPreservedMeritOperand(document, tokens, command);
                     }
                     break;
             }
@@ -660,6 +769,7 @@ internal static class ZemaxZmxReader
             var surface = new OpticalSurface
             {
                 Number = index,
+                ThermalExpansionPpmPerC = null,
                 Label = SurfaceLabel(source, index, sourceSurfaces),
                 Radius = legacyRadius,
                 Thickness = thickness,
@@ -872,6 +982,9 @@ internal static class ZemaxZmxReader
                 ValueAt(document.FieldWeights, index, 1),
                 ValueAt(document.VignetteX, index),
                 ValueAt(document.VignetteY, index),
+                ValueAt(document.VignetteDecenterX, index),
+                ValueAt(document.VignetteDecenterY, index),
+                ValueAt(document.VignetteAngle, index),
                 document.FieldComments.GetValueOrDefault(index + 1, string.Empty)))
             .ToArray();
 
@@ -889,7 +1002,10 @@ internal static class ZemaxZmxReader
                 Y = field.Y,
                 Weight = field.Weight,
                 VignetteFactorX = field.VignetteX,
-                VignetteFactorY = field.VignetteY
+                VignetteFactorY = field.VignetteY,
+                VignetteDecenterX = field.VignetteDecenterX,
+                VignetteDecenterY = field.VignetteDecenterY,
+                VignetteAngleDegrees = field.VignetteAngle
             });
         }
     }
@@ -1017,7 +1133,22 @@ internal static class ZemaxZmxReader
         optic.MeritFunctionOperands.Clear();
         foreach (var operand in document.MeritOperands)
         {
-            optic.MeritFunctionOperands.Add(operand.Clone());
+            var imported = operand.Clone();
+            var centroidSurface = imported.Type is "CENX" or "CENY" or "CNPX" or "CNPY" or "CNAX" or "CNAY";
+            if ((centroidSurface && imported.Surface != 0)
+                || imported.Type is "GLCX" or "GLCY" or "GLCZ" or "GLCA" or "GLCB" or "GLCC" or "GLCR"
+                or "RAGX" or "RAGY" or "RAGZ" or "RAGA" or "RAGB" or "RAGC")
+            {
+                // Coordinate breaks are folded into physical frames by the importer.
+                // Remap active surface references together with GLRS, never use shifted source numbering.
+                var numbers = document.Surfaces.Where(s => !s.Type.Equals("COORDBRK", StringComparison.OrdinalIgnoreCase))
+                    .Select(s => s.Number).ToArray();
+                imported.Surface = Array.IndexOf(numbers, imported.Surface);
+                if (imported.Surface < 0)
+                    throw new NotSupportedException($"{imported.Type} 指向不存在或已折叠的坐标断点面，当前尚未支持该参考。");
+                if (imported.ZemaxIntegerParameters.Length > 0) imported.ZemaxIntegerParameters[0] = imported.Surface;
+            }
+            optic.MeritFunctionOperands.Add(imported);
         }
     }
 
@@ -1058,6 +1189,7 @@ internal static class ZemaxZmxReader
             ZemaxIntegerParameters = ReadZemaxIntegerParameters(tokens, command),
             ZemaxDataParameters = ReadZemaxDataParameters(tokens, command)
         };
+        if (command is "SFNO" or "TFNO") operand.Field = RequiredInt(tokens, 1, command);
         if (command is "MECS" or "MECT")
         {
             operand.SpatialFrequency = RequiredDouble(tokens, 4, command);
@@ -1654,12 +1786,17 @@ internal static class ZemaxZmxReader
         public bool ObjectSpaceTelecentric { get; set; }
 
         public bool RayAimingEnabled { get; set; }
+
+        public int GlobalReferenceSurfaceNumber { get; set; } = 1;
         public bool AfocalImageSpace { get; set; }
         public List<double> FieldX { get; set; } = new();
         public List<double> FieldY { get; set; } = new();
         public List<double> FieldWeights { get; set; } = new();
         public List<double> VignetteX { get; set; } = new();
         public List<double> VignetteY { get; set; } = new();
+        public List<double> VignetteDecenterX { get; set; } = new();
+        public List<double> VignetteDecenterY { get; set; } = new();
+        public List<double> VignetteAngle { get; set; } = new();
         public Dictionary<int, string> FieldComments { get; } = new();
         public int PrimaryWavelengthIndex { get; set; }
         public List<ZemaxWavelength> Wavelengths { get; } = new();
@@ -1756,6 +1893,9 @@ internal static class ZemaxZmxReader
         double Weight,
         double VignetteX,
         double VignetteY,
+        double VignetteDecenterX,
+        double VignetteDecenterY,
+        double VignetteAngle,
         string Label);
     private sealed record ConvertedSurface(
         int Index,

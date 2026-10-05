@@ -1,11 +1,15 @@
 using System.Text.Json;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.FileIO;
+using Xunit.Abstractions;
 
 namespace OptilandWorkbench.Tests;
 
 public sealed class ZemaxContrastLossParityTests
 {
+    private readonly ITestOutputHelper _output;
+    public ZemaxContrastLossParityTests(ITestOutputHelper output) => _output = output;
+
     [Fact]
     public void MooreElliottLossMapsMatchCapturedZemax123456Settings()
     {
@@ -62,6 +66,7 @@ public sealed class ZemaxContrastLossParityTests
 
         var normalizedRootMeanSquareError = Math.Sqrt(
             errors.Average(error => error * error)) / referenceValues.Max(Math.Abs);
+        _output.WriteLine($"Contrast loss captured-settings comparison: samples={errors.Count}, NRMSE={normalizedRootMeanSquareError:R}, maxAbs={errors.Max(Math.Abs):R}, budget=0.03");
         Assert.True(
             normalizedRootMeanSquareError <= 0.03,
             $"Contrast-loss NRMSE against Zemax is {normalizedRootMeanSquareError:P6}; "

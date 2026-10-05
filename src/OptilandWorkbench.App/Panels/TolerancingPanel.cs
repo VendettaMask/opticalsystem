@@ -19,7 +19,7 @@ using OptilandWorkbench.Application.Services;
 
 namespace OptilandWorkbench.App.Panels;
 
-public sealed class TolerancingPanel : UserControl, IDisposable
+public sealed partial class TolerancingPanel : UserControl, IDisposable
 {
     private static readonly System.Text.Json.JsonSerializerOptions ToleranceJsonOptions = new()
     {
@@ -45,7 +45,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
     private readonly NumericUpDown _minimum = Number(-0.1m, -1_000_000, 1_000_000, 0.01m, 150);
     private readonly NumericUpDown _maximum = Number(0.1m, -1_000_000, 1_000_000, 0.01m, 150);
     private readonly TextBox _comment = new() { MinWidth = 180 };
-    private readonly ComboBox _criterion = Picker(0, "RMS 点列半径", "RMS 波前");
+    private readonly ComboBox _criterion = Picker(0, "RMS 点列半径", "RMS 波前", "指定频率 MTF");
     private readonly NumericUpDown _trials = Number(20, 0, 10_000, 20, 96);
     private readonly NumericUpDown _seed = Number(1234, 0, 2_000_000_000, 1, 104);
     private readonly NumericUpDown _compensationIterations = Number(3, 0, 500, 1, 96);
@@ -62,6 +62,9 @@ public sealed class TolerancingPanel : UserControl, IDisposable
     private int _worstSensitivityCount;
     private bool _showMonteCarloTrials = true;
     private double _inverseValue = 0.05;
+    private ToleranceMtfSettingsDto _mtfSettings = new();
+    private ToleranceCompensationAlgorithm _compensationAlgorithm;
+    private IReadOnlyList<ToleranceCompensatorDto> _additionalCompensators = Array.Empty<ToleranceCompensatorDto>();
     private int _generation;
     private string? _currentTolerancePath;
     private bool _hasUnsavedChanges;
@@ -244,6 +247,12 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         if (!_suppressDirtyTracking && !_updatingEditor)
         {
             _hasUnsavedChanges = true;
+            if (_lastResult is not null || _operationStatus.Kind == OperationStatusKind.Running)
+            {
+                _runCancellation?.Cancel();
+                _generation++;
+                InvalidateResults("公差数据或运行设置已修改，请重新运行。");
+            }
         }
     }
 
@@ -520,7 +529,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
 
     public async Task<bool> ShowAnalysisDialogAsync(Window owner)
     {
-        var options = await new TolerancingRunWindow(CurrentRunOptions())
+        var options = await new TolerancingRunWindow(CurrentRunOptions(), _prescription.GetFields(), _prescription.GetSurfaces(), _prescription.GetWavelengths())
             .ShowDialog<TolerancingRunOptions?>(owner);
         if (options is null)
         {
@@ -528,7 +537,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         }
 
         _analysisMode = options.Mode;
-        _criterion.SelectedIndex = options.Criterion == ToleranceCriterion.RmsWavefront ? 1 : 0;
+        _criterion.SelectedIndex = (int)options.Criterion;
         _trials.Value = options.MonteCarloRuns;
         _seed.Value = options.Seed;
         _compensationIterations.Value = options.CompensationIterations;
@@ -538,14 +547,16 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         _worstSensitivityCount = options.WorstSensitivityCount;
         _showMonteCarloTrials = options.ShowMonteCarloTrials;
         _inverseValue = options.InverseValue;
+        _mtfSettings = options.MtfSettings ?? new();
+        _compensationAlgorithm = options.CompensationAlgorithm;
+        _additionalCompensators = options.AdditionalCompensators ?? Array.Empty<ToleranceCompensatorDto>();
+        MarkDirty();
         return await RunAsync(options);
     }
 
     private TolerancingRunOptions CurrentRunOptions() => new(
         _analysisMode,
-        _criterion.SelectedIndex == 1
-            ? ToleranceCriterion.RmsWavefront
-            : ToleranceCriterion.RmsSpotRadius,
+        (ToleranceCriterion)_criterion.SelectedIndex,
         IntValue(_trials, 20),
         IntValue(_seed, 1234),
         IntValue(_compensationIterations, 3),
@@ -554,7 +565,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         _distributionOverride,
         _worstSensitivityCount,
         _showMonteCarloTrials,
-        _inverseValue);
+        _inverseValue, _mtfSettings, _compensationAlgorithm, _additionalCompensators);
 
     private async Task<bool> RunAsync(TolerancingRunOptions options)
     {
@@ -606,7 +617,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                 options.YieldLimit,
                 options.MaxDegreeOfParallelism,
                 options.Mode,
-                options.InverseValue), cancellationToken);
+                options.InverseValue, options.MtfSettings, options.CompensationAlgorithm, options.AdditionalCompensators), cancellationToken);
             if (_disposed || cancellationToken.IsCancellationRequested || generation != _generation)
             {
                 return false;
@@ -742,6 +753,12 @@ public sealed class TolerancingPanel : UserControl, IDisposable
             _seed.Value = 1234;
             _compensationIterations.Value = 3;
             _yieldLimit.Value = 0;
+            _mtfSettings = new();
+            _compensationAlgorithm = ToleranceCompensationAlgorithm.DampedLeastSquares;
+            _additionalCompensators = Array.Empty<ToleranceCompensatorDto>();
+            _analysisMode = ToleranceAnalysisMode.Sensitivity;
+            _inverseValue = 0.05;
+            _distributionOverride = null;
             _operandGrid.SelectedItem = _operands.FirstOrDefault();
             _summary.Text = "已为当前光学系统创建新的公差数据。";
             _hasUnsavedChanges = false;
@@ -804,20 +821,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                 path = file.Path.LocalPath;
             }
 
-            var document = new ToleranceFileDto(
-                SchemaVersion: 2,
-                _operands.Select(row => row.ToDto()).ToArray(),
-                _criterion.SelectedIndex == 1 ? ToleranceCriterion.RmsWavefront : ToleranceCriterion.RmsSpotRadius,
-                IntValue(_trials, 1000),
-                IntValue(_seed, 1234),
-                IntValue(_compensationIterations, 20),
-                DoubleValue(_yieldLimit, 0),
-                _analysisMode,
-                _inverseValue,
-                _distributionOverride,
-                _maxDegreeOfParallelism,
-                _worstSensitivityCount,
-                _showMonteCarloTrials);
+            var document = BuildStudyFile();
             var json = System.Text.Json.JsonSerializer.Serialize(
                 document,
                 ToleranceJsonOptions);
@@ -877,27 +881,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                 files[0].Path.LocalPath,
                 BoundedApplicationFile.MaximumSettingsBytes,
                 "Tolerance settings");
-            var document = System.Text.Json.JsonSerializer.Deserialize<ToleranceFileDto>(
-                json,
-                ToleranceJsonOptions);
-            if (document is null || document.SchemaVersion is < 1 or > 2)
-            {
-                throw new InvalidDataException("不支持的公差文件版本。");
-            }
-            if (!Enum.IsDefined(document.Mode)
-                || !double.IsFinite(document.InverseValue)
-                || document.InverseValue <= 0
-                || document.MaxDegreeOfParallelism <= 0
-                || document.WorstSensitivityCount < 0)
-            {
-                throw new InvalidDataException("公差文件包含无效的分析运行设置。");
-            }
-
-            var validation = _tolerancing.ValidateOperands(document.Operands);
-            if (!validation.IsValid)
-            {
-                throw new InvalidDataException(string.Join("；", validation.Messages));
-            }
+            var document = ParseStudyFile(json);
 
             _suppressDirtyTracking = true;
             try
@@ -910,7 +894,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                 }
 
                 Renumber();
-                _criterion.SelectedIndex = document.Criterion == ToleranceCriterion.RmsWavefront ? 1 : 0;
+                _criterion.SelectedIndex = (int)document.Criterion;
                 _trials.Value = document.Trials;
                 _seed.Value = document.Seed;
                 _compensationIterations.Value = document.CompensationIterations;
@@ -924,6 +908,9 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                     Math.Max(1, Environment.ProcessorCount));
                 _worstSensitivityCount = document.WorstSensitivityCount;
                 _showMonteCarloTrials = document.ShowMonteCarloTrials;
+                _mtfSettings = document.MtfSettings ?? new();
+                _compensationAlgorithm = document.CompensationAlgorithm;
+                _additionalCompensators = document.AdditionalCompensators ?? Array.Empty<ToleranceCompensatorDto>();
                 _operandGrid.SelectedItem = _operands.FirstOrDefault();
                 _currentTolerancePath = Path.GetFullPath(files[0].Path.LocalPath);
                 _hasUnsavedChanges = false;
@@ -932,6 +919,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
             {
                 _suppressDirtyTracking = false;
             }
+            InvalidateResults("已载入新的公差定义，请重新运行。");
             _summary.Text = $"已载入 {_operands.Count} 个公差操作数。";
         }
         catch (Exception exception)
@@ -1087,6 +1075,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
 
         builder.AppendLine(_lastResult.Summary);
         builder.AppendLine(_lastResult.Details);
+        AppendMtfReport(builder, _lastResult);
         builder.AppendLine();
         if (_lastResult.InverseRows is { Count: > 0 } inverseRows)
         {
@@ -1152,6 +1141,10 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                     row.PositiveMerit,
                     row.WorstMerit,
                     row.DeltaMerit));
+                AppendFields(builder, "负极限", row.NegativeFields);
+                AppendFields(builder, "正极限", row.PositiveFields);
+                AppendCompensators(builder, "负极限", row.NegativeCompensators);
+                AppendCompensators(builder, "正极限", row.PositiveCompensators);
             }
 
             builder.AppendLine();
@@ -1173,6 +1166,10 @@ public sealed class TolerancingPanel : UserControl, IDisposable
                     row.Merit,
                     row.CompensatedMerit,
                     row.Degradation));
+                if (row.Passed.HasValue) builder.AppendLine($"  验收：{(row.Passed.Value ? "合格" : "不合格")}");
+                AppendFields(builder, "补偿前", row.UncompensatedFields);
+                AppendFields(builder, "补偿后", row.Fields);
+                AppendCompensators(builder, "试验", row.Compensators);
             }
         }
 
@@ -1202,16 +1199,12 @@ public sealed class TolerancingPanel : UserControl, IDisposable
     internal ToleranceChartView BuildHistogramChartView() =>
         ToleranceChartBuilder.Histogram(
             _lastResult,
-            _criterion.SelectedIndex == 1
-                ? ToleranceCriterion.RmsWavefront
-                : ToleranceCriterion.RmsSpotRadius);
+            (ToleranceCriterion)_criterion.SelectedIndex);
 
     internal ToleranceChartView BuildYieldChartView() =>
         ToleranceChartBuilder.Yield(
             _lastResult,
-            _criterion.SelectedIndex == 1
-                ? ToleranceCriterion.RmsWavefront
-                : ToleranceCriterion.RmsSpotRadius,
+            (ToleranceCriterion)_criterion.SelectedIndex,
             DoubleValue(_yieldLimit, 0));
 
     private static ToleranceOperandDto? FindOperand(
@@ -1301,7 +1294,7 @@ public sealed class TolerancingPanel : UserControl, IDisposable
             + $"Monte Carlo 平均值：{statistics.Mean}{Environment.NewLine}"
             + $"标准差：{statistics.StandardDeviation}{Environment.NewLine}"
             + $"最小值 / 最大值：{statistics.Minimum} / {statistics.Maximum}{Environment.NewLine}"
-            + $"P50：{statistics.Percentile50}{Environment.NewLine}"
+            + $"P05：{statistics.Percentile05}    P50：{statistics.Percentile50}{Environment.NewLine}"
             + $"P90：{statistics.Percentile90}{Environment.NewLine}"
             + $"P95：{statistics.Percentile95}{Environment.NewLine}"
             + $"预计合格率：{statistics.Yield}";
@@ -1405,18 +1398,4 @@ public sealed class TolerancingPanel : UserControl, IDisposable
         public string Display => $"{Code} — {Name}";
     }
 
-    private sealed record ToleranceFileDto(
-        int SchemaVersion,
-        IReadOnlyList<ToleranceOperandDto> Operands,
-        ToleranceCriterion Criterion,
-        int Trials,
-        int Seed,
-        int CompensationIterations,
-        double YieldLimit,
-        ToleranceAnalysisMode Mode = ToleranceAnalysisMode.Sensitivity,
-        double InverseValue = 0.05,
-        ToleranceDistribution? DistributionOverride = null,
-        int MaxDegreeOfParallelism = 1,
-        int WorstSensitivityCount = 0,
-        bool ShowMonteCarloTrials = true);
 }

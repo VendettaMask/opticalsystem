@@ -1,0 +1,39 @@
+  OptilandWorkbench.Core -> /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll
+  OptilandWorkbench.Application -> /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll
+  OptilandWorkbench.LensLibraryBuilder -> /Users/starlab/Documents/opticalsystem/tools/OptilandWorkbench.LensLibraryBuilder/bin/Debug/net10.0/OptilandWorkbench.LensLibraryBuilder.dll
+  OptilandWorkbench.ZemaxLibraryImporter -> /Users/starlab/Documents/opticalsystem/tools/OptilandWorkbench.ZemaxLibraryImporter/bin/Debug/net10.0/ZemaxLibraryImporter.dll
+  OptilandWorkbench.App -> /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll
+  OptilandWorkbench.Tests -> /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll
+/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:01.75]     OptilandWorkbench.Tests.TolerancingWorkflowTests.ImageSpacingCompensatorChangesRealOpticalCriterion [FAIL]
+  失败 OptilandWorkbench.Tests.TolerancingWorkflowTests.ImageSpacingCompensatorChangesRealOpticalCriterion [1 s]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OptilandWorkbench.Tests.TolerancingWorkflowTests.ImageSpacingCompensatorChangesRealOpticalCriterion() in /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/TolerancingWorkflowTests.cs:line 636
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:02.70]     OptilandWorkbench.Tests.TolerancingWorkflowTests.MonteCarloRowsAndStatisticsUseActualCriterion [FAIL]
+  失败 OptilandWorkbench.Tests.TolerancingWorkflowTests.MonteCarloRowsAndStatisticsUseActualCriterion [945 ms]
+  错误消息:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 1.9999999999999999E-06)
+Actual: 0.0008666000000000009
+  堆栈跟踪:
+     at OptilandWorkbench.Tests.TolerancingWorkflowTests.MonteCarloRowsAndStatisticsUseActualCriterion() in /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/TolerancingWorkflowTests.cs:line 589
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:17.56]     OptilandWorkbench.Tests.MtfTolerancingTests.HigherBetterSensitivityAndInverseUseMinimumAndDecrease [FAIL]
+  失败 OptilandWorkbench.Tests.MtfTolerancingTests.HigherBetterSensitivityAndInverseUseMinimumAndDecrease [3 ms]
+  错误消息:
+   Assert.InRange() Failure: Value not in range
+Range:  (0.14999000000000001 - 0.14999999999999999)
+Actual: 0.15000000000000002
+  堆栈跟踪:
+     at OptilandWorkbench.Tests.MtfTolerancingTests.HigherBetterSensitivityAndInverseUseMinimumAndDecrease() in /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/MtfTolerancingTests.cs:line 63
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+结果文件: /tmp/mtf-tolerance-results/mtf-new.trx
+
+失败!  - 失败:     3，通过:    27，已跳过:     0，总计:    30，持续时间: 17 s - OptilandWorkbench.Tests.dll (net10.0)

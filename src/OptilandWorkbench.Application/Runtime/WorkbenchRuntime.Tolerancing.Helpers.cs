@@ -31,12 +31,20 @@ public partial class WorkbenchRuntime
         double radiusSigma,
         double thicknessSigma,
         int compensationIterations,
-        ToleranceCriterion criterion) => BuildDefaultTolerancingWorker(
-            CurrentOptic, surfaceNumber, radiusSigma, thicknessSigma, compensationIterations, criterion);
+        ToleranceCriterion criterion,
+        ToleranceMtfSettingsDto? mtfSettings = null,
+        ToleranceCompensationAlgorithm algorithm = ToleranceCompensationAlgorithm.DampedLeastSquares,
+        IReadOnlyList<ToleranceCompensatorDto>? additionalCompensators = null) => BuildDefaultTolerancingWorker(
+            CurrentOptic, surfaceNumber, radiusSigma, thicknessSigma, compensationIterations, criterion,
+            mtfSettings, algorithm, additionalCompensators);
 
     private Tolerancing BuildConfiguredTolerancing(
         IReadOnlyList<ToleranceOperandDto> operands,
-        ToleranceCriterion criterion) => BuildConfiguredTolerancingWorker(CurrentOptic, operands, criterion);
+        ToleranceCriterion criterion,
+        ToleranceMtfSettingsDto? mtfSettings = null,
+        ToleranceCompensationAlgorithm algorithm = ToleranceCompensationAlgorithm.DampedLeastSquares,
+        IReadOnlyList<ToleranceCompensatorDto>? additionalCompensators = null) => BuildConfiguredTolerancingWorker(CurrentOptic, operands, criterion,
+            mtfSettings, algorithm, additionalCompensators);
 
     private double EvaluateToleranceCriterion(
         IReadOnlyList<MeritOperandDefinition> definitions)

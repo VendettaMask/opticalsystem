@@ -24,6 +24,7 @@ public static class WorkspaceDocumentTypes
     public const string Analysis = "analysis";
     public const string SolidModel = "solid-model";
     public const string MaterialLibrary = "material-library";
+    // Read compatibility for saved layouts; restored documents use MaterialLibrary.
     public const string GlassCatalog = "glass-catalog";
     public const string Manufacturability = "manufacturability";
     public const string OpticalDrawing = "optical-drawing";
@@ -513,7 +514,7 @@ public sealed class WorkspaceDockLayoutSerializer
         return type.IsValueType || type == typeof(string);
     }
 
-    private static void NormalizeDockRelations(IRootDock root)
+    internal static void NormalizeDockRelations(IRootDock root)
     {
         var structural = EnumerateStructuralDockables(root).ToArray();
         var structuralSet = new HashSet<IDockable>(structural, ReferenceEqualityComparer.Instance);

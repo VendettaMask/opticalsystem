@@ -15,10 +15,14 @@ public partial class WorkbenchRuntime
     private Tolerancing BuildConfiguredTolerancingWorker(
         Optic optic,
         IReadOnlyList<ToleranceOperandDto> operands,
-        ToleranceCriterion criterion)
+        ToleranceCriterion criterion,
+        ToleranceMtfSettingsDto? mtfSettings = null,
+        ToleranceCompensationAlgorithm algorithm = ToleranceCompensationAlgorithm.DampedLeastSquares,
+        IReadOnlyList<ToleranceCompensatorDto>? additionalCompensators = null)
     {
         var tolerancing = optic.CreateTolerancing();
-        ConfigureToleranceCriterionWorker(optic, tolerancing, criterion);
+        ConfigureToleranceCriterionWorker(optic, tolerancing, criterion, mtfSettings);
+        ConfigureAdditionalCompensators(optic, tolerancing, algorithm, additionalCompensators);
         foreach (var operand in operands.Where(item => item.Enabled))
         {
             if (operand.Kind == ToleranceOperandKind.Compensator)
@@ -45,10 +49,14 @@ public partial class WorkbenchRuntime
         double radiusSigma,
         double thicknessSigma,
         int compensationIterations,
-        ToleranceCriterion criterion)
+        ToleranceCriterion criterion,
+        ToleranceMtfSettingsDto? mtfSettings = null,
+        ToleranceCompensationAlgorithm algorithm = ToleranceCompensationAlgorithm.DampedLeastSquares,
+        IReadOnlyList<ToleranceCompensatorDto>? additionalCompensators = null)
     {
         var tolerancing = optic.CreateTolerancing();
-        ConfigureToleranceCriterionWorker(optic, tolerancing, criterion);
+        ConfigureToleranceCriterionWorker(optic, tolerancing, criterion, mtfSettings);
+        ConfigureAdditionalCompensators(optic, tolerancing, algorithm, additionalCompensators);
         var target = FindSurface(optic, surfaceNumber);
         if (Math.Abs(radiusSigma) > 1e-12)
         {
@@ -106,8 +114,17 @@ public partial class WorkbenchRuntime
     private void ConfigureToleranceCriterionWorker(
         Optic optic,
         Tolerancing tolerancing,
-        ToleranceCriterion criterion)
+        ToleranceCriterion criterion, ToleranceMtfSettingsDto? mtfSettings = null)
     {
+        if (criterion == ToleranceCriterion.Mtf)
+        {
+            var settings = mtfSettings ?? new ToleranceMtfSettingsDto();
+            new MtfToleranceMetric(optic,
+                settings.Method == ToleranceMtfMethod.Geometric ? Core.Services.MtfMetricKind.Geometric : Core.Services.MtfMetricKind.Fourier,
+                (Core.Tolerancing.ToleranceMtfDirection)settings.Direction,
+                settings.Frequency, settings.Sampling, settings.Wave).Configure(tolerancing, settings.SeparateFields);
+            return;
+        }
         var definitions = (criterion == ToleranceCriterion.RmsWavefront
                 ? MeritFunctionCatalog.CreateDefaultRmsWavefront(optic)
                 : MeritFunctionCatalog.CreateDefaultRmsSpot(optic))

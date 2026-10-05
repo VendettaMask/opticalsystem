@@ -65,7 +65,6 @@ public sealed partial class MainWindow
             "打开库存镜头匹配",
             "数据库",
             _panels.ShowStockLensMatching);
-        _actions.Register("show-glass-catalog", "打开玻璃目录", "数据库", _panels.ShowGlassCatalog);
         _actions.Register(
             "show-material-dispersion-diagram",
             "色散图",
@@ -170,6 +169,7 @@ public sealed partial class MainWindow
             "玻璃替换模板",
             "优化",
             OpenGlassReplacementTemplate);
+        _actions.Register("open-optical-assembly-lab", "光学装调（实验室）", "实验室", ShowOpticalAssembly);
         _actions.Register("launch-initial-structure-lab", "AI 初始结构（实验室）", "实验室", () =>
         {
             InitialStructureLabLauncher.Start();

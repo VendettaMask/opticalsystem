@@ -131,8 +131,7 @@ public sealed partial class MainWindow
                 RibbonTab("数据库", BuildRibbonPage(
                     RibbonGroup("光学材料",
                         RibbonButton("show-material-library", "database", "材料库"),
-                        RibbonMaterialAnalysisMenuButton(),
-                        RibbonButton("show-glass-catalog", "gem", "玻璃")),
+                        RibbonMaterialAnalysisMenuButton()),
                     RibbonGroup("镜头设计",
                         RibbonButton("show-lens-library", "telescope", "镜头库"),
                         RibbonButton("show-stock-lens-catalog", "package-search", "库存镜头查看"),
@@ -264,7 +263,9 @@ public sealed partial class MainWindow
         RibbonGroup("结构生成",
             RibbonButton("launch-initial-structure-lab", "wand-sparkles", "AI 初始结构")),
         RibbonGroup("镀膜设计",
-            RibbonButton("launch-coating-design-lab", "layers", "光学镀膜设计"))));
+            RibbonButton("launch-coating-design-lab", "layers", "光学镀膜设计")),
+        RibbonGroup("装调计算",
+            RibbonButton("open-optical-assembly-lab", "scan-eye", "光学装调"))));
 
     private static TabItem RibbonTab(string title, Control content)
     {

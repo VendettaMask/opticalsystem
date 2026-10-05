@@ -154,9 +154,7 @@ public sealed class PickupManager
         while (ready.TryDequeue(out var pickup))
         {
             var sourceRadius = values.GetValueOrDefault(pickup.SourceSurface, surfaces[pickup.SourceSurface].Radius);
-            var radius = pickup.Scale == 0 ? pickup.Offset : sourceRadius * pickup.Scale + pickup.Offset;
-            if (double.IsNaN(radius) || (double.IsFinite(sourceRadius) && !double.IsFinite(radius)))
-                throw new InvalidOperationException("拾取结果超出可表示的半径范围。");
+            var radius = EvaluateRadius(pickup, sourceRadius);
             values.Add(pickup.TargetSurface, radius);
             foreach (var dependent in dependents[pickup.TargetSurface]) ready.Enqueue(dependent);
         }
@@ -184,16 +182,28 @@ public sealed class PickupManager
         while (ready.TryDequeue(out var pickup))
         {
             var sourceValue = values.GetValueOrDefault(pickup.SourceSurface, read(surfaces[pickup.SourceSurface]));
-            var value = pickup.Offset + (pickup.Scale * sourceValue);
-            if (double.IsNaN(value)
-                || (double.IsFinite(sourceValue) && !double.IsFinite(value))
-                || (valid is not null && !valid(value)))
-                throw new InvalidOperationException($"{propertyName}拾取结果超出可表示范围。");
+            var value = EvaluateValue(sourceValue, pickup.Scale, pickup.Offset, propertyName, valid);
             values.Add(pickup.TargetSurface, value);
             foreach (var dependent in dependents[pickup.TargetSurface]) ready.Enqueue(dependent);
         }
         if (values.Count != links.Count) throw new InvalidOperationException($"{propertyName}拾取存在循环引用。");
         foreach (var (number, value) in values) write(surfaces[number], value);
+    }
+
+    public static double EvaluateRadius(RadiusPickup pickup, double sourceRadius)
+    {
+        var radius = pickup.Scale == 0 ? pickup.Offset : sourceRadius * pickup.Scale + pickup.Offset;
+        if (double.IsNaN(radius) || (double.IsFinite(sourceRadius) && !double.IsFinite(radius)))
+            throw new InvalidOperationException("拾取结果超出可表示的半径范围。");
+        return radius;
+    }
+
+    public static double EvaluateValue(double sourceValue, double scale, double offset, string propertyName, Func<double, bool>? valid = null)
+    {
+        var value = offset + scale * sourceValue;
+        if (double.IsNaN(value) || (double.IsFinite(sourceValue) && !double.IsFinite(value)) || (valid is not null && !valid(value)))
+            throw new InvalidOperationException($"{propertyName}拾取结果超出可表示范围。");
+        return value;
     }
 
     private void ValidateValuePickup(int sourceSurface, int targetSurface, double scaleFactor, double offset)

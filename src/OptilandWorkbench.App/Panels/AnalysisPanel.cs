@@ -165,7 +165,13 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 return;
             }
 
-            if (value)
+            if (_view is not null && _displayedSourceRevision != _events.Revision)
+            {
+                _operationStatus.MarkStale(value
+                    ? "已锁定：结果已过期，请解锁后同步"
+                    : "结果已过期，请同步");
+            }
+            else if (value)
             {
                 _operationStatus.MarkIdle("已锁定：保留当前结果");
             }
@@ -378,6 +384,10 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
 
             if (_locked)
             {
+                if (_view is not null && _displayedSourceRevision != _events.Revision)
+                {
+                    _operationStatus.MarkStale("已锁定：结果已过期，请解锁后同步");
+                }
                 return;
             }
 

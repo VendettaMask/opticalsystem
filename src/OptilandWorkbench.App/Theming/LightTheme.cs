@@ -40,7 +40,7 @@ internal static class LightTheme
         resources["SystemErrorTextColor"] = Error;
         resources["TextControlBorderThemeThicknessFocused"] = new Thickness(2);
         resources["ControlCornerRadius"] = new CornerRadius(5);
-        resources["OverlayCornerRadius"] = new CornerRadius(6);
+        resources["OverlayCornerRadius"] = ThemeChromeResources.StandardOverlayCornerRadius;
 
         foreach (var control in new[] { "Button", "RepeatButton", "ToggleButton", "SplitButton", "TextControlButton" })
         {

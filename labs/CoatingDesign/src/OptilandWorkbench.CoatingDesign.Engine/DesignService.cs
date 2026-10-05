@@ -7,11 +7,13 @@ using OptilandWorkbench.Core.Tolerancing;
 namespace OptilandWorkbench.CoatingDesign.Engine;
 
 public sealed record DesignProgress(string Stage, long Evaluations, double? BestMerit = null);
-public sealed record ToleranceResult(int Trials, int Passed, int Seed, double Percent, double WorstMerit, string Fingerprint);
+public sealed record ToleranceTrial(int Number, bool Passed, double? Merit, double[] ThicknessNm, double AngleDegrees, RequirementCheck[] Checks, string? Error = null);
+public sealed record ToleranceResult(int Trials, int Passed, int Seed, double Percent, double WorstMerit, string Fingerprint,
+    ToleranceOptions? Options = null, ToleranceTrial[]? Samples = null);
 
-public sealed class DesignService
+public sealed partial class DesignService
 {
-    public const string GeneratorVersion = "coating-templates/1";
+    public const string GeneratorVersion = "coating-templates/2";
     private readonly MaterialRegistry _registry = new();
 
     private Dictionary<string, IMaterial> Materials(Experiment experiment)
@@ -21,7 +23,7 @@ public sealed class DesignService
             .Concat([experiment.IncidentId, experiment.SubstrateId, experiment.LowId, experiment.HighId]).ToHashSet();
         var selected = experiment.Materials.Where(m => used.Contains(m.Id)).ToArray();
         foreach (var m in selected)
-            if (experiment.Target.MinimumNm < m.MinimumNm || experiment.Target.MaximumNm > m.MaximumNm)
+            if (experiment.Target.MinimumNm < m.MinimumNm - 8e-15 * m.MinimumNm || experiment.Target.MaximumNm > m.MaximumNm + 8e-15 * m.MaximumNm)
                 throw new ArgumentException($"材料 {m.Name} 支持 {m.MinimumNm:G7}–{m.MaximumNm:G7} nm，请缩小计算波段。");
         return selected.ToDictionary(m => m.Id, m => m.Resolve(_registry));
     }
@@ -61,13 +63,19 @@ public sealed class DesignService
         }
         else
         {
-            // One half-wave low-index cavity between two Bragg mirrors, incident side first.
-            for (var pairs = 1; 4 * pairs + 3 <= t.MaximumLayers; pairs++)
+            var cavities = t.Structure?.Cavities ?? 1;
+            for (var pairs = 1; (cavities + 1) * (pairs * 2 + 1) + cavities <= t.MaximumLayers; pairs++)
             {
                 var mirror = Enumerable.Range(0, pairs * 2 + 1).Select(i => Layer(i % 2 == 0 ? d.HighId : d.LowId)).ToArray();
-                seeds.Add(mirror.Concat([Layer(d.LowId, 2)]).Concat(mirror.Reverse()).ToArray());
+                var stack = new List<FilmLayer>(mirror);
+                for (var cavity = 0; cavity < cavities; cavity++)
+                {
+                    stack.Add(Layer(d.LowId, 2));
+                    stack.AddRange(mirror);
+                }
+                seeds.Add(stack.ToArray());
             }
-            if (seeds.Count == 0) throw new ArgumentException("单腔窄带初始结构至少需要 7 层，请提高层数上限。");
+            if (seeds.Count == 0) throw new ArgumentException($"{cavities} 腔窄带初始结构至少需要 {4 * cavities + 3} 层，请提高层数上限。");
         }
         var grid = ObjectiveGrid(d);
         var ranked = new List<Candidate>();
@@ -81,7 +89,7 @@ public sealed class DesignService
         }
         if (ranked.Count == 0) throw new ArgumentException("厚度或层数限制排除了全部初始结构，请调整约束。");
         ranked = ranked.OrderBy(x => x.Merit).ThenBy(x => x.Layers.Length).ToList();
-        var selected = d with { Layers = ranked[0].Layers, Result = null, Tolerance = null, Candidates = ranked.Take(8).ToArray() };
+        var selected = d with { Layers = ranked[0].Layers, Result = null, Tolerance = null, Candidates = ranked.Take(32).ToArray() };
         return Evaluate(selected, new("模板结构枚举", GeneratorVersion, "模板枚举完成", ranked.Count, 0, null), progress, token);
     }
 
@@ -195,7 +203,7 @@ public sealed class DesignService
         var record = new RunRecord(report.Algorithm, report.AlgorithmVersion, report.StopReason,
             report.FunctionEvaluations, report.Iterations, report.RandomSeed);
         var optimized = Evaluate(d with { Layers = bestLayers, Result = null }, record, progress, token);
-        var candidates = (d.Candidates ?? []).Append(new Candidate("优化结果", bestLayers, optimized.Result!.Merit, optimized.Result.Passed))
+        var candidates = (d.Candidates ?? []).Append(new Candidate("优化结果", bestLayers, optimized.Result!.Merit, optimized.Result.Passed, record))
             .TakeLast(12).ToArray();
         return optimized with { Candidates = candidates };
     }
@@ -204,18 +212,40 @@ public sealed class DesignService
     {
         var d = input.Snapshot(); d.Validate();
         var random = new Random(d.Settings.RandomSeed);
-        var sampler = new UniformSampler(-d.Settings.TolerancePercent / 100, d.Settings.TolerancePercent / 100);
+        var options = d.Settings.Tolerancing ?? new();
+        ISampler Sampler(double amount) => options.Distribution == ToleranceDistribution.Normal
+            ? new NormalSampler(0, amount) : new UniformSampler(-amount, amount);
+        var thicknessSampler = Sampler(d.Settings.TolerancePercent / 100);
+        var angleSampler = Sampler(options.AngleDegrees);
         var passed = 0; var worst = 0.0;
+        var samples = new List<ToleranceTrial>();
         for (var i = 0; i < d.Settings.ToleranceTrials; i++)
         {
             token.ThrowIfCancellationRequested();
-            var layers = d.Layers.Select(l => l with { ThicknessNm = l.ThicknessNm * (1 + sampler.Sample(random)) }).ToArray();
-            var trial = Evaluate(d with { Layers = layers, Result = null }, token: token);
-            if (trial.Result!.Passed) passed++;
-            worst = Math.Max(worst, trial.Result.Merit);
-            progress?.Report(new("厚度均匀扰动公差", i + 1, worst));
+            var offsets = new Dictionary<string, double>();
+            var layers = d.Layers.Select((l, index) =>
+            {
+                var key = options.Correlation switch { ThicknessCorrelation.Common => "all", ThicknessCorrelation.SameMaterial => l.MaterialId, _ => index.ToString(System.Globalization.CultureInfo.InvariantCulture) };
+                if (!offsets.TryGetValue(key, out var offset)) offsets[key] = offset = thicknessSampler.Sample(random);
+                return l with { ThicknessNm = l.ThicknessNm * (1 + offset) };
+            }).ToArray();
+            var angle = d.Target.AngleDegrees + angleSampler.Sample(random);
+            // Incidence sign is symmetric for the supported isotropic stack; retain the sampled signed value in the record.
+            try
+            {
+                var trial = Evaluate(d with { Layers = layers, Target = d.Target with { AngleDegrees = Math.Abs(angle) }, Result = null, Tolerance = null }, token: token);
+                if (trial.Result!.Passed) passed++;
+                worst = Math.Max(worst, trial.Result.Merit);
+                samples.Add(new(i + 1, trial.Result.Passed, trial.Result.Merit, layers.Select(l => l.ThicknessNm).ToArray(), angle, trial.Result.Checks));
+            }
+            catch (ArgumentException error)
+            {
+                samples.Add(new(i + 1, false, null, layers.Select(l => l.ThicknessNm).ToArray(), angle, [], error.Message));
+                worst = double.PositiveInfinity;
+            }
+            progress?.Report(new("公差密集复验", i + 1, worst));
         }
-        return new(d.Settings.ToleranceTrials, passed, d.Settings.RandomSeed, d.Settings.TolerancePercent, worst, d.Fingerprint());
+        return new(d.Settings.ToleranceTrials, passed, d.Settings.RandomSeed, d.Settings.TolerancePercent, worst, d.Fingerprint(), options, samples.ToArray());
     }
 
     private static double[] GridWithAnchors(Experiment d, int intervals) => ThinFilmSpectrum.Grid(d.Target.MinimumNm, d.Target.MaximumNm, intervals)

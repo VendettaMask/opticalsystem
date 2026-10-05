@@ -212,6 +212,8 @@ public static partial class ComponentSnapshotFactory
     {
         return material switch
         {
+            GradientIndexMaterial gradient => FromGradientIndex(gradient),
+            LocatedGradientIndexMaterial => throw new NotSupportedException("GRIN 的运行时体坐标绑定不能保存为处方材料，请使用原始空间分布材料。"),
             AirMaterial => ComponentSnapshot.Empty("air"),
             CatalogGlassMaterial catalog => FromCatalogGlass(catalog),
             UnresolvedMaterial unresolved => new ComponentSnapshot("unresolved", new Dictionary<string, double>(),
@@ -259,6 +261,7 @@ public static partial class ComponentSnapshotFactory
         return snapshot.Kind switch
         {
             "air" => new AirMaterial(),
+            "gradient_index" => ToGradientIndex(snapshot),
             "catalog_glass" => ToCatalogGlass(snapshot, name),
             "unresolved" => new UnresolvedMaterial(name, snapshot.Text.GetValueOrDefault("catalogs", "")),
             "constant" => new ConstantIndexMaterial(name, Get(snapshot.Numbers, "index", 1.5), Get(snapshot.Numbers, "extinction", 0)),
@@ -281,6 +284,26 @@ public static partial class ComponentSnapshotFactory
 
     public static ComponentSnapshot FromCoating(ICoatingModel coating)
     {
+        if (coating is CoherentMultilayerCoating coherent)
+        {
+            var layers = coherent.Layers;
+            var numbers = new Dictionary<string, double> { ["count"] = layers.Count };
+            var children = new Dictionary<string, ComponentSnapshot>();
+            for (var index = 0; index < layers.Count; index++)
+            {
+                numbers[$"thickness_{index}"] = layers[index].ThicknessNanometers;
+                var adjustment = layers[index].Adjustment;
+                numbers[$"multiplier_{index}"] = adjustment.Multiplier;
+                numbers[$"indexOffset_{index}"] = adjustment.IndexOffset;
+                numbers[$"extinctionOffset_{index}"] = adjustment.ExtinctionOffset;
+                numbers[$"multiplierVariable_{index}"] = adjustment.MultiplierVariable ? 1 : 0;
+                numbers[$"indexVariable_{index}"] = adjustment.IndexVariable ? 1 : 0;
+                numbers[$"extinctionVariable_{index}"] = adjustment.ExtinctionVariable ? 1 : 0;
+                children[$"material_{index}"] = FromMaterial(layers[index].Material);
+            }
+            return new ComponentSnapshot(coherent.Kind, numbers, new Dictionary<string, string>(), children);
+        }
+
         if (coating is SimpleCoatingModel simple)
         {
             return new ComponentSnapshot("simple", new Dictionary<string, double>
@@ -308,6 +331,41 @@ public static partial class ComponentSnapshotFactory
 
     public static ICoatingModel ToCoating(ComponentSnapshot? snapshot)
     {
+        if (snapshot?.Kind == "coherent_multilayer")
+        {
+            if (!snapshot.Numbers.TryGetValue("count", out var storedCount)
+                || !double.IsFinite(storedCount) || storedCount < 0 || storedCount > CoherentThinFilmSolver.MaximumLayers
+                || storedCount != Math.Truncate(storedCount) || snapshot.Children is null
+                || snapshot.Children.Count != (int)storedCount)
+                throw new ArgumentException("相干镀膜的层数或材料表无效。");
+            var registry = new MaterialRegistry();
+            var coherentLayers = Enumerable.Range(0, (int)storedCount).Select(index =>
+            {
+                if (!snapshot.Numbers.TryGetValue($"thickness_{index}", out var thickness)
+                    || !snapshot.Children.TryGetValue($"material_{index}", out var material) || material is null)
+                    throw new ArgumentException("相干镀膜缺少厚度或材料，不能补默认值。");
+                var restored = ToMaterial(material, "", registry);
+                var canonical = FromMaterial(restored);
+                if (material.Kind != canonical.Kind || material.Numbers.Count != canonical.Numbers.Count
+                    || material.Text.Count != canonical.Text.Count || material.Children is { Count: > 0 }
+                    || material.Numbers.Any(item => !canonical.Numbers.TryGetValue(item.Key, out var value) || !value.Equals(item.Value))
+                    || material.Text.Any(item => !canonical.Text.TryGetValue(item.Key, out var value) || value != item.Value))
+                    throw new ArgumentException("相干镀膜材料快照缺少参数或包含不能无损重建的数据，不能补默认值。");
+                bool Flag(string name)
+                {
+                    var value = Get(snapshot.Numbers, $"{name}_{index}", 0);
+                    if (value is not (0 or 1)) throw new ArgumentException("膜层变量标记只能为 0 或 1。");
+                    return value == 1;
+                }
+                return new CoherentFilm(restored, thickness, new(
+                    Get(snapshot.Numbers, $"multiplier_{index}", 1),
+                    Get(snapshot.Numbers, $"indexOffset_{index}", 0),
+                    Get(snapshot.Numbers, $"extinctionOffset_{index}", 0),
+                    Flag("multiplierVariable"), Flag("indexVariable"), Flag("extinctionVariable")));
+            });
+            return new CoherentMultilayerCoating(coherentLayers);
+        }
+
         if (snapshot?.Kind == "simple")
         {
             return new SimpleCoatingModel(

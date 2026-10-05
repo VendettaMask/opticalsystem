@@ -1,0 +1,617 @@
+{
+  "recordedAt": "2026-10-03T10:01:03.127831+00:00",
+  "scope": "Limited local CODA data, editable system Jones state, RRET reference method and selected-state illumination; native imports read-only",
+  "operandStatus": {
+    "registered": 383,
+    "executable": 326,
+    "compatibilityOnly": 57,
+    "knownPending": 50,
+    "unverifiedDefinitions": 2,
+    "unused": 5,
+    "localExtensions": 4,
+    "newCodes": [
+      "CODA"
+    ]
+  },
+  "verification": {
+    "debug": {
+      "counters": {
+        "total": 3034,
+        "executed": 3034,
+        "passed": 3034,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "previousTestsPreserved": 2962,
+      "newTests": 72,
+      "productionDlsCases": 1,
+      "applicationWorkflowCases": 1,
+      "incidentOnlyImageRegression": true,
+      "trx": {
+        "path": "artifacts/validation/coating-data-20261003/debug.trx",
+        "sha256": "2581be1b65e1489c74ab7da417d2497841a807149c76effdc6101c749f109aae",
+        "bytes": 4514866
+      },
+      "log": {
+        "path": "artifacts/validation/coating-data-20261003/debug.log",
+        "sha256": "7a4f6e333cd629e96adf5b3d4b183b75584e7f9a60025679fbd723b122549dce",
+        "bytes": 1392
+      }
+    },
+    "release": {
+      "counters": {
+        "total": 3034,
+        "executed": 3034,
+        "passed": 3034,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "previousTestsPreserved": 2962,
+      "newTests": 72,
+      "productionDlsCases": 1,
+      "applicationWorkflowCases": 1,
+      "incidentOnlyImageRegression": true,
+      "trx": {
+        "path": "artifacts/validation/coating-data-20261003/release.trx",
+        "sha256": "b7c0f8605963a68bd1239ff2526da3233ee6764aa7628c91e1df9d9d6c29004e",
+        "bytes": 4526990
+      },
+      "log": {
+        "path": "artifacts/validation/coating-data-20261003/release.log",
+        "sha256": "53e70a2af26a7913133310a75b87d24954a0491e68ead4ba32e0d0794084bdca",
+        "bytes": 1409
+      }
+    }
+  },
+  "testFilter": {
+    "path": "artifacts/validation/coating-data-20261003/test-filter.txt",
+    "sha256": "cd423b3ba64222997cc67c59c8e46bf10a2f5f47c7ba7b29ebb9e2b6a293f23c",
+    "bytes": 6637
+  },
+  "audit": {
+    "path": "artifacts/validation/coating-data-20261003/operand-audit.csv",
+    "sha256": "5d9c99b07c4ace69a57a49e50f8a6639cc687838da9eba088952c004eff2a10c",
+    "bytes": 60621
+  },
+  "remainingByCategory": {
+    "path": "artifacts/validation/coating-data-20261003/remaining-by-category.csv",
+    "sha256": "a5d404757d16ef3fcff2357624504023150df91a62ef652f1420263eae3059f3",
+    "bytes": 692
+  },
+  "baselineIntegrity": [
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/004-fieldcurvatureanddistortion/data.json",
+      "sha256": "a93a1aeff36e6bf4856ff41ad22844022b8dcc6cbde2a8038853da1d3090bd73",
+      "bytes": 63100,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.txt",
+      "sha256": "dbb741fc9f07d6d55a9d7d6acdad2bfe91f45e3b5b365bb14c51e1d6b8f2a6f0",
+      "bytes": 23634,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/012-zernikeannularcoefficients/data.txt",
+      "sha256": "20b1dd6b22299414025f02ee7ce212e3486eb8923a976d72e529c7e55b42b20f",
+      "bytes": 1926,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/012-zernikeannularcoefficients/settings.cfg",
+      "sha256": "6648ac23c0aff14e629ad58cb96a28d92aeeb17fed53bf46d902d8d244fa1746",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/014-zernikefringecoefficients/data.txt",
+      "sha256": "b655e9984da1847e9d6390fc7982a8f15c726342e8ee4238a3ac0709ae422d6b",
+      "bytes": 5366,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/014-zernikefringecoefficients/settings.cfg",
+      "sha256": "c1bb9051068066c2be53d10c6aa57d274b3f0e8587c1c26fd001a90b8417da51",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/015-zernikestandardcoefficients/data.txt",
+      "sha256": "3c692693073272462303091e971c7c747196917cae9a5849d65f65508745748d",
+      "bytes": 6084,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/015-zernikestandardcoefficients/settings.cfg",
+      "sha256": "eb7b1cbb3f037d9d8a565c2982b9711562e4cc507a4762d4b3acbd6bc94f0c7e",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/025-huygensmtfvsfield/data.json",
+      "sha256": "9b00c750481cb73adb741f47c00ca66232dd3374765e2fa68a59bca1c6c99323",
+      "bytes": 196349,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/data.json",
+      "sha256": "ef6a44cbe999be4ae54c8d2b8dc3854434e0565b9bd28266138eeebcc900f57a",
+      "bytes": 168092,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/settings.cfg",
+      "sha256": "afc322d75c819f36e8c1aece2d4600c3fbdc687a4e0e6d8badb4e0e646917790",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/028-huygensthroughfocusmtf/data.json",
+      "sha256": "dc115e8bd603af3b3a1686fe7c2c0ec4530d9220d235c5af1ce0cd9004147240",
+      "bytes": 54324,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/data.json",
+      "sha256": "1ddb61139e42585f144329c430a85ebc7685eb92416783cf85f653822cc64eb0",
+      "bytes": 34525,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/settings.cfg",
+      "sha256": "5ac71deed1902825151e0e78d082850bf0f28ac4b9c2f16934a2003ad9980f69",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/034-diffractionencircledenergy/data.json",
+      "sha256": "b6b2928cd6cbc41bb078f38598065be4ba6977e0c4d29c2a040ce62c640af48e",
+      "bytes": 186127,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/034-diffractionencircledenergy/settings.cfg",
+      "sha256": "77f92a4185b82ebf31f8f27419b921ff52f1909ec65ce67074ba2680978b1a0d",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/049-rmsfield/data.json",
+      "sha256": "7badd81b3adbd9bd694e4cabfce3d58e45c863866ed77d4337a33f3321290e87",
+      "bytes": 3403,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/052-rmsfocus/data.json",
+      "sha256": "a90eabe523007f995e10c685622025b34d47c87b25d627e56ddda16020765240",
+      "bytes": 4087,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/055-wavefrontmap/data.json",
+      "sha256": "e9cfe98cfb64ec684976ee786fd33b8844d24995be084941bedbe7537c911e62",
+      "bytes": 115435,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/data.json",
+      "sha256": "21a2b9517dcb9c4e479e2b8e221a8ba334c3a35a46b654d39575b7d0338f534b",
+      "bytes": 2821,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/settings.cfg",
+      "sha256": "771862ac443a583fce03458d116d98f2f1867814fc2ac33c0fbce05fcc4e89ac",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/078-sagtable/data.json",
+      "sha256": "273504ea8c481b3771aba09d196e57b801faaefb8d61cccd0c6fbd4a5cd479be",
+      "bytes": 517,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/078-sagtable/data.txt",
+      "sha256": "f155683d9f0edda800920c9dc39d721b02d4440b63cead9836649d2af101a9f1",
+      "bytes": 12130,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/078-sagtable/settings.cfg",
+      "sha256": "6476bb1a44e9310cf8d7fc7be55a99c89f4a2a5304cd979f7a3f2cde83c4c5c0",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/078-sagtable/status.json",
+      "sha256": "91d32a5b0a49bae1faab1238dcfe68597e128b2b22ad0b972188590f837769d1",
+      "bytes": 690,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/139-contrastloss/data.json",
+      "sha256": "f38aa135ac2532b3396dce7f6d85dfc38e0d1fea87f3c2cfb60e4bd6341b4955",
+      "bytes": 19112,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/139-contrastloss/data.txt",
+      "sha256": "b4625f7f2ed64cfa04f1c8bbcede377c134e64ab113d7c07cf877cd4c21f02f0",
+      "bytes": 20732,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/139-contrastloss/settings.cfg",
+      "sha256": "cfcb2b2050669448eae928268cbdf3333f7fb68afbf860aafd8b43ff85bf40c7",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+      "sha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+      "bytes": 68676,
+      "byteEqualHead": true
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "src/OptilandWorkbench.Core/Rays/SystemPolarization.cs",
+      "sha256": "e22e656c8ba541868760dd45a0d850ec6ed0243c7bc0d5f0615e2dc631487e36",
+      "bytes": 863
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Optic.cs",
+      "sha256": "f8b8a5bb60ef13847ba859a37add2cb1635a5c850b6fa8d8c683df6aa33e3646",
+      "bytes": 35170
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Serialization/OpticSnapshot.cs",
+      "sha256": "6083376f9eccb9eeeb49338e3e5dafae6ad89374b7f6598b118c79b8b8cfcaa8",
+      "bytes": 4254
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs",
+      "sha256": "d586643cf0a3393c4c7bec4c7f5d30ba2a431474a6e3bec70fb0e6808e1ff505",
+      "bytes": 50876
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Coatings/CoherentMultilayerCoating.cs",
+      "sha256": "2bbe110bdf26939e5cdf1e11b9aa433bf96f082035710423df763c0ba2e89055",
+      "bytes": 4220
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.Polarization.cs",
+      "sha256": "07713f060901178d49aa2455a57cd21223372516661263cc801559fa9df048a5",
+      "bytes": 12311
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs",
+      "sha256": "f840204d847197fdf9b0b6a9e73b0cde9f8077087914301538bc76711163fa1e",
+      "bytes": 9193
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs",
+      "sha256": "df8e1b64fb9cfbf50e521b0b25ee99d83ed1c35fac25217412c8311d8dac7921",
+      "bytes": 19121
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/CoatingRayMetrics.cs",
+      "sha256": "b2cf5619360827af72c7b3d2f6cc2d184f93de6c88e81b7134a49415b84d5be6",
+      "bytes": 3566
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Optimization/MeritFunction.Polarization.cs",
+      "sha256": "48e5c03c061d0aa1c4a5f4c054f03a49331cef9c0d97cf62f956069ca5877be9",
+      "bytes": 3025
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs",
+      "sha256": "ad5e2a01028caa15c7f9188aac525c244c7b0c43e9e7189cc59bc356910df67f",
+      "bytes": 159069
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs",
+      "sha256": "2a7d891a95d19998e104adee06f62e68e62c1089e02d56b84f3fda656755c842",
+      "bytes": 61511
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/FileIO/ZemaxZmxReader.cs",
+      "sha256": "0b78b854077b3418904eeb1c1874cd7bf24523b12969988c618edece285faecb",
+      "bytes": 74999
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/FileIO/CommercialFormatIO.cs",
+      "sha256": "b16ab33d5014c10c6ca67a930185d5d7379929faad260bea91fce302bbd9c893",
+      "bytes": 32260
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Contracts/ServiceContracts.cs",
+      "sha256": "2638cffdc02fb0931af41028d958a479773d8c8a605b0eb25818c6332c5d3940",
+      "bytes": 9969
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Contracts/WorkspaceContracts.cs",
+      "sha256": "50fc4fa18f17269faca468ad9be42a7703e100f05e0eccb7e8c9d8868f596f68",
+      "bytes": 43613
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Services/PrescriptionService.cs",
+      "sha256": "9fc1ba96d893ba6b933aaf14dbd978eac1f93d561cedaae863b9a6624ef725c5",
+      "bytes": 15135
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs",
+      "sha256": "f46f11003b67269d7fa9e8e7b767963e7d408f2fb0ca753da2e5d58b1688abae",
+      "bytes": 58927
+    },
+    {
+      "path": "src/OptilandWorkbench.App/Panels/SystemPropertiesPanel.cs",
+      "sha256": "4dbabad0529cbbbffc35ed432bed9cf7be51f095e9367090b7d78c95bf352bda",
+      "bytes": 45266
+    },
+    {
+      "path": "src/OptilandWorkbench.App/Panels/SystemPropertiesPanel.Polarization.cs",
+      "sha256": "111ea33df5974db5e7fca9c6f3d1d432ef0e12dead3b6cc8e68eb60256f78295",
+      "bytes": 3991
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/CoatingDataOperandTests.cs",
+      "sha256": "acaaedbe19955820afc492c0be00eb96c68c789b69ebdf47e010f7b039f839c8",
+      "bytes": 18389
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/PolarizationSettingsPanelTests.cs",
+      "sha256": "d7e30a3125283ec1f3ad288ee6002b14bde1a149c295a313b0ff99eeff8b38a3",
+      "bytes": 6503
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs",
+      "sha256": "33af235da24f120e5351db432a041a47d1f15f8a318a09bd30ab8e2f7bb57ce3",
+      "bytes": 112444
+    }
+  ],
+  "documentation": [
+    {
+      "path": "README.md",
+      "sha256": "81c53c5a988de5f6ec91eede1208c8f368adaa765568e06d1473fa5225c8c17b",
+      "bytes": 32588
+    },
+    {
+      "path": "docs/CURRENT_STATUS.md",
+      "sha256": "ed2cae2b7979e4d771297fe394eb4b9c1129f5c5e8964a1feac125e1dab820d2",
+      "bytes": 22261
+    },
+    {
+      "path": "docs/BUILD_AND_RELEASE.md",
+      "sha256": "927b8701b650dbd99e442969d77634b89055a31d3c4a07645ce1d9cc96879537",
+      "bytes": 156480
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "sha256": "155b5f6143eb5f25f86a1d5c901eb525526627054f247a1df6a32c08c92c1e12",
+      "bytes": 34199
+    },
+    {
+      "path": "docs/NUMERICAL_PARITY.md",
+      "sha256": "2784e8ded5bb021c2f4b337201ef3ca4fd398a6143f08b5a2b268fe46fb6c705",
+      "bytes": 17091
+    },
+    {
+      "path": "docs/CODE_READING_MAP.md",
+      "sha256": "7f741d7def99335e372da0270dfdb5f8e6aa944426550a7fe736eb854ac96ec9",
+      "bytes": 134255
+    },
+    {
+      "path": "docs/ZEMAX_OPERAND_SUPPORT.md",
+      "sha256": "e98df8672a1e4788f83523b1607ab4c3b6cda3ad9b9b737a9a01c4f49f04594b",
+      "bytes": 143095
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "09de09b5ae12f3c974e257a3e628e791ac29ceef4faa10428098d3be5cf3266f",
+      "bytes": 25450
+    },
+    {
+      "path": "docs/COATING_DATA_OPERAND_2026-10-03.md",
+      "sha256": "790447b1ee2f46022dd9a33fe900ce92a7348f2b484eec406a2fca2c8004a199",
+      "bytes": 8565
+    },
+    {
+      "path": "docs/POLARIZATION_RETARDANCE_2026-10-03.md",
+      "sha256": "0d53767378bec332c40bbe366a9a67d7ae2a83d37aeca7dfbbcd026ae4341cd6",
+      "bytes": 6780
+    },
+    {
+      "path": "docs/HIGH_YIELD_OPERAND_2026-10-03.md",
+      "sha256": "05eb62430897fbc24fa677c62a7ace687f03094b1bbb27e691986329e1896c24",
+      "bytes": 6208
+    },
+    {
+      "path": "docs/GRIN_CONTROL_OPERANDS_2026-10-03.md",
+      "sha256": "efc6bf97a3b2ecc1995c4d4a77a82476da6a37422d6355a7ea2c6756bd12f7a6",
+      "bytes": 6289
+    },
+    {
+      "path": "docs/COHERENT_COATING_TRANSPORT_2026-10-02.md",
+      "sha256": "173e59432cca652656adca779362cc65469051f8c578c16d302d56b81890cd17",
+      "bytes": 7615
+    },
+    {
+      "path": "docs/ILLUMINATION_POLARIZATION_2026-10-02.md",
+      "sha256": "b66ac69b5b975bf2e9b2751f3d81e0492c98f88e215a4f696fe61adfe477537a",
+      "bytes": 8992
+    },
+    {
+      "path": "docs/FILE_FORMATS_AND_PLUGINS.md",
+      "sha256": "8f80519625a7540c42045cfca6b832c20085b8cf6b76d29ce8ae0cfd3032a1ce",
+      "bytes": 27321
+    },
+    {
+      "path": "docs/PARITY_MATRIX.md",
+      "sha256": "2d9438790748e5287a2e26a56848264c2d509952c86abfa1ad198bfc17c19a42",
+      "bytes": 8511
+    },
+    {
+      "path": "docs/SYSTEM_COMPLETION_PLAN_2026-09-02.md",
+      "sha256": "9a84456fe73d2259ff69f7d1ff13995ddbded05916fe416eb07a4d73b6fa5eac",
+      "bytes": 29334
+    },
+    {
+      "path": "docs/STAROPT_FILE_FORMAT.md",
+      "sha256": "a6b9330bd79946bdedd600e4c17dd744d443289291a06e572cdb28d68bd4f913",
+      "bytes": 10353
+    },
+    {
+      "path": "docs/OPTIMIZATION_ALGORITHMS.md",
+      "sha256": "a477c1080a1374cbffb047921fe4d10073ff593404b5d3f8ffe921e4264b5f1d",
+      "bytes": 11059
+    },
+    {
+      "path": "docs/OPERAND_HELP_HIERARCHY_2026-10-01.md",
+      "sha256": "e086e1ecc81a215858b46f9f59a05ab4e4c6261f2ff916a08e1fc17c7246eefa",
+      "bytes": 8440
+    },
+    {
+      "path": "docs/GUI_QUICKSTART_REFACTOR.md",
+      "sha256": "d2f0404e9ea424971c3d22f3e5a81830467f8cb5ceca19dc140b72a065bd6f0b",
+      "bytes": 32420
+    },
+    {
+      "path": "docs/LENS_LIBRARY.md",
+      "sha256": "13549b92ea6f822f5ae367b1e78223f7f94d303090041d35613967897ceadc3d",
+      "bytes": 15396
+    },
+    {
+      "path": "docs/ARCHITECTURE_CONVERGENCE_PLAN.md",
+      "sha256": "0b97f064c534d4adea96f64b1f6dba61f2bacbc1f3b6b7578fc2f157b12596f4",
+      "bytes": 45734
+    },
+    {
+      "path": "docs/ZEMAX_BASELINE_CONFIGURATION_BOUNDARY.md",
+      "sha256": "44a8e22dbe2260f136a874f2c89472f31319a3887a9b5a2cc720b8a5a01d9011",
+      "bytes": 7218
+    },
+    {
+      "path": "docs/ZEMAX_OPERAND_AUTHENTICITY_AUDIT_2026-10-01.md",
+      "sha256": "025cbc9ae0347e04a48fd84f6185b9c6576af235a4e2ffb80515e1dfa8f2ad1b",
+      "bytes": 5473
+    }
+  ],
+  "checkedLocalLinks": 1461,
+  "officialSourceReading": {
+    "path": "artifacts/validation/coating-data-20261003/sources.json",
+    "sha256": "d4e2f69570d2ed52a9cce936faa092078554ab5ec42c353b25e93005478b731b",
+    "bytes": 1462
+  },
+  "defaultOutputBinaries": [
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "3256b2a73fc5f2d13780a72b4335750b866fa74e4404cf23f0b4dd223fa2b25c",
+      "bytes": 5287936
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll",
+      "sha256": "2a301e86038d5aefd034ffc7dd4e56f3edd514be70bc15dbc6d2fcc8d966d0d8",
+      "bytes": 1001984
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "b12a6fe147438fc378111966a9ae693b82efd57f0091dc84be1a3c49d7eef02c",
+      "bytes": 25729536
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "4f2274b899654e71a5b0cf389c068a8891b8f8ae4cccb3e3b786a7d0c2825907",
+      "bytes": 5178368
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll",
+      "sha256": "c0ba97ea1320d6a238ab8746e3aa1866ac8ffcef996942497bab8f17b0f38752",
+      "bytes": 973824
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "7750c1920d1fd9cd09b60b3f21fbc8c860ffbf1b4dd48d203418c1d9b40d87a2",
+      "bytes": 25652736
+    }
+  ],
+  "format": {
+    "passed": true,
+    "log": {
+      "path": "artifacts/validation/coating-data-20261003/format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  },
+  "gitDiffCheck": true,
+  "ui": {
+    "trx": {
+      "path": "artifacts/validation/coating-data-20261003/ui-final.trx",
+      "sha256": "7b12233b9af599686b9ac747246ef361676dab22e412170cc19e9e9ba67741f2",
+      "bytes": 4674
+    },
+    "log": {
+      "path": "artifacts/validation/coating-data-20261003/ui-final.log",
+      "sha256": "6f749291c84d460da9bf34732f9bc084ba7afbf1c13419702236657a0367b932",
+      "bytes": 1391
+    },
+    "passed": 2,
+    "screenshots": [
+      {
+        "path": "artifacts/validation/coating-data-20261003/screenshots/polarization-dark-invalid.png",
+        "sha256": "076acbe29bef2835c2a315e27ef89890a4f435ae45652d7838a8a0ac39b29c97",
+        "bytes": 46836
+      },
+      {
+        "path": "artifacts/validation/coating-data-20261003/screenshots/polarization-dark-saved.png",
+        "sha256": "e02fe242313ba8f1b1ef15d310fb5373562108d715dd3f0f91fdbeeba2484349",
+        "bytes": 40836
+      },
+      {
+        "path": "artifacts/validation/coating-data-20261003/screenshots/polarization-light-invalid.png",
+        "sha256": "0ac07bcfc12bb9aface975f7ecf45f033edeadc1fdbd0fb8cb979cf9765bf451",
+        "bytes": 42977
+      },
+      {
+        "path": "artifacts/validation/coating-data-20261003/screenshots/polarization-light-saved.png",
+        "sha256": "1e94abc2187ac595c3dc303147525a57d8dcf3ff8cd0ef70e10b97f57cc368b1",
+        "bytes": 36949
+      }
+    ],
+    "review": "Four actual Avalonia/Skia images reviewed; Light 240 DIP and Dark 280 DIP, invalid and saved states; inline error brought into visible viewport"
+  },
+  "workbenchRecalculation": "2962 previous tests rerun plus 72 new; prior unpolarized illumination and coherent coating tests retained",
+  "numericalComparison": "Independent Snell/Fresnel, complex Airy, TIR, local field/phase and ellipse references in tests; no native CODA numerical capture",
+  "nativeCapture": "None; the 29 committed baseline assets are byte equal to HEAD and do not validate new CODA modes",
+  "remaining": [
+    "50 known functions",
+    "2 unverified definitions",
+    "5 unused names excluded from implementation",
+    "Executable modes still have scope and native parity gaps",
+    "Native CODA/global-state file mapping and absolute phase origin pending",
+    "Stress birefringence, GRIN polarization and old vector-analysis integration pending"
+  ]
+}

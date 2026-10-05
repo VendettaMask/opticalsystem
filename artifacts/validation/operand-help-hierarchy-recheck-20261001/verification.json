@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-02",
+  "scope": "Existing operand help hierarchy recheck; no product source changes in this recheck",
+  "levels": [
+    "功能大类",
+    "操作数族",
+    "具体操作数"
+  ],
+  "category_count": 8,
+  "family_count": 51,
+  "entry_count": 387,
+  "verification": {
+    "debug": {
+      "passed": 19,
+      "failed": 0,
+      "total": 19,
+      "trx": "hierarchy-recheck-debug.trx"
+    },
+    "release": {
+      "passed": 19,
+      "failed": 0,
+      "total": 19,
+      "trx": "hierarchy-recheck-release.trx"
+    }
+  },
+  "rendering": "8 actual Avalonia/Skia frames visually reviewed: Light/Dark overview, GRIN family, search and narrow width",
+  "source_sha256": {
+    "src/OptilandWorkbench.App/Panels/OperandHelpPanel.cs": "5feedb3ff6f7189aa8c28ebb9bf4790dde7fdf204a6066a5b011d3511d78fecc",
+    "src/OptilandWorkbench.App/Panels/OperandHelpProjection.cs": "7ccb489c7dda1363635c2e412f5b873e85b7a14c9b8ce14fc6c25d16533f33ec",
+    "src/OptilandWorkbench.App/Panels/OperandHelpTaxonomy.cs": "1cddeadad1181f410fa752be6ec97c3a35da12fe4fed62a7a6f61c889a6e2ea7",
+    "tests/OptilandWorkbench.Tests/OperandHelpTests.cs": "d3d6fd44554847aa0eab749310c1b6b0f20e2e449ac1ca8fe9ce65d3ca0eb715"
+  },
+  "screenshots_sha256": {
+    "screenshots/operand-help-dark-grin-family.png": "1046af3777839130d008ebf1197d74eb7fa336650dd34c8ba1487bf9aeeac619",
+    "screenshots/operand-help-dark-grin-search.png": "d215edfd52c1f250a38130cba2a85d089fa8517e8adbe0ed17fbad500360c104",
+    "screenshots/operand-help-dark-narrow.png": "d10d3786f0f8fe5b35f4874a011d956a1e1a57d9e5033ed37db8e0ad4adc1226",
+    "screenshots/operand-help-dark-overview.png": "d481ced8ca2ac2d926586c6c1bd7bbae07b17c5c518d30726e961d1849533a6f",
+    "screenshots/operand-help-light-grin-family.png": "2fc6b68feee05b03be793127d446700f5096ca49f77c35f714377eb7e3d2cef2",
+    "screenshots/operand-help-light-grin-search.png": "7a548521461426f1d2946b88d2eba4dc60912bf2fafc54c0dfd20a0fe1b14152",
+    "screenshots/operand-help-light-narrow.png": "4804fc75f8e7ae9f84b61203c901be3aaf27629d02eec3e1ac83fb31f3beb403",
+    "screenshots/operand-help-light-overview.png": "cd8d381eea57f3c93814658227a99cbe476b849e8266ae74216adb7b1c344090"
+  },
+  "not_performed": [
+    "full optical regression",
+    "numerical verification of in-progress operands",
+    "native desktop walkthrough",
+    "new Zemax capture"
+  ],
+  "artifact_directory_started": "2026-10-01"
+}

@@ -129,12 +129,12 @@ internal static class CadLensMeshBuilder
             cancellationToken.ThrowIfCancellationRequested();
             var extendedSurfaceCount = 0;
             var mechanicalSemiDiameter = Math.Max(front.MechanicalSemiDiameter, back.MechanicalSemiDiameter);
-            if (front.SemiDiameter < mechanicalSemiDiameter - VertexResolutionMillimeters)
+            if (ProfileRadius(front) < mechanicalSemiDiameter - VertexResolutionMillimeters)
             {
                 extendedSurfaceCount++;
             }
 
-            if (back.SemiDiameter < mechanicalSemiDiameter - VertexResolutionMillimeters)
+            if (ProfileRadius(back) < mechanicalSemiDiameter - VertexResolutionMillimeters)
             {
                 extendedSurfaceCount++;
             }
@@ -230,7 +230,7 @@ internal static class CadLensMeshBuilder
         for (var radialIndex = 1; radialIndex <= radialSegments; radialIndex++)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var radius = surface.SemiDiameter * radialIndex / radialSegments;
+            var radius = ProfileRadius(surface) * radialIndex / radialSegments;
             var ring = new int[angularSegments];
             for (var angularIndex = 0; angularIndex < angularSegments; angularIndex++)
             {
@@ -311,7 +311,7 @@ internal static class CadLensMeshBuilder
         double mechanicalSemiDiameter,
         bool outwardPositiveNormal)
     {
-        if (mechanicalSemiDiameter <= surface.SemiDiameter + VertexResolutionMillimeters)
+        if (mechanicalSemiDiameter <= ProfileRadius(surface) + VertexResolutionMillimeters)
         {
             return opticalRim;
         }
@@ -323,8 +323,8 @@ internal static class CadLensMeshBuilder
             var angle = 2.0 * Math.PI * angularIndex / angularSegments;
             var cosine = Math.Cos(angle);
             var sine = Math.Sin(angle);
-            var edgeX = surface.SemiDiameter * cosine;
-            var edgeY = surface.SemiDiameter * sine;
+            var edgeX = ProfileRadius(surface) * cosine;
+            var edgeY = ProfileRadius(surface) * sine;
             var sag = EvaluateSag(surface, edgeX, edgeY);
             var point = surface.CoordinateSystem.ToGlobalPoint(new Vector3D(
                 mechanicalSemiDiameter * cosine,
@@ -378,8 +378,8 @@ internal static class CadLensMeshBuilder
         for (var radialIndex = 0; radialIndex < radialSegments; radialIndex++)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var innerRadius = surface.SemiDiameter * radialIndex / radialSegments;
-            var outerRadius = surface.SemiDiameter * (radialIndex + 1) / radialSegments;
+            var innerRadius = ProfileRadius(surface) * radialIndex / radialSegments;
+            var outerRadius = ProfileRadius(surface) * (radialIndex + 1) / radialSegments;
             for (var angularIndex = 0; angularIndex < angularSegments; angularIndex++)
             {
                 var angle = 2.0 * Math.PI * angularIndex / angularSegments;
@@ -487,6 +487,18 @@ internal static class CadLensMeshBuilder
             throw new InvalidOperationException(
                 $"镜片表面 {surface.Number} 在 ({x:G8}, {y:G8}) mm 处产生非有限全局坐标。");
         }
+    }
+
+    private static double ProfileRadius(OpticalSurface surface)
+    {
+        if (surface.ChipZone != 0)
+        {
+            if (surface.Geometry is not (PlaneGeometry or StandardGeometry or EvenAsphereGeometry or OddAsphereGeometry))
+                throw new NotSupportedException("CAD 延伸区目前限旋转对称标准面及偶/奇次非球面。");
+            if (surface.MechanicalSemiDiameter < surface.SemiDiameter + surface.ChipZone)
+                throw new InvalidOperationException("机械半径不能小于净半径加延伸区。");
+        }
+        return surface.SemiDiameter + surface.ChipZone;
     }
 
     private static int NormalizeSurfaceSamples(int samples)

@@ -38,112 +38,39 @@ public sealed class SeidelCoefficientsAnalysis : BaseAnalysis
                 ReportText: "未定义波长。", Outcome: AnalysisOutcome.Unavailable, OutcomeReason: "No wavelengths");
         }
 
+        if (_wavelengthNumber < 0 || _wavelengthNumber > wavelengths.Length)
+            return AnalysisData.Unavailable(Name, "波长编号不在当前系统范围内。");
         var wavelength = SelectWavelength(wavelengths);
         var wavelengthMicrometers = wavelength.Micrometers;
-        var wavelengthNanometers = wavelength.Nanometers;
-        var marginal = Optic.Paraxial.MarginalRay(wavelengthMicrometers);
-        var chief = Optic.Paraxial.ChiefRay(wavelengthMicrometers);
+        SeidelData computed;
+        try
+        {
+            computed = SeidelMetrics.Calculate(Optic, wavelengthMicrometers);
+        }
+        catch (Exception error) when (error is InvalidOperationException or NotSupportedException or ArgumentException)
+        {
+            return AnalysisData.Unavailable(Name, error.Message);
+        }
         var surfaces = Optic.SurfaceGroup.Items.ToArray();
-        var stop = Array.FindIndex(surfaces, s => s.IsStop);
-        if (stop > 0)
-        {
-            // Keep the physical stop fixed as wavelength changes. Entrance-pupil position and pupil
-            // magnification are chromatic; reusing a primary EPD with a selected-wavelength pupil position
-            // changes the marginal height at the stop and the Seidel normalization.
-            var primary = wavelengths.FirstOrDefault(w => w.IsPrimary) ?? wavelengths[0];
-            var primaryMarginal = Optic.Paraxial.MarginalRay(primary.Micrometers);
-            var stopHeight = marginal.Heights[stop][0];
-            if (Math.Abs(stopHeight) > 1e-15)
-            {
-                var marginalScale = primaryMarginal.Heights[stop][0] / stopHeight;
-                var chiefCorrection = chief.Heights[stop][0] / stopHeight;
-                chief = Combine(chief, marginal, 1, -chiefCorrection);
-                marginal = Combine(marginal, marginal, marginalScale, 0);
-            }
-        }
-        var shortWavelength = wavelengths.Min(item => item.Nanometers);
-        var longWavelength = wavelengths.Max(item => item.Nanometers);
-        var contributions = new List<SurfaceCoefficients>();
-        var totals = new double[7];
-        var petzvalSum = 0.0;
-        var invariant = 0.0;
-
-        for (var index = 1; index < surfaces.Length; index++)
-        {
-            var surface = surfaces[index];
-            var previous = surfaces[index - 1];
-            var nBefore = SafeIndex(previous.MaterialAfter.RefractiveIndex(wavelengthNanometers));
-            var nAfter = SafeIndex(surface.MaterialAfter.RefractiveIndex(wavelengthNanometers));
-            var curvature = surface.IsPlane ? 0.0 : 1.0 / surface.Radius;
-            var marginalHeight = marginal.Heights[index][0];
-            var chiefHeight = chief.Heights[index][0];
-            var marginalSlopeBefore = marginal.Slopes[index - 1][0];
-            var chiefSlopeBefore = chief.Slopes[index - 1][0];
-            var marginalSlopeAfter = marginal.Slopes[index][0];
-
-            var marginalIncidence = nBefore * (marginalSlopeBefore + (marginalHeight * curvature));
-            var chiefIncidence = nBefore * (chiefSlopeBefore + (chiefHeight * curvature));
-            var opticalInvariant = nBefore
-                * ((chiefSlopeBefore * marginalHeight) - (marginalSlopeBefore * chiefHeight));
-            if (Math.Abs(opticalInvariant) > Math.Abs(invariant))
-            {
-                invariant = opticalInvariant;
-            }
-
-            var deltaSlopeOverIndex = (marginalSlopeAfter / nAfter) - (marginalSlopeBefore / nBefore);
-            var s1 = -marginalIncidence * marginalIncidence * marginalHeight * deltaSlopeOverIndex;
-            var s2 = -marginalIncidence * chiefIncidence * marginalHeight * deltaSlopeOverIndex;
-            var s3 = -chiefIncidence * chiefIncidence * marginalHeight * deltaSlopeOverIndex;
-            var s4 = -opticalInvariant * opticalInvariant * curvature * ((1.0 / nAfter) - (1.0 / nBefore));
-            // Equivalent to (chiefIncidence / marginalIncidence) * (s3 + s4),
-            // but remains defined when the marginal ray has zero incidence.
-            var s5 = -Math.Pow(chiefIncidence, 3) * marginalHeight
-                * ((1.0 / (nAfter * nAfter)) - (1.0 / (nBefore * nBefore)))
-                + chiefIncidence * chiefHeight * curvature * ((1.0 / nAfter) - (1.0 / nBefore))
-                * (opticalInvariant + (chiefIncidence * marginalHeight));
-
-            var nBeforeShort = SafeIndex(previous.MaterialAfter.RefractiveIndex(shortWavelength));
-            var nAfterShort = SafeIndex(surface.MaterialAfter.RefractiveIndex(shortWavelength));
-            var nBeforeLong = SafeIndex(previous.MaterialAfter.RefractiveIndex(longWavelength));
-            var nAfterLong = SafeIndex(surface.MaterialAfter.RefractiveIndex(longWavelength));
-            // Extreme defined wavelengths, referenced to the selected wavelength:
-            // CL = -A*y*delta(delta_n/n), CT = -A_bar*y*delta(delta_n/n).
-            // An extra curvature factor is incorrect, including at plane interfaces.
-            var relativeDispersionChange = ((nAfterShort - nAfterLong) / nAfter)
-                - ((nBeforeShort - nBeforeLong) / nBefore);
-            var cl = -marginalIncidence * marginalHeight * relativeDispersionChange;
-            var ct = -chiefIncidence * marginalHeight * relativeDispersionChange;
-            var coefficients = new[] { s1, s2, s3, s4, s5, cl, ct }
-                .Select(FiniteOrZero)
-                .ToArray();
-
-            for (var coefficientIndex = 0; coefficientIndex < totals.Length; coefficientIndex++)
-            {
-                totals[coefficientIndex] += coefficients[coefficientIndex];
-            }
-
-            petzvalSum += curvature * (nAfter - nBefore) / (nBefore * nAfter);
-            contributions.Add(new SurfaceCoefficients(SurfaceLabel(surface, index == surfaces.Length - 1), coefficients));
-        }
-
-        contributions.Add(new SurfaceCoefficients("累计", totals));
-
-        var imageIndex = SafeIndex(surfaces[^1].MaterialAfter.RefractiveIndex(wavelengthNanometers));
-        var petzvalRadius = Math.Abs(petzvalSum) <= 1e-15 ? double.PositiveInfinity : -1.0 / (imageIndex * petzvalSum);
+        var contributions = computed.Surfaces.Select((row, index) => new SurfaceCoefficients(
+            SurfaceLabel(surfaces[index + 1], index + 2 == surfaces.Length), row.Coefficients.ToArray())).ToList();
+        contributions.Add(new SurfaceCoefficients("累计", computed.Total.ToArray()));
+        var imageIndex = computed.ImageRefractiveIndex;
+        var petzvalRadius = computed.PetzvalCurvature == 0 ? double.PositiveInfinity : 1 / computed.PetzvalCurvature;
         var values = new Dictionary<string, object>
         {
             ["WavelengthMicrometers"] = wavelengthMicrometers,
-            ["ChiefRaySlopeObjectSpace"] = FirstSlope(chief),
-            ["ChiefRaySlopeImageSpace"] = LastSlope(chief),
-            ["MarginalRaySlopeObjectSpace"] = FirstSlope(marginal),
-            ["MarginalRaySlopeImageSpace"] = LastSlope(marginal),
+            ["ChiefRaySlopeObjectSpace"] = computed.ChiefSlopeObject,
+            ["ChiefRaySlopeImageSpace"] = computed.ChiefSlopeImage,
+            ["MarginalRaySlopeObjectSpace"] = computed.MarginalSlopeObject,
+            ["MarginalRaySlopeImageSpace"] = computed.MarginalSlopeImage,
             ["PetzvalRadius"] = petzvalRadius,
-            ["OpticalInvariant"] = invariant,
+            ["OpticalInvariant"] = computed.OpticalInvariant,
             ["ImageSpaceRefractiveIndex"] = imageIndex,
             ["SurfaceCount"] = Math.Max(0, surfaces.Length - 1),
             ["SeidelCoefficientsMillimeters"] = contributions.Select(c => c.Values.ToArray()).ToArray()
         };
-        var marginalSlope = LastSlope(marginal);
+        var marginalSlope = computed.MarginalSlopeImage;
         var transverseFactor = Math.Abs(marginalSlope) > 1e-15 ? -1 / (2 * imageIndex * marginalSlope) : double.NaN;
         var longitudinalFactor = Math.Abs(marginalSlope) > 1e-15 ? 1 / (2 * imageIndex * marginalSlope * marginalSlope) : double.NaN;
         values["WaveAberrationCoefficients"] = contributions.Select(c => WaveCoefficients(c.Values, wavelengthMicrometers / 1000)).ToArray();
@@ -168,10 +95,6 @@ public sealed class SeidelCoefficientsAnalysis : BaseAnalysis
         return wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
     }
 
-    private static ParaxialTrace Combine(ParaxialTrace first, ParaxialTrace second, double a, double b) => new(
-        first.Heights.Select((row, i) => (IReadOnlyList<double>)row.Select((v, j) => a * v + b * second.Heights[i][j]).ToArray()).ToArray(),
-        first.Slopes.Select((row, i) => (IReadOnlyList<double>)row.Select((v, j) => a * v + b * second.Slopes[i][j]).ToArray()).ToArray());
-
     private static string SurfaceLabel(OpticalSurface surface, bool isLast)
     {
         if (isLast)
@@ -180,26 +103,6 @@ public sealed class SeidelCoefficientsAnalysis : BaseAnalysis
         }
 
         return surface.IsStop ? "光阑" : surface.Number.ToString(CultureInfo.InvariantCulture);
-    }
-
-    private static double FirstSlope(Services.ParaxialTrace trace)
-    {
-        return trace.Slopes.Count == 0 ? 0 : trace.Slopes[0][0];
-    }
-
-    private static double LastSlope(Services.ParaxialTrace trace)
-    {
-        return trace.Slopes.Count == 0 ? 0 : trace.Slopes[^1][0];
-    }
-
-    private static double SafeIndex(double value)
-    {
-        return !double.IsFinite(value) || Math.Abs(value) <= 1e-15 ? 1.0 : value;
-    }
-
-    private static double FiniteOrZero(double value)
-    {
-        return double.IsFinite(value) ? value : 0.0;
     }
 
     private static string BuildReport(
@@ -250,11 +153,8 @@ public sealed class SeidelCoefficientsAnalysis : BaseAnalysis
         return builder.ToString().TrimEnd();
     }
 
-    internal static double[] WaveCoefficients(double[] s, double wavelength) => new[]
-    {
-        s[0] / (8 * wavelength), s[1] / (2 * wavelength), s[2] / (2 * wavelength),
-        s[3] / (4 * wavelength), s[4] / (2 * wavelength), s[5] / (2 * wavelength), s[6] / wavelength
-    };
+    internal static double[] WaveCoefficients(double[] s, double wavelength) =>
+        new SeidelCoefficients(s[0], s[1], s[2], s[3], s[4], s[5], s[6]).InWaves(wavelength);
 
     internal static double[] RayAberrationCoefficients(double[] s, double factor, double colorFactor) => new[]
     {

@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Analysis;
 
@@ -343,30 +344,6 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
 
 internal sealed class PsfPixelEnergyGrid
 {
-    private static readonly double[] GaussNodes =
-    {
-        0.09501250983763744,
-        0.2816035507792589,
-        0.45801677765722737,
-        0.6178762444026438,
-        0.755404408355003,
-        0.8656312023878318,
-        0.9445750230732326,
-        0.9894009349916499
-    };
-
-    private static readonly double[] GaussWeights =
-    {
-        0.1894506104550685,
-        0.18260341504492358,
-        0.16915651939500254,
-        0.14959598881657673,
-        0.12462897125553388,
-        0.09515851168249278,
-        0.06225352393864789,
-        0.027152459411754096
-    };
-
     private readonly Pixel[] _pixels;
     private readonly string _type;
     private readonly double _totalWeight;
@@ -412,6 +389,7 @@ internal sealed class PsfPixelEnergyGrid
         var enclosed = 0.0;
         foreach (var pixel in _pixels)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             enclosed += pixel.Weight * AreaFraction(pixel, distance, _type);
         }
 
@@ -499,39 +477,52 @@ internal sealed class PsfPixelEnergyGrid
             return 1;
         }
 
-        var area = CircleRectangleIntersectionArea(pixel, distance);
-        var pixelArea = (pixel.XMaximum - pixel.XMinimum)
-            * (pixel.YMaximum - pixel.YMinimum);
+        return CircleRectangleAreaFraction(pixel, distance);
+    }
+
+    private static double CircleRectangleAreaFraction(Pixel pixel, double radius)
+    {
+        // Normalize before integration so r² never overflows. Split where the
+        // circle crosses either horizontal pixel boundary; each interval then
+        // has an exact constant +/- sqrt(1-x²) vertical-overlap expression.
+        var left = Math.Max(-1, pixel.XMinimum / radius);
+        var right = Math.Min(1, pixel.XMaximum / radius);
+        if (right <= left) return 0;
+        var bottom = Math.Max(-1, pixel.YMinimum / radius);
+        var top = Math.Min(1, pixel.YMaximum / radius);
+        if (top <= bottom) return 0;
+        var cuts = new List<double> { left, right };
+        foreach (var y in new[] { bottom, top })
+        {
+            var x = Math.Sqrt(Math.Max(0, (1 - y) * (1 + y)));
+            if (-x > left && -x < right) cuts.Add(-x);
+            if (x > left && x < right) cuts.Add(x);
+        }
+        cuts.Sort(); var area = 0.0;
+        for (var i = 1; i < cuts.Count; i++)
+        {
+            var a = cuts[i - 1]; var b = cuts[i]; var middle = (a + b) / 2;
+            var height = Math.Sqrt(Math.Max(0, (1 - middle) * (1 + middle)));
+            if (Math.Min(top, height) <= Math.Max(bottom, -height)) continue;
+            var upperArc = height < top; var lowerArc = -height > bottom;
+            var constant = (upperArc ? 0 : top) - (lowerArc ? 0 : bottom);
+            area += constant * (b - a) + ((upperArc ? 1 : 0) + (lowerArc ? 1 : 0)) * CirclePrimitiveDifference(a, b);
+        }
+        var pixelArea = ((pixel.XMaximum - pixel.XMinimum) / radius) * ((pixel.YMaximum - pixel.YMinimum) / radius);
         return Math.Clamp(area / pixelArea, 0, 1);
     }
 
-    private static double CircleRectangleIntersectionArea(Pixel pixel, double radius)
+    private static double CirclePrimitiveDifference(double a, double b)
     {
-        var left = Math.Max(pixel.XMinimum, -radius);
-        var right = Math.Min(pixel.XMaximum, radius);
-        if (right <= left)
-        {
-            return 0;
-        }
-
-        var midpoint = (left + right) / 2;
-        var halfWidth = (right - left) / 2;
-        var integral = 0.0;
-        for (var index = 0; index < GaussNodes.Length; index++)
-        {
-            var offset = halfWidth * GaussNodes[index];
-            integral += GaussWeights[index]
-                * (VerticalOverlap(midpoint - offset, pixel, radius)
-                    + VerticalOverlap(midpoint + offset, pixel, radius));
-        }
-
-        return halfWidth * integral;
-    }
-
-    private static double VerticalOverlap(double x, Pixel pixel, double radius)
-    {
-        var halfHeight = Math.Sqrt(Math.Max(0, (radius * radius) - (x * x)));
-        return Overlap(pixel.YMinimum, pixel.YMaximum, -halfHeight, halfHeight);
+        var first = Math.Asin(a); var second = Math.Asin(b); var delta = second - first;
+        // Integral of sqrt(1-x²). Avoid subtracting nearly equal primitives,
+        // and avoid delta - sin(delta) cancellation near a circle endpoint.
+        var d2 = delta * delta;
+        var deltaMinusSine = Math.Abs(delta) < .01
+            ? delta * d2 * (1.0 / 6 - d2 / 120 + d2 * d2 / 5040)
+            : delta - Math.Sin(delta);
+        var cosine = Math.Cos((first + second) / 2);
+        return .5 * deltaMinusSine + cosine * cosine * Math.Sin(delta);
     }
 
     private static double Overlap(double firstMinimum, double firstMaximum, double secondMinimum, double secondMaximum)
@@ -547,14 +538,14 @@ internal sealed class PsfPixelEnergyGrid
         var y = pixel.YMinimum > 0
             ? pixel.YMinimum
             : pixel.YMaximum < 0 ? -pixel.YMaximum : 0;
-        return Math.Sqrt((x * x) + (y * y));
+        return double.Hypot(x, y);
     }
 
     private static double MaximumRadialDistance(Pixel pixel)
     {
         var x = Math.Max(Math.Abs(pixel.XMinimum), Math.Abs(pixel.XMaximum));
         var y = Math.Max(Math.Abs(pixel.YMinimum), Math.Abs(pixel.YMaximum));
-        return Math.Sqrt((x * x) + (y * y));
+        return double.Hypot(x, y);
     }
 
     private static double MaximumDistance(Pixel pixel, string type)

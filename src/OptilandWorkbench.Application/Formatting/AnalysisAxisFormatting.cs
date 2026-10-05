@@ -135,6 +135,7 @@ public static class AnalysisAxisFormatting
         AnalysisAxisQuantity.FieldAngle => "视场角",
         AnalysisAxisQuantity.FieldHeight => "视场高度",
         AnalysisAxisQuantity.NormalizedField => "归一化视场",
+        AnalysisAxisQuantity.Probability => "概率",
         AnalysisAxisQuantity.ImageHeight => "像高",
         AnalysisAxisQuantity.ObjectHeight => "物高",
         AnalysisAxisQuantity.PupilCoordinate => "归一化光瞳",

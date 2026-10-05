@@ -330,7 +330,8 @@ public sealed class PhaseInteractionModel : IInteractionModel
             {
                 Direction = outgoingLength <= 1e-12 ? ray.Direction : outgoingWaveVector / outgoingLength,
                 Intensity = intensity * Profile.Efficiency,
-                OpticalPathDifference = ray.OpticalPathDifference - (phase / waveNumber)
+                // waveNumber uses micrometers; traced path lengths use millimeters.
+                OpticalPathDifference = ray.OpticalPathDifference - (phase / waveNumber / 1000.0)
             },
             reflective ? RayInteractionKind.Reflected : RayInteractionKind.Transmitted);
     }

@@ -19,10 +19,12 @@ public sealed partial class OpticalSurface : NotifyObject
     private string _material = "Air";
     private string _coating = "None";
     private double _semiDiameter = 10.0;
+    private double _chipZone;
     private double? _mechanicalSemiDiameter;
     private int _mechanicalSemiDiameterSolveCode;
     private bool _semiDiameterFixed;
     private bool _semiDiameterDefinesPhysicalAperture;
+    private double? _thermalExpansionPpmPerC = 0;
     private double _conic;
     private bool _isStop;
     private bool _radiusVariable;
@@ -99,6 +101,7 @@ public sealed partial class OpticalSurface : NotifyObject
         set
         {
             var normalized = NumericParameterGuard.ClampMinimumFinite(value, 0.1, nameof(SemiDiameter));
+            if (!double.IsFinite(normalized + ChipZone)) throw new ArgumentOutOfRangeException(nameof(SemiDiameter));
             if (SetProperty(ref _semiDiameter, normalized)
                 && SemiDiameterDefinesPhysicalAperture)
                 PhysicalAperture = new CircularAperture(normalized);
@@ -117,10 +120,23 @@ public sealed partial class OpticalSurface : NotifyObject
         set => SetProperty(ref _semiDiameterDefinesPhysicalAperture, value);
     }
 
-    /// <summary>Zemax mechanical semi-diameter. Falls back to the clear semi-diameter when unspecified.</summary>
+    /// <summary>Radial extension of the optical profile beyond the clear semi-diameter, in mm.</summary>
+    public double ChipZone
+    {
+        get => _chipZone;
+        set
+        {
+            NumericParameterGuard.RequireFinite(value, nameof(ChipZone));
+            if (value < 0 || !double.IsFinite(SemiDiameter + value)) throw new ArgumentOutOfRangeException(nameof(ChipZone));
+            if (SetProperty(ref _chipZone, value) && _mechanicalSemiDiameter is null)
+                RaisePropertyChanged(nameof(MechanicalSemiDiameter));
+        }
+    }
+
+    /// <summary>Mechanical semi-diameter; defaults to clear semi-diameter plus chip zone.</summary>
     public double MechanicalSemiDiameter
     {
-        get => _mechanicalSemiDiameter ?? SemiDiameter;
+        get => _mechanicalSemiDiameter ?? (SemiDiameter + ChipZone);
         set => SetProperty(
             ref _mechanicalSemiDiameter,
             NumericParameterGuard.ClampNonNegativeFinite(value, nameof(MechanicalSemiDiameter)),
@@ -137,6 +153,17 @@ public sealed partial class OpticalSurface : NotifyObject
             if (value < 0)
                 throw new ArgumentOutOfRangeException(nameof(MechanicalSemiDiameterSolveCode));
             SetProperty(ref _mechanicalSemiDiameterSolveCode, value);
+        }
+    }
+
+    /// <summary>Surface/spacer TCE in 10^-6 per degree C; null means not provided. Independent of catalog glass Alpha1.</summary>
+    public double? ThermalExpansionPpmPerC
+    {
+        get => _thermalExpansionPpmPerC;
+        set
+        {
+            if (value is { } coefficient) NumericParameterGuard.RequireFinite(coefficient, nameof(ThermalExpansionPpmPerC));
+            SetProperty(ref _thermalExpansionPpmPerC, value);
         }
     }
 
@@ -287,14 +314,16 @@ public sealed partial class OpticalSurface : NotifyObject
         IMaterial materialBefore,
         IMaterial materialAfter,
         double cumulativePathLength,
-        double cumulativeOpticalPathLength)
+        double cumulativeOpticalPathLength,
+        CoordinateSystem? materialBeforeCoordinates = null)
     {
         var result = TraceRayValue(
             inputRay,
             materialBefore,
             materialAfter,
             cumulativePathLength,
-            cumulativeOpticalPathLength);
+            cumulativeOpticalPathLength,
+            materialBeforeCoordinates: materialBeforeCoordinates);
         return new SurfaceRayTraceResult(
             result.Ray,
             result.Sample.ToRayTraceSample(),
@@ -312,7 +341,8 @@ public sealed partial class OpticalSurface : NotifyObject
         IMaterial materialAfter,
         double cumulativePathLength,
         double cumulativeOpticalPathLength,
-        bool ignorePhysicalAperture = false)
+        bool ignorePhysicalAperture = false,
+        CoordinateSystem? materialBeforeCoordinates = null)
     {
         var result = TraceRayState(
             RayState.FromRealRay(inputRay),
@@ -320,7 +350,8 @@ public sealed partial class OpticalSurface : NotifyObject
             materialAfter,
             cumulativePathLength,
             cumulativeOpticalPathLength,
-            ignorePhysicalAperture);
+            ignorePhysicalAperture,
+            materialBeforeCoordinates: materialBeforeCoordinates);
         return new SurfaceRayTraceValueResult(
             result.Ray.ToRealRay(),
             result.Sample,
@@ -482,10 +513,12 @@ public sealed partial class OpticalSurface : NotifyObject
             Material = Material,
             Coating = Coating,
             SemiDiameter = SemiDiameter,
+            ChipZone = ChipZone,
             MechanicalSemiDiameterSolveCode = MechanicalSemiDiameterSolveCode,
             SemiDiameterFixed = SemiDiameterFixed,
             SemiDiameterDefinesPhysicalAperture = SemiDiameterDefinesPhysicalAperture,
             Conic = Conic,
+            ThermalExpansionPpmPerC = ThermalExpansionPpmPerC,
             IsStop = IsStop,
             IsReflective = IsReflective,
             RadiusVariable = RadiusVariable,

@@ -289,7 +289,7 @@ internal sealed class BlueThemeStyles : Styles
         Rule(s => Light<Border>(s).Class("system-section-divider"),
             new Setter(Visual.IsVisibleProperty, true), new Setter(Border.BackgroundProperty, B(Divider)));
         Rule(s => Light<Button>(s).Class("system-section-header").Template().OfType<ContentPresenter>(),
-            new Setter(ContentPresenter.CornerRadiusProperty, new CornerRadius(6)),
+            new Setter(ContentPresenter.CornerRadiusProperty, ThemeChromeResources.StandardSectionHeaderCornerRadius),
             // Match the content's right inset so the overlay scrollbar cannot clip the radius.
             new Setter(Control.MarginProperty, new Thickness(4, 0, 12, 0)),
             new Setter(ContentPresenter.PaddingProperty, new Thickness(6, 0)));

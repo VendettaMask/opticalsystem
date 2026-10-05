@@ -110,9 +110,11 @@ public static partial class AutomaticSemiDiameterSolver
             var radius = Math.Max(.1, group.Max(index => maxima[index]) * marginFactor);
             radius = Math.Max(radius, group.Where(fixedStops.Contains)
                 .Select(index => optic.SurfaceGroup.Items[index].SemiDiameter).DefaultIfEmpty(0).Max());
+            var mechanical = radius + group.Max(index => optic.SurfaceGroup.Items[index].ChipZone);
+            if (!double.IsFinite(mechanical)) throw new InvalidOperationException("净半径加延伸区溢出。");
             return group.Select(index => new RayEnvelopeSurfaceSize(index, maxima[index],
                 fixedStops.Contains(index) ? optic.SurfaceGroup.Items[index].SemiDiameter : radius)
-            { MechanicalSemiDiameterMillimeters = radius });
+            { MechanicalSemiDiameterMillimeters = mechanical });
         }).ToArray();
         var complete = completed == requested && sizes.All(size => double.IsFinite(size.SemiDiameterMillimeters));
         cancellationToken.ThrowIfCancellationRequested();

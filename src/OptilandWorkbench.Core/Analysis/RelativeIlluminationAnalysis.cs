@@ -1,6 +1,4 @@
-using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Domain;
-using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Analysis;
@@ -12,6 +10,7 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
     private readonly int _wavelengthNumber;
     private readonly string _scanDirection;
     private readonly bool _removeVignettingFactors;
+    private readonly bool _usePolarization;
 
     public RelativeIlluminationAnalysis(
         Optic optic,
@@ -19,13 +18,16 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
         int fieldDensity = 21,
         int wavelengthNumber = 0,
         string scanDirection = "+y",
-        bool removeVignettingFactors = true) : base(optic)
+        bool removeVignettingFactors = true,
+        bool usePolarization = false) : base(optic)
     {
         _rayDensity = Math.Clamp(rayDensity, 5, 128);
         _fieldDensity = Math.Clamp(fieldDensity, 2, 201);
-        _wavelengthNumber = Math.Max(0, wavelengthNumber);
+        ArgumentOutOfRangeException.ThrowIfNegative(wavelengthNumber);
+        _wavelengthNumber = wavelengthNumber;
         _scanDirection = AnalysisTrace.NormalizeScanDirection(scanDirection);
         _removeVignettingFactors = removeVignettingFactors;
+        _usePolarization = usePolarization;
     }
 
     public override string Name => "Relative Illumination";
@@ -37,40 +39,33 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
             return Status("No optical data");
         }
 
-        var workingOptic = _removeVignettingFactors
-            ? Optic.FromSnapshot(Optic.ToSnapshot())
-            : Optic;
-        if (_removeVignettingFactors)
-        {
-            foreach (var field in workingOptic.Fields)
-            {
-                field.VignetteFactorX = 0;
-                field.VignetteFactorY = 0;
-            }
-        }
+        var workingOptic = AnalysisTrace.PrepareVignettingFactors(Optic, _removeVignettingFactors);
 
         var wavelength = SelectWavelength(workingOptic);
         var maximumField = FieldCoordinates.MaximumRadius(workingOptic.Fields);
         var rawIllumination = new double[_fieldDensity];
         var effectiveFNumbers = new double[_fieldDensity];
         var validRays = new int[_fieldDensity];
+        var sampledNodes = new int[_fieldDensity];
         var foldedCells = new int[_fieldDensity];
+        var fields = Enumerable.Range(0, _fieldDensity)
+            .Select(index => AnalysisTrace.ScanField(_scanDirection, index / (_fieldDensity - 1.0))).ToArray();
+        var results = IlluminationMetrics.EvaluateFields(workingOptic, fields, wavelength.Micrometers, _rayDensity, _usePolarization);
 
         for (var index = 0; index < _fieldDensity; index++)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
-            var fraction = index / (_fieldDensity - 1.0);
-            var normalizedField = AnalysisTrace.ScanField(_scanDirection, fraction);
-            var result = EvaluateField(workingOptic, normalizedField, wavelength.Micrometers, _rayDensity);
+            var result = results[index];
             rawIllumination[index] = result.ProjectedCosineArea;
             validRays[index] = result.ValidRays;
-            foldedCells[index] = result.FoldedCells;
-            effectiveFNumbers[index] = EffectiveFNumber(
-                result.ProjectedCosineArea,
-                ImageSpaceRefractiveIndex(workingOptic, wavelength.Nanometers));
+            sampledNodes[index] = result.SampledPupilNodes;
+            // Folded mappings are rejected by the shared integral.
+            foldedCells[index] = 0;
+            effectiveFNumbers[index] = result.EffectiveFNumber;
         }
 
         var maximumIllumination = rawIllumination.DefaultIfEmpty(0).Max();
+        if (maximumIllumination <= 0) return Status("No transmitted pupil area");
         var points = Enumerable.Range(0, _fieldDensity)
             .Select(index => new AnalysisPoint(
                 AnalysisTrace.ScanFieldValue(
@@ -100,12 +95,16 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
             ["WavelengthMicrometers"] = wavelength.Micrometers,
             ["ScanDirection"] = _scanDirection,
             ["RemoveVignettingFactors"] = _removeVignettingFactors,
+            ["UsePolarization"] = _usePolarization,
+            ["PolarizationModel"] = _usePolarization ? "Unpolarized power Jones chain; transparent incident media, scalar and coherent multilayer coatings" : "Scalar ray power",
             ["RawProjectedCosineArea"] = rawIllumination,
             ["RelativeIllumination"] = points.Select(point => point.Y).ToArray(),
             ["EffectiveFNumbers"] = effectiveFNumbers,
             ["ValidRayCounts"] = validRays,
+            ["SampledPupilNodeCounts"] = sampledNodes,
             ["FoldedCellCounts"] = foldedCells,
-            ["MaximumProjectedCosineArea"] = maximumIllumination
+            ["MaximumProjectedCosineArea"] = maximumIllumination,
+            ["PupilIntegration"] = "Adaptive full-pupil scalar quadrature"
         }, series, new[] { series }, new AnalysisPlotOptions(
             Title: $"Relative Illumination, λ = {wavelength.Micrometers:0.0000} µm",
             YMinimum: 0,
@@ -133,137 +132,16 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
         double wavelengthMicrometers,
         int rayDensity)
     {
-        return EvaluateField(optic, normalizedField, wavelengthMicrometers, rayDensity).ProjectedCosineArea;
-    }
-
-    private static IlluminationResult EvaluateField(
-        Optic optic,
-        (double Hx, double Hy) normalizedField,
-        double wavelengthMicrometers,
-        int rayDensity)
-    {
-        var imageSurface = optic.SurfaceGroup.Items[^1];
-        var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
-            normalizedField.Hx,
-            normalizedField.Hy,
-            0,
-            0,
-            wavelengthMicrometers,
-            aimAtStop: true);
-        var chief = optic.SequentialRayTracer.TraceFinalSamples(chiefBundle).Single()
-            ?? throw new InvalidOperationException("Chief ray did not reach the image surface.");
-        if (chief.Vignetted || chief.Intensity <= 0 || chief.SurfaceNumber != imageSurface.Number)
-            throw new AnalysisDataUnavailableException(NameForError, "the chief ray does not reach the image surface");
-        var chiefDirection = Normalize(imageSurface.CoordinateSystem.ToLocalDirection(chief.Direction));
-        var tangentX = TangentX(chiefDirection);
-        var tangentY = Normalize(Cross(chiefDirection, tangentX));
-        if (Dot(tangentY, new Vector3D(0, 1, 0)) < 0)
-        {
-            tangentY = -tangentY;
-        }
-
-        // The projected solid angle is an area enclosed by the traced rim of the
-        // entrance pupil. Integrating only cells whose four rectangular-grid nodes
-        // fall inside the unit circle discards the outer annulus and biases both the
-        // effective F/# and its field dependence. Green's theorem gives the complete
-        // area directly from the ordered image-space pupil boundary.
-        var boundaryCount = Math.Max(48, rayDensity * 24);
-        var samples = Enumerable.Range(0, boundaryCount)
-            .Select(index =>
-            {
-                var angle = 2 * Math.PI * index / boundaryCount;
-                return new PupilSample(Math.Cos(angle), Math.Sin(angle), 1);
-            })
-            .ToArray();
-
-        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
-            normalizedField.Hx,
-            normalizedField.Hy,
-            wavelengthMicrometers,
-            samples,
-            aimAtStop: true);
-        var traced = optic.SequentialRayTracer.TraceFinalSamples(bundle);
-        var boundary = new PupilNode?[boundaryCount];
-        for (var index = 0; index < traced.Count; index++)
-        {
-            var sample = traced[index];
-            if (sample is null || sample.Vignetted || sample.Intensity <= 0 || sample.SurfaceNumber != imageSurface.Number)
-            {
-                // A clipped rim ray does not remove the entire angular sector. Locate
-                // the transmitted boundary from the chief ray, retaining real apertures
-                // in every trace. This also resolves finite stop-aiming residuals at a
-                // grazing boundary without enlarging the stop or accepting a lost ray.
-                var inside = 0.0;
-                var outside = 1.0;
-                sample = chief;
-                for (var iteration = 0; iteration < 32; iteration++)
-                {
-                    ComputationCancellation.ThrowIfCancellationRequested();
-                    var radius = (inside + outside) / 2;
-                    var probeBundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
-                        normalizedField.Hx, normalizedField.Hy, wavelengthMicrometers,
-                        [new PupilSample(samples[index].X * radius, samples[index].Y * radius, 1)],
-                        aimAtStop: true);
-                    var probe = optic.SequentialRayTracer.TraceFinalSamples(probeBundle).Single();
-                    if (probe is { Vignetted: false, Intensity: > 0 } && probe.SurfaceNumber == imageSurface.Number)
-                    {
-                        inside = radius;
-                        sample = probe;
-                    }
-                    else outside = radius;
-                }
-            }
-            if (sample is null
-                || sample.SurfaceNumber != imageSurface.Number
-                || sample.Vignetted
-                || sample.Intensity <= 0)
-            {
-                continue;
-            }
-
-            var localDirection = Normalize(imageSurface.CoordinateSystem.ToLocalDirection(sample.Direction));
-            boundary[index] = new PupilNode(
-                Dot(localDirection, tangentX),
-                Dot(localDirection, tangentY),
-                sample.Intensity);
-        }
-
-        var area = 0.0;
-        var positiveCells = 0;
-        var negativeCells = 0;
-        for (var index = 0; index < boundaryCount; index++)
-        {
-            var first = boundary[index];
-            var second = boundary[(index + 1) % boundaryCount];
-            if (!first.HasValue || !second.HasValue)
-            {
-                continue;
-            }
-
-            var cross = (first.Value.L * second.Value.M) - (second.Value.L * first.Value.M);
-            if (cross > 1e-18)
-            {
-                positiveCells++;
-            }
-            else if (cross < -1e-18)
-            {
-                negativeCells++;
-            }
-
-            area += 0.25 * Math.Abs(cross) * (first.Value.Intensity + second.Value.Intensity);
-        }
-
-        return new IlluminationResult(
-            area,
-            boundary.Count(node => node.HasValue),
-            Math.Min(positiveCells, negativeCells));
+        return IlluminationMetrics.Evaluate(optic, normalizedField, wavelengthMicrometers, rayDensity).ProjectedCosineArea;
     }
 
     private Wavelength SelectWavelength(Optic optic)
     {
         if (_wavelengthNumber > 0)
         {
-            return optic.Wavelengths[Math.Clamp(_wavelengthNumber - 1, 0, optic.Wavelengths.Count - 1)];
+            if (_wavelengthNumber > optic.Wavelengths.Count)
+                throw new AnalysisDataUnavailableException(Name, "the wavelength number is outside the optical system");
+            return optic.Wavelengths[_wavelengthNumber - 1];
         }
 
         return optic.Wavelengths.FirstOrDefault(item => item.IsPrimary) ?? optic.Wavelengths[0];
@@ -282,49 +160,5 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
         return 1;
     }
 
-    private static double ImageSpaceRefractiveIndex(Optic optic, double wavelengthNanometers)
-    {
-        var imageSurface = optic.SurfaceGroup.Items[^1];
-        return Math.Max(1e-12, imageSurface.MaterialBefore.RefractiveIndex(wavelengthNanometers));
-    }
-
-    private static double EffectiveFNumber(double projectedCosineArea, double imageSpaceIndex)
-    {
-        return projectedCosineArea <= 1e-30
-            ? double.PositiveInfinity
-            : 0.5 * Math.Sqrt(Math.PI / projectedCosineArea) / imageSpaceIndex;
-    }
-
     private AnalysisData Status(string message) => AnalysisData.Unavailable(Name, message);
-
-    private static Vector3D TangentX(Vector3D normal)
-    {
-        var reference = Math.Abs(normal.X) < 0.95
-            ? new Vector3D(1, 0, 0)
-            : new Vector3D(0, 1, 0);
-        return Normalize(reference - (normal * Dot(reference, normal)));
-    }
-
-    private static Vector3D Cross(Vector3D left, Vector3D right) => new(
-        (left.Y * right.Z) - (left.Z * right.Y),
-        (left.Z * right.X) - (left.X * right.Z),
-        (left.X * right.Y) - (left.Y * right.X));
-
-    private static double Dot(Vector3D left, Vector3D right) =>
-        (left.X * right.X) + (left.Y * right.Y) + (left.Z * right.Z);
-
-    private static Vector3D Normalize(Vector3D value)
-    {
-        var length = value.Length;
-        return length <= 1e-15 ? new Vector3D(0, 0, 1) : value / length;
-    }
-
-    private readonly record struct PupilNode(double L, double M, double Intensity);
-
-    private const string NameForError = "Relative Illumination";
-
-    private readonly record struct IlluminationResult(
-        double ProjectedCosineArea,
-        int ValidRays,
-        int FoldedCells);
 }

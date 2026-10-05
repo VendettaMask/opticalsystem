@@ -1,0 +1,46 @@
+{
+  "date": "2026-09-28",
+  "scope": "28 common sequential operands; not the full 383-code compatibility goal",
+  "registered": 383,
+  "executable_before": 124,
+  "executable_after": 152,
+  "compatibility_only_after": 231,
+  "verification": {
+    "debug": {
+      "total": 287,
+      "passed": 287,
+      "failed": 0,
+      "new_operand_tests": 93,
+      "trx": "regression-debug-final.trx",
+      "log": "regression-debug-final.log"
+    },
+    "release": {
+      "total": 287,
+      "passed": 287,
+      "failed": 0,
+      "new_operand_tests": 93,
+      "trx": "regression-release-final.trx",
+      "log": "regression-release-final.log"
+    }
+  },
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "external_reference": "Existing committed Zemax fixtures only; no new OpticStudio capture for the 28 added codes",
+  "historical_reference": "Frozen files unchanged; existing phase-only historical test converts micrometers to millimeters",
+  "not_performed": [
+    "full product suite",
+    "full external comparison matrix",
+    "new Zemax numerical captures",
+    "installer validation"
+  ],
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.SequentialData.cs": "ca5ba41a276d67a72558dbab0502e7b1cf73a63992a88cb8a3cac5ce44246b78",
+    "src/OptilandWorkbench.Core/Services/Paraxial.OperandData.cs": "d60d8a96a67d459076adb36a3870c177d5b1abe696408dacc9f347db8e1491a6",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "cbc36fbd4834e9ed977de252cf6036cffaa47828a1e17ef2282ad4816b87bd05",
+    "tests/OptilandWorkbench.Tests/SequentialOperandExpansionTests.cs": "20463c4f7353555c51779e836b99d7f0b311800b886eff8b70bbb1f5e24db58e"
+  },
+  "format_whitespace_verify": "passed",
+  "git_diff_check": "passed"
+}

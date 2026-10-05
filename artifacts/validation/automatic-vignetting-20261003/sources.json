@@ -1,0 +1,41 @@
+{
+  "checkedDate": "2026-10-03",
+  "primarySources": [
+    {
+      "url": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26102/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Changing_System_Data.html",
+      "release": "2026 R1.02",
+      "verified": "SVIG has high/medium/low Precision 0/1/2; applies to subsequent merit rows and restores original factors at batch end.",
+      "scope": "Definition reading only; no native capture."
+    },
+    {
+      "url": "https://optics.ansys.com/hc/en-us/articles/42661826659347-How-to-use-vignetting-factors",
+      "release": "Official Ansys Optics article",
+      "verified": "Each field uses top/bottom/left/right marginal rays through all apertures; complicated pupils are not fully represented by factors.",
+      "scope": "Definition only; local primary wavelength, finite seed resolution and iteration constants are not native specifications."
+    },
+    {
+      "url": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Vignetting_Factors.html",
+      "release": "2026 R1",
+      "verified": "Pupil compression, shift and rotation conventions; aiming determines pupil/stop mapping.",
+      "scope": "Definition reading only; no native capture."
+    },
+    {
+      "url": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/First_Order_Optical_Properties.html",
+      "release": "2026 R1",
+      "verified": "POWF/POWP directional power and focal-length modes; not a generic paraxial power alias.",
+      "scope": "Definition reading only; no native capture."
+    },
+    {
+      "url": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26103/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Power_Field_Map.html",
+      "release": "2026 R1.03",
+      "verified": "Ring of real rays around field chief ray; exact ring radius and focal formula not established for local implementation.",
+      "scope": "Definition reading only; no native capture."
+    },
+    {
+      "url": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26103/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Power_Pupil_Map.html",
+      "release": "2026 R1.03",
+      "verified": "Ring of real rays around selected pupil reference ray; native sign and finite-conjugate numeric mapping still pending.",
+      "scope": "Definition reading only; no native capture."
+    }
+  ]
+}

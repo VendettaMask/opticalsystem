@@ -8,7 +8,7 @@ public sealed record MultiConfigurationLinkOverride(
     int SurfaceNumber,
     string Property);
 
-public sealed class MultiConfiguration
+public sealed partial class MultiConfiguration
 {
     private readonly HashSet<(int Config, int Surface, string Property)> _brokenLinks = new();
 
@@ -19,7 +19,10 @@ public sealed class MultiConfiguration
 
     public MultiConfiguration(
         IEnumerable<Optic> configurations,
-        IEnumerable<MultiConfigurationLinkOverride>? brokenLinks = null)
+        IEnumerable<MultiConfigurationLinkOverride>? brokenLinks = null,
+        IReadOnlyList<MultiConfigurationOperand>? operandRows = null,
+        IReadOnlyList<MultiConfigurationVariable>? operandVariables = null,
+        IReadOnlyList<MultiConfigurationPickup>? operandPickups = null)
     {
         ArgumentNullException.ThrowIfNull(configurations);
         Configurations.AddRange(configurations.Select(configuration =>
@@ -28,6 +31,9 @@ public sealed class MultiConfiguration
         {
             throw new ArgumentException("At least one optical configuration is required.", nameof(configurations));
         }
+
+        MultiConfigurationOperand.ValidateRows(operandRows, Configurations);
+        _operandRows.AddRange(operandRows ?? []);
 
         if (brokenLinks is null)
         {
@@ -44,6 +50,15 @@ public sealed class MultiConfiguration
                     NormalizeProperty(link.Property)));
             }
         }
+        InitializeOperandVariables(operandVariables);
+        InitializeOperandPickups(operandPickups);
+    }
+
+    private void InitializeOperandVariables(IReadOnlyList<MultiConfigurationVariable>? variables)
+    {
+        MultiConfigurationVariable.Validate(variables, _operandRows, Configurations);
+        foreach (var variable in variables ?? [])
+            SetOperandVariable(_operandRows.IndexOf(variable.Operand) + 1, variable.ConfigurationIndex, true);
     }
 
     public List<Optic> Configurations { get; } = new();
@@ -70,6 +85,18 @@ public sealed class MultiConfiguration
             _brokenLinks.Add((addedIndex, link.Surface, link.Property));
         }
 
+        foreach (var variable in _operandVariables.Where(v => v.ConfigurationIndex == sourceConfigIndex).ToArray())
+            SetOperandVariable(_operandRows.IndexOf(variable.Operand) + 1, addedIndex, true);
+        foreach (var pickup in _operandPickups.Where(p => p.ConfigurationIndex == sourceConfigIndex).ToArray())
+        {
+            var copy = pickup with
+            {
+                ConfigurationIndex = addedIndex,
+                SourceConfigurationIndex = pickup.SourceConfigurationIndex == sourceConfigIndex ? addedIndex : pickup.SourceConfigurationIndex
+            };
+            _operandPickups.Add(copy); PinPickupTarget(copy);
+        }
+        ApplyOperandPickups();
         return addedIndex;
     }
 
@@ -85,6 +112,7 @@ public sealed class MultiConfiguration
 
         RemapBrokenLinks(surfaceNumber =>
             surfaceNumber >= insertedSurfaceNumber ? surfaceNumber + 1 : surfaceNumber);
+        RemapOperandSurfaces(number => number >= insertedSurfaceNumber ? number + 1 : number);
         return insertedSurfaceNumber;
     }
 
@@ -103,11 +131,14 @@ public sealed class MultiConfiguration
         }
 
         RemapBrokenLinks(number => number >= surfaceNumber ? number + 1 : number);
+        RemapOperandSurfaces(number => number >= surfaceNumber ? number + 1 : number);
     }
 
     public void RemoveSurface(int surfaceNumber)
     {
         ValidateCompatibleSurfaceStructures();
+        if (_operandRows.Any(row => row.SurfaceNumber == surfaceNumber))
+            throw new InvalidOperationException("该表面正被多配置操作数行引用，请先移除行引用。");
         var surfaceCount = Configurations[0].SurfaceGroup.Items.Count;
         if (surfaceCount <= 2 || surfaceNumber <= 0 || surfaceNumber >= surfaceCount - 1)
         {
@@ -129,6 +160,7 @@ public sealed class MultiConfiguration
             var value when value > surfaceNumber => value - 1,
             var value => value
         });
+        RemapOperandSurfaces(number => number > surfaceNumber ? number - 1 : number);
     }
 
     public void SetRadius(int configIndex, int surfaceNumber, double value)
@@ -144,12 +176,9 @@ public sealed class MultiConfiguration
     public void SetProperty(int configIndex, int surfaceNumber, string property, double value)
     {
         var normalizedProperty = NormalizeProperty(property);
+        if (IsOperandPickupTarget(configIndex, surfaceNumber, normalizedProperty))
+            throw new InvalidOperationException("该参数由多配置拾取控制，请编辑源单元格或移除拾取。");
         var surface = Configurations[configIndex].SurfaceGroup.Items.First(item => item.Number == surfaceNumber);
-        if (configIndex != 0)
-        {
-            _brokenLinks.Add((configIndex, surfaceNumber, normalizedProperty));
-        }
-
         switch (normalizedProperty)
         {
             case "radius":
@@ -162,9 +191,14 @@ public sealed class MultiConfiguration
             case "conic":
                 surface.Conic = value;
                 break;
+            case "semiDiameter":
+                surface.SemiDiameter = value;
+                surface.SemiDiameterFixed = true;
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(property));
         }
+        if (configIndex != 0) _brokenLinks.Add((configIndex, surfaceNumber, normalizedProperty));
     }
 
     public void UpdateLinkState(int configIndex, int surfaceNumber, string property)
@@ -178,7 +212,8 @@ public sealed class MultiConfiguration
         var source = FindSurface(Configurations[0], surfaceNumber);
         var target = FindSurface(Configurations[configIndex], surfaceNumber);
         var link = (configIndex, surfaceNumber, normalizedProperty);
-        if (PropertyEquals(source, target, normalizedProperty))
+        if (!IsOperandPickupTarget(configIndex, surfaceNumber, normalizedProperty) && !_operandVariables.Any(v => v.ConfigurationIndex == configIndex && v.Operand.SurfaceNumber == surfaceNumber
+                && v.Operand.Property == normalizedProperty) && PropertyEquals(source, target, normalizedProperty))
         {
             _brokenLinks.Remove(link);
         }
@@ -201,6 +236,7 @@ public sealed class MultiConfiguration
 
             var target = FindSurface(Configurations[config], surfaceNumber);
             CopyProperty(source, target, normalizedProperty);
+            if (normalizedProperty == "material") SynchronizeFollowingMedia(Configurations[config], surfaceNumber);
             Configurations[config].SurfaceGroup.Renumber();
         }
     }
@@ -240,6 +276,7 @@ public sealed class MultiConfiguration
                 if (!_brokenLinks.Contains((config, surfaceNumber, "material")))
                 {
                     CopyMaterial(source, target);
+                    SynchronizeFollowingMedia(Configurations[config], surfaceNumber);
                 }
             }
 
@@ -315,6 +352,17 @@ public sealed class MultiConfiguration
         target.Material = source.Material;
     }
 
+    private static void SynchronizeFollowingMedia(Optic optic, int surfaceNumber)
+    {
+        for (var index = surfaceNumber + 1; index < optic.SurfaceGroup.Items.Count; index++)
+        {
+            var next = optic.SurfaceGroup.Items[index];
+            next.MaterialBefore = optic.SurfaceGroup.Items[index - 1].MaterialAfter.Clone();
+            if (!next.IsReflective) break;
+            next.MaterialAfter = next.MaterialBefore.Clone();
+        }
+    }
+
     private static bool PropertyEquals(OpticalSurface source, OpticalSurface target, string property) => property switch
     {
         "radius" => source.Radius.Equals(target.Radius),
@@ -324,7 +372,10 @@ public sealed class MultiConfiguration
             && source.SemiDiameterFixed == target.SemiDiameterFixed,
         "material" => source.Material.Equals(target.Material, StringComparison.OrdinalIgnoreCase)
             && source.MaterialAfter.Name.Equals(target.MaterialAfter.Name, StringComparison.OrdinalIgnoreCase)
-            && source.IsReflective == target.IsReflective,
+            && source.IsReflective == target.IsReflective
+            && (source.MaterialAfter is not Materials.GradientIndexMaterial && target.MaterialAfter is not Materials.GradientIndexMaterial
+                || System.Text.Json.JsonSerializer.Serialize(ComponentSnapshotFactory.FromMaterial(source.MaterialAfter))
+                    == System.Text.Json.JsonSerializer.Serialize(ComponentSnapshotFactory.FromMaterial(target.MaterialAfter))),
         _ => throw new ArgumentOutOfRangeException(nameof(property))
     };
 

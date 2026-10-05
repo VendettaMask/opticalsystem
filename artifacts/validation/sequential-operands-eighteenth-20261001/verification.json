@@ -1,0 +1,185 @@
+{
+  "date": "2026-10-01",
+  "scope": "Eighteenth batch: element volume, material mass and surface profile statistics",
+  "registered": 383,
+  "executable_before": 274,
+  "executable_after": 279,
+  "compatibility_only_after": 104,
+  "added_codes": [
+    "DCRV",
+    "DSAG",
+    "DSLP",
+    "TMAS",
+    "VOLU"
+  ],
+  "cumulative_added_since_124": 155,
+  "verification": {
+    "debug": {
+      "total": 1804,
+      "passed": 1804,
+      "failed": 0,
+      "skipped": 0,
+      "new_tests": 74,
+      "previous_batch_tests": 1730,
+      "additional_adjacent_tests": 0,
+      "trx": "eighteenth-batch-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 1804,
+      "passed": 1804,
+      "failed": 0,
+      "skipped": 0,
+      "new_tests": 74,
+      "previous_batch_tests": 1730,
+      "additional_adjacent_tests": 0,
+      "trx": "eighteenth-batch-release.trx",
+      "log": "release.log"
+    }
+  },
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "support_boundaries": {
+    "volume": "Coaxial untilted circular standard/even/odd aspheric faces; smaller face extended flat to larger radius. Exact spherical integral, bounded adaptive integration otherwise. Positive finite spacing and 1025-point radial crossing screen; not a proof for arbitrary high-order profiles. cm3 outputs include air.",
+    "mass": "Catalog density g/cm3 times actual volume; air contributes zero mass. Missing density, GRIN approximation, unsupported boundaries and overflow fail explicitly.",
+    "profiles": "Physical-aperture uniform XY grid, Samp=1..5, Data=1..8. Raw RMS, PV, extrema/coordinates. Off-axis=0, Remove=0/1, Orientation=0..3. Shared analytic slope/curvature after base-sphere removal; no finite-difference duplicate engine.",
+    "persistence": "Local six/seven-slot editor and STAROPT round trips verified. Native mappings not captured: all five ZMX codes remain disabled compatibility rows and do not auto-upgrade.",
+    "pending": "BFS, off-axis remapping, modulus direction, larger grids, advanced volume geometry, native columns and numerical captures, adjacent profile cache.",
+    "known_residual": "FCGT remains Difference against unchanged 1e-5 mm accuracy target."
+  },
+  "external_reference": {
+    "integrity": "12 selected committed assets byte-equal HEAD, not full baseline audit.",
+    "recalculation": "Current Core and fixed-file/settings PSF/cross-section/MTF regressions.",
+    "huygens_analysis_comparison": {
+      "debug": {
+        "direction_values": 18,
+        "maximum_absolute_error": 0.011900434932046483,
+        "analysis_regression_budget": 0.03,
+        "status": "WithinRegressionBudget",
+        "native_MFE_parity": "NotVerified"
+      },
+      "release": {
+        "direction_values": 18,
+        "maximum_absolute_error": 0.011900434932046483,
+        "analysis_regression_budget": 0.03,
+        "status": "WithinRegressionBudget",
+        "native_MFE_parity": "NotVerified"
+      }
+    },
+    "existing_distortion_comparison": {
+      "debug": {
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm",
+          "samples": 9
+        },
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm",
+          "samples": 9
+        }
+      },
+      "release": {
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm",
+          "samples": 9
+        },
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm",
+          "samples": 9
+        }
+      }
+    },
+    "new_native_capture": "None; VOLU/TMAS/DSAG/DSLP/DCRV native MFE columns and numerical parity unverified.",
+    "screenshots": "No screenshot review."
+  },
+  "remaining_category_counts_overlap": true,
+  "unique_remaining": 104,
+  "all_operands_completion_goal": "Active, not complete; remaining codes and partial modes still require work",
+  "not_performed": [
+    "full product suite",
+    "laboratory full suites",
+    "full external comparison matrix",
+    "new Zemax captures",
+    "native desktop walkthrough",
+    "screenshot review",
+    "installer validation"
+  ],
+  "historical_reference": "Frozen history untouched; no new Optiland comparisons",
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Services/ElementVolumeMetrics.cs": "1c0533e57e52c96919e74a0a730e83fc8d36bf423b3d7922cccb5ccf9037975d",
+    "src/OptilandWorkbench.Core/Services/SurfaceProfileMetrics.cs": "efa61dea372139f5daa418385ccf39d32b94e3d5a40295f8ad819d1b5a76f655",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.ManufacturingProfiles.cs": "29a20d39e04b0aea42d85e94a58ff00c2710bdecd85b9e184cdef143324d343b",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "5b79ef5456c5c43e47f4b89c27a01e7846217c1ba82ea126ddbeffca497c31b5",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "b41b4582f7d29d500bfad5cc0d5867c546c6df20f1f2056149f2436e4de3a5ba",
+    "src/OptilandWorkbench.Core/FileIO/ZemaxZmxReader.cs": "43c0568a6b67309ad3b5332fa814eeee434622c06c5312f20d375b485095e3c2",
+    "src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs": "a56ff189021f7a0f3be813d0b55ee7b99c4451367190b2be682f35206a03db57",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "426a76ee834f455723f1db54f70a42ac8ac07eff3d53d2423eb411d62019d2d5",
+    "src/OptilandWorkbench.App/Panels/OperandHelpPanel.cs": "43ced43aff03b6e6b8a8aba44bd71619400945a58e4faff7994295bdafbe60c5",
+    "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs": "04335e3caa52ca075e284a3dca170a834022e45fca87e77b4963fa263b26cec4",
+    "tests/OptilandWorkbench.Tests/ManufacturingProfileOperandTests.cs": "abe8dc8bc1d07a0f6f564362064d491c81555ff72508f54ac0f14b6d552f2d3f"
+  },
+  "selected_capture_sha256": {
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.txt": "dbb741fc9f07d6d55a9d7d6acdad2bfe91f45e3b5b365bb14c51e1d6b8f2a6f0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/049-rmsfield/data.json": "7badd81b3adbd9bd694e4cabfce3d58e45c863866ed77d4337a33f3321290e87",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/052-rmsfocus/data.json": "a90eabe523007f995e10c685622025b34d47c87b25d627e56ddda16020765240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/055-wavefrontmap/data.json": "e9cfe98cfb64ec684976ee786fd33b8844d24995be084941bedbe7537c911e62",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/data.json": "ef6a44cbe999be4ae54c8d2b8dc3854434e0565b9bd28266138eeebcc900f57a",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/025-huygensmtfvsfield/data.json": "9b00c750481cb73adb741f47c00ca66232dd3374765e2fa68a59bca1c6c99323",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/028-huygensthroughfocusmtf/data.json": "dc115e8bd603af3b3a1686fe7c2c0ec4530d9220d235c5af1ce0cd9004147240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/004-fieldcurvatureanddistortion/data.json": "a93a1aeff36e6bf4856ff41ad22844022b8dcc6cbde2a8038853da1d3090bd73",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/settings.cfg": "afc322d75c819f36e8c1aece2d4600c3fbdc687a4e0e6d8badb4e0e646917790",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/data.json": "1ddb61139e42585f144329c430a85ebc7685eb92416783cf85f653822cc64eb0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/settings.cfg": "5ac71deed1902825151e0e78d082850bf0f28ac4b9c2f16934a2003ad9980f69"
+  },
+  "default_binary_sha256": {
+    "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll": "108571eccb67366f2329b21252d64a284b926ac81ea1f6504c318f0606932b54",
+    "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll": "62ff20d062568db6a52d680b13f9efb17fb133a22def4a0ee0113f71432e18d8",
+    "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll": "ea198c11385174a066fe65d24c41ebc1c1822c4033c8947cf504c1fe13236018",
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "c1bba54eed404a3fde276715f7245bc838f7164264db97f89d5bd1f1b04b4048",
+    "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll": "48d33a54f9e6e556118726a7ed45a96b210725034ea45cbe0b94da5d2b30505f",
+    "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll": "fe68b7fae2b9ac18a992ecc2fb8ef3ae8a1ff0ef18bf95e47bf9120769ed1ef4"
+  },
+  "new_document_links_checked": 39
+}

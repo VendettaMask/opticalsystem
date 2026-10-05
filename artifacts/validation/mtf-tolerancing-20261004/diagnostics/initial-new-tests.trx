@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="0ebb6a81-dbc8-447a-bbb7-560ade64a83b" name="@starlabdeMacBook-Air 2026-10-04 21:37:38" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-04T21:37:38.6993890+08:00" queuing="2026-10-04T21:37:38.6993890+08:00" start="2026-10-04T21:37:37.0600920+08:00" finish="2026-10-04T21:37:54.9655510+08:00" />
+  <TestSettings name="default" id="79e0dea6-9cb4-4fd1-9727-ac30083c6f95">
+    <Deployment runDeploymentRoot="_starlabdeMacBook-Air_2026-10-04_21_37_38" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="8b9a4274-3811-4a28-ac61-cf14ec6e5f7b" testId="4c757b36-9780-8d52-5aa2-db2d5ecae85f" testName="OptilandWorkbench.Tests.MtfTolerancingTests.HigherBetterSensitivityAndInverseUseMinimumAndDecrease" computerName="starlabdeMacBook-Air" duration="00:00:00.0035727" startTime="2026-10-04T21:37:54.9434770+08:00" endTime="2026-10-04T21:37:54.9469680+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8b9a4274-3811-4a28-ac61-cf14ec6e5f7b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range
+Range:  (0.14999000000000001 - 0.14999999999999999)
+Actual: 0.15000000000000002</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.MtfTolerancingTests.HigherBetterSensitivityAndInverseUseMinimumAndDecrease() in /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/MtfTolerancingTests.cs:line 63
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0706e484-c046-4efd-bb37-dd497534fdb1" testId="5b6a867b-e558-c3f0-a5e4-76f63fc6c8ad" testName="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;sampling&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:00.0010809" startTime="2026-10-04T21:37:38.5482050+08:00" endTime="2026-10-04T21:37:38.5482230+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0706e484-c046-4efd-bb37-dd497534fdb1" />
+    <UnitTestResult executionId="6e56d494-54c5-4569-9a61-43332f3d02e5" testId="f5cfde4e-4a56-2779-ab90-38947a3c6157" testName="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;method&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:00.0002553" startTime="2026-10-04T21:37:38.5483120+08:00" endTime="2026-10-04T21:37:38.5483290+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6e56d494-54c5-4569-9a61-43332f3d02e5" />
+    <UnitTestResult executionId="e1739b49-ca8e-448c-8474-4effa95ae9e7" testId="eab51eb5-e311-88e1-add8-32ea7d059ca6" testName="OptilandWorkbench.Tests.MtfTolerancingTests.JointFieldAcceptanceRejectsGoodAverageWhenOneFieldFails" computerName="starlabdeMacBook-Air" duration="00:00:04.0623873" startTime="2026-10-04T21:37:50.8808350+08:00" endTime="2026-10-04T21:37:54.9432740+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e1739b49-ca8e-448c-8474-4effa95ae9e7" />
+    <UnitTestResult executionId="95a11d50-4fc7-4bde-ba7a-013b40c28f1d" testId="2a2773d4-7ee9-009b-1556-bc02d32c3859" testName="OptilandWorkbench.Tests.MtfTolerancingTests.MtfInverseIncrementEnforcesEachFieldNominalAndRssPredictsDecrease" computerName="starlabdeMacBook-Air" duration="00:00:06.9193490" startTime="2026-10-04T21:37:38.5493480+08:00" endTime="2026-10-04T21:37:45.4647360+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="95a11d50-4fc7-4bde-ba7a-013b40c28f1d" />
+    <UnitTestResult executionId="4c5bdf40-b766-4132-8fd3-b2f15925d4f0" testId="b6ad27fb-bc07-bf6c-357b-c0757776d407" testName="OptilandWorkbench.Tests.MtfTolerancingTests.PhysicalCriterionMatchesFormalMtfForEveryField(kind: Fourier, direction: Minimum)" computerName="starlabdeMacBook-Air" duration="00:00:00.3326295" startTime="2026-10-04T21:37:37.6973720+08:00" endTime="2026-10-04T21:37:38.0325450+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4c5bdf40-b766-4132-8fd3-b2f15925d4f0" />
+    <UnitTestResult executionId="908effc8-a6e7-4c34-a5f9-fd5fb3a31cde" testId="1f0f9018-c5a3-80ec-f24e-be1468b8157f" testName="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;direction&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:00.0003864" startTime="2026-10-04T21:37:38.5480820+08:00" endTime="2026-10-04T21:37:38.5481080+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="908effc8-a6e7-4c34-a5f9-fd5fb3a31cde" />
+    <UnitTestResult executionId="5d244f1c-5b5e-45a9-999a-511a88f6e19d" testId="aae070e1-bdb1-791d-8c21-1105d4961248" testName="OptilandWorkbench.Tests.MtfTolerancingTests.PhysicalCriterionMatchesFormalMtfForEveryField(kind: Geometric, direction: Sagittal)" computerName="starlabdeMacBook-Air" duration="00:00:00.0713683" startTime="2026-10-04T21:37:38.3511050+08:00" endTime="2026-10-04T21:37:38.4224800+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5d244f1c-5b5e-45a9-999a-511a88f6e19d" />
+    <UnitTestResult executionId="f2bd4a12-977f-4bfc-932c-324079f1e15a" testId="cf7cd1f7-386e-f95c-d150-f30335a5f340" testName="OptilandWorkbench.Tests.MtfTolerancingTests.PhysicalCriterionMatchesFormalMtfForEveryField(kind: Fourier, direction: Tangential)" computerName="starlabdeMacBook-Air" duration="00:00:00.0842662" startTime="2026-10-04T21:37:38.2036190+08:00" endTime="2026-10-04T21:37:38.2877730+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f2bd4a12-977f-4bfc-932c-324079f1e15a" />
+    <UnitTestResult executionId="94cdd9bb-dfd0-4368-92f2-ea0bc88355ed" testId="980e34c4-6f9c-c77a-a576-03de8b367422" testName="OptilandWorkbench.Tests.MtfTolerancingTests.PhysicalCriterionMatchesFormalMtfForEveryField(kind: Geometric, direction: Minimum)" computerName="starlabdeMacBook-Air" duration="00:00:00.0632106" startTime="2026-10-04T21:37:38.2885910+08:00" endTime="2026-10-04T21:37:38.3510160+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="94cdd9bb-dfd0-4368-92f2-ea0bc88355ed" />
+    <UnitTestResult executionId="8cc062e3-a656-4e2b-857e-1904c47bfbb1" testId="04b39220-ea3a-623b-bd60-23cc82cdbe8c" testName="OptilandWorkbench.Tests.TolerancingWorkflowTests.ImageSpacingCompensatorChangesRealOpticalCriterion" computerName="starlabdeMacBook-Air" duration="00:00:01.4384618" startTime="2026-10-04T21:37:37.6978380+08:00" endTime="2026-10-04T21:37:39.1418900+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8cc062e3-a656-4e2b-857e-1904c47bfbb1">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure
+Expected: True
+Actual:   False</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.TolerancingWorkflowTests.ImageSpacingCompensatorChangesRealOpticalCriterion() in /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/TolerancingWorkflowTests.cs:line 636
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c03e5468-29b4-41e6-adae-774abff4be8b" testId="03d1b515-f8b6-2c80-e650-56aa8a99914b" testName="OptilandWorkbench.Tests.MtfTolerancingTests.PhysicalCriterionMatchesFormalMtfForEveryField(kind: Geometric, direction: Tangential)" computerName="starlabdeMacBook-Air" duration="00:00:00.0833774" startTime="2026-10-04T21:37:38.1208930+08:00" endTime="2026-10-04T21:37:38.2034860+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c03e5468-29b4-41e6-adae-774abff4be8b" />
+    <UnitTestResult executionId="004055d9-9a4a-4da2-bccd-0480bd98ba98" testId="f95b48e9-32c1-93b6-4e94-6415a2148e92" testName="OptilandWorkbench.Tests.MtfTolerancingTests.BoundedCompensationReportsRealChangesAndLeavesDocumentUnchanged(algorithm: DampedLeastSquares)" computerName="starlabdeMacBook-Air" duration="00:00:00.5829894" startTime="2026-10-04T21:37:49.5854800+08:00" endTime="2026-10-04T21:37:50.1684080+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="004055d9-9a4a-4da2-bccd-0480bd98ba98" />
+    <UnitTestResult executionId="b541a43c-dab7-4c87-add0-1e1e30097d27" testId="39393a80-981b-2f63-914d-ed77195e399a" testName="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;comp-bounds&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:00.0038823" startTime="2026-10-04T21:37:38.5479320+08:00" endTime="2026-10-04T21:37:38.5479690+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b541a43c-dab7-4c87-add0-1e1e30097d27" />
+    <UnitTestResult executionId="33d583cc-55e7-4c42-9fe7-01647f1b1903" testId="2e0bf62d-d7ba-9f3a-2a2a-ae3cee468131" testName="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;average-field-limit&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:00.0002736" startTime="2026-10-04T21:37:38.5481500+08:00" endTime="2026-10-04T21:37:38.5481690+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="33d583cc-55e7-4c42-9fe7-01647f1b1903" />
+    <UnitTestResult executionId="bbec29fe-a3b1-4bae-9c4a-82a36dc8026e" testId="887119dd-49f1-517a-8f77-eb165a250b72" testName="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;algorithm&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:00.0002228" startTime="2026-10-04T21:37:38.5491560+08:00" endTime="2026-10-04T21:37:38.5491740+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bbec29fe-a3b1-4bae-9c4a-82a36dc8026e" />
+    <UnitTestResult executionId="8ff5161a-b323-4b5f-ab69-78176a7ceb95" testId="05d7256e-025f-a748-8e3c-fa33d8f51fea" testName="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;comp-duplicate&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:00.0005224" startTime="2026-10-04T21:37:38.5492110+08:00" endTime="2026-10-04T21:37:38.5492290+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8ff5161a-b323-4b5f-ab69-78176a7ceb95" />
+    <UnitTestResult executionId="4d8577ef-d48d-438f-8de8-05f06ef4de3c" testId="e1e083a1-7e4e-c37a-579a-6b08a533ee14" testName="OptilandWorkbench.Tests.MtfTolerancingTests.PhysicalCriterionMatchesFormalMtfForEveryField(kind: Fourier, direction: Sagittal)" computerName="starlabdeMacBook-Air" duration="00:00:00.0535683" startTime="2026-10-04T21:37:38.4831070+08:00" endTime="2026-10-04T21:37:38.5366110+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4d8577ef-d48d-438f-8de8-05f06ef4de3c" />
+    <UnitTestResult executionId="07725801-3cfb-4634-81b7-123427972c2d" testId="cc85c42b-01c8-69df-7f3a-7d071a734564" testName="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;wave&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:00.0002293" startTime="2026-10-04T21:37:38.5490900+08:00" endTime="2026-10-04T21:37:38.5491130+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="07725801-3cfb-4634-81b7-123427972c2d" />
+    <UnitTestResult executionId="bc48775c-7216-4a53-8188-c0794cf356ca" testId="7e5cf006-81ba-8b75-7d52-3f58cd69c518" testName="OptilandWorkbench.Tests.MtfTolerancingTests.MtfSerialAndParallelWorkersAreDeterministic" computerName="starlabdeMacBook-Air" duration="00:00:04.1129195" startTime="2026-10-04T21:37:45.4722730+08:00" endTime="2026-10-04T21:37:49.5852370+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bc48775c-7216-4a53-8188-c0794cf356ca" />
+    <UnitTestResult executionId="76827f38-51b6-4202-baf2-834306ee32f7" testId="e12b7705-cf22-71c5-b924-b5f5aabe2777" testName="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;frequency&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:00.0002322" startTime="2026-10-04T21:37:38.5484560+08:00" endTime="2026-10-04T21:37:38.5484730+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="76827f38-51b6-4202-baf2-834306ee32f7" />
+    <UnitTestResult executionId="83c4b944-97b2-4d9d-ac14-16cb0e542bd6" testId="98567ced-6607-53d4-cc5b-28c55691c030" testName="OptilandWorkbench.Tests.MtfTolerancingTests.BoundedCompensationReportsRealChangesAndLeavesDocumentUnchanged(algorithm: CoordinatePatternSearch)" computerName="starlabdeMacBook-Air" duration="00:00:00.7121472" startTime="2026-10-04T21:37:50.1685160+08:00" endTime="2026-10-04T21:37:50.8807500+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="83c4b944-97b2-4d9d-ac14-16cb0e542bd6" />
+    <UnitTestResult executionId="f8d6cdc8-9da6-4ff3-a961-e9810d01ef99" testId="94d4ca12-ce8a-d290-6a05-24731c82549c" testName="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;bad-limit&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:00.0002451" startTime="2026-10-04T21:37:38.5484090+08:00" endTime="2026-10-04T21:37:38.5484270+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f8d6cdc8-9da6-4ff3-a961-e9810d01ef99" />
+    <UnitTestResult executionId="d384ec65-ebc4-4c96-908a-9d027b553b88" testId="1f9d4817-6b5e-6c6d-9fb2-c16a1d03bd15" testName="OptilandWorkbench.Tests.MtfTolerancingTests.YieldChartCountsFailedTrialsAndUsesRawPrecision" computerName="starlabdeMacBook-Air" duration="00:00:00.0073443" startTime="2026-10-04T21:37:45.4650090+08:00" endTime="2026-10-04T21:37:45.4721650+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d384ec65-ebc4-4c96-908a-9d027b553b88" />
+    <UnitTestResult executionId="33430e78-43b2-443d-98d6-502c2365c481" testId="04b3abc9-816c-a284-e097-37c1d853ec2a" testName="OptilandWorkbench.Tests.MtfTolerancingTests.PhysicalCriterionMatchesFormalMtfForEveryField(kind: Fourier, direction: Average)" computerName="starlabdeMacBook-Air" duration="00:00:00.0874239" startTime="2026-10-04T21:37:38.0361540+08:00" endTime="2026-10-04T21:37:38.1201480+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="33430e78-43b2-443d-98d6-502c2365c481" />
+    <UnitTestResult executionId="89e136ae-04f3-4391-a492-b558f05011e1" testId="3cc55d97-92ed-f76d-1a92-eb1ae055a090" testName="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;comp-glass&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:00.0002904" startTime="2026-10-04T21:37:38.5482580+08:00" endTime="2026-10-04T21:37:38.5482770+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="89e136ae-04f3-4391-a492-b558f05011e1" />
+    <UnitTestResult executionId="f2f752f8-93e6-4a15-82fa-c92959c8ea6d" testId="15ef7e3d-fa60-8611-798f-8d1748067cf8" testName="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;duplicate-field&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:00.0002663" startTime="2026-10-04T21:37:38.5492680+08:00" endTime="2026-10-04T21:37:38.5492880+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f2f752f8-93e6-4a15-82fa-c92959c8ea6d" />
+    <UnitTestResult executionId="f3bda682-08f1-4573-b953-e5fb3276a838" testId="97c3e836-9104-55c2-f6f3-be9ad9a203f4" testName="OptilandWorkbench.Tests.TolerancingWorkflowTests.MonteCarloRowsAndStatisticsUseActualCriterion" computerName="starlabdeMacBook-Air" duration="00:00:00.9457561" startTime="2026-10-04T21:37:39.1437280+08:00" endTime="2026-10-04T21:37:40.0884090+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f3bda682-08f1-4573-b953-e5fb3276a838">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range
+Range:  (0 - 1.9999999999999999E-06)
+Actual: 0.0008666000000000009</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.TolerancingWorkflowTests.MonteCarloRowsAndStatisticsUseActualCriterion() in /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/TolerancingWorkflowTests.cs:line 589
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2ac46d32-f768-4e59-b201-5f3bb862e73a" testId="ff05e214-71dd-2bb8-340d-b107351ac86c" testName="OptilandWorkbench.Tests.MtfTolerancingTests.PhysicalCriterionMatchesFormalMtfForEveryField(kind: Geometric, direction: Average)" computerName="starlabdeMacBook-Air" duration="00:00:00.0604563" startTime="2026-10-04T21:37:38.4226090+08:00" endTime="2026-10-04T21:37:38.4829870+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2ac46d32-f768-4e59-b201-5f3bb862e73a" />
+    <UnitTestResult executionId="a661ee4e-b9d1-4d10-93ad-4041286ad4ab" testId="1dc79b46-8264-6449-dccf-cd78c000ee8f" testName="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;missing-field&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:00.0004012" startTime="2026-10-04T21:37:38.5483600+08:00" endTime="2026-10-04T21:37:38.5483770+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a661ee4e-b9d1-4d10-93ad-4041286ad4ab" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;method&quot;)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="f5cfde4e-4a56-2779-ab90-38947a3c6157">
+      <Execution id="6e56d494-54c5-4569-9a61-43332f3d02e5" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="InvalidStudyIsRejectedBeforeRunning" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;direction&quot;)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="1f0f9018-c5a3-80ec-f24e-be1468b8157f">
+      <Execution id="908effc8-a6e7-4c34-a5f9-fd5fb3a31cde" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="InvalidStudyIsRejectedBeforeRunning" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.YieldChartCountsFailedTrialsAndUsesRawPrecision" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="1f9d4817-6b5e-6c6d-9fb2-c16a1d03bd15">
+      <Execution id="d384ec65-ebc4-4c96-908a-9d027b553b88" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="YieldChartCountsFailedTrialsAndUsesRawPrecision" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;comp-duplicate&quot;)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="05d7256e-025f-a748-8e3c-fa33d8f51fea">
+      <Execution id="8ff5161a-b323-4b5f-ab69-78176a7ceb95" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="InvalidStudyIsRejectedBeforeRunning" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.PhysicalCriterionMatchesFormalMtfForEveryField(kind: Geometric, direction: Tangential)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="03d1b515-f8b6-2c80-e650-56aa8a99914b">
+      <Execution id="c03e5468-29b4-41e6-adae-774abff4be8b" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="PhysicalCriterionMatchesFormalMtfForEveryField" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.JointFieldAcceptanceRejectsGoodAverageWhenOneFieldFails" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="eab51eb5-e311-88e1-add8-32ea7d059ca6">
+      <Execution id="e1739b49-ca8e-448c-8474-4effa95ae9e7" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="JointFieldAcceptanceRejectsGoodAverageWhenOneFieldFails" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.MtfInverseIncrementEnforcesEachFieldNominalAndRssPredictsDecrease" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="2a2773d4-7ee9-009b-1556-bc02d32c3859">
+      <Execution id="95a11d50-4fc7-4bde-ba7a-013b40c28f1d" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="MtfInverseIncrementEnforcesEachFieldNominalAndRssPredictsDecrease" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;wave&quot;)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="cc85c42b-01c8-69df-7f3a-7d071a734564">
+      <Execution id="07725801-3cfb-4634-81b7-123427972c2d" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="InvalidStudyIsRejectedBeforeRunning" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TolerancingWorkflowTests.ImageSpacingCompensatorChangesRealOpticalCriterion" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="04b39220-ea3a-623b-bd60-23cc82cdbe8c">
+      <Execution id="8cc062e3-a656-4e2b-857e-1904c47bfbb1" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TolerancingWorkflowTests" name="ImageSpacingCompensatorChangesRealOpticalCriterion" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.PhysicalCriterionMatchesFormalMtfForEveryField(kind: Geometric, direction: Minimum)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="980e34c4-6f9c-c77a-a576-03de8b367422">
+      <Execution id="94cdd9bb-dfd0-4368-92f2-ea0bc88355ed" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="PhysicalCriterionMatchesFormalMtfForEveryField" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.PhysicalCriterionMatchesFormalMtfForEveryField(kind: Geometric, direction: Sagittal)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="aae070e1-bdb1-791d-8c21-1105d4961248">
+      <Execution id="5d244f1c-5b5e-45a9-999a-511a88f6e19d" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="PhysicalCriterionMatchesFormalMtfForEveryField" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.BoundedCompensationReportsRealChangesAndLeavesDocumentUnchanged(algorithm: CoordinatePatternSearch)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="98567ced-6607-53d4-cc5b-28c55691c030">
+      <Execution id="83c4b944-97b2-4d9d-ac14-16cb0e542bd6" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="BoundedCompensationReportsRealChangesAndLeavesDocumentUnchanged" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.BoundedCompensationReportsRealChangesAndLeavesDocumentUnchanged(algorithm: DampedLeastSquares)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="f95b48e9-32c1-93b6-4e94-6415a2148e92">
+      <Execution id="004055d9-9a4a-4da2-bccd-0480bd98ba98" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="BoundedCompensationReportsRealChangesAndLeavesDocumentUnchanged" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;algorithm&quot;)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="887119dd-49f1-517a-8f77-eb165a250b72">
+      <Execution id="bbec29fe-a3b1-4bae-9c4a-82a36dc8026e" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="InvalidStudyIsRejectedBeforeRunning" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;duplicate-field&quot;)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="15ef7e3d-fa60-8611-798f-8d1748067cf8">
+      <Execution id="f2f752f8-93e6-4a15-82fa-c92959c8ea6d" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="InvalidStudyIsRejectedBeforeRunning" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;average-field-limit&quot;)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="2e0bf62d-d7ba-9f3a-2a2a-ae3cee468131">
+      <Execution id="33d583cc-55e7-4c42-9fe7-01647f1b1903" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="InvalidStudyIsRejectedBeforeRunning" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.PhysicalCriterionMatchesFormalMtfForEveryField(kind: Fourier, direction: Average)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="04b3abc9-816c-a284-e097-37c1d853ec2a">
+      <Execution id="33430e78-43b2-443d-98d6-502c2365c481" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="PhysicalCriterionMatchesFormalMtfForEveryField" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;comp-bounds&quot;)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="39393a80-981b-2f63-914d-ed77195e399a">
+      <Execution id="b541a43c-dab7-4c87-add0-1e1e30097d27" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="InvalidStudyIsRejectedBeforeRunning" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TolerancingWorkflowTests.MonteCarloRowsAndStatisticsUseActualCriterion" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="97c3e836-9104-55c2-f6f3-be9ad9a203f4">
+      <Execution id="f3bda682-08f1-4573-b953-e5fb3276a838" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TolerancingWorkflowTests" name="MonteCarloRowsAndStatisticsUseActualCriterion" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.PhysicalCriterionMatchesFormalMtfForEveryField(kind: Fourier, direction: Tangential)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="cf7cd1f7-386e-f95c-d150-f30335a5f340">
+      <Execution id="f2bd4a12-977f-4bfc-932c-324079f1e15a" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="PhysicalCriterionMatchesFormalMtfForEveryField" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.PhysicalCriterionMatchesFormalMtfForEveryField(kind: Fourier, direction: Minimum)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="b6ad27fb-bc07-bf6c-357b-c0757776d407">
+      <Execution id="4c5bdf40-b766-4132-8fd3-b2f15925d4f0" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="PhysicalCriterionMatchesFormalMtfForEveryField" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;sampling&quot;)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="5b6a867b-e558-c3f0-a5e4-76f63fc6c8ad">
+      <Execution id="0706e484-c046-4efd-bb37-dd497534fdb1" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="InvalidStudyIsRejectedBeforeRunning" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;frequency&quot;)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="e12b7705-cf22-71c5-b924-b5f5aabe2777">
+      <Execution id="76827f38-51b6-4202-baf2-834306ee32f7" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="InvalidStudyIsRejectedBeforeRunning" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;bad-limit&quot;)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="94d4ca12-ce8a-d290-6a05-24731c82549c">
+      <Execution id="f8d6cdc8-9da6-4ff3-a961-e9810d01ef99" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="InvalidStudyIsRejectedBeforeRunning" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;missing-field&quot;)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="1dc79b46-8264-6449-dccf-cd78c000ee8f">
+      <Execution id="a661ee4e-b9d1-4d10-93ad-4041286ad4ab" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="InvalidStudyIsRejectedBeforeRunning" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.PhysicalCriterionMatchesFormalMtfForEveryField(kind: Fourier, direction: Sagittal)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="e1e083a1-7e4e-c37a-579a-6b08a533ee14">
+      <Execution id="4d8577ef-d48d-438f-8de8-05f06ef4de3c" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="PhysicalCriterionMatchesFormalMtfForEveryField" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.HigherBetterSensitivityAndInverseUseMinimumAndDecrease" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="4c757b36-9780-8d52-5aa2-db2d5ecae85f">
+      <Execution id="8b9a4274-3811-4a28-ac61-cf14ec6e5f7b" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="HigherBetterSensitivityAndInverseUseMinimumAndDecrease" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.MtfSerialAndParallelWorkersAreDeterministic" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="7e5cf006-81ba-8b75-7d52-3f58cd69c518">
+      <Execution id="bc48775c-7216-4a53-8188-c0794cf356ca" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="MtfSerialAndParallelWorkersAreDeterministic" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.InvalidStudyIsRejectedBeforeRunning(fault: &quot;comp-glass&quot;)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="3cc55d97-92ed-f76d-1a92-eb1ae055a090">
+      <Execution id="89e136ae-04f3-4391-a492-b558f05011e1" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="InvalidStudyIsRejectedBeforeRunning" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.MtfTolerancingTests.PhysicalCriterionMatchesFormalMtfForEveryField(kind: Geometric, direction: Average)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="ff05e214-71dd-2bb8-340d-b107351ac86c">
+      <Execution id="2ac46d32-f768-4e59-b201-5f3bb862e73a" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.MtfTolerancingTests" name="PhysicalCriterionMatchesFormalMtfForEveryField" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="4c757b36-9780-8d52-5aa2-db2d5ecae85f" executionId="8b9a4274-3811-4a28-ac61-cf14ec6e5f7b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5b6a867b-e558-c3f0-a5e4-76f63fc6c8ad" executionId="0706e484-c046-4efd-bb37-dd497534fdb1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f5cfde4e-4a56-2779-ab90-38947a3c6157" executionId="6e56d494-54c5-4569-9a61-43332f3d02e5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eab51eb5-e311-88e1-add8-32ea7d059ca6" executionId="e1739b49-ca8e-448c-8474-4effa95ae9e7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2a2773d4-7ee9-009b-1556-bc02d32c3859" executionId="95a11d50-4fc7-4bde-ba7a-013b40c28f1d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b6ad27fb-bc07-bf6c-357b-c0757776d407" executionId="4c5bdf40-b766-4132-8fd3-b2f15925d4f0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1f0f9018-c5a3-80ec-f24e-be1468b8157f" executionId="908effc8-a6e7-4c34-a5f9-fd5fb3a31cde" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aae070e1-bdb1-791d-8c21-1105d4961248" executionId="5d244f1c-5b5e-45a9-999a-511a88f6e19d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cf7cd1f7-386e-f95c-d150-f30335a5f340" executionId="f2bd4a12-977f-4bfc-932c-324079f1e15a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="980e34c4-6f9c-c77a-a576-03de8b367422" executionId="94cdd9bb-dfd0-4368-92f2-ea0bc88355ed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="04b39220-ea3a-623b-bd60-23cc82cdbe8c" executionId="8cc062e3-a656-4e2b-857e-1904c47bfbb1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="03d1b515-f8b6-2c80-e650-56aa8a99914b" executionId="c03e5468-29b4-41e6-adae-774abff4be8b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f95b48e9-32c1-93b6-4e94-6415a2148e92" executionId="004055d9-9a4a-4da2-bccd-0480bd98ba98" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="39393a80-981b-2f63-914d-ed77195e399a" executionId="b541a43c-dab7-4c87-add0-1e1e30097d27" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2e0bf62d-d7ba-9f3a-2a2a-ae3cee468131" executionId="33d583cc-55e7-4c42-9fe7-01647f1b1903" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="887119dd-49f1-517a-8f77-eb165a250b72" executionId="bbec29fe-a3b1-4bae-9c4a-82a36dc8026e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="05d7256e-025f-a748-8e3c-fa33d8f51fea" executionId="8ff5161a-b323-4b5f-ab69-78176a7ceb95" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e1e083a1-7e4e-c37a-579a-6b08a533ee14" executionId="4d8577ef-d48d-438f-8de8-05f06ef4de3c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cc85c42b-01c8-69df-7f3a-7d071a734564" executionId="07725801-3cfb-4634-81b7-123427972c2d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7e5cf006-81ba-8b75-7d52-3f58cd69c518" executionId="bc48775c-7216-4a53-8188-c0794cf356ca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e12b7705-cf22-71c5-b924-b5f5aabe2777" executionId="76827f38-51b6-4202-baf2-834306ee32f7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="98567ced-6607-53d4-cc5b-28c55691c030" executionId="83c4b944-97b2-4d9d-ac14-16cb0e542bd6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="94d4ca12-ce8a-d290-6a05-24731c82549c" executionId="f8d6cdc8-9da6-4ff3-a961-e9810d01ef99" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1f9d4817-6b5e-6c6d-9fb2-c16a1d03bd15" executionId="d384ec65-ebc4-4c96-908a-9d027b553b88" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="04b3abc9-816c-a284-e097-37c1d853ec2a" executionId="33430e78-43b2-443d-98d6-502c2365c481" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3cc55d97-92ed-f76d-1a92-eb1ae055a090" executionId="89e136ae-04f3-4391-a492-b558f05011e1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="15ef7e3d-fa60-8611-798f-8d1748067cf8" executionId="f2f752f8-93e6-4a15-82fa-c92959c8ea6d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="97c3e836-9104-55c2-f6f3-be9ad9a203f4" executionId="f3bda682-08f1-4573-b953-e5fb3276a838" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ff05e214-71dd-2bb8-340d-b107351ac86c" executionId="2ac46d32-f768-4e59-b201-5f3bb862e73a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1dc79b46-8264-6449-dccf-cd78c000ee8f" executionId="a661ee4e-b9d1-4d10-93ad-4041286ad4ab" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="30" executed="30" passed="27" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.05]   Discovering: OptilandWorkbench.Tests
+[xUnit.net 00:00:00.29]   Discovered:  OptilandWorkbench.Tests
+[xUnit.net 00:00:00.30]   Starting:    OptilandWorkbench.Tests
+[xUnit.net 00:00:01.75]       Assert.True() Failure
+[xUnit.net 00:00:01.75]       Expected: True
+[xUnit.net 00:00:01.75]       Actual:   False
+[xUnit.net 00:00:01.76]       Stack Trace:
+[xUnit.net 00:00:01.76]         /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/TolerancingWorkflowTests.cs(636,0): at OptilandWorkbench.Tests.TolerancingWorkflowTests.ImageSpacingCompensatorChangesRealOpticalCriterion()
+[xUnit.net 00:00:01.76]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.70]       Assert.InRange() Failure: Value not in range
+[xUnit.net 00:00:02.70]       Range:  (0 - 1.9999999999999999E-06)
+[xUnit.net 00:00:02.70]       Actual: 0.0008666000000000009
+[xUnit.net 00:00:02.70]       Stack Trace:
+[xUnit.net 00:00:02.70]         /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/TolerancingWorkflowTests.cs(589,0): at OptilandWorkbench.Tests.TolerancingWorkflowTests.MonteCarloRowsAndStatisticsUseActualCriterion()
+[xUnit.net 00:00:02.70]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:17.56]       Assert.InRange() Failure: Value not in range
+[xUnit.net 00:00:17.56]       Range:  (0.14999000000000001 - 0.14999999999999999)
+[xUnit.net 00:00:17.56]       Actual: 0.15000000000000002
+[xUnit.net 00:00:17.56]       Stack Trace:
+[xUnit.net 00:00:17.56]         /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/MtfTolerancingTests.cs(63,0): at OptilandWorkbench.Tests.MtfTolerancingTests.HigherBetterSensitivityAndInverseUseMinimumAndDecrease()
+[xUnit.net 00:00:17.56]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:17.56]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:17.56]   Finished:    OptilandWorkbench.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="starlabdeMacBook-Air" outcome="Error" timestamp="2026-10-04T21:37:39.1430000+08:00">
+        <Text>[xUnit.net 00:00:01.75]     OptilandWorkbench.Tests.TolerancingWorkflowTests.ImageSpacingCompensatorChangesRealOpticalCriterion [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="starlabdeMacBook-Air" outcome="Error" timestamp="2026-10-04T21:37:40.0888180+08:00">
+        <Text>[xUnit.net 00:00:02.70]     OptilandWorkbench.Tests.TolerancingWorkflowTests.MonteCarloRowsAndStatisticsUseActualCriterion [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="starlabdeMacBook-Air" outcome="Error" timestamp="2026-10-04T21:37:54.9471180+08:00">
+        <Text>[xUnit.net 00:00:17.56]     OptilandWorkbench.Tests.MtfTolerancingTests.HigherBetterSensitivityAndInverseUseMinimumAndDecrease [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

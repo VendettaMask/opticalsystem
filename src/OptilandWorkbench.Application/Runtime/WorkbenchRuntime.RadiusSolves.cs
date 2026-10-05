@@ -1,3 +1,4 @@
+using OptilandWorkbench.Core.Multiconfig;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Geometries;
@@ -7,12 +8,29 @@ namespace OptilandWorkbench.Application.Runtime;
 
 public partial class WorkbenchRuntime
 {
+    private bool HasActiveCellVariable(int surface, MultiConfigurationOperandKind kind) =>
+        _multiConfiguration.OperandVariables.Any(v => v.ConfigurationIndex == _activeConfigurationIndex
+            && v.Operand == new MultiConfigurationOperand(kind, surface));
+
+    private void ClearActiveCellVariable(int surface, MultiConfigurationOperandKind kind)
+    {
+        var row = Array.FindIndex(_multiConfiguration.OperandRows.ToArray(), r => r == new MultiConfigurationOperand(kind, surface));
+        if (row >= 0 && HasActiveCellVariable(surface, kind)) _multiConfiguration.SetOperandVariable(row + 1, _activeConfigurationIndex, false);
+    }
+
+    private void ClearActiveCellPickup(int surface, MultiConfigurationOperandKind kind)
+    {
+        var row = Array.FindIndex(_multiConfiguration.OperandRows.ToArray(), r => r == new MultiConfigurationOperand(kind, surface));
+        if (row >= 0 && IsMultiConfigurationPickupTarget(surface, new MultiConfigurationOperand(kind, surface).Property))
+            _multiConfiguration.ClearOperandPickup(row + 1, _activeConfigurationIndex);
+    }
+
     public RadiusSolveDto GetRadiusSolve(int surfaceNumber)
     {
         var surface = GetSurfaceByNumber(surfaceNumber);
         var pickups = CurrentOptic.Pickups.RadiusPickups.Where(pickup => pickup.TargetSurface == surfaceNumber).ToArray();
         if (pickups.Length == 0)
-            return new RadiusSolveDto(surface.RadiusVariable ? RadiusSolveKind.Variable : RadiusSolveKind.Fixed);
+            return new RadiusSolveDto(surface.RadiusVariable || HasActiveCellVariable(surfaceNumber, MultiConfigurationOperandKind.Curvature) ? RadiusSolveKind.Variable : RadiusSolveKind.Fixed);
         var pickup = pickups[^1];
         var factor = pickup.Scale == 0 ? 0 : 1 / pickup.Scale;
         var editable = pickups.Length == 1 && pickup.Offset == 0 && double.IsFinite(factor)
@@ -38,6 +56,8 @@ public partial class WorkbenchRuntime
                 throw new ArgumentOutOfRangeException(nameof(update), "比例因子必须是可表示的有限数值。");
         }
         CaptureCurrentState();
+        ClearActiveCellPickup(surfaceNumber, MultiConfigurationOperandKind.Curvature);
+        if (update.Kind != RadiusSolveKind.Variable) ClearActiveCellVariable(surfaceNumber, MultiConfigurationOperandKind.Curvature);
         if (update.Kind == RadiusSolveKind.Pickup)
             CurrentOptic.Pickups.SetCurvaturePickup(update.SourceSurface, surfaceNumber, update.ScaleFactor);
         else
@@ -52,7 +72,7 @@ public partial class WorkbenchRuntime
         var pickup = CurrentOptic.Pickups.ThicknessPickups
             .LastOrDefault(item => item.TargetSurface == surfaceNumber);
         return pickup is null
-            ? new ThicknessSolveDto(surface.ThicknessVariable ? ThicknessSolveKind.Variable : ThicknessSolveKind.Fixed)
+            ? new ThicknessSolveDto(surface.ThicknessVariable || HasActiveCellVariable(surfaceNumber, MultiConfigurationOperandKind.Thickness) ? ThicknessSolveKind.Variable : ThicknessSolveKind.Fixed)
             : new ThicknessSolveDto(
                 ThicknessSolveKind.Pickup,
                 pickup.SourceSurface,
@@ -75,6 +95,8 @@ public partial class WorkbenchRuntime
         }
 
         CaptureCurrentState();
+        ClearActiveCellPickup(surfaceNumber, MultiConfigurationOperandKind.Thickness);
+        if (update.Kind != ThicknessSolveKind.Variable) ClearActiveCellVariable(surfaceNumber, MultiConfigurationOperandKind.Thickness);
         if (update.Kind == ThicknessSolveKind.Pickup)
             CurrentOptic.Pickups.SetThicknessPickup(
                 update.SourceSurface,
@@ -118,6 +140,8 @@ public partial class WorkbenchRuntime
         }
 
         CaptureCurrentState();
+        ClearActiveCellPickup(surfaceNumber, MultiConfigurationOperandKind.SemiDiameter);
+        ClearActiveCellVariable(surfaceNumber, MultiConfigurationOperandKind.SemiDiameter);
         if (update.Kind == SemiDiameterSolveKind.Pickup)
             CurrentOptic.Pickups.SetSemiDiameterPickup(
                 update.SourceSurface,

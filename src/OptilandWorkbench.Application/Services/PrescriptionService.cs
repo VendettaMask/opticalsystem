@@ -24,7 +24,7 @@ using static OptilandWorkbench.Application.Services.WorkbenchMapper;
 
 namespace OptilandWorkbench.Application.Services;
 
-internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionService
+internal sealed partial class PrescriptionService : WorkbenchServiceBase, IPrescriptionService
 {
     public PrescriptionService(WorkspaceCoordinator workspace)
         : base(workspace)
@@ -94,6 +94,32 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
         }
     }
 
+    public PolarizationSettingsDto GetPolarizationSettings()
+    {
+        lock (Gate)
+        {
+            var p = Runtime.CurrentOptic.Polarization;
+            return new(p.Unpolarized, p.Jx, p.Jy, p.XPhaseDegrees, p.YPhaseDegrees, p.ReferenceAxis.ToString());
+        }
+    }
+
+    public void UpdatePolarizationSettings(PolarizationSettingsDto settings)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        if (settings.ReferenceAxis is not ("X" or "Y" or "Z"))
+            throw new ArgumentException("偏振参考轴须为 X、Y 或 Z。");
+        var state = new OptilandWorkbench.Core.Rays.SystemPolarization(settings.Unpolarized, settings.Jx, settings.Jy,
+            settings.XPhaseDegrees, settings.YPhaseDegrees,
+            Enum.Parse<OptilandWorkbench.Core.Rays.PolarizationReferenceAxis>(settings.ReferenceAxis));
+        state.Validate();
+        MutateTransactional(WorkspaceChangeCategory.SystemSettings, () =>
+        {
+            Runtime.CaptureCurrentState();
+            Runtime.CurrentOptic.Polarization = state;
+            Runtime.CommitSystemEdit();
+        });
+    }
+
     public EnvironmentSettingsDto GetEnvironmentSettings()
     {
         lock (Gate)
@@ -125,7 +151,10 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
                 field.Y,
                 field.VignetteFactorX,
                 field.VignetteFactorY,
-                field.Weight)).ToArray();
+                field.Weight,
+                field.VignetteDecenterX,
+                field.VignetteDecenterY,
+                field.VignetteAngleDegrees)).ToArray();
         }
     }
 
@@ -194,6 +223,18 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
                 .Any(pickup => pickup.TargetSurface == surface.Number);
             var hasSemiDiameterPickup = Runtime.CurrentOptic.Pickups.SemiDiameterPickups
                 .Any(pickup => pickup.TargetSurface == surface.Number);
+            var mceRadius = Runtime.IsMultiConfigurationPickupTarget(surface.Number, "radius");
+            var mceThickness = Runtime.IsMultiConfigurationPickupTarget(surface.Number, "thickness");
+            var mceConic = Runtime.IsMultiConfigurationPickupTarget(surface.Number, "conic");
+            var mceSemi = Runtime.IsMultiConfigurationPickupTarget(surface.Number, "semiDiameter");
+            if ((mceRadius && (!target.Radius.Equals(surface.Radius) || surface.RadiusVariable))
+                || (mceThickness && (!target.Thickness.Equals(surface.Thickness) || surface.ThicknessVariable))
+                || (mceConic && !target.Conic.Equals(surface.Conic))
+                || (mceSemi && (!target.SemiDiameter.Equals(surface.SemiDiameter) || !surface.SemiDiameterFixed)))
+                throw new InvalidOperationException("该参数由多配置拾取控制，请编辑源单元格或移除拾取。");
+            hasRadiusPickup |= mceRadius;
+            hasThicknessPickup |= mceThickness;
+            hasSemiDiameterPickup |= mceSemi;
             target.Label = surface.Label;
             if (!hasRadiusPickup) target.Radius = surface.Radius;
             if (!isImageSurface && !hasThicknessPickup)
@@ -207,19 +248,76 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
             {
                 target.SemiDiameter = surface.SemiDiameter;
             }
-            target.Conic = surface.Conic;
+            if (!mceConic) target.Conic = surface.Conic;
+            if (surface.ChipZone is { } chipZone) target.ChipZone = chipZone;
+            if (surface.ThermalExpansionPpmPerC is { } thermalExpansion)
+                target.ThermalExpansionPpmPerC = thermalExpansion;
             target.IsStop = surface.IsStop;
             target.RadiusVariable = surface.RadiusVariable && !hasRadiusPickup;
             target.ThicknessVariable = !isImageSurface && surface.ThicknessVariable && !hasThicknessPickup;
-            Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.Radius));
-            Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.Conic));
-            if (!isImageSurface)
+            var editedProperties = new List<string?> { nameof(OpticalSurface.Material), nameof(OpticalSurface.Coating), nameof(OpticalSurface.IsStop) };
+            if (!mceRadius) editedProperties.Add(nameof(OpticalSurface.Radius));
+            if (!mceConic) editedProperties.Add(nameof(OpticalSurface.Conic));
+            if (!isImageSurface && !mceThickness) editedProperties.Add(nameof(OpticalSurface.Thickness));
+            if (!mceSemi) editedProperties.Add(nameof(OpticalSurface.SemiDiameter));
+            Runtime.CommitSurfaceEdits(target, editedProperties);
+        });
+    }
+
+    public IReadOnlyList<CoatingLayerEditDto> GetCoatingLayers(int surfaceNumber)
+    {
+        lock (Gate)
+        {
+            var surface = FindSurface(surfaceNumber) ?? throw new ArgumentException("表面不存在。");
+            if (surface.CoatingModel is not CoherentMultilayerCoating coating) return [];
+            return coating.Layers.Select((layer, index) => new CoatingLayerEditDto(layer.Material.Name,
+                layer.ThicknessNanometers, layer.Adjustment.Multiplier, layer.Adjustment.IndexOffset,
+                layer.Adjustment.ExtinctionOffset, layer.Adjustment.MultiplierVariable,
+                layer.Adjustment.IndexVariable, layer.Adjustment.ExtinctionVariable, index + 1)).ToArray();
+        }
+    }
+
+    private IMaterial ResolveCoatingMaterial(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("膜层材料名称不能为空。");
+        try { return Runtime.CurrentOptic.Materials.Resolve(name); }
+        catch (Exception exception) when (exception is KeyNotFoundException or InvalidDataException)
+        { throw new ArgumentException(exception.Message, exception); }
+    }
+
+    public void UpdateCoatingLayers(int surfaceNumber, IReadOnlyList<CoatingLayerEditDto> layers, long expectedRevision)
+    {
+        ArgumentNullException.ThrowIfNull(layers);
+        MutateTransactional(WorkspaceChangeCategory.Surface, () =>
+        {
+            if (expectedRevision != Workspace.Revision) throw new InvalidOperationException("工程已变化，请重新打开膜层编辑器。");
+            var surface = FindSurface(surfaceNumber) ?? throw new ArgumentException("表面不存在。");
+            if (surfaceNumber <= 0 || surface.Geometry is INonComputableGeometry)
+                throw new NotSupportedException("此表面不能编辑物理膜层。");
+            var existing = (surface.CoatingModel as CoherentMultilayerCoating)?.Layers;
+            var films = layers.Select(layer =>
             {
-                Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.Thickness));
-            }
-            Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.Material));
-            Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.Coating));
-            Runtime.CommitSurfaceEdit(target, nameof(OpticalSurface.IsStop));
+                ArgumentNullException.ThrowIfNull(layer);
+                IMaterial material;
+                if (layer.SourceLayer is { } source)
+                {
+                    if (source <= 0 || existing is null || source > existing.Count)
+                        throw new ArgumentException("原始膜层引用不存在，请重新打开编辑器。");
+                    var original = existing[source - 1];
+                    material = layer.Material == original.Material.Name ? original.Material.Clone()
+                        : ResolveCoatingMaterial(layer.Material);
+                }
+                else material = ResolveCoatingMaterial(layer.Material);
+                if (material is UnresolvedMaterial) throw new ArgumentException($"未找到膜层材料 {layer.Material}。");
+                return new CoherentFilm(material, layer.ThicknessNanometers, new(layer.Multiplier,
+                    layer.IndexOffset, layer.ExtinctionOffset, layer.MultiplierVariable, layer.IndexVariable, layer.ExtinctionVariable));
+            }).ToArray();
+            var replacement = new CoherentMultilayerCoating(films);
+            CoatingLayerMetrics.ValidateAtSystemWavelengths(Runtime.CurrentOptic, replacement);
+            Runtime.CaptureCurrentState();
+            Runtime.CurrentOptic.InvalidateRayTraceCache();
+            surface.CoatingModel = films.Length == 0 ? new NoneCoatingModel() : replacement;
+            Runtime.CommitSurfaceEdit(surface, nameof(OpticalSurface.CoatingModel));
         });
     }
 
@@ -261,6 +359,9 @@ internal sealed class PrescriptionService : WorkbenchServiceBase, IPrescriptionS
             target.Y = field.Y;
             target.VignetteFactorX = field.VignetteFactorX;
             target.VignetteFactorY = field.VignetteFactorY;
+            target.VignetteDecenterX = field.VignetteDecenterX;
+            target.VignetteDecenterY = field.VignetteDecenterY;
+            target.VignetteAngleDegrees = field.VignetteAngleDegrees;
             target.Weight = field.Weight;
             Runtime.CommitSystemEdit(target);
         });

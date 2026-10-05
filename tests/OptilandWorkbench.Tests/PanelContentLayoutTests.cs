@@ -1,3 +1,5 @@
+using System.Reflection;
+using System.Text.Json;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
@@ -14,12 +16,116 @@ using OptilandWorkbench.App.Manufacturing;
 using OptilandWorkbench.App.Services;
 using OptilandWorkbench.App.Theming;
 using OptilandWorkbench.Application.Services;
+using OptilandWorkbench.Application.Contracts;
 
 namespace OptilandWorkbench.Tests;
 
 [Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class PanelContentLayoutTests
 {
+    [Theory]
+    [InlineData(OpticalDrawingStandard.Iso10110, false)]
+    [InlineData(OpticalDrawingStandard.GbT13323_2009, false)]
+    [InlineData(OpticalDrawingStandard.GbT13323_1991, false)]
+    [InlineData(OpticalDrawingStandard.Iso10110, true)]
+    [InlineData(OpticalDrawingStandard.GbT13323_2009, true)]
+    [InlineData(OpticalDrawingStandard.GbT13323_1991, true)]
+    public async Task DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances(
+        OpticalDrawingStandard standard, bool cemented)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(PanelContentLayoutTests));
+        await session.Dispatch(() =>
+        {
+            using var application = WorkbenchApplication.Create(cemented ? "tessar" : "cooke");
+            using var panel = new OpticalDrawingPanel(application.Prescription, application.Materials,
+                application.Events, application.Visualization, standard);
+            var picker = Field<ComboBox>("_elementPicker");
+            picker.SelectedItem = picker.Items.Cast<object>().Single(choice =>
+                choice.GetType().GetProperty("Element")!.GetValue(choice) is OpticalDrawingElementDefinition element
+                && (cemented ? element.IsCemented : element.Material == "SCHOTT:F2"));
+            var initial = Sheet();
+            Assert.NotNull(initial.MaterialData);
+            Assert.Equal(initial.Element.Components.Count, initial.ComponentMaterialData!.Count);
+            Assert.All(initial.ComponentMaterialData, material =>
+            {
+                Assert.NotNull(material);
+                Assert.True(double.IsFinite(material.RefractiveIndexD) && material.RefractiveIndexD > 1);
+                Assert.True(double.IsFinite(material.AbbeNumber) && material.AbbeNumber > 0);
+            });
+            if (!cemented)
+            {
+                Assert.Equal("SCHOTT", initial.MaterialData.Manufacturer);
+                Assert.Equal("F2", initial.MaterialData.Name);
+            }
+            Assert.Equal(0.0005, initial.RefractiveIndexTolerance);
+            Assert.Equal(0.5, initial.AbbeNumberTolerance);
+            var initialPreview = OpticalDrawingRenderer.RenderPreview(initial, 1500);
+
+            Field<NumericUpDown>("_refractiveIndexTolerance").Value = 0.0012m;
+            Field<NumericUpDown>("_abbeNumberTolerance").Value = 1.25m;
+            var edited = Sheet();
+            Assert.Equal(initial.MaterialData.RefractiveIndexD, edited.MaterialData!.RefractiveIndexD);
+            Assert.Equal(initial.MaterialData.AbbeNumber, edited.MaterialData.AbbeNumber);
+            Assert.Equal(0.0012, edited.RefractiveIndexTolerance);
+            Assert.Equal(1.25, edited.AbbeNumberTolerance);
+            if (standard == OpticalDrawingStandard.GbT13323_1991)
+            {
+                var rows = OpticalDrawingRendererCore.Gb1991MaterialSpecificationRows(edited);
+                for (var index = 0; index < edited.Element.Components.Count; index++)
+                {
+                    var material = edited.ComponentMaterialData![index]!;
+                    var label = cemented ? $"L{index + 1} " : string.Empty;
+                    Assert.Contains(rows, row => row.Item == label + "折射率/阿贝数"
+                        && row.Value == $"n[d] {material.RefractiveIndexD:0.000000} ±0.001200；V[d] {material.AbbeNumber:0.###} ±1.25");
+                }
+                if (cemented)
+                {
+                    var missingSecondMaterial = edited with
+                    {
+                        ComponentMaterialData = new[] { edited.MaterialData, null }
+                    };
+                    Assert.Contains(OpticalDrawingRendererCore.Gb1991MaterialSpecificationRows(missingSecondMaterial),
+                        row => row.Item == "L2 折射率/阿贝数" && row.Value == "n[d]、V[d] 未解析");
+                }
+            }
+            var editedPreview = OpticalDrawingRenderer.RenderPreview(edited, 1500);
+            Assert.False(initialPreview.SequenceEqual(editedPreview));
+            Assert.Empty(OpticalDrawingRenderer.ValidateTemplateLayout(edited));
+
+            var path = Path.Combine(Path.GetTempPath(), $"material-tolerances-{Guid.NewGuid():N}.pdf");
+            try
+            {
+                OpticalDrawingRenderer.ExportPdf(path, edited);
+                Assert.True(new FileInfo(path).Length > 5000);
+                var directory = Environment.GetEnvironmentVariable("OPTILAND_DRAWING_MATERIAL_CAPTURE_DIR");
+                if (!string.IsNullOrWhiteSpace(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                    var name = $"{standard}-{(cemented ? "cemented" : "F2")}";
+                    File.WriteAllBytes(Path.Combine(directory, name + "-default.png"), initialPreview);
+                    File.WriteAllBytes(Path.Combine(directory, name + "-edited.png"), editedPreview);
+                    OpticalDrawingRenderer.ExportPdf(Path.Combine(directory, name + "-default.pdf"), initial);
+                    File.Copy(path, Path.Combine(directory, name + "-edited.pdf"), overwrite: true);
+                    File.WriteAllText(Path.Combine(directory, name + ".json"), JsonSerializer.Serialize(new
+                    {
+                        initial.MaterialData,
+                        initial.ComponentMaterialData,
+                        initial.RefractiveIndexTolerance,
+                        initial.AbbeNumberTolerance,
+                        editedIndexTolerance = edited.RefractiveIndexTolerance,
+                        editedAbbeTolerance = edited.AbbeNumberTolerance
+                    }, new JsonSerializerOptions { WriteIndented = true }));
+                }
+            }
+            finally { File.Delete(path); }
+
+            T Field<T>(string name) => (T)typeof(OpticalDrawingPanel)
+                .GetField(name, BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(panel)!;
+            OpticalDrawingSheet Sheet() => Assert.IsType<OpticalDrawingSheet>(typeof(OpticalDrawingPanel)
+                .GetMethod("CreateSheet", BindingFlags.Instance | BindingFlags.NonPublic)!.Invoke(panel, null));
+        }, CancellationToken.None);
+    }
+
     public static AppBuilder BuildAvaloniaApp()
     {
         var capture = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("OPTILAND_PANEL_CAPTURE_DIR"));

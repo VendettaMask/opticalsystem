@@ -1,0 +1,16 @@
+{
+  "checkedDate": "2026-10-04",
+  "primarySources": [
+    {
+      "url": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26103/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Gradient_5.html",
+      "verified": "Previously read reference polynomial and explicit generalized Sellmeier dispersion; this batch edits existing formal Core parameters.",
+      "scope": "No SGRIN.DAT parser, native mapping or new numerical capture."
+    },
+    {
+      "url": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26103/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Using_Gradient_Index_Operands.html",
+      "imageUrl": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26103/en/OpticStudio_User_Guide/OpticStudio_Help/topics/images/Using%20Gradient%20Index%20Operands.png",
+      "verified": "Image fetched and visually inspected: both endpoint axial derivatives positive OR both negative.",
+      "scope": "Constraint condition only; actual LPTD residual values/scaling are not established. LPTD remains compatibility-only."
+    }
+  ]
+}

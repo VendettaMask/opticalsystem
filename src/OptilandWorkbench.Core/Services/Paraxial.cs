@@ -2,6 +2,7 @@ using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Capabilities;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Interactions;
+using OptilandWorkbench.Core.Materials;
 
 namespace OptilandWorkbench.Core.Services;
 
@@ -20,7 +21,7 @@ public sealed record CardinalPointEstimate(
     double FirstReferencePosition,
     double LastReferencePosition);
 
-public sealed class Paraxial
+public sealed partial class Paraxial
 {
     private readonly Optic _optic;
 
@@ -256,7 +257,7 @@ public sealed class Paraxial
         EnsureComputable();
         var positions = SurfacePositions();
         var firstSurfacePosition = positions.Count > 1 ? positions[1] : 0;
-        var entrancePupilLocation = EstimateEntrancePupilLocation();
+        var entrancePupilLocation = EstimateEntrancePupilLocation(wavelengthMicrometers);
         var entrancePupilRadius = EstimateEntrancePupilDiameter() / 2;
         var fieldY = normalizedFieldY * FieldCoordinates.MaximumRadius(_optic.Fields);
         var pupilHeights = normalizedPupilY.Select(pupil => pupil * entrancePupilRadius).ToArray();
@@ -264,6 +265,7 @@ public sealed class Paraxial
         var objectAtInfinity = ObjectConjugate.IsInfinite(objectSurface);
         double objectHeight;
         double objectPosition;
+        double? infiniteFieldSlope = null;
 
         switch (_optic.FieldDefinition)
         {
@@ -280,12 +282,13 @@ public sealed class Paraxial
             case FieldDefinitionKind.RealImageHeight:
                 // A paraxial report uses the specified image height in its linear
                 // conjugate mapping; real-ray aiming includes higher-order distortion.
-                (objectHeight, objectPosition) = ParaxialImageObjectPosition(
+                (objectHeight, objectPosition, var imageFieldSlope) = ParaxialImageObjectPosition(
                     fieldY,
                     entrancePupilLocation,
                     firstSurfacePosition,
                     objectSurface,
                     objectAtInfinity);
+                infiniteFieldSlope = imageFieldSlope;
                 break;
             default:
                 var angleSlope = Math.Tan(fieldY * Math.PI / 180.0);
@@ -293,6 +296,7 @@ public sealed class Paraxial
                     ? firstSurfacePosition
                     : objectSurface?.CoordinateSystem.Origin.Z ?? 0;
                 objectHeight = -angleSlope * (entrancePupilLocation - objectPosition);
+                infiniteFieldSlope = angleSlope;
                 break;
         }
 
@@ -301,6 +305,8 @@ public sealed class Paraxial
             : objectHeight).ToArray();
         var slopes = pupilHeights.Select((pupilHeight, index) =>
         {
+            if (objectAtInfinity && infiniteFieldSlope is { } fieldSlope)
+                return fieldSlope;
             var denominator = entrancePupilLocation - objectPosition;
             return Math.Abs(denominator) <= 1e-15
                 ? 0
@@ -345,7 +351,7 @@ public sealed class Paraxial
         return TraceNormalizedPupil(normalizedY, new[] { 0.0 }, wavelengthMicrometers);
     }
 
-    private (double Height, double Position) ParaxialImageObjectPosition(
+    private (double Height, double Position, double Slope) ParaxialImageObjectPosition(
         double imageHeight,
         double entrancePupilLocation,
         double firstSurfacePosition,
@@ -364,12 +370,13 @@ public sealed class Paraxial
 
         if (objectAtInfinity)
         {
-            return (objectHeightUnit * imageHeight / imageHeightUnit, firstSurfacePosition);
+            return (objectHeightUnit * imageHeight / imageHeightUnit, firstSurfacePosition, imageHeight / imageHeightUnit);
         }
 
         return (
             objectHeightUnit * imageHeight / imageHeightUnit,
-            objectSurface?.CoordinateSystem.Origin.Z ?? 0);
+            objectSurface?.CoordinateSystem.Origin.Z ?? 0,
+            imageHeight / imageHeightUnit);
     }
 
     public ParaxialTrace TraceGeneric(
@@ -414,6 +421,8 @@ public sealed class Paraxial
         int skipSurfaceCount,
         bool reverse)
     {
+        if (HasGradientIndex)
+            return TraceGradientGeneric(initialHeights, initialSlopes, initialZ, wavelengthMicrometers, skipSurfaceCount, reverse);
         if (initialHeights.Count != initialSlopes.Count)
         {
             throw new ArgumentException("Paraxial height and slope arrays must have equal length.");
@@ -506,8 +515,11 @@ public sealed class Paraxial
     private RayMatrix TraceMatrix(
         int startSurfaceInclusive,
         int endSurfaceExclusive,
-        double wavelengthNanometers)
+        double wavelengthNanometers,
+        bool includeTrailingTranslation = true)
     {
+        if (HasGradientIndex)
+            return TraceGradientMatrix(startSurfaceInclusive, endSurfaceExclusive, wavelengthNanometers, includeTrailingTranslation);
         var matrix = RayMatrix.Identity;
         var currentIndex = startSurfaceInclusive <= 0
             ? 1.0
@@ -535,7 +547,8 @@ public sealed class Paraxial
                 _ when reflective => Reflect(matrix, surface.Radius),
                 _ => Refract(matrix, surface.Radius, currentIndex, nextIndex)
             };
-            if (index != 0 || !ObjectConjugate.IsInfinite(surface))
+            if ((index != 0 || !ObjectConjugate.IsInfinite(surface))
+                && (includeTrailingTranslation || index + 1 < endSurfaceExclusive))
             {
                 matrix = Translate(matrix, surface.Thickness);
             }
@@ -560,6 +573,7 @@ public sealed class Paraxial
             _optic,
             OpticCapabilityOperation.Analysis,
             "Paraxial / First Order");
+        if (HasGradientIndex) ValidateGradientIndexSystem();
     }
 
     private static RayMatrix Refract(RayMatrix matrix, double radius, double indexBefore, double indexAfter)

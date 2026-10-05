@@ -969,7 +969,7 @@ public sealed class Layout2DBuilder
 
     private static double SurfaceExtent(OpticalSurface surface)
     {
-        var extent = Math.Max(0.1, surface.SemiDiameter);
+        var extent = Math.Max(0.1, surface.SemiDiameter + surface.ChipZone);
         if (surface.Geometry is StandardGeometry standard && 1.0 + standard.Conic > 0)
         {
             var realDomain = Math.Abs(standard.Radius) / Math.Sqrt(1.0 + standard.Conic);

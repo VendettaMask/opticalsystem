@@ -78,9 +78,9 @@ public sealed partial class MainWindow
                 MeritFunctionPreset.RmsSpot);
         }
 
-        _panels.ShowGlassCatalog();
+        _panels.ShowMaterialLibrary();
         _panels.Show(WorkspacePanelId.Optimization);
         _statusText.Text =
-            "已打开玻璃目录与评价函数模板；选择候选玻璃后可继续执行几何变量优化。";
+            "已打开材料库与评价函数模板；选择候选玻璃后可继续执行几何变量优化。";
     }
 }

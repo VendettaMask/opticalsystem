@@ -511,7 +511,7 @@ internal static partial class OpticalDrawingRendererCore
                 Component: null,
                 Material: sheet.MaterialData));
 
-    private static IReadOnlyList<(string Item, string Value)> Gb1991MaterialSpecificationRows(
+    internal static IReadOnlyList<(string Item, string Value)> Gb1991MaterialSpecificationRows(
         OpticalDrawingSheet sheet)
     {
         var template = OpticalDrawingTemplateCatalog.For(sheet.Standard);
@@ -523,9 +523,30 @@ internal static partial class OpticalDrawingRendererCore
             SurfaceCount: sheet.Element.Surfaces.Count,
             Component: null,
             Material: sheet.MaterialData);
-        return template.Specification.Gb1991MaterialRows
-            .Select(row => (row.Item, ResolveField(row.ValueBinding, context)))
-            .ToArray();
+        var rows = new List<(string Item, string Value)>();
+        foreach (var row in template.Specification.Gb1991MaterialRows)
+        {
+            if (sheet.Element.IsCemented && row.ValueBinding is
+                "gb1991.material.glassAndMaker" or "gb1991.material.indexAndAbbe")
+            {
+                for (var index = 0; index < sheet.Element.Components.Count; index++)
+                {
+                    var componentContext = context with
+                    {
+                        Component = sheet.Element.Components[index],
+                        Material = sheet.ComponentMaterialData?.ElementAtOrDefault(index)
+                            ?? (index == 0 ? sheet.MaterialData : null)
+                    };
+                    rows.Add(($"{CementedComponentLabel(index)} {row.Item}",
+                        ResolveField(row.ValueBinding, componentContext)));
+                }
+            }
+            else
+            {
+                rows.Add((row.Item, ResolveField(row.ValueBinding, context)));
+            }
+        }
+        return rows;
     }
 
     private static IReadOnlyList<(string Surface, string Aperture, string Radius, string Requirement)> Gb1991PartSpecificationRows(
@@ -728,29 +749,29 @@ internal static partial class OpticalDrawingRendererCore
             "material.manufacturer" => $"制造商  {material?.Manufacturer ?? "当前玻璃库"}",
             "material.name" => $"玻璃牌号  {sheet.Element.Material}",
             "material.refractiveIndexD" => material is null
-                ? "n[d]  由玻璃库解析"
+                ? "n[d]  未解析"
                 : $"n[d]  {material.RefractiveIndexD:0.000000} ±{sheet.RefractiveIndexTolerance:0.000000}",
             "material.abbeNumber" => material is null
-                ? "V[d]  由玻璃库解析"
+                ? "V[d]  未解析"
                 : $"V[d]  {material.AbbeNumber:0.###} ±{sheet.AbbeNumberTolerance:0.###}",
 
             "component.material.name" => $"GLASS  {RequireComponent(component, binding).Material}",
             "component.material.manufacturer" => $"MAKER  {material?.Manufacturer ?? "CATALOG"}",
             "component.material.refractiveIndexD" => material is null
-                ? "n[d]  CATALOG"
+                ? "n[d]  UNRESOLVED"
                 : $"n[d]  {material.RefractiveIndexD:0.000000} +/-{sheet.RefractiveIndexTolerance:0.000000}",
             "component.material.abbeNumber" => material is null
-                ? "V[d]  CATALOG"
+                ? "V[d]  UNRESOLVED"
                 : $"V[d]  {material.AbbeNumber:0.###} +/-{sheet.AbbeNumberTolerance:0.###}",
             "component.centerThickness" => $"CT  {RequireComponent(component, binding).CenterThickness:0.###} mm",
 
             "gb.material.name" => $"光学材料  {sheet.Element.Material}",
             "gb.material.manufacturer" => $"制造商  {material?.Manufacturer ?? "当前玻璃库"}",
             "gb.material.refractiveIndexD" => material is null
-                ? "n[d]  折射率由玻璃库解析"
+                ? "n[d]  折射率未解析"
                 : $"n[d]  折射率 {material.RefractiveIndexD:0.000000} ±{sheet.RefractiveIndexTolerance:0.000000}",
             "gb.material.abbeNumber" => material is null
-                ? "V[d]  阿贝数由玻璃库解析"
+                ? "V[d]  阿贝数未解析"
                 : $"V[d]  阿贝数 {material.AbbeNumber:0.###} ±{sheet.AbbeNumberTolerance:0.###}",
             "gb.material.stressBirefringence" => $"应力双折射  {sheet.StressBirefringence}",
             "gb.material.bubblesAndInclusions" => $"气泡和夹杂  {sheet.BubblesAndInclusions}",
@@ -762,9 +783,9 @@ internal static partial class OpticalDrawingRendererCore
             "gb.surface.coating" => $"膜层 {CoatingText(sheet, RequireSurface(surface, binding))}",
             "gb.surface.edgeTreatment" => $"边缘 {sheet.EdgeTreatment}",
 
-            "gb1991.material.glassAndMaker" => $"{sheet.Element.Material}；{material?.Manufacturer ?? "当前玻璃库"}",
+            "gb1991.material.glassAndMaker" => $"{component?.Material ?? sheet.Element.Material}；{material?.Manufacturer ?? "当前玻璃库"}",
             "gb1991.material.indexAndAbbe" => material is null
-                ? "n[d]、V[d] 由玻璃库解析"
+                ? "n[d]、V[d] 未解析"
                 : $"n[d] {material.RefractiveIndexD:0.000000} ±{sheet.RefractiveIndexTolerance:0.000000}；V[d] {material.AbbeNumber:0.###} ±{sheet.AbbeNumberTolerance:0.###}",
             "gb1991.material.homogeneityAndStriae" => sheet.HomogeneityAndStriae,
             "gb1991.material.stressAndBubbles" => $"{sheet.StressBirefringence}；{sheet.BubblesAndInclusions}",

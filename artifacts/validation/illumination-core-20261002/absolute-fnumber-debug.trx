@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="74f07332-95ae-4a61-abaf-b548e6feb8df" name="@starlabdeMacBook-Air 2026-10-02 13:52:41" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-02T13:52:41.5241670+08:00" queuing="2026-10-02T13:52:41.5241670+08:00" start="2026-10-02T13:52:30.8941800+08:00" finish="2026-10-02T13:52:41.5259720+08:00" />
+  <TestSettings name="default" id="71d6d4ad-15c0-467e-8919-555437447eb6">
+    <Deployment runDeploymentRoot="_starlabdeMacBook-Air_2026-10-02_13_52_41" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="0c7064f7-224a-434d-bd5f-13f048dd647c" testId="5d3d471b-908b-5263-fe3c-dd8cb1d11d52" testName="OptilandWorkbench.Tests.ZemaxRelativeIlluminationParityTests.ChiefRayTangentPupilProjectionMatchesZemax123456" computerName="starlabdeMacBook-Air" duration="00:00:09.9059189" startTime="2026-10-02T13:52:31.4521480+08:00" endTime="2026-10-02T13:52:41.3602150+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0c7064f7-224a-434d-bd5f-13f048dd647c">
+      <Output>
+        <StdOut>RMSE=0.0014395487; max=0.0031274627; edge=0.969163938
+EffectiveFNumbers=[2.8668857109658967,2.866992737729122,2.8673139984338953,2.8678500346206084,2.868601749825943,2.8695704110161815,2.8707576505351864,2.872165468516778,2.8737962356826525,2.875652696428563,2.8777379720725382,2.8800555641094547,2.8826093572781315,2.8854036222036745,2.8884430173255855,2.8917325897591404,2.8952777746638763,2.899084392603905,2.903158644412129,2.9075071021902534,2.9121366968751157]
+SampledPupilNodeCounts=[2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473]</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.ZemaxRelativeIlluminationParityTests.ChiefRayTangentPupilProjectionMatchesZemax123456" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="5d3d471b-908b-5263-fe3c-dd8cb1d11d52">
+      <Execution id="0c7064f7-224a-434d-bd5f-13f048dd647c" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.ZemaxRelativeIlluminationParityTests" name="ChiefRayTangentPupilProjectionMatchesZemax123456" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="5d3d471b-908b-5263-fe3c-dd8cb1d11d52" executionId="0c7064f7-224a-434d-bd5f-13f048dd647c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.05]   Discovering: OptilandWorkbench.Tests
+[xUnit.net 00:00:00.21]   Discovered:  OptilandWorkbench.Tests
+[xUnit.net 00:00:00.22]   Starting:    OptilandWorkbench.Tests
+[xUnit.net 00:00:10.14]   Finished:    OptilandWorkbench.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

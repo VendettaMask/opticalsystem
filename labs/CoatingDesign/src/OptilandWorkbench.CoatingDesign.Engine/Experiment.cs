@@ -8,17 +8,26 @@ using OptilandWorkbench.Core.Serialization;
 namespace OptilandWorkbench.CoatingDesign.Engine;
 
 public enum DesignKind { Antireflection, HighReflector, NarrowBand }
+public sealed record StructureOptions(int Cavities = 1);
+public sealed record SearchOptions(int Starts = 6, double JitterPercent = 12, bool VaryStructure = true);
+public enum ToleranceDistribution { Uniform, Normal }
+public enum ThicknessCorrelation { Independent, SameMaterial, Common }
+public sealed record ToleranceOptions(ToleranceDistribution Distribution = ToleranceDistribution.Uniform,
+    ThicknessCorrelation Correlation = ThicknessCorrelation.Independent, double AngleDegrees = 0);
 public sealed record SpectralBand(double MinimumNm, double MaximumNm);
 public sealed record DesignTarget(
     DesignKind Kind = DesignKind.Antireflection, double CenterNm = 550, double MinimumNm = 500,
     double MaximumNm = 600, double Reflectance = 0.02, int MaximumLayers = 8,
     double AngleDegrees = 0, ThinFilmPolarization Polarization = ThinFilmPolarization.Unpolarized,
     double FwhmNm = 15, double PeakTransmittance = 0.75, double BlockingOd = 1,
-    SpectralBand[]? StopBands = null, double CenterToleranceNm = 0.5, double FwhmToleranceNm = 1);
+    SpectralBand[]? StopBands = null, double CenterToleranceNm = 0.5, double FwhmToleranceNm = 1,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] StructureOptions? Structure = null);
 public sealed record CalculationSettings(int PreviewIntervals = 400, int OptimizationIntervals = 120,
     int MaximumIterations = 80, string Optimizer = "Damped Least Squares",
     double MinimumThicknessNm = 2, double MaximumThicknessNm = 2000,
-    double TolerancePercent = 1, int ToleranceTrials = 20, int RandomSeed = 1234);
+    double TolerancePercent = 1, int ToleranceTrials = 20, int RandomSeed = 1234,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] SearchOptions? Search = null,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] ToleranceOptions? Tolerancing = null);
 public sealed record FilmLayer(string MaterialId, double ThicknessNm, bool Variable = true);
 
 public sealed record MaterialSnapshot(string Id, string Name, string Source, double MinimumNm, double MaximumNm,
@@ -65,7 +74,8 @@ public sealed record DesignResult(string Fingerprint, ThinFilmSample[] Spectrum,
 {
     public bool Passed => SamplingConverged && Checks.All(x => x.Passed);
 }
-public sealed record Candidate(string Name, FilmLayer[] Layers, double Merit, bool Passed);
+public sealed record Candidate(string Name, FilmLayer[] Layers, double Merit, bool Passed,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] RunRecord? Run = null);
 public sealed record Experiment(int SchemaVersion, Guid Id, string Name, DesignTarget Target,
     CalculationSettings Settings, string IncidentId, string SubstrateId, string LowId, string HighId,
     MaterialSnapshot[] Materials, FilmLayer[] Layers, DesignResult? Result = null, Candidate[]? Candidates = null,
@@ -89,6 +99,12 @@ public sealed record Experiment(int SchemaVersion, Guid Id, string Name, DesignT
         if (Id == Guid.Empty || string.IsNullOrWhiteSpace(Name) || Target is null || Settings is null || Materials is null || Layers is null)
             throw new InvalidDataException("实验缺少名称、参数或材料快照。");
         var t = Target; var s = Settings;
+        var search = s.Search ?? new(); var tolerance = s.Tolerancing ?? new();
+        if ((t.Structure?.Cavities ?? 1) is < 1 or > 5 || search.Starts is < 1 or > 32
+            || !double.IsFinite(search.JitterPercent) || search.JitterPercent is < 0 or > 50
+            || !Enum.IsDefined(tolerance.Distribution) || !Enum.IsDefined(tolerance.Correlation)
+            || !double.IsFinite(tolerance.AngleDegrees) || tolerance.AngleDegrees is < 0 or > 10)
+            throw new ArgumentException("腔数须为 1–5，搜索起点须为 1–32，搜索扰动为 0–50%，角度公差为 0–10°。");
         static bool Finite(params double[] values) => values.All(double.IsFinite);
         if (!Enum.IsDefined(t.Kind) || !Enum.IsDefined(t.Polarization) || !Finite(t.CenterNm, t.MinimumNm, t.MaximumNm, t.Reflectance,
             t.AngleDegrees, t.FwhmNm, t.PeakTransmittance, t.BlockingOd, t.CenterToleranceNm, t.FwhmToleranceNm)

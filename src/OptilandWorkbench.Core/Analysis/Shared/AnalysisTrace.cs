@@ -57,17 +57,16 @@ internal static class AnalysisTrace
         // the persisted snapshot.  When every vignetting factor is already zero there is
         // nothing to remove, so retain the original optic instead of needlessly rebuilding it.
         if (optic.Fields.All(field =>
-                Math.Abs(field.VignetteFactorX) <= 1e-15
-                && Math.Abs(field.VignetteFactorY) <= 1e-15))
+                PupilVignetting.FromField(field) == PupilVignetting.Identity))
         {
             return optic;
         }
 
-        var workingOptic = Optic.FromSnapshot(optic.ToSnapshot());
+        // Preserve runtime materials and backend while detaching from the source trace cache.
+        var workingOptic = optic.CreateMeritEvaluationCopy();
         foreach (var field in workingOptic.Fields)
         {
-            field.VignetteFactorX = 0;
-            field.VignetteFactorY = 0;
+            PupilVignetting.Clear(field);
         }
 
         return workingOptic;
@@ -187,7 +186,8 @@ internal static class AnalysisTrace
         double linearX,
         double linearY,
         double wavelengthMicrometers,
-        string distortionType)
+        string distortionType,
+        bool requireUnvignetted = false)
     {
         var physical = FromDistortionLinearField(optic, linearX, linearY, distortionType);
         var normalized = FieldCoordinates.Normalize(optic.Fields, physical.X, physical.Y);
@@ -197,7 +197,7 @@ internal static class AnalysisTrace
             normalized.Y,
             0,
             0,
-            wavelengthMicrometers);
+            wavelengthMicrometers, requireUnvignetted);
         return (sample.Position.X, sample.Position.Y);
     }
 
@@ -206,7 +206,8 @@ internal static class AnalysisTrace
         double wavelengthMicrometers,
         int referenceFieldNumber,
         string distortionType,
-        bool symmetricMagnification = false)
+        bool symmetricMagnification = false,
+        bool requireUnvignetted = false)
     {
         distortionType = NormalizeDistortionType(distortionType);
         if (UsesCalibratedDistortionReference(distortionType))
@@ -218,7 +219,7 @@ internal static class AnalysisTrace
         }
 
         var fields = optic.Fields.ToArray();
-        var referenceField = fields.Length == 0
+        var referenceField = fields.Length == 0 || referenceFieldNumber == 0
             ? new FieldPoint()
             : fields[Math.Clamp(referenceFieldNumber - 1, 0, fields.Length - 1)];
         var referenceLinear = ToDistortionLinearField(
@@ -231,13 +232,14 @@ internal static class AnalysisTrace
             referenceLinear.X,
             referenceLinear.Y,
             wavelengthMicrometers,
-            distortionType);
+            distortionType, requireUnvignetted);
         var maximumLinearRadius = fields
             .Select(field => ToDistortionLinearField(optic, field.X, field.Y, distortionType))
             .Select(field => Math.Sqrt((field.X * field.X) + (field.Y * field.Y)))
             .DefaultIfEmpty(0)
             .Max();
         var delta = Math.Max(1e-8, Math.Max(1, maximumLinearRadius) * 1e-6);
+        if (maximumLinearRadius > 0) delta = Math.Min(delta, maximumLinearRadius / 4);
         var xColumn = DistortionDerivative(
             optic,
             referenceLinear,
@@ -245,7 +247,7 @@ internal static class AnalysisTrace
             wavelengthMicrometers,
             distortionType,
             delta,
-            xAxis: true);
+            xAxis: true, requireUnvignetted);
         var yColumn = DistortionDerivative(
             optic,
             referenceLinear,
@@ -253,7 +255,7 @@ internal static class AnalysisTrace
             wavelengthMicrometers,
             distortionType,
             delta,
-            xAxis: false);
+            xAxis: false, requireUnvignetted);
         var m00 = xColumn.X;
         var m01 = yColumn.X;
         var m10 = xColumn.Y;
@@ -418,7 +420,7 @@ internal static class AnalysisTrace
         double wavelengthMicrometers,
         string distortionType,
         double delta,
-        bool xAxis)
+        bool xAxis, bool requireUnvignetted)
     {
         var plus = xAxis
             ? (referenceLinear.X + delta, referenceLinear.Y)
@@ -431,24 +433,32 @@ internal static class AnalysisTrace
         if (canTracePlus && canTraceMinus)
         {
             var plusImage = TraceChiefAtLinearField(
-                optic, plus.Item1, plus.Item2, wavelengthMicrometers, distortionType);
+                optic, plus.Item1, plus.Item2, wavelengthMicrometers, distortionType, requireUnvignetted);
             var minusImage = TraceChiefAtLinearField(
-                optic, minus.Item1, minus.Item2, wavelengthMicrometers, distortionType);
+                optic, minus.Item1, minus.Item2, wavelengthMicrometers, distortionType, requireUnvignetted);
             return ((plusImage.X - minusImage.X) / (2 * delta), (plusImage.Y - minusImage.Y) / (2 * delta));
         }
 
         if (canTracePlus)
         {
             var plusImage = TraceChiefAtLinearField(
-                optic, plus.Item1, plus.Item2, wavelengthMicrometers, distortionType);
-            return ((plusImage.X - referenceImage.X) / delta, (plusImage.Y - referenceImage.Y) / delta);
+                optic, plus.Item1, plus.Item2, wavelengthMicrometers, distortionType, requireUnvignetted);
+            var twiceImage = TraceChiefAtLinearField(optic,
+                referenceLinear.X + (xAxis ? 2 * delta : 0), referenceLinear.Y + (xAxis ? 0 : 2 * delta),
+                wavelengthMicrometers, distortionType, requireUnvignetted);
+            return ((-3 * referenceImage.X + 4 * plusImage.X - twiceImage.X) / (2 * delta),
+                (-3 * referenceImage.Y + 4 * plusImage.Y - twiceImage.Y) / (2 * delta));
         }
 
         if (canTraceMinus)
         {
             var minusImage = TraceChiefAtLinearField(
-                optic, minus.Item1, minus.Item2, wavelengthMicrometers, distortionType);
-            return ((referenceImage.X - minusImage.X) / delta, (referenceImage.Y - minusImage.Y) / delta);
+                optic, minus.Item1, minus.Item2, wavelengthMicrometers, distortionType, requireUnvignetted);
+            var twiceImage = TraceChiefAtLinearField(optic,
+                referenceLinear.X - (xAxis ? 2 * delta : 0), referenceLinear.Y - (xAxis ? 0 : 2 * delta),
+                wavelengthMicrometers, distortionType, requireUnvignetted);
+            return ((3 * referenceImage.X - 4 * minusImage.X + twiceImage.X) / (2 * delta),
+                (3 * referenceImage.Y - 4 * minusImage.Y + twiceImage.Y) / (2 * delta));
         }
 
         throw new InvalidOperationException("The selected reference field cannot be perturbed for distortion calibration.");
@@ -521,10 +531,15 @@ internal static class AnalysisTrace
         double hy,
         double px,
         double py,
-        double wavelengthMicrometers)
+        double wavelengthMicrometers,
+        bool requireUnvignetted = false)
     {
         var sample = optic.TraceGenericFinalSample(hx, hy, px, py, wavelengthMicrometers, aimAtStop: optic.RayAimingEnabled)
             ?? throw new InvalidOperationException("Ray tracing did not produce an image-plane sample.");
+        if (requireUnvignetted && (sample.Vignetted || !double.IsFinite(sample.Intensity) || sample.Intensity <= 0
+            || !double.IsFinite(sample.Position.X) || !double.IsFinite(sample.Position.Y) || !double.IsFinite(sample.Position.Z)
+            || !double.IsFinite(sample.Direction.X) || !double.IsFinite(sample.Direction.Y) || !double.IsFinite(sample.Direction.Z)))
+            throw new InvalidOperationException("畸变/场曲所需光线失效或渐晕，不能返回可靠值。");
         var imageSurface = optic.SurfaceGroup.Items.LastOrDefault();
         return imageSurface is null
             ? sample

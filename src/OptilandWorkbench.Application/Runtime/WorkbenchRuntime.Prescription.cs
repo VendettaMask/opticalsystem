@@ -53,52 +53,47 @@ public partial class WorkbenchRuntime
         _undoRedo.Capture(CaptureDocument());
     }
 
-    public void CommitSurfaceEdit(OpticalSurface? surface, string? propertyName)
+    public void CommitSurfaceEdit(OpticalSurface? surface, string? propertyName) =>
+        CommitSurfaceEdits(surface, [propertyName]);
+
+    public void CommitSurfaceEdits(OpticalSurface? surface, IReadOnlyList<string?> propertyNames)
     {
-        if (surface is null || !Surfaces.Contains(surface))
+        if (surface is null || !Surfaces.Contains(surface)) return;
+        var properties = propertyNames.Select(name => name switch
         {
-            return;
-        }
+            nameof(OpticalSurface.Radius) => "radius",
+            nameof(OpticalSurface.Thickness) => "thickness",
+            nameof(OpticalSurface.Conic) => "conic",
+            nameof(OpticalSurface.SemiDiameter) => "semiDiameter",
+            nameof(OpticalSurface.Material) => "material",
+            _ => null
+        }).Where(name => name is not null).Cast<string>().Distinct().ToArray();
+        foreach (var property in properties)
+            if (property != "material" && IsMultiConfigurationPickupTarget(surface.Number, property))
+                throw new InvalidOperationException("该参数由多配置拾取控制，请编辑源单元格或移除拾取。");
+        if (propertyNames.Contains(nameof(OpticalSurface.Material))) ApplyMaterial(surface, surface.Material);
+        if (propertyNames.Contains(nameof(OpticalSurface.IsStop)) && surface.IsStop)
+            foreach (var other in Surfaces.Where(item => !ReferenceEquals(item, surface))) other.IsStop = false;
 
-        switch (propertyName)
+        if (_multiConfiguration.OperandPickups.Count > 0)
         {
-            case nameof(OpticalSurface.Thickness):
-                CurrentOptic.SurfaceGroup.Renumber();
-                break;
-            case nameof(OpticalSurface.Material):
-                ApplyMaterial(surface, surface.Material);
-                break;
-            case nameof(OpticalSurface.IsStop) when surface.IsStop:
-                foreach (var other in Surfaces.Where(item => !ReferenceEquals(item, surface)))
-                {
-                    other.IsStop = false;
-                }
-
-                break;
+            // Register every edited property before resolving any dependency, so a full-row edit
+            // cannot have its second property overwritten while committing its first property.
+            SyncActiveConfigurationFromCurrent();
+            foreach (var property in properties)
+            {
+                if (_activeConfigurationIndex > 0) _multiConfiguration.UpdateLinkState(_activeConfigurationIndex, surface.Number, property);
+                else if (property == "material") _multiConfiguration.PropagateBaseProperty(surface.Number, property);
+            }
+            SynchronizeConfigurationPickups();
         }
-
-        CurrentOptic.Pickups.ApplyAll();
-        CurrentOptic.Solves.ApplyAll();
-        CurrentOptic.SurfaceGroup.Renumber();
-        switch (propertyName)
+        else
         {
-            case nameof(OpticalSurface.Radius):
-                SynchronizeMultiConfigurationProperty(surface, "radius");
-                break;
-            case nameof(OpticalSurface.Thickness):
-                SynchronizeMultiConfigurationProperty(surface, "thickness");
-                break;
-            case nameof(OpticalSurface.SemiDiameter):
-                SynchronizeMultiConfigurationProperty(surface, "semiDiameter");
-                break;
-            case nameof(OpticalSurface.Conic):
-                SynchronizeMultiConfigurationProperty(surface, "conic");
-                break;
-            case nameof(OpticalSurface.Material):
-                SynchronizeMultiConfigurationProperty(surface, "material");
-                break;
+            CurrentOptic.Pickups.ApplyAll();
+            CurrentOptic.Solves.ApplyAll();
+            CurrentOptic.SurfaceGroup.Renumber();
+            foreach (var property in properties) SynchronizeMultiConfigurationProperty(surface, property);
         }
-
         SetStatus("表面数据已更新。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);

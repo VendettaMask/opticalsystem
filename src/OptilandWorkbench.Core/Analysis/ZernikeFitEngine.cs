@@ -1,4 +1,6 @@
 using System.Collections.Concurrent;
+using OptilandWorkbench.Core.Services;
+using OptilandWorkbench.Core.Raytrace;
 
 namespace OptilandWorkbench.Core.Analysis;
 
@@ -9,6 +11,7 @@ public static class ZernikeFitEngine
     public const int MaximumFringeTerm = 37;
     public const int MaximumStandardTerm = 231;
     public const long MaximumFitMatrixValues = 20_000_000;
+    public const long MaximumFitWork = 500_000_000;
 
     private const int MaximumAnnularCacheEntries = 512;
 
@@ -37,18 +40,18 @@ public static class ZernikeFitEngine
         (12, 0)
     };
 
-    private static readonly ConcurrentDictionary<(int N, int M, long Obscuration), double[]>
+    private static readonly ConcurrentDictionary<(int N, int M, long Obscuration), AnnularRecurrence>
         AnnularRadialCache = new();
 
     public static IReadOnlyList<ZernikeCoefficient> FitFringe(
         IReadOnlyList<WavefrontSample> samples,
-        int numTerms)
+        int numTerms, bool requireFullRank = false)
     {
         ArgumentNullException.ThrowIfNull(samples);
         return Fit(
             samples,
             FringeIndices(numTerms),
-            (n, m, radius, angle) => Basis(n, m, radius, angle, standardNormalization: false));
+            (n, m, radius, angle) => Basis(n, m, radius, angle, standardNormalization: false), requireFullRank: requireFullRank);
     }
 
     public static int ResolveFringeTermCount(int requestedTermCount)
@@ -63,20 +66,20 @@ public static class ZernikeFitEngine
 
     public static IReadOnlyList<ZernikeCoefficient> FitStandard(
         IReadOnlyList<WavefrontSample> samples,
-        int numTerms)
+        int numTerms, bool requireFullRank = false)
     {
         ArgumentNullException.ThrowIfNull(samples);
         ValidateTermCount(numTerms, MaximumStandardTerm);
         return Fit(
             samples,
             StandardIndices(numTerms),
-            (n, m, radius, angle) => Basis(n, m, radius, angle, standardNormalization: true));
+            (n, m, radius, angle) => Basis(n, m, radius, angle, standardNormalization: true), requireFullRank: requireFullRank);
     }
 
     public static IReadOnlyList<ZernikeCoefficient> FitAnnular(
         IReadOnlyList<WavefrontSample> samples,
         int numTerms,
-        double obscurationRatio)
+        double obscurationRatio, bool requireFullRank = false)
     {
         ArgumentNullException.ThrowIfNull(samples);
         ValidateTermCount(numTerms, MaximumStandardTerm);
@@ -91,15 +94,19 @@ public static class ZernikeFitEngine
             samples,
             StandardIndices(numTerms),
             (n, m, radius, angle) => AnnularBasis(n, m, radius, angle, obscuration),
-            obscuration);
+            obscuration, requireFullRank);
     }
 
     private static IReadOnlyList<ZernikeCoefficient> Fit(
         IReadOnlyList<WavefrontSample> samples,
         IReadOnlyList<(int Number, int N, int M)> indices,
         Func<int, int, double, double, double> basis,
-        double minimumRadius = 0)
+        double minimumRadius = 0, bool requireFullRank = false)
     {
+        foreach (var sample in samples)
+            if (!double.IsFinite(sample.Intensity) || sample.Intensity < 0 || (sample.Intensity > 0
+                && (!double.IsFinite(sample.OpdWaves) || !double.IsFinite(sample.NormalizedPupilX) || !double.IsFinite(sample.NormalizedPupilY))))
+                throw new InvalidOperationException("Zernike 有效样本必须有限，强度必须为有限非负值。");
         var valid = samples.Where(sample =>
         {
             var radiusSquared = (sample.NormalizedPupilX * sample.NormalizedPupilX)
@@ -107,6 +114,10 @@ public static class ZernikeFitEngine
             return sample.Intensity > 0
                 && radiusSquared >= (minimumRadius * minimumRadius) - 1e-12;
         }).ToArray();
+        if (requireFullRank && valid.Length < indices.Count)
+            throw new InvalidOperationException("有效瞳孔样本不足以拟合所请求的 Zernike 系数。");
+        if (checked((long)valid.Length * indices.Count * indices.Count) > MaximumFitWork)
+            throw new ArgumentOutOfRangeException(nameof(samples), "Zernike 拟合运算量超过共享资源上限。");
         if (checked((long)valid.Length * indices.Count) > MaximumFitMatrixValues)
         {
             throw new ArgumentOutOfRangeException(
@@ -117,7 +128,11 @@ public static class ZernikeFitEngine
         var target = new double[valid.Length];
         for (var row = 0; row < valid.Length; row++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var sample = valid[row];
+            if (!double.IsFinite(sample.OpdWaves) || !double.IsFinite(sample.NormalizedPupilX)
+                || !double.IsFinite(sample.NormalizedPupilY) || !double.IsFinite(sample.Intensity))
+                throw new InvalidOperationException("Zernike 拟合样本必须有限。");
             var radius = Math.Sqrt(
                 (sample.NormalizedPupilX * sample.NormalizedPupilX)
                 + (sample.NormalizedPupilY * sample.NormalizedPupilY));
@@ -133,7 +148,7 @@ public static class ZernikeFitEngine
             }
         }
 
-        var coefficients = QrLeastSquares.Solve(design, target);
+        var coefficients = QrLeastSquares.Solve(design, target, requireFullRank);
         return indices.Select((index, position) => new ZernikeCoefficient(
             index.Number,
             index.N,
@@ -188,6 +203,7 @@ public static class ZernikeFitEngine
         TrimAnnularCache();
         var radius = Math.Sqrt((x * x) + (y * y));
         var angle = Math.Atan2(y, x);
+        TrimAnnularCache();
         var obscuration = obscurationRatio;
         return coefficients.Sum(coefficient =>
             coefficient.Value * AnnularBasis(
@@ -220,10 +236,12 @@ public static class ZernikeFitEngine
                     continue;
                 }
 
-                result.Add((result.Count + 1, n, absoluteM));
+                // Noll/OpticStudio Standard numbering: even j is cosine, odd j is sine.
+                var signedM = (result.Count + 1) % 2 == 0 ? absoluteM : -absoluteM;
+                result.Add((result.Count + 1, n, signedM));
                 if (result.Count < count)
                 {
-                    result.Add((result.Count + 1, n, -absoluteM));
+                    result.Add((result.Count + 1, n, -signedM));
                 }
             }
         }
@@ -287,81 +305,59 @@ public static class ZernikeFitEngine
         double angle,
         double obscuration)
     {
-        var radialCoefficients = AnnularRadialCoefficients(n, Math.Abs(m), obscuration);
-        var radial = 0.0;
-        for (var power = 0; power < radialCoefficients.Length; power++)
+        var absoluteM = Math.Abs(m);
+        var recurrence = AnnularRadialCache.GetOrAdd(
+            (n, absoluteM, BitConverter.DoubleToInt64Bits(obscuration)),
+            _ => BuildAnnularRecurrence(n, absoluteM, obscuration));
+        var u = (2 * radius * radius - 1 - obscuration * obscuration) / (1 - obscuration * obscuration);
+        var previous = 0.0;
+        var current = 1 / recurrence.InitialNorm;
+        for (var k = 0; k < recurrence.Alpha.Length; k++)
         {
-            radial += radialCoefficients[power] * Math.Pow(radius, power);
+            var next = ((u - recurrence.Alpha[k]) * current - recurrence.Beta[k] * previous) / recurrence.Beta[k + 1];
+            previous = current;
+            current = next;
         }
-
-        return m >= 0
-            ? radial * Math.Cos(m * angle)
-            : radial * Math.Sin(Math.Abs(m) * angle);
+        var radial = Math.Pow(radius, absoluteM) * current;
+        return m >= 0 ? radial * Math.Cos(m * angle) : radial * Math.Sin(absoluteM * angle);
     }
 
-    private static double[] AnnularRadialCoefficients(int n, int absoluteM, double obscuration)
+    private sealed record AnnularRecurrence(double InitialNorm, double[] Alpha, double[] Beta);
+
+    private static AnnularRecurrence BuildAnnularRecurrence(int n, int absoluteM, double obscuration)
     {
-        var key = (n, absoluteM, BitConverter.DoubleToInt64Bits(obscuration));
-        return AnnularRadialCache.GetOrAdd(
-            key,
-            _ => CalculateAnnularRadialCoefficients(n, absoluteM, obscuration));
-    }
-
-    private static double[] CalculateAnnularRadialCoefficients(int n, int absoluteM, double obscuration)
-    {
-        var polynomial = new double[n + 1];
-        polynomial[n] = 1;
-        for (var lowerOrder = absoluteM; lowerOrder <= n - 2; lowerOrder += 2)
+        // Stieltjes recurrence in scaled radius-squared avoids subtracting large monomial
+        // moments on a thin annulus. 32-point Gauss integration is exact for the polynomial
+        // degrees needed by all 231 terms (n <= 20), up to floating-point roundoff.
+        var samples = ApertureSampler.GenerateGaussianQuadrature(32, 1, obscuration);
+        var span = 1 - obscuration * obscuration;
+        var u = samples.Select(s => (2 * s.X * s.X - 1 - obscuration * obscuration) / span).ToArray();
+        var weights = samples.Select(s => s.Weight / span * Math.Pow(s.X, 2 * absoluteM)
+            * (absoluteM == 0 ? 1 : .5)).ToArray();
+        var initialNorm = Math.Sqrt(weights.Sum());
+        var degree = (n - absoluteM) / 2;
+        var alpha = new double[degree];
+        var beta = new double[degree + 1];
+        var previous = new double[samples.Count];
+        var current = Enumerable.Repeat(1 / initialNorm, samples.Count).ToArray();
+        for (var k = 0; k < degree; k++)
         {
-            var previous = AnnularRadialCoefficients(lowerOrder, absoluteM, obscuration);
-            var projection = AnnularInnerProduct(polynomial, previous, absoluteM, obscuration);
-            for (var power = 0; power < previous.Length; power++)
+            ComputationCancellation.ThrowIfCancellationRequested();
+            for (var i = 0; i < u.Length; i++) alpha[k] += weights[i] * u[i] * current[i] * current[i];
+            var next = new double[u.Length];
+            for (var i = 0; i < u.Length; i++)
             {
-                polynomial[power] -= projection * previous[power];
+                next[i] = (u[i] - alpha[k]) * current[i] - beta[k] * previous[i];
+                beta[k + 1] += weights[i] * next[i] * next[i];
             }
+            beta[k + 1] = Math.Sqrt(beta[k + 1]);
+            if (!double.IsFinite(beta[k + 1]) || beta[k + 1] <= 1e-14)
+                throw new InvalidOperationException("环形 Zernike 基底无法稳定归一化。");
+            for (var i = 0; i < u.Length; i++) next[i] /= beta[k + 1];
+            previous = current;
+            current = next;
         }
-
-        var norm = Math.Sqrt(Math.Max(
-            1e-30,
-            AnnularInnerProduct(polynomial, polynomial, absoluteM, obscuration)));
-        for (var power = 0; power < polynomial.Length; power++)
-        {
-            polynomial[power] /= norm;
-        }
-
-        return polynomial;
-    }
-
-    private static double AnnularInnerProduct(
-        IReadOnlyList<double> left,
-        IReadOnlyList<double> right,
-        int absoluteM,
-        double obscuration)
-    {
-        var radialIntegral = 0.0;
-        for (var leftPower = 0; leftPower < left.Count; leftPower++)
-        {
-            if (Math.Abs(left[leftPower]) <= 1e-30)
-            {
-                continue;
-            }
-
-            for (var rightPower = 0; rightPower < right.Count; rightPower++)
-            {
-                if (Math.Abs(right[rightPower]) <= 1e-30)
-                {
-                    continue;
-                }
-
-                var exponent = leftPower + rightPower + 2;
-                radialIntegral += left[leftPower] * right[rightPower]
-                    * (1 - Math.Pow(obscuration, exponent))
-                    / exponent;
-            }
-        }
-
-        var angularFactor = absoluteM == 0 ? 2.0 : 1.0;
-        return angularFactor * radialIntegral / (1 - (obscuration * obscuration));
+        return new(initialNorm, alpha, beta);
     }
 
     private static double Factorial(int value)

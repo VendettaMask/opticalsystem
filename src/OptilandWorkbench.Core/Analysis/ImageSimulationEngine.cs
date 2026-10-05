@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Analysis;
 
@@ -763,7 +764,7 @@ public static class ImageSimulationEngine
         return Math.Max(1e-6, wavelength.Micrometers * 1e-3 * fNumber / 2);
     }
 
-    private static void ApplyRelativeIllumination(
+    internal static void ApplyRelativeIllumination(
         double[,] source,
         Optic optic,
         Wavelength wavelength,
@@ -774,8 +775,8 @@ public static class ImageSimulationEngine
         double fieldCenterY)
     {
         const int gridSize = 9;
-        var illumination = new double[gridSize, gridSize];
-        var maximum = 0.0;
+        var fieldIndices = new int[gridSize, gridSize];
+        var fields = new Dictionary<(double X, double Y), int>();
         for (var row = 0; row < gridSize; row++)
         {
             var maximumY = Math.Min(1, fieldCenterY + halfFieldY);
@@ -786,20 +787,29 @@ public static class ImageSimulationEngine
                 var minimumX = Math.Max(-1, fieldCenterX - halfFieldX);
                 var maximumX = Math.Min(1, fieldCenterX + halfFieldX);
                 var hx = minimumX + ((maximumX - minimumX) * column / (gridSize - 1.0));
-                var value = RelativeIlluminationAnalysis.ProjectedCosineArea(
-                    optic,
-                    (hx, hy),
-                    wavelength.Micrometers,
-                    rayDensity);
-                illumination[row, column] = value;
-                maximum = Math.Max(maximum, value);
+                if (!fields.TryGetValue((hx, hy), out var index))
+                {
+                    index = fields.Count;
+                    fields.Add((hx, hy), index);
+                }
+                fieldIndices[row, column] = index;
             }
         }
 
+        var samples = IlluminationMetrics.EvaluateFields(optic,
+            fields.OrderBy(pair => pair.Value).Select(pair => pair.Key).ToArray(), wavelength.Micrometers, rayDensity);
+        var maximum = samples.Max(sample => sample.ProjectedCosineArea);
+
         if (maximum <= 0)
         {
+            Array.Clear(source);
             return;
         }
+
+        var illumination = new double[gridSize, gridSize];
+        for (var row = 0; row < gridSize; row++)
+            for (var column = 0; column < gridSize; column++)
+                illumination[row, column] = samples[fieldIndices[row, column]].ProjectedCosineArea;
 
         for (var row = 0; row < source.GetLength(0); row++)
         {

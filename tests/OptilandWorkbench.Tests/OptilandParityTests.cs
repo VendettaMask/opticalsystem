@@ -1513,7 +1513,8 @@ public sealed class OptilandParityTests
 
         var compatibility = MeritFunctionCatalog.Evaluate(optic, new MeritOperandDefinition
         {
-            Type = "ABCD",
+            Type = "DISA",
+            CompatibilityOnly = true,
             Enabled = true,
             Target = 0,
             Weight = 1
@@ -1524,7 +1525,8 @@ public sealed class OptilandParityTests
 
         var disabledCompatibility = MeritFunctionCatalog.Evaluate(optic, new MeritOperandDefinition
         {
-            Type = "ABCD",
+            Type = "DISA",
+            CompatibilityOnly = true,
             Enabled = false,
             Target = 0,
             Weight = 1

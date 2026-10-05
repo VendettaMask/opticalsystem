@@ -22,8 +22,7 @@ public sealed partial class RayGenerator
     private sealed record FieldRayContext(
         double NormalizedFieldX,
         double NormalizedFieldY,
-        double VignetteScaleX,
-        double VignetteScaleY,
+        PupilVignetting Vignetting,
         double EntrancePupilGlobalZ,
         Vector3D BaseOrigin,
         bool TranslateOriginWithPupil);
@@ -156,18 +155,53 @@ public sealed partial class RayGenerator
         var field = NormalizedFieldToValues(normalizedFieldX, normalizedFieldY);
         var realImageLaunch = resolvedRealImageLaunch
             ?? ResolveRealImageLaunch(field.X, field.Y, aimAtStop);
-        var vignetteScale = VignetteScale(normalizedFieldX, normalizedFieldY);
         var ray = CreateRay(
             field.X,
             field.Y,
-            normalizedPupilX * vignetteScale.X,
-            normalizedPupilY * vignetteScale.Y,
+            normalizedPupilX,
+            normalizedPupilY,
             apertureRadius,
             MicrometersToNanometers(wavelengthMicrometers),
             intensity: 1.0,
             realImageLaunch,
             aimAtStop);
         return new RealRayBundle(new[] { ray });
+    }
+
+    // Evaluation-local preparation for adaptive pupil sampling. The caller must
+    // not retain this delegate across an optic mutation. Ray geometry, aiming and
+    // apodization still use the same formal generator as a normal ray request.
+    internal Func<double, double, RealRay> CreatePupilRaySampler(double normalizedFieldX,
+        double normalizedFieldY, double wavelengthMicrometers, bool aimAtStop)
+    {
+        OpticCapabilityPreflight.EnsureSupported(_optic, OpticCapabilityOperation.RayTrace);
+        ValidateNormalized(normalizedFieldX, nameof(normalizedFieldX));
+        ValidateNormalized(normalizedFieldY, nameof(normalizedFieldY));
+        var field = NormalizedFieldToValues(normalizedFieldX, normalizedFieldY);
+        var launch = ResolveRealImageLaunch(field.X, field.Y, aimAtStop);
+        var apertureRadius = EntrancePupilRadius();
+        var wavelength = MicrometersToNanometers(wavelengthMicrometers);
+        var vignetting = ResolveVignetting(normalizedFieldX, normalizedFieldY);
+        var context = new FieldRayContext(normalizedFieldX, normalizedFieldY, vignetting,
+            EntrancePupilGlobalZ(), FieldOrigin(field.X, field.Y, 0, 0, apertureRadius, launch),
+            ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items.FirstOrDefault()));
+        // Paraxial transfer and the vignetting transform are affine in pupil
+        // coordinates. Resolve their basis with the existing shared calculation.
+        var targets = aimAtStop
+            ? ParaxialStopTargets([new(0, 0, 1), new(1, 0, 1), new(0, 1, 1)], vignetting) : null;
+        return (x, y) =>
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            ValidateNormalized(x, nameof(x));
+            ValidateNormalized(y, nameof(y));
+            if (x * x + y * y > 1 + NormalizedCoordinateTolerance)
+                throw new ArgumentOutOfRangeException(nameof(x), "Normalized pupil coordinates must lie inside the unit pupil.");
+            (double X, double Y)? target = targets is null ? null :
+                (targets[0].X + x * (targets[1].X - targets[0].X) + y * (targets[2].X - targets[0].X),
+                 targets[0].Y + x * (targets[1].Y - targets[0].Y) + y * (targets[2].Y - targets[0].Y));
+            return CreateRay(field.X, field.Y, x, y, apertureRadius, wavelength, 1,
+                launch, aimAtStop, target, context).Normalize();
+        };
     }
 
     public RealRayBundle GenerateNormalizedPupilSamples(
@@ -199,21 +233,20 @@ public sealed partial class RayGenerator
             }
         }
 
-        var vignetteScale = applyVignettingFactors
-            ? VignetteScale(normalizedFieldX, normalizedFieldY)
-            : (X: 1.0, Y: 1.0);
+        var vignetting = applyVignettingFactors
+            ? ResolveVignetting(normalizedFieldX, normalizedFieldY)
+            : PupilVignetting.Identity;
         var fieldRayContext = new FieldRayContext(
             normalizedFieldX,
             normalizedFieldY,
-            vignetteScale.X,
-            vignetteScale.Y,
+            vignetting,
             EntrancePupilGlobalZ(),
             FieldOrigin(field.X, field.Y, 0, 0, apertureRadius, realImageLaunch),
             ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items.FirstOrDefault()));
         var resolvedStopTargets = aimAtStop
             ? stopTargets ?? ParaxialStopTargets(
                 samples,
-                vignetteScale)
+                vignetting)
             : null;
         if (resolvedStopTargets is not null && resolvedStopTargets.Count != samples.Length)
         {
@@ -397,13 +430,9 @@ public sealed partial class RayGenerator
         (double X, double Y) normalizedField = fieldRayContext is null
             ? DefinitionValuesToNormalized(fieldX, fieldY)
             : (fieldRayContext.NormalizedFieldX, fieldRayContext.NormalizedFieldY);
-        (double X, double Y) vignetteScale = !applyVignetting
-            ? (1.0, 1.0)
-            : fieldRayContext is null
-                ? VignetteScale(normalizedField.X, normalizedField.Y)
-                : (fieldRayContext.VignetteScaleX, fieldRayContext.VignetteScaleY);
-        var pupilX = normalizedPupilX * vignetteScale.X;
-        var pupilY = normalizedPupilY * vignetteScale.Y;
+        var vignetting = !applyVignetting ? PupilVignetting.Identity
+            : fieldRayContext?.Vignetting ?? ResolveVignetting(normalizedField.X, normalizedField.Y);
+        var (pupilX, pupilY) = vignetting.Transform(normalizedPupilX, normalizedPupilY);
         var origin = fieldRayContext is null
             ? FieldOrigin(fieldX, fieldY, pupilX, pupilY, apertureRadius, realImageLaunch)
             : fieldRayContext.TranslateOriginWithPupil
@@ -629,7 +658,7 @@ public sealed partial class RayGenerator
 
     private (double X, double Y)[]? ParaxialStopTargets(
         IReadOnlyList<PupilSample> samples,
-        (double X, double Y) vignetteScale)
+        PupilVignetting vignetting)
     {
         var stopIndex = _optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
         if (stopIndex <= 0 || samples.Count == 0)
@@ -637,10 +666,11 @@ public sealed partial class RayGenerator
             return null;
         }
 
-        // Use the same resolved scale as the launch. In particular, a full-pupil
+        // Use the same resolved transform as the launch. In particular, a full-pupil
         // envelope must not silently reapply field vignetting while aiming.
-        var pupilX = samples.Select(sample => sample.X * vignetteScale.X).ToArray();
-        var pupilY = samples.Select(sample => sample.Y * vignetteScale.Y).ToArray();
+        var pupils = samples.Select(sample => vignetting.Transform(sample.X, sample.Y)).ToArray();
+        var pupilX = pupils.Select(pupil => pupil.X).ToArray();
+        var pupilY = pupils.Select(pupil => pupil.Y).ToArray();
         var wavelengthMicrometers = PrimaryWavelengthMicrometers();
         var xTrace = _optic.Paraxial.TraceNormalizedPupil(
             0,
@@ -1126,11 +1156,11 @@ public sealed partial class RayGenerator
         return maxField <= 1e-15 ? (0, 0) : (fieldX / maxField, fieldY / maxField);
     }
 
-    private (double X, double Y) VignetteScale(double normalizedFieldX, double normalizedFieldY)
+    private PupilVignetting ResolveVignetting(double normalizedFieldX, double normalizedFieldY)
     {
         if (_optic.Fields.Count == 0)
         {
-            return (1, 1);
+            return PupilVignetting.Identity;
         }
 
         var maxField = MaximumField();
@@ -1146,7 +1176,7 @@ public sealed partial class RayGenerator
             .OrderBy(candidate => candidate.Distance)
             .ThenBy(candidate => candidate.Index)
             .First().Field;
-        return (1 - nearest.VignetteFactorX, 1 - nearest.VignetteFactorY);
+        return PupilVignetting.FromField(nearest);
     }
 
     private double MaximumField()

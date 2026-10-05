@@ -151,10 +151,22 @@ public sealed class MaterialLibraryPanel : UserControl
     {
         var coefficients = new StackPanel { Spacing = 8 };
         coefficients.Children.Add(SectionTitle("色散系数"));
+        var coefficientFields = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,*"),
+            RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto"),
+            ColumnSpacing = 16,
+            RowSpacing = 8
+        };
         for (var index = 0; index < _coefficientValues.Length; index++)
         {
-            coefficients.Children.Add(LabeledControl(_coefficientLabels[index], _coefficientValues[index]));
+            _coefficientLabels[index].MinWidth = 32;
+            var field = LabeledControl(_coefficientLabels[index], _coefficientValues[index]);
+            Grid.SetRow(field, index / 2);
+            Grid.SetColumn(field, index % 2);
+            coefficientFields.Children.Add(field);
         }
+        coefficients.Children.Add(coefficientFields);
 
         var properties = new StackPanel { Spacing = 8 };
         properties.Children.Add(SectionTitle("材料参数"));
@@ -1017,87 +1029,4 @@ internal sealed class LensLibraryPanel : UserControl
         Grid.SetColumn(control, column);
         grid.Children.Add(control);
     }
-}
-
-public sealed class GlassCatalogPanel : UserControl
-{
-    private readonly IReadOnlyList<GlassMaterialDto> _glasses;
-    private readonly DataGrid _grid = MaterialLibraryPanel.DatabaseGrid();
-    private readonly TextBox _search = new() { MinWidth = 150, MaxWidth = 230, PlaceholderText = "搜索玻璃名称" };
-    private readonly ComboBox _manufacturer = new() { MinWidth = 130, MaxWidth = 160 };
-    private readonly TextBlock _count = new() { VerticalAlignment = VerticalAlignment.Center };
-
-    public GlassCatalogPanel(IMaterialCatalogService materials)
-    {
-        _glasses = materials.GetGlasses();
-        ConfigureGrid();
-        _manufacturer.ItemsSource = new[] { "所有材料库" }
-            .Concat(_glasses.Select(glass => glass.Manufacturer)
-                .Distinct(StringComparer.OrdinalIgnoreCase)
-                .OrderBy(name => name, StringComparer.OrdinalIgnoreCase))
-            .ToArray();
-        _manufacturer.SelectedIndex = 0;
-        _search.TextChanged += (_, _) => Refresh();
-        _manufacturer.SelectionChanged += (_, _) => Refresh();
-
-        var toolbar = new WrapPanel
-        {
-            Orientation = Orientation.Horizontal,
-            ItemSpacing = 8,
-            LineSpacing = 6,
-            Margin = new Thickness(0, 0, 0, 10),
-            Children =
-            {
-                new LocalIcon { IconName = "search", Width = 18, Height = 18, VerticalAlignment = VerticalAlignment.Center },
-                _search,
-                _manufacturer,
-                _count
-            }
-        };
-        var content = new Grid { RowDefinitions = new RowDefinitions("Auto,*") };
-        Grid.SetRow(toolbar, 0);
-        Grid.SetRow(_grid, 1);
-        content.Children.Add(toolbar);
-        content.Children.Add(_grid);
-        var contentFrame = new Border { Padding = new Thickness(12), Child = content };
-        contentFrame.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
-        Content = MaterialLibraryPanel.DatabasePage(
-            "玻璃",
-            "查看内置玻璃目录的折射率、阿贝数和有效波长范围",
-            contentFrame);
-        Refresh();
-    }
-
-    private void ConfigureGrid()
-    {
-        _grid.Columns.Add(Column("玻璃", nameof(GlassMaterialDto.Name), 150));
-        _grid.Columns.Add(Column("材料库", nameof(GlassMaterialDto.Manufacturer), 120));
-        _grid.Columns.Add(Column("色散公式", nameof(GlassMaterialDto.Formula), 120));
-        _grid.Columns.Add(Column("nd", nameof(GlassMaterialDto.RefractiveIndexD), 110, "0.000000"));
-        _grid.Columns.Add(Column("Vd", nameof(GlassMaterialDto.AbbeNumber), 90, "0.00"));
-        _grid.Columns.Add(Column("最短波长 (μm)", nameof(GlassMaterialDto.MinimumWavelengthMicrometers), 130, "0.000"));
-        _grid.Columns.Add(Column("最长波长 (μm)", nameof(GlassMaterialDto.MaximumWavelengthMicrometers), 130, "0.000"));
-    }
-
-    private void Refresh()
-    {
-        var query = _search.Text?.Trim() ?? string.Empty;
-        var manufacturer = _manufacturer.SelectedItem as string;
-        var filtered = _glasses
-            .Where(glass => string.IsNullOrEmpty(query) ||
-                glass.Name.Contains(query, StringComparison.OrdinalIgnoreCase))
-            .Where(glass => string.IsNullOrEmpty(manufacturer) ||
-                manufacturer == "所有材料库" ||
-                glass.Manufacturer.Equals(manufacturer, StringComparison.OrdinalIgnoreCase))
-            .ToArray();
-        _grid.ItemsSource = filtered;
-        _count.Text = $"{filtered.Length} 种";
-    }
-
-    private static DataGridTextColumn Column(string header, string property, double width, string? format = null) => new()
-    {
-        Header = header,
-        Binding = new Binding(property) { StringFormat = format },
-        Width = new DataGridLength(width)
-    };
 }

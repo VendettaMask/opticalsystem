@@ -95,7 +95,7 @@ public partial class WorkbenchRuntime
         return value switch
         {
             "平面" => "Plane",
-            "标准球面/圆锥" => "Standard",
+            "标准面" or "标准球面/圆锥" => "Standard",
             "平面光栅" => "Plane Grating",
             "标准曲面光栅" => "Standard Grating",
             "偶次非球面" => "Even Asphere",

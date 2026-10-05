@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Analysis;
 
@@ -117,10 +118,10 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
         bool showOpd = false) : base(optic)
     {
         _sampling = Math.Clamp(sampling, 8, 512);
-        _frequency = Math.Max(0, frequency);
+        _frequency = frequency;
         _normalize = normalize;
-        _wavelengthNumber = Math.Max(0, wavelengthNumber);
-        _fieldNumber = Math.Max(1, fieldNumber);
+        _wavelengthNumber = wavelengthNumber;
+        _fieldNumber = fieldNumber;
         _showOpd = showOpd;
     }
 
@@ -135,26 +136,34 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
             return AnalysisData.Unavailable(Name, "No optical data");
         }
 
+        if (_wavelengthNumber < 0 || _wavelengthNumber > wavelengths.Length
+            || _fieldNumber < 1 || _fieldNumber > fields.Count
+            || !double.IsFinite(_frequency) || _frequency < 0)
+        {
+            return AnalysisData.Unavailable(Name, "Invalid contrast field, wavelength or frequency");
+        }
         var wavelength = _wavelengthNumber > 0
-            ? wavelengths[Math.Clamp(_wavelengthNumber - 1, 0, wavelengths.Length - 1)]
+            ? wavelengths[_wavelengthNumber - 1]
             : wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
-        var field = fields[Math.Clamp(_fieldNumber - 1, 0, fields.Count - 1)];
-        var fNumber = DiffractionEngine.WorkingFNumber(Optic, field, wavelength, aimAtStop: Optic.RayAimingEnabled);
-        var cutoff = fNumber <= 1e-30
-            ? 0
-            : 1 / (wavelength.Micrometers * 1e-3 * fNumber);
-        var frequency = _frequency > 0
-            ? _frequency
-            : 0.05 * cutoff;
-        // The normalized pupil spans one full diameter from -1 to +1. In the
-        // Moore-Elliott autocorrelation, cutoff is reached when the two pupil
-        // samples are separated by that full diameter, hence the factor of 2.
-        var pupilSeparation = cutoff <= 1e-30
-            ? 0
-            : Math.Clamp(2 * frequency / cutoff, 0, 1.999);
+        var field = fields[_fieldNumber - 1];
+        double cutoff, frequency, pupilSeparation;
+        try
+        {
+            cutoff = ContrastMetrics.CutoffFrequency(Optic, field, wavelength);
+            frequency = _frequency > 0 ? _frequency : 0.05 * cutoff;
+            pupilSeparation = ContrastMetrics.PupilSeparation(frequency, cutoff);
+        }
+        catch (Exception exception) when (exception is InvalidOperationException or ArgumentException)
+        {
+            return AnalysisData.Unavailable(Name, exception.Message);
+        }
 
         var sagittal = BuildMap(field, wavelength, pupilSeparation, xShift: true);
         var tangential = BuildMap(field, wavelength, pupilSeparation, xShift: false);
+        if (sagittal.ValidCount + tangential.ValidCount == 0)
+        {
+            return AnalysisData.Unavailable(Name, "No valid contrast ray pairs");
+        }
         var maximumRawLoss = sagittal.Losses.Concat(tangential.Losses)
             .Where(double.IsFinite)
             .DefaultIfEmpty(0)
@@ -182,6 +191,7 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
             ["Sampling"] = _sampling,
             ["Frequency"] = frequency,
             ["RequestedFrequency"] = _frequency,
+            ["FrequencyUnit"] = Optic.ImageSpaceAfocal ? "cycles/mrad" : "cycles/mm",
             ["CutoffFrequency"] = cutoff,
             ["PupilSeparation"] = pupilSeparation,
             ["Normalize"] = _normalize,
@@ -276,42 +286,18 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
         double pupilSeparation,
         bool xShift)
     {
-        if ((px * px) + (py * py) > 1)
-        {
-            return (double.NaN, double.NaN, double.NaN);
-        }
-
-        var half = pupilSeparation / 2.0;
-        var first = xShift ? (X: px - half, Y: py) : (X: px, Y: py - half);
-        var second = xShift ? (X: px + half, Y: py) : (X: px, Y: py + half);
-        if (((first.X * first.X) + (first.Y * first.Y) > 1)
-            || ((second.X * second.X) + (second.Y * second.Y) > 1))
+        if (!ContrastMetrics.TryPair(px, py, pupilSeparation, xShift, centered: true, out var pair))
         {
             return (double.NaN, double.NaN, double.NaN);
         }
 
         try
         {
-            var wavefront = WavefrontEngine.GenerateChiefRaySamples(
-                Optic,
-                field,
-                wavelength,
-                _showOpd ? new[] { first, second, (X: px, Y: py) } : new[] { first, second });
-            if (wavefront.Samples.Count < 2
-                || wavefront.Samples[0].Intensity <= 0
-                || wavefront.Samples[1].Intensity <= 0)
-            {
-                return (double.NaN, double.NaN, double.NaN);
-            }
-
-            var phaseDifference = 2 * Math.PI * (wavefront.Samples[0].OpdWaves - wavefront.Samples[1].OpdWaves);
-            var loss = Math.Clamp(0.5 * (1 - Math.Cos(phaseDifference)), 0, 1);
-            var opdPhase = PositiveModulo(0.5 * (wavefront.Samples[0].OpdWaves + wavefront.Samples[1].OpdWaves), 1);
-            // Preserve the documented mean-ray indicator. The original pupil phase
-            // is a separate observable; it must not silently replace that indicator.
-            var unshiftedPhase = _showOpd && wavefront.Samples.Count >= 3 && wavefront.Samples[2].Intensity > 0
-                ? PositiveModulo(wavefront.Samples[2].OpdWaves, 1) : double.NaN;
-            return (loss, opdPhase, unshiftedPhase);
+            var result = ContrastMetrics.EvaluatePair(Optic, field, wavelength, pair, _showOpd ? (px, py) : null);
+            var opdPhase = PositiveModulo(0.5 * (result.FirstWaves + result.SecondWaves), 1);
+            // Preserve the mean-ray indicator and publish the center phase separately.
+            var unshiftedPhase = result.CenterWaves.HasValue ? PositiveModulo(result.CenterWaves.Value, 1) : double.NaN;
+            return (result.Loss, opdPhase, unshiftedPhase);
         }
         catch (InvalidOperationException)
         {

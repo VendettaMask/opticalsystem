@@ -1,4 +1,54 @@
-# 镀膜实验室验收记录 · 2026-09-27
+# 镀膜实验室验收记录 · 2026-09-28
+
+2026-10-05 同步复验：正式及镀膜默认 Debug/Release 构建零警告、零错误；最终累计 Release **3500/3500**，装调/玻璃库相邻双配置各 **25/25**，镀膜完整双配置各 **44/44**。累计 Debug 的 3500 项保留 2026-10-04 记录；不相加各测试集合，也不表示全仓或跨平台发布验收。见 [同步范围与证据](../../docs/PROJECT_SYNC_2026-10-05.md)。以下保留各功能阶段的实现日期和验证范围。
+
+## 2026-10-02 共享求解器与正式追迹连接
+
+`coherent-scattering/2` 保持既有功率接口，新增复振幅。最终默认 Debug/Release 镀膜实验室物理与工作流各 **25/25**，包含冻结的 120 组 tmmcore 0.4.2 功率对照；参考文件逐字节等于 HEAD，没有重新生成。正式主程序阶段各 169/169，最终严格快照定向各 42/42，见[本轮记录](../../docs/COHERENT_COATING_TRANSPORT_2026-10-02.md)及[机器摘要](../../artifacts/validation/coherent-coating-transport-20261002/verification.json)。这不是重跑实验室完整 44 项、桌面走查或 Zemax 镀膜等价验收；实验室 UI 应用桥接仍未完成。
+
+下方 2026-09-28 与更早结果是历史阶段范围，保留当时的源码哈希和未完成清单。
+
+
+## 当前日常设计增强验收
+
+[2026-09-28 机器摘要](verification-20260928.json)记录本轮源码/证据哈希、测试与示例。原 2026-09-27 摘要保持冻结，已不能拿其源码哈希核对新增实现。
+
+| 范围 | 实际结果 | 覆盖边界 |
+| --- | --- | --- |
+| 镀膜完整 Release / Debug | 各 **44/44**，零失败/跳过 | 包含原物理/取消/过期结果/文件用例，以及材料表、旧格式哈希、双/三腔、多起点固定层、相关公差逐次重算、五主题、材料对话框和最小窗口 |
+| 正式相关 Release | **226/226**，零失败/跳过 | 原入口、材料、优化、分析契约，加共享主题资源/运行时/按钮；默认 App 输出已更新，非正式全量 |
+| 固定上游与物理 | 原 120 组 tmmcore 对照和独立解析测试均通过 | 共享 Core 求解没有变动；不新增 Zemax 或 Optiland 历史比较 |
+| 日常三例 | **3/3** 保存重开光谱逐项一致 | 6 起点、种子 1234、每起点最多 80 迭代；真实 k 不变，双腔例另存 |
+| Headless + Skia | 五种主题选择、1200×900 / 820×900 / 820×640 通过 | 实际鼠标/控件、材料表编辑、导出文件和渲染；最小窗口使用滚动，不缩字体 |
+| 原生 macOS | Release 原生窗口生成、优化、保存、切换示例、原生选择器重开复算通过 | AR 最大 R 1.098132%；另走查主题切换和材料窗口。不是跨平台或安装包验收 |
+
+本轮发现并修复显示问题：暗夜绘图区轴字与背景未成对使用共享 Plot 资源；窄窗口滚动条覆盖控件。多次桌面测试还暴露出静态可变曲线画刷跨 Dispatcher 所属线程的问题，现使用不可变画刷，保留相同物理曲线颜色。最终 PNG 在 `artifacts/validation/coating-20260928/`，包含 `theme-0-820.png` 至 `theme-4-820.png`、`ar-820-640.png`、`narrow-820-640.png`、`material-editor.png`。原生截图/AX 操作记录在任务工具输出中，原生保存文件为该目录 `native-verified.coating.json`。不要把 Headless PNG 称为原生截图。
+
+原生初次 shell 启动受沙箱限制（Avalonia RenderTimer -6661），旧脚本 app bundle 的 CUA 定位也超时；使用默认 Release 构建的真实 apphost 放入临时 `.app` 后完成走查。临时包不是签名/公证发布包。测试宿主需要本机通信权限，已在允许范围内完成默认输出验证，没有以备用输出冒充完成。末轮还遇到并行评价函数代码的临时缺失方法引用；保留该任务改动，待工作区修复后重新执行默认构建。
+
+### 日常示例的真实差距
+
+- AR：8 层，最大 R **0.090309738%**，达标；550 次局部优化器函数评价。
+- HR：24 层，最低 R **95.739782353%**，未达到 98%；14419 次评价。
+- 双腔 NBF：17 层，峰值 **549.959761706 nm**、FWHM **19.961338111 nm**、峰值 T **69.299966785%**；左右 OD **0.949596873 / 1.084292371**。中心与右截止达标；FWHM、峰值 T 和左截止未达标；9934 次评价。
+
+评价次数为累计局部优化器函数评价，模板排序与密集单波长求解另行发生。三例均采样收敛。每例另有 5 次正态 1σ=1% 同材料厚度扰动、1σ=0.1° 角度扰动的公差演示；仅演示流程，不宣称生产良率置信度。三例公差演示分别为 5/5、0/5、0/5 通过。完整结果见 [daily/verification.json](../../labs/CoatingDesign/examples/daily/verification.json) 和各例 `tolerance.json`。
+
+### 本轮命令
+
+```sh
+dotnet test labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/OptilandWorkbench.CoatingDesign.Tests.csproj -c Release --no-restore /m:1 /nr:false
+dotnet test labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/OptilandWorkbench.CoatingDesign.Tests.csproj -c Debug --no-restore /m:1 /nr:false
+dotnet run --project labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App -c Release --no-build -- --batch-daily-examples artifacts/coating-daily-examples
+```
+
+正式 226 项筛选包含 `CoatingDesignLabLauncherTests`、`InitialStructureLabLauncherTests`、`OptilandParityTests`（既有 C# 契约）、`MaterialAnalysisTests`、`DielectricGlassMaterialTests`、`OptimizationRouteTests`、`AnalysisGuiContractTests`、`LensMaterialRowThemeTests`、`ThemeResourceTests`、`ThemeRuntimeTests`、`StandardActionButtonThemeTests`。TRX 均在 `artifacts/validation/coating-20260928/`。
+
+未覆盖：Windows/Linux 原生窗口、签名安装包、正式全量；各向异性、非相干基板背面、粗糙散射、n/k 制造误差与补偿、任意目标多腔解析综合、针插入、完整 TFStudio 文件兼容、正式追迹桥接和生产控制。有限结构搜索并不证明未达标目标物理无解。
+
+## 2026-09-27 冻结历史
+
+以下保留旧版数值与验收过程，**其中 29/29、198/198、Light 限制、原生未完成和多腔未实现等只描述当时版本**；当前能力以上文为准。
 
 [机器验收摘要与源码哈希](verification-20260927.json)由最终 TRX 和示例输出生成。
 
@@ -67,10 +117,14 @@ Debug 使用相同实验室命令替换配置。要保存实际渲染截图，�
 
 ## 文档同步复核
 
-2026-09-27 后续“更新所有文档”仅同步说明并只读核对既有证据：机器摘要中的 18 个源码 SHA-256 与当前文件一致，镀膜 Debug/Release 两份 TRX 各 29 通过，正式相关 TRX 为 198 通过；三份示例继续为减反达标、高反/窄带未全部达标且保存重开一致。未重跑构建/测试、未替换参考数据或改变任何目标。当前能力导航见[文档索引](../../docs/README.md)及[状态范围](../../docs/CURRENT_STATUS.md)。
+2026-09-27 后续“更新所有文档”仅同步说明并只读核对既有证据：机器摘要中的 18 个源码 SHA-256 与当时文件一致，镀膜 Debug/Release 两份 TRX 各 29 通过，正式相关 TRX 为 198 通过；三份示例继续为减反达标、高反/窄带未全部达标且保存重开一致。未重跑构建/测试、未替换参考数据或改变任何目标。当前能力导航见[文档索引](../../docs/README.md)及[状态范围](../../docs/CURRENT_STATUS.md)。
 
 文档校验：本次同步的 43 份相关文档中，1062 个本地文件/目录链接均可解析；差异空白检查通过。历史数值报告和上游许可证原文保持不变。
 
 ## Git 同步前复验
 
 2026-09-27 再次完成独立镀膜解决方案默认 Release 构建（零警告、零错误）与完整 29/29 回归（零失败、零跳过）。这是已有用例复验，不新增物理或像质验收范围；本次未重新生成三例或上游数据。记录见 `artifacts/validation/project-sync-20260927/sync-coating-release.trx`。
+
+本轮文档核对：17 份相关文档的 937 个本地链接可解析；源码及证据哈希在机器摘要中。材料管理窗口继承主窗口的字体、字号与字形，额外以 16 DIP 字号的真实控件交互检查。
+
+原生走查使用的临时包二进制哈希单独记录；其后的材料窗口字体继承和不可变画刷修正由最终 Debug/Release 控件测试覆盖，不将两种证据混为一次原生全量验收。

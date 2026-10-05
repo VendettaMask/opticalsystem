@@ -36,4 +36,7 @@ public sealed record SurfaceInteractionContext(
     double RefractiveIndexAfter,
     double WavelengthNanometers,
     bool IsReflective,
-    IGeometry? Geometry = null);
+    IGeometry? Geometry = null,
+    Vector3D? IncidentDirection = null,
+    double? ExtinctionCoefficientBefore = null,
+    double? ExtinctionCoefficientAfter = null);

@@ -1,0 +1,124 @@
+{
+  "recordedUtc": "2026-09-29T03:53:57.884643+00:00",
+  "scope": "Infinity and focused autocollimator modes; feature and selected adjacent regressions, not full product acceptance",
+  "builds": {
+    "Debug": "default outputs, 0 warnings/errors",
+    "Release": "default outputs, 0 warnings/errors"
+  },
+  "tests": {
+    "assembly-regression-debug.trx": {
+      "counters": {
+        "total": "81",
+        "executed": "81",
+        "passed": "80",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "assemblyFeature": {
+        "total": 23,
+        "passed": 23
+      },
+      "failures": [
+        "OptilandWorkbench.Tests.LayeringArchitectureTests.AppUiCardsUseSharedChromeTokens"
+      ]
+    },
+    "assembly-regression-release.trx": {
+      "counters": {
+        "total": "81",
+        "executed": "81",
+        "passed": "80",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "assemblyFeature": {
+        "total": 23,
+        "passed": 23
+      },
+      "failures": [
+        "OptilandWorkbench.Tests.LayeringArchitectureTests.AppUiCardsUseSharedChromeTokens"
+      ]
+    },
+    "assembly-skia.trx": {
+      "counters": {
+        "total": "3",
+        "executed": "3",
+        "passed": "3",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "assemblyFeature": {
+        "total": 3,
+        "passed": 3
+      },
+      "failures": []
+    }
+  },
+  "newTestCases": 9,
+  "knownFailure": "AppUiCardsUseSharedChromeTokens: existing literal corner radius 6 at BlueThemeStyles.cs:292 and LightTheme.cs:43",
+  "rendering": "Separate Skia process, real controls offscreen at 1260x850 and 920x680; infinity fixture is Cooke with first surface changed to a plane",
+  "notRun": [
+    "full product suite",
+    "Zemax numerical comparison",
+    "native desktop walkthrough",
+    "physical autocollimator calibration"
+  ],
+  "sourcesSha256": {
+    "src/OptilandWorkbench.Core/Analysis/Assembly/AssemblyConjugates.cs": "24014e1cb2485d11d9c269a181925f889c9d529d62971c849b8e19113ef38491",
+    "src/OptilandWorkbench.Application/Contracts/OpticalAssemblyContracts.cs": "2369c898a5ad6b5664044e4cec3919318b5d960f4dad461f6e9e4f28350138ca",
+    "src/OptilandWorkbench.Application/Services/OpticalAssemblyService.cs": "e5d3e1aab2b9dec114f713c60f85b74bc803643ad2e87d0fc55526a76e3406ac",
+    "src/OptilandWorkbench.App/Laboratories/OpticalAssemblyWindow.cs": "d5d530f7bef7bbf6934da697f9f8af142d9e674d2f97541c34fb66176f888a79",
+    "src/OptilandWorkbench.App/Laboratories/AssemblyReticleView.cs": "365b5633d3c45f178def1448afdb8169972be325dc4e0ede04e7e71d52669b72",
+    "tests/OptilandWorkbench.Tests/OpticalAssemblyTests.cs": "d4d1de7872f43980d65e18ac5bfea4b45c49ac0e010bfbbec79ae06d6d6f7fd3",
+    "tests/OptilandWorkbench.Tests/OpticalAssemblyWindowTests.cs": "d42fda6a90de667b46c2321cb4dfdea16ed256395254ab37f978b9728f0b4fd5"
+  },
+  "defaultBinariesSha256": {
+    "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll": "5aed3a2321cc0533eae25dd9a7e3085f7835adc76098427068cfec20049f3252",
+    "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll": "f3fc5830dcbd48443266683983acfef9dea42533ebad48e2e32e3083fa0ae57e",
+    "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll": "09ed3285923e39322aacd669507f8dc841d5a707a524917ad2f9356d7ad327cd",
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "00a416da7d8619408afe362e2faa094ce9e04e320bf8589a539b515bcf692886",
+    "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll": "ffe0d83f6e8c7912671a07aca8d7ff6484a2ec7363ba58cfb11dae94fb52a266",
+    "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll": "fb26c3fe1563f41bf6413f3dbc9ce5c7e788b220a01b6ca50ebe28b4540d0f69"
+  },
+  "imagesSha256": {
+    "cooke-center-920x680.png": "8f99e4c9d4d19c92e479634809bc2fb1126636ecaa87fed76b48632170be0876",
+    "cooke-center-reticle.png": "beab2dbb69fed3702506e1de8d858bd49b8f4801bb14fbe9755b15f3d3e853e6",
+    "cooke-initial.png": "13358b43231a03b20717d8852b43752dabb28c8fe4452387234b8a6d7c69051d",
+    "cooke-vertex-reticle-2mm.png": "371331fc67b345f920ed96c7a9aca3a288f8644f49a82bc496f9a719f1b2e38d",
+    "empty-nonsequential-disabled.png": "fd0359024ce2574fe9ad6fb8f8c7b42c9dc842b3fce010eb7e19828ce2ac585c",
+    "infinity-plane-920x680.png": "b50360e48618d028cfd203a4d2bd745c432fe645d5d7f355c91970b84d59c236",
+    "infinity-plane-reticle.png": "8612051b7bb60f2a1033a093f82b79011b04cdfb5ef6c54cfbd4513f0689e247"
+  }
+}

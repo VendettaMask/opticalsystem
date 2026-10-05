@@ -1,0 +1,168 @@
+{
+  "date": "2026-09-30",
+  "scope": "Twelfth batch: real-ray incidence/exitance range constraints, TFNO and correction of existing SFNO; seven-parameter editor and STAROPT transport",
+  "registered": 383,
+  "executable_before": 249,
+  "executable_after": 254,
+  "compatibility_only_after": 129,
+  "added_codes": [
+    "MNRE",
+    "MNRI",
+    "MXRE",
+    "MXRI",
+    "TFNO"
+  ],
+  "corrected_codes": [
+    "SFNO"
+  ],
+  "cumulative_added_since_124": 130,
+  "verification": {
+    "debug": {
+      "total": 1382,
+      "passed": 1382,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 78,
+      "previous_batch_tests": 1281,
+      "additional_adjacent_tests": 23,
+      "trx": "twelfth-batch-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 1382,
+      "passed": 1382,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 78,
+      "previous_batch_tests": 1281,
+      "additional_adjacent_tests": 23,
+      "trx": "twelfth-batch-release.trx",
+      "log": "release.log"
+    }
+  },
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "support_boundaries": {
+    "angle_ranges": "Seven parameters, inclusive physical surface range, Wave=0 primary. Sum every boundary violation. Actual incident/outgoing directions and local normals. Invalid/vignetted rays, infinite object intercept and reversed/missing surfaces error.",
+    "extended_transport": "Data5 optional DTO field; existing seventh UI column; raw STAROPT arrays. Native extended ZMX layout unverified, four range types kept disabled/read-only with original parameter tokens in comment. Missing Data5 never silently upgraded.",
+    "working_fnumber": "SFNO/TFNO focal axial/Y fields only; physical apertures ignored, field vignetting factors honored. Formal shared full-pupil rays, average directional NA using stable normalized cross product. No pupil-shrink fallback or 10000 cap. ISFN/WFNO/FNUM not reimplemented in this batch.",
+    "known_residual": "FCGT fixed captured-angle residual remains Difference against unchanged 1e-5 mm target; 3e-5 regression budget is not accuracy acceptance."
+  },
+  "external_reference": {
+    "integrity": "Nine selected baseline assets byte-equal committed HEAD; not entire baseline audit.",
+    "recalculation": "Current formal Core and fixed-file/settings regressions.",
+    "numerical_comparison": {
+      "debug": {
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm",
+          "samples": 9
+        },
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm",
+          "samples": 9
+        }
+      },
+      "release": {
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm",
+          "samples": 9
+        },
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm",
+          "samples": 9
+        },
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        }
+      }
+    },
+    "new_native_capture": "None; MFE slot and full numerical parity pending.",
+    "screenshots": "No screenshot review."
+  },
+  "remaining_category_counts_overlap": true,
+  "unique_remaining": 129,
+  "not_performed": [
+    "full product suite",
+    "laboratory full suites",
+    "full external comparison matrix",
+    "new Zemax captures",
+    "native desktop walkthrough",
+    "screenshot review",
+    "installer validation"
+  ],
+  "historical_reference": "Frozen assets untouched; no new Optiland comparisons",
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.RayConstraints.cs": "bd374f0b01064232517fa0ce57b3c86bcd7354746f154926fe07c906560cd4f2",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "8c4e64df086a9bb65fa338ca9427fc0191b3ea4587e62a0609a8f5e90ca102d2",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "6e5cc7aff16dc009ffb56713f804dba8e819ff0506d7c245ebf06e91d18cd659",
+    "src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs": "d3ab99f354a706db364917287697da140f73d59c569241501f8de5b1d01359d5",
+    "src/OptilandWorkbench.Core/FileIO/ZemaxZmxReader.cs": "7964071a9a6fc137a7b5168b60c70bb82cc1ff43c1c2e16178f7cdcfb4c0d004",
+    "src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs": "9deafc8ac9b981f2768576adced47567888cab540641aa16dd312588fa417c90",
+    "src/OptilandWorkbench.Application/Contracts/WorkspaceContracts.cs": "0c22a3efaf34b4da16a3e09b07041eb5dbf4b7ed6ca05d490b82d283d32e81fd",
+    "src/OptilandWorkbench.Application/Services/OptimizationService.cs": "baf4c7b37c9ea029292a8e4057640d145632c848702d11127746a55168705cd9",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "a83f3fafaf0732c3712115e8f8e82ef1964683d3be67d4de0789c1f492b92871",
+    "src/OptilandWorkbench.App/ViewModels/EditorRows.cs": "9c726114acf2d1b0336db469e22f9ad63279f0fa1abab3144004370a1d8182df",
+    "src/OptilandWorkbench.App/Panels/OperandHelpPanel.cs": "74fa1d129ad8a3d5127c197dbc554ea54cec19d9228433047c6d276448f4485b",
+    "tests/OptilandWorkbench.Tests/RayConstraintOperandTests.cs": "1a75e1c484a8096b542f27b4280a53e39f4f0d20b6b0413a579b4795ff3291f5",
+    "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs": "659858987ed442328a7478c09589a2c22d9325bc01496cfcd9ea04e3505c1b1b"
+  },
+  "selected_capture_sha256": {
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.txt": "dbb741fc9f07d6d55a9d7d6acdad2bfe91f45e3b5b365bb14c51e1d6b8f2a6f0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/049-rmsfield/data.json": "7badd81b3adbd9bd694e4cabfce3d58e45c863866ed77d4337a33f3321290e87",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/052-rmsfocus/data.json": "a90eabe523007f995e10c685622025b34d47c87b25d627e56ddda16020765240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/055-wavefrontmap/data.json": "e9cfe98cfb64ec684976ee786fd33b8844d24995be084941bedbe7537c911e62",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/data.json": "ef6a44cbe999be4ae54c8d2b8dc3854434e0565b9bd28266138eeebcc900f57a",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/025-huygensmtfvsfield/data.json": "9b00c750481cb73adb741f47c00ca66232dd3374765e2fa68a59bca1c6c99323",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/028-huygensthroughfocusmtf/data.json": "dc115e8bd603af3b3a1686fe7c2c0ec4530d9220d235c5af1ce0cd9004147240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/004-fieldcurvatureanddistortion/data.json": "a93a1aeff36e6bf4856ff41ad22844022b8dcc6cbde2a8038853da1d3090bd73"
+  },
+  "default_binary_sha256": {
+    "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll": "bd9574e11d0dba27e2691fe9112287b360d78dcdc514181408cf187a5d46a1ad",
+    "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll": "436362da4e605873093379f8bd2710b6e4de1eddea0f4e362bb3391186564093",
+    "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll": "46d5c48b7c42ea3b4f5ad60c8e5b7c08ff02a2119484a0afa7439fdba556ab9a",
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "8fb169009c0529fe6a6d20b79c290ab994893bde6a33eeae6634e22a4b612f4f",
+    "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll": "41a3887708090d1700b24c32cd9a39ffad0ad371167b64313da7b8fd57ccd164",
+    "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll": "95cb1525d9d2c872ffeb0ec79fe3e7d69e46a5a8ab16e632f6630f6b23d02be8"
+  },
+  "new_document_links_checked": 39
+}

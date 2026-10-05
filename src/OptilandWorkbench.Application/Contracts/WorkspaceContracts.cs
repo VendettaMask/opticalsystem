@@ -736,7 +736,9 @@ public sealed record SurfaceRowDto(
     RadiusSolveDto? RadiusSolve = null,
     double? MechanicalSemiDiameter = null,
     ThicknessSolveDto? ThicknessSolve = null,
-    SemiDiameterSolveDto? SemiDiameterSolve = null);
+    SemiDiameterSolveDto? SemiDiameterSolve = null,
+    double? ThermalExpansionPpmPerC = null,
+    double? ChipZone = null);
 
 public enum RadiusSolveKind { Fixed, Variable, Pickup }
 
@@ -782,6 +784,12 @@ public sealed record SurfaceInspectionDto(
     double OriginX, double OriginY, double OriginZ,
     double TiltXDegrees, double TiltYDegrees, double TiltZDegrees);
 
+public sealed record CoatingLayerEditDto(
+    string Material, double ThicknessNanometers, double Multiplier = 1,
+    double IndexOffset = 0, double ExtinctionOffset = 0,
+    bool MultiplierVariable = false, bool IndexVariable = false, bool ExtinctionVariable = false,
+    int? SourceLayer = null);
+
 public sealed record SurfaceComponentUpdateDto(
     string GeometryKind,
     string ApertureKind,
@@ -801,7 +809,10 @@ public sealed record FieldRowDto(
     double Y,
     double VignetteFactorX,
     double VignetteFactorY,
-    double Weight);
+    double Weight,
+    double VignetteDecenterX = 0,
+    double VignetteDecenterY = 0,
+    double VignetteAngleDegrees = 0);
 
 public sealed record WavelengthRowDto(
     int Index,
@@ -825,6 +836,9 @@ public sealed record EnvironmentSettingsDto(
     bool MatchRefractiveIndexData,
     double TemperatureCelsius,
     double PressureAtmospheres);
+
+public sealed record PolarizationSettingsDto(bool Unpolarized, double Jx, double Jy,
+    double XPhaseDegrees, double YPhaseDegrees, string ReferenceAxis);
 
 public sealed record PrescriptionOptionsDto(
     IReadOnlyList<string> Backends,
@@ -922,7 +936,8 @@ public enum AnalysisAxisQuantity
     Transmission,
     Power,
     Count,
-    NormalizedField
+    NormalizedField,
+    Probability
 }
 
 public enum AnalysisAxisUnit
@@ -1443,12 +1458,21 @@ public sealed record MeritOperandRowDto(
     double? ZemaxData1 = null,
     double? ZemaxData2 = null,
     double? ZemaxData3 = null,
-    double? ZemaxData4 = null);
+    double? ZemaxData4 = null,
+    double? ZemaxData5 = null,
+    double? ZemaxData6 = null);
 
 public enum OptimizationVariableKind
 {
     Radius,
-    Thickness
+    Thickness,
+    Curvature,
+    Conic,
+    SemiDiameter,
+    CoatingMultiplier,
+    CoatingIndexOffset,
+    CoatingExtinctionOffset,
+    GradientIndexCoefficient
 }
 
 public sealed record OptimizationVariableResultDto(
@@ -1456,7 +1480,10 @@ public sealed record OptimizationVariableResultDto(
     OptimizationVariableKind Kind,
     string Name,
     double InitialValue,
-    double FinalValue);
+    double FinalValue,
+    int ConfigurationIndex = 0,
+    int Layer = 0,
+    string? Parameter = null);
 
 public sealed record OptimizationRunResultDto(
     string Optimizer,
@@ -1500,8 +1527,29 @@ public enum ToleranceDistribution
 public enum ToleranceCriterion
 {
     RmsSpotRadius,
-    RmsWavefront
+    RmsWavefront,
+    Mtf
 }
+
+public enum ToleranceMtfMethod { Fourier, Geometric }
+public enum ToleranceMtfDirection { Average, Tangential, Sagittal, Minimum }
+public enum ToleranceCompensationAlgorithm { DampedLeastSquares, CoordinatePatternSearch }
+public enum ToleranceCompensatorKind { Thickness, DecenterX, DecenterY, TiltX, TiltY }
+
+public sealed record ToleranceFieldLimitDto(int FieldNumber, double Minimum);
+public sealed record ToleranceMtfSettingsDto(
+    double Frequency = 50, int Sampling = 1, int Wave = 0,
+    ToleranceMtfMethod Method = ToleranceMtfMethod.Fourier,
+    ToleranceMtfDirection Direction = ToleranceMtfDirection.Minimum,
+    bool SeparateFields = true,
+    IReadOnlyList<ToleranceFieldLimitDto>? FieldLimits = null);
+public sealed record ToleranceCompensatorDto(int SurfaceNumber,
+    ToleranceCompensatorKind Kind, double Minimum, double Maximum);
+public sealed record ToleranceFieldValueDto(int FieldNumber, double Value, string Error = "");
+public sealed record ToleranceCompensatorValueDto(string Name, double Nominal, double Value,
+    double Minimum, double Maximum);
+public sealed record ToleranceFieldStatisticsDto(int FieldNumber, double Nominal,
+    double Mean, double Minimum, double Percentile05, double? Limit, double? Yield);
 
 public enum ToleranceAnalysisMode
 {
@@ -1580,20 +1628,33 @@ public sealed record TolerancingRequestDto(
     double YieldLimit = 0,
     int MaxDegreeOfParallelism = -1,
     ToleranceAnalysisMode Mode = ToleranceAnalysisMode.Sensitivity,
-    double InverseValue = 0);
+    double InverseValue = 0,
+    ToleranceMtfSettingsDto? MtfSettings = null,
+    ToleranceCompensationAlgorithm CompensationAlgorithm = ToleranceCompensationAlgorithm.DampedLeastSquares,
+    IReadOnlyList<ToleranceCompensatorDto>? AdditionalCompensators = null);
 
 public sealed record TolerancingSensitivityRowDto(
     string Perturbation,
     string DeltaMerit,
     string NegativeMerit = "",
     string PositiveMerit = "",
-    string WorstMerit = "");
+    string WorstMerit = "",
+    IReadOnlyList<ToleranceFieldValueDto>? NegativeFields = null,
+    IReadOnlyList<ToleranceFieldValueDto>? PositiveFields = null,
+    IReadOnlyList<ToleranceCompensatorValueDto>? NegativeCompensators = null,
+    IReadOnlyList<ToleranceCompensatorValueDto>? PositiveCompensators = null);
 
 public sealed record TolerancingTrialRowDto(
     int Trial,
     string Merit,
     string CompensatedMerit,
-    string Degradation = "");
+    string Degradation = "",
+    IReadOnlyList<ToleranceFieldValueDto>? Fields = null,
+    IReadOnlyList<ToleranceFieldValueDto>? UncompensatedFields = null,
+    IReadOnlyList<ToleranceCompensatorValueDto>? Compensators = null,
+    bool? Passed = null,
+    double? AcceptanceMargin = null,
+    double? CriterionValue = null);
 
 public sealed record TolerancingStatisticsDto(
     string Nominal,
@@ -1604,7 +1665,8 @@ public sealed record TolerancingStatisticsDto(
     string Percentile50,
     string Percentile90,
     string Percentile95,
-    string Yield);
+    string Yield,
+    string Percentile05 = "");
 
 public sealed record TolerancingSensitivityStatisticsDto(
     string Nominal,
@@ -1633,7 +1695,11 @@ public sealed record TolerancingResultDto(
     long SourceRevision = 0,
     IReadOnlyList<TolerancingInverseRowDto>? InverseRows = null,
     IReadOnlyList<ToleranceOperandDto>? AdjustedOperands = null,
-    string InverseTarget = "");
+    string InverseTarget = "",
+    ToleranceMtfSettingsDto? MtfSettings = null,
+    IReadOnlyList<ToleranceFieldValueDto>? NominalFields = null,
+    IReadOnlyList<ToleranceFieldStatisticsDto>? FieldStatistics = null,
+    IReadOnlyList<ToleranceCompensatorValueDto>? NominalCompensators = null);
 
 public sealed record MultiConfigurationRowDto(
     int Index,
@@ -1641,4 +1707,12 @@ public sealed record MultiConfigurationRowDto(
     bool Active,
     int SurfaceCount,
     string TotalTrack,
-    string EffectiveFocalLength);
+    string EffectiveFocalLength)
+{
+    public int Number => Index + 1;
+}
+
+public enum MultiConfigurationParameterKind { Thickness, Curvature, Conic, SemiDiameter }
+public sealed record MultiConfigurationOperandRowDto(int Number, MultiConfigurationParameterKind Kind, int SurfaceNumber, IReadOnlyList<double> Values, IReadOnlyList<bool> Variables, IReadOnlyList<MultiConfigurationPickupDto?> Pickups);
+public sealed record MultiConfigurationPickupDto(int SourceRow, int SourceConfigurationIndex, double Scale = 1, double Offset = 0);
+public sealed record MultiConfigurationOperandBindingDto(MultiConfigurationParameterKind Kind, int SurfaceNumber);

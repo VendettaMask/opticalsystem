@@ -174,51 +174,20 @@ internal sealed partial class OptimizationService
                 lock (Gate)
                 {
                     linked.Token.ThrowIfCancellationRequested();
-                    var lastSurfaceNumber = Runtime.Surfaces.Count == 0
-                        ? -1
-                        : Runtime.Surfaces[^1].Number;
-                    var selected = Runtime.Surfaces
-                        .Where(surface => surface.Number > 0 && surface.Number < lastSurfaceNumber)
-                        .SelectMany(surface => new[]
-                        {
-                            surface.RadiusVariable
-                                ? new OptimizationVariableResultDto(
-                                    surface.Number,
-                                    OptimizationVariableKind.Radius,
-                                    $"表面 {surface.Number} 半径",
-                                    surface.Radius,
-                                    surface.Radius)
-                                : null,
-                            surface.ThicknessVariable
-                                ? new OptimizationVariableResultDto(
-                                    surface.Number,
-                                    OptimizationVariableKind.Thickness,
-                                    $"表面 {surface.Number} 厚度",
-                                    surface.Thickness,
-                                    surface.Thickness)
-                                : null
-                        })
-                        .Where(variable => variable is not null)
-                        .Cast<OptimizationVariableResultDto>()
-                        .ToArray();
-                    if (selected.Length == 0)
-                    {
-                        throw new InvalidOperationException("请先在镜头数据中设置优化变量。");
-                    }
+                    var selected = Runtime.GetMarkedOptimizationVariables();
+                    if (selected.Count == 0) throw new InvalidOperationException("请先设置优化变量（表面、GRIN 系数、物理膜层或多配置单元格）。");
 
                     var result = MutateTransactional(
                         WorkspaceChangeCategory.Optimization,
                         () => Runtime.OptimizeMarkedVariables(optimizerName, maxIterations),
                         linked.Token);
                     LogOptimizationResult(result);
-                    var variables = selected.Select(variable =>
+                    var final = Runtime.GetMarkedOptimizationVariables();
+                    var variables = selected.Select(variable => variable with
                     {
-                        var surface = FindSurface(variable.SurfaceNumber)
-                            ?? throw new InvalidOperationException($"优化后找不到表面 {variable.SurfaceNumber}。");
-                        var finalValue = variable.Kind == OptimizationVariableKind.Radius
-                            ? surface.Radius
-                            : surface.Thickness;
-                        return variable with { FinalValue = finalValue };
+                        FinalValue = final.Single(item =>
+                        item.ConfigurationIndex == variable.ConfigurationIndex && item.SurfaceNumber == variable.SurfaceNumber
+                        && item.Kind == variable.Kind && item.Layer == variable.Layer && item.Parameter == variable.Parameter).FinalValue
                     }).ToArray();
                     return new OptimizationRunResultDto(
                         result.Algorithm,

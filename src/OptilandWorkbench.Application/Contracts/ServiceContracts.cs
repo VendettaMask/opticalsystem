@@ -135,6 +135,10 @@ public interface IPrescriptionService
 
     SystemSettingsDto GetSystemSettings();
 
+    PolarizationSettingsDto GetPolarizationSettings();
+
+    void UpdatePolarizationSettings(PolarizationSettingsDto settings);
+
     EnvironmentSettingsDto GetEnvironmentSettings();
 
     IReadOnlyList<string> GetGlassCatalogs();
@@ -153,6 +157,16 @@ public interface IPrescriptionService
     void UpdateSurface(SurfaceRowDto surface);
 
     void UpdateSurfaceComponents(int surfaceNumber, SurfaceComponentUpdateDto update);
+
+    IReadOnlyList<GradientIndexProfileOptionDto> GetGradientIndexProfiles();
+
+    GradientIndexMaterialEditDto? GetGradientIndexMaterial(int surfaceNumber);
+
+    void UpdateGradientIndexMaterial(int surfaceNumber, GradientIndexMaterialEditDto material, long expectedRevision);
+
+    IReadOnlyList<CoatingLayerEditDto> GetCoatingLayers(int surfaceNumber);
+
+    void UpdateCoatingLayers(int surfaceNumber, IReadOnlyList<CoatingLayerEditDto> layers, long expectedRevision);
 
     void AddField();
 
@@ -207,6 +221,7 @@ public interface ICadExportService
 
 public interface IOptimizationService
 {
+    IReadOnlyList<OptimizationVariableResultDto> GetMarkedVariables();
     IReadOnlyList<string> OptimizerNames { get; }
 
     IReadOnlyList<MeritOperandTypeDto> GetMeritOperandTypes();
@@ -239,6 +254,7 @@ public interface IOptimizationService
 
 public interface ITolerancingService
 {
+    ToleranceValidationResultDto ValidateStudy(TolerancingRequestDto request);
     IReadOnlyList<ToleranceOperandDto> GenerateWizard(ToleranceWizardSettingsDto settings);
 
     ToleranceValidationResultDto ValidateOperands(IReadOnlyList<ToleranceOperandDto> operands);
@@ -248,6 +264,12 @@ public interface ITolerancingService
 
 public interface IMultiConfigurationService
 {
+    IReadOnlyList<MultiConfigurationOperandRowDto> GetOperandRows();
+    void ReplaceOperandRows(IReadOnlyList<MultiConfigurationOperandBindingDto> rows, long expectedRevision);
+    void SetOperandValue(int oneBasedRow, int configurationIndex, double value, long expectedRevision);
+    void SetOperandVariable(int oneBasedRow, int configurationIndex, bool enabled, long expectedRevision);
+    void SetOperandPickup(int oneBasedRow, int configurationIndex, MultiConfigurationPickupDto? pickup, long expectedRevision);
+
     IReadOnlyList<MultiConfigurationRowDto> GetRows();
 
     int Add();
@@ -264,6 +286,9 @@ public interface IMaterialCatalogService
     IReadOnlyList<string> GetCatalogNames();
 
     IReadOnlyList<GlassMaterialDto> GetGlasses();
+
+    /// <summary>Resolves a catalog glass using its qualified name or the current project's catalog order.</summary>
+    GlassMaterialDto? FindGlass(string materialName);
 
     AnalysisViewDto Analyze(MaterialAnalysisRequestDto request);
 
@@ -314,6 +339,8 @@ public interface IWorkbenchApplication : IDisposable
     IOptimizationService Optimization { get; }
 
     ITolerancingService Tolerancing { get; }
+
+    IOpticalAssemblyService OpticalAssembly { get; }
 
     IMultiConfigurationService MultiConfiguration { get; }
 

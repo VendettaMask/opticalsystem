@@ -1,0 +1,127 @@
+{
+  "date": "2026-09-30",
+  "scope": "Seventh batch: 7 global surface, 6 global ray and 4 ray-fan derivative operands",
+  "registered": 383,
+  "executable_before": 193,
+  "executable_after": 210,
+  "compatibility_only_after": 173,
+  "added_codes": [
+    "DXDX",
+    "DXDY",
+    "DYDX",
+    "DYDY",
+    "GLCA",
+    "GLCB",
+    "GLCC",
+    "GLCR",
+    "GLCX",
+    "GLCY",
+    "GLCZ",
+    "RAGA",
+    "RAGB",
+    "RAGC",
+    "RAGX",
+    "RAGY",
+    "RAGZ"
+  ],
+  "corrected_existing_codes": [
+    "NORX",
+    "NORY",
+    "NORZ"
+  ],
+  "cumulative_added_since_124": 86,
+  "verification": {
+    "debug": {
+      "total": 857,
+      "passed": 857,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 122,
+      "existing_snapshot_tests": 13,
+      "trx": "seventh-batch-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 857,
+      "passed": 857,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 122,
+      "existing_snapshot_tests": 13,
+      "trx": "seventh-batch-release.trx",
+      "log": "release.log"
+    }
+  },
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "support_boundaries": {
+    "global_reference": "Physical reference surface translation and rotation; default 1; GLRS and native snapshot persistence. Reference checkbox/UI editing and scene re-framing are not implemented.",
+    "import": "GLRS and active GLC/RAG surface slots remap after coordinate-break folding. Direct references to removed coordinate-break surfaces or missing surfaces fail explicitly.",
+    "derivative": "Normalized circular pupil, image-local intercept, five-point fourth-order differences with step halving (up to 8) and 1e-7 + 1e-5*abs(value) agreement. No-neighbourhood, vignetting, failed rays and nonconvergence fail explicitly.",
+    "migration": "Only valid executable compatibility rows upgrade; invalid references remain readonly and round-trip."
+  },
+  "external_reference": {
+    "integrity": "Two named existing baseline assets match committed HEAD; not a whole-baseline integrity audit.",
+    "recalculation": "Existing fixed Zemax regressions for prior batches still pass, limited to their captured source/settings/version.",
+    "new_operands": "Independent coordinate/Snell/thin-lens/polynomial reference and integration checks; no new native MFE slot or numerical captures.",
+    "screenshots": "No screenshot-based verification performed."
+  },
+  "remaining_category_counts_overlap": true,
+  "unique_remaining": 173,
+  "uncategorized_remaining": [
+    "BIPF",
+    "COSA",
+    "HACG",
+    "OGSS",
+    "QOAC",
+    "REQS",
+    "RRET",
+    "SPHD",
+    "TRAN",
+    "TSAG"
+  ],
+  "not_performed": [
+    "full product suite",
+    "laboratory full suites",
+    "full external comparison matrix",
+    "new Zemax captures",
+    "native desktop walkthrough",
+    "screenshot review",
+    "installer validation"
+  ],
+  "historical_reference": "Frozen assets untouched; no added Optiland comparisons",
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Optic.cs": "66f7f191cd5a80364755872b6aa8cdd128677575faf57ddeff9ea65ef730e451",
+    "src/OptilandWorkbench.Core/Serialization/OpticSnapshot.cs": "c40c90060d64af1c62d3c8b26b5effe8c4a9e840d9c5f1d2f36b4f247b0def2e",
+    "src/OptilandWorkbench.Core/FileIO/ZemaxZmxReader.cs": "b4114f238209317bd8ad19ac0112f44806e774dc7ea8647811f2cfbd6dd67389",
+    "src/OptilandWorkbench.Core/Services/GlobalCoordinateMetrics.cs": "69c212a607851c3e0c6a19b312638db99131d81e9632451b4c1fb75b172ac2e5",
+    "src/OptilandWorkbench.Core/Services/RayFanDerivativeMetrics.cs": "c62b88d98fc7920a0b5a1766b69b6121825b4bd769aa60f66574c492ff72b26d",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.GlobalCoordinates.cs": "b564e2366b13ec5b80b69c9348ce3eac8dc007dcf0f053dfa103eab62372ad7d",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.RayFanDerivatives.cs": "019e852784cb75327f068b967fe26e5f19089058d9cdf77a5fe1e755ca2a8c45",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "20deb3fda67384ae0327d45b650d46a3c16084c3a16da4500f28a8187b66039b",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "e361a7e57fb488e07fa3d0f656582c5acde2423c204f10a1a56049f4c646dfe6",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "38a9a0c268895e9834870a2c84e90db555560774ba77e5c5b45069d4df9b511e",
+    "tests/OptilandWorkbench.Tests/GlobalRayOperandTests.cs": "d9e750617fb91f16eaccf6675bf8639ae2b321eb0f300c20789f3804dc2ccb80",
+    "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs": "90ebd7e8139fa042c563533bf71dd148ee99e111d4b31ed369c286f22f7fc8ee",
+    "src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs": "a9f40b708014abb91517736b2b157f8b2eeba0cf5bbb7e1017bf34b65f96be37",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.SequentialData.cs": "04ce0975df9e666dd5be87785541f3b441f8a086714b9594181232f908c41623",
+    "tests/OptilandWorkbench.Tests/SequentialOperandExpansionTests.cs": "8caca71c72c68220ddc47a20fe382b8c008114eb14c878e66b4b69033d955d3d"
+  },
+  "selected_capture_sha256": {
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.txt": "dbb741fc9f07d6d55a9d7d6acdad2bfe91f45e3b5b365bb14c51e1d6b8f2a6f0"
+  },
+  "default_binary_sha256": {
+    "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll": "5405ceb28f3ea6afb4f8091e2863bcad77574a8562394220afa59bbac219c5ad",
+    "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll": "769e590dc1d9e90bbe117de29f4872a2fd7bf9ebe155fa8102cd504ba797509d",
+    "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll": "7d78a0749f9e5a9ebe6db16da2f381a37882974b589e4a8a2276417ed3a8df5d",
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "fec1f23ab781a10fc2064cb5f59a3b05a4b29ab9a31bd38b10b762e04705047d",
+    "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll": "9926e0ed31b14f22dcd25367883f6227f0b7d4d4bed559c4649325ff0422a87e",
+    "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll": "d6aab4c52fa9b81e178e6b6cc67b1a9abd00fe627d5bee601cb4a480bdbaacbe"
+  },
+  "format_whitespace_verify": "passed",
+  "git_diff_check": "passed",
+  "documentation_seventh_batch_links_checked": 34
+}

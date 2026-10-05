@@ -1,0 +1,187 @@
+{
+  "date": "2026-10-02",
+  "scope": "ZERN local execution, Standard Noll numbering repair, stable annular recurrence and shared raw OPD statistics",
+  "registered": 383,
+  "executable_before": 294,
+  "executable_after": 295,
+  "compatibility_only_after": 88,
+  "added_codes": [
+    "ZERN"
+  ],
+  "compatibility_breakdown": {
+    "documented_functions_not_connected": 81,
+    "api_names_needing_definition": 2,
+    "unused_excluded_from_implementation_backlog": 5
+  },
+  "verification": {
+    "debug": {
+      "passed": 2197,
+      "failed": 0,
+      "skipped": 0,
+      "new_tests": 45,
+      "previous_tests": 2130,
+      "additional_existing_tests": 22,
+      "trx": "twentyfourth-batch-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "passed": 2197,
+      "failed": 0,
+      "skipped": 0,
+      "new_tests": 45,
+      "previous_tests": 2130,
+      "additional_existing_tests": 22,
+      "trx": "twentyfourth-batch-release.trx",
+      "log": "release.log"
+    }
+  },
+  "format_verification": "Passed",
+  "git_diff_check": "Passed",
+  "initial_test_failure": "Smoke: 41 passed, 1 fixture failure; thickness mutation required the normal SurfaceGroup.Renumber coordinate refresh, corrected before full runs. Initial TRX retained. Earlier smoke compilation used RemoveAt on an array; corrected.",
+  "support_boundaries": {
+    "parameters": "Local Term/Wave/Samp/Field/Type/Epsilon/Vertex; wave and field positive; sampling1..5, matrix/work ceilings explicit. Vertex0 only.",
+    "coefficients": "Fringe1..37; Standard/Annular1..231, Noll numbering; annular epsilon0..0.95. Two-pass strict QR and rank rejection. Stable scaled-radius Stieltjes recurrence with shared Gauss quadrature.",
+    "statistics": "Term-8..0; raw geometric-weight OPD, chief removes piston, centroid removes best-fit plane; Strehl exponential approximation, not Huygens peak.",
+    "grouping": "Same-request adjacent enabled executable rows fit highest term, minimum11; cache bounded to latest fit in local ordered evaluation; different requests/state/block boundaries split groups. Fringe native maximum-term grouping remains unverified.",
+    "persistence": "Local seven-slot project and editor roundtrip; Data2 field reference validated. Native imported rows remain disabled/read-only and do not auto-upgrade. Native slot positions not verified."
+  },
+  "external_reference": {
+    "integrity": "22 selected committed baseline assets byte-equal HEAD; subset integrity check only",
+    "existing_distortion_comparison": {
+      "debug": {
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points"
+        },
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm"
+        },
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points"
+        },
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm"
+        }
+      },
+      "release": {
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm"
+        },
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points"
+        },
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm"
+        },
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points"
+        }
+      }
+    },
+    "huygens_analysis_comparison": {
+      "debug": {
+        "direction_values": 18,
+        "maximum_absolute_error": 0.011900434932046483,
+        "regression_budget": 0.03
+      },
+      "release": {
+        "direction_values": 18,
+        "maximum_absolute_error": 0.011900434932046483,
+        "regression_budget": 0.03
+      }
+    },
+    "relative_illumination_analysis_comparison": {
+      "debug": {
+        "rms_error": 0.00043423449,
+        "maximum_absolute_error": 0.00081915922,
+        "edge": 0.9731105599
+      },
+      "release": {
+        "rms_error": 0.00043423449,
+        "maximum_absolute_error": 0.00081915922,
+        "edge": 0.9731105599
+      }
+    },
+    "zernike_numerical_comparison": "Not performed: committed report and binary CFG retained, but explicit capture pupil sampling has not been decoded/verified; no inferred sampling or fitted-to-baseline settings.",
+    "new_native_capture": "None",
+    "screenshots": "No new screenshots for this Core/operand batch. The captured Zernike screenshot is rendered-from-zosapi-data, not a settings dialog."
+  },
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Analysis/ZernikeFitEngine.cs": "7e7dcb61bce65414bc4a13b35eb01b34984e3a757d9d11bcfafb30c9fa4f3183",
+    "src/OptilandWorkbench.Core/Analysis/Shared/QrLeastSquares.cs": "f474917ac57cb548e89ed48b4a8792ac3d479342c0b3587833a4c5b0787e0491",
+    "src/OptilandWorkbench.Core/Services/ZernikeMetrics.cs": "497441804b520cbc4db584c16869c93b51ecb6e1348bff9106113487dfb2eafe",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.Zernike.cs": "84117ef03cdce6be2c703edcc4bd2bb794f16c3b3acf79b7a2298aee3378c4bf",
+    "src/OptilandWorkbench.Core/Analysis/Wavefront/WavefrontAnalyses.cs": "5e574a878c7b51dfea42420de28d0b3473056d6101d0f357f809f0ceaba3919e",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "15d61646e31a6abbbd5d3a7ad4acd933efee360e2392b220f7e8faf127d7ad4b",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "b23864f132c98c401b0581b40c65d53c7b723e8570c9fe8582f0fbe3b42875c7",
+    "src/OptilandWorkbench.Core/FileIO/ZemaxZmxReader.cs": "22b330b5ad20b3f7bea44df68adad92b8a2fb57a30ccc7aa8c1b9389ac4a5030",
+    "src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs": "0533059bf548c86418074aa42bb33ebb62b9d51ab09c9a0f8fcd80c65c4080b6",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "e2298a930584610b67bb6036dcf8c99bf20cd234c80ef49180da44dbf834b456",
+    "tests/OptilandWorkbench.Tests/ZernikeOperandTests.cs": "419542446ac76ad26f0f91f6c819febbc2ac7b064a7977c0e5a2dea364a5d9dc",
+    "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs": "c8962c0c763f7c13c7153e57921c08ac20c4269bcb1cef1f3fe5bbafca802dd3"
+  },
+  "selected_capture_sha256": {
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.txt": "dbb741fc9f07d6d55a9d7d6acdad2bfe91f45e3b5b365bb14c51e1d6b8f2a6f0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/049-rmsfield/data.json": "7badd81b3adbd9bd694e4cabfce3d58e45c863866ed77d4337a33f3321290e87",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/052-rmsfocus/data.json": "a90eabe523007f995e10c685622025b34d47c87b25d627e56ddda16020765240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/055-wavefrontmap/data.json": "e9cfe98cfb64ec684976ee786fd33b8844d24995be084941bedbe7537c911e62",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/data.json": "ef6a44cbe999be4ae54c8d2b8dc3854434e0565b9bd28266138eeebcc900f57a",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/025-huygensmtfvsfield/data.json": "9b00c750481cb73adb741f47c00ca66232dd3374765e2fa68a59bca1c6c99323",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/028-huygensthroughfocusmtf/data.json": "dc115e8bd603af3b3a1686fe7c2c0ec4530d9220d235c5af1ce0cd9004147240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/004-fieldcurvatureanddistortion/data.json": "a93a1aeff36e6bf4856ff41ad22844022b8dcc6cbde2a8038853da1d3090bd73",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/settings.cfg": "afc322d75c819f36e8c1aece2d4600c3fbdc687a4e0e6d8badb4e0e646917790",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/data.json": "1ddb61139e42585f144329c430a85ebc7685eb92416783cf85f653822cc64eb0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/settings.cfg": "5ac71deed1902825151e0e78d082850bf0f28ac4b9c2f16934a2003ad9980f69",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/034-diffractionencircledenergy/data.json": "b6b2928cd6cbc41bb078f38598065be4ba6977e0c4d29c2a040ce62c640af48e",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/034-diffractionencircledenergy/settings.cfg": "77f92a4185b82ebf31f8f27419b921ff52f1909ec65ce67074ba2680978b1a0d",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/data.json": "21a2b9517dcb9c4e479e2b8e221a8ba334c3a35a46b654d39575b7d0338f534b",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/settings.cfg": "771862ac443a583fce03458d116d98f2f1867814fc2ac33c0fbce05fcc4e89ac",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/012-zernikeannularcoefficients/data.txt": "20b1dd6b22299414025f02ee7ce212e3486eb8923a976d72e529c7e55b42b20f",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/012-zernikeannularcoefficients/settings.cfg": "6648ac23c0aff14e629ad58cb96a28d92aeeb17fed53bf46d902d8d244fa1746",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/014-zernikefringecoefficients/data.txt": "b655e9984da1847e9d6390fc7982a8f15c726342e8ee4238a3ac0709ae422d6b",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/014-zernikefringecoefficients/settings.cfg": "c1bb9051068066c2be53d10c6aa57d274b3f0e8587c1c26fd001a90b8417da51",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/015-zernikestandardcoefficients/data.txt": "3c692693073272462303091e971c7c747196917cae9a5849d65f65508745748d",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/015-zernikestandardcoefficients/settings.cfg": "eb7b1cbb3f037d9d8a565c2982b9711562e4cc507a4762d4b3acbd6bc94f0c7e"
+  },
+  "default_binary_sha256": {
+    "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll": "d2592717a2ec2cfc150dce1b01d5f665dbc70a5c6279bf1aecee801834414970",
+    "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll": "22ad19c1a5657085cd140847018870afc63380b825773477c2c986c2a7edb7fd",
+    "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll": "33bccddb87501773a4700576211517de13660d3528efbd73865154d63c636b88",
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "986a089457988ef3d0eb6c47df67a6b2216e6bcdc81bc89e5da9d2501129fd72",
+    "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll": "e21d2c77ef9dc1efb6bbd2a38d2e3dcd920087028492cbd69a992a14ad1e6525",
+    "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll": "4a0afff434f10dd85b886339a0d4c4879ca94a9302a3c0d7faa517d6799b0720"
+  },
+  "goal_status": "Active; all operands not complete",
+  "not_performed": [
+    "full product test suite",
+    "laboratory full suites",
+    "installer validation",
+    "native MFE capture or parity certification",
+    "new Optiland comparisons"
+  ],
+  "document_links_checked": 40
+}

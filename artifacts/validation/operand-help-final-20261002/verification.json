@@ -1,0 +1,129 @@
+{
+  "date": "2026-10-02",
+  "scope": "Final verification of existing explicit three-level operand help after ongoing Core changes; no additional help source change.",
+  "levels": [
+    "功能大类",
+    "操作数族",
+    "具体操作数"
+  ],
+  "categoryCount": 8,
+  "familyCount": 51,
+  "entryCount": 387,
+  "verification": {
+    "debug": {
+      "trx": {
+        "path": "artifacts/validation/operand-help-final-20261002/help-debug.trx",
+        "sha256": "4a506de909bb37987a83d2f522f845c5f4dd7ccfccde8037a7a8de33508663bc",
+        "bytes": 29459
+      },
+      "total": 19,
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0
+    },
+    "release": {
+      "sourceTrx": {
+        "path": "artifacts/validation/coherent-coating-transport-20261002/coherent-persistence-help-release.trx",
+        "sha256": "bab4ec89dedf479290450ed07cbc3cb6e1bfa3cf6ed602f30c0b393bc67b59b6",
+        "bytes": 91974
+      },
+      "totalInRun": 61,
+      "helpSubsetPassed": 19,
+      "helpSubsetTotal": 19
+    },
+    "format": "Passed",
+    "gitDiffCheck": "Passed"
+  },
+  "debugCommand": "dotnet test tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj -c Debug --no-restore -m:1 -nr:false -p:UseSharedCompilation=false --filter 'FullyQualifiedName~OperandHelpTests|FullyQualifiedName~OperandAuthenticityTests|FullyQualifiedName~LayeringArchitectureTests.AppUiFontSizesUseTypographyTokens' --environment OPTILAND_OPERAND_HELP_CAPTURE_DIR=/Users/starlab/Documents/opticalsystem/artifacts/validation/operand-help-final-20261002/screenshots --logger 'trx;LogFileName=help-debug.trx' --results-directory artifacts/validation/operand-help-final-20261002",
+  "sourceFiles": [
+    {
+      "path": "src/OptilandWorkbench.App/Panels/OperandHelpPanel.cs",
+      "sha256": "a93bace510df98473ad2ea475dc9f8cabf23d7c2cfe71ec3f606015e22e2a459",
+      "bytes": 22103
+    },
+    {
+      "path": "src/OptilandWorkbench.App/Panels/OperandHelpProjection.cs",
+      "sha256": "c5476a6bf45adc88497dd0234200fd1512b068e741f4f324252e90501fb06102",
+      "bytes": 3607
+    },
+    {
+      "path": "src/OptilandWorkbench.App/Panels/OperandHelpTaxonomy.cs",
+      "sha256": "1cddeadad1181f410fa752be6ec97c3a35da12fe4fed62a7a6f61c889a6e2ea7",
+      "bytes": 8338
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/OperandHelpTests.cs",
+      "sha256": "9891cf245a411803563a3e366a6febd6ca134277fe751599ae556377344d686f",
+      "bytes": 13984
+    }
+  ],
+  "documentation": [
+    {
+      "path": "docs/OPERAND_HELP_HIERARCHY_2026-10-01.md",
+      "sha256": "95d43e5ddc6c23d5894566a5c2fa53a7110cfaec9e1d7e06b446e1e40a77ea35",
+      "bytes": 6426
+    },
+    {
+      "path": "docs/BUILD_AND_RELEASE.md",
+      "sha256": "c8af33fede9cde564f3f01cb1f96ead567003a2154dace1534e0421d5506571d",
+      "bytes": 145524
+    }
+  ],
+  "defaultAppBinaries": [
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "1571e701e3eb2ebe74e64fe608411d302a07bcbdea4b52a5b7c5c6069bf2f2d6",
+      "bytes": 25725440
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "d1c06ab4770e039ce537537ebbcedfa5b807cee37c5f98999c20b4fcb448fa4c",
+      "bytes": 25649152
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "artifacts/validation/operand-help-final-20261002/screenshots/operand-help-dark-grin-family.png",
+      "sha256": "f39f7f6eb5b6cdf595f5b1132cb6af9fb22fccd770cfbc679d054d4ce955a801",
+      "bytes": 180849
+    },
+    {
+      "path": "artifacts/validation/operand-help-final-20261002/screenshots/operand-help-dark-grin-search.png",
+      "sha256": "b668ffc8d036944027dfd8b85242f213066c00a2dd735105c2c3ec304f9b931d",
+      "bytes": 120846
+    },
+    {
+      "path": "artifacts/validation/operand-help-final-20261002/screenshots/operand-help-dark-narrow.png",
+      "sha256": "62973190991145e0528dbe2db50db2ccf3d1c05301bb4aa0e5e0f543932873c6",
+      "bytes": 106396
+    },
+    {
+      "path": "artifacts/validation/operand-help-final-20261002/screenshots/operand-help-dark-overview.png",
+      "sha256": "1b77743c0e4547a0bf5ba2e2b0f17050167a073633a84419fd824f8c6afa578e",
+      "bytes": 92927
+    },
+    {
+      "path": "artifacts/validation/operand-help-final-20261002/screenshots/operand-help-light-grin-family.png",
+      "sha256": "a05edc339d0f757a2b17f519da3f26250441b452888e0b490d876116e7bd412d",
+      "bytes": 175564
+    },
+    {
+      "path": "artifacts/validation/operand-help-final-20261002/screenshots/operand-help-light-grin-search.png",
+      "sha256": "bfc0f1c5fad183c4ef04450d76b3e8b1d41a3d3897e755fb00a2cb5f7942f386",
+      "bytes": 120337
+    },
+    {
+      "path": "artifacts/validation/operand-help-final-20261002/screenshots/operand-help-light-narrow.png",
+      "sha256": "5ac9ea74380e17de919517e113930f8a55777b1d762d7cc5cebe877b92757968",
+      "bytes": 106132
+    },
+    {
+      "path": "artifacts/validation/operand-help-final-20261002/screenshots/operand-help-light-overview.png",
+      "sha256": "2c534a73be95cf599852466bd380652f928447808a3882e95eabda55a41d1c11",
+      "bytes": 93140
+    }
+  ],
+  "visualReview": "All eight Light/Dark, overview/family/search/narrow frames reviewed; byte-identical to previously reviewed level-improvement captures.",
+  "nativeDesktopWalkthrough": false,
+  "opticalEquivalenceCertification": false
+}

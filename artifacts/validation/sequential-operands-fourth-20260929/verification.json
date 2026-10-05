@@ -1,0 +1,70 @@
+{
+  "date": "2026-09-29",
+  "scope": "Fourth batch: local surface derivatives and normal curvatures, intermediate transverse aberration, boresight error",
+  "registered": 383,
+  "executable_before": 180,
+  "executable_after": 184,
+  "compatibility_only_after": 199,
+  "added_codes": [
+    "BSER",
+    "SCUR",
+    "SDRV",
+    "TRAI"
+  ],
+  "cumulative_added_since_124": 60,
+  "verification": {
+    "debug": {
+      "total": 570,
+      "passed": 570,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 64,
+      "trx": "fourth-batch-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 570,
+      "passed": 570,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 64,
+      "trx": "fourth-batch-release.trx",
+      "log": "release.log"
+    }
+  },
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "external_reference": "Existing committed Zemax integrity/recalculation/comparison tests within filter only, including the prior CARD fixed capture. No new per-operand numerical or native MFE slot capture for these four codes.",
+  "historical_reference": "Frozen historical assets unchanged; no added Optiland comparisons",
+  "not_performed": [
+    "full product suite",
+    "laboratory full suites",
+    "full external comparison matrix",
+    "new Zemax captures",
+    "native desktop walkthrough",
+    "screenshot review",
+    "installer validation"
+  ],
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Services/SurfaceDifferentialMetrics.cs": "1275b47fd2a792e6772c6282ddcee70727f91f587756f799eeec840bc400c08e",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.SurfaceDifferentials.cs": "c26ed48d3c72992c961343d6942f2081aabd5d2a51be40bdabd89d54d5b2e403",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "21dbbb7249b9398f08ab37fbb3c3f995505f2b362451ea09dcd73bcee06cc526",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "5301929d2d893e6c0ac6e95a694324589615fac59bfc1bbcd33c35f471b9e4fe",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "d44cdfec5133fd41628355308d9fb850507d9e267a907a83456b725952de0b84",
+    "tests/OptilandWorkbench.Tests/SurfaceDifferentialOperandTests.cs": "01fde99715651d77a6f28c059ce2689ead90b0644ca7a3587e81bce64191ecb2",
+    "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs": "edfa64e5350313b88aa8951ed58be6db703daded5a3af509f27ea557d96ea270"
+  },
+  "default_binary_sha256": {
+    "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll": "ec4a6cdafb694a9e49569995d3df3581920a2518c0fe66f37c8ba216d94cf85e",
+    "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll": "17939614ba54177bfb5c8a39f94d73133209cd48c39e7a9738ea8f927c3db6c1",
+    "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll": "6afeffbd943fd2771e901e0fe2e3740cb3b289fd11f1503454707495454a4d2b",
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "86e2007dfde3d11225beb85adf16938fb8c25086ce10db31387ef9c632ab5714",
+    "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll": "6a0773e0ec23f7427c13918a1f8b83e8abce8cd248bd9f9fd437c65ea338b9ef",
+    "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll": "b142dec3a8df76fb6016211f7dbf380ff3784e6e47b89b2093e1f90f0a2e2cda"
+  },
+  "format_whitespace_verify": "passed",
+  "git_diff_check": "passed",
+  "documentation_fourth_batch_links_checked": 30
+}

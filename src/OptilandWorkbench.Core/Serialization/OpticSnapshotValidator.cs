@@ -3,13 +3,14 @@ using OptilandWorkbench.Core.Apertures;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Phase;
+using OptilandWorkbench.Core.Rays;
 
 namespace OptilandWorkbench.Core.Serialization;
 
 public static class OpticSnapshotValidator
 {
     public const int MinimumSupportedSchemaVersion = 1;
-    public const int CurrentSchemaVersion = 5;
+    public const int CurrentSchemaVersion = 6;
 
     private const int MaximumTopLevelItemCount = 100_000;
     private const int MaximumComponentNumberCount = 1_000_000;
@@ -43,6 +44,7 @@ public static class OpticSnapshotValidator
         "forbes_q");
 
     private static readonly IReadOnlySet<string> MaterialKinds = Kinds(
+        "gradient_index",
         "unresolved",
         "air",
         "constant",
@@ -56,6 +58,7 @@ public static class OpticSnapshotValidator
     private static readonly IReadOnlySet<string> CoatingKinds = Kinds(
         "none",
         "simple",
+        "coherent_multilayer",
         "thin_film_stack",
         "approximate_transmission_ripple");
 
@@ -96,6 +99,31 @@ public static class OpticSnapshotValidator
         "gaussian_quad",
         "uniform");
 
+    internal static bool CanUpgradeMeritOperand(MeritOperandSnapshot operand, IReadOnlySet<int> surfaces, int fieldCount, int wavelengthCount, IEnumerable<OptilandWorkbench.Core.Domain.OpticalSurface> surfaceData)
+    {
+        // Native column mappings of these newly connected families are not verified.
+        // Preserve imported compatibility rows; locally authored executable rows remain executable.
+        if (ZemaxOperandRegistry.IsCoatingLayerConstraint(operand.Type.ToUpperInvariant())) return false;
+        if (ZemaxOperandRegistry.IsGradientIndexControl(operand.Type.ToUpperInvariant())) return false;
+        if (operand.Type.ToUpperInvariant() is "MCOV" or "MCOG" or "MCOL" or "CONF" or "ZTHI" or "SVIG" or "CODA" or "RRET" or "HYLD" or "BFSD" or "TSAG") return false;
+        if (operand.Type.ToUpperInvariant() is "RELI" or "EFNO" or "DIST" or "DISA" or "MECA" or "ZERN" or "FDMO" or "FDRE" or "SPHS" or "PSLP" or "DPHS" or "QSLP" or "DENC" or "DENF" or "SSAG" or "SSLP" or "SCRV" or "GENC" or "GENF" or "ERFP" or "PRIM" or "IMSF" or "VOLU" or "TMAS" or "DSAG" or "DSLP" or "DCRV") return false;
+        if (operand.Type.ToUpperInvariant() is "TCVA" or "TCGT" or "TCLT")
+        {
+            var number = operand.ZemaxIntegerParameters is { Count: > 0 } ? operand.ZemaxIntegerParameters[0] : operand.Surface;
+            if (!surfaceData.Any(surface => surface.Number == number && surface.ThermalExpansionPpmPerC.HasValue))
+                return false;
+        }
+        try
+        {
+            ValidateMeritOperands([operand with { CompatibilityOnly = false }], surfaces, fieldCount, wavelengthCount);
+            return true;
+        }
+        catch (InvalidDataException)
+        {
+            return false;
+        }
+    }
+
     public static void Validate(OpticSnapshot snapshot)
     {
         ArgumentNullException.ThrowIfNull(snapshot);
@@ -121,6 +149,18 @@ public static class OpticSnapshotValidator
         }
 
         ValidateEnvironment(snapshot.Environment);
+        if (snapshot.Polarization is { } polarization)
+        {
+            if (polarization.ReferenceAxis is not ("X" or "Y" or "Z"))
+                Invalid("$.polarization.referenceAxis", "expected X, Y or Z");
+            try
+            {
+                new SystemPolarization(polarization.Unpolarized, polarization.Jx, polarization.Jy,
+                    polarization.XPhaseDegrees, polarization.YPhaseDegrees,
+                    Enum.Parse<PolarizationReferenceAxis>(polarization.ReferenceAxis)).Validate();
+            }
+            catch (ArgumentException error) { Invalid("$.polarization", error.Message); }
+        }
         ValidateComponent(snapshot.Apodization, ComponentRole.Apodization, "$.apodization", 0);
 
         if (snapshot.Fields is not { Count: > 0 })
@@ -270,6 +310,9 @@ public static class OpticSnapshotValidator
         RequireFiniteNonNegative(field.Weight, $"{path}.weight");
         RequireFinite(field.VignetteFactorX, $"{path}.vignetteFactorX");
         RequireFinite(field.VignetteFactorY, $"{path}.vignetteFactorY");
+        RequireFinite(field.VignetteDecenterX, $"{path}.vignetteDecenterX");
+        RequireFinite(field.VignetteDecenterY, $"{path}.vignetteDecenterY");
+        RequireFinite(field.VignetteAngleDegrees, $"{path}.vignetteAngleDegrees");
     }
 
     private static void ValidateWavelength(WavelengthSnapshot? wavelength, int index)
@@ -306,11 +349,15 @@ public static class OpticSnapshotValidator
         RequireText(surface.Material, $"{path}.material");
         RequireText(surface.Coating, $"{path}.coating");
         RequireFiniteNonNegative(surface.SemiDiameter, $"{path}.semiDiameter");
+        RequireFiniteNonNegative(surface.ChipZone, $"{path}.chipZone");
+        RequireFinite(surface.SemiDiameter + surface.ChipZone, $"{path}.chipZone");
         if (surface.MechanicalSemiDiameter is { } mechanicalSemiDiameter)
             RequireFiniteNonNegative(mechanicalSemiDiameter, $"{path}.mechanicalSemiDiameter");
         if (surface.MechanicalSemiDiameterSolveCode < 0)
             Invalid($"{path}.mechanicalSemiDiameterSolveCode", "solve code cannot be negative");
         RequireFinite(surface.Conic, $"{path}.conic");
+        if (surface.ThermalExpansionPpmPerC is { } thermalExpansion)
+            RequireFinite(thermalExpansion, $"{path}.thermalExpansionPpmPerC");
 
         if (surface.CoordinateSystem is { } coordinate)
         {
@@ -571,20 +618,50 @@ public static class OpticSnapshotValidator
                 var surfaceSlotIsReference = descriptor is null
                     || descriptor.UsesSlotAs("Int1", ZemaxOperandParameterValueKind.Surface);
                 var fieldSlotIsReference = descriptor is null
-                    || descriptor.UsesSlotAs("Data1", ZemaxOperandParameterValueKind.Field);
-                var wavelengthSlotIsReference = descriptor is null
+                    || descriptor.Parameters.Any(p => p.Slot.StartsWith("Data", StringComparison.Ordinal) && p.ValueKind == ZemaxOperandParameterValueKind.Field);
+                var signedWave = descriptor?.UsesSlotAs("Int2", ZemaxOperandParameterValueKind.SignedWavelength) == true;
+                int WaveReference(int value)
+                {
+                    if (!signedWave) return value;
+                    // Zero remains a storable editing placeholder. DISG evaluation
+                    // reports it as unsupported until the user selects a wavelength.
+                    if (value == int.MinValue)
+                        Invalid($"{path}.wavelength", "signed wavelength magnitude is outside the valid range");
+                    return Math.Abs(value);
+                }
+                if (descriptor?.UsesSlotAs("Int1", ZemaxOperandParameterValueKind.Field) == true)
+                {
+                    var rawField = operand.ZemaxIntegerParameters is { Count: > 0 }
+                        ? operand.ZemaxIntegerParameters[0] : operand.Field;
+                    RequireOneBasedReferenceOrDefault(rawField, fieldCount, $"{path}.zemaxIntegerParameters[0]");
+                }
+                if (descriptor?.UsesSlotAs("Int1", ZemaxOperandParameterValueKind.Wavelength) == true)
+                {
+                    var rawWave = operand.ZemaxIntegerParameters is { Count: > 0 }
+                        ? operand.ZemaxIntegerParameters[0] : operand.Wavelength;
+                    RequireOneBasedReferenceOrDefault(rawWave, wavelengthCount, $"{path}.zemaxIntegerParameters[0]");
+                }
+                if (descriptor?.UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Field) == true)
+                {
+                    var rawField = operand.ZemaxIntegerParameters is { Count: > 1 }
+                        ? operand.ZemaxIntegerParameters[1] : operand.Field;
+                    RequireOneBasedReferenceOrDefault(rawField, fieldCount, $"{path}.zemaxIntegerParameters[1]");
+                }
+                var wavelengthSlotIsReference = signedWave || descriptor is null
                     || descriptor.UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Wavelength);
                 var secondSlotIsEndSurface = descriptor?.UsesSlotAs(
                     "Int2",
                     ZemaxOperandParameterValueKind.EndSurface) == true;
 
+                var rawSurface = operand.ZemaxIntegerParameters is { Count: > 0 }
+                    ? operand.ZemaxIntegerParameters[0] : operand.Surface;
                 if (surfaceSlotIsReference
-                    && (operand.Surface < 0
-                        || (operand.Surface > 0 && !surfaceNumbers.Contains(operand.Surface))))
+                    && (rawSurface < 0
+                        || (rawSurface > 0 && !surfaceNumbers.Contains(rawSurface))))
                 {
                     Invalid(
                         $"{path}.surface",
-                        $"surface reference {operand.Surface} does not exist");
+                        $"surface reference {rawSurface} does not exist");
                 }
 
                 if (canonicalType is "RADI" or "THIC"
@@ -595,24 +672,55 @@ public static class OpticSnapshotValidator
                         $"operand {canonicalType} requires an existing surface");
                 }
 
+                var rawEndSurface = operand.ZemaxIntegerParameters is { Count: > 1 }
+                    ? operand.ZemaxIntegerParameters[1] : operand.Wavelength;
                 if (secondSlotIsEndSurface
-                    && (operand.Wavelength < 0
-                        || (operand.Wavelength > 0 && !surfaceNumbers.Contains(operand.Wavelength))))
+                    && (rawEndSurface < 0
+                        || (rawEndSurface > 0 && !surfaceNumbers.Contains(rawEndSurface))))
                 {
                     Invalid(
                         $"{path}.wavelength",
-                        $"end-surface reference {operand.Wavelength} does not exist");
+                        $"end-surface reference {rawEndSurface} does not exist");
+                }
+
+                if (descriptor?.Parameters.Count > 6 && (operand.ZemaxDataParameters?.Count ?? 0) < descriptor.Parameters.Count - 2)
+                    Invalid($"{path}.zemaxDataParameters", $"all {descriptor.Parameters.Count} parameters are required; unverified ZMX extended rows remain read-only");
+
+                if (canonicalType is "MNRE" or "MNRI" or "MXRE" or "MXRI")
+                {
+                    var rawWave = operand.ZemaxDataParameters![0];
+                    if (!double.IsFinite(rawWave) || rawWave != Math.Truncate(rawWave) || rawWave < 0 || rawWave > wavelengthCount)
+                        Invalid($"{path}.zemaxDataParameters[0]", "wavelength must be an existing integer index or zero");
                 }
 
                 if (fieldSlotIsReference)
                 {
+                    foreach (var parameter in descriptor?.Parameters.Where(p => p.Slot.StartsWith("Data", StringComparison.Ordinal)
+                                 && p.ValueKind == ZemaxOperandParameterValueKind.Field) ?? [])
+                    {
+                        var slot = int.Parse(parameter.Slot.AsSpan(4), System.Globalization.CultureInfo.InvariantCulture) - 1;
+                        if (operand.ZemaxDataParameters is null || operand.ZemaxDataParameters.Count <= slot) continue;
+                        var rawField = operand.ZemaxDataParameters[slot];
+                        RequireFinite(rawField, $"{path}.zemaxDataParameters[{slot}]");
+                        if (rawField != Math.Truncate(rawField) || rawField < 0 || rawField > fieldCount)
+                            Invalid($"{path}.zemaxDataParameters[{slot}]", "field reference must be an existing integer index or zero");
+                    }
                     RequireOneBasedReferenceOrDefault(operand.Field, fieldCount, $"{path}.field");
                 }
 
                 if (wavelengthSlotIsReference)
                 {
+                    if (operand.ZemaxIntegerParameters is { Count: > 1 })
+                    {
+                        // Evaluation uses the raw Int2 when present. A stale legacy
+                        // Wavelength alias must not make an invalid row upgradeable.
+                        RequireOneBasedReferenceOrDefault(
+                            WaveReference(operand.ZemaxIntegerParameters[1]),
+                            wavelengthCount,
+                            $"{path}.zemaxIntegerParameters[1]");
+                    }
                     RequireOneBasedReferenceOrDefault(
-                        operand.Wavelength,
+                        WaveReference(operand.Wavelength),
                         wavelengthCount,
                         $"{path}.wavelength");
                 }
@@ -745,6 +853,13 @@ public static class OpticSnapshotValidator
         }
 
         ValidateEncodedCollectionSizes(component, role, path);
+        if (role == ComponentRole.Material && component.Kind == "gradient_index")
+        {
+            try { _ = ComponentSnapshotFactory.ToGradientIndex(component); }
+            catch (Exception exception) when (exception is ArgumentException or InvalidOperationException or InvalidDataException)
+            { Invalid(path, exception.Message); }
+            return; // Strict GRIN decoder validates the optional dispersion child in full.
+        }
         if (role == ComponentRole.Apodization && component.Kind == "zemax_pupil")
         {
             RequireNumberKey(component, "type", path);
@@ -831,6 +946,25 @@ public static class OpticSnapshotValidator
         int depth)
     {
         var children = component.Children;
+        if (role == ComponentRole.Coating && component.Kind == "coherent_multilayer")
+        {
+            var count = RequireEncodedCount(component, "count", 0,
+                Coatings.CoherentThinFilmSolver.MaximumLayers, path);
+            if (children is null || children.Count != count)
+                Invalid($"{path}.children", "coherent coatings require exactly one material per layer");
+            for (var index = 0; index < count; index++)
+            {
+                RequireNumberKey(component, $"thickness_{index}", path);
+                if (component.Numbers[$"thickness_{index}"] < 0)
+                    Invalid(path, "coherent layer thickness must be nonnegative");
+                if (!children.TryGetValue($"material_{index}", out var material) || material is null)
+                    Invalid(path, "coherent layer material is missing");
+                ValidateComponent(material, ComponentRole.Material, $"{path}.children.material_{index}", depth + 1);
+            }
+            try { _ = ComponentSnapshotFactory.ToCoating(component); }
+            catch (ArgumentException exception) { Invalid(path, exception.Message); }
+            return;
+        }
         if (role == ComponentRole.Interaction && component.Kind == "phase")
         {
             if (children is null || children.Count != 1)

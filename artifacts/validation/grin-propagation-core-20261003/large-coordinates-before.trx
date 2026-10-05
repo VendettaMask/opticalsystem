@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="4b0544e6-240d-4eeb-b779-75324be27eb8" name="@starlabdeMacBook-Air 2026-10-03 10:31:40" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-03T10:31:40.6255180+08:00" queuing="2026-10-03T10:31:40.6255180+08:00" start="2026-10-03T10:31:39.8377400+08:00" finish="2026-10-03T10:31:40.6274900+08:00" />
+  <TestSettings name="default" id="384fe6da-824f-4158-9c82-fc68516e9dfc">
+    <Deployment runDeploymentRoot="_starlabdeMacBook-Air_2026-10-03_10_31_40" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b1edfb12-1aa2-48f1-bef3-e31e64926402" testId="fafffcc8-383a-b842-8291-764a746f80a2" testName="OptilandWorkbench.Tests.GradientIndexIntegrationTests.LargeAbsoluteCoordinatesDoNotQuantizeIntersectionDistanceOrOpticalPath(offset: 1000000000000)" computerName="starlabdeMacBook-Air" duration="00:00:00.0006310" startTime="2026-10-03T10:31:40.4543930+08:00" endTime="2026-10-03T10:31:40.4544320+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b1edfb12-1aa2-48f1-bef3-e31e64926402">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range
+Range:  (0 - 3E-09)
+Actual: 6.9923355448864299E-05</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.GradientIndexIntegrationTests.Near(Double expected, Double actual, Double tolerance) in /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/GradientIndexIntegrationTests.cs:line 381
+   at OptilandWorkbench.Tests.GradientIndexIntegrationTests.LargeAbsoluteCoordinatesDoNotQuantizeIntersectionDistanceOrOpticalPath(Double offset) in /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/GradientIndexIntegrationTests.cs:line 170
+   at InvokeStub_GradientIndexIntegrationTests.LargeAbsoluteCoordinatesDoNotQuantizeIntersectionDistanceOrOpticalPath(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="95db4714-8d96-4524-ae84-6d2eac1dd266" testId="306cc65a-37c8-8f84-b39a-431c693da5ac" testName="OptilandWorkbench.Tests.GradientIndexIntegrationTests.LargeAbsoluteCoordinatesDoNotQuantizeIntersectionDistanceOrOpticalPath(offset: -1000000000000)" computerName="starlabdeMacBook-Air" duration="00:00:00.0097319" startTime="2026-10-03T10:31:40.4355000+08:00" endTime="2026-10-03T10:31:40.4500490+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="95db4714-8d96-4524-ae84-6d2eac1dd266">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range
+Range:  (0 - 3E-09)
+Actual: 6.9923355448864299E-05</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.GradientIndexIntegrationTests.Near(Double expected, Double actual, Double tolerance) in /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/GradientIndexIntegrationTests.cs:line 381
+   at OptilandWorkbench.Tests.GradientIndexIntegrationTests.LargeAbsoluteCoordinatesDoNotQuantizeIntersectionDistanceOrOpticalPath(Double offset) in /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/GradientIndexIntegrationTests.cs:line 170
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.GradientIndexIntegrationTests.LargeAbsoluteCoordinatesDoNotQuantizeIntersectionDistanceOrOpticalPath(offset: -1000000000000)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="306cc65a-37c8-8f84-b39a-431c693da5ac">
+      <Execution id="95db4714-8d96-4524-ae84-6d2eac1dd266" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.GradientIndexIntegrationTests" name="LargeAbsoluteCoordinatesDoNotQuantizeIntersectionDistanceOrOpticalPath" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.GradientIndexIntegrationTests.LargeAbsoluteCoordinatesDoNotQuantizeIntersectionDistanceOrOpticalPath(offset: 1000000000000)" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="fafffcc8-383a-b842-8291-764a746f80a2">
+      <Execution id="b1edfb12-1aa2-48f1-bef3-e31e64926402" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.GradientIndexIntegrationTests" name="LargeAbsoluteCoordinatesDoNotQuantizeIntersectionDistanceOrOpticalPath" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="fafffcc8-383a-b842-8291-764a746f80a2" executionId="b1edfb12-1aa2-48f1-bef3-e31e64926402" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="306cc65a-37c8-8f84-b39a-431c693da5ac" executionId="95db4714-8d96-4524-ae84-6d2eac1dd266" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.06]   Discovering: OptilandWorkbench.Tests
+[xUnit.net 00:00:00.24]   Discovered:  OptilandWorkbench.Tests
+[xUnit.net 00:00:00.25]   Starting:    OptilandWorkbench.Tests
+[xUnit.net 00:00:00.28]       Assert.InRange() Failure: Value not in range
+[xUnit.net 00:00:00.28]       Range:  (0 - 3E-09)
+[xUnit.net 00:00:00.28]       Actual: 6.9923355448864299E-05
+[xUnit.net 00:00:00.28]       Stack Trace:
+[xUnit.net 00:00:00.28]         /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/GradientIndexIntegrationTests.cs(381,0): at OptilandWorkbench.Tests.GradientIndexIntegrationTests.Near(Double expected, Double actual, Double tolerance)
+[xUnit.net 00:00:00.28]         /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/GradientIndexIntegrationTests.cs(170,0): at OptilandWorkbench.Tests.GradientIndexIntegrationTests.LargeAbsoluteCoordinatesDoNotQuantizeIntersectionDistanceOrOpticalPath(Double offset)
+[xUnit.net 00:00:00.28]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.28]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.28]       Assert.InRange() Failure: Value not in range
+[xUnit.net 00:00:00.28]       Range:  (0 - 3E-09)
+[xUnit.net 00:00:00.28]       Actual: 6.9923355448864299E-05
+[xUnit.net 00:00:00.28]       Stack Trace:
+[xUnit.net 00:00:00.28]         /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/GradientIndexIntegrationTests.cs(381,0): at OptilandWorkbench.Tests.GradientIndexIntegrationTests.Near(Double expected, Double actual, Double tolerance)
+[xUnit.net 00:00:00.28]         /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/GradientIndexIntegrationTests.cs(170,0): at OptilandWorkbench.Tests.GradientIndexIntegrationTests.LargeAbsoluteCoordinatesDoNotQuantizeIntersectionDistanceOrOpticalPath(Double offset)
+[xUnit.net 00:00:00.28]            at InvokeStub_GradientIndexIntegrationTests.LargeAbsoluteCoordinatesDoNotQuantizeIntersectionDistanceOrOpticalPath(Object, Span`1)
+[xUnit.net 00:00:00.28]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.28]   Finished:    OptilandWorkbench.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="starlabdeMacBook-Air" outcome="Error" timestamp="2026-10-03T10:31:40.4510030+08:00">
+        <Text>[xUnit.net 00:00:00.28]     OptilandWorkbench.Tests.GradientIndexIntegrationTests.LargeAbsoluteCoordinatesDoNotQuantizeIntersectionDistanceOrOpticalPath(offset: -1000000000000) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="starlabdeMacBook-Air" outcome="Error" timestamp="2026-10-03T10:31:40.4545430+08:00">
+        <Text>[xUnit.net 00:00:00.28]     OptilandWorkbench.Tests.GradientIndexIntegrationTests.LargeAbsoluteCoordinatesDoNotQuantizeIntersectionDistanceOrOpticalPath(offset: 1000000000000) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

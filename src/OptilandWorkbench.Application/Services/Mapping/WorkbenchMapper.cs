@@ -66,7 +66,9 @@ internal static class WorkbenchMapper
                 surface.CoordinateSystem.RotationXDegrees,
                 surface.CoordinateSystem.RotationYDegrees,
                 surface.CoordinateSystem.RotationZDegrees),
-            MechanicalSemiDiameter: surface.MechanicalSemiDiameter);
+            MechanicalSemiDiameter: surface.MechanicalSemiDiameter,
+            ThermalExpansionPpmPerC: surface.ThermalExpansionPpmPerC,
+            ChipZone: surface.ChipZone);
     }
 
     internal static string GeometryKind(OpticalSurface surface) => surface.Geometry switch

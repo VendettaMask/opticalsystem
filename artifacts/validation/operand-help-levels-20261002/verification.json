@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-02",
+  "scope": "Operand help visual hierarchy and clickable child navigation. Presentation-only source changes; default Debug/Release desktop binaries rebuilt.",
+  "levels": [
+    "功能大类",
+    "操作数族",
+    "具体操作数"
+  ],
+  "category_count": 8,
+  "family_count": 51,
+  "entry_count": 387,
+  "verification": {
+    "debug": {
+      "total": 19,
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0,
+      "trx": "levels-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 19,
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0,
+      "trx": "levels-release.trx",
+      "log": "release.log"
+    }
+  },
+  "interaction_checks": [
+    "typed node levels",
+    "child navigation synchronizes tree selection",
+    "details scroll returns to top",
+    "leaf and no-result views clear child navigation",
+    "search and support filters",
+    "keyboard expansion",
+    "Light/Dark and narrow layout"
+  ],
+  "source_sha256": {
+    "src/OptilandWorkbench.App/Panels/OperandHelpPanel.cs": "a93bace510df98473ad2ea475dc9f8cabf23d7c2cfe71ec3f606015e22e2a459",
+    "src/OptilandWorkbench.App/Panels/OperandHelpProjection.cs": "c5476a6bf45adc88497dd0234200fd1512b068e741f4f324252e90501fb06102",
+    "src/OptilandWorkbench.App/Panels/OperandHelpTaxonomy.cs": "1cddeadad1181f410fa752be6ec97c3a35da12fe4fed62a7a6f61c889a6e2ea7",
+    "tests/OptilandWorkbench.Tests/OperandHelpTests.cs": "9891cf245a411803563a3e366a6febd6ca134277fe751599ae556377344d686f"
+  },
+  "documentation_sha256": {
+    "docs/OPERAND_HELP_HIERARCHY_2026-10-01.md": "a2f6f7c1ea7a8acc359d5c365f861fbeb9e757e77bafd5cb9bce78cac75381ee",
+    "docs/BUILD_AND_RELEASE.md": "9f281649118228ba442e1398c335121067465a7fbd06b17210708a7c58651554"
+  },
+  "screenshots_sha256": {
+    "screenshots/operand-help-dark-grin-family.png": "f39f7f6eb5b6cdf595f5b1132cb6af9fb22fccd770cfbc679d054d4ce955a801",
+    "screenshots/operand-help-dark-grin-search.png": "b668ffc8d036944027dfd8b85242f213066c00a2dd735105c2c3ec304f9b931d",
+    "screenshots/operand-help-dark-narrow.png": "62973190991145e0528dbe2db50db2ccf3d1c05301bb4aa0e5e0f543932873c6",
+    "screenshots/operand-help-dark-overview.png": "1b77743c0e4547a0bf5ba2e2b0f17050167a073633a84419fd824f8c6afa578e",
+    "screenshots/operand-help-light-grin-family.png": "a05edc339d0f757a2b17f519da3f26250441b452888e0b490d876116e7bd412d",
+    "screenshots/operand-help-light-grin-search.png": "bfc0f1c5fad183c4ef04450d76b3e8b1d41a3d3897e755fb00a2cb5f7942f386",
+    "screenshots/operand-help-light-narrow.png": "5ac9ea74380e17de919517e113930f8a55777b1d762d7cc5cebe877b92757968",
+    "screenshots/operand-help-light-overview.png": "2c534a73be95cf599852466bd380652f928447808a3882e95eabda55a41d1c11"
+  },
+  "app_binary_sha256": {
+    "Debug": "45457b8bdc91693d30d17421a54d39575c52590e123c716f68b411864c2eb139",
+    "Release": "678db960b41f91f926d961bda343b3d910de9cf4ca2ecd9f0b9941e926cd99ee"
+  },
+  "format_check": "dotnet format whitespace --verify-no-changes passed; git diff --check passed",
+  "rendering": "Eight actual Avalonia/Skia frames visually reviewed.",
+  "not_performed": [
+    "2308-test optical/operand combined regression",
+    "native desktop walkthrough",
+    "new Zemax capture"
+  ]
+}

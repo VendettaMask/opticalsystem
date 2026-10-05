@@ -24,7 +24,7 @@ using ContractAnalysisSeriesKind = OptilandWorkbench.Application.Contracts.Analy
 
 namespace OptilandWorkbench.Application.Services;
 
-internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingService
+internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolerancingService
 {
     private const int MaximumOperandCount = 1_000;
     public TolerancingService(WorkspaceCoordinator workspace)
@@ -377,6 +377,7 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
         {
             throw new ArgumentException("反向灵敏度需要显式公差操作数表。", nameof(request));
         }
+        ValidateMtfAndCompensation(request);
         if (request.Operands is { Count: > 0 } operands)
         {
             var validation = ValidateOperands(operands);
@@ -413,7 +414,7 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
                     linked.Token,
                     request.MaxDegreeOfParallelism,
                     request.Mode,
-                    request.InverseValue);
+                    request.InverseValue, request.MtfSettings, request.CompensationAlgorithm, request.AdditionalCompensators);
                 linked.Token.ThrowIfCancellationRequested();
                 return new TolerancingResultDto(
                     view.Summary,
@@ -422,12 +423,12 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
                         row.DeltaMerit,
                         row.NegativeMerit,
                         row.PositiveMerit,
-                        row.WorstMerit)).ToArray(),
+                        row.WorstMerit, row.NegativeFields, row.PositiveFields, row.NegativeCompensators, row.PositiveCompensators)).ToArray(),
                     view.TrialRows.Select(row => new TolerancingTrialRowDto(
                         row.Trial,
                         row.Merit,
                         row.CompensatedMerit,
-                        row.Degradation)).ToArray(),
+                        row.Degradation, row.Fields, row.UncompensatedFields, row.Compensators, row.Passed, row.AcceptanceMargin, row.CriterionValue)).ToArray(),
                     view.Details,
                     view.Statistics is null
                         ? null
@@ -440,7 +441,7 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
                             view.Statistics.Percentile50,
                             view.Statistics.Percentile90,
                             view.Statistics.Percentile95,
-                            view.Statistics.Yield),
+                            view.Statistics.Yield, view.Statistics.Percentile05),
                     view.SensitivityStatistics is null
                         ? null
                         : new TolerancingSensitivityStatisticsDto(
@@ -463,7 +464,7 @@ internal sealed class TolerancingService : WorkbenchServiceBase, ITolerancingSer
                             row.Maximum.Status,
                             row.Maximum.Iterations))).ToArray(),
                     view.AdjustedOperands,
-                    view.InverseTarget);
+                    view.InverseTarget, view.MtfSettings, view.NominalFields, view.FieldStatistics, view.NominalCompensators);
             }, linked.Token).ConfigureAwait(false);
         }
     }

@@ -1,0 +1,86 @@
+{
+  "verified_at": "2026-09-28T10:32:50.386669+08:00",
+  "base_commit": "4cce1d475465550f92b0a26cc893e411445cdc48",
+  "scope": "Four UI audit fixes; unchanged panel layout and Core optics",
+  "tests": {
+    "debug": {
+      "file": "ui-audit-Debug-final.trx",
+      "total": 124,
+      "passed": 124,
+      "failed": 0,
+      "times": {
+        "creation": "2026-09-28T10:29:41.1892610+08:00",
+        "queuing": "2026-09-28T10:29:41.1892610+08:00",
+        "start": "2026-09-28T10:29:40.5532630+08:00",
+        "finish": "2026-09-28T10:29:57.2623980+08:00"
+      }
+    },
+    "release": {
+      "file": "ui-audit-Release-final.trx",
+      "total": 124,
+      "passed": 124,
+      "failed": 0,
+      "times": {
+        "creation": "2026-09-28T10:29:58.4280730+08:00",
+        "queuing": "2026-09-28T10:29:58.4280730+08:00",
+        "start": "2026-09-28T10:29:57.7881510+08:00",
+        "finish": "2026-09-28T10:30:15.1912890+08:00"
+      }
+    },
+    "skia": {
+      "file": "ui-audit-skia-final.trx",
+      "total": 12,
+      "passed": 12,
+      "failed": 0,
+      "times": {
+        "creation": "2026-09-28T10:31:01.2942870+08:00",
+        "queuing": "2026-09-28T10:31:01.2942870+08:00",
+        "start": "2026-09-28T10:30:59.4550670+08:00",
+        "finish": "2026-09-28T10:31:07.9072590+08:00"
+      }
+    }
+  },
+  "builds": {
+    "Debug": {
+      "log": "build-debug-final.log",
+      "warnings": 0,
+      "errors": 0,
+      "default_app_dll": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "7afcd77ca64b2d0ce1b03aba4f5d32c8fb6e3c87f937d2c232d27b4cd5a85a6f"
+    },
+    "Release": {
+      "log": "build-release-final.log",
+      "warnings": 0,
+      "errors": 0,
+      "default_app_dll": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "b1e0d4e9ec54392dfaeece7208c213b0664e0b761707c4074d5ea4384bec902a"
+    }
+  },
+  "sources": {
+    "src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Results.cs": "02a7c1da79260fe00656045a32eb99657dd66d2570e8546d35f8d0a6a99c4354",
+    "src/OptilandWorkbench.App/Panels/AnalysisPanel.cs": "bda0b4fafc996f308a6a239a6811f78779cf218c3e315ba089c606f8dff082bd",
+    "src/OptilandWorkbench.App/Panels/LensEditorPanel.cs": "5f841d3c4e27bbeeb031022c28049b16da397527749ebe595e4ed7c67957c7b5",
+    "src/OptilandWorkbench.App/ViewModels/EditorRows.cs": "c2d5a6c7aa40961ed144203802eb2c8a91502923e37710edc4accf3f0f8a755a",
+    "tests/OptilandWorkbench.Tests/LensMaterialRowThemeTests.cs": "b5971010c2a637f4513d4ebad49211b8764d77725d6f7a884fe62c7dc3d6c32b",
+    "tests/OptilandWorkbench.Tests/SurfaceEditorRowTests.cs": "0933a6275d8351740b92da074cad1bc8e4b0ccb9cdb101d1ec98c56047aab8f2",
+    "tests/OptilandWorkbench.Tests/UiAuditRegressionTests.cs": "49502bb931d1885159e695c03e76541cc35c907033cbceeb8a30a28276a792f2"
+  },
+  "renders": [
+    "RadiusSolveCell-invalid.png",
+    "SemiDiameterSolveCell-invalid.png",
+    "ThicknessSolveCell-invalid.png",
+    "first-order-default-data.png",
+    "material-rows-recycled-image.png",
+    "material-rows-recycled-roles.png",
+    "material-rows-recycled-stop.png",
+    "material-rows-tessar.png",
+    "unlocked-stale-result.png"
+  ],
+  "not_run": [
+    "Full main test suite",
+    "Laboratory suites",
+    "Zemax baseline integrity",
+    "New external numerical comparison",
+    "Native desktop end-to-end acceptance"
+  ]
+}

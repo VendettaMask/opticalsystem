@@ -283,7 +283,9 @@ public sealed class CookeTripletGoldenTests
                 AssertFrozenFloat(sample.GetProperty("output_direction_y"), actual.Direction.Y);
                 AssertFrozenFloat(sample.GetProperty("output_direction_z"), actual.Direction.Z);
                 AssertClose(sample.GetProperty("output_intensity").GetDouble(), actual.Intensity, TraceTolerance);
-                AssertClose(sample.GetProperty("opd").GetDouble(), actual.OpticalPathDifference, TraceTolerance);
+                // Frozen phase-only OPD values are in micrometers; Core path state is in mm.
+                // Keep the original historical asset unchanged and convert only its unit.
+                AssertClose(sample.GetProperty("opd").GetDouble() / 1000.0, actual.OpticalPathDifference, TraceTolerance);
             }
         }
     }

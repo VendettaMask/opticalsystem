@@ -1,0 +1,184 @@
+{
+  "date": "2026-10-01",
+  "scope": "Twenty-first batch: diffraction energy operands and analytic circle-pixel integration",
+  "registered": 383,
+  "executable_before": 285,
+  "executable_after": 287,
+  "compatibility_only_after": 96,
+  "added_codes": [
+    "DENC",
+    "DENF"
+  ],
+  "cumulative_added_since_124": 163,
+  "verification": {
+    "debug": {
+      "total": 1980,
+      "passed": 1980,
+      "failed": 0,
+      "skipped": 0,
+      "new_tests": 51,
+      "previous_batch_tests": 1928,
+      "additional_adjacent_tests": 1,
+      "trx": "twentyfirst-batch-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 1980,
+      "passed": 1980,
+      "failed": 0,
+      "skipped": 0,
+      "new_tests": 51,
+      "previous_batch_tests": 1928,
+      "additional_adjacent_tests": 1,
+      "trx": "twentyfirst-batch-release.trx",
+      "log": "release.log"
+    }
+  },
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "support_boundaries": {
+    "computation": "Shared FFT/Huygens PSF, primary reference, normalized positive wavelength weights; no analysis-curve lookup. Circle/slit/square pixel area, µm radius/half width.",
+    "modes": "Samp1..4; Refp0..5; Huygens image sample1..4 and explicit/default image delta. Focal scalar single configuration; bounded aggregate grids and Huygens operations.",
+    "integration": "Shared circle-rectangle integration now piecewise analytic. Independent area test first exposed fixed 16-point quadrature error; tolerance was not relaxed. Existing captured diffraction energy regression included unchanged.",
+    "window": "Energy normalized over finite sampled window; region must remain within coverage. Missing PSF tails are not bounded by this check. Invalid fractions, insufficient coverage and vertex outside grid fail explicitly; no guessed native 1e10 sentinel threshold.",
+    "persistence": "Local eight-slot editor/project round trips. Native column capture unavailable; DENC/DENF imports disabled read-only, no auto-upgrade.",
+    "known_residual": "FCGT remains Difference against unchanged 1e-5 mm accuracy target."
+  },
+  "external_reference": {
+    "integrity": "14 selected committed assets byte-equal HEAD, not full baseline audit.",
+    "recalculation": "Current Core and fixed-file/settings PSF/cross-section/MTF regressions.",
+    "huygens_analysis_comparison": {
+      "debug": {
+        "direction_values": 18,
+        "maximum_absolute_error": 0.011900434932046483,
+        "analysis_regression_budget": 0.03,
+        "status": "WithinRegressionBudget",
+        "native_MFE_parity": "NotVerified"
+      },
+      "release": {
+        "direction_values": 18,
+        "maximum_absolute_error": 0.011900434932046483,
+        "analysis_regression_budget": 0.03,
+        "status": "WithinRegressionBudget",
+        "native_MFE_parity": "NotVerified"
+      }
+    },
+    "existing_distortion_comparison": {
+      "debug": {
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm",
+          "samples": 9
+        },
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm",
+          "samples": 9
+        },
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        }
+      },
+      "release": {
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm",
+          "samples": 9
+        },
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm",
+          "samples": 9
+        }
+      }
+    },
+    "new_native_capture": "None; DENC/DENF native MFE columns and numerical parity unverified.",
+    "screenshots": "No screenshot review."
+  },
+  "remaining_category_counts_overlap": true,
+  "unique_remaining": 96,
+  "all_operands_completion_goal": "Active, not complete; remaining codes and partial modes still require work",
+  "not_performed": [
+    "full product suite",
+    "laboratory full suites",
+    "full external comparison matrix",
+    "new Zemax captures",
+    "native desktop walkthrough",
+    "screenshot review",
+    "installer validation"
+  ],
+  "historical_reference": "Frozen history untouched; no new Optiland comparisons",
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Services/DiffractionEnergyMetrics.cs": "45c9b40901e026a4aaef5465a81c761e8ac35ce35898271774f8a076959ccfe6",
+    "src/OptilandWorkbench.Core/Services/RayBundleMetrics.cs": "7df69e9ab7cc1c1695632a7e172f878e828efad14e06d1ced57e959f28033815",
+    "src/OptilandWorkbench.Core/Analysis/Radiometry/EncircledEnergyVariants.cs": "3dfa61e1ecbe6cdc15495ed99d87b3b89c868dd884be036a92415609e8eac0c7",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.DiffractionEnergy.cs": "6b0e468eb0be356719ab40f91e57a10b3bf2f833a2d240c54ede6282ea42a449",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "e45eb83909903ea77a970d5ff7c8be5387affcedff9cca59f36e7d1e6683aefd",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "be6c79ae8006fccaf5fa95681dc7c9c83942d56010b787c12155f79fa51f54be",
+    "src/OptilandWorkbench.Core/FileIO/ZemaxZmxReader.cs": "c8c4545c699237320ceec49d14967982fd204a1afb390a90dd9eb8467b2fbfdb",
+    "src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs": "8840ed835c6138d1beb1c822b9465d8609a70ba68a5ddf9bb83606bd864811eb",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "055ea3d3e851bf445eb0619cb991522b53765f94dd7b9f7cd5db94a01cde5a41",
+    "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs": "dba99ed61b77a2abb2c759cd194b0b6b7118732ce8ca771688e4074053f8df0a",
+    "tests/OptilandWorkbench.Tests/DiffractionEnergyOperandTests.cs": "21cd8f3008432aff6d735c2948f26a6605fa0f2cc4a1352c9d46f3eb4d417668"
+  },
+  "selected_capture_sha256": {
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.txt": "dbb741fc9f07d6d55a9d7d6acdad2bfe91f45e3b5b365bb14c51e1d6b8f2a6f0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/049-rmsfield/data.json": "7badd81b3adbd9bd694e4cabfce3d58e45c863866ed77d4337a33f3321290e87",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/052-rmsfocus/data.json": "a90eabe523007f995e10c685622025b34d47c87b25d627e56ddda16020765240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/055-wavefrontmap/data.json": "e9cfe98cfb64ec684976ee786fd33b8844d24995be084941bedbe7537c911e62",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/data.json": "ef6a44cbe999be4ae54c8d2b8dc3854434e0565b9bd28266138eeebcc900f57a",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/025-huygensmtfvsfield/data.json": "9b00c750481cb73adb741f47c00ca66232dd3374765e2fa68a59bca1c6c99323",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/028-huygensthroughfocusmtf/data.json": "dc115e8bd603af3b3a1686fe7c2c0ec4530d9220d235c5af1ce0cd9004147240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/004-fieldcurvatureanddistortion/data.json": "a93a1aeff36e6bf4856ff41ad22844022b8dcc6cbde2a8038853da1d3090bd73",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/settings.cfg": "afc322d75c819f36e8c1aece2d4600c3fbdc687a4e0e6d8badb4e0e646917790",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/data.json": "1ddb61139e42585f144329c430a85ebc7685eb92416783cf85f653822cc64eb0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/settings.cfg": "5ac71deed1902825151e0e78d082850bf0f28ac4b9c2f16934a2003ad9980f69",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/034-diffractionencircledenergy/data.json": "b6b2928cd6cbc41bb078f38598065be4ba6977e0c4d29c2a040ce62c640af48e",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/034-diffractionencircledenergy/settings.cfg": "77f92a4185b82ebf31f8f27419b921ff52f1909ec65ce67074ba2680978b1a0d"
+  },
+  "default_binary_sha256": {
+    "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll": "e454d5f70b2b307e816277b3718e660a1ac2085b5a79ee4192adae1ef671c4a5",
+    "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll": "3ccc8c41ea25a5420c9f0a44d1b9e628149b8ffe65f099339b2df5ab955d04ea",
+    "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll": "286aac1acff2fcf36f5750f6d915e34bf40a08b4328ef4a7d7c0b8441efdf93e",
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "229edb2c375fae4ca1f43efe9665fd6af29ddb116eb71bef9129e3bcae1e2344",
+    "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll": "8bca50af3249e894d487da2f65b334e39a5ef293d758334d2025f719b2de7a43",
+    "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll": "b5b024c58a278148658fa7517b239fbb2d70a3fc7b14e1d9eec29891a10070be"
+  },
+  "new_document_links_checked": 39
+}

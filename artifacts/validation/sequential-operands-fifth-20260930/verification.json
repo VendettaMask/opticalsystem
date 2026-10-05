@@ -1,0 +1,82 @@
+{
+  "date": "2026-09-30",
+  "scope": "Fifth batch: longitudinal focus, axial/lateral color and spherochromatism",
+  "registered": 383,
+  "executable_before": 184,
+  "executable_after": 188,
+  "compatibility_only_after": 195,
+  "added_codes": [
+    "AXCL",
+    "LACL",
+    "LONA",
+    "SPCH"
+  ],
+  "cumulative_added_since_124": 64,
+  "verification": {
+    "debug": {
+      "total": 644,
+      "passed": 644,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 70,
+      "captured_longitudinal_curves": 3,
+      "trx": "fifth-batch-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 644,
+      "passed": 644,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 70,
+      "captured_longitudinal_curves": 3,
+      "trx": "fifth-batch-release.trx",
+      "log": "release.log"
+    }
+  },
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "external_reference": {
+    "integrity": "The two named baseline files exactly match committed HEAD; this is not a whole-baseline integrity audit.",
+    "recalculation": "Current Core LONA at captured 420/440/460 nm and Py=0..1 (101 samples/curve), with the committed 123456 source settings.",
+    "numerical_comparison": "Each curve peak-normalized RMSE <= 1%; curve-level check, not exact pointwise equivalence.",
+    "not_validated": "No new native MFE slot captures; full parameter and signed operand conventions still require native MFE comparison."
+  },
+  "historical_reference": "Frozen assets untouched; no added Optiland comparisons",
+  "not_performed": [
+    "full product suite",
+    "laboratory full suites",
+    "full external comparison matrix",
+    "new Zemax captures",
+    "native desktop walkthrough",
+    "screenshot review",
+    "installer validation"
+  ],
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Services/ChromaticFocusMetrics.cs": "b92eb4103993c28d459d27a35eb890c10e2c612df421fd47a50dc088f7c4545c",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.ChromaticFocus.cs": "c6c68010aaafbcda0f308242dbfb1d1136d11921f170e74ec57c56626f7fa8fd",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "56047fddc0307afb8aa0723a91742592ecf5fff930ef9e9410e69c73a7d86059",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "139d1528053a0f3fbe9650cdb35b239b97a7f5e02fc84b0fadb940580dfe546a",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "882107b21e3129fe28e8ec9807de2077a6d8d696df203c9f802e1592d1d591b8",
+    "tests/OptilandWorkbench.Tests/ChromaticFocusOperandTests.cs": "34d9fa5f496a961c604c7dc5f3568a4c8437278869493b43b203da92d71672ee",
+    "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs": "fb03e39d8a54291f363b59ce2c914e519dab8388757e5fa77e7bb72e6e88d617",
+    "tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj": "3f25b987921dbcd8ef9fdfd36a2b4e851877cc1b4346a17413b60f5474a2dcc5"
+  },
+  "selected_capture_sha256": {
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/008-longitudinalaberration/data.json": "49734424f7ee5c9605f89e92ff3b477f9a38d996d3d67da8b2aafe5f7604ef8f"
+  },
+  "default_binary_sha256": {
+    "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll": "60776141a806411964f6c292b4750f8cb196c2ecdbe3821d043fb8b18ad61c90",
+    "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll": "92d1fb00bfa2af3c72c4dbe9038d8984220862d741ed621492509ecdf1044629",
+    "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll": "7578945b142f5a648675f94b3a55acbb49348e50ded12bb257173a9f972d439a",
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "66313184558a9b9d7867b5509c1b73d66fdb0375e2a686d733481ef14b14bed6",
+    "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll": "94519a71da9c749dfe92227ef47eb2d919dee446b95aa13d51ee2161876e6487",
+    "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll": "78b8025cac25d1e176cc1cb1f55dd1319bd15c3ded8eb70f9aa615b8931c5277"
+  },
+  "format_whitespace_verify": "passed",
+  "git_diff_check": "passed",
+  "documentation_fifth_batch_links_checked": 30
+}

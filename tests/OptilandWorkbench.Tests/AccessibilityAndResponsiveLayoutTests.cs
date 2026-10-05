@@ -479,6 +479,8 @@ public sealed class AccessibilityAndResponsiveLayoutTests
 
         public IReadOnlyList<GlassMaterialDto> GetGlasses() => [];
 
+        public GlassMaterialDto? FindGlass(string materialName) => null;
+
         public AnalysisViewDto Analyze(MaterialAnalysisRequestDto request) =>
             throw new NotSupportedException();
 

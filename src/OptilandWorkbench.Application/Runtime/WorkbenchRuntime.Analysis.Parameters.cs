@@ -724,7 +724,8 @@ public partial class WorkbenchRuntime
                     "扫描方向",
                     "+y",
                     new[] { "+y", "+x", "-y", "-x" }),
-                BoolParameter("RemoveVignettingFactors", "移除渐晕因子", "true")
+                BoolParameter("RemoveVignettingFactors", "移除渐晕因子", "true"),
+                BoolParameter("UsePolarization", "偏振损耗（透明介质）", "false")
             },
             "Incoherent Irradiance" => new[]
             {

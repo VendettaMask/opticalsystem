@@ -36,6 +36,7 @@ public sealed class WorkbenchApplication : IWorkbenchApplication
         CadExport = new CadExportService(_workspace);
         Optimization = new OptimizationService(_workspace);
         Tolerancing = new TolerancingService(_workspace);
+        OpticalAssembly = new OpticalAssemblyService(_workspace, Modes);
         MultiConfiguration = new MultiConfigurationService(_workspace);
         Materials = new MaterialCatalogService(_workspace, userCatalogDirectory);
         Lenses = new LensLibraryService(lensLibraryDirectory);
@@ -61,6 +62,8 @@ public sealed class WorkbenchApplication : IWorkbenchApplication
     public IOptimizationService Optimization { get; }
 
     public ITolerancingService Tolerancing { get; }
+
+    public IOpticalAssemblyService OpticalAssembly { get; }
 
     public IMultiConfigurationService MultiConfiguration { get; }
 

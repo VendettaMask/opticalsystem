@@ -30,7 +30,8 @@ public partial class WorkbenchRuntime
 
     private void SyncActiveConfigurationFromCurrent()
     {
-        if (_activeConfigurationIndex >= 0 && _activeConfigurationIndex < _multiConfiguration.Configurations.Count)
+        if (_activeConfigurationIndex >= 0 && _activeConfigurationIndex < _multiConfiguration.Configurations.Count
+            && !ReferenceEquals(_multiConfiguration.Configurations[_activeConfigurationIndex], CurrentOptic))
         {
             _multiConfiguration.Configurations[_activeConfigurationIndex].ApplySnapshot(CurrentOptic.ToSnapshot());
         }
@@ -41,6 +42,13 @@ public partial class WorkbenchRuntime
         string property)
     {
         SyncActiveConfigurationFromCurrent();
+        if (_multiConfiguration.OperandPickups.Count > 0)
+        {
+            if (_activeConfigurationIndex > 0) _multiConfiguration.UpdateLinkState(_activeConfigurationIndex, surface.Number, property);
+            else if (property == "material") _multiConfiguration.PropagateBaseProperty(surface.Number, property);
+            SynchronizeConfigurationPickups();
+            return;
+        }
         if (_activeConfigurationIndex == 0)
         {
             _multiConfiguration.PropagateBaseProperty(surface.Number, property);
@@ -156,7 +164,10 @@ public partial class WorkbenchRuntime
             return;
         }
 
-        if (GeometryKind(surface.Geometry) == geometryKind)
+        // A plane is the infinite-radius case of the standard surface in the editor.
+        // Preserve legacy plane components when applying that shared type.
+        if (GeometryKind(surface.Geometry) == geometryKind
+            || (geometryKind == "Standard" && surface.Geometry is PlaneGeometry))
         {
             return;
         }
@@ -169,8 +180,7 @@ public partial class WorkbenchRuntime
                 surface.Geometry = new PlaneGeometry();
                 break;
             case "Standard":
-                surface.Radius = radius;
-                surface.Geometry = new StandardGeometry(radius, surface.Conic);
+                surface.Geometry = new StandardGeometry(surface.Radius, surface.Conic);
                 break;
             case "Plane Grating":
                 surface.Radius = 0;
@@ -250,14 +260,16 @@ public partial class WorkbenchRuntime
         var selectedMaterial = string.IsNullOrWhiteSpace(materialName) ? "Air" : materialName;
         var isMirror = selectedMaterial.Equals("MIRROR", StringComparison.OrdinalIgnoreCase);
         surface.Material = isMirror ? "MIRROR" : selectedMaterial;
-        surface.MaterialAfter = isMirror
+        var retainedGradient = !isMirror && surface.MaterialAfter is GradientIndexMaterial gradient
+            && string.Equals(gradient.Name, selectedMaterial, StringComparison.OrdinalIgnoreCase) ? gradient : null;
+        surface.MaterialAfter = retainedGradient ?? (isMirror
             ? surface.MaterialBefore.Clone()
             : CurrentOptic.Materials.TryResolve(selectedMaterial, CurrentOptic.GlassCatalogs, out var resolved)
                 ? resolved
                 : surface.MaterialAfter is UnresolvedMaterial missing
                     && missing.Name.Equals(selectedMaterial, StringComparison.OrdinalIgnoreCase)
                     ? missing
-                    : CurrentOptic.Materials.Resolve(selectedMaterial);
+                    : CurrentOptic.Materials.Resolve(selectedMaterial));
         SyncInteractionReflectivity(surface, isMirror);
         // Update the adjoining incident medium, including intervening mirrors.
         var index = CurrentOptic.SurfaceGroup.Items.IndexOf(surface);

@@ -8,6 +8,9 @@ public sealed class FieldPoint : NotifyObject
     private double _weight = 1.0;
     private double _vignetteFactorX;
     private double _vignetteFactorY;
+    private double _vignetteDecenterX;
+    private double _vignetteDecenterY;
+    private double _vignetteAngleDegrees;
 
     public string Label
     {
@@ -71,6 +74,24 @@ public sealed class FieldPoint : NotifyObject
         set => SetProperty(ref _vignetteFactorY, NumericParameterGuard.RequireFinite(value, nameof(VignetteFactorY)));
     }
 
+    public double VignetteDecenterX
+    {
+        get => _vignetteDecenterX;
+        set => SetProperty(ref _vignetteDecenterX, NumericParameterGuard.RequireFinite(value, nameof(VignetteDecenterX)));
+    }
+
+    public double VignetteDecenterY
+    {
+        get => _vignetteDecenterY;
+        set => SetProperty(ref _vignetteDecenterY, NumericParameterGuard.RequireFinite(value, nameof(VignetteDecenterY)));
+    }
+
+    public double VignetteAngleDegrees
+    {
+        get => _vignetteAngleDegrees;
+        set => SetProperty(ref _vignetteAngleDegrees, NumericParameterGuard.RequireFinite(value, nameof(VignetteAngleDegrees)));
+    }
+
     public FieldPoint Clone()
     {
         return new FieldPoint
@@ -80,7 +101,10 @@ public sealed class FieldPoint : NotifyObject
             Y = Y,
             Weight = Weight,
             VignetteFactorX = VignetteFactorX,
-            VignetteFactorY = VignetteFactorY
+            VignetteFactorY = VignetteFactorY,
+            VignetteDecenterX = VignetteDecenterX,
+            VignetteDecenterY = VignetteDecenterY,
+            VignetteAngleDegrees = VignetteAngleDegrees
         };
     }
 

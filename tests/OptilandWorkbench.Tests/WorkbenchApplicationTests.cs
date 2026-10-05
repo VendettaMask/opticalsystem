@@ -501,8 +501,8 @@ public sealed class WorkbenchApplicationTests
         application.Optimization.SetMeritFunction(new[]
         {
             new MeritOperandRowDto(
-                1, true, "ABCD", 0, 0, 15, 195, -12, 6, -8,
-                40, 0.02, 0, 0, "Zemax 只读记录")
+                1, true, "DISA", 0, 0, 15, 195, -12, 6, -8,
+                40, 0.02, 0, 0, "Zemax 只读记录", CompatibilityOnly: true)
         });
 
         var restored = Assert.Single(application.Optimization.GetMeritFunction());

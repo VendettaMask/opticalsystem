@@ -1,0 +1,77 @@
+{
+  "verified_at": "2026-09-28T17:25:16.641333+08:00",
+  "scope": "Drawing catalog glass resolution and nominal nd/Vd with configured tolerances; ISO and GB 2009/1991 single/cemented sheets",
+  "tests": {
+    "material-drawing-debug.trx": {
+      "total": 55,
+      "passed": 55,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "material-drawing-release.trx": {
+      "total": 55,
+      "passed": 55,
+      "failed": 0,
+      "notExecuted": 0
+    }
+  },
+  "test_filter": "MaterialAnalysisTests|ManufacturingDrawingTests|PanelContentLayoutTests|AccessibilityAndResponsiveLayoutTests",
+  "default_output_compilation": {
+    "debug": {
+      "warnings": 0,
+      "errors": 0
+    },
+    "release": {
+      "warnings": 0,
+      "errors": 0
+    }
+  },
+  "app_outputs": {
+    "Debug": {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "f4fdd99a31a1b80127c3223b69ae4fe69c2b5d965e91bebb88d7ff98a6ce1765"
+    },
+    "Release": {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "a81100323e5a18a7fcbff0cfcce81801913e63e40a371524884e5dd7e5d53a03"
+    }
+  },
+  "sources": {
+    "src/OptilandWorkbench.Application/Contracts/ServiceContracts.cs": "7f91ef94f1f577ff1d7c66392925690709d6c24ee57e9b216218ebca9e09f0e3",
+    "src/OptilandWorkbench.Application/Services/MaterialCatalogService.cs": "e27c07f69b23772db44040d4d5216d8c8f18c27c0daa902d0257c4753ce0f5a3",
+    "src/OptilandWorkbench.App/Panels/OpticalDrawingPanel.cs": "388679c11752782bfa4127a7b8353dab76efffb95ea592cf6f0868221c89a359",
+    "src/OptilandWorkbench.App/Manufacturing/Rendering/OpticalDrawingRenderer.Specifications.cs": "c007fb0e32107b7e839d067e48ebf84c5fa1b352eba86aa3e3c2a2efdfcb107c",
+    "tests/OptilandWorkbench.Tests/AccessibilityAndResponsiveLayoutTests.cs": "0dda95cff40384932d2142eb341248fffbb8f7c3f48adec8d0ccd9d654667883",
+    "tests/OptilandWorkbench.Tests/MaterialAnalysisTests.cs": "bcd3274d02e8043ae8284155152ce77baae34a2e45ab01c65ed776f3256b3dc2",
+    "tests/OptilandWorkbench.Tests/PanelContentLayoutTests.cs": "e000af55b25614693a8f4778a66ef4c1ef63336d62ff94087dc4b011c11c742d"
+  },
+  "pdf_validation": {
+    "field_checks": "pdf-field-checks.json",
+    "passed": 12,
+    "render_dpi": 144,
+    "visual_review": "All 12 material regions and representative full pages; no clipped nominal values or tolerances",
+    "preview_generation": "Production Skia renderer with sheets created by actual Avalonia panel, offscreen; not a native desktop screenshot",
+    "pdf_sha256": {
+      "GbT13323_1991-F2-default.pdf": "b1733e8525cc965150c07790710fc7b69a1ee77903facf5e9b831b833f53b148",
+      "GbT13323_1991-F2-edited.pdf": "8358ef61935cc7d923f625655ee97f4f142c4d3b7a9bbdf038fc9360c3dc753a",
+      "GbT13323_1991-cemented-default.pdf": "2d48bee81b5ba0854548a0f21c3daae6ffb08e7be0af1a46eda888a0c0a88504",
+      "GbT13323_1991-cemented-edited.pdf": "824d875220e4b8f289faa3061f3294e5493a1237aa605f58919efddbe3da542d",
+      "GbT13323_2009-F2-default.pdf": "b36c7f7033e1ef6979b3710fdb063a33e3a8e9eb49cdafb9e3c642b6f3ead519",
+      "GbT13323_2009-F2-edited.pdf": "a835205b623245aa8642b5b72e1956d8e992e5dcb500da743f63d15358e29bd8",
+      "GbT13323_2009-cemented-default.pdf": "037666d53ab9f33c00cbb073fa67f2ef4ca03a63520f0f0353327f8b169f65fd",
+      "GbT13323_2009-cemented-edited.pdf": "9c5a989354470c46a917d28440718ae492eaf17c9576c0e34eeb4e54397089cd",
+      "Iso10110-F2-default.pdf": "00ad84dd50cc90b9a2113384e31d69fc5bf37e3bef8162c47a0130cd4582a9f9",
+      "Iso10110-F2-edited.pdf": "f89525ef6a708c019911b4c422ddf01ff16308350351a145108319fbc9b00af9",
+      "Iso10110-cemented-default.pdf": "16e75125dcf70f30c7abaa28a5b36c45524b39c2f27edcdb72a36b32e1c53855",
+      "Iso10110-cemented-edited.pdf": "d5f8235bcb5eae7847986a93995bd725e02ac972a18820a18f5c4b25224061ef"
+    }
+  },
+  "format_whitespace": "passed",
+  "git_diff_check": "passed",
+  "not_run": [
+    "Full suite",
+    "Native desktop end-to-end acceptance",
+    "Laboratory suites",
+    "Zemax baseline integrity and external numerical comparison"
+  ]
+}

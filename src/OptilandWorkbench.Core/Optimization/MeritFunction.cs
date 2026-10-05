@@ -4,6 +4,7 @@ using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Geometries;
 using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Rays;
+using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Optimization;
 
@@ -126,7 +127,7 @@ public sealed record MeritOperandEvaluation(
     double Contribution,
     string Error = "");
 
-public static class MeritFunctionCatalog
+public static partial class MeritFunctionCatalog
 {
     private const double FraunhoferCLineNanometers = 656.2725;
     private const double FraunhoferDLineNanometers = 587.5618;
@@ -143,9 +144,57 @@ public static class MeritFunctionCatalog
 
     private static readonly IReadOnlyList<MeritOperandType> WorkbenchTypes = new[]
     {
+        new MeritOperandType("RRET", "像面 RMS 偏振相位差", "高斯瞳孔求积的像面局部 Ex/Ey 相位差 RMS，单位弧度"),
+        new MeritOperandType("CMGT", "膜层厚度倍率下限", "指定表面与膜层的厚度倍率下限"),
+        new MeritOperandType("CMLT", "膜层厚度倍率上限", "指定表面与膜层的厚度倍率上限"),
+        new MeritOperandType("CMVA", "膜层厚度倍率值", "指定表面与膜层的厚度倍率值"),
+        new MeritOperandType("CIGT", "膜层折射率偏移下限", "指定表面与膜层的折射率偏移下限"),
+        new MeritOperandType("CILT", "膜层折射率偏移上限", "指定表面与膜层的折射率偏移上限"),
+        new MeritOperandType("CIVA", "膜层折射率偏移值", "指定表面与膜层的折射率偏移值"),
+        new MeritOperandType("CEGT", "膜层消光系数偏移下限", "指定表面与膜层的消光系数偏移下限"),
+        new MeritOperandType("CELT", "膜层消光系数偏移上限", "指定表面与膜层的消光系数偏移上限"),
+        new MeritOperandType("CEVA", "膜层消光系数偏移值", "指定表面与膜层的消光系数偏移值"),
+        new MeritOperandType("CODA", "偏振光线与镀膜数据", "指定表面的偏振电场、强度、镀膜系数和偏振椭圆"),
+        new MeritOperandType("HYLD", "真实光线高良率贡献", "指定光线在折射界面的角度与折射率差惩罚；不是良率百分比"),
+        new MeritOperandType("DLTN", "GRIN 轴向折射率差", "毛坯轴向两端折射率的绝对差，使用两端边界的矢高"),
+        new MeritOperandType("GRMN", "GRIN 六点折射率下限", "六个指定位置的最小折射率下限，不代表全体积最小值"),
+        new MeritOperandType("GRMX", "GRIN 六点折射率上限", "六个指定位置的最大折射率上限，不代表全体积最大值"),
+        new MeritOperandType("BFSD", "最佳拟合球面数据", "最小去除体积球面的曲率、半径、顶点偏移及加工余量统计"),
+        new MeritOperandType("RELI", "轴上参考相对照度", "清除渐晕因子后，指定视场与轴上视场的透射加权像方瞳孔积分之比"),
+        new MeritOperandType("EFNO", "有效 F 数", "指定视场的透射加权像方方向余弦面积对应的有效 F 数"),
         new MeritOperandType("DMFS", "默认评价函数设置", "默认评价函数向导生成的说明行"),
+        new MeritOperandType("ZERN", "Zernike 系数与统计", "共享波前拟合的 Fringe、Standard 或 Annular 系数及误差统计"),
         new MeritOperandType("BLNK", "空白/注释", "不参与评价函数计算"),
-        new MeritOperandType("CONF", "Zemax 配置切换", "从 Zemax 导入并作为只读记录保留"),
+        new MeritOperandType("FDMO", "临时修改视场", "在有序评价中临时修改指定视场位置及四个渐晕因子"),
+        new MeritOperandType("FDRE", "恢复临时视场", "恢复指定视场首次 FDMO 修改前的数据"),
+        new MeritOperandType("REQS", "需求操作数起点", "需求条目的起始标记，不产生数值贡献；需求编辑器自动插入尚未实现"),
+        new MeritOperandType("PRIM", "临时主波长", "仅为当前有序评价批次切换主波长"),
+        new MeritOperandType("SVIG", "临时自动渐晕", "按当前主波长与孔径求四条边缘光线的渐晕因子，仅影响后续评价行"),
+        new MeritOperandType("CVIG", "临时清除渐晕因子", "仅为当前有序评价批次清除已有渐晕因子"),
+        new MeritOperandType("SPHS", "指定点相位", "主波长下局部指定点的相位，waves"),
+        new MeritOperandType("PSLP", "指定点相位斜率", "主波长下局部相位解析斜率，waves/mm"),
+        new MeritOperandType("DPHS", "表面相位统计", "物理孔径内相位 RMS、PV、极值及坐标"),
+        new MeritOperandType("QSLP", "相位斜率统计", "物理孔径内相位斜率的五方向统计"),
+        new MeritOperandType("DENC", "衍射圈入能量距离", "有限 FFT/惠更斯 PSF 窗口中的像素面积积分距离，µm"),
+        new MeritOperandType("DENF", "衍射圈入能量分数", "给定圆/狭缝/方框内的 PSF 像素面积能量分数"),
+        new MeritOperandType("SSAG", "指定点矢高", "面局部 XY 坐标处的矢高，mm"),
+        new MeritOperandType("TSAG", "指定方向矢高", "从面局部参考点沿指定倾角测量的有符号矢高，mm"),
+        new MeritOperandType("SSLP", "指定点斜率", "指定坐标及方向的解析矢高斜率，无量纲"),
+        new MeritOperandType("SCRV", "指定点曲率", "指定坐标及方向的解析法曲率，mm⁻¹"),
+        new MeritOperandType("GENC", "几何圈入能量距离", "加权几何能量分位距离，µm，可乘理想 Airy 极限"),
+        new MeritOperandType("GENF", "几何圈入能量分数", "给定距离内的圆/狭缝/方框能量分数"),
+        new MeritOperandType("ERFP", "边缘响应位置", "几何边缘响应的加权位置分位，mm"),
+        new MeritOperandType("VOLU", "元件体积", "指定闭区间内的旋转对称元件与空气间隙体积，cm³"),
+        new MeritOperandType("TMAS", "玻璃总质量", "真实元件体积乘以玻璃目录密度，g；缺少密度明确报错"),
+        new MeritOperandType("DSAG", "表面矢高统计", "物理孔径内均匀网格的 RMS、峰谷、极值及极值坐标"),
+        new MeritOperandType("DSLP", "表面斜率统计", "共享解析面形导数的方向斜率统计"),
+        new MeritOperandType("DCRV", "表面曲率统计", "共享解析面形导数的方向法曲率统计"),
+        new MeritOperandType("IMSF", "临时中间像面", "选择光阑处或之后的像面，支持受限正向近轴调焦；0 恢复"),
+        new MeritOperandType("CONF", "Zemax 配置切换", "有序评价时按正配置编号切换后续行使用的镜头"),
+        new MeritOperandType("MCOV", "Zemax 多配置行值", "读取指定多配置编辑行与配置的数值"),
+        new MeritOperandType("MCOG", "Zemax 多配置行下限", "约束指定多配置行值不小于目标"),
+        new MeritOperandType("MCOL", "Zemax 多配置行上限", "约束指定多配置行值不大于目标"),
+        new MeritOperandType("ZTHI", "Zemax 配置总厚度差", "限制所有配置在指定表面闭区间的总厚度差"),
         new MeritOperandType("RANG", "实际光线角度", "指定光线在表面处相对光轴的角度（弧度）"),
         new MeritOperandType("CONS", "Zemax 常数", "按 Zemax 行顺序把目标值作为当前值"),
         new MeritOperandType("DIVB", "Zemax 系数除法", "按 Zemax 行顺序读取前序行并除以 Factor"),
@@ -200,15 +249,69 @@ public static class MeritFunctionCatalog
         new MeritOperandType("MXSD", "最大半口径", "指定范围内表面半口径的最大值上限"),
         new MeritOperandType("PMAG", "近轴放大率", "有限物方共轭的近轴横向放大率"),
         new MeritOperandType("REAR", "实际光线径向坐标", "指定光线在表面上的径向坐标"),
-        new MeritOperandType("DIMX", "最大畸变", "按现有畸变分析计算最大绝对畸变百分比上限"),
+        new MeritOperandType("DIMX", "指定视场畸变上限", "指定视场的绝对畸变上限，百分比或镜头长度；Field=0 为最大径向视场"),
+        new MeritOperandType("DISG", "广义畸变", "真实光线相对局部参考矩阵的有符号矢量畸变；正 Wave 为百分比、负 Wave 为镜头长度"),
+        new MeritOperandType("DIST", "三阶畸变", "指定表面的 W311 波长数；Surf=0 为全系统三阶畸变百分比或长度"),
+        new MeritOperandType("DISA", "指定矩阵畸变", "使用用户指定 A/B/C/D 的主光线径向或 X/Y 百分比畸变"),
+        new MeritOperandType("ABCD", "畸变参考矩阵", "网格畸变使用的局部二维放大率矩阵 A/B/C/D"),
+        new MeritOperandType("SMIA", "SMIA-TV 畸变", "六条主光线、全视场宽度，输出百分比；失追迹或渐晕报错"),
+        new MeritOperandType("FCGS", "广义弧矢场曲", "傍轴光线的弧矢焦点相对平面像面的距离（mm）"),
+        new MeritOperandType("FCGT", "广义子午场曲", "傍轴光线的子午焦点相对平面像面的距离（mm）"),
         new MeritOperandType("PETZ", "佩兹伐半径", "按 Seidel Petzval sum 计算佩兹伐半径"),
         new MeritOperandType("SINE", "正弦", "按 Zemax 行顺序对指定前序行取正弦"),
         new MeritOperandType("DIVI", "除法", "按 Zemax 行顺序计算两个前序行的商"),
+        new MeritOperandType("CENX", "质心 X（视场编号）", "网格光线的强度加权局部 X 坐标"),
+        new MeritOperandType("CENY", "质心 Y（视场编号）", "网格光线的强度加权局部 Y 坐标"),
+        new MeritOperandType("CNPX", "质心 X（归一化视场）", "指定 Hx/Hy 的强度加权局部 X 坐标"),
+        new MeritOperandType("CNPY", "质心 Y（归一化视场）", "指定 Hx/Hy 的强度加权局部 Y 坐标"),
+        new MeritOperandType("CNAX", "质心角度 X", "加权出射方向相对局部 Z 轴的 X 投影角，弧度"),
+        new MeritOperandType("CNAY", "质心角度 Y", "加权出射方向相对局部 Z 轴的 Y 投影角，弧度"),
+        new MeritOperandType("GSCE", "几何点列半径（高斯/质心）", "高斯采样光线至质心的最大距离"),
+        new MeritOperandType("GSCH", "几何点列半径（高斯/主光线）", "高斯采样光线至主波长主光线的最大距离"),
+        new MeritOperandType("GSRE", "几何点列半径（矩形/质心）", "矩形采样有效光线至质心的最大距离"),
+        new MeritOperandType("GSRH", "几何点列半径（矩形/主光线）", "矩形采样有效光线至主波长主光线的最大距离"),
         new MeritOperandType("RSCE", "RMS 点列半径", "指定视场和波长的 RMS 点列半径"),
         new MeritOperandType("RSCH", "RMS 点列半径（主光线参考）", "使用高斯求积采样的主光线参考 RMS 点列半径"),
         new MeritOperandType("RSRE", "RMS 点列半径（矩形采样）", "使用矩形阵列采样的质心参考 RMS 点列半径"),
         new MeritOperandType("RSRH", "RMS 点列半径（矩形/主光线）", "使用矩形阵列采样的主光线参考 RMS 点列半径"),
-        new MeritOperandType("RWFE", "RMS 波前差", "指定视场和波长的 RMS 光程差"),
+        new MeritOperandType("RWCE", "RMS 波前（高斯/质心）", "正式参考球面/无焦参考平面的波前误差，单位 waves"),
+        new MeritOperandType("RWCH", "RMS 波前（高斯/主光线）", "正式参考球面/无焦参考平面的波前误差，单位 waves"),
+        new MeritOperandType("RWRE", "RMS 波前（矩形/质心）", "正式参考球面/无焦参考平面的波前误差，单位 waves"),
+        new MeritOperandType("RWRH", "RMS 波前（矩形/主光线）", "正式参考球面/无焦参考平面的波前误差，单位 waves"),
+        new MeritOperandType("MWCE", "峰谷 波前（高斯/质心）", "正式参考球面/无焦参考平面的波前误差，单位 waves"),
+        new MeritOperandType("MWCH", "峰谷 波前（高斯/主光线）", "正式参考球面/无焦参考平面的波前误差，单位 waves"),
+        new MeritOperandType("MWRE", "峰谷 波前（矩形/质心）", "正式参考球面/无焦参考平面的波前误差，单位 waves"),
+        new MeritOperandType("MWRH", "峰谷 波前（矩形/主光线）", "正式参考球面/无焦参考平面的波前误差，单位 waves"),
+        new MeritOperandType("GBPD", "近轴高斯束发散半角", "共享近轴矩阵传播嵌入高斯模；M² 按 sqrt(M²) 缩放尺寸/束腰/发散角"),
+        new MeritOperandType("GBPP", "近轴高斯束束腰位置", "共享近轴矩阵传播嵌入高斯模；M² 按 sqrt(M²) 缩放尺寸/束腰/发散角"),
+        new MeritOperandType("GBPR", "近轴高斯束相位曲率半径", "共享近轴矩阵传播嵌入高斯模；M² 按 sqrt(M²) 缩放尺寸/束腰/发散角"),
+        new MeritOperandType("GBPS", "近轴高斯束尺寸", "共享近轴矩阵传播嵌入高斯模；M² 按 sqrt(M²) 缩放尺寸/束腰/发散角"),
+        new MeritOperandType("GBPW", "近轴高斯束束腰尺寸", "共享近轴矩阵传播嵌入高斯模；M² 按 sqrt(M²) 缩放尺寸/束腰/发散角"),
+        new MeritOperandType("GBPZ", "近轴高斯束瑞利范围", "共享近轴矩阵传播嵌入高斯模；M² 按 sqrt(M²) 缩放尺寸/束腰/发散角"),
+        new MeritOperandType("STRH", "惠更斯 Strehl 比", "共享惠更斯 PSF 峰值比，使用半默认图像间隔"),
+        new MeritOperandType("CEHX", "惠更斯 PSF 质心 X", "像面局部绝对 X 坐标，单位 mm"),
+        new MeritOperandType("CEHY", "惠更斯 PSF 质心 Y", "像面局部绝对 Y 坐标，单位 mm"),
+        new MeritOperandType("MTHA", "惠更斯 MTF（平均）", "共享 Core Huygens PSF/MTF；Samp=1..2，Pol=0、All Conf=0；仅有焦像空间"),
+        new MeritOperandType("MTHS", "惠更斯 MTF（弧矢）", "共享 Core Huygens PSF/MTF；Samp=1..2，Pol=0、All Conf=0；仅有焦像空间"),
+        new MeritOperandType("MTHT", "惠更斯 MTF（子午）", "共享 Core Huygens PSF/MTF；Samp=1..2，Pol=0、All Conf=0；仅有焦像空间"),
+        new MeritOperandType("MTHN", "惠更斯 MTF（最小）", "共享 Core Huygens PSF/MTF；Samp=1..2，Pol=0、All Conf=0；仅有焦像空间"),
+        new MeritOperandType("MTHX", "惠更斯 MTF（最大）", "共享 Core Huygens PSF/MTF；Samp=1..2，Pol=0、All Conf=0；仅有焦像空间"),
+        new MeritOperandType("GMTA", "几何 MTF（平均）", "共享 Core 网格计算，当前需 Grid=1；Samp=1..5"),
+        new MeritOperandType("GMTS", "几何 MTF（弧矢）", "共享 Core 网格计算，当前需 Grid=1；Samp=1..5"),
+        new MeritOperandType("GMTT", "几何 MTF（子午）", "共享 Core 网格计算，当前需 Grid=1；Samp=1..5"),
+        new MeritOperandType("GMTN", "几何 MTF（最小）", "共享 Core 网格计算，当前需 Grid=1；Samp=1..5"),
+        new MeritOperandType("GMTX", "几何 MTF（最大）", "共享 Core 网格计算，当前需 Grid=1；Samp=1..5"),
+        new MeritOperandType("MTFA", "衍射 MTF（平均）", "共享 Core 网格计算，当前需 Grid=1；Samp=1..5"),
+        new MeritOperandType("MTFS", "衍射 MTF（弧矢）", "共享 Core 网格计算，当前需 Grid=1；Samp=1..5"),
+        new MeritOperandType("MTFT", "衍射 MTF（子午）", "共享 Core 网格计算，当前需 Grid=1；Samp=1..5"),
+        new MeritOperandType("MTFN", "衍射 MTF（最小）", "共享 Core 网格计算，当前需 Grid=1；Samp=1..5"),
+        new MeritOperandType("MTFX", "衍射 MTF（最大）", "共享 Core 网格计算，当前需 Grid=1；Samp=1..5"),
+        new MeritOperandType("MSWA", "方波传递函数（平均）", "共享 Core 网格计算，当前需 Grid=1；Samp=1..5"),
+        new MeritOperandType("MSWS", "方波传递函数（弧矢）", "共享 Core 网格计算，当前需 Grid=1；Samp=1..5"),
+        new MeritOperandType("MSWT", "方波传递函数（子午）", "共享 Core 网格计算，当前需 Grid=1；Samp=1..5"),
+        new MeritOperandType("MSWN", "方波传递函数（最小）", "共享 Core 网格计算，当前需 Grid=1；Samp=1..5"),
+        new MeritOperandType("MSWX", "方波传递函数（最大）", "共享 Core 网格计算，当前需 Grid=1；Samp=1..5"),
+        new MeritOperandType("RWFE", "RMS 波前差（本程序）", "本程序自定义：指定视场和波长的 RMS 光程差"),
         new MeritOperandType("OPDX", "光程差", "指定视场、波长和瞳孔坐标的光程差（波数）"),
         new MeritOperandType("OPDM", "光程差（主光线）", "减去平均波前但保留倾斜的光程差"),
         new MeritOperandType("OPDC", "光程差（无参考）", "以主光线为零点且不移除平均值或倾斜的光程差"),
@@ -224,8 +327,26 @@ public static class MeritFunctionCatalog
         new MeritOperandType("ANCY", "角像差 Y（质心）", "相对于方向余弦质心的有符号 Y 角像差"),
         new MeritOperandType("ANAX", "角像差 X（主光线）", "相对于主波长主光线的有符号 X 角像差"),
         new MeritOperandType("ANAY", "角像差 Y（主光线）", "相对于主波长主光线的有符号 Y 角像差"),
+        new MeritOperandType("MECA", "Moore-Elliott 平均对比度", "弧矢与切向光线对 OPD 差的平均值"),
         new MeritOperandType("MECS", "Moore-Elliott 弧矢对比度", "弧矢方向移位光线对的光程差"),
         new MeritOperandType("MECT", "Moore-Elliott 切向对比度", "切向方向移位光线对的光程差"),
+        new MeritOperandType("GLCX", "全局表面顶点 X", "相对全局参考面的顶点 X 坐标"),
+        new MeritOperandType("GLCY", "全局表面顶点 Y", "相对全局参考面的顶点 Y 坐标"),
+        new MeritOperandType("GLCZ", "全局表面顶点 Z", "相对全局参考面的顶点 Z 坐标"),
+        new MeritOperandType("GLCA", "全局表面轴向 X", "表面局部 Z 轴在全局参考系的 X 方向余弦"),
+        new MeritOperandType("GLCB", "全局表面轴向 Y", "表面局部 Z 轴在全局参考系的 Y 方向余弦"),
+        new MeritOperandType("GLCC", "全局表面轴向 Z", "表面局部 Z 轴在全局参考系的 Z 方向余弦"),
+        new MeritOperandType("GLCR", "全局旋转矩阵", "局部到全局参考系旋转矩阵的指定元素"),
+        new MeritOperandType("RAGX", "全局光线 X", "实际交点在全局参考系的 X 坐标"),
+        new MeritOperandType("RAGY", "全局光线 Y", "实际交点在全局参考系的 Y 坐标"),
+        new MeritOperandType("RAGZ", "全局光线 Z", "实际交点在全局参考系的 Z 坐标"),
+        new MeritOperandType("RAGA", "全局光线方向 X", "交互后光线在全局参考系的 X 方向余弦"),
+        new MeritOperandType("RAGB", "全局光线方向 Y", "交互后光线在全局参考系的 Y 方向余弦"),
+        new MeritOperandType("RAGC", "全局光线方向 Z", "交互后光线在全局参考系的 Z 方向余弦"),
+        new MeritOperandType("DXDX", "X 光线扇对 Px 导数", "像面局部 X 像差对归一化 Px 的导数"),
+        new MeritOperandType("DXDY", "X 光线扇对 Py 导数", "像面局部 X 像差对归一化 Py 的导数"),
+        new MeritOperandType("DYDX", "Y 光线扇对 Px 导数", "像面局部 Y 像差对归一化 Px 的导数"),
+        new MeritOperandType("DYDY", "Y 光线扇对 Py 导数", "像面局部 Y 像差对归一化 Py 的导数"),
         new MeritOperandType("REAX", "实际光线 X", "指定光线在表面上的 X 坐标"),
         new MeritOperandType("REAY", "实际光线 Y", "指定光线在表面上的 Y 坐标"),
         new MeritOperandType("EFFL", "有效焦距", "系统有效焦距"),
@@ -236,7 +357,7 @@ public static class MeritFunctionCatalog
         new MeritOperandType("EXPP", "出瞳位置", "系统出瞳相对位置"),
         new MeritOperandType("EXPD", "出瞳直径", "系统出瞳直径"),
         new MeritOperandType("ISFN", "像方 F 数", "系统像方 F 数"),
-        new MeritOperandType("SFNO", "系统 F 数", "系统 F 数"),
+        new MeritOperandType("SFNO", "弧矢工作 F 数", "指定视场与波长的真实边缘光线工作 F 数"),
         new MeritOperandType("WFNO", "工作 F 数", "系统工作 F 数"),
         new MeritOperandType("ISNA", "像方数值孔径", "近轴边缘光线给出的像方数值孔径"),
         new MeritOperandType("WLEN", "波长", "指定波长编号的波长值（µm）"),
@@ -246,22 +367,103 @@ public static class MeritFunctionCatalog
         new MeritOperandType("MNAB", "最小阿贝数", "指定表面范围内玻璃 Vd 的最小值下限"),
         new MeritOperandType("MXAB", "最大阿贝数", "指定表面范围内玻璃 Vd 的最大值上限"),
         new MeritOperandType("POWR", "表面光焦度", "标准折射表面在指定波长处的光焦度，单位为 1/镜头单位"),
-        new MeritOperandType("FNUM", "像方 F 数", "系统像方 F 数"),
+        new MeritOperandType("FNUM", "像方 F 数（本程序）", "本程序自定义：系统像方 F 数"),
+        new MeritOperandType("REAZ", "实际光线局部 Z", "表面局部坐标系中的光线交点 Z"),
+        new MeritOperandType("REAA", "实际光线局部 X 方向余弦", "交互后光线的局部 X 方向余弦"),
+        new MeritOperandType("REAB", "实际光线局部 Y 方向余弦", "交互后光线的局部 Y 方向余弦"),
+        new MeritOperandType("REAC", "实际光线局部 Z 方向余弦", "交互后光线的局部 Z 方向余弦"),
+        new MeritOperandType("RENA", "光线交点法线 X", "光线交点的局部单位法线 X 分量"),
+        new MeritOperandType("RENB", "光线交点法线 Y", "光线交点的局部单位法线 Y 分量"),
+        new MeritOperandType("RENC", "光线交点法线 Z", "光线交点的局部单位法线 Z 分量"),
+        new MeritOperandType("RETX", "实际光线 X 斜率", "局部出射方向 X/Z"),
+        new MeritOperandType("RETY", "实际光线 Y 斜率", "局部出射方向 Y/Z"),
+        new MeritOperandType("RAID", "实际光线入射角", "光线入射方向与法线的夹角，单位为度"),
+        new MeritOperandType("RAIN", "实际光线入射角余弦", "光线入射方向与法线夹角的余弦"),
+        new MeritOperandType("RAED", "实际光线出射角", "交互后方向与法线的夹角，单位为度"),
+        new MeritOperandType("RAEN", "实际光线出射角余弦", "交互后方向与法线夹角的余弦"),
+        new MeritOperandType("OPTH", "实际光线光程", "有限物面或无穷共轭首面起算的含相位光程"),
+        new MeritOperandType("PLEN", "表面间光程", "主波长光线在指定起止表面之间的含相位光程差"),
+        new MeritOperandType("SAGX", "X 边缘矢高", "净半口径处 X 轴上的表面矢高"),
+        new MeritOperandType("SAGY", "Y 边缘矢高", "净半口径处 Y 轴上的表面矢高"),
+        new MeritOperandType("NORX", "指定点法线 X", "给定 X/Y 处的单位法线 X 分量"),
+        new MeritOperandType("NORY", "指定点法线 Y", "给定 X/Y 处的单位法线 Y 分量"),
+        new MeritOperandType("NORZ", "指定点法线 Z", "给定 X/Y 处的单位法线 Z 分量"),
+        new MeritOperandType("NORD", "沿法线到下一面距离", "沿给定 X/Y 处的表面法线求交下一面"),
+        new MeritOperandType("TCVA", "表面热膨胀系数", "表面/隔圈 TCE，单位 10⁻⁶/°C"),
+        new MeritOperandType("TCGT", "表面热膨胀系数下限", "表面/隔圈 TCE 下限"),
+        new MeritOperandType("TCLT", "表面热膨胀系数上限", "表面/隔圈 TCE 上限"),
+        new MeritOperandType("GTCE", "玻璃热膨胀系数", "读取玻璃目录的 Alpha1"),
+        new MeritOperandType("MNPD", "部分色散偏差下限", "目录 ΔPg,F 在指定表面范围内的最小值下限"),
+        new MeritOperandType("MXPD", "部分色散偏差上限", "目录 ΔPg,F 在指定表面范围内的最大值上限"),
+        new MeritOperandType("AMAG", "角放大率", "像方与物方近轴主光线斜率之比"),
+        new MeritOperandType("LINV", "拉格朗日不变量", "由近轴边缘光线和主光线计算光学不变量"),
+        new MeritOperandType("PIMH", "近轴像高", "最大视场主光线在近轴焦面上的高度"),
+        new MeritOperandType("OBSN", "物方数值孔径", "有限物距的轴上物方数值孔径"),
+        new MeritOperandType("MNAI", "最小入射角", "视场主光线与边缘光线的最小入射角及其来源"),
+        new MeritOperandType("MXAI", "最大入射角", "视场主光线与边缘光线的最大入射角及其来源"),
+        new MeritOperandType("PMVA", "面型参数值", "指定面型的 Zemax Param 参数值"),
+        new MeritOperandType("PMGT", "面型参数下限", "指定面型参数的下限约束"),
+        new MeritOperandType("PMLT", "面型参数上限", "指定面型参数的上限约束"),
+        new MeritOperandType("GCOS", "玻璃相对成本", "读取玻璃目录中的相对成本"),
+        new MeritOperandType("CVOL", "包围圆柱体积", "指定范围顶点与半口径的包围圆柱体积"),
+        new MeritOperandType("CARD", "基点数据", "指定面组的焦距、焦面、主面、反主面、节点与反节点"),
+        new MeritOperandType("SCUR", "局部面形曲率", "指定坐标的方向曲率、曲率差及径向最大绝对值"),
+        new MeritOperandType("SDRV", "局部面形导数", "指定坐标沿子午或弧矢方向的一阶与二阶矢高导数"),
+        new MeritOperandType("TRAI", "指定面横向像差", "相对于主波长主光线的指定表面局部横向像差半径"),
+        new MeritOperandType("BSER", "视轴误差", "轴上主光线像面径向坐标与系统有效焦距的比值"),
+        new MeritOperandType("LONA", "轴向焦移", "指定波长和瞳带的焦点相对当前像面的有符号距离"),
+        new MeritOperandType("AXCL", "轴向色差", "两个波长在相同瞳带的轴向焦点差"),
+        new MeritOperandType("LACL", "近轴倍率色差", "最大正子午视场的两个波长近轴主光线像高差"),
+        new MeritOperandType("SPCH", "球差色差", "指定瞳带的真实轴向色差减去近轴轴向色差"),
+        new MeritOperandType("SPHA", "三阶球差", "指定表面或全系统的 W040 球差系数，单位波长"),
+        new MeritOperandType("COMA", "三阶彗差", "指定表面或全系统的 W131 彗差系数，单位波长"),
+        new MeritOperandType("ASTI", "三阶像散", "指定表面或全系统的 W222 像散系数，单位波长"),
+        new MeritOperandType("FCUR", "三阶佩兹伐场曲", "指定表面或全系统的 W220P 场曲系数，单位波长"),
+        new MeritOperandType("PETC", "佩兹伐曲率", "像方介质加权的 Petzval 曲率，单位为镜头长度倒数"),
+        new MeritOperandType("PARX", "近轴光线 X", "指定近轴光线在顶点切平面上的局部 X 坐标"),
+        new MeritOperandType("PARY", "近轴光线 Y", "指定近轴光线在顶点切平面上的局部 Y 坐标"),
+        new MeritOperandType("PARZ", "近轴光线 Z", "指定近轴光线在顶点切平面上的局部 Z 坐标"),
+        new MeritOperandType("PARR", "近轴光线径向坐标", "指定近轴光线的局部径向距离"),
+        new MeritOperandType("PARA", "近轴光线 X 方向余弦", "指定近轴光线折射后的局部 X 方向余弦"),
+        new MeritOperandType("PARB", "近轴光线 Y 方向余弦", "指定近轴光线折射后的局部 Y 方向余弦"),
+        new MeritOperandType("PARC", "近轴光线 Z 方向余弦", "指定近轴光线折射后的局部 Z 方向余弦"),
+        new MeritOperandType("PATX", "近轴光线 X 斜率", "指定近轴光线折射后的局部 X/Z 斜率"),
+        new MeritOperandType("PATY", "近轴光线 Y 斜率", "指定近轴光线折射后的局部 Y/Z 斜率"),
+        new MeritOperandType("PANA", "近轴交点法线 X", "近轴交点处 +Z 朝向单位法线 X 分量"),
+        new MeritOperandType("PANB", "近轴交点法线 Y", "近轴交点处 +Z 朝向单位法线 Y 分量"),
+        new MeritOperandType("PANC", "近轴交点法线 Z", "近轴交点处 +Z 朝向单位法线 Z 分量"),
+        new MeritOperandType("YNIP", "近轴 YNI", "轴上边缘光线高度、入射折射率与近轴入射角的乘积"),
+        new MeritOperandType("DMGT", "直径下限", "机械或净半口径对应直径的下限约束"),
+        new MeritOperandType("DMLT", "直径上限", "机械或净半口径对应直径的上限约束"),
+        new MeritOperandType("DMVA", "直径值", "机械或净半口径对应的直径"),
+        new MeritOperandType("MNDT", "最小径厚比", "指定范围中玻璃空间直径与中心厚度比的下限"),
+        new MeritOperandType("MXDT", "最大径厚比", "指定范围中玻璃空间直径与中心厚度比的上限"),
+        new MeritOperandType("BLTH", "毛坯厚度", "沿指定轴采样两面，计算玻璃毛坯的轴向包围厚度"),
+        new MeritOperandType("EFLA", "单片空气焦距", "指定面与下一面组成的单片在空气中的有效焦距"),
         new MeritOperandType("TOTR", "系统总长", "系统总光程长度"),
         new MeritOperandType("TTGT", "总厚度下限", "指定表面后给定边缘方向总厚度的下限约束"),
         new MeritOperandType("TTLT", "总厚度上限", "指定表面后给定边缘方向总厚度的上限约束"),
         new MeritOperandType("TTVA", "总厚度值", "指定表面后给定边缘方向总厚度"),
-        new MeritOperandType("RADI", "表面曲率半径", "指定表面的曲率半径"),
-        new MeritOperandType("THIC", "表面厚度", "指定表面后的轴向厚度")
+        new MeritOperandType("RADI", "表面曲率半径（本程序）", "本程序自定义：指定表面的曲率半径"),
+        new MeritOperandType("THIC", "表面厚度（本程序）", "本程序自定义：指定表面后的轴向厚度")
     };
 
-    public static IReadOnlyList<MeritOperandType> Types { get; } = WorkbenchTypes
+    private static readonly IReadOnlyList<MeritOperandType> GradientPointTypes = Enumerable.Range(1, 6)
+        .SelectMany(point => new[] { "GT", "LT", "VA" }.Select(constraint =>
+            new MeritOperandType($"I{point}{constraint}",
+                $"GRIN {new[] { "前顶点", "前端 +Y", "前端 +X", "后顶点", "后端 +Y", "后端 +X" }[point - 1]}折射率{(constraint == "GT" ? "下限" : constraint == "LT" ? "上限" : "目标值")}",
+                "读取入口局部坐标中的空间折射率；侧向位置使用两端较大的净半口径，计算范围见说明")))
+        .ToArray();
+
+    public static IReadOnlyList<MeritOperandType> Types { get; } = WorkbenchTypes.Concat(GradientPointTypes)
         .Concat(ZemaxOperandRegistry.Descriptors
-            .Where(descriptor => WorkbenchTypes.All(type => type.Code != descriptor.Code))
+            .Where(descriptor => WorkbenchTypes.Concat(GradientPointTypes).All(type => type.Code != descriptor.Code))
             .Select(descriptor => new MeritOperandType(
                 descriptor.Code,
-                $"Zemax {descriptor.Code}",
-                descriptor.SupportLevel == ZemaxOperandSupportLevel.Executable
+                $"Zemax {descriptor.Code}" + (ZemaxOperandRegistry.IsDocumentedUnused(descriptor.Code) ? "（未用）" : string.Empty),
+                ZemaxOperandRegistry.IsDocumentedUnused(descriptor.Code)
+                    ? "官方标记 Unused；仅保留名称，不属于待实现功能"
+                    : descriptor.SupportLevel == ZemaxOperandSupportLevel.Executable
                     ? "已连接当前 Workbench 计算引擎"
                     : "可无损保留；尚未提供可执行语义")))
         .OrderBy(type => type.Code, StringComparer.Ordinal)
@@ -324,7 +526,7 @@ public static class MeritFunctionCatalog
         string PupilSampling,
         bool PolychromaticReference);
 
-    private sealed class OrderedMeritEvaluationContext
+    private sealed partial class OrderedMeritEvaluationContext
     {
         private readonly IReadOnlyList<MeritOperandDefinition> _definitions;
         private readonly MeritOperandEvaluation[] _evaluations;
@@ -332,14 +534,21 @@ public static class MeritFunctionCatalog
         private readonly bool[] _hasFiniteValue;
 
         public OrderedMeritEvaluationContext(
+            MeritConfigurationContext configurations,
             IReadOnlyList<MeritOperandDefinition> definitions,
             MeritOperandEvaluation[] evaluations)
         {
+            Configurations = configurations;
+            SystemState = new MeritSystemState(configurations);
             _definitions = definitions;
             _evaluations = evaluations;
             _values = new double[definitions.Count];
             _hasFiniteValue = new bool[definitions.Count];
         }
+
+        public MeritConfigurationContext Configurations { get; }
+
+        public MeritSystemState SystemState { get; }
 
         public int CurrentRowIndex { get; set; }
 
@@ -348,7 +557,8 @@ public static class MeritFunctionCatalog
             var definition = _definitions[rowIndex];
             var canonicalType = (definition.Type ?? string.Empty).Trim().ToUpperInvariant();
             var usableValue = definition.Enabled
-                && canonicalType is not ("BLNK" or "DMFS")
+                && canonicalType is not ("BLNK" or "DMFS" or "REQS")
+                && !IsSystemStateOperand(canonicalType)
                 && string.IsNullOrEmpty(evaluation.Error)
                 && double.IsFinite(evaluation.Value);
             _values[rowIndex] = evaluation.Value;
@@ -425,14 +635,18 @@ public static class MeritFunctionCatalog
 
     public static IReadOnlyList<MeritOperandEvaluation> EvaluateAll(
         Optic optic,
+        IReadOnlyList<MeritOperandDefinition> definitions) => EvaluateAll(new MeritConfigurationContext([optic]), definitions);
+
+    public static IReadOnlyList<MeritOperandEvaluation> EvaluateAll(
+        MeritConfigurationContext configurations,
         IReadOnlyList<MeritOperandDefinition> definitions)
     {
-        ArgumentNullException.ThrowIfNull(optic);
+        ArgumentNullException.ThrowIfNull(configurations);
         ArgumentNullException.ThrowIfNull(definitions);
-
+        var optic = configurations.ActiveOptic;
         using var evaluationBatch = BeginEvaluationBatch();
         var evaluations = new MeritOperandEvaluation[definitions.Count];
-        var context = new OrderedMeritEvaluationContext(definitions, evaluations);
+        var context = new OrderedMeritEvaluationContext(configurations, definitions, evaluations);
         var rotationallySymmetric = definitions.Any(definition =>
                 definition is not null
                 && definition.Enabled
@@ -443,7 +657,7 @@ public static class MeritFunctionCatalog
             var definition = definitions[index]
                 ?? throw new ArgumentException("评价函数操作数不能为 null。", nameof(definitions));
             context.CurrentRowIndex = index;
-            evaluations[index] = EvaluateCore(optic, definition, context);
+            evaluations[index] = EvaluateCore(context.SystemState.Current, definition, context);
             context.Record(index, evaluations[index]);
 
             if (!definition.Enabled || !string.IsNullOrEmpty(evaluations[index].Error))
@@ -452,6 +666,11 @@ public static class MeritFunctionCatalog
             }
 
             var canonicalType = CanonicalType(definition.Type);
+            if (IsSystemStateOperand(canonicalType))
+            {
+                rotationallySymmetric = definitions.Any(row => row.Enabled && CanonicalType(row.Type) == "USYM")
+                    || IsRotationallySymmetric(context.SystemState.Current);
+            }
             if (canonicalType == "ENDX")
             {
                 for (var skipped = index + 1; skipped < definitions.Count; skipped++)
@@ -497,8 +716,8 @@ public static class MeritFunctionCatalog
     {
         return new Operand(
             CanonicalType(definition.Type),
-            definition.Target,
-            definition.Weight,
+            IsSystemStateOperand(definition.Type) || CanonicalType(definition.Type) == "REQS" ? 0 : definition.Target,
+            IsSystemStateOperand(definition.Type) || CanonicalType(definition.Type) == "REQS" ? 0 : definition.Weight,
             () =>
             {
                 var value = Evaluate(optic, definition);
@@ -508,22 +727,26 @@ public static class MeritFunctionCatalog
 
     public static IReadOnlyList<Operand> CreateOperands(
         Optic optic,
+        IReadOnlyList<MeritOperandDefinition> definitions) => CreateOperands(new MeritConfigurationContext([optic]), definitions);
+
+    public static IReadOnlyList<Operand> CreateOperands(
+        MeritConfigurationContext configurations,
         IReadOnlyList<MeritOperandDefinition> definitions)
     {
-        ArgumentNullException.ThrowIfNull(optic);
+        ArgumentNullException.ThrowIfNull(configurations);
         ArgumentNullException.ThrowIfNull(definitions);
 
         return definitions
             .Select((definition, index) => (Definition: definition, Index: index))
             .Where(item => item.Definition.Enabled
-                && CanonicalType(item.Definition.Type) is not ("BLNK" or "DMFS"))
+                && CanonicalType(item.Definition.Type) is not ("BLNK" or "DMFS" or "REQS"))
             .Select(item => new Operand(
                 $"{CanonicalType(item.Definition.Type)} row {item.Index + 1}",
-                item.Definition.Target,
-                item.Definition.Weight,
+                IsSystemStateOperand(item.Definition.Type) ? 0 : item.Definition.Target,
+                IsSystemStateOperand(item.Definition.Type) ? 0 : item.Definition.Weight,
                 () =>
                 {
-                    var evaluations = EvaluateAll(optic, definitions);
+                    var evaluations = EvaluateAll(configurations, definitions);
                     var evaluation = evaluations[item.Index];
                     return RequireOptimizationValue(evaluation,
                         $"{CanonicalType(item.Definition.Type)} row {item.Index + 1}");
@@ -532,12 +755,15 @@ public static class MeritFunctionCatalog
     }
 
     /// <summary>Ordered values with the same active rows as CreateOperands; failures retain their cause.</summary>
-    public static double[] EvaluateOptimizationValues(Optic optic, IReadOnlyList<MeritOperandDefinition> definitions)
+    public static double[] EvaluateOptimizationValues(Optic optic, IReadOnlyList<MeritOperandDefinition> definitions) =>
+        EvaluateOptimizationValues(new MeritConfigurationContext([optic]), definitions);
+
+    public static double[] EvaluateOptimizationValues(MeritConfigurationContext configurations, IReadOnlyList<MeritOperandDefinition> definitions)
     {
-        var evaluations = EvaluateAll(optic, definitions);
+        var evaluations = EvaluateAll(configurations, definitions);
         return definitions.Select((definition, index) => (Definition: definition, Index: index))
             .Where(item => item.Definition.Enabled
-                && CanonicalType(item.Definition.Type) is not ("BLNK" or "DMFS"))
+                && CanonicalType(item.Definition.Type) is not ("BLNK" or "DMFS" or "REQS"))
             .Select(item => RequireOptimizationValue(evaluations[item.Index],
                 $"{CanonicalType(item.Definition.Type)} row {item.Index + 1}"))
             .ToArray();
@@ -564,7 +790,7 @@ public static class MeritFunctionCatalog
         try
         {
             var canonicalType = CanonicalType(definition.Type);
-            if (canonicalType is "BLNK" or "DMFS" or "GOTO" or "ENDX" or "OOFF" or "SKIN" or "SKIS" or "USYM")
+            if (canonicalType is "BLNK" or "DMFS" or "REQS" or "GOTO" or "ENDX" or "OOFF" or "SKIN" or "SKIS" or "USYM")
             {
                 return new MeritOperandEvaluation(0, 0);
             }
@@ -575,6 +801,12 @@ public static class MeritFunctionCatalog
                     $"Merit operand '{canonicalType}' is preserved for compatibility but is not executable.");
             }
 
+            if (IsSystemStateOperand(canonicalType))
+            {
+                if (context is null) throw new InvalidOperationException("系统状态操作数必须在有序评价函数中执行。");
+                context.SystemState.Apply(definition);
+                return new MeritOperandEvaluation(0, 0);
+            }
             var value = EvaluateValue(optic, definition, context);
             if (!double.IsFinite(value))
             {
@@ -704,7 +936,7 @@ public static class MeritFunctionCatalog
         var xWeight = Math.Max(0, double.IsFinite(settings.XWeight) ? settings.XWeight : 1);
         var yWeight = Math.Max(0, double.IsFinite(settings.YWeight) ? settings.YWeight : 1);
         if (settings.ImageQuality == MeritImageQuality.Contrast
-            && (settings.SpatialFrequency <= 0 || (xWeight <= 0 && yWeight <= 0)))
+            && (!double.IsFinite(settings.SpatialFrequency) || settings.SpatialFrequency <= 0 || (xWeight <= 0 && yWeight <= 0)))
         {
             throw new ArgumentException("对比度优化需要正的空间频率，并至少启用一个方向权重。", nameof(settings));
         }
@@ -725,12 +957,15 @@ public static class MeritFunctionCatalog
             {
                 var wavelengthIndex = wavelengthIndices[wavelengthOffset];
                 var baseWeight = fieldWeights[fieldIndex] * wavelengthWeights[wavelengthOffset];
+                var contrastShift = settings.ImageQuality == MeritImageQuality.Contrast
+                    ? ContrastMetrics.PupilSeparation(optic, normalizedField, optic.Wavelengths[wavelengthIndex], settings.SpatialFrequency)
+                    : 0;
                 foreach (var pupilSample in pupilSamples)
                 {
                     if (settings.ImageQuality == MeritImageQuality.Contrast)
                     {
                         AddContrastOperands(
-                            optic,
+                            contrastShift,
                             operands,
                             settings,
                             fieldIndex,
@@ -846,7 +1081,7 @@ public static class MeritFunctionCatalog
     }
 
     private static void AddContrastOperands(
-        Optic optic,
+        double pupilShift,
         ICollection<MeritOperandDefinition> operands,
         MeritFunctionWizardSettings settings,
         int fieldIndex,
@@ -858,14 +1093,7 @@ public static class MeritFunctionCatalog
         double yWeight,
         MeritOperandDefinition prototype)
     {
-        var frequency = Math.Max(0, settings.SpatialFrequency);
-        var cutoff = DiffractionCutoff(optic, optic.Wavelengths[wavelengthIndex]);
-        var pupilShift = cutoff <= 1e-12 ? double.PositiveInfinity : 2 * frequency / cutoff;
-        if (!double.IsFinite(pupilShift) || pupilShift > 2 + 1e-12)
-        {
-            return;
-        }
-
+        var frequency = settings.SpatialFrequency;
         if (xWeight > 0 && PairFitsPupil(pupilSample.X, pupilSample.Y, pupilShift, sagittal: true))
         {
             var operand = CreateSampleOperand(
@@ -877,6 +1105,7 @@ public static class MeritFunctionCatalog
                 settings,
                 prototype);
             operand.SpatialFrequency = frequency;
+            operand.Px += pupilShift / 2;
             operands.Add(operand);
         }
 
@@ -891,6 +1120,7 @@ public static class MeritFunctionCatalog
                 settings,
                 prototype);
             operand.SpatialFrequency = frequency;
+            operand.Py += pupilShift / 2;
             operands.Add(operand);
         }
     }
@@ -963,16 +1193,8 @@ public static class MeritFunctionCatalog
             .ToArray();
     }
 
-    private static bool PairFitsPupil(double px, double py, double shift, bool sagittal)
-    {
-        var half = shift / 2;
-        var firstX = sagittal ? px - half : px;
-        var firstY = sagittal ? py : py - half;
-        var secondX = sagittal ? px + half : px;
-        var secondY = sagittal ? py : py + half;
-        return ((firstX * firstX) + (firstY * firstY) <= 1 + 1e-12)
-            && ((secondX * secondX) + (secondY * secondY) <= 1 + 1e-12);
-    }
+    private static bool PairFitsPupil(double px, double py, double shift, bool sagittal) =>
+        ContrastMetrics.TryPair(px, py, shift, sagittal, centered: true, out _);
 
     private static int PrimaryWavelengthIndex(Optic optic)
     {
@@ -980,14 +1202,6 @@ public static class MeritFunctionCatalog
             .Select((wavelength, offset) => (wavelength, offset))
             .FirstOrDefault(item => item.wavelength.IsPrimary).offset;
         return Math.Clamp(index, 0, Math.Max(0, optic.Wavelengths.Count - 1));
-    }
-
-    private static double DiffractionCutoff(Optic optic, Wavelength wavelength)
-    {
-        var fNumber = Math.Abs(optic.Paraxial.EstimateFNumber());
-        return fNumber <= 1e-12 || wavelength.Micrometers <= 1e-12
-            ? 0
-            : 1 / (wavelength.Micrometers * 1e-3 * fNumber);
     }
 
     private static string QualityName(MeritImageQuality quality) => quality switch
@@ -1165,6 +1379,10 @@ public static class MeritFunctionCatalog
             "OPLT" => BoundaryLessThanOrEqual(EvaluateOperandValue(definition, context), definition.Target),
             "ABGT" => BoundaryGreaterThanOrEqual(Math.Abs(EvaluateOperandValue(definition, context)), definition.Target),
             "ABLT" => BoundaryLessThanOrEqual(Math.Abs(EvaluateOperandValue(definition, context)), definition.Target),
+            "CENX" or "CENY" or "CNPX" or "CNPY" or "CNAX" or "CNAY" => EvaluateRayCentroid(optic, definition),
+            "GMTA" or "GMTS" or "GMTT" or "GMTN" or "GMTX" or "MTFA" or "MTFS" or "MTFT" or "MTFN" or "MTFX" or "MSWA" or "MSWS" or "MSWT" or "MSWN" or "MSWX" => EvaluateMtfMetric(optic, definition),
+            "GSCE" or "GSCH" or "GSRE" or "GSRH" => EvaluateGeometricSpot(optic, definition),
+            "RWCE" or "RWCH" or "RWRE" or "RWRH" or "MWCE" or "MWCH" or "MWRE" or "MWRH" => EvaluateWavefrontMetric(optic, definition),
             "RSCE" => EvaluateRmsSpot(optic, definition),
             "RSCH" => EvaluateRmsSpot(optic, definition),
             "RSRE" => EvaluateRmsSpot(optic, definition),
@@ -1185,12 +1403,61 @@ public static class MeritFunctionCatalog
             "ANCY" => EvaluateAngularAberration(optic, definition),
             "ANAX" => EvaluateAngularAberration(optic, definition),
             "ANAY" => EvaluateAngularAberration(optic, definition),
-            "MECS" => EvaluateMooreElliottDifference(optic, definition, sagittal: true),
-            "MECT" => EvaluateMooreElliottDifference(optic, definition, sagittal: false),
+            "ZERN" => context is null ? EvaluateZernikeStandalone(optic, definition) : context.EvaluateZernike(optic, definition),
+            "MECA" or "MECS" or "MECT" => EvaluateMooreElliottDifference(optic, definition),
+            "GLCX" or "GLCY" or "GLCZ" or "GLCA" or "GLCB" or "GLCC" or "GLCR" => EvaluateGlobalSurfaceData(optic, definition),
+            "RAGX" or "RAGY" or "RAGZ" or "RAGA" or "RAGB" or "RAGC" => EvaluateGlobalRayData(optic, definition),
+            "DXDX" or "DXDY" or "DYDX" or "DYDY" => EvaluateRayFanDerivative(optic, definition),
             "REAX" => SampleAtSurface(optic, definition).Position.X,
             "REAY" => SampleAtSurface(optic, definition).Position.Y,
             "REAR" => EvaluateRealRayRadius(optic, definition),
             "RANG" => EvaluateRealRayAngle(optic, definition),
+            "REAZ" or "REAA" or "REAB" or "REAC" or "RENA" or "RENB" or "RENC"
+                or "RETX" or "RETY" or "RAID" or "RAIN" or "RAED" or "RAEN" =>
+                EvaluateLocalRayData(optic, definition),
+            "OPTH" or "PLEN" => EvaluateRayOpticalPath(optic, definition),
+            "PARX" or "PARY" or "PARZ" or "PARR" or "PARA" or "PARB" or "PARC"
+                or "PATX" or "PATY" or "PANA" or "PANB" or "PANC" => EvaluateParaxialRayData(optic, definition),
+            "YNIP" => EvaluateMarginalYni(optic, definition),
+            "EFLA" => EvaluateElementFocalLengthInAir(optic, definition),
+            "DMVA" => EvaluateDiameter(optic, definition),
+            "DMGT" => BoundaryGreaterThanOrEqual(EvaluateDiameter(optic, definition), definition.Target),
+            "DMLT" => BoundaryLessThanOrEqual(EvaluateDiameter(optic, definition), definition.Target),
+            "MNDT" => BoundaryGreaterThanOrEqual(EvaluateDiameterThicknessExtreme(optic, definition, maximum: false), definition.Target),
+            "MXDT" => BoundaryLessThanOrEqual(EvaluateDiameterThicknessExtreme(optic, definition, maximum: true), definition.Target),
+            "BLTH" => EvaluateBlankThickness(optic, definition),
+            "MNAI" => EvaluateIncidenceExtreme(optic, definition, maximum: false),
+            "MXAI" => EvaluateIncidenceExtreme(optic, definition, maximum: true),
+            "PMVA" => EvaluateSurfaceParameter(optic, definition),
+            "PMGT" => BoundaryGreaterThanOrEqual(EvaluateSurfaceParameter(optic, definition), definition.Target),
+            "PMLT" => BoundaryLessThanOrEqual(EvaluateSurfaceParameter(optic, definition), definition.Target),
+            "GCOS" => EvaluateGlassCost(optic, definition),
+            "CVOL" => EvaluateCylinderVolume(optic, definition),
+            "SPHS" or "PSLP" or "DPHS" or "QSLP" => EvaluateSurfacePhase(optic, definition),
+            "DENC" or "DENF" => EvaluateDiffractionEnergy(optic, definition),
+            "SSAG" or "SSLP" or "SCRV" => EvaluateSurfacePoint(optic, definition),
+            "TSAG" => EvaluateDirectionalSag(optic, definition),
+            "GENC" or "GENF" or "ERFP" => EvaluateGeometricEnergy(optic, definition),
+            "VOLU" or "TMAS" => EvaluateElementVolumeOrMass(optic, definition),
+            "DSAG" or "DSLP" or "DCRV" => EvaluateSurfaceProfile(optic, definition),
+            "CARD" => EvaluateCardinalData(optic, definition),
+            "SCUR" or "SDRV" => EvaluateSurfaceDifferential(optic, definition),
+            "TRAI" => EvaluateIntermediateTransverseAberration(optic, definition),
+            "BSER" => EvaluateBoresightError(optic, definition),
+            "LONA" or "AXCL" or "LACL" or "SPCH" => EvaluateChromaticFocus(optic, definition),
+            "SPHA" or "COMA" or "ASTI" or "FCUR" => EvaluateSeidelWave(optic, definition),
+            "PETC" => EvaluatePetzvalCurvature(optic, definition),
+            "SAGX" or "SAGY" or "NORX" or "NORY" or "NORZ" or "NORD" =>
+                EvaluateSurfaceShapeData(optic, definition),
+            "TCVA" => EvaluateSurfaceThermalExpansion(optic, definition),
+            "TCGT" => BoundaryGreaterThanOrEqual(EvaluateSurfaceThermalExpansion(optic, definition), definition.Target),
+            "TCLT" => BoundaryLessThanOrEqual(EvaluateSurfaceThermalExpansion(optic, definition), definition.Target),
+            "GTCE" => EvaluateGlassThermalExpansion(optic, definition),
+            "MNPD" => BoundaryGreaterThanOrEqual(EvaluateGlassDataExtreme(
+                optic, definition, GlassPartialDispersionDeviation, "ΔPg,F", maximum: false), definition.Target),
+            "MXPD" => BoundaryLessThanOrEqual(EvaluateGlassDataExtreme(
+                optic, definition, GlassPartialDispersionDeviation, "ΔPg,F", maximum: true), definition.Target),
+            "AMAG" or "LINV" or "PIMH" or "OBSN" => EvaluateAdditionalFirstOrder(optic, definition),
             "EFFL" => optic.Paraxial.EstimateEffectiveFocalLength(),
             "EFLX" => EvaluateEffectiveFocalLengthBetweenSurfaces(optic, definition),
             "EFLY" => EvaluateEffectiveFocalLengthBetweenSurfaces(optic, definition),
@@ -1199,10 +1466,20 @@ public static class MeritFunctionCatalog
             "EXPP" => optic.Paraxial.EstimateExitPupilLocation(),
             "EXPD" => optic.Paraxial.EstimateExitPupilDiameter(),
             "ISFN" => optic.Paraxial.EstimateFNumber(),
-            "SFNO" => optic.Paraxial.EstimateFNumber(),
+            "SFNO" or "TFNO" => EvaluateDirectionalWorkingFNumber(optic, definition),
+            "GBPD" or "GBPP" or "GBPR" or "GBPS" or "GBPW" or "GBPZ" => EvaluateParaxialGaussianBeam(optic, definition),
+            "STRH" or "CEHX" or "CEHY" => EvaluateHuygensPsfMetric(optic, definition),
+            "MTHA" or "MTHS" or "MTHT" or "MTHN" or "MTHX" => EvaluateHuygensMtfMetric(optic, definition),
+            "RRET" => EvaluateRmsRetardance(optic, definition),
+            "CMGT" or "CMLT" or "CMVA" or "CIGT" or "CILT" or "CIVA" or "CEGT" or "CELT" or "CEVA"
+                => EvaluateCoatingLayerConstraint(optic, definition),
+            "CODA" => EvaluateCoatingData(optic, definition),
+            "HYLD" => EvaluateHighYield(optic, definition),
+            "MNRE" or "MNRI" or "MXRE" or "MXRI" => EvaluateRayAngleRange(optic, definition),
             "WFNO" => optic.Paraxial.EstimateFNumber(),
             "ISNA" => EvaluateImageSpaceNumericalAperture(optic, definition),
             "WLEN" => EvaluateWavelengthMicrometers(optic, definition),
+            _ when ZemaxOperandRegistry.IsGradientIndexControl(CanonicalType(definition.Type)) => EvaluateGradientIndexControl(optic, definition),
             "INDX" => EvaluateRefractiveIndex(optic, definition),
             "MNIN" => BoundaryGreaterThanOrEqual(
                 EvaluateGlassIndexExtreme(optic, definition, maximum: false), definition.Target),
@@ -1219,6 +1496,8 @@ public static class MeritFunctionCatalog
             "TTLT" => BoundaryLessThanOrEqual(EvaluateDirectedEdgeThickness(optic, definition), definition.Target),
             "TTVA" => EvaluateDirectedEdgeThickness(optic, definition),
             "TTHI" => EvaluateRangeThickness(optic, definition),
+            "MCOV" or "MCOG" or "MCOL" => EvaluateConfigurationOperand(context?.Configurations, definition),
+            "ZTHI" => EvaluateZoomThickness(context?.Configurations ?? new MeritConfigurationContext([optic]), definition),
             "TGTH" => EvaluateGlassThicknessSum(optic, definition),
             "CTGT" => BoundaryGreaterThanOrEqual(EvaluateCenterThickness(optic, definition), definition.Target),
             "CTLT" => BoundaryLessThanOrEqual(EvaluateCenterThickness(optic, definition), definition.Target),
@@ -1281,7 +1560,9 @@ public static class MeritFunctionCatalog
                 optic, definition, ThicknessMaterialFilter.Any, edge: true, perimeter: true, maximum: true), definition.Target),
             "PMAG" => EvaluateParaxialMagnification(optic, definition),
             "PETZ" => EvaluatePetzvalRadius(optic, definition),
-            "DIMX" => BoundaryLessThanOrEqual(EvaluateMaximumDistortion(optic, definition), definition.Target),
+            "BFSD" => EvaluateBestFitSphere(optic, definition),
+            "RELI" or "EFNO" => EvaluateIllumination(optic, definition),
+            "ABCD" or "DIST" or "DISA" or "DISG" or "DIMX" or "SMIA" or "FCGS" or "FCGT" => EvaluateDistortionMetric(optic, definition),
             "RADI" => ResolveSurface(optic, definition.Surface).Radius,
             "THIC" => ResolveSurface(optic, definition.Surface).Thickness,
             _ => throw new NotSupportedException(
@@ -2182,52 +2463,16 @@ public static class MeritFunctionCatalog
 
     private static double EvaluatePetzvalRadius(Optic optic, MeritOperandDefinition definition)
     {
-        var wavelength = ResolveWavelength(
-            optic,
-            ZemaxIntegerParameter(definition, 1, definition.Wavelength));
-        var surfaces = optic.SurfaceGroup.Items.ToArray();
-        var petzvalSum = 0.0;
-        for (var index = 1; index < surfaces.Length; index++)
-        {
-            var surface = surfaces[index];
-            var previous = surfaces[index - 1];
-            var nBefore = SafeIndex(previous.MaterialAfter.RefractiveIndex(wavelength.Nanometers));
-            var nAfter = SafeIndex(surface.MaterialAfter.RefractiveIndex(wavelength.Nanometers));
-            var curvature = surface.IsPlane ? 0.0 : 1.0 / surface.Radius;
-            petzvalSum += curvature * (nAfter - nBefore) / (nBefore * nAfter);
-        }
-
-        if (Math.Abs(petzvalSum) <= 1e-15)
+        var curvature = EvaluatePetzvalCurvature(optic, definition);
+        if (curvature == 0)
         {
             throw new InvalidOperationException("Petzval sum is zero; Petzval radius is infinite.");
         }
-
-        // Zemax reports the Petzval image-surface radius with the image-space
-        // curvature sign, which is opposite to the accumulated surface sum.
-        return -1.0 / petzvalSum;
+        return 1.0 / curvature;
     }
 
     private static double SafeIndex(double value) =>
         double.IsFinite(value) && Math.Abs(value) > 1e-12 ? value : 1.0;
-
-    private static double EvaluateMaximumDistortion(Optic optic, MeritOperandDefinition definition)
-    {
-        var wavelengthNumber = ZemaxIntegerParameter(definition, 1, definition.Wavelength);
-        var analysis = new DistortionAnalysis(
-            optic,
-            numPoints: 33,
-            wavelengthNumber: wavelengthNumber,
-            displayMode: "percent");
-        var data = analysis.GenerateData();
-        if (data.Values.TryGetValue("MaximumAbsoluteDistortionPercent", out var value)
-            && value is double distortion
-            && double.IsFinite(distortion))
-        {
-            return distortion;
-        }
-
-        throw new InvalidOperationException("DIMX 无法从畸变分析取得最大畸变值。");
-    }
 
     private static double EvaluateImageSpaceNumericalAperture(Optic optic, MeritOperandDefinition definition)
     {
@@ -2272,9 +2517,9 @@ public static class MeritFunctionCatalog
             throw new ArgumentOutOfRangeException(nameof(definition), startSurface, "起始表面不能为负数。");
         }
 
-        if (endSurface <= startSurface)
+        if (endSurface < startSurface)
         {
-            throw new ArgumentOutOfRangeException(nameof(definition), endSurface, "终止表面必须大于起始表面。");
+            throw new ArgumentOutOfRangeException(nameof(definition), endSurface, "终止表面不能小于起始表面。");
         }
 
         var surfacesByNumber = optic.SurfaceGroup.Items.ToDictionary(surface => surface.Number);
@@ -2595,44 +2840,18 @@ public static class MeritFunctionCatalog
         return result;
     }
 
-    private static double EvaluateMooreElliottDifference(
-        Optic optic,
-        MeritOperandDefinition definition,
-        bool sagittal)
-    {
-        var wavelength = ResolveWavelength(optic, definition.Wavelength);
-        var cutoff = DiffractionCutoff(optic, wavelength);
-        if (cutoff <= 1e-12)
-        {
-            throw new InvalidOperationException("系统没有有效的衍射截止频率。");
-        }
-
-        var shift = 2 * Math.Max(0, definition.SpatialFrequency) / cutoff;
-        if (!PairFitsPupil(definition.Px, definition.Py, shift, sagittal))
-        {
-            throw new InvalidOperationException("Moore-Elliott 移位光线超出当前入瞳。");
-        }
-
-        var half = shift / 2;
-        var first = definition.Clone();
-        var second = definition.Clone();
-        if (sagittal)
-        {
-            first.Px -= half;
-            second.Px += half;
-        }
-        else
-        {
-            first.Py -= half;
-            second.Py += half;
-        }
-
-        var firstSample = SampleAtSurface(optic, first);
-        var secondSample = SampleAtSurface(optic, second);
-        var wavelengthMillimeters = wavelength.Micrometers / 1000.0;
-        return (secondSample.CumulativeOpticalPathLength - firstSample.CumulativeOpticalPathLength)
-            / Math.Max(1e-12, wavelengthMillimeters);
-    }
+    private static double EvaluateMooreElliottDifference(Optic optic, MeritOperandDefinition definition) =>
+        ContrastMetrics.Evaluate(optic,
+            ZemaxIntegerParameter(definition, 1, definition.Wavelength),
+            IntegerDataParameter(definition, 0, definition.Field),
+            FiniteParameter(definition, 1, definition.SpatialFrequency),
+            FiniteParameter(definition, 2, definition.Px), FiniteParameter(definition, 3, definition.Py),
+            CanonicalType(definition.Type) switch
+            {
+                "MECS" => ContrastDirection.Sagittal,
+                "MECT" => ContrastDirection.Tangential,
+                _ => ContrastDirection.Average
+            });
 
     private static double EvaluateRmsWavefront(Optic optic, MeritOperandDefinition definition)
     {

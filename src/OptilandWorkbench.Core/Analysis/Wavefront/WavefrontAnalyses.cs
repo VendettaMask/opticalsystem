@@ -468,11 +468,10 @@ public sealed class ZernikeAnalysis : BaseAnalysis
         var isStandard = _kind == ZernikeAnalysisKind.Standard;
         var isAnnular = _kind == ZernikeAnalysisKind.Annular;
         var isZemaxFringe = _kind == ZernikeAnalysisKind.ZemaxFringe;
-        var coefficients = isAnnular
-            ? ZernikeFitEngine.FitAnnular(wavefront.Samples, _numTerms, _obscurationRatio)
-            : isStandard
-                ? ZernikeFitEngine.FitStandard(wavefront.Samples, _numTerms)
-                : ZernikeFitEngine.FitFringe(wavefront.Samples, _numTerms);
+        var fit = ZernikeMetrics.Fit(wavefront.Samples,
+            isAnnular ? ZernikeBasisKind.Annular : isStandard ? ZernikeBasisKind.Standard : ZernikeBasisKind.Fringe,
+            _numTerms, _obscurationRatio, requireFullRank: false);
+        var coefficients = fit.Coefficients;
         double Evaluate(IReadOnlyList<ZernikeCoefficient> terms, double x, double y) =>
             isAnnular
                 ? ZernikeFitEngine.EvaluateAnnular(terms, x, y, _obscurationRatio)
@@ -501,42 +500,18 @@ public sealed class ZernikeAnalysis : BaseAnalysis
             : $"{_numRings} hexapolar rings";
         values["RayCount"] = wavefront.Samples.Count;
         values["VignettedRayCount"] = wavefront.VignettedRayCount;
-        var validSamples = wavefront.Samples.Where(sample =>
-        {
-            var radiusSquared = (sample.NormalizedPupilX * sample.NormalizedPupilX)
-                + (sample.NormalizedPupilY * sample.NormalizedPupilY);
-            return sample.Intensity > 0
-                && (!isAnnular || radiusSquared >= (_obscurationRatio * _obscurationRatio) - 1e-12);
-        }).ToArray();
-        var piston = coefficients.FirstOrDefault(coefficient => coefficient.Number == 1)?.Value ?? 0;
-        var referenceTerms = coefficients.Where(coefficient => coefficient.Number <= 3).ToArray();
-        var relativeToChief = validSamples
-            .Select(sample => sample.OpdWaves - piston)
-            .ToArray();
-        var relativeToCenter = validSamples
-            .Select(sample => sample.OpdWaves - Evaluate(
-                referenceTerms,
-                sample.NormalizedPupilX,
-                sample.NormalizedPupilY))
-            .ToArray();
-        var fitResiduals = validSamples
-            .Select(sample => sample.OpdWaves - Evaluate(
-                coefficients,
-                sample.NormalizedPupilX,
-                sample.NormalizedPupilY))
-            .ToArray();
         var coefficientRmsChief = Math.Sqrt(coefficients
             .Where(coefficient => coefficient.Number >= 2)
             .Sum(coefficient => coefficient.Value * coefficient.Value));
         var coefficientRmsCenter = Math.Sqrt(coefficients
             .Where(coefficient => coefficient.Number >= 4)
             .Sum(coefficient => coefficient.Value * coefficient.Value));
-        var rmsChief = Rms(relativeToChief);
-        var rmsCenter = Rms(relativeToCenter);
-        var peakToValleyChief = PeakToValley(relativeToChief);
-        var peakToValleyCenter = PeakToValley(relativeToCenter);
-        var rmsFitError = Rms(fitResiduals);
-        var maximumFitError = fitResiduals.Select(Math.Abs).DefaultIfEmpty(0).Max();
+        var rmsChief = fit.Chief.Rms;
+        var rmsCenter = fit.Centroid.Rms;
+        var peakToValleyChief = fit.Chief.PeakToValley;
+        var peakToValleyCenter = fit.Centroid.PeakToValley;
+        var rmsFitError = fit.RmsFitError;
+        var maximumFitError = fit.MaximumFitError;
         var variance = rmsCenter * rmsCenter;
         var strehl = Math.Exp(-Math.Pow(2 * Math.PI * rmsCenter, 2));
         values["PeakToValleyChiefWaves"] = peakToValleyChief;

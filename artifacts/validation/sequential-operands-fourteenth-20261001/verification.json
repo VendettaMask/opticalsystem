@@ -1,0 +1,177 @@
+{
+  "date": "2026-10-01",
+  "scope": "Fourteenth batch: six paraxial Gaussian beam operands using the shared Core matrix and embedded mode",
+  "registered": 383,
+  "executable_before": 259,
+  "executable_after": 265,
+  "compatibility_only_after": 118,
+  "added_codes": [
+    "GBPD",
+    "GBPP",
+    "GBPR",
+    "GBPS",
+    "GBPW",
+    "GBPZ"
+  ],
+  "cumulative_added_since_124": 141,
+  "verification": {
+    "debug": {
+      "total": 1516,
+      "passed": 1516,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 67,
+      "previous_batch_tests": 1449,
+      "trx": "fourteenth-batch-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 1516,
+      "passed": 1516,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 67,
+      "previous_batch_tests": 1449,
+      "trx": "fourteenth-batch-release.trx",
+      "log": "release.log"
+    }
+  },
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "support_boundaries": {
+    "modes": "Centered standard sphere/conic, plane and ideal thin-lens transmissive systems; same X/Y power. Surface 1 onward, after interaction but before trailing translation; input waist is embedded TEM00; M2>=1 scales radius/waist/divergence by sqrt(M2), not position/phase radius/Rayleigh. Apertures ignored by paraxial model. Other geometries, reflection, tilt/decenter and negative propagation gaps not supported yet.",
+    "parameters": "Surf/Wave/UseX/W0/S1toW/M2. Positive W0 in mm; signed S1toW; Wave=0 primary. D semi-divergence in radians, other results mm. Phase radius infinite exactly at waist; finite merit evaluation errors, no zero/cap substitute.",
+    "validation": "Independent free-space and two-ray moment reference, refractive index transition, M2 invariants, import/save/editor round trips, invalid inputs, cancellation, apertures and formal DLS waist positioning.",
+    "known_residual": "FCGT captured-angle residual remains Difference against unchanged 1e-5 mm accuracy target."
+  },
+  "external_reference": {
+    "integrity": "10 selected committed assets byte-equal HEAD, not full baseline audit.",
+    "recalculation": "Current Core and fixed-file/settings regressions.",
+    "huygens_analysis_comparison": {
+      "debug": {
+        "direction_values": 18,
+        "maximum_absolute_error": 0.011900434932046483,
+        "analysis_regression_budget": 0.03,
+        "status": "WithinRegressionBudget",
+        "native_MFE_parity": "NotVerified"
+      },
+      "release": {
+        "direction_values": 18,
+        "maximum_absolute_error": 0.011900434932046483,
+        "analysis_regression_budget": 0.03,
+        "status": "WithinRegressionBudget",
+        "native_MFE_parity": "NotVerified"
+      }
+    },
+    "existing_distortion_comparison": {
+      "debug": {
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm",
+          "samples": 9
+        },
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm",
+          "samples": 9
+        }
+      },
+      "release": {
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm",
+          "samples": 9
+        },
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm",
+          "samples": 9
+        }
+      }
+    },
+    "new_native_capture": "None; Gaussian native MFE numerical and slot parity pending.",
+    "screenshots": "No screenshot review."
+  },
+  "remaining_category_counts_overlap": true,
+  "unique_remaining": 118,
+  "all_operands_completion_goal": "Active, not complete; remaining codes and partial modes still require work",
+  "not_performed": [
+    "full product suite",
+    "laboratory full suites",
+    "full external comparison matrix",
+    "new Zemax captures",
+    "native desktop walkthrough",
+    "screenshot review",
+    "installer validation"
+  ],
+  "historical_reference": "Frozen history untouched; no new Optiland comparisons",
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Services/Paraxial.GaussianBeam.cs": "07a54759c852c3edbd11788f37035543a0bbcfca8f926ac0451abc441f8c951b",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.GaussianBeam.cs": "7ecf28cfa24632448cb7029e108459588ab4c1ec5370fee4a64c07995158990d",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "148f35df0a0bad31ed4cabed37a9851addc224b70a381467921e23afa4cd4dd0",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "575e65103ccabd5417dc07aa3c0fa80b557a7f32e67c6e72793267b9bf9645f0",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "aa9d70a175b0151bab1afd46fbfde5d93c414d72d1f9fef68f810ee1f6a51592",
+    "src/OptilandWorkbench.App/Panels/OperandHelpPanel.cs": "79699eaf8e2dd2de18f7f6e46472ec5650e93a0bc45a1d8b82ce6a65a8e87ed5",
+    "tests/OptilandWorkbench.Tests/GaussianBeamOperandTests.cs": "b20e4e5fdcccda9f5c42dce42fc5c42a5b0b5d27f292a74285bc50d7f79a7b76",
+    "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs": "6f899e7151ed63e418cc8af33f85e9c0bb4ca0c7261f7617a2c7bf5066b3e32a"
+  },
+  "selected_capture_sha256": {
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.txt": "dbb741fc9f07d6d55a9d7d6acdad2bfe91f45e3b5b365bb14c51e1d6b8f2a6f0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/049-rmsfield/data.json": "7badd81b3adbd9bd694e4cabfce3d58e45c863866ed77d4337a33f3321290e87",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/052-rmsfocus/data.json": "a90eabe523007f995e10c685622025b34d47c87b25d627e56ddda16020765240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/055-wavefrontmap/data.json": "e9cfe98cfb64ec684976ee786fd33b8844d24995be084941bedbe7537c911e62",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/data.json": "ef6a44cbe999be4ae54c8d2b8dc3854434e0565b9bd28266138eeebcc900f57a",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/025-huygensmtfvsfield/data.json": "9b00c750481cb73adb741f47c00ca66232dd3374765e2fa68a59bca1c6c99323",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/028-huygensthroughfocusmtf/data.json": "dc115e8bd603af3b3a1686fe7c2c0ec4530d9220d235c5af1ce0cd9004147240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/004-fieldcurvatureanddistortion/data.json": "a93a1aeff36e6bf4856ff41ad22844022b8dcc6cbde2a8038853da1d3090bd73",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/settings.cfg": "afc322d75c819f36e8c1aece2d4600c3fbdc687a4e0e6d8badb4e0e646917790"
+  },
+  "default_binary_sha256": {
+    "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll": "5d74322dcd0ef7eb51f0cfa6afa9c41b843e6212302ae3a257ae873ba4b98acd",
+    "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll": "b1d0ebfc704b5fed9239f5f645357a28f6fbfa47107ef2f519e7a54d8856e0ac",
+    "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll": "f614765d2611e4963706517cb5685020954e6818e6ca96ff3634056dd04aafef",
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "027d0dc7accf37bf3cff36a4e1a91eafcb204c07d3b2d03e420237d481eab3e3",
+    "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll": "7cb3b19ca5ffe6ab8f207f3f5cef737a2f6cd1840c7f2b76ef3bd7601ed5e6b0",
+    "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll": "94ab0efd2ef03d3b9f13fcc5406d353131a4d01b2f07c62189b79aee93d95c02"
+  },
+  "new_document_links_checked": 39
+}

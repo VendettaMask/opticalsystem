@@ -1,3 +1,4 @@
+using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Avalonia.Data;
@@ -48,7 +49,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         _surfaceSelection = surfaceSelection;
         _grid = CreateGrid();
         var options = prescription.GetOptions();
-        _geometryPicker.ItemsSource = options.GeometryKinds;
+        _geometryPicker.ItemsSource = options.GeometryKinds.Select(SurfaceEditorRow.SurfaceTypeForGeometry).Distinct().ToArray();
         _aperturePicker.ItemsSource = options.PhysicalApertureKinds;
         _infiniteGratingPeriod.IsCheckedChanged += (_, _) =>
             _gratingPeriod.IsEnabled = _infiniteGratingPeriod.IsChecked != true;
@@ -134,13 +135,37 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         grid.Columns.Add(Column("材料", nameof(SurfaceEditorRow.MaterialDisplay), 122));
         grid.Columns.Add(Column("膜层", nameof(SurfaceEditorRow.Coating), 92));
         grid.Columns.Add(SemiDiameterColumn());
-        grid.Columns.Add(NumericColumn("延伸区", nameof(SurfaceEditorRow.ExtensionZone), 102, true));
+        var chipZoneColumn = NumericColumn("延伸区", nameof(SurfaceEditorRow.ExtensionZoneDisplay), 102);
+        chipZoneColumn.SortMemberPath = nameof(SurfaceEditorRow.ExtensionZone);
+        grid.Columns.Add(chipZoneColumn);
         var mechanicalSemiDiameterColumn = NumericColumn(
             "机械半直径", nameof(SurfaceEditorRow.MechanicalSemiDiameterDisplay), 132, true);
         mechanicalSemiDiameterColumn.SortMemberPath = nameof(SurfaceEditorRow.MechanicalSemiDiameter);
         grid.Columns.Add(mechanicalSemiDiameterColumn);
         grid.Columns.Add(NumericColumn("圆锥系数", nameof(SurfaceEditorRow.Conic), 100));
-        grid.Columns.Add(NumericColumn("TCE x 1E-6", nameof(SurfaceEditorRow.ThermalExpansionDisplay), 112, true));
+        var thermalExpansionColumn = new DataGridTemplateColumn
+        {
+            Header = NumericHeader("TCE x 1E-6"),
+            Tag = NumericColumnTag,
+            Width = new DataGridLength(112),
+            CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) =>
+            {
+                if (row is null) return new Grid();
+                var editor = CreateNumericEditor(row.ThermalExpansionDisplay, text =>
+                {
+                    row.ThermalExpansionDisplay = text;
+                    _prescription.UpdateSurface(row.ToDto());
+                });
+                return new Grid { Name = "ThermalExpansionCell", Children = { editor } };
+            })
+        };
+        if (thermalExpansionColumn.Header is Control thermalExpansionHeader)
+        {
+            const string help = "表面/隔圈热膨胀系数，单位 10⁻⁶/°C，可为负。未提供表示源文件没有已验证数据；玻璃目录系数使用 GTCE。此属性尚不驱动温度膨胀追迹。";
+            ToolTip.SetTip(thermalExpansionHeader, help);
+            AutomationProperties.SetHelpText(thermalExpansionHeader, help);
+        }
+        grid.Columns.Add(thermalExpansionColumn);
         grid.PreparingCellForEdit += (_, eventArgs) =>
         {
             if (Equals(eventArgs.Column.Tag, NumericColumnTag)
@@ -211,11 +236,12 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         _surfaceSelection.Select(row.Number);
         _propertyBody.IsEnabled = true;
 
-        var geometryKinds = _prescription.GetOptions().GeometryKinds;
-        _geometryPicker.ItemsSource = geometryKinds.Contains(row.GeometryKind)
-            ? geometryKinds
-            : geometryKinds.Append(row.GeometryKind).ToArray();
-        _geometryPicker.SelectedItem = row.GeometryKind;
+        _geometryPicker.ItemsSource = _prescription.GetOptions().GeometryKinds
+            .Select(SurfaceEditorRow.SurfaceTypeForGeometry)
+            .Append(row.SurfaceType)
+            .Distinct()
+            .ToArray();
+        _geometryPicker.SelectedItem = row.SurfaceType;
         _aperturePicker.SelectedItem = row.ApertureKind;
         _gratingOrder.Value = row.GratingOrder;
         _infiniteGratingPeriod.IsChecked = double.IsPositiveInfinity(row.GratingPeriodMicrometers);
@@ -231,7 +257,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
             _thinLensFocalLength.Value = (decimal)Math.Clamp(row.ThinLensFocalLength, -1_000_000, 1_000_000);
         }
 
-        _componentSummary.Text = $"表面 {row.Number}: {row.GeometryKind}";
+        _componentSummary.Text = $"表面 {row.Number}: {row.SurfaceType}";
         var canEditComponents = row.GeometryComputable;
         _geometryPicker.IsEnabled = canEditComponents;
         _aperturePicker.IsEnabled = canEditComponents;
@@ -258,14 +284,14 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
 
         if (!row.GeometryComputable)
         {
-            _componentSummary.Text = $"表面 {row.Number}: {row.GeometryKind}（只读：暂不支持计算/编辑该 Zemax 面型）";
+            _componentSummary.Text = $"表面 {row.Number}: {row.SurfaceType}（只读：暂不支持计算/编辑该 Zemax 面型）";
             return;
         }
 
         try
         {
             _prescription.UpdateSurfaceComponents(row.Number, new SurfaceComponentUpdateDto(
-            _geometryPicker.SelectedItem as string ?? row.GeometryKind,
+            _geometryPicker.SelectedItem as string ?? row.SurfaceType,
             _aperturePicker.SelectedItem as string ?? row.ApertureKind,
             (int)(_gratingOrder.Value ?? row.GratingOrder),
             _infiniteGratingPeriod.IsChecked == true
@@ -352,13 +378,48 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
             HorizontalAlignment = HorizontalAlignment.Stretch,
             TextAlignment = TextAlignment.Right
         };
+        // Dense cells use a validation border and tooltip without an extra message row.
+        editor.Styles.Add(new Style(selector => selector.OfType<TextBox>().Template().OfType<DataValidationErrors>())
+        {
+            Setters =
+            {
+                new Setter(DataValidationErrors.ErrorTemplateProperty,
+                    new FuncDataTemplate<object>((_, _) => new Panel { IsVisible = false }))
+            }
+        });
         var committedText = value;
+        void SetError(Exception? error)
+        {
+            DataValidationErrors.SetErrors(editor, error is null ? null : new[] { error.Message });
+            editor.BorderThickness = new Avalonia.Thickness(error is null ? 0 : 1);
+            ToolTip.SetTip(editor, error?.Message);
+            Avalonia.Automation.AutomationProperties.SetHelpText(editor, error?.Message);
+        }
         editor.LostFocus += (_, _) =>
         {
             var text = editor.Text ?? string.Empty;
-            if (text == committedText) return;
-            commit(text);
-            committedText = text;
+            if (text == committedText)
+            {
+                SetError(null);
+                return;
+            }
+            try
+            {
+                commit(text);
+                committedText = text;
+                SetError(null);
+            }
+            catch (Exception error) when (error is FormatException or ArgumentException or InvalidOperationException)
+            {
+                SetError(error);
+            }
+        };
+        editor.KeyDown += (_, args) =>
+        {
+            if (args.Key != Avalonia.Input.Key.Escape) return;
+            editor.Text = committedText;
+            SetError(null);
+            args.Handled = true;
         };
         return editor;
     }
@@ -383,16 +444,16 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
             };
             var role = new TextBlock
             {
-                Text = row?.SurfaceRole ?? string.Empty,
                 Margin = new Avalonia.Thickness(8, 0),
                 VerticalAlignment = VerticalAlignment.Center
             };
             var type = new TextBlock
             {
-                Text = row?.SurfaceType ?? string.Empty,
                 Margin = new Avalonia.Thickness(8, 0),
                 VerticalAlignment = VerticalAlignment.Center
             };
+            role.Bind(TextBlock.TextProperty, new Binding(nameof(SurfaceEditorRow.SurfaceRole)));
+            type.Bind(TextBlock.TextProperty, new Binding(nameof(SurfaceEditorRow.SurfaceType)));
             Grid.SetColumn(type, 1);
             content.Children.Add(role);
             content.Children.Add(type);

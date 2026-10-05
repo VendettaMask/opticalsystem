@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-01",
+  "scope": "Official name and definition-source audit, not a fresh Zemax execution",
+  "registered": 383,
+  "official_enum_count": 448,
+  "matched_api_names": 383,
+  "unmatched_registry_codes": [],
+  "local_extension_codes_not_official_mfe": [
+    "FNUM",
+    "RADI",
+    "RWFE",
+    "THIC"
+  ],
+  "definition_status_counts": {
+    "ManualDefinition": 357,
+    "DocumentedUnused": 5,
+    "ManualCategoryDefinition": 1,
+    "ManualFamilyExpanded": 18,
+    "ApiNameOnlyDefinitionUnverified": 2
+  },
+  "documented_unused": [
+    "BIPF",
+    "COSA",
+    "HACG",
+    "QOAC",
+    "TRAN"
+  ],
+  "api_only_definition_unverified": [
+    "OGSS",
+    "SPHD"
+  ],
+  "executable_partial_modes": 291,
+  "compatibility_preserved": 92,
+  "compatibility_breakdown": {
+    "documented_unused_excluded_from_implementation_backlog": 5,
+    "api_names_needing_definition": 2,
+    "documented_functions_not_connected": 85
+  },
+  "newly_added_since_initial_124": 167,
+  "native_MFE_AvailableOperandTypes_capture": "Historical 442-row claim not independently reproducible from committed catalog evidence found during this audit; current check is against published 448-name API reference.",
+  "sources": [
+    "https://developer.synopsys.com/docs/zemax-opticstudio-zos-api-2026-r1/reference/namespace_z_o_s_a_p_i_1_1_editors_1_1_m_f_e.md",
+    "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Optimization_Operands_Alphabetically.html",
+    "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Constraints_on_Real_Ray_Data.html"
+  ],
+  "source_sha256": {
+    "officialApiPage": "eee0baaec1729685abd10c9afd8426d7601c5053cd4419063009fe9dbff0a75a",
+    "alphabeticalPage": "ba07184283f6b53398c135fc6c53db2c39cd3db0c3cfe0a37ecc0eff785c55f9"
+  },
+  "version_scope_caveat": "Public manual and published API reference can differ; GOPT is in the v261 manual but absent from the published 448-name API enum. Do not call this list all current Zemax features."
+}

@@ -46,6 +46,14 @@ public static class ExperimentStore
         foreach (var (name, content) in new[] { ("layers.csv", layers.ToString()), ("spectrum.csv", spectrum.ToString()), ("metrics.csv", metrics.ToString()),
             ("run.json", JsonSerializer.Serialize(d.Result.Run, Experiment.JsonOptions)) })
             await BoundedFile.WriteAllTextAtomicAsync(Path.Combine(directory, name), content, BoundedFile.MaximumExportBytes, "镀膜结果导出", token);
+        if (d.Tolerance is { } tolerance)
+        {
+            var trials = new StringBuilder("样本,达标,merit,入射角_deg,膜厚_nm,错误\n");
+            foreach (var trial in tolerance.Samples ?? [])
+                trials.AppendLine($"{trial.Number},{trial.Passed},{(trial.Merit.HasValue ? Number(trial.Merit.Value) : "")},{Number(trial.AngleDegrees)},{Csv(string.Join(';', trial.ThicknessNm.Select(Number)))},{Csv(trial.Error ?? "")}");
+            await BoundedFile.WriteAllTextAtomicAsync(Path.Combine(directory, "tolerance.csv"), trials.ToString(), BoundedFile.MaximumExportBytes, "公差样本导出", token);
+            await BoundedFile.WriteAllTextAtomicAsync(Path.Combine(directory, "tolerance.json"), JsonSerializer.Serialize(tolerance, Experiment.JsonOptions), BoundedFile.MaximumExportBytes, "公差明细导出", token);
+        }
         await SaveAsync(d, Path.Combine(directory, "experiment.coating.json"), token);
     }
 

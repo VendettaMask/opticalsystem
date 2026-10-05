@@ -118,6 +118,8 @@ internal sealed class ThemeChromeProfile
 
 internal static class ThemeChromeResources
 {
+    public static CornerRadius StandardOverlayCornerRadius { get; } = new(6);
+    public static CornerRadius StandardSectionHeaderCornerRadius { get; } = new(6);
     public static CornerRadius StandardDocumentTabCornerRadius { get; } = new(6);
     public static string BorderBrush(ThemeChromeRole role) => $"OptilandChrome{role}BorderBrush";
     public static string BorderThickness(ThemeChromeRole role) => $"OptilandChrome{role}BorderThickness";

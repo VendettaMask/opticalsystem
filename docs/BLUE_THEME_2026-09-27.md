@@ -1,6 +1,8 @@
 # 正蓝 × 雾蓝主题（2026-09-27）
 
-本文保留配色各阶段的实测记录。当前按钮角色与侧栏布局见 [最新实现](PRIMARY_ACTIONS_AND_COMPACT_SIDEBAR_2026-09-27.md)；最新相关 Debug/Release 回归各 70/70、Skia 15/15，完整验证范围见 [状态页](CURRENT_STATUS.md)。
+2026-10-03 膜层编辑器使用共享 SurfaceCard 角色和 WindowTitle 字号。既有普通 Light 的侧栏标题/浮层圆角从局部 6 DIP 常量归入共享命名令牌，数值与布局不变；见[验证记录](COATING_LAYER_CONSTRAINTS_2026-10-03.md)。
+
+本文保留配色各阶段的实测记录。当前按钮角色与侧栏布局见 [最新实现](PRIMARY_ACTIONS_AND_COMPACT_SIDEBAR_2026-09-27.md)；该阶段 Debug/Release 回归各 70/70、Skia 15/15；后续材料行复用和校验状态验证见 [UI 审查修复](UI_AUDIT_FIXES_2026-09-27.md)，完整验证范围见 [状态页](CURRENT_STATUS.md)。
 
 
 ## 技术与实现范围
@@ -172,3 +174,7 @@
 - `MainWindow.cs`、`Theming/MainWindowTitleBar.cs`、`tests/OptilandWorkbench.Tests/MainWindowTitleBarTests.cs`：macOS 正蓝标题区域与原生窗口行为回归。
 - `Panels/SystemPropertiesPanel.cs`、`Panels/LensEditorPanel.cs`、`Services/WorkspaceDockFactory.cs`、`Controls/UiDensity.cs`：侧栏、表格模板继承、对齐和响应式密度。
 - `tests/OptilandWorkbench.Tests/BlueThemeInteractionTests.cs` 及既有主题/布局测试：交互和尺寸回归。
+
+## 镀膜实验室统一 · 2026-09-28
+
+实验室移除局部 Light 资源映射，源码链接本主题实现与 ThemeRegistry/ThemeApplicationService；执行动作为 accent，次要动作中性，禁用原因复用 ControlAvailability。光谱使用共享 PlotBackground/PlotText 成对资源，修复暗夜轴字不可见；窄窗口滚动条不覆盖字段和工具按钮。Pixel 字体 URI 使用当前程序集名以支持共享源码，正式 App 原路径不变。验证见[镀膜记录](../validation/coating/README.md)。

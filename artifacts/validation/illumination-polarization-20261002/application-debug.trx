@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c0c8c87f-8b9b-453c-b3d0-8e96918817b3" name="@starlabdeMacBook-Air 2026-10-02 16:13:10" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-02T16:13:10.2707210+08:00" queuing="2026-10-02T16:13:10.2707210+08:00" start="2026-10-02T16:13:09.2009340+08:00" finish="2026-10-02T16:13:10.2727550+08:00" />
+  <TestSettings name="default" id="bd27feb3-15d6-4904-9222-f6bd5a5d53d9">
+    <Deployment runDeploymentRoot="_starlabdeMacBook-Air_2026-10-02_16_13_10" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ad96ca48-58eb-4f11-a642-d28a0b6cb202" testId="4f9c80d8-7a6a-c1ef-4bc1-09700ad612e8" testName="OptilandWorkbench.Tests.PolarizedIlluminationTests.ApplicationAnalysisSettingReachesPolarizedCoreEvaluation" computerName="starlabdeMacBook-Air" duration="00:00:00.3224802" startTime="2026-10-02T16:13:09.7765720+08:00" endTime="2026-10-02T16:13:10.1040020+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad96ca48-58eb-4f11-a642-d28a0b6cb202">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotSupportedException : Absorbing interface polarization requires complex-index power transport, which is not implemented.</Message>
+          <StackTrace>   at OptilandWorkbench.Core.Raytrace.SequentialRayTracer.ApplyPolarization(UnpolarizedPowerTransport transport, OpticalSurface surface, RayTraceSampleValue sample, IMaterial incidentMaterial, Double wavelength, RayInteractionKind kind) in /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs:line 102
+   at OptilandWorkbench.Core.Raytrace.SequentialRayTracer.DiagnoseApertures(RealRay sourceRay, CancellationToken cancellationToken, Boolean stopAtIncidentImage, Boolean usePolarization) in /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs:line 77
+   at OptilandWorkbench.Core.Services.IlluminationMetrics.Integrator.Sample(Double x, Double y) in /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs:line 193
+   at OptilandWorkbench.Core.Services.IlluminationMetrics.Integrator.Evaluate(Int32 density) in /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs:line 129
+   at OptilandWorkbench.Core.Services.IlluminationMetrics.Evaluate(Optic optic, ValueTuple`2 normalizedField, Double wavelengthMicrometers, Int32 rayDensity, CancellationToken cancellationToken, Boolean usePolarization) in /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs:line 78
+   at OptilandWorkbench.Core.Services.IlluminationMetrics.&lt;&gt;c__DisplayClass0_0.&lt;EvaluateFields&gt;b__0(Int32 index, ParallelLoopState state) in /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs:line 49
+--- End of stack trace from previous location ---
+   at OptilandWorkbench.Core.Services.IlluminationMetrics.EvaluateFields(Optic optic, IReadOnlyList`1 fields, Double wavelengthMicrometers, Int32 rayDensity, Boolean usePolarization) in /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs:line 57
+   at OptilandWorkbench.Core.Analysis.RelativeIlluminationAnalysis.GenerateData() in /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Analysis/RelativeIlluminationAnalysis.cs:line 53
+   at OptilandWorkbench.Core.Analysis.BaseAnalysis.GenerateData(CancellationToken cancellationToken) in /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Analysis/BaseAnalysis.cs:line 24
+   at OptilandWorkbench.Application.Runtime.WorkbenchRuntime.BuildAnalysisData(String analysisName, IReadOnlyDictionary`2 settings, CancellationToken cancellationToken) in /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.cs:line 91
+   at OptilandWorkbench.Application.Runtime.WorkbenchRuntime.BuildAnalysisView(String analysisName, IReadOnlyDictionary`2 settings, CancellationToken cancellationToken) in /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.cs:line 52
+   at OptilandWorkbench.Application.Runtime.WorkbenchRuntime.BuildAnalysisView(String analysisName, IReadOnlyDictionary`2 settings) in /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.cs:line 44
+   at OptilandWorkbench.Tests.PolarizedIlluminationTests.ApplicationAnalysisSettingReachesPolarizedCoreEvaluation() in /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/PolarizedIlluminationTests.cs:line 223
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.PolarizedIlluminationTests.ApplicationAnalysisSettingReachesPolarizedCoreEvaluation" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="4f9c80d8-7a6a-c1ef-4bc1-09700ad612e8">
+      <Execution id="ad96ca48-58eb-4f11-a642-d28a0b6cb202" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PolarizedIlluminationTests" name="ApplicationAnalysisSettingReachesPolarizedCoreEvaluation" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="4f9c80d8-7a6a-c1ef-4bc1-09700ad612e8" executionId="ad96ca48-58eb-4f11-a642-d28a0b6cb202" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.06]   Discovering: OptilandWorkbench.Tests
+[xUnit.net 00:00:00.22]   Discovered:  OptilandWorkbench.Tests
+[xUnit.net 00:00:00.23]   Starting:    OptilandWorkbench.Tests
+[xUnit.net 00:00:00.57]       System.NotSupportedException : Absorbing interface polarization requires complex-index power transport, which is not implemented.
+[xUnit.net 00:00:00.57]       Stack Trace:
+[xUnit.net 00:00:00.57]         /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs(102,0): at OptilandWorkbench.Core.Raytrace.SequentialRayTracer.ApplyPolarization(UnpolarizedPowerTransport transport, OpticalSurface surface, RayTraceSampleValue sample, IMaterial incidentMaterial, Double wavelength, RayInteractionKind kind)
+[xUnit.net 00:00:00.57]         /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs(77,0): at OptilandWorkbench.Core.Raytrace.SequentialRayTracer.DiagnoseApertures(RealRay sourceRay, CancellationToken cancellationToken, Boolean stopAtIncidentImage, Boolean usePolarization)
+[xUnit.net 00:00:00.57]         /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs(193,0): at OptilandWorkbench.Core.Services.IlluminationMetrics.Integrator.Sample(Double x, Double y)
+[xUnit.net 00:00:00.57]         /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs(129,0): at OptilandWorkbench.Core.Services.IlluminationMetrics.Integrator.Evaluate(Int32 density)
+[xUnit.net 00:00:00.57]         /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs(78,0): at OptilandWorkbench.Core.Services.IlluminationMetrics.Evaluate(Optic optic, ValueTuple`2 normalizedField, Double wavelengthMicrometers, Int32 rayDensity, CancellationToken cancellationToken, Boolean usePolarization)
+[xUnit.net 00:00:00.57]         /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs(49,0): at OptilandWorkbench.Core.Services.IlluminationMetrics.&lt;&gt;c__DisplayClass0_0.&lt;EvaluateFields&gt;b__0(Int32 index, ParallelLoopState state)
+[xUnit.net 00:00:00.57]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:00.57]         /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs(57,0): at OptilandWorkbench.Core.Services.IlluminationMetrics.EvaluateFields(Optic optic, IReadOnlyList`1 fields, Double wavelengthMicrometers, Int32 rayDensity, Boolean usePolarization)
+[xUnit.net 00:00:00.57]         /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Analysis/RelativeIlluminationAnalysis.cs(53,0): at OptilandWorkbench.Core.Analysis.RelativeIlluminationAnalysis.GenerateData()
+[xUnit.net 00:00:00.57]         /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/Analysis/BaseAnalysis.cs(24,0): at OptilandWorkbench.Core.Analysis.BaseAnalysis.GenerateData(CancellationToken cancellationToken)
+[xUnit.net 00:00:00.57]         /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.cs(91,0): at OptilandWorkbench.Application.Runtime.WorkbenchRuntime.BuildAnalysisData(String analysisName, IReadOnlyDictionary`2 settings, CancellationToken cancellationToken)
+[xUnit.net 00:00:00.57]         /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.cs(52,0): at OptilandWorkbench.Application.Runtime.WorkbenchRuntime.BuildAnalysisView(String analysisName, IReadOnlyDictionary`2 settings, CancellationToken cancellationToken)
+[xUnit.net 00:00:00.57]         /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.cs(44,0): at OptilandWorkbench.Application.Runtime.WorkbenchRuntime.BuildAnalysisView(String analysisName, IReadOnlyDictionary`2 settings)
+[xUnit.net 00:00:00.57]         /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/PolarizedIlluminationTests.cs(223,0): at OptilandWorkbench.Tests.PolarizedIlluminationTests.ApplicationAnalysisSettingReachesPolarizedCoreEvaluation()
+[xUnit.net 00:00:00.57]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+[xUnit.net 00:00:00.57]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:00.57]   Finished:    OptilandWorkbench.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="starlabdeMacBook-Air" outcome="Error" timestamp="2026-10-02T16:13:10.1050180+08:00">
+        <Text>[xUnit.net 00:00:00.57]     OptilandWorkbench.Tests.PolarizedIlluminationTests.ApplicationAnalysisSettingReachesPolarizedCoreEvaluation [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

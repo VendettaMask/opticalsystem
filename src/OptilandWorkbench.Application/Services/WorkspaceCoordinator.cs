@@ -401,6 +401,7 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
     {
         using var cancellationScope = ComputationCancellation.Push(cancellationToken);
         _automaticSemiDiameterUpdater(Runtime.CurrentOptic);
+        Runtime.SynchronizeConfigurationPickups();
     }
 
     private static bool UpdatesAutomaticSemiDiameters(WorkspaceChangeCategory category) => category is

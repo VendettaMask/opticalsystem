@@ -181,6 +181,10 @@ public sealed class NonSequentialRayTracer
         options.Validate();
         var scene = (_scene ?? NonSequentialScene.FromOptic(_optic!)).Clone();
         var material = initialMaterial?.Clone() ?? new AirMaterial();
+        if (material is GradientIndexMaterial or LocatedGradientIndexMaterial
+            || scene.Objects.Any(item => item.Surface.MaterialBefore is GradientIndexMaterial
+                || item.Surface.MaterialAfter is GradientIndexMaterial))
+            throw new NotSupportedException("非序列 GRIN 最近物体事件检测尚未接入，不能用直线交点选择代替。");
         var paths = new NonSequentialRayPath[bundle.Rays.Count];
         for (var index = 0; index < bundle.Rays.Count; index++)
         {

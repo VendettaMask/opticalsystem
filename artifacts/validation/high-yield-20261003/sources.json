@@ -1,0 +1,11 @@
+{
+  "checkedOn": "2026-10-03",
+  "definition": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26102/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Constraints_on_Real_Ray_Data.html",
+  "formulaArticle": "https://optics.ansys.com/hc/en-us/articles/43071054749459-Designing-for-as-built-performance-with-High-Yield-Optimization",
+  "formulaImage": "https://downloads.zemax.com/Zemax-portal/knowledge_articles/1500005490201/Images/Picture8en-us.png",
+  "formulaImageSha256": "ec064921e3a35839f8a9b9d5b9b0bcadcb00ff93526e8cf66bf565342476bbd5",
+  "observedFormula": "tau = abs(n - n') * (1 - dot(R,N)); use incident R when n′ > n, otherwise refracted R",
+  "evidenceKind": "Official definition/formula reading; not native numerical capture",
+  "HHCN": "Existing standard trace rejects the non-sag branch; no implementation promoted",
+  "TRAD_TRAE": "Reference-point and consecutive-group conventions require native verification; no alias promoted"
+}

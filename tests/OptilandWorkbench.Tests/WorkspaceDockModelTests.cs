@@ -20,6 +20,114 @@ namespace OptilandWorkbench.Tests;
 [Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class WorkspaceDockModelTests
 {
+    [Theory]
+    [InlineData(false, "main")]
+    [InlineData(false, "floating")]
+    [InlineData(true, "main")]
+    [InlineData(true, "hidden")]
+    [InlineData(true, "floating")]
+    public async Task LegacyGlassLayoutsRestoreOneMaterialLibrary(bool hasMaterialLibrary, string glassLocation)
+    {
+        using var session = HeadlessUnitTestSession.StartNew(typeof(OptilandWorkbench.App.App));
+        await session.Dispatch(async () =>
+        {
+            var directory = Path.Combine(Path.GetTempPath(), $"optical-material-dock-{Guid.NewGuid():N}");
+            Directory.CreateDirectory(directory);
+            try
+            {
+                using var application = WorkbenchApplication.Create("cooke");
+                var store = new WorkspaceSessionStore(directory);
+                var legacy = new WorkspaceDocumentDescriptor("document:glass-catalog", WorkspaceDocumentTypes.GlassCatalog, "玻璃");
+                using (var previous = new PanelManager(application, new AppSettings(), store))
+                {
+                    if (hasMaterialLibrary) previous.ShowMaterialLibrary();
+                    var glass = new Document { Id = legacy.Id, Title = legacy.Title };
+                    if (glassLocation == "hidden")
+                    {
+                        previous.Layout.HiddenDockables = previous.Factory.CreateList<IDockable>(glass);
+                        glass.Owner = previous.Layout;
+                    }
+                    else if (glassLocation == "floating")
+                    {
+                        var floatingDock = new DocumentDock
+                        {
+                            Id = "floating:material-documents",
+                            VisibleDockables = previous.Factory.CreateList<IDockable>(glass),
+                            ActiveDockable = glass,
+                            DefaultDockable = glass,
+                            FocusedDockable = glass
+                        };
+                        glass.Owner = floatingDock;
+                        var root = new RootDock
+                        {
+                            Id = "floating:material-root",
+                            VisibleDockables = previous.Factory.CreateList<IDockable>(floatingDock),
+                            ActiveDockable = floatingDock
+                        };
+                        var window = new DockWindow { X = 120, Y = 80, Width = 900, Height = 640, Layout = root };
+                        root.Window = window;
+                        previous.Layout.Windows = previous.Factory.CreateList<IDockWindow>(window);
+                    }
+                    else
+                    {
+                        previous.Factory.AddDockable(previous.Factory.PrimaryDocumentDock!, glass);
+                        previous.Factory.SetActiveDockable(glass);
+                        previous.Factory.SetFocusedDockable(previous.Factory.PrimaryDocumentDock!, glass);
+                        previous.Factory.PrimaryDocumentDock!.DefaultDockable = glass;
+                    }
+
+                    await store.SaveSlotAsync(1, new WorkspaceSession(
+                        WorkspaceSessionStore.CurrentVersion,
+                        new WorkspaceDockLayoutSerializer().Serialize(previous.Layout),
+                        previous.Factory.SnapshotDescriptors().Append(legacy).ToArray(),
+                        legacy.Id));
+                }
+
+                using var manager = new PanelManager(application, new AppSettings(), store);
+                await manager.LoadLayoutSlotAsync(1);
+                var material = Assert.Single(manager.Factory.OpenDocuments(), document =>
+                    manager.Factory.Descriptor(document.Id)?.TypeId == WorkspaceDocumentTypes.MaterialLibrary);
+                Assert.Equal(hasMaterialLibrary ? "document:material-library" : legacy.Id, material.Id);
+                Assert.Equal("材料库", material.Title);
+                Assert.IsType<MaterialLibraryPanel>(material.Context);
+                Assert.Equal(3, manager.Factory.OpenDocuments().Count);
+                Assert.Equal(3, manager.Factory.Descriptors.Count);
+                Assert.DoesNotContain(manager.Factory.Descriptors, descriptor => descriptor.TypeId == WorkspaceDocumentTypes.GlassCatalog);
+                Assert.Same(material, Assert.IsAssignableFrom<IDock>(material.Owner).ActiveDockable);
+                Assert.DoesNotContain(WorkspaceDockFactory.EnumerateDockables(manager.Layout), dockable => dockable.Title == "玻璃");
+                if (glassLocation == "floating")
+                {
+                    if (hasMaterialLibrary)
+                    {
+                        Assert.Empty(manager.Layout.Windows!);
+                    }
+                    else
+                    {
+                        var window = Assert.Single(manager.Layout.Windows!);
+                        Assert.Equal(120, window.X);
+                        Assert.Equal(80, window.Y);
+                        Assert.Equal(900, window.Width);
+                        Assert.Equal(640, window.Height);
+                    }
+                }
+
+                manager.ShowMaterialLibrary();
+                Assert.Equal(3, manager.Factory.OpenDocuments().Count);
+                Assert.Equal(3, manager.Factory.Descriptors.Count);
+                Assert.Same(material, manager.Factory.OpenDocument(legacy));
+                await manager.SaveLayoutSlotAsync(2);
+                var migrated = (await store.LoadSlotAsync(2))!;
+                Assert.Single(migrated.Documents, descriptor => descriptor.TypeId == WorkspaceDocumentTypes.MaterialLibrary);
+                Assert.DoesNotContain(migrated.Documents, descriptor => descriptor.TypeId == WorkspaceDocumentTypes.GlassCatalog);
+                await manager.LoadLayoutSlotAsync(2);
+                Assert.Equal(3, manager.Factory.OpenDocuments().Count);
+                Assert.Single(manager.Factory.OpenDocuments(), document => document.Context is MaterialLibraryPanel);
+                return true;
+            }
+            finally { Directory.Delete(directory, recursive: true); }
+        }, CancellationToken.None);
+    }
+
     [Fact]
     public void NonSequentialModeCreatesIndependentObjectWorkspace()
     {

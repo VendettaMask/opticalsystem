@@ -6,6 +6,34 @@ namespace OptilandWorkbench.Tests;
 
 public sealed class MaterialAnalysisTests
 {
+    [Fact]
+    public void GlassLookupUsesQualifiedNamesAndCurrentProjectCatalogOrder()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var schott = Assert.IsType<GlassMaterialDto>(application.Materials.FindGlass("schott:f2"));
+        Assert.Equal("SCHOTT", schott.Manufacturer);
+        Assert.Equal("F2", schott.Name);
+        Assert.InRange(schott.RefractiveIndexD, 1.62, 1.63);
+        Assert.InRange(schott.AbbeNumber, 36, 37);
+
+        foreach (var manufacturer in new[] { "CDGM", "SCHOTT" })
+        {
+            application.Prescription.UpdateGlassCatalogs(new[] { manufacturer });
+            var unqualified = Assert.IsType<GlassMaterialDto>(application.Materials.FindGlass("F2"));
+            Assert.Equal(manufacturer, unqualified.Manufacturer);
+            Assert.Equal(schott.RefractiveIndexD, application.Materials.FindGlass("SCHOTT:F2")!.RefractiveIndexD);
+            Assert.Equal(schott.AbbeNumber, application.Materials.FindGlass("SCHOTT:F2")!.AbbeNumber);
+        }
+    }
+
+    [Fact]
+    public void GlassLookupDoesNotSubstituteAnotherCatalogWhenResolutionFails()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        foreach (var name in new[] { "", "Air", "MISSING-CATALOG:F2", "SCHOTT:NO-SUCH-GLASS" })
+            Assert.Null(application.Materials.FindGlass(name));
+    }
+
     [Theory]
     [InlineData(MaterialAnalysisKind.GlassMap)]
     [InlineData(MaterialAnalysisKind.AthermalGlassMap)]

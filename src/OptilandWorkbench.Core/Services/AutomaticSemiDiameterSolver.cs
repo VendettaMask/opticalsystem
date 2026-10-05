@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Apertures;
 
 namespace OptilandWorkbench.Core.Services;
 
@@ -62,7 +63,10 @@ public static partial class AutomaticSemiDiameterSolver
 
         for (var index = 0; index < surfaces.Count; index++)
         {
-            if (!surfaces[index].SemiDiameterFixed && maxima[index] > 1e-12)
+            // In FloatByStopSize the stop is the aperture input, not a derived ray
+            // envelope. Replacing it would change the pupil every time a file opens.
+            var apertureInput = optic.Aperture.Kind == ApertureKind.FloatByStopSize && surfaces[index].IsStop;
+            if (!surfaces[index].SemiDiameterFixed && !apertureInput && maxima[index] > 1e-12)
             {
                 surfaces[index].SemiDiameter = maxima[index];
             }

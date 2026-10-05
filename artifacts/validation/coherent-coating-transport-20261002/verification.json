@@ -1,0 +1,588 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-02T09:33:49.802144+00:00",
+  "scope": "Physical coherent coating amplitudes connected to formal sequential ray tracing and illumination power Jones transport; strict native material snapshots. Final persistence and help checks after stage regression.",
+  "gitHead": "4cce1d475465550f92b0a26cc893e411445cdc48",
+  "operandStatus": {
+    "registeredOfficial": 383,
+    "limitedExecutable": 298,
+    "compatibilityOnly": 85,
+    "localExtensions": 4,
+    "newlyExecutableThisChange": 0,
+    "RELI": "compatibility-only",
+    "EFNO": "compatibility-only"
+  },
+  "verification": {
+    "runs": {
+      "stageDebug": {
+        "trx": {
+          "path": "artifacts/validation/coherent-coating-transport-20261002/coherent-regression-debug.trx",
+          "sha256": "ba3a5d6aa3ce48d52ca6269273aceb839f15a687aa15187139793887fc5c1d21",
+          "bytes": 250710
+        },
+        "total": 169,
+        "passed": 169,
+        "failed": 0,
+        "skipped": 0
+      },
+      "stageRelease": {
+        "trx": {
+          "path": "artifacts/validation/coherent-coating-transport-20261002/coherent-regression-release.trx",
+          "sha256": "16d31cccc5370235abb35a3361356f8c8eca9351d76fe347a65558085496bf3d",
+          "bytes": 251382
+        },
+        "total": 169,
+        "passed": 169,
+        "failed": 0,
+        "skipped": 0
+      },
+      "finalPersistenceDebug": {
+        "trx": {
+          "path": "artifacts/validation/coherent-coating-transport-20261002/coherent-persistence-debug.trx",
+          "sha256": "9194d425cf5126bd0be83f56206acb0b8b80918adfd1dda2de8ffedd084434cf",
+          "bytes": 63850
+        },
+        "total": 42,
+        "passed": 42,
+        "failed": 0,
+        "skipped": 0
+      },
+      "finalPersistenceAndHelpRelease": {
+        "trx": {
+          "path": "artifacts/validation/coherent-coating-transport-20261002/coherent-persistence-help-release.trx",
+          "sha256": "bab4ec89dedf479290450ed07cbc3cb6e1bfa3cf6ed602f30c0b393bc67b59b6",
+          "bytes": 91974
+        },
+        "total": 61,
+        "passed": 61,
+        "failed": 0,
+        "skipped": 0
+      },
+      "finalLabDebug": {
+        "trx": {
+          "path": "artifacts/validation/coherent-coating-transport-20261002/coating-lab-final-debug.trx",
+          "sha256": "82277248c791efe8349b0b1fdf74e01e6c00097b44df0ca576b20e2ecf5ad90c",
+          "bytes": 40196
+        },
+        "total": 25,
+        "passed": 25,
+        "failed": 0,
+        "skipped": 0
+      },
+      "finalLabRelease": {
+        "trx": {
+          "path": "artifacts/validation/coherent-coating-transport-20261002/coating-lab-final-release.trx",
+          "sha256": "12170d2a977decf3b01dc329c992e877c8a0f6d398a016dc8ae31c8ce2df86d7",
+          "bytes": 40296
+        },
+        "total": 25,
+        "passed": 25,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "finalHelpDebug": {
+      "trx": {
+        "path": "artifacts/validation/operand-help-final-20261002/help-debug.trx",
+        "sha256": "4a506de909bb37987a83d2f522f845c5f4dd7ccfccde8037a7a8de33508663bc",
+        "bytes": 29459
+      },
+      "total": 19,
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0
+    },
+    "finalHelpReleaseSubset": {
+      "total": 19,
+      "passed": 19,
+      "sourceRun": "finalPersistenceAndHelpRelease"
+    },
+    "finalPersistenceReleaseSubset": {
+      "total": 42,
+      "passed": 42,
+      "sourceRun": "finalPersistenceAndHelpRelease"
+    },
+    "stageFilter": {
+      "path": "artifacts/validation/coherent-coating-transport-20261002/test-filter.txt",
+      "sha256": "8b45e33a359b8278c5dd5377ede51dc0ab1bbe7ac69295e7a52f88ea5688936e",
+      "bytes": 785
+    },
+    "stageBoundary": "169 per configuration before final strict material canonicalization and one missing-index test. Final 42-case persistence filter covers that change; full 170-case filter not rerun.",
+    "newCoatingCasesFinal": 29,
+    "labFrozenReferenceCasesInsideOneTest": 120,
+    "format": "Passed, exit 0",
+    "gitDiffCheck": "Passed",
+    "buildLogs": [
+      {
+        "path": "artifacts/validation/coherent-coating-transport-20261002/debug.log",
+        "sha256": "17ac0597b1c2fa7188fdb30a528584f80cc3f94d880170b27dbc5a61c4dd2a0f",
+        "bytes": 1427
+      },
+      {
+        "path": "artifacts/validation/coherent-coating-transport-20261002/release.log",
+        "sha256": "d8087419460b511e2963ac374e2c44cb71fa1d9c4552e70d9c70b1600c2222b0",
+        "bytes": 1439
+      },
+      {
+        "path": "artifacts/validation/coherent-coating-transport-20261002/persistence-debug.log",
+        "sha256": "fe4079ae50121fef3bb83245430c2f5c8489862735c3224c08942f09b3a9db71",
+        "bytes": 1426
+      },
+      {
+        "path": "artifacts/validation/coherent-coating-transport-20261002/persistence-help-release.log",
+        "sha256": "a5b22d76b4314948b2896473abcf2fe292229edc76bc08b8044847d4fd42c3e6",
+        "bytes": 1444
+      },
+      {
+        "path": "artifacts/validation/coherent-coating-transport-20261002/lab-final-debug.log",
+        "sha256": "bb183e6f93279576066f23326d6eed21c94496ba65c315d073ae09450a520026",
+        "bytes": 1455
+      },
+      {
+        "path": "artifacts/validation/coherent-coating-transport-20261002/lab-final-release.log",
+        "sha256": "15815c30f553b8a2aa1e2c8fd0161afc3f9ec645685809f4a5d3bdecb992907e",
+        "bytes": 1469
+      }
+    ],
+    "compileWarnings": 0,
+    "compileErrors": 0,
+    "defaultOutputBuilds": true,
+    "full2308OperandRegressionRerun": false,
+    "full44LabRegressionRerun": false
+  },
+  "baselineIntegrity": {
+    "scope": "Five selected committed Zemax source/relative-illumination assets only",
+    "files": [
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+        "sha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+        "bytes": 68676,
+        "byteEqualHead": true
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/data.json",
+        "sha256": "21a2b9517dcb9c4e479e2b8e221a8ba334c3a35a46b654d39575b7d0338f534b",
+        "bytes": 2821,
+        "byteEqualHead": true
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/data.txt",
+        "sha256": "416d1466c5450e3ac4536ed68bd8c6e9db6e37223668d525d4e565dc8a261cbc",
+        "bytes": 2004,
+        "byteEqualHead": true
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/settings.cfg",
+        "sha256": "771862ac443a583fce03458d116d98f2f1867814fc2ac33c0fbce05fcc4e89ac",
+        "bytes": 18448,
+        "byteEqualHead": true
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/status.json",
+        "sha256": "ab7d009fdafd063cfe29000d3da526db73b8e571be343ec29591bb6f21272a86",
+        "bytes": 731,
+        "byteEqualHead": true
+      }
+    ]
+  },
+  "frozenThinFilmReference": {
+    "path": "validation/coating/tmmcore-0.4.2.json",
+    "sha256": "69ca380fe41bc78f07c232b823986a64754bda07f0dd523d82c62596fd1e1e00",
+    "bytes": 277612,
+    "byteEqualHead": true,
+    "regenerated": false,
+    "authority": "Auxiliary thin-film power reference, not native Zemax equivalence"
+  },
+  "workbenchRecalculation": {
+    "debugReleaseOutputsEqual": true,
+    "riStdOut": "RMSE=0.0014395487; max=0.0031274627; edge=0.969163938\nEffectiveFNumbers=[2.8668857109658967,2.866992737729122,2.8673139984338953,2.8678500346206084,2.868601749825943,2.8695704110161815,2.8707576505351864,2.872165468516778,2.8737962356826525,2.875652696428563,2.8777379720725382,2.8800555641094547,2.8826093572781315,2.8854036222036745,2.8884430173255855,2.8917325897591404,2.8952777746638763,2.899084392603905,2.903158644412129,2.9075071021902534,2.9121366968751157]\nSampledPupilNodeCounts=[2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473]\nDensityStudy={\"Density\":5,\"FieldMillimeters\":[0,2.25,4.5],\"EffectiveFNumbers\":[2.8673791377382485,2.878233977196554,2.9126411583308967],\"RelativeIllumination\":[1,0.9924715149479897,0.9691617775496111],\"SampledPupilNodeCounts\":[1129,1129,1129]}\nDensityStudy={\"Density\":20,\"FieldMillimeters\":[0,2.25,4.5],\"EffectiveFNumbers\":[2.866761750970437,2.8776132274447717,2.912009336760632],\"RelativeIllumination\":[1,0.9924722225226017,0.9691648988669981],\"SampledPupilNodeCounts\":[6673,6673,6673]}\nDensityStudy={\"Density\":40,\"FieldMillimeters\":[0,2.25,4.5],\"EffectiveFNumbers\":[2.86673076154367,2.877582041112021,2.911977493772616],\"RelativeIllumination\":[1,0.99247227743211,0.9691651414523755],\"SampledPupilNodeCounts\":[20473,20473,20473]}",
+    "effectiveFNumbers": [
+      2.8668857109658967,
+      2.866992737729122,
+      2.8673139984338953,
+      2.8678500346206084,
+      2.868601749825943,
+      2.8695704110161815,
+      2.8707576505351864,
+      2.872165468516778,
+      2.8737962356826525,
+      2.875652696428563,
+      2.8777379720725382,
+      2.8800555641094547,
+      2.8826093572781315,
+      2.8854036222036745,
+      2.8884430173255855,
+      2.8917325897591404,
+      2.8952777746638763,
+      2.899084392603905,
+      2.903158644412129,
+      2.9075071021902534,
+      2.9121366968751157
+    ],
+    "sampledPupilNodes": [
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473,
+      2473
+    ],
+    "densityStudy": [
+      {
+        "Density": 5,
+        "FieldMillimeters": [
+          0,
+          2.25,
+          4.5
+        ],
+        "EffectiveFNumbers": [
+          2.8673791377382485,
+          2.878233977196554,
+          2.9126411583308967
+        ],
+        "RelativeIllumination": [
+          1,
+          0.9924715149479897,
+          0.9691617775496111
+        ],
+        "SampledPupilNodeCounts": [
+          1129,
+          1129,
+          1129
+        ]
+      },
+      {
+        "Density": 20,
+        "FieldMillimeters": [
+          0,
+          2.25,
+          4.5
+        ],
+        "EffectiveFNumbers": [
+          2.866761750970437,
+          2.8776132274447717,
+          2.912009336760632
+        ],
+        "RelativeIllumination": [
+          1,
+          0.9924722225226017,
+          0.9691648988669981
+        ],
+        "SampledPupilNodeCounts": [
+          6673,
+          6673,
+          6673
+        ]
+      },
+      {
+        "Density": 40,
+        "FieldMillimeters": [
+          0,
+          2.25,
+          4.5
+        ],
+        "EffectiveFNumbers": [
+          2.86673076154367,
+          2.877582041112021,
+          2.911977493772616
+        ],
+        "RelativeIllumination": [
+          1,
+          0.99247227743211,
+          0.9691651414523755
+        ],
+        "SampledPupilNodeCounts": [
+          20473,
+          20473,
+          20473
+        ]
+      }
+    ],
+    "sameAsPreviousPolarizationFoundation": true
+  },
+  "numericalComparison": {
+    "relativeIllumination": {
+      "printedRmse": 0.0014395487,
+      "printedMaxAbsoluteError": 0.0031274627,
+      "printedEdge": 0.969163938,
+      "limits": {
+        "rmse": 0.002,
+        "maximum": 0.004
+      },
+      "passed": true
+    },
+    "effectiveFNumber": {
+      "capturedAxis": 2.87577716994446,
+      "currentAxis": 2.8668857109658967,
+      "maximumAbsoluteError": 0.00889145897856336,
+      "maximumRelativeError": 0.0030918455962062876,
+      "acceptanceThreshold": null,
+      "status": "Unrated difference; native EFNO not certified"
+    },
+    "FCGT": "Existing stage-26 Difference retained; not recalculated in this scope"
+  },
+  "implementationBoundary": {
+    "solverVersion": "coherent-scattering/2",
+    "supported": "Transparent incident medium; coherent isotropic homogeneous finite films including absorbing films; scalar formal tracing; full Jones transmission into transparent exit media and reflection from absorbing substrate; native full-material persistence",
+    "unimplemented": [
+      "Absorbing incident medium",
+      "Full polarized transmission into absorbing substrate in real-ray basis",
+      "GRIN/anisotropy/incoherent backside/scattering",
+      "Legacy electric-field Jones pupil coating amplitudes (explicitly rejected when requested)",
+      "Coating laboratory-to-optic UI application",
+      "ZMX coating-name physical stack resolution",
+      "Native image-cosine sampling and RELI/EFNO merit integration"
+    ]
+  },
+  "earlierIterations": [
+    {
+      "artifact": {
+        "path": "artifacts/validation/coherent-coating-transport-20261002/smoke-debug.log",
+        "sha256": "a5083c0f788877d17e0ac3fd18aaafcf6c9b6f8a17a1e4987b6d78a504d6b89b",
+        "bytes": 367
+      },
+      "result": "Compile failed due to local variable shadowing; renamed coherentLayers."
+    },
+    {
+      "artifact": {
+        "path": "artifacts/validation/coherent-coating-transport-20261002/coherent-smoke-debug-v2.trx",
+        "sha256": "099cffaa975e7be7a4dd9d40d8cc85e6dcd561efb06ca502f77c5551acbf5215",
+        "bytes": 40382
+      },
+      "result": "Initial 26/26 before later tests and strict snapshot repair."
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "src/OptilandWorkbench.Core/Coatings/CoherentThinFilmSolver.cs",
+      "sha256": "32389383ba7c5c365b584abbfad7ed9f377cf58f0fd0f7f42c654d1aeebc5159",
+      "bytes": 9473
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Coatings/CoherentMultilayerCoating.cs",
+      "sha256": "9c950de9ba7220583f22ca741d37eb33e5a76c8d041ca45e7973ddd0cf64abf8",
+      "bytes": 4052
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Interactions/IInteractionModel.cs",
+      "sha256": "730076f41314e0f516a97804447ec8663eb853554f1c9cdb730c9e25bc9b6d6b",
+      "bytes": 1112
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Domain/OpticalSurface.StateTracing.cs",
+      "sha256": "dd38d34e783c4fb20e5872981b2cb66e9b06b73528202835b4644e4fd40d4a3e",
+      "bytes": 9220
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.cs",
+      "sha256": "3841d26bbed4e923ba59578f4c0f5192c71ff9620f44c639798f83c2e6e24851",
+      "bytes": 17196
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs",
+      "sha256": "f831fc0d67ffb1d2620414e8acb4d6afe80e4c2f897f5614c9ad1e28695db571",
+      "bytes": 11130
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Serialization/ComponentSnapshot.cs",
+      "sha256": "678eda2cdf612e13ed890ca71dd2aea576de5d36bc619e808b776cb680177a3d",
+      "bytes": 38522
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs",
+      "sha256": "f97b94206523c61b768b84d634aa4ee7bd2159037ed105a92cb594de1dc88e2a",
+      "bytes": 49433
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/JonesPupilEngine.cs",
+      "sha256": "1e8a1a56e98ac143bd8fc28f08335e46e03e9a311b97cae5dc0089c56f78d824",
+      "bytes": 10843
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/RelativeIlluminationAnalysis.cs",
+      "sha256": "b0982412645c4b94be6454ece49c008bc74f083562dd86488ff77ad374053630",
+      "bytes": 7177
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/CoherentCoatingTransportTests.cs",
+      "sha256": "82f07d13665b4225e0e1c15b135df6f6dc150707f8d2777b86c301eb093808fc",
+      "bytes": 14780
+    }
+  ],
+  "documentation": [
+    {
+      "path": "docs/ILLUMINATION_POLARIZATION_2026-10-02.md",
+      "sha256": "bbba4cddb53afc8b7538f6f43b866c4071417b805c04ed1c276d572037c9c8c7",
+      "bytes": 7682
+    },
+    {
+      "path": "docs/ILLUMINATION_CORE_2026-10-02.md",
+      "sha256": "bc455ba4da7f6c1ed3b9a0e5b5ec73b3d8ce94e8ae1d1c6f9c523f8a6f76189b",
+      "bytes": 7451
+    },
+    {
+      "path": "docs/CURRENT_STATUS.md",
+      "sha256": "4b2c0f0d09abe92cd0417dd11faeae827208d6aad028017f5e03518e0030612f",
+      "bytes": 19447
+    },
+    {
+      "path": "docs/ZEMAX_OPERAND_SUPPORT.md",
+      "sha256": "a6fe0ebff51a3b4936c343ff20a380912c3bf81cbea37b32eb891461a28ffda4",
+      "bytes": 135722
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "sha256": "ddb1d657daaa9199340c5cbf384e2ae3a2f73f2e0a21a8b078b90b6556779191",
+      "bytes": 30111
+    },
+    {
+      "path": "docs/CODE_READING_MAP.md",
+      "sha256": "2a088103b389845c6abe0a82855408f225f2043fa0164f1e8d175aa6fd88c272",
+      "bytes": 130333
+    },
+    {
+      "path": "docs/NUMERICAL_PARITY.md",
+      "sha256": "bc00dbf02d5f08c771106b8fde6cfb5bc4b8d1df026c3fd578fda2f22e1ff80d",
+      "bytes": 14193
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "3e5f3aa13bde229977e8973f333e30c6e0a8dd62ac5e74aba8f83c1c1d9e5f4c",
+      "bytes": 22911
+    },
+    {
+      "path": "docs/STAROPT_FILE_FORMAT.md",
+      "sha256": "56c6f96fdf48644ca21ea69912fbda24fbcdc828fc995f832511925a75bfe499",
+      "bytes": 7310
+    },
+    {
+      "path": "docs/FILE_FORMATS_AND_PLUGINS.md",
+      "sha256": "49772817603eb950384aa7c6f4c7e6bcee28e03001f7d8f3db2eec500a89f32a",
+      "bytes": 26059
+    },
+    {
+      "path": "docs/COATING_DESIGN_LAB.md",
+      "sha256": "a8db1b3e57e1102f3c8ab7a17b42846d2ca02ab49bfbf5bd5f8621142b5d9066",
+      "bytes": 12090
+    },
+    {
+      "path": "labs/CoatingDesign/README.md",
+      "sha256": "8c75244394842cda8063a32bc9ebc4a911eab5c891d3ce638a4b113838bf34b1",
+      "bytes": 11683
+    },
+    {
+      "path": "validation/coating/README.md",
+      "sha256": "9a598a0afdd753ab60a152878dfd126fd0388960a6514d884034fba49d2fe84a",
+      "bytes": 14319
+    },
+    {
+      "path": "docs/BUILD_AND_RELEASE.md",
+      "sha256": "c8af33fede9cde564f3f01cb1f96ead567003a2154dace1534e0421d5506571d",
+      "bytes": 145524
+    },
+    {
+      "path": "docs/OPERAND_HELP_HIERARCHY_2026-10-01.md",
+      "sha256": "95d43e5ddc6c23d5894566a5c2fa53a7110cfaec9e1d7e06b446e1e40a77ea35",
+      "bytes": 6426
+    },
+    {
+      "path": "docs/COHERENT_COATING_TRANSPORT_2026-10-02.md",
+      "sha256": "e66ba4e1c180dd65d7582ff8d6dde7b99e26a54902cf933175def01315872b19",
+      "bytes": 6354
+    }
+  ],
+  "defaultOutputBinaries": [
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "49ceafc23ffb23680e1c0f3d71761d513d5b35365afd1ad93f05cb22aaac1d85",
+      "bytes": 5169152
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll",
+      "sha256": "15becb2e2c5d3ed9e8e91c134061e4f6de6dd63e5b20af572ebfec2e30389b25",
+      "bytes": 990720
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "1571e701e3eb2ebe74e64fe608411d302a07bcbdea4b52a5b7c5c6069bf2f2d6",
+      "bytes": 25725440
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll",
+      "sha256": "acc5f5ba68cb94dec36371936891ee7e7e200060578167a55038b3f4c1dfdc0a",
+      "bytes": 2095616
+    },
+    {
+      "path": "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/bin/Debug/net10.0/OptilandWorkbench.CoatingDesign.Engine.dll",
+      "sha256": "ad172161d2db4d7567e837486a7720380f791a0f2681109b1408762c0588b50c",
+      "bytes": 141312
+    },
+    {
+      "path": "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/bin/Debug/net10.0/OptilandWorkbench.CoatingDesign.App.dll",
+      "sha256": "ba73b749efb2225a7feb53e8874adc0b3351d09f150faf3d7a304aa1b3ed3745",
+      "bytes": 5883392
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/bin/Debug/net10.0/OptilandWorkbench.CoatingDesign.Tests.dll",
+      "sha256": "12a040dc6f207a3e8122bce87b809238dd0ee50056df07f1656cd977a09f2f1d",
+      "bytes": 69632
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "23419e2a6dc88d6f2370fad20a5005bb5e57d0d539003467b692f1d69d896858",
+      "bytes": 5064704
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll",
+      "sha256": "ada0095cc7351641b97b244ed4ec669ae73df21af76051a7e62951807119c7da",
+      "bytes": 962048
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "d1c06ab4770e039ce537537ebbcedfa5b807cee37c5f98999c20b4fcb448fa4c",
+      "bytes": 25649152
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Tests.dll",
+      "sha256": "12188d21a4861844b8949e9d8e9df8b04fe460af4f00c1519a9b2b2065be9e47",
+      "bytes": 2003456
+    },
+    {
+      "path": "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/bin/Release/net10.0/OptilandWorkbench.CoatingDesign.Engine.dll",
+      "sha256": "ce20f5c2826966496813d518b245119108ca39892d9ce7f8d95a794ed5168ca3",
+      "bytes": 137216
+    },
+    {
+      "path": "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/bin/Release/net10.0/OptilandWorkbench.CoatingDesign.App.dll",
+      "sha256": "14f675d9ccbe02ac9c416548ecb9059887d73bb60a1ee4a98e5fb2fe7b4ad83a",
+      "bytes": 5876736
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/bin/Release/net10.0/OptilandWorkbench.CoatingDesign.Tests.dll",
+      "sha256": "80c2a1711373ad655209d4686c56ff0b97bf9596e6e1244c939abfa9c9eebc7c",
+      "bytes": 66560
+    }
+  ],
+  "screenshotOnlyReview": {
+    "performed": true,
+    "scope": "Existing operand-help hierarchy only, eight actual Avalonia/Skia frames; no coating editor or native desktop walkthrough"
+  },
+  "newNativeZemaxCaptures": false,
+  "historicalOptilandRegenerated": false,
+  "fullProductReleaseVerified": false
+}

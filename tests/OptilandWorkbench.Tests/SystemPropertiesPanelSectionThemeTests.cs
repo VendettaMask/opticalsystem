@@ -44,7 +44,7 @@ public sealed class SystemPropertiesPanelSectionThemeTests
                 ThemeApplicationService.Apply(app, "Light");
                 window.Show();
                 var sections = Assert.IsType<StackPanel>(Assert.IsType<ScrollViewer>(panel.Content).Content);
-                Assert.Equal(6, sections.Children.Count);
+                Assert.Equal(7, sections.Children.Count);
                 Assert.Equal(8, sections.Spacing);
                 Assert.Equal(new Thickness(8), sections.Margin);
                 var cards = sections.Children.Cast<Border>().ToArray();

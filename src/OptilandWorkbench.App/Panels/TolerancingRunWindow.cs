@@ -20,9 +20,12 @@ public sealed record TolerancingRunOptions(
     ToleranceDistribution? DistributionOverride,
     int WorstSensitivityCount,
     bool ShowMonteCarloTrials,
-    double InverseValue);
+    double InverseValue,
+    ToleranceMtfSettingsDto? MtfSettings = null,
+    ToleranceCompensationAlgorithm CompensationAlgorithm = ToleranceCompensationAlgorithm.DampedLeastSquares,
+    IReadOnlyList<ToleranceCompensatorDto>? AdditionalCompensators = null);
 
-public sealed class TolerancingRunWindow : Window
+public sealed partial class TolerancingRunWindow : Window
 {
     private readonly ComboBox _mode = Picker(
         0,
@@ -30,8 +33,8 @@ public sealed class TolerancingRunWindow : Window
         "反向极限",
         "反向增量",
         "跳过灵敏度（仅 Monte Carlo）");
-    private readonly ComboBox _criterion = Picker(0, "RMS 点列半径", "RMS 波前误差");
-    private readonly ComboBox _compensation = Picker(1, "无", "优化全部（DLS）");
+    private readonly ComboBox _criterion = Picker(0, "RMS 点列半径", "RMS 波前误差", "指定频率 MTF");
+    private readonly ComboBox _compensation = Picker(1, "无", "优化全部（DLS）", "优化全部（坐标模式搜索）");
     private readonly NumericUpDown _cycles = Number(3, 0, 500, 1);
     private readonly NumericUpDown _runs = Number(20, 0, 10_000, 20);
     private readonly NumericUpDown _seed = Number(1234, 0, 2_000_000_000, 1);
@@ -46,7 +49,10 @@ public sealed class TolerancingRunWindow : Window
     private readonly CheckBox _showMonteCarlo = Check("在报告中列出 Monte Carlo 试验", true);
     private readonly NumericUpDown _inverseValue = Number(0.05m, 0.000000001m, 1_000_000, 0.001m);
 
-    public TolerancingRunWindow(TolerancingRunOptions defaults)
+    public TolerancingRunWindow(TolerancingRunOptions defaults,
+        IReadOnlyList<FieldRowDto>? fields = null,
+        IReadOnlyList<SurfaceRowDto>? surfaces = null,
+        IReadOnlyList<WavelengthRowDto>? wavelengths = null)
     {
         Title = "公差分析";
         Width = 720;
@@ -56,7 +62,9 @@ public sealed class TolerancingRunWindow : Window
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
         this.BindThemeResource(Window.BackgroundProperty, ThemeResourceBindings.Workspace);
 
+        InitializeMtfControls(fields, surfaces, wavelengths);
         Apply(defaults);
+        _criterion.SelectionChanged += (_, _) => UpdateMtfControls();
         _mode.SelectionChanged += (_, _) => UpdateModeControls();
         _compensation.SelectionChanged += (_, _) =>
             UpdateCompensationControls();
@@ -64,7 +72,7 @@ public sealed class TolerancingRunWindow : Window
 
         var run = Button("运行");
         run.Classes.Add("accent");
-        run.Click += (_, _) => Close(BuildOptions());
+        run.Click += (_, _) => SubmitOptions();
         var cancel = Button("取消");
         cancel.Click += (_, _) => Close(null);
         var reset = Button("重置");
@@ -76,6 +84,7 @@ public sealed class TolerancingRunWindow : Window
             {
                 new TabItem { Header = "设置", Content = SetupTab() },
                 new TabItem { Header = "评价标准", Content = CriterionTab() },
+                new TabItem { Header = "补偿", Content = CompensationTab() },
                 new TabItem { Header = "Monte Carlo", Content = MonteCarloTab() },
                 new TabItem { Header = "显示", Content = DisplayTab() }
             }
@@ -86,7 +95,7 @@ public sealed class TolerancingRunWindow : Window
             ColumnDefinitions = new ColumnDefinitions("*,Auto,Auto,Auto"),
             ColumnSpacing = 8,
             Margin = new Thickness(12, 10),
-            Children = { reset, run, cancel }
+            Children = { _settingsError, reset, run, cancel }
         };
         Grid.SetColumn(reset, 1);
         Grid.SetColumn(run, 2);
@@ -119,15 +128,12 @@ public sealed class TolerancingRunWindow : Window
             Row("模式", _mode),
             Row("反求极限 / 增量", _inverseValue),
             Row("并行 CPU 数", _cpuCount)),
-        Note("反向极限按绝对评价上限逐项收紧公差；反向增量按名义评价值加正增量逐项收紧。满足目标的现有公差不会被放宽；“跳过灵敏度”只执行 Monte Carlo。"));
+        Note("反向极限：RMS 为上限，MTF 为下限。反向增量：RMS 允许增加，MTF 允许下降；逐视场模式按每个视场的名义值反求。满足目标的公差不会放宽。"));
 
     private Control CriterionTab() => Page(
-        Section("评价标准",
-            Row("标准", _criterion),
-            Row("补偿", _compensation),
-            Row("补偿循环", _cycles),
-            Row("合格上限（0=不计算）", _yieldLimit)),
-        Note("RMS 公差标准独立于优化评价函数；启用补偿时，每个极限和每次随机试验都会重新优化补偿器。"));
+        Section("评价标准", Row("标准", _criterion), Row(_acceptanceLabel, _yieldLimit)),
+        MtfSection(), FieldLimitsSection(),
+        Note("RMS 按上限验收，MTF 按下限验收。逐视场模式要求同一次补偿后的所有定义视场同时合格，包含权重为 0 的视场。"));
 
     private Control MonteCarloTab() => Page(
         Section("Monte Carlo",
@@ -150,9 +156,7 @@ public sealed class TolerancingRunWindow : Window
             3 => ToleranceAnalysisMode.SkipSensitivity,
             _ => ToleranceAnalysisMode.Sensitivity
         },
-        _criterion.SelectedIndex == 1
-            ? ToleranceCriterion.RmsWavefront
-            : ToleranceCriterion.RmsSpotRadius,
+        (ToleranceCriterion)_criterion.SelectedIndex,
         IntValue(_runs, 20),
         IntValue(_seed, 1234),
         _compensation.SelectedIndex == 0 ? 0 : IntValue(_cycles, 3),
@@ -166,7 +170,9 @@ public sealed class TolerancingRunWindow : Window
         },
         IntValue(_worstCount, 0),
         _showMonteCarlo.IsChecked == true,
-        DoubleValue(_inverseValue, 0.05));
+        DoubleValue(_inverseValue, 0.05), BuildMtfSettings(),
+        _compensation.SelectedIndex == 2 ? ToleranceCompensationAlgorithm.CoordinatePatternSearch : ToleranceCompensationAlgorithm.DampedLeastSquares,
+        BuildAdditionalCompensators());
 
     private void Apply(TolerancingRunOptions options)
     {
@@ -177,8 +183,8 @@ public sealed class TolerancingRunWindow : Window
             ToleranceAnalysisMode.SkipSensitivity => 3,
             _ => 0
         };
-        _criterion.SelectedIndex = options.Criterion == ToleranceCriterion.RmsWavefront ? 1 : 0;
-        _compensation.SelectedIndex = options.CompensationIterations > 0 ? 1 : 0;
+        _criterion.SelectedIndex = (int)options.Criterion;
+        _compensation.SelectedIndex = options.CompensationIterations <= 0 ? 0 : options.CompensationAlgorithm == ToleranceCompensationAlgorithm.CoordinatePatternSearch ? 2 : 1;
         _cycles.Value = options.CompensationIterations;
         UpdateCompensationControls();
         _runs.Value = options.MonteCarloRuns;
@@ -194,7 +200,9 @@ public sealed class TolerancingRunWindow : Window
         _worstCount.Value = options.WorstSensitivityCount;
         _showMonteCarlo.IsChecked = options.ShowMonteCarloTrials;
         _inverseValue.Value = ToDecimal(options.InverseValue);
+        ApplyMtfSettings(options.MtfSettings, options.AdditionalCompensators);
         UpdateModeControls();
+        UpdateMtfControls();
     }
 
     private void UpdateModeControls()
@@ -204,8 +212,8 @@ public sealed class TolerancingRunWindow : Window
     }
 
     private void UpdateCompensationControls() =>
-        ControlAvailability.Set(_cycles, _compensation.SelectedIndex == 1,
-            "选择“优化全部（DLS）”补偿后可设置补偿循环。");
+        ControlAvailability.Set(_cycles, _compensation.SelectedIndex > 0,
+            "选择优化补偿后可设置补偿循环。");
 
     private static Control Page(params Control[] children)
     {
@@ -219,7 +227,7 @@ public sealed class TolerancingRunWindow : Window
             panel.Children.Add(child);
         }
 
-        return new ScrollViewer { Content = panel };
+        return new ScrollViewer { Content = panel, HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled };
     }
 
     private static Border Section(string title, params Control[] children)
@@ -239,17 +247,14 @@ public sealed class TolerancingRunWindow : Window
         return border;
     }
 
-    private static Grid Row(string label, Control input)
+    private static Grid Row(string label, Control input) => Row(new TextBlock { Text = label, TextWrapping = TextWrapping.Wrap }, input);
+
+    private static Grid Row(Control text, Control input)
     {
-        var text = new TextBlock
-        {
-            Text = label,
-            VerticalAlignment = VerticalAlignment.Center,
-            TextWrapping = TextWrapping.Wrap
-        };
+        text.VerticalAlignment = VerticalAlignment.Center;
         var grid = new Grid
         {
-            ColumnDefinitions = new ColumnDefinitions("220,*"),
+            ColumnDefinitions = new ColumnDefinitions("180,*"),
             ColumnSpacing = 12,
             Children = { text, input }
         };
@@ -268,7 +273,7 @@ public sealed class TolerancingRunWindow : Window
     {
         ItemsSource = items,
         SelectedIndex = selectedIndex,
-        MinWidth = 260,
+        MinWidth = 160,
         HorizontalAlignment = HorizontalAlignment.Stretch
     };
 

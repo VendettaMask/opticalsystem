@@ -15,7 +15,11 @@ public readonly record struct RayTraceSampleValue(
     double CumulativePathLength = 0,
     double CumulativeOpticalPathLength = 0,
     double OpticalPathDifference = 0,
-    RayInteractionKind? InteractionKind = null)
+    RayInteractionKind? InteractionKind = null,
+    Vector3D? IncidentDirection = null,
+    double? PhaseInclusiveOpticalPathLength = null,
+    double? RefractiveIndexBefore = null,
+    double? RefractiveIndexAfter = null)
 {
     public RayTraceSample ToRayTraceSample() => new(
         SurfaceNumber,
@@ -29,7 +33,11 @@ public readonly record struct RayTraceSampleValue(
         CumulativePathLength,
         CumulativeOpticalPathLength,
         OpticalPathDifference,
-        InteractionKind);
+        InteractionKind,
+        IncidentDirection,
+        PhaseInclusiveOpticalPathLength,
+        RefractiveIndexBefore,
+        RefractiveIndexAfter);
 
     public static RayTraceSampleValue FromRayTraceSample(RayTraceSample sample) => new(
         sample.SurfaceNumber,
@@ -43,5 +51,9 @@ public readonly record struct RayTraceSampleValue(
         sample.CumulativePathLength,
         sample.CumulativeOpticalPathLength,
         sample.OpticalPathDifference,
-        sample.InteractionKind);
+        sample.InteractionKind,
+        sample.IncidentDirection,
+        sample.PhaseInclusiveOpticalPathLength,
+        sample.RefractiveIndexBefore,
+        sample.RefractiveIndexAfter);
 }

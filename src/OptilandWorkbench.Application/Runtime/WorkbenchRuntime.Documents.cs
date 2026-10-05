@@ -69,6 +69,12 @@ public partial class WorkbenchRuntime
         CancellationToken cancellationToken = default)
     {
         RejectUnsupportedJsonExtension(path);
+        if (!IsStarOptProjectPath(path) && document.OperandRows is { Count: > 0 })
+            throw new NotSupportedException("多配置操作数行表需要 STAROPT 工程格式；此格式不能保留行表引用。");
+        if (!IsStarOptProjectPath(path) && document.Configurations.Count > 1
+            && document.ActiveOptic.MeritFunctionOperands.Any(operand => operand.Enabled
+                && !operand.CompatibilityOnly && MeritFunctionCatalog.CanonicalType(operand.Type) is "MCOV" or "MCOG" or "MCOL" or "CONF" or "ZTHI"))
+            throw new NotSupportedException("评价函数依赖多个配置；此格式只保存活动镜头，请保存 STAROPT 以保留全部配置。");
         if (IsStarOptProjectPath(path))
         {
             await StarOptProjectStore.SaveAsync(
@@ -76,7 +82,7 @@ public partial class WorkbenchRuntime
                     document.Configurations,
                     document.ActiveConfigurationIndex,
                     document.BrokenLinks,
-                    document.NonSequentialDocument),
+                    document.NonSequentialDocument, document.OperandRows, document.OperandVariables, document.OperandPickups),
                 path,
                 cancellationToken).ConfigureAwait(false);
         }
@@ -133,7 +139,7 @@ public partial class WorkbenchRuntime
                 project.Configurations,
                 project.ActiveConfigurationIndex,
                 project.BrokenLinks,
-                project.NonSequentialDocument);
+                project.NonSequentialDocument, project.OperandRows, project.OperandVariables, project.OperandPickups);
         }
 
         if (IsNativeJsonPath(path))
@@ -207,7 +213,7 @@ public partial class WorkbenchRuntime
 
     private void ReplaceDocumentState(LoadedOpticalDocument document)
     {
-        _multiConfiguration = new MultiConfiguration(document.Configurations, document.BrokenLinks);
+        _multiConfiguration = new MultiConfiguration(document.Configurations, document.BrokenLinks, document.OperandRows, document.OperandVariables, document.OperandPickups);
         _activeConfigurationIndex = Math.Clamp(
             document.ActiveConfigurationIndex,
             0,
@@ -229,7 +235,7 @@ public partial class WorkbenchRuntime
             configurations,
             _activeConfigurationIndex,
             _multiConfiguration.BrokenLinks,
-            _nonSequentialDocument.Clone());
+            _nonSequentialDocument.Clone(), _multiConfiguration.OperandRows.ToArray(), _multiConfiguration.OperandVariables.ToArray(), _multiConfiguration.OperandPickups.ToArray());
     }
 
     private static void RejectLossyNonSequentialExport(LoadedOpticalDocument document, string path)

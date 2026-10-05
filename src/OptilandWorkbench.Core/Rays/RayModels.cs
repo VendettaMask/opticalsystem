@@ -54,7 +54,14 @@ public sealed record RayTraceSample(
     double CumulativePathLength = 0,
     double CumulativeOpticalPathLength = 0,
     double OpticalPathDifference = 0,
-    RayInteractionKind? InteractionKind = null);
+    RayInteractionKind? InteractionKind = null,
+    Vector3D? IncidentDirection = null,
+    double? PhaseInclusiveOpticalPathLength = null,
+    // Indices of the two interface media at this hit, even for reflection/TIR.
+    // Both are absent on a miss; After is absent when stopping before interaction.
+    // After is not the reflected path's medium.
+    double? RefractiveIndexBefore = null,
+    double? RefractiveIndexAfter = null);
 
 public sealed class RealRayBundle
 {

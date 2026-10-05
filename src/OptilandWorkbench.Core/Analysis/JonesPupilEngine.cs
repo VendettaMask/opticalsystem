@@ -40,6 +40,8 @@ public static class JonesPupilEngine
         bool zemaxCentered = false,
         bool includeBulkAbsorption = false)
     {
+        if (useFresnelCoatings && optic.SurfaceGroup.Items.Any(surface => surface.CoatingModel is Coatings.CoherentMultilayerCoating))
+            throw new NotSupportedException("物理多层镀膜尚未接入此电场 Jones 光瞳分析；不能用裸界面 Fresnel 代替膜层复振幅。");
         gridSize = Math.Max(3, gridSize);
         var samples = new List<JonesPupilSample>(gridSize * gridSize);
         for (var row = 0; row < gridSize; row++)

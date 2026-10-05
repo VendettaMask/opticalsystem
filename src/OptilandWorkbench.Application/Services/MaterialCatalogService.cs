@@ -100,6 +100,18 @@ internal sealed partial class MaterialCatalogService : IMaterialCatalogService
         }
     }
 
+    public GlassMaterialDto? FindGlass(string materialName)
+    {
+        lock (_gate)
+        {
+            var optic = _runtime.CurrentOptic;
+            return optic.Materials.TryResolve(materialName, optic.GlassCatalogs, out var material)
+                && material is CatalogGlassMaterial glass
+                ? ToGlassMaterialDto(glass)
+                : null;
+        }
+    }
+
     private IReadOnlyList<CatalogGlassMaterial> CatalogGlasses()
     {
         var materials = _runtime.CurrentOptic.Materials;

@@ -1,0 +1,186 @@
+{
+  "date": "2026-10-01",
+  "scope": "Twentieth batch: local surface point metrics and eighth parameter slot",
+  "registered": 383,
+  "executable_before": 282,
+  "executable_after": 285,
+  "compatibility_only_after": 98,
+  "added_codes": [
+    "SCRV",
+    "SSAG",
+    "SSLP"
+  ],
+  "cumulative_added_since_124": 161,
+  "verification": {
+    "debug": {
+      "total": 1928,
+      "passed": 1928,
+      "failed": 0,
+      "skipped": 0,
+      "new_tests": 55,
+      "previous_batch_tests": 1873,
+      "additional_adjacent_tests": 0,
+      "trx": "twentieth-batch-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 1928,
+      "passed": 1928,
+      "failed": 0,
+      "skipped": 0,
+      "new_tests": 55,
+      "previous_batch_tests": 1873,
+      "additional_adjacent_tests": 0,
+      "trx": "twentieth-batch-release.trx",
+      "log": "release.log"
+    }
+  },
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "support_boundaries": {
+    "points": "SSAG/SSLP/SCRV at local XY in mm, unclipped by physical aperture. Sag mm, slope dimensionless, normal curvature inverse mm. Shared analytic derivatives, no finite-difference duplicate.",
+    "modes": "Mode0/1 retained; current non-fit modes do not depend on aperture selection. Off-axis0, Remove0/1, Orientation0..3, BFS0..3 retained but no fitting.",
+    "editor": "Data6/Parameter8 added end to end. Slot8 only visible when relevant. Complete executable 7/8 slot rows required; missing extended parameters of compatibility rows remain absent.",
+    "persistence": "Local project and editor round trips, headless eighth-column switch. Native layouts still unverified; all three ZMX codes disabled read-only, no auto-upgrade.",
+    "pending": "Best-fit sphere, off-axis part coordinates, modulus direction, more analytic surface derivatives, native column/numerical captures.",
+    "known_residual": "FCGT remains Difference against unchanged 1e-5 mm accuracy target."
+  },
+  "external_reference": {
+    "integrity": "12 selected committed assets byte-equal HEAD, not full baseline audit.",
+    "recalculation": "Current Core and fixed-file/settings PSF/cross-section/MTF regressions.",
+    "huygens_analysis_comparison": {
+      "debug": {
+        "direction_values": 18,
+        "maximum_absolute_error": 0.011900434932046483,
+        "analysis_regression_budget": 0.03,
+        "status": "WithinRegressionBudget",
+        "native_MFE_parity": "NotVerified"
+      },
+      "release": {
+        "direction_values": 18,
+        "maximum_absolute_error": 0.011900434932046483,
+        "analysis_regression_budget": 0.03,
+        "status": "WithinRegressionBudget",
+        "native_MFE_parity": "NotVerified"
+      }
+    },
+    "existing_distortion_comparison": {
+      "debug": {
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm",
+          "samples": 9
+        },
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm",
+          "samples": 9
+        },
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        }
+      },
+      "release": {
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm",
+          "samples": 9
+        },
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm",
+          "samples": 9
+        },
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        }
+      }
+    },
+    "new_native_capture": "None; SSAG/SSLP/SCRV native MFE columns and numerical parity unverified.",
+    "screenshots": "No screenshot review."
+  },
+  "remaining_category_counts_overlap": true,
+  "unique_remaining": 98,
+  "all_operands_completion_goal": "Active, not complete; remaining codes and partial modes still require work",
+  "not_performed": [
+    "full product suite",
+    "laboratory full suites",
+    "full external comparison matrix",
+    "new Zemax captures",
+    "native desktop walkthrough",
+    "screenshot review",
+    "installer validation"
+  ],
+  "historical_reference": "Frozen history untouched; no new Optiland comparisons",
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Services/SurfaceProfileMetrics.cs": "e815902c6f666ec66f16f71f3aa6aa1d2b957db819fa09cc6c370372465cbf64",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.SurfacePoints.cs": "b24d1dd498558e530e5df4b7c7f54bda1f01267f67fa88f871f79e3eafcae91c",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "a0dff7dc8518192cc4aeec1bbc5a9d137e1d9e3bef811f40cab815d359b4360a",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "f258c711189a107fed2e5116b41151047de079bca256b198ca226fd287f46e35",
+    "src/OptilandWorkbench.Core/FileIO/ZemaxZmxReader.cs": "3634f963458499ea4880efff10f3995263ae5a3ae7a7558ef04ff2c1ef1d6ffb",
+    "src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs": "aeb9ec7d133269f7731e40746893fc79a249b254cafc16ba368395e3ffa65bf3",
+    "src/OptilandWorkbench.Application/Contracts/WorkspaceContracts.cs": "f6ed9d76d6bfb9ece02de777ee8fb41db8917c4323dd2d3a5661d73b8f46ff0d",
+    "src/OptilandWorkbench.Application/Services/OptimizationService.cs": "428338391a79d50e4cd3b5caccf7e2528e11173f1734b8283c5b09e775f07dd7",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "7de703f026139ced519a1359aef097a4659fcc14f37ef0725987640916ed4955",
+    "src/OptilandWorkbench.App/ViewModels/EditorRows.cs": "3dfa193dba9ccb82f89bbcc46f2fd02fa239c56fad120e6e2fbf832310e4c84e",
+    "src/OptilandWorkbench.App/Panels/OptimizationPanel.cs": "f0bd553c55482e38f932ea6c24554dd5205d7faa1752640e922f2dea9b528c56",
+    "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs": "e4ab0755c0a217a87cc4f8eea64c2194ecfffcd7c5cc08f09fa5d25a0fe57399",
+    "tests/OptilandWorkbench.Tests/SurfacePointOperandTests.cs": "3a04a0df217f018d04100ecad4d4f757d6b28c517368f4992610424d53e8882a",
+    "tests/OptilandWorkbench.Tests/SurfacePointEditorTests.cs": "3e62bf3082a4e1206f66e388a42dc947bb1348c97357c8b6dbbd8de996b3cb00"
+  },
+  "selected_capture_sha256": {
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.txt": "dbb741fc9f07d6d55a9d7d6acdad2bfe91f45e3b5b365bb14c51e1d6b8f2a6f0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/049-rmsfield/data.json": "7badd81b3adbd9bd694e4cabfce3d58e45c863866ed77d4337a33f3321290e87",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/052-rmsfocus/data.json": "a90eabe523007f995e10c685622025b34d47c87b25d627e56ddda16020765240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/055-wavefrontmap/data.json": "e9cfe98cfb64ec684976ee786fd33b8844d24995be084941bedbe7537c911e62",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/data.json": "ef6a44cbe999be4ae54c8d2b8dc3854434e0565b9bd28266138eeebcc900f57a",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/025-huygensmtfvsfield/data.json": "9b00c750481cb73adb741f47c00ca66232dd3374765e2fa68a59bca1c6c99323",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/028-huygensthroughfocusmtf/data.json": "dc115e8bd603af3b3a1686fe7c2c0ec4530d9220d235c5af1ce0cd9004147240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/004-fieldcurvatureanddistortion/data.json": "a93a1aeff36e6bf4856ff41ad22844022b8dcc6cbde2a8038853da1d3090bd73",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/settings.cfg": "afc322d75c819f36e8c1aece2d4600c3fbdc687a4e0e6d8badb4e0e646917790",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/data.json": "1ddb61139e42585f144329c430a85ebc7685eb92416783cf85f653822cc64eb0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/settings.cfg": "5ac71deed1902825151e0e78d082850bf0f28ac4b9c2f16934a2003ad9980f69"
+  },
+  "default_binary_sha256": {
+    "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll": "1c46bda74811eca67544af941d0efa37936a85e4f4768b1245917cb97a3f6e81",
+    "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll": "41c294b43c5cd4588ea495367f9e344a4c741d3f9c309921944cd43d75c196de",
+    "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll": "acb54aac7e5f31ec0aa8564a1e0807abb250694ee930b8bf4b87c3a02b80a28f",
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "98aa5b686cca8037f46a53ef95564b3be92c4a5b685cd9a9981b73ca591dca29",
+    "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll": "dcda81664f73c75051277b3d17a47a98fc58c245cd45d66f8b6081a67d1bdfd4",
+    "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll": "49450cf363044d20f37a9c9f354bc6983edac2219db3dcfe6f25e45884875a47"
+  },
+  "new_document_links_checked": 39
+}

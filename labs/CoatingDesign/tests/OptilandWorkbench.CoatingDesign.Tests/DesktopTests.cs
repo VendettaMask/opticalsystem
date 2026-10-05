@@ -21,13 +21,15 @@ public sealed class DesktopTests
         .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
 
     [Theory]
-    [InlineData(1200)] [InlineData(820)]
-    public async Task RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(int width)
+    [InlineData(1200, 900)]
+    [InlineData(820, 900)]
+    [InlineData(820, 640)]
+    public async Task RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(int width, int height)
     {
         using var host = new Host();
         await host.Run(async () =>
         {
-            var window = new MainWindow { Width = width, Height = 900 };
+            var window = new MainWindow { Width = width, Height = height };
             try
             {
                 window.Show(); Tick(window);
@@ -46,7 +48,7 @@ public sealed class DesktopTests
                 Click(window, "1 生成膜系"); await window.PendingOperation;
                 Click(window, "2 优化"); await window.PendingOperation;
                 Assert.True(window.CurrentExperiment.Result!.Passed);
-                Capture(window, $"ar-{width}");
+                Capture(window, $"ar-{width}-{height}");
                 Find<TextBox>(window, "中心波长 (nm)").Text = "not-a-number";
                 Assert.Null(window.CurrentExperiment.Result);
                 Click(window, "计算 / 复验"); await window.PendingOperation;
@@ -57,7 +59,7 @@ public sealed class DesktopTests
                 Assert.Null(window.CurrentExperiment.Result);
                 Click(window, "1 生成膜系"); await window.PendingOperation;
                 Assert.NotNull(window.CurrentExperiment.Result);
-                Capture(window, $"narrow-{width}");
+                Capture(window, $"narrow-{width}-{height}");
             }
             finally { window.Close(); }
         });
@@ -108,6 +110,72 @@ public sealed class DesktopTests
             });
         }
         finally { Directory.Delete(directory, true); }
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(3)]
+    [InlineData(4)]
+    public async Task SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(int theme)
+    {
+        using var host = new Host();
+        await host.Run(async () =>
+        {
+            var window = new MainWindow { Width = 820, Height = 900 };
+            try
+            {
+                window.Show(); Tick(window);
+                Click(window, "1 生成膜系"); await window.PendingOperation;
+                var fingerprint = window.CurrentExperiment.Fingerprint();
+                Find<ComboBox>(window, "界面主题").SelectedIndex = theme;
+                Tick(window);
+                Assert.Equal(fingerprint, window.CurrentExperiment.Fingerprint());
+                var sidebar = window.GetLogicalDescendants().OfType<Border>().Single(x => x.Name == "CoatingSidebar");
+                Assert.InRange(sidebar.Bounds.Width, 240, 280);
+                var scroll = Assert.IsType<ScrollViewer>(sidebar.Child);
+                Assert.Equal(Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled, scroll.HorizontalScrollBarVisibility);
+                Assert.All(window.GetLogicalDescendants().OfType<Button>().Where(x => x.Content?.ToString() is "1 生成膜系" or "2 优化" or "结构搜索"), b => Assert.Contains("accent", b.Classes));
+                Assert.False(Find<Button>(window, "取消").IsEnabled);
+                Assert.NotEmpty(AutomationProperties.GetHelpText(Find<Button>(window, "取消"))!);
+                Capture(window, $"theme-{theme}-820");
+            }
+            finally { window.Close(); }
+        });
+    }
+
+    [Fact]
+    public async Task MaterialDialogCreatesIndependentSnapshotAndInvalidatesOldResult()
+    {
+        using var host = new Host();
+        await host.Run(async () =>
+        {
+            var window = new MainWindow();
+            try
+            {
+                window.Show(); Tick(window); Click(window, "1 生成膜系"); await window.PendingOperation;
+                var original = window.CurrentExperiment.Materials;
+                window.FontSize = 16;
+                Click(window, "材料管理"); Tick(window);
+                var editor = window.OwnedWindows.OfType<MaterialEditorWindow>().Single();
+                Tick(editor); Assert.Equal(window.FontSize, editor.FontSize); Assert.Equal(window.FontFamily, editor.FontFamily);
+                Click(editor, "新建 / 示例格式");
+                Find<TextBox>(editor, "材料名称").Text = "实测材料测试";
+                Find<TextBox>(editor, "数据来源").Text = "测试夹具，非实测产品数据";
+                Find<TextBox>(editor, "n/k 表格").Text = "wavelength_nm,n,k\n400,1.8,0.01\n700,1.75,0.02\n";
+                Capture(editor, "material-editor");
+                Click(editor, "保存到实验"); await window.PendingOperation;
+                Assert.Null(window.CurrentExperiment.Result);
+                Assert.Equal(original.Length + 1, window.CurrentExperiment.Materials.Length);
+                Assert.All(original, m => Assert.Contains(window.CurrentExperiment.Materials, x => x.Id == m.Id));
+                Click(window, "添加层"); await window.PendingOperation;
+                Click(window, "计算 / 复验"); await window.PendingOperation;
+                Assert.NotNull(window.CurrentExperiment.Result);
+                Assert.StartsWith("custom:", window.CurrentExperiment.Layers.Last().MaterialId);
+            }
+            finally { window.Close(); }
+        });
     }
 
     private static T Find<T>(Window window, string label) where T : Control => window.GetLogicalDescendants()

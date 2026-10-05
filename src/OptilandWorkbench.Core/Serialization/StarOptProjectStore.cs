@@ -13,13 +13,16 @@ public sealed record StarOptProjectDocument(
     IReadOnlyList<Optic> Configurations,
     int ActiveConfigurationIndex,
     IReadOnlyList<MultiConfigurationLinkOverride>? BrokenLinks = null,
-    NonSequentialDocument? NonSequentialDocument = null);
+    NonSequentialDocument? NonSequentialDocument = null,
+    IReadOnlyList<MultiConfigurationOperand>? OperandRows = null,
+    IReadOnlyList<MultiConfigurationVariable>? OperandVariables = null,
+    IReadOnlyList<MultiConfigurationPickup>? OperandPickups = null);
 
 public static class StarOptProjectStore
 {
     public const string Extension = ".staropt";
     public const ushort ContainerVersion = 2;
-    public const int ProjectFormatVersion = 4;
+    public const int ProjectFormatVersion = 7;
     public const int MaximumConfigurationCount = 4096;
     public const int MaximumPayloadLength = 256 * 1024 * 1024;
 
@@ -57,7 +60,8 @@ public static class StarOptProjectStore
             configurations,
             document.BrokenLinks?.ToList(),
             (document.NonSequentialDocument ?? CreateDefaultNonSequentialDocument(
-                document.Configurations[document.ActiveConfigurationIndex])).Clone());
+                document.Configurations[document.ActiveConfigurationIndex])).Clone(),
+            document.OperandRows?.ToList(), document.OperandVariables?.ToList(), document.OperandPickups?.ToList());
         var json = JsonSerializer.SerializeToUtf8Bytes(project, JsonOptions);
         if (json.Length > MaximumPayloadLength)
         {
@@ -235,6 +239,15 @@ public static class StarOptProjectStore
             .Select(Optic.FromSnapshot)
             .ToArray();
         ValidateBrokenLinks(project.BrokenLinks, configurations);
+        if (project.FormatVersion < 5 && project.OperandRows is { Count: > 0 })
+            throw new InvalidDataException("Multi-configuration operand rows require STAROPT project version 5.");
+        ValidateOperandRows(project.OperandRows, configurations);
+        if (project.FormatVersion < 6 && project.OperandVariables is { Count: > 0 })
+            throw new InvalidDataException("Multi-configuration cell variables require STAROPT project version 6.");
+        ValidateOperandVariables(project.OperandVariables, project.OperandRows, configurations);
+        if (project.FormatVersion < 7 && project.OperandPickups is { Count: > 0 })
+            throw new InvalidDataException("Multi-configuration pickups require STAROPT project version 7.");
+        ValidateOperandPickups(project.OperandPickups, project.OperandVariables, project.OperandRows, configurations, project.BrokenLinks);
         var nonSequentialDocument = project.NonSequentialDocument
             ?? CreateDefaultNonSequentialDocument(configurations[project.ActiveConfigurationIndex]);
         if (containerVersion == 1 && nonSequentialDocument.MeshAssets.Count > 0)
@@ -250,7 +263,7 @@ public static class StarOptProjectStore
             configurations,
             project.ActiveConfigurationIndex,
             project.BrokenLinks,
-            nonSequentialDocument);
+            nonSequentialDocument, project.OperandRows, project.OperandVariables, project.OperandPickups);
     }
 
     private static byte[] BuildHeader(ReadOnlySpan<byte> json, int compressedLength, ushort containerVersion)
@@ -417,6 +430,9 @@ public static class StarOptProjectStore
         }
 
         ValidateBrokenLinks(document.BrokenLinks, document.Configurations);
+        ValidateOperandRows(document.OperandRows, document.Configurations);
+        ValidateOperandVariables(document.OperandVariables, document.OperandRows, document.Configurations);
+        ValidateOperandPickups(document.OperandPickups, document.OperandVariables, document.OperandRows, document.Configurations, document.BrokenLinks);
         document.NonSequentialDocument?.Validate();
     }
 
@@ -444,7 +460,7 @@ public static class StarOptProjectStore
         {
             if (link.ConfigurationIndex <= 0 || link.ConfigurationIndex >= configurations.Count
                 || string.IsNullOrWhiteSpace(link.Property)
-                || link.Property.Trim().ToLowerInvariant() is not ("radius" or "thickness" or "conic" or "material")
+                || link.Property.Trim().ToLowerInvariant() is not ("radius" or "thickness" or "conic" or "material" or "semidiameter")
                 || configurations[0].SurfaceGroup.Items.All(
                     surface => surface.Number != link.SurfaceNumber)
                 || configurations[link.ConfigurationIndex].SurfaceGroup.Items.All(
@@ -455,11 +471,39 @@ public static class StarOptProjectStore
         }
     }
 
+    private static void ValidateOperandRows(IReadOnlyList<MultiConfigurationOperand>? rows, IReadOnlyList<Optic> configurations)
+    {
+        try { MultiConfigurationOperand.ValidateRows(rows, configurations); }
+        catch (Exception exception) when (exception is ArgumentException or InvalidOperationException)
+        { throw new InvalidDataException("The STAROPT multi-configuration operand table is invalid.", exception); }
+    }
+
+    private static void ValidateOperandVariables(IReadOnlyList<MultiConfigurationVariable>? variables,
+        IReadOnlyList<MultiConfigurationOperand>? rows, IReadOnlyList<Optic> configurations)
+    {
+        try { MultiConfigurationVariable.Validate(variables, rows ?? [], configurations); }
+        catch (Exception exception) when (exception is ArgumentException or InvalidOperationException)
+        { throw new InvalidDataException("The STAROPT multi-configuration variable table is invalid.", exception); }
+    }
+
+    private static void ValidateOperandPickups(IReadOnlyList<MultiConfigurationPickup>? pickups,
+        IReadOnlyList<MultiConfigurationVariable>? variables, IReadOnlyList<MultiConfigurationOperand>? rows,
+        IReadOnlyList<Optic> configurations, IReadOnlyList<MultiConfigurationLinkOverride>? links)
+    {
+        if (pickups is not { Count: > 0 }) return;
+        try { _ = new MultiConfiguration(configurations, links, rows, variables, pickups); }
+        catch (Exception exception) when (exception is ArgumentException or InvalidOperationException or ArithmeticException)
+        { throw new InvalidDataException("The STAROPT multi-configuration pickup table is invalid.", exception); }
+    }
+
     private sealed record StarOptProjectSnapshot(
         int FormatVersion,
         string Application,
         int ActiveConfigurationIndex,
         List<OpticSnapshot> Configurations,
         List<MultiConfigurationLinkOverride>? BrokenLinks = null,
-        NonSequentialDocument? NonSequentialDocument = null);
+        NonSequentialDocument? NonSequentialDocument = null,
+        List<MultiConfigurationOperand>? OperandRows = null,
+        List<MultiConfigurationVariable>? OperandVariables = null,
+        List<MultiConfigurationPickup>? OperandPickups = null);
 }

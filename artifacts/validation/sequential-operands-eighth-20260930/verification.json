@@ -1,0 +1,92 @@
+{
+  "date": "2026-09-30",
+  "scope": "Eighth batch: 6 ray-bundle centroid operands and 4 geometric spot radius operands",
+  "registered": 383,
+  "executable_before": 210,
+  "executable_after": 220,
+  "compatibility_only_after": 163,
+  "added_codes": [
+    "CENX",
+    "CENY",
+    "CNAX",
+    "CNAY",
+    "CNPX",
+    "CNPY",
+    "GSCE",
+    "GSCH",
+    "GSRE",
+    "GSRH"
+  ],
+  "cumulative_added_since_124": 96,
+  "verification": {
+    "debug": {
+      "total": 933,
+      "passed": 933,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 76,
+      "trx": "eighth-batch-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 933,
+      "passed": 933,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 76,
+      "trx": "eighth-batch-release.trx",
+      "log": "release.log"
+    }
+  },
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "support_boundaries": {
+    "centroid": "Pol=0 only; grid side 1..513 within circular pupil; Wave=0 intensity and spectral weighted; positive wave ignores spectral weight; local positions and atan2 of weighted output unit directions.",
+    "geometric_spot": "Positive wavelength only; sampled maximum radius; gaussian 1..32 rings x 6 azimuths, requires unvignetted rays; rectangular side 2*Samp+1 with Samp=1..256; chief reference uses primary wavelength.",
+    "import": "Nonzero centroid Surf references remap after coordinate-break folding; zero remains image alias. GS Int1 is sampling, never remapped as surface.",
+    "remaining_range_angles": "MNRE/MNRI/MXRE/MXRI remain compatibility-only pending seven-parameter transport and validation."
+  },
+  "external_reference": {
+    "integrity": "Two named baseline assets equal committed HEAD; not whole-baseline integrity audit.",
+    "recalculation": "Existing fixed Zemax regressions pass within original file/settings/version.",
+    "new_operands": "Independent analytic/integration checks; no new native MFE slot, sampling, angular-centroid or numerical captures.",
+    "screenshots": "No screenshot review."
+  },
+  "remaining_category_counts_overlap": true,
+  "unique_remaining": 163,
+  "not_performed": [
+    "full product suite",
+    "laboratory full suites",
+    "full external comparison matrix",
+    "new Zemax captures",
+    "native desktop walkthrough",
+    "screenshot review",
+    "installer validation"
+  ],
+  "historical_reference": "Frozen assets untouched; no new Optiland comparisons",
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Services/RayBundleMetrics.cs": "8460968f5f81cb8914fa1d7826bc232e44e00f32f4a1d3430c59903810a61e11",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.BundleMetrics.cs": "fe371c4145719ea4c58039227cf093dce627e0fdbb16171a2e0dce0019430ed0",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "e85b4f43c8df37f6d02f06466367a4e23163dd3571644917353b088ee4e9e994",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "8703e2c81a8f3c2a3d02f8797e11cfdce8b8eb9552f0b943afc40f59f2c1e1c9",
+    "src/OptilandWorkbench.Core/FileIO/ZemaxZmxReader.cs": "cd225ecf4eb70a931788f3797b7db037ed50e504b68d2bbf735c404e7212edb2",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "410b2168bb5c6336542bd54a3ac61f98974936116c885d2186c11dfa33b59138",
+    "tests/OptilandWorkbench.Tests/BundleMetricOperandTests.cs": "bc715d961f28aa00fa4754ffb4fea413867adb645050de4e24886b2729926ddb",
+    "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs": "7d65dd13e207e21641be41c79393276df828c966516584aa0483f69e0868976b"
+  },
+  "selected_capture_sha256": {
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.txt": "dbb741fc9f07d6d55a9d7d6acdad2bfe91f45e3b5b365bb14c51e1d6b8f2a6f0"
+  },
+  "default_binary_sha256": {
+    "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll": "3a8724bce0a0181f2a8011c00495cfb784d99f5c3bd08351ec411e7db4fad741",
+    "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll": "260ca50b3965316b59c8ece3542c94bf3778365545bc1c85af990f5850aa0c43",
+    "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll": "01220e9b0cc4313057d699a4ebefcb737e2201187bc61703ce5c9dd55abcdfc8",
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "b8e00907ac8f6a25dd7ed3b8714910914b584c97cfed5ba29e1645b7efb0e1ca",
+    "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll": "58c4b34f0a841b6142a2e6b0b4598c16607cd741685da1a865d2f374c81a0f91",
+    "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll": "4d6626983346de0e4a99d7c4c0b2efc6331d05e67ac1095d21c840feaf75d347"
+  },
+  "new_document_links_checked": 40
+}

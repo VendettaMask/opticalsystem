@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="dec1bb3b-693a-4874-8018-136c29968ddf" name="@starlabdeMacBook-Air 2026-09-28 12:14:35" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-09-28T12:14:35.4902330+08:00" queuing="2026-09-28T12:14:35.4902330+08:00" start="2026-09-28T12:14:30.0298760+08:00" finish="2026-09-28T12:14:35.4919910+08:00" />
+  <TestSettings name="default" id="9b941b69-dfdb-4db2-b069-794780005f4a">
+    <Deployment runDeploymentRoot="_starlabdeMacBook-Air_2026-09-28_12_14_35" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9d534f66-5fba-41bf-b28a-3a828d87276a" testId="15bb70a4-4dc6-bd3c-90f8-0ccbb35bbc80" testName="OptilandWorkbench.Tests.SurfacePropertiesPanelTests.StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload" computerName="starlabdeMacBook-Air" duration="00:00:04.8599433" startTime="2026-09-28T12:14:30.4695440+08:00" endTime="2026-09-28T12:14:35.3320920+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9d534f66-5fba-41bf-b28a-3a828d87276a" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.SurfacePropertiesPanelTests.StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload" storage="/users/starlab/documents/opticalsystem/tests/optilandworkbench.tests/bin/debug/net10.0/optilandworkbench.tests.dll" id="15bb70a4-4dc6-bd3c-90f8-0ccbb35bbc80">
+      <Execution id="9d534f66-5fba-41bf-b28a-3a828d87276a" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.SurfacePropertiesPanelTests" name="StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="15bb70a4-4dc6-bd3c-90f8-0ccbb35bbc80" executionId="9d534f66-5fba-41bf-b28a-3a828d87276a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.05]   Discovering: OptilandWorkbench.Tests
+[xUnit.net 00:00:00.11]   Discovered:  OptilandWorkbench.Tests
+[xUnit.net 00:00:00.12]   Starting:    OptilandWorkbench.Tests
+[xUnit.net 00:00:04.99]   Finished:    OptilandWorkbench.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

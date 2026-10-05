@@ -654,6 +654,9 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             return null;
         }
 
+        var componentMaterials = element.Components
+            .Select(component => _materials.FindGlass(component.Material))
+            .ToArray();
         return new OpticalDrawingSheet(
             element,
             _pageSize.SelectedIndex == 1 ? OpticalDrawingPageSize.A3 : OpticalDrawingPageSize.A4,
@@ -676,22 +679,16 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             Value(_stress, "10 nm/cm"),
             Value(_bubbles, "2 × 0.1"),
             Value(_homogeneity, "2；2"),
-            FindMaterial(element.Components[0].Material),
+            componentMaterials[0],
             _companyLogoPng,
             (double)(_refractiveIndexTolerance.Value ?? 0.0005m),
             (double)(_abbeNumberTolerance.Value ?? 0.5m),
             _drawingStandard,
             (double)(_frontRadiusTolerance.Value ?? 0.1m),
             (double)(_backRadiusTolerance.Value ?? 0.1m),
-            element.Components.Select(component => FindMaterial(component.Material)).ToArray(),
+            componentMaterials,
             Value(_laserDamageThreshold, "-"));
     }
-
-    private GlassMaterialDto? FindMaterial(string name) =>
-        _materials.GetGlasses()
-            .Where(glass => glass.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
-            .OrderBy(glass => glass.Manufacturer.Equals("Compatibility", StringComparison.OrdinalIgnoreCase))
-            .FirstOrDefault();
 
     private static string StandardNote(OpticalDrawingStandard standard) => standard switch
     {

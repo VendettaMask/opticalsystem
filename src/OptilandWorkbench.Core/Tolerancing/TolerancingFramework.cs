@@ -254,7 +254,7 @@ public sealed class VariableRangePerturbation : IScaledRangePerturbation
     }
 }
 
-public sealed class Tolerancing
+public sealed partial class Tolerancing
 {
     private readonly List<IPerturbation> _perturbations = new();
     private readonly List<Operand> _operands = new();
@@ -283,6 +283,7 @@ public sealed class Tolerancing
     {
         ArgumentNullException.ThrowIfNull(variable);
         _compensators.Add(variable);
+        _compensatorNominals[variable.Name] = variable.Value;
     }
 
     public void SetCriterionEvaluator(Func<double> evaluator)
@@ -297,7 +298,7 @@ public sealed class Tolerancing
         try
         {
             var value = _criterionEvaluator?.Invoke() ?? Math.Sqrt(Math.Max(0, Merit()));
-            return double.IsFinite(value) ? value : double.PositiveInfinity;
+            return double.IsFinite(value) ? value : InvalidCriterion;
         }
         catch (Exception exception) when (exception is InvalidOperationException
             or ArgumentException
@@ -305,7 +306,7 @@ public sealed class Tolerancing
             or KeyNotFoundException
             or NotSupportedException)
         {
-            return double.PositiveInfinity;
+            return InvalidCriterion;
         }
     }
 
@@ -335,7 +336,9 @@ public sealed record SensitivityResult(
     double DeltaCriterion = double.NaN,
     double NegativeCriterion = double.NaN,
     double PositiveCriterion = double.NaN,
-    double WorstCriterion = double.NaN);
+    double WorstCriterion = double.NaN,
+    ToleranceEvaluation? NegativeEvaluation = null,
+    ToleranceEvaluation? PositiveEvaluation = null);
 
 public enum InverseToleranceEndpointStatus
 {
@@ -370,6 +373,8 @@ public sealed class SensitivityAnalysis
         _tolerancing = tolerancing;
     }
 
+    private bool HigherIsBetter => _tolerancing.HigherIsBetter;
+
     public IReadOnlyList<SensitivityResult> Run(int compensationIterations = 0)
     {
         return Run(compensationIterations, CancellationToken.None);
@@ -390,7 +395,9 @@ public sealed class SensitivityAnalysis
                 var negative = EvaluateEndpoint(range, useMaximum: false, compensationIterations, cancellationToken);
                 var positive = EvaluateEndpoint(range, useMaximum: true, compensationIterations, cancellationToken);
                 var worstMerit = Math.Max(negative.Merit, positive.Merit);
-                var worstCriterion = Math.Max(negative.Criterion, positive.Criterion);
+                var worstCriterion = HigherIsBetter
+                    ? Math.Min(negative.Criterion, positive.Criterion)
+                    : Math.Max(negative.Criterion, positive.Criterion);
                 results.Add(new SensitivityResult(
                     perturbation.Name,
                     worstMerit - baseline.Merit,
@@ -400,7 +407,7 @@ public sealed class SensitivityAnalysis
                     worstCriterion - baseline.Criterion,
                     negative.Criterion,
                     positive.Criterion,
-                    worstCriterion));
+                    worstCriterion, negative, positive));
                 continue;
             }
 
@@ -439,7 +446,8 @@ public sealed class SensitivityAnalysis
     public IReadOnlyList<InverseSensitivityResult> RunInverse(
         double targetCriterion,
         int compensationIterations = 0,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        IReadOnlyDictionary<int, double>? fieldTargets = null)
     {
         if (!double.IsFinite(targetCriterion) || targetCriterion <= 0)
         {
@@ -448,12 +456,17 @@ public sealed class SensitivityAnalysis
 
         cancellationToken.ThrowIfCancellationRequested();
         var baseline = EvaluateNominal(compensationIterations, cancellationToken);
-        if (!double.IsFinite(baseline.Criterion) || targetCriterion <= baseline.Criterion)
+        if (!double.IsFinite(baseline.Criterion) || (HigherIsBetter ? targetCriterion >= baseline.Criterion : targetCriterion <= baseline.Criterion))
         {
             throw new ArgumentOutOfRangeException(
                 nameof(targetCriterion),
-                "The inverse tolerance target must be greater than the nominal criterion.");
+                "The inverse tolerance target must represent worse performance than the nominal criterion.");
         }
+
+        if (fieldTargets is not null && (fieldTargets.Count == 0
+            || fieldTargets.Any(target => !double.IsFinite(target.Value) || target.Value <= 0)
+            || !MeetsTargets(baseline, targetCriterion, fieldTargets)))
+            throw new ArgumentOutOfRangeException(nameof(fieldTargets), "Nominal fields must meet every inverse target.");
 
         var results = new List<InverseSensitivityResult>();
         foreach (var perturbation in _tolerancing.Perturbations)
@@ -482,14 +495,14 @@ public sealed class SensitivityAnalysis
                     baseline.Criterion,
                     targetCriterion,
                     compensationIterations,
-                    cancellationToken),
+                    cancellationToken, fieldTargets),
                 SolveInverseEndpoint(
                     range,
                     useMaximum: true,
                     baseline.Criterion,
                     targetCriterion,
                     compensationIterations,
-                    cancellationToken)));
+                    cancellationToken, fieldTargets)));
         }
 
         return results;
@@ -550,7 +563,8 @@ public sealed class SensitivityAnalysis
         double nominalCriterion,
         double targetCriterion,
         int compensationIterations,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        IReadOnlyDictionary<int, double>? fieldTargets)
     {
         var originalTolerance = useMaximum ? perturbation.Maximum : perturbation.Minimum;
         if (Math.Abs(originalTolerance) <= 1e-15)
@@ -569,7 +583,7 @@ public sealed class SensitivityAnalysis
             1,
             compensationIterations,
             cancellationToken);
-        if (double.IsFinite(endpoint.Criterion) && endpoint.Criterion <= targetCriterion)
+        if (MeetsTargets(endpoint, targetCriterion, fieldTargets))
         {
             return new InverseToleranceEndpointResult(
                 originalTolerance,
@@ -594,7 +608,7 @@ public sealed class SensitivityAnalysis
                 middleScale,
                 compensationIterations,
                 cancellationToken);
-            if (double.IsFinite(middle.Criterion) && middle.Criterion <= targetCriterion)
+            if (MeetsTargets(middle, targetCriterion, fieldTargets))
             {
                 lowerScale = middleScale;
                 lowerCriterion = middle.Criterion;
@@ -654,31 +668,32 @@ public sealed class SensitivityAnalysis
         }
     }
 
-    private ToleranceEvaluation CompensatedEvaluation(
-        int compensationIterations,
-        CancellationToken cancellationToken)
-    {
-        cancellationToken.ThrowIfCancellationRequested();
-        if (compensationIterations <= 0 || _tolerancing.Compensators.Count == 0)
-        {
-            return new ToleranceEvaluation(_tolerancing.Merit(), _tolerancing.Criterion());
-        }
+    private bool MeetsTargets(ToleranceEvaluation evaluation, double target,
+        IReadOnlyDictionary<int, double>? fieldTargets) =>
+        _tolerancing.MeetsTargets(evaluation, target, fieldTargets);
 
-        var problem = _tolerancing.CreateCompensationProblem();
-        OptimizerCatalog.Create("Damped Least Squares").Optimize(problem, compensationIterations);
-        cancellationToken.ThrowIfCancellationRequested();
-        return new ToleranceEvaluation(problem.SumSquared(), _tolerancing.Criterion());
-    }
+    private ToleranceEvaluation CompensatedEvaluation(int compensationIterations,
+        CancellationToken cancellationToken) =>
+        _tolerancing.EvaluateCompensated(compensationIterations, cancellationToken);
+
 }
 
-public readonly record struct ToleranceEvaluation(double Merit, double Criterion);
+public readonly record struct ToleranceFieldValue(int FieldNumber, double Value, string Error = "");
+public readonly record struct ToleranceCompensatorValue(string Name, double Nominal, double Value,
+    double Minimum, double Maximum);
+public readonly record struct ToleranceEvaluation(double Merit, double Criterion,
+    IReadOnlyList<ToleranceFieldValue>? Fields = null,
+    IReadOnlyList<ToleranceCompensatorValue>? Compensators = null);
 
 public sealed record TolerancingTrialResult(
     int Trial,
     double Merit,
     double CompensatedMerit,
     double Criterion = double.NaN,
-    double CompensatedCriterion = double.NaN)
+    double CompensatedCriterion = double.NaN,
+    IReadOnlyList<ToleranceFieldValue>? Fields = null,
+    IReadOnlyList<ToleranceFieldValue>? CompensatedFields = null,
+    IReadOnlyList<ToleranceCompensatorValue>? Compensators = null)
 {
     public bool IsValid =>
         double.IsFinite(Criterion) && double.IsFinite(CompensatedCriterion);
@@ -746,7 +761,8 @@ public sealed class MonteCarlo
 
                 cancellationToken.ThrowIfCancellationRequested();
                 var merit = _tolerancing.Merit();
-                var criterion = _tolerancing.Criterion();
+                var uncompensated = _tolerancing.Evaluate();
+                var criterion = uncompensated.Criterion;
                 var compensated = CompensatedEvaluation(
                     compensationIterations,
                     cancellationToken,
@@ -757,7 +773,7 @@ public sealed class MonteCarlo
                     merit,
                     compensated.Merit,
                     criterion,
-                    compensated.Criterion));
+                    compensated.Criterion, uncompensated.Fields, compensated.Fields, compensated.Compensators));
             }
             finally
             {
@@ -840,7 +856,8 @@ public sealed class MonteCarlo
 
             cancellationToken.ThrowIfCancellationRequested();
             var merit = workerTolerancing.Merit();
-            var criterion = workerTolerancing.Criterion();
+            var uncompensated = workerTolerancing.Evaluate();
+            var criterion = uncompensated.Criterion;
             var compensated = EvaluateCompensatedWorker(
                 workerTolerancing,
                 compensationIterations,
@@ -852,7 +869,7 @@ public sealed class MonteCarlo
                 merit,
                 compensated.Merit,
                 criterion,
-                compensated.Criterion);
+                compensated.Criterion, uncompensated.Fields, compensated.Fields, compensated.Compensators);
         });
 
         return results;
@@ -879,15 +896,7 @@ public sealed class MonteCarlo
         double uncompensatedMerit,
         double uncompensatedCriterion)
     {
-        if (compensationIterations <= 0 || tolerancing.Compensators.Count == 0)
-        {
-            return new ToleranceEvaluation(uncompensatedMerit, uncompensatedCriterion);
-        }
-
-        var problem = tolerancing.CreateCompensationProblem();
-        OptimizerCatalog.Create("Damped Least Squares").Optimize(problem, compensationIterations);
-        cancellationToken.ThrowIfCancellationRequested();
-        return new ToleranceEvaluation(problem.SumSquared(), tolerancing.Criterion());
+        return tolerancing.EvaluateCompensated(compensationIterations, cancellationToken);
     }
 
     private void ApplyPerturbation(IPerturbation perturbation, Random random)
@@ -907,15 +916,6 @@ public sealed class MonteCarlo
         double uncompensatedMerit,
         double uncompensatedCriterion)
     {
-        cancellationToken.ThrowIfCancellationRequested();
-        if (compensationIterations <= 0 || _tolerancing.Compensators.Count == 0)
-        {
-            return new ToleranceEvaluation(uncompensatedMerit, uncompensatedCriterion);
-        }
-
-        var problem = _tolerancing.CreateCompensationProblem();
-        OptimizerCatalog.Create("Damped Least Squares").Optimize(problem, compensationIterations);
-        cancellationToken.ThrowIfCancellationRequested();
-        return new ToleranceEvaluation(problem.SumSquared(), _tolerancing.Criterion());
+        return _tolerancing.EvaluateCompensated(compensationIterations, cancellationToken);
     }
 }

@@ -40,6 +40,16 @@ public sealed record SequentialLensDocument(string Name, IReadOnlyList<Sequentia
 {
     public static SequentialLensDocument FromOptic(Optic optic)
     {
+        if (optic.SurfaceGroup.Items.Any(surface => surface.MaterialAfter is Materials.GradientIndexMaterial
+            || surface.MaterialBefore is Materials.GradientIndexMaterial))
+            throw new NotSupportedException("GRIN 分布的外部处方映射尚未核实；请保存 STAROPT，避免丢失空间折射率。");
+        if (optic.SurfaceGroup.Items.Any(surface => surface.ChipZone != 0))
+            throw new NotSupportedException("非零延伸区的外部处方列尚未验证，请保存 STAROPT 工程，避免导出丢失加工边界。");
+        if (optic.SurfaceGroup.Items.Any(surface => surface.CoatingModel is Coatings.CoherentMultilayerCoating))
+            throw new NotSupportedException("物理膜层及调整参数的文本映射尚未接入；请保存 STAROPT，避免丢失膜层定义。");
+        if (optic.MeritFunctionOperands.Any(operand => !operand.CompatibilityOnly
+            && Optimization.MeritFunctionCatalog.CanonicalType(operand.Type) is "MCOV" or "MCOG" or "MCOL" or "CONF" or "ZTHI" or "SVIG"))
+            throw new NotSupportedException("本地多配置或自动渐晕操作数的文本列尚未核实；请保存 STAROPT，避免丢失评价函数或配置引用。");
         return new SequentialLensDocument(
             optic.Name,
             optic.SurfaceGroup.Items.Select(surface => new SequentialSurfaceRecord(
@@ -170,6 +180,8 @@ public sealed class SequentialLensTextExporter : IOpticalFormatExporter
 
     public string Export(Optic optic)
     {
+        if (optic.Polarization != new OptilandWorkbench.Core.Rays.SystemPolarization())
+            throw new NotSupportedException("此文本格式尚未映射系统偏振设置；请保存 STAROPT，避免丢失 Jones 输入与参考轴。");
         OpticCapabilityPreflight.EnsureSupported(
             optic,
             OpticCapabilityOperation.Export,
@@ -245,6 +257,8 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
 
     public string Export(Optic optic)
     {
+        if (optic.Polarization != new OptilandWorkbench.Core.Rays.SystemPolarization())
+            throw new NotSupportedException("此文本格式尚未映射系统偏振设置；请保存 STAROPT，避免丢失 Jones 输入与参考轴。");
         OpticCapabilityPreflight.EnsureSupported(
             optic,
             OpticCapabilityOperation.Export,
@@ -263,7 +277,10 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
             $"YFLN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.Y)))}",
             $"FWGN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.Weight)))}",
             $"VCXN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.VignetteFactorX)))}",
-            $"VCYN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.VignetteFactorY)))}"
+            $"VCYN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.VignetteFactorY)))}",
+            $"VDXN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.VignetteDecenterX)))}",
+            $"VDYN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.VignetteDecenterY)))}",
+            $"VANN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.VignetteAngleDegrees)))}"
         };
 
         var glassCatalogs = optic.GlassCatalogs
@@ -459,6 +476,8 @@ public sealed class CodeVSeqExporter : IOpticalFormatExporter
 
     public string Export(Optic optic)
     {
+        if (optic.Polarization != new OptilandWorkbench.Core.Rays.SystemPolarization())
+            throw new NotSupportedException("此文本格式尚未映射系统偏振设置；请保存 STAROPT，避免丢失 Jones 输入与参考轴。");
         OpticCapabilityPreflight.EnsureSupported(
             optic,
             OpticCapabilityOperation.Export,
@@ -514,6 +533,8 @@ public sealed class OsloLenExporter : IOpticalFormatExporter
 
     public string Export(Optic optic)
     {
+        if (optic.Polarization != new OptilandWorkbench.Core.Rays.SystemPolarization())
+            throw new NotSupportedException("此文本格式尚未映射系统偏振设置；请保存 STAROPT，避免丢失 Jones 输入与参考轴。");
         OpticCapabilityPreflight.EnsureSupported(
             optic,
             OpticCapabilityOperation.Export,

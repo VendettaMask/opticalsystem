@@ -194,10 +194,14 @@ public sealed partial class SequentialRayTracer
         IMaterial materialBefore,
         double cumulativePathLength,
         double cumulativeOpticalPathLength,
-        bool ignorePhysicalAperture = false)
+        bool ignorePhysicalAperture = false,
+        bool stopBeforeInteraction = false,
+        bool bypassCoating = false)
     {
         if (surfaceIndex == 0 && ObjectConjugate.IsInfinite(surface))
         {
+            if (surface.MaterialAfter is GradientIndexMaterial)
+                throw new NotSupportedException("无限远物方的 GRIN 体坐标和传播边界尚未定义。");
             // An infinite object has no finite intercept plane. Keep the launch
             // point; advancing to its placeholder Z can jump past a concave face.
             return new SurfaceRayTraceStateResult(
@@ -205,7 +209,9 @@ public sealed partial class SequentialRayTracer
                 new RayTraceSampleValue(surface.Number, surface.Label, ray.Origin,
                     ray.Direction, ray.Intensity, false,
                     CumulativePathLength: cumulativePathLength,
-                    CumulativeOpticalPathLength: cumulativeOpticalPathLength),
+                    CumulativeOpticalPathLength: cumulativeOpticalPathLength,
+                    IncidentDirection: ray.Direction,
+                    PhaseInclusiveOpticalPathLength: ray.OpticalPathDifference),
                 surface.MaterialAfter.RefractiveIndex(ray.WavelengthNanometers),
                 surface.MaterialAfter,
                 null,
@@ -215,7 +221,7 @@ public sealed partial class SequentialRayTracer
         }
 
         return surface.TraceRayState(ray, materialBefore, surface.MaterialAfter,
-            cumulativePathLength, cumulativeOpticalPathLength, ignorePhysicalAperture);
+            cumulativePathLength, cumulativeOpticalPathLength, ignorePhysicalAperture, stopBeforeInteraction, bypassCoating);
     }
 
     public SequentialTrace Trace(RealRayBundle bundle)

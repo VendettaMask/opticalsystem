@@ -215,11 +215,6 @@ public sealed class PanelManager : IDisposable
             "库存镜头匹配");
     }
 
-    public void ShowGlassCatalog()
-    {
-        OpenStable("document:glass-catalog", WorkspaceDocumentTypes.GlassCatalog, "玻璃");
-    }
-
     public void ShowOperandHelp()
     {
         OpenStable("document:operand-help", WorkspaceDocumentTypes.OperandHelp, "操作数帮助");
@@ -663,6 +658,12 @@ public sealed class PanelManager : IDisposable
             var active = session.ActiveDocumentId is null
                 ? null
                 : Factory.OpenDocuments().FirstOrDefault(document => document.Id == session.ActiveDocumentId);
+            if (active is null && descriptors.Any(descriptor => descriptor.Id == session.ActiveDocumentId
+                    && descriptor.TypeId is WorkspaceDocumentTypes.MaterialLibrary or WorkspaceDocumentTypes.GlassCatalog))
+            {
+                active = Factory.OpenDocuments().FirstOrDefault(document =>
+                    Factory.Descriptor(document.Id)?.TypeId == WorkspaceDocumentTypes.MaterialLibrary);
+            }
             if (active is not null)
             {
                 Factory.SetActiveDockable(active);

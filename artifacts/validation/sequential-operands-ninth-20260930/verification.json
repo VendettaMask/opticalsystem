@@ -1,0 +1,101 @@
+{
+  "date": "2026-09-30",
+  "scope": "Ninth batch: 4 RMS wavefront and 4 peak-to-valley wavefront operands",
+  "registered": 383,
+  "executable_before": 220,
+  "executable_after": 228,
+  "compatibility_only_after": 155,
+  "added_codes": [
+    "MWCE",
+    "MWCH",
+    "MWRE",
+    "MWRH",
+    "RWCE",
+    "RWCH",
+    "RWRE",
+    "RWRH"
+  ],
+  "cumulative_added_since_124": 104,
+  "verification": {
+    "debug": {
+      "total": 1017,
+      "passed": 1017,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 63,
+      "previous_batch_tests": 933,
+      "additional_adjacent_tests": 21,
+      "trx": "ninth-batch-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 1017,
+      "passed": 1017,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 63,
+      "previous_batch_tests": 933,
+      "additional_adjacent_tests": 21,
+      "trx": "ninth-batch-release.trx",
+      "log": "release.log"
+    }
+  },
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "support_boundaries": {
+    "wavefront": "Formal reference sphere or afocal reference plane; primary-wavelength chief reference; geometric pupil weights; intensity masks invalid rays. Respects current ray aiming.",
+    "reference": "Chief subtracts piston; centroid subtracts weighted least-squares piston and two tilts; shared with RMS scans, including rank-deficient sample projection.",
+    "polychromatic": "RMS only: per-wavelength referenced variance combined by positive spectral weights. PV requires positive Wave; Wave=0 rejected pending validation.",
+    "sampling": "Gaussian 1..32 rings x 6 azimuths requires unvignetted rays; rectangular side=2*Samp+1, Samp=1..256, within circular pupil; invalid rays removed, empty rejected.",
+    "migration": "Raw Int2 wavelength references now checked to prevent invalid compatibility-row upgrade masked by stale Wavelength alias."
+  },
+  "external_reference": {
+    "integrity": "Five named baseline assets byte-equal committed HEAD; not whole-baseline integrity audit.",
+    "recalculation": "Existing Workbench fixed-fixture regressions pass within captured file/settings/version.",
+    "numerical_comparison": "Existing Zemax wavefront map, RMS-vs-field and RMS-vs-focus captured-setting comparisons passed, alongside prior baseline regressions.",
+    "new_operands": "Analytic geometry, weighted polynomial and integration/optimization checks; no new native MFE slots, sampling or polychromatic numerical captures.",
+    "screenshots": "No screenshot review."
+  },
+  "remaining_category_counts_overlap": true,
+  "unique_remaining": 155,
+  "not_performed": [
+    "full product suite",
+    "laboratory full suites",
+    "full external comparison matrix",
+    "new Zemax captures",
+    "native desktop walkthrough",
+    "screenshot review",
+    "installer validation"
+  ],
+  "historical_reference": "Frozen assets untouched; no new Optiland comparisons",
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Analysis/WavefrontStatistics.cs": "7b0271c0e147f79997bd10268da194fc33f59c4f50e99c7fea49b07ba0318762",
+    "src/OptilandWorkbench.Core/Analysis/RmsScanAnalyses.cs": "f67c7a2499f4de7014c09976c5dac251dd5218537b9f1f128f700c741e79555b",
+    "src/OptilandWorkbench.Core/Services/WavefrontMetrics.cs": "f4c4a604f00c9ee8f8ebf3ae87b61ec4776b5640c80ce5963cd73f8840c90f09",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.WavefrontMetrics.cs": "36e93654524c53a6f3290c5aa4fa5484f2042069e8f363d3ba25e2ca335b3856",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "fa859d8c1e9acff28bfa2938b1f15b15ccac120e6435b5e1b8db3b50fb5e7cdd",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "583620531279ef849adcb3cd1f4db1fcaea1bce8a8fa0d87e10a85108961ed1b",
+    "src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs": "6ec49ded547ff87db6dc5ca6bfe736bac9bee9be03093e5be67b9be9f11cb9cf",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "8d05e874502e2db3c157a11c500e02442d605b5079b4c55d8b9bf8ae4d9fa1a9",
+    "tests/OptilandWorkbench.Tests/WavefrontOperandTests.cs": "75eaa38b67088ed9243be59816e85d39d37ac4f1da221231409b76b68f68603d",
+    "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs": "7f7760d0d25edf64430a189cb87c644819f59a71501eeb0b9380b2097c64a89f"
+  },
+  "selected_capture_sha256": {
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.txt": "dbb741fc9f07d6d55a9d7d6acdad2bfe91f45e3b5b365bb14c51e1d6b8f2a6f0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/049-rmsfield/data.json": "7badd81b3adbd9bd694e4cabfce3d58e45c863866ed77d4337a33f3321290e87",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/052-rmsfocus/data.json": "a90eabe523007f995e10c685622025b34d47c87b25d627e56ddda16020765240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/055-wavefrontmap/data.json": "e9cfe98cfb64ec684976ee786fd33b8844d24995be084941bedbe7537c911e62"
+  },
+  "default_binary_sha256": {
+    "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll": "613d2d4364d406db20cb5429abe33609fc0fa6315e5a55059a9d077d42d4adce",
+    "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll": "92b9ba0dd8994159ffe489f7fe4ab8e2d3c2245b942d5af105a2a0915f6cf66a",
+    "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll": "5c9068f87674b3845b7dc5b905ee1757275a8b969afdb6ca34870105b38decae",
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "68a84d39e73d2069cae7eb6c36834ee295cdff73bd7f5d3fae8592f4c4a79419",
+    "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll": "3854d48aae9773bfeb83324b83f10cb4a54770d6cf74f1051c8c4c2bd24bfc48",
+    "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll": "33996b30c49819e543e85dba049851c2850e05673a26959a96220b54a4e9858c"
+  },
+  "new_document_links_checked": 39
+}

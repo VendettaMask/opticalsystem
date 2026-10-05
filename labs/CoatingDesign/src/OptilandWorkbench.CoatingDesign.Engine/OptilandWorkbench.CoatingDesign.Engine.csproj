@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="../../../../src/OptilandWorkbench.Core/OptilandWorkbench.Core.csproj" />
+    <ProjectReference Include="../../../../src/OptilandWorkbench.Application/OptilandWorkbench.Application.csproj" />
     <EmbeddedResource Include="Data/*.json" />
   </ItemGroup>
 </Project>

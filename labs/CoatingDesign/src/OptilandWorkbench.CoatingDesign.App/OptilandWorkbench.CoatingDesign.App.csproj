@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Dock.Avalonia" Version="12.0.0.2" />
     <PackageReference Include="Avalonia.Desktop" Version="12.1.0" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.0" />
     <PackageReference Include="Avalonia.Controls.DataGrid" Version="12.1.0" />
@@ -8,7 +9,19 @@
     <ProjectReference Include="../../../../src/OptilandWorkbench.Application/OptilandWorkbench.Application.csproj" />
     <!-- Single-source semantic tokens; no reference to the formal executable or its state. -->
     <Compile Include="../../../../src/OptilandWorkbench.App/Controls/UiDensity.cs" Link="Shared/UiDensity.cs" />
-    <Compile Include="../../../../src/OptilandWorkbench.App/Theming/BlueThemeTokens.cs" Link="Shared/BlueThemeTokens.cs" />
+    <Compile Include="../../../../src/OptilandWorkbench.App/Theming/*.cs" Link="Shared/Theming/%(Filename)%(Extension)" />
+    <Compile Include="../../../../src/OptilandWorkbench.App/BrandAssets.cs" Link="Shared/BrandAssets.cs" />
+    <Compile Include="../../../../src/OptilandWorkbench.App/Services/ThemeLayoutResources.cs" Link="Shared/ThemeLayoutResources.cs" />
+    <Compile Include="../../../../src/OptilandWorkbench.App/Services/ThemeAssetBindings.cs" Link="Shared/ThemeAssetBindings.cs" />
+    <EmbeddedResource Include="../../../../src/OptilandWorkbench.App/Assets/Brand/CompanyLogo.png" LogicalName="OptilandWorkbench.App.Assets.Brand.CompanyLogo.png" />
+    <Compile Include="../../../../src/OptilandWorkbench.App/Controls/LocalIcon.cs" Link="Shared/LocalIcon.cs" />
+    <Compile Include="../../../../src/OptilandWorkbench.App/Controls/ControlAvailability.cs" Link="Shared/ControlAvailability.cs" />
+    <Compile Include="../../../../src/OptilandWorkbench.App/Services/ThemeResourceBindings.cs" Link="Shared/ThemeResourceBindings.cs" />
+    <AvaloniaResource Include="../../../../src/OptilandWorkbench.App/Assets/Fonts/fusion-pixel-10px-monospaced-zh_hans.ttf" Link="Assets/Fonts/fusion-pixel-10px-monospaced-zh_hans.ttf" />
+    <EmbeddedResource Include="../../../../src/OptilandWorkbench.App/Assets/Icons/*.json" LogicalName="OptilandWorkbench.App.Assets.Icons.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../../../src/OptilandWorkbench.App/Assets/Icons/FarmFresh32/*.png" LogicalName="OptilandWorkbench.App.Assets.Icons.FarmFresh32.%(Filename)%(Extension)" />
+    <Content Include="../../../../src/OptilandWorkbench.App/Assets/Icons/*LICENSE.txt" Link="Licenses/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../../../src/OptilandWorkbench.App/Assets/Fonts/FUSION-PIXEL-FONT-OFL.txt" Link="Licenses/FUSION-PIXEL-FONT-OFL.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="../../../../third_party/coating-reference/*LICENSE.txt" Link="Licenses/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="../../../../third_party/coating-reference/*NOTICE.txt" Link="Licenses/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>

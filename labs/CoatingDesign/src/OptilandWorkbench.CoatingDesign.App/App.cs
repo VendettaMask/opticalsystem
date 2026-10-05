@@ -1,12 +1,17 @@
+using System.Text.Json;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Themes.Fluent;
 using OptilandWorkbench.App.Controls;
+using OptilandWorkbench.App.Services;
 using OptilandWorkbench.App.Theming;
+using OptilandWorkbench.Core.FileIO;
+using OptilandWorkbench.Application.Formatting;
 
 namespace OptilandWorkbench.CoatingDesign.App;
 
@@ -15,65 +20,77 @@ public sealed class App : Avalonia.Application
     public override void Initialize()
     {
         Name = "光学镀膜设计实验室";
-        RequestedThemeVariant = ThemeVariant.Light;
         Styles.Add(new FluentTheme());
         Styles.Add(new StyleInclude(new Uri("avares://Avalonia.Controls.DataGrid"))
         { Source = new Uri("avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml") });
-        Resources["CoatingSurface"] = new SolidColorBrush(BlueThemeTokens.Surface);
-        Resources["CoatingBackground"] = new SolidColorBrush(BlueThemeTokens.AppBackground);
-        Resources["CoatingText"] = new SolidColorBrush(BlueThemeTokens.TextPrimary);
-        Resources["CoatingMuted"] = new SolidColorBrush(BlueThemeTokens.TextSecondary);
-        Resources["CoatingBorder"] = new SolidColorBrush(BlueThemeTokens.ControlBorder);
-        Resources["CoatingError"] = new SolidColorBrush(BlueThemeTokens.Error);
-        Resources["SystemAccentColor"] = BlueThemeTokens.Accent;
-        ApplyLightControlResources();
-        Styles.Add(new Style(s => s.OfType<Button>()) { Setters =
-        { new Setter(Button.MinHeightProperty, UiDensity.StandardControlHeight), new Setter(Button.PaddingProperty, new Thickness(12, 4)) } });
-        Styles.Add(new Style(s => s.OfType<TextBox>()) { Setters =
-        { new Setter(TextBox.MinHeightProperty, UiDensity.StandardControlHeight) } });
-        Styles.Add(new Style(s => s.OfType<DataGrid>()) { Setters =
-        { new Setter(DataGrid.RowHeightProperty, UiDensity.CompactTableRowHeight), new Setter(DataGrid.ColumnHeaderHeightProperty, UiDensity.TableHeaderHeight) } });
-    }
-    private void ApplyLightControlResources()
-    {
-        // Fluent adapter uses the formal application's single-source semantic colors.
-        void Brush(Color color, params string[] keys)
+        foreach (var theme in ThemeRegistry.ConcreteThemes)
+            Resources.ThemeDictionaries[theme.RequestedVariant] = theme.BuildResources();
+        ThemeApplicationService.Apply(this, LaboratoryDisplay.Read().Theme);
+        Styles.Add(new Style(s => s.OfType<TextBlock>())
         {
-            foreach (var key in keys) Resources[key] = new SolidColorBrush(color);
-        }
-        foreach (var control in new[] { "Button", "ComboBox", "ToggleButton" })
+            Setters =
+        { new Setter(TextBlock.ForegroundProperty, new DynamicResourceExtension(ThemeResourceBindings.TextPrimary)) }
+        });
+        Styles.Add(new Style(s => s.OfType<Button>())
         {
-            foreach (var (state, background, foreground) in new[]
-            {
-                ("", BlueThemeTokens.Surface, BlueThemeTokens.TextPrimary),
-                ("PointerOver", BlueThemeTokens.HoverBackground, BlueThemeTokens.TextPrimary),
-                ("Pressed", BlueThemeTokens.PressedBackground, BlueThemeTokens.TextPrimary),
-                ("Disabled", BlueThemeTokens.DisabledBackground, BlueThemeTokens.TextDisabled)
-            })
-            {
-                Brush(background, control + "Background" + state);
-                Brush(foreground, control + "Foreground" + state);
-                Brush(BlueThemeTokens.ControlBorder, control + "BorderBrush" + state);
-            }
-        }
-        Brush(BlueThemeTokens.Surface, "TextControlBackground", "TextControlBackgroundPointerOver", "TextControlBackgroundFocused", "DataGridBackground");
-        Brush(BlueThemeTokens.ControlBorder, "TextControlBorderBrush", "ComboBoxBackgroundBorderBrushUnfocused");
-        Brush(BlueThemeTokens.FocusBorder, "TextControlBorderBrushFocused", "ComboBoxBackgroundBorderBrushFocused", "DataGridCellFocusVisualPrimaryBrush");
-        Brush(BlueThemeTokens.TextSelectionBackground, "TextControlSelectionHighlightColor");
-        Brush(BlueThemeTokens.SelectedBackground, "DataGridRowSelectedBackgroundBrush", "DataGridRowSelectedUnfocusedBackgroundBrush");
-        Brush(BlueThemeTokens.SelectedHover, "DataGridRowSelectedHoveredBackgroundBrush");
-        Brush(BlueThemeTokens.TableHeader, "DataGridColumnHeaderBackgroundBrush");
-        Brush(BlueThemeTokens.TextPrimary, "DataGridColumnHeaderForegroundBrush");
-        Brush(BlueThemeTokens.PrimaryButtonBackground, "AccentButtonBackground");
-        Brush(BlueThemeTokens.PrimaryButtonHoverBackground, "AccentButtonBackgroundPointerOver");
-        Brush(BlueThemeTokens.PrimaryButtonPressedBackground, "AccentButtonBackgroundPressed");
-        Brush(BlueThemeTokens.PrimaryButtonText, "AccentButtonForeground", "AccentButtonForegroundPointerOver", "AccentButtonForegroundPressed");
-        Resources["TextControlBorderThemeThicknessFocused"] = new Thickness(2);
+            Setters =
+        { new Setter(Button.MinHeightProperty, UiDensity.StandardControlHeight), new Setter(Button.PaddingProperty, new Thickness(12, 4)) }
+        });
+        Styles.Add(new Style(s => s.OfType<TextBox>())
+        {
+            Setters =
+        { new Setter(TextBox.MinHeightProperty, UiDensity.StandardControlHeight) }
+        });
+        Styles.Add(new Style(s => s.OfType<DataGrid>())
+        {
+            Setters =
+        { new Setter(DataGrid.RowHeightProperty, UiDensity.CompactTableRowHeight), new Setter(DataGrid.ColumnHeaderHeightProperty, UiDensity.TableHeaderHeight) }
+        });
+        Styles.Add(new StandardActionButtonStyles());
+        Styles.Add(new BlueThemeStyles());
     }
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) desktop.MainWindow = new MainWindow();
         base.OnFrameworkInitializationCompleted();
+    }
+}
+
+// Read only the formal application's display preferences. Never load its mutable settings service.
+internal sealed record LaboratoryDisplay(string Theme = "Light", string FontFamily = "", double FontSize = 13, string FontShape = "Regular",
+    int DecimalPlaces = 3, int UpperScientificExponent = 6, int LowerScientificExponent = -4)
+{
+    public static LaboratoryDisplay Read()
+    {
+        var directory = Environment.GetEnvironmentVariable("OPTILAND_SETTINGS_DIRECTORY");
+        if (string.IsNullOrWhiteSpace(directory))
+        {
+            var data = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            directory = Path.Combine(string.IsNullOrWhiteSpace(data) ? AppContext.BaseDirectory : data, "OptilandWorkbench");
+        }
+        try
+        {
+            var path = Path.Combine(directory, "settings.json");
+            if (!File.Exists(path)) return new();
+            var json = System.Text.Encoding.UTF8.GetString(BoundedFile.ReadAllBytes(path, 1024 * 1024, "显示设置"));
+            var display = JsonSerializer.Deserialize<LaboratoryDisplay>(json) ?? new();
+            return display with
+            {
+                Theme = ThemeRegistry.NormalizeSettingsValue(display.Theme),
+                FontSize = double.IsFinite(display.FontSize) ? Math.Clamp(display.FontSize, 9, 32) : 13
+            };
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException or JsonException or ArgumentException) { return new(); }
+    }
+    public void Apply(Window window, string? theme = null)
+    {
+        var selected = ThemeApplicationService.Apply(Avalonia.Application.Current!, theme ?? Theme);
+        var visual = selected.ResolveVisual(window.ActualThemeVariant);
+        window.FontFamily = visual.SettingsValue == "Pixel" ? visual.UiFontFamily : string.IsNullOrWhiteSpace(FontFamily) ? Avalonia.Media.FontFamily.Default : new(FontFamily);
+        window.FontSize = FontSize;
+        window.FontWeight = FontShape is "Bold" or "BoldItalic" ? FontWeight.Bold : FontWeight.Normal;
+        window.FontStyle = FontShape is "Italic" or "BoldItalic" ? FontStyle.Italic : FontStyle.Normal;
+        NumericDisplayFormatter.Configure(new(DecimalPlaces, UpperScientificExponent, LowerScientificExponent));
     }
 }
 

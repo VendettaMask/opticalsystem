@@ -13,7 +13,7 @@
 
 当前已实现紧凑顶部工具栏、正蓝/雾蓝状态、两页启动、材料非空行蓝底、2 DIP 镜片黑线、机械半径统一显示精度、MDI 激活内容保护、库存结果区及制图参数裁剪修复、明确主动作与禁用提示、240–280 DIP 紧凑侧栏且仅纵向滚动。历史条目中的“保持旧布局”“普通按钮淡蓝常态”和“侧栏可横向滚动”不作为当前规范。
 
-最近默认 Debug/Release 构建各零警告零错误，相关回归各 70/70、独立 Skia 15/15；不是全项目视觉验收或数值精度认证，未覆盖平台仍以 [当前状态](CURRENT_STATUS.md) 为准。
+主动作/侧栏阶段默认 Debug/Release 构建各零警告零错误，相关回归各 70/70、独立 Skia 15/15；后续状态与输入修复的验证见 [UI 审查修复](UI_AUDIT_FIXES_2026-09-27.md)；不是全项目视觉验收或数值精度认证，未覆盖平台仍以 [当前状态](CURRENT_STATUS.md) 为准。
 
 ## 走查方法
 
@@ -183,7 +183,7 @@ DataGrid 选中行全局设为白字和强调色背景，见 `src/OptilandWorkbe
 
 已于 2026-07-29 修正评价函数表的单一状态色：编辑器现在按 Zemax 操作数类型应用稳定的浅色行色，参考系统中出现的 `TTHI`、`OPLT`、`EFFL`、`PMAG`、`CONS`、`DIVI`、`REAR`、`PETZ`、`MNCA`、`MNEA`、`MNCG`、`MNEG`、`MXCG`、`MXEG` 和 `DMFS` 均有对应色；`BLNK` 保持白色，同族操作数使用一致色系，未知类型使用中性回退色。错误状态优先覆盖为红色。
 
-2026-08-04 修正 ZMX 评价函数漏行：参考镜头的 103 行评价函数现在按 Zemax 原顺序导入，不再只显示约 29 行。2026-09-04 进一步把常见操作数束扩展到 124 个定义级可执行代码，覆盖 `TRAR`、`TTHI/TGTH`、`REAR/RANG`、基础数学与行约束（含 `DIVB/PROB/OSUM/QSUM/EQUA` 定义级语义）、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、`MNIN/MXIN/MNAB/MXAB`、`POWR`、若干一阶量以及 `CTGT`、`PMAG`、`PETZ`、`MXEG` 和 `GOTO/ENDX/OOFF/SKIN/SKIS/USYM`；注册表按 2026 R1 实测扩展到 383 个顺序兼容代码，`DIMX` 等语义不完整项按八个 Zemax 参数槽位显示为只读记录。这里的目标是先保证“看见的行、顺序和源参数一致”，并逐步把可验证语义接入；只读行不参与 Workbench 评价函数数值，新增执行路径在 Zemax golden 对照前也不能据此外观宣称与 Zemax 优化器等价。
+2026-08-04 修正 ZMX 评价函数漏行：参考镜头的 103 行评价函数现在按 Zemax 原顺序导入，不再只显示约 29 行。2026-09-04 进一步把常见操作数束扩展到 124 个定义级可执行代码，覆盖 `TRAR`、`TTHI/TGTH`、`REAR/RANG`、基础数学与行约束（含 `DIVB/PROB/OSUM/QSUM/EQUA` 定义级语义）、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、`MNIN/MXIN/MNAB/MXAB`、`POWR`、若干一阶量以及 `CTGT`、`PMAG`、`PETZ`、`MXEG` 和 `GOTO/ENDX/OOFF/SKIN/SKIS/USYM`；注册表保留 383 个顺序兼容代码（当前名称核对见专项审计），当时的 `DIMX` 等语义不完整项按 Zemax 参数槽位显示为只读记录；2026-09-30 第十一批已接通 `DIMX` 的限定有焦模式。这里的目标是先保证“看见的行、顺序和源参数一致”，并逐步把可验证语义接入；只读行不参与 Workbench 评价函数数值，新增执行路径在 Zemax golden 对照前也不能据此外观宣称与 Zemax 优化器等价。
 
 选中行不再使用全局强调色覆盖整行，而是保留类型底色、恢复深色文字并使用强调色边框，因此颜色语义在键盘或鼠标选择后仍然可见。实现见 `src/OptilandWorkbench.App/Panels/MeritOperandRowPalette.cs` 和 `src/OptilandWorkbench.App/Panels/OptimizationPanel.cs`。
 
@@ -191,7 +191,7 @@ DataGrid 选中行全局设为白字和强调色背景，见 `src/OptilandWorkbe
 
 工具栏用两个 `WrapPanel` 承载新增、删除、上移、下移、向导、刷新、运行等动作，见 `src/OptilandWorkbench.App/Panels/OptimizationPanel.cs:80` 和 `src/OptilandWorkbench.App/Panels/OptimizationPanel.cs:94`。动作多但层级不明显，用户不容易区分“编辑评价函数”和“运行优化”的主次。
 
-2026-08-27 已纠正优化入口的名称失实：Ribbon 只显示实际实现的阻尼最小二乘与贪心随机扰动搜索，不再把随机坐标扰动称为差分进化、盆地跳跃或“锤形优化”。玻璃替换模板当前明确为玻璃目录与评价函数的人工替换工作流，不表示已经实现 Zemax Glass Expert 等价算法。
+2026-08-27 已纠正优化入口的名称失实：Ribbon 只显示实际实现的阻尼最小二乘与贪心随机扰动搜索，不再把随机坐标扰动称为差分进化、盆地跳跃或“锤形优化”。玻璃替换模板当前明确为材料库与评价函数的人工替换工作流，不表示已经实现 Zemax Glass Expert 等价算法。2026-09-28 删除重复的“玻璃”Dock，旧布局迁移到唯一材料库，见 [材料库工作流](GUI_QUICKSTART_REFACTOR.md#材料库)。
 
 ### P2：多配置面板过于简化，容易误导功能边界
 

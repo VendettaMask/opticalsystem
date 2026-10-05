@@ -655,7 +655,8 @@ public partial class WorkbenchRuntime
                 Int("FieldDensity", 21),
                 Int("WavelengthNumber", 0),
                 Text("ScanDirection", "+y"),
-                Bool("RemoveVignettingFactors", true)),
+                Bool("RemoveVignettingFactors", true),
+                Bool("UsePolarization", false)),
             "Incoherent Irradiance" => new IncoherentIrradianceAnalysis(
                 CurrentOptic,
                 Int("NumRays", 5),

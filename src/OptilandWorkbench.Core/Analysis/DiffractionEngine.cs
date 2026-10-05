@@ -2,6 +2,7 @@ using System.Numerics;
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Coordinates;
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Analysis;
 
@@ -20,6 +21,9 @@ public sealed record PsfResult(
 
     public double PeakStrehlRatio => Values.Cast<double>().DefaultIfEmpty(0).Max() / 100;
 }
+
+/// <summary>Global image-plane frame tangent to the image surface at the chief-ray intercept.</summary>
+public readonly record struct HuygensImageFrame(Vector3D Center, Vector3D TangentX, Vector3D TangentY);
 
 public sealed record MtfResult(
     IReadOnlyList<double> Frequency,
@@ -1274,8 +1278,12 @@ public static class DiffractionEngine
         (double Hx, double Hy) field,
         Wavelength wavelength,
         bool aimAtStop = false,
-        bool zemaxDirectionalAverage = false)
+        bool zemaxDirectionalAverage = false,
+        bool strictFullPupil = false)
     {
+        if (strictFullPupil)
+            return TryWorkingFNumbersAtPupilZone(optic, field, wavelength, aimAtStop, zemaxDirectionalAverage, 1, out var strictAxes, strict: true)
+                ? strictAxes : throw new InvalidOperationException("全瞳边缘光线未到达像面，无法计算工作 F 数。");
         return TryWorkingFNumbers(optic, field, wavelength, aimAtStop, zemaxDirectionalAverage, out var axes)
             ? axes
             : throw new InvalidOperationException("Working-F-number ray did not reach the image surface.");
@@ -1319,7 +1327,8 @@ public static class DiffractionEngine
         bool aimAtStop,
         bool zemaxDirectionalAverage,
         double pupilZone,
-        out (double Tangential, double Sagittal) axes)
+        out (double Tangential, double Sagittal) axes,
+        bool strict = false)
     {
         axes = default;
         var pupil = new[]
@@ -1359,6 +1368,9 @@ public static class DiffractionEngine
         {
             var numericalApertures = marginalDirections.Select(direction =>
             {
+                if (strict)
+                    return imageIndex * optic.Backend.Current.Cross(chief, direction).Length
+                        / (chief.Length * direction.Length * pupilZone);
                 var dot = Math.Clamp(
                     (chief.X * direction.X) + (chief.Y * direction.Y) + (chief.Z * direction.Z),
                     -1,
@@ -1369,6 +1381,13 @@ public static class DiffractionEngine
             var equivalentNumericalAperture = zemaxDirectionalAverage
                 ? numericalApertures.Average()
                 : Math.Sqrt(numericalApertures.Average(value => value * value));
+            if (strict)
+            {
+                if (!double.IsFinite(equivalentNumericalAperture) || equivalentNumericalAperture <= 0)
+                    throw new InvalidOperationException("像方数值孔径必须为正有限值。");
+                var value = 1 / (2 * equivalentNumericalAperture);
+                return double.IsFinite(value) ? value : throw new InvalidOperationException("工作 F 数不是有限值。");
+            }
             return equivalentNumericalAperture <= 0
                 ? 10000
                 : Math.Min(10000, 1 / (2 * equivalentNumericalAperture));
@@ -1476,6 +1495,25 @@ public static class DiffractionEngine
         double pixelPitchMillimeters,
         bool aimAtStop = false)
     {
+        var frame = CreateHuygensImageFrame(optic, field, wavelength, aimAtStop);
+        var coordinates = new Vector3D[imageSize, imageSize];
+        var centerIndex = imageSize / 2;
+        for (var row = 0; row < imageSize; row++)
+        {
+            var y = (row - centerIndex) * pixelPitchMillimeters;
+            for (var column = 0; column < imageSize; column++)
+            {
+                var x = (column - centerIndex) * pixelPitchMillimeters;
+                coordinates[row, column] = frame.Center + (frame.TangentX * x) + (frame.TangentY * y);
+            }
+        }
+        return coordinates;
+    }
+
+    public static HuygensImageFrame CreateHuygensImageFrame(
+        Optic optic, (double Hx, double Hy) field, Wavelength wavelength, bool aimAtStop = false)
+    {
+        ComputationCancellation.ThrowIfCancellationRequested();
         var imageSurface = optic.SurfaceGroup.Items[^1];
         var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
             field.Hx,
@@ -1499,19 +1537,7 @@ public static class DiffractionEngine
 
         tangentX = Normalize(tangentX);
         var tangentY = Normalize(Cross(normal, tangentX));
-        var coordinates = new Vector3D[imageSize, imageSize];
-        var centerIndex = imageSize / 2;
-        for (var row = 0; row < imageSize; row++)
-        {
-            var y = (row - centerIndex) * pixelPitchMillimeters;
-            for (var column = 0; column < imageSize; column++)
-            {
-                var x = (column - centerIndex) * pixelPitchMillimeters;
-                coordinates[row, column] = center + (tangentX * x) + (tangentY * y);
-            }
-        }
-
-        return coordinates;
+        return new HuygensImageFrame(center, tangentX, tangentY);
     }
 
     private static (double X, double Y) HuygensImageCenter(

@@ -1,0 +1,485 @@
+{
+  "date": "2026-10-02T10:40:26.003886+00:00",
+  "scope": "RELI/EFNO local merit/edit/save/optimization integration; not full native compatibility",
+  "operandStatus": {
+    "registered": 383,
+    "executableBefore": 298,
+    "executableAfter": 300,
+    "compatibilityOnly": 83,
+    "knownPending": 76,
+    "unverifiedDefinition": 2,
+    "unused": 5,
+    "localExtensions": 4
+  },
+  "verification": {
+    "debug": {
+      "combined": {
+        "total": 2471,
+        "executed": 2471,
+        "passed": 2471,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "finalTargeted": {
+        "total": 31,
+        "executed": 31,
+        "passed": 31,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "combinedTrx": "combined-debug.trx",
+      "finalTrx": "final-debug.trx",
+      "scope": {
+        "previousOperandTests": 2308,
+        "additionalIlluminationTests": 132,
+        "newTests": 31
+      }
+    },
+    "release": {
+      "combined": {
+        "total": 2471,
+        "executed": 2471,
+        "passed": 2471,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "finalTargeted": {
+        "total": 31,
+        "executed": 31,
+        "passed": 31,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "combinedTrx": "combined-release.trx",
+      "finalTrx": "final-release.trx",
+      "scope": {
+        "previousOperandTests": 2308,
+        "additionalIlluminationTests": 132,
+        "newTests": 31
+      }
+    }
+  },
+  "format": "Passed after two whitespace diagnostics in test initializer",
+  "gitDiffCheck": "Passed",
+  "baselineIntegrity": [
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+      "sha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+      "bytes": 68676,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.txt",
+      "sha256": "dbb741fc9f07d6d55a9d7d6acdad2bfe91f45e3b5b365bb14c51e1d6b8f2a6f0",
+      "bytes": 23634,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/049-rmsfield/data.json",
+      "sha256": "7badd81b3adbd9bd694e4cabfce3d58e45c863866ed77d4337a33f3321290e87",
+      "bytes": 3403,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/052-rmsfocus/data.json",
+      "sha256": "a90eabe523007f995e10c685622025b34d47c87b25d627e56ddda16020765240",
+      "bytes": 4087,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/055-wavefrontmap/data.json",
+      "sha256": "e9cfe98cfb64ec684976ee786fd33b8844d24995be084941bedbe7537c911e62",
+      "bytes": 115435,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/data.json",
+      "sha256": "ef6a44cbe999be4ae54c8d2b8dc3854434e0565b9bd28266138eeebcc900f57a",
+      "bytes": 168092,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/025-huygensmtfvsfield/data.json",
+      "sha256": "9b00c750481cb73adb741f47c00ca66232dd3374765e2fa68a59bca1c6c99323",
+      "bytes": 196349,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/028-huygensthroughfocusmtf/data.json",
+      "sha256": "dc115e8bd603af3b3a1686fe7c2c0ec4530d9220d235c5af1ce0cd9004147240",
+      "bytes": 54324,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/004-fieldcurvatureanddistortion/data.json",
+      "sha256": "a93a1aeff36e6bf4856ff41ad22844022b8dcc6cbde2a8038853da1d3090bd73",
+      "bytes": 63100,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/settings.cfg",
+      "sha256": "afc322d75c819f36e8c1aece2d4600c3fbdc687a4e0e6d8badb4e0e646917790",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/data.json",
+      "sha256": "1ddb61139e42585f144329c430a85ebc7685eb92416783cf85f653822cc64eb0",
+      "bytes": 34525,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/settings.cfg",
+      "sha256": "5ac71deed1902825151e0e78d082850bf0f28ac4b9c2f16934a2003ad9980f69",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/034-diffractionencircledenergy/data.json",
+      "sha256": "b6b2928cd6cbc41bb078f38598065be4ba6977e0c4d29c2a040ce62c640af48e",
+      "bytes": 186127,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/034-diffractionencircledenergy/settings.cfg",
+      "sha256": "77f92a4185b82ebf31f8f27419b921ff52f1909ec65ce67074ba2680978b1a0d",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/data.json",
+      "sha256": "21a2b9517dcb9c4e479e2b8e221a8ba334c3a35a46b654d39575b7d0338f534b",
+      "bytes": 2821,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/settings.cfg",
+      "sha256": "771862ac443a583fce03458d116d98f2f1867814fc2ac33c0fbce05fcc4e89ac",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/012-zernikeannularcoefficients/data.txt",
+      "sha256": "20b1dd6b22299414025f02ee7ce212e3486eb8923a976d72e529c7e55b42b20f",
+      "bytes": 1926,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/012-zernikeannularcoefficients/settings.cfg",
+      "sha256": "6648ac23c0aff14e629ad58cb96a28d92aeeb17fed53bf46d902d8d244fa1746",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/014-zernikefringecoefficients/data.txt",
+      "sha256": "b655e9984da1847e9d6390fc7982a8f15c726342e8ee4238a3ac0709ae422d6b",
+      "bytes": 5366,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/014-zernikefringecoefficients/settings.cfg",
+      "sha256": "c1bb9051068066c2be53d10c6aa57d274b3f0e8587c1c26fd001a90b8417da51",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/015-zernikestandardcoefficients/data.txt",
+      "sha256": "3c692693073272462303091e971c7c747196917cae9a5849d65f65508745748d",
+      "bytes": 6084,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/015-zernikestandardcoefficients/settings.cfg",
+      "sha256": "eb7b1cbb3f037d9d8a565c2982b9711562e4cc507a4762d4b3acbd6bc94f0c7e",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/139-contrastloss/data.json",
+      "sha256": "f38aa135ac2532b3396dce7f6d85dfc38e0d1fea87f3c2cfb60e4bd6341b4955",
+      "bytes": 19112,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/139-contrastloss/data.txt",
+      "sha256": "b4625f7f2ed64cfa04f1c8bbcede377c134e64ab113d7c07cf877cd4c21f02f0",
+      "bytes": 20732,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/139-contrastloss/settings.cfg",
+      "sha256": "cfcb2b2050669448eae928268cbdf3333f7fb68afbf860aafd8b43ff85bf40c7",
+      "bytes": 18448,
+      "byteEqualHead": true
+    }
+  ],
+  "executedFixtureCopies": [
+    {
+      "path": "tests/OptilandWorkbench.Tests/bin/Debug/net10.0/Fixtures/zemax-123456.ZMX",
+      "sha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+      "bytes": 68676,
+      "byteEqualCommittedSource": true
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/bin/Debug/net10.0/Fixtures/zemax-123456-relative-illumination.json",
+      "sha256": "21a2b9517dcb9c4e479e2b8e221a8ba334c3a35a46b654d39575b7d0338f534b",
+      "bytes": 2821,
+      "byteEqualCommittedSource": true
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/bin/Release/net10.0/Fixtures/zemax-123456.ZMX",
+      "sha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+      "bytes": 68676,
+      "byteEqualCommittedSource": true
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/bin/Release/net10.0/Fixtures/zemax-123456-relative-illumination.json",
+      "sha256": "21a2b9517dcb9c4e479e2b8e221a8ba334c3a35a46b654d39575b7d0338f534b",
+      "bytes": 2821,
+      "byteEqualCommittedSource": true
+    }
+  ],
+  "categoryAudit": "Eight unique product-help categories; historical cross-listed category tables must not be summed",
+  "workbenchRecalculation": {
+    "sampling": "UniformImageCosine",
+    "samp": 10,
+    "wavelengthMicrometers": 0.44,
+    "polarization": false,
+    "records": [
+      {
+        "Field": 0,
+        "RelativeIllumination": 1,
+        "NativeRelativeIllumination": 1,
+        "EffectiveFNumber": 2.8404872253695492,
+        "NativeEffectiveFNumber": 2.87577716994446,
+        "relativeIlluminationError": 0,
+        "effectiveFNumberRelativeError": -0.012271446113327533
+      },
+      {
+        "Field": 2.25,
+        "RelativeIllumination": 0.9924132650264196,
+        "NativeRelativeIllumination": 0.9932334118595681,
+        "EffectiveFNumber": 2.8513239378387008,
+        "NativeEffectiveFNumber": 2.8855564270246186,
+        "relativeIlluminationError": -0.0008201468331485717,
+        "effectiveFNumberRelativeError": -0.011863392746478296
+      },
+      {
+        "Field": 4.5,
+        "RelativeIllumination": 0.9689171856500567,
+        "NativeRelativeIllumination": 0.9722914006965155,
+        "EffectiveFNumber": 2.885688913385175,
+        "NativeEffectiveFNumber": 2.916466614247262,
+        "relativeIlluminationError": -0.0033742150464588505,
+        "effectiveFNumberRelativeError": -0.010553078410613259
+      }
+    ],
+    "debugReleaseIdentical": true,
+    "sharedIntegratorUnchanged": true
+  },
+  "numericalComparison": {
+    "nativeEvidence": "Committed 123456/2026 R1 relative-illumination analysis capture, not native MFE rows",
+    "efnoAcceptanceGate": null,
+    "maximumObservedEfnoRelativeError": 0.012271446113327533,
+    "defaultRiAnalysisOutput": "RMSE=0.0014395487; max=0.0031274627; edge=0.969163938\nEffectiveFNumbers=[2.8668857109658967,2.866992737729122,2.8673139984338953,2.8678500346206084,2.868601749825943,2.8695704110161815,2.8707576505351864,2.872165468516778,2.8737962356826525,2.875652696428563,2.8777379720725382,2.8800555641094547,2.8826093572781315,2.8854036222036745,2.8884430173255855,2.8917325897591404,2.8952777746638763,2.899084392603905,2.903158644412129,2.9075071021902534,2.9121366968751157]\nSampledPupilNodeCounts=[2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473,2473]\nDensityStudy={\"Density\":5,\"FieldMillimeters\":[0,2.25,4.5],\"EffectiveFNumbers\":[2.8673791377382485,2.878233977196554,2.9126411583308967],\"RelativeIllumination\":[1,0.9924715149479897,0.9691617775496111],\"SampledPupilNodeCounts\":[1129,1129,1129]}\nDensityStudy={\"Density\":20,\"FieldMillimeters\":[0,2.25,4.5],\"EffectiveFNumbers\":[2.866761750970437,2.8776132274447717,2.912009336760632],\"RelativeIllumination\":[1,0.9924722225226017,0.9691648988669981],\"SampledPupilNodeCounts\":[6673,6673,6673]}\nDensityStudy={\"Density\":40,\"FieldMillimeters\":[0,2.25,4.5],\"EffectiveFNumbers\":[2.86673076154367,2.877582041112021,2.911977493772616],\"RelativeIllumination\":[1,0.99247227743211,0.9691651414523755],\"SampledPupilNodeCounts\":[20473,20473,20473]}",
+    "fcgtMaxAbsoluteErrorMm": 2.1533288104098533e-05,
+    "fcgtTargetMm": 1e-05,
+    "fcgtStatus": "Difference"
+  },
+  "boundaries": [
+    "focal only; explicit positive Wave/Field; Samp 5..128; Pol 0/1",
+    "EFNO requires identity vignetting or preceding CVIG pending native semantics",
+    "native ZMX rows remain read-only and never auto-upgrade",
+    "uniform grid boundary and absolute effective F-number still differ from native analysis",
+    "complex incident media and unsupported transport fail explicitly"
+  ],
+  "sourceFiles": [
+    {
+      "path": "src/OptilandWorkbench.Core/Optimization/MeritFunction.Illumination.cs",
+      "sha256": "a176da5063f19b27b21ea807484583198832fdc0fca06853d58525e763467e9b",
+      "bytes": 2476
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs",
+      "sha256": "fbd4a50e7e145c3011c8c10b5428ce75dbe3081217226702afbe756c19f3045f",
+      "bytes": 156805
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs",
+      "sha256": "eca12c3d0fe56a0d5cab065bdbab8bc35b3e1aaffc6a56b32d343085a060f030",
+      "bytes": 57757
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/FileIO/ZemaxZmxReader.cs",
+      "sha256": "1c6243a4aeb9aa20061b2333be6ca8ed3323a1500e4b3fef1b539d98e9c929cf",
+      "bytes": 74245
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs",
+      "sha256": "a8afbccc248fb6086caa4c8d102c1b59cd09ad4e09ab0c599e3c5a24cdf1656c",
+      "bytes": 49453
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs",
+      "sha256": "78b8df2885bd67dba460bde12f27903d5356753222bb004e940fac00dab8d110",
+      "bytes": 53022
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/IlluminationOperandTests.cs",
+      "sha256": "66efa8c2a75bcd5dab37b9cb9ff0c500f8ca4e549303ce01694554e783e6f587",
+      "bytes": 15287
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs",
+      "sha256": "2702f7ccd774ef62812b21208caab492ec41e39159c1a8ccb67c3d49f43e4556",
+      "bytes": 112444
+    }
+  ],
+  "documentation": [
+    {
+      "path": "README.md",
+      "sha256": "4cc4e30a3a7c8cebca14f9a8d2b1b5b012e83a2c88fd23e9e37108bda1615512",
+      "bytes": 30507
+    },
+    {
+      "path": "docs/CURRENT_STATUS.md",
+      "sha256": "62473c6e14ab702e94f21bef6022695c376654d1233e61f2aa2af2fe37f137e8",
+      "bytes": 20349
+    },
+    {
+      "path": "docs/BUILD_AND_RELEASE.md",
+      "sha256": "5090b3b149c687983a6cbf4f7d4c9104af4363c37194ffae238f21173a38989c",
+      "bytes": 149011
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "sha256": "9d15c2fceaa810a3b06d2b9cd1610194eb2dda4ba72776369a1c6820ae821776",
+      "bytes": 31073
+    },
+    {
+      "path": "docs/NUMERICAL_PARITY.md",
+      "sha256": "58bec98d56189305351d5f977978cf8387ded21db23e673df1e1bf4986f6c6a4",
+      "bytes": 15123
+    },
+    {
+      "path": "docs/CODE_READING_MAP.md",
+      "sha256": "2652a973146a747fe4d08f7521cf48ecb61b596f507031016631ddff00dd9a9a",
+      "bytes": 131367
+    },
+    {
+      "path": "docs/ZEMAX_OPERAND_SUPPORT.md",
+      "sha256": "8a2a56e1579b87dc7592d0a0570b1bc9a4d9ec69b3af3f7aab42122c78a8e6c2",
+      "bytes": 137584
+    },
+    {
+      "path": "docs/ILLUMINATION_OPERANDS_2026-10-02.md",
+      "sha256": "b8fdd7c95027e9428e80f1f62c1d6da1e19625cebe4cefe06e0c4edbb8436879",
+      "bytes": 6363
+    },
+    {
+      "path": "docs/IMAGE_COSINE_ILLUMINATION_2026-10-02.md",
+      "sha256": "9b23f45780c6b0ad0e2333ea9eb4f96fe4467386451ba07b02f801cf8a2be9b2",
+      "bytes": 6754
+    },
+    {
+      "path": "docs/ILLUMINATION_CORE_2026-10-02.md",
+      "sha256": "5e94550a44ad8879c0184032cd90fa3d2d5b00995fb0969103877e660b6417c9",
+      "bytes": 8011
+    },
+    {
+      "path": "docs/ILLUMINATION_POLARIZATION_2026-10-02.md",
+      "sha256": "2666d1a82a930d03c5c19289ea9660cb56bd6d535c8b1cd5c0c6121052637f0d",
+      "bytes": 8282
+    },
+    {
+      "path": "docs/COHERENT_COATING_TRANSPORT_2026-10-02.md",
+      "sha256": "a5807ef120bb936a81ffde8a90251a5379a10cd7971347f40b1de7e20bc41c2d",
+      "bytes": 6931
+    }
+  ],
+  "defaultOutputBinaries": [
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "ad8952dcca583b26da66198f7b5129056f3deb65646f3d71f7367c3ebf06fa38",
+      "bytes": 5179392
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll",
+      "sha256": "c36cea432850b0dfca46f13f888c2288e08895a61c02f9928fc3c6c541fa04a2",
+      "bytes": 991232
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "e43de60659fd4c27795f1fb5d8cf4f1c779da1daa7e9edfe347704a75e09ab0b",
+      "bytes": 25725440
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "e8ab10f67f53399baccd1e0af361767fc64ab6f78c713c4ca97fb2cbe122171a",
+      "bytes": 5074432
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll",
+      "sha256": "eea02b646f085f65f7b46fd2312af0354aa8116a31acc73ce08f5d5184310e54",
+      "bytes": 963072
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "3e8bfcccbfef2e8d0da5f0169815a7c4a1f178a6ec9954e9c4455a89a2fa55db",
+      "bytes": 25649152
+    }
+  ],
+  "postCombinedChange": "Only two whitespace replacements in test initializer; final 31 tests rerun in both configurations",
+  "notPerformed": [
+    "new native Zemax capture",
+    "native desktop walkthrough",
+    "laboratory/full-product release validation",
+    "new or regenerated Optiland reference"
+  ],
+  "goalStatus": "active",
+  "localDocumentLinksChecked": 1090
+}

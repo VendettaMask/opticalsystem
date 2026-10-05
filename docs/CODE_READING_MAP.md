@@ -1,5 +1,37 @@
 # 全仓库代码阅读地图
 
+2026-10-05 同步复验：正式及镀膜默认 Debug/Release 构建零警告、零错误；最终累计 Release **3500/3500**，装调/玻璃库相邻双配置各 **25/25**，镀膜完整双配置各 **44/44**。累计 Debug 的 3500 项保留 2026-10-04 记录；不相加各测试集合，也不表示全仓或跨平台发布验收。见 [同步范围与证据](PROJECT_SYNC_2026-10-05.md)。以下保留各功能阶段的实现日期和验证范围。
+
+2026-10-04 MTF 制造公差：指定频率 FFT/几何 MTF、逐视场反求与联合良率、有界间隔/单表面偏心/倾斜补偿及 startol v3 已实现；参数变更清除旧结果。默认 Debug/Release 累计回归各 **3500/3500** 通过（保留此前 3426 项，新增 38 项功能/界面用例并纳入 36 项相邻回归），构建零警告、零错误；独立渲染 **3/3**、9 张实际控件截图已检查。操作数统计仍为 **341/383 项受限执行、42 项兼容保留**，另 4 项扩展；没有新增原生 Zemax 公差数值认证。见[实现、边界与验证](MTF_TOLERANCING_2026-10-04.md)。下方保留各历史阶段的范围和计数。
+
+历史 GRIN 材料编辑阶段（2026-10-04）：Gradient 1～5 桌面系数、显式色散、积分设置及受支持系数变量已接入；修复整行编辑和多配置同名材料状态保留。当前 **341/383 项受限执行、42 项兼容保留**（35 项已知功能、2 项定义待核实、5 项 Unused），另 4 项扩展；LPTD 残差与原生捕获仍未完成。默认 Debug/Release 累计回归各 **3426/3426** 通过（保留此前 3389 项，新增 34 项功能和 3 项界面用例），零失败、零跳过；默认双配置构建零警告、零错误。界面/架构 **45/45**、独立渲染 **3/3** 通过，12 张真实控件截图已检查。见[本批实现与验证](GRIN_MATERIAL_EDITOR_2026-10-04.md)。下方保留历史阶段记录。
+
+历史 Gradient 5 基础阶段：2026-10-03 Gradient 5：共享 Core 新增四次轴向分布、广义 Sellmeier 色散、连续/近轴追迹和严格保存；已有六点材料约束读取所选波长。LPTD 约束残差、边界倾斜项、桌面系数编辑和原生捕获仍未完成。当前 **341/383 项受限执行、42 项兼容保留**（35 项已知功能、2 项定义待核实、5 项 Unused），另 4 项扩展。默认 Debug/Release 累计回归各 **3389/3389** 通过（保留全部 3342 项，新增 44 项功能和 3 项帮助测试），零失败、零跳过、零编译警告/错误。帮助/架构 **26/26**，独立渲染 **3/3**，三张真实控件截图已检查。见[本批实现与验证](GRADIENT5_DISPERSION_2026-10-03.md)。下方保留历史阶段记录。
+
+历史自动渐晕阶段：2026-10-03 自动渐晕：新增 SVIG 受限执行，按当前主波长和实际孔径计算四条边缘光线的渐晕因子，隔离到后续评价行；参数编辑、优化重算和 STAROPT 保存已接通。当前 **341/383 项受限执行、42 项兼容保留**（35 项已知功能、2 项定义待核实、5 项 Unused），另 4 项本程序扩展。默认 Debug/Release 输出累计回归各 **3342/3342** 通过（保留前批全部 3291 项，新增 51 项），零失败、零跳过、零编译警告/错误。状态/帮助/架构子集 **167/167**，独立渲染 **3/3**，三张真实控件截图已检查。多波长包络、复杂瞳孔全局最优、SVIG 后 CONF 和原生数值/列映射仍未完成。见[本批实现与验证](AUTOMATIC_VIGNETTING_2026-10-03.md)。下方保留历史阶段范围。
+
+历史行表阶段：2026-10-03 多配置行表：新增 MCOV/MCOG/MCOL 三项受限执行，按独立行号和配置号读取 THIC/CRVT/CONN/SDIA 绑定参数；行重排引用、输入验证、优化候选和 STAROPT v5 保存撤销已接通。**340/383 项受限执行、43 项兼容保留**（36 项已知功能、2 项定义待核实、5 项 Unused）；另 4 项本程序扩展。默认 Debug/Release 合并回归各 **3183/3183**（前批 3135 + 新增 48），零失败、零跳过、零编译警告/错误。更多 MCE 类型、单元格变量/配置拾取解以及原生行序、列和数值映射仍未完成；原生 MCO 导入只读。见[行表实现与验证](MCE_ROW_OPERANDS_2026-10-03.md)。下方保留历史阶段范围，不是全量发布验收。
+
+前批阶段记录：2026-10-03 多重配置：新增 CONF、ZTHI 两项受限执行，配置上下文贯通有序评价、应用显示及优化候选；基准几何链接和拾取在候选副本内同步，活动配置保持不变。**337/383 项受限执行、46 项兼容保留**（39 项已知功能、2 项定义待核实、5 项 Unused）；另 4 项本程序扩展。默认 Debug/Release 合并回归各 **3135/3135**（前批 3089 + 新增 46），零失败、零跳过、零编译警告/错误。PRIM/CVIG/IMSF 后接 CONF 的组合、其他配置变量联合搜索及原生数值/列映射仍未完成，原生导入只读。见[多配置实现与验证](MULTI_CONFIGURATION_OPERANDS_2026-10-03.md)。下方保留历史阶段范围，不是全量发布验收。
+
+前批阶段记录：2026-10-03 膜层约束：新增 CoatingLayerParameters.cs、CoatingLayerMetrics.cs、MeritFunction.CoatingLayers.cs；CoatingLayerEditorWindow.cs 提供材料/厚度/倍率/偏移及固定/变量编辑。WorkbenchRuntime.Optimization 的类型化绑定区分曲率、间隔和膜层参数，独立评价快照一致写入。CoatingLayerConstraintTests 与 CoatingLayerEditorTests 覆盖解析比较、实际优化、文件及界面。 详见[实现与验证](COATING_LAYER_CONSTRAINTS_2026-10-03.md)。
+
+2026-10-03 CODA：系统偏振模型在 Core/Rays/SystemPolarization.cs，快照及应用事务通过 PrescriptionService 接通；侧栏在 SystemPropertiesPanel.Polarization.cs。CODA 数据投影为 CoatingRayMetrics.cs，定义入口为 MeritFunction.Polarization.cs。CoatingDataOperandTests 和 PolarizationSettingsPanelTests 覆盖计算、保存、撤销、编辑与渲染。 详见[实现与验证](COATING_DATA_OPERAND_2026-10-03.md)。
+
+2026-10-03 RRET：偏振输入/电场在 Core/Rays/ComplexElectricField.cs，顺序复振幅运输在 SequentialRayTracer.Polarization.cs，RRET 高斯/谱 RMS 在 Services/PolarizationMetrics.cs，参数入口在 MeritFunction.Polarization.cs；解析与工作流参考在 PolarizationOperandTests.cs。 详见[实现与验证](POLARIZATION_RETARDANCE_2026-10-03.md)。
+
+2026-10-03 膜层约束：新增 CMGT/CMLT/CMVA、CIGT/CILT/CIVA、CEGT/CELT/CEVA 九项受限执行；共享薄膜求解读取每层倍率与 n/k 偏移，物理膜层编辑、变量优化和 STAROPT 保存撤销已接通。**335/383 项受限执行、48 项兼容保留**（41 项已知功能、2 项定义待核实、5 项 Unused）；另 4 项本程序扩展。默认输出 Debug/Release 合并回归各 **3089/3089**（前批 3034 + 新增 54 + 既有样式检查 1），零失败、零跳过、零编译警告/错误。原生膜层字段、聚合边界数值、倍率开关/拾取仍有缺口，ZMX 行保持只读。见[膜层约束记录](COATING_LAYER_CONSTRAINTS_2026-10-03.md)。下方保留历史阶段范围，不是全量发布验收。
+
+2026-10-02 第二十九批：TSAG 指定方向矢高及延伸区数据贯通；体积、毛坯、CAD 和自动口径同步处理光学延伸边界。该阶段 **302/383 项受限执行、81 项兼容保留**（74 项已知功能、2 项定义待核实、5 项 Unused）。默认 Debug/Release 合并回归各 **2560/2560**（前批 2497 + 本批新增 39 + 扩展既有 24），无失败/跳过或编译警告/错误。原生 TSAG 列、复合倾角与非零延伸区文件映射仍待核实，详见[本批范围与证据](DIRECTIONAL_SAG_OPERAND_2026-10-02.md)。以下记录保留各自阶段范围。
+
+2026-10-02 第二十八批：新增共享最小体积球面拟合及 BFSD 本地评价、编辑保存、优化路径。该阶段 **301/383 项受限执行、82 项兼容保留**（75 项已知功能、2 项定义待核实、5 项 Unused）。默认 Debug/Release 输出构建成功，合并回归各 **2497/2497**（含新增 26 项），零失败/跳过。固定 Zemax 球面矢高表只验证该文件的球面情况，原生 MFE 与非球面拟合仍有验证缺口；见[本批实现与证据](BEST_FIT_SPHERE_OPERAND_2026-10-02.md)。以下记录保留各自阶段范围。
+
+2026-10-02 第二十七批：RELI/EFNO 已接通本地编辑、保存、评价函数和优化，显式复用共享像方网格及 Jones 功率链。该阶段 **300/383 项受限执行、83 项兼容保留**（76 项已知功能、2 项定义待核实、5 项 Unused）；仍有原生数值和模式缺口，两项 ZMX 导入保持只读。默认 Debug/Release 输出构建成功，合并回归各 **2471/2471**（含新增 31 项），见[本批实现与证据](ILLUMINATION_OPERANDS_2026-10-02.md)。以下记录保留各自阶段范围。
+
+操作数帮助的新导航入口为 `OperandHelpTaxonomy`（分类）、`OperandHelpProjection`（搜索与树）及 `OperandHelpPanel`（交互）；默认 Debug/Release 定向验证各 19/19，见[层级说明](OPERAND_HELP_HIERARCHY_2026-10-01.md)。
+
+2026-10-02 第二十六批入口：`Services/SeidelMetrics.Distortion` 和 `DistortionMetrics.WithReferenceMatrix` 接通 DIST/DISA；网格分析共用有符号向量差。298 受限执行/85 兼容保留，Debug/Release 各 2308/2308。[实现边界](ZEMAX_OPERAND_SUPPORT.md#2026-10-02-第二十六批三阶与指定矩阵畸变部分完成)。下方行数表保留原扫描日期。
+
 2026-09-27 初始结构实验室 v19 阶段验证：修复扩大视场后失追迹仍继续推进的问题，加入有预算上限的过渡恢复；最终验收门槛不变。实验室完整 Release **260/260** 通过，默认实验室 Debug/Release 构建零警告、零错误。40/40 冻结处方同设置重算与导出回读一致，包含明确失败案例；一个固定起点恢复为完整可追迹，但宽角 10,000 次评价的最佳 RMS 仍为 377.79 μm，未达到 50 μm。正式 Core 源码未变，正式全量和外部比较本轮未重跑。见 [阶段恢复、文献复核与实测](INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md)。下文保留各阶段历史验证范围。
 
 2026-09-27 商业代码审计记录（初始结构实验室为 v18 阶段）：默认正式及实验室 Release 构建均为 0 警告、0 错误；正式全量 **1346 通过 / 5 失败 / 共 1351 项**，实验室 **258/258** 通过，Zemax 比较工具 **103 通过 / 1 失败 / 共 104 项**。当前不满足发布门禁；此前全通过记录保留各自历史范围。本轮只审计并同步文档，未修复产品代码，未新建 Zemax 捕获或执行完整外部比较矩阵。问题、性能观测和复现证据见 [商业审计报告](COMMERCIAL_CODE_AUDIT_2026-09-27.md)。
@@ -8,7 +40,7 @@
 
 初始结构实验室当前入口为 `FlatStartSearchService`（v19），形式枚举及实际根数在 `DesignFormSearch`，全局操作/分支轮转在 `DesignFormScheduler`，预算预留在 `NeighborhoodBudget`，桌面入口为实验室 `MainWindow`。共享 Core 的 `Analysis/SpotMetricEvaluator.cs` 提供面积积分与同质心边缘检查，`Services/RayEnvelopeApertureSizing.cs` 提供自动尺寸；`FlatStartDesignProblem` 选择采样并组装几何/RMS 残差，`FlatStartContinuation` 分配渐进窗口。`EvaluatedOptic` 保持评价与导出的同快照一致。`BoundedTrustRegionLeastSquares` 负责受保护的 Broyden 更新与刷新，`FlatStartDesignService.Continue` 在完整光线域内保持完整目标，`FlatStartLocalSolver` 在有限连续光线域内保留 V2 联合目标，并按阶段/策略选择是否启用，`RegularizedLeastSquaresModel` 保留 QR 阻尼步。v16 入口变更见[阶段记录](INITIAL_STRUCTURE_JOINT_RESTART_2026-09-27.md)，当前 v19 恢复路径见[最新实现记录](INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md)。
 
-原完整索引阅读日期：2026-09-04；2026-09-27 追加镀膜模块入口。下方旧文件行数为历史索引，不表示本轮重建了整个源码统计。
+原完整索引阅读日期：2026-09-04；2026-09-27 追加镀膜模块入口；2026-09-28 更新材料面板条目，独立 `GlassCatalogPanel` 已删除，旧工作区类型由 `WorkspaceDockFactory` 迁移到 `MaterialLibraryPanel`。下方其余旧文件行数为历史索引，不表示本轮重建了整个源码统计。
 
 本文记录全仓库源文件索引、主要实现链路和容易混淆的边界，供后续开发定位使用。阅读方式为全部源文件枚举、类型和方法文本索引，以及关键实现与相关测试的交叉阅读。文件进入索引不等于该文件的每一行已经完成审计；本文也不构成全部数值算法正确性证明或新的测试通过基线。本轮没有运行构建、测试、外部基准捕获或 GUI 验证。
 
@@ -61,9 +93,9 @@
 | Apodization | 光瞳强度加权，包括 Gaussian、Hann、Tukey 等 |
 | Interactions | 折射/反射、薄透镜、衍射及相位交互；返回传播方向和交互类型 |
 | Phase | 常相位、线性光栅、径向、多项式和网格相位；网格支持插值 |
-| Coatings | 原光线追迹保留无镀膜、简单透反系数及经验起伏兼容模型；新增 `CoherentThinFilmSolver` / `ThinFilmSpectrum` 为独立镀膜实验室计算真实相干 R/T/A，尚未接入追迹钩子 |
+| Coatings | 无镀膜、标量系数和经验兼容模型保持原义；`CoherentThinFilmSolver` / `ThinFilmSpectrum` 提供真实相干功率及复振幅，`CoherentMultilayerCoating` 接入正式顺序追迹和照度 Jones 链，完整材料快照可保存；实验室 UI 应用与旧电场 Jones 光瞳尚未接通 |
 | Scattering | 现有近似主要扣除主光线强度，不生成完整 BSDF 方向分布 |
-| Propagation | 均匀传播和入口方向近似；后者没有连续 GRIN 积分 |
+| Propagation | 均匀传播、旧入口方向近似，以及独立的 Gradient 1～4 连续曲线积分；正式顺序显式光线及限定共轴系统的连续近轴矩阵已接通 |
 | Plugins | 通过程序集加载与注册工厂扩展几何、材料、分析；注册机制本身不能证明桌面已接入全部扩展入口 |
 
 `OpaqueGeometryPayload` 保留未知组件树，但其 Sag、法线、求交不可计算。`OpticCapabilityPreflight` 是多种计算与有损输出入口的共同能力检查。
@@ -82,6 +114,8 @@
 - MTF 扫描：`MtfMethodEvaluator` 统一 Fourier、Huygens、几何方法的扫描入口；`SampledMtfEngine` 使用拟合波前与光瞳位移计算采样 OTF。
 - RMS：`RmsScanSupport` 处理焦移、波长、视场、参考方式和单位；显示名称相近的分析不一定采用相同采样定义。
 - 辐射与能量：圈入能量、线/边缘扩散、扩展源、相对照度、辐照度和辐射强度分别处理权重、归一化及采样域。
+- 新增可选均匀像方方向余弦采样见 [IlluminationMetrics.ImageCosine.cs](../src/OptilandWorkbench.Core/Services/IlluminationMetrics.ImageCosine.cs)：真实追迹求逆、孔径掩码和有界失败；`RelativeToAxis` 单独实现轴上归一化。默认路径与原生等价的边界见[像方网格与轴上参考](IMAGE_COSINE_ILLUMINATION_2026-10-02.md)。
+- 相对照度与图像模拟共用 [IlluminationMetrics](../src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs) 的内部求积、物理孔径掩码及像面投影。透明介质偏振使用 `FresnelPower` 和 `UnpolarizedPowerTransport`，诊断通过显式选项停在像面自身作用前。后续物理膜层连接见[物理镀膜追迹与保存](COHERENT_COATING_TRANSPORT_2026-10-02.md)；RELI/EFNO 的评价入口为 [MeritFunction.Illumination](../src/OptilandWorkbench.Core/Optimization/MeritFunction.Illumination.cs)。吸收入射介质及原生采样一致性仍未完成。
 - 图像模拟：`ImageSimulationEngine` 组织测试图、PSF 基、空间变化卷积、畸变映射和重采样；扩展图像分析在此之上构造不同工作流。
 - 报告：一阶量、基面、Seidel、处方、系统和分类报告均属于分析目录。
 - `AnalysisResourceLimits` 在昂贵采样、FFT 网格和图像模拟前约束资源。
@@ -151,6 +185,8 @@ STAROPT 容器版本、工程负载版本、Optic 快照版本是不同概念。
 - STEP 输出位于 Core，使用实际几何与坐标生成自适应分面实体，检查闭合、体积、方向和自相交。它不是保留解析曲面和全部光学语义的 CAD 导出。
 
 ## 9. 初始结构实验室
+
+光学装调实验室另走主程序内独立窗口：`MainWindow.OpticalAssembly.cs` → `Laboratories/OpticalAssemblyWindow.cs` → Application 的 `OpticalAssemblyService` → 正式 Core 的 `Analysis/Assembly/AssemblyConjugates.cs`。Core 复用既有 `OpticalSurface.TraceRayValue` 和薄透镜交互模型，窗口使用 DTO；`AssemblyReticleView` 只渲染固定毫米坐标的光线计数网格。`AssemblyMeasurementMode` / Core `AssemblyProbeMode` 显式区分附加物镜与无穷远配置；无穷远模式不创建附加物镜，结果分别携带自准直仪位置、可空的附加物镜位置和共轭匹配状态。找像由共享内核残差导数外推求解。功能边界和测试见 [光学装调实验室](OPTICAL_ASSEMBLY_LAB.md)。
 
 `FlatRootFactory → FirstOrderSeedGenerator → HybridCandidateRefiner → CandidateDiversityOrdering` 是搜索主线。根结构为精确平行平面，后续以曲率和厚度参数化形成候选。
 
@@ -305,13 +341,14 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [src/OptilandWorkbench.App/Panels/LensEditorPanel.cs](../src/OptilandWorkbench.App/Panels/LensEditorPanel.cs) | 554 | LensEditorPanel |
 | [src/OptilandWorkbench.App/Panels/ManufacturabilityPanel.cs](../src/OptilandWorkbench.App/Panels/ManufacturabilityPanel.cs) | 256 | ManufacturabilityPanel |
 | [src/OptilandWorkbench.App/Panels/MaterialAnalysisPanel.cs](../src/OptilandWorkbench.App/Panels/MaterialAnalysisPanel.cs) | 303 | MaterialAnalysisPanel, GlassOption |
-| [src/OptilandWorkbench.App/Panels/MaterialDatabasePanels.cs](../src/OptilandWorkbench.App/Panels/MaterialDatabasePanels.cs) | 1103 | MaterialLibraryPanel, LensLibraryPanel, GlassCatalogPanel |
+| [src/OptilandWorkbench.App/Panels/MaterialDatabasePanels.cs](../src/OptilandWorkbench.App/Panels/MaterialDatabasePanels.cs) | 1032 | MaterialLibraryPanel, LensLibraryPanel |
 | [src/OptilandWorkbench.App/Panels/MeritOperandRowPalette.cs](../src/OptilandWorkbench.App/Panels/MeritOperandRowPalette.cs) | 129 | MeritOperandRowPalette, MeritOperandRowVisual |
 | [src/OptilandWorkbench.App/Panels/MultiConfigurationPanel.cs](../src/OptilandWorkbench.App/Panels/MultiConfigurationPanel.cs) | 161 | MultiConfigurationPanel |
 | [src/OptilandWorkbench.App/Panels/NonSequentialDetectorDisplay.cs](../src/OptilandWorkbench.App/Panels/NonSequentialDetectorDisplay.cs) | 183 | DetectorDisplayNormalization, DetectorProfileAxis, DetectorDisplayFrame, NonSequentialDetectorDisplay |
 | [src/OptilandWorkbench.App/Panels/NonSequentialObjectEditorPanel.cs](../src/OptilandWorkbench.App/Panels/NonSequentialObjectEditorPanel.cs) | 587 | NonSequentialObjectEditorPanel, ObjectChoice, ObjectRow, NonSequentialModePanel |
 | [src/OptilandWorkbench.App/Panels/NonSequentialStrayLightWindows.cs](../src/OptilandWorkbench.App/Panels/NonSequentialStrayLightWindows.cs) | 1027 | NonSequentialStlImportWindow, NonSequentialTraceControlWindow, SourceChoice, NonSequentialRayDatabaseWindow, PathRow, BranchRow, NonSequentialDetectorViewerPanel, DetectorChoice, WavelengthChoice |
 | [src/OptilandWorkbench.App/Panels/OperandHelpPanel.cs](../src/OptilandWorkbench.App/Panels/OperandHelpPanel.cs) | 344 | OperandHelpPanel |
+| [src/OptilandWorkbench.App/Panels/OperandHelpTaxonomy.cs](../src/OptilandWorkbench.App/Panels/OperandHelpTaxonomy.cs) | 本次新增 | 操作数帮助的大类、族和状态展示映射 |
 | [src/OptilandWorkbench.App/Panels/OperandHelpProjection.cs](../src/OptilandWorkbench.App/Panels/OperandHelpProjection.cs) | 50 | OperandHelpSupportFilter, OperandHelpProjection |
 | [src/OptilandWorkbench.App/Panels/OpticalDrawingPanel.cs](../src/OptilandWorkbench.App/Panels/OpticalDrawingPanel.cs) | 765 | OpticalDrawingPanel, ElementChoice |
 | [src/OptilandWorkbench.App/Panels/OptimizationPanel.cs](../src/OptilandWorkbench.App/Panels/OptimizationPanel.cs) | 568 | OptimizationPanel |
@@ -450,7 +487,7 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [src/OptilandWorkbench.Core/Analysis/FootprintDiagramAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/FootprintDiagramAnalysis.cs) | 371 | FootprintDiagramAnalysis, SelectedField, PlotExtent |
 | [src/OptilandWorkbench.Core/Analysis/GeometricMtfAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/GeometricMtfAnalysis.cs) | 275 | GeometricMtfAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/ImageSimulationEngine.cs](../src/OptilandWorkbench.Core/Analysis/ImageSimulationEngine.cs) | 1397 | ImageSimulationSourcePattern, ImageSimulationConfig, RgbImage, PsfBasisResult, ImageSimulationResult, ImageSimulationEngine |
-| [src/OptilandWorkbench.Core/Analysis/JonesPupilEngine.cs](../src/OptilandWorkbench.Core/Analysis/JonesPupilEngine.cs) | 256 | JonesPupilSample, JonesPupilResult, JonesPupilEngine, ComplexMatrix3x3 |
+| [src/OptilandWorkbench.Core/Analysis/JonesPupilEngine.cs](../src/OptilandWorkbench.Core/Analysis/JonesPupilEngine.cs) | 286 | JonesPupilSample, JonesPupilResult, JonesPupilEngine, ComplexMatrix3x3 |
 | [src/OptilandWorkbench.Core/Analysis/MtfScanAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/MtfScanAnalysis.cs) | 1213 | MtfComputationMethod, MtfComputationSettings, MtfThroughFocusAnalysis, MtfVsFieldAnalysis, MtfMethodEvaluator |
 | [src/OptilandWorkbench.Core/Analysis/NonSequentialDetectorViewerAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/NonSequentialDetectorViewerAnalysis.cs) | 121 | NonSequentialDetectorViewerAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/NonSequentialRayTraceAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/NonSequentialRayTraceAnalysis.cs) | 173 | NonSequentialRayTraceAnalysis |
@@ -465,7 +502,7 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [src/OptilandWorkbench.Core/Analysis/RealImageFieldConversion.cs](../src/OptilandWorkbench.Core/Analysis/RealImageFieldConversion.cs) | 42 | RealImageFieldConversion |
 | [src/OptilandWorkbench.Core/Analysis/ReferenceSphereWavefrontAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/ReferenceSphereWavefrontAnalysis.cs) | 175 | ReferenceSphereWavefrontAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/ReferenceSphereWavefrontEngine.cs](../src/OptilandWorkbench.Core/Analysis/ReferenceSphereWavefrontEngine.cs) | 239 | ReferenceSphereStrategy, ReferenceSphereWavefrontResult, ReferenceSphereWavefrontEngine, PreparedRay, PropagatedRay, Sphere |
-| [src/OptilandWorkbench.Core/Analysis/RelativeIlluminationAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/RelativeIlluminationAnalysis.cs) | 300 | RelativeIlluminationAnalysis, PupilNode, IlluminationResult |
+| [src/OptilandWorkbench.Core/Analysis/RelativeIlluminationAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/RelativeIlluminationAnalysis.cs) | 164 | RelativeIlluminationAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/Reports/CardinalAndVignettingAnalyses.cs](../src/OptilandWorkbench.Core/Analysis/Reports/CardinalAndVignettingAnalyses.cs) | 155 | CardinalPointsDataAnalysis, VignettingDiagramAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/Reports/FirstOrderAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/Reports/FirstOrderAnalysis.cs) | 25 | FirstOrderAnalysis |
 | [src/OptilandWorkbench.Core/Analysis/Reports/SeidelCoefficientsAnalysis.cs](../src/OptilandWorkbench.Core/Analysis/Reports/SeidelCoefficientsAnalysis.cs) | 350 | SeidelCoefficientsAnalysis, SeidelDiagramAnalysis |
@@ -678,7 +715,7 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [tests/OptilandWorkbench.Tests/ZemaxLibraryImporterTests.cs](../tests/OptilandWorkbench.Tests/ZemaxLibraryImporterTests.cs) | 190 | ZemaxLibraryImporterTests |
 | [tests/OptilandWorkbench.Tests/ZemaxOpticalPathDifferenceParityTests.cs](../tests/OptilandWorkbench.Tests/ZemaxOpticalPathDifferenceParityTests.cs) | 54 | ZemaxOpticalPathDifferenceParityTests |
 | [tests/OptilandWorkbench.Tests/ZemaxPupilAberrationParityTests.cs](../tests/OptilandWorkbench.Tests/ZemaxPupilAberrationParityTests.cs) | 47 | ZemaxPupilAberrationParityTests |
-| [tests/OptilandWorkbench.Tests/ZemaxRelativeIlluminationParityTests.cs](../tests/OptilandWorkbench.Tests/ZemaxRelativeIlluminationParityTests.cs) | 50 | ZemaxRelativeIlluminationParityTests |
+| [tests/OptilandWorkbench.Tests/ZemaxRelativeIlluminationParityTests.cs](../tests/OptilandWorkbench.Tests/ZemaxRelativeIlluminationParityTests.cs) | 68 | ZemaxRelativeIlluminationParityTests |
 | [tests/OptilandWorkbench.Tests/ZemaxRmsWavefrontVsFieldParityTests.cs](../tests/OptilandWorkbench.Tests/ZemaxRmsWavefrontVsFieldParityTests.cs) | 139 | ZemaxRmsWavefrontVsFieldParityTests |
 | [tests/OptilandWorkbench.Tests/ZemaxRmsWavefrontVsFocusParityTests.cs](../tests/OptilandWorkbench.Tests/ZemaxRmsWavefrontVsFocusParityTests.cs) | 68 | ZemaxRmsWavefrontVsFocusParityTests |
 | [tests/OptilandWorkbench.Tests/ZemaxWavefrontMapParityTests.cs](../tests/OptilandWorkbench.Tests/ZemaxWavefrontMapParityTests.cs) | 66 | ZemaxWavefrontMapParityTests |
@@ -764,3 +801,8 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | 数值/工作流/控件测试 | [测试目录](../labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests) |
 
 源归档、上游对照脚本和物理验收相互独立；完整依据见[实施文档](COATING_DESIGN_LAB.md)与[验收记录](../validation/coating/README.md)。
+
+2026-09-28 镀膜入口补充：[结构搜索](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/DesignService.Search.cs)、[显式单位 n/k 表交换](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/MaterialTable.cs)、[材料对话框](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/MaterialEditorWindow.cs)。ThemeRegistry 等显示源码在实验室 csproj 链接，主程序不新增实验室程序集引用。
+
+
+指定频率 MTF 制造公差：FFT/几何 MTF、逐视场极限/增量反求和联合良率、有界间隔/单表面偏心/倾斜补偿、startol v3（兼容 v1/v2）已实现；未认证原生 Zemax 公差数值。见 [使用、边界与验证](MTF_TOLERANCING_2026-10-04.md)。

@@ -20,7 +20,8 @@ public sealed record MtfComputationSettings(
     bool ScaleGeometricByDiffractionLimit = true,
     bool UsePolarization = false,
     bool ZemaxCompatible = false,
-    bool UseZemaxHuygensSemantics = false);
+    bool UseZemaxHuygensSemantics = false,
+    bool RequireValidData = false);
 
 public sealed class MtfThroughFocusAnalysis : BaseAnalysis
 {
@@ -1000,7 +1001,7 @@ internal static class MtfMethodEvaluator
             ComputeHuygensPolychromaticPsf(optic, field, wavelengths, settings));
     }
 
-    private static PsfResult ComputeHuygensPolychromaticPsf(
+    internal static PsfResult ComputeHuygensPolychromaticPsf(
         Optic optic,
         (double Hx, double Hy) field,
         IReadOnlyList<Wavelength> wavelengths,
@@ -1105,6 +1106,8 @@ internal static class MtfMethodEvaluator
             includeSurfaceTransmission: settings.UsePolarization, usePolarization: settings.UsePolarization);
         var rays = result.Fields.FirstOrDefault()?.Wavelengths.FirstOrDefault()?.Rays
             ?? Array.Empty<SpotRayData>();
+        if (settings.RequireValidData && !rays.Any(ray => double.IsFinite(ray.Intensity) && ray.Intensity > 0))
+            throw new InvalidOperationException("MTF 没有有效的成像光线。");
         var fNumber = Math.Abs(optic.Paraxial.EstimateFNumber());
         var cutoff = optic.ImageSpaceAfocal
             ? ImageSpaceAnalysisSupport.AfocalCutoffFrequencyCyclesPerMilliradian(optic, wavelength)
@@ -1139,26 +1142,8 @@ internal static class MtfMethodEvaluator
         var complex = tangential ? result.TangentialOtf : result.SagittalOtf;
         if (type == FftMtfDataType.SquareWave)
         {
-            if (frequency <= 1e-12)
-            {
-                return 1;
-            }
-
-            var sum = 0.0;
-            var sign = 1.0;
-            for (var harmonic = 1; harmonic <= 999; harmonic += 2)
-            {
-                var harmonicFrequency = harmonic * frequency;
-                if (sourceFrequency.Count == 0 || harmonicFrequency > sourceFrequency[^1])
-                {
-                    break;
-                }
-
-                sum += sign * Interpolate(sourceFrequency, scalar, harmonicFrequency) / harmonic;
-                sign *= -1;
-            }
-
-            return Math.Max(0, 4 * sum / Math.PI);
+            return SquareWaveAtFrequency(frequency, sourceFrequency.LastOrDefault(),
+                f => Interpolate(sourceFrequency, scalar, f));
         }
 
         if (complex is null)
@@ -1174,6 +1159,68 @@ internal static class MtfMethodEvaluator
             FftMtfDataType.Phase => value.Phase,
             _ => value.Magnitude
         };
+    }
+
+    /// <summary>Sample each wavelength's own physical frequency axis before combining
+    /// complex OTFs. Regridding a combined curve first would interpolate twice.</summary>
+    internal static (double Tangential, double Sagittal) SamplePolychromaticAtFrequency(
+        IReadOnlyList<(Wavelength Wavelength, MtfResult Result)> results,
+        double frequency, FftMtfDataType type)
+    {
+        if (!double.IsFinite(frequency) || frequency < 0 || !Enum.IsDefined(type))
+            throw new ArgumentOutOfRangeException(nameof(frequency));
+        if (results.Count == 0 || results.Any(item => !double.IsFinite(item.Wavelength.Weight) || item.Wavelength.Weight < 0))
+            throw new AnalysisDataUnavailableException("MTF", "invalid spectral weights");
+        var active = results.Where(item => item.Wavelength.Weight > 0).ToArray();
+        if (active.Length == 0) throw new AnalysisDataUnavailableException("MTF", "no positive spectral weights");
+        if (active.Any(item => item.Result.TangentialOtf is not { Count: > 0 }
+            || item.Result.SagittalOtf is not { Count: > 0 }))
+            throw new AnalysisDataUnavailableException("MTF", "complex OTF required");
+        var weightScale = active.Max(item => item.Wavelength.Weight);
+        var total = active.Sum(item => item.Wavelength.Weight / weightScale);
+        return (Response(true), Response(false));
+
+        double Response(bool tangential)
+        {
+            if (type != FftMtfDataType.SquareWave) return DataTypeValue(Otf(frequency, tangential), type);
+            var maximum = active.Max(item => (tangential
+                ? item.Result.TangentialFrequency ?? item.Result.Frequency
+                : item.Result.SagittalFrequency ?? item.Result.Frequency).LastOrDefault());
+            return SquareWaveAtFrequency(frequency, maximum, f => Otf(f, tangential).Magnitude);
+        }
+        Complex Otf(double f, bool tangential)
+        {
+            var sum = Complex.Zero;
+            foreach (var item in active)
+            {
+                Services.ComputationCancellation.ThrowIfCancellationRequested();
+                var axis = tangential ? item.Result.TangentialFrequency ?? item.Result.Frequency
+                    : item.Result.SagittalFrequency ?? item.Result.Frequency;
+                var values = tangential ? item.Result.TangentialOtf! : item.Result.SagittalOtf!;
+                if (axis.Count != values.Count || axis.Count == 0)
+                    throw new AnalysisDataUnavailableException("MTF", "OTF frequency/value dimensions differ");
+                var value = InterpolateComplex(axis, values, f);
+                if (!double.IsFinite(value.Real) || !double.IsFinite(value.Imaginary))
+                    throw new AnalysisDataUnavailableException("MTF", "non-finite OTF sample");
+                sum += value * (item.Wavelength.Weight / weightScale);
+            }
+            return sum / total;
+        }
+    }
+
+    private static double SquareWaveAtFrequency(double frequency, double maximum, Func<double, double> modulation)
+    {
+        if (frequency <= 1e-12) return 1;
+        double sum = 0, sign = 1;
+        for (var harmonic = 1; harmonic <= 999; harmonic += 2)
+        {
+            Services.ComputationCancellation.ThrowIfCancellationRequested();
+            var harmonicFrequency = harmonic * frequency;
+            if (harmonicFrequency > maximum) break;
+            sum += sign * modulation(harmonicFrequency) / harmonic;
+            sign *= -1;
+        }
+        return Math.Max(0, 4 * sum / Math.PI);
     }
 
     internal static double Interpolate(IReadOnlyList<double> x, IReadOnlyList<double> y, double target)

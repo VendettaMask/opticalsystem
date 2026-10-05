@@ -1,0 +1,102 @@
+  OptilandWorkbench.Core -> /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll
+  OptilandWorkbench.Application -> /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll
+  OptilandWorkbench.App -> /Users/starlab/Documents/opticalsystem/src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll
+  OptilandWorkbench.LensLibraryBuilder -> /Users/starlab/Documents/opticalsystem/tools/OptilandWorkbench.LensLibraryBuilder/bin/Release/net10.0/OptilandWorkbench.LensLibraryBuilder.dll
+  OptilandWorkbench.ZemaxLibraryImporter -> /Users/starlab/Documents/opticalsystem/tools/OptilandWorkbench.ZemaxLibraryImporter/bin/Release/net10.0/ZemaxLibraryImporter.dll
+  OptilandWorkbench.Tests -> /Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Tests.dll
+/Users/starlab/Documents/opticalsystem/tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.06]   Discovering: OptilandWorkbench.Tests
+[xUnit.net 00:00:00.23]   Discovered:  OptilandWorkbench.Tests
+[xUnit.net 00:00:00.26]   Starting:    OptilandWorkbench.Tests
+  已通过 OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationSourcePatternsProduceValidRgbImages(pattern: ColorChart) [8 ms]
+  已通过 OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationSourcePatternsProduceValidRgbImages(pattern: DistortionGrid) [7 ms]
+  已通过 OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationSourcePatternsProduceValidRgbImages(pattern: SiemensStar) [4 ms]
+  已通过 OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationSourcePatternsProduceValidRgbImages(pattern: ResolutionTarget) [1 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.RemovingFactorsPreservesRuntimeMaterialAndSourceData [243 ms]
+  已通过 OptilandWorkbench.Tests.SampledApertureDiagnosticTests.PlaneReportsSignedPhysicalClearanceWithoutChangingNormalClipping(height: 2, expected: 0) [253 ms]
+  已通过 OptilandWorkbench.Tests.SampledApertureDiagnosticTests.PlaneReportsSignedPhysicalClearanceWithoutChangingNormalClipping(height: 0, expected: 2) [< 1 ms]
+  已通过 OptilandWorkbench.Tests.SampledApertureDiagnosticTests.PlaneReportsSignedPhysicalClearanceWithoutChangingNormalClipping(height: 3, expected: -1) [5 ms]
+  已通过 OptilandWorkbench.Tests.SampledApertureDiagnosticTests.MissedIntersectionDoesNotInventAnImageOrAnApertureMargin [< 1 ms]
+  已通过 OptilandWorkbench.Tests.SampledApertureDiagnosticTests.UnsupportedAperturesAndCancelledDiagnosticsFailExplicitly [1 ms]
+  已通过 OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.UnclippedDiagnosticsFollowAimingAndRetainPhysicalObstruction(aiming: False) [280 ms]
+  已通过 OptilandWorkbench.Tests.SampledApertureDiagnosticTests.UnclippedDiagnosticsUseFormalSpectralWeightsAndDoNotReplacePhysicalMetrics [19 ms]
+  已通过 OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationPipelineUsesBlackGuardBandAndSelectedMode [255 ms]
+  已通过 OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationPsfModeIsHonored [11 ms]
+  已通过 OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationRejectsPreparedImageAboveMemoryBudget [6 ms]
+  已通过 OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationDiffractionBasisPreservesUnitEnergyAndReportsFallback [7 ms]
+  已通过 OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationDistortionGridKeepsLateralColorAgainstPrimaryReference [25 ms]
+  已通过 OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationGuardBandIsBlackInsteadOfReflected [< 1 ms]
+  已通过 OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationSupportsSinglePointPsfFieldGrid [< 1 ms]
+  已通过 OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.UnclippedDiagnosticsFollowAimingAndRetainPhysicalObstruction(aiming: True) [205 ms]
+  已通过 OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.EnvelopeUsesAimedSurfaceInterceptsAndLeavesOtherSettingsUnchanged(aiming: False) [21 ms]
+  已通过 OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.EnvelopeUsesAimedSurfaceInterceptsAndLeavesOtherSettingsUnchanged(aiming: True) [127 ms]
+  已通过 OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.DisablingVignettingFactorsAlsoDisablesThemForStopTargets(aiming: True) [30 ms]
+  已通过 OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.DisablingVignettingFactorsAlsoDisablesThemForStopTargets(aiming: False) [< 1 ms]
+  已通过 OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.AggregateSpotUsesTheSameAimedRaysAsTheFormalEngine(aiming: False) [6 ms]
+  已通过 OptilandWorkbench.Tests.AnalysisGuiContractTests.ImageSimulationOffersMultipleSelectableSourceImages [677 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.FiveFactorsRoundTripZmxProjectDtoAndUnrelatedFieldEdits [499 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.GenerateForAndNormalizedBundlesShareTheSameDecenteredPupil(normalized: True) [3 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.GenerateForAndNormalizedBundlesShareTheSameDecenteredPupil(normalized: False) [2 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: 0, x: 0.29999999999999999, y: -0.32500000000000001) [< 1 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: -90, x: -0.32500000000000001, y: -0.29999999999999999) [< 1 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: 90, x: 0.32500000000000001, y: 0.29999999999999999) [< 1 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: 180, x: -0.29999999999999999, y: 0.32500000000000001) [< 1 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.NewFactorsDetachMutatedOpticFromSharedTraceCache(component: "y") [8 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.NewFactorsDetachMutatedOpticFromSharedTraceCache(component: "x") [< 1 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.NewFactorsDetachMutatedOpticFromSharedTraceCache(component: "angle") [< 1 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.NonFiniteNewFactorsFailModelAndSnapshotValidation(component: "x") [< 1 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.NonFiniteNewFactorsFailModelAndSnapshotValidation(component: "angle") [< 1 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.NonFiniteNewFactorsFailModelAndSnapshotValidation(component: "y") [< 1 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: True, angle: 0) [3 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: True, angle: 90) [1 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: False, angle: 0) [< 1 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: False, angle: 90) [< 1 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.ClearVignettingResetsAllFiveFactorsOnAnIsolatedCopy [8 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.DisconnectedTransmittingRegionsDoNotRequireAVisibleChiefRay [780 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.InvalidAnalysisWavelengthIsNotSilentlyClamped [< 1 ms]
+  已通过 OptilandWorkbench.Tests.PupilVignettingTests.OldSnapshotWithoutNewFieldsKeepsIdentityTransform [4 ms]
+  已通过 OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.AggregateSpotUsesTheSameAimedRaysAsTheFormalEngine(aiming: True) [135 ms]
+  已通过 OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.SampledSpotMatchesFormalDiagramWithTheSameAimingSetting(aiming: False) [11 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.NonuniformAndDarkRimPupilsIntegrateInteriorTransmission(model: "hann") [88 ms]
+  已通过 OptilandWorkbench.Tests.SampledRayAimingConsistencyTests.SampledSpotMatchesFormalDiagramWithTheSameAimingSetting(aiming: True) [102 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.NonuniformAndDarkRimPupilsIntegrateInteriorTransmission(model: "gaussian") [85 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.NonuniformAndDarkRimPupilsIntegrateInteriorTransmission(model: "cosine") [76 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.NonuniformAndDarkRimPupilsIntegrateInteriorTransmission(model: "polynomial") [90 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.ScalarTransmissionControlsEqualIrradianceFNumber(transmission: 0) [73 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.ScalarTransmissionControlsEqualIrradianceFNumber(transmission: 0.25) [75 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.ScalarTransmissionControlsEqualIrradianceFNumber(transmission: 1) [79 ms]
+  已通过 OptilandWorkbench.Tests.RelativeIlluminationTests.ClippedCircularPupilIntegratesTheTransmittedConeInsteadOfDroppingItsRim(radius: 0.5) [1 s]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.FullAndObscuredConesMatchIndependentSolidAngleIntegral(outer: 0.90000000000000002, inner: 0) [750 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.FullAndObscuredConesMatchIndependentSolidAngleIntegral(outer: 0.5, inner: 0) [206 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.FullAndObscuredConesMatchIndependentSolidAngleIntegral(outer: 1, inner: 0.29999999999999999) [290 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.FullAndObscuredConesMatchIndependentSolidAngleIntegral(outer: 1, inner: 0) [28 ms]
+  已通过 OptilandWorkbench.Tests.RelativeIlluminationTests.ClippedCircularPupilIntegratesTheTransmittedConeInsteadOfDroppingItsRim(radius: 0.90000000000000002) [1 s]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.FullAndObscuredConesMatchIndependentSolidAngleIntegral(outer: 0.80000000000000004, inner: 0.40000000000000002) [562 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.FullyDarkPupilProducesUnavailableCurveAndBlackSimulatedImage [94 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.OffCenterInteriorObscurationSubtractsItsOwnAngularArea [128 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.ConstantWeightShortcutMatchesGeneralInteriorQuadrature [34 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.ParallelFieldsPreserveOrderValuesAndOriginalErrors [65 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.PreparedPupilSamplerMatchesFormalIndividualGeneration(infinite: False) [1 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.PreparedPupilSamplerMatchesFormalIndividualGeneration(infinite: True) [1 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.DiagnosticMaskDoesNotTurnBlockedChiefIntoAcceptedImageRay [1 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.TwoDimensionalTransmissionUsesInteriorWeights [26 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.BulkAbsorptionRetainsAngleDependentPathTransmission [28 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.ImageTiltIncludesIncidenceProjection [7 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.ImmersionUsesIncidentImageConeWithoutApplyingRefractiveIndexTwice [7 ms]
+  已通过 OptilandWorkbench.Tests.IlluminationMetricTests.CancellationAndInvalidMetricSettingsDoNotReturnPlausibleValues [< 1 ms]
+  已通过 OptilandWorkbench.Tests.RelativeIlluminationTests.RemovingVignettingFactorsRestoresFullPupilWithoutMutatingOptic [2 s]
+  已通过 OptilandWorkbench.Tests.ZemaxRelativeIlluminationParityTests.ChiefRayTangentPupilProjectionMatchesZemax123456 [8 s]
+  已通过 OptilandWorkbench.Tests.RelativeIlluminationTests.RelativeIlluminationProducesNormalizedFiniteCurve(sampleName: "cooke", createOptic: Func`1 { Method = OptilandWorkbench.Core.Optic CreateCookeTriplet(), Target = null }) [10 s]
+  已通过 OptilandWorkbench.Tests.RelativeIlluminationTests.RelativeIlluminationProducesNormalizedFiniteCurve(sampleName: "tessar", createOptic: Func`1 { Method = OptilandWorkbench.Core.Optic CreateTessarLens(), Target = null }) [7 s]
+  已通过 OptilandWorkbench.Tests.RelativeIlluminationTests.ConnectorExposesRelativeIlluminationAnalysisContract [1 s]
+  已通过 OptilandWorkbench.Tests.RelativeIlluminationTests.RelativeIlluminationUsesIndependentRadialFieldScan [5 s]
+[xUnit.net 00:00:53.39]   Finished:    OptilandWorkbench.Tests
+  已通过 OptilandWorkbench.Tests.FrozenAnalysisRegressionTests.ImageSimulationAnalysisUsesFrozenSideBySideRgbContract [52 s]
+结果文件: /Users/starlab/Documents/opticalsystem/artifacts/validation/illumination-core-20261002/illumination-release.trx
+
+测试运行成功。
+测试总数: 83
+     通过数: 83
+总时间: 53.7610 秒

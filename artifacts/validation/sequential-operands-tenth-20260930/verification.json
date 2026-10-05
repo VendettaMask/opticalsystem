@@ -1,0 +1,114 @@
+{
+  "date": "2026-09-30",
+  "scope": "Tenth batch: 5 geometric MTF, 5 diffraction MTF and 5 square-wave transfer operands",
+  "registered": 383,
+  "executable_before": 228,
+  "executable_after": 243,
+  "compatibility_only_after": 140,
+  "added_codes": [
+    "GMTA",
+    "GMTN",
+    "GMTS",
+    "GMTT",
+    "GMTX",
+    "MSWA",
+    "MSWN",
+    "MSWS",
+    "MSWT",
+    "MSWX",
+    "MTFA",
+    "MTFN",
+    "MTFS",
+    "MTFT",
+    "MTFX"
+  ],
+  "cumulative_added_since_124": 119,
+  "verification": {
+    "debug": {
+      "total": 1173,
+      "passed": 1173,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 108,
+      "previous_batch_tests": 1017,
+      "additional_adjacent_tests": 48,
+      "trx": "tenth-batch-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 1173,
+      "passed": 1173,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 108,
+      "previous_batch_tests": 1017,
+      "additional_adjacent_tests": 48,
+      "trx": "tenth-batch-release.trx",
+      "log": "release.log"
+    }
+  },
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "support_boundaries": {
+    "sampling": "Grid=1 only; Samp 1..5 maps to Workbench pupil axis sizes 32..512, with FFT double-side zero padding; native MFE grid mapping not captured. Grid=0 rejected.",
+    "frequency": "cycles/mm for focal, cycles/mrad for afocal; other Zemax frequency display units not adapted.",
+    "polychromatic": "Positive spectral weights; each wavelength complex OTF interpolated once at the target physical frequency before spectral combination. No equal-weight fallback. Positive Wave ignores spectral weight.",
+    "data_type": "MTFA/S/T: 0 magnitude, 1 real, 2 imaginary, 3 phase in degrees. N/X modulation only. A/S/T/N/X are mean, sagittal, tangential, min, max of directional responses.",
+    "field": "GMT requires positive field index. FFT/square Field=0 uses axial pupil with OPD removed; apertures and apodization retained.",
+    "square_wave": "Shared Coltman odd harmonics, at most 999th harmonic and limited to OTF grid range; finite harmonic and sampling errors remain.",
+    "migration": "Raw Data1 Field checked as integer and in range; stale typed Field cannot hide invalid raw references.",
+    "remaining_mtf": "MECA and MTHA/MTHS/MTHT/MTHN/MTHX remain compatibility-only; Huygens requires seven-parameter/multiconfiguration transport."
+  },
+  "external_reference": {
+    "integrity": "Eight selected baseline assets byte-equal committed HEAD; not entire baseline audit.",
+    "recalculation": "Existing Workbench fixed-fixture regressions passed with captured file/settings/version.",
+    "numerical_comparison": "Existing Huygens MTF, MTF-vs-field and through-focus captured-setting comparisons passed, alongside prior fixed regressions; this is not equivalence evidence for new FFT/geometric MFE operands.",
+    "new_operands": "Independent discrete Fourier, circular pupil, complex-grid tests and integration/optimization; no new native MFE slots, sampling or numerical captures.",
+    "screenshots": "No screenshot review."
+  },
+  "remaining_category_counts_overlap": true,
+  "unique_remaining": 140,
+  "not_performed": [
+    "full product suite",
+    "laboratory full suites",
+    "full external comparison matrix",
+    "new Zemax captures",
+    "native desktop walkthrough",
+    "screenshot review",
+    "installer validation"
+  ],
+  "historical_reference": "Frozen assets untouched; no new Optiland comparisons",
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Services/MtfMetrics.cs": "d651f817bcb4ed0d3e82d4fcb5bc88bf2cfd9f6e06ae00a2029ea19acdc3f539",
+    "src/OptilandWorkbench.Core/Analysis/MtfScanAnalysis.cs": "32960e535b2955f15a85dc1906be588bbac3d6a646e439864daf2f59dcda9bde",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.MtfMetrics.cs": "665a07bda2578fe70a659894274e5de8d9a97effa75e8241c2608a9a935c671a",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "16bde4818ab63e05e47e86b212989804c013f181541077ee677eb8f940cf7412",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "81a6dffa337a6f7ab6ec54d367dc9a531dd358af53ef9dc5803a8212998032ef",
+    "src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs": "5730f82d47851d7d99a6fe3bc6b2346bc89c2bbb4e64e8f29296ac1e3f265994",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "20be6ee534d289f29852c77d83faa18774f086240ca470cdc77962d1c5c3ca56",
+    "tests/OptilandWorkbench.Tests/MtfOperandTests.cs": "470cef361693a4fc46e43a313afb49aedd9c69103ceddccfb34f3a78e548018f",
+    "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs": "8ab0466beae3b4d9f91a25b85b4bb196865d5ced77b998ec750276def763f8ac",
+    "tests/OptilandWorkbench.Tests/IncidenceCardinalOperandTests.cs": "607766315838ab42f5346fdbd931d3074159598b2d1d2e3feac841c590d529b0"
+  },
+  "selected_capture_sha256": {
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.txt": "dbb741fc9f07d6d55a9d7d6acdad2bfe91f45e3b5b365bb14c51e1d6b8f2a6f0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/049-rmsfield/data.json": "7badd81b3adbd9bd694e4cabfce3d58e45c863866ed77d4337a33f3321290e87",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/052-rmsfocus/data.json": "a90eabe523007f995e10c685622025b34d47c87b25d627e56ddda16020765240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/055-wavefrontmap/data.json": "e9cfe98cfb64ec684976ee786fd33b8844d24995be084941bedbe7537c911e62",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/data.json": "ef6a44cbe999be4ae54c8d2b8dc3854434e0565b9bd28266138eeebcc900f57a",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/025-huygensmtfvsfield/data.json": "9b00c750481cb73adb741f47c00ca66232dd3374765e2fa68a59bca1c6c99323",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/028-huygensthroughfocusmtf/data.json": "dc115e8bd603af3b3a1686fe7c2c0ec4530d9220d235c5af1ce0cd9004147240"
+  },
+  "default_binary_sha256": {
+    "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll": "c850c4cb097247713eb78436c43eef21af6490fda30c749532c06e6afba0fe43",
+    "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll": "b01ccbe1a88e0ac0120f33b68020d2e9c92462c0b5b550d895cf2533e005490b",
+    "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll": "d07f03338537202db44b48293f140625a6da1bcf4b32e78f88eb400a3bac78be",
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "5b0d894ec4f0bd9a45fa9eed980302ef53cf72c0817026ccaac9a856e0edd96b",
+    "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll": "d325fd51a3c43a61865940ddcc0d0a2230b061b3e22d55b37c943933e08734eb",
+    "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll": "2f1818210fae6976176dec5c6943099e53310951c8cf3696108bfc670ca2f982"
+  },
+  "new_document_links_checked": 39
+}

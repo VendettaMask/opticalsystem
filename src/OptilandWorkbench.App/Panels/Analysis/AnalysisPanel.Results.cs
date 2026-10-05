@@ -101,10 +101,22 @@ public sealed partial class AnalysisPanel
                 AnalysisResultTab("绘图", plotPage),
                 AnalysisResultTab("数据", resultsGrid),
                 AnalysisResultTab("文本", report)
-            }
+            },
+            SelectedIndex = DefaultResultTab(view)
         };
         resultTabs.BindThemeResource(TabControl.BackgroundProperty, ThemeResourceBindings.PlotBackground);
         return resultTabs;
+    }
+
+    private static int DefaultResultTab(AnalysisViewDto view)
+    {
+        // Select actual result content without using localized analysis names.
+        var series = view.PlotPanes.Count > 0
+            ? view.PlotPanes.SelectMany(pane => pane.Series)
+            : view.Series;
+        if (series.Any(item => item.Points.Count > 0)) return 0;
+        if ((view.Table?.Rows.Count ?? view.Rows.Count) > 0) return 1;
+        return string.IsNullOrWhiteSpace(view.ReportText) ? 0 : 2;
     }
 
     private static TabItem AnalysisResultTab(string header, Control content)

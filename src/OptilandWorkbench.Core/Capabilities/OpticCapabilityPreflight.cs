@@ -105,7 +105,12 @@ public static class OpticCapabilityPreflight
         if (surface.Geometry is INonComputableGeometry)
             yield return CreateIssue(surface);
         if (!includeMaterials)
+        {
+            if (surface.MaterialBefore is GradientIndexMaterial || surface.MaterialAfter is GradientIndexMaterial)
+                yield return new OpticCapabilityIssue(surface.Number, "GRIN",
+                    "GRIN 曲线节点尚未接入场景，不能以表面间直线代替真实路径。");
             yield break;
+        }
         foreach (var material in new[] { surface.MaterialBefore, surface.MaterialAfter }
                      .OfType<UnresolvedMaterial>().DistinctBy(material => material.Name))
             yield return new OpticCapabilityIssue(surface.Number, material.Name, $"找不到玻璃“{material.Name}”，请匹配材料后再计算。");

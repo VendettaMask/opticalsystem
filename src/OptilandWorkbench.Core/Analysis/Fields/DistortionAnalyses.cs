@@ -441,33 +441,6 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
         AnalysisFieldSample field,
         double wavelengthMicrometers,
         double pupilDelta,
-        bool xAxis)
-    {
-        var first = AnalysisTrace.FinalSample(
-            optic,
-            field.Hx,
-            field.Hy,
-            xAxis ? -pupilDelta : 0,
-            xAxis ? 0 : -pupilDelta,
-            wavelengthMicrometers);
-        var second = AnalysisTrace.FinalSample(
-            optic,
-            field.Hx,
-            field.Hy,
-            xAxis ? pupilDelta : 0,
-            xAxis ? 0 : pupilDelta,
-            wavelengthMicrometers);
-        var firstDirection = xAxis ? first.Direction.X : first.Direction.Y;
-        var secondDirection = xAxis ? second.Direction.X : second.Direction.Y;
-        var firstPosition = xAxis ? first.Position.X : first.Position.Y;
-        var secondPosition = xAxis ? second.Position.X : second.Position.Y;
-        var denominator = (firstDirection * second.Direction.Z)
-            - (secondDirection * first.Direction.Z);
-        return Math.Abs(denominator) <= 1e-30
-            ? 0
-            : ((secondDirection * first.Position.Z)
-                - (secondDirection * second.Position.Z)
-                - (second.Direction.Z * firstPosition)
-                + (second.Direction.Z * secondPosition)) / denominator * first.Direction.Z;
-    }
+        bool xAxis) => FieldCurvatureMetrics.ImagePlaneDelta(
+            optic, field.Hx, field.Hy, wavelengthMicrometers, pupilDelta, xAxis ? 1 : 0, xAxis ? 0 : 1);
 }

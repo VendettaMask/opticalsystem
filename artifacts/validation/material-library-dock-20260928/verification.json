@@ -1,0 +1,66 @@
+{
+  "verified_at": "2026-09-28T11:07:03.265202+08:00",
+  "base_commit": "4cce1d475465550f92b0a26cc893e411445cdc48",
+  "scope": "Consolidate glass and material library docks; migrate saved layouts; no optical computation changes",
+  "tests": {
+    "Debug": {
+      "file": "material-dock-debug.trx",
+      "total": 59,
+      "passed": 59,
+      "failed": 0,
+      "notExecuted": 0,
+      "times": {
+        "creation": "2026-09-28T11:03:35.0057760+08:00",
+        "queuing": "2026-09-28T11:03:35.0057760+08:00",
+        "start": "2026-09-28T11:03:33.3527360+08:00",
+        "finish": "2026-09-28T11:03:41.6636660+08:00"
+      }
+    },
+    "Release": {
+      "file": "material-dock-release.trx",
+      "total": 59,
+      "passed": 59,
+      "failed": 0,
+      "notExecuted": 0,
+      "times": {
+        "creation": "2026-09-28T11:04:44.0957160+08:00",
+        "queuing": "2026-09-28T11:04:44.0957160+08:00",
+        "start": "2026-09-28T11:04:42.6537470+08:00",
+        "finish": "2026-09-28T11:04:49.4946060+08:00"
+      }
+    }
+  },
+  "builds": {
+    "Debug": {
+      "log": "build-debug.log",
+      "warnings": 0,
+      "errors": 0,
+      "default_app_dll": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "44834773045598b75d24dcd6348738fe85c958484b744b51459a2eb7b9734f08"
+    },
+    "Release": {
+      "log": "build-release.log",
+      "warnings": 0,
+      "errors": 0,
+      "default_app_dll": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "b2b72ec239d4ff8136da0ffc170a993de32d42560f59291aed9caa9bef1ef7c6"
+    }
+  },
+  "sources": {
+    "src/OptilandWorkbench.App/Panels/MaterialDatabasePanels.cs": "f340efcff9bba94146a855d47acf3b91c3a4cb80044739d4d79a90732b8a2798",
+    "src/OptilandWorkbench.App/Services/PanelManager.cs": "c9f2bceb6eee39a4b3e2457a4b77ffbe2527a83880c438d2cca807bcaaccc43e",
+    "src/OptilandWorkbench.App/Services/WorkspaceDockFactory.cs": "8c271eec1792ea537a4d7005511ef92ce0f015bb6b8e5fc26dad152eabb6fecf",
+    "src/OptilandWorkbench.App/Services/WorkspaceSessionStore.cs": "2a431b4f5bc8d24df1a9a10ffcc2df41264bf0e2bcf6243055d1787fd136e06d",
+    "src/OptilandWorkbench.App/Shell/MainWindow.Actions.cs": "9ba1a884b1cf5a34de7dbe8d72ac4fe96ddc309950d7f17ad94a24527c22537d",
+    "src/OptilandWorkbench.App/Shell/MainWindow.Optimization.cs": "1218f0d4c7b843706eabad514383009989e53ae59b8c41f12f14b82c65449378",
+    "src/OptilandWorkbench.App/Shell/MainWindow.Shell.cs": "958d8bfa025cab680bc0e2248cd536b7e5c853fbef3e3f85e19900c2e1b661e8",
+    "tests/OptilandWorkbench.Tests/WorkspaceDockModelTests.cs": "73e7289b8db148da9d7135f7471591189de219373f77bb3a154afa9b1272953a"
+  },
+  "not_run": [
+    "Full main test suite",
+    "Native desktop end-to-end inspection",
+    "Screenshot rendering",
+    "Laboratory suites",
+    "Zemax baseline integrity and external numerical comparison"
+  ]
+}

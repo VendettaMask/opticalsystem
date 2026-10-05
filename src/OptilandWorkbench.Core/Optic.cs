@@ -8,6 +8,7 @@ using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Raytrace;
+using OptilandWorkbench.Core.Rays;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Services;
 using OptilandWorkbench.Core.Tolerancing;
@@ -40,6 +41,19 @@ public sealed class Optic
     public SystemAperture Aperture => _state.Aperture;
 
     public OpticalEnvironment Environment => _state.Environment;
+
+    public SystemPolarization Polarization
+    {
+        get => _state.Polarization;
+        set
+        {
+            ArgumentNullException.ThrowIfNull(value);
+            value.Validate();
+            if (_state.Polarization == value) return;
+            _state.Polarization = value;
+            InvalidateRayTraceCache();
+        }
+    }
 
     public IApodizationModel? Apodization
     {
@@ -128,6 +142,13 @@ public sealed class Optic
     public ObservableCollection<Wavelength> Wavelengths => _state.Wavelengths;
 
     public SurfaceGroup SurfaceGroup => _state.SurfaceGroup;
+
+    /// <summary>Measurement frame for Zemax global-coordinate operands; does not relocate traced geometry.</summary>
+    public int GlobalReferenceSurfaceNumber
+    {
+        get => _state.GlobalReferenceSurfaceNumber;
+        set => _state.GlobalReferenceSurfaceNumber = value;
+    }
 
     public RealRayTracer RealRayTracer { get; }
 
@@ -489,7 +510,10 @@ public sealed class Optic
                 field.YAngleDegrees,
                 field.Weight,
                 field.VignetteFactorX,
-                field.VignetteFactorY)).ToList(),
+                field.VignetteFactorY,
+                field.VignetteDecenterX,
+                field.VignetteDecenterY,
+                field.VignetteAngleDegrees)).ToList(),
             Wavelengths.Select(wavelength => new WavelengthSnapshot(
                 wavelength.Label,
                 wavelength.Nanometers,
@@ -534,13 +558,18 @@ public sealed class Optic
                         surface.CoordinateSystem.RotationZDegrees),
                     surface.MechanicalSemiDiameterOverride,
                     surface.MechanicalSemiDiameterSolveCode,
-                    surface.SemiDiameterDefinesPhysicalAperture))).ToList(),
+                    surface.SemiDiameterDefinesPhysicalAperture,
+                    surface.ThermalExpansionPpmPerC,
+                    surface.ChipZone))).ToList(),
             Apodization: ComponentSnapshotFactory.FromApodization(Apodization),
             FieldDefinition: FieldDefinition.ToString(),
             ObjectSpaceTelecentric: ObjectSpaceTelecentric,
             FieldGroupTelecentric: FieldGroupTelecentric,
             RayAimingEnabled: RayAimingEnabled,
             ImageSpaceAfocal: ImageSpaceAfocal,
+            Polarization: new PolarizationSnapshot(Polarization.Unpolarized, Polarization.Jx, Polarization.Jy,
+                Polarization.XPhaseDegrees, Polarization.YPhaseDegrees, Polarization.ReferenceAxis.ToString()),
+            GlobalReferenceSurfaceNumber: GlobalReferenceSurfaceNumber,
             RadiusPickups: Pickups.RadiusPickups.Select(pickup => new RadiusPickupSnapshot(
                 pickup.SourceSurface,
                 pickup.TargetSurface,
@@ -639,6 +668,10 @@ public sealed class Optic
         FieldGroupTelecentric = snapshot.FieldGroupTelecentric;
         RayAimingEnabled = snapshot.RayAimingEnabled;
         ImageSpaceAfocal = snapshot.ImageSpaceAfocal;
+        Polarization = snapshot.Polarization is { } polarization
+            ? new(polarization.Unpolarized, polarization.Jx, polarization.Jy, polarization.XPhaseDegrees,
+                polarization.YPhaseDegrees, Enum.Parse<PolarizationReferenceAxis>(polarization.ReferenceAxis)) : new();
+        GlobalReferenceSurfaceNumber = snapshot.GlobalReferenceSurfaceNumber;
         Environment.MatchRefractiveIndexData = snapshot.Environment?.MatchRefractiveIndexData ?? true;
         Environment.TemperatureCelsius = snapshot.Environment?.TemperatureCelsius ?? 20.0;
         Environment.PressureAtmospheres = snapshot.Environment?.PressureAtmospheres ?? 1.0;
@@ -654,7 +687,10 @@ public sealed class Optic
                 YAngleDegrees = field.YAngleDegrees,
                 Weight = field.Weight,
                 VignetteFactorX = field.VignetteFactorX,
-                VignetteFactorY = field.VignetteFactorY
+                VignetteFactorY = field.VignetteFactorY,
+                VignetteDecenterX = field.VignetteDecenterX,
+                VignetteDecenterY = field.VignetteDecenterY,
+                VignetteAngleDegrees = field.VignetteAngleDegrees
             });
         }
 
@@ -683,8 +719,10 @@ public sealed class Optic
                 Material = surface.Material,
                 Coating = surface.Coating,
                 SemiDiameter = surface.SemiDiameter,
+                ChipZone = surface.ChipZone,
                 MechanicalSemiDiameterSolveCode = surface.MechanicalSemiDiameterSolveCode,
                 Conic = surface.Conic,
+                ThermalExpansionPpmPerC = surface.ThermalExpansionPpmPerC,
                 IsStop = surface.IsStop,
                 IsReflective = surface.IsReflective,
                 RadiusVariable = surface.RadiusVariable,
@@ -763,6 +801,7 @@ public sealed class Optic
         Solves.KeepImageAtBackFocus = snapshot.SolveSettings?.KeepImageAtBackFocus ?? true;
 
         MeritFunctionOperands.Clear();
+        var availableSurfaceNumbers = SurfaceGroup.Items.Select(surface => surface.Number).ToHashSet();
         foreach (var operand in snapshot.MeritOperands ?? new List<MeritOperandSnapshot>())
         {
             MeritFunctionOperands.Add(new MeritOperandDefinition
@@ -786,12 +825,18 @@ public sealed class Optic
                 SpatialFrequency = operand.SpatialFrequency,
                 IgnoreLateralColor = operand.IgnoreLateralColor,
                 PolychromaticReference = operand.PolychromaticReference,
-                CompatibilityOnly = operand.CompatibilityOnly,
+                CompatibilityOnly = operand.CompatibilityOnly
+                    && (!ZemaxOperandRegistry.TryGet(operand.Type, out var descriptor)
+                        || descriptor.SupportLevel != ZemaxOperandSupportLevel.Executable
+                        || !OpticSnapshotValidator.CanUpgradeMeritOperand(operand, availableSurfaceNumbers, Fields.Count, Wavelengths.Count, SurfaceGroup.Items)),
                 ZemaxIntegerParameters = operand.ZemaxIntegerParameters?.ToArray() ?? [],
                 ZemaxDataParameters = operand.ZemaxDataParameters?.ToArray() ?? []
             });
         }
     }
+
+    internal Optic CreateMeritEvaluationCopy() =>
+        CreateFromSnapshot(ToSnapshot() with { MeritOperands = [] }, this, validate: false);
 
     public static Optic FromSnapshot(OpticSnapshot snapshot)
     {
@@ -851,6 +896,8 @@ public sealed class Optic
 
         public OpticalEnvironment Environment { get; } = new();
 
+        public SystemPolarization Polarization { get; set; } = new();
+
         public IApodizationModel? Apodization { get; set; }
 
         public MaterialRegistry Materials { get; set; } = new();
@@ -866,6 +913,8 @@ public sealed class Optic
         public bool RayAimingEnabled { get; set; }
 
         public bool ImageSpaceAfocal { get; set; }
+
+        public int GlobalReferenceSurfaceNumber { get; set; } = 1;
 
         public ObservableCollection<Wavelength> Wavelengths { get; } = new();
 

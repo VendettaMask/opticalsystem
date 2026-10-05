@@ -472,11 +472,13 @@ public sealed class ZemaxImportTests
                 .Distinct(StringComparer.Ordinal)
                 .Count());
         Assert.Equal(
-            124,
+            341,
             ZemaxOperandRegistry.Descriptors.Count(
                 descriptor => descriptor.SupportLevel == ZemaxOperandSupportLevel.Executable));
-        Assert.True(ZemaxOperandRegistry.TryGet("ABCD", out var descriptor));
-        Assert.Equal(ZemaxOperandSupportLevel.CompatibilityOnly, descriptor.SupportLevel);
+        Assert.True(ZemaxOperandRegistry.TryGet("DISA", out var descriptor));
+        Assert.Equal(ZemaxOperandSupportLevel.Executable, descriptor.SupportLevel);
+        Assert.Equal(8, descriptor.Parameters.Count);
+        Assert.Equal(ZemaxOperandSupportLevel.CompatibilityOnly, ZemaxOperandRegistry.Get("DISC").SupportLevel);
         var thicknessDescriptor = ZemaxOperandRegistry.Get("TTHI");
         Assert.Equal(ZemaxOperandSupportLevel.Executable, thicknessDescriptor.SupportLevel);
         Assert.Equal(new[] { "Int1", "Int2", "Data1", "Data2", "Data3", "Data4" }, thicknessDescriptor.ParameterSlots);
@@ -487,7 +489,7 @@ public sealed class ZemaxImportTests
         Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get("MXEG").SupportLevel);
         Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get("PMAG").SupportLevel);
         Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get("PETZ").SupportLevel);
-        Assert.Equal(ZemaxOperandSupportLevel.CompatibilityOnly, ZemaxOperandRegistry.Get("DIMX").SupportLevel);
+        Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get("DIMX").SupportLevel);
         Assert.True(ZemaxOperandRegistry.Get("MXEG").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
         Assert.True(ZemaxOperandRegistry.Get("PMAG").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Wavelength));
         Assert.True(ZemaxOperandRegistry.Get("PETZ").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Wavelength));
@@ -542,7 +544,7 @@ public sealed class ZemaxImportTests
         Assert.True(ZemaxOperandRegistry.Get("MXAB").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.EndSurface));
         Assert.True(ZemaxOperandRegistry.Get("POWR").UsesSlotAs("Int1", ZemaxOperandParameterValueKind.Surface));
         Assert.True(ZemaxOperandRegistry.Get("POWR").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Wavelength));
-        Assert.Equal(ZemaxOperandSupportLevel.CompatibilityOnly, ZemaxOperandRegistry.Get("EFNO").SupportLevel);
+        Assert.Equal(ZemaxOperandSupportLevel.Executable, ZemaxOperandRegistry.Get("EFNO").SupportLevel);
         Assert.True(ZemaxOperandRegistry.Get("EFNO").UsesSlotAs("Int1", ZemaxOperandParameterValueKind.Integer));
         Assert.True(ZemaxOperandRegistry.Get("EFNO").UsesSlotAs("Data1", ZemaxOperandParameterValueKind.Field));
         Assert.True(ZemaxOperandRegistry.TryGet("CARD", out _));
@@ -569,7 +571,7 @@ public sealed class ZemaxImportTests
               DISZ 100
             SURF 1
               DISZ 0
-            ABCD 11 12 1.25 -2.5 3.75 -4.125 5 6 0 0
+            DISA 11 12 1.25 -2.5 3.75 -4.125 5 6 0 0
             """;
 
         var optic = OpticalFormatCatalog.Import(source, ".zmx");
@@ -604,7 +606,7 @@ public sealed class ZemaxImportTests
               STOP
               DISZ 0
             CONF 2 0 0 0 0 0 0 0 0 0
-            ABCD 1 1 0 0 0 0 1 1 0 0
+            DISA 1 1 0 0 0 0 1 1 0 0
             """;
 
         var optic = OpticalFormatCatalog.Import(source, ".zmx");
@@ -619,7 +621,7 @@ public sealed class ZemaxImportTests
             },
             operand =>
             {
-                Assert.Equal("ABCD", operand.Type);
+                Assert.Equal("DISA", operand.Type);
                 Assert.False(operand.Enabled);
                 Assert.Equal(1, operand.Surface);
                 Assert.Equal(1, operand.Wavelength);
@@ -1050,7 +1052,7 @@ public sealed class ZemaxImportTests
               DISZ 100
             SURF 1
               DISZ 0
-            ABCD 1 15 0 0 0 0 0.1 1 0 0
+            DISA 1 15 0 0 0 0 0.1 1 0 0
             """;
 
         var optic = OpticalFormatCatalog.Import(source, ".zmx");
@@ -1060,7 +1062,7 @@ public sealed class ZemaxImportTests
         var restored = Optic.FromSnapshot(snapshot);
         var operand = Assert.Single(restored.MeritFunctionOperands);
 
-        Assert.Equal("ABCD", operand.Type);
+        Assert.Equal("DISA", operand.Type);
         Assert.False(operand.Enabled);
         Assert.Equal(1, operand.Surface);
         Assert.Equal(15, operand.Wavelength);
@@ -1166,8 +1168,8 @@ public sealed class ZemaxImportTests
             Assert.False(operand.CompatibilityOnly);
         });
         var distortion = optic.MeritFunctionOperands.Single(operand => operand.Type == "DIMX");
-        Assert.False(distortion.Enabled);
-        Assert.True(distortion.CompatibilityOnly);
+        Assert.True(distortion.Enabled);
+        Assert.False(distortion.CompatibilityOnly);
 
         var thickness = optic.MeritFunctionOperands[1];
         Assert.True(thickness.Enabled);
@@ -1381,7 +1383,10 @@ public sealed class ZemaxImportTests
         Assert.True(double.IsFinite(evaluations["EXPP"].Value));
         Assert.True(double.IsFinite(evaluations["EXPD"].Value));
         Assert.True(evaluations["ISNA"].Value >= 0);
-        Assert.Equal(evaluations["ISFN"].Value, evaluations["SFNO"].Value, precision: 12);
+        // This thickness fixture has no valid full-pupil real ray through its steep conic.
+        // SFNO must now report that failure rather than reuse a paraxial system F number.
+        Assert.Contains("全瞳", evaluations["SFNO"].Error);
+        Assert.True(double.IsPositiveInfinity(evaluations["SFNO"].Contribution));
         Assert.Equal(evaluations["ISFN"].Value, evaluations["WFNO"].Value, precision: 12);
         Assert.Equal(4, evaluations["CTLT"].Value, precision: 12);
         Assert.Equal(4, evaluations["CTVA"].Value, precision: 12);
@@ -1418,7 +1423,7 @@ public sealed class ZemaxImportTests
         Assert.Equal(3, evaluations["XNET"].Value, precision: 12);
         Assert.Equal(curvedAirEdgeThickness, evaluations["XXET"].Value, precision: 12);
         Assert.Equal(10, evaluations["TGTH"].Value, precision: 12);
-        Assert.All(evaluations.Values, evaluation => Assert.Empty(evaluation.Error));
+        Assert.All(evaluations.Where(pair => pair.Key != "SFNO"), pair => Assert.Empty(pair.Value.Error));
     }
 
     [Fact]
@@ -1553,7 +1558,7 @@ public sealed class ZemaxImportTests
     }
 
     [Fact]
-    public void ZemaxPetzvalOperandUsesAnalysisEngineWhileDimxRemainsCompatibilityOnly()
+    public void ZemaxPetzvalAndDimxExecuteThroughSharedCore()
     {
         var optic = Optic.CreateCookeTriplet();
         var petzval = new MeritOperandDefinition
@@ -1567,7 +1572,6 @@ public sealed class ZemaxImportTests
         var dimx = new MeritOperandDefinition
         {
             Type = "DIMX",
-            CompatibilityOnly = true,
             Wavelength = 1,
             ZemaxIntegerParameters = new[] { 0, 1 },
             Target = 1,
@@ -1579,9 +1583,9 @@ public sealed class ZemaxImportTests
 
         Assert.True(double.IsFinite(petzvalEvaluation.Value));
         Assert.Empty(petzvalEvaluation.Error);
-        Assert.True(double.IsNaN(dimxEvaluation.Value));
-        Assert.True(double.IsPositiveInfinity(dimxEvaluation.Contribution));
-        Assert.Contains("not executable", dimxEvaluation.Error, StringComparison.OrdinalIgnoreCase);
+        Assert.True(double.IsFinite(dimxEvaluation.Value));
+        Assert.True(double.IsFinite(dimxEvaluation.Contribution));
+        Assert.Empty(dimxEvaluation.Error);
     }
 
     [Fact]

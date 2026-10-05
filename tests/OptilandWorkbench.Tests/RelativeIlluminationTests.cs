@@ -143,6 +143,7 @@ public sealed class RelativeIlluminationTests
         Assert.Contains(parameters, item => item.Key == "WavelengthNumber");
         Assert.Contains(parameters, item => item.Key == "ScanDirection");
         Assert.Contains(parameters, item => item.Key == "RemoveVignettingFactors");
+        Assert.Contains(parameters, item => item.Key == "UsePolarization");
 
         var view = connector.BuildAnalysisView("相对照度", new Dictionary<string, string>
         {

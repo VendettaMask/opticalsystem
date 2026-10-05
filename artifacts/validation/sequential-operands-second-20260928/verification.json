@@ -1,0 +1,76 @@
+{
+  "date": "2026-09-28",
+  "scope": "Second batch: 20 paraxial, manufacturing and element EFL operands",
+  "registered": 383,
+  "executable_before": 152,
+  "executable_after": 172,
+  "compatibility_only_after": 211,
+  "added_codes": [
+    "BLTH",
+    "DMGT",
+    "DMLT",
+    "DMVA",
+    "EFLA",
+    "MNDT",
+    "MXDT",
+    "PANA",
+    "PANB",
+    "PANC",
+    "PARA",
+    "PARB",
+    "PARC",
+    "PARR",
+    "PARX",
+    "PARY",
+    "PARZ",
+    "PATX",
+    "PATY",
+    "YNIP"
+  ],
+  "verification": {
+    "debug": {
+      "total": 391,
+      "passed": 391,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 104,
+      "trx": "second-batch-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 391,
+      "passed": 391,
+      "failed": 0,
+      "skipped": 0,
+      "new_operand_tests": 104,
+      "trx": "second-batch-release.trx",
+      "log": "release.log"
+    }
+  },
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "external_reference": "Existing committed Zemax fixtures only; no new per-operand OpticStudio numerical or native slot capture for this batch",
+  "historical_reference": "Frozen historical assets unchanged",
+  "not_performed": [
+    "full product suite",
+    "full external comparison matrix",
+    "new Zemax captures",
+    "native desktop walkthrough",
+    "installer validation"
+  ],
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Services/Paraxial.RayData.cs": "70ac622d38cf0d7e618bf506ac0ef02395fc2161e47990e5f2fbb842f55f5906",
+    "src/OptilandWorkbench.Core/Services/SurfaceManufacturingMetrics.cs": "de7b2327bfb3ab293f9b6eeab0502b2548d4b0baaaf279e7392ec41d44a235c0",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.ParaxialManufacturing.cs": "8f79250a732c3f4d9cefd0ed7a23a7595f03a5ad71a9f4c88a633c9f36d7d3d6",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "6db4acba6e6b6fcc7b1b1dd18570247c1df8a2b07dc714cece3b73b2f5711cfd",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "e9df951ead624ad0f2c9e6a7ce384052305289e3a9df98a266330caaf51c6c18",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "0b9c9d7afad64d66fdc5007ca6c9c20548eb24023c6b54da45e0b984f4f0f0b9",
+    "tests/OptilandWorkbench.Tests/ParaxialManufacturingOperandTests.cs": "4b8659ee26af16f7c513d06fc4760ce19d19ce16f0faead3aea093e656702d4f",
+    "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs": "57fb7879425a2bb8e6126ec7ab395b99bbb76531a75be263f2728a2df1ad28d0"
+  },
+  "format_whitespace_verify": "passed",
+  "git_diff_check": "passed",
+  "documentation_second_batch_links_checked": 30
+}

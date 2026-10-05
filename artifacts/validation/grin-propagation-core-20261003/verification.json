@@ -1,0 +1,663 @@
+{
+  "recordedAt": "2026-10-03T02:35:38.060405+00:00",
+  "scope": "Shared C# GRIN 1–4 spatial profiles and continuous geometric propagation foundation; not connected to prescriptions or operands",
+  "operandStatus": {
+    "registered": 383,
+    "executable": 302,
+    "compatibilityOnly": 81,
+    "knownPending": 74,
+    "unverifiedDefinitions": 2,
+    "unused": 5,
+    "localExtensions": 4,
+    "changedThisBatch": false
+  },
+  "verification": {
+    "debug": {
+      "combinedBeforeFinalCoordinateFix": {
+        "trx": {
+          "path": "artifacts/validation/grin-propagation-core-20261003/combined-debug.trx",
+          "sha256": "090a6f4acfc566dfa51c55a8849cb5b18bb6efd3915483d26b52276014d424a4",
+          "bytes": 3864909
+        },
+        "counters": {
+          "total": 2594,
+          "executed": 2594,
+          "passed": 2594,
+          "failed": 0,
+          "error": 0,
+          "timeout": 0,
+          "aborted": 0,
+          "inconclusive": 0,
+          "passedButRunAborted": 0,
+          "notRunnable": 0,
+          "notExecuted": 0,
+          "disconnected": 0,
+          "warning": 0,
+          "completed": 0,
+          "inProgress": 0,
+          "pending": 0
+        },
+        "newTests": 34,
+        "previousTestsPreserved": 2560,
+        "log": {
+          "path": "artifacts/validation/grin-propagation-core-20261003/debug.log",
+          "sha256": "18e2b9b0c8877e718e846c9fd331b003975b9157283fff28fc93ee4bf8668d32",
+          "bytes": 1411
+        },
+        "analyticCases": 11,
+        "analyticEvidence": {
+          "path": "artifacts/validation/grin-propagation-core-20261003/analytic-debug.json",
+          "sha256": "842b577b46495f9867389e88d2bb63b1eb1ba2b2387b90bc7b00255264df203d",
+          "bytes": 73638
+        },
+        "analyticMaximumErrors": {
+          "positionError": 3.928992630458348e-11,
+          "directionError": 1.1588815370880744e-12,
+          "pathError": 3.5418779020801594e-11,
+          "opticalPathError": 4.601119485414529e-11
+        }
+      },
+      "finalGrinService": {
+        "trx": {
+          "path": "artifacts/validation/grin-propagation-core-20261003/grin-final-debug.trx",
+          "sha256": "697d499121b40e12836557ac98d39e845e9014b92809a52755773919dca071c6",
+          "bytes": 100503
+        },
+        "counters": {
+          "total": 36,
+          "executed": 36,
+          "passed": 36,
+          "failed": 0,
+          "error": 0,
+          "timeout": 0,
+          "aborted": 0,
+          "inconclusive": 0,
+          "passedButRunAborted": 0,
+          "notRunnable": 0,
+          "notExecuted": 0,
+          "disconnected": 0,
+          "warning": 0,
+          "completed": 0,
+          "inProgress": 0,
+          "pending": 0
+        },
+        "newTests": 36,
+        "previousTestsPreserved": 0,
+        "log": {
+          "path": "artifacts/validation/grin-propagation-core-20261003/final-debug.log",
+          "sha256": "da71ee8de152c2459b477f6e2cacc73946e4b37d7feb360f108900fa37a4a9ed",
+          "bytes": 1410
+        },
+        "analyticCases": 11,
+        "analyticEvidence": {
+          "path": "artifacts/validation/grin-propagation-core-20261003/analytic-final-debug.json",
+          "sha256": "555df65c76e686d1effa62b115cc10e776916d736820d55c5881a15aa04dfb39",
+          "bytes": 73638
+        },
+        "analyticMaximumErrors": {
+          "positionError": 3.928992630458348e-11,
+          "directionError": 1.1588815370880744e-12,
+          "pathError": 3.5418779020801594e-11,
+          "opticalPathError": 4.601119485414529e-11
+        }
+      }
+    },
+    "release": {
+      "combinedBeforeFinalCoordinateFix": {
+        "trx": {
+          "path": "artifacts/validation/grin-propagation-core-20261003/combined-release.trx",
+          "sha256": "fa06100c45cc944f83c82375cbbc3bb6e305917adcbc59f28aa17793d31b7e23",
+          "bytes": 3875273
+        },
+        "counters": {
+          "total": 2594,
+          "executed": 2594,
+          "passed": 2594,
+          "failed": 0,
+          "error": 0,
+          "timeout": 0,
+          "aborted": 0,
+          "inconclusive": 0,
+          "passedButRunAborted": 0,
+          "notRunnable": 0,
+          "notExecuted": 0,
+          "disconnected": 0,
+          "warning": 0,
+          "completed": 0,
+          "inProgress": 0,
+          "pending": 0
+        },
+        "newTests": 34,
+        "previousTestsPreserved": 2560,
+        "log": {
+          "path": "artifacts/validation/grin-propagation-core-20261003/release.log",
+          "sha256": "0e79e5d146176ab72ae7282fecf24529cd16201a62f9c9682c130c92e3af830a",
+          "bytes": 1426
+        },
+        "analyticCases": 11,
+        "analyticEvidence": {
+          "path": "artifacts/validation/grin-propagation-core-20261003/analytic-release.json",
+          "sha256": "0ee7d19ed2cb9415647737d31abd42a29ab5aa9a4c50ebd5effe13aa4d229110",
+          "bytes": 73638
+        },
+        "analyticMaximumErrors": {
+          "positionError": 3.928992630458348e-11,
+          "directionError": 1.1588815370880744e-12,
+          "pathError": 3.5418779020801594e-11,
+          "opticalPathError": 4.601119485414529e-11
+        }
+      },
+      "finalGrinService": {
+        "trx": {
+          "path": "artifacts/validation/grin-propagation-core-20261003/grin-final-release.trx",
+          "sha256": "7c9321cf9477342af5ee5d352b534483baa92754d66c8b03dcab8e51fc95662e",
+          "bytes": 100647
+        },
+        "counters": {
+          "total": 36,
+          "executed": 36,
+          "passed": 36,
+          "failed": 0,
+          "error": 0,
+          "timeout": 0,
+          "aborted": 0,
+          "inconclusive": 0,
+          "passedButRunAborted": 0,
+          "notRunnable": 0,
+          "notExecuted": 0,
+          "disconnected": 0,
+          "warning": 0,
+          "completed": 0,
+          "inProgress": 0,
+          "pending": 0
+        },
+        "newTests": 36,
+        "previousTestsPreserved": 0,
+        "log": {
+          "path": "artifacts/validation/grin-propagation-core-20261003/final-release.log",
+          "sha256": "cb402efbf97fc487644a7862116be0fb5bf77223304f7577f9a9e942c3265d16",
+          "bytes": 1426
+        },
+        "analyticCases": 11,
+        "analyticEvidence": {
+          "path": "artifacts/validation/grin-propagation-core-20261003/analytic-final-release.json",
+          "sha256": "c98d214cab017e42782a50e700ce57d20f66b69724013c1721499e0ba41d858b",
+          "bytes": 73638
+        },
+        "analyticMaximumErrors": {
+          "positionError": 3.928992630458348e-11,
+          "directionError": 1.1588815370880744e-12,
+          "pathError": 3.5418779020801594e-11,
+          "opticalPathError": 4.601119485414529e-11
+        }
+      }
+    }
+  },
+  "combinedTestFilter": {
+    "path": "artifacts/validation/grin-propagation-core-20261003/test-filter.txt",
+    "sha256": "2f21e10fb1d31496dc09494db519eea8237835cf88c91a76c1bf45e608fd82f3",
+    "bytes": 5945
+  },
+  "finalTestFilter": "FullyQualifiedName~GradientIndexIntegrationTests",
+  "verificationScope": "2594 combined cases passed before the final large-coordinate fix. All 36 GRIN service cases passed on final sources in both configurations; the 27 prior-stage sources are unchanged. No single 2596-case run is claimed.",
+  "baselineIntegrity": [
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/004-fieldcurvatureanddistortion/data.json",
+      "sha256": "a93a1aeff36e6bf4856ff41ad22844022b8dcc6cbde2a8038853da1d3090bd73",
+      "bytes": 63100,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.txt",
+      "sha256": "dbb741fc9f07d6d55a9d7d6acdad2bfe91f45e3b5b365bb14c51e1d6b8f2a6f0",
+      "bytes": 23634,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/012-zernikeannularcoefficients/data.txt",
+      "sha256": "20b1dd6b22299414025f02ee7ce212e3486eb8923a976d72e529c7e55b42b20f",
+      "bytes": 1926,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/012-zernikeannularcoefficients/settings.cfg",
+      "sha256": "6648ac23c0aff14e629ad58cb96a28d92aeeb17fed53bf46d902d8d244fa1746",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/014-zernikefringecoefficients/data.txt",
+      "sha256": "b655e9984da1847e9d6390fc7982a8f15c726342e8ee4238a3ac0709ae422d6b",
+      "bytes": 5366,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/014-zernikefringecoefficients/settings.cfg",
+      "sha256": "c1bb9051068066c2be53d10c6aa57d274b3f0e8587c1c26fd001a90b8417da51",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/015-zernikestandardcoefficients/data.txt",
+      "sha256": "3c692693073272462303091e971c7c747196917cae9a5849d65f65508745748d",
+      "bytes": 6084,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/015-zernikestandardcoefficients/settings.cfg",
+      "sha256": "eb7b1cbb3f037d9d8a565c2982b9711562e4cc507a4762d4b3acbd6bc94f0c7e",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/025-huygensmtfvsfield/data.json",
+      "sha256": "9b00c750481cb73adb741f47c00ca66232dd3374765e2fa68a59bca1c6c99323",
+      "bytes": 196349,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/data.json",
+      "sha256": "ef6a44cbe999be4ae54c8d2b8dc3854434e0565b9bd28266138eeebcc900f57a",
+      "bytes": 168092,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/settings.cfg",
+      "sha256": "afc322d75c819f36e8c1aece2d4600c3fbdc687a4e0e6d8badb4e0e646917790",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/028-huygensthroughfocusmtf/data.json",
+      "sha256": "dc115e8bd603af3b3a1686fe7c2c0ec4530d9220d235c5af1ce0cd9004147240",
+      "bytes": 54324,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/data.json",
+      "sha256": "1ddb61139e42585f144329c430a85ebc7685eb92416783cf85f653822cc64eb0",
+      "bytes": 34525,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/settings.cfg",
+      "sha256": "5ac71deed1902825151e0e78d082850bf0f28ac4b9c2f16934a2003ad9980f69",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/034-diffractionencircledenergy/data.json",
+      "sha256": "b6b2928cd6cbc41bb078f38598065be4ba6977e0c4d29c2a040ce62c640af48e",
+      "bytes": 186127,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/034-diffractionencircledenergy/settings.cfg",
+      "sha256": "77f92a4185b82ebf31f8f27419b921ff52f1909ec65ce67074ba2680978b1a0d",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/049-rmsfield/data.json",
+      "sha256": "7badd81b3adbd9bd694e4cabfce3d58e45c863866ed77d4337a33f3321290e87",
+      "bytes": 3403,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/052-rmsfocus/data.json",
+      "sha256": "a90eabe523007f995e10c685622025b34d47c87b25d627e56ddda16020765240",
+      "bytes": 4087,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/055-wavefrontmap/data.json",
+      "sha256": "e9cfe98cfb64ec684976ee786fd33b8844d24995be084941bedbe7537c911e62",
+      "bytes": 115435,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/data.json",
+      "sha256": "21a2b9517dcb9c4e479e2b8e221a8ba334c3a35a46b654d39575b7d0338f534b",
+      "bytes": 2821,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/settings.cfg",
+      "sha256": "771862ac443a583fce03458d116d98f2f1867814fc2ac33c0fbce05fcc4e89ac",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/078-sagtable/data.json",
+      "sha256": "273504ea8c481b3771aba09d196e57b801faaefb8d61cccd0c6fbd4a5cd479be",
+      "bytes": 517,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/078-sagtable/data.txt",
+      "sha256": "f155683d9f0edda800920c9dc39d721b02d4440b63cead9836649d2af101a9f1",
+      "bytes": 12130,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/078-sagtable/settings.cfg",
+      "sha256": "6476bb1a44e9310cf8d7fc7be55a99c89f4a2a5304cd979f7a3f2cde83c4c5c0",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/078-sagtable/status.json",
+      "sha256": "91d32a5b0a49bae1faab1238dcfe68597e128b2b22ad0b972188590f837769d1",
+      "bytes": 690,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/139-contrastloss/data.json",
+      "sha256": "f38aa135ac2532b3396dce7f6d85dfc38e0d1fea87f3c2cfb60e4bd6341b4955",
+      "bytes": 19112,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/139-contrastloss/data.txt",
+      "sha256": "b4625f7f2ed64cfa04f1c8bbcede377c134e64ab113d7c07cf877cd4c21f02f0",
+      "bytes": 20732,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/139-contrastloss/settings.cfg",
+      "sha256": "cfcb2b2050669448eae928268cbdf3333f7fb68afbf860aafd8b43ff85bf40c7",
+      "bytes": 18448,
+      "byteEqualHead": true
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+      "sha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+      "bytes": 68676,
+      "byteEqualHead": true
+    }
+  ],
+  "unchangedPriorStageSources": [
+    {
+      "path": "src/OptilandWorkbench.Core/Services/SurfaceDirectionalSag.cs",
+      "sha256": "aaee04bf3b68b7f38bfd2228c893f0a02ea83c3941dad5eb6d271c47f3429265",
+      "bytes": 3941
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Domain/OpticalSurface.cs",
+      "sha256": "16bcc19d129c713296bc3994c46786ba8a8c3126ae246c996b1f6bdeb0701915",
+      "bytes": 19321
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Optic.cs",
+      "sha256": "f5d554b796e66c360ab04016f0f7fc1151f0470d883105504c9ab0fcbf70bc3e",
+      "bytes": 34208
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Serialization/OpticSnapshot.cs",
+      "sha256": "9a1c116391a90bd62d81b45783e20e6e6a197c92521332dbb4e3014885f52c5d",
+      "bytes": 4053
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs",
+      "sha256": "dd6f5d4b392f7ad3de70c563125c8670661a7d4edf0880595e2aa0c01d998591",
+      "bytes": 49688
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/SurfaceManufacturingMetrics.cs",
+      "sha256": "4c6709590be8c4c0636faa053287474611efc3a15c1f166f49710dfc29766c8e",
+      "bytes": 6120
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/ElementVolumeMetrics.cs",
+      "sha256": "e42601eec331e7edb69dfb73b85a432f6f20bf770783c01ea3a3774171479170",
+      "bytes": 8006
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/RayEnvelopeApertureSizing.cs",
+      "sha256": "2ad91c6d31b2c89db9262fbc8d1dcd6263978812b4ab374a1f3cfb85c71c5178",
+      "bytes": 9000
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/FileIO/CadLensMeshBuilder.cs",
+      "sha256": "8914099264ed260f2dea988f77f86ca130f3786d6677d5f5cd2943686f2d5cf0",
+      "bytes": 33050
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Visualization/VisualizationModels.cs",
+      "sha256": "12df96cc7c3297ae2323562153e5d65a012cf0ad72df8d67a9398e265f9fad3e",
+      "bytes": 41967
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Optimization/MeritFunction.SurfacePoints.cs",
+      "sha256": "0ff1fa6f4a564df9961b9041ad6f98b243bef7b9f1d416f8c3fbc37ffda70c86",
+      "bytes": 2353
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs",
+      "sha256": "2a6b739dd02a764776744bdf5bbe2610f5136d886ece66df4f472b527317952a",
+      "bytes": 157211
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs",
+      "sha256": "1efa4614e402b4509acde8644dd6d1746ef838731cd2c51f724c1cc85bd76c42",
+      "bytes": 59119
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/FileIO/ZemaxZmxReader.cs",
+      "sha256": "5a9b90c3f0cb158e63e55e43061bcbe89fd9e79ea87bf80b52499bb1faad9ec6",
+      "bytes": 74303
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/FileIO/CommercialFormatIO.cs",
+      "sha256": "c56ce42fb2f40afe6a6d2b6d837613227e099c29cfd58ef7ea1d188ee93478ed",
+      "bytes": 30950
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Contracts/WorkspaceContracts.cs",
+      "sha256": "baf6e038f918c7893301567d97ea69061da768a9fda4600be60449252d90b0d3",
+      "bytes": 43456
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Services/PrescriptionService.cs",
+      "sha256": "2fa30923c9d0fdbf196b5fabc70e6ba83c984188af5ef4222bea4e8231e5f8d9",
+      "bytes": 14023
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Services/Mapping/WorkbenchMapper.cs",
+      "sha256": "0cfe6f4cb7f11ebc0a48490f91d46e689daafe1bbdbbce4380bcb7bbd77f0bb5",
+      "bytes": 16394
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs",
+      "sha256": "e7a1b34c41a191650fda333b262549a8c23be6743b0f1011cf536facf38a92d1",
+      "bytes": 54615
+    },
+    {
+      "path": "src/OptilandWorkbench.App/ViewModels/EditorRows.cs",
+      "sha256": "848b937222f3260ec8cf5ce233e7fdf66ab6ccb17d9b5e6f1457772d822e47f3",
+      "bytes": 17660
+    },
+    {
+      "path": "src/OptilandWorkbench.App/Panels/LensEditorPanel.cs",
+      "sha256": "af595c920d191ef634a594fc4f9dba5c1484f98852f50937d4b0e373bc86e3dd",
+      "bytes": 20362
+    },
+    {
+      "path": "src/OptilandWorkbench.App/Panels/OperandHelpPanel.cs",
+      "sha256": "4d29efe4a9e568f46d4d833f1ef41315f8caf8c873bc75d38c311fc2d157b928",
+      "bytes": 22469
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/DirectionalSagOperandTests.cs",
+      "sha256": "e682111bd9da005572ced12c8ca0f9429906d89bf64f751b3562a63166c7bb52",
+      "bytes": 18748
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/SurfacePointEditorTests.cs",
+      "sha256": "61c79428566ce87e92a507650ea606ef436fb161f95745f655224e55d768ea09",
+      "bytes": 2336
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ParaxialManufacturingOperandTests.cs",
+      "sha256": "e92bd464d0a7bfda686ff06e51c0dee26035d25c5cc121c6a1938971a5f37a83",
+      "bytes": 21514
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/RayEnvelopeApertureSizingTests.cs",
+      "sha256": "2553fc5814a94d4a24418a1d80797e729b0fcd128f0db8c93418ef811992d24b",
+      "bytes": 6561
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs",
+      "sha256": "7e3377bfffb034a2e9a9e2eb5d3789c2d4447ac221ae203f2fcf098db1bfc7c0",
+      "bytes": 112444
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "src/OptilandWorkbench.Core/Materials/SpatialRefractiveIndex.cs",
+      "sha256": "e5864710e7602cb70ebe9d34f96a23a69a588458e226e8162e28f42dbaa64155",
+      "bytes": 8729
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Propagation/GradientIndexRayIntegrator.cs",
+      "sha256": "7fd08356780d7410e89d3ad02d8fe23bb5aaa74e04c6317ed41bee93159157f4",
+      "bytes": 17276
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/GradientIndexIntegrationTests.cs",
+      "sha256": "e9c0a96f729324bdb13cd9673b9a49ea3afc5b90aed667a201a03e8708fc1d5d",
+      "bytes": 21165
+    }
+  ],
+  "documentation": [
+    {
+      "path": "README.md",
+      "sha256": "2a2166589d2c586765957b387520c76ec73e805c8cf539a7e2f9cbb5a4f05d48",
+      "bytes": 32295
+    },
+    {
+      "path": "docs/CURRENT_STATUS.md",
+      "sha256": "65c4c2749d080af795abc4eb2458e362ff2a5ab390d9b13571e634f794d90119",
+      "bytes": 22069
+    },
+    {
+      "path": "docs/BUILD_AND_RELEASE.md",
+      "sha256": "d22a8c236e572ebc97861e8562c23701b3b1aa7a51ecc7cd85fb89b6156155a7",
+      "bytes": 153970
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "sha256": "4e330d4b0e0f61056e8d193122e653efeaf55f81951c2e35fd109738b39b0dc4",
+      "bytes": 32846
+    },
+    {
+      "path": "docs/NUMERICAL_PARITY.md",
+      "sha256": "cdebbcd61398522b52eda5b57da1946863f1eeba5affcd48a872ae2c63767bb1",
+      "bytes": 16896
+    },
+    {
+      "path": "docs/CODE_READING_MAP.md",
+      "sha256": "b0757be081b378c39cb4ea46fee7457b6a18472273ba840ca81c94ce21e205d1",
+      "bytes": 133140
+    },
+    {
+      "path": "docs/ZEMAX_OPERAND_SUPPORT.md",
+      "sha256": "993510362e257c146feaf09e1307cf8e33f64ab91ac41172fc6abd57325995bc",
+      "bytes": 140880
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "846274404941330f064bc49a9f19bbe9953e0a1cc63289f601ae60568b75c999",
+      "bytes": 23607
+    },
+    {
+      "path": "docs/GRIN_CONTINUOUS_PROPAGATION_2026-10-03.md",
+      "sha256": "5633d97df44e1091093715a42687591561c82471d285b1777d255984b0ad5d38",
+      "bytes": 7445
+    }
+  ],
+  "checkedLocalDocumentLinks": 1240,
+  "defaultOutputBinaries": [
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "264408096836c4986bca0e124b935b9ccc2ca03de8c6bea5795b14f3cfb4b9dd",
+      "bytes": 5222912
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll",
+      "sha256": "82315e604a31b28b963af1c0df065b2044b2967742daf2536be9e7557a7ad1d1",
+      "bytes": 993280
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "ab0b816e0c52d07cacf8e2abf943a0b98653d77576392e4de91ad13ff7af850e",
+      "bytes": 25726464
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "df030a4be88c86cec867f81bd5416d452a4171f301755c542fdb17cc03e22a52",
+      "bytes": 5115904
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll",
+      "sha256": "0f1748d4fcfe4f297cd71c4c2e995a5843b4c2e6bd2824058d7f13668ad16ab1",
+      "bytes": 964608
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "3b976f290b7f8a7653f0e5515f391e40dfac87c349852994548dbb95d00dd73a",
+      "bytes": 25650176
+    }
+  ],
+  "initialFailure": {
+    "trx": {
+      "path": "artifacts/validation/grin-propagation-core-20261003/grin-smoke.trx",
+      "sha256": "2f7ea115c0a1955c717c570f574754ec1e94d519819bef5c4fb0b261f5e09010",
+      "bytes": 98924
+    },
+    "passed": 31,
+    "failed": 1,
+    "cause": "A strong-gradient trial step left the positive-index domain before adaptive rejection",
+    "repair": "Typed domain error and bounded step reduction; analytical tolerances unchanged"
+  },
+  "coordinateFailure": {
+    "trx": {
+      "path": "artifacts/validation/grin-propagation-core-20261003/large-coordinates-before.trx",
+      "sha256": "22e7a3add488a18c116d7d2652802040fa613468530647b98d06777674beb64a",
+      "bytes": 9519
+    },
+    "failed": 2,
+    "pathError": 6.99233554488643e-05,
+    "finalPathAndOplTolerance": 3e-09,
+    "repair": "Subtract frame origins before rotating local displacement; avoid absolute-world roundtrip"
+  },
+  "format": {
+    "log": {
+      "path": "artifacts/validation/grin-propagation-core-20261003/format.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "passed": true
+  },
+  "gitDiffCheck": true,
+  "workbenchRecalculation": "Prior 2560 regression cases rerun in each configuration; GRIN service additionally compared with independent analytic solutions",
+  "numericalComparison": "GRIN analytic checks are independent test references, not Zemax native captures or MFE equivalence",
+  "boundaries": [
+    "Not an IMaterial or registered surface",
+    "No prescription, editor, snapshot, file import or MFE integration",
+    "No native GRIN capture",
+    "No dispersion for Gradient 1–4",
+    "Nonzero Gradient 1 radial-linear cusp has index but no differentiable trace",
+    "Arc-length step is not native local-Z step",
+    "Bracketed surface roots do not certify arbitrary multiple roots or interior tangencies",
+    "No intensity, polarization or boundary interaction in this geometric service"
+  ],
+  "notPerformed": [
+    "Full product/laboratory release gate",
+    "New Zemax capture",
+    "UI screenshot review",
+    "Optiland comparison"
+  ],
+  "goalStatus": "active"
+}

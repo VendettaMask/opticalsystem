@@ -1,0 +1,183 @@
+{
+  "date": "2026-10-01",
+  "scope": "Seventeenth batch: isolated ordered primary wavelength, vignetting reset and intermediate image operands",
+  "registered": 383,
+  "executable_before": 271,
+  "executable_after": 274,
+  "compatibility_only_after": 109,
+  "added_codes": [
+    "CVIG",
+    "IMSF",
+    "PRIM"
+  ],
+  "cumulative_added_since_124": 150,
+  "verification": {
+    "debug": {
+      "total": 1730,
+      "passed": 1730,
+      "failed": 0,
+      "skipped": 0,
+      "new_tests": 46,
+      "previous_batch_tests": 1684,
+      "additional_adjacent_tests": 0,
+      "trx": "seventeenth-batch-debug.trx",
+      "log": "debug.log"
+    },
+    "release": {
+      "total": 1730,
+      "passed": 1730,
+      "failed": 0,
+      "skipped": 0,
+      "new_tests": 46,
+      "previous_batch_tests": 1684,
+      "additional_adjacent_tests": 0,
+      "trx": "seventeenth-batch-release.trx",
+      "log": "release.log"
+    }
+  },
+  "default_desktop_outputs_updated": [
+    "Debug",
+    "Release"
+  ],
+  "support_boundaries": {
+    "modes": "PRIM changes primary wave; CVIG clears current X/Y compression factors; IMSF chooses a surface at/after the original stop, or appends a plane at a finite forward paraxial focus. Angle/object-height fields only.",
+    "parameters": "Local PRIM Int1=Wave; IMSF Int1=Surface (zero restores original image), Int2=Refocus. These native mappings have not been captured; ZMX PRIM/IMSF rows stay disabled/read-only and cannot auto-upgrade. CVIG has no active parameters.",
+    "isolation": "Transactional per-batch copies preserve runtime materials. Original optic and cache binding remain untouched on success, failure, skip, end and cancellation. State controls contribute zero and are not numeric row references. Following batches use current prescription.",
+    "persistence": "Native STAROPT and editor round-trip local controls; preserve unverified native imports.",
+    "pending": "CONF/FDMO/FDRE/SVIG, decentered/rotated vignetting, image-height conversion, pre-stop intermediate images, afocal refocus and virtual focus, native column and numerical captures.",
+    "known_residual": "FCGT captured-angle residual remains Difference against unchanged 1e-5 mm accuracy target."
+  },
+  "external_reference": {
+    "integrity": "12 selected committed assets byte-equal HEAD, not full baseline audit.",
+    "recalculation": "Current Core and fixed-file/settings PSF/cross-section/MTF regressions.",
+    "huygens_analysis_comparison": {
+      "debug": {
+        "direction_values": 18,
+        "maximum_absolute_error": 0.011900434932046483,
+        "analysis_regression_budget": 0.03,
+        "status": "WithinRegressionBudget",
+        "native_MFE_parity": "NotVerified"
+      },
+      "release": {
+        "direction_values": 18,
+        "maximum_absolute_error": 0.011900434932046483,
+        "analysis_regression_budget": 0.03,
+        "status": "WithinRegressionBudget",
+        "native_MFE_parity": "NotVerified"
+      }
+    },
+    "existing_distortion_comparison": {
+      "debug": {
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm",
+          "samples": 9
+        },
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm",
+          "samples": 9
+        }
+      },
+      "release": {
+        "FCGS": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.988975810955252e-08,
+          "status": "Pass",
+          "unit": "mm",
+          "samples": 9
+        },
+        "DISG": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        },
+        "FCGT": {
+          "comparison_target": 1e-05,
+          "maximum_absolute_error": 2.1533288104098533e-05,
+          "status": "Difference",
+          "unit": "mm",
+          "samples": 9
+        },
+        "DIMX": {
+          "comparison_target": 2e-05,
+          "maximum_absolute_error": 3.8573423566390375e-08,
+          "status": "Pass",
+          "unit": "percentage_points",
+          "samples": 9
+        }
+      }
+    },
+    "new_native_capture": "None; PRIM/CVIG/IMSF native MFE numerical parity pending; PRIM/IMSF native columns unverified.",
+    "screenshots": "No screenshot review."
+  },
+  "remaining_category_counts_overlap": true,
+  "unique_remaining": 109,
+  "all_operands_completion_goal": "Active, not complete; remaining codes and partial modes still require work",
+  "not_performed": [
+    "full product suite",
+    "laboratory full suites",
+    "full external comparison matrix",
+    "new Zemax captures",
+    "native desktop walkthrough",
+    "screenshot review",
+    "installer validation"
+  ],
+  "historical_reference": "Frozen history untouched; no new Optiland comparisons",
+  "source_sha256": {
+    "src/OptilandWorkbench.Core/Optic.cs": "575b1bf223c93e8cb5fd63e726e84b3787fcc6020e4a0268084f63b58cb1c6d4",
+    "src/OptilandWorkbench.Core/Services/IntermediateImageSystem.cs": "81c37055e707e62ed0fa927f0d334f2daa227dc6a3eaeff73a15ff47f6d65696",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.SystemState.cs": "e4598d61148f6e1bd08d2a6aeec71e85eace5cdcd0cf12bcb4427da9bb1dbd4a",
+    "src/OptilandWorkbench.Core/Optimization/MeritFunction.cs": "02427957d803c02af05462334ba4b34368b782db19754274cbb6b19fcef48949",
+    "src/OptilandWorkbench.Core/Optimization/ZemaxOperandRegistry.cs": "cccd11d291b221c3c0b226d2e7ff69f1f43061ea28983cea01be9824530e2ba2",
+    "src/OptilandWorkbench.Application/Services/MeritOperandReferenceCatalog.cs": "a7a131517938697a8ee2346e2fa86f44f5ca9066cf15e8a8d058222a980de145",
+    "src/OptilandWorkbench.App/Panels/OperandHelpPanel.cs": "8d9cd1e51313a3ccd48f5c27c4db4ddbf77086770d569261e6f5ef90899c0193",
+    "tests/OptilandWorkbench.Tests/ZemaxImportTests.cs": "41f4f7cb0fce08e868dfba52b2ddd023cae0ad1d33a1d0b12f395f9df3adbc5f",
+    "src/OptilandWorkbench.Core/FileIO/ZemaxZmxReader.cs": "251b13ea3cd86b0e9f33da0902a99e9e80329f3a23f3689b4d61f6b1a332710b",
+    "src/OptilandWorkbench.Core/Serialization/OpticSnapshotValidator.cs": "9915bd1e31f0afb745a9e19cf3bd70e3075f59da1ee8546548cbd97d2f63b291",
+    "tests/OptilandWorkbench.Tests/SystemStateOperandTests.cs": "f8cdc4be58eeae8bb15c780c78431a315f73cbf977dd732d9f365b8f6bdbce25"
+  },
+  "selected_capture_sha256": {
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.txt": "dbb741fc9f07d6d55a9d7d6acdad2bfe91f45e3b5b365bb14c51e1d6b8f2a6f0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/049-rmsfield/data.json": "7badd81b3adbd9bd694e4cabfce3d58e45c863866ed77d4337a33f3321290e87",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/052-rmsfocus/data.json": "a90eabe523007f995e10c685622025b34d47c87b25d627e56ddda16020765240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/055-wavefrontmap/data.json": "e9cfe98cfb64ec684976ee786fd33b8844d24995be084941bedbe7537c911e62",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/data.json": "ef6a44cbe999be4ae54c8d2b8dc3854434e0565b9bd28266138eeebcc900f57a",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/025-huygensmtfvsfield/data.json": "9b00c750481cb73adb741f47c00ca66232dd3374765e2fa68a59bca1c6c99323",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/028-huygensthroughfocusmtf/data.json": "dc115e8bd603af3b3a1686fe7c2c0ec4530d9220d235c5af1ce0cd9004147240",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/004-fieldcurvatureanddistortion/data.json": "a93a1aeff36e6bf4856ff41ad22844022b8dcc6cbde2a8038853da1d3090bd73",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/settings.cfg": "afc322d75c819f36e8c1aece2d4600c3fbdc687a4e0e6d8badb4e0e646917790",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/data.json": "1ddb61139e42585f144329c430a85ebc7685eb92416783cf85f653822cc64eb0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/settings.cfg": "5ac71deed1902825151e0e78d082850bf0f28ac4b9c2f16934a2003ad9980f69"
+  },
+  "default_binary_sha256": {
+    "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll": "ce4f72f5e0499608a3010ae449d780a2e56fa882246c7ff4313f6fd5483f7e48",
+    "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll": "6d7a55598aba89736872b249bbce4a48bc78e46296c51aaede1407dba59b31eb",
+    "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll": "82792a43e8d59f371f533b0fdd4eafccc064fd044a48d589d61448d239ac250e",
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "beadf6627d98a07b66f763726118f5443f1e33a75c7e2b75b870379b1c006ed4",
+    "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll": "21c6fc903c31c2f2068a64af12fd4162ef23aa2cc6f0c41666c0163cedb23625",
+    "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll": "c9ee06b89c7bf9f353462f2031649945869b7b22b5d79cc7356a23447afae230"
+  },
+  "new_document_links_checked": 39
+}

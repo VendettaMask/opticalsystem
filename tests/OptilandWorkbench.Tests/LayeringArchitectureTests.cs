@@ -295,6 +295,7 @@ public sealed class LayeringArchitectureTests
             "Controls/SeidelDiagramControl.cs",
             "Controls/SpectralColorMap.cs",
             "Controls/WavefrontSurfaceControl.cs",
+            "Laboratories/AssemblyReticleView.cs",
             "Panels/Analysis/AnalysisPanel.Plots.cs",
             "Panels/Analysis/AnalysisSemanticColors.cs",
             "Panels/MeritOperandRowPalette.cs",

@@ -14,7 +14,7 @@ using OptilandWorkbench.App.Theming;
 
 namespace OptilandWorkbench.App.Panels;
 
-public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySettingsAware
+public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySettingsAware
 {
     private readonly IPrescriptionService _prescription;
     private readonly IMaterialCatalogService _materials;
@@ -108,6 +108,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
                 Section("系统孔径", BuildApertureSection(), expanded: true),
                 Section("视场", BuildFieldSection(addField), expanded: true),
                 Section("波长", BuildWavelengthSection(addWavelength)),
+                Section("偏振", BuildPolarizationSection()),
                 Section("材料库", BuildMaterialLibrarySection()),
                 Section("环境", BuildEnvironmentSection()),
                 Section("高级", BuildAdvancedSection())
@@ -321,6 +322,8 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
     private static void ConfigureGlassCatalogList(ListBox listBox)
     {
         ScrollViewer.SetHorizontalScrollBarVisibility(listBox, Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled);
+        // Keep wheel/keyboard scrolling without a scrollbar covering the catalog cards.
+        ScrollViewer.SetVerticalScrollBarVisibility(listBox, Avalonia.Controls.Primitives.ScrollBarVisibility.Hidden);
         listBox.ItemTemplate = new FuncDataTemplate<string>((catalog, _) => new TextBlock
         {
             Text = catalog ?? string.Empty,
@@ -675,6 +678,9 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         var y = NumberInput(field.Y, -1_000_000, 1_000_000, 0.1);
         var vignetteX = NumberInput(field.VignetteFactorX, -1, 1, 0.05);
         var vignetteY = NumberInput(field.VignetteFactorY, -1, 1, 0.05);
+        var decenterX = NumberInput(field.VignetteDecenterX, -1_000_000, 1_000_000, 0.05);
+        var decenterY = NumberInput(field.VignetteDecenterY, -1_000_000, 1_000_000, 0.05);
+        var vignetteAngle = NumberInput(field.VignetteAngleDegrees, -1_000_000, 1_000_000, 1);
         var weight = NumberInput(field.Weight, 0, 1_000_000, 0.1);
 
         void Commit()
@@ -700,7 +706,10 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
                 nextY,
                 DecimalValue(vignetteX, field.VignetteFactorX),
                 DecimalValue(vignetteY, field.VignetteFactorY),
-                nextWeight)));
+                nextWeight,
+                DecimalValue(decenterX, field.VignetteDecenterX),
+                DecimalValue(decenterY, field.VignetteDecenterY),
+                DecimalValue(vignetteAngle, field.VignetteAngleDegrees))));
         }
 
         label.LostFocus += (_, _) => Commit();
@@ -708,6 +717,9 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         y.ValueChanged += (_, _) => Commit();
         vignetteX.ValueChanged += (_, _) => Commit();
         vignetteY.ValueChanged += (_, _) => Commit();
+        decenterX.ValueChanged += (_, _) => Commit();
+        decenterY.ValueChanged += (_, _) => Commit();
+        vignetteAngle.ValueChanged += (_, _) => Commit();
         weight.ValueChanged += (_, _) => Commit();
         var delete = CommandButton("trash-2", "删除此视场", 96);
         delete.Click += (_, _) => _prescription.RemoveField(field.Index);
@@ -717,6 +729,9 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
             ($"Y ({unit})", y),
             ("X 渐晕", vignetteX),
             ("Y 渐晕", vignetteY),
+            ("X 瞳孔偏移", decenterX),
+            ("Y 瞳孔偏移", decenterY),
+            ("瞳孔旋转 (°)", vignetteAngle),
             ("权重", weight),
             (string.Empty, delete));
         var card = EditorCard(
@@ -966,6 +981,7 @@ public sealed class SystemPropertiesPanel : UserControl, IDisposable, IDisplaySe
         _objectSpaceTelecentric.IsEnabled = _fieldDefinitionPicker.SelectedIndex != 0;
         _objectSpaceTelecentric.IsChecked = settings.ObjectSpaceTelecentric;
         _imageSpaceAfocal.IsChecked = settings.ImageSpaceAfocal;
+        RefreshPolarization();
         SetApodizationControls(
             settings.ApodizationKind,
             settings.FirstApodizationParameter,

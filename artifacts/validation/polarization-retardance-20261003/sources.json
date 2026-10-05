@@ -1,0 +1,16 @@
+{
+  "checkedOn": "2026-10-03",
+  "evidenceKind": "Official definition reading only, no native numerical capture",
+  "RRET": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26103/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Optimization_Operands_Alphabetically.html",
+  "api": "https://developer.synopsys.com/docs/zemax-opticstudio-zos-api-2026-r1/reference/_interfaces_m_f_e_8cs.md",
+  "initialJonesBasis": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26102/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Defining_the_Initial_Polarization.html",
+  "phaseAndLocalXY": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Definition_of_Polarization_Terms.html",
+  "CODA": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v25101/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Constraints_on_Optical_Coatings_Polarization_Ray_Trace.html",
+  "observed": "RRET is image Ex/Ey RMS retardance in radians with eight parameters and spectral weighted Gaussian pupil sampling; Jones magnitudes normalized; positive-time propagation and local-XY projection",
+  "notCaptured": [
+    "Native RRET phase wrap and zero-component behavior",
+    "Native RRET pupil azimuth/weight and input reference settings",
+    "Native MFE eight-column ordering and numeric output",
+    "CODA global polarization state absent from current model"
+  ]
+}
