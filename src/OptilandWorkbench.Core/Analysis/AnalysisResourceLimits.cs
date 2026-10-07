@@ -6,8 +6,12 @@ public static class AnalysisResourceLimits
     public const long MaximumImagePixels = 262_144;
     public const int MaximumImageDimension = 4_096;
     public const long MaximumDirectPsfOperations = 100_000_000;
+    public const long MaximumDirectFourierOperations = 100_000_000;
+    public const long MaximumDirectMtfOperations = 100_000_000;
     public const long MaximumPsfBasisOperations = 200_000_000;
     public const long MaximumImageSimulationPsfOperations = 300_000_000;
+    public const long MaximumImageSimulationConvolutionOperations = 300_000_000;
+    public const long MaximumPsfDecompositionOperations = 200_000_000;
     public const int MaximumPsfGridPoints = 225;
     public const int MaximumAnalysisGridDimension = 1_024;
     public const long MaximumAnalysisGridCells = 1_048_576;
@@ -66,6 +70,26 @@ public static class AnalysisResourceLimits
                 description,
                 $"{description} must not exceed {MaximumImageDimension} pixels per side or {MaximumImagePixels:N0} total pixels.");
         }
+    }
+
+    public static void ValidateMtfTransformWork(int gridSize)
+    {
+        if (gridSize < 1 || gridSize > MaximumFftGridSize)
+            throw new ArgumentOutOfRangeException(nameof(gridSize),
+                $"MTF transform size must be between 1 and {MaximumFftGridSize} samples per side.");
+        if ((gridSize & (gridSize - 1)) != 0
+            && 2L * gridSize * gridSize * gridSize > MaximumDirectFourierOperations)
+            throw new ArgumentOutOfRangeException(nameof(gridSize),
+                $"Non-power-of-two MTF transform exceeds the {MaximumDirectFourierOperations:N0}-operation safety budget. Reduce the sampling or choose a power-of-two grid.");
+    }
+
+    public static void ValidateDirectMtfWork(int gridSize, int frequencyCount)
+    {
+        if (gridSize < 1 || gridSize > MaximumFftGridSize || frequencyCount < 0)
+            throw new ArgumentOutOfRangeException(nameof(gridSize));
+        if (2L * gridSize * gridSize * frequencyCount > MaximumDirectMtfOperations)
+            throw new ArgumentOutOfRangeException(nameof(frequencyCount),
+                $"Direct MTF work exceeds the {MaximumDirectMtfOperations:N0}-operation safety budget.");
     }
 
     public static void ValidateAnalysisGrid(int width, int height, string description)
@@ -167,6 +191,12 @@ public static class AnalysisResourceLimits
         }
 
         ValidatePsfConfiguration(config);
+        ValidateConvolutionWork(preparedWidth, preparedHeight, config.PsfSize, config.PsfSize,
+            1 + Math.Min(config.Components, config.PsfGridRows * config.PsfGridColumns),
+            config.WavelengthsMicrometers.Count);
+        if (checked(PsfDecompositionOperations(config) * config.WavelengthsMicrometers.Count)
+            > MaximumPsfDecompositionOperations)
+            throw new ArgumentOutOfRangeException(nameof(config), "Image simulation PSF decomposition exceeds the supported work budget.");
         var basisOperations = PsfBasisOperations(config);
         if (checked(basisOperations * config.WavelengthsMicrometers.Count)
             > MaximumImageSimulationPsfOperations)
@@ -203,6 +233,30 @@ public static class AnalysisResourceLimits
         {
             throw new ArgumentOutOfRangeException(nameof(config), "EigenPSF component count is outside the supported range.");
         }
+        if (PsfDecompositionOperations(config) > MaximumPsfDecompositionOperations)
+            throw new ArgumentOutOfRangeException(nameof(config), "PSF decomposition exceeds the supported work budget.");
+    }
+
+    private static long PsfDecompositionOperations(ImageSimulationConfig config)
+    {
+        var fields = checked((long)config.PsfGridRows * config.PsfGridColumns);
+        var features = checked((long)config.PsfSize * config.PsfSize);
+        var components = Math.Min(config.Components, fields);
+        // Gram products, Jacobi pivot scans and reconstruction each have an independent cost.
+        return checked(fields * (fields + 1) / 2 * features
+            + 100 * fields * fields * (fields * (fields - 1) / 2 + 2 * fields)
+            + components * fields * features);
+    }
+
+    public static void ValidateConvolutionWork(int width, int height, int kernelWidth, int kernelHeight,
+        int kernelCount = 1, int wavelengthCount = 1)
+    {
+        ValidateImageDimensions(width, height, "Convolution source");
+        if (kernelWidth < 1 || kernelHeight < 1 || kernelCount < 1 || wavelengthCount < 1)
+            throw new ArgumentOutOfRangeException(nameof(kernelWidth));
+        var operations = checked((long)width * height * kernelWidth * kernelHeight * kernelCount * wavelengthCount);
+        if (operations > MaximumImageSimulationConvolutionOperations)
+            throw new ArgumentOutOfRangeException(nameof(kernelWidth), "Image convolution exceeds the supported work budget.");
     }
 
     private static long PsfBasisOperations(ImageSimulationConfig config) => checked(

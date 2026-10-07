@@ -1,0 +1,351 @@
+{
+  "semantics": "Actual Zemax 2026 R1 explicit normalized batch ray diagnostics. Aperture-vignette and propagation-error flags are separate. These captures do not establish physical throughput or a native RMS angular rule.",
+  "cases": [
+    {
+      "surfaceCount": 10,
+      "captureManifest": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-remove\\manifest.json",
+      "sourceSha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644",
+      "inputCount": 360,
+      "name": "tessar-gq6-remove",
+      "pupilCount": 72,
+      "rayAimingEnabled": false
+    },
+    {
+      "surfaceCount": 10,
+      "captureManifest": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain\\manifest.json",
+      "sourceSha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644",
+      "inputCount": 1152,
+      "name": "tessar-gq6-retain",
+      "pupilCount": 72,
+      "rayAimingEnabled": false
+    },
+    {
+      "surfaceCount": 10,
+      "captureManifest": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain-orientations\\manifest.json",
+      "sourceSha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644",
+      "inputCount": 432,
+      "name": "tessar-gq6-retain-orientations",
+      "pupilCount": 72,
+      "rayAimingEnabled": false
+    },
+    {
+      "surfaceCount": 8,
+      "captureManifest": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\cooke-40-degree-field-gq6-remove\\manifest.json",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "inputCount": 360,
+      "name": "cooke-40-degree-field-gq6-remove",
+      "pupilCount": 72,
+      "rayAimingEnabled": false
+    },
+    {
+      "surfaceCount": 13,
+      "captureManifest": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\double-gauss-28-degree-field-gq6-remove\\manifest.json",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "inputCount": 360,
+      "name": "double-gauss-28-degree-field-gq6-remove",
+      "pupilCount": 72,
+      "rayAimingEnabled": false
+    },
+    {
+      "surfaceCount": 9,
+      "captureManifest": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\relay-lens-gq6-remove\\manifest.json",
+      "sourceSha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+      "inputCount": 360,
+      "name": "relay-lens-gq6-remove",
+      "pupilCount": 72,
+      "rayAimingEnabled": true
+    },
+    {
+      "surfaceCount": 5,
+      "captureManifest": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\even-asphere-gq6-remove\\manifest.json",
+      "sourceSha256": "e7523a0a2b8247667d53cd559eded64442af41318f2d985d61296d5c5d1756da",
+      "inputCount": 360,
+      "name": "even-asphere-gq6-remove",
+      "pupilCount": 72,
+      "rayAimingEnabled": false
+    }
+  ],
+  "date": "2026-10-07",
+  "files": [
+    {
+      "sha256": "dcaa03838d1690be09fe3cde1865f286383a0ffaf67c3356db50ff26fa84550d",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-remove\\native\\model.json",
+      "path": "tessar-gq6-remove/native-model.json"
+    },
+    {
+      "sha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-remove\\snapshot.json",
+      "path": "tessar-gq6-remove/snapshot.json"
+    },
+    {
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-remove\\native\\environment.json",
+      "path": "tessar-gq6-remove/native-environment.json"
+    },
+    {
+      "sha256": "becd58c825efa7bcba7fa01aa5dd00bc9efd22a59724b4a476854b0b9e29ec9f",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-remove\\native\\request.json",
+      "path": "tessar-gq6-remove/native-request.json"
+    },
+    {
+      "sha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-remove\\source.zmx",
+      "path": "tessar-gq6-remove/source.zmx"
+    },
+    {
+      "sha256": "40121ac5157c01d39eb24cf883916b64e2bcf0843bfbb51e355fa380a30a3f0a",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-remove\\inputs.json",
+      "path": "tessar-gq6-remove/inputs.json"
+    },
+    {
+      "sha256": "e7a2c94325b19c55b5c4aae86a33fba3a63f97e5e0d01c0e02b504abd0354f66",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-remove\\native\\ray-audit.json",
+      "path": "tessar-gq6-remove/native-ray-audit.json"
+    },
+    {
+      "sha256": "0c4a7b36c8eb0dd1c1f674b4805f7927365a87306000ee418a691e54a07b61f8",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-remove\\job.json",
+      "path": "tessar-gq6-remove/job.json"
+    },
+    {
+      "sha256": "dcaa03838d1690be09fe3cde1865f286383a0ffaf67c3356db50ff26fa84550d",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain\\native\\model.json",
+      "path": "tessar-gq6-retain/native-model.json"
+    },
+    {
+      "sha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain\\snapshot.json",
+      "path": "tessar-gq6-retain/snapshot.json"
+    },
+    {
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain\\native\\environment.json",
+      "path": "tessar-gq6-retain/native-environment.json"
+    },
+    {
+      "sha256": "8e3041a9a85207b3c3ba3004d0aa952940501db420291e8d7759ada9869af28f",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain\\native\\request.json",
+      "path": "tessar-gq6-retain/native-request.json"
+    },
+    {
+      "sha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain\\source.zmx",
+      "path": "tessar-gq6-retain/source.zmx"
+    },
+    {
+      "sha256": "635017fb35f9f6b36df05ba2fe930f727473a8729a0b6f337224dbd8912c656a",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain\\inputs.json",
+      "path": "tessar-gq6-retain/inputs.json"
+    },
+    {
+      "sha256": "92f9960ae1eb0cb704ed6b02508576e25e85602aaf3417cb2a63f3ea17130502",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain\\native\\ray-audit.json",
+      "path": "tessar-gq6-retain/native-ray-audit.json"
+    },
+    {
+      "sha256": "b65714b162fe556b6681628f871b3e3c340c7176f6d6ac70e6fbcdc761e0a2d8",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain\\job.json",
+      "path": "tessar-gq6-retain/job.json"
+    },
+    {
+      "sha256": "dcaa03838d1690be09fe3cde1865f286383a0ffaf67c3356db50ff26fa84550d",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain-orientations\\native\\model.json",
+      "path": "tessar-gq6-retain-orientations/native-model.json"
+    },
+    {
+      "sha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain-orientations\\snapshot.json",
+      "path": "tessar-gq6-retain-orientations/snapshot.json"
+    },
+    {
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain-orientations\\native\\environment.json",
+      "path": "tessar-gq6-retain-orientations/native-environment.json"
+    },
+    {
+      "sha256": "12a1c15d10b6c72b87068bf6ead5de525088a2a73aacd39b75ae60ca3ff8b103",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain-orientations\\native\\request.json",
+      "path": "tessar-gq6-retain-orientations/native-request.json"
+    },
+    {
+      "sha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain-orientations\\source.zmx",
+      "path": "tessar-gq6-retain-orientations/source.zmx"
+    },
+    {
+      "sha256": "ed1ddc046acd29219b8bb574065a27f75affa64adf5ed2313b4e2b8fdfad011b",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain-orientations\\inputs.json",
+      "path": "tessar-gq6-retain-orientations/inputs.json"
+    },
+    {
+      "sha256": "cc6fd079d3f703ab8baf41b21ccea012e6af622e5be2a7447a5b3f2d1dde0ab4",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain-orientations\\native\\ray-audit.json",
+      "path": "tessar-gq6-retain-orientations/native-ray-audit.json"
+    },
+    {
+      "sha256": "8ef208c9c9e7a398aabd342bbda078c12ea9a3a35f8226f3e256ef389be2d109",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-gq6-retain-orientations\\job.json",
+      "path": "tessar-gq6-retain-orientations/job.json"
+    },
+    {
+      "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\cooke-40-degree-field-gq6-remove\\native\\model.json",
+      "path": "cooke-40-degree-field-gq6-remove/native-model.json"
+    },
+    {
+      "sha256": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\cooke-40-degree-field-gq6-remove\\snapshot.json",
+      "path": "cooke-40-degree-field-gq6-remove/snapshot.json"
+    },
+    {
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\cooke-40-degree-field-gq6-remove\\native\\environment.json",
+      "path": "cooke-40-degree-field-gq6-remove/native-environment.json"
+    },
+    {
+      "sha256": "9d1b3651a5595bc11d3d00c6ad268b699aeec3b59ca6cf6692c4aff82fa8cf75",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\cooke-40-degree-field-gq6-remove\\native\\request.json",
+      "path": "cooke-40-degree-field-gq6-remove/native-request.json"
+    },
+    {
+      "sha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\cooke-40-degree-field-gq6-remove\\source.zmx",
+      "path": "cooke-40-degree-field-gq6-remove/source.zmx"
+    },
+    {
+      "sha256": "40121ac5157c01d39eb24cf883916b64e2bcf0843bfbb51e355fa380a30a3f0a",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\cooke-40-degree-field-gq6-remove\\inputs.json",
+      "path": "cooke-40-degree-field-gq6-remove/inputs.json"
+    },
+    {
+      "sha256": "fee7a94018ed4f602d5831e06f0fcce3db2489f47964a4c2044052f56c92f0de",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\cooke-40-degree-field-gq6-remove\\native\\ray-audit.json",
+      "path": "cooke-40-degree-field-gq6-remove/native-ray-audit.json"
+    },
+    {
+      "sha256": "964d1f7e773864eba6510709d4c3a75bb483e0574f46e56977c595fa1ef27afc",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\cooke-40-degree-field-gq6-remove\\job.json",
+      "path": "cooke-40-degree-field-gq6-remove/job.json"
+    },
+    {
+      "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\double-gauss-28-degree-field-gq6-remove\\native\\model.json",
+      "path": "double-gauss-28-degree-field-gq6-remove/native-model.json"
+    },
+    {
+      "sha256": "4022df0d2886a10ca5a1e58def4b88f2015643c846459f866500031405fa3a38",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\double-gauss-28-degree-field-gq6-remove\\snapshot.json",
+      "path": "double-gauss-28-degree-field-gq6-remove/snapshot.json"
+    },
+    {
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\double-gauss-28-degree-field-gq6-remove\\native\\environment.json",
+      "path": "double-gauss-28-degree-field-gq6-remove/native-environment.json"
+    },
+    {
+      "sha256": "cf5181fd78d53cd1cb924696a91c370944cce790405054f84f4510574dbb5c5e",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\double-gauss-28-degree-field-gq6-remove\\native\\request.json",
+      "path": "double-gauss-28-degree-field-gq6-remove/native-request.json"
+    },
+    {
+      "sha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\double-gauss-28-degree-field-gq6-remove\\source.zmx",
+      "path": "double-gauss-28-degree-field-gq6-remove/source.zmx"
+    },
+    {
+      "sha256": "40121ac5157c01d39eb24cf883916b64e2bcf0843bfbb51e355fa380a30a3f0a",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\double-gauss-28-degree-field-gq6-remove\\inputs.json",
+      "path": "double-gauss-28-degree-field-gq6-remove/inputs.json"
+    },
+    {
+      "sha256": "9f2a478b9f17bc626aa4e87a3d9305d7348e5e57d2147f2b8f6a921176053a01",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\double-gauss-28-degree-field-gq6-remove\\native\\ray-audit.json",
+      "path": "double-gauss-28-degree-field-gq6-remove/native-ray-audit.json"
+    },
+    {
+      "sha256": "37f58437e3ea6d4faaf975e34710d80b83b988bfeb62ca52ba991a8074a6e18d",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\double-gauss-28-degree-field-gq6-remove\\job.json",
+      "path": "double-gauss-28-degree-field-gq6-remove/job.json"
+    },
+    {
+      "sha256": "faec37e4fcc350fe04f853374296366e9e5cdbdcdf70672ad1e6576108c962d0",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\relay-lens-gq6-remove\\native\\model.json",
+      "path": "relay-lens-gq6-remove/native-model.json"
+    },
+    {
+      "sha256": "531ac7f0887fad1406ff7bcfda1576e014e6ed104af04ed3ca07337d6cb84d5c",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\relay-lens-gq6-remove\\snapshot.json",
+      "path": "relay-lens-gq6-remove/snapshot.json"
+    },
+    {
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\relay-lens-gq6-remove\\native\\environment.json",
+      "path": "relay-lens-gq6-remove/native-environment.json"
+    },
+    {
+      "sha256": "7bbf4a1b97beb738056b2dce2bbfa1a5501a4244b82ce0eb85c58ab880f4d9be",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\relay-lens-gq6-remove\\native\\request.json",
+      "path": "relay-lens-gq6-remove/native-request.json"
+    },
+    {
+      "sha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\relay-lens-gq6-remove\\source.zmx",
+      "path": "relay-lens-gq6-remove/source.zmx"
+    },
+    {
+      "sha256": "40121ac5157c01d39eb24cf883916b64e2bcf0843bfbb51e355fa380a30a3f0a",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\relay-lens-gq6-remove\\inputs.json",
+      "path": "relay-lens-gq6-remove/inputs.json"
+    },
+    {
+      "sha256": "96511c3fc547cc5e7c740ec62b1b770b69ba2e871991acf4c7c8b4d3b24fad29",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\relay-lens-gq6-remove\\native\\ray-audit.json",
+      "path": "relay-lens-gq6-remove/native-ray-audit.json"
+    },
+    {
+      "sha256": "be53ad1ba0cb519b2985ab630249b787a9b46f19aa9245082001d7af604d20c5",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\relay-lens-gq6-remove\\job.json",
+      "path": "relay-lens-gq6-remove/job.json"
+    },
+    {
+      "sha256": "b1425e865103174e7954b99c12152de514cd25f188701b5e7b4be59599e316bf",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\even-asphere-gq6-remove\\native\\model.json",
+      "path": "even-asphere-gq6-remove/native-model.json"
+    },
+    {
+      "sha256": "5e127d8e3ceb15c015ef1519b6a04599041c6c0d6bace21d9295044ca5a35557",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\even-asphere-gq6-remove\\snapshot.json",
+      "path": "even-asphere-gq6-remove/snapshot.json"
+    },
+    {
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\even-asphere-gq6-remove\\native\\environment.json",
+      "path": "even-asphere-gq6-remove/native-environment.json"
+    },
+    {
+      "sha256": "5213276abeb30914101a0c3e0a779b7cf1b7bdb568ff3daa2e4c5268e567e7f7",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\even-asphere-gq6-remove\\native\\request.json",
+      "path": "even-asphere-gq6-remove/native-request.json"
+    },
+    {
+      "sha256": "e7523a0a2b8247667d53cd559eded64442af41318f2d985d61296d5c5d1756da",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\even-asphere-gq6-remove\\source.zmx",
+      "path": "even-asphere-gq6-remove/source.zmx"
+    },
+    {
+      "sha256": "40121ac5157c01d39eb24cf883916b64e2bcf0843bfbb51e355fa380a30a3f0a",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\even-asphere-gq6-remove\\inputs.json",
+      "path": "even-asphere-gq6-remove/inputs.json"
+    },
+    {
+      "sha256": "225ce777e3a495adf9cba675a682515b735dbe4780c8e4047458b36795d004c2",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\even-asphere-gq6-remove\\native\\ray-audit.json",
+      "path": "even-asphere-gq6-remove/native-ray-audit.json"
+    },
+    {
+      "sha256": "fb8d4039460125f14ef384c1d4a05121c8d1244dd1074e5e49a5aa1cdb9ba0ca",
+      "capturePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\even-asphere-gq6-remove\\job.json",
+      "path": "even-asphere-gq6-remove/job.json"
+    }
+  ]
+}

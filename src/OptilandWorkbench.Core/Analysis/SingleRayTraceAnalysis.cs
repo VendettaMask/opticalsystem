@@ -237,6 +237,19 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
             var normal = _globalCoordinates
                 ? surface.CoordinateSystem.ToGlobalDirection(localNormal)
                 : localNormal;
+            var pathLength = sample.SegmentLength;
+            if (Optic.SurfaceGroup.Items.Count > 1
+                && ReferenceEquals(surface, Optic.SurfaceGroup.Items[1])
+                && sample.RefractiveIndexBefore.HasValue
+                && double.IsPositiveInfinity(Optic.SurfaceGroup.Items[0].Thickness))
+            {
+                // An infinite object's numerical launch plane is arbitrary. The report's
+                // first segment starts at surface 1's vertex plane (local Z=0), and may
+                // be negative. Preserve the physical trace and its optical-path totals.
+                if (Math.Abs(localIncident.Z) <= 1e-15)
+                    throw new NotSupportedException("The first-surface vertex-plane path is undefined for a parallel incident ray.");
+                pathLength = localPosition.Z / localIncident.Z;
+            }
             rows.Add(new TraceDisplayRow(
                 "实光线",
                 sample.SurfaceNumber,
@@ -245,7 +258,7 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
                 position,
                 direction,
                 normal,
-                sample.SegmentLength,
+                pathLength,
                 IncidenceAngleDegrees(localIncident, localNormal),
                 sample.Vignetted,
                 sample.Intensity,

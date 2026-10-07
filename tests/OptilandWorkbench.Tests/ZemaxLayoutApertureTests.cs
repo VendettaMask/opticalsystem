@@ -97,15 +97,34 @@ public sealed class ZemaxLayoutApertureTests
     }
 
     [Fact]
-    public void StopDiamClipsEvenWhenTheStopSurfaceIsPlane()
+    public void UserDefinedStopDiamClipsEvenWhenTheStopSurfaceIsPlane()
+    {
+        var optic = OpticalFormatCatalog.Import(
+            Source.Replace("CURV 0.02", "CURV 0\n  STOP", StringComparison.Ordinal),
+            ".zmx");
+
+        var aperture = Assert.IsType<CircularAperture>(optic.SurfaceGroup.Items[1].PhysicalAperture);
+        Assert.Equal(4, aperture.Radius, precision: 12);
+    }
+
+    [Fact]
+    public void AutomaticStopDiamDoesNotClipTheEstimatedRayFootprint()
     {
         var optic = OpticalFormatCatalog.Import(
             Source.Replace("CURV 0.02", "CURV 0\n  STOP", StringComparison.Ordinal)
                 .Replace("DIAM 4 1 0 0 1", "DIAM 4 0 0 0 1", StringComparison.Ordinal),
             ".zmx");
 
-        var aperture = Assert.IsType<CircularAperture>(optic.SurfaceGroup.Items[1].PhysicalAperture);
-        Assert.Equal(4, aperture.Radius, precision: 12);
+        var stop = optic.SurfaceGroup.Items[1];
+        Assert.True(stop.IsStop);
+        Assert.False(stop.SemiDiameterFixed);
+        Assert.Equal(4, stop.SemiDiameter);
+        Assert.Equal(6.5, stop.MechanicalSemiDiameter);
+        Assert.Null(stop.PhysicalAperture);
+        var rays = new Layout2DBuilder(optic).Build(options: new LayoutBuildOptions(
+            RayCount: 5, LowerPupil: -1, UpperPupil: 1, DeleteVignetted: false)).Rays;
+        Assert.Equal(5, rays.Count);
+        Assert.All(rays, ray => Assert.False(ray.Vignetted));
     }
 
     [Fact]

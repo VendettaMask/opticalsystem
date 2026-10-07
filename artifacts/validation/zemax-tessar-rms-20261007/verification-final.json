@@ -1,0 +1,479 @@
+{
+  "previousStageSummary": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\rms-original132-recalculated\\summary.json",
+  "nativeEnvironmentsValid": true,
+  "rmsControlSummarySha256": "55be06acb5b9d45964e20661073af9e560a20a90b1d1c02a09728aa8b4694ac2",
+  "firstCompleteReleaseBeforeDedicatedReadThread": {
+    "sha256": "efb90731e31a44f85418e737a0b0920b215880a80c59c73d495c54aa8632bd4f",
+    "skipped": 0,
+    "failures": [
+      {
+        "name": "OptilandWorkbench.Tests.AuditReliabilityFixTests.OptimizationPreparationDoesNotBlockReadsAndRejectsConcurrentEdits(method: \"quick\")",
+        "message": "System.TimeoutException : The operation has timed out."
+      },
+      {
+        "name": "OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays",
+        "message": "finite_angle: expected 0.058589983242791625, actual 0.060191701479492175"
+      }
+    ],
+    "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-tessar-rms-20261007\\main-final-release.trx",
+    "total": 4364,
+    "passed": 4362,
+    "failed": 2
+  },
+  "finalGq12Audit": {
+    "file": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-ray-audit\\tessar-final-v2-gq12-remove\\coordinate-verification.json",
+    "verification": {
+      "inputs": 576,
+      "maxZMillimeters": 2.17603712826531E-14,
+      "missingOrNativeError": 0,
+      "maxXYMillimeters": 1.35003119794419E-13,
+      "originalFileUnchanged": true,
+      "surfaceRayResults": 5184,
+      "files": [
+        {
+          "sha256": "40bc8f45b18fda9f0aba655bad6aa896abd801bc0822ab5646e8aee454728d9b",
+          "path": "manifest.json"
+        },
+        {
+          "sha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644",
+          "path": "source.zmx"
+        },
+        {
+          "sha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2",
+          "path": "snapshot.json"
+        },
+        {
+          "sha256": "2ef155b82a354183267ec6c8b2452cb48417dc4bd129844b72a099156a67cb0d",
+          "path": "inputs.json"
+        },
+        {
+          "sha256": "58e1c6d6631c66617156ea2f53c41266f635fdbbf81b7e95dc8f4986e68c47ef",
+          "path": "core.json"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "path": "native/environment.json"
+        },
+        {
+          "sha256": "dcaa03838d1690be09fe3cde1865f286383a0ffaf67c3356db50ff26fa84550d",
+          "path": "native/model.json"
+        },
+        {
+          "sha256": "39061fecad5691b9fa382d4a18afd7e7f75b21a33aaca6950bc31301da247d43",
+          "path": "native/request.json"
+        },
+        {
+          "sha256": "1cb810521b0204f3f7baa4e45a9bf7290cd3367dc37997a03a942a62beda9d1f",
+          "path": "native/ray-audit.json"
+        }
+      ],
+      "matchesCurrentDefaultAssemblies": true,
+      "maxDirectionComponent": 1.6098233857065E-15
+    },
+    "sha256": "8108c45bfa849365e626670f13a5b85500bd6ccaf02905a079cc1c7fbe880ebc"
+  },
+  "sourceHashesVerified": 27,
+  "builds": {
+    "Debug": "Default full solution: 0 warnings/errors",
+    "Release": "Default full solution: 0 warnings/errors"
+  },
+  "assemblies": [
+    {
+      "sha256": "70b7bbd3b53f02f0eb72208b293b1b7031925f1ba6ce226770b310fff3b6282e",
+      "path": "D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\bin\\Release\\net10.0\\OptilandWorkbench.Core.dll"
+    },
+    {
+      "sha256": "4adcd63f5d4970472068fd1d471a5ff3737679f510ee15e2dba2b2ebb6583f1e",
+      "path": "D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Application\\bin\\Release\\net10.0\\OptilandWorkbench.Application.dll"
+    },
+    {
+      "sha256": "33f4411718c1e356c7f15bad3ac8383ce6209884d3ac4997e7d977e56b1a0fcc",
+      "path": "D:\\Projects\\opticalsystem\\tools\\OptilandWorkbench.ZemaxComparison\\bin\\Release\\net10.0\\OptilandWorkbench.ZemaxComparison.dll"
+    }
+  ],
+  "originalMatrixSummary": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-rms-repair-final-v2-original132\\summary.json",
+  "previousUiCleanupFailure": "Prior full Release UI Dispose NullReferenceException and isolated 16/16 result remain historical; this task does not modify or suppress the cleanup helper.",
+  "original132SettingsChanged": false,
+  "previousStageRawChanges": [
+    {
+      "after": "Pass",
+      "key": "RMS vs Field",
+      "lens": "cooke-40-degree-field",
+      "before": "Pass"
+    },
+    {
+      "after": "Pass",
+      "key": "RMS vs Field",
+      "lens": "double-gauss-28-degree-field",
+      "before": "Pass"
+    },
+    {
+      "after": "Incomparable",
+      "key": "RMS vs Field",
+      "lens": "doublet",
+      "before": "Incomparable"
+    },
+    {
+      "after": "Pass",
+      "key": "RMS vs Field",
+      "lens": "relay-lens",
+      "before": "Pass"
+    },
+    {
+      "after": "Pass",
+      "key": "RMS vs Field",
+      "lens": "tessar-lens-using-vignetting-factors",
+      "before": "Difference"
+    }
+  ],
+  "laboratories": "Not rerun: InitialStructure Release 258/2/260 and Coating Debug/Release 47/47 remain historical.",
+  "releaseGatePassed": false,
+  "fixtureFilesVerified": {
+    "rms-field-sampling-2026-10-07": 153,
+    "tessar-ray-audit-2026-10-07": 56
+  },
+  "previous84PassRegressions": 0,
+  "rmsControlCounts": {
+    "Pass": 17
+  },
+  "date": "2026-10-07",
+  "original132NativeRecaptured": false,
+  "original132TolerancesChanged": false,
+  "completedUtc": "2026-10-07T13:13:09.8519598+00:00",
+  "previousStageSummarySha256": "cecf2e70daa2590150ba0a2cef5b761be877a75e21b6548f1c69fce273e9fd9c",
+  "frozenAuthorityChanged": false,
+  "debugFullSuite": "Not rerun: 2026-10-06 full Debug 4336/1/4337 remains historical; current RMS/GRIN targeted Debug 57/57.",
+  "originalMatrixSummarySha256": "084f5fbf1803d47c29f9fa1616b3d18f638600df681d8c0c290783b559dcd5cc",
+  "retainedEvidenceCounts": {
+    "tessar-rms-repair-final-v2-original132/immutable-evidence.json": 1769,
+    "tessar-rms-repair-final-v2-controls/immutable-evidence.json": 295
+  },
+  "intermediateRuns": "Earlier RMS targeted runs retained failed new assertions: finite Relay per-ray maximum measured 1.085e-7 mm, budget 2e-7 mm; retained-vignetting RA128 maximum residual 0.0087227 micrometer, fixed assertion .01 micrometer. Original comparison tolerances unchanged. Earlier full tool runs 154/2/156 and 162/2/164 retained; final-current result is authoritative.",
+  "rmsControlSummary": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\tessar-rms-repair-final-v2-controls\\summary.json",
+  "previousStageRawUnchanged": 126,
+  "tests": [
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-tessar-rms-20261007\\main-current-release.trx",
+      "passed": 4363,
+      "executed": 4364,
+      "failures": [
+        {
+          "name": "OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays",
+          "message": "finite_angle: expected 0.058589983242791625, actual 0.060191701479492175"
+        }
+      ],
+      "total": 4364,
+      "failed": 1,
+      "sha256": "e168aac7dde55c27d8145b0a1e16a0e114ef89a51eeb548aeaf29d7b2d04f627",
+      "skipped": 0,
+      "newTests": [
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"even-asphere-gq6-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"relay-lens-gq6-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"double-gauss-28-degree-field-gq6-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.NativeAuditEvidenceHashesRemainUnchanged",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"tessar-gq6-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.TessarRmsFieldCurveMatchesTheCapturedIntegralAndInterpolatedFactors(method: \"GQ\", density: 6, remove: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.TessarRmsFieldCurveMatchesTheCapturedIntegralAndInterpolatedFactors(method: \"GQ\", density: 12, remove: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"tessar-gq6-retain-orientations\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.VirtualPupilContinuationKeepsPhysicalTraceCacheAndDisplayDataSeparate",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GradientIndexTransportTests.GaussianPupilIntegralPreservesFormalContinuousGrinPropagation",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.TessarRmsFieldCurveMatchesTheCapturedIntegralAndInterpolatedFactors(method: \"RA\", density: 128, remove: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"cooke-40-degree-field-gq6-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"tessar-gq6-retain\")",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-tessar-rms-20261007\\tool-final-current-release.trx",
+      "passed": 162,
+      "executed": 164,
+      "failures": [
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: \"Diffraction Encircled Energy\", directory: \"diffraction-encircled-energy-c1\")",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.01146706362185577)\r\nActual: 0.011467280942848471"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: \"Huygens PSF Cross Section\", slug: \"huygens-psf-cross-section\", recordedNrmse: 0.0037256669899999998)",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.0037256669899999998)\r\nActual: 0.0037256670590166724"
+        }
+      ],
+      "total": 164,
+      "failed": 2,
+      "sha256": "eafb884689c08486b5e9ca0b201a36c6e73cdcf32a2fc3db83e40a431d13ab9a",
+      "skipped": 0,
+      "newTests": [
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RayAuditContractTests.UnsupportedIntegrationRulesCannotProduceAnAudit(method: \"RA\", density: 16)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RayAuditContractTests.SourceHashMismatchDoesNotCreateAnEvidenceDirectory",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RayAuditContractTests.UnsupportedIntegrationRulesCannotProduceAnAudit(method: \"GQ\", density: 21)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RayAuditContractTests.UnsupportedIntegrationRulesCannotProduceAnAudit(method: \"GQ\", density: 0)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RayAuditContractTests.InvalidFieldScopeAndSourceIdentityAreRejected",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RayAuditContractTests.UnknownJobMembersCannotSilentlyChangeAControl",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RayAuditContractTests.UnsupportedIntegrationRulesCannotProduceAnAudit(method: \"RA\", density: 1024)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RayAuditContractTests.UnsupportedIntegrationRulesCannotProduceAnAudit(method: \"unknown\", density: 6)",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-tessar-rms-20261007\\rms-grin-final-release.trx",
+      "passed": 57,
+      "executed": 57,
+      "failures": [],
+      "total": 57,
+      "failed": 0,
+      "sha256": "0f69ce040644cd9343e4b9b5f426a1a7294f27da7c72678c7f1561b71170e8ac",
+      "skipped": 0,
+      "newTests": [
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.VirtualPupilContinuationKeepsPhysicalTraceCacheAndDisplayDataSeparate",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"relay-lens-gq6-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"even-asphere-gq6-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.TessarRmsFieldCurveMatchesTheCapturedIntegralAndInterpolatedFactors(method: \"GQ\", density: 12, remove: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"tessar-gq6-retain\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.TessarRmsFieldCurveMatchesTheCapturedIntegralAndInterpolatedFactors(method: \"GQ\", density: 6, remove: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.TessarRmsFieldCurveMatchesTheCapturedIntegralAndInterpolatedFactors(method: \"RA\", density: 128, remove: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"cooke-40-degree-field-gq6-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"double-gauss-28-degree-field-gq6-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.NativeAuditEvidenceHashesRemainUnchanged",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"tessar-gq6-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GradientIndexTransportTests.GaussianPupilIntegralPreservesFormalContinuousGrinPropagation",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"tessar-gq6-retain-orientations\")",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-tessar-rms-20261007\\rms-grin-final-debug.trx",
+      "passed": 57,
+      "executed": 57,
+      "failures": [],
+      "total": 57,
+      "failed": 0,
+      "sha256": "f95ba529478ce86673c977132269103be569f430e5f74859a6af5d74b3ec4894",
+      "skipped": 0,
+      "newTests": [
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"double-gauss-28-degree-field-gq6-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.TessarRmsFieldCurveMatchesTheCapturedIntegralAndInterpolatedFactors(method: \"GQ\", density: 6, remove: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.TessarRmsFieldCurveMatchesTheCapturedIntegralAndInterpolatedFactors(method: \"GQ\", density: 12, remove: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"tessar-gq6-retain-orientations\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"even-asphere-gq6-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.NativeAuditEvidenceHashesRemainUnchanged",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"tessar-gq6-retain\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"cooke-40-degree-field-gq6-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.VirtualPupilContinuationKeepsPhysicalTraceCacheAndDisplayDataSeparate",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"tessar-gq6-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GradientIndexTransportTests.GaussianPupilIntegralPreservesFormalContinuousGrinPropagation",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(name: \"relay-lens-gq6-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.GaussianPupilParityTests.TessarRmsFieldCurveMatchesTheCapturedIntegralAndInterpolatedFactors(method: \"RA\", density: 128, remove: False)",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-tessar-rms-20261007\\tool-rms-audit-targeted.trx",
+      "passed": 38,
+      "executed": 38,
+      "failures": [],
+      "total": 38,
+      "failed": 0,
+      "sha256": "97279ac270f54ffd9182aa9a79dfe2e0ae34dea520f7b705f74b7fafcff5190e",
+      "skipped": 0,
+      "newTests": [
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RayAuditContractTests.UnsupportedIntegrationRulesCannotProduceAnAudit(method: \"RA\", density: 1024)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RayAuditContractTests.UnsupportedIntegrationRulesCannotProduceAnAudit(method: \"unknown\", density: 6)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RayAuditContractTests.UnsupportedIntegrationRulesCannotProduceAnAudit(method: \"GQ\", density: 0)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RayAuditContractTests.UnsupportedIntegrationRulesCannotProduceAnAudit(method: \"RA\", density: 16)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RayAuditContractTests.InvalidFieldScopeAndSourceIdentityAreRejected",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RayAuditContractTests.SourceHashMismatchDoesNotCreateAnEvidenceDirectory",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RayAuditContractTests.UnknownJobMembersCannotSilentlyChangeAControl",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RayAuditContractTests.UnsupportedIntegrationRulesCannotProduceAnAudit(method: \"GQ\", density: 21)",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-tessar-rms-20261007\\concurrency-final-release.trx",
+      "passed": 5,
+      "executed": 5,
+      "failures": [],
+      "total": 5,
+      "failed": 0,
+      "sha256": "55b97599edd51ee3a3b6d09ebc385677e2d186b32768e1418bac4f24b1c334cb",
+      "skipped": 0,
+      "newTests": []
+    },
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-tessar-rms-20261007\\concurrency-final-debug.trx",
+      "passed": 5,
+      "executed": 5,
+      "failures": [],
+      "total": 5,
+      "failed": 0,
+      "sha256": "f2715e905904d0f5e3ae013ed125f8252514689f03b75b5a0a69932bd4231183",
+      "skipped": 0,
+      "newTests": []
+    }
+  ],
+  "numericalCounts": {
+    "Difference": 26,
+    "Pass": 85,
+    "Close": 12,
+    "Incomparable": 8,
+    "Error": 1
+  }
+}

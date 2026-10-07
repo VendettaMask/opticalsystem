@@ -270,7 +270,7 @@ internal static class ExtendedSceneImageSupport
             imageSize,
             imageSize);
         var padding = guardBand >= 0 ? guardBand : Math.Max(4, psfSize / 2);
-        var result = ImageSimulationEngine.Simulate(optic, source, new ImageSimulationConfig
+        var config = new ImageSimulationConfig
         {
             SourcePattern = sourcePattern,
             SourceMode = sourceMode,
@@ -288,7 +288,13 @@ internal static class ExtendedSceneImageSupport
             Padding = padding,
             DistortionGridSize = Math.Max(5, psfGridSize * 2 + 1),
             DistortionPolynomialDegree = 5
-        });
+        };
+        ImageSimulationResult result;
+        try { result = ImageSimulationEngine.Simulate(optic, source, config); }
+        catch (AnalysisDataUnavailableException exception)
+        {
+            return ImageSimulationAnalysis.UnavailableSimulation(name, exception);
+        }
         var simulated = sourceBlend > 0
             ? Blend(result.Source, result.Simulated, sourceBlend)
             : result.Simulated;

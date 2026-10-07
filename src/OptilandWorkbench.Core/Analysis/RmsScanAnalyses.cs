@@ -579,7 +579,10 @@ internal static class RmsScanSupport
             usePolarization: usePolarization,
             aimAtStop: optic.RayAimingEnabled,
             includeSurfaceTransmission: usePolarization,
-            gaussianAzimuthalSamples: gaussianAzimuthalSamples);
+            gaussianAzimuthalSamples: gaussianAzimuthalSamples,
+            explicitPupilSamples: string.Equals(distribution, "uniform", StringComparison.OrdinalIgnoreCase)
+                ? ApertureSampler.GenerateRectangularArray(numRings) : null,
+            gaussianPupilIntegral: !usePolarization && string.Equals(distribution, "gaussian", StringComparison.OrdinalIgnoreCase));
         var rays = result.Fields.FirstOrDefault()?.WeightedRays
             .ToArray() ?? Array.Empty<SpotRayData>();
         if (rays.Length == 0)

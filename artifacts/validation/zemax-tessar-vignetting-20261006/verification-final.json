@@ -1,0 +1,612 @@
+{
+  "date": "2026-10-06",
+  "completedUtc": "2026-10-06T15:52:48.3829947+00:00",
+  "builds": {
+    "Debug": "Default product solution output: zero warnings/errors",
+    "Release": "Default product solution output: zero warnings/errors"
+  },
+  "tests": [
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-tessar-vignetting-20261006\\main-release.trx",
+      "sha256": "d5b92abcf3f701d3e6f55e957c796a467a759d29eb65200342dc969fa4fdc13e",
+      "total": 4337,
+      "passed": 4336,
+      "failed": 1,
+      "executed": 4337,
+      "skipped": 0,
+      "failures": [
+        {
+          "name": "OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays",
+          "outcome": "Failed",
+          "message": "finite_angle: expected 0.058589983242791625, actual 0.060191701479492175"
+        }
+      ],
+      "newVignettingTests": [
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-edge\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: \"original-edge\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"rotated30-axis-full\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-field2-primary\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: \"original-edge\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 90)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: CentroidSphere, angle: 180)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-primary\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-axis-full\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: \"rotated30-axis-compressed\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: True, angle: 30)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"rotated30-axis-compressed\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"rotated30-axis-full\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 30)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: True, angle: 0)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: BestFitSphere, angle: 180)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-axis-full\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: False, angle: 30)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"rotated30-axis-compressed\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: False, angle: 0)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-edge\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: BestFitSphere, angle: 60)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-primary\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 90)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-field2-primary\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 0)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 0)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: \"rotated30-axis-compressed\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: CentroidSphere, angle: 60)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 30)"
+        }
+      ]
+    },
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-tessar-vignetting-20261006\\main-debug.trx",
+      "sha256": "03bace6e75a52bbc692e620b16bae4b4e54c9c041ce579b0f88ea5a6679b691e",
+      "total": 4337,
+      "passed": 4336,
+      "failed": 1,
+      "executed": 4337,
+      "skipped": 0,
+      "failures": [
+        {
+          "name": "OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays",
+          "outcome": "Failed",
+          "message": "finite_angle: expected 0.058589983242791625, actual 0.060191701479492175"
+        }
+      ],
+      "newVignettingTests": [
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-primary\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-field2-primary\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 0)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-axis-full\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: False, angle: 30)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: CentroidSphere, angle: 60)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: BestFitSphere, angle: 180)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"rotated30-axis-full\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"rotated30-axis-compressed\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 0)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 30)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: \"rotated30-axis-compressed\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"rotated30-axis-full\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: \"rotated30-axis-compressed\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 90)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 90)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"rotated30-axis-compressed\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-edge\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-primary\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 30)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: True, angle: 30)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: False, angle: 0)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: True, angle: 0)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: \"original-edge\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-axis-full\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: BestFitSphere, angle: 60)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-field2-primary\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-edge\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: \"original-edge\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: CentroidSphere, angle: 180)"
+        }
+      ]
+    },
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-tessar-vignetting-20261006\\comparison-release.trx",
+      "sha256": "a9e8f20784623a494b0a295fc189f6a4f7adbf107f889802f4e3818edb6d79c1",
+      "total": 126,
+      "passed": 124,
+      "failed": 2,
+      "executed": 126,
+      "skipped": 0,
+      "failures": [
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: \"Huygens PSF Cross Section\", slug: \"huygens-psf-cross-section\", recordedNrmse: 0.0037256669899999998)",
+          "outcome": "Failed",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.0037256669899999998)\r\nActual: 0.0037256670590166724"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: \"Diffraction Encircled Energy\", directory: \"diffraction-encircled-energy-c1\")",
+          "outcome": "Failed",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.01146706362185577)\r\nActual: 0.011467280942848471"
+        }
+      ],
+      "newVignettingTests": [
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.VignettedFanContractTests.TypedPupilDisplaySettingSurvivesConfigurationAndRequestIdentity(key: \"Ray Fan\", vignetted: True)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.VignettedFanContractTests.ClippedNativeFanSamplesRemainInvalidAndFailTheComparisonGate(key: \"Ray Fan\", file: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.VignettedFanContractTests.TypedPupilDisplaySettingSurvivesConfigurationAndRequestIdentity(key: \"Optical Path Difference\", vignetted: True)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.VignettedFanContractTests.TypedPupilDisplaySettingSurvivesConfigurationAndRequestIdentity(key: \"Optical Path Difference\", vignetted: False)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.VignettedFanContractTests.ClippedNativeFanSamplesRemainInvalidAndFailTheComparisonGate(key: \"Optical Path Difference\", file: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.VignettedFanContractTests.TypedPupilDisplaySettingSurvivesConfigurationAndRequestIdentity(key: \"Ray Fan\", vignetted: False)"
+        }
+      ]
+    },
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-tessar-vignetting-20261006\\tessar-targeted-final.trx",
+      "sha256": "40451a84b2ebe4a71a9ea2a8821fb87e8bee87dcbd39eb3faadbc30215dd3a7f",
+      "total": 43,
+      "passed": 43,
+      "failed": 0,
+      "executed": 43,
+      "skipped": 0,
+      "failures": [],
+      "newVignettingTests": [
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-primary\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"rotated30-axis-compressed\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: BestFitSphere, angle: 60)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: CentroidSphere, angle: 180)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: BestFitSphere, angle: 180)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: True, angle: 30)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: False, angle: 30)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: \"rotated30-axis-compressed\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 90)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: True, angle: 0)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-field2-primary\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: \"original-edge\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: CentroidSphere, angle: 60)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: False, angle: 0)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 30)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-field2-primary\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-axis-full\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-primary\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"rotated30-axis-full\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-edge\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-edge\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"rotated30-axis-full\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: \"original-edge\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 0)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: \"rotated30-axis-compressed\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 90)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"original-axis-full\", key: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 0)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: \"rotated30-axis-compressed\", key: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 30)"
+        }
+      ]
+    },
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-tessar-vignetting-20261006\\tool-targeted.trx",
+      "sha256": "7e0d7b82d2db7c2722babd73ecbd599e77be7e5b431f213e4d7c66b348730a0d",
+      "total": 6,
+      "passed": 6,
+      "failed": 0,
+      "executed": 6,
+      "skipped": 0,
+      "failures": [],
+      "newVignettingTests": [
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.VignettedFanContractTests.ClippedNativeFanSamplesRemainInvalidAndFailTheComparisonGate(key: \"Ray Fan\", file: \"ray-fan\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.VignettedFanContractTests.TypedPupilDisplaySettingSurvivesConfigurationAndRequestIdentity(key: \"Ray Fan\", vignetted: True)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.VignettedFanContractTests.TypedPupilDisplaySettingSurvivesConfigurationAndRequestIdentity(key: \"Ray Fan\", vignetted: False)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.VignettedFanContractTests.ClippedNativeFanSamplesRemainInvalidAndFailTheComparisonGate(key: \"Optical Path Difference\", file: \"optical-path-difference\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.VignettedFanContractTests.TypedPupilDisplaySettingSurvivesConfigurationAndRequestIdentity(key: \"Optical Path Difference\", vignetted: False)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.VignettedFanContractTests.TypedPupilDisplaySettingSurvivesConfigurationAndRequestIdentity(key: \"Optical Path Difference\", vignetted: True)"
+        }
+      ]
+    }
+  ],
+  "assemblies": [
+    {
+      "path": "D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\bin\\Release\\net10.0\\OptilandWorkbench.Core.dll",
+      "sha256": "2b86867cba39df3aeb9cffa7902b352ed72ec5fad6b38a6ef55109d8d1ccb8e6"
+    },
+    {
+      "path": "D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Application\\bin\\Release\\net10.0\\OptilandWorkbench.Application.dll",
+      "sha256": "9ded245d176bee8c104a8224ad7452f1e46e52b8473ea15de355eca1b15ac5b1"
+    },
+    {
+      "path": "D:\\Projects\\opticalsystem\\tools\\OptilandWorkbench.ZemaxComparison\\bin\\Release\\net10.0\\OptilandWorkbench.ZemaxComparison.dll",
+      "sha256": "b68a307fd3e34050fc592f3743822658abe943d3f149f380f546187e73250082"
+    }
+  ],
+  "numericalCounts": {
+    "Difference": 27,
+    "Pass": 84,
+    "Close": 12,
+    "Incomparable": 8,
+    "Error": 1
+  },
+  "previousStageCounts": {
+    "Difference": 27,
+    "Pass": 82,
+    "Close": 12,
+    "Incomparable": 10,
+    "Error": 1
+  },
+  "previousStageChanges": [
+    {
+      "lens": "tessar-lens-using-vignetting-factors",
+      "key": "Ray Fan",
+      "previous": "Incomparable",
+      "batch": "initial-six-edge-shortwave",
+      "current": "Pass"
+    },
+    {
+      "lens": "tessar-lens-using-vignetting-factors",
+      "key": "Optical Path Difference",
+      "previous": "Incomparable",
+      "batch": "initial-six-edge-shortwave",
+      "current": "Pass"
+    }
+  ],
+  "previous82PassRegressions": 0,
+  "original76PassRegressions": 0,
+  "replaySummary": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261006\\tessar-vignetting-repair-final\\summary.json",
+  "replaySummarySha256": "047eeff8beee961d132df9ce6981c7f49e8604d5bffaf2e21e7257e8b6522501",
+  "previousStageSummary": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261006\\opd-core-repair-v2\\summary.json",
+  "previousStageSummarySha256": "8027b5aef6b43128d5a791879127c32603166a6773b5505e65d1e071d84055be",
+  "previousStageRawOutputsVerified": 131,
+  "nativeControlSummary": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261006\\tessar-controls-recalculated\\summary.json",
+  "nativeControlSummarySha256": "4c9398d03ae313c05d174541d626a9cfa557fb9b02369f2057f6473faa913df6",
+  "nativeControlCounts": {
+    "Pass": 4,
+    "Incomparable": 4
+  },
+  "retainedEvidenceCounts": {
+    "tessar-controls-recalculated\\immutable-evidence.json": 123,
+    "opd-core-repair-v2\\immutable-evidence.json": 1769,
+    "tessar-vignetting-repair-final\\immutable-evidence.json": 1769
+  },
+  "retainedEvidenceUnchanged": true,
+  "standardSourceHashesVerified": 27,
+  "fixtureFileHashes": {
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\rotated30-axis-compressed\\ray-fan-native.json": "f7672c3fc1ae5d577100a970ac3422d90a8d979895b7b95d06a13ee3bb106da7",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\README.md": "195835afba04085e6c571aed650af695e5786ff2ab466cbb90c561c9d2297c8f",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\rotated30-axis-compressed\\optical-path-difference-captured-settings.json": "fb02f804ccfcefe68e4b9ec4204539ca123aa0fac0b50988280d68c873e67a0a",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-primary\\snapshot.json": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-primary\\ray-fan-captured-settings.json": "3a93e57c2e05c3eb43fa269cfa882dc5f373533d7d18e9fd6ed0e270d701934b",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-edge\\ray-fan-captured-settings.json": "d7768a468655fb0ca7a16ba968ae1e1422a6e7ec36ea1fe27ed3e852cc079561",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\rotated30-axis-full\\optical-path-difference-captured-settings.json": "8a2c44e72fdf64ca09a386b78063dfde690a42989197768672ab9aeba490fea9",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-edge\\snapshot.json": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-edge\\ray-fan-native.json": "a0057cfc633cb8535bdcdbe7fa69b2a29c53e0ee41aeb22c7756bfb15ab6c186",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\rotated30-axis-full\\ray-fan-captured-settings.json": "c5fc6e8c8da36d35abe37b65c7ac5531810fc77b17079f9d03b77b8c3255aa7f",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\rotated30-axis-full\\optical-path-difference-native.json": "44bebe96d65a53436ce54bb584a36a0bcef2f542fbcb74fe96b7ed596288f36b",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-axis-full\\optical-path-difference-native.json": "26e3a798c86981f64ecb45ced137ea8c3d1de4d96770ae1737b12c8a7f6b65a4",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\rotated30-axis-compressed\\optical-path-difference-native.json": "e99e9b6cd8d6170169bbee06cbc4ea9179bf670bb80cd5fcc325af2ac804c5aa",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-primary\\optical-path-difference-captured-settings.json": "e05e030a9a2be6de5129f0e46745b2db91d3b5b8768d874d8aab007c5e32dce3",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-axis-full\\optical-path-difference-captured-settings.json": "955829a7dd4a0f3dbc07327fad9d253969a6e1de41842b5fbf1ff6dd6827abd5",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-edge\\optical-path-difference-captured-settings.json": "f6ca11d82d1ddab9078c30633ae25b95bfb98c151979867976a2bb066ff03e16",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\rotated30-axis-full\\ray-fan-native.json": "b6417453301ea822667a6f65f5ef1b18ad8a41d127c808950757f2d31d8557e1",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-edge\\optical-path-difference-native.json": "ef572220b8e04598f2c55f317776462194408723708757669a70cd5401fb228a",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\rotated30-axis-full\\snapshot.json": "e272f7a4901378bf9da84176513b6d7c98582d32cd0e6367f57f6d4cd8f9c4f4",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-primary\\optical-path-difference-native.json": "9d03994061881a0a410639fd9555f92b3a18c06e93575b4667fbd9e2ab011522",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-field2-primary\\optical-path-difference-captured-settings.json": "40aa5561c683614cf9cab4260f5b856fa488f9bb8c77f9096a1e99132855ddcf",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-field2-primary\\ray-fan-captured-settings.json": "4612f9b8ce9032503c14b809fb763febc95204c88d359e9191087fefc615a498",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-axis-full\\snapshot.json": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-axis-full\\ray-fan-captured-settings.json": "7f8c110aa4566808c6f4f2baff9079b7cff7176eead67c69ae97d2fcefbb8e73",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-field2-primary\\snapshot.json": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-field2-primary\\optical-path-difference-native.json": "2decc0810401b2f3f9249991e3226f9cfa459818b15ac19e2b65116ce9609b19",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\rotated30-axis-compressed\\snapshot.json": "e272f7a4901378bf9da84176513b6d7c98582d32cd0e6367f57f6d4cd8f9c4f4",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-field2-primary\\ray-fan-native.json": "6e928ac2d1b10e896a53f779415b6ec095f6391132ebce324080e0a288db6f00",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\manifest.json": "5a148850a5bc4461fab97621eaca723a1464911d6ce3047e5a75277dfe752b0a",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-primary\\ray-fan-native.json": "27c0253cd239dad6568cd24e0d49c5e5aa50e974a7921970099abbfd3a69fc09",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\original-axis-full\\ray-fan-native.json": "4b0f11d95cb7aa5eeec100c546c104215e85d4a224b13fc97af686cf46e982dd",
+    "D:\\Projects\\opticalsystem\\validation\\zemax\\2026-r1\\tessar-vignetting-2026-10-06\\rotated30-axis-compressed\\ray-fan-captured-settings.json": "101bda7f2a506eaa92aeb65270baeb4880bff846526e6f351f4b4a56d85b1a33"
+  },
+  "allNativeEnvironmentsValid": true,
+  "original132SettingsChanged": false,
+  "original132TolerancesChanged": false,
+  "original132NativeRecaptured": false,
+  "additionalNativeControlComparisons": 8,
+  "frozenBaselineChanged": false,
+  "historicalAuxiliaryDataChanged": false,
+  "intermediateRuns": [
+    "phase-targeted.trx and phase-fixture-diagnostic.trx: initial unequal-launch-plane test fixture, corrected without loosening assertion",
+    "tessar-targeted.trx: initial fixture column/key selection, corrected to strict active native column"
+  ],
+  "laboratories": "Not rerun in this wavefront/fan change; prior full scope retained at InitialStructure 258/2/260 and Coating Debug/Release 47/47",
+  "releaseGatePassed": false
+}

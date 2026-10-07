@@ -20,7 +20,8 @@ public sealed partial class OpticalSurface
         bool ignorePhysicalAperture = false,
         bool stopBeforeInteraction = false,
         bool bypassCoating = false,
-        CoordinateSystem? materialBeforeCoordinates = null)
+        CoordinateSystem? materialBeforeCoordinates = null,
+        bool allowVirtualIntersection = false)
     {
         OpticCapabilityPreflight.EnsureSurfaceSupported(this, OpticCapabilityOperation.RayTrace);
         var ray = inputRay.Normalize();
@@ -59,9 +60,18 @@ public sealed partial class OpticalSurface
             var localOrigin = CoordinateSystem.ToLocalPoint(ray.Origin);
             var localDirection = CoordinateSystem.ToLocalDirection(ray.Direction);
             var intersection = Geometry.DistanceToIntersection(localOrigin, localDirection);
+            var signedDistance = intersection.Distance;
+            if (!intersection.IsHit && allowVirtualIntersection)
+            {
+                if (materialBefore.PropagationModel is not HomogeneousPropagationModel)
+                    throw new NotSupportedException("Virtual pupil intersections require homogeneous propagation.");
+                intersection = Geometry.DistanceToIntersection(localOrigin, -localDirection);
+                signedDistance = -intersection.Distance;
+            }
             if (!intersection.IsHit) return Miss(refractiveIndexBefore);
-            segmentLength = Math.Max(0, intersection.Distance);
-            segmentOpticalPathLength = Math.Abs(segmentLength * refractiveIndexBefore);
+            segmentLength = allowVirtualIntersection ? signedDistance : Math.Max(0, intersection.Distance);
+            segmentOpticalPathLength = allowVirtualIntersection
+                ? segmentLength * refractiveIndexBefore : Math.Abs(segmentLength * refractiveIndexBefore);
             propagated = Propagate(ray, materialBefore.PropagationModel, segmentLength);
             localHit = CoordinateSystem.ToLocalPoint(propagated.Origin);
         }
@@ -74,7 +84,7 @@ public sealed partial class OpticalSurface
         var wavelengthMicrometers = ray.WavelengthNanometers / 1000.0;
         var attenuation = extinctionCoefficient <= 0
             ? 1.0
-            : Math.Exp((-4.0 * Math.PI * extinctionCoefficient * segmentLength * 1000.0) / wavelengthMicrometers);
+            : Math.Exp((-4.0 * Math.PI * extinctionCoefficient * Math.Abs(segmentLength) * 1000.0) / wavelengthMicrometers);
         propagated = propagated with
         {
             OpticalPathDifference = ray.OpticalPathDifference + segmentOpticalPathLength,

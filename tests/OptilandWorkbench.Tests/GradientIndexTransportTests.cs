@@ -22,6 +22,22 @@ public sealed class GradientIndexTransportTests
     private static readonly Vector3D Forward = new(0, 0, 1);
     private static readonly RealRay Source = new(new(0, 0, -1), Forward, 550);
 
+    [Fact]
+    public void GaussianPupilIntegralPreservesFormalContinuousGrinPropagation()
+    {
+        var optic = Plate();
+        var integral = optic.SequentialRayTracer.TraceGaussianPupil(new([Source])).Single();
+        var physical = optic.SequentialRayTracer.Trace(new([Source])).RayHistories.Single();
+        Assert.Equal(physical.Count, integral.Count);
+        for (var i = 0; i < integral.Count; i++)
+        {
+            Near(physical[i].Position, integral[i].Position);
+            Near(physical[i].Direction, integral[i].Direction);
+            Near(physical[i].CumulativeOpticalPathLength, integral[i].CumulativeOpticalPathLength);
+        }
+        Assert.False(integral[^1].Vignetted);
+    }
+
     [Theory]
     [InlineData(false)]
     [InlineData(true)]

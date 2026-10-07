@@ -321,7 +321,6 @@ public sealed class RayFanAnalysis : BaseAnalysis
                     pupil,
                     pupilAxisY: false,
                     _sagittalComponent,
-                    _vignettedPupil,
                     _zemaxCompatible,
                     imageSpace);
                 var ySamples = TraceFan(
@@ -332,7 +331,6 @@ public sealed class RayFanAnalysis : BaseAnalysis
                     pupil,
                     pupilAxisY: true,
                     _tangentialComponent,
-                    _vignettedPupil,
                     _zemaxCompatible,
                     imageSpace);
                 waves.Add(new RayFanWave(
@@ -390,9 +388,16 @@ public sealed class RayFanAnalysis : BaseAnalysis
         {
             var field = fieldFans[fieldIndex];
             var title = MtfPresentation.FieldName(analysisOptic, (field.Hx, field.Hy));
+            var vignetting = analysisOptic.SequentialRayTracer.RayGenerator.GetPupilVignetting(field.Hx, field.Hy);
+            var yPupil = _vignettedPupil
+                ? pupil.Select(value => vignetting.ScaleAndShift(0, value).Y).ToArray()
+                : pupil;
+            var xPupil = _vignettedPupil
+                ? pupil.Select(value => vignetting.ScaleAndShift(value, 0).X).ToArray()
+                : pupil;
             panes.Add(new AnalysisPlotPane(title, BuildFanSeries(
                 field.Waves,
-                pupil,
+                yPupil,
                 yFan: true,
                 _tangentialComponent,
                 _useDashes,
@@ -407,7 +412,7 @@ public sealed class RayFanAnalysis : BaseAnalysis
                 HideTickLabels: _zemaxCompatible)));
             panes.Add(new AnalysisPlotPane(title, BuildFanSeries(
                 field.Waves,
-                pupil,
+                xPupil,
                 yFan: false,
                 _sagittalComponent,
                 _useDashes,
@@ -491,7 +496,6 @@ public sealed class RayFanAnalysis : BaseAnalysis
         IReadOnlyList<double> pupil,
         bool pupilAxisY,
         RayFanAberrationComponent component,
-        bool vignettedPupil,
         bool localCoordinates,
         ImageSpaceCoordinateDescriptor imageSpace)
     {
@@ -505,7 +509,7 @@ public sealed class RayFanAnalysis : BaseAnalysis
             wavelength.Micrometers,
             pupilSamples,
             aimAtStop: optic.RayAimingEnabled,
-            applyVignettingFactors: !vignettedPupil);
+            applyVignettingFactors: true);
         var surfaceIndex = optic.SurfaceGroup.Items.IndexOf(targetSurface);
         using var trace = optic.SequentialRayTracer.Trace(
             bundle,

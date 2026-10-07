@@ -1,0 +1,36 @@
+{
+  "semantics": "Explicit pupil ray audit; unclipped continuation is diagnostic only. No comparison conclusion or RMS-analysis sampling equivalence is implied.",
+  "job": {
+    "source": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Tessar lens using vignetting factors.zmx",
+    "sourceSha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644",
+    "output": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\ra256-ray-audit\\tessar-ra256-remove-streamed",
+    "zemaxVersion": "2026 R1",
+    "zosApiPath": null,
+    "configuration": 1,
+    "wavelength": 2,
+    "method": "RA",
+    "rayDensity": 256,
+    "removeVignettingFactors": true,
+    "fields": [
+      [
+        0,
+        1
+      ]
+    ],
+    "timeoutSeconds": 600
+  },
+  "sourceSha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644",
+  "originalFileUnchanged": true,
+  "wavelengthMicrometers": 0.589,
+  "rayAimingEnabled": false,
+  "surfaceCount": 10,
+  "pupilCount": 51468,
+  "inputCount": 51468,
+  "snapshotSha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2",
+  "inputsSha256": "902986fa562a5776770b57f6e06b0a35d7f3f069b9ac1fe78de31601be00a645",
+  "coreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+  "toolAssemblySha256": "b6c070ad3a5fde97e4237ce6aee87a78e2ab82eb852a3b62eaf4c9bf867afc32",
+  "nativeExitCode": 0,
+  "timedOut": false,
+  "completedUtc": "2026-10-07T13:49:43.9601975+00:00"
+}

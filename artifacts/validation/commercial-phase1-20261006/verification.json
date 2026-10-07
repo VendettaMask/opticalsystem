@@ -1,0 +1,158 @@
+{
+  "date": "2026-10-06",
+  "suites": [
+    {
+      "passed": 4294,
+      "notExecuted": 0,
+      "total": 4295,
+      "failures": [
+        {
+          "message": "finite_angle: expected 0.058589983242791625, actual 0.060191701479492175",
+          "name": "OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays"
+        }
+      ],
+      "name": "product-release",
+      "addedPassed": 31,
+      "trx": "D:\\Projects\\opticalsystem\\artifacts\\validation\\commercial-phase1-20261006\\product-release.trx",
+      "addedTotal": 31,
+      "failed": 1
+    },
+    {
+      "passed": 4294,
+      "notExecuted": 0,
+      "total": 4295,
+      "failures": [
+        {
+          "message": "finite_angle: expected 0.058589983242791625, actual 0.060191701479492175",
+          "name": "OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays"
+        }
+      ],
+      "name": "product-debug",
+      "addedPassed": 31,
+      "trx": "D:\\Projects\\opticalsystem\\artifacts\\validation\\commercial-phase1-20261006\\product-debug.trx",
+      "addedTotal": 31,
+      "failed": 1
+    },
+    {
+      "passed": 102,
+      "notExecuted": 0,
+      "total": 104,
+      "failures": [
+        {
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.0037256669899999998)\r\nActual: 0.0037256670590166724",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: \"Huygens PSF Cross Section\", slug: \"huygens-psf-cross-section\", recordedNrmse: 0.0037256669899999998)"
+        },
+        {
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.01146706362185577)\r\nActual: 0.011467280942848471",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: \"Diffraction Encircled Energy\", directory: \"diffraction-encircled-energy-c1\")"
+        }
+      ],
+      "name": "comparison-release",
+      "addedPassed": 0,
+      "trx": "D:\\Projects\\opticalsystem\\artifacts\\validation\\commercial-phase1-20261006\\comparison-release.trx",
+      "addedTotal": 0,
+      "failed": 2
+    },
+    {
+      "passed": 258,
+      "notExecuted": 0,
+      "total": 260,
+      "failures": [
+        {
+          "message": "Assert.True() Failure\r\nExpected: True\r\nActual:   False",
+          "name": "OptilandWorkbench.InitialStructure.Tests.JointGeometryRestartTests.CompleteRaysAcrossGeometryBoundKeepFullFieldDuringRestart(id: \"trial-0078\", maximumRms: 0.45000000000000001)"
+        },
+        {
+          "message": "Assert.True() Failure\r\nExpected: True\r\nActual:   False",
+          "name": "OptilandWorkbench.InitialStructure.Tests.SecantLeastSquaresTests.FrozenOpticalCasesReachOriginalTargetsWithFreshCoreValidation(index: 9)"
+        }
+      ],
+      "name": "initial-structure-release",
+      "addedPassed": 0,
+      "trx": "D:\\Projects\\opticalsystem\\artifacts\\validation\\commercial-phase1-20261006\\initial-structure-release.trx",
+      "addedTotal": 0,
+      "failed": 2
+    },
+    {
+      "passed": 47,
+      "notExecuted": 0,
+      "total": 47,
+      "failures": [],
+      "name": "coating-release",
+      "addedPassed": 0,
+      "trx": "D:\\Projects\\opticalsystem\\artifacts\\validation\\commercial-phase1-20261006\\coating-release.trx",
+      "addedTotal": 0,
+      "failed": 0
+    },
+    {
+      "passed": 47,
+      "notExecuted": 0,
+      "total": 47,
+      "failures": [],
+      "name": "coating-debug",
+      "addedPassed": 0,
+      "trx": "D:\\Projects\\opticalsystem\\artifacts\\validation\\commercial-phase1-20261006\\coating-debug.trx",
+      "addedTotal": 0,
+      "failed": 0
+    }
+  ],
+  "numericalThresholdsChanged": false,
+  "builds": {
+    "formalReleaseWarnings": 0,
+    "formalReleaseErrors": 0,
+    "formalDebugWarnings": 0,
+    "formalDebugErrors": 0
+  },
+  "frozenReferencesChanged": false,
+  "sourceFiles": [
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/AnalysisResourceLimits.cs",
+      "sha256": "1F60602AE424B6DAB4970791D02915A7FE09BE93FDD0596DA6333B3043E9CDF0"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs",
+      "sha256": "9F6526815F7E15C43B32A0C0E0BDB4BD5D67D9F298A49B4D6230F995A991F36E"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/NonSequential/NonSequentialRayDatabase.cs",
+      "sha256": "A2C88ED1A7A4C5F9399CCE94D3A9CD021B53425B92533C341720C017D0B9F671"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs",
+      "sha256": "8AF3851672C42CC2EB8A71B145D9474D4120B474C371BA175A3A9AF68D4429C4"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Extended/ImageAndPolarizationAnalyses.cs",
+      "sha256": "5C8130716C33435E0F76CBCC10A0A1E36EF2EC4D36DFE57D425236B36C54CAB2"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Extended/ExtendedSceneImageAnalyses.cs",
+      "sha256": "9B4666BA9288A67F9E60907BAFF37EC10A9BD096BDE6FAEA85A60F307712B396"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.cs",
+      "sha256": "039C6FCA1B8EB0EB7547BF77BE3DBFFF786B13E666641748D600A167675F12D9"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/CommercialReliabilityTests.cs",
+      "sha256": "AC5E440CEB1F14572CC380E0C98A1A8A9CBFE55A1AB610DC809FB5154F14798F"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/InterferogramFooterTests.cs",
+      "sha256": "445AFEB62F091BB4CC1C473A8A75A99441FA7C43D92DF6EC568F363BC73F2C62"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/OpticCapabilityPreflightTests.cs",
+      "sha256": "924BD72B86E58E1A1E57F49FCE01AA43EC88AF66D638FD0470305724FCCD7E47"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/WavefrontSurfaceRenderTests.cs",
+      "sha256": "AB3B863F20EDEA39265C8F2C78849A0D7B224A7692337395248D64FF9E424A8E"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/UiAuditRegressionTests.cs",
+      "sha256": "9B8E5ED3E45F8D4A74B30F10EF87B0474C99B9F8368495281CDD6FFC8A278995"
+    }
+  ],
+  "baseline": "949623b70224df249185d3b5d458288f3107d049"
+}

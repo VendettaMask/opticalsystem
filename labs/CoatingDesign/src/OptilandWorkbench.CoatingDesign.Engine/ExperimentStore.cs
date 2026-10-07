@@ -11,6 +11,7 @@ public static class ExperimentStore
     {
         var snapshot = experiment.Snapshot(); snapshot.Validate();
         CheckResult(snapshot);
+        snapshot = NormalizeFingerprints(snapshot);
         await BoundedFile.WriteAllTextAtomicAsync(path, JsonSerializer.Serialize(snapshot, Experiment.JsonOptions),
             BoundedFile.MaximumOpticalDocumentBytes, "镀膜实验", token);
     }
@@ -22,13 +23,14 @@ public static class ExperimentStore
         try { d = JsonSerializer.Deserialize<Experiment>(json, Experiment.JsonOptions) ?? throw new InvalidDataException("不是有效的镀膜实验文件。"); }
         catch (JsonException error) { throw new InvalidDataException("实验文件格式损坏或数值类型不正确，请使用有效的 .coating.json 文件。", error); }
         d.Validate(); CheckResult(d);
+        d = NormalizeFingerprints(d);
         // Persisted results are evidence, never a trusted substitute for recalculation.
         return d.Result is null ? d : await Task.Run(() => new DesignService().Evaluate(d, d.Result.Run, token: token), token);
     }
 
     public static async Task ExportAsync(Experiment experiment, string directory, CancellationToken token = default)
     {
-        var d = experiment.Snapshot(); d.Validate(); CheckResult(d);
+        var d = experiment.Snapshot(); d.Validate(); CheckResult(d); d = NormalizeFingerprints(d);
         if (d.Result is null) throw new InvalidOperationException("请先计算当前膜系，再导出光谱和指标。");
         Directory.CreateDirectory(directory);
         var layers = new StringBuilder("层号,材料,物理厚度_nm,变量\n");
@@ -61,9 +63,19 @@ public static class ExperimentStore
     private static string Csv(string text) => '"' + text.Replace("\"", "\"\"") + '"';
     private static void CheckResult(Experiment d)
     {
-        if (d.Result is not null && d.Result.Fingerprint != d.Fingerprint())
+        if (d.Result is not null && !d.MatchesFingerprint(d.Result.Fingerprint))
             throw new InvalidDataException("结果与当前输入不一致，请重新计算后保存。");
-        if (d.Tolerance is not null && d.Tolerance.Fingerprint != d.Fingerprint())
+        if (d.Tolerance is not null && !d.MatchesFingerprint(d.Tolerance.Fingerprint))
             throw new InvalidDataException("公差结果与当前输入不一致，请重新进行公差复验。");
+    }
+
+    private static Experiment NormalizeFingerprints(Experiment d)
+    {
+        var fingerprint = d.Fingerprint();
+        return d with
+        {
+            Result = d.Result is null ? null : d.Result with { Fingerprint = fingerprint },
+            Tolerance = d.Tolerance is null ? null : d.Tolerance with { Fingerprint = fingerprint }
+        };
     }
 }

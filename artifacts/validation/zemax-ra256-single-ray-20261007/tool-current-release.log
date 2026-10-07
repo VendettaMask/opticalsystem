@@ -1,0 +1,35 @@
+D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+  失败 OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: "Huygens PSF Cross Section", slug: "huygens-psf-cross-section", recordedNrmse: 0.0037256669899999998) [285 ms]
+  错误消息:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 0.0037256669899999998)
+Actual: 0.0037256670590166724
+  堆栈跟踪:
+     at OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.Verify(String key, String slug, Nullable`1 recordedNrmse) in D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\ExtendedAnalysisTests.cs:line 84
+   at OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(String key, String slug, Double recordedNrmse) in D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\ExtendedAnalysisTests.cs:line 50
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  标准输出消息:
+ Huygens PSF Cross Section/curve:0: max=0.005391581588203756, NRMSE=0.0037256670590166724, Close
+
+
+  失败 OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: "Diffraction Encircled Energy", directory: "diffraction-encircled-energy-c1") [148 ms]
+  错误消息:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 0.01146706362185577)
+Actual: 0.011467280942848471
+  堆栈跟踪:
+     at OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(String key, String directory) in D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\AdditionalCapturedAnalysisTests.cs:line 92
+   at InvokeStub_AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  标准输出消息:
+ Diffraction Encircled Energy/curve:0: Difference, NRMSE=0.013875784968407625, max=0.0505309569642369
+ Open numerical discrepancy: test success only establishes error non-regression.
+ Diffraction Encircled Energy/curve:1: Difference, NRMSE=0.011467280942848471, max=0.04068881984537476
+ Open numerical discrepancy: test success only establishes error non-regression.
+
+
+结果文件: D:\Projects\opticalsystem\artifacts\validation\zemax-ra256-single-ray-20261007\tool-current-release.trx
+
+失败!  - 失败:     2，通过:   178，已跳过:     0，总计:   180，持续时间: 2 m 33 s - OptilandWorkbench.ZemaxComparison.Tests.dll (net10.0)

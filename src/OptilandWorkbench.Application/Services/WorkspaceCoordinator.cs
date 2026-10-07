@@ -93,7 +93,8 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         WorkspaceChangeCategory category,
         Action action,
         string? path = null,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        Action? validateBeforeReplace = null)
     {
         ArgumentNullException.ThrowIfNull(action);
         string? previousPath = null;
@@ -103,6 +104,7 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
             () =>
             {
                 cancellationToken.ThrowIfCancellationRequested();
+                validateBeforeReplace?.Invoke();
                 previousPath = CurrentPath;
                 pathCaptured = true;
                 CancelDocumentTasks();
@@ -238,7 +240,8 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
         WorkspaceChangeCategory category,
         Action action,
         CancellationToken automaticSemiDiameterCancellationToken = default,
-        Action? rollbackState = null)
+        Action? rollbackState = null,
+        bool refreshAutomaticSemiDiameters = true)
     {
         ArgumentNullException.ThrowIfNull(action);
         WorkspaceChangedEventArgs? change = null;
@@ -257,7 +260,7 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
                 {
                     automaticSemiDiameterCancellationToken.ThrowIfCancellationRequested();
                     action();
-                    if (_mutationDepth == 1 && UpdatesAutomaticSemiDiameters(category))
+                    if (refreshAutomaticSemiDiameters && _mutationDepth == 1 && UpdatesAutomaticSemiDiameters(category))
                     {
                         RefreshAutomaticSemiDiameters(automaticSemiDiameterCancellationToken);
                         automaticSemiDiameterCancellationToken.ThrowIfCancellationRequested();
@@ -398,10 +401,15 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
     }
 
     public void RefreshAutomaticSemiDiameters(CancellationToken cancellationToken = default)
+        => RefreshAutomaticSemiDiameters(Runtime, cancellationToken);
+
+    internal void RefreshAutomaticSemiDiameters(WorkbenchRuntime runtime, CancellationToken cancellationToken)
     {
         using var cancellationScope = ComputationCancellation.Push(cancellationToken);
-        _automaticSemiDiameterUpdater(Runtime.CurrentOptic);
-        Runtime.SynchronizeConfigurationPickups();
+        cancellationToken.ThrowIfCancellationRequested();
+        _automaticSemiDiameterUpdater(runtime.CurrentOptic);
+        runtime.SynchronizeConfigurationPickups();
+        cancellationToken.ThrowIfCancellationRequested();
     }
 
     private static bool UpdatesAutomaticSemiDiameters(WorkspaceChangeCategory category) => category is

@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="34ebdc94-2310-4e60-b5e8-516a1ccf580a" name="allen@DESKTOP-SET3SNR 2026-10-06 23:22:22" runUser="DESKTOP-SET3SNR\CodexSandboxOffline" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-06T23:22:22.6506287+08:00" queuing="2026-10-06T23:22:22.6506289+08:00" start="2026-10-06T23:22:21.3438855+08:00" finish="2026-10-06T23:22:22.9708115+08:00" />
+  <TestSettings name="default" id="c6c63dc5-68f1-4c1a-9cd4-ac992537c590">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-06_23_22_22" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="0262b102-aceb-4bcf-8fd6-b4906dde84bc" testId="6f2ccd9b-4e34-0c8c-34b7-9f31c92f610a" testName="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;rotated30-axis-compressed&quot;, key: &quot;ray-fan&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0192636" startTime="2026-10-06T23:22:22.7243621+08:00" endTime="2026-10-06T23:22:22.7437284+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0262b102-aceb-4bcf-8fd6-b4906dde84bc">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : The given key was not present in the dictionary.</Message>
+          <StackTrace>   at System.Text.Json.JsonElement.GetProperty(String propertyName)&#xD;
+   at OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(String capture, String key) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\TessarVignettingParityTests.cs:line 50&#xD;
+   at InvokeStub_TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="103b009c-52bb-47f8-8254-8844138d3cf8" testId="0d7c5c4b-992f-4183-d558-5ef596cdf0fc" testName="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;original-edge&quot;, key: &quot;optical-path-difference&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0199272" startTime="2026-10-06T23:22:22.6480385+08:00" endTime="2026-10-06T23:22:22.6679624+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="103b009c-52bb-47f8-8254-8844138d3cf8" />
+    <UnitTestResult executionId="509e2edc-9763-47c7-938b-4f1217afa783" testId="29c7ecc3-bd58-b54a-7c79-dae4c590b09d" testName="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;original-field2-primary&quot;, key: &quot;ray-fan&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0270834" startTime="2026-10-06T23:22:22.7441875+08:00" endTime="2026-10-06T23:22:22.7709039+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="509e2edc-9763-47c7-938b-4f1217afa783">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : The given key was not present in the dictionary.</Message>
+          <StackTrace>   at System.Text.Json.JsonElement.GetProperty(String propertyName)&#xD;
+   at OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(String capture, String key) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\TessarVignettingParityTests.cs:line 50&#xD;
+   at InvokeStub_TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="bedcfcb4-91e8-49d8-b9db-9e5a6235644e" testId="e77018a7-8ec6-aa58-c4d2-c3cd60208bf9" testName="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;original-axis-full&quot;, key: &quot;ray-fan&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0184702" startTime="2026-10-06T23:22:22.8601784+08:00" endTime="2026-10-06T23:22:22.8783168+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bedcfcb4-91e8-49d8-b9db-9e5a6235644e">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : The given key was not present in the dictionary.</Message>
+          <StackTrace>   at System.Text.Json.JsonElement.GetProperty(String propertyName)&#xD;
+   at OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(String capture, String key) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\TessarVignettingParityTests.cs:line 50&#xD;
+   at InvokeStub_TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="62dddc7d-4c87-4273-9aa6-937c7cf2e16f" testId="cc4eb8bd-3491-9fa4-ef26-27475c8bcae4" testName="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;original-axis-full&quot;, key: &quot;optical-path-difference&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0266865" startTime="2026-10-06T23:22:22.7016031+08:00" endTime="2026-10-06T23:22:22.7242663+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="62dddc7d-4c87-4273-9aa6-937c7cf2e16f" />
+    <UnitTestResult executionId="8130c82f-596b-40da-818c-d47943f2842b" testId="a7dccde2-1b23-02e7-0c67-a50e0a7b77a8" testName="OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: &quot;original-edge&quot;, key: &quot;ray-fan&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0153368" startTime="2026-10-06T23:22:22.6302613+08:00" endTime="2026-10-06T23:22:22.6304244+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8130c82f-596b-40da-818c-d47943f2842b" />
+    <UnitTestResult executionId="4e014c33-f464-4c92-aae7-a3657a14b9c3" testId="0efb2ec8-d9f7-9574-da90-c705d6779f56" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: False, angle: 0)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0009403" startTime="2026-10-06T23:22:22.6039751+08:00" endTime="2026-10-06T23:22:22.6042600+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4e014c33-f464-4c92-aae7-a3657a14b9c3" />
+    <UnitTestResult executionId="a6be5777-02e4-46b4-8c33-6df03a87f498" testId="6a59b358-ab71-2968-0a6b-174fdf829e4b" testName="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;rotated30-axis-compressed&quot;, key: &quot;optical-path-difference&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0211881" startTime="2026-10-06T23:22:22.7909200+08:00" endTime="2026-10-06T23:22:22.8114585+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a6be5777-02e4-46b4-8c33-6df03a87f498" />
+    <UnitTestResult executionId="073c3caf-65cd-450f-9b01-237c68e3c6ac" testId="5d9ead0d-0a4e-e4d1-2c69-0c2d9ded23cf" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: BestFitSphere, angle: 180)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0021486" startTime="2026-10-06T23:22:22.6303266+08:00" endTime="2026-10-06T23:22:22.6303521+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="073c3caf-65cd-450f-9b01-237c68e3c6ac" />
+    <UnitTestResult executionId="513f28ea-3893-4e86-aef2-06925c6b48c1" testId="574ef8bc-015a-30ff-5bc1-6de1631e9777" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 0)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0001507" startTime="2026-10-06T23:22:22.6300287+08:00" endTime="2026-10-06T23:22:22.6300588+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="513f28ea-3893-4e86-aef2-06925c6b48c1" />
+    <UnitTestResult executionId="dfdb4ddb-6b7a-4780-9136-316c4c2d7a23" testId="4c22c684-edc1-9800-7e3f-d6a9e5104e80" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: False, angle: 30)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0013986" startTime="2026-10-06T23:22:22.6034682+08:00" endTime="2026-10-06T23:22:22.6035149+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dfdb4ddb-6b7a-4780-9136-316c4c2d7a23" />
+    <UnitTestResult executionId="c3583ea5-121a-4f78-8fce-ad8cb8cc87bd" testId="772c6f28-abf3-1be1-a8d0-5ac1f536732c" testName="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;rotated30-axis-full&quot;, key: &quot;optical-path-difference&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0200791" startTime="2026-10-06T23:22:22.8786810+08:00" endTime="2026-10-06T23:22:22.8984475+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c3583ea5-121a-4f78-8fce-ad8cb8cc87bd" />
+    <UnitTestResult executionId="b13fd3eb-796f-4f5b-a9b0-adcd375545ff" testId="c6380021-7dc6-d8cc-3a2d-332bdbc0f80d" testName="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;original-primary&quot;, key: &quot;optical-path-difference&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0170481" startTime="2026-10-06T23:22:22.8985379+08:00" endTime="2026-10-06T23:22:22.9156137+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b13fd3eb-796f-4f5b-a9b0-adcd375545ff">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: False&#xD;
+Actual:   True</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(String capture, String key) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\TessarVignettingParityTests.cs:line 65&#xD;
+   at InvokeStub_TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8d0182c4-1c3f-4ad3-9e30-2c35354d834c" testId="1cf98a3b-31b5-b50b-af74-21d554051286" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 90)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0007172" startTime="2026-10-06T23:22:22.6070896+08:00" endTime="2026-10-06T23:22:22.6077598+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8d0182c4-1c3f-4ad3-9e30-2c35354d834c" />
+    <UnitTestResult executionId="5b1cee1d-6f3d-46ce-a05c-6aa6bf009e7d" testId="edba0c51-7eb3-b04b-582c-41a41b1bbf77" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: True, angle: 0)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0051304" startTime="2026-10-06T23:22:22.6039066+08:00" endTime="2026-10-06T23:22:22.6039307+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5b1cee1d-6f3d-46ce-a05c-6aa6bf009e7d" />
+    <UnitTestResult executionId="df1fadcf-406d-47bb-a8a6-62c9dc73a4d6" testId="0b1d3ca2-0a6f-626f-006f-a45cb7021cd2" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: BestFitSphere, angle: 60)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0150550" startTime="2026-10-06T23:22:22.6301671+08:00" endTime="2026-10-06T23:22:22.6302808+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="df1fadcf-406d-47bb-a8a6-62c9dc73a4d6" />
+    <UnitTestResult executionId="e1e3b9cc-a266-4435-a1e6-49e3ad0a7413" testId="24f7b4cc-448d-3de5-6c3c-d833e1b80356" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: CentroidSphere, angle: 180)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0016474" startTime="2026-10-06T23:22:22.6333610+08:00" endTime="2026-10-06T23:22:22.6349384+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e1e3b9cc-a266-4435-a1e6-49e3ad0a7413" />
+    <UnitTestResult executionId="c0dd3950-6080-4ca8-b3d6-b963fc16ab21" testId="bd8a4c86-6a01-2953-4386-2eb2d575e8b2" testName="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;rotated30-axis-full&quot;, key: &quot;ray-fan&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0263703" startTime="2026-10-06T23:22:22.8115509+08:00" endTime="2026-10-06T23:22:22.8379518+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c0dd3950-6080-4ca8-b3d6-b963fc16ab21">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : The given key was not present in the dictionary.</Message>
+          <StackTrace>   at System.Text.Json.JsonElement.GetProperty(String propertyName)&#xD;
+   at OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(String capture, String key) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\TessarVignettingParityTests.cs:line 50&#xD;
+   at InvokeStub_TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f4417432-9521-488e-8040-e8e7c047dc7e" testId="c5b9e8c3-73ce-b963-13ab-9a50d5dba67f" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: CentroidSphere, angle: 60)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0072577" startTime="2026-10-06T23:22:22.6303979+08:00" endTime="2026-10-06T23:22:22.6332832+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f4417432-9521-488e-8040-e8e7c047dc7e" />
+    <UnitTestResult executionId="a822a083-1ed3-44ed-9395-d26262593317" testId="0f91a06f-3880-67a2-b94c-b3c615ebcc53" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 30)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0002177" startTime="2026-10-06T23:22:22.6078044+08:00" endTime="2026-10-06T23:22:22.6080040+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a822a083-1ed3-44ed-9395-d26262593317" />
+    <UnitTestResult executionId="1bb26e86-d516-48d2-8f78-762b615d5d6a" testId="3db852e9-abf2-a0a0-09f1-afbf35bed6cc" testName="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;original-edge&quot;, key: &quot;ray-fan&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0191534" startTime="2026-10-06T23:22:22.7712851+08:00" endTime="2026-10-06T23:22:22.7904437+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1bb26e86-d516-48d2-8f78-762b615d5d6a">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : The given key was not present in the dictionary.</Message>
+          <StackTrace>   at System.Text.Json.JsonElement.GetProperty(String propertyName)&#xD;
+   at OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(String capture, String key) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\TessarVignettingParityTests.cs:line 50&#xD;
+   at InvokeStub_TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0c9e8213-ff55-4808-a3b9-7afe698ddff2" testId="5ecdd000-3101-d674-3863-708345d603de" testName="OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: &quot;rotated30-axis-compressed&quot;, key: &quot;optical-path-difference&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0146146" startTime="2026-10-06T23:22:22.6304700+08:00" endTime="2026-10-06T23:22:22.6420270+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0c9e8213-ff55-4808-a3b9-7afe698ddff2" />
+    <UnitTestResult executionId="64f38f98-337c-4d5a-aec4-d3b7a51f1eab" testId="a0c046e9-df1d-3b48-0316-94838c62e5fc" testName="OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: &quot;original-edge&quot;, key: &quot;optical-path-difference&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.4549400" startTime="2026-10-06T23:22:22.1536707+08:00" endTime="2026-10-06T23:22:22.6302015+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="64f38f98-337c-4d5a-aec4-d3b7a51f1eab" />
+    <UnitTestResult executionId="cbcb5818-ad3b-4863-8940-976addc7f35f" testId="36946c4c-7af7-db03-58c1-1b3c93391d30" testName="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;original-primary&quot;, key: &quot;ray-fan&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0252093" startTime="2026-10-06T23:22:22.6680521+08:00" endTime="2026-10-06T23:22:22.6978958+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cbcb5818-ad3b-4863-8940-976addc7f35f">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : The given key was not present in the dictionary.</Message>
+          <StackTrace>   at System.Text.Json.JsonElement.GetProperty(String propertyName)&#xD;
+   at OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(String capture, String key) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\TessarVignettingParityTests.cs:line 50&#xD;
+   at InvokeStub_TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b4959867-9adb-47bc-a5c2-699818f16710" testId="2e92dc06-fa0e-5aba-24ca-328dcf047099" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 30)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0024931" startTime="2026-10-06T23:22:22.6050576+08:00" endTime="2026-10-06T23:22:22.6070250+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b4959867-9adb-47bc-a5c2-699818f16710" />
+    <UnitTestResult executionId="2f0f8cad-7e7a-40db-8a08-d17b4c8cdce5" testId="040e0634-81f5-89b4-ac86-656300cea8ec" testName="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;original-field2-primary&quot;, key: &quot;optical-path-difference&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0212795" startTime="2026-10-06T23:22:22.8387593+08:00" endTime="2026-10-06T23:22:22.8597888+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2f0f8cad-7e7a-40db-8a08-d17b4c8cdce5">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: False&#xD;
+Actual:   True</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(String capture, String key) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\TessarVignettingParityTests.cs:line 65&#xD;
+   at InvokeStub_TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4c436f2b-aec3-4053-ae52-bee526002591" testId="cf6985e2-ebbc-34e4-c143-14f4a5066a21" testName="OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: &quot;rotated30-axis-compressed&quot;, key: &quot;ray-fan&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0058939" startTime="2026-10-06T23:22:22.6432304+08:00" endTime="2026-10-06T23:22:22.6479583+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4c436f2b-aec3-4053-ae52-bee526002591" />
+    <UnitTestResult executionId="226a0d37-6b77-470b-a4ba-78f61bac3f94" testId="13e9d192-ae6b-9ca0-4e89-ef3b8d1a5218" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 0)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0002563" startTime="2026-10-06T23:22:22.6297504+08:00" endTime="2026-10-06T23:22:22.6297937+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="226a0d37-6b77-470b-a4ba-78f61bac3f94" />
+    <UnitTestResult executionId="d3f7f763-b57e-45e9-9cd9-611d4406796e" testId="3937f813-e7db-d447-21c8-bc0d497dde24" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 90)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0001438" startTime="2026-10-06T23:22:22.6080459+08:00" endTime="2026-10-06T23:22:22.6081697+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d3f7f763-b57e-45e9-9cd9-611d4406796e" />
+    <UnitTestResult executionId="cbecd02f-1daf-4ae3-8e7f-1d95380d522d" testId="7142cdff-a8cf-5ac2-84dd-a89e55a8aeea" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: True, angle: 30)" computerName="DESKTOP-SET3SNR" duration="00:00:00.4379783" startTime="2026-10-06T23:22:22.1546768+08:00" endTime="2026-10-06T23:22:22.5967420+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cbecd02f-1daf-4ae3-8e7f-1d95380d522d" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: BestFitSphere, angle: 180)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="5d9ead0d-0a4e-e4d1-2c69-0c2d9ded23cf">
+      <Execution id="073c3caf-65cd-450f-9b01-237c68e3c6ac" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: True, angle: 30)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="7142cdff-a8cf-5ac2-84dd-a89e55a8aeea">
+      <Execution id="cbecd02f-1daf-4ae3-8e7f-1d95380d522d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;original-axis-full&quot;, key: &quot;optical-path-difference&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="cc4eb8bd-3491-9fa4-ef26-27475c8bcae4">
+      <Execution id="62dddc7d-4c87-4273-9aa6-937c7cf2e16f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TessarVignettingParityTests" name="CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: True, angle: 0)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="edba0c51-7eb3-b04b-582c-41a41b1bbf77">
+      <Execution id="5b1cee1d-6f3d-46ce-a05c-6aa6bf009e7d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 90)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="3937f813-e7db-d447-21c8-bc0d497dde24">
+      <Execution id="d3f7f763-b57e-45e9-9cd9-611d4406796e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;rotated30-axis-full&quot;, key: &quot;optical-path-difference&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="772c6f28-abf3-1be1-a8d0-5ac1f536732c">
+      <Execution id="c3583ea5-121a-4f78-8fce-ad8cb8cc87bd" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TessarVignettingParityTests" name="CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;original-primary&quot;, key: &quot;ray-fan&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="36946c4c-7af7-db03-58c1-1b3c93391d30">
+      <Execution id="cbcb5818-ad3b-4863-8940-976addc7f35f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TessarVignettingParityTests" name="CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: BestFitSphere, angle: 60)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="0b1d3ca2-0a6f-626f-006f-a45cb7021cd2">
+      <Execution id="df1fadcf-406d-47bb-a8a6-62c9dc73a4d6" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: &quot;original-edge&quot;, key: &quot;ray-fan&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="a7dccde2-1b23-02e7-0c67-a50e0a7b77a8">
+      <Execution id="8130c82f-596b-40da-818c-d47943f2842b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TessarVignettingParityTests" name="PupilDisplayTogglePreservesEveryRayValueAndInvalidSample" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: &quot;rotated30-axis-compressed&quot;, key: &quot;optical-path-difference&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="5ecdd000-3101-d674-3863-708345d603de">
+      <Execution id="0c9e8213-ff55-4808-a3b9-7afe698ddff2" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TessarVignettingParityTests" name="PupilDisplayTogglePreservesEveryRayValueAndInvalidSample" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: False, angle: 30)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="4c22c684-edc1-9800-7e3f-d6a9e5104e80">
+      <Execution id="dfdb4ddb-6b7a-4780-9136-316c4c2d7a23" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 30)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="2e92dc06-fa0e-5aba-24ca-328dcf047099">
+      <Execution id="b4959867-9adb-47bc-a5c2-699818f16710" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;rotated30-axis-compressed&quot;, key: &quot;ray-fan&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="6f2ccd9b-4e34-0c8c-34b7-9f31c92f610a">
+      <Execution id="0262b102-aceb-4bcf-8fd6-b4906dde84bc" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TessarVignettingParityTests" name="CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;rotated30-axis-compressed&quot;, key: &quot;optical-path-difference&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="6a59b358-ab71-2968-0a6b-174fdf829e4b">
+      <Execution id="a6be5777-02e4-46b4-8c33-6df03a87f498" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TessarVignettingParityTests" name="CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;original-primary&quot;, key: &quot;optical-path-difference&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="c6380021-7dc6-d8cc-3a2d-332bdbc0f80d">
+      <Execution id="b13fd3eb-796f-4f5b-a9b0-adcd375545ff" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TessarVignettingParityTests" name="CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;original-field2-primary&quot;, key: &quot;optical-path-difference&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="040e0634-81f5-89b4-ac86-656300cea8ec">
+      <Execution id="2f0f8cad-7e7a-40db-8a08-d17b4c8cdce5" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TessarVignettingParityTests" name="CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;original-edge&quot;, key: &quot;ray-fan&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="3db852e9-abf2-a0a0-09f1-afbf35bed6cc">
+      <Execution id="1bb26e86-d516-48d2-8f78-762b615d5d6a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TessarVignettingParityTests" name="CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 0)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="574ef8bc-015a-30ff-5bc1-6de1631e9777">
+      <Execution id="513f28ea-3893-4e86-aef2-06925c6b48c1" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;rotated30-axis-full&quot;, key: &quot;ray-fan&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="bd8a4c86-6a01-2953-4386-2eb2d575e8b2">
+      <Execution id="c0dd3950-6080-4ca8-b3d6-b963fc16ab21" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TessarVignettingParityTests" name="CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: CentroidSphere, angle: 60)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="c5b9e8c3-73ce-b963-13ab-9a50d5dba67f">
+      <Execution id="f4417432-9521-488e-8040-e8e7c047dc7e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 30)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="0f91a06f-3880-67a2-b94c-b3c615ebcc53">
+      <Execution id="a822a083-1ed3-44ed-9395-d26262593317" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;original-edge&quot;, key: &quot;optical-path-difference&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="0d7c5c4b-992f-4183-d558-5ef596cdf0fc">
+      <Execution id="103b009c-52bb-47f8-8254-8844138d3cf8" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TessarVignettingParityTests" name="CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: &quot;rotated30-axis-compressed&quot;, key: &quot;ray-fan&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="cf6985e2-ebbc-34e4-c143-14f4a5066a21">
+      <Execution id="4c436f2b-aec3-4053-ae52-bee526002591" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TessarVignettingParityTests" name="PupilDisplayTogglePreservesEveryRayValueAndInvalidSample" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays(strategy: CentroidSphere, angle: 180)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="24f7b4cc-448d-3de5-6c3c-d833e1b80356">
+      <Execution id="e1e3b9cc-a266-4435-a1e6-49e3ad0a7413" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="RotatedCompressedPupilPreservesReferenceSphereForTheSamePhysicalRays" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;original-axis-full&quot;, key: &quot;ray-fan&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="e77018a7-8ec6-aa58-c4d2-c3cd60208bf9">
+      <Execution id="bedcfcb4-91e8-49d8-b9db-9e5a6235644e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TessarVignettingParityTests" name="CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TessarVignettingParityTests.PupilDisplayTogglePreservesEveryRayValueAndInvalidSample(capture: &quot;original-edge&quot;, key: &quot;optical-path-difference&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="a0c046e9-df1d-3b48-0316-94838c62e5fc">
+      <Execution id="64f38f98-337c-4d5a-aec4-d3b7a51f1eab" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TessarVignettingParityTests" name="PupilDisplayTogglePreservesEveryRayValueAndInvalidSample" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: False, angle: 0)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="0efb2ec8-d9f7-9574-da90-c705d6779f56">
+      <Execution id="4e014c33-f464-4c92-aae7-a3657a14b9c3" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 0)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="13e9d192-ae6b-9ca0-4e89-ef3b8d1a5218">
+      <Execution id="226a0d37-6b77-470b-a4ba-78f61bac3f94" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 90)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="1cf98a3b-31b5-b50b-af74-21d554051286">
+      <Execution id="8d0182c4-1c3f-4ad3-9e30-2c35354d834c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: &quot;original-field2-primary&quot;, key: &quot;ray-fan&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="29c7ecc3-bd58-b54a-7c79-dae4c590b09d">
+      <Execution id="509e2edc-9763-47c7-938b-4f1217afa783" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.TessarVignettingParityTests" name="CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="6f2ccd9b-4e34-0c8c-34b7-9f31c92f610a" executionId="0262b102-aceb-4bcf-8fd6-b4906dde84bc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0d7c5c4b-992f-4183-d558-5ef596cdf0fc" executionId="103b009c-52bb-47f8-8254-8844138d3cf8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="29c7ecc3-bd58-b54a-7c79-dae4c590b09d" executionId="509e2edc-9763-47c7-938b-4f1217afa783" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e77018a7-8ec6-aa58-c4d2-c3cd60208bf9" executionId="bedcfcb4-91e8-49d8-b9db-9e5a6235644e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cc4eb8bd-3491-9fa4-ef26-27475c8bcae4" executionId="62dddc7d-4c87-4273-9aa6-937c7cf2e16f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a7dccde2-1b23-02e7-0c67-a50e0a7b77a8" executionId="8130c82f-596b-40da-818c-d47943f2842b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0efb2ec8-d9f7-9574-da90-c705d6779f56" executionId="4e014c33-f464-4c92-aae7-a3657a14b9c3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6a59b358-ab71-2968-0a6b-174fdf829e4b" executionId="a6be5777-02e4-46b4-8c33-6df03a87f498" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5d9ead0d-0a4e-e4d1-2c69-0c2d9ded23cf" executionId="073c3caf-65cd-450f-9b01-237c68e3c6ac" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="574ef8bc-015a-30ff-5bc1-6de1631e9777" executionId="513f28ea-3893-4e86-aef2-06925c6b48c1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4c22c684-edc1-9800-7e3f-d6a9e5104e80" executionId="dfdb4ddb-6b7a-4780-9136-316c4c2d7a23" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="772c6f28-abf3-1be1-a8d0-5ac1f536732c" executionId="c3583ea5-121a-4f78-8fce-ad8cb8cc87bd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c6380021-7dc6-d8cc-3a2d-332bdbc0f80d" executionId="b13fd3eb-796f-4f5b-a9b0-adcd375545ff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1cf98a3b-31b5-b50b-af74-21d554051286" executionId="8d0182c4-1c3f-4ad3-9e30-2c35354d834c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="edba0c51-7eb3-b04b-582c-41a41b1bbf77" executionId="5b1cee1d-6f3d-46ce-a05c-6aa6bf009e7d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0b1d3ca2-0a6f-626f-006f-a45cb7021cd2" executionId="df1fadcf-406d-47bb-a8a6-62c9dc73a4d6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="24f7b4cc-448d-3de5-6c3c-d833e1b80356" executionId="e1e3b9cc-a266-4435-a1e6-49e3ad0a7413" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bd8a4c86-6a01-2953-4386-2eb2d575e8b2" executionId="c0dd3950-6080-4ca8-b3d6-b963fc16ab21" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c5b9e8c3-73ce-b963-13ab-9a50d5dba67f" executionId="f4417432-9521-488e-8040-e8e7c047dc7e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0f91a06f-3880-67a2-b94c-b3c615ebcc53" executionId="a822a083-1ed3-44ed-9395-d26262593317" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3db852e9-abf2-a0a0-09f1-afbf35bed6cc" executionId="1bb26e86-d516-48d2-8f78-762b615d5d6a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5ecdd000-3101-d674-3863-708345d603de" executionId="0c9e8213-ff55-4808-a3b9-7afe698ddff2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a0c046e9-df1d-3b48-0316-94838c62e5fc" executionId="64f38f98-337c-4d5a-aec4-d3b7a51f1eab" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="36946c4c-7af7-db03-58c1-1b3c93391d30" executionId="cbcb5818-ad3b-4863-8940-976addc7f35f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2e92dc06-fa0e-5aba-24ca-328dcf047099" executionId="b4959867-9adb-47bc-a5c2-699818f16710" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="040e0634-81f5-89b4-ac86-656300cea8ec" executionId="2f0f8cad-7e7a-40db-8a08-d17b4c8cdce5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cf6985e2-ebbc-34e4-c143-14f4a5066a21" executionId="4c436f2b-aec3-4053-ae52-bee526002591" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="13e9d192-ae6b-9ca0-4e89-ef3b8d1a5218" executionId="226a0d37-6b77-470b-a4ba-78f61bac3f94" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3937f813-e7db-d447-21c8-bc0d497dde24" executionId="d3f7f763-b57e-45e9-9cd9-611d4406796e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7142cdff-a8cf-5ac2-84dd-a89e55a8aeea" executionId="cbecd02f-1daf-4ae3-8e7f-1d95380d522d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="30" executed="30" passed="22" failed="8" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.10]   Discovering: OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:00.45]   Discovered:  OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:00.48]   Starting:    OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:01.04]       System.Collections.Generic.KeyNotFoundException : The given key was not present in the dictionary.&#xD;
+[xUnit.net 00:00:01.04]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.04]            at System.Text.Json.JsonElement.GetProperty(String propertyName)&#xD;
+[xUnit.net 00:00:01.04]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\TessarVignettingParityTests.cs(50,0): at OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(String capture, String key)&#xD;
+[xUnit.net 00:00:01.04]            at InvokeStub_TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.04]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.09]       System.Collections.Generic.KeyNotFoundException : The given key was not present in the dictionary.&#xD;
+[xUnit.net 00:00:01.09]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.09]            at System.Text.Json.JsonElement.GetProperty(String propertyName)&#xD;
+[xUnit.net 00:00:01.09]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\TessarVignettingParityTests.cs(50,0): at OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(String capture, String key)&#xD;
+[xUnit.net 00:00:01.09]            at InvokeStub_TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.09]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.11]       System.Collections.Generic.KeyNotFoundException : The given key was not present in the dictionary.&#xD;
+[xUnit.net 00:00:01.11]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.11]            at System.Text.Json.JsonElement.GetProperty(String propertyName)&#xD;
+[xUnit.net 00:00:01.11]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\TessarVignettingParityTests.cs(50,0): at OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(String capture, String key)&#xD;
+[xUnit.net 00:00:01.11]            at InvokeStub_TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.11]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.13]       System.Collections.Generic.KeyNotFoundException : The given key was not present in the dictionary.&#xD;
+[xUnit.net 00:00:01.13]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.13]            at System.Text.Json.JsonElement.GetProperty(String propertyName)&#xD;
+[xUnit.net 00:00:01.13]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\TessarVignettingParityTests.cs(50,0): at OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(String capture, String key)&#xD;
+[xUnit.net 00:00:01.13]            at InvokeStub_TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.13]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.18]       System.Collections.Generic.KeyNotFoundException : The given key was not present in the dictionary.&#xD;
+[xUnit.net 00:00:01.18]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.18]            at System.Text.Json.JsonElement.GetProperty(String propertyName)&#xD;
+[xUnit.net 00:00:01.18]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\TessarVignettingParityTests.cs(50,0): at OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(String capture, String key)&#xD;
+[xUnit.net 00:00:01.18]            at InvokeStub_TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.18]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.20]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.20]       Expected: False&#xD;
+[xUnit.net 00:00:01.20]       Actual:   True&#xD;
+[xUnit.net 00:00:01.20]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.20]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\TessarVignettingParityTests.cs(65,0): at OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(String capture, String key)&#xD;
+[xUnit.net 00:00:01.20]            at InvokeStub_TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.20]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.22]       System.Collections.Generic.KeyNotFoundException : The given key was not present in the dictionary.&#xD;
+[xUnit.net 00:00:01.22]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.22]            at System.Text.Json.JsonElement.GetProperty(String propertyName)&#xD;
+[xUnit.net 00:00:01.22]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\TessarVignettingParityTests.cs(50,0): at OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(String capture, String key)&#xD;
+[xUnit.net 00:00:01.22]            at InvokeStub_TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.22]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.26]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.26]       Expected: False&#xD;
+[xUnit.net 00:00:01.26]       Actual:   True&#xD;
+[xUnit.net 00:00:01.26]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.26]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\TessarVignettingParityTests.cs(65,0): at OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(String capture, String key)&#xD;
+[xUnit.net 00:00:01.26]            at InvokeStub_TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.26]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.26]   Finished:    OptilandWorkbench.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T23:22:22.6996224+08:00">
+        <Text>[xUnit.net 00:00:01.04]     OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: "original-primary", key: "ray-fan") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T23:22:22.7440756+08:00">
+        <Text>[xUnit.net 00:00:01.08]     OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: "rotated30-axis-compressed", key: "ray-fan") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T23:22:22.7712312+08:00">
+        <Text>[xUnit.net 00:00:01.11]     OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: "original-field2-primary", key: "ray-fan") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T23:22:22.7909036+08:00">
+        <Text>[xUnit.net 00:00:01.13]     OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: "original-edge", key: "ray-fan") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T23:22:22.8383884+08:00">
+        <Text>[xUnit.net 00:00:01.18]     OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: "rotated30-axis-full", key: "ray-fan") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T23:22:22.8601167+08:00">
+        <Text>[xUnit.net 00:00:01.20]     OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: "original-field2-primary", key: "optical-path-difference") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T23:22:22.8786204+08:00">
+        <Text>[xUnit.net 00:00:01.22]     OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: "original-axis-full", key: "ray-fan") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T23:22:22.9160312+08:00">
+        <Text>[xUnit.net 00:00:01.26]     OptilandWorkbench.Tests.TessarVignettingParityTests.CapturedPupilAxesValidityAndPhysicalValuesMatchNativeData(capture: "original-primary", key: "optical-path-difference") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

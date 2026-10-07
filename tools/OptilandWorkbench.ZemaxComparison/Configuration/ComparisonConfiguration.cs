@@ -7,6 +7,10 @@ public sealed record AnalysisConfiguration
     public int PupilSampling { get; init; } = 64;
     public int ImageSampling { get; init; } = 64;
     public int RayCount { get; init; } = 20;
+    public bool VignettedPupil { get; init; } = true;
+    public string RmsFieldMethod { get; init; } = "GQ";
+    public int RmsFieldRayDensity { get; init; } = 6;
+    public bool RmsFieldRemoveVignettingFactors { get; init; } = true;
     public double ImageDeltaMicrometers { get; init; } = 0.25;
     public double MaximumFrequency { get; init; } = 50;
     public Dictionary<string, Tolerances> Quantities { get; init; } = [];
@@ -36,6 +40,7 @@ public sealed record ComparisonConfiguration
                 throw new ArgumentException($"Invalid explicit settings: {key}");
             if (entry.ZemaxSettingsMapper == "spot" && a.RayCount > 32)
                 throw new ArgumentException("Spot RayCount is the hexapolar ring density and must be <= 32 on both sides");
+            ExtendedAnalysisContracts.ValidateRmsFieldSampling(key, a);
             if (entry.ZemaxSettingsMapper != "unimplemented" && a.WorkbenchSettings.Count != 0)
                 throw new ArgumentException($"{key}: comparable adapters accept canonical typed settings only; unmatched Workbench-only overrides would invalidate alignment");
             foreach (var (quantity, t) in a.Quantities)

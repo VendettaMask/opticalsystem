@@ -65,6 +65,7 @@ public static class ReferenceSphereWavefrontEngine
             .RefractiveIndex(wavelength.Nanometers);
         var (ux, uy) = WavefrontEngine.LaunchTiltDirection(optic, field);
         var entrancePupilRadius = optic.Paraxial.EstimateEntrancePupilDiameter() / 2;
+        var vignetting = optic.SequentialRayTracer.RayGenerator.GetPupilVignetting(field.Hx, field.Hy);
         var rays = new List<PreparedRay>(pupilSamples.Count);
         for (var index = 0; index < pupilSamples.Count; index++)
         {
@@ -76,7 +77,8 @@ public static class ReferenceSphereWavefrontEngine
 
             var sample = value.ToRayTraceSample();
             var pupil = pupilSamples[index];
-            var tilt = (ux * pupil.X * entrancePupilRadius) + (uy * pupil.Y * entrancePupilRadius);
+            var tilt = WavefrontEngine.EntrancePupilPhasePath((ux, uy), entrancePupilRadius,
+                vignetting.Transform(pupil.X, pupil.Y));
             rays.Add(new PreparedRay(
                 pupil,
                 sample,

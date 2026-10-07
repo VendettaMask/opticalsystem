@@ -1,0 +1,114 @@
+{
+  "allOtherPropertiesUnchanged": true,
+  "models": [
+    {
+      "differences": [],
+      "capturedSnapshotSha256": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af",
+      "currentSnapshotSha256": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af",
+      "case": "cooke-40-degree-field"
+    },
+    {
+      "differences": [],
+      "capturedSnapshotSha256": "5330623ee01563965f050554ca87c9ccc6d54b5a44dce604a93e6a4722b64313",
+      "currentSnapshotSha256": "5330623ee01563965f050554ca87c9ccc6d54b5a44dce604a93e6a4722b64313",
+      "case": "doublet"
+    },
+    {
+      "differences": [
+        {
+          "after": null,
+          "before": {
+            "kind": "circular",
+            "numbers": {
+              "radius": 11.153414102059143
+            },
+            "text": {},
+            "children": null
+          },
+          "path": "/surfaces/4/components/physicalAperture"
+        },
+        {
+          "after": null,
+          "before": "circular",
+          "path": "/surfaces/4/components/physicalApertureKind"
+        }
+      ],
+      "capturedSnapshotSha256": "531ac7f0887fad1406ff7bcfda1576e014e6ed104af04ed3ca07337d6cb84d5c",
+      "currentSnapshotSha256": "e66ee1a2982293b6e558c1d13682d17639518d830bc46a88a303474bf4e78412",
+      "case": "relay-lens"
+    },
+    {
+      "differences": [
+        {
+          "after": null,
+          "before": {
+            "kind": "circular",
+            "numbers": {
+              "radius": 8.110958772931815
+            },
+            "text": {},
+            "children": null
+          },
+          "path": "/surfaces/5/components/physicalAperture"
+        },
+        {
+          "after": null,
+          "before": "circular",
+          "path": "/surfaces/5/components/physicalApertureKind"
+        }
+      ],
+      "capturedSnapshotSha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2",
+      "currentSnapshotSha256": "bf6ac9106f26ef4e8667c25f6189a1b6740ad21e3bc2417f37953012476de45f",
+      "case": "tessar-lens-using-vignetting-factors"
+    },
+    {
+      "differences": [
+        {
+          "after": null,
+          "before": {
+            "kind": "circular",
+            "numbers": {
+              "radius": 10
+            },
+            "text": {},
+            "children": null
+          },
+          "path": "/surfaces/1/components/physicalAperture"
+        },
+        {
+          "after": null,
+          "before": "circular",
+          "path": "/surfaces/1/components/physicalApertureKind"
+        }
+      ],
+      "capturedSnapshotSha256": "5e127d8e3ceb15c015ef1519b6a04599041c6c0d6bace21d9295044ca5a35557",
+      "currentSnapshotSha256": "b8e012ebcdfde3213e1c8fa3ba06c57a5e306fe7057f91af07eb6db61e53e2da",
+      "case": "even-asphere"
+    },
+    {
+      "differences": [
+        {
+          "after": null,
+          "before": {
+            "kind": "circular",
+            "numbers": {
+              "radius": 10.228835190999837
+            },
+            "text": {},
+            "children": null
+          },
+          "path": "/surfaces/6/components/physicalAperture"
+        },
+        {
+          "after": null,
+          "before": "circular",
+          "path": "/surfaces/6/components/physicalApertureKind"
+        }
+      ],
+      "capturedSnapshotSha256": "4022df0d2886a10ca5a1e58def4b88f2015643c846459f866500031405fa3a38",
+      "currentSnapshotSha256": "0717ddecdb07617f9b7cd714430d03c2d4b93189d9c4a06c566ef7f9ee49f33b",
+      "case": "double-gauss-28-degree-field"
+    }
+  ],
+  "scope": "Same source bytes and all snapshot properties; only automatic-stop physicalAperture removal allowed"
+}

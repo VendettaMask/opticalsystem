@@ -183,7 +183,8 @@ Classified Data Report|
         }).ToArray();
     }
 
-    public static Dictionary<string, string> MapWorkbench(AnalysisComparisonEntry entry, CanonicalAnalysisRequest r)
+    public static Dictionary<string, string> MapWorkbench(AnalysisComparisonEntry entry, CanonicalAnalysisRequest r,
+        bool vignettedPupil = true)
     {
         var s = new Dictionary<string, string>(r.WorkbenchSettings, StringComparer.Ordinal);
         void Set(string key, object value) => s[key] = Convert.ToString(value, System.Globalization.CultureInfo.InvariantCulture)!;
@@ -191,7 +192,7 @@ Classified Data Report|
         Set("UsePolarization", r.Polarization); Set("UseRayAiming", r.UseRayAiming);
         if (entry.ZemaxSettingsMapper == "fan")
         {
-            Set("NumberOfRays", r.RayCount); Set("CheckApertures", true); Set("VignettedPupil", true);
+            Set("NumberOfRays", r.RayCount); Set("CheckApertures", true); Set("VignettedPupil", vignettedPupil);
         }
         if (entry.ZemaxSettingsMapper == "spot")
         {

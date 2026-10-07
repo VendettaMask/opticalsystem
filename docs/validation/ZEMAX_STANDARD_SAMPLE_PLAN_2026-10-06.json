@@ -1,0 +1,461 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-06",
+  "status": "InitialSixComparedWithRa256ApertureAndSingleRayRepairsAndOpenIssues",
+  "selection": "Installed Zemax Samples/Sequential only",
+  "sampleRoot": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential",
+  "sampleCount": 27,
+  "objectivesCount": 19,
+  "extensionCount": 8,
+  "nativeCaptureVersionRequirement": "OpticStudio 2026 R1; verify actual API readback",
+  "sourceVersionIsNotCaptureVersion": true,
+  "existingFrozenBaselinesChanged": false,
+  "numericalTestsRun": true,
+  "officialSourceReferences": [
+    "https://optics.ansys.com/hc/en-us/articles/42661713256723-Exploring-Sequential-Mode-in-OpticStudio",
+    "https://optics.ansys.com/hc/en-us/articles/42661773116435-Converting-sequential-surfaces-to-non-sequential-objects"
+  ],
+  "samples": [
+    {
+      "id": "Objectives/Apochromat.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Apochromat.zmx",
+      "sourceSha256": "2399670b025a492f8dcaa960b258aa9e73ebc805c1142e7fd09ab409941ddb80",
+      "sourceVersionRecord": "VERS 210914 41 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "all-objectives",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Objectives/Apochromat2.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Apochromat2.zmx",
+      "sourceSha256": "f3f970e300f62e1bb1b4db9a689c28de3bb44a7530767e0aeeb40c8aec2150c2",
+      "sourceVersionRecord": "VERS 210914 12 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "all-objectives",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Objectives/Apochromat3.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Apochromat3.zmx",
+      "sourceSha256": "e721af4393533d0afb9000de84e648fb79a35ec853b39ba964580aa4f68bf15c",
+      "sourceVersionRecord": "VERS 210914 4 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "all-objectives",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Objectives/Apochromat4.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Apochromat4.zmx",
+      "sourceSha256": "437b760e9554783d102ed7da2d071416ffcdcc6d30eedb6e5dd595e05f220ce8",
+      "sourceVersionRecord": "VERS 210914 183 113763 L113763",
+      "unitRecord": "UNIT CM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "all-objectives",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Objectives/Cooke 40 degree field.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Cooke 40 degree field.zmx",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "sourceVersionRecord": "VERS 210914 1 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "first-six",
+      "comparisonStatus": "CompletedWithOpenIssues",
+      "selectedComparisons": 22,
+      "resultSummary": "docs/validation/ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.json",
+      "initialResultSummary": "docs/validation/ZEMAX_STANDARD_SAMPLE_RESULTS_2026-10-06.json"
+    },
+    {
+      "id": "Objectives/Double Gauss 28 degree field.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Double Gauss 28 degree field.zmx",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "sourceVersionRecord": "VERS 210914 2 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "first-six",
+      "comparisonStatus": "CompletedWithOpenIssues",
+      "selectedComparisons": 22,
+      "resultSummary": "docs/validation/ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.json",
+      "initialResultSummary": "docs/validation/ZEMAX_STANDARD_SAMPLE_RESULTS_2026-10-06.json"
+    },
+    {
+      "id": "Objectives/Double Gauss 5 degree field.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Double Gauss 5 degree field.zmx",
+      "sourceSha256": "e3876119a9140f4dd5283d88916793a4af74013a649e107e79788472b4b1ff71",
+      "sourceVersionRecord": "VERS 210914 1 113763 L113763",
+      "unitRecord": "UNIT IN X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "all-objectives",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Objectives/Doublet using MIL number glasses.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Doublet using MIL number glasses.zmx",
+      "sourceSha256": "67ec6a470027729b825c63ec2f4261c9bf0ef27d7e3088bec13db14698640745",
+      "sourceVersionRecord": "VERS 210914 47 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "all-objectives",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Objectives/Doublet.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Doublet.zmx",
+      "sourceSha256": "b178db86e4deec9397eb66c59689b866878188990c756957e3215892d97594c1",
+      "sourceVersionRecord": "VERS 210914 0 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "first-six",
+      "comparisonStatus": "CompletedWithOpenIssues",
+      "selectedComparisons": 22,
+      "resultSummary": "docs/validation/ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.json",
+      "initialResultSummary": "docs/validation/ZEMAX_STANDARD_SAMPLE_RESULTS_2026-10-06.json"
+    },
+    {
+      "id": "Objectives/Even Asphere.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Even Asphere.zmx",
+      "sourceSha256": "e7523a0a2b8247667d53cd559eded64442af41318f2d985d61296d5c5d1756da",
+      "sourceVersionRecord": "VERS 210914 25 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "EVENASPH",
+        "STANDARD"
+      ],
+      "batch": "first-six",
+      "comparisonStatus": "CompletedWithOpenIssues",
+      "selectedComparisons": 22,
+      "resultSummary": "docs/validation/ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.json",
+      "initialResultSummary": "docs/validation/ZEMAX_STANDARD_SAMPLE_RESULTS_2026-10-06.json"
+    },
+    {
+      "id": "Objectives/Gaussian Quadrature over Annular Pupils.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Gaussian Quadrature over Annular Pupils.zmx",
+      "sourceSha256": "dc90e1c94d3100baf109315308a8a44815e6d325653988cce64330b77c93e03b",
+      "sourceVersionRecord": "VERS 210914 63 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "all-objectives",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Objectives/Gaussian Quadrature Over Wavelength.ZMX",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Gaussian Quadrature Over Wavelength.ZMX",
+      "sourceSha256": "54b66676482691f8042a8faedf74717e425ac309c30deb820ac494c497f55b63",
+      "sourceVersionRecord": "VERS 160527 45 1",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "all-objectives",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Objectives/Inverse telephoto lens.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Inverse telephoto lens.zmx",
+      "sourceSha256": "058dacb1d5653717f8b928242a3174db301ba448d62638e3d6ad85c070b11e1d",
+      "sourceVersionRecord": "VERS 210914 1 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "all-objectives",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Objectives/Petzval.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Petzval.zmx",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "sourceVersionRecord": "VERS 210914 0 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "all-objectives",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Objectives/Relay lens.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Relay lens.zmx",
+      "sourceSha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+      "sourceVersionRecord": "VERS 210914 106 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "first-six",
+      "comparisonStatus": "CompletedWithOpenIssues",
+      "selectedComparisons": 22,
+      "resultSummary": "docs/validation/ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.json",
+      "initialResultSummary": "docs/validation/ZEMAX_STANDARD_SAMPLE_RESULTS_2026-10-06.json"
+    },
+    {
+      "id": "Objectives/Tessar lens using vignetting factors.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Tessar lens using vignetting factors.zmx",
+      "sourceSha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644",
+      "sourceVersionRecord": "VERS 210914 21 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "first-six",
+      "comparisonStatus": "CompletedWithOpenIssues",
+      "selectedComparisons": 22,
+      "resultSummary": "docs/validation/ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.json",
+      "initialResultSummary": "docs/validation/ZEMAX_STANDARD_SAMPLE_RESULTS_2026-10-06.json"
+    },
+    {
+      "id": "Objectives/Wide angle lens 100 degree field.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Wide angle lens 100 degree field.zmx",
+      "sourceSha256": "cc6c044226a35a3ff448bfcfd52994c70738730acddd6d941faf276107fbfa3f",
+      "sourceVersionRecord": "VERS 210914 10 113763 L113763",
+      "unitRecord": "UNIT IN X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "all-objectives",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Objectives/Wide angle lens 200 degree field.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Wide angle lens 200 degree field.zmx",
+      "sourceSha256": "fd8a4a96d1dea380462078281b2db5c39185b087b6c85f36f298abbfd74e5c49",
+      "sourceVersionRecord": "VERS 210914 4 113763 L113763",
+      "unitRecord": "UNIT IN X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "all-objectives",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Objectives/Wide angle lens 210 degree field.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Wide angle lens 210 degree field.zmx",
+      "sourceSha256": "11b37f823a96c7137e1e965f154bcb75410384f86a67b1bc082d5df5abc0dd6c",
+      "sourceVersionRecord": "VERS 210914 1 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "all-objectives",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Tilted systems & prisms/Offner relay.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Tilted systems & prisms\\Offner relay.zmx",
+      "sourceSha256": "fe081641765eaf693bc9377b5a19f0b6489de76068e715e5ed6f38a73acbef01",
+      "sourceVersionRecord": "VERS 210914 72 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "COORDBRK",
+        "STANDARD"
+      ],
+      "batch": "extended-eight",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Tilted systems & prisms/Tilted mirror.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Tilted systems & prisms\\Tilted mirror.zmx",
+      "sourceSha256": "9cc4d6101d4927b36ff3a62f68e54f5e40d8869652ed818e647707b6987f79e6",
+      "sourceVersionRecord": "VERS 210914 4 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "COORDBRK",
+        "PARAXIAL",
+        "STANDARD"
+      ],
+      "batch": "extended-eight",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Tilted systems & prisms/Prism using total internal reflection.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Tilted systems & prisms\\Prism using total internal reflection.zmx",
+      "sourceSha256": "8a74f066e49a037aa0307c5f8a2be7f95d1940777edbe99523b74dad3f57de8d",
+      "sourceVersionRecord": "VERS 210914 10 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "COORDBRK",
+        "STANDARD"
+      ],
+      "batch": "extended-eight",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Zoom systems/Zoom lens.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Zoom systems\\Zoom lens.zmx",
+      "sourceSha256": "7103aaf9130acc1b94a864267348ce1df6a7651910adc07379a9321a4670adc9",
+      "sourceVersionRecord": "VERS 210914 9 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "EVENASPH",
+        "STANDARD"
+      ],
+      "batch": "extended-eight",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Telescopes/Schmidt-Cassegrain.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Telescopes\\Schmidt-Cassegrain.zmx",
+      "sourceSha256": "1c423da6e3b927b28745a3679ffa6d60d32689f7ff7c7685c03e7507e70190ab",
+      "sourceVersionRecord": "VERS 210914 4 113763 L113763",
+      "unitRecord": "UNIT CM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "EVENASPH",
+        "STANDARD"
+      ],
+      "batch": "extended-eight",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Afocal/Beam Expander.ZMX",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Afocal\\Beam Expander.ZMX",
+      "sourceSha256": "21f7e12aa610b21ca489976c28333053e7c27ad2aad36e27e3472671004c2028",
+      "sourceVersionRecord": "VERS 160527 32 1",
+      "unitRecord": "UNIT MM X W X CM AS CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "extended-eight",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Miscellaneous/Doubly telecentric system.zmx",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Miscellaneous\\Doubly telecentric system.zmx",
+      "sourceSha256": "71ddcd6d95bfa4dd596aeb10e51f78787a4025cca8526bc9f0bb635c053a7b69",
+      "sourceVersionRecord": "VERS 210914 16 113763 L113763",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "STANDARD"
+      ],
+      "batch": "extended-eight",
+      "comparisonStatus": "PlannedNotRun"
+    },
+    {
+      "id": "Image Simulation/Example 2, Double Gauss Experimental Arrangement.ZMX",
+      "sourcePath": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Image Simulation\\Example 2, Double Gauss Experimental Arrangement.ZMX",
+      "sourceSha256": "3962d9e97f2ddc49ed8ace0b15d72014e03d7292d9cbb32880c196ab8da3b04a",
+      "sourceVersionRecord": "VERS 160527 41 1",
+      "unitRecord": "UNIT MM X W X CM MR CPMM",
+      "surfaceTypes": [
+        "PARAXIAL",
+        "STANDARD"
+      ],
+      "batch": "extended-eight",
+      "comparisonStatus": "PlannedNotRun"
+    }
+  ],
+  "comparedSampleCount": 6,
+  "remainingPlannedSampleCount": 21,
+  "primarySelectedComparisons": 132,
+  "diagnosticSamplingComparisons": 2,
+  "latestCoreRecalculation": {
+    "newRayAuditFirstClipDifferences": 0,
+    "previous85PassRegressions": 0,
+    "sourceHashesVerified": 27,
+    "difference": 16,
+    "report": "docs/ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.md",
+    "newRayAuditAcceptanceDifferences": 0,
+    "previousRmsControls": 17,
+    "nativeRecaptured": false,
+    "oldSnapshotAndFreshImportSeparatelyVerified": true,
+    "newRa256Controls": 6,
+    "pass": 95,
+    "independentRmsControls": 23,
+    "close": 12,
+    "controlPass": 23,
+    "incomparable": 8,
+    "controlDifference": 0,
+    "newRayAuditCaptures": 6,
+    "newRayAuditInputs": 308808,
+    "selectedComparisons": 132,
+    "error": 1,
+    "newRayAuditSurfaceResults": 2521932
+  },
+  "previousCoreRecalculation": {
+    "difference": 26,
+    "previous84PassRegressions": 0,
+    "rayAuditInputs": 3384,
+    "pass": 85,
+    "error": 1,
+    "controlPass": 17,
+    "close": 12,
+    "sourceHashesVerified": 27,
+    "controlDifference": 0,
+    "incomparable": 8,
+    "report": "docs/ZEMAX_TESSAR_RMS_REPAIR_2026-10-07.md",
+    "independentRmsControls": 17,
+    "selectedComparisons": 132,
+    "rayAuditCaptures": 7,
+    "nativeRecaptured": false,
+    "originalPassRegressions": 0
+  },
+  "vignettingNativeControlComparisons": 8,
+  "updatedDate": "2026-10-07",
+  "rmsNativeControlComparisons": 23,
+  "rayAuditComparisons": 13,
+  "nextNumericalWork": [
+    {
+      "scope": "Tessar higher-density rectangular sampling and finite Relay aiming precision",
+      "priority": 1,
+      "status": "PlannedNotRun",
+      "acceptance": "First extend the explicit bounded control contract beyond RA256, split larger batches within the shared budget, then measure non-monotonic RA64/128/256 convergence. The original native edge changes by 0.164328 micrometer from RA128 to RA256. Do not claim convergence from same-grid agreement."
+    },
+    {
+      "scope": "Huygens PSF/cross-section, diffraction encircled energy, MTF and illumination on freshly imported corrected models",
+      "priority": 2,
+      "status": "PlannedNotRun",
+      "acceptance": "Keep original requests/native arrays/tolerances; separate physical masks, phase, grid/window and integration residuals. Six-source current matrix retains 16 Difference/12 Close/8 Incomparable/1 Error."
+    },
+    {
+      "scope": "Single-field Doublet applicability and remaining 21 official source files",
+      "priority": 3,
+      "status": "PlannedNotRun",
+      "acceptance": "Retain invalid or unsupported results honestly; report each new source and configuration independently."
+    }
+  ],
+  "completedNumericalWork": [
+    {
+      "controlPass": 6,
+      "date": "2026-10-07",
+      "scope": "Five-source six-case RA256 curves and six full edge-pupil audits",
+      "rayInputs": 308808,
+      "automaticStopImporterBugFixed": true,
+      "acceptanceDifferences": 0,
+      "raySurfaceResults": 2521932,
+      "convergenceCertified": false,
+      "firstClipDifferences": 0
+    },
+    {
+      "date": "2026-10-07",
+      "rawHistoryUnchanged": true,
+      "allNativeCasesPass": 12,
+      "zeroObjectStillFinite": true,
+      "scope": "Twelve original Single Ray Trace reports, all eleven columns; ten original Differences repaired"
+    }
+  ],
+  "previousRmsNativeControlComparisons": 17,
+  "ra256NativeControlComparisons": 6
+}

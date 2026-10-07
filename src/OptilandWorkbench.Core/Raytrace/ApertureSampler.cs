@@ -26,7 +26,34 @@ public static class ApertureSampler
     private static readonly ConcurrentDictionary<GaussianSamplingKey, IReadOnlyList<PupilSample>>
         GaussianCache = new();
     private static readonly ConcurrentDictionary<int, IReadOnlyList<PupilSample>> HexapolarRingCache = new();
+    private static readonly ConcurrentDictionary<int, IReadOnlyList<PupilSample>> RectangularArrayCache = new();
     private static readonly ConcurrentDictionary<SamplingKey, IReadOnlyList<PupilSample>> SamplingCache = new();
+
+    /// <summary>Equal-area cell centers in a square grid, restricted to the circular pupil.</summary>
+    public static IReadOnlyList<PupilSample> GenerateRectangularArray(int axisSamples)
+    {
+        if (axisSamples is < 1 or > 1024)
+            throw new ArgumentOutOfRangeException(nameof(axisSamples));
+        if (axisSamples > 64) return BuildRectangularArray(axisSamples);
+        TrimSamplingCachesIfNeeded();
+        return RectangularArrayCache.GetOrAdd(axisSamples, BuildRectangularArray);
+    }
+
+    private static IReadOnlyList<PupilSample> BuildRectangularArray(int axisSamples)
+    {
+        var samples = new List<PupilSample>();
+        for (var row = 0; row < axisSamples; row++)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            var y = (2 * row + 1d) / axisSamples - 1;
+            for (var column = 0; column < axisSamples; column++)
+            {
+                var x = (2 * column + 1d) / axisSamples - 1;
+                if (x * x + y * y <= 1) samples.Add(new PupilSample(x, y, 1));
+            }
+        }
+        return Array.AsReadOnly(samples.ToArray());
+    }
 
     public static IReadOnlyList<PupilSample> GenerateGaussianQuadrature(
         int radialSamples,
@@ -221,7 +248,7 @@ public static class ApertureSampler
 
     private static void TrimSamplingCachesIfNeeded()
     {
-        if (GaussianCache.Count + HexapolarRingCache.Count + SamplingCache.Count
+        if (GaussianCache.Count + HexapolarRingCache.Count + RectangularArrayCache.Count + SamplingCache.Count
             <= MaximumCachedSamplingPlans)
         {
             return;
@@ -229,6 +256,7 @@ public static class ApertureSampler
 
         GaussianCache.Clear();
         HexapolarRingCache.Clear();
+        RectangularArrayCache.Clear();
         SamplingCache.Clear();
     }
 

@@ -64,7 +64,7 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
                         analysisOptic,
                         field,
                         wavelength,
-                        aimAtStop: _vignettedPupil)).ToArray();
+                        aimAtStop: analysisOptic.RayAimingEnabled)).ToArray();
             var primaryWavelength = allWavelengths.FirstOrDefault(wavelength => wavelength.IsPrimary)
                 ?? allWavelengths.FirstOrDefault();
             var primaryReferenceSphere = !analysisOptic.ImageSpaceAfocal
@@ -75,7 +75,7 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
                         analysisOptic,
                         field,
                         primaryWavelength,
-                        aimAtStop: _vignettedPupil)
+                        aimAtStop: analysisOptic.RayAimingEnabled)
                     : null;
             for (var wavelengthIndex = 0; wavelengthIndex < wavelengths.Length; wavelengthIndex++)
             {
@@ -87,7 +87,7 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
                     field,
                     wavelengths[wavelengthIndex],
                     samples,
-                    aimAtStop: _vignettedPupil,
+                    aimAtStop: analysisOptic.RayAimingEnabled,
                     referenceSphere: primaryReferenceSphere is null
                         ? null
                         : new WavefrontReferenceSphere(
@@ -118,8 +118,15 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
         foreach (var field in fieldFans)
         {
             var title = MtfPresentation.FieldName(analysisOptic, (field.Hx, field.Hy));
-            panes.Add(BuildPane(title, field.Waves, pupil, yFan: true, scale));
-            panes.Add(BuildPane(title, field.Waves, pupil, yFan: false, scale));
+            var vignetting = analysisOptic.SequentialRayTracer.RayGenerator.GetPupilVignetting(field.Hx, field.Hy);
+            var yPupil = _vignettedPupil
+                ? pupil.Select(value => vignetting.ScaleAndShift(0, value).Y).ToArray()
+                : pupil;
+            var xPupil = _vignettedPupil
+                ? pupil.Select(value => vignetting.ScaleAndShift(value, 0).X).ToArray()
+                : pupil;
+            panes.Add(BuildPane(title, field.Waves, yPupil, yFan: true, scale));
+            panes.Add(BuildPane(title, field.Waves, xPupil, yFan: false, scale));
         }
 
         var firstSeries = panes.FirstOrDefault()?.Series.FirstOrDefault();
@@ -142,6 +149,7 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
                 : "reference sphere",
             ["UseDashes"] = _useDashes,
             ["VignettedPupil"] = _vignettedPupil,
+            ["UseRayAiming"] = analysisOptic.RayAimingEnabled,
             ["CheckApertures"] = _checkApertures,
             ["MinimumOpticalPathDifferenceWaves"] = finiteValues.DefaultIfEmpty(0).Min(),
             ["MaximumOpticalPathDifferenceWaves"] = finiteValues.DefaultIfEmpty(0).Max()

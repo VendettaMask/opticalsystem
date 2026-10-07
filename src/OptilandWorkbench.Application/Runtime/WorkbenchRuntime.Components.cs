@@ -33,7 +33,7 @@ public partial class WorkbenchRuntime
         if (_activeConfigurationIndex >= 0 && _activeConfigurationIndex < _multiConfiguration.Configurations.Count
             && !ReferenceEquals(_multiConfiguration.Configurations[_activeConfigurationIndex], CurrentOptic))
         {
-            _multiConfiguration.Configurations[_activeConfigurationIndex].ApplySnapshot(CurrentOptic.ToSnapshot());
+            _multiConfiguration.Configurations[_activeConfigurationIndex] = CurrentOptic.Clone();
         }
     }
 

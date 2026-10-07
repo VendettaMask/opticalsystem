@@ -11,19 +11,7 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
 
     public ImageSimulationAnalysis(Optic optic, ImageSimulationConfig? config = null) : base(optic)
     {
-        _config = config ?? new ImageSimulationConfig
-        {
-            PsfGridRows = 3,
-            PsfGridColumns = 3,
-            PsfSize = 32,
-            NumRays = 16,
-            Components = 3,
-            Padding = 16,
-            DistortionGridSize = 9,
-            DistortionPolynomialDegree = 5,
-            ImageWidth = 64,
-            ImageHeight = 48
-        };
+        _config = config ?? new ImageSimulationConfig();
     }
 
     public override string Name => "Image Simulation";
@@ -35,7 +23,12 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
             _config.SourcePattern,
             Math.Max(16, _config.ImageWidth),
             Math.Max(16, _config.ImageHeight));
-        var result = ImageSimulationEngine.Simulate(Optic, source, _config);
+        ImageSimulationResult result;
+        try { result = ImageSimulationEngine.Simulate(Optic, source, _config); }
+        catch (AnalysisDataUnavailableException exception)
+        {
+            return UnavailableSimulation(Name, exception);
+        }
         var original = RasterSeries(result.Source);
         var simulated = RasterSeries(result.Simulated);
         var panes = _config.DisplayAs switch
@@ -94,6 +87,14 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
             ["MeanAbsoluteChange"] = result.MeanAbsoluteChange,
             ["MaximumOutputValue"] = result.MaximumValue
         }, selectedSeries, new[] { selectedSeries }, PlotPanes: panes, PlotPaneColumns: panes.Length);
+    }
+
+    internal static AnalysisData UnavailableSimulation(string name, AnalysisDataUnavailableException exception)
+    {
+        var remedy = exception.AnalysisName == "Relative Illumination"
+            ? "; reduce the image field height, or disable relative illumination to omit irradiance weighting"
+            : string.Empty;
+        return AnalysisData.Unavailable(name, $"{exception.AnalysisName}: {exception.Reason}{remedy}");
     }
 
     private static AnalysisSeries RasterSeries(RgbImage image)

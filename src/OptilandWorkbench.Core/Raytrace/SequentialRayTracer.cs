@@ -196,7 +196,8 @@ public sealed partial class SequentialRayTracer
         double cumulativeOpticalPathLength,
         bool ignorePhysicalAperture = false,
         bool stopBeforeInteraction = false,
-        bool bypassCoating = false)
+        bool bypassCoating = false,
+        bool allowVirtualIntersection = false)
     {
         if (surfaceIndex == 0 && ObjectConjugate.IsInfinite(surface))
         {
@@ -221,7 +222,8 @@ public sealed partial class SequentialRayTracer
         }
 
         return surface.TraceRayState(ray, materialBefore, surface.MaterialAfter,
-            cumulativePathLength, cumulativeOpticalPathLength, ignorePhysicalAperture, stopBeforeInteraction, bypassCoating);
+            cumulativePathLength, cumulativeOpticalPathLength, ignorePhysicalAperture, stopBeforeInteraction, bypassCoating,
+            allowVirtualIntersection: allowVirtualIntersection);
     }
 
     public SequentialTrace Trace(RealRayBundle bundle)

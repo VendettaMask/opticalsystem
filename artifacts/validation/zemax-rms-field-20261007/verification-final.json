@@ -1,0 +1,564 @@
+{
+  "original132NativeRecaptured": false,
+  "numericalCounts": {
+    "Difference": 27,
+    "Pass": 84,
+    "Close": 12,
+    "Incomparable": 8,
+    "Error": 1
+  },
+  "laboratories": "Not rerun; prior InitialStructure Release 258/2/260 and Coating Debug/Release 47/47 are historical.",
+  "nativeControlCounts": {
+    "Pass": 14,
+    "Difference": 3
+  },
+  "builds": {
+    "Debug": "Default solution output; 0 warnings/errors",
+    "Release": "Default solution output; 0 warnings/errors"
+  },
+  "fullReleaseUiCleanupFailure": "PanelContentLayoutTests GbT13323_1991/cemented true: NullReferenceException in SafeHeadlessUnitTestSession.Dispose. Original full-suite failure retained. PanelContentLayout and WavefrontSurfaceRender isolation 16/16 passes; no test suppression or headless helper change in this RMS task, root cause remains unresolved.",
+  "replaySummarySha256": "cecf2e70daa2590150ba0a2cef5b761be877a75e21b6548f1c69fce273e9fd9c",
+  "nativeControlSummarySha256": "965a90712048b9d354047410fb6cf398cd6bc9d3897bf1db742a72cacc9fd1c0",
+  "intermediateRuns": [
+    "comparison-release.trx: earlier contract-only stage 136/2/138, before 18 fixture tests",
+    "Probe.csproj first compile and rms-targeted-release command compile: diagnostic/test source errors fixed before final executions",
+    "Plot-Rms.py optional combined figure unavailable: no matplotlib; formal comparison PNGs retained and reviewed"
+  ],
+  "original132SettingsChanged": false,
+  "additionalNativeControlComparisons": 17,
+  "tests": [
+    {
+      "passed": 4349,
+      "executed": 4351,
+      "sha256": "164b5907c299bbb8aec9550297be026c926f8807984120ce503151d062e08820",
+      "failures": [
+        {
+          "name": "OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays",
+          "message": "finite_angle: expected 0.058589983242791625, actual 0.060191701479492175"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.PanelContentLayoutTests.DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances(standard: GbT13323_1991, cemented: True)",
+          "message": "System.NullReferenceException : Object reference not set to an instance of an object."
+        }
+      ],
+      "skipped": 0,
+      "newRmsTests": [
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"even-asphere\", density: 64)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.InvalidRectangularDensityIsRejected(density: 0)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"cooke-40-degree-field\", density: 128)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.InvalidRectangularDensityIsRejected(density: -1)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularCellIntegrationIsCenteredAndKeepsGeneralEndpointSamplingDistinct(density: 1)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularCellIntegrationIsCenteredAndKeepsGeneralEndpointSamplingDistinct(density: 64)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"relay-lens\", density: 64)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.InvalidRectangularDensityIsRejected(density: 1025)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"even-asphere\", density: 128)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"relay-lens\", density: 128)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"double-gauss-28-degree-field\", density: 128)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"cooke-40-degree-field\", density: 64)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularCellIntegrationIsCenteredAndKeepsGeneralEndpointSamplingDistinct(density: 2)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"double-gauss-28-degree-field\", density: 64)",
+          "outcome": "Passed"
+        }
+      ],
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-rms-field-20261007\\main-release.trx",
+      "total": 4351,
+      "failed": 2
+    },
+    {
+      "passed": 154,
+      "executed": 156,
+      "sha256": "6261a16cf825fe1acea3e545549baa06c977cd3f20ecd8c8dcee793322b39da2",
+      "failures": [
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: \"Diffraction Encircled Energy\", directory: \"diffraction-encircled-energy-c1\")",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.01146706362185577)\r\nActual: 0.011467280942848471"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: \"Huygens PSF Cross Section\", slug: \"huygens-psf-cross-section\", recordedNrmse: 0.0037256669899999998)",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.0037256669899999998)\r\nActual: 0.0037256670590166724"
+        }
+      ],
+      "skipped": 0,
+      "newRmsTests": [
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"double-gauss-28-degree-field-gq-12-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.EveryCapturedFileAndOfficialSourceMatchesItsManifest",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"even-asphere-gq-12-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"cooke-40-degree-field-gq-12-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"even-asphere-ra-64-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"double-gauss-28-degree-field-ra-64-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.UnsupportedOrUnalignedSamplingIsRejected(key: \"Ray Fan\", method: \"RA\", density: 64)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"tessar-lens-using-vignetting-factors-ra-128-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"double-gauss-28-degree-field-ra-128-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.UnsupportedOrUnalignedSamplingIsRejected(key: \"RMS vs Field\", method: \"GQ\", density: 0)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"tessar-lens-using-vignetting-factors-gq-12-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"tessar-lens-using-vignetting-factors-ra-128-retain\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.SamplingAndVignettingStayAlignedAcrossTheSerializedRequest(method: \"GQ\", density: 12, remove: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.UnsupportedOrUnalignedSamplingIsRejected(key: \"RMS vs Field\", method: \"GQ\", density: 21)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.UnsupportedOrUnalignedSamplingIsRejected(key: \"RMS vs Field\", method: \"RA\", density: 48)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"relay-lens-ra-128-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"cooke-40-degree-field-ra-64-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.UnsupportedOrUnalignedSamplingIsRejected(key: \"RMS vs Field\", method: \"RA\", density: 1024)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.DefaultsKeepTheExistingFrozenRequestIdentity",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"relay-lens-ra-64-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"relay-lens-gq-12-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"cooke-40-degree-field-ra-128-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"tessar-lens-using-vignetting-factors-ra-64-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.SamplingAndVignettingStayAlignedAcrossTheSerializedRequest(method: \"RA\", density: 64, remove: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.SamplingAndVignettingStayAlignedAcrossTheSerializedRequest(method: \"RA\", density: 128, remove: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.UnsupportedOrUnalignedSamplingIsRejected(key: \"RMS vs Field\", method: \"Unknown\", density: 6)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"tessar-lens-using-vignetting-factors-gq-6-retain\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.SamplingAndVignettingStayAlignedAcrossTheSerializedRequest(method: \"GQ\", density: 6, remove: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.UnsupportedOrUnalignedSamplingIsRejected(key: \"RMS vs Wavelength\", method: \"RA\", density: 64)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"even-asphere-ra-128-remove\")",
+          "outcome": "Passed"
+        }
+      ],
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-rms-field-20261007\\comparison-final-release.trx",
+      "total": 156,
+      "failed": 2
+    },
+    {
+      "passed": 22,
+      "executed": 22,
+      "sha256": "9e3fd3d2a5c0570505a7ebfd66aab1fdf5f595150f264e9a8b345997ff6963c0",
+      "failures": [],
+      "skipped": 0,
+      "newRmsTests": [
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"even-asphere\", density: 64)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.InvalidRectangularDensityIsRejected(density: 1025)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"relay-lens\", density: 64)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularCellIntegrationIsCenteredAndKeepsGeneralEndpointSamplingDistinct(density: 64)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"cooke-40-degree-field\", density: 128)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularCellIntegrationIsCenteredAndKeepsGeneralEndpointSamplingDistinct(density: 2)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"relay-lens\", density: 128)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularCellIntegrationIsCenteredAndKeepsGeneralEndpointSamplingDistinct(density: 1)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.InvalidRectangularDensityIsRejected(density: -1)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"cooke-40-degree-field\", density: 64)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"double-gauss-28-degree-field\", density: 64)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"even-asphere\", density: 128)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"double-gauss-28-degree-field\", density: 128)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.InvalidRectangularDensityIsRejected(density: 0)",
+          "outcome": "Passed"
+        }
+      ],
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-rms-field-20261007\\rms-targeted-final-release.trx",
+      "total": 22,
+      "failed": 0
+    },
+    {
+      "passed": 22,
+      "executed": 22,
+      "sha256": "276553d2989a1ba33e3ad67eb08777bc04f321dd6ba18fb96bdfbe039d01ed5f",
+      "failures": [],
+      "skipped": 0,
+      "newRmsTests": [
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"even-asphere\", density: 64)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"cooke-40-degree-field\", density: 64)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularCellIntegrationIsCenteredAndKeepsGeneralEndpointSamplingDistinct(density: 64)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularCellIntegrationIsCenteredAndKeepsGeneralEndpointSamplingDistinct(density: 2)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"cooke-40-degree-field\", density: 128)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"double-gauss-28-degree-field\", density: 64)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"double-gauss-28-degree-field\", density: 128)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.InvalidRectangularDensityIsRejected(density: 0)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularCellIntegrationIsCenteredAndKeepsGeneralEndpointSamplingDistinct(density: 1)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.InvalidRectangularDensityIsRejected(density: -1)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"relay-lens\", density: 128)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"even-asphere\", density: 128)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.InvalidRectangularDensityIsRejected(density: 1025)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RectangularRmsParityTests.RectangularSpotFieldScanMatchesIndependentNativeCaptures(lens: \"relay-lens\", density: 64)",
+          "outcome": "Passed"
+        }
+      ],
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-rms-field-20261007\\rms-targeted-final-debug.trx",
+      "total": 22,
+      "failed": 0
+    },
+    {
+      "passed": 30,
+      "executed": 30,
+      "sha256": "f2e9512e3349c6aabed56d59559c19e45dd77679a439769e8794e6a3262da417",
+      "failures": [],
+      "skipped": 0,
+      "newRmsTests": [
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.SamplingAndVignettingStayAlignedAcrossTheSerializedRequest(method: \"RA\", density: 128, remove: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.UnsupportedOrUnalignedSamplingIsRejected(key: \"RMS vs Field\", method: \"RA\", density: 1024)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.UnsupportedOrUnalignedSamplingIsRejected(key: \"RMS vs Wavelength\", method: \"RA\", density: 64)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.UnsupportedOrUnalignedSamplingIsRejected(key: \"RMS vs Field\", method: \"RA\", density: 48)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"even-asphere-gq-12-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"double-gauss-28-degree-field-ra-64-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.UnsupportedOrUnalignedSamplingIsRejected(key: \"RMS vs Field\", method: \"GQ\", density: 21)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.EveryCapturedFileAndOfficialSourceMatchesItsManifest",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"cooke-40-degree-field-ra-128-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.DefaultsKeepTheExistingFrozenRequestIdentity",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.UnsupportedOrUnalignedSamplingIsRejected(key: \"RMS vs Field\", method: \"Unknown\", density: 6)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"tessar-lens-using-vignetting-factors-gq-6-retain\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"tessar-lens-using-vignetting-factors-ra-128-retain\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.UnsupportedOrUnalignedSamplingIsRejected(key: \"Ray Fan\", method: \"RA\", density: 64)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.SamplingAndVignettingStayAlignedAcrossTheSerializedRequest(method: \"RA\", density: 64, remove: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.UnsupportedOrUnalignedSamplingIsRejected(key: \"RMS vs Field\", method: \"GQ\", density: 0)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"relay-lens-ra-128-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"even-asphere-ra-64-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"relay-lens-ra-64-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.SamplingAndVignettingStayAlignedAcrossTheSerializedRequest(method: \"GQ\", density: 6, remove: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"tessar-lens-using-vignetting-factors-ra-64-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"tessar-lens-using-vignetting-factors-ra-128-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"even-asphere-ra-128-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"relay-lens-gq-12-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"double-gauss-28-degree-field-ra-128-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"cooke-40-degree-field-ra-64-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"cooke-40-degree-field-gq-12-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.RmsFieldSamplingContractTests.SamplingAndVignettingStayAlignedAcrossTheSerializedRequest(method: \"GQ\", density: 12, remove: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"tessar-lens-using-vignetting-factors-gq-12-remove\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRmsFieldSamplingTests.ActualNativeReferencesRetainTheStrictGateIncludingOpenTessarCases(name: \"double-gauss-28-degree-field-gq-12-remove\")",
+          "outcome": "Passed"
+        }
+      ],
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-rms-field-20261007\\rms-tool-targeted.trx",
+      "total": 30,
+      "failed": 0
+    },
+    {
+      "passed": 16,
+      "executed": 16,
+      "sha256": "eb63ae3bdcb2f605bb3011e844d49f937df3d248dd24b2cb4dca8ef583ac8139",
+      "failures": [],
+      "skipped": 0,
+      "newRmsTests": [],
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-rms-field-20261007\\ui-cleanup-isolated-release.trx",
+      "total": 16,
+      "failed": 0
+    }
+  ],
+  "frozenBaselineChanged": false,
+  "historicalAuxiliaryDataChanged": false,
+  "retainedEvidenceCounts": {
+    "rms-original132-recalculated/immutable-evidence.json": 1769,
+    "rms-controls-recalculated/immutable-evidence.json": 295
+  },
+  "completedUtc": "2026-10-07T07:33:53.5997235+00:00",
+  "debugFullSuite": "Not rerun this batch; prior 2026-10-06 full Debug 4336/1/4337 is historical. Current RMS targeted Debug 22/22 including all 14 new main cases.",
+  "assemblies": [
+    {
+      "sha256": "758412fec2919a6167fc79b3b368988f616848c29ba5fdfae782cf14ae0064a8",
+      "path": "D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\bin\\Release\\net10.0\\OptilandWorkbench.Core.dll"
+    },
+    {
+      "sha256": "db8e17448ddef357982315bc451993cb4d517b354038359420abb076587e0334",
+      "path": "D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Application\\bin\\Release\\net10.0\\OptilandWorkbench.Application.dll"
+    },
+    {
+      "sha256": "b64be383d7950905a62cef80df2214f47d2799590881cfe5a80567bcad43b676",
+      "path": "D:\\Projects\\opticalsystem\\tools\\OptilandWorkbench.ZemaxComparison\\bin\\Release\\net10.0\\OptilandWorkbench.ZemaxComparison.dll"
+    }
+  ],
+  "fixtureFilesVerified": 153,
+  "nativeControlSummary": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\rms-controls-recalculated\\summary.json",
+  "releaseGatePassed": false,
+  "standardSourceHashesVerified": 27,
+  "previousStageSummarySha256": "047eeff8beee961d132df9ce6981c7f49e8604d5bffaf2e21e7257e8b6522501",
+  "replaySummary": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\rms-original132-recalculated\\summary.json",
+  "previousStageSummary": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261006\\tessar-vignetting-repair-final\\summary.json",
+  "date": "2026-10-07",
+  "original132TolerancesChanged": false,
+  "allNativeEnvironmentsValid": true,
+  "previous84PassRegressions": 0,
+  "retainedEvidenceUnchanged": true,
+  "previousStageRawOutputsVerified": 131,
+  "previousStageRawChanged": 0
+}

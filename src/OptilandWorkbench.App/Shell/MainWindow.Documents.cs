@@ -63,8 +63,7 @@ public sealed partial class MainWindow
             return false;
         }
 
-        await _application.Documents.SaveAsync(file.Path.LocalPath);
-        return true;
+        return await TrySaveProjectToPathAsync(file.Path.LocalPath);
     }
 
     private async Task SaveProjectAsync()
@@ -78,11 +77,18 @@ public sealed partial class MainWindow
         if (currentPath is not null &&
             currentPath.EndsWith(".staropt", StringComparison.OrdinalIgnoreCase))
         {
-            await _application.Documents.SaveAsync(currentPath);
-            return true;
+            return await TrySaveProjectToPathAsync(currentPath);
         }
 
         return await TrySaveAsAsync();
+    }
+
+    internal async Task<bool> TrySaveProjectToPathAsync(string path)
+    {
+        var revision = _application.Documents.GetSnapshot().Revision;
+        await _application.Documents.SaveAsync(path);
+        var current = _application.Documents.GetSnapshot();
+        return current.Revision == revision && !current.IsDirty;
     }
 
     private Task<bool> ConfirmUnsavedChangesAsync(string operationDescription)
@@ -101,8 +107,9 @@ public sealed partial class MainWindow
             return false;
         }
 
-        return !_panels.HasUnsavedToleranceChanges
-            || await _panels.SaveUnsavedToleranceChangesAsync(this);
+        if (_panels.HasUnsavedToleranceChanges && !await _panels.SaveUnsavedToleranceChangesAsync(this))
+            return false;
+        return !_application.Documents.GetSnapshot().IsDirty && !_panels.HasUnsavedToleranceChanges;
     }
 
     private async Task<bool> OpenLensLibraryProjectAsync(string path)

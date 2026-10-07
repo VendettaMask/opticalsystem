@@ -69,6 +69,12 @@ public static partial class IlluminationMetrics
         }, (index, state) =>
         {
             try { results[index] = Evaluate(optic, fields[index], wavelengthMicrometers, rayDensity, cancellation, usePolarization, sampling); }
+            catch (AnalysisDataUnavailableException exception)
+            {
+                errors[index] = new AnalysisDataUnavailableException(exception.AnalysisName,
+                    FormattableString.Invariant($"{exception.Reason} (normalized field X={fields[index].Hx:G17}, Y={fields[index].Hy:G17}; wavelength={wavelengthMicrometers:G17} µm)"));
+                state.Stop();
+            }
             catch (Exception exception) when (exception is not OperationCanceledException)
             {
                 errors[index] = exception;

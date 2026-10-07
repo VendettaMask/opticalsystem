@@ -67,8 +67,17 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
     public async Task OpenAsync(string path, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        Workspace.CancelDocumentTasks();
-        using var linked = Workspace.LinkDocumentToken(cancellationToken);
+        CancellationTokenSource linked;
+        long sourceRevision;
+        long documentGeneration;
+        lock (Gate)
+        {
+            Workspace.CancelDocumentTasks();
+            linked = Workspace.LinkDocumentToken(cancellationToken);
+            sourceRevision = Workspace.Revision;
+            documentGeneration = Workspace.DocumentGeneration;
+        }
+        using var lifetime = linked;
         var fullPath = Path.GetFullPath(path);
         var document = await _readDocumentAsync(fullPath, linked.Token).ConfigureAwait(false);
         linked.Token.ThrowIfCancellationRequested();
@@ -76,7 +85,13 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
             WorkspaceChangeCategory.Document,
             () => Runtime.ApplyLoadedDocument(document, fullPath),
             fullPath,
-            cancellationToken);
+            cancellationToken,
+            validateBeforeReplace: () =>
+            {
+                linked.Token.ThrowIfCancellationRequested();
+                if (sourceRevision != Workspace.Revision || documentGeneration != Workspace.DocumentGeneration)
+                    throw new OperationCanceledException("打开期间文档已变化，旧打开请求已取消。", linked.Token);
+            });
     }
 
     public Task SaveAsync(string path, CancellationToken cancellationToken = default)

@@ -28,6 +28,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\validation\zemax\2026-r1\tessar-vignetting-2026-10-06\**\*"
+          Link="Validation\Zemax\TessarVignetting\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\validation\zemax\2026-r1\standard-sample-opd-2026-10-06\**\*"
+          Link="Validation\Zemax\StandardSampleOpd\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\validation\zemax\2026-r1\huygens-mtf-sampling-2026-09-06\**\*"
           Link="Validation\Zemax\HuygensMtfSampling\%(RecursiveDir)%(Filename)%(Extension)"
           CopyToOutputDirectory="PreserveNewest" />
@@ -120,4 +126,9 @@
           CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="../../validation/zemax/2026-r1/single-ray-path-2026-10-07/**/*" Link="Fixtures/single-ray-path/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/**/*" Link="Fixtures/tessar-ray-audit/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/rms-field-sampling-2026-10-07/**/*" Link="Fixtures/rms-field-sampling/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

@@ -26,6 +26,7 @@ internal sealed class RayTraceCacheBinding : IDisposable
         optic.Wavelengths.CollectionChanged += OnCollectionChanged;
         optic.Aperture.PropertyChanged += OnPropertyChanged;
         optic.Environment.PropertyChanged += OnPropertyChanged;
+        optic.Backend.Changed += OnBackendChanged;
         Subscribe(_surfaces);
         Subscribe(_fields);
         Subscribe(_wavelengths);
@@ -44,6 +45,7 @@ internal sealed class RayTraceCacheBinding : IDisposable
         _optic.Wavelengths.CollectionChanged -= OnCollectionChanged;
         _optic.Aperture.PropertyChanged -= OnPropertyChanged;
         _optic.Environment.PropertyChanged -= OnPropertyChanged;
+        _optic.Backend.Changed -= OnBackendChanged;
         Unsubscribe(_surfaces);
         Unsubscribe(_fields);
         Unsubscribe(_wavelengths);
@@ -54,6 +56,8 @@ internal sealed class RayTraceCacheBinding : IDisposable
 
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs args) =>
         _invalidate();
+
+    private void OnBackendChanged(object? sender, EventArgs args) => _invalidate();
 
     private void Subscribe(IEnumerable<INotifyPropertyChanged> items)
     {

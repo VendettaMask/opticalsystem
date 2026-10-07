@@ -88,6 +88,7 @@ public sealed class OpticCapabilityPreflightTests
                             ? (object)0.5876
                             : 0.0,
                     var type when type == typeof(int) => 0,
+                    var type when type == typeof(bool) => true,
                     var type when type == typeof(IReadOnlyList<double>) => new[] { 0.0 },
                     _ => throw new InvalidOperationException(
                         $"Test argument mapping is missing for {method.Name}.{parameter.Name}.")

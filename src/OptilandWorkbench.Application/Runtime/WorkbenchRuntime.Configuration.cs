@@ -62,7 +62,7 @@ public partial class WorkbenchRuntime
         finally
         {
             if (!alreadyLive)
-                _multiConfiguration.Configurations[_activeConfigurationIndex] = Optic.FromSnapshot(CurrentOptic.ToSnapshot());
+                _multiConfiguration.Configurations[_activeConfigurationIndex] = CurrentOptic.Clone();
         }
     }
 
@@ -91,7 +91,7 @@ public partial class WorkbenchRuntime
         mutation(candidate);
         CaptureCurrentState();
         _multiConfiguration = candidate;
-        CurrentOptic = Optic.FromSnapshot(candidate.Configurations[_activeConfigurationIndex].ToSnapshot());
+        CurrentOptic = candidate.Configurations[_activeConfigurationIndex].Clone();
         SetStatus("多配置操作数已更新。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);
@@ -136,7 +136,7 @@ public partial class WorkbenchRuntime
 
         CaptureCurrentState();
         _activeConfigurationIndex = configIndex;
-        CurrentOptic = Optic.FromSnapshot(_multiConfiguration.Configurations[configIndex].ToSnapshot());
+        CurrentOptic = _multiConfiguration.Configurations[configIndex].Clone();
         SetStatus($"已激活配置 {configIndex}。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);
@@ -172,7 +172,7 @@ public partial class WorkbenchRuntime
 
         if (configIndex == _activeConfigurationIndex)
         {
-            CurrentOptic = Optic.FromSnapshot(_multiConfiguration.Configurations[configIndex].ToSnapshot());
+            CurrentOptic = _multiConfiguration.Configurations[configIndex].Clone();
             SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         }
 

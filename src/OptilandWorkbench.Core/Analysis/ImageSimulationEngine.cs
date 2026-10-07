@@ -63,19 +63,19 @@ public sealed class ImageSimulationConfig
 
     public IReadOnlyList<double> WavelengthsMicrometers { get; init; } = new[] { 0.65, 0.55, 0.45 };
 
-    public int PsfGridRows { get; init; } = 5;
+    public int PsfGridRows { get; init; } = 3;
 
-    public int PsfGridColumns { get; init; } = 5;
+    public int PsfGridColumns { get; init; } = 3;
 
-    public int PsfSize { get; init; } = 128;
+    public int PsfSize { get; init; } = 32;
 
-    public int NumRays { get; init; } = 64;
+    public int NumRays { get; init; } = 16;
 
     public int Components { get; init; } = 3;
 
-    public int Padding { get; init; } = 64;
+    public int Padding { get; init; } = 16;
 
-    public int DistortionGridSize { get; init; } = 25;
+    public int DistortionGridSize { get; init; } = 9;
 
     public int DistortionPolynomialDegree { get; init; } = 5;
 }
@@ -128,6 +128,7 @@ public static class ImageSimulationEngine
 
     public static ImageSimulationResult Simulate(Optic optic, RgbImage source, ImageSimulationConfig? config = null)
     {
+        ComputationCancellation.ThrowIfCancellationRequested();
         config ??= new ImageSimulationConfig();
         AnalysisResourceLimits.ValidateImageSimulation(source, config);
 
@@ -165,6 +166,7 @@ public static class ImageSimulationEngine
         var fallbackCount = 0;
         for (var channel = 0; channel < config.WavelengthsMicrometers.Count; channel++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var wavelength = ResolveWavelength(workingOptic, config.WavelengthsMicrometers[channel]);
             var basis = GenerateBasis(
                 workingOptic,
@@ -439,6 +441,7 @@ public static class ImageSimulationEngine
         var sample = 0;
         for (var row = 0; row < rows; row++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var minimumY = Math.Max(-1, config.FieldCenterY - halfFieldY);
             var maximumY = Math.Min(1, config.FieldCenterY + halfFieldY);
             var hy = rows == 1
@@ -446,6 +449,7 @@ public static class ImageSimulationEngine
                 : minimumY + ((maximumY - minimumY) * row / (rows - 1));
             for (var column = 0; column < columns; column++)
             {
+                ComputationCancellation.ThrowIfCancellationRequested();
                 var minimumX = Math.Max(-1, config.FieldCenterX - halfFieldX);
                 var maximumX = Math.Min(1, config.FieldCenterX + halfFieldX);
                 var hx = columns == 1
@@ -521,6 +525,7 @@ public static class ImageSimulationEngine
         var mean = new double[featureCount];
         for (var feature = 0; feature < featureCount; feature++)
         {
+            if ((feature & 255) == 0) ComputationCancellation.ThrowIfCancellationRequested();
             for (sample = 0; sample < psfCount; sample++)
             {
                 mean[feature] += psfs[sample, feature] / psfCount;
@@ -535,8 +540,10 @@ public static class ImageSimulationEngine
         var gram = new double[psfCount, psfCount];
         for (var left = 0; left < psfCount; left++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             for (var right = left; right < psfCount; right++)
             {
+                ComputationCancellation.ThrowIfCancellationRequested();
                 var value = 0.0;
                 for (var feature = 0; feature < featureCount; feature++)
                 {
@@ -554,6 +561,7 @@ public static class ImageSimulationEngine
         var coefficients = new double[componentCount, rows, columns];
         for (var component = 0; component < componentCount; component++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var singular = Math.Sqrt(Math.Max(0, eigen.Values[component]));
             var basis = new double[config.PsfSize, config.PsfSize];
             if (singular > 1e-15)
@@ -828,12 +836,27 @@ public static class ImageSimulationEngine
         double[,,] coefficientMaps,
         double[,] meanPsf)
     {
+        ComputationCancellation.ThrowIfCancellationRequested();
+        ArgumentNullException.ThrowIfNull(source);
+        ArgumentNullException.ThrowIfNull(eigenPsfs);
+        ArgumentNullException.ThrowIfNull(coefficientMaps);
+        ArgumentNullException.ThrowIfNull(meanPsf);
+        if (coefficientMaps.GetLength(0) != eigenPsfs.Count
+            || coefficientMaps.GetLength(1) != source.GetLength(0)
+            || coefficientMaps.GetLength(2) != source.GetLength(1))
+            throw new ArgumentException("Coefficient maps must match the source and EigenPSF count.", nameof(coefficientMaps));
+        var largestHeight = Math.Max(meanPsf.GetLength(0), eigenPsfs.Count == 0 ? 0 : eigenPsfs.Max(psf => psf.GetLength(0)));
+        var largestWidth = Math.Max(meanPsf.GetLength(1), eigenPsfs.Count == 0 ? 0 : eigenPsfs.Max(psf => psf.GetLength(1)));
+        AnalysisResourceLimits.ValidateConvolutionWork(source.GetLength(1), source.GetLength(0),
+            largestWidth, largestHeight, 1 + eigenPsfs.Count);
         var output = ConvolveSame(source, meanPsf);
         for (var component = 0; component < eigenPsfs.Count; component++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var weighted = new double[source.GetLength(0), source.GetLength(1)];
             for (var row = 0; row < source.GetLength(0); row++)
             {
+                ComputationCancellation.ThrowIfCancellationRequested();
                 for (var column = 0; column < source.GetLength(1); column++)
                 {
                     weighted[row, column] = source[row, column] * coefficientMaps[component, row, column];
@@ -843,6 +866,7 @@ public static class ImageSimulationEngine
             var convolved = ConvolveSame(weighted, eigenPsfs[component]);
             for (var row = 0; row < source.GetLength(0); row++)
             {
+                ComputationCancellation.ThrowIfCancellationRequested();
                 for (var column = 0; column < source.GetLength(1); column++)
                 {
                     output[row, column] += convolved[row, column];
@@ -992,13 +1016,16 @@ public static class ImageSimulationEngine
 
     private static double[,] ConvolveSame(double[,] source, double[,] kernel)
     {
+        ComputationCancellation.ThrowIfCancellationRequested();
         var output = new double[source.GetLength(0), source.GetLength(1)];
         var startY = (kernel.GetLength(0) - 1) / 2;
         var startX = (kernel.GetLength(1) - 1) / 2;
         for (var row = 0; row < output.GetLength(0); row++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             for (var column = 0; column < output.GetLength(1); column++)
             {
+                if ((column & 31) == 0) ComputationCancellation.ThrowIfCancellationRequested();
                 var sum = 0.0;
                 for (var kernelY = 0; kernelY < kernel.GetLength(0); kernelY++)
                 {
@@ -1332,6 +1359,7 @@ public static class ImageSimulationEngine
 
         for (var iteration = 0; iteration < 100 * size * size; iteration++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var p = 0;
             var q = 1;
             var maximum = 0.0;

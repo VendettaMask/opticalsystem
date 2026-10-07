@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ab2de738-a98d-4127-84b3-d415a47cb9be" name="allen@DESKTOP-SET3SNR 2026-10-06 23:17:43" runUser="DESKTOP-SET3SNR\CodexSandboxOffline" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-06T23:17:43.8013812+08:00" queuing="2026-10-06T23:17:43.8013817+08:00" start="2026-10-06T23:17:41.1189781+08:00" finish="2026-10-06T23:17:44.0084355+08:00" />
+  <TestSettings name="default" id="9175b6a7-aa46-4ed7-82f8-bec0b9fbb1cc">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-06_23_17_43" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="6800feb7-dd94-49f7-bda8-61559d23c7e7" testId="0f91a06f-3880-67a2-b94c-b3c615ebcc53" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 30)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0003455" startTime="2026-10-06T23:17:43.7887939+08:00" endTime="2026-10-06T23:17:43.7888485+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6800feb7-dd94-49f7-bda8-61559d23c7e7" />
+    <UnitTestResult executionId="feee84a4-4600-4024-83d1-ab687e4c537b" testId="77e09b91-803f-7297-2c97-bf0704e99b32" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 250, aiming: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0105879" startTime="2026-10-06T23:17:43.8798327+08:00" endTime="2026-10-06T23:17:43.8904036+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="feee84a4-4600-4024-83d1-ab687e4c537b" />
+    <UnitTestResult executionId="2805d8db-bd71-4df5-8bad-0b449296bd9d" testId="e0d54437-09fd-1024-b8ce-31399118d7a5" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(strategy: BestFitSphere, angle: 0)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0056309" startTime="2026-10-06T23:17:43.8375989+08:00" endTime="2026-10-06T23:17:43.8405974+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2805d8db-bd71-4df5-8bad-0b449296bd9d">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 9.9999999999999995E-08)&#xD;
+Actual: 9.728790384688768E-07</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(ReferenceSphereStrategy strategy, Double angle) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\VignettedWavefrontPhaseTests.cs:line 83&#xD;
+   at InvokeStub_VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="46470b4a-bfd3-4645-9c0f-26449f0591aa" testId="c859c084-22ab-3ea7-206d-4dabcdc49969" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(strategy: CentroidSphere, angle: 0)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0269511" startTime="2026-10-06T23:17:43.7895458+08:00" endTime="2026-10-06T23:17:43.8182168+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="46470b4a-bfd3-4645-9c0f-26449f0591aa">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 9.9999999999999995E-08)&#xD;
+Actual: 1.8488298960950278E-05</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(ReferenceSphereStrategy strategy, Double angle) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\VignettedWavefrontPhaseTests.cs:line 83&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a55e9622-b733-40d4-b820-3f76e1ab541e" testId="655472a2-9867-ddab-989b-821685cb4924" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0108865" startTime="2026-10-06T23:17:43.8553631+08:00" endTime="2026-10-06T23:17:43.8661562+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a55e9622-b733-40d4-b820-3f76e1ab541e" />
+    <UnitTestResult executionId="6c1d0442-0f20-4a7e-90ad-8c312a91d006" testId="2e92dc06-fa0e-5aba-24ca-328dcf047099" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 30)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0027999" startTime="2026-10-06T23:17:43.7797718+08:00" endTime="2026-10-06T23:17:43.7824824+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6c1d0442-0f20-4a7e-90ad-8c312a91d006" />
+    <UnitTestResult executionId="ee1b795d-61d2-4b40-b34a-9d546a39c31b" testId="0efb2ec8-d9f7-9574-da90-c705d6779f56" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: False, angle: 0)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0044963" startTime="2026-10-06T23:17:43.7751622+08:00" endTime="2026-10-06T23:17:43.7795839+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ee1b795d-61d2-4b40-b34a-9d546a39c31b" />
+    <UnitTestResult executionId="c3eda256-c876-420f-bb09-6e8cc57bddd1" testId="c9626927-fc54-b30a-0561-66b41e7b681b" testName="OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: 180, x: -0.29999999999999999, y: 0.32500000000000001)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0000013" startTime="2026-10-06T23:17:43.9313876+08:00" endTime="2026-10-06T23:17:43.9314170+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c3eda256-c876-420f-bb09-6e8cc57bddd1" />
+    <UnitTestResult executionId="bd126389-1760-42c7-8a7e-47e7102e8798" testId="3937f813-e7db-d447-21c8-bc0d497dde24" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 90)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0002309" startTime="2026-10-06T23:17:43.7890680+08:00" endTime="2026-10-06T23:17:43.7892400+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bd126389-1760-42c7-8a7e-47e7102e8798" />
+    <UnitTestResult executionId="51644697-3967-493e-840d-6f36678858c3" testId="2cb599b7-85c1-7cfe-9950-df99ed7c673d" testName="OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: 0, x: 0.29999999999999999, y: -0.32500000000000001)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0000899" startTime="2026-10-06T23:17:43.9305149+08:00" endTime="2026-10-06T23:17:43.9305399+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="51644697-3967-493e-840d-6f36678858c3" />
+    <UnitTestResult executionId="9faa0781-dd23-46fc-8571-e3c74a982db7" testId="500d5ac7-1c9f-0837-afd8-85cfd842a284" testName="OptilandWorkbench.Tests.PupilVignettingTests.OldSnapshotWithoutNewFieldsKeepsIdentityTransform" computerName="DESKTOP-SET3SNR" duration="00:00:00.0034826" startTime="2026-10-06T23:17:43.9514528+08:00" endTime="2026-10-06T23:17:43.9550901+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9faa0781-dd23-46fc-8571-e3c74a982db7" />
+    <UnitTestResult executionId="91b538d6-ac30-4e09-b976-461a22ae7958" testId="13e9d192-ae6b-9ca0-4e89-ef3b8d1a5218" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 0)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0003844" startTime="2026-10-06T23:17:43.7893161+08:00" endTime="2026-10-06T23:17:43.7893495+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="91b538d6-ac30-4e09-b976-461a22ae7958" />
+    <UnitTestResult executionId="b1671145-c620-4595-9a21-8fb1b6fc2c96" testId="ab63dcab-ab5e-53ac-45eb-f275bea8777e" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(strategy: BestFitSphere, angle: 180)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0021096" startTime="2026-10-06T23:17:43.8410551+08:00" endTime="2026-10-06T23:17:43.8428108+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b1671145-c620-4595-9a21-8fb1b6fc2c96">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 9.9999999999999995E-08)&#xD;
+Actual: 9.7287535592849306E-07</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(ReferenceSphereStrategy strategy, Double angle) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\VignettedWavefrontPhaseTests.cs:line 83&#xD;
+   at InvokeStub_VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fb80336e-3a9b-42fc-9312-4bcbaccf3bb6" testId="3d9b5491-2827-eee5-3957-e868002e6d84" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(strategy: CentroidSphere, angle: 180)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0167404" startTime="2026-10-06T23:17:43.8225441+08:00" endTime="2026-10-06T23:17:43.8348284+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fb80336e-3a9b-42fc-9312-4bcbaccf3bb6">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 9.9999999999999995E-08)&#xD;
+Actual: 1.8488301279359631E-05</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(ReferenceSphereStrategy strategy, Double angle) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\VignettedWavefrontPhaseTests.cs:line 83&#xD;
+   at InvokeStub_VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fe1d231c-7f0d-477b-8a4d-3bda9d698801" testId="8d867ece-61e7-1816-5a66-b2a5fcc9887b" testName="OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: True, angle: 90)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0003912" startTime="2026-10-06T23:17:43.9409704+08:00" endTime="2026-10-06T23:17:43.9413237+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fe1d231c-7f0d-477b-8a4d-3bda9d698801" />
+    <UnitTestResult executionId="0aa262ce-40fd-4b7a-a9ce-45edfde484b4" testId="4c22c684-edc1-9800-7e3f-d6a9e5104e80" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: False, angle: 30)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0016340" startTime="2026-10-06T23:17:43.7680082+08:00" endTime="2026-10-06T23:17:43.7690155+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0aa262ce-40fd-4b7a-a9ce-45edfde484b4" />
+    <UnitTestResult executionId="123013ea-e7af-4df8-98e4-bd5ec9380daf" testId="e314f4f0-aab8-e4ac-bca2-bb1a64475367" testName="OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: False, angle: 0)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0001546" startTime="2026-10-06T23:17:43.9418281+08:00" endTime="2026-10-06T23:17:43.9418655+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="123013ea-e7af-4df8-98e4-bd5ec9380daf" />
+    <UnitTestResult executionId="f22ee935-4bbf-429d-bf90-c0aab48a8a9c" testId="bfb88f8e-3891-9fcd-2f77-a2055d643cc0" testName="OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: -90, x: -0.32500000000000001, y: -0.29999999999999999)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0001743" startTime="2026-10-06T23:17:43.9305822+08:00" endTime="2026-10-06T23:17:43.9307570+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f22ee935-4bbf-429d-bf90-c0aab48a8a9c" />
+    <UnitTestResult executionId="ee25eeec-b8e7-4c2d-89af-7f98564beae8" testId="6096581f-4fd4-d814-ec7a-fa47e8ed8fcf" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;double-gauss-28-degree-field&quot;, setting: &quot;primary&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0202135" startTime="2026-10-06T23:17:43.8074648+08:00" endTime="2026-10-06T23:17:43.8225789+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ee25eeec-b8e7-4c2d-89af-7f98564beae8" />
+    <UnitTestResult executionId="4246b6fc-d43c-448c-b276-3fc7539cac1b" testId="7c3e6ff2-3cf4-db19-63d1-8cf5a323cd86" testName="OptilandWorkbench.Tests.PupilVignettingTests.NewFactorsDetachMutatedOpticFromSharedTraceCache(component: &quot;angle&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0001600" startTime="2026-10-06T23:17:43.9374039+08:00" endTime="2026-10-06T23:17:43.9375393+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4246b6fc-d43c-448c-b276-3fc7539cac1b" />
+    <UnitTestResult executionId="262bf1e6-1497-4eb4-b16f-2700aeb84487" testId="edba0c51-7eb3-b04b-582c-41a41b1bbf77" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: True, angle: 0)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0059708" startTime="2026-10-06T23:17:43.7690965+08:00" endTime="2026-10-06T23:17:43.7750161+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="262bf1e6-1497-4eb4-b16f-2700aeb84487" />
+    <UnitTestResult executionId="b6a80678-7d08-4059-9378-09c9f8238df7" testId="34924fd4-3fbf-f772-b3a3-fc180bd5156d" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;double-gauss-28-degree-field&quot;, setting: &quot;edge-shortwave&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.4891979" startTime="2026-10-06T23:17:43.3160593+08:00" endTime="2026-10-06T23:17:43.7891170+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b6a80678-7d08-4059-9378-09c9f8238df7" />
+    <UnitTestResult executionId="c706b863-f784-4145-8474-cef1ff54d1b8" testId="2fcf469a-2806-153a-4b5a-85d5141367ce" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;relay-lens&quot;, setting: &quot;edge-shortwave&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0142448" startTime="2026-10-06T23:17:43.7892106+08:00" endTime="2026-10-06T23:17:43.7983303+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c706b863-f784-4145-8474-cef1ff54d1b8" />
+    <UnitTestResult executionId="492894f6-2a3b-4796-adea-a4c24f7c6ebe" testId="ea36b2f6-0f10-393c-a6f4-56dcd5d63a54" testName="OptilandWorkbench.Tests.PupilVignettingTests.RemovingFactorsPreservesRuntimeMaterialAndSourceData" computerName="DESKTOP-SET3SNR" duration="00:00:00.4331155" startTime="2026-10-06T23:17:43.3171050+08:00" endTime="2026-10-06T23:17:43.7297004+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="492894f6-2a3b-4796-adea-a4c24f7c6ebe" />
+    <UnitTestResult executionId="e94bb569-a815-413d-9990-d85756a17b5c" testId="b8468fc3-c3aa-efd1-720e-a35320c92d11" testName="OptilandWorkbench.Tests.PupilVignettingTests.FiveFactorsRoundTripZmxProjectDtoAndUnrelatedFieldEdits" computerName="DESKTOP-SET3SNR" duration="00:00:00.1940858" startTime="2026-10-06T23:17:43.7373408+08:00" endTime="2026-10-06T23:17:43.9257568+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e94bb569-a815-413d-9990-d85756a17b5c" />
+    <UnitTestResult executionId="f803fe7c-676c-4fb2-80d9-02b2d48536cb" testId="942f14b0-424a-3896-a309-d042907f711b" testName="OptilandWorkbench.Tests.PupilVignettingTests.NewFactorsDetachMutatedOpticFromSharedTraceCache(component: &quot;x&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0003430" startTime="2026-10-06T23:17:43.9370531+08:00" endTime="2026-10-06T23:17:43.9373387+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f803fe7c-676c-4fb2-80d9-02b2d48536cb" />
+    <UnitTestResult executionId="073fc08d-6bb2-4241-8f99-a0232c9991f6" testId="fdbd23f5-39f3-8f90-87d3-2fc6ebe101a1" testName="OptilandWorkbench.Tests.PupilVignettingTests.GenerateForAndNormalizedBundlesShareTheSameDecenteredPupil(normalized: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0026295" startTime="2026-10-06T23:17:43.9266712+08:00" endTime="2026-10-06T23:17:43.9293031+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="073fc08d-6bb2-4241-8f99-a0232c9991f6" />
+    <UnitTestResult executionId="78a360d9-e5fe-4439-8afa-ac9db04b6f35" testId="aee4d077-d89d-3307-1d58-f492786850e8" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 250, aiming: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0069536" startTime="2026-10-06T23:17:43.8733544+08:00" endTime="2026-10-06T23:17:43.8797240+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="78a360d9-e5fe-4439-8afa-ac9db04b6f35" />
+    <UnitTestResult executionId="60ebdc4a-c145-402e-ba44-d8f92d0c1cb6" testId="7142cdff-a8cf-5ac2-84dd-a89e55a8aeea" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: True, angle: 30)" computerName="DESKTOP-SET3SNR" duration="00:00:00.4725160" startTime="2026-10-06T23:17:43.3171381+08:00" endTime="2026-10-06T23:17:43.7673807+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="60ebdc4a-c145-402e-ba44-d8f92d0c1cb6" />
+    <UnitTestResult executionId="921941c5-e667-4eda-aede-686d3ff31301" testId="1cf98a3b-31b5-b50b-af74-21d554051286" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 90)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0008254" startTime="2026-10-06T23:17:43.7826018+08:00" endTime="2026-10-06T23:17:43.7833372+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="921941c5-e667-4eda-aede-686d3ff31301" />
+    <UnitTestResult executionId="dd5dbc91-07ff-4378-a25b-89650734c8c1" testId="1c7338e0-33d4-f091-b3ff-e72526efd073" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0064729" startTime="2026-10-06T23:17:43.8662868+08:00" endTime="2026-10-06T23:17:43.8726898+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dd5dbc91-07ff-4378-a25b-89650734c8c1" />
+    <UnitTestResult executionId="e94af2ba-734c-4650-858e-4508b5dce571" testId="7451808c-e9cb-879f-ec5c-dd19511d58f4" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;cooke-40-degree-field&quot;, setting: &quot;edge-shortwave&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0069210" startTime="2026-10-06T23:17:43.8340258+08:00" endTime="2026-10-06T23:17:43.8411008+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e94af2ba-734c-4650-858e-4508b5dce571" />
+    <UnitTestResult executionId="e05c0894-493e-4f1b-8a00-5473a447f511" testId="246d9552-c652-4444-542f-92b9f7b24f80" testName="OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: 90, x: 0.32500000000000001, y: 0.29999999999999999)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0000064" startTime="2026-10-06T23:17:43.9308306+08:00" endTime="2026-10-06T23:17:43.9308580+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e05c0894-493e-4f1b-8a00-5473a447f511" />
+    <UnitTestResult executionId="e6dd66e6-82ca-4521-a68f-63ac854e7dcb" testId="701b6738-97bd-84cb-9759-491dd25ef751" testName="OptilandWorkbench.Tests.PupilVignettingTests.GenerateForAndNormalizedBundlesShareTheSameDecenteredPupil(normalized: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0010709" startTime="2026-10-06T23:17:43.9293789+08:00" endTime="2026-10-06T23:17:43.9304157+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e6dd66e6-82ca-4521-a68f-63ac854e7dcb" />
+    <UnitTestResult executionId="ee9e2514-0c79-436f-9747-559685b4bdb1" testId="276ddee8-7bec-24b5-2459-f40be9d4506f" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0064357" startTime="2026-10-06T23:17:43.8905164+08:00" endTime="2026-10-06T23:17:43.8968910+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ee9e2514-0c79-436f-9747-559685b4bdb1" />
+    <UnitTestResult executionId="dbf25ab8-9cff-4144-94c4-fcb041e2d4b0" testId="a6e565e4-1c9e-5855-1363-c5de8a61e135" testName="OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: True, angle: 0)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0020533" startTime="2026-10-06T23:17:43.9388634+08:00" endTime="2026-10-06T23:17:43.9409023+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dbf25ab8-9cff-4144-94c4-fcb041e2d4b0" />
+    <UnitTestResult executionId="729f9c54-bc45-40d6-86f9-1026a338f6cb" testId="b80a3248-187e-446e-a5ef-9ba848f4f4fb" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;cooke-40-degree-field&quot;, setting: &quot;primary&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0052760" startTime="2026-10-06T23:17:43.8239475+08:00" endTime="2026-10-06T23:17:43.8240102+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="729f9c54-bc45-40d6-86f9-1026a338f6cb" />
+    <UnitTestResult executionId="70f4fc54-50e0-4e19-a228-8890ae2b0032" testId="574ef8bc-015a-30ff-5bc1-6de1631e9777" testName="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 0)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0002252" startTime="2026-10-06T23:17:43.7894159+08:00" endTime="2026-10-06T23:17:43.7894478+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="70f4fc54-50e0-4e19-a228-8890ae2b0032" />
+    <UnitTestResult executionId="94bbacb5-fd09-4bee-9c53-ec5ed6d09606" testId="af9296a8-c14b-6002-4a6d-f87e3aa06620" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;relay-lens&quot;, setting: &quot;primary&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0099469" startTime="2026-10-06T23:17:43.8240980+08:00" endTime="2026-10-06T23:17:43.8339068+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="94bbacb5-fd09-4bee-9c53-ec5ed6d09606" />
+    <UnitTestResult executionId="286db680-0209-42ac-8ee9-9059e19bec0e" testId="6f0fbe43-03da-0e6d-b49e-c305d30e23fb" testName="OptilandWorkbench.Tests.PupilVignettingTests.NonFiniteNewFactorsFailModelAndSnapshotValidation(component: &quot;y&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0000670" startTime="2026-10-06T23:17:43.9387874+08:00" endTime="2026-10-06T23:17:43.9388110+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="286db680-0209-42ac-8ee9-9059e19bec0e" />
+    <UnitTestResult executionId="de32f897-ae5b-4b9c-9cbc-8c2fbb1134f3" testId="e69ce479-64b3-9a7d-0fd8-274a20d600f9" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0142248" startTime="2026-10-06T23:17:43.8412168+08:00" endTime="2026-10-06T23:17:43.8551981+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="de32f897-ae5b-4b9c-9cbc-8c2fbb1134f3" />
+    <UnitTestResult executionId="95051de5-f889-4758-9ed3-342854ca48e7" testId="84bd3656-95c9-53b4-c3f9-73a4dd21e40a" testName="OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: False, angle: 90)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0001081" startTime="2026-10-06T23:17:43.9419234+08:00" endTime="2026-10-06T23:17:43.9419461+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="95051de5-f889-4758-9ed3-342854ca48e7" />
+    <UnitTestResult executionId="2ff20023-c24a-42a4-b55e-d3853160050f" testId="9d2b5edb-62a4-1679-f40d-42271361f924" testName="OptilandWorkbench.Tests.PupilVignettingTests.NewFactorsDetachMutatedOpticFromSharedTraceCache(component: &quot;y&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0061066" startTime="2026-10-06T23:17:43.9315033+08:00" endTime="2026-10-06T23:17:43.9369600+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2ff20023-c24a-42a4-b55e-d3853160050f" />
+    <UnitTestResult executionId="dca36b80-14e7-4c9b-b543-6a57bd387df4" testId="cde33429-2aa1-51bd-7018-3936a6cbc30b" testName="OptilandWorkbench.Tests.PupilVignettingTests.ClearVignettingResetsAllFiveFactorsOnAnIsolatedCopy" computerName="DESKTOP-SET3SNR" duration="00:00:00.0096485" startTime="2026-10-06T23:17:43.9420230+08:00" endTime="2026-10-06T23:17:43.9513341+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dca36b80-14e7-4c9b-b543-6a57bd387df4" />
+    <UnitTestResult executionId="28880205-311e-4f2a-b1b6-c1600b237aac" testId="f6ec2b63-5ebf-255e-225b-d961ed990c7f" testName="OptilandWorkbench.Tests.PupilVignettingTests.NonFiniteNewFactorsFailModelAndSnapshotValidation(component: &quot;angle&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0002064" startTime="2026-10-06T23:17:43.9385539+08:00" endTime="2026-10-06T23:17:43.9387204+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="28880205-311e-4f2a-b1b6-c1600b237aac" />
+    <UnitTestResult executionId="17a2c4fe-2d9f-491c-a5e5-13727ff2315f" testId="e41ed6f1-b898-930f-ec9c-c2f0fdf8ea01" testName="OptilandWorkbench.Tests.PupilVignettingTests.NonFiniteNewFactorsFailModelAndSnapshotValidation(component: &quot;x&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0009135" startTime="2026-10-06T23:17:43.9376211+08:00" endTime="2026-10-06T23:17:43.9384688+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="17a2c4fe-2d9f-491c-a5e5-13727ff2315f" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: True, angle: 30)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="7142cdff-a8cf-5ac2-84dd-a89e55a8aeea">
+      <Execution id="60ebdc4a-c145-402e-ba44-d8f92d0c1cb6" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 250, aiming: True)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="77e09b91-803f-7297-2c97-bf0704e99b32">
+      <Execution id="feee84a4-4600-4024-83d1-ab687e4c537b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;double-gauss-28-degree-field&quot;, setting: &quot;edge-shortwave&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="34924fd4-3fbf-f772-b3a3-fc180bd5156d">
+      <Execution id="b6a80678-7d08-4059-9378-09c9f8238df7" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="CapturedSettingsMatchBothNativeFans" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: True, angle: 0)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="edba0c51-7eb3-b04b-582c-41a41b1bbf77">
+      <Execution id="262bf1e6-1497-4eb4-b16f-2700aeb84487" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(strategy: CentroidSphere, angle: 180)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="3d9b5491-2827-eee5-3957-e868002e6d84">
+      <Execution id="fb80336e-3a9b-42fc-9312-4bcbaccf3bb6" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 90)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="3937f813-e7db-d447-21c8-bc0d497dde24">
+      <Execution id="bd126389-1760-42c7-8a7e-47e7102e8798" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: 90, x: 0.32500000000000001, y: 0.29999999999999999)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="246d9552-c652-4444-542f-92b9f7b24f80">
+      <Execution id="e05c0894-493e-4f1b-8a00-5473a447f511" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="CompressionAndShiftPrecedeRotation" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;relay-lens&quot;, setting: &quot;edge-shortwave&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="2fcf469a-2806-153a-4b5a-85d5141367ce">
+      <Execution id="c706b863-f784-4145-8474-cef1ff54d1b8" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="CapturedSettingsMatchBothNativeFans" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;relay-lens&quot;, setting: &quot;primary&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="af9296a8-c14b-6002-4a6d-f87e3aa06620">
+      <Execution id="94bbacb5-fd09-4bee-9c53-ec5ed6d09606" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="CapturedSettingsMatchBothNativeFans" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.NonFiniteNewFactorsFailModelAndSnapshotValidation(component: &quot;y&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="6f0fbe43-03da-0e6d-b49e-c305d30e23fb">
+      <Execution id="286db680-0209-42ac-8ee9-9059e19bec0e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="NonFiniteNewFactorsFailModelAndSnapshotValidation" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;cooke-40-degree-field&quot;, setting: &quot;edge-shortwave&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="7451808c-e9cb-879f-ec5c-dd19511d58f4">
+      <Execution id="e94af2ba-734c-4650-858e-4508b5dce571" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="CapturedSettingsMatchBothNativeFans" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;cooke-40-degree-field&quot;, setting: &quot;primary&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="b80a3248-187e-446e-a5ef-9ba848f4f4fb">
+      <Execution id="729f9c54-bc45-40d6-86f9-1026a338f6cb" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="CapturedSettingsMatchBothNativeFans" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: False, angle: 30)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="4c22c684-edc1-9800-7e3f-d6a9e5104e80">
+      <Execution id="0aa262ce-40fd-4b7a-a9ce-45edfde484b4" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(strategy: BestFitSphere, angle: 180)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="ab63dcab-ab5e-53ac-45eb-f275bea8777e">
+      <Execution id="b1671145-c620-4595-9a21-8fb1b6fc2c96" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.GenerateForAndNormalizedBundlesShareTheSameDecenteredPupil(normalized: True)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="fdbd23f5-39f3-8f90-87d3-2fc6ebe101a1">
+      <Execution id="073fc08d-6bb2-4241-8f99-a0232c9991f6" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="GenerateForAndNormalizedBundlesShareTheSameDecenteredPupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 30)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="2e92dc06-fa0e-5aba-24ca-328dcf047099">
+      <Execution id="6c1d0442-0f20-4a7e-90ad-8c312a91d006" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: True)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="655472a2-9867-ddab-989b-821685cb4924">
+      <Execution id="a55e9622-b733-40d4-b820-3f76e1ab541e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: True, angle: 90)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="8d867ece-61e7-1816-5a66-b2a5fcc9887b">
+      <Execution id="fe1d231c-7f0d-477b-8a4d-3bda9d698801" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="GenericAndBatchLaunchApplyExactlyOneTransform" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(strategy: CentroidSphere, angle: 0)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="c859c084-22ab-3ea7-206d-4dabcdc49969">
+      <Execution id="46470b4a-bfd3-4645-9c0f-26449f0591aa" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.FiveFactorsRoundTripZmxProjectDtoAndUnrelatedFieldEdits" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="b8468fc3-c3aa-efd1-720e-a35320c92d11">
+      <Execution id="e94bb569-a815-413d-9990-d85756a17b5c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="FiveFactorsRoundTripZmxProjectDtoAndUnrelatedFieldEdits" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: False)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="1c7338e0-33d4-f091-b3ff-e72526efd073">
+      <Execution id="dd5dbc91-07ff-4378-a25b-89650734c8c1" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: 0, x: 0.29999999999999999, y: -0.32500000000000001)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="2cb599b7-85c1-7cfe-9950-df99ed7c673d">
+      <Execution id="51644697-3967-493e-840d-6f36678858c3" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="CompressionAndShiftPrecedeRotation" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.GenerateForAndNormalizedBundlesShareTheSameDecenteredPupil(normalized: False)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="701b6738-97bd-84cb-9759-491dd25ef751">
+      <Execution id="e6dd66e6-82ca-4521-a68f-63ac854e7dcb" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="GenerateForAndNormalizedBundlesShareTheSameDecenteredPupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;double-gauss-28-degree-field&quot;, setting: &quot;primary&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="6096581f-4fd4-d814-ec7a-fa47e8ed8fcf">
+      <Execution id="ee25eeec-b8e7-4c2d-89af-7f98564beae8" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="CapturedSettingsMatchBothNativeFans" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: False, angle: 90)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="84bd3656-95c9-53b4-c3f9-73a4dd21e40a">
+      <Execution id="95051de5-f889-4758-9ed3-342854ca48e7" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="GenericAndBatchLaunchApplyExactlyOneTransform" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: True, angle: 0)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="a6e565e4-1c9e-5855-1363-c5de8a61e135">
+      <Execution id="dbf25ab8-9cff-4144-94c4-fcb041e2d4b0" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="GenericAndBatchLaunchApplyExactlyOneTransform" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: True)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="e69ce479-64b3-9a7d-0fd8-274a20d600f9">
+      <Execution id="de32f897-ae5b-4b9c-9cbc-8c2fbb1134f3" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(strategy: BestFitSphere, angle: 0)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="e0d54437-09fd-1024-b8ce-31399118d7a5">
+      <Execution id="2805d8db-bd71-4df5-8bad-0b449296bd9d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.NewFactorsDetachMutatedOpticFromSharedTraceCache(component: &quot;angle&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="7c3e6ff2-3cf4-db19-63d1-8cf5a323cd86">
+      <Execution id="4246b6fc-d43c-448c-b276-3fc7539cac1b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="NewFactorsDetachMutatedOpticFromSharedTraceCache" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: False)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="276ddee8-7bec-24b5-2459-f40be9d4506f">
+      <Execution id="ee9e2514-0c79-436f-9747-559685b4bdb1" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 250, aiming: False)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="aee4d077-d89d-3307-1d58-f492786850e8">
+      <Execution id="78a360d9-e5fe-4439-8afa-ac9db04b6f35" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: False, angle: 0)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="574ef8bc-015a-30ff-5bc1-6de1631e9777">
+      <Execution id="70f4fc54-50e0-4e19-a228-8890ae2b0032" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.OldSnapshotWithoutNewFieldsKeepsIdentityTransform" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="500d5ac7-1c9f-0837-afd8-85cfd842a284">
+      <Execution id="9faa0781-dd23-46fc-8571-e3c74a982db7" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="OldSnapshotWithoutNewFieldsKeepsIdentityTransform" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.NonFiniteNewFactorsFailModelAndSnapshotValidation(component: &quot;x&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="e41ed6f1-b898-930f-ec9c-c2f0fdf8ea01">
+      <Execution id="17a2c4fe-2d9f-491c-a5e5-13727ff2315f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="NonFiniteNewFactorsFailModelAndSnapshotValidation" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 30)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="0f91a06f-3880-67a2-b94c-b3c615ebcc53">
+      <Execution id="6800feb7-dd94-49f7-bda8-61559d23c7e7" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.NewFactorsDetachMutatedOpticFromSharedTraceCache(component: &quot;y&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="9d2b5edb-62a4-1679-f40d-42271361f924">
+      <Execution id="2ff20023-c24a-42a4-b55e-d3853160050f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="NewFactorsDetachMutatedOpticFromSharedTraceCache" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: 180, x: -0.29999999999999999, y: 0.32500000000000001)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="c9626927-fc54-b30a-0561-66b41e7b681b">
+      <Execution id="c3eda256-c876-420f-bb09-6e8cc57bddd1" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="CompressionAndShiftPrecedeRotation" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.CompressionAndShiftPrecedeRotation(angle: -90, x: -0.32500000000000001, y: -0.29999999999999999)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="bfb88f8e-3891-9fcd-2f77-a2055d643cc0">
+      <Execution id="f22ee935-4bbf-429d-bf90-c0aab48a8a9c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="CompressionAndShiftPrecedeRotation" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.GenericAndBatchLaunchApplyExactlyOneTransform(aiming: False, angle: 0)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="e314f4f0-aab8-e4ac-bca2-bb1a64475367">
+      <Execution id="123013ea-e7af-4df8-98e4-bd5ec9380daf" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="GenericAndBatchLaunchApplyExactlyOneTransform" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.RemovingFactorsPreservesRuntimeMaterialAndSourceData" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="ea36b2f6-0f10-393c-a6f4-56dcd5d63a54">
+      <Execution id="492894f6-2a3b-4796-adea-a4c24f7c6ebe" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="RemovingFactorsPreservesRuntimeMaterialAndSourceData" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.NonFiniteNewFactorsFailModelAndSnapshotValidation(component: &quot;angle&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="f6ec2b63-5ebf-255e-225b-d961ed990c7f">
+      <Execution id="28880205-311e-4f2a-b1b6-c1600b237aac" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="NonFiniteNewFactorsFailModelAndSnapshotValidation" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples(aiming: False, angle: 0)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="0efb2ec8-d9f7-9574-da90-c705d6779f56">
+      <Execution id="ee1b795d-61d2-4b40-b34a-9d546a39c31b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="RemappedPupilTracesHaveTheSameRelativePhaseAsPhysicalSamples" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.ClearVignettingResetsAllFiveFactorsOnAnIsolatedCopy" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="cde33429-2aa1-51bd-7018-3936a6cbc30b">
+      <Execution id="dca36b80-14e7-4c9b-b543-6a57bd387df4" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="ClearVignettingResetsAllFiveFactorsOnAnIsolatedCopy" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PupilVignettingTests.NewFactorsDetachMutatedOpticFromSharedTraceCache(component: &quot;x&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="942f14b0-424a-3896-a309-d042907f711b">
+      <Execution id="f803fe7c-676c-4fb2-80d9-02b2d48536cb" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilVignettingTests" name="NewFactorsDetachMutatedOpticFromSharedTraceCache" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 0)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="13e9d192-ae6b-9ca0-4e89-ef3b8d1a5218">
+      <Execution id="91b538d6-ac30-4e09-b976-461a22ae7958" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil(aiming: True, angle: 90)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="1cf98a3b-31b5-b50b-af74-21d554051286">
+      <Execution id="921941c5-e667-4eda-aede-686d3ff31301" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.VignettedWavefrontPhaseTests" name="TiltedPlaneWaveRemainsFlatInCompressedShiftedRotatedAfocalPupil" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0f91a06f-3880-67a2-b94c-b3c615ebcc53" executionId="6800feb7-dd94-49f7-bda8-61559d23c7e7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="77e09b91-803f-7297-2c97-bf0704e99b32" executionId="feee84a4-4600-4024-83d1-ab687e4c537b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e0d54437-09fd-1024-b8ce-31399118d7a5" executionId="2805d8db-bd71-4df5-8bad-0b449296bd9d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c859c084-22ab-3ea7-206d-4dabcdc49969" executionId="46470b4a-bfd3-4645-9c0f-26449f0591aa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="655472a2-9867-ddab-989b-821685cb4924" executionId="a55e9622-b733-40d4-b820-3f76e1ab541e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2e92dc06-fa0e-5aba-24ca-328dcf047099" executionId="6c1d0442-0f20-4a7e-90ad-8c312a91d006" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0efb2ec8-d9f7-9574-da90-c705d6779f56" executionId="ee1b795d-61d2-4b40-b34a-9d546a39c31b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c9626927-fc54-b30a-0561-66b41e7b681b" executionId="c3eda256-c876-420f-bb09-6e8cc57bddd1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3937f813-e7db-d447-21c8-bc0d497dde24" executionId="bd126389-1760-42c7-8a7e-47e7102e8798" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2cb599b7-85c1-7cfe-9950-df99ed7c673d" executionId="51644697-3967-493e-840d-6f36678858c3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="500d5ac7-1c9f-0837-afd8-85cfd842a284" executionId="9faa0781-dd23-46fc-8571-e3c74a982db7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="13e9d192-ae6b-9ca0-4e89-ef3b8d1a5218" executionId="91b538d6-ac30-4e09-b976-461a22ae7958" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ab63dcab-ab5e-53ac-45eb-f275bea8777e" executionId="b1671145-c620-4595-9a21-8fb1b6fc2c96" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3d9b5491-2827-eee5-3957-e868002e6d84" executionId="fb80336e-3a9b-42fc-9312-4bcbaccf3bb6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8d867ece-61e7-1816-5a66-b2a5fcc9887b" executionId="fe1d231c-7f0d-477b-8a4d-3bda9d698801" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4c22c684-edc1-9800-7e3f-d6a9e5104e80" executionId="0aa262ce-40fd-4b7a-a9ce-45edfde484b4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e314f4f0-aab8-e4ac-bca2-bb1a64475367" executionId="123013ea-e7af-4df8-98e4-bd5ec9380daf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bfb88f8e-3891-9fcd-2f77-a2055d643cc0" executionId="f22ee935-4bbf-429d-bf90-c0aab48a8a9c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6096581f-4fd4-d814-ec7a-fa47e8ed8fcf" executionId="ee25eeec-b8e7-4c2d-89af-7f98564beae8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7c3e6ff2-3cf4-db19-63d1-8cf5a323cd86" executionId="4246b6fc-d43c-448c-b276-3fc7539cac1b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="edba0c51-7eb3-b04b-582c-41a41b1bbf77" executionId="262bf1e6-1497-4eb4-b16f-2700aeb84487" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="34924fd4-3fbf-f772-b3a3-fc180bd5156d" executionId="b6a80678-7d08-4059-9378-09c9f8238df7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2fcf469a-2806-153a-4b5a-85d5141367ce" executionId="c706b863-f784-4145-8474-cef1ff54d1b8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ea36b2f6-0f10-393c-a6f4-56dcd5d63a54" executionId="492894f6-2a3b-4796-adea-a4c24f7c6ebe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8468fc3-c3aa-efd1-720e-a35320c92d11" executionId="e94bb569-a815-413d-9990-d85756a17b5c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="942f14b0-424a-3896-a309-d042907f711b" executionId="f803fe7c-676c-4fb2-80d9-02b2d48536cb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fdbd23f5-39f3-8f90-87d3-2fc6ebe101a1" executionId="073fc08d-6bb2-4241-8f99-a0232c9991f6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aee4d077-d89d-3307-1d58-f492786850e8" executionId="78a360d9-e5fe-4439-8afa-ac9db04b6f35" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7142cdff-a8cf-5ac2-84dd-a89e55a8aeea" executionId="60ebdc4a-c145-402e-ba44-d8f92d0c1cb6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1cf98a3b-31b5-b50b-af74-21d554051286" executionId="921941c5-e667-4eda-aede-686d3ff31301" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1c7338e0-33d4-f091-b3ff-e72526efd073" executionId="dd5dbc91-07ff-4378-a25b-89650734c8c1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7451808c-e9cb-879f-ec5c-dd19511d58f4" executionId="e94af2ba-734c-4650-858e-4508b5dce571" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="246d9552-c652-4444-542f-92b9f7b24f80" executionId="e05c0894-493e-4f1b-8a00-5473a447f511" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="701b6738-97bd-84cb-9759-491dd25ef751" executionId="e6dd66e6-82ca-4521-a68f-63ac854e7dcb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="276ddee8-7bec-24b5-2459-f40be9d4506f" executionId="ee9e2514-0c79-436f-9747-559685b4bdb1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a6e565e4-1c9e-5855-1363-c5de8a61e135" executionId="dbf25ab8-9cff-4144-94c4-fcb041e2d4b0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b80a3248-187e-446e-a5ef-9ba848f4f4fb" executionId="729f9c54-bc45-40d6-86f9-1026a338f6cb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="574ef8bc-015a-30ff-5bc1-6de1631e9777" executionId="70f4fc54-50e0-4e19-a228-8890ae2b0032" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="af9296a8-c14b-6002-4a6d-f87e3aa06620" executionId="94bbacb5-fd09-4bee-9c53-ec5ed6d09606" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6f0fbe43-03da-0e6d-b49e-c305d30e23fb" executionId="286db680-0209-42ac-8ee9-9059e19bec0e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e69ce479-64b3-9a7d-0fd8-274a20d600f9" executionId="de32f897-ae5b-4b9c-9cbc-8c2fbb1134f3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="84bd3656-95c9-53b4-c3f9-73a4dd21e40a" executionId="95051de5-f889-4758-9ed3-342854ca48e7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9d2b5edb-62a4-1679-f40d-42271361f924" executionId="2ff20023-c24a-42a4-b55e-d3853160050f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cde33429-2aa1-51bd-7018-3936a6cbc30b" executionId="dca36b80-14e7-4c9b-b543-6a57bd387df4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f6ec2b63-5ebf-255e-225b-d961ed990c7f" executionId="28880205-311e-4f2a-b1b6-c1600b237aac" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e41ed6f1-b898-930f-ec9c-c2f0fdf8ea01" executionId="17a2c4fe-2d9f-491c-a5e5-13727ff2315f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="46" executed="46" passed="42" failed="4" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.34]   Discovering: OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:01.77]   Discovered:  OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:01.81]   Starting:    OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:02.35]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:02.35]       Range:  (0 - 9.9999999999999995E-08)&#xD;
+[xUnit.net 00:00:02.35]       Actual: 1.8488298960950278E-05&#xD;
+[xUnit.net 00:00:02.35]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.35]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\VignettedWavefrontPhaseTests.cs(83,0): at OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(ReferenceSphereStrategy strategy, Double angle)&#xD;
+[xUnit.net 00:00:02.35]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.35]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.37]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:02.37]       Range:  (0 - 9.9999999999999995E-08)&#xD;
+[xUnit.net 00:00:02.37]       Actual: 1.8488301279359631E-05&#xD;
+[xUnit.net 00:00:02.37]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.37]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\VignettedWavefrontPhaseTests.cs(83,0): at OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(ReferenceSphereStrategy strategy, Double angle)&#xD;
+[xUnit.net 00:00:02.37]            at InvokeStub_VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(Object, Span`1)&#xD;
+[xUnit.net 00:00:02.37]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.37]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:02.37]       Range:  (0 - 9.9999999999999995E-08)&#xD;
+[xUnit.net 00:00:02.37]       Actual: 9.728790384688768E-07&#xD;
+[xUnit.net 00:00:02.37]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.37]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\VignettedWavefrontPhaseTests.cs(83,0): at OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(ReferenceSphereStrategy strategy, Double angle)&#xD;
+[xUnit.net 00:00:02.37]            at InvokeStub_VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(Object, Span`1)&#xD;
+[xUnit.net 00:00:02.37]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.38]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:02.38]       Range:  (0 - 9.9999999999999995E-08)&#xD;
+[xUnit.net 00:00:02.38]       Actual: 9.7287535592849306E-07&#xD;
+[xUnit.net 00:00:02.38]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.38]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\VignettedWavefrontPhaseTests.cs(83,0): at OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(ReferenceSphereStrategy strategy, Double angle)&#xD;
+[xUnit.net 00:00:02.38]            at InvokeStub_VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(Object, Span`1)&#xD;
+[xUnit.net 00:00:02.38]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.49]   Finished:    OptilandWorkbench.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T23:17:43.8202099+08:00">
+        <Text>[xUnit.net 00:00:02.35]     OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(strategy: CentroidSphere, angle: 0) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T23:17:43.8352003+08:00">
+        <Text>[xUnit.net 00:00:02.37]     OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(strategy: CentroidSphere, angle: 180) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T23:17:43.8408408+08:00">
+        <Text>[xUnit.net 00:00:02.37]     OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(strategy: BestFitSphere, angle: 0) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T23:17:43.8429871+08:00">
+        <Text>[xUnit.net 00:00:02.38]     OptilandWorkbench.Tests.VignettedWavefrontPhaseTests.IsotropicPupilCompressionMatchesAnEquivalentSmallerEntrancePupil(strategy: BestFitSphere, angle: 180) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

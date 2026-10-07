@@ -2,6 +2,7 @@ namespace OptilandWorkbench.Core.Backend;
 
 public sealed class NumericBackendProvider
 {
+    public event EventHandler? Changed;
     private readonly Dictionary<string, INumericBackend> _backends = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, IBatchedNumericBackend> _batchedBackends =
         new(StringComparer.OrdinalIgnoreCase);
@@ -19,9 +20,16 @@ public sealed class NumericBackendProvider
 
     public void Register(INumericBackend backend)
     {
+        ArgumentNullException.ThrowIfNull(backend);
+        _backends.TryGetValue(backend.Name, out var previous);
         _batchedBackends[backend.Name] = backend as IBatchedNumericBackend
             ?? new ScalarBatchedNumericBackendAdapter(backend);
         _backends[backend.Name] = backend;
+        if (previous is not null && ReferenceEquals(Current, previous) && !ReferenceEquals(previous, backend))
+        {
+            Current = backend;
+            Changed?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     public void SetBackend(string name)
@@ -31,7 +39,11 @@ public sealed class NumericBackendProvider
             throw new ArgumentException($"Backend '{name}' is not registered.", nameof(name));
         }
 
-        Current = backend;
+        if (!ReferenceEquals(Current, backend))
+        {
+            Current = backend;
+            Changed?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     internal NumericBackendProvider Clone()

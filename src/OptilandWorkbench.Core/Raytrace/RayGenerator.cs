@@ -1156,6 +1156,14 @@ public sealed partial class RayGenerator
         return maxField <= 1e-15 ? (0, 0) : (fieldX / maxField, fieldY / maxField);
     }
 
+    /// <summary>Uses the same field vignetting as normalized-pupil ray generation.</summary>
+    public PupilVignetting GetPupilVignetting(double normalizedFieldX, double normalizedFieldY)
+    {
+        ValidateNormalized(normalizedFieldX, nameof(normalizedFieldX));
+        ValidateNormalized(normalizedFieldY, nameof(normalizedFieldY));
+        return ResolveVignetting(normalizedFieldX, normalizedFieldY);
+    }
+
     private PupilVignetting ResolveVignetting(double normalizedFieldX, double normalizedFieldY)
     {
         if (_optic.Fields.Count == 0)
@@ -1164,6 +1172,34 @@ public sealed partial class RayGenerator
         }
 
         var maxField = MaximumField();
+        // Native normalized rays interpolate positive Y-field factors in squared
+        // radial field distance. General field tables retain nearest-row selection.
+        if (maxField > 1e-15 && _optic.Fields.All(field => field.X == 0 && field.Y >= 0))
+        {
+            var ordered = _optic.Fields.OrderBy(field => field.Y).ToArray();
+            if (ordered.Select(field => field.Y).Distinct().Count() == ordered.Length)
+            {
+                var radiusSquared = (normalizedFieldX * normalizedFieldX + normalizedFieldY * normalizedFieldY)
+                    * maxField * maxField;
+                if (radiusSquared <= ordered[0].Y * ordered[0].Y) return PupilVignetting.FromField(ordered[0]);
+                for (var i = 1; i < ordered.Length; i++)
+                {
+                    var upperSquared = ordered[i].Y * ordered[i].Y;
+                    if (radiusSquared > upperSquared) continue;
+                    var lowerSquared = ordered[i - 1].Y * ordered[i - 1].Y;
+                    var fraction = (radiusSquared - lowerSquared) / (upperSquared - lowerSquared);
+                    var lower = PupilVignetting.FromField(ordered[i - 1]);
+                    var upper = PupilVignetting.FromField(ordered[i]);
+                    return new(
+                        lower.DecenterX + fraction * (upper.DecenterX - lower.DecenterX),
+                        lower.DecenterY + fraction * (upper.DecenterY - lower.DecenterY),
+                        lower.CompressionX + fraction * (upper.CompressionX - lower.CompressionX),
+                        lower.CompressionY + fraction * (upper.CompressionY - lower.CompressionY),
+                        lower.AngleDegrees + fraction * (upper.AngleDegrees - lower.AngleDegrees));
+                }
+                return PupilVignetting.FromField(ordered[^1]);
+            }
+        }
         var nearest = _optic.Fields
             .Select((field, index) =>
             {

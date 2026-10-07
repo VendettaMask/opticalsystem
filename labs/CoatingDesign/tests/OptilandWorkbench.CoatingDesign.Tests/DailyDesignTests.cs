@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using System.Text.Json;
 using OptilandWorkbench.CoatingDesign.Engine;
 using OptilandWorkbench.Core.Coatings;
@@ -121,6 +122,59 @@ public sealed class DailyDesignTests
         var opened = await ExperimentStore.OpenAsync(file);
         Assert.Equal(saved.Result!.Fingerprint, opened.Fingerprint());
     }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task LegacyWindowsFingerprintsPreserveResultsAndToleranceOnOpenAndSave(bool saveThroughStore)
+    {
+        var service = new DesignService();
+        var input = Examples.Create(DesignKind.Antireflection);
+        var d = service.Generate(input with { Settings = input.Settings with { ToleranceTrials = 1 } });
+        d = d with { Tolerance = service.Tolerance(d) };
+        var canonical = d.Fingerprint();
+        var windows = WindowsFingerprint(d);
+        Assert.NotEqual(canonical, windows);
+        var legacy = d with { Result = d.Result! with { Fingerprint = windows }, Tolerance = d.Tolerance! with { Fingerprint = windows } };
+        var path = Path.Combine(Path.GetTempPath(), $"coating-windows-{Guid.NewGuid():N}.coating.json");
+        try
+        {
+            if (saveThroughStore) await ExperimentStore.SaveAsync(legacy, path);
+            else await File.WriteAllTextAsync(path, JsonSerializer.Serialize(legacy, Experiment.JsonOptions));
+            var reopened = await ExperimentStore.OpenAsync(path);
+            Assert.Equal(canonical, reopened.Fingerprint());
+            Assert.Equal(canonical, reopened.Result!.Fingerprint);
+            Assert.Equal(d.Result!.Spectrum, reopened.Result.Spectrum);
+            Assert.Equal(JsonSerializer.Serialize(d.Tolerance), JsonSerializer.Serialize(reopened.Tolerance));
+            if (saveThroughStore)
+            {
+                var saved = JsonSerializer.Deserialize<Experiment>(await File.ReadAllTextAsync(path), Experiment.JsonOptions)!;
+                Assert.Equal(canonical, saved.Result!.Fingerprint);
+                Assert.Equal(canonical, saved.Tolerance!.Fingerprint);
+            }
+        }
+        finally { File.Delete(path); }
+    }
+
+    [Fact]
+    public async Task LegacyWindowsFingerprintStillRejectsChangedInputs()
+    {
+        var d = new DesignService().Generate(Examples.Create(DesignKind.Antireflection));
+        var legacy = d with { Result = d.Result! with { Fingerprint = WindowsFingerprint(d) }, Target = d.Target with { Reflectance = .5 } };
+        var path = Path.Combine(Path.GetTempPath(), $"coating-stale-windows-{Guid.NewGuid():N}.coating.json");
+        try
+        {
+            await File.WriteAllTextAsync(path, JsonSerializer.Serialize(legacy, Experiment.JsonOptions));
+            await Assert.ThrowsAsync<InvalidDataException>(() => ExperimentStore.OpenAsync(path));
+            await Assert.ThrowsAsync<InvalidDataException>(() => ExperimentStore.SaveAsync(legacy, path));
+        }
+        finally { File.Delete(path); }
+    }
+
+    private static string WindowsFingerprint(Experiment d) => Convert.ToHexString(SHA256.HashData(JsonSerializer.SerializeToUtf8Bytes(
+        new { d.Target, d.Settings, d.IncidentId, d.SubstrateId, d.LowId, d.HighId, d.Materials, d.Layers },
+        new JsonSerializerOptions(Experiment.JsonOptions) { NewLine = "\r\n" })));
+
     private sealed class Immediate(Action<DesignProgress> callback) : IProgress<DesignProgress>
     { public void Report(DesignProgress value) => callback(value); }
 }

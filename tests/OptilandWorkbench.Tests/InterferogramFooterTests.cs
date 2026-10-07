@@ -6,6 +6,7 @@ using Avalonia.Headless;
 using Avalonia.Media.Imaging;
 using Avalonia.VisualTree;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Formatting;
 using OptilandWorkbench.Application.Runtime;
 using OptilandWorkbench.Application.Services;
 using OptilandWorkbench.App.Panels;
@@ -48,8 +49,11 @@ public sealed class InterferogramFooterTests
         Assert.True(data.IsImageSurface);
         Assert.Equal(Math.Abs(optic.Paraxial.EstimateExitPupilDiameter(data.WavelengthMicrometers!.Value)),
             data.ExitPupilDiameterMillimeters!.Value, 10);
-        var printedPv = double.Parse(view.Rows.Single(row => row.Metric == "波峰到波谷").Value, CultureInfo.InvariantCulture);
-        Assert.InRange(Math.Abs(printedPv - data.PeakToValleyWaves!.Value), 0, 0.000001);
+        var raw = new WorkbenchRuntime(optic).BuildAnalysisData("Interferogram",
+            new Dictionary<string, string> { ["NumRings"] = "3", ["MapSize"] = "17" });
+        Assert.Equal(Assert.IsType<double>(raw.Values["PeakToValleyWaves"]), data.PeakToValleyWaves!.Value);
+        Assert.Equal(NumericDisplayFormatter.Format(data.PeakToValleyWaves.Value, CultureInfo.InvariantCulture),
+            view.Rows.Single(row => row.Metric == "波峰到波谷").Value);
     }
 
     [Theory]

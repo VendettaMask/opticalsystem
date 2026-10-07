@@ -70,4 +70,23 @@ public sealed class ZemaxExecutor(string apiPath, string hostExe)
         File.WriteAllText(Path.Combine(output, "process.log"), result.StandardOutput + result.StandardError);
         return result;
     }
+
+    public async Task<ProcessResult> CaptureRayAudit(string input, string output, Diagnostics.RayAuditJob job,
+        object inputs, CancellationToken ct)
+    {
+        Directory.CreateDirectory(output);
+        var payload = new
+        {
+            zosApiPath = apiPath, input, zemaxVersion = job.ZemaxVersion, adapter = "ray-audit",
+            job.Configuration, job.Wavelength, job.RemoveVignettingFactors, rayAuditInputs = inputs,
+            surfaceRecordLimit = OptilandWorkbench.Core.Raytrace.SequentialTraceLimits.MaximumRetainedSamples
+        };
+        var path = Path.Combine(output, "request.json");
+        JsonFiles.Write(path, payload);
+        var result = await ProcessIsolation.Run(hostExe, [path, output], Path.GetDirectoryName(hostExe)!,
+            job.TimeoutSeconds, ct, new Dictionary<string, string>
+            { ["PATH"] = apiPath + Path.PathSeparator + Environment.GetEnvironmentVariable("PATH") });
+        File.WriteAllText(Path.Combine(output, "process.log"), result.StandardOutput + result.StandardError);
+        return result;
+    }
 }

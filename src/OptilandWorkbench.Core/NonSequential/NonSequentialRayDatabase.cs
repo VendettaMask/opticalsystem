@@ -54,6 +54,8 @@ public sealed class NonSequentialRayDatabaseWriter : INonSequentialTraceSink, ID
     public const int CurrentVersion = 1;
     public const int MaximumHeaderUncompressedBytes = 64 * 1024 * 1024;
     public const int MaximumChunkUncompressedBytes = 256 * 1024 * 1024;
+    public static readonly int MaximumHeaderCompressedBytes = BrotliEncoder.GetMaxCompressedLength(MaximumHeaderUncompressedBytes);
+    public static readonly int MaximumChunkCompressedBytes = BrotliEncoder.GetMaxCompressedLength(MaximumChunkUncompressedBytes);
     public const int MaximumIndexEntryCount = 1_000_000;
     private const int FileHeaderLength = 52;
     private const int ChunkHeaderLength = 48;
@@ -306,7 +308,7 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         if (count <= 0) throw new ArgumentOutOfRangeException(nameof(count));
         if (offset >= BranchCount) return Array.Empty<NonSequentialRayBranch>();
 
-        var result = new List<NonSequentialRayBranch>(count);
+        var result = new List<NonSequentialRayBranch>(Math.Min(count, 512));
         long chunkStart = 0;
         foreach (var entry in _index)
         {
@@ -393,7 +395,9 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         if (version != NonSequentialRayDatabaseWriter.CurrentVersion
             || uncompressedLength <= 0
             || uncompressedLength > NonSequentialRayDatabaseWriter.MaximumHeaderUncompressedBytes
-            || compressedLength <= 0 || compressedLength > _stream.Length - FileHeaderLength)
+            || compressedLength <= 0
+            || compressedLength > NonSequentialRayDatabaseWriter.MaximumHeaderCompressedBytes
+            || compressedLength > _stream.Length - FileHeaderLength)
         {
             throw new InvalidDataException("光线数据库版本或文件头长度无效。");
         }
@@ -541,6 +545,7 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
             && UncompressedLength > 0
             && UncompressedLength <= NonSequentialRayDatabaseWriter.MaximumChunkUncompressedBytes
             && CompressedLength > 0
+            && CompressedLength <= NonSequentialRayDatabaseWriter.MaximumChunkCompressedBytes
             && Offset <= indexOffset - ChunkHeaderLength - CompressedLength;
     }
 }

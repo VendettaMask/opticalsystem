@@ -1,0 +1,399 @@
+{
+  "date": "2026-10-06",
+  "completedUtc": "2026-10-06T14:41:10.8613417+00:00",
+  "productBuilds": {
+    "Debug": "Default solution output, zero warnings/errors",
+    "Release": "Default solution output, zero warnings/errors"
+  },
+  "tests": [
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-standard-sample-opd-20261006\\main-release.trx",
+      "sha256": "ee0a604b8f874690f74dbe164ad77309346a3360a01ace89ae8d9e049180a0c2",
+      "total": 4307,
+      "executed": 4307,
+      "passed": 4306,
+      "failed": 1,
+      "skipped": 0,
+      "failures": [
+        {
+          "name": "OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays",
+          "outcome": "Failed",
+          "message": "finite_angle: expected 0.058589983242791625, actual 0.060191701479492175"
+        }
+      ],
+      "newOpdTests": [
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"relay-lens\", setting: \"primary\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 250, aiming: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"cooke-40-degree-field\", setting: \"edge-shortwave\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"relay-lens\", setting: \"edge-shortwave\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 250, aiming: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"double-gauss-28-degree-field\", setting: \"edge-shortwave\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"double-gauss-28-degree-field\", setting: \"primary\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"cooke-40-degree-field\", setting: \"primary\")",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-standard-sample-opd-20261006\\main-debug.trx",
+      "sha256": "8a0a736b14938446f641e14584e0e391fcd33e281f07b2d2fde05a84554ed0fe",
+      "total": 4307,
+      "executed": 4307,
+      "passed": 4304,
+      "failed": 3,
+      "skipped": 0,
+      "failures": [
+        {
+          "name": "OptilandWorkbench.Tests.AuditReliabilityFixTests.OptimizationPreparationDoesNotBlockReadsAndRejectsConcurrentEdits(method: \"quick\")",
+          "outcome": "Failed",
+          "message": "Assert.True() Failure\r\nExpected: True\r\nActual:   False"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.AuditReliabilityFixTests.OpenWaitingForCommitCannotOverwriteANewDocument",
+          "outcome": "Failed",
+          "message": "Assert.True() Failure\r\nExpected: True\r\nActual:   False"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays",
+          "outcome": "Failed",
+          "message": "finite_angle: expected 0.058589983242791625, actual 0.060191701479492175"
+        }
+      ],
+      "newOpdTests": [
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"double-gauss-28-degree-field\", setting: \"edge-shortwave\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"cooke-40-degree-field\", setting: \"edge-shortwave\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"cooke-40-degree-field\", setting: \"primary\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"relay-lens\", setting: \"primary\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 250, aiming: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"double-gauss-28-degree-field\", setting: \"primary\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 250, aiming: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"relay-lens\", setting: \"edge-shortwave\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: True)",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-standard-sample-opd-20261006\\opd-targeted-final.trx",
+      "sha256": "82ee8844f02856e552ec7ac398a829ad35355a9ec1109636e41c785d91bede91",
+      "total": 16,
+      "executed": 16,
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "failures": [],
+      "newOpdTests": [
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 250, aiming: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"cooke-40-degree-field\", setting: \"primary\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 250, aiming: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"double-gauss-28-degree-field\", setting: \"edge-shortwave\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"double-gauss-28-degree-field\", setting: \"primary\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"cooke-40-degree-field\", setting: \"edge-shortwave\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"relay-lens\", setting: \"edge-shortwave\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"relay-lens\", setting: \"primary\")",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-standard-sample-opd-20261006\\debug-timeouts-isolated.trx",
+      "sha256": "726a21e986cac18b177f85a4eb2ec1ae916e264ec2694e00fdace41a9c5d80e3",
+      "total": 16,
+      "executed": 16,
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "failures": [],
+      "newOpdTests": [
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"double-gauss-28-degree-field\", setting: \"primary\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 250, aiming: True)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 250, aiming: False)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"relay-lens\", setting: \"primary\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"relay-lens\", setting: \"edge-shortwave\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"cooke-40-degree-field\", setting: \"edge-shortwave\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"cooke-40-degree-field\", setting: \"primary\")",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: \"double-gauss-28-degree-field\", setting: \"edge-shortwave\")",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-standard-sample-opd-20261006\\comparison-release.trx",
+      "sha256": "f151a3cd31417ab6ae48517611b41116c9b2099f016a4ef8505fe0c7614545db",
+      "total": 120,
+      "executed": 120,
+      "passed": 118,
+      "failed": 2,
+      "skipped": 0,
+      "failures": [
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: \"Huygens PSF Cross Section\", slug: \"huygens-psf-cross-section\", recordedNrmse: 0.0037256669899999998)",
+          "outcome": "Failed",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.0037256669899999998)\r\nActual: 0.0037256670590166724"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: \"Diffraction Encircled Energy\", directory: \"diffraction-encircled-energy-c1\")",
+          "outcome": "Failed",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.01146706362185577)\r\nActual: 0.011467280942848471"
+        }
+      ],
+      "newOpdTests": []
+    },
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-standard-sample-opd-20261006\\initial-structure-release.trx",
+      "sha256": "3e448ff671f46832498e33af700fe2f5fea697e0c7ae2f802b79d69bba6e9269",
+      "total": 260,
+      "executed": 260,
+      "passed": 258,
+      "failed": 2,
+      "skipped": 0,
+      "failures": [
+        {
+          "name": "OptilandWorkbench.InitialStructure.Tests.SecantLeastSquaresTests.FrozenOpticalCasesReachOriginalTargetsWithFreshCoreValidation(index: 9)",
+          "outcome": "Failed",
+          "message": "Assert.True() Failure\r\nExpected: True\r\nActual:   False"
+        },
+        {
+          "name": "OptilandWorkbench.InitialStructure.Tests.JointGeometryRestartTests.CompleteRaysAcrossGeometryBoundKeepFullFieldDuringRestart(id: \"trial-0078\", maximumRms: 0.45000000000000001)",
+          "outcome": "Failed",
+          "message": "Assert.True() Failure\r\nExpected: True\r\nActual:   False"
+        }
+      ],
+      "newOpdTests": []
+    },
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-standard-sample-opd-20261006\\coating-debug.trx",
+      "sha256": "56adb7f09d6a0ccb117a4c6d9ec412761d1dc75b7ebe2f3883945dfd06b128a2",
+      "total": 47,
+      "executed": 47,
+      "passed": 47,
+      "failed": 0,
+      "skipped": 0,
+      "failures": [],
+      "newOpdTests": []
+    },
+    {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-standard-sample-opd-20261006\\coating-release.trx",
+      "sha256": "aca69964591e2bcdb8c0ea09a5cc8672d72f59f45c30f7c50e4f1cf9c04234fe",
+      "total": 47,
+      "executed": 47,
+      "passed": 47,
+      "failed": 0,
+      "skipped": 0,
+      "failures": [],
+      "newOpdTests": []
+    }
+  ],
+  "assemblies": [
+    {
+      "path": "D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\bin\\Release\\net10.0\\OptilandWorkbench.Core.dll",
+      "sha256": "7453eeefb276d3191954bd1fceb030e2c375efa1229055884746d8971bbd921f"
+    },
+    {
+      "path": "D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Application\\bin\\Release\\net10.0\\OptilandWorkbench.Application.dll",
+      "sha256": "bea758e5647412f1a27be2be2dbe9312026cb65b784bc2fb543be73a5a425116"
+    },
+    {
+      "path": "D:\\Projects\\opticalsystem\\tools\\OptilandWorkbench.ZemaxComparison\\bin\\Release\\net10.0\\OptilandWorkbench.ZemaxComparison.dll",
+      "sha256": "8044275764e6d5f85ac939e59be5b6e463f3cee94d2fb344b12b71bc868667d1"
+    },
+    {
+      "path": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261006\\core-replay\\bin\\Release\\net10.0\\Replay.dll",
+      "sha256": "4bd3724d016595b68289f4d44e55bf139433a00e1441ef2aa073a78d33a17666"
+    }
+  ],
+  "replaySummary": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261006\\opd-core-repair-v2\\summary.json",
+  "replaySummarySha256": "8027b5aef6b43128d5a791879127c32603166a6773b5505e65d1e071d84055be",
+  "numericalCounts": {
+    "Difference": 27,
+    "Pass": 82,
+    "Close": 12,
+    "Incomparable": 10,
+    "Error": 1
+  },
+  "selectedComparisons": 132,
+  "originalPassRegressions": 0,
+  "nativeVersions": [
+    {
+      "major": 26,
+      "minor": 1,
+      "opticStudioVersion": 260127,
+      "licenseStatus": "EnterpriseEdition",
+      "validLicense": true,
+      "initializationErrors": ""
+    },
+    {
+      "major": 26,
+      "minor": 1,
+      "opticStudioVersion": 260127,
+      "licenseStatus": "PremiumEdition",
+      "validLicense": true,
+      "initializationErrors": ""
+    }
+  ],
+  "allNativeEnvironmentsValid": true,
+  "retainedEvidenceFiles": 1769,
+  "retainedEvidenceUnchanged": true,
+  "standardSourceHashesVerified": 27,
+  "tolerancesChanged": false,
+  "settingsChanged": false,
+  "nativeRecaptured": false,
+  "frozenBaselineChanged": false,
+  "historicalAuxiliaryDataChanged": false,
+  "rejectedAuxiliaryRun": "artifacts/zemax-standard-samples/20261006/opd-core-repair/INVALID_RUN.json",
+  "intermediateRuns": [
+    "opd-targeted.trx: initial test construction; not final verification"
+  ],
+  "releaseGatePassed": false
+}

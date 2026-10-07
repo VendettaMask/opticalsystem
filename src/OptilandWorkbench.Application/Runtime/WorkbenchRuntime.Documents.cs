@@ -69,12 +69,10 @@ public partial class WorkbenchRuntime
         CancellationToken cancellationToken = default)
     {
         RejectUnsupportedJsonExtension(path);
+        if (!IsStarOptProjectPath(path) && document.Configurations.Count > 1)
+            throw new NotSupportedException("多配置工程需要 STAROPT 工程格式；此格式只能导出活动镜头，不能完整保存工程。");
         if (!IsStarOptProjectPath(path) && document.OperandRows is { Count: > 0 })
             throw new NotSupportedException("多配置操作数行表需要 STAROPT 工程格式；此格式不能保留行表引用。");
-        if (!IsStarOptProjectPath(path) && document.Configurations.Count > 1
-            && document.ActiveOptic.MeritFunctionOperands.Any(operand => operand.Enabled
-                && !operand.CompatibilityOnly && MeritFunctionCatalog.CanonicalType(operand.Type) is "MCOV" or "MCOG" or "MCOL" or "CONF" or "ZTHI"))
-            throw new NotSupportedException("评价函数依赖多个配置；此格式只保存活动镜头，请保存 STAROPT 以保留全部配置。");
         if (IsStarOptProjectPath(path))
         {
             await StarOptProjectStore.SaveAsync(
@@ -218,8 +216,7 @@ public partial class WorkbenchRuntime
             document.ActiveConfigurationIndex,
             0,
             _multiConfiguration.Configurations.Count - 1);
-        CurrentOptic = Optic.FromSnapshot(
-            _multiConfiguration.Configurations[_activeConfigurationIndex].ToSnapshot());
+        CurrentOptic = _multiConfiguration.Configurations[_activeConfigurationIndex].Clone();
         _nonSequentialDocument = (document.NonSequentialDocument
             ?? StarOptProjectStore.CreateDefaultNonSequentialDocument(CurrentOptic)).Clone();
     }
@@ -228,7 +225,7 @@ public partial class WorkbenchRuntime
     {
         SyncActiveConfigurationFromCurrent();
         var configurations = _multiConfiguration.Configurations
-            .Select(configuration => Optic.FromSnapshot(configuration.ToSnapshot()))
+            .Select(configuration => configuration.Clone())
             .ToArray();
         return new LoadedOpticalDocument(
             configurations[_activeConfigurationIndex],
@@ -236,6 +233,22 @@ public partial class WorkbenchRuntime
             _activeConfigurationIndex,
             _multiConfiguration.BrokenLinks,
             _nonSequentialDocument.Clone(), _multiConfiguration.OperandRows.ToArray(), _multiConfiguration.OperandVariables.ToArray(), _multiConfiguration.OperandPickups.ToArray());
+    }
+
+    internal static WorkbenchRuntime CreateComputationRuntime(LoadedOpticalDocument document)
+    {
+        var worker = new WorkbenchRuntime(document.ActiveOptic, document.NonSequentialDocument);
+        worker.ReplaceDocumentState(document);
+        return worker;
+    }
+
+    internal void CommitComputedDocument(LoadedOpticalDocument document, string status)
+    {
+        CaptureCurrentState();
+        ReplaceDocumentState(document);
+        SetStatus(status);
+        SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
+        OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 
     private static void RejectLossyNonSequentialExport(LoadedOpticalDocument document, string path)

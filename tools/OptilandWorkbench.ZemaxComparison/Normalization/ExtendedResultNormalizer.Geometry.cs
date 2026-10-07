@@ -64,17 +64,7 @@ public static partial class ExtendedResultNormalizer
         switch (r.CanonicalAnalysisKey)
         {
             case "Single Ray Trace":
-                var lines = text.Split('\n'); var start = Array.FindIndex(lines, l => l.TrimStart().StartsWith("OBJ", StringComparison.Ordinal));
-                Require(start >= 0, "Native real-ray object row missing");
-                var rayRows = new List<double[]>();
-                foreach (var line in lines.Skip(start + 1))
-                {
-                    if (string.IsNullOrWhiteSpace(line)) break;
-                    var tokens = Regex.Split(line.Trim(), @"\s+");
-                    Require(tokens.Length >= 12, "Malformed real-ray row");
-                    rayRows.Add(tokens.Take(12).Select(Parse).ToArray());
-                }
-                AddRayTable(result, rayRows.ToArray(), r.SurfaceCount); break;
+                AddRayTable(result, NativeRealRayRows(text), r.SurfaceCount); break;
             case "Cardinal Points Data":
                 VerifyPrimaryRange(text, r, true);
                 var cardinal = Regex.Matches(text, @"^.*?:\s+([-+\d.Ee]+)\s+([-+\d.Ee]+)\s*$", RegexOptions.Multiline)
@@ -128,6 +118,39 @@ public static partial class ExtendedResultNormalizer
         if (direction) Require(Regex.IsMatch(text, @":\s*Y-Z\s*$", RegexOptions.Multiline), "Native cardinal orientation is not Y-Z");
     }
     private static double Parse(string text) => double.Parse(text, NumberStyles.Float, CultureInfo.InvariantCulture);
+    private static double[][] NativeRealRayRows(string text)
+    {
+        // The object marker is localized and its coordinates can be infinite.
+        // Identify the unique real-ray table by its numeric schema, then retain
+        // AddRayTable's complete, ordered physical-surface contract. Paraxial
+        // rows have fewer columns and must never supply real-ray values.
+        var tables = new List<double[][]>();
+        var lines = text.Split('\n');
+        for (var index = 0; index < lines.Length; index++)
+        {
+            if (ReadRow(lines[index]) is not { } first || first[0] != 1) continue;
+            var rows = new List<double[]> { first };
+            while (index + 1 < lines.Length && ReadRow(lines[index + 1]) is { } next)
+            {
+                rows.Add(next);
+                index++;
+            }
+            tables.Add(rows.ToArray());
+        }
+        Require(tables.Count == 1, "Native real-ray numeric table missing or ambiguous");
+        return tables[0];
+
+        static double[]? ReadRow(string line)
+        {
+            var tokens = Regex.Split(line.Trim(), @"\s+");
+            if (tokens.Length < 12) return null;
+            var values = new double[12];
+            for (var i = 0; i < values.Length; i++)
+                if (!double.TryParse(tokens[i], NumberStyles.Float, CultureInfo.InvariantCulture, out values[i])
+                    || !double.IsFinite(values[i])) return null;
+            return values;
+        }
+    }
     private static double[][] NumericRows(string text, int width) => text.Split('\n').Select(line => Regex.Split(line.Trim(), @"\s+"))
         .Where(row => row.Length == width && row.All(v => double.TryParse(v, NumberStyles.Float, CultureInfo.InvariantCulture, out _)))
         .Select(row => row.Select(Parse).ToArray()).ToArray();

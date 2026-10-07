@@ -133,9 +133,18 @@ public static class JsonFiles
     public static void Write(string path, object value)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(path))!);
-        var temp = path + ".tmp";
-        File.WriteAllText(temp, JsonSerializer.Serialize(value, Options));
-        File.Move(temp, path, true);
+        var temp = path + ".tmp-" + Guid.NewGuid().ToString("N");
+        try
+        {
+            using (var stream = new FileStream(temp, FileMode.CreateNew, FileAccess.Write, FileShare.Read))
+                JsonSerializer.Serialize(stream, value, Options);
+            File.Move(temp, path, true);
+        }
+        catch
+        {
+            File.Delete(temp);
+            throw;
+        }
     }
     public static T Read<T>(string path) => JsonSerializer.Deserialize<T>(File.ReadAllText(path), Options)
         ?? throw new InvalidDataException(path);

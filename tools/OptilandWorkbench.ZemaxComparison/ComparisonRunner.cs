@@ -217,7 +217,8 @@ public sealed class ComparisonRunner
                                 if (Equals(nativeSettings[key], sourceImage)) nativeSettings[key] = frozen;
                             request = request with { SourceImagePath = frozen, ZemaxSettings = nativeSettings };
                         }
-                        request = request with { WorkbenchSettings = AnalysisComparisonRegistry.MapWorkbench(entry, request) };
+                        request = ExtendedAnalysisContracts.ConfigureRmsFieldSampling(request, a);
+                        request = request with { WorkbenchSettings = AnalysisComparisonRegistry.MapWorkbench(entry, request, a.VignettedPupil) };
                         run.Request = request;
                         var wbDir = Path.Combine(output, "raw", "workbench", run.Directory); Directory.CreateDirectory(wbDir);
                         var jobPath = Path.Combine(wbDir, "request.json"); JsonFiles.Write(jobPath, new WorkbenchJob(opticPath, wbDir, request));
@@ -328,7 +329,9 @@ public sealed class ComparisonRunner
         File.AppendAllText(Path.Combine(root, "logs", stream + ".log"), DateTimeOffset.UtcNow.ToString("O") + " " + text + "\n");
         File.AppendAllText(Path.Combine(root, "logs", "run.log"), DateTimeOffset.UtcNow.ToString("O") + " " + stream + " " + text + "\n");
     }
-    private static void Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, string output)
+    // Shared by live comparisons and audited offline Workbench recalculation.
+    // Callers retain the captured request, tolerances and immutable native data.
+    public static void Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, string output)
     {
         var directory = Path.Combine(output, "comparisons", run.Directory); Directory.CreateDirectory(directory);
         Tolerances T(string key) => config.Quantities.GetValueOrDefault(key) ?? throw new InvalidDataException("No per-quantity tolerance: " + key);

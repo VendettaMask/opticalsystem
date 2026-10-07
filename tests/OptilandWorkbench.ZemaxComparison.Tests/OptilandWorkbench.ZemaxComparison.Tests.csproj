@@ -6,6 +6,8 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="../../validation/zemax/2026-r1/ra256-field-sampling-2026-10-07/**/*" Link="Fixtures/ra256-field-sampling/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/rms-field-sampling-2026-10-07/**/*" Link="Fixtures/rms-field-sampling/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Using Include="Xunit" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="xunit" Version="2.9.3" />
@@ -15,5 +17,6 @@
     <None Include="../../tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json" Link="comparison-settings.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/zemax/2026-r1/ms-l7-analysis-expansion-2026-09-06/**/*" Link="Fixtures/analysis-expansion/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/zemax/2026-r1/energy-repair-2026-09-06/**/*" Link="Fixtures/energy-repair/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/tessar-vignetting-2026-10-06/rotated30-axis-compressed/*-native.json" Link="Fixtures/tessar-vignetting/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

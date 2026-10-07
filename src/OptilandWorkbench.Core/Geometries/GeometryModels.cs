@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Backend;
+using OptilandWorkbench.Core.Domain;
 
 namespace OptilandWorkbench.Core.Geometries;
 
@@ -154,9 +155,11 @@ public sealed class StandardGratingGeometry : IGratingGeometry
     }
 }
 
-public sealed class StandardGeometry : IGeometry
+public sealed class StandardGeometry : NotifyObject, IGeometry
 {
     internal const double ConicDomainTolerance = 1e-12;
+    private double _radius;
+    private double _conic;
 
     public StandardGeometry(double radius, double conic = 0)
     {
@@ -166,9 +169,17 @@ public sealed class StandardGeometry : IGeometry
 
     public string Kind => "standard";
 
-    public double Radius { get; set; }
+    public double Radius
+    {
+        get => _radius;
+        set => SetProperty(ref _radius, NumericParameterGuard.RequireNotNaN(value, nameof(Radius)));
+    }
 
-    public double Conic { get; set; }
+    public double Conic
+    {
+        get => _conic;
+        set => SetProperty(ref _conic, NumericParameterGuard.RequireFinite(value, nameof(Conic)));
+    }
 
     public double Sag(double x, double y)
     {

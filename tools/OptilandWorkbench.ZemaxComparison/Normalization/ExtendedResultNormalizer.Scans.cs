@@ -17,7 +17,7 @@ public static partial class ExtendedResultNormalizer
     private static NumericResult? WorkbenchRmsScan(AnalysisData data, CanonicalAnalysisRequest r)
     {
         if (!ExtendedAnalysisContracts.IsRmsScan(r.CanonicalAnalysisKey)) return null;
-        var result = new NumericResult { Semantics = "GQ density 6; spot about centroid, wavefront piston-only chief reference; explicit scan settings." };
+        var result = new NumericResult { Semantics = $"{r.WorkbenchSettings["Method"]} density {r.WorkbenchSettings["RayDensity"]}; spot about centroid, wavefront piston-only chief reference; explicit scan settings." };
         var expected = r.CanonicalAnalysisKey == "RMS vs Focus" ? r.FieldCount : 1;
         Require(data.PlotSeries.Count == expected, "Unexpected Workbench RMS scan curve count");
         for (var i = 0; i < data.PlotSeries.Count; i++)

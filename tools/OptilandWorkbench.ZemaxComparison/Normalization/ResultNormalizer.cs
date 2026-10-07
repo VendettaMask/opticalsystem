@@ -117,8 +117,9 @@ public static class ResultNormalizer
 
     public static NumericResult Zemax(string path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request)
     {
-        if (entry.ZemaxSettingsMapper == "contract") return ExtendedResultNormalizer.Zemax(path, request);
         using var doc = JsonDocument.Parse(File.ReadAllText(path)); var root = doc.RootElement;
+        NativeReferenceDiagnostics.Validate(root);
+        if (entry.ZemaxSettingsMapper == "contract") return ExtendedResultNormalizer.Zemax(path, request);
         var result = new NumericResult { Semantics = Semantics(entry) };
         if (entry.ZemaxSettingsMapper == "first-order")
         {
@@ -168,7 +169,9 @@ public static class ResultNormalizer
             if (active.Length != (mtf ? 2 : 1)) throw new InvalidDataException("Unexpected active native column count for explicit monochromatic selection");
             var column = active[mtf ? i : 0];
             var x = group.GetProperty("x").EnumerateArray().Select(e => e.GetDouble()).ToArray();
-            var y = ys.EnumerateArray().Select(row => row[column].GetDouble()).ToArray();
+            // Null samples in an active column represent clipped rays. Retain
+            // them as invalid so the physical comparison gate rejects the curve.
+            var y = ys.EnumerateArray().Select(row => Finite(row[column]) ?? double.NaN).ToArray();
             result.Series.Add(new(i == 0 ? "tangential" : "sagittal", "Native column " + i, x, y, entry.XAxis!, entry.YAxis!));
             result.Transformations.Add($"Native group {(mtf ? 0 : i)} column {column}; other monochromatic wavelength slots are absent/null, never treated as zero.");
         }

@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="dc29dc83-06ac-4505-9c8b-b54f7fa45c02" name="allen@DESKTOP-SET3SNR 2026-10-06 21:22:29" runUser="DESKTOP-SET3SNR\CodexSandboxOffline" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-06T21:22:29.9984677+08:00" queuing="2026-10-06T21:22:29.9984681+08:00" start="2026-10-06T21:22:25.7588318+08:00" finish="2026-10-06T21:22:30.8774291+08:00" />
+  <TestSettings name="default" id="98d366ee-5d5f-4ed0-aa0b-e68517170e43">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-06_21_22_29" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a7b000f0-1bab-4896-8891-348da1ccd033" testId="af9296a8-c14b-6002-4a6d-f87e3aa06620" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;relay-lens&quot;, setting: &quot;primary&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0500865" startTime="2026-10-06T21:22:29.9095125+08:00" endTime="2026-10-06T21:22:29.9603531+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a7b000f0-1bab-4896-8891-348da1ccd033" />
+    <UnitTestResult executionId="f2251eb8-5901-4671-ac50-860c04977d2e" testId="e69ce479-64b3-9a7d-0fd8-274a20d600f9" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0432689" startTime="2026-10-06T21:22:29.9835957+08:00" endTime="2026-10-06T21:22:30.0139057+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f2251eb8-5901-4671-ac50-860c04977d2e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.StandardSampleOpdParityTests.AssertPhase(IReadOnlyList`1 actual, IReadOnlyList`1 expected) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs:line 120&#xD;
+   at OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(Double distance, Boolean aiming) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs:line 99&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9b5520dd-31a1-4f97-b1fa-269dcf4b1d4f" testId="77e09b91-803f-7297-2c97-bf0704e99b32" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 250, aiming: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0097503" startTime="2026-10-06T21:22:30.0817892+08:00" endTime="2026-10-06T21:22:30.0914892+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b5520dd-31a1-4f97-b1fa-269dcf4b1d4f" />
+    <UnitTestResult executionId="1153db25-8f4d-4ca4-8639-0ac546285941" testId="1c7338e0-33d4-f091-b3ff-e72526efd073" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0120382" startTime="2026-10-06T21:22:30.0376951+08:00" endTime="2026-10-06T21:22:30.0481090+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1153db25-8f4d-4ca4-8639-0ac546285941">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.StandardSampleOpdParityTests.AssertPhase(IReadOnlyList`1 actual, IReadOnlyList`1 expected) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs:line 120&#xD;
+   at OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(Double distance, Boolean aiming) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs:line 99&#xD;
+   at InvokeStub_StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3c2a73a4-f76e-408e-a5ad-2355ddd12d0c" testId="34924fd4-3fbf-f772-b3a3-fc180bd5156d" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;double-gauss-28-degree-field&quot;, setting: &quot;edge-shortwave&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.5645367" startTime="2026-10-06T21:22:29.2346130+08:00" endTime="2026-10-06T21:22:29.7947778+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3c2a73a4-f76e-408e-a5ad-2355ddd12d0c">
+      <Output>
+        <ErrorInfo>
+          <Message>double-gauss-28-degree-field/edge-shortwave, pane 0: maximum error 4.031837608067801E-05 waves</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(String lens, String setting) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs:line 68&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8bb93e44-a937-438a-bf07-d77f5ad4009c" testId="276ddee8-7bec-24b5-2459-f40be9d4506f" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0045731" startTime="2026-10-06T21:22:30.0916178+08:00" endTime="2026-10-06T21:22:30.0961614+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8bb93e44-a937-438a-bf07-d77f5ad4009c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.StandardSampleOpdParityTests.AssertPhase(IReadOnlyList`1 actual, IReadOnlyList`1 expected) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs:line 120&#xD;
+   at OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(Double distance, Boolean aiming) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs:line 99&#xD;
+   at InvokeStub_StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3a57bcf2-b18f-4eda-993e-22bc958314c6" testId="c8fff951-4b0e-90f4-9ad3-3ccc74bb0946" testName="OptilandWorkbench.Tests.OpticalPathDifferenceAnalysisTests.HonorsManualGraphScale" computerName="DESKTOP-SET3SNR" duration="00:00:00.5587663" startTime="2026-10-06T21:22:29.2336848+08:00" endTime="2026-10-06T21:22:29.7823744+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3a57bcf2-b18f-4eda-993e-22bc958314c6" />
+    <UnitTestResult executionId="6084acd2-3077-463f-9ef1-d74eef8f0102" testId="655472a2-9867-ddab-989b-821685cb4924" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: True)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0184071" startTime="2026-10-06T21:22:30.0164699+08:00" endTime="2026-10-06T21:22:30.0357042+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6084acd2-3077-463f-9ef1-d74eef8f0102">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.StandardSampleOpdParityTests.AssertPhase(IReadOnlyList`1 actual, IReadOnlyList`1 expected) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs:line 120&#xD;
+   at OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(Double distance, Boolean aiming) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs:line 99&#xD;
+   at InvokeStub_StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5c6ad368-d328-454d-b6e9-ba4f091dc7e8" testId="f6e48b81-6b95-01bc-01bb-fa6fbd47282c" testName="OptilandWorkbench.Tests.ZemaxWavefrontMapParityTests.WavefrontMapUsesZemaxEvenGridAndMatchesCapturedOpd" computerName="DESKTOP-SET3SNR" duration="00:00:00.9489617" startTime="2026-10-06T21:22:29.2346736+08:00" endTime="2026-10-06T21:22:30.1711209+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5c6ad368-d328-454d-b6e9-ba4f091dc7e8" />
+    <UnitTestResult executionId="31f3efb5-7ffe-4a69-893d-eec1ff480130" testId="2fcf469a-2806-153a-4b5a-85d5141367ce" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;relay-lens&quot;, setting: &quot;edge-shortwave&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0805146" startTime="2026-10-06T21:22:29.8032501+08:00" endTime="2026-10-06T21:22:29.8745844+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="31f3efb5-7ffe-4a69-893d-eec1ff480130" />
+    <UnitTestResult executionId="360c6031-6282-4f33-8249-343b9ddcc88d" testId="aee4d077-d89d-3307-1d58-f492786850e8" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 250, aiming: False)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0351637" startTime="2026-10-06T21:22:30.0488064+08:00" endTime="2026-10-06T21:22:30.0816466+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="360c6031-6282-4f33-8249-343b9ddcc88d" />
+    <UnitTestResult executionId="b5287710-bad0-4528-9008-ee5c03eddb7b" testId="12c3b5b3-fa70-8710-30b4-010c2119a6e3" testName="OptilandWorkbench.Tests.OpticalPathDifferenceAnalysisTests.GeneratesPairedPupilFansForEveryField" computerName="DESKTOP-SET3SNR" duration="00:00:00.0207363" startTime="2026-10-06T21:22:29.7933140+08:00" endTime="2026-10-06T21:22:29.8033117+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b5287710-bad0-4528-9008-ee5c03eddb7b" />
+    <UnitTestResult executionId="6d912c67-8932-4bef-a865-67ac6c15cdfc" testId="6096581f-4fd4-d814-ec7a-fa47e8ed8fcf" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;double-gauss-28-degree-field&quot;, setting: &quot;primary&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0175246" startTime="2026-10-06T21:22:29.8747433+08:00" endTime="2026-10-06T21:22:29.8920094+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6d912c67-8932-4bef-a865-67ac6c15cdfc" />
+    <UnitTestResult executionId="3f45fae3-8e88-42e3-a2d9-82ef528ec411" testId="de31dbb9-111f-218d-f653-8f697c56c8f0" testName="OptilandWorkbench.Tests.ZemaxOpticalPathDifferenceParityTests.PolychromaticFansUsePrimaryWavelengthReferenceSphere" computerName="DESKTOP-SET3SNR" duration="00:00:01.5974806" startTime="2026-10-06T21:22:29.2346531+08:00" endTime="2026-10-06T21:22:30.8180840+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3f45fae3-8e88-42e3-a2d9-82ef528ec411" />
+    <UnitTestResult executionId="a0973812-46ae-462b-ab18-24eec4f200c3" testId="7451808c-e9cb-879f-ec5c-dd19511d58f4" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;cooke-40-degree-field&quot;, setting: &quot;edge-shortwave&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0105341" startTime="2026-10-06T21:22:29.9604988+08:00" endTime="2026-10-06T21:22:29.9707877+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a0973812-46ae-462b-ab18-24eec4f200c3">
+      <Output>
+        <ErrorInfo>
+          <Message>cooke-40-degree-field/edge-shortwave, pane 0: maximum error 2.6241717595132386E-05 waves</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(String lens, String setting) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs:line 68&#xD;
+   at InvokeStub_StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fe03e573-ad8b-49b9-b451-f901fc68f77b" testId="b80a3248-187e-446e-a5ef-9ba848f4f4fb" testName="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;cooke-40-degree-field&quot;, setting: &quot;primary&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0178817" startTime="2026-10-06T21:22:29.8921656+08:00" endTime="2026-10-06T21:22:29.9093575+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fe03e573-ad8b-49b9-b451-f901fc68f77b" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.ZemaxOpticalPathDifferenceParityTests.PolychromaticFansUsePrimaryWavelengthReferenceSphere" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="de31dbb9-111f-218d-f653-8f697c56c8f0">
+      <Execution id="3f45fae3-8e88-42e3-a2d9-82ef528ec411" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.ZemaxOpticalPathDifferenceParityTests" name="PolychromaticFansUsePrimaryWavelengthReferenceSphere" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 250, aiming: False)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="aee4d077-d89d-3307-1d58-f492786850e8">
+      <Execution id="360c6031-6282-4f33-8249-343b9ddcc88d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;relay-lens&quot;, setting: &quot;primary&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="af9296a8-c14b-6002-4a6d-f87e3aa06620">
+      <Execution id="a7b000f0-1bab-4896-8891-348da1ccd033" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="CapturedSettingsMatchBothNativeFans" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: False)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="276ddee8-7bec-24b5-2459-f40be9d4506f">
+      <Execution id="8bb93e44-a937-438a-bf07-d77f5ad4009c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: False)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="1c7338e0-33d4-f091-b3ff-e72526efd073">
+      <Execution id="1153db25-8f4d-4ca4-8639-0ac546285941" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;double-gauss-28-degree-field&quot;, setting: &quot;primary&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="6096581f-4fd4-d814-ec7a-fa47e8ed8fcf">
+      <Execution id="6d912c67-8932-4bef-a865-67ac6c15cdfc" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="CapturedSettingsMatchBothNativeFans" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.ZemaxWavefrontMapParityTests.WavefrontMapUsesZemaxEvenGridAndMatchesCapturedOpd" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="f6e48b81-6b95-01bc-01bb-fa6fbd47282c">
+      <Execution id="5c6ad368-d328-454d-b6e9-ba4f091dc7e8" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.ZemaxWavefrontMapParityTests" name="WavefrontMapUsesZemaxEvenGridAndMatchesCapturedOpd" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.OpticalPathDifferenceAnalysisTests.GeneratesPairedPupilFansForEveryField" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="12c3b5b3-fa70-8710-30b4-010c2119a6e3">
+      <Execution id="b5287710-bad0-4528-9008-ee5c03eddb7b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.OpticalPathDifferenceAnalysisTests" name="GeneratesPairedPupilFansForEveryField" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 250, aiming: True)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="77e09b91-803f-7297-2c97-bf0704e99b32">
+      <Execution id="9b5520dd-31a1-4f97-b1fa-269dcf4b1d4f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;double-gauss-28-degree-field&quot;, setting: &quot;edge-shortwave&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="34924fd4-3fbf-f772-b3a3-fc180bd5156d">
+      <Execution id="3c2a73a4-f76e-408e-a5ad-2355ddd12d0c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="CapturedSettingsMatchBothNativeFans" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;relay-lens&quot;, setting: &quot;edge-shortwave&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="2fcf469a-2806-153a-4b5a-85d5141367ce">
+      <Execution id="31f3efb5-7ffe-4a69-893d-eec1ff480130" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="CapturedSettingsMatchBothNativeFans" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: True)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="655472a2-9867-ddab-989b-821685cb4924">
+      <Execution id="6084acd2-3077-463f-9ef1-d74eef8f0102" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: True)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="e69ce479-64b3-9a7d-0fd8-274a20d600f9">
+      <Execution id="f2251eb8-5901-4671-ac50-860c04977d2e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;cooke-40-degree-field&quot;, setting: &quot;edge-shortwave&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="7451808c-e9cb-879f-ec5c-dd19511d58f4">
+      <Execution id="a0973812-46ae-462b-ab18-24eec4f200c3" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="CapturedSettingsMatchBothNativeFans" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: &quot;cooke-40-degree-field&quot;, setting: &quot;primary&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="b80a3248-187e-446e-a5ef-9ba848f4f4fb">
+      <Execution id="fe03e573-ad8b-49b9-b451-f901fc68f77b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.StandardSampleOpdParityTests" name="CapturedSettingsMatchBothNativeFans" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.OpticalPathDifferenceAnalysisTests.HonorsManualGraphScale" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="c8fff951-4b0e-90f4-9ad3-3ccc74bb0946">
+      <Execution id="3a57bcf2-b18f-4eda-993e-22bc958314c6" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.OpticalPathDifferenceAnalysisTests" name="HonorsManualGraphScale" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="af9296a8-c14b-6002-4a6d-f87e3aa06620" executionId="a7b000f0-1bab-4896-8891-348da1ccd033" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e69ce479-64b3-9a7d-0fd8-274a20d600f9" executionId="f2251eb8-5901-4671-ac50-860c04977d2e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="77e09b91-803f-7297-2c97-bf0704e99b32" executionId="9b5520dd-31a1-4f97-b1fa-269dcf4b1d4f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1c7338e0-33d4-f091-b3ff-e72526efd073" executionId="1153db25-8f4d-4ca4-8639-0ac546285941" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="34924fd4-3fbf-f772-b3a3-fc180bd5156d" executionId="3c2a73a4-f76e-408e-a5ad-2355ddd12d0c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="276ddee8-7bec-24b5-2459-f40be9d4506f" executionId="8bb93e44-a937-438a-bf07-d77f5ad4009c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c8fff951-4b0e-90f4-9ad3-3ccc74bb0946" executionId="3a57bcf2-b18f-4eda-993e-22bc958314c6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="655472a2-9867-ddab-989b-821685cb4924" executionId="6084acd2-3077-463f-9ef1-d74eef8f0102" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f6e48b81-6b95-01bc-01bb-fa6fbd47282c" executionId="5c6ad368-d328-454d-b6e9-ba4f091dc7e8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2fcf469a-2806-153a-4b5a-85d5141367ce" executionId="31f3efb5-7ffe-4a69-893d-eec1ff480130" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aee4d077-d89d-3307-1d58-f492786850e8" executionId="360c6031-6282-4f33-8249-343b9ddcc88d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="12c3b5b3-fa70-8710-30b4-010c2119a6e3" executionId="b5287710-bad0-4528-9008-ee5c03eddb7b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6096581f-4fd4-d814-ec7a-fa47e8ed8fcf" executionId="6d912c67-8932-4bef-a865-67ac6c15cdfc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="de31dbb9-111f-218d-f653-8f697c56c8f0" executionId="3f45fae3-8e88-42e3-a2d9-82ef528ec411" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7451808c-e9cb-879f-ec5c-dd19511d58f4" executionId="a0973812-46ae-462b-ab18-24eec4f200c3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b80a3248-187e-446e-a5ef-9ba848f4f4fb" executionId="fe03e573-ad8b-49b9-b451-f901fc68f77b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="16" executed="16" passed="10" failed="6" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.60]   Discovering: OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:02.04]   Discovered:  OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:02.07]   Starting:    OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:02.67]       double-gauss-28-degree-field/edge-shortwave, pane 0: maximum error 4.031837608067801E-05 waves&#xD;
+[xUnit.net 00:00:02.67]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.67]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs(68,0): at OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(String lens, String setting)&#xD;
+[xUnit.net 00:00:02.67]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.67]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.84]       cooke-40-degree-field/edge-shortwave, pane 0: maximum error 2.6241717595132386E-05 waves&#xD;
+[xUnit.net 00:00:02.84]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.84]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs(68,0): at OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(String lens, String setting)&#xD;
+[xUnit.net 00:00:02.84]            at InvokeStub_StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(Object, Span`1)&#xD;
+[xUnit.net 00:00:02.84]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.89]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:02.89]       Expected: True&#xD;
+[xUnit.net 00:00:02.89]       Actual:   False&#xD;
+[xUnit.net 00:00:02.89]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.89]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs(120,0): at OptilandWorkbench.Tests.StandardSampleOpdParityTests.AssertPhase(IReadOnlyList`1 actual, IReadOnlyList`1 expected)&#xD;
+[xUnit.net 00:00:02.89]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs(99,0): at OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(Double distance, Boolean aiming)&#xD;
+[xUnit.net 00:00:02.89]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.89]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.91]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:02.91]       Expected: True&#xD;
+[xUnit.net 00:00:02.91]       Actual:   False&#xD;
+[xUnit.net 00:00:02.91]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.91]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs(120,0): at OptilandWorkbench.Tests.StandardSampleOpdParityTests.AssertPhase(IReadOnlyList`1 actual, IReadOnlyList`1 expected)&#xD;
+[xUnit.net 00:00:02.91]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs(99,0): at OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(Double distance, Boolean aiming)&#xD;
+[xUnit.net 00:00:02.91]            at InvokeStub_StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(Object, Span`1)&#xD;
+[xUnit.net 00:00:02.91]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.92]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:02.92]       Expected: True&#xD;
+[xUnit.net 00:00:02.92]       Actual:   False&#xD;
+[xUnit.net 00:00:02.92]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.92]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs(120,0): at OptilandWorkbench.Tests.StandardSampleOpdParityTests.AssertPhase(IReadOnlyList`1 actual, IReadOnlyList`1 expected)&#xD;
+[xUnit.net 00:00:02.92]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs(99,0): at OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(Double distance, Boolean aiming)&#xD;
+[xUnit.net 00:00:02.92]            at InvokeStub_StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(Object, Span`1)&#xD;
+[xUnit.net 00:00:02.92]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.97]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:02.97]       Expected: True&#xD;
+[xUnit.net 00:00:02.97]       Actual:   False&#xD;
+[xUnit.net 00:00:02.97]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.97]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs(120,0): at OptilandWorkbench.Tests.StandardSampleOpdParityTests.AssertPhase(IReadOnlyList`1 actual, IReadOnlyList`1 expected)&#xD;
+[xUnit.net 00:00:02.97]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\StandardSampleOpdParityTests.cs(99,0): at OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(Double distance, Boolean aiming)&#xD;
+[xUnit.net 00:00:02.97]            at InvokeStub_StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(Object, Span`1)&#xD;
+[xUnit.net 00:00:02.97]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.69]   Finished:    OptilandWorkbench.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T21:22:29.7988683+08:00">
+        <Text>[xUnit.net 00:00:02.67]     OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: "double-gauss-28-degree-field", setting: "edge-shortwave") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T21:22:29.9713127+08:00">
+        <Text>[xUnit.net 00:00:02.84]     OptilandWorkbench.Tests.StandardSampleOpdParityTests.CapturedSettingsMatchBothNativeFans(lens: "cooke-40-degree-field", setting: "edge-shortwave") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T21:22:30.0143317+08:00">
+        <Text>[xUnit.net 00:00:02.89]     OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T21:22:30.0361053+08:00">
+        <Text>[xUnit.net 00:00:02.91]     OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T21:22:30.0507123+08:00">
+        <Text>[xUnit.net 00:00:02.92]     OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 0, aiming: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-06T21:22:30.0964938+08:00">
+        <Text>[xUnit.net 00:00:02.97]     OptilandWorkbench.Tests.StandardSampleOpdParityTests.EquivalentFiniteAngleAndObjectHeightFieldsHaveTheSamePhase(distance: 1.0000000000000001E-09, aiming: False) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

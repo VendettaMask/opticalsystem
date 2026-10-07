@@ -262,6 +262,8 @@ public static class WavefrontEngine
         var finalSamples = optic.SequentialRayTracer.TraceFinalSamples(bundle);
         var (ux, uy) = LaunchTiltDirection(optic, field, aimAtStop);
         var entrancePupilRadius = optic.Paraxial.EstimateEntrancePupilDiameter() / 2;
+        var vignetting = optic.SequentialRayTracer.RayGenerator.GetPupilVignetting(field.Hx, field.Hy);
+        var chiefPupil = vignetting.Transform(0, 0);
         var samples = new List<WavefrontSample>(pupilSamples.Count);
         var vignetted = 0;
 
@@ -283,7 +285,8 @@ public static class WavefrontEngine
                 sphere.CenterZ,
                 radius,
                 imageIndex);
-            var tilt = (ux * pupil.X * entrancePupilRadius) + (uy * pupil.Y * entrancePupilRadius);
+            var tilt = EntrancePupilPhasePath((ux, uy), entrancePupilRadius,
+                vignetting.Transform(pupil.X, pupil.Y), chiefPupil);
             var opticalPath = ray.CumulativeOpticalPathLength - imagePath + tilt;
             var opdWaves = (referenceOpticalPath - opticalPath) / (wavelength.Micrometers * 1e-3);
             var t = imageIndex <= 1e-30 ? 0 : imagePath / imageIndex;
@@ -344,6 +347,8 @@ public static class WavefrontEngine
         var finalSamples = optic.SequentialRayTracer.TraceFinalSamples(bundle);
         var (ux, uy) = LaunchTiltDirection(optic, field, aimAtStop);
         var entrancePupilRadius = optic.Paraxial.EstimateEntrancePupilDiameter() / 2;
+        var vignetting = optic.SequentialRayTracer.RayGenerator.GetPupilVignetting(field.Hx, field.Hy);
+        var chiefPupil = vignetting.Transform(0, 0);
         var samples = new List<WavefrontSample>(pupilSamples.Count);
         var vignetted = 0;
         for (var index = 0; index < pupilSamples.Count; index++)
@@ -362,7 +367,8 @@ public static class WavefrontEngine
                 referenceChief.Position,
                 chiefDirection,
                 imageIndex);
-            var tilt = (ux * pupil.X * entrancePupilRadius) + (uy * pupil.Y * entrancePupilRadius);
+            var tilt = EntrancePupilPhasePath((ux, uy), entrancePupilRadius,
+                vignetting.Transform(pupil.X, pupil.Y), chiefPupil);
             var opticalPath = ray.CumulativeOpticalPathLength - imagePath + tilt;
             var opdWaves = (referenceOpticalPath - opticalPath) / (wavelength.Micrometers * 1e-3);
             var t = imageIndex <= 1e-30 ? 0 : imagePath / imageIndex;
@@ -404,19 +410,33 @@ public static class WavefrontEngine
         }));
     }
 
+    internal static double EntrancePupilPhasePath(
+        (double X, double Y) direction,
+        double pupilRadius,
+        (double X, double Y) pupil,
+        (double X, double Y) reference = default) =>
+        pupilRadius * (direction.X * (pupil.X - reference.X)
+            + direction.Y * (pupil.Y - reference.Y));
+
     internal static (double X, double Y) LaunchTiltDirection(
         Optic optic,
         (double Hx, double Hy) field,
         bool aimAtStop = false)
     {
+        // Finite-object rays already accumulate the path from their common
+        // object point. Only a plane wave needs the entrance-pupil phase term.
+        if (!ObjectConjugate.IsInfinite(optic.SurfaceGroup.Items.FirstOrDefault()))
+        {
+            return (0, 0);
+        }
+
         double fieldX;
         double fieldY;
         if (optic.FieldDefinition == FieldDefinitionKind.Angle)
         {
             (fieldX, fieldY) = FieldCoordinates.Denormalize(optic.Fields, field.Hx, field.Hy);
         }
-        else if (optic.FieldDefinition == FieldDefinitionKind.RealImageHeight
-            && ObjectConjugate.IsInfinite(optic.SurfaceGroup.Items.FirstOrDefault()))
+        else if (optic.FieldDefinition == FieldDefinitionKind.RealImageHeight)
         {
             var target = FieldCoordinates.Denormalize(optic.Fields, field.Hx, field.Hy);
             (fieldX, fieldY) = optic.SequentialRayTracer.RayGenerator.ResolveRealImageFieldCoordinates(

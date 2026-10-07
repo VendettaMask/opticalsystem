@@ -110,7 +110,8 @@ internal static class SpotAnalysisEngine
         bool includeSurfaceTransmission = true,
         int gaussianAzimuthalSamples = 6,
         IReadOnlyList<PupilSample>? explicitPupilSamples = null,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        bool gaussianPupilIntegral = false)
     {
         var fieldArray = fields.ToArray();
         var wavelengthArray = wavelengths.ToArray();
@@ -144,7 +145,10 @@ internal static class SpotAnalysisEngine
                     optic,
                     surfaceNumber,
                     directionCosines);
-                var selectedSamples = SelectSamples(optic, bundle, surfaceNumber);
+                var selectedSamples = gaussianPupilIntegral
+                    ? optic.SequentialRayTracer.TraceGaussianPupil(bundle, cancellationToken)
+                        .Select(history => history.LastOrDefault(sample => sample.SurfaceNumber == surfaceIndex)).ToArray()
+                    : SelectSamples(optic, bundle, surfaceNumber);
                 var valid = selectedSamples
                     .Select((sample, index) => (Sample: sample, IncidentIntensity: bundle.Rays[index].Intensity))
                     .Where(item => item.Sample is { Vignetted: false, Intensity: > 0 } && targetSurface is not null)

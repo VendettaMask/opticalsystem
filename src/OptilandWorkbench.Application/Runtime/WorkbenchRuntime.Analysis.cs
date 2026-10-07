@@ -90,6 +90,7 @@ public partial class WorkbenchRuntime
         var analysis = CreateAnalysis(canonicalName, settings);
         var data = analysis.GenerateData(cancellationToken);
         if (string.Equals(canonicalName, "Image Simulation", StringComparison.Ordinal)
+            && data.Outcome == AnalysisOutcome.Success
             && settings.TryGetValue("OutputFile", out var outputFile)
             && !string.IsNullOrWhiteSpace(outputFile))
         {

@@ -1,5 +1,6 @@
 using OptilandWorkbench.ZemaxComparison;
 using OptilandWorkbench.ZemaxComparison.Workbench;
+using OptilandWorkbench.ZemaxComparison.Diagnostics;
 
 if (args.Length == 2 && args[0] == "--workbench-worker")
 {
@@ -8,6 +9,12 @@ if (args.Length == 2 && args[0] == "--workbench-worker")
 }
 try
 {
+    if (args.Length == 2 && args[0] == "--ray-audit")
+    {
+        using var auditCancellation = new CancellationTokenSource();
+        Console.CancelKeyPress += (_, e) => { e.Cancel = true; auditCancellation.Cancel(); };
+        return await RayAuditRunner.Run(args[1], auditCancellation.Token);
+    }
     var options = ComparisonOptions.Parse(args);
     if (options.ListAnalyses)
     {

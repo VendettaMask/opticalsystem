@@ -7,6 +7,7 @@ using OptilandWorkbench.Core.Interactions;
 using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Rays;
 using OptilandWorkbench.Core.Scattering;
+using System.ComponentModel;
 
 namespace OptilandWorkbench.Core.Domain;
 
@@ -226,7 +227,7 @@ public sealed partial class OpticalSurface : NotifyObject
         set
         {
             ArgumentNullException.ThrowIfNull(value);
-            if (SetProperty(ref _geometry, value))
+            if (SetGeometry(value))
             {
                 SynchronizeLegacyParametersFromGeometry(value);
             }
@@ -434,12 +435,40 @@ public sealed partial class OpticalSurface : NotifyObject
                 PlaneGeometry when Math.Abs(Radius) >= 1e-9 => new StandardGeometry(Radius, Conic),
                 _ => Geometry
             };
-            SetProperty(ref _geometry, next, nameof(Geometry));
+            SetGeometry(next);
         }
         finally
         {
             _synchronizingGeometry = false;
         }
+    }
+
+    private bool SetGeometry(IGeometry geometry)
+    {
+        if (ReferenceEquals(_geometry, geometry)) return false;
+        if (MutableGeometryParameters(_geometry) is { } previous)
+            previous.PropertyChanged -= OnGeometryParametersChanged;
+        _geometry = geometry;
+        if (MutableGeometryParameters(geometry) is { } current)
+            current.PropertyChanged += OnGeometryParametersChanged;
+        RaisePropertyChanged(nameof(Geometry));
+        return true;
+    }
+
+    private static StandardGeometry? MutableGeometryParameters(IGeometry geometry) => geometry switch
+    {
+        StandardGeometry standard => standard,
+        StandardGratingGeometry grating => grating.Base,
+        EvenAsphereGeometry even => even.Base,
+        OddAsphereGeometry odd => odd.Base,
+        ForbesQGeometry forbes => forbes.Base,
+        _ => null
+    };
+
+    private void OnGeometryParametersChanged(object? sender, PropertyChangedEventArgs args)
+    {
+        SynchronizeLegacyParametersFromGeometry(Geometry);
+        RaisePropertyChanged(nameof(Geometry));
     }
 
     private void SynchronizeLegacyParametersFromGeometry(IGeometry geometry)

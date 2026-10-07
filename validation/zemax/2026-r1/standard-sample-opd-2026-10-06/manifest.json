@@ -1,0 +1,725 @@
+{
+  "scope": "Immutable original imported snapshots and native OPD fans; three official standard lenses, two captured settings each",
+  "nativeVersion": "OpticStudio 2026 R1 26.1.0 build 260127",
+  "capturedUtc": "2026-10-06",
+  "fixtures": [
+    {
+      "lens": "cooke-40-degree-field",
+      "setting": "primary",
+      "source": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Cooke 40 degree field.zmx",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "snapshotSha256": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af",
+      "nativeSha256": "f74f8f241c8a3254d7748555d6db277746e4232b843adb8afabcd3f1e3426fb1",
+      "captureManifest": "artifacts\\zemax-standard-samples\\20261006\\initial-six-primary\\cooke-40-degree-field\\comparison\\manifest.json",
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 20,
+        "surfaceCount": 8,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            14
+          ],
+          [
+            0,
+            20
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.55,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "tolerances": {
+        "WavefrontError": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 61,
+          "maxAbsolute": 0.010271390677794257,
+          "meanAbsolute": 0.001925483583768307,
+          "rmse": 0.002934379630916502,
+          "nrmse": 0.004564166017499161,
+          "maxRelative": 0.017357622191710092,
+          "p50": 0.001445933285881773,
+          "p90": 0.003606297965706995,
+          "p95": 0.005434126358995095,
+          "pearson": 0.9999270530423664,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 61,
+          "maxAbsolute": 0.010271390677794257,
+          "meanAbsolute": 0.001925483583768307,
+          "rmse": 0.002934379630916502,
+          "nrmse": 0.004564166017499161,
+          "maxRelative": 0.017357622191710092,
+          "p50": 0.001445933285881773,
+          "p90": 0.003606297965706995,
+          "p95": 0.005434126358995095,
+          "pearson": 0.9999270530423664,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "lens": "cooke-40-degree-field",
+      "setting": "edge-shortwave",
+      "source": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Cooke 40 degree field.zmx",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "snapshotSha256": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af",
+      "nativeSha256": "faa9359d48e661e0cf8b1244f8fb22ccb8b15ef62ce8a80038b00f5651804727",
+      "captureManifest": "artifacts\\zemax-standard-samples\\20261006\\initial-six-edge-shortwave\\cooke-40-degree-field\\comparison\\manifest.json",
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "configuration": 1,
+        "field": 3,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "1",
+          "FieldNumber": "3",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 20,
+        "surfaceCount": 8,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            14
+          ],
+          [
+            0,
+            20
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.55,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "tolerances": {
+        "WavefrontError": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 61,
+          "maxAbsolute": 364.9299538611636,
+          "meanAbsolute": 167.8024942139836,
+          "rmse": 194.52698922664138,
+          "nrmse": 93.9937991834908,
+          "maxRelative": "Infinity",
+          "p50": 173.8223950845566,
+          "p90": 307.34824437604476,
+          "p95": 338.39928705388326,
+          "pearson": -0.1120963220481525,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 61,
+          "maxAbsolute": 73.13517019506739,
+          "meanAbsolute": 25.218380872272526,
+          "rmse": 34.1933932274802,
+          "nrmse": 16.586092907480413,
+          "maxRelative": "Infinity",
+          "p50": 15.804399417769165,
+          "p90": 60.20789592610932,
+          "p95": 66.56018356062665,
+          "pearson": -0.9998582570367651,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "lens": "double-gauss-28-degree-field",
+      "setting": "primary",
+      "source": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Double Gauss 28 degree field.zmx",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "snapshotSha256": "4022df0d2886a10ca5a1e58def4b88f2015643c846459f866500031405fa3a38",
+      "nativeSha256": "e731f689a6825ceb3a033c70f367c6f47476d40b5e1499d01ec019b22def054a",
+      "captureManifest": "artifacts\\zemax-standard-samples\\20261006\\initial-six-primary\\double-gauss-28-degree-field\\comparison\\manifest.json",
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 14,
+        "surfaceCount": 13,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            10
+          ],
+          [
+            0,
+            14
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5876,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "tolerances": {
+        "WavefrontError": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 61,
+          "maxAbsolute": 0.021963776529311585,
+          "meanAbsolute": 0.0030096071045975963,
+          "rmse": 0.006330911298730107,
+          "nrmse": 0.006359860808407545,
+          "maxRelative": 0.08063433331211169,
+          "p50": 0.0005556905020279723,
+          "p90": 0.01049703987675954,
+          "p95": 0.01569590484284944,
+          "pearson": 0.9998563461917461,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 61,
+          "maxAbsolute": 0.021963776529311585,
+          "meanAbsolute": 0.003009607103011723,
+          "rmse": 0.006330911294798332,
+          "nrmse": 0.006359860804457791,
+          "maxRelative": 0.08063433331211169,
+          "p50": 0.0005556905020279723,
+          "p90": 0.01049703987675954,
+          "p95": 0.015695904794480353,
+          "pearson": 0.9998563461919228,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "lens": "double-gauss-28-degree-field",
+      "setting": "edge-shortwave",
+      "source": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Double Gauss 28 degree field.zmx",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "snapshotSha256": "4022df0d2886a10ca5a1e58def4b88f2015643c846459f866500031405fa3a38",
+      "nativeSha256": "bef0d05542ed6e30b129f87a06ad726a51f9595bdbcc702d2d16d1d278c6f903",
+      "captureManifest": "artifacts\\zemax-standard-samples\\20261006\\initial-six-edge-shortwave\\double-gauss-28-degree-field\\comparison\\manifest.json",
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "configuration": 1,
+        "field": 3,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "1",
+          "FieldNumber": "3",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 14,
+        "surfaceCount": 13,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            10
+          ],
+          [
+            0,
+            14
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5876,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "tolerances": {
+        "WavefrontError": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 61,
+          "maxAbsolute": 384.15481724314867,
+          "meanAbsolute": 98.06119897924238,
+          "rmse": 143.71585423386006,
+          "nrmse": 156.8791613419838,
+          "maxRelative": 2811.6398441412334,
+          "p50": 60.59026525533507,
+          "p90": 265.9847874676081,
+          "p95": 322.44633426131975,
+          "pearson": 0.6954358664548529,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 61,
+          "maxAbsolute": 137.43390835366029,
+          "meanAbsolute": 44.75187489832603,
+          "rmse": 61.77261182555035,
+          "nrmse": 151.7866910976042,
+          "maxRelative": 1206.7282651390792,
+          "p50": 26.341092543540945,
+          "p90": 109.80105965067219,
+          "p95": 123.15552548713232,
+          "pearson": -0.051512414471097966,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "lens": "relay-lens",
+      "setting": "primary",
+      "source": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Relay lens.zmx",
+      "sourceSha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+      "snapshotSha256": "531ac7f0887fad1406ff7bcfda1576e014e6ed104af04ed3ca07337d6cb84d5c",
+      "nativeSha256": "5fdc12562aedc2ed431166830317833e87be4598caba8720ae19bceae9075a13",
+      "captureManifest": "artifacts\\zemax-standard-samples\\20261006\\initial-six-primary\\relay-lens\\comparison\\manifest.json",
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "2",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "True"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2,
+        "surfaceCount": 9,
+        "fieldCount": 2,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "tolerances": {
+        "WavefrontError": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 61,
+          "maxAbsolute": 7.668519486081493E-09,
+          "meanAbsolute": 7.472923958971662E-10,
+          "rmse": 1.7229250535343627E-09,
+          "nrmse": 2.919188832593361E-09,
+          "maxRelative": 3.394443887571174E-08,
+          "p50": 1.7232637539166262E-10,
+          "p90": 2.7526855794768323E-09,
+          "p95": 4.5968790718387E-09,
+          "pearson": 0.9999999999999996,
+          "worstX": -0.55,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 61,
+          "maxAbsolute": 7.668519486081493E-09,
+          "meanAbsolute": 7.472923958971662E-10,
+          "rmse": 1.7229250535343627E-09,
+          "nrmse": 2.919188832593361E-09,
+          "maxRelative": 3.394443887571174E-08,
+          "p50": 1.7232637539166262E-10,
+          "p90": 2.7526855794768323E-09,
+          "p95": 4.5968790718387E-09,
+          "pearson": 0.9999999999999996,
+          "worstX": -0.55,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "lens": "relay-lens",
+      "setting": "edge-shortwave",
+      "source": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Relay lens.zmx",
+      "sourceSha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+      "snapshotSha256": "531ac7f0887fad1406ff7bcfda1576e014e6ed104af04ed3ca07337d6cb84d5c",
+      "nativeSha256": "e7aeeb782fb40e0fa2ae09afd63042830a6253d9b9957f8157bf0d944335cbf1",
+      "captureManifest": "artifacts\\zemax-standard-samples\\20261006\\initial-six-edge-shortwave\\relay-lens\\comparison\\manifest.json",
+      "request": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "configuration": 1,
+        "field": 2,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "GraphScale": "0",
+          "NumberOfRays": "20",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "1",
+          "FieldNumber": "2",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "True"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2,
+        "surfaceCount": 9,
+        "fieldCount": 2,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5875618,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "tolerances": {
+        "WavefrontError": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 61,
+          "maxAbsolute": 897.3757763807168,
+          "meanAbsolute": 443.53901047662157,
+          "rmse": 518.7897791264472,
+          "nrmse": 561.0060812695853,
+          "maxRelative": "Infinity",
+          "p50": 403.8190991037992,
+          "p90": 807.638198537779,
+          "p95": 852.5069874433838,
+          "pearson": -0.004283679030732697,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 61,
+          "maxAbsolute": 8.683502247808228E-08,
+          "meanAbsolute": 1.1953709992249357E-08,
+          "rmse": 2.0323905529305995E-08,
+          "nrmse": 8.824423122446869E-08,
+          "maxRelative": "Infinity",
+          "p50": 6.800201013401619E-09,
+          "p90": 1.9295250647255457E-08,
+          "p95": 4.236148851144428E-08,
+          "pearson": 0.9999999999999799,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ]
+    }
+  ]
+}

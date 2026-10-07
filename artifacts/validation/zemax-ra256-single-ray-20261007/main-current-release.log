@@ -1,0 +1,14 @@
+D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+  失败 OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays [6 ms]
+  错误消息:
+   finite_angle: expected 0.058589983242791625, actual 0.060191701479492175
+  堆栈跟踪:
+     at OptilandWorkbench.Tests.FieldDefinitionParityTests.AssertClose(Double expected, Double actual, String caseName) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\Validation\History\FieldDefinitionParityTests.cs:line 384
+   at OptilandWorkbench.Tests.FieldDefinitionParityTests.AssertRay(JsonElement expected, RealRay actual, String caseName) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\Validation\History\FieldDefinitionParityTests.cs:line 365
+   at OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays() in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\Validation\History\FieldDefinitionParityTests.cs:line 48
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+结果文件: D:\Projects\opticalsystem\artifacts\validation\zemax-ra256-single-ray-20261007\main-current-release.trx
+
+失败!  - 失败:     1，通过:  4383，已跳过:     0，总计:  4384，持续时间: 8 m 41 s - OptilandWorkbench.Tests.dll (net10.0)

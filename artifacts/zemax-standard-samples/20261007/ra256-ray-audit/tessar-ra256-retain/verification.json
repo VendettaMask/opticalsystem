@@ -1,0 +1,68 @@
+{
+  "semantics": "Current formal Core per-ray diagnostics; acceptance, first clipping and coordinate residuals are separate. Native accepted-point RMS arithmetic is a reference check, not native analysis equivalence.",
+  "inputs": 51468,
+  "surfaceRayResults": 463212,
+  "nativeAccepted": 51468,
+  "coreAccepted": 51468,
+  "nativeErrors": 0,
+  "acceptanceDifferences": 0,
+  "firstClipDifferences": 0,
+  "physicalMisses": 0,
+  "witnesses": [],
+  "clipWitnesses": [],
+  "physicalCompared": 463212,
+  "maximumPhysicalCoordinateMillimeters": 1.7763568394002505E-13,
+  "maximumPhysicalDirectionComponent": 1.7763568394002505E-15,
+  "virtualMissingOrNativeErrors": 0,
+  "maximumVirtualCoordinateMillimeters": 1.4210854715202004E-13,
+  "maximumVirtualDirectionComponent": 1.7763568394002505E-15,
+  "nativeAcceptedPointRmsMicrometers": 44.28881539014681,
+  "formalRmsMicrometers": 44.28881539012956,
+  "capturedCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+  "currentCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+  "currentToolAssemblySha256": "b6c070ad3a5fde97e4237ce6aee87a78e2ab82eb852a3b62eaf4c9bf867afc32",
+  "sourceSha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644",
+  "originalFileUnchanged": true,
+  "files": [
+    {
+      "path": "source.zmx",
+      "sha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644"
+    },
+    {
+      "path": "snapshot.json",
+      "sha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2"
+    },
+    {
+      "path": "job.json",
+      "sha256": "a189c1cc0135bbb359ae05a7c6d390c6676a9a3e60784e1964ece7acfbc6386f"
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "16731fec27ca0303592748453cd54d50ff427b0c9c97a09f1197479a328aceee"
+    },
+    {
+      "path": "inputs.json",
+      "sha256": "902986fa562a5776770b57f6e06b0a35d7f3f069b9ac1fe78de31601be00a645"
+    },
+    {
+      "path": "core.json",
+      "sha256": "94a83269cc8ed9cd0d64ff481274b1d2a706302326781e01b85b6424401bbf53"
+    },
+    {
+      "path": "native/environment.json",
+      "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+    },
+    {
+      "path": "native/model.json",
+      "sha256": "dcaa03838d1690be09fe3cde1865f286383a0ffaf67c3356db50ff26fa84550d"
+    },
+    {
+      "path": "native/request.json",
+      "sha256": "bf457015ff6b7d155e7f03dfc74d4c907d7d10ac5a7287d74bed477a434d1c80"
+    },
+    {
+      "path": "native/ray-audit.json",
+      "sha256": "a8ae0db7c0c5a895ff4d8781816126c899eb056d6f8b9b843bbd3deb66d029bd"
+    }
+  ]
+}

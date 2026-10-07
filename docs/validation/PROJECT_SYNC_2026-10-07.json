@@ -1,0 +1,922 @@
+{
+  "evidenceFiles": [
+    {
+      "path": "artifacts/validation/audit-reliability-fixes-20261005/audit-release.trx",
+      "bytes": 41326,
+      "sha256": "7805d06be9f9ebe1352de448bb1221699ebb6fa5720a1a10a06451d1950db6a9"
+    },
+    {
+      "path": "artifacts/validation/audit-reliability-fixes-20261005/coating-debug.trx",
+      "bytes": 73980,
+      "sha256": "8535ceda3ff561605ebda2f3295d6cef0c8583dea99f19a4e1015f45275df88d"
+    },
+    {
+      "path": "artifacts/validation/audit-reliability-fixes-20261005/coating-release.trx",
+      "bytes": 74168,
+      "sha256": "416c7d21aa7113e01c6b31e34b44716a08faf779fa0ced3ae988436afb2d72a2"
+    },
+    {
+      "path": "artifacts/validation/audit-reliability-fixes-20261005/comparison-release.trx",
+      "bytes": 191513,
+      "sha256": "28e8a35f77f944e5e99244541b306e355e295af7abf1130d31935fee9a03e66e"
+    },
+    {
+      "path": "artifacts/validation/audit-reliability-fixes-20261005/initial-structure-baseline.trx",
+      "bytes": 8828,
+      "sha256": "1e02bf6eca0ad6e60fbe7bc45c7c173a8131bad1e4ad6a45dc6de059589f1381"
+    },
+    {
+      "path": "artifacts/validation/audit-reliability-fixes-20261005/initial-structure-release.trx",
+      "bytes": 433726,
+      "sha256": "b9dd8d99a08695a7fe972145105968cecd2ec49e0e33ae931f2992c8bc03fa48"
+    },
+    {
+      "path": "artifacts/validation/audit-reliability-fixes-20261005/product-release.trx",
+      "bytes": 6222746,
+      "sha256": "8ab7b50334e12af5b8ea0e08352bef73fc8f963d7c3d1b9886ff3708dd2640e0"
+    },
+    {
+      "path": "artifacts/validation/audit-reliability-fixes-20261005/targeted-debug.trx",
+      "bytes": 330519,
+      "sha256": "200bf60b4f295e9d649a4117fa3004b3f873411a5890dbd096f387553173c08a"
+    },
+    {
+      "path": "artifacts/validation/audit-reliability-fixes-20261005/targeted-release.trx",
+      "bytes": 363414,
+      "sha256": "480c2616c0936db490b118e023263f788cd497d74d3890bebb1bb28b16d70d16"
+    },
+    {
+      "path": "artifacts/validation/audit-reliability-fixes-20261005/verification.json",
+      "bytes": 15670,
+      "sha256": "5363370052077bc21d1a79f7ff7d45f31f9e9090566102b378db310122b1ddf0"
+    },
+    {
+      "path": "artifacts/validation/commercial-phase1-20261006/coating-debug.trx",
+      "bytes": 73980,
+      "sha256": "ecfa2c6f8011eb97e32a5f9a6d627ae2842cc10af249f3d98eec357e6975ae48"
+    },
+    {
+      "path": "artifacts/validation/commercial-phase1-20261006/coating-release.trx",
+      "bytes": 74168,
+      "sha256": "535e1e7d2657ed7b70f0b07e59427bbc966374adfcb7d3412b0dab23dcacb47b"
+    },
+    {
+      "path": "artifacts/validation/commercial-phase1-20261006/comparison-release.trx",
+      "bytes": 191513,
+      "sha256": "ee9f6dc18acbb1194a2b64244a686d3d360841482d7e98dcb97f091a2931fedc"
+    },
+    {
+      "path": "artifacts/validation/commercial-phase1-20261006/final-targeted-debug.trx",
+      "bytes": 83244,
+      "sha256": "712a6112723100f5179071f591c2b43674d29f8753d1ae1daf0f33f4f493bcc1"
+    },
+    {
+      "path": "artifacts/validation/commercial-phase1-20261006/final-targeted-release.trx",
+      "bytes": 83468,
+      "sha256": "73d90059131a58f61a67df24ac0bd6bd75c599d7e846a22fe0ca0db29c2d20e4"
+    },
+    {
+      "path": "artifacts/validation/commercial-phase1-20261006/initial-structure-release.trx",
+      "bytes": 433726,
+      "sha256": "0361138077c52c390d7afbe33f4cbb2461ebcc3c0be001d393c7b1946d68e1cb"
+    },
+    {
+      "path": "artifacts/validation/commercial-phase1-20261006/phase1-targeted-release.trx",
+      "bytes": 172201,
+      "sha256": "de2e9aff0f035a99e8100b7bb11dca30352cf5e22a1b51d46d40c9b1f625ab9f"
+    },
+    {
+      "path": "artifacts/validation/commercial-phase1-20261006/product-debug-before-export-guard.trx",
+      "bytes": 6238476,
+      "sha256": "c1aea0f42e0c7849de80cc1e0a911b57aaa9f5201c685d09543d265b8a9afb4e"
+    },
+    {
+      "path": "artifacts/validation/commercial-phase1-20261006/product-debug.trx",
+      "bytes": 6238627,
+      "sha256": "86f944489bdb9cbf7ab8a0ff3de0ee207e4b0165228d23c51129cee1c7a1a683"
+    },
+    {
+      "path": "artifacts/validation/commercial-phase1-20261006/product-release-before-export-guard.trx",
+      "bytes": 6251089,
+      "sha256": "2ba49fce196bbfba78f3de1c2686609ba40d2e6037511814cf01a7ff12083610"
+    },
+    {
+      "path": "artifacts/validation/commercial-phase1-20261006/product-release-interrupted-before-headless-fix.trx",
+      "bytes": 5882342,
+      "sha256": "cc3ef315d9267f19050785f6e7cd603e9ab88fe294bad10c84aea32f3e06d390"
+    },
+    {
+      "path": "artifacts/validation/commercial-phase1-20261006/product-release.trx",
+      "bytes": 6255177,
+      "sha256": "756d967cd6b396d98134ef6733e90223460e4b66b8090b0d7f94c600cd232aa4"
+    },
+    {
+      "path": "artifacts/validation/commercial-phase1-20261006/sync-documents.ps1",
+      "bytes": 5414,
+      "sha256": "66620d4710c2cfca0c24f0d5b1d739a2d2fa7c7115ac16545b2a44566c36c603"
+    },
+    {
+      "path": "artifacts/validation/commercial-phase1-20261006/verification.json",
+      "bytes": 6413,
+      "sha256": "7d0f03b568161a0d9a277c2ae60baca0c3861bc2d00914786078af124bcd83f3"
+    },
+    {
+      "path": "artifacts/validation/commercial-phase1-20261006/verify-results.ps1",
+      "bytes": 3223,
+      "sha256": "b501388a6c400737670a2b0648f546fb1310c5e43de38744be7a89d1ff9d3a5a"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/build-debug-final.log",
+      "bytes": 1791,
+      "sha256": "f82d903e8fa77719531d34f03f826b900352c2282909ffe4bae57a3e59ff17f2"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/build-release-final.log",
+      "bytes": 1813,
+      "sha256": "a952a48215217b5313a90b26e70100e48ee83d23f5b7859f9bceb31f4766f53a"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/Compare-ImportedModels.ps1",
+      "bytes": 3954,
+      "sha256": "d37164691185c10e3c5233f1c250f74f2ce7d9b5f1f55c94d4362901f2de351c"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/Complete-Verification.ps1",
+      "bytes": 13580,
+      "sha256": "32b7cfec4d53cc0f6f516b52db511bdb2eda758647c58eb1dda96c3e3c10de52"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/cooke-40-degree-field-ra256-remove-after.log",
+      "bytes": 2939,
+      "sha256": "b393df37bca9030a67bdc76870f12d69eeda436e7cefe1a76c750a87f7870273"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/cooke-40-degree-field-ra256-remove-before.log",
+      "bytes": 2677,
+      "sha256": "fc1e2c069729a39e2f403689f3184ff7b64f121de06bd5a53283bee81d403fbe"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/double-gauss-28-degree-field-ra256-remove-after.log",
+      "bytes": 2937,
+      "sha256": "9e34ce569c5e93fe1fe2f0deafbb0c5f98281b4f29fdf913b49b119c04e5ef56"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/double-gauss-28-degree-field-ra256-remove-before.log",
+      "bytes": 2675,
+      "sha256": "de4ef22522b4c34ae943aa0ca86ee6975050f82bbe4343da4a785e1ac1125b44"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/even-asphere-ra256-remove-after.log",
+      "bytes": 2937,
+      "sha256": "a61e47841306bae7c5d6d04f829847d7e60d7594d287d8a7de937039a73f899e"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/even-asphere-ra256-remove-before.log",
+      "bytes": 2675,
+      "sha256": "b594124641a030bf2fd1c9a134fe5c2a836ceae624ec8d10bba0c5cf24a6a8af"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/fresh-import-ra256-release.trx",
+      "bytes": 11493,
+      "sha256": "305bc3323873f30c0e51102dca4116ea4bbf68fec80429c681517df21b1e039d"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/json-streaming-debug-v2.trx",
+      "bytes": 6317,
+      "sha256": "ff61e7e0dec5378c5bb0a2073b8958e60fa0bf03c98caf0ba565c36ddb1e6611"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/main-current-release.log",
+      "bytes": 1608,
+      "sha256": "ac20173eb2ed197165f054d375f9ad28db949ec9ba4d292b37c78fffd4b2339b"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/main-current-release.trx",
+      "bytes": 6390745,
+      "sha256": "a89e679c6714b7f817a96d4e70b24694b86d9cbf8254a75e887c813661c3dc58"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/main-targeted-debug.trx",
+      "bytes": 224318,
+      "sha256": "8922ee6ae967efaeae9b75282f7fb90f5d70f7d61aab036119669d683266e151"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/main-targeted-release.trx",
+      "bytes": 224930,
+      "sha256": "8ec8ebe76e5d0541a49e3ef4c1dd2eec0930f4781b565de81990fe552fc0d71d"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/model-import-differences.json",
+      "bytes": 4267,
+      "sha256": "1828cf3a584901483fc092974159e96bbc452d27b9a9e4992247926d8ae4c5ef"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/model-original132-import-differences.json",
+      "bytes": 3737,
+      "sha256": "9dcf43ffc92e94530e69264cedf5992db51d32e1db2a68430eb2b1e43e78674b"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/phase.json",
+      "bytes": 161,
+      "sha256": "5be475e852de9fad9a13cbd356a4246dc1010687594a650538f86acdecad46ac"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/Prepare-SyncEvidence.ps1",
+      "bytes": 4035,
+      "sha256": "6dcdc0152c77f41e6b596f7d793d844797b00ef51c8573cfadaee647a68ae6d7"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/Publish-Results.ps1",
+      "bytes": 16910,
+      "sha256": "008f00705077dc049b478753514bb8f59fa300d5545df1f40b7f6e5629a801f0"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/ra256-single-ray-fresh-import-controls17.log",
+      "bytes": 1779,
+      "sha256": "2e998d4983c474c6c5d9d6dcc657c9bd3402f06643fd980c4ef957702aaf3d76"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/ra256-single-ray-fresh-import-controls6.log",
+      "bytes": 740,
+      "sha256": "0e8f2d6ad3181981a7f87d0cced13d0e2daeae39ab75742413bfabe849ee02ba"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/ra256-single-ray-fresh-import-original132.log",
+      "bytes": 10777,
+      "sha256": "53bfe4e795256259c5c6aecc3815d3f4e2d562f4050cf819dabce5d1789f778a"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/ra256-single-ray-old-snapshot-controls17.log",
+      "bytes": 1779,
+      "sha256": "8ef6a94fb5d5d88f5faf7be6f1715569b09a716d12a1e2a1f2f07cf694dc1bff"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/ra256-single-ray-old-snapshot-controls6.log",
+      "bytes": 740,
+      "sha256": "d4258f0c7a3171b5996a994d5a443a3c4cdab41eb90fa949d393e28546f6d7d1"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/ra256-single-ray-old-snapshot-original132.log",
+      "bytes": 10777,
+      "sha256": "0dffc731bc87747d52760b91ac5acc03c7cd3cc5dca4daf931e1058eae1ae523"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/relay-lens-ra256-remove-after.log",
+      "bytes": 2941,
+      "sha256": "28d54506f098af72b7543e649325a96eb6d62a091c66cd87a43f159da3bcae8a"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/relay-lens-ra256-remove-before.log",
+      "bytes": 2679,
+      "sha256": "14b746b2d540b6bbb8306a93a71a53468dc64eb69aad442d3de1e4f038eec548"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/Run-FinalVerification.ps1",
+      "bytes": 4031,
+      "sha256": "f067f2b4df3d2acb11b9bc392b6aad99102fb09dd9a12ea825292331ff99a02d"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/single-ray-debug-v2.trx",
+      "bytes": 40749,
+      "sha256": "adb2457e918e20483206cd0915f0712f584e0499c80e5c9f2a256fe29c867c39"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/single-ray-debug.trx",
+      "bytes": 46381,
+      "sha256": "c1f088aca455ff03da8f0fea5956d77fe27ca24f7f9c7b1221c71e2bc8707ec5"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/single-ray-release.trx",
+      "bytes": 40853,
+      "sha256": "5ceead9cdeea57c72d081a05e2cd660a2863af986ba08f7c021e8e767ba3cef2"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/tessar-ra256-remove-streamed-after.log",
+      "bytes": 2940,
+      "sha256": "7ca03bb2bb1856ebf1b8678349e3dad98530c799cfa991bc80f70efd97518a84"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/tessar-ra256-retain-after.log",
+      "bytes": 2941,
+      "sha256": "a8833fb8e710ff52fff1918861bf3b2f94154ed3edb25c9ce8067214610ce09b"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/tool-current-release.log",
+      "bytes": 3108,
+      "sha256": "1da45d1778d933296b9ab902a5886bd69f69d95f9854cc203c8f8268b740d794"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/tool-current-release.trx",
+      "bytes": 314682,
+      "sha256": "3a18411232316169353842deedfe53b7a1192287489975058dcfecedf631a44a"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/tool-ra256-targeted-debug.trx",
+      "bytes": 79473,
+      "sha256": "6d466ca2837d60ec79f5d1a508a40fb770c0acdcd2b4a042fed333128ec24344"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/tool-ra256-targeted-release.trx",
+      "bytes": 79665,
+      "sha256": "18cb683ff7a6492c38707ecf00bebb42459fc93ed30685da167a515440d5dc3e"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/tool-targeted-debug-final.log",
+      "bytes": 516,
+      "sha256": "51d5c7b30bf6100e112bc677cc070fb6d305299b81664da39cb93ad208a0a3e9"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/tool-targeted-debug-final.trx",
+      "bytes": 89209,
+      "sha256": "f745c38c03668f2001d7fb502b6127014ad78623e5037bb2c1e2e8fb2ac9df71"
+    },
+    {
+      "path": "artifacts/validation/zemax-ra256-single-ray-20261007/verification-final.json",
+      "bytes": 83959,
+      "sha256": "194bc2b354474c95bd209b530645b9262ce59c3fd51eb6f9f699ec330ea3057e"
+    },
+    {
+      "path": "artifacts/validation/zemax-rms-field-20261007/comparison-final-release.trx",
+      "bytes": 277076,
+      "sha256": "6261a16cf825fe1acea3e545549baa06c977cd3f20ecd8c8dcee793322b39da2"
+    },
+    {
+      "path": "artifacts/validation/zemax-rms-field-20261007/comparison-release.trx",
+      "bytes": 246919,
+      "sha256": "d9ccb0a59ab8e5303878fe0d7e536d14a234c2c03f8f2661645a53e9f101d9de"
+    },
+    {
+      "path": "artifacts/validation/zemax-rms-field-20261007/Complete-Verification.ps1",
+      "bytes": 9025,
+      "sha256": "8587b343ac99b4122f7e0b4488e1c0ad22b22696fa9e63553f49b72d87ed4fb9"
+    },
+    {
+      "path": "artifacts/validation/zemax-rms-field-20261007/main-release.trx",
+      "bytes": 6342718,
+      "sha256": "164b5907c299bbb8aec9550297be026c926f8807984120ce503151d062e08820"
+    },
+    {
+      "path": "artifacts/validation/zemax-rms-field-20261007/Publish-Results.ps1",
+      "bytes": 8106,
+      "sha256": "484470603220c4a06d50dacc4be2558179793539f3d0fe6d24a9cc76f917bf5d"
+    },
+    {
+      "path": "artifacts/validation/zemax-rms-field-20261007/rms-contract.trx",
+      "bytes": 21290,
+      "sha256": "c65d4e3d5cdddecb4bdf6780a8d4a3c2eb62e4a85c639f8dd4308a97aca10b66"
+    },
+    {
+      "path": "artifacts/validation/zemax-rms-field-20261007/rms-targeted-final-debug.trx",
+      "bytes": 36277,
+      "sha256": "276553d2989a1ba33e3ad67eb08777bc04f321dd6ba18fb96bdfbe039d01ed5f"
+    },
+    {
+      "path": "artifacts/validation/zemax-rms-field-20261007/rms-targeted-final-release.trx",
+      "bytes": 36365,
+      "sha256": "9e3fd3d2a5c0570505a7ebfd66aab1fdf5f595150f264e9a8b345997ff6963c0"
+    },
+    {
+      "path": "artifacts/validation/zemax-rms-field-20261007/rms-tool-targeted.trx",
+      "bytes": 51447,
+      "sha256": "f2e9512e3349c6aabed56d59559c19e45dd77679a439769e8794e6a3262da417"
+    },
+    {
+      "path": "artifacts/validation/zemax-rms-field-20261007/ui-cleanup-isolated-release.trx",
+      "bytes": 25181,
+      "sha256": "eb63ae3bdcb2f605bb3011e844d49f937df3d248dd24b2cb4dca8ef583ac8139"
+    },
+    {
+      "path": "artifacts/validation/zemax-rms-field-20261007/verification-final.json",
+      "bytes": 31238,
+      "sha256": "19021a0ef48479b28cd269490ef01f69e80234d8f95ad35ad38763932c3a4e43"
+    },
+    {
+      "path": "artifacts/validation/zemax-standard-sample-opd-20261006/coating-debug.trx",
+      "bytes": 73980,
+      "sha256": "56adb7f09d6a0ccb117a4c6d9ec412761d1dc75b7ebe2f3883945dfd06b128a2"
+    },
+    {
+      "path": "artifacts/validation/zemax-standard-sample-opd-20261006/coating-release.trx",
+      "bytes": 74168,
+      "sha256": "aca69964591e2bcdb8c0ea09a5cc8672d72f59f45c30f7c50e4f1cf9c04234fe"
+    },
+    {
+      "path": "artifacts/validation/zemax-standard-sample-opd-20261006/comparison-release.trx",
+      "bytes": 217377,
+      "sha256": "f151a3cd31417ab6ae48517611b41116c9b2099f016a4ef8505fe0c7614545db"
+    },
+    {
+      "path": "artifacts/validation/zemax-standard-sample-opd-20261006/Complete-Verification.ps1",
+      "bytes": 5428,
+      "sha256": "3c0cde383dd4bd75e94f9496ba547251899b9b9002ad6f22ece9ad1c38c1e02d"
+    },
+    {
+      "path": "artifacts/validation/zemax-standard-sample-opd-20261006/current-baseline-documents.txt",
+      "bytes": 1245,
+      "sha256": "68d1d31779ac342a735b757c2129bee53b04fa9f67ae4d305a271dc0260c64a3"
+    },
+    {
+      "path": "artifacts/validation/zemax-standard-sample-opd-20261006/debug-timeouts-isolated.trx",
+      "bytes": 25608,
+      "sha256": "726a21e986cac18b177f85a4eb2ec1ae916e264ec2694e00fdace41a9c5d80e3"
+    },
+    {
+      "path": "artifacts/validation/zemax-standard-sample-opd-20261006/initial-structure-release.trx",
+      "bytes": 433726,
+      "sha256": "3e448ff671f46832498e33af700fe2f5fea697e0c7ae2f802b79d69bba6e9269"
+    },
+    {
+      "path": "artifacts/validation/zemax-standard-sample-opd-20261006/main-debug.trx",
+      "bytes": 6259356,
+      "sha256": "8a0a736b14938446f641e14584e0e391fcd33e281f07b2d2fde05a84554ed0fe"
+    },
+    {
+      "path": "artifacts/validation/zemax-standard-sample-opd-20261006/main-release.trx",
+      "bytes": 6273749,
+      "sha256": "ee0a604b8f874690f74dbe164ad77309346a3360a01ace89ae8d9e049180a0c2"
+    },
+    {
+      "path": "artifacts/validation/zemax-standard-sample-opd-20261006/opd-targeted-final.trx",
+      "bytes": 25368,
+      "sha256": "82ee8844f02856e552ec7ac398a829ad35355a9ec1109636e41c785d91bede91"
+    },
+    {
+      "path": "artifacts/validation/zemax-standard-sample-opd-20261006/opd-targeted.trx",
+      "bytes": 38515,
+      "sha256": "7e519272c46c7498574efbe1f2e314e8a88cee766f4cf38a13002db568f8812c"
+    },
+    {
+      "path": "artifacts/validation/zemax-standard-sample-opd-20261006/verification-final.json",
+      "bytes": 19075,
+      "sha256": "49220a946e8a04ab4b9ffa090e3a66e0398320e1fa462ca2bd4fe31362e3d9a2"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-rms-20261007/Complete-Verification.ps1",
+      "bytes": 12091,
+      "sha256": "d50f5f3311317121df439f242b088baf50e03e49a109b66d30c790e45e871c37"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-rms-20261007/concurrency-final-debug.trx",
+      "bytes": 9153,
+      "sha256": "f2715e905904d0f5e3ae013ed125f8252514689f03b75b5a0a69932bd4231183"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-rms-20261007/concurrency-final-release.trx",
+      "bytes": 9173,
+      "sha256": "55b97599edd51ee3a3b6d09ebc385677e2d186b32768e1418bac4f24b1c334cb"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-rms-20261007/main-current-release.trx",
+      "bytes": 6360705,
+      "sha256": "e168aac7dde55c27d8145b0a1e16a0e114ef89a51eeb548aeaf29d7b2d04f627"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-rms-20261007/main-final-release.trx",
+      "bytes": 6361920,
+      "sha256": "efb90731e31a44f85418e737a0b0920b215880a80c59c73d495c54aa8632bd4f"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-rms-20261007/Publish-Results.ps1",
+      "bytes": 10566,
+      "sha256": "fe329528900a9ac18a82d5ac0c4d31f336dcbde584871aa5b7972a5195a1fc5f"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-rms-20261007/rms-grin-final-debug.trx",
+      "bytes": 85570,
+      "sha256": "f95ba529478ce86673c977132269103be569f430e5f74859a6af5d74b3ec4894"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-rms-20261007/rms-grin-final-release.trx",
+      "bytes": 85798,
+      "sha256": "0f69ce040644cd9343e4b9b5f426a1a7294f27da7c72678c7f1561b71170e8ac"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-rms-20261007/rms-targeted-final-release.trx",
+      "bytes": 44108,
+      "sha256": "a15badcbb06ccdd45a384a99996458e3ea46017dffc7729637846223d9176a4e"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-rms-20261007/rms-targeted-release.trx",
+      "bytes": 44777,
+      "sha256": "0b66b9fad941ab468a0759590f81f904f96f03b140ad9f28cca6409efa746bbd"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-rms-20261007/tool-final-current-release.trx",
+      "bytes": 289448,
+      "sha256": "eafb884689c08486b5e9ca0b201a36c6e73cdcf32a2fc3db83e40a431d13ab9a"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-rms-20261007/tool-final-release.trx",
+      "bytes": 289448,
+      "sha256": "6d427b29bcd6411b3a4c5e5f06511e49c8b6b52e54837106d4f85bc4f109a8db"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-rms-20261007/tool-full-release.trx",
+      "bytes": 277127,
+      "sha256": "f5b908f1693d5a3b153af4788bf0a266c5d447dddfd972bd1b8d491a92363ccb"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-rms-20261007/tool-pre-budget-release.trx",
+      "bytes": 289502,
+      "sha256": "363f80fcaa0c14775a4e495c052f42f9b4b8fc4a7a279193412ed97ba22a7e27"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-rms-20261007/tool-rms-audit-targeted.trx",
+      "bytes": 63819,
+      "sha256": "97279ac270f54ffd9182aa9a79dfe2e0ae34dea520f7b705f74b7fafcff5190e"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-rms-20261007/verification-final.json",
+      "bytes": 22587,
+      "sha256": "4bf303c6760a7835ebf9e15ba129fdee222617dbe22af931340b2eed2635b4e9"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-rms-20261007/Verify-Final-Ray-Audit.ps1",
+      "bytes": 4223,
+      "sha256": "fd42696721f1a1735f7d7d8c980d6ae7d929de362c922e469ccb31f569632418"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-vignetting-20261006/comparison-release.trx",
+      "bytes": 226993,
+      "sha256": "a9e8f20784623a494b0a295fc189f6a4f7adbf107f889802f4e3818edb6d79c1"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-vignetting-20261006/Complete-Verification.ps1",
+      "bytes": 7913,
+      "sha256": "20a71d75cffea9cf61aebf7bfff716b5a8733f80649c36b4d997e0da3b53920b"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-vignetting-20261006/main-debug.trx",
+      "bytes": 6302599,
+      "sha256": "03bace6e75a52bbc692e620b16bae4b4e54c9c041ce579b0f88ea5a6679b691e"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-vignetting-20261006/main-release.trx",
+      "bytes": 6319783,
+      "sha256": "d5b92abcf3f701d3e6f55e957c796a467a759d29eb65200342dc969fa4fdc13e"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-vignetting-20261006/phase-fixture-diagnostic.trx",
+      "bytes": 29935,
+      "sha256": "22365574da6ed818102a687faf9204e197860b7ec565c787477714a19e9d6601"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-vignetting-20261006/phase-targeted-final.trx",
+      "bytes": 69514,
+      "sha256": "b3d2ff3597592da2cfc488cf7c0c56ddac1d5ddb474aa43d9a89be934822fcaa"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-vignetting-20261006/phase-targeted.trx",
+      "bytes": 77806,
+      "sha256": "17cb7088c8d04a8ef28cd9277a38733fa91ee01e0a1600f03c58147dd0098354"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-vignetting-20261006/Publish-Results.ps1",
+      "bytes": 8052,
+      "sha256": "e12f7036c8e27e953107e547ed4fc11bfc108661cd444c88276bfcfbf64968c9"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-vignetting-20261006/tessar-targeted-final.trx",
+      "bytes": 67595,
+      "sha256": "40451a84b2ebe4a71a9ea2a8821fb87e8bee87dcbd39eb3faadbc30215dd3a7f"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-vignetting-20261006/tessar-targeted.trx",
+      "bytes": 64697,
+      "sha256": "06519b9724aff3e80271c64e3321cc0810ed707d901883d76fb0fe14235742ec"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-vignetting-20261006/tool-targeted.trx",
+      "bytes": 11721,
+      "sha256": "7e0d7b82d2db7c2722babd73ecbd599e77be7e5b431f213e4d7c66b348730a0d"
+    },
+    {
+      "path": "artifacts/validation/zemax-tessar-vignetting-20261006/verification-final.json",
+      "bytes": 38045,
+      "sha256": "a0fd902d9b59a7ec37499e974ff9e2e0c3a5bc0fa1a8a6a19ada20be43ca8973"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261006/core-replay/Program.cs",
+      "bytes": 11240,
+      "sha256": "f292fed35afb1665b3ab9d77d79746f66c6c097f70445ebb8a7103d86f14b5a9"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261006/core-replay/Replay.csproj",
+      "bytes": 543,
+      "sha256": "1c936135646fd0d274f4c9681f689cd5e1d485a49dc884a621ea0e4cb6495b11"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261006/STANDARD_SAMPLE_COMPARISON_SUMMARY.json",
+      "bytes": 251979,
+      "sha256": "40cfe82b448a69ab0f67a6c7938d14bff3b4fc6471528e9831f906c545c9ad0c"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/RA256_CONTROL_SUMMARY.json",
+      "bytes": 5619,
+      "sha256": "2e0a53de21bf266b56c17828f02ed6ccee9dee1da70afc91752a974d23125455"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/cooke-40-degree-field-ra256-remove/current-import-snapshot.json",
+      "bytes": 50637,
+      "sha256": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/cooke-40-degree-field-ra256-remove/job.json",
+      "bytes": 596,
+      "sha256": "1f43d4788f4491d0ba591f80f837d5d64b3927c1eaa352d82e308538099ac1e5"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/cooke-40-degree-field-ra256-remove/manifest.json",
+      "bytes": 1528,
+      "sha256": "fbf1758a62576cb257148a8ab4857b10deefbe53f3e193ce0303892017603047"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/cooke-40-degree-field-ra256-remove/snapshot.json",
+      "bytes": 50637,
+      "sha256": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/cooke-40-degree-field-ra256-remove/verification-import-source.json",
+      "bytes": 2937,
+      "sha256": "8437304d9edd51a479502e05f9d3266a2e2d02e1226f78f00fb05e8cfc5e8807"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/cooke-40-degree-field-ra256-remove/verification.json",
+      "bytes": 2675,
+      "sha256": "76d98a7a01db386a20e2193246699fb3fc03153d15f31fd2878085a6302a4075"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/double-gauss-28-degree-field-ra256-remove/current-import-snapshot.json",
+      "bytes": 90040,
+      "sha256": "0717ddecdb07617f9b7cd714430d03c2d4b93189d9c4a06c566ef7f9ee49f33b"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/double-gauss-28-degree-field-ra256-remove/job.json",
+      "bytes": 610,
+      "sha256": "16464fdcb4accab3dca1d1c192fccf985ec3ae82b2cb6509ce4d005a5a4ec5b6"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/double-gauss-28-degree-field-ra256-remove/manifest.json",
+      "bytes": 1545,
+      "sha256": "d328d7145471e249aaccc0c08d14a4efb900ec6b19c8bde21605d78c58cc5cad"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/double-gauss-28-degree-field-ra256-remove/snapshot.json",
+      "bytes": 90216,
+      "sha256": "4022df0d2886a10ca5a1e58def4b88f2015643c846459f866500031405fa3a38"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/double-gauss-28-degree-field-ra256-remove/verification-import-source.json",
+      "bytes": 2935,
+      "sha256": "98dd2c6a015c628974a223150d5ed1709d51a95291bfed60e217cbc36ca0e67c"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/double-gauss-28-degree-field-ra256-remove/verification.json",
+      "bytes": 2673,
+      "sha256": "786f8bde273816538e0c259a9a093651e3d94a220dfacd4b1340a4edc39b076e"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/even-asphere-ra256-remove/current-import-snapshot.json",
+      "bytes": 23025,
+      "sha256": "b8e012ebcdfde3213e1c8fa3ba06c57a5e306fe7057f91af07eb6db61e53e2da"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/even-asphere-ra256-remove/job.json",
+      "bytes": 578,
+      "sha256": "25c34fba0deb399caa617402c70b1d99126f6d2f62b801ce9de598de20ec3d7e"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/even-asphere-ra256-remove/manifest.json",
+      "bytes": 1510,
+      "sha256": "cdd5a216a0554a2f731cb0752585d1c20697cf8207de6cf4b43e3d3c1dc0a05e"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/even-asphere-ra256-remove/snapshot.json",
+      "bytes": 23185,
+      "sha256": "5e127d8e3ceb15c015ef1519b6a04599041c6c0d6bace21d9295044ca5a35557"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/even-asphere-ra256-remove/verification-import-source.json",
+      "bytes": 2935,
+      "sha256": "0d01f4b3511da35cd16491f5a96b920f2689592a0588b79d22e6dd68b9528ead"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/even-asphere-ra256-remove/verification.json",
+      "bytes": 2673,
+      "sha256": "9c44326bf86a3c3337e0ce05e74592a144becacbced5c27ecef2580b375d7dc2"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/relay-lens-ra256-remove/current-import-snapshot.json",
+      "bytes": 84551,
+      "sha256": "e66ee1a2982293b6e558c1d13682d17639518d830bc46a88a303474bf4e78412"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/relay-lens-ra256-remove/job.json",
+      "bytes": 574,
+      "sha256": "087e8c7fc0944a2c7a59bd0c73a0e8d0e3545b80f5f76a73734133dc11dfbd88"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/relay-lens-ra256-remove/manifest.json",
+      "bytes": 1510,
+      "sha256": "c30e72f4066b9bc79af5578bf3aa1c416e9f35226e16ef02d488d9f173747ec8"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/relay-lens-ra256-remove/snapshot.json",
+      "bytes": 84727,
+      "sha256": "531ac7f0887fad1406ff7bcfda1576e014e6ed104af04ed3ca07337d6cb84d5c"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/relay-lens-ra256-remove/verification-import-source.json",
+      "bytes": 2939,
+      "sha256": "e3e39ce12ef45023d77aadff2417945e8d7c4f3f2fa7b5998deba57c6be6ab7e"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/relay-lens-ra256-remove/verification.json",
+      "bytes": 2677,
+      "sha256": "d494030764024452b0ac88b21703105936ea55d1a13d62b9c6ff71a384d37507"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/tessar-ra256-remove-streamed/current-import-snapshot.json",
+      "bytes": 58820,
+      "sha256": "bf6ac9106f26ef4e8667c25f6189a1b6740ad21e3bc2417f37953012476de45f"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/tessar-ra256-remove-streamed/job.json",
+      "bytes": 605,
+      "sha256": "33eb333c4fa2f3b3e0d39c64b1471517c86509de8ef84b599612d9d562aa20d8"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/tessar-ra256-remove-streamed/manifest.json",
+      "bytes": 1539,
+      "sha256": "75b779ad0d09e04a4494c5753cc4e537135539ed87dcdefcbafff1f4542c0729"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/tessar-ra256-remove-streamed/snapshot.json",
+      "bytes": 58995,
+      "sha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/tessar-ra256-remove-streamed/verification-import-source.json",
+      "bytes": 2938,
+      "sha256": "14617263fb3895dde9babeef458de2d648bed277dd9d769fbbc8f5d8e736da1c"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/tessar-ra256-remove-streamed/verification.json",
+      "bytes": 7643,
+      "sha256": "805030af8eebf31746158561f7a22754e0c46987cd7a10a8b9f127623f6b12f8"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/tessar-ra256-remove/failure.json",
+      "bytes": 352,
+      "sha256": "e5030c4af81f4c5438511a52092979ad47bc5b16a8fbc337d5bd9fb92ac83af8"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/tessar-ra256-retain/current-import-snapshot.json",
+      "bytes": 58820,
+      "sha256": "bf6ac9106f26ef4e8667c25f6189a1b6740ad21e3bc2417f37953012476de45f"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/tessar-ra256-retain/job.json",
+      "bytes": 597,
+      "sha256": "a189c1cc0135bbb359ae05a7c6d390c6676a9a3e60784e1964ece7acfbc6386f"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/tessar-ra256-retain/manifest.json",
+      "bytes": 1530,
+      "sha256": "16731fec27ca0303592748453cd54d50ff427b0c9c97a09f1197479a328aceee"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/tessar-ra256-retain/snapshot.json",
+      "bytes": 58995,
+      "sha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/tessar-ra256-retain/verification-import-source.json",
+      "bytes": 2939,
+      "sha256": "ce3ad763573ee90c404324999c59c88544ab135bdd012b4e142ce6014aaacdfc"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-ray-audit/tessar-ra256-retain/verification.json",
+      "bytes": 2677,
+      "sha256": "08775491a70a82dae5235da6bdd52714979f75581566b3ed2565890c6d71b93b"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-single-ray-fresh-import-controls17/immutable-evidence.json",
+      "bytes": 70181,
+      "sha256": "82727582bb77790e800e6d9c21f86d15b616f21b548d57b8ab975b880f08f5a3"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-single-ray-fresh-import-controls17/summary.json",
+      "bytes": 285705,
+      "sha256": "f863b4820418b6070e3226b559d773767b43be757b1b9dd75841feae639654ff"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-single-ray-fresh-import-controls6/immutable-evidence.json",
+      "bytes": 25787,
+      "sha256": "3cd2f85a9d439e1a56095aa0d411f11e5200f0dc77c0839b1c208942d6b4a878"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-single-ray-fresh-import-controls6/summary.json",
+      "bytes": 72315,
+      "sha256": "72e9d4c826c1b5a8aab9085a93141e6e5d2049b4aae2e4ee70b73f13a7eba6ad"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-single-ray-fresh-import-original132/immutable-evidence.json",
+      "bytes": 440413,
+      "sha256": "41f16f04a82d8f8bb398ab56a286baa7637403bee4e125acdb5872401356c667"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-single-ray-fresh-import-original132/summary.json",
+      "bytes": 1728307,
+      "sha256": "32cbc7cbaf5b0b90981f3184737066c27faa6cad8e0b0b52e0ea9e73af853889"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-single-ray-old-snapshot-controls17/immutable-evidence.json",
+      "bytes": 70181,
+      "sha256": "82727582bb77790e800e6d9c21f86d15b616f21b548d57b8ab975b880f08f5a3"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-single-ray-old-snapshot-controls17/summary.json",
+      "bytes": 284052,
+      "sha256": "d5bfe89df2c3dffad2d7bd9a2d462abf08170070cbefe2b9a39812bcd2bb8cef"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-single-ray-old-snapshot-controls6/immutable-evidence.json",
+      "bytes": 25787,
+      "sha256": "3cd2f85a9d439e1a56095aa0d411f11e5200f0dc77c0839b1c208942d6b4a878"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-single-ray-old-snapshot-controls6/summary.json",
+      "bytes": 71963,
+      "sha256": "7624dd27519440191f3028b0bb6f737d613dffc1b962a57087e3f763430c5f21"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-single-ray-old-snapshot-original132/immutable-evidence.json",
+      "bytes": 440413,
+      "sha256": "41f16f04a82d8f8bb398ab56a286baa7637403bee4e125acdb5872401356c667"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-single-ray-old-snapshot-original132/summary.json",
+      "bytes": 1717979,
+      "sha256": "5004e8e338d9e758857b70240e66673100ed1f092a49cb624d20db3106d6537b"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-verifier/Program.cs",
+      "bytes": 10229,
+      "sha256": "bd1deb08d8dfa837718c86ea61b2cf6c2644baab9087571759f49851fead09e0"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-verifier/Verifier.csproj",
+      "bytes": 364,
+      "sha256": "4386cae2475ae098ac147b594a41b2518556dc6c4dfe7a10d51e3beb487c3048"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/RMS_CONTROL_SUMMARY.json",
+      "bytes": 15394,
+      "sha256": "2c19fe17a4a70483b2644e8a4a2a73d878f63ac87f302a67a34f9d6470806979"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/rms-controls-recalculated/immutable-evidence.json",
+      "bytes": 70181,
+      "sha256": "82727582bb77790e800e6d9c21f86d15b616f21b548d57b8ab975b880f08f5a3"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/rms-controls-recalculated/summary.json",
+      "bytes": 240398,
+      "sha256": "965a90712048b9d354047410fb6cf398cd6bc9d3897bf1db742a72cacc9fd1c0"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/rms-original132-recalculated/immutable-evidence.json",
+      "bytes": 440413,
+      "sha256": "41f16f04a82d8f8bb398ab56a286baa7637403bee4e125acdb5872401356c667"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/rms-original132-recalculated/summary.json",
+      "bytes": 1537889,
+      "sha256": "cecf2e70daa2590150ba0a2cef5b761be877a75e21b6548f1c69fce273e9fd9c"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/tessar-rms-repair-final-v2-controls/immutable-evidence.json",
+      "bytes": 70181,
+      "sha256": "82727582bb77790e800e6d9c21f86d15b616f21b548d57b8ab975b880f08f5a3"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/tessar-rms-repair-final-v2-controls/summary.json",
+      "bytes": 275595,
+      "sha256": "55be06acb5b9d45964e20661073af9e560a20a90b1d1c02a09728aa8b4694ac2"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/tessar-rms-repair-final-v2-original132/immutable-evidence.json",
+      "bytes": 440413,
+      "sha256": "41f16f04a82d8f8bb398ab56a286baa7637403bee4e125acdb5872401356c667"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/tessar-rms-repair-final-v2-original132/summary.json",
+      "bytes": 1552260,
+      "sha256": "084f5fbf1803d47c29f9fa1616b3d18f638600df681d8c0c290783b559dcd5cc"
+    }
+  ],
+  "totalBytes": 106454218.0,
+  "date": "2026-10-07",
+  "scope": "Selected final and historical verification records, immutable replay summaries/manifests and audit summaries. Full native capture directories and GB-scale ray arrays remain local. Source/tests/docs and frozen validation fixtures are staged separately."
+}

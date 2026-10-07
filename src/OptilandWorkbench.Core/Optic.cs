@@ -843,6 +843,9 @@ public sealed class Optic
         return CreateFromSnapshot(snapshot, template: null, validate: true);
     }
 
+    /// <summary>Copies document state while retaining the registered numeric backends and material catalogs.</summary>
+    public Optic Clone() => CreateFromSnapshot(ToSnapshot(), this, validate: true);
+
     private static Optic CreateFromSnapshot(
         OpticSnapshot snapshot,
         Optic? template,

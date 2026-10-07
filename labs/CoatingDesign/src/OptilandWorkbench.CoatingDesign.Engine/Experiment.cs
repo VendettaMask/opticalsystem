@@ -85,13 +85,19 @@ public sealed record Experiment(int SchemaVersion, Guid Id, string Name, DesignT
     public static readonly JsonSerializerOptions JsonOptions = new()
     {
         WriteIndented = true,
+        NewLine = "\n",
         NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
         Converters = { new JsonStringEnumConverter() }
     };
 
     public Experiment Snapshot() => JsonSerializer.Deserialize<Experiment>(JsonSerializer.Serialize(this, JsonOptions), JsonOptions)!;
-    public string Fingerprint() => Convert.ToHexString(SHA256.HashData(JsonSerializer.SerializeToUtf8Bytes(
-        new { Target, Settings, IncidentId, SubstrateId, LowId, HighId, Materials, Layers }, JsonOptions)));
+    public string Fingerprint() => Fingerprint(JsonOptions);
+
+    internal bool MatchesFingerprint(string fingerprint) => fingerprint == Fingerprint()
+        || fingerprint == Fingerprint(new JsonSerializerOptions(JsonOptions) { NewLine = "\r\n" });
+
+    private string Fingerprint(JsonSerializerOptions options) => Convert.ToHexString(SHA256.HashData(JsonSerializer.SerializeToUtf8Bytes(
+        new { Target, Settings, IncidentId, SubstrateId, LowId, HighId, Materials, Layers }, options)));
 
     public void Validate()
     {

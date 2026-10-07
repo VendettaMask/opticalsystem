@@ -124,6 +124,12 @@ public sealed class SafeHeadlessUnitTestSession : IDisposable
     public Task Dispatch(Action action, CancellationToken cancellationToken) =>
         _inner.Dispatch(action, cancellationToken);
 
+    public Task Dispatch(Func<Task> action, CancellationToken cancellationToken) =>
+        _inner.Dispatch<bool>(async () => { await action(); return true; }, cancellationToken);
+
+    public Task<T> Dispatch<T>(Func<Task<T>> action, CancellationToken cancellationToken) =>
+        _inner.Dispatch<T>(action, cancellationToken);
+
     public void Dispose()
     {
         try
@@ -137,10 +143,24 @@ public sealed class SafeHeadlessUnitTestSession : IDisposable
             // assertions meaningful and do not hide NullReferenceException from
             // test bodies or application code.
         }
+        catch (AggregateException exception) when (IsHeadlessQueueCompletion(exception))
+        {
+            // Only the headless worker's completed-queue teardown race is ignored.
+            // Exceptions from product code or dispatched test bodies still propagate.
+        }
     }
 
     private static bool IsHeadlessDisposeNullReference(Exception exception) =>
         exception.StackTrace?.Contains(
             "Avalonia.Headless.HeadlessUnitTestSession.Dispose",
             StringComparison.Ordinal) == true;
+
+    private static bool IsHeadlessQueueCompletion(AggregateException exception)
+    {
+        var failures = exception.Flatten().InnerExceptions;
+        return failures.Count > 0 && failures.All(failure => failure is InvalidOperationException
+            && failure.StackTrace?.Contains("System.Collections.Concurrent.BlockingCollection`1.Take", StringComparison.Ordinal) == true
+            && failure.StackTrace.Contains("Avalonia.Headless.HeadlessUnitTestSession", StringComparison.Ordinal)
+            && !failure.StackTrace.Contains("OptilandWorkbench", StringComparison.Ordinal));
+    }
 }

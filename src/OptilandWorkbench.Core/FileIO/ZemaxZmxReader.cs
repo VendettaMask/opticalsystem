@@ -829,10 +829,11 @@ internal static class ZemaxZmxReader
             return new AnnularAperture(semiDiameter, Math.Abs(minimumAperture));
         }
 
-        // OpticStudio treats the stop as an aperture and automatically places a
-        // floating circular aperture on a powered surface whose DIAM is user
-        // defined. MEMA is deliberately excluded: it describes only the part edge.
-        if (source.IsStop || (source.SemiDiameterFixed && HasSurfacePower(source)))
+        // Automatic DIAM is a ray-footprint estimate, including at the stop;
+        // it must not become a physical clipping boundary. A user-defined stop
+        // or powered-surface DIAM defines a circular aperture. MEMA only describes
+        // the part edge and is deliberately excluded.
+        if (source.SemiDiameterFixed && (source.IsStop || HasSurfacePower(source)))
         {
             return new CircularAperture(semiDiameter);
         }

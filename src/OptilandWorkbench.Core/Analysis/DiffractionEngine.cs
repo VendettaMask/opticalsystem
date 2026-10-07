@@ -798,6 +798,7 @@ public static class DiffractionEngine
         var sum = Complex.Zero;
         for (var row = 0; row < size; row++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var y = -1 + ((2.0 * row + 1) / size);
             for (var column = 0; column < size; column++)
             {
@@ -843,6 +844,9 @@ public static class DiffractionEngine
         Optic optic,
         Wavelength wavelength)
     {
+        ComputationCancellation.ThrowIfCancellationRequested();
+        ValidatePsfGrid(psf);
+        AnalysisResourceLimits.ValidateFftGrid(psf.GridSize, psf.GridSize);
         var complex = new Complex[psf.GridSize, psf.GridSize];
         var center = psf.GridSize / 2;
         for (var row = 0; row < psf.GridSize; row++)
@@ -920,6 +924,7 @@ public static class DiffractionEngine
         int imageSize,
         double? pixelPitchMicrometers = null)
     {
+        ComputationCancellation.ThrowIfCancellationRequested();
         if (numRays < 2)
         {
             throw new ArgumentOutOfRangeException(nameof(numRays), "MMDFT requires at least two pupil samples.");
@@ -954,13 +959,16 @@ public static class DiffractionEngine
         var imagePlane = new Complex[imageSize, imageSize];
         for (var imageRow = 0; imageRow < imageSize; imageRow++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var imageY = imageRow - (imageSize / 2);
             for (var imageColumn = 0; imageColumn < imageSize; imageColumn++)
             {
+                ComputationCancellation.ThrowIfCancellationRequested();
                 var imageX = imageColumn - (imageSize / 2);
                 var sum = Complex.Zero;
                 for (var pupilRow = 0; pupilRow < numRays; pupilRow++)
                 {
+                    ComputationCancellation.ThrowIfCancellationRequested();
                     var pupilY = pupilRow - (numRays / 2);
                     var left = Complex.FromPolarCoordinates(1, -2 * Math.PI * imageY * pupilY / padSize);
                     for (var pupilColumn = 0; pupilColumn < numRays; pupilColumn++)
@@ -1007,6 +1015,7 @@ public static class DiffractionEngine
         double defocus = 0,
         Wavelength? referenceWavelength = null)
     {
+        ComputationCancellation.ThrowIfCancellationRequested();
         if (numRays < 2)
         {
             throw new ArgumentOutOfRangeException(nameof(numRays), "Huygens PSF requires at least two pupil samples.");
@@ -1168,12 +1177,10 @@ public static class DiffractionEngine
 
     public static MtfResult ComputePsfMtf(PsfResult psf, bool doubleTransformSize = false)
     {
+        ComputationCancellation.ThrowIfCancellationRequested();
+        ValidatePsfGrid(psf);
         var transformSize = doubleTransformSize ? checked(2 * psf.GridSize) : psf.GridSize;
-        if (doubleTransformSize && transformSize > AnalysisResourceLimits.MaximumFftGridSize)
-        {
-            throw new ArgumentOutOfRangeException(nameof(psf),
-                $"The padded MTF transform must not exceed {AnalysisResourceLimits.MaximumFftGridSize} samples per side.");
-        }
+        AnalysisResourceLimits.ValidateMtfTransformWork(transformSize);
 
         // Padding changes the frequency spacing, not the PSF pixel pitch.
         // A spatial translation contributes only phase, so placement at the
@@ -1181,6 +1188,7 @@ public static class DiffractionEngine
         var complex = new Complex[transformSize, transformSize];
         for (var row = 0; row < psf.GridSize; row++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             for (var column = 0; column < psf.GridSize; column++)
             {
                 complex[row, column] = new Complex(psf.Values[row, column], 0);
@@ -1210,7 +1218,10 @@ public static class DiffractionEngine
         PsfResult psf,
         IReadOnlyList<double> spatialFrequencies)
     {
+        ComputationCancellation.ThrowIfCancellationRequested();
+        ValidatePsfGrid(psf);
         ArgumentNullException.ThrowIfNull(spatialFrequencies);
+        AnalysisResourceLimits.ValidateDirectMtfWork(psf.GridSize, spatialFrequencies.Count);
         if (spatialFrequencies.Count == 0)
         {
             return new MtfResult(Array.Empty<double>(), Array.Empty<double>(), Array.Empty<double>(), 0);
@@ -1233,11 +1244,13 @@ public static class DiffractionEngine
             : psf.SampleSpacingMicrometers / 1000.0;
         for (var frequencyIndex = 0; frequencyIndex < frequencies.Length; frequencyIndex++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var angularFrequency = 2 * Math.PI * frequencies[frequencyIndex];
             var tangentialOtf = Complex.Zero;
             var sagittalOtf = Complex.Zero;
             for (var row = 0; row < psf.GridSize; row++)
             {
+                ComputationCancellation.ThrowIfCancellationRequested();
                 var y = (row - center) * spacing;
                 var tangentialPhase = Complex.FromPolarCoordinates(1, -angularFrequency * y);
                 for (var column = 0; column < psf.GridSize; column++)
@@ -1254,6 +1267,16 @@ public static class DiffractionEngine
         }
 
         return new MtfResult(frequencies, tangential, sagittal, frequencies.Max());
+    }
+
+    private static void ValidatePsfGrid(PsfResult psf)
+    {
+        ArgumentNullException.ThrowIfNull(psf);
+        if (psf.GridSize < 1 || psf.GridSize > AnalysisResourceLimits.MaximumFftGridSize
+            || psf.Values is null || psf.Values.GetLength(0) != psf.GridSize
+            || psf.Values.GetLength(1) != psf.GridSize
+            || !double.IsFinite(psf.SampleSpacingMicrometers) || psf.SampleSpacingMicrometers <= 0)
+            throw new ArgumentException("PSF must have a bounded square grid and positive finite sample spacing.", nameof(psf));
     }
 
     public static double WorkingFNumber(
@@ -1401,10 +1424,12 @@ public static class DiffractionEngine
 
     private static void Fft2D(Complex[,] data)
     {
+        ComputationCancellation.ThrowIfCancellationRequested();
         var size = data.GetLength(0);
         var buffer = new Complex[size];
         for (var row = 0; row < size; row++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             for (var column = 0; column < size; column++)
             {
                 buffer[column] = data[row, column];
@@ -1419,6 +1444,7 @@ public static class DiffractionEngine
 
         for (var column = 0; column < size; column++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             for (var row = 0; row < size; row++)
             {
                 buffer[row] = data[row, column];
@@ -1434,38 +1460,44 @@ public static class DiffractionEngine
 
     private static void Transform2D(Complex[,] data)
     {
+        ComputationCancellation.ThrowIfCancellationRequested();
         var size = data.GetLength(0);
+        AnalysisResourceLimits.ValidateMtfTransformWork(size);
         if (IsPowerOfTwo(size))
         {
             Fft2D(data);
             return;
         }
 
-        var transformed = new Complex[size, size];
-        for (var u = 0; u < size; u++)
-        {
-            for (var v = 0; v < size; v++)
-            {
-                var sum = Complex.Zero;
-                for (var row = 0; row < size; row++)
-                {
-                    for (var column = 0; column < size; column++)
-                    {
-                        var angle = -2 * Math.PI * ((u * row / (double)size) + (v * column / (double)size));
-                        sum += data[row, column] * Complex.FromPolarCoordinates(1, angle);
-                    }
-                }
-
-                transformed[u, v] = sum;
-            }
-        }
-
+        // The separable DFT keeps the requested sampling exactly, while reducing
+        // the direct transform from N^4 terms to 2*N^3 terms.
+        var buffer = new Complex[size];
+        var transformed = new Complex[size];
         for (var row = 0; row < size; row++)
         {
-            for (var column = 0; column < size; column++)
-            {
-                data[row, column] = transformed[row, column];
-            }
+            ComputationCancellation.ThrowIfCancellationRequested();
+            for (var column = 0; column < size; column++) buffer[column] = data[row, column];
+            DirectTransform(buffer, transformed);
+            for (var column = 0; column < size; column++) data[row, column] = transformed[column];
+        }
+        for (var column = 0; column < size; column++)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            for (var row = 0; row < size; row++) buffer[row] = data[row, column];
+            DirectTransform(buffer, transformed);
+            for (var row = 0; row < size; row++) data[row, column] = transformed[row];
+        }
+    }
+
+    private static void DirectTransform(Complex[] input, Complex[] output)
+    {
+        for (var frequency = 0; frequency < input.Length; frequency++)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            var sum = Complex.Zero;
+            for (var index = 0; index < input.Length; index++)
+                sum += input[index] * Complex.FromPolarCoordinates(1, -2 * Math.PI * frequency * index / input.Length);
+            output[frequency] = sum;
         }
     }
 
@@ -1593,10 +1625,13 @@ public static class DiffractionEngine
             var thetaY = (row - centerIndex) * angularPixelPitchMilliradians / 1_000.0;
             for (var column = 0; column < imageSize; column++)
             {
+                ComputationCancellation.ThrowIfCancellationRequested();
                 var thetaX = (column - centerIndex) * angularPixelPitchMilliradians / 1_000.0;
                 var field = Complex.Zero;
+                var sampleIndex = 0;
                 foreach (var sample in wavefront.Samples)
                 {
+                    if ((sampleIndex++ & 255) == 0) ComputationCancellation.ThrowIfCancellationRequested();
                     if (sample.Intensity <= 0)
                     {
                         continue;
@@ -1667,10 +1702,13 @@ public static class DiffractionEngine
         {
             for (var column = 0; column < columns; column++)
             {
+                ComputationCancellation.ThrowIfCancellationRequested();
                 var image = imageCoordinates[row, column];
                 var field = Complex.Zero;
+                var sampleIndex = 0;
                 foreach (var sample in wavefront.Samples)
                 {
+                    if ((sampleIndex++ & 255) == 0) ComputationCancellation.ThrowIfCancellationRequested();
                     var pupil = new Vector3D(sample.PupilX, sample.PupilY, sample.PupilZ);
                     var delta = image - pupil;
                     var distance = delta.Length;
@@ -1734,6 +1772,7 @@ public static class DiffractionEngine
 
     private static void Fft(Complex[] values)
     {
+        ComputationCancellation.ThrowIfCancellationRequested();
         var count = values.Length;
         for (int index = 1, reversed = 0; index < count; index++)
         {
@@ -1752,6 +1791,7 @@ public static class DiffractionEngine
 
         for (var length = 2; length <= count; length <<= 1)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var root = Complex.FromPolarCoordinates(1, -2 * Math.PI / length);
             for (var start = 0; start < count; start += length)
             {
@@ -1775,6 +1815,7 @@ public static class DiffractionEngine
         var half = (size + 1) / 2;
         for (var row = 0; row < size; row++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             for (var column = 0; column < size; column++)
             {
                 shifted[row, column] = source[(row + half) % size, (column + half) % size];

@@ -1,0 +1,1307 @@
+{
+  "schemaVersion": 6,
+  "name": "P RUDOLPH TESSAR USP#721240",
+  "aperture": {
+    "kind": "FNumber",
+    "value": 5.5,
+    "objectSpaceTelecentric": false
+  },
+  "backendName": "managed-cpu",
+  "fields": [
+    {
+      "label": "On axis",
+      "xAngleDegrees": 0,
+      "yAngleDegrees": 0,
+      "weight": 1,
+      "vignetteFactorX": 0,
+      "vignetteFactorY": 0,
+      "vignetteDecenterX": 0,
+      "vignetteDecenterY": 0,
+      "vignetteAngleDegrees": 0
+    },
+    {
+      "label": "Field 2",
+      "xAngleDegrees": 0,
+      "yAngleDegrees": 10,
+      "weight": 1,
+      "vignetteFactorX": 0.0499773026,
+      "vignetteFactorY": 0.0888719559,
+      "vignetteDecenterX": 0,
+      "vignetteDecenterY": -0.0590366428,
+      "vignetteAngleDegrees": 0
+    },
+    {
+      "label": "Field 3",
+      "xAngleDegrees": 0,
+      "yAngleDegrees": 17.5,
+      "weight": 1,
+      "vignetteFactorX": 0.0609502792,
+      "vignetteFactorY": 0.187924385,
+      "vignetteDecenterX": 0,
+      "vignetteDecenterY": -0.0549110517,
+      "vignetteAngleDegrees": 0
+    },
+    {
+      "label": "Field 4",
+      "xAngleDegrees": 0,
+      "yAngleDegrees": 25,
+      "weight": 1,
+      "vignetteFactorX": 0.0854997635,
+      "vignetteFactorY": 0.305908203,
+      "vignetteDecenterX": 0,
+      "vignetteDecenterY": -0.0607784421,
+      "vignetteAngleDegrees": 0
+    }
+  ],
+  "wavelengths": [
+    {
+      "label": "W1",
+      "nanometers": 436,
+      "weight": 1,
+      "isPrimary": false
+    },
+    {
+      "label": "W2",
+      "nanometers": 589,
+      "weight": 1,
+      "isPrimary": true
+    },
+    {
+      "label": "W3",
+      "nanometers": 680,
+      "weight": 1,
+      "isPrimary": false
+    }
+  ],
+  "surfaces": [
+    {
+      "number": 0,
+      "label": "Object",
+      "radius": 0,
+      "thickness": "Infinity",
+      "material": "Air",
+      "coating": "None",
+      "semiDiameter": 0.1,
+      "conic": 0,
+      "isStop": false,
+      "isReflective": false,
+      "components": {
+        "geometryKind": "plane",
+        "materialBefore": "Air",
+        "materialAfter": "Air",
+        "coatingKind": "none",
+        "interactionKind": "refractive",
+        "physicalApertureKind": null,
+        "scatteringKind": null,
+        "geometry": {
+          "kind": "plane",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "materialBeforeComponent": {
+          "kind": "air",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "materialAfterComponent": {
+          "kind": "air",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "coating": {
+          "kind": "none",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "interaction": {
+          "kind": "refractive",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "physicalAperture": null,
+        "scattering": null
+      },
+      "radiusVariable": false,
+      "thicknessVariable": false,
+      "semiDiameterFixed": false,
+      "coordinateSystem": {
+        "originX": 0,
+        "originY": 0,
+        "originZ": 0,
+        "rotationXDegrees": 0,
+        "rotationYDegrees": 0,
+        "rotationZDegrees": 0
+      },
+      "mechanicalSemiDiameter": 0,
+      "mechanicalSemiDiameterSolveCode": 0,
+      "semiDiameterDefinesPhysicalAperture": false,
+      "thermalExpansionPpmPerC": null,
+      "chipZone": 0
+    },
+    {
+      "number": 1,
+      "label": "Surface 1",
+      "radius": 21.413000000000665,
+      "thickness": 3.3,
+      "material": "SK4",
+      "coating": "None",
+      "semiDiameter": 10.5,
+      "conic": 0,
+      "isStop": false,
+      "isReflective": false,
+      "components": {
+        "geometryKind": "standard",
+        "materialBefore": "Air",
+        "materialAfter": "SK4",
+        "coatingKind": "none",
+        "interactionKind": "refractive",
+        "physicalApertureKind": "circular",
+        "scatteringKind": null,
+        "geometry": {
+          "kind": "standard",
+          "numbers": {
+            "radius": 21.413000000000665,
+            "conic": 0
+          },
+          "text": {},
+          "children": null
+        },
+        "materialBeforeComponent": {
+          "kind": "air",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "materialAfterComponent": {
+          "kind": "catalog_glass",
+          "numbers": {
+            "minimumWavelengthNanometers": 320,
+            "maximumWavelengthNanometers": 2325,
+            "c0": 1.39388834,
+            "c1": 0.00769147355,
+            "c2": 0.164510721,
+            "c3": 0.0271946227,
+            "c4": 0.963522479,
+            "c5": 99.2757639,
+            "c6": 0,
+            "c7": 0,
+            "c8": 0,
+            "c9": 0,
+            "kw0": 320,
+            "kw1": 334,
+            "kw2": 350,
+            "kw3": 365,
+            "kw4": 370,
+            "kw5": 380,
+            "kw6": 390,
+            "kw7": 400,
+            "kw8": 420,
+            "kw9": 460,
+            "kw10": 500,
+            "kw11": 660,
+            "kw12": 1060,
+            "kw13": 1529,
+            "kw14": 1970.1,
+            "kw15": 2325,
+            "k0": 3.278719991851367E-06,
+            "k1": 1.178680234584507E-06,
+            "k2": 4.972015889503106E-07,
+            "k3": 1.6179899872966597E-07,
+            "k4": 1.2408798686504025E-07,
+            "k5": 7.484310031730606E-08,
+            "k6": 5.067677327519722E-08,
+            "k7": 3.4850090147563674E-08,
+            "k8": 2.4283439977186866E-08,
+            "k9": 1.3237688645714511E-08,
+            "k10": 1.1180021905350575E-08,
+            "k11": 1.475762891506276E-08,
+            "k12": 5.099469551007841E-08,
+            "k13": 9.832573122804563E-08,
+            "k14": 3.216614323230085E-07,
+            "k15": 1.93428347853478E-06
+          },
+          "text": {
+            "name": "SK4",
+            "manufacturer": "SCHOTT",
+            "formula": "zemax formula 2",
+            "zemaxData": "{\u0022Name\u0022:\u0022SK4\u0022,\u0022DispersionFormulaNumber\u0022:2,\u0022MilNumber\u0022:\u0022613586\u0022,\u0022ReferenceIndexD\u0022:1.61272,\u0022ReferenceAbbeNumber\u0022:58.629829,\u0022ExcludeSubstitution\u0022:false,\u0022Status\u0022:2,\u0022MeltFrequency\u0022:0,\u0022Comment\u0022:\u0022\u0022,\u0022ThermalExpansionLow\u0022:6.4,\u0022ThermalExpansionHigh\u0022:7.4,\u0022Density\u0022:3.57,\u0022RelativePartialDispersionDeviation\u0022:-0.0004,\u0022IgnoreThermalExpansion\u0022:false,\u0022DispersionCoefficients\u0022:[1.39388834,0.00769147355,0.164510721,0.0271946227,0.963522479,99.2757639,0,0,0,0],\u0022ThermalCoefficients\u0022:[5.49E-07,1.22E-08,1.33E-13,4.58E-07,5.08E-10,0.173,20],\u0022MechanicalData\u0022:[],\u0022OtherData\u0022:[2.45,3,2,51.3,2,2.2],\u0022MinimumWavelengthMicrometers\u0022:0.32,\u0022MaximumWavelengthMicrometers\u0022:2.325,\u0022InternalTransmissions\u0022:[{\u0022WavelengthMicrometers\u0022:0.32,\u0022Transmission\u0022:0.04,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.334,\u0022Transmission\u0022:0.33,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.35,\u0022Transmission\u0022:0.64,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.365,\u0022Transmission\u0022:0.87,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.37,\u0022Transmission\u0022:0.9,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.38,\u0022Transmission\u0022:0.94,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.39,\u0022Transmission\u0022:0.96,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.4,\u0022Transmission\u0022:0.973,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.42,\u0022Transmission\u0022:0.982,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.46,\u0022Transmission\u0022:0.991,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.5,\u0022Transmission\u0022:0.993,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.66,\u0022Transmission\u0022:0.993,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.06,\u0022Transmission\u0022:0.985,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.529,\u0022Transmission\u0022:0.98,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.9701,\u0022Transmission\u0022:0.95,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:2.325,\u0022Transmission\u0022:0.77,\u0022ThicknessMillimeters\u0022:25}],\u0022StressData\u0022:[],\u0022UnrecognizedRecords\u0022:[]}"
+          },
+          "children": null
+        },
+        "coating": {
+          "kind": "none",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "interaction": {
+          "kind": "refractive",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "physicalAperture": {
+          "kind": "circular",
+          "numbers": {
+            "radius": 10.5
+          },
+          "text": {},
+          "children": null
+        },
+        "scattering": null
+      },
+      "radiusVariable": false,
+      "thicknessVariable": false,
+      "semiDiameterFixed": true,
+      "coordinateSystem": {
+        "originX": 0,
+        "originY": 0,
+        "originZ": 0,
+        "rotationXDegrees": 0,
+        "rotationYDegrees": 0,
+        "rotationZDegrees": 0
+      },
+      "mechanicalSemiDiameter": 10.5,
+      "mechanicalSemiDiameterSolveCode": 0,
+      "semiDiameterDefinesPhysicalAperture": true,
+      "thermalExpansionPpmPerC": null,
+      "chipZone": 0
+    },
+    {
+      "number": 2,
+      "label": "Surface 2",
+      "radius": 0,
+      "thickness": 1.9,
+      "material": "Air",
+      "coating": "None",
+      "semiDiameter": 10.5,
+      "conic": 0,
+      "isStop": false,
+      "isReflective": false,
+      "components": {
+        "geometryKind": "plane",
+        "materialBefore": "SK4",
+        "materialAfter": "Air",
+        "coatingKind": "none",
+        "interactionKind": "refractive",
+        "physicalApertureKind": null,
+        "scatteringKind": null,
+        "geometry": {
+          "kind": "plane",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "materialBeforeComponent": {
+          "kind": "catalog_glass",
+          "numbers": {
+            "minimumWavelengthNanometers": 320,
+            "maximumWavelengthNanometers": 2325,
+            "c0": 1.39388834,
+            "c1": 0.00769147355,
+            "c2": 0.164510721,
+            "c3": 0.0271946227,
+            "c4": 0.963522479,
+            "c5": 99.2757639,
+            "c6": 0,
+            "c7": 0,
+            "c8": 0,
+            "c9": 0,
+            "kw0": 320,
+            "kw1": 334,
+            "kw2": 350,
+            "kw3": 365,
+            "kw4": 370,
+            "kw5": 380,
+            "kw6": 390,
+            "kw7": 400,
+            "kw8": 420,
+            "kw9": 460,
+            "kw10": 500,
+            "kw11": 660,
+            "kw12": 1060,
+            "kw13": 1529,
+            "kw14": 1970.1,
+            "kw15": 2325,
+            "k0": 3.278719991851367E-06,
+            "k1": 1.178680234584507E-06,
+            "k2": 4.972015889503106E-07,
+            "k3": 1.6179899872966597E-07,
+            "k4": 1.2408798686504025E-07,
+            "k5": 7.484310031730606E-08,
+            "k6": 5.067677327519722E-08,
+            "k7": 3.4850090147563674E-08,
+            "k8": 2.4283439977186866E-08,
+            "k9": 1.3237688645714511E-08,
+            "k10": 1.1180021905350575E-08,
+            "k11": 1.475762891506276E-08,
+            "k12": 5.099469551007841E-08,
+            "k13": 9.832573122804563E-08,
+            "k14": 3.216614323230085E-07,
+            "k15": 1.93428347853478E-06
+          },
+          "text": {
+            "name": "SK4",
+            "manufacturer": "SCHOTT",
+            "formula": "zemax formula 2",
+            "zemaxData": "{\u0022Name\u0022:\u0022SK4\u0022,\u0022DispersionFormulaNumber\u0022:2,\u0022MilNumber\u0022:\u0022613586\u0022,\u0022ReferenceIndexD\u0022:1.61272,\u0022ReferenceAbbeNumber\u0022:58.629829,\u0022ExcludeSubstitution\u0022:false,\u0022Status\u0022:2,\u0022MeltFrequency\u0022:0,\u0022Comment\u0022:\u0022\u0022,\u0022ThermalExpansionLow\u0022:6.4,\u0022ThermalExpansionHigh\u0022:7.4,\u0022Density\u0022:3.57,\u0022RelativePartialDispersionDeviation\u0022:-0.0004,\u0022IgnoreThermalExpansion\u0022:false,\u0022DispersionCoefficients\u0022:[1.39388834,0.00769147355,0.164510721,0.0271946227,0.963522479,99.2757639,0,0,0,0],\u0022ThermalCoefficients\u0022:[5.49E-07,1.22E-08,1.33E-13,4.58E-07,5.08E-10,0.173,20],\u0022MechanicalData\u0022:[],\u0022OtherData\u0022:[2.45,3,2,51.3,2,2.2],\u0022MinimumWavelengthMicrometers\u0022:0.32,\u0022MaximumWavelengthMicrometers\u0022:2.325,\u0022InternalTransmissions\u0022:[{\u0022WavelengthMicrometers\u0022:0.32,\u0022Transmission\u0022:0.04,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.334,\u0022Transmission\u0022:0.33,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.35,\u0022Transmission\u0022:0.64,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.365,\u0022Transmission\u0022:0.87,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.37,\u0022Transmission\u0022:0.9,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.38,\u0022Transmission\u0022:0.94,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.39,\u0022Transmission\u0022:0.96,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.4,\u0022Transmission\u0022:0.973,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.42,\u0022Transmission\u0022:0.982,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.46,\u0022Transmission\u0022:0.991,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.5,\u0022Transmission\u0022:0.993,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.66,\u0022Transmission\u0022:0.993,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.06,\u0022Transmission\u0022:0.985,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.529,\u0022Transmission\u0022:0.98,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.9701,\u0022Transmission\u0022:0.95,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:2.325,\u0022Transmission\u0022:0.77,\u0022ThicknessMillimeters\u0022:25}],\u0022StressData\u0022:[],\u0022UnrecognizedRecords\u0022:[]}"
+          },
+          "children": null
+        },
+        "materialAfterComponent": {
+          "kind": "air",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "coating": {
+          "kind": "none",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "interaction": {
+          "kind": "refractive",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "physicalAperture": null,
+        "scattering": null
+      },
+      "radiusVariable": false,
+      "thicknessVariable": false,
+      "semiDiameterFixed": true,
+      "coordinateSystem": {
+        "originX": 0,
+        "originY": 0,
+        "originZ": 3.3,
+        "rotationXDegrees": 0,
+        "rotationYDegrees": -0,
+        "rotationZDegrees": 0
+      },
+      "mechanicalSemiDiameter": 10.5,
+      "mechanicalSemiDiameterSolveCode": 0,
+      "semiDiameterDefinesPhysicalAperture": false,
+      "thermalExpansionPpmPerC": null,
+      "chipZone": 0
+    },
+    {
+      "number": 3,
+      "label": "Surface 3",
+      "radius": -74.19999999998383,
+      "thickness": 1.1,
+      "material": "BAF4",
+      "coating": "None",
+      "semiDiameter": 10.5,
+      "conic": 0,
+      "isStop": false,
+      "isReflective": false,
+      "components": {
+        "geometryKind": "standard",
+        "materialBefore": "Air",
+        "materialAfter": "BAF4",
+        "coatingKind": "none",
+        "interactionKind": "refractive",
+        "physicalApertureKind": "circular",
+        "scatteringKind": null,
+        "geometry": {
+          "kind": "standard",
+          "numbers": {
+            "radius": -74.19999999998383,
+            "conic": 0
+          },
+          "text": {},
+          "children": null
+        },
+        "materialBeforeComponent": {
+          "kind": "air",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "materialAfterComponent": {
+          "kind": "catalog_glass",
+          "numbers": {
+            "minimumWavelengthNanometers": 334,
+            "maximumWavelengthNanometers": 2500,
+            "c0": 1.3749259,
+            "c1": 0.00929554343,
+            "c2": 0.1463545,
+            "c3": 0.0440426654,
+            "c4": 0.912643359,
+            "c5": 116.607899,
+            "c6": 0,
+            "c7": 0,
+            "c8": 0,
+            "c9": 0,
+            "kw0": 334,
+            "kw1": 350,
+            "kw2": 365,
+            "kw3": 370,
+            "kw4": 380,
+            "kw5": 390,
+            "kw6": 400,
+            "kw7": 420,
+            "kw8": 460,
+            "kw9": 500,
+            "kw10": 660,
+            "kw11": 1060,
+            "kw12": 1300,
+            "kw13": 1529,
+            "kw14": 1970.1,
+            "kw15": 2325,
+            "kw16": 2500,
+            "k0": 1.7110819957474325E-06,
+            "k1": 3.0574586391988045E-07,
+            "k2": 9.687534514691894E-08,
+            "k3": 6.04105019844237E-08,
+            "k4": 3.9339323110495626E-08,
+            "k5": 2.634720388296142E-08,
+            "k6": 2.053656690526461E-08,
+            "k7": 1.749367666796468E-08,
+            "k8": 1.6195720917291893E-08,
+            "k9": 1.2783598293824266E-08,
+            "k10": 1.0530574674469557E-08,
+            "k11": 1.0137468197468269E-08,
+            "k12": 3.3237355563943094E-08,
+            "k13": 6.8618875052516E-08,
+            "k14": 8.733156367049723E-07,
+            "k15": 2.8541741936634424E-06,
+            "k16": 4.3348011304014115E-06
+          },
+          "text": {
+            "name": "BAF4",
+            "manufacturer": "SCHOTT",
+            "formula": "zemax formula 2",
+            "zemaxData": "{\u0022Name\u0022:\u0022BAF4\u0022,\u0022DispersionFormulaNumber\u0022:2,\u0022MilNumber\u0022:\u0022606439\u0022,\u0022ReferenceIndexD\u0022:1.605621,\u0022ReferenceAbbeNumber\u0022:43.929699,\u0022ExcludeSubstitution\u0022:false,\u0022Status\u0022:2,\u0022MeltFrequency\u0022:0,\u0022Comment\u0022:\u0022\u0022,\u0022ThermalExpansionLow\u0022:7.9,\u0022ThermalExpansionHigh\u0022:8.8,\u0022Density\u0022:3.5,\u0022RelativePartialDispersionDeviation\u0022:0.0006,\u0022IgnoreThermalExpansion\u0022:false,\u0022DispersionCoefficients\u0022:[1.3749259,0.00929554343,0.1463545,0.0440426654,0.912643359,116.607899,0,0,0,0],\u0022ThermalCoefficients\u0022:[9.36E-07,1.49E-08,-3.89E-11,7.92E-07,-2.05E-11,0.228,20],\u0022MechanicalData\u0022:[],\u0022OtherData\u0022:[2.25,2,0,2,1,1],\u0022MinimumWavelengthMicrometers\u0022:0.334,\u0022MaximumWavelengthMicrometers\u0022:2.5,\u0022InternalTransmissions\u0022:[{\u0022WavelengthMicrometers\u0022:0.334,\u0022Transmission\u0022:0.2,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.35,\u0022Transmission\u0022:0.76,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.365,\u0022Transmission\u0022:0.92,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.37,\u0022Transmission\u0022:0.95,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.38,\u0022Transmission\u0022:0.968,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.39,\u0022Transmission\u0022:0.979,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.4,\u0022Transmission\u0022:0.984,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.42,\u0022Transmission\u0022:0.987,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.46,\u0022Transmission\u0022:0.989,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.5,\u0022Transmission\u0022:0.992,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.66,\u0022Transmission\u0022:0.995,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.06,\u0022Transmission\u0022:0.997,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.3,\u0022Transmission\u0022:0.992,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.529,\u0022Transmission\u0022:0.986,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.9701,\u0022Transmission\u0022:0.87,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:2.325,\u0022Transmission\u0022:0.68,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:2.5,\u0022Transmission\u0022:0.58,\u0022ThicknessMillimeters\u0022:25}],\u0022StressData\u0022:[],\u0022UnrecognizedRecords\u0022:[]}"
+          },
+          "children": null
+        },
+        "coating": {
+          "kind": "none",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "interaction": {
+          "kind": "refractive",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "physicalAperture": {
+          "kind": "circular",
+          "numbers": {
+            "radius": 10.5
+          },
+          "text": {},
+          "children": null
+        },
+        "scattering": null
+      },
+      "radiusVariable": false,
+      "thicknessVariable": false,
+      "semiDiameterFixed": true,
+      "coordinateSystem": {
+        "originX": 0,
+        "originY": 0,
+        "originZ": 5.199999999999999,
+        "rotationXDegrees": 0,
+        "rotationYDegrees": -0,
+        "rotationZDegrees": 0
+      },
+      "mechanicalSemiDiameter": 10.5,
+      "mechanicalSemiDiameterSolveCode": 0,
+      "semiDiameterDefinesPhysicalAperture": true,
+      "thermalExpansionPpmPerC": null,
+      "chipZone": 0
+    },
+    {
+      "number": 4,
+      "label": "Surface 4",
+      "radius": 20.800000000001333,
+      "thickness": 3,
+      "material": "Air",
+      "coating": "None",
+      "semiDiameter": 10.5,
+      "conic": 0,
+      "isStop": false,
+      "isReflective": false,
+      "components": {
+        "geometryKind": "standard",
+        "materialBefore": "BAF4",
+        "materialAfter": "Air",
+        "coatingKind": "none",
+        "interactionKind": "refractive",
+        "physicalApertureKind": "circular",
+        "scatteringKind": null,
+        "geometry": {
+          "kind": "standard",
+          "numbers": {
+            "radius": 20.800000000001333,
+            "conic": 0
+          },
+          "text": {},
+          "children": null
+        },
+        "materialBeforeComponent": {
+          "kind": "catalog_glass",
+          "numbers": {
+            "minimumWavelengthNanometers": 334,
+            "maximumWavelengthNanometers": 2500,
+            "c0": 1.3749259,
+            "c1": 0.00929554343,
+            "c2": 0.1463545,
+            "c3": 0.0440426654,
+            "c4": 0.912643359,
+            "c5": 116.607899,
+            "c6": 0,
+            "c7": 0,
+            "c8": 0,
+            "c9": 0,
+            "kw0": 334,
+            "kw1": 350,
+            "kw2": 365,
+            "kw3": 370,
+            "kw4": 380,
+            "kw5": 390,
+            "kw6": 400,
+            "kw7": 420,
+            "kw8": 460,
+            "kw9": 500,
+            "kw10": 660,
+            "kw11": 1060,
+            "kw12": 1300,
+            "kw13": 1529,
+            "kw14": 1970.1,
+            "kw15": 2325,
+            "kw16": 2500,
+            "k0": 1.7110819957474325E-06,
+            "k1": 3.0574586391988045E-07,
+            "k2": 9.687534514691894E-08,
+            "k3": 6.04105019844237E-08,
+            "k4": 3.9339323110495626E-08,
+            "k5": 2.634720388296142E-08,
+            "k6": 2.053656690526461E-08,
+            "k7": 1.749367666796468E-08,
+            "k8": 1.6195720917291893E-08,
+            "k9": 1.2783598293824266E-08,
+            "k10": 1.0530574674469557E-08,
+            "k11": 1.0137468197468269E-08,
+            "k12": 3.3237355563943094E-08,
+            "k13": 6.8618875052516E-08,
+            "k14": 8.733156367049723E-07,
+            "k15": 2.8541741936634424E-06,
+            "k16": 4.3348011304014115E-06
+          },
+          "text": {
+            "name": "BAF4",
+            "manufacturer": "SCHOTT",
+            "formula": "zemax formula 2",
+            "zemaxData": "{\u0022Name\u0022:\u0022BAF4\u0022,\u0022DispersionFormulaNumber\u0022:2,\u0022MilNumber\u0022:\u0022606439\u0022,\u0022ReferenceIndexD\u0022:1.605621,\u0022ReferenceAbbeNumber\u0022:43.929699,\u0022ExcludeSubstitution\u0022:false,\u0022Status\u0022:2,\u0022MeltFrequency\u0022:0,\u0022Comment\u0022:\u0022\u0022,\u0022ThermalExpansionLow\u0022:7.9,\u0022ThermalExpansionHigh\u0022:8.8,\u0022Density\u0022:3.5,\u0022RelativePartialDispersionDeviation\u0022:0.0006,\u0022IgnoreThermalExpansion\u0022:false,\u0022DispersionCoefficients\u0022:[1.3749259,0.00929554343,0.1463545,0.0440426654,0.912643359,116.607899,0,0,0,0],\u0022ThermalCoefficients\u0022:[9.36E-07,1.49E-08,-3.89E-11,7.92E-07,-2.05E-11,0.228,20],\u0022MechanicalData\u0022:[],\u0022OtherData\u0022:[2.25,2,0,2,1,1],\u0022MinimumWavelengthMicrometers\u0022:0.334,\u0022MaximumWavelengthMicrometers\u0022:2.5,\u0022InternalTransmissions\u0022:[{\u0022WavelengthMicrometers\u0022:0.334,\u0022Transmission\u0022:0.2,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.35,\u0022Transmission\u0022:0.76,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.365,\u0022Transmission\u0022:0.92,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.37,\u0022Transmission\u0022:0.95,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.38,\u0022Transmission\u0022:0.968,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.39,\u0022Transmission\u0022:0.979,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.4,\u0022Transmission\u0022:0.984,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.42,\u0022Transmission\u0022:0.987,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.46,\u0022Transmission\u0022:0.989,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.5,\u0022Transmission\u0022:0.992,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.66,\u0022Transmission\u0022:0.995,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.06,\u0022Transmission\u0022:0.997,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.3,\u0022Transmission\u0022:0.992,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.529,\u0022Transmission\u0022:0.986,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.9701,\u0022Transmission\u0022:0.87,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:2.325,\u0022Transmission\u0022:0.68,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:2.5,\u0022Transmission\u0022:0.58,\u0022ThicknessMillimeters\u0022:25}],\u0022StressData\u0022:[],\u0022UnrecognizedRecords\u0022:[]}"
+          },
+          "children": null
+        },
+        "materialAfterComponent": {
+          "kind": "air",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "coating": {
+          "kind": "none",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "interaction": {
+          "kind": "refractive",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "physicalAperture": {
+          "kind": "circular",
+          "numbers": {
+            "radius": 10.5
+          },
+          "text": {},
+          "children": null
+        },
+        "scattering": null
+      },
+      "radiusVariable": false,
+      "thicknessVariable": false,
+      "semiDiameterFixed": true,
+      "coordinateSystem": {
+        "originX": 0,
+        "originY": 0,
+        "originZ": 6.299999999999999,
+        "rotationXDegrees": 0,
+        "rotationYDegrees": -0,
+        "rotationZDegrees": 0
+      },
+      "mechanicalSemiDiameter": 10.5,
+      "mechanicalSemiDiameterSolveCode": 0,
+      "semiDiameterDefinesPhysicalAperture": true,
+      "thermalExpansionPpmPerC": null,
+      "chipZone": 0
+    },
+    {
+      "number": 5,
+      "label": "Aperture stop",
+      "radius": 0,
+      "thickness": 3,
+      "material": "Air",
+      "coating": "None",
+      "semiDiameter": 8.110958772931815,
+      "conic": 0,
+      "isStop": true,
+      "isReflective": false,
+      "components": {
+        "geometryKind": "plane",
+        "materialBefore": "Air",
+        "materialAfter": "Air",
+        "coatingKind": "none",
+        "interactionKind": "refractive",
+        "physicalApertureKind": "circular",
+        "scatteringKind": null,
+        "geometry": {
+          "kind": "plane",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "materialBeforeComponent": {
+          "kind": "air",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "materialAfterComponent": {
+          "kind": "air",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "coating": {
+          "kind": "none",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "interaction": {
+          "kind": "refractive",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "physicalAperture": {
+          "kind": "circular",
+          "numbers": {
+            "radius": 8.110958772931815
+          },
+          "text": {},
+          "children": null
+        },
+        "scattering": null
+      },
+      "radiusVariable": false,
+      "thicknessVariable": false,
+      "semiDiameterFixed": false,
+      "coordinateSystem": {
+        "originX": 0,
+        "originY": 0,
+        "originZ": 9.299999999999999,
+        "rotationXDegrees": 0,
+        "rotationYDegrees": -0,
+        "rotationZDegrees": 0
+      },
+      "mechanicalSemiDiameter": 8.110958772931815,
+      "mechanicalSemiDiameterSolveCode": 0,
+      "semiDiameterDefinesPhysicalAperture": false,
+      "thermalExpansionPpmPerC": null,
+      "chipZone": 0
+    },
+    {
+      "number": 6,
+      "label": "Surface 6",
+      "radius": -111.30000000000051,
+      "thickness": 1.1,
+      "material": "KF9",
+      "coating": "None",
+      "semiDiameter": 8.5,
+      "conic": 0,
+      "isStop": false,
+      "isReflective": false,
+      "components": {
+        "geometryKind": "standard",
+        "materialBefore": "Air",
+        "materialAfter": "KF9",
+        "coatingKind": "none",
+        "interactionKind": "refractive",
+        "physicalApertureKind": "circular",
+        "scatteringKind": null,
+        "geometry": {
+          "kind": "standard",
+          "numbers": {
+            "radius": -111.30000000000051,
+            "conic": 0
+          },
+          "text": {},
+          "children": null
+        },
+        "materialBeforeComponent": {
+          "kind": "air",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "materialAfterComponent": {
+          "kind": "catalog_glass",
+          "numbers": {
+            "minimumWavelengthNanometers": 334,
+            "maximumWavelengthNanometers": 2325,
+            "c0": 1.16421867,
+            "c1": 0.00787954228,
+            "c2": 0.118007401,
+            "c3": 0.0372520495,
+            "c4": 0.923054885,
+            "c5": 109.924834,
+            "c6": 0,
+            "c7": 0,
+            "c8": 0,
+            "c9": 0,
+            "kw0": 334,
+            "kw1": 350,
+            "kw2": 365,
+            "kw3": 370,
+            "kw4": 380,
+            "kw5": 390,
+            "kw6": 400,
+            "kw7": 420,
+            "kw8": 460,
+            "kw9": 500,
+            "kw10": 660,
+            "kw11": 1060,
+            "kw12": 1260,
+            "kw13": 1360,
+            "kw14": 1529,
+            "kw15": 1970.1,
+            "kw16": 2325,
+            "k0": 1.0570442954066451E-06,
+            "k1": 2.911824591342679E-07,
+            "k2": 8.431488676435376E-08,
+            "k3": 5.9171420777149436E-08,
+            "k4": 4.3093834870436324E-08,
+            "k5": 3.1429743453819294E-08,
+            "k6": 2.702277321329377E-08,
+            "k7": 2.0205445390785785E-08,
+            "k8": 1.1760910430318327E-08,
+            "k9": 1.1180021905350575E-08,
+            "k10": 8.420232710160347E-09,
+            "k11": 6.7549267677608835E-09,
+            "k12": 1.2050198046047188E-08,
+            "k13": 1.735078255426981E-08,
+            "k14": 2.4395831329187805E-08,
+            "k15": 1.1684770830349444E-06,
+            "k16": 3.780469673236656E-06
+          },
+          "text": {
+            "name": "KF9",
+            "manufacturer": "SCHOTT",
+            "formula": "zemax formula 2",
+            "zemaxData": "{\u0022Name\u0022:\u0022KF9\u0022,\u0022DispersionFormulaNumber\u0022:2,\u0022MilNumber\u0022:\u0022523515\u0022,\u0022ReferenceIndexD\u0022:1.523412,\u0022ReferenceAbbeNumber\u0022:51.492996,\u0022ExcludeSubstitution\u0022:false,\u0022Status\u0022:2,\u0022MeltFrequency\u0022:0,\u0022Comment\u0022:\u0022\u0022,\u0022ThermalExpansionLow\u0022:6.8,\u0022ThermalExpansionHigh\u0022:7.9,\u0022Density\u0022:2.71,\u0022RelativePartialDispersionDeviation\u0022:-0.0014,\u0022IgnoreThermalExpansion\u0022:false,\u0022DispersionCoefficients\u0022:[1.16421867,0.00787954228,0.118007401,0.0372520495,0.923054885,109.924834,0,0,0,0],\u0022ThermalCoefficients\u0022:[4.13E-06,1.4E-08,-2.12E-11,6.25E-07,6.96E-10,0.2,20],\u0022MechanicalData\u0022:[],\u0022OtherData\u0022:[1.95,1,0,1,1,1],\u0022MinimumWavelengthMicrometers\u0022:0.334,\u0022MaximumWavelengthMicrometers\u0022:2.325,\u0022InternalTransmissions\u0022:[{\u0022WavelengthMicrometers\u0022:0.334,\u0022Transmission\u0022:0.37,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.35,\u0022Transmission\u0022:0.77,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.365,\u0022Transmission\u0022:0.93,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.37,\u0022Transmission\u0022:0.951,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.38,\u0022Transmission\u0022:0.965,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.39,\u0022Transmission\u0022:0.975,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.4,\u0022Transmission\u0022:0.979,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.42,\u0022Transmission\u0022:0.985,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.46,\u0022Transmission\u0022:0.992,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.5,\u0022Transmission\u0022:0.993,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.66,\u0022Transmission\u0022:0.996,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.06,\u0022Transmission\u0022:0.998,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.26,\u0022Transmission\u0022:0.997,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.36,\u0022Transmission\u0022:0.996,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.529,\u0022Transmission\u0022:0.995,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.9701,\u0022Transmission\u0022:0.83,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:2.325,\u0022Transmission\u0022:0.6,\u0022ThicknessMillimeters\u0022:25}],\u0022StressData\u0022:[],\u0022UnrecognizedRecords\u0022:[]}"
+          },
+          "children": null
+        },
+        "coating": {
+          "kind": "none",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "interaction": {
+          "kind": "refractive",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "physicalAperture": {
+          "kind": "circular",
+          "numbers": {
+            "radius": 8.5
+          },
+          "text": {},
+          "children": null
+        },
+        "scattering": null
+      },
+      "radiusVariable": false,
+      "thicknessVariable": false,
+      "semiDiameterFixed": true,
+      "coordinateSystem": {
+        "originX": 0,
+        "originY": 0,
+        "originZ": 12.299999999999999,
+        "rotationXDegrees": 0,
+        "rotationYDegrees": -0,
+        "rotationZDegrees": 0
+      },
+      "mechanicalSemiDiameter": 8.5,
+      "mechanicalSemiDiameterSolveCode": 0,
+      "semiDiameterDefinesPhysicalAperture": true,
+      "thermalExpansionPpmPerC": null,
+      "chipZone": 0
+    },
+    {
+      "number": 7,
+      "label": "Surface 7",
+      "radius": 25.1999999999998,
+      "thickness": 3,
+      "material": "SK4",
+      "coating": "None",
+      "semiDiameter": 8.5,
+      "conic": 0,
+      "isStop": false,
+      "isReflective": false,
+      "components": {
+        "geometryKind": "standard",
+        "materialBefore": "KF9",
+        "materialAfter": "SK4",
+        "coatingKind": "none",
+        "interactionKind": "refractive",
+        "physicalApertureKind": "circular",
+        "scatteringKind": null,
+        "geometry": {
+          "kind": "standard",
+          "numbers": {
+            "radius": 25.1999999999998,
+            "conic": 0
+          },
+          "text": {},
+          "children": null
+        },
+        "materialBeforeComponent": {
+          "kind": "catalog_glass",
+          "numbers": {
+            "minimumWavelengthNanometers": 334,
+            "maximumWavelengthNanometers": 2325,
+            "c0": 1.16421867,
+            "c1": 0.00787954228,
+            "c2": 0.118007401,
+            "c3": 0.0372520495,
+            "c4": 0.923054885,
+            "c5": 109.924834,
+            "c6": 0,
+            "c7": 0,
+            "c8": 0,
+            "c9": 0,
+            "kw0": 334,
+            "kw1": 350,
+            "kw2": 365,
+            "kw3": 370,
+            "kw4": 380,
+            "kw5": 390,
+            "kw6": 400,
+            "kw7": 420,
+            "kw8": 460,
+            "kw9": 500,
+            "kw10": 660,
+            "kw11": 1060,
+            "kw12": 1260,
+            "kw13": 1360,
+            "kw14": 1529,
+            "kw15": 1970.1,
+            "kw16": 2325,
+            "k0": 1.0570442954066451E-06,
+            "k1": 2.911824591342679E-07,
+            "k2": 8.431488676435376E-08,
+            "k3": 5.9171420777149436E-08,
+            "k4": 4.3093834870436324E-08,
+            "k5": 3.1429743453819294E-08,
+            "k6": 2.702277321329377E-08,
+            "k7": 2.0205445390785785E-08,
+            "k8": 1.1760910430318327E-08,
+            "k9": 1.1180021905350575E-08,
+            "k10": 8.420232710160347E-09,
+            "k11": 6.7549267677608835E-09,
+            "k12": 1.2050198046047188E-08,
+            "k13": 1.735078255426981E-08,
+            "k14": 2.4395831329187805E-08,
+            "k15": 1.1684770830349444E-06,
+            "k16": 3.780469673236656E-06
+          },
+          "text": {
+            "name": "KF9",
+            "manufacturer": "SCHOTT",
+            "formula": "zemax formula 2",
+            "zemaxData": "{\u0022Name\u0022:\u0022KF9\u0022,\u0022DispersionFormulaNumber\u0022:2,\u0022MilNumber\u0022:\u0022523515\u0022,\u0022ReferenceIndexD\u0022:1.523412,\u0022ReferenceAbbeNumber\u0022:51.492996,\u0022ExcludeSubstitution\u0022:false,\u0022Status\u0022:2,\u0022MeltFrequency\u0022:0,\u0022Comment\u0022:\u0022\u0022,\u0022ThermalExpansionLow\u0022:6.8,\u0022ThermalExpansionHigh\u0022:7.9,\u0022Density\u0022:2.71,\u0022RelativePartialDispersionDeviation\u0022:-0.0014,\u0022IgnoreThermalExpansion\u0022:false,\u0022DispersionCoefficients\u0022:[1.16421867,0.00787954228,0.118007401,0.0372520495,0.923054885,109.924834,0,0,0,0],\u0022ThermalCoefficients\u0022:[4.13E-06,1.4E-08,-2.12E-11,6.25E-07,6.96E-10,0.2,20],\u0022MechanicalData\u0022:[],\u0022OtherData\u0022:[1.95,1,0,1,1,1],\u0022MinimumWavelengthMicrometers\u0022:0.334,\u0022MaximumWavelengthMicrometers\u0022:2.325,\u0022InternalTransmissions\u0022:[{\u0022WavelengthMicrometers\u0022:0.334,\u0022Transmission\u0022:0.37,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.35,\u0022Transmission\u0022:0.77,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.365,\u0022Transmission\u0022:0.93,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.37,\u0022Transmission\u0022:0.951,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.38,\u0022Transmission\u0022:0.965,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.39,\u0022Transmission\u0022:0.975,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.4,\u0022Transmission\u0022:0.979,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.42,\u0022Transmission\u0022:0.985,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.46,\u0022Transmission\u0022:0.992,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.5,\u0022Transmission\u0022:0.993,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.66,\u0022Transmission\u0022:0.996,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.06,\u0022Transmission\u0022:0.998,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.26,\u0022Transmission\u0022:0.997,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.36,\u0022Transmission\u0022:0.996,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.529,\u0022Transmission\u0022:0.995,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.9701,\u0022Transmission\u0022:0.83,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:2.325,\u0022Transmission\u0022:0.6,\u0022ThicknessMillimeters\u0022:25}],\u0022StressData\u0022:[],\u0022UnrecognizedRecords\u0022:[]}"
+          },
+          "children": null
+        },
+        "materialAfterComponent": {
+          "kind": "catalog_glass",
+          "numbers": {
+            "minimumWavelengthNanometers": 320,
+            "maximumWavelengthNanometers": 2325,
+            "c0": 1.39388834,
+            "c1": 0.00769147355,
+            "c2": 0.164510721,
+            "c3": 0.0271946227,
+            "c4": 0.963522479,
+            "c5": 99.2757639,
+            "c6": 0,
+            "c7": 0,
+            "c8": 0,
+            "c9": 0,
+            "kw0": 320,
+            "kw1": 334,
+            "kw2": 350,
+            "kw3": 365,
+            "kw4": 370,
+            "kw5": 380,
+            "kw6": 390,
+            "kw7": 400,
+            "kw8": 420,
+            "kw9": 460,
+            "kw10": 500,
+            "kw11": 660,
+            "kw12": 1060,
+            "kw13": 1529,
+            "kw14": 1970.1,
+            "kw15": 2325,
+            "k0": 3.278719991851367E-06,
+            "k1": 1.178680234584507E-06,
+            "k2": 4.972015889503106E-07,
+            "k3": 1.6179899872966597E-07,
+            "k4": 1.2408798686504025E-07,
+            "k5": 7.484310031730606E-08,
+            "k6": 5.067677327519722E-08,
+            "k7": 3.4850090147563674E-08,
+            "k8": 2.4283439977186866E-08,
+            "k9": 1.3237688645714511E-08,
+            "k10": 1.1180021905350575E-08,
+            "k11": 1.475762891506276E-08,
+            "k12": 5.099469551007841E-08,
+            "k13": 9.832573122804563E-08,
+            "k14": 3.216614323230085E-07,
+            "k15": 1.93428347853478E-06
+          },
+          "text": {
+            "name": "SK4",
+            "manufacturer": "SCHOTT",
+            "formula": "zemax formula 2",
+            "zemaxData": "{\u0022Name\u0022:\u0022SK4\u0022,\u0022DispersionFormulaNumber\u0022:2,\u0022MilNumber\u0022:\u0022613586\u0022,\u0022ReferenceIndexD\u0022:1.61272,\u0022ReferenceAbbeNumber\u0022:58.629829,\u0022ExcludeSubstitution\u0022:false,\u0022Status\u0022:2,\u0022MeltFrequency\u0022:0,\u0022Comment\u0022:\u0022\u0022,\u0022ThermalExpansionLow\u0022:6.4,\u0022ThermalExpansionHigh\u0022:7.4,\u0022Density\u0022:3.57,\u0022RelativePartialDispersionDeviation\u0022:-0.0004,\u0022IgnoreThermalExpansion\u0022:false,\u0022DispersionCoefficients\u0022:[1.39388834,0.00769147355,0.164510721,0.0271946227,0.963522479,99.2757639,0,0,0,0],\u0022ThermalCoefficients\u0022:[5.49E-07,1.22E-08,1.33E-13,4.58E-07,5.08E-10,0.173,20],\u0022MechanicalData\u0022:[],\u0022OtherData\u0022:[2.45,3,2,51.3,2,2.2],\u0022MinimumWavelengthMicrometers\u0022:0.32,\u0022MaximumWavelengthMicrometers\u0022:2.325,\u0022InternalTransmissions\u0022:[{\u0022WavelengthMicrometers\u0022:0.32,\u0022Transmission\u0022:0.04,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.334,\u0022Transmission\u0022:0.33,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.35,\u0022Transmission\u0022:0.64,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.365,\u0022Transmission\u0022:0.87,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.37,\u0022Transmission\u0022:0.9,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.38,\u0022Transmission\u0022:0.94,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.39,\u0022Transmission\u0022:0.96,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.4,\u0022Transmission\u0022:0.973,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.42,\u0022Transmission\u0022:0.982,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.46,\u0022Transmission\u0022:0.991,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.5,\u0022Transmission\u0022:0.993,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.66,\u0022Transmission\u0022:0.993,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.06,\u0022Transmission\u0022:0.985,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.529,\u0022Transmission\u0022:0.98,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.9701,\u0022Transmission\u0022:0.95,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:2.325,\u0022Transmission\u0022:0.77,\u0022ThicknessMillimeters\u0022:25}],\u0022StressData\u0022:[],\u0022UnrecognizedRecords\u0022:[]}"
+          },
+          "children": null
+        },
+        "coating": {
+          "kind": "none",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "interaction": {
+          "kind": "refractive",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "physicalAperture": {
+          "kind": "circular",
+          "numbers": {
+            "radius": 8.5
+          },
+          "text": {},
+          "children": null
+        },
+        "scattering": null
+      },
+      "radiusVariable": false,
+      "thicknessVariable": false,
+      "semiDiameterFixed": true,
+      "coordinateSystem": {
+        "originX": 0,
+        "originY": 0,
+        "originZ": 13.399999999999999,
+        "rotationXDegrees": 0,
+        "rotationYDegrees": -0,
+        "rotationZDegrees": 0
+      },
+      "mechanicalSemiDiameter": 8.5,
+      "mechanicalSemiDiameterSolveCode": 0,
+      "semiDiameterDefinesPhysicalAperture": true,
+      "thermalExpansionPpmPerC": null,
+      "chipZone": 0
+    },
+    {
+      "number": 8,
+      "label": "Surface 8",
+      "radius": -37.11300000000669,
+      "thickness": 90.907,
+      "material": "Air",
+      "coating": "None",
+      "semiDiameter": 8.5,
+      "conic": 0,
+      "isStop": false,
+      "isReflective": false,
+      "components": {
+        "geometryKind": "standard",
+        "materialBefore": "SK4",
+        "materialAfter": "Air",
+        "coatingKind": "none",
+        "interactionKind": "refractive",
+        "physicalApertureKind": "circular",
+        "scatteringKind": null,
+        "geometry": {
+          "kind": "standard",
+          "numbers": {
+            "radius": -37.11300000000669,
+            "conic": 0
+          },
+          "text": {},
+          "children": null
+        },
+        "materialBeforeComponent": {
+          "kind": "catalog_glass",
+          "numbers": {
+            "minimumWavelengthNanometers": 320,
+            "maximumWavelengthNanometers": 2325,
+            "c0": 1.39388834,
+            "c1": 0.00769147355,
+            "c2": 0.164510721,
+            "c3": 0.0271946227,
+            "c4": 0.963522479,
+            "c5": 99.2757639,
+            "c6": 0,
+            "c7": 0,
+            "c8": 0,
+            "c9": 0,
+            "kw0": 320,
+            "kw1": 334,
+            "kw2": 350,
+            "kw3": 365,
+            "kw4": 370,
+            "kw5": 380,
+            "kw6": 390,
+            "kw7": 400,
+            "kw8": 420,
+            "kw9": 460,
+            "kw10": 500,
+            "kw11": 660,
+            "kw12": 1060,
+            "kw13": 1529,
+            "kw14": 1970.1,
+            "kw15": 2325,
+            "k0": 3.278719991851367E-06,
+            "k1": 1.178680234584507E-06,
+            "k2": 4.972015889503106E-07,
+            "k3": 1.6179899872966597E-07,
+            "k4": 1.2408798686504025E-07,
+            "k5": 7.484310031730606E-08,
+            "k6": 5.067677327519722E-08,
+            "k7": 3.4850090147563674E-08,
+            "k8": 2.4283439977186866E-08,
+            "k9": 1.3237688645714511E-08,
+            "k10": 1.1180021905350575E-08,
+            "k11": 1.475762891506276E-08,
+            "k12": 5.099469551007841E-08,
+            "k13": 9.832573122804563E-08,
+            "k14": 3.216614323230085E-07,
+            "k15": 1.93428347853478E-06
+          },
+          "text": {
+            "name": "SK4",
+            "manufacturer": "SCHOTT",
+            "formula": "zemax formula 2",
+            "zemaxData": "{\u0022Name\u0022:\u0022SK4\u0022,\u0022DispersionFormulaNumber\u0022:2,\u0022MilNumber\u0022:\u0022613586\u0022,\u0022ReferenceIndexD\u0022:1.61272,\u0022ReferenceAbbeNumber\u0022:58.629829,\u0022ExcludeSubstitution\u0022:false,\u0022Status\u0022:2,\u0022MeltFrequency\u0022:0,\u0022Comment\u0022:\u0022\u0022,\u0022ThermalExpansionLow\u0022:6.4,\u0022ThermalExpansionHigh\u0022:7.4,\u0022Density\u0022:3.57,\u0022RelativePartialDispersionDeviation\u0022:-0.0004,\u0022IgnoreThermalExpansion\u0022:false,\u0022DispersionCoefficients\u0022:[1.39388834,0.00769147355,0.164510721,0.0271946227,0.963522479,99.2757639,0,0,0,0],\u0022ThermalCoefficients\u0022:[5.49E-07,1.22E-08,1.33E-13,4.58E-07,5.08E-10,0.173,20],\u0022MechanicalData\u0022:[],\u0022OtherData\u0022:[2.45,3,2,51.3,2,2.2],\u0022MinimumWavelengthMicrometers\u0022:0.32,\u0022MaximumWavelengthMicrometers\u0022:2.325,\u0022InternalTransmissions\u0022:[{\u0022WavelengthMicrometers\u0022:0.32,\u0022Transmission\u0022:0.04,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.334,\u0022Transmission\u0022:0.33,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.35,\u0022Transmission\u0022:0.64,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.365,\u0022Transmission\u0022:0.87,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.37,\u0022Transmission\u0022:0.9,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.38,\u0022Transmission\u0022:0.94,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.39,\u0022Transmission\u0022:0.96,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.4,\u0022Transmission\u0022:0.973,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.42,\u0022Transmission\u0022:0.982,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.46,\u0022Transmission\u0022:0.991,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.5,\u0022Transmission\u0022:0.993,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:0.66,\u0022Transmission\u0022:0.993,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.06,\u0022Transmission\u0022:0.985,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.529,\u0022Transmission\u0022:0.98,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:1.9701,\u0022Transmission\u0022:0.95,\u0022ThicknessMillimeters\u0022:25},{\u0022WavelengthMicrometers\u0022:2.325,\u0022Transmission\u0022:0.77,\u0022ThicknessMillimeters\u0022:25}],\u0022StressData\u0022:[],\u0022UnrecognizedRecords\u0022:[]}"
+          },
+          "children": null
+        },
+        "materialAfterComponent": {
+          "kind": "air",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "coating": {
+          "kind": "none",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "interaction": {
+          "kind": "refractive",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "physicalAperture": {
+          "kind": "circular",
+          "numbers": {
+            "radius": 8.5
+          },
+          "text": {},
+          "children": null
+        },
+        "scattering": null
+      },
+      "radiusVariable": false,
+      "thicknessVariable": false,
+      "semiDiameterFixed": true,
+      "coordinateSystem": {
+        "originX": 0,
+        "originY": 0,
+        "originZ": 16.4,
+        "rotationXDegrees": 0,
+        "rotationYDegrees": -0,
+        "rotationZDegrees": 0
+      },
+      "mechanicalSemiDiameter": 8.5,
+      "mechanicalSemiDiameterSolveCode": 0,
+      "semiDiameterDefinesPhysicalAperture": true,
+      "thermalExpansionPpmPerC": null,
+      "chipZone": 0
+    },
+    {
+      "number": 9,
+      "label": "Image",
+      "radius": 0,
+      "thickness": 0,
+      "material": "Air",
+      "coating": "None",
+      "semiDiameter": 46.160828452465594,
+      "conic": 0,
+      "isStop": false,
+      "isReflective": false,
+      "components": {
+        "geometryKind": "plane",
+        "materialBefore": "Air",
+        "materialAfter": "Air",
+        "coatingKind": "none",
+        "interactionKind": "refractive",
+        "physicalApertureKind": null,
+        "scatteringKind": null,
+        "geometry": {
+          "kind": "plane",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "materialBeforeComponent": {
+          "kind": "air",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "materialAfterComponent": {
+          "kind": "air",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "coating": {
+          "kind": "none",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "interaction": {
+          "kind": "refractive",
+          "numbers": {},
+          "text": {},
+          "children": null
+        },
+        "physicalAperture": null,
+        "scattering": null
+      },
+      "radiusVariable": false,
+      "thicknessVariable": false,
+      "semiDiameterFixed": false,
+      "coordinateSystem": {
+        "originX": 0,
+        "originY": 0,
+        "originZ": 107.30699999999999,
+        "rotationXDegrees": 0,
+        "rotationYDegrees": -0,
+        "rotationZDegrees": 0
+      },
+      "mechanicalSemiDiameter": 46.160828452465594,
+      "mechanicalSemiDiameterSolveCode": 0,
+      "semiDiameterDefinesPhysicalAperture": false,
+      "thermalExpansionPpmPerC": null,
+      "chipZone": 0
+    }
+  ],
+  "apodization": {
+    "kind": "zemax_pupil",
+    "numbers": {
+      "type": 0,
+      "factor": 0
+    },
+    "text": {},
+    "children": null
+  },
+  "fieldDefinition": "Angle",
+  "objectSpaceTelecentric": false,
+  "fieldGroupTelecentric": false,
+  "radiusPickups": [],
+  "solveSettings": {
+    "desiredBackFocus": 30,
+    "keepImageAtBackFocus": true
+  },
+  "meritOperands": [
+    {
+      "enabled": false,
+      "type": "BLNK",
+      "surface": 0,
+      "field": 0,
+      "wavelength": 0,
+      "hx": 0,
+      "hy": 0,
+      "px": 0,
+      "py": 0,
+      "target": 0,
+      "weight": 1,
+      "comment": "",
+      "pupilRings": 3,
+      "pupilArms": 6,
+      "pupilObscuration": 0,
+      "pupilSampling": "hexapolar",
+      "spatialFrequency": 30,
+      "ignoreLateralColor": false,
+      "polychromaticReference": false,
+      "compatibilityOnly": false,
+      "zemaxIntegerParameters": [],
+      "zemaxDataParameters": []
+    }
+  ],
+  "environment": {
+    "matchRefractiveIndexData": true,
+    "temperatureCelsius": 20,
+    "pressureAtmospheres": 1
+  },
+  "glassCatalogs": [
+    "SCHOTT"
+  ],
+  "rayAimingEnabled": false,
+  "imageSpaceAfocal": false,
+  "thicknessPickups": [],
+  "semiDiameterPickups": [],
+  "globalReferenceSurfaceNumber": 1,
+  "polarization": {
+    "unpolarized": true,
+    "jx": 1,
+    "jy": 0,
+    "xPhaseDegrees": 0,
+    "yPhaseDegrees": 0,
+    "referenceAxis": "X"
+  }
+}

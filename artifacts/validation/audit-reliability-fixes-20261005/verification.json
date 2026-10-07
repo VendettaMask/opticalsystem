@@ -1,0 +1,325 @@
+{
+  "date": "2026-10-05",
+  "baselineHead": "949623b70224df249185d3b5d458288f3107d049",
+  "platform": "Windows x64",
+  "sdk": "10.0.300",
+  "runtime": "10.0.8",
+  "builds": [
+    {
+      "target": "OptilandWorkbench.slnx",
+      "configurations": [
+        "Debug",
+        "Release"
+      ],
+      "warnings": 0,
+      "errors": 0,
+      "defaultOutput": true
+    },
+    {
+      "target": "labs/CoatingDesign/OptilandWorkbench.CoatingDesign.slnx",
+      "configurations": [
+        "Debug",
+        "Release"
+      ],
+      "warnings": 0,
+      "errors": 0,
+      "defaultOutput": true
+    },
+    {
+      "target": "labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx",
+      "configurations": [
+        "Release"
+      ],
+      "warnings": 0,
+      "errors": 0,
+      "defaultOutput": true
+    }
+  ],
+  "tests": {
+    "productRelease": {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\audit-reliability-fixes-20261005\\product-release.trx",
+      "total": 4264,
+      "passed": 4259,
+      "failed": 5,
+      "failures": [
+        {
+          "name": "OptilandWorkbench.Tests.InterferogramFooterTests.MetadataUsesActualSelectedFieldCoordinatesAndTypedUnits(fieldKind: ObjectHeight, unit: Millimeter)",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 9.9999999999999995E-07)\r\nActual: 5.1585971897472049E-05"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays",
+          "message": "finite_angle: expected 0.058589983242791625, actual 0.060191701479492175"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.InterferogramFooterTests.MetadataUsesActualSelectedFieldCoordinatesAndTypedUnits(fieldKind: Angle, unit: Degree)",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 9.9999999999999995E-07)\r\nActual: 0.0004362478765655986"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.AnalysisCatalogGeneratesDataForEveryRegisteredName",
+          "message": "OptilandWorkbench.Core.Analysis.AnalysisDataUnavailableException : Relative Illumination has no valid data: the pupil mapping folds in image direction-cosine space."
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OpticCapabilityPreflightTests.EveryPublicParaxialEntryPointBlocksOpaqueGeometry",
+          "message": "System.InvalidOperationException : Test argument mapping is missing for GaussianBeam.useX."
+        }
+      ],
+      "sha256": "8AB7B50334E12AF5B8EA0E08352BEF73FC8F963D7C3D1B9886FF3708DD2640E0"
+    },
+    "productBaseline": {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\code-audit\\2026-10-05\\product.trx",
+      "total": 4236,
+      "passed": 4231,
+      "failed": 5,
+      "failures": [
+        {
+          "name": "OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays",
+          "message": "finite_angle: expected 0.058589983242791625, actual 0.060191701479492175"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.InterferogramFooterTests.MetadataUsesActualSelectedFieldCoordinatesAndTypedUnits(fieldKind: ObjectHeight, unit: Millimeter)",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 9.9999999999999995E-07)\r\nActual: 5.1585971897472049E-05"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OptilandParityTests.AnalysisCatalogGeneratesDataForEveryRegisteredName",
+          "message": "OptilandWorkbench.Core.Analysis.AnalysisDataUnavailableException : Relative Illumination has no valid data: the pupil mapping folds in image direction-cosine space."
+        },
+        {
+          "name": "OptilandWorkbench.Tests.OpticCapabilityPreflightTests.EveryPublicParaxialEntryPointBlocksOpaqueGeometry",
+          "message": "System.InvalidOperationException : Test argument mapping is missing for GaussianBeam.useX."
+        },
+        {
+          "name": "OptilandWorkbench.Tests.InterferogramFooterTests.MetadataUsesActualSelectedFieldCoordinatesAndTypedUnits(fieldKind: Angle, unit: Degree)",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 9.9999999999999995E-07)\r\nActual: 0.0004362478765655986"
+        }
+      ],
+      "sha256": "9252124EC80884AA0D6156F7D3C1D040928E563AED2E5BCEB11D6F6D7062BEBD"
+    },
+    "targetedDebug": {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\audit-reliability-fixes-20261005\\targeted-debug.trx",
+      "total": 228,
+      "passed": 228,
+      "failed": 0,
+      "failures": [],
+      "sha256": "200BF60B4F295E9D649A4117FA3004B3F873411A5890DBD096F387553173C08A"
+    },
+    "addedProductRelease": {
+      "total": 28,
+      "passed": 28,
+      "failed": 0,
+      "source": "Subset of product-release.trx"
+    },
+    "coatingRelease": {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\audit-reliability-fixes-20261005\\coating-release.trx",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "failures": [],
+      "sha256": "416C7D21AA7113E01C6B31E34B44716A08FAF779FA0CED3AE988436AFB2D72A2"
+    },
+    "coatingDebug": {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\audit-reliability-fixes-20261005\\coating-debug.trx",
+      "total": 47,
+      "passed": 47,
+      "failed": 0,
+      "failures": [],
+      "sha256": "8535CEDA3FF561605EBDA2F3295D6CEF0C8583DEA99F19A4E1015F45275DF88D"
+    },
+    "initialStructureRelease": {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\audit-reliability-fixes-20261005\\initial-structure-release.trx",
+      "total": 260,
+      "passed": 258,
+      "failed": 2,
+      "failures": [
+        {
+          "name": "OptilandWorkbench.InitialStructure.Tests.JointGeometryRestartTests.CompleteRaysAcrossGeometryBoundKeepFullFieldDuringRestart(id: \"trial-0078\", maximumRms: 0.45000000000000001)",
+          "message": "Assert.True() Failure\r\nExpected: True\r\nActual:   False"
+        },
+        {
+          "name": "OptilandWorkbench.InitialStructure.Tests.SecantLeastSquaresTests.FrozenOpticalCasesReachOriginalTargetsWithFreshCoreValidation(index: 9)",
+          "message": "Assert.True() Failure\r\nExpected: True\r\nActual:   False"
+        }
+      ],
+      "sha256": "B9DD8D99A08695A7FE972145105968CECD2EC49E0E33AE931F2992C8BC03FA48"
+    },
+    "initialStructureBaseline": {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\audit-reliability-fixes-20261005\\initial-structure-baseline.trx",
+      "total": 2,
+      "passed": 0,
+      "failed": 2,
+      "failures": [
+        {
+          "name": "OptilandWorkbench.InitialStructure.Tests.SecantLeastSquaresTests.FrozenOpticalCasesReachOriginalTargetsWithFreshCoreValidation(index: 9)",
+          "message": "Assert.True() Failure\r\nExpected: True\r\nActual:   False"
+        },
+        {
+          "name": "OptilandWorkbench.InitialStructure.Tests.JointGeometryRestartTests.CompleteRaysAcrossGeometryBoundKeepFullFieldDuringRestart(id: \"trial-0078\", maximumRms: 0.45000000000000001)",
+          "message": "Assert.True() Failure\r\nExpected: True\r\nActual:   False"
+        }
+      ],
+      "sha256": "1E02BF6ECA0AD6E60FBE7BC45C7C173A8131BAD1E4AD6A45DC6DE059589F1381"
+    },
+    "comparisonRelease": {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\audit-reliability-fixes-20261005\\comparison-release.trx",
+      "total": 104,
+      "passed": 102,
+      "failed": 2,
+      "failures": [
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: \"Huygens PSF Cross Section\", slug: \"huygens-psf-cross-section\", recordedNrmse: 0.0037256669899999998)",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.0037256669899999998)\r\nActual: 0.0037256670590166724"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: \"Diffraction Encircled Energy\", directory: \"diffraction-encircled-energy-c1\")",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.01146706362185577)\r\nActual: 0.011467280942848471"
+        }
+      ],
+      "sha256": "28E8A35F77F944E5E99244541B306E355E295AF7ABF1130D31935FEE9A03E66E"
+    },
+    "comparisonBaseline": {
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\code-audit\\2026-10-05\\comparison.trx",
+      "total": 104,
+      "passed": 102,
+      "failed": 2,
+      "failures": [
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: \"Huygens PSF Cross Section\", slug: \"huygens-psf-cross-section\", recordedNrmse: 0.0037256669899999998)",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.0037256669899999998)\r\nActual: 0.0037256670590166724"
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: \"Diffraction Encircled Energy\", directory: \"diffraction-encircled-energy-c1\")",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.01146706362185577)\r\nActual: 0.011467280942848471"
+        }
+      ],
+      "sha256": "8390D19865B90AEA5A80482427BBBC1D2DCC0DDC0FBE9DB56D4FFA7B444BB7E6"
+    }
+  },
+  "unchangedFailureNames": {
+    "product": true,
+    "comparison": true,
+    "initialStructure": true
+  },
+  "baselineCore": {
+    "source": "git archive HEAD src/OptilandWorkbench.Core Directory.Build.props Directory.Build.targets",
+    "dllSha256": "6929000B63246A66CDC51848BF8CB3DAEA438AB0F37EF98D53044E5CBC9AAAB6",
+    "testProcedure": "Copied original laboratory test output to an isolated artifacts folder; substituted only the original HEAD Core DLL; ran the two failing cases."
+  },
+  "coatingFingerprintProbe": {
+    "savedLF": "A8A419A856065FDC043170C1DDAB0699947BAA4DB94317E764172EB984C293F7",
+    "originalWindowsCRLF": "BD03EC9BF2C547121141304537FDD83D4E36BF96CAC3E46C03B235D008FD178D"
+  },
+  "sourceSha256": [
+    {
+      "path": "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/Experiment.cs",
+      "sha256": "39439E0CE7463BD5B5D2C46BF22A289C5D3354A752D376A2F95C5B5350256B08"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/ExperimentStore.cs",
+      "sha256": "4E0F00130A0B02B50CCEAAA20B4FF625D1BD3C834B5DEB8B22C58E9450A9E4C8"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/DailyDesignTests.cs",
+      "sha256": "48CA28F20EE9866AADEA970C67CC6D5CD5B9DA430111631E3BD1A163C66CB90E"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/Shell/MainWindow.Documents.cs",
+      "sha256": "4F0FBD2ECB587BED3A6A7DB2FD4F44E6D69EEA52D7FF60EB69C17A8475F30B9A"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Components.cs",
+      "sha256": "A4E0070A3E1B185C1B686723DDE1CD7568A2F12E8D578DF86754D20D528F3944"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Configuration.cs",
+      "sha256": "7035F86A44104678CA401175128CBF34CDDC59E37A66CB44AD715B2DBB9240B6"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Documents.cs",
+      "sha256": "67FA6D7C1286459DF7A410A3B77DE3C9A3A3D74B461700DF43E1EC7C852E9BA9"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Services/OpticalDocumentService.cs",
+      "sha256": "7EF62BF810C10CF07073F3020802C6BE4A1BDBAEA148C743C5DADF60E6DA24B6"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Services/OptimizationService.Run.cs",
+      "sha256": "3DF851AC425DD0C9EFB6D44CD1CEC564ED9CF2CE0180863ED7DE313C0391E57F"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Services/WorkspaceCoordinator.cs",
+      "sha256": "E52871F4F013E287FB203BB2611E248564B7385E9EDD378ADAC6E6A5122D9306"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/AnalysisResourceLimits.cs",
+      "sha256": "AB6DABF539739C6BCAFD19B365BA4F690006603AE0608B6301E867C37BA2B5C9"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Extended/ImageAndPolarizationAnalyses.cs",
+      "sha256": "3B63C575963D7246922CFFA091727491141FFD2E350982A18FC8E275E37AA169"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/ImageSimulationEngine.cs",
+      "sha256": "4D8549EC1B3571818FBBE4578991B1CFBBD13E611F2A0C3CC427F9E5DD757C99"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Backend/NumericBackendProvider.cs",
+      "sha256": "EBA16DFC1AEC4A8057259E4AEEE0F1DAE6635FB8B1072F8D5DE4097A8C03E412"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Domain/OpticalSurface.cs",
+      "sha256": "5817A493F6E489E305E5934C4A2F211BB87A6A60AC34BB68C6087508260BA2AC"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Geometries/GeometryModels.cs",
+      "sha256": "42766EC1CC722C1226D25B22674FEAA6391FA986ED9E375213769D54F4F12B45"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Multiconfig/MultiConfiguration.cs",
+      "sha256": "D44E5A6026653D5428554D415E0B133208BBDC4A72A98AB88CE9CDFE005359F4"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Optic.cs",
+      "sha256": "B550E172FA35F0F0DE9B7637F0C645185841DC93278192C3BDA9B52188D59E86"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/RayTraceCacheBinding.cs",
+      "sha256": "379D4111A98DB348E26F18A29445FA480F77E5E7E82FA67F78547DAA2319885C"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/AuditReliabilityFixTests.cs",
+      "sha256": "18F1F6831F6D7F913B6E915E1247C8FF179B9B85579BDE17360F5687CE8F4CF8"
+    }
+  ],
+  "defaultBinarySha256": [
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "7993995A2EF726A147B2549B92B9EFD6C98C70287A17B0DE688A1C2F235F3E4E"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll",
+      "sha256": "326602833CF44D9838C41F8908A0FBA5EE8F17DB200A0733524CEDB620E31CA5"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "02D4A2999B8EB56F679F26A45D5FFB76C22194EFD8B261431715C75C40DF8976"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "04451935F26C7238CA3618766DDCCB3FEDA7D266632D4E89AFE5ACFEEFD6BE6B"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/bin/Release/net10.0/OptilandWorkbench.CoatingDesign.App.dll",
+      "sha256": "E923778F3741DABB29C092696575DDC7F1AEA9097209DFB94295B8C764DD80A9"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/bin/Debug/net10.0/OptilandWorkbench.CoatingDesign.App.dll",
+      "sha256": "169DA702546713FFF2F1C5CB5A61F00CCFFA0FB3054EC0B36CAE159D11EEEB36"
+    }
+  ],
+  "checks": {
+    "changedSourceWhitespaceFormat": "Passed for formal and coating solutions",
+    "gitDiffCheck": "Passed"
+  },
+  "numericalGateRelaxed": false,
+  "externalCapturesRegenerated": false,
+  "releaseGatePassed": false
+}

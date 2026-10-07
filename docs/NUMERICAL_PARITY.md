@@ -1,6 +1,8 @@
 # 数值验证与冻结历史回归
 
-2026-10-05 同步复验：正式及镀膜默认 Debug/Release 构建零警告、零错误；最终累计 Release **3500/3500**，装调/玻璃库相邻双配置各 **25/25**，镀膜完整双配置各 **44/44**。累计 Debug 的 3500 项保留 2026-10-04 记录；不相加各测试集合，也不表示全仓或跨平台发布验收。见 [同步范围与证据](PROJECT_SYNC_2026-10-05.md)。以下保留各功能阶段的实现日期和验证范围。
+2026-10-06 [官方标准镜头首批实测](#官方标准镜头首批实测2026-10-06)已完成：本机 OpticStudio 2026 R1 对 6 份原文件执行 132 项固定设置比较，另有 2 项提高采样的诊断控制。结果为 **76 Pass、15 Close、30 Difference、10 Incomparable、1 Error**，数值门禁未通过；已定位离轴 OPD 的瞄准选项耦合及有限物距角度场的平面波倾斜项风险。原文件、容差及冻结参考未改写。完整[机器结果](validation/ZEMAX_STANDARD_SAMPLE_RESULTS_2026-10-06.json)与[27 文件计划](validation/ZEMAX_STANDARD_SAMPLE_PLAN_2026-10-06.json)分开保存，其余 21 份尚未比较。
+
+2026-10-07 RA256 与单光线深入复验：正式默认 Debug/Release 构建零警告、零错误；正式完整 Release **4383 通过 / 1 失败 / 共 4384 项**，比较工具完整 Release **178 通过 / 2 个既有失败 / 共 180 项**，均零跳过；新增正式 **20/20**、工具 **16/16** 通过。正式导入/单光线/RMS/GRIN 定向两配置各 **153/153**，工具定向 Debug **54/54**。六份官方镜头原设置 132 项的旧快照与重新导入两条路径均为 **95 Pass / 12 Close / 16 Difference / 8 Incomparable / 1 Error**，已有 85 Pass 无回退；独立五文件 RMS 控制为旧 17 项加新 RA256 6 项，**23/23 Pass**，分开计数。六个完整边缘光瞳共 308808 条输入、2521932 个逐面结果，修复自动 STOP 后接纳/首次截断差异均归零；更高密度收敛、Relay 瞄准、衍射、其余 21 份镜头及发布门禁未完成，见[修复与证据](ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.md)。完整 Debug 和实验室本轮未重跑，2026-10-06 Debug **4336/1/4337**、初始结构 Release **258/2/260**、镀膜两配置各 **47/47** 保留历史范围。此前阶段计数不相加。
 
 2026-10-04 MTF 制造公差：指定频率 FFT/几何 MTF、逐视场反求与联合良率、有界间隔/单表面偏心/倾斜补偿及 startol v3 已实现；参数变更清除旧结果。默认 Debug/Release 累计回归各 **3500/3500** 通过（保留此前 3426 项，新增 38 项功能/界面用例并纳入 36 项相邻回归），构建零警告、零错误；独立渲染 **3/3**、9 张实际控件截图已检查。操作数统计仍为 **341/383 项受限执行、42 项兼容保留**，另 4 项扩展；没有新增原生 Zemax 公差数值认证。见[实现、边界与验证](MTF_TOLERANCING_2026-10-04.md)。下方保留各历史阶段的范围和计数。
 
@@ -114,3 +116,102 @@ Optiland 冻结历史数据是辅助证据。Zemax 2026 R1 `123456.ZMX` 基准�
 共享 `CoherentThinFilmSolver` 的新增验证与镜头 Zemax 基准分开：固定 TFStudio 提交 `8b942b3f956728a23cea2b35023c8b5d8de17428` 实际依赖 tmmcore 0.4.2，120 组 R/T/A 对照绝对误差均小于 2×10⁻¹¹。裸界面、Brewster、单层四分之一波减反、周期高反、能量、全反射和吸收极限另用解析解检查；2000 层/厚吸收膜检查稳定性。窄带独立 24001 点检查 FWHM 差 ≤0.002 nm、峰值 T 差 ≤10⁻⁶。
 
 2026-09-28 日常设计增强的镀膜实验室 Debug/Release 各 **44/44**、正式相关 Release **226/226**（定向，非正式全量）；固定 tmmcore 的 120 案例包含在实验室一项测试中。共享主题、材料表导入编辑、多腔和结构搜索、公差明细已实现；减反达标，高反/窄带仍有未达标项。macOS 原生生成/优化与主题切换已走查，Windows/Linux 与安装包尚未验收。详见[镀膜验收](../validation/coating/README.md)。
+
+## Zemax 官方标准镜头多文件计划（2026-10-06）
+
+状态：**首批 6 份完成本阶段设置比较，仍有未解决问题；其余 21 份待执行**。本轮选样全部来自本机 `C:\Users\19851\Documents\Zemax\Samples\Sequential`，不使用自建实验室处方、用户镜头或已另存的 `_2` 副本作为本轮标准样本。已有 `123456.ZMX` 和其它冻结证据保留独立历史回归，不改写。本次读取确认 27 份文件的 SHA-256 均不同；文件路径、哈希、源格式版本、单位、表面类型和批次见[机器选样清单](validation/ZEMAX_STANDARD_SAMPLE_PLAN_2026-10-06.json)。
+
+官方教程明确使用 `Objectives/Double Gauss 28 degree field.zmx` 与 `Objectives/Cooke 40 degree field.zmx`，见[顺序模式教程](https://optics.ansys.com/hc/en-us/articles/42661713256723-Exploring-Sequential-Mode-in-OpticStudio)。有限共轭扩展样本 `Image Simulation/Example 2, Double Gauss Experimental Arrangement.ZMX` 也由[官方转换教程](https://optics.ansys.com/hc/en-us/articles/42661773116435-Converting-sequential-surfaces-to-non-sequential-objects)明确列出。
+
+### 核心样本：Objectives 全部 19 份
+
+| 组别 | 实际文件名 | 数量 | 主要目的 |
+| --- | --- | ---: | --- |
+| 基础成像 | Doublet、Cooke 40 degree field、Double Gauss 28 degree field | 3 | 一阶量、逐面追迹、点列、波前、MTF |
+| 材料与色散 | Apochromat、Apochromat2、Apochromat3、Doublet using MIL number glasses | 4 | 材料身份、色散、多色权重与色差 |
+| 多单位 | Double Gauss 5 degree field、Apochromat4 | 2 | 分别为 IN、CM；核对长度、曲率、波前、频率和导出单位 |
+| 非球面 | Even Asphere | 1 | 偶次非球面交点、法线、光程及衍射 |
+| 共轭与光焦度分布 | Relay lens、Petzval、Inverse telephoto lens | 3 | 有限物距角度场、放大率、瞳孔与场曲 |
+| 光瞳与权重 | Tessar lens using vignetting factors、Gaussian Quadrature over Annular Pupils、Gaussian Quadrature Over Wavelength | 3 | 渐晕因子、环形瞳孔、采样与光谱加权 |
+| 广角 | Wide angle lens 100 degree field、Wide angle lens 200 degree field、Wide angle lens 210 degree field | 3 | 原生瞄准、边缘通光与大角度光线方向；前两份为 IN |
+
+上述名称均保留清单中的真实 `.zmx/.ZMX` 扩展名。本次发现 19 份中有 4 份非 MM，而现有比较工具明确仅接收 MM 成像系统。必须先核对产品单位导入和原生单位读回，再扩展比较适配器的物理换算；不能通过修改标签、改写源文件或剔除样本宣称全部通过。200°/210° 示例的最大半视场分别为 100°/105°，应单独验证入射方向与瞄准边界。
+
+### 扩展样本：另外 8 份
+
+- `Tilted systems & prisms/Offner relay.zmx`：坐标断点、离轴反射中继。
+- `Tilted systems & prisms/Tilted mirror.zmx`：倾斜反射、近轴面与方向信息。
+- `Tilted systems & prisms/Prism using total internal reflection.zmx`：棱镜路径与全反射。
+- `Zoom systems/Zoom lens.zmx`：3 个配置、非球面、近轴像高场及配置隔离。
+- `Telescopes/Schmidt-Cassegrain.zmx`：CM 单位、折反射、非球面与遮拦。
+- `Afocal/Beam Expander.ZMX`：无焦、角度坐标与倍率；另建角度分析契约。
+- `Miscellaneous/Doubly telecentric system.zmx`：物高场、远心性与有限物距。
+- `Image Simulation/Example 2, Double Gauss Experimental Arrangement.ZMX`：有限共轭、原生近轴面、共同图像输入与探测器设置。
+
+扩展先验证可加载、模型一致和逐光线结果，再进入适用分析。现有工具拒绝无焦数值比较，图像适配仍有共同输入契约缺口；这些是待实现项目，不以普通成像分析或截图替代。
+
+### 执行顺序与门禁
+
+1. **来源与环境登记。** 用只读原文件生成独立工作副本，记录源文件和依赖目录身份、CFG、分析配置、材料目录、实际 API/软件版本及请求哈希。源 `VERS` 记录与捕获软件版本分别保留；当前原文件多数为旧格式，不能据此声称已取得 2026 R1 数值。实时捕获要求实际 OpticStudio 2026 R1 与有效 API 许可证，执行后读回验证。
+2. **六文件打通链路。** 首轮使用 Doublet、Cooke、Double Gauss 28°、Even Asphere、Relay、Tessar。两侧先核对表面、材料折射率、单位、物距、光阑、孔径、有效波长/权重、视场、瞄准、解和有效配置，然后比较一阶量、逐面交点/方向/光程/失败状态、点列、OPD、波前、FFT/Huygens PSF/MTF、包围能量。模型差异应先归因，不能直接归入分析误差。
+3. **Objectives 全部复验。** 补齐 MM/CM/IN 比较及大角度瞄准边界后，将同一批处理扩展至 19 份文件。保留每文件原有视场、波长、权重和配置；按契约明确 selected/all/continuous 的选择范围，不能把只有轴上场的原文件自动改成三视场。对自带多视场/波长的文件覆盖主波长、各有效单色及适用多色组合。
+4. **误差分解。** 在首次产生差异的表面或计算环节定位根因；对衍射项目分别控制光瞳密度、像面间距、积分窗口、径向分箱与光谱叠加。采样 32/64/128，必要时 256；两侧读回实际网格，并保持物理窗口可比较，一次改变一个变量。特别关注已有 Huygens PSF、离焦 MTF、衍射包围能量和照度差异。
+5. **扩展八文件与反污染验证。** 按其物理定义补齐比较契约；多配置分别使用独立快照。改变批处理文件顺序、开关缓存、反复切文件，以及在 Workbench 内保存/重开 STAROPT，检查未舍入结果一致。Zemax 捕获默认串行，Workbench 有界并发；每项失败独立保留，支持按源与请求哈希续跑，禁止混入旧输出。
+6. **发布数值报告。** 报告以文件 × 配置 × 视场 × 波长 × 分析 × 采样标识每项；保存原始数组、掩码、CFG、规范化数据、最差位置、绝对误差、NRMSE、覆盖率和收敛曲线。分别统计 Pass、Close、Difference、Incomparable、Error 和缺少参考，不合并为通过率。既有容差不变，新增物理量的门槛在查看结果前确定；每次修复批量复验全部已建立参考的文件。
+
+计划交付：27 文件可审查清单、多文件批处理/离线重放入口、按镜头与分析分组的误差矩阵、根因记录和共享 Core 回归。完成门槛是已验证物理契约的核心项目满足锁定容差、既有 Pass 不退化；未验证的表面/材料/图像/无焦契约保留明确状态，不能从矩阵中消失。选样阶段只保存计划；首批实测结果见下一节，未修改正式 Core 算法或冻结参考。
+
+## 官方标准镜头首批实测（2026-10-06）
+
+本节保留首批捕获/解析的历史结果（76 Pass）。后续当前原设置 132 项在旧快照与重新导入两条路径均为 **95 Pass / 12 Close / 16 Difference / 8 Incomparable / 1 Error**，已有 85 Pass 无回退。12 组 Single Ray Trace 的十一列全部通过；独立 17+6 项 RMS 控制均 Pass，六组边缘光瞳逐面诊断定位并修复自动 STOP 误截光。数值同网格一致与积分收敛分别验收，见[最新报告](ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.md)。下述旧分类和修复顺序仅描述首批历史阶段。
+
+本阶段完成 6 份官方 Objectives 的 132 项请求，数值门禁仍未通过。另保存两项 128 采样诊断，不替换初始请求，不与原生环境试跑或离线重放重复计数。27 份原文件的 SHA-256 全部重新核实，均与选样清单相同；冻结 `123456.ZMX` 主参考和历史辅助参考未修改。
+
+实际原生环境为 **OpticStudio 2026 R1，26.1.0，build 260127，EnterpriseEdition，API 许可证有效**。源文件的旧 `VERS` 与实际软件版本分别记录。所有数据由独立输入副本、正式共享 Core 和实时 ZOS-API 产生；本阶段没有以截图代替数值，没有创建第二套光学引擎。
+
+### 设置与结果
+
+每份文件分别执行轴上第一视场/文件主波长下的 18 项分析，以及最后定义视场/波长 1 下的 4 项：单光线、点列、光线扇图、OPD。Doublet 只有一个轴上视场；Even Asphere 只有一个波长，因此补充请求分别只增加波长或视场。原生模型读回的补充条件为 Cooke 20°/480 nm、Double Gauss 14°/486.1 nm、Doublet 0°/486 nm、Even Asphere 5°/550 nm、Relay 2°/486.1327 nm、Tessar 25°/436 nm。Relay 的原生瞄准模式为 Paraxial，其余五份为 Off。
+
+18 项包含一阶量、逐面光线、点列、光线扇图、OPD、波前、FFT/Huygens PSF 与截面、FFT/Huygens MTF、几何/衍射包围能量、Huygens 离焦 MTF、相对照度、RMS 对视场、场曲与畸变。几何包围能量显式遍历定义视场；视场扫描项目按自身连续扫描契约执行，不能将它们描述为仅计算轴上。请求瞳孔/像面参数为 64；FFT 补零、包围能量像面网格及实际采样由各分析契约和捕获设置决定，不能统称为所有数组均为 64×64。点列使用 20 环六角采样，扇图每侧 20 条，MTF 最大频率 50 cycles/mm。逐面光线仅使用 `(Px,Py)=(0,0.8)`；尚未完成计划中的全瞳孔逐面光线矩阵及全部视场×全部波长组合。
+
+| 官方镜头 | 请求 | Pass | Close | Difference | Incomparable | Error |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Cooke 40 degree field | 22 | 12 | 2 | 8 | 0 | 0 |
+| Double Gauss 28 degree field | 22 | 10 | 4 | 7 | 1 | 0 |
+| Doublet | 22 | 14 | 2 | 3 | 2 | 1 |
+| Even Asphere | 22 | 12 | 2 | 6 | 2 | 0 |
+| Relay lens | 22 | 17 | 1 | 3 | 1 | 0 |
+| Tessar lens using vignetting factors | 22 | 11 | 4 | 3 | 4 | 0 |
+| 合计 | **132** | **76** | **15** | **30** | **10** | **1** |
+
+121 项具备完整数值比较资格，另有 Tessar OPD 的部分数值误差记录，但物理横轴覆盖不足仍标为不可比；不能把它计作完整比较或通过。工具枚举的未选择项目不进入本表分母。Close 不等于 Pass，单光线首段约定差异也仍保留在 Difference 中。
+
+6 份一阶量、12 组点列标量比较均 Pass。Cooke 与 Double Gauss 的离轴逐面坐标、方向吻合，几何光扇也 Pass，但这不能证明光程与衍射正确；Tessar 边缘光扇不可比。
+
+### 已定位问题与修复顺序
+
+1. **P0：OPD 的渐晕光瞳开关与停面瞄准耦合。** `OpticalPathDifferenceAnalysis` 将 `_vignettedPupil` 直接传给 `GenerateChiefRaySamples(..., aimAtStop: ...)`，并用于参考球生成。Cooke 20°/480 nm 的原请求最差 NRMSE 为 **93.9937991834908**；Double Gauss 14°/486.1 nm 为 **156.8791613419838**。仅以正式 Core 将该开关置为 false 的诊断干预，分别降至 **7.332213069392293e-6**、**1.3808336840200776e-5**。这是两份无渐晕因子文件的根因诊断；设置已改变，原生数据未重采，不能据此把原请求改为通过。应将渐晕坐标、源瞄准模式和入射相位分别处理，随后重跑全部已有设置。
+2. **P0：有限物距角度场的入射相位条件。** Relay 原文件物距为 250 mm。2°/486.1327 nm 子午 OPD 最大误差 **897.3757763807168 waves**，而弧矢误差仅 **8.683502247808228e-8 waves**；同条件点列、几何光扇及单光线 Pass。静态定位发现 `WavefrontEngine.LaunchTiltDirection` 的 Angle 分支不区分有限物距，会返回平面波倾斜方向。需要按明确共轭类型验证该项；当前未修改 Core，未将静态判断宣称为修复验证。
+3. **P1：衍射与照度仍有数值差异。** Cooke FFT PSF NRMSE 约 0.06023，相对照度约 0.04058；Even Asphere Huygens PSF 约 0.03274、截面约 0.08995、FFT MTF 约 0.03178；多个镜头的离焦 MTF 未通过。Double Gauss 衍射包围能量的 64 采样原生输出有采样警告，不能作为合格参考；128 采样警告消失后仍为 Difference，最差 NRMSE **0.026000912034557507**。Even Asphere 在 128 下仍有原生采样警告，维持不可比。两次采样不足以证明收敛；应继续匹配入瞳采样、参考球、FFT 窗口和物理像面坐标，容差不变。
+4. **P1：渐晕与光瞳横轴契约。** Tessar 边缘光扇的 Workbench 原始曲线含 NaN，严格规范化拒绝；OPD 的横轴覆盖分别为 **0.694091797、0.9145002365**，恰对应原生光瞳压缩后的范围。还需核对渐晕坐标变换、孔径判断和有效掩码，不能扩宽覆盖率门槛或补零。该文件 RMS 对视场也有 Difference，NRMSE 约 0.16304。
+5. **P1：零视场退化处理。** Doublet 的唯一视场为轴上：场曲/畸变在建立非奇异畸变参考映射时抛异常，保留 Error；RMS 对视场、相对照度不可比。产品应发布明确的不可用结果及原因，避免将不可定义的扫描误作正常零值。
+6. **比较口径：无限远光线的首段路径。** 五份无限物距文件的 Workbench 光线从辅助发射平面出发，原生首段从第一面顶点平面开始；首段几何路径长度差异不能直接解释为折射错误。原始十一列及严格结论全部保留，尚未建立统一首段参考平面。路径长度为几何段长，不能将原始工具描述中的“optical-path”措辞误作折射率加权 OPL。
+
+### 比较工具修正与验证
+
+已修正两个会影响结论的工具问题：单光线报告不再依赖英文 `OBJ`，按唯一完整十二列实光线表解析，保持逐面顺序和有限值校验；原生 `messages` 非空时不接纳为无诊断精度参考，即便其 `ErrorCode` 为 Success。后一项保守保留所有诊断，不从本地化文案推断严重性。多个原生 FFT 结果带“取样太低”或“计算终止；无效的结果”提示；它们列为不可比，不冒充软件数值差异。
+
+比较工具默认 Release 构建零警告、零错误；完整回归 **118 通过 / 2 个既有失败 / 共 120 项**，新增报告/诊断测试 **16/16**。两个原有误差非退化测试失败值仍分别为 `0.0037256670590166724` 和 `0.011467280942848471`，门槛未调整。正式 Core 本阶段未修改，正式全量及独立实验室计数保留页首已有复验范围，不从本工具测试推断产品发布通过。
+
+早期捕获、中文解析重放及原生诊断审计分别记录实际 DLL 哈希。Cooke 单光线初始 Incomparable 文件保留，离线解析重放只替代该项最终分类一次；旧原生运行的 manifest 不写成新工具哈希。后来对带诊断的原生输出作审计裁定，原始结果、观测误差、原始分类与最终分类均可追溯。
+
+可审查证据：
+
+- [持久化机器结果](validation/ZEMAX_STANDARD_SAMPLE_RESULTS_2026-10-06.json)与[选样/已执行状态](validation/ZEMAX_STANDARD_SAMPLE_PLAN_2026-10-06.json)。
+- [完整逐项汇总](../artifacts/zemax-standard-samples/20261006/STANDARD_SAMPLE_COMPARISON_SUMMARY.json)、[CSV 误差矩阵](../artifacts/zemax-standard-samples/20261006/STANDARD_SAMPLE_COMPARISON_MATRIX.csv)、[原生诊断审计](../artifacts/zemax-standard-samples/20261006/NATIVE_REFERENCE_DIAGNOSTICS_FINAL.json)。
+- [Cooke 诊断](../artifacts/zemax-standard-samples/20261006/opd-aiming-probe/cooke-diagnostic/diagnostic.json)、[Double Gauss 诊断](../artifacts/zemax-standard-samples/20261006/opd-aiming-probe/double-gauss-diagnostic/diagnostic.json)；均调用正式 Core，未写另一套追迹或波前公式。
+- [工具回归 TRX](../artifacts/validation/zemax-standard-sample-parser-20261006/comparison-standard-sample-diagnostics.trx)与[构建/测试记录](../artifacts/validation/zemax-standard-sample-parser-20261006/verification-final.json)。
+- [六文件批处理入口](../artifacts/zemax-standard-samples/20261006/Run-SixSampleBatch.ps1)与[离线重放/审计源码](../artifacts/zemax-standard-samples/20261006/offline-replay/Program.cs)。批处理入口已检查语法，本轮执行使用同一机器计划中的逐项 CLI 请求；旧输出保持不覆盖，复验必须选择新 RunTag。
+
+两个共享 Core OPD 问题与原设置 132 项重算已完成，见[后续修复报告](ZEMAX_STANDARD_SAMPLE_OPD_REPAIR_2026-10-06.md)。下一批补足渐晕坐标和退化场结果契约，并处理剩余衍射/照度误差；随后扩展全瞳孔逐面追迹、全部视场/波长和剩余 21 份标准文件。材料目录身份、多单位、无焦、多配置、反射及超广角仍不在当前数值认证范围内。

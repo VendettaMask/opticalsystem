@@ -1,0 +1,1920 @@
+{
+  "retainedEvidenceCounts": {
+    "fresh-import-original132": 1769,
+    "fresh-import-controls17": 295,
+    "old-snapshot-controls6": 108,
+    "old-snapshot-original132": 1769,
+    "fresh-import-controls6": 108,
+    "old-snapshot-controls17": 295
+  },
+  "oldSnapshotRawChanges": [
+    {
+      "before": "Difference",
+      "key": "Single Ray Trace",
+      "after": "Pass",
+      "lens": "cooke-40-degree-field"
+    },
+    {
+      "before": "Difference",
+      "key": "Single Ray Trace",
+      "after": "Pass",
+      "lens": "double-gauss-28-degree-field"
+    },
+    {
+      "before": "Difference",
+      "key": "Single Ray Trace",
+      "after": "Pass",
+      "lens": "doublet"
+    },
+    {
+      "before": "Difference",
+      "key": "Single Ray Trace",
+      "after": "Pass",
+      "lens": "even-asphere"
+    },
+    {
+      "before": "Difference",
+      "key": "Single Ray Trace",
+      "after": "Pass",
+      "lens": "tessar-lens-using-vignetting-factors"
+    },
+    {
+      "before": "Difference",
+      "key": "Single Ray Trace",
+      "after": "Pass",
+      "lens": "cooke-40-degree-field"
+    },
+    {
+      "before": "Difference",
+      "key": "Single Ray Trace",
+      "after": "Pass",
+      "lens": "double-gauss-28-degree-field"
+    },
+    {
+      "before": "Difference",
+      "key": "Single Ray Trace",
+      "after": "Pass",
+      "lens": "doublet"
+    },
+    {
+      "before": "Difference",
+      "key": "Single Ray Trace",
+      "after": "Pass",
+      "lens": "even-asphere"
+    },
+    {
+      "before": "Difference",
+      "key": "Single Ray Trace",
+      "after": "Pass",
+      "lens": "tessar-lens-using-vignetting-factors"
+    }
+  ],
+  "rayAuditInputs": 308808.0,
+  "tests": [
+    {
+      "executed": 4384,
+      "failures": [
+        {
+          "message": "finite_angle: expected 0.058589983242791625, actual 0.060191701479492175",
+          "name": "OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays"
+        }
+      ],
+      "passed": 4383,
+      "skipped": 0,
+      "newTests": [
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.InfiniteObjectReportUsesSignedVertexPlanePathWhilePhysicalHistoryStaysUnchanged(radius: -50)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.ZemaxLayoutApertureTests.AutomaticStopDiamDoesNotClipTheEstimatedRayFootprint"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.InfiniteObjectReportUsesSignedVertexPlanePathWhilePhysicalHistoryStaysUnchanged(radius: 50)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/relay-lens\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/even-asphere\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/double-gauss-28-degree-\"···)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AFirstSurfaceMissDoesNotInventAVertexPlaneSegment"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/even-asphere\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.InfiniteObjectReportUsesSignedVertexPlanePathWhilePhysicalHistoryStaysUnchanged(radius: ∞)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.FiniteAndZeroObjectDistancesKeepActualObjectToSurfaceSegments(objectDistance: 0)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/cooke-40-degree-field\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.FiniteAndZeroObjectDistancesKeepActualObjectToSurfaceSegments(objectDistance: 250)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/double-gauss-28-degree-field\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllOriginalNativeFixtureHashesStayUnchanged"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/tessar-lens-using-vigne\"···)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/relay-lens\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/doublet\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/doublet\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/tessar-lens-using-vignetting-f\"···)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/cooke-40-degree-field\")"
+        }
+      ],
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-ra256-single-ray-20261007\\main-current-release.trx",
+      "failed": 1,
+      "total": 4384,
+      "sha256": "a89e679c6714b7f817a96d4e70b24694b86d9cbf8254a75e887c813661c3dc58"
+    },
+    {
+      "executed": 180,
+      "failures": [
+        {
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.01146706362185577)\r\nActual: 0.011467280942848471",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: \"Diffraction Encircled Energy\", directory: \"diffraction-encircled-energy-c1\")"
+        },
+        {
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.0037256669899999998)\r\nActual: 0.0037256670590166724",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: \"Huygens PSF Cross Section\", slug: \"huygens-psf-cross-section\", recordedNrmse: 0.0037256669899999998)"
+        }
+      ],
+      "passed": 178,
+      "skipped": 0,
+      "newTests": [
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.JsonFileStreamingTests.SerializationFailureKeepsExistingFileAndRemovesOnlyOwnedTemporaryFile"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.SixNativeRa256CurvesPassTheUnchangedRadiusGate(name: \"even-asphere-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.FreshOfficialSourceImportsMatchNativeRa256Curves(name: \"tessar-lens-using-vignetting-factors-ra-256-retain\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.SixNativeRa256CurvesPassTheUnchangedRadiusGate(name: \"tessar-lens-using-vignetting-factors-ra-256-retain\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.SixNativeRa256CurvesPassTheUnchangedRadiusGate(name: \"relay-lens-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.FreshOfficialSourceImportsMatchNativeRa256Curves(name: \"cooke-40-degree-field-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.FreshOfficialSourceImportsMatchNativeRa256Curves(name: \"relay-lens-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.SixNativeRa256CurvesPassTheUnchangedRadiusGate(name: \"double-gauss-28-degree-field-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.AllRa256CaptureFilesKeepTheirOriginalHashesAndSources"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.FreshOfficialSourceImportsMatchNativeRa256Curves(name: \"even-asphere-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.FreshOfficialSourceImportsMatchNativeRa256Curves(name: \"double-gauss-28-degree-field-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.SixNativeRa256CurvesPassTheUnchangedRadiusGate(name: \"cooke-40-degree-field-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.SixNativeRa256CurvesPassTheUnchangedRadiusGate(name: \"tessar-lens-using-vignetting-factors-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.JsonFileStreamingTests.StreamedFilesRetainTheExactExistingUtf8SerializationContract"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.FreshOfficialSourceImportsMatchNativeRa256Curves(name: \"tessar-lens-using-vignetting-factors-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.JsonFileStreamingTests.LazyLargePayloadWritesBeforeEnumerationCompletes"
+        }
+      ],
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-ra256-single-ray-20261007\\tool-current-release.trx",
+      "failed": 2,
+      "total": 180,
+      "sha256": "3a18411232316169353842deedfe53b7a1192287489975058dcfecedf631a44a"
+    },
+    {
+      "executed": 153,
+      "failures": [],
+      "passed": 153,
+      "skipped": 0,
+      "newTests": [
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.InfiniteObjectReportUsesSignedVertexPlanePathWhilePhysicalHistoryStaysUnchanged(radius: 50)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.FiniteAndZeroObjectDistancesKeepActualObjectToSurfaceSegments(objectDistance: 0)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AFirstSurfaceMissDoesNotInventAVertexPlaneSegment"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/even-asphere\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/double-gauss-28-degree-\"···)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllOriginalNativeFixtureHashesStayUnchanged"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.ZemaxLayoutApertureTests.AutomaticStopDiamDoesNotClipTheEstimatedRayFootprint"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/tessar-lens-using-vignetting-f\"···)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/doublet\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.FiniteAndZeroObjectDistancesKeepActualObjectToSurfaceSegments(objectDistance: 250)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/double-gauss-28-degree-field\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/doublet\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.InfiniteObjectReportUsesSignedVertexPlanePathWhilePhysicalHistoryStaysUnchanged(radius: ∞)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.InfiniteObjectReportUsesSignedVertexPlanePathWhilePhysicalHistoryStaysUnchanged(radius: -50)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/relay-lens\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/relay-lens\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/tessar-lens-using-vigne\"···)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/cooke-40-degree-field\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/even-asphere\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/cooke-40-degree-field\")"
+        }
+      ],
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-ra256-single-ray-20261007\\main-targeted-release.trx",
+      "failed": 0,
+      "total": 153,
+      "sha256": "8ec8ebe76e5d0541a49e3ef4c1dd2eec0930f4781b565de81990fe552fc0d71d"
+    },
+    {
+      "executed": 153,
+      "failures": [],
+      "passed": 153,
+      "skipped": 0,
+      "newTests": [
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/double-gauss-28-degree-\"···)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/tessar-lens-using-vignetting-f\"···)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/tessar-lens-using-vigne\"···)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.InfiniteObjectReportUsesSignedVertexPlanePathWhilePhysicalHistoryStaysUnchanged(radius: -50)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/double-gauss-28-degree-field\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/even-asphere\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.FiniteAndZeroObjectDistancesKeepActualObjectToSurfaceSegments(objectDistance: 0)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/even-asphere\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AFirstSurfaceMissDoesNotInventAVertexPlaneSegment"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.InfiniteObjectReportUsesSignedVertexPlanePathWhilePhysicalHistoryStaysUnchanged(radius: 50)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.InfiniteObjectReportUsesSignedVertexPlanePathWhilePhysicalHistoryStaysUnchanged(radius: ∞)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.FiniteAndZeroObjectDistancesKeepActualObjectToSurfaceSegments(objectDistance: 250)"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/cooke-40-degree-field\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/doublet\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.ZemaxLayoutApertureTests.AutomaticStopDiamDoesNotClipTheEstimatedRayFootprint"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/doublet\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/cooke-40-degree-field\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-edge-shortwave/relay-lens\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllOriginalNativeFixtureHashesStayUnchanged"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.Tests.SingleRayPathParityTests.AllElevenColumnsMatchOriginalNativeReportsAcrossSixOfficialLenses(name: \"initial-six-primary/relay-lens\")"
+        }
+      ],
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-ra256-single-ray-20261007\\main-targeted-debug.trx",
+      "failed": 0,
+      "total": 153,
+      "sha256": "8922ee6ae967efaeae9b75282f7fb90f5d70f7d61aab036119669d683266e151"
+    },
+    {
+      "executed": 54,
+      "failures": [],
+      "passed": 54,
+      "skipped": 0,
+      "newTests": [
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.AllRa256CaptureFilesKeepTheirOriginalHashesAndSources"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.JsonFileStreamingTests.SerializationFailureKeepsExistingFileAndRemovesOnlyOwnedTemporaryFile"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.SixNativeRa256CurvesPassTheUnchangedRadiusGate(name: \"relay-lens-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.FreshOfficialSourceImportsMatchNativeRa256Curves(name: \"double-gauss-28-degree-field-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.FreshOfficialSourceImportsMatchNativeRa256Curves(name: \"tessar-lens-using-vignetting-factors-ra-256-retain\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.SixNativeRa256CurvesPassTheUnchangedRadiusGate(name: \"double-gauss-28-degree-field-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.SixNativeRa256CurvesPassTheUnchangedRadiusGate(name: \"tessar-lens-using-vignetting-factors-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.SixNativeRa256CurvesPassTheUnchangedRadiusGate(name: \"tessar-lens-using-vignetting-factors-ra-256-retain\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.SixNativeRa256CurvesPassTheUnchangedRadiusGate(name: \"cooke-40-degree-field-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.SixNativeRa256CurvesPassTheUnchangedRadiusGate(name: \"even-asphere-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.JsonFileStreamingTests.LazyLargePayloadWritesBeforeEnumerationCompletes"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.FreshOfficialSourceImportsMatchNativeRa256Curves(name: \"relay-lens-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.FreshOfficialSourceImportsMatchNativeRa256Curves(name: \"cooke-40-degree-field-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.JsonFileStreamingTests.StreamedFilesRetainTheExactExistingUtf8SerializationContract"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.FreshOfficialSourceImportsMatchNativeRa256Curves(name: \"tessar-lens-using-vignetting-factors-ra-256-remove\")"
+        },
+        {
+          "outcome": "Passed",
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.CapturedRa256SamplingTests.FreshOfficialSourceImportsMatchNativeRa256Curves(name: \"even-asphere-ra-256-remove\")"
+        }
+      ],
+      "file": "D:\\Projects\\opticalsystem\\artifacts\\validation\\zemax-ra256-single-ray-20261007\\tool-targeted-debug-final.trx",
+      "failed": 0,
+      "total": 54,
+      "sha256": "f745c38c03668f2001d7fb502b6127014ad78623e5037bb2c1e2e8fb2ac9df71"
+    }
+  ],
+  "laboratories": "Not rerun: InitialStructure Release 258/2/260 and Coating Debug/Release 47/47 remain historical.",
+  "original132SnapshotRewritten": false,
+  "oldSnapshotCounts": {
+    "Pass": 95,
+    "Difference": 16,
+    "Close": 12,
+    "Incomparable": 8,
+    "Error": 1
+  },
+  "frozenAuthorityChanged": false,
+  "original132TolerancesChanged": false,
+  "freshImportRawChanges": [],
+  "original132SettingsChanged": false,
+  "original132NativeRecaptured": false,
+  "sourceHashesVerified": 27,
+  "controls": {
+    "oldSnapshotPass": 23,
+    "previous17AndNew6CountedSeparately": true,
+    "freshImportPass": 23
+  },
+  "previous85PassRegressions": 0,
+  "firstRa256Failure": {
+    "sourceUnchanged": true,
+    "originalInputCount": 51468,
+    "fix": "Streaming UTF-8 serialization with unique atomic temporary file",
+    "retainedPartialDirectory": "artifacts\\zemax-standard-samples\\20261007\\ra256-ray-audit\\tessar-ra256-remove",
+    "failure": "OutOfMemoryException during JsonFiles.Write(core.json) before native capture"
+  },
+  "completedUtc": "2026-10-07T14:50:25.0807992+00:00",
+  "date": "2026-10-07",
+  "releaseGatePassed": false,
+  "debugFullSuite": "Not rerun: 2026-10-06 full Debug 4336/1/4337 remains historical; current formal targeted Debug 153/153 and tool targeted Debug 54/54.",
+  "original132ModelImportDifferences": {
+    "allOtherPropertiesUnchanged": true,
+    "models": [
+      {
+        "differences": [],
+        "capturedSnapshotSha256": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af",
+        "currentSnapshotSha256": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af",
+        "case": "cooke-40-degree-field"
+      },
+      {
+        "differences": [],
+        "capturedSnapshotSha256": "5330623ee01563965f050554ca87c9ccc6d54b5a44dce604a93e6a4722b64313",
+        "currentSnapshotSha256": "5330623ee01563965f050554ca87c9ccc6d54b5a44dce604a93e6a4722b64313",
+        "case": "doublet"
+      },
+      {
+        "differences": [
+          {
+            "after": null,
+            "before": {
+              "kind": "circular",
+              "numbers": {
+                "radius": 11.153414102059143
+              },
+              "text": {},
+              "children": null
+            },
+            "path": "/surfaces/4/components/physicalAperture"
+          },
+          {
+            "after": null,
+            "before": "circular",
+            "path": "/surfaces/4/components/physicalApertureKind"
+          }
+        ],
+        "capturedSnapshotSha256": "531ac7f0887fad1406ff7bcfda1576e014e6ed104af04ed3ca07337d6cb84d5c",
+        "currentSnapshotSha256": "e66ee1a2982293b6e558c1d13682d17639518d830bc46a88a303474bf4e78412",
+        "case": "relay-lens"
+      },
+      {
+        "differences": [
+          {
+            "after": null,
+            "before": {
+              "kind": "circular",
+              "numbers": {
+                "radius": 8.110958772931815
+              },
+              "text": {},
+              "children": null
+            },
+            "path": "/surfaces/5/components/physicalAperture"
+          },
+          {
+            "after": null,
+            "before": "circular",
+            "path": "/surfaces/5/components/physicalApertureKind"
+          }
+        ],
+        "capturedSnapshotSha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2",
+        "currentSnapshotSha256": "bf6ac9106f26ef4e8667c25f6189a1b6740ad21e3bc2417f37953012476de45f",
+        "case": "tessar-lens-using-vignetting-factors"
+      },
+      {
+        "differences": [
+          {
+            "after": null,
+            "before": {
+              "kind": "circular",
+              "numbers": {
+                "radius": 10
+              },
+              "text": {},
+              "children": null
+            },
+            "path": "/surfaces/1/components/physicalAperture"
+          },
+          {
+            "after": null,
+            "before": "circular",
+            "path": "/surfaces/1/components/physicalApertureKind"
+          }
+        ],
+        "capturedSnapshotSha256": "5e127d8e3ceb15c015ef1519b6a04599041c6c0d6bace21d9295044ca5a35557",
+        "currentSnapshotSha256": "b8e012ebcdfde3213e1c8fa3ba06c57a5e306fe7057f91af07eb6db61e53e2da",
+        "case": "even-asphere"
+      },
+      {
+        "differences": [
+          {
+            "after": null,
+            "before": {
+              "kind": "circular",
+              "numbers": {
+                "radius": 10.228835190999837
+              },
+              "text": {},
+              "children": null
+            },
+            "path": "/surfaces/6/components/physicalAperture"
+          },
+          {
+            "after": null,
+            "before": "circular",
+            "path": "/surfaces/6/components/physicalApertureKind"
+          }
+        ],
+        "capturedSnapshotSha256": "4022df0d2886a10ca5a1e58def4b88f2015643c846459f866500031405fa3a38",
+        "currentSnapshotSha256": "0717ddecdb07617f9b7cd714430d03c2d4b93189d9c4a06c566ef7f9ee49f33b",
+        "case": "double-gauss-28-degree-field"
+      }
+    ],
+    "scope": "Same source bytes and all snapshot properties; only automatic-stop physicalAperture removal allowed"
+  },
+  "builds": {
+    "Release": "Default full solution: 0 warnings/errors",
+    "Debug": "Default full solution: 0 warnings/errors"
+  },
+  "rayAuditSurfaceResults": 2521932.0,
+  "freshImportPreviousPassRegressions": 0,
+  "rayAudits": [
+    {
+      "before": {
+        "semantics": "Current formal Core per-ray diagnostics; acceptance, first clipping and coordinate residuals are separate. Native accepted-point RMS arithmetic is a reference check, not native analysis equivalence.",
+        "inputs": 51468,
+        "surfaceRayResults": 463212,
+        "nativeAccepted": 37596,
+        "coreAccepted": 37550,
+        "nativeErrors": 0,
+        "acceptanceDifferences": 46,
+        "firstClipDifferences": 4,
+        "physicalMisses": 0,
+        "witnesses": [
+          {
+            "index": 14215,
+            "x": -0.92578125,
+            "y": -0.35546875,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 14452,
+            "x": 0.92578125,
+            "y": -0.35546875,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 14454,
+            "x": -0.93359375,
+            "y": -0.34765625,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 14693,
+            "x": 0.93359375,
+            "y": -0.34765625,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 14694,
+            "x": -0.93359375,
+            "y": -0.33984375,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 14933,
+            "x": 0.93359375,
+            "y": -0.33984375,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 14934,
+            "x": -0.94140625,
+            "y": -0.33203125,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 14935,
+            "x": -0.93359375,
+            "y": -0.33203125,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 15174,
+            "x": 0.93359375,
+            "y": -0.33203125,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 15175,
+            "x": 0.94140625,
+            "y": -0.33203125,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 15176,
+            "x": -0.94140625,
+            "y": -0.32421875,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 15417,
+            "x": 0.94140625,
+            "y": -0.32421875,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 15418,
+            "x": -0.94140625,
+            "y": -0.31640625,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 15659,
+            "x": 0.94140625,
+            "y": -0.31640625,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 15660,
+            "x": -0.94921875,
+            "y": -0.30859375,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 15661,
+            "x": -0.94140625,
+            "y": -0.30859375,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 15902,
+            "x": 0.94140625,
+            "y": -0.30859375,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 15903,
+            "x": 0.94921875,
+            "y": -0.30859375,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 15904,
+            "x": -0.94921875,
+            "y": -0.30078125,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          },
+          {
+            "index": 16147,
+            "x": 0.94921875,
+            "y": -0.30078125,
+            "nativeError": 0,
+            "nativeVignette": 0,
+            "coreSurface": 5,
+            "coreVignette": true,
+            "coreMiss": false
+          }
+        ],
+        "clipWitnesses": [
+          {
+            "index": 20632,
+            "x": -0.98828125,
+            "y": -0.15234375,
+            "nativeFirstClip": 8,
+            "coreFirstClip": 5
+          },
+          {
+            "index": 20885,
+            "x": 0.98828125,
+            "y": -0.15234375,
+            "nativeFirstClip": 8,
+            "coreFirstClip": 5
+          },
+          {
+            "index": 20886,
+            "x": -0.98828125,
+            "y": -0.14453125,
+            "nativeFirstClip": 8,
+            "coreFirstClip": 5
+          },
+          {
+            "index": 21139,
+            "x": 0.98828125,
+            "y": -0.14453125,
+            "nativeFirstClip": 8,
+            "coreFirstClip": 5
+          }
+        ],
+        "physicalCompared": 392542,
+        "maximumPhysicalCoordinateMillimeters": 2.1316282072803006E-13,
+        "maximumPhysicalDirectionComponent": 1.887379141862766E-15,
+        "virtualMissingOrNativeErrors": 0,
+        "maximumVirtualCoordinateMillimeters": 1.9895196601282805E-13,
+        "maximumVirtualDirectionComponent": 1.9984014443252818E-15,
+        "nativeAcceptedPointRmsMicrometers": 51.49562497684093,
+        "formalRmsMicrometers": 51.38373372355049,
+        "capturedCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentToolAssemblySha256": "b6c070ad3a5fde97e4237ce6aee87a78e2ab82eb852a3b62eaf4c9bf867afc32",
+        "sourceSha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644",
+        "originalFileUnchanged": true,
+        "files": [
+          {
+            "path": "source.zmx",
+            "sha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644"
+          },
+          {
+            "path": "snapshot.json",
+            "sha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2"
+          },
+          {
+            "path": "job.json",
+            "sha256": "33eb333c4fa2f3b3e0d39c64b1471517c86509de8ef84b599612d9d562aa20d8"
+          },
+          {
+            "path": "manifest.json",
+            "sha256": "75b779ad0d09e04a4494c5753cc4e537135539ed87dcdefcbafff1f4542c0729"
+          },
+          {
+            "path": "inputs.json",
+            "sha256": "902986fa562a5776770b57f6e06b0a35d7f3f069b9ac1fe78de31601be00a645"
+          },
+          {
+            "path": "core.json",
+            "sha256": "cfb0de8b1d6f6a8257658a1fa5ac574312e4c89d3324b35edc12f5d6c37a3e80"
+          },
+          {
+            "path": "native/environment.json",
+            "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+          },
+          {
+            "path": "native/model.json",
+            "sha256": "dcaa03838d1690be09fe3cde1865f286383a0ffaf67c3356db50ff26fa84550d"
+          },
+          {
+            "path": "native/request.json",
+            "sha256": "4c3b520ec22324ef3fc6411e4432c0ac5bf79b55bddbef489c57165b8d521204"
+          },
+          {
+            "path": "native/ray-audit.json",
+            "sha256": "8da06a18453993a35674f6cc6b569f7febe3922288c0ccc86ce4529951574fbf"
+          }
+        ]
+      },
+      "after": {
+        "semantics": "Current formal Core per-ray diagnostics; acceptance, first clipping and coordinate residuals are separate. Native accepted-point RMS arithmetic is a reference check, not native analysis equivalence.",
+        "inputs": 51468,
+        "surfaceRayResults": 463212,
+        "nativeAccepted": 37596,
+        "coreAccepted": 37596,
+        "nativeErrors": 0,
+        "acceptanceDifferences": 0,
+        "firstClipDifferences": 0,
+        "physicalMisses": 0,
+        "witnesses": [],
+        "clipWitnesses": [],
+        "physicalCompared": 392784,
+        "maximumPhysicalCoordinateMillimeters": 2.1316282072803006E-13,
+        "maximumPhysicalDirectionComponent": 1.887379141862766E-15,
+        "virtualMissingOrNativeErrors": 0,
+        "maximumVirtualCoordinateMillimeters": 1.9895196601282805E-13,
+        "maximumVirtualDirectionComponent": 1.9984014443252818E-15,
+        "nativeAcceptedPointRmsMicrometers": 51.49562497684093,
+        "formalRmsMicrometers": 51.49562497683142,
+        "capturedCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentCoreAssemblySha256": "845ecee72b5c91938c6e5c0cc7930753d0409688e937367bac63dd0411187959",
+        "currentToolAssemblySha256": "b6c070ad3a5fde97e4237ce6aee87a78e2ab82eb852a3b62eaf4c9bf867afc32",
+        "sourceSha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644",
+        "originalFileUnchanged": true,
+        "files": [
+          {
+            "path": "source.zmx",
+            "sha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644"
+          },
+          {
+            "path": "snapshot.json",
+            "sha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2"
+          },
+          {
+            "path": "job.json",
+            "sha256": "33eb333c4fa2f3b3e0d39c64b1471517c86509de8ef84b599612d9d562aa20d8"
+          },
+          {
+            "path": "manifest.json",
+            "sha256": "75b779ad0d09e04a4494c5753cc4e537135539ed87dcdefcbafff1f4542c0729"
+          },
+          {
+            "path": "inputs.json",
+            "sha256": "902986fa562a5776770b57f6e06b0a35d7f3f069b9ac1fe78de31601be00a645"
+          },
+          {
+            "path": "core.json",
+            "sha256": "cfb0de8b1d6f6a8257658a1fa5ac574312e4c89d3324b35edc12f5d6c37a3e80"
+          },
+          {
+            "path": "native/environment.json",
+            "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+          },
+          {
+            "path": "native/model.json",
+            "sha256": "dcaa03838d1690be09fe3cde1865f286383a0ffaf67c3356db50ff26fa84550d"
+          },
+          {
+            "path": "native/request.json",
+            "sha256": "4c3b520ec22324ef3fc6411e4432c0ac5bf79b55bddbef489c57165b8d521204"
+          },
+          {
+            "path": "native/ray-audit.json",
+            "sha256": "8da06a18453993a35674f6cc6b569f7febe3922288c0ccc86ce4529951574fbf"
+          }
+        ],
+        "modelOrigin": "Fresh import of unchanged original source",
+        "capturedSnapshotSha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2",
+        "currentImportSnapshotSha256": "bf6ac9106f26ef4e8667c25f6189a1b6740ad21e3bc2417f37953012476de45f"
+      },
+      "directory": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\ra256-ray-audit\\tessar-ra256-remove-streamed",
+      "case": "tessar-ra256-remove-streamed"
+    },
+    {
+      "before": {
+        "semantics": "Current formal Core per-ray diagnostics; acceptance, first clipping and coordinate residuals are separate. Native accepted-point RMS arithmetic is a reference check, not native analysis equivalence.",
+        "inputs": 51468,
+        "surfaceRayResults": 463212,
+        "nativeAccepted": 51468,
+        "coreAccepted": 51468,
+        "nativeErrors": 0,
+        "acceptanceDifferences": 0,
+        "firstClipDifferences": 0,
+        "physicalMisses": 0,
+        "witnesses": [],
+        "clipWitnesses": [],
+        "physicalCompared": 463212,
+        "maximumPhysicalCoordinateMillimeters": 1.7763568394002505E-13,
+        "maximumPhysicalDirectionComponent": 1.7763568394002505E-15,
+        "virtualMissingOrNativeErrors": 0,
+        "maximumVirtualCoordinateMillimeters": 1.4210854715202004E-13,
+        "maximumVirtualDirectionComponent": 1.7763568394002505E-15,
+        "nativeAcceptedPointRmsMicrometers": 44.28881539014681,
+        "formalRmsMicrometers": 44.28881539012956,
+        "capturedCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentToolAssemblySha256": "b6c070ad3a5fde97e4237ce6aee87a78e2ab82eb852a3b62eaf4c9bf867afc32",
+        "sourceSha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644",
+        "originalFileUnchanged": true,
+        "files": [
+          {
+            "path": "source.zmx",
+            "sha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644"
+          },
+          {
+            "path": "snapshot.json",
+            "sha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2"
+          },
+          {
+            "path": "job.json",
+            "sha256": "a189c1cc0135bbb359ae05a7c6d390c6676a9a3e60784e1964ece7acfbc6386f"
+          },
+          {
+            "path": "manifest.json",
+            "sha256": "16731fec27ca0303592748453cd54d50ff427b0c9c97a09f1197479a328aceee"
+          },
+          {
+            "path": "inputs.json",
+            "sha256": "902986fa562a5776770b57f6e06b0a35d7f3f069b9ac1fe78de31601be00a645"
+          },
+          {
+            "path": "core.json",
+            "sha256": "94a83269cc8ed9cd0d64ff481274b1d2a706302326781e01b85b6424401bbf53"
+          },
+          {
+            "path": "native/environment.json",
+            "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+          },
+          {
+            "path": "native/model.json",
+            "sha256": "dcaa03838d1690be09fe3cde1865f286383a0ffaf67c3356db50ff26fa84550d"
+          },
+          {
+            "path": "native/request.json",
+            "sha256": "bf457015ff6b7d155e7f03dfc74d4c907d7d10ac5a7287d74bed477a434d1c80"
+          },
+          {
+            "path": "native/ray-audit.json",
+            "sha256": "a8ae0db7c0c5a895ff4d8781816126c899eb056d6f8b9b843bbd3deb66d029bd"
+          }
+        ]
+      },
+      "after": {
+        "semantics": "Current formal Core per-ray diagnostics; acceptance, first clipping and coordinate residuals are separate. Native accepted-point RMS arithmetic is a reference check, not native analysis equivalence.",
+        "inputs": 51468,
+        "surfaceRayResults": 463212,
+        "nativeAccepted": 51468,
+        "coreAccepted": 51468,
+        "nativeErrors": 0,
+        "acceptanceDifferences": 0,
+        "firstClipDifferences": 0,
+        "physicalMisses": 0,
+        "witnesses": [],
+        "clipWitnesses": [],
+        "physicalCompared": 463212,
+        "maximumPhysicalCoordinateMillimeters": 1.7763568394002505E-13,
+        "maximumPhysicalDirectionComponent": 1.7763568394002505E-15,
+        "virtualMissingOrNativeErrors": 0,
+        "maximumVirtualCoordinateMillimeters": 1.4210854715202004E-13,
+        "maximumVirtualDirectionComponent": 1.7763568394002505E-15,
+        "nativeAcceptedPointRmsMicrometers": 44.28881539014681,
+        "formalRmsMicrometers": 44.28881539012956,
+        "capturedCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentCoreAssemblySha256": "845ecee72b5c91938c6e5c0cc7930753d0409688e937367bac63dd0411187959",
+        "currentToolAssemblySha256": "b6c070ad3a5fde97e4237ce6aee87a78e2ab82eb852a3b62eaf4c9bf867afc32",
+        "sourceSha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644",
+        "originalFileUnchanged": true,
+        "files": [
+          {
+            "path": "source.zmx",
+            "sha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644"
+          },
+          {
+            "path": "snapshot.json",
+            "sha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2"
+          },
+          {
+            "path": "job.json",
+            "sha256": "a189c1cc0135bbb359ae05a7c6d390c6676a9a3e60784e1964ece7acfbc6386f"
+          },
+          {
+            "path": "manifest.json",
+            "sha256": "16731fec27ca0303592748453cd54d50ff427b0c9c97a09f1197479a328aceee"
+          },
+          {
+            "path": "inputs.json",
+            "sha256": "902986fa562a5776770b57f6e06b0a35d7f3f069b9ac1fe78de31601be00a645"
+          },
+          {
+            "path": "core.json",
+            "sha256": "94a83269cc8ed9cd0d64ff481274b1d2a706302326781e01b85b6424401bbf53"
+          },
+          {
+            "path": "native/environment.json",
+            "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+          },
+          {
+            "path": "native/model.json",
+            "sha256": "dcaa03838d1690be09fe3cde1865f286383a0ffaf67c3356db50ff26fa84550d"
+          },
+          {
+            "path": "native/request.json",
+            "sha256": "bf457015ff6b7d155e7f03dfc74d4c907d7d10ac5a7287d74bed477a434d1c80"
+          },
+          {
+            "path": "native/ray-audit.json",
+            "sha256": "a8ae0db7c0c5a895ff4d8781816126c899eb056d6f8b9b843bbd3deb66d029bd"
+          }
+        ],
+        "modelOrigin": "Fresh import of unchanged original source",
+        "capturedSnapshotSha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2",
+        "currentImportSnapshotSha256": "bf6ac9106f26ef4e8667c25f6189a1b6740ad21e3bc2417f37953012476de45f"
+      },
+      "directory": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\ra256-ray-audit\\tessar-ra256-retain",
+      "case": "tessar-ra256-retain"
+    },
+    {
+      "before": {
+        "semantics": "Current formal Core per-ray diagnostics; acceptance, first clipping and coordinate residuals are separate. Native accepted-point RMS arithmetic is a reference check, not native analysis equivalence.",
+        "inputs": 51468,
+        "surfaceRayResults": 360276,
+        "nativeAccepted": 51468,
+        "coreAccepted": 51468,
+        "nativeErrors": 0,
+        "acceptanceDifferences": 0,
+        "firstClipDifferences": 0,
+        "physicalMisses": 0,
+        "witnesses": [],
+        "clipWitnesses": [],
+        "physicalCompared": 360276,
+        "maximumPhysicalCoordinateMillimeters": 8.171241461241152E-14,
+        "maximumPhysicalDirectionComponent": 2.220446049250313E-15,
+        "virtualMissingOrNativeErrors": 0,
+        "maximumVirtualCoordinateMillimeters": 6.039613253960852E-14,
+        "maximumVirtualDirectionComponent": 1.887379141862766E-15,
+        "nativeAcceptedPointRmsMicrometers": 11.284621614150396,
+        "formalRmsMicrometers": 11.284621614150007,
+        "capturedCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentToolAssemblySha256": "b6c070ad3a5fde97e4237ce6aee87a78e2ab82eb852a3b62eaf4c9bf867afc32",
+        "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+        "originalFileUnchanged": true,
+        "files": [
+          {
+            "path": "source.zmx",
+            "sha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585"
+          },
+          {
+            "path": "snapshot.json",
+            "sha256": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af"
+          },
+          {
+            "path": "job.json",
+            "sha256": "1f43d4788f4491d0ba591f80f837d5d64b3927c1eaa352d82e308538099ac1e5"
+          },
+          {
+            "path": "manifest.json",
+            "sha256": "fbf1758a62576cb257148a8ab4857b10deefbe53f3e193ce0303892017603047"
+          },
+          {
+            "path": "inputs.json",
+            "sha256": "902986fa562a5776770b57f6e06b0a35d7f3f069b9ac1fe78de31601be00a645"
+          },
+          {
+            "path": "core.json",
+            "sha256": "0dac83cbccce304a93aa142fd8c02e86a67a52c52ca7e84be1dc4e73332d7e2e"
+          },
+          {
+            "path": "native/environment.json",
+            "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+          },
+          {
+            "path": "native/model.json",
+            "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb"
+          },
+          {
+            "path": "native/request.json",
+            "sha256": "1d6a0e6cdbf5329c1616d33aba4b98f14e0fa1b5584f1717b5c015d4877d1926"
+          },
+          {
+            "path": "native/ray-audit.json",
+            "sha256": "f77144f935b170d11f59fb8951c30efa8ca3c5698062fb9c4c3870da39ea5a24"
+          }
+        ]
+      },
+      "after": {
+        "semantics": "Current formal Core per-ray diagnostics; acceptance, first clipping and coordinate residuals are separate. Native accepted-point RMS arithmetic is a reference check, not native analysis equivalence.",
+        "inputs": 51468,
+        "surfaceRayResults": 360276,
+        "nativeAccepted": 51468,
+        "coreAccepted": 51468,
+        "nativeErrors": 0,
+        "acceptanceDifferences": 0,
+        "firstClipDifferences": 0,
+        "physicalMisses": 0,
+        "witnesses": [],
+        "clipWitnesses": [],
+        "physicalCompared": 360276,
+        "maximumPhysicalCoordinateMillimeters": 8.171241461241152E-14,
+        "maximumPhysicalDirectionComponent": 2.220446049250313E-15,
+        "virtualMissingOrNativeErrors": 0,
+        "maximumVirtualCoordinateMillimeters": 6.039613253960852E-14,
+        "maximumVirtualDirectionComponent": 1.887379141862766E-15,
+        "nativeAcceptedPointRmsMicrometers": 11.284621614150396,
+        "formalRmsMicrometers": 11.284621614150007,
+        "capturedCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentCoreAssemblySha256": "845ecee72b5c91938c6e5c0cc7930753d0409688e937367bac63dd0411187959",
+        "currentToolAssemblySha256": "b6c070ad3a5fde97e4237ce6aee87a78e2ab82eb852a3b62eaf4c9bf867afc32",
+        "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+        "originalFileUnchanged": true,
+        "files": [
+          {
+            "path": "source.zmx",
+            "sha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585"
+          },
+          {
+            "path": "snapshot.json",
+            "sha256": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af"
+          },
+          {
+            "path": "job.json",
+            "sha256": "1f43d4788f4491d0ba591f80f837d5d64b3927c1eaa352d82e308538099ac1e5"
+          },
+          {
+            "path": "manifest.json",
+            "sha256": "fbf1758a62576cb257148a8ab4857b10deefbe53f3e193ce0303892017603047"
+          },
+          {
+            "path": "inputs.json",
+            "sha256": "902986fa562a5776770b57f6e06b0a35d7f3f069b9ac1fe78de31601be00a645"
+          },
+          {
+            "path": "core.json",
+            "sha256": "0dac83cbccce304a93aa142fd8c02e86a67a52c52ca7e84be1dc4e73332d7e2e"
+          },
+          {
+            "path": "native/environment.json",
+            "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+          },
+          {
+            "path": "native/model.json",
+            "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb"
+          },
+          {
+            "path": "native/request.json",
+            "sha256": "1d6a0e6cdbf5329c1616d33aba4b98f14e0fa1b5584f1717b5c015d4877d1926"
+          },
+          {
+            "path": "native/ray-audit.json",
+            "sha256": "f77144f935b170d11f59fb8951c30efa8ca3c5698062fb9c4c3870da39ea5a24"
+          }
+        ],
+        "modelOrigin": "Fresh import of unchanged original source",
+        "capturedSnapshotSha256": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af",
+        "currentImportSnapshotSha256": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af"
+      },
+      "directory": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\ra256-ray-audit\\cooke-40-degree-field-ra256-remove",
+      "case": "cooke-40-degree-field-ra256-remove"
+    },
+    {
+      "before": {
+        "semantics": "Current formal Core per-ray diagnostics; acceptance, first clipping and coordinate residuals are separate. Native accepted-point RMS arithmetic is a reference check, not native analysis equivalence.",
+        "inputs": 51468,
+        "surfaceRayResults": 617616,
+        "nativeAccepted": 51468,
+        "coreAccepted": 51468,
+        "nativeErrors": 0,
+        "acceptanceDifferences": 0,
+        "firstClipDifferences": 0,
+        "physicalMisses": 0,
+        "witnesses": [],
+        "clipWitnesses": [],
+        "physicalCompared": 617616,
+        "maximumPhysicalCoordinateMillimeters": 7.460698725481052E-14,
+        "maximumPhysicalDirectionComponent": 2.6645352591003757E-15,
+        "virtualMissingOrNativeErrors": 0,
+        "maximumVirtualCoordinateMillimeters": 7.460698725481052E-14,
+        "maximumVirtualDirectionComponent": 2.6645352591003757E-15,
+        "nativeAcceptedPointRmsMicrometers": 9.94938211108432,
+        "formalRmsMicrometers": 9.94938211108394,
+        "capturedCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentToolAssemblySha256": "b6c070ad3a5fde97e4237ce6aee87a78e2ab82eb852a3b62eaf4c9bf867afc32",
+        "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+        "originalFileUnchanged": true,
+        "files": [
+          {
+            "path": "source.zmx",
+            "sha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460"
+          },
+          {
+            "path": "snapshot.json",
+            "sha256": "4022df0d2886a10ca5a1e58def4b88f2015643c846459f866500031405fa3a38"
+          },
+          {
+            "path": "job.json",
+            "sha256": "16464fdcb4accab3dca1d1c192fccf985ec3ae82b2cb6509ce4d005a5a4ec5b6"
+          },
+          {
+            "path": "manifest.json",
+            "sha256": "d328d7145471e249aaccc0c08d14a4efb900ec6b19c8bde21605d78c58cc5cad"
+          },
+          {
+            "path": "inputs.json",
+            "sha256": "902986fa562a5776770b57f6e06b0a35d7f3f069b9ac1fe78de31601be00a645"
+          },
+          {
+            "path": "core.json",
+            "sha256": "a0bfcdc2c7236321a392126e93b65560adabe40e17ca9319f68b6cb9b362b06b"
+          },
+          {
+            "path": "native/environment.json",
+            "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+          },
+          {
+            "path": "native/model.json",
+            "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee"
+          },
+          {
+            "path": "native/request.json",
+            "sha256": "317083568b8778892db76f0a3138f2b78563337ea60eca91fecc8c55d778429a"
+          },
+          {
+            "path": "native/ray-audit.json",
+            "sha256": "437b046c2e8be8606498ffe651e1f71dd92c69f6c10ad41068ad79c0d5847fea"
+          }
+        ]
+      },
+      "after": {
+        "semantics": "Current formal Core per-ray diagnostics; acceptance, first clipping and coordinate residuals are separate. Native accepted-point RMS arithmetic is a reference check, not native analysis equivalence.",
+        "inputs": 51468,
+        "surfaceRayResults": 617616,
+        "nativeAccepted": 51468,
+        "coreAccepted": 51468,
+        "nativeErrors": 0,
+        "acceptanceDifferences": 0,
+        "firstClipDifferences": 0,
+        "physicalMisses": 0,
+        "witnesses": [],
+        "clipWitnesses": [],
+        "physicalCompared": 617616,
+        "maximumPhysicalCoordinateMillimeters": 7.460698725481052E-14,
+        "maximumPhysicalDirectionComponent": 2.6645352591003757E-15,
+        "virtualMissingOrNativeErrors": 0,
+        "maximumVirtualCoordinateMillimeters": 7.460698725481052E-14,
+        "maximumVirtualDirectionComponent": 2.6645352591003757E-15,
+        "nativeAcceptedPointRmsMicrometers": 9.94938211108432,
+        "formalRmsMicrometers": 9.94938211108394,
+        "capturedCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentCoreAssemblySha256": "845ecee72b5c91938c6e5c0cc7930753d0409688e937367bac63dd0411187959",
+        "currentToolAssemblySha256": "b6c070ad3a5fde97e4237ce6aee87a78e2ab82eb852a3b62eaf4c9bf867afc32",
+        "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+        "originalFileUnchanged": true,
+        "files": [
+          {
+            "path": "source.zmx",
+            "sha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460"
+          },
+          {
+            "path": "snapshot.json",
+            "sha256": "4022df0d2886a10ca5a1e58def4b88f2015643c846459f866500031405fa3a38"
+          },
+          {
+            "path": "job.json",
+            "sha256": "16464fdcb4accab3dca1d1c192fccf985ec3ae82b2cb6509ce4d005a5a4ec5b6"
+          },
+          {
+            "path": "manifest.json",
+            "sha256": "d328d7145471e249aaccc0c08d14a4efb900ec6b19c8bde21605d78c58cc5cad"
+          },
+          {
+            "path": "inputs.json",
+            "sha256": "902986fa562a5776770b57f6e06b0a35d7f3f069b9ac1fe78de31601be00a645"
+          },
+          {
+            "path": "core.json",
+            "sha256": "a0bfcdc2c7236321a392126e93b65560adabe40e17ca9319f68b6cb9b362b06b"
+          },
+          {
+            "path": "native/environment.json",
+            "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+          },
+          {
+            "path": "native/model.json",
+            "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee"
+          },
+          {
+            "path": "native/request.json",
+            "sha256": "317083568b8778892db76f0a3138f2b78563337ea60eca91fecc8c55d778429a"
+          },
+          {
+            "path": "native/ray-audit.json",
+            "sha256": "437b046c2e8be8606498ffe651e1f71dd92c69f6c10ad41068ad79c0d5847fea"
+          }
+        ],
+        "modelOrigin": "Fresh import of unchanged original source",
+        "capturedSnapshotSha256": "4022df0d2886a10ca5a1e58def4b88f2015643c846459f866500031405fa3a38",
+        "currentImportSnapshotSha256": "0717ddecdb07617f9b7cd714430d03c2d4b93189d9c4a06c566ef7f9ee49f33b"
+      },
+      "directory": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\ra256-ray-audit\\double-gauss-28-degree-field-ra256-remove",
+      "case": "double-gauss-28-degree-field-ra256-remove"
+    },
+    {
+      "before": {
+        "semantics": "Current formal Core per-ray diagnostics; acceptance, first clipping and coordinate residuals are separate. Native accepted-point RMS arithmetic is a reference check, not native analysis equivalence.",
+        "inputs": 51468,
+        "surfaceRayResults": 411744,
+        "nativeAccepted": 51468,
+        "coreAccepted": 51468,
+        "nativeErrors": 0,
+        "acceptanceDifferences": 0,
+        "firstClipDifferences": 0,
+        "physicalMisses": 0,
+        "witnesses": [],
+        "clipWitnesses": [],
+        "physicalCompared": 411744,
+        "maximumPhysicalCoordinateMillimeters": 1.1143618228182106E-07,
+        "maximumPhysicalDirectionComponent": 4.3868616898812274E-10,
+        "virtualMissingOrNativeErrors": 0,
+        "maximumVirtualCoordinateMillimeters": 1.1143618228182106E-07,
+        "maximumVirtualDirectionComponent": 4.38686221029827E-10,
+        "nativeAcceptedPointRmsMicrometers": 20.031294195549158,
+        "formalRmsMicrometers": 20.031294179071093,
+        "capturedCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentToolAssemblySha256": "b6c070ad3a5fde97e4237ce6aee87a78e2ab82eb852a3b62eaf4c9bf867afc32",
+        "sourceSha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+        "originalFileUnchanged": true,
+        "files": [
+          {
+            "path": "source.zmx",
+            "sha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2"
+          },
+          {
+            "path": "snapshot.json",
+            "sha256": "531ac7f0887fad1406ff7bcfda1576e014e6ed104af04ed3ca07337d6cb84d5c"
+          },
+          {
+            "path": "job.json",
+            "sha256": "087e8c7fc0944a2c7a59bd0c73a0e8d0e3545b80f5f76a73734133dc11dfbd88"
+          },
+          {
+            "path": "manifest.json",
+            "sha256": "c30e72f4066b9bc79af5578bf3aa1c416e9f35226e16ef02d488d9f173747ec8"
+          },
+          {
+            "path": "inputs.json",
+            "sha256": "902986fa562a5776770b57f6e06b0a35d7f3f069b9ac1fe78de31601be00a645"
+          },
+          {
+            "path": "core.json",
+            "sha256": "73aad6a99af535b164b1fd84dcbc4aa010247b53e43c7ae40f6cb2d3ff3490db"
+          },
+          {
+            "path": "native/environment.json",
+            "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+          },
+          {
+            "path": "native/model.json",
+            "sha256": "faec37e4fcc350fe04f853374296366e9e5cdbdcdf70672ad1e6576108c962d0"
+          },
+          {
+            "path": "native/request.json",
+            "sha256": "ce1765c4e69701439b1175b4b9b927867aea05ecb469fda31883cd53fb59a1d1"
+          },
+          {
+            "path": "native/ray-audit.json",
+            "sha256": "5e87e57b1b7a2264ad04844b29e5fb615971eb128ed85ac5f069b2ca976062bb"
+          }
+        ]
+      },
+      "after": {
+        "semantics": "Current formal Core per-ray diagnostics; acceptance, first clipping and coordinate residuals are separate. Native accepted-point RMS arithmetic is a reference check, not native analysis equivalence.",
+        "inputs": 51468,
+        "surfaceRayResults": 411744,
+        "nativeAccepted": 51468,
+        "coreAccepted": 51468,
+        "nativeErrors": 0,
+        "acceptanceDifferences": 0,
+        "firstClipDifferences": 0,
+        "physicalMisses": 0,
+        "witnesses": [],
+        "clipWitnesses": [],
+        "physicalCompared": 411744,
+        "maximumPhysicalCoordinateMillimeters": 1.1143618228182106E-07,
+        "maximumPhysicalDirectionComponent": 4.3868616898812274E-10,
+        "virtualMissingOrNativeErrors": 0,
+        "maximumVirtualCoordinateMillimeters": 1.1143618228182106E-07,
+        "maximumVirtualDirectionComponent": 4.38686221029827E-10,
+        "nativeAcceptedPointRmsMicrometers": 20.031294195549158,
+        "formalRmsMicrometers": 20.031294179071093,
+        "capturedCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentCoreAssemblySha256": "845ecee72b5c91938c6e5c0cc7930753d0409688e937367bac63dd0411187959",
+        "currentToolAssemblySha256": "b6c070ad3a5fde97e4237ce6aee87a78e2ab82eb852a3b62eaf4c9bf867afc32",
+        "sourceSha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+        "originalFileUnchanged": true,
+        "files": [
+          {
+            "path": "source.zmx",
+            "sha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2"
+          },
+          {
+            "path": "snapshot.json",
+            "sha256": "531ac7f0887fad1406ff7bcfda1576e014e6ed104af04ed3ca07337d6cb84d5c"
+          },
+          {
+            "path": "job.json",
+            "sha256": "087e8c7fc0944a2c7a59bd0c73a0e8d0e3545b80f5f76a73734133dc11dfbd88"
+          },
+          {
+            "path": "manifest.json",
+            "sha256": "c30e72f4066b9bc79af5578bf3aa1c416e9f35226e16ef02d488d9f173747ec8"
+          },
+          {
+            "path": "inputs.json",
+            "sha256": "902986fa562a5776770b57f6e06b0a35d7f3f069b9ac1fe78de31601be00a645"
+          },
+          {
+            "path": "core.json",
+            "sha256": "73aad6a99af535b164b1fd84dcbc4aa010247b53e43c7ae40f6cb2d3ff3490db"
+          },
+          {
+            "path": "native/environment.json",
+            "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+          },
+          {
+            "path": "native/model.json",
+            "sha256": "faec37e4fcc350fe04f853374296366e9e5cdbdcdf70672ad1e6576108c962d0"
+          },
+          {
+            "path": "native/request.json",
+            "sha256": "ce1765c4e69701439b1175b4b9b927867aea05ecb469fda31883cd53fb59a1d1"
+          },
+          {
+            "path": "native/ray-audit.json",
+            "sha256": "5e87e57b1b7a2264ad04844b29e5fb615971eb128ed85ac5f069b2ca976062bb"
+          }
+        ],
+        "modelOrigin": "Fresh import of unchanged original source",
+        "capturedSnapshotSha256": "531ac7f0887fad1406ff7bcfda1576e014e6ed104af04ed3ca07337d6cb84d5c",
+        "currentImportSnapshotSha256": "e66ee1a2982293b6e558c1d13682d17639518d830bc46a88a303474bf4e78412"
+      },
+      "directory": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\ra256-ray-audit\\relay-lens-ra256-remove",
+      "case": "relay-lens-ra256-remove"
+    },
+    {
+      "before": {
+        "semantics": "Current formal Core per-ray diagnostics; acceptance, first clipping and coordinate residuals are separate. Native accepted-point RMS arithmetic is a reference check, not native analysis equivalence.",
+        "inputs": 51468,
+        "surfaceRayResults": 205872,
+        "nativeAccepted": 51468,
+        "coreAccepted": 51468,
+        "nativeErrors": 0,
+        "acceptanceDifferences": 0,
+        "firstClipDifferences": 0,
+        "physicalMisses": 0,
+        "witnesses": [],
+        "clipWitnesses": [],
+        "physicalCompared": 205872,
+        "maximumPhysicalCoordinateMillimeters": 1.5230794403464643E-09,
+        "maximumPhysicalDirectionComponent": 2.61618504637795E-11,
+        "virtualMissingOrNativeErrors": 0,
+        "maximumVirtualCoordinateMillimeters": 1.5230794403464643E-09,
+        "maximumVirtualDirectionComponent": 2.61618504637795E-11,
+        "nativeAcceptedPointRmsMicrometers": 39.36228373262235,
+        "formalRmsMicrometers": 39.36228356298208,
+        "capturedCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentToolAssemblySha256": "b6c070ad3a5fde97e4237ce6aee87a78e2ab82eb852a3b62eaf4c9bf867afc32",
+        "sourceSha256": "e7523a0a2b8247667d53cd559eded64442af41318f2d985d61296d5c5d1756da",
+        "originalFileUnchanged": true,
+        "files": [
+          {
+            "path": "source.zmx",
+            "sha256": "e7523a0a2b8247667d53cd559eded64442af41318f2d985d61296d5c5d1756da"
+          },
+          {
+            "path": "snapshot.json",
+            "sha256": "5e127d8e3ceb15c015ef1519b6a04599041c6c0d6bace21d9295044ca5a35557"
+          },
+          {
+            "path": "job.json",
+            "sha256": "25c34fba0deb399caa617402c70b1d99126f6d2f62b801ce9de598de20ec3d7e"
+          },
+          {
+            "path": "manifest.json",
+            "sha256": "cdd5a216a0554a2f731cb0752585d1c20697cf8207de6cf4b43e3d3c1dc0a05e"
+          },
+          {
+            "path": "inputs.json",
+            "sha256": "902986fa562a5776770b57f6e06b0a35d7f3f069b9ac1fe78de31601be00a645"
+          },
+          {
+            "path": "core.json",
+            "sha256": "094add69bf786fda681b9a6ef4b504b979185e7ca38d0b4a146043f34cf0affd"
+          },
+          {
+            "path": "native/environment.json",
+            "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+          },
+          {
+            "path": "native/model.json",
+            "sha256": "b1425e865103174e7954b99c12152de514cd25f188701b5e7b4be59599e316bf"
+          },
+          {
+            "path": "native/request.json",
+            "sha256": "13c85cdc507f26158ac06030040fc6d97502e90fcbb98137a728681e4c19095c"
+          },
+          {
+            "path": "native/ray-audit.json",
+            "sha256": "87c104c02aaa4a6ab474189b9b9f916e5d98fada2ea0744b523938874d91776d"
+          }
+        ]
+      },
+      "after": {
+        "semantics": "Current formal Core per-ray diagnostics; acceptance, first clipping and coordinate residuals are separate. Native accepted-point RMS arithmetic is a reference check, not native analysis equivalence.",
+        "inputs": 51468,
+        "surfaceRayResults": 205872,
+        "nativeAccepted": 51468,
+        "coreAccepted": 51468,
+        "nativeErrors": 0,
+        "acceptanceDifferences": 0,
+        "firstClipDifferences": 0,
+        "physicalMisses": 0,
+        "witnesses": [],
+        "clipWitnesses": [],
+        "physicalCompared": 205872,
+        "maximumPhysicalCoordinateMillimeters": 1.5230794403464643E-09,
+        "maximumPhysicalDirectionComponent": 2.61618504637795E-11,
+        "virtualMissingOrNativeErrors": 0,
+        "maximumVirtualCoordinateMillimeters": 1.5230794403464643E-09,
+        "maximumVirtualDirectionComponent": 2.61618504637795E-11,
+        "nativeAcceptedPointRmsMicrometers": 39.36228373262235,
+        "formalRmsMicrometers": 39.36228356298208,
+        "capturedCoreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+        "currentCoreAssemblySha256": "845ecee72b5c91938c6e5c0cc7930753d0409688e937367bac63dd0411187959",
+        "currentToolAssemblySha256": "b6c070ad3a5fde97e4237ce6aee87a78e2ab82eb852a3b62eaf4c9bf867afc32",
+        "sourceSha256": "e7523a0a2b8247667d53cd559eded64442af41318f2d985d61296d5c5d1756da",
+        "originalFileUnchanged": true,
+        "files": [
+          {
+            "path": "source.zmx",
+            "sha256": "e7523a0a2b8247667d53cd559eded64442af41318f2d985d61296d5c5d1756da"
+          },
+          {
+            "path": "snapshot.json",
+            "sha256": "5e127d8e3ceb15c015ef1519b6a04599041c6c0d6bace21d9295044ca5a35557"
+          },
+          {
+            "path": "job.json",
+            "sha256": "25c34fba0deb399caa617402c70b1d99126f6d2f62b801ce9de598de20ec3d7e"
+          },
+          {
+            "path": "manifest.json",
+            "sha256": "cdd5a216a0554a2f731cb0752585d1c20697cf8207de6cf4b43e3d3c1dc0a05e"
+          },
+          {
+            "path": "inputs.json",
+            "sha256": "902986fa562a5776770b57f6e06b0a35d7f3f069b9ac1fe78de31601be00a645"
+          },
+          {
+            "path": "core.json",
+            "sha256": "094add69bf786fda681b9a6ef4b504b979185e7ca38d0b4a146043f34cf0affd"
+          },
+          {
+            "path": "native/environment.json",
+            "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c"
+          },
+          {
+            "path": "native/model.json",
+            "sha256": "b1425e865103174e7954b99c12152de514cd25f188701b5e7b4be59599e316bf"
+          },
+          {
+            "path": "native/request.json",
+            "sha256": "13c85cdc507f26158ac06030040fc6d97502e90fcbb98137a728681e4c19095c"
+          },
+          {
+            "path": "native/ray-audit.json",
+            "sha256": "87c104c02aaa4a6ab474189b9b9f916e5d98fada2ea0744b523938874d91776d"
+          }
+        ],
+        "modelOrigin": "Fresh import of unchanged original source",
+        "capturedSnapshotSha256": "5e127d8e3ceb15c015ef1519b6a04599041c6c0d6bace21d9295044ca5a35557",
+        "currentImportSnapshotSha256": "b8e012ebcdfde3213e1c8fa3ba06c57a5e306fe7057f91af07eb6db61e53e2da"
+      },
+      "directory": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\ra256-ray-audit\\even-asphere-ra256-remove",
+      "case": "even-asphere-ra256-remove"
+    }
+  ],
+  "modelImportDifferences": {
+    "models": [
+      {
+        "capturedSnapshotSha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2",
+        "differences": [
+          {
+            "before": {
+              "kind": "circular",
+              "numbers": {
+                "radius": 8.110958772931815
+              },
+              "text": {},
+              "children": null
+            },
+            "after": null,
+            "path": "/surfaces/5/components/physicalAperture"
+          },
+          {
+            "before": "circular",
+            "after": null,
+            "path": "/surfaces/5/components/physicalApertureKind"
+          }
+        ],
+        "currentSnapshotSha256": "bf6ac9106f26ef4e8667c25f6189a1b6740ad21e3bc2417f37953012476de45f",
+        "case": "tessar-ra256-remove-streamed"
+      },
+      {
+        "capturedSnapshotSha256": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2",
+        "differences": [
+          {
+            "before": {
+              "kind": "circular",
+              "numbers": {
+                "radius": 8.110958772931815
+              },
+              "text": {},
+              "children": null
+            },
+            "after": null,
+            "path": "/surfaces/5/components/physicalAperture"
+          },
+          {
+            "before": "circular",
+            "after": null,
+            "path": "/surfaces/5/components/physicalApertureKind"
+          }
+        ],
+        "currentSnapshotSha256": "bf6ac9106f26ef4e8667c25f6189a1b6740ad21e3bc2417f37953012476de45f",
+        "case": "tessar-ra256-retain"
+      },
+      {
+        "capturedSnapshotSha256": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af",
+        "differences": [],
+        "currentSnapshotSha256": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af",
+        "case": "cooke-40-degree-field-ra256-remove"
+      },
+      {
+        "capturedSnapshotSha256": "4022df0d2886a10ca5a1e58def4b88f2015643c846459f866500031405fa3a38",
+        "differences": [
+          {
+            "before": {
+              "kind": "circular",
+              "numbers": {
+                "radius": 10.228835190999837
+              },
+              "text": {},
+              "children": null
+            },
+            "after": null,
+            "path": "/surfaces/6/components/physicalAperture"
+          },
+          {
+            "before": "circular",
+            "after": null,
+            "path": "/surfaces/6/components/physicalApertureKind"
+          }
+        ],
+        "currentSnapshotSha256": "0717ddecdb07617f9b7cd714430d03c2d4b93189d9c4a06c566ef7f9ee49f33b",
+        "case": "double-gauss-28-degree-field-ra256-remove"
+      },
+      {
+        "capturedSnapshotSha256": "531ac7f0887fad1406ff7bcfda1576e014e6ed104af04ed3ca07337d6cb84d5c",
+        "differences": [
+          {
+            "before": {
+              "kind": "circular",
+              "numbers": {
+                "radius": 11.153414102059143
+              },
+              "text": {},
+              "children": null
+            },
+            "after": null,
+            "path": "/surfaces/4/components/physicalAperture"
+          },
+          {
+            "before": "circular",
+            "after": null,
+            "path": "/surfaces/4/components/physicalApertureKind"
+          }
+        ],
+        "currentSnapshotSha256": "e66ee1a2982293b6e558c1d13682d17639518d830bc46a88a303474bf4e78412",
+        "case": "relay-lens-ra256-remove"
+      },
+      {
+        "capturedSnapshotSha256": "5e127d8e3ceb15c015ef1519b6a04599041c6c0d6bace21d9295044ca5a35557",
+        "differences": [
+          {
+            "before": {
+              "kind": "circular",
+              "numbers": {
+                "radius": 10
+              },
+              "text": {},
+              "children": null
+            },
+            "after": null,
+            "path": "/surfaces/1/components/physicalAperture"
+          },
+          {
+            "before": "circular",
+            "after": null,
+            "path": "/surfaces/1/components/physicalApertureKind"
+          }
+        ],
+        "currentSnapshotSha256": "b8e012ebcdfde3213e1c8fa3ba06c57a5e306fe7057f91af07eb6db61e53e2da",
+        "case": "even-asphere-ra256-remove"
+      }
+    ],
+    "allOtherPropertiesUnchanged": true,
+    "scope": "Same source bytes and all snapshot properties; only automatic-stop physicalAperture removal allowed"
+  },
+  "assemblies": [
+    {
+      "path": "D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\bin\\Release\\net10.0\\OptilandWorkbench.Core.dll",
+      "sha256": "845ecee72b5c91938c6e5c0cc7930753d0409688e937367bac63dd0411187959"
+    },
+    {
+      "path": "D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Application\\bin\\Release\\net10.0\\OptilandWorkbench.Application.dll",
+      "sha256": "4adcd63f5d4970472068fd1d471a5ff3737679f510ee15e2dba2b2ebb6583f1e"
+    },
+    {
+      "path": "D:\\Projects\\opticalsystem\\tools\\OptilandWorkbench.ZemaxComparison\\bin\\Release\\net10.0\\OptilandWorkbench.ZemaxComparison.dll",
+      "sha256": "b6c070ad3a5fde97e4237ce6aee87a78e2ab82eb852a3b62eaf4c9bf867afc32"
+    }
+  ],
+  "fixtureFilesVerified": {
+    "rms-field-sampling-2026-10-07": 153,
+    "ra256-field-sampling-2026-10-07": 54,
+    "tessar-ray-audit-2026-10-07": 56,
+    "single-ray-path-2026-10-07": 120
+  },
+  "earlierTargetedFailures": "Initial Single Ray path Debug 23/3/26 retained: table has six-decimal precision; zero finite object/off-axis test was geometrically degenerate. Corrected tests preserve product/reference budgets. Initial fresh-import six-case run passed but its misspelled Tessar case selector skipped the additional fine residual assertion; final full tool suite uses the corrected selector. Initial unquoted PowerShell TRX argument gave six passing aperture tests plus a shell exit error; final 153-case checks and full suite supersede it.",
+  "freshImportCounts": {
+    "Pass": 95,
+    "Difference": 16,
+    "Close": 12,
+    "Incomparable": 8,
+    "Error": 1
+  },
+  "oldSnapshotRawUnchanged": 121
+}

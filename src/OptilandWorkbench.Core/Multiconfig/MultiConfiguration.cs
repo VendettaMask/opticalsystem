@@ -25,8 +25,7 @@ public sealed partial class MultiConfiguration
         IReadOnlyList<MultiConfigurationPickup>? operandPickups = null)
     {
         ArgumentNullException.ThrowIfNull(configurations);
-        Configurations.AddRange(configurations.Select(configuration =>
-            Optic.FromSnapshot(configuration.ToSnapshot())));
+        Configurations.AddRange(configurations.Select(configuration => configuration.Clone()));
         if (Configurations.Count == 0)
         {
             throw new ArgumentException("At least one optical configuration is required.", nameof(configurations));
@@ -78,7 +77,7 @@ public sealed partial class MultiConfiguration
         }
 
         var source = Configurations[sourceConfigIndex];
-        Configurations.Add(Optic.FromSnapshot(source.ToSnapshot()));
+        Configurations.Add(source.Clone());
         var addedIndex = Configurations.Count - 1;
         foreach (var link in _brokenLinks.Where(link => link.Config == sourceConfigIndex).ToArray())
         {

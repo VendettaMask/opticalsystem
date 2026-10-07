@@ -1,0 +1,36 @@
+{
+  "semantics": "Explicit pupil ray audit; unclipped continuation is diagnostic only. No comparison conclusion or RMS-analysis sampling equivalence is implied.",
+  "job": {
+    "source": "C:\\Users\\19851\\Documents\\Zemax\\Samples\\Sequential\\Objectives\\Relay lens.zmx",
+    "sourceSha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+    "output": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261007\\ra256-ray-audit\\relay-lens-ra256-remove",
+    "zemaxVersion": "2026 R1",
+    "zosApiPath": null,
+    "configuration": 1,
+    "wavelength": 2,
+    "method": "RA",
+    "rayDensity": 256,
+    "removeVignettingFactors": true,
+    "fields": [
+      [
+        0,
+        1
+      ]
+    ],
+    "timeoutSeconds": 600
+  },
+  "sourceSha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+  "originalFileUnchanged": true,
+  "wavelengthMicrometers": 0.5875618,
+  "rayAimingEnabled": true,
+  "surfaceCount": 9,
+  "pupilCount": 51468,
+  "inputCount": 51468,
+  "snapshotSha256": "531ac7f0887fad1406ff7bcfda1576e014e6ed104af04ed3ca07337d6cb84d5c",
+  "inputsSha256": "902986fa562a5776770b57f6e06b0a35d7f3f069b9ac1fe78de31601be00a645",
+  "coreAssemblySha256": "7dbe3c10b3e45d923a899bc9a23ac4e74332cf845f9678b7aff715dfc40632a2",
+  "toolAssemblySha256": "b6c070ad3a5fde97e4237ce6aee87a78e2ab82eb852a3b62eaf4c9bf867afc32",
+  "nativeExitCode": 0,
+  "timedOut": false,
+  "completedUtc": "2026-10-07T14:01:16.1435705+00:00"
+}

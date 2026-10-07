@@ -34,7 +34,7 @@ public sealed class UiAuditRegressionTests
     [Fact]
     public async Task UnlockingAnOldResultRequiresSyncAndFileSwitchClearsLockedContent()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(UiAuditRegressionTests));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(UiAuditRegressionTests));
         var previousDirectory = Environment.GetEnvironmentVariable("OPTILAND_SETTINGS_DIRECTORY");
         var settingsDirectory = Path.Combine(Path.GetTempPath(), "ui-audit-" + Guid.NewGuid().ToString("N"));
         Environment.SetEnvironmentVariable("OPTILAND_SETTINGS_DIRECTORY", settingsDirectory);
@@ -209,6 +209,31 @@ public sealed class UiAuditRegressionTests
         }, CancellationToken.None);
     }
 
+    [Fact]
+    public async Task HeadlessSessionWaitsForAsyncCallbacks()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(UiAuditRegressionTests));
+        var completed = false;
+        await session.Dispatch(async () =>
+        {
+            await Task.Delay(25);
+            completed = true;
+        }, CancellationToken.None);
+        Assert.True(completed);
+    }
+
+    [Fact]
+    public async Task HeadlessSessionPropagatesAsyncCallbackFailures()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(UiAuditRegressionTests));
+        var failure = await Assert.ThrowsAsync<InvalidOperationException>(() => session.Dispatch(async () =>
+        {
+            await Task.Yield();
+            throw new InvalidOperationException("Dispatched callback failed.");
+        }, CancellationToken.None));
+        Assert.Equal("Dispatched callback failed.", failure.Message);
+    }
+
     [Theory]
     [InlineData("First Order", 1)]
     [InlineData("Prescription Report", 1)]
@@ -219,7 +244,7 @@ public sealed class UiAuditRegressionTests
     [InlineData("Wavefront Map", 0)]
     public async Task DefaultResultPageShowsActualContentRegardlessOfTitle(string key, int expectedIndex)
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(UiAuditRegressionTests));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(UiAuditRegressionTests));
         await session.Dispatch(async () =>
         {
             using var app = WorkbenchApplication.Create("tessar");

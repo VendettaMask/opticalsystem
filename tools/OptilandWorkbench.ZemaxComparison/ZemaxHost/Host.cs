@@ -111,6 +111,11 @@ internal static class Host
                 "surfaces", Enumerable.Range(0, system.LDE.NumberOfSurfaces).Select(i => Properties(system.LDE.GetSurfaceAt(i))).ToArray(),
                 "warnings", system.GetCurrentStatus()));
             if ((string)Request["adapter"] == "probe") return 0;
+            if ((string)Request["adapter"] == "ray-audit")
+            {
+                NativeRayAuditCapture.Run(system);
+                return 0;
+            }
             if ((string)Request["adapter"] == "inspect-settings")
             {
                 InspectSettings(system);
@@ -292,7 +297,11 @@ internal sealed class FanAdapter : Adapter
     public override void Configure(IAS_ settings)
     {
         var s = (IAS_Fan)settings; Select(s.Field, s.Wavelength, s.Surface);
-        s.NumberOfRays = Host.Int("rayCount"); s.CheckApertures = true; s.VignettedPupil = true;
+        s.NumberOfRays = Host.Int("rayCount"); s.CheckApertures = true;
+        object workbenchSettings, vignettedPupil;
+        s.VignettedPupil = Host.Request.TryGetValue("workbenchSettings", out workbenchSettings)
+            && ((Dictionary<string, object>)workbenchSettings).TryGetValue("VignettedPupil", out vignettedPupil)
+                ? bool.Parse(Convert.ToString(vignettedPupil)) : true;
         s.Tangential = Host.EnumValue<TangentialAberrationComponent>("Aberration_Y");
         s.Sagittal = Host.EnumValue<SagittalAberrationComponent>("Aberration_X");
     }
