@@ -1,0 +1,634 @@
+{
+  "createdUtc": "2026-10-08T04:19:45.2456275+00:00",
+  "scope": "Frozen native OPD fans versus exact formal Core samples and actual wavefront-map shared knots; internal signed-Y and RA sensitivity controls. No full native Wavefront Map recapture or original 132-case reclassification.",
+  "nativeRecaptured": false,
+  "productCodeChanged": false,
+  "nativeEvidenceUnchanged": true,
+  "coreAssemblySha256": "73554f1a6a3a4a21e25178ae0c921681c457edf7a12a120342ca56b4cb38a868",
+  "probeSourceSha256": "3e5582f1c952ac139c903deb2e411cd9bb8bc4d63d1980877da83579abc6cf80",
+  "aiming": [
+    {
+      "lens": "cooke-40-degree-field",
+      "setting": "primary",
+      "sourceRayAiming": false,
+      "fieldNumber": 1,
+      "wavelengthNumber": 2,
+      "wavelengthMicrometers": 0.55,
+      "snapshotSha256": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af",
+      "nativeSha256": "f74f8f241c8a3254d7748555d6db277746e4232b843adb8afabcd3f1e3426fb1",
+      "nativeFanKnotCount": 82,
+      "forcedAiming": {
+        "comparedKnots": 82,
+        "missingKnots": 0,
+        "maximumErrorWaves": 0.010271390677794257,
+        "rmseWaves": 0.0031583079825775176
+      },
+      "sourceAiming": {
+        "comparedKnots": 82,
+        "missingKnots": 0,
+        "maximumErrorWaves": 1.5522938490164506E-10,
+        "rmseWaves": 6.043972881636071E-11
+      },
+      "actualMapMatchesForcedAimingMaximumWaves": 9.43689570931383E-16,
+      "mapValidCount": 3001,
+      "sharedExactMapFanKnots": [
+        {
+          "pupilX": 0,
+          "pupilY": -1,
+          "nativeOpdWaves": -0.5917510223664056,
+          "actualMapOpdWaves": -0.602022413044199,
+          "sourceAimingOpdWaves": -0.5917510223437974
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 0,
+          "nativeOpdWaves": 0,
+          "actualMapOpdWaves": 8.881784197001252E-16,
+          "sourceAimingOpdWaves": 0
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 1,
+          "nativeOpdWaves": -0.5917510223664056,
+          "actualMapOpdWaves": -0.602022413044199,
+          "sourceAimingOpdWaves": -0.5917510223437974
+        },
+        {
+          "pupilX": -1,
+          "pupilY": 0,
+          "nativeOpdWaves": -0.5917510223664056,
+          "actualMapOpdWaves": -0.602022413044199,
+          "sourceAimingOpdWaves": -0.5917510223437974
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 0,
+          "nativeOpdWaves": 0,
+          "actualMapOpdWaves": 8.881784197001252E-16,
+          "sourceAimingOpdWaves": 0
+        },
+        {
+          "pupilX": 1,
+          "pupilY": 0,
+          "nativeOpdWaves": -0.5917510223664056,
+          "actualMapOpdWaves": -0.602022413044199,
+          "sourceAimingOpdWaves": -0.5917510223696354
+        }
+      ],
+      "sharedExactMapFanMaximumErrorWaves": 0.010271390677793368,
+      "sharedSourceAimingMaximumErrorWaves": 2.26082486065593E-11
+    },
+    {
+      "lens": "cooke-40-degree-field",
+      "setting": "edge-shortwave",
+      "sourceRayAiming": false,
+      "fieldNumber": 3,
+      "wavelengthNumber": 1,
+      "wavelengthMicrometers": 0.48,
+      "snapshotSha256": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af",
+      "nativeSha256": "faa9359d48e661e0cf8b1244f8fb22ccb8b15ef62ce8a80038b00f5651804727",
+      "nativeFanKnotCount": 82,
+      "forcedAiming": {
+        "comparedKnots": 82,
+        "missingKnots": 0,
+        "maximumErrorWaves": 364.9299538611636,
+        "rmseWaves": 143.13286473319596
+      },
+      "sourceAiming": {
+        "comparedKnots": 82,
+        "missingKnots": 0,
+        "maximumErrorWaves": 2.6241717595132386E-05,
+        "rmseWaves": 1.5129683292489588E-05
+      },
+      "actualMapMatchesForcedAimingMaximumWaves": 8.526512829121202E-13,
+      "mapValidCount": 3001,
+      "sharedExactMapFanKnots": [
+        {
+          "pupilX": 0,
+          "pupilY": -1,
+          "nativeOpdWaves": 2.0568926792405295,
+          "actualMapOpdWaves": -362.87306118192225,
+          "sourceAimingOpdWaves": 2.0568941192881476
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 0,
+          "nativeOpdWaves": 0,
+          "actualMapOpdWaves": 3.041122909053229E-11,
+          "sourceAimingOpdWaves": 1.4802973661668755E-11
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 1,
+          "nativeOpdWaves": 1.8620740794154471,
+          "actualMapOpdWaves": 251.12836201308744,
+          "sourceAimingOpdWaves": 1.8620876211702015
+        },
+        {
+          "pupilX": -1,
+          "pupilY": 0,
+          "nativeOpdWaves": 2.061570100819754,
+          "actualMapOpdWaves": -71.07360009424684,
+          "sourceAimingOpdWaves": 2.0615899348689717
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 0,
+          "nativeOpdWaves": 0,
+          "actualMapOpdWaves": 3.041122909053229E-11,
+          "sourceAimingOpdWaves": 1.4802973661668755E-11
+        },
+        {
+          "pupilX": 1,
+          "pupilY": 0,
+          "nativeOpdWaves": 2.061570100819754,
+          "actualMapOpdWaves": -71.07360009424684,
+          "sourceAimingOpdWaves": 2.061589934928184
+        }
+      ],
+      "sharedExactMapFanMaximumErrorWaves": 364.9299538611628,
+      "sharedSourceAimingMaximumErrorWaves": 1.9834108429872543E-05
+    },
+    {
+      "lens": "double-gauss-28-degree-field",
+      "setting": "primary",
+      "sourceRayAiming": false,
+      "fieldNumber": 1,
+      "wavelengthNumber": 2,
+      "wavelengthMicrometers": 0.5876,
+      "snapshotSha256": "4022df0d2886a10ca5a1e58def4b88f2015643c846459f866500031405fa3a38",
+      "nativeSha256": "e731f689a6825ceb3a033c70f367c6f47476d40b5e1499d01ec019b22def054a",
+      "nativeFanKnotCount": 82,
+      "forcedAiming": {
+        "comparedKnots": 82,
+        "missingKnots": 0,
+        "maximumErrorWaves": 0.021963776529311585,
+        "rmseWaves": 0.0066209836157744536
+      },
+      "sourceAiming": {
+        "comparedKnots": 82,
+        "missingKnots": 0,
+        "maximumErrorWaves": 2.422235745314083E-10,
+        "rmseWaves": 9.830839102469505E-11
+      },
+      "actualMapMatchesForcedAimingMaximumWaves": 9.43689570931383E-16,
+      "mapValidCount": 3001,
+      "sharedExactMapFanKnots": [
+        {
+          "pupilX": 0,
+          "pupilY": -1,
+          "nativeOpdWaves": -0.2723874015835946,
+          "actualMapOpdWaves": -0.25042362505428395,
+          "sourceAimingOpdWaves": -0.27238740174684045
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 0,
+          "nativeOpdWaves": 0,
+          "actualMapOpdWaves": -8.881784197001252E-16,
+          "sourceAimingOpdWaves": 0
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 1,
+          "nativeOpdWaves": -0.2723874015835946,
+          "actualMapOpdWaves": -0.2504236250784684,
+          "sourceAimingOpdWaves": -0.27238740174684045
+        },
+        {
+          "pupilX": -1,
+          "pupilY": 0,
+          "nativeOpdWaves": -0.2723874015835946,
+          "actualMapOpdWaves": -0.25042362505428395,
+          "sourceAimingOpdWaves": -0.27238740174684045
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 0,
+          "nativeOpdWaves": 0,
+          "actualMapOpdWaves": -8.881784197001252E-16,
+          "sourceAimingOpdWaves": 0
+        },
+        {
+          "pupilX": 1,
+          "pupilY": 0,
+          "nativeOpdWaves": -0.2723874015835946,
+          "actualMapOpdWaves": -0.2504236250784684,
+          "sourceAimingOpdWaves": -0.27238740174684045
+        }
+      ],
+      "sharedExactMapFanMaximumErrorWaves": 0.02196377652931064,
+      "sharedSourceAimingMaximumErrorWaves": 1.6324586127325347E-10
+    },
+    {
+      "lens": "double-gauss-28-degree-field",
+      "setting": "edge-shortwave",
+      "sourceRayAiming": false,
+      "fieldNumber": 3,
+      "wavelengthNumber": 1,
+      "wavelengthMicrometers": 0.4861,
+      "snapshotSha256": "4022df0d2886a10ca5a1e58def4b88f2015643c846459f866500031405fa3a38",
+      "nativeSha256": "bef0d05542ed6e30b129f87a06ad726a51f9595bdbcc702d2d16d1d278c6f903",
+      "nativeFanKnotCount": 82,
+      "forcedAiming": {
+        "comparedKnots": 82,
+        "missingKnots": 0,
+        "maximumErrorWaves": 384.15481724314867,
+        "rmseWaves": 113.95644320669474
+      },
+      "sourceAiming": {
+        "comparedKnots": 82,
+        "missingKnots": 0,
+        "maximumErrorWaves": 4.031837608067801E-05,
+        "rmseWaves": 6.55654443891849E-06
+      },
+      "actualMapMatchesForcedAimingMaximumWaves": 5.684341886080801E-13,
+      "mapValidCount": 3001,
+      "sharedExactMapFanKnots": [
+        {
+          "pupilX": 0,
+          "pupilY": -1,
+          "nativeOpdWaves": 0.1366301655041747,
+          "actualMapOpdWaves": 384.2914474086534,
+          "sourceAimingOpdWaves": 0.13667048388025538
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 0,
+          "nativeOpdWaves": 0,
+          "actualMapOpdWaves": 5.471179065352771E-13,
+          "sourceAimingOpdWaves": 0
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 1,
+          "nativeOpdWaves": 0.7640407418419074,
+          "actualMapOpdWaves": 196.96946987396524,
+          "sourceAimingOpdWaves": 0.7640443887288096
+        },
+        {
+          "pupilX": -1,
+          "pupilY": 0,
+          "nativeOpdWaves": -0.4069698823978472,
+          "actualMapOpdWaves": 137.026938471263,
+          "sourceAimingOpdWaves": -0.4069451071395434
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 0,
+          "nativeOpdWaves": 0,
+          "actualMapOpdWaves": 5.471179065352771E-13,
+          "sourceAimingOpdWaves": 0
+        },
+        {
+          "pupilX": 1,
+          "pupilY": 0,
+          "nativeOpdWaves": -0.4069698823978472,
+          "actualMapOpdWaves": 137.026938471263,
+          "sourceAimingOpdWaves": -0.4069451071395434
+        }
+      ],
+      "sharedExactMapFanMaximumErrorWaves": 384.15481724314924,
+      "sharedSourceAimingMaximumErrorWaves": 4.031837608067801E-05
+    },
+    {
+      "lens": "relay-lens",
+      "setting": "primary",
+      "sourceRayAiming": true,
+      "fieldNumber": 1,
+      "wavelengthNumber": 2,
+      "wavelengthMicrometers": 0.5875618,
+      "snapshotSha256": "531ac7f0887fad1406ff7bcfda1576e014e6ed104af04ed3ca07337d6cb84d5c",
+      "nativeSha256": "5fdc12562aedc2ed431166830317833e87be4598caba8720ae19bceae9075a13",
+      "nativeFanKnotCount": 82,
+      "forcedAiming": {
+        "comparedKnots": 82,
+        "missingKnots": 0,
+        "maximumErrorWaves": 7.668519486081493E-09,
+        "rmseWaves": 1.922427438933549E-09
+      },
+      "sourceAiming": {
+        "comparedKnots": 82,
+        "missingKnots": 0,
+        "maximumErrorWaves": 7.668519486081493E-09,
+        "rmseWaves": 1.922427438933549E-09
+      },
+      "actualMapMatchesForcedAimingMaximumWaves": 1.7208456881689926E-15,
+      "mapValidCount": 3001,
+      "sharedExactMapFanKnots": [
+        {
+          "pupilX": 0,
+          "pupilY": -1,
+          "nativeOpdWaves": -0.5902067839733827,
+          "actualMapOpdWaves": -0.5902067842878008,
+          "sourceAimingOpdWaves": -0.5902067842878025
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 0,
+          "nativeOpdWaves": 0,
+          "actualMapOpdWaves": 1.6653345369377348E-15,
+          "sourceAimingOpdWaves": 0
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 1,
+          "nativeOpdWaves": -0.5902067842605931,
+          "actualMapOpdWaves": -0.5902067842878008,
+          "sourceAimingOpdWaves": -0.5902067842878025
+        },
+        {
+          "pupilX": -1,
+          "pupilY": 0,
+          "nativeOpdWaves": -0.5902067839733827,
+          "actualMapOpdWaves": -0.5902067842878008,
+          "sourceAimingOpdWaves": -0.5902067842878025
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 0,
+          "nativeOpdWaves": 0,
+          "actualMapOpdWaves": 1.6653345369377348E-15,
+          "sourceAimingOpdWaves": 0
+        },
+        {
+          "pupilX": 1,
+          "pupilY": 0,
+          "nativeOpdWaves": -0.5902067842605931,
+          "actualMapOpdWaves": -0.5902067842878008,
+          "sourceAimingOpdWaves": -0.5902067842878025
+        }
+      ],
+      "sharedExactMapFanMaximumErrorWaves": 3.144181581760108E-10,
+      "sharedSourceAimingMaximumErrorWaves": 3.1441982351054776E-10
+    },
+    {
+      "lens": "relay-lens",
+      "setting": "edge-shortwave",
+      "sourceRayAiming": true,
+      "fieldNumber": 2,
+      "wavelengthNumber": 1,
+      "wavelengthMicrometers": 0.4861327,
+      "snapshotSha256": "531ac7f0887fad1406ff7bcfda1576e014e6ed104af04ed3ca07337d6cb84d5c",
+      "nativeSha256": "e7aeeb782fb40e0fa2ae09afd63042830a6253d9b9957f8157bf0d944335cbf1",
+      "nativeFanKnotCount": 82,
+      "forcedAiming": {
+        "comparedKnots": 82,
+        "missingKnots": 0,
+        "maximumErrorWaves": 6.317280771828138E-07,
+        "rmseWaves": 1.4961770504406374E-07
+      },
+      "sourceAiming": {
+        "comparedKnots": 82,
+        "missingKnots": 0,
+        "maximumErrorWaves": 6.317280771828138E-07,
+        "rmseWaves": 1.4961770504406374E-07
+      },
+      "actualMapMatchesForcedAimingMaximumWaves": 7.771561172376096E-16,
+      "mapValidCount": 3001,
+      "sharedExactMapFanKnots": [
+        {
+          "pupilX": 0,
+          "pupilY": -1,
+          "nativeOpdWaves": 0.9247425535250113,
+          "actualMapOpdWaves": 0.9247419217969334,
+          "sourceAimingOpdWaves": 0.9247419217969342
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 0,
+          "nativeOpdWaves": 0,
+          "actualMapOpdWaves": -2.338604310203607E-10,
+          "sourceAimingOpdWaves": -2.3385968012770183E-10
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 1,
+          "nativeOpdWaves": 0.9247489402474918,
+          "actualMapOpdWaves": 0.9247483122465526,
+          "sourceAimingOpdWaves": 0.9247483122465533
+        },
+        {
+          "pupilX": -1,
+          "pupilY": 0,
+          "nativeOpdWaves": -0.11325382117383567,
+          "actualMapOpdWaves": -0.11325389949307789,
+          "sourceAimingOpdWaves": -0.11325389949307714
+        },
+        {
+          "pupilX": 0,
+          "pupilY": 0,
+          "nativeOpdWaves": 0,
+          "actualMapOpdWaves": -2.338604310203607E-10,
+          "sourceAimingOpdWaves": -2.3385968012770183E-10
+        },
+        {
+          "pupilX": 1,
+          "pupilY": 0,
+          "nativeOpdWaves": -0.11325381265805466,
+          "actualMapOpdWaves": -0.11325389949307789,
+          "sourceAimingOpdWaves": -0.11325389949307714
+        }
+      ],
+      "sharedExactMapFanMaximumErrorWaves": 6.317280779599699E-07,
+      "sharedSourceAimingMaximumErrorWaves": 6.317280771828138E-07
+    }
+  ],
+  "signedY": [
+    {
+      "absoluteNormalizedY": 0.1999999999,
+      "positiveTable": {
+        "decenterX": 0,
+        "decenterY": -0.014759160685240842,
+        "compressionX": 0.012494325637505677,
+        "compressionY": 0.022217988952782014,
+        "angleDegrees": 0
+      },
+      "mirroredNegativeTable": {
+        "decenterX": 0,
+        "decenterY": 0,
+        "compressionX": 0,
+        "compressionY": 0,
+        "angleDegrees": 0
+      }
+    },
+    {
+      "absoluteNormalizedY": 0.2000000001,
+      "positiveTable": {
+        "decenterX": 0,
+        "decenterY": -0.014759160714759158,
+        "compressionX": 0.012494325662494324,
+        "compressionY": 0.022217988997217983,
+        "angleDegrees": 0
+      },
+      "mirroredNegativeTable": {
+        "decenterX": 0,
+        "decenterY": 0.0590366428,
+        "compressionX": 0.0499773026,
+        "compressionY": 0.0888719559,
+        "angleDegrees": 0
+      }
+    },
+    {
+      "absoluteNormalizedY": 0.26666666666666666,
+      "positiveTable": {
+        "decenterX": 0,
+        "decenterY": -0.026238507911111108,
+        "compressionX": 0.02221213448888889,
+        "compressionY": 0.03949864706666666,
+        "angleDegrees": 0
+      },
+      "mirroredNegativeTable": {
+        "decenterX": 0,
+        "decenterY": 0.0590366428,
+        "compressionX": 0.0499773026,
+        "compressionY": 0.0888719559,
+        "angleDegrees": 0
+      }
+    },
+    {
+      "absoluteNormalizedY": 0.4,
+      "positiveTable": {
+        "decenterX": 0,
+        "decenterY": -0.0590366428,
+        "compressionX": 0.0499773026,
+        "compressionY": 0.08887195590000001,
+        "angleDegrees": 0
+      },
+      "mirroredNegativeTable": {
+        "decenterX": 0,
+        "decenterY": 0.0590366428,
+        "compressionX": 0.0499773026,
+        "compressionY": 0.0888719559,
+        "angleDegrees": 0
+      }
+    },
+    {
+      "absoluteNormalizedY": 0.55,
+      "positiveTable": {
+        "decenterX": 0,
+        "decenterY": -0.057255137552272725,
+        "compressionX": 0.05471563340454546,
+        "compressionY": 0.13164459573863638,
+        "angleDegrees": 0
+      },
+      "mirroredNegativeTable": {
+        "decenterX": 0,
+        "decenterY": 0.0549110517,
+        "compressionX": 0.0609502792,
+        "compressionY": 0.187924385,
+        "angleDegrees": 0
+      }
+    },
+    {
+      "absoluteNormalizedY": 0.7,
+      "positiveTable": {
+        "decenterX": 0,
+        "decenterY": -0.0549110517,
+        "compressionX": 0.0609502792,
+        "compressionY": 0.18792438499999997,
+        "angleDegrees": 0
+      },
+      "mirroredNegativeTable": {
+        "decenterX": 0,
+        "decenterY": 0.0549110517,
+        "compressionX": 0.0609502792,
+        "compressionY": 0.187924385,
+        "angleDegrees": 0
+      }
+    },
+    {
+      "absoluteNormalizedY": 0.85,
+      "positiveTable": {
+        "decenterX": 0,
+        "decenterY": -0.05758589144117647,
+        "compressionX": 0.07214195586617647,
+        "compressionY": 0.2417111255588235,
+        "angleDegrees": 0
+      },
+      "mirroredNegativeTable": {
+        "decenterX": 0,
+        "decenterY": 0.0549110517,
+        "compressionX": 0.0609502792,
+        "compressionY": 0.187924385,
+        "angleDegrees": 0
+      }
+    },
+    {
+      "absoluteNormalizedY": 1,
+      "positiveTable": {
+        "decenterX": 0,
+        "decenterY": -0.0607784421,
+        "compressionX": 0.0854997635,
+        "compressionY": 0.305908203,
+        "angleDegrees": 0
+      },
+      "mirroredNegativeTable": {
+        "decenterX": 0,
+        "decenterY": 0.0607784421,
+        "compressionX": 0.0854997635,
+        "compressionY": 0.305908203,
+        "angleDegrees": 0
+      }
+    }
+  ],
+  "rectangularSampling": [
+    {
+      "density": 32,
+      "endpointCandidates": 740,
+      "cellCenterCandidates": 812,
+      "endpointValid": 554,
+      "cellCenterValid": 584,
+      "endpointRmsWaves": 1.367143613560213,
+      "cellCenterRmsWaves": 1.3571352132041354,
+      "relativeRmsDifference": 0.007374652325502818,
+      "nativeSamplingCertified": false
+    },
+    {
+      "density": 64,
+      "endpointCandidates": 3096,
+      "cellCenterCandidates": 3228,
+      "endpointValid": 2276,
+      "cellCenterValid": 2340,
+      "endpointRmsWaves": 1.3698788143298124,
+      "cellCenterRmsWaves": 1.3636565169417538,
+      "relativeRmsDifference": 0.004562950648315163,
+      "nativeSamplingCertified": false
+    },
+    {
+      "density": 128,
+      "endpointCandidates": 12644,
+      "cellCenterCandidates": 12892,
+      "endpointValid": 9236,
+      "cellCenterValid": 9402,
+      "endpointRmsWaves": 1.363606919975224,
+      "cellCenterRmsWaves": 1.3664592575086771,
+      "relativeRmsDifference": -0.0020873930325982877,
+      "nativeSamplingCertified": false
+    },
+    {
+      "density": 256,
+      "endpointCandidates": 51040,
+      "cellCenterCandidates": 51468,
+      "endpointValid": 37252,
+      "cellCenterValid": 37550,
+      "endpointRmsWaves": 1.3649875596246186,
+      "cellCenterRmsWaves": 1.3647267957750222,
+      "relativeRmsDifference": 0.00019107403064384313,
+      "nativeSamplingCertified": false
+    }
+  ],
+  "evidence": {
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/manifest.json": "6df564a4c2f34d8a751a995348cebc052b6d0d35d04c1c57ca904f912c6f6e79",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/cooke-40-degree-field/snapshot.json": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/cooke-40-degree-field/primary-native.json": "f74f8f241c8a3254d7748555d6db277746e4232b843adb8afabcd3f1e3426fb1",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/cooke-40-degree-field/edge-shortwave-native.json": "faa9359d48e661e0cf8b1244f8fb22ccb8b15ef62ce8a80038b00f5651804727",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/double-gauss-28-degree-field/snapshot.json": "4022df0d2886a10ca5a1e58def4b88f2015643c846459f866500031405fa3a38",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/double-gauss-28-degree-field/primary-native.json": "e731f689a6825ceb3a033c70f367c6f47476d40b5e1499d01ec019b22def054a",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/double-gauss-28-degree-field/edge-shortwave-native.json": "bef0d05542ed6e30b129f87a06ad726a51f9595bdbcc702d2d16d1d278c6f903",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/relay-lens/snapshot.json": "531ac7f0887fad1406ff7bcfda1576e014e6ed104af04ed3ca07337d6cb84d5c",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/relay-lens/primary-native.json": "5fdc12562aedc2ed431166830317833e87be4598caba8720ae19bceae9075a13",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/relay-lens/edge-shortwave-native.json": "e7aeeb782fb40e0fa2ae09afd63042830a6253d9b9957f8157bf0d944335cbf1",
+    "validation/zemax/2026-r1/ra256-field-sampling-2026-10-07/tessar-lens-using-vignetting-factors-ra-256-retain/snapshot.json": "061fab5b314835777812efb37632647f411e4bf026a6970cf4295a7fd04430f2"
+  }
+}

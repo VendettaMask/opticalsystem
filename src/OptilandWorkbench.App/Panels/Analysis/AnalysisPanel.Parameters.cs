@@ -173,6 +173,13 @@ public sealed partial class AnalysisPanel
                     "YPositionMicrometers",
                     "UsePolarization"
                 }));
+            if (_parameterControls.GetValueOrDefault("UsePolarization") is Control polarization)
+            {
+                polarization.IsEnabled = false;
+                const string reason = "Foucault 偏振响应尚未实现；当前仅提供定性波前梯度近似。";
+                ToolTip.SetTip(polarization, reason);
+                AutomationProperties.SetHelpText(polarization, reason);
+            }
             return;
         }
         if (string.Equals(AnalysisKey, "Image Simulation", StringComparison.Ordinal))
@@ -182,6 +189,46 @@ public sealed partial class AnalysisPanel
         }
 
         _parameterPanel.Children.Add(BuildAutomaticTwoColumnSettings(descriptors));
+        ConfigureRmsSamplingControls();
+    }
+
+    private void ConfigureRmsSamplingControls()
+    {
+        if (AnalysisKey is not ("RMS vs Field" or "RMS vs Wavelength" or "RMS vs Focus"
+            or "RMS Field Map" or "RMS Wavefront vs Field")) return;
+        if (_parameterControls.GetValueOrDefault("Method") is not ComboBox method
+            || _parameterControls.GetValueOrDefault(AnalysisKey == "RMS Wavefront vs Field" ? "RayDensity" : "NumRings") is not NumericUpDown density)
+            return;
+
+        void Update(bool methodChanged)
+        {
+            var rectangular = string.Equals(method.SelectedItem?.ToString(), "RA", StringComparison.Ordinal);
+            var name = rectangular ? "RA 每边点数" : "GQ 径向环数";
+            density.Maximum = rectangular ? 1024 : 32;
+            if (methodChanged && density.Value is { } value && value > density.Maximum)
+                density.Value = density.Maximum;
+            AutomationProperties.SetName(density, name);
+            var help = rectangular
+                ? "每边 N 个点，圆形光瞳外的点不计入。支持 1–1024；总计算预算超限会报错，不会降密度。"
+                : "共享 Core 支持 1–32 环；对照 OpticStudio RMS 文档请使用 1–20，并匹配角向点数。";
+            ToolTip.SetTip(density, help);
+            AutomationProperties.SetHelpText(density, help);
+            if (density.Parent is Grid grid)
+            {
+                var label = grid.Children.OfType<TextBlock>().FirstOrDefault(control =>
+                    Grid.GetRow(control) == Grid.GetRow(density) && Grid.GetColumn(control) == Grid.GetColumn(density) - 1);
+                if (label is not null) label.Text = name + "：";
+            }
+            if (_parameterControls.GetValueOrDefault("GaussianAzimuthalSamples") is NumericUpDown angles)
+            {
+                angles.IsEnabled = !rectangular;
+                var reason = rectangular ? "RA 不使用角向点数；该设置仅用于 GQ。" : null;
+                ToolTip.SetTip(angles, reason);
+                AutomationProperties.SetHelpText(angles, reason);
+            }
+        }
+        method.SelectionChanged += (_, _) => Update(methodChanged: true);
+        Update(methodChanged: false);
     }
 
     private Control BuildAutomaticTwoColumnSettings(

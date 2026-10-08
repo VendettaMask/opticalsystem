@@ -13,7 +13,8 @@ public static class SampledMtfEngine
         int zernikeTerms = 37,
         double defocus = 0)
     {
-        var wavefront = WavefrontEngine.GenerateChiefRayUniform(optic, field, wavelength, pupilSampling);
+        var wavefront = WavefrontEngine.GenerateChiefRayUniform(optic, field, wavelength, pupilSampling,
+            aimAtStop: optic.RayAimingEnabled);
         var pupilDiameter = optic.ImageSpaceAfocal
             ? ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(optic)
             : optic.Paraxial.EstimateExitPupilDiameter();

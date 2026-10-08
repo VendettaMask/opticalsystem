@@ -37,7 +37,7 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
         string scanDirection = "+y") : base(optic)
     {
         _fieldDensity = Math.Clamp(fieldDensity > 0 ? fieldDensity : numFields - 1, 1, 200);
-        _numRings = Math.Max(1, numRings);
+        _numRings = RmsScanSupport.ValidateRayDensity(numRings, method);
         _distribution = distribution;
         _method = RmsScanSupport.NormalizeMethod(method);
         _data = RmsScanSupport.NormalizeData(data);
@@ -65,7 +65,8 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
                 wavelengthNumber: _wavelengthNumber,
                 scanType: _scanDirection,
                 removeVignettingFactors: _removeVignetting,
-                zemaxCompatibleOutput: true)
+                zemaxCompatibleOutput: true,
+                usePolarization: _usePolarization)
             { GaussianAzimuthalSamples = GaussianAzimuthalSamples }.GenerateData();
             var wavefrontSeries = wavefront.PlotSeries.ToList();
             IReadOnlyList<Wavelength> wavelengthSelection = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
@@ -116,6 +117,8 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
         }
 
         var effectiveDistribution = RmsScanSupport.EffectiveDistribution(_method, _distribution);
+        RmsScanSupport.ValidateSamplingWork(workingOptic, _numRings, _method, GaussianAzimuthalSamples,
+            fields.Count, wavelengths.Count, tracePasses: 2);
         var yAxisLabel = RmsScanSupport.AxisLabel(_data);
         var series = wavelengths.Select((wavelength, wavelengthIndex) => new AnalysisSeries(
             AnalysisTrace.FieldAxisLabel(workingOptic),
@@ -176,6 +179,7 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
             ["ScanDirection"] = _scanDirection,
             ["WavelengthCount"] = wavelengths.Count,
             ["NumRings"] = _numRings,
+            ["GaussianAzimuthalSamples"] = GaussianAzimuthalSamples,
             ["Method"] = _method,
             ["Data"] = _data,
             ["Distribution"] = effectiveDistribution,
@@ -219,6 +223,7 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
     private readonly string _scanType;
     private readonly bool _removeVignettingFactors;
     private readonly bool _zemaxCompatibleOutput;
+    private readonly bool _usePolarization;
 
     public RmsWavefrontVsFieldAnalysis(
         Optic optic,
@@ -230,11 +235,12 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
         int wavelengthNumber = 0,
         string scanType = "+y",
         bool removeVignettingFactors = true,
-        bool zemaxCompatibleOutput = false) : base(optic)
+        bool zemaxCompatibleOutput = false,
+        bool usePolarization = false) : base(optic)
     {
-        _rayDensity = Math.Clamp(numRings, 1, 32);
+        _rayDensity = RmsScanSupport.ValidateRayDensity(numRings, method);
         _fieldDensity = Math.Clamp(fieldDensity > 0 ? fieldDensity : numFields - 1, 1, 200);
-        _method = string.Equals(method, "RA", StringComparison.OrdinalIgnoreCase) ? "RA" : "GQ";
+        _method = RmsScanSupport.NormalizeMethod(method);
         _reference = string.Equals(reference, "centroid", StringComparison.OrdinalIgnoreCase)
             ? "centroid"
             : "chief";
@@ -242,6 +248,7 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
         _scanType = AnalysisTrace.NormalizeScanDirection(scanType);
         _removeVignettingFactors = removeVignettingFactors;
         _zemaxCompatibleOutput = zemaxCompatibleOutput;
+        _usePolarization = usePolarization;
     }
 
     public override string Name => "RMS Wavefront vs Field";
@@ -255,6 +262,8 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
             ? AnalysisTrace.ScanFieldSamples(workingOptic, _scanType, _fieldDensity + 1)
             : AnalysisTrace.DefinedFieldSamples(workingOptic);
         var wavelengths = AnalysisTrace.SelectWavelengths(workingOptic, _wavelengthNumber);
+        RmsScanSupport.ValidateSamplingWork(workingOptic, _rayDensity, _method, GaussianAzimuthalSamples,
+            fields.Count, wavelengths.Length, tracePasses: _zemaxCompatibleOutput && _wavelengthNumber == 0 && wavelengths.Length > 1 ? 2 : 1);
         var pupilSamples = _method == "GQ"
             ? ApertureSampler.GenerateGaussianQuadrature(_rayDensity, GaussianAzimuthalSamples)
             : ApertureSampler.Generate(_rayDensity * _rayDensity, PupilSampling.UniformGrid);
@@ -274,7 +283,8 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
                         workingOptic,
                         (field.Hx, field.Hy),
                         wavelength,
-                        aimAtStop: workingOptic.RayAimingEnabled)).ToArray()
+                        aimAtStop: workingOptic.RayAimingEnabled,
+                        usePolarization: _usePolarization)).ToArray()
                 : Array.Empty<WavefrontReferenceSphere>();
             var primaryReferenceSphere = !useSharedReferenceSphere || referenceWavelength is null
                 ? null
@@ -284,7 +294,8 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
                 (field.Hx, field.Hy),
                 wavelength,
                 pupilCoordinates,
-                aimAtStop: workingOptic.RayAimingEnabled)).ToArray();
+                aimAtStop: workingOptic.RayAimingEnabled,
+                usePolarization: _usePolarization)).ToArray();
             var polychromaticWavefronts = useSharedReferenceSphere
                 ? wavelengths.Select((wavelength, wavelengthIndex) => WavefrontEngine.GenerateChiefRaySamples(
                     workingOptic,
@@ -298,17 +309,19 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
                             primaryReferenceSphere.CenterX,
                             primaryReferenceSphere.CenterY,
                             primaryReferenceSphere.CenterZ,
-                            wavelengthReferenceSpheres[wavelengthIndex].Radius))).ToArray()
+                            wavelengthReferenceSpheres[wavelengthIndex].Radius),
+                    usePolarization: _usePolarization)).ToArray()
                 : monochromaticWavefronts;
             return new
             {
                 Monochromatic = monochromaticWavefronts.Select(wavefront =>
-                    RmsScanSupport.WeightedWavefrontRms(wavefront.Samples, pupilSamples, _reference)).ToArray(),
+                    RmsScanSupport.WeightedWavefrontRms(wavefront.Samples, pupilSamples, _reference, _usePolarization)).ToArray(),
                 Polychromatic = WeightedPolychromaticWavefrontRms(
                     polychromaticWavefronts,
                     wavelengths,
                     pupilSamples,
-                    _reference)
+                    _reference,
+                    _usePolarization)
             };
         }).ToArray();
         var wavelengthSeries = wavelengths.Select((wavelength, wavelengthIndex) => new AnalysisSeries(
@@ -347,6 +360,9 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
             ["FieldCount"] = fields.Count,
             ["WavelengthCount"] = wavelengths.Length,
             ["RayDensity"] = _rayDensity,
+            ["PupilSampleCount"] = pupilSamples.Count,
+            ["PupilWeighting"] = _usePolarization ? "geometric * transmitted intensity" : "geometric",
+            ["UsePolarization"] = _usePolarization,
             ["GaussianAzimuthalSamples"] = Math.Clamp(GaussianAzimuthalSamples, 1, 72),
             ["FieldDensity"] = _fieldDensity,
             ["Method"] = _method,
@@ -367,9 +383,13 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
         IReadOnlyList<WavefrontResult> wavefronts,
         IReadOnlyList<Wavelength> wavelengths,
         IReadOnlyList<PupilSample> pupil,
-        string reference)
+        string reference,
+        bool usePolarization)
     {
-        var totalWeight = wavelengths.Sum(wavelength => Math.Max(0, wavelength.Weight));
+        var weights = wavefronts.Select((wavefront, index) => Math.Max(0, wavelengths[index].Weight)
+            * (usePolarization ? wavefront.Samples.Select((sample, sampleIndex) =>
+                double.IsFinite(sample.OpdWaves) && sample.Intensity > 0 ? pupil[sampleIndex].Weight * sample.Intensity : 0).Sum() : 1)).ToArray();
+        var totalWeight = weights.Sum();
         if (totalWeight <= 1e-30)
         {
             return 0;
@@ -377,8 +397,9 @@ public sealed class RmsWavefrontVsFieldAnalysis : BaseAnalysis
 
         var meanSquare = wavefronts.Select((wavefront, wavelengthIndex) =>
         {
-            var rms = RmsScanSupport.WeightedWavefrontRms(wavefront.Samples, pupil, reference);
-            return Math.Max(0, wavelengths[wavelengthIndex].Weight) * rms * rms;
+            if (weights[wavelengthIndex] == 0) return 0;
+            var rms = RmsScanSupport.WeightedWavefrontRms(wavefront.Samples, pupil, reference, usePolarization);
+            return weights[wavelengthIndex] * rms * rms;
         }).Sum() / totalWeight;
         return Math.Sqrt(Math.Max(0, meanSquare));
     }
@@ -441,7 +462,8 @@ public sealed class ZernikeVsFieldAnalysis : BaseAnalysis
                         Optic,
                         (edgeHx * fraction, edgeHy * fraction),
                         wavelength,
-                        _numRings).Samples,
+                        _numRings,
+                        aimAtStop: Optic.RayAimingEnabled).Samples,
                     _requestedNumTerms);
                 return (Coordinate: coordinate, Coefficients: coefficients);
             })
@@ -477,6 +499,7 @@ public sealed class ZernikeVsFieldAnalysis : BaseAnalysis
             {
                 ["FieldDensity"] = _fieldDensity,
                 ["NumRings"] = _numRings,
+                ["UseRayAiming"] = Optic.RayAimingEnabled,
                 ["ZernikeTerms"] = _actualNumTerms,
                 ["RequestedZernikeTerms"] = _requestedNumTerms,
                 ["ActualZernikeTerms"] = _actualNumTerms,

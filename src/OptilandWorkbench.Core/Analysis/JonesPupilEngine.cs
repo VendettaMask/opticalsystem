@@ -24,7 +24,11 @@ public sealed record JonesPupilResult(
     int GridSize,
     (double Hx, double Hy) Field,
     Wavelength Wavelength,
-    bool UsesFresnelCoatings);
+    bool UsesFresnelCoatings)
+{
+    public bool? UseRayAiming { get; init; }
+    public PupilGridSpecification? PupilGrid { get; init; }
+}
 
 public static class JonesPupilEngine
 {
@@ -63,12 +67,16 @@ public static class JonesPupilEngine
                     px,
                     py,
                     useFresnelCoatings,
-                    aimAtStop: cellCentered || aimAtStop,
+                    aimAtStop: aimAtStop,
                     includeBulkAbsorption: includeBulkAbsorption));
             }
         }
 
-        return new JonesPupilResult(samples, gridSize, field, wavelength, useFresnelCoatings);
+        return new JonesPupilResult(samples, gridSize, field, wavelength, useFresnelCoatings)
+        {
+            UseRayAiming = aimAtStop,
+            PupilGrid = new(gridSize, cellCentered, zemaxCentered, pupilGridStretch)
+        };
 
         double Coordinate(int index) => pupilGridStretch * (zemaxCentered && gridSize % 2 == 0
             ? (index - gridSize / 2.0) / Math.Max(1, gridSize / 2.0 - 1)

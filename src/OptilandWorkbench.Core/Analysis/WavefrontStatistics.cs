@@ -7,13 +7,16 @@ public enum WavefrontReferenceKind { ChiefRay, Centroid }
 
 public sealed record WavefrontStatistics(double Rms, double PeakToValley, int SampleCount)
 {
-    /// <summary>Geometric pupil-weighted OPD statistics in waves. Intensity selects valid rays;
-    /// it is not applied again as an integration weight.</summary>
+    /// <summary>Pupil-weighted OPD statistics in waves. By default intensity only selects
+    /// valid rays; polarized RMS analyses explicitly include transmitted intensity.</summary>
     public static WavefrontStatistics Measure(IReadOnlyList<WavefrontSample> wavefront,
-        IReadOnlyList<PupilSample> pupil, WavefrontReferenceKind reference)
+        IReadOnlyList<PupilSample> pupil, WavefrontReferenceKind reference, bool useIntensityWeights = false)
     {
         if (wavefront.Count != pupil.Count) throw new ArgumentException("波前与瞳孔采样数量不一致。");
         if (!Enum.IsDefined(reference)) throw new ArgumentOutOfRangeException(nameof(reference));
+        // Normalize intensity before multiplying, preserving invariance to a common power
+        // scale and avoiding overflow when the integration weights are themselves large.
+        var intensityScale = useIntensityWeights ? wavefront.Select(s => s.Intensity).DefaultIfEmpty(0).Max() : 1;
         var samples = new List<(double X, double Y, double Opd, double Weight)>();
         for (var i = 0; i < pupil.Count; i++)
         {
@@ -22,6 +25,8 @@ public sealed record WavefrontStatistics(double Rms, double PeakToValley, int Sa
             if (!double.IsFinite(weight) || weight < 0 || !double.IsFinite(s.Intensity) || s.Intensity < 0)
                 throw new InvalidOperationException("波前样本权重必须为有限非负值。");
             if (weight == 0 || s.Intensity == 0) continue;
+            if (useIntensityWeights) weight *= s.Intensity / intensityScale;
+            if (weight == 0) continue;
             if (!double.IsFinite(s.OpdWaves) || !double.IsFinite(s.NormalizedPupilX) || !double.IsFinite(s.NormalizedPupilY))
                 throw new InvalidOperationException("有效波前样本包含非有限值。");
             samples.Add((s.NormalizedPupilX, s.NormalizedPupilY, s.OpdWaves, weight));

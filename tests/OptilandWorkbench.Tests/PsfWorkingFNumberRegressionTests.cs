@@ -39,10 +39,14 @@ public sealed class PsfWorkingFNumberRegressionTests
             // geometry fails; FFT still regenerates the whole aimed pupil.
             Assert.InRange(DiffractionEngine.WorkingFNumber(optic, (0, hy), wave), 0.5, 2);
             var expectedFNumber = DiffractionEngine.WorkingFNumber(optic, (0, hy), wave, aimAtStop: true);
-            var actual = DiffractionEngine.ComputeFftPsf(optic, (0, hy), wave, 16, 32, usePolarization: polarized);
+            var actual = DiffractionEngine.ComputeFftPsf(optic, (0, hy), wave, 16, 32,
+                usePolarization: polarized, aimAtStop: false);
             var expected = DiffractionEngine.ComputeFftPsf(optic, (0, hy), wave, 16, 32,
                 usePolarization: polarized, aimAtStop: true);
             Assert.InRange(actual.WorkingFNumber, 0.5, 2);
+            Assert.True(actual.UseRayAiming);
+            Assert.True(actual.StopAimingFallbackUsed);
+            Assert.False(expected.StopAimingFallbackUsed);
             Assert.Equal(expectedFNumber, actual.WorkingFNumber, 12);
             Assert.Equal(wave.Micrometers * expectedFNumber * 15 / 32, actual.SampleSpacingMicrometers, 12);
             Assert.Equal(expected.Values.Cast<double>(), actual.Values.Cast<double>());

@@ -1,0 +1,56 @@
+{
+  "createdUtc": "2026-10-08T06:54:23.8874594+00:00",
+  "runs": [
+    {
+      "path": "formal-full-release.trx",
+      "sha256": "2db4287809bd4a9cd3dc931eddea5b7cf5a84da455b2fc126e05dcde126d0725",
+      "total": 4434,
+      "passed": 4430,
+      "failed": 4,
+      "skipped": 0
+    },
+    {
+      "path": "comparison-full-release.trx",
+      "sha256": "e7d0ba9f8cbdce3f0b0db7647cf321d404078fa6142baf7300ebea97221044d8",
+      "total": 180,
+      "passed": 178,
+      "failed": 2,
+      "skipped": 0
+    },
+    {
+      "path": "repair-debug.trx",
+      "sha256": "b96d054ce887c28eca6f362fa0b26bb0b5ef7ca9e6d26c474a54a40b1c9d5a96",
+      "total": 49,
+      "passed": 49,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "ui-isolation-release-01.trx",
+      "sha256": "a6893ff97f311170a5e9406bc591eb6e19ba847276fecc8ba197e350150ee929",
+      "total": 13,
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "ui-isolation-release-02.trx",
+      "sha256": "c2a062294976d0247243866edf61517a4b4e3d210e2b955e5e96fddefd9fa423",
+      "total": 13,
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "repairAcceptance": "Pass for declared physical Wavefront/Interferogram aiming scope only",
+  "releaseAcceptance": "Fail",
+  "productCodeTestsToleranceChanged": false,
+  "newObservedFormalUiFailureIdentities": 2,
+  "formalOldCasesRemoved": 0,
+  "formalAddedCases": 25,
+  "nativeExecuted": 0,
+  "numericallyComparedInLiveAttempt": 0,
+  "nativeCaptureLimitation": "ZOS-API not found; API license status not evaluated",
+  "fullDebugAndLabsRun": false,
+  "interactiveSmokeAndPackagingRun": false
+}

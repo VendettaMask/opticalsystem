@@ -17,6 +17,9 @@ public sealed record PsfResult(
     double FrequencySampleCount = 0,
     AnalysisAxisUnit SampleSpacingUnit = AnalysisAxisUnit.Micrometer)
 {
+    public bool UseRayAiming { get; init; }
+    public bool StopAimingFallbackUsed { get; init; }
+    public double PupilGridStretch { get; init; } = 1;
     public double StrehlRatio => Values[GridSize / 2, GridSize / 2] / 100;
 
     public double PeakStrehlRatio => Values.Cast<double>().DefaultIfEmpty(0).Max() / 100;
@@ -129,39 +132,35 @@ public static class DiffractionEngine
         JonesPupilResult? preparedPolarization = null,
         bool zemaxFftSampling = false,
         bool ignoreOpd = false,
-        bool aimAtStop = false,
+        bool? aimAtStop = null,
         Wavelength? referenceWavelength = null,
         double imageDelta = 0)
     {
         AnalysisResourceLimits.ValidateFftGrid(pupilSampling, gridSize);
 
-        if (optic.RayAimingEnabled && !aimAtStop && !cellCenteredPupil
-            && (preparedWavefront is not null || preparedPolarization is not null))
-        {
-            throw new InvalidOperationException(
-                "FFT PSF requires stop aiming. Regenerate the prepared wavefront and polarization with stop aiming and pass aimAtStop: true.");
-        }
-        aimAtStop |= optic.RayAimingEnabled;
-        var pupilAimAtStop = cellCenteredPupil || aimAtStop;
-        if (!TryWorkingFNumbersAtPupilZone(optic, field, wavelength, aimAtStop, false, 1, out var workingAxes))
+        var pupilAimAtStop = aimAtStop ?? optic.RayAimingEnabled;
+        var fallbackUsed = false;
+        if (!TryWorkingFNumbersAtPupilZone(optic, field, wavelength, pupilAimAtStop, false, 1, out var workingAxes))
         {
             // A paraxial entrance-pupil launch can miss the real stop in high-NA systems.
             // Retry the entire pupil convention, not just the F-number used to scale its FFT.
-            if (!pupilAimAtStop && (preparedWavefront is not null || preparedPolarization is not null))
+            if ((preparedWavefront is not null && preparedWavefront.UseRayAiming != true)
+                || (usePolarization && preparedPolarization is not null && preparedPolarization.UseRayAiming != true))
             {
                 throw new InvalidOperationException(
                     "FFT PSF requires stop aiming. Regenerate the prepared wavefront and polarization with stop aiming and pass aimAtStop: true.");
             }
 
             workingAxes = WorkingFNumbers(optic, field, wavelength, aimAtStop: true);
+            fallbackUsed = !pupilAimAtStop;
             pupilAimAtStop = true;
         }
 
         var fNumber = CombineWorkingFNumbers(workingAxes);
-        var pupilGridStretch = zemaxFftSampling
+        var pupilGridStretch = zemaxFftSampling && imageDelta >= 0
             ? Math.Sqrt(pupilSampling / 32.0)
             : 1;
-        if (!double.IsFinite(imageDelta) || imageDelta < 0)
+        if (!double.IsFinite(imageDelta) || (!zemaxFftSampling && imageDelta < 0))
         {
             throw new ArgumentOutOfRangeException(nameof(imageDelta));
         }
@@ -177,6 +176,34 @@ public static class DiffractionEngine
                 ? ImageSpaceAnalysisSupport.FftSampleSpacingMilliradians(
                     optic, wavelength, pupilSampling, gridSize, true, 1) / imageDelta
                 : wavelength.Micrometers * fNumber * (pupilSampling - 2) / (gridSize * imageDelta);
+        }
+        var grid = new PupilGridSpecification(pupilSampling, cellCenteredPupil, zemaxFftSampling, pupilGridStretch);
+        if (preparedWavefront is not null)
+        {
+            ValidatePreparedPupil(preparedWavefront.UseRayAiming, preparedWavefront.PupilGrid,
+                preparedWavefront.SourceField, preparedWavefront.SourceWavelengthNanometers, "wavefront");
+            if (preparedWavefront.SourceReferenceWavelengthNanometers != (referenceWavelength?.Nanometers ?? wavelength.Nanometers))
+                throw new InvalidOperationException("FFT PSF prepared wavefront reference wavelength does not match the computation request.");
+            var expectedNodes = new HashSet<(double X, double Y)>();
+            for (var row = 0; row < pupilSampling; row++)
+                for (var column = 0; column < pupilSampling; column++)
+                {
+                    var x = grid.Coordinate(column); var y = grid.Coordinate(row);
+                    if (x * x + y * y <= 1) expectedNodes.Add((x, y));
+                }
+            if (preparedWavefront.Samples.Count != expectedNodes.Count
+                || preparedWavefront.Samples.Any(sample => !expectedNodes.Remove((sample.NormalizedPupilX, sample.NormalizedPupilY))))
+                throw new InvalidOperationException("FFT PSF prepared wavefront samples do not match the requested pupil nodes.");
+        }
+        if (usePolarization && preparedPolarization is not null)
+        {
+            ValidatePreparedPupil(preparedPolarization.UseRayAiming, preparedPolarization.PupilGrid,
+                preparedPolarization.Field, preparedPolarization.Wavelength.Nanometers, "polarization");
+            if (!preparedPolarization.UsesFresnelCoatings || preparedPolarization.Samples.Count != pupilSampling * pupilSampling
+                || preparedPolarization.Samples.Where((sample, index) =>
+                    sample.Px != grid.Coordinate(index % pupilSampling)
+                    || sample.Py != grid.Coordinate(index / pupilSampling)).Any())
+                throw new InvalidOperationException("FFT PSF prepared polarization nodes or coating model do not match the computation request.");
         }
         var wavefront = preparedWavefront ?? WavefrontEngine.GenerateChiefRayUniform(
             optic,
@@ -205,7 +232,7 @@ public static class DiffractionEngine
                 optic,
                 field,
                 wavelength,
-                aimAtStop: true,
+                aimAtStop: pupilAimAtStop,
                 zemaxDirectionalAverage: true)
             : (fNumber, fNumber);
         var pupil = BuildComplexPupilCore(
@@ -270,7 +297,25 @@ public static class DiffractionEngine
             cellCenteredPupil ? tangentialFNumber : 0,
             cellCenteredPupil ? sagittalFNumber : 0,
             cellCenteredPupil ? pupilSampling : pupilSampling - 1,
-            optic.ImageSpaceAfocal ? AnalysisAxisUnit.Milliradian : AnalysisAxisUnit.Micrometer);
+            optic.ImageSpaceAfocal ? AnalysisAxisUnit.Milliradian : AnalysisAxisUnit.Micrometer)
+        {
+            UseRayAiming = pupilAimAtStop,
+            StopAimingFallbackUsed = fallbackUsed,
+            PupilGridStretch = pupilGridStretch
+        };
+
+        void ValidatePreparedPupil(bool? aiming, PupilGridSpecification? preparedGrid,
+            (double Hx, double Hy)? sourceField, double? sourceWavelength, string component)
+        {
+            if (aiming != pupilAimAtStop)
+                throw new InvalidOperationException($"FFT PSF pupil aiming mismatch. Regenerate the prepared wavefront and polarization with the requested aiming ({pupilAimAtStop}).");
+            if (sourceField != field || sourceWavelength != wavelength.Nanometers
+                || preparedGrid is null || preparedGrid.SampleCount != grid.SampleCount
+                || !double.IsFinite(preparedGrid.Stretch) || preparedGrid.Stretch <= 0
+                || Enumerable.Range(0, pupilSampling).Any(index =>
+                    Math.Abs(preparedGrid.Coordinate(index) - grid.Coordinate(index)) > 1e-12))
+                throw new InvalidOperationException($"FFT PSF prepared {component} field, wavelength or pupil grid does not match the computation request.");
+        }
     }
 
     internal static (Complex Tangential, Complex Sagittal) ComputeFastFftMtfAtFrequency(
@@ -289,7 +334,7 @@ public static class DiffractionEngine
             optic,
             field,
             wavelength,
-            aimAtStop: true,
+            aimAtStop: preparedWavefront.UseRayAiming ?? optic.RayAimingEnabled,
             zemaxDirectionalAverage: true);
         var frequencyTangentialFNumber = tangentialFNumber;
         var frequencySagittalFNumber = sagittalFNumber;
@@ -430,7 +475,8 @@ public static class DiffractionEngine
             wavelength,
             coordinates,
             defocusMillimeters,
-            referenceWavelength);
+            referenceWavelength,
+            aimAtStop: normalizationWavefront.UseRayAiming ?? optic.RayAimingEnabled);
         var normalizationSamples = normalizationWavefront.Samples
             .Where(sample => sample.Intensity > 0)
             .ToArray();
@@ -465,8 +511,10 @@ public static class DiffractionEngine
         Wavelength wavelength,
         IReadOnlyList<(double X, double Y)> coordinates,
         double defocusMillimeters,
-        Wavelength? referenceWavelength = null)
+        Wavelength? referenceWavelength = null,
+        bool? aimAtStop = null)
     {
+        var useRayAiming = aimAtStop ?? optic.RayAimingEnabled;
         if (optic.ImageSpaceAfocal)
         {
             var wavefront = WavefrontEngine.GenerateChiefRaySamples(
@@ -474,7 +522,7 @@ public static class DiffractionEngine
                 field,
                 wavelength,
                 coordinates,
-                aimAtStop: true,
+                aimAtStop: useRayAiming,
                 referenceWavelength: referenceWavelength);
             return ApplyAfocalDefocus(wavefront, wavelength, defocusMillimeters);
         }
@@ -486,7 +534,7 @@ public static class DiffractionEngine
                 field,
                 wavelength,
                 coordinates,
-                aimAtStop: true,
+                aimAtStop: useRayAiming,
                 referenceWavelength: referenceWavelength);
         }
 
@@ -500,7 +548,7 @@ public static class DiffractionEngine
                     field,
                     wavelength,
                     coordinates,
-                    aimAtStop: true,
+                    aimAtStop: useRayAiming,
                     referenceWavelength: referenceWavelength);
             }
 
@@ -517,13 +565,14 @@ public static class DiffractionEngine
                     .ResolveRealImageFieldCoordinates(
                         target.X,
                         target.Y,
-                        aimAtStop: true);
+                        aimAtStop: useRayAiming);
             }
 
             var originalThickness = previous.Thickness;
             var originalCoordinate = image.CoordinateSystem;
             var shift = previous.CoordinateSystem.ToGlobalDirection(
                 new Vector3D(0, 0, defocusMillimeters));
+            optic.InvalidateRayTraceCache();
             previous.Thickness = originalThickness + defocusMillimeters;
             image.CoordinateSystem = new CoordinateSystem(
                 originalCoordinate.Origin + shift,
@@ -537,12 +586,13 @@ public static class DiffractionEngine
                     field,
                     wavelength,
                     coordinates,
-                    aimAtStop: true,
+                    aimAtStop: useRayAiming,
                     nominalRealImageLaunch,
                     referenceWavelength: referenceWavelength);
             }
             finally
             {
+                optic.InvalidateRayTraceCache();
                 previous.Thickness = originalThickness;
                 image.CoordinateSystem = originalCoordinate;
             }
@@ -644,8 +694,10 @@ public static class DiffractionEngine
         IReadOnlyList<Wavelength> wavelengths,
         IReadOnlyList<(double X, double Y)> coordinates,
         double defocusMillimeters,
-        bool usePolarization = false)
+        bool usePolarization = false,
+        bool? aimAtStop = null)
     {
+        var useRayAiming = aimAtStop ?? optic.RayAimingEnabled;
         if (wavelengths.Count == 0)
         {
             return Array.Empty<WavefrontResult>();
@@ -660,7 +712,7 @@ public static class DiffractionEngine
                     field,
                     wavelength,
                     coordinates,
-                    aimAtStop: true,
+                    aimAtStop: useRayAiming,
                     usePolarization: usePolarization,
                     referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0]);
                 return ApplyAfocalDefocus(wavefront, wavelength, defocusMillimeters);
@@ -679,11 +731,12 @@ public static class DiffractionEngine
             {
                 var target = FieldCoordinates.Denormalize(optic.Fields, field.Hx, field.Hy);
                 nominalRealImageLaunch = optic.SequentialRayTracer.RayGenerator
-                    .ResolveRealImageFieldCoordinates(target.X, target.Y, aimAtStop: true);
+                    .ResolveRealImageFieldCoordinates(target.X, target.Y, aimAtStop: useRayAiming);
             }
 
             if (previous is not null && image is not null && Math.Abs(defocusMillimeters) > 1e-30)
             {
+                optic.InvalidateRayTraceCache();
                 var shift = previous.CoordinateSystem.ToGlobalDirection(
                     new Vector3D(0, 0, defocusMillimeters));
                 previous.Thickness = originalThickness + defocusMillimeters;
@@ -701,7 +754,7 @@ public static class DiffractionEngine
                         optic,
                         field,
                         wavelength,
-                        aimAtStop: true,
+                        aimAtStop: useRayAiming,
                         nominalRealImageLaunch,
                         usePolarization)).ToArray();
                 var primaryIndex = Enumerable.Range(0, wavelengths.Count)
@@ -713,7 +766,7 @@ public static class DiffractionEngine
                         field,
                         wavelength,
                         coordinates,
-                        aimAtStop: true,
+                        aimAtStop: useRayAiming,
                         resolvedRealImageLaunch: nominalRealImageLaunch,
                         referenceSphere: new WavefrontReferenceSphere(
                             primary.CenterX,
@@ -726,6 +779,7 @@ public static class DiffractionEngine
             {
                 if (previous is not null && image is not null && originalCoordinate is not null)
                 {
+                    optic.InvalidateRayTraceCache();
                     previous.Thickness = originalThickness;
                     image.CoordinateSystem = originalCoordinate;
                 }
@@ -1097,7 +1151,7 @@ public static class DiffractionEngine
                 imageSize,
                 WorkingFNumber(optic, field, wavelength, aimAtStop),
                 pixelPitchMillimeters,
-                SampleSpacingUnit: AnalysisAxisUnit.Milliradian);
+                SampleSpacingUnit: AnalysisAxisUnit.Milliradian) { UseRayAiming = aimAtStop };
         }
 
         var imageCoordinates = CreateHuygensImageCoordinates(optic, field, referenceWavelength ?? wavelength,
@@ -1149,7 +1203,7 @@ public static class DiffractionEngine
             numRays,
             imageSize,
             WorkingFNumber(optic, field, wavelength, aimAtStop),
-            pixelPitchMillimeters * 1000.0);
+            pixelPitchMillimeters * 1000.0) { UseRayAiming = aimAtStop };
     }
 
     public static double DefaultHuygensImageDeltaMillimeters(
@@ -1718,7 +1772,12 @@ public static class DiffractionEngine
                     }
 
                     var wave = Complex.FromPolarCoordinates(1 / distance, k * distance);
-                    var obliquity = 0.5 * (1 + (Dot(delta, pupil / radius) / distance));
+                    // Retain the existing scalar weight in the lens datum frame,
+                    // not in an arbitrary global frame. A reference-sphere-normal
+                    // or native planar/spherical propagator is a different model
+                    // and still needs independent numerical certification.
+                    var localPupil = pupil - wavefront.HuygensCoordinateOrigin;
+                    var obliquity = 0.5 * (1 + Dot(delta, localPupil / radius) / distance);
                     var opd = idealOpd ? 0 : sample.OpdWaves * wavelengthMillimeters;
                     var pupilPhase = Complex.FromPolarCoordinates(1, -k * opd);
                     var polarizationAmplitude = polarizationByPupil?.GetValueOrDefault((

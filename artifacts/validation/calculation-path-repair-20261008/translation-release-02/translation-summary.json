@@ -1,0 +1,218 @@
+{
+  "scope": "Rigid global Z-origin controls on unchanged Cooke and MS-L7 models through formal Core. No native capture or alternate optical formula.",
+  "createdUtc": "2026-10-08T08:00:24.6613793+00:00",
+  "phase": "post-repair verification",
+  "inputsUnchanged": true,
+  "cases": [
+    {
+      "name": "Cooke axis",
+      "originalSystemAiming": false,
+      "waveNumber": 2,
+      "referenceSphere": {
+        "centerX": 0,
+        "centerY": 0,
+        "centerZ": 60.176746167000005,
+        "radius": 50.961338531479946
+      },
+      "pupilBounds": {
+        "minZ": 9.215942255446933,
+        "maxZ": 9.470807451850007
+      },
+      "shifts": [
+        {
+          "axialTranslationMillimeters": 1,
+          "candidateCount": 740,
+          "commonValidCount": 740,
+          "maskMismatchCount": 0,
+          "wavefrontOpdDifferenceWaves": 5.1675885792690224E-11,
+          "intensityDifference": 0,
+          "imageDirectionZDifference": 0,
+          "pupilTranslationResidualMillimeters": 5.063396036227354E-15,
+          "frameTranslationResidualMillimeters": 0,
+          "referenceRadiusDifferenceMillimeters": 0,
+          "huygensMaximumIntensityDifference": 3.4634339840522444E-12,
+          "baselineHuygensPeak": 0.29845978318946215,
+          "shiftedHuygensPeak": 0.2984597831929256,
+          "fftMaximumIntensityDifference": 3.496367639854725E-12,
+          "fftPitchDifferenceMicrometers": 0
+        },
+        {
+          "axialTranslationMillimeters": 10,
+          "candidateCount": 740,
+          "commonValidCount": 740,
+          "maskMismatchCount": 0,
+          "wavefrontOpdDifferenceWaves": 5.1675885792690224E-11,
+          "intensityDifference": 1.1102230246251565E-16,
+          "imageDirectionZDifference": 1.1102230246251565E-16,
+          "pupilTranslationResidualMillimeters": 7.160723346098895E-15,
+          "frameTranslationResidualMillimeters": 0,
+          "referenceRadiusDifferenceMillimeters": 0,
+          "huygensMaximumIntensityDifference": 9.342215889773797E-12,
+          "baselineHuygensPeak": 0.29845978318946215,
+          "shiftedHuygensPeak": 0.2984597831809598,
+          "fftMaximumIntensityDifference": 4.78024730909965E-12,
+          "fftPitchDifferenceMicrometers": 0
+        },
+        {
+          "axialTranslationMillimeters": 100,
+          "candidateCount": 740,
+          "commonValidCount": 740,
+          "maskMismatchCount": 0,
+          "wavefrontOpdDifferenceWaves": 1.2918954794827187E-10,
+          "intensityDifference": 1.1102230246251565E-16,
+          "imageDirectionZDifference": 1.1102230246251565E-16,
+          "pupilTranslationResidualMillimeters": 1.469022673019457E-14,
+          "frameTranslationResidualMillimeters": 0,
+          "referenceRadiusDifferenceMillimeters": 7.105427357601002E-15,
+          "huygensMaximumIntensityDifference": 6.2294347458191626E-12,
+          "baselineHuygensPeak": 0.29845978318946215,
+          "shiftedHuygensPeak": 0.29845978318695876,
+          "fftMaximumIntensityDifference": 1.9160184550059966E-12,
+          "fftPitchDifferenceMicrometers": 0
+        }
+      ]
+    },
+    {
+      "name": "Cooke edge",
+      "originalSystemAiming": false,
+      "waveNumber": 1,
+      "referenceSphere": {
+        "centerX": 0,
+        "centerY": 18.135862113238108,
+        "centerZ": 60.176746167000005,
+        "radius": 54.106832872496554
+      },
+      "pupilBounds": {
+        "minZ": 7.737990832258532,
+        "maxZ": 10.658551926782394
+      },
+      "shifts": [
+        {
+          "axialTranslationMillimeters": 1,
+          "candidateCount": 740,
+          "commonValidCount": 740,
+          "maskMismatchCount": 0,
+          "wavefrontOpdDifferenceWaves": 1.0362088964654959E-10,
+          "intensityDifference": 1.1102230246251565E-16,
+          "imageDirectionZDifference": 2.220446049250313E-16,
+          "pupilTranslationResidualMillimeters": 2.994887058365124E-14,
+          "frameTranslationResidualMillimeters": 0,
+          "referenceRadiusDifferenceMillimeters": 0,
+          "huygensMaximumIntensityDifference": 1.3910073093370556E-12,
+          "baselineHuygensPeak": 0.03917001909812896,
+          "shiftedHuygensPeak": 0.039170019098334674,
+          "fftMaximumIntensityDifference": 2.632818407732884E-12,
+          "fftPitchDifferenceMicrometers": 0
+        },
+        {
+          "axialTranslationMillimeters": 10,
+          "candidateCount": 740,
+          "commonValidCount": 740,
+          "maskMismatchCount": 0,
+          "wavefrontOpdDifferenceWaves": 1.3322676295501878E-10,
+          "intensityDifference": 1.1102230246251565E-16,
+          "imageDirectionZDifference": 2.220446049250313E-16,
+          "pupilTranslationResidualMillimeters": 2.6001034513542094E-14,
+          "frameTranslationResidualMillimeters": 3.552713678800501E-15,
+          "referenceRadiusDifferenceMillimeters": 7.105427357601002E-15,
+          "huygensMaximumIntensityDifference": 2.2232526930565653E-12,
+          "baselineHuygensPeak": 0.03917001909812896,
+          "shiftedHuygensPeak": 0.039170019097168746,
+          "fftMaximumIntensityDifference": 2.8710234190043594E-12,
+          "fftPitchDifferenceMicrometers": 7.993605777301127E-15
+        },
+        {
+          "axialTranslationMillimeters": 100,
+          "candidateCount": 740,
+          "commonValidCount": 740,
+          "maskMismatchCount": 0,
+          "wavefrontOpdDifferenceWaves": 2.3684759709041714E-10,
+          "intensityDifference": 1.1102230246251565E-16,
+          "imageDirectionZDifference": 3.3306690738754696E-16,
+          "pupilTranslationResidualMillimeters": 5.42301687521885E-14,
+          "frameTranslationResidualMillimeters": 3.552713678800501E-15,
+          "referenceRadiusDifferenceMillimeters": 7.105427357601002E-15,
+          "huygensMaximumIntensityDifference": 2.9458913086699567E-12,
+          "baselineHuygensPeak": 0.03917001909812896,
+          "shiftedHuygensPeak": 0.039170019097729714,
+          "fftMaximumIntensityDifference": 8.764402537053684E-12,
+          "fftPitchDifferenceMicrometers": 0
+        }
+      ]
+    },
+    {
+      "name": "MS-L7 axis",
+      "originalSystemAiming": true,
+      "waveNumber": 1,
+      "referenceSphere": {
+        "centerX": 0,
+        "centerY": 0,
+        "centerZ": 37.86431358413513,
+        "radius": 11.33607822960428
+      },
+      "pupilBounds": {
+        "minZ": 26.530666152105866,
+        "maxZ": 27.503558579422968
+      },
+      "shifts": [
+        {
+          "axialTranslationMillimeters": 1,
+          "candidateCount": 740,
+          "commonValidCount": 740,
+          "maskMismatchCount": 0,
+          "wavefrontOpdDifferenceWaves": 2.338597093753947E-10,
+          "intensityDifference": 2.220446049250313E-16,
+          "imageDirectionZDifference": 3.3306690738754696E-16,
+          "pupilTranslationResidualMillimeters": 8.260536804688756E-15,
+          "frameTranslationResidualMillimeters": 0,
+          "referenceRadiusDifferenceMillimeters": 3.552713678800501E-15,
+          "huygensMaximumIntensityDifference": 9.354224062008143E-12,
+          "baselineHuygensPeak": 0.4826924053625806,
+          "shiftedHuygensPeak": 0.4826924053621883,
+          "fftMaximumIntensityDifference": 1.5560788213520027E-11,
+          "fftPitchDifferenceMicrometers": 2.7755575615628914E-16
+        },
+        {
+          "axialTranslationMillimeters": 10,
+          "candidateCount": 740,
+          "commonValidCount": 740,
+          "maskMismatchCount": 0,
+          "wavefrontOpdDifferenceWaves": 2.338595983530922E-10,
+          "intensityDifference": 2.220446049250313E-16,
+          "imageDirectionZDifference": 3.3306690738754696E-16,
+          "pupilTranslationResidualMillimeters": 1.1235215653782796E-14,
+          "frameTranslationResidualMillimeters": 0,
+          "referenceRadiusDifferenceMillimeters": 3.552713678800501E-15,
+          "huygensMaximumIntensityDifference": 1.573422281353487E-11,
+          "baselineHuygensPeak": 0.4826924053625806,
+          "shiftedHuygensPeak": 0.4826924053745507,
+          "fftMaximumIntensityDifference": 1.1317560222323664E-11,
+          "fftPitchDifferenceMicrometers": 1.6653345369377348E-16
+        },
+        {
+          "axialTranslationMillimeters": 100,
+          "candidateCount": 740,
+          "commonValidCount": 740,
+          "maskMismatchCount": 0,
+          "wavefrontOpdDifferenceWaves": 3.507895085519408E-10,
+          "intensityDifference": 2.220446049250313E-16,
+          "imageDirectionZDifference": 6.661338147750939E-16,
+          "pupilTranslationResidualMillimeters": 3.308557751587466E-14,
+          "frameTranslationResidualMillimeters": 1.4210854715202004E-14,
+          "referenceRadiusDifferenceMillimeters": 3.552713678800501E-15,
+          "huygensMaximumIntensityDifference": 3.584787577892712E-11,
+          "baselineHuygensPeak": 0.4826924053625806,
+          "shiftedHuygensPeak": 0.48269240532673274,
+          "fftMaximumIntensityDifference": 4.4231676099570907E-11,
+          "fftPitchDifferenceMicrometers": 2.220446049250313E-16
+        }
+      ]
+    }
+  ],
+  "inputHashes": {
+    "D:\\optical system design\\opticalsystem\\validation/zemax/2026-r1/standard-sample-opd-2026-10-06/cooke-40-degree-field/snapshot.json": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af",
+    "D:\\optical system design\\opticalsystem\\validation/zemax/2026-r1/ms-l7-analysis-expansion-2026-09-06/source.ZMX": "8bcc937c2c2e02ba175f38875fd0def40db547f7eedab509cbfd1fed4353e0e8"
+  },
+  "coreAssemblySha256": "199d8bb7d833379a4f1287a45b0fde99675a9ff99ea48c846192941046ac3a25",
+  "probeSourceSha256": "4965c5f8859ea9f340c4f3088d6587a397cebb5aafd020d5f3e4e8cc629f7851"
+}

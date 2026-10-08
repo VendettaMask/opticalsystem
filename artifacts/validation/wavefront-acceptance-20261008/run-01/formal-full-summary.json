@@ -1,0 +1,40 @@
+{
+  "scope": "Complete formal product Release tests; isolated reruns never replace these counts",
+  "total": 4434,
+  "passed": 4430,
+  "failed": 4,
+  "skipped": 0,
+  "previousTotal": 4409,
+  "removedCases": 0,
+  "addedCases": 25,
+  "newRepairCases": 25,
+  "newRepairPassed": 25,
+  "relatedCases": 743,
+  "relatedPassed": 743,
+  "failures": [
+    {
+      "name": "OptilandWorkbench.Tests.AccessibilityAndResponsiveLayoutTests.ReadOnlyAnalysisChartsExposeNamedValuePeersWithoutFakeCommands",
+      "previouslyFailed": false,
+      "message": "System.NullReferenceException : Object reference not set to an instance of an object.",
+      "stackTrace": "   at OptilandWorkbench.Tests.SafeHeadlessUnitTestSession.Dispose() in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.Tests\\WavefrontSurfaceRenderTests.cs:line 137\r\n   at OptilandWorkbench.Tests.AccessibilityAndResponsiveLayoutTests.ReadOnlyAnalysisChartsExposeNamedValuePeersWithoutFakeCommands() in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.Tests\\AccessibilityAndResponsiveLayoutTests.cs:line 56\r\n   at OptilandWorkbench.Tests.AccessibilityAndResponsiveLayoutTests.ReadOnlyAnalysisChartsExposeNamedValuePeersWithoutFakeCommands()\r\n--- End of stack trace from previous location ---"
+    },
+    {
+      "name": "OptilandWorkbench.Tests.PanelContentLayoutTests.DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances(standard: Iso10110, cemented: True)",
+      "previouslyFailed": true,
+      "message": "System.NullReferenceException : Object reference not set to an instance of an object.",
+      "stackTrace": "   at OptilandWorkbench.Tests.SafeHeadlessUnitTestSession.Dispose() in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.Tests\\WavefrontSurfaceRenderTests.cs:line 137\r\n   at OptilandWorkbench.Tests.PanelContentLayoutTests.DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances(OpticalDrawingStandard standard, Boolean cemented) in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.Tests\\PanelContentLayoutTests.cs:line 37\r\n   at OptilandWorkbench.Tests.PanelContentLayoutTests.DrawingReadsMaterialValuesAndCombinesThemWithEditedTolerances(OpticalDrawingStandard standard, Boolean cemented)\r\n--- End of stack trace from previous location ---"
+    },
+    {
+      "name": "OptilandWorkbench.Tests.FieldCurvatureFooterTests.CombinedFooterShowsTwoCompactSummariesFromTheActualLensResult",
+      "previouslyFailed": false,
+      "message": "System.NullReferenceException : Object reference not set to an instance of an object.",
+      "stackTrace": "   at OptilandWorkbench.Tests.SafeHeadlessUnitTestSession.Dispose() in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.Tests\\WavefrontSurfaceRenderTests.cs:line 137\r\n   at OptilandWorkbench.Tests.FieldCurvatureFooterTests.CombinedFooterShowsTwoCompactSummariesFromTheActualLensResult() in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.Tests\\FieldCurvatureFooterTests.cs:line 49\r\n   at OptilandWorkbench.Tests.FieldCurvatureFooterTests.CombinedFooterShowsTwoCompactSummariesFromTheActualLensResult()\r\n--- End of stack trace from previous location ---"
+    },
+    {
+      "name": "OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays",
+      "previouslyFailed": true,
+      "message": "finite_angle: expected 0.058589983242791625, actual 0.060191701479492175",
+      "stackTrace": "   at OptilandWorkbench.Tests.FieldDefinitionParityTests.AssertClose(Double expected, Double actual, String caseName) in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.Tests\\Validation\\History\\FieldDefinitionParityTests.cs:line 384\r\n   at OptilandWorkbench.Tests.FieldDefinitionParityTests.AssertRay(JsonElement expected, RealRay actual, String caseName) in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.Tests\\Validation\\History\\FieldDefinitionParityTests.cs:line 365\r\n   at OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays() in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.Tests\\Validation\\History\\FieldDefinitionParityTests.cs:line 48\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)"
+    }
+  ]
+}

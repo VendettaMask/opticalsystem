@@ -1,0 +1,376 @@
+{
+  "schemaVersion": 1,
+  "createdUtc": "2026-10-08T09:03:25.4843968Z",
+  "baseCommit": "1b82a87c668920be8ebb345b07f2d95c91292896",
+  "remoteBaseBeforeSync": "1b82a87c668920be8ebb345b07f2d95c91292896",
+  "branch": "main",
+  "scope": "Selected immutable stage evidence and report outputs for the cumulative 2026-10-08 repairs; not a complete repository or original native-capture inventory",
+  "evidenceFileCount": 68,
+  "evidenceBytes": 28153255,
+  "currentVerification": {
+    "formal": {
+      "passed": 4492,
+      "failed": 2,
+      "total": 4494
+    },
+    "tool": {
+      "passed": 178,
+      "failed": 2,
+      "total": 180
+    },
+    "addedPassing": 60,
+    "sourceAndBinaryFingerprintsChecked": 14,
+    "fullTestsRerunDuringDocumentationSync": false,
+    "nativeRecaptured": false,
+    "original132Reclassified": false,
+    "releaseAcceptancePassed": false
+  },
+  "excluded": [
+    "Build binaries and dependency caches",
+    "Report QA PNGs and intermediate QA PDF",
+    "Complete raw native-attempt directories",
+    "Large per-ray arrays and complete original six-lens captures"
+  ],
+  "evidenceFiles": [
+    {
+      "path": "artifacts/validation/calculation-path-repair-20261008/full-release-01/full-formal.trx",
+      "bytes": 6671424,
+      "sha256": "5e7a2172ba50fd7c9b177a5a5cdd2c440941770a42f5ea88d1568155ee014ba3"
+    },
+    {
+      "path": "artifacts/validation/calculation-path-repair-20261008/full-tool-release-02/full-comparison.trx",
+      "bytes": 319801,
+      "sha256": "dd8445b944bd5bea4f668acf3ad37d6f3edfb063d723a9dec8b9dcc493e5f893"
+    },
+    {
+      "path": "artifacts/validation/calculation-path-repair-20261008/matrix-debug-final/summary.json",
+      "bytes": 90266,
+      "sha256": "8dec720a473ed5abca1e0043816821f0327ab9d8e0fcb9bec2595dc7f86e91b6"
+    },
+    {
+      "path": "artifacts/validation/calculation-path-repair-20261008/matrix-release-01/summary.json",
+      "bytes": 90266,
+      "sha256": "cdb822c7bcd237ab5b4ab5c9af5b15ba4556cd65b925c22490d9d2a43e59c6b2"
+    },
+    {
+      "path": "artifacts/validation/calculation-path-repair-20261008/matrix-release-final/summary.json",
+      "bytes": 90265,
+      "sha256": "b307d05a65e13e7a9cd3568c4f9e48912a645b9a458c9cee01b8543554b2d155"
+    },
+    {
+      "path": "artifacts/validation/calculation-path-repair-20261008/native-plane-candidate/huygens-plane-candidate.trx",
+      "bytes": 52915,
+      "sha256": "e22458d8f49bf73e30d22f857d2e3c14d98fb16870c267cec56cd4404c63c5e4"
+    },
+    {
+      "path": "artifacts/validation/calculation-path-repair-20261008/native-release-01/native-diffraction.trx",
+      "bytes": 107683,
+      "sha256": "991f0fb992a34657f030fb68675d578ef1530537fb01f338540c37f94353beda"
+    },
+    {
+      "path": "artifacts/validation/calculation-path-repair-20261008/native-release-02/native-diffraction.trx",
+      "bytes": 103513,
+      "sha256": "df0d1ca8493f16718c4f3745186299711b79a64dd15baf5ac48f47c6d076b0c2"
+    },
+    {
+      "path": "artifacts/validation/calculation-path-repair-20261008/target-debug-01/targeted.trx",
+      "bytes": 155293,
+      "sha256": "2a2dd3602afefb665c1dfea6708ecc33a98f7fd8a1668c3cbf1e256546ed174a"
+    },
+    {
+      "path": "artifacts/validation/calculation-path-repair-20261008/target-release-01/calculation-path-repair.trx",
+      "bytes": 73246,
+      "sha256": "a6a4fa7a2f99a58dc0878a9ebb2cde2d5694bdf63388bdaab90d3fcbd49c36e4"
+    },
+    {
+      "path": "artifacts/validation/calculation-path-repair-20261008/target-release-02/targeted.trx",
+      "bytes": 155568,
+      "sha256": "afbdc2279a6aca3cd63f64b4be19daa6510fcad45f457a8ec7a23b30d111170a"
+    },
+    {
+      "path": "artifacts/validation/calculation-path-repair-20261008/target-release-03/targeted.trx",
+      "bytes": 151353,
+      "sha256": "380f2c2a179771242d9fa73f18ae0fbd0db593f6f23722e0ef0a0caf59fac7be"
+    },
+    {
+      "path": "artifacts/validation/calculation-path-repair-20261008/target-release-04/targeted.trx",
+      "bytes": 152797,
+      "sha256": "737b7116f06f6d91f11becd121252aa091c5bda51df06823001c57c342319b74"
+    },
+    {
+      "path": "artifacts/validation/calculation-path-repair-20261008/translation-release-01/translation-summary.json",
+      "bytes": 9036,
+      "sha256": "3861e5b0c5ab13961382d3a16788dc147083930213723790d6f664bf916ee5ff"
+    },
+    {
+      "path": "artifacts/validation/calculation-path-repair-20261008/translation-release-02/translation-summary.json",
+      "bytes": 9855,
+      "sha256": "9ef38dcf20d2d7ece48380fe132ff820893cc74fc25c404f5b96c2e6b840e181"
+    },
+    {
+      "path": "artifacts/validation/calculation-path-repair-20261008/translation-release-final/translation-summary.json",
+      "bytes": 9847,
+      "sha256": "0b8d37ecb4a40e697cab1b8a5deb37987ef4fe850260c0cb5c4f71dc3f41f05a"
+    },
+    {
+      "path": "artifacts/validation/calculation-path-repair-20261008/verification-summary.json",
+      "bytes": 18160,
+      "sha256": "64b233b57abd7f3be93763d70a3abba62b91c8657707fbaf86de2c3afa78d1b1"
+    },
+    {
+      "path": "artifacts/validation/calculation-paths-20261008/debug-01/summary.json",
+      "bytes": 85894,
+      "sha256": "6f2176afd68b267dae49b3bf8a4c7ed219d59902be75f5c65852f1debaccb961"
+    },
+    {
+      "path": "artifacts/validation/calculation-paths-20261008/native-regressions/frozen-diffraction-related.trx",
+      "bytes": 103513,
+      "sha256": "265eaeee35e4bfa463cb413716b3208af7a9c9cf22ffa865503d8a8dcc106927"
+    },
+    {
+      "path": "artifacts/validation/calculation-paths-20261008/release-03/summary.json",
+      "bytes": 85894,
+      "sha256": "89cd0843a3279e93e038226add4f5a6ba705cf2332de0db9e2a43c7b90bd07cd"
+    },
+    {
+      "path": "artifacts/validation/calculation-paths-20261008/run-01/summary.json",
+      "bytes": 85101,
+      "sha256": "75a134aff96a025e942d981f8ac71bcd04a33bbb6d8e473a54b865dd31faccb8"
+    },
+    {
+      "path": "artifacts/validation/calculation-paths-20261008/run-02/summary.json",
+      "bytes": 85894,
+      "sha256": "99527f38c7c2f0b048e721ed2cead1863402751ed01d0725f643a0deea8f9447"
+    },
+    {
+      "path": "artifacts/validation/calculation-paths-20261008/translation-01/translation-summary.json",
+      "bytes": 7969,
+      "sha256": "46b70ac810b7e6b34b45949fed5f1a8066dd5d0c00347831d1eb6ffe570089e0"
+    },
+    {
+      "path": "artifacts/validation/calculation-paths-20261008/translation-02/translation-summary.json",
+      "bytes": 9019,
+      "sha256": "ad5f385d4aaba485507ffd58e8062cc4de2100b22c63aa4738a258de2bf302b3"
+    },
+    {
+      "path": "artifacts/validation/calculation-paths-20261008/translation-debug-01/translation-summary.json",
+      "bytes": 9019,
+      "sha256": "ac62acce6c2aa792167b04860b35d114f87fd5f314d3a03d4fcaadc97bf918f9"
+    },
+    {
+      "path": "artifacts/validation/pupil-comparison-20261008/native-attempt-01/logs/run.log",
+      "bytes": 613,
+      "sha256": "5ec1279e1a03301565c1d1068600a7edfb4f1e1b3c4de72240c9679530b85c7c"
+    },
+    {
+      "path": "artifacts/validation/pupil-comparison-20261008/native-attempt-01/logs/workbench.log",
+      "bytes": 46,
+      "sha256": "59fb43918acc4c8bfdd1e2cec615c75c85c0e507e651b9553b60ef3dcde2d977"
+    },
+    {
+      "path": "artifacts/validation/pupil-comparison-20261008/native-attempt-01/logs/zemax.log",
+      "bytes": 551,
+      "sha256": "1b931fb54cde4566033621057cfa450877c98f2436698a2b468878df67bb1736"
+    },
+    {
+      "path": "artifacts/validation/pupil-comparison-20261008/native-attempt-01/manifest.json",
+      "bytes": 3874,
+      "sha256": "f56960b75b38fa791f3449b3f93464c9d6b4ac32e35814caca95bef8e6a825ef"
+    },
+    {
+      "path": "artifacts/validation/pupil-comparison-20261008/native-attempt-01/run-summary.json",
+      "bytes": 36194,
+      "sha256": "dddb528112261641f402293eb65bca91bd38b8f0bfc8519167254cd9e0160ef5"
+    },
+    {
+      "path": "artifacts/validation/pupil-comparison-20261008/repair-01/summary.json",
+      "bytes": 24352,
+      "sha256": "442db63731bb29cfabcc91a352ac2adbe27524d1ff6da3d93bdb363958ee0978"
+    },
+    {
+      "path": "artifacts/validation/pupil-comparison-20261008/run-01/summary.json",
+      "bytes": 22307,
+      "sha256": "03b41ef0872b21d1dd31866cb125aa86acf38823a0a35f65ab5f8f7ba1bfc3d0"
+    },
+    {
+      "path": "artifacts/validation/pupil-comparison-20261008/run-02/summary.json",
+      "bytes": 23633,
+      "sha256": "8a6dd3576440f96601631dd7023602468b0767fd3f3737ff5de762c402c40934"
+    },
+    {
+      "path": "artifacts/validation/pupil-comparison-20261008/run-03/summary.json",
+      "bytes": 23839,
+      "sha256": "b9fb69b35def0261e9f1fc005f2c9389f5a8d17ad1f6de866c637b44904dc4ea"
+    },
+    {
+      "path": "artifacts/validation/rms-sampling-repair-20261008/formal/rms-sampling-core-debug.trx",
+      "bytes": 31483,
+      "sha256": "059a256d0a0e30a74907bdf167d84cc1e8a6178983731af151cec5e82a5af04d"
+    },
+    {
+      "path": "artifacts/validation/rms-sampling-repair-20261008/formal/rms-sampling-drawing-isolation-release.trx",
+      "bytes": 18810,
+      "sha256": "2025ab134f65772ffb0e13f309dd1ad41c9c7582316106f80595200dde1b4d8d"
+    },
+    {
+      "path": "artifacts/validation/rms-sampling-repair-20261008/formal/rms-sampling-full-release.trx",
+      "bytes": 6543957,
+      "sha256": "a548d4ebd7721c76d72c92e565f8908f218948f5293b7d5fe3bff6583f0ffdf9"
+    },
+    {
+      "path": "artifacts/validation/rms-sampling-repair-20261008/formal/rms-sampling-related-debug.trx",
+      "bytes": 331635,
+      "sha256": "e8cfae29905f306dbf0b114dabf6a01bd1699eb011c215c7999377901972dbac"
+    },
+    {
+      "path": "artifacts/validation/rms-sampling-repair-20261008/formal/rms-sampling-related-release.trx",
+      "bytes": 332523,
+      "sha256": "49f4ef588267ad54de0254cbe26294a8b646de3809199d5fff690b8e59e9994f"
+    },
+    {
+      "path": "artifacts/validation/rms-sampling-repair-20261008/formal/rms-sampling-release.trx",
+      "bytes": 44099,
+      "sha256": "f4b6f5fad8bc6324ad7ea06be5c2f4c0aace2f95788acb316bea94d39dd0f747"
+    },
+    {
+      "path": "artifacts/validation/rms-sampling-repair-20261008/formal/rms-sampling-ui-debug.trx",
+      "bytes": 9579,
+      "sha256": "8e4205991be025b9f4861431c93a54ddbd8bb6ddf8a3dd9dee3fd1a3f7b4f91c"
+    },
+    {
+      "path": "artifacts/validation/rms-sampling-repair-20261008/tool/rms-sampling-tools-release.trx",
+      "bytes": 319801,
+      "sha256": "e3c756146b30460a174972b13abeb216642a74c888efaffb116e8eabbeadbb08"
+    },
+    {
+      "path": "artifacts/validation/wavefront-acceptance-20261008/run-01/baseline-integrity.json",
+      "bytes": 414,
+      "sha256": "94c3f7e1253c2a9f46b1009aa3dc6116c3534f166db553dbe4f7aa285e3f5d3d"
+    },
+    {
+      "path": "artifacts/validation/wavefront-acceptance-20261008/run-01/comparison-full-release.trx",
+      "bytes": 319429,
+      "sha256": "e7d0ba9f8cbdce3f0b0db7647cf321d404078fa6142baf7300ebea97221044d8"
+    },
+    {
+      "path": "artifacts/validation/wavefront-acceptance-20261008/run-01/end-fingerprints.json",
+      "bytes": 3590,
+      "sha256": "0fda4ae35595ec2b037b3abb2d3e9f7273ac8119436d52da44f27ddc6b6f1c61"
+    },
+    {
+      "path": "artifacts/validation/wavefront-acceptance-20261008/run-01/formal-full-release.trx",
+      "bytes": 6587194,
+      "sha256": "2db4287809bd4a9cd3dc931eddea5b7cf5a84da455b2fc126e05dcde126d0725"
+    },
+    {
+      "path": "artifacts/validation/wavefront-acceptance-20261008/run-01/formal-full-summary.json",
+      "bytes": 4699,
+      "sha256": "f2db5abc69b0de90a3b1fe24a5ff224fa40ec0df9cac300cb65ac9f2f5f50947"
+    },
+    {
+      "path": "artifacts/validation/wavefront-acceptance-20261008/run-01/native-attempt/logs/run.log",
+      "bytes": 613,
+      "sha256": "b5d4057419043906f55229280c3de0e6798ecfa90409a5047e97bb20ee8b7e21"
+    },
+    {
+      "path": "artifacts/validation/wavefront-acceptance-20261008/run-01/native-attempt/logs/workbench.log",
+      "bytes": 46,
+      "sha256": "83baf03a3e2e7ec2b14c99101866ccca3d35c7acf6d63e08846b035df25b5ef6"
+    },
+    {
+      "path": "artifacts/validation/wavefront-acceptance-20261008/run-01/native-attempt/logs/zemax.log",
+      "bytes": 551,
+      "sha256": "e3df9744fbe12ac52565e80b154add5e8c86856aa3202bcbccfd4ddc21c3a916"
+    },
+    {
+      "path": "artifacts/validation/wavefront-acceptance-20261008/run-01/native-attempt/manifest.json",
+      "bytes": 3876,
+      "sha256": "3109cb60a118bfe5b732222f3ff0ed829ee4658e0cc4ab6cbbb870cc430d91af"
+    },
+    {
+      "path": "artifacts/validation/wavefront-acceptance-20261008/run-01/native-attempt/run-summary.json",
+      "bytes": 36192,
+      "sha256": "c6c10165f814c43bb465f9d1b77dc7032c3ba342ec1effa4fde9c046f19c33de"
+    },
+    {
+      "path": "artifacts/validation/wavefront-acceptance-20261008/run-01/repair-debug.trx",
+      "bytes": 76487,
+      "sha256": "b96d054ce887c28eca6f362fa0b26bb0b5ef7ca9e6d26c474a54a40b1c9d5a96"
+    },
+    {
+      "path": "artifacts/validation/wavefront-acceptance-20261008/run-01/start-fingerprints.json",
+      "bytes": 3141,
+      "sha256": "eb417fafee1074c43781d181be4e984eac66480f51821a8aafd3a67f4b15c7d4"
+    },
+    {
+      "path": "artifacts/validation/wavefront-acceptance-20261008/run-01/summary.json",
+      "bytes": 1653,
+      "sha256": "ee7b7e6978950472e925eac31d7b2bed46dc341a9e5027dacf9a974ebd413f6a"
+    },
+    {
+      "path": "artifacts/validation/wavefront-acceptance-20261008/run-01/tool-full-summary.json",
+      "bytes": 2840,
+      "sha256": "ba754e0d977491f88c4816ba0e38a4413e2b267f852af6d1216ada90766127df"
+    },
+    {
+      "path": "artifacts/validation/wavefront-acceptance-20261008/run-01/ui-isolation-release-01.trx",
+      "bytes": 21771,
+      "sha256": "a6893ff97f311170a5e9406bc591eb6e19ba847276fecc8ba197e350150ee929"
+    },
+    {
+      "path": "artifacts/validation/wavefront-acceptance-20261008/run-01/ui-isolation-release-02.trx",
+      "bytes": 21771,
+      "sha256": "c2a062294976d0247243866edf61517a4b4e3d210e2b955e5e96fddefd9fa423"
+    },
+    {
+      "path": "artifacts/validation/wavefront-aiming-repair-20261008/formal/wavefront-aiming-after-release.trx",
+      "bytes": 40443,
+      "sha256": "5ce75d7f5ee075fab8b11f2d93618347ed064578955e811741f56ba701d02273"
+    },
+    {
+      "path": "artifacts/validation/wavefront-aiming-repair-20261008/formal/wavefront-aiming-before-release.trx",
+      "bytes": 86868,
+      "sha256": "983ac79c4b429d48390df43b79063b17e9d31735f6e21c1025c7a5cfa2874fc1"
+    },
+    {
+      "path": "artifacts/validation/wavefront-aiming-repair-20261008/formal/wavefront-aiming-related-debug.trx",
+      "bytes": 1085311,
+      "sha256": "3ccfbbda75b4860c609991b1e48ba1b8660dfb57ec44a72031297fcdb33b255c"
+    },
+    {
+      "path": "artifacts/validation/wavefront-aiming-repair-20261008/formal/wavefront-aiming-related-release.trx",
+      "bytes": 1088187,
+      "sha256": "86c5e6414dbab0d3607d0f3652001277a028e8869fcbe0f458b71e6fb34039ec"
+    },
+    {
+      "path": "artifacts/validation/wavefront-aiming-repair-20261008/tool/wavefront-aiming-comparison-debug.trx",
+      "bytes": 69841,
+      "sha256": "17fb7ef0862a05af650c25397144be1e878c4ce5ef158ee631299784072fae7b"
+    },
+    {
+      "path": "artifacts/validation/wavefront-aiming-repair-20261008/tool/wavefront-aiming-comparison-release.trx",
+      "bytes": 70021,
+      "sha256": "69ef4e8718aaa727dfb3f97a9347c4d3387960df69b91b7a64cc67bcde7e364c"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-single-ray-fresh-import-controls6/summary.json",
+      "bytes": 72315,
+      "sha256": "72e9d4c826c1b5a8aab9085a93141e6e5d2049b4aae2e4ee70b73f13a7eba6ad"
+    },
+    {
+      "path": "artifacts/zemax-standard-samples/20261007/ra256-single-ray-fresh-import-original132/summary.json",
+      "bytes": 1728307,
+      "sha256": "32cbc7cbaf5b0b90981f3184737066c27faa6cad8e0b0b52e0ea9e73af853889"
+    },
+    {
+      "path": "output/pdf/Zemax_Workbench_Comparison_Repair_2026-10-08.pdf",
+      "bytes": 280192,
+      "sha256": "321bfcc9f3cdbb519d8ab2996e1e2f566082e631a1bb546e3cd615d467078245"
+    },
+    {
+      "path": "reports/Zemax_Workbench_Six_Lens_Comparison_Report_2026-10-08.docx",
+      "bytes": 46616,
+      "sha256": "35b5947413c70a3c52a518e906a8cd88024ee8ba4aa5a7918d751f075f9a42f0"
+    }
+  ]
+}

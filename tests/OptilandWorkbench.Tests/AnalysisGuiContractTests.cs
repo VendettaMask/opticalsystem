@@ -1892,7 +1892,7 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal("Zernike Standard", connector.CanonicalAnalysisKey("Zernike Standard系数"));
         var zernikeStandardParameters = connector.GetAnalysisParameters("Zernike Standard系数");
         Assert.Equal(
-            new[] { "NumRings", "ZernikeTerms", "WavelengthNumber", "FieldNumber" },
+            new[] { "PupilSampling", "ZernikeTerms", "WavelengthNumber", "FieldNumber" },
             zernikeStandardParameters.Select(parameter => parameter.Key));
         var zernikeStandardView = connector.BuildAnalysisView(
             "Zernike Standard系数",
@@ -1913,7 +1913,7 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal("Zernike Annular", connector.CanonicalAnalysisKey("Zernike Annular系数"));
         var zernikeAnnularParameters = connector.GetAnalysisParameters("Zernike Annular系数");
         Assert.Equal(
-            new[] { "NumRings", "ZernikeTerms", "ObscurationRatio", "WavelengthNumber", "FieldNumber" },
+            new[] { "PupilSampling", "ZernikeTerms", "ObscurationRatio", "WavelengthNumber", "FieldNumber" },
             zernikeAnnularParameters.Select(parameter => parameter.Key));
         Assert.Equal("0.5", zernikeAnnularParameters
             .Single(parameter => parameter.Key == "ObscurationRatio").DefaultValue);

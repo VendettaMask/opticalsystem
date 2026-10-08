@@ -109,9 +109,11 @@ public sealed class WavefrontAnalysis : BaseAnalysis
                 field,
                 wavelength,
                 _pupilSampling.Value,
-                aimAtStop: _useExitPupilShape,
+                // Pupil shape is a presentation option, not a ray-launch setting.
+                aimAtStop: Optic.RayAimingEnabled,
                 zemaxCentered: true)
-            : WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings);
+            : WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings,
+                aimAtStop: Optic.RayAimingEnabled);
         var valid = wavefront.Samples.Where(sample => sample.Intensity > 0).ToArray();
         if (_removeTilt)
         {
@@ -179,6 +181,7 @@ public sealed class WavefrontAnalysis : BaseAnalysis
             ["Apodization"] = _apodization,
             ["ReferenceChiefRay"] = _referenceChiefRay,
             ["UseExitPupilShape"] = _useExitPupilShape,
+            ["UseRayAiming"] = Optic.RayAimingEnabled,
             ["WavelengthNumber"] = Array.IndexOf(wavelengths, wavelength) + 1,
             ["FieldNumber"] = _fieldNumber <= 0 ? fields.Count : _fieldNumber,
             ["SurfaceNumber"] = _surfaceNumber < 0
@@ -408,7 +411,8 @@ public sealed class ZernikeAnalysis : BaseAnalysis
         int wavelengthNumber = 0,
         int fieldNumber = 0,
         string? name = null,
-        double obscurationRatio = 0.5) : base(optic)
+        double obscurationRatio = 0.5,
+        bool zemaxCompatibleSampling = false) : base(optic)
     {
         if (!Enum.IsDefined(kind))
         {
@@ -416,7 +420,7 @@ public sealed class ZernikeAnalysis : BaseAnalysis
         }
 
         _kind = kind;
-        _useUniformGrid = kind == ZernikeAnalysisKind.ZemaxFringe;
+        _useUniformGrid = kind == ZernikeAnalysisKind.ZemaxFringe || zemaxCompatibleSampling;
         _numRings = _useUniformGrid
             ? ValidateRange(numRings, 8, 512, nameof(numRings))
             : ValidateRange(
@@ -464,7 +468,7 @@ public sealed class ZernikeAnalysis : BaseAnalysis
             : fields.LastOrDefault();
         var wavefront = _useUniformGrid
             ? WavefrontEngine.GenerateChiefRayUniform(Optic, field, wavelength, _numRings, aimAtStop: Optic.RayAimingEnabled, zemaxCentered: true)
-            : WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings);
+            : WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings, Optic.RayAimingEnabled);
         var isStandard = _kind == ZernikeAnalysisKind.Standard;
         var isAnnular = _kind == ZernikeAnalysisKind.Annular;
         var isZemaxFringe = _kind == ZernikeAnalysisKind.ZemaxFringe;
@@ -499,6 +503,8 @@ public sealed class ZernikeAnalysis : BaseAnalysis
             ? $"{_numRings} x {_numRings}"
             : $"{_numRings} hexapolar rings";
         values["RayCount"] = wavefront.Samples.Count;
+        values["UseRayAiming"] = Optic.RayAimingEnabled;
+        values["SamplingMode"] = _useUniformGrid ? "Zemax uniform pupil grid" : "Hexapolar rings";
         values["VignettedRayCount"] = wavefront.VignettedRayCount;
         var coefficientRmsChief = Math.Sqrt(coefficients
             .Where(coefficient => coefficient.Number >= 2)

@@ -1,0 +1,125 @@
+{
+  "inputPath": "D:\\optical system design\\opticalsystem\\validation\\zemax\\2026-r1\\single-ray-path-2026-10-07\\initial-six-primary\\cooke-40-degree-field\\source.zmx",
+  "fileName": "source.zmx",
+  "fileLength": 8126,
+  "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+  "inputLastWriteUtc": "2026-10-08T00:57:13.1489449Z",
+  "startedUtc": "2026-10-08T06:27:08.1441499+00:00",
+  "configurationSha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "configurationVersion": "1.0.0-captured-settings",
+  "dotnetVersion": ".NET 10.0.8",
+  "operatingSystem": "Microsoft Windows 10.0.26200",
+  "toolVersion": "1.0.0",
+  "expectedZemaxVersion": "2026 R1",
+  "toolAssemblySha256": "1b8fb73aa5f2ea3e0c251aac1f66832ba4213cb5983a690ed2965affdfdee5de",
+  "settingsOrigin": "CapturedSettings",
+  "originalFileUnchanged": true,
+  "gitSha": "1b82a87c668920be8ebb345b07f2d95c91292896",
+  "gitWorkingTreeDirty": true,
+  "zmxHeaderRecords": [
+    "VERS 210914 1 113763 L113763",
+    "MODE SEQ",
+    "UNIT MM X W X CM MR CPMM",
+    "GCAT SCHOTT",
+    "RAIM 0 0 1 1 0 0 0 0 0 1",
+    "FTYP 0 0 3 3 0 0 0 3"
+  ],
+  "zmxFileVersion": "VERS 210914 1 113763 L113763",
+  "configurationCount": 1,
+  "workbenchParsing": [
+    {
+      "configuration": 1,
+      "surfaceCount": 8,
+      "fields": [
+        {
+          "label": "On axis",
+          "x": 0,
+          "y": 0,
+          "xAngleDegrees": 0,
+          "yAngleDegrees": 0,
+          "weight": 1,
+          "vignetteFactorX": 0,
+          "vignetteFactorY": 0,
+          "vignetteDecenterX": 0,
+          "vignetteDecenterY": 0,
+          "vignetteAngleDegrees": 0
+        },
+        {
+          "label": "Field 2",
+          "x": 0,
+          "y": 14,
+          "xAngleDegrees": 0,
+          "yAngleDegrees": 14,
+          "weight": 1,
+          "vignetteFactorX": 0,
+          "vignetteFactorY": 0,
+          "vignetteDecenterX": 0,
+          "vignetteDecenterY": 0,
+          "vignetteAngleDegrees": 0
+        },
+        {
+          "label": "Field 3",
+          "x": 0,
+          "y": 20,
+          "xAngleDegrees": 0,
+          "yAngleDegrees": 20,
+          "weight": 1,
+          "vignetteFactorX": 0,
+          "vignetteFactorY": 0,
+          "vignetteDecenterX": 0,
+          "vignetteDecenterY": 0,
+          "vignetteAngleDegrees": 0
+        }
+      ],
+      "wavelengths": [
+        {
+          "label": "W1",
+          "nanometers": 480,
+          "micrometers": 0.48,
+          "weight": 0.800000012,
+          "isPrimary": false
+        },
+        {
+          "label": "W2",
+          "nanometers": 550,
+          "micrometers": 0.55,
+          "weight": 1,
+          "isPrimary": true
+        },
+        {
+          "label": "W3",
+          "nanometers": 650,
+          "micrometers": 0.65,
+          "weight": 0.800000012,
+          "isPrimary": false
+        }
+      ],
+      "fieldDefinition": "Angle",
+      "aperture": {
+        "kind": "EntrancePupilDiameter",
+        "value": 10,
+        "objectSpaceTelecentric": false
+      },
+      "imageSpaceAfocal": false,
+      "rayAimingEnabled": false,
+      "glassCatalogs": [
+        "SCHOTT"
+      ],
+      "apodization": {
+        "kind": "zemax_pupil",
+        "numbers": {
+          "type": 0,
+          "factor": 0
+        },
+        "text": {},
+        "children": null
+      },
+      "preflightIssues": [],
+      "coordinateBreaks": [],
+      "parserWarnings": "Importer exposes capability issues; unsupported preserved records are available in input snapshot. No additional warning stream is exposed."
+    }
+  ],
+  "completedUtc": "2026-10-08T06:27:10.5033167+00:00",
+  "snapshotInputUnchanged": true,
+  "fatalError": "ZOS-API not found. Specify --zos-api-path or ZOS_API_PATH."
+}

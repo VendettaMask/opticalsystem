@@ -243,6 +243,7 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
             ["FieldNumber"] = _fieldNumber,
             ["Type"] = MtfDataTypeSupport.Name(_dataType),
             ["UsePolarization"] = _settings.UsePolarization,
+            ["UseRayAiming"] = Optic.RayAimingEnabled,
             ["UseDashes"] = _useDashes,
             ["ZemaxCompatible"] = _settings.ZemaxCompatible,
             ["PupilSampling"] = _settings.PupilSampling,
@@ -703,7 +704,7 @@ internal static class MtfMethodEvaluator
                 wavelength,
                 pupilSampling,
                 cellCentered: true,
-                aimAtStop: true,
+                aimAtStop: optic.RayAimingEnabled,
                 referenceWavelength: referenceWavelength);
             var polarization = settings.UsePolarization
                 ? JonesPupilEngine.Generate(
@@ -712,7 +713,8 @@ internal static class MtfMethodEvaluator
                     wavelength,
                     pupilSampling,
                     useFresnelCoatings: true,
-                    cellCentered: true)
+                    cellCentered: true,
+                    aimAtStop: optic.RayAimingEnabled)
                 : null;
             var results = focus.Select(defocus =>
                 DiffractionEngine.ComputeFastFftMtfAtFrequency(

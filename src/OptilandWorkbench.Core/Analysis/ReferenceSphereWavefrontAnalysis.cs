@@ -111,7 +111,8 @@ public sealed class ReferenceSphereWavefrontAnalysis : BaseAnalysis
             ["WavelengthMicrometers"] = wavelength.Micrometers,
             ["WavelengthNumber"] = Array.IndexOf(wavelengths, wavelength) + 1,
             ["FieldNumber"] = _fieldNumber <= 0 ? fields.Count : _fieldNumber,
-            ["Reference"] = reference
+            ["Reference"] = reference,
+            ["UseRayAiming"] = Optic.RayAimingEnabled
         }, series, new[] { series }, new AnalysisPlotOptions(
             Title: $"OPD Map: RMS={wavefront.Rms:0.000} waves",
             EqualAspect: true,
@@ -127,7 +128,7 @@ public sealed class ReferenceSphereWavefrontAnalysis : BaseAnalysis
         IReadOnlyList<(double Hx, double Hy)> fields,
         (double Hx, double Hy) field)
     {
-        var wavefront = WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings);
+        var wavefront = WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings, Optic.RayAimingEnabled);
         var valid = wavefront.Samples.Where(sample => sample.Intensity > 0).ToArray();
         var mean = valid.Select(sample => sample.OpdWaves).DefaultIfEmpty(0).Average();
         var minimum = valid.Select(sample => sample.OpdWaves).DefaultIfEmpty(0).Min();
@@ -163,7 +164,8 @@ public sealed class ReferenceSphereWavefrontAnalysis : BaseAnalysis
             ["WavelengthMicrometers"] = wavelength.Micrometers,
             ["WavelengthNumber"] = Array.IndexOf(wavelengths.ToArray(), wavelength) + 1,
             ["FieldNumber"] = _fieldNumber <= 0 ? fields.Count : _fieldNumber,
-            ["Reference"] = "chief_ray_plane"
+            ["Reference"] = "chief_ray_plane",
+            ["UseRayAiming"] = Optic.RayAimingEnabled
         }, series, new[] { series }, new AnalysisPlotOptions(
             Title: $"OPD Map: RMS={wavefront.Rms:0.000} waves",
             EqualAspect: true,

@@ -220,6 +220,8 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["Method"] = "Huygens-Fresnel",
+            ["PropagationModel"] = Optic.ImageSpaceAfocal ? "Afocal scalar plane waves"
+                : "Lens-datum scalar Huygens weight (compatibility approximation)",
             ["ImagePlane"] = "Chief ray tangent plane",
             ["PupilSampling"] = _numRays,
             ["ImageSize"] = _imageSize,
@@ -434,6 +436,8 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["Method"] = "Huygens-Fresnel",
+            ["PropagationModel"] = Optic.ImageSpaceAfocal ? "Afocal scalar plane waves"
+                : "Lens-datum scalar Huygens weight (compatibility approximation)",
             ["ImagePlane"] = "Chief ray tangent plane",
             ["NumRays"] = _numRays,
             ["ImageSize"] = _imageSize,

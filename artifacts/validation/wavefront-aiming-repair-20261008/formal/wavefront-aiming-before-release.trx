@@ -1,0 +1,622 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="9fcb5b4d-efd5-412a-95bb-bc157d7086c6" name="optics@LAPTOP-G4BBBCS0 2026-10-08 13:27:25" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-08T13:27:25.5608034+08:00" queuing="2026-10-08T13:27:25.5608038+08:00" start="2026-10-08T13:27:18.3621615+08:00" finish="2026-10-08T13:27:28.7018179+08:00" />
+  <TestSettings name="default" id="66c01d24-77dc-40d6-b7e3-a48990b301e2">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-08_13_27_25" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ca8ec847-af7f-4683-b450-d66459f587e4" testId="c385a21b-8266-bc4a-0ad9-d1145fc5784a" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: False, useExitPupilShape: True, hexapolar: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0359880" startTime="2026-10-08T13:27:25.2340341+08:00" endTime="2026-10-08T13:27:25.2688606+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ca8ec847-af7f-4683-b450-d66459f587e4">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 12 decimal places&#xD;
+Expected: 25.042193920104999 (rounded from 25.04219392010544)&#xD;
+Actual:   25.154486422523 (rounded from 25.15448642252273)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Boolean aiming, Boolean useExitPupilShape, Boolean hexapolar) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 51&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="93cf6dcc-813c-462b-bf0f-6c370e92f21c" testId="f397e3f5-01c4-8cde-9a8a-5275bc8befea" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;cooke-40-degree-field&quot;, setting: &quot;edge-shortwave&quot;, shape: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.4189469" startTime="2026-10-08T13:27:27.3588553+08:00" endTime="2026-10-08T13:27:27.7771677+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="93cf6dcc-813c-462b-bf0f-6c370e92f21c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 0.0020668926792405296)&#xD;
+Actual: 364.9299538611628</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 145&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="bcdeb34b-8c11-4f39-a538-52d6288a2a96" testId="5f27482e-9252-b643-4656-38805cda8e64" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;double-gauss-28-degree-field&quot;, setting: &quot;edge-shortwave&quot;, shape: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.5824110" startTime="2026-10-08T13:27:26.7419794+08:00" endTime="2026-10-08T13:27:27.3232237+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bcdeb34b-8c11-4f39-a538-52d6288a2a96">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 0.00014663016550417471)&#xD;
+Actual: 384.15481724314924</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 145&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cfbb04b3-1e4f-4be4-80e5-917886b9ca68" testId="29d7b75b-5947-d3c4-526e-0369cc60b758" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;double-gauss-28-degree-field&quot;, setting: &quot;edge-shortwave&quot;, shape: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0872311" startTime="2026-10-08T13:27:26.6544144+08:00" endTime="2026-10-08T13:27:26.7405578+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cfbb04b3-1e4f-4be4-80e5-917886b9ca68">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.</Message>
+          <StackTrace>   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 154&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="389a7a45-26fc-43a4-8e4f-125db9f9c461" testId="a8399730-e42e-ba03-e778-58f67e7dca1a" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(aiming: False, hexapolar: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0046424" startTime="2026-10-08T13:27:28.5352011+08:00" endTime="2026-10-08T13:27:28.5396677+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="389a7a45-26fc-43a4-8e4f-125db9f9c461" />
+    <UnitTestResult executionId="895fb39a-f584-485b-9547-22181a8e2742" testId="41940d61-fa0f-9711-f6a9-79a40423b35e" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: True, useExitPupilShape: True, hexapolar: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0557220" startTime="2026-10-08T13:27:25.1788102+08:00" endTime="2026-10-08T13:27:25.2325461+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="895fb39a-f584-485b-9547-22181a8e2742">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 12 decimal places&#xD;
+Expected: 25.154486422523 (rounded from 25.15448642252273)&#xD;
+Actual:   25.042193920104999 (rounded from 25.04219392010544)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Boolean aiming, Boolean useExitPupilShape, Boolean hexapolar) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 51&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="577e2479-fe36-423c-9fa1-6bf2251ddacf" testId="6ddb7730-5d62-7064-7223-1b407594f0ce" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;double-gauss-28-degree-field&quot;, setting: &quot;primary&quot;, shape: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3123337" startTime="2026-10-08T13:27:25.3725075+08:00" endTime="2026-10-08T13:27:25.6832608+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="577e2479-fe36-423c-9fa1-6bf2251ddacf">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.</Message>
+          <StackTrace>   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 154&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b052b4a5-2f8c-4f29-9d9e-0f48445d85a2" testId="60344070-70d2-c2a8-a036-b46470f447c3" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;cooke-40-degree-field&quot;, setting: &quot;edge-shortwave&quot;, shape: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0434833" startTime="2026-10-08T13:27:26.0938851+08:00" endTime="2026-10-08T13:27:26.1362257+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b052b4a5-2f8c-4f29-9d9e-0f48445d85a2">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.</Message>
+          <StackTrace>   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 154&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9f942b5f-2c50-417e-b053-8ef33a6eb908" testId="f16be7e7-61d9-5761-c42a-48a0d9ec7449" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;relay-lens&quot;, setting: &quot;edge-shortwave&quot;, shape: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3927361" startTime="2026-10-08T13:27:26.2607616+08:00" endTime="2026-10-08T13:27:26.6530574+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9f942b5f-2c50-417e-b053-8ef33a6eb908">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.</Message>
+          <StackTrace>   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 154&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="086c6a15-b099-4a75-8669-8ccf520784e4" testId="de74275d-9903-06cd-cbc8-864609924f70" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: False, useExitPupilShape: True, hexapolar: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0046594" startTime="2026-10-08T13:27:25.3607623+08:00" endTime="2026-10-08T13:27:25.3644935+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="086c6a15-b099-4a75-8669-8ccf520784e4">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.</Message>
+          <StackTrace>   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Boolean aiming, Boolean useExitPupilShape, Boolean hexapolar) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 67&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="85a32593-fdcd-4941-8e67-6addb527b1c8" testId="94d0cd2a-77ec-41b4-af77-c77b6b5a2565" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: True, useExitPupilShape: False, hexapolar: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1042465" startTime="2026-10-08T13:27:25.0956326+08:00" endTime="2026-10-08T13:27:25.1767100+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="85a32593-fdcd-4941-8e67-6addb527b1c8">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 12 decimal places&#xD;
+Expected: 25.154486422523 (rounded from 25.15448642252273)&#xD;
+Actual:   25.042193920104999 (rounded from 25.04219392010544)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Boolean aiming, Boolean useExitPupilShape, Boolean hexapolar) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 51&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="67eea361-e21c-4141-af7a-ec6634027c0c" testId="28e803de-47e9-3799-aef8-83255240c522" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;relay-lens&quot;, setting: &quot;primary&quot;, shape: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1231284" startTime="2026-10-08T13:27:26.1371827+08:00" endTime="2026-10-08T13:27:26.2596581+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="67eea361-e21c-4141-af7a-ec6634027c0c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 6&#xD;
+Actual:   2</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 151&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="eec9c2ad-aa0c-4c96-a149-82d6213bb76b" testId="8050fdcd-d0aa-6b41-3492-53e172328a5f" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(aiming: False, hexapolar: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0355454" startTime="2026-10-08T13:27:28.5413025+08:00" endTime="2026-10-08T13:27:28.5755029+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eec9c2ad-aa0c-4c96-a149-82d6213bb76b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 25.04219392010544&#xD;
+Actual:   25.15448642252273</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(Boolean aiming, Boolean hexapolar) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 87&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2f987765-0a44-46ce-9a79-a641ea09b8c1" testId="5e92498a-ea97-5eaf-f945-d7bcf81417bc" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: True, useExitPupilShape: False, hexapolar: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0340385" startTime="2026-10-08T13:27:25.2698686+08:00" endTime="2026-10-08T13:27:25.3031207+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2f987765-0a44-46ce-9a79-a641ea09b8c1">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 12 decimal places&#xD;
+Expected: 25.154486422523 (rounded from 25.15448642252273)&#xD;
+Actual:   25.042193920104999 (rounded from 25.04219392010544)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Boolean aiming, Boolean useExitPupilShape, Boolean hexapolar) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 51&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a029a2ec-a47a-4695-b60f-b09add36c72d" testId="32319738-8e2f-5485-9ece-d0b69764729e" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(aiming: True, hexapolar: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0058557" startTime="2026-10-08T13:27:28.5307937+08:00" endTime="2026-10-08T13:27:28.5349858+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a029a2ec-a47a-4695-b60f-b09add36c72d" />
+    <UnitTestResult executionId="2816a2cb-43b3-477c-8cd7-73c1dd18f0f2" testId="0718153a-8d96-5443-71c7-dfee163a5d6c" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;cooke-40-degree-field&quot;, setting: &quot;primary&quot;, shape: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.4088837" startTime="2026-10-08T13:27:25.6844951+08:00" endTime="2026-10-08T13:27:26.0924953+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2816a2cb-43b3-477c-8cd7-73c1dd18f0f2">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 0.00060175102236640569)&#xD;
+Actual: 0.010271390677793368</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 145&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e66f3f84-ac27-4dae-8c15-311b2bdc69da" testId="51df5b07-22ed-4786-a086-3cfb8e6addba" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(aiming: True, hexapolar: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0307855" startTime="2026-10-08T13:27:28.5770181+08:00" endTime="2026-10-08T13:27:28.6067605+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e66f3f84-ac27-4dae-8c15-311b2bdc69da">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 25.04219392010544&#xD;
+Actual:   25.15448642252273</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(Boolean aiming, Boolean hexapolar) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 87&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b8cb1245-fefa-4925-9e83-c3097ea4ff5b" testId="e759b72a-828a-3320-bc30-d1288065f968" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: False, useExitPupilShape: False, hexapolar: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0048998" startTime="2026-10-08T13:27:25.3655315+08:00" endTime="2026-10-08T13:27:25.3695564+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b8cb1245-fefa-4925-9e83-c3097ea4ff5b">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.</Message>
+          <StackTrace>   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Boolean aiming, Boolean useExitPupilShape, Boolean hexapolar) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 67&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b1bd4dd6-618a-4b2c-ae93-d2495d505631" testId="5338711a-d51e-235b-0f1f-d2f18d2c1c54" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: False, useExitPupilShape: False, hexapolar: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.0594994" startTime="2026-10-08T13:27:24.0277828+08:00" endTime="2026-10-08T13:27:25.0714007+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b1bd4dd6-618a-4b2c-ae93-d2495d505631">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.</Message>
+          <StackTrace>   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Boolean aiming, Boolean useExitPupilShape, Boolean hexapolar) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 67&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="955f1d79-4651-4296-8e95-137a2ebec23c" testId="093b661c-9da4-c9e6-ab12-6b94f8058f3e" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: True, useExitPupilShape: True, hexapolar: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0562566" startTime="2026-10-08T13:27:25.3040861+08:00" endTime="2026-10-08T13:27:25.3596204+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="955f1d79-4651-4296-8e95-137a2ebec23c">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.</Message>
+          <StackTrace>   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Boolean aiming, Boolean useExitPupilShape, Boolean hexapolar) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 67&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f01d9a1e-15f0-49de-9239-c1a386df84eb" testId="70a04093-4cbb-3011-cc48-420a75bc2230" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.HexapolarEngineKeepsItsUnspecifiedAimingDefault" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0154428" startTime="2026-10-08T13:27:28.5152040+08:00" endTime="2026-10-08T13:27:28.5294636+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f01d9a1e-15f0-49de-9239-c1a386df84eb" />
+    <UnitTestResult executionId="2757efbc-55f8-4b4e-a32b-f86502d5a683" testId="c54776b9-8e1b-29b7-7079-10d3d9ff72f4" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;double-gauss-28-degree-field&quot;, setting: &quot;primary&quot;, shape: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.4012985" startTime="2026-10-08T13:27:27.8148870+08:00" endTime="2026-10-08T13:27:28.2155859+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2757efbc-55f8-4b4e-a32b-f86502d5a683">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 0.0002823874015835946)&#xD;
+Actual: 0.021963776529310641</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 145&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="33f9fd87-9be7-443f-b6dc-e6352af61900" testId="ef17f6c7-b0d5-b2b8-0b6c-056aa22183f0" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;relay-lens&quot;, setting: &quot;edge-shortwave&quot;, shape: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0366169" startTime="2026-10-08T13:27:27.7789864+08:00" endTime="2026-10-08T13:27:27.8139861+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="33f9fd87-9be7-443f-b6dc-e6352af61900">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 6&#xD;
+Actual:   4</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 151&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="92ab518a-1f1e-413c-b640-e36a5c041698" testId="ccc64dbc-5298-2bba-3d65-8e41990d0eef" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;cooke-40-degree-field&quot;, setting: &quot;primary&quot;, shape: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0337690" startTime="2026-10-08T13:27:27.3243706+08:00" endTime="2026-10-08T13:27:27.3577659+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="92ab518a-1f1e-413c-b640-e36a5c041698">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.</Message>
+          <StackTrace>   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 154&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b7cdeefb-2b8a-458b-8b7a-012f570afc11" testId="200890c4-c78e-a3c0-e6a9-94b91e002218" testName="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;relay-lens&quot;, setting: &quot;primary&quot;, shape: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2971833" startTime="2026-10-08T13:27:28.2168122+08:00" endTime="2026-10-08T13:27:28.5133899+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b7cdeefb-2b8a-458b-8b7a-012f570afc11">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.</Message>
+          <StackTrace>   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+   at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs:line 154&#xD;
+   at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;cooke-40-degree-field&quot;, setting: &quot;edge-shortwave&quot;, shape: True)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="f397e3f5-01c4-8cde-9a8a-5275bc8befea">
+      <Execution id="93cf6dcc-813c-462b-bf0f-6c370e92f21c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="ExactMapFanKnotsMatchUnchangedNativeCaptures" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;double-gauss-28-degree-field&quot;, setting: &quot;primary&quot;, shape: True)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="c54776b9-8e1b-29b7-7079-10d3d9ff72f4">
+      <Execution id="2757efbc-55f8-4b4e-a32b-f86502d5a683" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="ExactMapFanKnotsMatchUnchangedNativeCaptures" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: False, useExitPupilShape: True, hexapolar: False)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="c385a21b-8266-bc4a-0ad9-d1145fc5784a">
+      <Execution id="ca8ec847-af7f-4683-b450-d66459f587e4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="MapSamplingFollowsSystemAimingNotExitPupilDisplay" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;cooke-40-degree-field&quot;, setting: &quot;primary&quot;, shape: True)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="0718153a-8d96-5443-71c7-dfee163a5d6c">
+      <Execution id="2816a2cb-43b3-477c-8cd7-73c1dd18f0f2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="ExactMapFanKnotsMatchUnchangedNativeCaptures" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;double-gauss-28-degree-field&quot;, setting: &quot;primary&quot;, shape: False)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="6ddb7730-5d62-7064-7223-1b407594f0ce">
+      <Execution id="577e2479-fe36-423c-9fa1-6bf2251ddacf" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="ExactMapFanKnotsMatchUnchangedNativeCaptures" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: True, useExitPupilShape: False, hexapolar: True)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="5e92498a-ea97-5eaf-f945-d7bcf81417bc">
+      <Execution id="2f987765-0a44-46ce-9a79-a641ea09b8c1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="MapSamplingFollowsSystemAimingNotExitPupilDisplay" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;relay-lens&quot;, setting: &quot;edge-shortwave&quot;, shape: False)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="ef17f6c7-b0d5-b2b8-0b6c-056aa22183f0">
+      <Execution id="33f9fd87-9be7-443f-b6dc-e6352af61900" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="ExactMapFanKnotsMatchUnchangedNativeCaptures" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;relay-lens&quot;, setting: &quot;primary&quot;, shape: True)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="200890c4-c78e-a3c0-e6a9-94b91e002218">
+      <Execution id="b7cdeefb-2b8a-458b-8b7a-012f570afc11" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="ExactMapFanKnotsMatchUnchangedNativeCaptures" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;relay-lens&quot;, setting: &quot;edge-shortwave&quot;, shape: True)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="f16be7e7-61d9-5761-c42a-48a0d9ec7449">
+      <Execution id="9f942b5f-2c50-417e-b053-8ef33a6eb908" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="ExactMapFanKnotsMatchUnchangedNativeCaptures" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;cooke-40-degree-field&quot;, setting: &quot;edge-shortwave&quot;, shape: False)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="60344070-70d2-c2a8-a036-b46470f447c3">
+      <Execution id="b052b4a5-2f8c-4f29-9d9e-0f48445d85a2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="ExactMapFanKnotsMatchUnchangedNativeCaptures" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: False, useExitPupilShape: True, hexapolar: True)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="de74275d-9903-06cd-cbc8-864609924f70">
+      <Execution id="086c6a15-b099-4a75-8669-8ccf520784e4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="MapSamplingFollowsSystemAimingNotExitPupilDisplay" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.HexapolarEngineKeepsItsUnspecifiedAimingDefault" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="70a04093-4cbb-3011-cc48-420a75bc2230">
+      <Execution id="f01d9a1e-15f0-49de-9239-c1a386df84eb" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="HexapolarEngineKeepsItsUnspecifiedAimingDefault" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;double-gauss-28-degree-field&quot;, setting: &quot;edge-shortwave&quot;, shape: True)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="5f27482e-9252-b643-4656-38805cda8e64">
+      <Execution id="bcdeb34b-8c11-4f39-a538-52d6288a2a96" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="ExactMapFanKnotsMatchUnchangedNativeCaptures" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;cooke-40-degree-field&quot;, setting: &quot;primary&quot;, shape: False)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="ccc64dbc-5298-2bba-3d65-8e41990d0eef">
+      <Execution id="92ab518a-1f1e-413c-b640-e36a5c041698" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="ExactMapFanKnotsMatchUnchangedNativeCaptures" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: False, useExitPupilShape: False, hexapolar: False)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="5338711a-d51e-235b-0f1f-d2f18d2c1c54">
+      <Execution id="b1bd4dd6-618a-4b2c-ae93-d2495d505631" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="MapSamplingFollowsSystemAimingNotExitPupilDisplay" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(aiming: True, hexapolar: True)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="32319738-8e2f-5485-9ece-d0b69764729e">
+      <Execution id="a029a2ec-a47a-4695-b60f-b09add36c72d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="ExitPupilDisplayFlagDoesNotChangePhysicalWavefront" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: True, useExitPupilShape: False, hexapolar: False)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="94d0cd2a-77ec-41b4-af77-c77b6b5a2565">
+      <Execution id="85a32593-fdcd-4941-8e67-6addb527b1c8" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="MapSamplingFollowsSystemAimingNotExitPupilDisplay" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: False, useExitPupilShape: False, hexapolar: True)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="e759b72a-828a-3320-bc30-d1288065f968">
+      <Execution id="b8cb1245-fefa-4925-9e83-c3097ea4ff5b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="MapSamplingFollowsSystemAimingNotExitPupilDisplay" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(aiming: False, hexapolar: False)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="8050fdcd-d0aa-6b41-3492-53e172328a5f">
+      <Execution id="eec9c2ad-aa0c-4c96-a149-82d6213bb76b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="ExitPupilDisplayFlagDoesNotChangePhysicalWavefront" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: True, useExitPupilShape: True, hexapolar: True)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="41940d61-fa0f-9711-f6a9-79a40423b35e">
+      <Execution id="895fb39a-f584-485b-9547-22181a8e2742" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="MapSamplingFollowsSystemAimingNotExitPupilDisplay" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: True, useExitPupilShape: True, hexapolar: False)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="093b661c-9da4-c9e6-ab12-6b94f8058f3e">
+      <Execution id="955f1d79-4651-4296-8e95-137a2ebec23c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="MapSamplingFollowsSystemAimingNotExitPupilDisplay" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(aiming: False, hexapolar: True)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="a8399730-e42e-ba03-e778-58f67e7dca1a">
+      <Execution id="389a7a45-26fc-43a4-8e4f-125db9f9c461" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="ExitPupilDisplayFlagDoesNotChangePhysicalWavefront" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(aiming: True, hexapolar: False)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="51df5b07-22ed-4786-a086-3cfb8e6addba">
+      <Execution id="e66f3f84-ac27-4dae-8c15-311b2bdc69da" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="ExitPupilDisplayFlagDoesNotChangePhysicalWavefront" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;double-gauss-28-degree-field&quot;, setting: &quot;edge-shortwave&quot;, shape: False)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="29d7b75b-5947-d3c4-526e-0369cc60b758">
+      <Execution id="cfbb04b3-1e4f-4be4-80e5-917886b9ca68" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="ExactMapFanKnotsMatchUnchangedNativeCaptures" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: &quot;relay-lens&quot;, setting: &quot;primary&quot;, shape: False)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="28e803de-47e9-3799-aef8-83255240c522">
+      <Execution id="67eea361-e21c-4141-af7a-ec6634027c0c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.WavefrontAimingRepairTests" name="ExactMapFanKnotsMatchUnchangedNativeCaptures" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="c385a21b-8266-bc4a-0ad9-d1145fc5784a" executionId="ca8ec847-af7f-4683-b450-d66459f587e4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f397e3f5-01c4-8cde-9a8a-5275bc8befea" executionId="93cf6dcc-813c-462b-bf0f-6c370e92f21c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5f27482e-9252-b643-4656-38805cda8e64" executionId="bcdeb34b-8c11-4f39-a538-52d6288a2a96" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="29d7b75b-5947-d3c4-526e-0369cc60b758" executionId="cfbb04b3-1e4f-4be4-80e5-917886b9ca68" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a8399730-e42e-ba03-e778-58f67e7dca1a" executionId="389a7a45-26fc-43a4-8e4f-125db9f9c461" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="41940d61-fa0f-9711-f6a9-79a40423b35e" executionId="895fb39a-f584-485b-9547-22181a8e2742" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6ddb7730-5d62-7064-7223-1b407594f0ce" executionId="577e2479-fe36-423c-9fa1-6bf2251ddacf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="60344070-70d2-c2a8-a036-b46470f447c3" executionId="b052b4a5-2f8c-4f29-9d9e-0f48445d85a2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f16be7e7-61d9-5761-c42a-48a0d9ec7449" executionId="9f942b5f-2c50-417e-b053-8ef33a6eb908" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="de74275d-9903-06cd-cbc8-864609924f70" executionId="086c6a15-b099-4a75-8669-8ccf520784e4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="94d0cd2a-77ec-41b4-af77-c77b6b5a2565" executionId="85a32593-fdcd-4941-8e67-6addb527b1c8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="28e803de-47e9-3799-aef8-83255240c522" executionId="67eea361-e21c-4141-af7a-ec6634027c0c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8050fdcd-d0aa-6b41-3492-53e172328a5f" executionId="eec9c2ad-aa0c-4c96-a149-82d6213bb76b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5e92498a-ea97-5eaf-f945-d7bcf81417bc" executionId="2f987765-0a44-46ce-9a79-a641ea09b8c1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="32319738-8e2f-5485-9ece-d0b69764729e" executionId="a029a2ec-a47a-4695-b60f-b09add36c72d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0718153a-8d96-5443-71c7-dfee163a5d6c" executionId="2816a2cb-43b3-477c-8cd7-73c1dd18f0f2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="51df5b07-22ed-4786-a086-3cfb8e6addba" executionId="e66f3f84-ac27-4dae-8c15-311b2bdc69da" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e759b72a-828a-3320-bc30-d1288065f968" executionId="b8cb1245-fefa-4925-9e83-c3097ea4ff5b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5338711a-d51e-235b-0f1f-d2f18d2c1c54" executionId="b1bd4dd6-618a-4b2c-ae93-d2495d505631" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="093b661c-9da4-c9e6-ab12-6b94f8058f3e" executionId="955f1d79-4651-4296-8e95-137a2ebec23c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="70a04093-4cbb-3011-cc48-420a75bc2230" executionId="f01d9a1e-15f0-49de-9239-c1a386df84eb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c54776b9-8e1b-29b7-7079-10d3d9ff72f4" executionId="2757efbc-55f8-4b4e-a32b-f86502d5a683" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ef17f6c7-b0d5-b2b8-0b6c-056aa22183f0" executionId="33f9fd87-9be7-443f-b6dc-e6352af61900" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ccc64dbc-5298-2bba-3d65-8e41990d0eef" executionId="92ab518a-1f1e-413c-b640-e36a5c041698" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="200890c4-c78e-a3c0-e6a9-94b91e002218" executionId="b7cdeefb-2b8a-458b-8b7a-012f570afc11" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="25" executed="25" passed="3" failed="22" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:02.34]   Discovering: OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:03.67]   Discovered:  OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:03.74]   Starting:    OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:04.87]       System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.&#xD;
+[xUnit.net 00:00:04.87]       Stack Trace:&#xD;
+[xUnit.net 00:00:04.87]            at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+[xUnit.net 00:00:04.87]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(67,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Boolean aiming, Boolean useExitPupilShape, Boolean hexapolar)&#xD;
+[xUnit.net 00:00:04.87]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:04.87]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:04.97]       Assert.Equal() Failure: Values are not within 12 decimal places&#xD;
+[xUnit.net 00:00:04.97]       Expected: 25.154486422523 (rounded from 25.15448642252273)&#xD;
+[xUnit.net 00:00:04.97]       Actual:   25.042193920104999 (rounded from 25.04219392010544)&#xD;
+[xUnit.net 00:00:04.97]       Stack Trace:&#xD;
+[xUnit.net 00:00:04.97]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(51,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Boolean aiming, Boolean useExitPupilShape, Boolean hexapolar)&#xD;
+[xUnit.net 00:00:04.97]            at InvokeStub_WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Object, Span`1)&#xD;
+[xUnit.net 00:00:04.97]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:05.03]       Assert.Equal() Failure: Values are not within 12 decimal places&#xD;
+[xUnit.net 00:00:05.03]       Expected: 25.154486422523 (rounded from 25.15448642252273)&#xD;
+[xUnit.net 00:00:05.03]       Actual:   25.042193920104999 (rounded from 25.04219392010544)&#xD;
+[xUnit.net 00:00:05.03]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.03]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(51,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Boolean aiming, Boolean useExitPupilShape, Boolean hexapolar)&#xD;
+[xUnit.net 00:00:05.03]            at InvokeStub_WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Object, Span`1)&#xD;
+[xUnit.net 00:00:05.03]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:05.06]       Assert.Equal() Failure: Values are not within 12 decimal places&#xD;
+[xUnit.net 00:00:05.06]       Expected: 25.042193920104999 (rounded from 25.04219392010544)&#xD;
+[xUnit.net 00:00:05.06]       Actual:   25.154486422523 (rounded from 25.15448642252273)&#xD;
+[xUnit.net 00:00:05.06]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.06]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(51,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Boolean aiming, Boolean useExitPupilShape, Boolean hexapolar)&#xD;
+[xUnit.net 00:00:05.06]            at InvokeStub_WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Object, Span`1)&#xD;
+[xUnit.net 00:00:05.06]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:05.10]       Assert.Equal() Failure: Values are not within 12 decimal places&#xD;
+[xUnit.net 00:00:05.10]       Expected: 25.154486422523 (rounded from 25.15448642252273)&#xD;
+[xUnit.net 00:00:05.10]       Actual:   25.042193920104999 (rounded from 25.04219392010544)&#xD;
+[xUnit.net 00:00:05.10]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.10]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(51,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Boolean aiming, Boolean useExitPupilShape, Boolean hexapolar)&#xD;
+[xUnit.net 00:00:05.10]            at InvokeStub_WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Object, Span`1)&#xD;
+[xUnit.net 00:00:05.10]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:05.16]       System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.&#xD;
+[xUnit.net 00:00:05.16]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.16]            at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+[xUnit.net 00:00:05.16]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(67,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Boolean aiming, Boolean useExitPupilShape, Boolean hexapolar)&#xD;
+[xUnit.net 00:00:05.16]            at InvokeStub_WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Object, Span`1)&#xD;
+[xUnit.net 00:00:05.16]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:05.16]       System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.&#xD;
+[xUnit.net 00:00:05.16]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.16]            at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+[xUnit.net 00:00:05.16]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(67,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Boolean aiming, Boolean useExitPupilShape, Boolean hexapolar)&#xD;
+[xUnit.net 00:00:05.16]            at InvokeStub_WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Object, Span`1)&#xD;
+[xUnit.net 00:00:05.16]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:05.16]       System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.&#xD;
+[xUnit.net 00:00:05.16]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.17]            at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+[xUnit.net 00:00:05.17]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(67,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Boolean aiming, Boolean useExitPupilShape, Boolean hexapolar)&#xD;
+[xUnit.net 00:00:05.17]            at InvokeStub_WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(Object, Span`1)&#xD;
+[xUnit.net 00:00:05.17]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:05.48]       System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.&#xD;
+[xUnit.net 00:00:05.48]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.48]            at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+[xUnit.net 00:00:05.48]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(154,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape)&#xD;
+[xUnit.net 00:00:05.48]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:05.48]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:05.89]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:05.89]       Range:  (0 - 0.00060175102236640569)&#xD;
+[xUnit.net 00:00:05.89]       Actual: 0.010271390677793368&#xD;
+[xUnit.net 00:00:05.89]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.89]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(145,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape)&#xD;
+[xUnit.net 00:00:05.89]            at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+[xUnit.net 00:00:05.89]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:05.93]       System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.&#xD;
+[xUnit.net 00:00:05.93]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.93]            at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+[xUnit.net 00:00:05.93]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(154,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape)&#xD;
+[xUnit.net 00:00:05.93]            at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+[xUnit.net 00:00:05.93]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:06.06]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:06.06]       Expected: 6&#xD;
+[xUnit.net 00:00:06.06]       Actual:   2&#xD;
+[xUnit.net 00:00:06.06]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.06]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(151,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape)&#xD;
+[xUnit.net 00:00:06.06]            at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+[xUnit.net 00:00:06.06]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:06.45]       System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.&#xD;
+[xUnit.net 00:00:06.45]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.45]            at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+[xUnit.net 00:00:06.45]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(154,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape)&#xD;
+[xUnit.net 00:00:06.45]            at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+[xUnit.net 00:00:06.45]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:06.54]       System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.&#xD;
+[xUnit.net 00:00:06.54]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.54]            at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+[xUnit.net 00:00:06.54]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(154,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape)&#xD;
+[xUnit.net 00:00:06.54]            at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+[xUnit.net 00:00:06.54]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:07.12]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:07.12]       Range:  (0 - 0.00014663016550417471)&#xD;
+[xUnit.net 00:00:07.12]       Actual: 384.15481724314924&#xD;
+[xUnit.net 00:00:07.12]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.12]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(145,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape)&#xD;
+[xUnit.net 00:00:07.12]            at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+[xUnit.net 00:00:07.12]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:07.15]       System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.&#xD;
+[xUnit.net 00:00:07.15]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.15]            at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+[xUnit.net 00:00:07.15]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(154,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape)&#xD;
+[xUnit.net 00:00:07.15]            at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+[xUnit.net 00:00:07.15]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:07.57]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:07.57]       Range:  (0 - 0.0020668926792405296)&#xD;
+[xUnit.net 00:00:07.57]       Actual: 364.9299538611628&#xD;
+[xUnit.net 00:00:07.57]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.57]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(145,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape)&#xD;
+[xUnit.net 00:00:07.57]            at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+[xUnit.net 00:00:07.57]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:07.61]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:07.61]       Expected: 6&#xD;
+[xUnit.net 00:00:07.61]       Actual:   4&#xD;
+[xUnit.net 00:00:07.61]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.61]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(151,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape)&#xD;
+[xUnit.net 00:00:07.61]            at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+[xUnit.net 00:00:07.61]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:08.01]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:08.01]       Range:  (0 - 0.0002823874015835946)&#xD;
+[xUnit.net 00:00:08.01]       Actual: 0.021963776529310641&#xD;
+[xUnit.net 00:00:08.01]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.01]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(145,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape)&#xD;
+[xUnit.net 00:00:08.01]            at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+[xUnit.net 00:00:08.01]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:08.31]       System.Collections.Generic.KeyNotFoundException : The given key 'UseRayAiming' was not present in the dictionary.&#xD;
+[xUnit.net 00:00:08.31]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.31]            at System.Collections.Generic.Dictionary`2.get_Item(TKey key)&#xD;
+[xUnit.net 00:00:08.31]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(154,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(String lens, String setting, Boolean shape)&#xD;
+[xUnit.net 00:00:08.31]            at InvokeStub_WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(Object, Span`1)&#xD;
+[xUnit.net 00:00:08.31]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:08.37]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:08.37]       Expected: 25.04219392010544&#xD;
+[xUnit.net 00:00:08.37]       Actual:   25.15448642252273&#xD;
+[xUnit.net 00:00:08.37]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.37]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(87,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(Boolean aiming, Boolean hexapolar)&#xD;
+[xUnit.net 00:00:08.37]            at InvokeStub_WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(Object, Span`1)&#xD;
+[xUnit.net 00:00:08.37]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:08.40]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:08.40]       Expected: 25.04219392010544&#xD;
+[xUnit.net 00:00:08.40]       Actual:   25.15448642252273&#xD;
+[xUnit.net 00:00:08.40]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.40]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\WavefrontAimingRepairTests.cs(87,0): at OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(Boolean aiming, Boolean hexapolar)&#xD;
+[xUnit.net 00:00:08.40]            at InvokeStub_WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(Object, Span`1)&#xD;
+[xUnit.net 00:00:08.40]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:08.41]   Finished:    OptilandWorkbench.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:25.0759200+08:00">
+        <Text>[xUnit.net 00:00:04.87]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: False, useExitPupilShape: False, hexapolar: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:25.1772469+08:00">
+        <Text>[xUnit.net 00:00:04.97]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: True, useExitPupilShape: False, hexapolar: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:25.2330274+08:00">
+        <Text>[xUnit.net 00:00:05.03]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: True, useExitPupilShape: True, hexapolar: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:25.2693822+08:00">
+        <Text>[xUnit.net 00:00:05.06]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: False, useExitPupilShape: True, hexapolar: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:25.3035130+08:00">
+        <Text>[xUnit.net 00:00:05.10]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: True, useExitPupilShape: False, hexapolar: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:25.3600281+08:00">
+        <Text>[xUnit.net 00:00:05.15]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: True, useExitPupilShape: True, hexapolar: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:25.3647891+08:00">
+        <Text>[xUnit.net 00:00:05.16]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: False, useExitPupilShape: True, hexapolar: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:25.3698402+08:00">
+        <Text>[xUnit.net 00:00:05.16]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.MapSamplingFollowsSystemAimingNotExitPupilDisplay(aiming: False, useExitPupilShape: False, hexapolar: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:25.6837766+08:00">
+        <Text>[xUnit.net 00:00:05.48]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: "double-gauss-28-degree-field", setting: "primary", shape: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:26.0929674+08:00">
+        <Text>[xUnit.net 00:00:05.89]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: "cooke-40-degree-field", setting: "primary", shape: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:26.1366934+08:00">
+        <Text>[xUnit.net 00:00:05.93]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: "cooke-40-degree-field", setting: "edge-shortwave", shape: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:26.2601407+08:00">
+        <Text>[xUnit.net 00:00:06.05]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: "relay-lens", setting: "primary", shape: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:26.6535528+08:00">
+        <Text>[xUnit.net 00:00:06.45]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: "relay-lens", setting: "edge-shortwave", shape: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:26.7409773+08:00">
+        <Text>[xUnit.net 00:00:06.54]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: "double-gauss-28-degree-field", setting: "edge-shortwave", shape: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:27.3236112+08:00">
+        <Text>[xUnit.net 00:00:07.12]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: "double-gauss-28-degree-field", setting: "edge-shortwave", shape: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:27.3581595+08:00">
+        <Text>[xUnit.net 00:00:07.15]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: "cooke-40-degree-field", setting: "primary", shape: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:27.7776916+08:00">
+        <Text>[xUnit.net 00:00:07.57]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: "cooke-40-degree-field", setting: "edge-shortwave", shape: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:27.8143402+08:00">
+        <Text>[xUnit.net 00:00:07.61]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: "relay-lens", setting: "edge-shortwave", shape: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:28.2159968+08:00">
+        <Text>[xUnit.net 00:00:08.01]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: "double-gauss-28-degree-field", setting: "primary", shape: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:28.5138463+08:00">
+        <Text>[xUnit.net 00:00:08.31]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExactMapFanKnotsMatchUnchangedNativeCaptures(lens: "relay-lens", setting: "primary", shape: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:28.5758939+08:00">
+        <Text>[xUnit.net 00:00:08.37]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(aiming: False, hexapolar: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T13:27:28.6071483+08:00">
+        <Text>[xUnit.net 00:00:08.40]     OptilandWorkbench.Tests.WavefrontAimingRepairTests.ExitPupilDisplayFlagDoesNotChangePhysicalWavefront(aiming: True, hexapolar: False) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

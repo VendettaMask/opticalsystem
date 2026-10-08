@@ -32,7 +32,7 @@ public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
         bool removeVignetting = true) : base(optic)
     {
         _waveDensity = Math.Clamp(waveDensity, 2, 100);
-        _numRings = Math.Clamp(numRings, 1, 32);
+        _numRings = RmsScanSupport.ValidateRayDensity(numRings, method);
         _distribution = distribution;
         _fieldNumber = Math.Max(0, fieldNumber);
         _reference = RmsScanSupport.NormalizeReference(reference);
@@ -53,6 +53,9 @@ public sealed class RmsVsWavelengthAnalysis : BaseAnalysis
         {
             return RmsScanSupport.Empty(Name);
         }
+
+        RmsScanSupport.ValidateSamplingWork(Optic, _numRings, _method, GaussianAzimuthalSamples,
+            fields.Count * _waveDensity, 1);
 
         var minimum = definedWavelengths.Min(wavelength => wavelength.Micrometers);
         var maximum = definedWavelengths.Max(wavelength => wavelength.Micrometers);
@@ -179,7 +182,7 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
         _focusDensity = Math.Clamp(focusDensity, 2, 100);
         _minimumFocus = Math.Min(minimumFocus, maximumFocus);
         _maximumFocus = Math.Max(minimumFocus, maximumFocus);
-        _numRings = Math.Clamp(numRings, 1, 32);
+        _numRings = RmsScanSupport.ValidateRayDensity(numRings, method);
         _distribution = distribution;
         _wavelengthNumber = Math.Max(0, wavelengthNumber);
         _reference = RmsScanSupport.NormalizeReference(reference);
@@ -205,6 +208,8 @@ public sealed class RmsVsFocusAnalysis : BaseAnalysis
             .Select(index => _minimumFocus
                 + ((_maximumFocus - _minimumFocus) * index / (_focusDensity - 1.0)))
             .ToArray();
+        RmsScanSupport.ValidateSamplingWork(Optic, _numRings, _method, GaussianAzimuthalSamples,
+            fields.Count * _focusDensity, wavelengths.Count);
         var effectiveDistribution = RmsScanSupport.EffectiveDistribution(_method, _distribution);
         var yAxisLabel = RmsScanSupport.AxisLabel(Optic, _data);
         var series = fields.Select((field, fieldIndex) => new AnalysisSeries(
@@ -321,7 +326,7 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
         _yFieldSamples = Math.Clamp(yFieldSamples, 3, 101);
         _xFieldWidth = xFieldWidth > 0 ? xFieldWidth : defaultWidth;
         _yFieldWidth = yFieldWidth > 0 ? yFieldWidth : defaultWidth;
-        _numRings = Math.Clamp(numRings, 1, 32);
+        _numRings = RmsScanSupport.ValidateRayDensity(numRings, method);
         _distribution = distribution;
         _wavelengthNumber = Math.Max(0, wavelengthNumber);
         _reference = RmsScanSupport.NormalizeReference(reference);
@@ -343,6 +348,8 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
         }
 
         var points = new List<AnalysisPoint>(_xFieldSamples * _yFieldSamples);
+        RmsScanSupport.ValidateSamplingWork(Optic, _numRings, _method, GaussianAzimuthalSamples,
+            _xFieldSamples * _yFieldSamples, wavelengths.Count);
         var effectiveDistribution = RmsScanSupport.EffectiveDistribution(_method, _distribution);
         for (var row = 0; row < _yFieldSamples; row++)
         {
@@ -449,6 +456,31 @@ internal static class RmsScanSupport
         }
 
         return "GQ";
+    }
+
+    public static int ValidateRayDensity(int density, string method)
+    {
+        var normalized = NormalizeMethod(method);
+        var maximum = normalized == "RA" ? AnalysisResourceLimits.MaximumAnalysisGridDimension : 32;
+        if (density < 1 || density > maximum)
+            throw new ArgumentOutOfRangeException(nameof(density),
+                $"{normalized} ray density must be between 1 and {maximum}; it is never silently reduced.");
+        return density;
+    }
+
+    public static void ValidateSamplingWork(Optic optic, int density, string method, int azimuthalSamples,
+        int evaluationCount, int wavelengthCount, int tracePasses = 1)
+    {
+        ValidateRayDensity(density, method);
+        var rectangular = NormalizeMethod(method) == "RA";
+        if (!rectangular && azimuthalSamples is < 1 or > 72)
+            throw new ArgumentOutOfRangeException(nameof(azimuthalSamples), "GQ angular samples must be between 1 and 72.");
+        var upperRayCount = rectangular ? (long)density * density : (long)density * azimuthalSamples;
+        var work = checked((upperRayCount + 1) * evaluationCount * wavelengthCount
+            * Math.Max(1, optic.SurfaceGroup.Items.Count) * tracePasses);
+        if (work > AnalysisResourceLimits.MaximumAnalysisRayWork)
+            throw new ArgumentOutOfRangeException(nameof(density),
+                "RMS sampling exceeds the ray-work safety budget. Reduce ray density, scan points or wavelengths.");
     }
 
     public static string NormalizeData(string data)
@@ -630,7 +662,7 @@ internal static class RmsScanSupport
             var wavefront = wavefronts[wavelengthIndex];
             var samples = wavefront.Samples.Select((sample, index) => (
                     Sample: sample,
-                    Weight: Math.Max(0, pupil[index].Weight)))
+                    Weight: Math.Max(0, pupil[index].Weight) * (usePolarization ? sample.Intensity : 1)))
                 .Where(item => item.Weight > 0
                     && double.IsFinite(item.Sample.OpdWaves)
                     && item.Sample.Intensity > 0)
@@ -640,9 +672,9 @@ internal static class RmsScanSupport
                 continue;
             }
 
-            var rms = WeightedWavefrontRms(wavefront.Samples, pupil, reference);
+            var rms = WeightedWavefrontRms(wavefront.Samples, pupil, reference, usePolarization);
             var meanSquare = rms * rms;
-            var wavelengthWeight = Math.Max(0, wavelength.Weight);
+            var wavelengthWeight = Math.Max(0, wavelength.Weight) * (usePolarization ? samples.Sum(item => item.Weight) : 1);
             weightedMeanSquare += wavelengthWeight * meanSquare;
             totalWavelengthWeight += wavelengthWeight;
         }
@@ -660,10 +692,12 @@ internal static class RmsScanSupport
     public static double WeightedWavefrontRms(
         IReadOnlyList<WavefrontSample> wavefront,
         IReadOnlyList<PupilSample> pupil,
-        string reference)
+        string reference,
+        bool usePolarization = false)
     {
         return WavefrontStatistics.Measure(wavefront, pupil,
-            NormalizeReference(reference) == "centroid" ? WavefrontReferenceKind.Centroid : WavefrontReferenceKind.ChiefRay).Rms;
+            NormalizeReference(reference) == "centroid" ? WavefrontReferenceKind.Centroid : WavefrontReferenceKind.ChiefRay,
+            useIntensityWeights: usePolarization).Rms;
     }
 
     public static double DiffractionLimitMillimeters(

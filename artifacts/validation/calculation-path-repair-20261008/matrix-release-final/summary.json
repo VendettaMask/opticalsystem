@@ -1,0 +1,2212 @@
+{
+  "createdUtc": "2026-10-08T08:14:05.074304+00:00",
+  "scope": "Formal Core path consistency controls on three unchanged frozen snapshots, two captured field/wavelength settings, both system-aiming states. Synthetic afocal switches are internal controls only. Native OPD comparison is authoritative only at its captured aiming setting. No new native capture or full release acceptance.",
+  "phase": "post-repair verification",
+  "productCodeChangedDuringRun": false,
+  "toleranceChanged": false,
+  "nativeRecaptured": false,
+  "coreAssemblySha256": "a08bc4770d4e42e3d0403c38d8919c8b2bd0184f2c2289242e668372f3f2f28a",
+  "probeSourceSha256": "2580eeba0a6ab7314e3a7036a81ffac3fdc58d79f4571f4f6ec60adc1efc41ce",
+  "productSourcesUnchanged": true,
+  "inputsUnchanged": true,
+  "cases": [
+    {
+      "lens": "cooke-40-degree-field",
+      "setting": "primary",
+      "fieldNumber": 1,
+      "waveNumber": 2,
+      "wavelengthMicrometers": 0.55,
+      "originalSystemAiming": false,
+      "checks": [
+        {
+          "systemAim": false,
+          "hexWavefrontAimingDifference": {
+            "candidateCount": 217,
+            "commonValidCount": 217,
+            "maskMismatchCount": 0,
+            "maximumCommonValidOpdDifferenceWaves": 0.010271390700402505,
+            "referencePathDifferenceMillimeters": 0
+          },
+          "zernike": [
+            {
+              "kind": "Fringe",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.17580435819476564,
+              "sourceAimedChiefRmsWaves": 0.17580435819476564,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            },
+            {
+              "kind": "Standard",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.17580435819476564,
+              "sourceAimedChiefRmsWaves": 0.17580435819476564,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": 4.879963586196245E-06
+            },
+            {
+              "kind": "Annular",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.08443922577996066,
+              "sourceAimedChiefRmsWaves": 0.08443922577996066,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            }
+          ],
+          "controls": {
+            "uniformFringeCoefficientErrorWaves": 0,
+            "uniformStandardOperandCoefficientErrorWaves": 0
+          },
+          "zernikeSweepEdgeCoefficientErrorAgainstSourceAimingWaves": 0,
+          "zeroDefocus": {
+            "againstSystemAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstForcedAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0.010271390700402505,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 1.5522938490164506E-10
+            },
+            "sourceAgainstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 1.5522938490164506E-10
+            },
+            "frozenNativeAiming": false
+          },
+          "fft": {
+            "actualUseRayAiming": false,
+            "fallbackUsed": false,
+            "mismatchRejected": true,
+            "actualVsPreparedSystemAiming": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.3086216943196203,
+              "bPeak": 0.3086216943196203,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedAimed": {
+              "maximumRelativeIntensityDifference": 0.004248593524492472,
+              "aPeak": 0.3086216943196203,
+              "bPeak": 0.3043731007951278,
+              "spacingDifferenceMicrometers": 0.018612509593189275
+            },
+            "actualVsPreparedUnAimed": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.3086216943196203,
+              "bPeak": 0.3086216943196203,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsSameNodesWithoutCellFlag": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.3086216943196203,
+              "bPeak": 0.3086216943196203,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualWorkingFNumber": 4.9782196671821355,
+            "sourceWorkingFNumber": 4.9782196671821355,
+            "forcedWorkingFNumber": 5.050413643786022,
+            "tangentialWorkingFNumber": 4.9782196671821355,
+            "sagittalWorkingFNumber": 4.9782196671821355,
+            "sampleSpacingMicrometers": 1.2834472579453944,
+            "sampleCounts": {
+              "unAimed": 709,
+              "aimed": 709
+            }
+          },
+          "jones": {
+            "cellFlagVsAimedSameNodes": {
+              "commonValidCount": 709,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0.0005406235034313145
+            },
+            "cellFlagVsUnAimedSameNodes": {
+              "commonValidCount": 709,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0
+            }
+          },
+          "fastMtf": [
+            {
+              "polarization": false,
+              "tangential": 0.8670433738106915,
+              "sagittal": 0.8670433738106923
+            },
+            {
+              "polarization": true,
+              "tangential": 0.8131356511063866,
+              "sagittal": 0.8131356511063865
+            }
+          ],
+          "focalReferenceSpheres": [
+            {
+              "strategy": "CentroidSphere",
+              "rmsWaves": 0.17584389185481472,
+              "referenceOpticalPath": -1.6201684131525233E-13,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            },
+            {
+              "strategy": "BestFitSphere",
+              "rmsWaves": 0.09896736550708513,
+              "referenceOpticalPath": -1.987279977034917E-11,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            }
+          ],
+          "syntheticAfocal": [
+            {
+              "strategy": "CentroidSphere",
+              "actualRmsWaves": 0.7168918557950724,
+              "unAimedRmsWaves": 0.7168918557950724,
+              "aimedRmsWaves": 0.6752715527342914,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            },
+            {
+              "strategy": "BestFitSphere",
+              "actualRmsWaves": 0.7168918557950724,
+              "unAimedRmsWaves": 0.7168918557950724,
+              "aimedRmsWaves": 0.6752715527342914,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            }
+          ],
+          "systemFlagUnchanged": true
+        },
+        {
+          "systemAim": true,
+          "hexWavefrontAimingDifference": {
+            "candidateCount": 217,
+            "commonValidCount": 217,
+            "maskMismatchCount": 0,
+            "maximumCommonValidOpdDifferenceWaves": 0.010271390700402505,
+            "referencePathDifferenceMillimeters": 0
+          },
+          "zernike": [
+            {
+              "kind": "Fringe",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.17702769317421835,
+              "sourceAimedChiefRmsWaves": 0.17702769317421835,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0.006008683487325278,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            },
+            {
+              "kind": "Standard",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.17702769317421835,
+              "sourceAimedChiefRmsWaves": 0.17702769317421835,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0.002682644477968593,
+              "standardUniformOperandCoefficientDifferenceWaves": 2.459187402048535E-07
+            },
+            {
+              "kind": "Annular",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.08609120121909586,
+              "sourceAimedChiefRmsWaves": 0.08609120121909586,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0.003303632112847378,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            }
+          ],
+          "controls": {
+            "uniformFringeCoefficientErrorWaves": 0,
+            "uniformStandardOperandCoefficientErrorWaves": 0
+          },
+          "zernikeSweepEdgeCoefficientErrorAgainstSourceAimingWaves": 0,
+          "zeroDefocus": {
+            "againstSystemAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstForcedAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 0.010271390677794257
+            },
+            "sourceAgainstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 0.010271390677794257
+            },
+            "frozenNativeAiming": false
+          },
+          "fft": {
+            "actualUseRayAiming": true,
+            "fallbackUsed": false,
+            "mismatchRejected": true,
+            "actualVsPreparedSystemAiming": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.3043731007951278,
+              "bPeak": 0.3043731007951278,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedAimed": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.3043731007951278,
+              "bPeak": 0.3043731007951278,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedUnAimed": {
+              "maximumRelativeIntensityDifference": 0.004248593524492472,
+              "aPeak": 0.3043731007951278,
+              "bPeak": 0.3086216943196203,
+              "spacingDifferenceMicrometers": 0.018612509593189275
+            },
+            "actualVsSameNodesWithoutCellFlag": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.3043731007951278,
+              "bPeak": 0.3043731007951278,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualWorkingFNumber": 5.050413643786022,
+            "sourceWorkingFNumber": 5.050413643786022,
+            "forcedWorkingFNumber": 5.050413643786022,
+            "tangentialWorkingFNumber": 5.0504136437860225,
+            "sagittalWorkingFNumber": 5.0504136437860225,
+            "sampleSpacingMicrometers": 1.3020597675385837,
+            "sampleCounts": {
+              "unAimed": 709,
+              "aimed": 709
+            }
+          },
+          "jones": {
+            "cellFlagVsAimedSameNodes": {
+              "commonValidCount": 709,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0.0005406235034313145
+            },
+            "cellFlagVsUnAimedSameNodes": {
+              "commonValidCount": 709,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0
+            }
+          },
+          "fastMtf": [
+            {
+              "polarization": false,
+              "tangential": 0.8659465522109048,
+              "sagittal": 0.8659465522109051
+            },
+            {
+              "polarization": true,
+              "tangential": 0.8119076980634858,
+              "sagittal": 0.811907698063486
+            }
+          ],
+          "focalReferenceSpheres": [
+            {
+              "strategy": "CentroidSphere",
+              "rmsWaves": 0.17706926943247997,
+              "referenceOpticalPath": -4.4793661867272674E-13,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            },
+            {
+              "strategy": "BestFitSphere",
+              "rmsWaves": 0.09435633056850534,
+              "referenceOpticalPath": -1.8099848297055787E-11,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            }
+          ],
+          "syntheticAfocal": [
+            {
+              "strategy": "CentroidSphere",
+              "actualRmsWaves": 0.6752715527342914,
+              "unAimedRmsWaves": 0.7168918557950724,
+              "aimedRmsWaves": 0.6752715527342914,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            },
+            {
+              "strategy": "BestFitSphere",
+              "actualRmsWaves": 0.6752715527342914,
+              "unAimedRmsWaves": 0.7168918557950724,
+              "aimedRmsWaves": 0.6752715527342914,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            }
+          ],
+          "systemFlagUnchanged": true
+        }
+      ]
+    },
+    {
+      "lens": "cooke-40-degree-field",
+      "setting": "edge-shortwave",
+      "fieldNumber": 3,
+      "waveNumber": 1,
+      "wavelengthMicrometers": 0.48,
+      "originalSystemAiming": false,
+      "checks": [
+        {
+          "systemAim": false,
+          "hexWavefrontAimingDifference": {
+            "candidateCount": 217,
+            "commonValidCount": 217,
+            "maskMismatchCount": 0,
+            "maximumCommonValidOpdDifferenceWaves": 364.9299553012112,
+            "referencePathDifferenceMillimeters": 0.11636911203895295
+          },
+          "zernike": [
+            {
+              "kind": "Fringe",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.6198138844222412,
+              "sourceAimedChiefRmsWaves": 0.6198138844222412,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            },
+            {
+              "kind": "Standard",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.6198138844222412,
+              "sourceAimedChiefRmsWaves": 0.6198138844222412,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": 2.6584799122195135E-05
+            },
+            {
+              "kind": "Annular",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.45116854966815934,
+              "sourceAimedChiefRmsWaves": 0.45116854966815934,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            }
+          ],
+          "controls": {
+            "uniformFringeCoefficientErrorWaves": 0,
+            "uniformStandardOperandCoefficientErrorWaves": 0
+          },
+          "zernikeSweepEdgeCoefficientErrorAgainstSourceAimingWaves": 0,
+          "zeroDefocus": {
+            "againstSystemAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstForcedAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 364.9299553012112,
+              "referencePathDifferenceMillimeters": 0.11636911203895295
+            },
+            "againstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 2.6241717595132386E-05
+            },
+            "sourceAgainstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 2.6241717595132386E-05
+            },
+            "frozenNativeAiming": false
+          },
+          "fft": {
+            "actualUseRayAiming": false,
+            "fallbackUsed": false,
+            "mismatchRejected": true,
+            "actualVsPreparedSystemAiming": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.055841180359061576,
+              "bPeak": 0.055841180359061576,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedAimed": {
+              "maximumRelativeIntensityDifference": 0.05183159817524499,
+              "aPeak": 0.055841180359061576,
+              "bPeak": 0.017740676842078248,
+              "spacingDifferenceMicrometers": 0.056160941007984855
+            },
+            "actualVsPreparedUnAimed": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.055841180359061576,
+              "bPeak": 0.055841180359061576,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsSameNodesWithoutCellFlag": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.055841180359061576,
+              "bPeak": 0.055841180359061576,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualWorkingFNumber": 5.4770700966983945,
+            "sourceWorkingFNumber": 5.4770700966983945,
+            "forcedWorkingFNumber": 5.227465914440684,
+            "tangentialWorkingFNumber": 5.691478276240976,
+            "sagittalWorkingFNumber": 5.285282483275581,
+            "sampleSpacingMicrometers": 1.2323407717571386,
+            "sampleCounts": {
+              "unAimed": 709,
+              "aimed": 709
+            }
+          },
+          "jones": {
+            "cellFlagVsAimedSameNodes": {
+              "commonValidCount": 709,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0.015142391203272765
+            },
+            "cellFlagVsUnAimedSameNodes": {
+              "commonValidCount": 709,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0
+            }
+          },
+          "fastMtf": [
+            {
+              "polarization": false,
+              "tangential": 0.31748053548085975,
+              "sagittal": 0.5401218795497947
+            },
+            {
+              "polarization": true,
+              "tangential": 0.35131188196334584,
+              "sagittal": 0.5516278867420985
+            }
+          ],
+          "focalReferenceSpheres": [
+            {
+              "strategy": "CentroidSphere",
+              "rmsWaves": 0.6168966808631876,
+              "referenceOpticalPath": 6.941707833232315E-14,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            },
+            {
+              "strategy": "BestFitSphere",
+              "rmsWaves": 0.23111902155667546,
+              "referenceOpticalPath": -7.76428056512742E-11,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            }
+          ],
+          "syntheticAfocal": [
+            {
+              "strategy": "CentroidSphere",
+              "actualRmsWaves": 1.2207507740684027,
+              "unAimedRmsWaves": 1.2207507740684027,
+              "aimedRmsWaves": 175.0693227367623,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            },
+            {
+              "strategy": "BestFitSphere",
+              "actualRmsWaves": 1.2207507740684027,
+              "unAimedRmsWaves": 1.2207507740684027,
+              "aimedRmsWaves": 175.0693227367623,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            }
+          ],
+          "systemFlagUnchanged": true
+        },
+        {
+          "systemAim": true,
+          "hexWavefrontAimingDifference": {
+            "candidateCount": 217,
+            "commonValidCount": 217,
+            "maskMismatchCount": 0,
+            "maximumCommonValidOpdDifferenceWaves": 364.9299553012112,
+            "referencePathDifferenceMillimeters": 0.11636911203895295
+          },
+          "zernike": [
+            {
+              "kind": "Fringe",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 172.09373782158065,
+              "sourceAimedChiefRmsWaves": 172.09373782158065,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 328.068813288552,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            },
+            {
+              "kind": "Standard",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 172.09373782158065,
+              "sourceAimedChiefRmsWaves": 172.09373782158065,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 164.03443603879018,
+              "standardUniformOperandCoefficientDifferenceWaves": 5.8359716684108776E-05
+            },
+            {
+              "kind": "Annular",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 184.9783931261671,
+              "sourceAimedChiefRmsWaves": 184.9783931261671,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 182.0976681394102,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            }
+          ],
+          "controls": {
+            "uniformFringeCoefficientErrorWaves": 0,
+            "uniformStandardOperandCoefficientErrorWaves": 0
+          },
+          "zernikeSweepEdgeCoefficientErrorAgainstSourceAimingWaves": 0,
+          "zeroDefocus": {
+            "againstSystemAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstForcedAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 364.9299538611636
+            },
+            "sourceAgainstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 364.9299538611636
+            },
+            "frozenNativeAiming": false
+          },
+          "fft": {
+            "actualUseRayAiming": true,
+            "fallbackUsed": false,
+            "mismatchRejected": true,
+            "actualVsPreparedSystemAiming": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.017740676842078248,
+              "bPeak": 0.017740676842078248,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedAimed": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.017740676842078248,
+              "bPeak": 0.017740676842078248,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedUnAimed": {
+              "maximumRelativeIntensityDifference": 0.05183159817524499,
+              "aPeak": 0.017740676842078248,
+              "bPeak": 0.055841180359061576,
+              "spacingDifferenceMicrometers": 0.056160941007984855
+            },
+            "actualVsSameNodesWithoutCellFlag": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.017740676842078248,
+              "bPeak": 0.017740676842078248,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualWorkingFNumber": 5.227465914440684,
+            "sourceWorkingFNumber": 5.227465914440684,
+            "forcedWorkingFNumber": 5.227465914440684,
+            "tangentialWorkingFNumber": 5.246405686400707,
+            "sagittalWorkingFNumber": 5.209663416292033,
+            "sampleSpacingMicrometers": 1.1761798307491538,
+            "sampleCounts": {
+              "unAimed": 709,
+              "aimed": 709
+            }
+          },
+          "jones": {
+            "cellFlagVsAimedSameNodes": {
+              "commonValidCount": 709,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0.015142391203272765
+            },
+            "cellFlagVsUnAimedSameNodes": {
+              "commonValidCount": 709,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0
+            }
+          },
+          "fastMtf": [
+            {
+              "polarization": false,
+              "tangential": 0.10403466987352175,
+              "sagittal": 0.044101187885452385
+            },
+            {
+              "polarization": true,
+              "tangential": 0.28159232458448546,
+              "sagittal": 0.38874744366859737
+            }
+          ],
+          "focalReferenceSpheres": [
+            {
+              "strategy": "CentroidSphere",
+              "rmsWaves": 171.6071454597694,
+              "referenceOpticalPath": 0.003619788020113793,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            },
+            {
+              "strategy": "BestFitSphere",
+              "rmsWaves": 9.591161103210267,
+              "referenceOpticalPath": -1.1057687749781017E-07,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            }
+          ],
+          "syntheticAfocal": [
+            {
+              "strategy": "CentroidSphere",
+              "actualRmsWaves": 175.0693227367623,
+              "unAimedRmsWaves": 1.2207507740684027,
+              "aimedRmsWaves": 175.0693227367623,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            },
+            {
+              "strategy": "BestFitSphere",
+              "actualRmsWaves": 175.0693227367623,
+              "unAimedRmsWaves": 1.2207507740684027,
+              "aimedRmsWaves": 175.0693227367623,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            }
+          ],
+          "systemFlagUnchanged": true
+        }
+      ]
+    },
+    {
+      "lens": "double-gauss-28-degree-field",
+      "setting": "primary",
+      "fieldNumber": 1,
+      "waveNumber": 2,
+      "wavelengthMicrometers": 0.5876,
+      "originalSystemAiming": false,
+      "checks": [
+        {
+          "systemAim": false,
+          "hexWavefrontAimingDifference": {
+            "candidateCount": 217,
+            "commonValidCount": 217,
+            "maskMismatchCount": 0,
+            "maximumCommonValidOpdDifferenceWaves": 0.021963776789295786,
+            "referencePathDifferenceMillimeters": 0
+          },
+          "zernike": [
+            {
+              "kind": "Fringe",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.2967690389935397,
+              "sourceAimedChiefRmsWaves": 0.2967690389935397,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            },
+            {
+              "kind": "Standard",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.2967690389935397,
+              "sourceAimedChiefRmsWaves": 0.2967690389935397,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": 8.779579192187692E-06
+            },
+            {
+              "kind": "Annular",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.2771679578168827,
+              "sourceAimedChiefRmsWaves": 0.2771679578168827,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            }
+          ],
+          "controls": {
+            "uniformFringeCoefficientErrorWaves": 0,
+            "uniformStandardOperandCoefficientErrorWaves": 0
+          },
+          "zernikeSweepEdgeCoefficientErrorAgainstSourceAimingWaves": 0,
+          "zeroDefocus": {
+            "againstSystemAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstForcedAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0.021963776692557446,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 2.422235745314083E-10
+            },
+            "sourceAgainstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 2.422235745314083E-10
+            },
+            "frozenNativeAiming": false
+          },
+          "fft": {
+            "actualUseRayAiming": false,
+            "fallbackUsed": false,
+            "mismatchRejected": true,
+            "actualVsPreparedSystemAiming": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.09863190028660616,
+              "bPeak": 0.09863190028660616,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedAimed": {
+              "maximumRelativeIntensityDifference": 0.005688688142335641,
+              "aPeak": 0.09863190028660616,
+              "bPeak": 0.09294321214427052,
+              "spacingDifferenceMicrometers": 0.0037065860635963066
+            },
+            "actualVsPreparedUnAimed": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.09863190028660616,
+              "bPeak": 0.09863190028660616,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsSameNodesWithoutCellFlag": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.09863190028660616,
+              "bPeak": 0.09863190028660616,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualWorkingFNumber": 2.9782826595781415,
+            "sourceWorkingFNumber": 2.9782826595781415,
+            "forcedWorkingFNumber": 2.9648255738015266,
+            "tangentialWorkingFNumber": 2.9782826595781415,
+            "sagittalWorkingFNumber": 2.9782826595781415,
+            "sampleSpacingMicrometers": 0.8203307300475543,
+            "sampleCounts": {
+              "unAimed": 709,
+              "aimed": 709
+            }
+          },
+          "jones": {
+            "cellFlagVsAimedSameNodes": {
+              "commonValidCount": 709,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0.0002752379511574213
+            },
+            "cellFlagVsUnAimedSameNodes": {
+              "commonValidCount": 709,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0
+            }
+          },
+          "fastMtf": [
+            {
+              "polarization": false,
+              "tangential": 0.771003371602747,
+              "sagittal": 0.7710033716027477
+            },
+            {
+              "polarization": true,
+              "tangential": 0.6948452287071959,
+              "sagittal": 0.6948452287071966
+            }
+          ],
+          "focalReferenceSpheres": [
+            {
+              "strategy": "CentroidSphere",
+              "rmsWaves": 0.2970205613393619,
+              "referenceOpticalPath": 5.504905287372721E-13,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            },
+            {
+              "strategy": "BestFitSphere",
+              "rmsWaves": 0.29153764426482826,
+              "referenceOpticalPath": -7.487064117685385E-11,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            }
+          ],
+          "syntheticAfocal": [
+            {
+              "strategy": "CentroidSphere",
+              "actualRmsWaves": 2.860653264377591,
+              "unAimedRmsWaves": 2.860653264377591,
+              "aimedRmsWaves": 2.896138739080846,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            },
+            {
+              "strategy": "BestFitSphere",
+              "actualRmsWaves": 2.860653264377591,
+              "unAimedRmsWaves": 2.860653264377591,
+              "aimedRmsWaves": 2.896138739080846,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            }
+          ],
+          "systemFlagUnchanged": true
+        },
+        {
+          "systemAim": true,
+          "hexWavefrontAimingDifference": {
+            "candidateCount": 217,
+            "commonValidCount": 217,
+            "maskMismatchCount": 0,
+            "maximumCommonValidOpdDifferenceWaves": 0.021963776789295786,
+            "referencePathDifferenceMillimeters": 0
+          },
+          "zernike": [
+            {
+              "kind": "Fringe",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.3022700345827077,
+              "sourceAimedChiefRmsWaves": 0.3022700345827077,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0.009723017444327964,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            },
+            {
+              "kind": "Standard",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.3022700345827077,
+              "sourceAimedChiefRmsWaves": 0.3022700345827077,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0.0056046525762469546,
+              "standardUniformOperandCoefficientDifferenceWaves": 1.726568202867207E-05
+            },
+            {
+              "kind": "Annular",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.2859589648190018,
+              "sourceAimedChiefRmsWaves": 0.2859589648190018,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0.006533144946731295,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            }
+          ],
+          "controls": {
+            "uniformFringeCoefficientErrorWaves": 0,
+            "uniformStandardOperandCoefficientErrorWaves": 0
+          },
+          "zernikeSweepEdgeCoefficientErrorAgainstSourceAimingWaves": 0,
+          "zeroDefocus": {
+            "againstSystemAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstForcedAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 0.021963776529311585
+            },
+            "sourceAgainstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 0.021963776529311585
+            },
+            "frozenNativeAiming": false
+          },
+          "fft": {
+            "actualUseRayAiming": true,
+            "fallbackUsed": false,
+            "mismatchRejected": true,
+            "actualVsPreparedSystemAiming": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.09294321214427052,
+              "bPeak": 0.09294321214427052,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedAimed": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.09294321214427052,
+              "bPeak": 0.09294321214427052,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedUnAimed": {
+              "maximumRelativeIntensityDifference": 0.005688688142335641,
+              "aPeak": 0.09294321214427052,
+              "bPeak": 0.09863190028660616,
+              "spacingDifferenceMicrometers": 0.0037065860635963066
+            },
+            "actualVsSameNodesWithoutCellFlag": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.09294321214427052,
+              "bPeak": 0.09294321214427052,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualWorkingFNumber": 2.9648255738015266,
+            "sourceWorkingFNumber": 2.9648255738015266,
+            "forcedWorkingFNumber": 2.9648255738015266,
+            "tangentialWorkingFNumber": 2.9648255738015266,
+            "sagittalWorkingFNumber": 2.9648255738015266,
+            "sampleSpacingMicrometers": 0.816624143983958,
+            "sampleCounts": {
+              "unAimed": 709,
+              "aimed": 709
+            }
+          },
+          "jones": {
+            "cellFlagVsAimedSameNodes": {
+              "commonValidCount": 709,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0.0002752379511574213
+            },
+            "cellFlagVsUnAimedSameNodes": {
+              "commonValidCount": 709,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0
+            }
+          },
+          "fastMtf": [
+            {
+              "polarization": false,
+              "tangential": 0.7659700672391525,
+              "sagittal": 0.7659700672391535
+            },
+            {
+              "polarization": true,
+              "tangential": 0.6917877596126252,
+              "sagittal": 0.6917877596126254
+            }
+          ],
+          "focalReferenceSpheres": [
+            {
+              "strategy": "CentroidSphere",
+              "rmsWaves": 0.30253324523873315,
+              "referenceOpticalPath": 8.592000638868676E-14,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            },
+            {
+              "strategy": "BestFitSphere",
+              "rmsWaves": 0.29535020240303567,
+              "referenceOpticalPath": -7.702126084896092E-11,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            }
+          ],
+          "syntheticAfocal": [
+            {
+              "strategy": "CentroidSphere",
+              "actualRmsWaves": 2.896138739080846,
+              "unAimedRmsWaves": 2.860653264377591,
+              "aimedRmsWaves": 2.896138739080846,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            },
+            {
+              "strategy": "BestFitSphere",
+              "actualRmsWaves": 2.896138739080846,
+              "unAimedRmsWaves": 2.860653264377591,
+              "aimedRmsWaves": 2.896138739080846,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            }
+          ],
+          "systemFlagUnchanged": true
+        }
+      ]
+    },
+    {
+      "lens": "double-gauss-28-degree-field",
+      "setting": "edge-shortwave",
+      "fieldNumber": 3,
+      "waveNumber": 1,
+      "wavelengthMicrometers": 0.4861,
+      "originalSystemAiming": false,
+      "checks": [
+        {
+          "systemAim": false,
+          "hexWavefrontAimingDifference": {
+            "candidateCount": 217,
+            "commonValidCount": 217,
+            "maskMismatchCount": 0,
+            "maximumCommonValidOpdDifferenceWaves": 384.1547769247726,
+            "referencePathDifferenceMillimeters": 0.13234108842375747
+          },
+          "zernike": [
+            {
+              "kind": "Fringe",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.5117369547658089,
+              "sourceAimedChiefRmsWaves": 0.5117369547658089,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            },
+            {
+              "kind": "Standard",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.5117369547658089,
+              "sourceAimedChiefRmsWaves": 0.5117369547658089,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": 0.00023009209339573634
+            },
+            {
+              "kind": "Annular",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.5539181882059712,
+              "sourceAimedChiefRmsWaves": 0.5539181882059712,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            }
+          ],
+          "controls": {
+            "uniformFringeCoefficientErrorWaves": 0,
+            "uniformStandardOperandCoefficientErrorWaves": 0
+          },
+          "zernikeSweepEdgeCoefficientErrorAgainstSourceAimingWaves": 0,
+          "zeroDefocus": {
+            "againstSystemAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstForcedAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 384.1547769247726,
+              "referencePathDifferenceMillimeters": 0.13234108842375747
+            },
+            "againstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 4.031837608067801E-05
+            },
+            "sourceAgainstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 4.031837608067801E-05
+            },
+            "frozenNativeAiming": false
+          },
+          "fft": {
+            "actualUseRayAiming": false,
+            "fallbackUsed": false,
+            "mismatchRejected": true,
+            "actualVsPreparedSystemAiming": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.12858239946155836,
+              "bPeak": 0.12858239946155836,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedAimed": {
+              "maximumRelativeIntensityDifference": 0.12477703847293027,
+              "aPeak": 0.12858239946155836,
+              "bPeak": 0.013324641058115136,
+              "spacingDifferenceMicrometers": 0.002921988564590583
+            },
+            "actualVsPreparedUnAimed": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.12858239946155836,
+              "bPeak": 0.12858239946155836,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsSameNodesWithoutCellFlag": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.12858239946155836,
+              "bPeak": 0.12858239946155836,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualWorkingFNumber": 3.0717746921815925,
+            "sourceWorkingFNumber": 3.0717746921815925,
+            "forcedWorkingFNumber": 3.084598340822736,
+            "tangentialWorkingFNumber": 3.0972397089253345,
+            "sagittalWorkingFNumber": 3.047211361759681,
+            "sampleSpacingMicrometers": 0.699932661501315,
+            "sampleCounts": {
+              "unAimed": 709,
+              "aimed": 709
+            }
+          },
+          "jones": {
+            "cellFlagVsAimedSameNodes": {
+              "commonValidCount": 709,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0.0014710783115188253
+            },
+            "cellFlagVsUnAimedSameNodes": {
+              "commonValidCount": 709,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0
+            }
+          },
+          "fastMtf": [
+            {
+              "polarization": false,
+              "tangential": 0.8300630747417865,
+              "sagittal": 0.781405543324441
+            },
+            {
+              "polarization": true,
+              "tangential": 0.7300187624057259,
+              "sagittal": 0.7949243540585604
+            }
+          ],
+          "focalReferenceSpheres": [
+            {
+              "strategy": "CentroidSphere",
+              "rmsWaves": 0.5035817112582335,
+              "referenceOpticalPath": 1.0054122669813371E-05,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            },
+            {
+              "strategy": "BestFitSphere",
+              "rmsWaves": 0.42743943767588227,
+              "referenceOpticalPath": -1.0651382694435563E-10,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            }
+          ],
+          "syntheticAfocal": [
+            {
+              "strategy": "CentroidSphere",
+              "actualRmsWaves": 3.9419160569394065,
+              "unAimedRmsWaves": 3.9419160569394065,
+              "aimedRmsWaves": 153.40014917167687,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            },
+            {
+              "strategy": "BestFitSphere",
+              "actualRmsWaves": 3.9419160569394065,
+              "unAimedRmsWaves": 3.9419160569394065,
+              "aimedRmsWaves": 153.40014917167687,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            }
+          ],
+          "systemFlagUnchanged": true
+        },
+        {
+          "systemAim": true,
+          "hexWavefrontAimingDifference": {
+            "candidateCount": 217,
+            "commonValidCount": 217,
+            "maskMismatchCount": 0,
+            "maximumCommonValidOpdDifferenceWaves": 384.1547769247726,
+            "referencePathDifferenceMillimeters": 0.13234108842375747
+          },
+          "zernike": [
+            {
+              "kind": "Fringe",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 93.01328724251238,
+              "sourceAimedChiefRmsWaves": 93.01328724251238,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 106.97595202222858,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            },
+            {
+              "kind": "Standard",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 93.01328724251238,
+              "sourceAimedChiefRmsWaves": 93.01328724251238,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 105.10489557108536,
+              "standardUniformOperandCoefficientDifferenceWaves": 0.0001424605591700545
+            },
+            {
+              "kind": "Annular",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 88.35321301364536,
+              "sourceAimedChiefRmsWaves": 88.35321301364536,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 131.60613770916606,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            }
+          ],
+          "controls": {
+            "uniformFringeCoefficientErrorWaves": 0,
+            "uniformStandardOperandCoefficientErrorWaves": 0
+          },
+          "zernikeSweepEdgeCoefficientErrorAgainstSourceAimingWaves": 0,
+          "zeroDefocus": {
+            "againstSystemAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstForcedAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 384.15481724314867
+            },
+            "sourceAgainstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 384.15481724314867
+            },
+            "frozenNativeAiming": false
+          },
+          "fft": {
+            "actualUseRayAiming": true,
+            "fallbackUsed": false,
+            "mismatchRejected": true,
+            "actualVsPreparedSystemAiming": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.013324641058115136,
+              "bPeak": 0.013324641058115136,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedAimed": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.013324641058115136,
+              "bPeak": 0.013324641058115136,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedUnAimed": {
+              "maximumRelativeIntensityDifference": 0.12477703847293027,
+              "aPeak": 0.013324641058115136,
+              "bPeak": 0.12858239946155836,
+              "spacingDifferenceMicrometers": 0.002921988564590583
+            },
+            "actualVsSameNodesWithoutCellFlag": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.013324641058115136,
+              "bPeak": 0.013324641058115136,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualWorkingFNumber": 3.084598340822736,
+            "sourceWorkingFNumber": 3.084598340822736,
+            "forcedWorkingFNumber": 3.084598340822736,
+            "tangentialWorkingFNumber": 3.1327459168440903,
+            "sagittalWorkingFNumber": 3.039250221494558,
+            "sampleSpacingMicrometers": 0.7028546500659055,
+            "sampleCounts": {
+              "unAimed": 709,
+              "aimed": 709
+            }
+          },
+          "jones": {
+            "cellFlagVsAimedSameNodes": {
+              "commonValidCount": 709,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0.0014710783115188253
+            },
+            "cellFlagVsUnAimedSameNodes": {
+              "commonValidCount": 709,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0
+            }
+          },
+          "fastMtf": [
+            {
+              "polarization": false,
+              "tangential": 0.077479850862768,
+              "sagittal": 0.04986461711151565
+            },
+            {
+              "polarization": true,
+              "tangential": 0.5663620048826062,
+              "sagittal": 0.5816709862864018
+            }
+          ],
+          "focalReferenceSpheres": [
+            {
+              "strategy": "CentroidSphere",
+              "rmsWaves": 93.31485191137563,
+              "referenceOpticalPath": -0.0017203687911043748,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            },
+            {
+              "strategy": "BestFitSphere",
+              "rmsWaves": 38.649538598294946,
+              "referenceOpticalPath": -9.047534096255056E-07,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            }
+          ],
+          "syntheticAfocal": [
+            {
+              "strategy": "CentroidSphere",
+              "actualRmsWaves": 153.40014917167687,
+              "unAimedRmsWaves": 3.9419160569394065,
+              "aimedRmsWaves": 153.40014917167687,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            },
+            {
+              "strategy": "BestFitSphere",
+              "actualRmsWaves": 153.40014917167687,
+              "unAimedRmsWaves": 3.9419160569394065,
+              "aimedRmsWaves": 153.40014917167687,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            }
+          ],
+          "systemFlagUnchanged": true
+        }
+      ]
+    },
+    {
+      "lens": "relay-lens",
+      "setting": "primary",
+      "fieldNumber": 1,
+      "waveNumber": 2,
+      "wavelengthMicrometers": 0.5875618,
+      "originalSystemAiming": true,
+      "checks": [
+        {
+          "systemAim": false,
+          "hexWavefrontAimingDifference": {
+            "candidateCount": 217,
+            "commonValidCount": 169,
+            "maskMismatchCount": 48,
+            "maximumCommonValidOpdDifferenceWaves": 6.288562087874983E-05,
+            "referencePathDifferenceMillimeters": 0
+          },
+          "zernike": [
+            {
+              "kind": "Fringe",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.17208324668581468,
+              "sourceAimedChiefRmsWaves": 0.17208324668581468,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            },
+            {
+              "kind": "Standard",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.17208324668581468,
+              "sourceAimedChiefRmsWaves": 0.17208324668581468,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": 2.5397750638700423E-09
+            },
+            {
+              "kind": "Annular",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.10881634309284367,
+              "sourceAimedChiefRmsWaves": 0.10881634309284367,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            }
+          ],
+          "controls": {
+            "uniformFringeCoefficientErrorWaves": 0,
+            "uniformStandardOperandCoefficientErrorWaves": 0
+          },
+          "zernikeSweepEdgeCoefficientErrorAgainstSourceAimingWaves": 0,
+          "zeroDefocus": {
+            "againstSystemAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 78,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstForcedAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 78,
+              "maskMismatchCount": 4,
+              "maximumCommonValidOpdDifferenceWaves": 6.680503399980608E-05,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 78,
+              "missingNativeValidCount": 4,
+              "maximumOpdErrorWaves": 6.680565074645983E-05
+            },
+            "sourceAgainstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 78,
+              "missingNativeValidCount": 4,
+              "maximumOpdErrorWaves": 6.680565074645983E-05
+            },
+            "frozenNativeAiming": true
+          },
+          "fft": {
+            "actualUseRayAiming": false,
+            "fallbackUsed": false,
+            "mismatchRejected": true,
+            "actualVsPreparedSystemAiming": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.26895935628482964,
+              "bPeak": 0.26895935628482964,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedAimed": {
+              "maximumRelativeIntensityDifference": 0.0026181475259320075,
+              "aPeak": 0.26895935628482964,
+              "bPeak": 0.2691523350836401,
+              "spacingDifferenceMicrometers": 0.0006176895857077369
+            },
+            "actualVsPreparedUnAimed": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.26895935628482964,
+              "bPeak": 0.26895935628482964,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsSameNodesWithoutCellFlag": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.26895935628482964,
+              "bPeak": 0.26895935628482964,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualWorkingFNumber": 11.395918188901243,
+            "sourceWorkingFNumber": 11.395918188901243,
+            "forcedWorkingFNumber": 11.39816091091422,
+            "tangentialWorkingFNumber": 11.395918188901243,
+            "sagittalWorkingFNumber": 11.395918188901243,
+            "sampleSpacingMicrometers": 3.1386591579954164,
+            "sampleCounts": {
+              "unAimed": 697,
+              "aimed": 709
+            }
+          },
+          "jones": {
+            "cellFlagVsAimedSameNodes": {
+              "commonValidCount": 697,
+              "maskMismatchCount": 12,
+              "maximumJonesComponentDifference": 2.347839840207127E-07
+            },
+            "cellFlagVsUnAimedSameNodes": {
+              "commonValidCount": 697,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0
+            }
+          },
+          "fastMtf": [
+            {
+              "polarization": false,
+              "tangential": 0.560940236482835,
+              "sagittal": 0.5609402364828349
+            },
+            {
+              "polarization": true,
+              "tangential": 0.5421188697307983,
+              "sagittal": 0.5421188697307974
+            }
+          ],
+          "focalReferenceSpheres": [
+            {
+              "strategy": "CentroidSphere",
+              "rmsWaves": 0.17209427539148403,
+              "referenceOpticalPath": 7.251740299639177E-13,
+              "rayCount": 169,
+              "vignettedRayCount": 48
+            },
+            {
+              "strategy": "BestFitSphere",
+              "rmsWaves": 0.03179720721782456,
+              "referenceOpticalPath": -1.0225088363127596E-13,
+              "rayCount": 169,
+              "vignettedRayCount": 48
+            }
+          ],
+          "syntheticAfocal": [
+            {
+              "strategy": "CentroidSphere",
+              "actualRmsWaves": 0.14416481808009013,
+              "unAimedRmsWaves": 0.14416481808009013,
+              "aimedRmsWaves": 0.3144607895935591,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            },
+            {
+              "strategy": "BestFitSphere",
+              "actualRmsWaves": 0.14416481808009013,
+              "unAimedRmsWaves": 0.14416481808009013,
+              "aimedRmsWaves": 0.3144607895935591,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            }
+          ],
+          "systemFlagUnchanged": true
+        },
+        {
+          "systemAim": true,
+          "hexWavefrontAimingDifference": {
+            "candidateCount": 217,
+            "commonValidCount": 169,
+            "maskMismatchCount": 48,
+            "maximumCommonValidOpdDifferenceWaves": 6.288562087874983E-05,
+            "referencePathDifferenceMillimeters": 0
+          },
+          "zernike": [
+            {
+              "kind": "Fringe",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.1778075530537297,
+              "sourceAimedChiefRmsWaves": 0.1778075530537297,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 3.928277284993842E-05,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            },
+            {
+              "kind": "Standard",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.1778075530537297,
+              "sourceAimedChiefRmsWaves": 0.1778075530537297,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 3.72808889873566E-05,
+              "standardUniformOperandCoefficientDifferenceWaves": 3.7399239261048933E-10
+            },
+            {
+              "kind": "Annular",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.11402389094721409,
+              "sourceAimedChiefRmsWaves": 0.11402389094721409,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 137826241800195.12,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            }
+          ],
+          "controls": {
+            "uniformFringeCoefficientErrorWaves": 0,
+            "uniformStandardOperandCoefficientErrorWaves": 0
+          },
+          "zernikeSweepEdgeCoefficientErrorAgainstSourceAimingWaves": 0,
+          "zeroDefocus": {
+            "againstSystemAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstForcedAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 7.668519486081493E-09
+            },
+            "sourceAgainstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 7.668519486081493E-09
+            },
+            "frozenNativeAiming": true
+          },
+          "fft": {
+            "actualUseRayAiming": true,
+            "fallbackUsed": false,
+            "mismatchRejected": true,
+            "actualVsPreparedSystemAiming": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.2691523350836401,
+              "bPeak": 0.2691523350836401,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedAimed": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.2691523350836401,
+              "bPeak": 0.2691523350836401,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedUnAimed": {
+              "maximumRelativeIntensityDifference": 0.0026181475259320075,
+              "aPeak": 0.2691523350836401,
+              "bPeak": 0.26895935628482964,
+              "spacingDifferenceMicrometers": 0.0006176895857077369
+            },
+            "actualVsSameNodesWithoutCellFlag": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.2691523350836401,
+              "bPeak": 0.2691523350836401,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualWorkingFNumber": 11.39816091091422,
+            "sourceWorkingFNumber": 11.39816091091422,
+            "forcedWorkingFNumber": 11.39816091091422,
+            "tangentialWorkingFNumber": 11.39816091091422,
+            "sagittalWorkingFNumber": 11.39816091091422,
+            "sampleSpacingMicrometers": 3.139276847581124,
+            "sampleCounts": {
+              "unAimed": 697,
+              "aimed": 709
+            }
+          },
+          "jones": {
+            "cellFlagVsAimedSameNodes": {
+              "commonValidCount": 697,
+              "maskMismatchCount": 12,
+              "maximumJonesComponentDifference": 2.347839840207127E-07
+            },
+            "cellFlagVsUnAimedSameNodes": {
+              "commonValidCount": 697,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0
+            }
+          },
+          "fastMtf": [
+            {
+              "polarization": false,
+              "tangential": 0.5609007945291992,
+              "sagittal": 0.5609007945291992
+            },
+            {
+              "polarization": true,
+              "tangential": 0.5420711862883635,
+              "sagittal": 0.5420711862883634
+            }
+          ],
+          "focalReferenceSpheres": [
+            {
+              "strategy": "CentroidSphere",
+              "rmsWaves": 0.17784700401822626,
+              "referenceOpticalPath": 3.563584655218582E-12,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            },
+            {
+              "strategy": "BestFitSphere",
+              "rmsWaves": 0.05340628337228737,
+              "referenceOpticalPath": -4.641775954901005E-13,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            }
+          ],
+          "syntheticAfocal": [
+            {
+              "strategy": "CentroidSphere",
+              "actualRmsWaves": 0.3144607895935591,
+              "unAimedRmsWaves": 0.14416481808009013,
+              "aimedRmsWaves": 0.3144607895935591,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            },
+            {
+              "strategy": "BestFitSphere",
+              "actualRmsWaves": 0.3144607895935591,
+              "unAimedRmsWaves": 0.14416481808009013,
+              "aimedRmsWaves": 0.3144607895935591,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            }
+          ],
+          "systemFlagUnchanged": true
+        }
+      ]
+    },
+    {
+      "lens": "relay-lens",
+      "setting": "edge-shortwave",
+      "fieldNumber": 2,
+      "waveNumber": 1,
+      "wavelengthMicrometers": 0.4861327,
+      "originalSystemAiming": true,
+      "checks": [
+        {
+          "systemAim": false,
+          "hexWavefrontAimingDifference": {
+            "candidateCount": 217,
+            "commonValidCount": 191,
+            "maskMismatchCount": 26,
+            "maximumCommonValidOpdDifferenceWaves": 0.0004525624466670264,
+            "referencePathDifferenceMillimeters": 7.389644451905042E-13
+          },
+          "zernike": [
+            {
+              "kind": "Fringe",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.2985913955222943,
+              "sourceAimedChiefRmsWaves": 0.2985913955222943,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            },
+            {
+              "kind": "Standard",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.2985913955222943,
+              "sourceAimedChiefRmsWaves": 0.2985913955222943,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": 3.7009421638423134E-09
+            },
+            {
+              "kind": "Annular",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.3216357647010393,
+              "sourceAimedChiefRmsWaves": 0.3216357647010393,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            }
+          ],
+          "controls": {
+            "uniformFringeCoefficientErrorWaves": 0,
+            "uniformStandardOperandCoefficientErrorWaves": 0
+          },
+          "zernikeSweepEdgeCoefficientErrorAgainstSourceAimingWaves": 0,
+          "zeroDefocus": {
+            "againstSystemAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 80,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstForcedAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 80,
+              "maskMismatchCount": 2,
+              "maximumCommonValidOpdDifferenceWaves": 0.0004525624466670264,
+              "referencePathDifferenceMillimeters": 7.389644451905042E-13
+            },
+            "againstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 80,
+              "missingNativeValidCount": 2,
+              "maximumOpdErrorWaves": 0.0004531904476055004
+            },
+            "sourceAgainstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 80,
+              "missingNativeValidCount": 2,
+              "maximumOpdErrorWaves": 0.0004531904476055004
+            },
+            "frozenNativeAiming": true
+          },
+          "fft": {
+            "actualUseRayAiming": false,
+            "fallbackUsed": false,
+            "mismatchRejected": true,
+            "actualVsPreparedSystemAiming": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.21191401164948676,
+              "bPeak": 0.21191401164948676,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedAimed": {
+              "maximumRelativeIntensityDifference": 0.005864993514759775,
+              "aPeak": 0.21191401164948676,
+              "bPeak": 0.20643755909040004,
+              "spacingDifferenceMicrometers": 1.0675000728266326E-05
+            },
+            "actualVsPreparedUnAimed": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.21191401164948676,
+              "bPeak": 0.21191401164948676,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsSameNodesWithoutCellFlag": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.21191401164948676,
+              "bPeak": 0.21191401164948676,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualWorkingFNumber": 11.384801940884794,
+            "sourceWorkingFNumber": 11.384801940884794,
+            "forcedWorkingFNumber": 11.384848786807494,
+            "tangentialWorkingFNumber": 11.377880488483322,
+            "sagittalWorkingFNumber": 11.391750536173364,
+            "sampleSpacingMicrometers": 2.594308362416046,
+            "sampleCounts": {
+              "unAimed": 701,
+              "aimed": 709
+            }
+          },
+          "jones": {
+            "cellFlagVsAimedSameNodes": {
+              "commonValidCount": 701,
+              "maskMismatchCount": 8,
+              "maximumJonesComponentDifference": 1.0764497179183152E-06
+            },
+            "cellFlagVsUnAimedSameNodes": {
+              "commonValidCount": 701,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0
+            }
+          },
+          "fastMtf": [
+            {
+              "polarization": false,
+              "tangential": 0.38706034054031785,
+              "sagittal": 0.8169348504953283
+            },
+            {
+              "polarization": true,
+              "tangential": 0.37805866111970804,
+              "sagittal": 0.8094695664355002
+            }
+          ],
+          "focalReferenceSpheres": [
+            {
+              "strategy": "CentroidSphere",
+              "rmsWaves": 0.2993760846200342,
+              "referenceOpticalPath": 9.225895207775123E-14,
+              "rayCount": 191,
+              "vignettedRayCount": 26
+            },
+            {
+              "strategy": "BestFitSphere",
+              "rmsWaves": 0.22783610620028139,
+              "referenceOpticalPath": -1.0487164365534832E-11,
+              "rayCount": 191,
+              "vignettedRayCount": 26
+            }
+          ],
+          "syntheticAfocal": [
+            {
+              "strategy": "CentroidSphere",
+              "actualRmsWaves": 0.8965380405343476,
+              "unAimedRmsWaves": 0.8965380405343476,
+              "aimedRmsWaves": 0.9846866147618599,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            },
+            {
+              "strategy": "BestFitSphere",
+              "actualRmsWaves": 0.8965380405343476,
+              "unAimedRmsWaves": 0.8965380405343476,
+              "aimedRmsWaves": 0.9846866147618599,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            }
+          ],
+          "systemFlagUnchanged": true
+        },
+        {
+          "systemAim": true,
+          "hexWavefrontAimingDifference": {
+            "candidateCount": 217,
+            "commonValidCount": 191,
+            "maskMismatchCount": 26,
+            "maximumCommonValidOpdDifferenceWaves": 0.0004525624466670264,
+            "referencePathDifferenceMillimeters": 7.389644451905042E-13
+          },
+          "zernike": [
+            {
+              "kind": "Fringe",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.2887076911633488,
+              "sourceAimedChiefRmsWaves": 0.2887076911633488,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0.00022128005750265967,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            },
+            {
+              "kind": "Standard",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.2887076911633488,
+              "sourceAimedChiefRmsWaves": 0.2887076911633488,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 9.033286216564296E-05,
+              "standardUniformOperandCoefficientDifferenceWaves": 1.4141716012734847E-09
+            },
+            {
+              "kind": "Annular",
+              "sampling": "8 hexapolar rings",
+              "actualChiefRmsWaves": 0.3077735676475649,
+              "sourceAimedChiefRmsWaves": 0.3077735676475649,
+              "coefficientErrorAgainstSameHexSourceAimingWaves": 0,
+              "coefficientErrorAgainstUnAimedHexWaves": 0.00011248295483473614,
+              "standardUniformOperandCoefficientDifferenceWaves": null
+            }
+          ],
+          "controls": {
+            "uniformFringeCoefficientErrorWaves": 0,
+            "uniformStandardOperandCoefficientErrorWaves": 0
+          },
+          "zernikeSweepEdgeCoefficientErrorAgainstSourceAimingWaves": 0,
+          "zeroDefocus": {
+            "againstSystemAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstForcedAiming": {
+              "candidateCount": 82,
+              "commonValidCount": 82,
+              "maskMismatchCount": 0,
+              "maximumCommonValidOpdDifferenceWaves": 0,
+              "referencePathDifferenceMillimeters": 0
+            },
+            "againstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 6.317280771828138E-07
+            },
+            "sourceAgainstFrozenNative": {
+              "nativeValidCount": 82,
+              "comparedCount": 82,
+              "missingNativeValidCount": 0,
+              "maximumOpdErrorWaves": 6.317280771828138E-07
+            },
+            "frozenNativeAiming": true
+          },
+          "fft": {
+            "actualUseRayAiming": true,
+            "fallbackUsed": false,
+            "mismatchRejected": true,
+            "actualVsPreparedSystemAiming": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.20643755909040004,
+              "bPeak": 0.20643755909040004,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedAimed": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.20643755909040004,
+              "bPeak": 0.20643755909040004,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualVsPreparedUnAimed": {
+              "maximumRelativeIntensityDifference": 0.005864993514759775,
+              "aPeak": 0.20643755909040004,
+              "bPeak": 0.21191401164948676,
+              "spacingDifferenceMicrometers": 1.0675000728266326E-05
+            },
+            "actualVsSameNodesWithoutCellFlag": {
+              "maximumRelativeIntensityDifference": 0,
+              "aPeak": 0.20643755909040004,
+              "bPeak": 0.20643755909040004,
+              "spacingDifferenceMicrometers": 0
+            },
+            "actualWorkingFNumber": 11.384848786807494,
+            "sourceWorkingFNumber": 11.384848786807494,
+            "forcedWorkingFNumber": 11.384848786807494,
+            "tangentialWorkingFNumber": 11.37667639908509,
+            "sagittalWorkingFNumber": 11.393052640585928,
+            "sampleSpacingMicrometers": 2.594319037416774,
+            "sampleCounts": {
+              "unAimed": 701,
+              "aimed": 709
+            }
+          },
+          "jones": {
+            "cellFlagVsAimedSameNodes": {
+              "commonValidCount": 701,
+              "maskMismatchCount": 8,
+              "maximumJonesComponentDifference": 1.0764497179183152E-06
+            },
+            "cellFlagVsUnAimedSameNodes": {
+              "commonValidCount": 701,
+              "maskMismatchCount": 0,
+              "maximumJonesComponentDifference": 0
+            }
+          },
+          "fastMtf": [
+            {
+              "polarization": false,
+              "tangential": 0.3868809445805573,
+              "sagittal": 0.8169509740860221
+            },
+            {
+              "polarization": true,
+              "tangential": 0.3779093266736805,
+              "sagittal": 0.8094882120923218
+            }
+          ],
+          "focalReferenceSpheres": [
+            {
+              "strategy": "CentroidSphere",
+              "rmsWaves": 0.28928930053903107,
+              "referenceOpticalPath": -3.0753075457414105E-13,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            },
+            {
+              "strategy": "BestFitSphere",
+              "rmsWaves": 0.24496165779481835,
+              "referenceOpticalPath": -1.2211642859231097E-11,
+              "rayCount": 217,
+              "vignettedRayCount": 0
+            }
+          ],
+          "syntheticAfocal": [
+            {
+              "strategy": "CentroidSphere",
+              "actualRmsWaves": 0.9846866147618599,
+              "unAimedRmsWaves": 0.8965380405343476,
+              "aimedRmsWaves": 0.9846866147618599,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            },
+            {
+              "strategy": "BestFitSphere",
+              "actualRmsWaves": 0.9846866147618599,
+              "unAimedRmsWaves": 0.8965380405343476,
+              "aimedRmsWaves": 0.9846866147618599,
+              "rmsErrorAgainstSourceAimingWaves": 0,
+              "referenceGeometry": "chief-ray plane"
+            }
+          ],
+          "systemFlagUnchanged": true
+        }
+      ]
+    }
+  ],
+  "fftSampling": [
+    {
+      "requestedSampling": 32,
+      "implicitGridPupilSampling": 32,
+      "explicitGridPupilSampling": 32,
+      "implicitGridSize": 64,
+      "explicitGridSize": 64,
+      "implicitSpacingMicrometers": 1.2834472579453944,
+      "explicitSpacingMicrometers": 1.2834472579453944
+    },
+    {
+      "requestedSampling": 64,
+      "implicitGridPupilSampling": 64,
+      "explicitGridPupilSampling": 64,
+      "implicitGridSize": 128,
+      "explicitGridSize": 128,
+      "implicitSpacingMicrometers": 0.9377854013680841,
+      "explicitSpacingMicrometers": 0.9377854013680841
+    },
+    {
+      "requestedSampling": 128,
+      "implicitGridPupilSampling": 128,
+      "explicitGridPupilSampling": 128,
+      "implicitGridSize": 256,
+      "explicitGridSize": 256,
+      "implicitSpacingMicrometers": 0.673809810421332,
+      "explicitSpacingMicrometers": 0.673809810421332
+    }
+  ],
+  "applicationFftDisplay": [
+    {
+      "requestedDisplay": 32,
+      "actualPupilSampling": 64,
+      "actualGridSize": 128,
+      "sampleSpacingMicrometers": 0.9377854013680841,
+      "heatmapPointCount": 1024
+    },
+    {
+      "requestedDisplay": 64,
+      "actualPupilSampling": 64,
+      "actualGridSize": 128,
+      "sampleSpacingMicrometers": 0.9377854013680841,
+      "heatmapPointCount": 4096
+    },
+    {
+      "requestedDisplay": 128,
+      "actualPupilSampling": 64,
+      "actualGridSize": 128,
+      "sampleSpacingMicrometers": 0.9377854013680841,
+      "heatmapPointCount": 16384
+    }
+  ],
+  "negativeFftDelta": {
+    "samePointsAsDefault": false,
+    "negativeRequestActualSpacing": 1.326228833210241,
+    "defaultSpacing": 0.9377854013680841
+  },
+  "foucault": {
+    "unsupportedPolarizationRejected": true,
+    "offMetadata": false,
+    "model": "Qualitative wavefront-gradient knife-edge response (Experimental)"
+  },
+  "inputHashes": {
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/manifest.json": "6df564a4c2f34d8a751a995348cebc052b6d0d35d04c1c57ca904f912c6f6e79",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/cooke-40-degree-field/snapshot.json": "abbfc943dce48886860a5269afcf5af22c49621f193ecfb76f330c3c2e8807af",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/cooke-40-degree-field/primary-native.json": "f74f8f241c8a3254d7748555d6db277746e4232b843adb8afabcd3f1e3426fb1",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/cooke-40-degree-field/edge-shortwave-native.json": "faa9359d48e661e0cf8b1244f8fb22ccb8b15ef62ce8a80038b00f5651804727",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/double-gauss-28-degree-field/snapshot.json": "4022df0d2886a10ca5a1e58def4b88f2015643c846459f866500031405fa3a38",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/double-gauss-28-degree-field/primary-native.json": "e731f689a6825ceb3a033c70f367c6f47476d40b5e1499d01ec019b22def054a",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/double-gauss-28-degree-field/edge-shortwave-native.json": "bef0d05542ed6e30b129f87a06ad726a51f9595bdbcc702d2d16d1d278c6f903",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/relay-lens/snapshot.json": "531ac7f0887fad1406ff7bcfda1576e014e6ed104af04ed3ca07337d6cb84d5c",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/relay-lens/primary-native.json": "5fdc12562aedc2ed431166830317833e87be4598caba8720ae19bceae9075a13",
+    "validation/zemax/2026-r1/standard-sample-opd-2026-10-06/relay-lens/edge-shortwave-native.json": "e7aeeb782fb40e0fa2ae09afd63042830a6253d9b9957f8157bf0d944335cbf1"
+  },
+  "fixedProductSourceHashes": {
+    "src/OptilandWorkbench.Core/Analysis/Wavefront/WavefrontAnalyses.cs": "2f04c13d042de518d0558a0353640c326e06fcaf98381984cfba31d9cc8a3a79",
+    "src/OptilandWorkbench.Core/Analysis/WavefrontEngine.cs": "166880f3cd86a910c0bed46fb7bb6d8f84669eb6a2362e492f9f0dde23ef8f7d",
+    "src/OptilandWorkbench.Core/Analysis/ReferenceSphereWavefrontAnalysis.cs": "1ca854e96ae266680ad2a9d1965d673535ed94ea4b76fcfc40e45ee83e750832",
+    "src/OptilandWorkbench.Core/Analysis/ReferenceSphereWavefrontEngine.cs": "8a0475049b82389b44c3b60dd05189a95271cdc7f40030c51aa206e194a32c47",
+    "src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs": "ff434c5a40281cda9bdd8c6d2b6ad0ef466e2c9eac4f57fdf297ba77441c45d2",
+    "src/OptilandWorkbench.Core/Analysis/JonesPupilEngine.cs": "1bc0bb2995bd1ff9a5a6cfe9d3b577833728abebe39045841a406231c58ed3f8",
+    "src/OptilandWorkbench.Core/Analysis/MtfScanAnalysis.cs": "0d2bc8f7a35d41935a2752c936010b7c659c0e58a1afc7ab1a877604f6facc24",
+    "src/OptilandWorkbench.Core/Analysis/Fields/FieldSweepAnalyses.cs": "541d8b3571c98587e42b0743ff4cf5f33281c0353464cda63ce3bec789228898",
+    "src/OptilandWorkbench.Core/Services/ZernikeMetrics.cs": "497441804b520cbc4db584c16869c93b51ecb6e1348bff9106113487dfb2eafe",
+    "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.cs": "b69b7e06b68496ded450e46c8a527ab83a2fc0af24543d4d82a720a090125d3e"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "scope": "Complete portable Zemax comparison tool Release tests, not live native capture",
+  "total": 180,
+  "passed": 178,
+  "failed": 2,
+  "skipped": 0,
+  "failures": [
+    {
+      "name": "OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: \"Huygens PSF Cross Section\", slug: \"huygens-psf-cross-section\", recordedNrmse: 0.0037256669899999998)",
+      "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.0037256669899999998)\r\nActual: 0.0037256670590166724",
+      "stackTrace": "   at OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.Verify(String key, String slug, Nullable`1 recordedNrmse) in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.ZemaxComparison.Tests\\ExtendedAnalysisTests.cs:line 84\r\n   at OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(String key, String slug, Double recordedNrmse) in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.ZemaxComparison.Tests\\ExtendedAnalysisTests.cs:line 50\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: \"Diffraction Encircled Energy\", directory: \"diffraction-encircled-energy-c1\")",
+      "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.01146706362185577)\r\nActual: 0.011467280942848471",
+      "stackTrace": "   at OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(String key, String directory) in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.ZemaxComparison.Tests\\AdditionalCapturedAnalysisTests.cs:line 92\r\n   at InvokeStub_AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(Object, Span`1)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)"
+    }
+  ],
+  "oldFailureNames": [
+    "OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: \"Huygens PSF Cross Section\", slug: \"huygens-psf-cross-section\", recordedNrmse: 0.0037256669899999998)",
+    "OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: \"Diffraction Encircled Energy\", directory: \"diffraction-encircled-energy-c1\")"
+  ]
+}

@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="15f6dcb4-dd25-442b-8fb8-9bd76d7b8f79" name="optics@LAPTOP-G4BBBCS0 2026-10-08 16:02:36" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-08T16:02:36.7204609+08:00" queuing="2026-10-08T16:02:36.7204612+08:00" start="2026-10-08T16:02:33.2776196+08:00" finish="2026-10-08T16:04:45.6881041+08:00" />
+  <TestSettings name="default" id="0e2a2545-49b0-403e-b928-ae9e20ac812c">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-08_16_02_36" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="c8c1ca46-5983-4cbb-9dbe-5c1e7f390fa0" testId="3b2149fb-386f-6f4d-d2ad-80783bcb27d1" testName="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;RMS Field Map&quot;, directory: &quot;rms-field-map-c1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.3367132" startTime="2026-10-08T16:04:31.3942009+08:00" endTime="2026-10-08T16:04:33.7310914+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c8c1ca46-5983-4cbb-9dbe-5c1e7f390fa0">
+      <Output>
+        <StdOut>RMS Field Map/rms: Pass, NRMSE=6.018479702936564E-07, max=1.7127148120854585E-06</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0167e17e-d4bc-4683-b645-096644885abc" testId="461edee2-a30b-1a86-cca7-7dc722cf68df" testName="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Contrast Loss Map&quot;, directory: &quot;contrast-loss-map-c1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3685153" startTime="2026-10-08T16:04:31.0260269+08:00" endTime="2026-10-08T16:04:31.3939596+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0167e17e-d4bc-4683-b645-096644885abc">
+      <Output>
+        <StdOut>Contrast Loss Map/loss:0: Pass, NRMSE=1.4393955115797395E-06, max=7.617082231625716E-07&#xD;
+Contrast Loss Map/phase:0:sin: Pass, NRMSE=1.9864447714296897E-06, max=4.582821775123147E-06&#xD;
+Contrast Loss Map/phase:0:cos: Pass, NRMSE=2.166389018789474E-06, max=6.267813547622403E-06&#xD;
+Contrast Loss Map/loss:1: Pass, NRMSE=1.4393955115797395E-06, max=7.617082231625716E-07&#xD;
+Contrast Loss Map/phase:1:sin: Pass, NRMSE=1.9864447714296897E-06, max=4.582821775123147E-06&#xD;
+Contrast Loss Map/phase:1:cos: Pass, NRMSE=2.166389018789474E-06, max=6.267813547622403E-06</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ca11b17f-c2f4-40bd-b26a-a90899ee5013" testId="8ec71d39-7353-cd8f-670c-5f338595bdc8" testName="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Extended Source Encircled Energy&quot;, directory: &quot;extended-source-encircled-energy-c1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:11.4116231" startTime="2026-10-08T16:04:33.7312652+08:00" endTime="2026-10-08T16:04:45.1428477+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ca11b17f-c2f4-40bd-b26a-a90899ee5013">
+      <Output>
+        <StdOut>Extended Source Encircled Energy/curve:0: Pass, NRMSE=0.0009377566608742013, max=0.003021342729395138</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f993ad8d-27cb-456b-866c-09315131b7b7" testId="7efb856d-aa6d-ccfb-7400-dd2b24edf665" testName="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Footprint Diagram&quot;, directory: &quot;footprint-diagram-c1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2400098" startTime="2026-10-08T16:02:42.0093564+08:00" endTime="2026-10-08T16:02:42.2494416+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f993ad8d-27cb-456b-866c-09315131b7b7">
+      <Output>
+        <StdOut>Footprint Diagram/RayXMinimumMillimeters: Pass, NRMSE=6.958839857648268E-08, max=2.1934409366944352E-10&#xD;
+Footprint Diagram/RayXMaximumMillimeters: Pass, NRMSE=6.95968519949691E-08, max=2.1937073902203452E-10&#xD;
+Footprint Diagram/RayYMinimumMillimeters: Pass, NRMSE=2.2598726773583474E-07, max=3.976763486655127E-10&#xD;
+Footprint Diagram/RayYMaximumMillimeters: Pass, NRMSE=1.8494146901806461E-07, max=2.766082629612754E-07&#xD;
+Footprint Diagram/MaximumRayRadiusMillimeters: Pass, NRMSE=1.8494146901806461E-07, max=2.766082629612754E-07</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="36c96101-6e98-49ab-9d1e-092ad5a6c9c1" testId="46047fb4-5b7f-8a4d-34f2-ab17756bb6ce" testName="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Geometric Line Edge Spread&quot;, directory: &quot;geometric-line-edge-spread-c1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1105515" startTime="2026-10-08T16:03:27.8551690+08:00" endTime="2026-10-08T16:03:27.9653189+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="36c96101-6e98-49ab-9d1e-092ad5a6c9c1">
+      <Output>
+        <StdOut>Geometric Line Edge Spread/curve:0: Pass, NRMSE=3.513671919805774E-16, max=2.3869795029440866E-15&#xD;
+Geometric Line Edge Spread/curve:1: Pass, NRMSE=1.8566206857408058E-16, max=8.881784197001252E-16</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="806e4f4e-b8a5-4897-92d0-92196946b324" testId="69c74958-add3-c2cf-ea54-e696c235d661" testName="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;System Data Report&quot;, directory: &quot;system-data-report-c1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0163279" startTime="2026-10-08T16:03:27.8383898+08:00" endTime="2026-10-08T16:03:27.8549869+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="806e4f4e-b8a5-4897-92d0-92196946b324">
+      <Output>
+        <StdOut>System Data Report/SurfaceCount: Pass, NRMSE=0, max=0&#xD;
+System Data Report/StopSurface: Pass, NRMSE=0, max=0&#xD;
+System Data Report/PrimaryWavelengthMicrometers: Pass, NRMSE=0, max=0&#xD;
+System Data Report/EffectiveFocalLength: Pass, NRMSE=1.1289105170869792E-16, max=1.7763568394002505E-15&#xD;
+System Data Report/FNumber: Pass, NRMSE=1.1627637212181251E-16, max=1.1102230246251565E-16&#xD;
+System Data Report/EntrancePupilDiameter: Pass, NRMSE=0, max=0&#xD;
+System Data Report/ExitPupilDiameter: Close, NRMSE=2.454288675025622E-06, max=2.5295411337111773E-05&#xD;
+Open numerical discrepancy: test success only establishes error non-regression.</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b428af0c-83d0-4499-a493-3c8efd482efc" testId="eef355e5-98d3-44a4-d5ec-871c4e776dc7" testName="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Relative Illumination&quot;, directory: &quot;relative-illumination-c1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:55.6525367" startTime="2026-10-08T16:03:35.3734930+08:00" endTime="2026-10-08T16:04:31.0254696+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b428af0c-83d0-4499-a493-3c8efd482efc">
+      <Output>
+        <StdOut>Relative Illumination/curve:0: Pass, NRMSE=0.00011158686084661372, max=0.00032202225830568754&#xD;
+Open numerical discrepancy: test success only establishes error non-regression.</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e74de5a5-cfb3-4b35-9f56-4a4b5cd9d4e8" testId="b02277f8-9124-bd21-2d15-6a9d1d38852a" testName="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Diffraction Encircled Energy&quot;, directory: &quot;diffraction-encircled-energy-c1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.4418257" startTime="2026-10-08T16:04:45.1434908+08:00" endTime="2026-10-08T16:04:45.5849210+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e74de5a5-cfb3-4b35-9f56-4a4b5cd9d4e8">
+      <Output>
+        <StdOut>Diffraction Encircled Energy/curve:0: Difference, NRMSE=0.013875784968407625, max=0.0505309569642369&#xD;
+Open numerical discrepancy: test success only establishes error non-regression.&#xD;
+Diffraction Encircled Energy/curve:1: Difference, NRMSE=0.011467280942848471, max=0.04068881984537476&#xD;
+Open numerical discrepancy: test success only establishes error non-regression.</StdOut>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 0.01146706362185577)&#xD;
+Actual: 0.011467280942848471</Message>
+          <StackTrace>   at OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(String key, String directory) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\AdditionalCapturedAnalysisTests.cs:line 92&#xD;
+   at InvokeStub_AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8eab48d5-5d8f-49c8-8608-75e7e3e7847b" testId="268a6ce6-8834-8d58-3833-78c5bad5256d" testName="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Geometric MTF vs Field&quot;, directory: &quot;geometric-mtf-vs-field-c1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:07.4073141" startTime="2026-10-08T16:03:27.9655122+08:00" endTime="2026-10-08T16:03:35.3726570+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8eab48d5-5d8f-49c8-8608-75e7e3e7847b">
+      <Output>
+        <StdOut>Geometric MTF vs Field/curve:0: Pass, NRMSE=0.0005113988654132961, max=0.002036952786082402&#xD;
+Geometric MTF vs Field/curve:1: Pass, NRMSE=0.0005070782665640292, max=0.0020115404155093275&#xD;
+Geometric MTF vs Field/curve:2: Pass, NRMSE=0.0005246108718797682, max=0.0021209646303836927&#xD;
+Geometric MTF vs Field/curve:3: Pass, NRMSE=0.0005088329606901251, max=0.002014376374917748&#xD;
+Geometric MTF vs Field/curve:4: Pass, NRMSE=0.0005488414944719786, max=0.0022616897485221443&#xD;
+Geometric MTF vs Field/curve:5: Pass, NRMSE=0.0005113758800018616, max=0.002018971065301356&#xD;
+Geometric MTF vs Field/curve:6: Pass, NRMSE=0.0005865794050372291, max=0.0024573939546109758&#xD;
+Geometric MTF vs Field/curve:7: Pass, NRMSE=0.0005160247706883739, max=0.0020251288828601055&#xD;
+Geometric MTF vs Field/curve:8: Pass, NRMSE=0.0006398138871729587, max=0.0027165514660837387&#xD;
+Geometric MTF vs Field/curve:9: Pass, NRMSE=0.0005238247024067888, max=0.002032580470620271&#xD;
+Geometric MTF vs Field/curve:10: Pass, NRMSE=0.0007094833263375116, max=0.0030278546818370833&#xD;
+Geometric MTF vs Field/curve:11: Pass, NRMSE=0.0005360320883273161, max=0.0020414057890211224</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1e690c9f-9dd9-46ec-96c6-239d11760d9b" testId="bdb673ac-0dcb-7c94-7de5-142ec9c8660d" testName="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Huygens MTF vs Field&quot;, directory: &quot;huygens-mtf-vs-field-c1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.7732756" startTime="2026-10-08T16:02:36.1809657+08:00" endTime="2026-10-08T16:02:41.9449755+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1e690c9f-9dd9-46ec-96c6-239d11760d9b">
+      <Output>
+        <StdOut>Huygens MTF vs Field/curve:0: Close -&gt; Pass; NRMSE=0.0008767273239942042, max=0.0024719265505221966. Open PSF synthesis error.&#xD;
+Huygens MTF vs Field/curve:1: Close -&gt; Pass; NRMSE=0.0010657156013836446, max=0.002037694967063741. Open PSF synthesis error.&#xD;
+Huygens MTF vs Field/curve:2: Close -&gt; Pass; NRMSE=0.001815320839090736, max=0.0052054433546432355. Open PSF synthesis error.&#xD;
+Huygens MTF vs Field/curve:3: Close -&gt; Pass; NRMSE=0.002201684588976688, max=0.004196500077004672. Open PSF synthesis error.&#xD;
+Huygens MTF vs Field/curve:4: Close -&gt; Pass; NRMSE=0.0028746458233884333, max=0.008462140665962625. Open PSF synthesis error.&#xD;
+Huygens MTF vs Field/curve:5: Pass -&gt; Close; NRMSE=0.003472596824340703, max=0.006597525472699539. Open PSF synthesis error.&#xD;
+Huygens MTF vs Field/curve:6: Close -&gt; Close; NRMSE=0.0041175142648963575, max=0.012503608738080207. Open PSF synthesis error.&#xD;
+Huygens MTF vs Field/curve:7: Pass -&gt; Close; NRMSE=0.004946489768763805, max=0.009361881297024421. Open PSF synthesis error.&#xD;
+Huygens MTF vs Field/curve:8: Close -&gt; Close; NRMSE=0.0056116973213297975, max=0.017591437824594602. Open PSF synthesis error.&#xD;
+Huygens MTF vs Field/curve:9: Close -&gt; Close; NRMSE=0.006695945764728841, max=0.012610677692856953. Open PSF synthesis error.&#xD;
+Huygens MTF vs Field/curve:10: Close -&gt; Close; NRMSE=0.007430994006594076, max=0.02398721817910543. Open PSF synthesis error.&#xD;
+Huygens MTF vs Field/curve:11: Close -&gt; Close; NRMSE=0.008799855194354451, max=0.016465024803073547. Open PSF synthesis error.</StdOut>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 0.0078836218618912705)&#xD;
+Actual: 0.0087998551943544515</Message>
+          <StackTrace>   at OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(String key, String directory) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\AdditionalCapturedAnalysisTests.cs:line 72&#xD;
+   at InvokeStub_AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b4d4ccc3-cd2d-484b-ab5e-f88b81462834" testId="eec6dc65-f26d-827a-768a-398bb8a85c3c" testName="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Angle vs Image Height - Through Field&quot;, directory: &quot;angle-vs-image-height---through-field-c1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0081644" startTime="2026-10-08T16:04:45.5865280+08:00" endTime="2026-10-08T16:04:45.5932040+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b4d4ccc3-cd2d-484b-ab5e-f88b81462834">
+      <Output>
+        <StdOut>Angle vs Image Height - Through Field/height: Pass, NRMSE=1.3050297776918441E-11, max=3.371680712405123E-11&#xD;
+Angle vs Image Height - Through Field/angle: Pass, NRMSE=1.2288053779954672E-08, max=1.6170563288397943E-07&#xD;
+Angle vs Image Height - Through Field/valid: Pass, NRMSE=0, max=0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="24c015e8-677d-465e-aa3f-1da5b7bbff1a" testId="c758b0f3-aed2-c17d-644d-a2aa75cc3744" testName="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Encircled Energy&quot;, directory: &quot;encircled-energy-c1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.4649477" startTime="2026-10-08T16:02:42.2495879+08:00" endTime="2026-10-08T16:02:42.7144017+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="24c015e8-677d-465e-aa3f-1da5b7bbff1a">
+      <Output>
+        <StdOut>Encircled Energy/curve:0: Pass, NRMSE=4.214614807979415E-17, max=2.220446049250313E-16&#xD;
+Encircled Energy/curve:1: Pass, NRMSE=4.239520494165571E-17, max=2.220446049250313E-16&#xD;
+Encircled Energy/curve:2: Pass, NRMSE=7.693038495944744E-17, max=3.3306690738754696E-16</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ebece949-b6aa-4bd0-acc2-62f99a1a2143" testId="1e968d69-1e23-9740-45ff-c3607d50ca09" testName="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Fourier MTF vs Field&quot;, directory: &quot;fourier-mtf-vs-field-c1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:44.9631509" startTime="2026-10-08T16:02:42.7146077+08:00" endTime="2026-10-08T16:03:27.6778051+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ebece949-b6aa-4bd0-acc2-62f99a1a2143">
+      <Output>
+        <StdOut>Fourier MTF vs Field/curve:0: Pass, NRMSE=0.0005267015715628989, max=0.0020197787685106716&#xD;
+Fourier MTF vs Field/curve:1: Pass, NRMSE=0.000491716115960423, max=0.0017926107070239672&#xD;
+Fourier MTF vs Field/curve:2: Pass, NRMSE=0.000795904585284195, max=0.0028653813942415285&#xD;
+Fourier MTF vs Field/curve:3: Pass, NRMSE=0.0004882027890348904, max=0.001713265516558038&#xD;
+Fourier MTF vs Field/curve:4: Pass, NRMSE=0.0011051786204018146, max=0.0035781339794574984&#xD;
+Fourier MTF vs Field/curve:5: Pass, NRMSE=0.0008582595906576329, max=0.0015070469844853385&#xD;
+Fourier MTF vs Field/curve:6: Pass, NRMSE=0.001979115613554184, max=0.005335857155609802&#xD;
+Fourier MTF vs Field/curve:7: Pass, NRMSE=0.0008061420802146311, max=0.0015715757720500267&#xD;
+Fourier MTF vs Field/curve:8: Pass, NRMSE=0.002539635355422456, max=0.006412003042289616&#xD;
+Fourier MTF vs Field/curve:9: Pass, NRMSE=0.0014701850156165783, max=0.0024080351021206203&#xD;
+Fourier MTF vs Field/curve:10: Close, NRMSE=0.003429665393349899, max=0.007791250845253339&#xD;
+Open numerical discrepancy: test success only establishes error non-regression.&#xD;
+Fourier MTF vs Field/curve:11: Pass, NRMSE=0.002087885960015141, max=0.003243781192942552</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8e9642c6-5be9-4a31-a255-9e23b4c8a647" testId="bd84d47f-5ff9-810d-2b56-87e309f1f16f" testName="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Zernike&quot;, directory: &quot;zernike-c1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.9262869" startTime="2026-10-08T16:02:34.2368613+08:00" endTime="2026-10-08T16:02:36.1711249+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8e9642c6-5be9-4a31-a255-9e23b4c8a647">
+      <Output>
+        <StdOut>Zernike/fringe: Pass, NRMSE=2.6074016543941534E-07, max=5.033231743334365E-07</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9cd9be69-5b48-4ca9-b3b6-817a93d0d7c6" testId="3fa52261-3b74-87b6-d29e-f2aa1eea1e8d" testName="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Angle vs Image Height - Through Pupil&quot;, directory: &quot;angle-vs-image-height---through-pupil-c1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0633472" startTime="2026-10-08T16:02:41.9476334+08:00" endTime="2026-10-08T16:02:42.0089801+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9cd9be69-5b48-4ca9-b3b6-817a93d0d7c6">
+      <Output>
+        <StdOut>Angle vs Image Height - Through Pupil/height: Pass, NRMSE=4.4163046737245044E-09, max=4.5335846188265805E-11&#xD;
+Angle vs Image Height - Through Pupil/angle: Pass, NRMSE=1.6734820962103038E-09, max=2.2995105020129358E-07&#xD;
+Angle vs Image Height - Through Pupil/valid: Pass, NRMSE=0, max=0</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="66b89249-b1d2-4a8b-b048-b0056fd4a4cb" testId="57f296c7-9470-f4d7-f2bb-130b574b29e4" testName="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Jones Pupil&quot;, directory: &quot;jones-pupil-c1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1603546" startTime="2026-10-08T16:03:27.6784130+08:00" endTime="2026-10-08T16:03:27.8381990+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="66b89249-b1d2-4a8b-b048-b0056fd4a4cb">
+      <Output>
+        <StdOut>Jones Pupil/amplitude:0: Pass, NRMSE=0.0028371653429746595, max=9.809441381437162E-05&#xD;
+Jones Pupil/amplitude:1: Close, NRMSE=0.004526623946358767, max=0.007171898951360278&#xD;
+Open numerical discrepancy: test success only establishes error non-regression.</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ca1bfb29-0058-42df-a0c1-3836a1ebccd2" testId="7aeaacaf-5489-ccf3-ac57-6e39bf63a2ff" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: &quot;Huygens Through Focus MTF&quot;, slug: &quot;huygens-through-focus-mtf&quot;, recordedNrmse: 0.032689149704999997)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.2435457" startTime="2026-10-08T16:02:36.1871882+08:00" endTime="2026-10-08T16:02:39.4210768+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ca1bfb29-0058-42df-a0c1-3836a1ebccd2">
+      <Output>
+        <StdOut>Huygens Through Focus MTF/curve:0: max=0.06093209610811401, NRMSE=0.02618566435799248, Difference&#xD;
+Open numerical difference; a green test does not certify native agreement.&#xD;
+Huygens Through Focus MTF/curve:1: max=0.06093209610328665, NRMSE=0.026185664356760292, Difference&#xD;
+Open numerical difference; a green test does not certify native agreement.</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8e64fe64-501d-4a7b-8238-66ed5a5237c2" testId="3d79df52-fee1-53ce-ac36-d4fa7b8458f4" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: &quot;Huygens PSF Cross Section&quot;, slug: &quot;huygens-psf-cross-section&quot;, recordedNrmse: 0.0037256669899999998)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.9259146" startTime="2026-10-08T16:02:34.2383057+08:00" endTime="2026-10-08T16:02:36.1816320+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8e64fe64-501d-4a7b-8238-66ed5a5237c2">
+      <Output>
+        <StdOut>Huygens PSF Cross Section/curve:0: max=0.015636639290941445, NRMSE=0.007340050275296849, Close</StdOut>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 0.0037256669899999998)&#xD;
+Actual: 0.0073400502752968494</Message>
+          <StackTrace>   at OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.Verify(String key, String slug, Nullable`1 recordedNrmse) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\ExtendedAnalysisTests.cs:line 84&#xD;
+   at OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(String key, String slug, Double recordedNrmse) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\ExtendedAnalysisTests.cs:line 50&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Fourier MTF vs Field&quot;, directory: &quot;fourier-mtf-vs-field-c1&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="1e968d69-1e23-9740-45ff-c3607d50ca09">
+      <Execution id="ebece949-b6aa-4bd0-acc2-62f99a1a2143" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests" name="CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Footprint Diagram&quot;, directory: &quot;footprint-diagram-c1&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="7efb856d-aa6d-ccfb-7400-dd2b24edf665">
+      <Execution id="f993ad8d-27cb-456b-866c-09315131b7b7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests" name="CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Angle vs Image Height - Through Pupil&quot;, directory: &quot;angle-vs-image-height---through-pupil-c1&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="3fa52261-3b74-87b6-d29e-f2aa1eea1e8d">
+      <Execution id="9cd9be69-5b48-4ca9-b3b6-817a93d0d7c6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests" name="CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: &quot;Huygens PSF Cross Section&quot;, slug: &quot;huygens-psf-cross-section&quot;, recordedNrmse: 0.0037256669899999998)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="3d79df52-fee1-53ce-ac36-d4fa7b8458f4">
+      <Execution id="8e64fe64-501d-4a7b-8238-66ed5a5237c2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="OpenNumericalDifferenceIsMeasuredAndMustNotRegress" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;System Data Report&quot;, directory: &quot;system-data-report-c1&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="69c74958-add3-c2cf-ea54-e696c235d661">
+      <Execution id="806e4f4e-b8a5-4897-92d0-92196946b324" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests" name="CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Contrast Loss Map&quot;, directory: &quot;contrast-loss-map-c1&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="461edee2-a30b-1a86-cca7-7dc722cf68df">
+      <Execution id="0167e17e-d4bc-4683-b645-096644885abc" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests" name="CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Relative Illumination&quot;, directory: &quot;relative-illumination-c1&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="eef355e5-98d3-44a4-d5ec-871c4e776dc7">
+      <Execution id="b428af0c-83d0-4499-a493-3c8efd482efc" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests" name="CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;RMS Field Map&quot;, directory: &quot;rms-field-map-c1&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="3b2149fb-386f-6f4d-d2ad-80783bcb27d1">
+      <Execution id="c8c1ca46-5983-4cbb-9dbe-5c1e7f390fa0" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests" name="CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Angle vs Image Height - Through Field&quot;, directory: &quot;angle-vs-image-height---through-field-c1&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="eec6dc65-f26d-827a-768a-398bb8a85c3c">
+      <Execution id="b4d4ccc3-cd2d-484b-ab5e-f88b81462834" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests" name="CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Zernike&quot;, directory: &quot;zernike-c1&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="bd84d47f-5ff9-810d-2b56-87e309f1f16f">
+      <Execution id="8e9642c6-5be9-4a31-a255-9e23b4c8a647" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests" name="CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Geometric Line Edge Spread&quot;, directory: &quot;geometric-line-edge-spread-c1&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="46047fb4-5b7f-8a4d-34f2-ab17756bb6ce">
+      <Execution id="36c96101-6e98-49ab-9d1e-092ad5a6c9c1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests" name="CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Huygens MTF vs Field&quot;, directory: &quot;huygens-mtf-vs-field-c1&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="bdb673ac-0dcb-7c94-7de5-142ec9c8660d">
+      <Execution id="1e690c9f-9dd9-46ec-96c6-239d11760d9b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests" name="CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Diffraction Encircled Energy&quot;, directory: &quot;diffraction-encircled-energy-c1&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="b02277f8-9124-bd21-2d15-6a9d1d38852a">
+      <Execution id="e74de5a5-cfb3-4b35-9f56-4a4b5cd9d4e8" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests" name="CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Geometric MTF vs Field&quot;, directory: &quot;geometric-mtf-vs-field-c1&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="268a6ce6-8834-8d58-3833-78c5bad5256d">
+      <Execution id="8eab48d5-5d8f-49c8-8608-75e7e3e7847b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests" name="CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Extended Source Encircled Energy&quot;, directory: &quot;extended-source-encircled-energy-c1&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="8ec71d39-7353-cd8f-670c-5f338595bdc8">
+      <Execution id="ca11b17f-c2f4-40bd-b26a-a90899ee5013" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests" name="CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Encircled Energy&quot;, directory: &quot;encircled-energy-c1&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="c758b0f3-aed2-c17d-644d-a2aa75cc3744">
+      <Execution id="24c015e8-677d-465e-aa3f-1da5b7bbff1a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests" name="CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: &quot;Jones Pupil&quot;, directory: &quot;jones-pupil-c1&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="57f296c7-9470-f4d7-f2bb-130b574b29e4">
+      <Execution id="66b89249-b1d2-4a8b-b048-b0056fd4a4cb" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests" name="CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: &quot;Huygens Through Focus MTF&quot;, slug: &quot;huygens-through-focus-mtf&quot;, recordedNrmse: 0.032689149704999997)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="7aeaacaf-5489-ccf3-ac57-6e39bf63a2ff">
+      <Execution id="ca1bfb29-0058-42df-a0c1-3836a1ebccd2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="OpenNumericalDifferenceIsMeasuredAndMustNotRegress" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="3b2149fb-386f-6f4d-d2ad-80783bcb27d1" executionId="c8c1ca46-5983-4cbb-9dbe-5c1e7f390fa0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="461edee2-a30b-1a86-cca7-7dc722cf68df" executionId="0167e17e-d4bc-4683-b645-096644885abc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8ec71d39-7353-cd8f-670c-5f338595bdc8" executionId="ca11b17f-c2f4-40bd-b26a-a90899ee5013" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7efb856d-aa6d-ccfb-7400-dd2b24edf665" executionId="f993ad8d-27cb-456b-866c-09315131b7b7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="46047fb4-5b7f-8a4d-34f2-ab17756bb6ce" executionId="36c96101-6e98-49ab-9d1e-092ad5a6c9c1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="69c74958-add3-c2cf-ea54-e696c235d661" executionId="806e4f4e-b8a5-4897-92d0-92196946b324" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eef355e5-98d3-44a4-d5ec-871c4e776dc7" executionId="b428af0c-83d0-4499-a493-3c8efd482efc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b02277f8-9124-bd21-2d15-6a9d1d38852a" executionId="e74de5a5-cfb3-4b35-9f56-4a4b5cd9d4e8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="268a6ce6-8834-8d58-3833-78c5bad5256d" executionId="8eab48d5-5d8f-49c8-8608-75e7e3e7847b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bdb673ac-0dcb-7c94-7de5-142ec9c8660d" executionId="1e690c9f-9dd9-46ec-96c6-239d11760d9b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eec6dc65-f26d-827a-768a-398bb8a85c3c" executionId="b4d4ccc3-cd2d-484b-ab5e-f88b81462834" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c758b0f3-aed2-c17d-644d-a2aa75cc3744" executionId="24c015e8-677d-465e-aa3f-1da5b7bbff1a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1e968d69-1e23-9740-45ff-c3607d50ca09" executionId="ebece949-b6aa-4bd0-acc2-62f99a1a2143" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bd84d47f-5ff9-810d-2b56-87e309f1f16f" executionId="8e9642c6-5be9-4a31-a255-9e23b4c8a647" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3fa52261-3b74-87b6-d29e-f2aa1eea1e8d" executionId="9cd9be69-5b48-4ca9-b3b6-817a93d0d7c6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="57f296c7-9470-f4d7-f2bb-130b574b29e4" executionId="66b89249-b1d2-4a8b-b048-b0056fd4a4cb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7aeaacaf-5489-ccf3-ac57-6e39bf63a2ff" executionId="ca1bfb29-0058-42df-a0c1-3836a1ebccd2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3d79df52-fee1-53ce-ac36-d4fa7b8458f4" executionId="8e64fe64-501d-4a7b-8238-66ed5a5237c2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="18" executed="18" passed="15" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.37]   Discovering: OptilandWorkbench.ZemaxComparison.Tests&#xD;
+[xUnit.net 00:00:00.46]   Discovered:  OptilandWorkbench.ZemaxComparison.Tests&#xD;
+[xUnit.net 00:00:00.49]   Starting:    OptilandWorkbench.ZemaxComparison.Tests&#xD;
+[xUnit.net 00:00:02.46]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:02.46]       Range:  (0 - 0.0037256669899999998)&#xD;
+[xUnit.net 00:00:02.46]       Actual: 0.0073400502752968494&#xD;
+[xUnit.net 00:00:02.46]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.46]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\ExtendedAnalysisTests.cs(84,0): at OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.Verify(String key, String slug, Nullable`1 recordedNrmse)&#xD;
+[xUnit.net 00:00:02.46]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\ExtendedAnalysisTests.cs(50,0): at OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(String key, String slug, Double recordedNrmse)&#xD;
+[xUnit.net 00:00:02.46]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.46]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.46]       Output:&#xD;
+[xUnit.net 00:00:02.46]         Huygens PSF Cross Section/curve:0: max=0.015636639290941445, NRMSE=0.007340050275296849, Close&#xD;
+[xUnit.net 00:00:08.22]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:08.22]       Range:  (0 - 0.0078836218618912705)&#xD;
+[xUnit.net 00:00:08.22]       Actual: 0.0087998551943544515&#xD;
+[xUnit.net 00:00:08.22]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.22]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\AdditionalCapturedAnalysisTests.cs(72,0): at OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(String key, String directory)&#xD;
+[xUnit.net 00:00:08.22]            at InvokeStub_AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(Object, Span`1)&#xD;
+[xUnit.net 00:00:08.22]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:08.22]       Output:&#xD;
+[xUnit.net 00:00:08.22]         Huygens MTF vs Field/curve:0: Close -&gt; Pass; NRMSE=0.0008767273239942042, max=0.0024719265505221966. Open PSF synthesis error.&#xD;
+[xUnit.net 00:00:08.22]         Huygens MTF vs Field/curve:1: Close -&gt; Pass; NRMSE=0.0010657156013836446, max=0.002037694967063741. Open PSF synthesis error.&#xD;
+[xUnit.net 00:00:08.22]         Huygens MTF vs Field/curve:2: Close -&gt; Pass; NRMSE=0.001815320839090736, max=0.0052054433546432355. Open PSF synthesis error.&#xD;
+[xUnit.net 00:00:08.22]         Huygens MTF vs Field/curve:3: Close -&gt; Pass; NRMSE=0.002201684588976688, max=0.004196500077004672. Open PSF synthesis error.&#xD;
+[xUnit.net 00:00:08.22]         Huygens MTF vs Field/curve:4: Close -&gt; Pass; NRMSE=0.0028746458233884333, max=0.008462140665962625. Open PSF synthesis error.&#xD;
+[xUnit.net 00:00:08.22]         Huygens MTF vs Field/curve:5: Pass -&gt; Close; NRMSE=0.003472596824340703, max=0.006597525472699539. Open PSF synthesis error.&#xD;
+[xUnit.net 00:00:08.22]         Huygens MTF vs Field/curve:6: Close -&gt; Close; NRMSE=0.0041175142648963575, max=0.012503608738080207. Open PSF synthesis error.&#xD;
+[xUnit.net 00:00:08.22]         Huygens MTF vs Field/curve:7: Pass -&gt; Close; NRMSE=0.004946489768763805, max=0.009361881297024421. Open PSF synthesis error.&#xD;
+[xUnit.net 00:00:08.22]         Huygens MTF vs Field/curve:8: Close -&gt; Close; NRMSE=0.0056116973213297975, max=0.017591437824594602. Open PSF synthesis error.&#xD;
+[xUnit.net 00:00:08.22]         Huygens MTF vs Field/curve:9: Close -&gt; Close; NRMSE=0.006695945764728841, max=0.012610677692856953. Open PSF synthesis error.&#xD;
+[xUnit.net 00:00:08.22]         Huygens MTF vs Field/curve:10: Close -&gt; Close; NRMSE=0.007430994006594076, max=0.02398721817910543. Open PSF synthesis error.&#xD;
+[xUnit.net 00:00:08.22]         Huygens MTF vs Field/curve:11: Close -&gt; Close; NRMSE=0.008799855194354451, max=0.016465024803073547. Open PSF synthesis error.&#xD;
+[xUnit.net 00:02:11.86]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:02:11.86]       Range:  (0 - 0.01146706362185577)&#xD;
+[xUnit.net 00:02:11.86]       Actual: 0.011467280942848471&#xD;
+[xUnit.net 00:02:11.86]       Stack Trace:&#xD;
+[xUnit.net 00:02:11.86]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\AdditionalCapturedAnalysisTests.cs(92,0): at OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(String key, String directory)&#xD;
+[xUnit.net 00:02:11.86]            at InvokeStub_AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(Object, Span`1)&#xD;
+[xUnit.net 00:02:11.86]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:02:11.86]       Output:&#xD;
+[xUnit.net 00:02:11.86]         Diffraction Encircled Energy/curve:0: Difference, NRMSE=0.013875784968407625, max=0.0505309569642369&#xD;
+[xUnit.net 00:02:11.86]         Open numerical discrepancy: test success only establishes error non-regression.&#xD;
+[xUnit.net 00:02:11.86]         Diffraction Encircled Energy/curve:1: Difference, NRMSE=0.011467280942848471, max=0.04068881984537476&#xD;
+[xUnit.net 00:02:11.86]         Open numerical discrepancy: test success only establishes error non-regression.&#xD;
+[xUnit.net 00:02:11.87]   Finished:    OptilandWorkbench.ZemaxComparison.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T16:02:36.1841447+08:00">
+        <Text>[xUnit.net 00:00:02.46]     OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: "Huygens PSF Cross Section", slug: "huygens-psf-cross-section", recordedNrmse: 0.0037256669899999998) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T16:02:41.9455337+08:00">
+        <Text>[xUnit.net 00:00:08.22]     OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: "Huygens MTF vs Field", directory: "huygens-mtf-vs-field-c1") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T16:04:45.5854409+08:00">
+        <Text>[xUnit.net 00:02:11.86]     OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: "Diffraction Encircled Energy", directory: "diffraction-encircled-energy-c1") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

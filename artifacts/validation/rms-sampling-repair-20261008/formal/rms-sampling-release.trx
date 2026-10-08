@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1feb3843-b7a6-4bd9-94fe-ce517550356b" name="optics@LAPTOP-G4BBBCS0 2026-10-08 11:23:27" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-08T11:23:27.9370475+08:00" queuing="2026-10-08T11:23:27.9370479+08:00" start="2026-10-08T11:23:24.1138892+08:00" finish="2026-10-08T11:23:39.5310573+08:00" />
+  <TestSettings name="default" id="e04ce36b-c66e-403e-b7f6-db59360267f9">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-08_11_23_27" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="2f5dcf96-5c54-4457-a137-e40a644cd878" testId="f65bed09-9727-5436-4a16-1fd5a4c51e59" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.PolarizedWavefrontUsesFormalTransmittedPowerAndSystemJonesInput(reference: &quot;chief&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0037347" startTime="2026-10-08T11:23:35.5851481+08:00" endTime="2026-10-08T11:23:35.5852597+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2f5dcf96-5c54-4457-a137-e40a644cd878">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 10 decimal places&#xD;
+Expected: 0.1009695771 (rounded from 0.1009695771436725)&#xD;
+Actual:   0.10096957719999999 (rounded from 0.10096957718808142)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.RmsSamplingRepairTests.PolarizedWavefrontUsesFormalTransmittedPowerAndSystemJonesInput(String reference) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RmsSamplingRepairTests.cs:line 125&#xD;
+   at InvokeStub_RmsSamplingRepairTests.PolarizedWavefrontUsesFormalTransmittedPowerAndSystemJonesInput(Object, Span`1)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d0b6c398-d37c-47a7-abc7-6d7840f87b53" testId="3a1af76b-91b8-7b40-a4fc-db91fb776ce7" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.AggregateBudgetRejectsBeforeGeneratingHighDensityWavefronts" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010942" startTime="2026-10-08T11:23:35.5961499+08:00" endTime="2026-10-08T11:23:35.5971516+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d0b6c398-d37c-47a7-abc7-6d7840f87b53" />
+    <UnitTestResult executionId="69ff48d9-5f41-4c3b-b52a-d09d778a927d" testId="34b800ee-6ac7-4984-aaf8-10b8ddecfb62" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.RectangularWavefrontActuallyUsesRequestedGrid(density: 256, reference: &quot;centroid&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.1519142" startTime="2026-10-08T11:23:28.9873170+08:00" endTime="2026-10-08T11:23:30.1371591+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="69ff48d9-5f41-4c3b-b52a-d09d778a927d" />
+    <UnitTestResult executionId="e1dcf304-9946-4a82-a83d-0b9e5e7f680e" testId="769c42ee-4c0f-3d47-57f4-a86580b3f944" testName="OptilandWorkbench.Tests.RmsSamplingPanelTests.SavedRectangularDensitySurvivesAndMethodChangesLabelAndBounds(name: &quot;RMS Field Map&quot;, densityKey: &quot;NumRings&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.7705926" startTime="2026-10-08T11:23:35.6040651+08:00" endTime="2026-10-08T11:23:38.3785801+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e1dcf304-9946-4a82-a83d-0b9e5e7f680e" />
+    <UnitTestResult executionId="d778db01-d418-4da7-bcf3-876ca524f353" testId="b4ca4f3f-e596-b597-4675-5b23a426e31c" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.ApplicationWavefrontPreservesDensityAndPolarization(name: &quot;RMS Wavefront vs Field&quot;, densityKey: &quot;RayDensity&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.2022093" startTime="2026-10-08T11:23:25.6755005+08:00" endTime="2026-10-08T11:23:27.8876513+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d778db01-d418-4da7-bcf3-876ca524f353" />
+    <UnitTestResult executionId="f0e0d264-4f69-4a64-87d2-52973c629ea1" testId="38d426d7-6fe1-11de-dfd6-8b4400118aeb" testName="OptilandWorkbench.Tests.RmsSamplingPanelTests.SavedRectangularDensitySurvivesAndMethodChangesLabelAndBounds(name: &quot;RMS vs Wavelength&quot;, densityKey: &quot;NumRings&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2108448" startTime="2026-10-08T11:23:39.2031652+08:00" endTime="2026-10-08T11:23:39.4144642+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f0e0d264-4f69-4a64-87d2-52973c629ea1" />
+    <UnitTestResult executionId="86023d1a-66ce-4aba-a943-860b10197a17" testId="74d8238a-40ac-19fd-9f03-dfc29ffb0c12" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.InvalidDensityIsRejectedAcrossAllRmsConstructors(method: &quot;GQ&quot;, density: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0001027" startTime="2026-10-08T11:23:35.5560075+08:00" endTime="2026-10-08T11:23:35.5560556+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="86023d1a-66ce-4aba-a943-860b10197a17" />
+    <UnitTestResult executionId="0dffa62b-9d81-4389-8912-081c7d4dc3d2" testId="c2c0ca8a-0a0b-f425-bc2e-a5fe4ac02d09" testName="OptilandWorkbench.Tests.RmsSamplingPanelTests.SavedRectangularDensitySurvivesAndMethodChangesLabelAndBounds(name: &quot;RMS Wavefront vs Field&quot;, densityKey: &quot;RayDensity&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1731645" startTime="2026-10-08T11:23:39.0294496+08:00" endTime="2026-10-08T11:23:39.2029852+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0dffa62b-9d81-4389-8912-081c7d4dc3d2" />
+    <UnitTestResult executionId="dae96ddd-f388-4e69-883b-b99be8aa14bc" testId="66487284-25d0-33ad-29b4-62871d931dac" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.InvalidDensityIsRejectedAcrossAllRmsConstructors(method: &quot;RA&quot;, density: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0001035" startTime="2026-10-08T11:23:35.5561501+08:00" endTime="2026-10-08T11:23:35.5561932+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dae96ddd-f388-4e69-883b-b99be8aa14bc" />
+    <UnitTestResult executionId="9cfb26dc-dac3-46de-a2f7-d6bfd6bc8def" testId="e3db0fcf-874a-0132-9d7b-d099e71fde8a" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.InvalidDensityIsRejectedAcrossAllRmsConstructors(method: &quot;GQ&quot;, density: 33)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0017320" startTime="2026-10-08T11:23:35.5539539+08:00" endTime="2026-10-08T11:23:35.5552310+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9cfb26dc-dac3-46de-a2f7-d6bfd6bc8def" />
+    <UnitTestResult executionId="3412811f-a164-4097-b9b1-c6760602f328" testId="2e08156f-ad00-c3f1-3c29-b39b946cd3bd" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.AdjacentRmsScansDoNotReduceRectangularDensity(name: &quot;RMS vs Focus&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.9632724" startTime="2026-10-08T11:23:31.7355627+08:00" endTime="2026-10-08T11:23:32.6986540+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3412811f-a164-4097-b9b1-c6760602f328" />
+    <UnitTestResult executionId="5db61d53-f599-4959-be52-47b316491a78" testId="48969874-961f-3fd6-e194-a9ad8d8025d7" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.AdjacentRmsScansDoNotReduceRectangularDensity(name: &quot;RMS Field Map&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.1193540" startTime="2026-10-08T11:23:33.4340201+08:00" endTime="2026-10-08T11:23:35.5533143+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5db61d53-f599-4959-be52-47b316491a78" />
+    <UnitTestResult executionId="6a5702c8-1dd5-4ccf-8db7-f3293789cb54" testId="0f8bba25-1da3-0699-c799-5b9d0a7fc3ac" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.AdjacentRmsScansDoNotReduceRectangularDensity(name: &quot;RMS vs Wavelength&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.7350154" startTime="2026-10-08T11:23:32.6988642+08:00" endTime="2026-10-08T11:23:33.4338187+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6a5702c8-1dd5-4ccf-8db7-f3293789cb54" />
+    <UnitTestResult executionId="3ad3830f-cde8-4ea3-a69a-841d6cd9b30a" testId="22dd7029-ba7a-a5fd-0b5d-08e8964665df" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.RectangularWavefrontActuallyUsesRequestedGrid(density: 64, reference: &quot;centroid&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1264091" startTime="2026-10-08T11:23:31.1352934+08:00" endTime="2026-10-08T11:23:31.2615900+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3ad3830f-cde8-4ea3-a69a-841d6cd9b30a" />
+    <UnitTestResult executionId="13e7963a-34de-4899-bb76-f9537fb39553" testId="764c67d0-d027-53df-2d72-8d9bfffff104" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.IntensityWeightingHasIndependentVarianceAndPreservesDefaultStatistics" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0011800" startTime="2026-10-08T11:23:35.5974044+08:00" endTime="2026-10-08T11:23:35.5987097+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="13e7963a-34de-4899-bb76-f9537fb39553" />
+    <UnitTestResult executionId="6734f429-06b2-40e2-9710-fd42d71f850a" testId="fbdc860d-e03f-bb07-aca2-b00b7230fd37" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.RectangularWavefrontActuallyUsesRequestedGrid(density: 256, reference: &quot;chief&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.9065088" startTime="2026-10-08T11:23:30.2288954+08:00" endTime="2026-10-08T11:23:31.1350803+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6734f429-06b2-40e2-9710-fd42d71f850a" />
+    <UnitTestResult executionId="eab458b7-9bb6-45c5-86ca-b4872f837942" testId="a3cd602f-8ca0-ecbd-d163-a39896caf562" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.ApplicationWavefrontPreservesDensityAndPolarization(name: &quot;RMS vs Field&quot;, densityKey: &quot;NumRings&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.0967186" startTime="2026-10-08T11:23:27.9142105+08:00" endTime="2026-10-08T11:23:28.9845217+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eab458b7-9bb6-45c5-86ca-b4872f837942" />
+    <UnitTestResult executionId="44841035-a1c8-4a35-8f4f-7ef3fc59f1aa" testId="883b3e38-7377-bf5f-4e8a-b791261572c0" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.PolarizedWavefrontUsesFormalTransmittedPowerAndSystemJonesInput(reference: &quot;centroid&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0096009" startTime="2026-10-08T11:23:35.5563276+08:00" endTime="2026-10-08T11:23:35.5763476+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="44841035-a1c8-4a35-8f4f-7ef3fc59f1aa">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 10 decimal places&#xD;
+Expected: 0.1009695771 (rounded from 0.1009695771436725)&#xD;
+Actual:   0.10096957719999999 (rounded from 0.10096957718808142)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.RmsSamplingRepairTests.PolarizedWavefrontUsesFormalTransmittedPowerAndSystemJonesInput(String reference) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RmsSamplingRepairTests.cs:line 125&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5e05d1c0-6344-447f-ab20-293de6b00135" testId="87bb23dd-b741-32c0-8ffd-5aa071e20506" testName="OptilandWorkbench.Tests.RmsSamplingPanelTests.SavedRectangularDensitySurvivesAndMethodChangesLabelAndBounds(name: &quot;RMS vs Field&quot;, densityKey: &quot;NumRings&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1565400" startTime="2026-10-08T11:23:38.8721595+08:00" endTime="2026-10-08T11:23:39.0292620+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5e05d1c0-6344-447f-ab20-293de6b00135" />
+    <UnitTestResult executionId="9c66c0c2-b794-4cbd-afcc-61e3234816b2" testId="4cdea1b1-9838-87c9-c78b-88719056ba66" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.RectangularWavefrontActuallyUsesRequestedGrid(density: 64, reference: &quot;chief&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0908844" startTime="2026-10-08T11:23:30.1373977+08:00" endTime="2026-10-08T11:23:30.2284115+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9c66c0c2-b794-4cbd-afcc-61e3234816b2" />
+    <UnitTestResult executionId="291865d5-175e-4379-8f50-cd9d1877209d" testId="f34ac1b5-5e6f-7f87-df0d-7538648755c0" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.RectangularWavefrontActuallyUsesRequestedGrid(density: 128, reference: &quot;chief&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2418820" startTime="2026-10-08T11:23:31.2621353+08:00" endTime="2026-10-08T11:23:31.5042836+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="291865d5-175e-4379-8f50-cd9d1877209d" />
+    <UnitTestResult executionId="cf0c2c31-5a2e-45a6-af5a-7f7b1aa21ceb" testId="46a9e572-ac98-d5cc-625e-8d3ae29884b9" testName="OptilandWorkbench.Tests.RmsSamplingPanelTests.SavedRectangularDensitySurvivesAndMethodChangesLabelAndBounds(name: &quot;RMS vs Focus&quot;, densityKey: &quot;NumRings&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.4907823" startTime="2026-10-08T11:23:38.3804625+08:00" endTime="2026-10-08T11:23:38.8718412+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cf0c2c31-5a2e-45a6-af5a-7f7b1aa21ceb" />
+    <UnitTestResult executionId="c616c188-df09-47b2-b9f9-19f4e612b8fe" testId="3b6e1a99-e554-3e7c-8073-4dcff5996447" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.UnsupportedAbsorbingPolarizationDoesNotSilentlyFallBackToGeometricRms" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0162710" startTime="2026-10-08T11:23:35.5865765+08:00" endTime="2026-10-08T11:23:35.5959721+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c616c188-df09-47b2-b9f9-19f4e612b8fe" />
+    <UnitTestResult executionId="0b34367d-db2d-4615-8e1a-3b28127e90c1" testId="e0e563cb-6f28-dde5-25e5-fb2487b3b135" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.InvalidDensityIsRejectedAcrossAllRmsConstructors(method: &quot;RA&quot;, density: 1025)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0004470" startTime="2026-10-08T11:23:35.5554294+08:00" endTime="2026-10-08T11:23:35.5558949+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0b34367d-db2d-4615-8e1a-3b28127e90c1" />
+    <UnitTestResult executionId="51851d91-c30b-4b7e-9565-fbf702092758" testId="7ec3aef2-15f4-dbb1-d721-88d6069c900d" testName="OptilandWorkbench.Tests.RmsSamplingRepairTests.RectangularWavefrontActuallyUsesRequestedGrid(density: 128, reference: &quot;centroid&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2308160" startTime="2026-10-08T11:23:31.5045345+08:00" endTime="2026-10-08T11:23:31.7352892+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="51851d91-c30b-4b7e-9565-fbf702092758" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.RectangularWavefrontActuallyUsesRequestedGrid(density: 256, reference: &quot;chief&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="fbdc860d-e03f-bb07-aca2-b00b7230fd37">
+      <Execution id="6734f429-06b2-40e2-9710-fd42d71f850a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="RectangularWavefrontActuallyUsesRequestedGrid" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.UnsupportedAbsorbingPolarizationDoesNotSilentlyFallBackToGeometricRms" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="3b6e1a99-e554-3e7c-8073-4dcff5996447">
+      <Execution id="c616c188-df09-47b2-b9f9-19f4e612b8fe" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="UnsupportedAbsorbingPolarizationDoesNotSilentlyFallBackToGeometricRms" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingPanelTests.SavedRectangularDensitySurvivesAndMethodChangesLabelAndBounds(name: &quot;RMS vs Wavelength&quot;, densityKey: &quot;NumRings&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="38d426d7-6fe1-11de-dfd6-8b4400118aeb">
+      <Execution id="f0e0d264-4f69-4a64-87d2-52973c629ea1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingPanelTests" name="SavedRectangularDensitySurvivesAndMethodChangesLabelAndBounds" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingPanelTests.SavedRectangularDensitySurvivesAndMethodChangesLabelAndBounds(name: &quot;RMS vs Focus&quot;, densityKey: &quot;NumRings&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="46a9e572-ac98-d5cc-625e-8d3ae29884b9">
+      <Execution id="cf0c2c31-5a2e-45a6-af5a-7f7b1aa21ceb" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingPanelTests" name="SavedRectangularDensitySurvivesAndMethodChangesLabelAndBounds" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.RectangularWavefrontActuallyUsesRequestedGrid(density: 64, reference: &quot;centroid&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="22dd7029-ba7a-a5fd-0b5d-08e8964665df">
+      <Execution id="3ad3830f-cde8-4ea3-a69a-841d6cd9b30a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="RectangularWavefrontActuallyUsesRequestedGrid" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.AdjacentRmsScansDoNotReduceRectangularDensity(name: &quot;RMS vs Focus&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="2e08156f-ad00-c3f1-3c29-b39b946cd3bd">
+      <Execution id="3412811f-a164-4097-b9b1-c6760602f328" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="AdjacentRmsScansDoNotReduceRectangularDensity" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.PolarizedWavefrontUsesFormalTransmittedPowerAndSystemJonesInput(reference: &quot;chief&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="f65bed09-9727-5436-4a16-1fd5a4c51e59">
+      <Execution id="2f5dcf96-5c54-4457-a137-e40a644cd878" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="PolarizedWavefrontUsesFormalTransmittedPowerAndSystemJonesInput" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.InvalidDensityIsRejectedAcrossAllRmsConstructors(method: &quot;RA&quot;, density: 1025)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="e0e563cb-6f28-dde5-25e5-fb2487b3b135">
+      <Execution id="0b34367d-db2d-4615-8e1a-3b28127e90c1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="InvalidDensityIsRejectedAcrossAllRmsConstructors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.ApplicationWavefrontPreservesDensityAndPolarization(name: &quot;RMS Wavefront vs Field&quot;, densityKey: &quot;RayDensity&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="b4ca4f3f-e596-b597-4675-5b23a426e31c">
+      <Execution id="d778db01-d418-4da7-bcf3-876ca524f353" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="ApplicationWavefrontPreservesDensityAndPolarization" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.InvalidDensityIsRejectedAcrossAllRmsConstructors(method: &quot;GQ&quot;, density: 0)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="74d8238a-40ac-19fd-9f03-dfc29ffb0c12">
+      <Execution id="86023d1a-66ce-4aba-a943-860b10197a17" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="InvalidDensityIsRejectedAcrossAllRmsConstructors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.InvalidDensityIsRejectedAcrossAllRmsConstructors(method: &quot;RA&quot;, density: 0)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="66487284-25d0-33ad-29b4-62871d931dac">
+      <Execution id="dae96ddd-f388-4e69-883b-b99be8aa14bc" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="InvalidDensityIsRejectedAcrossAllRmsConstructors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.RectangularWavefrontActuallyUsesRequestedGrid(density: 256, reference: &quot;centroid&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="34b800ee-6ac7-4984-aaf8-10b8ddecfb62">
+      <Execution id="69ff48d9-5f41-4c3b-b52a-d09d778a927d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="RectangularWavefrontActuallyUsesRequestedGrid" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.RectangularWavefrontActuallyUsesRequestedGrid(density: 128, reference: &quot;centroid&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="7ec3aef2-15f4-dbb1-d721-88d6069c900d">
+      <Execution id="51851d91-c30b-4b7e-9565-fbf702092758" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="RectangularWavefrontActuallyUsesRequestedGrid" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.RectangularWavefrontActuallyUsesRequestedGrid(density: 64, reference: &quot;chief&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="4cdea1b1-9838-87c9-c78b-88719056ba66">
+      <Execution id="9c66c0c2-b794-4cbd-afcc-61e3234816b2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="RectangularWavefrontActuallyUsesRequestedGrid" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingPanelTests.SavedRectangularDensitySurvivesAndMethodChangesLabelAndBounds(name: &quot;RMS Wavefront vs Field&quot;, densityKey: &quot;RayDensity&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="c2c0ca8a-0a0b-f425-bc2e-a5fe4ac02d09">
+      <Execution id="0dffa62b-9d81-4389-8912-081c7d4dc3d2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingPanelTests" name="SavedRectangularDensitySurvivesAndMethodChangesLabelAndBounds" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.ApplicationWavefrontPreservesDensityAndPolarization(name: &quot;RMS vs Field&quot;, densityKey: &quot;NumRings&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="a3cd602f-8ca0-ecbd-d163-a39896caf562">
+      <Execution id="eab458b7-9bb6-45c5-86ca-b4872f837942" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="ApplicationWavefrontPreservesDensityAndPolarization" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.IntensityWeightingHasIndependentVarianceAndPreservesDefaultStatistics" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="764c67d0-d027-53df-2d72-8d9bfffff104">
+      <Execution id="13e7963a-34de-4899-bb76-f9537fb39553" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="IntensityWeightingHasIndependentVarianceAndPreservesDefaultStatistics" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.InvalidDensityIsRejectedAcrossAllRmsConstructors(method: &quot;GQ&quot;, density: 33)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="e3db0fcf-874a-0132-9d7b-d099e71fde8a">
+      <Execution id="9cfb26dc-dac3-46de-a2f7-d6bfd6bc8def" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="InvalidDensityIsRejectedAcrossAllRmsConstructors" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingPanelTests.SavedRectangularDensitySurvivesAndMethodChangesLabelAndBounds(name: &quot;RMS vs Field&quot;, densityKey: &quot;NumRings&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="87bb23dd-b741-32c0-8ffd-5aa071e20506">
+      <Execution id="5e05d1c0-6344-447f-ab20-293de6b00135" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingPanelTests" name="SavedRectangularDensitySurvivesAndMethodChangesLabelAndBounds" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.AdjacentRmsScansDoNotReduceRectangularDensity(name: &quot;RMS Field Map&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="48969874-961f-3fd6-e194-a9ad8d8025d7">
+      <Execution id="5db61d53-f599-4959-be52-47b316491a78" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="AdjacentRmsScansDoNotReduceRectangularDensity" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.RectangularWavefrontActuallyUsesRequestedGrid(density: 128, reference: &quot;chief&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="f34ac1b5-5e6f-7f87-df0d-7538648755c0">
+      <Execution id="291865d5-175e-4379-8f50-cd9d1877209d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="RectangularWavefrontActuallyUsesRequestedGrid" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.AdjacentRmsScansDoNotReduceRectangularDensity(name: &quot;RMS vs Wavelength&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="0f8bba25-1da3-0699-c799-5b9d0a7fc3ac">
+      <Execution id="6a5702c8-1dd5-4ccf-8db7-f3293789cb54" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="AdjacentRmsScansDoNotReduceRectangularDensity" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.PolarizedWavefrontUsesFormalTransmittedPowerAndSystemJonesInput(reference: &quot;centroid&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="883b3e38-7377-bf5f-4e8a-b791261572c0">
+      <Execution id="44841035-a1c8-4a35-8f4f-7ef3fc59f1aa" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="PolarizedWavefrontUsesFormalTransmittedPowerAndSystemJonesInput" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingPanelTests.SavedRectangularDensitySurvivesAndMethodChangesLabelAndBounds(name: &quot;RMS Field Map&quot;, densityKey: &quot;NumRings&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="769c42ee-4c0f-3d47-57f4-a86580b3f944">
+      <Execution id="e1dcf304-9946-4a82-a83d-0b9e5e7f680e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingPanelTests" name="SavedRectangularDensitySurvivesAndMethodChangesLabelAndBounds" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RmsSamplingRepairTests.AggregateBudgetRejectsBeforeGeneratingHighDensityWavefronts" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="3a1af76b-91b8-7b40-a4fc-db91fb776ce7">
+      <Execution id="d0b6c398-d37c-47a7-abc7-6d7840f87b53" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RmsSamplingRepairTests" name="AggregateBudgetRejectsBeforeGeneratingHighDensityWavefronts" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f65bed09-9727-5436-4a16-1fd5a4c51e59" executionId="2f5dcf96-5c54-4457-a137-e40a644cd878" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3a1af76b-91b8-7b40-a4fc-db91fb776ce7" executionId="d0b6c398-d37c-47a7-abc7-6d7840f87b53" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="34b800ee-6ac7-4984-aaf8-10b8ddecfb62" executionId="69ff48d9-5f41-4c3b-b52a-d09d778a927d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="769c42ee-4c0f-3d47-57f4-a86580b3f944" executionId="e1dcf304-9946-4a82-a83d-0b9e5e7f680e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b4ca4f3f-e596-b597-4675-5b23a426e31c" executionId="d778db01-d418-4da7-bcf3-876ca524f353" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="38d426d7-6fe1-11de-dfd6-8b4400118aeb" executionId="f0e0d264-4f69-4a64-87d2-52973c629ea1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="74d8238a-40ac-19fd-9f03-dfc29ffb0c12" executionId="86023d1a-66ce-4aba-a943-860b10197a17" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c2c0ca8a-0a0b-f425-bc2e-a5fe4ac02d09" executionId="0dffa62b-9d81-4389-8912-081c7d4dc3d2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="66487284-25d0-33ad-29b4-62871d931dac" executionId="dae96ddd-f388-4e69-883b-b99be8aa14bc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e3db0fcf-874a-0132-9d7b-d099e71fde8a" executionId="9cfb26dc-dac3-46de-a2f7-d6bfd6bc8def" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2e08156f-ad00-c3f1-3c29-b39b946cd3bd" executionId="3412811f-a164-4097-b9b1-c6760602f328" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="48969874-961f-3fd6-e194-a9ad8d8025d7" executionId="5db61d53-f599-4959-be52-47b316491a78" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0f8bba25-1da3-0699-c799-5b9d0a7fc3ac" executionId="6a5702c8-1dd5-4ccf-8db7-f3293789cb54" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="22dd7029-ba7a-a5fd-0b5d-08e8964665df" executionId="3ad3830f-cde8-4ea3-a69a-841d6cd9b30a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="764c67d0-d027-53df-2d72-8d9bfffff104" executionId="13e7963a-34de-4899-bb76-f9537fb39553" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fbdc860d-e03f-bb07-aca2-b00b7230fd37" executionId="6734f429-06b2-40e2-9710-fd42d71f850a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a3cd602f-8ca0-ecbd-d163-a39896caf562" executionId="eab458b7-9bb6-45c5-86ca-b4872f837942" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="883b3e38-7377-bf5f-4e8a-b791261572c0" executionId="44841035-a1c8-4a35-8f4f-7ef3fc59f1aa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="87bb23dd-b741-32c0-8ffd-5aa071e20506" executionId="5e05d1c0-6344-447f-ab20-293de6b00135" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4cdea1b1-9838-87c9-c78b-88719056ba66" executionId="9c66c0c2-b794-4cbd-afcc-61e3234816b2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f34ac1b5-5e6f-7f87-df0d-7538648755c0" executionId="291865d5-175e-4379-8f50-cd9d1877209d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="46a9e572-ac98-d5cc-625e-8d3ae29884b9" executionId="cf0c2c31-5a2e-45a6-af5a-7f7b1aa21ceb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3b6e1a99-e554-3e7c-8073-4dcff5996447" executionId="c616c188-df09-47b2-b9f9-19f4e612b8fe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e0e563cb-6f28-dde5-25e5-fb2487b3b135" executionId="0b34367d-db2d-4615-8e1a-3b28127e90c1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7ec3aef2-15f4-dbb1-d721-88d6069c900d" executionId="51851d91-c30b-4b7e-9565-fbf702092758" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="25" executed="25" passed="23" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.52]   Discovering: OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:01.07]   Discovered:  OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:01.10]   Starting:    OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:11.03]       Assert.Equal() Failure: Values are not within 10 decimal places&#xD;
+[xUnit.net 00:00:11.03]       Expected: 0.1009695771 (rounded from 0.1009695771436725)&#xD;
+[xUnit.net 00:00:11.03]       Actual:   0.10096957719999999 (rounded from 0.10096957718808142)&#xD;
+[xUnit.net 00:00:11.03]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.03]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RmsSamplingRepairTests.cs(125,0): at OptilandWorkbench.Tests.RmsSamplingRepairTests.PolarizedWavefrontUsesFormalTransmittedPowerAndSystemJonesInput(String reference)&#xD;
+[xUnit.net 00:00:11.03]            at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+[xUnit.net 00:00:11.03]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:11.03]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:11.03]       Assert.Equal() Failure: Values are not within 10 decimal places&#xD;
+[xUnit.net 00:00:11.03]       Expected: 0.1009695771 (rounded from 0.1009695771436725)&#xD;
+[xUnit.net 00:00:11.03]       Actual:   0.10096957719999999 (rounded from 0.10096957718808142)&#xD;
+[xUnit.net 00:00:11.03]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.03]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RmsSamplingRepairTests.cs(125,0): at OptilandWorkbench.Tests.RmsSamplingRepairTests.PolarizedWavefrontUsesFormalTransmittedPowerAndSystemJonesInput(String reference)&#xD;
+[xUnit.net 00:00:11.03]            at InvokeStub_RmsSamplingRepairTests.PolarizedWavefrontUsesFormalTransmittedPowerAndSystemJonesInput(Object, Span`1)&#xD;
+[xUnit.net 00:00:11.03]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:14.87]   Finished:    OptilandWorkbench.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T11:23:35.5799884+08:00">
+        <Text>[xUnit.net 00:00:11.03]     OptilandWorkbench.Tests.RmsSamplingRepairTests.PolarizedWavefrontUsesFormalTransmittedPowerAndSystemJonesInput(reference: "centroid") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-08T11:23:35.5855312+08:00">
+        <Text>[xUnit.net 00:00:11.03]     OptilandWorkbench.Tests.RmsSamplingRepairTests.PolarizedWavefrontUsesFormalTransmittedPowerAndSystemJonesInput(reference: "chief") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

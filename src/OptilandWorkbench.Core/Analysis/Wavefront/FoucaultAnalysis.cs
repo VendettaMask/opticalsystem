@@ -39,6 +39,8 @@ public sealed class FoucaultAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
+        if (_usePolarization)
+            throw new NotSupportedException("Foucault 偏振响应尚未实现；不能把未生效的设置作为已计算结果返回。");
         var wavelengths = Optic.Wavelengths.ToArray();
         var wavelength = _wavelengthNumber > 0
             ? wavelengths.ElementAtOrDefault(Math.Clamp(_wavelengthNumber - 1, 0, Math.Max(0, wavelengths.Length - 1)))
@@ -56,7 +58,7 @@ public sealed class FoucaultAnalysis : BaseAnalysis
             wavelength,
             _sampling,
             cellCentered: true,
-            aimAtStop: true);
+            aimAtStop: Optic.RayAimingEnabled);
         var valid = wavefront.Samples
             .Where(sample => sample.Intensity > 0 && double.IsFinite(sample.OpdWaves))
             .ToArray();
@@ -121,10 +123,12 @@ public sealed class FoucaultAnalysis : BaseAnalysis
             ["FieldHy"] = field.Hy,
             ["KnifePositionMicrometers"] = _positionMicrometers,
             ["UsePolarization"] = _usePolarization,
+            ["UseRayAiming"] = Optic.RayAimingEnabled,
+            ["ComputationModel"] = "Qualitative wavefront-gradient knife-edge response (Experimental)",
             ["MinimumResponse"] = points.Select(point => point.Value ?? 0).DefaultIfEmpty(0).Min(),
             ["MaximumResponse"] = points.Select(point => point.Value ?? 0).DefaultIfEmpty(0).Max()
         }, series, new[] { series }, new AnalysisPlotOptions(
-            Title: "Foucault Analysis",
+            Title: "Foucault Analysis（定性近似，Experimental）",
             EqualAspect: true,
             XMinimum: -1,
             XMaximum: 1,

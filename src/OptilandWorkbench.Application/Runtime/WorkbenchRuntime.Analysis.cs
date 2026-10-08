@@ -541,7 +541,8 @@ public partial class WorkbenchRuntime
                 Int("WavelengthNumber", 0),
                 Text("ScanType", "+y"),
                 Bool("RemoveVignettingFactors", true),
-                zemaxCompatibleOutput: true)
+                zemaxCompatibleOutput: true,
+                usePolarization: Bool("UsePolarization", false))
             { GaussianAzimuthalSamples = Int("GaussianAzimuthalSamples", 6) },
             "Zernike vs Field" => new ZernikeVsFieldAnalysis(
                 CurrentOptic,
@@ -678,7 +679,7 @@ public partial class WorkbenchRuntime
             "PSF" => new PsfAnalysis(
                 CurrentOptic,
                 LeadingInt("Sampling", Int("NumRays", 64)),
-                LeadingInt("Display", Int("GridSize", 128)),
+                settings.ContainsKey("Sampling") ? LeadingInt("Sampling", 64) * 2 : Int("NumRays", 64) * 2,
                 LeadingInt("WavelengthNumber", 0),
                 LeadingInt("FieldNumber", 1),
                 LeadingInt("SurfaceNumber", -1),
@@ -688,7 +689,8 @@ public partial class WorkbenchRuntime
                 Text("DisplayAs", "伪彩色"),
                 Bool("UsePolarization", false),
                 Bool("Normalized", false),
-                zemaxCompatible: true),
+                zemaxCompatible: true,
+                displaySize: LeadingInt("Display", Int("GridSize", 128))),
             "FFT PSF Cross Section" => new FftPsfCrossSectionAnalysis(
                 CurrentOptic,
                 LeadingInt("Sampling", Int("NumRays", 64)),
@@ -858,22 +860,26 @@ public partial class WorkbenchRuntime
             "Zernike Standard" => new ZernikeAnalysis(
                 CurrentOptic,
                 ZernikeAnalysisKind.Standard,
-                Int("NumRings", 15),
+                settings.ContainsKey("NumRings") && !settings.ContainsKey("PupilSampling")
+                    ? Int("NumRings", 15) : LeadingInt("PupilSampling", 32),
                 Int("ZernikeTerms", 37),
                 mapSize: 65,
                 wavelengthNumber: LeadingInt("WavelengthNumber", 0),
                 fieldNumber: LeadingInt("FieldNumber", 1),
-                name: "Zernike Standard"),
+                name: "Zernike Standard",
+                zemaxCompatibleSampling: !settings.ContainsKey("NumRings") || settings.ContainsKey("PupilSampling")),
             "Zernike Annular" => new ZernikeAnalysis(
                 CurrentOptic,
                 ZernikeAnalysisKind.Annular,
-                Int("NumRings", 15),
+                settings.ContainsKey("NumRings") && !settings.ContainsKey("PupilSampling")
+                    ? Int("NumRings", 15) : LeadingInt("PupilSampling", 32),
                 Int("ZernikeTerms", 37),
                 mapSize: 65,
                 wavelengthNumber: LeadingInt("WavelengthNumber", 0),
                 fieldNumber: LeadingInt("FieldNumber", 1),
                 name: "Zernike Annular",
-                obscurationRatio: Double("ObscurationRatio", 0.5)),
+                obscurationRatio: Double("ObscurationRatio", 0.5),
+                zemaxCompatibleSampling: !settings.ContainsKey("NumRings") || settings.ContainsKey("PupilSampling")),
             "Zernike" => new ZernikeAnalysis(
                 CurrentOptic,
                 settings.ContainsKey("Sampling") ? ZernikeAnalysisKind.ZemaxFringe : ZernikeAnalysisKind.Fringe,

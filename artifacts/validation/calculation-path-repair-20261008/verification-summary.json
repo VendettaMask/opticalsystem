@@ -1,0 +1,213 @@
+{
+  "createdUtc": "2026-10-08T08:40:39.269496+00:00",
+  "formal": {
+    "path": "artifacts/validation/calculation-path-repair-20261008/full-release-01/full-formal.trx",
+    "sha256": "5e7a2172ba50fd7c9b177a5a5cdd2c440941770a42f5ea88d1568155ee014ba3",
+    "counters": {
+      "total": 4494,
+      "executed": 4494,
+      "passed": 4492,
+      "failed": 2,
+      "error": 0,
+      "timeout": 0,
+      "aborted": 0,
+      "inconclusive": 0,
+      "passedButRunAborted": 0,
+      "notRunnable": 0,
+      "notExecuted": 0,
+      "disconnected": 0,
+      "warning": 0,
+      "completed": 0,
+      "inProgress": 0,
+      "pending": 0
+    },
+    "times": {
+      "creation": "2026-10-08T16:11:22.2186047+08:00",
+      "queuing": "2026-10-08T16:11:22.2186049+08:00",
+      "start": "2026-10-08T16:11:17.1267597+08:00",
+      "finish": "2026-10-08T16:33:49.4467156+08:00"
+    },
+    "failures": [
+      {
+        "name": "OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays",
+        "message": "finite_angle: expected 0.058589983242791625, actual 0.060191701479492175",
+        "stack": "   at OptilandWorkbench.Tests.FieldDefinitionParityTests.AssertClose(Double expected, Double actual, String caseName) in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.Tests\\Validation\\History\\FieldDefinitionParityTests.cs:line 384\r\n   at OptilandWorkbench.Tests.FieldDefinitionParityTests.AssertRay(JsonElement expected, RealRay actual, String caseName) in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.Tests\\Validation\\History\\FieldDefinitionParityTests.cs:line 365\r\n   at OptilandWorkbench.Tests.FieldDefinitionParityTests.FieldDefinitionsMatchFrozenReferenceInitialAndFinalRealRays() in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.Tests\\Validation\\History\\FieldDefinitionParityTests.cs:line 48\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)"
+      },
+      {
+        "name": "OptilandWorkbench.Tests.AccessibilityAndResponsiveLayoutTests.SettingsGridReflowsWithoutFixedItemWidths",
+        "message": "System.NullReferenceException : Object reference not set to an instance of an object.",
+        "stack": "   at OptilandWorkbench.Tests.SafeHeadlessUnitTestSession.Dispose() in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.Tests\\WavefrontSurfaceRenderTests.cs:line 137\r\n   at OptilandWorkbench.Tests.AccessibilityAndResponsiveLayoutTests.SettingsGridReflowsWithoutFixedItemWidths() in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.Tests\\AccessibilityAndResponsiveLayoutTests.cs:line 188\r\n   at OptilandWorkbench.Tests.AccessibilityAndResponsiveLayoutTests.SettingsGridReflowsWithoutFixedItemWidths()\r\n--- End of stack trace from previous location ---"
+      }
+    ]
+  },
+  "tool": {
+    "path": "artifacts/validation/calculation-path-repair-20261008/full-tool-release-02/full-comparison.trx",
+    "sha256": "dd8445b944bd5bea4f668acf3ad37d6f3edfb063d723a9dec8b9dcc493e5f893",
+    "counters": {
+      "total": 180,
+      "executed": 180,
+      "passed": 178,
+      "failed": 2,
+      "error": 0,
+      "timeout": 0,
+      "aborted": 0,
+      "inconclusive": 0,
+      "passedButRunAborted": 0,
+      "notRunnable": 0,
+      "notExecuted": 0,
+      "disconnected": 0,
+      "warning": 0,
+      "completed": 0,
+      "inProgress": 0,
+      "pending": 0
+    },
+    "times": {
+      "creation": "2026-10-08T16:13:28.0657546+08:00",
+      "queuing": "2026-10-08T16:13:28.0657550+08:00",
+      "start": "2026-10-08T16:13:26.6715441+08:00",
+      "finish": "2026-10-08T16:20:54.6907543+08:00"
+    },
+    "failures": [
+      {
+        "name": "OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: \"Huygens PSF Cross Section\", slug: \"huygens-psf-cross-section\", recordedNrmse: 0.0037256669899999998)",
+        "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.0037256669899999998)\r\nActual: 0.0037256670590166724",
+        "stack": "   at OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.Verify(String key, String slug, Nullable`1 recordedNrmse) in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.ZemaxComparison.Tests\\ExtendedAnalysisTests.cs:line 84\r\n   at OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(String key, String slug, Double recordedNrmse) in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.ZemaxComparison.Tests\\ExtendedAnalysisTests.cs:line 50\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)"
+      },
+      {
+        "name": "OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: \"Diffraction Encircled Energy\", directory: \"diffraction-encircled-energy-c1\")",
+        "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.01146706362185577)\r\nActual: 0.011467280942848471",
+        "stack": "   at OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(String key, String directory) in D:\\optical system design\\opticalsystem\\tests\\OptilandWorkbench.ZemaxComparison.Tests\\AdditionalCapturedAnalysisTests.cs:line 92\r\n   at InvokeStub_AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(Object, Span`1)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)"
+      }
+    ]
+  },
+  "debugTarget": {
+    "path": "artifacts/validation/calculation-path-repair-20261008/target-debug-01/targeted.trx",
+    "sha256": "2a2dd3602afefb665c1dfea6708ecc33a98f7fd8a1668c3cbf1e256546ed174a",
+    "counters": {
+      "total": 103,
+      "executed": 103,
+      "passed": 103,
+      "failed": 0,
+      "error": 0,
+      "timeout": 0,
+      "aborted": 0,
+      "inconclusive": 0,
+      "passedButRunAborted": 0,
+      "notRunnable": 0,
+      "notExecuted": 0,
+      "disconnected": 0,
+      "warning": 0,
+      "completed": 0,
+      "inProgress": 0,
+      "pending": 0
+    },
+    "times": {
+      "creation": "2026-10-08T16:13:05.3636044+08:00",
+      "queuing": "2026-10-08T16:13:05.3636047+08:00",
+      "start": "2026-10-08T16:12:55.8552443+08:00",
+      "finish": "2026-10-08T16:14:07.0715660+08:00"
+    },
+    "failures": []
+  },
+  "addedTests": [
+    "OptilandWorkbench.Tests.CalculationPathPanelTests.UnsupportedFoucaultPolarizationExplainsWhyOnlyThatControlIsDisabled",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.AfocalReferenceFallbackUsesSystemAiming(aiming: False)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.AfocalReferenceFallbackUsesSystemAiming(aiming: True)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.DefocusRestoresGeometryAndDoesNotReuseNominalCachedTrace(aiming: False)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.DefocusRestoresGeometryAndDoesNotReuseNominalCachedTrace(aiming: True)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.DesktopZernikeExplicitlyUsesUniformPupilSampling(aiming: False, name: \"Zernike Annular\")",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.DesktopZernikeExplicitlyUsesUniformPupilSampling(aiming: False, name: \"Zernike Standard\")",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.DesktopZernikeExplicitlyUsesUniformPupilSampling(aiming: True, name: \"Zernike Annular\")",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.DesktopZernikeExplicitlyUsesUniformPupilSampling(aiming: True, name: \"Zernike Standard\")",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.DisplayCroppingPreservesFullFftPhysicsAndNormalization(normalize: False)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.DisplayCroppingPreservesFullFftPhysicsAndNormalization(normalize: True)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.FastMtfUsesTheRequestedWavefrontAndDirectionalScale(aiming: False, polarized: False)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.FastMtfUsesTheRequestedWavefrontAndDirectionalScale(aiming: False, polarized: True)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.FastMtfUsesTheRequestedWavefrontAndDirectionalScale(aiming: True, polarized: False)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.FastMtfUsesTheRequestedWavefrontAndDirectionalScale(aiming: True, polarized: True)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.FftPreparedPupilAndScaleHaveOneAimingContract(aiming: False, polarized: False)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.FftPreparedPupilAndScaleHaveOneAimingContract(aiming: False, polarized: True)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.FftPreparedPupilAndScaleHaveOneAimingContract(aiming: True, polarized: False)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.FftPreparedPupilAndScaleHaveOneAimingContract(aiming: True, polarized: True)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.FoucaultDoesNotPretendToSupportPolarization",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.HexZernikeUsesTheSystemAiming(kind: Annular, aiming: False)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.HexZernikeUsesTheSystemAiming(kind: Annular, aiming: True)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.HexZernikeUsesTheSystemAiming(kind: Fringe, aiming: False)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.HexZernikeUsesTheSystemAiming(kind: Fringe, aiming: True)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.HexZernikeUsesTheSystemAiming(kind: Standard, aiming: False)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.HexZernikeUsesTheSystemAiming(kind: Standard, aiming: True)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.HuygensPsfIsInvariantUnderGlobalAxialTranslation(edge: 0, shift: 1)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.HuygensPsfIsInvariantUnderGlobalAxialTranslation(edge: 0, shift: 10)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.HuygensPsfIsInvariantUnderGlobalAxialTranslation(edge: 0, shift: 100)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.HuygensPsfIsInvariantUnderGlobalAxialTranslation(edge: 1, shift: 1)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.HuygensPsfIsInvariantUnderGlobalAxialTranslation(edge: 1, shift: 10)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.HuygensPsfIsInvariantUnderGlobalAxialTranslation(edge: 1, shift: 100)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.ImplicitGridDoesNotReduceNominalPupilSamplingTwice(sampling: 128)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.ImplicitGridDoesNotReduceNominalPupilSamplingTwice(sampling: 32)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.ImplicitGridDoesNotReduceNominalPupilSamplingTwice(sampling: 64)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.JonesCellFlagNeverChangesAimingForIdenticalZemaxNodes(aiming: False)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.JonesCellFlagNeverChangesAimingForIdenticalZemaxNodes(aiming: True)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.MismatchedPreparedPupilsAreRejected(mismatch: \"field\")",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.MismatchedPreparedPupilsAreRejected(mismatch: \"grid\")",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.MismatchedPreparedPupilsAreRejected(mismatch: \"jones\")",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.MismatchedPreparedPupilsAreRejected(mismatch: \"jones_nodes\")",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.MismatchedPreparedPupilsAreRejected(mismatch: \"nodes\")",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.MismatchedPreparedPupilsAreRejected(mismatch: \"reference\")",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.MismatchedPreparedPupilsAreRejected(mismatch: \"unknown\")",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.MismatchedPreparedPupilsAreRejected(mismatch: \"wave\")",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.NegativeImageDeltaUsesFullUnstretchedPupil",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.ReferenceSphereAimingIsNotSilentlyIgnored(strategy: BestFitSphere)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.ReferenceSphereAimingIsNotSilentlyIgnored(strategy: CentroidSphere)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.ZernikeFieldSweepUsesTheSameAimedEdgePupil(aiming: False)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.ZernikeFieldSweepUsesTheSameAimedEdgePupil(aiming: True)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.ZeroDefocusIsExactlyTheRequestedSystemPupil(aiming: False, afocal: False)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.ZeroDefocusIsExactlyTheRequestedSystemPupil(aiming: False, afocal: True)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.ZeroDefocusIsExactlyTheRequestedSystemPupil(aiming: True, afocal: False)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.ZeroDefocusIsExactlyTheRequestedSystemPupil(aiming: True, afocal: True)",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.ZeroDefocusMatchesAllFrozenNativeFanKnotsAtCapturedSettings(lens: \"cooke-40-degree-field\", setting: \"edge-shortwave\")",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.ZeroDefocusMatchesAllFrozenNativeFanKnotsAtCapturedSettings(lens: \"cooke-40-degree-field\", setting: \"primary\")",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.ZeroDefocusMatchesAllFrozenNativeFanKnotsAtCapturedSettings(lens: \"double-gauss-28-degree-field\", setting: \"edge-shortwave\")",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.ZeroDefocusMatchesAllFrozenNativeFanKnotsAtCapturedSettings(lens: \"double-gauss-28-degree-field\", setting: \"primary\")",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.ZeroDefocusMatchesAllFrozenNativeFanKnotsAtCapturedSettings(lens: \"relay-lens\", setting: \"edge-shortwave\")",
+    "OptilandWorkbench.Tests.CalculationPathRepairTests.ZeroDefocusMatchesAllFrozenNativeFanKnotsAtCapturedSettings(lens: \"relay-lens\", setting: \"primary\")"
+  ],
+  "removedTests": [],
+  "addedPassing": 60,
+  "unchangedToolIdentities": true,
+  "debugReleaseMatricesEqual": true,
+  "coreBinaryHashes": {
+    "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll": "a08bc4770d4e42e3d0403c38d8919c8b2bd0184f2c2289242e668372f3f2f28a",
+    "tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll": "a08bc4770d4e42e3d0403c38d8919c8b2bd0184f2c2289242e668372f3f2f28a",
+    "tests/OptilandWorkbench.ZemaxComparison.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll": "a08bc4770d4e42e3d0403c38d8919c8b2bd0184f2c2289242e668372f3f2f28a",
+    "tools/diagnostics/CalculationPaths20261008/bin/Release/net10.0/OptilandWorkbench.Core.dll": "a08bc4770d4e42e3d0403c38d8919c8b2bd0184f2c2289242e668372f3f2f28a"
+  },
+  "baselineIntegrity": {
+    "scope": "Existing baseline integrity only, not new native numerical equality",
+    "total": 165,
+    "captured": 148,
+    "notCaptured": 17,
+    "screenshots": {
+      "captured-by-opticstudio-zpl": 106,
+      "rendered-from-zosapi-data": 42
+    },
+    "files": 1300,
+    "bytes": 216794423,
+    "sourceSha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b"
+  },
+  "productSourceHashes": {
+    "src/OptilandWorkbench.Core/Analysis/Wavefront/WavefrontAnalyses.cs": "2f04c13d042de518d0558a0353640c326e06fcaf98381984cfba31d9cc8a3a79",
+    "src/OptilandWorkbench.Core/Analysis/WavefrontEngine.cs": "166880f3cd86a910c0bed46fb7bb6d8f84669eb6a2362e492f9f0dde23ef8f7d",
+    "src/OptilandWorkbench.Core/Analysis/ReferenceSphereWavefrontAnalysis.cs": "1ca854e96ae266680ad2a9d1965d673535ed94ea4b76fcfc40e45ee83e750832",
+    "src/OptilandWorkbench.Core/Analysis/ReferenceSphereWavefrontEngine.cs": "8a0475049b82389b44c3b60dd05189a95271cdc7f40030c51aa206e194a32c47",
+    "src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs": "ff434c5a40281cda9bdd8c6d2b6ad0ef466e2c9eac4f57fdf297ba77441c45d2",
+    "src/OptilandWorkbench.Core/Analysis/JonesPupilEngine.cs": "1bc0bb2995bd1ff9a5a6cfe9d3b577833728abebe39045841a406231c58ed3f8",
+    "src/OptilandWorkbench.Core/Analysis/MtfScanAnalysis.cs": "0d2bc8f7a35d41935a2752c936010b7c659c0e58a1afc7ab1a877604f6facc24",
+    "src/OptilandWorkbench.Core/Analysis/Fields/FieldSweepAnalyses.cs": "541d8b3571c98587e42b0743ff4cf5f33281c0353464cda63ce3bec789228898",
+    "src/OptilandWorkbench.Core/Services/ZernikeMetrics.cs": "497441804b520cbc4db584c16869c93b51ecb6e1348bff9106113487dfb2eafe",
+    "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.cs": "b69b7e06b68496ded450e46c8a527ab83a2fc0af24543d4d82a720a090125d3e"
+  },
+  "nativeRecaptured": false,
+  "original132Reclassified": false,
+  "wordReportUpdated": false,
+  "wordLimitation": "Packaged DOCX renderer failed: no available LibreOffice on this Windows runtime; original Word file preserved"
+}

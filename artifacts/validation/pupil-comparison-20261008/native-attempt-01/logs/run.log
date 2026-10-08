@@ -1,0 +1,4 @@
+2026-10-08T04:22:54.5142973+00:00 zemax System.IO.DirectoryNotFoundException: ZOS-API not found. Specify --zos-api-path or ZOS_API_PATH.
+   at OptilandWorkbench.ZemaxComparison.Zemax.ZemaxExecutor.Locate(String supplied) in D:\optical system design\opticalsystem\tools\OptilandWorkbench.ZemaxComparison\Zemax\ZemaxExecutor.cs:line 28
+   at OptilandWorkbench.ZemaxComparison.ComparisonRunner.Run(ComparisonOptions options, CancellationToken ct) in D:\optical system design\opticalsystem\tools\OptilandWorkbench.ZemaxComparison\ComparisonRunner.cs:line 144
+2026-10-08T04:22:55.9478409+00:00 workbench Wavefront: 

@@ -462,8 +462,9 @@ public partial class WorkbenchRuntime
             {
                 IntParameter("FieldDensity", "视场间隔数", "15", 1, 200),
                 ChoiceParameter("ScanDirection", "扫描方向", "+y", new[] { "+y", "-y", "+x", "-x" }),
-                IntParameter("NumRings", "六角采样环数", "6", 1, 32),
+                IntParameter("NumRings", "光瞳采样（GQ 环数 / RA 每边点数）", "6", 1, 1024),
                 ChoiceParameter("Method", "计算方法", "GQ", new[] { "GQ", "RA" }),
+                IntParameter("GaussianAzimuthalSamples", "GQ 角向点数", "6", 1, 72),
                 ChoiceParameter("Data", "数据", "wavefront", new[] { "spot", "wavefront" }),
                 ChoiceParameter("Distribution", "瞳孔采样分布", "hexapolar", distributionChoices),
                 ChoiceParameter(
@@ -480,8 +481,9 @@ public partial class WorkbenchRuntime
             "RMS vs Wavelength" => new[]
             {
                 IntParameter("WaveDensity", "\u6ce2\u957f\u5bc6\u5ea6", "21", 2, 100),
-                IntParameter("NumRings", "\u5149\u7ebf\u5bc6\u5ea6", "6", 1, 32),
+                IntParameter("NumRings", "光瞳采样（GQ 环数 / RA 每边点数）", "6", 1, 1024),
                 ChoiceParameter("Method", "计算方法", "GQ", new[] { "GQ", "RA" }),
+                IntParameter("GaussianAzimuthalSamples", "GQ 角向点数", "6", 1, 72),
                 ChoiceParameter("Data", "数据", "spot", new[] { "spot", "wavefront" }),
                 ChoiceParameter("Distribution", "\u91c7\u6837\u65b9\u6cd5", "hexapolar", distributionChoices),
                 ChoiceParameter(
@@ -501,8 +503,9 @@ public partial class WorkbenchRuntime
                 IntParameter("FocusDensity", "\u79bb\u7126\u5bc6\u5ea6", "16", 2, 100),
                 DoubleParameter("MinimumFocus", "\u6700\u5c0f\u79bb\u7126", "-0.01", -1_000_000, 1_000_000, 0.001),
                 DoubleParameter("MaximumFocus", "\u6700\u5927\u79bb\u7126", "0.01", -1_000_000, 1_000_000, 0.001),
-                IntParameter("NumRings", "\u5149\u7ebf\u5bc6\u5ea6", "6", 1, 32),
+                IntParameter("NumRings", "光瞳采样（GQ 环数 / RA 每边点数）", "6", 1, 1024),
                 ChoiceParameter("Method", "计算方法", "GQ", new[] { "GQ", "RA" }),
+                IntParameter("GaussianAzimuthalSamples", "GQ 角向点数", "6", 1, 72),
                 ChoiceParameter("Data", "数据", "wavefront", new[] { "spot", "wavefront" }),
                 ChoiceParameter("Distribution", "\u91c7\u6837\u65b9\u6cd5", "hexapolar", distributionChoices),
                 ChoiceParameter(
@@ -522,8 +525,9 @@ public partial class WorkbenchRuntime
                 IntParameter("YFieldSamples", "Y\u89c6\u573a\u91c7\u6837", "11", 3, 101),
                 DoubleParameter("XFieldWidth", "X\u89c6\u573a\u5927\u5c0f", "0", 0, 1_000_000, 0.1),
                 DoubleParameter("YFieldWidth", "Y\u89c6\u573a\u5927\u5c0f", "0", 0, 1_000_000, 0.1),
-                IntParameter("NumRings", "\u5149\u7ebf\u5bc6\u5ea6", "6", 1, 32),
+                IntParameter("NumRings", "光瞳采样（GQ 环数 / RA 每边点数）", "6", 1, 1024),
                 ChoiceParameter("Method", "计算方法", "GQ", new[] { "GQ", "RA" }),
+                IntParameter("GaussianAzimuthalSamples", "GQ 角向点数", "6", 1, 72),
                 ChoiceParameter("Data", "数据", "spot", new[] { "spot", "wavefront" }),
                 ChoiceParameter("Distribution", "\u91c7\u6837\u65b9\u6cd5", "hexapolar", distributionChoices),
                 ChoiceParameter(
@@ -538,9 +542,10 @@ public partial class WorkbenchRuntime
             },
             "RMS Wavefront vs Field" => new[]
             {
-                IntParameter("RayDensity", "光线密度", "6", 1, 32),
+                IntParameter("RayDensity", "光瞳采样（GQ 环数 / RA 每边点数）", "6", 1, 1024),
                 IntParameter("FieldDensity", "视场密度", "15", 1, 200),
                 ChoiceParameter("Method", "计算方法", "GQ", new[] { "GQ", "RA" }),
+                IntParameter("GaussianAzimuthalSamples", "GQ 角向点数", "6", 1, 72),
                 ChoiceParameter("Reference", "参照", "chief", new[] { "chief", "centroid" }),
                 ChoiceParameter(
                     "WavelengthNumber",
@@ -549,7 +554,8 @@ public partial class WorkbenchRuntime
                     Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
                         .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
                 ChoiceParameter("ScanType", "视场方向", "+y", new[] { "+y", "+x", "-y", "-x" }),
-                BoolParameter("RemoveVignettingFactors", "移除渐晕因子", "true")
+                BoolParameter("RemoveVignettingFactors", "移除渐晕因子", "true"),
+                BoolParameter("UsePolarization", "使用偏振", "false")
             },
             "Zernike vs Field" => new[]
             {
@@ -760,9 +766,9 @@ public partial class WorkbenchRuntime
                 ChoiceParameter("Rotation", "旋转", "0", new[] { "0", "90", "180", "270" }),
                 DoubleParameter(
                     "ImageDeltaMicrometers",
-                    "像面采样间距",
+                    "像面间距（0 自动，负数不拉伸）",
                     "0",
-                    0,
+                    -1_000_000,
                     1_000_000,
                     0.1),
                 BoolParameter("UsePolarization", "偏振加权（标量近似，Experimental）", "false"),
@@ -1136,7 +1142,7 @@ public partial class WorkbenchRuntime
             },
             "Zernike Standard" => new[]
             {
-                IntParameter("NumRings", "六角采样环数", "15", 1, 32),
+                ChoiceParameter("PupilSampling", "瞳面采样", "32 x 32", new[] { "32 x 32", "64 x 64", "128 x 128", "256 x 256" }),
                 IntParameter("ZernikeTerms", "Zernike 拟合项数", "37", 1, 128),
                 ChoiceParameter(
                     "WavelengthNumber",
@@ -1157,7 +1163,7 @@ public partial class WorkbenchRuntime
             },
             "Zernike Annular" => new[]
             {
-                IntParameter("NumRings", "六角采样环数", "15", 1, 32),
+                ChoiceParameter("PupilSampling", "瞳面采样", "32 x 32", new[] { "32 x 32", "64 x 64", "128 x 128", "256 x 256" }),
                 IntParameter("ZernikeTerms", "Zernike 拟合项数", "37", 1, 128),
                 DoubleParameter("ObscurationRatio", "遮光", "0.5", 0, 0.95, 0.01),
                 ChoiceParameter(

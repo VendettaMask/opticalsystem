@@ -25,10 +25,30 @@ public sealed record WavefrontResult(
     bool ImageSpaceAfocal = false,
     double AfocalPupilDiameterMillimeters = 0)
 {
+    public bool? UseRayAiming { get; init; }
+    public (double Hx, double Hy)? SourceField { get; init; }
+    public double? SourceWavelengthNanometers { get; init; }
+    public double? SourceReferenceWavelengthNanometers { get; init; }
+    public PupilGridSpecification? PupilGrid { get; init; }
+    public WavefrontReferenceSphere? ReferenceSphere { get; init; }
+    // Datum of the existing scalar Huygens weighting convention. This is not
+    // a physical reference-sphere normal; keep that distinction explicit.
+    public Vector3D HuygensCoordinateOrigin { get; init; }
+
     public double Rms => Samples.Where(sample => sample.Intensity > 0)
         .Select(sample => sample.OpdWaves * sample.OpdWaves)
         .DefaultIfEmpty(0)
         .Average() is var mean ? Math.Sqrt(mean) : 0;
+}
+
+public sealed record PupilGridSpecification(
+    int SampleCount, bool CellCentered, bool ZemaxCentered, double Stretch)
+{
+    public double Coordinate(int index) => Stretch * (ZemaxCentered && SampleCount % 2 == 0
+        ? (index - SampleCount / 2.0) / Math.Max(1, SampleCount / 2.0 - 1)
+        : CellCentered
+            ? -1 + (2.0 * index + 1) / SampleCount
+            : -1 + 2.0 * index / (SampleCount - 1.0));
 }
 
 public sealed record WavefrontReferenceSphere(
@@ -43,10 +63,11 @@ public static class WavefrontEngine
         Optic optic,
         (double Hx, double Hy) field,
         Wavelength wavelength,
-        int numRings)
+        int numRings,
+        bool aimAtStop = false)
     {
         var pupilSamples = ApertureSampler.GenerateHexapolarRings(numRings);
-        return GenerateChiefRay(optic, field, wavelength, pupilSamples, aimAtStop: false);
+        return GenerateChiefRay(optic, field, wavelength, pupilSamples, aimAtStop);
     }
 
     public static WavefrontResult GenerateChiefRayUniform(
@@ -84,7 +105,10 @@ public static class WavefrontEngine
         }
 
         return GenerateChiefRay(optic, field, wavelength, pupilSamples, aimAtStop,
-            referenceWavelength: referenceWavelength);
+            referenceWavelength: referenceWavelength) with
+        {
+            PupilGrid = new(samplesAcrossPupil, cellCentered, zemaxCentered, pupilGridStretch)
+        };
     }
 
     private static double PupilGridCoordinate(
@@ -145,11 +169,7 @@ public static class WavefrontEngine
             wavelength.Micrometers,
             aimAtStop,
             resolvedRealImageLaunch);
-        if (usePolarization)
-        {
-            chiefBundle = WithPolarization(chiefBundle);
-        }
-        var chief = optic.SequentialRayTracer.TraceFinalSamples(chiefBundle).Single();
+        var chief = TraceFinalSamples(optic, chiefBundle, usePolarization).Single();
         if (chief is null)
         {
             throw new InvalidOperationException("Chief ray did not reach the image surface.");
@@ -190,11 +210,7 @@ public static class WavefrontEngine
             wavelength.Micrometers,
             aimAtStop,
             resolvedRealImageLaunch);
-        if (usePolarization)
-        {
-            chiefBundle = WithPolarization(chiefBundle);
-        }
-        var chief = optic.SequentialRayTracer.TraceFinalSamples(chiefBundle).Single();
+        var chief = TraceFinalSamples(optic, chiefBundle, usePolarization).Single();
         if (chief is null)
         {
             throw new InvalidOperationException("Chief ray did not reach the image surface.");
@@ -219,7 +235,8 @@ public static class WavefrontEngine
                 usePolarization,
                 chief,
                 imageIndex,
-                referenceChief);
+                referenceChief,
+                referenceWavelength?.Nanometers ?? wavelength.Nanometers);
         }
 
         var sphere = referenceSphere ?? CreateChiefRayReferenceSphere(
@@ -255,11 +272,7 @@ public static class WavefrontEngine
             pupilSamples,
             aimAtStop,
             resolvedRealImageLaunch);
-        if (usePolarization)
-        {
-            bundle = WithPolarization(bundle);
-        }
-        var finalSamples = optic.SequentialRayTracer.TraceFinalSamples(bundle);
+        var finalSamples = TraceFinalSamples(optic, bundle, usePolarization);
         var (ux, uy) = LaunchTiltDirection(optic, field, aimAtStop);
         var entrancePupilRadius = optic.Paraxial.EstimateEntrancePupilDiameter() / 2;
         var vignetting = optic.SequentialRayTracer.RayGenerator.GetPupilVignetting(field.Hx, field.Hy);
@@ -314,7 +327,16 @@ public static class WavefrontEngine
             referenceOpticalPath,
             vignetted,
             chief.Direction.Z,
-            imageIndex);
+            imageIndex)
+        {
+            UseRayAiming = aimAtStop,
+            SourceField = field,
+            SourceWavelengthNanometers = wavelength.Nanometers,
+            SourceReferenceWavelengthNanometers = referenceWavelength?.Nanometers ?? wavelength.Nanometers,
+            ReferenceSphere = sphere,
+            HuygensCoordinateOrigin = optic.SurfaceGroup.Items.Count > 1
+                ? optic.SurfaceGroup.Items[1].CoordinateSystem.Origin : Vector3D.Zero
+        };
     }
 
     private static WavefrontResult GenerateAfocalChiefRay(
@@ -327,7 +349,8 @@ public static class WavefrontEngine
         bool usePolarization,
         RayTraceSample chief,
         double imageIndex,
-        RayTraceSample referenceChief)
+        RayTraceSample referenceChief,
+        double referenceWavelengthNanometers)
     {
         var chiefDirection = Normalize(referenceChief.Direction);
         var referenceOpticalPath = chief.CumulativeOpticalPathLength
@@ -339,12 +362,7 @@ public static class WavefrontEngine
             pupilSamples,
             aimAtStop,
             resolvedRealImageLaunch);
-        if (usePolarization)
-        {
-            bundle = WithPolarization(bundle);
-        }
-
-        var finalSamples = optic.SequentialRayTracer.TraceFinalSamples(bundle);
+        var finalSamples = TraceFinalSamples(optic, bundle, usePolarization);
         var (ux, uy) = LaunchTiltDirection(optic, field, aimAtStop);
         var entrancePupilRadius = optic.Paraxial.EstimateEntrancePupilDiameter() / 2;
         var vignetting = optic.SequentialRayTracer.RayGenerator.GetPupilVignetting(field.Hx, field.Hy);
@@ -399,15 +417,31 @@ public static class WavefrontEngine
             imageIndex,
             ImageSpaceAfocal: true,
             AfocalPupilDiameterMillimeters:
-                ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(optic));
+                ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(optic))
+        {
+            UseRayAiming = aimAtStop,
+            SourceField = field,
+            SourceWavelengthNanometers = wavelength.Nanometers,
+            SourceReferenceWavelengthNanometers = referenceWavelengthNanometers
+        };
     }
 
-    private static RealRayBundle WithPolarization(RealRayBundle bundle)
+    private static IReadOnlyList<RayTraceSample?> TraceFinalSamples(Optic optic, RealRayBundle bundle, bool usePolarization)
     {
-        return new RealRayBundle(bundle.Rays.Select(ray => ray with
+        if (!usePolarization) return optic.SequentialRayTracer.TraceFinalSamples(bundle);
+        if (bundle.Rays.Count > SequentialTraceLimits.MaximumRayCount)
+            throw new ArgumentOutOfRangeException(nameof(bundle), "Polarized wavefront exceeds the sequential ray-count safety budget.");
+        // Use the same formal Jones-chain power transport as polarized spot metrics.
+        // Diagnostic continuation is never accepted outside an actual physical aperture.
+        // Coating attenuation is included exactly once; the obsolete real matrix marker
+        // did not provide Fresnel power or the system's Jones input.
+        return bundle.Rays.Select(ray =>
         {
-            PolarizationMatrix = Matrix3x3.Identity
-        }));
+            var diagnostic = optic.SequentialRayTracer.DiagnoseApertures(ray, usePolarization: true);
+            return diagnostic.InsideAllApertures && diagnostic.UnclippedImage is { } image
+                && diagnostic.PolarizationWeightedIntensity is { } intensity
+                ? image with { Intensity = intensity } : null;
+        }).ToArray();
     }
 
     internal static double EntrancePupilPhasePath(

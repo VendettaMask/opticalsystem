@@ -20,6 +20,7 @@ public sealed record ReferenceSphereWavefrontResult(
     double MeanReferenceOpticalPath,
     int VignettedRayCount)
 {
+    public bool UseRayAiming { get; init; }
     public double Rms => Samples.Where(sample => sample.Intensity > 0)
         .Select(sample => sample.OpdWaves * sample.OpdWaves)
         .DefaultIfEmpty(0)
@@ -57,13 +58,14 @@ public static class ReferenceSphereWavefrontEngine
             field.Hx,
             field.Hy,
             wavelength.Micrometers,
-            pupilSamples);
+            pupilSamples,
+            aimAtStop: optic.RayAimingEnabled);
         using var trace = optic.SequentialRayTracer.Trace(bundle, TraceRequest.FinalOnly(false));
         var finalSurfaceIndex = optic.SurfaceGroup.Items.Count - 1;
         var finalSamples = trace.GetSurfaceSamples(finalSurfaceIndex);
         var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter
             .RefractiveIndex(wavelength.Nanometers);
-        var (ux, uy) = WavefrontEngine.LaunchTiltDirection(optic, field);
+        var (ux, uy) = WavefrontEngine.LaunchTiltDirection(optic, field, optic.RayAimingEnabled);
         var entrancePupilRadius = optic.Paraxial.EstimateEntrancePupilDiameter() / 2;
         var vignetting = optic.SequentialRayTracer.RayGenerator.GetPupilVignetting(field.Hx, field.Hy);
         var rays = new List<PreparedRay>(pupilSamples.Count);
@@ -129,7 +131,7 @@ public static class ReferenceSphereWavefrontEngine
             sphere.CenterZ,
             sphere.Radius,
             meanReferencePath,
-            pupilSamples.Count - valid.Length);
+            pupilSamples.Count - valid.Length) { UseRayAiming = optic.RayAimingEnabled };
     }
 
     private static Sphere CentroidSphere(

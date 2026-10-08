@@ -20,6 +20,7 @@ public sealed class PsfAnalysis : BaseAnalysis
     private readonly bool _normalize;
     private readonly bool _zemaxCompatible;
     private readonly bool _ignoreOpd;
+    private readonly int? _displaySize;
 
     public PsfAnalysis(
         Optic optic,
@@ -35,14 +36,17 @@ public sealed class PsfAnalysis : BaseAnalysis
         bool usePolarization = false,
         bool normalize = false,
         bool zemaxCompatible = false,
-        bool ignoreOpd = false) : base(optic)
+        bool ignoreOpd = false,
+        int? displaySize = null) : base(optic)
     {
         _requestedRays = Math.Max(2, numRays);
         _gridSize = gridSize;
         _wavelengthNumber = Math.Max(-1, wavelengthNumber);
         _fieldNumber = Math.Max(0, fieldNumber);
         _surfaceNumber = surfaceNumber;
-        _imageDeltaMicrometers = Math.Max(0, imageDeltaMicrometers);
+        if (!double.IsFinite(imageDeltaMicrometers) || (!zemaxCompatible && imageDeltaMicrometers < 0))
+            throw new ArgumentOutOfRangeException(nameof(imageDeltaMicrometers));
+        _imageDeltaMicrometers = imageDeltaMicrometers;
         _rotationDegrees = rotationDegrees;
         _type = type;
         _displayAs = displayAs;
@@ -50,6 +54,8 @@ public sealed class PsfAnalysis : BaseAnalysis
         _normalize = normalize;
         _zemaxCompatible = zemaxCompatible;
         _ignoreOpd = ignoreOpd;
+        if (displaySize is < 2) throw new ArgumentOutOfRangeException(nameof(displaySize));
+        _displaySize = displaySize;
     }
 
     public override string Name => "PSF";
@@ -81,10 +87,10 @@ public sealed class PsfAnalysis : BaseAnalysis
             : _fieldNumber <= 0
                 ? allFields[^1]
                 : allFields[Math.Clamp(_fieldNumber - 1, 0, allFields.Count - 1)];
-        var pupilSampling = _gridSize.HasValue
-            ? _requestedRays
-            : (int)Math.Floor(32 * Math.Pow(2, (Math.Log2(_requestedRays) - 5) / 2));
+        var pupilSampling = _requestedRays;
         var gridSize = Math.Max(pupilSampling, _gridSize ?? (_requestedRays * 2));
+        var displaySize = Math.Min(gridSize, _displaySize ?? gridSize);
+        var displayOffset = (gridSize - displaySize) / 2;
         var results = wavelengths
             .Select(wavelength => (
                 Wavelength: wavelength,
@@ -156,13 +162,13 @@ public sealed class PsfAnalysis : BaseAnalysis
 
         var logarithmic = _type.Contains("对数", StringComparison.Ordinal)
             || _type.Contains("log", StringComparison.OrdinalIgnoreCase);
-        var xExtent = gridSize * sampleSpacing;
-        var yExtent = gridSize * sampleSpacing;
-        var points = new List<AnalysisPoint>(gridSize * gridSize);
-        for (var row = 0; row < gridSize; row++)
+        var xExtent = displaySize * sampleSpacing;
+        var yExtent = displaySize * sampleSpacing;
+        var points = new List<AnalysisPoint>(displaySize * displaySize);
+        for (var row = displayOffset; row < displayOffset + displaySize; row++)
         {
             var y = Coordinate(row, gridSize, sampleSpacing);
-            for (var column = 0; column < gridSize; column++)
+            for (var column = displayOffset; column < displayOffset + displaySize; column++)
             {
                 var value = values[row, column];
                 points.Add(new AnalysisPoint(
@@ -196,6 +202,12 @@ public sealed class PsfAnalysis : BaseAnalysis
             ["Method"] = "FFT",
             ["PupilSampling"] = pupilSampling,
             ["GridSize"] = gridSize,
+            ["DisplaySize"] = displaySize,
+            ["RequestedDisplaySize"] = _displaySize ?? gridSize,
+            ["RequestedImageDelta"] = _imageDeltaMicrometers,
+            ["PupilGridStretch"] = results.Select(item => item.Result.PupilGridStretch).ToArray(),
+            ["UseRayAiming"] = results.Select(item => item.Result.UseRayAiming).ToArray(),
+            ["StopAimingFallbackUsed"] = results.Any(item => item.Result.StopAimingFallbackUsed),
             ["ImageDeltaMicrometers"] = afocalImageSpace ? 0 : sampleSpacing,
             ["ImageDeltaMilliradians"] = afocalImageSpace ? sampleSpacing : 0,
             ["ImageSpaceAfocal"] = afocalImageSpace,
