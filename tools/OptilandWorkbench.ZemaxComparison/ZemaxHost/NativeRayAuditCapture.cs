@@ -24,6 +24,16 @@ internal static class NativeRayAuditCapture
         try
         {
             if (Convert.ToBoolean(Host.Request["removeVignettingFactors"])) fields.ClearVignetting();
+            system.UpdateStatus();
+            // Newly exported prescriptions may not carry saved pupil caches.
+            // Ask native OpticStudio to calculate the system before querying
+            // direct launch coordinates or opening normalized ray batches.
+            var entrancePupilDiameter = system.MFE.GetOperandValue(ZOSAPI.Editors.MFE.MeritOperandType.EPDI,
+                0, 0, 0, 0, 0, 0, 0, 0);
+            var entrancePupilPosition = system.MFE.GetOperandValue(ZOSAPI.Editors.MFE.MeritOperandType.ENPP,
+                0, 0, 0, 0, 0, 0, 0, 0);
+            if (double.IsNaN(entrancePupilDiameter) || double.IsInfinity(entrancePupilDiameter) || entrancePupilDiameter == 0)
+                throw new InvalidOperationException("Native system did not calculate a nonzero entrance pupil; ray audit cannot certify its launch coordinates.");
             var state = Enumerable.Range(1, fields.NumberOfFields)
                 .Select(i => Host.Object("number", i, "data", Host.Properties(fields.GetField(i)))).ToArray();
             tool = system.Tools.OpenBatchRayTrace();
@@ -65,6 +75,8 @@ internal static class NativeRayAuditCapture
             Host.Write("ray-audit.json", Host.Object("semantics",
                 "Explicit normalized real-ray batch; aperture vignette and propagation error remain separate. Diagnostic continuation is never physical acceptance.",
                 "wavelength", Host.Int("wavelength"), "removeVignettingFactors", Host.Request["removeVignettingFactors"],
+                "entrancePupilDiameter", Host.Finite(entrancePupilDiameter),
+                "entrancePupilPosition", Host.Finite(entrancePupilPosition),
                 "fields", state, "rayAiming", Host.Properties(system.SystemData.RayAiming),
                 "inputs", inputs, "launches", launches, "surfaces", surfaces));
         }

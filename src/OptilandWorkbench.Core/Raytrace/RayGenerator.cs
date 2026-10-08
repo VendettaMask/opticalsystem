@@ -1172,11 +1172,13 @@ public sealed partial class RayGenerator
         }
 
         var maxField = MaximumField();
-        // Native normalized rays interpolate positive Y-field factors in squared
-        // radial field distance. General field tables retain nearest-row selection.
-        if (maxField > 1e-15 && _optic.Fields.All(field => field.X == 0 && field.Y >= 0))
+        // Native captures certify squared radial interpolation for one-sided
+        // Y tables in either direction. Mixed-sign tables use nearest-row selection,
+        // including symmetric opposite rows with different vignetting factors.
+        if (maxField > 1e-15 && _optic.Fields.All(field => field.X == 0)
+            && (_optic.Fields.All(field => field.Y >= 0) || _optic.Fields.All(field => field.Y <= 0)))
         {
-            var ordered = _optic.Fields.OrderBy(field => field.Y).ToArray();
+            var ordered = _optic.Fields.OrderBy(field => Math.Abs(field.Y)).ToArray();
             if (ordered.Select(field => field.Y).Distinct().Count() == ordered.Length)
             {
                 var radiusSquared = (normalizedFieldX * normalizedFieldX + normalizedFieldY * normalizedFieldY)
@@ -1200,13 +1202,16 @@ public sealed partial class RayGenerator
                 return PupilVignetting.FromField(ordered[^1]);
             }
         }
+        // Compare in field-definition units. Normalizing each row separately
+        // can break an exact midpoint tie (e.g. -17.5 between -25 and -10)
+        // through rounding and select a different row from native tracing.
+        var actualX = maxField <= 1e-15 ? normalizedFieldX : normalizedFieldX * maxField;
+        var actualY = maxField <= 1e-15 ? normalizedFieldY : normalizedFieldY * maxField;
         var nearest = _optic.Fields
             .Select((field, index) =>
             {
-                var x = maxField <= 1e-15 ? field.X : field.X / maxField;
-                var y = maxField <= 1e-15 ? field.Y : field.Y / maxField;
-                var dx = x - normalizedFieldX;
-                var dy = y - normalizedFieldY;
+                var dx = field.X - actualX;
+                var dy = field.Y - actualY;
                 return (Field: field, Index: index, Distance: (dx * dx) + (dy * dy));
             })
             .OrderBy(candidate => candidate.Distance)

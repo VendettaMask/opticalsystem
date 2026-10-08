@@ -300,10 +300,18 @@ public sealed class AuditReliabilityFixTests
             started.SetResult();
             return ImageSimulationEngine.SpatiallyVariableConvolution(source, [], new double[0, 384, 384], kernel);
         }, CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
-        await started.Task.WaitAsync(TimeSpan.FromSeconds(5));
-        await Task.Delay(20);
-        Assert.False(pending.IsCompleted);
-        cancellation.Cancel();
+        // Run cancellation on a dedicated worker. Under the full suite a delayed
+        // test continuation can resume after convolution finishes, even though
+        // its nominal delay was only 20 ms. That did not test cancellation.
+        var cancelDuringWork = Task.Factory.StartNew(() =>
+        {
+            started.Task.WaitAsync(TimeSpan.FromSeconds(5)).GetAwaiter().GetResult();
+            Thread.Sleep(20);
+            var wasComputing = !pending.IsCompleted;
+            cancellation.Cancel();
+            return wasComputing;
+        }, CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+        Assert.True(await cancelDuringWork);
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => pending.WaitAsync(TimeSpan.FromSeconds(2)));
     }
 

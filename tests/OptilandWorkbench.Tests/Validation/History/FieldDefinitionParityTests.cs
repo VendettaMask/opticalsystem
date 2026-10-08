@@ -2,6 +2,7 @@ using System.Text.Json;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Apertures;
+using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Rays;
 using OptilandWorkbench.Core.Raytrace;
@@ -45,11 +46,38 @@ public sealed class FieldDefinitionParityTests
             var genericRay = optic.SequentialRayTracer.RayGenerator
                 .GenerateGeneric(hx, hy, px, py, wavelength)
                 .Rays.Single();
-            AssertRay(expectedCase.GetProperty("initial_generic_ray"), genericRay, name);
-
             var final = optic.TraceGeneric(hx, hy, px, py, wavelength)
                 .RayHistories.Single()[^1];
-            AssertSample(expectedCase.GetProperty("final_generic_ray"), final, name);
+            if (name.StartsWith("finite_", StringComparison.Ordinal))
+            {
+                // Historical finite generic launches applied compression twice:
+                // its pupil point is (.64, -.676), instead of (.8, -1.04).
+                // Keep the frozen bytes and propagation reference. Certify the
+                // product's normalized input against the physical pupil boundary,
+                // also covered by native finite-Tessar launches in SignedVignettingParityTests.
+                AssertRay(expectedCase.GetProperty("initial_distribution_ray"), genericRay, name + ":single-vignetting");
+                if (!optic.ObjectSpaceTelecentric)
+                {
+                    var pupil = genericRay.Origin + genericRay.Direction * ((100 - genericRay.Origin.Z) / genericRay.Direction.Z);
+                    AssertClose(4 * px * (1 - .2), pupil.X, name + ":pupil-x");
+                    AssertClose(4 * py * (1 - .35), pupil.Y, name + ":pupil-y");
+                }
+                var old = expectedCase.GetProperty("initial_generic_ray");
+                var historicalLaunch = new RealRay(
+                    new Vector3D(old.GetProperty("x").GetDouble(), old.GetProperty("y").GetDouble(), old.GetProperty("z").GetDouble()),
+                    new Vector3D(old.GetProperty("l").GetDouble(), old.GetProperty("m").GetDouble(), old.GetProperty("n").GetDouble()),
+                    wavelength * 1000);
+                var historicalFinal = optic.SequentialRayTracer.Trace(new RealRayBundle([historicalLaunch])).RayHistories.Single()[^1];
+                AssertSample(expectedCase.GetProperty("final_generic_ray"), historicalFinal, name + ":unchanged-historical-launch");
+                var distributionFinal = optic.SequentialRayTracer.Trace(new RealRayBundle([distributionRay])).RayHistories.Single()[^1];
+                Assert.Equal(distributionFinal.Position, final.Position);
+                Assert.Equal(distributionFinal.Direction, final.Direction);
+            }
+            else
+            {
+                AssertRay(expectedCase.GetProperty("initial_generic_ray"), genericRay, name);
+                AssertSample(expectedCase.GetProperty("final_generic_ray"), final, name);
+            }
         }
     }
 

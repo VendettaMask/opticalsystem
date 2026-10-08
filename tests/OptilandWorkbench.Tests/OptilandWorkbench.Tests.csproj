@@ -28,6 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\validation\zemax\2026-r1\signed-vignetting-2026-10-08\**\*"
+          Link="Validation\Zemax\SignedVignetting\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\validation\zemax\2026-r1\tessar-vignetting-2026-10-06\**\*"
           Link="Validation\Zemax\TessarVignetting\%(RecursiveDir)%(Filename)%(Extension)"
           CopyToOutputDirectory="PreserveNewest" />

@@ -1,7 +1,10 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Media;
 using Avalonia.Styling;
+using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
 using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.App.Services;
@@ -112,55 +115,110 @@ public sealed class HeadlessTestApplication : Avalonia.Application
 public sealed class SafeHeadlessUnitTestSession : IDisposable
 {
     private readonly HeadlessUnitTestSession _inner;
+    private readonly BlockingCollection<(Action, ExecutionContext?)> _queue;
+    private readonly CancellationTokenSource _cancellation;
+    private int _disposed;
 
-    private SafeHeadlessUnitTestSession(HeadlessUnitTestSession inner)
+    private SafeHeadlessUnitTestSession(HeadlessUnitTestSession inner,
+        BlockingCollection<(Action, ExecutionContext?)> queue, CancellationTokenSource cancellation)
     {
         _inner = inner;
+        _queue = queue;
+        _cancellation = cancellation;
     }
 
-    public static SafeHeadlessUnitTestSession StartNew(Type applicationType) =>
-        new(HeadlessUnitTestSession.StartNew(applicationType));
+    public static SafeHeadlessUnitTestSession StartNew(Type applicationType)
+    {
+        var cancellation = new CancellationTokenSource();
+        var queue = new BlockingCollection<(Action, ExecutionContext?)>();
+        var started = new TaskCompletionSource<HeadlessUnitTestSession>(TaskCreationOptions.RunContinuationsAsynchronously);
+        // Avalonia 12.1.0 publishes its session from Task.Run before the captured
+        // worker task is necessarily assigned. Construct the task before starting
+        // it so Dispose always joins the real worker. Dispatch and application
+        // isolation still use Avalonia's implementation; teardown failures propagate.
+        Task? worker = null;
+        worker = new Task(() =>
+        {
+            try
+            {
+                var builder = ConfigureApplication(null, applicationType);
+                if (builder.WindowingSubsystemName != "Headless")
+                    builder.UseHeadless(new AvaloniaHeadlessPlatformOptions());
+                if (builder.TextShapingSubsystemInitializer is null)
+                    builder.UseHarfBuzz();
+                started.SetResult(CreateSession(builder, cancellation, queue, worker!, true));
+                // CompleteAdding can race with a blocked consumer during disposal.
+                // The consuming enumerable treats queue completion as normal shutdown.
+                foreach (var (action, context) in queue.GetConsumingEnumerable(cancellation.Token))
+                {
+                    if (context is null) action();
+                    else ExecutionContext.Run(context, state => ((Action)state!).Invoke(), action);
+                }
+            }
+            catch (OperationCanceledException) when (cancellation.IsCancellationRequested) { }
+            catch (Exception exception)
+            {
+                started.TrySetException(exception);
+                throw;
+            }
+        }, CancellationToken.None, TaskCreationOptions.LongRunning);
+        worker.Start(TaskScheduler.Default);
+        try
+        {
+            return new(started.Task.GetAwaiter().GetResult(), queue, cancellation);
+        }
+        catch
+        {
+            try { worker.GetAwaiter().GetResult(); }
+            finally { queue.Dispose(); cancellation.Dispose(); }
+            throw;
+        }
+    }
+
+    // Bound to the pinned Avalonia.Headless 12.1.0 constructor. A dependency
+    // signature change fails explicitly rather than weakening exception checks.
+    [UnsafeAccessor(UnsafeAccessorKind.Constructor)]
+    private static extern HeadlessUnitTestSession CreateSession(Avalonia.AppBuilder builder,
+        CancellationTokenSource cancellation, BlockingCollection<(Action, ExecutionContext?)> queue,
+        Task worker, bool isolated);
+
+    [UnsafeAccessor(UnsafeAccessorKind.StaticMethod, Name = "Configure")]
+    private static extern AppBuilder ConfigureApplication(AppBuilder? _, Type applicationType);
 
     public Task Dispatch(Action action, CancellationToken cancellationToken) =>
-        _inner.Dispatch(action, cancellationToken);
+        CompleteOffWorker(_inner.Dispatch(() => { action(); return true; }, cancellationToken));
 
     public Task Dispatch(Func<Task> action, CancellationToken cancellationToken) =>
-        _inner.Dispatch<bool>(async () => { await action(); return true; }, cancellationToken);
+        CompleteOffWorker(_inner.Dispatch<bool>(async () => { await action(); return true; }, cancellationToken));
 
     public Task<T> Dispatch<T>(Func<Task<T>> action, CancellationToken cancellationToken) =>
-        _inner.Dispatch<T>(action, cancellationToken);
+        CompleteOffWorker(_inner.Dispatch<T>(action, cancellationToken));
+
+    private static Task<T> CompleteOffWorker<T>(Task<T> task)
+    {
+        // A test continuation can close the session. It must not run inline on
+        // the worker it will join during Dispose.
+        var completion = new TaskCompletionSource<T>(TaskCreationOptions.RunContinuationsAsynchronously);
+        _ = task.ContinueWith(completed =>
+        {
+            if (completed.IsCanceled) completion.TrySetCanceled();
+            else if (completed.IsFaulted) completion.TrySetException(completed.Exception!.InnerExceptions);
+            else completion.TrySetResult(completed.Result);
+        }, CancellationToken.None, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
+        return completion.Task;
+    }
 
     public void Dispose()
     {
+        if (Interlocked.Exchange(ref _disposed, 1) != 0) return;
         try
         {
             _inner.Dispose();
         }
-        catch (NullReferenceException exception) when (IsHeadlessDisposeNullReference(exception))
+        finally
         {
-            // Avalonia.Headless can occasionally throw after the test body has
-            // completed while tearing down its own session state. Keep product
-            // assertions meaningful and do not hide NullReferenceException from
-            // test bodies or application code.
+            _queue.Dispose();
+            _cancellation.Dispose();
         }
-        catch (AggregateException exception) when (IsHeadlessQueueCompletion(exception))
-        {
-            // Only the headless worker's completed-queue teardown race is ignored.
-            // Exceptions from product code or dispatched test bodies still propagate.
-        }
-    }
-
-    private static bool IsHeadlessDisposeNullReference(Exception exception) =>
-        exception.StackTrace?.Contains(
-            "Avalonia.Headless.HeadlessUnitTestSession.Dispose",
-            StringComparison.Ordinal) == true;
-
-    private static bool IsHeadlessQueueCompletion(AggregateException exception)
-    {
-        var failures = exception.Flatten().InnerExceptions;
-        return failures.Count > 0 && failures.All(failure => failure is InvalidOperationException
-            && failure.StackTrace?.Contains("System.Collections.Concurrent.BlockingCollection`1.Take", StringComparison.Ordinal) == true
-            && failure.StackTrace.Contains("Avalonia.Headless.HeadlessUnitTestSession", StringComparison.Ordinal)
-            && !failure.StackTrace.Contains("OptilandWorkbench", StringComparison.Ordinal));
     }
 }
