@@ -269,10 +269,16 @@ public sealed class PsfAnalysis : BaseAnalysis
     {
         var column = (x / source.SampleSpacingMicrometers) + (source.GridSize / 2);
         var row = (y / source.SampleSpacingMicrometers) + (source.GridSize / 2);
-        if (column < 0 || row < 0 || column > source.GridSize || row > source.GridSize)
+        // A separately computed physical pitch can round the Nyquist endpoint
+        // just outside the grid. Retain that endpoint without wrapping exterior data.
+        var roundoff = 1e-12 * source.GridSize;
+        if (column < -roundoff || row < -roundoff
+            || column > source.GridSize + roundoff || row > source.GridSize + roundoff)
         {
             return 0;
         }
+        column = Math.Clamp(column, 0, source.GridSize);
+        row = Math.Clamp(row, 0, source.GridSize);
 
         // The positive Nyquist boundary is the same Fourier sample as the
         // negative boundary. Preserve it when presenting Zemax's even grid.

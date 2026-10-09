@@ -1,0 +1,311 @@
+{
+  "date": "2026-10-09",
+  "baseHead": "12a853105e68e31ebc662ce46bcb01f9d76ccc32",
+  "gitState": "Working tree changes; not committed or pushed",
+  "scope": "Confirmed scalar FFT phase construction and Nyquist roundoff repair; N01/N02 numerical closure remains open",
+  "builds": {
+    "release": {
+      "path": "artifacts/validation/n02-layer-diagnosis-20261009/build-release-final.log",
+      "sha256": "e1750f363f73f257ae19287c49274ba56fd94bbbb935144517e4cd3fb0279dc8",
+      "warnings": 0,
+      "errors": 0,
+      "defaultOutput": true
+    },
+    "debug": {
+      "path": "artifacts/validation/n02-layer-diagnosis-20261009/build-debug-final.log",
+      "sha256": "6bb0ba9fcec9cb09efb3046cc35b633fb7ac67faf45d4295b03f11871a9a52f0",
+      "warnings": 0,
+      "errors": 0,
+      "defaultOutput": true
+    }
+  },
+  "beforeNativeInput": {
+    "path": "artifacts/validation/n02-layer-diagnosis-20261009/before/before.trx",
+    "sha256": "8827ca3e01346d94162aa3857020b9fb5dec8061f6c5138e7709431284f22ab8",
+    "total": 5,
+    "passed": 1,
+    "failed": 4,
+    "skipped": 0,
+    "start": "2026-10-09T20:45:23.6015029+08:00",
+    "finish": "2026-10-09T20:45:27.9293763+08:00"
+  },
+  "beforeNyquistBoundary": {
+    "path": "artifacts/validation/n02-layer-diagnosis-20261009/before-boundary/before-boundary.trx",
+    "sha256": "17b7961aa20c9ec6bdf28b1af97017b6f440d524feb2da78e87cb9565ce5b733",
+    "total": 2,
+    "passed": 1,
+    "failed": 1,
+    "skipped": 0,
+    "start": "2026-10-09T20:53:12.4622773+08:00",
+    "finish": "2026-10-09T20:53:13.4322796+08:00"
+  },
+  "formalRelease": {
+    "path": "artifacts/validation/n02-layer-diagnosis-20261009/formal-release/formal-release.trx",
+    "sha256": "8c251459bd167a0446ca6211d05b68b79d51b0b3fcec9d184ca8e8eee5b2e83d",
+    "total": 4546,
+    "passed": 4546,
+    "failed": 0,
+    "skipped": 0,
+    "start": "2026-10-09T20:56:40.4215810+08:00",
+    "finish": "2026-10-09T21:06:56.4251091+08:00"
+  },
+  "debugTargeted": {
+    "path": "artifacts/validation/n02-layer-diagnosis-20261009/targeted-debug-final/targeted-debug-final.trx",
+    "sha256": "dcb798849bb128370890b7990d0c647cb095dc6ef8a29188028ca8901cf45a8e",
+    "total": 77,
+    "passed": 77,
+    "failed": 0,
+    "skipped": 0,
+    "start": "2026-10-09T21:12:08.9806459+08:00",
+    "finish": "2026-10-09T21:15:49.0744766+08:00"
+  },
+  "comparisonRelease": {
+    "path": "artifacts/validation/n02-layer-diagnosis-20261009/comparison-release/comparison-release.trx",
+    "sha256": "94317b3a52a8d45a4c747c5c330b25e7ef724a7ed644fd89de00c8a288e974ae",
+    "total": 180,
+    "passed": 179,
+    "failed": 1,
+    "skipped": 0,
+    "start": "2026-10-09T21:08:33.0219792+08:00",
+    "finish": "2026-10-09T21:11:19.4904977+08:00"
+  },
+  "formalRetention": {
+    "previousTotal": 4539,
+    "currentTotal": 4546,
+    "identityOrOccurrenceDifference": 0,
+    "added": [
+      "3a8697bc-1450-3443-e6cb-e2536c45d002|OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(name: \"ms-l7-64\", sampling: 64)",
+      "3bf82e64-94a4-5eb6-2052-6fc5482ded0b|OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(name: \"ms-l7-32\", sampling: 32)",
+      "4b9443a5-70e4-ce88-877a-452f4a429b8d|OptilandWorkbench.Tests.FftPupilPhaseParityTests.FourierBoundarySamplingRetainsRoundoffAtEitherNyquistEdge",
+      "59b843ff-ae56-9f99-44cb-bac8989589f0|OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(name: \"cooke-32\", sampling: 32)",
+      "704985ec-e7f0-f18c-9068-e20f49eadd18|OptilandWorkbench.Tests.FftPupilPhaseParityTests.NewRawCaptureManifestPreservesAllNativeChannels",
+      "96143b05-c917-74c7-8e3b-bcce73e76598|OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(name: \"tessar-32\", sampling: 32)",
+      "f1fa368e-05cc-f522-47bd-3ab8d7aa731d|OptilandWorkbench.Tests.FftPupilPhaseParityTests.FourierBoundarySamplingStillRejectsCoordinatesOutsideTheGrid"
+    ]
+  },
+  "releaseRelatedSubset": {
+    "count": 77,
+    "passed": 77,
+    "source": "Subset of final full Release; not an additional run"
+  },
+  "comparisonRetention": {
+    "total": 180,
+    "identityDifference": 0,
+    "previousFailures": 2,
+    "currentFailures": 1,
+    "remainingFailureDetailsUnchanged": true,
+    "failures": [
+      {
+        "testId": "3d79df52-fee1-53ce-ac36-d4fa7b8458f4",
+        "name": "OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: \"Huygens PSF Cross Section\", slug: \"huygens-psf-cross-section\", recordedNrmse: 0.0037256669899999998)",
+        "error": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.0037256669899999998)\r\nActual: 0.0037256670590166724",
+        "stdout": "Huygens PSF Cross Section/curve:0: max=0.005391581588203756, NRMSE=0.0037256670590166724, Close"
+      }
+    ]
+  },
+  "frozenIntegrity": {
+    "count": 2668,
+    "beforeSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "afterSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true,
+    "definition": "Tracked preexisting validation/*, artifacts/zemax/*, formal Fixtures/* and *comparison-settings.json; ordinal paths; lowercase path=sha256; UTF8 CRLF joined with terminal CRLF"
+  },
+  "newRawCaptureIntegrity": {
+    "count": 165,
+    "bytes": 4042581,
+    "verified": true,
+    "manifests": [
+      {
+        "path": "validation/zemax/2026-r1/fft-pupil-phase-2026-10-09/manifest.json",
+        "sha256": "94f5d7ca26f3e65328fc018de8f4e13cdfa96346cf2f872cb57d64ff0f49ad44",
+        "rawFiles": 76
+      },
+      {
+        "path": "validation/zemax/2026-r1/n02-energy-layer-controls-2026-10-09/manifest.json",
+        "sha256": "f1d3ef2d266b54cc2139d9fe9e30ac31ff520b16ae7225028b35759f4b636792",
+        "rawFiles": 49
+      },
+      {
+        "path": "validation/zemax/2026-r1/huygens-method-controls-2026-10-09/manifest.json",
+        "sha256": "f30bc6b431a681dc8c7d6bdcf83e5e2acdd8bee79c5050e912e30b846f033d55",
+        "rawFiles": 40
+      }
+    ]
+  },
+  "sourceHashes": [
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs",
+      "sha256": "dbe979e7b30e7f2b4f3ca870d3183cb983940b72a8cbae053e1b643861153ca2"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs",
+      "sha256": "35dcfcd578c526380131ed7520a5e1e311f47962b013d52cbd1f32367b17848c"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/FftPupilPhaseParityTests.cs",
+      "sha256": "2cab5ba6c397690d95758d53df02f964e69b622c0e031d46c90327c5776773ef"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj",
+      "sha256": "e5bc54b243651219a86c49292f31f9677d0837b833a942a9c7fcae937eb58664"
+    }
+  ],
+  "defaultCoreCopies": [
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "6ae4e2aa1959766a32d26e8c8ca96306f2a5b3e62a5fb6533ed11ad405a4af60"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "6ae4e2aa1959766a32d26e8c8ca96306f2a5b3e62a5fb6533ed11ad405a4af60"
+    },
+    {
+      "path": "tests/OptilandWorkbench.ZemaxComparison.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "6ae4e2aa1959766a32d26e8c8ca96306f2a5b3e62a5fb6533ed11ad405a4af60"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "6ae4e2aa1959766a32d26e8c8ca96306f2a5b3e62a5fb6533ed11ad405a4af60"
+    },
+    {
+      "path": "tools/diagnostics/N02Layers20261009/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "6ae4e2aa1959766a32d26e8c8ca96306f2a5b3e62a5fb6533ed11ad405a4af60"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "91c0c936167e880332e327fe836ebe18f03cd26bcfa576a261ea3cd229c0f751"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "91c0c936167e880332e327fe836ebe18f03cd26bcfa576a261ea3cd229c0f751"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "91c0c936167e880332e327fe836ebe18f03cd26bcfa576a261ea3cd229c0f751"
+    }
+  ],
+  "preparedNativeInputControls": [
+    {
+      "name": "ms-l7-32",
+      "sampling": 32,
+      "sampleSpacingMicrometers": 0.27997088199733555,
+      "nativeSpacingMicrometers": 0.2799708819934836,
+      "indexRelativeL2": 1.0425716209114075E-09,
+      "indexMaximumAbsolute": 3.01617342213234E-10,
+      "physicalRelativeL2": 1.0367872809833707E-09
+    },
+    {
+      "name": "ms-l7-64",
+      "sampling": 64,
+      "sampleSpacingMicrometers": 0.2045682861682645,
+      "nativeSpacingMicrometers": 0.20456828616544995,
+      "indexRelativeL2": 2.376251091774378E-09,
+      "indexMaximumAbsolute": 6.311203504250074E-10,
+      "physicalRelativeL2": 2.3738082127192034E-09
+    },
+    {
+      "name": "cooke-32",
+      "sampling": 32,
+      "sampleSpacingMicrometers": 1.1205125204168804,
+      "nativeSpacingMicrometers": 1.1205125204169528,
+      "indexRelativeL2": 9.378452354728646E-13,
+      "indexMaximumAbsolute": 2.194355808171622E-13,
+      "physicalRelativeL2": 9.27795632980144E-13
+    },
+    {
+      "name": "tessar-32",
+      "sampling": 32,
+      "sampleSpacingMicrometers": 1.132938411959033,
+      "nativeSpacingMicrometers": 1.1329384119590165,
+      "indexRelativeL2": 1.8912805172209392E-10,
+      "indexMaximumAbsolute": 3.459131418803718E-12,
+      "physicalRelativeL2": 1.891252621008798E-10
+    }
+  ],
+  "n02": {
+    "actualNrmseBefore": 0.011467280942848471,
+    "actualNrmseAfter": 0.011173141548632002,
+    "idealNrmse": 0.013875784968407625,
+    "classification": "Difference",
+    "layerSummarySha256": "c6d49f9212868b843babd541a67abc1cb2b4bdc4693eb30269f3b13f49a0a590"
+  },
+  "n01": {
+    "nrmse": 0.0037256670590166724,
+    "classification": "Close",
+    "advancedSource": "Auto",
+    "gridControl": {
+      "channel": "Direct native 32x32 double-precision Huygens intensity grid",
+      "sourceSha256": "8bcc937c2c2e02ba175f38875fd0def40db547f7eedab509cbfd1fed4353e0e8",
+      "controls": [
+        {
+          "reference": "Auto",
+          "comparison": "Planar",
+          "points": 1024,
+          "coordinatesExact": true,
+          "valuesExact": true,
+          "maximumAbsolute": 0.0,
+          "relativeL2": 0.0
+        },
+        {
+          "reference": "Auto",
+          "comparison": "Spherical",
+          "points": 1024,
+          "coordinatesExact": true,
+          "valuesExact": false,
+          "maximumAbsolute": 0.0516070576497783,
+          "relativeL2": 0.0999197655786755
+        }
+      ],
+      "semantics": "Only advanced native method changed; same original pupil/image sampling, wavelength, field, 0.25 micrometer pitch, no centroid, polarization or peak normalization."
+    },
+    "textControl": {
+      "channel": "Native cross-section text; six-decimal intensity precision, 33 points including positive boundary",
+      "sourceSha256": "8bcc937c2c2e02ba175f38875fd0def40db547f7eedab509cbfd1fed4353e0e8",
+      "controls": [
+        {
+          "reference": "Auto",
+          "comparison": "Planar",
+          "points": 33,
+          "coordinatesExact": true,
+          "textValuesExact": true,
+          "maximumAbsolute": 0.0,
+          "relativeL2": 0.0
+        },
+        {
+          "reference": "Auto",
+          "comparison": "Spherical",
+          "points": 33,
+          "coordinatesExact": true,
+          "textValuesExact": false,
+          "maximumAbsolute": 0.05160699999999996,
+          "relativeL2": 0.10777042165350932
+        },
+        {
+          "reference": "Auto",
+          "comparison": "Frozen",
+          "points": 33,
+          "coordinatesExact": true,
+          "textValuesExact": true,
+          "maximumAbsolute": 0.0,
+          "relativeL2": 0.0
+        }
+      ],
+      "semantics": "Empty API arrays excluded. 33 actual text values parsed and validated. Native advanced method is the only numerical setting changed; no fit or renormalization."
+    },
+    "productHuygensChanged": false
+  },
+  "notRun": [
+    "Full Debug",
+    "Laboratory suites",
+    "Six-file 132-case matrix",
+    "Installer/package checks",
+    "Manual desktop acceptance"
+  ],
+  "excludedAttempts": [
+    "Initial DENF guessed column order",
+    "Interrupted independent capture",
+    "Empty Huygens API-array comparison",
+    "Diagnostic compile failure",
+    "Historical earlier layer-coordinate metric"
+  ]
+}

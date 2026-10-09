@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ae91a635-15ce-4e3a-b90d-3b75c7d0114f" name="allen@DESKTOP-SET3SNR 2026-10-09 20:45:27" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T20:45:27.9234980+08:00" queuing="2026-10-09T20:45:27.9234981+08:00" start="2026-10-09T20:45:23.6015029+08:00" finish="2026-10-09T20:45:27.9293763+08:00" />
+  <TestSettings name="default" id="de3139d7-801a-4117-b218-8cda3857757b">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-09_20_45_27" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="eeea1504-0420-4192-bf9b-62f6d6bd7327" testId="96143b05-c917-74c7-8e3b-bcce73e76598" testName="OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(name: &quot;tessar-32&quot;, sampling: 32)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0613094" startTime="2026-10-09T20:45:27.2826109+08:00" endTime="2026-10-09T20:45:27.3429753+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eeea1504-0420-4192-bf9b-62f6d6bd7327">
+      <Output>
+        <ErrorInfo>
+          <Message>tessar-32: native-pupil FFT relative L2=0.15892267299746154, max=0.0020532344463890196; no fitting or peak normalization.</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(String name, Int32 sampling) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\FftPupilPhaseParityTests.cs:line 58&#xD;
+   at InvokeStub_FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="dfb102d3-3e20-4272-8134-0f282a8febf5" testId="3bf82e64-94a4-5eb6-2052-6fc5482ded0b" testName="OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(name: &quot;ms-l7-32&quot;, sampling: 32)" computerName="DESKTOP-SET3SNR" duration="00:00:00.8239430" startTime="2026-10-09T20:45:26.4199689+08:00" endTime="2026-10-09T20:45:27.2361041+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dfb102d3-3e20-4272-8134-0f282a8febf5">
+      <Output>
+        <ErrorInfo>
+          <Message>ms-l7-32: native-pupil FFT relative L2=0.009343309430530715, max=0.0034377314188976382; no fitting or peak normalization.</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(String name, Int32 sampling) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\FftPupilPhaseParityTests.cs:line 58&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8e19b878-3182-47fc-a4ea-036b5d8d4a3c" testId="704985ec-e7f0-f18c-9068-e20f49eadd18" testName="OptilandWorkbench.Tests.FftPupilPhaseParityTests.NewRawCaptureManifestPreservesAllNativeChannels" computerName="DESKTOP-SET3SNR" duration="00:00:00.1724864" startTime="2026-10-09T20:45:27.6892675+08:00" endTime="2026-10-09T20:45:27.8611213+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8e19b878-3182-47fc-a4ea-036b5d8d4a3c" />
+    <UnitTestResult executionId="1bf7f23a-ef6a-4204-aba2-6ca65103ca32" testId="3a8697bc-1450-3443-e6cb-e2536c45d002" testName="OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(name: &quot;ms-l7-64&quot;, sampling: 64)" computerName="DESKTOP-SET3SNR" duration="00:00:00.3448420" startTime="2026-10-09T20:45:27.3433951+08:00" endTime="2026-10-09T20:45:27.6880892+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1bf7f23a-ef6a-4204-aba2-6ca65103ca32">
+      <Output>
+        <ErrorInfo>
+          <Message>ms-l7-64: native-pupil FFT relative L2=0.004491660961265828, max=0.0016292471958270216; no fitting or peak normalization.</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(String name, Int32 sampling) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\FftPupilPhaseParityTests.cs:line 58&#xD;
+   at InvokeStub_FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9dc1ac85-6b3c-4838-ae22-f41eede384f0" testId="59b843ff-ae56-9f99-44cb-bac8989589f0" testName="OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(name: &quot;cooke-32&quot;, sampling: 32)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0453203" startTime="2026-10-09T20:45:27.2496042+08:00" endTime="2026-10-09T20:45:27.2815702+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9dc1ac85-6b3c-4838-ae22-f41eede384f0">
+      <Output>
+        <ErrorInfo>
+          <Message>cooke-32: native-pupil FFT relative L2=0.01429701316537256, max=0.003411045169483512; no fitting or peak normalization.</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(String name, Int32 sampling) in D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\FftPupilPhaseParityTests.cs:line 58&#xD;
+   at InvokeStub_FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(name: &quot;ms-l7-32&quot;, sampling: 32)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="3bf82e64-94a4-5eb6-2052-6fc5482ded0b">
+      <Execution id="dfb102d3-3e20-4272-8134-0f282a8febf5" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftPupilPhaseParityTests" name="CapturedNativeRayInputsReproduceNativeFftIntensity" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(name: &quot;ms-l7-64&quot;, sampling: 64)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="3a8697bc-1450-3443-e6cb-e2536c45d002">
+      <Execution id="1bf7f23a-ef6a-4204-aba2-6ca65103ca32" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftPupilPhaseParityTests" name="CapturedNativeRayInputsReproduceNativeFftIntensity" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.FftPupilPhaseParityTests.NewRawCaptureManifestPreservesAllNativeChannels" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="704985ec-e7f0-f18c-9068-e20f49eadd18">
+      <Execution id="8e19b878-3182-47fc-a4ea-036b5d8d4a3c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftPupilPhaseParityTests" name="NewRawCaptureManifestPreservesAllNativeChannels" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(name: &quot;cooke-32&quot;, sampling: 32)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="59b843ff-ae56-9f99-44cb-bac8989589f0">
+      <Execution id="9dc1ac85-6b3c-4838-ae22-f41eede384f0" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftPupilPhaseParityTests" name="CapturedNativeRayInputsReproduceNativeFftIntensity" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(name: &quot;tessar-32&quot;, sampling: 32)" storage="d:\projects\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="96143b05-c917-74c7-8e3b-bcce73e76598">
+      <Execution id="eeea1504-0420-4192-bf9b-62f6d6bd7327" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftPupilPhaseParityTests" name="CapturedNativeRayInputsReproduceNativeFftIntensity" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="96143b05-c917-74c7-8e3b-bcce73e76598" executionId="eeea1504-0420-4192-bf9b-62f6d6bd7327" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3bf82e64-94a4-5eb6-2052-6fc5482ded0b" executionId="dfb102d3-3e20-4272-8134-0f282a8febf5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="704985ec-e7f0-f18c-9068-e20f49eadd18" executionId="8e19b878-3182-47fc-a4ea-036b5d8d4a3c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3a8697bc-1450-3443-e6cb-e2536c45d002" executionId="1bf7f23a-ef6a-4204-aba2-6ca65103ca32" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="59b843ff-ae56-9f99-44cb-bac8989589f0" executionId="9dc1ac85-6b3c-4838-ae22-f41eede384f0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="5" executed="5" passed="1" failed="4" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.19]   Discovering: OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:01.67]   Discovered:  OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:01.69]   Starting:    OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:02.54]       ms-l7-32: native-pupil FFT relative L2=0.009343309430530715, max=0.0034377314188976382; no fitting or peak normalization.&#xD;
+[xUnit.net 00:00:02.54]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.54]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\FftPupilPhaseParityTests.cs(58,0): at OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(String name, Int32 sampling)&#xD;
+[xUnit.net 00:00:02.54]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.54]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.58]       cooke-32: native-pupil FFT relative L2=0.01429701316537256, max=0.003411045169483512; no fitting or peak normalization.&#xD;
+[xUnit.net 00:00:02.58]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.58]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\FftPupilPhaseParityTests.cs(58,0): at OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(String name, Int32 sampling)&#xD;
+[xUnit.net 00:00:02.58]            at InvokeStub_FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(Object, Span`1)&#xD;
+[xUnit.net 00:00:02.58]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.65]       tessar-32: native-pupil FFT relative L2=0.15892267299746154, max=0.0020532344463890196; no fitting or peak normalization.&#xD;
+[xUnit.net 00:00:02.65]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.65]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\FftPupilPhaseParityTests.cs(58,0): at OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(String name, Int32 sampling)&#xD;
+[xUnit.net 00:00:02.65]            at InvokeStub_FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(Object, Span`1)&#xD;
+[xUnit.net 00:00:02.65]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.99]       ms-l7-64: native-pupil FFT relative L2=0.004491660961265828, max=0.0016292471958270216; no fitting or peak normalization.&#xD;
+[xUnit.net 00:00:02.99]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.99]         D:\Projects\opticalsystem\tests\OptilandWorkbench.Tests\FftPupilPhaseParityTests.cs(58,0): at OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(String name, Int32 sampling)&#xD;
+[xUnit.net 00:00:02.99]            at InvokeStub_FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(Object, Span`1)&#xD;
+[xUnit.net 00:00:02.99]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.17]   Finished:    OptilandWorkbench.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-09T20:45:27.2380160+08:00">
+        <Text>[xUnit.net 00:00:02.54]     OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(name: "ms-l7-32", sampling: 32) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-09T20:45:27.2820020+08:00">
+        <Text>[xUnit.net 00:00:02.58]     OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(name: "cooke-32", sampling: 32) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-09T20:45:27.3433036+08:00">
+        <Text>[xUnit.net 00:00:02.65]     OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(name: "tessar-32", sampling: 32) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-09T20:45:27.6886740+08:00">
+        <Text>[xUnit.net 00:00:02.99]     OptilandWorkbench.Tests.FftPupilPhaseParityTests.CapturedNativeRayInputsReproduceNativeFftIntensity(name: "ms-l7-64", sampling: 64) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

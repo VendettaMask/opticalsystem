@@ -257,6 +257,9 @@ public static class DiffractionEngine
             pupilGridStretch: pupilGridStretch,
             zemaxCentered: zemaxFftSampling,
             referenceWavelength: referenceWavelength);
+        if (zemaxFftSampling && pupilSampling >= 32
+            && (pupilSampling & (pupilSampling - 1)) == 0 && !ignoreOpd)
+            wavefront = InterpolateFftPupilPhase(wavefront, grid);
         var polarization = usePolarization
             ? preparedPolarization ?? JonesPupilEngine.Generate(
                     optic,
@@ -827,6 +830,34 @@ public static class DiffractionEngine
                 }
             }
         }
+    }
+
+    private static WavefrontResult InterpolateFftPupilPhase(
+        WavefrontResult wavefront, PupilGridSpecification grid)
+    {
+        // Native 2026 R1 scalar FFT captures interpolate the interior even
+        // checkerboard from cardinal neighbors, retaining the chief and edge.
+        // Keep the traced wavefront and any caller-owned prepared input intact.
+        var nodes = wavefront.Samples.ToDictionary(sample => Index(sample), sample => sample);
+        var samples = wavefront.Samples.Select(sample =>
+        {
+            var (column, row) = Index(sample);
+            if ((column + row) % 2 != 0
+                || (sample.NormalizedPupilX == 0 && sample.NormalizedPupilY == 0)
+                || !Illuminated(sample)
+                || !nodes.TryGetValue((column - 1, row), out var left) || !Illuminated(left)
+                || !nodes.TryGetValue((column + 1, row), out var right) || !Illuminated(right)
+                || !nodes.TryGetValue((column, row - 1), out var bottom) || !Illuminated(bottom)
+                || !nodes.TryGetValue((column, row + 1), out var top) || !Illuminated(top))
+                return sample;
+            return sample with { OpdWaves = (left.OpdWaves + right.OpdWaves + bottom.OpdWaves + top.OpdWaves) / 4 };
+        }).ToArray();
+        return wavefront with { Samples = samples };
+
+        (int Column, int Row) Index(WavefrontSample sample) => (
+            (int)Math.Round(sample.NormalizedPupilX / grid.Stretch * (grid.SampleCount / 2d - 1) + grid.SampleCount / 2d),
+            (int)Math.Round(sample.NormalizedPupilY / grid.Stretch * (grid.SampleCount / 2d - 1) + grid.SampleCount / 2d));
+        static bool Illuminated(WavefrontSample sample) => sample.Intensity > 0 && double.IsFinite(sample.OpdWaves);
     }
 
     private static Complex[,] BuildComplexPupilCore(

@@ -7,3 +7,7 @@
 validation/** -text whitespace=cr-at-eol
 # Captured logs and reports keep their original bytes, including trailing spaces.
 artifacts/** -text -whitespace
+
+# These verification ledgers are referenced by exact file SHA-256.
+docs/validation/FFT_PUPIL_PHASE_REPAIR_2026-10-09.json -text whitespace=cr-at-eol
+docs/validation/PROJECT_SYNC_FFT_PUPIL_2026-10-09.json -text whitespace=cr-at-eol
