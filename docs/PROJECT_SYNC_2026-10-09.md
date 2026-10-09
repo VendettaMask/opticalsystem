@@ -25,4 +25,6 @@ N01 Huygens 截面仍为 Close；N02 FFT 包围能量理想与实际曲线仍为
 
 ## 同步状态
 
-累计修复、文档和选定证据待提交及推送。成功后核对本地 `HEAD`、`origin/main` 与远端实际 `refs/heads/main`，再补充完成记录；当前准备记录不表示已经推送成功。最终分支头以 Git 记录为准。
+修复提交 [`ae0fe6a3ee8636c7978da3f27f7015ec45a13027`](https://github.com/VendettaMask/opticalsystem/commit/ae0fe6a3ee8636c7978da3f27f7015ec45a13027)已成功推送至 `origin/main`。推送后、此完成记录更新前，本地 `HEAD`、`origin/main` 和远端实际 `refs/heads/main` 均指向该提交，领先和落后均为零，工作区干净。37 份提交证据的 Git blob 与原始文件逐一相同，没有改写原字节。
+
+后续文档提交只补充本同步完成记录和机器核验状态，不改变代码、测试、参考、容差或验收数量。最终分支头以 Git 记录为准；此处记录的是修复提交推送完成时的快照，不以较早的提交号冒充最终分支头。
