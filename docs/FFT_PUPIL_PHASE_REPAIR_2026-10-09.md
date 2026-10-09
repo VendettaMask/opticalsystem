@@ -93,4 +93,4 @@ MS-L7 原处方 SHA-256 为 `8bcc937c2c2e02ba175f38875fd0def40db547f7eedab509cbf
 - [四份原生输入最终对照](../artifacts/validation/n02-layer-diagnosis-20261009/prepared-after-final-binary.json)。
 - [Huygens 原生双精度方法控制](../artifacts/validation/n02-layer-diagnosis-20261009/n01-method-grid-controls/method-comparison.json)。
 
-当前修改在本地工作区，尚未提交或推送；上一同步记录不代表本次新增捕获和修复已同步。
+修复、新原生捕获与选定验收证据已提交并推送，见[本轮同步完成记录](PROJECT_SYNC_FFT_PUPIL_2026-10-09.md)。本报告机器账目的 Git 状态表示验收时快照，当前远端状态另行记账。
