@@ -190,6 +190,15 @@ internal static class AnalysisTrace
         bool requireUnvignetted = false)
     {
         var physical = FromDistortionLinearField(optic, linearX, linearY, distortionType);
+        if (FieldCoordinates.MaximumRadius(optic.Fields) <= 1e-15)
+        {
+            var bundle = optic.SequentialRayTracer.RayGenerator.GenerateAtPhysicalField(
+                physical.X, physical.Y, 0, 0, wavelengthMicrometers, aimAtStop: optic.RayAimingEnabled);
+            var physicalSample = optic.SequentialRayTracer.TraceFinalSamples(bundle).SingleOrDefault()
+                ?? throw new InvalidOperationException("Ray tracing did not produce an image-plane sample.");
+            var local = ToImageLocalSample(optic, physicalSample, requireUnvignetted);
+            return (local.Position.X, local.Position.Y);
+        }
         var normalized = FieldCoordinates.Normalize(optic.Fields, physical.X, physical.Y);
         var sample = FinalSample(
             optic,
@@ -470,6 +479,12 @@ internal static class AnalysisTrace
         string distortionType)
     {
         var physical = FromDistortionLinearField(optic, linearField.X, linearField.Y, distortionType);
+        if (FieldCoordinates.MaximumRadius(optic.Fields) <= 1e-15)
+        {
+            return double.IsFinite(physical.X) && double.IsFinite(physical.Y)
+                && (optic.FieldDefinition != FieldDefinitionKind.Angle
+                    || (Math.Abs(physical.X) < 90 && Math.Abs(physical.Y) < 90));
+        }
         var normalized = FieldCoordinates.Normalize(optic.Fields, physical.X, physical.Y);
         return Math.Abs(normalized.X) <= 1 + 1e-10 && Math.Abs(normalized.Y) <= 1 + 1e-10;
     }
@@ -536,6 +551,12 @@ internal static class AnalysisTrace
     {
         var sample = optic.TraceGenericFinalSample(hx, hy, px, py, wavelengthMicrometers, aimAtStop: optic.RayAimingEnabled)
             ?? throw new InvalidOperationException("Ray tracing did not produce an image-plane sample.");
+        return ToImageLocalSample(optic, sample, requireUnvignetted);
+    }
+
+    private static Rays.RayTraceSample ToImageLocalSample(
+        Optic optic, Rays.RayTraceSample sample, bool requireUnvignetted)
+    {
         if (requireUnvignetted && (sample.Vignetted || !double.IsFinite(sample.Intensity) || sample.Intensity <= 0
             || !double.IsFinite(sample.Position.X) || !double.IsFinite(sample.Position.Y) || !double.IsFinite(sample.Position.Z)
             || !double.IsFinite(sample.Direction.X) || !double.IsFinite(sample.Direction.Y) || !double.IsFinite(sample.Direction.Z)))

@@ -1,6 +1,6 @@
 # 波前图系统瞄准修复 2026年10月8日
 
-本页保留波前图实现轮的历史范围。后续 FFT、零离焦、Zernike、参考球等路径的修复和最新验收见[计算路径修复与结果对比](CALCULATION_PATH_REPAIR_2026-10-08.md)；下面的旧测试计数及当时未完成项不冒充当前状态。
+本页保留波前图实现轮的历史范围。后续 FFT、零离焦、Zernike、参考球等路径见[计算路径修复与结果对比](CALCULATION_PATH_REPAIR_2026-10-08.md)；当前实现和验收见[FFT 采样与参考点修复及当前验收](FFT_SAMPLING_REFERENCE_REPAIR_2026-10-09.md)。下面的旧测试计数及当时未完成项不冒充当前状态。
 
 实现阶段原测试输出已按原始字节归档到 `artifacts/validation/wavefront-aiming-repair-20261008/formal` 和 `tool`，文件名不变；包含修复前观察、修复后专项和相关两配置记录，不删除原输出，也不把修复前失败计入最新结果。远端保存边界见[本轮同步记录](PROJECT_SYNC_2026-10-08.md)。
 

@@ -1016,45 +1016,10 @@ internal static class MtfMethodEvaluator
             field,
             wavelengths,
             settings);
-        var shortestWavelength = wavelengths.Min(item => item.Micrometers);
-        var useConfiguredWeights = wavelengths.Any(item => item.Weight > 0);
-        var results = wavelengths.Select(wavelength =>
-        {
-            var wavelengthWeight = useConfiguredWeights ? wavelength.Weight : 1;
-            var zemaxHuygensWeight = wavelengthWeight
-                * (settings.UseZemaxHuygensSemantics ? Math.Pow(shortestWavelength / wavelength.Micrometers, 2) : 1);
-            var psf = DiffractionEngine.ComputeHuygensPsf(
-                optic,
-                field,
-                wavelength,
-                pupilSampling,
-                imageSize,
-                pixelPitchMillimeters,
-                settings.UsePolarization,
-                aimAtStop: optic.RayAimingEnabled,
-                referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0]);
-            return (Psf: psf, Weight: zemaxHuygensWeight);
-        }).ToArray();
-        var combinedValues = new double[imageSize, imageSize];
-        for (var row = 0; row < imageSize; row++)
-        {
-            for (var column = 0; column < imageSize; column++)
-            {
-                combinedValues[row, column] = results.Sum(item =>
-                    item.Weight * item.Psf.Values[row, column]);
-            }
-        }
-
-        var combinedPsf = new PsfResult(
-            combinedValues,
-            pupilSampling,
-            imageSize,
-            results.Average(item => item.Psf.WorkingFNumber),
-            optic.ImageSpaceAfocal ? pixelPitchMillimeters : pixelPitchMillimeters * 1000,
-            SampleSpacingUnit: optic.ImageSpaceAfocal
-                ? AnalysisAxisUnit.Milliradian
-                : AnalysisAxisUnit.Micrometer);
-        return combinedPsf;
+        // Native frequency-axis/interpolation conventions do not change the
+        // physical spectral mixture used by PSF, MTF and energy consumers.
+        return HuygensPsfSynthesis.Compute(optic, field, wavelengths, pupilSampling,
+            imageSize, pixelPitchMillimeters, settings.UsePolarization).Psf;
     }
 
     internal static double ResolveHuygensImageDeltaMillimeters(

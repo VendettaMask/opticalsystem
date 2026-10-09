@@ -119,6 +119,34 @@ public static class DiffractionEngine
         }
     }
 
+    /// <summary>Trace each selected wavelength on a common Fourier-conjugate image grid.</summary>
+    public static (Wavelength Wavelength, PsfResult Result)[] ComputeFftPsfSpectrum(
+        Optic optic, (double Hx, double Hy) field, IReadOnlyList<Wavelength> wavelengths,
+        int pupilSampling, int gridSize, bool usePolarization = false,
+        bool cellCenteredPupil = false, bool zemaxFftSampling = false,
+        bool ignoreOpd = false, bool? aimAtStop = null,
+        Wavelength? referenceWavelength = null, double imageDelta = 0)
+    {
+        ArgumentNullException.ThrowIfNull(wavelengths);
+        if (wavelengths.Count == 0) throw new ArgumentException("No selected wavelengths.", nameof(wavelengths));
+        var reference = referenceWavelength ?? wavelengths.FirstOrDefault(w => w.IsPrimary) ?? wavelengths[0];
+        var shortestIndex = Enumerable.Range(0, wavelengths.Count).MinBy(i => wavelengths[i].Nanometers);
+        var shortest = Compute(wavelengths[shortestIndex], imageDelta);
+        // Negative delta explicitly requests an unstretched pupil at every wavelength.
+        // Otherwise choose the shortest selected wavelength's default pitch before
+        // tracing the longer wavelengths, rather than interpolating their old PSFs.
+        var commonDelta = zemaxFftSampling && imageDelta == 0
+            ? shortest.SampleSpacingMicrometers : imageDelta;
+        return wavelengths.Select((wave, index) => (wave,
+            index == shortestIndex ? shortest : Compute(wave, commonDelta))).ToArray();
+
+        PsfResult Compute(Wavelength wave, double delta) => ComputeFftPsf(optic, field, wave,
+            pupilSampling, gridSize, usePolarization: usePolarization,
+            cellCenteredPupil: cellCenteredPupil, zemaxFftSampling: zemaxFftSampling,
+            ignoreOpd: ignoreOpd, aimAtStop: aimAtStop,
+            referenceWavelength: reference, imageDelta: delta);
+    }
+
     public static PsfResult ComputeFftPsf(
         Optic optic,
         (double Hx, double Hy) field,
@@ -158,7 +186,7 @@ public static class DiffractionEngine
 
         var fNumber = CombineWorkingFNumbers(workingAxes);
         var pupilGridStretch = zemaxFftSampling && imageDelta >= 0
-            ? Math.Sqrt(pupilSampling / 32.0)
+            ? Math.Sqrt(Math.Max(1, pupilSampling / 32.0))
             : 1;
         if (!double.IsFinite(imageDelta) || (!zemaxFftSampling && imageDelta < 0))
         {
@@ -176,8 +204,22 @@ public static class DiffractionEngine
                 ? ImageSpaceAnalysisSupport.FftSampleSpacingMilliradians(
                     optic, wavelength, pupilSampling, gridSize, true, 1) / imageDelta
                 : wavelength.Micrometers * fNumber * (pupilSampling - 2) / (gridSize * imageDelta);
+            var automaticStretch = Math.Sqrt(Math.Max(1, pupilSampling / 32.0));
+            // Preserve exactly the same boundary nodes when the requested pitch
+            // is the default pitch, including floating-point round trips.
+            if (Math.Abs(pupilGridStretch - automaticStretch) <= 1e-14 * automaticStretch)
+                pupilGridStretch = automaticStretch;
         }
         var grid = new PupilGridSpecification(pupilSampling, cellCenteredPupil, zemaxFftSampling, pupilGridStretch);
+        if (zemaxFftSampling && imageDelta > 0)
+        {
+            if (!double.IsFinite(pupilGridStretch) || pupilGridStretch <= 0)
+                throw new InvalidOperationException("FFT image delta cannot produce a finite pupil grid.");
+            if (grid.Coordinate(0) > -1 + 1e-12 || grid.Coordinate(pupilSampling - 1) < 1 - 1e-12)
+                throw new InvalidOperationException("FFT image delta is too large: the sampling grid does not cover the full pupil.");
+            if (Enumerable.Range(0, pupilSampling).Count(i => Math.Abs(grid.Coordinate(i)) <= 1) < 2)
+                throw new InvalidOperationException("FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction.");
+        }
         if (preparedWavefront is not null)
         {
             ValidatePreparedPupil(preparedWavefront.UseRayAiming, preparedWavefront.PupilGrid,
@@ -1067,7 +1109,8 @@ public static class DiffractionEngine
         bool usePolarization = false,
         bool aimAtStop = false,
         double defocus = 0,
-        Wavelength? referenceWavelength = null)
+        Wavelength? referenceWavelength = null,
+        (double X, double Y)? imageCenterOffset = null)
     {
         ComputationCancellation.ThrowIfCancellationRequested();
         if (numRays < 2)
@@ -1087,6 +1130,8 @@ public static class DiffractionEngine
         {
             throw new ArgumentOutOfRangeException(nameof(pixelPitchMillimeters), "Pixel pitch must be positive.");
         }
+        if (imageCenterOffset is { } offset && (!double.IsFinite(offset.X) || !double.IsFinite(offset.Y)))
+            throw new ArgumentOutOfRangeException(nameof(imageCenterOffset), "Image-center offsets must be finite.");
 
         var wavefront = WavefrontEngine.GenerateChiefRayUniform(
             optic,
@@ -1107,7 +1152,8 @@ public static class DiffractionEngine
                 pixelPitchMillimeters,
                 idealOpd: false,
                 polarization,
-                defocus);
+                defocus,
+                imageCenterOffset);
             var afocalNormalizationWavefront = field.Hx == 0 && field.Hy == 0
                 ? wavefront
                 : WavefrontEngine.GenerateChiefRayUniform(
@@ -1154,8 +1200,8 @@ public static class DiffractionEngine
                 SampleSpacingUnit: AnalysisAxisUnit.Milliradian) { UseRayAiming = aimAtStop };
         }
 
-        var imageCoordinates = CreateHuygensImageCoordinates(optic, field, referenceWavelength ?? wavelength,
-            imageSize, pixelPitchMillimeters, aimAtStop);
+        var imageCoordinates = CreateHuygensImageCoordinatesAtCenter(optic, field, referenceWavelength ?? wavelength,
+            imageSize, pixelPitchMillimeters, aimAtStop, imageCenterOffset);
         var raw = HuygensSummation(
             imageCoordinates,
             wavefront,
@@ -1579,17 +1625,27 @@ public static class DiffractionEngine
         Wavelength wavelength,
         int imageSize,
         double pixelPitchMillimeters,
-        bool aimAtStop = false)
+        bool aimAtStop = false) => CreateHuygensImageCoordinatesAtCenter(
+            optic, field, wavelength, imageSize, pixelPitchMillimeters, aimAtStop);
+
+    private static Vector3D[,] CreateHuygensImageCoordinatesAtCenter(
+        Optic optic,
+        (double Hx, double Hy) field,
+        Wavelength wavelength,
+        int imageSize,
+        double pixelPitchMillimeters,
+        bool aimAtStop = false,
+        (double X, double Y)? imageCenterOffset = null)
     {
         var frame = CreateHuygensImageFrame(optic, field, wavelength, aimAtStop);
         var coordinates = new Vector3D[imageSize, imageSize];
         var centerIndex = imageSize / 2;
         for (var row = 0; row < imageSize; row++)
         {
-            var y = (row - centerIndex) * pixelPitchMillimeters;
+            var y = (row - centerIndex) * pixelPitchMillimeters + (imageCenterOffset?.Y ?? 0);
             for (var column = 0; column < imageSize; column++)
             {
-                var x = (column - centerIndex) * pixelPitchMillimeters;
+                var x = (column - centerIndex) * pixelPitchMillimeters + (imageCenterOffset?.X ?? 0);
                 coordinates[row, column] = frame.Center + (frame.TangentX * x) + (frame.TangentY * y);
             }
         }
@@ -1626,27 +1682,50 @@ public static class DiffractionEngine
         return new HuygensImageFrame(center, tangentX, tangentY);
     }
 
-    private static (double X, double Y) HuygensImageCenter(
+    // Offset from the reference chief ray in the image grid's physical units:
+    // millimeters for a focal image, milliradians for an afocal image.
+    internal static (double X, double Y) HuygensGeometricCenterOffset(
         Optic optic,
         (double Hx, double Hy) field,
-        Wavelength wavelength)
+        IReadOnlyList<Wavelength> wavelengths,
+        Wavelength referenceWavelength,
+        int pupilSampling,
+        bool aimAtStop)
     {
         var imageSurface = optic.SurfaceGroup.Items[^1];
-        var pupilSamples = SpotAnalysisEngine.CreatePupilSamples(6, "hexapolar");
-        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
-            field.Hx,
-            field.Hy,
-            wavelength.Micrometers,
-            pupilSamples);
-        var local = optic.SequentialRayTracer.TraceFinalSamples(bundle)
-            .Where(sample => sample is not null)
-            .Select(sample => sample!)
-            .Where(sample => sample.Intensity > 0)
-            .Select(sample => imageSurface.CoordinateSystem.ToLocalPoint(sample.Position))
-            .ToArray();
-        return local.Length == 0
-            ? (0, 0)
-            : (local.Average(point => point.X), local.Average(point => point.Y));
+        var frame = CreateHuygensImageFrame(optic, field, referenceWavelength, aimAtStop);
+        var chiefAngle = optic.ImageSpaceAfocal
+            ? ImageSpaceAnalysisSupport.DirectionAnglesMilliradians(imageSurface,
+                (optic.TraceGenericFinalSample(field.Hx, field.Hy, 0, 0,
+                    referenceWavelength.Micrometers, aimAtStop)
+                    ?? throw new InvalidOperationException("Chief ray did not reach the image surface.")).Direction)
+            : (X: 0.0, Y: 0.0);
+        var pupilSamples = SpotAnalysisEngine.CreatePupilSamples(pupilSampling, "uniform");
+        var useWeights = wavelengths.Any(wavelength => wavelength.Weight > 0);
+        var projected = new List<SpotRayData>();
+        foreach (var wavelength in wavelengths)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+                field.Hx, field.Hy, wavelength.Micrometers, pupilSamples, aimAtStop: aimAtStop);
+            var samples = optic.SequentialRayTracer.TraceFinalSamples(bundle);
+            for (var index = 0; index < samples.Count; index++)
+            {
+                if (samples[index] is not { Vignetted: false, Intensity: > 0 } sample) continue;
+                var delta = sample.Position - frame.Center;
+                var coordinates = optic.ImageSpaceAfocal
+                    ? ImageSpaceAnalysisSupport.DirectionAnglesMilliradians(imageSurface, sample.Direction)
+                    : (X: Dot(delta, frame.TangentX), Y: Dot(delta, frame.TangentY));
+                var weight = bundle.Rays[index].Intensity * (useWeights ? Math.Max(0, wavelength.Weight) : 1);
+                if (double.IsFinite(coordinates.X) && double.IsFinite(coordinates.Y)
+                    && double.IsFinite(weight) && weight > 0)
+                    projected.Add(new SpotRayData(coordinates.X - chiefAngle.X,
+                        coordinates.Y - chiefAngle.Y, weight));
+            }
+        }
+        if (projected.Count == 0)
+            throw new AnalysisDataUnavailableException("Huygens PSF", "no valid geometric centroid rays");
+        return SpotAnalysisEngine.Centroid(projected);
     }
 
     private static double[,] HuygensFarFieldSummation(
@@ -1656,7 +1735,8 @@ public static class DiffractionEngine
         double angularPixelPitchMilliradians,
         bool idealOpd,
         JonesPupilResult? polarization = null,
-        double defocus = 0)
+        double defocus = 0,
+        (double X, double Y)? imageCenterOffset = null)
     {
         var psf = new double[imageSize, imageSize];
         var pupilDiameter = wavefront.AfocalPupilDiameterMillimeters;
@@ -1668,6 +1748,7 @@ public static class DiffractionEngine
         var pupilRadius = pupilDiameter / 2.0;
         var wavelengthMillimeters = wavelength.Micrometers * 1e-3;
         var k = 2 * Math.PI / wavelengthMillimeters;
+        var propagationK = k * wavefront.ImageRefractiveIndex;
         var centerIndex = imageSize / 2;
         var polarizationByPupil = polarization?.Samples.ToDictionary(
             sample => (
@@ -1676,11 +1757,13 @@ public static class DiffractionEngine
             PolarizationAmplitude);
         for (var row = 0; row < imageSize; row++)
         {
-            var thetaY = (row - centerIndex) * angularPixelPitchMilliradians / 1_000.0;
+            var thetaY = ((row - centerIndex) * angularPixelPitchMilliradians
+                + (imageCenterOffset?.Y ?? 0)) / 1_000.0;
             for (var column = 0; column < imageSize; column++)
             {
                 ComputationCancellation.ThrowIfCancellationRequested();
-                var thetaX = (column - centerIndex) * angularPixelPitchMilliradians / 1_000.0;
+                var thetaX = ((column - centerIndex) * angularPixelPitchMilliradians
+                    + (imageCenterOffset?.X ?? 0)) / 1_000.0;
                 var field = Complex.Zero;
                 var sampleIndex = 0;
                 foreach (var sample in wavefront.Samples)
@@ -1702,7 +1785,9 @@ public static class DiffractionEngine
                                 defocus,
                                 pupilDiameter);
                     var pupilPhase = -k * opdWaves * wavelengthMillimeters;
-                    var anglePhase = -k * ((pupilX * thetaX) + (pupilY * thetaY));
+                    // OPD is already an optical path; only the geometric
+                    // propagation term needs the image-medium index.
+                    var anglePhase = -propagationK * ((pupilX * thetaX) + (pupilY * thetaY));
                     var polarizationAmplitude = polarizationByPupil?.GetValueOrDefault((
                         (long)Math.Round(sample.NormalizedPupilX * 1_000_000_000),
                         (long)Math.Round(sample.NormalizedPupilY * 1_000_000_000))) ?? 1;
@@ -1746,6 +1831,7 @@ public static class DiffractionEngine
         var psf = new double[rows, columns];
         var wavelengthMillimeters = wavelength.Micrometers * 1e-3;
         var k = 2 * Math.PI / wavelengthMillimeters;
+        var propagationK = k * wavefront.ImageRefractiveIndex;
         var radius = wavefront.Radius;
         var polarizationByPupil = polarization?.Samples.ToDictionary(
             sample => (
@@ -1771,7 +1857,9 @@ public static class DiffractionEngine
                         continue;
                     }
 
-                    var wave = Complex.FromPolarCoordinates(1 / distance, k * distance);
+                    // Wavelength and index use the same reference medium.
+                    // Do not apply this index again to the optical OPD below.
+                    var wave = Complex.FromPolarCoordinates(1 / distance, propagationK * distance);
                     // Retain the existing scalar weight in the lens datum frame,
                     // not in an arbitrary global frame. A reference-sphere-normal
                     // or native planar/spherical propagator is a different model

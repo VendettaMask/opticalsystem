@@ -1,0 +1,101 @@
+{
+  "Translation": {
+    "ShiftMillimeters": [
+      10,
+      10
+    ],
+    "FftChiefBaseline": {
+      "Status": "Success",
+      "MaximumCoveredDistanceMicrometers": 17.578555938499566,
+      "FractionAtOneMicrometer": 0.06256718065357121
+    },
+    "FftChiefTranslated": {
+      "Status": "Success",
+      "MaximumCoveredDistanceMicrometers": 17.578555938499566,
+      "FractionAtOneMicrometer": 0.06256718065366866
+    },
+    "FftVertexBaseline": {
+      "Status": "Success",
+      "MaximumCoveredDistanceMicrometers": 17.578555938499566,
+      "FractionAtOneMicrometer": 0.06256718065357121
+    },
+    "FftVertexTranslated": {
+      "Status": "Success",
+      "MaximumCoveredDistanceMicrometers": 17.578555938499566,
+      "FractionAtOneMicrometer": 0.06256718065366866
+    },
+    "HuygensVertexBaseline": {
+      "Status": "Success",
+      "MaximumCoveredDistanceMicrometers": 15.5,
+      "FractionAtOneMicrometer": 0.05878874962521014
+    },
+    "HuygensVertexTranslated": {
+      "Status": "Success",
+      "MaximumCoveredDistanceMicrometers": 15.5,
+      "FractionAtOneMicrometer": 0.05878874962285039
+    }
+  },
+  "ReferencePlot": {
+    "FieldNumber": 3,
+    "FieldX": 0,
+    "FieldY": 20,
+    "ChiefImageLocalXMillimeters": 0,
+    "ChiefImageLocalYMillimeters": 18.13920888406102,
+    "ChiefLabel": "chief",
+    "VertexLabel": "vertex",
+    "MaxCurveDifference": 0.973121764534949,
+    "ActualEnergyAt10Micrometers": 0
+  },
+  "Sampling": [
+    {
+      "Status": "Success",
+      "RequestedPitchMicrometers": 0,
+      "ActualPitchMicrometers": 1.1341003831290044,
+      "PupilGridStretch": 1,
+      "PositivePupilSamples": 709,
+      "MaximumSampledNormalizedPupilRadius": 1,
+      "MinimumPsfValue": 3.061116620186922e-8,
+      "MaximumPsfValue": 99.99999988667754
+    },
+    {
+      "Status": "Error",
+      "RequestedPitchMicrometers": 0.00001,
+      "Message": "FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction."
+    },
+    {
+      "Status": "Error",
+      "RequestedPitchMicrometers": 1000,
+      "Message": "FFT image delta is too large: the sampling grid does not cover the full pupil."
+    }
+  ],
+  "SpectralPitch": [
+    {
+      "WavelengthNumber": 1,
+      "PitchMicrometers": 1.1341003831290044,
+      "AutomaticStretch": [
+        1
+      ],
+      "ExplicitStretch": [
+        1
+      ],
+      "MaximumAbsoluteDifference": 0,
+      "RelativeL2Difference": 0
+    },
+    {
+      "WavelengthNumber": 0,
+      "PitchMicrometers": 1.1341003831290044,
+      "AutomaticStretch": [
+        1,
+        1.1480939241686712,
+        1.3608551349877798
+      ],
+      "ExplicitStretch": [
+        1,
+        1.1480939241686712,
+        1.3608551349877798
+      ],
+      "MaximumAbsoluteDifference": 0,
+      "RelativeL2Difference": 0
+    }
+  ]
+}

@@ -1,0 +1,1391 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-09",
+  "scope": "Confirmed launch-coordinate datum repair in shared formal Core; not complete Zemax numerical certification",
+  "repositoryHead": "678d9265474647a1b168379c0f8dd26c42bb7943",
+  "gitState": "Uncommitted working tree; no commit, push, remote update or new native capture in this turn",
+  "implementation": {
+    "productFiles": [
+      "src/OptilandWorkbench.Core/Raytrace/RayGenerator.cs"
+    ],
+    "transverseDatum": "Object coordinate origin; not the first physical lens vertex",
+    "longitudinalConvention": "Existing scalar paraxial entrance-pupil position along global Z",
+    "entryPaths": [
+      "Infinite and finite angle fields",
+      "Finite object-height and paraxial-image-height local-to-global origins",
+      "Real-image-height chief seed",
+      "Finite aiming continuation seed",
+      "Single, batch and prepared pupil samplers"
+    ],
+    "unchanged": [
+      "Frozen references, historical inputs, comparison settings and tolerances",
+      "Newton stopping criteria and aiming exception semantics",
+      "Physical aperture clipping and independent lens decenter",
+      "Existing scalar paraxial global-Z convention"
+    ],
+    "notCertified": [
+      "Arbitrary 3D pupil location and orientation",
+      "Rigid rotation and folded/decentered-system native numerical parity",
+      "Full vector Huygens propagation and polarization",
+      "Native N01/N02 numerical residual closure"
+    ]
+  },
+  "builds": {
+    "Debug": {
+      "command": "dotnet build OptilandWorkbench.slnx -c Debug --no-restore --verbosity quiet",
+      "exitCode": 0,
+      "warnings": 0,
+      "errors": 0,
+      "defaultOutput": true
+    },
+    "Release": {
+      "command": "dotnet build OptilandWorkbench.slnx -c Release --no-restore --verbosity quiet",
+      "exitCode": 0,
+      "warnings": 0,
+      "errors": 0,
+      "defaultOutput": true
+    }
+  },
+  "sourceAndBinaryHashes": [
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/RayGenerator.cs",
+      "sha256": "94f348bb9d6b4426385b6d67d37b94e3e8e2b0c3f10647efece658591389952c"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/RayLaunchCoordinateRepairTests.cs",
+      "sha256": "2392f76667356934549691b280fdaa38b8549b54cf46a429b70e8fa888f650da"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "791e9fa704acd127bbfdb91fbc66a1d9283d199465fb6e08f109e2c6ce9fc492"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "f34064d7bb2000d8e3513e42790b6d6b6141a7135aef74afee5cd1aa7fb8457d"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "94ef63bf935cf2013e73df185b0915685bf65935fdafe48e8a3c213d02625129"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "2feb1bec9b919c79b69ce2bcc5c5dd0e0b5dfaf359cdc1684c79c297172f48d9"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "791e9fa704acd127bbfdb91fbc66a1d9283d199465fb6e08f109e2c6ce9fc492"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "f34064d7bb2000d8e3513e42790b6d6b6141a7135aef74afee5cd1aa7fb8457d"
+    },
+    {
+      "path": "tests/OptilandWorkbench.ZemaxComparison.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "f34064d7bb2000d8e3513e42790b6d6b6141a7135aef74afee5cd1aa7fb8457d"
+    }
+  ],
+  "beforeAndTargetedTrxs": [
+    {
+      "path": "artifacts/validation/ray-launch-coordinate-repair-20261009/before/before-final.trx",
+      "total": 8,
+      "passed": 0,
+      "failed": 8,
+      "notExecuted": 0,
+      "sha256": "2c2607d3fa05f402f72cb0e9bb6af96c2457f6ecee4b53b89081b2f9d72cc93c",
+      "start": "2026-10-09T13:20:36.8031363+08:00",
+      "finish": "2026-10-09T13:20:38.8985166+08:00",
+      "tests": [
+        {
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteAngleLaunchAndTraceFollowRigidTranslations",
+          "outcome": "Failed",
+          "error": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 1E-08)\r\nActual: 14.142135623730951"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PreparedAndBatchLaunchesUseTheSameMovingDatum",
+          "outcome": "Failed",
+          "error": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 1E-08)\r\nActual: 14.142135623730951"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.ParaxialImageHeightLaunchAndTraceFollowRigidTranslations",
+          "outcome": "Failed",
+          "error": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 1E-08)\r\nActual: 14.142135623730951"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteObjectHeightLaunchAndTraceFollowRigidTranslations",
+          "outcome": "Failed",
+          "error": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 1E-08)\r\nActual: 14.142135623730951"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PhysicalObstructionStillBlocksTheTranslatedAimedRay",
+          "outcome": "Failed",
+          "error": "OptilandWorkbench.Core.Raytrace.RayAimingException : Ray aiming did not converge at stop surface 4 after 1 iterations; residual=∞ mm."
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.InfiniteAngleLaunchAndTraceFollowRigidTranslations",
+          "outcome": "Failed",
+          "error": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 1E-08)\r\nActual: 14.142135623730951"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.JointTranslationPreservesWavefrontAndBothDiffractionPaths",
+          "outcome": "Failed",
+          "error": "OptilandWorkbench.Core.Raytrace.RayAimingException : Ray aiming did not converge at stop surface 4 after 1 iterations; residual=∞ mm."
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.RealImageHeightSolveAndTraceFollowRigidTranslations",
+          "outcome": "Failed",
+          "error": "OptilandWorkbench.Core.Raytrace.FieldAimingException : Cannot find rays to yield requested real image height (0, 0)."
+        }
+      ]
+    },
+    {
+      "path": "artifacts/validation/ray-launch-coordinate-repair-20261009/after/after-datum-corrected.trx",
+      "total": 72,
+      "passed": 72,
+      "failed": 0,
+      "notExecuted": 0,
+      "sha256": "7c0ab2463f0ecdc5b971defe07b3bc8105814b8a7669b480581c7aa51434c793",
+      "start": "2026-10-09T13:24:05.4915429+08:00",
+      "finish": "2026-10-09T13:24:08.8004595+08:00",
+      "tests": [
+        {
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PhysicalObstructionStillBlocksTheTranslatedAimedRay",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.InvalidDataOrCoordinatesNeverBecomeZero(code: \"SCUR\", data: 10, x: 0, y: 0)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.EvenAndOddAspheresUseCurrentCoefficients(odd: True, data: 2)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.PlaneAndAsphereVertexAreDefinedOutsideAperture",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.SphericalDerivativesDistinguishTangentialAndSagittal(data: 3)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.SphereCurvaturesIncludeSignDifferencesAndRadialProduct(data: 9)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.InvalidDataOrCoordinatesNeverBecomeZero(code: \"SCUR\", data: -1, x: 0, y: 0)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.SphericalDerivativesDistinguishTangentialAndSagittal(data: 2)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.ImportAndNativeProjectPreserveRawSlotsAndState(code: \"SDRV\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.BoresightErrorTracksDecenteredThinLensAndImageReference",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.InvalidDataOrCoordinatesNeverBecomeZero(code: \"SCUR\", data: 0, x: ∞, y: 0)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PreparedAndBatchLaunchesUseTheSameMovingDatum",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.ImportAndNativeProjectPreserveRawSlotsAndState(code: \"SCUR\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.SphereCurvaturesIncludeSignDifferencesAndRadialProduct(data: 5)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.ImportAndNativeProjectPreserveRawSlotsAndState(code: \"TRAI\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.ImportAndNativeProjectPreserveRawSlotsAndState(code: \"BSER\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.CancellationPropagates(code: \"SDRV\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.InvalidDataOrCoordinatesNeverBecomeZero(code: \"SDRV\", data: 4, x: 0, y: 0)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.OldCompatibilityRowsUpgradeWithoutEnabling(code: \"BSER\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.ClippedRaysAreNotSuccessfulValues(code: \"BSER\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.EvenAndOddAspheresUseCurrentCoefficients(odd: True, data: 0)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.SurfaceEditsImmediatelyChangeDifferentialValues",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.MaximumCurvatureScansFiftyPointsAndFindsInternalExtrema(data: 3)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.PolynomialDirectionalCurvatureUsesSurfaceNormalMetric",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.CancellationPropagates(code: \"BSER\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.MixedPolynomialTermsProjectInLocalDirections(data: 0)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.OldCompatibilityRowsUpgradeWithoutEnabling(code: \"TRAI\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.IntermediateAberrationUsesPrimaryChiefAcrossDifferentWavelengths",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.ParaxialImageHeightLaunchAndTraceFollowRigidTranslations",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.CancellationPropagates(code: \"SCUR\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.EvenAndOddAspheresUseCurrentCoefficients(odd: True, data: 3)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.SphereCurvaturesIncludeSignDifferencesAndRadialProduct(data: 2)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.RayCacheReusesAndInvalidatesIntermediateSamples",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.CancellationPropagates(code: \"TRAI\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.RealImageHeightSolveAndTraceFollowRigidTranslations",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.EvenAndOddAspheresUseCurrentCoefficients(odd: True, data: 1)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.EvenAndOddAspheresUseCurrentCoefficients(odd: False, data: 3)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.SphereCurvaturesIncludeSignDifferencesAndRadialProduct(data: 6)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.InfiniteAngleLaunchAndTraceFollowRigidTranslations",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.InvalidDataOrCoordinatesNeverBecomeZero(code: \"SDRV\", data: 0, x: NaN, y: 0)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.SphereCurvaturesIncludeSignDifferencesAndRadialProduct(data: 1)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.MaximumCurvatureScansFiftyPointsAndFindsInternalExtrema(data: 9)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.IntermediateAberrationUsesRequestedPlaneAndPrimaryChief",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.ApplicationEditingRetainsDataFlagInsteadOfTreatingItAsWavelength",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.InvalidReferencesAreErrors(code: \"BSER\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.SphereCurvaturesIncludeSignDifferencesAndRadialProduct(data: 8)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.SphereCurvaturesIncludeSignDifferencesAndRadialProduct(data: 7)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.MixedPolynomialTermsProjectInLocalDirections(data: 2)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.BoresightRejectsAfocalTiltedUnsupportedAndClippedSystems",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.EvenAndOddAspheresUseCurrentCoefficients(odd: False, data: 2)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.SphereCurvaturesIncludeSignDifferencesAndRadialProduct(data: 0)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteAngleLaunchAndTraceFollowRigidTranslations",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.MixedPolynomialTermsProjectInLocalDirections(data: 1)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.BoresightSelectsRayWavelengthAndAlwaysUsesAxialField",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.EvenAndOddAspheresUseCurrentCoefficients(odd: False, data: 0)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.InvalidReferencesAreErrors(code: \"TRAI\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.SphereCurvaturesIncludeSignDifferencesAndRadialProduct(data: 4)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.MaximumCurvatureScansFiftyPointsAndFindsInternalExtrema(data: 7)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.SphericalDerivativesDistinguishTangentialAndSagittal(data: 1)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.InvalidReferencesAreErrors(code: \"SDRV\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.EvenAndOddAspheresUseCurrentCoefficients(odd: False, data: 1)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.MixedPolynomialTermsProjectInLocalDirections(data: 3)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.ClippedRaysAreNotSuccessfulValues(code: \"TRAI\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.CurvatureOperandDrivesProductionDls",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.SphericalDerivativesDistinguishTangentialAndSagittal(data: 0)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.UnsupportedSingularAndNonFiniteSurfacesAreRejected",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.JointTranslationPreservesWavefrontAndBothDiffractionPaths",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.OldCompatibilityRowsUpgradeWithoutEnabling(code: \"SCUR\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.InvalidReferencesAreErrors(code: \"SCUR\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.SphereCurvaturesIncludeSignDifferencesAndRadialProduct(data: 3)",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.SurfaceDifferentialOperandTests.OldCompatibilityRowsUpgradeWithoutEnabling(code: \"SDRV\")",
+          "outcome": "Passed",
+          "error": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteObjectHeightLaunchAndTraceFollowRigidTranslations",
+          "outcome": "Passed",
+          "error": null
+        }
+      ]
+    }
+  ],
+  "debugTargeted": {
+    "path": "artifacts/validation/ray-launch-coordinate-repair-20261009/debug-targeted-final/debug-targeted-final.trx",
+    "sha256": "687fa3eae1ce84f1dd34496ce71cf55e47293aba34f33078f421134fcc6901cc",
+    "total": 443,
+    "passed": 443,
+    "failed": 0,
+    "notExecuted": 0,
+    "newTests": [
+      {
+        "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.RealImageHeightSolveAndTraceFollowRigidTranslations",
+        "outcome": "Passed"
+      },
+      {
+        "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PreparedAndBatchLaunchesUseTheSameMovingDatum",
+        "outcome": "Passed"
+      },
+      {
+        "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.JointTranslationPreservesWavefrontAndBothDiffractionPaths",
+        "outcome": "Passed"
+      },
+      {
+        "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteObjectHeightLaunchAndTraceFollowRigidTranslations",
+        "outcome": "Passed"
+      },
+      {
+        "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.ParaxialImageHeightLaunchAndTraceFollowRigidTranslations",
+        "outcome": "Passed"
+      },
+      {
+        "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.InfiniteAngleLaunchAndTraceFollowRigidTranslations",
+        "outcome": "Passed"
+      },
+      {
+        "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PhysicalObstructionStillBlocksTheTranslatedAimedRay",
+        "outcome": "Passed"
+      },
+      {
+        "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteAngleLaunchAndTraceFollowRigidTranslations",
+        "outcome": "Passed"
+      }
+    ],
+    "filter": "FullyQualifiedName~RayLaunchCoordinateRepairTests|FullyQualifiedName~Aiming|FullyQualifiedName~FieldDefinition|FullyQualifiedName~Huygens|FullyQualifiedName~Wavefront|FullyQualifiedName~GradientIndexParaxial|FullyQualifiedName~Telecentric"
+  },
+  "comparisonRelease": {
+    "path": "artifacts/validation/ray-launch-coordinate-repair-20261009/comparison-release-final/comparison-release-final.trx",
+    "sha256": "003d89dff7cdedd5267d0ace1e6c2e3c36e451f529ed3255b65c5fcdaba41dc4",
+    "total": 180,
+    "passed": 178,
+    "failed": 2,
+    "notExecuted": 0,
+    "priorPath": "artifacts/validation/huygens-implementation-repair-20261009/comparison-release-final/comparison-release-final.trx",
+    "priorSha256": "33c1f9fb4dd1ebd3ecbce059e42e3953838f49a9411f2710e300bff0c48bcc9a",
+    "priorCount": 180,
+    "missing": [],
+    "changed": [],
+    "allOutcomesAndFailedNumericalOutputsRetained": true,
+    "failures": [
+      {
+        "name": "OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: \"Diffraction Encircled Energy\", directory: \"diffraction-encircled-energy-c1\")",
+        "error": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.01146706362185577)\r\nActual: 0.011467280942848471",
+        "stdout": "Diffraction Encircled Energy/curve:0: Difference, NRMSE=0.013875784968407625, max=0.0505309569642369\r\nOpen numerical discrepancy: test success only establishes error non-regression.\r\nDiffraction Encircled Energy/curve:1: Difference, NRMSE=0.011467280942848471, max=0.04068881984537476\r\nOpen numerical discrepancy: test success only establishes error non-regression."
+      },
+      {
+        "name": "OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: \"Huygens PSF Cross Section\", slug: \"huygens-psf-cross-section\", recordedNrmse: 0.0037256669899999998)",
+        "error": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.0037256669899999998)\r\nActual: 0.0037256670590166724",
+        "stdout": "Huygens PSF Cross Section/curve:0: max=0.005391581588203756, NRMSE=0.0037256670590166724, Close"
+      }
+    ]
+  },
+  "frozenIntegrity": {
+    "before": {
+      "count": 2668,
+      "sha256": "7c1fc6e327ac3a0d0da17adb04d1a88a90999af25522136110cd0041a92b3ce0"
+    },
+    "after": {
+      "count": 2668,
+      "sha256": "7c1fc6e327ac3a0d0da17adb04d1a88a90999af25522136110cd0041a92b3ce0"
+    },
+    "unchanged": true,
+    "definition": "SHA-256 of ordered UTF-8 Windows AppendLine entries path=lowercase SHA-256 for tracked validation, artifacts/zemax, formal test Fixtures and comparison-settings.json; 2668 files"
+  },
+  "translationControls": {
+    "beforePath": "artifacts/validation/remaining-problem-analysis-20261009/aiming-seed-controls.json",
+    "afterPath": "artifacts/validation/ray-launch-coordinate-repair-20261009/aiming-seed-controls-after.json",
+    "after": {
+      "scope": "Launch-seed diagnosis, not an alternate ray tracer or a product repair",
+      "coreSha256": "f34064d7bb2000d8e3513e42790b6d6b6141a7135aef74afee5cd1aa7fb8457d",
+      "rows": [
+        {
+          "shift": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "automaticSeedOrigin": {
+            "x": 0,
+            "y": 0,
+            "z": -10
+          },
+          "automaticSeedDirection": {
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          "seedHistory": [
+            {
+              "surface": 1,
+              "present": true,
+              "intensity": 1,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "surface": 2,
+              "present": true,
+              "intensity": 0.9990213540587684,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 1.7763568394002505e-15
+              }
+            },
+            {
+              "surface": 3,
+              "present": true,
+              "intensity": 0.9990213540587684,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "surface": 4,
+              "present": true,
+              "intensity": 0.9988436095378173,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": -1.7763568394002505e-15
+              }
+            }
+          ],
+          "automaticAimSucceeded": true,
+          "aimingError": null,
+          "physicalTranslatedRayReachesImage": true,
+          "physicalStopLocal": {
+            "x": 0,
+            "y": 0,
+            "z": -1.7763568394002505e-15
+          },
+          "physicalFinalPositionResidual": 0,
+          "physicalFinalDirectionResidual": 0,
+          "physicalOpticalPathResidual": 0
+        },
+        {
+          "shift": {
+            "x": 0.1,
+            "y": 0.1,
+            "z": 0
+          },
+          "automaticSeedOrigin": {
+            "x": 0.1,
+            "y": 0.1,
+            "z": -10
+          },
+          "automaticSeedDirection": {
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          "seedHistory": [
+            {
+              "surface": 1,
+              "present": true,
+              "intensity": 1,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "surface": 2,
+              "present": true,
+              "intensity": 0.9990213540587684,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 1.7763568394002505e-15
+              }
+            },
+            {
+              "surface": 3,
+              "present": true,
+              "intensity": 0.9990213540587684,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "surface": 4,
+              "present": true,
+              "intensity": 0.9988436095378173,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": -1.7763568394002505e-15
+              }
+            }
+          ],
+          "automaticAimSucceeded": true,
+          "aimingError": null,
+          "physicalTranslatedRayReachesImage": true,
+          "physicalStopLocal": {
+            "x": 0,
+            "y": 0,
+            "z": -1.7763568394002505e-15
+          },
+          "physicalFinalPositionResidual": 0,
+          "physicalFinalDirectionResidual": 0,
+          "physicalOpticalPathResidual": 0
+        },
+        {
+          "shift": {
+            "x": 10,
+            "y": 0,
+            "z": 0
+          },
+          "automaticSeedOrigin": {
+            "x": 10,
+            "y": 0,
+            "z": -10
+          },
+          "automaticSeedDirection": {
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          "seedHistory": [
+            {
+              "surface": 1,
+              "present": true,
+              "intensity": 1,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "surface": 2,
+              "present": true,
+              "intensity": 0.9990213540587684,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 1.7763568394002505e-15
+              }
+            },
+            {
+              "surface": 3,
+              "present": true,
+              "intensity": 0.9990213540587684,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "surface": 4,
+              "present": true,
+              "intensity": 0.9988436095378173,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": -1.7763568394002505e-15
+              }
+            }
+          ],
+          "automaticAimSucceeded": true,
+          "aimingError": null,
+          "physicalTranslatedRayReachesImage": true,
+          "physicalStopLocal": {
+            "x": 0,
+            "y": 0,
+            "z": -1.7763568394002505e-15
+          },
+          "physicalFinalPositionResidual": 0,
+          "physicalFinalDirectionResidual": 0,
+          "physicalOpticalPathResidual": 0
+        },
+        {
+          "shift": {
+            "x": 0,
+            "y": 10,
+            "z": 0
+          },
+          "automaticSeedOrigin": {
+            "x": 0,
+            "y": 10,
+            "z": -10
+          },
+          "automaticSeedDirection": {
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          "seedHistory": [
+            {
+              "surface": 1,
+              "present": true,
+              "intensity": 1,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "surface": 2,
+              "present": true,
+              "intensity": 0.9990213540587684,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 1.7763568394002505e-15
+              }
+            },
+            {
+              "surface": 3,
+              "present": true,
+              "intensity": 0.9990213540587684,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "surface": 4,
+              "present": true,
+              "intensity": 0.9988436095378173,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": -1.7763568394002505e-15
+              }
+            }
+          ],
+          "automaticAimSucceeded": true,
+          "aimingError": null,
+          "physicalTranslatedRayReachesImage": true,
+          "physicalStopLocal": {
+            "x": 0,
+            "y": 0,
+            "z": -1.7763568394002505e-15
+          },
+          "physicalFinalPositionResidual": 0,
+          "physicalFinalDirectionResidual": 0,
+          "physicalOpticalPathResidual": 0
+        },
+        {
+          "shift": {
+            "x": 10,
+            "y": 10,
+            "z": 0
+          },
+          "automaticSeedOrigin": {
+            "x": 10,
+            "y": 10,
+            "z": -10
+          },
+          "automaticSeedDirection": {
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          "seedHistory": [
+            {
+              "surface": 1,
+              "present": true,
+              "intensity": 1,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "surface": 2,
+              "present": true,
+              "intensity": 0.9990213540587684,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 1.7763568394002505e-15
+              }
+            },
+            {
+              "surface": 3,
+              "present": true,
+              "intensity": 0.9990213540587684,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "surface": 4,
+              "present": true,
+              "intensity": 0.9988436095378173,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": -1.7763568394002505e-15
+              }
+            }
+          ],
+          "automaticAimSucceeded": true,
+          "aimingError": null,
+          "physicalTranslatedRayReachesImage": true,
+          "physicalStopLocal": {
+            "x": 0,
+            "y": 0,
+            "z": -1.7763568394002505e-15
+          },
+          "physicalFinalPositionResidual": 0,
+          "physicalFinalDirectionResidual": 0,
+          "physicalOpticalPathResidual": 0
+        },
+        {
+          "shift": {
+            "x": 10,
+            "y": -10,
+            "z": 0
+          },
+          "automaticSeedOrigin": {
+            "x": 10,
+            "y": -10,
+            "z": -10
+          },
+          "automaticSeedDirection": {
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          "seedHistory": [
+            {
+              "surface": 1,
+              "present": true,
+              "intensity": 1,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "surface": 2,
+              "present": true,
+              "intensity": 0.9990213540587684,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 1.7763568394002505e-15
+              }
+            },
+            {
+              "surface": 3,
+              "present": true,
+              "intensity": 0.9990213540587684,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "surface": 4,
+              "present": true,
+              "intensity": 0.9988436095378173,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": -1.7763568394002505e-15
+              }
+            }
+          ],
+          "automaticAimSucceeded": true,
+          "aimingError": null,
+          "physicalTranslatedRayReachesImage": true,
+          "physicalStopLocal": {
+            "x": 0,
+            "y": 0,
+            "z": -1.7763568394002505e-15
+          },
+          "physicalFinalPositionResidual": 0,
+          "physicalFinalDirectionResidual": 0,
+          "physicalOpticalPathResidual": 0
+        },
+        {
+          "shift": {
+            "x": -10,
+            "y": 10,
+            "z": 0
+          },
+          "automaticSeedOrigin": {
+            "x": -10,
+            "y": 10,
+            "z": -10
+          },
+          "automaticSeedDirection": {
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          "seedHistory": [
+            {
+              "surface": 1,
+              "present": true,
+              "intensity": 1,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "surface": 2,
+              "present": true,
+              "intensity": 0.9990213540587684,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 1.7763568394002505e-15
+              }
+            },
+            {
+              "surface": 3,
+              "present": true,
+              "intensity": 0.9990213540587684,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "surface": 4,
+              "present": true,
+              "intensity": 0.9988436095378173,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": -1.7763568394002505e-15
+              }
+            }
+          ],
+          "automaticAimSucceeded": true,
+          "aimingError": null,
+          "physicalTranslatedRayReachesImage": true,
+          "physicalStopLocal": {
+            "x": 0,
+            "y": 0,
+            "z": -1.7763568394002505e-15
+          },
+          "physicalFinalPositionResidual": 0,
+          "physicalFinalDirectionResidual": 0,
+          "physicalOpticalPathResidual": 0
+        },
+        {
+          "shift": {
+            "x": 20,
+            "y": 0,
+            "z": 0
+          },
+          "automaticSeedOrigin": {
+            "x": 20,
+            "y": 0,
+            "z": -10
+          },
+          "automaticSeedDirection": {
+            "x": 0,
+            "y": 0,
+            "z": 1
+          },
+          "seedHistory": [
+            {
+              "surface": 1,
+              "present": true,
+              "intensity": 1,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "surface": 2,
+              "present": true,
+              "intensity": 0.9990213540587684,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 1.7763568394002505e-15
+              }
+            },
+            {
+              "surface": 3,
+              "present": true,
+              "intensity": 0.9990213540587684,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              }
+            },
+            {
+              "surface": 4,
+              "present": true,
+              "intensity": 0.9988436095378173,
+              "interaction": "Transmitted",
+              "localPosition": {
+                "x": 0,
+                "y": 0,
+                "z": -1.7763568394002505e-15
+              }
+            }
+          ],
+          "automaticAimSucceeded": true,
+          "aimingError": null,
+          "physicalTranslatedRayReachesImage": true,
+          "physicalStopLocal": {
+            "x": 0,
+            "y": 0,
+            "z": -1.7763568394002505e-15
+          },
+          "physicalFinalPositionResidual": 0,
+          "physicalFinalDirectionResidual": 0,
+          "physicalOpticalPathResidual": 0
+        }
+      ]
+    },
+    "scope": "Same formal Core; reflection of existing aiming trace only for intermediate samples; public clipped trace for physical validity; no alternate optics"
+  },
+  "evidenceExclusions": [
+    "Invalid multi-primary-wavelength test fixture attempts are not used as product-failure proof; corrected before-final.trx is the TDD negative result",
+    "First-physical-surface datum candidate withdrew after existing independent-decenter/BSER tests failed",
+    "Canceled intermediate full Release, Debug and comparison runs do not constitute final-version verification",
+    "Transient test assembly copy retries before stopping intermediate runs are not the final build; both final default builds have zero warnings",
+    "Targeted test collections overlap; their totals are not summed",
+    "Neither display names nor testId alone are unique for all theory rows; final retention uses their composite identity and exact occurrence multiplicity, not a deduplicated dictionary"
+  ],
+  "releaseGate": {
+    "open": true,
+    "nativeResidualsClosed": false,
+    "nativeIntegrityVerified": true,
+    "newNativeCapture": false,
+    "currentFullDebugRun": false,
+    "originalSixLens132RecomputedThisTurn": false,
+    "labsRecomputedThisTurn": false,
+    "installerOrManualDesktopSmokeRun": false,
+    "screenshotBasedCertification": false
+  },
+  "formalRelease": {
+    "path": "artifacts/validation/ray-launch-coordinate-repair-20261009/formal-release-final/formal-release-final.trx",
+    "sha256": "d2aa7c81fa61c79174c2745d20d4d5e6dfe16a501e15ebbcf5c3459d88d81e84",
+    "total": 4526,
+    "passed": 4526,
+    "failed": 0,
+    "notExecuted": 0,
+    "priorPath": "artifacts/validation/huygens-implementation-repair-20261009/formal-release-final/formal-release-final.trx",
+    "priorSha256": "0d92a97d3b8762931a6c00434ee0bb9e4347ff3b430121d3cc99d864ee4c7a0f",
+    "priorCount": 4518,
+    "missing": [],
+    "added": [
+      "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteAngleLaunchAndTraceFollowRigidTranslations",
+      "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteObjectHeightLaunchAndTraceFollowRigidTranslations",
+      "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.InfiniteAngleLaunchAndTraceFollowRigidTranslations",
+      "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.JointTranslationPreservesWavefrontAndBothDiffractionPaths",
+      "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.ParaxialImageHeightLaunchAndTraceFollowRigidTranslations",
+      "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PhysicalObstructionStillBlocksTheTranslatedAimedRay",
+      "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PreparedAndBatchLaunchesUseTheSameMovingDatum",
+      "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.RealImageHeightSolveAndTraceFollowRigidTranslations"
+    ],
+    "retainedFailed": [],
+    "retainedPassed": true,
+    "failures": [],
+    "start": "2026-10-09T13:25:02.1973061+08:00",
+    "finish": "2026-10-09T13:45:57.1759008+08:00",
+    "executionRowRetention": {
+      "identityKey": "testId + display testName + occurrence count; neither ID nor name alone is unique for all theory rows",
+      "priorRows": 4518,
+      "currentRows": 4526,
+      "priorIdentityGroups": 4518,
+      "currentIdentityGroups": 4526,
+      "missing": [],
+      "changedMultiplicityOrOutcome": [],
+      "added": [
+        {
+          "testId": "9a90aded-4ef7-5356-3071-b5e70e497d2a",
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.ParaxialImageHeightLaunchAndTraceFollowRigidTranslations",
+          "count": 1,
+          "outcome": "Passed"
+        },
+        {
+          "testId": "bb7320c2-056f-114d-6c70-bd74736646d8",
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PreparedAndBatchLaunchesUseTheSameMovingDatum",
+          "count": 1,
+          "outcome": "Passed"
+        },
+        {
+          "testId": "28a01d8c-7cfd-c306-41f0-fc4b0a9eddc1",
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.JointTranslationPreservesWavefrontAndBothDiffractionPaths",
+          "count": 1,
+          "outcome": "Passed"
+        },
+        {
+          "testId": "9029b915-c06a-744a-d8ed-b927dd6e2359",
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteAngleLaunchAndTraceFollowRigidTranslations",
+          "count": 1,
+          "outcome": "Passed"
+        },
+        {
+          "testId": "d6a819d2-e1c3-1eb2-cb30-ea7c7d418495",
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.RealImageHeightSolveAndTraceFollowRigidTranslations",
+          "count": 1,
+          "outcome": "Passed"
+        },
+        {
+          "testId": "3e7f1fbb-8089-3d6f-6042-9522d8c0442f",
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PhysicalObstructionStillBlocksTheTranslatedAimedRay",
+          "count": 1,
+          "outcome": "Passed"
+        },
+        {
+          "testId": "fe039b61-050d-7f56-e470-9b2dccf906f0",
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteObjectHeightLaunchAndTraceFollowRigidTranslations",
+          "count": 1,
+          "outcome": "Passed"
+        },
+        {
+          "testId": "9fb3f4e4-b343-7189-bb23-e30c144a829b",
+          "name": "OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.InfiniteAngleLaunchAndTraceFollowRigidTranslations",
+          "count": 1,
+          "outcome": "Passed"
+        }
+      ],
+      "all4518ExecutionRowsRetainedAndPassed": true,
+      "repeatedIdenticalIdentityGroups": []
+    },
+    "identityKeyExplanation": "testId + display testName + occurrence count; neither ID nor name alone is unique for all theory rows",
+    "priorUniqueDisplayNames": 4516,
+    "currentUniqueDisplayNames": 4524
+  },
+  "generatedAtUtc": "2026-10-09 05:52:28 UTC",
+  "documentationChecks": {
+    "currentStageBrokenLinks": [],
+    "missingHistoricalLocalArtifactLinks": [
+      {
+        "source": "docs/CONFIRMED_ISSUE_REPAIR_2026-10-08.md",
+        "target": "../artifacts/validation/issue-repair-20261008/original132/summary.json",
+        "existedInHead": true
+      },
+      {
+        "source": "docs/CONFIRMED_ISSUE_REPAIR_2026-10-08.md",
+        "target": "../artifacts/validation/issue-repair-20261008/original132/prior95-comparison.json",
+        "existedInHead": true
+      },
+      {
+        "source": "docs/CONFIRMED_ISSUE_REPAIR_2026-10-08.md",
+        "target": "../artifacts/validation/issue-repair-20261008/original132/immutable-evidence.json",
+        "existedInHead": true
+      },
+      {
+        "source": "docs/CONFIRMED_ISSUE_REPAIR_2026-10-08.md",
+        "target": "../artifacts/validation/issue-repair-20261008/energy-native-64/COMPARISON_REPORT.md",
+        "existedInHead": true
+      },
+      {
+        "source": "docs/CONFIRMED_ISSUE_REPAIR_2026-10-08.md",
+        "target": "../artifacts/validation/issue-repair-20261008/energy-native-128/COMPARISON_REPORT.md",
+        "existedInHead": true
+      },
+      {
+        "source": "docs/CONFIRMED_ISSUE_REPAIR_2026-10-08.md",
+        "target": "../artifacts/validation/issue-repair-20261008/energy-window-canonical/summary.json",
+        "existedInHead": true
+      },
+      {
+        "source": "docs/NUMERICAL_PARITY.md",
+        "target": "../artifacts/zemax-standard-samples/20261006/NATIVE_REFERENCE_DIAGNOSTICS_FINAL.json",
+        "existedInHead": true
+      },
+      {
+        "source": "docs/NUMERICAL_PARITY.md",
+        "target": "../artifacts/zemax-standard-samples/20261006/opd-aiming-probe/cooke-diagnostic/diagnostic.json",
+        "existedInHead": true
+      },
+      {
+        "source": "docs/NUMERICAL_PARITY.md",
+        "target": "../artifacts/zemax-standard-samples/20261006/opd-aiming-probe/double-gauss-diagnostic/diagnostic.json",
+        "existedInHead": true
+      },
+      {
+        "source": "docs/NUMERICAL_PARITY.md",
+        "target": "../artifacts/validation/zemax-standard-sample-parser-20261006/verification-final.json",
+        "existedInHead": true
+      },
+      {
+        "source": "docs/ZEMAX_TESSAR_VIGNETTING_REPAIR_2026-10-06.md",
+        "target": "../artifacts/zemax-standard-samples/20261006/tessar-vignetting-repair-final/summary.json",
+        "existedInHead": true
+      },
+      {
+        "source": "docs/ZEMAX_TESSAR_VIGNETTING_REPAIR_2026-10-06.md",
+        "target": "../artifacts/zemax-standard-samples/20261006/tessar-controls-recalculated/summary.json",
+        "existedInHead": true
+      },
+      {
+        "source": "docs/ZEMAX_STANDARD_SAMPLE_OPD_REPAIR_2026-10-06.md",
+        "target": "../artifacts/zemax-standard-samples/20261006/opd-core-repair-v2/summary.json",
+        "existedInHead": true
+      },
+      {
+        "source": "docs/ZEMAX_STANDARD_SAMPLE_OPD_REPAIR_2026-10-06.md",
+        "target": "../artifacts/zemax-standard-samples/20261006/opd-core-repair-v2/immutable-evidence.json",
+        "existedInHead": true
+      }
+    ],
+    "historicalMissingCount": 14,
+    "allMissingReferencesExistedInHead": true,
+    "currentBaselineDocumentCount": 36
+  },
+  "artifactVerification": {
+    "hashedSourceAndBinaryFiles": 9,
+    "verifiedTrxFiles": 5,
+    "hashOrCounterMismatches": []
+  }
+}

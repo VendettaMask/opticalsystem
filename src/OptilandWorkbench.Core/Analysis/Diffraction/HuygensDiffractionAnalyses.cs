@@ -130,30 +130,21 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
                 imageDeltaWavelength,
                 _numRays);
         var afocalImageSpace = Optic.ImageSpaceAfocal;
-        var results = wavelengths
-            .Select(wavelength => (
-                Wavelength: wavelength,
-                Result: DiffractionEngine.ComputeHuygensPsf(
-                    Optic,
-                    field,
-                    wavelength,
-                    _numRays,
-                    _imageSize,
-                    pixelPitchMillimeters,
-                    _usePolarization,
-                    aimAtStop: Optic.RayAimingEnabled)))
-            .ToArray();
-        var useConfiguredWeights = results.Any(item => item.Wavelength.Weight > 0);
-        var totalWeight = results.Sum(item =>
-            useConfiguredWeights ? item.Wavelength.Weight : 1);
+        var referenceWavelength = wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
+        var geometricCenter = _useCentroid
+            ? DiffractionEngine.HuygensGeometricCenterOffset(Optic, field, wavelengths,
+                referenceWavelength, _numRays, Optic.RayAimingEnabled)
+            : (X: 0.0, Y: 0.0);
+        var synthesis = HuygensPsfSynthesis.Compute(Optic, field, wavelengths, _numRays,
+            _imageSize, pixelPitchMillimeters, _usePolarization, referenceWavelength,
+            imageCenterOffset: _useCentroid ? geometricCenter : null);
         var values = new double[_imageSize, _imageSize];
         for (var row = 0; row < _imageSize; row++)
         {
             for (var column = 0; column < _imageSize; column++)
             {
-                values[row, column] = results.Sum(item =>
-                    (useConfiguredWeights ? item.Wavelength.Weight : 1)
-                    * item.Result.Values[row, column] / 100.0) / totalWeight;
+                values[row, column] = synthesis.Psf.Values[row, column]
+                    / (100 * synthesis.IdealPeakWeight);
             }
         }
 
@@ -170,9 +161,11 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
             }
         }
 
-        var (centerColumn, centerRow) = _useCentroid
-            ? IntensityCentroid(values)
-            : (_imageSize / 2, _imageSize / 2);
+        var centerColumn = _imageSize / 2;
+        var centerRow = _imageSize / 2;
+        var intensityCentroid = IntensityCentroid(values);
+        var centroidOffsetX = (intensityCentroid.X - centerColumn) * pixelPitchMillimeters;
+        var centroidOffsetY = (intensityCentroid.Y - centerRow) * pixelPitchMillimeters;
         var logarithmic = _type.Contains("对数", StringComparison.Ordinal)
             || _type.Contains("log", StringComparison.OrdinalIgnoreCase);
         var sampleSpacing = afocalImageSpace ? pixelPitchMillimeters : pixelPitchMillimeters * 1000;
@@ -234,7 +227,9 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
             ["ImageExtentMilliradians"] = afocalImageSpace ? extent : 0,
             ["ImageSpaceAfocal"] = afocalImageSpace,
             ["ImageCoordinateUnit"] = imageUnitLabel,
-            ["WorkingFNumber"] = results.Average(item => item.Result.WorkingFNumber),
+            ["WorkingFNumber"] = synthesis.Psf.WorkingFNumber,
+            ["SpectralWeighting"] = "Configured flux weights times squared shortest/selected wavelength ratio",
+            ["ReferenceWavelengthNanometers"] = referenceWavelength.Nanometers,
             ["StrehlRatio"] = rawCenter,
             ["PeakStrehlRatio"] = rawPeak,
             ["WavelengthNumber"] = _wavelengthNumber,
@@ -254,10 +249,19 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
                 : string.Empty,
             ["Normalized"] = _normalize,
             ["UseCentroid"] = _useCentroid,
-            ["CentroidXMicrometers"] = afocalImageSpace ? 0 : (centerColumn - (_imageSize / 2)) * sampleSpacing,
-            ["CentroidYMicrometers"] = afocalImageSpace ? 0 : (centerRow - (_imageSize / 2)) * sampleSpacing,
-            ["CentroidXMilliradians"] = afocalImageSpace ? (centerColumn - (_imageSize / 2)) * sampleSpacing : 0,
-            ["CentroidYMilliradians"] = afocalImageSpace ? (centerRow - (_imageSize / 2)) * sampleSpacing : 0
+            ["CenterReference"] = _useCentroid ? "Geometric centroid" : "Chief ray",
+            ["GeometricCenterOffsetXMicrometers"] = afocalImageSpace ? 0 : geometricCenter.X * 1000,
+            ["GeometricCenterOffsetYMicrometers"] = afocalImageSpace ? 0 : geometricCenter.Y * 1000,
+            ["GeometricCenterOffsetXMilliradians"] = afocalImageSpace ? geometricCenter.X : 0,
+            ["GeometricCenterOffsetYMilliradians"] = afocalImageSpace ? geometricCenter.Y : 0,
+            ["PsfCentroidOffsetXMicrometers"] = afocalImageSpace ? 0 : centroidOffsetX * 1000,
+            ["PsfCentroidOffsetYMicrometers"] = afocalImageSpace ? 0 : centroidOffsetY * 1000,
+            ["PsfCentroidOffsetXMilliradians"] = afocalImageSpace ? centroidOffsetX : 0,
+            ["PsfCentroidOffsetYMilliradians"] = afocalImageSpace ? centroidOffsetY : 0,
+            ["CentroidXMicrometers"] = afocalImageSpace ? 0 : (geometricCenter.X + centroidOffsetX) * 1000,
+            ["CentroidYMicrometers"] = afocalImageSpace ? 0 : (geometricCenter.Y + centroidOffsetY) * 1000,
+            ["CentroidXMilliradians"] = afocalImageSpace ? geometricCenter.X + centroidOffsetX : 0,
+            ["CentroidYMilliradians"] = afocalImageSpace ? geometricCenter.Y + centroidOffsetY : 0
         }, series, new[] { series }, new AnalysisPlotOptions(
             Title: title,
             EqualAspect: true,
@@ -391,18 +395,12 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
             }
             else
             {
-                var wavelengthResults = wavelengths.Select(wavelength =>
-                {
-                    var psf = DiffractionEngine.ComputeHuygensPsf(
-                        Optic,
-                        field,
-                        wavelength,
-                        _numRays,
-                        _imageSize,
-                        sharedPixelPitchMillimeters, aimAtStop: Optic.RayAimingEnabled);
-                    return (wavelength, DiffractionEngine.ComputePsfMtf(psf));
-                }).ToArray();
-                fullMtf = MtfMethodEvaluator.CombinePolychromatic(wavelengthResults);
+                // First sum incoherent intensities on one physical grid, then
+                // transform the sum. Combining already-modulated color curves
+                // loses OTF phase and lateral color (and lacks complex OTFs).
+                var psf = HuygensPsfSynthesis.Compute(Optic, field, wavelengths,
+                    _numRays, _imageSize, sharedPixelPitchMillimeters).Psf;
+                fullMtf = DiffractionEngine.ComputePsfMtf(psf);
             }
 
             var mtf = DiffractionEngine.LimitFrequency(fullMtf, _maximumFrequency);

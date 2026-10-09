@@ -1,0 +1,632 @@
+{
+  "date": "2026-10-09",
+  "sourceRevision": "678d926 plus uncommitted prior official-documentation repairs and current Huygens implementation repairs",
+  "status": "Four local Huygens implementation repairs and default polychromatic-MTF fix pass full formal Release and targeted Debug; two unchanged native residual failures keep the overall release gate open",
+  "report": "docs/HUYGENS_IMPLEMENTATION_REPAIR_2026-10-09.md",
+  "repairs": [
+    {
+      "id": "C06",
+      "path": "Focal and afocal Huygens phase",
+      "change": "Multiply geometric propagation wavenumber by image refractive index; do not multiply optical OPD again",
+      "referenceMediumConvention": "Wavelength and refractive index share the same reference medium; Zemax system-air wavelength is not universally vacuum wavelength"
+    },
+    {
+      "id": "C07",
+      "path": "Shared polychromatic PSF synthesis and default MTF",
+      "change": "Use configured relative flux times squared shortest/selected wavelength ratio; share ideal-peak normalization exactly once; transform summed physical intensity before taking MTF magnitude",
+      "scope": "Existing shared spectral contract unified across PSF, MTF and Huygens energy consumers; energy-normalized image-simulation kernels retain their separate contract"
+    },
+    {
+      "id": "C08",
+      "path": "Polychromatic physical image registration",
+      "change": "Evaluate all colors on one selected-primary or first-selected reference grid; optional geometric centroid also uses one common grid; preserve lateral color"
+    },
+    {
+      "id": "C09",
+      "path": "Paraxial reference sphere radius",
+      "change": "Measure chief intercept from the image-vertex-anchored paraxial pupil reference in one global frame",
+      "scope": "Formal scalar paraxial distance remains global-Z axial; arbitrary aberrated 3-D pupil, tilt, decenter and folded systems are not certified"
+    }
+  ],
+  "formalBuild": {
+    "defaultDebugWarnings": 0,
+    "defaultDebugErrors": 0,
+    "defaultReleaseWarnings": 0,
+    "defaultReleaseErrors": 0,
+    "defaultOutput": true,
+    "assemblies": [
+      {
+        "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+        "sha256": "1454e60a3abfe8d3ef1e456ab300222b0b751a13a944e40d55fb1817253ee575"
+      },
+      {
+        "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+        "sha256": "a3e4402bf9d8a7ce40d9a47a410c11abbeb0752ff5c7da50227d38cd0ef35fae"
+      },
+      {
+        "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+        "sha256": "6d005d1269a38737f4dccfcea66e5be1f7654e8a8e115a5962525ed5a761b7fb"
+      },
+      {
+        "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+        "sha256": "36c8c6c3d264dfb355a9a81840dbe39e5de547176bce3512ad698193d4b36830"
+      }
+    ],
+    "solution": "OptilandWorkbench.slnx"
+  },
+  "protectedReferenceIntegrity": {
+    "trackedFileCount": 2668,
+    "beforeSha256": "7c1fc6e327ac3a0d0da17adb04d1a88a90999af25522136110cd0041a92b3ce0",
+    "afterSha256": "7c1fc6e327ac3a0d0da17adb04d1a88a90999af25522136110cd0041a92b3ce0",
+    "unchanged": true,
+    "scope": [
+      "validation",
+      "artifacts/zemax",
+      "tests/OptilandWorkbench.Tests/Fixtures",
+      "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json"
+    ],
+    "method": "SHA-256 of UTF-8 ordered git ls-files path=SHA256 lines with Windows AppendLine"
+  },
+  "comparisonRetention": {
+    "priorPath": "artifacts/validation/official-doc-repair-20261009/comparison-release-final/comparison-release-final.trx",
+    "priorSha256": "e67ac402bc87ca0d2117315095f4e01a124e8f9e52af4c3902b2faa622d7cd3c",
+    "currentPath": "artifacts/validation/huygens-implementation-repair-20261009/comparison-release-final/comparison-release-final.trx",
+    "priorCount": 180,
+    "missing": [],
+    "changed": [],
+    "allOutcomesAndFailedNumericalOutputsRetained": true
+  },
+  "postRepairControls": {
+    "spectral": {
+      "peakNormalizedMaximumDifference": 1.1102230246251565e-16,
+      "peakNormalizedNrmse": 1.5773371764568642e-17,
+      "analysisPeak": 0.23535420069075713,
+      "sharedPeak": 0.23535420069075713
+    },
+    "index": [
+      {
+        "scale": 1.5,
+        "baseImageIndex": 1,
+        "scaledImageIndex": 1.5,
+        "commonValidCount": 740,
+        "maskMismatchCount": 0,
+        "referenceRadiusDifferenceMm": 7.105427357601002e-15,
+        "pupilPositionMaximumDifferenceMm": 1.434896150467636e-14,
+        "opdMaximumDifferenceWaves": 5.239991773819952e-11,
+        "huygensMaximumDifferencePercent": 2.618811834054213e-10,
+        "huygensNrmse": 3.659355943586018e-12,
+        "fftMaximumDifferencePercent": 6.927152185198793e-10,
+        "fftNrmse": 1.5477476031702702e-12,
+        "fftPitchDifferenceMicrometers": 0,
+        "huygensBasePeak": 0.21196971390534278,
+        "huygensScaledPeak": 0.21196971390613972
+      },
+      {
+        "scale": 2,
+        "baseImageIndex": 1,
+        "scaledImageIndex": 2,
+        "commonValidCount": 740,
+        "maskMismatchCount": 0,
+        "referenceRadiusDifferenceMm": 0,
+        "pupilPositionMaximumDifferenceMm": 0,
+        "opdMaximumDifferenceWaves": 0,
+        "huygensMaximumDifferencePercent": 0,
+        "huygensNrmse": 0,
+        "fftMaximumDifferencePercent": 0,
+        "fftNrmse": 0,
+        "fftPitchDifferenceMicrometers": 0,
+        "huygensBasePeak": 0.21196971390534278,
+        "huygensScaledPeak": 0.21196971390534278
+      }
+    ],
+    "protected": true,
+    "registration": [
+      {
+        "fieldNumber": 1,
+        "hx": 0,
+        "hy": 0,
+        "chiefPoints": [
+          {
+            "Nanometers": 480,
+            "xMm": 0,
+            "yMm": 0
+          },
+          {
+            "Nanometers": 550,
+            "xMm": 0,
+            "yMm": 0
+          },
+          {
+            "Nanometers": 650,
+            "xMm": 0,
+            "yMm": 0
+          }
+        ],
+        "peakNormalizedMaximumDifference": 1.1102230246251565e-16,
+        "peakNormalizedNrmse": 1.679822483629646e-17,
+        "analysisPeak": 0.2217924253262884,
+        "sharedPeak": 0.22179242532628837
+      },
+      {
+        "fieldNumber": 3,
+        "hx": 0,
+        "hy": 1,
+        "chiefPoints": [
+          {
+            "Nanometers": 480,
+            "xMm": 0,
+            "yMm": 18.135854603717867
+          },
+          {
+            "Nanometers": 550,
+            "xMm": 0,
+            "yMm": 18.136025932760994
+          },
+          {
+            "Nanometers": 650,
+            "xMm": 0,
+            "yMm": 18.136259742540535
+          }
+        ],
+        "peakNormalizedMaximumDifference": 1.1102230246251565e-16,
+        "peakNormalizedNrmse": 2.964931188609509e-17,
+        "analysisPeak": 0.05176235832270316,
+        "sharedPeak": 0.05176235832270315
+      }
+    ],
+    "translation": [
+      {
+        "shiftXmm": 0.1,
+        "shiftYmm": 0,
+        "baselineRadiusMm": 50.97689655969244,
+        "shiftedRadiusMm": 50.97689655969244,
+        "opdMaximumDifferenceWaves": 1.1842382630078419e-10,
+        "huygensMaximumDifferencePercent": 7.35049354716466e-10,
+        "errorType": null
+      },
+      {
+        "shiftXmm": 0,
+        "shiftYmm": 0.1,
+        "baselineRadiusMm": 50.97689655969244,
+        "shiftedRadiusMm": 50.97689655969244,
+        "opdMaximumDifferenceWaves": 1.1842382630078419e-10,
+        "huygensMaximumDifferencePercent": 7.3497830044289e-10,
+        "errorType": null
+      },
+      {
+        "shiftXmm": 1,
+        "shiftYmm": 0,
+        "baselineRadiusMm": 50.97689655969244,
+        "shiftedRadiusMm": 50.97689655969244,
+        "opdMaximumDifferenceWaves": 1.1842382630078419e-10,
+        "huygensMaximumDifferencePercent": 6.873932534290361e-10,
+        "errorType": null
+      },
+      {
+        "shiftXmm": 0,
+        "shiftYmm": 1,
+        "baselineRadiusMm": 50.97689655969244,
+        "shiftedRadiusMm": 50.97689655969244,
+        "opdMaximumDifferenceWaves": 1.1842382630078419e-10,
+        "huygensMaximumDifferencePercent": 6.873577262922481e-10,
+        "errorType": null
+      },
+      {
+        "shiftXmm": 10,
+        "shiftYmm": 0,
+        "baselineRadiusMm": 50.97689655969244,
+        "shiftedRadiusMm": 50.97689655969244,
+        "opdMaximumDifferenceWaves": 1.1842382630078419e-10,
+        "huygensMaximumDifferencePercent": 5.769145161593769e-10,
+        "errorType": null
+      },
+      {
+        "shiftXmm": 0,
+        "shiftYmm": 10,
+        "baselineRadiusMm": 50.97689655969244,
+        "shiftedRadiusMm": 50.97689655969244,
+        "opdMaximumDifferenceWaves": 1.1842382630078419e-10,
+        "huygensMaximumDifferencePercent": 5.768718835952313e-10,
+        "errorType": null
+      },
+      {
+        "shiftXmm": 10,
+        "shiftYmm": 10,
+        "baselineRadiusMm": null,
+        "shiftedRadiusMm": null,
+        "opdMaximumDifferenceWaves": null,
+        "huygensMaximumDifferencePercent": null,
+        "errorType": "RayAimingException"
+      }
+    ],
+    "assemblySha256": "1454e60a3abfe8d3ef1e456ab300222b0b751a13a944e40d55fb1817253ee575",
+    "scope": "Independent consistency controls using the current default formal Core; not new native capture. Registration before/after uses phased spectral consistency, not a single-parameter A/B. Percent differences use ideal monochromatic peak=100."
+  },
+  "evidenceFiles": [
+    {
+      "path": "artifacts/validation/huygens-implementation-repair-20261009/post-repair-controls.json",
+      "sha256": "2e84e8f72b137e33eedac49f5e3bf5980d09d25fd1770e4fb2c54a8a479a1593"
+    },
+    {
+      "path": "artifacts/validation/diffraction-diagnosis-20261009/diagnosis-06.json",
+      "sha256": "3ed594ca64afc5b986298e5424062cb51122e5b6829c9b826fb864c239521de6"
+    }
+  ],
+  "tests": [
+    {
+      "path": "artifacts/validation/huygens-implementation-repair-20261009/before/before.trx",
+      "sha256": "0c2d488c6931939ef1365996df6b02d6f59482acce34bea7d41279b56a60273d",
+      "total": 8,
+      "passed": 0,
+      "failed": 8,
+      "notExecuted": 0,
+      "newTests": [
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.SpectralScalingAndZeroWeightColorsDoNotChangeNormalizedImage",
+          "outcome": "Failed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.PolychromaticImageUsesTheSameWavelengthWeightsAsTheSharedPsf",
+          "outcome": "Failed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.CentroidCenteredPolychromaticImageUsesOneWeightedPhysicalGrid",
+          "outcome": "Failed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisReferenceSphereAndDiffractionAreInvariantToTransverseTranslation",
+          "outcome": "Failed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.AfocalPropagationPreservesIndexOverWavelengthAndOpticalPhase",
+          "outcome": "Failed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisPolychromaticImageKeepsLateralColorOnOnePhysicalGrid",
+          "outcome": "Failed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.AxialReferenceSphereAndDiffractionAreInvariantToTransverseTranslation",
+          "outcome": "Failed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.FocalPropagationPreservesIndexOverWavelengthAndOpticalPhase",
+          "outcome": "Failed"
+        }
+      ],
+      "failures": [
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.SpectralScalingAndZeroWeightColorsDoNotChangeNormalizedImage",
+          "outcome": "Failed",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 9.9999999999999994E-12)\r\nActual: 0.0001072457063838253",
+          "stdout": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.PolychromaticImageUsesTheSameWavelengthWeightsAsTheSharedPsf",
+          "outcome": "Failed",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 9.9999999999999994E-12)\r\nActual: 0.0090745779943672625",
+          "stdout": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.CentroidCenteredPolychromaticImageUsesOneWeightedPhysicalGrid",
+          "outcome": "Failed",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 9.9999999999999994E-12)\r\nActual: 0.0018050711997319004",
+          "stdout": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisReferenceSphereAndDiffractionAreInvariantToTransverseTranslation",
+          "outcome": "Failed",
+          "message": "Assert.Equal() Failure: Values are not within 10 decimal places\r\nExpected: 54.107992771799999 (rounded from 54.107992771837147)\r\nActual:   54.108085179500002 (rounded from 54.108085179547622)",
+          "stdout": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.AfocalPropagationPreservesIndexOverWavelengthAndOpticalPhase",
+          "outcome": "Failed",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 9.9999999999999995E-08)\r\nActual: 3.5532111355899811",
+          "stdout": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisPolychromaticImageKeepsLateralColorOnOnePhysicalGrid",
+          "outcome": "Failed",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 9.9999999999999994E-12)\r\nActual: 0.0047102794396305121",
+          "stdout": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.AxialReferenceSphereAndDiffractionAreInvariantToTransverseTranslation",
+          "outcome": "Failed",
+          "message": "Assert.Equal() Failure: Values are not within 10 decimal places\r\nExpected: 50.976896559700002 (rounded from 50.976896559692442)\r\nActual:   51.948474307300003 (rounded from 51.948474307313234)",
+          "stdout": null
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.FocalPropagationPreservesIndexOverWavelengthAndOpticalPhase",
+          "outcome": "Failed",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 9.9999999999999995E-08)\r\nActual: 8.393041540809584",
+          "stdout": null
+        }
+      ],
+      "scope": "First eight pre-repair failing reproductions"
+    },
+    {
+      "path": "artifacts/validation/huygens-implementation-repair-20261009/mtf-before/mtf-before.trx",
+      "sha256": "e21ee1a4376c007ff1c8375110326797e4d21b4a4c99d50c9935ea040314ae4c",
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "notExecuted": 0,
+      "newTests": [
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.GeneralHuygensMtfTransformsTheCombinedImageBeforeTakingMagnitude",
+          "outcome": "Failed"
+        }
+      ],
+      "failures": [
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.GeneralHuygensMtfTransformsTheCombinedImageBeforeTakingMagnitude",
+          "outcome": "Failed",
+          "message": "System.ArgumentException : Polychromatic MTF requires complex OTF data for every active wavelength. (Parameter 'results')",
+          "stdout": null
+        }
+      ],
+      "scope": "Separate default-MTF pre-repair exception reproduction"
+    },
+    {
+      "path": "artifacts/validation/huygens-implementation-repair-20261009/new-release-final/new-release-final.trx",
+      "sha256": "e4c0277646e99bd18632290a78f841f3eba34bb76c67f06b0f974dfbda5bb3ae",
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "notExecuted": 0,
+      "newTests": [
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.SpectralScalingAndZeroWeightColorsDoNotChangeNormalizedImage",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.FocalPropagationPreservesIndexOverWavelengthAndOpticalPhase",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.AxialReferenceSphereAndDiffractionAreInvariantToTransverseTranslation",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.PolychromaticImageUsesTheSameWavelengthWeightsAsTheSharedPsf",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisPolychromaticImageKeepsLateralColorOnOnePhysicalGrid",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.CentroidCenteredPolychromaticImageUsesOneWeightedPhysicalGrid",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.GeneralHuygensMtfTransformsTheCombinedImageBeforeTakingMagnitude",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.AfocalPropagationPreservesIndexOverWavelengthAndOpticalPhase",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisReferenceSphereAndDiffractionAreInvariantToTransverseTranslation",
+          "outcome": "Passed"
+        }
+      ],
+      "failures": [],
+      "scope": "Final Release new regressions; overlaps full formal set"
+    },
+    {
+      "path": "artifacts/validation/huygens-implementation-repair-20261009/targeted-debug-final/targeted-debug-final.trx",
+      "sha256": "a712792b5e337d1947c43b413544627923709f32a5e01dea621718bc68958e70",
+      "total": 448,
+      "passed": 448,
+      "failed": 0,
+      "notExecuted": 0,
+      "newTests": [
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisPolychromaticImageKeepsLateralColorOnOnePhysicalGrid",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.CentroidCenteredPolychromaticImageUsesOneWeightedPhysicalGrid",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.PolychromaticImageUsesTheSameWavelengthWeightsAsTheSharedPsf",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisReferenceSphereAndDiffractionAreInvariantToTransverseTranslation",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.SpectralScalingAndZeroWeightColorsDoNotChangeNormalizedImage",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.AfocalPropagationPreservesIndexOverWavelengthAndOpticalPhase",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.AxialReferenceSphereAndDiffractionAreInvariantToTransverseTranslation",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.GeneralHuygensMtfTransformsTheCombinedImageBeforeTakingMagnitude",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OptilandWorkbench.Tests.HuygensImplementationRepairTests.FocalPropagationPreservesIndexOverWavelengthAndOpticalPhase",
+          "outcome": "Passed"
+        }
+      ],
+      "failures": [],
+      "scope": "Final Debug targeted regression; not full Debug"
+    },
+    {
+      "path": "artifacts/validation/huygens-implementation-repair-20261009/comparison-release-final/comparison-release-final.trx",
+      "sha256": "33c1f9fb4dd1ebd3ecbce059e42e3953838f49a9411f2710e300bff0c48bcc9a",
+      "total": 180,
+      "passed": 178,
+      "failed": 2,
+      "notExecuted": 0,
+      "newTests": [],
+      "failures": [
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: \"Diffraction Encircled Energy\", directory: \"diffraction-encircled-energy-c1\")",
+          "outcome": "Failed",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.01146706362185577)\r\nActual: 0.011467280942848471",
+          "stdout": "Diffraction Encircled Energy/curve:0: Difference, NRMSE=0.013875784968407625, max=0.0505309569642369\r\nOpen numerical discrepancy: test success only establishes error non-regression.\r\nDiffraction Encircled Energy/curve:1: Difference, NRMSE=0.011467280942848471, max=0.04068881984537476\r\nOpen numerical discrepancy: test success only establishes error non-regression."
+        },
+        {
+          "name": "OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: \"Huygens PSF Cross Section\", slug: \"huygens-psf-cross-section\", recordedNrmse: 0.0037256669899999998)",
+          "outcome": "Failed",
+          "message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.0037256669899999998)\r\nActual: 0.0037256670590166724",
+          "stdout": "Huygens PSF Cross Section/curve:0: max=0.005391581588203756, NRMSE=0.0037256670590166724, Close"
+        }
+      ],
+      "scope": "Final full comparison-tool Release; two unchanged open numerical discrepancies"
+    },
+    {
+      "path": "artifacts/validation/huygens-implementation-repair-20261009/formal-release-final/formal-release-final.trx",
+      "sha256": "0d92a97d3b8762931a6c00434ee0bb9e4347ff3b430121d3cc99d864ee4c7a0f",
+      "total": 4518,
+      "passed": 4518,
+      "failed": 0,
+      "notExecuted": 0,
+      "scope": "Final full formal Release; includes the nine new regressions; not full Debug",
+      "failures": []
+    }
+  ],
+  "officialSources": [
+    {
+      "title": "OpticStudio 2026 R1.02 Huygens PSF",
+      "url": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26102/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Huygens_PSF.html",
+      "scope": "Geometric versus PSF centroid, additional spectral factor, plane/sphere model bounds; formula image not visually verified and private quadrature not certified"
+    },
+    {
+      "title": "How OpticStudio calculates refractive index at arbitrary temperatures and pressures",
+      "url": "https://optics.ansys.com/hc/en-us/articles/42661799783443-How-OpticStudio-calculates-refractive-index-at-arbitrary-temperatures-and-pressures",
+      "scope": "System-air wavelength and relative-index convention"
+    },
+    {
+      "title": "OpticStudio 2026 R1.02 Diffraction enclosed energy",
+      "url": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26102/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Diffraction_enclosed_energy.html",
+      "scope": "Separate actual and ideal PSF, sampling and total-energy certification remain open"
+    }
+  ],
+  "openNumericalDiscrepancies": [
+    {
+      "id": "N01",
+      "analysis": "MS-L7 Huygens PSF cross section",
+      "classification": "Close",
+      "nrmse": 0.0037256670590166724,
+      "maximumAbsoluteDifference": 0.005391581588203756,
+      "unchangedNrmseBudget": 0.00372566699,
+      "passesBudget": false
+    },
+    {
+      "id": "N02",
+      "analysis": "MS-L7 diffraction enclosed energy",
+      "classification": "Difference",
+      "idealNrmse": 0.013875784968407625,
+      "idealMaximumAbsoluteDifference": 0.0505309569642369,
+      "actualNrmse": 0.011467280942848471,
+      "actualMaximumAbsoluteDifference": 0.04068881984537476,
+      "unchangedActualNrmseBudget": 0.01146706362185577,
+      "passesBudget": false
+    }
+  ],
+  "excludedIntermediateAcceptance": [
+    "after/after.trx: 8 passed before final default-MTF branch fix and final reference-frame review",
+    "targeted-release/targeted-release.trx: 447 passed before final default-MTF regression/repair and allocation guard"
+  ],
+  "verificationLimits": [
+    "Current full formal Debug was not run; targeted Debug is not full acceptance",
+    "No fresh native capture or screenshot-only numerical certification this turn; this machine native API availability not confirmed",
+    "No rerun of full six-file 132-item historical matrix; historical classification remains 100 Pass/9 Close/14 Difference/8 Incomparable/1 Error",
+    "Native scalar obliquity, adaptive plane/sphere propagation and vector polarization not upgraded or fully certified",
+    "Combined rigid X=10 mm and Y=10 mm translation still fails ray aiming before diffraction and is not counted as passing",
+    "Current laboratory target acceptance, installer package and manual desktop smoke were not run",
+    "No frozen reference, historical input or tolerance relaxation; no commit or push"
+  ],
+  "sourceHead": "678d9265474647a1b168379c0f8dd26c42bb7943",
+  "generatedAtUtc": "2026-10-09T03:39:51Z",
+  "sourceAndLoadedAssemblyFiles": [
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs",
+      "sha256": "a0ceb2c9262113526f5ab0e93edbabcb81a3b647a64c971886553b17ff8f4b2c"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Diffraction/HuygensPsfSynthesis.cs",
+      "sha256": "8fec0deac5d5212ae9f13c36aaa57791fd3ae7f76f0cd9f3e93a85ca7e4c999d"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Diffraction/HuygensDiffractionAnalyses.cs",
+      "sha256": "438330716d5d2b173d03da5fd00846f7c1c8529ce306faa7008c3ce017e9981f"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/MtfScanAnalysis.cs",
+      "sha256": "1f79f7564e743147b1c85d1442993e226510015df3003a6c62460bf0adb408ce"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/WavefrontEngine.cs",
+      "sha256": "1f232af2535f711e2c56ce1a703c5b309bd7ce1f7ca9741cc67cce48d49f2e46"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/DiffractionEnergyMetrics.cs",
+      "sha256": "ce4b081a6a7de102fee28acd05f7181d9f607587ee683a1bd04650d6714fba30"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Services/HuygensPsfMetrics.cs",
+      "sha256": "3fe3cba4d393999fd45aac2a528413614732f8fb0d9cdb38e7b07b07e1b7c43d"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/HuygensImplementationRepairTests.cs",
+      "sha256": "c7f90c19c8b342dab12c047920e3137b9582e5fce7d618fef301487b138c2318"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "1454e60a3abfe8d3ef1e456ab300222b0b751a13a944e40d55fb1817253ee575"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "a3e4402bf9d8a7ce40d9a47a410c11abbeb0752ff5c7da50227d38cd0ef35fae"
+    },
+    {
+      "path": "tests/OptilandWorkbench.ZemaxComparison.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "1454e60a3abfe8d3ef1e456ab300222b0b751a13a944e40d55fb1817253ee575"
+    }
+  ],
+  "formalTestIdentityRetention": {
+    "priorPath": "artifacts/validation/official-doc-repair-20261009/formal-release-final/formal-release-final.trx",
+    "priorSha256": "097e5757363a2fe44094edf6f15201b516a60d890cbc03576452b7e087b310fa",
+    "priorCount": 4509,
+    "priorUnique": 4509,
+    "currentUnique": 4518,
+    "missing": [],
+    "retainedPassed": 4509,
+    "added": [
+      "OptilandWorkbench.Tests.HuygensImplementationRepairTests.AfocalPropagationPreservesIndexOverWavelengthAndOpticalPhase",
+      "OptilandWorkbench.Tests.HuygensImplementationRepairTests.AxialReferenceSphereAndDiffractionAreInvariantToTransverseTranslation",
+      "OptilandWorkbench.Tests.HuygensImplementationRepairTests.CentroidCenteredPolychromaticImageUsesOneWeightedPhysicalGrid",
+      "OptilandWorkbench.Tests.HuygensImplementationRepairTests.FocalPropagationPreservesIndexOverWavelengthAndOpticalPhase",
+      "OptilandWorkbench.Tests.HuygensImplementationRepairTests.GeneralHuygensMtfTransformsTheCombinedImageBeforeTakingMagnitude",
+      "OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisPolychromaticImageKeepsLateralColorOnOnePhysicalGrid",
+      "OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisReferenceSphereAndDiffractionAreInvariantToTransverseTranslation",
+      "OptilandWorkbench.Tests.HuygensImplementationRepairTests.PolychromaticImageUsesTheSameWavelengthWeightsAsTheSharedPsf",
+      "OptilandWorkbench.Tests.HuygensImplementationRepairTests.SpectralScalingAndZeroWeightColorsDoNotChangeNormalizedImage"
+    ]
+  },
+  "priorRepairsPreserved": {
+    "ids": [
+      "C03",
+      "C04",
+      "C05"
+    ],
+    "evidence": "docs/validation/OFFICIAL_DOCUMENTATION_REPAIR_2026-10-09.json",
+    "scope": "Previous 4509-item Release and 352-item Debug-targeted stage remains historical"
+  }
+}

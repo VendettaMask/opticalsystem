@@ -4,7 +4,7 @@
 
 后续[波前图系统瞄准修复](WAVEFRONT_AIMING_REPAIR_2026-10-08.md)已修复显示选项误控物理光线的问题；不改变本页历史 RA 光斑认证，也未重算这里的外部分类和全量计数。
 
-本页保留矩形单元中心采样阶段的历史结果（原 84 Pass；独立控制 14 Pass/3 Difference）。后续当前原矩阵为 95 Pass，独立 17+6 项全部 Pass，见[最新复验](ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.md)。下文误差和验证仅描述此历史阶段。
+本页保留矩形单元中心采样阶段的历史结果（原 84 Pass；独立控制 14 Pass/3 Difference）。后续 RA256 阶段原矩阵为 95 Pass、独立 17+6 项全部 Pass，见[该阶段复验](ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.md)。当前实现和验收见[2026年10月9日发射坐标修复与当前验收](RAY_LAUNCH_COORDINATE_REPAIR_2026-10-09.md)；下文误差和验证仅描述此历史阶段。
 
 已修正共享 Core 中 RMS 光斑矩形采样的节点位置：原生 RA 在正方形网格的单元中心发射光线，之前 Workbench 在边界节点发射。五份官方标准镜头补采的 **17 项独立控制**，修复前为 **10 Pass / 4 Close / 3 Difference**，修复后为 **14 Pass / 3 Difference**。四份无遮挡镜头的 RA 64 全部由 Close 变为 Pass。
 

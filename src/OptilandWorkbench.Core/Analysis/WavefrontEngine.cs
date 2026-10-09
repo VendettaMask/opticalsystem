@@ -176,14 +176,16 @@ public static class WavefrontEngine
         }
 
         var imagePosition = chief.Position;
-        var imageSurfacePosition = optic.SurfaceGroup.Items.LastOrDefault()?.CoordinateSystem.Origin.Z
-            ?? imagePosition.Z;
-        var spherePupilZ = imageSurfacePosition
-            + optic.Paraxial.EstimateExitPupilLocation(wavelength.Micrometers);
-        var radius = Math.Sqrt(
-            (imagePosition.X * imagePosition.X)
-            + (imagePosition.Y * imagePosition.Y)
-            + ((imagePosition.Z - spherePupilZ) * (imagePosition.Z - spherePupilZ)));
+        var imageFrame = optic.SurfaceGroup.Items[^1].CoordinateSystem;
+        // The formal scalar paraxial tracer measures its image-relative pupil
+        // distance along global Z, not along a tilted detector's local normal.
+        // Anchor that axial reference at the image vertex in the same global
+        // frame as the chief intercept; world X/Y=0 is not the pupil center.
+        // This repairs rigid translations of the paraxial model. Arbitrary
+        // decentered/folded systems still require an aberrated 3-D pupil model.
+        var pupilPosition = imageFrame.Origin + new Vector3D(0, 0,
+            optic.Paraxial.EstimateExitPupilLocation(wavelength.Micrometers));
+        var radius = (imagePosition - pupilPosition).Length;
         return new WavefrontReferenceSphere(
             imagePosition.X,
             imagePosition.Y,

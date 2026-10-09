@@ -1,6 +1,6 @@
 # Tessar 渐晕与相位复验 · 2026-10-06
 
-本报告保留 2026-10-06 渐晕阶段的历史验证。当前原矩阵 95 Pass、独立 RMS 17+6 项全部 Pass，双路径模型、误截光修复与最新测试见[当前复验](ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.md)。下文差异、计数与建议保留当时范围。
+本报告保留 2026-10-06 渐晕阶段的历史验证。后续 RA256 阶段原矩阵 95 Pass、独立 RMS 17+6 项全部 Pass，双路径模型与误截光修复见[该阶段复验](ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.md)。当前实现和验收见[FFT 采样与参考点修复及当前验收](FFT_SAMPLING_REFERENCE_REPAIR_2026-10-09.md)；下文差异、计数与建议保留当时范围。
 
 共享 Core 已修正光线扇图、OPD 横轴和渐晕入瞳相位。六份官方镜头的原设置 132 项由上一阶段 **82 Pass / 12 Close / 27 Difference / 10 Incomparable / 1 Error** 变为 **84 Pass / 12 Close / 27 Difference / 8 Incomparable / 1 Error**。新增通过的是 Tessar 25°/436 nm 的光线扇图与 OPD；上一阶段 82 项 Pass 全部保持通过，原 12 组 OPD 和 12 组光线扇图均为 Pass。商业软件精度与发布门禁仍未完成。
 

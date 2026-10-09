@@ -1,0 +1,211 @@
+{
+  "date": "2026-10-09",
+  "sourceRevision": "678d926 plus uncommitted official-documentation repairs",
+  "status": "Three local repairs passed full Release and targeted Debug regression; native certification and overall release gate remain open",
+  "report": "docs/OFFICIAL_DOCUMENTATION_REPAIR_2026-10-09.md",
+  "repairs": [
+    {
+      "id": "C03",
+      "path": "Axial-only distortion reference",
+      "change": "Preserve small physical field perturbations in shared RayGenerator without changing the field table",
+      "nativeScope": "Original Doublet request executes; no fresh native numerical certification"
+    },
+    {
+      "id": "C04",
+      "path": "Calibrated F-Theta / F-Tan distortion",
+      "change": "Use the local-derivative axial percent limit; retain zero axial absolute-height difference",
+      "independentFTanAxisPercent": 0.21239295298851602,
+      "nativeScope": "Independent analytical Snell-law check; fresh native certification pending"
+    },
+    {
+      "id": "C05",
+      "path": "Huygens UseCentroid",
+      "change": "Recalculate on a geometrically centered grid; report geometric and intensity offsets separately",
+      "nativeScope": "Focal and afocal weighted-centroid regressions pass; scalar propagation approximation remains uncertified"
+    }
+  ],
+  "officialSources": [
+    {
+      "title": "OpticStudio 2026 R1.02 Field Curvature and Distortion",
+      "url": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26102/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Field_Curvature_and_Distortion.html"
+    },
+    {
+      "title": "OpticStudio 2026 R1.02 Huygens PSF",
+      "url": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26102/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Huygens_PSF.html"
+    },
+    {
+      "title": "OpticStudio 2026 R1.02 Diffraction enclosed energy",
+      "url": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26102/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Diffraction_enclosed_energy.html"
+    }
+  ],
+  "formalBuild": {
+    "defaultDebugWarnings": 0,
+    "defaultDebugErrors": 0,
+    "defaultReleaseWarnings": 0,
+    "defaultReleaseErrors": 0,
+    "assemblies": [
+      {
+        "Path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+        "Sha256": "326400401ceebcb4c8bcfcfb6b7d75252dd8fd2f293e1a7af8e2a4ad484f477f",
+        "LastWriteTimeUtc": "2026-10-09T01:17:00.2800096Z"
+      },
+      {
+        "Path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+        "Sha256": "e4104a2101b82464140b450fd4081c4567e9cf9421e78828b954a13763e2c4fd",
+        "LastWriteTimeUtc": "2026-10-09T01:18:21.6013373Z"
+      },
+      {
+        "Path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+        "Sha256": "12215e26f1dd547c30cea1e323af8b5b54995ac03387fe34dbbd44ba0fd7ba26",
+        "LastWriteTimeUtc": "2026-10-09T01:17:08.5940690Z"
+      },
+      {
+        "Path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+        "Sha256": "df6a520cd7d5c1a35b244c61ef3975df0e43920e2c305a5dc21b7714f9fae96f",
+        "LastWriteTimeUtc": "2026-10-09T01:18:39.5943415Z"
+      }
+    ]
+  },
+  "tests": [
+    {
+      "path": "artifacts/validation/official-doc-repair-20261009/axial-before-confirmed/axial-before-confirmed.trx",
+      "sha256": "2fc3c6a885c59814a455849d160848eb398f5fb5431793f3eb857cab74dc7877",
+      "total": 4,
+      "passed": 1,
+      "failed": 3,
+      "notExecuted": 0,
+      "scope": "Pre-repair reproduction, not final acceptance"
+    },
+    {
+      "path": "artifacts/validation/official-doc-repair-20261009/calibrated-before/calibrated-before.trx",
+      "sha256": "42abacab730305121cc4809541dc1010f4fcc3eaf68ddfc284f98e19d6b0cf74",
+      "total": 5,
+      "passed": 4,
+      "failed": 1,
+      "notExecuted": 0,
+      "scope": "Pre-repair reproduction, not final acceptance"
+    },
+    {
+      "path": "artifacts/validation/official-doc-repair-20261009/compatibility-final/compatibility-final.trx",
+      "sha256": "c793a61d88751f7b75dd4abf8f70c180391429e6ce66b3b27e0763b45f611d68",
+      "total": 10,
+      "passed": 10,
+      "failed": 0,
+      "notExecuted": 0,
+      "scope": "Focused overlapping regression, not aggregate product acceptance"
+    },
+    {
+      "path": "artifacts/validation/official-doc-repair-20261009/distortion-final/distortion-final.trx",
+      "sha256": "07890cb8baae5a3fbe62ebe8267fe11c789b77074cdc1c4384d4836648f62ebc",
+      "total": 204,
+      "passed": 204,
+      "failed": 0,
+      "notExecuted": 0,
+      "scope": "Focused overlapping regression, not aggregate product acceptance"
+    },
+    {
+      "path": "artifacts/validation/official-doc-repair-20261009/formal-debug-targeted-final/formal-debug-targeted-final.trx",
+      "sha256": "4788dd9c53647e7121a53cfed81208383a24c5835ae691ea8a59d0bd16bc6f41",
+      "total": 352,
+      "passed": 352,
+      "failed": 0,
+      "notExecuted": 0,
+      "scope": "Final Debug targeted, not full Debug"
+    },
+    {
+      "path": "artifacts/validation/official-doc-repair-20261009/huygens-center-after/huygens-center-after.trx",
+      "sha256": "c1da738d6983b465c2722c027ca90437d155eeddf5d79f2323c7e6bbc10b6ecc",
+      "total": 70,
+      "passed": 70,
+      "failed": 0,
+      "notExecuted": 0,
+      "scope": "Focused overlapping regression, not aggregate product acceptance"
+    },
+    {
+      "path": "artifacts/validation/official-doc-repair-20261009/huygens-center-before/huygens-center-before.trx",
+      "sha256": "2bfbe90167443720331e059be1aebf633e9824e206680de8e002591bd3032e0d",
+      "total": 2,
+      "passed": 0,
+      "failed": 2,
+      "notExecuted": 0,
+      "scope": "Pre-repair reproduction, not final acceptance"
+    }
+  ],
+  "finalReleaseFull": {
+    "status": "passed",
+    "path": "artifacts/validation/official-doc-repair-20261009/formal-release-final/formal-release-final.trx",
+    "sha256": "097e5757363a2fe44094edf6f15201b516a60d890cbc03576452b7e087b310fa",
+    "total": 4509,
+    "passed": 4509,
+    "failed": 0,
+    "notExecuted": 0,
+    "historicalIdentityCount": 4501,
+    "currentIdentityCount": 4509,
+    "missingHistoricalTests": [],
+    "newTests": [
+      "OptilandWorkbench.Tests.AxialDistortionReferenceTests.OfficialAxialDoubletCompletesTheOriginalFieldCurvatureRequest",
+      "OptilandWorkbench.Tests.AxialDistortionReferenceTests.CalibratedDistortionUsesItsNonzeroAxialLimitButAbsoluteHeightRemainsZero",
+      "OptilandWorkbench.Tests.AxialDistortionReferenceTests.CachedPhysicalPerturbationsRecalculateAfterMaterialChanges",
+      "OptilandWorkbench.Tests.AxialDistortionReferenceTests.PhysicalReferencePerturbationsSurviveAnAxialOnlyFieldTable",
+      "OptilandWorkbench.Tests.AxialDistortionReferenceTests.AxialReferenceStillRejectsABlockedChiefRay",
+      "OptilandWorkbench.Tests.HuygensGeometricCenterTests.GeometricCenterDoesNotDependOnThePsfWindowOrPeakNormalization",
+      "OptilandWorkbench.Tests.HuygensGeometricCenterTests.AfocalGeometricCenterUsesAngularUnitsAndAllSelectedSpectralWeights",
+      "OptilandWorkbench.Tests.HuygensGeometricCenterTests.CentroidOptionCentersTheSampledImageOnTheGeometricBeam"
+    ]
+  },
+  "finalComparisonRelease": {
+    "status": "completed with unchanged open numerical failures",
+    "path": "artifacts/validation/official-doc-repair-20261009/comparison-release-final/comparison-release-final.trx",
+    "sha256": "e67ac402bc87ca0d2117315095f4e01a124e8f9e52af4c3902b2faa622d7cd3c",
+    "total": 180,
+    "passed": 178,
+    "failed": 2,
+    "notExecuted": 0,
+    "failures": [
+      {
+        "TestName": "OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: \"Huygens PSF Cross Section\", slug: \"huygens-psf-cross-section\", recordedNrmse: 0.0037256669899999998)",
+        "Message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.0037256669899999998)\r\nActual: 0.0037256670590166724"
+      },
+      {
+        "TestName": "OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: \"Diffraction Encircled Energy\", directory: \"diffraction-encircled-energy-c1\")",
+        "Message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.01146706362185577)\r\nActual: 0.011467280942848471"
+      }
+    ]
+  },
+  "historicalFullDebug": {
+    "date": "2026-10-08",
+    "total": 4501,
+    "passed": 4501,
+    "scope": "Historical pre-repair full Debug, not current full Debug acceptance"
+  },
+  "openDifferences": [
+    {
+      "id": "N01",
+      "analysis": "Huygens PSF Cross Section",
+      "nrmse": 0.0037256670590166724,
+      "originalRegressionBudget": 0.00372566699,
+      "classification": "Close; original comparison test fails"
+    },
+    {
+      "id": "N02",
+      "analysis": "Diffraction Encircled Energy",
+      "idealNrmse": 0.013875784968407625,
+      "actualNrmse": 0.011467280942848471,
+      "originalActualRegressionBudget": 0.01146706362185577,
+      "classification": "Difference; original comparison test fails"
+    }
+  ],
+  "boundaries": [
+    "No fresh Zemax native captures this task",
+    "No reference, raw source, history, or tolerance edits",
+    "Previous 132-item native matrix classification retained as historical, not rerun this task",
+    "Full Debug and laboratory acceptance not rerun this task",
+    "No installation-package or manual desktop smoke acceptance this task",
+    "No commit or push of the current repairs this task"
+  ],
+  "excludedRuns": [
+    "Early test-model preparation failures are not optical reproduction evidence",
+    "Interrupted pre-compatibility full and Debug runs are not final acceptance"
+  ],
+  "aggregation": "Focused test sets overlap; never sum their passing counts"
+}

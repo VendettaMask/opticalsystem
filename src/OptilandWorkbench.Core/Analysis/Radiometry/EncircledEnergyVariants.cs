@@ -1,4 +1,5 @@
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Analysis;
@@ -220,6 +221,23 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
         var center = string.Equals(_reference, "centroid", StringComparison.OrdinalIgnoreCase)
             ? EnergyCurveSupport.Centroid(samples)
             : (X: 0.0, Y: 0.0);
+        if (string.Equals(_reference, "vertex", StringComparison.OrdinalIgnoreCase))
+        {
+            var wavelengths = _wavelengthNumber > 0
+                ? new[] { Optic.Wavelengths[Math.Clamp(_wavelengthNumber - 1, 0, Optic.Wavelengths.Count - 1)] }
+                : Optic.Wavelengths.ToArray();
+            var referenceIndex = Array.FindIndex(wavelengths, wave => wave.IsPrimary);
+            if (referenceIndex < 0) referenceIndex = 0;
+            var waveNumber = Optic.Wavelengths.ToList().IndexOf(wavelengths[referenceIndex]) + 1;
+            var aiming = ((bool[])source.Values["UseRayAiming"])[referenceIndex];
+            var field = SpotAnalysisEngine.DefinedFields(Optic)[fieldIndex];
+            // RayBundleMetrics returns image-local coordinates, independent of
+            // rigid world translations. FFT heatmap coordinates are chief-relative.
+            var chief = RayBundleMetrics.Trace(Optic, Optic.SurfaceGroup.Items[^1].Number,
+                waveNumber, field.Hx, field.Hy, [new PupilSample(0, 0, 1)],
+                requireUnvignetted: true, includeSurfaceTransmission: false, aimAtStop: aiming)[0];
+            center = (-chief.Position.X * 1000, -chief.Position.Y * 1000);
+        }
         return new PsfPixelEnergyGrid(samples, center, _type);
     }
 

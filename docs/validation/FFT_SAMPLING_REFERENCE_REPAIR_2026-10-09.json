@@ -1,0 +1,231 @@
+{
+  "Date": "2026-10-09",
+  "Scope": "Formal FFT sampling and energy reference repair; not native residual closure",
+  "RepositoryHead": "678d9265474647a1b168379c0f8dd26c42bb7943",
+  "GitState": "Uncommitted; no push or new native capture",
+  "Builds": {
+    "Debug": {
+      "Warnings": 0,
+      "Errors": 0,
+      "ExitCode": 0,
+      "DefaultOutput": true
+    },
+    "Release": {
+      "Warnings": 0,
+      "Errors": 0,
+      "ExitCode": 0,
+      "DefaultOutput": true
+    }
+  },
+  "FormalRelease": {
+    "Path": "artifacts/validation/fft-sampling-reference-repair-20261009/formal-release-final-v3/formal-release-final.trx",
+    "Sha256": "140509697a60074ef8d652373ebb85d29ac86392a07973bb2b33c1c1babec0e6",
+    "Outcome": "Completed",
+    "Total": 4539,
+    "Passed": 4539,
+    "Failed": 0,
+    "Skipped": 0
+  },
+  "ComparisonRelease": {
+    "Path": "artifacts/validation/fft-sampling-reference-repair-20261009/comparison-release-final/comparison-release-final.trx",
+    "Sha256": "3a1d05c4596f11300a714bbc9303235a67d6831c5714b3d5981cb6058b56268a",
+    "Outcome": "Failed",
+    "Total": 180,
+    "Passed": 178,
+    "Failed": 2,
+    "Skipped": 0
+  },
+  "AdditionalTrxs": [
+    {
+      "Path": "artifacts/validation/fft-sampling-reference-repair-20261009/before/before.trx",
+      "Sha256": "75a63d1fb7688ca1e23ab4c7e0743f9089d1838a3bc21df80375ed51f379f3a4",
+      "Outcome": "Failed",
+      "Total": 13,
+      "Passed": 3,
+      "Failed": 10,
+      "Skipped": 0
+    },
+    {
+      "Path": "artifacts/validation/fft-sampling-reference-repair-20261009/after/after-targeted.trx",
+      "Sha256": "20d4dc0587558beb1dd358e3bf9ad7b288467567e7998d50cc5da7b7c8e74a23",
+      "Outcome": "Completed",
+      "Total": 155,
+      "Passed": 155,
+      "Failed": 0,
+      "Skipped": 0
+    },
+    {
+      "Path": "artifacts/validation/fft-sampling-reference-repair-20261009/formal-release-final/formal-release-final.trx",
+      "Sha256": "7c66f186871e950421bb3986f8e1374badee75652a6ad2a60cd13a42609a5d85",
+      "Outcome": "Failed",
+      "Total": 3598,
+      "Passed": 3597,
+      "Failed": 1,
+      "Skipped": 0
+    },
+    {
+      "Path": "artifacts/validation/fft-sampling-reference-repair-20261009/formal-release-final-v2/formal-release-final.trx",
+      "Sha256": "20c9f005617474ec4723c099db1d125b06e35fd5753655e8cc48b0b747a8207b",
+      "Outcome": "Failed",
+      "Total": 4212,
+      "Passed": 4211,
+      "Failed": 1,
+      "Skipped": 0
+    },
+    {
+      "Path": "artifacts/validation/fft-sampling-reference-repair-20261009/debug-targeted-final/debug-targeted-final.trx",
+      "Sha256": "a9ffafd6baa95743a295f01d41fefbcb7960d5c976dced0ba1801373c024e798",
+      "Outcome": "Failed",
+      "Total": 176,
+      "Passed": 176,
+      "Failed": 0,
+      "Skipped": 0
+    },
+    {
+      "Path": "artifacts/validation/fft-sampling-reference-repair-20261009/debug-targeted-final-v2/debug-targeted-final.trx",
+      "Sha256": "60f72e94f35f9b4657515d7608006704867e285c116c4420bc65313eb3ce09e2",
+      "Outcome": "Completed",
+      "Total": 187,
+      "Passed": 187,
+      "Failed": 0,
+      "Skipped": 0
+    }
+  ],
+  "IdentityRetention": {
+    "CurrentCount": 4539,
+    "AddedNames": [
+      "OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(sampling: 32, afocal: False)",
+      "OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(sampling: 32, afocal: True)",
+      "OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(sampling: 64, afocal: False)",
+      "OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.CoreRejectsExplicitPitchWithDegenerateOrIncompletePupil(pitch: 1.0000000000000001E-05)",
+      "OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.CoreRejectsExplicitPitchWithDegenerateOrIncompletePupil(pitch: 1000)",
+      "OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.NegativePolychromaticPitchRetainsFullUnstretchedPupil",
+      "OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.OffAxisVertexIsNotAnAliasForChiefRay",
+      "OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.PolychromaticEnergyPlotAndOperandShareTheSameSampling",
+      "OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.PublicPsfDoesNotTurnInvalidPitchIntoAFlatSuccessfulImage(pitch: 1.0000000000000001E-05)",
+      "OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.PublicPsfDoesNotTurnInvalidPitchIntoAFlatSuccessfulImage(pitch: 1000)",
+      "OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.SmallGeneralPurposeGridDoesNotCompressItsCoverageBelowThePupil",
+      "OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.VertexPlotMatchesImageLocalReferenceUsedByEnergyOperand",
+      "OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.VertexUsesImageLocalCoordinatesAfterRigidTranslation"
+    ],
+    "PreviousCount": 4526,
+    "AllCurrentPassed": true,
+    "RemovedOrMultiplicityChanged": 0,
+    "AddedCount": 13,
+    "Definition": "testId + full testName + exact occurrence multiplicity"
+  },
+  "ComparisonRetention": {
+    "CurrentTotal": 180,
+    "IdentityDifference": 0,
+    "Failures": [
+      {
+        "TestId": "b02277f8-9124-bd21-2d15-6a9d1d38852a",
+        "Name": "OptilandWorkbench.ZemaxComparison.Tests.AdditionalCapturedAnalysisTests.CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(key: \"Diffraction Encircled Energy\", directory: \"diffraction-encircled-energy-c1\")",
+        "Error": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.01146706362185577)\r\nActual: 0.011467280942848471",
+        "Stdout": "Diffraction Encircled Energy/curve:0: Difference, NRMSE=0.013875784968407625, max=0.0505309569642369\r\nOpen numerical discrepancy: test success only establishes error non-regression.\r\nDiffraction Encircled Energy/curve:1: Difference, NRMSE=0.011467280942848471, max=0.04068881984537476\r\nOpen numerical discrepancy: test success only establishes error non-regression."
+      },
+      {
+        "TestId": "3d79df52-fee1-53ce-ac36-d4fa7b8458f4",
+        "Name": "OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: \"Huygens PSF Cross Section\", slug: \"huygens-psf-cross-section\", recordedNrmse: 0.0037256669899999998)",
+        "Error": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 0.0037256669899999998)\r\nActual: 0.0037256670590166724",
+        "Stdout": "Huygens PSF Cross Section/curve:0: max=0.005391581588203756, NRMSE=0.0037256670590166724, Close"
+      }
+    ],
+    "FailureDetailsUnchanged": true,
+    "PreviousTotal": 180
+  },
+  "FrozenIntegrity": {
+    "MatchesPrevious": true,
+    "Count": 2668,
+    "Sha256": "7c1fc6e327ac3a0d0da17adb04d1a88a90999af25522136110cd0041a92b3ce0"
+  },
+  "SourceAndBinaryHashes": [
+    {
+      "Path": "src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs",
+      "Sha256": "9d23cc82b54f82e7f9f3c29474d3edd62d0753082afd985a37714f212f180957"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs",
+      "Sha256": "a204e608f86ca7eb8972ea4187d1e3fb43dc720ef7083810feb78f7912f4a751"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Core/Analysis/Radiometry/EncircledEnergyVariants.cs",
+      "Sha256": "2d742b6ac4a1699d6e736b95e4f201ef92e6bf1c6d4e993672a7f820adaa2df4"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Core/Services/DiffractionEnergyMetrics.cs",
+      "Sha256": "fe2ac84e104f114c53aa9c10dc330ae914ab62bc5ba7d5d74427ca4f51b73f89"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/FftSamplingReferenceRepairTests.cs",
+      "Sha256": "8bf2911d26b3e27e3a39d4e953e6b9a7af72567a7dd05c77bfd2a8d7b3aa0fd5"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/AnalysisNumericalRepairTests.cs",
+      "Sha256": "f8f1c904577263346e47d500e21e421cb06e0728aa9e2912f93a4a35986d7147"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "Sha256": "7d89ca7c500f3adbca0652166825d726de59c37296cf168543ad3fb57bd311b3"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "Sha256": "e5db570fb57198d84cc08f6d18bb73750a2aa6fcbf6963c9abe3b912c9db2509"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "Sha256": "7d89ca7c500f3adbca0652166825d726de59c37296cf168543ad3fb57bd311b3"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "Sha256": "e5db570fb57198d84cc08f6d18bb73750a2aa6fcbf6963c9abe3b912c9db2509"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.ZemaxComparison.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "Sha256": "7d89ca7c500f3adbca0652166825d726de59c37296cf168543ad3fb57bd311b3"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "Sha256": "7d89ca7c500f3adbca0652166825d726de59c37296cf168543ad3fb57bd311b3"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "Sha256": "e5db570fb57198d84cc08f6d18bb73750a2aa6fcbf6963c9abe3b912c9db2509"
+    }
+  ],
+  "DiagnosticBefore": "artifacts/validation/web-implementation-audit-20261009/results.json",
+  "DiagnosticAfter": "artifacts/validation/fft-sampling-reference-repair-20261009/diagnostic-after.json",
+  "ChangedExistingTestContract": "MS-L7 0.5 micrometer coordinate-only control now rejects incomplete pupil; 0.25 native assertions and fixtures unchanged",
+  "ExcludedRuns": [
+    "First Release full run deliberately aborted after obsolete 0.5 micrometer contract failure",
+    "Second Release full run deliberately aborted after background task setup deadline failure; isolated unchanged cancellation test passed, final full run does not overlap heavy checks",
+    "First Debug targeted run deliberately aborted to release locked default test output; not a complete pass"
+  ],
+  "Unverified": [
+    "Full Debug",
+    "New native 32/64 automatic-pitch ideal/actual PSF and vertex/polychromatic captures",
+    "Native N01/N02 residual closure",
+    "Laboratories, installers and manual desktop smoke test",
+    "Arbitrary rotated/decentered/folded pupil and tilted image projection"
+  ],
+  "NativeGridControl": {
+    "Scope": "Existing native 64/128 explicit 0.25 micrometer FFT PSF; not original N02 32/64 automatic-pitch energy capture",
+    "CapturePath": "validation/zemax/2026-r1/numerical-repair-2026-09-06/ms-l7-fft-psf-data.json",
+    "CaptureSha256": "8e24585f14fd9ad44b1a1aeacb62b59d1fe8a3a9f2a01c182955b36df6172043",
+    "CoreSha256": "7d89ca7c500f3adbca0652166825d726de59c37296cf168543ad3fb57bd311b3",
+    "ComparedPixels": 16384,
+    "RelativeL2": 0.0028567503339345444,
+    "MaximumAbsoluteIntensityError": 0.0009863041087567748,
+    "MaximumCoordinateErrorMicrometers": 0,
+    "UnchangedExistingTestBudget": 0.01,
+    "PassesExistingBudget": true,
+    "SourceLensSha256": "8bcc937c2c2e02ba175f38875fd0def40db547f7eedab509cbfd1fed4353e0e8"
+  },
+  "CancellationIsolatedCheck": {
+    "path": "artifacts/validation/fft-sampling-reference-repair-20261009/cancellation-isolated-01/cancellation-isolated-01.trx",
+    "passed": 1,
+    "total": 1,
+    "thresholdSeconds": 2,
+    "assertionsUnchanged": true
+  }
+}

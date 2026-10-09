@@ -47,15 +47,14 @@ public static class DiffractionEnergyMetrics
             var frame = DiffractionEngine.CreateHuygensImageFrame(optic, field, primary, optic.RayAimingEnabled);
             var toVertex = optic.SurfaceGroup.Items[^1].CoordinateSystem.Origin - frame.Center;
             vertex = (Dot(toVertex, frame.TangentX) * 1000, Dot(toVertex, frame.TangentY) * 1000);
-            var results = wavelengths.Select(w => (Wave: w, Psf: DiffractionEngine.ComputeHuygensPsf(optic, field, w,
-                pupilSize, imageSize, delta, usePolarization: false, aimAtStop: optic.RayAimingEnabled, referenceWavelength: primary))).ToArray();
-            var shortest = wavelengths.Min(w => w.Nanometers);
+            var psf = HuygensPsfSynthesis.Compute(optic, field, wavelengths,
+                pupilSize, imageSize, delta, referenceWavelength: primary).Psf;
             for (var y = 0; y < imageSize; y++)
             {
                 ComputationCancellation.ThrowIfCancellationRequested();
                 for (var x = 0; x < imageSize; x++)
                 {
-                    var intensity = results.Sum(r => r.Wave.Weight * Math.Pow(shortest / r.Wave.Nanometers, 2) * r.Psf.Values[y, x]);
+                    var intensity = psf.Values[y, x];
                     points.Add(new((x - imageSize / 2) * delta * 1000, (y - imageSize / 2) * delta * 1000, intensity));
                 }
             }
@@ -63,11 +62,11 @@ public static class DiffractionEnergyMetrics
         else
         {
             vertex = (-chief.Position.X * 1000, -chief.Position.Y * 1000);
-            var results = wavelengths.Select(w => (Wave: w, Psf: DiffractionEngine.ComputeFftPsf(optic, field, w,
-                pupilSize, imageSize, usePolarization: false, cellCenteredPupil: true, zemaxFftSampling: true,
-                aimAtStop: optic.RayAimingEnabled, referenceWavelength: primary))).ToArray();
-            if (results.Any(r => r.Psf.SampleSpacingUnit != AnalysisAxisUnit.Micrometer)) throw new InvalidOperationException("FFT PSF 未发布微米坐标。");
-            var delta = results.Min(r => r.Psf.SampleSpacingMicrometers);
+            var results = DiffractionEngine.ComputeFftPsfSpectrum(optic, field, wavelengths,
+                pupilSize, imageSize, cellCenteredPupil: true, zemaxFftSampling: true,
+                aimAtStop: optic.RayAimingEnabled, referenceWavelength: primary);
+            if (results.Any(r => r.Result.SampleSpacingUnit != AnalysisAxisUnit.Micrometer)) throw new InvalidOperationException("FFT PSF 未发布微米坐标。");
+            var delta = results.Min(r => r.Result.SampleSpacingMicrometers);
             // Use the same central FFT window and coordinate convention as the
             // formal diffraction-energy analysis, without building a plot.
             var start = (imageSize - pupilSize) / 2;
@@ -77,7 +76,7 @@ public static class DiffractionEnergyMetrics
                 for (var x = start; x < start + pupilSize; x++)
                 {
                     var px = (x - (imageSize - 1) / 2) * delta; var py = (y - (imageSize - 1) / 2) * delta;
-                    var intensity = results.Sum(r => r.Wave.Weight * PsfAnalysis.BilinearSample(r.Psf, px, py));
+                    var intensity = results.Sum(r => r.Wavelength.Weight * PsfAnalysis.BilinearSample(r.Result, px, py));
                     points.Add(new(px, py, intensity));
                 }
             }

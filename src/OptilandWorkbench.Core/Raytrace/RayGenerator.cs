@@ -23,7 +23,7 @@ public sealed partial class RayGenerator
         double NormalizedFieldX,
         double NormalizedFieldY,
         PupilVignetting Vignetting,
-        double EntrancePupilGlobalZ,
+        Vector3D EntrancePupilGlobalCenter,
         Vector3D BaseOrigin,
         bool TranslateOriginWithPupil);
 
@@ -143,6 +143,41 @@ public sealed partial class RayGenerator
         OpticCapabilityPreflight.EnsureSupported(_optic, OpticCapabilityOperation.RayTrace);
         ValidateNormalized(normalizedFieldX, nameof(normalizedFieldX));
         ValidateNormalized(normalizedFieldY, nameof(normalizedFieldY));
+        var field = NormalizedFieldToValues(normalizedFieldX, normalizedFieldY);
+        return GenerateAtPhysicalFieldCore(field.X, field.Y, normalizedPupilX, normalizedPupilY,
+            wavelengthMicrometers, aimAtStop, resolvedRealImageLaunch, allowOutsideUnitPupil);
+    }
+
+    // Reference derivatives need small physical field perturbations even when
+    // the editor contains only the axis. Do not invent field rows or change the
+    // public normalized-coordinate contract to obtain those rays.
+    internal RealRayBundle GenerateAtPhysicalField(
+        double fieldX,
+        double fieldY,
+        double normalizedPupilX,
+        double normalizedPupilY,
+        double wavelengthMicrometers,
+        bool aimAtStop = false,
+        (double X, double Y)? resolvedRealImageLaunch = null,
+        bool allowOutsideUnitPupil = false)
+    {
+        OpticCapabilityPreflight.EnsureSupported(_optic, OpticCapabilityOperation.RayTrace);
+        return GenerateAtPhysicalFieldCore(fieldX, fieldY, normalizedPupilX, normalizedPupilY,
+            wavelengthMicrometers, aimAtStop, resolvedRealImageLaunch, allowOutsideUnitPupil);
+    }
+
+    private RealRayBundle GenerateAtPhysicalFieldCore(
+        double fieldX,
+        double fieldY,
+        double normalizedPupilX,
+        double normalizedPupilY,
+        double wavelengthMicrometers,
+        bool aimAtStop,
+        (double X, double Y)? resolvedRealImageLaunch,
+        bool allowOutsideUnitPupil)
+    {
+        if (!double.IsFinite(fieldX)) throw new ArgumentOutOfRangeException(nameof(fieldX));
+        if (!double.IsFinite(fieldY)) throw new ArgumentOutOfRangeException(nameof(fieldY));
         ValidateNormalized(normalizedPupilX, nameof(normalizedPupilX));
         ValidateNormalized(normalizedPupilY, nameof(normalizedPupilY));
         if (!allowOutsideUnitPupil
@@ -152,12 +187,11 @@ public sealed partial class RayGenerator
         }
 
         var apertureRadius = EntrancePupilRadius();
-        var field = NormalizedFieldToValues(normalizedFieldX, normalizedFieldY);
         var realImageLaunch = resolvedRealImageLaunch
-            ?? ResolveRealImageLaunch(field.X, field.Y, aimAtStop);
+            ?? ResolveRealImageLaunch(fieldX, fieldY, aimAtStop);
         var ray = CreateRay(
-            field.X,
-            field.Y,
+            fieldX,
+            fieldY,
             normalizedPupilX,
             normalizedPupilY,
             apertureRadius,
@@ -183,7 +217,7 @@ public sealed partial class RayGenerator
         var wavelength = MicrometersToNanometers(wavelengthMicrometers);
         var vignetting = ResolveVignetting(normalizedFieldX, normalizedFieldY);
         var context = new FieldRayContext(normalizedFieldX, normalizedFieldY, vignetting,
-            EntrancePupilGlobalZ(), FieldOrigin(field.X, field.Y, 0, 0, apertureRadius, launch),
+            EntrancePupilGlobalCenter(), FieldOrigin(field.X, field.Y, 0, 0, apertureRadius, launch),
             ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items.FirstOrDefault()));
         // Paraxial transfer and the vignetting transform are affine in pupil
         // coordinates. Resolve their basis with the existing shared calculation.
@@ -240,7 +274,7 @@ public sealed partial class RayGenerator
             normalizedFieldX,
             normalizedFieldY,
             vignetting,
-            EntrancePupilGlobalZ(),
+            EntrancePupilGlobalCenter(),
             FieldOrigin(field.X, field.Y, 0, 0, apertureRadius, realImageLaunch),
             ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items.FirstOrDefault()));
         var resolvedStopTargets = aimAtStop
@@ -467,10 +501,10 @@ public sealed partial class RayGenerator
             return (origin, Normalize(target - origin));
         }
 
-        var entrancePupil = new Vector3D(
+        var entrancePupil = (fieldRayContext?.EntrancePupilGlobalCenter ?? EntrancePupilGlobalCenter()) + new Vector3D(
             pupilX * apertureRadius,
             pupilY * apertureRadius,
-            fieldRayContext?.EntrancePupilGlobalZ ?? EntrancePupilGlobalZ());
+            0);
         var direction = Normalize(entrancePupil - origin);
         if (!aimAtStop)
         {
@@ -572,7 +606,7 @@ public sealed partial class RayGenerator
         // estimate can miss an early surface before Newton iteration obtains a
         // usable sample. Continue from the chief ray to the requested stop point
         // so every intermediate trial remains on a traceable branch.
-        var entrancePupilCenter = new Vector3D(0, 0, EntrancePupilGlobalZ());
+        var entrancePupilCenter = EntrancePupilGlobalCenter();
         var centralDirection = Normalize(entrancePupilCenter - origin);
         var centralSlopeX = centralDirection.X / Math.Max(1e-30, centralDirection.Z);
         var centralSlopeY = centralDirection.Y / Math.Max(1e-30, centralDirection.Z);
@@ -751,20 +785,21 @@ public sealed partial class RayGenerator
     {
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
         var entrancePupilZ = _optic.Paraxial.EstimateEntrancePupilLocation();
+        var pupilCenter = EntrancePupilGlobalCenter();
         if (!ObjectConjugate.IsInfinite(objectSurface))
         {
             var objectZ = objectSurface?.CoordinateSystem.Origin.Z ?? 0;
             return new Vector3D(
-                -Math.Tan(DegreesToRadians(fieldX)) * (entrancePupilZ - objectZ),
-                -Math.Tan(DegreesToRadians(fieldY)) * (entrancePupilZ - objectZ),
+                pupilCenter.X - Math.Tan(DegreesToRadians(fieldX)) * (entrancePupilZ - objectZ),
+                pupilCenter.Y - Math.Tan(DegreesToRadians(fieldY)) * (entrancePupilZ - objectZ),
                 objectZ);
         }
 
         var (firstSurfaceZ, offset) = InfiniteObjectStart(apertureRadius);
         var startZ = firstSurfaceZ - offset;
         return new Vector3D(
-            (pupilX * apertureRadius) - (Math.Tan(DegreesToRadians(fieldX)) * (offset + entrancePupilZ)),
-            (pupilY * apertureRadius) - (Math.Tan(DegreesToRadians(fieldY)) * (offset + entrancePupilZ)),
+            pupilCenter.X + (pupilX * apertureRadius) - (Math.Tan(DegreesToRadians(fieldX)) * (offset + entrancePupilZ)),
+            pupilCenter.Y + (pupilY * apertureRadius) - (Math.Tan(DegreesToRadians(fieldY)) * (offset + entrancePupilZ)),
             startZ);
     }
 
@@ -776,9 +811,9 @@ public sealed partial class RayGenerator
             throw new InvalidOperationException("Object-height fields require a finite object surface.");
         }
 
-        var objectZ = objectSurface?.CoordinateSystem.Origin.Z ?? 0;
         var sag = objectSurface?.Geometry.Sag(fieldX, fieldY) ?? 0;
-        return new Vector3D(fieldX, fieldY, objectZ + sag);
+        var localOrigin = new Vector3D(fieldX, fieldY, sag);
+        return objectSurface?.CoordinateSystem.ToGlobalPoint(localOrigin) ?? localOrigin;
     }
 
     private Vector3D ParaxialImageHeightOrigin(
@@ -799,18 +834,19 @@ public sealed partial class RayGenerator
         {
             var objectX = objectHeightUnit * (fieldX / imageHeightUnit);
             var objectY = objectHeightUnit * (fieldY / imageHeightUnit);
-            var objectZ = objectSurface?.CoordinateSystem.Origin.Z ?? 0;
             var sag = objectSurface?.Geometry.Sag(objectX, objectY) ?? 0;
-            return new Vector3D(objectX, objectY, objectZ + sag);
+            var localOrigin = new Vector3D(objectX, objectY, sag);
+            return objectSurface?.CoordinateSystem.ToGlobalPoint(localOrigin) ?? localOrigin;
         }
 
         var entrancePupilZ = _optic.Paraxial.EstimateEntrancePupilLocation();
+        var pupilCenter = EntrancePupilGlobalCenter();
         var (firstSurfaceZ, offset) = InfiniteObjectStart(apertureRadius);
         var objectSlopeX = objectSlopeUnit * (fieldX / imageHeightUnit);
         var objectSlopeY = objectSlopeUnit * (fieldY / imageHeightUnit);
         return new Vector3D(
-            (pupilX * apertureRadius) - (objectSlopeX * (offset + entrancePupilZ)),
-            (pupilY * apertureRadius) - (objectSlopeY * (offset + entrancePupilZ)),
+            pupilCenter.X + (pupilX * apertureRadius) - (objectSlopeX * (offset + entrancePupilZ)),
+            pupilCenter.Y + (pupilY * apertureRadius) - (objectSlopeY * (offset + entrancePupilZ)),
             firstSurfaceZ - offset);
     }
 
@@ -992,7 +1028,7 @@ public sealed partial class RayGenerator
         }
         else
         {
-            var entrancePupil = new Vector3D(0, 0, EntrancePupilGlobalZ());
+            var entrancePupil = EntrancePupilGlobalCenter();
             direction = Normalize(entrancePupil - origin);
         }
 
@@ -1132,6 +1168,17 @@ public sealed partial class RayGenerator
         // The launch point must precede a virtual entrance pupil as well as the
         // first surface, otherwise pupil-minus-origin reverses propagation.
         return (firstSurfaceZ, Math.Max(clearance, firstSurfaceZ - EntrancePupilGlobalZ() + clearance));
+    }
+
+    private Vector3D EntrancePupilGlobalCenter()
+    {
+        // The formal paraxial pupil location is a scalar along global Z, not a
+        // full tilted/decentered pupil solve. Keep that longitudinal convention
+        // while moving the transverse launch datum with the object frame.
+        // Moving only a lens must not move the source and hide its decenter.
+        var datum = _optic.SurfaceGroup.Items.FirstOrDefault();
+        var origin = datum?.CoordinateSystem.Origin ?? Vector3D.Zero;
+        return new Vector3D(origin.X, origin.Y, EntrancePupilGlobalZ());
     }
 
     private double EntrancePupilGlobalZ()

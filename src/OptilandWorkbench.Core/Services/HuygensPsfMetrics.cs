@@ -28,11 +28,10 @@ public static class HuygensPsfMetrics
         var longest = wavelengths.MaxBy(w => w.Nanometers)!;
         var delta = DiffractionEngine.DefaultHuygensImageDeltaMillimeters(optic, field, longest, pupilSize);
         if (strehlSampling) delta /= 2;
-        var psf = MtfMethodEvaluator.ComputeHuygensPolychromaticPsf(optic, field, wavelengths,
-            new MtfComputationSettings(PupilSampling: pupilSize, ImageSize: imageSize,
-                PixelPitchMillimeters: delta, UsePolarization: false, UseZemaxHuygensSemantics: true));
-        var minimumWave = wavelengths.Min(w => w.Nanometers);
-        var idealWeight = wavelengths.Sum(w => w.Weight * Math.Pow(minimumWave / w.Nanometers, 2));
+        var synthesis = HuygensPsfSynthesis.Compute(optic, field, wavelengths,
+            pupilSize, imageSize, delta);
+        var psf = synthesis.Psf;
+        var idealWeight = synthesis.IdealPeakWeight;
         var energy = 0.0; var xMoment = 0.0; var yMoment = 0.0; var peak = 0.0;
         for (var y = 0; y < imageSize; y++)
         {

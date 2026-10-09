@@ -83,6 +83,19 @@ public sealed class DistortionAnalysis : BaseAnalysis
                     "SMIA-TV distortion",
                     $"reference calibration failed: {exception.Message}");
             }
+            var axialPercent = 0.0;
+            if (_displayMode == "percent" && _distortionType is "calibrated-f-theta" or "calibrated-f-tan")
+            {
+                var axialMapping = AnalysisTrace.BuildDistortionReferenceMapping(workingOptic,
+                    wavelength.Micrometers, 0,
+                    _distortionType == "calibrated-f-theta" ? "f-theta" : "f-tan");
+                var direction = AnalysisTrace.ScanField(_scanDirection, 1);
+                var actualDerivative = axialMapping.MapFromReference(direction.X, direction.Y);
+                var predictedDerivative = mapping.MapFromReference(direction.X, direction.Y);
+                var predictedMagnitude = double.Hypot(predictedDerivative.X, predictedDerivative.Y);
+                axialPercent = 100 * (double.Hypot(actualDerivative.X, actualDerivative.Y)
+                    - predictedMagnitude) / predictedMagnitude;
+            }
             var points = new AnalysisPoint[fields.Count];
 
             for (var index = 0; index < fields.Count; index++)
@@ -101,7 +114,7 @@ public sealed class DistortionAnalysis : BaseAnalysis
                 var actualRadius = Math.Sqrt((actualX * actualX) + (actualY * actualY));
                 var predictedRadius = Math.Sqrt((predicted.X * predicted.X) + (predicted.Y * predicted.Y));
                 var distortion = predictedRadius <= 1e-30
-                    ? 0
+                    ? axialPercent
                     : _displayMode == "absolute"
                         ? actualRadius - predictedRadius
                         : 100.0 * (actualRadius - predictedRadius) / predictedRadius;

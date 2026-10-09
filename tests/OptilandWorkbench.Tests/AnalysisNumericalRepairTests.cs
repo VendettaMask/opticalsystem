@@ -128,7 +128,7 @@ public sealed class AnalysisNumericalRepairTests
     [InlineData(0.5)]
     public void CapturedFftPsfGridHasChiefRayAtPhysicalZero(double pitch)
     {
-        var data = new WorkbenchRuntime(Import("zemax-ms-l7-high-na.ZMX")).BuildAnalysisData("PSF", new Dictionary<string, string>
+        AnalysisData Build() => new WorkbenchRuntime(Import("zemax-ms-l7-high-na.ZMX")).BuildAnalysisData("PSF", new Dictionary<string, string>
         {
             ["FieldNumber"] = "1",
             ["WavelengthNumber"] = "1",
@@ -136,6 +136,14 @@ public sealed class AnalysisNumericalRepairTests
             ["Display"] = "128",
             ["ImageDeltaMicrometers"] = pitch.ToString(System.Globalization.CultureInfo.InvariantCulture)
         });
+        if (pitch == .5)
+        {
+            // This was a coordinate-only control, not a native capture. Its
+            // explicit pitch clips the sampled pupil and must not return a PSF.
+            Assert.Contains("does not cover the full pupil", Assert.Throws<InvalidOperationException>(Build).Message);
+            return;
+        }
+        var data = Build();
         var points = Assert.Single(data.PlotSeries).Points;
         Assert.Equal(-63 * pitch, points[0].X);
         Assert.Equal(-63 * pitch, points[0].Y);

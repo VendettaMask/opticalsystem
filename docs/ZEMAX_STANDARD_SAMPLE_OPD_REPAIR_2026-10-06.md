@@ -1,6 +1,6 @@
 # 标准镜头 OPD 修复与复验 · 2026-10-06
 
-本文保留 OPD 阶段 82 Pass 的历史修复与验证。当前原矩阵 95 Pass、独立 RMS 17+6 项全部 Pass，旧快照和重新导入两条路径见[最新复验](ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.md)。下文剩余问题、测试计数与后续建议仅描述当时状态。
+本文保留 OPD 阶段 82 Pass 的历史修复与验证。后续 RA256 阶段原矩阵 95 Pass、独立 RMS 17+6 项全部 Pass，旧快照和重新导入两条路径见[该阶段复验](ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.md)。当前实现和验收见[FFT 采样与参考点修复及当前验收](FFT_SAMPLING_REFERENCE_REPAIR_2026-10-09.md)；下文剩余问题、测试计数与建议仅描述当时状态。
 
 共享 Core 的两处 OPD 问题已修复。六份官方标准镜头的原设置共 132 项重算，结果由 **76 Pass / 15 Close / 30 Difference / 10 Incomparable / 1 Error** 变为 **82 Pass / 12 Close / 27 Difference / 10 Incomparable / 1 Error**。原有 76 项 Pass 全部保持 Pass，6 项 OPD 转为 Pass；12 组 OPD 中 11 组 Pass，Tessar 边场仍不可比。Close、不可比及运行错误均不计为通过，商业软件精度与发布验收仍未完成。
 

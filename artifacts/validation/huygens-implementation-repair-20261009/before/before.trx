@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="8aaa93aa-7e3e-4b6e-85d2-f4edb5a94cd1" name="optics@LAPTOP-G4BBBCS0 2026-10-09 11:02:06" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T11:02:06.0383509+08:00" queuing="2026-10-09T11:02:06.0383512+08:00" start="2026-10-09T11:02:03.3996334+08:00" finish="2026-10-09T11:02:06.0532665+08:00" />
+  <TestSettings name="default" id="7a9f83fb-82da-480f-9a3a-00b066cc84f5">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-09_11_02_06" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="c2cbd4fc-2114-4982-a161-dd61e4d8f67a" testId="b69852e2-ce81-8016-d51b-7e7254107f89" testName="OptilandWorkbench.Tests.HuygensImplementationRepairTests.SpectralScalingAndZeroWeightColorsDoNotChangeNormalizedImage" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0914696" startTime="2026-10-09T11:02:05.6906584+08:00" endTime="2026-10-09T11:02:05.7819056+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c2cbd4fc-2114-4982-a161-dd61e4d8f67a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 9.9999999999999994E-12)&#xD;
+Actual: 0.0001072457063838253</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckImage(AnalysisData data, Double[,] expected) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 217&#xD;
+   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckImageAndShared(Optic optic, ValueTuple`2 field, Int32 fieldNumber) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 125&#xD;
+   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.SpectralScalingAndZeroWeightColorsDoNotChangeNormalizedImage() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 65&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e314f77f-3f3c-4575-b1e6-f03e63b6ac4b" testId="fa13bdd3-a62d-d56c-58f2-ae1511fe6fd9" testName="OptilandWorkbench.Tests.HuygensImplementationRepairTests.PolychromaticImageUsesTheSameWavelengthWeightsAsTheSharedPsf" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0432960" startTime="2026-10-09T11:02:05.5946007+08:00" endTime="2026-10-09T11:02:05.6368692+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e314f77f-3f3c-4575-b1e6-f03e63b6ac4b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 9.9999999999999994E-12)&#xD;
+Actual: 0.0090745779943672625</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckImage(AnalysisData data, Double[,] expected) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 217&#xD;
+   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckImageAndShared(Optic optic, ValueTuple`2 field, Int32 fieldNumber) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 125&#xD;
+   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.PolychromaticImageUsesTheSameWavelengthWeightsAsTheSharedPsf() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 26&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e880cd32-a79b-453b-9c2b-e31cde059ae6" testId="0078bd68-e219-afff-92f3-37bdcce55bf5" testName="OptilandWorkbench.Tests.HuygensImplementationRepairTests.CentroidCenteredPolychromaticImageUsesOneWeightedPhysicalGrid" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0925984" startTime="2026-10-09T11:02:05.8504335+08:00" endTime="2026-10-09T11:02:05.9426387+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e880cd32-a79b-453b-9c2b-e31cde059ae6">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 9.9999999999999994E-12)&#xD;
+Actual: 0.0018050711997319004</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckImage(AnalysisData data, Double[,] expected) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 217&#xD;
+   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CentroidCenteredPolychromaticImageUsesOneWeightedPhysicalGrid() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 49&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2549b5be-f28d-483e-beeb-63a22f988755" testId="b3470117-bc47-8e37-5178-651a0d08f2f5" testName="OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisReferenceSphereAndDiffractionAreInvariantToTransverseTranslation" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.8887178" startTime="2026-10-09T11:02:04.5360495+08:00" endTime="2026-10-09T11:02:05.4374871+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2549b5be-f28d-483e-beeb-63a22f988755">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 10 decimal places&#xD;
+Expected: 54.107992771799999 (rounded from 54.107992771837147)&#xD;
+Actual:   54.108085179500002 (rounded from 54.108085179547622)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckTranslation(ValueTuple`2 field, Vector3D[] shifts) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 183&#xD;
+   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisReferenceSphereAndDiffractionAreInvariantToTransverseTranslation() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 83&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fa88e585-5359-4980-85e3-70da584e3f89" testId="e2118abb-6a66-6aaa-9ca5-dab7f2ae549d" testName="OptilandWorkbench.Tests.HuygensImplementationRepairTests.AfocalPropagationPreservesIndexOverWavelengthAndOpticalPhase" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0271716" startTime="2026-10-09T11:02:05.6634281+08:00" endTime="2026-10-09T11:02:05.6901386+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fa88e585-5359-4980-85e3-70da584e3f89">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 9.9999999999999995E-08)&#xD;
+Actual: 3.5532111355899811</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckIndexScaling(Boolean afocal) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 116&#xD;
+   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.AfocalPropagationPreservesIndexOverWavelengthAndOpticalPhase() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 17&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d2a3e814-a0d3-4aee-900f-f69dce6da3d2" testId="8cb8bc12-f0a5-2a35-e267-f2fc270bee44" testName="OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisPolychromaticImageKeepsLateralColorOnOnePhysicalGrid" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0676612" startTime="2026-10-09T11:02:05.7828741+08:00" endTime="2026-10-09T11:02:05.8497805+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d2a3e814-a0d3-4aee-900f-f69dce6da3d2">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 9.9999999999999994E-12)&#xD;
+Actual: 0.0047102794396305121</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckImage(AnalysisData data, Double[,] expected) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 217&#xD;
+   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckImageAndShared(Optic optic, ValueTuple`2 field, Int32 fieldNumber) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 125&#xD;
+   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisPolychromaticImageKeepsLateralColorOnOnePhysicalGrid() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 36&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4aaf4666-827c-4155-bff9-cbb30f28e9f3" testId="36d2e36b-efda-9fed-42e7-c2f01f3f9767" testName="OptilandWorkbench.Tests.HuygensImplementationRepairTests.AxialReferenceSphereAndDiffractionAreInvariantToTransverseTranslation" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1555813" startTime="2026-10-09T11:02:05.4545564+08:00" endTime="2026-10-09T11:02:05.5932789+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4aaf4666-827c-4155-bff9-cbb30f28e9f3">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 10 decimal places&#xD;
+Expected: 50.976896559700002 (rounded from 50.976896559692442)&#xD;
+Actual:   51.948474307300003 (rounded from 51.948474307313234)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckTranslation(ValueTuple`2 field, Vector3D[] shifts) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 183&#xD;
+   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.AxialReferenceSphereAndDiffractionAreInvariantToTransverseTranslation() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 79&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4d85c228-d71f-4a3b-9e61-115951bd3a7c" testId="39859c12-394f-848c-7099-f0d2705f7a2c" testName="OptilandWorkbench.Tests.HuygensImplementationRepairTests.FocalPropagationPreservesIndexOverWavelengthAndOpticalPhase" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0258084" startTime="2026-10-09T11:02:05.6374811+08:00" endTime="2026-10-09T11:02:05.6628525+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4d85c228-d71f-4a3b-9e61-115951bd3a7c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 9.9999999999999995E-08)&#xD;
+Actual: 8.393041540809584</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckIndexScaling(Boolean afocal) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 116&#xD;
+   at OptilandWorkbench.Tests.HuygensImplementationRepairTests.FocalPropagationPreservesIndexOverWavelengthAndOpticalPhase() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs:line 13&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.HuygensImplementationRepairTests.SpectralScalingAndZeroWeightColorsDoNotChangeNormalizedImage" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="b69852e2-ce81-8016-d51b-7e7254107f89">
+      <Execution id="c2cbd4fc-2114-4982-a161-dd61e4d8f67a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.HuygensImplementationRepairTests" name="SpectralScalingAndZeroWeightColorsDoNotChangeNormalizedImage" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.HuygensImplementationRepairTests.AfocalPropagationPreservesIndexOverWavelengthAndOpticalPhase" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="e2118abb-6a66-6aaa-9ca5-dab7f2ae549d">
+      <Execution id="fa88e585-5359-4980-85e3-70da584e3f89" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.HuygensImplementationRepairTests" name="AfocalPropagationPreservesIndexOverWavelengthAndOpticalPhase" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.HuygensImplementationRepairTests.FocalPropagationPreservesIndexOverWavelengthAndOpticalPhase" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="39859c12-394f-848c-7099-f0d2705f7a2c">
+      <Execution id="4d85c228-d71f-4a3b-9e61-115951bd3a7c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.HuygensImplementationRepairTests" name="FocalPropagationPreservesIndexOverWavelengthAndOpticalPhase" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.HuygensImplementationRepairTests.PolychromaticImageUsesTheSameWavelengthWeightsAsTheSharedPsf" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="fa13bdd3-a62d-d56c-58f2-ae1511fe6fd9">
+      <Execution id="e314f77f-3f3c-4575-b1e6-f03e63b6ac4b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.HuygensImplementationRepairTests" name="PolychromaticImageUsesTheSameWavelengthWeightsAsTheSharedPsf" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisReferenceSphereAndDiffractionAreInvariantToTransverseTranslation" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="b3470117-bc47-8e37-5178-651a0d08f2f5">
+      <Execution id="2549b5be-f28d-483e-beeb-63a22f988755" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.HuygensImplementationRepairTests" name="OffAxisReferenceSphereAndDiffractionAreInvariantToTransverseTranslation" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.HuygensImplementationRepairTests.AxialReferenceSphereAndDiffractionAreInvariantToTransverseTranslation" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="36d2e36b-efda-9fed-42e7-c2f01f3f9767">
+      <Execution id="4aaf4666-827c-4155-bff9-cbb30f28e9f3" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.HuygensImplementationRepairTests" name="AxialReferenceSphereAndDiffractionAreInvariantToTransverseTranslation" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisPolychromaticImageKeepsLateralColorOnOnePhysicalGrid" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="8cb8bc12-f0a5-2a35-e267-f2fc270bee44">
+      <Execution id="d2a3e814-a0d3-4aee-900f-f69dce6da3d2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.HuygensImplementationRepairTests" name="OffAxisPolychromaticImageKeepsLateralColorOnOnePhysicalGrid" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.HuygensImplementationRepairTests.CentroidCenteredPolychromaticImageUsesOneWeightedPhysicalGrid" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="0078bd68-e219-afff-92f3-37bdcce55bf5">
+      <Execution id="e880cd32-a79b-453b-9c2b-e31cde059ae6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.HuygensImplementationRepairTests" name="CentroidCenteredPolychromaticImageUsesOneWeightedPhysicalGrid" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b69852e2-ce81-8016-d51b-7e7254107f89" executionId="c2cbd4fc-2114-4982-a161-dd61e4d8f67a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fa13bdd3-a62d-d56c-58f2-ae1511fe6fd9" executionId="e314f77f-3f3c-4575-b1e6-f03e63b6ac4b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0078bd68-e219-afff-92f3-37bdcce55bf5" executionId="e880cd32-a79b-453b-9c2b-e31cde059ae6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b3470117-bc47-8e37-5178-651a0d08f2f5" executionId="2549b5be-f28d-483e-beeb-63a22f988755" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e2118abb-6a66-6aaa-9ca5-dab7f2ae549d" executionId="fa88e585-5359-4980-85e3-70da584e3f89" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8cb8bc12-f0a5-2a35-e267-f2fc270bee44" executionId="d2a3e814-a0d3-4aee-900f-f69dce6da3d2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="36d2e36b-efda-9fed-42e7-c2f01f3f9767" executionId="4aaf4666-827c-4155-bff9-cbb30f28e9f3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="39859c12-394f-848c-7099-f0d2705f7a2c" executionId="4d85c228-d71f-4a3b-9e61-115951bd3a7c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="8" executed="8" passed="0" failed="8" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.13]   Discovering: OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:00.64]   Discovered:  OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:00.66]   Starting:    OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:01.59]       Assert.Equal() Failure: Values are not within 10 decimal places&#xD;
+[xUnit.net 00:00:01.59]       Expected: 54.107992771799999 (rounded from 54.107992771837147)&#xD;
+[xUnit.net 00:00:01.59]       Actual:   54.108085179500002 (rounded from 54.108085179547622)&#xD;
+[xUnit.net 00:00:01.59]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.59]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(183,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckTranslation(ValueTuple`2 field, Vector3D[] shifts)&#xD;
+[xUnit.net 00:00:01.59]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(83,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisReferenceSphereAndDiffractionAreInvariantToTransverseTranslation()&#xD;
+[xUnit.net 00:00:01.59]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.59]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.74]       Assert.Equal() Failure: Values are not within 10 decimal places&#xD;
+[xUnit.net 00:00:01.74]       Expected: 50.976896559700002 (rounded from 50.976896559692442)&#xD;
+[xUnit.net 00:00:01.74]       Actual:   51.948474307300003 (rounded from 51.948474307313234)&#xD;
+[xUnit.net 00:00:01.74]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.74]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(183,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckTranslation(ValueTuple`2 field, Vector3D[] shifts)&#xD;
+[xUnit.net 00:00:01.74]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(79,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.AxialReferenceSphereAndDiffractionAreInvariantToTransverseTranslation()&#xD;
+[xUnit.net 00:00:01.74]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.74]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.78]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:01.78]       Range:  (0 - 9.9999999999999994E-12)&#xD;
+[xUnit.net 00:00:01.78]       Actual: 0.0090745779943672625&#xD;
+[xUnit.net 00:00:01.78]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.78]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(217,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckImage(AnalysisData data, Double[,] expected)&#xD;
+[xUnit.net 00:00:01.78]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(125,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckImageAndShared(Optic optic, ValueTuple`2 field, Int32 fieldNumber)&#xD;
+[xUnit.net 00:00:01.78]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(26,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.PolychromaticImageUsesTheSameWavelengthWeightsAsTheSharedPsf()&#xD;
+[xUnit.net 00:00:01.78]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.78]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.81]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:01.81]       Range:  (0 - 9.9999999999999995E-08)&#xD;
+[xUnit.net 00:00:01.81]       Actual: 8.393041540809584&#xD;
+[xUnit.net 00:00:01.81]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.81]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(116,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckIndexScaling(Boolean afocal)&#xD;
+[xUnit.net 00:00:01.81]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(13,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.FocalPropagationPreservesIndexOverWavelengthAndOpticalPhase()&#xD;
+[xUnit.net 00:00:01.81]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.81]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.84]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:01.84]       Range:  (0 - 9.9999999999999995E-08)&#xD;
+[xUnit.net 00:00:01.84]       Actual: 3.5532111355899811&#xD;
+[xUnit.net 00:00:01.84]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.84]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(116,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckIndexScaling(Boolean afocal)&#xD;
+[xUnit.net 00:00:01.84]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(17,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.AfocalPropagationPreservesIndexOverWavelengthAndOpticalPhase()&#xD;
+[xUnit.net 00:00:01.84]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.84]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.93]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:01.93]       Range:  (0 - 9.9999999999999994E-12)&#xD;
+[xUnit.net 00:00:01.93]       Actual: 0.0001072457063838253&#xD;
+[xUnit.net 00:00:01.93]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.93]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(217,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckImage(AnalysisData data, Double[,] expected)&#xD;
+[xUnit.net 00:00:01.93]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(125,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckImageAndShared(Optic optic, ValueTuple`2 field, Int32 fieldNumber)&#xD;
+[xUnit.net 00:00:01.93]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(65,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.SpectralScalingAndZeroWeightColorsDoNotChangeNormalizedImage()&#xD;
+[xUnit.net 00:00:01.93]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.93]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.00]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:02.00]       Range:  (0 - 9.9999999999999994E-12)&#xD;
+[xUnit.net 00:00:02.00]       Actual: 0.0047102794396305121&#xD;
+[xUnit.net 00:00:02.00]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.00]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(217,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckImage(AnalysisData data, Double[,] expected)&#xD;
+[xUnit.net 00:00:02.00]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(125,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckImageAndShared(Optic optic, ValueTuple`2 field, Int32 fieldNumber)&#xD;
+[xUnit.net 00:00:02.00]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(36,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisPolychromaticImageKeepsLateralColorOnOnePhysicalGrid()&#xD;
+[xUnit.net 00:00:02.00]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.00]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.09]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:02.09]       Range:  (0 - 9.9999999999999994E-12)&#xD;
+[xUnit.net 00:00:02.09]       Actual: 0.0018050711997319004&#xD;
+[xUnit.net 00:00:02.09]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.09]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(217,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CheckImage(AnalysisData data, Double[,] expected)&#xD;
+[xUnit.net 00:00:02.09]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\HuygensImplementationRepairTests.cs(49,0): at OptilandWorkbench.Tests.HuygensImplementationRepairTests.CentroidCenteredPolychromaticImageUsesOneWeightedPhysicalGrid()&#xD;
+[xUnit.net 00:00:02.09]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.09]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.09]   Finished:    OptilandWorkbench.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T11:02:05.4400623+08:00">
+        <Text>[xUnit.net 00:00:01.59]     OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisReferenceSphereAndDiffractionAreInvariantToTransverseTranslation [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T11:02:05.5938326+08:00">
+        <Text>[xUnit.net 00:00:01.74]     OptilandWorkbench.Tests.HuygensImplementationRepairTests.AxialReferenceSphereAndDiffractionAreInvariantToTransverseTranslation [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T11:02:05.6373463+08:00">
+        <Text>[xUnit.net 00:00:01.78]     OptilandWorkbench.Tests.HuygensImplementationRepairTests.PolychromaticImageUsesTheSameWavelengthWeightsAsTheSharedPsf [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T11:02:05.6633722+08:00">
+        <Text>[xUnit.net 00:00:01.81]     OptilandWorkbench.Tests.HuygensImplementationRepairTests.FocalPropagationPreservesIndexOverWavelengthAndOpticalPhase [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T11:02:05.6905219+08:00">
+        <Text>[xUnit.net 00:00:01.84]     OptilandWorkbench.Tests.HuygensImplementationRepairTests.AfocalPropagationPreservesIndexOverWavelengthAndOpticalPhase [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T11:02:05.7822988+08:00">
+        <Text>[xUnit.net 00:00:01.93]     OptilandWorkbench.Tests.HuygensImplementationRepairTests.SpectralScalingAndZeroWeightColorsDoNotChangeNormalizedImage [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T11:02:05.8502713+08:00">
+        <Text>[xUnit.net 00:00:02.00]     OptilandWorkbench.Tests.HuygensImplementationRepairTests.OffAxisPolychromaticImageKeepsLateralColorOnOnePhysicalGrid [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T11:02:05.9431193+08:00">
+        <Text>[xUnit.net 00:00:02.09]     OptilandWorkbench.Tests.HuygensImplementationRepairTests.CentroidCenteredPolychromaticImageUsesOneWeightedPhysicalGrid [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

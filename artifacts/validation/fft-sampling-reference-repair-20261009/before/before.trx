@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="55a281a8-53e5-4e0b-ac56-1e450b94e294" name="optics@LAPTOP-G4BBBCS0 2026-10-09 14:42:08" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T14:42:08.3994332+08:00" queuing="2026-10-09T14:42:08.3994340+08:00" start="2026-10-09T14:42:04.9345337+08:00" finish="2026-10-09T14:42:11.9556198+08:00" />
+  <TestSettings name="default" id="711848d1-738e-403e-b5fd-705e0c1ccedf">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-09_14_42_08" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="86b966d8-e657-483f-8eb1-13992504e174" testId="041ca0a7-89d8-532a-2690-3e9ffecb22ce" testName="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.NegativePolychromaticPitchRetainsFullUnstretchedPupil" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.2561045" startTime="2026-10-09T14:42:10.2085722+08:00" endTime="2026-10-09T14:42:11.4642668+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="86b966d8-e657-483f-8eb1-13992504e174" />
+    <UnitTestResult executionId="46a31a24-08a4-4bfe-9d15-126fbd2f8f85" testId="98ae823a-9076-47d8-881f-7422602d248f" testName="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.VertexUsesImageLocalCoordinatesAfterRigidTranslation" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.5498283" startTime="2026-10-09T14:42:09.6599012+08:00" endTime="2026-10-09T14:42:10.2081288+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="46a31a24-08a4-4bfe-9d15-126fbd2f8f85" />
+    <UnitTestResult executionId="1750f2de-42d1-4f50-945c-3977f70c28ec" testId="e760db32-f614-b348-5b50-0aa72167690b" testName="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.CoreRejectsExplicitPitchWithDegenerateOrIncompletePupil(pitch: 1.0000000000000001E-05)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0062268" startTime="2026-10-09T14:42:07.1833268+08:00" endTime="2026-10-09T14:42:07.1883997+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1750f2de-42d1-4f50-945c-3977f70c28ec">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.CoreRejectsExplicitPitchWithDegenerateOrIncompletePupil(Double pitch) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs:line 59&#xD;
+   at InvokeStub_FftSamplingReferenceRepairTests.CoreRejectsExplicitPitchWithDegenerateOrIncompletePupil(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="be62892c-ad6f-4698-b991-c68629ac0f8d" testId="f543c397-46e3-4a24-9abe-7f20b9a623f6" testName="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.PublicPsfDoesNotTurnInvalidPitchIntoAFlatSuccessfulImage(pitch: 1000)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0926531" startTime="2026-10-09T14:42:08.4664826+08:00" endTime="2026-10-09T14:42:08.5571093+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="be62892c-ad6f-4698-b991-c68629ac0f8d">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.PublicPsfDoesNotTurnInvalidPitchIntoAFlatSuccessfulImage(Double pitch) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs:line 68&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="aa948e5c-e155-406c-aaae-5a973a084559" testId="0360345a-e883-6e81-66e4-be65cce34b6b" testName="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.CoreRejectsExplicitPitchWithDegenerateOrIncompletePupil(pitch: 1000)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0400812" startTime="2026-10-09T14:42:07.1627788+08:00" endTime="2026-10-09T14:42:07.1819104+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aa948e5c-e155-406c-aaae-5a973a084559">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.CoreRejectsExplicitPitchWithDegenerateOrIncompletePupil(Double pitch) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs:line 59&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="65e54295-88d7-413d-a5c4-b74f33b1e2df" testId="c2e78e93-8435-ac54-075a-11a5ff576567" testName="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(sampling: 32, afocal: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2576163" startTime="2026-10-09T14:42:07.4564503+08:00" endTime="2026-10-09T14:42:07.7134062+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="65e54295-88d7-413d-a5c4-b74f33b1e2df">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 11 decimal places&#xD;
+Expected: 4.4043959999999998E-05 (rounded from 4.4043963888515538E-05)&#xD;
+Actual:   3.2876680000000002E-05 (rounded from 3.2876678584458998E-05)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(Int32 sampling, Boolean afocal) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs:line 81&#xD;
+   at InvokeStub_FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="243dfa92-0f33-458f-829b-c96c4049d4a9" testId="93dd5b12-0237-f860-8fb9-5815f52b1a69" testName="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(sampling: 64, afocal: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.7503632" startTime="2026-10-09T14:42:07.7142255+08:00" endTime="2026-10-09T14:42:08.4648520+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="243dfa92-0f33-458f-829b-c96c4049d4a9">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 11 decimal places&#xD;
+Expected: 9.8715899999999998E-06 (rounded from 9.8715860599318421E-06)&#xD;
+Actual:   3.8546010000000001E-05 (rounded from 3.8546013521012936E-05)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(Int32 sampling, Boolean afocal) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs:line 81&#xD;
+   at InvokeStub_FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c60554f7-13e1-4fa7-8da7-de81c4343def" testId="3ba2a7ed-953c-f154-9b26-e70c4e64f647" testName="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.PolychromaticEnergyPlotAndOperandShareTheSameSampling" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.0658629" startTime="2026-10-09T14:42:08.5722818+08:00" endTime="2026-10-09T14:42:09.6375320+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c60554f7-13e1-4fa7-8da7-de81c4343def" />
+    <UnitTestResult executionId="863f1fb7-017e-48db-b113-930f1da96d4e" testId="f0bab0ad-edde-2fdb-f23a-b4496156f23e" testName="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.OffAxisVertexIsNotAnAliasForChiefRay" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.0677729" startTime="2026-10-09T14:42:06.0610724+08:00" endTime="2026-10-09T14:42:07.1416572+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="863f1fb7-017e-48db-b113-930f1da96d4e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 0&#xD;
+Actual:   0.2662678001742646</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.OffAxisVertexIsNotAnAliasForChiefRay() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs:line 32&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ba8bdd99-1c3c-458f-88ba-37e8a7f86843" testId="3ef96be7-c2be-4358-b86a-1351cf87aff3" testName="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.VertexPlotMatchesImageLocalReferenceUsedByEnergyOperand" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3869204" startTime="2026-10-09T14:42:11.4646901+08:00" endTime="2026-10-09T14:42:11.8515740+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba8bdd99-1c3c-458f-88ba-37e8a7f86843">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 10 decimal places&#xD;
+Expected: 0.0060107666999999997 (rounded from 0.0060107667467052851)&#xD;
+Actual:   0.037860046500000001 (rounded from 0.037860046507687262)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.VertexPlotMatchesImageLocalReferenceUsedByEnergyOperand() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs:line 20&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="99c81d20-9f66-40b3-b83e-95b0e88801f7" testId="2c4b1ec4-dfee-a704-fef9-19b9ecd75d4f" testName="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.PublicPsfDoesNotTurnInvalidPitchIntoAFlatSuccessfulImage(pitch: 1.0000000000000001E-05)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0135441" startTime="2026-10-09T14:42:08.5582795+08:00" endTime="2026-10-09T14:42:08.5713287+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="99c81d20-9f66-40b3-b83e-95b0e88801f7">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.PublicPsfDoesNotTurnInvalidPitchIntoAFlatSuccessfulImage(Double pitch) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs:line 68&#xD;
+   at InvokeStub_FftSamplingReferenceRepairTests.PublicPsfDoesNotTurnInvalidPitchIntoAFlatSuccessfulImage(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c1b804f6-dd18-439c-b40b-f05410cffacc" testId="bf146de6-7d5a-a34f-a805-781fdbb8b246" testName="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.SmallGeneralPurposeGridDoesNotCompressItsCoverageBelowThePupil" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0202525" startTime="2026-10-09T14:42:09.6402265+08:00" endTime="2026-10-09T14:42:09.6579072+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c1b804f6-dd18-439c-b40b-f05410cffacc">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.SmallGeneralPurposeGridDoesNotCompressItsCoverageBelowThePupil() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs:line 113&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0cb7ccf7-be14-4c93-96ca-d1d48bd98f70" testId="9004783e-2eae-ace7-55a5-5571dfdd917e" testName="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(sampling: 32, afocal: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2669846" startTime="2026-10-09T14:42:07.1889337+08:00" endTime="2026-10-09T14:42:07.4555922+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0cb7ccf7-be14-4c93-96ca-d1d48bd98f70">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 11 decimal places&#xD;
+Expected: 2.2523490000000001E-05 (rounded from 2.2523492286416819E-05)&#xD;
+Actual:   4.1089169999999997E-05 (rounded from 4.1089168935485371E-05)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(Int32 sampling, Boolean afocal) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs:line 81&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.VertexPlotMatchesImageLocalReferenceUsedByEnergyOperand" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="3ef96be7-c2be-4358-b86a-1351cf87aff3">
+      <Execution id="ba8bdd99-1c3c-458f-88ba-37e8a7f86843" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests" name="VertexPlotMatchesImageLocalReferenceUsedByEnergyOperand" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.PolychromaticEnergyPlotAndOperandShareTheSameSampling" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="3ba2a7ed-953c-f154-9b26-e70c4e64f647">
+      <Execution id="c60554f7-13e1-4fa7-8da7-de81c4343def" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests" name="PolychromaticEnergyPlotAndOperandShareTheSameSampling" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.NegativePolychromaticPitchRetainsFullUnstretchedPupil" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="041ca0a7-89d8-532a-2690-3e9ffecb22ce">
+      <Execution id="86b966d8-e657-483f-8eb1-13992504e174" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests" name="NegativePolychromaticPitchRetainsFullUnstretchedPupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(sampling: 32, afocal: False)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="9004783e-2eae-ace7-55a5-5571dfdd917e">
+      <Execution id="0cb7ccf7-be14-4c93-96ca-d1d48bd98f70" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests" name="AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.PublicPsfDoesNotTurnInvalidPitchIntoAFlatSuccessfulImage(pitch: 1000)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="f543c397-46e3-4a24-9abe-7f20b9a623f6">
+      <Execution id="be62892c-ad6f-4698-b991-c68629ac0f8d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests" name="PublicPsfDoesNotTurnInvalidPitchIntoAFlatSuccessfulImage" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(sampling: 64, afocal: False)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="93dd5b12-0237-f860-8fb9-5815f52b1a69">
+      <Execution id="243dfa92-0f33-458f-829b-c96c4049d4a9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests" name="AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.SmallGeneralPurposeGridDoesNotCompressItsCoverageBelowThePupil" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="bf146de6-7d5a-a34f-a805-781fdbb8b246">
+      <Execution id="c1b804f6-dd18-439c-b40b-f05410cffacc" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests" name="SmallGeneralPurposeGridDoesNotCompressItsCoverageBelowThePupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.PublicPsfDoesNotTurnInvalidPitchIntoAFlatSuccessfulImage(pitch: 1.0000000000000001E-05)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="2c4b1ec4-dfee-a704-fef9-19b9ecd75d4f">
+      <Execution id="99c81d20-9f66-40b3-b83e-95b0e88801f7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests" name="PublicPsfDoesNotTurnInvalidPitchIntoAFlatSuccessfulImage" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.CoreRejectsExplicitPitchWithDegenerateOrIncompletePupil(pitch: 1.0000000000000001E-05)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="e760db32-f614-b348-5b50-0aa72167690b">
+      <Execution id="1750f2de-42d1-4f50-945c-3977f70c28ec" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests" name="CoreRejectsExplicitPitchWithDegenerateOrIncompletePupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(sampling: 32, afocal: True)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="c2e78e93-8435-ac54-075a-11a5ff576567">
+      <Execution id="65e54295-88d7-413d-a5c4-b74f33b1e2df" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests" name="AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.VertexUsesImageLocalCoordinatesAfterRigidTranslation" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="98ae823a-9076-47d8-881f-7422602d248f">
+      <Execution id="46a31a24-08a4-4bfe-9d15-126fbd2f8f85" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests" name="VertexUsesImageLocalCoordinatesAfterRigidTranslation" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.CoreRejectsExplicitPitchWithDegenerateOrIncompletePupil(pitch: 1000)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="0360345a-e883-6e81-66e4-be65cce34b6b">
+      <Execution id="aa948e5c-e155-406c-aaae-5a973a084559" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests" name="CoreRejectsExplicitPitchWithDegenerateOrIncompletePupil" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.OffAxisVertexIsNotAnAliasForChiefRay" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="f0bab0ad-edde-2fdb-f23a-b4496156f23e">
+      <Execution id="863f1fb7-017e-48db-b113-930f1da96d4e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.FftSamplingReferenceRepairTests" name="OffAxisVertexIsNotAnAliasForChiefRay" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="041ca0a7-89d8-532a-2690-3e9ffecb22ce" executionId="86b966d8-e657-483f-8eb1-13992504e174" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="98ae823a-9076-47d8-881f-7422602d248f" executionId="46a31a24-08a4-4bfe-9d15-126fbd2f8f85" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e760db32-f614-b348-5b50-0aa72167690b" executionId="1750f2de-42d1-4f50-945c-3977f70c28ec" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f543c397-46e3-4a24-9abe-7f20b9a623f6" executionId="be62892c-ad6f-4698-b991-c68629ac0f8d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0360345a-e883-6e81-66e4-be65cce34b6b" executionId="aa948e5c-e155-406c-aaae-5a973a084559" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c2e78e93-8435-ac54-075a-11a5ff576567" executionId="65e54295-88d7-413d-a5c4-b74f33b1e2df" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="93dd5b12-0237-f860-8fb9-5815f52b1a69" executionId="243dfa92-0f33-458f-829b-c96c4049d4a9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3ba2a7ed-953c-f154-9b26-e70c4e64f647" executionId="c60554f7-13e1-4fa7-8da7-de81c4343def" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f0bab0ad-edde-2fdb-f23a-b4496156f23e" executionId="863f1fb7-017e-48db-b113-930f1da96d4e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3ef96be7-c2be-4358-b86a-1351cf87aff3" executionId="ba8bdd99-1c3c-458f-88ba-37e8a7f86843" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2c4b1ec4-dfee-a704-fef9-19b9ecd75d4f" executionId="99c81d20-9f66-40b3-b83e-95b0e88801f7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bf146de6-7d5a-a34f-a805-781fdbb8b246" executionId="c1b804f6-dd18-439c-b40b-f05410cffacc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9004783e-2eae-ace7-55a5-5571dfdd917e" executionId="0cb7ccf7-be14-4c93-96ca-d1d48bd98f70" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="13" executed="13" passed="3" failed="10" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.13]   Discovering: OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:00.64]   Discovered:  OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:00.66]   Starting:    OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:01.77]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.77]       Expected: 0&#xD;
+[xUnit.net 00:00:01.77]       Actual:   0.2662678001742646&#xD;
+[xUnit.net 00:00:01.77]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.77]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs(32,0): at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.OffAxisVertexIsNotAnAliasForChiefRay()&#xD;
+[xUnit.net 00:00:01.77]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.77]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.81]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:01.81]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:01.81]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.81]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs(59,0): at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.CoreRejectsExplicitPitchWithDegenerateOrIncompletePupil(Double pitch)&#xD;
+[xUnit.net 00:00:01.81]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.81]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.81]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:01.81]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:01.81]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.81]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs(59,0): at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.CoreRejectsExplicitPitchWithDegenerateOrIncompletePupil(Double pitch)&#xD;
+[xUnit.net 00:00:01.81]            at InvokeStub_FftSamplingReferenceRepairTests.CoreRejectsExplicitPitchWithDegenerateOrIncompletePupil(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.81]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.08]       Assert.Equal() Failure: Values are not within 11 decimal places&#xD;
+[xUnit.net 00:00:02.08]       Expected: 2.2523490000000001E-05 (rounded from 2.2523492286416819E-05)&#xD;
+[xUnit.net 00:00:02.08]       Actual:   4.1089169999999997E-05 (rounded from 4.1089168935485371E-05)&#xD;
+[xUnit.net 00:00:02.08]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.08]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs(81,0): at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(Int32 sampling, Boolean afocal)&#xD;
+[xUnit.net 00:00:02.08]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.08]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.34]       Assert.Equal() Failure: Values are not within 11 decimal places&#xD;
+[xUnit.net 00:00:02.34]       Expected: 4.4043959999999998E-05 (rounded from 4.4043963888515538E-05)&#xD;
+[xUnit.net 00:00:02.34]       Actual:   3.2876680000000002E-05 (rounded from 3.2876678584458998E-05)&#xD;
+[xUnit.net 00:00:02.34]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.34]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs(81,0): at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(Int32 sampling, Boolean afocal)&#xD;
+[xUnit.net 00:00:02.34]            at InvokeStub_FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(Object, Span`1)&#xD;
+[xUnit.net 00:00:02.34]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.09]       Assert.Equal() Failure: Values are not within 11 decimal places&#xD;
+[xUnit.net 00:00:03.09]       Expected: 9.8715899999999998E-06 (rounded from 9.8715860599318421E-06)&#xD;
+[xUnit.net 00:00:03.09]       Actual:   3.8546010000000001E-05 (rounded from 3.8546013521012936E-05)&#xD;
+[xUnit.net 00:00:03.09]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.09]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs(81,0): at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(Int32 sampling, Boolean afocal)&#xD;
+[xUnit.net 00:00:03.09]            at InvokeStub_FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(Object, Span`1)&#xD;
+[xUnit.net 00:00:03.09]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.18]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:03.18]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:03.18]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.18]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs(68,0): at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.PublicPsfDoesNotTurnInvalidPitchIntoAFlatSuccessfulImage(Double pitch)&#xD;
+[xUnit.net 00:00:03.18]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:03.18]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:03.20]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:03.20]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:03.20]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.20]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs(68,0): at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.PublicPsfDoesNotTurnInvalidPitchIntoAFlatSuccessfulImage(Double pitch)&#xD;
+[xUnit.net 00:00:03.20]            at InvokeStub_FftSamplingReferenceRepairTests.PublicPsfDoesNotTurnInvalidPitchIntoAFlatSuccessfulImage(Object, Span`1)&#xD;
+[xUnit.net 00:00:03.20]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:04.28]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:04.28]       Expected: True&#xD;
+[xUnit.net 00:00:04.28]       Actual:   False&#xD;
+[xUnit.net 00:00:04.28]       Stack Trace:&#xD;
+[xUnit.net 00:00:04.28]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs(113,0): at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.SmallGeneralPurposeGridDoesNotCompressItsCoverageBelowThePupil()&#xD;
+[xUnit.net 00:00:04.28]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:04.28]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:06.48]       Assert.Equal() Failure: Values are not within 10 decimal places&#xD;
+[xUnit.net 00:00:06.48]       Expected: 0.0060107666999999997 (rounded from 0.0060107667467052851)&#xD;
+[xUnit.net 00:00:06.48]       Actual:   0.037860046500000001 (rounded from 0.037860046507687262)&#xD;
+[xUnit.net 00:00:06.48]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.48]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\FftSamplingReferenceRepairTests.cs(20,0): at OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.VertexPlotMatchesImageLocalReferenceUsedByEnergyOperand()&#xD;
+[xUnit.net 00:00:06.48]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:06.48]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:06.49]   Finished:    OptilandWorkbench.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T14:42:07.1442082+08:00">
+        <Text>[xUnit.net 00:00:01.77]     OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.OffAxisVertexIsNotAnAliasForChiefRay [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T14:42:07.1823829+08:00">
+        <Text>[xUnit.net 00:00:01.81]     OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.CoreRejectsExplicitPitchWithDegenerateOrIncompletePupil(pitch: 1000) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T14:42:07.1886467+08:00">
+        <Text>[xUnit.net 00:00:01.81]     OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.CoreRejectsExplicitPitchWithDegenerateOrIncompletePupil(pitch: 1.0000000000000001E-05) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T14:42:07.4559647+08:00">
+        <Text>[xUnit.net 00:00:02.08]     OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(sampling: 32, afocal: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T14:42:07.7138371+08:00">
+        <Text>[xUnit.net 00:00:02.34]     OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(sampling: 32, afocal: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T14:42:08.4652826+08:00">
+        <Text>[xUnit.net 00:00:03.09]     OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.AutomaticAndExplicitSamePitchUseTheSamePolychromaticPupils(sampling: 64, afocal: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T14:42:08.5575134+08:00">
+        <Text>[xUnit.net 00:00:03.18]     OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.PublicPsfDoesNotTurnInvalidPitchIntoAFlatSuccessfulImage(pitch: 1000) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T14:42:08.5717194+08:00">
+        <Text>[xUnit.net 00:00:03.20]     OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.PublicPsfDoesNotTurnInvalidPitchIntoAFlatSuccessfulImage(pitch: 1.0000000000000001E-05) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T14:42:09.6584274+08:00">
+        <Text>[xUnit.net 00:00:04.28]     OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.SmallGeneralPurposeGridDoesNotCompressItsCoverageBelowThePupil [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T14:42:11.8520234+08:00">
+        <Text>[xUnit.net 00:00:06.48]     OptilandWorkbench.Tests.FftSamplingReferenceRepairTests.VertexPlotMatchesImageLocalReferenceUsedByEnergyOperand [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

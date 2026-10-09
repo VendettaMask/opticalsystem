@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="e9fa565a-eb60-4130-8db9-e756543c229b" name="optics@LAPTOP-G4BBBCS0 2026-10-09 13:20:38" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T13:20:38.8919943+08:00" queuing="2026-10-09T13:20:38.8919946+08:00" start="2026-10-09T13:20:36.8031363+08:00" finish="2026-10-09T13:20:38.8985166+08:00" />
+  <TestSettings name="default" id="cca1e3e8-4fdc-4733-a0ad-4199e3ff962e">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-09_13_20_38" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="460f7bb1-49dc-4a22-8e6a-259f52d58417" testId="9029b915-c06a-744a-d8ed-b927dd6e2359" testName="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteAngleLaunchAndTraceFollowRigidTranslations" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0004452" startTime="2026-10-09T13:20:38.8009683+08:00" endTime="2026-10-09T13:20:38.8011157+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="460f7bb1-49dc-4a22-8e6a-259f52d58417">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 1E-08)&#xD;
+Actual: 14.142135623730951</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.AssertTranslatedRay(RealRay original, RealRay actual, Vector3D shift) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 141&#xD;
+   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.CheckTranslations(FieldDefinitionKind kind, Boolean finite) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 123&#xD;
+   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteAngleLaunchAndTraceFollowRigidTranslations() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 18&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="81ae1c9b-1283-413d-a40b-2bbb498cd21f" testId="bb7320c2-056f-114d-6c70-bd74736646d8" testName="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PreparedAndBatchLaunchesUseTheSameMovingDatum" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0083099" startTime="2026-10-09T13:20:38.7905764+08:00" endTime="2026-10-09T13:20:38.7985781+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="81ae1c9b-1283-413d-a40b-2bbb498cd21f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 1E-08)&#xD;
+Actual: 14.142135623730951</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.AssertTranslatedRay(RealRay original, RealRay actual, Vector3D shift) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 141&#xD;
+   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PreparedAndBatchLaunchesUseTheSameMovingDatum() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 52&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2972156a-e752-4fd9-8581-31eb978a9737" testId="9a90aded-4ef7-5356-3071-b5e70e497d2a" testName="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.ParaxialImageHeightLaunchAndTraceFollowRigidTranslations" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010024" startTime="2026-10-09T13:20:38.8020012+08:00" endTime="2026-10-09T13:20:38.8020487+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2972156a-e752-4fd9-8581-31eb978a9737">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 1E-08)&#xD;
+Actual: 14.142135623730951</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.AssertTranslatedRay(RealRay original, RealRay actual, Vector3D shift) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 141&#xD;
+   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.CheckTranslations(FieldDefinitionKind kind, Boolean finite) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 123&#xD;
+   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.ParaxialImageHeightLaunchAndTraceFollowRigidTranslations() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 27&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="512bdf53-53e3-4e49-8ee0-5026a43943ce" testId="fe039b61-050d-7f56-e470-9b2dccf906f0" testName="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteObjectHeightLaunchAndTraceFollowRigidTranslations" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010313" startTime="2026-10-09T13:20:38.7991636+08:00" endTime="2026-10-09T13:20:38.7997216+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="512bdf53-53e3-4e49-8ee0-5026a43943ce">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 1E-08)&#xD;
+Actual: 14.142135623730951</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.AssertTranslatedRay(RealRay original, RealRay actual, Vector3D shift) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 141&#xD;
+   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.CheckTranslations(FieldDefinitionKind kind, Boolean finite) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 123&#xD;
+   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteObjectHeightLaunchAndTraceFollowRigidTranslations() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 22&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="23a758bf-e471-471d-9378-44969424f6b6" testId="3e7f1fbb-8089-3d6f-6042-9522d8c0442f" testName="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PhysicalObstructionStillBlocksTheTranslatedAimedRay" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0023050" startTime="2026-10-09T13:20:38.8024840+08:00" endTime="2026-10-09T13:20:38.8039171+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="23a758bf-e471-471d-9378-44969424f6b6">
+      <Output>
+        <ErrorInfo>
+          <Message>OptilandWorkbench.Core.Raytrace.RayAimingException : Ray aiming did not converge at stop surface 4 after 1 iterations; residual=∞ mm.</Message>
+          <StackTrace>   at OptilandWorkbench.Core.Raytrace.RayGenerator.AimInfiniteRayAtStop(Vector3D origin, Vector3D direction, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthNanometers, Nullable`1 paraxialStopTarget) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs:line 559&#xD;
+   at OptilandWorkbench.Core.Raytrace.RayGenerator.CreateFieldRay(Double fieldX, Double fieldY, Double normalizedPupilX, Double normalizedPupilY, Double apertureRadius, Boolean applyVignetting, Nullable`1 realImageLaunch, Double wavelengthNanometers, Boolean aimAtStop, Nullable`1 paraxialStopTarget, FieldRayContext fieldRayContext) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs:line 517&#xD;
+   at OptilandWorkbench.Core.Raytrace.RayGenerator.CreateRay(Double fieldX, Double fieldY, Double normalizedPupilX, Double normalizedPupilY, Double apertureRadius, Double wavelengthNanometers, Double intensity, Nullable`1 realImageLaunch, Boolean aimAtStop, Nullable`1 paraxialStopTarget, FieldRayContext fieldRayContext) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs:line 404&#xD;
+   at OptilandWorkbench.Core.Raytrace.RayGenerator.GenerateAtPhysicalFieldCore(Double fieldX, Double fieldY, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthMicrometers, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, Boolean allowOutsideUnitPupil) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs:line 192&#xD;
+   at OptilandWorkbench.Core.Raytrace.RayGenerator.GenerateGeneric(Double normalizedFieldX, Double normalizedFieldY, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthMicrometers, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, Boolean allowOutsideUnitPupil) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs:line 147&#xD;
+   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PhysicalObstructionStillBlocksTheTranslatedAimedRay() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 100&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4248eced-7e48-4027-96b2-9e3529822456" testId="9fb3f4e4-b343-7189-bb23-e30c144a829b" testName="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.InfiniteAngleLaunchAndTraceFollowRigidTranslations" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0029031" startTime="2026-10-09T13:20:38.7888801+08:00" endTime="2026-10-09T13:20:38.7900277+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4248eced-7e48-4027-96b2-9e3529822456">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 1E-08)&#xD;
+Actual: 14.142135623730951</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.AssertTranslatedRay(RealRay original, RealRay actual, Vector3D shift) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 141&#xD;
+   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.CheckTranslations(FieldDefinitionKind kind, Boolean finite) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 123&#xD;
+   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.InfiniteAngleLaunchAndTraceFollowRigidTranslations() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 14&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6fc36cd0-8f09-486f-be63-4ae3a8715b37" testId="28a01d8c-7cfd-c306-41f0-fc4b0a9eddc1" testName="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.JointTranslationPreservesWavefrontAndBothDiffractionPaths" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.8256533" startTime="2026-10-09T13:20:37.9339877+08:00" endTime="2026-10-09T13:20:38.7724121+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6fc36cd0-8f09-486f-be63-4ae3a8715b37">
+      <Output>
+        <ErrorInfo>
+          <Message>OptilandWorkbench.Core.Raytrace.RayAimingException : Ray aiming did not converge at stop surface 4 after 1 iterations; residual=∞ mm.</Message>
+          <StackTrace>   at OptilandWorkbench.Core.Raytrace.RayGenerator.AimInfiniteRayAtStop(Vector3D origin, Vector3D direction, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthNanometers, Nullable`1 paraxialStopTarget) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs:line 559&#xD;
+   at OptilandWorkbench.Core.Raytrace.RayGenerator.CreateFieldRay(Double fieldX, Double fieldY, Double normalizedPupilX, Double normalizedPupilY, Double apertureRadius, Boolean applyVignetting, Nullable`1 realImageLaunch, Double wavelengthNanometers, Boolean aimAtStop, Nullable`1 paraxialStopTarget, FieldRayContext fieldRayContext) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs:line 517&#xD;
+   at OptilandWorkbench.Core.Raytrace.RayGenerator.CreateRay(Double fieldX, Double fieldY, Double normalizedPupilX, Double normalizedPupilY, Double apertureRadius, Double wavelengthNanometers, Double intensity, Nullable`1 realImageLaunch, Boolean aimAtStop, Nullable`1 paraxialStopTarget, FieldRayContext fieldRayContext) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs:line 404&#xD;
+   at OptilandWorkbench.Core.Raytrace.RayGenerator.GenerateAtPhysicalFieldCore(Double fieldX, Double fieldY, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthMicrometers, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, Boolean allowOutsideUnitPupil) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs:line 192&#xD;
+   at OptilandWorkbench.Core.Raytrace.RayGenerator.GenerateGeneric(Double normalizedFieldX, Double normalizedFieldY, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthMicrometers, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, Boolean allowOutsideUnitPupil) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs:line 147&#xD;
+   at OptilandWorkbench.Core.Analysis.WavefrontEngine.GenerateChiefRay(Optic optic, ValueTuple`2 field, Wavelength wavelength, IReadOnlyList`1 pupilSamples, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, WavefrontReferenceSphere referenceSphere, Boolean usePolarization, Wavelength referenceWavelength) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Analysis\WavefrontEngine.cs:line 207&#xD;
+   at OptilandWorkbench.Core.Analysis.WavefrontEngine.GenerateChiefRayUniform(Optic optic, ValueTuple`2 field, Wavelength wavelength, Int32 samplesAcrossPupil, Boolean cellCentered, Boolean aimAtStop, Double pupilGridStretch, Boolean zemaxCentered, Wavelength referenceWavelength) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Analysis\WavefrontEngine.cs:line 107&#xD;
+   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.JointTranslationPreservesWavefrontAndBothDiffractionPaths() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 76&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="64727f2b-27ad-4b81-9e9e-9d584eee3791" testId="d6a819d2-e1c3-1eb2-cb30-ea7c7d418495" testName="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.RealImageHeightSolveAndTraceFollowRigidTranslations" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0136724" startTime="2026-10-09T13:20:38.7874159+08:00" endTime="2026-10-09T13:20:38.7875292+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="64727f2b-27ad-4b81-9e9e-9d584eee3791">
+      <Output>
+        <ErrorInfo>
+          <Message>OptilandWorkbench.Core.Raytrace.FieldAimingException : Cannot find rays to yield requested real image height (0, 0).</Message>
+          <StackTrace>   at OptilandWorkbench.Core.Raytrace.RayGenerator.ResolveRealImageFieldCoordinates(Double targetX, Double targetY, Boolean aimAtStop) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs:line 906&#xD;
+   at OptilandWorkbench.Core.Raytrace.RayGenerator.ResolveRealImageLaunch(Double targetX, Double targetY, Boolean aimAtStop) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs:line 885&#xD;
+   at OptilandWorkbench.Core.Raytrace.RayGenerator.GenerateAtPhysicalFieldCore(Double fieldX, Double fieldY, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthMicrometers, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, Boolean allowOutsideUnitPupil) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs:line 190&#xD;
+   at OptilandWorkbench.Core.Raytrace.RayGenerator.GenerateGeneric(Double normalizedFieldX, Double normalizedFieldY, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthMicrometers, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, Boolean allowOutsideUnitPupil) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs:line 147&#xD;
+   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.CheckTranslations(FieldDefinitionKind kind, Boolean finite) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 121&#xD;
+   at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.RealImageHeightSolveAndTraceFollowRigidTranslations() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs:line 34&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PhysicalObstructionStillBlocksTheTranslatedAimedRay" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="3e7f1fbb-8089-3d6f-6042-9522d8c0442f">
+      <Execution id="23a758bf-e471-471d-9378-44969424f6b6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests" name="PhysicalObstructionStillBlocksTheTranslatedAimedRay" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteAngleLaunchAndTraceFollowRigidTranslations" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="9029b915-c06a-744a-d8ed-b927dd6e2359">
+      <Execution id="460f7bb1-49dc-4a22-8e6a-259f52d58417" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests" name="FiniteAngleLaunchAndTraceFollowRigidTranslations" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PreparedAndBatchLaunchesUseTheSameMovingDatum" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="bb7320c2-056f-114d-6c70-bd74736646d8">
+      <Execution id="81ae1c9b-1283-413d-a40b-2bbb498cd21f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests" name="PreparedAndBatchLaunchesUseTheSameMovingDatum" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.InfiniteAngleLaunchAndTraceFollowRigidTranslations" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="9fb3f4e4-b343-7189-bb23-e30c144a829b">
+      <Execution id="4248eced-7e48-4027-96b2-9e3529822456" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests" name="InfiniteAngleLaunchAndTraceFollowRigidTranslations" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.JointTranslationPreservesWavefrontAndBothDiffractionPaths" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="28a01d8c-7cfd-c306-41f0-fc4b0a9eddc1">
+      <Execution id="6fc36cd0-8f09-486f-be63-4ae3a8715b37" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests" name="JointTranslationPreservesWavefrontAndBothDiffractionPaths" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteObjectHeightLaunchAndTraceFollowRigidTranslations" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="fe039b61-050d-7f56-e470-9b2dccf906f0">
+      <Execution id="512bdf53-53e3-4e49-8ee0-5026a43943ce" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests" name="FiniteObjectHeightLaunchAndTraceFollowRigidTranslations" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.RealImageHeightSolveAndTraceFollowRigidTranslations" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="d6a819d2-e1c3-1eb2-cb30-ea7c7d418495">
+      <Execution id="64727f2b-27ad-4b81-9e9e-9d584eee3791" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests" name="RealImageHeightSolveAndTraceFollowRigidTranslations" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.ParaxialImageHeightLaunchAndTraceFollowRigidTranslations" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="9a90aded-4ef7-5356-3071-b5e70e497d2a">
+      <Execution id="2972156a-e752-4fd9-8581-31eb978a9737" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests" name="ParaxialImageHeightLaunchAndTraceFollowRigidTranslations" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="9029b915-c06a-744a-d8ed-b927dd6e2359" executionId="460f7bb1-49dc-4a22-8e6a-259f52d58417" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bb7320c2-056f-114d-6c70-bd74736646d8" executionId="81ae1c9b-1283-413d-a40b-2bbb498cd21f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9a90aded-4ef7-5356-3071-b5e70e497d2a" executionId="2972156a-e752-4fd9-8581-31eb978a9737" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fe039b61-050d-7f56-e470-9b2dccf906f0" executionId="512bdf53-53e3-4e49-8ee0-5026a43943ce" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3e7f1fbb-8089-3d6f-6042-9522d8c0442f" executionId="23a758bf-e471-471d-9378-44969424f6b6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9fb3f4e4-b343-7189-bb23-e30c144a829b" executionId="4248eced-7e48-4027-96b2-9e3529822456" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="28a01d8c-7cfd-c306-41f0-fc4b0a9eddc1" executionId="6fc36cd0-8f09-486f-be63-4ae3a8715b37" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d6a819d2-e1c3-1eb2-cb30-ea7c7d418495" executionId="64727f2b-27ad-4b81-9e9e-9d584eee3791" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="8" executed="8" passed="0" failed="8" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.13]   Discovering: OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:00.64]   Discovered:  OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:00.67]   Starting:    OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:01.53]       OptilandWorkbench.Core.Raytrace.RayAimingException : Ray aiming did not converge at stop surface 4 after 1 iterations; residual=∞ mm.&#xD;
+[xUnit.net 00:00:01.53]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.53]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs(559,0): at OptilandWorkbench.Core.Raytrace.RayGenerator.AimInfiniteRayAtStop(Vector3D origin, Vector3D direction, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthNanometers, Nullable`1 paraxialStopTarget)&#xD;
+[xUnit.net 00:00:01.53]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs(517,0): at OptilandWorkbench.Core.Raytrace.RayGenerator.CreateFieldRay(Double fieldX, Double fieldY, Double normalizedPupilX, Double normalizedPupilY, Double apertureRadius, Boolean applyVignetting, Nullable`1 realImageLaunch, Double wavelengthNanometers, Boolean aimAtStop, Nullable`1 paraxialStopTarget, FieldRayContext fieldRayContext)&#xD;
+[xUnit.net 00:00:01.53]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs(404,0): at OptilandWorkbench.Core.Raytrace.RayGenerator.CreateRay(Double fieldX, Double fieldY, Double normalizedPupilX, Double normalizedPupilY, Double apertureRadius, Double wavelengthNanometers, Double intensity, Nullable`1 realImageLaunch, Boolean aimAtStop, Nullable`1 paraxialStopTarget, FieldRayContext fieldRayContext)&#xD;
+[xUnit.net 00:00:01.53]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs(192,0): at OptilandWorkbench.Core.Raytrace.RayGenerator.GenerateAtPhysicalFieldCore(Double fieldX, Double fieldY, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthMicrometers, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, Boolean allowOutsideUnitPupil)&#xD;
+[xUnit.net 00:00:01.53]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs(147,0): at OptilandWorkbench.Core.Raytrace.RayGenerator.GenerateGeneric(Double normalizedFieldX, Double normalizedFieldY, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthMicrometers, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, Boolean allowOutsideUnitPupil)&#xD;
+[xUnit.net 00:00:01.53]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Analysis\WavefrontEngine.cs(207,0): at OptilandWorkbench.Core.Analysis.WavefrontEngine.GenerateChiefRay(Optic optic, ValueTuple`2 field, Wavelength wavelength, IReadOnlyList`1 pupilSamples, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, WavefrontReferenceSphere referenceSphere, Boolean usePolarization, Wavelength referenceWavelength)&#xD;
+[xUnit.net 00:00:01.53]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Analysis\WavefrontEngine.cs(107,0): at OptilandWorkbench.Core.Analysis.WavefrontEngine.GenerateChiefRayUniform(Optic optic, ValueTuple`2 field, Wavelength wavelength, Int32 samplesAcrossPupil, Boolean cellCentered, Boolean aimAtStop, Double pupilGridStretch, Boolean zemaxCentered, Wavelength referenceWavelength)&#xD;
+[xUnit.net 00:00:01.53]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(76,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.JointTranslationPreservesWavefrontAndBothDiffractionPaths()&#xD;
+[xUnit.net 00:00:01.53]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.53]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.54]       OptilandWorkbench.Core.Raytrace.FieldAimingException : Cannot find rays to yield requested real image height (0, 0).&#xD;
+[xUnit.net 00:00:01.54]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.54]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs(906,0): at OptilandWorkbench.Core.Raytrace.RayGenerator.ResolveRealImageFieldCoordinates(Double targetX, Double targetY, Boolean aimAtStop)&#xD;
+[xUnit.net 00:00:01.54]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs(885,0): at OptilandWorkbench.Core.Raytrace.RayGenerator.ResolveRealImageLaunch(Double targetX, Double targetY, Boolean aimAtStop)&#xD;
+[xUnit.net 00:00:01.54]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs(190,0): at OptilandWorkbench.Core.Raytrace.RayGenerator.GenerateAtPhysicalFieldCore(Double fieldX, Double fieldY, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthMicrometers, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, Boolean allowOutsideUnitPupil)&#xD;
+[xUnit.net 00:00:01.54]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs(147,0): at OptilandWorkbench.Core.Raytrace.RayGenerator.GenerateGeneric(Double normalizedFieldX, Double normalizedFieldY, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthMicrometers, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, Boolean allowOutsideUnitPupil)&#xD;
+[xUnit.net 00:00:01.54]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(121,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.CheckTranslations(FieldDefinitionKind kind, Boolean finite)&#xD;
+[xUnit.net 00:00:01.54]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(34,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.RealImageHeightSolveAndTraceFollowRigidTranslations()&#xD;
+[xUnit.net 00:00:01.54]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.54]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.54]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:01.54]       Range:  (0 - 1E-08)&#xD;
+[xUnit.net 00:00:01.54]       Actual: 14.142135623730951&#xD;
+[xUnit.net 00:00:01.54]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.54]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(141,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.AssertTranslatedRay(RealRay original, RealRay actual, Vector3D shift)&#xD;
+[xUnit.net 00:00:01.54]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(123,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.CheckTranslations(FieldDefinitionKind kind, Boolean finite)&#xD;
+[xUnit.net 00:00:01.54]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(14,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.InfiniteAngleLaunchAndTraceFollowRigidTranslations()&#xD;
+[xUnit.net 00:00:01.54]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.54]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.55]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:01.55]       Range:  (0 - 1E-08)&#xD;
+[xUnit.net 00:00:01.55]       Actual: 14.142135623730951&#xD;
+[xUnit.net 00:00:01.55]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.55]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(141,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.AssertTranslatedRay(RealRay original, RealRay actual, Vector3D shift)&#xD;
+[xUnit.net 00:00:01.55]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(52,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PreparedAndBatchLaunchesUseTheSameMovingDatum()&#xD;
+[xUnit.net 00:00:01.55]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.55]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.55]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:01.55]       Range:  (0 - 1E-08)&#xD;
+[xUnit.net 00:00:01.55]       Actual: 14.142135623730951&#xD;
+[xUnit.net 00:00:01.55]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.55]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(141,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.AssertTranslatedRay(RealRay original, RealRay actual, Vector3D shift)&#xD;
+[xUnit.net 00:00:01.55]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(123,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.CheckTranslations(FieldDefinitionKind kind, Boolean finite)&#xD;
+[xUnit.net 00:00:01.55]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(22,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteObjectHeightLaunchAndTraceFollowRigidTranslations()&#xD;
+[xUnit.net 00:00:01.55]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.55]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.55]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:01.55]       Range:  (0 - 1E-08)&#xD;
+[xUnit.net 00:00:01.55]       Actual: 14.142135623730951&#xD;
+[xUnit.net 00:00:01.55]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.55]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(141,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.AssertTranslatedRay(RealRay original, RealRay actual, Vector3D shift)&#xD;
+[xUnit.net 00:00:01.55]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(123,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.CheckTranslations(FieldDefinitionKind kind, Boolean finite)&#xD;
+[xUnit.net 00:00:01.55]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(18,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteAngleLaunchAndTraceFollowRigidTranslations()&#xD;
+[xUnit.net 00:00:01.55]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.55]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.56]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:01.56]       Range:  (0 - 1E-08)&#xD;
+[xUnit.net 00:00:01.56]       Actual: 14.142135623730951&#xD;
+[xUnit.net 00:00:01.56]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.56]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(141,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.AssertTranslatedRay(RealRay original, RealRay actual, Vector3D shift)&#xD;
+[xUnit.net 00:00:01.56]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(123,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.CheckTranslations(FieldDefinitionKind kind, Boolean finite)&#xD;
+[xUnit.net 00:00:01.56]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(27,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.ParaxialImageHeightLaunchAndTraceFollowRigidTranslations()&#xD;
+[xUnit.net 00:00:01.56]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.56]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.56]       OptilandWorkbench.Core.Raytrace.RayAimingException : Ray aiming did not converge at stop surface 4 after 1 iterations; residual=∞ mm.&#xD;
+[xUnit.net 00:00:01.56]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.56]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs(559,0): at OptilandWorkbench.Core.Raytrace.RayGenerator.AimInfiniteRayAtStop(Vector3D origin, Vector3D direction, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthNanometers, Nullable`1 paraxialStopTarget)&#xD;
+[xUnit.net 00:00:01.56]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs(517,0): at OptilandWorkbench.Core.Raytrace.RayGenerator.CreateFieldRay(Double fieldX, Double fieldY, Double normalizedPupilX, Double normalizedPupilY, Double apertureRadius, Boolean applyVignetting, Nullable`1 realImageLaunch, Double wavelengthNanometers, Boolean aimAtStop, Nullable`1 paraxialStopTarget, FieldRayContext fieldRayContext)&#xD;
+[xUnit.net 00:00:01.56]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs(404,0): at OptilandWorkbench.Core.Raytrace.RayGenerator.CreateRay(Double fieldX, Double fieldY, Double normalizedPupilX, Double normalizedPupilY, Double apertureRadius, Double wavelengthNanometers, Double intensity, Nullable`1 realImageLaunch, Boolean aimAtStop, Nullable`1 paraxialStopTarget, FieldRayContext fieldRayContext)&#xD;
+[xUnit.net 00:00:01.56]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs(192,0): at OptilandWorkbench.Core.Raytrace.RayGenerator.GenerateAtPhysicalFieldCore(Double fieldX, Double fieldY, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthMicrometers, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, Boolean allowOutsideUnitPupil)&#xD;
+[xUnit.net 00:00:01.56]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Raytrace\RayGenerator.cs(147,0): at OptilandWorkbench.Core.Raytrace.RayGenerator.GenerateGeneric(Double normalizedFieldX, Double normalizedFieldY, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthMicrometers, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, Boolean allowOutsideUnitPupil)&#xD;
+[xUnit.net 00:00:01.56]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\RayLaunchCoordinateRepairTests.cs(100,0): at OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PhysicalObstructionStillBlocksTheTranslatedAimedRay()&#xD;
+[xUnit.net 00:00:01.56]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.56]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.56]   Finished:    OptilandWorkbench.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T13:20:38.7750448+08:00">
+        <Text>[xUnit.net 00:00:01.53]     OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.JointTranslationPreservesWavefrontAndBothDiffractionPaths [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T13:20:38.7880395+08:00">
+        <Text>[xUnit.net 00:00:01.54]     OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.RealImageHeightSolveAndTraceFollowRigidTranslations [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T13:20:38.7903552+08:00">
+        <Text>[xUnit.net 00:00:01.54]     OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.InfiniteAngleLaunchAndTraceFollowRigidTranslations [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T13:20:38.7990174+08:00">
+        <Text>[xUnit.net 00:00:01.55]     OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PreparedAndBatchLaunchesUseTheSameMovingDatum [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T13:20:38.8000662+08:00">
+        <Text>[xUnit.net 00:00:01.55]     OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteObjectHeightLaunchAndTraceFollowRigidTranslations [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T13:20:38.8014208+08:00">
+        <Text>[xUnit.net 00:00:01.55]     OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.FiniteAngleLaunchAndTraceFollowRigidTranslations [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T13:20:38.8024016+08:00">
+        <Text>[xUnit.net 00:00:01.56]     OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.ParaxialImageHeightLaunchAndTraceFollowRigidTranslations [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T13:20:38.8043492+08:00">
+        <Text>[xUnit.net 00:00:01.56]     OptilandWorkbench.Tests.RayLaunchCoordinateRepairTests.PhysicalObstructionStillBlocksTheTranslatedAimedRay [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

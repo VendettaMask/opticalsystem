@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="bab781a6-0bf7-4f12-a1ed-f340938c38dd" name="optics@LAPTOP-G4BBBCS0 2026-10-09 08:59:22" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T08:59:22.4369833+08:00" queuing="2026-10-09T08:59:22.4369835+08:00" start="2026-10-09T08:59:20.4086299+08:00" finish="2026-10-09T08:59:22.4441470+08:00" />
+  <TestSettings name="default" id="a77f538b-4078-445e-803e-b16d282015a8">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-09_08_59_22" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="49d2cff3-596e-4ca5-a30d-5817ce162b16" testId="a0003fb3-5531-a56c-0d24-760ca298f6f9" testName="OptilandWorkbench.Tests.AxialDistortionReferenceTests.PhysicalReferencePerturbationsSurviveAnAxialOnlyFieldTable" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0073894" startTime="2026-10-09T08:59:22.3493192+08:00" endTime="2026-10-09T08:59:22.3493800+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="49d2cff3-596e-4ca5-a30d-5817ce162b16">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Unable to establish a non-singular distortion reference mapping.</Message>
+          <StackTrace>   at OptilandWorkbench.Core.Analysis.AnalysisTrace.BuildDistortionReferenceMapping(Optic optic, Double wavelengthMicrometers, Int32 referenceFieldNumber, String distortionType, Boolean symmetricMagnification, Boolean requireUnvignetted) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Analysis\Shared\AnalysisTrace.cs:line 276&#xD;
+   at OptilandWorkbench.Tests.AxialDistortionReferenceTests.PhysicalReferencePerturbationsSurviveAnAxialOnlyFieldTable() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\AxialDistortionReferenceTests.cs:line 25&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fdd58da4-7038-4f17-b8e7-b26f031d41dd" testId="c4f78dc8-6279-5154-2b9d-6dce5d8c9339" testName="OptilandWorkbench.Tests.AxialDistortionReferenceTests.CachedPhysicalPerturbationsRecalculateAfterMaterialChanges" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0006717" startTime="2026-10-09T08:59:22.3501268+08:00" endTime="2026-10-09T08:59:22.3501698+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fdd58da4-7038-4f17-b8e7-b26f031d41dd">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Unable to establish a non-singular distortion reference mapping.</Message>
+          <StackTrace>   at OptilandWorkbench.Core.Analysis.AnalysisTrace.BuildDistortionReferenceMapping(Optic optic, Double wavelengthMicrometers, Int32 referenceFieldNumber, String distortionType, Boolean symmetricMagnification, Boolean requireUnvignetted) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Analysis\Shared\AnalysisTrace.cs:line 276&#xD;
+   at OptilandWorkbench.Tests.AxialDistortionReferenceTests.CachedPhysicalPerturbationsRecalculateAfterMaterialChanges() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\AxialDistortionReferenceTests.cs:line 70&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="936d8ef9-9d3e-40ed-840c-920d48ab215d" testId="3177f622-799c-2ade-1140-60bf195ef24b" testName="OptilandWorkbench.Tests.AxialDistortionReferenceTests.AxialReferenceStillRejectsABlockedChiefRay" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0066032" startTime="2026-10-09T08:59:22.3476514+08:00" endTime="2026-10-09T08:59:22.3479954+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="936d8ef9-9d3e-40ed-840c-920d48ab215d" />
+    <UnitTestResult executionId="21bf5ada-ddcf-448f-9bea-5e846e70ed70" testId="3314bc52-2838-9639-d2aa-5ef637c44360" testName="OptilandWorkbench.Tests.AxialDistortionReferenceTests.OfficialAxialDoubletCompletesTheOriginalFieldCurvatureRequest" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.8010862" startTime="2026-10-09T08:59:21.5173170+08:00" endTime="2026-10-09T08:59:22.3327397+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="21bf5ada-ddcf-448f-9bea-5e846e70ed70">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Unable to establish a non-singular distortion reference mapping.</Message>
+          <StackTrace>   at OptilandWorkbench.Core.Analysis.AnalysisTrace.BuildDistortionReferenceMapping(Optic optic, Double wavelengthMicrometers, Int32 referenceFieldNumber, String distortionType, Boolean symmetricMagnification, Boolean requireUnvignetted) in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Analysis\Shared\AnalysisTrace.cs:line 276&#xD;
+   at OptilandWorkbench.Core.Analysis.DistortionAnalysis.GenerateData() in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Analysis\Fields\DistortionAnalyses.cs:line 74&#xD;
+   at OptilandWorkbench.Core.Analysis.FieldCurvatureAndDistortionAnalysis.GenerateData() in D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Analysis\Fields\DistortionAnalyses.cs:line 283&#xD;
+   at OptilandWorkbench.Tests.AxialDistortionReferenceTests.OfficialAxialDoubletCompletesTheOriginalFieldCurvatureRequest() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\AxialDistortionReferenceTests.cs:line 46&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.AxialDistortionReferenceTests.OfficialAxialDoubletCompletesTheOriginalFieldCurvatureRequest" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="3314bc52-2838-9639-d2aa-5ef637c44360">
+      <Execution id="21bf5ada-ddcf-448f-9bea-5e846e70ed70" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.AxialDistortionReferenceTests" name="OfficialAxialDoubletCompletesTheOriginalFieldCurvatureRequest" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.AxialDistortionReferenceTests.AxialReferenceStillRejectsABlockedChiefRay" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="3177f622-799c-2ade-1140-60bf195ef24b">
+      <Execution id="936d8ef9-9d3e-40ed-840c-920d48ab215d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.AxialDistortionReferenceTests" name="AxialReferenceStillRejectsABlockedChiefRay" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.AxialDistortionReferenceTests.PhysicalReferencePerturbationsSurviveAnAxialOnlyFieldTable" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="a0003fb3-5531-a56c-0d24-760ca298f6f9">
+      <Execution id="49d2cff3-596e-4ca5-a30d-5817ce162b16" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.AxialDistortionReferenceTests" name="PhysicalReferencePerturbationsSurviveAnAxialOnlyFieldTable" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.AxialDistortionReferenceTests.CachedPhysicalPerturbationsRecalculateAfterMaterialChanges" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="c4f78dc8-6279-5154-2b9d-6dce5d8c9339">
+      <Execution id="fdd58da4-7038-4f17-b8e7-b26f031d41dd" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.AxialDistortionReferenceTests" name="CachedPhysicalPerturbationsRecalculateAfterMaterialChanges" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a0003fb3-5531-a56c-0d24-760ca298f6f9" executionId="49d2cff3-596e-4ca5-a30d-5817ce162b16" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c4f78dc8-6279-5154-2b9d-6dce5d8c9339" executionId="fdd58da4-7038-4f17-b8e7-b26f031d41dd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3177f622-799c-2ade-1140-60bf195ef24b" executionId="936d8ef9-9d3e-40ed-840c-920d48ab215d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3314bc52-2838-9639-d2aa-5ef637c44360" executionId="21bf5ada-ddcf-448f-9bea-5e846e70ed70" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="4" executed="4" passed="1" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.13]   Discovering: OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:00.63]   Discovered:  OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:00.65]   Starting:    OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:01.49]       System.InvalidOperationException : Unable to establish a non-singular distortion reference mapping.&#xD;
+[xUnit.net 00:00:01.49]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.49]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Analysis\Shared\AnalysisTrace.cs(276,0): at OptilandWorkbench.Core.Analysis.AnalysisTrace.BuildDistortionReferenceMapping(Optic optic, Double wavelengthMicrometers, Int32 referenceFieldNumber, String distortionType, Boolean symmetricMagnification, Boolean requireUnvignetted)&#xD;
+[xUnit.net 00:00:01.49]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Analysis\Fields\DistortionAnalyses.cs(74,0): at OptilandWorkbench.Core.Analysis.DistortionAnalysis.GenerateData()&#xD;
+[xUnit.net 00:00:01.49]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Analysis\Fields\DistortionAnalyses.cs(283,0): at OptilandWorkbench.Core.Analysis.FieldCurvatureAndDistortionAnalysis.GenerateData()&#xD;
+[xUnit.net 00:00:01.49]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\AxialDistortionReferenceTests.cs(46,0): at OptilandWorkbench.Tests.AxialDistortionReferenceTests.OfficialAxialDoubletCompletesTheOriginalFieldCurvatureRequest()&#xD;
+[xUnit.net 00:00:01.49]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.49]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.50]       System.InvalidOperationException : Unable to establish a non-singular distortion reference mapping.&#xD;
+[xUnit.net 00:00:01.50]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.50]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Analysis\Shared\AnalysisTrace.cs(276,0): at OptilandWorkbench.Core.Analysis.AnalysisTrace.BuildDistortionReferenceMapping(Optic optic, Double wavelengthMicrometers, Int32 referenceFieldNumber, String distortionType, Boolean symmetricMagnification, Boolean requireUnvignetted)&#xD;
+[xUnit.net 00:00:01.50]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\AxialDistortionReferenceTests.cs(25,0): at OptilandWorkbench.Tests.AxialDistortionReferenceTests.PhysicalReferencePerturbationsSurviveAnAxialOnlyFieldTable()&#xD;
+[xUnit.net 00:00:01.50]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.50]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.50]       System.InvalidOperationException : Unable to establish a non-singular distortion reference mapping.&#xD;
+[xUnit.net 00:00:01.50]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.50]         D:\optical system design\opticalsystem\src\OptilandWorkbench.Core\Analysis\Shared\AnalysisTrace.cs(276,0): at OptilandWorkbench.Core.Analysis.AnalysisTrace.BuildDistortionReferenceMapping(Optic optic, Double wavelengthMicrometers, Int32 referenceFieldNumber, String distortionType, Boolean symmetricMagnification, Boolean requireUnvignetted)&#xD;
+[xUnit.net 00:00:01.50]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\AxialDistortionReferenceTests.cs(70,0): at OptilandWorkbench.Tests.AxialDistortionReferenceTests.CachedPhysicalPerturbationsRecalculateAfterMaterialChanges()&#xD;
+[xUnit.net 00:00:01.50]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.50]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.51]   Finished:    OptilandWorkbench.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T08:59:22.3355492+08:00">
+        <Text>[xUnit.net 00:00:01.49]     OptilandWorkbench.Tests.AxialDistortionReferenceTests.OfficialAxialDoubletCompletesTheOriginalFieldCurvatureRequest [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T08:59:22.3498395+08:00">
+        <Text>[xUnit.net 00:00:01.50]     OptilandWorkbench.Tests.AxialDistortionReferenceTests.PhysicalReferencePerturbationsSurviveAnAxialOnlyFieldTable [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-09T08:59:22.3505650+08:00">
+        <Text>[xUnit.net 00:00:01.50]     OptilandWorkbench.Tests.AxialDistortionReferenceTests.CachedPhysicalPerturbationsRecalculateAfterMaterialChanges [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>
