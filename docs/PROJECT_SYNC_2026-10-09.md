@@ -1,6 +1,6 @@
 # 光学计算修复和后续计划远端同步
 
-本页是此前提交与推送的历史记录。10 月 9 日原生捕获和 FFT 相位/边界阶段的验收为完整 Release 4546/4546、Debug 定向 77/77、工具 179/1/180，见[历史验收](FFT_PUPIL_PHASE_REPAIR_2026-10-09.md)及[历史完成记录](PROJECT_SYNC_FFT_PUPIL_2026-10-09.md)。10 月 10 日最新来源与证据保护另见[当前修复](PREPARED_PUPIL_INTEGRITY_REPAIR_2026-10-10.md)，尚未提交或推送；本页的旧远端确认不能代表这些新修改。
+本页是此前提交与推送的历史记录。10 月 9 日原生捕获和 FFT 相位/边界阶段的验收为完整 Release 4546/4546、Debug 定向 77/77、工具 179/1/180，见[历史验收](FFT_PUPIL_PHASE_REPAIR_2026-10-09.md)及[历史完成记录](PROJECT_SYNC_FFT_PUPIL_2026-10-09.md)。10 月 10 日最新来源与证据保护另见[当前修复](PREPARED_PUPIL_INTEGRITY_REPAIR_2026-10-10.md)，已随本轮修改推送，见[10 月 10 日完成记录](PROJECT_SYNC_PUPIL_FOUCAULT_2026-10-10.md)；本页的旧远端确认只保留历史范围。
 
 2026年10月9日同步本会话累计的轴上参考、Huygens、光线发射、FFT 采样与参考点修复，以及测试、文档和选定原始证据。后续工作按[残差定位计划](FFT_SAMPLING_REFERENCE_REPAIR_2026-10-09.md#后续执行计划)执行；同步不关闭原生数值残差或发布门禁。
 

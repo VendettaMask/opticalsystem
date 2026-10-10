@@ -1,0 +1,479 @@
+{
+  "date": "2026-10-10",
+  "snapshotTime": "2026-10-10T13:44:23.5356103+08:00",
+  "repository": "VendettaMask/opticalsystem",
+  "branch": "main",
+  "baseHead": "07fd9739433dabcca2ec1d80f9aab59ec2aea51a",
+  "implementationCommit": "7c45f77d252b60a53c5ed2451820aedd4221e08a",
+  "snapshotScope": "After implementation push and remote confirmation, before documentation-only completion commit",
+  "verifiedRemoteMain": "7c45f77d252b60a53c5ed2451820aedd4221e08a",
+  "verifiedOriginMain": "7c45f77d252b60a53c5ed2451820aedd4221e08a",
+  "ahead": 0,
+  "behind": 0,
+  "workingTreeCleanAtSnapshot": true,
+  "synchronization": {
+    "pushed": true,
+    "forcePush": false,
+    "remoteCodeMerged": false,
+    "persistentGitOrNetworkSettingsChanged": false,
+    "existingSystemProxy": "127.0.0.1:7897",
+    "commandHttpVersion": "HTTP/1.1",
+    "directConnectionTimeoutsBeforeProxy": true
+  },
+  "implementationFiles": 122,
+  "selectedEvidenceFiles": 33,
+  "selectedEvidenceBytes": 22839039,
+  "evidenceInventoryScope": "Explicitly selected original-byte evidence; not the full commit file inventory",
+  "selectedEvidence": [
+    {
+      "path": "artifacts/validation/fft-energy-grid-integrity-20261010/before/before.trx",
+      "sha256": "f4b13e47f63aeeddec11139f08ecf494a6512d237aed2ce0d4e0d0b0d07de552",
+      "bytes": 35953
+    },
+    {
+      "path": "artifacts/validation/fft-energy-grid-integrity-20261010/comparison-release-final/comparison-release-final.trx",
+      "sha256": "1e1f03ab0bf3c3f6cc631d6be8037bc88d0560d645c8af739328ea1b1f50b4d9",
+      "bytes": 317097
+    },
+    {
+      "path": "artifacts/validation/fft-energy-grid-integrity-20261010/formal-release-final/formal-release-final.trx",
+      "sha256": "7cd3d41211c8be0d5c97e6baefa12e66c54f3d6e22a5ec06ad177cd2a248cf59",
+      "bytes": 6789210
+    },
+    {
+      "path": "artifacts/validation/fft-energy-grid-integrity-20261010/targeted-debug-final/targeted-debug-final.trx",
+      "sha256": "0ff58a88f9a3753d6edbd9ef0d113c8fced4b9f956d66db75337ae0e2b980fc8",
+      "bytes": 262741
+    },
+    {
+      "path": "artifacts/validation/fft-energy-grid-integrity-20261010/targeted-release/targeted-release.trx",
+      "sha256": "d09177291a338705e77b9b020793711c63eec0fa20c6dc0820891a428e385cf5",
+      "bytes": 263449
+    },
+    {
+      "path": "artifacts/validation/huygens-reference-20261010/final-current-core/reference-final.trx",
+      "sha256": "f30183a7c48dfa135c14aaa1098d645d0125a089ffa802446ab09f70135f6718",
+      "bytes": 9712
+    },
+    {
+      "path": "artifacts/validation/prepared-pupil-integrity-repair-20261010/before-nested-propagation/before-nested-propagation.trx",
+      "sha256": "7c82b35f4b90772e6b6096d6ab4fa0afd25966ac2897ee326effec03f93d4fda",
+      "bytes": 8561
+    },
+    {
+      "path": "artifacts/validation/prepared-pupil-integrity-repair-20261010/before/before.trx",
+      "sha256": "77afac45dda3615202192fe45f679dd4cf1e8f89348a1285c14a9abca2a2bf2b",
+      "bytes": 57306
+    },
+    {
+      "path": "artifacts/validation/prepared-pupil-integrity-repair-20261010/comparison-release-final/comparison-release-final.trx",
+      "sha256": "2af8266f2bf174ea657a416fefdbb5e4234b95c685c258c85c600b4deb330b9c",
+      "bytes": 317097
+    },
+    {
+      "path": "artifacts/validation/prepared-pupil-integrity-repair-20261010/formal-release-final/formal-release-final.trx",
+      "sha256": "5445d4e47812bfb1125e4bc3ae3e2e798bf3e6427d144d449667b61c9e201376",
+      "bytes": 6774243
+    },
+    {
+      "path": "artifacts/validation/prepared-pupil-integrity-repair-20261010/targeted-debug-final/targeted-debug-final.trx",
+      "sha256": "c169ec2183b98571e128d550ca34b4895f09dc9547186f37e0d7e9b8504a1307",
+      "bytes": 153537
+    },
+    {
+      "path": "artifacts/validation/pupil-shape-foucault-20261010/build-debug-final.log",
+      "sha256": "5f066d12ad94b5a481a6fe7443d6d480aafa5babc5c2b2df23bb438288dfaf8c",
+      "bytes": 1934
+    },
+    {
+      "path": "artifacts/validation/pupil-shape-foucault-20261010/build-release-final.log",
+      "sha256": "f35cb96a93ce8308d42992fe179a7a5895853c703eddbf500123710257d94f11",
+      "bytes": 1956
+    },
+    {
+      "path": "artifacts/validation/pupil-shape-foucault-20261010/comparison-release-final/comparison-release-final.trx",
+      "sha256": "d985f760f9770fb2c092dc34278cdb9196be790ce0bbcdbc05db26e310f9ada9",
+      "bytes": 317097
+    },
+    {
+      "path": "artifacts/validation/pupil-shape-foucault-20261010/formal-release-final/formal-release-final.trx",
+      "sha256": "c6785a7174e949d7b994d247bddaa30f766e621e2288ee6dd0b25bb7f8287e31",
+      "bytes": 6835680
+    },
+    {
+      "path": "artifacts/validation/pupil-shape-foucault-20261010/render-release/render-release.trx",
+      "sha256": "fe08260907a034338ab04dc90bf1f8b6ef48ae284bd25775cd7119c1aa263e8c",
+      "bytes": 3059
+    },
+    {
+      "path": "artifacts/validation/pupil-shape-foucault-20261010/screenshots/pupil-shape-foucault.png",
+      "sha256": "6448bb7b4b5855dd195f8af7907a0744869cd65cc543c97ee6df61adde797660",
+      "bytes": 77868
+    },
+    {
+      "path": "artifacts/validation/pupil-shape-foucault-20261010/targeted-debug-final/targeted-debug-final.trx",
+      "sha256": "68e0a87ad2897a04ce02727ef01fa7eb5570bfc39f76a448a75a2add8f25c3e0",
+      "bytes": 349745
+    },
+    {
+      "path": "artifacts/validation/pupil-shape-foucault-20261010/targeted-release-final/targeted-release-final.trx",
+      "sha256": "412df8ba88a7e1bb912faa8b244c64b65de2689552afaa8713707ebefff744c6",
+      "bytes": 92589
+    },
+    {
+      "path": "artifacts/validation/prepared-pupil-integrity-repair-20261010/build-release-final.log",
+      "sha256": "d7f2ae6c12a4dbfef6e2c18752a20ed2c1c987c4c6ec371b7b0fc9c78d14ec24",
+      "bytes": 1956
+    },
+    {
+      "path": "artifacts/validation/prepared-pupil-integrity-repair-20261010/build-debug-final.log",
+      "sha256": "24f16d0a40a713f062a65dbeec971c4d10cdc186e9cfa44e59180a28c9c264cf",
+      "bytes": 1934
+    },
+    {
+      "path": "artifacts/validation/prepared-pupil-integrity-repair-20261010/build-diagnostic-final.log",
+      "sha256": "bc4c135191e368893f19e60be700dbfe9ddef08e818eddc21f1bd7af8e67bc91",
+      "bytes": 1314
+    },
+    {
+      "path": "artifacts/validation/prepared-pupil-integrity-repair-20261010/prepared-native-final.json",
+      "sha256": "9d468302ab3844aeade5f70eb3d9abe9b355587c1168476dd340ee81c95952aa",
+      "bytes": 1251
+    },
+    {
+      "path": "artifacts/validation/prepared-pupil-integrity-repair-20261010/integrity-script-tests/results.json",
+      "sha256": "d614868f4ff9a827f46c2d1028d36440753a10ad8fa38e779c985d1b8e735ac8",
+      "bytes": 575
+    },
+    {
+      "path": "artifacts/validation/fft-energy-grid-integrity-20261010/build-release-final.log",
+      "sha256": "d745458c2ba8f23e555608d14ebbe12c7ea016c6b63985a10a37b022d1a8406e",
+      "bytes": 1956
+    },
+    {
+      "path": "artifacts/validation/fft-energy-grid-integrity-20261010/build-debug-final.log",
+      "sha256": "5fe16a3bb0c7b8f5c96c3f3aa3db036fd4e8c8eab6cd283a8c078a4eb7ff31cc",
+      "bytes": 1934
+    },
+    {
+      "path": "artifacts/validation/fft-energy-grid-integrity-20261010/build-diagnostic-final.log",
+      "sha256": "0d278122f5de5956b4d28a53e91a32530ef6c96b21dfa7b5ad3694f8ade6cb94",
+      "bytes": 707
+    },
+    {
+      "path": "artifacts/validation/fft-energy-grid-integrity-20261010/prepared-native-final.json",
+      "sha256": "9d468302ab3844aeade5f70eb3d9abe9b355587c1168476dd340ee81c95952aa",
+      "bytes": 1251
+    },
+    {
+      "path": "artifacts/validation/huygens-reference-20261010/final-current-core/centers.json",
+      "sha256": "0520d4df21687fc1d885de9cd4dad35c3da421976777f55bd8f0c849f4db533c",
+      "bytes": 31456
+    },
+    {
+      "path": "artifacts/validation/huygens-reference-20261010/final-current-core/closed32intervals.json",
+      "sha256": "9e9c388078a3d757a96f3d0af1231de172e815818a1450e2a1498b959d31a12a",
+      "bytes": 31481
+    },
+    {
+      "path": "artifacts/validation/huygens-reference-20261010/final-current-core/endpoints.json",
+      "sha256": "d635497b7569a2d0f90a71b6672b482d6c0ee36a1f6cb0481afde2456446d30a",
+      "bytes": 31448
+    },
+    {
+      "path": "artifacts/validation/huygens-reference-20261010/final-current-core/halfopen.json",
+      "sha256": "a8b355712d256846bb6e6fb54fc6ffba18697db7bac3d32dc13664c0e585316d",
+      "bytes": 31485
+    },
+    {
+      "path": "artifacts/validation/huygens-reference-20261010/final-current-core/zemax.json",
+      "sha256": "8194dfb1d357a229a6c770e8e49dba16e0eb3a7b4908f674d490cce330edac3a",
+      "bytes": 31457
+    }
+  ],
+  "stageByteVerification": {
+    "files": 57,
+    "selectedEvidence": 33,
+    "phaseLedgers": 3,
+    "finalPinnedSources": 21,
+    "mismatches": 0
+  },
+  "validationScope": "Previously executed final validation; source and default binaries rehashed at synchronization; no new optical test run",
+  "formalRelease": {
+    "path": "artifacts/validation/pupil-shape-foucault-20261010/formal-release-final/formal-release-final.trx",
+    "sha256": "c6785a7174e949d7b994d247bddaa30f766e621e2288ee6dd0b25bb7f8287e31",
+    "total": 4608,
+    "passed": 4608,
+    "failed": 0,
+    "skipped": 0,
+    "start": "2026-10-10T11:49:37.9416523+08:00",
+    "finish": "2026-10-10T12:12:23.2387875+08:00"
+  },
+  "debugTargeted": {
+    "path": "artifacts/validation/pupil-shape-foucault-20261010/targeted-debug-final/targeted-debug-final.trx",
+    "sha256": "68e0a87ad2897a04ce02727ef01fa7eb5570bfc39f76a448a75a2add8f25c3e0",
+    "total": 236,
+    "passed": 236,
+    "failed": 0,
+    "skipped": 0,
+    "start": "2026-10-10T11:52:03.4926427+08:00",
+    "finish": "2026-10-10T11:52:49.4898195+08:00"
+  },
+  "releaseTargeted": {
+    "path": "artifacts/validation/pupil-shape-foucault-20261010/targeted-release-final/targeted-release-final.trx",
+    "sha256": "412df8ba88a7e1bb912faa8b244c64b65de2689552afaa8713707ebefff744c6",
+    "total": 60,
+    "passed": 60,
+    "failed": 0,
+    "skipped": 0,
+    "start": "2026-10-10T11:48:32.6528183+08:00",
+    "finish": "2026-10-10T11:48:43.190902+08:00"
+  },
+  "renderRelease": {
+    "path": "artifacts/validation/pupil-shape-foucault-20261010/render-release/render-release.trx",
+    "sha256": "fe08260907a034338ab04dc90bf1f8b6ef48ae284bd25775cd7119c1aa263e8c",
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "start": "2026-10-10T11:49:06.239584+08:00",
+    "finish": "2026-10-10T11:49:10.3538693+08:00"
+  },
+  "comparisonRelease": {
+    "path": "artifacts/validation/pupil-shape-foucault-20261010/comparison-release-final/comparison-release-final.trx",
+    "sha256": "d985f760f9770fb2c092dc34278cdb9196be790ce0bbcdbc05db26e310f9ada9",
+    "total": 180,
+    "passed": 179,
+    "failed": 1,
+    "skipped": 0,
+    "start": "2026-10-10T11:49:52.359373+08:00",
+    "finish": "2026-10-10T11:58:17.2017559+08:00"
+  },
+  "sourceHashes": [
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Wavefront/FoucaultEngine.cs",
+      "sha256": "019bec65ba1005c70474e252385b456f4a4b4e5c341e03d7161edc0e58bd48a0"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Wavefront/FoucaultAnalysis.cs",
+      "sha256": "7d6225fd8623e000096e9bfa87ba11783ff796b7299546a3524a968f62105f97"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Wavefront/WavefrontAnalyses.cs",
+      "sha256": "58ab42bc75132f8fb4a0c16b486c03b5c50d180903e19ef1643ee746f380c7a4"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs",
+      "sha256": "bfabfc58ac527a7b38a32665ece796fe67a984e987ce79de37657cb52258be5c"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/AnalysisModels.cs",
+      "sha256": "0517ef6fa5f7ab1ffa9b49c497d21705539def4cc41d6d7ec2d5618172a3dcce"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Contracts/WorkspaceContracts.cs",
+      "sha256": "d24a8e14bb67909dca57dd7527fcb703b627982f3e393f9a8a0a9b98c7bf8d4b"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Services/Mapping/WorkbenchMapper.cs",
+      "sha256": "a08ca8a7889cbabc27b1115a036055915c6901559809da82e51150087a31801e"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs",
+      "sha256": "aad259cf85d43b12c4bbccdb1986d1d5cc9f9ca6d4d236db0880ddea0edb75da"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Localization.cs",
+      "sha256": "92d816e3d0564aa95b92a94739e29697746ecd41d63c5333acd5925f3c867b55"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/Controls/FoucaultPlotControl.cs",
+      "sha256": "81136e3e148d13fc7d5fc6a9f14fca7d51b1732f9042377c8969451c0bb3d6eb"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/Controls/WavefrontSurfaceControl.cs",
+      "sha256": "0a23c9ae556434a5c61b9d617889f04b7104ac5ff84ae428fe63b78eb0f8d5b5"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Results.cs",
+      "sha256": "36f56be5f92e26de1b62705b654eebad2869dccc088ff4bec95fd04140e093dd"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Parameters.cs",
+      "sha256": "d4fd5ec6f7895ca4115c332323fa53546bd32a42b90cc491ad4dc4bd750cbf38"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/PupilShapeAndFoucaultPhysicsTests.cs",
+      "sha256": "b0357227bfb3da777cdde45fd210cd0030877938b4243e6513b9214de82fd190"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/PupilShapeAndFoucaultPanelTests.cs",
+      "sha256": "9d42e2eb459282003b6ab88732ec7a76d067d800bd8789049ff1c40969a6abe5"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/FoucaultAnalysisTests.cs",
+      "sha256": "448630f0666825ced5880eea83bd86f94cb2e7b1de461a5d58966f477d1e2822"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/CalculationPathRepairTests.cs",
+      "sha256": "4501f6c4d3ef5ce4f405e731951bdd0fd639f561b7b9346236e9337321b214dd"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/CalculationPathPanelTests.cs",
+      "sha256": "dc9d1a37a9a984164a654ec008cc093e583508aa13d6365571cf8c25fd70a03b"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/WavefrontAimingRepairTests.cs",
+      "sha256": "a95801004e80afdef84fd97634f19547237a44be30a200d94e9fbac08404fa0d"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/AnalysisGuiContractTests.cs",
+      "sha256": "cfb728bdd36ed5ef2acf064944b27583cc077e4694cab21c68df0b3a1fb29ff1"
+    },
+    {
+      "path": "tools/validation/CollectPupilShapeFoucault20261010.ps1",
+      "sha256": "8b8c8324f909b8de3cc4fd9734064ada78ddcc318f7b3a646eaa4b26df11064e"
+    }
+  ],
+  "defaultCoreCopies": [
+    {
+      "configuration": "Release",
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "2d5c0083507c9cbe76ca072760ee159a2951d5598959bc8bbdbd0bee9c4c200b"
+    },
+    {
+      "configuration": "Release",
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "2d5c0083507c9cbe76ca072760ee159a2951d5598959bc8bbdbd0bee9c4c200b"
+    },
+    {
+      "configuration": "Release",
+      "path": "tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "2d5c0083507c9cbe76ca072760ee159a2951d5598959bc8bbdbd0bee9c4c200b"
+    },
+    {
+      "configuration": "Release",
+      "path": "tests/OptilandWorkbench.ZemaxComparison.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "2d5c0083507c9cbe76ca072760ee159a2951d5598959bc8bbdbd0bee9c4c200b"
+    },
+    {
+      "configuration": "Debug",
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "4652916d9fe08748040f4d2dbeeda9bfdcbfe184851bd14a589efcbd8f0c700f"
+    },
+    {
+      "configuration": "Debug",
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "4652916d9fe08748040f4d2dbeeda9bfdcbfe184851bd14a589efcbd8f0c700f"
+    },
+    {
+      "configuration": "Debug",
+      "path": "tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "4652916d9fe08748040f4d2dbeeda9bfdcbfe184851bd14a589efcbd8f0c700f"
+    },
+    {
+      "configuration": "Debug",
+      "path": "tests/OptilandWorkbench.ZemaxComparison.Tests/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "4652916d9fe08748040f4d2dbeeda9bfdcbfe184851bd14a589efcbd8f0c700f"
+    }
+  ],
+  "phaseLedgers": [
+    {
+      "path": "docs/validation/PREPARED_PUPIL_INTEGRITY_REPAIR_2026-10-10.json",
+      "sha256": "ffa9f5503423e51d48e733835c009b2d7300bae378614f523fca1595d8a0dfa1"
+    },
+    {
+      "path": "docs/validation/FFT_ENERGY_GRID_INTEGRITY_REPAIR_2026-10-10.json",
+      "sha256": "59a6fa3374a605aeb01dc9c30ca0b100bb6623d14880160129f8ea734bf53b9f"
+    },
+    {
+      "path": "docs/validation/PUPIL_SHAPE_FOUCAULT_IMPLEMENTATION_2026-10-10.json",
+      "sha256": "ae649e0f9632fe9d5bcd31eb16aaa198ce9608c3c75d993f8b9d16957180825c"
+    }
+  ],
+  "historicalLedger": {
+    "path": "docs/validation/FFT_PUPIL_PHASE_REPAIR_2026-10-09.json",
+    "sha256": "ca0918fddc86f519a78db0520b1bbe448cde849c1ebb3c65d4f3da280af2fb6e",
+    "unmodified": true
+  },
+  "frozenIntegrity": {
+    "count": 2668,
+    "matched": 2660,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "7c1fc6e327ac3a0d0da17adb04d1a88a90999af25522136110cd0041a92b3ce0",
+    "unchanged": false,
+    "mismatches": [
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/README.md",
+        "expectedSha256": "74784d8a925c59ea1d944107ded32c2061cfd8d0e42d0d1af9c763a082156c3a",
+        "actualSha256": "d3024a9b05ad52ab92f2e257dc3581ff5e6e3ef7e99e8e5455890d4aae5a542f",
+        "matches": false
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/163-nest/error.txt",
+        "expectedSha256": "e24504ffaaa36061406b2d07acb0ee323c1af8be18c07ffc3762b899f53ab811",
+        "actualSha256": "d891ac1ef55a651a73c949ffdda5a7eaa9a7918818245ef73ab0606a78769392",
+        "matches": false
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-30/COMPARISON_REPORT.md",
+        "expectedSha256": "f3a05d5c0d9c56fcfbd9b27609effc38182b4cd819de3fba6072ecf094329fb7",
+        "actualSha256": "b836a7333b62a5b96396ec125bc9b92734a96dc10e1d2eacec29b701f7cb503a",
+        "matches": false
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-30/README.md",
+        "expectedSha256": "a0f6acab4ebb4106eb0774608e113fff363996fd70c30823fe708f8819be8d29",
+        "actualSha256": "43e68e47d7f88c2fd5ed00eaba87eb0f7ab2a15cb71f7de98f9ce47bfa1651cc",
+        "matches": false
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/FULL_PRECISION_IMAGE_RECHECK.md",
+        "expectedSha256": "a8dfd9967a98bf8b36c7a106927d40dfbbd67cb9343aec8f8bda145d6bf5a838",
+        "actualSha256": "fb102dda875e5ee31ffe2093d62aa1c076ca910aae343bd97b907e0c2aecfba8",
+        "matches": false
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/LETTERF.IMA",
+        "expectedSha256": "bf19b2f3f1c529ac165c22b39b3ec16e378c95ab9e2b54bc52c0646cb818c0b1",
+        "actualSha256": "025998c32599710b7ef0214277904f75a2d5d59b1c0776d18409b3e91f3b6dad",
+        "matches": false
+      },
+      {
+        "path": "artifacts/zemax/ms-l7-zemax-2026-r1-baseline/merit-function.json",
+        "expectedSha256": "3e538771bd2d347ef0867224ce904c10d4887efd8360ace33b2e431b159244f2",
+        "actualSha256": "b189a4c8c2189cbd5c30afe7093a92416514c6d3186356c94d066e07c7c1fb15",
+        "matches": false
+      },
+      {
+        "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+        "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "actualSha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+        "matches": false
+      }
+    ]
+  },
+  "retainedNativeCaptures": {
+    "files": 165,
+    "bytes": 4042581,
+    "verified": true,
+    "newCapture": false,
+    "scope": "Verified during latest final validation; no native files changed in this synchronization"
+  },
+  "boundaries": [
+    "Focused working-F-number pupil display is not arbitrary 3D exit pupil reconstruction",
+    "Physical Foucault uses ideal pupil reimaging, not general vector POP",
+    "Unsupported Jones media and bitmap registration remain explicit limitations",
+    "N01 Close, N02 Difference and E04 frozen-byte mismatches remain open"
+  ],
+  "notRun": [
+    "New optical test execution during push",
+    "Full Debug",
+    "Laboratory suites",
+    "Six-file 132-case matrix",
+    "Installer/package",
+    "Manual desktop acceptance",
+    "New native capture or certification"
+  ],
+  "followup": "Documentation-only completion commit updates current status; historical validation ledgers retain their original precommit snapshots"
+}

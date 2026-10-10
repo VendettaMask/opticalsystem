@@ -75,6 +75,6 @@
 - E04：历史 2668 条清单仍存在 8 个精确字节差异，7 个换行等价，1 个报告原始哈希待核实；原账本不覆盖。
 - 完整 Debug、实验室、132 项六镜头矩阵、安装包和人工桌面验收不属于本轮已经完成的范围。
 
-此前来源保护及严格证据核验保留，详见[上一阶段修复](PREPARED_PUPIL_INTEGRITY_REPAIR_2026-10-10.md)。本轮为未提交、未推送的本地修改。最终证据保存在 `artifacts/validation/fft-energy-grid-integrity-20261010/` 与 `artifacts/validation/huygens-reference-20261010/`；复验入口为 `tools/validation/CollectFftEnergyGridRepair20261010.ps1`，不覆盖此前机器账本。
+此前来源保护及严格证据核验保留，详见[上一阶段修复](PREPARED_PUPIL_INTEGRITY_REPAIR_2026-10-10.md)。该阶段验收时为未提交本地修改；代码及选定证据现已推送，见[同步完成记录](PROJECT_SYNC_PUPIL_FOUCAULT_2026-10-10.md)，原机器账本保留阶段快照。最终证据保存在 `artifacts/validation/fft-energy-grid-integrity-20261010/` 与 `artifacts/validation/huygens-reference-20261010/`；复验入口为 `tools/validation/CollectFftEnergyGridRepair20261010.ps1`，不覆盖此前机器账本。
 
 报告哈希另查 Git 的唯一提交版本 `948cb4120924df54f7d16157c1d2714c6f5f02fa`，其 blob SHA-256 为 `7a41a4c63ee2f1c756fc0e087e1ec36ce630725ff142ca5bcecbd36bededd5a6`。UTF-8、UTF-16LE/BE、BOM、LF/CRLF 与末尾换行的 36 种常见组合均不匹配历史期望；这不是对所有编码或来源的穷尽验证，E04 仍待原件，不用转换结果冒充原始捕获。
