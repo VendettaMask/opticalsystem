@@ -145,7 +145,10 @@ public sealed record AnalysisPlotOptions(
     bool HideAxes = false,
     bool HideTickLabels = false,
     bool LegendBelow = false,
-    bool DefaultSquareViewport = false);
+    bool DefaultSquareViewport = false,
+    double SpatialDisplayScaleX = 1,
+    double SpatialDisplayScaleY = 1,
+    bool LogarithmicIntensity = false);
 
 public sealed record AnalysisPlotPane(
     string Title,

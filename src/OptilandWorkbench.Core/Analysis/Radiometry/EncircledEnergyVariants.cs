@@ -209,11 +209,8 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
             return null;
         }
 
-        var samples = CentralFftWindow(heatmap.Points, _pupilSampling, _imageSampling)
-            .Where(point => point.Value is > 0 && double.IsFinite(point.Value.Value))
-            .Select(point => new EnergySample(point.X, point.Y, point.Value!.Value))
-            .ToArray();
-        if (samples.Length == 0)
+        var samples = SelectFftWindowSamples(heatmap.Points, _pupilSampling, _imageSampling);
+        if (samples.Length == 0 || samples.All(sample => sample.Weight == 0))
         {
             return null;
         }
@@ -270,6 +267,17 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
         return points
             .Where(point => xSelected.Contains(point.X) && ySelected.Contains(point.Y))
             .ToArray();
+    }
+
+    internal static EnergySample[] SelectFftWindowSamples(
+        IReadOnlyList<AnalysisPoint> points, int pupilSampling, int imageSampling)
+    {
+        var window = CentralFftWindow(points, pupilSampling, imageSampling);
+        if (window.Any(point => point.Value is not { } value || !double.IsFinite(value) || value < 0))
+            throw new InvalidOperationException("FFT PSF 像素必须具有有限非负强度，不能通过丢弃无效像素生成能量曲线。");
+        // A black pixel contributes no energy, but still defines the physical
+        // pitch. Filter weights only after PsfPixelEnergyGrid has measured it.
+        return window.Select(point => new EnergySample(point.X, point.Y, point.Value!.Value)).ToArray();
     }
 
     internal static double IdealAiryEncircledEnergy(

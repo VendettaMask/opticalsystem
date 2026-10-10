@@ -30,6 +30,7 @@ public sealed record WavefrontResult(
     public double? SourceWavelengthNanometers { get; init; }
     public double? SourceReferenceWavelengthNanometers { get; init; }
     public PupilGridSpecification? PupilGrid { get; init; }
+    public PupilSourceIdentity? SourceIdentity { get; init; }
     public WavefrontReferenceSphere? ReferenceSphere { get; init; }
     // Datum of the existing scalar Huygens weighting convention. This is not
     // a physical reference-sphere normal; keep that distinction explicit.
@@ -107,7 +108,8 @@ public static class WavefrontEngine
         return GenerateChiefRay(optic, field, wavelength, pupilSamples, aimAtStop,
             referenceWavelength: referenceWavelength) with
         {
-            PupilGrid = new(samplesAcrossPupil, cellCentered, zemaxCentered, pupilGridStretch)
+            PupilGrid = new(samplesAcrossPupil, cellCentered, zemaxCentered, pupilGridStretch),
+            SourceIdentity = PupilSourceIdentity.Capture(optic)
         };
     }
 

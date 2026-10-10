@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1cb1bcfd-8ffb-42dd-b3c0-fd80b2a973d7" name="optics@LAPTOP-G4BBBCS0 2026-10-10 09:14:02" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-10T09:14:02.6763445+08:00" queuing="2026-10-10T09:14:02.6763448+08:00" start="2026-10-10T09:14:00.3805399+08:00" finish="2026-10-10T09:14:03.2514008+08:00" />
+  <TestSettings name="default" id="a5848c0a-999f-41ca-80f4-22a241fd2d0c">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-10_09_14_02" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="6a187381-b5a7-40d8-8ac8-42eb8cc378ee" testId="3505f34e-885d-a803-8b37-a95144b16904" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsOldJonesEvenWithFreshWavefront" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1405679" startTime="2026-10-10T09:14:02.3789503+08:00" endTime="2026-10-10T09:14:02.5189924+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6a187381-b5a7-40d8-8ac8-42eb8cc378ee">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsOldJonesEvenWithFreshWavefront() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs:line 48&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3b79172b-b73a-484c-b167-3e895cff8f7b" testId="f5b049c3-5326-a8a2-1f19-d4cf37314829" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;curvature&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0247460" startTime="2026-10-10T09:14:02.6733989+08:00" endTime="2026-10-10T09:14:02.6978507+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3b79172b-b73a-484c-b167-3e895cff8f7b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs:line 38&#xD;
+   at InvokeStub_PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3c1225e5-cefc-41f3-b679-1d1c5e7c887b" testId="9eacf9b1-b400-afae-3c37-c004845cb29d" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;apodization&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0235373" startTime="2026-10-10T09:14:02.6615007+08:00" endTime="2026-10-10T09:14:02.6729209+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3c1225e5-cefc-41f3-b679-1d1c5e7c887b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs:line 38&#xD;
+   at InvokeStub_PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="896dc2a5-804b-4b29-ac17-7a83f6d98ac1" testId="01b0df98-af74-e549-718b-e409d7d24217" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.PresentationNamesDoNotInvalidateTheOpticalSource" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0243016" startTime="2026-10-10T09:14:03.1202837+08:00" endTime="2026-10-10T09:14:03.1439041+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="896dc2a5-804b-4b29-ac17-7a83f6d98ac1" />
+    <UnitTestResult executionId="af826244-0e20-4440-9e2f-3117800febf1" testId="e1292fb1-c752-eadd-5cbf-fe9903d64809" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.IdenticalSnapshotCanReusePreparedSamples(polarized: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1396923" startTime="2026-10-10T09:14:02.8455562+08:00" endTime="2026-10-10T09:14:02.9851168+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="af826244-0e20-4440-9e2f-3117800febf1" />
+    <UnitTestResult executionId="4742f55b-acc8-468b-b363-e63ff9dbfda3" testId="a5e543fd-c79f-1c44-8ec6-8dd8a4810d3e" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;material&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0237643" startTime="2026-10-10T09:14:02.5716879+08:00" endTime="2026-10-10T09:14:02.5946999+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4742f55b-acc8-468b-b363-e63ff9dbfda3">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs:line 38&#xD;
+   at InvokeStub_PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b330b35e-9590-472d-ae19-7a307f6ea654" testId="ed65bb4f-a01d-2f5a-d4b4-7765b2e9e6eb" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;vignetting&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0316591" startTime="2026-10-10T09:14:02.6178002+08:00" endTime="2026-10-10T09:14:02.6491809+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b330b35e-9590-472d-ae19-7a307f6ea654">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs:line 38&#xD;
+   at InvokeStub_PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f8d2924e-41c0-4c6f-a24e-cdc365e9ee34" testId="a381d294-1900-1446-8cfe-c94eb59aa2c0" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.JonesBulkAbsorptionCannotBeAppliedAgainToAnAbsorbedWavefront" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1341599" startTime="2026-10-10T09:14:02.9852828+08:00" endTime="2026-10-10T09:14:03.1194650+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f8d2924e-41c0-4c6f-a24e-cdc365e9ee34">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.JonesBulkAbsorptionCannotBeAppliedAgainToAnAbsorbedWavefront() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs:line 134&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2730f7b4-c8ee-4c89-a456-635955bc3618" testId="09e4bee3-26ae-fee8-5376-bfa01bb330d0" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.AfocalSourceAlsoRejectsChangedDetectorFrame" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0225028" startTime="2026-10-10T09:14:03.1474560+08:00" endTime="2026-10-10T09:14:03.1665790+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2730f7b4-c8ee-4c89-a456-635955bc3618">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.AfocalSourceAlsoRejectsChangedDetectorFrame() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs:line 125&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="63b91c7d-5fc6-4ada-9a2d-a377ce60f7cd" testId="18011075-1a39-0c36-eddb-972412e2f9b8" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;environment&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0270773" startTime="2026-10-10T09:14:02.5198530+08:00" endTime="2026-10-10T09:14:02.5462692+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="63b91c7d-5fc6-4ada-9a2d-a377ce60f7cd">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs:line 38&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b2ff3fe8-b68c-4fb7-95c0-63ae73135d77" testId="5f0bd68e-c034-d36c-ef91-973cf969244d" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.MissingWavefrontSourceCannotBeReconstructedFromMatchingLabels(afocal: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0260127" startTime="2026-10-10T09:14:02.3327621+08:00" endTime="2026-10-10T09:14:02.3521162+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b2ff3fe8-b68c-4fb7-95c0-63ae73135d77">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.MissingWavefrontSourceCannotBeReconstructedFromMatchingLabels(Boolean afocal) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs:line 67&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7654faa8-d29d-4ba4-8451-2dfc3dd601f7" testId="3bf9517b-fe5f-8a80-4aff-0252ad69b3b0" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;thickness&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0243481" startTime="2026-10-10T09:14:02.5467878+08:00" endTime="2026-10-10T09:14:02.5708190+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7654faa8-d29d-4ba4-8451-2dfc3dd601f7">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs:line 38&#xD;
+   at InvokeStub_PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2a05eee7-10ba-4a8b-b828-4a6452b91c95" testId="ddafe344-8e6d-aeeb-1fd8-5a5501a58a62" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;system_aperture&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0231216" startTime="2026-10-10T09:14:02.7222083+08:00" endTime="2026-10-10T09:14:02.7447110+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2a05eee7-10ba-4a8b-b828-4a6452b91c95">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs:line 38&#xD;
+   at InvokeStub_PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="275aca5c-552f-4b86-941b-a9e2c4f86aec" testId="0d1b3d81-5321-15ec-e264-59cd20897c68" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;physical_aperture&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0233845" startTime="2026-10-10T09:14:02.6987563+08:00" endTime="2026-10-10T09:14:02.7213793+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="275aca5c-552f-4b86-941b-a9e2c4f86aec">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs:line 38&#xD;
+   at InvokeStub_PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="45e576b2-c732-4f65-8685-222b86ddebd3" testId="a6cd3933-0b90-a8ff-dd32-96f2068a1f93" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.IdenticalSnapshotCanReusePreparedSamples(polarized: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0715616" startTime="2026-10-10T09:14:02.7746350+08:00" endTime="2026-10-10T09:14:02.8453563+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="45e576b2-c732-4f65-8685-222b86ddebd3" />
+    <UnitTestResult executionId="80ffadb1-fbc8-4308-b4a8-786acf23f8e3" testId="3d6d45ae-a732-1bc7-3054-c695001e3c9e" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;polarization&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0224377" startTime="2026-10-10T09:14:02.5955386+08:00" endTime="2026-10-10T09:14:02.6173190+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="80ffadb1-fbc8-4308-b4a8-786acf23f8e3">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs:line 38&#xD;
+   at InvokeStub_PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b318dee9-5465-46bd-b6ae-0f093aa800d1" testId="46600e1a-eb2f-959f-5be4-d34987de942f" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.CallerPhaseRemainsAuthoritativeAndUnmodified" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.7803801" startTime="2026-10-10T09:14:01.5308795+08:00" endTime="2026-10-10T09:14:02.3192107+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b318dee9-5465-46bd-b6ae-0f093aa800d1" />
+    <UnitTestResult executionId="c1ff001a-c2e1-4c7e-9232-f2e3cd7f8f1c" testId="9b2e946d-e42b-79ee-164d-1efef6561bb8" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.MissingWavefrontSourceCannotBeReconstructedFromMatchingLabels(afocal: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0262457" startTime="2026-10-10T09:14:02.3613367+08:00" endTime="2026-10-10T09:14:02.3781397+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c1ff001a-c2e1-4c7e-9232-f2e3cd7f8f1c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.MissingWavefrontSourceCannotBeReconstructedFromMatchingLabels(Boolean afocal) in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs:line 67&#xD;
+   at InvokeStub_PreparedPupilProvenanceTests.MissingWavefrontSourceCannotBeReconstructedFromMatchingLabels(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9c0b145a-0000-4417-863c-e0879a6fd1c9" testId="31cb6ab5-08dd-ea1d-73f6-c6a8b4f794b5" testName="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.CustomModelWithLossySnapshotCannotReusePreparedInput" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0287358" startTime="2026-10-10T09:14:02.7452994+08:00" endTime="2026-10-10T09:14:02.7736792+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9c0b145a-0000-4417-863c-e0879a6fd1c9">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.InvalidOperationException)</Message>
+          <StackTrace>   at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.CustomModelWithLossySnapshotCannotReusePreparedInput() in D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs:line 112&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.CustomModelWithLossySnapshotCannotReusePreparedInput" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="31cb6ab5-08dd-ea1d-73f6-c6a8b4f794b5">
+      <Execution id="9c0b145a-0000-4417-863c-e0879a6fd1c9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="CustomModelWithLossySnapshotCannotReusePreparedInput" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.MissingWavefrontSourceCannotBeReconstructedFromMatchingLabels(afocal: False)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="5f0bd68e-c034-d36c-ef91-973cf969244d">
+      <Execution id="b2ff3fe8-b68c-4fb7-95c0-63ae73135d77" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="MissingWavefrontSourceCannotBeReconstructedFromMatchingLabels" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.PresentationNamesDoNotInvalidateTheOpticalSource" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="01b0df98-af74-e549-718b-e409d7d24217">
+      <Execution id="896dc2a5-804b-4b29-ac17-7a83f6d98ac1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="PresentationNamesDoNotInvalidateTheOpticalSource" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;apodization&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="9eacf9b1-b400-afae-3c37-c004845cb29d">
+      <Execution id="3c1225e5-cefc-41f3-b679-1d1c5e7c887b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="ChangedOpticRejectsPreviouslyPreparedWavefront" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.CallerPhaseRemainsAuthoritativeAndUnmodified" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="46600e1a-eb2f-959f-5be4-d34987de942f">
+      <Execution id="b318dee9-5465-46bd-b6ae-0f093aa800d1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="CallerPhaseRemainsAuthoritativeAndUnmodified" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsOldJonesEvenWithFreshWavefront" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="3505f34e-885d-a803-8b37-a95144b16904">
+      <Execution id="6a187381-b5a7-40d8-8ac8-42eb8cc378ee" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="ChangedOpticRejectsOldJonesEvenWithFreshWavefront" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.IdenticalSnapshotCanReusePreparedSamples(polarized: False)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="a6cd3933-0b90-a8ff-dd32-96f2068a1f93">
+      <Execution id="45e576b2-c732-4f65-8685-222b86ddebd3" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="IdenticalSnapshotCanReusePreparedSamples" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;curvature&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="f5b049c3-5326-a8a2-1f19-d4cf37314829">
+      <Execution id="3b79172b-b73a-484c-b167-3e895cff8f7b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="ChangedOpticRejectsPreviouslyPreparedWavefront" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.JonesBulkAbsorptionCannotBeAppliedAgainToAnAbsorbedWavefront" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="a381d294-1900-1446-8cfe-c94eb59aa2c0">
+      <Execution id="f8d2924e-41c0-4c6f-a24e-cdc365e9ee34" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="JonesBulkAbsorptionCannotBeAppliedAgainToAnAbsorbedWavefront" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.AfocalSourceAlsoRejectsChangedDetectorFrame" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="09e4bee3-26ae-fee8-5376-bfa01bb330d0">
+      <Execution id="2730f7b4-c8ee-4c89-a456-635955bc3618" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="AfocalSourceAlsoRejectsChangedDetectorFrame" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;thickness&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="3bf9517b-fe5f-8a80-4aff-0252ad69b3b0">
+      <Execution id="7654faa8-d29d-4ba4-8451-2dfc3dd601f7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="ChangedOpticRejectsPreviouslyPreparedWavefront" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;environment&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="18011075-1a39-0c36-eddb-972412e2f9b8">
+      <Execution id="63b91c7d-5fc6-4ada-9a2d-a377ce60f7cd" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="ChangedOpticRejectsPreviouslyPreparedWavefront" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;material&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="a5e543fd-c79f-1c44-8ec6-8dd8a4810d3e">
+      <Execution id="4742f55b-acc8-468b-b363-e63ff9dbfda3" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="ChangedOpticRejectsPreviouslyPreparedWavefront" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.MissingWavefrontSourceCannotBeReconstructedFromMatchingLabels(afocal: True)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="9b2e946d-e42b-79ee-164d-1efef6561bb8">
+      <Execution id="c1ff001a-c2e1-4c7e-9232-f2e3cd7f8f1c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="MissingWavefrontSourceCannotBeReconstructedFromMatchingLabels" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.IdenticalSnapshotCanReusePreparedSamples(polarized: True)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="e1292fb1-c752-eadd-5cbf-fe9903d64809">
+      <Execution id="af826244-0e20-4440-9e2f-3117800febf1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="IdenticalSnapshotCanReusePreparedSamples" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;vignetting&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="ed65bb4f-a01d-2f5a-d4b4-7765b2e9e6eb">
+      <Execution id="b330b35e-9590-472d-ae19-7a307f6ea654" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="ChangedOpticRejectsPreviouslyPreparedWavefront" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;system_aperture&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="ddafe344-8e6d-aeeb-1fd8-5a5501a58a62">
+      <Execution id="2a05eee7-10ba-4a8b-b828-4a6452b91c95" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="ChangedOpticRejectsPreviouslyPreparedWavefront" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;physical_aperture&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="0d1b3d81-5321-15ec-e264-59cd20897c68">
+      <Execution id="275aca5c-552f-4b86-941b-a9e2c4f86aec" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="ChangedOpticRejectsPreviouslyPreparedWavefront" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: &quot;polarization&quot;)" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="3d6d45ae-a732-1bc7-3054-c695001e3c9e">
+      <Execution id="80ffadb1-fbc8-4308-b4a8-786acf23f8e3" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PreparedPupilProvenanceTests" name="ChangedOpticRejectsPreviouslyPreparedWavefront" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="3505f34e-885d-a803-8b37-a95144b16904" executionId="6a187381-b5a7-40d8-8ac8-42eb8cc378ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f5b049c3-5326-a8a2-1f19-d4cf37314829" executionId="3b79172b-b73a-484c-b167-3e895cff8f7b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9eacf9b1-b400-afae-3c37-c004845cb29d" executionId="3c1225e5-cefc-41f3-b679-1d1c5e7c887b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="01b0df98-af74-e549-718b-e409d7d24217" executionId="896dc2a5-804b-4b29-ac17-7a83f6d98ac1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e1292fb1-c752-eadd-5cbf-fe9903d64809" executionId="af826244-0e20-4440-9e2f-3117800febf1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a5e543fd-c79f-1c44-8ec6-8dd8a4810d3e" executionId="4742f55b-acc8-468b-b363-e63ff9dbfda3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ed65bb4f-a01d-2f5a-d4b4-7765b2e9e6eb" executionId="b330b35e-9590-472d-ae19-7a307f6ea654" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a381d294-1900-1446-8cfe-c94eb59aa2c0" executionId="f8d2924e-41c0-4c6f-a24e-cdc365e9ee34" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="09e4bee3-26ae-fee8-5376-bfa01bb330d0" executionId="2730f7b4-c8ee-4c89-a456-635955bc3618" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="18011075-1a39-0c36-eddb-972412e2f9b8" executionId="63b91c7d-5fc6-4ada-9a2d-a377ce60f7cd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5f0bd68e-c034-d36c-ef91-973cf969244d" executionId="b2ff3fe8-b68c-4fb7-95c0-63ae73135d77" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3bf9517b-fe5f-8a80-4aff-0252ad69b3b0" executionId="7654faa8-d29d-4ba4-8451-2dfc3dd601f7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ddafe344-8e6d-aeeb-1fd8-5a5501a58a62" executionId="2a05eee7-10ba-4a8b-b828-4a6452b91c95" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0d1b3d81-5321-15ec-e264-59cd20897c68" executionId="275aca5c-552f-4b86-941b-a9e2c4f86aec" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a6cd3933-0b90-a8ff-dd32-96f2068a1f93" executionId="45e576b2-c732-4f65-8685-222b86ddebd3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3d6d45ae-a732-1bc7-3054-c695001e3c9e" executionId="80ffadb1-fbc8-4308-b4a8-786acf23f8e3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="46600e1a-eb2f-959f-5be4-d34987de942f" executionId="b318dee9-5465-46bd-b6ae-0f093aa800d1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9b2e946d-e42b-79ee-164d-1efef6561bb8" executionId="c1ff001a-c2e1-4c7e-9232-f2e3cd7f8f1c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="31cb6ab5-08dd-ea1d-73f6-c6a8b4f794b5" executionId="9c0b145a-0000-4417-863c-e0879a6fd1c9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="19" executed="19" passed="4" failed="15" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.12]   Discovering: OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:00.65]   Discovered:  OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:00.68]   Starting:    OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:01.53]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:01.53]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:01.53]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.54]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs(67,0): at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.MissingWavefrontSourceCannotBeReconstructedFromMatchingLabels(Boolean afocal)&#xD;
+[xUnit.net 00:00:01.54]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.54]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.55]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:01.55]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:01.55]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.55]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs(67,0): at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.MissingWavefrontSourceCannotBeReconstructedFromMatchingLabels(Boolean afocal)&#xD;
+[xUnit.net 00:00:01.55]            at InvokeStub_PreparedPupilProvenanceTests.MissingWavefrontSourceCannotBeReconstructedFromMatchingLabels(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.55]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.70]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:01.70]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:01.70]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.70]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs(48,0): at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsOldJonesEvenWithFreshWavefront()&#xD;
+[xUnit.net 00:00:01.70]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.70]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.72]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:01.72]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:01.72]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.72]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs(38,0): at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change)&#xD;
+[xUnit.net 00:00:01.72]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.72]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:01.75]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:01.75]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:01.75]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.75]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs(38,0): at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change)&#xD;
+[xUnit.net 00:00:01.75]            at InvokeStub_PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.75]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.77]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:01.77]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:01.77]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.77]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs(38,0): at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change)&#xD;
+[xUnit.net 00:00:01.77]            at InvokeStub_PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.77]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.79]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:01.79]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:01.79]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.79]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs(38,0): at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change)&#xD;
+[xUnit.net 00:00:01.79]            at InvokeStub_PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.79]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.83]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:01.83]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:01.83]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.83]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs(38,0): at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change)&#xD;
+[xUnit.net 00:00:01.83]            at InvokeStub_PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.83]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.85]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:01.85]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:01.85]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.85]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs(38,0): at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change)&#xD;
+[xUnit.net 00:00:01.85]            at InvokeStub_PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.85]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.87]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:01.87]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:01.87]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.87]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs(38,0): at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change)&#xD;
+[xUnit.net 00:00:01.87]            at InvokeStub_PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.87]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.90]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:01.90]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:01.90]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.90]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs(38,0): at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change)&#xD;
+[xUnit.net 00:00:01.90]            at InvokeStub_PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.90]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.92]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:01.92]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:01.92]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.92]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs(38,0): at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(String change)&#xD;
+[xUnit.net 00:00:01.92]            at InvokeStub_PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.92]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.95]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:01.95]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:01.95]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.95]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs(112,0): at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.CustomModelWithLossySnapshotCannotReusePreparedInput()&#xD;
+[xUnit.net 00:00:01.95]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.95]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.30]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:02.30]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:02.30]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.30]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs(134,0): at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.JonesBulkAbsorptionCannotBeAppliedAgainToAnAbsorbedWavefront()&#xD;
+[xUnit.net 00:00:02.30]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.30]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.34]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:02.34]       Expected: typeof(System.InvalidOperationException)&#xD;
+[xUnit.net 00:00:02.34]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.34]         D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\PreparedPupilProvenanceTests.cs(125,0): at OptilandWorkbench.Tests.PreparedPupilProvenanceTests.AfocalSourceAlsoRejectsChangedDetectorFrame()&#xD;
+[xUnit.net 00:00:02.34]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.34]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.35]   Finished:    OptilandWorkbench.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-10T09:14:02.3546429+08:00">
+        <Text>[xUnit.net 00:00:01.53]     OptilandWorkbench.Tests.PreparedPupilProvenanceTests.MissingWavefrontSourceCannotBeReconstructedFromMatchingLabels(afocal: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-10T09:14:02.3787001+08:00">
+        <Text>[xUnit.net 00:00:01.55]     OptilandWorkbench.Tests.PreparedPupilProvenanceTests.MissingWavefrontSourceCannotBeReconstructedFromMatchingLabels(afocal: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-10T09:14:02.5194777+08:00">
+        <Text>[xUnit.net 00:00:01.70]     OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsOldJonesEvenWithFreshWavefront [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-10T09:14:02.5468003+08:00">
+        <Text>[xUnit.net 00:00:01.72]     OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: "environment") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-10T09:14:02.5713348+08:00">
+        <Text>[xUnit.net 00:00:01.75]     OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: "thickness") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-10T09:14:02.5951215+08:00">
+        <Text>[xUnit.net 00:00:01.77]     OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: "material") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-10T09:14:02.6178164+08:00">
+        <Text>[xUnit.net 00:00:01.79]     OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: "polarization") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-10T09:14:02.6496124+08:00">
+        <Text>[xUnit.net 00:00:01.83]     OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: "vignetting") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-10T09:14:02.6862074+08:00">
+        <Text>[xUnit.net 00:00:01.85]     OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: "apodization") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-10T09:14:02.6982782+08:00">
+        <Text>[xUnit.net 00:00:01.87]     OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: "curvature") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-10T09:14:02.7218031+08:00">
+        <Text>[xUnit.net 00:00:01.90]     OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: "physical_aperture") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-10T09:14:02.7451710+08:00">
+        <Text>[xUnit.net 00:00:01.92]     OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: "system_aperture") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-10T09:14:02.7740568+08:00">
+        <Text>[xUnit.net 00:00:01.95]     OptilandWorkbench.Tests.PreparedPupilProvenanceTests.CustomModelWithLossySnapshotCannotReusePreparedInput [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-10T09:14:03.1198676+08:00">
+        <Text>[xUnit.net 00:00:02.30]     OptilandWorkbench.Tests.PreparedPupilProvenanceTests.JonesBulkAbsorptionCannotBeAppliedAgainToAnAbsorbedWavefront [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-10T09:14:03.1670062+08:00">
+        <Text>[xUnit.net 00:00:02.34]     OptilandWorkbench.Tests.PreparedPupilProvenanceTests.AfocalSourceAlsoRejectsChangedDetectorFrame [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

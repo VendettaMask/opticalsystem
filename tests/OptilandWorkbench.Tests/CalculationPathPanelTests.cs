@@ -34,9 +34,9 @@ public sealed class CalculationPathPanelTests
                 window.Show(); window.UpdateLayout(); AvaloniaHeadlessPlatform.ForceRenderTimerTick();
                 var controls = panel.GetVisualDescendants().OfType<Control>().ToArray();
                 var polarization = Assert.Single(controls, c => AutomationProperties.GetAutomationId(c) == "analysis-parameter-UsePolarization");
-                Assert.False(polarization.IsEnabled);
-                Assert.Contains("尚未实现", ToolTip.GetTip(polarization)!.ToString());
-                Assert.Contains("定性", AutomationProperties.GetHelpText(polarization));
+                Assert.True(polarization.IsEnabled);
+                Assert.Contains("Jones", ToolTip.GetTip(polarization)!.ToString());
+                Assert.Contains("GRIN", AutomationProperties.GetHelpText(polarization));
                 var sampling = Assert.Single(controls, c => AutomationProperties.GetAutomationId(c) == "analysis-parameter-Sampling");
                 Assert.True(sampling.IsEnabled);
             }

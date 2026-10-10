@@ -276,9 +276,11 @@ public sealed class CalculationPathRepairTests
     public void FoucaultDoesNotPretendToSupportPolarization()
     {
         var optic = Optic.CreateCookeTriplet();
-        Assert.Throws<NotSupportedException>(() => new FoucaultAnalysis(optic, usePolarization: true).GenerateData());
+        var polarized = new FoucaultAnalysis(PupilShapeAndFoucaultPhysicsTests.TransparentCooke(), sampling: 8, usePolarization: true).GenerateData();
+        Assert.True((bool)polarized.Values["UsePolarization"]);
+        Assert.Equal(6, polarized.Values["CoherentChannels"]);
         var data = new FoucaultAnalysis(optic, sampling: 16).GenerateData();
-        Assert.Contains("Qualitative", data.Values["ComputationModel"].ToString());
+        Assert.Contains("inverse-FFT", data.Values["ComputationModel"].ToString());
         Assert.False((bool)data.Values["UsePolarization"]);
     }
 

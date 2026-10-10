@@ -2,6 +2,8 @@
 
 只调用正式 C# Core 的光学计算与 FFT；没有独立光学引擎或产品运行时外部数据依赖。原生 API 客户端 `NativeEnergyControl.cs` 使用本机安装的 ZOS API，与 SDK 项目分开编译。原生 API、许可及专有二进制不随仓库分发。
 
+2026-10-10：`CollectVerification.ps1` 在读取验收结果、写账本前重新读取冻结文件并严格核验哈希，不再信任清单内的历史 `unchanged`。当前检出存在 8 项字节差异，旧入口会明确拒绝而不会覆盖历史账本。本轮来源保护的独立验收入口是 `tools/validation/CollectPreparedPupilRepair20261010.ps1`，不把这些差异记作通过。见[来源与证据修复](../../../docs/PREPARED_PUPIL_INTEGRITY_REPAIR_2026-10-10.md)。
+
 ```powershell
 dotnet run --project tools/diagnostics/N02Layers20261009 -c Release -- --inputs 32 pupil-inputs.json
 dotnet run --project tools/diagnostics/N02Layers20261009 -c Release -- --complex-control validation/zemax/2026-r1/fft-pupil-phase-2026-10-09/ms-l7-32 fresh-inverse 32

@@ -20,11 +20,14 @@ public sealed class FoucaultAnalysisTests
         Assert.NotEmpty(series.Points);
         Assert.All(series.Points, point =>
         {
-            Assert.InRange(point.Value!.Value, 0, 1);
-            Assert.True((point.X * point.X) + (point.Y * point.Y) <= 1 + 1e-12);
+            Assert.True(double.IsFinite(point.Value!.Value) && point.Value.Value >= 0);
+            Assert.InRange(point.X, -1, 1);
+            Assert.InRange(point.Y, -1, 1);
         });
         Assert.Equal("24 x 24", result.Values["Sampling"]);
         Assert.Equal("水平线上", result.Values["KnifeEdge"]);
+        Assert.Contains("inverse-FFT", result.Values["ComputationModel"].ToString());
+        Assert.Equal(24 * 24, series.Points.Count);
     }
 
     [Fact]

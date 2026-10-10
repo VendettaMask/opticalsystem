@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="35eeb012-ddd3-406b-bd8e-320ca6bfdc6d" name="optics@LAPTOP-G4BBBCS0 2026-10-10 10:21:35" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-10T10:21:35.3891296+08:00" queuing="2026-10-10T10:21:35.3891302+08:00" start="2026-10-10T10:21:31.9431220+08:00" finish="2026-10-10T10:21:35.6097114+08:00" />
+  <TestSettings name="default" id="cda8732e-fb35-40b3-9ce5-e85fc5713153">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-10_10_21_35" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a61545c3-d158-44fe-90b2-ffba29160381" testId="564ee250-054f-9b7b-8b93-24d6fa22d979" testName="PlanarReferenceTests.MeasureNativePlaneWaveReference(nodes: &quot;closed32intervals&quot;, cellCentered: False, zemaxCentered: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3371237" startTime="2026-10-10T10:21:34.2799562+08:00" endTime="2026-10-10T10:21:34.6163471+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a61545c3-d158-44fe-90b2-ffba29160381">
+      <Output>
+        <StdOut>closed32intervals: L2=0.04477808559844046, max=0.019652140321125222, points=797</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="62e11d8a-81d6-46af-8150-09dec503303c" testId="2ce9a0e0-0a29-6163-1587-0fb9efa52a18" testName="PlanarReferenceTests.MeasureNativePlaneWaveReference(nodes: &quot;centers&quot;, cellCentered: True, zemaxCentered: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.5929716" startTime="2026-10-10T10:21:34.8758488+08:00" endTime="2026-10-10T10:21:35.4687373+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="62e11d8a-81d6-46af-8150-09dec503303c">
+      <Output>
+        <StdOut>centers: L2=0.061165051852609086, max=0.026613116756312005, points=812</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="87bbc223-3b90-4711-a478-c31d8c75ab26" testId="eaa0f252-6c72-972a-d776-e7eaf2caac6c" testName="PlanarReferenceTests.MeasureNativePlaneWaveReference(nodes: &quot;halfopen&quot;, cellCentered: False, zemaxCentered: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.3469571" startTime="2026-10-10T10:21:32.5540539+08:00" endTime="2026-10-10T10:21:33.9083914+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="87bbc223-3b90-4711-a478-c31d8c75ab26">
+      <Output>
+        <StdOut>halfopen: L2=0.04410036734441734, max=0.018714777585110753, points=795</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a09fd230-f8b6-4ab7-84e5-72c151f9532d" testId="d09571ec-15e5-e165-278b-e097f82a4f1e" testName="PlanarReferenceTests.MeasureNativePlaneWaveReference(nodes: &quot;endpoints&quot;, cellCentered: False, zemaxCentered: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2591855" startTime="2026-10-10T10:21:34.6164869+08:00" endTime="2026-10-10T10:21:34.8757073+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a09fd230-f8b6-4ab7-84e5-72c151f9532d">
+      <Output>
+        <StdOut>endpoints: L2=0.03863160973745501, max=0.015636845428982304, points=740</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="42caab65-c270-42bb-9e89-8ac83bab7df2" testId="325be1ae-c98e-6411-7f69-0827fae41caa" testName="PlanarReferenceTests.MeasureNativePlaneWaveReference(nodes: &quot;zemax&quot;, cellCentered: False, zemaxCentered: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3705295" startTime="2026-10-10T10:21:33.9173106+08:00" endTime="2026-10-10T10:21:34.2792678+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="42caab65-c270-42bb-9e89-8ac83bab7df2">
+      <Output>
+        <StdOut>zemax: L2=0.06063289811444978, max=0.024138367094934887, points=709</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="PlanarReferenceTests.MeasureNativePlaneWaveReference(nodes: &quot;closed32intervals&quot;, cellCentered: False, zemaxCentered: False)" storage="d:\optical system design\opticalsystem\tools\diagnostics\huygensreference20261010\bin\release\net10.0\huygensreference20261010.dll" id="564ee250-054f-9b7b-8b93-24d6fa22d979">
+      <Execution id="a61545c3-d158-44fe-90b2-ffba29160381" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tools\diagnostics\HuygensReference20261010\bin\Release\net10.0\HuygensReference20261010.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="PlanarReferenceTests" name="MeasureNativePlaneWaveReference" />
+    </UnitTest>
+    <UnitTest name="PlanarReferenceTests.MeasureNativePlaneWaveReference(nodes: &quot;zemax&quot;, cellCentered: False, zemaxCentered: True)" storage="d:\optical system design\opticalsystem\tools\diagnostics\huygensreference20261010\bin\release\net10.0\huygensreference20261010.dll" id="325be1ae-c98e-6411-7f69-0827fae41caa">
+      <Execution id="42caab65-c270-42bb-9e89-8ac83bab7df2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tools\diagnostics\HuygensReference20261010\bin\Release\net10.0\HuygensReference20261010.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="PlanarReferenceTests" name="MeasureNativePlaneWaveReference" />
+    </UnitTest>
+    <UnitTest name="PlanarReferenceTests.MeasureNativePlaneWaveReference(nodes: &quot;halfopen&quot;, cellCentered: False, zemaxCentered: False)" storage="d:\optical system design\opticalsystem\tools\diagnostics\huygensreference20261010\bin\release\net10.0\huygensreference20261010.dll" id="eaa0f252-6c72-972a-d776-e7eaf2caac6c">
+      <Execution id="87bbc223-3b90-4711-a478-c31d8c75ab26" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tools\diagnostics\HuygensReference20261010\bin\Release\net10.0\HuygensReference20261010.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="PlanarReferenceTests" name="MeasureNativePlaneWaveReference" />
+    </UnitTest>
+    <UnitTest name="PlanarReferenceTests.MeasureNativePlaneWaveReference(nodes: &quot;endpoints&quot;, cellCentered: False, zemaxCentered: False)" storage="d:\optical system design\opticalsystem\tools\diagnostics\huygensreference20261010\bin\release\net10.0\huygensreference20261010.dll" id="d09571ec-15e5-e165-278b-e097f82a4f1e">
+      <Execution id="a09fd230-f8b6-4ab7-84e5-72c151f9532d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tools\diagnostics\HuygensReference20261010\bin\Release\net10.0\HuygensReference20261010.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="PlanarReferenceTests" name="MeasureNativePlaneWaveReference" />
+    </UnitTest>
+    <UnitTest name="PlanarReferenceTests.MeasureNativePlaneWaveReference(nodes: &quot;centers&quot;, cellCentered: True, zemaxCentered: False)" storage="d:\optical system design\opticalsystem\tools\diagnostics\huygensreference20261010\bin\release\net10.0\huygensreference20261010.dll" id="2ce9a0e0-0a29-6163-1587-0fb9efa52a18">
+      <Execution id="62e11d8a-81d6-46af-8150-09dec503303c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tools\diagnostics\HuygensReference20261010\bin\Release\net10.0\HuygensReference20261010.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="PlanarReferenceTests" name="MeasureNativePlaneWaveReference" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="564ee250-054f-9b7b-8b93-24d6fa22d979" executionId="a61545c3-d158-44fe-90b2-ffba29160381" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2ce9a0e0-0a29-6163-1587-0fb9efa52a18" executionId="62e11d8a-81d6-46af-8150-09dec503303c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eaa0f252-6c72-972a-d776-e7eaf2caac6c" executionId="87bbc223-3b90-4711-a478-c31d8c75ab26" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d09571ec-15e5-e165-278b-e097f82a4f1e" executionId="a09fd230-f8b6-4ab7-84e5-72c151f9532d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="325be1ae-c98e-6411-7f69-0827fae41caa" executionId="42caab65-c270-42bb-9e89-8ac83bab7df2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="5" executed="5" passed="5" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.09]   Discovering: HuygensReference20261010&#xD;
+[xUnit.net 00:00:00.14]   Discovered:  HuygensReference20261010&#xD;
+[xUnit.net 00:00:00.17]   Starting:    HuygensReference20261010&#xD;
+[xUnit.net 00:00:03.12]   Finished:    HuygensReference20261010&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

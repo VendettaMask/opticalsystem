@@ -28,6 +28,8 @@ public sealed record JonesPupilResult(
 {
     public bool? UseRayAiming { get; init; }
     public PupilGridSpecification? PupilGrid { get; init; }
+    public PupilSourceIdentity? SourceIdentity { get; init; }
+    public bool IncludesBulkAbsorption { get; init; }
 }
 
 public static class JonesPupilEngine
@@ -75,7 +77,9 @@ public static class JonesPupilEngine
         return new JonesPupilResult(samples, gridSize, field, wavelength, useFresnelCoatings)
         {
             UseRayAiming = aimAtStop,
-            PupilGrid = new(gridSize, cellCentered, zemaxCentered, pupilGridStretch)
+            PupilGrid = new(gridSize, cellCentered, zemaxCentered, pupilGridStretch),
+            SourceIdentity = PupilSourceIdentity.Capture(optic),
+            IncludesBulkAbsorption = includeBulkAbsorption
         };
 
         double Coordinate(int index) => pupilGridStretch * (zemaxCentered && gridSize % 2 == 0

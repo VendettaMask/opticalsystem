@@ -175,10 +175,15 @@ public sealed partial class AnalysisPanel
                 }));
             if (_parameterControls.GetValueOrDefault("UsePolarization") is Control polarization)
             {
-                polarization.IsEnabled = false;
-                const string reason = "Foucault 偏振响应尚未实现；当前仅提供定性波前梯度近似。";
-                ToolTip.SetTip(polarization, reason);
-                AutomationProperties.SetHelpText(polarization, reason);
+                const string help = "使用系统 Jones 输入；非偏振光分别传播 X/Y 电场后按强度合成。GRIN、吸收介质界面等未支持的电场运输会明确报错。";
+                ToolTip.SetTip(polarization, help);
+                AutomationProperties.SetHelpText(polarization, help);
+            }
+            if (_parameterControls.GetValueOrDefault("YPositionMicrometers") is Control knifePosition)
+            {
+                const string help = "相对于主光线的刀口位置；水平刀口沿像面局部 Y，垂直刀口沿局部 X，单位 µm。";
+                ToolTip.SetTip(knifePosition, help);
+                AutomationProperties.SetHelpText(knifePosition, help);
             }
             return;
         }

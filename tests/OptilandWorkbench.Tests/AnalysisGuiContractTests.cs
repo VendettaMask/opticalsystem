@@ -1839,7 +1839,7 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal("傅科分析", foucaultView.Name);
         var foucaultSeries = Assert.Single(foucaultView.SeriesList);
         Assert.Equal(AnalysisSeriesKind.Heatmap, foucaultSeries.Kind);
-        Assert.All(foucaultSeries.Points, point => Assert.InRange(point.Value!.Value, 0, 1));
+        Assert.All(foucaultSeries.Points, point => Assert.True(double.IsFinite(point.Value!.Value) && point.Value.Value >= 0));
         Assert.Equal("Contrast Loss Map", connector.CanonicalAnalysisKey("对比度损失图"));
         var contrastLossParameters = connector.GetAnalysisParameters("对比度损失图");
         Assert.Equal(

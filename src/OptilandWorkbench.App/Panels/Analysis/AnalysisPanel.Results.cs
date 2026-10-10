@@ -179,6 +179,8 @@ public sealed partial class AnalysisPanel
             Series = view.Series.FirstOrDefault(),
             RotationDegrees = FindRowNumber(view, "旋转", 0),
             DisplayScale = FindRowNumber(view, "显示缩放", 1),
+            SpatialDisplayScaleX = view.PlotOptions.SpatialDisplayScaleX,
+            SpatialDisplayScaleY = view.PlotOptions.SpatialDisplayScaleY,
             DisplayAs = FindRowText(view, "显示为", "表面"),
             MinHeight = AnalysisPlotMinimumHeight
         };
@@ -243,6 +245,7 @@ public sealed partial class AnalysisPanel
         {
             Series = view.Series.FirstOrDefault(),
             DisplayAs = FindRowText(view, "显示为", "灰度"),
+            Logarithmic = view.PlotOptions.LogarithmicIntensity,
             MinHeight = AnalysisPlotMinimumHeight
         };
     }
@@ -1245,12 +1248,13 @@ public sealed partial class AnalysisPanel
             var wavelength = FindRowText(view, "分析波长", "0");
             var field = FindRowText(view, "归一化视场 Hy", "0");
             var knife = FindRowText(view, "刀口", "水平线上");
-            var position = FindRowText(view, "刀口 Y 位置", "0");
+            var position = FindRowText(view, "刀口位置", "0");
+            var axis = FindRowText(view, "刀口轴", "Y");
             var sampling = FindRowText(view, "采样", "32 x 32");
             return new CompactAnalysisSummary(
                 "傅科分析",
                 $"{wavelength} µm，视场 Hy = {field}{Environment.NewLine}"
-                + $"刀口：{knife}，Y = {position} µm{Environment.NewLine}"
+                + $"刀口：{knife}，{axis} = {position} µm{Environment.NewLine}"
                 + $"取样：{sampling}");
         }
 

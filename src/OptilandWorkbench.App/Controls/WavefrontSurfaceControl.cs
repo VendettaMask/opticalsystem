@@ -55,6 +55,16 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
 
     public double DisplayScale { get; init; } = 1;
 
+    public double SpatialDisplayScaleX { get; init; } = 1;
+
+    public double SpatialDisplayScaleY { get; init; } = 1;
+
+    internal (double X, double Y) SpatialDisplayScales => (
+        double.IsFinite(SpatialDisplayScaleX) && SpatialDisplayScaleX > 0 ? SpatialDisplayScaleX : 1,
+        double.IsFinite(SpatialDisplayScaleY) && SpatialDisplayScaleY > 0 ? SpatialDisplayScaleY : 1);
+
+    internal Rect PlanarPlotBounds => PlanarPlotRect();
+
     public string DisplayAs { get; init; } = "表面";
 
     public string ColorBarTitle { get; init; } = "波前函数";
@@ -434,8 +444,8 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
 
         ProjectedPoint Project(int row, int column)
         {
-            var x = grid.Xs.Length <= 1 ? 0 : ((2.0 * column) / (grid.Xs.Length - 1)) - 1;
-            var y = grid.Ys.Length <= 1 ? 0 : ((2.0 * row) / (grid.Ys.Length - 1)) - 1;
+            var x = (grid.Xs.Length <= 1 ? 0 : ((2.0 * column) / (grid.Xs.Length - 1)) - 1) * SpatialDisplayScales.X;
+            var y = (grid.Ys.Length <= 1 ? 0 : ((2.0 * row) / (grid.Ys.Length - 1)) - 1) * SpatialDisplayScales.Y;
             var rotatedX = (x * cosYaw) - (y * sinYaw);
             var rotatedY = (x * sinYaw) + (y * cosYaw);
             var normalizedValue = (grid.Values[row, column] - minimum) / range;
@@ -452,6 +462,8 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
 
         Point ProjectAxis(double x, double y, double z)
         {
+            x *= SpatialDisplayScales.X;
+            y *= SpatialDisplayScales.Y;
             var rotatedX = (x * cosYaw) - (y * sinYaw);
             var rotatedY = (x * sinYaw) + (y * cosYaw);
             return new Point(
@@ -814,12 +826,15 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
         const double bottomMargin = 72;
         var availableWidth = Math.Max(1, Bounds.Width - leftMargin - rightMargin);
         var availableHeight = Math.Max(1, Bounds.Height - topMargin - bottomMargin);
-        var side = Math.Max(1, Math.Min(availableWidth, availableHeight));
+        var scales = SpatialDisplayScales;
+        var side = Math.Max(1, Math.Min(availableWidth / scales.X, availableHeight / scales.Y));
+        var width = side * scales.X;
+        var height = side * scales.Y;
         return new Rect(
-            leftMargin + ((availableWidth - side) / 2),
-            topMargin + ((availableHeight - side) / 2),
-            side,
-            side);
+            leftMargin + ((availableWidth - width) / 2),
+            topMargin + ((availableHeight - height) / 2),
+            width,
+            height);
     }
 
     private bool TryBuildGrid(out SurfaceGrid grid)

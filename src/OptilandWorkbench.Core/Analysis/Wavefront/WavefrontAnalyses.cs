@@ -123,6 +123,13 @@ public sealed class WavefrontAnalysis : BaseAnalysis
         var mean = valid.Select(sample => sample.OpdWaves).DefaultIfEmpty(0).Average();
         var minimum = valid.Select(sample => sample.OpdWaves).DefaultIfEmpty(0).Min();
         var maximum = valid.Select(sample => sample.OpdWaves).DefaultIfEmpty(0).Max();
+        // Display-only approximate image-side pupil aspect. OPD, masks, sample
+        // coordinates and aiming retain the original physical sampling contract.
+        var displayAxes = _useExitPupilShape && !wavefront.ImageSpaceAfocal
+            ? DiffractionEngine.WorkingFNumbers(Optic, field, wavelength, Optic.RayAimingEnabled)
+            : (Tangential: 1d, Sagittal: 1d);
+        var displayScaleX = Math.Min(displayAxes.Tangential, displayAxes.Sagittal) / displayAxes.Sagittal;
+        var displayScaleY = Math.Min(displayAxes.Tangential, displayAxes.Sagittal) / displayAxes.Tangential;
         var sampling = _pupilSampling ?? _mapSize;
         var displayOffset = _pupilSampling.HasValue ? minimum : 0;
         var mapPoints = (_pupilSampling.HasValue
@@ -181,6 +188,13 @@ public sealed class WavefrontAnalysis : BaseAnalysis
             ["Apodization"] = _apodization,
             ["ReferenceChiefRay"] = _referenceChiefRay,
             ["UseExitPupilShape"] = _useExitPupilShape,
+            ["ExitPupilDisplayScaleX"] = displayScaleX,
+            ["ExitPupilDisplayScaleY"] = displayScaleY,
+            ["ExitPupilDisplayModel"] = !_useExitPupilShape ? "Normalized entrance pupil"
+                : wavefront.ImageSpaceAfocal ? "Normalized afocal pupil; focal F-number projection not applicable"
+                : "Approximate X/Y working-F-number projection; display only",
+            ["ExitPupilWorkingFNumberX"] = _useExitPupilShape && !wavefront.ImageSpaceAfocal ? displayAxes.Sagittal : "Not evaluated",
+            ["ExitPupilWorkingFNumberY"] = _useExitPupilShape && !wavefront.ImageSpaceAfocal ? displayAxes.Tangential : "Not evaluated",
             ["UseRayAiming"] = Optic.RayAimingEnabled,
             ["WavelengthNumber"] = Array.IndexOf(wavelengths, wavelength) + 1,
             ["FieldNumber"] = _fieldNumber <= 0 ? fields.Count : _fieldNumber,
@@ -205,7 +219,9 @@ public sealed class WavefrontAnalysis : BaseAnalysis
             XMaximum: _pupilSx + _pupilSr,
             YMinimum: _pupilSy - _pupilSr,
             YMaximum: _pupilSy + _pupilSr,
-            DefaultSquareViewport: _defaultSquareViewport));
+            DefaultSquareViewport: _defaultSquareViewport,
+            SpatialDisplayScaleX: displayScaleX,
+            SpatialDisplayScaleY: displayScaleY));
     }
 
     private static WavefrontSample[] RemoveBestFitPlane(IReadOnlyList<WavefrontSample> samples)

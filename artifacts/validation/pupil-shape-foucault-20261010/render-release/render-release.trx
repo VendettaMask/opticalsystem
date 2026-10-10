@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="5fa6533d-08a3-4443-bce6-96c0a13e570f" name="optics@LAPTOP-G4BBBCS0 2026-10-10 11:49:10" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-10T11:49:10.3355239+08:00" queuing="2026-10-10T11:49:10.3355243+08:00" start="2026-10-10T11:49:06.2395840+08:00" finish="2026-10-10T11:49:10.3538693+08:00" />
+  <TestSettings name="default" id="b611a4bb-2784-4fb5-b687-61daaa322bcb">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-10_11_49_10" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="d2ec0834-a36e-4ebf-91ae-39a09d78058d" testId="2494c0fa-84c2-4449-5b08-70611f571083" testName="OptilandWorkbench.Tests.PupilShapeAndFoucaultPanelTests.RealLensPhysicalPlotsRenderTogether" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.6875743" startTime="2026-10-10T11:49:07.4384101+08:00" endTime="2026-10-10T11:49:10.1393544+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d2ec0834-a36e-4ebf-91ae-39a09d78058d" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.Tests.PupilShapeAndFoucaultPanelTests.RealLensPhysicalPlotsRenderTogether" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.tests\bin\release\net10.0\optilandworkbench.tests.dll" id="2494c0fa-84c2-4449-5b08-70611f571083">
+      <Execution id="d2ec0834-a36e-4ebf-91ae-39a09d78058d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.Tests\bin\Release\net10.0\OptilandWorkbench.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.Tests.PupilShapeAndFoucaultPanelTests" name="RealLensPhysicalPlotsRenderTogether" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="2494c0fa-84c2-4449-5b08-70611f571083" executionId="d2ec0834-a36e-4ebf-91ae-39a09d78058d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.13]   Discovering: OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:00.69]   Discovered:  OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:00.72]   Starting:    OptilandWorkbench.Tests&#xD;
+[xUnit.net 00:00:03.47]   Finished:    OptilandWorkbench.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

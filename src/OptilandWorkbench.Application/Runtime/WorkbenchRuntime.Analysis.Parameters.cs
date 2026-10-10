@@ -1072,7 +1072,7 @@ public partial class WorkbenchRuntime
                     "采样",
                     "32 x 32",
                     new[] { "16 x 16", "32 x 32", "64 x 64", "128 x 128" }),
-                ChoiceParameter("Type", "类型", "线性", new[] { "线性", "二次" }),
+                ChoiceParameter("Type", "类型", "线性", new[] { "线性", "对数" }),
                 ChoiceParameter("DisplayAs", "显示为", "灰度", new[] { "灰度", "伪彩色" }),
                 ChoiceParameter(
                     "KnifeEdge",
@@ -1095,7 +1095,7 @@ public partial class WorkbenchRuntime
                             ? "1 - 轴上视场"
                             : $"{index} - 视场 {index}")
                         .ToArray()),
-                DoubleParameter("YPositionMicrometers", "Y位置：µm", "0", -1_000_000, 1_000_000, 0.1),
+                DoubleParameter("YPositionMicrometers", "刀口位置：µm", "0", -1_000_000, 1_000_000, 0.1),
                 BoolParameter("UsePolarization", "使用偏振", "false")
             },
             "Interferogram" => new[]

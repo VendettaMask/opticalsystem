@@ -211,6 +211,8 @@ public static class DiffractionEngine
                 pupilGridStretch = automaticStretch;
         }
         var grid = new PupilGridSpecification(pupilSampling, cellCenteredPupil, zemaxFftSampling, pupilGridStretch);
+        var currentSource = preparedWavefront is not null || (usePolarization && preparedPolarization is not null)
+            ? PupilSourceIdentity.Capture(optic) : null;
         if (zemaxFftSampling && imageDelta > 0)
         {
             if (!double.IsFinite(pupilGridStretch) || pupilGridStretch <= 0)
@@ -222,6 +224,7 @@ public static class DiffractionEngine
         }
         if (preparedWavefront is not null)
         {
+            ValidatePreparedSource(preparedWavefront.SourceIdentity, "wavefront");
             ValidatePreparedPupil(preparedWavefront.UseRayAiming, preparedWavefront.PupilGrid,
                 preparedWavefront.SourceField, preparedWavefront.SourceWavelengthNanometers, "wavefront");
             if (preparedWavefront.SourceReferenceWavelengthNanometers != (referenceWavelength?.Nanometers ?? wavelength.Nanometers))
@@ -239,13 +242,15 @@ public static class DiffractionEngine
         }
         if (usePolarization && preparedPolarization is not null)
         {
+            ValidatePreparedSource(preparedPolarization.SourceIdentity, "polarization");
             ValidatePreparedPupil(preparedPolarization.UseRayAiming, preparedPolarization.PupilGrid,
                 preparedPolarization.Field, preparedPolarization.Wavelength.Nanometers, "polarization");
-            if (!preparedPolarization.UsesFresnelCoatings || preparedPolarization.Samples.Count != pupilSampling * pupilSampling
+            if (!preparedPolarization.UsesFresnelCoatings || preparedPolarization.IncludesBulkAbsorption
+                || preparedPolarization.Samples.Count != pupilSampling * pupilSampling
                 || preparedPolarization.Samples.Where((sample, index) =>
                     sample.Px != grid.Coordinate(index % pupilSampling)
                     || sample.Py != grid.Coordinate(index / pupilSampling)).Any())
-                throw new InvalidOperationException("FFT PSF prepared polarization nodes or coating model do not match the computation request.");
+                throw new InvalidOperationException("FFT PSF prepared polarization nodes, coating or bulk-absorption model do not match the computation request.");
         }
         var wavefront = preparedWavefront ?? WavefrontEngine.GenerateChiefRayUniform(
             optic,
@@ -348,6 +353,12 @@ public static class DiffractionEngine
             StopAimingFallbackUsed = fallbackUsed,
             PupilGridStretch = pupilGridStretch
         };
+
+        void ValidatePreparedSource(PupilSourceIdentity? source, string component)
+        {
+            if (source is null || currentSource is null || source.Fingerprint != currentSource.Fingerprint)
+                throw new InvalidOperationException($"FFT PSF prepared {component} source does not match the current optical snapshot or cannot be verified. Regenerate the prepared wavefront and polarization.");
+        }
 
         void ValidatePreparedPupil(bool? aiming, PupilGridSpecification? preparedGrid,
             (double Hx, double Hy)? sourceField, double? sourceWavelength, string component)
@@ -1551,6 +1562,24 @@ public static class DiffractionEngine
             DirectionalFNumber(directions.Skip(1).Take(2)),
             DirectionalFNumber(directions.Skip(3).Take(2)));
         return true;
+    }
+
+    /// <summary>Shared unshifted DFT; inverse includes the 1/N² normalization.</summary>
+    internal static void FourierTransform2D(Complex[,] data, bool inverse = false)
+    {
+        ArgumentNullException.ThrowIfNull(data);
+        var size = data.GetLength(0);
+        if (size != data.GetLength(1)) throw new ArgumentException("Fourier grid must be square.", nameof(data));
+        AnalysisResourceLimits.ValidateFftGrid(size, size);
+        if (inverse)
+            for (var row = 0; row < size; row++)
+            for (var column = 0; column < size; column++)
+                data[row, column] = Complex.Conjugate(data[row, column]);
+        Fft2D(data);
+        if (inverse)
+            for (var row = 0; row < size; row++)
+            for (var column = 0; column < size; column++)
+                data[row, column] = Complex.Conjugate(data[row, column]) / ((double)size * size);
     }
 
     private static void Fft2D(Complex[,] data)

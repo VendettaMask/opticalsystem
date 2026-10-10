@@ -1,0 +1,402 @@
+{
+  "date": "2026-10-10",
+  "baseHead": "07fd9739433dabcca2ec1d80f9aab59ec2aea51a",
+  "gitState": "Uncommitted local repair; not pushed",
+  "scope": "Prepared FFT input provenance and strict frozen-byte verification; no Huygens propagation or DEE integration changes",
+  "builds": [
+    {
+      "configuration": "Release",
+      "sha256": "d7f2ae6c12a4dbfef6e2c18752a20ed2c1c987c4c6ec371b7b0fc9c78d14ec24",
+      "warnings": 0,
+      "errors": 0,
+      "defaultOutput": true
+    },
+    {
+      "configuration": "Debug",
+      "sha256": "24f16d0a40a713f062a65dbeec971c4d10cdc186e9cfa44e59180a28c9c264cf",
+      "warnings": 0,
+      "errors": 0,
+      "defaultOutput": true
+    }
+  ],
+  "before": {
+    "path": "artifacts/validation/prepared-pupil-integrity-repair-20261010/before/before.trx",
+    "sha256": "77afac45dda3615202192fe45f679dd4cf1e8f89348a1285c14a9abca2a2bf2b",
+    "total": 19,
+    "passed": 4,
+    "failed": 15,
+    "skipped": 0,
+    "start": "2026-10-10T09:14:00.3805399+08:00",
+    "finish": "2026-10-10T09:14:03.2514008+08:00"
+  },
+  "beforeNestedPropagation": {
+    "path": "artifacts/validation/prepared-pupil-integrity-repair-20261010/before-nested-propagation/before-nested-propagation.trx",
+    "sha256": "7c82b35f4b90772e6b6096d6ab4fa0afd25966ac2897ee326effec03f93d4fda",
+    "total": 2,
+    "passed": 0,
+    "failed": 2,
+    "skipped": 0,
+    "start": "2026-10-10T09:21:45.5016461+08:00",
+    "finish": "2026-10-10T09:21:47.5702811+08:00"
+  },
+  "formalRelease": {
+    "path": "artifacts/validation/prepared-pupil-integrity-repair-20261010/formal-release-final/formal-release-final.trx",
+    "sha256": "5445d4e47812bfb1125e4bc3ae3e2e798bf3e6427d144d449667b61c9e201376",
+    "total": 4567,
+    "passed": 4567,
+    "failed": 0,
+    "skipped": 0,
+    "start": "2026-10-10T09:22:27.2658704+08:00",
+    "finish": "2026-10-10T09:46:04.4733026+08:00"
+  },
+  "debugTargeted": {
+    "path": "artifacts/validation/prepared-pupil-integrity-repair-20261010/targeted-debug-final/targeted-debug-final.trx",
+    "sha256": "c169ec2183b98571e128d550ca34b4895f09dc9547186f37e0d7e9b8504a1307",
+    "total": 103,
+    "passed": 103,
+    "failed": 0,
+    "skipped": 0,
+    "start": "2026-10-10T09:22:56.8964659+08:00",
+    "finish": "2026-10-10T09:24:10.4853338+08:00"
+  },
+  "comparisonRelease": {
+    "path": "artifacts/validation/prepared-pupil-integrity-repair-20261010/comparison-release-final/comparison-release-final.trx",
+    "sha256": "2af8266f2bf174ea657a416fefdbb5e4234b95c685c258c85c600b4deb330b9c",
+    "total": 180,
+    "passed": 179,
+    "failed": 1,
+    "skipped": 0,
+    "start": "2026-10-10T09:23:00.4155465+08:00",
+    "finish": "2026-10-10T09:31:17.1801206+08:00"
+  },
+  "formalRetention": {
+    "previous": 4546,
+    "current": 4567,
+    "identityOrOccurrenceDifference": 0,
+    "added": [
+      "01b0df98-af74-e549-718b-e409d7d24217|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.PresentationNamesDoNotInvalidateTheOpticalSource",
+      "09e4bee3-26ae-fee8-5376-bfa01bb330d0|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.AfocalSourceAlsoRejectsChangedDetectorFrame",
+      "0b0fe29b-a8bf-c9d6-b214-48852339909a|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.MaterialPropagationNotCapturedBySnapshotCannotReusePreparedInput(builtIn: False)",
+      "0d1b3d81-5321-15ec-e264-59cd20897c68|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: \"physical_aperture\")",
+      "18011075-1a39-0c36-eddb-972412e2f9b8|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: \"environment\")",
+      "31cb6ab5-08dd-ea1d-73f6-c6a8b4f794b5|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.CustomModelWithLossySnapshotCannotReusePreparedInput",
+      "33da5cf7-475b-3ef5-3849-08289577f1b1|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.MaterialPropagationNotCapturedBySnapshotCannotReusePreparedInput(builtIn: True)",
+      "3505f34e-885d-a803-8b37-a95144b16904|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsOldJonesEvenWithFreshWavefront",
+      "3bf9517b-fe5f-8a80-4aff-0252ad69b3b0|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: \"thickness\")",
+      "3d6d45ae-a732-1bc7-3054-c695001e3c9e|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: \"polarization\")",
+      "46600e1a-eb2f-959f-5be4-d34987de942f|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.CallerPhaseRemainsAuthoritativeAndUnmodified",
+      "5f0bd68e-c034-d36c-ef91-973cf969244d|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.MissingWavefrontSourceCannotBeReconstructedFromMatchingLabels(afocal: False)",
+      "9b2e946d-e42b-79ee-164d-1efef6561bb8|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.MissingWavefrontSourceCannotBeReconstructedFromMatchingLabels(afocal: True)",
+      "9eacf9b1-b400-afae-3c37-c004845cb29d|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: \"apodization\")",
+      "a381d294-1900-1446-8cfe-c94eb59aa2c0|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.JonesBulkAbsorptionCannotBeAppliedAgainToAnAbsorbedWavefront",
+      "a5e543fd-c79f-1c44-8ec6-8dd8a4810d3e|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: \"material\")",
+      "a6cd3933-0b90-a8ff-dd32-96f2068a1f93|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.IdenticalSnapshotCanReusePreparedSamples(polarized: False)",
+      "ddafe344-8e6d-aeeb-1fd8-5a5501a58a62|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: \"system_aperture\")",
+      "e1292fb1-c752-eadd-5cbf-fe9903d64809|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.IdenticalSnapshotCanReusePreparedSamples(polarized: True)",
+      "ed65bb4f-a01d-2f5a-d4b4-7765b2e9e6eb|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: \"vignetting\")",
+      "f5b049c3-5326-a8a2-1f19-d4cf37314829|OptilandWorkbench.Tests.PreparedPupilProvenanceTests.ChangedOpticRejectsPreviouslyPreparedWavefront(change: \"curvature\")"
+    ]
+  },
+  "comparisonRetention": {
+    "identities": 180,
+    "failureDetailsUnchanged": true,
+    "failureNames": [
+      "OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: \"Huygens PSF Cross Section\", slug: \"huygens-psf-cross-section\", recordedNrmse: 0.0037256669899999998)"
+    ]
+  },
+  "integrityScriptTests": [
+    {
+      "name": "exact bytes pass",
+      "passed": true
+    },
+    {
+      "name": "EOL difference cannot hide behind unchanged=true",
+      "passed": true
+    },
+    {
+      "name": "changed content cannot hide behind unchanged=true",
+      "passed": true
+    },
+    {
+      "name": "incorrect count",
+      "passed": true
+    },
+    {
+      "name": "duplicate path",
+      "passed": true
+    },
+    {
+      "name": "escaping path",
+      "passed": true
+    },
+    {
+      "name": "incorrect aggregate",
+      "passed": true
+    },
+    {
+      "name": "missing file",
+      "passed": true
+    }
+  ],
+  "frozenIntegrity": {
+    "count": 2668,
+    "matched": 2660,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "7c1fc6e327ac3a0d0da17adb04d1a88a90999af25522136110cd0041a92b3ce0",
+    "unchanged": false,
+    "mismatches": [
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/README.md",
+        "expectedSha256": "74784d8a925c59ea1d944107ded32c2061cfd8d0e42d0d1af9c763a082156c3a",
+        "actualSha256": "d3024a9b05ad52ab92f2e257dc3581ff5e6e3ef7e99e8e5455890d4aae5a542f",
+        "matches": false,
+        "newlineEquivalent": true,
+        "baseGitBlob": "d12bd681e9b6df51a05fd1b4a84739509f5eb939",
+        "currentGitBlob": "d12bd681e9b6df51a05fd1b4a84739509f5eb939",
+        "gitBlobUnchangedSinceSync": true
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/163-nest/error.txt",
+        "expectedSha256": "e24504ffaaa36061406b2d07acb0ee323c1af8be18c07ffc3762b899f53ab811",
+        "actualSha256": "d891ac1ef55a651a73c949ffdda5a7eaa9a7918818245ef73ab0606a78769392",
+        "matches": false,
+        "newlineEquivalent": true,
+        "baseGitBlob": "65abf0e613a968517bc19f4eb9347214e880ed06",
+        "currentGitBlob": "65abf0e613a968517bc19f4eb9347214e880ed06",
+        "gitBlobUnchangedSinceSync": true
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-30/COMPARISON_REPORT.md",
+        "expectedSha256": "f3a05d5c0d9c56fcfbd9b27609effc38182b4cd819de3fba6072ecf094329fb7",
+        "actualSha256": "b836a7333b62a5b96396ec125bc9b92734a96dc10e1d2eacec29b701f7cb503a",
+        "matches": false,
+        "newlineEquivalent": false,
+        "baseGitBlob": "f1c711b62e0d9fb7ecd522f894d5962485c15719",
+        "currentGitBlob": "f1c711b62e0d9fb7ecd522f894d5962485c15719",
+        "gitBlobUnchangedSinceSync": true
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-30/README.md",
+        "expectedSha256": "a0f6acab4ebb4106eb0774608e113fff363996fd70c30823fe708f8819be8d29",
+        "actualSha256": "43e68e47d7f88c2fd5ed00eaba87eb0f7ab2a15cb71f7de98f9ce47bfa1651cc",
+        "matches": false,
+        "newlineEquivalent": true,
+        "baseGitBlob": "cb5abb5ed346339cde7312787bc912003655e615",
+        "currentGitBlob": "cb5abb5ed346339cde7312787bc912003655e615",
+        "gitBlobUnchangedSinceSync": true
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/FULL_PRECISION_IMAGE_RECHECK.md",
+        "expectedSha256": "a8dfd9967a98bf8b36c7a106927d40dfbbd67cb9343aec8f8bda145d6bf5a838",
+        "actualSha256": "fb102dda875e5ee31ffe2093d62aa1c076ca910aae343bd97b907e0c2aecfba8",
+        "matches": false,
+        "newlineEquivalent": true,
+        "baseGitBlob": "b333d9ee804ec4ce98ba02f185c7a674cff5f20c",
+        "currentGitBlob": "b333d9ee804ec4ce98ba02f185c7a674cff5f20c",
+        "gitBlobUnchangedSinceSync": true
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/LETTERF.IMA",
+        "expectedSha256": "bf19b2f3f1c529ac165c22b39b3ec16e378c95ab9e2b54bc52c0646cb818c0b1",
+        "actualSha256": "025998c32599710b7ef0214277904f75a2d5d59b1c0776d18409b3e91f3b6dad",
+        "matches": false,
+        "newlineEquivalent": true,
+        "baseGitBlob": "c3c4c8153c3396f9861bc2b30b89495524ea2dc2",
+        "currentGitBlob": "c3c4c8153c3396f9861bc2b30b89495524ea2dc2",
+        "gitBlobUnchangedSinceSync": true
+      },
+      {
+        "path": "artifacts/zemax/ms-l7-zemax-2026-r1-baseline/merit-function.json",
+        "expectedSha256": "3e538771bd2d347ef0867224ce904c10d4887efd8360ace33b2e431b159244f2",
+        "actualSha256": "b189a4c8c2189cbd5c30afe7093a92416514c6d3186356c94d066e07c7c1fb15",
+        "matches": false,
+        "newlineEquivalent": true,
+        "baseGitBlob": "de3f44dfbb8698800ebd131b4ad7229b92b00d62",
+        "currentGitBlob": "de3f44dfbb8698800ebd131b4ad7229b92b00d62",
+        "gitBlobUnchangedSinceSync": true
+      },
+      {
+        "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+        "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "actualSha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+        "matches": false,
+        "newlineEquivalent": true,
+        "baseGitBlob": "b44f24c72cf4fc60431b10f5cef948aa95bdbd41",
+        "currentGitBlob": "b44f24c72cf4fc60431b10f5cef948aa95bdbd41",
+        "gitBlobUnchangedSinceSync": true
+      }
+    ]
+  },
+  "historicalLedger": {
+    "sha256": "ca0918fddc86f519a78db0520b1bbe448cde849c1ebb3c65d4f3da280af2fb6e",
+    "unmodified": true
+  },
+  "defaultCoreCopies": [
+    {
+      "configuration": "Release",
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "eafcdb44c9afd1a1005eec531e2ab22e59b2a85704e9f6ba697762f234701d3e"
+    },
+    {
+      "configuration": "Release",
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "eafcdb44c9afd1a1005eec531e2ab22e59b2a85704e9f6ba697762f234701d3e"
+    },
+    {
+      "configuration": "Release",
+      "path": "tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "eafcdb44c9afd1a1005eec531e2ab22e59b2a85704e9f6ba697762f234701d3e"
+    },
+    {
+      "configuration": "Release",
+      "path": "tests/OptilandWorkbench.ZemaxComparison.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "eafcdb44c9afd1a1005eec531e2ab22e59b2a85704e9f6ba697762f234701d3e"
+    },
+    {
+      "configuration": "Release",
+      "path": "tools/diagnostics/N02Layers20261009/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "eafcdb44c9afd1a1005eec531e2ab22e59b2a85704e9f6ba697762f234701d3e"
+    },
+    {
+      "configuration": "Debug",
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "e3e094ab5dcc3a23c04d62ddf85c825111036c2bb38ca3d7d586e4d86516f7a9"
+    },
+    {
+      "configuration": "Debug",
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "e3e094ab5dcc3a23c04d62ddf85c825111036c2bb38ca3d7d586e4d86516f7a9"
+    },
+    {
+      "configuration": "Debug",
+      "path": "tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "e3e094ab5dcc3a23c04d62ddf85c825111036c2bb38ca3d7d586e4d86516f7a9"
+    },
+    {
+      "configuration": "Debug",
+      "path": "tests/OptilandWorkbench.ZemaxComparison.Tests/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "e3e094ab5dcc3a23c04d62ddf85c825111036c2bb38ca3d7d586e4d86516f7a9"
+    }
+  ],
+  "preparedNativeControls": [
+    {
+      "name": "ms-l7-32",
+      "sampling": 32,
+      "sampleSpacingMicrometers": 0.27997088199733555,
+      "nativeSpacingMicrometers": 0.2799708819934836,
+      "indexRelativeL2": 1.0425716209114075E-09,
+      "indexMaximumAbsolute": 3.01617342213234E-10,
+      "physicalRelativeL2": 1.0367872809833707E-09
+    },
+    {
+      "name": "ms-l7-64",
+      "sampling": 64,
+      "sampleSpacingMicrometers": 0.2045682861682645,
+      "nativeSpacingMicrometers": 0.20456828616544995,
+      "indexRelativeL2": 2.376251091774378E-09,
+      "indexMaximumAbsolute": 6.311203504250074E-10,
+      "physicalRelativeL2": 2.3738082127192034E-09
+    },
+    {
+      "name": "cooke-32",
+      "sampling": 32,
+      "sampleSpacingMicrometers": 1.1205125204168804,
+      "nativeSpacingMicrometers": 1.1205125204169528,
+      "indexRelativeL2": 9.378452354728646E-13,
+      "indexMaximumAbsolute": 2.194355808171622E-13,
+      "physicalRelativeL2": 9.27795632980144E-13
+    },
+    {
+      "name": "tessar-32",
+      "sampling": 32,
+      "sampleSpacingMicrometers": 1.132938411959033,
+      "nativeSpacingMicrometers": 1.1329384119590165,
+      "indexRelativeL2": 1.8912805172209392E-10,
+      "indexMaximumAbsolute": 3.459131418803718E-12,
+      "physicalRelativeL2": 1.891252621008798E-10
+    }
+  ],
+  "retainedNativeCaptures": {
+    "files": 165,
+    "bytes": 4042581,
+    "verified": true,
+    "manifests": [
+      {
+        "path": "validation/zemax/2026-r1/fft-pupil-phase-2026-10-09/manifest.json",
+        "sha256": "94f5d7ca26f3e65328fc018de8f4e13cdfa96346cf2f872cb57d64ff0f49ad44",
+        "files": 76
+      },
+      {
+        "path": "validation/zemax/2026-r1/n02-energy-layer-controls-2026-10-09/manifest.json",
+        "sha256": "f1d3ef2d266b54cc2139d9fe9e30ac31ff520b16ae7225028b35759f4b636792",
+        "files": 49
+      },
+      {
+        "path": "validation/zemax/2026-r1/huygens-method-controls-2026-10-09/manifest.json",
+        "sha256": "f30bc6b431a681dc8c7d6bdcf83e5e2acdd8bee79c5050e912e30b846f033d55",
+        "files": 40
+      }
+    ]
+  },
+  "sourceHashes": [
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/PupilSourceIdentity.cs",
+      "sha256": "0bab3df53a0021771fe93c8cab021d99f1e05b3ab1fb1c0caac7589fa93bcdac"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs",
+      "sha256": "322e8e96efd2cebd4aa0f16498393b244dd81c2f2079fb3399137eb27f22832f"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/WavefrontEngine.cs",
+      "sha256": "a36a3b28815b0cdd4c466d9aa5738ddf59f4021494b35893c0434d621fb14cda"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/JonesPupilEngine.cs",
+      "sha256": "7f596d8530f4eb938597977bce4751088046340f4f2c95a0a4ae88432b49d0dc"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/PreparedPupilProvenanceTests.cs",
+      "sha256": "ccfa5e589dcc9581147db67a3b0a8bd54d8479a17e5927a460935d97c19def9b"
+    },
+    {
+      "path": "tools/validation/FrozenIntegrity.ps1",
+      "sha256": "afd4481d4c1a8341df89874cc9fbfe5d8a91d0506b2f5201ac5926f6714cf205"
+    },
+    {
+      "path": "tools/validation/FrozenIntegrity.Tests.ps1",
+      "sha256": "d8df7a668d71e78447f3a19104a316ab1509936bcc8a6f0473de4f4ef7187e48"
+    },
+    {
+      "path": "tools/diagnostics/N02Layers20261009/CollectVerification.ps1",
+      "sha256": "240647187ff91cda3054f02bd321c09293865cad69b8b968af28234d19f002a1"
+    },
+    {
+      "path": "tools/validation/CollectPreparedPupilRepair20261010.ps1",
+      "sha256": "b5881f0279b784a5201a1cbbff70e3ee6ebeaa39533fa0151613d41ac3f96107"
+    }
+  ],
+  "n01": {
+    "classification": "Close",
+    "nrmse": 0.0037256670590166724,
+    "propagationChanged": false
+  },
+  "n02": {
+    "classification": "Difference",
+    "actualNrmse": 0.011173141548632002,
+    "idealNrmse": 0.013875784968407625,
+    "integrationChanged": false
+  },
+  "notRun": [
+    "Full Debug",
+    "Laboratory suites",
+    "Six-file 132-case matrix",
+    "Installer/package",
+    "Manual desktop acceptance"
+  ],
+  "excludedAttempts": [
+    "Early interrupted formal Release",
+    "Unquoted initial TRX logger command",
+    "Early 101-case runs before nested propagation guard"
+  ]
+}

@@ -2,6 +2,13 @@ param([Parameter(Mandatory)][string]$RepositoryRoot, [Parameter(Mandatory)][stri
 $ErrorActionPreference = 'Stop'
 $repository = (Resolve-Path -LiteralPath $RepositoryRoot).Path
 $evidence = (Resolve-Path -LiteralPath $EvidenceRoot).Path
+. (Join-Path $PSScriptRoot '../../validation/FrozenIntegrity.ps1')
+# Fail before generating any ledger. A historical "unchanged" flag is not a
+# verification of this checkout, and must never hide missing/modified bytes.
+$verifiedFrozen = Assert-FrozenIntegrity -RepositoryRoot $repository -ManifestPath (Join-Path $evidence 'frozen-after.json')
+if ($verifiedFrozen.expectedAggregateSha256 -cne '3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10') {
+    throw 'Frozen manifest no longer identifies the published 2026-10-09 baseline.'
+}
 function Hash([string]$path) { (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() }
 function Read-Trx([string]$path) {
     [xml]$xml = Get-Content -LiteralPath $path -Raw
@@ -74,7 +81,7 @@ foreach($name in @('fft-pupil-phase-2026-10-09','n02-energy-layer-controls-2026-
     $manifests += [ordered]@{path=[IO.Path]::GetRelativePath($repository,(Join-Path $root 'manifest.json')).Replace('\','/');sha256=(Hash (Join-Path $root 'manifest.json'));rawFiles=$manifest.files.Count}
 }
 $frozen=Get-Content -LiteralPath (Join-Path $evidence 'frozen-after.json') -Raw | ConvertFrom-Json
-if(!$frozen.unchanged -or $frozen.count -ne 2668){throw 'Preexisting frozen integrity differs'}
+if(!$verifiedFrozen.unchanged -or $verifiedFrozen.count -ne 2668){throw 'Preexisting frozen integrity differs'}
 $layers=Get-Content -LiteralPath (Join-Path $evidence 'layers-final/layer-summary.json') -Raw | ConvertFrom-Json
 if($layers.coreSha256 -ne $binaries[0].sha256){throw 'Diagnostic Core differs'}
 $prepared=Get-Content -LiteralPath (Join-Path $evidence 'prepared-after-final-binary.json') -Raw | ConvertFrom-Json
@@ -100,7 +107,7 @@ $ledger=[ordered]@{
     formalRetention=[ordered]@{previousTotal=$previous.total;currentTotal=$formal.total;identityOrOccurrenceDifference=$missing.Count;added=$added}
     releaseRelatedSubset=[ordered]@{count=$releaseSubset.Count;passed=@($releaseSubset | Where-Object {$_.outcome -eq 'Passed'}).Count;source='Subset of final full Release; not an additional run'}
     comparisonRetention=[ordered]@{total=$comparison.total;identityDifference=$comparisonDifference.Count;previousFailures=$previousComparison.failed;currentFailures=$comparison.failed;remainingFailureDetailsUnchanged=$failureDetailsUnchanged;failures=$failures}
-    frozenIntegrity=[ordered]@{count=$frozen.count;beforeSha256=$frozen.beforeSha256;afterSha256=$frozen.sha256;unchanged=$frozen.unchanged;definition=$frozen.definition}
+    frozenIntegrity=[ordered]@{count=$verifiedFrozen.count;beforeSha256=$frozen.beforeSha256;afterSha256=$verifiedFrozen.actualAggregateSha256;unchanged=$verifiedFrozen.unchanged;definition=$frozen.definition}
     newRawCaptureIntegrity=[ordered]@{count=$rawCount;bytes=$rawBytes;verified=$true;manifests=$manifests}
     sourceHashes=$sourceHashes;defaultCoreCopies=$binaries;preparedNativeInputControls=$prepared
     n02=[ordered]@{actualNrmseBefore=0.011467280942848471;actualNrmseAfter=0.011173141548632002;idealNrmse=0.013875784968407625;classification='Difference';layerSummarySha256=(Hash (Join-Path $evidence 'layers-final/layer-summary.json'))}

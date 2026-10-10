@@ -85,9 +85,12 @@ public sealed class WavefrontAimingRepairTests
         foreach (var key in new[] { "RayCount", "VignettedRayCount", "ReferenceOpticalPathLength",
                      "MeanOpticalPathDifference", "RmsWaves", "PeakToValleyWaves" })
             Assert.Equal(a.Values[key], b.Values[key]);
-        // Both currently retain normalized pupil coordinates; physical exit-pupil
-        // shape projection is a separate, not-yet-implemented display capability.
+        // Keep physical data coordinates unchanged; typed plot metadata now carries
+        // the display-only exit-pupil projection to every surface/contour renderer.
         Assert.Equal(Assert.Single(a.PlotSeries).Points, Assert.Single(b.PlotSeries).Points);
+        Assert.Equal(1, a.PlotOptions!.SpatialDisplayScaleX);
+        Assert.Equal(1, a.PlotOptions.SpatialDisplayScaleY);
+        Assert.True(b.PlotOptions!.SpatialDisplayScaleX != 1 || b.PlotOptions.SpatialDisplayScaleY != 1);
     }
 
     public static IEnumerable<object[]> NativeMapFanCases()

@@ -1,5 +1,7 @@
 # MS-L7 全分析数值对比扩展（2026-09-06）
 
+后续 2026-10-10 Foucault 已由本页当时的梯度近似改为复场物理刀口与理想光瞳再成像，见[新实现与独立验收](PUPIL_SHAPE_FOUCAULT_IMPLEMENTATION_2026-10-10.md)。本页的原始捕获和 PhysicalDefinitionMismatch 分类保持历史范围，未据此宣称新的原生数值 Pass；渐晕及部分相干的其余定义问题不自动关闭。
+
 本文是扩展阶段的历史记录：40/7/5 和 1311 项测试属于当时版本。当前结果为 44 Pass、6 Close、2 Difference，完整测试 1337 项；详见 [Huygens 后处理后续修复](ZEMAX_HUYGENS_REPAIR_2026-09-06.md)。下文相位差异后来确认为导出数组与 GUI 平均相位指示器的物理量混用，不再作为当前数值误差。
 
 本轮针对用户确认的 `[MS-L7](10X大NA大视场).ZMX`，源 SHA-256 为

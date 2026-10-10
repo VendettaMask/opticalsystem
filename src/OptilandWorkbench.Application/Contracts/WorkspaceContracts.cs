@@ -1020,7 +1020,10 @@ public sealed record AnalysisPlotOptionsDto(
     bool ShowPointLabels = false,
     bool HideTickLabels = false,
     bool LegendBelow = false,
-    bool DefaultSquareViewport = false);
+    bool DefaultSquareViewport = false,
+    double SpatialDisplayScaleX = 1,
+    double SpatialDisplayScaleY = 1,
+    bool LogarithmicIntensity = false);
 
 public sealed record AnalysisPlotPaneDto(
     string Title,

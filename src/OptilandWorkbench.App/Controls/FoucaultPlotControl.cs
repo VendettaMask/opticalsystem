@@ -36,6 +36,16 @@ public sealed class FoucaultPlotControl : Control, IReadOnlyChartAutomationSourc
 
     public string DisplayAs { get; init; } = "灰度";
 
+    public bool Logarithmic { get; init; }
+
+    private double MaximumIntensity => Math.Max(1, Series?.Points.Select(p => p.Value ?? 0).DefaultIfEmpty(0).Max() ?? 1);
+
+    internal double DisplayIntensityFraction(double value) => DisplayIntensityFraction(value, MaximumIntensity);
+
+    private double DisplayIntensityFraction(double value, double maximum) => Logarithmic
+        ? Math.Clamp((10 * Math.Log10(Math.Max(1e-6, value / maximum)) + 60) / 60, 0, 1)
+        : Math.Clamp(value / maximum, 0, 1);
+
     protected override AutomationPeer OnCreateAutomationPeer() =>
         new ReadOnlyChartAutomationPeer(this);
 
@@ -67,9 +77,10 @@ public sealed class FoucaultPlotControl : Control, IReadOnlyChartAutomationSourc
         double MapX(double x) => plot.Left + (((x + 1) / 2) * plot.Width);
         double MapY(double y) => plot.Bottom - (((y + 1) / 2) * plot.Height);
 
+        var maximumIntensity = MaximumIntensity;
         foreach (var point in Series.Points)
         {
-            var value = Math.Clamp(point.Value ?? 0, 0, 1);
+            var value = DisplayIntensityFraction(point.Value ?? 0, maximumIntensity);
             var left = MapX(point.X - (stepX / 2));
             var right = MapX(point.X + (stepX / 2));
             var top = MapY(point.Y + (stepY / 2));
@@ -121,10 +132,13 @@ public sealed class FoucaultPlotControl : Control, IReadOnlyChartAutomationSourc
         }
 
         context.DrawRectangle(null, new Pen(ThemeBrush(ThemeResourceBindings.PlotAxis, Brushes.Black), 0.7), bar);
+        var title = Text(Logarithmic ? "相对强度 (dB)" : "相对强度", 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
+        context.DrawText(title, new Point(bar.Left - 4, bar.Top - 24));
         for (var index = 0; index <= 10; index++)
         {
             var fraction = index / 10.0;
-            var label = Text(fraction.ToString("0.00", CultureInfo.InvariantCulture), 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
+            var displayedValue = Logarithmic ? -60 + 60 * fraction : MaximumIntensity * fraction;
+            var label = Text(displayedValue.ToString("0.##", CultureInfo.InvariantCulture), 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
             context.DrawText(
                 label,
                 new Point(bar.Right + 5, bar.Bottom - (fraction * bar.Height) - (label.Height / 2)));
@@ -135,7 +149,7 @@ public sealed class FoucaultPlotControl : Control, IReadOnlyChartAutomationSourc
     {
         if (DisplayAs.Contains("灰", StringComparison.Ordinal))
         {
-            var component = (byte)Math.Round((1 - value) * 255);
+            var component = (byte)Math.Round(value * 255);
             return Color.FromRgb(component, component, component);
         }
 

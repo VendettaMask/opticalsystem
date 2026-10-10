@@ -1,14 +1,14 @@
 # 项目文档索引
 
-当前总结：[FFT 瞳面相位修复、原生分层与当前验收](FFT_PUPIL_PHASE_REPAIR_2026-10-09.md)、[问题清单与完成判据](OPEN_ISSUES_2026-10-08.md)。[Huygens 传播、复色合成与参考球修复](HUYGENS_IMPLEMENTATION_REPAIR_2026-10-09.md)、[轴上参考和几何质心修复](OFFICIAL_DOCUMENTATION_REPAIR_2026-10-09.md)、此前[确认缺陷修复与完整重算](CONFIRMED_ISSUE_REPAIR_2026-10-08.md)及[同步记录](PROJECT_SYNC_2026-10-08.md)保留其阶段范围；本轮修复与选定原生证据已推送，见[新完成记录](PROJECT_SYNC_FFT_PUPIL_2026-10-09.md)。公开说明、解析回归、原生认证和长期计划分别阅读。 本次累计修复、计划及选定证据的范围和远端确认见[2026年10月9日同步记录](PROJECT_SYNC_2026-10-09.md)。
+当前总结：[出瞳形状与物理 Foucault 实现](PUPIL_SHAPE_FOUCAULT_IMPLEMENTATION_2026-10-10.md)、[问题清单与完成判据](OPEN_ISSUES_2026-10-08.md)。[FFT 能量网格](FFT_ENERGY_GRID_INTEGRITY_REPAIR_2026-10-10.md)、[准备 FFT 输入来源](PREPARED_PUPIL_INTEGRITY_REPAIR_2026-10-10.md)、[FFT 瞳面相位](FFT_PUPIL_PHASE_REPAIR_2026-10-09.md)、[Huygens 传播](HUYGENS_IMPLEMENTATION_REPAIR_2026-10-09.md)、[轴上参考](OFFICIAL_DOCUMENTATION_REPAIR_2026-10-09.md)及此前修复保留各自阶段范围。10 月 10 日修改未提交或推送；[10 月 9 日完成记录](PROJECT_SYNC_FFT_PUPIL_2026-10-09.md)不能代表最新工作区。公开说明、内部回归、原生精度与完整性分别阅读。
 
-原计划已推进至确认问题修复与原档位剩余诊断：取得本机原生环境、N02 同源二维/复场/瞳孔及范围控制，修复 FFT 相位与边界；N01 Auto/Planar 二维逐值一致。下一步核对 N02 私有积分与理想定义，并补 N01 完整方向、参考和权重，随后扩展采样收敛与发布范围。具体设置及关闭条件继续遵循[原生残差定位计划](FFT_SAMPLING_REFERENCE_REPAIR_2026-10-09.md#后续执行计划)；最新结果以[执行报告](FFT_PUPIL_PHASE_REPAIR_2026-10-09.md)为准。
+原计划已推进至确认问题修复与原档位剩余诊断：此前捕获电脑取得 N02 同源二维/复场/瞳孔及范围控制，修复 FFT 相位与边界；N01 Auto/Planar 二维逐值一致。此前零像素网格错误已修复，五组完整光线平面参考仍未达到精度要求、未替换产品。本轮按用户指定优先接通有焦出瞳显示与物理 Foucault；用户确认 Zemax 在另一台电脑、本机不支持，后续原生补采须在那里完成。N02 私有积分与理想定义、N01 完整方向/参考/权重，以及新功能原生认证、采样收敛与发布范围仍待推进。残差条件继续遵循[原生定位计划](FFT_SAMPLING_REFERENCE_REPAIR_2026-10-09.md#后续执行计划)；分层见[阶段执行报告](FFT_PUPIL_PHASE_REPAIR_2026-10-09.md)，最新实现以[本轮报告](PUPIL_SHAPE_FOUCAULT_IMPLEMENTATION_2026-10-10.md)为准。
 
 其他计算路径修复后报告：[修复、前后数值与剩余问题](CALCULATION_PATH_REPAIR_2026-10-08.md)，含完整 Release 验收、492 条原生光扇记录和可阅读 PDF。此前[计算路径问题定位](CALCULATION_PATH_DIAGNOSIS_2026-10-08.md)保留为修复前诊断证据；其未修复描述不是当前状态。
 
 修复前诊断记录：波前图出瞳形状开关误控瞄准已复现；负 Y 场表存在最近行跳变，RA 波前端点 / 单元中心敏感性已量化。该诊断轮产品计算未修改，原生新捕获因本机缺少 ZOS-API 未执行；原 132 项分类未重写，见[问题定位与证据](ZEMAX_PUPIL_DIAGNOSIS_2026-10-08.md)。波前图后续修复与最新验证见下方。
 
-2026-10-09 按原生残差计划推进：新增 165 份原生原始文件，修复正式 FFT 瞳面棋盘相位与 Nyquist 边界舍入。默认 Debug/Release 构建零警告、零错误；正式完整 Release **4546/4546**、最终 Debug 定向 **77/77**，均零跳过。原 4539 项身份与次数全部保留，新增 7 项；完整 Release 包含同一 77 项专项。完整比较工具 **179 通过 / 1 失败 / 共 180 项**，零跳过；DEE 满足原误差预算但实际/理想仍为 Difference，Huygens 旧失败保留。新原生控制确认 N01 Auto 与 Planar 的 1024 像素逐值相同，尚未修改 Huygens 模型。冻结参考、原设置和容差不变；完整 Debug、实验室、安装包、人工桌面及六镜头矩阵本轮未重跑。本轮修复已提交并推送，完成状态见[本轮同步记录](PROJECT_SYNC_FFT_PUPIL_2026-10-09.md)；既有记录保留历史范围。当前实现、证据和缺口见[FFT 瞳面相位修复报告](FFT_PUPIL_PHASE_REPAIR_2026-10-09.md)。
+2026-10-10 已接通有焦波前图的出瞳 X/Y 工作 F 数显示投影，并将 Foucault 改为复场焦面刀口与逆 FFT 理想光瞳再成像，支持正式 Jones 可执行范围及线性/对数显示。默认 Debug/Release 完整构建零警告、零错误；正式完整 Release **4608/4608**、Debug 相关 **236/236**、Release 专项 **60/60**、实际控件渲染 **1/1**，均零跳过。此前 4577 项身份与次数全部保留，新增 31 项；既有 Foucault 契约按物理模型更新，集合重叠不相加。完整比较工具 **179 通过 / 1 失败 / 共 180 项**，原 Huygens 失败身份、消息与输出不变，N01/N02 仍为 Close/Difference。历史冻结清单仍为 **2660/2668**，8 项差异保留为 E04；165 份原生捕获及旧账本字节未改，原参考、设置和容差未改。本机不支持 Zemax，未新增原生认证；完整 Debug、实验室、安装包、人工桌面和六镜头矩阵未重跑。任意三维出瞳、无焦焦面投影及未支持的 Jones 介质等边界仍开放；本轮未提交、未推送。详见[当前实现与验收](PUPIL_SHAPE_FOUCAULT_IMPLEMENTATION_2026-10-10.md)。
 
 历史验收记录（2026-10-08）：正式默认 Debug/Release 构建零警告、零错误，完整主测试两配置各 **4501/4501** 通过；比较工具完整 Release **178 通过 / 2 失败 / 共 180 项**，均零跳过。保留原 4494 个正式测试身份并新增 7 项；负向渐晕、Headless 会话竞态与辅助历史有限物距契约已处理，四份派生 Tessar 原生发射共 **512/512** 通过。六原文件 132 项完整重算为 **100 Pass / 9 Close / 14 Difference / 8 Incomparable / 1 Error**，此前 95 个 Pass 无回退，冻结证据、设置和容差保持不变。Huygens 截面与 DEE 残差仍开放；实验室结果和发布检查分别记录，整体发布门禁未关闭。该阶段修复的提交与远端状态见同步记录，详见[该阶段修复与完整验收](CONFIRMED_ISSUE_REPAIR_2026-10-08.md)；下方旧计数保留历史范围。
 
@@ -38,7 +38,7 @@
 
 - [多配置操作数 CONF / ZTHI](MULTI_CONFIGURATION_OPERANDS_2026-10-03.md)：隔离配置求值、优化候选链接及保存边界。
 
-索引更新日期：2026-10-09。索引汇集项目自有 Markdown（包括本索引与状态页）；第三方原文、许可证和 `validation/history` 冻结数据不做重写。不同阶段报告保留各自范围，日期较近不代表已经完成全量验收或远端同步。
+索引更新日期：2026-10-10。索引汇集项目自有 Markdown（包括本索引与状态页）；第三方原文、许可证和 `validation/history` 冻结数据不做重写。不同阶段报告保留各自范围，日期较近不代表已经完成全量验收或远端同步。
 
 先读 [当前实现与验证状态](CURRENT_STATUS.md)，再按任务进入具体指南。桌面使用看 [GUI 工作流](GUI_QUICKSTART_REFACTOR.md)，维护界面看 [UI 规范](UI_DESIGN_SPEC.md) 与 [主题包规范](THEME_PACKAGES.md)，构建看 [构建与发布](BUILD_AND_RELEASE.md)，定位代码看 [代码地图](CODE_READING_MAP.md)。
 

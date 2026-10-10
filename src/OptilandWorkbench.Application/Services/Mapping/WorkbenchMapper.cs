@@ -241,7 +241,10 @@ internal static class WorkbenchMapper
             options.HideAxes,
             HideTickLabels: options.HideTickLabels,
             LegendBelow: options.LegendBelow,
-            DefaultSquareViewport: options.DefaultSquareViewport);
+            DefaultSquareViewport: options.DefaultSquareViewport,
+            SpatialDisplayScaleX: options.SpatialDisplayScaleX,
+            SpatialDisplayScaleY: options.SpatialDisplayScaleY,
+            LogarithmicIntensity: options.LogarithmicIntensity);
     }
 
     internal static Scene2Dto ToScene2Dto(Layout2DScene scene)
