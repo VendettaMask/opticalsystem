@@ -5809,8 +5809,6 @@
     "intermediateBuild": "File locks from the superseded test host caused a failed copy; that exact host was stopped and default builds were rerun successfully."
   },
   "remaining": [
-    "Cooke 32 DEE residual is not certified Pass",
-    "Tessar low-sampling native DEE warnings/empty output are excluded",
     "Off-axis, spherical, polarized and general polychromatic Huygens certification remains incomplete",
     "Full Debug, labs, installer, manual desktop and six-lens matrix were not rerun"
   ],
@@ -5832,5 +5830,18 @@
       "unchanged": true,
       "mismatches": []
     }
+  },
+  "scopeAdjustment": {
+    "date": "2026-10-11",
+    "requestedBy": "user",
+    "excludedFromFollowup": [
+      "Independent Cooke residual investigation/native certification",
+      "Independent Tessar residual investigation/native certification"
+    ],
+    "historicalFindings": [
+      "Cooke 32 DEE residual is not certified Pass",
+      "Tessar low-sampling native DEE warnings/empty output are excluded"
+    ],
+    "existingEvidenceAndTestsPreserved": true
   }
 }
