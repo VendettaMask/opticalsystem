@@ -1,5 +1,14 @@
 # 冻结证据与准备输入验收
 
+2026-10-11 新增 Git 字节检查，核对原件及 Git 提交/索引，避免工作区完整但远端 blob 不完整。当前 E04 已在原 2668 条清单下通过索引和全新检出，见[修复记录](../../docs/FROZEN_GIT_INTEGRITY_REPAIR_2026-10-11.md)。10 月 10 日的专用 Collect 脚本保留原验收修订和 2660/2668 条件，不用当前通过改写旧账本。
+
+```powershell
+pwsh -NoProfile -File tools/validation/GitFrozenIntegrity.ps1 -RepositoryRoot . -ManifestPath artifacts/validation/n02-layer-diagnosis-20261009/frozen-after.json -ExpectedAggregateSha256 3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10
+pwsh -NoProfile -File tools/validation/GitFrozenIntegrity.Tests.ps1 -OutputDirectory <全新夹具目录>
+```
+
+提交前可用 `-Source Index`；默认 HEAD 检查不接受“索引已修复”替代提交完整。两份脚本回归集合各为 9/9 与 8/8，不纳入 C# 正式测试计数。CI 新任务在三个平台核对固定聚合身份；远端执行结果不由本机通过代替。
+
 `FrozenIntegrity.ps1` 只读取清单和当前文件，不修改参考。`Get-FrozenIntegrityReport` 返回实际差异，`Assert-FrozenIntegrity` 在差异上抛错。历史 `unchanged` 标记不参与判定。聚合采用保留大小写的 ordinal 路径、小写 SHA-256、UTF-8 无 BOM 与带末尾 CRLF 的行序列。
 
 ```powershell

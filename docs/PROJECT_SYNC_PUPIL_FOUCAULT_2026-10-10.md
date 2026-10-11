@@ -1,5 +1,7 @@
 # 出瞳与物理 Foucault 同步完成记录
 
+2026-10-11 后续记录：E04 已在保留原件的电脑核实并修复 Git 保存，原件、索引与全新检出均为 2668/2668，见[修复记录](FROZEN_GIT_INTEGRITY_REPAIR_2026-10-11.md)。本文 2660/2668 及旧账本保持原宿主、原修订的历史验收范围。
+
 2026-10-10，出瞳显示投影、物理 Foucault 刀口，以及此前准备 FFT 输入来源保护和能量网格修复，已随代码、测试、文档及选定验收证据推送至 `origin/main`。实现提交为 [`7c45f77d252b60a53c5ed2451820aedd4221e08a`](https://github.com/VendettaMask/opticalsystem/commit/7c45f77d252b60a53c5ed2451820aedd4221e08a)。这次同步不改变数值容差，也不关闭尚未完成的 Zemax 原生认证。
 
 ## 分支与提交范围

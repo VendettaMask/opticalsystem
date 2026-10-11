@@ -1,0 +1,3475 @@
+{
+  "source": "HEAD",
+  "commit": "fc69b86a06ccc42c0bf5b6736e13f5828ad3ad94",
+  "count": 2668,
+  "matched": 2236,
+  "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+  "actualAggregateSha256": "d9c7c66972f96cb93dddd4af745e1f737353f51fff522c4d33b003f0585caf11",
+  "unchanged": false,
+  "mismatches": [
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/BASELINE_REPORT.md",
+      "expectedSha256": "295b4f17cc66db7d1ce2a4da4fc1bde796566a07c14777fcbb1abac35a846b78",
+      "actualSha256": "02c157cbdd4789d73f1241e51e7b1e4d6aa56454e865e99600718a4ce6b47c44",
+      "gitBlob": "05d13ef20fcb67ab825db2f67c3c6537f0a4f9ae",
+      "bytes": 165253,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/001-rayfan/data.json",
+      "expectedSha256": "873680bd35c95fcf8053f9690da460bafee831d0116e71c7ec59f1053bd97e07",
+      "actualSha256": "cc6c7292eeec26d944a240ccf3726d89fcbf3a034c8ac3048ca44541da63e95a",
+      "gitBlob": "74d16b0c7e5594734c6d38311ff602e9c043f70e",
+      "bytes": 57174,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/001-rayfan/status.json",
+      "expectedSha256": "0da2458ee5afe27f11ee4ea51d1807b6263b0db8d306589a6f1b314ce1920d7c",
+      "actualSha256": "41db64b2c63f1e9eb40f413840417e09607cb498a381987f09d16bf73191d3be",
+      "gitBlob": "7d59452ed19b4106b95e9a1a292bdab706357903",
+      "bytes": 709,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/002-opticalpathfan/data.json",
+      "expectedSha256": "49b92e0a9a49fc9cee9b13229a775f79be308c6f1c16d42c5d5f5e367da981bb",
+      "actualSha256": "6b5c15738e0a22107872a00047756ba2f1539d917bb1fb7611de3b4d209d375c",
+      "gitBlob": "46089badbe499823f0204998fc190931b67836e6",
+      "bytes": 57761,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/002-opticalpathfan/status.json",
+      "expectedSha256": "892c4c672a01a45eb6ed8e92ce579c106ec38397469829473683647560ac2568",
+      "actualSha256": "1d7fc43c17155049f30704d8b4da453af970da3027e2b75dffb318130752381b",
+      "gitBlob": "bb759ef48a54c00f64ffc9a95a4d2f8cd703afd2",
+      "bytes": 730,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/003-pupilaberrationfan/data.json",
+      "expectedSha256": "366774921436ee382540b308195ed3f69d7360bdbe2638a97d7f863cea12af3f",
+      "actualSha256": "456183a26d67e13c0a9982d6849708426b79e3df6ac38bc2d507e0b6df0c0123",
+      "gitBlob": "0494d78633437950630e53902125fd80e6dfface",
+      "bytes": 60239,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/003-pupilaberrationfan/status.json",
+      "expectedSha256": "d1d3cba930ad7e89454d60cec0e9dd7a2f080b30099bc9864b82d4505f80d24d",
+      "actualSha256": "54c136f8d6cd9d417c5510d301385961f3b2e8555c6efd069ab3d4da13184e8a",
+      "gitBlob": "406aa806da9934d7b7894e53805e86d72e77c54f",
+      "bytes": 751,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/004-fieldcurvatureanddistortion/data.json",
+      "expectedSha256": "1748198c63674940277e07ca56503a1e1100ee6df4b78f6b288e7a6b3b688b38",
+      "actualSha256": "a93a1aeff36e6bf4856ff41ad22844022b8dcc6cbde2a8038853da1d3090bd73",
+      "gitBlob": "3899d86a43d255fdf75090fa49aba1691e793e07",
+      "bytes": 63100,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/004-fieldcurvatureanddistortion/status.json",
+      "expectedSha256": "b94c796d36cf7f279943c7823396cde384c0f9de99914be4f79f2f753831c3c7",
+      "actualSha256": "60279ee0021125c78055bb62ec04e61ca01d88e4cfc4d4aa5105c143620b7e53",
+      "gitBlob": "ed24a5c1411642a642908346f9fd7248e4400cb5",
+      "bytes": 758,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/005-focalshiftdiagram/data.json",
+      "expectedSha256": "4be16144c8bc6d571ba6c54f65c265e0aff671f2099b740094486df25e1d0d64",
+      "actualSha256": "18dd23423caf64d17ebc08fd5026aa3fa2fd4e7dacb5681a6962c6de6674b983",
+      "gitBlob": "7df0e60c62b53ad1188b3ab1d1c5d249e281c3f9",
+      "bytes": 10233,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/005-focalshiftdiagram/status.json",
+      "expectedSha256": "910186bcd02883def52c0765d21e57f9069048eb4badddf29b16364e4638bb49",
+      "actualSha256": "6b06fd8d171f75d3f815cd22504ff088f59cfbba197b047d08ae553e8f4bdfb2",
+      "gitBlob": "94055758d665ed7e9c1340725fbb39d4d247c91b",
+      "bytes": 714,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/006-griddistortion/data.json",
+      "expectedSha256": "2ded92cd0d6643b04d27c4979bcd4d88d9b3c344fd6de1e295ceda9a8e0cad23",
+      "actualSha256": "87e1be6aad5a36dc7e4ebdcdc8e376b5b7521df96687ffea6fa5d5d3744f5424",
+      "gitBlob": "841596c1ea24695182c5d1087f3c78060707da0a",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/006-griddistortion/status.json",
+      "expectedSha256": "34a9eff892819e27d5e3e344b61baf3e73841a8b88ec2f7add73752fb2bb7512",
+      "actualSha256": "d068de842500b187c4c3404de2588a6bb3b4b78cc90e5e9cb21ec3ef072b1b43",
+      "gitBlob": "0400ded48dfe1e2ae7fea111a1f4e8e6dcd26158",
+      "bytes": 730,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/007-lateralcolor/data.json",
+      "expectedSha256": "8f041bee4064824cc1733bf7c3c45eda34d82c5ecb4dbb79cf77b20c7962f727",
+      "actualSha256": "300b0638d9fafe998a4949d0d7921c440233f399fb68fdb43adc86eeee8cdc90",
+      "gitBlob": "8b0bda1215290270758d3fb2210e2617ca95ed54",
+      "bytes": 13672,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/007-lateralcolor/status.json",
+      "expectedSha256": "7363e508ab29f66cce92825b2e5b8682874d39b73032a688284c64ecdb37d8aa",
+      "actualSha256": "3236b68d4d8a6c501d98253c6ee061ab6838a2656bb3857a119b4fbc1f81ebe9",
+      "gitBlob": "d0c023195a0d6779508dc2f3a4284c050dc6f734",
+      "bytes": 705,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/008-longitudinalaberration/data.json",
+      "expectedSha256": "56b789fe12de64dedf26cb974401bd09bd233357b87ddc1ffd5121154164717d",
+      "actualSha256": "49734424f7ee5c9605f89e92ff3b477f9a38d996d3d67da8b2aafe5f7604ef8f",
+      "gitBlob": "00277463b27a4e72596832023aeda64bc1830f01",
+      "bytes": 14432,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/008-longitudinalaberration/status.json",
+      "expectedSha256": "b7b9a3a21a2dc0ca2233afec76a53a0bf07294c7a3e3f1d50024f75d13c9445a",
+      "actualSha256": "d33141fb2fce66d05aaeba2fa3439459be9a5173af5c502f560cf49ae24eec18",
+      "gitBlob": "920edb28e77463a09b9f366b08b42b04af79ddba",
+      "bytes": 735,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/009-raytrace/data.json",
+      "expectedSha256": "470648dd375c54eb7044cafde85e55e6742839d22a4477d315daa832c7a23a9f",
+      "actualSha256": "b826335333916fd4f6d9a9fe89915e80900ee7b91bad7c9b930a0bdaee864701",
+      "gitBlob": "bee32c4f6410d9c7ffe10c470c8228f347e62062",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/009-raytrace/status.json",
+      "expectedSha256": "9556234596b3d45a9750b6e71e45c1646ab7da673ab1173ce5ebc01ed16846ab",
+      "actualSha256": "9218147f452625579a0594f24d9fbcedec183f6f661fa9bf091640edbf779223",
+      "gitBlob": "0b3cccc26a0f96575badf64ace6e07f6284c4ca5",
+      "bytes": 696,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/data.json",
+      "expectedSha256": "470648dd375c54eb7044cafde85e55e6742839d22a4477d315daa832c7a23a9f",
+      "actualSha256": "b826335333916fd4f6d9a9fe89915e80900ee7b91bad7c9b930a0bdaee864701",
+      "gitBlob": "bee32c4f6410d9c7ffe10c470c8228f347e62062",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/010-seidelcoefficients/status.json",
+      "expectedSha256": "e37c3bf71efebb91ad8df5ce83c335619805c17a6ed55762e520ad1593991693",
+      "actualSha256": "802d66394a4fe1b9f3110b15b8e9a7ca7d6679300d8e627c3cb1c7e384d4a95d",
+      "gitBlob": "2dbfe72598d87794f578c9a4c73911f401e687df",
+      "bytes": 725,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/011-seideldiagram/data.json",
+      "expectedSha256": "470648dd375c54eb7044cafde85e55e6742839d22a4477d315daa832c7a23a9f",
+      "actualSha256": "b826335333916fd4f6d9a9fe89915e80900ee7b91bad7c9b930a0bdaee864701",
+      "gitBlob": "bee32c4f6410d9c7ffe10c470c8228f347e62062",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/011-seideldiagram/status.json",
+      "expectedSha256": "0b40966e39f1a5377092e8105c7eec8a3ab1b569dacf193607ed06280b4d6e89",
+      "actualSha256": "578e06336f726abedbfb1b80954c3910fb4d7eeebf6459a9c781594e35f6d98b",
+      "gitBlob": "51fa88e365d49eb228ab4c7f16d297be38d977bb",
+      "bytes": 703,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/012-zernikeannularcoefficients/data.json",
+      "expectedSha256": "771bd9e182585cd7307a81218ea9b929f35c19a647803fb849bf7adcbcbf4ad4",
+      "actualSha256": "58f675a859ac4468ba13ecb854a91e87348205ee718a5a7a0d9b37da9abca391",
+      "gitBlob": "016af3b6e5d80bd17f9c7719eb65d05b89fc834d",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/012-zernikeannularcoefficients/status.json",
+      "expectedSha256": "29cc9bb3c49e402bd1678a23609d31770342b6334744c559aaab5c39aaca1331",
+      "actualSha256": "976adec338b6fbfb9b89a002e29c7ef5b1d3d087bf1396e49dc97f51e3e2953c",
+      "gitBlob": "adfd4c9dd5e3df885b95dfd2a94e7b1b61b87ef1",
+      "bytes": 755,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/013-zernikecoefficientsvsfield/data.json",
+      "expectedSha256": "e07b3a65a984579b400af933cb2d5a40dfc9040ed795456505e67961468aa65c",
+      "actualSha256": "b96d0795682c1199bbd2930ce5eb35a8c7acdec0d02f69c14d3b18a59d284d89",
+      "gitBlob": "ad1ddac49d4e6ac9320adc3ce2e7f0dece932ec0",
+      "bytes": 632,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/013-zernikecoefficientsvsfield/status.json",
+      "expectedSha256": "125134b35db7d9c2d1afeb3be37c84ebdfeca0e6a2e09d705ec190900ccfd93f",
+      "actualSha256": "7db949c2aa7637c1d006ee6a6f29623cc666e36220978fe54b227424e231ed55",
+      "gitBlob": "5b5441a5e545e7daba9b00c65ddb182cd7e841b2",
+      "bytes": 760,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/014-zernikefringecoefficients/data.json",
+      "expectedSha256": "771bd9e182585cd7307a81218ea9b929f35c19a647803fb849bf7adcbcbf4ad4",
+      "actualSha256": "58f675a859ac4468ba13ecb854a91e87348205ee718a5a7a0d9b37da9abca391",
+      "gitBlob": "016af3b6e5d80bd17f9c7719eb65d05b89fc834d",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/014-zernikefringecoefficients/status.json",
+      "expectedSha256": "7deadcadc49766f0a62dd5e6497bb162c44af2f2ea40a1b2eefb3e6cc6ca72cb",
+      "actualSha256": "58ab92cd378bf1a5f2acb18be0f6fc771e0ffb7dc6fa2bf7565d0db8ce2b8e15",
+      "gitBlob": "01d57f0948b3e15a8611a7895fcde5dd4b85eceb",
+      "bytes": 751,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/015-zernikestandardcoefficients/data.json",
+      "expectedSha256": "771bd9e182585cd7307a81218ea9b929f35c19a647803fb849bf7adcbcbf4ad4",
+      "actualSha256": "58f675a859ac4468ba13ecb854a91e87348205ee718a5a7a0d9b37da9abca391",
+      "gitBlob": "016af3b6e5d80bd17f9c7719eb65d05b89fc834d",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/015-zernikestandardcoefficients/status.json",
+      "expectedSha256": "58fd989b154451066122579b3d87842f85988d030e93748d23b48a5929d0a47e",
+      "actualSha256": "845647e09faae76e7206436cbd1da5bdd18c850634ba0dae781d30bdcac4f7d3",
+      "gitBlob": "38f9f96d35a961148d5a67034e77ee15878a1e4e",
+      "bytes": 759,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/016-fftmtf/data.json",
+      "expectedSha256": "fd8d2cb143c49ac67bdb1a052acf0c7ae8b991c670ef853b2ef223f5719701c7",
+      "actualSha256": "048efe2943f0694d1d431ba61ae892a8688f5ab082ba3a90d0f216e87cfdaf65",
+      "gitBlob": "c9047d902588ac8e6c7e2c1b57fd4bade4ad7d1d",
+      "bytes": 164001,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/016-fftmtf/status.json",
+      "expectedSha256": "1a945218d68b75548e440bb6efbcd09256dd91f15bcf308428e9e14834d65bc2",
+      "actualSha256": "04f7990b2dbe77eb99666914483713769afcf5a2e3d0a619a4eb56bb89693ac4",
+      "gitBlob": "75e174bb276c03e3e0cb0c139be388f96a749e8c",
+      "bytes": 683,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/017-fftthroughfocusmtf/data.json",
+      "expectedSha256": "3eb4289e83d35531d6fa945ddf73eb6f4742e74729741c5b064ee86f6ddaec0e",
+      "actualSha256": "9ae9366d96c6162edcfe34bca9f98b2e14a893d3042ab25b17f9527f89add743",
+      "gitBlob": "1e87ea28f3e5c3dc423cba01d2cd6094eecb8b75",
+      "bytes": 167314,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/017-fftthroughfocusmtf/status.json",
+      "expectedSha256": "7ced5cdfe3d3f559172e74341121ef10ed8ca5e6387df43ca839148a955b2a20",
+      "actualSha256": "2dbd6167a018ca742accd099915fb0791d965baf53b195b0fac3c15274e9e3a8",
+      "gitBlob": "8e0706e37274aa407c4823b904f919aa7b925c83",
+      "bytes": 725,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/018-geometricthroughfocusmtf/data.json",
+      "expectedSha256": "a7420c9fb4f8f4a868281b3b1b0114c464ba3abe18593c11cb7f35b7134464b9",
+      "actualSha256": "121cc09e9cd5ed54764431787a9432bdfc61b10db536df3f6bf3fd13cf4e6c86",
+      "gitBlob": "c34ac0fd8e4e104571a6be2bc540a2e645410dfe",
+      "bytes": 54910,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/018-geometricthroughfocusmtf/status.json",
+      "expectedSha256": "abadd7f769cc96808fa8ee35164bd2356b1341ea535fadf9e674c61eea4c5cc1",
+      "actualSha256": "bb9ea3e1969eda45a29da46aa6e58d14d42ddad4bc3362ad875d3bd3e2c8cfc8",
+      "gitBlob": "48eb5d912dbf397bed9b19bdff287cf8e807928c",
+      "bytes": 745,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/019-geometricmtf/data.json",
+      "expectedSha256": "91e926ef104c9fabc0de375ff738b2d2716ad5b2339cf09df8742e1d9b0077f0",
+      "actualSha256": "cffab32060ddb22973bd7726ec4d13b14af66e653984440a16df6eb345b152a6",
+      "gitBlob": "dcf5dbdd727a2bbe488e0bb15167d9f7163135db",
+      "bytes": 164260,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/019-geometricmtf/status.json",
+      "expectedSha256": "2d4bb1b22bdbb2e4db730880b12fcc99f7df49f03f59b301f3fb58153c9e19db",
+      "actualSha256": "61591124c3ae9b14e35e501485904382ac41bea3670a00bcecbd27272b42312e",
+      "gitBlob": "a4160de4abf2df1dba5cd17a676425b271c3ab7e",
+      "bytes": 703,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/020-fftmtfmap/data.json",
+      "expectedSha256": "aebcc117985cf5ec96e4cd59faafd3e2aed8eab6cab83bb532789bab3e7dfa4a",
+      "actualSha256": "be5e337facd803b8a6eae025c4b308705e3325c9cb93f0b6f9a66414add01c7e",
+      "gitBlob": "dcd7fa647f871c7c13e9c8258524d89fa3c6cf87",
+      "bytes": 1863,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/020-fftmtfmap/status.json",
+      "expectedSha256": "0018eadf90a916361362ab1ac327237f35d00596bb28e23c904cc6f46002140e",
+      "actualSha256": "b2700ecd8ba221950c9651b8cfa8036121041322f5b1ae0efb74bbc5b377e9a1",
+      "gitBlob": "4f3d64fdd56cd243d3550a8f6409c161226eddea",
+      "bytes": 704,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/021-geometricmtfmap/data.json",
+      "expectedSha256": "d07c5ebd09684e3d79581d4166f0793e0c3a5cc0ca9f096c2fb0f84fec4f581d",
+      "actualSha256": "90c9f9398988e56c98b8f8d7529c50315ca24f3e9cc452728c6f310fe607d409",
+      "gitBlob": "b1e0b4e379bc7853dbe11b8c2a0a4921b7ccd8e7",
+      "bytes": 1864,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/021-geometricmtfmap/status.json",
+      "expectedSha256": "d31fdae3aa5edc90197dfb6587ce4eab9f23ce8127ad19ff9c8d80106bdf1e0d",
+      "actualSha256": "9e7336e0c22b92f3cb54f0385f4f30b68f65729a91b28be99ccdb0141b95520e",
+      "gitBlob": "eb01a05bd21a53d7aaf6ed658f26cda73de7375c",
+      "bytes": 724,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/022-fftsurfacemtf/data.json",
+      "expectedSha256": "f14497bef0f146630a6f827843535ba65c66b576b3382c18543e7c46af6039a6",
+      "actualSha256": "1d87247d9e46a5f1bd4752b02c105016b8e7767a004dee7fd91552debeeb43e6",
+      "gitBlob": "2339849533961c81661110c2ae7a34ea72a497f2",
+      "bytes": 516551,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/022-fftsurfacemtf/status.json",
+      "expectedSha256": "b1a699f8c48d137dc33b697d3dd4db3df0cb83dd9fd4e3dcaba65f22f873fc22",
+      "actualSha256": "693c512f836468fa0b7ec9cc1c7dac86fab165d86ed964372560d50f28b6e055",
+      "gitBlob": "7d8840a825df09f08f07c5610ceabf1e8f861a2a",
+      "bytes": 710,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/023-fftmtfvsfield/data.json",
+      "expectedSha256": "279f1e8a9af080211ab6e6eec07470cd3b499ab9b6e5f6482b0cae64b222e6cb",
+      "actualSha256": "eab3affd9fb92b7d7d4cabb1a909e783d7fb2d573cfc3054d1e0bee8360dcf99",
+      "gitBlob": "102e2948e1c5677c8d25568b679f16c5f9df5a75",
+      "bytes": 196363,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/023-fftmtfvsfield/status.json",
+      "expectedSha256": "e0a2b98f37e42d5dfd63103f9760cd9ecc5859c76dad7eb1121ea95ca79fc89a",
+      "actualSha256": "ca4d31b4ecdc6454a22de55a69cb993719310f7770e7663b006145d440977e2d",
+      "gitBlob": "e0f573a3000a23372685a0c131ceb2b4993f58a4",
+      "bytes": 715,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/024-geometricmtfvsfield/data.json",
+      "expectedSha256": "bb2caee84ec7cd1b2c3f00287e5dddbe5213e480922b910a4e43a5c9fdc7351c",
+      "actualSha256": "17672efbb6167d97d2311fe1393bcf27a9b236e93bbae616501f216f35f15629",
+      "gitBlob": "9e4bda74248303fe70d7cc88ef50af1276766ad2",
+      "bytes": 196353,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/024-geometricmtfvsfield/status.json",
+      "expectedSha256": "466883b1d2350cd6ff0b934ca7a73afe80f986e3cf02b9c3d9c6983653e0c89f",
+      "actualSha256": "f9f387a241f5d851774272efc922a023962b9b4e8740b8f2efce0611bed44b27",
+      "gitBlob": "af7a83aa7e1ff292ba3ef9e7984f98aa49288376",
+      "bytes": 735,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/025-huygensmtfvsfield/data.json",
+      "expectedSha256": "c9e94c4be1c150646d1fe489aedc08a84ed633481e0286dc46d627b0b9f66129",
+      "actualSha256": "9b00c750481cb73adb741f47c00ca66232dd3374765e2fa68a59bca1c6c99323",
+      "gitBlob": "5c4905ca7577502534c524872d4eebc7f3011ccb",
+      "bytes": 196349,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/025-huygensmtfvsfield/status.json",
+      "expectedSha256": "53c55be9d4e93f1d5f4216d6be3e8690fcde597b11fdb6acbe28903058657166",
+      "actualSha256": "1f70d75423fe3babe4f10589d935270b5ce2d289b2cb1bcf045a67c472f84382",
+      "gitBlob": "d9adaaffcef09c2d060b6730f7a693823602213b",
+      "bytes": 733,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/data.json",
+      "expectedSha256": "5a7087a9b2244d66bc8c914164a7f8f4594c433db1137b37c0401a5ad2e60579",
+      "actualSha256": "ef6a44cbe999be4ae54c8d2b8dc3854434e0565b9bd28266138eeebcc900f57a",
+      "gitBlob": "28444c854a2616f7eae468ff2403af18cad4d7ad",
+      "bytes": 168092,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/026-huygensmtf/status.json",
+      "expectedSha256": "65370d24607afea49cff3a2648743139690a5caf7bd5881b709a41530605f4da",
+      "actualSha256": "0e456fef25dda5641adda94c356729a5e7d70fafb7ebd06130e081c94092dde7",
+      "gitBlob": "c22d75ca51cf1629d75b7cd28e9ab4a3afa89753",
+      "bytes": 700,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/027-huygenssurfacemtf/data.json",
+      "expectedSha256": "43e7faafda56c458cb09f1cc961f44aabd0d2251c26796a533784005652235c5",
+      "actualSha256": "47c27a36dda96068f7e6f27418051a02f22bd74e7746493000255d26627ad366",
+      "gitBlob": "ae480bb681b97dcd1da6ce020e6237d047c19adc",
+      "bytes": 35130,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/027-huygenssurfacemtf/status.json",
+      "expectedSha256": "b697ef83b9a9100020ba9ff867f69c9e71a64c190623505d21269ce426366565",
+      "actualSha256": "1d1e8a6d7c3859acdb46a3e3c949946397f2dfb4401112b20946874219be3aba",
+      "gitBlob": "e4b3a11ad93e67e1ef497b50ac0015fe08438eed",
+      "bytes": 727,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/028-huygensthroughfocusmtf/data.json",
+      "expectedSha256": "3f0b14758dd98a2011afecc67c3536866384a646691c64df98191e5e067ac600",
+      "actualSha256": "dc115e8bd603af3b3a1686fe7c2c0ec4530d9220d235c5af1ce0cd9004147240",
+      "gitBlob": "e08df61d062f9c7c533324f5d7cbf1da2480e26a",
+      "bytes": 54324,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/028-huygensthroughfocusmtf/status.json",
+      "expectedSha256": "a0f605fdb6476f790452fa0672b1a83da2ba9c2ee0ca3471cfb8d13156ce12a3",
+      "actualSha256": "1c61664b372237d0da97688efda332250263eab0ed993384f2ca3c3b2a1b5c57",
+      "gitBlob": "df26042850c233d217d7bd78622eac3197831a34",
+      "bytes": 742,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/029-fftpsf/data.json",
+      "expectedSha256": "98447dd4f632c7d6ee109c2bac7ea9aabd58845d2342a03f6712a7aa153be567",
+      "actualSha256": "e5627df6f02ce4b45bc82bd432be023174fa9941e737e0d1677364ea1a5ad5b8",
+      "gitBlob": "747d133d1678be306ec8a3676a477633e2a5ccd2",
+      "bytes": 550264,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/029-fftpsf/status.json",
+      "expectedSha256": "be17850320e995baf76151aead1f3ef3eb93442002b161beebdbf1a61aaddaca",
+      "actualSha256": "ff18dcecaa4965cf9e3af48cdd705afa1de7de4f00a266b2d18894f5955958ea",
+      "gitBlob": "8e75f64984b747888d1555d757a06c01073f4951",
+      "bytes": 683,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/030-fftpsfcrosssection/data.json",
+      "expectedSha256": "fa60dd1e6323a8cb99ba604a34ba84f5e8ba19a8b051ae6da40475ff68bfe5c3",
+      "actualSha256": "54b489d54369c73ec5b5c0b54786a6d93600a8a7ae377deffa229a7fc967a72f",
+      "gitBlob": "c1db229faad99e5b67ce5f44ebc675f9b8a92642",
+      "bytes": 594,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/030-fftpsfcrosssection/status.json",
+      "expectedSha256": "57872eab4fdd0578a71edb68891dd33b2c1f77ff48eb657cef43edceee844ed0",
+      "actualSha256": "d35aaeeef35b18c8e4135b99e0f3f9138e387b58b8322adeaf7095baaf9e3d28",
+      "gitBlob": "cd589cf253ab3c368f55fedc52af61664aaedec1",
+      "bytes": 728,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/031-fftpsflineedgespread/data.json",
+      "expectedSha256": "0852748cd89f11874d3db1bcd61b264247ca435c6b60e823a8eecea4b3905667",
+      "actualSha256": "2fe4e48d176be5dd333c3c845c53b41faea487758b70ce10c2979018e75aeb0e",
+      "gitBlob": "3c4303f8eee176516e72c635d08044b64dcd2dfb",
+      "bytes": 606,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/031-fftpsflineedgespread/status.json",
+      "expectedSha256": "d1787c968ead74831d7db92d5e7a02ce792685db4145205df39b8b0e02b3c3a9",
+      "actualSha256": "0138a45850be6a5052876c16a72f833f1d9ea6d4f1f9f08c7de41c44eda228c6",
+      "gitBlob": "e894e943b0c1b12acf6c3620bc05d609c47b84d2",
+      "bytes": 738,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/032-huygenspsfcrosssection/data.json",
+      "expectedSha256": "1dc4bb39f0a6f1f3d2c70254f0146b9393be8011e45889b508a46b2e083b5010",
+      "actualSha256": "1a6e0e434b341fe803d3e1aaab348a29b6cb7c0bfb96ce67408b2afff9db9488",
+      "gitBlob": "28e01c47f7c4c60287db6cd89a603b1d388d03e9",
+      "bytes": 559,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/032-huygenspsfcrosssection/status.json",
+      "expectedSha256": "7f7e6a10bc4926e89c2d96944a74b29cb2708c5fd2244832acbd255c058156c1",
+      "actualSha256": "9401e7c1faba83ee4d9fd59ec7ffc3b87418580d54e36e3b62cff63a0f84dd7e",
+      "gitBlob": "3a2b4cd879f43cf2797855ebc8eabe271c7037fa",
+      "bytes": 745,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/data.json",
+      "expectedSha256": "675761dd4781bc030aec56fbf96bd4c7271d6ba314f011daa6d895dd73f80cef",
+      "actualSha256": "1ddb61139e42585f144329c430a85ebc7685eb92416783cf85f653822cc64eb0",
+      "gitBlob": "814c316cd581b776e8726fcdc9e1e469b6a715ac",
+      "bytes": 34525,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/status.json",
+      "expectedSha256": "540d4a21fdbc87967902d7bb83b50dacff7b42ab0ceb16a23e51eebe4bbc7a63",
+      "actualSha256": "e51eeab84e67ec986391c404619c103ed801c587f094648f8c5646ab3cba7ffe",
+      "gitBlob": "d5cb7002125c2f0cd7075fc5bed8af0cb3ba9a17",
+      "bytes": 700,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/034-diffractionencircledenergy/data.json",
+      "expectedSha256": "dd223be06b6db1b6eb652a1e833e863d9f56bbe13c6e20a5ff0ca0492ab2e66b",
+      "actualSha256": "b6b2928cd6cbc41bb078f38598065be4ba6977e0c4d29c2a040ce62c640af48e",
+      "gitBlob": "19e74c8a003c72064add0f0fd7334330ed6b2b9b",
+      "bytes": 186127,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/034-diffractionencircledenergy/status.json",
+      "expectedSha256": "8b7af4e3643f17bb8cce8cfca5e554339cc802df7de7f05e04d43e8e24c2fc21",
+      "actualSha256": "cae33b515034dbe3a2ea2d389a1eb412fff82e0ff9eaa4c8de11fced22b48d56",
+      "gitBlob": "37e3b92dba80b6451a3a1c2a7c48708b332051c8",
+      "bytes": 754,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/035-geometricencircledenergy/data.json",
+      "expectedSha256": "9441c234837de8e16310d3f940fcf64361480441bb37592e6ef394d0b357449e",
+      "actualSha256": "3bc660ba669d15fd13b4edc86b27ab529f23db914df419d306c0739e74c9ca43",
+      "gitBlob": "efe639ea42644cd1e48c8cc2b88156c3b15ca083",
+      "bytes": 154935,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/035-geometricencircledenergy/status.json",
+      "expectedSha256": "80c1cda01442bc1e32bb7ed388c6c29b238116bbda19fd7d46f60c0a4c9846a0",
+      "actualSha256": "2ad965cff60fd954cff19d4acd9f1069ed58986fdf76b8734995e41bc2ec371f",
+      "gitBlob": "b79a133e92a4a0ad383f5b2363a7ecd6fc357f50",
+      "bytes": 748,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/036-geometriclineedgespread/data.json",
+      "expectedSha256": "efda0d67198e4067d498a60d5fb415f2bca6e969f3848cf381cb870719429735",
+      "actualSha256": "190dc0647864ba9b0fc45fbfc040c1bff8c9df7f2719c6f93085da29f78f23f0",
+      "gitBlob": "8bbab5088fdd343684bdfdfdb306a0ac78a5073d",
+      "bytes": 14561,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/036-geometriclineedgespread/status.json",
+      "expectedSha256": "77ba20e31b823ff3089c6b6da506c602eaf693121e3c7ba20845e36c4444b40c",
+      "actualSha256": "d14c6a5decf973bc6c5e32a75cb8e949d1455ca41a4612790636eff041de1467",
+      "gitBlob": "3f3745e4ddfb12b77cc8a29aabd5aeb3060b5cdd",
+      "bytes": 743,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/037-extendedsourceencircledenergy/data.json",
+      "expectedSha256": "0bfdc2d92ffe74960b70e4867a5056e5c6c250590a36a57f57e137fd3c77e87f",
+      "actualSha256": "c480918539c9c7ce6920d226a76afb7129d614e68885274447d37affe7292251",
+      "gitBlob": "e227db16782cab6187feeccb5a234b69b6fbbb3d",
+      "bytes": 28015,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/037-extendedsourceencircledenergy/status.json",
+      "expectedSha256": "54b412eca2e38421466996f8250265ba160616150acf3dc4df3ccf704e1fffa5",
+      "actualSha256": "5e81cdcbce2b6a284515f03c5f7584a9e072010fb8627ad5b3c6749622345683",
+      "gitBlob": "77141d966f222f696a8d6c5770caf47068b252e9",
+      "bytes": 769,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/038-surfacecurvaturecross/data.json",
+      "expectedSha256": "9e5b8ffd4466a07f3b6d5f24f8752d88c7f95383c0221b4aaab715ffe38e67ea",
+      "actualSha256": "421bbec22c1babdc77a495369a7a925edc8b4f377323aaa14cde4d2367bc726f",
+      "gitBlob": "c23cddbe2926b521bd2983c8fe1771de68cdbd3f",
+      "bytes": 6912,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/038-surfacecurvaturecross/status.json",
+      "expectedSha256": "f8cf626217c3433261b4614efd40c363249cc331d92d9c0ff55b328e47a3a017",
+      "actualSha256": "55abbbcb77da2add83d4f6bc7cfe6db6e70031559f52ff467f741786510d4145",
+      "gitBlob": "123335f8045cbcea1c8b0591ee929cd504d0f572",
+      "bytes": 739,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/039-surfacephasecross/data.json",
+      "expectedSha256": "cbd60ac22150343ec95262412df44c085315a4e6ca032fb799ca49929802a2a3",
+      "actualSha256": "29136b9f1033b59e8f9f72d5e083c17806f8a142da04c556266d716ca758d961",
+      "gitBlob": "c853d12ecf1bcb02504da78367c8a6f4560edec4",
+      "bytes": 5822,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/039-surfacephasecross/status.json",
+      "expectedSha256": "16760c2e7d57422d953a90544531d96721a5492bd8a5686efed5f5b8ae77da1b",
+      "actualSha256": "c3d80d738b16e99017f3908a776d039a5d155da71e5fc15e26f0b96fccbdacb9",
+      "gitBlob": "f19eae5fa1e07c413bec2d99da06ba43637acbd3",
+      "bytes": 727,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/040-surfacesagcross/data.json",
+      "expectedSha256": "380ac18a537a6e639a5e340f4709ac1266f21641a1af27b169c79350b77dd8d9",
+      "actualSha256": "e3369a16a14e54117466580b5bb27a196b6a081a9e5809da71c45ad6e73c9f27",
+      "gitBlob": "846e75d62e876ff4756a4a22e5d46a375ccfa725",
+      "bytes": 6828,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/040-surfacesagcross/status.json",
+      "expectedSha256": "d17afb08036216e0b0602413400c7c98f665f132b44292d9f216e64f336107d7",
+      "actualSha256": "2e6738bac984259d25edc5a4b9a1c811752d8d87a20b133ab677d07ffe1b7012",
+      "gitBlob": "9961ad680421feda91211f5499b84ee2015215fb",
+      "bytes": 721,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/041-surfacecurvature/data.json",
+      "expectedSha256": "eef797cda7f266ec2fe56df447bdec33d0a5f16a013268168e46c9bb9bf8f396",
+      "actualSha256": "c94537ecfd3bd9b0ff6ddc1c9f990dfe88e7a24f9d6c3728b65d43998487cd64",
+      "gitBlob": "8cc97c24d5a1a00609e13dcb599ccea78f109637",
+      "bytes": 120994,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/041-surfacecurvature/status.json",
+      "expectedSha256": "f7279e2affb781e4e04e21aed91ff2ed1b72e35449d52e0834c449a6c17864ad",
+      "actualSha256": "8da95f7c00cd59f369881bd01d23d54aaf3b5020fbcae4cae1b826eed395d64c",
+      "gitBlob": "73c7199ec7015afdc26f709ffca06085fd13c485",
+      "bytes": 718,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/042-surfacephase/data.json",
+      "expectedSha256": "458d559b1bd0504b97b5fba53b57f9e0696c6c7f10cce6fe89bea75759af120d",
+      "actualSha256": "a9f4d1d1bfbea9556af3ebcfbc9667a00f24bff481b819c5700e44731db79b13",
+      "gitBlob": "d349e8c156e9be7e57e303c8668b8f8b9caa2353",
+      "bytes": 67799,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/042-surfacephase/status.json",
+      "expectedSha256": "d87e5e318fab74e1ad0a0dca9b887ff4612d218b009c7e38b54fa2435b5d62f7",
+      "actualSha256": "fca58cc0dba3f8d0a4186fbddbf3ab4b9d4adc34439ffa80f0a240bf27e4f5d0",
+      "gitBlob": "b472770a26be654b8ab6a110647ab128cc719162",
+      "bytes": 706,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/043-surfacesag/data.json",
+      "expectedSha256": "1fdf677b42e2b71cc2ceab80f5299f8faec5c156ab4c217f4d27c5c995426792",
+      "actualSha256": "973609cd0ae773f1681a5aea35a1f96371f3469673df7559474e5b3e17cfe877",
+      "gitBlob": "5a5043f2fb64d11a9e31f088578a659b5b5d793c",
+      "bytes": 117064,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/043-surfacesag/status.json",
+      "expectedSha256": "13fe0254960bace0fbb74786b236bb5cc0a46ba41b1d21b3ee058611400d628b",
+      "actualSha256": "4a5cd6f164231b0a1a695e309ffd35b3add85b0d50d4423d5b5d557376261d10",
+      "gitBlob": "402b9772a8562767079f0ca3f3cac9bba21e28aa",
+      "bytes": 700,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/044-standardspot/data.json",
+      "expectedSha256": "1c706c528d183217757988c10c51444ce94a0a2f7bba2b2a4aaf3364900e2e3b",
+      "actualSha256": "d349ff6965e823754ca0a16fcf130c90885c702da53e15d92a456d88144fee27",
+      "gitBlob": "e03bd63e06e86c78d61f6ed5895b69174c6efb80",
+      "bytes": 4497,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/044-standardspot/status.json",
+      "expectedSha256": "5d4c4f2411c4e25a16b504b56ec5cd100380b5a2a26be7b749b5018061b18a32",
+      "actualSha256": "e9792ec69f30d6ab68f3f21afb820b83a35eb3253cad1d1b6770f7ac5d028f65",
+      "gitBlob": "9b48545f0362d0803dbfd47184cf9fa93606f795",
+      "bytes": 703,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/045-throughfocusspot/data.json",
+      "expectedSha256": "342cb8356fa687d54308f333c41ba6d2ce90d401b78bd79d7bd33b191d46a72a",
+      "actualSha256": "8143ef0c21d5ed09f4c5de2bd5ea3b0687932cb879123253b3bc97c3a643ec53",
+      "gitBlob": "11657ae0bd62a14ba86e6eb19e42afaaaaab91cc",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/045-throughfocusspot/status.json",
+      "expectedSha256": "4efca481e22563587665f794abbc1a286fa1c5dd0c9526e56a09e264b48bcb7e",
+      "actualSha256": "12cb7168a2602b8c9c270362b0127f5cfcacfd0ad7ed1006444af3b904a25834",
+      "gitBlob": "da3457fb545cd8148aa8ca173ceff20e23a97015",
+      "bytes": 696,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/046-fullfieldspot/data.json",
+      "expectedSha256": "7b764698d9549ce39572ea27b11ca31d2aeca710aa02c999aab72325f2a9851d",
+      "actualSha256": "9994055bfebd0bf703ed536c7f3d74b3aa7daf2259a8b8184b27c028f70a0bc0",
+      "gitBlob": "f1245c439d73fef8877681e064d432e550db2152",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/046-fullfieldspot/status.json",
+      "expectedSha256": "8d9a35a7396fff9d0b98855ec67cc365d5aa9d3b8e75a5bb1d0db68b69b4bd9a",
+      "actualSha256": "64ad2709716d48463cf20cdf9f99b36b387d57f1c813e06b904c404bc1ef81d5",
+      "gitBlob": "59f2cf215a5726c61431db8a8499cb28e0b13ec0",
+      "bytes": 690,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/047-matrixspot/data.json",
+      "expectedSha256": "7b764698d9549ce39572ea27b11ca31d2aeca710aa02c999aab72325f2a9851d",
+      "actualSha256": "9994055bfebd0bf703ed536c7f3d74b3aa7daf2259a8b8184b27c028f70a0bc0",
+      "gitBlob": "f1245c439d73fef8877681e064d432e550db2152",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/047-matrixspot/status.json",
+      "expectedSha256": "fb8bbd3adb553e30ad6e8754cc82c60447933899536074d4a48fb16a322c92ce",
+      "actualSha256": "a6ff1f89c241c5ba5769af0c1549dba2bdd8f7073a9add654ce024b73f8e28fa",
+      "gitBlob": "9ab1574a0be7c7e3aace4a7852c038ef01cd0bd1",
+      "bytes": 678,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/048-configurationmatrixspot/data.json",
+      "expectedSha256": "7b764698d9549ce39572ea27b11ca31d2aeca710aa02c999aab72325f2a9851d",
+      "actualSha256": "9994055bfebd0bf703ed536c7f3d74b3aa7daf2259a8b8184b27c028f70a0bc0",
+      "gitBlob": "f1245c439d73fef8877681e064d432e550db2152",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/048-configurationmatrixspot/status.json",
+      "expectedSha256": "5eb615da7c4a02b9eb875f5bf6d5fad43f3f55f71bec16b06bf0481067ff29d4",
+      "actualSha256": "2453431a1bf184817743a7f8ffab244aa58290e7bd99b22f5247e9c59e7217e2",
+      "gitBlob": "75e6b65d9cdd45d6f21e02dc48045eaad829804f",
+      "bytes": 723,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/049-rmsfield/data.json",
+      "expectedSha256": "99af34c3c68f9f42a5c9f296cbb2ee0e7b91688546fb79dd3ce33cb81d4d4a92",
+      "actualSha256": "7badd81b3adbd9bd694e4cabfce3d58e45c863866ed77d4337a33f3321290e87",
+      "gitBlob": "748c142e14efeac0882ec8b0f47b51beb8e9c3b2",
+      "bytes": 3403,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/049-rmsfield/status.json",
+      "expectedSha256": "2019a9f89eb346290ce93386220e77617850b29ed7e77f2042874337f85cc19b",
+      "actualSha256": "c9e496dee155de35e37d3c5343a89e156cdc7e19c188a44a54c09bddf946bc6a",
+      "gitBlob": "e721b16a1cc0cc98b17258957e80a0043d19ce32",
+      "bytes": 696,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/050-rmsfieldmap/data.json",
+      "expectedSha256": "cf7feb21b069e0c70822593fdd58f553c322e1cdddce50f8c6931f717474a10d",
+      "actualSha256": "5085c08134649782fdbb22bdfc962a98f5358c2d842251d543acd49a567d8401",
+      "gitBlob": "769971c5f1609308d100122170980951238bb673",
+      "bytes": 13992,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/050-rmsfieldmap/status.json",
+      "expectedSha256": "de78b0404f01ffc92913bcd3e81395aa959c9146d2ee5a6658fba773df7fa801",
+      "actualSha256": "d8fe0e8e15fd8a9624998d05dd2467f47be0a1fbe39ac83b455e6f31eaef6611",
+      "gitBlob": "0cef9ac88b107205df0025db825e12b02b131053",
+      "bytes": 709,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/051-rmslambdadiagram/data.json",
+      "expectedSha256": "d2dc9f36729b70989bc07ec2fee80defbd3f95bcee98e11c7f8a4dd8e28c354d",
+      "actualSha256": "f5f683f034fee02e6290daa9d0885a64ba42d56625ceaf0864b41acddf45ab49",
+      "gitBlob": "4a71970579950402366a8acf298228f86d3e4fe1",
+      "bytes": 4061,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/051-rmslambdadiagram/status.json",
+      "expectedSha256": "06f689a17cc9b895347fbe9138fb656639952a623f8e63a58ae04a4ae7344e27",
+      "actualSha256": "f1bfc76d8f8760ca5e669e01ff81ed24536b1abd80ca0c808d40a640b6ad38a5",
+      "gitBlob": "7bcfadd595fd04f718ca1dcbed99e79da65cc172",
+      "bytes": 720,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/052-rmsfocus/data.json",
+      "expectedSha256": "32788b1389ccc327de2dc2ed74bc4bbb7d26f7ea582affb2683f088f3bb4efb4",
+      "actualSha256": "a90eabe523007f995e10c685622025b34d47c87b25d627e56ddda16020765240",
+      "gitBlob": "ea22da88fb1f2657b4cf53afe636a0b0d5afd199",
+      "bytes": 4087,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/052-rmsfocus/status.json",
+      "expectedSha256": "894adaa114ec4af03feff3ecf4ac2276ac9bf682ebc12402dc294c98e20659f9",
+      "actualSha256": "2214a338687d7120425cc30479bb0516d333653cca72500b6fdd0c88dadd0a82",
+      "gitBlob": "b70da479b60c7bb657ae11079c22ee0c8cdb1414",
+      "bytes": 696,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/053-foucault/data.json",
+      "expectedSha256": "bad29c2889aea3ec5f85723f0f0bce65cf8d7b11cfa1477438bfa7b2746fa896",
+      "actualSha256": "ae58c14d7240480ca8d2f575f00f99600c65225919a14c790fd6273683492e11",
+      "gitBlob": "5ad1d5ce81454f34fdbab7e8961bcd214ab1d37f",
+      "bytes": 33249,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/053-foucault/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/053-foucault/status.json",
+      "expectedSha256": "0af9d8e6dcccdac42d457db08385f1d29b9dcf03615be6a80db14857d1af4382",
+      "actualSha256": "e925848e68a2155f3a87e5742e0055bc8afa03446073c5ee4854d00bcd2920be",
+      "gitBlob": "e200bbb9d0aafeed1ee36555b274f4af91ca19d2",
+      "bytes": 736,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/054-interferogram/data.json",
+      "expectedSha256": "ff21c04667206783573bfd154b5cf1f355e17882ff3c06e49b925ae767d5c595",
+      "actualSha256": "adcb0b1a563d08632462d20e112dd48061bbb9b54cdc201cb3f5ede797cb51f4",
+      "gitBlob": "c86735c8e2454f0a5337efaf21f967400e353853",
+      "bytes": 108438,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/054-interferogram/status.json",
+      "expectedSha256": "56712210c45546dd3c3fc4a91bee6df965d0149c679b13eb1103eede6f8a62ad",
+      "actualSha256": "c10618c0741712a03a241268be1cbd62d19ecec1c1ae025d56842708fd617d9b",
+      "gitBlob": "1cff5011bdb9c27c53e598cdbeaa73e4f53ac2c9",
+      "bytes": 706,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/055-wavefrontmap/data.json",
+      "expectedSha256": "57d6c3ca0d9c95e007987713f489d159ed8565311f0f508d2b4556f9c87873ab",
+      "actualSha256": "e9cfe98cfb64ec684976ee786fd33b8844d24995be084941bedbe7537c911e62",
+      "gitBlob": "092844334cca177dc67b70323c4f478f0e59d6ca",
+      "bytes": 115435,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/055-wavefrontmap/status.json",
+      "expectedSha256": "647e61bf7f053f95e25c08b5725c61af2a8a6347b8d53bfa506fe6f4c2cbe6e7",
+      "actualSha256": "25483d3a92f82d5effebf6e13dd8a5fa4271ab3442abaf1217875d57f82f6037",
+      "gitBlob": "b7b041f9005174ab2cf0c7aebfff6d7d6048cecf",
+      "bytes": 703,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/056-detectorviewer/error.txt",
+      "expectedSha256": "c2903c5aca82c015995110a125fdc91285ecf4eb1519d1acd7c16a791e330fe5",
+      "actualSha256": "96dca6b67b777ccf86b4ba1a8209afaf50496ec0248d88289b4cfadf59c27d26",
+      "gitBlob": "48dcabf89b8f75bd72fcba924d7ddcc22f59b3ab",
+      "bytes": 237,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/056-detectorviewer/status.json",
+      "expectedSha256": "6c53c2c3572d6fae1d0510843463b04180e3984c40ffb4d648e4ef873eebf2ad",
+      "actualSha256": "77bfaa1c1a1330db3ffd038690511328015a967ed5ff71f03bbbae3d70f60d77",
+      "gitBlob": "b56ac194edace21733c7490e284717e394147cd7",
+      "bytes": 337,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/057-draw2d/data.json",
+      "expectedSha256": "3cbd9933afa365ff06aea41f7b40dc4bf5bfb45339f368c2dd34aa745aa3a8d3",
+      "actualSha256": "e6428534ce9b6faa5b1fede0f6438f96139a3a3b90bc4db9c9c3f121e4213daa",
+      "gitBlob": "180ff2d2a58c3f1bc39d6011d729b2a9eb295e0e",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/057-draw2d/status.json",
+      "expectedSha256": "d007900581b70ee0c5c42a35f2545200dde718f727b55556a85723d4238437fe",
+      "actualSha256": "496713003b628cc0451656d634f614c518aab8752cf0a5f261a2687b15e710cc",
+      "gitBlob": "a8ed62f35cfb659de543811b930f760263917adb",
+      "bytes": 680,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/058-draw3d/data.json",
+      "expectedSha256": "3cbd9933afa365ff06aea41f7b40dc4bf5bfb45339f368c2dd34aa745aa3a8d3",
+      "actualSha256": "e6428534ce9b6faa5b1fede0f6438f96139a3a3b90bc4db9c9c3f121e4213daa",
+      "gitBlob": "180ff2d2a58c3f1bc39d6011d729b2a9eb295e0e",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/058-draw3d/status.json",
+      "expectedSha256": "fd7c03c5b2d4c81b029c2f2835169aaf040123544e0eee3445e07a5ef5e9d02e",
+      "actualSha256": "280aa2d2ebfb52663da93354ba5167d129ce385d2cf10ff704aa1327b95c11af",
+      "gitBlob": "f181c007b79a876b9cc1af107ca7d18f245922e1",
+      "bytes": 667,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/059-imagesimulation/data.json",
+      "expectedSha256": "0bea756bd109760fa9ea58e909e930bef3cd9d5c555ec6b799e6551f10192325",
+      "actualSha256": "e0323e35963ea4b5805fef299e5e4bade815bee1df92bae460002607fd4fbb4e",
+      "gitBlob": "5d7022492c07da1a157b0b19dac38b15c984618f",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/059-imagesimulation/status.json",
+      "expectedSha256": "357ac8e133df07189efc42526f6481797a15f7f7877db5554fbbb67cf6975840",
+      "actualSha256": "fe893f6f2221ed0861e53bf6ed624aeddd985af0421015f7f8938122fcfe9fe3",
+      "gitBlob": "0dfbbf5361adce5b8fb8f094a5622e30b354ea71",
+      "bytes": 710,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/060-geometricimageanalysis/data.json",
+      "expectedSha256": "99bbbaa780d07f407869239c8bc07f546d352cd753e9d2e2bce5d57580297043",
+      "actualSha256": "a29bc36c2743b262f54c6a7181c12e7f508dac1dc84f9d769e747c0238efcff4",
+      "gitBlob": "4bdd69f51bfede9ae037145c9d68ebc5bde580a6",
+      "bytes": 663520,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/060-geometricimageanalysis/status.json",
+      "expectedSha256": "46fc3944ae174df63156388df51886ae29686746a55a67bb9ef10ef6c49c9b9e",
+      "actualSha256": "a1b9b57e2efe0a505c95a1080ad54e5371cdf51575bbc15424cf4ca85e867436",
+      "gitBlob": "21872a4b111388a18addddd859f57310b05100b1",
+      "bytes": 761,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/061-imabimfileviewer/data.json",
+      "expectedSha256": "c0526c4e858bf320a632f1c0f26dfbd71b702ec9709f72c45e3ac8280daa824b",
+      "actualSha256": "599a7d42feab27ceae670bfc613f442990e546e6252e27f1bb55a4e659148464",
+      "gitBlob": "ed21ccd48e6e01565a99bb674e714de3ffb2f896",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/061-imabimfileviewer/status.json",
+      "expectedSha256": "fb5da736e7da6c4c8971c1a8a73ab09f1803dc96450026a18f57811051d5430f",
+      "actualSha256": "e5371d95aaa52d15130548058d50f5e8f3cd8e55c5af25afb74cab6cc268f135",
+      "gitBlob": "251ccfe9dcba179dca5ee2267701744f94227bf2",
+      "bytes": 748,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/062-geometricbitmapimageanalysis/data.json",
+      "expectedSha256": "3d8752e2856ef2458484e0512f278e6f03d0d2ca79b9fd766adde0b2bf1b98d9",
+      "actualSha256": "233a41bddf49aa9e96cb9266ca2e60893fc828716bc3a78905ebfb04a4bc3dda",
+      "gitBlob": "8709b45e8230aff1612ca91e459e7fc4e88a950d",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/062-geometricbitmapimageanalysis/status.json",
+      "expectedSha256": "42f514089154657d7d1bcb037d83ee9bef4aa9bc152be31ef80876d55960b771",
+      "actualSha256": "d287716d1a670d99aea662bd39f45966d6839f51e2d19ef48c3faeaddffbaa79",
+      "gitBlob": "cfcce7ab5456352206e9f24da23744d2d8c0a8b1",
+      "bytes": 786,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/063-bitmapfileviewer/data.json",
+      "expectedSha256": "3d8752e2856ef2458484e0512f278e6f03d0d2ca79b9fd766adde0b2bf1b98d9",
+      "actualSha256": "233a41bddf49aa9e96cb9266ca2e60893fc828716bc3a78905ebfb04a4bc3dda",
+      "gitBlob": "8709b45e8230aff1612ca91e459e7fc4e88a950d",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/063-bitmapfileviewer/status.json",
+      "expectedSha256": "fa71297877c918bd83662b8cc835110f7b082498a180030cf4ffe03ba26ec488",
+      "actualSha256": "0186ebc1bb227e1ca7043064708014741239943f410753d95871d14c79544c40",
+      "gitBlob": "a02f6918c348c294d914d3fb6854ab10bef24617",
+      "bytes": 722,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/064-lightsourceanalysis/data.json",
+      "expectedSha256": "7da99fa43ad9591c3e532b8229f634045818b1e2efdcb015470fb06463575c08",
+      "actualSha256": "d0ff6830b4a4bc34dca194ae8b9ac322e701f57e01faffac15a979ae190e5eed",
+      "gitBlob": "68355bffb55159205c3d77a1e04a954e72d3f69f",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/064-lightsourceanalysis/status.json",
+      "expectedSha256": "a9349fefda94f6d6af0247149e03371388a908630da6cac40ff288ae74cd15fc",
+      "actualSha256": "7bbbce00f38986fdbb91910c18c2ad43dea833fa071f92deb1867c37978fca28",
+      "gitBlob": "c978f175ce23d1de69f49feacb1974a315ff91c4",
+      "bytes": 747,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/065-partiallycoherentimageanalysis/data.json",
+      "expectedSha256": "56f4dfb93774dd8a4ff118899d176954bcdda619a7f1758173998200992c252f",
+      "actualSha256": "4ef0ea24f9c7285575e02113a835f286af7ebfbe766e4e67bfab5e5a9ef62b4e",
+      "gitBlob": "5c846dd91dbcdc9ddb39534225a75988ad619772",
+      "bytes": 6790,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/065-partiallycoherentimageanalysis/status.json",
+      "expectedSha256": "d498cc7fd45e693e92f6462b6389fe06c57cf3f37f3ee54d7aaf88fc5e267612",
+      "actualSha256": "0a6effefb761cd5a821d96951eb02f27b2903496a36e3987da9ed4c15d457300",
+      "gitBlob": "42c68486b959e1308feb7b1b65ecba71838d93be",
+      "bytes": 773,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/066-extendeddiffractionimageanalysis/data.json",
+      "expectedSha256": "7e0d96fff47b4c2ca5b706eb6a823f901167c4caf4ff38de6e3599e847d9391f",
+      "actualSha256": "58b64e44a453b31092a6a590a77697db18e79db8b4ee6a3a1be6c3ff0ff70c98",
+      "gitBlob": "6bb79149d22c82fcaaf2fab12e6d234a49e62b6b",
+      "bytes": 2124708,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/066-extendeddiffractionimageanalysis/status.json",
+      "expectedSha256": "d1814322492b15248aa4e51fddb20644651a03cf0332eff6ac5862821ebc6416",
+      "actualSha256": "afe1854e02471778699abd908d9323c66c118e7bb870723336269271827b1e89",
+      "gitBlob": "008bdb26e3d7451e1e7892443085f01efb220238",
+      "bytes": 792,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/067-biocularfieldofviewanalysis/data.json",
+      "expectedSha256": "3ed1042eccf256f865450b08762c39ffc3230bd9350b4f793d3fd2217bb5e747",
+      "actualSha256": "209ce38150df3b9cd0540b32b20f001f6cbf7f98a43960a4c0ac6cda111b2217",
+      "gitBlob": "12596798b07e3accd0124a54f869ad81c909361e",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/067-biocularfieldofviewanalysis/status.json",
+      "expectedSha256": "b9aa10ccb39fbf5ee340a84d790a8a45d3ce1f586b94c26a138083475cdc7ec8",
+      "actualSha256": "bf9cb607ab09596f1ba61026a3393432476813a6aa54e819077bbd64b91b23b8",
+      "gitBlob": "6c35634fca91531324297cf1410645bc46eebe61",
+      "bytes": 755,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/068-bioculardipvergenceconvergence/data.json",
+      "expectedSha256": "3ed1042eccf256f865450b08762c39ffc3230bd9350b4f793d3fd2217bb5e747",
+      "actualSha256": "209ce38150df3b9cd0540b32b20f001f6cbf7f98a43960a4c0ac6cda111b2217",
+      "gitBlob": "12596798b07e3accd0124a54f869ad81c909361e",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/068-bioculardipvergenceconvergence/status.json",
+      "expectedSha256": "e51679a81a20ee1e4a23f6c22a98dd2b8da536857b954c10cd81d377d6bd57e5",
+      "actualSha256": "864d433f09e3e15b0ef29cab1d558504582d5f653d6a057d8d18ad14461e427b",
+      "gitBlob": "4ef4c173de6ac01d0a2ea1783a0e507c2b990284",
+      "bytes": 783,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/data.json",
+      "expectedSha256": "1c799f5880b8c9f2d1037f5204903e12f1b2703944c8ad5ffe3578928463e563",
+      "actualSha256": "21a2b9517dcb9c4e479e2b8e221a8ba334c3a35a46b654d39575b7d0338f534b",
+      "gitBlob": "b45daa744126d285618d7ab6a229c65c8a2d0c48",
+      "bytes": 2821,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/069-relativeillumination/status.json",
+      "expectedSha256": "4817bde7c6aa8d1360f42dab476028c08874ef51b0a78a0d2d1e32bea1680f7f",
+      "actualSha256": "ab7d009fdafd063cfe29000d3da526db73b8e571be343ec29591bb6f21272a86",
+      "gitBlob": "e5261aea8c7e9a4d4c4371827d3aa7d8b2eb206e",
+      "bytes": 731,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/070-vignettingdiagramsettings/data.json",
+      "expectedSha256": "ce7e5478e6020f0c31ce711fef886a440de3034a19c5bb46ca9f7e70f084e9ee",
+      "actualSha256": "fa3894d94b5e8bb00212edcbb6a2870ad11d4215eca0de9834e524a314b5f8a4",
+      "gitBlob": "d4d78357a8ab23f8fe54aacab85015afccc9f839",
+      "bytes": 605,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/070-vignettingdiagramsettings/status.json",
+      "expectedSha256": "99d57492aac8ba58f4178a90086c5f8b0ef7c0864234069db98d01186756be01",
+      "actualSha256": "9d79fd3283d30046bf6b71cc95a2bad8ae8232fdbdeac10b3ed6616ff66f38df",
+      "gitBlob": "767b2616027a0fe4bd9b3120c6f998fe7e3e547e",
+      "bytes": 743,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/071-footprintsettings/data.json",
+      "expectedSha256": "994fabbe5027381f06ad2a41811f2240b6337ff93853e0f4ba72e00f1035049d",
+      "actualSha256": "139132d1febc06cf4890eff3a79a4f69bc6d8f1c0e63b41bc6e1b979d7af6b18",
+      "gitBlob": "536b960ba9e722c5689652c1b1a933568e84b2eb",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/071-footprintsettings/status.json",
+      "expectedSha256": "5b1bd52ebd47febf857faea7f24ff796838250d75b842b971a5498257c295d0e",
+      "actualSha256": "d6e2802a2cd4a0e68d5279ca40bfc11d2f16222e85be34d5198369dac06a7339",
+      "gitBlob": "b96ba73821df8c27ecdea13bedacd877d44f1d97",
+      "bytes": 719,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/072-yybardiagram/data.json",
+      "expectedSha256": "994fabbe5027381f06ad2a41811f2240b6337ff93853e0f4ba72e00f1035049d",
+      "actualSha256": "139132d1febc06cf4890eff3a79a4f69bc6d8f1c0e63b41bc6e1b979d7af6b18",
+      "gitBlob": "536b960ba9e722c5689652c1b1a933568e84b2eb",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/072-yybardiagram/status.json",
+      "expectedSha256": "e03f67cd9df656f96514681565d1976d6d862ee83890fd4afd275ee4a8c31550",
+      "actualSha256": "9fd639ba04804fbae7516507bf420f8a4b7da1165bb1c031572af36f73e37f99",
+      "gitBlob": "9eee25d44d529e1d44339425035d216ae0cca4e7",
+      "bytes": 723,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/073-powerfieldmapsettings/data.json",
+      "expectedSha256": "fa8e3ee5d4b99b25e6184e59527a808fe6edd217c9bbe7905ae91dd6aa63b18c",
+      "actualSha256": "420dcff22b749a252303b9e25170e088910cc44f018d392660e2e4882e951d84",
+      "gitBlob": "9e7863ffae576e46cf44394c49ddf0a5235502a7",
+      "bytes": 124094,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/073-powerfieldmapsettings/status.json",
+      "expectedSha256": "543e9f157a6cbb949068cd645df5f827e6827562a816e7b928ac64fae0e5098f",
+      "actualSha256": "3168618728ee3aceac1bfe45c8deb96595c2e816abc7cb5d653aade3d77da218",
+      "gitBlob": "8740c5cdd0a177ec1aefb807ddc0b9273432c3ac",
+      "bytes": 737,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/074-powerpupilmapsettings/data.json",
+      "expectedSha256": "06020046448018ca6f619061eaaff1181a766b19e170b77d2354e20946de97fb",
+      "actualSha256": "155842b1dace3eaf0aa50409a7c76441034300c335cab70de78b03a79c6c48da",
+      "gitBlob": "e6e386e3e7e0c31d32e5ce077bfd3efaa3fab551",
+      "bytes": 112097,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/074-powerpupilmapsettings/status.json",
+      "expectedSha256": "e609949c4b4253aae8dbabfc944b15cc756fa57c93e690400185a93b14556028",
+      "actualSha256": "fd70cadb688de438445ceea21545917792bf38039791284e98b32087713c32f5",
+      "gitBlob": "f86792c3f93b465abbdb5bb09f8b6288e0ddcead",
+      "bytes": 737,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/075-incidentanglevsimageheight/data.json",
+      "expectedSha256": "afe22891d06f736146e0b26a1c9486a15c6708481bf76284e0037f89ab14e4c1",
+      "actualSha256": "1667c945300d455fa6fccc1a1adedcb952bee2936917797941b9dfe06617a028",
+      "gitBlob": "a6d00f2834bd1b98273fb3203617706139b755bc",
+      "bytes": 662,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/075-incidentanglevsimageheight/status.json",
+      "expectedSha256": "ae201fc3ca3b5f588b0b3b8c9d0e16a94c9684cd43f1b31dd2615a4bf202d2f5",
+      "actualSha256": "20362dcc20bb9c0e8f59dbdac7581f083e518b78bcfcdc89f0988ab1b3cc2f63",
+      "gitBlob": "87742ac2d035b4b64ccd7b1b4fdbf635b2f5d95f",
+      "bytes": 757,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/076-fibercouplingsettings/data.json",
+      "expectedSha256": "9ec740b0aad79d0d460dbc82b5f85d6b412dd2f6146f049378f7e8f0cfd45149",
+      "actualSha256": "ad2739c8bc9e408493941600284e03bbb79e592154cd8b1e549989f60ebb415a",
+      "gitBlob": "6822c619b5cde0c7cc20369b5674eb04b38a6e86",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/076-fibercouplingsettings/status.json",
+      "expectedSha256": "dacb890a75b4df40380d1f8d33e791037f5de43e5b719e25c1aa212b7f43d203",
+      "actualSha256": "963db17b8c7d7c55d2db8187bc6541a4021e794e457f464ce4d4430513688dbd",
+      "gitBlob": "ca57b61b5a28353c39f21ab21e90feb19ae79f3e",
+      "bytes": 732,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/077-ynicontributions/data.json",
+      "expectedSha256": "347f574da4fcd0b14e9879964ace49bebdfa04243c298de8dcaf3bb0e19358c3",
+      "actualSha256": "273504ea8c481b3771aba09d196e57b801faaefb8d61cccd0c6fbd4a5cd479be",
+      "gitBlob": "85cc4177ad82cf1dc260873a387ddff5d6760234",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/077-ynicontributions/status.json",
+      "expectedSha256": "a2d233c20e25bab1bfcc86b49cfd20423b33b5d6b4ecdb3ccc869b9bd482c0b6",
+      "actualSha256": "da9f6dbd1ec66cc227a6784326bd77a1b66385b71147a325868e2a38b84c75f6",
+      "gitBlob": "88cd1fd98493f7036cd00345060ad5232990d0ee",
+      "bytes": 714,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/078-sagtable/data.json",
+      "expectedSha256": "347f574da4fcd0b14e9879964ace49bebdfa04243c298de8dcaf3bb0e19358c3",
+      "actualSha256": "273504ea8c481b3771aba09d196e57b801faaefb8d61cccd0c6fbd4a5cd479be",
+      "gitBlob": "85cc4177ad82cf1dc260873a387ddff5d6760234",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/078-sagtable/status.json",
+      "expectedSha256": "22aae248d010a706475921c952bae9446e0fa0bd497a7d9a0db3dd6ba0022823",
+      "actualSha256": "91d32a5b0a49bae1faab1238dcfe68597e128b2b22ad0b972188590f837769d1",
+      "gitBlob": "a0142dfcfdcfdc2a6f85beb959a7bcab3b6df275",
+      "bytes": 690,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/079-cardinalpoints/data.json",
+      "expectedSha256": "347f574da4fcd0b14e9879964ace49bebdfa04243c298de8dcaf3bb0e19358c3",
+      "actualSha256": "273504ea8c481b3771aba09d196e57b801faaefb8d61cccd0c6fbd4a5cd479be",
+      "gitBlob": "85cc4177ad82cf1dc260873a387ddff5d6760234",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/079-cardinalpoints/status.json",
+      "expectedSha256": "8b7c5ad3993f45bec53999bcf55c790fe7bd8db50bdfd72a635559bbc296874a",
+      "actualSha256": "648d4593b609fb59d991b5aaebaa57a12fd77fb8cf0de1f5030d71038f21289c",
+      "gitBlob": "a91361cde848866dbac73c42a92401106d65cd1d",
+      "bytes": 711,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/080-dispersiondiagram/data.json",
+      "expectedSha256": "c8fbef48e011c62ed1c4a653a0167fa8485e64e5e255b6e4bfdee9eac66f0e3d",
+      "actualSha256": "6991aebd4beea75438f2e3c0116ea178d3ac64c4ec87a2a72ecd0be7545210ee",
+      "gitBlob": "296f71314fb3805a641d1f7507f972f1ab66e18c",
+      "bytes": 611,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/080-dispersiondiagram/status.json",
+      "expectedSha256": "da5e99a19baff9cac56db595c2cd96a267c7a60d03ef8c00bda2a4c892512c33",
+      "actualSha256": "4f5e25435b2d0e2309f7d6dce9c82467bc3df7c95fd47fa4085f99280a52eb54",
+      "gitBlob": "c85da20c0e296fb7a5d62ce95c664c7224189daf",
+      "bytes": 719,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/081-glassmap/data.json",
+      "expectedSha256": "347f574da4fcd0b14e9879964ace49bebdfa04243c298de8dcaf3bb0e19358c3",
+      "actualSha256": "273504ea8c481b3771aba09d196e57b801faaefb8d61cccd0c6fbd4a5cd479be",
+      "gitBlob": "85cc4177ad82cf1dc260873a387ddff5d6760234",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/081-glassmap/status.json",
+      "expectedSha256": "2f949a17a46c73ccb9cd2442b2bf2eb170c65fcf4de07178e47f4a3b6cacbd91",
+      "actualSha256": "4f652ec695c1e9e71441d286d3602234c118de103c9023bdfd7ac98fa3b0ec2e",
+      "gitBlob": "ae96d96c87bbeb8bdbf0bac06d2323eb5ad18d76",
+      "bytes": 711,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/082-athermalglassmap/data.json",
+      "expectedSha256": "347f574da4fcd0b14e9879964ace49bebdfa04243c298de8dcaf3bb0e19358c3",
+      "actualSha256": "273504ea8c481b3771aba09d196e57b801faaefb8d61cccd0c6fbd4a5cd479be",
+      "gitBlob": "85cc4177ad82cf1dc260873a387ddff5d6760234",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/082-athermalglassmap/status.json",
+      "expectedSha256": "a41475aa0abe4b4ca5f24ce3b23c1b7815eb9497ae1532ed42d469b82773fc24",
+      "actualSha256": "67f770d430c08278e847e42259db7c66f3dea981784907b796add0f10ca8bca1",
+      "gitBlob": "4982d513145a51d82ce9a8b7c321e64363c0f196",
+      "bytes": 744,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/083-internaltransmissionvswavelength/data.json",
+      "expectedSha256": "fdbc457f800f9337036c926a8d53c4876be495c07aa85cf2154095ca564a784d",
+      "actualSha256": "b8d4e7c1f36713304e578160c3f24d2572f3a49613b4246b1917b3e1ca973f91",
+      "gitBlob": "ec61af5127308b9e800a71ab3c34957a4d8153c8",
+      "bytes": 7964,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/083-internaltransmissionvswavelength/status.json",
+      "expectedSha256": "bb873fb37a661e83ac45cc8b9893be24588284d8b36d8ed20e6f7d522e4655ac",
+      "actualSha256": "673e7bb6878fa44b370d08fd138b1dbbbf7da24cabb2517b5748e21c5fb62228",
+      "gitBlob": "57a1cb40f04f472108ce138479eba925c723b554",
+      "bytes": 586,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/084-dispersionvswavelength/data.json",
+      "expectedSha256": "63043576abcee0fc693f4a7aff751fa6cedcf59af4c6c69355ad09bb2fad0142",
+      "actualSha256": "5d0b6580b2749771fea116e7aa9ffcd35fbdc3daf3ec6d92293bfb042d67252a",
+      "gitBlob": "26aa561911be49e68613c06037427de04981a05d",
+      "bytes": 628,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/084-dispersionvswavelength/status.json",
+      "expectedSha256": "3a21fa191b526862e92ab73f50753651cf204a1b2684e19a3344bc5e3a193ede",
+      "actualSha256": "c076c52e16d25494982a8bd37c9a23ebff4843f9b554bbe7f4e530908431abe3",
+      "gitBlob": "3480baefb377afb81f79e884237a5a04c986f3e7",
+      "bytes": 742,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/085-grinprofile/data.json",
+      "expectedSha256": "4e37a1d516da7ffce3206edc4986df44f7c8a6ed6d974c799d718227f001c6ed",
+      "actualSha256": "5435eb6c46f62d8d49f14634b72cb96c63d0eb068793317b7942e4bbd75a2a37",
+      "gitBlob": "f4e91ac26f9a21f902d0260068f8ff1909425e36",
+      "bytes": 5693,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/085-grinprofile/status.json",
+      "expectedSha256": "d4495ef1ba14f5ed085cfcf3a197b722ea95b57778c78736418d1d793d160980",
+      "actualSha256": "fb27c98a80dcc2054355404366b0861a5706633f41f5c128836bd36873911bdf",
+      "gitBlob": "5ee806a46593ab3579c0a1e382c2df1560aa542a",
+      "bytes": 701,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/086-gradiumprofile/data.json",
+      "expectedSha256": "77c054d3f1758e734ab2dcef9ef5ac2bfcfe8d57c0d8ee81a160d1565a84a3b4",
+      "actualSha256": "dc337dc89c973cdb940426a45d48ee4b7759e360f976aee6dd54d7f4816164fb",
+      "gitBlob": "5fc7473d4193ece16a434933f014ad53e6875388",
+      "bytes": 603,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/086-gradiumprofile/status.json",
+      "expectedSha256": "813baf39a3101779a2b6332e420b8dac35488a8dc778e51dc5db51d11c60c7c5",
+      "actualSha256": "50340bd9afdebc088fb2af26e507d9af683279dc7afc855bbabafb1ee3d82ea7",
+      "gitBlob": "2bcdb3c8a3ae8e7f0be99d6f62b5868f3849a531",
+      "bytes": 717,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/087-universalplot1d/data.json",
+      "expectedSha256": "59d44dc69f6e07b1da5345144cc674f4ad2f02c9dff3e881a00ad437deb7b4cc",
+      "actualSha256": "d26a386bb3770665affc1cc3e0f97a3d3fee0963dd5b7a049034f6f64455a0be",
+      "gitBlob": "e4958625aa53f5b65a225a30f289468e706b6cf2",
+      "bytes": 572,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/087-universalplot1d/status.json",
+      "expectedSha256": "bcef21c8f4a34305c9188cb44ddb50adf185deb8f643df1b2af67f675d6957e2",
+      "actualSha256": "ffccf6394b3a907beff0dc76f213311883d09c23b74b5d13ddf78259b9d81b86",
+      "gitBlob": "1a94959ca9e479b76a85b7ba5e94b7f3582b4e45",
+      "bytes": 722,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/088-universalplot2d/data.json",
+      "expectedSha256": "128d5cb58e28728394ec338f61658213aa153aaa9fbcb08d4d3773a27d0e1580",
+      "actualSha256": "d09392bd4b360fa75bbd52eec5e0c99f37587518833a7d3e6afc51ebec13c36d",
+      "gitBlob": "dcf489888752ac865bb82a9aa0d586741591daf6",
+      "bytes": 1965,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/088-universalplot2d/status.json",
+      "expectedSha256": "0eefd2f690711b5a7de755084b924fc6714c47923e1dd749d7666d5ddae8d00e",
+      "actualSha256": "0f540395b9d8ccf2570d6b1c89b24bf474a1fb9b04df1966cc072b894c528546",
+      "gitBlob": "ee731e56708441a09df51d55f8012042170a448a",
+      "bytes": 722,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/089-polarizationraytrace/data.json",
+      "expectedSha256": "ff876d72bc3ef25f364f7c5044133a6c0842e8ffd3dc5b1ec7e2aa3c7f07823b",
+      "actualSha256": "16b0c042012630da795949500cff329005da99b6d88a63c68e4af8f99d02603d",
+      "gitBlob": "bcde822d666141f1139cc7cd8a20d52fa9411cbb",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/089-polarizationraytrace/status.json",
+      "expectedSha256": "3dd69e4628a5a2f4e4e97a194e430a19a51184735ed5c7cfae2db15d304c1e07",
+      "actualSha256": "a343c84460cee45d4724f699b232491b0e87402008defaebcfcc4e4f04e59a12",
+      "gitBlob": "1af8a83964df5fcfd7caef1ca9375220ea605dfc",
+      "bytes": 735,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/090-polarizationpupilmap/data.json",
+      "expectedSha256": "98fcd241fcb9d469cea7a835a68d1fd7d9a9c94e5f3ab353ee65e9214093ce76",
+      "actualSha256": "f5169c7cad99eddd113847f2e74073cb85a663dc1675d47bef0956a14eca0de2",
+      "gitBlob": "5c273f2733c51bb185575fc5d6e9da29196e1f70",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/090-polarizationpupilmap/status.json",
+      "expectedSha256": "b893fb79f363943bc3e9059fc294d12effe006a1bfd0e6a6e8073fd1a6e5597b",
+      "actualSha256": "7b5d52dc123a7a0ae4fbdfc3a5d0ff7ba73df901dff5dfb54848b3fddc4daebe",
+      "gitBlob": "affce3d74c43f684c96149b6868192d290c747f3",
+      "bytes": 753,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/091-transmission/data.json",
+      "expectedSha256": "98fcd241fcb9d469cea7a835a68d1fd7d9a9c94e5f3ab353ee65e9214093ce76",
+      "actualSha256": "f5169c7cad99eddd113847f2e74073cb85a663dc1675d47bef0956a14eca0de2",
+      "gitBlob": "5c273f2733c51bb185575fc5d6e9da29196e1f70",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/091-transmission/status.json",
+      "expectedSha256": "2c16e710e1ce4f4ab99691ac2cf61952e83bffb6488259cfa46c5b569e478d8a",
+      "actualSha256": "e6104ac81e7873dc99e7e4ebeee7bc299afabe810eb54285695b84cc88c33146",
+      "gitBlob": "66136442b99651eac1384b9f275ebd4e48a6267a",
+      "bytes": 702,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/092-phaseaberration/data.json",
+      "expectedSha256": "8aa2245fd7a47f8158aab361643502f1077ebf536dfcb864a7e8cf1fc3ee1db3",
+      "actualSha256": "346d2ba720ad3f51b789c7565c23a1a43ae4882ad0846f71a3d5fd365300802b",
+      "gitBlob": "d2ff092006929966718725cee9320c43c7f35d18",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/092-phaseaberration/status.json",
+      "expectedSha256": "12a8d4f21b559a766d2c0e47a45f934c7610ca129f01f0d6795f8c064ba98724",
+      "actualSha256": "a5311011161c081e10f14d656f88985cf463a6280ba75e46b13937e8e75c5036",
+      "gitBlob": "809a48ff87b8b71894e666214d30b2f5f67ea9c9",
+      "bytes": 735,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/093-transmissionfan/data.json",
+      "expectedSha256": "8aa2245fd7a47f8158aab361643502f1077ebf536dfcb864a7e8cf1fc3ee1db3",
+      "actualSha256": "346d2ba720ad3f51b789c7565c23a1a43ae4882ad0846f71a3d5fd365300802b",
+      "gitBlob": "d2ff092006929966718725cee9320c43c7f35d18",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/093-transmissionfan/status.json",
+      "expectedSha256": "970ce7edf8ca0c3ecd7b250880243c1ae671d358ac8dde58b9f924e4dcfa3b0d",
+      "actualSha256": "afe10a4972150ef931c1a07b276ae0a597cb2c0352ed5fbc1d56ad04b2acfd5e",
+      "gitBlob": "5b7ee8fe17c20ed5edc6ac54f78845d8bb476ce9",
+      "bytes": 738,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/094-paraxialgaussianbeam/data.json",
+      "expectedSha256": "b90150843d7d90abccab253a3d3f7ad5eb805edda950e315918992c7e4423823",
+      "actualSha256": "e3f449a3b8b1911b2b76f2adbbe2163b7b765428f5ee8ca12cb1456972adea29",
+      "gitBlob": "f90d65d9b8bbee1f2852b3b3845991d106e8c322",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/094-paraxialgaussianbeam/status.json",
+      "expectedSha256": "e441904a87d919bc46c17e73c08c017932941d3bd3287593907beae3a2c870f4",
+      "actualSha256": "e9e2097135d7e357a3e887ae7001d4cbf2ae94d7b249ad5810c55d3662569f47",
+      "gitBlob": "098e96c48ab3da4debf43be7e21126e765e9a161",
+      "bytes": 741,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/095-skewgaussianbeam/data.json",
+      "expectedSha256": "b90150843d7d90abccab253a3d3f7ad5eb805edda950e315918992c7e4423823",
+      "actualSha256": "e3f449a3b8b1911b2b76f2adbbe2163b7b765428f5ee8ca12cb1456972adea29",
+      "gitBlob": "f90d65d9b8bbee1f2852b3b3845991d106e8c322",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/095-skewgaussianbeam/status.json",
+      "expectedSha256": "0ed1a2f8701413cfde4ef3dc611d483624b9b66e1d2c4e67351d475dee82ce14",
+      "actualSha256": "091f21de73075191e561f18ef47f8559b786c19ebf815122f86a7294816396c8",
+      "gitBlob": "6d7e2479c9f4d6b6b07ee0fb63ae442f444bbcb9",
+      "bytes": 729,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/096-physicalopticspropagation/data.json",
+      "expectedSha256": "220558c3dafb1141e9b86d39ffef6935ac67289b91532733028a53fd50b68f66",
+      "actualSha256": "41725086a72287461fa2ddf4f43ea8fe786f6418030a06ba9330da7f0b17ea84",
+      "gitBlob": "2c5c5928e5ef9147f9984d69407f904eb369bb34",
+      "bytes": 35213,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/096-physicalopticspropagation/status.json",
+      "expectedSha256": "923c9ca55b3e928f3e26364c5f62b9c5c7add3e065975c80853acc1170de3a5e",
+      "actualSha256": "e64e9dbb2fbca9b017912966f16db1f018c5ee582922f8c4419311c1fa0c69a0",
+      "gitBlob": "89e8a53952927322347ca0ae8b9649fd77b6adb5",
+      "bytes": 751,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/097-beamfileviewer/data.json",
+      "expectedSha256": "c8df88ddd53c147bc5da683ac826e0e594f6fa091fd31c09c1732e0c7391b354",
+      "actualSha256": "c26000c9233e4cfff8bb754c4993623476d2eca0b7dea99ab95164fecfe4a53b",
+      "gitBlob": "b6eebcbf95f62c54954cbab9d5b077727e87dd41",
+      "bytes": 17083,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/097-beamfileviewer/status.json",
+      "expectedSha256": "de205fb69c6e99580726cf1b735ec3f2d8dbe7f2fa93159b2fd380f7f35a5bdf",
+      "actualSha256": "2923d9e0c636626ada0360c87322e2324e6d73d9109448658ac72a84ae5dd152",
+      "gitBlob": "80875f4b7a0b77ca3a46c2b26b51ba072d948ea1",
+      "bytes": 722,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/098-reflectionvsangle/data.json",
+      "expectedSha256": "172c30cc317e810423796ea3cb84ab506c39a4fe2b0ba4991be4e1a52bfad77a",
+      "actualSha256": "cd2e5ef0ad9adbe672aa9b4cee3abb74a3c31697bdb01181376837cf19838d91",
+      "gitBlob": "2e4ba3275469cf0d6cb89e838ea0ca99884e2807",
+      "bytes": 211441,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/098-reflectionvsangle/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/098-reflectionvsangle/status.json",
+      "expectedSha256": "adc151060e5a7e9a9ebca2d970ca266e80a3befea2461df047a27fcf2eac7e50",
+      "actualSha256": "82f28e96168c4ae8f83da94b999ebd92ca892939da422970148cd062161b3620",
+      "gitBlob": "04fc6f57aa92a31805a7e2f8f71798f6711000b8",
+      "bytes": 772,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/099-transmissionvsangle/data.json",
+      "expectedSha256": "c05422d2c18f638861e722aefb9a62022ee6dc14133843eea32f64d1a0840131",
+      "actualSha256": "de7e0278e5e4dcb7114346682caa3dd54fcf6d313ba4244459f6e292d80a8554",
+      "gitBlob": "509defa8477fb1f590c1e775e755b393d5c6b3dd",
+      "bytes": 210344,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/099-transmissionvsangle/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/099-transmissionvsangle/status.json",
+      "expectedSha256": "2bd6d8480013c1a714e0fe39a9a5d2c1d8c6fa131b12ed1b8b1313de4295e86d",
+      "actualSha256": "a413d8c34454600407d248388d84277c57082f28565d50ae7a94c77e056f6d74",
+      "gitBlob": "e5063937d213abed113a065689dcb29aaed48c02",
+      "bytes": 778,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/100-absorptionvsangle/data.json",
+      "expectedSha256": "1b8528d3faf7ea3b8ff8388adae8dd168068c43ab579bab76107ab3d2a7c289e",
+      "actualSha256": "d5af67bd6053230af20aa61eb00b2cbed3ca894f66d2b38e127f22493f920611",
+      "gitBlob": "b48675e334a8074bfe729d11fd3bfc2f16ae5b6e",
+      "bytes": 199182,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/100-absorptionvsangle/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/100-absorptionvsangle/status.json",
+      "expectedSha256": "e0bff9c6a95c1767d43a6a3158a1df18da41a3f6360a6e658a343f69ad2362c2",
+      "actualSha256": "d41810eac705138698d81d368f6f2362e8cbcd37375d3b1d1a4cf19f53f6efbd",
+      "gitBlob": "2e8427db324102aac30e4c470b0a09a86ba4ae22",
+      "bytes": 773,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/101-diattenuationvsangle/data.json",
+      "expectedSha256": "73c32bb59cdd6a6434274890ce5c781ca1041f37ba0dbb2ab7b8e15781b2d7e3",
+      "actualSha256": "3282444d58b61bab1053a7dd0a09510b7d50b07c32948544f5319b8eaabad55c",
+      "gitBlob": "9c4adfbd3d440de4944c768e5396008db4b5b225",
+      "bytes": 199068,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/101-diattenuationvsangle/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/101-diattenuationvsangle/status.json",
+      "expectedSha256": "eaf69164d1af6aadf6127d4898c27dd1221cd0c9cd91c1e324256fb28b6bc914",
+      "actualSha256": "6ac0ba226acca3f44390140d05be530788ab6bd406e71f858bd5b63b3e06797f",
+      "gitBlob": "e3c42e4259d3e027cdb7209df392bf636ed19d5f",
+      "bytes": 782,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/102-phasevsangle/data.json",
+      "expectedSha256": "938ee0c0c933bf87078e2a57cf15a46251213732749894e8c5d403c16f01404c",
+      "actualSha256": "f7ff2ff47bfbe3a9f0ece12fbf4f329e9fb11457e4874f3c12927c22e34a97c4",
+      "gitBlob": "2d2e23ce3fc843d698e79e1646ddc2ac8852ef21",
+      "bytes": 187208,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/102-phasevsangle/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/102-phasevsangle/status.json",
+      "expectedSha256": "4a9b6fb4c10d281b704565583c6e9adccae297c36f6d90c90211e97c4733324d",
+      "actualSha256": "0cd611ea8e7cb439bd859a86c4490df41c2e31a16108669d623e6f454caf039a",
+      "gitBlob": "c34f1f185e0a52528319db8e48ab897c6e76b4ea",
+      "bytes": 755,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/103-retardancevsangle/data.json",
+      "expectedSha256": "38c457fb543f7dd8519ddd5ad01fd566125eb922601e89ed0cf96ac93bae89c0",
+      "actualSha256": "9d9680f162e01867a7a352a43f72e432a7e61a169e42f13927c73dbd92c8e2d5",
+      "gitBlob": "58dc6d82cdcd836a619dac996a122d6c81900712",
+      "bytes": 189869,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/103-retardancevsangle/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/103-retardancevsangle/status.json",
+      "expectedSha256": "b8470cf43523ea30a118b4575c3b24c7ba7c6eb09852be2f4b3254cd3a2af461",
+      "actualSha256": "44cfb2f97382644cf4447ccbfd1c38d30c0bdb33b2ee4293cbe8b662c4e39f4a",
+      "gitBlob": "f26303e9bd0c3395bcb64491e25782ef488153bc",
+      "bytes": 776,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/104-reflectionvswavelength/data.json",
+      "expectedSha256": "685e33f664038ed9bbb2a67a123b1b37de2a36cc1ec661856f79459fa3b12be2",
+      "actualSha256": "66d365b46dfebb7b250d2f7738606eb48a7f1fde6d3e68cb9588c1368bf8dbf9",
+      "gitBlob": "8a4be06de64dc7c25564513bb56a9dea68560e36",
+      "bytes": 198400,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/104-reflectionvswavelength/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/104-reflectionvswavelength/status.json",
+      "expectedSha256": "735a31f750736c554d53bfd893e554080667d5d1059a6b0ef15db0813af069e6",
+      "actualSha256": "ca140002661ce8df49c54cd8795c1b64fc7fa5e33de7f48ecef07d79f1e8fdc6",
+      "gitBlob": "86ed58f9cd2591ad98e5042abcd0431a76ff7dac",
+      "bytes": 788,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/105-transmissionvswavelength/data.json",
+      "expectedSha256": "8dde37a9b9d1dd30d72cec5d84fece6ce2b197b7e5a30f23871a5155025ee5b5",
+      "actualSha256": "4fdb3b4aa8857ce70cea4a918e8d7c1fb635f569ab656b5f913a7c0ff5f3ad9e",
+      "gitBlob": "e6f7715963faa6c4f541677a71ebed082cc1c847",
+      "bytes": 197224,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/105-transmissionvswavelength/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/105-transmissionvswavelength/status.json",
+      "expectedSha256": "d39a834d5544e1aee0cc008aa0d378f987fcaccbb1d4962b8f045d298e79739f",
+      "actualSha256": "aa5f0899276199e4cf234c49bce4fadf94811a52a6cc20d09a5a24415022fb8e",
+      "gitBlob": "a73c85724da9eb3ad301ac8b2a277e24c7b4692e",
+      "bytes": 794,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/106-absorptionvswavelength/data.json",
+      "expectedSha256": "bef1f7cc7a74cf2e0f23e86f2a9414cf9f982047e5a67b9eb5ddeaa93fb48e7c",
+      "actualSha256": "1739c4015696122f89b4320b830fd5769a4c0551e8790573d41169a189a7d9d1",
+      "gitBlob": "42c448d4da824c4f656100bc58a57844e31783a5",
+      "bytes": 185707,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/106-absorptionvswavelength/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/106-absorptionvswavelength/status.json",
+      "expectedSha256": "ed0c83ec3c1a032f8e5e447e2dda40177349f4194f6dc2a6fc0411402d2bcc6c",
+      "actualSha256": "f2bb55215b79d6c61c8ba969f65beb6df15a2dd94001946beed1de4904a814c9",
+      "gitBlob": "254e2d0737fb2870fab896febdcf9375f168d2b4",
+      "bytes": 788,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/107-diattenuationvswavelength/data.json",
+      "expectedSha256": "c40c44e0e1faf70f4a87443ca5c34cad4800295d694e64fc36b481532c98ac87",
+      "actualSha256": "2f4e764bc1cfd4192231b15edf5b7d00fe00ae1e96314c59859d4c84fcb55ece",
+      "gitBlob": "d4839d6c256d8502ed05c2ea6a2a3475f271b090",
+      "bytes": 174156,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/107-diattenuationvswavelength/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/107-diattenuationvswavelength/status.json",
+      "expectedSha256": "5305e432b03a6fc778fdca69e2adcc58be1a1bd4874464e8b24b660561cb7da9",
+      "actualSha256": "0b4d1dce4c7c7970e37986c91e210ad288819b92d3f80b16e79a353b2e4273c7",
+      "gitBlob": "43e7e3dc47bc98f97e07aafca70fb85b903a4bad",
+      "bytes": 797,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/108-phasevswavelength/data.json",
+      "expectedSha256": "811428e99a98695d8a7ea5e7169758f66610264640afa8af230dbd5c73f477b2",
+      "actualSha256": "4e0d13652c4a0a842e7d591eaf21f2d8a7d3186f22c3ac57b70380f353129dd6",
+      "gitBlob": "975e713ec3d54247c9ce7496ab16efa99e72264a",
+      "bytes": 174156,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/108-phasevswavelength/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/108-phasevswavelength/status.json",
+      "expectedSha256": "02a765cf116ab7df2cb8c6f37213b0e69bb25cac9484d313ff5e9dbd51e2d1ce",
+      "actualSha256": "3a3ad6b051275e1757c6c358cae603e61f45678b66d32793cd255c76fe5af174",
+      "gitBlob": "b66d211260c2761df405e40956d8c7fa82963cfe",
+      "bytes": 770,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/109-retardancevswavelength/data.json",
+      "expectedSha256": "9e183c29d324bf2710ef2a7a185d2a4663fb83d72f65c0eab5495f74618a44a3",
+      "actualSha256": "c6057480f62ffad8caa87becbbeb8ba86efa8d38e1e853be909f7af56f89c6f5",
+      "gitBlob": "93a020be11494944fb9f45ec69c72f1b28b4aa26",
+      "bytes": 174556,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/109-retardancevswavelength/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/109-retardancevswavelength/status.json",
+      "expectedSha256": "e207ca27b3d6dd95d62dfb10d85ef83c84c59e24f6b897b41841eae896b67ea2",
+      "actualSha256": "f92dbefcb8bac52c895bb66c856f409765d2234551a3c8c19efa31c0ba36cf09",
+      "gitBlob": "6e00cbc1b68c6b8967b5e6724a809a535a6de125",
+      "bytes": 791,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/110-directivityplot/data.json",
+      "expectedSha256": "01a930f22d640a10992b6b07d845d57094ce376cc121c0ee237a03a66c281902",
+      "actualSha256": "d6d8a8de6072f9ca1ef61813d771ed368b428291f1d47a6081b58f2c9d5bd7bd",
+      "gitBlob": "d022867b6642c3845b0aa838085d1a53c7922df8",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/110-directivityplot/status.json",
+      "expectedSha256": "9556a5607c348d5920e44939cfe3337b315b6c3dc924c86a9ab0ff017e0ce3eb",
+      "actualSha256": "0eb0c429354bfa10e9bcdb21509fd2fd48b1384114edc9f6f739555327be471b",
+      "gitBlob": "fc6a91c2dff45d69e8b3678e0d8155ab121d7750",
+      "bytes": 742,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/111-sourcepolarviewer/data.json",
+      "expectedSha256": "cfdcaf5e0e72e34f7fdf25ca81d69abe2f8c01cdbbfeb9998ccadfbf2d877172",
+      "actualSha256": "355e9cf25397967ad2e66d9e639b165753e8715768411b83746bd84c9b9b6aec",
+      "gitBlob": "fd056b43d9d7df61dde31b65da69f0574da4907b",
+      "bytes": 6761,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/111-sourcepolarviewer/status.json",
+      "expectedSha256": "9461bc3e4c173f226350131d21d96a407e3cf4db4eb76af3e2be499301301baf",
+      "actualSha256": "99c510278d07e516c648e61d1523b5a818bcbbc9afa6f54efb0ca984586ec22b",
+      "gitBlob": "23d81bfaeca8976d1d37a219ee88af17968fa768",
+      "bytes": 704,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/112-photoluminscenceviewer/data.json",
+      "expectedSha256": "b7ff2243a53958d1c4c7638787f2c04f31e31d9141a687bd5bf9a45be8a978c9",
+      "actualSha256": "fc458b5a8533fbf21eb9e876bcba625e8f436127277d0eeae8089ebe08e76d7e",
+      "gitBlob": "9ae1b4b386fe80f3155658d769b5480919103857",
+      "bytes": 605,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/112-photoluminscenceviewer/status.json",
+      "expectedSha256": "bba0992b646aff7843aae7003745135ae7e210ef1da6d0da88ba5515bed31292",
+      "actualSha256": "261089b5b9e180f3122c5e4925358c2a307c75c3a2954a139f8328cd3e05599a",
+      "gitBlob": "2bc801ad648bb9786fe681e823d3ee6f0d2af943",
+      "bytes": 570,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/113-sourcespectrumviewer/data.json",
+      "expectedSha256": "d773a8ff2cfa3850e6dd5bd190a93389b2e68afd5626aa05a3be00f193e094c9",
+      "actualSha256": "522846a914fe8eaf0767651c8b8d3ec1f22766d4f364b8f93e310320213f6352",
+      "gitBlob": "2947c1f3159995277df968b00b1b4cd324a25142",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/113-sourcespectrumviewer/status.json",
+      "expectedSha256": "a7578e4dc88b252ad22c8ca13677a03feecdc15a93ebb5ab318337e7230fa733",
+      "actualSha256": "4a51820965bbb0c21d19e508e4be3fa803474631e31dd8b92dcfc3736fe5fcdd",
+      "gitBlob": "87bc0a5af84bb4d5ba51105c22c89eeed9b1baa0",
+      "bytes": 754,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/114-radiantsourcemodelviewersettings/data.json",
+      "expectedSha256": "6dc86a066180ef7e8177db5484623816788d5b617defd9baf175b4a472adc6fb",
+      "actualSha256": "fceaf7b94d297e7a845a956c2a2b72c97c640ff9be8b08061eb8793232565f2f",
+      "gitBlob": "96b7fdac4e40f1df29cce03614f134bea6a2d385",
+      "bytes": 626,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/114-radiantsourcemodelviewersettings/status.json",
+      "expectedSha256": "c21fdf50e540b23b5c5c8c972f2de14af28d546826348253e1a45fe4a6868f16",
+      "actualSha256": "b554f3589fbacd154b085a205d297bbac8ca5925914b045536cf4cdb6da98987",
+      "gitBlob": "c72547437af7a405d8330253bb4b40a6b8be1a49",
+      "bytes": 591,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/115-surfacedatasettings/data.json",
+      "expectedSha256": "d773a8ff2cfa3850e6dd5bd190a93389b2e68afd5626aa05a3be00f193e094c9",
+      "actualSha256": "522846a914fe8eaf0767651c8b8d3ec1f22766d4f364b8f93e310320213f6352",
+      "gitBlob": "2947c1f3159995277df968b00b1b4cd324a25142",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/115-surfacedatasettings/status.json",
+      "expectedSha256": "f739449360d8b86b940813ef6a8196ab2ab5eb078eeaf7ad8665bf1d79d550b8",
+      "actualSha256": "3f45de70e2d5223607aabb1a56c9b17b836b813e4398ebeb7260bcf83629a3e1",
+      "gitBlob": "67e60c40680d809d0db006740ee44bd64433e10c",
+      "bytes": 727,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/116-prescriptiondatasettings/data.json",
+      "expectedSha256": "d773a8ff2cfa3850e6dd5bd190a93389b2e68afd5626aa05a3be00f193e094c9",
+      "actualSha256": "522846a914fe8eaf0767651c8b8d3ec1f22766d4f364b8f93e310320213f6352",
+      "gitBlob": "2947c1f3159995277df968b00b1b4cd324a25142",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/116-prescriptiondatasettings/status.json",
+      "expectedSha256": "9b437cf53ff3bc2292b41b65b713809fcb0d9b9dc25a50aefbd021848da4ea8e",
+      "actualSha256": "647a227f2dffe8bfc0bdd531fef99a0d66d063fad9f8c6022520289bcacf2592",
+      "gitBlob": "30f34b54b70a9be42d85b78d3acba09fdfdb243c",
+      "bytes": 742,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/117-filecomparatorsettings/data.json",
+      "expectedSha256": "54c2b2edd6362335f6228e30a6ecb1bb995050885f9f74b3a1a3bd9ed92bdd06",
+      "actualSha256": "cea006ec446db31eb23d2ba683802896a8d99541899853bd7b2c0c18013906e4",
+      "gitBlob": "a8828bcfa36cf1cf0f9252fe848d72da69a80992",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/117-filecomparatorsettings/status.json",
+      "expectedSha256": "bb4449cee3d1f1f2fed06c18d252f943185997459d711041cde2eeaf23343fff",
+      "actualSha256": "f942490beb1db93a5417fdb9362153f9b8ded1926617d6eaeffc7ab9f98a6946",
+      "gitBlob": "ffc2f4bdc047407d58c64bc0c3a1376cc7b9c6b0",
+      "bytes": 560,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/118-partviewer/data.json",
+      "expectedSha256": "1fdcb49eed379cb7a1471a1c27ccc6e6eb875b8f7315ec1235d8ac9666dee609",
+      "actualSha256": "f848db80693131ad7a7fb77503df3091d62fef67259ba73c742904f964899bee",
+      "gitBlob": "07d4d1db9bf225bc964f6b9541492b91f2344eab",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/118-partviewer/status.json",
+      "expectedSha256": "f70fdef39793644059b602a5c10fc8e9cb2a2dba212db4eda5933a4080327705",
+      "actualSha256": "e1d917d9cbad5bb9f510771ecbc3d5f042b98b600bd739266b0ef09e2d703b3d",
+      "gitBlob": "d2b51867449f6a9ffc6c6d79e7dfd46132228433",
+      "bytes": 692,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/119-reverseradianceanalysis/error.txt",
+      "expectedSha256": "c2903c5aca82c015995110a125fdc91285ecf4eb1519d1acd7c16a791e330fe5",
+      "actualSha256": "96dca6b67b777ccf86b4ba1a8209afaf50496ec0248d88289b4cfadf59c27d26",
+      "gitBlob": "48dcabf89b8f75bd72fcba924d7ddcc22f59b3ab",
+      "bytes": 237,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/119-reverseradianceanalysis/status.json",
+      "expectedSha256": "7f9ce14ab7317c880ec697949cdf182f2315f7309525372434db1a30d032fe22",
+      "actualSha256": "03eb1fb2d4f2e84b9d23885205912fd991b34d4c99f5d4ce7614c97e79240409",
+      "gitBlob": "f6ec1503ba259244b0ffefc3409115ea17cc4aa4",
+      "bytes": 357,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/120-pathanalysis/error.txt",
+      "expectedSha256": "c2903c5aca82c015995110a125fdc91285ecf4eb1519d1acd7c16a791e330fe5",
+      "actualSha256": "96dca6b67b777ccf86b4ba1a8209afaf50496ec0248d88289b4cfadf59c27d26",
+      "gitBlob": "48dcabf89b8f75bd72fcba924d7ddcc22f59b3ab",
+      "bytes": 237,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/120-pathanalysis/status.json",
+      "expectedSha256": "a0753f63f1579cbef9a41369547807cd785f16ce41c6011174e32121583db893",
+      "actualSha256": "27e7e17bcf7d7a1149e134b7c79d2d34612404e576e444919146af9684aa03f5",
+      "gitBlob": "eda3376c16cca680bd3a28350d57f787c43771b8",
+      "bytes": 335,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/121-fluxvswavelength/error.txt",
+      "expectedSha256": "c2903c5aca82c015995110a125fdc91285ecf4eb1519d1acd7c16a791e330fe5",
+      "actualSha256": "96dca6b67b777ccf86b4ba1a8209afaf50496ec0248d88289b4cfadf59c27d26",
+      "gitBlob": "48dcabf89b8f75bd72fcba924d7ddcc22f59b3ab",
+      "bytes": 237,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/121-fluxvswavelength/status.json",
+      "expectedSha256": "cdaa0eba00e662c4b01b3c5da2f639b12267e4d231dec7c59865678768f69fbf",
+      "actualSha256": "6b7799eeed6deefa64968dd7e6e6095eaf6f57d4921e6486c9ebb7b1fb4467a3",
+      "gitBlob": "0efd1e5ad36afa580dcd4355988453e4248db190",
+      "bytes": 343,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/122-roadwaylighting/error.txt",
+      "expectedSha256": "c2903c5aca82c015995110a125fdc91285ecf4eb1519d1acd7c16a791e330fe5",
+      "actualSha256": "96dca6b67b777ccf86b4ba1a8209afaf50496ec0248d88289b4cfadf59c27d26",
+      "gitBlob": "48dcabf89b8f75bd72fcba924d7ddcc22f59b3ab",
+      "bytes": 237,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/122-roadwaylighting/status.json",
+      "expectedSha256": "0d60b6fa881281d9d58c558e1e3be4a50c2edfb81f25e088b36158672bb58e46",
+      "actualSha256": "a416945fb240c7f0ccdfe7ed6d06e67c59848658330bb91d2cc0ce0a69ed0be7",
+      "gitBlob": "3b905f3cc80abd2fc3f07046c7a0f0ef7de23099",
+      "bytes": 340,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/123-sourceilluminationmap/error.txt",
+      "expectedSha256": "c2903c5aca82c015995110a125fdc91285ecf4eb1519d1acd7c16a791e330fe5",
+      "actualSha256": "96dca6b67b777ccf86b4ba1a8209afaf50496ec0248d88289b4cfadf59c27d26",
+      "gitBlob": "48dcabf89b8f75bd72fcba924d7ddcc22f59b3ab",
+      "bytes": 237,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/123-sourceilluminationmap/status.json",
+      "expectedSha256": "3733d3a436c5ef056520fe99046c3011ae0e2d23ca4e0ae6bea3272a018b153e",
+      "actualSha256": "7e6fa1e8f2c93f876f2f1b89106835c5c5c0e5257fd0a472d1fbe6f1904739f2",
+      "gitBlob": "fc22f0aac24dd57f30521be469d25f55ca11d18c",
+      "bytes": 352,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/124-scatterfunctionviewer/data.json",
+      "expectedSha256": "1fdcb49eed379cb7a1471a1c27ccc6e6eb875b8f7315ec1235d8ac9666dee609",
+      "actualSha256": "f848db80693131ad7a7fb77503df3091d62fef67259ba73c742904f964899bee",
+      "gitBlob": "07d4d1db9bf225bc964f6b9541492b91f2344eab",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/124-scatterfunctionviewer/status.json",
+      "expectedSha256": "e7877b592669e0c43205a6b8f8fc9121b7cc371ee91607cf83b1ef67a2d92cd1",
+      "actualSha256": "3312bb34a449714954493f07355dde847029116a2290d48dfe07741920cedbc7",
+      "gitBlob": "4274c1c994da72a63869997735f38b64c3278990",
+      "bytes": 738,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/125-scatterpolarplotsettings/data.json",
+      "expectedSha256": "a6c2f6a45a80c3b761365a6d704b955c185c9719c04e2c9b3217cfed3df9dd90",
+      "actualSha256": "39f48aada6926149b54d5881d876bf37f9245e5fee716cda5ab636f33fccf51b",
+      "gitBlob": "1e38f8ef34596ef510f8b2adc95a8a6123598de1",
+      "bytes": 491310,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/125-scatterpolarplotsettings/status.json",
+      "expectedSha256": "2211f1e60956d7e64214065e5cbc38908e1f36e7c17931ba677ab5cccac30e2d",
+      "actualSha256": "192647a02a409520b304930d02fc196e5d49a8ab430b3ab1ea22d22bd41f1ed7",
+      "gitBlob": "20d316f084cf3098b974f4b9af41986e84a7ac4b",
+      "bytes": 725,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/126-zemaxelementdrawing/data.json",
+      "expectedSha256": "478f2a53df3e3396669c228a6877f4d033ff741847282a861fcf3f6f874c0027",
+      "actualSha256": "7d44329e3e28a01380c688d16a88ed72e99908d28f03d9327dd23321933e7d4a",
+      "gitBlob": "c2c1313c8b9a9876724f26bbfba55ffafea6b4e6",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/126-zemaxelementdrawing/status.json",
+      "expectedSha256": "639e814ce0106aa66cf31e018c65e7fb460c9ac3832d3baba2ec44fc69997565",
+      "actualSha256": "abf8597eaba0fead360caf5142a831795664d4432471346c494725578ea9a461",
+      "gitBlob": "709d64cf72f53de406704dc39b80a36af956e7ec",
+      "bytes": 728,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/127-shadedmodel/data.json",
+      "expectedSha256": "164b4d82bc3727ccc995b0dec04f85652982e55719336f1d6d5cf979c3ad93df",
+      "actualSha256": "9e773c94dc0aed6d6d93b2c003e29fb3f7acaf56ab8b5039197366bb657722c4",
+      "gitBlob": "872289c523b069bd358c85d5020c7a4c9d3f104f",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/127-shadedmodel/status.json",
+      "expectedSha256": "7f47d22e7386d750f2413054e031e8e5610332746478b2a583bc702d4f330e7a",
+      "actualSha256": "e649795f3f0ead3af7dccbeef5dcdb377dcab28b3c97f916ec55c2f963697473",
+      "gitBlob": "c06a90320b98370048c624e1279176d97767e9ba",
+      "bytes": 680,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/128-nscshadedmodel/error.txt",
+      "expectedSha256": "c2903c5aca82c015995110a125fdc91285ecf4eb1519d1acd7c16a791e330fe5",
+      "actualSha256": "96dca6b67b777ccf86b4ba1a8209afaf50496ec0248d88289b4cfadf59c27d26",
+      "gitBlob": "48dcabf89b8f75bd72fcba924d7ddcc22f59b3ab",
+      "bytes": 237,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/128-nscshadedmodel/status.json",
+      "expectedSha256": "11be8175e6dd03c811d876c1a078238d9569952825dc09d1cbfce5df6d285249",
+      "actualSha256": "a616c7b5b2207e0aa1b057b52e8de3208f318fa03c45434a30ba9198c3730d1b",
+      "gitBlob": "f5667bb8e6d654206d85630dcdfb1b9326913396",
+      "bytes": 339,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/129-nsc3dlayout/error.txt",
+      "expectedSha256": "c2903c5aca82c015995110a125fdc91285ecf4eb1519d1acd7c16a791e330fe5",
+      "actualSha256": "96dca6b67b777ccf86b4ba1a8209afaf50496ec0248d88289b4cfadf59c27d26",
+      "gitBlob": "48dcabf89b8f75bd72fcba924d7ddcc22f59b3ab",
+      "bytes": 237,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/129-nsc3dlayout/status.json",
+      "expectedSha256": "8307ef9975a8b61c193904f94bbda38f6aa9cd51219fbe8585f56337152cef9a",
+      "actualSha256": "d95386d3b15ac5857fc47ab66f9028f4cb192669308b1dc66f91ca61764c2026",
+      "gitBlob": "ca9f1fe642a30d67c5333fd7dea8ddd751cb04c9",
+      "bytes": 333,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/130-nscobjectviewer/error.txt",
+      "expectedSha256": "c2903c5aca82c015995110a125fdc91285ecf4eb1519d1acd7c16a791e330fe5",
+      "actualSha256": "96dca6b67b777ccf86b4ba1a8209afaf50496ec0248d88289b4cfadf59c27d26",
+      "gitBlob": "48dcabf89b8f75bd72fcba924d7ddcc22f59b3ab",
+      "bytes": 237,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/130-nscobjectviewer/status.json",
+      "expectedSha256": "ba03d4dd3b5445a07ac0f2c421be1cdd98874834bbf0021993b8a666da159d5f",
+      "actualSha256": "f0119ebbefba810b34322e9152feca96c0c42ea63178d1105000c9e6691cce0f",
+      "gitBlob": "063c55407970b7a8fa7b350dd1fe632798b69bdc",
+      "bytes": 341,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/131-raydatabaseviewer/error.txt",
+      "expectedSha256": "c2903c5aca82c015995110a125fdc91285ecf4eb1519d1acd7c16a791e330fe5",
+      "actualSha256": "96dca6b67b777ccf86b4ba1a8209afaf50496ec0248d88289b4cfadf59c27d26",
+      "gitBlob": "48dcabf89b8f75bd72fcba924d7ddcc22f59b3ab",
+      "bytes": 237,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/131-raydatabaseviewer/status.json",
+      "expectedSha256": "9c18eab03d9696465dc7af54209df05cfd0b20cc744de0a58ef45cc7bdb59751",
+      "actualSha256": "86509a6d80e233d48a2d870eb794f55fe6d7706580e233b5c2f67f1aff89efff",
+      "gitBlob": "9c47ba72b61b8eaf8dbd1ccdf7f2514fd073764a",
+      "bytes": 345,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/132-isoelementdrawing/data.json",
+      "expectedSha256": "c1d571848fd82c4024ee27e8cd4686fc2278b7a8b32a4eb501d3a2824672d63e",
+      "actualSha256": "895f64e8b67feab89f859cc9b878d86584f3579c6f68a67e39c25340617b6e5f",
+      "gitBlob": "c21d6b4a6fc72540e6f2d2575846c01f93098db1",
+      "bytes": 654,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/132-isoelementdrawing/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/132-isoelementdrawing/status.json",
+      "expectedSha256": "e401bf82f029c19933b5b56ca2ae3c3eeb8cdae958b415c43eb3d18fe04871ec",
+      "actualSha256": "3d55e3885ce9729c778ad0b737e629ff12413be73c11ee233816229a60ec2318",
+      "gitBlob": "a11e80c54d7b67d3becfc03e1eaa1271aaad697c",
+      "bytes": 762,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/133-systemdata/data.json",
+      "expectedSha256": "164b4d82bc3727ccc995b0dec04f85652982e55719336f1d6d5cf979c3ad93df",
+      "actualSha256": "9e773c94dc0aed6d6d93b2c003e29fb3f7acaf56ab8b5039197366bb657722c4",
+      "gitBlob": "872289c523b069bd358c85d5020c7a4c9d3f104f",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/133-systemdata/status.json",
+      "expectedSha256": "a74547340297783e8322dead59d187f1428da964ed7505fbb7dcf4fa5bb1d705",
+      "actualSha256": "c542c28df8a17ce06c6da7afd432b168afed2455b8b7869a169a8966fa8da6fc",
+      "gitBlob": "931c28d642e4187155f37bff092642dc0a666a47",
+      "bytes": 700,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/134-testplatelist/data.json",
+      "expectedSha256": "164b4d82bc3727ccc995b0dec04f85652982e55719336f1d6d5cf979c3ad93df",
+      "actualSha256": "9e773c94dc0aed6d6d93b2c003e29fb3f7acaf56ab8b5039197366bb657722c4",
+      "gitBlob": "872289c523b069bd358c85d5020c7a4c9d3f104f",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/134-testplatelist/status.json",
+      "expectedSha256": "5a3f611c544433e6394774212d60c9c57b3d26707bb25c8ba035709b80f281ab",
+      "actualSha256": "106faf70b79bf9fd5020813ff4a842b49a0ccca90b4523112c7bdc88fe08e5b7",
+      "gitBlob": "7cc8fde9431e964c6bccf7baf03e369e3bc3bc53",
+      "bytes": 712,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/135-sourcecolorchart1931/data.json",
+      "expectedSha256": "ed7cc945f8860daec7ad08df024dedd6c30273d3a65b4a4f8b0706cc7d8950a5",
+      "actualSha256": "b336ee843b6e004fab68dd8abf5a34da570fd9774052bc6a6165a1125e5ab76a",
+      "gitBlob": "9c1d61dd9ad1dfd478d63d21248092fc4dcf3c13",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/135-sourcecolorchart1931/status.json",
+      "expectedSha256": "bb427877df7768d1e8970d35b7a2bda64c4c28d1d5f3cb05792186484a398997",
+      "actualSha256": "0c3a6c5ddb226ac2a15fe6055023c6dd7c24954770fb48d8810b560dbffb3663",
+      "gitBlob": "5da2a430927f502f60fcfeb50e7dbbbca7833dd2",
+      "bytes": 732,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/136-sourcecolorchart1976/data.json",
+      "expectedSha256": "ed7cc945f8860daec7ad08df024dedd6c30273d3a65b4a4f8b0706cc7d8950a5",
+      "actualSha256": "b336ee843b6e004fab68dd8abf5a34da570fd9774052bc6a6165a1125e5ab76a",
+      "gitBlob": "9c1d61dd9ad1dfd478d63d21248092fc4dcf3c13",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/136-sourcecolorchart1976/status.json",
+      "expectedSha256": "a54017a99e6ace4461fe9733a4a4a0dce26a7b89de411183e8d0c3dc2e0479cb",
+      "actualSha256": "f4e9e6a37d47ffe288570354d64fe1a5caca639fa83560b8c28f0e666ec85995",
+      "gitBlob": "ea7ea26b2c65144e19f42c5c1886f45d3206d85e",
+      "bytes": 732,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/137-prescriptiongraphic/data.json",
+      "expectedSha256": "ed7cc945f8860daec7ad08df024dedd6c30273d3a65b4a4f8b0706cc7d8950a5",
+      "actualSha256": "b336ee843b6e004fab68dd8abf5a34da570fd9774052bc6a6165a1125e5ab76a",
+      "gitBlob": "9c1d61dd9ad1dfd478d63d21248092fc4dcf3c13",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/137-prescriptiongraphic/status.json",
+      "expectedSha256": "13f880a3ec76ab6ba47fdcc6f5854ba491f21bf4088ba028826b39f9e4707ef1",
+      "actualSha256": "ad693d5e42db86f29545a81ba60843a067e8e08ffcb6634fcdf9af36c499afd8",
+      "gitBlob": "0cc9d45174a7a91dd92968f309ce161f89c1f0dc",
+      "bytes": 529,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/138-criticalraytracer/data.json",
+      "expectedSha256": "c1d571848fd82c4024ee27e8cd4686fc2278b7a8b32a4eb501d3a2824672d63e",
+      "actualSha256": "895f64e8b67feab89f859cc9b878d86584f3579c6f68a67e39c25340617b6e5f",
+      "gitBlob": "c21d6b4a6fc72540e6f2d2575846c01f93098db1",
+      "bytes": 654,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/138-criticalraytracer/error.txt",
+      "expectedSha256": "0f7da3036a2b0bc1817ebe876f34219492600acf0ca846fea363bfe15eeb84df",
+      "actualSha256": "2cab1e03a3dd90f6dad8bcf7b3abce965bb5f6b5efb545ecb117185fa7e76e97",
+      "gitBlob": "b15a166bb952dd8b4a4ac2a80d31a3aa8687f913",
+      "bytes": 402,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/138-criticalraytracer/status.json",
+      "expectedSha256": "74614ae8348fdf5be61ebb25d8b8d256c05cc0badb9b38ef3c2750422d5c932f",
+      "actualSha256": "fa1920aa40b8b20d9a44c6323b9df4a3abf12bcc464d0e5b1acf055fa18a31e4",
+      "gitBlob": "bb04f7476213f4a0b74db18a3bf6f63b5f4f626a",
+      "bytes": 592,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/139-contrastloss/data.json",
+      "expectedSha256": "0dac27d2578f4e6f58f2e2a92ed4d8fe62789cfd3774e86f4d7f9ea906146d84",
+      "actualSha256": "f38aa135ac2532b3396dce7f6d85dfc38e0d1fea87f3c2cfb60e4bd6341b4955",
+      "gitBlob": "c711a7a0e9b9dde2b20ab849ec6420f4e5a0601e",
+      "bytes": 19112,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/139-contrastloss/status.json",
+      "expectedSha256": "39320d089eb9f97ad4e1c0c7761cb116d49a83453d327245ef0df7a876733c9e",
+      "actualSha256": "55b0af1668c1e09e7000664ce71e0d1cb36af17bd15c418b071c122827c2b396",
+      "gitBlob": "ec41cd5e386ad03e519cd96a740df0cbe046c5ee",
+      "bytes": 535,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/140-coatinglisting/data.json",
+      "expectedSha256": "796815a416e8826020b9d3f5ca0d42584bc72cf7fc862df6279fa0e238c6cfa3",
+      "actualSha256": "f84c8614a66813ff99071a69b7393ec27ae383e4cf84d2490845b7b7d91271eb",
+      "gitBlob": "3086dfb567923cbf57bf8924f890971346efda8f",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/140-coatinglisting/status.json",
+      "expectedSha256": "84757251a511f0711ee455e89534183df90edeaf7693b5fc47075cbaa8f95822",
+      "actualSha256": "eb0f5fec7e1e313dbeb3619f51c0408039df1296e74bb96654f538bdf80fa839",
+      "gitBlob": "15c4f842e28fb7099c900f3e0a12b1138eb98467",
+      "bytes": 717,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/141-fullfieldaberration/data.json",
+      "expectedSha256": "9118e5635784f74b135e8c87a43ba33b217d11b864f3ceefdcdf57202ae96f2c",
+      "actualSha256": "ffd63baac80f5ed0f05b6cb1f7c102ed00b8e0834a9377d41c6773ea827cff20",
+      "gitBlob": "abf8f55a8e93bd096d0fc57f63f440658c6de6cf",
+      "bytes": 4246,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/141-fullfieldaberration/status.json",
+      "expectedSha256": "91dd8de0ba734e97e26cd10cb9dff05e14caae42dc0ce42f3f5aecbf90f4536f",
+      "actualSha256": "dbcddf57abbdb968e1f3b63f45e1b1d25575f1bdd26394bbb960b30cfa89c534",
+      "gitBlob": "6b74c88c58cfa811a19cda14bfae35fa6dbef2e0",
+      "bytes": 731,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/142-surfaceslope/data.json",
+      "expectedSha256": "20b66a2bc8ca2c7dab3cccf1897dced68585fa9115b9b93fd06978f6ee18e0e2",
+      "actualSha256": "ef039227c83df80e314d89241fce6b8b26386b3dd64f66d1d5a030499c71a74f",
+      "gitBlob": "279f0f075131fde78104813d93c10f01911286bd",
+      "bytes": 118534,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/142-surfaceslope/status.json",
+      "expectedSha256": "4ea8aa55e47705ee0f74fb14c983d38a190320e307ca8049c5c661e8deafd969",
+      "actualSha256": "9c42e41edc0d2616bdcf54b62427489fc6dfe7b3c566d5e8449e94501c05acd7",
+      "gitBlob": "cbfe4437ac463b18728664e2c78a5e5acd698d0a",
+      "bytes": 529,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/143-surfaceslopecross/data.json",
+      "expectedSha256": "9024987789b6fa24076023ae05d8934cccf5c65b125e1a65244eb0ed0400de57",
+      "actualSha256": "bcdbb4800b1e34c3bc83249ffb43067f663673e86eeff4e6ad1ca1192c205ccf",
+      "gitBlob": "23f0eb046b4e399e92fca714267a0c710e9ab5d7",
+      "bytes": 6823,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/143-surfaceslopecross/status.json",
+      "expectedSha256": "a1ae1a167fea9dcd4217034d1d2d54311306f8c016809aadaa6ccc83b2dbb5b1",
+      "actualSha256": "0f3c0f0cb9befc43109f774654bd3ba05440c9db9c873f3ee06b6e36b2d78752",
+      "gitBlob": "d4da7bb3e2fbcd96d1b2721eae764a5d8af047e3",
+      "bytes": 550,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/144-quickyield/data.json",
+      "expectedSha256": "66d3bac68c0bf3410887f89fdb64008cd3290f4456a16c68102c4e0cd4a3487b",
+      "actualSha256": "987af8b07c44da14242abe16be703cd4d6b1db15f5cb3da41ac7104ad7933d7b",
+      "gitBlob": "d8211493f889e881a7ab2a243fd73f809632e79f",
+      "bytes": 776,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/144-quickyield/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/144-quickyield/status.json",
+      "expectedSha256": "0f40c1b883cd0baee2433193c03181d16b8ecd0285983669c99d274f32f0b871",
+      "actualSha256": "b249559319cad1e338e9134c5a9eb71a591d39f0c8178ebfd2edd2326f301b75",
+      "gitBlob": "9d3308b4ea4253b195693012e4211edbe4bad5ef",
+      "bytes": 566,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/145-systemcheck/data.json",
+      "expectedSha256": "c953c6f5b292b17fa40ec46707b2e992bcbf34dee2fbbf7bcc7dfdf57d872f04",
+      "actualSha256": "d80aaad3214ea332b1bac9ce2f9c2db3d27bd1fa74701b8142b5a6111b2e8105",
+      "gitBlob": "60d6ba42fc2883890534a9deb30673dba9dbf96f",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/145-systemcheck/status.json",
+      "expectedSha256": "a75157b9b981a69d36737d482fb7e171605a1383968fcae0b144f94faa7a8660",
+      "actualSha256": "adace923bcaa6d92a303e23266f7522df99f8ab9e210701bdb2556ca2140e1e3",
+      "gitBlob": "bbd88ce4267a3bbc29a0866d1caf01bc71d09eb2",
+      "bytes": 527,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/146-toleranceyield/data.json",
+      "expectedSha256": "4d2ec382b88c8d7a136753765ac445552fd1c986a948a8ac6ef3516fa46cb9e1",
+      "actualSha256": "44c322d5df6702165a891a957039f831dc3ec193ce71ee97e9b1031ab9650134",
+      "gitBlob": "6320a8d9d7621a59bc00a6aaab30ee9f3563a7bb",
+      "bytes": 737,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/146-toleranceyield/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/146-toleranceyield/status.json",
+      "expectedSha256": "1658df7b9f6bd302048afbac55dcf2885ab4e38849fe01483828576e8d8f1a17",
+      "actualSha256": "95f9d9ac1d6ceef005c5f23da03a28019dd416152eec85ae031a45fd28208e15",
+      "gitBlob": "5b7fcc2df4e92daad1d5eb2bb74f7c26f5243ef3",
+      "bytes": 572,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/147-tolerancehistogram/data.json",
+      "expectedSha256": "d9cd683497fa62b8e63f27387871eba7a8d7229f7d117115860b9c620b024cf1",
+      "actualSha256": "881b9313b65bc43ac987a3b6c5049ce7101be793cfdace86961bd0778a8d65ef",
+      "gitBlob": "0f1458915c245fb881d17549388e17917b5639ed",
+      "bytes": 737,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/147-tolerancehistogram/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/147-tolerancehistogram/status.json",
+      "expectedSha256": "4e612ba7ed4f9165e4deb989069d0c6ea9485f38ed84f36cf4b8081a32940593",
+      "actualSha256": "0893a046e7003535a987b5a63381ae094f9cc8e76ea5b0ac4be7b02b43e3e71b",
+      "gitBlob": "0d9557ba0658f8a0c66f141717ef36a6f84803e9",
+      "bytes": 587,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/148-diffefficiency2d/data.json",
+      "expectedSha256": "6b1c36477422991f577e14921980860b4e62067fa839e6bd35aaadba8a6a7cb8",
+      "actualSha256": "05ba66bbed8908e37e821570f4bef840eb1d6791047a92da940b1b77b2d68021",
+      "gitBlob": "b9719adde0c33200ed2d82be9e98c679afb8a15f",
+      "bytes": 603,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/148-diffefficiency2d/status.json",
+      "expectedSha256": "b6801da345816bd2eb5c32fc6971faab757d477695e771ee3bba1daa761321c4",
+      "actualSha256": "3586b35d4f1ce92ea602aa23daa64abd5426a62c7783815a1099fd0d4d17a524",
+      "gitBlob": "421ee9b607754b05267337c52bfd5b7faf0ea28b",
+      "bytes": 541,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/149-diffefficiencyangular/data.json",
+      "expectedSha256": "203f2e482e47cb5eda275ae11d85aec5d592beb4993b79111eb2c5a6cebc0481",
+      "actualSha256": "2fafb683a34436605334aa7ad5f0a7cacf0aeaf5af97d19c00578faf2bae07b0",
+      "gitBlob": "48a99a952924cbf5a56b869b7829fa172f7445a8",
+      "bytes": 740,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/149-diffefficiencyangular/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/149-diffefficiencyangular/status.json",
+      "expectedSha256": "9527676ee4a0e2b6c44f49148ac5b8ab36ff54d1031c98c4f26b1f63652e88d3",
+      "actualSha256": "114d774c6f6c33c618c4fb84e712d094d97977961ac8c2f395c002ffd797ab49",
+      "gitBlob": "02477d1c04dbb650878f4265a24c1eaff43c08ad",
+      "bytes": 608,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/150-diffefficiencychromatic/data.json",
+      "expectedSha256": "203f2e482e47cb5eda275ae11d85aec5d592beb4993b79111eb2c5a6cebc0481",
+      "actualSha256": "2fafb683a34436605334aa7ad5f0a7cacf0aeaf5af97d19c00578faf2bae07b0",
+      "gitBlob": "48a99a952924cbf5a56b869b7829fa172f7445a8",
+      "bytes": 740,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/150-diffefficiencychromatic/error.txt",
+      "expectedSha256": "9518f6506bef1feab1cf6e0f5a454a9c4c83e3b2f712fd228392ea13bf9fe4aa",
+      "actualSha256": "d75552e4c91ef94fa0baa784cead32a0cc47ec39db38897d2ea59d527da10572",
+      "gitBlob": "3b7e4fb1817c66e916451b110be005ff5d16eb98",
+      "bytes": 420,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/150-diffefficiencychromatic/status.json",
+      "expectedSha256": "80e6a64ab5195f63068989e85464b06c82bde04dbf3efb6d062bbd0c62a057a0",
+      "actualSha256": "fc98e917104c9836a68145c288fc08c81c435f38eaa58027052ae532950c3855",
+      "gitBlob": "ad9ee66eec8c44311bbc1fb13f4552da6733f05f",
+      "bytes": 614,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/151-nscsurfacesag/error.txt",
+      "expectedSha256": "c2903c5aca82c015995110a125fdc91285ecf4eb1519d1acd7c16a791e330fe5",
+      "actualSha256": "96dca6b67b777ccf86b4ba1a8209afaf50496ec0248d88289b4cfadf59c27d26",
+      "gitBlob": "48dcabf89b8f75bd72fcba924d7ddcc22f59b3ab",
+      "bytes": 237,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/151-nscsurfacesag/status.json",
+      "expectedSha256": "86c9df517ec4676b5c3105036b3385acae3840f434887b38bb873c43e2d7b3fa",
+      "actualSha256": "0ff10f985a8a10904c870622639bb3e42915825081dc5bee69f8bb91f3e07a5a",
+      "gitBlob": "974ba87c0171f23eef3bafc742447338f52aaf3e",
+      "bytes": 336,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/152-nscsingleraytrace/error.txt",
+      "expectedSha256": "c2903c5aca82c015995110a125fdc91285ecf4eb1519d1acd7c16a791e330fe5",
+      "actualSha256": "96dca6b67b777ccf86b4ba1a8209afaf50496ec0248d88289b4cfadf59c27d26",
+      "gitBlob": "48dcabf89b8f75bd72fcba924d7ddcc22f59b3ab",
+      "bytes": 237,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/152-nscsingleraytrace/status.json",
+      "expectedSha256": "268565a9726d3f7e6591612353cd0aabd8c479447454555eb8f36f4a3234f0bb",
+      "actualSha256": "b3c6228597249ea930e24abd7aa9487308dbd9860e06b0ced3234cd6a8c15652",
+      "gitBlob": "91ef3b38398a376bd86da0d64b82e22c0fc6c2fc",
+      "bytes": 344,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/153-nscgeometricmtf/error.txt",
+      "expectedSha256": "c2903c5aca82c015995110a125fdc91285ecf4eb1519d1acd7c16a791e330fe5",
+      "actualSha256": "96dca6b67b777ccf86b4ba1a8209afaf50496ec0248d88289b4cfadf59c27d26",
+      "gitBlob": "48dcabf89b8f75bd72fcba924d7ddcc22f59b3ab",
+      "bytes": 237,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/153-nscgeometricmtf/status.json",
+      "expectedSha256": "4059c855de29dd213a06d72890520203e04362f7930802e9f451f0e575d5df9f",
+      "actualSha256": "b95c30981af45906de6d4c6624bcea50f101f778bd88f456f703435c995f4129",
+      "gitBlob": "c05a4ea1af80091b77f3d1189f0f92fc0be89ad8",
+      "bytes": 340,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/154-surfacephaseslope/data.json",
+      "expectedSha256": "3c91e30a602c4623570c3bc0f276fd8fe5b2cd1d566565666b087140c53a5d0e",
+      "actualSha256": "a0cfbbea70b057356b943201228960830b799129c2ee52d3ce91c859039523a1",
+      "gitBlob": "cd3d1d4357b417cdafcf425afa5a596547304cce",
+      "bytes": 68592,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/154-surfacephaseslope/status.json",
+      "expectedSha256": "1a1aa88ce81100a52b74482c910f75faab9e1e579a0838232e3798401708d2c8",
+      "actualSha256": "355cefe958332a38fa11ec25c41fdcb7269068e0d4ed92b6c04e6f2ad993799f",
+      "gitBlob": "109afb03c1c0a54e3f2fd015eed626cf15bd33bf",
+      "bytes": 544,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/155-surfacephaseslopecross/data.json",
+      "expectedSha256": "f5f46a616dfc2832e4d02843d349e7bd33fc4f643c5d9072acc002df3140d0dc",
+      "actualSha256": "15b82dcfb77176ea95fcbda90a826f1f99d363b5c67623d7b0d0debb3427db78",
+      "gitBlob": "f3047226b68cc54052e410230a6b57d5d4cf0ba7",
+      "bytes": 5811,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/155-surfacephaseslopecross/status.json",
+      "expectedSha256": "7f6092a01a29ab917de4e38813b8712dfa71cd3426a34b078570d03d2378d8a2",
+      "actualSha256": "a596a10525423d4639faeb07c9a11a97a25f9a4595fd8b2f40115044854131f9",
+      "gitBlob": "22a1915587a8cd846d9b1c1d1fa7b62615000a20",
+      "bytes": 568,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/156-staraligncheck/data.json",
+      "expectedSha256": "ad9923a9dab3252fc8e5402b4cd8ee4b3cd76b7655d96b681298e219b1bec021",
+      "actualSha256": "fb05baf3195e98564925c7c04a8e3bf9583abedcd3395081f81417388f26df7b",
+      "gitBlob": "51f25a8da46140e511f44661526b9965f05bc486",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/156-staraligncheck/status.json",
+      "expectedSha256": "32651cbf35def49689104fdb7dd74d8907b8e5ab5be6206823c61d28e5460f2e",
+      "actualSha256": "e7407b0ee6982ae633545f3dd0439a27abf74a3e2a2a2b9ae1bd752fe5fafb85",
+      "gitBlob": "c61b8d57834050ec6a26d8a57e9cd8fc1bb7e441",
+      "bytes": 511,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/157-starsysviewer/data.json",
+      "expectedSha256": "ad9923a9dab3252fc8e5402b4cd8ee4b3cd76b7655d96b681298e219b1bec021",
+      "actualSha256": "fb05baf3195e98564925c7c04a8e3bf9583abedcd3395081f81417388f26df7b",
+      "gitBlob": "51f25a8da46140e511f44661526b9965f05bc486",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/157-starsysviewer/status.json",
+      "expectedSha256": "540b21729823f2d3ec2c53cb27da554f0efaf6024244cf4c72300481a021ad7e",
+      "actualSha256": "8a8f06b9fa9b197e6ca472ba0fd158b8b0321f1b13ecbcb8b17218e28a56e931",
+      "gitBlob": "c20af640628773053bb522884b805da143ad7a5a",
+      "bytes": 511,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/158-star2ddefplot/data.json",
+      "expectedSha256": "ad9923a9dab3252fc8e5402b4cd8ee4b3cd76b7655d96b681298e219b1bec021",
+      "actualSha256": "fb05baf3195e98564925c7c04a8e3bf9583abedcd3395081f81417388f26df7b",
+      "gitBlob": "51f25a8da46140e511f44661526b9965f05bc486",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/158-star2ddefplot/status.json",
+      "expectedSha256": "1eeb1af7195cb2044257a60298aa99189cca3f7083ee3450f89a5a121f40277f",
+      "actualSha256": "94a72039ee4849166c6c1a318d4e7a0fdb83d62a5644cf12041009ffaa5450ad",
+      "gitBlob": "0db74344ade07ed65b527e84e431f69ef8250b74",
+      "bytes": 508,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/159-starperfchange/data.json",
+      "expectedSha256": "ad9923a9dab3252fc8e5402b4cd8ee4b3cd76b7655d96b681298e219b1bec021",
+      "actualSha256": "fb05baf3195e98564925c7c04a8e3bf9583abedcd3395081f81417388f26df7b",
+      "gitBlob": "51f25a8da46140e511f44661526b9965f05bc486",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/159-starperfchange/status.json",
+      "expectedSha256": "adbe20b19d7396dee04bb8cc50471f1848bc1db05aaaff5c8a4914e8e7a3a3dc",
+      "actualSha256": "68c54e65dcca4264080d162c6d35d52c919aeecb177608a01e5722fbb9ca0c0f",
+      "gitBlob": "2a22a65928b402ddb84bf0aa1f16360ab6d09cb6",
+      "bytes": 511,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/160-starindexvstemp/data.json",
+      "expectedSha256": "ad9923a9dab3252fc8e5402b4cd8ee4b3cd76b7655d96b681298e219b1bec021",
+      "actualSha256": "fb05baf3195e98564925c7c04a8e3bf9583abedcd3395081f81417388f26df7b",
+      "gitBlob": "51f25a8da46140e511f44661526b9965f05bc486",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/160-starindexvstemp/status.json",
+      "expectedSha256": "b99e3d8228ad52a8950161155e573435cd74d8e2c5ffd8b55a24f7cdfee51b01",
+      "actualSha256": "e38c8da488773597ae1144ef07d82364a378a362aa79bc37e38e2707350f5ff6",
+      "gitBlob": "684915fc329d94d161f9abd4dbc46782cc72d263",
+      "bytes": 526,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/161-starinspectfea/data.json",
+      "expectedSha256": "ad9923a9dab3252fc8e5402b4cd8ee4b3cd76b7655d96b681298e219b1bec021",
+      "actualSha256": "fb05baf3195e98564925c7c04a8e3bf9583abedcd3395081f81417388f26df7b",
+      "gitBlob": "51f25a8da46140e511f44661526b9965f05bc486",
+      "bytes": 517,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/161-starinspectfea/status.json",
+      "expectedSha256": "d8c241638ac0cbc9b60c3bc2a5b455a5f56c03520727e35c970b6b6b67cec02f",
+      "actualSha256": "d66bdd1a0a1ac41c599187f21c3ba7142b699dc8a45eb7e613931aeaa1d041c0",
+      "gitBlob": "183ea501085a3c5d4e066b69361ae535c895e316",
+      "bytes": 526,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/162-userdefinedcom/error.txt",
+      "expectedSha256": "c2903c5aca82c015995110a125fdc91285ecf4eb1519d1acd7c16a791e330fe5",
+      "actualSha256": "96dca6b67b777ccf86b4ba1a8209afaf50496ec0248d88289b4cfadf59c27d26",
+      "gitBlob": "48dcabf89b8f75bd72fcba924d7ddcc22f59b3ab",
+      "bytes": 237,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/162-userdefinedcom/status.json",
+      "expectedSha256": "b2a19c27a4317e8e550831710184873915481c8e6f6c39759342acfe3c3976a5",
+      "actualSha256": "c8d248670f0a00148649106ad3d025d4b2a39b8103fc38195956ffcd0f0bc5c4",
+      "gitBlob": "8db85e1b1f583073ac83cb2c1897f3ad64e88ec9",
+      "bytes": 338,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/163-nest/status.json",
+      "expectedSha256": "332c9bbe8c5cd7877b5c66a4990280cd38e49ca2cc729b1d098e845d5b5ba392",
+      "actualSha256": "d024975c9bb82d87a93e7b9d655b398b9ea21792ab90d892facacb92972ab315",
+      "gitBlob": "3c7b8a0540380d3dfa798784bc46be9e645693c7",
+      "bytes": 1172,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/164-nscspotstandardnative/error.txt",
+      "expectedSha256": "c2903c5aca82c015995110a125fdc91285ecf4eb1519d1acd7c16a791e330fe5",
+      "actualSha256": "96dca6b67b777ccf86b4ba1a8209afaf50496ec0248d88289b4cfadf59c27d26",
+      "gitBlob": "48dcabf89b8f75bd72fcba924d7ddcc22f59b3ab",
+      "bytes": 237,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/164-nscspotstandardnative/status.json",
+      "expectedSha256": "2b765c2cbcf669f764c2ebdf69c424f5f5946430196f441e1804a4089ed90545",
+      "actualSha256": "3e422cc108845d212a04f5e03ee43780a21e2b50e4765bd77a5240c36752c2ac",
+      "gitBlob": "3906c743b008c652ff66204605f8c932db5167b2",
+      "bytes": 352,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/165-xxxtemplatexxx/error.txt",
+      "expectedSha256": "c2903c5aca82c015995110a125fdc91285ecf4eb1519d1acd7c16a791e330fe5",
+      "actualSha256": "96dca6b67b777ccf86b4ba1a8209afaf50496ec0248d88289b4cfadf59c27d26",
+      "gitBlob": "48dcabf89b8f75bd72fcba924d7ddcc22f59b3ab",
+      "bytes": 237,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/165-xxxtemplatexxx/status.json",
+      "expectedSha256": "b1338fed3b2b9a7af1e130203427cdc402e44c35dbab1e1dbeaa9412360cca7b",
+      "actualSha256": "157fb56d8e5593e7a76640e3c3451b8342f0434730ddf02969c4daa109b1825c",
+      "gitBlob": "e802fccd89eced04ac2b99b59e9a64f0e52a2c38",
+      "bytes": 338,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-30/COMPARISON_REPORT.html",
+      "expectedSha256": "fab252f254274e5c4ac652d8077f1ce361a533c288668747d54a5d606626da31",
+      "actualSha256": "ce0617bc5d68bcd4194846b8517b3b6ef80b37033d85cdbc7fc8c1c6484c790c",
+      "gitBlob": "04681ebf7b92fb49367111b18b44ba7805817225",
+      "bytes": 22206,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-30/COMPARISON_REPORT.md",
+      "expectedSha256": "f3a05d5c0d9c56fcfbd9b27609effc38182b4cd819de3fba6072ecf094329fb7",
+      "actualSha256": "7a41a4c63ee2f1c756fc0e087e1ec36ce630725ff142ca5bcecbd36bededd5a6",
+      "gitBlob": "f1c711b62e0d9fb7ecd522f894d5962485c15719",
+      "bytes": 6536,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-30/comparison.json",
+      "expectedSha256": "4f74be71dd97e7533f6be400844b906cca76452cc9daafba5d88eb4178d1c745",
+      "actualSha256": "03a9579819957b2668f4a7765f4ef8d9cb68b103bcae5075b0ba0ea4367bfb06",
+      "gitBlob": "113ac70dc7b4fc2d251f01adb972f8e93c4a500b",
+      "bytes": 134462,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-30/current-manifest.json",
+      "expectedSha256": "2e26bba51daec69ca01498868aa12f37ffc9a076dfc8fd5bc85cb7a5eeeb2acd",
+      "actualSha256": "d3a37d513ad6c9c833a3210c24558504652a52db447fe39cd4955bf65f765b2e",
+      "gitBlob": "3a468ec0e69fd9ebeec5cf928c29054a1e40a336",
+      "bytes": 37046,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-30/huygens-retry-manifest.json",
+      "expectedSha256": "ac1ecbbfb5b3f9d370315fbd164394c4acade72636958ae66738503cd0f11502",
+      "actualSha256": "89bb8a6940c582c4e68db6ef72f6e81e438f99ec25e35c676abec6a7e6716ef5",
+      "gitBlob": "3edd3f03eedd374cf3caa52c562ee6a86d1a078d",
+      "bytes": 880,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/COMPARISON_REPORT.html",
+      "expectedSha256": "2f9a649008e456059aa918100961fde0efbc6fc0df827c0fa871781d4ceb9b77",
+      "actualSha256": "58d81975198dbb672daeb731685f35cf6fdd0558d1811c02de4ec4679fd85876",
+      "gitBlob": "43bdb5a1dbb7e00621c4446b41965a0aac7a405c",
+      "bytes": 12751,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/COMPARISON_REPORT.md",
+      "expectedSha256": "b8dfbb71023fcdbd0962e10419aae6da2f4225c5989ff15aab5a835f04eedbc4",
+      "actualSha256": "d560827bad360c48ceb370faab571af2d4995554a9ed91876c31d09b1e4b1862",
+      "gitBlob": "d97de0453c55b4fb570083c37ee4066b5dbfbfb0",
+      "bytes": 6229,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/README.md",
+      "expectedSha256": "7a6f0be4ca91824fd49739d23c9203091cdce2ffc683fddff05aae448cd89f9b",
+      "actualSha256": "5d6dada754b55268a6c5ac0be8ce3df4c058272682344cc87844028469643aa0",
+      "gitBlob": "c014ae3785d13f8fda8fbff0bb5bb9a839b807c3",
+      "bytes": 143,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/comparison.json",
+      "expectedSha256": "46dd1b2df0bb6699c8a67769a8e3fb623ef1be33bed0e16053f3c613cee77e21",
+      "actualSha256": "e0160c4f905a92b51ef882ca3ba1a540bb2ea2088e2fa7268cd63ab0893bb786",
+      "gitBlob": "52ad950fa1bbb36d5c02c25dc7a3fd3da4bfb1d0",
+      "bytes": 156951,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current-manifest.json",
+      "expectedSha256": "f3a96a8f6ba2b7aafcae619e0ef31aff4ce7fd1b006e5e4c6f8f8216a9065316",
+      "actualSha256": "19a1b9c9b90fb8cadd13e49df73a0d11c0ce98df8c83676f90e86ce6b07b854d",
+      "gitBlob": "7048dde335cddff3779dc2de6e2cd2762a56e497",
+      "bytes": 38739,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/001-single-ray-trace.json",
+      "expectedSha256": "5990c1825d0d76f2e94e9e483c582c55500024dfae640566a4024e09cd674329",
+      "actualSha256": "439c9253e0341f32fd5a76d5f1d3e4267c3d5177f256116999ffa7929aa9f396",
+      "gitBlob": "0164df146320d22718436091d43f124afecb0f59",
+      "bytes": 1413630,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/002-first-order.json",
+      "expectedSha256": "39637812b8326149dd2231b5f9ffe7b7bbdf2e373aa91003e2ab90e6cbbca5c2",
+      "actualSha256": "1a7b4beca143be50a7eda22c628879f8ddba71118280e9962ceeba6c3acd674d",
+      "gitBlob": "135e9dd4f14e5a7f28e2f33a8fc6a88b258a06a3",
+      "bytes": 3180,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/003-seidel-coefficients.json",
+      "expectedSha256": "e0c98376cd0bce81b5b00d7f9e4a76c068949a4e414b1c66ea452d1fa0d3e7b9",
+      "actualSha256": "54f86d43dc4c47f1220a6d8f1905b6d7deed65908c35e0c34bac4b1d96efc08b",
+      "gitBlob": "6588579001db9ca9b611525b0c14466c0253410e",
+      "bytes": 12947,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/004-seidel-diagram.json",
+      "expectedSha256": "b914c7a023acad2139a23240fc352fc3dde66510608562efd3cbd58dbcf5a717",
+      "actualSha256": "05fad8bce9bc9c87df3accb51f004e1033397d2d4a7e15c162c223b30ccb6485",
+      "gitBlob": "5474a2413906bea0ad82372d8cebf52cdde3b84f",
+      "bytes": 45913,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/005-spot-diagram.json",
+      "expectedSha256": "5cb0d72495d795329b7e6ebd4f7f6607d49a1b7ec2986e84c3302f1f477e8835",
+      "actualSha256": "4e69739e3492cd10575b5cb10606dcbf5f872cefc80bb1e78c6a28ba23240f4d",
+      "gitBlob": "eb0e1ab5b2282a0c08027594db006acc869eb3f3",
+      "bytes": 553358,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/006-full-field-spot-diagram.json",
+      "expectedSha256": "087e9d8a53d335b2628a93cf389fa9769bd24aac6044dff1f3be9870938a75c2",
+      "actualSha256": "ad590bdffa7aa301f34e5605c82373a4515098ed1e3439a5e21fa457bba93285",
+      "gitBlob": "c2419eccd7c75f64182b7292d1db9ef9cfe1f2f2",
+      "bytes": 529717,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/007-matrix-spot-diagram.json",
+      "expectedSha256": "c259293f41797a1a571482d63ca2a2b153d09ae8ed5687d7a137e350b2090260",
+      "actualSha256": "27fe56d0587a4182368700cf4399127383c34dab40b9b2d8e6f02e3eda6c4565",
+      "gitBlob": "87bbcd2fc11d2bfe455eddd4f7cfd3fe430be887",
+      "bytes": 559164,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/008-configuration-matrix-spot-diagram.json",
+      "expectedSha256": "abd5ede7e76ddb481ef257b9823f653b3b94b3e437f0132f6ea0ee011604a05a",
+      "actualSha256": "ab33634edb78d838080accbfdba04f1965730032455854df2a99cbdc585724d6",
+      "gitBlob": "93063a24042614628ff968123a4f94b20c6a73be",
+      "bytes": 565233,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/009-ray-fan.json",
+      "expectedSha256": "dabb962b8154e21abfb5b13cdff2a1814ef0a5cb6a610d947dac4d0cffdd7d94",
+      "actualSha256": "48397fea493ae5cba0dc1f3356927d7d2e664c00d329df2bf0907ea938308b1e",
+      "gitBlob": "879500e09c0af63433270b8e26708669251e108e",
+      "bytes": 342344,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/010-footprint-diagram.json",
+      "expectedSha256": "ac61714da82b394af29f5ed75c5dcf505ed1936371509c862a392c9f6da653cd",
+      "actualSha256": "2d374c04c6a6b3922daf12b34bf0914ed9b7c41c0ac3d9140b5a871310653037",
+      "gitBlob": "fd56c114a219a065089f010f12abf1022fb09aae",
+      "bytes": 1105279,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/011-field-curvature-and-distortion.json",
+      "expectedSha256": "fe5a05aeda6373b66ada30360443e237f74bceb4adcb5b20b0f7a81bd88297f8",
+      "actualSha256": "2727fce3ef08ae7d882e041d55a8738d14be813ba9c058af4a89401bd8583fba",
+      "gitBlob": "8bc43acefe13057b8cfe61fbbe6734c514c9c9fc",
+      "bytes": 536254,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/012-distortion.json",
+      "expectedSha256": "5ff5e873b95a77c29f858a404f9d2d567e870b473bfc1966985b74643b2f586c",
+      "actualSha256": "1192d4b2d516f97c83b9b80f34bb0b5a83a9eb040060543b0daebcdfdc5147e6",
+      "gitBlob": "93062cc0bc4fa57691df76bc345d6673754c1c45",
+      "bytes": 121529,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/013-grid-distortion.json",
+      "expectedSha256": "112c9ac3d496dc1849bfe0af35fff2fe7c9db54d26c3fea2f42bb04f34e77649",
+      "actualSha256": "4dc850f04024fb9e032aee21196ec17d1152808aece52c95e9a66b5a14d4fc82",
+      "gitBlob": "ace95855ccfe6ce987a150d06933120463068718",
+      "bytes": 108571,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/014-field-curvature.json",
+      "expectedSha256": "046c053f57ec60436b370c9bc3ff75dfbfb1156c31469df8ab42fbafaaaa05ed",
+      "actualSha256": "addd864a85bd788de973aebe80002d45f56de9bb88e63947e33af6cc3a0fccd8",
+      "gitBlob": "b18c0c3d29ae73f812f411c5e0fc85b0871e03a7",
+      "bytes": 215024,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/015-color-focus-shift.json",
+      "expectedSha256": "b90e2ad8299a0b19a83c81f1c3eac0d887961fa4eba18a11fbd786c91420cc0f",
+      "actualSha256": "cae595edb7873f50689a0b2db7ad60920c8f4ea516f65fc0325120beea585667",
+      "gitBlob": "5a5a8fb6e4b62aa40a35a61d576bda809b07affc",
+      "bytes": 41159,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/016-lateral-color.json",
+      "expectedSha256": "f20da1ad2faa21545e35a7ae59ff144539f75cba46e4aabe058d3ab7815cb6aa",
+      "actualSha256": "07d7902daa3f503a0f03ea2ea750a25c6c249c44312457c5c5f84b388f76653f",
+      "gitBlob": "bd659828df1d4e00c9e8ae80acb285118a55889f",
+      "bytes": 82907,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/017-axial-aberration.json",
+      "expectedSha256": "e6239df0b723c58440489cd8dddd81918705a626b825bdc4c1a8dea2515ca383",
+      "actualSha256": "ecd37f2a70ff859dd3ebd7f49b2bf7660504617e17a25cd4289676e10df66948",
+      "gitBlob": "3822a6a08df4b5c80eb3d83083e4c416211a7cf5",
+      "bytes": 82123,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/018-full-field-aberration.json",
+      "expectedSha256": "25fa571a69937425a0e33ed4f95a0d6c9d663a1444a402be75665c6567a4e459",
+      "actualSha256": "577978c55ac5cba55d0a0960c9690865f480dc052e94c445c0a99a8fc98b82b7",
+      "gitBlob": "f6ae47cbfc81eb3c112d730dc4de2037994154ad",
+      "bytes": 36808,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/019-encircled-energy.json",
+      "expectedSha256": "729cf11a8a0cde213cfaf540186be2b03ec0d50537dac303fca1b975fcadfa6b",
+      "actualSha256": "5ab292b0fc60b7072dce41f7a2799f728d6a7cd63ecc48707d37fe5610654cec",
+      "gitBlob": "c92a2fac741ebfee50b7ae88b5d32fc463fe1b4b",
+      "bytes": 322766,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/020-diffraction-encircled-energy.json",
+      "expectedSha256": "36415721fd54440581140fafec49e39ba708890e8eea957d92dc81191a24db34",
+      "actualSha256": "1f46e7769040c9528d4edf005bf90fcc157f06941041d73be8d3bdb87eca90a0",
+      "gitBlob": "c0cb88a4d7491d4c94da4e7114030f5284f76620",
+      "bytes": 375426,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/021-geometric-line-edge-spread.json",
+      "expectedSha256": "82d1b6fa4f581ebf0c9e1606bcada8484e9c144f658bbee0f35ace85f982da96",
+      "actualSha256": "63c8b8dd45262dbe74254fb09cde9f810fc68bab3f7e4a25734e8667572c5b54",
+      "gitBlob": "45d19b6da3357d98b0f2a1507b92c2073705d2dd",
+      "bytes": 159481,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/022-extended-source-encircled-energy.json",
+      "expectedSha256": "1097b3e9a71aac33cbb2870f79be43e2bf3a4c4a353dd1fe1de43e25c9432d89",
+      "actualSha256": "0e4234e1083a72f526ddcd2793b4e52fdbef50ff1067f4c58c14471792b777b5",
+      "gitBlob": "7b2cf2a9bce368136b1391ca27c15d156f38617e",
+      "bytes": 154005,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/023-pupil-aberration.json",
+      "expectedSha256": "77aff3a5d6be25a4d2f0254dbc88928b6f17aa5c445d0e6409bca5d9b3b6712b",
+      "actualSha256": "ae10e1792e7a4c7096249ab7d297a1b7697e345000b59f280acc74d05c892117",
+      "gitBlob": "8b9dbfe87f0564f355e629129b677d766b432e26",
+      "bytes": 341734,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/024-rms-vs-field.json",
+      "expectedSha256": "3888c0b8c3c8bac66e164821b9e82fe781387eb62a453bfdc9a09ec04b1cfc2b",
+      "actualSha256": "ebf3801bfe79cd18580a48883e80ec4bb70bb94838c07aa1a11eb53ccd251eed",
+      "gitBlob": "e130bc70f550619a9961b7faa4152f4e6e34a33a",
+      "bytes": 22336,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/025-rms-vs-wavelength.json",
+      "expectedSha256": "ce909628f223a0eab96f616cb5a80ef089284ccf33b1eb3442405df910fad533",
+      "actualSha256": "64ea17025e4f1f1acc2b7726ff5734dc37505521a74c7583532d39464f99ea07",
+      "gitBlob": "2147565d122a688f255ba1fed74a0fdfd5b5c6d7",
+      "bytes": 30317,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/026-rms-vs-focus.json",
+      "expectedSha256": "0f6d94d2533b1eb95984b7299ead22b1f7972c3a3b177174dd11f5ab347e8776",
+      "actualSha256": "f068d60bcbba57ee63bd740932277a5053cd2c5871a1bc0cdcfd4f6cf81fb3c2",
+      "gitBlob": "e12c47901234f37763d55a9d20b0a2862d4dd865",
+      "bytes": 25133,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/027-rms-field-map.json",
+      "expectedSha256": "4aeb8cb249925dc945cca37c726864b81461c5986c10312af5cd3e141fb5560f",
+      "actualSha256": "ddb5a3a871e561db4a89257b650b62171604a93cbd786ef98cb5e86ed7fc2fee",
+      "gitBlob": "6b9feaf7e2f23ec3016f443c4de1b88317f7d695",
+      "bytes": 52606,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/028-rms-wavefront-vs-field.json",
+      "expectedSha256": "92a1418e19357e099e1854fa29117515b1ec59336655c88cd849a8c56128b917",
+      "actualSha256": "6ad6358b53b16c92ae6fdfd59eb27cd5f069c96d9f1428a4ab6ce1a1b8cdfac3",
+      "gitBlob": "20ee509f024fae2019f410e99d29d781de41c8ea",
+      "bytes": 21614,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/029-through-focus.json",
+      "expectedSha256": "3b875df6a6592196d2f60cb761d8d4cf15be7c85e4b71278b275c6a4674a1e0d",
+      "actualSha256": "063c18d651703a0d39853045781b604074a1981e7cea8bd650ccfa3d9155c1f1",
+      "gitBlob": "754df85950680a2e7e63930ebab2c33efebb8d06",
+      "bytes": 2467467,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/030-through-focus-mtf.json",
+      "expectedSha256": "6407a5864cbbd849414f5dc0e3f46dc8f04d090003faba860f4e8ab55a36a062",
+      "actualSha256": "c0ae83d26ecfb3ff501be4a03a786b6ce783d354b7fbde69b32e5dcfa03bde65",
+      "gitBlob": "9a63b2f91dcc80319ebc377e66d9f0a7d9ecdbc5",
+      "bytes": 702977,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/031-fourier-through-focus-mtf.json",
+      "expectedSha256": "6407a5864cbbd849414f5dc0e3f46dc8f04d090003faba860f4e8ab55a36a062",
+      "actualSha256": "c0ae83d26ecfb3ff501be4a03a786b6ce783d354b7fbde69b32e5dcfa03bde65",
+      "gitBlob": "9a63b2f91dcc80319ebc377e66d9f0a7d9ecdbc5",
+      "bytes": 702977,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/032-huygens-through-focus-mtf.json",
+      "expectedSha256": "d55a9784844b781f31a75dd8a7a0d466424739088b44ec134cdb08c477514164",
+      "actualSha256": "b5786357b6e453b7d4719d08ec4ad7e677ef67473ab6fd00dc26e32d85a19e49",
+      "gitBlob": "2ac9777bde7395b9e9ef867061c2e1e25c638b9b",
+      "bytes": 235635,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/033-geometric-through-focus-mtf.json",
+      "expectedSha256": "befe8f8cc6b1a6f0228c6c4a8493ef8e12b0a4b751c086786f99d7945a238243",
+      "actualSha256": "fe21a117908820a12ab50aa5571e03f0ff0fdfcb43f86cb1471c2f6d2447bc46",
+      "gitBlob": "c64d4a7bf8f2a1dc198381e4e28a312e621bfa7b",
+      "bytes": 703196,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/034-fourier-mtf-vs-field.json",
+      "expectedSha256": "0e483e91647ae781249b510bac4d2cc745003fad224e6db818c0796fa49f841b",
+      "actualSha256": "6fa7562539d45661dea83fce220314c29d484998e2ab21eb70aa0e5a60d5be12",
+      "gitBlob": "7a64117702b8081db2ab3c120bfad3814c13d91d",
+      "bytes": 7263,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/035-huygens-mtf-vs-field.json",
+      "expectedSha256": "ba83cd453271417cb7def66d39ed1139236dc5458df4c39d0053969685c731dc",
+      "actualSha256": "90a2b3f680f64598e510adf75c62bd93f624c23901232f2a28374bc572d877fa",
+      "gitBlob": "02534dc9544550c60efdf0a0ccf21d071a514dc7",
+      "bytes": 823092,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/036-geometric-mtf-vs-field.json",
+      "expectedSha256": "adab3896b1d1917178cc8330e21e4483e2c6937cfafc0ebf6dec0de0bcd1aee1",
+      "actualSha256": "f2db9f52a12936d81e62f9e256b6e32731ad9184e4128779dcc69de8954b938e",
+      "gitBlob": "c614fbebece69b14c3ae5a8f2f93b2e265c6394f",
+      "bytes": 7258,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/037-angle-vs-image-height.json",
+      "expectedSha256": "9718ebeb82d39ee7bcc452405f92e6bfabb3965ecd982b9ac39ba907bdcfb059",
+      "actualSha256": "d4762ed2e8dfe13af8492c6707001b6700d77ca20094052b9452062a419b407e",
+      "gitBlob": "11fc4709f6031e407b7a6c0b4fdf2374e670fb2b",
+      "bytes": 20816,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/038-angle-vs-image-height-through-pupil.json",
+      "expectedSha256": "38bfae5a723c753be44aed0e464c4c4ffd875fbf5bcf164a44ed8562061d88c2",
+      "actualSha256": "39a3abd0150140496b54e7522488c16febd58734dbb3faa739ea607c98378f1b",
+      "gitBlob": "0ca580d20bd6cf2c93d449847b9c9517e831a804",
+      "bytes": 58910,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/039-angle-vs-image-height-through-field.json",
+      "expectedSha256": "d19186ff053860e3e5cb41f5dbccd6cb93a00af2523459108537a53463f0db9d",
+      "actualSha256": "4313d723760dcb0508a6732fc731f3b54906770b2dec8929c1bff47789a2212a",
+      "gitBlob": "0119943f7710921c0a3528c1488dd15df42900d2",
+      "bytes": 4738,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/040-cardinal-points-data.json",
+      "expectedSha256": "5f49da62c3ef8f9f18c77dbcea88b5fa837e927aa5b5266894cc01d324fb453d",
+      "actualSha256": "10284be99f0bbc3883cddad055e964a4d797f18163556a342465f0399614d7d6",
+      "gitBlob": "94661f550b4e5183b7b172c719fbe17c64c37aa2",
+      "bytes": 8956,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/041-vignetting-diagram.json",
+      "expectedSha256": "c7d7816b651336c8526ad0bb691f56816647f74e606f9f099bc3f0cf445b3a10",
+      "actualSha256": "e0840666e84e73bfbd3fff2a86bad01c157100678b3dcb10921fdcdbbf0b6d92",
+      "gitBlob": "a83a379e195c5f6d5f9857dd0c1404a8c10bb9a8",
+      "bytes": 5364,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/042-relative-illumination.json",
+      "expectedSha256": "d45d7b845dc389a8a8542915694b36d0252091e3e9c165be5e4596fdf30369de",
+      "actualSha256": "51fbdd4ef353c397009cfc1cda0f416ae64ae04e89804bce4bb5c889faf1a557",
+      "gitBlob": "14d0d9982d450cc04deb6bc258b5397e631899ab",
+      "bytes": 11488,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/043-incoherent-irradiance.json",
+      "expectedSha256": "aee7031366cf1e669b7193a7fddd0c1ee80bbee35932899cbc2abd9f6c45d03b",
+      "actualSha256": "7e9312fe65d1459d41eba3bbe7a197644f8f785e3ef61199386ab406ab2331bc",
+      "gitBlob": "8acff3eab2d11a24d1d9fb475475763a6f1caa1e",
+      "bytes": 1133,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/044-radiant-intensity.json",
+      "expectedSha256": "c60dd84bcdeb3b4faf1e63086496d19459047e298ba5a8719b2c249acd2f31fb",
+      "actualSha256": "466f3fedb1ca779c4d8c7b097e06684cb8dddd525b36615cadbd8be0a84e9d01",
+      "gitBlob": "56595b4b0c9d06b1ff71c9f8aa6c274475c3f762",
+      "bytes": 42001773,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/045-y-ybar.json",
+      "expectedSha256": "05bcf989ef67143a69d269abcecec47e6726d975d466fc5e96d9128da6624597",
+      "actualSha256": "d2d2b2608e4bcf6e2783156270ceeddddf7ba65a88d488193b701accf1b08f09",
+      "gitBlob": "2514e5b23835b5b97496e6f816152dba32567f26",
+      "bytes": 31284,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/046-psf.json",
+      "expectedSha256": "40b785727d310392c668743c7fbf62cdc29a9f45852925bbad7fd2804db6f527",
+      "actualSha256": "58d86db6321ea0cde34da67bbe092d2481e2f7f05bbb6ac852dc1dabb5b5abf8",
+      "gitBlob": "dba823b56721002d0c031a6f61496848f9b69f0e",
+      "bytes": 7161913,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/047-fft-psf-cross-section.json",
+      "expectedSha256": "3a31f9b62b283fca3c279e4a5f7f66580958cadc3d46377247d8bf69527701ef",
+      "actualSha256": "ff1c3261edc663e8017f4da4b713c452a549b5453a19e30bb1601e8644b50e37",
+      "gitBlob": "ceb88ed673c99432c0d6c6f883fd41e514422cbb",
+      "bytes": 56684,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/048-fft-line-edge-spread.json",
+      "expectedSha256": "903653cad9a3c45152df9248612cf7782b1fb97680ddfb9ae43f06d48918e0ac",
+      "actualSha256": "489fa090ba15eab64e7fbceb07f21b21930288a565a48734d51244a2a5073529",
+      "gitBlob": "f70b6795a98e6ee41a2f0667a5597203324c1a0e",
+      "bytes": 56812,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/049-huygens-psf.json",
+      "expectedSha256": "e493de6b5814787aa7566ed8bc4809f5486aaf5fa8113b8bdb74d7276fde0f2d",
+      "actualSha256": "2eba1d60bb0ab43eeec4eaa1e7f81e474f3dae559620e48b3bbd67cbe0828bf3",
+      "gitBlob": "86beda34f192d8364cb8ef90baadea8980f38b48",
+      "bytes": 448039,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/050-huygens-psf-cross-section.json",
+      "expectedSha256": "2b3efe7787b218a5cfa77fb82159924ee82edda843e42f58eec5868b61220678",
+      "actualSha256": "cb0ab9ee4c32d09f26e0a4e74b9a0788e005cfee3b5934d88f8bd875c8684424",
+      "gitBlob": "ee9a3cae6925c44bdbd5e4abf06c14efa34e851d",
+      "bytes": 18203,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/051-mtf.json",
+      "expectedSha256": "e244c0aec365cff0d43c095fe2822d31fef5ca5e4611a227b12b56e740412ac6",
+      "actualSha256": "639d7c108981c5f6503122faf1ad810e7d57d97f6605290b461f71b4b634541a",
+      "gitBlob": "4ad4ed1b5aaf99e966b510d2845d50eb6b695491",
+      "bytes": 694347,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/052-huygens-mtf.json",
+      "expectedSha256": "1693c8427231ce77011f2f31777466fcdef330186008bb370ef622a45f83c486",
+      "actualSha256": "0cd120ae7a3807c2a43291b39ba5c42a54574cf06464434c07b83be52d0f103f",
+      "gitBlob": "71c172837adf3af8f2f72e8c6842ca395e34a502",
+      "bytes": 700052,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/053-geometric-mtf.json",
+      "expectedSha256": "6c96e46fd1834ba5638343ff48ec1f70e77d07bae4662d620b0fd93768e2c793",
+      "actualSha256": "cb01c0a189e2cb4047816a588410626e441921c9979b4782cd29f71cfec88a0a",
+      "gitBlob": "e59dd477bf7435440d3cb8577fab76801cb5af59",
+      "bytes": 300859,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/054-sampled-mtf.json",
+      "expectedSha256": "8f1e23b55320aee80507d19914edf9125ab2906dbada25d8bfc071ddbd0fac60",
+      "actualSha256": "0a778f6947baacc0533ef136540d3ea68d25b37ca72ca2967458885180039566",
+      "gitBlob": "c7ee79db41ad74e5f9f6011f22f5d4bc3ae0a9f1",
+      "bytes": 299045,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/055-contrast-loss-map.json",
+      "expectedSha256": "d082f522e156d05764e5b0bd522f0822c4434c23e4e103f550eb0458a7ad5087",
+      "actualSha256": "173a0c28202383299663dcfd2c1a7d8fa6f63b2c0a7c71c7884f52683d000c2d",
+      "gitBlob": "63e8c2fde6312f5464a9e525e7e5a08890e50f87",
+      "bytes": 190879,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/056-optical-path-difference.json",
+      "expectedSha256": "9d6f3af6425dc40b4a2b936a4cf1ab3cb6ee41d852f8cc609dbe147d0ef2264c",
+      "actualSha256": "60ede32d1309098479594b93bb2df358d1af0b2113f97112f4b1ba7deb234f15",
+      "gitBlob": "8ad82b1e731a4e00e29f28813cdec0e32bd04c1b",
+      "bytes": 338806,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/057-foucault-analysis.json",
+      "expectedSha256": "bd9ecea5f8ee9e8630c6fd61fd55cca68df65c455807c2020a1031226f7b1d00",
+      "actualSha256": "7b483316b01453870cbb01939bf30e26e72fb190dfafb057390bd3d35cdf9abd",
+      "gitBlob": "ab13e0d8592191d2f6eef8a54e79f43a7c61a931",
+      "bytes": 318467,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/058-wavefront.json",
+      "expectedSha256": "f56371272ac935c61c8cd50ba963a4f9443a76401f814bef1ad8c342aa57419c",
+      "actualSha256": "e4279543dd5f9946bd677f25b3d9bacd40fc4c933e91f2fc901d54442ae919a5",
+      "gitBlob": "6fe5652f19829d43dc39050f6c96affff13c6475",
+      "bytes": 1309700,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/059-centroid-sphere-wavefront.json",
+      "expectedSha256": "6d6987be308940993150ec760401528a2c1f3aa7414587aa6bbbc0d5cc063b3a",
+      "actualSha256": "5f0aaa96474c626f6ea0314f856ca9029cff471274c4e9dd993bd32261a2aa91",
+      "gitBlob": "6b60db71b77bd3b75e9e1de3536d14996b5f205b",
+      "bytes": 1249609,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/060-best-fit-sphere-wavefront.json",
+      "expectedSha256": "b4e29e0cc36b110d7a806ec4d4bd0a63a1f5fdb34c624b86a20a6336b350e63d",
+      "actualSha256": "4af19f1b31cca2e48dc380a2a6b0ba32dcce62223b69fb45468bd36d0bb7fb30",
+      "gitBlob": "66b47c82bf3ae6d0790f62c6ccdd5fb1b08e92ca",
+      "bytes": 1254425,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/061-zernike.json",
+      "expectedSha256": "0340eecbadeff8d5a616984fce2ac200d4010bc578f3b42dac124ede5af6512c",
+      "actualSha256": "4a279493e6169e2dcebae0ee696d4640b3ead05d70c11d250997c73ce0016287",
+      "gitBlob": "989f5c02e60cff623ea067b1f91a92504f546936",
+      "bytes": 1248712,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/062-image-simulation.json",
+      "expectedSha256": "70038561f95f0fe25c2fad65ccb894fcb0b9072946aa5ff20eb591f4103b9038",
+      "actualSha256": "3549cabfca7f068a831b80a90c3bd7edf87fece6a0403305be818e7b9452a343",
+      "gitBlob": "706f15c7b973502c8254548849cb9bb8897a6ab5",
+      "bytes": 2094276,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/063-geometric-image-analysis.json",
+      "expectedSha256": "b2664b6322263faf28e854f04561e6ef17641f19aff227cbc730f357a8951ed3",
+      "actualSha256": "a1486d9973b5364db1a5e65dea384f903f42e80fa4d7479b7852f5f9e7bd4ab3",
+      "gitBlob": "e0b08d1324679edd1846acb8c117c0a1f445b9c4",
+      "bytes": 4127648,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/064-geometric-bitmap-image-analysis.json",
+      "expectedSha256": "5ec9a16396d91c29c71a46477b954055d8b9699d44878534c6a5d0a149b9c418",
+      "actualSha256": "cc411774c931705d8ad56fc3c447910b5b1b2d9fdc4ccaad257ca3694a24b789",
+      "gitBlob": "c7493f515c1ae120d2ad83fac33cc34cd8d8fd52",
+      "bytes": 4113362,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/065-light-source-analysis.json",
+      "expectedSha256": "f29766cb2560b11f7cc4fe0dc7a1ab430f380aa8dc81e796db42ed95ba1a72ae",
+      "actualSha256": "2c1899ddee4caa7cb452ba496f50988157973f792663410de3f45e2c49a89bf8",
+      "gitBlob": "f8ddd3b06e7a913558500139ff54e21fe8eb1b42",
+      "bytes": 17557938,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/066-partially-coherent-image-analysis.json",
+      "expectedSha256": "e156e8fb3d23c6388701a09a0f7afe4c0051b881b23c706d591e455dc60a1e85",
+      "actualSha256": "17ab11416f84737cdadc58ef96a3ea7f8e8c24e23076d63ab0341757d4782276",
+      "gitBlob": "2a33dd5e030aeb225125aa429a2f90b1a721eaea",
+      "bytes": 7320033,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/067-extended-diffraction-image-analysis.json",
+      "expectedSha256": "0e51203f6c2185dc936efbfd4c41e6a313723de34fbbbca5d698e76b84e07ef7",
+      "actualSha256": "16972ccbecc2dfa886e85217dbc702b7730c614f942ae5dfa3cab57a44dbd2c6",
+      "gitBlob": "16b485063d7658136c30c298b1883619c2acaa22",
+      "bytes": 7317045,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/068-jones-pupil.json",
+      "expectedSha256": "6c03bff8f5b27926818e68d49bfd25f0fe4547716366d9e0c354f965b8aeccb6",
+      "actualSha256": "db76794095a11c5249b621b2d0a4a97fee44f911db870c9ba1a64e186dfbfc80",
+      "gitBlob": "a2880aa7cf3c22e9c38761b5cd1045567eb15ee6",
+      "bytes": 7707133,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current/069-prescription-report.json",
+      "expectedSha256": "4021ee2485a97fe1af341f7a8a72260d90b35713a820dbc3b3d72b8bf0862ef4",
+      "actualSha256": "07bb7a4d26648b2766279bde60d8c96d3ac14961aff4760d1e6d01054e398217",
+      "gitBlob": "8719b3e5b6b442dc6453c90791d6ea0aaeab747a",
+      "bytes": 4674,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/manifest.json",
+      "expectedSha256": "181352a3633e9280cf7564901a907408585b0ffc36f4d56ac7199420363384a1",
+      "actualSha256": "4e90511158192d0ae3a2445c24ffd5ccab34c801c0fda22dc11fbc6f3b2be6f5",
+      "gitBlob": "84925ffbd5fbd869ab26c79dce46a939c5f85ba2",
+      "bytes": 124542,
+      "matches": false
+    },
+    {
+      "path": "artifacts/zemax/ms-l7-zemax-2026-r1-baseline/merit-function.json",
+      "expectedSha256": "3e538771bd2d347ef0867224ce904c10d4887efd8360ace33b2e431b159244f2",
+      "actualSha256": "b189a4c8c2189cbd5c30afe7093a92416514c6d3186356c94d066e07c7c1fb15",
+      "gitBlob": "de3f44dfbb8698800ebd131b4ad7229b92b00d62",
+      "bytes": 33189,
+      "matches": false
+    },
+    {
+      "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+      "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+      "actualSha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+      "gitBlob": "b44f24c72cf4fc60431b10f5cef948aa95bdbd41",
+      "bytes": 16501,
+      "matches": false
+    }
+  ],
+  "workingTree": {
+    "count": 2668,
+    "matched": 2668,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true,
+    "mismatches": []
+  }
+}

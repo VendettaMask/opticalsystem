@@ -1,0 +1,138 @@
+{
+  "date": "2026-10-11",
+  "baseHead": "fc69b86a06ccc42c0bf5b6736e13f5828ad3ad94",
+  "scope": "Preserve exact frozen evidence in Git, check committed and working bytes, and add CI; no product numerical change",
+  "manifest": {
+    "path": "artifacts/validation/n02-layer-diagnosis-20261009/frozen-after.json",
+    "sha256": "ae139611dd9cb89667d5e588773035551dd984e1ec3ef0c8186c017f6a1ce047",
+    "files": 2668,
+    "bytes": 261381903,
+    "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10"
+  },
+  "before": {
+    "gitMatched": 2236,
+    "gitMismatches": 432,
+    "workingMatched": 2668
+  },
+  "after": {
+    "indexMatched": 2668,
+    "freshCheckoutMatched": 2668,
+    "aggregateUnchanged": true,
+    "originalFilesModified": false
+  },
+  "repair": {
+    "artifactsZemaxFiles": 431,
+    "comparisonSettingsFiles": 1,
+    "contentDiffIgnoringOnlyCrAtEol": 0,
+    "oldLedgerOverwritten": false,
+    "reportOriginalSha256": "f3a05d5c0d9c56fcfbd9b27609effc38182b4cd819de3fba6072ecf094329fb7"
+  },
+  "tests": {
+    "gitScript": {
+      "passed": 9,
+      "failed": 0,
+      "total": 9
+    },
+    "workingScript": {
+      "passed": 8,
+      "failed": 0,
+      "total": 8
+    },
+    "includedInFormalCSharpTests": false
+  },
+  "retainedNativeCaptures": {
+    "files": 165,
+    "bytes": 4042581,
+    "allHashesMatch": true,
+    "manifests": [
+      {
+        "path": "validation/zemax/2026-r1/fft-pupil-phase-2026-10-09/manifest.json",
+        "sha256": "94f5d7ca26f3e65328fc018de8f4e13cdfa96346cf2f872cb57d64ff0f49ad44",
+        "files": 76
+      },
+      {
+        "path": "validation/zemax/2026-r1/n02-energy-layer-controls-2026-10-09/manifest.json",
+        "sha256": "f1d3ef2d266b54cc2139d9fe9e30ac31ff520b16ae7225028b35759f4b636792",
+        "files": 49
+      },
+      {
+        "path": "validation/zemax/2026-r1/huygens-method-controls-2026-10-09/manifest.json",
+        "sha256": "f30bc6b431a681dc8c7d6bdcf83e5e2acdd8bee79c5050e912e30b846f033d55",
+        "files": 40
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "artifacts/validation/frozen-git-integrity-20261011/before.json",
+      "bytes": 182260,
+      "sha256": "7bbd2537cd541c9f825b1a4e3c9f3edc605240775dc5ea0fe0775efc5e97b5c5"
+    },
+    {
+      "path": "artifacts/validation/frozen-git-integrity-20261011/after-index.json",
+      "bytes": 669,
+      "sha256": "177facd6caa5d8f8f5c2eda85479390198c3a9529d630ac16ce51395ca9ddf83"
+    },
+    {
+      "path": "artifacts/validation/frozen-git-integrity-20261011/fresh-checkout.json",
+      "bytes": 280,
+      "sha256": "0158c3bdd649533b33de8bd6e5c06a42ad598c9ce67bc9527e9b17b9da6add46"
+    },
+    {
+      "path": "artifacts/validation/frozen-git-integrity-20261011/script-tests-final/results.json",
+      "bytes": 1903,
+      "sha256": "c23a2f4f3222da99b52eddc35e2f7bd932f006f47932d5e8dc0d68f0c3321ab2"
+    },
+    {
+      "path": "artifacts/validation/frozen-git-integrity-20261011/working-script-tests/results.json",
+      "bytes": 575,
+      "sha256": "d614868f4ff9a827f46c2d1028d36440753a10ad8fa38e779c985d1b8e735ac8"
+    },
+    {
+      "path": "artifacts/validation/frozen-git-integrity-20261011/cr-only-diff.txt",
+      "bytes": 20,
+      "sha256": "f10538827785ba259ad02988c7f56535e60eb1ec105e8076554f5255ae35cfdb"
+    }
+  ],
+  "priorLedgerHashes": [
+    {
+      "path": "docs/validation/FFT_PUPIL_PHASE_REPAIR_2026-10-09.json",
+      "sha256": "ca0918fddc86f519a78db0520b1bbe448cde849c1ebb3c65d4f3da280af2fb6e"
+    },
+    {
+      "path": "docs/validation/PREPARED_PUPIL_INTEGRITY_REPAIR_2026-10-10.json",
+      "sha256": "ffa9f5503423e51d48e733835c009b2d7300bae378614f523fca1595d8a0dfa1"
+    },
+    {
+      "path": "docs/validation/FFT_ENERGY_GRID_INTEGRITY_REPAIR_2026-10-10.json",
+      "sha256": "59a6fa3374a605aeb01dc9c30ca0b100bb6623d14880160129f8ea734bf53b9f"
+    },
+    {
+      "path": "docs/validation/PUPIL_SHAPE_FOUCAULT_IMPLEMENTATION_2026-10-10.json",
+      "sha256": "ae649e0f9632fe9d5bcd31eb16aaa198ce9608c3c75d993f8b9d16957180825c"
+    }
+  ],
+  "ci": {
+    "platforms": [
+      "ubuntu-22.04",
+      "macos-latest",
+      "windows-latest"
+    ],
+    "configured": true,
+    "remoteRunsVerified": false
+  },
+  "notRun": [
+    "Formal full tests",
+    "Full comparison tool",
+    "Labs",
+    "New Zemax captures",
+    "Installer",
+    "Manual desktop review"
+  ],
+  "remaining": [
+    "N01 Huygens Close",
+    "N02 DEE Difference",
+    "Native certification and release gates"
+  ],
+  "commitNote": "The index and fresh-checkout records precede the repair commit. Final HEAD is checked separately without changing historical snapshots."
+}
