@@ -1,5 +1,7 @@
 # Huygens 离轴 PSF、MTF 网格和视场采样修复
 
+本报告保存 C25 阶段的实现、4655/182/386 验证及当时认证边界。后续标量球面修复、所列离轴复色平面控制和新增偏振残差见[球面与谱组合报告](HUYGENS_SPHERICAL_REPAIR_2026-10-11.md)，后文限制描述本阶段。
+
 2026-10-11，在本机 Zemax OpticStudio **26.1.0 / build 260127 / EnterpriseEdition / validLicense=true** 上补采 MS-L7 离轴控制。原始 Huygens MTF vs Field 的十二条曲线现按原请求、原冻结参考和原注册表容差全部 **Pass**；最大 NRMSE 从 **0.006964670954193144** 降至 **2.9815659284194305e-8**，最大绝对差从 **0.026480640880661266** 降至 **9.103855835856933e-8**。
 
 原 N01 截线和 N02 FFT DEE 理想/实际三条曲线继续 Pass，数值与[上一阶段修复](HUYGENS_FFT_ENERGY_REPAIR_2026-10-11.md)相同。独立 Cooke、Tessar 后续工作按用户要求排除，已有捕获和回归保留。

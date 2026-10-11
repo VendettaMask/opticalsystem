@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\validation\zemax\2026-r1\huygens-extensions-2026-10-11\**\*"
+          Link="Validation\Zemax\HuygensExtensions\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\validation\zemax\2026-r1\huygens-offaxis-2026-10-11\**\*"
           Link="Validation\Zemax\HuygensOffAxis\%(RecursiveDir)%(Filename)%(Extension)"
           CopyToOutputDirectory="PreserveNewest" />

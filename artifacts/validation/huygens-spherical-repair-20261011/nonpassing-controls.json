@@ -1,0 +1,125 @@
+{
+  "polarization": [
+    {
+      "name": "polarized-field1-linear",
+      "method": "Auto",
+      "pitch": 0.00025,
+      "pol": true,
+      "metric": {
+        "RelativeL2": 0.029073731084398497,
+        "Maximum": 0.005478011389564247
+      },
+      "nativeSha256": "3b6bb05082e4e4aba41d16483c74cac3bf8258ae6d1661f8180b1fad88e0555d"
+    },
+    {
+      "name": "polarized-field3-linear",
+      "method": "Auto",
+      "pitch": 0.00025,
+      "pol": true,
+      "metric": {
+        "RelativeL2": 0.1512253401034083,
+        "Maximum": 0.02741586107154452
+      },
+      "nativeSha256": "88057dd4bc2c7ea44123c959871183da297f5dc40dd3a097980cba00185dc386"
+    }
+  ],
+  "wideComplexGrids": [
+    {
+      "path": "validation/zemax/2026-r1/huygens-extensions-2026-10-11/spherical-field1-imaginary/Auto/data.json",
+      "sha256": "d7d43cfb15d9eabebeaa696fb63cac6a468e4f1424759b25b7a6df1515ec6abd",
+      "count": 1024,
+      "nullCells": 1,
+      "certified": false,
+      "reason": "Paired wide-window real/imaginary grids have nonfinite cells; no whole complex-field pass."
+    },
+    {
+      "path": "validation/zemax/2026-r1/huygens-extensions-2026-10-11/spherical-field1-imaginary/Planar/data.json",
+      "sha256": "f9a79941c153698df0466c1e6c8f8857317df19bb36e2076dbedb3c91bf1d806",
+      "count": 1024,
+      "nullCells": 0,
+      "certified": false,
+      "reason": "Paired wide-window real/imaginary grids have nonfinite cells; no whole complex-field pass."
+    },
+    {
+      "path": "validation/zemax/2026-r1/huygens-extensions-2026-10-11/spherical-field1-imaginary/Spherical/data.json",
+      "sha256": "b4f3d69d5c5abbf49c2727d93bf9a2a404a55bdd5a61fa40b6b4a22ce2b851e3",
+      "count": 1024,
+      "nullCells": 0,
+      "certified": false,
+      "reason": "Paired wide-window real/imaginary grids have nonfinite cells; no whole complex-field pass."
+    },
+    {
+      "path": "validation/zemax/2026-r1/huygens-extensions-2026-10-11/spherical-field1-real/Auto/data.json",
+      "sha256": "deed9d8beedf6949c4a183b7628e98c2d257281b8286a0fe4da4563c383b44ed",
+      "count": 1024,
+      "nullCells": 0,
+      "certified": false,
+      "reason": "Paired wide-window real/imaginary grids have nonfinite cells; no whole complex-field pass."
+    },
+    {
+      "path": "validation/zemax/2026-r1/huygens-extensions-2026-10-11/spherical-field1-real/Planar/data.json",
+      "sha256": "80fa6929d3727c7fa6299b35d270f7427bf0783c0e623629e109de8ef5be232c",
+      "count": 1024,
+      "nullCells": 2,
+      "certified": false,
+      "reason": "Paired wide-window real/imaginary grids have nonfinite cells; no whole complex-field pass."
+    },
+    {
+      "path": "validation/zemax/2026-r1/huygens-extensions-2026-10-11/spherical-field1-real/Spherical/data.json",
+      "sha256": "4e44c741f414ff9d549b6051d3508e3c496fdff989f3ab476bf082b0fa398f43",
+      "count": 1024,
+      "nullCells": 1,
+      "certified": false,
+      "reason": "Paired wide-window real/imaginary grids have nonfinite cells; no whole complex-field pass."
+    },
+    {
+      "path": "validation/zemax/2026-r1/huygens-extensions-2026-10-11/spherical-field3-imaginary/Auto/data.json",
+      "sha256": "e1e9f99edfa9deea7c7c6e35720da8dac36a11a6c3716e665aeaa62b4ada5f09",
+      "count": 1024,
+      "nullCells": 0,
+      "certified": false,
+      "reason": "Paired wide-window real/imaginary grids have nonfinite cells; no whole complex-field pass."
+    },
+    {
+      "path": "validation/zemax/2026-r1/huygens-extensions-2026-10-11/spherical-field3-imaginary/Planar/data.json",
+      "sha256": "5f5f079b9f45cc2d37135ed964d39a234f8971b8a7d1433e312636dd0c4d3304",
+      "count": 1024,
+      "nullCells": 9,
+      "certified": false,
+      "reason": "Paired wide-window real/imaginary grids have nonfinite cells; no whole complex-field pass."
+    },
+    {
+      "path": "validation/zemax/2026-r1/huygens-extensions-2026-10-11/spherical-field3-imaginary/Spherical/data.json",
+      "sha256": "84c10f8e3f584c19077152c08a66bd54a78b0b4321b3fdbff2c727bfa209a95b",
+      "count": 1024,
+      "nullCells": 6,
+      "certified": false,
+      "reason": "Paired wide-window real/imaginary grids have nonfinite cells; no whole complex-field pass."
+    },
+    {
+      "path": "validation/zemax/2026-r1/huygens-extensions-2026-10-11/spherical-field3-real/Auto/data.json",
+      "sha256": "56500f845e9e32cef1b3f3edfd99f6646a39ee2222ecf1126fbb958786687776",
+      "count": 1024,
+      "nullCells": 1,
+      "certified": false,
+      "reason": "Paired wide-window real/imaginary grids have nonfinite cells; no whole complex-field pass."
+    },
+    {
+      "path": "validation/zemax/2026-r1/huygens-extensions-2026-10-11/spherical-field3-real/Planar/data.json",
+      "sha256": "fe8d4875a82e2c89e94a308f3a7d80fec1fd3abb9c1d8fc0f25df9b120a49efc",
+      "count": 1024,
+      "nullCells": 1,
+      "certified": false,
+      "reason": "Paired wide-window real/imaginary grids have nonfinite cells; no whole complex-field pass."
+    },
+    {
+      "path": "validation/zemax/2026-r1/huygens-extensions-2026-10-11/spherical-field3-real/Spherical/data.json",
+      "sha256": "824ddcb6f31b8d96396fa0ce0385a3741ddd1c02bdcf064ddddbd88ee890dfb1",
+      "count": 1024,
+      "nullCells": 1,
+      "certified": false,
+      "reason": "Paired wide-window real/imaginary grids have nonfinite cells; no whole complex-field pass."
+    }
+  ],
+  "semantics": "Complete linear intensity comparison remains independent of unavailable complex cells. Experimental scalar polarization residuals remain open."
+}

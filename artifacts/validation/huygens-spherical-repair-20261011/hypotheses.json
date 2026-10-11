@@ -1,0 +1,1614 @@
+[
+  {
+    "name": "polarized-field1-linear",
+    "formalPowerTransport": "Unsupported",
+    "error": "System.NotSupportedException: Absorbing interface polarization requires complex-index power transport, which is not implemented.\r\n   at OptilandWorkbench.Core.Raytrace.SequentialRayTracer.EvaluatePolarizationInterface(OpticalSurface surface, RayTraceSampleValue sample, IMaterial incidentMaterial, Double wavelength, RayInteractionKind kind) in D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\Raytrace\\SequentialRayTracer.Polarization.cs:line 156\r\n   at OptilandWorkbench.Core.Raytrace.SequentialRayTracer.ApplyPolarization(UnpolarizedPowerTransport transport, OpticalSurface surface, RayTraceSampleValue sample, IMaterial incidentMaterial, Double wavelength, RayInteractionKind kind, Boolean positiveTime) in D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\Raytrace\\SequentialRayTracer.ApertureDiagnostics.cs:line 109\r\n   at OptilandWorkbench.Core.Raytrace.SequentialRayTracer.DiagnoseApertures(RealRay sourceRay, CancellationToken cancellationToken, Boolean stopAtIncidentImage, Boolean usePolarization) in D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\Raytrace\\SequentialRayTracer.ApertureDiagnostics.cs:line 90\r\n   at OptilandWorkbench.Core.Analysis.WavefrontEngine.\u003C\u003Ec__DisplayClass7_0.\u003CTraceFinalSamples\u003Eb__0(RealRay ray) in D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\Analysis\\WavefrontEngine.cs:line 450\r\n   at System.Linq.Enumerable.ListSelectIterator\u00602.Fill(ReadOnlySpan\u00601 source, Span\u00601 destination, Func\u00602 func)\r\n   at System.Linq.Enumerable.ListSelectIterator\u00602.ToArray()\r\n   at OptilandWorkbench.Core.Analysis.WavefrontEngine.TraceFinalSamples(Optic optic, RealRayBundle bundle, Boolean usePolarization) in D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\Analysis\\WavefrontEngine.cs:line 448\r\n   at OptilandWorkbench.Core.Analysis.WavefrontEngine.GenerateChiefRay(Optic optic, ValueTuple\u00602 field, Wavelength wavelength, IReadOnlyList\u00601 pupilSamples, Boolean aimAtStop, Nullable\u00601 resolvedRealImageLaunch, WavefrontReferenceSphere referenceSphere, Boolean usePolarization, Wavelength referenceWavelength) in D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\Analysis\\WavefrontEngine.cs:line 223\r\n   at OptilandWorkbench.Core.Analysis.WavefrontEngine.GenerateChiefRaySamples(Optic optic, ValueTuple\u00602 field, Wavelength wavelength, IReadOnlyList\u00601 samples, Boolean aimAtStop, Nullable\u00601 resolvedRealImageLaunch, WavefrontReferenceSphere referenceSphere, Boolean usePolarization, Wavelength referenceWavelength) in D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\Analysis\\WavefrontEngine.cs:line 152\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\HuygensExtensions20261011\\Program.cs:line 68",
+    "semantics": "Recorded existing full-transport limitation; the separate Jones hypothesis remains approximate and nonpassing."
+  },
+  {
+    "name": "polarized-field1-linear",
+    "targetMethod": "Planar",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.002103026529100918,
+      "Maximum": 0.0012423032695950686
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.002104034115036417,
+      "Maximum": 0.0012434375994903601
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.012221201076721025,
+      "Maximum": 0.006257731148976264
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.012221199695695587,
+      "Maximum": 0.006257730704084807
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.0020972203939429598,
+      "Maximum": 0.0012383090621053694
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.09895810461241147,
+      "Maximum": 0.050797392592511925
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.09895810574973198,
+      "Maximum": 0.05079739296445068
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.0020972203939429598,
+      "Maximum": 0.0012383090621053694
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.09895810461241147,
+      "Maximum": 0.050797392592511925
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.09895810574973198,
+      "Maximum": 0.05079739296445068
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field3-linear",
+    "formalPowerTransport": "Unsupported",
+    "error": "System.NotSupportedException: Absorbing interface polarization requires complex-index power transport, which is not implemented.\r\n   at OptilandWorkbench.Core.Raytrace.SequentialRayTracer.EvaluatePolarizationInterface(OpticalSurface surface, RayTraceSampleValue sample, IMaterial incidentMaterial, Double wavelength, RayInteractionKind kind) in D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\Raytrace\\SequentialRayTracer.Polarization.cs:line 156\r\n   at OptilandWorkbench.Core.Raytrace.SequentialRayTracer.ApplyPolarization(UnpolarizedPowerTransport transport, OpticalSurface surface, RayTraceSampleValue sample, IMaterial incidentMaterial, Double wavelength, RayInteractionKind kind, Boolean positiveTime) in D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\Raytrace\\SequentialRayTracer.ApertureDiagnostics.cs:line 109\r\n   at OptilandWorkbench.Core.Raytrace.SequentialRayTracer.DiagnoseApertures(RealRay sourceRay, CancellationToken cancellationToken, Boolean stopAtIncidentImage, Boolean usePolarization) in D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\Raytrace\\SequentialRayTracer.ApertureDiagnostics.cs:line 90\r\n   at OptilandWorkbench.Core.Analysis.WavefrontEngine.\u003C\u003Ec__DisplayClass7_0.\u003CTraceFinalSamples\u003Eb__0(RealRay ray) in D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\Analysis\\WavefrontEngine.cs:line 450\r\n   at System.Linq.Enumerable.ListSelectIterator\u00602.Fill(ReadOnlySpan\u00601 source, Span\u00601 destination, Func\u00602 func)\r\n   at System.Linq.Enumerable.ListSelectIterator\u00602.ToArray()\r\n   at OptilandWorkbench.Core.Analysis.WavefrontEngine.TraceFinalSamples(Optic optic, RealRayBundle bundle, Boolean usePolarization) in D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\Analysis\\WavefrontEngine.cs:line 448\r\n   at OptilandWorkbench.Core.Analysis.WavefrontEngine.GenerateChiefRay(Optic optic, ValueTuple\u00602 field, Wavelength wavelength, IReadOnlyList\u00601 pupilSamples, Boolean aimAtStop, Nullable\u00601 resolvedRealImageLaunch, WavefrontReferenceSphere referenceSphere, Boolean usePolarization, Wavelength referenceWavelength) in D:\\Projects\\opticalsystem\\src\\OptilandWorkbench.Core\\Analysis\\WavefrontEngine.cs:line 223\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\HuygensExtensions20261011\\Program.cs:line 14",
+    "semantics": "Recorded existing full-transport limitation; the separate Jones hypothesis remains approximate and nonpassing."
+  },
+  {
+    "name": "polarized-field3-linear",
+    "targetMethod": "Planar",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.01260338971283388,
+      "Maximum": 0.0015196072685508821
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.012600675818894515,
+      "Maximum": 0.0015211370915663297
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.015793640020928118,
+      "Maximum": 0.002146383124276341
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.01579364073573469,
+      "Maximum": 0.0021463833292315188
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.012625438877612952,
+      "Maximum": 0.0015269238674970181
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.08362893160712777,
+      "Maximum": 0.007412409751823841
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.08362893356421519,
+      "Maximum": 0.007412409867540708
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.012621396832699312,
+      "Maximum": 0.001527649535632336
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.08277019660236311,
+      "Maximum": 0.007995286981920383
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "polarized-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.08277019853340163,
+      "Maximum": 0.007995287318117175
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field1-linear",
+    "targetMethod": "Planar",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 1.2309043732412276E-09,
+      "Maximum": 2.682920083064153E-10
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.12495100972836565,
+      "Maximum": 0.05187749550914755
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.136998673267585,
+      "Maximum": 0.0568794774984292
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.13699867219378653,
+      "Maximum": 0.05687947705261204
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.1249386549393164,
+      "Maximum": 0.0518723659874894
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 1.3898684495232664E-05,
+      "Maximum": 5.7704096887434275E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 1.389958234410035E-05,
+      "Maximum": 5.7707824993591395E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.1249386549393164,
+      "Maximum": 0.0518723659874894
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 1.3898684495232664E-05,
+      "Maximum": 5.7704096887434275E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 1.389958234410035E-05,
+      "Maximum": 5.7707824993591395E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field3-linear",
+    "targetMethod": "Planar",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 8.672108614259569E-07,
+      "Maximum": 8.376653917382959E-08
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.05606562030207533,
+      "Maximum": 0.004804409364920173
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.05189403648007881,
+      "Maximum": 0.004613130059222547
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.05189403601015756,
+      "Maximum": 0.004613130056445536
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.056068394561388415,
+      "Maximum": 0.004806721417355612
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 4.894909406094296E-05,
+      "Maximum": 4.403313673670417E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 4.8950402014719613E-05,
+      "Maximum": 4.403436161884433E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.05605436147616979,
+      "Maximum": 0.004805279820639042
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.03646114589688951,
+      "Maximum": 0.0026903511523615614
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.03646114662911993,
+      "Maximum": 0.002690351147416257
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field1-linear",
+    "targetMethod": "Planar",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 5.726951939675263E-09,
+      "Maximum": 2.2894247499313444E-09
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.005303008600192907,
+      "Maximum": 0.004215564008944073
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.01606927914549148,
+      "Maximum": 0.012774099091812041
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.01606927582075615,
+      "Maximum": 0.012774096448871286
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.005307814271578985,
+      "Maximum": 0.004219384177730823
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 2.701311420577197E-06,
+      "Maximum": 2.1460697460229383E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 2.7045160460882436E-06,
+      "Maximum": 2.1486176489116104E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.005307814271578985,
+      "Maximum": 0.004219384177730823
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 2.701311420577197E-06,
+      "Maximum": 2.1460697460229383E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 2.7045160460882436E-06,
+      "Maximum": 2.1486176489116104E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field3-linear",
+    "targetMethod": "Planar",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 1.7677562623096336E-08,
+      "Maximum": 1.4016702598075581E-08
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.021390917483615348,
+      "Maximum": 0.017300044371382994
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.014824074988157545,
+      "Maximum": 0.011988442581358116
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.014824073235162345,
+      "Maximum": 0.01198844116333897
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.021377602735524494,
+      "Maximum": 0.0172892831008864
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 1.0383001735489121E-05,
+      "Maximum": 8.338340538371902E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 1.0384682165507261E-05,
+      "Maximum": 8.339709481108848E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.021389168617079735,
+      "Maximum": 0.017298627166475233
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.01569801032962768,
+      "Maximum": 0.012695464022591918
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical-gaussian32-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.01569800856871072,
+      "Maximum": 0.012695462598189877
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field1-linear",
+    "targetMethod": "Planar",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 2933,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 3.465476759468093E-09,
+      "Maximum": 6.569663552318666E-10
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 2933,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 0.12811940704546482,
+      "Maximum": 0.054423028624778935
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "distance",
+    "pupils": 2933,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 0.14020075267244528,
+      "Maximum": 0.059555045388871686
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "normal",
+    "pupils": 2933,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 0.14020075166891371,
+      "Maximum": 0.0595550449631993
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "unit",
+    "pupils": 2933,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 0.12810739762851225,
+      "Maximum": 0.05441792223330327
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "distance",
+    "pupils": 2933,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 1.3468508919762383E-05,
+      "Maximum": 5.692601406814823E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "normal",
+    "pupils": 2933,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 1.3469332441931147E-05,
+      "Maximum": 5.6929561694785136E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "unit",
+    "pupils": 2933,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 0.12810739762851225,
+      "Maximum": 0.05441792223330327
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "distance",
+    "pupils": 2933,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 1.3468508919762383E-05,
+      "Maximum": 5.692601406814823E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "normal",
+    "pupils": 2933,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 1.3469332441931147E-05,
+      "Maximum": 5.6929561694785136E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field3-linear",
+    "targetMethod": "Planar",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 2933,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 2.544420447069306E-07,
+      "Maximum": 2.3897149210860835E-08
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 2933,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 0.08792330273281454,
+      "Maximum": 0.00713475220221127
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "distance",
+    "pupils": 2933,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 0.083352402121573,
+      "Maximum": 0.006855690953428757
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "normal",
+    "pupils": 2933,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 0.0833524014925765,
+      "Maximum": 0.00685569098622462
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "unit",
+    "pupils": 2933,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 0.08792772437111725,
+      "Maximum": 0.007137824183670809
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "distance",
+    "pupils": 2933,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 7.62084225429404E-05,
+      "Maximum": 5.072399919925363E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "normal",
+    "pupils": 2933,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 7.621088212096474E-05,
+      "Maximum": 5.072513698703429E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "unit",
+    "pupils": 2933,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 0.08791429434157857,
+      "Maximum": 0.007136156212430689
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "distance",
+    "pupils": 2933,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 0.04890627636726474,
+      "Maximum": 0.004036922638027164
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical64-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "normal",
+    "pupils": 2933,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.02032999778403049,
+    "metric": {
+      "RelativeL2": 0.048906277009676806,
+      "Maximum": 0.004036922658710633
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field1-linear",
+    "targetMethod": "Planar",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 2.1414993193603383E-10,
+      "Maximum": 9.327555394733622E-11
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.12495099382596847,
+      "Maximum": 0.05187749550914755
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.1369986575484232,
+      "Maximum": 0.0568794774984292
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.13699865647463777,
+      "Maximum": 0.05687947705261204
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.12493863897300747,
+      "Maximum": 0.0518723659874894
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 1.3898481767111095E-05,
+      "Maximum": 5.7704096887434275E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 1.3899379710545879E-05,
+      "Maximum": 5.7707824993591395E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.12493863897300747,
+      "Maximum": 0.0518723659874894
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 1.3898481767111095E-05,
+      "Maximum": 5.7704096887434275E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field1-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.33607822960428,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 1.3899379710545879E-05,
+      "Maximum": 5.7707824993591395E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field3-linear",
+    "targetMethod": "Planar",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 3.267500747125399E-08,
+      "Maximum": 2.9987119037899745E-09
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.023102371200712624,
+      "Maximum": 0.0020890794547910457
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.01652425206917323,
+      "Maximum": 0.001494237730008438
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "sphere",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.016524250598638164,
+      "Maximum": 0.001494237597034001
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.02305068162472597,
+      "Maximum": 0.0020844053108928506
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 4.869459282306072E-05,
+      "Maximum": 4.403313673670417E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "exit-plane",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 4.8695947377885214E-05,
+      "Maximum": 4.403436161884433E-06
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "unit",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.023050971083187956,
+      "Maximum": 0.0020844314573671002
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "distance",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.02312380430790279,
+      "Maximum": 0.002091020033380145
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  },
+  {
+    "name": "spherical8-field3-linear",
+    "targetMethod": "Spherical",
+    "origin": "chief-plane",
+    "weight": "normal",
+    "pupils": 665,
+    "Radius": 11.433433866341522,
+    "pupilDistance": 11.396618442612588,
+    "halfExtent": 0.009837095701950236,
+    "metric": {
+      "RelativeL2": 0.023123805612024262,
+      "Maximum": 0.002091020151308673
+    },
+    "complexL2": null,
+    "complexSemantics": "Nonfinite wide-window complex grids excluded; intensity remains independently comparable."
+  }
+]

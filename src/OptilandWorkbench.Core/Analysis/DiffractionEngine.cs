@@ -1212,10 +1212,10 @@ public static class DiffractionEngine
             // across the requested image is no more than a quarter wavelength.
             var curvature = corner * corner / (Math.Sqrt(pupilDistance * pupilDistance + corner * corner) + pupilDistance);
             var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter.RefractiveIndex(wavelength.Nanometers);
-            if (double.IsFinite(pupilDistance) && pupilDistance > 0
-                && curvature * imageIndex <= wavelength.Micrometers * .001 / 4)
-                return ComputePlanarHuygensPsf(optic, field, wavelength, numRays, imageSize,
-                    pixelPitchMillimeters, aimAtStop, referenceWavelength, imageCenterOffset);
+            if (double.IsFinite(pupilDistance) && pupilDistance > 0)
+                return ComputeScalarHuygensPsf(optic, field, wavelength, numRays, imageSize,
+                    pixelPitchMillimeters, aimAtStop, referenceWavelength, imageCenterOffset,
+                    spherical: curvature * imageIndex > wavelength.Micrometers * .001 / 4);
         }
 
         var wavefront = WavefrontEngine.GenerateChiefRayUniform(
@@ -1358,6 +1358,13 @@ public static class DiffractionEngine
         Optic optic, (double Hx, double Hy) field, Wavelength wavelength,
         int pupilSampling, int imageSize, double pitch, bool aimAtStop,
         Wavelength? referenceWavelength, (double X, double Y)? imageCenterOffset)
+        => ComputeScalarHuygensPsf(optic, field, wavelength, pupilSampling, imageSize,
+            pitch, aimAtStop, referenceWavelength, imageCenterOffset, spherical: false);
+
+    private static PsfResult ComputeScalarHuygensPsf(
+        Optic optic, (double Hx, double Hy) field, Wavelength wavelength,
+        int pupilSampling, int imageSize, double pitch, bool aimAtStop,
+        Wavelength? referenceWavelength, (double X, double Y)? imageCenterOffset, bool spherical)
     {
         var pupils = HuygensPupilSamples(pupilSampling);
         WavefrontResult Wavefront((double Hx, double Hy) sourceField) =>
@@ -1384,6 +1391,25 @@ public static class DiffractionEngine
         // the paraxial Airy radius (1.22 lambda R/D), in the image medium.
         var halfExtent = .61 * wavelengthMillimeters * pupilDistance * intervals
             / (wavefront.ImageRefractiveIndex * pupilDiameter);
+        // The scalar paraxial pupil is an axial plane relative to the image
+        // vertex, as in the shared reference-sphere construction. Recover its
+        // ray positions and optical paths from that sphere before applying
+        // spherical phase and inverse-distance amplitude. A sphere-centered
+        // source with a lens-datum obliquity gives a different field.
+        var pupilPlaneZ = optic.SurfaceGroup.Items[^1].CoordinateSystem.Origin.Z
+            + optic.Paraxial.EstimateExitPupilLocation();
+        var emitters = wavefront.Samples.Select(sample =>
+        {
+            var pupil = new Vector3D(sample.PupilX, sample.PupilY, sample.PupilZ);
+            var direction = sample.ImageDirection ?? Vector3D.Zero;
+            var shift = spherical && Math.Abs(direction.Z) > 1e-14
+                ? (pupil.Z - pupilPlaneZ) / direction.Z : 0;
+            return (Pupil: pupil - direction * shift, Direction: direction,
+                OpticalPath: -sample.OpdWaves * wavelengthMillimeters,
+                Path: -sample.OpdWaves * wavelengthMillimeters
+                    - wavefront.ImageRefractiveIndex * (wavefront.Radius + shift),
+                Amplitude: Amplitude(sample));
+        }).ToArray();
         var k = 2 * Math.PI / wavelengthMillimeters;
         var values = new double[imageSize, imageSize];
         for (var row = 0; row < imageSize; row++)
@@ -1396,13 +1422,18 @@ public static class DiffractionEngine
                 if (Math.Abs(x) >= halfExtent || Math.Abs(y) >= halfExtent) continue;
                 var point = center + frame.TangentX * x + frame.TangentY * y;
                 var sum = Complex.Zero;
-                foreach (var sample in wavefront.Samples)
+                foreach (var emitter in emitters)
                 {
-                    var amplitude = Amplitude(sample);
-                    if (amplitude <= 0 || sample.ImageDirection is not { } direction) continue;
-                    var pupil = new Vector3D(sample.PupilX, sample.PupilY, sample.PupilZ);
-                    var phasePath = -sample.OpdWaves * wavelengthMillimeters
-                        + wavefront.ImageRefractiveIndex * (Dot(point - pupil, direction) - wavefront.Radius);
+                    var amplitude = emitter.Amplitude;
+                    if (amplitude <= 0 || emitter.Direction.Length <= 0) continue;
+                    var delta = point - emitter.Pupil;
+                    var distance = spherical ? delta.Length : 0;
+                    if (spherical && distance <= 1e-300) continue;
+                    var phasePath = spherical
+                        ? emitter.Path + wavefront.ImageRefractiveIndex * distance
+                        : emitter.OpticalPath + wavefront.ImageRefractiveIndex
+                            * (Dot(delta, emitter.Direction) - wavefront.Radius);
+                    if (spherical) amplitude *= pupilDistance / distance;
                     sum += Complex.FromPolarCoordinates(amplitude, k * phasePath);
                 }
                 var footprint = Sinc(Math.PI * x / halfExtent) * Sinc(Math.PI * y / halfExtent);
