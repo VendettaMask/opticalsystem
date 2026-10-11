@@ -44,6 +44,13 @@ internal static class NativeEnergyControl
             var system = app.PrimarySystem;
             if (!system.LoadFile((string)Host.Request["input"], false)) throw new InvalidOperationException("Native input load failed");
             system.MCE.SetCurrentConfiguration(1);
+            if (Host.Request.ContainsKey("diagnosticFieldCoordinates"))
+                foreach (var field in ((System.Collections.IEnumerable)Host.Request["diagnosticFieldCoordinates"]).Cast<Dictionary<string, object>>())
+                {
+                    var row = system.SystemData.Fields.GetField(Convert.ToInt32(field["field"]));
+                    row.X = Convert.ToDouble(field["x"]);
+                    row.Y = Convert.ToDouble(field["y"]);
+                }
             if (Host.Request.ContainsKey("diagnosticImageThicknessDelta"))
                 system.LDE.GetSurfaceAt(system.LDE.NumberOfSurfaces - 2).Thickness += Convert.ToDouble(Host.Request["diagnosticImageThicknessDelta"]);
             if (Host.Request.ContainsKey("diagnosticApertureScale"))
@@ -73,6 +80,24 @@ internal static class NativeEnergyControl
                 catch (Exception e) { nested[property.Name] = e.Message; }
             }
             Host.Write("system-data-settings.json", nested);
+            if ((string)Host.Request["adapter"] == "diagnostic-huygens-mtf")
+            {
+                var mtfRows = new List<object>();
+                foreach (var code in new[] { "MTHA", "MTHS", "MTHT", "MTHN", "MTHX" })
+                {
+                    var type = Host.EnumValue<MeritOperandType>(code);
+                    var row = system.MFE.AddOperand(); row.ChangeType(type);
+                    var columns = Enumerable.Range(2, 8).Select(i => Host.Object("column", i, "properties", Host.Properties(row.GetCellAt(i)))).ToArray();
+                    double value = system.MFE.GetOperandValue(type, 1, 1, 3, 60, 0, 0, .25, 0);
+                    if (double.IsNaN(value) || double.IsInfinity(value)) throw new InvalidOperationException("Nonfinite native Huygens MTF operand");
+                    mtfRows.Add(Host.Object("code", code, "sampling", 1, "wave", 1, "field", 3,
+                        "frequency", 60, "polarization", 0, "allConfigurations", 0, "imageDeltaMicrometers", .25,
+                        "value", value, "columns", columns));
+                }
+                Host.Write("mtf-operands.json", Host.Object("rows", mtfRows, "request", Host.Request,
+                    "semantics", "Native MFE scalar controls; no merit function or source file is saved."));
+                return 0;
+            }
             if ((string)Host.Request["adapter"] == "diagnostic-analysis")
             {
                 var analysis = system.Analyses.New_Analysis_SettingsFirst(Host.EnumValue<AnalysisIDM>((string)Host.Request["analysisType"]));
@@ -213,7 +238,8 @@ internal static class NativeEnergyControl
                     "opd", Host.Finite(opd), "intensity", Host.Finite(intensity)));
             if (rows.Count != inputs.Length) throw new InvalidOperationException("Pupil output count mismatch");
             Host.Write("pupil-grid.json", Host.Object("wavelength", 1, "configuration", 1,
-                "field", 1, "opdMode", "CurrentAndChief", "inputs", inputs, "rows", rows,
+                "field", Host.Request.ContainsKey("field") ? Host.Request["field"] : null,
+                "opdMode", "CurrentAndChief", "inputs", inputs, "rows", rows,
                 "semantics", "Native normalized unpolarized final-surface ray controls. Positive vignetting and propagation errors remain explicit; raw OPD unit/convention must be verified before phase certification."));
         }
         finally { tool.Close(); }

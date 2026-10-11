@@ -13,7 +13,7 @@ Supply exactly three arguments: repository root, a fresh output directory, and a
 
 | Mode | Measurements |
 | --- | --- |
-| `reproduce` | Original Huygens cross section and ideal/actual DEE, using captured settings and unchanged comparison tolerances through the product JSON boundary. |
+| `reproduce` | Original Huygens cross section, ideal/actual DEE and all twelve Huygens MTF field curves, using captured settings and unchanged comparison tolerances through the product JSON boundary. |
 | `huygens` | Five pupil node families, aiming on/off, nine fixed amplitude/quadrature hypotheses; 90 original-grid controls. Exact circular pupil-cell area uses the formal Core integrator. |
 | `knots` | Native display-polynomial reconstruction and 32-node natural-spline check. Clipped intervals do not reveal unmodified physical integration knots. Native values never enter product calculations. |
 | `energy` | 96 bilinear range/grid resampling controls with formal area integration. |
@@ -49,3 +49,7 @@ Pre-repair measurements and limitations: [2026-10-11 diagnosis](../../../docs/RE
 Additional modes are `airy`, `plane-phase`, `integer-grid`, `native-huygens`, `geo-nodes`, `gaussian-controls`, `kernel-controls`, `geometry-controls`, `finite-cells`, `dee-native-grid`, `dee-phase-controls` and `dee-grid-scale` (22 modes total). These compare formal Core output, pupil-node families, finite-cell kernels, complex fields and internal energy-grid hypotheses. Native-dependent modes expect the retained local `artifacts/validation/residuals-20261011/followup` capture directories; they fail explicitly if those inputs are absent. Hypothesis sweeps do not count as regression tests.
 
 `CaptureGeometryControls.ps1`, `CaptureKernelControls.ps1` and `CaptureDeeControls.ps1` record independent geometry, illumination, sampling and lens controls. They require the prepared local host/capture layout and a fresh output directory. They open isolated API applications, close only those applications, and never save the input prescription. Diagnostic overrides are preserved in requests and applied system settings. Failures and sampling warnings remain evidence, not passing cases. Python recovery scripts are offline investigations only; product computation remains pure C#/.NET.
+
+The additional `offaxis` and `mtf-offaxis` modes read the committed MS-L7 off-axis captures in `validation/zemax/2026-r1/huygens-offaxis-2026-10-11` (24 modes total). `offaxis` compares formal product and plane fields, while `mtf-offaxis` independently transforms native chief/centroid PSFs. `CaptureOffAxisControls.ps1` and `CaptureMtfOffAxisControls.ps1` accept a native host directory and fresh output directory. The latter also records MTH operands and a requested density below the effective native minimum. Independent Cooke/Tessar follow-up is excluded; existing historical modes and assets are preserved.
+
+`InspectFieldSpline.py` records an offline pre-repair interpolation investigation; inferred values never enter Core. The completed projection, MTF window and position-count repair is documented in [the off-axis repair](../../../docs/HUYGENS_OFFAXIS_REPAIR_2026-10-11.md). `FinalizeOffAxisEvidence.py` packages completed TRX, identity counts, binary hashes, native evidence and frozen-integrity checks; it refuses failed or incomplete runs.

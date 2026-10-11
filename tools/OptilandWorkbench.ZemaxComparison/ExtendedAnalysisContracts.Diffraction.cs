@@ -55,6 +55,12 @@ public static partial class ExtendedAnalysisContracts
         Set("Frequency", r.MaximumFrequency); Set("SpatialFrequency", r.MaximumFrequency); Set("MaximumFrequency", r.MaximumFrequency);
         Set("DeltaFocus", 0.01); Set("NumberOfSteps", 5); Set("Steps", 5); Set("UseDashes", false);
         Set("FieldDensity", 10); Set("FieldPointCount", 10); Set("ScanType", r.FieldScanDirection); Set("RemoveVignettingFactors", true);
+        if (key == "Huygens MTF vs Field" && r.ZemaxSettings.TryGetValue("FieldDensity", out var fieldDensity))
+        {
+            // Replaying a captured request must preserve its native traced
+            // position count instead of silently substituting the preset.
+            Set("FieldDensity", fieldDensity); Set("FieldPointCount", fieldDensity);
+        }
         for (var i = 1; i <= 6; i++) Set("Frequency" + i, i * 10);
         Set("NumRays", r.PupilSampling); Set("Distribution", "uniform"); Set("ScaleByDiffractionLimit", false); Set("PlotPointCount", 128);
         if (IsPsfProfile(key)) { Set("Type", "X-线性"); Set("ProfileType", "X"); Set("Row", "中心"); Set("GraphScaleMicrometers", 0); Set("Spread", "线"); Set("UseCoherentPsf", false); }

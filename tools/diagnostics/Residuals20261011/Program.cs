@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Text.Json;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Core.Apodization;
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.FileIO;
 using OptilandWorkbench.Core.Domain;
@@ -15,7 +16,7 @@ using OptilandWorkbench.ZemaxComparison.Metrics;
 using OptilandWorkbench.ZemaxComparison.Normalization;
 
 if (args.Length != 3) throw new ArgumentException("Usage: <repository-root> <fresh-output-directory> <mode>");
-if (!new[] { "energy", "huygens", "knots", "dense", "full-dense", "energy-grids", "cubic-grid", "reproduce", "inputs", "rays", "airy", "plane-phase", "integer-grid", "native-huygens", "geo-nodes", "gaussian-controls", "kernel-controls", "geometry-controls", "finite-cells", "dee-native-grid", "dee-phase-controls", "dee-grid-scale" }.Contains(args[2]))
+if (!new[] { "energy", "huygens", "knots", "dense", "full-dense", "energy-grids", "cubic-grid", "reproduce", "inputs", "rays", "airy", "plane-phase", "integer-grid", "native-huygens", "geo-nodes", "gaussian-controls", "kernel-controls", "geometry-controls", "finite-cells", "dee-native-grid", "dee-phase-controls", "dee-grid-scale", "offaxis", "mtf-offaxis" }.Contains(args[2]))
     throw new ArgumentException("Unknown diagnostic mode.");
 var root = Path.GetFullPath(args[0]);
 var output = Path.GetFullPath(args[1]);
@@ -49,6 +50,8 @@ if (args[2] == "finite-cells") FiniteCells();
 if (args[2] == "dee-native-grid") DeeNativeGrid();
 if (args[2] == "dee-phase-controls") DeePhaseControls();
 if (args[2] == "dee-grid-scale") DeeGridScale();
+if (args[2] == "offaxis") OffAxis();
+if (args[2] == "mtf-offaxis") MtfOffAxis();
 File.WriteAllText(Path.Combine(output, "provenance.json"), JsonSerializer.Serialize(new {
     generatedUtc = DateTime.UtcNow, mode = args.Length >= 3 ? args[2] : "all-original-controls", source,
     sourceSha256 = Hash(source), coreAssembly = typeof(DiffractionEngine).Assembly.Location,
@@ -66,6 +69,167 @@ File.WriteAllText(Path.Combine(output, "provenance.json"), JsonSerializer.Serial
 }, jsonOptions));
 
 string Hash(string path) => Convert.ToHexStringLower(System.Security.Cryptography.SHA256.HashData(File.ReadAllBytes(path)));
+
+void MtfOffAxis()
+{
+    var records = new List<object>();
+    var nativeRoot = Path.Combine(root, "validation/zemax/2026-r1/huygens-offaxis-2026-10-11/mtf");
+    var sampleMethod = typeof(DiffractionEngine).Assembly.GetType("OptilandWorkbench.Core.Analysis.MtfMethodEvaluator")!
+        .GetMethod("SampleHuygensMtf", BindingFlags.NonPublic | BindingFlags.Static)!;
+    foreach (var name in new[] { "positive-chief", "positive-centroid", "negative-centroid" })
+    {
+        var field = (Hx: 0d, Hy: name.StartsWith("positive") ? 1d : -1d);
+        var offset = name.EndsWith("centroid") ? ((double X, double Y))typeof(DiffractionEngine)
+            .GetMethod("HuygensGeometricCenterOffset", BindingFlags.NonPublic | BindingFlags.Static)!
+            .Invoke(null, [optic, field, new[] { wave }, wave, 32, true])! : (0d, 0d);
+        var product = DiffractionEngine.ComputeHuygensPsf(optic, field, wave, 32, 32, .00025,
+            aimAtStop: true, imageCenterOffset: offset);
+        using var native = JsonDocument.Parse(File.ReadAllText(Path.Combine(nativeRoot, name + "/Planar/data.json")));
+        var target = native.RootElement.GetProperty("dataGrids")[0].GetProperty("values").EnumerateArray()
+            .SelectMany(row => row.EnumerateArray().Select(v => v.GetDouble() * 100)).ToArray();
+        var nativeGrid = new double[32,32];
+        for (var i=0;i<target.Length;i++) nativeGrid[i/32,i%32]=target[i];
+        var nativePsf = new PsfResult(nativeGrid,32,32,product.WorkingFNumber,.25);
+        var metric = Metric(product.Values.Cast<double>().ToArray(), target);
+        var actualMtf = DiffractionEngine.ComputePsfMtf(product, true);
+        var nativeMtf = DiffractionEngine.ComputePsfMtf(nativePsf, true);
+        var values = new List<object>();
+        for(var frequency=10;frequency<=60;frequency+=10)
+        {
+            var actualValue = ((double Tangential,double Sagittal))sampleMethod.Invoke(null,[actualMtf,64,(double)frequency,true])!;
+            var nativeValue = ((double Tangential,double Sagittal))sampleMethod.Invoke(null,[nativeMtf,64,(double)frequency,true])!;
+            values.Add(new {frequency,actualValue,nativeValue});
+            Console.WriteLine($"{name}/{frequency}: core={actualValue}, nativePsfMtf={nativeValue}; offset={offset}");
+        }
+        records.Add(new {name,offset,metric,values});
+    }
+    foreach(var name in new[]{"scan-plus"})
+    foreach(var method in new[]{"Auto","Planar","Spherical"})
+    {
+        using var native = JsonDocument.Parse(File.ReadAllText(Path.Combine(nativeRoot,name,method,"data.json")));
+        var values = native.RootElement.GetProperty("dataSeries").EnumerateArray().Select((series,index)=>new {
+            frequency = (index+1)*10,
+            endpoint = series.GetProperty("y").EnumerateArray().Last().EnumerateArray().Select(v=>v.GetDouble()).ToArray()
+        }).ToArray();
+        records.Add(new {name,method,values});
+        foreach(var value in values) Console.WriteLine($"{name}/{method}/{value.frequency}: {string.Join(",",value.endpoint)}");
+    }
+    File.WriteAllText(Path.Combine(output,"mtf-offaxis.json"),JsonSerializer.Serialize(records,jsonOptions));
+}
+
+void OffAxis()
+{
+    var saved = optic;
+    var records = new List<object>();
+    var nativeRoot = Path.Combine(root, "validation/zemax/2026-r1/huygens-offaxis-2026-10-11/psf");
+    foreach (var fieldIndex in new[] { 2, 3 })
+    foreach (var gaussian in new[] { false, true })
+    {
+        if (fieldIndex == 3 && gaussian) continue; // Nonfinite native grid was not promoted.
+        optic = Optic.FromSnapshot(saved.ToSnapshot());
+        if (gaussian) optic.Apodization = new ZemaxApodization(ZemaxApodizationType.Gaussian, 512);
+        var field = (Hx: 0d, Hy: fieldIndex == 2 ? -10.6 / 15 : -1);
+        var prefix = $"field{fieldIndex}-{(gaussian ? "gaussian" : "uniform")}";
+        using var real = JsonDocument.Parse(File.ReadAllText(Path.Combine(nativeRoot, prefix + "-real/Planar/data.json")));
+        using var imag = JsonDocument.Parse(File.ReadAllText(Path.Combine(nativeRoot, prefix + "-imaginary/Planar/data.json")));
+        var grid = real.RootElement.GetProperty("dataGrids")[0];
+        if (grid.GetProperty("values").EnumerateArray().SelectMany(r => r.EnumerateArray()).Any(v => v.ValueKind != JsonValueKind.Number))
+        {
+            records.Add(new { prefix, status = "UnavailableNativeGrid", reason = "Native grid contains nonfinite/null cells; excluded from numerical certification." });
+            continue;
+        }
+        var rv = grid.GetProperty("values").EnumerateArray().SelectMany(r => r.EnumerateArray().Select(v => v.GetDouble())).ToArray();
+        var iv = imag.RootElement.GetProperty("dataGrids")[0].GetProperty("values").EnumerateArray().SelectMany(r => r.EnumerateArray().Select(v => v.GetDouble())).ToArray();
+        var target = rv.Zip(iv, (r, i) => new Complex(r, i)).ToArray();
+        var pupils = Enumerable.Range(0, 32).SelectMany(row => Enumerable.Range(0, 32).Select(column => new PupilSample((column - 16) / 15d, (row - 16) / 15d, 1)))
+            .Where(p => p.X * p.X + p.Y * p.Y <= Math.Pow(1 - .5 / 15, 2)).ToArray();
+        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(field.Hx, field.Hy, wave.Micrometers, pupils, true);
+        var rays = optic.SequentialRayTracer.TraceFinalSamples(bundle);
+        var chief = optic.TraceGenericFinalSample(field.Hx, field.Hy, 0, 0, wave.Micrometers, true)!;
+        var frame = DiffractionEngine.CreateHuygensImageFrame(optic, field, wave, true);
+        var size = grid.GetProperty("nx").GetInt32();
+        var pitch = grid.GetProperty("dx").GetDouble() / 1000;
+        var k = 2 * Math.PI / (wave.Micrometers / 1000);
+        var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter.RefractiveIndex(wave.Nanometers);
+        var halfExtent = .61 * wave.Micrometers / 1000 * Math.Abs(optic.Paraxial.EstimateExitPupilLocation()) * 30
+            / (imageIndex * Math.Abs(optic.Paraxial.EstimateExitPupilDiameter()));
+        var amplitudes = pupils.Select(p => Math.Exp(-(gaussian ? 512 : 0) * (p.X * p.X + p.Y * p.Y))).ToArray();
+        var actual = new Complex[size * size];
+        for (var row = 0; row < size; row++)
+        for (var column = 0; column < size; column++)
+        {
+            var x = (column - size / 2) * pitch; var y = (row - size / 2) * pitch;
+            var point = frame.Center + frame.TangentX * x + frame.TangentY * y;
+            var sum = Complex.Zero;
+            for (var index = 0; index < rays.Count; index++)
+                if (rays[index] is { Vignetted: false, Intensity: > 0 } ray)
+                {
+                    var delta = point - ray.Position;
+                    var phase = ray.CumulativeOpticalPathLength - chief.CumulativeOpticalPathLength
+                        + imageIndex * (delta.X * ray.Direction.X + delta.Y * ray.Direction.Y + delta.Z * ray.Direction.Z);
+                    sum += Complex.FromPolarCoordinates(amplitudes[index], -k * phase);
+                }
+            actual[row * size + column] = sum / amplitudes.Sum();
+        }
+        var center = size / 2 * size + size / 2;
+        var rotation = Complex.FromPolarCoordinates(1, (target[center] / actual[center]).Phase);
+        var projected = new Complex[size * size];
+        for (var row = 0; row < size; row++)
+        for (var column = 0; column < size; column++)
+        {
+            var x = (column - size / 2) * pitch; var y = (row - size / 2) * pitch;
+            double Sinc(double value) => Math.Abs(value) < 1e-8 ? 1 - value * value / 6 : Math.Sin(value) / value;
+            var footprint = Math.Abs(x) >= halfExtent || Math.Abs(y) >= halfExtent ? 0
+                : Sinc(Math.PI * x / halfExtent) * Sinc(Math.PI * y / halfExtent);
+            projected[row * size + column] = actual[row * size + column] * footprint * rotation;
+        }
+        var complexRelativeL2 = Math.Sqrt(projected.Zip(target, (a, b) => Math.Pow(Complex.Abs(a-b), 2)).Sum()
+            / target.Sum(v => v.Magnitude * v.Magnitude));
+        object? rayAudit = null;
+        if (!gaussian)
+        {
+            using var audit = JsonDocument.Parse(File.ReadAllText(Path.Combine(nativeRoot, $"field{fieldIndex}-pupil/pupil-grid.json")));
+            var rows = audit.RootElement.GetProperty("rows").EnumerateArray().ToArray();
+            var inputs = audit.RootElement.GetProperty("inputs").EnumerateArray().ToArray();
+            if (rows.Length != pupils.Length || inputs.Any(p => p.GetProperty("hy").GetDouble() != field.Hy))
+                throw new InvalidDataException("Native pupil inputs differ.");
+            var wf = WavefrontEngine.GenerateChiefRaySamples(optic, field, wave, pupils.Select(p => (p.X,p.Y)).ToArray(), aimAtStop: true);
+            var imageSurface = optic.SurfaceGroup.Items[^1];
+            var positionMaximum = 0d; var directionMaximum = 0d; var opdMaximum = 0d;
+            for (var index=0;index<rows.Length;index++)
+            {
+                var ray = rays[index] ?? throw new InvalidDataException("Missing formal audit ray.");
+                var position = imageSurface.CoordinateSystem.ToLocalPoint(ray.Position);
+                var direction = imageSurface.CoordinateSystem.ToLocalDirection(ray.Direction);
+                var native = rows[index];
+                positionMaximum = Math.Max(positionMaximum, new Vector3D(position.X-native.GetProperty("x").GetDouble(),
+                    position.Y-native.GetProperty("y").GetDouble(),position.Z-native.GetProperty("z").GetDouble()).Length);
+                directionMaximum = Math.Max(directionMaximum, new Vector3D(direction.X-native.GetProperty("l").GetDouble(),
+                    direction.Y-native.GetProperty("m").GetDouble(),direction.Z-native.GetProperty("n").GetDouble()).Length);
+                opdMaximum = Math.Max(opdMaximum,Math.Abs(wf.Samples[index].OpdWaves-native.GetProperty("opd").GetDouble()));
+            }
+            rayAudit = new {count=rows.Length,positionMaximumMillimeters=positionMaximum,directionMaximum,
+                unconvertedOpdDifference=opdMaximum,
+                opdSemantics="Raw CurrentAndChief batch OPD and Core reference-sphere OPD have not been mapped to a common reference; this difference is not an equivalence gate."};
+        }
+        var plane = (PsfResult)typeof(DiffractionEngine).GetMethod("ComputePlanarHuygensPsf", BindingFlags.NonPublic | BindingFlags.Static)!
+            .Invoke(null, [optic, field, wave, 32, size, pitch, true, null, null])!;
+        var product = DiffractionEngine.ComputeHuygensPsf(optic, field, wave, 32, size, pitch, aimAtStop: true);
+        using var linear = JsonDocument.Parse(File.ReadAllText(Path.Combine(nativeRoot, prefix + "-linear/Planar/data.json")));
+        var targetIntensity = linear.RootElement.GetProperty("dataGrids")[0].GetProperty("values").EnumerateArray().SelectMany(r => r.EnumerateArray().Select(v => v.GetDouble() * 100)).ToArray();
+        var planeMetric = Metric(plane.Values.Cast<double>().ToArray(), targetIntensity);
+        var productMetric = Metric(product.Values.Cast<double>().ToArray(), targetIntensity);
+        Console.WriteLine($"{prefix}: plane={planeMetric}, product={productMetric}, complexL2={complexRelativeL2:R}, audit={JsonSerializer.Serialize(rayAudit)}");
+        records.Add(new { prefix, size, pitch, halfExtent, chiefDirection = chief.Direction, frame, planeMetric, productMetric,
+            complexRelativeL2, pistonRadians=rotation.Phase, rayAudit,
+            rayCount = rays.Count, validRays = rays.Count(r => r is { Vignetted: false, Intensity: > 0 }),
+            coordinates = Enumerable.Range(0, size).Select(i => (i - size / 2) * pitch),
+            targetReal = rv, targetImaginary = iv, rawReal = actual.Select(v => (v * rotation).Real), rawImaginary = actual.Select(v => (v * rotation).Imaginary),
+            ratioReal = target.Zip(actual, (a, b) => (a / (b * rotation)).Real), ratioImaginary = target.Zip(actual, (a, b) => (a / (b * rotation)).Imaginary),
+            plane = plane.Values.Cast<double>(), product = product.Values.Cast<double>(), targetIntensity });
+    }
+    File.WriteAllText(Path.Combine(output, "offaxis.json"), JsonSerializer.Serialize(records, jsonOptions));
+}
 
 void DeeGridScale()
 {
@@ -592,7 +756,7 @@ void Rays()
 void Reproduce()
 {
     var rows = new List<object>();
-    foreach (var (key, slug) in new[] { ("Huygens PSF Cross Section", "huygens-psf-cross-section"), ("Diffraction Encircled Energy", "diffraction-encircled-energy") })
+    foreach (var (key, slug) in new[] { ("Huygens PSF Cross Section", "huygens-psf-cross-section"), ("Diffraction Encircled Energy", "diffraction-encircled-energy"), ("Huygens MTF vs Field", "huygens-mtf-vs-field") })
     {
         var directory = Path.Combine(root, $"validation/zemax/2026-r1/ms-l7-analysis-expansion-2026-09-06/{slug}-c1");
         using var captured = JsonDocument.Parse(File.ReadAllText(Path.Combine(directory, "captured-settings.json")));
@@ -601,6 +765,7 @@ void Reproduce()
         var runtime = new WorkbenchRuntime(OpticalFormatCatalog.Import(File.ReadAllText(source), ".zmx"));
         var data = runtime.BuildAnalysisData(key, AnalysisComparisonRegistry.MapWorkbench(entry, request));
         data = JsonSerializer.Deserialize<AnalysisData>(JsonSerializer.Serialize(data, JsonFiles.Options), JsonFiles.Options)!;
+        File.WriteAllText(Path.Combine(output, slug + "-workbench.json"), JsonSerializer.Serialize(data, JsonFiles.Options));
         var actual = ExtendedResultNormalizer.Workbench(data, request);
         var expected = ExtendedResultNormalizer.Zemax(Path.Combine(directory, "data.json"), request);
         foreach (var curve in expected.Series)

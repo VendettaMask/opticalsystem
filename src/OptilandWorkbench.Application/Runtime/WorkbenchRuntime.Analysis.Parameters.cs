@@ -667,7 +667,7 @@ public partial class WorkbenchRuntime
                 BoolParameter("UsePolarization", "使用偏振", "false"),
                 BoolParameter("UseDashes", "使用虚线", "false"),
                 BoolParameter("RemoveVignettingFactors", "移除渐晕因子", "true"),
-                IntParameter("FieldDensity", "视场密度", "10", 2, 100),
+                IntParameter("FieldDensity", "视场密度", "10", 5, 100),
                 ChoiceParameter("ScanType", "扫描方向", "+y", new[] { "+y", "+x", "-y", "-x" })
             },
             "Fourier MTF vs Field" or "Geometric MTF vs Field" => new[]

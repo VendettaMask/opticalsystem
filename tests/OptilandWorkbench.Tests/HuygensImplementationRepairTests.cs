@@ -146,19 +146,22 @@ public sealed class HuygensImplementationRepairTests
         var primary = waves.FirstOrDefault(w => w.IsPrimary) ?? waves[0];
         var expected = IndependentCombination(optic, field, waves, primary);
         CheckImage(Image(optic, fieldNumber), expected);
-        // Native display conventions must not select a different physical
-        // spectral mixture. Both MTF presentations start with this same PSF.
+        // Both MTF presentations retain the physical spectral mixture.
+        // Native MTF evaluates it in a geometric-centroid finite window.
         foreach (var nativePresentation in new[] { false, true })
         {
             var shared = MtfMethodEvaluator.ComputeHuygensPolychromaticPsf(optic, field, waves,
                 new MtfComputationSettings(PupilSampling: 16, ImageSize: 16,
                     PixelPitchMillimeters: .0005, UseZemaxHuygensSemantics: nativePresentation));
             var peak = shared.Values.Cast<double>().Max();
-            var expectedPeak = expected.Cast<double>().Max();
+            var expectedMtf = nativePresentation ? IndependentCombination(optic, field, waves, primary,
+                DiffractionEngine.HuygensGeometricCenterOffset(optic, field, waves, primary, 16,
+                    optic.RayAimingEnabled)) : expected;
+            var expectedPeak = expectedMtf.Cast<double>().Max();
             var normalized = new double[16, 16];
             for (var y = 0; y < 16; y++)
             for (var x = 0; x < 16; x++) normalized[y, x] = shared.Values[y, x] / peak;
-            Assert.InRange(MaxDifference(normalized, Scale(expected, 1 / expectedPeak)), 0, 1e-11);
+            Assert.InRange(MaxDifference(normalized, Scale(expectedMtf, 1 / expectedPeak)), 0, 1e-11);
         }
     }
 

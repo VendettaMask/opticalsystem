@@ -407,8 +407,12 @@ public sealed class MtfVsFieldAnalysis : BaseAnalysis
             return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
+        // Huygens field density counts positions, including both endpoints.
+        // Its 300-point display spline is distinct from that traced grid.
+        var scanPointCount = _method == MtfComputationMethod.Huygens && _settings.UseZemaxHuygensSemantics
+            ? Math.Max(5, _fieldPointCount) : _fieldPointCount + 1;
         var fields = _zemaxCompatibleOutput
-            ? AnalysisTrace.ScanFieldSamples(workingOptic, _scanType, _fieldPointCount + 1)
+            ? AnalysisTrace.ScanFieldSamples(workingOptic, _scanType, scanPointCount)
             : AnalysisTrace.DefinedFieldSamples(workingOptic).OrderBy(field => field.Coordinate).ToArray();
         var calculationCoordinates = _zemaxCompatibleOutput
             ? Enumerable.Range(0, fields.Count)
@@ -1016,10 +1020,18 @@ internal static class MtfMethodEvaluator
             field,
             wavelengths,
             settings);
-        // Native frequency-axis/interpolation conventions do not change the
-        // physical spectral mixture used by PSF, MTF and energy consumers.
+        var referenceWavelength = wavelengths.FirstOrDefault(w => w.IsPrimary) ?? wavelengths[0];
+        // Native Huygens MTF centers its finite PSF window on the geometric
+        // centroid, including field scans whose settings expose no center
+        // selector. A chief-centered cropped PSF gives a different MTF for
+        // asymmetric off-axis images. Keep the spectral mixture unchanged.
+        var imageCenterOffset = settings.UseZemaxHuygensSemantics
+            ? DiffractionEngine.HuygensGeometricCenterOffset(optic, field, wavelengths,
+                referenceWavelength, pupilSampling, optic.RayAimingEnabled)
+            : ((double X, double Y)?)null;
         return HuygensPsfSynthesis.Compute(optic, field, wavelengths, pupilSampling,
-            imageSize, pixelPitchMillimeters, settings.UsePolarization).Psf;
+            imageSize, pixelPitchMillimeters, settings.UsePolarization,
+            referenceWavelength, imageCenterOffset).Psf;
     }
 
     internal static double ResolveHuygensImageDeltaMillimeters(

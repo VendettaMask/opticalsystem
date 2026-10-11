@@ -56,24 +56,25 @@ public sealed class AdditionalCapturedAnalysisTests(ITestOutputHelper output)
         Assert.Equal(expected.GetArrayLength(), metrics.Count);
         if (key == "Huygens MTF vs Field")
         {
-            // Independently verified PSF-to-MTF sampling removes error cancellation:
-            // curve:7 changes Pass -> Close. Keep the frozen old errors and native
-            // precision policy untouched. This is an explicitly open error budget,
-            // not an assertion of numerical agreement. See ZEMAX_HUYGENS_REPAIR_2026-09-06.md.
+            // Native off-axis PSF controls verify the scalar plane propagation,
+            // geometric-centroid MTF window and density-position count. Require
+            // all original curves to pass without changing the frozen baseline
+            // or registry precision policy. See HUYGENS_OFFAXIS_REPAIR_2026-10-11.md.
             foreach (var metric in metrics)
             {
                 var prior = expected.EnumerateArray().Single(e => e.GetProperty("id").GetString() == metric.Id);
                 output.WriteLine($"{key}/{metric.Id}: {prior.GetProperty("conclusion")} -> {metric.Conclusion}; "
-                    + $"NRMSE={metric.Nrmse:R}, max={metric.MaxAbsolute:R}. Open PSF synthesis error.");
-                Assert.Contains(metric.Conclusion, new[] { Conclusion.Pass, Conclusion.Close });
+                    + $"NRMSE={metric.Nrmse:R}, max={metric.MaxAbsolute:R}.");
+                Assert.Equal(Conclusion.Pass, metric.Conclusion);
                 Assert.True(metric.Coverage >= prior.GetProperty("coverage").GetDouble() - 1e-12);
             }
 
             Assert.InRange(metrics.Max(metric => metric.Nrmse), 0,
                 expected.EnumerateArray().Max(prior => prior.GetProperty("nrmse").GetDouble()));
-            // Observed peak error increases from 0.0246668 to 0.0264807. Track
-            // that regression explicitly without changing comparison tolerances.
+            // Retain the old non-regression budget and additionally guard the
+            // independently reproduced numerical agreement.
             Assert.InRange(metrics.Max(metric => metric.MaxAbsolute), 0, 0.027);
+            Assert.InRange(metrics.Max(metric => metric.MaxAbsolute), 0, 1e-6);
             return;
         }
 

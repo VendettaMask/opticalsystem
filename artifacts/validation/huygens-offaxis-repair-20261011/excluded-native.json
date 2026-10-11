@@ -1,0 +1,28 @@
+[
+  {
+    "case": "field3-gaussian-linear",
+    "reason": "Wide Gaussian control is not certified; complex grids contain nonfinite cells.",
+    "nullCells": 0,
+    "dataSha256": "309413b9fd3479da7b6aaa8d65227cb8761d7f5d22f99ead421a998a0602d4d1",
+    "savedPath": "artifacts/validation/huygens-offaxis-repair-20261011/excluded-native/field3-gaussian-linear"
+  },
+  {
+    "case": "field3-gaussian-real",
+    "reason": "Wide Gaussian control is not certified; complex grids contain nonfinite cells.",
+    "nullCells": 1,
+    "dataSha256": "4d779f2fed9fc148bfba6c876af2398b8313d8d5ce4532b11dd9513a71d3241b",
+    "savedPath": "artifacts/validation/huygens-offaxis-repair-20261011/excluded-native/field3-gaussian-real"
+  },
+  {
+    "case": "field3-gaussian-imaginary",
+    "reason": "Wide Gaussian control is not certified; complex grids contain nonfinite cells.",
+    "nullCells": 0,
+    "dataSha256": "458a265883a2d5ccf83836e01e1f000adc2ba1aea3d5d07e9f4d5acf8c76da67",
+    "savedPath": "artifacts/validation/huygens-offaxis-repair-20261011/excluded-native/field3-gaussian-imaginary"
+  },
+  {
+    "case": "scan-minus",
+    "reason": "Native API returned empty data series; never counted as a pass.",
+    "savedPath": "artifacts/validation/huygens-offaxis-repair-20261011/excluded-native/scan-minus"
+  }
+]

@@ -1198,10 +1198,10 @@ public static class DiffractionEngine
         if (imageCenterOffset is { } offset && (!double.IsFinite(offset.X) || !double.IsFinite(offset.Y)))
             throw new ArgumentOutOfRangeException(nameof(imageCenterOffset), "Image-center offsets must be finite.");
 
-        // The plane-cell quadrature is certified for the axial scalar pupil.
-        // An oblique pupil requires projected cells; retain the general
-        // spherical integration until that quadrature is independently verified.
-        if (!optic.ImageSpaceAfocal && !usePolarization && field.Hx == 0 && field.Hy == 0)
+        // Use the traced image directions in the image-surface tangent frame
+        // for axial and oblique scalar pupils. Native off-axis complex-field
+        // controls verify this projection independently of the MTF transform.
+        if (!optic.ImageSpaceAfocal && !usePolarization)
         {
             var pupilDistance = Math.Abs(optic.Paraxial.EstimateExitPupilLocation());
             var halfWidth = (imageSize / 2d) * pixelPitchMillimeters;

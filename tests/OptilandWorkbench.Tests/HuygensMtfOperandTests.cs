@@ -110,8 +110,10 @@ public sealed class HuygensMtfOperandTests(ITestOutputHelper output)
         var frequency = 3 * 1000.0 / (63 * delta);
         var row = Row(code, frequency, delta: delta); row.ZemaxDataParameters[0] = 2;
         var field = FieldCoordinates.Normalize(optic.Fields, optic.Fields[1].X, optic.Fields[1].Y);
+        var offset = DiffractionEngine.HuygensGeometricCenterOffset(optic, field,
+            new[] { optic.Wavelengths[0] }, optic.Wavelengths[0], 32, optic.RayAimingEnabled);
         var psf = DiffractionEngine.ComputeHuygensPsf(optic, field, optic.Wavelengths[0],
-            32, 32, delta / 1000, aimAtStop: optic.RayAimingEnabled);
+            32, 32, delta / 1000, aimAtStop: optic.RayAimingEnabled, imageCenterOffset: offset);
         var expected = IndependentDft(psf.Values, bin: 3, transformSize: 64);
         Value(optic, row, Select(code, expected));
     }
@@ -124,10 +126,13 @@ public sealed class HuygensMtfOperandTests(ITestOutputHelper output)
         optic.Wavelengths[0].Weight = 1; optic.Wavelengths[1].Weight = 3; optic.Wavelengths[2].Weight = 0;
         var combined = new double[32, 32];
         var field = FieldCoordinates.Normalize(optic.Fields, optic.Fields[1].X, optic.Fields[1].Y);
+        var referenceWave = optic.Wavelengths.First(w => w.IsPrimary);
+        var offset = DiffractionEngine.HuygensGeometricCenterOffset(optic, field,
+            optic.Wavelengths.Take(2).ToArray(), referenceWave, 32, optic.RayAimingEnabled);
         foreach (var wave in optic.Wavelengths.Take(2))
         {
             var psf = DiffractionEngine.ComputeHuygensPsf(optic, field, wave, 32, 32, delta / 1000,
-                aimAtStop: optic.RayAimingEnabled, referenceWavelength: optic.Wavelengths.First(w => w.IsPrimary));
+                aimAtStop: optic.RayAimingEnabled, referenceWavelength: referenceWave, imageCenterOffset: offset);
             for (var y = 0; y < 32; y++)
                 for (var x = 0; x < 32; x++) combined[y, x] += wave.Weight / (wave.Nanometers * wave.Nanometers) * psf.Values[y, x];
         }

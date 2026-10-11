@@ -38,7 +38,7 @@ public sealed class ZemaxHuygensMtfVsFieldParityTests
         var referenceSeries = zemax.RootElement.GetProperty("dataSeries");
         Assert.Equal(6, referenceSeries.GetArrayLength());
         Assert.Equal(12, current.PlotSeries.Count);
-        Assert.Equal(11, current.Values["FieldPointCount"]);
+        Assert.Equal(10, current.Values["FieldPointCount"]);
         Assert.Equal(300, current.Values["PlotPointCount"]);
         var errors = new List<double>();
         var correlations = new List<double>();
