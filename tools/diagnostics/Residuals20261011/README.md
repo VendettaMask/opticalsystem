@@ -1,4 +1,4 @@
-# N01/N02 offline residual controls
+# N01/N02 residual controls and captured-settings verification
 
 This diagnostic references the formal Core, Application runtime and original Zemax comparison registry. It changes no product calculations or frozen references. Independent plane-wave and interpolation formulas are diagnostic hypotheses only; none feed runtime candidate evaluation or displayed product results.
 
@@ -28,13 +28,13 @@ Supply exactly three arguments: repository root, a fresh output directory, and a
 
 ## Licensed-machine capture
 
-The current computer cannot run Zemax. Preparation is supported here without starting a native process:
+The user confirmed on 2026-10-11 that this is the Zemax computer. Local API capture succeeded using OpticStudio 26.1.0 build 260127, EnterpriseEdition and a valid license at `D:\Program Files\ANSYS Inc\v261\Zemax OpticStudio`. The earlier contrary assumption is superseded. Preparation without launching a native process is still supported:
 
 ```powershell
 pwsh -NoProfile -File tools/diagnostics/Residuals20261011/CaptureControls.ps1 -OutputDirectory artifacts\validation\residual-capture-prepared-new -PrepareOnly
 ```
 
-On the user-designated Zemax 2026 R1 computer, use its existing native host directory containing `ZemaxHost.exe` and `NativeEnergyControl.exe`, compiled from the repository's host helpers and `../N02Layers20261009/NativeEnergyControl.cs` against that computer's API assemblies:
+Use the existing local native host directory containing `ZemaxHost.exe` and `NativeEnergyControl.exe`, compiled from the repository's host helpers and `../N02Layers20261009/NativeEnergyControl.cs` against its API assemblies:
 
 ```powershell
 pwsh -NoProfile -File tools/diagnostics/Residuals20261011/CaptureControls.ps1 -OutputDirectory artifacts\validation\residual-native-new -NativeHostDirectory D:\path\to\existing\host -ZosApiPath D:\path\to\Zemax\OpticStudio
@@ -44,4 +44,8 @@ The nine jobs retain the original source bytes and captured settings: endpoint a
 
 DEE ideal 2D data, its private integration grid and total-energy denominator remain unexposed by the audited public API. This script does not modify the lens to create an ideal reference. Native batch OPD is `CurrentAndChief`, not absolute cumulative optical path; verify the unit/reference before propagation comparison.
 
-Pre-repair measurements and limitations: [2026-10-11 diagnosis](../../../docs/RESIDUAL_DIAGNOSIS_2026-10-11.md). The subsequent scalar FFT amplitude repair and current residuals are recorded separately in [the repair report](../../../docs/FFT_SCALAR_AMPLITUDE_REPAIR_2026-10-11.md). The executable supports ten modes; the 420 hypotheses remain diagnostic controls, not passing tests.
+Pre-repair measurements and limitations: [2026-10-11 diagnosis](../../../docs/RESIDUAL_DIAGNOSIS_2026-10-11.md) and [the preceding scalar option](../../../docs/FFT_SCALAR_AMPLITUDE_REPAIR_2026-10-11.md). The completed axial Huygens and original FFT DEE repair, current metrics and remaining limits are in [the integration repair](../../../docs/HUYGENS_FFT_ENERGY_REPAIR_2026-10-11.md).
+
+Additional modes are `airy`, `plane-phase`, `integer-grid`, `native-huygens`, `geo-nodes`, `gaussian-controls`, `kernel-controls`, `geometry-controls`, `finite-cells`, `dee-native-grid`, `dee-phase-controls` and `dee-grid-scale` (22 modes total). These compare formal Core output, pupil-node families, finite-cell kernels, complex fields and internal energy-grid hypotheses. Native-dependent modes expect the retained local `artifacts/validation/residuals-20261011/followup` capture directories; they fail explicitly if those inputs are absent. Hypothesis sweeps do not count as regression tests.
+
+`CaptureGeometryControls.ps1`, `CaptureKernelControls.ps1` and `CaptureDeeControls.ps1` record independent geometry, illumination, sampling and lens controls. They require the prepared local host/capture layout and a fresh output directory. They open isolated API applications, close only those applications, and never save the input prescription. Diagnostic overrides are preserved in requests and applied system settings. Failures and sampling warnings remain evidence, not passing cases. Python recovery scripts are offline investigations only; product computation remains pure C#/.NET.

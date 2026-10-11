@@ -1,9 +1,11 @@
 using System.Numerics;
 using System.Reflection;
 using System.Text.Json;
+using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Analysis;
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.FileIO;
+using OptilandWorkbench.Core.Domain;
 using OptilandWorkbench.Core.Rays;
 using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Services;
@@ -13,7 +15,7 @@ using OptilandWorkbench.ZemaxComparison.Metrics;
 using OptilandWorkbench.ZemaxComparison.Normalization;
 
 if (args.Length != 3) throw new ArgumentException("Usage: <repository-root> <fresh-output-directory> <mode>");
-if (!new[] { "energy", "huygens", "knots", "dense", "full-dense", "energy-grids", "cubic-grid", "reproduce", "inputs", "rays" }.Contains(args[2]))
+if (!new[] { "energy", "huygens", "knots", "dense", "full-dense", "energy-grids", "cubic-grid", "reproduce", "inputs", "rays", "airy", "plane-phase", "integer-grid", "native-huygens", "geo-nodes", "gaussian-controls", "kernel-controls", "geometry-controls", "finite-cells", "dee-native-grid", "dee-phase-controls", "dee-grid-scale" }.Contains(args[2]))
     throw new ArgumentException("Unknown diagnostic mode.");
 var root = Path.GetFullPath(args[0]);
 var output = Path.GetFullPath(args[1]);
@@ -36,6 +38,17 @@ if (args.Length >= 3 && args[2] == "cubic-grid") CubicGrid();
 if (args.Length >= 3 && args[2] == "reproduce") Reproduce();
 if (args.Length >= 3 && args[2] == "inputs") Inputs();
 if (args.Length >= 3 && args[2] == "rays") Rays();
+if (args[2] == "airy") Airy();
+if (args[2] == "plane-phase") PlanePhase();
+if (args[2] == "integer-grid") IntegerGrid();
+if (args[2] == "native-huygens") NativeHuygens();
+if (args[2] == "geo-nodes") GeoNodes();
+if (args[2] == "gaussian-controls") GaussianControls();
+if (args[2] is "kernel-controls" or "geometry-controls") KernelControls();
+if (args[2] == "finite-cells") FiniteCells();
+if (args[2] == "dee-native-grid") DeeNativeGrid();
+if (args[2] == "dee-phase-controls") DeePhaseControls();
+if (args[2] == "dee-grid-scale") DeeGridScale();
 File.WriteAllText(Path.Combine(output, "provenance.json"), JsonSerializer.Serialize(new {
     generatedUtc = DateTime.UtcNow, mode = args.Length >= 3 ? args[2] : "all-original-controls", source,
     sourceSha256 = Hash(source), coreAssembly = typeof(DiffractionEngine).Assembly.Location,
@@ -53,6 +66,496 @@ File.WriteAllText(Path.Combine(output, "provenance.json"), JsonSerializer.Serial
 }, jsonOptions));
 
 string Hash(string path) => Convert.ToHexStringLower(System.Security.Cryptography.SHA256.HashData(File.ReadAllBytes(path)));
+
+void DeeGridScale()
+{
+    var records = new List<object>();
+    var saved = optic;
+    foreach (var (name,sampling) in new[] { ("ms-l7",32), ("sampling64",64), ("sampling128",128), ("cooke",32), ("tessar",32) })
+    foreach (var ideal in new[] { true, false })
+    {
+        var standard = name is "cooke" or "tessar";
+        optic = standard ? OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(root,$"validation/zemax/2026-r1/fft-pupil-phase-2026-10-09/{name}-32/source.ZMX")),".zmx") : Optic.FromSnapshot(saved.ToSnapshot());
+        optic.RayAimingEnabled = !standard;
+        var selected = optic.Wavelengths[0];var size=sampling*2;var scale=Math.Sqrt(sampling/4d-1);
+        var f = DiffractionEngine.WorkingFNumber(optic,(0,0),selected,optic.RayAimingEnabled);
+        if (ideal) Console.WriteLine($"geometry {name}: selectedF={f:R}, primaryF={DiffractionEngine.WorkingFNumber(optic,(0,0),optic.Wavelengths.First(w=>w.IsPrimary),optic.RayAimingEnabled):R}, primaryEXPP={optic.Paraxial.EstimateExitPupilLocation():R}, selectedEXPP={optic.Paraxial.EstimateExitPupilLocation(selected.Micrometers):R}, primaryEXPD={optic.Paraxial.EstimateExitPupilDiameter():R}, selectedEXPD={optic.Paraxial.EstimateExitPupilDiameter(selected.Micrometers):R}");
+        var pitch = selected.Micrometers * f * (sampling-2)/(size*scale);
+        var psf = DiffractionEngine.ComputeFftPsf(optic, (0,0), selected,sampling,size,ignoreOpd:ideal,cellCenteredPupil:true,zemaxFftSampling:true,aimAtStop:optic.RayAimingEnabled,referenceWavelength:selected,ignoreScalarTransmission:true,imageDelta:pitch);
+        if (ideal) Console.WriteLine($"launch {name}: aim={psf.UseRayAiming}, fallback={psf.StopAimingFallbackUsed}, stretch={psf.PupilGridStretch:R}, F={psf.WorkingFNumber:R}");
+        var points=Enumerable.Range(0,size).SelectMany(r=>Enumerable.Range(0,size).Select(c=>new WeightedEnergyPoint((c-size/2d+1)*psf.SampleSpacingMicrometers,(r-size/2d+1)*psf.SampleSpacingMicrometers,psf.Values[(r+1)%size,(c+1)%size]))).ToArray();
+        var center=new GeometricEnergyDistribution(points,GeometricEnergyReference.Centroid,EnergyRegion.Circle).Center;
+        var distribution=new DiffractionEnergyDistribution(points,center,EnergyRegion.Circle);
+        var integrator=typeof(DiffractionEnergyDistribution).GetField("_grid",BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(distribution)!;
+        var fraction=integrator.GetType().GetMethod("Fraction")!;
+        var nativePath=name=="ms-l7"?"validation/zemax/2026-r1/n02-energy-layer-controls-2026-10-09/dee-32/data.json":standard?$"artifacts/validation/residuals-20261011/followup/dee-standard-controls/{name}/data.json":$"artifacts/validation/residuals-20261011/followup/dee-geometry-controls/{name}/data.json";
+        using var native=JsonDocument.Parse(File.ReadAllText(Path.Combine(root,nativePath)));
+        if (native.RootElement.GetProperty("dataSeries").GetArrayLength() != 2)
+        {
+            records.Add(new { name, ideal, status="NativeNoData", nativeSha256=Hash(Path.Combine(root,nativePath)) });
+            Console.WriteLine($"{name}: native analysis returned no curves; excluded from certification.");
+            continue;
+        }
+        var series=native.RootElement.GetProperty("dataSeries")[ideal?0:1];
+        var x=series.GetProperty("x").EnumerateArray().Select(v=>v.GetDouble()).ToArray();var target=series.GetProperty("y").EnumerateArray().Select(v=>v[0].GetDouble()).ToArray();
+        var axis=Enumerable.Range(0,sampling).Select(i=>5*i/(sampling-1d)).ToArray();
+        var knots=axis.Select(r => points.Sum(p => p.Weight * Math.Clamp((r-double.Hypot(p.X-center.Item1,p.Y-center.Item2))/psf.SampleSpacingMicrometers+.5,0,1))/points.Sum(p=>p.Weight)).ToArray();
+        knots[0]=0;knots[1]=knots[2]/4;
+        var spline=typeof(MtfThroughFocusAnalysis).GetMethod("CubicSplineInterpolate",BindingFlags.NonPublic|BindingFlags.Static)!;
+        var values=(double[])spline.Invoke(null,[axis,knots,x])!;
+        records.Add(new { name,scale,size,ideal,spacing=psf.SampleSpacingMicrometers,center,metric=Metric(values,target),knots,values,pixels=Enumerable.Range(0,size).Select(r=>Enumerable.Range(0,size).Select(c=>psf.Values[(r+1)%size,(c+1)%size]).ToArray()) });
+        Console.WriteLine($"scale {name}/{scale:R}/{size}/{ideal}: pitch={psf.SampleSpacingMicrometers:R}, center={center}, metric={Metric(values,target)}");
+    }
+    File.WriteAllText(Path.Combine(output,"dee-grid-scale.json"),JsonSerializer.Serialize(records,jsonOptions));
+    optic=saved;
+}
+
+void DeePhaseControls()
+{
+    var records = new List<object>();
+    foreach (var aiming in new[] { false, true })
+    foreach (var launch in new[] { false, true })
+    foreach (var phase in new[] { "raw", "checker-chief", "checker" })
+    foreach (var ideal in new[] { true, false })
+    {
+        var psf = DiffractionEngine.ComputeFftPsf(optic, (0, 0), wave, 32, 64,
+            ignoreOpd: ideal, cellCenteredPupil: true, zemaxFftSampling: true,
+            aimAtStop: aiming, referenceWavelength: wave, ignoreScalarTransmission: launch);
+        var wf = WavefrontEngine.GenerateChiefRayUniform(optic, (0, 0), wave, 32, true, aiming,
+            zemaxCentered: true, referenceWavelength: wave);
+        if (launch) wf = wf with { Samples = wf.Samples.Select(s => s.Intensity > 0 ? s with { Intensity = s.LaunchIntensity ?? s.Intensity } : s).ToArray() };
+        var nodes = wf.Samples.ToDictionary(s => ((int)Math.Round(s.NormalizedPupilX * 15 + 16), (int)Math.Round(s.NormalizedPupilY * 15 + 16)));
+        if (phase != "raw") wf = wf with { Samples = wf.Samples.Select(s =>
+        {
+            var c = (int)Math.Round(s.NormalizedPupilX * 15 + 16); var r = (int)Math.Round(s.NormalizedPupilY * 15 + 16);
+            if ((c + r) % 2 != 0 || phase == "checker" && c == 16 && r == 16
+                || !nodes.TryGetValue((c-1,r),out var a) || !nodes.TryGetValue((c+1,r),out var b)
+                || !nodes.TryGetValue((c,r-1),out var e) || !nodes.TryGetValue((c,r+1),out var f)) return s;
+            return s with { OpdWaves = (a.OpdWaves + b.OpdWaves + e.OpdWaves + f.OpdWaves) / 4 };
+        }).ToArray() };
+        var builder = typeof(DiffractionEngine).GetMethod("BuildComplexPupilCore", BindingFlags.NonPublic | BindingFlags.Static)!;
+        var pupil = (Complex[,])builder.Invoke(null, [wf, null, 32, wave, psf.TangentialWorkingFNumber, psf.SagittalWorkingFNumber, true, 0d, 1d, ideal, true])!;
+        var padded = new Complex[64,64];
+        for (var r = 0; r < 32; r++) for (var c = 0; c < 32; c++) padded[r+16,c+16] = pupil[r,c];
+        typeof(DiffractionEngine).GetMethod("FourierTransform2D", BindingFlags.NonPublic | BindingFlags.Static)!.Invoke(null, [padded, false]);
+        var values = Enumerable.Range(0,64).Select(r => Enumerable.Range(0,64).Select(c => padded[(r+33)%64,(c+33)%64].Magnitude * padded[(r+33)%64,(c+33)%64].Magnitude).ToArray()).ToArray();
+        var points = Enumerable.Range(0,64).SelectMany(r=>Enumerable.Range(0,64).Select(c=>new WeightedEnergyPoint((c-31)*psf.SampleSpacingMicrometers,(r-31)*psf.SampleSpacingMicrometers,values[r][c]))).ToArray();
+        var center = new GeometricEnergyDistribution(points,GeometricEnergyReference.Centroid,EnergyRegion.Circle).Center;
+        records.Add(new { aiming,launch,phase,ideal,spacing=psf.SampleSpacingMicrometers,center,values });
+        Console.WriteLine($"phase {aiming}/{launch}/{phase}/{ideal}: pitch={psf.SampleSpacingMicrometers:R}, center={center}");
+    }
+    File.WriteAllText(Path.Combine(output,"dee-phase-controls.json"),JsonSerializer.Serialize(records,jsonOptions));
+}
+
+void DeeNativeGrid()
+{
+    var records=new List<object>();
+    foreach(var sampling in new[]{8,16,32,64})
+    foreach(var ideal in new[]{true,false})
+    {
+        var psf=DiffractionEngine.ComputeFftPsf(optic,(0,0),wave,sampling,sampling*2,ignoreOpd:ideal,cellCenteredPupil:true,zemaxFftSampling:true,aimAtStop:true,referenceWavelength:wave,ignoreScalarTransmission:true);
+        foreach(var window in new[]{"full","half"})
+        foreach(var origin in new[]{0,1})
+        {
+            var size=window=="half"?sampling:sampling*2;var start=(psf.GridSize-size)/2;
+            var points=Enumerable.Range(0,size).SelectMany(r=>Enumerable.Range(0,size).Select(c=>new WeightedEnergyPoint((c-size/2d+origin)*psf.SampleSpacingMicrometers,(r-size/2d+origin)*psf.SampleSpacingMicrometers,psf.Values[r+start,c+start]))).ToArray();
+            var center=new GeometricEnergyDistribution(points,GeometricEnergyReference.Centroid,EnergyRegion.Circle).Center;
+            var distribution=new DiffractionEnergyDistribution(points,center,EnergyRegion.Circle);
+            var integrator=typeof(DiffractionEnergyDistribution).GetField("_grid",BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(distribution)!;
+            var fraction=integrator.GetType().GetMethod("Fraction")!;
+            foreach(var range in new[]{2.5,5,10})
+            {
+                var slug=range==2.5?"dee-range-2p5":range==5?"dee-32":"dee-range-10";
+                using var native=JsonDocument.Parse(File.ReadAllText(Path.Combine(root,$"validation/zemax/2026-r1/n02-energy-layer-controls-2026-10-09/{slug}/data.json")));
+                var series=native.RootElement.GetProperty("dataSeries")[ideal?0:1];
+                var xx=series.GetProperty("x").EnumerateArray().Select(v=>v.GetDouble()).ToArray();
+                var target=series.GetProperty("y").EnumerateArray().Select(v=>v[0].GetDouble()).ToArray();
+                var axis=Enumerable.Range(0,32).Select(i=>range*i/31).ToArray();
+                var knots=axis.Select(r=>(double)fraction.Invoke(integrator,[r])!).ToArray();knots[1]=knots[2]/4;
+                var spline=typeof(MtfThroughFocusAnalysis).GetMethod("CubicSplineInterpolate",BindingFlags.NonPublic|BindingFlags.Static)!;
+                var values=(double[])spline.Invoke(null,[axis,knots,xx])!;
+                records.Add(new{sampling,ideal,window,origin,range,center,metric=Metric(values,target),knots,values});
+                if(range==5)Console.WriteLine($"internal grid {sampling}/{ideal}/{window}/{origin}: center={center}, {Metric(values,target)}");
+            }
+        }
+    }
+    File.WriteAllText(Path.Combine(output,"dee-native-grid.json"),JsonSerializer.Serialize(records,jsonOptions));
+}
+
+void FiniteCells()
+{
+    var records=new List<object>();
+    foreach(var ideal in new[]{true,false})
+    foreach(var imageSize in new[]{64,512})
+    {
+        var psf=DiffractionEngine.ComputeFftPsf(optic,(0,0),wave,32,imageSize,ignoreOpd:ideal,cellCenteredPupil:true,zemaxFftSampling:true,aimAtStop:true,referenceWavelength:wave,ignoreScalarTransmission:true);
+        var period=psf.SampleSpacingMicrometers*imageSize;
+        var airyRange=.61*wave.Micrometers*Math.Abs(optic.Paraxial.EstimateExitPupilLocation())*30/Math.Abs(optic.Paraxial.EstimateExitPupilDiameter());
+        foreach(var extent in new[]{period,period/2,airyRange,airyRange/2})
+        foreach(var window in new[]{"full","half"})
+        {
+            var size=window=="half"?imageSize/2:imageSize;var start=(imageSize-size)/2;
+            double Sinc(double x)=>Math.Abs(x)<1e-9?1:Math.Sin(x)/x;
+            var points=Enumerable.Range(0,size).SelectMany(r=>Enumerable.Range(0,size).Select(c=>
+            {
+                var x=(c-size/2d)*psf.SampleSpacingMicrometers;var y=(r-size/2d)*psf.SampleSpacingMicrometers;
+                var footprint=Math.Abs(x)>=extent||Math.Abs(y)>=extent?0:Sinc(Math.PI*x/extent)*Sinc(Math.PI*y/extent);
+                return new WeightedEnergyPoint(x,y,psf.Values[r+start,c+start]*footprint*footprint);
+            })).ToArray();
+            var center=new GeometricEnergyDistribution(points,GeometricEnergyReference.Centroid,EnergyRegion.Circle).Center;
+            var distribution=new DiffractionEnergyDistribution(points,center,EnergyRegion.Circle);
+            var integrator=typeof(DiffractionEnergyDistribution).GetField("_grid",BindingFlags.Instance|BindingFlags.NonPublic)!.GetValue(distribution)!;
+            var fraction=integrator.GetType().GetMethod("Fraction")!;
+            foreach(var range in new[]{2.5,5,10})
+            {
+                var slug=range==2.5?"dee-range-2p5":range==5?"dee-32":"dee-range-10";
+                using var native=JsonDocument.Parse(File.ReadAllText(Path.Combine(root,$"validation/zemax/2026-r1/n02-energy-layer-controls-2026-10-09/{slug}/data.json")));
+                var series=native.RootElement.GetProperty("dataSeries")[ideal?0:1];
+                var xx=series.GetProperty("x").EnumerateArray().Select(v=>v.GetDouble()).ToArray();
+                var target=series.GetProperty("y").EnumerateArray().Select(v=>v[0].GetDouble()).ToArray();
+                var axis=Enumerable.Range(0,32).Select(i=>range*i/31).ToArray();
+                var knots=axis.Select(r=>(double)fraction.Invoke(integrator,[r])!).ToArray();knots[1]=knots[2]/4;
+                var spline=typeof(MtfThroughFocusAnalysis).GetMethod("CubicSplineInterpolate",BindingFlags.NonPublic|BindingFlags.Static)!;
+                var values=(double[])spline.Invoke(null,[axis,knots,xx])!;
+                records.Add(new{ideal,imageSize,period,extent,window,range,center,total=points.Sum(p=>p.Weight),metric=Metric(values,target),knots,values});
+                Console.WriteLine($"finite {ideal}/{imageSize}/{extent}/{window}/{range}: {Metric(values,target)}");
+            }
+        }
+    }
+    File.WriteAllText(Path.Combine(output,"finite-cells.json"),JsonSerializer.Serialize(records,jsonOptions));
+}
+
+void KernelControls()
+{
+    var records = new List<object>();
+    var saved = optic;
+    foreach (var (name, sampling, waveIndex) in args[2]=="geometry-controls" ? new[] { ("half-aperture",32,0), ("on-axis-only",32,0), ("single-wave",32,0), ("cooke",32,0), ("tessar",32,0) } : new[] { ("image64",32,0), ("delta-half",32,0), ("pupil64",64,0), ("wave2",32,1) })
+    {
+        optic=Optic.FromSnapshot(saved.ToSnapshot());
+        if(name is "cooke" or "tessar") optic=OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(root,$"validation/zemax/2026-r1/fft-pupil-phase-2026-10-09/{name}-32/source.ZMX")),".zmx");
+        optic.RayAimingEnabled=true;
+        if(name=="half-aperture") optic.Aperture.Value*=.5;
+        if(name=="on-axis-only") while(optic.Fields.Count>1)optic.Fields.RemoveAt(optic.Fields.Count-1);
+        if(name=="single-wave") {while(optic.Wavelengths.Count>1)optic.Wavelengths.RemoveAt(optic.Wavelengths.Count-1);optic.Wavelengths[0].IsPrimary=true;}
+        var selected = optic.Wavelengths[waveIndex];
+        var wf = WavefrontEngine.GenerateChiefRayUniform(optic,(0,0),selected,sampling,zemaxCentered:true,aimAtStop:true);
+        var pupils = wf.Samples.Select(s=>new PupilSample(s.NormalizedPupilX,s.NormalizedPupilY,1)).ToArray();
+        var rays = optic.SequentialRayTracer.TraceFinalSamples(optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(0,0,selected.Micrometers,pupils,true));
+        var chief = optic.SequentialRayTracer.TraceFinalSamples(optic.SequentialRayTracer.RayGenerator.GenerateGeneric(0,0,0,0,selected.Micrometers,true)).Single()!;
+        var frame = DiffractionEngine.CreateHuygensImageFrame(optic,(0,0),selected,true);
+        var folder = Path.Combine(root,"artifacts/validation/residuals-20261011/followup/"+args[2]);
+        using var real = JsonDocument.Parse(File.ReadAllText(Path.Combine(folder,name+"-real/Planar/data.json")));
+        using var imag = JsonDocument.Parse(File.ReadAllText(Path.Combine(folder,name+"-imaginary/Planar/data.json")));
+        var grid=real.RootElement.GetProperty("dataGrids")[0];
+        var rv=grid.GetProperty("values").EnumerateArray().SelectMany(r=>r.EnumerateArray().Select(v=>v.GetDouble())).ToArray();
+        var iv=imag.RootElement.GetProperty("dataGrids")[0].GetProperty("values").EnumerateArray().SelectMany(r=>r.EnumerateArray().Select(v=>v.GetDouble())).ToArray();
+        var native=rv.Zip(iv,(r,i)=>new Complex(r,i)).ToArray();
+        var size=grid.GetProperty("nx").GetInt32();
+        var center=size/2*size+size/2;
+        var amplitude=pupils.Select((p,i)=>rays[i] is null?0:Math.Exp(-512*(p.X*p.X+p.Y*p.Y))).ToArray();
+        var actual=new Complex[size*size];
+        for(var row=0;row<size;row++)for(var col=0;col<size;col++)
+        {
+            var x=(grid.GetProperty("minX").GetDouble()+col*grid.GetProperty("dx").GetDouble())/1000;
+            var y=(grid.GetProperty("minY").GetDouble()+row*grid.GetProperty("dy").GetDouble())/1000;
+            var point=frame.Center+frame.TangentX*x+frame.TangentY*y;
+            var sum=Complex.Zero;
+            for(var i=0;i<rays.Count;i++)if(rays[i] is {} ray)
+            {
+                var offset=point-ray.Position;
+                var phase=ray.CumulativeOpticalPathLength-chief.CumulativeOpticalPathLength+wf.ImageRefractiveIndex*(ray.Direction.X*offset.X+ray.Direction.Y*offset.Y+ray.Direction.Z*offset.Z);
+                sum+=Complex.FromPolarCoordinates(amplitude[i],-2*Math.PI*phase/(selected.Micrometers/1000));
+            }
+            actual[row*size+col]=sum/amplitude.Sum();
+        }
+        var piston=Complex.FromPolarCoordinates(1,(native[center]/actual[center]).Phase);
+        var ratio=Enumerable.Range(0,size/2).Select(i=>native[center+i]/(actual[center+i]*piston)).ToArray();
+        var pitch=grid.GetProperty("dx").GetDouble();
+        var target=ratio[1].Magnitude/ratio[0].Magnitude;
+        var lo=0d;var hi=2d;
+        for(var j=0;j<70;j++){var t=(lo+hi)/2;var v=Math.Sin(t*pitch)/(t*pitch);if(v>target)lo=t;else hi=t;}
+        var coefficient=(lo+hi)/2;
+        Console.WriteLine($"geometry: EFL={optic.Paraxial.EstimateEffectiveFocalLength():R}, F={optic.Paraxial.EstimateFNumber():R}, EP={optic.Paraxial.EstimateEntrancePupilDiameter():R}, EPZ={optic.Paraxial.EstimateEntrancePupilLocation():R}, XPZ={optic.Paraxial.EstimateExitPupilLocation():R}; pupilExtent={wf.Samples.Max(s=>s.PupilX)-wf.Samples.Min(s=>s.PupilX):R}; imageZ={frame.Center.Z:R}");
+        var marginal=optic.Paraxial.MarginalRay(selected.Micrometers);
+        var card=optic.Paraxial.CardinalPlanes(1,optic.SurfaceGroup.Items.Count-2,selected.Micrometers,0);
+        Console.WriteLine($"more geometry: selectedEFL={card.ImageFocalLength:R}, XPdiam={optic.Paraxial.EstimateExitPupilDiameter(selected.Micrometers):R}, marginalFinalSlope={marginal.Slopes[^1][0]:R}; sincConstant={coefficient*selected.Micrometers*(sampling-2)/Math.PI:R}; expectedEFL={Math.Sqrt(2)*optic.Paraxial.EstimateEntrancePupilDiameter()/card.ImageFocalLength:R}");
+        var predicted=Math.PI*Math.Abs(optic.Paraxial.EstimateExitPupilDiameter())/(.61*selected.Micrometers*Math.Abs(optic.Paraxial.EstimateExitPupilLocation())*(sampling-2));
+        Console.WriteLine($"Airy-cell: XPdiam-primary={optic.Paraxial.EstimateExitPupilDiameter():R}, predicted={predicted:R}, ratio={coefficient/predicted:R}");
+        if(name=="image64") foreach(var fy in new[]{0d,-10.6/15,-1d})
+        {
+            var rr=optic.SequentialRayTracer.TraceFinalSamples(optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(0,fy,selected.Micrometers,pupils,true)).Where(r=>r is not null).Select(r=>r!).ToArray();
+            Console.WriteLine($"field {fy}: l={rr.Min(r=>r.Direction.X):R}..{rr.Max(r=>r.Direction.X):R}, m={rr.Min(r=>r.Direction.Y):R}..{rr.Max(r=>r.Direction.Y):R}, radial={rr.Max(r=>Math.Sqrt(r.Direction.X*r.Direction.X+r.Direction.Y*r.Direction.Y)):R}");
+        }
+        records.Add(new{name,sampling,wavelength=selected.Micrometers,pitch,coefficient,sincZero=Math.PI/coefficient,
+            axes=DiffractionEngine.WorkingFNumbers(optic,(0,0),selected,true,zemaxDirectionalAverage:true),radius=wf.Radius,
+            phase=ratio.Select(v=>v.Phase),amplitude=ratio.Select(v=>v.Magnitude),
+            actualReal=actual.Select(v=>v.Real),actualImaginary=actual.Select(v=>v.Imaginary)});
+        Console.WriteLine($"kernel {name}: amplitude0={ratio[0].Magnitude:R}, coefficient={coefficient:R}, zero={Math.PI/coefficient:R}, phase1={ratio[1].Phase:R}");
+    }
+    File.WriteAllText(Path.Combine(output,"kernel-controls.json"),JsonSerializer.Serialize(records,jsonOptions));
+    optic=saved;
+}
+
+void GaussianControls()
+{
+    var chief = optic.SequentialRayTracer.TraceFinalSamples(optic.SequentialRayTracer.RayGenerator.GenerateGeneric(0,0,0,0,wave.Micrometers,true)).Single()!;
+    var frame = DiffractionEngine.CreateHuygensImageFrame(optic,(0,0),wave,true);
+    var records = new List<object>();
+    foreach (var nodes in new[] { "endpoints", "centers", "zemax", "halfopen", "closed32intervals" })
+    {
+        var wf = WavefrontEngine.GenerateChiefRayUniform(optic, (0,0), wave, 32, cellCentered:nodes=="centers",zemaxCentered:nodes=="zemax",aimAtStop:true);
+        var pupils = nodes is "halfopen" or "closed32intervals"
+            ? Enumerable.Range(0,nodes=="halfopen"?32:33).SelectMany(r=>Enumerable.Range(0,nodes=="halfopen"?32:33).Select(c=>new PupilSample((c-16)/16d,(r-16)/16d,1))).Where(p=>p.X*p.X+p.Y*p.Y<=1).ToArray()
+            : wf.Samples.Select(s=>new PupilSample(s.NormalizedPupilX,s.NormalizedPupilY,1)).ToArray();
+        var rays = optic.SequentialRayTracer.TraceFinalSamples(optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(0,0,wave.Micrometers,pupils,true));
+        foreach (var factor in new[] {4,32,512})
+        foreach (var weight in new[] {"uniform","cos","sqrtcos","invcos"})
+        {
+            var path = Path.Combine(root,$"artifacts/validation/residuals-20261011/followup/gaussian/{factor}-linear/Planar/data.json");
+            using var native = JsonDocument.Parse(File.ReadAllText(path));
+            var grid = native.RootElement.GetProperty("dataGrids")[0];
+            var target = grid.GetProperty("values").EnumerateArray().SelectMany(r=>r.EnumerateArray().Select(v=>v.GetDouble())).ToArray();
+            var amplitude = pupils.Select((p,i)=>rays[i] is null?0:Math.Exp(-factor*(p.X*p.X+p.Y*p.Y))*(weight=="cos"?rays[i]!.Direction.Z:weight=="sqrtcos"?Math.Sqrt(rays[i]!.Direction.Z):weight=="invcos"?1/rays[i]!.Direction.Z:1)).ToArray();
+            var normalization = Math.Pow(amplitude.Sum(),2);
+            var values = new double[1024];
+            for(var row=0;row<32;row++)for(var column=0;column<32;column++)
+            {
+                var x=(grid.GetProperty("minX").GetDouble()+column*grid.GetProperty("dx").GetDouble())/1000;
+                var y=(grid.GetProperty("minY").GetDouble()+row*grid.GetProperty("dy").GetDouble())/1000;
+                var point=frame.Center+frame.TangentX*x+frame.TangentY*y;
+                var sum=Complex.Zero;
+                for(var i=0;i<rays.Count;i++)if(rays[i] is {} ray)
+                {
+                    var offset=point-ray.Position;
+                    var phase=ray.CumulativeOpticalPathLength-chief.CumulativeOpticalPathLength+wf.ImageRefractiveIndex*(ray.Direction.X*offset.X+ray.Direction.Y*offset.Y+ray.Direction.Z*offset.Z);
+                    sum+=Complex.FromPolarCoordinates(amplitude[i],2*Math.PI*phase/(wave.Micrometers/1000));
+                }
+                values[row*32+column]=sum.Magnitude*sum.Magnitude/normalization;
+            }
+            var metric=Metric(values,target);
+            records.Add(new{nodes,factor,weight,nativeSha256=Hash(path),metric,values});
+            Console.WriteLine($"gaussian {nodes}/{factor}/{weight}: {metric}");
+        }
+    }
+    File.WriteAllText(Path.Combine(output,"gaussian-controls.json"),JsonSerializer.Serialize(records,jsonOptions));
+}
+
+void GeoNodes()
+{
+    var records = new List<object>();
+    var image = optic.SurfaceGroup.Items[^1].CoordinateSystem;
+    foreach (var fieldIndex in new[] { 1, 2 })
+    {
+        (double Hx, double Hy) field = FieldCoordinates.Normalize(optic.Fields, optic.Fields[fieldIndex].X, optic.Fields[fieldIndex].Y);
+        foreach (var count in new[] { 30,31,32,33,34,64 })
+        foreach (var nodes in new[] { "endpoints", "centers", "zemax", "halfopen", "closedintervals" })
+        {
+            var wf = WavefrontEngine.GenerateChiefRayUniform(optic, field, wave, count, cellCentered: nodes == "centers", zemaxCentered: nodes == "zemax", aimAtStop: true);
+            var pupils = nodes is "halfopen" or "closedintervals"
+                ? Enumerable.Range(0, nodes == "halfopen" ? count : count+1).SelectMany(r => Enumerable.Range(0, nodes == "halfopen" ? count : count+1).Select(c => new PupilSample((c - count / 2d) / (count / 2d), (r - count / 2d) / (count / 2d), 1))).Where(p => p.X*p.X+p.Y*p.Y<=1).ToArray()
+                : wf.Samples.Select(s => new PupilSample(s.NormalizedPupilX, s.NormalizedPupilY, 1)).ToArray();
+            var rays = optic.SequentialRayTracer.TraceFinalSamples(optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(field.Hx, field.Hy, wave.Micrometers, pupils, true)).Where(r=>r is not null && r.Intensity>0).ToArray();
+            var x = rays.Average(r=>image.ToLocalPoint(r!.Position).X); var y=rays.Average(r=>image.ToLocalPoint(r!.Position).Y);
+            records.Add(new { fieldNumber=fieldIndex+1, count, nodes, valid=rays.Length, x, y });
+            Console.WriteLine($"geo-nodes F{fieldIndex+1}/{count}/{nodes}/{rays.Length}: ({x:R},{y:R}) mm");
+        }
+    }
+    File.WriteAllText(Path.Combine(output,"geo-nodes.json"),JsonSerializer.Serialize(records,jsonOptions));
+}
+
+void NativeHuygens()
+{
+    var directory = Path.Combine(root, "artifacts/validation/residuals-20261011/followup/native");
+    using var real = JsonDocument.Parse(File.ReadAllText(Path.Combine(directory, "huygens-real/Planar/data.json")));
+    using var imaginary = JsonDocument.Parse(File.ReadAllText(Path.Combine(directory, "huygens-imaginary/Planar/data.json")));
+    var rg = real.RootElement.GetProperty("dataGrids")[0]; var ig = imaginary.RootElement.GetProperty("dataGrids")[0];
+    var rv = rg.GetProperty("values").EnumerateArray().SelectMany(r => r.EnumerateArray().Select(v => v.GetDouble())).ToArray();
+    var iv = ig.GetProperty("values").EnumerateArray().SelectMany(r => r.EnumerateArray().Select(v => v.GetDouble())).ToArray();
+    var target = rv.Zip(iv, (r, i) => new Complex(r, i)).ToArray();
+    var records = new List<object>();
+    foreach (var nodes in new[] { "endpoints", "zemax" })
+    {
+        using var input = JsonDocument.Parse(File.ReadAllText(Path.Combine(directory, $"pupil-{nodes}/pupil-grid.json")));
+        var inputs = input.RootElement.GetProperty("inputs").EnumerateArray().ToArray();
+        var rows = input.RootElement.GetProperty("rows").EnumerateArray().ToArray();
+        var pupils = inputs.Select(p => new PupilSample(p.GetProperty("px").GetDouble(), p.GetProperty("py").GetDouble(), 1)).ToArray();
+        var wf = WavefrontEngine.GenerateChiefRaySamples(optic, (0, 0), wave, pupils.Select(p => (p.X, p.Y)).ToArray(), aimAtStop: true, referenceWavelength: wave);
+        var rays = optic.SequentialRayTracer.TraceFinalSamples(optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(0, 0, wave.Micrometers, pupils, true));
+        double Value(int i, string key) => rows[i].GetProperty(key).GetDouble();
+        var chief = Array.FindIndex(pupils, p => p.X == 0 && p.Y == 0);
+        var chiefOpl = rays[chief]!.CumulativeOpticalPathLength;
+        var opdErrors = Enumerable.Range(0, pupils.Length).Select(i => wf.Samples[i].OpdWaves - Value(i, "opd")).ToArray();
+        Console.WriteLine($"native rays {nodes}: OPD max={opdErrors.Max(Math.Abs):R}, chief={Value(chief, "opd"):R}, R={wf.Radius:R}");
+        foreach (var sourcePhase in new[] { "formal-opl", "native-opd", "formal-opd" })
+        foreach (var weight in new[] { "uniform", "cos", "sqrtcos", "invcos" })
+        {
+            var amplitudes = Enumerable.Range(0, pupils.Length).Select(i => weight switch { "cos" => Value(i, "n"), "sqrtcos" => Math.Sqrt(Value(i, "n")), "invcos" => 1 / Value(i, "n"), _ => 1d }).ToArray();
+            if (nodes == "endpoints") amplitudes[chief] = 0; // Explicit audit chief is not an extra integration node.
+            var peak = amplitudes.Sum();
+            var values = new Complex[1024];
+            for (var row = 0; row < 32; row++)
+            for (var column = 0; column < 32; column++)
+            {
+                var x = (rg.GetProperty("minX").GetDouble() + column * rg.GetProperty("dx").GetDouble()) / 1000;
+                var y = (rg.GetProperty("minY").GetDouble() + row * rg.GetProperty("dy").GetDouble()) / 1000;
+                var sum = Complex.Zero;
+                for (var i = 0; i < pupils.Length; i++)
+                {
+                    var px = Value(i, "x"); var py = Value(i, "y"); var pz = Value(i, "z");
+                    var l = Value(i, "l"); var m = Value(i, "m"); var n = Value(i, "n");
+                    var dot = px * l + py * m + pz * n;
+                    var path = sourcePhase == "formal-opl" ? rays[i]!.CumulativeOpticalPathLength - chiefOpl + wf.ImageRefractiveIndex * (l * (x - px) + m * (y - py) - n * pz)
+                        : -(sourcePhase == "native-opd" ? Value(i, "opd") : wf.Samples[i].OpdWaves) * wave.Micrometers / 1000
+                            + wf.ImageRefractiveIndex * (Math.Sqrt(dot * dot + wf.Radius * wf.Radius - px * px - py * py - pz * pz) - wf.Radius + l * x + m * y);
+                    sum += Complex.FromPolarCoordinates(amplitudes[i], 2 * Math.PI * path / (wave.Micrometers / 1000));
+                }
+                values[row * 32 + column] = sum / peak;
+            }
+            // Only a global, intensity-invariant piston is removed for complex
+            // diagnostic comparison. Neither this piston nor native amplitudes
+            // may be substituted into a product calculation.
+            var phase = (target[528] / values[528]).Phase;
+            var rotation = Complex.FromPolarCoordinates(1, phase);
+            var complexL2 = Math.Sqrt(values.Zip(target, (a, b) => Complex.Abs(a * rotation - b) * Complex.Abs(a * rotation - b)).Sum() / target.Sum(v => v.Magnitude * v.Magnitude));
+            var metric = Metric(values.Select(v => v.Magnitude * v.Magnitude).ToArray(), target.Select(v => v.Magnitude * v.Magnitude).ToArray());
+            records.Add(new { nodes, sourcePhase, weight, opdMaximum = opdErrors.Max(Math.Abs), complexL2, pistonRadians = phase, metric, real = values.Select(v => v.Real), imaginary = values.Select(v => v.Imaginary) });
+            Console.WriteLine($"native-huygens {nodes}/{sourcePhase}/{weight}: intensity={metric}, complex={complexL2:R}");
+        }
+    }
+    File.WriteAllText(Path.Combine(output, "native-huygens.json"), JsonSerializer.Serialize(records, jsonOptions));
+}
+
+void IntegerGrid()
+{
+    var records = new List<object>();
+    var bilinear = typeof(PsfAnalysis).GetMethod("BilinearSample", BindingFlags.NonPublic | BindingFlags.Static)!;
+    foreach (var ideal in new[] { true, false })
+    foreach (var nodeFamily in new[] { "zemax", "endpoints", "centers" })
+    {
+        var psf = DiffractionEngine.ComputeFftPsf(optic, (0, 0), wave, 32, 64, ignoreOpd: ideal,
+            cellCenteredPupil: nodeFamily != "endpoints", zemaxFftSampling: nodeFamily == "zemax", aimAtStop: true, referenceWavelength: wave, ignoreScalarTransmission: true);
+        foreach (var size in new[] { 32, 64 })
+        foreach (var origin in new[] { 0d, .5, 1 })
+        {
+            var pitch = psf.SampleSpacingMicrometers;
+            var points = Enumerable.Range(0, size).SelectMany(row => Enumerable.Range(0, size).Select(column =>
+            {
+                var x = (column - size / 2d + origin) * pitch;
+                var y = (row - size / 2d + origin) * pitch;
+                return new WeightedEnergyPoint(x, y, (double)bilinear.Invoke(null, [psf, x, y])!);
+            })).ToArray();
+            var center = new GeometricEnergyDistribution(points, GeometricEnergyReference.Centroid, EnergyRegion.Circle).Center;
+            var distribution = new DiffractionEnergyDistribution(points, center, EnergyRegion.Circle);
+            var integrator = typeof(DiffractionEnergyDistribution).GetField("_grid", BindingFlags.NonPublic | BindingFlags.Instance)!.GetValue(distribution)!;
+            var fraction = integrator.GetType().GetMethod("Fraction")!;
+            foreach (var range in new[] { 2.5, 5, 10 })
+            {
+                var name = range == 5 ? "dee-32" : range == 2.5 ? "dee-range-2p5" : "dee-range-10";
+                using var native = JsonDocument.Parse(File.ReadAllText(Path.Combine(root, $"validation/zemax/2026-r1/n02-energy-layer-controls-2026-10-09/{name}/data.json")));
+                var series = native.RootElement.GetProperty("dataSeries")[ideal ? 0 : 1];
+                var x = series.GetProperty("x").EnumerateArray().Select(v => v.GetDouble()).ToArray();
+                var y = series.GetProperty("y").EnumerateArray().Select(v => v[0].GetDouble()).ToArray();
+                var axis = Enumerable.Range(0, 32).Select(i => range * i / 31).ToArray();
+                var knots = axis.Select(r => (double)fraction.Invoke(integrator, [r])!).ToArray();
+                foreach (var display in new[] { "direct", "spline", "origin" })
+                {
+                    var corrected = (double[])knots.Clone();
+                    if (display == "origin") corrected[1] = corrected[2] / 4;
+                    var spline = typeof(MtfThroughFocusAnalysis).GetMethod("CubicSplineInterpolate", BindingFlags.NonPublic | BindingFlags.Static)!;
+                    var values = display == "direct" ? x.Select(r => (double)fraction.Invoke(integrator, [r])!).ToArray()
+                        : ((double[])spline.Invoke(null, [axis, corrected, x])!).Select(v => Math.Clamp(v, 0, 1)).ToArray();
+                    records.Add(new { ideal, nodeFamily, size, origin, display, range, center, total = points.Sum(p => p.Weight), metric = Metric(values, y), knots = corrected, values });
+                    if (range == 5 && origin == 1 && display == "origin") Console.WriteLine($"integer-grid {ideal}/{nodeFamily}/{size}/{origin}/{display}/{range} center={center}: {Metric(values, y)}");
+                }
+            }
+        }
+    }
+    File.WriteAllText(Path.Combine(output, "integer-grid.json"), JsonSerializer.Serialize(records, jsonOptions));
+}
+
+void Airy()
+{
+    var method = typeof(DiffractionEncircledEnergyAnalysis).GetMethod("IdealAiryEncircledEnergy", BindingFlags.NonPublic | BindingFlags.Static)!;
+    using var knots = JsonDocument.Parse(File.ReadAllText(Path.Combine(root, "artifacts/validation/residuals-20261011/verified/knots/knots.json")));
+    var axes = DiffractionEngine.WorkingFNumbers(optic, (0, 0), wave, true, zemaxDirectionalAverage: true);
+    var f = Math.Sqrt(axes.Tangential * axes.Sagittal);
+    var rows = new List<object>();
+    foreach (var item in knots.RootElement.EnumerateArray().Where(r => r.GetProperty("ideal").GetBoolean()))
+    {
+        var radii = item.GetProperty("axis").EnumerateArray().Select(v => v.GetDouble()).ToArray();
+        var native = item.GetProperty("nativeKnots").EnumerateArray().Select(v => v.GetDouble()).ToArray();
+        var values = radii.Select(r => (double)method.Invoke(null, [r, wave.Micrometers, f])!).ToArray();
+        rows.Add(new { range = item.GetProperty("range").GetDouble(), f, radii, native, values, metric = Metric(values, native) });
+        Console.WriteLine($"Airy range={item.GetProperty("range")} f={f:R}: {Metric(values, native)}");
+        for (var i = 0; i < 6; i++) Console.WriteLine($"r={radii[i]:R} native={native[i]:R} Airy={values[i]:R}");
+    }
+    File.WriteAllText(Path.Combine(output, "airy.json"), JsonSerializer.Serialize(rows, jsonOptions));
+}
+
+void PlanePhase()
+{
+    using var native = JsonDocument.Parse(File.ReadAllText(Path.Combine(root, "validation/zemax/2026-r1/huygens-method-controls-2026-10-09/grid/Auto/data.json")));
+    var grid = native.RootElement.GetProperty("dataGrids")[0];
+    var target = grid.GetProperty("values").EnumerateArray().SelectMany(r => r.EnumerateArray().Select(v => v.GetDouble())).ToArray();
+    var chief = optic.SequentialRayTracer.TraceFinalSamples(optic.SequentialRayTracer.RayGenerator.GenerateGeneric(0, 0, 0, 0, wave.Micrometers, true)).Single()!;
+    var frame = DiffractionEngine.CreateHuygensImageFrame(optic, (0, 0), wave, true);
+    var k = 2 * Math.PI / (wave.Micrometers * .001);
+    var records = new List<object>();
+    foreach (var nodes in new[] { "endpoints", "centers", "zemax", "halfopen", "closed32intervals" })
+    {
+        var wf = WavefrontEngine.GenerateChiefRayUniform(optic, (0, 0), wave, 32, cellCentered: nodes == "centers", zemaxCentered: nodes == "zemax", aimAtStop: true);
+        var pupils = nodes is "halfopen" or "closed32intervals"
+            ? Enumerable.Range(0, nodes == "halfopen" ? 32 : 33).SelectMany(r => Enumerable.Range(0, nodes == "halfopen" ? 32 : 33).Select(c => new PupilSample((c - 16) / 16d, (r - 16) / 16d, 1))).Where(p => p.X * p.X + p.Y * p.Y <= 1).ToArray()
+            : wf.Samples.Select(s => new PupilSample(s.NormalizedPupilX, s.NormalizedPupilY, 1)).ToArray();
+        var rays = optic.SequentialRayTracer.TraceFinalSamples(optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(0, 0, wave.Micrometers, pupils, true));
+        var pitch = nodes == "zemax" ? 1 / 15d : nodes == "endpoints" ? 2 / 31d : 1 / 16d;
+        var lookup = pupils.Select((p, i) => (p, i)).ToDictionary(v => ((long)Math.Round(v.p.X / pitch * 1000), (long)Math.Round(v.p.Y / pitch * 1000)), v => v.i);
+        foreach (var interpolation in new[] { "none", "even", "odd", "all" })
+        foreach (var weight in new[] { "uniform", "cos", "sqrtcos", "simpson", "simpson-cos", "trapezoid", "trapezoid-cos" })
+        {
+            if (interpolation != "none" && weight.Contains('-') || interpolation != "none" && weight is "simpson" or "trapezoid") continue;
+            var paths = rays.Select(r => r is null ? 0 : r.CumulativeOpticalPathLength - chief.CumulativeOpticalPathLength).ToArray();
+            for (var i = 0; i < paths.Length; i++)
+            {
+                var p = pupils[i]; var x = (long)Math.Round(p.X / pitch * 1000); var y = (long)Math.Round(p.Y / pitch * 1000);
+                var parity = ((long)Math.Round(p.X / pitch) + (long)Math.Round(p.Y / pitch)) & 1;
+                if (interpolation == "none" || p.X * p.X + p.Y * p.Y < 1e-24 || interpolation == "even" && parity != 0 || interpolation == "odd" && parity == 0) continue;
+                var neighbors = new[] { (x - 1000, y), (x + 1000, y), (x, y - 1000), (x, y + 1000) }.Select(key => lookup.GetValueOrDefault(key, -1)).ToArray();
+                if (neighbors.Any(j => j < 0 || rays[j] is null)) continue;
+                paths[i] = neighbors.Average(j => rays[j]!.CumulativeOpticalPathLength - chief.CumulativeOpticalPathLength);
+            }
+            double Quadrature(int i)
+            {
+                var offset = nodes is "zemax" ? 16 : nodes is "halfopen" or "closed32intervals" ? 16 : 15.5;
+                var size = nodes == "closed32intervals" ? 33 : 32;
+                var x = (int)Math.Round(pupils[i].X / pitch + offset); var y = (int)Math.Round(pupils[i].Y / pitch + offset);
+                double Factor(int j) => j == 0 || j == size - 1 ? (weight.StartsWith("simpson") ? 1 / 3d : .5)
+                    : weight.StartsWith("simpson") ? (j % 2 == 0 ? 2 : 4) / 3d : 1;
+                return weight.StartsWith("simpson") || weight.StartsWith("trapezoid") ? Factor(x) * Factor(y) : 1;
+            }
+            var amplitudes = rays.Select((r,i) => r is null || r.Intensity <= 0 ? 0 : Quadrature(i) * (weight == "cos" || weight.EndsWith("-cos") ? r.Direction.Z / chief.Direction.Z : weight == "sqrtcos" ? Math.Sqrt(r.Direction.Z / chief.Direction.Z) : 1)).ToArray();
+            var peak = Math.Pow(amplitudes.Sum(), 2);
+            var values = new double[1024];
+            for (var row = 0; row < 32; row++)
+            for (var column = 0; column < 32; column++)
+            {
+                var point = frame.Center + frame.TangentX * ((grid.GetProperty("minX").GetDouble() + column * grid.GetProperty("dx").GetDouble()) / 1000) + frame.TangentY * ((grid.GetProperty("minY").GetDouble() + row * grid.GetProperty("dy").GetDouble()) / 1000);
+                var sum = Complex.Zero;
+                for (var i = 0; i < rays.Count; i++)
+                {
+                    if (rays[i] is not { } ray) continue;
+                    var offset = point - ray.Position;
+                    var phase = paths[i] + wf.ImageRefractiveIndex * (ray.Direction.X * offset.X + ray.Direction.Y * offset.Y + ray.Direction.Z * offset.Z);
+                    sum += Complex.FromPolarCoordinates(amplitudes[i], k * phase);
+                }
+                values[row * 32 + column] = sum.Magnitude * sum.Magnitude / peak;
+            }
+            records.Add(new { nodes, interpolation, weight, metric = Metric(values, target), values });
+            Console.WriteLine($"plane-phase {nodes}/{interpolation}/{weight}: {Metric(values, target)}");
+        }
+    }
+    File.WriteAllText(Path.Combine(output, "plane-phase.json"), JsonSerializer.Serialize(records, jsonOptions));
+}
 
 void Rays()
 {

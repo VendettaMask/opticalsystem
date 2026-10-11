@@ -4,6 +4,12 @@ using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Analysis;
 
+public enum DiffractionEnergyIntegrationConvention
+{
+    FftCumulative,
+    PsfPixelArea
+}
+
 public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
 {
     private readonly int _pupilSampling;
@@ -14,6 +20,7 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
     private readonly string _type;
     private readonly string _reference;
     private readonly double _maximumDistanceMicrometers;
+    private readonly DiffractionEnergyIntegrationConvention _integrationConvention;
 
     public DiffractionEncircledEnergyAnalysis(
         Optic optic,
@@ -24,8 +31,11 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
         int fieldNumber = 0,
         string type = "encircled",
         string reference = "centroid",
-        double maximumDistanceMicrometers = 0) : base(optic)
+        double maximumDistanceMicrometers = 0,
+        DiffractionEnergyIntegrationConvention integrationConvention = DiffractionEnergyIntegrationConvention.FftCumulative) : base(optic)
     {
+        if (!Enum.IsDefined(integrationConvention)) throw new ArgumentOutOfRangeException(nameof(integrationConvention));
+        _integrationConvention = integrationConvention;
         _pupilSampling = Math.Clamp(pupilSampling, 8, 512);
         _imageSampling = Math.Clamp(imageSampling, 16, 1024);
         _numPoints = Math.Clamp(numPoints, 2, 2048);
@@ -119,9 +129,11 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
             Name,
             new Dictionary<string, object>
             {
-                ["Method"] = "FFT PSF pixel-area integration",
+                ["Method"] = UseFftCumulativeGrid ? "FFT cumulative distance-bin integration" : "FFT PSF pixel-area integration",
                 ["PupilSampling"] = _pupilSampling,
                 ["ImageSampling"] = _imageSampling,
+                ["EffectiveImageSampling"] = UseFftCumulativeGrid ? 2 * _pupilSampling : _imageSampling,
+                ["CumulativeKnotCount"] = UseFftCumulativeGrid ? _pupilSampling : _numPoints,
                 ["WavelengthNumber"] = _wavelengthNumber,
                 ["FieldNumber"] = _fieldNumber,
                 ["FieldCount"] = curves.Count,
@@ -190,8 +202,13 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
             && !type.Contains("square", StringComparison.OrdinalIgnoreCase);
     }
 
-    private PsfPixelEnergyGrid? CreatePixelGrid(int fieldIndex, bool ignoreOpd)
+    private bool UseFftCumulativeGrid => _integrationConvention == DiffractionEnergyIntegrationConvention.FftCumulative
+        && !Optic.ImageSpaceAfocal && _pupilSampling >= 32
+        && (_pupilSampling & (_pupilSampling - 1)) == 0;
+
+    private IEnergyImageGrid? CreatePixelGrid(int fieldIndex, bool ignoreOpd)
     {
+        if (UseFftCumulativeGrid) return CreateFftCumulativeGrid(fieldIndex, ignoreOpd);
         var source = new PsfAnalysis(
             Optic,
             _pupilSampling,
@@ -238,10 +255,64 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
         return new PsfPixelEnergyGrid(samples, center, _type);
     }
 
+    private IEnergyImageGrid? CreateFftCumulativeGrid(int fieldIndex, bool ignoreOpd)
+    {
+        IReadOnlyList<Wavelength> wavelengths = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
+        if (wavelengths.Count == 0) return null;
+        var field = SpotAnalysisEngine.DefinedFields(Optic)[fieldIndex];
+        var shortest = wavelengths.MinBy(w => w.Nanometers)!;
+        var reference = wavelengths.FirstOrDefault(w => w.IsPrimary) ?? wavelengths[0];
+        var size = 2 * _pupilSampling;
+        // The enclosed-energy grid has a separate Fourier-conjugate pupil
+        // interval convention. Native 32/64/128 controls retain these settings;
+        // resampling the FFT PSF display window cannot reproduce this grid.
+        var stretch = Math.Sqrt(_pupilSampling / 4d - 1);
+        var fNumber = DiffractionEngine.WorkingFNumber(Optic, field, shortest, Optic.RayAimingEnabled);
+        var pitch = shortest.Micrometers * fNumber * (_pupilSampling - 2) / (size * stretch);
+        var results = DiffractionEngine.ComputeFftPsfSpectrum(Optic, field, wavelengths,
+            _pupilSampling, size, cellCenteredPupil: true, zemaxFftSampling: true,
+            ignoreOpd: ignoreOpd, aimAtStop: Optic.RayAimingEnabled,
+            referenceWavelength: reference, imageDelta: pitch, ignoreScalarTransmission: true);
+        var weightScale = wavelengths.Max(w => w.Weight);
+        var weights = wavelengths.Select(w => weightScale > 0 ? Math.Max(0, w.Weight) / weightScale : 1).ToArray();
+        var totalWeight = weights.Sum();
+        var samples = Enumerable.Range(0, size).SelectMany(row => Enumerable.Range(0, size).Select(column =>
+            new EnergySample((column - size / 2d + 1) * pitch, (row - size / 2d + 1) * pitch,
+                results.Select((r, i) => weights[i] * r.Result.Values[(row + 1) % size, (column + 1) % size]).Sum() / totalWeight))).ToArray();
+        if (samples.All(s => s.Weight == 0)) return null;
+        var center = _reference.Equals("centroid", StringComparison.OrdinalIgnoreCase)
+            ? EnergyCurveSupport.Centroid(samples) : (X: 0d, Y: 0d);
+        if (_reference.Equals("vertex", StringComparison.OrdinalIgnoreCase))
+        {
+            var index = Array.FindIndex(results, r => r.Wavelength == reference);
+            var waveNumber = Optic.Wavelengths.ToList().IndexOf(reference) + 1;
+            var chief = RayBundleMetrics.Trace(Optic, Optic.SurfaceGroup.Items[^1].Number,
+                waveNumber, field.Hx, field.Hy, [new PupilSample(0, 0, 1)],
+                requireUnvignetted: true, includeSurfaceTransmission: false,
+                aimAtStop: results[Math.Max(0, index)].Result.UseRayAiming)[0];
+            center = (-chief.Position.X * 1000, -chief.Position.Y * 1000);
+        }
+        return new FftCumulativeEnergyGrid(samples, center, _type);
+    }
+
     private IReadOnlyList<AnalysisPoint> BuildCurve(
-        PsfPixelEnergyGrid pixelGrid,
+        IEnergyImageGrid pixelGrid,
         double maximumDistance)
     {
+        if (pixelGrid is FftCumulativeEnergyGrid)
+        {
+            var axis = Enumerable.Range(0, _pupilSampling).Select(i => maximumDistance * i / (_pupilSampling - 1d)).ToArray();
+            var energy = axis.Select(pixelGrid.Fraction).ToArray();
+            // The native plot anchors the origin and its first interval using
+            // the dimensional small-region limit (area or one-dimensional slit).
+            energy[0] = 0;
+            energy[1] = energy[2] / (_type.StartsWith("X", StringComparison.OrdinalIgnoreCase)
+                || _type.StartsWith("Y", StringComparison.OrdinalIgnoreCase) ? 2 : 4);
+            var x = Enumerable.Range(0, _numPoints).Select(i => maximumDistance * i / (_numPoints - 1d)).ToArray();
+            var values = MtfThroughFocusAnalysis.CubicSplineInterpolate(axis, energy, x);
+            var previous = 0d;
+            return x.Select((r, i) => new AnalysisPoint(r, previous = Math.Clamp(Math.Max(previous, values[i]), 0, 1))).ToArray();
+        }
         return Enumerable.Range(0, _numPoints)
             .Select(index =>
             {
@@ -364,11 +435,11 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
     private sealed record DiffractionEnergyCurve(
         int FieldIndex,
         (double Hx, double Hy) Field,
-        PsfPixelEnergyGrid PixelGrid,
+        IEnergyImageGrid PixelGrid,
         double AutomaticMaximumDistance);
 }
 
-internal sealed class PsfPixelEnergyGrid
+internal sealed class PsfPixelEnergyGrid : IEnergyImageGrid
 {
     private readonly Pixel[] _pixels;
     private readonly string _type;

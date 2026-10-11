@@ -44,6 +44,26 @@ internal static class NativeEnergyControl
             var system = app.PrimarySystem;
             if (!system.LoadFile((string)Host.Request["input"], false)) throw new InvalidOperationException("Native input load failed");
             system.MCE.SetCurrentConfiguration(1);
+            if (Host.Request.ContainsKey("diagnosticImageThicknessDelta"))
+                system.LDE.GetSurfaceAt(system.LDE.NumberOfSurfaces - 2).Thickness += Convert.ToDouble(Host.Request["diagnosticImageThicknessDelta"]);
+            if (Host.Request.ContainsKey("diagnosticApertureScale"))
+                system.SystemData.Aperture.ApertureValue *= Convert.ToDouble(Host.Request["diagnosticApertureScale"]);
+            if (Host.Request.ContainsKey("diagnosticOnAxisOnly"))
+                while (system.SystemData.Fields.NumberOfFields > 1)
+                    system.SystemData.Fields.RemoveField(system.SystemData.Fields.NumberOfFields);
+            if (Host.Request.ContainsKey("diagnosticSingleWavelength"))
+                while (system.SystemData.Wavelengths.NumberOfWavelengths > 1)
+                    system.SystemData.Wavelengths.RemoveWavelength(system.SystemData.Wavelengths.NumberOfWavelengths);
+            // Explicit independent apodization controls only; no lens or system
+            // file is saved, and ordinary capture requests retain the source.
+            if (Host.Request.ContainsKey("diagnosticApodizationFactor"))
+            {
+                var aperture = system.SystemData.Aperture;
+                var type = aperture.GetType().GetInterfaces().SelectMany(t => t.GetProperties())
+                    .First(p => p.Name == "ApodizationType");
+                type.SetValue(aperture, Enum.Parse(type.PropertyType, "Gaussian"), null);
+                aperture.ApodizationFactor = Convert.ToDouble(Host.Request["diagnosticApodizationFactor"]);
+            }
             system.UpdateStatus();
             var nested = new Dictionary<string, object>();
             foreach (var property in system.SystemData.GetType().GetInterfaces().SelectMany(t => t.GetProperties())
@@ -53,6 +73,39 @@ internal static class NativeEnergyControl
                 catch (Exception e) { nested[property.Name] = e.Message; }
             }
             Host.Write("system-data-settings.json", nested);
+            if ((string)Host.Request["adapter"] == "diagnostic-analysis")
+            {
+                var analysis = system.Analyses.New_Analysis_SettingsFirst(Host.EnumValue<AnalysisIDM>((string)Host.Request["analysisType"]));
+                try
+                {
+                    var settings = analysis.GetSettings(); new ContractAdapter().Configure(settings);
+                    if (!settings.SaveTo(Path.Combine(Host.Output, "settings.CFG"))) throw new InvalidOperationException("Settings export failed");
+                    var selectors = typeof(Host).GetMethod("Selectors", BindingFlags.Static | BindingFlags.NonPublic);
+                    Host.Write("captured-settings.json", Host.Object("properties", Host.Properties(settings),
+                        "selectors", selectors.Invoke(null, new object[] { settings }), "request", Host.Request));
+                    var status = analysis.ApplyAndWaitForCompletion();
+                    if (status != null && status.ErrorCode != ErrorType.Success) throw new InvalidOperationException(status.Text);
+                    var results = analysis.GetResults();
+                    for (int j = 0; j < results.NumberOfMessages; j++)
+                        if (results.GetMessageAt(j).ErrorCode != ErrorType.Success) throw new InvalidOperationException(results.GetMessageAt(j).Text);
+                    Host.Write("data.json", typeof(Host).GetMethod("Capture", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, new object[] { results }));
+                    if (!results.GetTextFile(Path.Combine(Host.Output, "data.txt"))) throw new InvalidOperationException("Text export failed");
+                }
+                finally { analysis.Close(); }
+                return 0;
+            }
+            if ((string)Host.Request["adapter"] == "diagnostic-system-data")
+            {
+                var analysis = system.Analyses.New_Analysis_SettingsFirst(AnalysisIDM.SystemData);
+                try
+                {
+                    analysis.ApplyAndWaitForCompletion();
+                    if (!analysis.GetResults().GetTextFile(Path.Combine(Host.Output, "system-data.txt")))
+                        throw new InvalidOperationException("System data export failed");
+                }
+                finally { analysis.Close(); }
+                return 0;
+            }
             if ((string)Host.Request["adapter"] == "huygens-methods")
             {
                 CaptureHuygensMethods(system);
@@ -98,6 +151,8 @@ internal static class NativeEnergyControl
             .First(p => p.Name == "HuygensIntegralMethod");
         var original = property.GetValue(advanced, null);
         string[] methods = Enum.GetNames(property.PropertyType);
+        if (Host.Request.ContainsKey("diagnosticHuygensMethods"))
+            methods = ((System.Collections.IEnumerable)Host.Request["diagnosticHuygensMethods"]).Cast<string>().ToArray();
         Host.Write("method-schema.json", Host.Object("property", property.Name,
             "original", original.ToString(), "values", methods));
         var capture = typeof(Host).GetMethod("Capture", BindingFlags.Static | BindingFlags.NonPublic);
@@ -143,7 +198,7 @@ internal static class NativeEnergyControl
         {
             var data = tool.CreateNormUnpol(inputs.Length, RaysType.Real, system.LDE.NumberOfSurfaces - 1);
             foreach (var input in inputs)
-                if (!data.AddRay(1, 0, 0, Convert.ToDouble(input["px"]), Convert.ToDouble(input["py"]), OPDMode.CurrentAndChief))
+                if (!data.AddRay(1, Convert.ToDouble(input["hx"]), Convert.ToDouble(input["hy"]), Convert.ToDouble(input["px"]), Convert.ToDouble(input["py"]), OPDMode.CurrentAndChief))
                     throw new InvalidOperationException("Pupil ray rejected");
             tool.RunAndWaitForCompletion();
             if (!data.StartReadingResults()) throw new InvalidOperationException("Pupil results unavailable");

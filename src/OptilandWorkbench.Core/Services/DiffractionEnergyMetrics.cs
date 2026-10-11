@@ -67,8 +67,9 @@ public static class DiffractionEnergyMetrics
                 aimAtStop: optic.RayAimingEnabled, referenceWavelength: primary);
             if (results.Any(r => r.Result.SampleSpacingUnit != AnalysisAxisUnit.Micrometer)) throw new InvalidOperationException("FFT PSF 未发布微米坐标。");
             var delta = results.Min(r => r.Result.SampleSpacingMicrometers);
-            // Use the same central FFT window and coordinate convention as the
-            // formal diffraction-energy analysis, without building a plot.
+            // Physical energy operands integrate rectangular PSF pixel areas.
+            // The FFT enclosed-energy display has a separate distance-bin and
+            // spline convention; it is not an operand interpolation table.
             var start = (imageSize - pupilSize) / 2;
             for (var y = start; y < start + pupilSize; y++)
             {

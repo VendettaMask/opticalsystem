@@ -22,7 +22,7 @@ public sealed class ZemaxEncircledEnergyParityTests
     }
 
     [Fact]
-    public void DiffractionEncircledEnergyUsesZemaxFftSamplingAndPixelAreaIntegration()
+    public void DiffractionEncircledEnergyUsesTheCapturedFftCumulativeGrid()
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");
         var optic = OpticalFormatCatalog.Import(
@@ -43,7 +43,7 @@ public sealed class ZemaxEncircledEnergyParityTests
             maximumDistanceMicrometers: 10).GenerateData();
         var referenceCurves = zemax.RootElement.GetProperty("dataSeries");
 
-        Assert.Equal("FFT PSF pixel-area integration", current.Values["Method"]);
+        Assert.Equal("FFT cumulative distance-bin integration", current.Values["Method"]);
         Assert.Equal(10.0, Convert.ToDouble(current.Values["MaximumDistanceMicrometers"]), 10);
         Assert.Equal(referenceCurves.GetArrayLength(), current.PlotSeries.Count);
         Assert.All(current.PlotSeries, series => Assert.Equal(401, series.Points.Count));

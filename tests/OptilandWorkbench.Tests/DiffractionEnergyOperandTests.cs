@@ -139,7 +139,9 @@ public sealed class DiffractionEnergyOperandTests
         var optic = Optic.CreateCookeTriplet();
         var distribution = DiffractionEnergyMetrics.Create(optic, 1, wave, 1, EnergyRegion.Circle, 1);
         var data = new DiffractionEncircledEnergyAnalysis(optic, pupilSampling: 32, imageSampling: 64, numPoints: 23,
-            wavelengthNumber: wave, fieldNumber: 1, reference: "centroid").GenerateData();
+            wavelengthNumber: wave, fieldNumber: 1, reference: "centroid",
+            integrationConvention: DiffractionEnergyIntegrationConvention.PsfPixelArea).GenerateData();
+        Assert.Equal("FFT PSF pixel-area integration", data.Values["Method"]);
         var compared = 0;
         foreach (var point in data.PlotSeries[^1].Points.Where(p => p.X <= distribution.MaximumCoveredDistanceMicrometers))
         {

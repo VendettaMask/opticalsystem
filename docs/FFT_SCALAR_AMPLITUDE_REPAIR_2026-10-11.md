@@ -1,5 +1,7 @@
 # 无偏振 FFT 振幅选择与剩余数值残差
 
+本文件保留修复前阶段及失败尝试的历史记录，当前状态以 [Huygens/FFT DEE 修复](HUYGENS_FFT_ENERGY_REPAIR_2026-10-11.md) 为准。原 N01/N02 已达 Pass，本机可用原生环境已确认。下文计数与结论均属于此前阶段。
+
 2026-10-11 已确认一项振幅差异，并在正式共享 Core 中提供 `ignoreScalarTransmission` 明确选项。它使用发射强度而非材料/镀膜衰减后的强度，同时保留最终追迹的有效光线与零强度掩码。默认仍计入传输；公开分析和 DEE 尚未自动切换。N01 Huygens 与 N02 包围能量仍未关闭。机器账本见 [FFT_SCALAR_AMPLITUDE_REPAIR_2026-10-11.json](FFT_SCALAR_AMPLITUDE_REPAIR_2026-10-11.json)，此前 420 组控制及原生补采准备保留在[修复前诊断](RESIDUAL_DIAGNOSIS_2026-10-11.md)。
 
 ## 同源光线与振幅定位

@@ -125,5 +125,6 @@ public sealed class FftSamplingReferenceRepairTests
     private static AnalysisData Energy(Optic optic, int wave, string reference, int field)
         => new DiffractionEncircledEnergyAnalysis(optic, 32, 64, numPoints: 17,
             wavelengthNumber: wave, fieldNumber: field, reference: reference,
-            maximumDistanceMicrometers: 10).GenerateData();
+            maximumDistanceMicrometers: 10,
+            integrationConvention: DiffractionEnergyIntegrationConvention.PsfPixelArea).GenerateData();
 }

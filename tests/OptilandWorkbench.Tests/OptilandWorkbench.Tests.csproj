@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\validation\zemax\2026-r1\huygens-integration-2026-10-11\**\*"
+          Link="Validation\Zemax\HuygensIntegration\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\validation\zemax\2026-r1\fft-energy-integration-2026-10-11\**\*"
+          Link="Validation\Zemax\FftEnergyIntegration\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
     <PackageReference Include="Avalonia.Headless" Version="12.1.0" />
     <PackageReference Include="coverlet.collector" Version="6.0.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />

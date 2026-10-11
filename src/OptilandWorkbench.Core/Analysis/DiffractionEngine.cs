@@ -2,6 +2,8 @@ using System.Numerics;
 using OptilandWorkbench.Core.Backend;
 using OptilandWorkbench.Core.Coordinates;
 using OptilandWorkbench.Core.Domain;
+using OptilandWorkbench.Core.Rays;
+using OptilandWorkbench.Core.Raytrace;
 using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Core.Analysis;
@@ -1196,6 +1198,26 @@ public static class DiffractionEngine
         if (imageCenterOffset is { } offset && (!double.IsFinite(offset.X) || !double.IsFinite(offset.Y)))
             throw new ArgumentOutOfRangeException(nameof(imageCenterOffset), "Image-center offsets must be finite.");
 
+        // The plane-cell quadrature is certified for the axial scalar pupil.
+        // An oblique pupil requires projected cells; retain the general
+        // spherical integration until that quadrature is independently verified.
+        if (!optic.ImageSpaceAfocal && !usePolarization && field.Hx == 0 && field.Hy == 0)
+        {
+            var pupilDistance = Math.Abs(optic.Paraxial.EstimateExitPupilLocation());
+            var halfWidth = (imageSize / 2d) * pixelPitchMillimeters;
+            var cornerX = halfWidth + Math.Abs(imageCenterOffset?.X ?? 0);
+            var cornerY = halfWidth + Math.Abs(imageCenterOffset?.Y ?? 0);
+            var corner = Math.Sqrt(cornerX * cornerX + cornerY * cornerY);
+            // The plane-wave reference is adequate when the phase curvature
+            // across the requested image is no more than a quarter wavelength.
+            var curvature = corner * corner / (Math.Sqrt(pupilDistance * pupilDistance + corner * corner) + pupilDistance);
+            var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter.RefractiveIndex(wavelength.Nanometers);
+            if (double.IsFinite(pupilDistance) && pupilDistance > 0
+                && curvature * imageIndex <= wavelength.Micrometers * .001 / 4)
+                return ComputePlanarHuygensPsf(optic, field, wavelength, numRays, imageSize,
+                    pixelPitchMillimeters, aimAtStop, referenceWavelength, imageCenterOffset);
+        }
+
         var wavefront = WavefrontEngine.GenerateChiefRayUniform(
             optic,
             field,
@@ -1313,6 +1335,86 @@ public static class DiffractionEngine
             imageSize,
             WorkingFNumber(optic, field, wavelength, aimAtStop),
             pixelPitchMillimeters * 1000.0) { UseRayAiming = aimAtStop };
+    }
+
+    private static IReadOnlyList<PupilSample> HuygensPupilSamples(int count)
+    {
+        var nativeGrid = count >= 8 && count % 2 == 0;
+        var radius = nativeGrid ? count / 2d - 1 : (count - 1) / 2d;
+        // Cell centers stop half a radial cell inside the endpoint boundary.
+        var limit = nativeGrid ? 1 - .5 / radius : 1;
+        var samples = new List<PupilSample>();
+        for (var row = 0; row < count; row++)
+        for (var column = 0; column < count; column++)
+        {
+            var x = nativeGrid ? (column - count / 2d) / radius : -1 + 2d * column / (count - 1);
+            var y = nativeGrid ? (row - count / 2d) / radius : -1 + 2d * row / (count - 1);
+            if (x * x + y * y <= limit * limit) samples.Add(new(x, y, 1));
+        }
+        return samples;
+    }
+
+    private static PsfResult ComputePlanarHuygensPsf(
+        Optic optic, (double Hx, double Hy) field, Wavelength wavelength,
+        int pupilSampling, int imageSize, double pitch, bool aimAtStop,
+        Wavelength? referenceWavelength, (double X, double Y)? imageCenterOffset)
+    {
+        var pupils = HuygensPupilSamples(pupilSampling);
+        WavefrontResult Wavefront((double Hx, double Hy) sourceField) =>
+            WavefrontEngine.GenerateChiefRaySamples(optic, sourceField, wavelength,
+                pupils.Select(p => (p.X, p.Y)).ToArray(), aimAtStop: aimAtStop);
+        var wavefront = Wavefront(field);
+        var normalizer = field.Hx == 0 && field.Hy == 0 ? wavefront : Wavefront((0, 0));
+        // Non-polarized native diffraction retains pupil illumination and ray
+        // masks. Coating/material attenuation requires polarization tracing.
+        static double Amplitude(WavefrontSample sample) => sample.Intensity > 0
+            ? FieldAmplitudeFromPower(sample.LaunchIntensity ?? sample.Intensity) : 0;
+        var idealAmplitude = normalizer.Samples.Sum(Amplitude);
+        if (!double.IsFinite(idealAmplitude) || idealAmplitude <= 0)
+            throw new AnalysisDataUnavailableException("Huygens PSF", "no positive ideal pupil amplitude");
+        var frame = CreateHuygensImageFrame(optic, field, referenceWavelength ?? wavelength, aimAtStop);
+        var center = frame.Center + frame.TangentX * (imageCenterOffset?.X ?? 0)
+            + frame.TangentY * (imageCenterOffset?.Y ?? 0);
+        var pupilDiameter = Math.Abs(optic.Paraxial.EstimateExitPupilDiameter());
+        var pupilDistance = Math.Abs(optic.Paraxial.EstimateExitPupilLocation());
+        var intervals = pupilSampling >= 8 && pupilSampling % 2 == 0 ? pupilSampling - 2 : pupilSampling - 1;
+        var wavelengthMillimeters = wavelength.Micrometers * .001;
+        // The finite sampling footprint is the transform of a rectangular
+        // pupil cell. Its first zero is half the pupil interval count times
+        // the paraxial Airy radius (1.22 lambda R/D), in the image medium.
+        var halfExtent = .61 * wavelengthMillimeters * pupilDistance * intervals
+            / (wavefront.ImageRefractiveIndex * pupilDiameter);
+        var k = 2 * Math.PI / wavelengthMillimeters;
+        var values = new double[imageSize, imageSize];
+        for (var row = 0; row < imageSize; row++)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            var y = (row - imageSize / 2) * pitch;
+            for (var column = 0; column < imageSize; column++)
+            {
+                var x = (column - imageSize / 2) * pitch;
+                if (Math.Abs(x) >= halfExtent || Math.Abs(y) >= halfExtent) continue;
+                var point = center + frame.TangentX * x + frame.TangentY * y;
+                var sum = Complex.Zero;
+                foreach (var sample in wavefront.Samples)
+                {
+                    var amplitude = Amplitude(sample);
+                    if (amplitude <= 0 || sample.ImageDirection is not { } direction) continue;
+                    var pupil = new Vector3D(sample.PupilX, sample.PupilY, sample.PupilZ);
+                    var phasePath = -sample.OpdWaves * wavelengthMillimeters
+                        + wavefront.ImageRefractiveIndex * (Dot(point - pupil, direction) - wavefront.Radius);
+                    sum += Complex.FromPolarCoordinates(amplitude, k * phasePath);
+                }
+                var footprint = Sinc(Math.PI * x / halfExtent) * Sinc(Math.PI * y / halfExtent);
+                values[row, column] = sum.Magnitude * sum.Magnitude * footprint * footprint
+                    / (idealAmplitude * idealAmplitude) * 100;
+            }
+        }
+        return new(values, pupilSampling, imageSize, WorkingFNumber(optic, field, wavelength, aimAtStop), pitch * 1000)
+            { UseRayAiming = aimAtStop };
+
+        static double Sinc(double argument) => Math.Abs(argument) < 1e-8
+            ? 1 - argument * argument / 6 : Math.Sin(argument) / argument;
     }
 
     public static double DefaultHuygensImageDeltaMillimeters(
@@ -1781,7 +1883,8 @@ public static class DiffractionEngine
                     referenceWavelength.Micrometers, aimAtStop)
                     ?? throw new InvalidOperationException("Chief ray did not reach the image surface.")).Direction)
             : (X: 0.0, Y: 0.0);
-        var pupilSamples = SpotAnalysisEngine.CreatePupilSamples(pupilSampling, "uniform");
+        var pupilSamples = !optic.ImageSpaceAfocal && pupilSampling >= 8 && pupilSampling % 2 == 0
+            ? HuygensPupilSamples(pupilSampling) : SpotAnalysisEngine.CreatePupilSamples(pupilSampling, "uniform");
         var useWeights = wavelengths.Any(wavelength => wavelength.Weight > 0);
         var projected = new List<SpotRayData>();
         foreach (var wavelength in wavelengths)

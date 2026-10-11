@@ -44,11 +44,14 @@ public sealed class ExtendedAnalysisTests(ITestOutputHelper output)
     [InlineData("Huygens PSF Cross Section", "huygens-psf-cross-section", 0.003725666990)]
     public void OpenNumericalDifferenceIsMeasuredAndMustNotRegress(string key, string slug, double recordedNrmse)
     {
-        // This is an error non-regression check, NOT a Zemax precision pass. The
-        // native tolerances remain unchanged and the report retains Close/Difference.
-        // Improvement to Pass is welcome; worsening the measured error is a failure.
-        Verify(key, slug, recordedNrmse);
+        // Preserve the original case identity and error budget. The repaired
+        // cross section must now pass the unchanged native registry tolerances.
+        Verify(key, slug, key == "Huygens PSF Cross Section" ? null : recordedNrmse);
     }
+
+    [Fact]
+    public void RepairedDiffractionEnergyPassesOriginalIdealAndActualTolerances()
+        => Verify("Diffraction Encircled Energy", "diffraction-encircled-energy");
 
     private void Verify(string key, string slug, double? recordedNrmse = null)
     {

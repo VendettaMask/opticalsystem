@@ -17,6 +17,8 @@ public sealed record WavefrontSample(
 {
     /// <summary>Power at launch, before material/coating attenuation; null for external samples.</summary>
     public double? LaunchIntensity { get; init; }
+    /// <summary>Traced global image-space direction, retained for planar propagation.</summary>
+    public Vector3D? ImageDirection { get; init; }
 }
 
 public sealed record WavefrontResult(
@@ -326,7 +328,7 @@ public static class WavefrontEngine
                 pupilPosition.Z,
                 opdWaves,
                 intensity,
-                ray.Direction.Z) { LaunchIntensity = bundle.Rays[index].Intensity });
+                ray.Direction.Z) { LaunchIntensity = bundle.Rays[index].Intensity, ImageDirection = ray.Direction });
         }
 
         return new WavefrontResult(
