@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="a862ddc5-b4bc-483b-9e6c-29d87fe294be" name="allen@DESKTOP-SET3SNR 2026-10-11 15:58:19" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-11T15:58:19.1338783+08:00" queuing="2026-10-11T15:58:19.1338785+08:00" start="2026-10-11T15:58:14.9891515+08:00" finish="2026-10-11T15:58:28.5858562+08:00" />
+  <TestSettings name="default" id="66e6acb8-2e46-476a-83a6-face7cd0b6ad">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-11_15_58_19" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="c5583533-7e0a-4c73-aa06-38a9a614d1ce" testId="f2d9b36a-6bb4-9d90-097f-c7e4e5a5a2e0" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Geometric Through Focus MTF&quot;, slug: &quot;geometric-through-focus-mtf&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.1478837" startTime="2026-10-11T15:58:27.5613054+08:00" endTime="2026-10-11T15:58:27.7091887+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c5583533-7e0a-4c73-aa06-38a9a614d1ce">
+      <Output>
+        <StdOut>Geometric Through Focus MTF/curve:0: max=0.0022661167777380253, NRMSE=0.0009246975263726614, Pass&#xD;
+Geometric Through Focus MTF/curve:1: max=0.0022661162563888393, NRMSE=0.0009246972540195403, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2428194f-0dd5-4bd7-9c27-62d60c68461f" testId="ba64402e-5525-ba82-7bbd-7fac9fa716fd" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Y-Ybar&quot;, slug: &quot;y-ybar&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0060740" startTime="2026-10-11T15:58:27.5555529+08:00" endTime="2026-10-11T15:58:27.5612450+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2428194f-0dd5-4bd7-9c27-62d60c68461f">
+      <Output>
+        <StdOut>Y-Ybar/Chief: max=4.3484993383913206E-10, NRMSE=8.558468467165252E-11, Pass&#xD;
+Y-Ybar/Marginal: max=4.530731345653294E-10, NRMSE=4.407474183884169E-11, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a3eaa6e3-be18-4a35-bd84-c017d204d5dd" testId="10170ef2-93e2-3412-bfde-8e65b956de82" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Seidel Coefficients&quot;, slug: &quot;seidel-coefficients&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0131736" startTime="2026-10-11T15:58:27.7099054+08:00" endTime="2026-10-11T15:58:27.7224341+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a3eaa6e3-be18-4a35-bd84-c017d204d5dd">
+      <Output>
+        <StdOut>Seidel Coefficients/S1: max=4.993002833393687E-07, NRMSE=9.268665512463986E-07, Pass&#xD;
+Seidel Coefficients/S2: max=4.969589370226735E-07, NRMSE=2.7099252738225657E-06, Pass&#xD;
+Seidel Coefficients/S3: max=4.824243110871339E-07, NRMSE=9.13896956783494E-06, Pass&#xD;
+Seidel Coefficients/S4: max=4.816567960785542E-07, NRMSE=1.0762670336787333E-05, Pass&#xD;
+Seidel Coefficients/S5: max=4.874936105321928E-07, NRMSE=1.0839394923774012E-05, Pass&#xD;
+Seidel Coefficients/CL: max=4.944613884276527E-07, NRMSE=7.945768386295015E-06, Pass&#xD;
+Seidel Coefficients/CT: max=4.980093054108604E-07, NRMSE=2.9275433830546926E-05, Pass&#xD;
+Seidel Coefficients/W040: max=4.924629308789008E-07, NRMSE=3.5164052543109585E-09, Pass&#xD;
+Seidel Coefficients/W131: max=4.900660535156476E-07, NRMSE=2.93370559835094E-09, Pass&#xD;
+Seidel Coefficients/W222: max=4.928926102820697E-07, NRMSE=6.862174492768213E-09, Pass&#xD;
+Seidel Coefficients/W220P: max=4.7194879781997656E-07, NRMSE=1.8433502313965628E-08, Pass&#xD;
+Seidel Coefficients/W311: max=4.5440360585402573E-07, NRMSE=1.3820737833135541E-08, Pass&#xD;
+Seidel Coefficients/W020: max=4.972396254743217E-07, NRMSE=8.555078815032219E-09, Pass&#xD;
+Seidel Coefficients/W111: max=4.775043136451274E-07, NRMSE=1.3595117739335657E-08, Pass&#xD;
+Seidel Coefficients/TSPH: max=4.529670344644021E-07, NRMSE=7.59101914664976E-07, Pass&#xD;
+Seidel Coefficients/TSCO: max=4.915609938713986E-07, NRMSE=2.502066974802902E-06, Pass&#xD;
+Seidel Coefficients/TTCO: max=4.777605032979526E-07, NRMSE=9.113748777452209E-07, Pass&#xD;
+Seidel Coefficients/TAST: max=4.954984612545732E-07, NRMSE=4.157132001504543E-06, Pass&#xD;
+Seidel Coefficients/TPFC: max=4.926152579482618E-07, NRMSE=8.578409397769671E-06, Pass&#xD;
+Seidel Coefficients/TSFC: max=4.881150919592778E-07, NRMSE=6.340476134890746E-06, Pass&#xD;
+Seidel Coefficients/TTFC: max=4.890793099260327E-07, NRMSE=1.963911177892559E-06, Pass&#xD;
+Seidel Coefficients/TDIS: max=4.801797891977122E-07, NRMSE=1.0787888988139848E-05, Pass&#xD;
+Seidel Coefficients/TAXC: max=4.2858712672854543E-07, NRMSE=3.5653971952404298E-06, Pass&#xD;
+Seidel Coefficients/TLAC: max=4.964867326845424E-07, NRMSE=1.2689809528633133E-05, Pass&#xD;
+Seidel Coefficients/LSPH: max=4.804091821020151E-07, NRMSE=3.457956320981954E-07, Pass&#xD;
+Seidel Coefficients/LSCO: max=3.9882742119273784E-07, NRMSE=8.698225393997871E-07, Pass&#xD;
+Seidel Coefficients/LTCO: max=4.972307299233591E-07, NRMSE=3.6677384640418053E-07, Pass&#xD;
+Seidel Coefficients/LAST: max=4.878295556676182E-07, NRMSE=1.4514178393179893E-06, Pass&#xD;
+Seidel Coefficients/LPFC: max=4.813039065215685E-07, NRMSE=4.690817492576684E-06, Pass&#xD;
+Seidel Coefficients/LSFC: max=4.971425032473942E-07, NRMSE=3.234797375648148E-06, Pass&#xD;
+Seidel Coefficients/LTFC: max=4.969874927429618E-07, NRMSE=1.2267122526797325E-06, Pass&#xD;
+Seidel Coefficients/LDIS: max=4.870026302349756E-07, NRMSE=6.08970996039269E-06, Pass&#xD;
+Seidel Coefficients/LAXC: max=4.800719012598709E-07, NRMSE=1.9644663022983233E-06, Pass&#xD;
+Seidel Coefficients/LLAC: max=4.852301752457724E-07, NRMSE=5.206240685399783E-06, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3d41e43f-ec7f-4ac5-b307-2fff96479d07" testId="3bfa597a-1297-74f0-d844-de38525b4af1" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Field Curvature&quot;, slug: &quot;field-curvature&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.2422531" startTime="2026-10-11T15:58:18.2940955+08:00" endTime="2026-10-11T15:58:18.5359211+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d41e43f-ec7f-4ac5-b307-2fff96479d07">
+      <Output>
+        <StdOut>Field Curvature/tangential: max=4.3707751018959295E-05, NRMSE=0.0014412636410544774, Pass&#xD;
+Field Curvature/sagittal: max=5.002425203584626E-08, NRMSE=2.9517221559155165E-06, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ff7a0ae4-0774-477c-9c36-6e1f4e2ae874" testId="3d79df52-fee1-53ce-ac36-d4fa7b8458f4" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: &quot;Huygens PSF Cross Section&quot;, slug: &quot;huygens-psf-cross-section&quot;, recordedNrmse: 0.0037256669899999998)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0891466" startTime="2026-10-11T15:58:28.1185681+08:00" endTime="2026-10-11T15:58:28.2118851+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ff7a0ae4-0774-477c-9c36-6e1f4e2ae874">
+      <Output>
+        <StdOut>Huygens PSF Cross Section/curve:0: max=0.005391581588203756, NRMSE=0.0037256670590166724, Close</StdOut>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 0.0037256669899999998)&#xD;
+Actual: 0.0037256670590166724</Message>
+          <StackTrace>   at OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.Verify(String key, String slug, Nullable`1 recordedNrmse) in D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\ExtendedAnalysisTests.cs:line 84&#xD;
+   at OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(String key, String slug, Double recordedNrmse) in D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\ExtendedAnalysisTests.cs:line 50&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="297ae5f6-a4e3-4ecf-aa2f-f3d5c8cc8d1d" testId="13876743-bc39-a6c3-6f22-e733002d6673" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Lateral Color&quot;, slug: &quot;lateral-color&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:02.4597313" startTime="2026-10-11T15:58:18.5632463+08:00" endTime="2026-10-11T15:58:21.0229438+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="297ae5f6-a4e3-4ecf-aa2f-f3d5c8cc8d1d">
+      <Output>
+        <StdOut>Lateral Color/color: max=9.553227653391616E-08, NRMSE=8.661589962667643E-09, Pass&#xD;
+Lateral Color/airy-positive: max=0.0022844007701420255, NRMSE=0.001162410833339643, Pass&#xD;
+Lateral Color/airy-negative: max=0.0022844007701420255, NRMSE=0.001162410833339643, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8c8d8083-86ec-4057-a93e-d6157e1c474a" testId="9043c9f4-670c-ee76-6d9f-0a931bd96d9f" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Angle vs Image Height&quot;, slug: &quot;angle-vs-image-height&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0828639" startTime="2026-10-11T15:58:22.0621242+08:00" endTime="2026-10-11T15:58:22.1448983+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8c8d8083-86ec-4057-a93e-d6157e1c474a">
+      <Output>
+        <StdOut>Angle vs Image Height/ray:0: max=1.8941360266921947E-06, NRMSE=3.530532104314129E-08, Pass&#xD;
+Angle vs Image Height/ray:1: max=2.73127149785779E-06, NRMSE=1.4029818632558445E-07, Pass&#xD;
+Angle vs Image Height/ray:2: max=2.239986457652776E-06, NRMSE=2.980015134156537E-08, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6f57de53-bdfa-44a1-b732-e1a895ba76d5" testId="bdee550b-b623-399e-4fc4-c47d322dcc3e" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;RMS Wavefront vs Field&quot;, slug: &quot;rms-wavefront-vs-field&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.1872572" startTime="2026-10-11T15:58:21.0237900+08:00" endTime="2026-10-11T15:58:21.2103281+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6f57de53-bdfa-44a1-b732-e1a895ba76d5">
+      <Output>
+        <StdOut>RMS Wavefront vs Field/curve:0: max=1.7104549054902662E-06, NRMSE=8.199440205001671E-07, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d8145f2f-380a-436d-b624-845f9dc23ee8" testId="2706f110-d7f0-aba7-7ff2-0f8f7b43c2f6" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Fourier Through Focus MTF&quot;, slug: &quot;fourier-through-focus-mtf&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.7299474" startTime="2026-10-11T15:58:22.8814616+08:00" endTime="2026-10-11T15:58:23.6112971+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d8145f2f-380a-436d-b624-845f9dc23ee8">
+      <Output>
+        <StdOut>Fourier Through Focus MTF/curve:0: max=0.006508700043136417, NRMSE=0.0023739741648072794, Pass&#xD;
+Fourier Through Focus MTF/curve:1: max=0.006508700043136972, NRMSE=0.0023739741648073926, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fe6ec471-cba6-4d68-a9ff-d81d25b13c4e" testId="292c4493-50f1-e2b6-eca6-5e95876d6b15" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;RMS vs Field&quot;, slug: &quot;rms-vs-field&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.2705933" startTime="2026-10-11T15:58:22.3636989+08:00" endTime="2026-10-11T15:58:22.6343158+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fe6ec471-cba6-4d68-a9ff-d81d25b13c4e">
+      <Output>
+        <StdOut>RMS vs Field/curve:0: max=2.752969741059985E-09, NRMSE=8.481092103161884E-10, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="023903c1-5f55-45ae-8867-4e29e1eb629a" testId="aa73a769-6088-6acc-1718-3b103ad4b7b7" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Geometric MTF&quot;, slug: &quot;geometric-mtf&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0175821" startTime="2026-10-11T15:58:27.7225045+08:00" endTime="2026-10-11T15:58:27.7400805+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="023903c1-5f55-45ae-8867-4e29e1eb629a">
+      <Output>
+        <StdOut>Geometric MTF/curve:0: max=0.0017077426995706357, NRMSE=0.0007552451395410016, Pass&#xD;
+Geometric MTF/curve:1: max=0.0017077427290103087, NRMSE=0.0007552451528268819, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="08ac2280-b9c6-4fdd-a5a5-1173d5a53412" testId="afb930cf-fd17-d226-bae5-67ca5436ed54" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Full Field Aberration&quot;, slug: &quot;full-field-aberration&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:03.9437480" startTime="2026-10-11T15:58:23.6113897+08:00" endTime="2026-10-11T15:58:27.5551797+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="08ac2280-b9c6-4fdd-a5a5-1173d5a53412">
+      <Output>
+        <StdOut>Full Field Aberration/defocus: max=2.88897314182357E-07, NRMSE=4.032390476869476E-07, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="75763771-ca25-41a9-8106-06a271b2f586" testId="49db9fdc-fb42-fc37-5f97-3c9040a9f885" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Cardinal Points Data&quot;, slug: &quot;cardinal-points-data&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0179998" startTime="2026-10-11T15:58:22.0440154+08:00" endTime="2026-10-11T15:58:22.0620141+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="75763771-ca25-41a9-8106-06a271b2f586">
+      <Output>
+        <StdOut>Cardinal Points Data/object: max=3.625113418337378E-07, NRMSE=1.944653780620212E-08, Pass&#xD;
+Cardinal Points Data/image: max=3.4934510395601137E-07, NRMSE=1.7246104541735083E-08, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="28492470-64b7-4d3a-8736-5e09492964fb" testId="058212cb-40a2-1e88-c673-ccfe4adadfa1" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;FFT PSF Cross Section&quot;, slug: &quot;fft-psf-cross-section&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0957935" startTime="2026-10-11T15:58:22.1450070+08:00" endTime="2026-10-11T15:58:22.2408071+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="28492470-64b7-4d3a-8736-5e09492964fb">
+      <Output>
+        <StdOut>FFT PSF Cross Section/curve:0: max=5.829159062109568E-05, NRMSE=1.8345853937906767E-05, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d975d426-50b7-4dde-9c86-b297885b4c74" testId="7aeaacaf-5489-ccf3-ac57-6e39bf63a2ff" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: &quot;Huygens Through Focus MTF&quot;, slug: &quot;huygens-through-focus-mtf&quot;, recordedNrmse: 0.032689149704999997)" computerName="DESKTOP-SET3SNR" duration="00:00:00.3193763" startTime="2026-10-11T15:58:28.2157065+08:00" endTime="2026-10-11T15:58:28.5308896+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d975d426-50b7-4dde-9c86-b297885b4c74">
+      <Output>
+        <StdOut>Huygens Through Focus MTF/curve:0: max=0.05178318727872222, NRMSE=0.02265521209372309, Difference&#xD;
+Open numerical difference; a green test does not certify native agreement.&#xD;
+Huygens Through Focus MTF/curve:1: max=0.05178318727389486, NRMSE=0.022655212092487147, Difference&#xD;
+Open numerical difference; a green test does not certify native agreement.</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d0afdade-a6ab-49de-b3f7-01ca4bfcacef" testId="2745f033-3dad-fb92-78ed-050062ab231a" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Prescription Report&quot;, slug: &quot;prescription-report&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0173900" startTime="2026-10-11T15:58:22.6344274+08:00" endTime="2026-10-11T15:58:22.6517163+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d0afdade-a6ab-49de-b3f7-01ca4bfcacef">
+      <Output>
+        <StdOut>Prescription Report/curvature: max=0, NRMSE=0, Pass&#xD;
+Prescription Report/curvature:finite-state: max=0, NRMSE=0, Pass&#xD;
+Prescription Report/thickness: max=0, NRMSE=0, Pass&#xD;
+Prescription Report/thickness:finite-state: max=0, NRMSE=0, Pass&#xD;
+Prescription Report/semi-diameter: max=0, NRMSE=0, Pass&#xD;
+Prescription Report/semi-diameter:finite-state: max=0, NRMSE=0, Pass&#xD;
+Prescription Report/conic: max=0, NRMSE=0, Pass&#xD;
+Prescription Report/conic:finite-state: max=0, NRMSE=0, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="35b7213a-2543-4b04-b6b6-712de6bbb139" testId="417c9123-667e-6a72-5b70-606c685a7628" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Axial Aberration&quot;, slug: &quot;axial-aberration&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0821371" startTime="2026-10-11T15:58:22.6518231+08:00" endTime="2026-10-11T15:58:22.7339515+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="35b7213a-2543-4b04-b6b6-712de6bbb139">
+      <Output>
+        <StdOut>Axial Aberration/wavelength:1: max=1.2506905163762322E-06, NRMSE=8.132793145672398E-06, Pass&#xD;
+Axial Aberration/wavelength:2: max=1.4738469800885945E-06, NRMSE=7.871847001238743E-06, Pass&#xD;
+Axial Aberration/wavelength:3: max=1.558675054028763E-06, NRMSE=6.520355968399791E-06, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="32de247b-327d-443e-a767-5bea4fbea283" testId="44891aab-4c95-2c5e-3609-a3273346de08" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Single Ray Trace&quot;, slug: &quot;single-ray-trace&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0440836" startTime="2026-10-11T15:58:22.7341130+08:00" endTime="2026-10-11T15:58:22.7780907+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="32de247b-327d-443e-a767-5bea4fbea283">
+      <Output>
+        <StdOut>Single Ray Trace/x: max=0, NRMSE=0, Pass&#xD;
+Single Ray Trace/y: max=5.313438578014029E-11, NRMSE=4.873739364596208E-12, Pass&#xD;
+Single Ray Trace/z: max=8.586187316694804E-12, NRMSE=3.4228216990347965E-12, Pass&#xD;
+Single Ray Trace/l: max=0, NRMSE=0, Pass&#xD;
+Single Ray Trace/m: max=4.722125468425986E-11, NRMSE=7.624308809226E-11, Pass&#xD;
+Single Ray Trace/n: max=4.9462767215402437E-11, NRMSE=2.8291890265917644E-11, Pass&#xD;
+Single Ray Trace/normal-x: max=0, NRMSE=0, Pass&#xD;
+Single Ray Trace/normal-y: max=4.504041584141305E-11, NRMSE=5.709305308008866E-11, Pass&#xD;
+Single Ray Trace/normal-z: max=3.668787496025061E-11, NRMSE=2.240714529382665E-11, Pass&#xD;
+Single Ray Trace/incidence: max=4.767208849898452E-10, NRMSE=1.0355248362525948E-11, Pass&#xD;
+Single Ray Trace/path-length: max=4.449731250133482E-09, NRMSE=7.050898201738221E-12, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c211efee-6ff8-4970-8a99-fcd39151c80b" testId="511427db-180e-700c-88fa-57bc52177939" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;RMS vs Focus&quot;, slug: &quot;rms-vs-focus&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.3774335" startTime="2026-10-11T15:58:27.7401640+08:00" endTime="2026-10-11T15:58:28.1176299+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c211efee-6ff8-4970-8a99-fcd39151c80b">
+      <Output>
+        <StdOut>RMS vs Focus/curve:0: max=2.9241539077351497E-06, NRMSE=1.7348976794230723E-06, Pass&#xD;
+RMS vs Focus/curve:1: max=2.523163831869013E-06, NRMSE=1.806578624570733E-06, Pass&#xD;
+RMS vs Focus/curve:2: max=4.988537634975643E-06, NRMSE=2.6187454520358326E-06, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1d2b1ed3-9be7-4491-8fc7-dcd4af7ffc1f" testId="f44de77c-6618-70ae-ac11-f9d0472db075" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;RMS vs Wavelength&quot;, slug: &quot;rms-vs-wavelength&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:01.4675926" startTime="2026-10-11T15:58:16.6783523+08:00" endTime="2026-10-11T15:58:18.1511248+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1d2b1ed3-9be7-4491-8fc7-dcd4af7ffc1f">
+      <Output>
+        <StdOut>RMS vs Wavelength/curve:0: max=5.6680575788448095E-09, NRMSE=2.697068506520012E-09, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2ef5875f-ee30-4352-9fee-16626ccb5837" testId="39ebc636-7966-66a1-f169-194927bb678c" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Grid Distortion&quot;, slug: &quot;grid-distortion&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.1423874" startTime="2026-10-11T15:58:18.1572697+08:00" endTime="2026-10-11T15:58:18.2935640+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2ef5875f-ee30-4352-9fee-16626ccb5837">
+      <Output>
+        <StdOut>Grid Distortion/image-x: max=4.775704602888453E-06, NRMSE=9.909579755530547E-07, Pass&#xD;
+Grid Distortion/image-y: max=4.775704602888453E-06, NRMSE=9.909579755530547E-07, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3d311bc3-1028-4258-a21e-6e20e2546e71" testId="966cfd93-2134-8d02-fffa-01f629ab4c03" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Color Focus Shift&quot;, slug: &quot;color-focus-shift&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0231991" startTime="2026-10-11T15:58:22.7782083+08:00" endTime="2026-10-11T15:58:22.8014260+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d311bc3-1028-4258-a21e-6e20e2546e71">
+      <Output>
+        <StdOut>Color Focus Shift/focus: max=7.047157567600937E-07, NRMSE=4.0732626065580626E-05, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5e156649-c5c3-49d4-93b1-c7d2089d5118" testId="38779ec0-fba7-762b-bf0c-4a32e7adad8d" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;FFT Line Edge Spread&quot;, slug: &quot;fft-line-edge-spread&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0798443" startTime="2026-10-11T15:58:22.8015441+08:00" endTime="2026-10-11T15:58:22.8813368+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5e156649-c5c3-49d4-93b1-c7d2089d5118">
+      <Output>
+        <StdOut>FFT Line Edge Spread/curve:0: max=0.003060946234716057, NRMSE=0.0003147675451093265, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1e2965b5-9f11-4ebd-bcfb-525b86442fcd" testId="918f67ae-f4c7-28ed-d119-002bf5cf690d" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Seidel Diagram&quot;, slug: &quot;seidel-diagram&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0272028" startTime="2026-10-11T15:58:18.5360321+08:00" endTime="2026-10-11T15:58:18.5631472+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1e2965b5-9f11-4ebd-bcfb-525b86442fcd">
+      <Output>
+        <StdOut>Seidel Diagram/S1: max=4.8207997500882E-07, NRMSE=8.065240080653159E-07, Pass&#xD;
+Seidel Diagram/S2: max=4.775049786166774E-07, NRMSE=2.7335467037819163E-06, Pass&#xD;
+Seidel Diagram/S3: max=4.88319595995379E-07, NRMSE=9.187776517258406E-06, Pass&#xD;
+Seidel Diagram/S4: max=4.880334052931659E-07, NRMSE=1.2051815761042592E-05, Pass&#xD;
+Seidel Diagram/S5: max=4.3861126147043406E-07, NRMSE=1.301808793280852E-05, Pass&#xD;
+Seidel Diagram/CL: max=4.3480822749936143E-07, NRMSE=8.78397991762143E-06, Pass&#xD;
+Seidel Diagram/CT: max=4.7389647458550427E-07, NRMSE=3.17635659555498E-05, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7fea740d-13f3-4fce-b375-7b7e779596db" testId="20c82a65-e907-6777-cd2d-59a2af8f9386" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Field Curvature and Distortion&quot;, slug: &quot;field-curvature-and-distortion&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.1227735" startTime="2026-10-11T15:58:22.2409167+08:00" endTime="2026-10-11T15:58:22.3635924+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7fea740d-13f3-4fce-b375-7b7e779596db">
+      <Output>
+        <StdOut>Field Curvature and Distortion/tangential: max=4.3707751018959295E-05, NRMSE=0.0014412636410544774, Pass&#xD;
+Field Curvature and Distortion/sagittal: max=5.002425203584626E-08, NRMSE=2.9517221559155165E-06, Pass&#xD;
+Field Curvature and Distortion/distortion: max=0.00026545226914082443, NRMSE=0.0006713207869280617, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6e4180b2-00e8-4eee-9a27-3b6ed7b40c51" testId="a7ea5442-7850-6aa2-2e71-d40bab5e20cf" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Through Focus MTF&quot;, slug: &quot;through-focus-mtf&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.8334857" startTime="2026-10-11T15:58:21.2104369+08:00" endTime="2026-10-11T15:58:22.0438986+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6e4180b2-00e8-4eee-9a27-3b6ed7b40c51">
+      <Output>
+        <StdOut>Through Focus MTF/curve:0: max=0.006508700043136417, NRMSE=0.0023739741648072794, Pass&#xD;
+Through Focus MTF/curve:1: max=0.006508700043136972, NRMSE=0.0023739741648073926, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: &quot;Huygens Through Focus MTF&quot;, slug: &quot;huygens-through-focus-mtf&quot;, recordedNrmse: 0.032689149704999997)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="7aeaacaf-5489-ccf3-ac57-6e39bf63a2ff">
+      <Execution id="d975d426-50b7-4dde-9c86-b297885b4c74" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="OpenNumericalDifferenceIsMeasuredAndMustNotRegress" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;RMS vs Focus&quot;, slug: &quot;rms-vs-focus&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="511427db-180e-700c-88fa-57bc52177939">
+      <Execution id="c211efee-6ff8-4970-8a99-fcd39151c80b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Color Focus Shift&quot;, slug: &quot;color-focus-shift&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="966cfd93-2134-8d02-fffa-01f629ab4c03">
+      <Execution id="3d311bc3-1028-4258-a21e-6e20e2546e71" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Through Focus MTF&quot;, slug: &quot;through-focus-mtf&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="a7ea5442-7850-6aa2-2e71-d40bab5e20cf">
+      <Execution id="6e4180b2-00e8-4eee-9a27-3b6ed7b40c51" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Seidel Diagram&quot;, slug: &quot;seidel-diagram&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="918f67ae-f4c7-28ed-d119-002bf5cf690d">
+      <Execution id="1e2965b5-9f11-4ebd-bcfb-525b86442fcd" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: &quot;Huygens PSF Cross Section&quot;, slug: &quot;huygens-psf-cross-section&quot;, recordedNrmse: 0.0037256669899999998)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="3d79df52-fee1-53ce-ac36-d4fa7b8458f4">
+      <Execution id="ff7a0ae4-0774-477c-9c36-6e1f4e2ae874" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="OpenNumericalDifferenceIsMeasuredAndMustNotRegress" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Angle vs Image Height&quot;, slug: &quot;angle-vs-image-height&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="9043c9f4-670c-ee76-6d9f-0a931bd96d9f">
+      <Execution id="8c8d8083-86ec-4057-a93e-d6157e1c474a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Field Curvature and Distortion&quot;, slug: &quot;field-curvature-and-distortion&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="20c82a65-e907-6777-cd2d-59a2af8f9386">
+      <Execution id="7fea740d-13f3-4fce-b375-7b7e779596db" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Axial Aberration&quot;, slug: &quot;axial-aberration&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="417c9123-667e-6a72-5b70-606c685a7628">
+      <Execution id="35b7213a-2543-4b04-b6b6-712de6bbb139" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;FFT Line Edge Spread&quot;, slug: &quot;fft-line-edge-spread&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="38779ec0-fba7-762b-bf0c-4a32e7adad8d">
+      <Execution id="5e156649-c5c3-49d4-93b1-c7d2089d5118" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;FFT PSF Cross Section&quot;, slug: &quot;fft-psf-cross-section&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="058212cb-40a2-1e88-c673-ccfe4adadfa1">
+      <Execution id="28492470-64b7-4d3a-8736-5e09492964fb" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Field Curvature&quot;, slug: &quot;field-curvature&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="3bfa597a-1297-74f0-d844-de38525b4af1">
+      <Execution id="3d41e43f-ec7f-4ac5-b307-2fff96479d07" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Full Field Aberration&quot;, slug: &quot;full-field-aberration&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="afb930cf-fd17-d226-bae5-67ca5436ed54">
+      <Execution id="08ac2280-b9c6-4fdd-a5a5-1173d5a53412" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Grid Distortion&quot;, slug: &quot;grid-distortion&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="39ebc636-7966-66a1-f169-194927bb678c">
+      <Execution id="2ef5875f-ee30-4352-9fee-16626ccb5837" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Fourier Through Focus MTF&quot;, slug: &quot;fourier-through-focus-mtf&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="2706f110-d7f0-aba7-7ff2-0f8f7b43c2f6">
+      <Execution id="d8145f2f-380a-436d-b624-845f9dc23ee8" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;RMS Wavefront vs Field&quot;, slug: &quot;rms-wavefront-vs-field&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="bdee550b-b623-399e-4fc4-c47d322dcc3e">
+      <Execution id="6f57de53-bdfa-44a1-b732-e1a895ba76d5" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;RMS vs Field&quot;, slug: &quot;rms-vs-field&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="292c4493-50f1-e2b6-eca6-5e95876d6b15">
+      <Execution id="fe6ec471-cba6-4d68-a9ff-d81d25b13c4e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Prescription Report&quot;, slug: &quot;prescription-report&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="2745f033-3dad-fb92-78ed-050062ab231a">
+      <Execution id="d0afdade-a6ab-49de-b3f7-01ca4bfcacef" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;RMS vs Wavelength&quot;, slug: &quot;rms-vs-wavelength&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="f44de77c-6618-70ae-ac11-f9d0472db075">
+      <Execution id="1d2b1ed3-9be7-4491-8fc7-dcd4af7ffc1f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Lateral Color&quot;, slug: &quot;lateral-color&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="13876743-bc39-a6c3-6f22-e733002d6673">
+      <Execution id="297ae5f6-a4e3-4ecf-aa2f-f3d5c8cc8d1d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Y-Ybar&quot;, slug: &quot;y-ybar&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="ba64402e-5525-ba82-7bbd-7fac9fa716fd">
+      <Execution id="2428194f-0dd5-4bd7-9c27-62d60c68461f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Single Ray Trace&quot;, slug: &quot;single-ray-trace&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="44891aab-4c95-2c5e-3609-a3273346de08">
+      <Execution id="32de247b-327d-443e-a767-5bea4fbea283" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Geometric MTF&quot;, slug: &quot;geometric-mtf&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="aa73a769-6088-6acc-1718-3b103ad4b7b7">
+      <Execution id="023903c1-5f55-45ae-8867-4e29e1eb629a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Cardinal Points Data&quot;, slug: &quot;cardinal-points-data&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="49db9fdc-fb42-fc37-5f97-3c9040a9f885">
+      <Execution id="75763771-ca25-41a9-8106-06a271b2f586" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Geometric Through Focus MTF&quot;, slug: &quot;geometric-through-focus-mtf&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="f2d9b36a-6bb4-9d90-097f-c7e4e5a5a2e0">
+      <Execution id="c5583533-7e0a-4c73-aa06-38a9a614d1ce" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.CurrentWorkbenchMatchesCapturedMsL7Curves(key: &quot;Seidel Coefficients&quot;, slug: &quot;seidel-coefficients&quot;)" storage="d:\projects\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="10170ef2-93e2-3412-bfde-8e65b956de82">
+      <Execution id="a3eaa6e3-be18-4a35-bd84-c017d204d5dd" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="CurrentWorkbenchMatchesCapturedMsL7Curves" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f2d9b36a-6bb4-9d90-097f-c7e4e5a5a2e0" executionId="c5583533-7e0a-4c73-aa06-38a9a614d1ce" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ba64402e-5525-ba82-7bbd-7fac9fa716fd" executionId="2428194f-0dd5-4bd7-9c27-62d60c68461f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="10170ef2-93e2-3412-bfde-8e65b956de82" executionId="a3eaa6e3-be18-4a35-bd84-c017d204d5dd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3bfa597a-1297-74f0-d844-de38525b4af1" executionId="3d41e43f-ec7f-4ac5-b307-2fff96479d07" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3d79df52-fee1-53ce-ac36-d4fa7b8458f4" executionId="ff7a0ae4-0774-477c-9c36-6e1f4e2ae874" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="13876743-bc39-a6c3-6f22-e733002d6673" executionId="297ae5f6-a4e3-4ecf-aa2f-f3d5c8cc8d1d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9043c9f4-670c-ee76-6d9f-0a931bd96d9f" executionId="8c8d8083-86ec-4057-a93e-d6157e1c474a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bdee550b-b623-399e-4fc4-c47d322dcc3e" executionId="6f57de53-bdfa-44a1-b732-e1a895ba76d5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2706f110-d7f0-aba7-7ff2-0f8f7b43c2f6" executionId="d8145f2f-380a-436d-b624-845f9dc23ee8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="292c4493-50f1-e2b6-eca6-5e95876d6b15" executionId="fe6ec471-cba6-4d68-a9ff-d81d25b13c4e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aa73a769-6088-6acc-1718-3b103ad4b7b7" executionId="023903c1-5f55-45ae-8867-4e29e1eb629a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="afb930cf-fd17-d226-bae5-67ca5436ed54" executionId="08ac2280-b9c6-4fdd-a5a5-1173d5a53412" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="49db9fdc-fb42-fc37-5f97-3c9040a9f885" executionId="75763771-ca25-41a9-8106-06a271b2f586" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="058212cb-40a2-1e88-c673-ccfe4adadfa1" executionId="28492470-64b7-4d3a-8736-5e09492964fb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7aeaacaf-5489-ccf3-ac57-6e39bf63a2ff" executionId="d975d426-50b7-4dde-9c86-b297885b4c74" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2745f033-3dad-fb92-78ed-050062ab231a" executionId="d0afdade-a6ab-49de-b3f7-01ca4bfcacef" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="417c9123-667e-6a72-5b70-606c685a7628" executionId="35b7213a-2543-4b04-b6b6-712de6bbb139" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="44891aab-4c95-2c5e-3609-a3273346de08" executionId="32de247b-327d-443e-a767-5bea4fbea283" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="511427db-180e-700c-88fa-57bc52177939" executionId="c211efee-6ff8-4970-8a99-fcd39151c80b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f44de77c-6618-70ae-ac11-f9d0472db075" executionId="1d2b1ed3-9be7-4491-8fc7-dcd4af7ffc1f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="39ebc636-7966-66a1-f169-194927bb678c" executionId="2ef5875f-ee30-4352-9fee-16626ccb5837" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="966cfd93-2134-8d02-fffa-01f629ab4c03" executionId="3d311bc3-1028-4258-a21e-6e20e2546e71" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="38779ec0-fba7-762b-bf0c-4a32e7adad8d" executionId="5e156649-c5c3-49d4-93b1-c7d2089d5118" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="918f67ae-f4c7-28ed-d119-002bf5cf690d" executionId="1e2965b5-9f11-4ebd-bcfb-525b86442fcd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="20c82a65-e907-6777-cd2d-59a2af8f9386" executionId="7fea740d-13f3-4fce-b375-7b7e779596db" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a7ea5442-7850-6aa2-2e71-d40bab5e20cf" executionId="6e4180b2-00e8-4eee-9a27-3b6ed7b40c51" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="26" executed="26" passed="25" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.44]   Discovering: OptilandWorkbench.ZemaxComparison.Tests&#xD;
+[xUnit.net 00:00:00.51]   Discovered:  OptilandWorkbench.ZemaxComparison.Tests&#xD;
+[xUnit.net 00:00:00.53]   Starting:    OptilandWorkbench.ZemaxComparison.Tests&#xD;
+[xUnit.net 00:00:12.08]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:12.08]       Range:  (0 - 0.0037256669899999998)&#xD;
+[xUnit.net 00:00:12.08]       Actual: 0.0037256670590166724&#xD;
+[xUnit.net 00:00:12.08]       Stack Trace:&#xD;
+[xUnit.net 00:00:12.08]         D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\ExtendedAnalysisTests.cs(84,0): at OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.Verify(String key, String slug, Nullable`1 recordedNrmse)&#xD;
+[xUnit.net 00:00:12.08]         D:\Projects\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\ExtendedAnalysisTests.cs(50,0): at OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(String key, String slug, Double recordedNrmse)&#xD;
+[xUnit.net 00:00:12.08]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:12.08]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:12.08]       Output:&#xD;
+[xUnit.net 00:00:12.08]         Huygens PSF Cross Section/curve:0: max=0.005391581588203756, NRMSE=0.0037256670590166724, Close&#xD;
+[xUnit.net 00:00:12.40]   Finished:    OptilandWorkbench.ZemaxComparison.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-11T15:58:28.2134738+08:00">
+        <Text>[xUnit.net 00:00:12.08]     OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.OpenNumericalDifferenceIsMeasuredAndMustNotRegress(key: "Huygens PSF Cross Section", slug: "huygens-psf-cross-section", recordedNrmse: 0.0037256669899999998) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

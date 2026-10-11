@@ -125,7 +125,8 @@ public static class DiffractionEngine
         int pupilSampling, int gridSize, bool usePolarization = false,
         bool cellCenteredPupil = false, bool zemaxFftSampling = false,
         bool ignoreOpd = false, bool? aimAtStop = null,
-        Wavelength? referenceWavelength = null, double imageDelta = 0)
+        Wavelength? referenceWavelength = null, double imageDelta = 0,
+        bool ignoreScalarTransmission = false)
     {
         ArgumentNullException.ThrowIfNull(wavelengths);
         if (wavelengths.Count == 0) throw new ArgumentException("No selected wavelengths.", nameof(wavelengths));
@@ -144,9 +145,15 @@ public static class DiffractionEngine
             pupilSampling, gridSize, usePolarization: usePolarization,
             cellCenteredPupil: cellCenteredPupil, zemaxFftSampling: zemaxFftSampling,
             ignoreOpd: ignoreOpd, aimAtStop: aimAtStop,
-            referenceWavelength: reference, imageDelta: delta);
+            referenceWavelength: reference, imageDelta: delta,
+            ignoreScalarTransmission: ignoreScalarTransmission);
     }
 
+    /// <summary>
+    /// Scalar transmission can be explicitly omitted from automatically generated
+    /// pupils. Prepared amplitudes remain authoritative; polarized pupils retain
+    /// their traced/Jones transmission. The default includes scalar transmission.
+    /// </summary>
     public static PsfResult ComputeFftPsf(
         Optic optic,
         (double Hx, double Hy) field,
@@ -162,7 +169,8 @@ public static class DiffractionEngine
         bool ignoreOpd = false,
         bool? aimAtStop = null,
         Wavelength? referenceWavelength = null,
-        double imageDelta = 0)
+        double imageDelta = 0,
+        bool ignoreScalarTransmission = false)
     {
         AnalysisResourceLimits.ValidateFftGrid(pupilSampling, gridSize);
 
@@ -262,6 +270,19 @@ public static class DiffractionEngine
             pupilGridStretch: pupilGridStretch,
             zemaxCentered: zemaxFftSampling,
             referenceWavelength: referenceWavelength);
+        if (ignoreScalarTransmission && !usePolarization && preparedWavefront is null)
+        {
+            // The frozen native scalar FFT captures exclude transmission when
+            // polarization is off. Keep launch apodization and traced acceptance;
+            // preserve prepared amplitudes and rays absent from the final trace.
+            wavefront = wavefront with
+            {
+                Samples = wavefront.Samples.Select(sample => sample.Intensity > 0
+                    && sample.LaunchIntensity is { } launch
+                    ? sample with { Intensity = launch }
+                    : sample).ToArray()
+            };
+        }
         if (zemaxFftSampling && pupilSampling >= 32
             && (pupilSampling & (pupilSampling - 1)) == 0 && !ignoreOpd)
             wavefront = InterpolateFftPupilPhase(wavefront, grid);

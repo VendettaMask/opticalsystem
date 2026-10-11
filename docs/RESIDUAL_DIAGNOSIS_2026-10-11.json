@@ -1,0 +1,258 @@
+{
+  "date": "2026-10-11",
+  "phase": "pre-scalar-amplitude-repair diagnosis; subsequent repair has a separate ledger",
+  "baseCommit": "8ca78bf5053fd0a7e3a7dd296117b7f2f51a5cda",
+  "status": "N01 and N02 remain open; offline diagnosis only",
+  "productCodeChanged": false,
+  "newNativeCapture": false,
+  "referenceAndTolerancesChanged": false,
+  "provenance": {
+    "generatedUtc": "2026-10-11T07:57:52.2530299Z",
+    "mode": "reproduce",
+    "source": "D:\\Projects\\opticalsystem\\validation/zemax/2026-r1/ms-l7-analysis-expansion-2026-09-06/source.ZMX",
+    "sourceSha256": "8bcc937c2c2e02ba175f38875fd0def40db547f7eedab509cbfd1fed4353e0e8",
+    "coreAssembly": "D:\\Projects\\opticalsystem\\tools\\diagnostics\\Residuals20261011\\bin\\Release\\net10.0\\OptilandWorkbench.Core.dll",
+    "coreSha256": "db4f0a5371d1dc4c9b4e01fd942db5326111f56b16dbeec9e9c18d6055734d1d",
+    "toolSha256": "701d0440857d3dfaefcdfe9ec5a9c8ead1d2741f9e986c3289b96c0483a842e4",
+    "frozen": [
+      {
+        "path": "validation/zemax/2026-r1/huygens-method-controls-2026-10-09/grid/Auto/data.json",
+        "sha256": "a5e45f10ae4c33193d68f6a60b81585ebe2f0b86fe1ef6a270b90f802431e595"
+      },
+      {
+        "path": "validation/zemax/2026-r1/huygens-method-controls-2026-10-09/grid/Planar/data.json",
+        "sha256": "a5e45f10ae4c33193d68f6a60b81585ebe2f0b86fe1ef6a270b90f802431e595"
+      },
+      {
+        "path": "validation/zemax/2026-r1/huygens-method-controls-2026-10-09/grid/Spherical/data.json",
+        "sha256": "ed9fec663995577efbba3f888e08cced0d13e4575dc11029110aeee8b946f0cd"
+      },
+      {
+        "path": "validation/zemax/2026-r1/n02-energy-layer-controls-2026-10-09/dee-32/data.json",
+        "sha256": "5744adb0bc6756f6502807676133cff12545b4090d76138115ad3dbb47f44308"
+      },
+      {
+        "path": "validation/zemax/2026-r1/n02-energy-layer-controls-2026-10-09/dee-range-2p5/data.json",
+        "sha256": "fd41a4ce4adc9ae52ac92ad9bdfa1ff0e0954dee001aa397bec81f994fa98c1c"
+      },
+      {
+        "path": "validation/zemax/2026-r1/n02-energy-layer-controls-2026-10-09/dee-range-10/data.json",
+        "sha256": "96d17dd3540aa0b89460ac15ba5ed8f388e22e45e1d1445be1f8a95d234a4fff"
+      }
+    ],
+    "semantics": "Offline diagnostic controls, not native certification. No reference values, tolerances, settings or product calculations are changed. Dense/control interpolation results are not substituted for captured-settings recalculation."
+  },
+  "formalComparisons": [
+    {
+      "key": "Huygens PSF Cross Section",
+      "metric": {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 32,
+        "maxAbsolute": 0.005391581588203756,
+        "meanAbsolute": 0.0010785397662390847,
+        "rmse": 0.0017391041264783924,
+        "nrmse": 0.0037256670590166724,
+        "maxRelative": 5.114861400745076,
+        "p50": 0.0004388153406521551,
+        "p90": 0.0024980921855840142,
+        "p95": 0.0038097536917699425,
+        "pearson": 0.9998526585367635,
+        "worstX": 0.75,
+        "worstY": null,
+        "coverage": 0.96875,
+        "conclusion": "Close",
+        "extra": {}
+      },
+      "capturedSettingsSha256": "1119b730d2353dd4f4977ef1ff4938b072987b39d42aa5ed00786eb965d7f8f3",
+      "nativeDataSha256": "49cee99e70bd3a2312306ea823d1005ebe8582f36d16a7b0af6f277a0a686369"
+    },
+    {
+      "key": "Diffraction Encircled Energy",
+      "metric": {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 786,
+        "maxAbsolute": 0.0505309569642369,
+        "meanAbsolute": 0.010753395556221387,
+        "rmse": 0.013875784968407625,
+        "nrmse": 0.013875784968407625,
+        "maxRelative": 0.7300495559752243,
+        "p50": 0.007825577376425141,
+        "p90": 0.020016452692420306,
+        "p95": 0.023215344696579876,
+        "pearson": 0.9978151421358914,
+        "worstX": 0.1625,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Difference",
+        "extra": {}
+      },
+      "capturedSettingsSha256": "f32bec8fde7e578d4e68f511c3bbd9001b1c739227df36f52ca8e63b34fec25b",
+      "nativeDataSha256": "3629556ff7f770b318e5c8e136017fccfa6f749efc58290345250d293738050c"
+    },
+    {
+      "key": "Diffraction Encircled Energy",
+      "metric": {
+        "id": "curve:1",
+        "unit": "Dimensionless",
+        "count": 786,
+        "maxAbsolute": 0.03841263500539996,
+        "meanAbsolute": 0.008674347420402913,
+        "rmse": 0.011173141548632002,
+        "nrmse": 0.011173141548632002,
+        "maxRelative": 0.6867550506334464,
+        "p50": 0.006250466500349938,
+        "p90": 0.015779806184506584,
+        "p95": 0.01892551055041357,
+        "pearson": 0.9992860971012789,
+        "worstX": 0.35000000000000014,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Difference",
+        "extra": {}
+      },
+      "capturedSettingsSha256": "f32bec8fde7e578d4e68f511c3bbd9001b1c739227df36f52ca8e63b34fec25b",
+      "nativeDataSha256": "3629556ff7f770b318e5c8e136017fccfa6f749efc58290345250d293738050c"
+    }
+  ],
+  "diagnosticControls": [
+    {
+      "mode": "energy",
+      "count": 96,
+      "resultPath": "artifacts/validation/residuals-20261011/verified/energy/energy-controls.json",
+      "sha256": "baee92ed5980aec3b5c7725ac296e17702a3eba06868530d5e496cb9ae2ef279"
+    },
+    {
+      "mode": "huygens",
+      "count": 90,
+      "resultPath": "artifacts/validation/residuals-20261011/verified/huygens/huygens-controls.json",
+      "sha256": "38a091491c2930a6c8d518338f523a8bdf066ebbcd51eba3c265b95046c9203d"
+    },
+    {
+      "mode": "dense",
+      "count": 60,
+      "resultPath": "artifacts/validation/residuals-20261011/verified/dense/dense.json",
+      "sha256": "a265569fb24968f7d4b3ea61174d010236716905600835676c663027cc3d48ab"
+    },
+    {
+      "mode": "full-dense",
+      "count": 54,
+      "resultPath": "artifacts/validation/residuals-20261011/verified/full-dense/dense.json",
+      "sha256": "89ea6e9ae8056ffeb97a306c6a6a607462bc428d84f1d86cc6c5b3c444298a54"
+    },
+    {
+      "mode": "energy-grids",
+      "count": 72,
+      "resultPath": "artifacts/validation/residuals-20261011/verified/energy-grids/dense.json",
+      "sha256": "93266f349cc85844eefc6234a282caf8dd0cf9546e647fc8d9a9a1ebce09d90b"
+    },
+    {
+      "mode": "cubic-grid",
+      "count": 48,
+      "resultPath": "artifacts/validation/residuals-20261011/verified/cubic-grid/cubic-grid.json",
+      "sha256": "688217feedab4ee9db1df60547bee9c815f73c1573c8b41b3c9769d4e49df1fc"
+    }
+  ],
+  "controlCount": 420.0,
+  "naturalSplineRestoration": [
+    {
+      "ideal": true,
+      "range": 2.5,
+      "restoredMetric": {
+        "Item1": 1.5518410293081862E-14,
+        "Item2": 7.227551890309769E-14
+      },
+      "firstKnotMinusQuarterSecond": 6.106226635438361E-16
+    },
+    {
+      "ideal": true,
+      "range": 5,
+      "restoredMetric": {
+        "Item1": 8.670400678929279E-07,
+        "Item2": 6.142465637459793E-06
+      },
+      "firstKnotMinusQuarterSecond": 3.3306690738754696E-16
+    },
+    {
+      "ideal": true,
+      "range": 10,
+      "restoredMetric": {
+        "Item1": 0.002967347462412829,
+        "Item2": 0.022106157823104433
+      },
+      "firstKnotMinusQuarterSecond": 0.0
+    },
+    {
+      "ideal": false,
+      "range": 2.5,
+      "restoredMetric": {
+        "Item1": 1.6636105960932746E-14,
+        "Item2": 6.272760089132134E-14
+      },
+      "firstKnotMinusQuarterSecond": 1.1102230246251565E-16
+    },
+    {
+      "ideal": false,
+      "range": 5,
+      "restoredMetric": {
+        "Item1": 1.6663983312159915E-06,
+        "Item2": 1.1120703365286033E-05
+      },
+      "firstKnotMinusQuarterSecond": 3.885780586188048E-16
+    },
+    {
+      "ideal": false,
+      "range": 10,
+      "restoredMetric": {
+        "Item1": 1.144767208519477E-05,
+        "Item2": 7.479947397182052E-05
+      },
+      "firstKnotMinusQuarterSecond": 2.220446049250313E-16
+    }
+  ],
+  "bestHuygensControl": {
+    "aiming": true,
+    "nodes": "endpoints",
+    "weight": "area-cos",
+    "metric": {
+      "Item1": 0.022505653265103218,
+      "Item2": 0.004232592161936957
+    }
+  },
+  "verification": {
+    "extendedRelease": {
+      "failed": 1,
+      "passed": 25,
+      "skipped": 0,
+      "total": 26,
+      "trx": "artifacts/validation/residuals-20261011/tests/extended-release.trx"
+    },
+    "diagnosticBuild": "Release; zero warnings and errors",
+    "fullProductTestsRerun": false,
+    "frozenGit": {
+      "source": "HEAD",
+      "commit": "8ca78bf5053fd0a7e3a7dd296117b7f2f51a5cda",
+      "count": 2668,
+      "matched": 2668,
+      "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "unchanged": true,
+      "mismatches": [],
+      "workingTree": {
+        "count": 2668,
+        "matched": 2668,
+        "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+        "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+        "unchanged": true,
+        "mismatches": []
+      }
+    }
+  },
+  "nativePreparation": {
+    "plan": "artifacts/validation/residuals-20261011/verified/capture-prepared/capture-plan.json",
+    "missing": "Connection/execution path to the user-designated licensed Zemax computer; DEE ideal private grid and denominator remain unexposed",
+    "status": "PreparedOnly; no Zemax process started",
+    "jobCount": 9
+  }
+}

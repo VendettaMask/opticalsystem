@@ -13,7 +13,11 @@ public sealed record WavefrontSample(
     double PupilZ,
     double OpdWaves,
     double Intensity,
-    double ImageDirectionZ = 1);
+    double ImageDirectionZ = 1)
+{
+    /// <summary>Power at launch, before material/coating attenuation; null for external samples.</summary>
+    public double? LaunchIntensity { get; init; }
+}
 
 public sealed record WavefrontResult(
     IReadOnlyList<WavefrontSample> Samples,
@@ -322,7 +326,7 @@ public static class WavefrontEngine
                 pupilPosition.Z,
                 opdWaves,
                 intensity,
-                ray.Direction.Z));
+                ray.Direction.Z) { LaunchIntensity = bundle.Rays[index].Intensity });
         }
 
         return new WavefrontResult(
@@ -409,7 +413,7 @@ public static class WavefrontEngine
                 pupilPosition.Z,
                 opdWaves,
                 intensity,
-                Dot(Normalize(ray.Direction), chiefDirection)));
+                Dot(Normalize(ray.Direction), chiefDirection)) { LaunchIntensity = bundle.Rays[index].Intensity });
         }
 
         return new WavefrontResult(
