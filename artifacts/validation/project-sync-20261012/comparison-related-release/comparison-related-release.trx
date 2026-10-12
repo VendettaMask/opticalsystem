@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ca0b34ab-f7c0-49e5-aa6e-76607046706d" name="optics@LAPTOP-G4BBBCS0 2026-10-12 08:54:04" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-12T08:54:04.5901323+08:00" queuing="2026-10-12T08:54:04.5901326+08:00" start="2026-10-12T08:53:56.4306181+08:00" finish="2026-10-12T08:54:07.0190475+08:00" />
+  <TestSettings name="default" id="433811b4-3be0-4f23-a6a9-2215b4af93ba">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-12_08_54_04" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="041322f6-40ba-4503-8f5f-4689f8e987d4" testId="b8cce893-9eff-dbb5-5711-f2de0d28d14e" testName="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.RepairedDiffractionEnergyPassesOriginalIdealAndActualTolerances" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.3248481" startTime="2026-10-12T08:53:59.5585274+08:00" endTime="2026-10-12T08:54:03.8988409+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="041322f6-40ba-4503-8f5f-4689f8e987d4">
+      <Output>
+        <StdOut>Diffraction Encircled Energy/curve:0: max=0.00040911213538841196, NRMSE=0.0001049654093689442, Pass&#xD;
+Diffraction Encircled Energy/curve:1: max=0.0007154387307732879, NRMSE=0.0002421804838391122, Pass</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b63f6e62-8aef-419d-97ad-11e6d60c13a8" testId="b00c7ca8-d74d-4ff0-e6f7-e8ea863be257" testName="OptilandWorkbench.ZemaxComparison.Tests.HuygensOffAxisDensityTests.CapturedDensityBelowNativeMinimumUsesFivePositionsThroughTheProductJsonBoundary" computerName="LAPTOP-G4BBBCS0" duration="00:00:07.3489452" startTime="2026-10-12T08:53:59.5600868+08:00" endTime="2026-10-12T08:54:06.9134626+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b63f6e62-8aef-419d-97ad-11e6d60c13a8" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests.RepairedDiffractionEnergyPassesOriginalIdealAndActualTolerances" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="b8cce893-9eff-dbb5-5711-f2de0d28d14e">
+      <Execution id="041322f6-40ba-4503-8f5f-4689f8e987d4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.ExtendedAnalysisTests" name="RepairedDiffractionEnergyPassesOriginalIdealAndActualTolerances" />
+    </UnitTest>
+    <UnitTest name="OptilandWorkbench.ZemaxComparison.Tests.HuygensOffAxisDensityTests.CapturedDensityBelowNativeMinimumUsesFivePositionsThroughTheProductJsonBoundary" storage="d:\optical system design\opticalsystem\tests\optilandworkbench.zemaxcomparison.tests\bin\release\net10.0\optilandworkbench.zemaxcomparison.tests.dll" id="b00c7ca8-d74d-4ff0-e6f7-e8ea863be257">
+      <Execution id="b63f6e62-8aef-419d-97ad-11e6d60c13a8" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OptilandWorkbench.ZemaxComparison.Tests\bin\Release\net10.0\OptilandWorkbench.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OptilandWorkbench.ZemaxComparison.Tests.HuygensOffAxisDensityTests" name="CapturedDensityBelowNativeMinimumUsesFivePositionsThroughTheProductJsonBoundary" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b8cce893-9eff-dbb5-5711-f2de0d28d14e" executionId="041322f6-40ba-4503-8f5f-4689f8e987d4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b00c7ca8-d74d-4ff0-e6f7-e8ea863be257" executionId="b63f6e62-8aef-419d-97ad-11e6d60c13a8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.85]   Discovering: OptilandWorkbench.ZemaxComparison.Tests&#xD;
+[xUnit.net 00:00:00.96]   Discovered:  OptilandWorkbench.ZemaxComparison.Tests&#xD;
+[xUnit.net 00:00:00.98]   Starting:    OptilandWorkbench.ZemaxComparison.Tests&#xD;
+[xUnit.net 00:00:08.37]   Finished:    OptilandWorkbench.ZemaxComparison.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

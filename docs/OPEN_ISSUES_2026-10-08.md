@@ -1,5 +1,7 @@
 # 计算精度与发布待解决问题分类
 
+2026-10-12 本机已同步远端 6 个提交并更新默认 Debug/Release 程序，构建各零警告、零错误；Release 相关回归 197/197、比较工具专项 2/2、Git 完整性脚本 9/9 通过，冻结工作区与 Git 原字节均 2668/2668。本次未重跑全量或新增 Zemax 采集；下方 10 月 11 日全量及原生结果保留远端执行宿主的阶段身份。详见[本机同步范围](PROJECT_SYNC_2026-10-12.md)。
+
 截至 2026-10-11，已在本机实际连接 Zemax 26.1.0 build 260127 Enterprise API 并补采，原 N01 Huygens 截线和原 N02 DEE 理想/实际三条曲线按原设置、原容差均 **Pass**，原残差关闭。此前“本机不能运行、必须另一台电脑”的判断已撤销。E04 的工作区与 Git 原字节仍为 2668/2668、原聚合身份不变。按用户要求，独立 Cooke、Tessar 已移出后续工作；其余扩展认证及整体发布检查仍开放，见[本轮修复与边界](HUYGENS_FFT_ENERGY_REPAIR_2026-10-11.md)。此前[振幅选项](FFT_SCALAR_AMPLITUDE_REPAIR_2026-10-11.md)与[修复前诊断](RESIDUAL_DIAGNOSIS_2026-10-11.md)保留失败尝试和历史测量。
 
 本清单聚焦计算路径与 Zemax 对照，不替代整个产品的长期功能路线图。当前实现与验收见[出瞳与物理刀口](PUPIL_SHAPE_FOUCAULT_IMPLEMENTATION_2026-10-10.md)，[FFT 能量网格修复](FFT_ENERGY_GRID_INTEGRITY_REPAIR_2026-10-10.md)及[来源与证据核验修复](PREPARED_PUPIL_INTEGRITY_REPAIR_2026-10-10.md)保留此前阶段。此前全量与比较工具结果不能代替当前修改的验收；整体发布门禁未关闭。10 月 9 日修复与原生证据的推送见[历史完成记录](PROJECT_SYNC_FFT_PUPIL_2026-10-09.md)，10 月 10 日修改及选定证据已推送，见[本轮完成记录](PROJECT_SYNC_PUPIL_FOUCAULT_2026-10-10.md)。

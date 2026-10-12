@@ -1,0 +1,394 @@
+{
+  "date": "2026-10-12",
+  "repository": "VendettaMask/opticalsystem",
+  "branch": "main",
+  "localBeforeUpdate": "fc69b86a06ccc42c0bf5b6736e13f5828ad3ad94",
+  "updatedSourceCommit": "8fff777aad3f4ffd403436575a21745b1d2f26a6",
+  "updateMode": "Fast-forward only; 0 local commits ahead and 6 remote commits behind before update",
+  "receivedCommits": [
+    {
+      "commit": "8ca78bf5053fd0a7e3a7dd296117b7f2f51a5cda",
+      "subject": "Preserve frozen Zemax bytes and verify Git evidence"
+    },
+    {
+      "commit": "54c2909ec831922b23771dde232d542af0b557d6",
+      "subject": "Add explicit scalar FFT amplitudes and preserve residual budgets"
+    },
+    {
+      "commit": "3f0a69952f6c8ea1aa3130beb03bc31475d0251e",
+      "subject": "Fix axial Huygens and FFT enclosed-energy residuals"
+    },
+    {
+      "commit": "7a5279313e2308f0005fd05bbe1cfd77ef19b617",
+      "subject": "Exclude independent Cooke and Tessar follow-up from scope"
+    },
+    {
+      "commit": "f8dbcdefdccb9f531315da8f7aeb993d33b39239",
+      "subject": "Fix off-axis Huygens MTF centroid and field sampling"
+    },
+    {
+      "commit": "8fff777aad3f4ffd403436575a21745b1d2f26a6",
+      "subject": "Fix scalar spherical Huygens propagation and certify spectral controls"
+    }
+  ],
+  "localVerificationScope": "Default Debug/Release solution builds; focused Release product and comparison tests; strict Git/working-copy frozen bytes and script regression",
+  "builds": [
+    {
+      "configuration": "Debug",
+      "warnings": 0,
+      "errors": 0,
+      "defaultOutput": true
+    },
+    {
+      "configuration": "Release",
+      "warnings": 0,
+      "errors": 0,
+      "defaultOutput": true
+    }
+  ],
+  "currentRuns": [
+    {
+      "path": "artifacts/validation/project-sync-20261012/related-release/related-release.trx",
+      "sha256": "f980cddfd4e02322d92278f368c7e261c5b90a52d341fd2bf0ce6aea6b39fa62",
+      "total": 197,
+      "passed": 197,
+      "failed": 0,
+      "skipped": 0,
+      "start": "2026-10-12T08:52:02.8784840+08:00",
+      "finish": "2026-10-12T08:52:54.0503740+08:00"
+    },
+    {
+      "path": "artifacts/validation/project-sync-20261012/comparison-related-release/comparison-related-release.trx",
+      "sha256": "9c81b6e3022249ce6c395225520b0f7c729035011d152b9796f61c1e49660b4d",
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "start": "2026-10-12T08:53:56.4306181+08:00",
+      "finish": "2026-10-12T08:54:07.0190475+08:00"
+    }
+  ],
+  "productFilter": "FullyQualifiedName~NativeScalarFftAmplitudeTests|FullyQualifiedName~HuygensPlanarIntegrationTests|FullyQualifiedName~FftCumulativeEnergyTests|FullyQualifiedName~HuygensOffAxisMtfNativeTests|FullyQualifiedName~HuygensSphericalNativeTests|FullyQualifiedName~HuygensImplementationRepairTests|FullyQualifiedName~HuygensMtfOperandTests|FullyQualifiedName~PupilShapeAndFoucaultPhysicsTests|FullyQualifiedName~PupilShapeAndFoucaultPanelTests|FullyQualifiedName~FftEnergyGridIntegrityTests|FullyQualifiedName~PreparedPupilProvenanceTests",
+  "comparisonFilter": "FullyQualifiedName~HuygensOffAxisDensityTests|FullyQualifiedName~RepairedDiffractionEnergyPassesOriginalIdealAndActualTolerances",
+  "gitIntegrityScript": {
+    "total": 9,
+    "passed": 9,
+    "failed": 0,
+    "results": [
+      {
+        "name": "exact working and committed bytes pass",
+        "passed": true,
+        "expectedSuccess": true,
+        "exitCode": 0,
+        "gitMatched": 1,
+        "workingMatched": 1,
+        "source": "HEAD"
+      },
+      {
+        "name": "working bytes alone cannot hide Git EOL normalization",
+        "passed": true,
+        "expectedSuccess": false,
+        "exitCode": 1,
+        "gitMatched": 0,
+        "workingMatched": 1,
+        "source": "HEAD"
+      },
+      {
+        "name": "repaired index passes before commit",
+        "passed": true,
+        "expectedSuccess": true,
+        "exitCode": 0,
+        "gitMatched": 1,
+        "workingMatched": 1,
+        "source": "Index"
+      },
+      {
+        "name": "staging a repair does not certify the old commit",
+        "passed": true,
+        "expectedSuccess": false,
+        "exitCode": 1,
+        "gitMatched": 0,
+        "workingMatched": 1,
+        "source": "HEAD"
+      },
+      {
+        "name": "committed original CRLF passes without changing manifest",
+        "passed": true,
+        "expectedSuccess": true,
+        "exitCode": 0,
+        "gitMatched": 1,
+        "workingMatched": 1,
+        "source": "HEAD"
+      },
+      {
+        "name": "correct commit cannot hide modified working bytes",
+        "passed": true,
+        "expectedSuccess": false,
+        "exitCode": 1,
+        "gitMatched": 1,
+        "workingMatched": 0,
+        "source": "HEAD"
+      },
+      {
+        "name": "untracked original cannot certify a missing Git blob",
+        "passed": true,
+        "expectedSuccess": false,
+        "exitCode": 1,
+        "gitMatched": 0,
+        "workingMatched": 1,
+        "source": "HEAD"
+      },
+      {
+        "name": "binary blob remains exact without decoding or EOL conversion",
+        "passed": true,
+        "expectedSuccess": true,
+        "exitCode": 0,
+        "gitMatched": 1,
+        "workingMatched": 1,
+        "source": "HEAD"
+      },
+      {
+        "name": "replacement manifest cannot bypass pinned aggregate",
+        "passed": true,
+        "expectedSuccess": false,
+        "exitCode": 1
+      }
+    ]
+  },
+  "frozenIntegrity": {
+    "source": "HEAD",
+    "commit": "8fff777aad3f4ffd403436575a21745b1d2f26a6",
+    "count": 2668,
+    "matched": 2668,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true,
+    "mismatches": [],
+    "workingTree": {
+      "count": 2668,
+      "matched": 2668,
+      "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "unchanged": true,
+      "mismatches": []
+    }
+  },
+  "workingCopyEolRefresh": {
+    "date": "2026-10-12",
+    "sourceCommit": "8fff777aad3f4ffd403436575a21745b1d2f26a6",
+    "scope": "Working-copy EOL-only refresh after fast-forward; original bytes backed up; no reference content or manifest changes",
+    "initialIntegrity": {
+      "gitMatched": 2668,
+      "workingMatched": 2663,
+      "total": 2668
+    },
+    "comparison": "Raw byte arrays compare equal only after removing CR bytes immediately preceding LF; no other normalization",
+    "backups": "artifacts/validation/project-sync-20261012/pre-refresh-backups",
+    "restoreMethod": "Fresh Git index export verified against original frozen manifest, then byte-for-byte copy of these five paths",
+    "initialInPlaceCheckoutResult": "Did not refresh the cached matching paths; not counted as integrity success",
+    "indexStatRefreshResult": "Reported needs-update once; subsequent raw, filtered, index and HEAD blob identities all matched and Git status was clean",
+    "files": [
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/README.md",
+        "beforeSha256": "d3024a9b05ad52ab92f2e257dc3581ff5e6e3ef7e99e8e5455890d4aae5a542f",
+        "headSha256": "74784d8a925c59ea1d944107ded32c2061cfd8d0e42d0d1af9c763a082156c3a",
+        "crlfOnly": true,
+        "beforeBytes": 1940,
+        "headBytes": 1902
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/163-nest/error.txt",
+        "beforeSha256": "d891ac1ef55a651a73c949ffdda5a7eaa9a7918818245ef73ab0606a78769392",
+        "headSha256": "e24504ffaaa36061406b2d07acb0ee323c1af8be18c07ffc3762b899f53ab811",
+        "crlfOnly": true,
+        "beforeBytes": 203,
+        "headBytes": 199
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-30/README.md",
+        "beforeSha256": "43e68e47d7f88c2fd5ed00eaba87eb0f7ab2a15cb71f7de98f9ce47bfa1651cc",
+        "headSha256": "a0f6acab4ebb4106eb0774608e113fff363996fd70c30823fe708f8819be8d29",
+        "crlfOnly": true,
+        "beforeBytes": 843,
+        "headBytes": 825
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/FULL_PRECISION_IMAGE_RECHECK.md",
+        "beforeSha256": "fb102dda875e5ee31ffe2093d62aa1c076ca910aae343bd97b907e0c2aecfba8",
+        "headSha256": "a8dfd9967a98bf8b36c7a106927d40dfbbd67cb9343aec8f8bda145d6bf5a838",
+        "crlfOnly": true,
+        "beforeBytes": 15852,
+        "headBytes": 15702
+      },
+      {
+        "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/LETTERF.IMA",
+        "beforeSha256": "025998c32599710b7ef0214277904f75a2d5d59b1c0776d18409b3e91f3b6dad",
+        "headSha256": "bf19b2f3f1c529ac165c22b39b3ec16e378c95ab9e2b54bc52c0646cb818c0b1",
+        "crlfOnly": true,
+        "beforeBytes": 66,
+        "headBytes": 58
+      }
+    ],
+    "finalIntegrity": {
+      "gitMatched": 2668,
+      "workingMatched": 2668,
+      "total": 2668,
+      "unchanged": true
+    }
+  },
+  "defaultCoreCopies": [
+    {
+      "configuration": "Debug",
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "d46cd936fe3e6bc282d9d217928da3b793f8a7628036c74b73c1311122894603"
+    },
+    {
+      "configuration": "Debug",
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "d46cd936fe3e6bc282d9d217928da3b793f8a7628036c74b73c1311122894603"
+    },
+    {
+      "configuration": "Debug",
+      "path": "tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "d46cd936fe3e6bc282d9d217928da3b793f8a7628036c74b73c1311122894603"
+    },
+    {
+      "configuration": "Debug",
+      "path": "tests/OptilandWorkbench.ZemaxComparison.Tests/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "d46cd936fe3e6bc282d9d217928da3b793f8a7628036c74b73c1311122894603"
+    },
+    {
+      "configuration": "Release",
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "b100b823268bfe8ddf3ced7cf90b5acede52e40e4b66ce94bb444cdd69d987c3"
+    },
+    {
+      "configuration": "Release",
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "b100b823268bfe8ddf3ced7cf90b5acede52e40e4b66ce94bb444cdd69d987c3"
+    },
+    {
+      "configuration": "Release",
+      "path": "tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "b100b823268bfe8ddf3ced7cf90b5acede52e40e4b66ce94bb444cdd69d987c3"
+    },
+    {
+      "configuration": "Release",
+      "path": "tests/OptilandWorkbench.ZemaxComparison.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "b100b823268bfe8ddf3ced7cf90b5acede52e40e4b66ce94bb444cdd69d987c3"
+    }
+  ],
+  "remoteValidationScope": "Existing 2026-10-11 compressed TRX read and counters reconciled; not executed again in this turn",
+  "remoteRuns": [
+    {
+      "path": "artifacts/validation/huygens-spherical-repair-20261011/product-release-complete.trx.gz",
+      "sha256": "ed4c53f382576790295d716f19b14361007c7cc90ee3e079a6d8fcc91c39dd2d",
+      "total": 4667,
+      "passed": 4667,
+      "failed": 0,
+      "skipped": 0,
+      "start": "2026-10-11T21:48:27.3763384+08:00",
+      "finish": "2026-10-11T22:01:38.8790755+08:00"
+    },
+    {
+      "path": "artifacts/validation/huygens-spherical-repair-20261011/comparison-release-complete.trx.gz",
+      "sha256": "a624ae429345d9f34bbe531833f8880f25caf31ff4aa1c2d3b463ab2dd2d5d73",
+      "total": 182,
+      "passed": 182,
+      "failed": 0,
+      "skipped": 0,
+      "start": "2026-10-11T21:48:29.1039887+08:00",
+      "finish": "2026-10-11T21:53:02.6011158+08:00"
+    },
+    {
+      "path": "artifacts/validation/huygens-spherical-repair-20261011/product-debug-related-complete.trx.gz",
+      "sha256": "76818003c0a797d253e31d09bbc391adf8b3b78634551a153a072a2c3a7ed494",
+      "total": 649,
+      "passed": 649,
+      "failed": 0,
+      "skipped": 0,
+      "start": "2026-10-11T21:50:57.4709580+08:00",
+      "finish": "2026-10-11T21:59:44.0214044+08:00"
+    }
+  ],
+  "remoteStageLedgerHashes": [
+    {
+      "path": "docs/HUYGENS_SPHERICAL_REPAIR_2026-10-11.json",
+      "sha256": "2980d73fde660765c744302597eceea4caa34d9853305737aaa79cf0e7f9dcb2"
+    },
+    {
+      "path": "docs/HUYGENS_OFFAXIS_REPAIR_2026-10-11.json",
+      "sha256": "18691a30f0fff6e1ef3c92172cab6ca8b65d48c33ca5635e354962d33e8503c8"
+    },
+    {
+      "path": "docs/HUYGENS_FFT_ENERGY_REPAIR_2026-10-11.json",
+      "sha256": "22f08b874fd79a5de050b82b74a01806d6206b92257ed943e1876ae68e4a0d4b"
+    },
+    {
+      "path": "docs/validation/FROZEN_GIT_INTEGRITY_REPAIR_2026-10-11.json",
+      "sha256": "f54c47c3a7021affdd2c71071539952025bd76b39508748d42566ddfae684550"
+    }
+  ],
+  "selectedEvidence": [
+    {
+      "path": "artifacts/validation/project-sync-20261012/build-debug.log",
+      "sha256": "b3ed4fa0c1f2d891fb1adfe2e95cf6d22b5452980b3a8bdf0a884c1702381a7a",
+      "bytes": 1934
+    },
+    {
+      "path": "artifacts/validation/project-sync-20261012/build-release.log",
+      "sha256": "d7b302a5d494339ccf489d03afb6f0faaef3592df576f6577f5c984be60e8ddf",
+      "bytes": 1956
+    },
+    {
+      "path": "artifacts/validation/project-sync-20261012/related-release/related-release.trx",
+      "sha256": "f980cddfd4e02322d92278f368c7e261c5b90a52d341fd2bf0ce6aea6b39fa62",
+      "bytes": 297229
+    },
+    {
+      "path": "artifacts/validation/project-sync-20261012/comparison-related-release/comparison-related-release.trx",
+      "sha256": "9c81b6e3022249ce6c395225520b0f7c729035011d152b9796f61c1e49660b4d",
+      "bytes": 5203
+    },
+    {
+      "path": "artifacts/validation/project-sync-20261012/frozen-head.json",
+      "sha256": "9079bea309c3b3d81d94b844cdb133612bc6cd7f67c35f5952159042628f34bd",
+      "bytes": 2366
+    },
+    {
+      "path": "artifacts/validation/project-sync-20261012/frozen-head-refreshed.json",
+      "sha256": "8cc52b41c2af39f163e4ca383cdb4056f62f04752720205a8d3585fb2d5fd5a4",
+      "bytes": 668
+    },
+    {
+      "path": "artifacts/validation/project-sync-20261012/git-integrity-script-tests/results.json",
+      "sha256": "c23a2f4f3222da99b52eddc35e2f7bd932f006f47932d5e8dc0d68f0c3321ab2",
+      "bytes": 1903
+    },
+    {
+      "path": "artifacts/validation/project-sync-20261012/eol-refresh.json",
+      "sha256": "519495f80d842c4287dea2c86b5be617b06e8cf73340dabacf6c96ebe88a089d",
+      "bytes": 2896
+    }
+  ],
+  "selectedEvidenceFiles": 8,
+  "selectedEvidenceBytes": 314155,
+  "localSourceOrTestChanges": false,
+  "frozenReferenceContentChanged": false,
+  "frozenManifestChanged": false,
+  "persistentNetworkSettingsChanged": false,
+  "nativeApiOrLicenseProbed": false,
+  "newNativeCapture": false,
+  "preservedScope": "Independent Cooke/Tessar follow-up remains excluded; existing captures and regression tests retained",
+  "notRun": [
+    "Full formal Release or Debug suites",
+    "Full comparison suite",
+    "Laboratory suites",
+    "Installer/package",
+    "Manual desktop acceptance",
+    "Six-file 132-case matrix",
+    "New Zemax capture or certification"
+  ],
+  "snapshotScope": "Local checks completed at the received source commit, before the documentation-only synchronization commit",
+  "completionPolicy": "A documentation-only commit records synchronization; final local/GitHub main identity is verified after pushing, with the final branch head reported to the user"
+}

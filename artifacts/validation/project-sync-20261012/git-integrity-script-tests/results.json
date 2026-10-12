@@ -1,0 +1,80 @@
+[
+  {
+    "name": "exact working and committed bytes pass",
+    "passed": true,
+    "expectedSuccess": true,
+    "exitCode": 0,
+    "gitMatched": 1,
+    "workingMatched": 1,
+    "source": "HEAD"
+  },
+  {
+    "name": "working bytes alone cannot hide Git EOL normalization",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 0,
+    "workingMatched": 1,
+    "source": "HEAD"
+  },
+  {
+    "name": "repaired index passes before commit",
+    "passed": true,
+    "expectedSuccess": true,
+    "exitCode": 0,
+    "gitMatched": 1,
+    "workingMatched": 1,
+    "source": "Index"
+  },
+  {
+    "name": "staging a repair does not certify the old commit",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 0,
+    "workingMatched": 1,
+    "source": "HEAD"
+  },
+  {
+    "name": "committed original CRLF passes without changing manifest",
+    "passed": true,
+    "expectedSuccess": true,
+    "exitCode": 0,
+    "gitMatched": 1,
+    "workingMatched": 1,
+    "source": "HEAD"
+  },
+  {
+    "name": "correct commit cannot hide modified working bytes",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 1,
+    "workingMatched": 0,
+    "source": "HEAD"
+  },
+  {
+    "name": "untracked original cannot certify a missing Git blob",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 0,
+    "workingMatched": 1,
+    "source": "HEAD"
+  },
+  {
+    "name": "binary blob remains exact without decoding or EOL conversion",
+    "passed": true,
+    "expectedSuccess": true,
+    "exitCode": 0,
+    "gitMatched": 1,
+    "workingMatched": 1,
+    "source": "HEAD"
+  },
+  {
+    "name": "replacement manifest cannot bypass pinned aggregate",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1
+  }
+]

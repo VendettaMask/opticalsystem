@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-12",
+  "sourceCommit": "8fff777aad3f4ffd403436575a21745b1d2f26a6",
+  "scope": "Working-copy EOL-only refresh after fast-forward; original bytes backed up; no reference content or manifest changes",
+  "initialIntegrity": {
+    "gitMatched": 2668,
+    "workingMatched": 2663,
+    "total": 2668
+  },
+  "comparison": "Raw byte arrays compare equal only after removing CR bytes immediately preceding LF; no other normalization",
+  "backups": "artifacts/validation/project-sync-20261012/pre-refresh-backups",
+  "restoreMethod": "Fresh Git index export verified against original frozen manifest, then byte-for-byte copy of these five paths",
+  "initialInPlaceCheckoutResult": "Did not refresh the cached matching paths; not counted as integrity success",
+  "indexStatRefreshResult": "Reported needs-update once; subsequent raw, filtered, index and HEAD blob identities all matched and Git status was clean",
+  "files": [
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/README.md",
+      "beforeSha256": "d3024a9b05ad52ab92f2e257dc3581ff5e6e3ef7e99e8e5455890d4aae5a542f",
+      "headSha256": "74784d8a925c59ea1d944107ded32c2061cfd8d0e42d0d1af9c763a082156c3a",
+      "crlfOnly": true,
+      "beforeBytes": 1940,
+      "headBytes": 1902
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/163-nest/error.txt",
+      "beforeSha256": "d891ac1ef55a651a73c949ffdda5a7eaa9a7918818245ef73ab0606a78769392",
+      "headSha256": "e24504ffaaa36061406b2d07acb0ee323c1af8be18c07ffc3762b899f53ab811",
+      "crlfOnly": true,
+      "beforeBytes": 203,
+      "headBytes": 199
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-30/README.md",
+      "beforeSha256": "43e68e47d7f88c2fd5ed00eaba87eb0f7ab2a15cb71f7de98f9ce47bfa1651cc",
+      "headSha256": "a0f6acab4ebb4106eb0774608e113fff363996fd70c30823fe708f8819be8d29",
+      "crlfOnly": true,
+      "beforeBytes": 843,
+      "headBytes": 825
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/FULL_PRECISION_IMAGE_RECHECK.md",
+      "beforeSha256": "fb102dda875e5ee31ffe2093d62aa1c076ca910aae343bd97b907e0c2aecfba8",
+      "headSha256": "a8dfd9967a98bf8b36c7a106927d40dfbbd67cb9343aec8f8bda145d6bf5a838",
+      "crlfOnly": true,
+      "beforeBytes": 15852,
+      "headBytes": 15702
+    },
+    {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/LETTERF.IMA",
+      "beforeSha256": "025998c32599710b7ef0214277904f75a2d5d59b1c0776d18409b3e91f3b6dad",
+      "headSha256": "bf19b2f3f1c529ac165c22b39b3ec16e378c95ab9e2b54bc52c0646cb818c0b1",
+      "crlfOnly": true,
+      "beforeBytes": 66,
+      "headBytes": 58
+    }
+  ],
+  "finalIntegrity": {
+    "gitMatched": 2668,
+    "workingMatched": 2668,
+    "total": 2668,
+    "unchanged": true
+  }
+}
