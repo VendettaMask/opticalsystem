@@ -1,0 +1,559 @@
+{
+  "Date": "2026-10-12",
+  "SourceCommit": "1d5847578c3b2a308e64d7000aa6d7af9df5e43f",
+  "SourceDirty": true,
+  "GitState": "Uncommitted local changes; not pushed",
+  "Policy": "Unsigned distribution selected by user; no purchased or self-signed certificate",
+  "Scope": "win-x64, isolated silent installation/upgrade and real self-contained product read-only verification; not GUI acceptance",
+  "Builds": [
+    {
+      "Configuration": "Debug",
+      "DefaultOutput": true,
+      "Warnings": 0,
+      "Errors": 0
+    },
+    {
+      "Configuration": "Release",
+      "DefaultOutput": true,
+      "Warnings": 0,
+      "Errors": 0
+    }
+  ],
+  "BuildGuards": {
+    "Path": "artifacts/validation/windows-upgrade-20261012/build-guards.json",
+    "Sha256": "b7d33d0430934146871e9a1fe45711eef73e4521606c21be2d65a67243789d02",
+    "Passed": 2,
+    "Checks": [
+      {
+        "Name": "Required signing without certificate fails before output",
+        "Passed": true,
+        "Detail": "SigningMode Required needs an explicit code-signing certificate thumbprint. Use SigningMode Unsigned for the default certificate-free package."
+      },
+      {
+        "Name": "Production failure hooks rejected before output",
+        "Passed": true,
+        "Detail": "Failure-injection hooks require an unsigned test package and an isolated product AppId."
+      }
+    ]
+  },
+  "FormalNewTestCases": 11,
+  "FullFormalSuiteRerun": false,
+  "HistoricalOpticalStage": {
+    "Release": 4733,
+    "Comparison": 182,
+    "DebugRelated": 554,
+    "NotCurrentInstallationAcceptance": true
+  },
+  "LegacyFixture": "Current product source published as 1.0.0 with historical flat-layout installer from base commit; not historical released product binary",
+  "Remaining": [
+    "Power loss/process kill persistent automatic recovery",
+    "Failure of rollback itself and complete uninstall metadata transaction",
+    "Legacy flat-layout universal downgrade validation",
+    "Same-release corrupted payload repair and old-release cleanup",
+    "Full GUI wizard and desktop acceptance",
+    "ARM64 hardware installation and runtime acceptance",
+    "Trusted signature success path and Store MSIX distribution",
+    "Complete historical project/settings migration matrix",
+    "Whole-product commercial release acceptance"
+  ],
+  "Matrix": {
+    "Passed": 48,
+    "Failed": 0,
+    "ProductAppId": "OpticalSystemDesign-UpgradeValidation-20261012",
+    "ReleaseId": "1.0.1-win-x64-59be3d3e844c",
+    "Runtime": "win-x64",
+    "Signed": false,
+    "GuiVerified": false,
+    "Arm64HardwareVerified": false,
+    "Inputs": [
+      {
+        "Path": "D:\\optical system design\\opticalsystem\\.tmp\\install-final-test\\installer-win-x64-5ca4b8e4\\OpticalSystemDesign-1.0.1-win-x64-UnsignedTest-Setup.exe",
+        "Sha256": "963700AEE43F40B046C5431A06DB27E0FFD19CAF554A1D5E46DF44263464D3C5"
+      },
+      {
+        "Path": ".tmp/windows-upgrade-legacy-1.0.0.exe",
+        "Sha256": "DAEEF2EC0E090575674A4E09F5EE137A12FBEFDEDED9562693597D07EB904955"
+      },
+      {
+        "Path": ".tmp/windows-upgrade-downgrade-final.exe",
+        "Sha256": "7CB2866DFD249169B90CEB959EAE529E813AA8A33AAC5B37FE8AB47238384BF1"
+      },
+      {
+        "Path": ".tmp/windows-upgrade-recovery-final.exe",
+        "Sha256": "00F4995762F2DEAFE3F5C393AAA526DEC3D7E51556FFC43B6DCF95C902D1CEE8"
+      },
+      {
+        "Path": "D:\\optical system design\\opticalsystem\\.tmp\\install-final-test\\installer-win-x64-5ca4b8e4\\release.json",
+        "Sha256": "1EFCF70816C5357268196AFC4EE08F9AE68EF4FE910DC8B3B7B22C4CE21FFCE2"
+      }
+    ],
+    "Checks": [
+      {
+        "Name": "legacy-install",
+        "Passed": true,
+        "Detail": "1.0.0 flat layout"
+      },
+      {
+        "Name": "legacy-payload-present",
+        "Passed": true,
+        "Detail": "D:\\optical system design\\opticalsystem\\.tmp\\upgrade-acceptance-final\\installed app\\OptilandWorkbench.App.exe"
+      },
+      {
+        "Name": "legacy-native-read-process",
+        "Passed": true,
+        "Detail": 0
+      },
+      {
+        "Name": "legacy-native-read-native-product",
+        "Passed": true,
+        "Detail": {
+          "Success": true,
+          "Version": "1.0.0+1d5847578c3b2a308e64d7000aa6d7af9df5e43f",
+          "Framework": "10.0.8",
+          "Architecture": "X64",
+          "ProductAppId": "OpticalSystemDesign-UpgradeValidation-20261012",
+          "Revision": 1,
+          "SurfaceCount": 5,
+          "ProjectOpened": true,
+          "SettingsLoaded": true,
+          "SettingsTheme": "Dark",
+          "UserDataWritten": false,
+          "GuiVerified": false
+        }
+      },
+      {
+        "Name": "legacy-exclusive-file-lock-blocked",
+        "Passed": true,
+        "Detail": "Compatibility guard for older binaries without a presence marker"
+      },
+      {
+        "Name": "upgrade-before-activation-failure",
+        "Passed": true,
+        "Detail": "Explicit failure exit 70 before switching release"
+      },
+      {
+        "Name": "legacy-preserved-after-failure",
+        "Passed": true,
+        "Detail": "99BAE59AED1E5EB7C0482078FBC91DED878EBC5B8210454B7D9DE61116AC78FE"
+      },
+      {
+        "Name": "failed-upgrade-has-no-active-state",
+        "Passed": true,
+        "Detail": "Old flat layout retained"
+      },
+      {
+        "Name": "upgrade-after-activation-failure",
+        "Passed": true,
+        "Detail": "Explicit failure exit 70 after switching from legacy layout"
+      },
+      {
+        "Name": "activation-restored-to-legacy",
+        "Passed": true,
+        "Detail": "Old flat activation restored"
+      },
+      {
+        "Name": "legacy-byte-preserved-after-activation-failure",
+        "Passed": true,
+        "Detail": "99BAE59AED1E5EB7C0482078FBC91DED878EBC5B8210454B7D9DE61116AC78FE"
+      },
+      {
+        "Name": "legacy-shortcut-restored",
+        "Passed": true,
+        "Detail": "5B57FCC7150E56617D96AA4F09CB6CD0CA28B97C14116145B16F79E82BFBB233"
+      },
+      {
+        "Name": "legacy-association-restored",
+        "Passed": true,
+        "Detail": "\"D:\\optical system design\\opticalsystem\\.tmp\\upgrade-acceptance-final\\installed app\\OptilandWorkbench.App.exe\" \"%1\""
+      },
+      {
+        "Name": "legacy-display-version-restored",
+        "Passed": true,
+        "Detail": "1.0.0"
+      },
+      {
+        "Name": "recovered-legacy-native-read-process",
+        "Passed": true,
+        "Detail": 0
+      },
+      {
+        "Name": "recovered-legacy-native-read-native-product",
+        "Passed": true,
+        "Detail": {
+          "Success": true,
+          "Version": "1.0.0+1d5847578c3b2a308e64d7000aa6d7af9df5e43f",
+          "Framework": "10.0.8",
+          "Architecture": "X64",
+          "ProductAppId": "OpticalSystemDesign-UpgradeValidation-20261012",
+          "Revision": 1,
+          "SurfaceCount": 5,
+          "ProjectOpened": true,
+          "SettingsLoaded": true,
+          "SettingsTheme": "Dark",
+          "UserDataWritten": false,
+          "GuiVerified": false
+        }
+      },
+      {
+        "Name": "real-version-upgrade",
+        "Passed": true,
+        "Detail": "1.0.0 -> 1.0.1"
+      },
+      {
+        "Name": "new-payload-present",
+        "Passed": true,
+        "Detail": "D:\\optical system design\\opticalsystem\\.tmp\\upgrade-acceptance-final\\installed app\\versions\\1.0.1-win-x64-59be3d3e844c\\OptilandWorkbench.App.exe"
+      },
+      {
+        "Name": "upgraded-native-read-process",
+        "Passed": true,
+        "Detail": 0
+      },
+      {
+        "Name": "upgraded-native-read-native-product",
+        "Passed": true,
+        "Detail": {
+          "Success": true,
+          "Version": "1.0.1+1d5847578c3b2a308e64d7000aa6d7af9df5e43f",
+          "Framework": "10.0.8",
+          "Architecture": "X64",
+          "ProductAppId": "OpticalSystemDesign-UpgradeValidation-20261012",
+          "Revision": 1,
+          "SurfaceCount": 5,
+          "ProjectOpened": true,
+          "SettingsLoaded": true,
+          "SettingsTheme": "Dark",
+          "UserDataWritten": false,
+          "GuiVerified": false
+        }
+      },
+      {
+        "Name": "association-upgraded",
+        "Passed": true,
+        "Detail": "\"D:\\optical system design\\opticalsystem\\.tmp\\upgrade-acceptance-final\\installed app\\versions\\1.0.1-win-x64-59be3d3e844c\\OptilandWorkbench.App.exe\" \"%1\""
+      },
+      {
+        "Name": "shortcut-upgraded",
+        "Passed": true,
+        "Detail": "D:\\optical system design\\opticalsystem\\.tmp\\upgrade-acceptance-final\\installed app\\versions\\1.0.1-win-x64-59be3d3e844c\\OptilandWorkbench.App.exe"
+      },
+      {
+        "Name": "legacy-payload-retained",
+        "Passed": true,
+        "Detail": "99BAE59AED1E5EB7C0482078FBC91DED878EBC5B8210454B7D9DE61116AC78FE"
+      },
+      {
+        "Name": "versioned-activation-failure",
+        "Passed": true,
+        "Detail": "Different release id, failure after replacing active state"
+      },
+      {
+        "Name": "versioned-state-restored",
+        "Passed": true,
+        "Detail": "6F7EE5F6437330100886C8C653F651ABBB2B1D8FA1554CEAFFB17DD0B1E20139"
+      },
+      {
+        "Name": "versioned-shortcut-restored",
+        "Passed": true,
+        "Detail": "C2A04FE411EF2FAAE341720EFBF37849847B81C1DE7789864FBB54AFFFE04D0A"
+      },
+      {
+        "Name": "versioned-association-restored",
+        "Passed": true,
+        "Detail": "\"D:\\optical system design\\opticalsystem\\.tmp\\upgrade-acceptance-final\\installed app\\versions\\1.0.1-win-x64-59be3d3e844c\\OptilandWorkbench.App.exe\" \"%1\""
+      },
+      {
+        "Name": "same-package-repeat",
+        "Passed": true,
+        "Detail": "Validated immutable release reused"
+      },
+      {
+        "Name": "same-package-state-stable",
+        "Passed": true,
+        "Detail": "6F7EE5F6437330100886C8C653F651ABBB2B1D8FA1554CEAFFB17DD0B1E20139"
+      },
+      {
+        "Name": "downgrade-blocked",
+        "Passed": true,
+        "Detail": "1.0.1 -> 1.0.0 rejected before copying"
+      },
+      {
+        "Name": "downgrade-state-preserved",
+        "Passed": true,
+        "Detail": "6F7EE5F6437330100886C8C653F651ABBB2B1D8FA1554CEAFFB17DD0B1E20139"
+      },
+      {
+        "Name": "corrupted-payload-rejected",
+        "Passed": true,
+        "Detail": "Manifest verification rejects modified installed bytes"
+      },
+      {
+        "Name": "corrupted-payload-state-preserved",
+        "Passed": true,
+        "Detail": "6F7EE5F6437330100886C8C653F651ABBB2B1D8FA1554CEAFFB17DD0B1E20139"
+      },
+      {
+        "Name": "startup-during-setup-blocked",
+        "Passed": true,
+        "Detail": 75
+      },
+      {
+        "Name": "uninstall-during-setup-blocked",
+        "Passed": true,
+        "Detail": "Setup gate prevents concurrent uninstall"
+      },
+      {
+        "Name": "running-product-ready",
+        "Passed": true,
+        "Detail": 44920
+      },
+      {
+        "Name": "running-upgrade-blocked",
+        "Passed": true,
+        "Detail": "Running process not terminated"
+      },
+      {
+        "Name": "running-uninstall-blocked",
+        "Passed": true,
+        "Detail": "Running process not terminated"
+      },
+      {
+        "Name": "running-product-not-killed",
+        "Passed": true,
+        "Detail": 44920
+      },
+      {
+        "Name": "recovered-native-read-process",
+        "Passed": true,
+        "Detail": 0
+      },
+      {
+        "Name": "recovered-native-read-native-product",
+        "Passed": true,
+        "Detail": {
+          "Success": true,
+          "Version": "1.0.1+1d5847578c3b2a308e64d7000aa6d7af9df5e43f",
+          "Framework": "10.0.8",
+          "Architecture": "X64",
+          "ProductAppId": "OpticalSystemDesign-UpgradeValidation-20261012",
+          "Revision": 1,
+          "SurfaceCount": 5,
+          "ProjectOpened": true,
+          "SettingsLoaded": true,
+          "SettingsTheme": "Dark",
+          "UserDataWritten": false,
+          "GuiVerified": false
+        }
+      },
+      {
+        "Name": "project-byte-preserved",
+        "Passed": true,
+        "Detail": "607BA6EE10A4BA3AD134A9A508D8ADF9739C37A13A8FAE06668F1F0DB562C05D"
+      },
+      {
+        "Name": "settings-byte-preserved",
+        "Passed": true,
+        "Detail": "EF55B169FEEBC7363FB0CF0FCE4ED4608EED5176A03BFF45127FD005EA973B2D"
+      },
+      {
+        "Name": "uninstall",
+        "Passed": true,
+        "Detail": "Owned installation only"
+      },
+      {
+        "Name": "new-executable-removed",
+        "Passed": true,
+        "Detail": "D:\\optical system design\\opticalsystem\\.tmp\\upgrade-acceptance-final\\installed app\\versions\\1.0.1-win-x64-59be3d3e844c\\OptilandWorkbench.App.exe"
+      },
+      {
+        "Name": "registration-removed",
+        "Passed": true,
+        "Detail": "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OpticalSystemDesign-UpgradeValidation-20261012_is1"
+      },
+      {
+        "Name": "user-project-survives-uninstall",
+        "Passed": true,
+        "Detail": "607BA6EE10A4BA3AD134A9A508D8ADF9739C37A13A8FAE06668F1F0DB562C05D"
+      },
+      {
+        "Name": "user-settings-survive-uninstall",
+        "Passed": true,
+        "Detail": "EF55B169FEEBC7363FB0CF0FCE4ED4608EED5176A03BFF45127FD005EA973B2D"
+      }
+    ]
+  },
+  "Package": {
+    "Setup": "D:\\optical system design\\opticalsystem\\artifacts\\installers\\installer-win-x64-52978fd6\\OpticalSystemDesign-1.0.1-win-x64-Unsigned-Setup.exe",
+    "ReleaseId": "1.0.1-win-x64-65a354945108",
+    "SetupSha256": "697125629bb4d236a7e4ea60d57c4f2f5e6aefe9f681be9b77059b4233ff7cf2",
+    "SetupBytes": 273833744,
+    "ManifestSha256": "195457cb55741c947e0bd6d7a65e835f235f5f97bbba6f81c564e4ca9cc02f1d",
+    "PayloadFilesVerified": 1179,
+    "InstallerScriptMatches": true,
+    "ValidationHooks": false,
+    "SignatureStatus": "NotSigned",
+    "AppSignatureStatus": "NotSigned",
+    "NativeProductReport": {
+      "Success": true,
+      "Version": "1.0.1+1d5847578c3b2a308e64d7000aa6d7af9df5e43f",
+      "Framework": "10.0.8",
+      "Architecture": "X64",
+      "ProductAppId": "OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A",
+      "Revision": 1,
+      "SurfaceCount": 5,
+      "ProjectOpened": true,
+      "SettingsLoaded": true,
+      "SettingsTheme": "Dark",
+      "UserDataWritten": false,
+      "GuiVerified": false
+    }
+  },
+  "Tests": [
+    {
+      "Configuration": "Debug",
+      "Total": 32,
+      "Passed": 32,
+      "Failed": 0,
+      "Executed": 32
+    },
+    {
+      "Configuration": "Release",
+      "Total": 32,
+      "Passed": 32,
+      "Failed": 0,
+      "Executed": 32
+    }
+  ],
+  "Hashes": [
+    {
+      "Path": "packaging/windows/OpticalSystemDesign.iss",
+      "Sha256": "04a8ff834dc2ca8766ed5c3363f27859274a82f44d6858c96c444cb0d4738d15"
+    },
+    {
+      "Path": "packaging/windows/README.txt",
+      "Sha256": "66d869b2ecaaf96c8b2684e26a8f974744bc6ab165c9b47396a0baaf8f212f34"
+    },
+    {
+      "Path": "scripts/build-installer.ps1",
+      "Sha256": "52f516acf40aad3db108f30b91a6024da08a5aff44398c101dc22214b4d46478"
+    },
+    {
+      "Path": "scripts/publish-windows.ps1",
+      "Sha256": "abbcac48013a0260efb59ecf690e1bced2081a34b47125701227803f73571ed4"
+    },
+    {
+      "Path": "scripts/verify-windows-upgrade.ps1",
+      "Sha256": "8b8dcc4fa4d85a1662669a36d6432020798ec0b92dcc984928b795d95e0f08ca"
+    },
+    {
+      "Path": "scripts/windows-signing.ps1",
+      "Sha256": "53d37f168fd2ad3b5f76f5950c0c0ae43e599969e0b60087d120ec03e2bcad06"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/Program.cs",
+      "Sha256": "7765850560087a86c9ee8ba8cb58c51059d5a7ad37cfac9a268080df29b7f01a"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/Services/WindowsInstallationLifetime.cs",
+      "Sha256": "d77387620fcac7eed625df96f2801621f72683d5191a77aa8c5c310b355740b9"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/Services/InstallationVerification.cs",
+      "Sha256": "850e80b2cb0c5ffc6e3c84129572188622a66f821b38ec3fd9005001f219f108"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/WindowsPackagingTests.cs",
+      "Sha256": "924c3f3c405d631adb0cac8be8a49b4bc8b30215ffd21e01d2a0275d16868b13"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/WindowsInstallationLifetimeTests.cs",
+      "Sha256": "15359a3bb7a321fb98a3c8d8afb794accf394baed694139ffb493bc61ac57902"
+    },
+    {
+      "Path": "artifacts/validation/windows-upgrade-20261012/build-debug-final.log",
+      "Sha256": "6bdf832c5ae4128d6cdffcbb05db9762aa7deb3ba755e722a361d21487520d0e"
+    },
+    {
+      "Path": "artifacts/validation/windows-upgrade-20261012/build-release-final.log",
+      "Sha256": "07dd5b59def9d79fdd2c2420fd0a2b97cb115183401ca079c19e98d1b95a339d"
+    },
+    {
+      "Path": "artifacts/validation/windows-upgrade-20261012/installation-targeted-debug-final.trx",
+      "Sha256": "0e06f9a7dee766ff2503cacdb6252b01a21da0500d97ede8be85022f2ae621c7"
+    },
+    {
+      "Path": "artifacts/validation/windows-upgrade-20261012/installation-targeted-release-final.trx",
+      "Sha256": "20f5d35cbf67dd819e225f251df090399230ab0b6b7f319e0289c5a0f75d4b16"
+    },
+    {
+      "Path": "artifacts/validation/windows-upgrade-20261012/final-package-integrity.json",
+      "Sha256": "43ff32fa6bf94836d59d5f96630cc34c1fe9981b79e4aa3c1bcf4c01186ac849"
+    },
+    {
+      "Path": ".tmp/upgrade-acceptance-final/summary.json",
+      "Sha256": "264480991179b2c2a2c81c606391d0c2832d7239a36dba325225c2c924b32ea7"
+    },
+    {
+      "Path": ".tmp/upgrade-acceptance-final/checks.json",
+      "Sha256": "951a5627c2e8a2806ea218599d3ca16cbfdf12a65d8817596cec26aabd89f8d0"
+    },
+    {
+      "Path": ".tmp/upgrade-acceptance-attempt1/checks.json",
+      "Sha256": "a8ef322dd010c40000456d327983a9c84062ba93fdd9169f198dce95e371e230"
+    },
+    {
+      "Path": ".tmp/upgrade-acceptance-final/corrupted-payload.log",
+      "Sha256": "927bcc1baeabf42d6e8e0ec392ccc36ce2aad13c54e2a654cf18658c42fe7335"
+    },
+    {
+      "Path": ".tmp/upgrade-acceptance-final/downgrade.log",
+      "Sha256": "782fa6d67b270dabe407d5d723b76890db588f553891a9af2c16c09cada28ea1"
+    },
+    {
+      "Path": ".tmp/upgrade-acceptance-final/fail-after.log",
+      "Sha256": "159a5bc12a407ea36661be45f76b0cf4e586d43fc60df7944ce678e35c635d75"
+    },
+    {
+      "Path": ".tmp/upgrade-acceptance-final/fail-before.log",
+      "Sha256": "938d59431022e9b20b330f1f70747af6d63a66e6256ee44371c1fbf47272fe06"
+    },
+    {
+      "Path": ".tmp/upgrade-acceptance-final/legacy-install.log",
+      "Sha256": "7cf1e12b8b8d0427b7d662e3c5225075d14839dbb929c594ee66239b53159cc2"
+    },
+    {
+      "Path": ".tmp/upgrade-acceptance-final/legacy-lock-blocked.log",
+      "Sha256": "e6512ec180227590bc15011df3dcf3223714b36cf75cd5141352c876abaf8be5"
+    },
+    {
+      "Path": ".tmp/upgrade-acceptance-final/repeat.log",
+      "Sha256": "22861d8e8d88eb7e3977175cafcd36abf4dea23dcebc36e95318d1c31daf2b36"
+    },
+    {
+      "Path": ".tmp/upgrade-acceptance-final/running-blocked.log",
+      "Sha256": "4db0894f2dfcbe63967d91bbacdc4aacef865f67fba69419dfc58ce0383b44d0"
+    },
+    {
+      "Path": ".tmp/upgrade-acceptance-final/running-uninstall-blocked.log",
+      "Sha256": "00822761898b44fb4e45ea793733d1886a95dae4ff5702aa3ce3e0ffc39c125e"
+    },
+    {
+      "Path": ".tmp/upgrade-acceptance-final/setup-uninstall-blocked.log",
+      "Sha256": "daec6a24fe39571967c4f8086e5f3a7ef53c333b92bb9ce2258867d29c0122c4"
+    },
+    {
+      "Path": ".tmp/upgrade-acceptance-final/uninstall.log",
+      "Sha256": "7e8feb0726427ae46bd3ef03162236e5e4429262bbce0402a3b0c80722e1b288"
+    },
+    {
+      "Path": ".tmp/upgrade-acceptance-final/upgrade.log",
+      "Sha256": "fb0430b141362471f44543d4fc4790be3c369e80f92ae2925d529277f1534c2e"
+    },
+    {
+      "Path": ".tmp/upgrade-acceptance-final/versioned-fail-after.log",
+      "Sha256": "91773c840064fbe985c704575b1ae4952a6d8060ebc352c6b8e2aacad2a8a87b"
+    }
+  ],
+  "TestRegistrationRemoved": true,
+  "TestAssociationRemoved": true
+}

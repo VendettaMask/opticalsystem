@@ -6,6 +6,12 @@ param(
 
     [string]$OutputRoot = '',
 
+    [ValidatePattern('^\d+\.\d+\.\d+(\.\d+)?$')]
+    [string]$AppVersion = '1.0.2',
+
+    [ValidatePattern('^[a-zA-Z0-9-]{1,128}$')]
+    [string]$ProductAppId = 'OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A',
+
     [switch]$PassThru,
 
     [switch]$CompactName
@@ -60,6 +66,7 @@ try {
     Write-Host '[2/3] Publishing the self-contained Windows application...'
     & dotnet publish $project --configuration Release --runtime $Runtime --self-contained true `
         --no-restore --nologo --output $stagingDirectory `
+        "-p:Version=$AppVersion" `
         -p:UseAppHost=true -p:WindowsPackage=true -p:PublishSingleFile=false `
         -p:PublishTrimmed=false -p:PublishAot=false -p:DebugType=None -p:DebugSymbols=false | Out-Host
     if ($LASTEXITCODE -ne 0) {
@@ -96,6 +103,10 @@ try {
     Copy-Item -LiteralPath (Join-Path $repositoryRoot 'packaging\windows\README.txt') `
         -Destination (Join-Path $stagingDirectory 'README.txt')
 
+    $identity = [ordered]@{ FormatVersion = 1; ProductAppId = $ProductAppId; Version = $AppVersion; Runtime = $Runtime }
+    [IO.File]::WriteAllText((Join-Path $stagingDirectory 'release.identity.json'),
+        ($identity | ConvertTo-Json), [Text.UTF8Encoding]::new($false))
+
     # Directory.Move refuses an existing destination instead of merging releases.
     [System.IO.Directory]::Move($stagingDirectory, $packageDirectory)
     Write-Host ''
@@ -104,7 +115,7 @@ try {
     Write-Host 'Run this EXE (no separate .NET installation required):'
     Write-Host (Join-Path $packageDirectory 'OptilandWorkbench.App.exe')
     if ($PassThru) {
-        [pscustomobject]@{ Directory = $packageDirectory; Runtime = $Runtime }
+        [pscustomobject]@{ Directory = $packageDirectory; Runtime = $Runtime; Version = $AppVersion }
     }
 } finally {
     Pop-Location

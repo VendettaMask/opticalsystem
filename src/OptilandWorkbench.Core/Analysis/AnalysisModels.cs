@@ -148,7 +148,8 @@ public sealed record AnalysisPlotOptions(
     bool DefaultSquareViewport = false,
     double SpatialDisplayScaleX = 1,
     double SpatialDisplayScaleY = 1,
-    bool LogarithmicIntensity = false);
+    bool LogarithmicIntensity = false,
+    IReadOnlyList<AnalysisSpatialPoint>? SpatialGeometry = null);
 
 public sealed record AnalysisPlotPane(
     string Title,

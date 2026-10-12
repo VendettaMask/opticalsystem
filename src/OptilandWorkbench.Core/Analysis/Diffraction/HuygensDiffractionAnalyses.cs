@@ -205,7 +205,12 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
             YUnit: imageAxisUnit,
             ValueQuantity: AnalysisAxisQuantity.Irradiance,
             ValueUnit: logarithmic ? AnalysisAxisUnit.Decibel : AnalysisAxisUnit.Dimensionless);
-        var title = _usePolarization
+        var polarizationMode = synthesis.Psf.HuygensPolarization;
+        var title = polarizationMode == HuygensPolarizationMode.CoherentXyz
+            ? "Coherent XYZ Jones Huygens PSF（受限透明介质）"
+            : polarizationMode == HuygensPolarizationMode.UnpolarizedMeanPower
+                ? "Polarization-weighted scalar Huygens PSF（非偏振平均功率）"
+            : _usePolarization
             ? wavelengths.Length > 1
                 ? "复色光 Polarization-weighted scalar Huygens PSF（Experimental）"
                 : "Polarization-weighted scalar Huygens PSF（Experimental）"
@@ -214,7 +219,9 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
         {
             ["Method"] = "Huygens-Fresnel",
             ["PropagationModel"] = Optic.ImageSpaceAfocal ? "Afocal scalar plane waves"
-                : "Lens-datum scalar Huygens weight (compatibility approximation)",
+                : synthesis.Psf.FiniteCellHuygensUsed ? "Finite-cell Auto planar/spherical Huygens"
+                    : "Lens-datum scalar Huygens weight (compatibility approximation)",
+            ["FiniteCellHuygensUsed"] = synthesis.Psf.FiniteCellHuygensUsed,
             ["ImagePlane"] = "Chief ray tangent plane",
             ["PupilSampling"] = _numRays,
             ["ImageSize"] = _imageSize,
@@ -241,12 +248,21 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
             ["Type"] = _type,
             ["DisplayAs"] = _displayAs,
             ["UsePolarization"] = _usePolarization,
-            ["PolarizationModel"] = _usePolarization
-                ? "Polarization-weighted scalar approximation"
-                : "Scalar",
-            ["PolarizationLimit"] = _usePolarization
-                ? "Jones component powers are collapsed before scalar Huygens summation; complex cross-polarization interference and longitudinal high-NA fields are not modeled."
-                : string.Empty,
+            ["PolarizationModel"] = polarizationMode switch
+            {
+                HuygensPolarizationMode.UnpolarizedMeanPower => "Unpolarized mean-power scalar Huygens",
+                HuygensPolarizationMode.CoherentXyz => "Coherent XYZ Jones Huygens",
+                HuygensPolarizationMode.LegacyScalarApproximation => "Polarization-weighted scalar approximation",
+                _ => "Scalar"
+            },
+            ["PolarizationMode"] = polarizationMode.ToString(),
+            ["PolarizationLimit"] = polarizationMode switch
+            {
+                HuygensPolarizationMode.UnpolarizedMeanPower => "Orthogonal input powers are averaged before scalar diffraction; this is not the incoherent sum of two vector PSFs. Bare homogeneous complex-index interface power is supported; coherent multilayers retain their existing exterior-medium limits. General absorbing XYZ electric fields and longitudinal vector propagation are not modeled.",
+                HuygensPolarizationMode.CoherentXyz => "XYZ fields and interface phases are propagated separately in supported transparent isotropic homogeneous media. Absorbing-interface electric fields and GRIN are explicitly unsupported; native coherent Jones/phase certification remains pending.",
+                HuygensPolarizationMode.LegacyScalarApproximation => "Legacy Jones powers collapse before scalar diffraction; coherent and longitudinal fields are not certified in this fallback.",
+                _ => string.Empty
+            },
             ["Normalized"] = _normalize,
             ["UseCentroid"] = _useCentroid,
             ["CenterReference"] = _useCentroid ? "Geometric centroid" : "Chief ray",

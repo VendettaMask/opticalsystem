@@ -154,6 +154,7 @@ public sealed partial class MainWindow
                 RibbonTab("帮助", BuildRibbonPage(
                     RibbonGroup("支持",
                         RibbonButton("show-operand-help", "book-open-text", "操作数帮助"),
+                        RibbonButton("recover-document", "history", "恢复未保存工程"),
                         RibbonButton("about", "circle-question-mark", "关于"))))
             }
         };

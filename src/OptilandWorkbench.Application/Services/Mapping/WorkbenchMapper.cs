@@ -244,7 +244,10 @@ internal static class WorkbenchMapper
             DefaultSquareViewport: options.DefaultSquareViewport,
             SpatialDisplayScaleX: options.SpatialDisplayScaleX,
             SpatialDisplayScaleY: options.SpatialDisplayScaleY,
-            LogarithmicIntensity: options.LogarithmicIntensity);
+            LogarithmicIntensity: options.LogarithmicIntensity,
+            SpatialGeometry: options.SpatialGeometry?.Select(p => new AnalysisSpatialPointDto(
+                p.SourceX, p.SourceY, p.X, p.Y, p.Z, p.PhysicalX, p.PhysicalY, p.PhysicalZ,
+                p.FitResidualMillimeters)).ToArray());
     }
 
     internal static Scene2Dto ToScene2Dto(Layout2DScene scene)

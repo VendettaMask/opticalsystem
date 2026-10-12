@@ -814,7 +814,13 @@ public partial class WorkbenchRuntime
                 pupilSx: Double("PupilSx", 0),
                 pupilSy: Double("PupilSy", 0),
                 pupilSr: Double("PupilSr", 1),
-                name: name),
+                name: name,
+                exitPupilGeometry: Text("ExitPupilGeometry", "F 数近似") switch
+                {
+                    "三维光阑像" => ExitPupilGeometryMode.GeometricStopImage,
+                    "F 数近似" => ExitPupilGeometryMode.WorkingFNumber,
+                    _ => throw new ArgumentException("Unknown exit-pupil geometry mode.")
+                }),
             "Foucault Analysis" => new FoucaultAnalysis(
                 CurrentOptic,
                 sampling: LeadingInt("Sampling", 32),
@@ -825,7 +831,17 @@ public partial class WorkbenchRuntime
                 wavelengthNumber: LeadingInt("WavelengthNumber", 0),
                 fieldNumber: LeadingInt("FieldNumber", 1),
                 positionMicrometers: Double("YPositionMicrometers", 0),
-                usePolarization: Bool("UsePolarization", false)),
+                usePolarization: Bool("UsePolarization", false),
+                propagationMode: Text("FoucaultPropagation", "焦面 FFT 再成像") switch
+                {
+                    "焦面 FFT 再成像" => FoucaultPropagationMode.FocalFourierReimage,
+                    "物理平面标量角谱" => FoucaultPropagationMode.SpatialAngularSpectrum,
+                    "物理平面矢量角谱" => FoucaultPropagationMode.VectorAngularSpectrum,
+                    _ => throw new ArgumentException("Unknown Foucault propagation mode.")
+                },
+                knifeDistanceMillimeters: Double("KnifeDistanceMillimeters", 0),
+                observationDistanceMillimeters: Double("ObservationDistanceMillimeters", 0),
+                observationHalfWidthMillimeters: Double("ObservationHalfWidthMillimeters", 0)),
             "Interferogram" => new WavefrontAnalysis(
                 CurrentOptic,
                 Int("NumRings", 15),

@@ -30,7 +30,8 @@ public sealed class PolarizationPsfLabelTests
             usePolarization: true).GenerateData();
 
         Assert.Contains("Polarization-weighted scalar Huygens PSF", data.PlotOptions!.Title);
-        Assert.Equal("Polarization-weighted scalar approximation", data.Values["PolarizationModel"]);
+        Assert.Equal("Unpolarized mean-power scalar Huygens", data.Values["PolarizationModel"]);
+        Assert.Equal("UnpolarizedMeanPower", data.Values["PolarizationMode"]);
         Assert.Contains("longitudinal", data.Values["PolarizationLimit"]!.ToString());
     }
 }

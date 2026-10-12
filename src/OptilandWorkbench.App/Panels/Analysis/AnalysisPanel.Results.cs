@@ -181,6 +181,7 @@ public sealed partial class AnalysisPanel
             DisplayScale = FindRowNumber(view, "显示缩放", 1),
             SpatialDisplayScaleX = view.PlotOptions.SpatialDisplayScaleX,
             SpatialDisplayScaleY = view.PlotOptions.SpatialDisplayScaleY,
+            SpatialGeometry = view.PlotOptions.SpatialGeometry,
             DisplayAs = FindRowText(view, "显示为", "表面"),
             MinHeight = AnalysisPlotMinimumHeight
         };

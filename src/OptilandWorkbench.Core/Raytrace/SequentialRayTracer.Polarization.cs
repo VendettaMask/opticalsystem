@@ -118,7 +118,8 @@ public sealed partial class SequentialRayTracer
         Vector3D Normal, Complex S, Complex P, PolarizationInterfaceData Data);
 
     private static InterfaceJonesTransform EvaluatePolarizationInterface(OpticalSurface surface,
-        RayTraceSampleValue sample, IMaterial incidentMaterial, double wavelength, RayInteractionKind kind)
+        RayTraceSampleValue sample, IMaterial incidentMaterial, double wavelength, RayInteractionKind kind,
+        bool allowHomogeneousAbsorbingPower = false)
     {
         if (surface.ScatteringModel is not null
             || surface.InteractionModel is not RefractiveReflectiveInteractionModel
@@ -151,9 +152,10 @@ public sealed partial class SequentialRayTracer
                 ?? throw new NotSupportedException("吸收基底中的透射复电场尚未支持。");
             return new(incoming, sample.Direction, normal, s, p, new(response.S, response.P));
         }
-        if (incidentMaterial.ExtinctionCoefficient(wavelength) != 0
-            || surface.MaterialAfter.ExtinctionCoefficient(wavelength) != 0)
-            throw new NotSupportedException("Absorbing interface polarization requires complex-index power transport, which is not implemented.");
+        var incidentExtinction = incidentMaterial.ExtinctionCoefficient(wavelength);
+        var transmittedExtinction = surface.MaterialAfter.ExtinctionCoefficient(wavelength);
+        if ((incidentExtinction != 0 || transmittedExtinction != 0) && !allowHomogeneousAbsorbingPower)
+            throw new NotSupportedException("Absorbing interface polarization requires complex-index electric-field transport, which is not implemented; homogeneous power is a separate explicit contract.");
         var cosine = Math.Clamp(Math.Abs(VectorDot(incoming, normal) / (incoming.Length * normal.Length)), 0, 1);
         // Explicit scalar coatings already attenuate the ray. Their declared
         // non-polarizing response replaces bare-interface loss; never apply it twice.
@@ -170,12 +172,15 @@ public sealed partial class SequentialRayTracer
             return new(incoming, sample.Direction, normal,
                 kind == RayInteractionKind.Transmitted ? 1 : -1, 1, new(Amplitude(-r, t), Amplitude(r, t)));
         }
-        var fresnel = FresnelPower.Evaluate(n1, n2, cosine);
-        if ((kind == RayInteractionKind.TotalInternalReflection) != fresnel.TotalInternalReflection)
+        var absorbingPower = incidentExtinction != 0 || transmittedExtinction != 0;
+        var fresnel = absorbingPower
+            ? FresnelPower.EvaluateHomogeneousPower(new(n1, incidentExtinction), new(n2, transmittedExtinction), cosine)
+            : FresnelPower.Evaluate(n1, n2, cosine);
+        if (!absorbingPower && (kind == RayInteractionKind.TotalInternalReflection) != fresnel.TotalInternalReflection)
             throw new InvalidOperationException("Traced interaction and Fresnel propagation disagree.");
         return new(incoming, sample.Direction, normal,
-            fresnel.TotalInternalReflection ? fresnel.ReflectionS : fresnel.TransmissionS,
-            fresnel.TotalInternalReflection ? fresnel.ReflectionP : fresnel.TransmissionP,
+            kind == RayInteractionKind.TotalInternalReflection ? fresnel.ReflectionS : fresnel.TransmissionS,
+            kind == RayInteractionKind.TotalInternalReflection ? fresnel.ReflectionP : fresnel.TransmissionP,
             new(Amplitude(fresnel.ReflectionS, fresnel.TransmissionS), Amplitude(fresnel.ReflectionP, fresnel.TransmissionP)));
 
         static ThinFilmAmplitude Amplitude(Complex r, Complex t)

@@ -74,8 +74,10 @@ public sealed class FoucaultPlotControl : Control, IReadOnlyChartAutomationSourc
         var stepX = xs.Length > 1 ? xs[1] - xs[0] : 2;
         var stepY = ys.Length > 1 ? ys[1] - ys[0] : 2;
 
-        double MapX(double x) => plot.Left + (((x + 1) / 2) * plot.Width);
-        double MapY(double y) => plot.Bottom - (((y + 1) / 2) * plot.Height);
+        var xMin = xs[0] - stepX / 2; var xMax = xs[^1] + stepX / 2;
+        var yMin = ys[0] - stepY / 2; var yMax = ys[^1] + stepY / 2;
+        double MapX(double x) => plot.Left + (x - xMin) / (xMax - xMin) * plot.Width;
+        double MapY(double y) => plot.Bottom - (y - yMin) / (yMax - yMin) * plot.Height;
 
         var maximumIntensity = MaximumIntensity;
         foreach (var point in Series.Points)
@@ -95,18 +97,19 @@ public sealed class FoucaultPlotControl : Control, IReadOnlyChartAutomationSourc
         context.DrawRectangle(null, axisPen, plot);
         for (var index = 0; index <= 2; index++)
         {
-            var value = -1 + index;
-            var x = MapX(value);
-            var y = MapY(value);
-            var xText = Text(value.ToString("0.0", CultureInfo.InvariantCulture), 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
-            var yText = Text(value.ToString("0.0", CultureInfo.InvariantCulture), 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
+            var xv = xMin + (xMax - xMin) * index / 2;
+            var yv = yMin + (yMax - yMin) * index / 2;
+            var x = MapX(xv);
+            var y = MapY(yv);
+            var xText = Text(xv.ToString("G4", CultureInfo.InvariantCulture), 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
+            var yText = Text(yv.ToString("G4", CultureInfo.InvariantCulture), 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
             context.DrawText(xText, new Point(x - (xText.Width / 2), plot.Bottom + 5));
             context.DrawText(yText, new Point(plot.Left - yText.Width - 7, y - (yText.Height / 2)));
         }
 
-        var xLabel = Text("相对光瞳位置", 12, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
+        var xLabel = Text(Series.XAxisLabel, 12, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         context.DrawText(xLabel, new Point(plot.Center.X - (xLabel.Width / 2), plot.Bottom + 30));
-        var yLabel = Text("相对光瞳位置", 12, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
+        var yLabel = Text(Series.YAxisLabel, 12, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         var yCenter = new Point(plot.Left - 48, plot.Center.Y);
         using (context.PushTransform(Matrix.CreateRotation(-Math.PI / 2, yCenter)))
         {
@@ -132,7 +135,8 @@ public sealed class FoucaultPlotControl : Control, IReadOnlyChartAutomationSourc
         }
 
         context.DrawRectangle(null, new Pen(ThemeBrush(ThemeResourceBindings.PlotAxis, Brushes.Black), 0.7), bar);
-        var title = Text(Logarithmic ? "相对强度 (dB)" : "相对强度", 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
+        var quantityLabel = string.IsNullOrWhiteSpace(Series?.ValueLabel) ? "相对强度" : Series.ValueLabel;
+        var title = Text(Logarithmic ? quantityLabel + " (dB)" : quantityLabel, 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         context.DrawText(title, new Point(bar.Left - 4, bar.Top - 24));
         for (var index = 0; index <= 10; index++)
         {

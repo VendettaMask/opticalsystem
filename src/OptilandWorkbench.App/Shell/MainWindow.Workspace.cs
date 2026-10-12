@@ -94,11 +94,17 @@ public sealed partial class MainWindow
     private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
     {
         Dispatcher.UIThread.Post(RefreshStatus);
+        if (args.FileSwitched) Dispatcher.UIThread.Post(() => OnRecoveryTick(null, EventArgs.Empty));
     }
 
     private void OnWorkspaceStatusChanged(object? sender, EventArgs args)
     {
         Dispatcher.UIThread.Post(RefreshStatus);
+        Dispatcher.UIThread.Post(() =>
+        {
+            if (!_closed && !_application.Documents.GetRecoveryState().IsDirty)
+                OnRecoveryTick(null, EventArgs.Empty);
+        });
     }
 
     private void OnWorkspacePersistenceFailed(object? sender, WorkspacePersistenceFailedEventArgs args)

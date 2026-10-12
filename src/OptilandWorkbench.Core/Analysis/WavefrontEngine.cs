@@ -66,6 +66,18 @@ public sealed record WavefrontReferenceSphere(
 
 public static class WavefrontEngine
 {
+    // Explicit image-side plane reference, without toggling the optic's physical
+    // afocal flag, changing its source identity or detaching a shared snapshot.
+    internal static WavefrontResult GenerateImagePlaneUniform(Optic optic, (double Hx, double Hy) field,
+        Wavelength wavelength, int sampling, bool aimAtStop)
+    {
+        var pupils = Enumerable.Range(0, sampling).SelectMany(row => Enumerable.Range(0, sampling)
+            .Select(column => new PupilSample(-1 + (2d * column + 1) / sampling,
+                -1 + (2d * row + 1) / sampling, 1)))
+            .Where(p => p.X * p.X + p.Y * p.Y <= 1).ToArray();
+        return GenerateChiefRay(optic, field, wavelength, pupils, aimAtStop, forceReferencePlane: true)
+            with { PupilGrid = new(sampling, true, false, 1), SourceIdentity = PupilSourceIdentity.Capture(optic) };
+    }
     public static WavefrontResult GenerateChiefRay(
         Optic optic,
         (double Hx, double Hy) field,
@@ -210,7 +222,8 @@ public static class WavefrontEngine
         (double X, double Y)? resolvedRealImageLaunch = null,
         WavefrontReferenceSphere? referenceSphere = null,
         bool usePolarization = false,
-        Wavelength? referenceWavelength = null)
+        Wavelength? referenceWavelength = null,
+        bool forceReferencePlane = false)
     {
         var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
             field.Hx,
@@ -233,7 +246,7 @@ public static class WavefrontEngine
             : optic.SequentialRayTracer.TraceFinalSamples(optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
                 field.Hx, field.Hy, 0, 0, referenceWavelength.Micrometers, aimAtStop, resolvedRealImageLaunch)).Single()
                 ?? throw new InvalidOperationException("Reference chief ray did not reach the image surface.");
-        if (optic.ImageSpaceAfocal)
+        if (optic.ImageSpaceAfocal || forceReferencePlane)
         {
             return GenerateAfocalChiefRay(
                 optic,
@@ -415,7 +428,8 @@ public static class WavefrontEngine
                 pupilPosition.Z,
                 opdWaves,
                 intensity,
-                Dot(Normalize(ray.Direction), chiefDirection)) { LaunchIntensity = bundle.Rays[index].Intensity });
+                Dot(Normalize(ray.Direction), chiefDirection))
+                { LaunchIntensity = bundle.Rays[index].Intensity, ImageDirection = ray.Direction });
         }
 
         return new WavefrontResult(

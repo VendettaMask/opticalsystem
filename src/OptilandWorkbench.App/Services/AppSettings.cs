@@ -55,6 +55,8 @@ public sealed class AppSettings
 
     public void NormalizeDisplaySettings()
     {
+        LeftPaneWidth = Math.Clamp(double.IsFinite(LeftPaneWidth) ? LeftPaneWidth : UiDensity.SystemOptionsPreferredWidth,
+            UiDensity.SystemOptionsMinimumWidth, UiDensity.SystemOptionsMaximumWidth);
         Theme = ThemeRegistry.NormalizeSettingsValue(Theme);
         DecimalPlaces = Math.Clamp(DecimalPlaces, 0, 15);
         UpperScientificExponent = Math.Clamp(UpperScientificExponent, 1, 15);

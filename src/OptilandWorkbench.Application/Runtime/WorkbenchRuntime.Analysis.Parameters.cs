@@ -907,7 +907,7 @@ public partial class WorkbenchRuntime
                     1_000_000,
                     0.1),
                 ChoiceParameter("Rotation", "旋转", "0", new[] { "0", "90", "180", "270" }),
-                BoolParameter("UsePolarization", "偏振加权（标量近似，Experimental）", "false"),
+                BoolParameter("UsePolarization", "使用偏振（按系统输入，受限）", "false"),
                 BoolParameter("UseCentroid", "使用质心", "false"),
                 ChoiceParameter(
                     "WavelengthNumber",
@@ -942,7 +942,7 @@ public partial class WorkbenchRuntime
                 IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
                 IntParameter("FieldNumber", "视场", "1", 1, 256),
                 ChoiceParameter("ProfileType", "截面", "X", new[] { "X", "Y", "Both" }),
-                BoolParameter("UsePolarization", "偏振加权（标量近似，Experimental）", "false"),
+                BoolParameter("UsePolarization", "使用偏振（按系统输入，受限）", "false"),
                 BoolParameter("UseCentroid", "使用质心", "false")
             },
             "Huygens MTF" => new[]
@@ -1034,6 +1034,7 @@ public partial class WorkbenchRuntime
                 ChoiceParameter("Apodization", "偏振", "无", new[] { "无", "高斯" }),
                 BoolParameter("ReferenceChiefRay", "参考主光线", "false"),
                 BoolParameter("UseExitPupilShape", "使用出瞳形状", "true"),
+                ChoiceParameter("ExitPupilGeometry", "出瞳模型", "F 数近似", new[] { "F 数近似", "三维光阑像" }),
                 ChoiceParameter(
                     "WavelengthNumber",
                     "波长",
@@ -1067,6 +1068,11 @@ public partial class WorkbenchRuntime
             },
             "Foucault Analysis" => new[]
             {
+                ChoiceParameter("FoucaultPropagation", "传播方式", "焦面 FFT 再成像",
+                    new[] { "焦面 FFT 再成像", "物理平面标量角谱", "物理平面矢量角谱" }),
+                DoubleParameter("KnifeDistanceMillimeters", "参考面至刀口：mm", "0", 0, 1_000_000, 1),
+                DoubleParameter("ObservationDistanceMillimeters", "刀口至观察面：mm", "0", 0, 1_000_000, 1),
+                DoubleParameter("ObservationHalfWidthMillimeters", "观察半宽：mm（0 自动）", "0", 0, 1_000_000, 0.1),
                 ChoiceParameter(
                     "Sampling",
                     "采样",

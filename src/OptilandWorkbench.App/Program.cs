@@ -8,7 +8,38 @@ internal static class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        WindowsStarOptFileAssociation.TryRegister();
+        var productId = WindowsInstallationLifetime.ProductId;
+        WindowsInstallationLifetime installationLifetime;
+        try
+        {
+            productId = WindowsInstallationLifetime.ReadProductId(AppContext.BaseDirectory);
+            if (OperatingSystem.IsWindows())
+            {
+                var recovered = WindowsInstallationRecovery.RecoverPending(AppContext.BaseDirectory, productId);
+                if (recovered.Recovered && !args.Contains("--verify-installation", StringComparer.Ordinal)
+                    && (recovered.ActiveExecutable is null || !Path.GetDirectoryName(recovered.ActiveExecutable)!
+                        .Equals(Path.TrimEndingDirectorySeparator(AppContext.BaseDirectory), StringComparison.OrdinalIgnoreCase)))
+                    throw new InvalidOperationException("上次中断安装已恢复。请从恢复后的快捷方式启动旧版本，或重新运行安装包完成升级。");
+            }
+            installationLifetime = WindowsInstallationLifetime.Enter(productId);
+        }
+        catch (Exception exception) when (exception is InvalidOperationException or IOException or UnauthorizedAccessException
+            or System.Text.Json.JsonException or System.Security.SecurityException or KeyNotFoundException)
+        {
+            if (args.Contains("--verify-installation", StringComparer.Ordinal))
+                Console.Error.WriteLine(exception.Message);
+            else WindowsInstallationLifetime.ShowBlockedStartup(exception.Message);
+            Environment.ExitCode = 75;
+            return;
+        }
+        using var lifetime = installationLifetime;
+        if (args.Contains("--verify-installation", StringComparer.Ordinal))
+        {
+            InstallationVerification.RunAsync(args).GetAwaiter().GetResult();
+            return;
+        }
+        if (productId == WindowsInstallationLifetime.ProductId)
+            WindowsStarOptFileAssociation.TryRegister();
         if (args.Contains("--register-file-associations", StringComparer.OrdinalIgnoreCase))
         {
             return;

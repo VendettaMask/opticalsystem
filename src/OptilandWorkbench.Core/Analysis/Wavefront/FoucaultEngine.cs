@@ -6,6 +6,7 @@ using OptilandWorkbench.Core.Services;
 namespace OptilandWorkbench.Core.Analysis;
 
 public enum FoucaultKnifeEdge { HorizontalAbove, HorizontalBelow, VerticalLeft, VerticalRight }
+public enum FoucaultPropagationMode { FocalFourierReimage, SpatialAngularSpectrum, VectorAngularSpectrum }
 
 public sealed record FoucaultResult(double[,] Intensity, int FourierGridSize,
     double ImageSpacingXMicrometers, double ImageSpacingYMicrometers,
@@ -13,21 +14,34 @@ public sealed record FoucaultResult(double[,] Intensity, int FourierGridSize,
     int VignettedSamples, int CoherentChannels)
 {
     public double KnifeThroughput => OutputPower / InputPower;
+    public FoucaultPropagationMode PropagationMode { get; init; }
+    public double ObservationHalfWidthMicrometers { get; init; }
+    public double TransverseProjectionDifferenceNormIntegral { get; init; }
 }
 
 /// <summary>Focal FFT knife test followed by ideal pupil reimaging. Homogeneous-media
 /// Jones transport comes from the formal tracer; this is not general vector POP.</summary>
-public static class FoucaultEngine
+public static partial class FoucaultEngine
 {
     public static FoucaultResult Compute(Optic optic, (double Hx, double Hy) field,
         Wavelength wavelength, int sampling, FoucaultKnifeEdge knife, double positionMicrometers,
-        bool usePolarization = false)
+        bool usePolarization = false,
+        FoucaultPropagationMode propagationMode = FoucaultPropagationMode.FocalFourierReimage,
+        double knifeDistanceMillimeters = 0, double observationDistanceMillimeters = 0,
+        double observationHalfWidthMillimeters = 0)
     {
         ArgumentNullException.ThrowIfNull(optic);
         ArgumentNullException.ThrowIfNull(wavelength);
         if (sampling is < 8 or > 512) throw new ArgumentOutOfRangeException(nameof(sampling));
         if (!double.IsFinite(positionMicrometers)) throw new ArgumentOutOfRangeException(nameof(positionMicrometers));
         if (!Enum.IsDefined(knife)) throw new ArgumentOutOfRangeException(nameof(knife));
+        if (!Enum.IsDefined(propagationMode)) throw new ArgumentOutOfRangeException(nameof(propagationMode));
+        if (propagationMode != FoucaultPropagationMode.FocalFourierReimage)
+            return ComputeSpatial(optic, field, wavelength, sampling, knife, positionMicrometers,
+                usePolarization, propagationMode, knifeDistanceMillimeters,
+                observationDistanceMillimeters, observationHalfWidthMillimeters);
+        if (knifeDistanceMillimeters != 0 || observationDistanceMillimeters != 0 || observationHalfWidthMillimeters != 0)
+            throw new ArgumentException("Physical plane distances/extent require an angular-spectrum propagation mode.");
         if (optic.ImageSpaceAfocal)
             throw new NotSupportedException("Foucault 的 µm 刀口位于有焦像面；无焦系统须先定义聚焦/再成像光学系统。");
         var wavefront = WavefrontEngine.GenerateChiefRayUniform(optic, field, wavelength,

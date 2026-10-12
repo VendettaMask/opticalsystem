@@ -224,12 +224,15 @@ public sealed partial class MainWindow : Window
 
             SaveLayout();
             await _panels.SaveCurrentSessionAsync();
+            _recoveryTimer?.Stop();
+            if (_recovery is not null) await _recovery.StopAsync(cleanExit: true);
             _closeAfterPersistence = true;
             Close();
         }
         catch (Exception exception)
         {
             _statusText.Text = $"关闭前保存失败：{exception.Message}";
+            _recoveryTimer?.Start();
         }
         finally
         {
@@ -240,6 +243,8 @@ public sealed partial class MainWindow : Window
     private void OnClosed(object? sender, EventArgs args)
     {
         _closed = true;
+        _recoveryTimer?.Stop();
+        if (_recoveryTimer is not null) _recoveryTimer.Tick -= OnRecoveryTick;
         Opened -= OnOpened;
         Closing -= OnClosing;
         Closed -= OnClosed;

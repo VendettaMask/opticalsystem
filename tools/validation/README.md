@@ -1,5 +1,7 @@
 # 冻结证据与准备输入验收
 
+Windows 安装升级验收另见 [2026-10-12 报告](../../docs/WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)和 `scripts/verify-windows-upgrade.ps1`。该脚本仅允许独立测试产品标识，实际安装矩阵 48/48 与正式安装相关定向回归各 32/32 分别记录，不修改冻结光学账本，也不替代光学完整回归。
+
 2026-10-11 新增 Git 字节检查，核对原件及 Git 提交/索引，避免工作区完整但远端 blob 不完整。当前 E04 已在原 2668 条清单下通过索引和全新检出，见[修复记录](../../docs/FROZEN_GIT_INTEGRITY_REPAIR_2026-10-11.md)。10 月 10 日的专用 Collect 脚本保留原验收修订和 2660/2668 条件，不用当前通过改写旧账本。
 
 ```powershell
@@ -29,3 +31,23 @@ pwsh -NoProfile -File tools/validation/CollectFftEnergyGridRepair20261010.ps1 -R
 ```
 
 Huygens 的五项独立测试只验证测量能够完成，不证明精度通过，不加入正式全量计数。任何未通过的传播候选都不供应正式计算。详见[积分修复和传播对照](../../docs/FFT_ENERGY_GRID_INTEGRITY_REPAIR_2026-10-10.md)。
+
+## Huygens 偏振修复严格复验
+
+`CollectHuygensPolarizationRepair20261012.ps1` 要求最终默认构建、正式完整 Release、完整比较工具及 Debug 相关 TRX 已经完成；逐身份保留旧正式与工具集合，核对原两个 1024 点非偏振模式的数值和固定判据、306 份既有原生捕获、源码及默认 Core 哈希，以及冻结工作区和 Git 原字节。它另保留修复前两项失败、首次全量失败及相应源码版本，不能用定向通过替代完整验收。
+
+```powershell
+pwsh -NoProfile -File tools/validation/CollectHuygensPolarizationRepair20261012.ps1 -RepositoryRoot . -EvidenceRoot artifacts/validation/huygens-polarization-repair-20261012
+```
+
+入口只核验既有结果，不运行 Zemax、连接许可或生成新原生参考；已有同阶段账本存在时拒绝覆盖。非偏振平均功率、透明介质相干 XYZ 逐分量传播与完整吸收复电场是不同能力，不因功率或内部数学回归通过而声称获得全部原生矢量认证。
+
+## 三维出瞳与空间刀口扩展复验
+
+`CollectPupilFoucaultExtension20261012.ps1` 核验扩展阶段的默认两配置构建、完整 Release、比较工具、相关 Debug 和实际绘图 TRX。它逐身份和次数保留上一阶段 4697 项正式测试及 182 项工具测试，新增 36 项；Debug 保留原 440 项并另选 78 项既有案例及 36 项新增案例，不将集合相加。另核实宽窗边界修正前的失败和 4731 项完整通过，不能把旧阶段通过替代修正后的 4733 项验收。既有界面参数清单精确补入新增项，原数值断言和容差不变。
+
+```powershell
+pwsh -NoProfile -File tools/validation/CollectPupilFoucaultExtension20261012.ps1 -RepositoryRoot . -EvidenceRoot artifacts/validation/pupil-foucault-extension-20261012
+```
+
+该入口另核实 306 份原生捕获、冻结工作区/Git 原字节、默认 Core 副本、源码、实际绘图截图以及上一阶段账本的固定身份，保留夹具和界面契约的失败尝试，拒绝覆盖同阶段账本。它不连接 Zemax 或新建原生参考。几何最小二乘光阑像、均匀介质 Maxwell 角谱和理想薄幅度刀口，不等于唯一精确波动出瞳、全系统矢量 POP 或真实刀刃电磁散射；新认证与整体发布检查仍单列。

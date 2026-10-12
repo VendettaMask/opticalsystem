@@ -116,6 +116,12 @@ public interface IOpticalDocumentService
 
     Task SaveAsync(string path, CancellationToken cancellationToken = default);
 
+    DocumentRecoveryState GetRecoveryState();
+
+    Task<DocumentRecoveryState?> WriteRecoveryCopyAsync(string path, CancellationToken cancellationToken = default);
+
+    Task RestoreRecoveryCopyAsync(string path, CancellationToken cancellationToken = default);
+
     bool Undo();
 
     bool Redo();

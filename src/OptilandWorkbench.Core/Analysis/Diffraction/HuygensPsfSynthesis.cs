@@ -35,6 +35,8 @@ internal static class HuygensPsfSynthesis
         var values = new double[imageSize, imageSize];
         var idealPeakWeight = 0.0;
         var workingFNumber = 0.0;
+        HuygensPolarizationMode? polarizationMode = null;
+        var finiteCellHuygensUsed = true;
         foreach (var wavelength in wavelengths)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
@@ -48,6 +50,10 @@ internal static class HuygensPsfSynthesis
                 pupilSampling, imageSize, pixelPitchMillimeters, usePolarization,
                 aimAtStop: optic.RayAimingEnabled, referenceWavelength: referenceWavelength,
                 imageCenterOffset: imageCenterOffset);
+            if (polarizationMode is { } previous && previous != psf.HuygensPolarization)
+                throw new AnalysisDataUnavailableException("Huygens PSF", "spectral components use different polarization models");
+            polarizationMode = psf.HuygensPolarization;
+            finiteCellHuygensUsed &= psf.FiniteCellHuygensUsed;
             workingFNumber += psf.WorkingFNumber / wavelengths.Count;
             idealPeakWeight += weight;
             for (var row = 0; row < imageSize; row++)
@@ -63,6 +69,7 @@ internal static class HuygensPsfSynthesis
             optic.ImageSpaceAfocal ? pixelPitchMillimeters : pixelPitchMillimeters * 1000,
             SampleSpacingUnit: optic.ImageSpaceAfocal
                 ? AnalysisAxisUnit.Milliradian : AnalysisAxisUnit.Micrometer)
-            { UseRayAiming = optic.RayAimingEnabled }, idealPeakWeight);
+            { UseRayAiming = optic.RayAimingEnabled, HuygensPolarization = polarizationMode ?? HuygensPolarizationMode.None,
+                FiniteCellHuygensUsed = finiteCellHuygensUsed }, idealPeakWeight);
     }
 }

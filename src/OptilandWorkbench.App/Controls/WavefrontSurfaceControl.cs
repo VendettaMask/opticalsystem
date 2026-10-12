@@ -59,6 +59,15 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
 
     public double SpatialDisplayScaleY { get; init; } = 1;
 
+    public IReadOnlyList<AnalysisSpatialPointDto>? SpatialGeometry { get; init; }
+    private Dictionary<(double X, double Y), AnalysisSpatialPointDto>? _spatialLookup;
+    internal AnalysisSpatialPointDto? SpatialPoint(double x, double y)
+    {
+        if (SpatialGeometry is null) return null;
+        _spatialLookup ??= SpatialGeometry.ToDictionary(p => (p.SourceX, p.SourceY));
+        return _spatialLookup.GetValueOrDefault((x, y));
+    }
+
     internal (double X, double Y) SpatialDisplayScales => (
         double.IsFinite(SpatialDisplayScaleX) && SpatialDisplayScaleX > 0 ? SpatialDisplayScaleX : 1,
         double.IsFinite(SpatialDisplayScaleY) && SpatialDisplayScaleY > 0 ? SpatialDisplayScaleY : 1);
@@ -342,6 +351,11 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
         double maximum,
         bool contourMode)
     {
+        if (SpatialGeometry is not null)
+        {
+            RenderSpatialPlanar(context, grid, minimum, maximum, contourMode);
+            return;
+        }
         var plot = PlanarPlotRect();
         if (plot.Width <= 1 || plot.Height <= 1)
         {
@@ -444,12 +458,14 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
 
         ProjectedPoint Project(int row, int column)
         {
-            var x = (grid.Xs.Length <= 1 ? 0 : ((2.0 * column) / (grid.Xs.Length - 1)) - 1) * SpatialDisplayScales.X;
-            var y = (grid.Ys.Length <= 1 ? 0 : ((2.0 * row) / (grid.Ys.Length - 1)) - 1) * SpatialDisplayScales.Y;
+            var geometry = SpatialPoint(grid.Xs[column], grid.Ys[row]);
+            var x = geometry?.X ?? (grid.Xs.Length <= 1 ? 0 : ((2.0 * column) / (grid.Xs.Length - 1)) - 1) * SpatialDisplayScales.X;
+            var y = geometry?.Y ?? (grid.Ys.Length <= 1 ? 0 : ((2.0 * row) / (grid.Ys.Length - 1)) - 1) * SpatialDisplayScales.Y;
             var rotatedX = (x * cosYaw) - (y * sinYaw);
             var rotatedY = (x * sinYaw) + (y * cosYaw);
             var normalizedValue = (grid.Values[row, column] - minimum) / range;
-            var z = Math.Clamp(normalizedValue, 0, 1) * heightScale;
+            // Geometry mode uses real relative depth; OPD is color, not height.
+            var z = geometry?.Z ?? Math.Clamp(normalizedValue, 0, 1) * heightScale;
             return new ProjectedPoint(
                 new Point(
                     center.X + (rotatedX * spatialScale * 0.78),
@@ -470,7 +486,7 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
                 center.X + (rotatedX * spatialScale * 0.78),
                 center.Y
                 + (rotatedY * spatialScale * 0.78 * sinPitch)
-                - (z * heightScale * spatialScale * cosPitch));
+                - (z * (SpatialGeometry is null ? heightScale : 1) * spatialScale * cosPitch));
         }
 
         var triangles = new List<SurfaceTriangle>();
@@ -541,6 +557,66 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
                 third.Screen,
                 (first.Depth + second.Depth + third.Depth) / 3,
                 (first.Value + second.Value + third.Value) / 3));
+        }
+    }
+
+    private void RenderSpatialPlanar(DrawingContext context, SurfaceGrid grid,
+        double minimum, double maximum, bool contour)
+    {
+        var plot = PlanarPlotRect(); var range = Math.Max(1e-12, maximum - minimum);
+        Point Screen(AnalysisSpatialPointDto p) => new(plot.Center.X + p.X * plot.Width / 2,
+            plot.Center.Y - p.Y * plot.Height / 2);
+        using (context.PushClip(plot))
+        for (var row = 0; row < grid.Ys.Length - 1; row++)
+        for (var column = 0; column < grid.Xs.Length - 1; column++)
+        {
+            var corners = new[] { (row, column), (row, column + 1), (row + 1, column + 1), (row + 1, column) };
+            var validCorners = corners.Where(v => double.IsFinite(grid.Values[v.Item1, v.Item2])
+                && SpatialPoint(grid.Xs[v.Item2], grid.Ys[v.Item1]) is not null).ToArray();
+            if (validCorners.Length == 3) Draw(validCorners);
+            else if (validCorners.Length == 4)
+            {
+                Draw(new[] { corners[0], corners[1], corners[2] });
+                Draw(new[] { corners[0], corners[2], corners[3] });
+            }
+        }
+        DrawPlanarAxes(context, plot, -1, 1, -1, 1, drawGrid: false);
+        var bar = new Rect(Math.Min(Bounds.Width - 76, plot.Right + 38), plot.Top + 28,
+            24, Math.Max(80, plot.Height - 56));
+        if (contour) DrawContourLegend(context, bar, minimum, maximum);
+        else DrawColorBar(context, bar, minimum, maximum);
+
+        void Draw((int Row, int Column)[] vertices)
+        {
+            var points = vertices.Select(v => SpatialPoint(grid.Xs[v.Column], grid.Ys[v.Row])).ToArray();
+            var values = vertices.Select(v => grid.Values[v.Row, v.Column]).ToArray();
+            if (points.Any(p => p is null) || values.Any(v => !double.IsFinite(v))) return;
+            var positions = points.Select(p => Screen(p!)).ToArray();
+            if (!contour)
+            {
+                var shape = new StreamGeometry();
+                using (var stream = shape.Open())
+                {
+                    stream.BeginFigure(positions[0], true); stream.LineTo(positions[1]);
+                    stream.LineTo(positions[2]); stream.EndFigure(true);
+                }
+                context.DrawGeometry(new SolidColorBrush(JetColor((values.Average() - minimum) / range)), null, shape);
+                return;
+            }
+            for (var levelIndex = 0; levelIndex < ContourLevelCount; levelIndex++)
+            {
+                var fraction = levelIndex / (double)(ContourLevelCount - 1); var level = minimum + range * fraction;
+                var intersections = new List<Point>();
+                for (var i = 0; i < 3; i++)
+                {
+                    var j = (i + 1) % 3;
+                    if ((values[i] < level) == (values[j] < level)) continue;
+                    var t = (level - values[i]) / (values[j] - values[i]);
+                    intersections.Add(positions[i] + (positions[j] - positions[i]) * t);
+                }
+                if (intersections.Count == 2)
+                    context.DrawLine(new Pen(new SolidColorBrush(JetColor(fraction)), 1.15), intersections[0], intersections[1]);
+            }
         }
     }
 
@@ -722,6 +798,11 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
         context.DrawLine(axisPen, origin, xEnd);
         context.DrawLine(axisPen, origin, yEnd);
         context.DrawLine(axisPen, origin, zEnd);
+        if (SpatialGeometry is not null)
+        {
+            var depthLabel = Text("Z 深度（归一化）", 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
+            context.DrawText(depthLabel, ClampLabelPosition(new Point(zEnd.X, zEnd.Y - depthLabel.Height), depthLabel, plot));
+        }
 
         var xLabel = Text(XAxisLabel, 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         var yLabel = Text(YAxisLabel, 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));

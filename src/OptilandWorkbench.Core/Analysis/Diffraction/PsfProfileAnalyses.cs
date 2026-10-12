@@ -180,9 +180,7 @@ public sealed class HuygensPsfCrossSectionAnalysis : BaseAnalysis
             : 0;
         return PsfProfilePresentation.CreateCrossSectionData(
             Name,
-            _usePolarization
-                ? "Polarization-weighted scalar Huygens PSF 截面（Experimental）"
-                : "惠更斯 PSF 截面图",
+            _usePolarization ? (source.PlotOptions?.Title ?? "惠更斯 PSF") + " 截面图" : "惠更斯 PSF 截面图",
             source,
             _profileType,
             graphScaleMicrometers: graphScaleMicrometers);

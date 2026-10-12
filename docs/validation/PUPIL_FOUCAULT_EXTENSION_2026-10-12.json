@@ -1,0 +1,431 @@
+{
+  "date": "2026-10-12",
+  "baseHead": "1d5847578c3b2a308e64d7000aa6d7af9df5e43f",
+  "gitState": "Uncommitted local extension; not pushed",
+  "scope": "Traced 3-D least-squares geometric stop image; afocal physical-plane scalar and homogeneous nonmagnetic Maxwell vector angular spectrum, with ideal thin amplitude screen",
+  "builds": [
+    {
+      "configuration": "Debug",
+      "path": "artifacts/validation/pupil-foucault-extension-20261012/build-debug-boundary-fixed.log",
+      "sha256": "b9b6dd6f1e5a848f4a9582ccc847f05960b53886c166b9a6808ac38348a795e1",
+      "warnings": 0,
+      "errors": 0
+    },
+    {
+      "configuration": "Release",
+      "path": "artifacts/validation/pupil-foucault-extension-20261012/build-release-boundary-fixed.log",
+      "sha256": "2ee67586a6ed532b66193e48b024a96fdb356ce4539bfdcd3492dfe88d515d54",
+      "warnings": 0,
+      "errors": 0
+    }
+  ],
+  "formalRelease": {
+    "path": "artifacts/validation/pupil-foucault-extension-20261012/formal-release-boundary-fixed/formal-release-boundary-fixed.trx",
+    "sha256": "11a01999e3f98b347219270ec3f56eb3da971e18ef962f0bfef34c68c2ebe43f",
+    "total": 4733,
+    "passed": 4733,
+    "failed": 0,
+    "skipped": 0,
+    "start": "2026-10-12T12:40:16.6209663+08:00",
+    "finish": "2026-10-12T13:01:28.7747483+08:00"
+  },
+  "comparisonRelease": {
+    "path": "artifacts/validation/pupil-foucault-extension-20261012/comparison-release-boundary-fixed/comparison-release-boundary-fixed.trx",
+    "sha256": "08bdfdda57622daee3131395c263bb10381186677c806f0d5f1d7269c069b090",
+    "total": 182,
+    "passed": 182,
+    "failed": 0,
+    "skipped": 0,
+    "start": "2026-10-12T13:01:31.9245309+08:00",
+    "finish": "2026-10-12T13:07:41.5276303+08:00"
+  },
+  "debugRelated": {
+    "path": "artifacts/validation/pupil-foucault-extension-20261012/debug-related-boundary-fixed/debug-related-boundary-fixed.trx",
+    "sha256": "09755dd13c6de9f1d9f7cc493d93c12417c707a6c124516d4f4d97b36f6498c8",
+    "total": 554,
+    "passed": 554,
+    "failed": 0,
+    "skipped": 0,
+    "start": "2026-10-12T12:38:30.8337126+08:00",
+    "finish": "2026-10-12T12:40:15.0834834+08:00"
+  },
+  "expandedRendered": {
+    "path": "artifacts/validation/pupil-foucault-extension-20261012/expanded-rendered-boundary-fixed/expanded-rendered-boundary-fixed.trx",
+    "sha256": "e9ddb641ab9e7eb52ddb5a1c9e3f480ae03a206276b19f67a58e662f440c59cd",
+    "total": 36,
+    "passed": 36,
+    "failed": 0,
+    "skipped": 0,
+    "start": "2026-10-12T12:38:21.1428206+08:00",
+    "finish": "2026-10-12T12:38:29.7672825+08:00"
+  },
+  "formalRetention": {
+    "previous": 4697,
+    "current": 4733,
+    "identityOrOccurrenceDifference": 0,
+    "added": [
+      "01baee80-d98a-d408-47fd-87ff5ef151ea|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.VectorGridBudgetAndUnrepresentableWaveNumbersAreRejectedBeforeLargeAllocation",
+      "08dc0cc4-1a76-d445-41c2-60aa64b65e2a|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.EvanescentModeDecaysInsteadOfGrowingAndCarriesNoNormalFlux(vector: True)",
+      "1366b191-bbee-e86b-c3c2-2a5a47960829|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.PropagationHonorsCancellation(vector: False)",
+      "13cf5f1f-0ceb-ac7f-a4ab-e3dc20a6bde3|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.AfocalUnpolarizedVectorShadowIsTheIncoherentMeanOfSystemInputStates",
+      "1a9a1627-1467-c25d-4779-35979a16ba79|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.SpatialParametersHavePhysicalUnitsAndDoNotChangeTheLensMode",
+      "2287937b-24e9-f51d-6b20-733010f5cd4c|OptilandWorkbench.Tests.PupilFoucaultExtensionPanelTests.PhysicalKnifeCoordinatesReachTheTypedApplicationBoundaryAndLogDisplayKeepsIntensity",
+      "2ec35b2f-e40c-bbb6-e676-4a34f26d5fe4|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.ScalarDistanceCompositionAndCommonPhysicalScalePreserveTheField",
+      "459f2891-a542-11bd-f76d-ab88e8fd4fd4|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.ScalarPlaneWaveHasAnalyticPhaseAndNoArtificialPowerLoss(fx: 0, fy: 0, index: 1)",
+      "5167f9ec-6964-d752-287b-140fcc50be9b|OptilandWorkbench.Tests.PupilFoucaultExtensionPanelTests.ExtendedPhysicalPlotsRenderWithRealGeometryAndPhysicalPlaneAxes",
+      "57c4b729-a139-a491-8a6f-b8c90e77daf0|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.GeometricPupilMovesRigidlyWithoutChangingItsShapeOrPhysicalWavefront",
+      "63769049-3a0f-345f-b673-ee5f5f2f3c3d|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.PropagatorsDoNotMutateInputsAndRejectInvalidOrBackwardData",
+      "6cb37185-03a0-daa7-e52b-961f9cbf436d|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.ObliquePWaveRetainsLongitudinalFieldAndCorrectNormalPoyntingFlux(order: -1)",
+      "81eb5b6f-99f4-3060-5eb9-fc367ada8209|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.SpatialCoatingAndBulkTransmissionEnterExactlyOnce(vector: False)",
+      "84e607a9-047f-a09d-80bb-cc4ca6a421e0|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.ScalarPlaneWaveHasAnalyticPhaseAndNoArtificialPowerLoss(fx: -1, fy: 1, index: 1.3999999999999999)",
+      "87c7cfc5-a80d-3eb9-a668-e2f19e0f79bd|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.SpatialScalarBulkAbsorptionIsNotAppliedAgainDuringOutputPropagation",
+      "8b2828b2-ba61-129a-c55d-6c77763d3db7|OptilandWorkbench.Tests.PupilFoucaultExtensionPanelTests.TypedThreeDimensionalGeometryReachesTheRealControlAndKeepsRawCoordinates(display: \"表面\")",
+      "8da700ea-e52e-94d3-c065-ef5036c36faf|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.ThreeDimensionalStopImagePreservesPhysicalWavefrontAndRetainsCurvedDepth",
+      "8eb62e88-7be8-2373-40df-10d6988cd7e7|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.AfocalSpatialKnifeSupportsAllDirectionsAndOpenClosedLimits(knife: HorizontalAbove, sign: 1)",
+      "952b8838-8b8e-bdbb-8a08-5cf634717935|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.EvanescentModeDecaysInsteadOfGrowingAndCarriesNoNormalFlux(vector: False)",
+      "954eb269-6d7c-4806-1b38-1e8e209f04e2|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.PropagationHonorsCancellation(vector: True)",
+      "9b38c894-635f-8669-6afb-70cee0251bba|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.CircularSourceBoundaryWithThreeValidCornersPreservesBothMirrorSymmetries(halfWidth: 1.3)",
+      "9baf8483-b2e1-2834-df12-d0dc20c13757|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.ExplicitProjectionUsesAllThreeInputComponentsAndStrictModeRejectsInconsistentFields",
+      "a6d0b7f3-4aa7-24b9-ff0b-7ddb811ba838|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.PostStopCurvedInterfaceHasAnalyticAxialConjugateAndNonlinearLateralPupilDistortion",
+      "a74b1839-96e6-8deb-a185-395e13fbc562|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.PlaneParallelPlateStopImageMatchesIndependentConjugateAndTiltedDetectorProjection",
+      "b4b3ee17-ddf4-bd68-30c9-b37da7460395|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.ConjugateFitRecoversKnownThreeDimensionalPointAndReportsSkewInsteadOfInventingExactFocus",
+      "bb4b2848-9213-8810-abf1-520e2d009fe9|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.ScalarPlaneWaveHasAnalyticPhaseAndNoArtificialPowerLoss(fx: 1, fy: 0, index: 1)",
+      "c0364877-03ef-0541-5785-1d3fc0eb57f7|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.AfocalSpatialKnifeSupportsAllDirectionsAndOpenClosedLimits(knife: VerticalRight, sign: 1)",
+      "d4f73ad2-241b-e9e8-b5f3-727f8ee4715d|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.AbsorbingInterfaceAndInsufficientPhysicalSamplingRemainExplicitErrors",
+      "d5f94d69-1c45-bb4f-dd14-16dd7797e93a|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.CircularSourceBoundaryWithThreeValidCornersPreservesBothMirrorSymmetries(halfWidth: 0)",
+      "dee3c0f8-70eb-d3d9-b66c-f5ffe672d034|OptilandWorkbench.Tests.PupilFoucaultExtensionPanelTests.TypedThreeDimensionalGeometryReachesTheRealControlAndKeepsRawCoordinates(display: \"等高线\")",
+      "ed475248-a57b-4bbe-afc4-29d2ee6ea751|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.AfocalSpatialKnifeSupportsAllDirectionsAndOpenClosedLimits(knife: VerticalLeft, sign: -1)",
+      "ef9a4ad1-a65c-c2f2-7cd4-4f7b06d74f46|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.SpatialCoatingAndBulkTransmissionEnterExactlyOnce(vector: True)",
+      "f1de2594-b774-e0b9-a56d-d4fd55f1bb50|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.ObliquePWaveRetainsLongitudinalFieldAndCorrectNormalPoyntingFlux(order: 1)",
+      "f8f6d3a9-5b0b-8d09-ae2c-ad0817d8763e|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.HomogeneousAbsorptionMatchesAnalyticComplexWaveNumberWithoutAnInterfaceFallback",
+      "fc75a34c-164c-5d4d-8bbb-77798d748155|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.ScalarRandomFieldMatchesIndependentDirectFourierPropagation",
+      "fc93e5dc-a1fb-ef1f-1bee-b2f944d35564|OptilandWorkbench.Tests.PupilFoucaultExtensionTests.AfocalSpatialKnifeSupportsAllDirectionsAndOpenClosedLimits(knife: HorizontalBelow, sign: -1)"
+    ],
+    "existingUiContractUpdate": "Same connector test identity, exact ordered parameter lists extended by ExitPupilGeometry and four Foucault controls; no tolerance/assertion weakening"
+  },
+  "comparisonRetention": {
+    "previous": 182,
+    "current": 182,
+    "identityOrOccurrenceDifference": 0,
+    "referencesOrTolerancesChanged": false
+  },
+  "debugRetention": {
+    "previous": 440,
+    "current": 554,
+    "identityOrOccurrenceDifference": 0,
+    "additionalExistingSelected": 78,
+    "newFormalCases": 36
+  },
+  "retainedN04": [
+    {
+      "name": "polarized-field3-linear",
+      "relativeL2": 2.698797321508058E-06,
+      "maximumAbsolute": 3.6397173609759026E-07,
+      "nativePoints": 1024
+    },
+    {
+      "name": "polarized-field1-linear",
+      "relativeL2": 4.083419641461817E-07,
+      "maximumAbsolute": 2.2979345254414696E-07,
+      "nativePoints": 1024
+    }
+  ],
+  "defaultCoreCopies": [
+    {
+      "configuration": "Debug",
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "b12f56caee2e8676d4f6660f4a4bea287b1fb89698b5de55f9c3b3e615701c2e"
+    },
+    {
+      "configuration": "Debug",
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "b12f56caee2e8676d4f6660f4a4bea287b1fb89698b5de55f9c3b3e615701c2e"
+    },
+    {
+      "configuration": "Debug",
+      "path": "tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "b12f56caee2e8676d4f6660f4a4bea287b1fb89698b5de55f9c3b3e615701c2e"
+    },
+    {
+      "configuration": "Debug",
+      "path": "tests/OptilandWorkbench.ZemaxComparison.Tests/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "b12f56caee2e8676d4f6660f4a4bea287b1fb89698b5de55f9c3b3e615701c2e"
+    },
+    {
+      "configuration": "Release",
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "75546115c6f3ecfa92abd1fa8d51ff0707f7a8c2a6e402bef6c4816ed9985e2e"
+    },
+    {
+      "configuration": "Release",
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "75546115c6f3ecfa92abd1fa8d51ff0707f7a8c2a6e402bef6c4816ed9985e2e"
+    },
+    {
+      "configuration": "Release",
+      "path": "tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "75546115c6f3ecfa92abd1fa8d51ff0707f7a8c2a6e402bef6c4816ed9985e2e"
+    },
+    {
+      "configuration": "Release",
+      "path": "tests/OptilandWorkbench.ZemaxComparison.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "75546115c6f3ecfa92abd1fa8d51ff0707f7a8c2a6e402bef6c4816ed9985e2e"
+    }
+  ],
+  "sourceHashes": [
+    {
+      "path": "src/OptilandWorkbench.App/Controls/FoucaultPlotControl.cs",
+      "sha256": "24a487be91e43d4830635e248c8a53f8bd66393b6c5efee69a5485fe4277d361"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/Controls/WavefrontSurfaceControl.cs",
+      "sha256": "a9f488b86e0e88746b967cde0bfa3b7acc186cd7f1eac8dbad702d7491619465"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Results.cs",
+      "sha256": "8b1d7dcc6ce54908114bcbb2667e0db32026dc4cf526d8da00e6f95360525162"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Contracts/WorkspaceContracts.cs",
+      "sha256": "6c9bce79fab3f2b25ab060fbbf943e13ea5f3623d85384a63735fe8c59312107"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.cs",
+      "sha256": "b78f83942b230b0c4c12c85877551e1da008b5fc06078494ba5f00273fb1714c"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs",
+      "sha256": "1cf6a5fec20c86347490ef7c67be0a416c92d588a01c09c21843ccb5fcd521f6"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Localization.cs",
+      "sha256": "496e40563496418b133efd39023c81b4c904bcf85962959973a9d82855473de5"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Services/Mapping/WorkbenchMapper.cs",
+      "sha256": "27c34faa8e84948dd05838d4c652a34338ff65b661d5aacc92314d15282990fe"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/AnalysisModels.cs",
+      "sha256": "b2a9e4a94b5ab575df08ff75395bbbf6d8f9b5304fd587f1eddb6a9e94e0c253"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Diffraction/HuygensDiffractionAnalyses.cs",
+      "sha256": "0f44215da9d5b94ac4e1c046673b7ea41e9b104576cb05c5ed46dab6ca5dac76"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Diffraction/HuygensPsfSynthesis.cs",
+      "sha256": "83a9234cc6826abf048a1d813f75534a7ee938958bfb2dc3733e825eb9172a65"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Diffraction/PsfProfileAnalyses.cs",
+      "sha256": "000feb987fe301bf918564b535293c887c47660ae851e802a1eb0ce9620e69e7"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs",
+      "sha256": "aa68814bc65a658e098eca6f5a5afaa9fe648df980a01744caf3736dcffc3a55"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Wavefront/AngularSpectrumEngine.cs",
+      "sha256": "5209ae519f048b653ed35cd0fb14e99754d12d6580591d94923403ac411fe247"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Wavefront/ExitPupilGeometryEngine.cs",
+      "sha256": "06a9b00019200b5cdb1639139694c8f2d8ff2dcf9c1aa6d46bd3fd784aaf80cf"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Wavefront/FoucaultAnalysis.cs",
+      "sha256": "e1cebb6a198e2dc0af70250b75e4ee6942031135678f4855daf984647804f593"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Wavefront/FoucaultEngine.cs",
+      "sha256": "035acc6fc2bc50d2ab4ea23553b6559e2ccc6b628c7356da2fe348074a3c797c"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Wavefront/FoucaultEngine.Spatial.cs",
+      "sha256": "3412ca2aef3875db4d2a55779db47a62aece613f38d664d52441ec68815661fb"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Wavefront/WavefrontAnalyses.cs",
+      "sha256": "00fb64cf29b809ba0d3035d37d664ec4d28bb5506225cc1a5b322afe170f556d"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/WavefrontEngine.cs",
+      "sha256": "8659b60c6aafcd54b05a307c053742414d3e81f8be49bcceca9830694cb08e8f"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Coatings/FresnelPower.cs",
+      "sha256": "9276f18e9978fee1b6ee9402005efb6fb9b5b397fc1012bfebdd31ca195caab8"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs",
+      "sha256": "cd3281e86ca2f9140b6d626ac3f42850815d7f8e91f21ec13e8fd92a56c6ef4a"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.Polarization.cs",
+      "sha256": "d240032528237a25613549f9b2330ab162c65585a4d0c3301afd70473b842df2"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.PupilGeometry.cs",
+      "sha256": "ff8b9547ace2a37a2d89541dae7392cb1653c0e34337be588f139ac6fb26e5a6"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/AnalysisGuiContractTests.cs",
+      "sha256": "b34c2c2efa7db7681245b8e04d9d5a2b6f81bf4eb9baf81a5f08336de7c38bb3"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/HuygensPolarizationRepairTests.cs",
+      "sha256": "f9ebfc4847e1fda4e22d990ca4a533659c2384fbd3260c5982a5d033ae37a314"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/PolarizationPsfLabelTests.cs",
+      "sha256": "3f989991d75e1af18a9cc63edd2cf5aaa2fd50b936850d70251bac96af69edaa"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/PupilFoucaultExtensionPanelTests.cs",
+      "sha256": "c6358d7a91b5a8480a4554c28379dc1c7bcdd2d41d90e81b4543471cc97bc244"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/PupilFoucaultExtensionTests.cs",
+      "sha256": "3a1d832f56eff7133f8661066ba57c6d034226c0901cccdc60ec3b0a6b2b89a8"
+    },
+    {
+      "path": "tools/validation/CollectPupilFoucaultExtension20261012.ps1",
+      "sha256": "311060419cb5af1391c2ca8721e8b60f932c45b81c07124d7e75673479452d6a"
+    }
+  ],
+  "screenshot": {
+    "path": "artifacts/validation/pupil-foucault-extension-20261012/rendered-boundary-fixed/pupil-foucault-extension.png",
+    "sha256": "50b58ba005b1167e03dd8a61bef5bd8095aa66d1d1245446d82821789ab812b9",
+    "producer": "Final 36-case Debug run with actual Skia rendering",
+    "reviewed": true,
+    "nativeCertification": false
+  },
+  "previousPhase": {
+    "path": "docs/validation/HUYGENS_POLARIZATION_REPAIR_2026-10-12.json",
+    "sha256": "e0b4c014848479c422822508b3cb0d7a9740be1582a2c276a95380dc42e89dd4",
+    "unmodified": true
+  },
+  "retainedNative": {
+    "files": 306,
+    "manifestSha256": "9b80b110f9580e660eac8014b6a5f151e2a91ae1c27c54a91867fcbc8a35958f",
+    "newCapture": false
+  },
+  "frozenIntegrity": {
+    "source": "HEAD",
+    "commit": "1d5847578c3b2a308e64d7000aa6d7af9df5e43f",
+    "count": 2668,
+    "matched": 2668,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true,
+    "mismatches": [],
+    "workingTree": {
+      "count": 2668,
+      "matched": 2668,
+      "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "unchanged": true,
+      "mismatches": []
+    }
+  },
+  "boundaryRepair": {
+    "before": {
+      "path": "artifacts/validation/pupil-foucault-extension-20261012/boundary-before-wide/boundary-before-wide.trx",
+      "sha256": "25744c60a7efbe1365893f1700cf7731799d5aa0b9c58cba84d60b979a0ad639",
+      "total": 2,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "start": "2026-10-12T12:26:27.7915543+08:00",
+      "finish": "2026-10-12T12:26:29.8603383+08:00"
+    },
+    "preBoundaryFormal": {
+      "path": "artifacts/validation/pupil-foucault-extension-20261012/formal-release-final/formal-release-final.trx",
+      "sha256": "d334d35ddec517e50518343d5181b5788ef542d03202e2c505c8c549a4a5177b",
+      "total": 4731,
+      "passed": 4731,
+      "failed": 0,
+      "skipped": 0,
+      "start": "2026-10-12T11:58:31.4743534+08:00",
+      "finish": "2026-10-12T12:22:03.4736851+08:00"
+    },
+    "preBoundaryComparison": {
+      "path": "artifacts/validation/pupil-foucault-extension-20261012/comparison-release-final/comparison-release-final.trx",
+      "sha256": "2a3d7fc91deacc60d2f202ee4116bc0e078ed550cef2b8fb3703dd7394b4a878",
+      "total": 182,
+      "passed": 182,
+      "failed": 0,
+      "skipped": 0,
+      "start": "2026-10-12T12:22:06.3430836+08:00",
+      "finish": "2026-10-12T12:28:43.3756855+08:00"
+    },
+    "sourceRecord": {
+      "path": "artifacts/validation/pupil-foucault-extension-20261012/pre-boundary-source.json",
+      "sha256": "f949e67a6c4efd1ad16b4f8a1db41fc2dcf1de2d710dcaca9bdb4df6087d798c"
+    },
+    "cause": "Fixed diagonal omitted supported three-corner triangles; default grid did not expose it, 1.3-mm observation half-width broke mirror symmetry",
+    "fix": "Use cyclic valid-corner triangle for three accepted vertices, in scalar/vector source reconstruction and projected planar display",
+    "oldCompletePassIsNotFinal": true
+  },
+  "firstAttempts": {
+    "core": {
+      "path": "artifacts/validation/pupil-foucault-extension-20261012/initial-core/initial-core.trx",
+      "sha256": "de6892299426463da88c1fcb489834d5e8b3ba818249a740ed0d3caf3da1a442",
+      "total": 55,
+      "passed": 44,
+      "failed": 11,
+      "skipped": 0,
+      "start": "2026-10-12T11:37:41.0996210+08:00",
+      "finish": "2026-10-12T11:37:47.2915236+08:00"
+    },
+    "coreFailure": "New custom-material fixture was initialized before its legacy surface registry was bound",
+    "debug": {
+      "path": "artifacts/validation/pupil-foucault-extension-20261012/debug-related-final/debug-related-final.trx",
+      "sha256": "e08f250163564321b616b06d85e1335818cf0b250aca63972599294eb2f49b54",
+      "total": 552,
+      "passed": 551,
+      "failed": 1,
+      "skipped": 0,
+      "start": "2026-10-12T11:51:02.6168625+08:00",
+      "finish": "2026-10-12T11:52:45.4859745+08:00"
+    },
+    "debugFailures": [
+      {
+        "testId": "d22edbe2-40f4-84e1-e6da-ba5c830a7401",
+        "testName": "OptilandWorkbench.Tests.AnalysisGuiContractTests.ConnectorExposesAndAppliesAnalysisParameters"
+      }
+    ],
+    "sourceRecord": {
+      "path": "artifacts/validation/pupil-foucault-extension-20261012/first-debug-source.json",
+      "sha256": "bdfc3b45e3cbfa8bf2eb8272dac0499d854e5f573bdde458613d267508a7d23f"
+    },
+    "acceptedAsFinal": false
+  },
+  "boundaries": [
+    "Geometric stop image is a local five-ray least-squares conjugate, not a unique exact wave-optical pupil",
+    "OPD and original normalized coordinates remain untouched; typed 3-D geometry is display-only",
+    "Spatial Foucault supports parallel chief-normal planes and a regular band-limited single-branch source reconstruction",
+    "Actual source slopes beyond Nyquist, folded/overlapping/degenerate cells and backward plane distances are explicit errors",
+    "Maxwell projection and an ideal amplitude screen do not solve finite-conductivity knife-edge scattering or full-system POP",
+    "General propagation kernel allows passive homogeneous complex index; formal absorbing-interface and GRIN Jones fields still unsupported",
+    "Electric norm intensity and normal Poynting flux remain distinct; finite FFT windows do not establish infinite-space convergence"
+  ],
+  "currentNativeEnvironment": {
+    "apiConnected": false,
+    "installationOrLicenseProbe": false,
+    "newNativeCertification": false
+  },
+  "excludedFollowup": [
+    "Independent Cooke residual/certification",
+    "Independent Tessar residual/certification"
+  ],
+  "notRun": [
+    "Full Debug",
+    "Laboratory suites",
+    "Installer/package",
+    "Manual desktop acceptance",
+    "Six-file 132-case matrix",
+    "New native capture"
+  ]
+}

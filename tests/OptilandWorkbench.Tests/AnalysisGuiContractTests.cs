@@ -1782,6 +1782,7 @@ public sealed class AnalysisGuiContractTests
                 "Apodization",
                 "ReferenceChiefRay",
                 "UseExitPupilShape",
+                "ExitPupilGeometry",
                 "WavelengthNumber",
                 "FieldNumber",
                 "SurfaceNumber",
@@ -1815,6 +1816,10 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(
             new[]
             {
+                "FoucaultPropagation",
+                "KnifeDistanceMillimeters",
+                "ObservationDistanceMillimeters",
+                "ObservationHalfWidthMillimeters",
                 "Sampling",
                 "Type",
                 "DisplayAs",

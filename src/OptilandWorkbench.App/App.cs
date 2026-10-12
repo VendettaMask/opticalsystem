@@ -686,6 +686,7 @@ public sealed class App : Avalonia.Application
             desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
             splash.Close();
             mainWindow.Activate();
+            await mainWindow.StartDocumentRecoveryAsync();
         }
         catch (Exception exception)
         {

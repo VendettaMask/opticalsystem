@@ -1,5 +1,8 @@
 namespace OptilandWorkbench.Application.Contracts;
 
+public sealed record DocumentRecoveryState(string Name, string? OriginalPath,
+    long Revision, long DocumentGeneration, bool IsDirty);
+
 public enum NonSequentialObjectKind
 {
     SourceRay,
@@ -999,6 +1002,10 @@ public sealed record AnalysisSeriesDto(
     AnalysisAxisQuantity ValueQuantity = AnalysisAxisQuantity.Unspecified,
     AnalysisAxisUnit ValueUnit = AnalysisAxisUnit.Unspecified);
 
+public sealed record AnalysisSpatialPointDto(double SourceX, double SourceY,
+    double X, double Y, double Z, double PhysicalX, double PhysicalY, double PhysicalZ,
+    double FitResidualMillimeters);
+
 public sealed record AnalysisPlotOptionsDto(
     string Title = "",
     bool SymmetricX = false,
@@ -1023,7 +1030,8 @@ public sealed record AnalysisPlotOptionsDto(
     bool DefaultSquareViewport = false,
     double SpatialDisplayScaleX = 1,
     double SpatialDisplayScaleY = 1,
-    bool LogarithmicIntensity = false);
+    bool LogarithmicIntensity = false,
+    IReadOnlyList<AnalysisSpatialPointDto>? SpatialGeometry = null);
 
 public sealed record AnalysisPlotPaneDto(
     string Title,

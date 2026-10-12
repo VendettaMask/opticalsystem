@@ -45,9 +45,12 @@ public sealed partial class SequentialRayTracer
     public ApertureRayDiagnostic DiagnoseApertures(RealRay sourceRay,
         CancellationToken cancellationToken = default,
         bool stopAtIncidentImage = false,
-        bool usePolarization = false)
+        bool usePolarization = false,
+        bool allowHomogeneousAbsorbingPower = false)
     {
         ArgumentNullException.ThrowIfNull(sourceRay);
+        if (allowHomogeneousAbsorbingPower && (!usePolarization || !_optic.Polarization.Unpolarized))
+            throw new ArgumentException("Homogeneous absorbing power is only defined for explicit unpolarized power tracing.");
         cancellationToken.ThrowIfCancellationRequested();
         OpticCapabilityPreflight.EnsureSupported(_optic, OpticCapabilityOperation.RayTrace);
         SequentialTraceMeasurement.Record(1);
@@ -88,7 +91,7 @@ public sealed partial class SequentialRayTracer
                 firstBlocked ??= index;
             if (polarization is not null && !incidentImage && result.Sample.InteractionKind is { } kind)
                 ApplyPolarization(polarization, surface, result.Sample, material, sourceRay.WavelengthNanometers, kind,
-                    positiveTime: coherentInput is not null);
+                    positiveTime: coherentInput is not null, allowHomogeneousAbsorbingPower: allowHomogeneousAbsorbingPower);
             if (index == surfaces.Count - 1) image = result.Sample.ToRayTraceSample();
             ray = result.Ray;
             material = result.OutgoingMaterial;
@@ -104,9 +107,10 @@ public sealed partial class SequentialRayTracer
     }
 
     private static void ApplyPolarization(UnpolarizedPowerTransport transport, OpticalSurface surface,
-        RayTraceSampleValue sample, IMaterial incidentMaterial, double wavelength, RayInteractionKind kind, bool positiveTime = false)
+        RayTraceSampleValue sample, IMaterial incidentMaterial, double wavelength, RayInteractionKind kind, bool positiveTime = false,
+        bool allowHomogeneousAbsorbingPower = false)
     {
-        var response = EvaluatePolarizationInterface(surface, sample, incidentMaterial, wavelength, kind);
+        var response = EvaluatePolarizationInterface(surface, sample, incidentMaterial, wavelength, kind, allowHomogeneousAbsorbingPower);
         transport.Apply(response.Incoming, response.Outgoing, response.Normal,
             positiveTime ? Complex.Conjugate(response.S) : response.S,
             positiveTime ? Complex.Conjugate(response.P) : response.P);

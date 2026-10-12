@@ -60,6 +60,8 @@ public sealed class WindowsPackagingTests
         Assert.Contains("ChineseSimplified.isl", installer);
         Assert.Contains("PrivilegesRequired=lowest", installer);
         Assert.Contains("CloseApplications=no", installer);
+        Assert.Contains("AppMutex={#ApplicationMutex}", installer);
+        Assert.Contains("SetupMutex={#ApplicationMutex}-Setup", installer);
         Assert.Contains("Compression=none", installer);
         Assert.Contains("Uninstallable=yes", installer);
         Assert.Contains("recursesubdirs createallsubdirs", installer);
@@ -73,6 +75,41 @@ public sealed class WindowsPackagingTests
         Assert.Contains("-PassThru -CompactName", builder);
         Assert.Contains("Get-FileHash -LiteralPath $setupPath -Algorithm SHA256", builder);
         Assert.Contains("[IO.Directory]::Move($stagingDirectory, $buildDirectory)", builder);
+    }
+
+    [Fact]
+    public void InstallerUsesVerifiedSideBySidePayloadAndRestoresActivationOnFailure()
+    {
+        var installer = File.ReadAllText(Path.Combine(RepositoryRoot(), "packaging", "windows", "OpticalSystemDesign.iss"));
+        Assert.Contains("#define PayloadDir \"versions\\\" + ReleaseId", installer);
+        Assert.Contains("AfterInstall: VerifyPayload", installer);
+        Assert.Contains("GetSHA256OfFile", installer);
+        Assert.Contains("procedure DeinitializeSetup", installer);
+        Assert.Contains("PreviousState", installer);
+        Assert.Contains("PreviousDisplayVersion", installer);
+        Assert.Contains("CompareVersions", installer);
+        Assert.Contains("CheckNoReparsePath", installer);
+        Assert.Contains("function GetCustomSetupExitCode", installer);
+        Assert.Contains("if Failed then Result := 70", installer);
+        Assert.Contains("Committed := not Failed", installer);
+        Assert.Contains("procedure UpdateOwnedAssociation", installer);
+        Assert.DoesNotContain("taskkill", installer, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DelTree", installer);
+    }
+
+    [Fact]
+    public void SigningRequiresExplicitPublisherAndTimestampAndSignsUninstall()
+    {
+        var script = File.ReadAllText(Path.Combine(RepositoryRoot(), "scripts", "windows-signing.ps1"));
+        Assert.Contains("/sha1", script);
+        Assert.Contains("SHA256", script);
+        Assert.Contains("/tr", script);
+        Assert.Contains("/pa", script);
+        Assert.Contains("TimeStamperCertificate", script);
+        Assert.DoesNotContain("/f MyCert", script);
+        var installer = File.ReadAllText(Path.Combine(RepositoryRoot(), "packaging", "windows", "OpticalSystemDesign.iss"));
+        Assert.Contains("SignedUninstaller=yes", installer);
+        Assert.Contains("SignTool=OpticalPublisher", installer);
     }
 
     [Fact]

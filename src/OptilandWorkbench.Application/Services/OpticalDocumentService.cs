@@ -64,7 +64,39 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
 
     public void NewTessar() => Workspace.ReplaceDocument(WorkspaceChangeCategory.Document, Runtime.NewTessar);
 
-    public async Task OpenAsync(string path, CancellationToken cancellationToken = default)
+    public Task OpenAsync(string path, CancellationToken cancellationToken = default)
+        => OpenDocumentAsync(path, false, cancellationToken);
+
+    public Task RestoreRecoveryCopyAsync(string path, CancellationToken cancellationToken = default)
+    {
+        if (!path.EndsWith(".staropt", StringComparison.OrdinalIgnoreCase))
+            throw new ArgumentException("恢复副本必须是 STAROPT 工程。", nameof(path));
+        return OpenDocumentAsync(path, true, cancellationToken);
+    }
+
+    public DocumentRecoveryState GetRecoveryState() => Workspace.GetRecoveryState();
+
+    public async Task<DocumentRecoveryState?> WriteRecoveryCopyAsync(string path, CancellationToken cancellationToken = default)
+    {
+        if (!path.EndsWith(".staropt", StringComparison.OrdinalIgnoreCase))
+            throw new ArgumentException("恢复副本必须使用 STAROPT 格式。", nameof(path));
+        var fullPath = Path.GetFullPath(path);
+        LoadedOpticalDocument document;
+        DocumentRecoveryState source;
+        lock (Gate)
+        {
+            source = Workspace.GetRecoveryState();
+            if (!source.IsDirty) return null;
+            if (source.OriginalPath is not null && string.Equals(fullPath, source.OriginalPath,
+                    OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal))
+                throw new ArgumentException("恢复副本不能覆盖正式工程。", nameof(path));
+            document = Runtime.CaptureDocument();
+        }
+        await _saveDocumentAsync(document, fullPath, cancellationToken).ConfigureAwait(false);
+        return source;
+    }
+
+    private async Task OpenDocumentAsync(string path, bool recovery, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         CancellationTokenSource linked;
@@ -84,7 +116,7 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
         Workspace.ReplaceDocument(
             WorkspaceChangeCategory.Document,
             () => Runtime.ApplyLoadedDocument(document, fullPath),
-            fullPath,
+            recovery ? null : fullPath,
             cancellationToken,
             validateBeforeReplace: () =>
             {

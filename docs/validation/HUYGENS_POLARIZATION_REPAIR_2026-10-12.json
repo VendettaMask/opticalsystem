@@ -1,0 +1,343 @@
+{
+  "date": "2026-10-12",
+  "baseHead": "1d5847578c3b2a308e64d7000aa6d7af9df5e43f",
+  "gitState": "Uncommitted local repair; not pushed",
+  "scope": "Original MS-L7 Unpolarized=true Huygens intensity residual closed; limited transparent coherent XYZ path implemented without new native phase certification",
+  "builds": [
+    {
+      "configuration": "Debug",
+      "path": "artifacts/validation/huygens-polarization-repair-20261012/build-debug-final-compatible.log",
+      "sha256": "feb191218705682a64ad8bf2e3ee821e21f4ddf40b9408b381e5a0aa0230ae63",
+      "warnings": 0,
+      "errors": 0,
+      "defaultOutput": true
+    },
+    {
+      "configuration": "Release",
+      "path": "artifacts/validation/huygens-polarization-repair-20261012/build-release-final-compatible.log",
+      "sha256": "a33f1cb59bbbb6c30bd55fc6c2d2a6f7b0e3bc7285101a260f51cbd52c3f034f",
+      "warnings": 0,
+      "errors": 0,
+      "defaultOutput": true
+    }
+  ],
+  "formalRelease": {
+    "path": "artifacts/validation/huygens-polarization-repair-20261012/formal-release-final/formal-release-final.trx",
+    "sha256": "1bbca0d4d3afa34e4cbbd08f721880b1a5bf531623107ae753fd7ab8fb983b95",
+    "total": 4697,
+    "passed": 4697,
+    "failed": 0,
+    "skipped": 0,
+    "start": "2026-10-12T10:12:01.0185407+08:00",
+    "finish": "2026-10-12T10:32:53.6351361+08:00"
+  },
+  "comparisonRelease": {
+    "path": "artifacts/validation/huygens-polarization-repair-20261012/comparison-release-final/comparison-release-final.trx",
+    "sha256": "cac21692e64ac9054a1155834a17be7dbe861ebea6d8ec443679760e0e1059e9",
+    "total": 182,
+    "passed": 182,
+    "failed": 0,
+    "skipped": 0,
+    "start": "2026-10-12T10:32:56.5597381+08:00",
+    "finish": "2026-10-12T10:39:05.7910431+08:00"
+  },
+  "debugRelated": {
+    "path": "artifacts/validation/huygens-polarization-repair-20261012/debug-related-final/debug-related-final.trx",
+    "sha256": "6d8f0c08cc55223642487e7e886224a9a2e469abd7b9080396bcab505a33eb21",
+    "total": 440,
+    "passed": 440,
+    "failed": 0,
+    "skipped": 0,
+    "start": "2026-10-12T10:39:07.0026284+08:00",
+    "finish": "2026-10-12T10:40:40.8173335+08:00"
+  },
+  "isolatedContracts": {
+    "path": "artifacts/validation/huygens-polarization-repair-20261012/isolated-contracts/isolated-contracts.trx",
+    "sha256": "05e719eca09ce6c6b1a84691b77a1fa34798d9c03a6f99d5d1ee07eef83e6047",
+    "total": 80,
+    "passed": 80,
+    "failed": 0,
+    "skipped": 0,
+    "start": "2026-10-12T10:07:24.9182708+08:00",
+    "finish": "2026-10-12T10:08:26.2174433+08:00"
+  },
+  "before": {
+    "path": "artifacts/validation/huygens-polarization-repair-20261012/before/before.trx",
+    "sha256": "3bbf50672e8edd5883e42a8e7e7f412dd4d5bf3c53847cc86c4c50209cef2a5b",
+    "total": 2,
+    "passed": 0,
+    "failed": 2,
+    "skipped": 0,
+    "start": "2026-10-12T09:10:02.5821098+08:00",
+    "finish": "2026-10-12T09:10:14.3836951+08:00"
+  },
+  "nativeMetrics": [
+    {
+      "name": "polarized-field3-linear",
+      "relativeL2": 2.698797321508058E-06,
+      "maximumAbsolute": 3.6397173609759026E-07,
+      "nativePoints": 1024,
+      "passed": true
+    },
+    {
+      "name": "polarized-field1-linear",
+      "relativeL2": 4.083419641461817E-07,
+      "maximumAbsolute": 2.2979345254414696E-07,
+      "nativePoints": 1024,
+      "passed": true
+    }
+  ],
+  "nativeCriteria": {
+    "maximumAbsolute": 1E-05,
+    "relativeL2": 5E-05,
+    "pointsPerCase": 1024,
+    "fittedAlignmentOrScale": false
+  },
+  "formalRetention": {
+    "previous": 4667,
+    "current": 4697,
+    "identityOrOccurrenceDifference": 0,
+    "added": [
+      "017b9e54-236f-c84a-9cf7-0e6a3e6b5c16|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.CapturedUnpolarizedHuygensIntensityMatchesTheOriginalNativeGrid(name: \"polarized-field3-linear\")",
+      "02f6d6b0-0cef-eff4-a621-c1fca9592c9d|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.AbsorbingInterfacePowersMatchIndependentTangentialAdmittance(degrees: 0)",
+      "14d2a815-881b-cbd7-db15-a90350387e1a|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.TransparentComplexPowerContractPreservesTheExistingLosslessCoefficients(n1: 1, n2: 1.5, degrees: 60)",
+      "166a03fb-3e16-503f-c799-50faaeb2eebe|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.CoherentAfocalFieldDoesNotFallBackToTheLegacyScalarAverage",
+      "24570d66-f521-2c9f-6337-ea25ec621019|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.CoherentXyzCenterMatchesIndependentComponentWiseFieldSum(jx: 0, jy: 1, px: 0, py: 0, coated: True)",
+      "29f2a2ee-73a1-7952-393d-0c2ec537413e|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.CoherentXyzCenterMatchesIndependentComponentWiseFieldSum(jx: 0, jy: 1, px: 0, py: 0, coated: False)",
+      "2f8ab0e5-902c-c89e-6499-434b8b4e6af1|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.TransparentComplexPowerContractPreservesTheExistingLosslessCoefficients(n1: 1.5, n2: 1, degrees: 30)",
+      "3097de7b-5845-e0b2-671d-04992723d087|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.CoherentAbsorbingFieldStillFailsExplicitlyRatherThanUsingMeanPower",
+      "33a36dba-a751-8e2d-55a2-0ee5f11f8518|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.UnpolarizedModeIgnoresUnusedCoherentInputButPublishesItsMeanPowerModel",
+      "441c9443-c76e-c00e-d434-8e9b3d7ed80e|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.CoherentXyzCenterMatchesIndependentComponentWiseFieldSum(jx: 1, jy: 0, px: 0, py: 0, coated: True)",
+      "50a1df6e-1427-eac3-17a3-6de5ffc354c1|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.ScalarCoatingReplacesBareLossWithoutApplyingItsPowerTwice(transmission: 0.69999999999999996)",
+      "51481590-afde-a690-9fd8-a9e9dc38675c|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.TransparentComplexPowerContractPreservesTheExistingLosslessCoefficients(n1: 1.5, n2: 1, degrees: 60)",
+      "576a5382-ad1c-94d9-c22e-312524ae1096|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.ExplicitMeanPowerTransportIncludesBulkAbsorptionExactlyOnce(extinction: 1.0000000000000001E-05)",
+      "6202d088-12e0-ecf7-6e94-b78991a75345|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.CoherentGlobalPhaseAndInputScaleDoNotChangeIntensity(phase: False)",
+      "7315a76f-d1fb-e81f-f1be-eaf449dddb8a|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.ScalarCoatingReplacesBareLossWithoutApplyingItsPowerTwice(transmission: 0.25)",
+      "76e7b03d-ea78-9f6a-e069-7c29a3c7b49f|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.TransparentComplexPowerContractPreservesTheExistingLosslessCoefficients(n1: 1, n2: 1.5, degrees: 0)",
+      "8685b14f-5851-6455-6f0a-c0effcde22fb|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.CoherentXyzCenterMatchesIndependentComponentWiseFieldSum(jx: 1, jy: 1, px: 45, py: -20, coated: False)",
+      "86a3719b-0d56-f2cb-ac92-30cb3f2f8cef|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.CoherentXyzCenterMatchesIndependentComponentWiseFieldSum(jx: 1, jy: 0, px: 0, py: 0, coated: False)",
+      "89327573-e878-734f-2f46-a0ca6fa50b7b|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.CoherentStateChangesThePsfAndIsNotSilentlyAveraged",
+      "8c4d1a4d-10c4-bb47-3b3a-79ef13153db9|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.AbsorbingExitKeepsForwardPowerAndDoesNotClampItsBoundaryCoefficient(extinction: 0.10000000000000001)",
+      "9eefd34d-9bbe-845b-5d47-3ad82707838e|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.CoherentSpectrumAndPresentationKeepDistinctVectorFieldsAndCommonSpectralWeights",
+      "a2dc9e07-c542-934c-1b33-edbce8f037ad|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.CoherentXyzCenterMatchesIndependentComponentWiseFieldSum(jx: 1, jy: 1, px: 45, py: -20, coated: True)",
+      "b37bff11-f5a8-a54f-0929-49f71c53f3f9|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.AbsorbingExitKeepsForwardPowerAndDoesNotClampItsBoundaryCoefficient(extinction: 9.9999999999999995E-07)",
+      "b5f15d8d-9034-af41-ebff-4f0159c548ad|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.AbsorbingInterfacePowersMatchIndependentTangentialAdmittance(degrees: 60)",
+      "c09613ea-1da3-3bf7-01c1-fe394aed155e|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.CapturedUnpolarizedHuygensIntensityMatchesTheOriginalNativeGrid(name: \"polarized-field1-linear\")",
+      "c702f241-1f5f-ae1f-7269-fcd905794352|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.AbsorbingExitKeepsForwardPowerAndDoesNotClampItsBoundaryCoefficient(extinction: 1)",
+      "c8e2306d-6ffe-88ff-0430-c23f841eddf8|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.AbsorbingPowerOptInDoesNotAcceptCoherentJonesInput",
+      "e81155e5-48a1-003c-0c98-d3b14ac4e842|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.CoherentGlobalPhaseAndInputScaleDoNotChangeIntensity(phase: True)",
+      "eac7dfbb-bd31-f8fc-f5bd-65fe0364deff|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.AbsorbingInterfacePowersMatchIndependentTangentialAdmittance(degrees: 35)",
+      "f0fe84ee-6574-09ab-15bb-49e3c0a0c1b1|OptilandWorkbench.Tests.HuygensPolarizationRepairTests.ExplicitMeanPowerTransportIncludesBulkAbsorptionExactlyOnce(extinction: 9.9999999999999995E-07)"
+    ],
+    "existingContractUpdate": "Existing Huygens label test retains its identity and now asserts the executed mean-power mode; FFT experimental contract unchanged"
+  },
+  "comparisonRetention": {
+    "previous": 182,
+    "current": 182,
+    "identityOrOccurrenceDifference": 0,
+    "referencesOrTolerancesChanged": false
+  },
+  "defaultCoreCopies": [
+    {
+      "configuration": "Debug",
+      "path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "0485ceabbf6c9fb09cc554a905a006ed50f3594815b9f0c9da2f322793da6315"
+    },
+    {
+      "configuration": "Debug",
+      "path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "0485ceabbf6c9fb09cc554a905a006ed50f3594815b9f0c9da2f322793da6315"
+    },
+    {
+      "configuration": "Debug",
+      "path": "tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "0485ceabbf6c9fb09cc554a905a006ed50f3594815b9f0c9da2f322793da6315"
+    },
+    {
+      "configuration": "Debug",
+      "path": "tests/OptilandWorkbench.ZemaxComparison.Tests/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "0485ceabbf6c9fb09cc554a905a006ed50f3594815b9f0c9da2f322793da6315"
+    },
+    {
+      "configuration": "Release",
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "62bda01a17830e4c5ebda0d63d1be514d52533424789c2fc33e9024b149acb73"
+    },
+    {
+      "configuration": "Release",
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "62bda01a17830e4c5ebda0d63d1be514d52533424789c2fc33e9024b149acb73"
+    },
+    {
+      "configuration": "Release",
+      "path": "tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "62bda01a17830e4c5ebda0d63d1be514d52533424789c2fc33e9024b149acb73"
+    },
+    {
+      "configuration": "Release",
+      "path": "tests/OptilandWorkbench.ZemaxComparison.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "62bda01a17830e4c5ebda0d63d1be514d52533424789c2fc33e9024b149acb73"
+    }
+  ],
+  "sourceHashes": [
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs",
+      "sha256": "aa68814bc65a658e098eca6f5a5afaa9fe648df980a01744caf3736dcffc3a55"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Coatings/FresnelPower.cs",
+      "sha256": "9276f18e9978fee1b6ee9402005efb6fb9b5b397fc1012bfebdd31ca195caab8"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.Polarization.cs",
+      "sha256": "d240032528237a25613549f9b2330ab162c65585a4d0c3301afd70473b842df2"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs",
+      "sha256": "cd3281e86ca2f9140b6d626ac3f42850815d7f8e91f21ec13e8fd92a56c6ef4a"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Diffraction/HuygensPsfSynthesis.cs",
+      "sha256": "83a9234cc6826abf048a1d813f75534a7ee938958bfb2dc3733e825eb9172a65"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Diffraction/HuygensDiffractionAnalyses.cs",
+      "sha256": "0f44215da9d5b94ac4e1c046673b7ea41e9b104576cb05c5ed46dab6ca5dac76"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Diffraction/PsfProfileAnalyses.cs",
+      "sha256": "000feb987fe301bf918564b535293c887c47660ae851e802a1eb0ce9620e69e7"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs",
+      "sha256": "6d0018ce9713091df056251eaf6a81e0e0fc7889a5088ade07c78d434fd5d901"
+    },
+    {
+      "path": "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Localization.cs",
+      "sha256": "6d40c41600d6197c9b07c38e26facf7972bb0422d2788e03a5ea38072b8977dd"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/HuygensPolarizationRepairTests.cs",
+      "sha256": "f9ebfc4847e1fda4e22d990ca4a533659c2384fbd3260c5982a5d033ae37a314"
+    },
+    {
+      "path": "tests/OptilandWorkbench.Tests/PolarizationPsfLabelTests.cs",
+      "sha256": "3f989991d75e1af18a9cc63edd2cf5aaa2fd50b936850d70251bac96af69edaa"
+    },
+    {
+      "path": "tools/validation/CollectHuygensPolarizationRepair20261012.ps1",
+      "sha256": "44dbad8f812bce24841c4202fd005950a6939a2f8ad4c16cd3e82b2bf3d30660"
+    }
+  ],
+  "retainedNative": {
+    "manifestSha256": "9b80b110f9580e660eac8014b6a5f151e2a91ae1c27c54a91867fcbc8a35958f",
+    "files": 306,
+    "sourceSha256": "8bcc937c2c2e02ba175f38875fd0def40db547f7eedab509cbfd1fed4353e0e8",
+    "newCapture": false
+  },
+  "historicalLedger": {
+    "path": "docs/HUYGENS_SPHERICAL_REPAIR_2026-10-11.json",
+    "sha256": "2980d73fde660765c744302597eceea4caa34d9853305737aaa79cf0e7f9dcb2",
+    "unmodified": true
+  },
+  "frozenIntegrity": {
+    "source": "HEAD",
+    "commit": "1d5847578c3b2a308e64d7000aa6d7af9df5e43f",
+    "count": 2668,
+    "matched": 2668,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true,
+    "mismatches": [],
+    "workingTree": {
+      "count": 2668,
+      "matched": 2668,
+      "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "unchanged": true,
+      "mismatches": []
+    }
+  },
+  "firstCompleteAttempt": {
+    "formal": {
+      "path": "artifacts/validation/huygens-polarization-repair-20261012/formal-release-complete/formal-release-complete.trx",
+      "sha256": "b631d413479f796d0ee28bb3f8839eb1e1be35d5effdd5a0d768444f3db94a01",
+      "total": 4697,
+      "passed": 4694,
+      "failed": 3,
+      "skipped": 0,
+      "start": "2026-10-12T09:39:09.3055337+08:00",
+      "finish": "2026-10-12T10:03:21.9170495+08:00"
+    },
+    "comparison": {
+      "path": "artifacts/validation/huygens-polarization-repair-20261012/comparison-release-complete/comparison-release-complete.trx",
+      "sha256": "c710fa5fd71ca4c0e24c74dd3b4af2734d63677997427b34c1c3742656acdcb3",
+      "total": 182,
+      "passed": 182,
+      "failed": 0,
+      "skipped": 0,
+      "start": "2026-10-12T09:39:27.0242766+08:00",
+      "finish": "2026-10-12T09:48:40.1689565+08:00"
+    },
+    "debug": {
+      "path": "artifacts/validation/huygens-polarization-repair-20261012/debug-related-complete/debug-related-complete.trx",
+      "sha256": "e63598ffda675b1822229a0e70c3fb93b6b9eca9dab013d601f7a0498c349a1a",
+      "total": 440,
+      "passed": 440,
+      "failed": 0,
+      "skipped": 0,
+      "start": "2026-10-12T09:39:24.8490742+08:00",
+      "finish": "2026-10-12T09:42:38.7192822+08:00"
+    },
+    "failures": [
+      {
+        "testId": "3b6e1a99-e554-3e7c-8073-4dcff5996447",
+        "testName": "OptilandWorkbench.Tests.RmsSamplingRepairTests.UnsupportedAbsorbingPolarizationDoesNotSilentlyFallBackToGeometricRms"
+      },
+      {
+        "testId": "77f50885-2a51-dacc-b139-338fe1dde975",
+        "testName": "OptilandWorkbench.Tests.AuditReliabilityFixTests.OpenWaitingForCommitCannotOverwriteANewDocument"
+      },
+      {
+        "testId": "6ac4fd90-d49f-5f62-92e8-62d2a7777f8b",
+        "testName": "OptilandWorkbench.Tests.AuditReliabilityFixTests.OptimizationPreparationDoesNotBlockReadsAndRejectsConcurrentEdits(method: \"quick\")"
+      }
+    ],
+    "sourceRecord": {
+      "path": "artifacts/validation/huygens-polarization-repair-20261012/first-complete-attempt-source.json",
+      "sha256": "ab2d6bec7a8de71d7a91497500848cc96f55c12ce23ebb70f3aee0085d068d6f"
+    },
+    "scope": "Concurrent validation before restoring the historical exception-message prefix; not final acceptance"
+  },
+  "earlierAttempts": [
+    "Before: original numerical residuals reproduced in both 1024-point cases",
+    "First absorbing-interface attempt selected backward exit flux; rejected rather than accepting negative power",
+    "Forward-power attempt passed axial only; off-axis same-field normalization still missing",
+    "First related run: exception wording lost complex-index marker; no numerical defect in that failure",
+    "First complete run: historical error-prefix mismatch and timed waits recorded; final validation isolated below"
+  ],
+  "boundaries": [
+    "Unpolarized mean transmission is not the incoherent average of two diffracted vector fields",
+    "Absorbing interface power is an explicit homogeneous-wave bare-interface contract, not arbitrary inhomogeneous XYZ transport",
+    "Existing full TracePolarized and default diagnostics still reject absorbing-interface electric fields",
+    "Transparent coherent XYZ has independent mathematical regression but no new native Jones/phase certificate",
+    "Coherent afocal and GRIN remain explicitly unsupported; legacy afocal unpolarized approximation remains labeled"
+  ],
+  "currentNativeEnvironment": {
+    "installationOrLicenseProbe": false,
+    "apiConnected": false,
+    "newNativeCertification": false
+  },
+  "excludedFollowup": [
+    "Independent Cooke residual/certification",
+    "Independent Tessar residual/certification"
+  ],
+  "notRun": [
+    "Full Debug",
+    "Laboratory suites",
+    "Installer/package",
+    "Manual desktop acceptance",
+    "Six-file 132-case matrix",
+    "New native capture"
+  ]
+}

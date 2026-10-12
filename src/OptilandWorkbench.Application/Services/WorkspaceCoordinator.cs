@@ -52,6 +52,13 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
 
     public string? CurrentPath { get; set; }
 
+    public DocumentRecoveryState GetRecoveryState()
+    {
+        lock (Gate)
+            return new(Runtime.CurrentOptic.Name, CurrentPath, Revision, DocumentGeneration,
+                Revision != Interlocked.Read(ref _savedRevision));
+    }
+
     public OpticalDocumentSnapshot GetDocumentSnapshot()
     {
         lock (Gate)
