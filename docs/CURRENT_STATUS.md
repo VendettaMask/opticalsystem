@@ -69,7 +69,7 @@ CSV/恢复修复阶段的全量 4785/4785、安装维护阶段相关 146/146 和
 
 ## 文档与同步状态
 
-本批共享计算代码、测试和相关指南一起提交同步；结果单独记录在 [本批账本](validation/SHARED_CALCULATION_CONVERGENCE_2026-10-13.json) 的 `Synchronization` 字段。构建与验证时的 `SourceCommit`、`SourceDirty`、`DeliveryAtValidation` 保留原始快照，不事后改写为提交后的状态。下述记录只适用于此前文档整理阶段。
+2026-10-13 本批共享计算代码、测试、相关指南和证据账本已提交并推送，远端 `refs/heads/main` 已核对包含修正提交 `0005885`。结果单独记录在 [本批账本](validation/SHARED_CALCULATION_CONVERGENCE_2026-10-13.json) 的 `Synchronization` 字段；同步记录随后单独提交。构建与验证时的 `SourceCommit`、`SourceDirty`、`DeliveryAtValidation` 保留原始快照，不事后改写为提交后的状态。下述记录只适用于此前文档整理阶段。
 
 2026-10-13 已推送并核对远端 `refs/heads/main` 为文档整理提交 `6957f6a`，包含功能实现 `922602b` 和此前因连接超时待同步的记录 `7ceb40f`。本次使用系统已有代理完成 HTTPS 同步，未修改全局 Git 或代理设置；同步证据见 [文档审计账本](validation/DOCUMENTATION_AUDIT_2026-10-13.json) 的 `Synchronization` 字段。包内提交前的 `SourceCommit` / `SourceDirty` 保持原始构建来源，不事后改写。
 
