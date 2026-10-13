@@ -741,7 +741,8 @@ public sealed record SurfaceRowDto(
     ThicknessSolveDto? ThicknessSolve = null,
     SemiDiameterSolveDto? SemiDiameterSolve = null,
     double? ThermalExpansionPpmPerC = null,
-    double? ChipZone = null);
+    double? ChipZone = null,
+    SurfaceGeometryDefinitionDto? GeometryDefinition = null);
 
 public enum RadiusSolveKind { Fixed, Variable, Pickup }
 

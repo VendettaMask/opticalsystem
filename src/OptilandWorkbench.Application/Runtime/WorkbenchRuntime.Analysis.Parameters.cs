@@ -608,18 +608,6 @@ public partial class WorkbenchRuntime
                 BoolParameter("ScatterRays", "散射光线", "false"),
                 BoolParameter("UseSymbols", "使用标注", "true")
             },
-            "Through Focus MTF" => new[]
-            {
-                ChoiceParameter("Sampling", "采样", "64", fftSamplingChoices),
-                DoubleParameter("DeltaFocus", "离焦范围 (±mm)", "0.1", 0, 10, 0.01),
-                DoubleParameter("Frequency", "频率 (cycles/mm)", "0", 0, 10000, 1),
-                IntParameter("NumberOfSteps", "步长数", "5", 1, 101),
-                IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
-                IntParameter("FieldNumber", "视场（0 为全部）", "0", 0, 256),
-                ChoiceParameter("Type", "类型", "调制", new[] { "调制", "实部", "虚部", "相位", "方波" }),
-                BoolParameter("UsePolarization", "使用偏振", "false"),
-                BoolParameter("UseDashes", "使用虚线", "false")
-            },
             "Fourier Through Focus MTF" => new[]
             {
                 ChoiceParameter("Sampling", "采样", "64", fftSamplingChoices),

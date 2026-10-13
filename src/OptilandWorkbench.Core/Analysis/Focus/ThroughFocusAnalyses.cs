@@ -259,6 +259,9 @@ public sealed class ThroughFocusAnalysis : BaseAnalysis
 
 }
 
+/// <summary>Legacy sampled-autocorrelation analysis retained for explicit callers and frozen
+/// regressions. Its deltaFocus is a step, not the FFT analysis' ± range. The product catalog
+/// resolves the historical name to MtfThroughFocusAnalysis instead.</summary>
 public sealed class ThroughFocusMtfAnalysis : BaseAnalysis
 {
     private readonly double _spatialFrequency;

@@ -13,6 +13,7 @@ using OptilandWorkbench.Core.Materials;
 using OptilandWorkbench.Core.Optimization;
 using OptilandWorkbench.Core.Phase;
 using OptilandWorkbench.Core.Services;
+using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Visualization;
 using ContractAnalysisColorMap = OptilandWorkbench.Application.Contracts.AnalysisColorMap;
 using ContractAnalysisAxisQuantity = OptilandWorkbench.Application.Contracts.AnalysisAxisQuantity;
@@ -36,6 +37,7 @@ internal static class WorkbenchMapper
     {
         var grating = surface.Geometry as IGratingGeometry;
         var thinLens = surface.InteractionModel as ThinLensInteractionModel;
+        var geometry = ComponentSnapshotFactory.FromGeometry(surface.Geometry);
         return new SurfaceRowDto(
             surface.Number,
             surface.Label,
@@ -68,7 +70,8 @@ internal static class WorkbenchMapper
                 surface.CoordinateSystem.RotationZDegrees),
             MechanicalSemiDiameter: surface.MechanicalSemiDiameter,
             ThermalExpansionPpmPerC: surface.ThermalExpansionPpmPerC,
-            ChipZone: surface.ChipZone);
+            ChipZone: surface.ChipZone,
+            GeometryDefinition: new SurfaceGeometryDefinitionDto(geometry.Kind, geometry.Numbers));
     }
 
     internal static string GeometryKind(OpticalSurface surface) => surface.Geometry switch

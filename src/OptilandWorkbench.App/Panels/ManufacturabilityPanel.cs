@@ -202,7 +202,18 @@ public sealed class ManufacturabilityPanel : UserControl, IDisposable
             (double)(_maximumAspectRatio.Value ?? 25),
             (double)(_minimumRadiusRatio.Value ?? 0.55m),
             (double)(_maximumEdgeSlope.Value ?? 60));
-        var report = OpticalManufacturingModel.Evaluate(_prescription.GetSurfaces(), settings);
+        ManufacturabilityReport report;
+        try
+        {
+            report = OpticalManufacturingModel.Evaluate(_prescription.GetSurfaces(), settings);
+        }
+        catch (Exception exception) when (exception is NotSupportedException or InvalidOperationException or ArgumentException)
+        {
+            _metricGrid.ItemsSource = null;
+            _grid.ItemsSource = null;
+            _summary.Text = $"无法评估：{exception.Message}";
+            return;
+        }
         _metricGrid.ItemsSource = report.GeometryMetrics;
         _grid.ItemsSource = report.Findings;
         _summary.Text = report.Elements.Count == 0

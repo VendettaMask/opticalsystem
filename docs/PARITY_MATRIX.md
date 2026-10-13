@@ -17,7 +17,7 @@
 | 传播 | `Propagation` | 均匀介质、旧入口方向近似，以及 Gradient 1～4 连续积分/正式顺序显式光线追迹；限定共轴 GRIN 的连续一阶与瞄准已接入；编辑、偏振和曲线显示仍待接入 |
 | 镀膜/散射近似 | `Coatings`、`Scattering` | 仅提供标为 Experimental 的经验透过率起伏、主光线散射损耗和测量样本均值损耗；旧 Thin Film/Lambertian/Measured BSDF 名称只作兼容别名，真实膜系尚未接入光线追迹，BSDF 方向抽样未完成 |
 | 真实薄膜与内置镀膜模块 | `CoherentThinFilmSolver`、`ThinFilmSpectrum`、`labs/CoatingDesign` | 同进程必装模块；稳定相干散射递推、真实 n/k/斜入射/S/P/R/T/A、减反/高反/1–5 腔模板、有限结构搜索、公差及独立实验保存。物理膜层模型已接通正式顺序追迹；实验结果显式应用到当前镜头的 UI、任意目标解析多腔综合、各向异性和非相干背面仍未实现。见[计算契约](COATING_DESIGN_LAB.md)与[当前交付](BUILT_IN_MODULES_2026-10-13.md) |
-| 分析 | `Analysis` | 72 个规范分析、Workbench 单一描述符目录和按模式隔离的两套入口；顺序 70 项、非序列 2 项，独立畸变入口已合并到场曲/畸变，报告菜单含 5 个真实入口 |
+| 分析 | `Analysis` | Core 规范目录、Workbench 单一描述符和按顺序/非序列模式隔离的两套入口；独立畸变入口已合并到场曲/畸变，旧离焦 MTF 名称统一到 Fourier 入口，报告菜单含 5 个真实入口；目录以 `AnalysisCatalog.Names` 为准 |
 | 优化 | `Optimization` | 变量、操作数、缩放，以及五种按真实实现命名的本地搜索；没有实现真正的 BFGS、L-BFGS-B、COBYLA、DE/CMA-ES 或信赖域 LM，这些名称明确返回不支持而不映射到其它算法；ZMX 参考评价函数 103 行按源顺序可见，298 个 Zemax 顺序操作数已定义级可执行，覆盖 `TRAR`、`TTHI/TGTH`、`REAR/RANG`、基础数学与行约束（含 `DIVB/PROB/OSUM/QSUM/EQUA` 定义级语义）、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、`MNIN/MXIN/MNAB/MXAB`、`POWR`、若干一阶量以及 `CTGT`、`PMAG`、`PETZ`、`MXEG` 和 `GOTO/ENDX/OOFF/SKIN/SKIS/USYM`；注册表包含 383 个名称与官方 2026 R1 API 枚举相符的顺序兼容代码，`DISC` 等未实现类型禁用只读保留；`DIST/DISA` 本地受限执行，原生导入仍只读，`DIMX` 已接通有焦模式，启用兼容行与未知代码明确失败；当前可见代码/兼容类型不等同 383 项完整数值支持，新增执行路径仍需 Zemax/ZOS-API golden 对照；Glass Expert 未实现且明确返回不支持 |
 | 公差 | `Tolerancing` | 向导、验证、灵敏度、补偿和确定性 Monte Carlo |
 | 多配置 | `Multiconfig` | 配置复制、激活、属性链接/解链和持久化 |

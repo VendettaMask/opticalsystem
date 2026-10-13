@@ -49,7 +49,7 @@
 
 ## 验证结果
 
-- 当前 Core 规范目录为 72 项；历史 69 页 Zemax 捕获清单不因独立“畸变”入口退场、几何 MTF 强度加权或新增非序列追迹/探测器分析而追溯改写。正式测试数量和结果以 README 当前验证记录为准，独立智能初始结构实验室不参与 Zemax 基线结论。
+- 当前 Core 规范目录以 `AnalysisCatalog.Names` 和比较工具 `--list-analyses` 为准；2026-10-13 将旧 `Through Focus MTF` 收敛为 `Fourier Through Focus MTF` 的兼容别名，不再重复列项。历史 69 页 Zemax 捕获清单不因目录变化而追溯改写。当前测试数量和结果见 [状态页](CURRENT_STATUS.md)；初始结构已是内置模块，但其搜索求解测试不等于 Zemax 数值基线认证。
 - Zemax 数值基准定向测试：`10/10` 通过。
 - Core/Application/辅助兼容边界定向测试：`16/16` 通过。
 - Python 报告与映射测试：`14/14` 通过。

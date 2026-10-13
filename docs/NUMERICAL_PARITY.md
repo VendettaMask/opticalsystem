@@ -6,6 +6,10 @@
 
 ## 参考边界
 
+2026-10-13 共享计算收敛：正式 Core 与 Application 的 `Through Focus MTF` 旧名称统一解析到 `Fourier Through Focus MTF`；公开目录只列后者，旧英文/中文产品入口仍可打开。比较工具只把旧英文机器键作为回放/命令行兼容别名，默认配置和执行目录不重复列项，仍拒绝本地化显示名作为工具键。`MtfThroughFocusAnalysis` 的 `DeltaFocus` 是 ±范围、步数是计算平面数，符合 [Ansys FFT Through Focus MTF 定义](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/FFT_Through_Focus_MTF.html)。Core 默认仍为通用设置，不注入捕获预设；Application 保留产品预设。直接构造旧 `ThroughFocusMtfAnalysis` 的采样自相关/逐步离焦语义留给显式兼容调用和冻结历史回归，不能代表当前产品 FFT 入口。
+
+新增回归通过实际制造接口比较冻结 `123456.ZMX` 表面 1 的矢高文本，并重算其轴上 FFT 离焦 MTF；输入、参考文件、误差、工程容差和适用范围记录在 [当前状态](CURRENT_STATUS.md)。没有启动新的 Zemax 捕获、修改参考值或重新认证所有面型/视场。
+
 2026-09-07 为独立初始结构实验室开放正式 Core 的显式瞳采样点列接口和有限光焦度接口，沿用原点列追迹、参考中心、谱权重及统计实现。P1/P2 不再在实验室汇总光学指标；同设置接口与导出回读的一致性验证通过。正式相关定向回归 46/46 包含已提交 Zemax 捕获的点列数值检查，不是新生成候选的 Zemax 实机认证，也不替代正式全量基线。详见 [P2 共享计算记录](INITIAL_STRUCTURE_P2_2026-09-07.md)。
 
 Huygens MTF 新增独立的原生 PSF → MTF 后处理验证：两份镜头、两种像面网格、多个频率，

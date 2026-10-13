@@ -1,0 +1,511 @@
+{
+  "Date": "2026-10-13",
+  "SourceCommit": "e9fcc7faa1e2de2ffca948589534148a08ab02fc",
+  "SourceDirty": true,
+  "Scope": "First shared-calculation/duplicate-code repair batch; not a whole-product or native-equivalence certification.",
+  "Changes": [
+    "Manufacturing uses immutable complete geometry snapshots and shared Core sag, normal slope and radial thickness; App conic formula and unused radius/conic-only forwarding methods removed.",
+    "One public Fourier Through Focus MTF factory/catalog/configuration; retired English/Chinese product names remain aliases. The comparison tool replays the retired machine key and selects it once.",
+    "Scalar and SIMD batched intersections call one identical explicit-sag root validator; numerical thresholds preserved."
+  ],
+  "Deletions": [
+    "Duplicated App conic sag formula and radial thickness loop.",
+    "Two old radius/conic-only manufacturing entry/forwarder methods without product callers.",
+    "Redundant Through Focus MTF runtime factory branch, parameter branch, public catalog row, comparison mapping and duplicate default settings.",
+    "Duplicated scalar/SIMD explicit-sag candidate/root validation bodies; one shared implementation remains."
+  ],
+  "Retained": [
+    "Explicit legacy ThroughFocusMtfAnalysis remains used by frozen regression, sampled-MTF tests and interpolation callers; it is not the public FFT factory.",
+    "Fourier, Huygens and Geometric methods remain distinct physical methods.",
+    "Old source can be recovered from Git history; frozen data and historical failure evidence were not deleted."
+  ],
+  "Builds": {
+    "DefaultOutputs": true,
+    "RootProjects": 19,
+    "RestoreRerun": false,
+    "Debug": {
+      "Errors": 0,
+      "Warnings": 0,
+      "Log": {
+        "Path": "artifacts/validation/shared-calculation-convergence-20261013/build-clean-debug.log",
+        "Sha256": "322e41efc2b57f5dc67ca5bc05fc54ac70b820da3df611434ae7844598d888e0"
+      }
+    },
+    "Release": {
+      "Errors": 0,
+      "Warnings": 0,
+      "Log": {
+        "Path": "artifacts/validation/shared-calculation-convergence-20261013/build-clean-release.log",
+        "Sha256": "4b712beaddb7f14c275f01f93d3ec619f5338bafdf2265cf781eee01aa112e99"
+      }
+    }
+  },
+  "TestRuns": [
+    {
+      "Path": "artifacts/validation/shared-calculation-convergence-20261013/comparison-clean-debug.trx",
+      "Sha256": "cd23077cc0fd740d8757766c70f3d4b32bda78b1ddf9b198646d60cbfd609a57",
+      "Outcome": "Completed",
+      "total": 3,
+      "executed": 3,
+      "passed": 3,
+      "failed": 0,
+      "notExecuted": 0,
+      "aborted": 0,
+      "Start": "2026-10-13T15:45:08.7108377+08:00",
+      "Finish": "2026-10-13T15:45:11.1110241+08:00"
+    },
+    {
+      "Path": "artifacts/validation/shared-calculation-convergence-20261013/comparison-clean-release.trx",
+      "Sha256": "0fa2027c659c4ad2d82f5f9a013e05ff6626ff4c4baacd95be3fce1c1a2cfb85",
+      "Outcome": "Completed",
+      "total": 3,
+      "executed": 3,
+      "passed": 3,
+      "failed": 0,
+      "notExecuted": 0,
+      "aborted": 0,
+      "Start": "2026-10-13T15:40:56.3116635+08:00",
+      "Finish": "2026-10-13T15:40:58.5826642+08:00"
+    },
+    {
+      "Path": "artifacts/validation/shared-calculation-convergence-20261013/comparison-debug.trx",
+      "Sha256": "fa7f8c7f7683638b88285ce514be39ac9b0a25694fd4b4c30f97a3670d98e6ce",
+      "Outcome": "Failed",
+      "total": 182,
+      "executed": 182,
+      "passed": 84,
+      "failed": 98,
+      "notExecuted": 0,
+      "aborted": 0,
+      "Start": "2026-10-13T15:17:18.7733104+08:00",
+      "Finish": "2026-10-13T15:19:04.8289777+08:00"
+    },
+    {
+      "Path": "artifacts/validation/shared-calculation-convergence-20261013/comparison-final-debug.trx",
+      "Sha256": "27aff4e902028b46e4faed0f529a4f776f0347d6df7428a7ff4dbbc3f0cc5257",
+      "Outcome": "Completed",
+      "total": 183,
+      "executed": 183,
+      "passed": 183,
+      "failed": 0,
+      "notExecuted": 0,
+      "aborted": 0,
+      "Start": "2026-10-13T15:22:07.4003677+08:00",
+      "Finish": "2026-10-13T15:41:49.6630507+08:00"
+    },
+    {
+      "Path": "artifacts/validation/shared-calculation-convergence-20261013/comparison-final-release.trx",
+      "Sha256": "3036413b3804f686db64f5f51633ee46c91b7a2b7f9639b78a82fbbb4c68380a",
+      "Outcome": "Completed",
+      "total": 183,
+      "executed": 183,
+      "passed": 183,
+      "failed": 0,
+      "notExecuted": 0,
+      "aborted": 0,
+      "Start": "2026-10-13T15:22:29.6831948+08:00",
+      "Finish": "2026-10-13T15:34:28.6923727+08:00"
+    },
+    {
+      "Path": "artifacts/validation/shared-calculation-convergence-20261013/comparison-registry-debug.trx",
+      "Sha256": "8039f63e762031c2738fdfe704cdadf769c978bf802287a443e49e573d3e0b9a",
+      "Outcome": "Completed",
+      "total": 3,
+      "executed": 3,
+      "passed": 3,
+      "failed": 0,
+      "notExecuted": 0,
+      "aborted": 0,
+      "Start": "2026-10-13T15:22:04.5471242+08:00",
+      "Finish": "2026-10-13T15:22:06.1844343+08:00"
+    },
+    {
+      "Path": "artifacts/validation/shared-calculation-convergence-20261013/convergence-clean-debug.trx",
+      "Sha256": "d05be450061dc51e179ac35fdac53abb2ed752650ee9051973bdce1531a674ca",
+      "Outcome": "Completed",
+      "total": 141,
+      "executed": 141,
+      "passed": 141,
+      "failed": 0,
+      "notExecuted": 0,
+      "aborted": 0,
+      "Start": "2026-10-13T15:43:15.3575709+08:00",
+      "Finish": "2026-10-13T15:45:07.2136946+08:00"
+    },
+    {
+      "Path": "artifacts/validation/shared-calculation-convergence-20261013/convergence-clean-release.trx",
+      "Sha256": "aa70b66e985f1a9da8fceaff5c47bce4536809a35eb8604635edbae1c428ac29",
+      "Outcome": "Completed",
+      "total": 141,
+      "executed": 141,
+      "passed": 141,
+      "failed": 0,
+      "notExecuted": 0,
+      "aborted": 0,
+      "Start": "2026-10-13T15:40:00.5315925+08:00",
+      "Finish": "2026-10-13T15:40:54.8613792+08:00"
+    },
+    {
+      "Path": "artifacts/validation/shared-calculation-convergence-20261013/convergence-final-debug.trx",
+      "Sha256": "3506414f263a1568d352fe41b7de04082ac00dac3da96256f4ae74fbef0daf01",
+      "Outcome": "Completed",
+      "total": 139,
+      "executed": 139,
+      "passed": 139,
+      "failed": 0,
+      "notExecuted": 0,
+      "aborted": 0,
+      "Start": "2026-10-13T15:11:52.5005877+08:00",
+      "Finish": "2026-10-13T15:13:43.4021860+08:00"
+    },
+    {
+      "Path": "artifacts/validation/shared-calculation-convergence-20261013/convergence-final-release.trx",
+      "Sha256": "fbb1d231f6efac683037b8d76d9adf38bd19a249861c166785499fdc45c02a7b",
+      "Outcome": "Completed",
+      "total": 139,
+      "executed": 139,
+      "passed": 139,
+      "failed": 0,
+      "notExecuted": 0,
+      "aborted": 0,
+      "Start": "2026-10-13T15:16:59.0823677+08:00",
+      "Finish": "2026-10-13T15:18:05.1499308+08:00"
+    },
+    {
+      "Path": "artifacts/validation/shared-calculation-convergence-20261013/convergence-verified-debug.trx",
+      "Sha256": "2d4fbeb3379e7a525ec84dd96e8ed559aea102986f6c748a165a0e57481f6325",
+      "Outcome": "Completed",
+      "total": 141,
+      "executed": 141,
+      "passed": 141,
+      "failed": 0,
+      "notExecuted": 0,
+      "aborted": 0,
+      "Start": "2026-10-13T15:33:57.9643534+08:00",
+      "Finish": "2026-10-13T15:35:14.8542615+08:00"
+    },
+    {
+      "Path": "artifacts/validation/shared-calculation-convergence-20261013/convergence-verified-release.trx",
+      "Sha256": "199444461784605752e798d6314a402d1c4f531575c67045f20b4aa00e3cc6f0",
+      "Outcome": "Completed",
+      "total": 141,
+      "executed": 141,
+      "passed": 141,
+      "failed": 0,
+      "notExecuted": 0,
+      "aborted": 0,
+      "Start": "2026-10-13T15:35:28.5057503+08:00",
+      "Finish": "2026-10-13T15:36:14.6073437+08:00"
+    },
+    {
+      "Path": "artifacts/validation/shared-calculation-convergence-20261013/shared-calculation-debug.trx",
+      "Sha256": "1a46ad2548203809fc40ff45ec18dc621675d16002ce3f3a74312f9a8e8a919c",
+      "Outcome": "Completed",
+      "total": 44,
+      "executed": 44,
+      "passed": 44,
+      "failed": 0,
+      "notExecuted": 0,
+      "aborted": 0,
+      "Start": "2026-10-13T15:06:52.7819565+08:00",
+      "Finish": "2026-10-13T15:08:10.0890595+08:00"
+    }
+  ],
+  "FinalMainTestRuns": [
+    "artifacts/validation/shared-calculation-convergence-20261013/convergence-clean-debug.trx",
+    "artifacts/validation/shared-calculation-convergence-20261013/convergence-clean-release.trx"
+  ],
+  "FullComparisonTestRuns": [
+    "artifacts/validation/shared-calculation-convergence-20261013/comparison-final-debug.trx",
+    "artifacts/validation/shared-calculation-convergence-20261013/comparison-final-release.trx"
+  ],
+  "FinalComparisonRegistrySmokeRuns": [
+    "artifacts/validation/shared-calculation-convergence-20261013/comparison-clean-debug.trx",
+    "artifacts/validation/shared-calculation-convergence-20261013/comparison-clean-release.trx"
+  ],
+  "TestScope": "Main tests are a targeted collection, not the full main suite. Full offline comparison suite ran after registry repair; after deleting two unused manufacturing wrappers the main set and comparison registry/configuration/alias smoke tests reran. Collections overlap and must not be added.",
+  "IntermediateFailure": {
+    "Trx": "artifacts/validation/shared-calculation-convergence-20261013/comparison-debug.trx",
+    "Total": 182,
+    "Passed": 84,
+    "Failed": 98,
+    "Cause": "Canonical catalog lost a duplicate key while comparison mapping still contained it. All 98 failures contained the registry audit initialization exception.",
+    "Repair": "Removed duplicate mapping/config; retired machine key resolves to the canonical entry for replay and CLI selection; no numerical reference or old tolerance changed."
+  },
+  "OfficialSources": [
+    {
+      "Title": "Ansys FFT Through Focus MTF",
+      "Version": "2025 R1 manual",
+      "Url": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/FFT_Through_Focus_MTF.html",
+      "Use": "Physical/parameter definition, not evidence of a new native run."
+    },
+    {
+      "Title": "Ansys Sag Table",
+      "Version": "2025 R1 manual",
+      "Url": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v25101/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Sag_Table_1.html",
+      "Use": "Actual surface sag/slope and rotationally symmetric radial-table boundary."
+    }
+  ],
+  "NativeReference": {
+    "Version": "OpticStudio 2026 R1",
+    "Lens": "123456.ZMX",
+    "Files": [
+      {
+        "Path": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+        "Sha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b"
+      },
+      {
+        "Path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/078-sagtable/data.txt",
+        "Sha256": "f155683d9f0edda800920c9dc39d721b02d4440b63cead9836649d2af101a9f1"
+      },
+      {
+        "Path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/078-sagtable/settings.cfg",
+        "Sha256": "6476bb1a44e9310cf8d7fc7be55a99c89f4a2a5304cd979f7a3f2cde83c4c5c0"
+      },
+      {
+        "Path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/017-fftthroughfocusmtf/data.json",
+        "Sha256": "3eb4289e83d35531d6fa945ddf73eb6f4742e74729741c5b064ee86f6ddaec0e"
+      },
+      {
+        "Path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/017-fftthroughfocusmtf/settings.cfg",
+        "Sha256": "689454e8900eb9022dc6c09a8ae8507887e24fddf80518ae07f89e0ad7366772"
+      },
+      {
+        "Path": "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/017-fftthroughfocusmtf/screenshot.jpg",
+        "Sha256": "85c5c3628a13d2ef2ba528bc4464b770b07271c585b2e7d3b530aa90149546d7"
+      },
+      {
+        "Path": "artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current-manifest.json",
+        "Sha256": "f3a96a8f6ba2b7aafcae619e0ef31aff4ce7fd1b006e5e4c6f8f8216a9065316"
+      }
+    ],
+    "NewCapture": false
+  },
+  "NumericalChecks": {
+    "Measurements": [
+      {
+        "Configuration": "debug",
+        "Trx": "artifacts/validation/shared-calculation-convergence-20261013/convergence-clean-debug.trx",
+        "SagOutcome": "Passed",
+        "SagOutput": "Captured 123456 surface 1: 40 sag rows, maximum absolute error=4.8874022162692654E-08 mm. Spherical capture only; no asphere native certification.",
+        "MtfOutcome": "Passed",
+        "MtfOutput": "123456 captured FFT through-focus, axis field, 600 values: RMS=0.004725144775978295; maximum=0.00667562884084949. Engineering acceptance: RMS <= 0.02 and maximum <= 0.04, not a Zemax specification."
+      },
+      {
+        "Configuration": "release",
+        "Trx": "artifacts/validation/shared-calculation-convergence-20261013/convergence-clean-release.trx",
+        "SagOutcome": "Passed",
+        "SagOutput": "Captured 123456 surface 1: 40 sag rows, maximum absolute error=4.8874022162692654E-08 mm. Spherical capture only; no asphere native certification.",
+        "MtfOutcome": "Passed",
+        "MtfOutput": "123456 captured FFT through-focus, axis field, 600 values: RMS=0.004725144775978295; maximum=0.00667562884084949. Engineering acceptance: RMS <= 0.02 and maximum <= 0.04, not a Zemax specification."
+      }
+    ],
+    "Sag": {
+      "Surface": 1,
+      "Rows": 40,
+      "Units": "Millimeter",
+      "MaximumAbsoluteError": 4.8874022162692654E-08,
+      "ExistingTextPrecisionGate": 5E-08,
+      "TerminalRoundedCoordinateExcluded": true,
+      "NativeAsphereCertification": false
+    },
+    "FftThroughFocus": {
+      "Field": 1,
+      "WavelengthNumber": 0,
+      "PupilSampling": 64,
+      "DeltaFocusMillimeters": 0.1,
+      "CalculationPlanes": 5,
+      "FrequencyCyclesPerMillimeter": 50,
+      "Polarization": false,
+      "ZemaxCompatible": true,
+      "DisplayPositions": 300,
+      "Values": 600,
+      "Components": [
+        "Tangential",
+        "Sagittal"
+      ],
+      "Rms": 0.004725144775978295,
+      "MaximumAbsoluteError": 0.00667562884084949,
+      "NewEngineeringGate": {
+        "Rms": 0.02,
+        "MaximumAbsoluteError": 0.04,
+        "IsZemaxSpecification": false
+      },
+      "FullFieldCertification": false,
+      "SettingsEvidence": "Explicit parameters in the test. Native screenshot shows range/frequency/spectrum; existing current-manifest records 64 sampling and 5 planes. Not universal Zemax defaults."
+    }
+  },
+  "FrozenIntegrity": {
+    "source": "HEAD",
+    "commit": "e9fcc7faa1e2de2ffca948589534148a08ab02fc",
+    "count": 2668,
+    "matched": 2668,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true,
+    "mismatches": [],
+    "workingTree": {
+      "count": 2668,
+      "matched": 2668,
+      "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "unchanged": true,
+      "mismatches": []
+    }
+  },
+  "Checks": {
+    "ChangedCSharpWhitespace": true,
+    "GitDiffCheck": true,
+    "CanonicalKeys": 71,
+    "RetiredPublicThroughFocusKeys": 0,
+    "FourierPublicThroughFocusKeys": 1,
+    "Documentation": {
+      "Report": {
+        "Path": "artifacts/validation/shared-calculation-convergence-20261013/documentation-audit.json",
+        "Sha256": "13fb40529547ead5e331e8989b0533b5961fb50312673ce25b97535c698decc0"
+      },
+      "Documents": 889,
+      "BrokenLinks": 0,
+      "MarkdownFenceIssues": 0,
+      "RepeatedParagraphGroups": 0,
+      "LocalOnlyLinks": 2
+    }
+  },
+  "SourceFiles": [
+    {
+      "Path": "src/OptilandWorkbench.App/Manufacturing/OpticalManufacturingModel.cs",
+      "Sha256": "abca4ee8ed32bcbe4ec77341a78f99445d5f4a6127bb49085014c9812a81ed72"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/Manufacturing/Rendering/OpticalDrawingRenderer.Dimensions.cs",
+      "Sha256": "914d2b2d614f0c55051fffd0c78f2dbbd8f1633d97cafac5b7b1c53cc91efc74"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/Manufacturing/Rendering/OpticalDrawingRenderer.Specifications.cs",
+      "Sha256": "584cfea8d1a8d9ad8de17d4372a04a294b2fa9d62faccdc75fa52bbf35f7ec7b"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/Panels/ManufacturabilityPanel.cs",
+      "Sha256": "0a8def4f86f741036f4a0c6c1dbb8d2760a678b7ab2e05b81e792b106a28c203"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/Panels/OpticalDrawingPanel.cs",
+      "Sha256": "a2894371356e0c65d5449872a41dc9baa8cfb0866b0a257b273d034eea924295"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Application/Contracts/SurfaceGeometryDefinitionDto.cs",
+      "Sha256": "e1ef2e05e76bdd6f6c91b405c2f678293d4d910a744c8f716be92ba3432b13d5"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Application/Contracts/WorkspaceContracts.cs",
+      "Sha256": "82691df9dfd0a9ad5db277b0df63f69d25c8cd260964c0192aae30e194b92568"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.cs",
+      "Sha256": "19137afde5087513b480bcc368f03322357eeae7566b9494aefcd94acd798ece"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs",
+      "Sha256": "54fa8f374f0a1f447f1006286410f4980007792dd5d38336ba50020634e46979"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Application/Services/ManufacturingGeometryService.cs",
+      "Sha256": "f9c4f8df4e83dfdecd0bcca5e9ce4fc0e7f78c1a5c8fa166200a1d0b4b64e69e"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Application/Services/Mapping/WorkbenchMapper.cs",
+      "Sha256": "a65c54f42aedba862577d49284ca986c01abaeffdb94d73c7b6d073a01c78671"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Application/Services/WorkbenchAnalysisCatalog.cs",
+      "Sha256": "cec8a45f0d2c011f3df8119c8f2d95a417380e2fc1fc7a10ff20c1a18c7a63fa"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Core/Analysis/AnalysisCatalog.cs",
+      "Sha256": "9178325e7831003ec03c27b3e55244301e4314b89584df7250a26255d9d05cf4"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Core/Analysis/Focus/ThroughFocusAnalyses.cs",
+      "Sha256": "3a90bedaa548cac775b8fc7bff91df4212a0ceb90de69232d8028ab7d6e9bd9d"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Core/Backend/IBatchedNumericBackend.cs",
+      "Sha256": "5718aa7ac0e119591a4a87ae0506147253c4c85e72f703776be97f45786e5442"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Core/Backend/ManagedCpuBackend.BatchedIntersections.cs",
+      "Sha256": "9865d84fa25daccdbef43fa8a41251f7958cd2ea0f5cb8765c7f32302a1387ee"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Core/Backend/StandardIntersectionValidation.cs",
+      "Sha256": "732d491dbddbc93fb6e52c6f8ef050941195e035f314f86ca748f5522bc3a338"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Core/Services/ManufacturingProfileGeometry.cs",
+      "Sha256": "677ba4a83f2f80be4a1a16bca53890fe32672f4e6aaeb8cd8764fbcad7a64818"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/ManufacturingDrawingTests.cs",
+      "Sha256": "edd14f4a7e818464cd1bbf986546613d7b34d2e7e70efe657b8f9d82f59d8003"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/OptilandParityTests.cs",
+      "Sha256": "161bf7918a60b0f8266b8310fef556f4bf5e8a8fb91e1c89057ec4d67f2aef7d"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj",
+      "Sha256": "5fa30a3004f218d852f5ccec2cf4b57c2003dd2a1b3af41d38b7ee95cfac7805"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/SharedCalculationConvergenceTests.cs",
+      "Sha256": "80e8ce789a903a5cb7df98cdf340e3d2b6f6800d7ea61761f0f0a2fd01cf78a0"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.ZemaxComparison.Tests/ThroughFocusCatalogConvergenceTests.cs",
+      "Sha256": "6c27653f35b6be8498d2a7690172e497e024e839d7c1a12a7fb1e34082c1e7ad"
+    },
+    {
+      "Path": "tools/OptilandWorkbench.ZemaxComparison/AnalysisComparisonRegistry.cs",
+      "Sha256": "06c60d7b85abc7e53dfbc0f9d89ddf97b1e19d03d917cc5a660ec058215a9677"
+    },
+    {
+      "Path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+      "Sha256": "5fb8dcb2fa5ee632b4753e32d6dd4984078a6ba0519a1b20524c06281f552257"
+    },
+    {
+      "Path": "tools/OptilandWorkbench.ZemaxComparison/ComparisonRunner.cs",
+      "Sha256": "beeecf579c63ab9c45d99ad495cf26bafe5e9caaf37f47ea8f6c8e4377f493b6"
+    }
+  ],
+  "NotPerformedAtValidation": [
+    "Full main test suite",
+    "New Zemax native capture",
+    "Native asphere or all-field FFT certification",
+    "Continuous global minimum thickness proof",
+    "Complete manual desktop acceptance",
+    "Installer rebuild or installation acceptance",
+    "Online package vulnerability audit",
+    "Commit or push"
+  ],
+  "RemainingDuplicates": [
+    "Wavefront reference-sphere helpers",
+    "Old non-sequential and initial-structure search compatibility paths",
+    "Run-directory atomic writing",
+    "Tolerance code metadata and other smaller helpers"
+  ],
+  "DeliveryAtValidation": {
+    "Committed": false,
+    "Pushed": false,
+    "InstallerRebuilt": false,
+    "PriorInstallerContainsThisBatch": false,
+    "LogArtifacts": "Local ignored artifacts; not uploaded release attachments."
+  },
+  "Synchronization": {
+    "RequestedDate": "2026-10-13",
+    "Repository": "https://github.com/VendettaMask/opticalsystem.git",
+    "Branch": "main",
+    "Status": "PreparedForCommitAndPush",
+    "RemoteBeforeSync": "e9fcc7faa1e2de2ffca948589534148a08ab02fc",
+    "ValidationSnapshotPreserved": true
+  }
+}

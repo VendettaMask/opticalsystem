@@ -1,4 +1,5 @@
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Services;
 
 namespace OptilandWorkbench.App.Manufacturing;
 
@@ -131,6 +132,8 @@ public static class OpticalManufacturingModel
                 continue;
             }
 
+            ManufacturingGeometryService.EnsureSupported(front);
+            ManufacturingGeometryService.EnsureSupported(surfaces[index + 1]);
             elements.Add(new OpticalElementDefinition(elements.Count + 1, front, surfaces[index + 1]));
         }
 
@@ -185,53 +188,11 @@ public static class OpticalManufacturingModel
         return new ManufacturabilityReport(elements, metrics, findings);
     }
 
-    public static double? Sag(double radius, double conic, double height)
-    {
-        if (Math.Abs(radius) < 1e-12 || !double.IsFinite(radius))
-        {
-            return 0;
-        }
+    public static double? Sag(SurfaceRowDto surface, double height) =>
+        ManufacturingGeometryService.Sag(surface, height);
 
-        var curvature = 1 / radius;
-        var radialSquared = height * height;
-        var radicand = 1 - ((1 + conic) * curvature * curvature * radialSquared);
-        if (radicand < 0)
-        {
-            return null;
-        }
-
-        var denominator = 1 + Math.Sqrt(radicand);
-        return Math.Abs(denominator) < 1e-12
-            ? null
-            : curvature * radialSquared / denominator;
-    }
-
-    public static double? MinimumEdgeThickness(OpticalElementDefinition element)
-    {
-        var minimum = double.PositiveInfinity;
-        for (var sample = 0; sample <= 64; sample++)
-        {
-            var height = element.ClearSemiDiameter * sample / 64.0;
-            var frontSag = Sag(
-                element.FrontSurface.Radius,
-                element.FrontSurface.Conic,
-                height);
-            var backSag = Sag(
-                element.BackSurface.Radius,
-                element.BackSurface.Conic,
-                height);
-            if (frontSag is null || backSag is null)
-            {
-                return null;
-            }
-
-            minimum = Math.Min(
-                minimum,
-                element.CenterThickness + backSag.Value - frontSag.Value);
-        }
-
-        return minimum;
-    }
+    public static double? MinimumEdgeThickness(OpticalElementDefinition element) =>
+        ManufacturingGeometryService.MinimumThickness(element.FrontSurface, element.BackSurface, element.ClearSemiDiameter);
 
     private static IReadOnlyList<ManufacturabilityGeometryMetric> BuildGeometryMetrics(
         OpticalElementDefinition element)
@@ -244,7 +205,7 @@ public static class OpticalManufacturingModel
             Metric(element, "有光焦度面半径绝对值", PoweredRadiusText(element)),
             Metric(element, "全口径弧高", FullApertureSagText(element), "按共同净半口径计算"),
             Metric(element, "全口径边厚", FullApertureEdgeThicknessText(element), "按共同净半口径计算"),
-            Metric(element, "球面边缘倾角", EdgeSlopeText(element), "按共同净半口径的局部切线角计算"),
+            Metric(element, "表面边缘倾角", EdgeSlopeText(element), "共享 Core 实际面型在共同净半口径处的切线角"),
             Metric(element, "表面类型", SurfaceTypeText(element))
         };
         return result;
@@ -270,7 +231,7 @@ public static class OpticalManufacturingModel
     {
         var values = Surfaces(element).Select(surface =>
         {
-            var sag = Sag(surface.Radius, surface.Conic, element.ClearSemiDiameter);
+            var sag = Sag(surface, element.ClearSemiDiameter);
             return sag is null
                 ? $"S{surface.Number} 超出实数矢高范围"
                 : $"S{surface.Number} {FormatSignedMillimeters(sag.Value)}";
@@ -289,7 +250,6 @@ public static class OpticalManufacturingModel
     private static string EdgeSlopeText(OpticalElementDefinition element)
     {
         var values = Surfaces(element)
-            .Where(surface => double.IsFinite(surface.Radius) && Math.Abs(surface.Radius) > 1e-12)
             .Select(surface =>
             {
                 var slope = EdgeSlopeDegrees(surface, element.ClearSemiDiameter);
@@ -319,14 +279,8 @@ public static class OpticalManufacturingModel
 
     private static double? EdgeThicknessAt(OpticalElementDefinition element, double height)
     {
-        var frontSag = Sag(
-            element.FrontSurface.Radius,
-            element.FrontSurface.Conic,
-            height);
-        var backSag = Sag(
-            element.BackSurface.Radius,
-            element.BackSurface.Conic,
-            height);
+        var frontSag = Sag(element.FrontSurface, height);
+        var backSag = Sag(element.BackSurface, height);
         return frontSag is null || backSag is null
             ? null
             : element.CenterThickness + backSag.Value - frontSag.Value;
@@ -397,16 +351,16 @@ public static class OpticalManufacturingModel
                 {
                     Add(ManufacturabilitySeverity.Warning, $"{label}曲率", $"|R|/D = {ratio:0.###}", "曲面较陡，建议确认磨削工具、抛光头可达性和检测补偿能力。");
                 }
+            }
 
-                var edgeSlope = EdgeSlopeDegrees(surface, element.ClearSemiDiameter);
-                if (edgeSlope is null)
-                {
-                    Add(ManufacturabilitySeverity.Error, $"{label}有效域", "无实数矢高", "减小口径或重新检查曲率半径和圆锥系数。");
-                }
-                else if (edgeSlope > settings.MaximumEdgeSlopeDegrees)
-                {
-                    Add(ManufacturabilitySeverity.Warning, $"{label}边缘斜率", $"{edgeSlope:0.#}°", $"超过 {settings.MaximumEdgeSlopeDegrees:0.#}°，需要专用工装或非传统加工路线。");
-                }
+            var edgeSlope = EdgeSlopeDegrees(surface, element.ClearSemiDiameter);
+            if (edgeSlope is null)
+            {
+                Add(ManufacturabilitySeverity.Error, $"{label}有效域", "无实数矢高", "减小口径或重新检查完整面型参数。");
+            }
+            else if (edgeSlope > settings.MaximumEdgeSlopeDegrees)
+            {
+                Add(ManufacturabilitySeverity.Warning, $"{label}边缘斜率", $"{edgeSlope:0.#}°", $"超过 {settings.MaximumEdgeSlopeDegrees:0.#}°，需要专用工装或非传统加工路线。");
             }
 
             if (!surface.GeometryKind.Contains("标准", StringComparison.OrdinalIgnoreCase)
@@ -432,15 +386,8 @@ public static class OpticalManufacturingModel
         }
     }
 
-    private static double? EdgeSlopeDegrees(SurfaceRowDto surface, double semiDiameter)
-    {
-        var delta = Math.Max(1e-6, semiDiameter * 1e-4);
-        var outer = Sag(surface.Radius, surface.Conic, semiDiameter);
-        var inner = Sag(surface.Radius, surface.Conic, Math.Max(0, semiDiameter - delta));
-        return outer is null || inner is null
-            ? null
-            : Math.Atan(Math.Abs((outer.Value - inner.Value) / delta)) * 180 / Math.PI;
-    }
+    private static double? EdgeSlopeDegrees(SurfaceRowDto surface, double semiDiameter) =>
+        ManufacturingGeometryService.SlopeDegrees(surface, semiDiameter);
 
     private static bool IsOpticalMaterial(string material)
     {

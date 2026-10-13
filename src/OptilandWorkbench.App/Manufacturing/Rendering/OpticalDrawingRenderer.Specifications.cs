@@ -14,13 +14,13 @@ internal static partial class OpticalDrawingRendererCore
         var diameter = Math.Max(0.1, element.Diameter);
         var semiDiameter = diameter / 2;
         var frontSag = Math.Abs(OpticalManufacturingModel.Sag(
-            element.FrontSurface.Radius,
-            element.FrontSurface.Conic,
-            semiDiameter) ?? 0);
+            element.FrontSurface,
+            Math.Min(semiDiameter, ManufacturingSurfaceExtent(element.FrontSurface)))
+            ?? throw new InvalidOperationException("前表面制造轮廓不可计算。"));
         var backSag = Math.Abs(OpticalManufacturingModel.Sag(
-            element.BackSurface.Radius,
-            element.BackSurface.Conic,
-            semiDiameter) ?? 0);
+            element.BackSurface,
+            Math.Min(semiDiameter, ManufacturingSurfaceExtent(element.BackSurface)))
+            ?? throw new InvalidOperationException("后表面制造轮廓不可计算。"));
         var axialExtent = Math.Max(0.1, element.CenterThickness + frontSag + backSag);
         var maximum = Math.Min(
             330 / (diameter * MillimetersToPoints),

@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.Application.Services;
 using SkiaSharp;
 
 namespace OptilandWorkbench.App.Manufacturing;
@@ -98,7 +99,7 @@ internal static partial class OpticalDrawingRendererCore
             var fraction = sample / (double)(surfaceSamples - 1);
             var height = -extent + (2 * extent * fraction);
             points.Add(new ManufacturingProfilePoint(
-                vertexZ + ManufacturingSagOrZero(surface, height),
+                vertexZ + ManufacturingSag(surface, height),
                 height));
         }
 
@@ -165,33 +166,22 @@ internal static partial class OpticalDrawingRendererCore
     {
         var extent = ManufacturingSurfaceExtent(surface);
         var sampledY = Math.Clamp(y, -extent, extent);
-        return vertexZ + ManufacturingSagOrZero(surface, sampledY);
+        return vertexZ + ManufacturingSag(surface, sampledY);
     }
 
     private static double ManufacturingSurfaceExtent(SurfaceRowDto surface)
     {
         var extent = Math.Max(0.1, surface.SemiDiameter);
-        if (Math.Abs(surface.Radius) < 1e-12
-            || !double.IsFinite(surface.Radius)
-            || !double.IsFinite(surface.Conic)
-            || 1.0 + surface.Conic <= 0)
-        {
-            return extent;
-        }
-
-        var realDomain = Math.Abs(surface.Radius) / Math.Sqrt(1.0 + surface.Conic);
+        var realDomain = ManufacturingGeometryService.MaximumRadius(surface);
         return Math.Min(extent, realDomain * 0.98);
     }
 
-    private static double ManufacturingSagOrZero(SurfaceRowDto surface, double height)
+    private static double ManufacturingSag(SurfaceRowDto surface, double height)
     {
-        var sag = OpticalManufacturingModel.Sag(
-            surface.Radius,
-            surface.Conic,
-            Math.Abs(height));
+        var sag = OpticalManufacturingModel.Sag(surface, height);
         return sag is { } value && double.IsFinite(value)
             ? value
-            : 0;
+            : throw new InvalidOperationException($"表面 {surface.Number} 的制造轮廓超出实际面型定义域，不能用零矢高替代。");
     }
 
     private static int NormalizeManufacturingSampleCount(int surfaceSamples)

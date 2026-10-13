@@ -17,7 +17,8 @@ public sealed record AnalysisComparisonEntry(string CanonicalAnalysisKey, string
 public static partial class AnalysisComparisonRegistry
 {
     // Stable AnalysisIDM identities audited against the existing capture inventory. The Core catalog is authoritative
-    // for public keys. Aliases and localized display names never participate in matching.
+    // for public keys. Only the retired, machine-stable Through Focus MTF key is
+    // resolved for historical replay; localized display names never select a contract.
     private const string Mapping = """
 Single Ray Trace|RayTrace|contract
 Non-Sequential Ray Trace|NSCSingleRayTrace
@@ -49,7 +50,6 @@ RMS vs Focus|RMSFocus|contract
 RMS Field Map|RMSFieldMap|contract
 RMS Wavefront vs Field|RMSField|contract
 Through Focus|ThroughFocusSpot|spot-layout
-Through Focus MTF|FftThroughFocusMtf|contract
 Fourier Through Focus MTF|FftThroughFocusMtf|contract
 Huygens Through Focus MTF|HuygensThroughFocusMtf|contract
 Geometric Through Focus MTF|GeometricThroughFocusMtf|contract
@@ -94,8 +94,18 @@ Classified Data Report|
 """;
 
     public static IReadOnlyList<AnalysisComparisonEntry> Entries { get; } = Build();
-    public static AnalysisComparisonEntry Get(string key) => Entries.SingleOrDefault(e => e.CanonicalAnalysisKey == key)
-        ?? throw new ArgumentException($"Unknown canonical analysis key: {key}");
+    public static AnalysisComparisonEntry Get(string key)
+    {
+        var canonical = key == "Through Focus MTF" ? "Fourier Through Focus MTF" : key;
+        return Entries.SingleOrDefault(e => e.CanonicalAnalysisKey == canonical)
+            ?? throw new ArgumentException($"Unknown canonical analysis key: {key}");
+    }
+
+    public static IReadOnlyList<AnalysisComparisonEntry> Select(IEnumerable<string> keys)
+    {
+        var selected = keys.Select(key => Get(key).CanonicalAnalysisKey).ToHashSet(StringComparer.Ordinal);
+        return Entries.Where(entry => selected.Count == 0 || selected.Contains(entry.CanonicalAnalysisKey)).ToArray();
+    }
     public static IEnumerable<AnalysisComparisonEntry> NativeOnly(IEnumerable<string> ids) => ids.Distinct(StringComparer.Ordinal)
         .Where(id => !Entries.Any(e => e.ZemaxAnalysisType == id))
         .Select(id => new AnalysisComparisonEntry("Zemax:" + id, "", id, SupportStatus.ZemaxOnly, "NativeModeDependent",

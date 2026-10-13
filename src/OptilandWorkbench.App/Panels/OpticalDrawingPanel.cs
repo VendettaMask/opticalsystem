@@ -320,11 +320,23 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         var previousChoice = preserveSelection
             ? (_elementPicker.SelectedItem as ElementChoice)?.DisplayName
             : null;
+        IReadOnlyList<OpticalDrawingElementDefinition> elements;
+        string? limitation = null;
+        try
+        {
+            elements = OpticalManufacturingModel.BuildDrawingElements(_prescription.GetSurfaces());
+        }
+        catch (Exception exception) when (exception is NotSupportedException or InvalidOperationException or ArgumentException)
+        {
+            elements = Array.Empty<OpticalDrawingElementDefinition>();
+            limitation = exception.Message;
+        }
+        ToolTip.SetTip(_elementPicker, limitation);
         var choices = new[]
             {
-                new ElementChoice("\u955c\u5934\u603b\u4f53\u5e03\u5c40\u56fe", null)
+                new ElementChoice(limitation is null ? "镜头总体布局图" : $"镜头总体布局图（单片/胶合图不可用：{limitation}）", null)
             }
-            .Concat(OpticalManufacturingModel.BuildDrawingElements(_prescription.GetSurfaces())
+            .Concat(elements
                 .Select(element => new ElementChoice(element.DisplayName, element)))
             .ToArray();
         _updating = true;

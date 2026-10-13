@@ -1139,7 +1139,8 @@ public sealed class OptilandParityTests
         Assert.Contains("Prescription Report", optic.Analyses.Names);
         Assert.Contains("System Data Report", optic.Analyses.Names);
         Assert.Contains("Classified Data Report", optic.Analyses.Names);
-        Assert.Equal(72, optic.Analyses.Names.Count);
+        Assert.DoesNotContain("Through Focus MTF", optic.Analyses.Names);
+        Assert.Equal(71, optic.Analyses.Names.Count);
         Assert.Equal("Spot Diagram", optic.Analyses.Create("Spot Diagram").GenerateData().Name);
     }
 

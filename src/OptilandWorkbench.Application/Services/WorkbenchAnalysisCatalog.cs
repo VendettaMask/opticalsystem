@@ -44,7 +44,6 @@ public static partial class WorkbenchAnalysisCatalog
         ["RMS Wavefront vs Field"] = "RMS 波前-视场",
         ["Zernike vs Field"] = "Zernike系数 vs. 视场",
         ["Through Focus"] = "离焦点列图",
-        ["Through Focus MTF"] = "离焦 MTF",
         ["Fourier Through Focus MTF"] = "傅里叶离焦 MTF",
         ["Huygens Through Focus MTF"] = "惠更斯离焦 MTF",
         ["Geometric Through Focus MTF"] = "几何离焦 MTF",
@@ -96,6 +95,8 @@ public static partial class WorkbenchAnalysisCatalog
     private static readonly IReadOnlyDictionary<string, string> AliasesByName =
         new Dictionary<string, string>(StringComparer.Ordinal)
         {
+            ["Through Focus MTF"] = "Fourier Through Focus MTF",
+            ["离焦 MTF"] = "Fourier Through Focus MTF",
             ["一级像差/一阶量"] = "First Order",
             ["一阶量"] = "First Order",
             ["处方报告"] = "Prescription Report",

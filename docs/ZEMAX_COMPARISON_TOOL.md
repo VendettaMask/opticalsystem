@@ -1,6 +1,6 @@
 # 独立 C# Zemax 比较工具审计
 
-以下为 2026-09-05 工具实现及首轮捕获的历史记录。当前实现已扩展为 52 项数值契约，并补充点列/图像接口能力审计；最新结果与未解决项见 [MS-L7 全分析扩展](ZEMAX_ANALYSIS_EXPANSION_2026-09-06.md)。此前 [十项数值修复与复验](NUMERICAL_REPAIR_2026-09-06.md) 和首轮生成物保留，不覆盖历史失败证据。当时仅保留本地，2026-09-06 后续已授权提交同步，见 [最新记录](ZEMAX_HUYGENS_REPAIR_2026-09-06.md)。
+以下为 2026-09-05 工具实现及首轮捕获的历史记录。2026-09-06 实现扩展为 52 项数值契约，并补充点列/图像接口能力审计；该阶段结果见 [MS-L7 全分析扩展](ZEMAX_ANALYSIS_EXPANSION_2026-09-06.md)。2026-10-13 重复离焦 MTF 已合并为兼容别名，当前目录/命令规则见 [工具指南](../tools/OptilandWorkbench.ZemaxComparison/README.md)，最新验证见 [状态页](CURRENT_STATUS.md)。此前 [十项数值修复与复验](NUMERICAL_REPAIR_2026-09-06.md) 和首轮生成物保留，不覆盖历史失败证据。当时仅保留本地，2026-09-06 后续已授权提交同步，见 [该阶段记录](ZEMAX_HUYGENS_REPAIR_2026-09-06.md)。
 
 ## 修改前引用与执行路径审计
 
@@ -8,7 +8,7 @@
 - `tools/zemax_parity/zosapi_capture_baseline.py` 提供 `AnalysisIDM` 枚举、原始 DataSeries/DataGrid、CFG、文本和原生 ZPL 截图流程。新工具用 C# 类型化 ZOS-API 适配器复用这些契约；不运行旧脚本。
 - `generate_workbench_comparison.py` 的既有 30 组映射和坐标门禁已审查。若干转换只适用于固定 `123456.ZMX`，例如 4.5 mm 视场范围，不可用于任意镜头。相同物理单位换算、T/S 顺序、偶数波前网格和非等价参考球排除原则予以保留；没有继承基于旧中文系列名的映射。
 - `tools/OptilandWorkbench.AccuracyCapture` 已通过 `WorkbenchRuntime.BuildAnalysisView` 重算真实结果，但 UI 行文本经过格式化。新增 `BuildAnalysisData` 复用同一私有分析工厂，直接返回未舍入的 `AnalysisData`；`BuildAnalysisView` 也调用此入口，没有另一套构造器或默认值。
-- Core `AnalysisCatalog` 为 72 项；Application 规范描述符还有用于展示的别名。注册表只接受 Core 的稳定键，并检查每项的 Application 描述符。原生 `AnalysisIDM` 无对应项通过同一注册表的 `NativeOnly` 枚举。
+- 当时 Core `AnalysisCatalog` 为 72 项；Application 规范描述符另有兼容别名。注册表按 Core 稳定键逐项审计 Application 描述符；原生 `AnalysisIDM` 无对应项通过同一注册表的 `NativeOnly` 枚举。
 - 已检查 `artifacts/zemax`、精度验证、基准配置边界、分析参考文档，以及现有 Huygens PSF、波前和其它 Zemax parity/golden 测试。没有删除或覆盖旧捕获资料。
 - 安装的 ZOS-API 引用了 .NET Framework/WPF/remoting。捕获由本地编译的独立 C# Framework 进程执行，主工具为 .NET 10。生产 `src` 不引用该工具、Framework host 或 ZOS-API。
 

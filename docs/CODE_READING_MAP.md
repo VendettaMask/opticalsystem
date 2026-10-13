@@ -139,7 +139,7 @@ STAROPT 容器版本、工程负载版本、Optic 快照版本是不同概念。
 - `SceneViewport` 保持以指针为中心的缩放锚点；可访问性同伴和键盘操作由专门辅助类提供。
 - 主题由色板、图标、字体、Chrome、装饰与强调色组成；`ThemeApplicationService` 在 UI 线程上协调切换。显示字体缩放另由 `DisplayTypography` 管理。
 - 制造模块在 App 内消费 DTO，组织单片、胶合组、系统图、规格与标题栏。当前内置 XML 模板决定页面区域、表格和字段绑定，SkiaSharp 输出预览和 PDF。
-- 制造模型中可直接看到基于半径/圆锥的 Sag 与尺寸检查；不能未经核对就宣称所有制造计算都复用 Core 任意自由曲面的求值。
+- 制造模型经 `ManufacturingGeometryService` 消费完整几何参数快照；矢高、法线斜率与厚度采样由 Core `ManufacturingProfileGeometry` 计算。径向评估/单片图只接受共轴、无倾斜的旋转对称面；自由曲面明确拒绝，不用基底圆锥替代。工艺规则和绘图裁切仍属于 App。
 - STEP 输出位于 Core，使用实际几何与坐标生成自适应分面实体，检查闭合、体积、方向和自相交。它不是保留解析曲面和全部光学语义的 CAD 导出。
 
 ## 9. 初始结构实验室

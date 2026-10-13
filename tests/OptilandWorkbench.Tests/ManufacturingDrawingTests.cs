@@ -38,7 +38,7 @@ public sealed class ManufacturingDrawingTests
         Assert.Contains(firstElementMetrics, metric => metric.Item == "有光焦度面半径绝对值");
         Assert.Contains(firstElementMetrics, metric => metric.Item == "全口径弧高");
         Assert.Contains(firstElementMetrics, metric => metric.Item == "全口径边厚");
-        Assert.Contains(firstElementMetrics, metric => metric.Item == "球面边缘倾角");
+        Assert.Contains(firstElementMetrics, metric => metric.Item == "表面边缘倾角");
         Assert.Contains(firstElementMetrics, metric => metric.Item == "表面类型" && metric.Value.Contains("标准面", StringComparison.Ordinal));
     }
 

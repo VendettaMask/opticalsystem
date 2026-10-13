@@ -129,7 +129,7 @@ public sealed class ComparisonRunner
                 CoordinateBreaks = o.SurfaceGroup.Items.Where(s => s.Geometry.GetType().Name.Contains("Coordinate", StringComparison.Ordinal)).Select(s => s.Number).ToArray(),
                 ParserWarnings = "Importer exposes capability issues; unsupported preserved records are available in input snapshot. No additional warning stream is exposed."
             }).ToArray();
-            var selected = AnalysisComparisonRegistry.Entries.Where(e => options.Analyses.Count == 0 || options.Analyses.Contains(e.CanonicalAnalysisKey, StringComparer.Ordinal)).ToArray();
+            var selected = AnalysisComparisonRegistry.Select(options.Analyses);
             foreach (var c in configs) foreach (var e in AnalysisComparisonRegistry.Entries)
                 runs.Add(new()
                 {
