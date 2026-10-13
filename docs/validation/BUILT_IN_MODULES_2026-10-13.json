@@ -199,10 +199,22 @@
       "Path": "artifacts/validation/integrated-product-20261013/format-changed.json"
     }
   ],
+  "SourceSynchronization": {
+    "Date": "2026-10-13",
+    "Commit": "922602b4d9c08373d83d4e232d5120045d6da6f8",
+    "RemoteBranch": "origin/main",
+    "PushSucceeded": true,
+    "RemoteCommitVerified": true,
+    "ForcePush": false,
+    "ExistingEvidenceRechecked": true,
+    "TestsRerunDuringSync": false,
+    "PackageUploaded": false,
+    "BuildProvenancePreserved": true
+  },
   "Limitations": [
     "No post-integration full numerical test run; pre-integration audit failures retained in the report",
     "No complete native desktop walkthrough, second Windows login-session, physical power loss, disk-failure or ARM64 hardware acceptance",
     "Unsigned as requested; no new Zemax capture; excluded independent Cooke/Tessar investigations unchanged",
-    "No production installation replacement, commit or push"
+    "No production installation replacement; validation and package creation preceded the source synchronization recorded above"
   ]
 }
