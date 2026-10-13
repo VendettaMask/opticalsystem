@@ -2,11 +2,12 @@ using Avalonia.Controls;
 using Avalonia.LogicalTree;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
+using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.InitialStructure.Contracts;
 using OptilandWorkbench.InitialStructure.Engine;
 using OptilandWorkbench.InitialStructure.Persistence;
 
-namespace OptilandWorkbench.InitialStructure.App;
+namespace OptilandWorkbench.App.Laboratories.InitialStructure;
 
 internal sealed record LabDesktopSettings
 {
@@ -26,6 +27,7 @@ public sealed partial class MainWindow
     private CancellationTokenSource? _runCancellation;
     private bool _busy, _running, _resumeLoading, _hasLastRun, _closed, _closeRequested, _allowClose;
     private int _runGeneration, _resumeRefreshGeneration;
+    private bool _operationFailed;
 
     private void WireEvents()
     {
@@ -78,7 +80,7 @@ public sealed partial class MainWindow
             _status.Text = "正在停止并保存，完成后关闭窗口。";
             _ = CloseAfterOperationAsync();
         };
-        Closed += (_, _) => { _closed = true; _runGeneration++; _resumeRefreshGeneration++; _preview.Clear(); _runCancellation?.Dispose(); };
+        Closed += (_, _) => { _closed = true; _runGeneration++; _resumeRefreshGeneration++; _preview.Clear(); _runCancellation?.Dispose(); _operationStatus.Dispose(); };
     }
     private void Hook(Button button, Func<Task> action) => button.Click += (_, _) =>
     {
@@ -88,25 +90,45 @@ public sealed partial class MainWindow
     private async Task PerformAsync(Func<Task> action)
     {
         _busy = true; _resumeRefreshGeneration++; UpdateCommands();
+        _operationFailed = false;
+        _operationStatus.Start("正在处理初始结构…", () => _runCancellation?.Cancel());
         try { await action(); }
-        catch (InitialStructureSpecificationException exception) { _status.Text = "参数需要调整：" + string.Join("；", exception.Errors); }
+        catch (InitialStructureSpecificationException exception) { _operationFailed = true; _status.Text = "参数需要调整：" + string.Join("；", exception.Errors); }
         catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException or InvalidOperationException
             or ArgumentException or ArithmeticException or NotSupportedException or KeyNotFoundException)
         {
+            _operationFailed = true;
             _status.Text = "未完成：" + exception.Message;
         }
         finally
         {
             _busy = _running = false;
             _runCancellation?.Dispose(); _runCancellation = null;
-            if (!_closed) UpdateCommands();
+            if (!_closed)
+            {
+                if (_operationFailed) _operationStatus.MarkFailed(_status.Text ?? "未完成");
+                else _operationStatus.MarkSynced(_status.Text ?? "已完成");
+                UpdateCommands();
+            }
         }
     }
     private async Task CloseAfterOperationAsync()
     {
-        await PendingOperation;
+        if (!await PrepareForHostCloseAsync()) { _closeRequested = false; return; }
         _allowClose = true;
         Close();
+    }
+    internal async Task<bool> PrepareForHostCloseAsync()
+    {
+        var wasBusy = _busy;
+        _runCancellation?.Cancel();
+        await PendingOperation;
+        if (wasBusy && _operationFailed)
+        {
+            _status.Text = "停止或保存未完成，已保留窗口，请检查错误后再退出。";
+            return false;
+        }
+        return true;
     }
     private void ParametersChanged()
     {
@@ -117,14 +139,21 @@ public sealed partial class MainWindow
     private void UpdateCommands()
     {
         var selected = _candidateGrid.SelectedItem is CandidateRow;
-        _form.IsEnabled = !_busy;
+        foreach (var input in _form.GetLogicalDescendants().OfType<Control>()
+            .Where(control => control is TextBox or NumericUpDown or ComboBox or CheckBox))
+            ControlAvailability.Set(input, !_busy, "正在计算，请停止并保存后修改输入。");
         _candidateGrid.IsEnabled = !_busy || _running;
-        _validateButton.IsEnabled = _runButton.IsEnabled = _openButton.IsEnabled = !_busy;
+        foreach (var button in new[] { _validateButton, _runButton, _openButton })
+            ControlAvailability.Set(button, !_busy, "正在执行操作，请等待完成或停止并保存。");
         _resumeButton.Content = _current is null ? "上次实验" : "继续运行";
-        _resumeButton.IsEnabled = !_busy && !_resumeLoading && (_current is null ? _hasLastRun : CanResume(_current));
-        _cancelButton.IsEnabled = _running && _runCancellation?.IsCancellationRequested == false;
-        _refineButton.IsEnabled = _exportButton.IsEnabled = _compareAButton.IsEnabled = _compareBButton.IsEnabled = !_busy && selected;
-        _clearComparisonButton.IsEnabled = !_busy && (_comparisonA is not null || _comparisonB is not null);
+        ControlAvailability.Set(_resumeButton, !_busy && !_resumeLoading && (_current is null ? _hasLastRun : CanResume(_current)),
+            _busy || _resumeLoading ? "正在处理或读取实验记录。" : "没有可继续的记录，或当前记录的版本/预算不允许继续。");
+        ControlAvailability.Set(_cancelButton, _running && _runCancellation?.IsCancellationRequested == false,
+            _running ? "正在停止并保存。" : "当前没有正在运行的搜索。");
+        foreach (var button in new[] { _refineButton, _exportButton, _compareAButton, _compareBButton })
+            ControlAvailability.Set(button, !_busy && selected, _busy ? "请先停止并保存当前搜索。" : "请先选择一个候选方案。");
+        ControlAvailability.Set(_clearComparisonButton, !_busy && (_comparisonA is not null || _comparisonB is not null),
+            _busy ? "请先停止并保存当前搜索。" : "当前没有 A/B 比较方案。");
     }
     private static bool CanResume(FlatStartSearchCheckpoint checkpoint) => checkpoint.Algorithm.Version == FlatStartAlgorithm.Version && checkpoint.UsableGlassNames.Count > 0
         && checkpoint.ChargedEvaluations < checkpoint.Specification.Budget.MaximumEvaluations
@@ -253,8 +282,6 @@ public sealed partial class MainWindow
         var accepted = candidates.Count(candidate => candidate.Status == CandidateStatus.LabAccepted);
         _summary.Text = $"{checkpoint.Specification.EffectiveFocalLengthMillimeters:0.###} mm · F/{checkpoint.Specification.FNumber:0.###} · 半视场 {checkpoint.Specification.MaximumFieldAngleDegrees:0.###}°\n"
             + $"当前保留 {_rows.Count} 个方案，{accepted} 个达标；其余方案的具体差距见详情。";
-        _progress.Maximum = checkpoint.Specification.Budget.MaximumEvaluations;
-        _progress.Value = checkpoint.Trials.Where(trial => trial.State != FamilyTrialState.Reserved).Sum(trial => trial.ChargedEvaluations);
         if (_running)
         {
             _status.Text = _runCancellation?.IsCancellationRequested == true ? "正在结束当前批次并保存…"
@@ -296,7 +323,8 @@ public sealed partial class MainWindow
         _selectionDetails.Text = _messages.Text = "";
         _searchHistory.ItemsSource = null;
         _searchPlan.Text = "预检查可查看正负形式覆盖范围和每个起始试验的预算。";
-        _summary.Text = "尚未生成方案。"; _progress.Value = 0;
+        _summary.Text = "尚未生成方案。";
+        if (!_busy) _operationStatus.MarkIdle("就绪");
         _comparisonDetails.Text = "A 为蓝色，B 为橙色；共用毫米比例。";
         UpdateCommands();
     }

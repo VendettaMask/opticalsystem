@@ -172,6 +172,11 @@
           "Avalonia.Skia": "12.1.0"
         }
       },
+      "CommunityToolkit.Mvvm": {
+        "type": "Transitive",
+        "resolved": "8.4.0",
+        "contentHash": "tqVU8yc/ADO9oiTRyTnwhFN68hCwvkliMierptWOudIAvWY1mWCh5VFh+guwHJmpMwfg0J0rY+yyd5Oy7ty9Uw=="
+      },
       "Dock.Avalonia": {
         "type": "Transitive",
         "resolved": "12.0.0.2",
@@ -184,6 +189,15 @@
           "Dock.MarkupExtension": "12.0.0.2",
           "Dock.Model": "12.0.0.2",
           "Dock.Settings": "12.0.0.2"
+        }
+      },
+      "Dock.Avalonia.Themes.Fluent": {
+        "type": "Transitive",
+        "resolved": "12.0.0.2",
+        "contentHash": "DhCyhsM7eMfWmmNUknlDwFVD4JN0+A/GwtDGtWhfPF8VraC1lYaXY7QfUPtjRrLOu2DlP8AlNaMXlHvZzi74bQ==",
+        "dependencies": {
+          "Avalonia": "12.0.0",
+          "Dock.Avalonia": "12.0.0.2"
         }
       },
       "Dock.Controls.DeferredContentControl": {
@@ -230,6 +244,23 @@
         "contentHash": "yLD28SMkaGMVdv/kVkO1t+GkBbFWRPKlNoXh+KZ/lPjwCJKg8vm0xmdqdgszMZGbpcWPT7T2LZk/JuwECndftA==",
         "dependencies": {
           "Dock.Controls.Recycling.Model": "12.0.0.2"
+        }
+      },
+      "Dock.Model.Mvvm": {
+        "type": "Transitive",
+        "resolved": "12.0.0.2",
+        "contentHash": "+lK3PWXjSUiyWB8a++/9y1MwPFCs67zsNANNX9JKB9ZxpoeRzmamGAH5AYam31dLhluW2dul8r7FACGXyJsyYw==",
+        "dependencies": {
+          "CommunityToolkit.Mvvm": "8.4.0",
+          "Dock.Model": "12.0.0.2"
+        }
+      },
+      "Dock.Serializer.SystemTextJson": {
+        "type": "Transitive",
+        "resolved": "12.0.0.2",
+        "contentHash": "0mp0exVyEvJWCayQT4bduldbh1+Ly+z3GIUPSGWoe/ZYC99f5gUc+wxqANgoe4CL3qFJnKR8fCECCfrEcb6TAw==",
+        "dependencies": {
+          "Dock.Model": "12.0.0.2"
         }
       },
       "Dock.Settings": {
@@ -373,22 +404,29 @@
           "xunit.extensibility.core": "[2.9.3]"
         }
       },
-      "optilandworkbench.application": {
-        "type": "Project",
-        "dependencies": {
-          "OptilandWorkbench.Core": "[1.0.0, )",
-          "SkiaSharp": "[3.119.4, )"
-        }
-      },
-      "optilandworkbench.coatingdesign.app": {
+      "optilandworkbench.app": {
         "type": "Project",
         "dependencies": {
           "Avalonia.Controls.DataGrid": "[12.1.0, )",
           "Avalonia.Desktop": "[12.1.0, )",
           "Avalonia.Themes.Fluent": "[12.1.0, )",
           "Dock.Avalonia": "[12.0.0.2, )",
+          "Dock.Avalonia.Themes.Fluent": "[12.0.0.2, )",
+          "Dock.Model.Mvvm": "[12.0.0.2, )",
+          "Dock.Serializer.SystemTextJson": "[12.0.0.2, )",
           "OptilandWorkbench.Application": "[1.0.0, )",
-          "OptilandWorkbench.CoatingDesign.Engine": "[1.0.0, )"
+          "OptilandWorkbench.CoatingDesign.Engine": "[1.0.0, )",
+          "OptilandWorkbench.InitialStructure.Engine": "[1.0.0, )",
+          "OptilandWorkbench.InitialStructure.Persistence": "[1.0.0, )",
+          "OptilandWorkbench.Modules": "[1.0.0, )",
+          "SkiaSharp": "[3.119.4, )"
+        }
+      },
+      "optilandworkbench.application": {
+        "type": "Project",
+        "dependencies": {
+          "OptilandWorkbench.Core": "[1.0.0, )",
+          "SkiaSharp": "[3.119.4, )"
         }
       },
       "optilandworkbench.coatingdesign.engine": {
@@ -400,6 +438,34 @@
       },
       "optilandworkbench.core": {
         "type": "Project"
+      },
+      "optilandworkbench.initialstructure.contracts": {
+        "type": "Project",
+        "dependencies": {
+          "OptilandWorkbench.Core": "[1.0.0, )"
+        }
+      },
+      "optilandworkbench.initialstructure.engine": {
+        "type": "Project",
+        "dependencies": {
+          "OptilandWorkbench.Core": "[1.0.0, )",
+          "OptilandWorkbench.InitialStructure.Contracts": "[1.0.0, )"
+        }
+      },
+      "optilandworkbench.initialstructure.persistence": {
+        "type": "Project",
+        "dependencies": {
+          "OptilandWorkbench.Core": "[1.0.0, )",
+          "OptilandWorkbench.InitialStructure.Contracts": "[1.0.0, )"
+        }
+      },
+      "optilandworkbench.modules": {
+        "type": "Project",
+        "dependencies": {
+          "OptilandWorkbench.Application": "[1.0.0, )",
+          "OptilandWorkbench.CoatingDesign.Engine": "[1.0.0, )",
+          "OptilandWorkbench.InitialStructure.Engine": "[1.0.0, )"
+        }
       }
     }
   }

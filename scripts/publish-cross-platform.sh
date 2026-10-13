@@ -3,7 +3,7 @@ set -euo pipefail
 
 PROJECT="src/OptilandWorkbench.App/OptilandWorkbench.App.csproj"
 CONFIGURATION="${CONFIGURATION:-Release}"
-SELF_CONTAINED="${SELF_CONTAINED:-false}"
+SELF_CONTAINED="${SELF_CONTAINED:-true}"
 export AVALONIA_TELEMETRY_OPTOUT=1
 
 for runtime in osx-arm64 osx-x64 win-x64 win-arm64; do
@@ -11,6 +11,14 @@ for runtime in osx-arm64 osx-x64 win-x64 win-arm64; do
     -c "$CONFIGURATION" \
     -r "$runtime" \
     --self-contained "$SELF_CONTAINED"
+
+  publish_root="src/OptilandWorkbench.App/bin/$CONFIGURATION/net10.0/$runtime/publish"
+  for module in InitialStructure.Contracts InitialStructure.Engine InitialStructure.Persistence CoatingDesign.Engine Modules; do
+    test -s "$publish_root/OptilandWorkbench.$module.dll" || {
+      echo "Required built-in module missing: $module" >&2
+      exit 1
+    }
+  done
 
   if [[ "$runtime" == osx-* ]]; then
     runtime_root="src/OptilandWorkbench.App/bin/$CONFIGURATION/net10.0/$runtime"

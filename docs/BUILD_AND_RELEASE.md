@@ -1,8 +1,18 @@
 # 构建与发布
 
+## 唯一产品构建入口（2026-10-13）
+
+`dotnet build OptilandWorkbench.slnx -c Release` 构建主程序及两个必装内置模块；开发运行使用 `dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release`。不再存在实验室专用解决方案或启动项目。
+
+Windows 仍运行 `./scripts/build-installer.ps1`：一次发布、一个 Setup EXE、没有模块选装；五个内部模块库和镀膜许可证必须完整，否则发布失败。`scripts/verify-built-in-package.ps1` 在临时副本验证哈希、同进程模块加载与缺失模块受控退出，`scripts/verify-windows-upgrade.ps1` 检查实际安装、升级及五个模块的同包修复。证据和剩余发布门禁见[统一交付记录](BUILT_IN_MODULES_2026-10-13.md)。
+
+2026-10-13 最新交付约束：初始结构与镀膜设计已改为主程序同进程、同安装包的必装内置模块；不再支持独立程序、可选安装或外部路径启动。当前构建、定向测试、安装包证据及全量审计的已知失败见[统一产品交付记录](BUILT_IN_MODULES_2026-10-13.md)。下方各阶段的独立架构、包身份及计数只保留历史范围，不能作为当前交付说明。
+
 2026-10-12 本机已同步远端 6 个提交并更新默认 Debug/Release 程序，构建各零警告、零错误；Release 相关回归 197/197、比较工具专项 2/2、Git 完整性脚本 9/9 通过，冻结工作区与 Git 原字节均 2668/2668。本次未重跑全量或新增 Zemax 采集；下方 10 月 11 日全量及原生结果保留远端执行宿主的阶段身份。详见[本机同步范围](PROJECT_SYNC_2026-10-12.md)。
 
-2026-10-12 当前恢复扩展（1.0.2）：30 秒工程副本、崩溃恢复入口、安装持久日志/启动重放、同发布损坏载荷修复及受支持旧格式迁移已实现。默认 Debug/Release 构建零警告、零错误；正式完整 Release **4770/4770**、Debug/Release 相关各 **66/66**、实际 x64 隔离安装矩阵 **78/78** 通过，均零失败、零跳过，集合不相加。最终 1.0.2 未签名包 **1179** 个载荷文件核验及实际 EXE 只读工程/旧设置检查通过。物理断电、完整 GUI 与 ARM64 实机仍未认证；此前光学数值和安装阶段记录保留历史身份。源码同步状态见恢复报告。见[实现、证据与限制](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)。
+2026-10-13 当前安装维护：已增加旧载荷自动清理和跨会话目录文件锁；一键版本回退按用户要求不纳入范围。默认 Debug/Release 构建零警告、零错误；相同相关集合各 **146/146**、实际 x64 隔离安装矩阵 **98/98** 通过，集合不相加。新增 25 个清理/文件锁案例；此前 CSV/恢复修复阶段完整 Release **4785/4785** 与冻结 **2668/2668** 保留阶段身份，本次未重跑光学全量或实机故障/ARM64/完整人工桌面验收。已构建 1.0.3 独立测试包，旧 1.0.2 正式包保留，修改尚未提交推送。见[最新实现、证据与边界](CURRENT_STATUS.md)。
+
+2026-10-12 历史恢复扩展（1.0.2）：30 秒工程副本、崩溃恢复入口、安装持久日志/启动重放、同发布损坏载荷修复及受支持旧格式迁移已实现。默认 Debug/Release 构建零警告、零错误；正式完整 Release **4770/4770**、Debug/Release 相关各 **66/66**、实际 x64 隔离安装矩阵 **78/78** 通过，均零失败、零跳过，集合不相加。最终 1.0.2 未签名包 **1179** 个载荷文件核验及实际 EXE 只读工程/旧设置检查通过。物理断电、完整 GUI 与 ARM64 实机仍未认证；此前光学数值和安装阶段记录保留历史身份。源码同步状态见恢复报告。见[实现、证据与限制](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)。
 
 2026-10-12 历史安装升级验收（1.0.1，恢复扩展之前）：默认采用无需购买证书的未签名交付；版本载荷校验、失败恢复、运行互斥、入口更新及用户数据保留已实现。实际 x64 隔离安装矩阵 **48/48**，默认 Debug/Release 构建零警告、零错误，相关回归各 **32/32**；最终 1.0.1 未签名包 **1179** 个载荷文件核验通过。本阶段未重跑光学全量，下方 4733/182 等保留为安装改动前的光学阶段结果，不代表当前完整发布验收。断电恢复、完整 GUI 和 ARM64 实机仍开放；未提交推送。见[安装方案、证据与限制](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)。
 
@@ -853,20 +863,20 @@ dotnet run --project tools/OptilandWorkbench.NonSequentialSamples/OptilandWorkbe
 
 生成器使用固定对象GUID和随机种子，逐个追迹验证场景、能量平衡及建议路径筛选，再分别原子写入12个STAROPT工程、6张光源效果SVG和`index.json`。样例清单、课堂步骤与预期结果见[`samples/non-sequential/README.md`](../samples/non-sequential/README.md)。
 
-## 镀膜实验室独立构建与验收
+## 内置镀膜模块构建与验收
 
-镀膜实验室位于 `labs/CoatingDesign`，不纳入正式解决方案或现有安装包。独立脚本 `Run-CoatingDesign.command` / `.cmd` 构建并运行 Release；主程序入口要求实验室与主程序 Debug/Release 配置一致，或通过 `OPTILAND_COATING_DESIGN_LAB_PATH` 指定已部署绝对路径。
+镀膜领域库和测试仍在 `labs/CoatingDesign`，UI 已移入主程序。根解决方案统一构建；安装包强制包含模块，没有独立脚本或外部路径配置。
 
 ```sh
-dotnet build labs/CoatingDesign/OptilandWorkbench.CoatingDesign.slnx -c Release
-dotnet test labs/CoatingDesign/OptilandWorkbench.CoatingDesign.slnx -c Release --no-build
+dotnet build OptilandWorkbench.slnx -c Release
+dotnet test labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/OptilandWorkbench.CoatingDesign.Tests.csproj -c Release --no-build
 ```
 
 2026-09-27 镀膜实验室完整 Debug/Release 各 **29/29**，正式相关 Release **198/198** 通过（涵盖入口、材料、共享数值、优化与界面契约；不是正式全量）。上游 120 个固定案例属于其中一项测试，不另加到通过总数。三个示例均完成真实计算、优化、导出、保存重开一致性；高反和窄带仍有未达标项。[完整证据、命令和边界](../validation/coating/README.md)。这不覆盖或更新上面的初始结构实验室 260 项以及历史全量发布门禁。
 
 ## 启动桌面应用
 
-独立顶层“实验室 → AI 初始结构”提供独立初始结构实验室的进程启动入口。实验室仍须通过 `labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx` 单独构建，正式解决方案和安装包不包含其实验程序集。开发目录的入口使用与主程序相同配置的实验室输出；独立部署和路径配置见 [实验室 README](../labs/InitialStructure/README.md#run)。
+“实验室 → AI 初始结构 / 光学镀膜设计”打开主程序内置工作区，不创建其他进程。根解决方案和标准安装包必须包含两个模块；没有独立构建、可选安装或路径配置。使用与数据边界见[初始结构说明](../labs/InitialStructure/README.md#run)和[镀膜说明](../labs/CoatingDesign/README.md)。
 
 - Windows：`Run-Optiland.cmd`
 - macOS：`Run-Optiland.command`
@@ -887,8 +897,8 @@ AVALONIA_TELEMETRY_OPTOUT=1 dotnet run --project src/OptilandWorkbench.App/Optil
 
 ```text
 artifacts/installers/installer-win-x64-<唯一编号>/
-  OpticalSystemDesign-1.0.2-win-x64-Unsigned-Setup.exe
-  OpticalSystemDesign-1.0.2-win-x64-Unsigned-Setup.exe.sha256
+  OpticalSystemDesign-1.0.3-win-x64-Unsigned-Setup.exe
+  OpticalSystemDesign-1.0.3-win-x64-Unsigned-Setup.exe.sha256
   release.json
   payload/app-<唯一编号>/
 ```
@@ -897,7 +907,7 @@ artifacts/installers/installer-win-x64-<唯一编号>/
 
 默认按当前用户安装至 `%LOCALAPPDATA%\Programs\S.T.A.R. Labs\Optical System Design`，不要求管理员权限；在 Windows“设置 > 应用”或开始菜单卸载。安装目录与快捷方式选项在重复安装时保留。升级/卸载要求正常退出应用，运行标记与旧 EXE 文件占用检查阻止冲突；不会强制关闭窗口，安装期间也禁止启动新应用。
 
-2026-10-12 已改为 `versions/<release-id>` 并排载荷，清单及逐文件 SHA-256 校验通过后才切换入口；保留旧版本文件。同包重复安装不覆盖恢复指针，新布局拒绝降级。1.0.2 在切换前发布持久日志，恢复旧状态、快捷方式、卸载注册表值与卸载器文件及本安装拥有的工程打开入口；异常中断后重跑安装器或启动应用重放未提交事务，同发布损坏/缺失文件可由原包修复。实际强杀与部分复制矩阵通过，但物理断电及恢复自身遇到底层故障未认证。旧平铺布局通用降级判定、旧载荷自动清理及一键版本回退仍未实现。见[当前实现与验收](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)。
+2026-10-12 已改为 `versions/<release-id>` 并排载荷，清单及逐文件 SHA-256 校验通过后才切换入口。同包重复安装不覆盖恢复指针，新布局拒绝降级。1.0.2 增加持久恢复日志与同发布损坏/缺失修复。2026-10-13 的 1.0.3 增加安装目录文件锁，以及依据已提交归属清单的旧载荷自动清理：保留当前/上一/启动版本，未知或含新增、修改文件的目录保留，异常中断后可续做。默认构建版本已更新为 1.0.3；当前仅新建独立测试包，未替换正式 1.0.2 包。旧平铺布局的通用降级判定和实机边界仍保留；一键版本回退按用户要求不纳入范围。见[当前实现与验收](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)。
 
 安装包与厂商镜头 JSON 均不压缩，厂商资源仍分别保存于 `LensLibrary/StockCatalogs/<厂商名>.json`。卸载使用已安装文件日志，不递归清空安装目录，也不删除用户设置、会话或另外创建的工程文件。**随安装包分发的文件归安装程序管理**；同包重装发现改动或缺失时会从安装包修复，卸载仍会移除受管理文件，编辑前应另存到用户工程目录。
 

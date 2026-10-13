@@ -577,17 +577,18 @@ public sealed class InitialStructureLabTests
     }
 
     [Fact]
-    public void FormalProductProjectsDoNotReferenceTheLab()
+    public void ProductIncludesInitialStructureWithoutMovingSearchIntoTheCore()
     {
         var repositoryRoot = FindRepositoryRoot();
         var formalSolution = File.ReadAllText(Path.Combine(repositoryRoot, "OptilandWorkbench.slnx"));
-        Assert.DoesNotContain("InitialStructure", formalSolution, StringComparison.Ordinal);
+        Assert.Contains("InitialStructure", formalSolution, StringComparison.Ordinal);
+        Assert.Contains("InitialStructure.Engine", File.ReadAllText(Path.Combine(repositoryRoot,
+            "src/OptilandWorkbench.App/OptilandWorkbench.App.csproj")), StringComparison.Ordinal);
 
         var formalProjects = new[]
         {
             "src/OptilandWorkbench.Core/OptilandWorkbench.Core.csproj",
-            "src/OptilandWorkbench.Application/OptilandWorkbench.Application.csproj",
-            "src/OptilandWorkbench.App/OptilandWorkbench.App.csproj"
+            "src/OptilandWorkbench.Application/OptilandWorkbench.Application.csproj"
         };
         foreach (var project in formalProjects)
         {
@@ -597,21 +598,17 @@ public sealed class InitialStructureLabTests
     }
 
     [Fact]
-    public void LabAppSourceKeepsTheIndependentFormalCoreWorkflow()
+    public void BuiltInModuleKeepsTheSharedCoreWorkflow()
     {
         var repositoryRoot = FindRepositoryRoot();
         var mainWindow = string.Join("\n", Directory.GetFiles(Path.Combine(
             repositoryRoot,
-            "labs",
-            "InitialStructure",
             "src",
-            "OptilandWorkbench.InitialStructure.App"), "MainWindow*.cs").Select(File.ReadAllText));
+            "OptilandWorkbench.App", "Laboratories", "InitialStructure"), "MainWindow*.cs").Select(File.ReadAllText));
         var preview = File.ReadAllText(Path.Combine(
             repositoryRoot,
-            "labs",
-            "InitialStructure",
             "src",
-            "OptilandWorkbench.InitialStructure.App",
+            "OptilandWorkbench.App", "Laboratories", "InitialStructure",
             "CandidatePreviewControl.cs"));
 
         Assert.Contains("width < 820", mainWindow, StringComparison.Ordinal);
@@ -623,7 +620,11 @@ public sealed class InitialStructureLabTests
         Assert.Contains("SetComparison", mainWindow, StringComparison.Ordinal);
         Assert.Contains("CandidateExportService", mainWindow, StringComparison.Ordinal);
         Assert.Contains("TryGetLocalPath", mainWindow, StringComparison.Ordinal);
-        Assert.Contains("Layout2DBuilder", preview, StringComparison.Ordinal);
+        Assert.Contains("InitialStructurePresentation.BuildScene", preview, StringComparison.Ordinal);
+        var presentation = File.ReadAllText(Path.Combine(repositoryRoot, "src", "OptilandWorkbench.Modules", "InitialStructurePresentation.cs"));
+        Assert.Contains("Layout2DBuilder", presentation, StringComparison.Ordinal);
+        Assert.Contains("WorkbenchMapper.ToScene2Dto", presentation, StringComparison.Ordinal);
+        Assert.DoesNotContain("OptilandWorkbench.Core", preview, StringComparison.Ordinal);
         Assert.Contains("segment.Direction", preview, StringComparison.Ordinal);
         Assert.DoesNotContain("surface.Radius", preview, StringComparison.Ordinal);
         Assert.Contains("OnCreateAutomationPeer", preview, StringComparison.Ordinal);

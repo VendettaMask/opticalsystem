@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../OptilandWorkbench.Application/OptilandWorkbench.Application.csproj" />
+    <ProjectReference Include="../../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/OptilandWorkbench.InitialStructure.Engine.csproj" />
+    <ProjectReference Include="../../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/OptilandWorkbench.CoatingDesign.Engine.csproj" />
+  </ItemGroup>
+</Project>

@@ -25,6 +25,7 @@ internal static class WindowsInstallationRecovery
         if (!created) throw new InvalidOperationException("安装任务正在运行，无法恢复中断安装。");
         try
         {
+            using var files = WindowsInstallationGate.Maintenance(root);
             if (Mutex.TryOpenExisting(WindowsInstallationLifetime.MutexName(productId), out var application))
             {
                 application.Dispose();
@@ -173,7 +174,7 @@ internal static class WindowsInstallationRecovery
         return new(true, active);
     }
 
-    private static Dictionary<string, string> ReadIni(string path)
+    internal static Dictionary<string, string> ReadIni(string path)
     {
         var text = BoundedApplicationFile.ReadAllText(path, 1024 * 1024, "Installation journal");
         var values = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
@@ -220,7 +221,7 @@ internal static class WindowsInstallationRecovery
         finally { if (File.Exists(temporary)) File.Delete(temporary); }
     }
 
-    private static void CheckPath(string path)
+    internal static void CheckPath(string path)
     {
         for (var item = Path.GetFullPath(path); !string.IsNullOrEmpty(item); item = Path.GetDirectoryName(item))
             if (Path.Exists(item) && (File.GetAttributes(item) & FileAttributes.ReparsePoint) != 0)

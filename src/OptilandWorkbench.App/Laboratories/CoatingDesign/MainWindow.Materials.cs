@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using OptilandWorkbench.CoatingDesign.Engine;
 
-namespace OptilandWorkbench.CoatingDesign.App;
+namespace OptilandWorkbench.App.Laboratories.CoatingDesign;
 
 public sealed partial class MainWindow
 {

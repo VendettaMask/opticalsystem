@@ -1,6 +1,8 @@
-# Initial Structure Lab
+# Initial Structure — Built-in Product Module
 
-Current verification (2026-09-27): laboratory Release **260/260**, default lab Debug/Release builds with zero warnings/errors, and all 40 frozen-snapshot recalculations/exports pass. Failed optical designs retain their failure status. Core sources are unchanged; formal full tests and external comparison were not rerun. See [scope and evidence](../../docs/INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md).
+2026-10-13 delivery contract: initial structure and coating design are mandatory modules in the one main application process. The root solution builds all modules and the standard installer installs all of them without a component choice. `labs/` retains domain source, tests and historical evidence only; it is not an independently runnable or installable product. See [integration and verification](../../docs/BUILT_IN_MODULES_2026-10-13.md).
+
+Historical verification (2026-09-27): laboratory Release **260/260**, default lab Debug/Release builds with zero warnings/errors, and all 40 frozen-snapshot recalculations/exports pass. Failed optical designs retain their failure status. Core sources are unchanged; formal full tests and external comparison were not rerun. See [scope and evidence](../../docs/INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md).
 
 Current implementation: **v19** restores a missing real-ray domain between progressive stages using bounded pupil/field bridges. Final full-target acceptance, shared Core physical-stop aiming, automatic lens sizing and same-snapshot export remain mandatory. This fixes one measured interrupted start; the 10,000-evaluation wide-angle best RMS remains 377.79 micrometers and fails the 50 micrometer target. See [the literature review and results](../../docs/INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md).
 
@@ -20,9 +22,9 @@ The frozen v4 comparison remains 52/60 successful runs and 9/12 specifications m
 
 Historical development began with the [2026-09-07 flat-start proposal](../../docs/INITIAL_STRUCTURE_FROM_FLAT_PROPOSAL.md). P0 freezes twelve full-target specifications; P1/P2 provide strict-flat startup and full-target continuation through formal Core. P3 adds `FlatStartSearchService.RunAsync` (`strict-flat-family-search/v1`): real catalog materials, discrete surface stops, element-count families, parent-linked refinement, diversity filtering and budget-preserving checkpoints. P4 connects this engine to the independent desktop with formal layout/rays, target tables, resume, selected-candidate refinement and validated export. The P3 survey remains four accepted specifications out of twelve; eight retain explicit gaps. The P5 release gate remains pending. See [P4 workflow and verification](../../docs/INITIAL_STRUCTURE_P4_2026-09-07.md) and [P3 numerical results](../../docs/INITIAL_STRUCTURE_P3_2026-09-07.md).
 
-This directory contains the isolated experimental implementation of the intelligent initial-structure generator. Its assemblies remain outside the formal product solution, runtime, installer, compatibility surface, and release baseline. The formal desktop has a launch-only entry under **实验室 → AI 初始结构**; it starts this independent application in a separate process.
+This directory contains the initial-structure domain libraries, persistence, tests and frozen search evidence. The current UI is in `src/OptilandWorkbench.App/Laboratories/InitialStructure`; the main desktop opens it under **实验室 → AI 初始结构** in the same process. `OptilandWorkbench.Modules` converts shared Core results into presentation DTOs; the main UI assembly does not reference Core.
 
-Mandatory shared computation boundary (user clarification, 2026-09-07): every optical trace and analysis calls the formal product's shared Core. Laboratory isolation applies to features, search orchestration, processes, and data, never a separate optical engine. P1/P2 now call formal `SpotMetricEvaluator.EvaluatePupilSamples` and `Paraxial.EstimateOpticalPower`, with identical snapshot/settings checks. Missing capabilities belong in the formal shared layer, with no laboratory formula copies or approximation fallbacks. Independent analytical/Snell code remains test-only and cannot supply runtime results. P2 adds no separate tracer or optical analysis engine.
+Mandatory shared computation boundary (user clarification, 2026-09-07): every optical trace and analysis calls the formal product's shared Core. Module boundaries apply to features, search orchestration and editing state, never a separate process or optical engine. P1/P2 now call formal `SpotMetricEvaluator.EvaluatePupilSamples` and `Paraxial.EstimateOpticalPower`, with identical snapshot/settings checks. Missing capabilities belong in the formal shared layer, with no laboratory formula copies or approximation fallbacks. Independent analytical/Snell code remains test-only and cannot supply runtime results. P2 adds no separate tracer or optical analysis engine.
 
 Historical verification (2026-09-07, P4): the complete laboratory suite passes **104/104**, with no failures/skips (previous 91 plus 13 cases). After the final numeric-input correction, the relevant **14/14** subset passes on the final Release code; it is included in the 104 cases, not an additional total. The solver did not change during the full run. Default Debug/Release builds have zero warnings/errors; formatting and diff checks pass. Actual Avalonia mouse/keyboard interactions, Skia renders at 1240/600/480 px, formal-scene equality, cancellation/export/resume, source-preserving additional refinement and stale-scene clearing are verified. A separate native Windows launch/close check passes; this is not native manual or cross-platform UI certification. Evidence: `artifacts/validation/initial-structure-p4-20260907`. All ten legacy gates and the twelve full-target specifications remain unchanged. The P3 seed-101 survey is not the sixty-run release protocol or new-candidate external certification. Formal Core was unchanged and formal tests were not rerun for P4; the formal 46/46 and laboratory 63/63 counts belong to P2. Existing cached dependencies were used; no new online vulnerability audit was completed.
 
@@ -61,24 +63,24 @@ The L3 engine gate and L4 core desktop workflow are implemented. `LabAccepted` i
 
 On 2026-08-30, the four-test L3 contract filter passed `4/4`, the separate frozen-benchmark gate passed `1/1` in about four seconds, and the L4 checkpoint/export/responsive-source filter passed `4/4`. The final combined key-path replay passed `5/5`, covering the frozen gate, dense acceptance, deterministic checkpoint resume, validated STAROPT export, and responsive accessible App source. Eight of ten frozen specifications produced three distinct accepted element/stop families; the 85 mm and 100 mm specifications produced two each. The laboratory solution build and format verification passed with `0` warnings and `0` errors, and the online direct/transitive dependency audit reported no known vulnerable package. A wide macOS screenshot showed no overlap; the unpackaged Avalonia process was not discoverable by the Computer Use accessibility driver, so automated narrow-window interaction remains a cross-platform UI follow-up. These targeted runs overlap, are not a full-suite total, and remain independent of the formal product baseline.
 
-Repository CI now restores, builds, tests, and verifies formatting for this isolated solution on Linux, macOS, and Windows. This does not merge the laboratory into the formal product solution or release baseline.
+Repository CI restores/builds/formats/audits the one root solution and runs both module test projects on Linux, macOS and Windows. Historical numerical gates remain unchanged; integrating delivery does not turn known optical failures into passes.
 
 ## Build and test
 
 ```bash
-dotnet build labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx /m:1 /nr:false
+dotnet build OptilandWorkbench.slnx /m:1 /nr:false
 dotnet test labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/OptilandWorkbench.InitialStructure.Tests.csproj --no-restore /m:1 /nr:false
 ```
 
 ## Run
 
-Build the laboratory separately, then use the desktop entry or the command below. In a source checkout, the entry locates this App's `bin/Debug/net10.0` or `bin/Release/net10.0` output to match the formal desktop build. It never builds the laboratory automatically or substitutes the other configuration's binaries.
+Install the standard product once, start Optical System Design, and choose **实验室 → AI 初始结构**. No additional download, build, environment override or separate executable is used. For development, start the main application:
 
 ```bash
-dotnet run --project labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/OptilandWorkbench.InitialStructure.App.csproj
+dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release
 ```
 
-For a separately deployed laboratory, set `OPTILAND_INITIAL_STRUCTURE_LAB_PATH` to the absolute path of its executable (or its `.dll`, requiring the .NET runtime), or place its complete independent publish output under the formal desktop's `labs/InitialStructure/` directory. The standard installer is unchanged and does not bundle it. Missing laboratory files produce a normal launch error; opening the formal desktop does not require the laboratory. Paths are passed directly to the process API, without a command shell. No current document, optimization state or application settings are sent to the laboratory.
+Both module windows are owned by the main window and share its theme and display settings. Search records and coating experiments retain their own editing state. Closing the product stops/awaits module operations and preserves unsaved-data safeguards.
 
 The entry's “AI” label names the experimental feature requested by the user; this change adds no model, training, retrieval or agent implementation. The implemented generator remains the deterministic optical search described above.
 

@@ -37,7 +37,7 @@ internal static class UnsavedChangesGuard
 
 internal sealed class UnsavedChangesWindow : Window
 {
-    internal UnsavedChangesWindow(string operationDescription)
+    internal UnsavedChangesWindow(string operationDescription, string subject = "当前项目或公差数据")
     {
         Title = "未保存的修改";
         Width = 470;
@@ -69,7 +69,7 @@ internal sealed class UnsavedChangesWindow : Window
             {
                 new TextBlock
                 {
-                    Text = "当前项目或公差数据有未保存的修改",
+                    Text = subject + "有未保存的修改",
                     FontSize = DisplayTypography.WindowTitle,
                     FontWeight = FontWeight.SemiBold
                 },

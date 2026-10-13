@@ -1,25 +1,11 @@
 using System.Text.Json;
-using Avalonia;
 using OptilandWorkbench.CoatingDesign.Engine;
 
-namespace OptilandWorkbench.CoatingDesign.App;
+namespace OptilandWorkbench.Modules;
 
-public static class Program
+public static class CoatingExampleBatch
 {
-    [STAThread]
-    public static int Main(string[] args)
-    {
-        if (args.Length > 0 && args[0] is "--batch-examples" or "--batch-daily-examples")
-        {
-            RunExamplesAsync(args.Length > 1 ? args[1] : "coating-examples", args[0] == "--batch-daily-examples").GetAwaiter().GetResult();
-            return 0;
-        }
-        BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
-        return 0;
-    }
-    public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<App>().UsePlatformDetect().LogToTrace();
-
-    private static async Task RunExamplesAsync(string directory, bool daily)
+    public static async Task RunExamplesAsync(string directory, bool daily)
     {
         var service = new DesignService();
         var summaries = new List<object>();

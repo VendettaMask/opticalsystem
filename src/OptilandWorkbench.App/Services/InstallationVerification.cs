@@ -31,6 +31,7 @@ internal static class InstallationVerification
         var document = application.Documents.GetSnapshot();
         var settings = settingsPath is null ? null : AppSettings.Load(settingsPath);
         if (settings?.LoadWarning is not null) throw new InvalidDataException(settings.LoadWarning);
+        var modules = ProductModules.Verify();
         var report = new
         {
             Success = true,
@@ -44,6 +45,9 @@ internal static class InstallationVerification
             ProjectOpened = projectPath is not null,
             SettingsLoaded = settings is not null,
             SettingsTheme = settings?.Theme,
+            modules.Modules,
+            ModuleLibraries = modules.Libraries,
+            ModulesInProcess = modules.InProcess,
             UserDataWritten = false,
             GuiVerified = false
         };

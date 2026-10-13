@@ -1,0 +1,623 @@
+{
+  "formatVersion": 1,
+  "date": "2026-10-13",
+  "baseCommit": "cc9b7ab194c93ce1d2932f890ee649ce12970a32",
+  "sourceDirty": true,
+  "scope": {
+    "oneClickRollback": "Excluded by explicit user request",
+    "automaticOldPayloadCleanup": "Implemented",
+    "crossSessionDirectoryLockProtocol": "Implemented",
+    "legacyLocalMutexCompatibility": "Retained during cleanup and recovery"
+  },
+  "builds": {
+    "defaultSolutionOutputs": true,
+    "Debug": {
+      "warnings": 0,
+      "errors": 0
+    },
+    "Release": {
+      "warnings": 0,
+      "errors": 0
+    },
+    "earlierNugetAuditConnectivityWarnings": "NU1900 cleared after connectivity recovered; auditing was not disabled"
+  },
+  "tests": {
+    "Debug": {
+      "Total": 146,
+      "Passed": 146,
+      "Failed": 0,
+      "Skipped": 0
+    },
+    "Release": {
+      "Total": 146,
+      "Passed": 146,
+      "Failed": 0,
+      "Skipped": 0
+    }
+  },
+  "identicalTestNames": true,
+  "newCases": [
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.ChangeBetweenPreflightAndDeletionIsNotLost",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.InterruptedCleanupResumesFromExternalReceiptWithoutManifestInPayload",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.JunctionsAreRejectedWithoutFollowingOrDeletingTheirTargets(atRoot: False)",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.JunctionsAreRejectedWithoutFollowingOrDeletingTheirTargets(atRoot: True)",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.LegacyInstallerMutexBlocksCleanupWithoutDirectoryLock",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.LockedLegacyExecutablePreventsAnyDeletion",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.PartiallyDeletedPayloadRetainsReceiptAndRetriesAfterLockedFileReleased",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.RemovesOnlyOwnedOldPayloadAndKeepsCurrentPreviousExecutingAndUnknown",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.RunningApplicationBlocksCleanupEvenWithoutLocalMutex",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.UncertainRecoveryStateBlocksAllCleanup(reason: \"missing-previous\")",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.UncertainRecoveryStateBlocksAllCleanup(reason: \"pending\")",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.UncertainRecoveryStateBlocksAllCleanup(reason: \"state\")",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.UnsafeCandidatesAreRetainedWithoutDeletingAnyPayloadFile(reason: \"duplicate\")",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.UnsafeCandidatesAreRetainedWithoutDeletingAnyPayloadFile(reason: \"foreign-product\")",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.UnsafeCandidatesAreRetainedWithoutDeletingAnyPayloadFile(reason: \"manifest\")",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.UnsafeCandidatesAreRetainedWithoutDeletingAnyPayloadFile(reason: \"modified\")",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.UnsafeCandidatesAreRetainedWithoutDeletingAnyPayloadFile(reason: \"receipt\")",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.UnsafeCandidatesAreRetainedWithoutDeletingAnyPayloadFile(reason: \"traversal\")",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.UnsafeCandidatesAreRetainedWithoutDeletingAnyPayloadFile(reason: \"user-directory\")",
+    "OptilandWorkbench.Tests.WindowsInstallationCleanupTests.UnsafeCandidatesAreRetainedWithoutDeletingAnyPayloadFile(reason: \"user-file\")",
+    "OptilandWorkbench.Tests.WindowsInstallationGateTests.IndependentProcessWithoutLocalMutexBlocksMaintenanceAndHardExitReleasesLock(name: \".application.lock\")",
+    "OptilandWorkbench.Tests.WindowsInstallationGateTests.IndependentProcessWithoutLocalMutexBlocksMaintenanceAndHardExitReleasesLock(name: \".setup.lock\")",
+    "OptilandWorkbench.Tests.WindowsInstallationGateTests.MaintenanceRejectsApplicationAndAnotherMaintenanceThenReleases",
+    "OptilandWorkbench.Tests.WindowsInstallationGateTests.MultipleApplicationsCoexistAndMaintenanceWaitsForAllOfThem",
+    "OptilandWorkbench.Tests.WindowsInstallationGateTests.OtherInstallRootIsIndependent"
+  ],
+  "nativeMatrix": {
+    "passed": 98,
+    "failed": 0,
+    "productAppId": "OpticalSystemDesign-UpgradeValidation-20261012",
+    "releaseId": "1.0.3-win-x64-dc8fd5ca2e7c",
+    "testPackage": true,
+    "validationHooks": true,
+    "runtime": "win-x64",
+    "checks": [
+      {
+        "name": "legacy-install",
+        "passed": true
+      },
+      {
+        "name": "legacy-payload-present",
+        "passed": true
+      },
+      {
+        "name": "legacy-native-read-process",
+        "passed": true
+      },
+      {
+        "name": "legacy-native-read-native-product",
+        "passed": true
+      },
+      {
+        "name": "legacy-exclusive-file-lock-blocked",
+        "passed": true
+      },
+      {
+        "name": "upgrade-before-activation-failure",
+        "passed": true
+      },
+      {
+        "name": "legacy-preserved-after-failure",
+        "passed": true
+      },
+      {
+        "name": "failed-upgrade-has-no-active-state",
+        "passed": true
+      },
+      {
+        "name": "upgrade-after-activation-failure",
+        "passed": true
+      },
+      {
+        "name": "activation-restored-to-legacy",
+        "passed": true
+      },
+      {
+        "name": "legacy-byte-preserved-after-activation-failure",
+        "passed": true
+      },
+      {
+        "name": "legacy-shortcut-restored",
+        "passed": true
+      },
+      {
+        "name": "legacy-association-restored",
+        "passed": true
+      },
+      {
+        "name": "legacy-display-version-restored",
+        "passed": true
+      },
+      {
+        "name": "recovered-legacy-native-read-process",
+        "passed": true
+      },
+      {
+        "name": "recovered-legacy-native-read-native-product",
+        "passed": true
+      },
+      {
+        "name": "real-version-upgrade",
+        "passed": true
+      },
+      {
+        "name": "new-payload-present",
+        "passed": true
+      },
+      {
+        "name": "upgraded-native-read-process",
+        "passed": true
+      },
+      {
+        "name": "upgraded-native-read-native-product",
+        "passed": true
+      },
+      {
+        "name": "association-upgraded",
+        "passed": true
+      },
+      {
+        "name": "shortcut-upgraded",
+        "passed": true
+      },
+      {
+        "name": "legacy-payload-retained",
+        "passed": true
+      },
+      {
+        "name": "versioned-activation-failure",
+        "passed": true
+      },
+      {
+        "name": "versioned-state-restored",
+        "passed": true
+      },
+      {
+        "name": "versioned-shortcut-restored",
+        "passed": true
+      },
+      {
+        "name": "versioned-association-restored",
+        "passed": true
+      },
+      {
+        "name": "same-package-repeat",
+        "passed": true
+      },
+      {
+        "name": "same-package-state-stable",
+        "passed": true
+      },
+      {
+        "name": "downgrade-blocked",
+        "passed": true
+      },
+      {
+        "name": "downgrade-state-preserved",
+        "passed": true
+      },
+      {
+        "name": "corrupted-payload-repaired",
+        "passed": true
+      },
+      {
+        "name": "corrupted-file-restored-exactly",
+        "passed": true
+      },
+      {
+        "name": "corrupted-payload-state-preserved",
+        "passed": true
+      },
+      {
+        "name": "missing-payload-repaired",
+        "passed": true
+      },
+      {
+        "name": "missing-file-restored-exactly",
+        "passed": true
+      },
+      {
+        "name": "killed-before-copy-ready",
+        "passed": true
+      },
+      {
+        "name": "killed-before-copy-owned-process",
+        "passed": true
+      },
+      {
+        "name": "killed-before-copy-durable-journal",
+        "passed": true
+      },
+      {
+        "name": "retry-recovers-before-copy-kill",
+        "passed": true
+      },
+      {
+        "name": "before-copy-state-preserved",
+        "passed": true
+      },
+      {
+        "name": "killed-after-activation-ready",
+        "passed": true
+      },
+      {
+        "name": "killed-after-activation-owned-process",
+        "passed": true
+      },
+      {
+        "name": "killed-after-activation-durable-journal",
+        "passed": true
+      },
+      {
+        "name": "startup-replays-interrupted-activation-process",
+        "passed": true
+      },
+      {
+        "name": "startup-replays-interrupted-activation-native-product",
+        "passed": true
+      },
+      {
+        "name": "startup-restores-old-state-exactly",
+        "passed": true
+      },
+      {
+        "name": "startup-restores-old-shortcut",
+        "passed": true
+      },
+      {
+        "name": "startup-restores-old-association",
+        "passed": true
+      },
+      {
+        "name": "startup-recovery-journal-retired",
+        "passed": true
+      },
+      {
+        "name": "killed-after-activation-retry-ready",
+        "passed": true
+      },
+      {
+        "name": "killed-after-activation-retry-owned-process",
+        "passed": true
+      },
+      {
+        "name": "killed-after-activation-retry-durable-journal",
+        "passed": true
+      },
+      {
+        "name": "retry-recovers-after-activation-kill",
+        "passed": true
+      },
+      {
+        "name": "retry-state-preserved",
+        "passed": true
+      },
+      {
+        "name": "killed-during-copy-ready",
+        "passed": true
+      },
+      {
+        "name": "killed-during-copy-owned-process",
+        "passed": true
+      },
+      {
+        "name": "killed-during-copy-durable-journal",
+        "passed": true
+      },
+      {
+        "name": "partial-copy-keeps-active-state",
+        "passed": true
+      },
+      {
+        "name": "startup-recovers-partial-copy-process",
+        "passed": true
+      },
+      {
+        "name": "startup-recovers-partial-copy-native-product",
+        "passed": true
+      },
+      {
+        "name": "partial-copy-startup-state-preserved",
+        "passed": true
+      },
+      {
+        "name": "partial-copy-retry-completes",
+        "passed": true
+      },
+      {
+        "name": "startup-during-setup-blocked",
+        "passed": true
+      },
+      {
+        "name": "uninstall-during-setup-blocked",
+        "passed": true
+      },
+      {
+        "name": "file-setup-gate-blocks-startup",
+        "passed": true
+      },
+      {
+        "name": "file-setup-gate-blocks-setup",
+        "passed": true
+      },
+      {
+        "name": "file-setup-gate-blocks-uninstall",
+        "passed": true
+      },
+      {
+        "name": "file-app-gate-blocks-setup",
+        "passed": true
+      },
+      {
+        "name": "file-app-gate-blocks-uninstall",
+        "passed": true
+      },
+      {
+        "name": "running-product-ready",
+        "passed": true
+      },
+      {
+        "name": "running-upgrade-blocked",
+        "passed": true
+      },
+      {
+        "name": "running-uninstall-blocked",
+        "passed": true
+      },
+      {
+        "name": "running-product-not-killed",
+        "passed": true
+      },
+      {
+        "name": "recovered-native-read-process",
+        "passed": true
+      },
+      {
+        "name": "recovered-native-read-native-product",
+        "passed": true
+      },
+      {
+        "name": "project-byte-preserved",
+        "passed": true
+      },
+      {
+        "name": "settings-byte-preserved",
+        "passed": true
+      },
+      {
+        "name": "committed-release-has-cleanup-receipt",
+        "passed": true
+      },
+      {
+        "name": "cleanup-second-release-install",
+        "passed": true
+      },
+      {
+        "name": "cleanup-keeps-previous-process",
+        "passed": true
+      },
+      {
+        "name": "cleanup-keeps-previous-native-product",
+        "passed": true
+      },
+      {
+        "name": "previous-release-preserved",
+        "passed": true
+      },
+      {
+        "name": "cleanup-third-release-install",
+        "passed": true
+      },
+      {
+        "name": "cleanup-keeps-user-files-process",
+        "passed": true
+      },
+      {
+        "name": "cleanup-keeps-user-files-native-product",
+        "passed": true
+      },
+      {
+        "name": "user-extra-preserves-whole-old-release",
+        "passed": true
+      },
+      {
+        "name": "cleanup-old-release-process",
+        "passed": true
+      },
+      {
+        "name": "cleanup-old-release-native-product",
+        "passed": true
+      },
+      {
+        "name": "old-owned-payload-removed",
+        "passed": true
+      },
+      {
+        "name": "old-receipt-retired",
+        "passed": true
+      },
+      {
+        "name": "active-and-previous-retained",
+        "passed": true
+      },
+      {
+        "name": "cleanup-preserves-project-and-settings",
+        "passed": true
+      },
+      {
+        "name": "uninstall",
+        "passed": true
+      },
+      {
+        "name": "new-executable-removed",
+        "passed": true
+      },
+      {
+        "name": "registration-removed",
+        "passed": true
+      },
+      {
+        "name": "user-project-survives-uninstall",
+        "passed": true
+      },
+      {
+        "name": "user-settings-survive-uninstall",
+        "passed": true
+      }
+    ],
+    "uninstalled": true,
+    "userFixtureBytesPreserved": true,
+    "productionInstallTouched": false
+  },
+  "package": {
+    "FormatVersion": 1,
+    "ReleaseId": "1.0.3-win-x64-dc8fd5ca2e7c",
+    "Version": "1.0.3",
+    "Runtime": "win-x64",
+    "ProductAppId": "OpticalSystemDesign-UpgradeValidation-20261012",
+    "SourceCommit": "cc9b7ab194c93ce1d2932f890ee649ce12970a32",
+    "SourceDirty": true,
+    "Signed": false,
+    "TestPackage": true,
+    "ValidationHooks": true,
+    "InstallerScriptSha256": "64c3d28c45708f974c331d0a3a58e004804294f6e57ded7367311257b8fb2391",
+    "RecoveryScriptSha256": "bc9d834614ca65d12eb4cc6450e3e514b73267c1fe8505895fca15bfa5aef676",
+    "Files": 1179,
+    "ManifestSha256": "4ddb699fc8980544785f28c04a20016b8b8d1d3ac300f0a386cd888a92593d2c"
+  },
+  "cleanupPolicy": {
+    "keep": "Active, previous and executing releases",
+    "ownership": "Committed installer receipt and external manifest hash",
+    "unknownOrModified": "Retain entire candidate at preflight",
+    "interruption": "External receipt remains until owned payload is removed; retry on later startup",
+    "deletion": "Exclusive handle hash verification and file disposition; nonrecursive empty known directories only",
+    "boundedWork": "At most 1000 receipts scanned and 4 releases completed per launch",
+    "oldUnreceiptedVersions": "Preserved"
+  },
+  "initialFailures": {
+    "passed": 33,
+    "failed": 2,
+    "total": 35,
+    "cause": "Test assumed Windows file handles were released immediately when process termination signalled",
+    "correction": "Bounded 5-second wait for kernel cleanup; live-process conflict assertion unchanged",
+    "evidence": "artifacts/validation/installation-cleanup-20261013/installation-debug.trx"
+  },
+  "intermediateEvidence": {
+    "relatedPerConfiguration": 145,
+    "nativeMatrix": ".tmp/cleanup-native-final/summary.json",
+    "nativePassed": 98,
+    "note": "Before final legacy-installer concurrency compatibility guard; not final binary acceptance"
+  },
+  "notPerformed": [
+    "Full optical regression rerun after installation maintenance",
+    "Physical power loss",
+    "Physical disk failure",
+    "Actual second Windows login session",
+    "ARM64 hardware installation and execution",
+    "Complete manual desktop GUI acceptance",
+    "Production identity installation",
+    "New production delivery package",
+    "Commit or push"
+  ],
+  "previousFullRelease": {
+    "passed": 4785,
+    "stage": "Earlier CSV/document recovery fixes; not rerun in this maintenance stage",
+    "ledger": "docs/validation/RELIABILITY_FIXES_2026-10-13.json"
+  },
+  "sourceHashes": [
+    {
+      "Path": "src/OptilandWorkbench.App/Program.cs",
+      "Sha256": "36fd5e2df83e6990fbc672faf1e50ca2049a03c225857551c216db037e31dad1"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/Services/WindowsInstallationGate.cs",
+      "Sha256": "8f8e3f64dd951629038661c8869b40edbe7972ea62b8bb7dffd06b6c77459928"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/Services/WindowsInstallationCleanup.cs",
+      "Sha256": "601ba161f62e84cd4187ead7d55f23468ced4b9ea4b04c71b880f42675710d48"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/Services/WindowsInstallationLifetime.cs",
+      "Sha256": "d80faf6055a997869cf1a077c78797a22aa1887c19d3ea4342f481f8a4d7a96e"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/Services/WindowsInstallationRecovery.cs",
+      "Sha256": "ccda26f4e2fcd3b6dabf1dea94ea118c16204efee9c2d88b81c407b0d575ef1d"
+    },
+    {
+      "Path": "packaging/windows/OpticalSystemDesign.iss",
+      "Sha256": "64c3d28c45708f974c331d0a3a58e004804294f6e57ded7367311257b8fb2391"
+    },
+    {
+      "Path": "scripts/build-installer.ps1",
+      "Sha256": "e7646dc7665eaab7f6ef3dd75e858f17ce7e9c192e172c7415504daf1a0d0916"
+    },
+    {
+      "Path": "scripts/publish-windows.ps1",
+      "Sha256": "120b83d80107c86930a799089c42a1a4a9497ecc4c29b4849f64b6d5d0fb944a"
+    },
+    {
+      "Path": "scripts/verify-windows-upgrade.ps1",
+      "Sha256": "ae4f597a52202c26bd25b2983c59e594a627b49820aa782a3fe5aa7c1c8d05b0"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/WindowsInstallationCleanupTests.cs",
+      "Sha256": "341edea06ee18d9feacaf797481d81ec4371f685228094cabc1973efc29ec776"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/WindowsInstallationGateTests.cs",
+      "Sha256": "37b53b3091102240f4c7716fafb2a5db7e5e987b8120f5245e8af1dd6aed3a86"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/WindowsInstallationTestAttributes.cs",
+      "Sha256": "59eabcf76099c20f23fab3d27264110a6c32f74ab7221a6af3d03a98a6305b42"
+    }
+  ],
+  "evidenceHashes": [
+    {
+      "Path": "artifacts/validation/installation-cleanup-20261013/related-debug-verified.trx",
+      "Sha256": "7b75366a1f9a751438820a765771c19d20dc122ea95794008e3cb52ef85a16ee"
+    },
+    {
+      "Path": "artifacts/validation/installation-cleanup-20261013/related-release-verified.trx",
+      "Sha256": "ad8400408ed3b9b4527c51d80f926490f4ca9f75517571538bf970e044085c07"
+    },
+    {
+      "Path": "artifacts/validation/installation-cleanup-20261013/build-debug-final.log",
+      "Sha256": "2ee8abce845cb2f2a1e70d48535e8197cfdd727d2d37dc9d354183cd4e0af14a"
+    },
+    {
+      "Path": "artifacts/validation/installation-cleanup-20261013/build-release-final.log",
+      "Sha256": "d36f31404d3394ece2234bd6e0d762255c12d3378825f3f09d167bab7a38f567"
+    },
+    {
+      "Path": "artifacts/validation/installation-cleanup-20261013/installation-debug.trx",
+      "Sha256": "84dc2eb9b8929f0c823eb1b20847a3bb96b4b3a519be134fda44dd885a5e86ec"
+    },
+    {
+      "Path": ".tmp/cleanup-native-verified/summary.json",
+      "Sha256": "427a44e6180ba012f321b4e9f68ad5bab15e7105e05e41582f9b24b74c733e3c"
+    },
+    {
+      "Path": ".tmp/cleanup-native-verified/checks.json",
+      "Sha256": "6ca676ad9c1a3792cfe50e5d32228a427dc5613c4e1af9d60d2be256a059b029"
+    },
+    {
+      "Path": ".tmp/cleanup-variants-verified/a.exe",
+      "Sha256": "13252a644accc143cf361112bdeffb5e03955de271157352c63c149d398d34c1"
+    },
+    {
+      "Path": ".tmp/cleanup-variants-verified/b.exe",
+      "Sha256": "0fc6d48dfcf07a8f8e87d2d76546808c4e0940f214862a7767768134e49a911d"
+    },
+    {
+      "Path": ".tmp/cleanup-variants-verified/c.exe",
+      "Sha256": "b335f4fabe3b74432e928abd090a26367497ef91c1b026a0c008bf711248b700"
+    },
+    {
+      "Path": ".tmp/cleanup-variants-verified/release.json",
+      "Sha256": "99fbd2f235232c60d6dae0c22d936cb76f5e86cbddaece6d9df68845fc000051"
+    }
+  ]
+}

@@ -6,10 +6,12 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
+using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Controls;
 using OptilandWorkbench.InitialStructure.Contracts;
 using OptilandWorkbench.InitialStructure.Persistence;
 
-namespace OptilandWorkbench.InitialStructure.App;
+namespace OptilandWorkbench.App.Laboratories.InitialStructure;
 
 public sealed partial class MainWindow : Window
 {
@@ -27,7 +29,7 @@ public sealed partial class MainWindow : Window
     private readonly TextBlock _messages = Named(Text(""), "Messages", "材料与运行提示");
     private readonly TextBlock _selectionDetails = Text("");
     private readonly TextBlock _comparisonDetails = Text("A 为蓝色，B 为橙色；共用毫米比例。");
-    private readonly ProgressBar _progress = new() { Minimum = 0, Maximum = 1, Height = 4 };
+    private readonly OperationStatusBar _operationStatus = new();
     private readonly Button _validateButton = Command("预检查", "Validate");
     private readonly Button _runButton = Command("开始形式搜索", "Generate");
     private readonly Button _resumeButton = Command("恢复上次", "Resume");
@@ -58,11 +60,15 @@ public sealed partial class MainWindow : Window
             ("焦距 mm", "FocalLength", 100), ("最差 RMS mm", "Rms", 120), ("最低通光", "Transmission", 96));
         _candidateGrid.ItemsSource = _rows;
         Content = BuildContent();
+        _runButton.Classes.Add("accent");
+        _refineButton.Classes.Add("accent");
         WireEvents();
         if (settings.InitialSpecification is { } specification) ApplySpecification(specification, settings.InitialOptions ?? new());
         ApplyResponsiveLayout(Width);
         UpdateCommands();
         Ready = RefreshResumeAvailabilityAsync();
+        Icon = BrandAssets.LoadWindowIcon();
+        DisplayTypography.Apply(this);
     }
 
     internal Task Ready { get; }
@@ -73,7 +79,7 @@ public sealed partial class MainWindow : Window
     {
         var root = new Grid { RowDefinitions = new("Auto,*,Auto"), Margin = new Thickness(16, 12), RowSpacing = 12 };
         var header = new StackPanel { Spacing = 9 };
-        header.Children.Add(new TextBlock { Text = "自动镜头设计 · 形式搜索", FontSize = 23, FontWeight = FontWeight.SemiBold });
+        header.Children.Add(new TextBlock { Text = "自动镜头设计 · 形式搜索", FontSize = DisplayTypography.PageTitle, FontWeight = FontWeight.SemiBold });
         header.Children.Add(Text("定义系统与目标 → 正负形式搜索 → 比较候选 → 继续优化"));
         header.Children.Add(Buttons(_validateButton, _runButton, _resumeButton, _openButton, _cancelButton, _refineButton, _exportButton));
         root.Children.Add(header);
@@ -108,7 +114,7 @@ public sealed partial class MainWindow : Window
         var footer = new StackPanel { Spacing = 5 };
         footer.Children.Add(_status);
         footer.Children.Add(new ScrollViewer { Content = _messages, MaxHeight = 70, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled });
-        footer.Children.Add(_progress);
+        footer.Children.Add(_operationStatus);
         Grid.SetRow(footer, 2); root.Children.Add(footer);
         return root;
     }

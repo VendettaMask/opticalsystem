@@ -1,6 +1,10 @@
 # 全仓库代码阅读地图
 
-2026-10-12 当前恢复扩展（1.0.2）：30 秒工程副本、崩溃恢复入口、安装持久日志/启动重放、同发布损坏载荷修复及受支持旧格式迁移已实现。默认 Debug/Release 构建零警告、零错误；正式完整 Release **4770/4770**、Debug/Release 相关各 **66/66**、实际 x64 隔离安装矩阵 **78/78** 通过，均零失败、零跳过，集合不相加。最终 1.0.2 未签名包 **1179** 个载荷文件核验及实际 EXE 只读工程/旧设置检查通过。物理断电、完整 GUI 与 ARM64 实机仍未认证；此前光学数值和安装阶段记录保留历史身份。源码同步状态见恢复报告。见[实现、证据与限制](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)。
+2026-10-13 最新交付约束：初始结构与镀膜设计已改为主程序同进程、同安装包的必装内置模块；不再支持独立程序、可选安装或外部路径启动。当前构建、定向测试、安装包证据及全量审计的已知失败见[统一产品交付记录](BUILT_IN_MODULES_2026-10-13.md)。下方各阶段的独立架构、包身份及计数只保留历史范围，不能作为当前交付说明。
+
+2026-10-13 当前安装维护：已增加旧载荷自动清理和跨会话目录文件锁；一键版本回退按用户要求不纳入范围。默认 Debug/Release 构建零警告、零错误；相同相关集合各 **146/146**、实际 x64 隔离安装矩阵 **98/98** 通过，集合不相加。新增 25 个清理/文件锁案例；此前 CSV/恢复修复阶段完整 Release **4785/4785** 与冻结 **2668/2668** 保留阶段身份，本次未重跑光学全量或实机故障/ARM64/完整人工桌面验收。已构建 1.0.3 独立测试包，旧 1.0.2 正式包保留，修改尚未提交推送。见[最新实现、证据与边界](CURRENT_STATUS.md)。
+
+2026-10-12 历史恢复扩展（1.0.2）：30 秒工程副本、崩溃恢复入口、安装持久日志/启动重放、同发布损坏载荷修复及受支持旧格式迁移已实现。默认 Debug/Release 构建零警告、零错误；正式完整 Release **4770/4770**、Debug/Release 相关各 **66/66**、实际 x64 隔离安装矩阵 **78/78** 通过，均零失败、零跳过，集合不相加。最终 1.0.2 未签名包 **1179** 个载荷文件核验及实际 EXE 只读工程/旧设置检查通过。物理断电、完整 GUI 与 ARM64 实机仍未认证；此前光学数值和安装阶段记录保留历史身份。源码同步状态见恢复报告。见[实现、证据与限制](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)。
 
 2026-10-12 历史安装升级验收（1.0.1，恢复扩展之前）：默认采用无需购买证书的未签名交付；版本载荷校验、失败恢复、运行互斥、入口更新及用户数据保留已实现。实际 x64 隔离安装矩阵 **48/48**，默认 Debug/Release 构建零警告、零错误，相关回归各 **32/32**；最终 1.0.1 未签名包 **1179** 个载荷文件核验通过。本阶段未重跑光学全量，下方 4733/182 等保留为安装改动前的光学阶段结果，不代表当前完整发布验收。断电恢复、完整 GUI 和 ARM64 实机仍开放；未提交推送。见[安装方案、证据与限制](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)。
 
@@ -61,7 +65,7 @@
 ## 1. 工程边界
 
 - 正式产品：`OptilandWorkbench.slnx`，由 Core、Application、App、正式测试和离线工具组成（2026-09-25 校正：Compatibility 项目已移除）。
-- 独立初始结构实验室：`labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx`，独立构建和验收，不在正式产品运行时中。
+- 内置初始结构与镀膜设计：根 `OptilandWorkbench.slnx` 统一构建，界面在 `src/OptilandWorkbench.App/Laboratories/`，显示适配在 `src/OptilandWorkbench.Modules/`；`labs/` 仅保留内部领域库、测试及历史证据，不是独立产品。
 - 桌面启动：`Program.Main → App → MainWindow → WorkbenchApplication.Create`。`MainWindow` 创建工作区、命令和服务，具体功能分布在 `Shell` 与 `Panels`。
 - 实际依赖方向：`App → Application → Core`；旧 Compatibility 项目已移除，实验室通过单向引用复用 Core。契约不向 App 暴露 Core 类型。
 - Core 没有第三方 NuGet 计算库依赖；FFT、几何交点、数值优化、材料公式等实现位于仓库内。Application 引用 SkiaSharp，App 引用 Avalonia、Dock 与 SkiaSharp。
@@ -281,10 +285,10 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 
 | 文件 | 行数 | 类型或脚本函数 |
 | --- | ---: | --- |
-| [labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/App.cs](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/App.cs) | 29 | App |
-| [labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/CandidatePreviewControl.cs](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/CandidatePreviewControl.cs) | 214 | CandidatePreviewControl, CandidatePreviewAutomationPeer |
-| [labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/MainWindow.cs](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/MainWindow.cs) | 717 | MainWindow, CandidateRow |
-| [labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/Program.cs](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/Program.cs) | 17 | Program |
+| [初始结构内置界面](../src/OptilandWorkbench.App/Laboratories/InitialStructure/MainWindow.cs) | — | MainWindow（拆分 Inputs / Workflow） |
+| [候选二维预览](../src/OptilandWorkbench.App/Laboratories/InitialStructure/CandidatePreviewControl.cs) | — | CandidatePreviewControl，使用 Scene2Dto |
+| [显示数据适配](../src/OptilandWorkbench.Modules/InitialStructurePresentation.cs) | — | 共用 Core 与 WorkbenchMapper |
+| [统一窗口管理](../src/OptilandWorkbench.App/Services/IntegratedLaboratories.cs) | — | 同进程、复用窗口、退出保护 |
 | [labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Contracts/InitialStructureModels.cs](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Contracts/InitialStructureModels.cs) | 253 | InitialStructureLimits, ObjectConjugateMode, CandidateStatus, SearchRunState, ConstraintSeverity, WavelengthSpecification, SearchBudget, InitialStructureSpecification, AlgorithmIdentity, ConstraintViolation, EvaluationVector, CandidateLineage, CandidateSnapshot, SearchDiagnostic, SearchRunManifest, SearchCheckpoint |
 | [labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/CandidateDiversityOrdering.cs](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/CandidateDiversityOrdering.cs) | 125 | CandidateDiversityOrdering, RankedCandidate |
 | [labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/CandidateObjective.cs](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/CandidateObjective.cs) | 67 | CandidateObjective |
@@ -775,8 +779,7 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | [Directory.Build.props](../Directory.Build.props) | MSBuild 构建规则 |
 | [Directory.Build.targets](../Directory.Build.targets) | MSBuild 构建规则 |
 | [labs/InitialStructure/Directory.Build.props](../labs/InitialStructure/Directory.Build.props) | MSBuild 构建规则 |
-| [labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx](../labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx) | 解决方案项目集合 |
-| [labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/OptilandWorkbench.InitialStructure.App.csproj](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.App/OptilandWorkbench.InitialStructure.App.csproj) | OptilandWorkbench.InitialStructure.Contracts, OptilandWorkbench.InitialStructure.Engine, OptilandWorkbench.InitialStructure.Persistence, OptilandWorkbench.Core |
+| [src/OptilandWorkbench.Modules/OptilandWorkbench.Modules.csproj](../src/OptilandWorkbench.Modules/OptilandWorkbench.Modules.csproj) | Application、初始结构/镀膜领域服务的内部显示适配；无可执行入口 |
 | [labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Contracts/OptilandWorkbench.InitialStructure.Contracts.csproj](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Contracts/OptilandWorkbench.InitialStructure.Contracts.csproj) | OptilandWorkbench.Core |
 | [labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/OptilandWorkbench.InitialStructure.Engine.csproj](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/OptilandWorkbench.InitialStructure.Engine.csproj) | OptilandWorkbench.InitialStructure.Contracts, OptilandWorkbench.Core |
 | [labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Persistence/OptilandWorkbench.InitialStructure.Persistence.csproj](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Persistence/OptilandWorkbench.InitialStructure.Persistence.csproj) | OptilandWorkbench.InitialStructure.Contracts, OptilandWorkbench.Core |
@@ -810,13 +813,13 @@ CI 分开执行正式产品和实验室构建/三平台测试，并另有格式�
 | 模板、目标残差、共享优化器、公差和密集验收 | [DesignService.cs](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/DesignService.cs) |
 | 取消与过期结果隔离 | [ExperimentSession.cs](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/ExperimentSession.cs) |
 | 原子保存、重开复算、精确 CSV 导出 | [ExperimentStore.cs](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/ExperimentStore.cs) |
-| 中文界面与光谱 | [MainWindow.cs](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/MainWindow.cs)、[SpectrumPlot.cs](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/SpectrumPlot.cs) |
-| 主程序独立进程启动 | [CoatingDesignLabLauncher.cs](../src/OptilandWorkbench.App/Services/CoatingDesignLabLauncher.cs) |
+| 中文界面与光谱 | [MainWindow.cs](../src/OptilandWorkbench.App/Laboratories/CoatingDesign/MainWindow.cs)、[SpectrumPlot.cs](../src/OptilandWorkbench.App/Laboratories/CoatingDesign/SpectrumPlot.cs) |
+| 主程序同进程工作区 | [IntegratedLaboratories.cs](../src/OptilandWorkbench.App/Services/IntegratedLaboratories.cs) |
 | 数值/工作流/控件测试 | [测试目录](../labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests) |
 
 源归档、上游对照脚本和物理验收相互独立；完整依据见[实施文档](COATING_DESIGN_LAB.md)与[验收记录](../validation/coating/README.md)。
 
-2026-09-28 镀膜入口补充：[结构搜索](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/DesignService.Search.cs)、[显式单位 n/k 表交换](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/MaterialTable.cs)、[材料对话框](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App/MaterialEditorWindow.cs)。ThemeRegistry 等显示源码在实验室 csproj 链接，主程序不新增实验室程序集引用。
+镀膜入口（2026-10-13 更新）：[结构搜索](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/DesignService.Search.cs)、[显式单位 n/k 表交换](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/MaterialTable.cs)、[材料对话框](../src/OptilandWorkbench.App/Laboratories/CoatingDesign/MaterialEditorWindow.cs)。UI 已移入主程序，直接使用主程序主题与字体服务，不再通过独立 csproj 源码链接。
 
 
 指定频率 MTF 制造公差：FFT/几何 MTF、逐视场极限/增量反求和联合良率、有界间隔/单表面偏心/倾斜补偿、startol v3（兼容 v1/v2）已实现；未认证原生 Zemax 公差数值。见 [使用、边界与验证](MTF_TOLERANCING_2026-10-04.md)。

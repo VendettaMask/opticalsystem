@@ -172,13 +172,13 @@ public sealed partial class MainWindow
         _actions.Register("open-optical-assembly-lab", "光学装调（实验室）", "实验室", ShowOpticalAssembly);
         _actions.Register("launch-initial-structure-lab", "AI 初始结构（实验室）", "实验室", () =>
         {
-            InitialStructureLabLauncher.Start();
-            _statusText.Text = "已启动独立的初始结构实验室";
+            Laboratories.OpenInitialStructure();
+            _statusText.Text = "已打开内置初始结构模块";
         });
         _actions.Register("launch-coating-design-lab", "光学镀膜设计（实验室）", "实验室", () =>
         {
-            CoatingDesignLabLauncher.Start();
-            _statusText.Text = "已启动独立的光学镀膜设计实验室";
+            Laboratories.OpenCoatingDesign();
+            _statusText.Text = "已打开内置光学镀膜设计模块";
         });
         _actions.Register("show-tolerancing", "显示公差面板", "面板", () => _panels.Show(WorkspacePanelId.Tolerancing));
         _actions.Register("run-tolerancing", "运行公差分析", "公差", () => _panels.RunTolerancingAsync(this));

@@ -1,0 +1,208 @@
+{
+  "Date": "2026-10-13",
+  "SourceCommit": "cc9b7ab194c93ce1d2932f890ee649ce12970a32",
+  "SourceDirty": true,
+  "Scope": "Mandatory in-process initial-structure and coating modules; one product installer",
+  "Builds": {
+    "DefaultOutputs": true,
+    "RootProjects": 19,
+    "Release": {
+      "Errors": 0,
+      "Warnings": 0
+    },
+    "LockedRestore": true,
+    "Debug": {
+      "Errors": 0,
+      "Warnings": 0
+    }
+  },
+  "Tests": [
+    {
+      "Path": "artifacts\\validation\\integrated-product-20261013\\main-related-release-final3.trx",
+      "Sha256": "157d26df7770bf4a7466d4f6b211885aff6462e073ccbc7dc8d8988ed249fb2d",
+      "Total": 100,
+      "Passed": 100,
+      "Failed": 0,
+      "Executed": 100
+    },
+    {
+      "Path": "artifacts\\validation\\integrated-product-20261013\\main-related-debug-final3.trx",
+      "Sha256": "755d284c37c2357601a3dbbdc2276250daac02191710db9264c6ee2a5653cd00",
+      "Total": 100,
+      "Passed": 100,
+      "Failed": 0,
+      "Executed": 100
+    },
+    {
+      "Path": "artifacts\\validation\\integrated-product-20261013\\initial-related-release-final3.trx",
+      "Sha256": "72439f27a7fc92a3e41963fd5cbb2f2c1e0c139489ed10cf7dad23865384c7e4",
+      "Total": 38,
+      "Passed": 38,
+      "Failed": 0,
+      "Executed": 38
+    },
+    {
+      "Path": "artifacts\\validation\\integrated-product-20261013\\initial-related-debug-final3.trx",
+      "Sha256": "cf36f3cdbeeea9b1c348eebc90e951b90b21dd1bce3c75ae6319d6339ffcadd9",
+      "Total": 38,
+      "Passed": 38,
+      "Failed": 0,
+      "Executed": 38
+    },
+    {
+      "Path": "artifacts\\validation\\integrated-product-20261013\\coating-release-final5.trx",
+      "Sha256": "f48f4e7f73443fabbcb1139e66650ab6c981dec6d79c4632ae245214b038d6ce",
+      "Total": 54,
+      "Passed": 54,
+      "Failed": 0,
+      "Executed": 54
+    },
+    {
+      "Path": "artifacts\\validation\\integrated-product-20261013\\coating-debug-final5.trx",
+      "Sha256": "c884fc9fff087338e74c87db2e28b595bd3d98080434c1a8096624ebb623b7e4",
+      "Total": 54,
+      "Passed": 54,
+      "Failed": 0,
+      "Executed": 54
+    }
+  ],
+  "ProductSource": {
+    "AggregateSha256": "4c228bd6f3ac5e0e34192d73f7270f111c8e24dc480d2104c1d862f4dd5be3a2",
+    "Files": 557,
+    "Method": "rg --files src labs/InitialStructure/src labs/CoatingDesign/src -g *.cs -g *.csproj -g packages.lock.json; Sort-Object paths; SHA256 UTF8 of LF-joined path (forward slash), two spaces, lowercase SHA256; no final LF"
+  },
+  "Package": {
+    "Length": 274571666,
+    "Metadata": {
+      "FormatVersion": 1,
+      "ReleaseId": "1.0.3-win-x64-332991feffd8",
+      "Version": "1.0.3",
+      "Runtime": "win-x64",
+      "ProductAppId": "OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A",
+      "SourceCommit": "cc9b7ab194c93ce1d2932f890ee649ce12970a32",
+      "SourceDirty": true,
+      "Signed": false,
+      "TestPackage": false,
+      "ValidationHooks": false,
+      "RequiredModules": [
+        "InitialStructure",
+        "CoatingDesign"
+      ],
+      "ModulesInProcess": true,
+      "InstallerScriptSha256": "64c3d28c45708f974c331d0a3a58e004804294f6e57ded7367311257b8fb2391",
+      "RecoveryScriptSha256": "bc9d834614ca65d12eb4cc6450e3e514b73267c1fe8505895fca15bfa5aef676",
+      "Files": 1187,
+      "ManifestSha256": "5058b068d1105e3710d81b7a84ae4da198313c4678b96622353b1dac9df28619"
+    },
+    "Path": "artifacts/installers/installer-win-x64-4f1511f0/OpticalSystemDesign-1.0.3-win-x64-Unsigned-Setup.exe",
+    "ProductDlls": [
+      {
+        "File": "OptilandWorkbench.App.dll",
+        "Sha256": "ba44ce4235a07b13ef18a84baf15d31be9f0d2eb5d5420be068883539dacd669",
+        "TestPackageIdentical": true
+      },
+      {
+        "File": "OptilandWorkbench.Modules.dll",
+        "Sha256": "216eca4286f92db45c6b1449b2d2e2f9d7d91d351958700c6a5b14ed473fd165",
+        "TestPackageIdentical": true
+      },
+      {
+        "File": "OptilandWorkbench.InitialStructure.Engine.dll",
+        "Sha256": "c61d7c56212b068d383bbe7320a5cd6f2855b19d30c5697df34aac7c1125e944",
+        "TestPackageIdentical": true
+      },
+      {
+        "File": "OptilandWorkbench.InitialStructure.Contracts.dll",
+        "Sha256": "03b0a467f5bfde45f3cb7756ad1b139a2298996bea8ada660cff32bf0ece2993",
+        "TestPackageIdentical": true
+      },
+      {
+        "File": "OptilandWorkbench.InitialStructure.Persistence.dll",
+        "Sha256": "944d401e19c4a1fdf540bb138ad5d791e80e819a562645b3917c0e372f426bbe",
+        "TestPackageIdentical": true
+      },
+      {
+        "File": "OptilandWorkbench.CoatingDesign.Engine.dll",
+        "Sha256": "10e2e8363615e2b4f7f2722395fb8523d9c97f6f8535ac83c111bb4f5e9ce589",
+        "TestPackageIdentical": true
+      }
+    ],
+    "Sha256": "7f39c67441fecaac59f39824b951e675082866ba82d9ae9ab531f2b18bbf7e58"
+  },
+  "NativePackageVerification": {
+    "Passed": 12,
+    "Failed": 0,
+    "ManifestFiles": 1187,
+    "Source": "D:\\optical system design\\opticalsystem\\artifacts\\installers\\installer-win-x64-4f1511f0\\payload\\app-29aadcb2",
+    "NativeGuiVerified": false,
+    "UserInstallationModified": false
+  },
+  "NativeInstallationVerification": {
+    "ProductAppId": "OpticalSystemDesign-UpgradeValidation-20261012",
+    "TestInstallationRemoved": true,
+    "ReleaseId": "1.0.3-win-x64-7c21a88be8d5",
+    "Passed": 82,
+    "Failed": 0,
+    "GuiVerified": false,
+    "UserInstallationModified": false,
+    "UserTestDataPreserved": true
+  },
+  "FrozenEvidence": {
+    "source": "HEAD",
+    "commit": "cc9b7ab194c93ce1d2932f890ee649ce12970a32",
+    "count": 2668,
+    "matched": 2668,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true,
+    "mismatches": [],
+    "workingTree": {
+      "count": 2668,
+      "matched": 2668,
+      "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "unchanged": true,
+      "mismatches": []
+    }
+  },
+  "Artifacts": [
+    {
+      "Sha256": "e608e24debf8f0e002775616b1955d4784e222c1ab414e8515c13d340cfd3a9f",
+      "Path": "artifacts/installers/installer-win-x64-4f1511f0/release.json"
+    },
+    {
+      "Sha256": "5058b068d1105e3710d81b7a84ae4da198313c4678b96622353b1dac9df28619",
+      "Path": "artifacts/installers/installer-win-x64-4f1511f0/payload/app-29aadcb2/release.files.sha256"
+    },
+    {
+      "Sha256": "31164d41127b514442c7d2eac1b58085c9777ddeec75abf3f17149f56eafa165",
+      "Path": ".tmp/module-package-verified-final/checks.json"
+    },
+    {
+      "Sha256": "442b03d8b114820a6355950c7dd790d178561ad5de4fb6cf7bc00a3c63afbbef",
+      "Path": ".tmp/module-package-verified-final/summary.json"
+    },
+    {
+      "Sha256": "f9ba2b740e3226f3a5be4b15118ee839136d8f178def3cd3d68926181dfaba9f",
+      "Path": ".tmp/module-installation-verified-final/checks.json"
+    },
+    {
+      "Sha256": "2686e7131460e8193f3fd00f95f7716741a3ea82dd47c09dae248e1fa79fda84",
+      "Path": ".tmp/module-installation-verified-final/summary.json"
+    },
+    {
+      "Sha256": "b4e1781efe5de89dc8f9b77940b4e8630c71bd78d7dfb53327ec1c216a82c574",
+      "Path": "artifacts/validation/integrated-product-20261013/frozen-integrity.json"
+    },
+    {
+      "Sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "Path": "artifacts/validation/integrated-product-20261013/format-changed.json"
+    }
+  ],
+  "Limitations": [
+    "No post-integration full numerical test run; pre-integration audit failures retained in the report",
+    "No complete native desktop walkthrough, second Windows login-session, physical power loss, disk-failure or ARM64 hardware acceptance",
+    "Unsigned as requested; no new Zemax capture; excluded independent Cooke/Tessar investigations unchanged",
+    "No production installation replacement, commit or push"
+  ]
+}

@@ -114,6 +114,8 @@ public sealed partial class MainWindow : Window
     private readonly IWorkbenchApplication _application;
     private readonly AppSettings _settings;
     private readonly ActionManager _actions = new();
+    private IntegratedLaboratories? _laboratories;
+    internal IntegratedLaboratories Laboratories => _laboratories ??= new(this);
     private readonly PanelManager _panels;
     private readonly TextBlock _statusText = new() { VerticalAlignment = VerticalAlignment.Center };
     private readonly TextBlock _eflText = new() { VerticalAlignment = VerticalAlignment.Center };
@@ -223,6 +225,7 @@ public sealed partial class MainWindow : Window
             }
 
             SaveLayout();
+            if (_laboratories is not null && !await _laboratories.TryCloseAsync()) return;
             await _panels.SaveCurrentSessionAsync();
             _recoveryTimer?.Stop();
             if (_recovery is not null) await _recovery.StopAsync(cleanExit: true);

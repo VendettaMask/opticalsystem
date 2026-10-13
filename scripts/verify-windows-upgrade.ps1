@@ -6,6 +6,7 @@ param([Parameter(Mandatory)][string]$SetupPath,
       [string]$DowngradeSetupPath = '',
       [string]$RecoverySetupPath = '',
       [string]$PartialCopySetupPath = '',
+      [switch]$VerifyCleanup,
       [string]$OutputDirectory = '.tmp\windows-upgrade-validation')
 
 Set-StrictMode -Version Latest
@@ -55,6 +56,14 @@ function Run-Product {
     Assert-Check "$Label-process" ($process.ExitCode -eq 0) $process.ExitCode
     $result = Get-Content -Raw -LiteralPath $report | ConvertFrom-Json
     Assert-Check "$Label-native-product" ($result.Success -and $result.ProjectOpened -and $result.SettingsLoaded -and -not $result.UserDataWritten) $result
+    if ($metadata.PSObject.Properties.Name -contains 'RequiredModules' -and
+        $Executable.Contains([IO.Path]::DirectorySeparatorChar + $metadata.ReleaseId + [IO.Path]::DirectorySeparatorChar)) {
+        Assert-Check "$Label-mandatory-modules" ($result.ModulesInProcess -and
+            ($result.Modules -join ',') -eq ($metadata.RequiredModules -join ',') -and $result.ModuleLibraries.Count -eq 5) $result.ModuleLibraries
+        foreach ($library in $result.ModuleLibraries) {
+            Assert-Check "$Label-$library-installed" (Test-Path -LiteralPath (Join-Path (Split-Path -Parent $Executable) ($library + '.dll'))) $library
+        }
+    }
 }
 
 Assert-Check 'legacy-install' ((Run-Setup $LegacySetupPath 'legacy-install') -eq 0) '1.0.0 flat layout'
@@ -141,6 +150,23 @@ Remove-Item -LiteralPath $missingFile -Force
 Assert-Check 'missing-payload-repaired' ((Run-Setup $SetupPath 'missing-payload') -eq 0) 'Same-package repair restores missing installer-owned DLL'
 Assert-Check 'missing-file-restored-exactly' ((File-Hash $missingFile) -eq $missingHash) $missingHash
 
+if ($metadata.PSObject.Properties.Name -contains 'RequiredModules') {
+    foreach ($module in @('InitialStructure.Contracts', 'InitialStructure.Engine', 'InitialStructure.Persistence', 'CoatingDesign.Engine', 'Modules')) {
+        $moduleFile = [IO.Path]::GetFullPath((Join-Path (Split-Path -Parent $currentExe) "OptilandWorkbench.$module.dll"))
+        if (-not $moduleFile.StartsWith($install + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { throw 'Invalid test-owned module target.' }
+        $moduleHash = File-Hash $moduleFile
+        $held = Join-Path $output ("OptilandWorkbench.$module.dll.held")
+        Move-Item -LiteralPath $moduleFile -Destination $held
+        try {
+            Assert-Check "missing-$module-repaired" ((Run-Setup $SetupPath "missing-$module") -eq 0) 'Mandatory module restored by the one product installer'
+            Assert-Check "missing-$module-restored-exactly" ((File-Hash $moduleFile) -eq $moduleHash) $moduleHash
+        } finally {
+            if (-not (Test-Path -LiteralPath $moduleFile)) { Copy-Item -LiteralPath $held -Destination $moduleFile }
+        }
+    }
+    Run-Product $currentExe 'modules-repaired-native-read'
+}
+
 function Interrupt-TestSetup {
     param([string]$Executable, [string]$Label, [string]$PauseParameter)
     $marker = Join-Path $output "$Label.pid"
@@ -195,6 +221,24 @@ try {
     Assert-Check 'uninstall-during-setup-blocked' ((Run-Setup $uninstaller.FullName 'setup-uninstall-blocked') -ne 0) 'Setup gate prevents concurrent uninstall'
 } finally { $setupGate.Dispose() }
 
+if ($VerifyCleanup) {
+    # These handles intentionally have no session-local mutex. They exercise the
+    # same directory protocol used across login sessions, not an actual second login.
+    $fileGate = [IO.File]::Open((Join-Path $install '.setup.lock'), 'OpenOrCreate', 'ReadWrite', 'None')
+    try {
+        $report = Join-Path $output 'file-gate-blocked.json'
+        $blocked = Start-Process -FilePath $currentExe -ArgumentList @('--verify-installation', ('"{0}"' -f $report)) -WindowStyle Hidden -Wait -PassThru
+        Assert-Check 'file-setup-gate-blocks-startup' ($blocked.ExitCode -eq 75 -and -not (Test-Path -LiteralPath $report)) $blocked.ExitCode
+        Assert-Check 'file-setup-gate-blocks-setup' ((Run-Setup $SetupPath 'file-setup-blocked') -ne 0) 'No Local mutex held'
+        Assert-Check 'file-setup-gate-blocks-uninstall' ((Run-Setup $uninstaller.FullName 'file-setup-uninstall-blocked') -ne 0) 'No Local mutex held'
+    } finally { $fileGate.Dispose() }
+    $fileGate = [IO.File]::Open((Join-Path $install '.application.lock'), 'OpenOrCreate', 'ReadWrite', 'ReadWrite')
+    try {
+        Assert-Check 'file-app-gate-blocks-setup' ((Run-Setup $SetupPath 'file-app-blocked') -ne 0) 'No Local mutex held'
+        Assert-Check 'file-app-gate-blocks-uninstall' ((Run-Setup $uninstaller.FullName 'file-app-uninstall-blocked') -ne 0) 'No Local mutex held'
+    } finally { $fileGate.Dispose() }
+}
+
 $runningReport = Join-Path $output 'running.json'
 $running = Start-Process -FilePath $currentExe -ArgumentList @('--verify-installation', ('"{0}"' -f $runningReport),
     '--hold-milliseconds', '15000') -WindowStyle Hidden -PassThru
@@ -210,6 +254,33 @@ try {
 Run-Product $currentExe 'recovered-native-read'
 Assert-Check 'project-byte-preserved' ((File-Hash $project) -eq $projectHash) $projectHash
 Assert-Check 'settings-byte-preserved' ((File-Hash $settings) -eq $settingsHash) $settingsHash
+
+if ($VerifyCleanup) {
+    if (-not $RecoverySetupPath -or -not $PartialCopySetupPath) { throw 'Cleanup validation requires three different release IDs.' }
+    $firstExe = $currentExe
+    $firstDirectory = Split-Path -Parent $firstExe
+    $receipt = Join-Path $install ".installed-releases\$($metadata.ReleaseId).ini"
+    Assert-Check 'committed-release-has-cleanup-receipt' (Test-Path -LiteralPath $receipt) $receipt
+    Assert-Check 'cleanup-second-release-install' ((Run-Setup $RecoverySetupPath 'cleanup-second') -eq 0) 'First release becomes previous'
+    $active = ([IO.File]::ReadAllLines($state) | Where-Object { $_ -like 'Active=*' }).Substring(7)
+    $secondExe = Join-Path $install "versions\$active\OptilandWorkbench.App.exe"
+    Run-Product $secondExe 'cleanup-keeps-previous'
+    Assert-Check 'previous-release-preserved' (Test-Path -LiteralPath $firstExe) $firstExe
+    $extra = Join-Path $firstDirectory 'user-extra.staropt'
+    [IO.File]::WriteAllText($extra, 'test-owned extra user data')
+    Assert-Check 'cleanup-third-release-install' ((Run-Setup $PartialCopySetupPath 'cleanup-third') -eq 0) 'Second release becomes previous'
+    $active = ([IO.File]::ReadAllLines($state) | Where-Object { $_ -like 'Active=*' }).Substring(7)
+    $currentExe = Join-Path $install "versions\$active\OptilandWorkbench.App.exe"
+    Run-Product $currentExe 'cleanup-keeps-user-files'
+    Assert-Check 'user-extra-preserves-whole-old-release' ((Test-Path -LiteralPath $firstExe) -and [IO.File]::ReadAllText($extra) -eq 'test-owned extra user data') $extra
+    # Remove only this harness-created fixture, inside the validated test root.
+    Remove-Item -LiteralPath $extra
+    Run-Product $currentExe 'cleanup-old-release'
+    Assert-Check 'old-owned-payload-removed' (-not (Test-Path -LiteralPath $firstDirectory)) $firstDirectory
+    Assert-Check 'old-receipt-retired' (-not (Test-Path -LiteralPath $receipt)) $receipt
+    Assert-Check 'active-and-previous-retained' ((Test-Path -LiteralPath $currentExe) -and (Test-Path -LiteralPath $secondExe)) 'Two newest releases'
+    Assert-Check 'cleanup-preserves-project-and-settings' ((File-Hash $project) -eq $projectHash -and (File-Hash $settings) -eq $settingsHash) 'Exact original bytes'
+}
 
 $uninstaller = Get-ChildItem -LiteralPath $install -Filter 'unins*.exe' | Select-Object -First 1
 Assert-Check 'uninstall' ((Run-Setup $uninstaller.FullName 'uninstall') -eq 0) 'Owned installation only'

@@ -4,11 +4,13 @@ using Avalonia.Automation.Provider;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
-using OptilandWorkbench.Core;
-using OptilandWorkbench.Core.Visualization;
+using OptilandWorkbench.Application.Contracts;
+using OptilandWorkbench.App.Services;
+using OptilandWorkbench.App.Theming;
+using OptilandWorkbench.Modules;
 using OptilandWorkbench.InitialStructure.Contracts;
 
-namespace OptilandWorkbench.InitialStructure.App;
+namespace OptilandWorkbench.App.Laboratories.InitialStructure;
 
 /// <summary>Maps formal scene DTOs to pixels. No local surface, pupil or optical calculation.</summary>
 public sealed class CandidatePreviewControl : Control
@@ -17,14 +19,14 @@ public sealed class CandidatePreviewControl : Control
     private static readonly IBrush SecondaryBrush = new ImmutableSolidColorBrush(Color.Parse("#CB681C"));
     private static readonly IBrush StopBrush = new ImmutableSolidColorBrush(Color.Parse("#CE9408"));
     private int _generation;
-    public Layout2DScene? PrimaryScene { get; private set; }
-    public Layout2DScene? SecondaryScene { get; private set; }
+    public Scene2Dto? PrimaryScene { get; private set; }
+    public Scene2Dto? SecondaryScene { get; private set; }
     public string? PrimaryFingerprint { get; private set; }
     public string? Error { get; private set; }
     public bool IsLoading { get; private set; }
     public event Action? Changed;
     public Task PendingLoad { get; private set; } = Task.CompletedTask;
-    public static LayoutBuildOptions Options { get; } = new(RayCount: 7, LowerPupil: -1, UpperPupil: 1, DeleteVignetted: false);
+    public CandidatePreviewControl() => ActualThemeVariantChanged += (_, _) => InvalidateVisual();
 
     public void Clear()
     {
@@ -70,26 +72,26 @@ public sealed class CandidatePreviewControl : Control
         }
     }
 
-    private static Layout2DScene? Build(CandidateSnapshot? candidate) => candidate is null ? null
-        : new Layout2DBuilder(Optic.FromSnapshot(candidate.Optic)).Build(options: Options);
+    private static Scene2Dto? Build(CandidateSnapshot? candidate) => candidate is null ? null
+        : InitialStructurePresentation.BuildScene(candidate);
 
     public override void Render(DrawingContext context)
     {
         base.Render(context);
-        context.FillRectangle(new SolidColorBrush(Color.Parse("#F7FAFD")), new Rect(Bounds.Size));
+        context.FillRectangle(ThemeBrush(ThemeResourceBindings.PlotBackground), new Rect(Bounds.Size));
         var bounds = new Rect(Bounds.Size).Deflate(18);
-        var scenes = new[] { PrimaryScene, SecondaryScene }.OfType<Layout2DScene>().ToArray();
+        var scenes = new[] { PrimaryScene, SecondaryScene }.OfType<Scene2Dto>().ToArray();
         if (bounds.Width <= 1 || bounds.Height <= 1 || scenes.Length == 0) return;
         var zMin = scenes.Min(scene => scene.ZMin);
         var zMax = scenes.Max(scene => scene.ZMax);
         var yExtent = Math.Max(.1, scenes.Max(scene => scene.YExtent));
         var scale = Math.Min(bounds.Width / Math.Max(.1, zMax - zMin), bounds.Height / (2 * yExtent));
-        Point Map(Layout2DPoint point) => new(bounds.Center.X + (point.Z - (zMin + zMax) / 2) * scale, bounds.Center.Y - point.Y * scale);
-        context.DrawLine(new Pen(Brushes.LightSlateGray, 1, DashStyle.Dash), new(bounds.Left, bounds.Center.Y), new(bounds.Right, bounds.Center.Y));
+        Point Map(ScenePoint2Dto point) => new(bounds.Center.X + (point.Z - (zMin + zMax) / 2) * scale, bounds.Center.Y - point.Y * scale);
+        context.DrawLine(new Pen(ThemeBrush(ThemeResourceBindings.PlotAxis), 1, DashStyle.Dash), new(bounds.Left, bounds.Center.Y), new(bounds.Right, bounds.Center.Y));
         if (SecondaryScene is { } secondary) DrawScene(secondary, SecondaryBrush, .55);
         if (PrimaryScene is { } primary) DrawScene(primary, PrimaryBrush, 1);
 
-        void DrawScene(Layout2DScene scene, IBrush color, double opacity)
+        void DrawScene(Scene2Dto scene, IBrush color, double opacity)
         {
             using var layer = context.PushOpacity(opacity);
             foreach (var element in scene.LensElements)
@@ -127,6 +129,10 @@ public sealed class CandidatePreviewControl : Control
                 }
         }
     }
+
+    internal IBrush PlotAxisBrush => ThemeBrush(ThemeResourceBindings.PlotAxis);
+    private IBrush ThemeBrush(string key) => this.TryFindResource(key, ActualThemeVariant, out var value) && value is IBrush brush ? brush
+        : new SolidColorBrush(key == ThemeResourceBindings.PlotBackground ? ThemePalette.Light.PlotBackground : ThemePalette.Light.PlotAxis);
 
     protected override AutomationPeer OnCreateAutomationPeer() => new PreviewPeer(this);
     private sealed class PreviewPeer(CandidatePreviewControl owner) : ControlAutomationPeer(owner), IValueProvider

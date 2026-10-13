@@ -17,9 +17,9 @@ using OptilandWorkbench.App.Services;
 using OptilandWorkbench.App.Theming;
 using Avalonia.Controls.Primitives;
 using OptilandWorkbench.CoatingDesign.Engine;
-using OptilandWorkbench.Core.Coatings;
+using OptilandWorkbench.Modules;
 
-namespace OptilandWorkbench.CoatingDesign.App;
+namespace OptilandWorkbench.App.Laboratories.CoatingDesign;
 
 public sealed partial class MainWindow : Window
 {
@@ -45,7 +45,7 @@ public sealed partial class MainWindow : Window
     private readonly TextBlock _summary = new() { TextWrapping = TextWrapping.Wrap };
     private readonly TextBlock _status = new() { Text = "选择示例，或输入指标后生成膜系。", TextWrapping = TextWrapping.Wrap };
     private readonly TextBlock _materialSource = new() { TextWrapping = TextWrapping.Wrap };
-    private readonly ProgressBar _progress = new() { IsVisible = false, IsIndeterminate = true, Height = 4 };
+    private readonly OperationStatusBar _operationStatus = new();
     private readonly StackPanel _narrowFields = new() { Spacing = 8 };
     private Control? _reflectanceField;
     private bool _loading, _busy;
@@ -59,7 +59,8 @@ public sealed partial class MainWindow : Window
     {
         _dialogs = dialogs;
         Title = "光学镀膜设计实验室"; Width = 1200; Height = 900; MinWidth = 820; MinHeight = 640;
-        LaboratoryDisplay.Read().Apply(this);
+        Icon = BrandAssets.LoadWindowIcon();
+        DisplayTypography.Apply(this);
         this.BindThemeResource(BackgroundProperty, ThemeResourceBindings.Workspace);
         this.BindThemeResource(ForegroundProperty, ThemeResourceBindings.TextPrimary);
         _incident = MaterialPicker(); _substrate = MaterialPicker(); _low = MaterialPicker(); _high = MaterialPicker(); _layerMaterial = MaterialPicker();
@@ -86,18 +87,11 @@ public sealed partial class MainWindow : Window
         toolbar.Children.Add(ActionButton("保存实验", SaveAsync));
         toolbar.Children.Add(ActionButton("导出结果", ExportAsync));
         foreach (var (label, kind) in new[] { ("示例：减反", DesignKind.Antireflection), ("示例：高反", DesignKind.HighReflector), ("示例：窄带", DesignKind.NarrowBand) })
-            toolbar.Children.Add(ActionButton(label, () => { Load(Examples.Create(kind)); return Task.CompletedTask; }));
+            toolbar.Children.Add(ActionButton(label, async () =>
+            {
+                if (await ConfirmUnsavedChangesAsync("切换镀膜示例")) Load(Examples.Create(kind), markDirty: false);
+            }));
         toolbar.Children.Add(ActionButton("材料管理", ManageMaterialsAsync));
-        var themes = new ComboBox
-        {
-            ItemsSource = ThemeRegistry.SelectableThemes,
-            MinWidth = 118,
-            SelectedItem = ThemeRegistry.FromSettings(LaboratoryDisplay.Read().Theme),
-            Margin = new Thickness(0, 0, 8, 4)
-        };
-        AutomationProperties.SetName(themes, "界面主题"); ToolTip.SetTip(themes, "继承主程序显示设置；此处切换仅影响实验室，本次会话有效。");
-        themes.SelectionChanged += (_, _) => { if (themes.SelectedItem is ThemeDefinition theme) LaboratoryDisplay.Read().Apply(this, theme.SettingsValue); };
-        toolbar.Children.Add(themes);
         var input = BuildInputs();
         var layerTools = new StackPanel { Orientation = Orientation.Horizontal };
         _layerMaterial.Width = 200;
@@ -140,18 +134,19 @@ public sealed partial class MainWindow : Window
         Grid.SetColumn(workScroll, 1); main.Children.Add(workScroll);
         main.SizeChanged += (_, _) => right.Height = Math.Max(720 * Math.Max(1, FontSize / 13), main.Bounds.Height);
         var root = new Grid { RowDefinitions = new RowDefinitions("Auto,*,Auto,Auto"), Margin = new Thickness(16), RowSpacing = 12 };
-        Put(root, toolbar, 0); Put(root, main, 1); Put(root, _progress, 2); Put(root, _status, 3);
+        Put(root, toolbar, 0); Put(root, main, 1); Put(root, _operationStatus, 2); Put(root, _status, 3);
         Content = MainWindowTitleBar.Wrap(this, root);
         KeyDown += async (_, e) =>
         {
             var command = (e.KeyModifiers & (KeyModifiers.Control | KeyModifiers.Meta)) != 0;
-            if (command && e.Key == Key.S) { e.Handled = true; await Guard(SaveAsync); }
-            if (command && e.Key == Key.O) { e.Handled = true; await Guard(OpenAsync); }
+            if (command && e.Key == Key.S) { e.Handled = true; await TrackOperation(SaveAsync); }
+            if (command && e.Key == Key.O) { e.Handled = true; await TrackOperation(OpenAsync); }
             if (e.Key == Key.Escape) { _uiRevision++; _session.Cancel(); }
-            if (e.Key == Key.F5 && !_busy) { e.Handled = true; await Guard(() => RunAsync("evaluate")); }
+            if (e.Key == Key.F5 && !_busy) { e.Handled = true; await TrackOperation(() => RunAsync("evaluate")); }
         };
-        Closed += (_, _) => _session.Dispose();
-        Load(_session.Current); SetBusy(false);
+        Closed += (_, _) => { _session.Dispose(); _operationStatus.Dispose(); };
+        Closing += OnClosing;
+        Load(_session.Current, markDirty: false); SetBusy(false);
     }
 
     private StackPanel BuildInputs()
@@ -234,7 +229,7 @@ public sealed partial class MainWindow : Window
     {
         var button = new Button { Content = label, Margin = new Thickness(0, 0, 8, 4) };
         AutomationProperties.SetName(button, label); ToolTip.SetTip(button, label);
-        button.Click += (_, _) => PendingOperation = Guard(action);
+        button.Click += (_, _) => TrackOperation(action);
         return button;
     }
     private void AddCompute(string label, Func<Task> action, Panel panel)
@@ -248,12 +243,13 @@ public sealed partial class MainWindow : Window
     {
         try { await action(); }
         catch (OperationCanceledException) { _status.Text = "操作已取消。"; }
-        catch (Exception error) { _status.Text = "未完成：" + error.Message; }
+        catch (Exception error) { _status.Text = "未完成：" + error.Message; _operationStatus.MarkFailed(_status.Text); }
     }
 
     private void Changed()
     {
         if (_loading) return;
+        _hasUnsavedChanges = true;
         _uiRevision++; _session.Invalidate(); _plot.SetExperiment(null); _summary.Text = "参数或膜层已修改，请重新计算。";
         _candidates.ItemsSource = null; _status.Text = "输入已修改，旧结果已失效。";
     }
@@ -287,8 +283,8 @@ public sealed partial class MainWindow : Window
             return named.SingleOrDefault() ?? _materials.Select(name);
         }
         var incident = Select(_incident); var substrate = Select(_substrate); var low = Select(_low); var high = Select(_high);
-        var target = new DesignTarget((DesignKind)_kind.SelectedIndex, Value("center"), Value("min"), Value("max"), Value("r") / 100,
-            Integer("layers"), Value("angle"), (ThinFilmPolarization)_polarization.SelectedIndex, Value("fwhm"), Value("peak") / 100,
+        var target = CoatingPresentation.Target((DesignKind)_kind.SelectedIndex, Value("center"), Value("min"), Value("max"), Value("r") / 100,
+            Integer("layers"), Value("angle"), _polarization.SelectedIndex, Value("fwhm"), Value("peak") / 100,
             Value("od"), _kind.SelectedIndex == 2 ? ParseBands(_stopBands.Text) : null, Value("ctol"), Value("ftol"), Integer("cavities") == 1 ? null : new StructureOptions(Integer("cavities")));
         var settings = new CalculationSettings(Integer("preview"), Integer("samples"), Integer("iterations"),
             _algorithm.SelectedIndex >= 0 ? AlgorithmNames[_algorithm.SelectedIndex] : "", Value("dmin"), Value("dmax"), Value("tolerance"), Integer("trials"), Integer("seed"),
@@ -327,12 +323,12 @@ public sealed partial class MainWindow : Window
         return result.ToArray();
     }
 
-    private void Load(Experiment d)
+    private void Load(Experiment d, bool markDirty = true)
     {
         _uiRevision++; _session.Replace(d); _loading = true;
         try
         {
-            _name.Text = d.Name; _kind.SelectedIndex = (int)d.Target.Kind; _polarization.SelectedIndex = (int)d.Target.Polarization;
+            _name.Text = d.Name; _kind.SelectedIndex = (int)d.Target.Kind; _polarization.SelectedIndex = CoatingPresentation.PolarizationIndex(d.Target);
             _incident.Text = d.IncidentId; _substrate.Text = d.SubstrateId; _low.Text = d.LowId; _high.Text = d.HighId; _layerMaterial.Text = d.LowId;
             var t = d.Target; var s = d.Settings;
             foreach (var (key, value) in new (string, double)[] { ("center", t.CenterNm), ("min", t.MinimumNm), ("max", t.MaximumNm),
@@ -357,7 +353,7 @@ public sealed partial class MainWindow : Window
             _summary.Text = Summary(d);
             Visibility(); _status.Text = d.Result is null ? "示例 / 实验已打开，请生成膜系或计算。" : "计算已完成，请查看逐项指标。";
         }
-        finally { _loading = false; }
+        finally { _loading = false; _hasUnsavedChanges = markDirty; }
     }
 
     private static string Summary(Experiment d)
@@ -453,13 +449,18 @@ public sealed partial class MainWindow : Window
     }
     private void SetBusy(bool value)
     {
-        _busy = value; _progress.IsVisible = value;
+        _busy = value;
+        if (value) _operationStatus.Start("正在计算镀膜设计…", () => _session.Cancel());
+        else _operationStatus.MarkIdle(_status.Text ?? "计算已结束");
         foreach (var button in _computeButtons) ControlAvailability.Set(button, !value, "已有后台计算，请等待完成或先取消。");
         ControlAvailability.Set(_cancel!, value, "当前没有正在运行的计算。");
     }
-    private async Task SaveAsync()
+    private async Task SaveAsync() => await TrySaveAsync();
+
+    private async Task<bool> TrySaveAsync()
     {
         var d = ReadInputs();
+        var revision = _uiRevision;
         string? path;
         if (_dialogs is not null) path = await _dialogs.Save();
         else
@@ -467,8 +468,16 @@ public sealed partial class MainWindow : Window
             var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions { Title = "保存镀膜实验", SuggestedFileName = d.Name + ".coating.json", DefaultExtension = "coating.json" });
             path = file?.TryGetLocalPath();
         }
-        if (path is null) return;
-        await ExperimentStore.SaveAsync(d, path); _status.Text = "已保存：" + path;
+        if (path is null) return false;
+        await ExperimentStore.SaveAsync(d, path);
+        if (revision != _uiRevision)
+        {
+            _status.Text = "已保存所选快照，但保存期间有新的修改，请再次保存。";
+            return false;
+        }
+        _hasUnsavedChanges = false;
+        _status.Text = "已保存：" + path;
+        return true;
     }
     private async Task OpenAsync()
     {
@@ -480,10 +489,11 @@ public sealed partial class MainWindow : Window
             path = files.FirstOrDefault()?.TryGetLocalPath();
         }
         if (path is null) return;
+        if (!await ConfirmUnsavedChangesAsync("打开另一份镀膜实验")) return;
         _session.Invalidate(); _plot.SetExperiment(null); _summary.Text = "正在打开并重算材料快照…";
         var revision = ++_uiRevision;
         var applied = await _session.RunAsync((_, token) => ExperimentStore.OpenAsync(path, token));
-        if (applied && revision == _uiRevision) Load(_session.Current);
+        if (applied && revision == _uiRevision) Load(_session.Current, markDirty: false);
     }
     private async Task ExportAsync()
     {

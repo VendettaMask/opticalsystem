@@ -421,6 +421,10 @@
           "Dock.Model.Mvvm": "[12.0.0.2, )",
           "Dock.Serializer.SystemTextJson": "[12.0.0.2, )",
           "OptilandWorkbench.Application": "[1.0.0, )",
+          "OptilandWorkbench.CoatingDesign.Engine": "[1.0.0, )",
+          "OptilandWorkbench.InitialStructure.Engine": "[1.0.0, )",
+          "OptilandWorkbench.InitialStructure.Persistence": "[1.0.0, )",
+          "OptilandWorkbench.Modules": "[1.0.0, )",
           "SkiaSharp": "[3.119.4, )"
         }
       },
@@ -431,14 +435,49 @@
           "SkiaSharp": "[3.119.4, )"
         }
       },
+      "optilandworkbench.coatingdesign.engine": {
+        "type": "Project",
+        "dependencies": {
+          "OptilandWorkbench.Application": "[1.0.0, )",
+          "OptilandWorkbench.Core": "[1.0.0, )"
+        }
+      },
       "optilandworkbench.core": {
         "type": "Project"
+      },
+      "optilandworkbench.initialstructure.contracts": {
+        "type": "Project",
+        "dependencies": {
+          "OptilandWorkbench.Core": "[1.0.0, )"
+        }
+      },
+      "optilandworkbench.initialstructure.engine": {
+        "type": "Project",
+        "dependencies": {
+          "OptilandWorkbench.Core": "[1.0.0, )",
+          "OptilandWorkbench.InitialStructure.Contracts": "[1.0.0, )"
+        }
+      },
+      "optilandworkbench.initialstructure.persistence": {
+        "type": "Project",
+        "dependencies": {
+          "OptilandWorkbench.Core": "[1.0.0, )",
+          "OptilandWorkbench.InitialStructure.Contracts": "[1.0.0, )"
+        }
       },
       "optilandworkbench.lenslibrarybuilder": {
         "type": "Project",
         "dependencies": {
           "OptilandWorkbench.Application": "[1.0.0, )",
           "OptilandWorkbench.Core": "[1.0.0, )"
+        }
+      },
+      "optilandworkbench.modules": {
+        "type": "Project",
+        "dependencies": {
+          "OptilandWorkbench.Application": "[1.0.0, )",
+          "OptilandWorkbench.CoatingDesign.Engine": "[1.0.0, )",
+          "OptilandWorkbench.InitialStructure.Engine": "[1.0.0, )"
         }
       },
       "ZemaxLibraryImporter": {

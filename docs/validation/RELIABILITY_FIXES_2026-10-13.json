@@ -1,0 +1,178 @@
+{
+  "formatVersion": 1,
+  "date": "2026-10-13",
+  "baseCommit": "cc9b7ab194c93ce1d2932f890ee649ce12970a32",
+  "sourceDirty": true,
+  "issues": [
+    {
+      "id": "R01",
+      "name": "Empty CSV for table/summary-only analysis results",
+      "fixed": true
+    },
+    {
+      "id": "R02",
+      "name": "One malformed or unreadable own-session metadata file blocks future checkpoints and normal owner release",
+      "fixed": true
+    }
+  ],
+  "newCases": 15,
+  "beforeFix": {
+    "firstRun": {
+      "total": 15,
+      "passed": 0,
+      "failed": 15,
+      "skipped": 0,
+      "fixtureIssue": "The plot compatibility fixture initially omitted the explicit series Name. That setup mistake was corrected before changing product code."
+    },
+    "correctedFixtureRun": {
+      "total": 15,
+      "passed": 1,
+      "failed": 14,
+      "skipped": 0,
+      "unchangedProductAtRun": true
+    },
+    "failuresPreserved": true
+  },
+  "builds": {
+    "Debug": {
+      "warnings": 0,
+      "errors": 0
+    },
+    "Release": {
+      "warnings": 0,
+      "errors": 0
+    },
+    "defaultSolutionOutputs": true
+  },
+  "verification": {
+    "relatedDebug": {
+      "total": 107,
+      "passed": 107,
+      "failed": 0,
+      "skipped": 0
+    },
+    "relatedRelease": {
+      "total": 107,
+      "passed": 107,
+      "failed": 0,
+      "skipped": 0
+    },
+    "fullRelease": {
+      "status": "passed",
+      "total": 4785,
+      "passed": 4785,
+      "failed": 0,
+      "skipped": 0,
+      "duration": "22m39s",
+      "previousCases": 4770,
+      "missingOriginalCases": 0,
+      "addedCases": 15,
+      "uniqueCurrentCases": 4785
+    },
+    "overlappingSetsNotAdded": true,
+    "addedCaseNames": [
+      "OptilandWorkbench.Tests.DocumentRecoveryTests.InvalidOwnMetadataDoesNotBlockLaterCheckpointsOrRetireItsEvidence(corruption: \"wrong-id\")",
+      "OptilandWorkbench.Tests.AnalysisCsvFormatterTests.ResultWithoutAnyExportableDataDoesNotReportAnEmptyPlotExportAsSuccess",
+      "OptilandWorkbench.Tests.AnalysisCsvFormatterTests.PlotCsvRetainsExistingSchemaTypedUnitsAndNumericPrecision",
+      "OptilandWorkbench.Tests.AnalysisCsvFormatterTests.RaggedTablesAreRejectedInsteadOfDroppingOrInventingCells(cells: 3)",
+      "OptilandWorkbench.Tests.AnalysisCsvFormatterTests.RealTableReportsExportEveryColumnAndRow(key: \"Prescription Report\")",
+      "OptilandWorkbench.Tests.AnalysisCsvFormatterTests.RealTableReportsExportEveryColumnAndRow(key: \"System Data Report\")",
+      "OptilandWorkbench.Tests.AnalysisCsvFormatterTests.SummaryOnlyResultsExportMetricAndValue",
+      "OptilandWorkbench.Tests.DocumentRecoveryTests.InvalidOwnMetadataDoesNotBlockLaterCheckpointsOrRetireItsEvidence(corruption: \"unsupported-version\")",
+      "OptilandWorkbench.Tests.AnalysisCsvFormatterTests.EmptyPanesDoNotHideAvailableTopLevelPlotData",
+      "OptilandWorkbench.Tests.AnalysisCsvFormatterTests.LegitimatelyEmptyTableKeepsItsColumnHeader",
+      "OptilandWorkbench.Tests.DocumentRecoveryTests.InvalidOwnMetadataDoesNotBlockLaterCheckpointsOrRetireItsEvidence(corruption: \"broken-json\")",
+      "OptilandWorkbench.Tests.AnalysisCsvFormatterTests.RaggedTablesAreRejectedInsteadOfDroppingOrInventingCells(cells: 1)",
+      "OptilandWorkbench.Tests.DocumentRecoveryTests.LockedOwnMetadataDoesNotBlockAnIndependentNewCheckpoint",
+      "OptilandWorkbench.Tests.DocumentRecoveryTests.CleanExitWithCorruptMetadataReleasesOwnerAndPreservesUnknownFiles",
+      "OptilandWorkbench.Tests.AnalysisCsvFormatterTests.TableTextAndRowGroupsRoundTripWithoutParsingDisplayStrings"
+    ]
+  },
+  "relatedConfigurationsHaveIdenticalTestNames": true,
+  "frozenIntegrity": {
+    "gitCommit": "cc9b7ab194c93ce1d2932f890ee649ce12970a32",
+    "workingTree": {
+      "count": 2668,
+      "matched": 2668
+    },
+    "gitHead": {
+      "count": 2668,
+      "matched": 2668
+    },
+    "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true,
+    "evidence": "artifacts/validation/reliability-20261013/frozen-integrity.json"
+  },
+  "csvContract": {
+    "plotAndMixedViews": "Existing 12 typed plot columns and invariant R precision unchanged",
+    "tableOnlyViews": "Original columns/cells; optional row_group; no parsing of display text",
+    "summaryOnlyViews": "metric,value",
+    "raggedRows": "Reject before atomic file replacement",
+    "withoutData": "Reject instead of claiming an empty plot export"
+  },
+  "recoveryContract": {
+    "isolatedPerFileErrors": [
+      "IOException",
+      "UnauthorizedAccessException",
+      "JsonException",
+      "InvalidDataException"
+    ],
+    "corruptEvidencePreserved": true,
+    "knownValidCopiesStillBoundedToTwo": true,
+    "otherSessionOrOriginalProjectNotDeleted": true,
+    "unanticipatedAndWholeDirectoryFailuresStillPropagate": true
+  },
+  "notPerformed": [
+    "Full Debug",
+    "Installer rebuild/matrix",
+    "Manual native desktop UI",
+    "ARM64 hardware",
+    "Physical power cut",
+    "New optical/native certification",
+    "Laboratory full tests",
+    "External repository push"
+  ],
+  "previousInstallerIsHistoricalAndDoesNotContainTheseFixes": true,
+  "hashes": [
+    {
+      "Path": "src/OptilandWorkbench.Application/Formatting/AnalysisAxisFormatting.cs",
+      "Sha256": "06b8561784e25095d64f21f726e739b3214ee6936aece1c7f2f810c4f2c21611"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/Services/DocumentRecoveryStore.cs",
+      "Sha256": "0ee0ccb48d8a8bbd1cc56b3591379344c752f5f6476395f792c0eeeab18b70c0"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/AnalysisCsvFormatterTests.cs",
+      "Sha256": "0900f97eff5f05fa42a50ef8c0172f54eeebff0abda0d30a685a7324d8b219eb"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/DocumentRecoveryTests.cs",
+      "Sha256": "f7330945c849d2ff8faef8390dc968a696323e50637daed56cecb01228b8a5c5"
+    },
+    {
+      "Path": "artifacts/validation/reliability-20261013/before-fix-debug.trx",
+      "Sha256": "da984e72282356c5c353dd7b1a8539ea674780d92b68804a5ac2f62e912fe86e"
+    },
+    {
+      "Path": "artifacts/validation/reliability-20261013/before-fix-corrected-fixture-debug.trx",
+      "Sha256": "dd398bc693b1075d2870c83f2e1b107a4936f3026f5d75a24ecd0c3f086206a0"
+    },
+    {
+      "Path": "artifacts/validation/reliability-20261013/final-related-debug.trx",
+      "Sha256": "357d66851f6cc87e049ec16b969bf0cbefd8a0d960f22567b58bca5fbc18d0cd"
+    },
+    {
+      "Path": "artifacts/validation/reliability-20261013/final-related-release.trx",
+      "Sha256": "caaabf02be41c69bb07ed4526a7d3d51d879b6ea333e0b923093b9d8a5ee11f7"
+    },
+    {
+      "Path": "artifacts/validation/reliability-20261013/full-release.trx",
+      "Sha256": "fd28a43cd60a5bf84e3de7b498d635becc9050f502379ea412b946027e1bacf3"
+    },
+    {
+      "Path": "artifacts/validation/reliability-20261013/frozen-integrity.json",
+      "Sha256": "b4e1781efe5de89dc8f9b77940b4e8630c71bd78d7dfb53327ec1c216a82c574"
+    }
+  ]
+}

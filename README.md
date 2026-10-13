@@ -1,8 +1,12 @@
 # Optical System Design
 
-此前同步阶段记录（2026-10-12）：远端 6 个提交及当时 197/2/9 项专项与冻结 2668 条核验见[同步记录](docs/PROJECT_SYNC_2026-10-12.md)。随后 N04 修复见[该阶段报告](docs/HUYGENS_POLARIZATION_REPAIR_2026-10-12.md)，三维出瞳与空间刀口的阶段验收见[扩展报告](docs/PUPIL_FOUCAULT_EXTENSION_2026-10-12.md)。后续光学扩展和安装升级修改均未提交、推送；远端原生宿主记录不代表当前电脑可运行 Zemax。
+2026-10-13 最新交付约束：初始结构与镀膜设计已改为主程序同进程、同安装包的必装内置模块；不再支持独立程序、可选安装或外部路径启动。当前构建、定向测试、安装包证据及全量审计的已知失败见[统一产品交付记录](docs/BUILT_IN_MODULES_2026-10-13.md)。下方各阶段的独立架构、包身份及计数只保留历史范围，不能作为当前交付说明。
 
-2026-10-12 当前恢复扩展（1.0.2）：30 秒工程副本、崩溃恢复入口、安装持久日志/启动重放、同发布损坏载荷修复及受支持旧格式迁移已实现。默认 Debug/Release 构建零警告、零错误；正式完整 Release **4770/4770**、Debug/Release 相关各 **66/66**、实际 x64 隔离安装矩阵 **78/78** 通过，均零失败、零跳过，集合不相加。最终 1.0.2 未签名包 **1179** 个载荷文件核验及实际 EXE 只读工程/旧设置检查通过。物理断电、完整 GUI 与 ARM64 实机仍未认证；此前光学数值和安装阶段记录保留历史身份。源码同步状态见恢复报告。见[实现、证据与限制](docs/WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)。
+此前同步阶段记录（2026-10-12）：远端 6 个提交及当时 197/2/9 项专项与冻结 2668 条核验见[历史记录](docs/PROJECT_SYNC_2026-10-12.md)。随后 N04、三维出瞳/空间刀口与安装恢复更新已在 2026-10-13 同步到 `origin/main`，状态更正提交为 `cc9b7ab`，见[同步结果](docs/PROJECT_SYNC_RECOVERY_2026-10-12.md)。本次导出/单记录恢复修复属于之后的新工作区改动，见[当前状态](docs/CURRENT_STATUS.md)；远端原生宿主记录不代表当前电脑可运行 Zemax。
+
+2026-10-13 当前安装维护：已增加旧载荷自动清理和跨会话目录文件锁；一键版本回退按用户要求不纳入范围。默认 Debug/Release 构建零警告、零错误；相同相关集合各 **146/146**、实际 x64 隔离安装矩阵 **98/98** 通过，集合不相加。新增 25 个清理/文件锁案例；此前 CSV/恢复修复阶段完整 Release **4785/4785** 与冻结 **2668/2668** 保留阶段身份，本次未重跑光学全量或实机故障/ARM64/完整人工桌面验收。已构建 1.0.3 独立测试包，旧 1.0.2 正式包保留，修改尚未提交推送。见[最新实现、证据与边界](docs/CURRENT_STATUS.md)。
+
+2026-10-12 历史恢复扩展（1.0.2）：30 秒工程副本、崩溃恢复入口、安装持久日志/启动重放、同发布损坏载荷修复及受支持旧格式迁移已实现。默认 Debug/Release 构建零警告、零错误；正式完整 Release **4770/4770**、Debug/Release 相关各 **66/66**、实际 x64 隔离安装矩阵 **78/78** 通过，均零失败、零跳过，集合不相加。最终 1.0.2 未签名包 **1179** 个载荷文件核验及实际 EXE 只读工程/旧设置检查通过。物理断电、完整 GUI 与 ARM64 实机仍未认证；此前光学数值和安装阶段记录保留历史身份。源码同步状态见恢复报告。见[实现、证据与限制](docs/WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)。
 
 2026-10-12 历史安装升级验收（1.0.1，恢复扩展之前）：默认采用无需购买证书的未签名交付；版本载荷校验、失败恢复、运行互斥、入口更新及用户数据保留已实现。实际 x64 隔离安装矩阵 **48/48**，默认 Debug/Release 构建零警告、零错误，相关回归各 **32/32**；最终 1.0.1 未签名包 **1179** 个载荷文件核验通过。本阶段未重跑光学全量，下方 4733/182 等保留为安装改动前的光学阶段结果，不代表当前完整发布验收。断电恢复、完整 GUI 和 ARM64 实机仍开放；未提交推送。见[安装方案、证据与限制](docs/WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)。
 
@@ -70,7 +74,7 @@
 
 **Optical System Design** 是 S.T.A.R. Labs 开发的纯 C#/.NET 计算系统，不包含 Python Optiland 运行后端。桌面端采用 Avalonia；Windows 与 macOS 是主要目标平台，Linux 原则上可由 Avalonia 支持。
 
-独立初始结构实验室当前为 **v19**：在保留实体光阑和光束自动变径的基础上，补上失追迹后的渐进恢复。已恢复一个原先中断的起点；宽角像质尚未改善，完整验收门槛没有放宽。见 [修复和实测](docs/INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md)。
+内置初始结构模块的搜索算法当前为 **v19**：在保留实体光阑和光束自动变径的基础上，补上失追迹后的渐进恢复。已恢复一个原先中断的起点；宽角像质尚未改善，完整验收门槛没有放宽。见 [修复和实测](docs/INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md)。
 
 此前 [光学质量复核](docs/INITIAL_STRUCTURE_QUALITY_AUDIT_2026-09-26.md)发现三个旧规则达标处方中有两个低估 RMS；新版正确识别该差距。十二个固定处方的局部实验消除了所测求导中断，但新策略的两个完整搜索仍只有 F/8、20° 得到达标方案，F/2.8、40° 仍失败。工程测试通过不等于成像用途已满足；官方三/五阶 QUICK、PSD、MTF/畸变及制造用途约束仍未实现。
 
@@ -139,7 +143,7 @@
 AVALONIA_TELEMETRY_OPTOUT=1 dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj
 ```
 
-镀膜实验室可独立双击 `Run-CoatingDesign.command` / `Run-CoatingDesign.cmd`，或先构建后使用“实验室 → 光学镀膜设计”。它保存独立实验文件，不修改当前镜头。参见[启动和三个示例](labs/CoatingDesign/README.md)。
+初始结构与镀膜设计均已内置于主程序。标准安装一次包含全部模块，通过“实验室 → AI 初始结构 / 光学镀膜设计”在同一进程打开；没有额外安装、独立启动脚本或外部程序路径配置。镀膜保存自己的实验文件，不隐式修改当前镜头。参见[统一交付](docs/BUILT_IN_MODULES_2026-10-13.md)和[镀膜使用与示例](labs/CoatingDesign/README.md)。
 
 ## 桌面工作流
 
@@ -195,8 +199,9 @@ src/OptilandWorkbench.Core         计算模型、追迹、分析、优化、公
 src/OptilandWorkbench.Application  无 UI 的应用服务、规范 WorkbenchRuntime、工作区协调和 DTO 映射
 src/OptilandWorkbench.App          Avalonia 桌面端、Dock 工作区和会话持久化
 tests/OptilandWorkbench.Tests      核心、格式、架构、GUI 契约和回归测试
-labs/InitialStructure             独立初始结构实验室、搜索与验收
-labs/CoatingDesign                独立镀膜实验室、三个示例与测试
+src/OptilandWorkbench.Modules      内置模块显示适配，复用 Application 与 Core
+labs/InitialStructure             内置初始结构领域库、搜索与验收
+labs/CoatingDesign                内置镀膜领域库、三个示例与测试
 third_party/coating-reference    固定上游源归档、材料原文件及许可证
 validation/coating               镀膜参考数据、复现脚本及验收记录
 validation/history                 冻结的辅助历史数值参考（只供测试）

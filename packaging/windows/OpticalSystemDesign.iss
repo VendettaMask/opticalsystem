@@ -110,6 +110,8 @@ var
   ShortcutPaths, ShortcutCopies: array[0..2] of String;
   ShortcutExisted: array[0..2] of Boolean;
   UninstallGate: THandle;
+  InstallationFileGate: THandle;
+  InstallationGateRoot: String;
   Failed: Boolean;
   FailureReason: String;
   AssociationOwned, AssociationChanged, PreviousIconExists: Boolean;
@@ -167,6 +169,42 @@ begin
   Handle := CreateFileW(Name, $C0000000, 0, 0, 3, 0, 0);
   Result := Handle <> THandle(-1);
   if Result then CloseHandle(Handle);
+end;
+
+procedure ReleaseInstallationFileGate;
+begin
+  if InstallationFileGate <> 0 then CloseHandle(InstallationFileGate);
+  InstallationFileGate := 0;
+  InstallationGateRoot := '';
+end;
+
+procedure AcquireInstallationFileGate;
+var Root, Name: String; Application: THandle;
+begin
+  Root := ExpandConstant('{app}');
+  if (InstallationFileGate <> 0) and (CompareText(Root, InstallationGateRoot) = 0) then Exit;
+  ReleaseInstallationFileGate;
+  CheckNoReparsePath(Root);
+  if not ForceDirectories(Root) then RaiseException('无法访问安装目录。');
+  Name := Root + '\.setup.lock';
+  CheckNoReparsePath(Name);
+  InstallationFileGate := CreateFileW(Name, $C0000000, 0, 0, 4, 0, 0);
+  if InstallationFileGate = THandle(-1) then begin
+    InstallationFileGate := 0;
+    RaiseException('此安装目录有安装、卸载或维护任务运行，可能位于另一个登录会话。');
+  end;
+  try
+    Name := Root + '\.application.lock';
+    CheckNoReparsePath(Name);
+    Application := CreateFileW(Name, $C0000000, 0, 0, 4, 0, 0);
+    if Application = THandle(-1) then
+      RaiseException('此安装目录的程序仍在运行，可能位于另一个登录会话。请保存并正常退出。');
+    CloseHandle(Application);
+    InstallationGateRoot := Root;
+  except
+    ReleaseInstallationFileGate;
+    RaiseException(GetExceptionMessage);
+  end;
 end;
 
 function CompareVersions(Left, Right: String): Integer;
@@ -253,6 +291,32 @@ end;
 
 #include "InstallationRecovery.iss"
 
+// An external manifest survives interrupted cleanup. Publish its receipt last,
+// only after a committed, verified installation; never infer ownership of old
+// directories that were installed before this protocol existed.
+procedure RecordInstalledRelease;
+var Directory, Receipt, Temporary, Manifest: String;
+begin
+  Directory := ExpandConstant('{app}\.installed-releases');
+  CheckNoReparsePath(Directory);
+  if not ForceDirectories(Directory) then RaiseException('无法创建载荷归属目录。');
+  Receipt := Directory + '\{#ReleaseId}.ini';
+  Temporary := Receipt + '.tmp';
+  Manifest := Directory + '\{#ReleaseId}.sha256';
+  CheckNoReparsePath(Receipt); CheckNoReparsePath(Temporary); CheckNoReparsePath(Manifest);
+  if not FileCopy(ExpandConstant('{app}\{#PayloadDir}\release.files.sha256'), Manifest, False) then
+    RaiseException('无法保存载荷归属清单。');
+  FlushDurableFile(Manifest);
+  if not SetIniString('Release', 'Format', '1', Temporary) or
+    not SetIniString('Release', 'ProductAppId', '{#ProductAppId}', Temporary) or
+    not SetIniString('Release', 'Id', '{#ReleaseId}', Temporary) or
+    not SetIniString('Release', 'ManifestSha256', '{#ManifestHash}', Temporary) then
+    RaiseException('无法保存载荷归属记录。');
+  WritePrivateProfileStringW(0, 0, 0, Temporary);
+  FlushDurableFile(Temporary);
+  if not MoveFileExW(Temporary, Receipt, 9) then RaiseException('无法发布载荷归属记录。');
+end;
+
 procedure AfterPartialPayloadCopy;
 begin
 #ifdef ValidationHooks
@@ -267,6 +331,7 @@ begin
   try
     CheckNoReparsePath(ExpandConstant('{app}'));
     CheckNoReparsePath(StatePath);
+    AcquireInstallationFileGate;
     if CheckForMutexes('{#ApplicationMutex}') then
       RaiseException('程序仍在运行，请保存工作并正常退出后再安装。安装器不会强制关闭窗口。');
     RecoverInterruptedTransaction;
@@ -308,6 +373,7 @@ begin
     CaptureDurableJournal;
   except
     Result := GetExceptionMessage;
+    ReleaseInstallationFileGate;
   end;
 end;
 
@@ -375,6 +441,10 @@ begin
       except
         Committed := False; Failed := True; FailureReason := GetExceptionMessage;
       end;
+      if Committed then begin
+        try RecordInstalledRelease;
+        except Log('Cleanup receipt unavailable; this payload will be retained: ' + GetExceptionMessage); end;
+      end;
     end;
   end;
 end;
@@ -395,9 +465,14 @@ end;
 
 procedure DeinitializeSetup;
 begin
-  if not Captured or Committed then Exit;
-  try RecoverInterruptedTransaction;
-  except Log('WARNING: durable rollback incomplete; journal retained: ' + GetExceptionMessage); end;
+  try
+    if Captured and not Committed then begin
+      try
+        AcquireInstallationFileGate;
+        RecoverInterruptedTransaction;
+      except Log('WARNING: durable rollback incomplete; journal retained: ' + GetExceptionMessage); end;
+    end;
+  finally ReleaseInstallationFileGate; end;
 end;
 
 function InitializeUninstall: Boolean;
@@ -407,6 +482,10 @@ begin
   AlreadyExists := DLLGetLastError = 183;
   Result := (UninstallGate <> 0) and not AlreadyExists and
     not CheckForMutexes('{#ApplicationMutex}') and not FileExists(JournalPath);
+  if Result then begin
+    try AcquireInstallationFileGate;
+    except Result := False; Log(GetExceptionMessage); end;
+  end;
   if not Result then begin
     if UninstallGate <> 0 then CloseHandle(UninstallGate);
     UninstallGate := 0;
@@ -424,5 +503,6 @@ end;
 
 procedure DeinitializeUninstall;
 begin
+  ReleaseInstallationFileGate;
   if UninstallGate <> 0 then CloseHandle(UninstallGate);
 end;

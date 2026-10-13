@@ -1,27 +1,23 @@
-# 光学镀膜设计实验室
+# 光学镀膜设计（产品内置模块）
+
+2026-10-13 起：初始结构、镀膜设计与主程序同进程、同安装包、同升级/修复/卸载。两个模块必须安装，不提供勾选或补装提示，不再支持独立启动器或环境变量指定外部程序。详见[统一交付与验证](../../docs/BUILT_IN_MODULES_2026-10-13.md)。以下带日期的数值记录保留历史范围。
 
 2026-10-05 同步复验：正式及镀膜默认 Debug/Release 构建零警告、零错误；最终累计 Release **3500/3500**，装调/玻璃库相邻双配置各 **25/25**，镀膜完整双配置各 **44/44**。累计 Debug 的 3500 项保留 2026-10-04 记录；不相加各测试集合，也不表示全仓或跨平台发布验收。见 [同步范围与证据](../../docs/PROJECT_SYNC_2026-10-05.md)。以下保留各功能阶段的实现日期和验证范围。
 
 2026-10-02：共享求解器更新到 `coherent-scattering/2`，新增复振幅供正式顺序追迹使用；本实验室仍不读取或应用当前镜头。最终物理与工作流定向 Debug/Release 各 25/25，冻结 120 组参考不变，详见[连接边界](../../docs/COHERENT_COATING_TRANSPORT_2026-10-02.md)。下述 2026-09-28 完整验收保留原范围。
 
-纯 C#/.NET 10、Avalonia 中文独立桌面程序。共享正式 Core 的材料色散、稳定薄膜散射递推、优化器和文件接口；不依赖 Electron、Python 或 Node 运行环境，不读取或修改主程序当前镜头与优化状态。2026-09-28 补齐日常设计流程；高级物理仍按下列边界单列。
+纯 C#/.NET 10、Avalonia 中文内置工作区。共享正式 Core 的材料色散、稳定薄膜散射递推、优化器和文件接口；不依赖 Electron、Python 或 Node 运行环境，不读取或修改主程序当前镜头与优化状态。2026-09-28 补齐日常设计流程；高级物理仍按下列边界单列。
 
 ## 启动
 
-仓库根目录双击 macOS 的 `Run-CoatingDesign.command` 或 Windows 的 `Run-CoatingDesign.cmd`，脚本构建并启动 Release。终端等价命令：
+安装标准 Optical System Design 后，通过“实验室 → 光学镀膜设计”打开；不需要安装额外模块，也不会启动其他进程。开发时只构建/运行根产品：
 
 ```sh
-dotnet run --project labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App -c Release
+dotnet build OptilandWorkbench.slnx -c Release
+dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release
 ```
 
-正式主程序另有“实验室 → 光学镀膜设计”入口。开发目录须先构建与主程序相同的 Debug/Release 配置：
-
-```sh
-dotnet build labs/CoatingDesign/OptilandWorkbench.CoatingDesign.slnx -c Debug
-dotnet build labs/CoatingDesign/OptilandWorkbench.CoatingDesign.slnx -c Release
-```
-
-入口只启动进程；不会临时构建实验室。独立部署可把发布输出放在主程序目录 `labs/CoatingDesign/`，或将 `OPTILAND_COATING_DESIGN_LAB_PATH` 指向实验室可执行文件/DLL 的绝对路径。标准主程序安装包目前不捆绑实验室。
+模块使用主程序主题与显示设置。关闭主程序、切换示例或打开其他实验时，未保存修改仍有保存/放弃/取消保护；这不是模块安装提示。
 
 ## 使用
 
@@ -55,7 +51,7 @@ dotnet build labs/CoatingDesign/OptilandWorkbench.CoatingDesign.slnx -c Release
 重新运行三例并保存证据（会写入指定目录）：
 
 ```sh
-dotnet run --project labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App -c Release -- --batch-examples artifacts/coating-examples
+dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release -- --batch-coating-examples artifacts/coating-examples
 ```
 
 ## 数据与物理边界
@@ -71,10 +67,10 @@ dotnet run --project labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App 
 
 ## 来源与验证
 
-[本地审计、源码复用边界和计算契约](../../docs/COATING_DESIGN_LAB.md)、[源码版本与许可证](../../third_party/coating-reference/README.md)、[实际验收记录](../../validation/coating/README.md)。TFStudio/tmmcore MIT 原始声明和 CC0 材料说明随实验室输出复制。
+[本地审计、源码复用边界和计算契约](../../docs/COATING_DESIGN_LAB.md)、[源码版本与许可证](../../third_party/coating-reference/README.md)、[实际验收记录](../../validation/coating/README.md)。TFStudio/tmmcore MIT 原始声明和 CC0 材料说明随标准主程序发布到 `Licenses/`。
 
 ```sh
-dotnet test labs/CoatingDesign/OptilandWorkbench.CoatingDesign.slnx -c Release
+dotnet test labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/OptilandWorkbench.CoatingDesign.Tests.csproj -c Release
 ```
 
 测试包含固定 tmmcore 0.4.2 的 120 组对照、独立解析物理检查、采样收敛、约束、取消/过期结果、原子保存重开和真实 Avalonia 控件交互。测试通过仅覆盖这些边界，不替代正式产品全量或跨平台安装包验收。
@@ -102,7 +98,7 @@ dotnet test labs/CoatingDesign/OptilandWorkbench.CoatingDesign.slnx -c Release
 每例另有 5 次正态、同材料同步厚度误差和 0.1° 角度误差公差演示，样本少，仅演示可重现流程，不代表生产良率认证。搜索结果只是给定预算内最优的有效候选，不能据此推断物理无解。
 
 ```sh
-dotnet run --project labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.App -c Release -- --batch-daily-examples artifacts/coating-daily-examples
+dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release -- --batch-coating-daily-examples artifacts/coating-daily-examples
 ```
 
 机器数据见 [daily/verification.json](examples/daily/verification.json)。

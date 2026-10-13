@@ -6,6 +6,9 @@ provides the uninstall entry. Installation is per-user, without elevation.
 
 If you received a portable folder instead, start OptilandWorkbench.App.exe.
 A separate .NET runtime installation is not required on the target computer.
+Initial-structure and coating design are mandatory built-in modules. They run
+inside the main application and are installed, upgraded, repaired and removed
+together with it. There are no separate module installers or optional components.
 Use the build that matches the target architecture (win-x64 or win-arm64).
 
 When distributing the portable version, copy the ENTIRE directory, not just the EXE. DLLs, Assets, and LensLibrary

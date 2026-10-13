@@ -169,8 +169,21 @@ internal sealed class DocumentRecoveryStore : IAsyncDisposable
         return entry;
     }
 
-    private IEnumerable<DocumentRecoveryEntry> OwnEntries() => Directory.EnumerateFiles(_session, "*.json")
-        .Select(ReadEntry).ToArray();
+    private IReadOnlyList<DocumentRecoveryEntry> OwnEntries()
+    {
+        var entries = new List<DocumentRecoveryEntry>();
+        foreach (var metadata in Directory.EnumerateFiles(_session, "*.json"))
+        {
+            try { entries.Add(ReadEntry(metadata)); }
+            catch (Exception error) when (error is IOException or UnauthorizedAccessException
+                or JsonException or InvalidDataException)
+            {
+                // Preserve unreadable/unknown records for diagnosis. One bad
+                // checkpoint must not block new copies or normal owner release.
+            }
+        }
+        return entries;
+    }
 
     private void RetireOtherGenerations(DocumentRecoveryState current)
     {

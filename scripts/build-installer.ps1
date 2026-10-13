@@ -6,7 +6,7 @@ param(
     [string]$OutputRoot = '',
     [string]$InnoSetupCompiler = '',
     [ValidatePattern('^\d+\.\d+\.\d+(\.\d+)?$')]
-    [string]$AppVersion = '1.0.2',
+    [string]$AppVersion = '1.0.3',
     [switch]$UnsignedTestPackage,
     [ValidateSet('Unsigned', 'Required')]
     [string]$SigningMode = 'Unsigned',
@@ -64,7 +64,9 @@ if ($null -eq $package -or -not (Test-Path -LiteralPath $package.Directory -Path
 $releaseId = "$AppVersion-$Runtime-$([Guid]::NewGuid().ToString('N').Substring(0, 12))"
 if ($signing) {
     foreach ($name in @('OptilandWorkbench.App.exe', 'OptilandWorkbench.App.dll',
-        'OptilandWorkbench.Application.dll', 'OptilandWorkbench.Core.dll')) {
+        'OptilandWorkbench.Application.dll', 'OptilandWorkbench.Core.dll',
+        'OptilandWorkbench.InitialStructure.Contracts.dll', 'OptilandWorkbench.InitialStructure.Engine.dll',
+        'OptilandWorkbench.InitialStructure.Persistence.dll', 'OptilandWorkbench.CoatingDesign.Engine.dll', 'OptilandWorkbench.Modules.dll')) {
         Invoke-WindowsFileSigning -Configuration $signing -Path (Join-Path $package.Directory $name)
     }
 }
@@ -81,6 +83,7 @@ $dirty = @(& git -C $repositoryRoot status --porcelain).Count -gt 0
 $metadata = [ordered]@{ FormatVersion = 1; ReleaseId = $releaseId; Version = $AppVersion; Runtime = $Runtime;
     ProductAppId = $ProductAppId; SourceCommit = $head; SourceDirty = $dirty;
     Signed = [bool]$signing; TestPackage = [bool]$UnsignedTestPackage; ValidationHooks = [bool]$EnableValidationHooks;
+    RequiredModules = @('InitialStructure', 'CoatingDesign'); ModulesInProcess = $true;
     InstallerScriptSha256 = (Get-FileHash -LiteralPath (Join-Path $repositoryRoot 'packaging/windows/OpticalSystemDesign.iss')).Hash.ToLowerInvariant();
     RecoveryScriptSha256 = (Get-FileHash -LiteralPath (Join-Path $repositoryRoot 'packaging/windows/InstallationRecovery.iss')).Hash.ToLowerInvariant();
     Files = $payloadRows.Count;

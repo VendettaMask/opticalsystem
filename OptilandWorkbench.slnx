@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/OptilandWorkbench.Modules/OptilandWorkbench.Modules.csproj" />
     <Project Path="src/OptilandWorkbench.Application/OptilandWorkbench.Application.csproj" />
     <Project Path="src/OptilandWorkbench.App/OptilandWorkbench.App.csproj" />
     <Project Path="src/OptilandWorkbench.Core/OptilandWorkbench.Core.csproj" />
@@ -7,6 +8,15 @@
   <Folder Name="/tests/">
     <Project Path="tests/OptilandWorkbench.ZemaxComparison.Tests/OptilandWorkbench.ZemaxComparison.Tests.csproj" />
     <Project Path="tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj" />
+  </Folder>
+  <Folder Name="/modules/">
+    <Project Path="labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Contracts/OptilandWorkbench.InitialStructure.Contracts.csproj" />
+    <Project Path="labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/OptilandWorkbench.InitialStructure.Engine.csproj" />
+    <Project Path="labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Persistence/OptilandWorkbench.InitialStructure.Persistence.csproj" />
+    <Project Path="labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/OptilandWorkbench.CoatingDesign.Engine.csproj" />
+    <Project Path="labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/OptilandWorkbench.InitialStructure.Tests.csproj" />
+    <Project Path="labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/OptilandWorkbench.CoatingDesign.Tests.csproj" />
+    <Project Path="labs/InitialStructure/tools/OptilandWorkbench.InitialStructure.Benchmarks/OptilandWorkbench.InitialStructure.Benchmarks.csproj" />
   </Folder>
   <Folder Name="/tools/">
     <Project Path="tools/OptilandWorkbench.ZemaxComparison/OptilandWorkbench.ZemaxComparison.csproj" />

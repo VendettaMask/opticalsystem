@@ -8,7 +8,7 @@ using Avalonia.VisualTree;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Serialization;
 using OptilandWorkbench.Core.Visualization;
-using OptilandWorkbench.InitialStructure.App;
+using OptilandWorkbench.App.Laboratories.InitialStructure;
 using OptilandWorkbench.InitialStructure.Contracts;
 using OptilandWorkbench.InitialStructure.Engine;
 using OptilandWorkbench.InitialStructure.Persistence;
@@ -21,7 +21,7 @@ public sealed class LabDesktopCollection { public const string Name = "Initial s
 [Collection(LabDesktopCollection.Name)]
 public sealed class FlatStartDesktopTests
 {
-    public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<global::OptilandWorkbench.InitialStructure.App.App>()
+    public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<global::OptilandWorkbench.App.App>()
         .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
 
     [Theory]
@@ -51,8 +51,8 @@ public sealed class FlatStartDesktopTests
             Assert.Contains("历史计数", row.Details(checkpoint with { Algorithm = checkpoint.Algorithm with { Version = "17" } }));
             var preview = Find<CandidatePreviewControl>(window, "Preview");
             await preview.PendingLoad;
-            var expected = new Layout2DBuilder(Optic.FromSnapshot(row.Candidate.Optic)).Build(options: CandidatePreviewControl.Options);
-            Assert.Equal(ContentFingerprint.Compute(expected), ContentFingerprint.Compute(preview.PrimaryScene));
+            var expected = new Layout2DBuilder(Optic.FromSnapshot(row.Candidate.Optic)).Build(options: new LayoutBuildOptions(RayCount: 7, LowerPupil: -1, UpperPupil: 1, DeleteVignetted: false));
+            Assert.Equal(ContentFingerprint.Compute(OptilandWorkbench.Application.Services.WorkbenchMapper.ToScene2Dto(expected)), ContentFingerprint.Compute(preview.PrimaryScene));
             Click(window, "Export"); await window.PendingOperation;
             var exported = await StarOptProjectStore.LoadAsync(host.ExportPath);
             Assert.Equal(row.Candidate.OpticFingerprint, ContentFingerprint.Compute(exported.Configurations[0].ToSnapshot()));
@@ -88,8 +88,11 @@ public sealed class FlatStartDesktopTests
             await preview.PendingLoad;
             Assert.Null(preview.Error);
             Assert.Equal(row.Candidate.OpticFingerprint, preview.PrimaryFingerprint);
-            var expected = new Layout2DBuilder(Optic.FromSnapshot(row.Candidate.Optic)).Build(options: CandidatePreviewControl.Options);
-            Assert.Equal(ContentFingerprint.Compute(expected), ContentFingerprint.Compute(preview.PrimaryScene));
+            Assert.True(preview.TryFindResource(global::OptilandWorkbench.App.Services.ThemeResourceBindings.PlotAxis, preview.ActualThemeVariant, out var axisBrush));
+            Assert.Same(axisBrush, preview.PlotAxisBrush);
+            Assert.True(Assert.IsAssignableFrom<Avalonia.Media.ISolidColorBrush>(preview.PlotAxisBrush).Color.A > 0);
+            var expected = new Layout2DBuilder(Optic.FromSnapshot(row.Candidate.Optic)).Build(options: new LayoutBuildOptions(RayCount: 7, LowerPupil: -1, UpperPupil: 1, DeleteVignetted: false));
+            Assert.Equal(ContentFingerprint.Compute(OptilandWorkbench.Application.Services.WorkbenchMapper.ToScene2Dto(expected)), ContentFingerprint.Compute(preview.PrimaryScene));
             Assert.Contains(preview.PrimaryScene!.Rays, ray => ray.Segments.Count > 0);
             if (width < 820) { preview.BringIntoView(); window.UpdateLayout(); }
             Capture(window, $"generated-{width}");
@@ -287,8 +290,8 @@ public sealed class FlatStartDesktopTests
             var preview = Find<CandidatePreviewControl>(window, "Preview");
             await preview.PendingLoad;
             Assert.Equal(a.OpticFingerprint, preview.PrimaryFingerprint);
-            var expectedB = new Layout2DBuilder(Optic.FromSnapshot(b.Optic)).Build(options: CandidatePreviewControl.Options);
-            Assert.Equal(ContentFingerprint.Compute(expectedB), ContentFingerprint.Compute(preview.SecondaryScene));
+            var expectedB = new Layout2DBuilder(Optic.FromSnapshot(b.Optic)).Build(options: new LayoutBuildOptions(RayCount: 7, LowerPupil: -1, UpperPupil: 1, DeleteVignetted: false));
+            Assert.Equal(ContentFingerprint.Compute(OptilandWorkbench.Application.Services.WorkbenchMapper.ToScene2Dto(expectedB)), ContentFingerprint.Compute(preview.SecondaryScene));
             Capture(window, "comparison");
             Click(window, "ClearComparison");
             var pending = preview.PendingLoad;

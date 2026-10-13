@@ -195,6 +195,79 @@ public sealed class DocumentRecoveryTests : IDisposable
         Assert.Equal(bytes, File.ReadAllBytes(path));
     }
 
+    [Theory]
+    [InlineData("broken-json")]
+    [InlineData("unsupported-version")]
+    [InlineData("wrong-id")]
+    public async Task InvalidOwnMetadataDoesNotBlockLaterCheckpointsOrRetireItsEvidence(string corruption)
+    {
+        using var app = WorkbenchApplication.Create("cooke");
+        var root = Path.Combine(_root, "recovery");
+        await using var store = new DocumentRecoveryStore(app.Documents, root);
+        Edit(app, 80); Assert.True(await store.CheckpointAsync());
+        var metadata = Assert.Single(Directory.GetFiles(root, "*.json", SearchOption.AllDirectories));
+        var project = Path.ChangeExtension(metadata, ".staropt");
+        var originalProject = await File.ReadAllBytesAsync(project);
+        var entry = JsonSerializer.Deserialize<DocumentRecoveryEntry>(await File.ReadAllTextAsync(metadata))!;
+        var invalid = corruption switch
+        {
+            "broken-json" => "{incomplete",
+            "unsupported-version" => JsonSerializer.Serialize(entry with { FormatVersion = 99 }),
+            _ => JsonSerializer.Serialize(entry with { Id = Guid.NewGuid().ToString("N") })
+        };
+        await File.WriteAllTextAsync(metadata, invalid);
+        for (var value = 81; value < 85; value++)
+        {
+            Edit(app, value);
+            Assert.True(await store.CheckpointAsync());
+        }
+        Assert.Equal(invalid, await File.ReadAllTextAsync(metadata));
+        Assert.Equal(originalProject, await File.ReadAllBytesAsync(project));
+        await store.StopAsync(cleanExit: false);
+        using var observer = WorkbenchApplication.Create();
+        await using var other = new DocumentRecoveryStore(observer.Documents, root);
+        Assert.Equal(2, other.ListCandidates().Count);
+    }
+
+    [Fact]
+    public async Task CleanExitWithCorruptMetadataReleasesOwnerAndPreservesUnknownFiles()
+    {
+        using var app = WorkbenchApplication.Create("cooke");
+        var root = Path.Combine(_root, "recovery");
+        await using var store = new DocumentRecoveryStore(app.Documents, root);
+        Edit(app, 80); await store.CheckpointAsync();
+        var metadata = Assert.Single(Directory.GetFiles(root, "*.json", SearchOption.AllDirectories));
+        var session = Path.GetDirectoryName(metadata)!;
+        var project = Path.ChangeExtension(metadata, ".staropt");
+        await File.WriteAllTextAsync(metadata, "{corrupt metadata");
+        var evidence = Path.Combine(session, "user-diagnostic.txt");
+        await File.WriteAllTextAsync(evidence, "keep diagnostics");
+        await store.StopAsync(cleanExit: true);
+        Assert.False(File.Exists(Path.Combine(session, "owner.lock")));
+        Assert.True(File.Exists(metadata));
+        Assert.True(File.Exists(project));
+        Assert.Equal("keep diagnostics", await File.ReadAllTextAsync(evidence));
+    }
+
+    [Fact]
+    public async Task LockedOwnMetadataDoesNotBlockAnIndependentNewCheckpoint()
+    {
+        using var app = WorkbenchApplication.Create("cooke");
+        var root = Path.Combine(_root, "recovery");
+        await using var store = new DocumentRecoveryStore(app.Documents, root);
+        Edit(app, 80); await store.CheckpointAsync();
+        var metadata = Assert.Single(Directory.GetFiles(root, "*.json", SearchOption.AllDirectories));
+        using (var locked = new FileStream(metadata, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+        {
+            Edit(app, 81);
+            Assert.True(await store.CheckpointAsync());
+        }
+        await store.StopAsync(cleanExit: false);
+        using var observer = WorkbenchApplication.Create();
+        await using var other = new DocumentRecoveryStore(observer.Documents, root);
+        Assert.Equal(2, other.ListCandidates().Count);
+    }
+
     private static void Edit(WorkbenchApplication app, double radius)
         => app.Prescription.UpdateSurface(app.Prescription.GetSurfaces()[1] with { Radius = radius });
 }

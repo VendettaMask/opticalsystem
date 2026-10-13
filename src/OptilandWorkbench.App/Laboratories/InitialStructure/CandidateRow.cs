@@ -1,8 +1,8 @@
 using System.Globalization;
-using OptilandWorkbench.Core;
+using OptilandWorkbench.Modules;
 using OptilandWorkbench.InitialStructure.Contracts;
 
-namespace OptilandWorkbench.InitialStructure.App;
+namespace OptilandWorkbench.App.Laboratories.InitialStructure;
 
 internal sealed class CandidateRow(int number, FamilyTrial trial, bool inherited = false)
 {
@@ -26,7 +26,7 @@ internal sealed class CandidateRow(int number, FamilyTrial trial, bool inherited
         var violations = Candidate.Violations;
         string State(Func<ConstraintViolation, bool> predicate) => violations.Any(predicate) ? "未满足" : "满足";
         string ImageQualityState(Func<ConstraintViolation, bool> predicate) => IncompleteAreaEvaluation ? "无法判定" : State(predicate);
-        var optics = Optic.FromSnapshot(Candidate.Optic);
+        var totalTrack = InitialStructurePresentation.TotalTrack(Candidate);
         return
         [
             new("焦距 mm", $"{Format(specification.EffectiveFocalLengthMillimeters)} ± {specification.FlatStart!.EffectiveFocalLengthRelativeTolerance:P1}", FocalLength, State(item => item.Code == "target.focal-length")),
@@ -36,15 +36,15 @@ internal sealed class CandidateRow(int number, FamilyTrial trial, bool inherited
             new("逐视场／波长通光", "≥ " + specification.FlatStart.MinimumValidRayFraction.ToString("P1", CultureInfo.CurrentCulture)
                 + (AreaSampling ? "；边缘检查 100%" : ""), Transmission,
                 State(item => item.Code.EndsWith(".lost-fraction", StringComparison.Ordinal) || item.Code.EndsWith(".check-lost-rays", StringComparison.Ordinal))),
-            new("总长 mm", "≤ " + Format(specification.MaximumTrackLengthMillimeters), Format(optics.SurfaceGroup.TotalTrack),
-                optics.SurfaceGroup.TotalTrack <= specification.MaximumTrackLengthMillimeters + 1e-9 ? "满足" : "未满足"),
+            new("总长 mm", "≤ " + Format(specification.MaximumTrackLengthMillimeters), Format(totalTrack),
+                totalTrack <= specification.MaximumTrackLengthMillimeters + 1e-9 ? "满足" : "未满足"),
             new("后焦 mm", specification.FlatStart.FixedBackFocusMillimeters is { } back ? Format(back) + "（固定）" : "≥ " + Format(specification.MinimumBackFocusMillimeters),
-                Format(Candidate.Optic.Surfaces[^2].Thickness), State(item => item.Code.Contains("back-focus", StringComparison.Ordinal))),
+                Format(InitialStructurePresentation.BackFocus(Candidate)), State(item => item.Code.Contains("back-focus", StringComparison.Ordinal))),
             new("完整目标验收", "全部条件满足", Status, Candidate.Status == CandidateStatus.LabAccepted ? "通过" : "未通过")
         ];
     }
 
-    public IEnumerable<PrescriptionRow> Prescription() => Candidate.Optic.Surfaces.Select((surface, index) => new PrescriptionRow(
+    public IEnumerable<PrescriptionRow> Prescription() => InitialStructurePresentation.Prescription(Candidate).Select((surface, index) => new PrescriptionRow(
         surface.IsStop ? $"{index} 光阑" : index.ToString(CultureInfo.InvariantCulture),
         (surface.Radius == 0 ? "∞" : Format(surface.Radius)) + (surface.RadiusVariable ? " V" : ""),
         Format(surface.Thickness) + (surface.ThicknessVariable ? " V" : ""), surface.Material,

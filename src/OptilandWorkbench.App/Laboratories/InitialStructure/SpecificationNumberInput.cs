@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Input;
 
-namespace OptilandWorkbench.InitialStructure.App;
+namespace OptilandWorkbench.App.Laboratories.InitialStructure;
 
 /// <summary>Keep invalid edits visible instead of silently reverting to a previous optical target.</summary>
 internal sealed class SpecificationNumberInput : NumericUpDown

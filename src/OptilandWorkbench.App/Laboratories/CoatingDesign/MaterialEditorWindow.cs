@@ -9,7 +9,7 @@ using OptilandWorkbench.App.Services;
 using OptilandWorkbench.App.Theming;
 using OptilandWorkbench.CoatingDesign.Engine;
 
-namespace OptilandWorkbench.CoatingDesign.App;
+namespace OptilandWorkbench.App.Laboratories.CoatingDesign;
 
 public sealed class MaterialEditorWindow : Window
 {

@@ -2,7 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using OptilandWorkbench.Core;
 using OptilandWorkbench.Core.Serialization;
-using OptilandWorkbench.InitialStructure.App;
+using OptilandWorkbench.App.Laboratories.InitialStructure;
 using OptilandWorkbench.InitialStructure.Contracts;
 using OptilandWorkbench.InitialStructure.Engine;
 

@@ -4,24 +4,26 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 using OptilandWorkbench.CoatingDesign.Engine;
-using OptilandWorkbench.Core.Analysis;
+using OptilandWorkbench.Application.Contracts;
 using OptilandWorkbench.App.Services;
-using OptilandWorkbench.Core.Coatings;
+using OptilandWorkbench.App.Theming;
+using OptilandWorkbench.Modules;
 
-namespace OptilandWorkbench.CoatingDesign.App;
+namespace OptilandWorkbench.App.Laboratories.CoatingDesign;
 
 public sealed class SpectrumPlot : Control
 {
     private Experiment? _experiment;
+    private CoatingPlotData? _data;
     private bool _od;
     public SpectrumPlot()
     {
         ActualThemeVariantChanged += (_, _) => InvalidateVisual();
         PointerMoved += (_, e) =>
         {
-            if (_experiment?.Result is not { } result) return;
+            if (_data is not { } result) return;
             var x = e.GetPosition(this).X;
-            var lambda = _experiment.Target.MinimumNm + Math.Clamp((x - 52) / Math.Max(1, Bounds.Width - 76), 0, 1) * (_experiment.Target.MaximumNm - _experiment.Target.MinimumNm);
+            var lambda = _experiment!.Target.MinimumNm + Math.Clamp((x - 52) / Math.Max(1, Bounds.Width - 76), 0, 1) * (_experiment.Target.MaximumNm - _experiment.Target.MinimumNm);
             var point = result.Spectrum.MinBy(s => Math.Abs(s.WavelengthNanometers - lambda))!;
             ToolTip.SetTip(this, $"{point.WavelengthNanometers:0.####} nm   R {point.Power.Reflectance:P3}   T {point.Power.Transmittance:P3}   A {point.Power.Absorptance:P3}   OD {point.Power.OpticalDensity:G8}（最近实算采样）");
         };
@@ -29,22 +31,27 @@ public sealed class SpectrumPlot : Control
     public void SetOpticalDensity(bool value) { _od = value; InvalidateVisual(); }
     // Physical data colors, separate from UI states.
     private static readonly IBrush[] CurveColors = [new ImmutableSolidColorBrush(Color.Parse("#B94338")), new ImmutableSolidColorBrush(Color.Parse("#167944")), new ImmutableSolidColorBrush(Color.Parse("#315EB5"))];
-    public void SetExperiment(Experiment? experiment) { _experiment = experiment; InvalidateVisual(); }
+    public void SetExperiment(Experiment? experiment) { _experiment = experiment; _data = experiment is null ? null : CoatingPresentation.Plot(experiment); InvalidateVisual(); }
+
+    internal IBrush PlotTextBrush => ThemeBrush(ThemeResourceBindings.PlotText, ThemePalette.Light.PlotText);
+    internal IBrush PlotBackgroundBrush => ThemeBrush(ThemeResourceBindings.PlotBackground, ThemePalette.Light.PlotBackground);
+    private IBrush ThemeBrush(string key, Color fallback) =>
+        this.TryFindResource(key, ActualThemeVariant, out var value) && value is IBrush brush ? brush : new SolidColorBrush(fallback);
 
     public override void Render(DrawingContext context)
     {
         base.Render(context);
-        var background = this.TryFindResource(ThemeResourceBindings.PlotBackground, out var fill) ? (IBrush)fill! : Brushes.White;
+        var background = PlotBackgroundBrush;
         context.FillRectangle(background, new Rect(Bounds.Size));
-        var text = this.TryFindResource(ThemeResourceBindings.PlotText, out var foreground) ? (IBrush)foreground! : Brushes.Black;
+        var text = PlotTextBrush;
         var axis = new Pen(text, 1);
         var rect = new Rect(52, 24, Math.Max(1, Bounds.Width - 76), Math.Max(1, Bounds.Height - 64));
         void Label(string value, double x, double y) => context.DrawText(new FormattedText(value, CultureInfo.CurrentCulture,
-            FlowDirection.LeftToRight, new Typeface(FontFamily.Default), LaboratoryTypography.Caption, text), new Point(x, y));
+            FlowDirection.LeftToRight, DisplayTypography.Typeface(), LaboratoryTypography.Caption, text), new Point(x, y));
         context.DrawLine(axis, rect.BottomLeft, rect.BottomRight); context.DrawLine(axis, rect.TopLeft, rect.BottomLeft);
         Label(_od ? "OD（图上限 12）" : "能量 (%)", 4, 2); Label("波长 (nm)", Math.Max(56, Bounds.Width / 2 - 24), Bounds.Height - 18);
-        if (_experiment?.Result is not { } result) { Label("生成膜系或计算光谱后显示真实 R / T / A", rect.Left + 16, rect.Top + 32); return; }
-        var target = _experiment.Target;
+        if (_data is not { } result) { Label("生成膜系或计算光谱后显示真实 R / T / A", rect.Left + 16, rect.Top + 32); return; }
+        var target = _experiment!.Target;
         double X(double lambda) => rect.Left + (lambda - target.MinimumNm) / (target.MaximumNm - target.MinimumNm) * rect.Width;
         double Y(double value) => rect.Bottom - value / (_od ? 12 : 100) * rect.Height;
         for (var i = 0; i <= 4; i++)
@@ -79,7 +86,7 @@ public sealed class SpectrumPlot : Control
                 }
                 context.DrawGeometry(null, new Pen(CurveColors[1], 1.5), geometry);
             }
-            foreach (var series in _od ? [] : ThinFilmSpectrum.ToSeries(result.Spectrum))
+            foreach (var series in _od ? [] : result.Series)
             {
                 if (series.XQuantity != AnalysisAxisQuantity.Wavelength || series.XUnit != AnalysisAxisUnit.Nanometer
                     || series.YQuantity != AnalysisAxisQuantity.EnergyFraction || series.YUnit != AnalysisAxisUnit.Percent) continue;

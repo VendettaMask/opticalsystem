@@ -140,6 +140,7 @@ public sealed partial class MainWindow
         ConfigureDisplaySettings();
         ApplyTheme(save: false);
         DisplayTypography.ApplyRecursively(this, previousFontSize);
+        _laboratories?.ApplyDisplaySettings(previousFontSize);
         _panels.ApplyDisplaySettings(previousFontSize);
         RefreshStatus();
         InvalidateVisual();

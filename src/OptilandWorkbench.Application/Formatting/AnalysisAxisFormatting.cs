@@ -172,10 +172,41 @@ public static class AnalysisCsvFormatter
     {
         ArgumentNullException.ThrowIfNull(view);
         var builder = new StringBuilder();
+        var source = view.PlotPanes.SelectMany(pane => pane.Series.Select(series => (Pane: pane.Title, Series: series)));
+        if (!source.Any(item => item.Series.Points.Count > 0))
+            source = view.Series.Select(series => (Pane: string.Empty, Series: series));
+
+        if (!source.Any(item => item.Series.Points.Count > 0))
+        {
+            if (view.Table is { } table)
+            {
+                if (table.Columns.Count == 0)
+                    throw new InvalidDataException("分析表格缺少列定义，无法导出 CSV。");
+                var includeGroups = table.RowGroups?.Any(group => !string.IsNullOrEmpty(group)) == true;
+                AppendRow(builder, includeGroups ? table.Columns.Append("row_group") : table.Columns);
+                for (var index = 0; index < table.Rows.Count; index++)
+                {
+                    var row = table.Rows[index];
+                    if (row.Count != table.Columns.Count)
+                        throw new InvalidDataException($"分析表格第 {index + 1} 行的列数与表头不一致，已拒绝导出以免丢失数据。");
+                    var group = table.RowGroups is { } groups && index < groups.Count ? groups[index] : string.Empty;
+                    AppendRow(builder, includeGroups ? row.Append(group) : row);
+                }
+            }
+            else if (view.Rows.Count > 0)
+            {
+                AppendRow(builder, ["metric", "value"]);
+                foreach (var row in view.Rows) AppendRow(builder, [row.Metric, row.Value]);
+            }
+            else
+            {
+                throw new InvalidOperationException("分析结果没有可导出的 CSV 数据。");
+            }
+            return builder.ToString();
+        }
+
+        // Preserve the existing typed plot schema for chart and mixed views.
         builder.AppendLine("pane,series,x_quantity,x_unit,x,y_quantity,y_unit,y,value_quantity,value_unit,value,label");
-        var source = view.PlotPanes.Count > 0
-            ? view.PlotPanes.SelectMany(pane => pane.Series.Select(series => (Pane: pane.Title, Series: series)))
-            : view.Series.Select(series => (Pane: string.Empty, Series: series));
 
         foreach (var (pane, series) in source)
         {
@@ -197,6 +228,18 @@ public static class AnalysisCsvFormatter
         }
 
         return builder.ToString();
+    }
+
+    private static void AppendRow(StringBuilder builder, IEnumerable<string> values)
+    {
+        var first = true;
+        foreach (var value in values)
+        {
+            if (!first) builder.Append(',');
+            builder.Append('"').Append(value.Replace("\"", "\"\"")).Append('"');
+            first = false;
+        }
+        builder.AppendLine();
     }
 
     private static void Append(StringBuilder builder, string value, bool endOfRow = false)

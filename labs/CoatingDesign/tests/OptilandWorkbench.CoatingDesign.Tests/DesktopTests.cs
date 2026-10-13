@@ -6,7 +6,7 @@ using Avalonia.Input;
 using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
-using OptilandWorkbench.CoatingDesign.App;
+using OptilandWorkbench.App.Laboratories.CoatingDesign;
 using OptilandWorkbench.CoatingDesign.Engine;
 
 namespace OptilandWorkbench.CoatingDesign.Tests;
@@ -17,7 +17,7 @@ public sealed class DesktopCollection { public const string Name = "Coating desk
 [Collection(DesktopCollection.Name)]
 public sealed class DesktopTests
 {
-    public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<global::OptilandWorkbench.CoatingDesign.App.App>()
+    public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<global::OptilandWorkbench.App.App>()
         .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
 
     [Theory]
@@ -29,7 +29,7 @@ public sealed class DesktopTests
         using var host = new Host();
         await host.Run(async () =>
         {
-            var window = new MainWindow { Width = width, Height = height };
+            var window = new MainWindow { Width = width, Height = height, ChooseUnsavedChanges = DiscardChanges };
             try
             {
                 window.Show(); Tick(window);
@@ -75,6 +75,58 @@ public sealed class DesktopTests
         Assert.Throws<ArgumentException>(() => row.ToLayer());
     }
 
+    [Theory]
+    [InlineData("clean", true)]
+    [InlineData("cancel", false)]
+    [InlineData("discard", true)]
+    [InlineData("save-cancel", false)]
+    [InlineData("save-failed", false)]
+    [InlineData("save-ok", true)]
+    [InlineData("changed-during-save", false)]
+    public async Task HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(string scenario, bool canClose)
+    {
+        var directory = Path.Combine(Path.GetTempPath(), "coating-host-close-" + Guid.NewGuid());
+        Directory.CreateDirectory(directory);
+        var path = Path.Combine(directory, "saved.coating.json");
+        try
+        {
+            using var host = new Host();
+            await host.Run(async () =>
+            {
+                MainWindow? window = null;
+                var prompts = 0;
+                window = new MainWindow(new LaboratoryFileDialogs(() =>
+                {
+                    if (scenario == "changed-during-save") Find<TextBox>(window!, "实验名称").Text = "保存期间的新修改";
+                    return Task.FromResult<string?>(scenario == "save-cancel" ? null : scenario == "save-failed" ? directory : path);
+                }, () => Task.FromResult<string?>(null), () => Task.FromResult<string?>(null)))
+                {
+                    ChooseUnsavedChanges = _ =>
+                    {
+                        prompts++;
+                        return Task.FromResult(scenario == "cancel" ? global::OptilandWorkbench.App.UnsavedChangesChoice.Cancel
+                            : scenario == "discard" ? global::OptilandWorkbench.App.UnsavedChangesChoice.Discard
+                            : global::OptilandWorkbench.App.UnsavedChangesChoice.Save);
+                    }
+                };
+                try
+                {
+                    window.Show(); Tick(window);
+                    Assert.False(window.HasUnsavedChanges);
+                    if (scenario != "clean") Find<TextBox>(window, "实验名称").Text = "未保存的镀膜设计";
+                    Assert.Equal(canClose, await window.PrepareForHostCloseAsync());
+                    Assert.Equal(scenario == "clean" ? 0 : 1, prompts);
+                    Assert.Equal(scenario is not ("clean" or "save-ok"), window.HasUnsavedChanges);
+                    if (scenario is "save-ok" or "changed-during-save")
+                        Assert.Equal("未保存的镀膜设计", (await ExperimentStore.OpenAsync(path)).Name);
+                    else Assert.False(File.Exists(path));
+                }
+                finally { window.CloseAfterHostApproval(); }
+            });
+        }
+        finally { Directory.Delete(directory, true); }
+    }
+
     [Fact]
     public async Task SaveOpenExportButtonsPreserveSnapshotAndBrokenFileClearsOldContent()
     {
@@ -87,7 +139,8 @@ public sealed class DesktopTests
             await host.Run(async () =>
             {
                 var window = new MainWindow(new LaboratoryFileDialogs(() => Task.FromResult<string?>(path),
-                    () => Task.FromResult<string?>(path), () => Task.FromResult<string?>(directory)));
+                    () => Task.FromResult<string?>(path), () => Task.FromResult<string?>(directory)))
+                { ChooseUnsavedChanges = DiscardChanges };
                 try
                 {
                     window.Show(); Tick(window);
@@ -123,14 +176,35 @@ public sealed class DesktopTests
         using var host = new Host();
         await host.Run(async () =>
         {
-            var window = new MainWindow { Width = 820, Height = 900 };
+            var window = new MainWindow { Width = 820, Height = 900, ChooseUnsavedChanges = DiscardChanges };
             try
             {
                 window.Show(); Tick(window);
                 Click(window, "1 生成膜系"); await window.PendingOperation;
                 var fingerprint = window.CurrentExperiment.Fingerprint();
-                Find<ComboBox>(window, "界面主题").SelectedIndex = theme;
+                var product = Assert.IsType<global::OptilandWorkbench.App.App>(Avalonia.Application.Current);
+                product.ApplyTheme(global::OptilandWorkbench.App.Theming.ThemeRegistry.SelectableThemes[theme].SettingsValue);
                 Tick(window);
+                var plot = window.GetLogicalDescendants().OfType<SpectrumPlot>().Single();
+                if (global::OptilandWorkbench.App.Theming.ThemeRegistry.SelectableThemes[theme].FollowsSystem
+                    && !plot.TryFindResource(global::OptilandWorkbench.App.Services.ThemeResourceBindings.PlotText, plot.ActualThemeVariant, out _))
+                {
+                    // System mode need not resolve a platform palette in Headless; fallback must stay visible.
+                    Assert.Equal(global::OptilandWorkbench.App.Theming.ThemePalette.Light.PlotText,
+                        Assert.IsAssignableFrom<Avalonia.Media.ISolidColorBrush>(plot.PlotTextBrush).Color);
+                    Assert.Equal(global::OptilandWorkbench.App.Theming.ThemePalette.Light.PlotBackground,
+                        Assert.IsAssignableFrom<Avalonia.Media.ISolidColorBrush>(plot.PlotBackgroundBrush).Color);
+                }
+                else
+                {
+                    Assert.True(plot.TryFindResource(global::OptilandWorkbench.App.Services.ThemeResourceBindings.PlotText, plot.ActualThemeVariant, out var plotText));
+                    Assert.True(plot.TryFindResource(global::OptilandWorkbench.App.Services.ThemeResourceBindings.PlotBackground, plot.ActualThemeVariant, out var plotBackground));
+                    Assert.Same(plotText, plot.PlotTextBrush);
+                    Assert.Same(plotBackground, plot.PlotBackgroundBrush);
+                }
+                Assert.True(Assert.IsAssignableFrom<Avalonia.Media.ISolidColorBrush>(plot.PlotTextBrush).Color.A > 0);
+                Assert.NotEqual(Assert.IsAssignableFrom<Avalonia.Media.ISolidColorBrush>(plot.PlotBackgroundBrush).Color,
+                    Assert.IsAssignableFrom<Avalonia.Media.ISolidColorBrush>(plot.PlotTextBrush).Color);
                 Assert.Equal(fingerprint, window.CurrentExperiment.Fingerprint());
                 var sidebar = window.GetLogicalDescendants().OfType<Border>().Single(x => x.Name == "CoatingSidebar");
                 Assert.InRange(sidebar.Bounds.Width, 240, 280);
@@ -151,7 +225,7 @@ public sealed class DesktopTests
         using var host = new Host();
         await host.Run(async () =>
         {
-            var window = new MainWindow();
+            var window = new MainWindow { ChooseUnsavedChanges = DiscardChanges };
             try
             {
                 window.Show(); Tick(window); Click(window, "1 生成膜系"); await window.PendingOperation;
@@ -177,6 +251,9 @@ public sealed class DesktopTests
             finally { window.Close(); }
         });
     }
+
+    private static Task<global::OptilandWorkbench.App.UnsavedChangesChoice> DiscardChanges(string operation) =>
+        Task.FromResult(global::OptilandWorkbench.App.UnsavedChangesChoice.Discard);
 
     private static T Find<T>(Window window, string label) where T : Control => window.GetLogicalDescendants()
         .OfType<T>().Single(c => AutomationProperties.GetName(c) == label);

@@ -7,7 +7,7 @@ Completed v8 evidence (2026-09-26): original **30/60**, **6/12** specifications 
 From the repository root, build the default Release outputs and run the original protocol:
 
 ```sh
-dotnet build labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx -c Release --no-restore
+dotnet build OptilandWorkbench.slnx -c Release --no-restore
 dotnet run --no-build -c Release --project labs/InitialStructure/tools/OptilandWorkbench.InitialStructure.Benchmarks -- labs/InitialStructure/benchmarks/flat-start-v1 artifacts/flat-start-acceptance/new-original
 ```
 

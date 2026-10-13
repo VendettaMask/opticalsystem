@@ -7,7 +7,7 @@ param(
     [string]$OutputRoot = '',
 
     [ValidatePattern('^\d+\.\d+\.\d+(\.\d+)?$')]
-    [string]$AppVersion = '1.0.2',
+    [string]$AppVersion = '1.0.3',
 
     [ValidatePattern('^[a-zA-Z0-9-]{1,128}$')]
     [string]$ProductAppId = 'OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A',
@@ -78,6 +78,13 @@ try {
         'OptilandWorkbench.App.exe',
         'OptilandWorkbench.App.dll',
         'OptilandWorkbench.App.runtimeconfig.json',
+        'OptilandWorkbench.InitialStructure.Contracts.dll',
+        'OptilandWorkbench.InitialStructure.Engine.dll',
+        'OptilandWorkbench.InitialStructure.Persistence.dll',
+        'OptilandWorkbench.CoatingDesign.Engine.dll', 'OptilandWorkbench.Modules.dll',
+        'Licenses\TFStudio-LICENSE.txt',
+        'Licenses\tmmcore-LICENSE.txt',
+        'Licenses\MATERIAL-NOTICE.txt',
         'coreclr.dll',
         'hostfxr.dll',
         'libSkiaSharp.dll',
@@ -96,6 +103,11 @@ try {
     if (-not (Test-Path -LiteralPath (Join-Path $stagingDirectory 'LensLibrary\StockCatalogs') -PathType Container)) {
         throw "Manufacturer stock catalogs are missing. Output retained at: $stagingDirectory"
     }
+    foreach ($retired in @('OptilandWorkbench.InitialStructure.App.exe', 'OptilandWorkbench.CoatingDesign.App.exe')) {
+        if (Get-ChildItem -LiteralPath $stagingDirectory -Recurse -File -Filter $retired) {
+            throw "Independent module executables are not permitted: $retired"
+        }
+    }
 
     # This license is tracked but is not currently copied by the application project.
     Copy-Item -LiteralPath (Join-Path $repositoryRoot 'src\OptilandWorkbench.App\Assets\Icons\LUCIDE-LICENSE.txt') `
@@ -103,7 +115,8 @@ try {
     Copy-Item -LiteralPath (Join-Path $repositoryRoot 'packaging\windows\README.txt') `
         -Destination (Join-Path $stagingDirectory 'README.txt')
 
-    $identity = [ordered]@{ FormatVersion = 1; ProductAppId = $ProductAppId; Version = $AppVersion; Runtime = $Runtime }
+    $identity = [ordered]@{ FormatVersion = 1; ProductAppId = $ProductAppId; Version = $AppVersion; Runtime = $Runtime;
+        RequiredModules = @('InitialStructure', 'CoatingDesign'); ModulesInProcess = $true }
     [IO.File]::WriteAllText((Join-Path $stagingDirectory 'release.identity.json'),
         ($identity | ConvertTo-Json), [Text.UTF8Encoding]::new($false))
 

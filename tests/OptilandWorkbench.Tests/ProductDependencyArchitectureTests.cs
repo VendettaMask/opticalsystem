@@ -17,7 +17,7 @@ public sealed class ProductDependencyArchitectureTests
     public void ProductSourcesAndBuildInputsHaveNoPythonOrValidationDependencies()
     {
         var root = RepositoryRoot();
-        var inputs = SourceFiles(Path.Combine(root, "src"))
+        var inputs = ProductSourceRoots(root).SelectMany(SourceFiles)
             .Concat(Directory.EnumerateFiles(root).Where(path =>
                 Path.GetExtension(path) is ".props" or ".targets" or ".cmd" or ".command"))
             .Concat(SourceFiles(Path.Combine(root, "packaging")))
@@ -35,17 +35,17 @@ public sealed class ProductDependencyArchitectureTests
     }
 
     [Fact]
-    public void ProductProjectReferencesStayInsideSrcAndAssembliesExcludeRetiredAdapters()
+    public void ProductProjectReferencesStayInsideProductAndAssembliesExcludeRetiredAdapters()
     {
-        var src = Path.Combine(RepositoryRoot(), "src");
-        foreach (var project in SourceFiles(src).Where(path => Path.GetExtension(path) == ".csproj"))
+        var roots = ProductSourceRoots(RepositoryRoot()).ToArray();
+        foreach (var project in roots.SelectMany(SourceFiles).Where(path => Path.GetExtension(path) == ".csproj"))
         {
             var document = XDocument.Load(project);
             foreach (var reference in document.Descendants("ProjectReference"))
             {
                 var target = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(project)!,
                     reference.Attribute("Include")!.Value.Replace('\\', Path.DirectorySeparatorChar)));
-                Assert.StartsWith(src + Path.DirectorySeparatorChar, target, StringComparison.OrdinalIgnoreCase);
+                Assert.Contains(roots, root => target.StartsWith(root + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase));
                 Assert.True(File.Exists(target), target);
             }
         }
@@ -84,6 +84,10 @@ public sealed class ProductDependencyArchitectureTests
     private static IEnumerable<string> SourceFiles(string root) => Directory.EnumerateFiles(root, "*", SearchOption.AllDirectories)
         .Where(path => !Path.GetRelativePath(root, path).Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
             .Any(part => part is "bin" or "obj"));
+
+    private static IEnumerable<string> ProductSourceRoots(string root) =>
+        new[] { Path.Combine(root, "src"), Path.Combine(root, "labs", "InitialStructure", "src"),
+            Path.Combine(root, "labs", "CoatingDesign", "src") };
 
     internal static string RepositoryRoot()
     {

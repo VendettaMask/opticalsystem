@@ -1,3 +1,4 @@
+using OptilandWorkbench.App.Services;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using Avalonia;
@@ -6,7 +7,7 @@ using Avalonia.Data;
 using Avalonia.Layout;
 using OptilandWorkbench.InitialStructure.Contracts;
 
-namespace OptilandWorkbench.InitialStructure.App;
+namespace OptilandWorkbench.App.Laboratories.InitialStructure;
 
 public sealed partial class MainWindow
 {
@@ -68,7 +69,7 @@ public sealed partial class MainWindow
         var systemPanel = panel;
         var goalsPanel = new StackPanel { Spacing = 10, Margin = new Thickness(0, 0, 8, 0) };
         var searchPanel = new StackPanel { Spacing = 10, Margin = new Thickness(0, 0, 8, 0) };
-        panel.Children.Add(new TextBlock { Text = "SYSTEM · 系统定义", FontSize = 17, FontWeight = Avalonia.Media.FontWeight.SemiBold });
+        panel.Children.Add(new TextBlock { Text = "SYSTEM · 系统定义", FontSize = DisplayTypography.SectionTitle, FontWeight = Avalonia.Media.FontWeight.SemiBold });
         panel.Children.Add(Field("实验名称", _name, 276));
         panel.Children.Add(Pairs(Field("焦距 mm", _effectiveFocalLength), Field("最大半视场 °", _fieldAngle)));
         panel.Children.Add(Field("孔径定义", _apertureMode, 276));
@@ -94,11 +95,11 @@ public sealed partial class MainWindow
         SetWaves([new() { Label = "d", Nanometers = 587.6, Weight = 1, IsPrimary = true }]);
 
         panel = goalsPanel;
-        panel.Children.Add(new TextBlock { Text = "GOALS · 设计约束", FontSize = 17, FontWeight = Avalonia.Media.FontWeight.SemiBold });
+        panel.Children.Add(new TextBlock { Text = "GOALS · 设计约束", FontSize = DisplayTypography.SectionTitle, FontWeight = Avalonia.Media.FontWeight.SemiBold });
         panel.Children.Add(Pairs(Field("最少片数", _minimumElements), Field("最多片数", _maximumElements)));
         panel.Children.Add(Field("最大总长 mm", _maximumTrack, 276));
         panel = searchPanel;
-        panel.Children.Add(new TextBlock { Text = "SEARCH · 形式搜索", FontSize = 17, FontWeight = Avalonia.Media.FontWeight.SemiBold });
+        panel.Children.Add(new TextBlock { Text = "SEARCH · 形式搜索", FontSize = DisplayTypography.SectionTitle, FontWeight = Avalonia.Media.FontWeight.SemiBold });
         panel.Children.Add(Field("搜索方式", _searchMode, 276));
         panel.Children.Add(Field("起始半径 mm（0 = 10 倍目标焦距）", _startingRadius, 276));
         panel.Children.Add(Pairs(Field("起始厚度 mm（0 自动）", _startingCenter), Field("起始空气隙 mm（0 自动）", _startingAir)));
