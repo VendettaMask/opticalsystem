@@ -16,6 +16,37 @@ SPEC.loader.exec_module(MODULE)
 
 
 class PhysicalCoordinateComparisonTests(unittest.TestCase):
+    def test_retired_through_focus_capture_is_resolved_without_aliasing_other_physical_methods(self):
+        canonical = {"name": "Fourier Through Focus MTF", "output": "current/fourier.json"}
+        entries = {canonical["name"]: canonical}
+        self.assertIs(canonical, MODULE.find_current_entry(entries, "Through Focus MTF"))
+        self.assertIsNone(MODULE.find_current_entry(entries, "Huygens Through Focus MTF"))
+        old = {"name": "Through Focus MTF", "output": "current/old.json"}
+        entries[old["name"]] = old
+        self.assertIs(old, MODULE.find_current_entry(entries, old["name"]))
+
+    def test_partial_and_reused_capture_times_do_not_become_full_run_performance(self):
+        summary = MODULE.recapture_run_summary({"analyses": [
+            {"status": "captured", "elapsedMilliseconds": 20},
+            {"status": "captured", "elapsedMilliseconds": 9000, "reused": True},
+            {"status": "not-requested", "elapsedMilliseconds": 0},
+            {"status": "unavailable", "elapsedMilliseconds": 3},
+            {"status": "not-applicable", "elapsedMilliseconds": 2},
+            {"status": "failed", "elapsedMilliseconds": 5},
+        ]})
+        self.assertEqual(6, summary["total"])
+        self.assertEqual(2, summary["captured"])
+        self.assertEqual(1, summary["reused"])
+        self.assertEqual(1, summary["notRequested"])
+        self.assertEqual(1, summary["failed"])
+        self.assertFalse(summary["fullRecalculation"])
+        self.assertAlmostEqual(.03, summary["elapsedSeconds"])
+        self.assertAlmostEqual(9.03, summary["storedElapsedSeconds"])
+        cancelled = MODULE.recapture_run_summary({"analyses": [], "cancelled": True})
+        self.assertFalse(cancelled["fullRecalculation"])
+        historical = MODULE.recapture_run_summary({"analyses": [{"status": "captured", "elapsedMilliseconds": 20}]})
+        self.assertTrue(historical["fullRecalculation"])
+
     @staticmethod
     def curve(xs=(0, 1, 2), ys=(0, 1, 2)):
         return {"seriesList": [{"name": "field", "xQuantity": "defocus", "xUnit": "millimeter",

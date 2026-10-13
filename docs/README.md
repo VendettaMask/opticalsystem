@@ -60,7 +60,7 @@
 - [测试镜头样例](../samples/lenses/README.md)
 - [非序列功能测试与教学样例](../samples/non-sequential/README.md)
 - [内置玻璃目录](../src/OptilandWorkbench.Core/Materials/Data/README.md)
-- [Workbench accuracy recapture](../tools/OptilandWorkbench.AccuracyCapture/README.md)
+- [Workbench 历史重算命令](../tools/OptilandWorkbench.ZemaxComparison/README.md#historical-workbench-recapture)
 - [C# Zemax / Workbench comparison](../tools/OptilandWorkbench.ZemaxComparison/README.md)
 - [冻结证据与准备输入验收](../tools/validation/README.md)
 - [Zemax 一致性采集工具](../tools/zemax_parity/README.md)

@@ -35,13 +35,13 @@
   "D:\Projects\opticalsystem\tools\zemax_parity\zosapi_export.py"
 ```
 
-采集当前 `123456.ZMX` 基线：
+为指定源镜头采集一份新的基线快照；已提交的 `123456.ZMX` 基准保持只读：
 
 ```powershell
 & "D:\Program Files\ANSYS Inc\v261\commonfiles\CPython\3_10\winx64\Release\python\python.exe" `
   "D:\Projects\opticalsystem\tools\zemax_parity\zosapi_capture_baseline.py" `
   --zmx "C:\Users\19851\Desktop\123456.ZMX" `
-  --output "D:\Projects\opticalsystem\artifacts\zemax\123456-zemax-2026-r1-baseline"
+  --output "D:\Projects\opticalsystem\artifacts\zemax-captures\new-run"
 ```
 
 若一次采集后修复了序列化或外部依赖，可先用 `--retry-failed --data-only` 只重算失败项，再用 `--screenshots-only` 补齐缺失截图；已有原生截图不会被覆盖。
@@ -75,14 +75,14 @@
 - `images/current/*.png`：由结构化结果 JSON 离线绘制的 Matplotlib 图，只用于数据形状诊断，不能证明 GUI 一致。
 - `images/gui-current/*.png`：由真实 Avalonia `AnalysisPanel` 渲染，包含导入镜头、保存的分析设置、明亮主题、工具栏、图表/数据/文本页签和报告页脚；只有这类图像可用于 Workbench 与 Zemax 的 GUI 对比。
 
-构建桌面应用后捕获固定基线清单中的 69 个真实 GUI 分析页。这里的 69 是 `current-manifest.json` 的历史捕获项数，不是当前 Workbench 分析目录总数；当前 Core 目录为 72 项，新增报告类入口以及独立畸变入口退场不自动改写这份 Zemax 图像基线：
+构建桌面应用后可按固定基线清单捕获历史 69 个 GUI 分析页。69 是旧 `current-manifest.json` 的捕获项数，当前分析目录以 Core 为准；新增和合并入口不追溯改写原清单。捕获与报告写入独立的新目录，原基准只读：
 
 ```powershell
 dotnet src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll `
   --capture-analysis-gui `
   --source=artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX `
   --settings-manifest=artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current-manifest.json `
-  --output=artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/images/gui-current `
+  --output=artifacts/workbench-recapture/new-run/images/gui-current `
   --start=1 --end=69
 ```
 
@@ -92,33 +92,33 @@ dotnet src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll `
 
 ```powershell
 python tools/zemax_parity/generate_gui_image_report.py `
-  --capture-manifest artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/images/gui-current/capture-manifest.json `
+  --capture-manifest artifacts/workbench-recapture/new-run/images/gui-current/capture-manifest.json `
   --baseline-root artifacts/zemax/123456-zemax-2026-r1-baseline `
-  --output artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31
+  --output artifacts/workbench-recapture/new-run
 ```
 
 报告会区分直接参考、仅最近似参考、来源/设置不同以及没有等价 Zemax 截图的分析，不会从图像尺寸或像素相似度推断视觉一致。
 
 ## 重算与定向采集
 
-使用保存的对比设置重算全部 Workbench 分析，并重新生成数值和截图对比：
+历史重算已并入 [ZemaxComparison](../OptilandWorkbench.ZemaxComparison/README.md#historical-workbench-recapture) 的 `--recapture-workbench`，独立 AccuracyCapture 工程已删除。使用保存的设置作为只读输入，在全新的输出目录重算：
 
 ```powershell
-dotnet run --project tools/OptilandWorkbench.AccuracyCapture -- `
+dotnet run -c Release --project tools/OptilandWorkbench.ZemaxComparison -- --recapture-workbench `
   artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX `
   artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current-manifest.json `
-  artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31
+  artifacts/workbench-recapture/new-run
 
 python tools/zemax_parity/generate_workbench_comparison.py `
   artifacts/zemax/123456-zemax-2026-r1-baseline `
-  artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31 `
+  artifacts/workbench-recapture/new-run `
   artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-30
 ```
 
-捕获命令还接受从 1 开始的 `start-index` 和 `end-index`。传入相同索引可只重算一项并复用其他已有结果。常用索引：视场曲率与畸变 `11`、畸变 `12`、包围能量 `19`、扩展源包围能量 `22`、光瞳像差 `23`、Huygens 离焦 MTF `32`、Huygens MTF `52`、对比度损失图 `55`、光程差 `56`、波前 `58`。
+命令的第四、第五个位置参数为当前目录中从 1 开始的 `start-index`、`end-index`。按 `--list-analyses` 顺序或新清单的 `index` 选择，旧固定索引表已退场。新目录中的区间外项目记为 `not-requested`；已有重算结果只有在源文件、Core/Application 身份、设置和输出校验和匹配时才复用，修改或损坏文件不冒充成功。旧清单没有输出校验和时，需要新重算。旧 `Through Focus MTF` 映射可以消费新 Fourier 入口，Huygens/Geometric 不参与别名合并。
 
-定向重算不能提供有效的全套性能总计，因为复用项没有重新计时；在固定清单全部 69 项重算前，应保留最近一次完整运行的时间数据。
+报告单独统计 `notRequested`、`reused`、`cancelled` 和 `fullRecalculation`；当前耗时排除复用项的旧时间。定向或复用运行不能建立全套性能结论，旧完整记录保留原范围。
 
-捕获目录为每项 Workbench 分析保留原始 JSON。对比目录当前包含 30 组可机读的等价数值比较、30 张数值图、2 个明确排除的非等价映射，以及 69 组 Workbench/Zemax 页面图像。旧报告只用于稳定物理序列映射，不能复用其中的 Workbench 数值。
+重算目录为请求项保留原始 JSON。历史对比目录曾包含 30 组数值映射、30 张数值图、2 个明确排除的非等价映射及 69 组页面图像；这些是原阶段记录。旧报告仅提供声明的物理序列映射，实际数值由当前重算文件读取。
 
 报告截图优先使用当前结构化 `plotPanes`。渲染器不得把多面板分析压平成单坐标轴：光线扇形、光程差和光瞳像差保留五视场/双方向布局，视场曲率与畸变保留曲率/畸变双面板布局。

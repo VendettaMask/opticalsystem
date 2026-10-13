@@ -165,7 +165,7 @@ STAROPT 容器版本、工程负载版本、Optic 快照版本是不同概念。
 | GlassCatalogConverter | 转换 AGF 玻璃目录为本项目可读资源 |
 | NonSequentialSamples | 生成确定性的教学场景并验证追迹结果 |
 | Benchmarks | 顺序追迹、MTF、公差和 STARRDB 性能测量与有界 CI 烟测 |
-| AccuracyCapture | 捕获 Workbench 当前计算数据；GUI capture 另有 App 入口 |
+| ZemaxComparison | 类型化原生对照；`--recapture-workbench` 复用同一分析工厂输出历史报告格式，已取代 AccuracyCapture；GUI capture 另有 App 入口 |
 | zemax_parity | 外部基线捕获、完整性检查、当前结果对照和 GUI 图片报告 |
 | step_validation | FreeCAD/OpenCascade 导入 STEP 并检查实体有效性与数量 |
 | 同步脚本 | 离线收集公开镜头资料与安全解包，不是桌面启动依赖 |
@@ -174,7 +174,7 @@ STAROPT 容器版本、工程负载版本、Optic 快照版本是不同概念。
 
 基线完整性校验只说明捕获资料完整，不代表当前版本重算一致；数值比较与截图比较也分别有独立工具。Zemax 默认精度权威为 `123456.ZMX` 捕获基线，另有 MS-L7 评价函数 golden；必须保留文件、设置和版本限定。
 
-CI 分开执行正式产品和实验室构建/三平台测试，并另有格式、依赖审计、性能烟测、STEP fixture 生成及第三方导入验证。
+CI 统一构建根解决方案，分别执行主程序和内置模块的三平台测试，并另有格式、依赖审计、性能烟测、STEP fixture 生成及第三方导入验证。
 
 ## 11. 后续修改的定位规则
 
@@ -231,7 +231,7 @@ rg --files src labs tools tests -g *.cs -g *.csproj
 | [src/OptilandWorkbench.App/OptilandWorkbench.App.csproj](../src/OptilandWorkbench.App/OptilandWorkbench.App.csproj) | Application、Modules、InitialStructure.Engine/Persistence、CoatingDesign.Engine；App 无直接 Core 引用 |
 | [src/OptilandWorkbench.Application/OptilandWorkbench.Application.csproj](../src/OptilandWorkbench.Application/OptilandWorkbench.Application.csproj) | OptilandWorkbench.Core |
 | [src/OptilandWorkbench.Core/OptilandWorkbench.Core.csproj](../src/OptilandWorkbench.Core/OptilandWorkbench.Core.csproj) | 目标框架、资源或包引用 |
-| [tools/OptilandWorkbench.AccuracyCapture/OptilandWorkbench.AccuracyCapture.csproj](../tools/OptilandWorkbench.AccuracyCapture/OptilandWorkbench.AccuracyCapture.csproj) | OptilandWorkbench.Application, OptilandWorkbench.Core |
+| [tools/OptilandWorkbench.ZemaxComparison/OptilandWorkbench.ZemaxComparison.csproj](../tools/OptilandWorkbench.ZemaxComparison/OptilandWorkbench.ZemaxComparison.csproj) | 原生对照与离线历史重算统一入口；引用 Application，随根解决方案构建 |
 | [tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj](../tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj) | OptilandWorkbench.Core |
 | [tools/OptilandWorkbench.GlassCatalogConverter/OptilandWorkbench.GlassCatalogConverter.csproj](../tools/OptilandWorkbench.GlassCatalogConverter/OptilandWorkbench.GlassCatalogConverter.csproj) | OptilandWorkbench.Core |
 | [tools/OptilandWorkbench.LensLibraryBuilder/OptilandWorkbench.LensLibraryBuilder.csproj](../tools/OptilandWorkbench.LensLibraryBuilder/OptilandWorkbench.LensLibraryBuilder.csproj) | OptilandWorkbench.Application, OptilandWorkbench.Core |

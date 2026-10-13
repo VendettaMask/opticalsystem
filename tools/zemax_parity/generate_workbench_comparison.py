@@ -232,6 +232,32 @@ def read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
+def find_current_entry(entries: dict[str, Any], analysis: str) -> dict[str, Any] | None:
+    entry = entries.get(analysis)
+    if entry is None and analysis == "Through Focus MTF":
+        entry = entries.get("Fourier Through Focus MTF")
+    return entry
+
+
+def recapture_run_summary(manifest: dict[str, Any]) -> dict[str, Any]:
+    analyses = manifest["analyses"]
+    reused = sum(bool(item.get("reused")) for item in analyses)
+    not_requested = sum(item["status"] == "not-requested" for item in analyses)
+    return {
+        "total": len(analyses),
+        "captured": sum(item["status"] == "captured" for item in analyses),
+        "failed": sum(item["status"] == "failed" for item in analyses),
+        "unavailable": sum(item["status"] == "unavailable" for item in analyses),
+        "notApplicable": sum(item["status"] == "not-applicable" for item in analyses),
+        "notRequested": not_requested,
+        "reused": reused,
+        "cancelled": bool(manifest.get("cancelled")),
+        "fullRecalculation": bool(analyses) and not reused and not not_requested and not manifest.get("cancelled", False),
+        "elapsedSeconds": sum(item.get("elapsedMilliseconds", 0) for item in analyses if not item.get("reused")) / 1000.0,
+        "storedElapsedSeconds": sum(item.get("elapsedMilliseconds", 0) for item in analyses) / 1000.0,
+    }
+
+
 def slug(value: str) -> str:
     return "-".join(
         part for part in "".join(
@@ -1024,7 +1050,7 @@ def main() -> int:
             mapping = dict(mapping)
             mapping["details"] = stable_curve_details(
                 mapping_key, mapping.get("details") or [])
-        entry = current_entries.get(analysis)
+        entry = find_current_entry(current_entries, analysis)
         baseline_entry = baseline_entries.get(mapping["zemaxAnalysis"])
         if not entry or not entry.get("output") or entry.get("status") != "captured" or not baseline_entry:
             numeric_results.append({
@@ -1054,7 +1080,7 @@ def main() -> int:
             "details": details,
         }
         numeric_results.append(result)
-        numeric_by_name[analysis] = result
+        numeric_by_name[entry.get("name", analysis)] = result
         render_numeric(
             output / "images" / "numeric" / f"{slug(analysis)}.png",
             analysis,
@@ -1114,8 +1140,8 @@ def main() -> int:
     }
     source_hash = hashlib.sha256(
         (baseline / "source" / "123456.ZMX").read_bytes()).hexdigest()
-    current_huygens_ms = current_entries["Huygens Through Focus MTF"].get(
-        "elapsedMilliseconds", 0)
+    current_huygens = current_entries.get("Huygens Through Focus MTF", {})
+    current_huygens_ms = current_huygens.get("elapsedMilliseconds", 0)
     previous_retry_path = previous / "huygens-retry-manifest.json"
     previous_huygens_ms = 0
     if previous_retry_path.exists():
@@ -1124,20 +1150,13 @@ def main() -> int:
             "elapsedMilliseconds", 0)
     huygens_ratio = (
         current_huygens_ms / previous_huygens_ms
-        if previous_huygens_ms > 0 else math.nan
+        if previous_huygens_ms > 0 and not current_huygens.get("reused")
+        and current_huygens.get("status") == "captured" and not manifest.get("cancelled") else math.nan
     )
     comparison = {
         "createdUtc": datetime.now(timezone.utc).isoformat(),
         "sourceSha256": source_hash,
-        "currentRun": {
-            "total": len(manifest["analyses"]),
-            "captured": sum(item["status"] == "captured" for item in manifest["analyses"]),
-            "failed": sum(item["status"] == "failed" for item in manifest["analyses"]),
-            "unavailable": sum(item["status"] == "unavailable" for item in manifest["analyses"]),
-            "notApplicable": sum(item["status"] == "not-applicable" for item in manifest["analyses"]),
-            "elapsedSeconds": sum(
-                item.get("elapsedMilliseconds", 0) for item in manifest["analyses"]) / 1000.0,
-        },
+        "currentRun": recapture_run_summary(manifest),
         "structure": {
             "current": {
                 "surfaces": manifest["surfaceCount"],
@@ -1218,7 +1237,7 @@ def main() -> int:
 
 ## 覆盖
 
-- 当前 Workbench：{comparison['currentRun']['captured']} 项有效结果，{comparison['currentRun']['unavailable']} 项不可用，{comparison['currentRun']['notApplicable']} 项不适用，{comparison['currentRun']['failed']} 项异常，共 {comparison['currentRun']['total']} 项。
+- 当前 Workbench：{comparison['currentRun']['captured']} 项有效结果，{comparison['currentRun']['unavailable']} 项不可用，{comparison['currentRun']['notApplicable']} 项不适用，{comparison['currentRun']['failed']} 项异常，共 {comparison['currentRun']['total']} 项；其中 {comparison['currentRun']['notRequested']} 项未请求，{comparison['currentRun']['reused']} 项复用。取消：{comparison['currentRun']['cancelled']}；完整重算：{comparison['currentRun']['fullRecalculation']}。
 - 页面截图：{len(screenshot_rows)} 张，每张均为当前 Workbench 结构化页面重绘；可映射项右侧使用已验证的 Zemax 2026 R1 截图。
 - 数值映射：{summary['mappingEntries']} 项，取得可比较数据 {summary['analysesCompared']} 项；高度一致 {summary['highAgreement']}，接近 {summary['close']}，明显差异 {summary['different']}，坐标不一致 {summary['coordinateMismatch']}，未完成 {summary['notCompared']}。
 - 镜头结构：23 个表面、5 个视场、3 个波长；源文件 SHA-256 `{source_hash}`。

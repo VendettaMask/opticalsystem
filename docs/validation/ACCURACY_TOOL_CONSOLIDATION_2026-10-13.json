@@ -1,0 +1,304 @@
+{
+  "Date": "2026-10-13",
+  "SourceCommit": "ce74cf983d6789f9b10e7b60a7205b9977dbc74d",
+  "SourceDirty": true,
+  "Scope": "Consolidate the historical Workbench recapture executable into the existing comparison tool; restore one mistakenly modified frozen configuration.",
+  "Projects": {
+    "Before": 51,
+    "After": 50,
+    "RootSolution": 19,
+    "Removed": "OptilandWorkbench.AccuracyCapture"
+  },
+  "DeletedFiles": [
+    "tools/OptilandWorkbench.AccuracyCapture/Program.cs",
+    "tools/OptilandWorkbench.AccuracyCapture/OptilandWorkbench.AccuracyCapture.csproj",
+    "tools/OptilandWorkbench.AccuracyCapture/packages.lock.json",
+    "tools/OptilandWorkbench.AccuracyCapture/README.md"
+  ],
+  "Changes": [
+    "One --recapture-workbench subcommand preserves the old AnalysisView JSON, camel-case enums, current-manifest.json and result filenames.",
+    "Requests execute via the existing Application factory. Selected intervals run only requested analyses; others are not-requested or explicitly reused.",
+    "Read-only inputs/native baseline output protection, source/computation/settings/output hash checks, exclusive output lock and atomic serialization.",
+    "Historical Python reports resolve the retired through-focus machine name and distinguish unrequested, reused and cancelled work from full recalculation/performance.",
+    "Shared JsonFiles.Write keeps its existing two-argument API and adds a serializer-options overload."
+  ],
+  "Builds": {
+    "DefaultOutputs": true,
+    "RootProjects": 19,
+    "Debug": {
+      "Warnings": 0,
+      "Errors": 0,
+      "Log": {
+        "Path": "artifacts/validation/accuracy-tool-consolidation-20261013/build-restored-debug.log",
+        "Sha256": "ec5d3076bb9a3d60b3fae35777557e9ee715fc6613e5210797342d98167d0068"
+      }
+    },
+    "Release": {
+      "Warnings": 0,
+      "Errors": 0,
+      "Log": {
+        "Path": "artifacts/validation/accuracy-tool-consolidation-20261013/build-restored-release.log",
+        "Sha256": "2fd45bf586f4f530c605e416b59b874efd35b890a7a5216560b2c04525756031"
+      }
+    },
+    "FirstBuild": {
+      "Warnings": 1,
+      "Errors": 0,
+      "Reason": "xUnit2031 assertion style, repaired before final verification.",
+      "Log": {
+        "Path": "artifacts/validation/accuracy-tool-consolidation-20261013/build-debug.log",
+        "Sha256": "8f8a31c5e7e71f43313f614101be5837c780e593b6c624ab74472d26d4c2f0c3"
+      }
+    }
+  },
+  "Tests": [
+    {
+      "Path": "artifacts/validation/accuracy-tool-consolidation-20261013/consolidation-debug-initial.trx",
+      "Sha256": "09737f1e674e9b429e9c11d9b88bbd65b44a59c5523e302a3e5232042c5015e3",
+      "Outcome": "Completed",
+      "total": 63,
+      "executed": 63,
+      "passed": 63,
+      "failed": 0,
+      "notExecuted": 0,
+      "aborted": 0
+    },
+    {
+      "Path": "artifacts/validation/accuracy-tool-consolidation-20261013/consolidation-final-debug.trx",
+      "Sha256": "80359fb82fbd5308a15842582ea0a2817764d13603cc5c4a6de895d8a06d0c4c",
+      "Outcome": "Completed",
+      "total": 63,
+      "executed": 63,
+      "passed": 63,
+      "failed": 0,
+      "notExecuted": 0,
+      "aborted": 0
+    },
+    {
+      "Path": "artifacts/validation/accuracy-tool-consolidation-20261013/consolidation-final-release.trx",
+      "Sha256": "bbc069ab54d9623bdf87a09792fcb10d4d9d67a06f617b18e2a9dac0df55d05e",
+      "Outcome": "Completed",
+      "total": 63,
+      "executed": 63,
+      "passed": 63,
+      "failed": 0,
+      "notExecuted": 0,
+      "aborted": 0
+    },
+    {
+      "Path": "artifacts/validation/accuracy-tool-consolidation-20261013/consolidation-restored-debug.trx",
+      "Sha256": "517d837eafcad83aba1984921053b51c2b83a12f95a142272e5e0ed47872697f",
+      "Outcome": "Completed",
+      "total": 63,
+      "executed": 63,
+      "passed": 63,
+      "failed": 0,
+      "notExecuted": 0,
+      "aborted": 0
+    },
+    {
+      "Path": "artifacts/validation/accuracy-tool-consolidation-20261013/consolidation-restored-release.trx",
+      "Sha256": "287fc910779e182c84d45c40a042c4e6dbf5e9a46d6a09ed237c4ff7a8c39006",
+      "Outcome": "Completed",
+      "total": 63,
+      "executed": 63,
+      "passed": 63,
+      "failed": 0,
+      "notExecuted": 0,
+      "aborted": 0
+    }
+  ],
+  "FinalTestRuns": [
+    "artifacts/validation/accuracy-tool-consolidation-20261013/consolidation-restored-debug.trx",
+    "artifacts/validation/accuracy-tool-consolidation-20261013/consolidation-restored-release.trx"
+  ],
+  "TestScope": "63 targeted comparison/recapture/JSON/registry cases per configuration, including 14 new recapture cases; not the full comparison or main optical suite.",
+  "PythonReportTests": {
+    "Passed": 29,
+    "Failed": 0,
+    "Command": "python -m unittest discover -s tools/zemax_parity/tests -p test_generate_workbench_comparison.py",
+    "Log": {
+      "Path": "artifacts/validation/accuracy-tool-consolidation-20261013/python-report-tests.log",
+      "Sha256": "e2c109ac32bd02a4610c817fc8abb2496316b168de53856b6ab0e8272d1e28e1"
+    }
+  },
+  "Cli": {
+    "Result": {
+      "NativeCaptureStarted": false,
+      "Analyses": 71,
+      "Captured": 2,
+      "Reused": 1,
+      "NotRequested": 69,
+      "Failed": 0,
+      "InvalidArgumentsExitCode": 2,
+      "FrozenOutputExitCode": 2,
+      "InputsUnchanged": true
+    },
+    "Manifest": {
+      "Path": "artifacts/validation/accuracy-tool-consolidation-20261013/cli-recapture/current-manifest.json",
+      "Sha256": "f896a399d59b142866998ccdf2722bddf9eb212f230797dd63d70e6122b6d80b"
+    },
+    "Report": {
+      "Path": "artifacts/validation/accuracy-tool-consolidation-20261013/cli-recapture/comparison.json",
+      "Sha256": "0e9916ab87418f3526c3c574709a076b335793d3e8819b51498b4e7647db9e5b"
+    },
+    "CurrentRun": {
+      "total": 71,
+      "captured": 2,
+      "failed": 0,
+      "unavailable": 0,
+      "notApplicable": 0,
+      "notRequested": 69,
+      "reused": 1,
+      "cancelled": false,
+      "fullRecalculation": false,
+      "elapsedSeconds": 0.031,
+      "storedElapsedSeconds": 0.102
+    },
+    "NumericSummary": {
+      "mappingEntries": 30,
+      "analysesCompared": 0,
+      "highAgreement": 0,
+      "close": 0,
+      "different": 0,
+      "coordinateMismatch": 0,
+      "notCompared": 30,
+      "excludedAsNonEquivalent": 2
+    },
+    "RenderedPages": 2,
+    "IsDesktopScreenshot": false,
+    "NativeCapture": false
+  },
+  "FrozenIntegrity": {
+    "Before": {
+      "source": "HEAD",
+      "commit": "ce74cf983d6789f9b10e7b60a7205b9977dbc74d",
+      "count": 2668,
+      "matched": 2667,
+      "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "actualAggregateSha256": "f53ffd1bef4ca4b6fc1abeaf45dec9b630c05730f02be98e48e13b9dca004490",
+      "unchanged": false,
+      "mismatches": [
+        {
+          "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+          "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+          "actualSha256": "5fb8dcb2fa5ee632b4753e32d6dd4984078a6ba0519a1b20524c06281f552257",
+          "gitBlob": "3d726df3be65cda7f91575839b5911af94be6246",
+          "bytes": 16959,
+          "matches": false
+        }
+      ],
+      "workingTree": {
+        "count": 2668,
+        "matched": 2667,
+        "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+        "actualAggregateSha256": "f53ffd1bef4ca4b6fc1abeaf45dec9b630c05730f02be98e48e13b9dca004490",
+        "unchanged": false,
+        "mismatches": [
+          {
+            "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+            "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+            "actualSha256": "5fb8dcb2fa5ee632b4753e32d6dd4984078a6ba0519a1b20524c06281f552257",
+            "matches": false
+          }
+        ]
+      }
+    },
+    "RestoredIndex": {
+      "source": "Index",
+      "commit": "ce74cf983d6789f9b10e7b60a7205b9977dbc74d",
+      "count": 2668,
+      "matched": 2668,
+      "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "unchanged": true,
+      "mismatches": [],
+      "workingTree": {
+        "count": 2668,
+        "matched": 2668,
+        "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+        "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+        "unchanged": true,
+        "mismatches": []
+      }
+    },
+    "CorrectedFile": {
+      "Path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+      "Sha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460"
+    },
+    "Explanation": "Prior saved passing snapshot was taken before the final settings edit. The current HEAD ce74cf9 matched only 2667/2668; original config bytes restored, not reference hashes/tolerances changed. Index and working tree now match all 2668."
+  },
+  "ProductNumericalSourceChanges": false,
+  "SourceFiles": [
+    {
+      "Path": "tests/OptilandWorkbench.ZemaxComparison.Tests/OptilandWorkbench.ZemaxComparison.Tests.csproj",
+      "Sha256": "5a05c033e3a76013b2a407cc54b3e2ca7fb31ef1788183be3e3ecf241589dc75"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.ZemaxComparison.Tests/WorkbenchRecaptureTests.cs",
+      "Sha256": "6584220eb61c52f877411edf8dce8ff17a83328ff61f9b70d8ed2f24045bee69"
+    },
+    {
+      "Path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+      "Sha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460"
+    },
+    {
+      "Path": "tools/OptilandWorkbench.ZemaxComparison/Models.cs",
+      "Sha256": "5446acdb75e2e1f30d801a149e0d6b3a091699533595392f59057040b446a21a"
+    },
+    {
+      "Path": "tools/OptilandWorkbench.ZemaxComparison/Program.cs",
+      "Sha256": "71c255260bb134e4b1caefc72c9663208a0e8b789687ee75f68656d26d3e557c"
+    },
+    {
+      "Path": "tools/OptilandWorkbench.ZemaxComparison/Workbench/WorkbenchRecapture.cs",
+      "Sha256": "35ff07c38e4e1743120b05040d8d297da420648051643d8f2ef361c184a606fa"
+    },
+    {
+      "Path": "tools/zemax_parity/generate_workbench_comparison.py",
+      "Sha256": "0cb9be4180815b57c35044ff0c9b125a54398035c5b2299d001bff619c192340"
+    },
+    {
+      "Path": "tools/zemax_parity/tests/test_generate_workbench_comparison.py",
+      "Sha256": "73ea9926255d3c0014e6faa6317222915a42fe65e9e476c54309671b84f8b286"
+    }
+  ],
+  "Checks": {
+    "ChangedCSharpWhitespace": true,
+    "GitDiffCheck": true,
+    "Documentation": {
+      "Report": {
+        "Path": "artifacts/validation/accuracy-tool-consolidation-20261013/documentation-audit.json",
+        "Sha256": "5596f5e97ed6051762d222265578b1b9e3ea60e4ec054590a0e25c3673bdc8e3"
+      },
+      "Documents": 888,
+      "BrokenLinks": 0,
+      "FenceIssues": 0,
+      "RepeatedParagraphGroups": 0
+    }
+  },
+  "Preserved": [
+    "Native captures and frozen numerical values",
+    "Prior failure/test/source-fingerprint records",
+    "Historical diagnostic/replay projects",
+    "Core/App optical algorithms",
+    "Both mandatory built-in modules and their same-process delivery"
+  ],
+  "NotPerformedAtValidation": [
+    "Full main or comparison suite",
+    "Full 71-analysis recapture",
+    "New Zemax capture or native certification",
+    "Manual desktop acceptance",
+    "Installer rebuild"
+  ],
+  "DeliveryAtValidation": {
+    "Committed": false,
+    "Pushed": false,
+    "Artifacts": "Local ignored outputs, not uploaded release attachments."
+  },
+  "Synchronization": {
+    "Status": "PreparedForCommitAndPush",
+    "Branch": "main",
+    "ValidationSnapshotPreserved": true
+  }
+}

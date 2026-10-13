@@ -14,7 +14,7 @@ This independent validation tool audits every public Core canonical analysis key
 
 The historical 2026-09-06 coverage was 52 explicit numerical mappings; registration is not a numerical pass. Four further spot layouts were captured and audited for numeric/text channels. Eight analyses received native capability inspection: three had a documented physical-definition mismatch and five image/source adapters needed a common source and detector contract. Six keys had no verified native equivalent (Classified Data was also unavailable for the selected sequential model), and two non-sequential entries were not applicable to a sequential snapshot. Native IDs without a Workbench counterpart are enumerated separately as `ZemaxOnly`; current entries and limitations come from `--list-analyses`.
 
-2026-10-13: the retired `Through Focus MTF` machine key resolves to `Fourier Through Focus MTF` for old capture replay and explicit CLI selection. The canonical registry, default configuration and all-analysis execution contain only the Fourier entry, and selecting both names runs it once. Localized display names remain invalid tool keys. Existing captured requests, native values and tolerances are unchanged; current verification is recorded in [the project status](../../docs/CURRENT_STATUS.md).
+2026-10-13: the retired `Through Focus MTF` machine key resolves to `Fourier Through Focus MTF` for old capture replay and explicit CLI selection. The canonical registry and all-analysis execution contain only the Fourier entry, and selecting both names runs it once. The historical default tolerance file is part of the frozen fingerprint ledger and keeps its original alias row; that row does not create another executable analysis. Localized display names remain invalid tool keys. Current verification and the restored configuration identity are recorded in [the project status](../../docs/CURRENT_STATUS.md).
 
 `AdapterNotImplemented`, `PhysicalDefinitionMismatch` and `UnsupportedByZosApi` mean different things. Empty structured channels alone cannot establish API unavailability: geometric image analysis may expose text, and Image Simulation may export a bitmap. Capability inspection records actual reset settings and does not compare them to unrelated Workbench defaults. See the [MS-L7 expansion evidence and remaining differences](../../docs/ZEMAX_ANALYSIS_EXPANSION_2026-09-06.md).
 
@@ -69,6 +69,23 @@ The PowerShell wrapper performs environment checks, locked restore, build and ar
 CLI options: `--input`, `--output`, `--config`, repeated `--analysis`, `--all`, `--configuration`, `--zemax-version`, `--zos-api-path`, `--overwrite`, `--fail-on none|error|difference`, `--timeout` (per worker, seconds), `--list-analyses`, `--capture-screenshots`, `--keep-raw`, `--report-language zh-CN|en-US`. `--all` and `--analysis` are mutually exclusive. The default timeout is 120 seconds. Input is required except for listing.
 
 Default output names include lens name, expected version, UTC timestamp and source SHA-256. A nonempty output is refused by default. `--overwrite` is accepted only for an existing tool manifest with identical source/configuration hashes. After acquiring an exclusive run lock, the previous generated evidence is moved together into a `previous-run-<UTC>` subdirectory; unrelated user files are retained. This prevents stale plots or arrays from appearing in a subset rerun. A different tolerance file requires a new output directory. Output cannot contain the input file. The original file is never saved by either executor; hashing and modification time are checked at completion.
+
+### Historical Workbench recapture
+
+The former `OptilandWorkbench.AccuracyCapture` project was removed on 2026-10-13. Its historical settings-manifest replay is now an offline subcommand of this tool and is covered by the root solution's build and tests:
+
+```powershell
+dotnet run -c Release --project tools/OptilandWorkbench.ZemaxComparison -- --recapture-workbench `
+  artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX `
+  artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current-manifest.json `
+  artifacts/workbench-recapture/new-run
+```
+
+The three positional arguments are source ZMX, saved settings manifest and output directory; optional fourth/fifth arguments are inclusive, positive one-based start/end indices in the **current** Core catalog. For a partial fresh run, unselected analyses are `not-requested`; no additional calculations are silently run. Read current indices from `--list-analyses` order or the new `current-manifest.json`, rather than an old fixed index table. A retired `Through Focus MTF` setting resolves to the Fourier key, with an explicit canonical setting taking precedence if both exist.
+
+Outputs keep `current-manifest.json`, `current/NNN-name.json`, AnalysisView fields, camel-case enum values and the existing captured/unavailable/not-applicable/failed distinction used by the historical Python report. New fields record settings/output hashes and cancellation. This mode imports the source and calls `WorkbenchRuntime.BuildAnalysisView`, which already uses the shared `BuildAnalysisData` factory; it needs no Zemax installation or license.
+
+Use a fresh output directory. Source/settings files and recognized native baseline directories are protected. An existing recapture can be updated only with matching source and computation fingerprints; unchanged outside-range results additionally need matching settings and an output checksum. Old manifests without output checksums require fresh recalculation. Modified reusable files are retained and reported as failures, and concurrent output writers are rejected. Partial/reused runs do not establish full-run performance; the report counts them separately and excludes reused elapsed times from the current run total.
 
 ## Settings and tolerances
 

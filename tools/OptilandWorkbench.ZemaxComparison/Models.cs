@@ -130,14 +130,15 @@ public static class JsonFiles
             else node.WriteTo(writer);
         }
     }
-    public static void Write(string path, object value)
+    public static void Write(string path, object value) => Write(path, value, Options);
+    public static void Write(string path, object value, JsonSerializerOptions options)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(path))!);
         var temp = path + ".tmp-" + Guid.NewGuid().ToString("N");
         try
         {
             using (var stream = new FileStream(temp, FileMode.CreateNew, FileAccess.Write, FileShare.Read))
-                JsonSerializer.Serialize(stream, value, Options);
+                JsonSerializer.Serialize(stream, value, options);
             File.Move(temp, path, true);
         }
         catch

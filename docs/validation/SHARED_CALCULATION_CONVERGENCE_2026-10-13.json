@@ -500,6 +500,19 @@
     "PriorInstallerContainsThisBatch": false,
     "LogArtifacts": "Local ignored artifacts; not uploaded release attachments."
   },
+  "SubsequentIntegrityCorrection": {
+    "Date": "2026-10-13",
+    "Scope": "The saved FrozenIntegrity snapshot predates the final comparison-settings edit and did not certify that later edit.",
+    "ObservedSourceCommit": "ce74cf983d6789f9b10e7b60a7205b9977dbc74d",
+    "ObservedGitMatched": 2667,
+    "ObservedWorkingMatched": 2667,
+    "AffectedFile": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+    "ExpectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+    "ObservedSha256": "5fb8dcb2fa5ee632b4753e32d6dd4984078a6ba0519a1b20524c06281f552257",
+    "Repair": "Restore original frozen configuration bytes, including the stored legacy alias row; retain a single canonical executable Fourier entry.",
+    "CurrentEvidence": "ACCURACY_TOOL_CONSOLIDATION_2026-10-13.json",
+    "OriginalTestResultsAndSourceFingerprintsPreserved": true
+  },
   "Synchronization": {
     "RequestedDate": "2026-10-13",
     "Repository": "https://github.com/VendettaMask/opticalsystem.git",

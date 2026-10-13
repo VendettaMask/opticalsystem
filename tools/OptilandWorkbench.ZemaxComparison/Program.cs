@@ -9,6 +9,12 @@ if (args.Length == 2 && args[0] == "--workbench-worker")
 }
 try
 {
+    if (args.Length > 0 && args[0] == "--recapture-workbench")
+    {
+        using var recaptureCancellation = new CancellationTokenSource();
+        Console.CancelKeyPress += (_, e) => { e.Cancel = true; recaptureCancellation.Cancel(); };
+        return await WorkbenchRecapture.RunAsync(WorkbenchRecaptureOptions.Parse(args[1..]), recaptureCancellation.Token);
+    }
     if (args.Length == 2 && args[0] == "--ray-audit")
     {
         using var auditCancellation = new CancellationTokenSource();
