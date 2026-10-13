@@ -297,8 +297,22 @@
     "Artifacts": "Local ignored outputs, not uploaded release attachments."
   },
   "Synchronization": {
-    "Status": "PreparedForCommitAndPush",
+    "Status": "PushedAndVerified",
     "Branch": "main",
-    "ValidationSnapshotPreserved": true
+    "VerifiedSourceCommit": "213f840292fbf41d8722372c9e21ad99b108de6d",
+    "VerifiedRemoteCommitAtSourcePush": "213f840292fbf41d8722372c9e21ad99b108de6d",
+    "Committed": true,
+    "Pushed": true,
+    "VerifiedHeadFrozenIntegrity": {
+      "Path": "artifacts/validation/accuracy-tool-consolidation-20261013/frozen-restored-head.json",
+      "Source": "HEAD",
+      "Commit": "213f840292fbf41d8722372c9e21ad99b108de6d",
+      "Count": 2668,
+      "Matched": 2668,
+      "WorkingMatched": 2668,
+      "AggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10"
+    },
+    "ValidationSnapshotPreserved": true,
+    "Verification": "Remote main equalled the verified source commit after push; synchronization documentation follows in a separate commit."
   }
 }
