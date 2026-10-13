@@ -1,5 +1,7 @@
 # 确认缺陷修复与完整重算
 
+> 历史阶段报告：保留当时的实现、命令、测试与失败结果，不代表当前产品验收。最新状态见 [当前状态](CURRENT_STATUS.md)，可执行构建入口见 [构建与发布](BUILD_AND_RELEASE.md)；旧独立实验室架构和命令已被统一内置模块取代。
+
 后续修复与当前验收见[FFT 采样与参考点修复及当前验收](FFT_SAMPLING_REFERENCE_REPAIR_2026-10-09.md)。本文的 4501 项、132 项矩阵和原生控制保留 2026年10月8日范围，不作为后续修改的当前验收。
 
 本轮修复负 Y 渐晕和 Headless 测试会话竞态，核实并纠正辅助历史有限物距测试的双重渐晕契约，补齐六镜头 132 项当前重算。本轮代码、测试、文档和选定证据的提交与远端核对见[同步记录](PROJECT_SYNC_2026-10-08.md)；此前记录保留历史范围。Huygens 截面和衍射包围能量残差仍未关闭，不能宣称全部问题解决或商业发布验收通过。
@@ -36,7 +38,7 @@ Avalonia.Headless 12.1.0 的 `StartNew` 在 `Task.Run` 中发布会话时，闭�
 
 从六份原始官方文件重新导入，沿用原捕获设置和原容差，以冻结 OpticStudio 数据对照本轮正式 Core。全部 132 项完成，分类 **100 Pass / 9 Close / 14 Difference / 8 Incomparable / 1 Error**。上一次 95/12/16/8/1 中的 95 个 Pass 均保持 Pass；原首批 76 个 Pass 也零退步。检查的 1769 份保留证据哈希不变，设置和容差不变。
 
-这是当前 Workbench 完整重算，不是重新捕获 132 项 Zemax 数据。新派生光线和衍射控制另计。Doublet Field Curvature 的执行错误、8 项不可比和其余差异仍保留。完整[重算结果](../artifacts/validation/issue-repair-20261008/original132/summary.json)、[与上次 95 Pass 的逐身份比较](../artifacts/validation/issue-repair-20261008/original132/prior95-comparison.json)及[不可变证据](../artifacts/validation/issue-repair-20261008/original132/immutable-evidence.json)均可复核。
+这是当前 Workbench 完整重算，不是重新捕获 132 项 Zemax 数据。新派生光线和衍射控制另计。Doublet Field Curvature 的执行错误、8 项不可比和其余差异仍保留。完整重算结果（历史本地产物，当前检出缺失：`artifacts/validation/issue-repair-20261008/original132/summary.json`）、与上次 95 Pass 的逐身份比较（历史本地产物，当前检出缺失：`artifacts/validation/issue-repair-20261008/original132/prior95-comparison.json`）及不可变证据（历史本地产物，当前检出缺失：`artifacts/validation/issue-repair-20261008/original132/immutable-evidence.json`）均可复核。
 
 ## 衍射残差的独立控制
 
@@ -50,9 +52,9 @@ DEE 的同设置原生控制：
 | 新原生 64 / 128 | 0.012151517736480101 | 0.01009576564140292 | Difference / Difference |
 | 新原生 128 / 256 | 0.008640373993895322 | 0.007246269807253165 | Close / Close |
 
-新档位改善尚未达到原精度判据；不能用改采样后的 Close 重写原 32 档的 Difference。每份明确设置、原生运行环境、原始数据和统一物理坐标误差保存在 [64 档](../artifacts/validation/issue-repair-20261008/energy-native-64/COMPARISON_REPORT.md)、[128 档](../artifacts/validation/issue-repair-20261008/energy-native-128/COMPARISON_REPORT.md)。它们不是完整主基准或全 72 分析重抓。
+新档位改善尚未达到原精度判据；不能用改采样后的 Close 重写原 32 档的 Difference。每份明确设置、原生运行环境、原始数据和统一物理坐标误差保存在 64 档（历史本地产物，当前检出缺失：`artifacts/validation/issue-repair-20261008/energy-native-64/COMPARISON_REPORT.md`）、128 档（历史本地产物，当前检出缺失：`artifacts/validation/issue-repair-20261008/energy-native-128/COMPARISON_REPORT.md`）。它们不是完整主基准或全 72 分析重抓。
 
-另外用正式 Core 分别积分现有中央窗和完整 FFT 窗，使用统一 ComparisonMetrics。32 档理想曲线完整窗 NRMSE 0.020340996787654598，实际 0.021356343173470578，均更差。Workbench 64/128 对旧 32 档参考的变化并不单调，不能作为原生收敛认证。详见[统一指标诊断](../artifacts/validation/issue-repair-20261008/energy-window-canonical/summary.json)。早先 `energy-window` 记录的是原始逐点 RMSE，仅保留尝试记录，不与 NRMSE 混用。没有把完整窗候选应用到产品。
+另外用正式 Core 分别积分现有中央窗和完整 FFT 窗，使用统一 ComparisonMetrics。32 档理想曲线完整窗 NRMSE 0.020340996787654598，实际 0.021356343173470578，均更差。Workbench 64/128 对旧 32 档参考的变化并不单调，不能作为原生收敛认证。详见统一指标诊断（历史本地产物，当前检出缺失：`artifacts/validation/issue-repair-20261008/energy-window-canonical/summary.json`）。早先 `energy-window` 记录的是原始逐点 RMSE，仅保留尝试记录，不与 NRMSE 混用。没有把完整窗候选应用到产品。
 
 ## 最终验收与剩余范围
 

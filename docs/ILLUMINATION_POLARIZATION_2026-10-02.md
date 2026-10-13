@@ -1,5 +1,7 @@
 # 照度的偏振功率链与像面入射边界
 
+> 历史阶段报告：保留当时的实现、命令、测试与失败结果，不代表当前产品验收。最新状态见 [当前状态](CURRENT_STATUS.md)，可执行构建入口见 [构建与发布](BUILD_AND_RELEASE.md)；旧独立实验室架构和命令已被统一内置模块取代。
+
 2026-10-03 CODA：共享照度现在读取系统 Unpolarized；开启时沿用双基矢强度平均，关闭时对系统 Jones 输入做相干组合后取功率。共同路径相位抵消，界面复相位仍保留。ApertureRayDiagnostic 分别发布 UnpolarizedIntensity、PolarizedIntensity 和选定的 PolarizationWeightedIntensity。 详见[实现与验证](COATING_DATA_OPERAND_2026-10-03.md)。
 
 前一阶段（2026-10-03 RRET）：后续 RRET 和有相位 Jones 输入已共用此处双基矢运输及界面系数；既有非偏振照度行为继续回归。本页是原阶段记录，不代表全局偏振设置或 CODA 已完成。 详见[实现与验证](POLARIZATION_RETARDANCE_2026-10-03.md)。
@@ -27,7 +29,7 @@
 
 [PolarizedIlluminationTests](../tests/OptilandWorkbench.Tests/PolarizedIlluminationTests.cs) 包括分别对 s/p 的能量守恒、正入射功率通量、布儒斯特角、全反射复相位、旋转基底、相位延迟后的衰减、正式双界面平板、显式标量镀膜、全反射与理想镜面的类型化分支、像面作用前停止、完整光瞳积分、并行一致性、不支持模型和应用参数联动。独立公式与高精度积分只在测试内使用，不提供产品结果。
 
-首轮 25/25 通过。应用联动测试最初误以为底层 `WorkbenchRuntime.BuildAnalysisView` 会把不支持的模型转换为空视图；实际契约是抛出明确异常，由上层呈现。测试按该现有契约修正，没有吞掉异常或更换计算模型。最终默认 Debug/Release Core、Application、App 与主测试项目构建成功，相关同一过滤器各 **126/126**，零失败、零跳过，编译无警告/错误。126 中包含本轮新增 **26** 项偏振照度用例、此前照度基础的 83 项，以及 17 项既有正式追迹/批量后端用例；没有与此前 2308 项合并回归相加。格式和 `git diff --check` 通过。机器记录见 [verification.json](../artifacts/validation/illumination-polarization-20261002/verification.json)，命令见[构建记录](BUILD_AND_RELEASE.md#照度偏振与入射边界复验2026-10-02)。本机测试运行窗口 Debug 约 185 秒，Release 约 50 秒，包含不同配置和调度开销，不能作为严格性能比较。
+首轮 25/25 通过。应用联动测试最初误以为底层 `WorkbenchRuntime.BuildAnalysisView` 会把不支持的模型转换为空视图；实际契约是抛出明确异常，由上层呈现。测试按该现有契约修正，没有吞掉异常或更换计算模型。最终默认 Debug/Release Core、Application、App 与主测试项目构建成功，相关同一过滤器各 **126/126**，零失败、零跳过，编译无警告/错误。126 中包含本轮新增 **26** 项偏振照度用例、此前照度基础的 83 项，以及 17 项既有正式追迹/批量后端用例；没有与此前 2308 项合并回归相加。格式和 `git diff --check` 通过。机器记录见 [verification.json](../artifacts/validation/illumination-polarization-20261002/verification.json)，命令见[构建记录](ILLUMINATION_POLARIZATION_2026-10-02.md)。本机测试运行窗口 Debug 约 185 秒，Release 约 50 秒，包含不同配置和调度开销，不能作为严格性能比较。
 
 采样密度研究使用既有相对照度比较用例增加观测输出，在当前 Workbench 分别以密度 5、20、40 计算轴上、半视场、全视场；原密度 10 的 21 点比较和原 RMSE / 最大误差门槛不变。加密后的计算不是新的 Zemax 捕获，也没有为绝对有效 F 数新设宽松门槛。
 

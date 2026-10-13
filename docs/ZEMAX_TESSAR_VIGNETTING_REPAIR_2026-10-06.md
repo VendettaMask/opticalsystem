@@ -1,5 +1,7 @@
 # Tessar 渐晕与相位复验 · 2026-10-06
 
+> 历史阶段报告：保留当时的实现、命令、测试与失败结果，不代表当前产品验收。最新状态见 [当前状态](CURRENT_STATUS.md)，可执行构建入口见 [构建与发布](BUILD_AND_RELEASE.md)；旧独立实验室架构和命令已被统一内置模块取代。
+
 本报告保留 2026-10-06 渐晕阶段的历史验证。后续 RA256 阶段原矩阵 95 Pass、独立 RMS 17+6 项全部 Pass，双路径模型与误截光修复见[该阶段复验](ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.md)。当前实现和验收见[FFT 采样与参考点修复及当前验收](FFT_SAMPLING_REFERENCE_REPAIR_2026-10-09.md)；下文差异、计数与建议保留当时范围。
 
 共享 Core 已修正光线扇图、OPD 横轴和渐晕入瞳相位。六份官方镜头的原设置 132 项由上一阶段 **82 Pass / 12 Close / 27 Difference / 10 Incomparable / 1 Error** 变为 **84 Pass / 12 Close / 27 Difference / 8 Incomparable / 1 Error**。新增通过的是 Tessar 25°/436 nm 的光线扇图与 OPD；上一阶段 82 项 Pass 全部保持通过，原 12 组 OPD 和 12 组光线扇图均为 Pass。商业软件精度与发布门禁仍未完成。
@@ -64,6 +66,6 @@ Tessar 的现有 RMS 视场请求明确移除渐晕因子，最差 NRMSE 仍为 
 
 证据：
 
-- [持久化 132 项矩阵与当前验证记录](validation/ZEMAX_TESSAR_VIGNETTING_REPAIR_2026-10-06.json)、[原设置完整重算](../artifacts/zemax-standard-samples/20261006/tessar-vignetting-repair-final/summary.json)、[CSV 误差矩阵](../artifacts/zemax-standard-samples/20261006/tessar-vignetting-repair-final/matrix.csv)。
-- [新增 8 项原生控制的独立重算](../artifacts/zemax-standard-samples/20261006/tessar-controls-recalculated/summary.json)、[夹具来源和遮挡边界](../validation/zemax/2026-r1/tessar-vignetting-2026-10-06/README.md)、[夹具哈希与捕获设置](../validation/zemax/2026-r1/tessar-vignetting-2026-10-06/manifest.json)。
+- [持久化 132 项矩阵与当前验证记录](validation/ZEMAX_TESSAR_VIGNETTING_REPAIR_2026-10-06.json)、原设置完整重算（历史本地产物，当前检出缺失：`artifacts/zemax-standard-samples/20261006/tessar-vignetting-repair-final/summary.json`）、CSV 误差矩阵（历史本地产物，当前检出缺失：`artifacts/zemax-standard-samples/20261006/tessar-vignetting-repair-final/matrix.csv`）。
+- 新增 8 项原生控制的独立重算（历史本地产物，当前检出缺失：`artifacts/zemax-standard-samples/20261006/tessar-controls-recalculated/summary.json`）、[夹具来源和遮挡边界](../validation/zemax/2026-r1/tessar-vignetting-2026-10-06/README.md)、[夹具哈希与捕获设置](../validation/zemax/2026-r1/tessar-vignetting-2026-10-06/manifest.json)。
 - [本轮最终验证清单](../artifacts/validation/zemax-tessar-vignetting-20261006/verification-final.json)、[上阶段 OPD 历史报告](ZEMAX_STANDARD_SAMPLE_OPD_REPAIR_2026-10-06.md)、[27 文件计划与剩余范围](validation/ZEMAX_STANDARD_SAMPLE_PLAN_2026-10-06.json)。

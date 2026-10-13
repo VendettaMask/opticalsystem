@@ -1,5 +1,7 @@
 # 远端更新与本机同步
 
+> 历史阶段报告：保留当时的实现、命令、测试与失败结果，不代表当前产品验收。最新状态见 [当前状态](CURRENT_STATUS.md)，可执行构建入口见 [构建与发布](BUILD_AND_RELEASE.md)；旧独立实验室架构和命令已被统一内置模块取代。
+
 2026-10-12，本地 `main` 从 `fc69b86` 快进到远端 [`8fff777aad3f4ffd403436575a21745b1d2f26a6`](https://github.com/VendettaMask/opticalsystem/commit/8fff777aad3f4ffd403436575a21745b1d2f26a6)，接收 6 个提交，无本地代码需要合并。默认 Debug/Release 桌面程序已更新，相关回归通过；本次没有另改产品代码、测试、光学参考或容差。
 
 ## 远端更新内容

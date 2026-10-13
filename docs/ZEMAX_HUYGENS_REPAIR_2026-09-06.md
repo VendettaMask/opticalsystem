@@ -1,5 +1,7 @@
 # MS-L7 Huygens MTF 采样修复（2026-09-06）
 
+> 历史阶段报告：保留当时的实现、命令、测试与失败结果，不代表当前产品验收。最新状态见 [当前状态](CURRENT_STATUS.md)，可执行构建入口见 [构建与发布](BUILD_AND_RELEASE.md)；旧独立实验室架构和命令已被统一内置模块取代。
+
 本轮确认并修复了 Huygens MTF 后处理的三个错误：普通 MTF/视场 MTF 缺少零填充，
 频率坐标使用了错误的跨度，频率间取值使用线性插值而非本次捕获的自然三次插值。
 这些错误是剩余差异的一部分原因。PSF 波场合成和衍射圈入能量积分仍有独立差异，不能宣称全分析已对齐。
@@ -46,7 +48,7 @@
 本轮不改动文件格式、光线追迹、材料、优化或公差代码。STAROPT、ZMX、SEQ、LEN 入口保留。
 Huygens 相关分析数值会改变；读取方应使用类型化轴和采样元数据。
 Python Optiland 移除清单与历史命名边界见 [原移除审计](PYTHON_OPTILAND_REMOVAL.md)，
-逐文件、逐处保留理由见 [引用索引](RETAINED_PYTHON_OPTILAND_REFERENCES.md)。
+逐文件、逐处保留理由见 [引用索引](PYTHON_OPTILAND_REMOVAL.md#保留引用的用途与历史清单)。
 
 ## 仍需处理的原因与证据边界
 

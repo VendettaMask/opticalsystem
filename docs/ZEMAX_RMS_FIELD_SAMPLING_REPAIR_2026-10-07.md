@@ -1,5 +1,7 @@
 # RMS 光斑视场采样修复与多文件复验 · 2026-10-07
 
+> 历史阶段报告：保留当时的实现、命令、测试与失败结果，不代表当前产品验收。最新状态见 [当前状态](CURRENT_STATUS.md)，可执行构建入口见 [构建与发布](BUILD_AND_RELEASE.md)；旧独立实验室架构和命令已被统一内置模块取代。
+
 后续 2026-10-08 的[参数与偏振链路修正](RMS_SAMPLING_POLARIZATION_REPAIR_2026-10-08.md)恢复了 RA 高密度请求的实际执行，并增加桌面方法区分与偏振强度加权；没有把本页的 RA 光斑节点认证扩大为 RA 波前节点认证。
 
 后续[波前图系统瞄准修复](WAVEFRONT_AIMING_REPAIR_2026-10-08.md)已修复显示选项误控物理光线的问题；不改变本页历史 RA 光斑认证，也未重算这里的外部分类和全量计数。
@@ -62,7 +64,7 @@ RA 128 边缘视场原生为 **51.6599529585 µm**，Workbench 为 **51.52813610
 
 全部原设置重算与新增控制使用正式 `WorkbenchExecutor`、共享 Core、同一 `ComparisonRunner.Compare` 和原逐量容差。完整性验证覆盖原捕获 **1769 个文件**、新增控制 **295 个证据文件**、上一阶段 **131 份**原始成功结果、新夹具 **153 个文件**以及 **27 份**官方源文件。冻结 `123456` 主参考及历史辅助参考未改动。
 
-原生数组、完整逐点误差、最大误差、NRMSE、覆盖率与请求都保存在 [持久化矩阵](validation/ZEMAX_RMS_FIELD_SAMPLING_REPAIR_2026-10-07.json)。[Tessar RA 128 叠图](../artifacts/zemax-standard-samples/20261007/rms-controls-recalculated/independent-rms-controls/tessar-lens-using-vignetting-factors-ra-128-remove/comparisons/rms-vs-field-c1/curve-0-overlay.png) 和对应差值图由正式比较工具生成，已查看；叠图的视觉一致不能替代上面的误差记录。
+原生数组、完整逐点误差、最大误差、NRMSE、覆盖率与请求都保存在 [持久化矩阵](validation/ZEMAX_RMS_FIELD_SAMPLING_REPAIR_2026-10-07.json)。Tessar RA 128 叠图（历史本地产物，当前检出缺失：`artifacts/zemax-standard-samples/20261007/rms-controls-recalculated/independent-rms-controls/tessar-lens-using-vignetting-factors-ra-128-remove/comparisons/rms-vs-field-c1/curve-0-overlay.png`） 和对应差值图由正式比较工具生成，已查看；叠图的视觉一致不能替代上面的误差记录。
 
 ## 后续范围
 

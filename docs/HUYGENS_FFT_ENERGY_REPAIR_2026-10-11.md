@@ -1,5 +1,7 @@
 # Huygens 与 FFT 包围能量原设置残差修复
 
+> 历史阶段报告：保留当时的实现、命令、测试与失败结果，不代表当前产品验收。最新状态见 [当前状态](CURRENT_STATUS.md)，可执行构建入口见 [构建与发布](BUILD_AND_RELEASE.md)；旧独立实验室架构和命令已被统一内置模块取代。
+
 本报告保存 C23/C24 轴上与 FFT DEE 阶段的实现及 4639/181/283 验证记录。后续离轴平面投影和原 MTF 十二条曲线已另行修复，当前实现与最终验证见[离轴修复](HUYGENS_OFFAXIS_REPAIR_2026-10-11.md)；下文限制仅描述本阶段。
 
 2026-10-11：用户确认 Zemax 就在本机，已经实际连接 `D:\Program Files\ANSYS Inc\v261\Zemax OpticStudio`，核实 **26.1.0 / build 260127 / EnterpriseEdition / validLicense=true** 并完成补采。此前“本机不能运行、必须使用另一台电脑”的判断已撤销。

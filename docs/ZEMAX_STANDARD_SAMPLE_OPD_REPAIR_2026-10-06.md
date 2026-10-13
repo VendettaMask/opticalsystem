@@ -1,5 +1,7 @@
 # 标准镜头 OPD 修复与复验 · 2026-10-06
 
+> 历史阶段报告：保留当时的实现、命令、测试与失败结果，不代表当前产品验收。最新状态见 [当前状态](CURRENT_STATUS.md)，可执行构建入口见 [构建与发布](BUILD_AND_RELEASE.md)；旧独立实验室架构和命令已被统一内置模块取代。
+
 本文保留 OPD 阶段 82 Pass 的历史修复与验证。后续 RA256 阶段原矩阵 95 Pass、独立 RMS 17+6 项全部 Pass，旧快照和重新导入两条路径见[该阶段复验](ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.md)。当前实现和验收见[FFT 采样与参考点修复及当前验收](FFT_SAMPLING_REFERENCE_REPAIR_2026-10-09.md)；下文剩余问题、测试计数与建议仅描述当时状态。
 
 共享 Core 的两处 OPD 问题已修复。六份官方标准镜头的原设置共 132 项重算，结果由 **76 Pass / 15 Close / 30 Difference / 10 Incomparable / 1 Error** 变为 **82 Pass / 12 Close / 27 Difference / 10 Incomparable / 1 Error**。原有 76 项 Pass 全部保持 Pass，6 项 OPD 转为 Pass；12 组 OPD 中 11 组 Pass，Tessar 边场仍不可比。Close、不可比及运行错误均不计为通过，商业软件精度与发布验收仍未完成。
@@ -78,6 +80,6 @@
 
 证据：
 
-- [持久化 132 项修复结果](validation/ZEMAX_STANDARD_SAMPLE_OPD_REPAIR_2026-10-06.json)、[当前误差矩阵](../artifacts/zemax-standard-samples/20261006/opd-core-repair-v2/matrix.csv)、[原始首批结果](validation/ZEMAX_STANDARD_SAMPLE_RESULTS_2026-10-06.json)。
-- [重算汇总与新旧证据](../artifacts/zemax-standard-samples/20261006/opd-core-repair-v2/summary.json)、[1769 文件完整性清单](../artifacts/zemax-standard-samples/20261006/opd-core-repair-v2/immutable-evidence.json)、[辅助程序源码](../artifacts/zemax-standard-samples/20261006/core-replay/Program.cs)。
+- [持久化 132 项修复结果](validation/ZEMAX_STANDARD_SAMPLE_OPD_REPAIR_2026-10-06.json)、当前误差矩阵（历史本地产物，当前检出缺失：`artifacts/zemax-standard-samples/20261006/opd-core-repair-v2/matrix.csv`）、[原始首批结果](validation/ZEMAX_STANDARD_SAMPLE_RESULTS_2026-10-06.json)。
+- 重算汇总与新旧证据（历史本地产物，当前检出缺失：`artifacts/zemax-standard-samples/20261006/opd-core-repair-v2/summary.json`）、1769 文件完整性清单（历史本地产物，当前检出缺失：`artifacts/zemax-standard-samples/20261006/opd-core-repair-v2/immutable-evidence.json`）、[辅助程序源码](../artifacts/zemax-standard-samples/20261006/core-replay/Program.cs)。
 - [新增正式回归与原生参考说明](../validation/zemax/2026-r1/standard-sample-opd-2026-10-06/README.md)、[测试源码](../tests/OptilandWorkbench.Tests/StandardSampleOpdParityTests.cs)、[最终构建与测试清单](../artifacts/validation/zemax-standard-sample-opd-20261006/verification-final.json)。

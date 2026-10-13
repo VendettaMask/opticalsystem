@@ -44,7 +44,11 @@
 - `tools/zemax_parity` 中 Python/pythonnet 只用于产品之外的 Zemax 捕获与报告；CI 的 FreeCAD Python 组件只用于 STEP 外部验收；图标脚本只用于离线维护。均不参与产品运行、发布内容或 src 依赖链。旧绘图缓存忽略规则用于避免误提交生成物，不提供再生成能力。
 - 保留 `OptilandWorkbench` 程序集、命名空间、解决方案、目录、资源键、设置环境变量、原生玻璃库/插件接口、原生 `.optiland` 名称及 opaque 载荷标识。本次不做品牌/API 全局重命名。
 
-每个仍包含 Python 或 Optiland 的文件，以及每处行号、列号和保留理由，见 [逐文件引用索引](RETAINED_PYTHON_OPTILAND_REFERENCES.md) 和 [完整机器清单](validation/RETAINED_PYTHON_OPTILAND_REFERENCES.json)。清单只排除自身的递归引用及忽略的生成物；历史捕获和明确标注日期的旧审计不改写为当前能力。
+### 保留引用的用途与历史清单
+
+保留项分为架构/拒绝规则、历史名称与原生标识、静态材料来源、测试与冻结数值证据，以及产品之外的 Zemax/STEP/素材维护工具。它们不构成 Python Optiland 产品后端；不能因名称包含 Python 或 Optiland 就删除来源或恢复旧运行接口。
+
+逐文件、逐处行列及保留理由保存在 [2026-09-06 机器清单](validation/RETAINED_PYTHON_OPTILAND_REFERENCES.json)。其中 1687 文件、4751 处引用是当日快照，不是当前源码统计。重复的 1712 行 Markdown 展开索引已在 2026-10-13 合并到本节并删除；原表可从 Git 恢复，机器原件未改写。当前依赖边界以架构测试和实际项目引用为准，不重新生成冻结外部数值数据。
 
 ## 架构变化
 

@@ -1,5 +1,7 @@
 # Tessar RMS 积分与连续渐晕修复 · 2026-10-07
 
+> 历史阶段报告：保留当时的实现、命令、测试与失败结果，不代表当前产品验收。最新状态见 [当前状态](CURRENT_STATUS.md)，可执行构建入口见 [构建与发布](BUILD_AND_RELEASE.md)；旧独立实验室架构和命令已被统一内置模块取代。
+
 本页保留 GQ 积分与连续渐晕阶段的历史结果（原矩阵 85 Pass、独立控制 17 Pass）。后续已完成 RA256 与单光线路径修复，并定位自动光阑导入误截光；当前结果及旧快照/重新导入两条路径见[最新报告](ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.md)。下文误差与测试计数仅描述本历史阶段。
 
 共享 Core 已修复两个可重复的问题：非偏振 RMS 光斑 GQ 积分错误地执行物理孔径截断，并把曲面边缘交叠产生的负距离交点当作追迹失败；连续视场的渐晕因子此前取最近定义行，未按原生的视场半径平方插值。
@@ -59,4 +61,4 @@ GQ12 整条曲线已达浮点误差范围；GQ6 还有微小积分差异。RA �
 
 证据：[持久化完整矩阵](validation/ZEMAX_TESSAR_RMS_REPAIR_2026-10-07.json)、[原设置 132 项复算](../artifacts/zemax-standard-samples/20261007/tessar-rms-repair-final-v2-original132/summary.json)、[独立 17 项复算](../artifacts/zemax-standard-samples/20261007/tessar-rms-repair-final-v2-controls/summary.json)、[逐光线参考](../validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/manifest.json)、[验证记录](../artifacts/validation/zemax-tessar-rms-20261007/verification-final.json)、[上阶段历史报告](ZEMAX_RMS_FIELD_SAMPLING_REPAIR_2026-10-07.md)、[多文件计划](validation/ZEMAX_STANDARD_SAMPLE_PLAN_2026-10-06.json)。原生语义来源：`D:/Program Files/ANSYS Inc/v261/Zemax OpticStudio/OpticStudio_UserManual_en.pdf`。
 
-[Tessar 原 GQ6 叠图](../artifacts/zemax-standard-samples/20261007/tessar-rms-repair-final-v2-original132/initial-six-primary/tessar-lens-using-vignetting-factors/comparisons/rms-vs-field-c1/curve-0-overlay.png) 由正式比较工具生成并已查看；可见重合不替代逐点误差和上面的积分适用边界。
+Tessar 原 GQ6 叠图（历史本地产物，当前检出缺失：`artifacts/zemax-standard-samples/20261007/tessar-rms-repair-final-v2-original132/initial-six-primary/tessar-lens-using-vignetting-factors/comparisons/rms-vs-field-c1/curve-0-overlay.png`） 由正式比较工具生成并已查看；可见重合不替代逐点误差和上面的积分适用边界。

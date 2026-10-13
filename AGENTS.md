@@ -15,6 +15,8 @@
 
 - Every completed code change must update the relevant repository documentation in the same task.
 - Documentation must distinguish implemented behavior from planned or compatibility-only behavior.
+- Keep current verification summaries in `docs/CURRENT_STATUS.md` with links to scoped evidence. Do not copy historical test-count/status paragraphs into unrelated guides. Dated reports preserve their original scope; obsolete current instructions must be corrected in the body.
+- When consolidating documentation, repair incoming links and preserve frozen evidence, third-party notices and useful failure records. Current product/build instructions belong in the main guides, not historical independent-module plans.
 - When verification changes the repository test baseline, update every document that states the current build date or passing-test count.
 - A change is not complete until code, tests, documentation, and the reported verification result agree.
 

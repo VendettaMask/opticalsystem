@@ -1,5 +1,7 @@
 # 物理相干镀膜接入正式追迹
 
+> 历史阶段报告：保留当时的实现、命令、测试与失败结果，不代表当前产品验收。最新状态见 [当前状态](CURRENT_STATUS.md)，可执行构建入口见 [构建与发布](BUILD_AND_RELEASE.md)；旧独立实验室架构和命令已被统一内置模块取代。
+
 2026-10-03 膜层约束：CoherentFilm 新增可选不可变层调整。原求解器应用厚度倍率及 n/k 无色散偏移，Clone/Layers/STAROPT 保留完整调整状态；没有第二套镀膜公式。 详见[实现与验证](COATING_LAYER_CONSTRAINTS_2026-10-03.md)。
 
 2026-10-03 CODA：新 EvaluateAmplitudes 返回完整 S/P 界面复响应供正式追迹和 CODA 复用；原 EvaluateJones 复用同一接口。标量涂层输出其声明的 R/T，按当前零附加相位模型处理，不重复施加衰减；R+T 非法时明确报错。原阶段记录继续保留。 详见[实现与验证](COATING_DATA_OPERAND_2026-10-03.md)。
@@ -39,7 +41,7 @@ JSON 与 STAROPT 完整保存每层材料快照及 nm 厚度，保持 schema 6�
 | 帮助页、名称标识与字号 | 19/19 | 19/19 | Release 与上行合并运行，共 61/61；Debug 单独运行并渲染 8 张控件图 |
 | 最终镀膜实验室物理及工作流 | 25/25 | 25/25 | 不是此前实验室完整 44 项回归；冻结 120 组 tmmcore 对照包含在其中一个测试内 |
 
-默认 Debug/Release Core、Application、App、主测试与镀膜实验室输出已构建；最终日志无编译警告/错误。初次构建曾因局部变量重名失败，改名后通过，失败日志保留。169 项阶段之后发现并修正缺少材料内部系数会落到默认值的问题，追加一项测试并完成上述 42 项复验；不将重叠结果相加，也不把 169 项说成最终 170 项已完整重跑。格式和差异空白检查通过。命令与原始文件见[构建记录](BUILD_AND_RELEASE.md#物理镀膜追迹与保存复验2026-10-02)及[机器摘要](../artifacts/validation/coherent-coating-transport-20261002/verification.json)。
+默认 Debug/Release Core、Application、App、主测试与镀膜实验室输出已构建；最终日志无编译警告/错误。初次构建曾因局部变量重名失败，改名后通过，失败日志保留。169 项阶段之后发现并修正缺少材料内部系数会落到默认值的问题，追加一项测试并完成上述 42 项复验；不将重叠结果相加，也不把 169 项说成最终 170 项已完整重跑。格式和差异空白检查通过。命令与原始文件见[构建记录](COHERENT_COATING_TRANSPORT_2026-10-02.md)及[机器摘要](../artifacts/validation/coherent-coating-transport-20261002/verification.json)。
 
 精度证据分别记录：
 
