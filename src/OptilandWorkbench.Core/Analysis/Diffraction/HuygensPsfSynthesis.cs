@@ -30,14 +30,17 @@ internal static class HuygensPsfSynthesis
             throw new ArgumentException("Huygens synthesis requires a wavelength.", nameof(wavelengths));
         AnalysisResourceLimits.ValidateDirectPsfWork(pupilSampling, imageSize);
         referenceWavelength ??= wavelengths.FirstOrDefault(w => w.IsPrimary) ?? wavelengths[0];
-        var shortest = wavelengths.Min(w => w.Nanometers);
         var weightScale = wavelengths.Max(w => w.Weight);
+        var contributors = weightScale > 0
+            ? wavelengths.Where(wavelength => wavelength.Weight > 0).ToArray()
+            : wavelengths.ToArray();
+        var shortest = contributors.Min(w => w.Nanometers);
         var values = new double[imageSize, imageSize];
         var idealPeakWeight = 0.0;
         var workingFNumber = 0.0;
         HuygensPolarizationMode? polarizationMode = null;
         var finiteCellHuygensUsed = true;
-        foreach (var wavelength in wavelengths)
+        foreach (var wavelength in contributors)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             // A common spectral scale cancels from all normalized observables.
@@ -54,7 +57,7 @@ internal static class HuygensPsfSynthesis
                 throw new AnalysisDataUnavailableException("Huygens PSF", "spectral components use different polarization models");
             polarizationMode = psf.HuygensPolarization;
             finiteCellHuygensUsed &= psf.FiniteCellHuygensUsed;
-            workingFNumber += psf.WorkingFNumber / wavelengths.Count;
+            workingFNumber += psf.WorkingFNumber / contributors.Length;
             idealPeakWeight += weight;
             for (var row = 0; row < imageSize; row++)
             {

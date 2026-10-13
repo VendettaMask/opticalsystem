@@ -1985,6 +1985,7 @@ public static class DiffractionEngine
         foreach (var wavelength in wavelengths)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
+            if (useWeights && wavelength.Weight <= 0) continue;
             var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
                 field.Hx, field.Hy, wavelength.Micrometers, pupilSamples, aimAtStop: aimAtStop);
             var samples = optic.SequentialRayTracer.TraceFinalSamples(bundle);

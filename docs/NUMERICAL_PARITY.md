@@ -4,6 +4,8 @@
 
 操作数各批次的局部验证集中在 [支持记录](ZEMAX_OPERAND_SUPPORT.md)；不在本页重复广播旧的全仓计数。
 
+Huygens 多波长合成存在正谱权重时，仅计算正权重分量；零权重分量不参与相干场传播、谱归一化和几何质心追迹，不能因该分量的吸收接口不受支持而阻断有效谱。显式单色选择不受其全谱权重为零影响；分析层已有的全零权重等权兼容行为保留。正权重的吸收相干电场仍明确拒绝，本修复不扩展其物理支持范围。当前复验见 [状态页](CURRENT_STATUS.md)。
+
 ## 参考边界
 
 2026-10-13 共享计算收敛：正式 Core 与 Application 的 `Through Focus MTF` 旧名称统一解析到 `Fourier Through Focus MTF`；公开目录只列后者，旧英文/中文产品入口仍可打开。比较工具只把旧英文机器键作为回放/命令行兼容别名，执行目录不重复列项，仍拒绝本地化显示名作为工具键。默认比较容差文件属于冻结指纹清单，保留原始旧键记录；此前误删该行已恢复，不能把冻结参数记录当成第二个执行入口。`MtfThroughFocusAnalysis` 的 `DeltaFocus` 是 ±范围、步数是计算平面数，符合 [Ansys FFT Through Focus MTF 定义](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/FFT_Through_Focus_MTF.html)。Core 默认仍为通用设置，不注入捕获预设；Application 保留产品预设。直接构造旧 `ThroughFocusMtfAnalysis` 的采样自相关/逐步离焦语义留给显式兼容调用和冻结历史回归，不能代表当前产品 FFT 入口。

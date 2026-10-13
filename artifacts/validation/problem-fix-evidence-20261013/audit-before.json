@@ -1,0 +1,128 @@
+{
+  "date": "2026-10-13",
+  "commit": "eab80096e31a1e8fceea4bde7732fb6767047598",
+  "findings": [
+    {
+      "id": "A01",
+      "priority": "P1",
+      "path": "src/OptilandWorkbench.App/Manufacturing/OpticalManufacturingModel.cs",
+      "line": 130,
+      "trigger": "Glass element center thickness <= 0 in a prescription containing another valid element.",
+      "actual": "Invalid element is omitted from assessment and drawing enumeration; report shows zero errors and one pass.",
+      "expected": "Report the invalid element as an error or explicitly reject unsupported geometry without omitting it."
+    },
+    {
+      "id": "A02",
+      "priority": "P2",
+      "path": "src/OptilandWorkbench.Core/Analysis/Diffraction/HuygensPsfSynthesis.cs",
+      "line": 49,
+      "trigger": "Positive-weight transparent 550 nm primary plus zero-weight absorbing 450 nm; coherent Jones; all wavelengths.",
+      "actual": "Single positive wavelength succeeds. All-wavelength request still traces the zero-weight component and throws.",
+      "expected": "Exclude zero-weight components from weighted synthesis when there are positive-weight components; preserve explicit monochromatic and documented all-zero contracts."
+    },
+    {
+      "id": "A03",
+      "priority": "P2",
+      "path": "tools/OptilandWorkbench.ZemaxComparison/Workbench/WorkbenchRecapture.cs",
+      "line": 132,
+      "trigger": "Existing completed First Order and Seidel results; cancel a partial run after First Order; resume.",
+      "actual": "Cancellation replaces the 71-entry manifest with four visited entries. Resume marks valid Seidel output not-requested despite matching preserved bytes.",
+      "expected": "Preserve existing verified unvisited entries on cancellation and keep their reuse provenance."
+    }
+  ],
+  "confirmedFindings": 3,
+  "evidencePath": "artifacts/validation/problem-audit-20261013/verified-final/results.json",
+  "trackedFilesChanged": false,
+  "repairsApplied": false,
+  "fullSuiteRun": false,
+  "newZemaxCapture": false,
+  "scopes": "Current source review and completed diagnostic controls, including formal prescription DTO mapping and WorkbenchRuntime. No full-suite, GUI or installer acceptance.",
+  "build": "Completed with zero errors and four cached NU1900 warnings; unavailable vulnerability metadata is not a product defect or a clean-build claim.",
+  "excludedRuns": "Initial compiler failure and first expanded harness with multiple-primary prototype are preserved but not counted as verification.",
+  "sourceHashes": [
+    {
+      "path": "src/OptilandWorkbench.App/Manufacturing/OpticalManufacturingModel.cs",
+      "sha256": "abca4ee8ed32bcbe4ec77341a78f99445d5f4a6127bb49085014c9812a81ed72"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/Analysis/Diffraction/HuygensPsfSynthesis.cs",
+      "sha256": "83a9234cc6826abf048a1d813f75534a7ee938958bfb2dc3733e825eb9172a65"
+    },
+    {
+      "path": "tools/OptilandWorkbench.ZemaxComparison/Workbench/WorkbenchRecapture.cs",
+      "sha256": "35ff07c38e4e1743120b05040d8d297da420648051643d8f2ef361c184a606fa"
+    }
+  ],
+  "binaryHashes": [
+    {
+      "path": "artifacts/validation/problem-audit-20261013/bin/Release/net10.0/OptilandWorkbench.Tests.dll",
+      "sha256": "3fa891daf43481408f3c6342cf37eb2b373bcf9263e2148d755c547e6d61a465"
+    },
+    {
+      "path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "sha256": "7700af685360f15de30f02d23fc76a3500986d6c242e237819d3e3bc7404c040"
+    },
+    {
+      "path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "sha256": "b3520f556125f32faf19fbe48efe6e72b9fc9118c4af31ff557cd715103172cb"
+    },
+    {
+      "path": "tools/OptilandWorkbench.ZemaxComparison/bin/Release/net10.0/OptilandWorkbench.ZemaxComparison.dll",
+      "sha256": "f8a8a644b5719dac86a5788cf08e1296ff91b9b0b78281e9ea90655eb4ba8a16"
+    }
+  ],
+  "evidenceHashes": [
+    {
+      "path": "artifacts/validation/problem-audit-20261013/Audit.csproj",
+      "sha256": "d79b20835ca669744bf580e64029abae099c6c8bc532709aee2ead63f7705cab"
+    },
+    {
+      "path": "artifacts/validation/problem-audit-20261013/build-verified-final.log",
+      "sha256": "d4b25745b7ab821bb5d5fd7bcc11c3b0d2096a94efd799bdb86f08a83a59bebb"
+    },
+    {
+      "path": "artifacts/validation/problem-audit-20261013/Program.cs",
+      "sha256": "77b23ba4820c491b58e470d18e8c24f05438ea8e96606d254d38971546635b06"
+    },
+    {
+      "path": "artifacts/validation/problem-audit-20261013/run-verified-final.log",
+      "sha256": "ee026fcc3f888aa8229ecae9f9ceaa5dfc0c244a86185da059309223d71feb76"
+    },
+    {
+      "path": "artifacts/validation/problem-audit-20261013/verified-final/cancelled-recapture/.recapture.lock",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/validation/problem-audit-20261013/verified-final/cancelled-recapture/current/004-first-order.json",
+      "sha256": "f7a8264b9b72c42799d1005ab6d93fbe0cd9ba1184bcadb5f0a8e71103c5e228"
+    },
+    {
+      "path": "artifacts/validation/problem-audit-20261013/verified-final/cancelled-recapture/current/005-seidel-coefficients.json",
+      "sha256": "5a62c5ec4a83a79fac1d6481d6fe4db87993fced51230ddbcfb0b71cd8f35d22"
+    },
+    {
+      "path": "artifacts/validation/problem-audit-20261013/verified-final/cancelled-recapture/current-manifest.json",
+      "sha256": "40720403e67eeeea75e7ad882532914eb56c0961c0b4b8c8728c20c943ec80b4"
+    },
+    {
+      "path": "artifacts/validation/problem-audit-20261013/verified-final/manifest-after-cancel.json",
+      "sha256": "2163657a346c8bb6c7c53643efaef8e6bd0170617c7dff0ba289419f9802e003"
+    },
+    {
+      "path": "artifacts/validation/problem-audit-20261013/verified-final/manifest-after-resume.json",
+      "sha256": "40720403e67eeeea75e7ad882532914eb56c0961c0b4b8c8728c20c943ec80b4"
+    },
+    {
+      "path": "artifacts/validation/problem-audit-20261013/verified-final/manifest-before-cancel.json",
+      "sha256": "abe1631335d40f1d1ffc58313836dde2dbfe1b2e50a821af65fc87b59b0e0fbf"
+    },
+    {
+      "path": "artifacts/validation/problem-audit-20261013/verified-final/results.json",
+      "sha256": "adbdefae78b97cf6089607cbccf9d233f584d9252a4326be32ec84def21d597a"
+    },
+    {
+      "path": "artifacts/validation/problem-audit-20261013/verified-final/settings.json",
+      "sha256": "1274b24d29f0acbbfc56eded6ca0878135bc81625dbe6251d5c59f57539340f1"
+    }
+  ]
+}

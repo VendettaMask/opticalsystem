@@ -8,6 +8,7 @@ using OptilandWorkbench.ZemaxComparison.Workbench;
 
 namespace OptilandWorkbench.ZemaxComparison.Tests;
 
+[Collection("Workbench recapture console")]
 public sealed class WorkbenchRecaptureTests
 {
     [Theory]
@@ -174,6 +175,93 @@ public sealed class WorkbenchRecaptureTests
         Assert.False(Directory.Exists(scope.Output));
     }
 
+    [Fact]
+    public async Task CancellationPreservesUnvisitedVerifiedResultsAndTheirResumeIdentity()
+    {
+        using var scope = new Scope();
+        Assert.Equal(0, await WorkbenchRecapture.RunAsync(scope.Options("First Order")));
+        Assert.Equal(0, await WorkbenchRecapture.RunAsync(scope.Options("Seidel Coefficients")));
+        using var previous = scope.Manifest();
+        var seidel = Find(previous, "Seidel Coefficients");
+        var path = Path.Combine(scope.Output, seidel.GetProperty("output").GetString()!);
+        var bytes = File.ReadAllBytes(path);
+
+        await CancelAfterFirstOrder(scope);
+        using (var cancelled = scope.Manifest())
+        {
+            Assert.True(cancelled.RootElement.GetProperty("cancelled").GetBoolean());
+            Assert.Equal(new AnalysisCatalog(new Optic()).Names.Count, cancelled.RootElement.GetProperty("analyses").GetArrayLength());
+            var retained = Find(cancelled, "Seidel Coefficients");
+            Assert.Equal("captured", retained.GetProperty("status").GetString());
+            Assert.True(retained.GetProperty("reused").GetBoolean());
+            Assert.Equal(JsonFiles.Hash(bytes), retained.GetProperty("outputSha256").GetString());
+        }
+        Assert.Equal(0, await WorkbenchRecapture.RunAsync(scope.Options("First Order")));
+        using var resumed = scope.Manifest();
+        Assert.Equal("captured", Find(resumed, "Seidel Coefficients").GetProperty("status").GetString());
+        Assert.Equal(bytes, File.ReadAllBytes(path));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task CancellationCannotCarryForwardChangedOrTamperedUnvisitedResults(bool changeSettings)
+    {
+        using var scope = new Scope();
+        var name = changeSettings ? "Ray Fan" : "Seidel Coefficients";
+        Assert.Equal(0, await WorkbenchRecapture.RunAsync(scope.Options(name)));
+        using var previous = scope.Manifest();
+        var path = Path.Combine(scope.Output, Find(previous, name).GetProperty("output").GetString()!);
+        if (changeSettings)
+            JsonFiles.Write(scope.Settings, new { analyses = new[] { new {
+                name, settings = new Dictionary<string, string> { ["NumberOfRays"] = "21" }
+            } } });
+        else File.WriteAllText(path, "{\"name\":\"tampered\"}");
+        var bytes = File.ReadAllBytes(path);
+
+        await CancelAfterFirstOrder(scope);
+        using var cancelled = scope.Manifest();
+        var unvisited = Find(cancelled, name);
+        Assert.Equal(changeSettings ? "not-requested" : "failed", unvisited.GetProperty("status").GetString());
+        Assert.Equal(bytes, File.ReadAllBytes(path));
+    }
+
+    [Fact]
+    public async Task FreshCancellationKeepsACompleteCatalogWithoutComputingUnvisitedAnalyses()
+    {
+        using var scope = new Scope();
+        await CancelAfterFirstOrder(scope);
+        using var cancelled = scope.Manifest();
+        var rows = cancelled.RootElement.GetProperty("analyses").EnumerateArray().ToArray();
+        Assert.Equal(new AnalysisCatalog(new Optic()).Names.Count, rows.Length);
+        Assert.Single(rows, row => row.GetProperty("status").GetString() == "captured");
+        Assert.Equal("not-requested", Find(cancelled, "Seidel Coefficients").GetProperty("status").GetString());
+        Assert.Single(Directory.GetFiles(Path.Combine(scope.Output, "current"), "*.json"));
+    }
+
+    private static async Task CancelAfterFirstOrder(Scope scope)
+    {
+        using var cancellation = new CancellationTokenSource();
+        var previous = Console.Out;
+        try
+        {
+            Console.SetOut(new CancelWriter(previous, cancellation));
+            await Assert.ThrowsAnyAsync<OperationCanceledException>(() => WorkbenchRecapture.RunAsync(
+                scope.Options("First Order"), cancellation.Token));
+        }
+        finally { Console.SetOut(previous); }
+    }
+
+    private sealed class CancelWriter(TextWriter parent, CancellationTokenSource cancellation) : TextWriter
+    {
+        public override System.Text.Encoding Encoding => parent.Encoding;
+        public override void WriteLine(string? value)
+        {
+            parent.WriteLine(value);
+            if (value?.Contains(" First Order: ", StringComparison.Ordinal) == true) cancellation.Cancel();
+        }
+    }
+
     private static JsonElement Find(JsonDocument manifest, string name) => manifest.RootElement.GetProperty("analyses")
         .EnumerateArray().Single(row => row.GetProperty("name").GetString() == name);
 
@@ -200,3 +288,6 @@ public sealed class WorkbenchRecaptureTests
         public void Dispose() => Directory.Delete(Root, recursive: true);
     }
 }
+
+[CollectionDefinition("Workbench recapture console", DisableParallelization = true)]
+public sealed class WorkbenchRecaptureConsoleCollection { }

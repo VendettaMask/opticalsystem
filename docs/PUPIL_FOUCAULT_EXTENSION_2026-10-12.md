@@ -54,7 +54,7 @@ Foucault 新增“物理平面标量角谱”和“物理平面矢量角谱”�
 
 边界修正前正式完整 Release 曾为 4731/4731、比较工具为 182/182；该通过没有覆盖新的宽窗口反例，保留原 TRX 和对应源码/二进制，不当作修正后验收。
 
-默认 Core 八份副本与源码指纹、完整 TRX、原测试身份与次数、新增 36 项、夹具/界面契约失败及边界反例、修正前完整通过、306 份既有原生捕获和冻结工作区/Git 原字节 **2668/2668** 见[本轮机器账本](validation/PUPIL_FOUCAULT_EXTENSION_2026-10-12.json)。上一阶段 N04 账本哈希 e0b4c014848479c422822508b3cb0d7a9740be1582a2c276a95380dc42e89dd4 不变。核验入口 tools/validation/CollectPupilFoucaultExtension20261012.ps1 拒绝覆盖同阶段账本。[实际控件截图](../artifacts/validation/pupil-foucault-extension-20261012/rendered-boundary-fixed/pupil-foucault-extension.png)只验证显示，不算原生数值认证。
+默认 Core 八份副本与源码指纹、完整 TRX、原测试身份与次数、新增 36 项、夹具/界面契约失败及边界反例、修正前完整通过、306 份既有原生捕获和冻结工作区/Git 原字节 **2668/2668** 见[本轮机器账本](validation/PUPIL_FOUCAULT_EXTENSION_2026-10-12.json)。上一阶段 N04 账本哈希 e0b4c014848479c422822508b3cb0d7a9740be1582a2c276a95380dc42e89dd4 不变。核验入口 tools/validation/CollectPupilFoucaultExtension20261012.ps1 拒绝覆盖同阶段账本。此前实际控件截图是采集宿主本地产物，未随仓库提交，记录路径为 `artifacts/validation/pupil-foucault-extension-20261012/rendered-boundary-fixed/pupil-foucault-extension.png`；它只验证显示，不算原生数值认证。
 
 ## 剩余范围
 

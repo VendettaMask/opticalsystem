@@ -92,10 +92,7 @@ public static class WorkbenchRecapture
                 var outputPath = Path.Combine(options.Output, relativeOutput.Replace('/', Path.DirectorySeparatorChar));
                 var selected = index >= options.StartIndex && index <= options.EndIndex;
                 var prior = previous?.Analyses?.FirstOrDefault(run => run.Name == name && run.Output == relativeOutput);
-                var reusable = !selected && File.Exists(outputPath) && prior?.Settings is { } priorSettings
-                    && !string.IsNullOrWhiteSpace(prior.OutputSha256)
-                    && priorSettings.Count == settings.Count
-                    && settings.All(pair => priorSettings.TryGetValue(pair.Key, out var value) && value == pair.Value);
+                var reusable = !selected && CanReuse(prior, settings, outputPath);
                 if (!selected && !reusable)
                 {
                     runs.Add(new(index, name, "not-requested", 0, settings, 0, 0, 0, null, null,
@@ -112,12 +109,10 @@ public static class WorkbenchRecapture
                             ?? throw new InvalidDataException($"Could not read {outputPath}.")
                         : workspace.BuildAnalysisView(name, settings, cancellationToken);
                     if (!reusable) JsonFiles.Write(outputPath, view, ViewJson);
-                    var series = view.PlotPanes.Count > 0 ? view.PlotPanes.SelectMany(pane => pane.Series).ToArray() : view.SeriesList.ToArray();
-                    var status = CaptureStatus(view);
-                    runs.Add(new(index, name, status, reusable ? prior!.ElapsedMilliseconds : stopwatch.ElapsedMilliseconds,
-                        settings, series.Length, view.PlotPanes.Count, series.Sum(item => item.Points.Count), relativeOutput,
-                        null, view.OutcomeReason, reusable, JsonFiles.Hash(File.ReadAllBytes(outputPath))));
-                    Console.WriteLine($"{index:D3}/{workspace.AnalysisNames.Count:D3} {name}: {status}{(reusable ? " (reused)" : "")}");
+                    var run = CompletedRun(index, name, settings, relativeOutput, outputPath, view,
+                        reusable ? prior!.ElapsedMilliseconds : stopwatch.ElapsedMilliseconds, reusable);
+                    runs.Add(run);
+                    Console.WriteLine($"{index:D3}/{workspace.AnalysisNames.Count:D3} {name}: {run.Status}{(reusable ? " (reused)" : "")}");
                 }
                 catch (Exception exception) when (exception is not OperationCanceledException)
                 {
@@ -126,7 +121,40 @@ public static class WorkbenchRecapture
                 }
             }
         }
-        catch (OperationCanceledException) { cancelled = true; throw; }
+        catch (OperationCanceledException)
+        {
+            cancelled = true;
+            // Cancellation stops computation, but cannot erase prior unvisited
+            // results. Retain only matching settings and verified saved bytes.
+            for (var index = runs.Count + 1; index <= workspace.AnalysisNames.Count; index++)
+            {
+                var name = workspace.AnalysisNames[index - 1];
+                var settings = workspace.MergeAnalysisSettings(name, settingsByName.GetValueOrDefault(name));
+                var relativeOutput = $"current/{index:D3}-{Slug(name)}.json";
+                var outputPath = Path.Combine(options.Output, relativeOutput.Replace('/', Path.DirectorySeparatorChar));
+                var prior = previous?.Analyses?.FirstOrDefault(run => run.Name == name && run.Output == relativeOutput);
+                if (!CanReuse(prior, settings, outputPath))
+                {
+                    runs.Add(new(index, name, "not-requested", 0, settings, 0, 0, 0, null, null,
+                        "Cancelled before execution; no matching reusable result."));
+                    continue;
+                }
+                try
+                {
+                    if (JsonFiles.Hash(File.ReadAllBytes(outputPath)) != prior!.OutputSha256)
+                        throw new InvalidDataException($"Reusable result checksum mismatch: {relativeOutput}");
+                    var view = JsonSerializer.Deserialize<AnalysisView>(await File.ReadAllTextAsync(outputPath), ViewJson)
+                        ?? throw new InvalidDataException($"Could not read {outputPath}.");
+                    runs.Add(CompletedRun(index, name, settings, relativeOutput, outputPath, view,
+                        prior.ElapsedMilliseconds, reused: true));
+                }
+                catch (Exception exception)
+                {
+                    runs.Add(new(index, name, "failed", 0, settings, 0, 0, 0, null, exception.ToString()));
+                }
+            }
+            throw;
+        }
         finally
         {
             JsonFiles.Write(manifestPath, new CurrentManifest(DateTimeOffset.UtcNow, options.Source, sourceHash,
@@ -136,6 +164,21 @@ public static class WorkbenchRecapture
         var failed = runs.Count(run => run.Status == "failed");
         Console.WriteLine($"Completed {runs.Count}; captured={runs.Count(run => run.Status == "captured")}; not-requested={runs.Count(run => run.Status == "not-requested")}; failed={failed}");
         return failed == 0 ? 0 : 1;
+    }
+
+    private static bool CanReuse(AnalysisRun? prior, IReadOnlyDictionary<string, string> settings, string outputPath) =>
+        File.Exists(outputPath) && prior?.Settings is { } priorSettings
+        && !string.IsNullOrWhiteSpace(prior.OutputSha256)
+        && priorSettings.Count == settings.Count
+        && settings.All(pair => priorSettings.TryGetValue(pair.Key, out var value) && value == pair.Value);
+
+    private static AnalysisRun CompletedRun(int index, string name, IReadOnlyDictionary<string, string> settings,
+        string relativeOutput, string outputPath, AnalysisView view, long elapsedMilliseconds, bool reused)
+    {
+        var series = view.PlotPanes.Count > 0 ? view.PlotPanes.SelectMany(pane => pane.Series).ToArray() : view.SeriesList.ToArray();
+        return new(index, name, CaptureStatus(view), elapsedMilliseconds, settings,
+            series.Length, view.PlotPanes.Count, series.Sum(item => item.Points.Count), relativeOutput,
+            null, view.OutcomeReason, reused, JsonFiles.Hash(File.ReadAllBytes(outputPath)));
     }
 
     private static void ProtectInputs(WorkbenchRecaptureOptions options)

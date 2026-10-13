@@ -1,0 +1,112 @@
+[
+  {
+    "category": "manufacturing-center-thickness",
+    "thickness": -1,
+    "elements": 1,
+    "ErrorCount": 0,
+    "WarningCount": 0,
+    "PassCount": 1,
+    "evaluatedFronts": [
+      1
+    ]
+  },
+  {
+    "category": "manufacturing-center-thickness",
+    "thickness": 0,
+    "elements": 1,
+    "ErrorCount": 0,
+    "WarningCount": 0,
+    "PassCount": 1,
+    "evaluatedFronts": [
+      1
+    ]
+  },
+  {
+    "category": "manufacturing-center-thickness",
+    "thickness": 1,
+    "elements": 2,
+    "ErrorCount": 0,
+    "WarningCount": 0,
+    "PassCount": 2,
+    "evaluatedFronts": [
+      1,
+      3
+    ]
+  },
+  {
+    "category": "manufacturing-through-prescription",
+    "thickness": -1,
+    "elements": 1,
+    "ErrorCount": 0,
+    "WarningCount": 0,
+    "PassCount": 1,
+    "actualFrontThickness": -1,
+    "evaluatedFronts": [
+      1
+    ]
+  },
+  {
+    "category": "manufacturing-through-prescription",
+    "thickness": 0,
+    "elements": 1,
+    "ErrorCount": 0,
+    "WarningCount": 0,
+    "PassCount": 1,
+    "actualFrontThickness": 0,
+    "evaluatedFronts": [
+      1
+    ]
+  },
+  {
+    "category": "manufacturing-through-prescription",
+    "thickness": 1,
+    "elements": 2,
+    "ErrorCount": 0,
+    "WarningCount": 0,
+    "PassCount": 2,
+    "actualFrontThickness": 1,
+    "evaluatedFronts": [
+      1,
+      3
+    ]
+  },
+  {
+    "category": "huygens-zero-weight",
+    "waveNumber": 1,
+    "status": "returned",
+    "outcome": "Success",
+    "maximum": 0.012806113684816808,
+    "polarization": "CoherentXyz"
+  },
+  {
+    "category": "huygens-zero-weight",
+    "waveNumber": 0,
+    "status": "exception",
+    "exception": "NotSupportedException",
+    "Message": "Absorbing interface polarization requires complex-index electric-field transport, which is not implemented; homogeneous power is a separate explicit contract."
+  },
+  {
+    "category": "huygens-zero-weight-runtime",
+    "waveNumber": "1",
+    "status": "returned",
+    "outcome": "Success",
+    "OutcomeReason": null,
+    "series": 1
+  },
+  {
+    "category": "huygens-zero-weight-runtime",
+    "waveNumber": "0",
+    "status": "exception",
+    "exception": "NotSupportedException",
+    "Message": "Absorbing interface polarization requires complex-index electric-field transport, which is not implemented; homogeneous power is a separate explicit contract."
+  },
+  {
+    "category": "recapture-cancel-reuse",
+    "beforeStatus": "captured",
+    "afterStatus": "not-requested",
+    "beforeManifestEntries": 71,
+    "cancelledManifestEntries": 4,
+    "previousResultPreserved": true,
+    "previousResultHashMatches": true
+  }
+]

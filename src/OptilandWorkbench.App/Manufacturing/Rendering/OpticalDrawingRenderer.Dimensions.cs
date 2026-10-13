@@ -26,6 +26,7 @@ internal static partial class OpticalDrawingRendererCore
         int surfaceSamples = ManufacturingSurfaceSamples)
     {
         ArgumentNullException.ThrowIfNull(component);
+        OpticalManufacturingModel.EnsureDrawingCenterThickness(component);
 
         surfaceSamples = NormalizeManufacturingSampleCount(surfaceSamples);
         var backVertexZ = frontVertexZ + component.CenterThickness;

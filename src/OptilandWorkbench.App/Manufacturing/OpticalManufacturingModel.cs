@@ -127,7 +127,7 @@ public static class OpticalManufacturingModel
         for (var index = 0; index + 1 < surfaces.Count; index++)
         {
             var front = surfaces[index];
-            if (!IsOpticalMaterial(front.Material) || front.Thickness <= 0)
+            if (!IsOpticalMaterial(front.Material))
             {
                 continue;
             }
@@ -144,6 +144,7 @@ public static class OpticalManufacturingModel
         IReadOnlyList<SurfaceRowDto> surfaces)
     {
         var singleElements = BuildElements(surfaces);
+        foreach (var element in singleElements) EnsureDrawingCenterThickness(element);
         var drawings = new List<OpticalDrawingElementDefinition>();
         var cementedRun = new List<OpticalElementDefinition>();
 
@@ -193,6 +194,13 @@ public static class OpticalManufacturingModel
 
     public static double? MinimumEdgeThickness(OpticalElementDefinition element) =>
         ManufacturingGeometryService.MinimumThickness(element.FrontSurface, element.BackSurface, element.ClearSemiDiameter);
+
+    internal static void EnsureDrawingCenterThickness(OpticalElementDefinition element)
+    {
+        if (!double.IsFinite(element.CenterThickness) || element.CenterThickness <= 0)
+            throw new InvalidOperationException(
+                $"元件 S{element.FrontSurface.Number}-S{element.BackSurface.Number} 的中心厚度必须为有限正数，不能导出单片或胶合制造图。");
+    }
 
     private static IReadOnlyList<ManufacturabilityGeometryMetric> BuildGeometryMetrics(
         OpticalElementDefinition element)
@@ -300,7 +308,7 @@ public static class OpticalManufacturingModel
     {
         var surfaceText = $"S{element.FrontSurface.Number}-S{element.BackSurface.Number}";
         var before = findings.Count;
-        if (element.CenterThickness <= 0)
+        if (!double.IsFinite(element.CenterThickness) || element.CenterThickness <= 0)
         {
             Add(ManufacturabilitySeverity.Error, "中心厚度", $"{element.CenterThickness:0.###} mm", "中心厚度必须大于 0 mm。");
         }

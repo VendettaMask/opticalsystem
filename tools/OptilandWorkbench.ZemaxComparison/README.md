@@ -87,6 +87,8 @@ Outputs keep `current-manifest.json`, `current/NNN-name.json`, AnalysisView fiel
 
 Use a fresh output directory. Source/settings files and recognized native baseline directories are protected. An existing recapture can be updated only with matching source and computation fingerprints; unchanged outside-range results additionally need matching settings and an output checksum. Old manifests without output checksums require fresh recalculation. Modified reusable files are retained and reported as failures, and concurrent output writers are rejected. Partial/reused runs do not establish full-run performance; the report counts them separately and excludes reused elapsed times from the current run total.
 
+Cancellation stops new computation and publishes a complete current catalog. Unvisited previous results retain their identity only after settings, output bytes and checksum are verified; retained rows are marked reused without rewriting result files. Changed settings produce `not-requested`, and tampered saved data produce `failed`. Fresh unvisited entries are `not-requested`. Cancellation before output creation still creates nothing. Older already-truncated manifests without the missing rows' provenance cannot certify those orphaned files; recalculate them explicitly.
+
 ## Settings and tolerances
 
 Edit `comparison-settings.json`. Its version and exact byte SHA-256 are recorded. `analyses.<canonical key>` provides explicit field, wavelength, pupil/image sampling, hexapolar ray density or fan count, image delta in micrometers, maximum frequency and **per-quantity** tolerances. Unknown configuration members, invalid ranges, missing tolerances and unmatched Workbench-only overrides for comparable adapters are rejected.

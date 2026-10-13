@@ -36,7 +36,7 @@ dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c R
 
 ### 最终标准安装包
 
-[OpticalSystemDesign-1.0.3-win-x64-Unsigned-Setup.exe](../artifacts/installers/installer-win-x64-4f1511f0/OpticalSystemDesign-1.0.3-win-x64-Unsigned-Setup.exe)
+`OpticalSystemDesign-1.0.3-win-x64-Unsigned-Setup.exe` 是此前打包宿主的本地产物，未随仓库提交。记录路径为 `artifacts/installers/installer-win-x64-4f1511f0/OpticalSystemDesign-1.0.3-win-x64-Unsigned-Setup.exe`；应在该宿主提取并核对下面的身份与哈希。
 
 - 发布身份：`1.0.3-win-x64-332991feffd8`，大小 `274571666` 字节。
 - SHA-256：`7f39c67441fecaac59f39824b951e675082866ba82d9ae9ab531f2b18bbf7e58`。
