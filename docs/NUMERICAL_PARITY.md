@@ -6,6 +6,12 @@
 
 Huygens 多波长合成存在正谱权重时，仅计算正权重分量；零权重分量不参与相干场传播、谱归一化和几何质心追迹，不能因该分量的吸收接口不受支持而阻断有效谱。显式单色选择不受其全谱权重为零影响；分析层已有的全零权重等权兼容行为保留。正权重的吸收相干电场仍明确拒绝，本修复不扩展其物理支持范围。当前复验见 [状态页](CURRENT_STATUS.md)。
 
+## 2026-10-14 场曲与照度矩阵
+
+FCGS/FCGT 使用固定 X/Y 分量及主光线/+0.001 归一瞳傍轴射线，保留双方向响应的交叉项；主程序场曲预设使用相同约定，并按 X/Y 扫描方向排列切向/弧矢曲线。通用 Core 构造器仍保留对称 1e-5 设置；Application 的参考方式与间隔可显式编辑，并随结果发布。交叉项约定由实际原生控制推得，不称为公开的通用原生算法；对角及像面移动的物理不变量另有独立回归。原生验证绑定 [四文件控制](../validation/zemax/2026-r1/fcgt-efno-2026-10-14/manifest.json)，不把这些档位推广成通用 OpticStudio 默认值。原 123456 的 1e-5 mm 比较目标已作为正式断言恢复；原有数据和冻结容差保持原字节。
+
+有效 F 数仍未关闭。原生 EFNO/RELI 的 Samp/Wave/Field/Pol 控制已补齐；旧分析曲线的约 0.309% 差异不能外推到其他档位。原生会处理像差导致的角域变化，并在偏振模式中计入传输；当前标量光瞳积分和像方网格不是同一有限网格算法。不同档位的偏差、实际回归结果与尚未认证范围见 [当前状态](CURRENT_STATUS.md) 和 [诊断工具说明](../tools/diagnostics/Accuracy20261014/README.md)。不使用固定增益、挑选点或扩大容差来关闭差异。
+
 ## 参考边界
 
 2026-10-13 共享计算收敛：正式 Core 与 Application 的 `Through Focus MTF` 旧名称统一解析到 `Fourier Through Focus MTF`；公开目录只列后者，旧英文/中文产品入口仍可打开。比较工具只把旧英文机器键作为回放/命令行兼容别名，执行目录不重复列项，仍拒绝本地化显示名作为工具键。默认比较容差文件属于冻结指纹清单，保留原始旧键记录；此前误删该行已恢复，不能把冻结参数记录当成第二个执行入口。`MtfThroughFocusAnalysis` 的 `DeltaFocus` 是 ±范围、步数是计算平面数，符合 [Ansys FFT Through Focus MTF 定义](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/FFT_Through_Focus_MTF.html)。Core 默认仍为通用设置，不注入捕获预设；Application 保留产品预设。直接构造旧 `ThroughFocusMtfAnalysis` 的采样自相关/逐步离焦语义留给显式兼容调用和冻结历史回归，不能代表当前产品 FFT 入口。

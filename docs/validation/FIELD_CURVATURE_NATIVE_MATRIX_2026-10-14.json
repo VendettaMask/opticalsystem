@@ -1,0 +1,1052 @@
+{
+  "RecordedUtc": "2026-10-14T15:13:49.666144+00:00",
+  "SourceCommit": "c8f317855988a360d9a2ae28b4456e3a2b93a34e",
+  "SourceDirty": true,
+  "Scope": "FCGS/FCGT native convention repair and four-file expansion. EFNO/RELI remain unresolved. No Cooke/Tessar independent recapture, Optiland regeneration, installer rebuild, full Debug gate or manual desktop certification.",
+  "Changes": [
+    "Chief and positive X/Y parabasal rays at 0.001 for native-facing generalized Cartesian components, including additive cross response.",
+    "Application presets and editable reference/interval; unchanged symmetric 1e-5 general Core default.",
+    "Original curvature target restored; 12 new tests cover 2160 native MFE controls, two 606-value captured curve paths and oblique image-motion invariants.",
+    "Workspace scheduling test collection runs without other collections competing for its resources; original 5-second startup and 2-second lock thresholds remain unchanged."
+  ],
+  "Numerical": {
+    "OriginalCurvatureTargetMillimeters": 1e-05,
+    "OriginalFCGTBeforeMaximumMillimeters": 2.1533288104098533e-05,
+    "CurvatureCount": 2160,
+    "NativeIlluminationOperandCount": 256,
+    "Matrix": [
+      {
+        "Name": "123456",
+        "Source": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+        "SourceSha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+        "NativeEnvironment": {
+          "version": 260127,
+          "major": 26,
+          "minor": 1,
+          "validLicense": true,
+          "license": "EnterpriseEdition"
+        },
+        "Summary": [
+          {
+            "Code": "FCGS",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 5.510125389816822e-10,
+            "MaxRelativeError": 8.73246457377963e-06,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "FCGT",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 6.269861609065064e-10,
+            "MaxRelativeError": 8.73246457377963e-06,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "EFNO",
+            "Total": 60,
+            "Computable": 60,
+            "MaxAbsoluteError": 0.28025325713977134,
+            "MaxRelativeError": 0.0928911250071981,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 60,
+            "Computable": 60,
+            "MaxAbsoluteError": 0.004913497838650471,
+            "MaxRelativeError": 0.005054860991141941,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ]
+      },
+      {
+        "Name": "double-gauss-28-degree-field",
+        "Source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/double-gauss-28-degree-field-gq6-remove/source.zmx",
+        "SourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+        "NativeEnvironment": {
+          "version": 260127,
+          "major": 26,
+          "minor": 1,
+          "validLicense": true,
+          "license": "EnterpriseEdition"
+        },
+        "Summary": [
+          {
+            "Code": "FCGS",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 3.341700832715233e-09,
+            "MaxRelativeError": 1.4271817830868727e-06,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "FCGT",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 3.3274103194980142e-09,
+            "MaxRelativeError": 6.557337872692415e-08,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "EFNO",
+            "Total": 36,
+            "Computable": 36,
+            "MaxAbsoluteError": 0.39591265785060914,
+            "MaxRelativeError": 0.12061828840935307,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 36,
+            "Computable": 36,
+            "MaxAbsoluteError": 0.02324421773652785,
+            "MaxRelativeError": 0.025180047945289163,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ]
+      },
+      {
+        "Name": "relay-lens",
+        "Source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/relay-lens-gq6-remove/source.zmx",
+        "SourceSha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+        "NativeEnvironment": {
+          "version": 260127,
+          "major": 26,
+          "minor": 1,
+          "validLicense": true,
+          "license": "EnterpriseEdition"
+        },
+        "Summary": [
+          {
+            "Code": "FCGS",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 2.36214237059329e-09,
+            "MaxRelativeError": 4.218413840462176e-09,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "FCGT",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 2.6416983045507436e-09,
+            "MaxRelativeError": 3.7537059460746036e-08,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "EFNO",
+            "Total": 24,
+            "Computable": 24,
+            "MaxAbsoluteError": 1.5459506412519843,
+            "MaxRelativeError": 0.12307935378765489,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 24,
+            "Computable": 24,
+            "MaxAbsoluteError": 0.0056214812874526565,
+            "MaxRelativeError": 0.005632694423495677,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ]
+      },
+      {
+        "Name": "even-asphere",
+        "Source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/even-asphere-gq6-remove/source.zmx",
+        "SourceSha256": "e7523a0a2b8247667d53cd559eded64442af41318f2d985d61296d5c5d1756da",
+        "NativeEnvironment": {
+          "version": 260127,
+          "major": 26,
+          "minor": 1,
+          "validLicense": true,
+          "license": "EnterpriseEdition"
+        },
+        "Summary": [
+          {
+            "Code": "FCGS",
+            "Total": 108,
+            "Computable": 108,
+            "MaxAbsoluteError": 2.4292312716944764e-08,
+            "MaxRelativeError": 1.0796178506744525e-07,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "FCGT",
+            "Total": 108,
+            "Computable": 108,
+            "MaxAbsoluteError": 3.054520025802532e-08,
+            "MaxRelativeError": 1.213684257539427e-07,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "EFNO",
+            "Total": 8,
+            "Computable": 8,
+            "MaxAbsoluteError": 0.39152702713779597,
+            "MaxRelativeError": 0.12537048705040443,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 8,
+            "Computable": 8,
+            "MaxAbsoluteError": 0.013255150768054724,
+            "MaxRelativeError": 0.013358467434274601,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ]
+      }
+    ],
+    "EFNOGate": "None; remains Difference. Original adaptive-analysis ~0.309% and new MFE sampling errors are different scopes.",
+    "GeneralizedCrossConvention": "Inferred from native controls, not represented as a published universal native algorithm or a principal-curvature/eigenfocus tensor; no fitted coefficient."
+  },
+  "Tests": {
+    "FinalFullRelease": {
+      "Counters": {
+        "total": "4837",
+        "executed": "4837",
+        "passed": "4837",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Failures": [],
+      "Evidence": {
+        "Path": "artifacts/validation/fcgt-efno-evidence-20261014/full-main-delivery-release.trx.gz",
+        "RawSha256": "c0633dcd0311de5d2d254dd2958cfc9d69cd7fc00250b00d3a4e1e1047046ab9",
+        "Sha256": "286cd4c24b35058437e39ccfe01d492f3afcdb3e7503d334cc6fc77d686f32da",
+        "RawBytes": 7142285
+      }
+    },
+    "FinalRelatedDebug": {
+      "Counters": {
+        "total": "312",
+        "executed": "312",
+        "passed": "312",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Failures": [],
+      "Evidence": {
+        "Path": "artifacts/validation/fcgt-efno-evidence-20261014/related-main-delivery-debug.trx.gz",
+        "RawSha256": "cfc8bae12d707e83dcf869c5106e204b0d1c4e5cb140f923a4a9fd3028d6165b",
+        "Sha256": "d6343969c28bad436ccc23785477c8cc0cb5614a96f34b0dcaa6d92f429b24f2",
+        "RawBytes": 544934
+      }
+    },
+    "CurvatureRelatedRelease": {
+      "Counters": {
+        "total": "154",
+        "executed": "154",
+        "passed": "154",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Failures": [],
+      "Evidence": {
+        "Path": "artifacts/validation/fcgt-efno-evidence-20261014/curvature-generalized-final-release.trx.gz",
+        "RawSha256": "782558de4d8d5069fe74bd3eca89ffd6a36fb679b0c15fdd49c1941dc936c174",
+        "Sha256": "b6b8c03e699a024b6c77c42e2fe7bc86e058c1821e2baba8b325ad2c2459b20e",
+        "RawBytes": 314972
+      }
+    },
+    "FirstExpandedTestSetupFailure": {
+      "Counters": {
+        "total": "154",
+        "executed": "154",
+        "passed": "152",
+        "failed": "2",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Failures": [
+        {
+          "Name": "OptilandWorkbench.Tests.FieldCurvatureNativeMatrixTests.ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings(name: \"Field Curvature and Distortion\")",
+          "Outcome": "Failed",
+          "Message": "System.IO.InvalidDataException : Invalid optic snapshot at $.meritOperands[166].zemaxDataParameters[0]: field reference must be an existing integer index or zero."
+        },
+        {
+          "Name": "OptilandWorkbench.Tests.FieldCurvatureNativeMatrixTests.ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings(name: \"Field Curvature\")",
+          "Outcome": "Failed",
+          "Message": "System.IO.InvalidDataException : Invalid optic snapshot at $.meritOperands[166].zemaxDataParameters[0]: field reference must be an existing integer index or zero."
+        }
+      ],
+      "Evidence": {
+        "Path": "artifacts/validation/fcgt-efno-evidence-20261014/curvature-expanded-release.trx.gz",
+        "RawSha256": "be37e651eb922c3acb66203a5d63c6ce0f21518f67f27e62b247cb225aae9f94",
+        "Sha256": "d0f65a7c7b04fe10753093ab79e59469deed09c7cf2d481d2c9aa89ca49d3fcb",
+        "RawBytes": 328344
+      }
+    },
+    "SignedCurvatureBeforeCrossResponse": {
+      "Counters": {
+        "total": "154",
+        "executed": "154",
+        "passed": "150",
+        "failed": "4",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Failures": [
+        {
+          "Name": "OptilandWorkbench.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: \"even-asphere\", code: \"FCGS\", count: 101)",
+          "Outcome": "Failed",
+          "Message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 1.0000000000000001E-05)\r\nActual: 4.2131415550705764E-05"
+        },
+        {
+          "Name": "OptilandWorkbench.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: \"even-asphere\", code: \"FCGT\", count: 101)",
+          "Outcome": "Failed",
+          "Message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 1.0000000000000001E-05)\r\nActual: 4.2029009160893249E-05"
+        },
+        {
+          "Name": "OptilandWorkbench.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: \"relay-lens\", code: \"FCGT\", count: 303)",
+          "Outcome": "Failed",
+          "Message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 1.0000000000000001E-05)\r\nActual: 1.6339939503451362E-05"
+        },
+        {
+          "Name": "OptilandWorkbench.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: \"relay-lens\", code: \"FCGS\", count: 303)",
+          "Outcome": "Failed",
+          "Message": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 1.0000000000000001E-05)\r\nActual: 1.635005580857829E-05"
+        }
+      ],
+      "Evidence": {
+        "Path": "artifacts/validation/fcgt-efno-evidence-20261014/curvature-signed-final-release.trx.gz",
+        "RawSha256": "04f42e194ba992cb49f60e9d8b96458fa09a0b169e3d13b2599438006d800821",
+        "Sha256": "2b85fb5d6ac68e02073e810eee9df32521d03289e4c327384540fc7ac1ec448e",
+        "RawBytes": 323546
+      }
+    },
+    "RestrictedRegistryFullRelease": {
+      "Counters": {
+        "total": "4835",
+        "executed": "4835",
+        "passed": "4833",
+        "failed": "2",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Failures": [
+        {
+          "Name": "OptilandWorkbench.Tests.WindowsInstallationRecoveryTests.InterruptedActivationRestoresExactFilesAndWholeUninstallValues(phase: \"Captured\")",
+          "Outcome": "Failed",
+          "Message": "System.UnauthorizedAccessException : Access to the registry key 'HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OpticalSystemDesign-UpgradeValidation-9dcc59d6ae844c919ba0cd39a3c607d7_is1' is denied."
+        },
+        {
+          "Name": "OptilandWorkbench.Tests.WindowsInstallationRecoveryTests.InterruptedActivationRestoresExactFilesAndWholeUninstallValues(phase: \"Activating\")",
+          "Outcome": "Failed",
+          "Message": "System.UnauthorizedAccessException : Access to the registry key 'HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\OpticalSystemDesign-UpgradeValidation-50d6e40a6fd44f83a60bb695c0ea98cc_is1' is denied."
+        }
+      ],
+      "Evidence": {
+        "Path": "artifacts/validation/fcgt-efno-evidence-20261014/full-main-release.trx.gz",
+        "RawSha256": "50f67d4115e710b13abb1e8e14785d2ec7bba8da4fc96d422d3321dfef4bbbe9",
+        "Sha256": "9359603dd7d20ba8bffb44ddf359ebe7f16b5419048ac30340e90ec429c3c25e",
+        "RawBytes": 7145231
+      }
+    },
+    "StartupContentionFullRelease": {
+      "Counters": {
+        "total": "4837",
+        "executed": "4837",
+        "passed": "4836",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "Failures": [
+        {
+          "Name": "OptilandWorkbench.Tests.AuditReliabilityFixTests.OptimizationPreparationDoesNotBlockReadsAndRejectsConcurrentEdits(method: \"radius\")",
+          "Outcome": "Failed",
+          "Message": "System.TimeoutException : The operation has timed out."
+        }
+      ],
+      "Evidence": {
+        "Path": "artifacts/validation/fcgt-efno-evidence-20261014/full-main-final-release.trx.gz",
+        "RawSha256": "5eba5c0f6e200f1d23a1d4c6f3c65c8e56ce88feb78d577d07e3ca616623b292",
+        "Sha256": "bec26e3b88923669ecc53c58beca4df63750fd04839ef58064472fac61bd1250",
+        "RawBytes": 7144124
+      }
+    }
+  },
+  "Builds": {
+    "RootProjects": 19,
+    "Configurations": [
+      "Debug",
+      "Release"
+    ],
+    "RebuiltDefaultOutputs": true,
+    "Warnings": 0,
+    "Errors": 0
+  },
+  "FailuresRetained": [
+    "First new Application tests reduced the field table but retained field-referencing operands; test setup corrected by preserving the five fields.",
+    "Signed-axis expansion exposed rotation and cross-response defects; raw comparisons and failing four tests are preserved.",
+    "Running Debug App PID 21660 locked default outputs; that verified application was closed as AGENTS.md requires and default outputs rebuilt.",
+    "Restricted full Release had two temporary-HKCU registry access failures; normal-permission run resolved those but exposed one startup timeout under test contention.",
+    "Scheduling collection isolation preserves the actual limits and concurrent document mutations/cancellation; it is a test resource boundary, not a product thread-pool performance guarantee."
+  ],
+  "Frozen": {
+    "Count": 2668,
+    "AggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10"
+  },
+  "NativeManifest": {
+    "Scope": "OpticStudio 2026 R1, configuration 1, unchanged committed sources, native MFE FCGS/FCGT 101 +Y field coordinates per wavelength; EFNO/RELI Samp 5/10/20/40, Pol=0, all defined fields and wavelengths. EFNO/RELI remain Difference, not certified.",
+    "Cases": [
+      {
+        "Source": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+        "SourceSha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+        "Name": "123456",
+        "Capture": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456"
+      },
+      {
+        "Source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/double-gauss-28-degree-field-gq6-remove/source.zmx",
+        "SourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+        "Name": "double-gauss-28-degree-field",
+        "Capture": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/double-gauss-28-degree-field"
+      },
+      {
+        "Source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/relay-lens-gq6-remove/source.zmx",
+        "SourceSha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+        "Name": "relay-lens",
+        "Capture": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/relay-lens"
+      },
+      {
+        "Source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/even-asphere-gq6-remove/source.zmx",
+        "SourceSha256": "e7523a0a2b8247667d53cd559eded64442af41318f2d985d61296d5c5d1756da",
+        "Name": "even-asphere",
+        "Capture": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/even-asphere"
+      }
+    ]
+  },
+  "NativeFileFingerprints": [
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456/curvature-operands.json",
+      "Sha256": "229d9013a5d6125dfd9a9faa0cc999a3d5eada0e19142fc3a1d1d62547422a51"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456/EFNO-schema.json",
+      "Sha256": "8661ea3b86cf62a4869666763f31a478b923466201db9f337870cf3a069145a5"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456/environment.json",
+      "Sha256": "e2f2f1ecc2bd3beb38ef213064ee4d6176e15395d3b4ef998cfee6c9b4337fb5"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456/FCGS-schema.json",
+      "Sha256": "d4e991266c138e1c9679c590a136e1efe4d5c01be3160dbdcbb9ede06c994308"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456/FCGT-schema.json",
+      "Sha256": "d4e991266c138e1c9679c590a136e1efe4d5c01be3160dbdcbb9ede06c994308"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456/illumination.cfg",
+      "Sha256": "8eebcba214ca9ba3fd8a6a015a2e076b3641dcb2b5f268b025e7d9764e5ff35e"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456/illumination.json",
+      "Sha256": "368261bb6965041687b19795ad444097a6adfc9eeb69d3381e042df0815d0f57"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456/illumination.txt",
+      "Sha256": "23a336a2f7fa137fabe0f21fb05803ef311be51f41293ad38ca9d7252a5df000"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456/model.json",
+      "Sha256": "f1763a82ac773a25a9a3ce1c9d96194dcc576f7961af36e8279ed3be2b4da730"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456/operands.json",
+      "Sha256": "2a7ca5c2f73f01cfe6ee29767d7cfbe6cfe100f391b8a0507e8f84dae5d4129f"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456/rays.json",
+      "Sha256": "c01511917602120132897d3f97ca1f4e64e73593b500f88dbbbeac2b037b0df3"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456/RELI-schema.json",
+      "Sha256": "8661ea3b86cf62a4869666763f31a478b923466201db9f337870cf3a069145a5"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456/request.json",
+      "Sha256": "7b1797a129ecb1b86658071671302462f551380f961409b29774ea69ba909f73"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456/signed-control/environment.json",
+      "Sha256": "e2f2f1ecc2bd3beb38ef213064ee4d6176e15395d3b4ef998cfee6c9b4337fb5"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456/signed-control/model.json",
+      "Sha256": "f1763a82ac773a25a9a3ce1c9d96194dcc576f7961af36e8279ed3be2b4da730"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456/signed-control/request.json",
+      "Sha256": "7dbd0b1f869ae67b6166e21f9ada19c3e47c48caa2c8a91c905054d2d8588daa"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456/signed-curvature-operands.json",
+      "Sha256": "1bf47d515a2ddff121c296e1daa78ec546435d49335463b73b21a32346283264"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/double-gauss-28-degree-field/curvature-operands.json",
+      "Sha256": "4590c22037dbd980db19a32b600346901b2d03079ee55a1bb9d8267a6d4d2a22"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/double-gauss-28-degree-field/EFNO-schema.json",
+      "Sha256": "8661ea3b86cf62a4869666763f31a478b923466201db9f337870cf3a069145a5"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/double-gauss-28-degree-field/environment.json",
+      "Sha256": "e2f2f1ecc2bd3beb38ef213064ee4d6176e15395d3b4ef998cfee6c9b4337fb5"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/double-gauss-28-degree-field/FCGS-schema.json",
+      "Sha256": "d4e991266c138e1c9679c590a136e1efe4d5c01be3160dbdcbb9ede06c994308"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/double-gauss-28-degree-field/FCGT-schema.json",
+      "Sha256": "d4e991266c138e1c9679c590a136e1efe4d5c01be3160dbdcbb9ede06c994308"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/double-gauss-28-degree-field/model.json",
+      "Sha256": "5d3afd2c1978b74ef6ffe2c223ec6b5416227c24f98147bd73a39dedddf6259e"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/double-gauss-28-degree-field/operands.json",
+      "Sha256": "aa2d95753dd0654df891bd38da5ec1bb2d077c0c0ea1eaf3bd4c512e5f87cc89"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/double-gauss-28-degree-field/rays.json",
+      "Sha256": "f138c6a2880bab2404ccd71ab77d71d0e1ce4d68f56700350ba54f74b7ca2829"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/double-gauss-28-degree-field/RELI-schema.json",
+      "Sha256": "8661ea3b86cf62a4869666763f31a478b923466201db9f337870cf3a069145a5"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/double-gauss-28-degree-field/request.json",
+      "Sha256": "1629b647119c0191925d49247649340118534972325864330975463e460044bb"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/double-gauss-28-degree-field/signed-control/environment.json",
+      "Sha256": "e2f2f1ecc2bd3beb38ef213064ee4d6176e15395d3b4ef998cfee6c9b4337fb5"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/double-gauss-28-degree-field/signed-control/model.json",
+      "Sha256": "5d3afd2c1978b74ef6ffe2c223ec6b5416227c24f98147bd73a39dedddf6259e"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/double-gauss-28-degree-field/signed-control/request.json",
+      "Sha256": "ef412edb40aa84260c1a602e321ddee841a8cceebacd2d7e4835ea205636b479"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/double-gauss-28-degree-field/signed-curvature-operands.json",
+      "Sha256": "2911f078d845c00d462dbb52976712a5912ddef8b144382ebadeece3b6f40586"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/even-asphere/curvature-operands.json",
+      "Sha256": "86537b0edc3fd7a4bccf78b192c58863d3406d2bf196ab5aca490001d257a809"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/even-asphere/EFNO-schema.json",
+      "Sha256": "8661ea3b86cf62a4869666763f31a478b923466201db9f337870cf3a069145a5"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/even-asphere/environment.json",
+      "Sha256": "e2f2f1ecc2bd3beb38ef213064ee4d6176e15395d3b4ef998cfee6c9b4337fb5"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/even-asphere/FCGS-schema.json",
+      "Sha256": "d4e991266c138e1c9679c590a136e1efe4d5c01be3160dbdcbb9ede06c994308"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/even-asphere/FCGT-schema.json",
+      "Sha256": "d4e991266c138e1c9679c590a136e1efe4d5c01be3160dbdcbb9ede06c994308"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/even-asphere/model.json",
+      "Sha256": "023f0708eb7c17691b89b7e9a82315e7a6a9c742c2a71ea53b0df794016064e9"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/even-asphere/operands.json",
+      "Sha256": "35d424f46458380564dba6d5539a7fc479177771f190302dbef4a92cded1ab9f"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/even-asphere/rays.json",
+      "Sha256": "a0caf89a600e233d474a79db1769f3beee66acc79cabf18e5b980fa9623cda65"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/even-asphere/RELI-schema.json",
+      "Sha256": "8661ea3b86cf62a4869666763f31a478b923466201db9f337870cf3a069145a5"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/even-asphere/request.json",
+      "Sha256": "af5dd96741e74e6454a100ce25aa7d3b884edd9c75b52797b840bd230e364504"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/even-asphere/signed-control/environment.json",
+      "Sha256": "e2f2f1ecc2bd3beb38ef213064ee4d6176e15395d3b4ef998cfee6c9b4337fb5"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/even-asphere/signed-control/model.json",
+      "Sha256": "023f0708eb7c17691b89b7e9a82315e7a6a9c742c2a71ea53b0df794016064e9"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/even-asphere/signed-control/request.json",
+      "Sha256": "c6a74c56f50568e81c06563e72a508b902d099adf8d205b0793f7761cfffb09a"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/even-asphere/signed-curvature-operands.json",
+      "Sha256": "fd0867fdb9df621bf6f466935f7a5d79ce37cc88a2a486b3d1945efbb6a13e5e"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/manifest.json",
+      "Sha256": "96a5c60f2181f38b8a150c72a1c52fdd019cc384460c62038470103110acab4b"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/README.md",
+      "Sha256": "698a66695053eea45ec0a0024171494d5ec27f8a57c7774bef690c1180e35a08"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/relay-lens/curvature-operands.json",
+      "Sha256": "995361ea2836d41d73176ccc0791fed4491d39f818546a5778bf32cafb68f6b9"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/relay-lens/EFNO-schema.json",
+      "Sha256": "8661ea3b86cf62a4869666763f31a478b923466201db9f337870cf3a069145a5"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/relay-lens/environment.json",
+      "Sha256": "e2f2f1ecc2bd3beb38ef213064ee4d6176e15395d3b4ef998cfee6c9b4337fb5"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/relay-lens/FCGS-schema.json",
+      "Sha256": "d4e991266c138e1c9679c590a136e1efe4d5c01be3160dbdcbb9ede06c994308"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/relay-lens/FCGT-schema.json",
+      "Sha256": "d4e991266c138e1c9679c590a136e1efe4d5c01be3160dbdcbb9ede06c994308"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/relay-lens/model.json",
+      "Sha256": "1d51c181d2dbea7b181c8b6d1abb720c18e2c057617edc844f9b9caa8596bde0"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/relay-lens/operands.json",
+      "Sha256": "3e11f87bbf320c0ed537ad214f33b53d6df08ea62a2419ec435574dd14bf2ce9"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/relay-lens/rays.json",
+      "Sha256": "30ac0cb90c17071f2fc0e378d025c8a5d4870f0d5ce471196f4f9da14b5057f7"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/relay-lens/RELI-schema.json",
+      "Sha256": "8661ea3b86cf62a4869666763f31a478b923466201db9f337870cf3a069145a5"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/relay-lens/request.json",
+      "Sha256": "af551657ca8a30d26fbc7bd557a139397321b21c5d1c57dfecbb473f279ed478"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/relay-lens/signed-control/environment.json",
+      "Sha256": "e2f2f1ecc2bd3beb38ef213064ee4d6176e15395d3b4ef998cfee6c9b4337fb5"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/relay-lens/signed-control/model.json",
+      "Sha256": "1d51c181d2dbea7b181c8b6d1abb720c18e2c057617edc844f9b9caa8596bde0"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/relay-lens/signed-control/request.json",
+      "Sha256": "3d6a7adba434842028c3c6380d4e40e5cd1a6d3863e2e114036cf0d291065a6f"
+    },
+    {
+      "Path": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/relay-lens/signed-curvature-operands.json",
+      "Sha256": "3605b53edf941a9e4f04a85dcbe8de324925a692ee5e48c081da7c8447711c6d"
+    }
+  ],
+  "Evidence": [
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/build-debug-generalized.log.gz",
+      "RawSha256": "e1f6c408eab739dbc5e7e33e437f510c37f69825b85958f72756bdae35a2cca5",
+      "Sha256": "45ab509855d7e8aac98de8bf236defebe73c5f3defa47f13c154f4f283bda8e4",
+      "RawBytes": 3381
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/build-release-generalized.log.gz",
+      "RawSha256": "01e0264e60097254ad8bace34a1dbcd56b7f0b90ad2f610813e271aaf0ccc27b",
+      "Sha256": "2169d2164995dc42ad433af98be456af9e8c1308a6945778cd85d85674e9c9d1",
+      "RawBytes": 3419
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/build-debug-delivery.log.gz",
+      "RawSha256": "d9455cc50e003713ba7dc37a5e55ce3877fadf3793d5c2d2467e3c39acd6b1f2",
+      "Sha256": "9b6ed83d68dcbc0e5462d6c25760d955ce349bbce56d1ddbc9073a782b33725b",
+      "RawBytes": 3381
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/build-release-delivery.log.gz",
+      "RawSha256": "1200fe09a6dacc4a326ba67e300a2b23a8818f5ef41f0e23139bb7e7320edd8f",
+      "Sha256": "44c9cc9ca3f0a1d33d65dd4dc514387af137dd775271cda64f45ae9cc5fff87e",
+      "RawBytes": 3419
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/build-debug-final.log.gz",
+      "RawSha256": "3f4031235ab1faf1b57fc2e38e9e71ff63229a455fbcf63fbeacfa06d55eeb74",
+      "Sha256": "ef7efe0a5c7e76f5d2c3f2c36f3a2350e46b64d1e00da7ea2417d1d2414a9f69",
+      "RawBytes": 145101
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/related-main-debug.log.gz",
+      "RawSha256": "eeea2cd669734ca710efdaa64983be2258a88bad18a5b9ae4fedd79d6936cc32",
+      "Sha256": "dccf50ff5936dfd6bd0a7bf13a4710e190ed7099e63f3949b5df4804dfed8821",
+      "RawBytes": 291
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/full-main-delivery-release.log.gz",
+      "RawSha256": "ea8007d60f08d9a3c7897e5a98cd2184b822c23426ca5b6466c5d711d6ad70ee",
+      "Sha256": "33228f4775053db9a43b2401adb1928d9f0d866b0afe19e2f744f33bda9e9596",
+      "RawBytes": 473
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/related-main-delivery-debug.log.gz",
+      "RawSha256": "bf47fd259275642254a5ead924e108a4a096a379e252be9e931f28e0ea3ae9df",
+      "Sha256": "8b2184c4d128d3a239ac50a5efe14c73dc7344572f9498395b8e4e277ddba9eb",
+      "RawBytes": 471
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/matrix-final-validated.json.gz",
+      "RawSha256": "32cbde57cdef78dffa0de58238491ed972ee8559e709c5252712c492af3ed26b",
+      "Sha256": "c4a54565b0b3f470e999921a8770f5ff41ce329e8bc2adfc3403827c6058a337",
+      "RawBytes": 903999
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/matrix-final-validated.log.gz",
+      "RawSha256": "3e01bd9d9f94dc446187feff0f0d3b1e70dc2546fe41af8a92baadc491ec7f2c",
+      "Sha256": "5a251e9a135909ed032191f43aa2de252103ed428c139c663590a6031ec3ac69",
+      "RawBytes": 2761
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/matrix-signed.json.gz",
+      "RawSha256": "cf77b49e5c5d4bd61643ea6e9918facbb43c7851386fe2704071c2c43b079be0",
+      "Sha256": "9f32aa2604cd2d6f30776d480863d06522216a8ed91150ef5e2f519eee1f884d",
+      "RawBytes": 903579
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/matrix-signed-final.json.gz",
+      "RawSha256": "b1a3c5374c9ebdf06304ab90323ba5585066840dcde91ce1144dc922444fa29f",
+      "Sha256": "0065f63ea48c5a20635ac3ba77ef84dc531b7d5c80ae8f9b03215c448a1deeca",
+      "RawBytes": 903991
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/probe-before.json.gz",
+      "RawSha256": "0dbccb219d51ad6eca54f2eb3533e8990b6fe25d05ad0e3cc2d1edb80160dc5b",
+      "Sha256": "f9036db58354d1b93a306d8a4c8f12866a9a45b30770b11a8da268e147e83a5c",
+      "RawBytes": 31329
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/probe-before.log.gz",
+      "RawSha256": "fa13314f3ebb1386061ee5f2d1fca7d6019b87d4bcb11699a6ed8c8cd6909688",
+      "Sha256": "ffccc56dfa9504a2cf5377c5cc47734d2f6d6f618c9fb415bbef5597ae0c9dd5",
+      "RawBytes": 4259
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/one-sided.json.gz",
+      "RawSha256": "1b998808ab5d3407b5ccc49a789087a001b4530641c4c50c1a2352f9134216e9",
+      "Sha256": "8ce10f16ba91e0fbcbde965d8cba7e12b3580197a0e337686da885e27772387b",
+      "RawBytes": 195620
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/one-sided.log.gz",
+      "RawSha256": "96d6409c919526fb0833b9393549829dfe6e3ccd879714952c9b1cbcae9ce8a1",
+      "Sha256": "cf158f638c11713542b00114ea6becf7975e2f726e234022e697a62dbe3c12cf",
+      "RawBytes": 3158
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/ray-incident.log.gz",
+      "RawSha256": "3ceed16512352d07ab9866538473001eb4e10fd4a31ae0bef932452c7ce3d027",
+      "Sha256": "61cccb437c955363e0b27a692b5688ef2aa9ce72ef2e4d77a43f85105663d1c9",
+      "RawBytes": 13350
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/probe-3d.log.gz",
+      "RawSha256": "f126451945552d4eb1d284ce9d42e412ca81aaa3f74a756a2725563182aa2c99",
+      "Sha256": "797f36e02d7bbfccbe6699e8b49a0380d1edb9c5158ffd56ea7eaa1188ecca1a",
+      "RawBytes": 5596
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/probe-projected-plane.log.gz",
+      "RawSha256": "88a38580194e0da23111ff3a35ca358a76fa7eab2414303ecb9c380db38db71a",
+      "Sha256": "c33301e9fc7c5835ee4a39bfbb2a23769c37dc54bb25a1061f73fd9480274406",
+      "RawBytes": 11855
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/probe-tensor.log.gz",
+      "RawSha256": "6ec3af1d7623a11664932c775fb59665d7f7df34564dd9027ce3a042cd8f05aa",
+      "Sha256": "b0f8eb5aec0bff3ee29e77b00df65cbf82f85c9c25fdc70afdbb9426278b3855",
+      "RawBytes": 11722
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/probe-curvature.log.gz",
+      "RawSha256": "07af666d8153d40a37373a819bc0a232d22eab499f4159c3b9fe9649c3ca3320",
+      "Sha256": "8e3b3e18dd999a5006d6ba4771690a012c4cd82aa2fc76746abe0a83faf7f76d",
+      "RawBytes": 11822
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/probe-polar-angle.log.gz",
+      "RawSha256": "52d7dccf2a9aede54dc6108c5c573e298e5692b27c59c6fbc087c9ebcb8faa5b",
+      "Sha256": "60b6bae653189d7354d4e0645d34b7fc4aee81ed47a6fed92444dedc75c6b7b9",
+      "RawBytes": 11699
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/probe-plus.log.gz",
+      "RawSha256": "145b780e3283ec8d3a326e39994247c3f937f0bd1419eb5e014574db3f7dfa95",
+      "Sha256": "011dfc5ac9a5108cf1cde94cb45334c301afd502f9968b778f8b23257f1e996a",
+      "RawBytes": 11651
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/native-client-at-capture.cs.gz",
+      "RawSha256": "5f2e26eab1bd853780d31a51122dae59fac2819c5bf39661251a3bad1e262836",
+      "Sha256": "c450485b993f9f33044ca68e6a7eccd412303f0823de143e79fde0abb37a1f31",
+      "RawBytes": 7333
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/frozen-head.json.gz",
+      "RawSha256": "acc35bb29fd8d9b4fec311dbd5407bc8d70c2c8a863587d7e0e310060d09b42a",
+      "Sha256": "7c172374a11c2a3beddca5a3a78cf9fa7d90ffca99865068eaf1d61b161c08a3",
+      "RawBytes": 668
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/frozen-index.json.gz",
+      "RawSha256": "dc64fd47d76de0bfbef1606a811db5539bc8fe4db34e92be288de2d002a29dc3",
+      "Sha256": "4cf2116841df1ff3c00baa211e395bd2663a5d1ca7588133217b0cc4c3804bfc",
+      "RawBytes": 669
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/documentation-final.json.gz",
+      "RawSha256": "a681cfdb066f2e2a47a71a1cdfe793f7038e28f0a8a9a0664e38d66de311a957",
+      "Sha256": "ffa7520c7301e718b64865062c59dd866db097bfb20e74d9daa73284540150d0",
+      "RawBytes": 258852
+    },
+    {
+      "Path": "artifacts/validation/fcgt-efno-evidence-20261014/format-verify.log.gz",
+      "RawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "Sha256": "46b50c321b39e89a491b6727a01628c34245605a30beb3e7414c5e01cff90e6e",
+      "RawBytes": 0
+    }
+  ],
+  "SourceFingerprints": [
+    {
+      "Path": "docs/CURRENT_STATUS.md",
+      "Sha256": "6a5739f9b78686047862b082a86fb97acfae9fd35fda8cc36539579d3505a7d0"
+    },
+    {
+      "Path": "docs/INITIAL_STRUCTURE_LAB_PLAN.md",
+      "Sha256": "9a71d27047b8851e7bffca927e0f119574bcc3633d82e629aa034948a798e216"
+    },
+    {
+      "Path": "docs/NUMERICAL_PARITY.md",
+      "Sha256": "6f5a5056e752d60a517195b803c48075789a0790a65e1c1de13eeebb86b74332"
+    },
+    {
+      "Path": "docs/OPEN_ISSUES_2026-10-08.md",
+      "Sha256": "78651d97f45a48f281b5d4b0590800c317ce9e870deeb71c968ddd5e4e337ed5"
+    },
+    {
+      "Path": "docs/ZEMAX_OPERAND_SUPPORT.md",
+      "Sha256": "1ef9071483f310a5a88de94581d62d5119c9d2da18d56386b82b643bc67295f6"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.Helpers.cs",
+      "Sha256": "2211a1d6b40a2a0c5f722b69ea3d30fb842ba6f102190ff4d4b5abf02c43ecc5"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs",
+      "Sha256": "2f2978b3cef16486a1e7d91aff01c6259c9678a7a3959ca9f4109edc29f00e22"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.cs",
+      "Sha256": "6f96d943af3132c13bb9c7d5151ef6e97c2ac1a9b0d4af7c85c679914d7c8edf"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Core/Analysis/Fields/DistortionAnalyses.cs",
+      "Sha256": "39cfd931e2254fede98716a69128678fc8722bcab20ae05d1c356c3febcb65ae"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Core/Services/FieldCurvatureMetrics.cs",
+      "Sha256": "47317f2d50c1a1600fd3f63923df2cf3780053fd657dd612c02550dcaf89b67a"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/AuditReliabilityFixTests.cs",
+      "Sha256": "efa6c7272239af25e6e0efde793046681edb94205c0b123968e4d80da6ddab78"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/DistortionOperandTests.cs",
+      "Sha256": "7ac54e4125b8b02fc96042799a2e1a8035cfa0936a72503e65dfa8d4ca19392d"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/FieldCurvatureNativeMatrixTests.cs",
+      "Sha256": "ef2b5771ff36c5d41d6423b36495578e4dd12c6d7ef50a8e2db3e478cb7dcddc"
+    },
+    {
+      "Path": "tools/diagnostics/Accuracy20261014/Accuracy20261014.csproj",
+      "Sha256": "9530afaaf34a61d4f3a54846a28d320765c906151e5949e7712e2583b7f02745"
+    },
+    {
+      "Path": "tools/diagnostics/Accuracy20261014/NativeAccuracyCapture.cs",
+      "Sha256": "84a9f2b13b61b3aa3835bb656a794f2db42d91b60959e6bd2fba3def3fb118f6"
+    },
+    {
+      "Path": "tools/diagnostics/Accuracy20261014/Program.cs",
+      "Sha256": "c06243add63856f24fc51ca54194bd786c2cf977720692c13656914d886e8098"
+    },
+    {
+      "Path": "tools/diagnostics/Accuracy20261014/README.md",
+      "Sha256": "f0066d73342586c94b3dc1526b830b62ed440fe2b0b0ede108ccea0c75b216ec"
+    },
+    {
+      "Path": "tools/diagnostics/Accuracy20261014/packages.lock.json",
+      "Sha256": "86737ce94d6956a82288deddfef46a2ed25fb8a1532a0ac44a05172a45f65397"
+    }
+  ],
+  "AssemblyFingerprints": [
+    {
+      "Path": "src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll",
+      "Sha256": "a2c20785647017318256815a927fd0dbe4c49043d782d278f111db7d523acb1f"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Application/bin/Debug/net10.0/OptilandWorkbench.Application.dll",
+      "Sha256": "76287e2cc51f830ce887ad2c102c5981b98cd152d579f222e9137dba1466fcbf"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "Sha256": "810e9e04c521ff1b4699c6dc38bb1f39c103557225fe88c80e1867edd2380711"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Tests.dll",
+      "Sha256": "aaf65afcb86f28504831527f72fc2125abb3f7be6f50a7ea68266a13964e377b"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "Sha256": "2db3b42d00af5689f7898f901c68c295dde92bf96a1f12886b22745ed4f43ece"
+    },
+    {
+      "Path": "src/OptilandWorkbench.Application/bin/Release/net10.0/OptilandWorkbench.Application.dll",
+      "Sha256": "c086d2626dd14bfe41d211509bb154a1f61650c92538fba07101e6877a037a0a"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "Sha256": "1df5dd33a67c3c76cb9ed0e8d420879c99cfbc1178c3b27245de45e214716144"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Tests.dll",
+      "Sha256": "743f7624772bcbc6e2433a18371b1d3c7336000326c69109c0038d3134486d75"
+    }
+  ],
+  "DeliveryAtValidation": "Validation snapshot precedes commit/push; SourceCommit and SourceDirty retain that meaning.",
+  "Documentation": {
+    "Date": "2026-10-14",
+    "SourceCommit": "c8f317855988a360d9a2ae28b4456e3a2b93a34e",
+    "SourceDirty": true,
+    "Scope": "Versioned and non-ignored Markdown, RST, text, HTML, PDF, Word and license documents; evidence and third-party contents fingerprinted, not rewritten.",
+    "Documents": 891,
+    "RepetitionPolicy": {
+      "MinimumCharacters": 100,
+      "MinimumDocuments": 2,
+      "WhitespaceNormalized": true,
+      "CodeAndTablesExcluded": true,
+      "StrictRejects": "Repeated prose in at least two current guides; historical/mixed groups remain reported."
+    }
+  },
+  "FingerprintScope": "Working-tree bytes at validation; Git may normalize active source/document line endings. Native captures and saved evidence use exact-byte attributes."
+}

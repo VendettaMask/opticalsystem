@@ -14,6 +14,7 @@ using OptilandWorkbench.Core.Services;
 
 namespace OptilandWorkbench.Tests;
 
+[Collection(nameof(WorkspaceSchedulingCollection))]
 public sealed class AuditReliabilityFixTests
 {
     [Fact]
@@ -467,3 +468,9 @@ public sealed class AuditReliabilityFixTests
         public void Dispose() { Started.Dispose(); Release.Dispose(); }
     }
 }
+
+// These tests bound worker startup and document-lock availability. Give the
+// scheduling measurement a defined resource scope while retaining its original
+// 5-second/2-second limits and its own concurrent operations and cancellation.
+[CollectionDefinition(nameof(WorkspaceSchedulingCollection), DisableParallelization = true)]
+public sealed class WorkspaceSchedulingCollection;

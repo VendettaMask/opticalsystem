@@ -266,7 +266,8 @@ public sealed class FieldCurvatureAndDistortionAnalysis : BaseAnalysis
         string displayMode = "percent",
         int referenceFieldNumber = 1,
         bool ignoreVignettingFactors = true,
-        double maximumDistortion = 0) : base(optic)
+        double maximumDistortion = 0,
+        ParabasalRayPair parabasalRayPair = ParabasalRayPair.Symmetric) : base(optic)
     {
         _fieldCurvature = new FieldCurvatureAnalysis(
             optic,
@@ -275,7 +276,8 @@ public sealed class FieldCurvatureAndDistortionAnalysis : BaseAnalysis
             maximumCurvature,
             wavelengthNumber,
             scanDirection,
-            ignoreVignettingFactors);
+            ignoreVignettingFactors,
+            parabasalRayPair);
         _distortion = new DistortionAnalysis(
             optic,
             numPoints,
@@ -335,6 +337,7 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
     private readonly int _wavelengthNumber;
     private readonly string _scanDirection;
     private readonly bool _ignoreVignettingFactors;
+    private readonly ParabasalRayPair _parabasalRayPair;
 
     public FieldCurvatureAnalysis(
         Optic optic,
@@ -343,8 +346,11 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
         double maximumCurvature = 0,
         int wavelengthNumber = 0,
         string scanDirection = "+y",
-        bool ignoreVignettingFactors = true) : base(optic)
+        bool ignoreVignettingFactors = true,
+        ParabasalRayPair parabasalRayPair = ParabasalRayPair.Symmetric) : base(optic)
     {
+        if (!Enum.IsDefined(parabasalRayPair)) throw new ArgumentOutOfRangeException(nameof(parabasalRayPair));
+        _parabasalRayPair = parabasalRayPair;
         _numPoints = Math.Max(2, numPoints);
         _parabasalDelta = Math.Abs(parabasalDelta) <= 1e-12 ? 1e-5 : Math.Abs(parabasalDelta);
         _maximumCurvature = Math.Max(0, maximumCurvature);
@@ -378,10 +384,21 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
             {
                 var field = fields[index];
                 var scanUsesX = _scanDirection.EndsWith('x');
-                var tangentialDelta = ParabasalImagePlaneDelta(
-                    workingOptic, field, wavelength.Micrometers, _parabasalDelta, scanUsesX);
-                var sagittalDelta = ParabasalImagePlaneDelta(
-                    workingOptic, field, wavelength.Micrometers, _parabasalDelta, !scanUsesX);
+                double tangentialDelta, sagittalDelta;
+                if (_parabasalRayPair == ParabasalRayPair.ChiefAndPositive)
+                {
+                    var components = FieldCurvatureMetrics.GeneralizedImagePlaneDeltas(
+                        workingOptic, field.Hx, field.Hy, wavelength.Micrometers, _parabasalDelta);
+                    (tangentialDelta, sagittalDelta) = scanUsesX
+                        ? (components.Sagittal, components.Tangential) : (components.Tangential, components.Sagittal);
+                }
+                else
+                {
+                    tangentialDelta = ParabasalImagePlaneDelta(
+                        workingOptic, field, wavelength.Micrometers, _parabasalDelta, scanUsesX, _parabasalRayPair);
+                    sagittalDelta = ParabasalImagePlaneDelta(
+                        workingOptic, field, wavelength.Micrometers, _parabasalDelta, !scanUsesX, _parabasalRayPair);
+                }
 
                 tangential[index] = new AnalysisPoint(tangentialDelta, field.Coordinate, field.Label);
                 sagittal[index] = new AnalysisPoint(sagittalDelta, field.Coordinate, field.Label);
@@ -427,6 +444,7 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
             [fieldValueKey] = maxField,
             ["Samples"] = fields.Count,
             ["ParabasalDelta"] = _parabasalDelta,
+            ["ParabasalRayPair"] = _parabasalRayPair.ToString(),
             ["MaximumCurvatureScale"] = _maximumCurvature,
             ["WavelengthCount"] = wavelengths.Length,
             ["WavelengthNumber"] = _wavelengthNumber,
@@ -454,6 +472,7 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
         AnalysisFieldSample field,
         double wavelengthMicrometers,
         double pupilDelta,
-        bool xAxis) => FieldCurvatureMetrics.ImagePlaneDelta(
-            optic, field.Hx, field.Hy, wavelengthMicrometers, pupilDelta, xAxis ? 1 : 0, xAxis ? 0 : 1);
+        bool xAxis, ParabasalRayPair rayPair) => FieldCurvatureMetrics.ImagePlaneDelta(
+            optic, field.Hx, field.Hy, wavelengthMicrometers, pupilDelta, xAxis ? 1 : 0, xAxis ? 0 : 1,
+            rayPair: rayPair);
 }

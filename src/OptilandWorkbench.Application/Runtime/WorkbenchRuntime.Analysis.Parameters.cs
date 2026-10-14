@@ -328,7 +328,8 @@ public partial class WorkbenchRuntime
                     new[] { "0" }.Concat(Enumerable.Range(1, Math.Max(1, CurrentOptic.Wavelengths.Count))
                         .Select(index => index.ToString(CultureInfo.InvariantCulture))).ToArray()),
                 ChoiceParameter("ScanDirection", "扫描方向", "+y", new[] { "+y", "+x", "-y", "-x" }),
-                DoubleParameter("ParabasalDelta", "近轴光线间隔", "0.00001", 1e-8, 0.1, 0.00001),
+                DoubleParameter("ParabasalDelta", "傍轴光瞳间隔", "0.001", 1e-8, 0.1, 0.00001),
+                BoolParameter("ChiefRayParabasal", "以主光线为傍轴参考", "true"),
                 BoolParameter("IgnoreVignettingFactors", "忽略渐晕因数", "true")
             },
             "Color Focus Shift" => new[]

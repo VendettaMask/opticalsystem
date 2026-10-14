@@ -218,17 +218,13 @@ public sealed class DistortionOperandTests(Xunit.Abstractions.ITestOutputHelper 
     [Theory]
     [InlineData("FCGS")]
     [InlineData("FCGT")]
-    public void ObliqueFieldCurvatureFollowsRadialFieldOrientation(string code)
+    public void CartesianCurvatureComponentsSwapWhenFieldRotates(string code)
     {
         var optic = Optic.CreateCookeTriplet(); var row = Row(code); row.ZemaxDataParameters[1] = .5;
         var alongY = Evaluate(optic, row);
-        row.ZemaxDataParameters[0] = -.5; row.ZemaxDataParameters[1] = 0; Value(optic, row, alongY, 5);
-        var scale = FieldCoordinates.MaximumRadius(optic.Fields) * Math.PI / 180;
-        var equivalent = Math.Atan(Math.Sqrt(Math.Pow(Math.Tan(.3 * scale), 2) + Math.Pow(Math.Tan(.4 * scale), 2))) / scale;
-        row.ZemaxDataParameters[0] = 0; row.ZemaxDataParameters[1] = equivalent;
-        var equivalentY = Evaluate(optic, row);
-        row.ZemaxDataParameters[0] = .3; row.ZemaxDataParameters[1] = .4;
-        Value(optic, row, equivalentY, 5);
+        row.Type = code == "FCGS" ? "FCGT" : "FCGS";
+        row.ZemaxDataParameters[0] = .5; row.ZemaxDataParameters[1] = 0;
+        Value(optic, row, alongY, 5);
     }
 
     [Theory]
@@ -237,7 +233,9 @@ public sealed class DistortionOperandTests(Xunit.Abstractions.ITestOutputHelper 
     public void FieldScanAndOperandShareSameParabasalComputation(string code, int series)
     {
         var optic = Optic.CreateCookeTriplet();
-        var analysis = new FieldCurvatureAnalysis(optic, numPoints: 5, wavelengthNumber: 1, ignoreVignettingFactors: false).GenerateData();
+        var analysis = new FieldCurvatureAnalysis(optic, numPoints: 5, parabasalDelta: 1e-3,
+            wavelengthNumber: 1, ignoreVignettingFactors: false,
+            parabasalRayPair: ParabasalRayPair.ChiefAndPositive).GenerateData();
         var row = Row(code);
         for (var i = 0; i < 5; i++)
         {
@@ -372,7 +370,8 @@ public sealed class DistortionOperandTests(Xunit.Abstractions.ITestOutputHelper 
             optic.FieldDefinition = FieldDefinitionKind.Angle;
             optic.Fields.Clear(); optic.Fields.Add(new FieldPoint { Y = angles[^1] });
             var row = Row(code); row.ZemaxIntegerParameters[1] = waveIndex;
-            foreach (var i in new[] { 0, angles.Length / 2, angles.Length - 1 })
+            foreach (var i in code is "FCGS" or "FCGT"
+                ? Enumerable.Range(0, angles.Length) : new[] { 0, angles.Length / 2, angles.Length - 1 })
             {
                 row.ZemaxDataParameters[1] = angles[i] / angles[^1];
                 if (code == "DIMX")
@@ -385,12 +384,9 @@ public sealed class DistortionOperandTests(Xunit.Abstractions.ITestOutputHelper 
                 output.WriteLine($"{code}, Wave={wave:R}, Angle={angles[i]:R}, actual={actual:R}, captured={expected:R}, error={error:R}");
             }
         }
-        // FCGT currently differs from the capture by up to 2.16e-5 mm. The
-        // 3e-5 mm limit only prevents regression of that known residual; it is
-        // NOT a relaxation of the 1e-5 mm numerical-comparison target.
         var comparisonTarget = code is "FCGS" or "FCGT" ? 1e-5 : 2e-5;
         output.WriteLine($"comparisonTarget={comparisonTarget:R}, maximumError={maximumError:R}, numericalComparison={(maximumError <= comparisonTarget ? "Pass" : "Difference")}");
-        Assert.InRange(maximumError, 0, code == "FCGT" ? 3e-5 : comparisonTarget);
+        Assert.InRange(maximumError, 0, comparisonTarget);
     }
 
     [Theory]

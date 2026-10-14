@@ -1,0 +1,29 @@
+{
+  "Scope": "OpticStudio 2026 R1, configuration 1, unchanged committed sources, native MFE FCGS/FCGT 101 +Y field coordinates per wavelength; EFNO/RELI Samp 5/10/20/40, Pol=0, all defined fields and wavelengths. EFNO/RELI remain Difference, not certified.",
+  "Cases": [
+    {
+      "Source": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+      "SourceSha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+      "Name": "123456",
+      "Capture": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456"
+    },
+    {
+      "Source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/double-gauss-28-degree-field-gq6-remove/source.zmx",
+      "SourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "Name": "double-gauss-28-degree-field",
+      "Capture": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/double-gauss-28-degree-field"
+    },
+    {
+      "Source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/relay-lens-gq6-remove/source.zmx",
+      "SourceSha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+      "Name": "relay-lens",
+      "Capture": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/relay-lens"
+    },
+    {
+      "Source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/even-asphere-gq6-remove/source.zmx",
+      "SourceSha256": "e7523a0a2b8247667d53cd559eded64442af41318f2d985d61296d5c5d1756da",
+      "Name": "even-asphere",
+      "Capture": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/even-asphere"
+    }
+  ]
+}
