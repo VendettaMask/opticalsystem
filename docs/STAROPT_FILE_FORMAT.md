@@ -1,5 +1,7 @@
 # STAROPT 工程格式
 
+更新：2026-10-14。本页是容器、工程负载和快照版本的唯一文档来源：当前分别为 **2 / 7 / 6**，与 `StarOptProjectStore`、`OpticSnapshotValidator` 一致。下列带日期的变更描述限定于该阶段，不取代当前版本；文件入口与交换限制见 [文件格式指南](FILE_FORMATS_AND_PLUGINS.md)。
+
 1.0.2 恢复副本使用正式 STAROPT 完整工程序列化，不是镜头表局部导出；原子写入副本后才发布独立 SHA-256 元数据。恢复打开不使用副本位置作为用户保存路径，而是保持未保存并要求另存。新增容器 1 / 载荷版本 1–7 与旧 JSON 版本 1–6 的读取、当前格式另存及原字节保留回归；不承诺未知或任意损坏格式迁移，见[恢复与迁移验收](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)。
 
 2026-10-03 行表更新：工程负载升级到 v5，新增有序 OperandRows（Kind、SurfaceNumber）列表。值仍存储在各配置的表面数据中，不另存数值副本。v1–4 缺少列表时按空表读取；v4 或更早版本带非空行表明确拒绝。未知类型、重复绑定、无效/非有限引用会拒绝；半口径断开链接纳入校验。容器 v2、顺序快照 schema 6 不变。旧应用应拒绝 v5；有行表的工程只能保存 STAROPT。 详见[本批记录](MCE_ROW_OPERANDS_2026-10-03.md)。
@@ -73,7 +75,7 @@
 
 ## GRIN 空间材料组件
 
-2026-10-03：顺序 schema 6 新增 `gradient_index` 材料 kind，容器 2 / 工程负载 4 不变。Text 必须且仅包含 `name` 与 `profile`，profile 为 `gradient1`～`gradient4`；Numbers 必须精确包含该分布的全部系数、有限路径预算和全部积分误差/步长/次数设置。Gradient 2 保存 `n0Squared`（n²），不能当 n 使用。完整字段表见[材料保存契约](GRIN_MATERIAL_TRANSPORT_2026-10-03.md#保存契约)。
+2026-10-03 初期记录：顺序 schema 6 新增 `gradient_index` 材料 kind，当时容器 2 / 工程负载 4 不变。Text 必须且仅包含 `name` 与 `profile`；初期支持 `gradient1`～`gradient4`，当前还支持下文的 `gradient5`。Numbers 必须精确包含该分布的全部系数、有限路径预算和全部积分误差/步长/次数设置。Gradient 2 保存 `n0Squared`（n²），不能当 n 使用。完整字段表见[材料保存契约](GRIN_MATERIAL_TRANSPORT_2026-10-03.md#保存契约)。
 
 未知字段、缺项、非有限参数、非法模型/名称、非法预算、非整数或越界尝试次数及非空子组件均拒绝。没有“缺失系数补零”或“未识别材料退回目录名称”的分支。运行时绑定的体坐标不作为材料组件保存；重建后的正式顺序追迹在透射入射时重新绑定入口坐标。旧读取器遇到未知材料 kind 会拒绝。原四种分布的真实 STAROPT 往返和[限定共轴一阶接入](GRIN_PARAXIAL_AIMING_2026-10-03.md)均有阶段验证；[GRIN 材料约束](GRIN_CONTROL_OPERANDS_2026-10-03.md)使用既有槽位，兼容只读行不自动升级。后续已经增加 Gradient 5 及其显式色散，并完成 Gradient 1～5 的桌面材料创建、编辑、保存和受支持系数变量，见[编辑与边界](GRIN_MATERIAL_EDITOR_2026-10-04.md)。完整分析/偏振覆盖及原生 ZMX GRIN 映射仍未完成，不能再将已实现的桌面编辑列为缺口。
 
@@ -99,9 +101,9 @@
 
 2026-10-02：schema 6 新增 `coherent_multilayer` kind；容器和工程负载版本不变。`Numbers.count` 为 0–4096 的整数，`Numbers.thickness_i` 为各层非负有限 nm 厚度，`Children.material_i` 为完整材料快照，顺序由入射侧至基底。保存不依赖材料显示名重新查库；缺失层、厚度或材料内部必要系数均拒绝，重建后核对规范快照，不能补默认折射率。旧版不认识此 kind 时应拒绝，不替换为空膜层。旧经验膜层 kind 含义不变，详见[物理镀膜追迹与保存](COHERENT_COATING_TRANSPORT_2026-10-02.md)。
 
-## 独立镀膜实验格式
+## 镀膜模块实验格式
 
-`.coating.json` schema 1 属于独立镀膜实验室，不是 STAROPT 容器的新版本，也不嵌入当前镜头。真实膜层材料快照、目标、候选、计算设置、算法记录、光谱与公差结果在该文件中独立保存。STAROPT 原有镀膜 kind 的兼容含义不变；尚未实现从实验室向镜头表面的显式应用桥接。见[文件格式说明](FILE_FORMATS_AND_PLUGINS.md#镀膜实验文件)。
+内置镀膜模块的 `.coating.json` 是单独编辑的实验文件，不是 STAROPT 新版本或独立软件；不自动应用到当前镜头。其字段与兼容约定只在 [镀膜文件契约](FILE_FORMATS_AND_PLUGINS.md#镀膜实验文件) 维护，STAROPT 原有镀膜 kind 的含义不变。
 
 ## 延伸区与 TSAG（2026-10-02）
 

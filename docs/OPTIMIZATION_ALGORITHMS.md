@@ -16,7 +16,7 @@
 
 当前操作数统计与最新构建/测试范围统一见[当前状态](CURRENT_STATUS.md)。下方各批次计数保留对应历史阶段，不代表最新总数。
 
-2026-10-01 操作数帮助已改为三级导航，帮助阶段默认桌面 Debug/Release 输出已更新；当时帮助、名称标识及字号检查各 **19/19** 通过，含明暗主题和窄窗口渲染。见[层级与验证](OPERAND_HELP_HIERARCHY_2026-10-01.md)。该 19 项记录保留原阶段范围，后续合并回归见下方第二十六批。
+操作数帮助按功能大类、操作数族和具体代码导航；帮助分类不增加执行数量，详见 [支持规范](ZEMAX_OPERAND_SUPPORT.md)。
 
 ## 当前公开算法
 
@@ -93,7 +93,7 @@ DLS 和动量梯度下降不再把非有限梯度标记为 `GradientTolerance`�
 
 ## 镀膜实验室的优化调用
 
-独立镀膜实验室直接调用正式 `OptimizerCatalog` 的 Damped Least Squares、Nelder-Mead 和 Coordinate Pattern Search；未复制求解器，也未引入上游 DE。模板生成与优化分别执行，模板排名不代表目标达标。变量仅为勾选的膜层物理厚度（nm），固定层保持不变；厚度上下界由正式变量接口约束。
+内置镀膜模块直接调用正式 `OptimizerCatalog` 的 Damped Least Squares、Nelder-Mead 和 Coordinate Pattern Search；未复制求解器，也未引入上游 DE。模板生成与优化分别执行，模板排名不代表目标达标。变量仅为勾选的膜层物理厚度（nm），固定层保持不变；厚度上下界由正式变量接口约束。
 
 每次运行使用冻结材料/输入，记录实际算法、版本、停止原因、迭代/评价次数与适用的随机种子；当前三例使用 `damped-least-squares/2`。光谱残差由同一共享薄膜求解器计算，最终独立密集复验检查反射率、峰值、FWHM、截止 OD、层数及厚度。梯度阈值或迭代上限不代表指标达标。高反/窄带例的未达标项和本地搜索限制见[验收记录](../validation/coating/README.md)。
 

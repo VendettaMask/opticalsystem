@@ -1,36 +1,8 @@
-# Initial Structure — Built-in Product Module
+# 初始结构（产品内置模块）
 
-2026-10-13 delivery contract: initial structure and coating design are mandatory modules in the one main application process. The root solution builds all modules and the standard installer installs all of them without a component choice. `labs/` retains domain source, tests and historical evidence only; it is not an independently runnable or installable product. See [integration and verification](../../docs/BUILT_IN_MODULES_2026-10-13.md).
+更新：2026-10-14。本页维护操作流程、运行记录和历史方法入口；计算隔离、支持范围与后续计划见 [模块契约](../../docs/INITIAL_STRUCTURE_LAB_PLAN.md)。初始结构和镀膜设计均在主程序同一进程内运行，由根解决方案和标准安装包统一交付，不是独立软件。
 
-Historical verification (2026-09-27): laboratory Release **260/260**, default lab Debug/Release builds with zero warnings/errors, and all 40 frozen-snapshot recalculations/exports pass. Failed optical designs retain their failure status. Core sources are unchanged; formal full tests and external comparison were not rerun. See [scope and evidence](../../docs/INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md).
-
-Current implementation: **v19** restores a missing real-ray domain between progressive stages using bounded pupil/field bridges. Final full-target acceptance, shared Core physical-stop aiming, automatic lens sizing and same-snapshot export remain mandatory. This fixes one measured interrupted start; the 10,000-evaluation wide-angle best RMS remains 377.79 micrometers and fails the 50 micrometer target. See [the literature review and results](../../docs/INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md).
-
-The earlier [optical quality audit](../../docs/INITIAL_STRUCTURE_QUALITY_AUDIT_2026-09-26.md) remains a v11 historical measurement. Old specifications omit the sampling policy and retain their original equal-ring metric and fingerprints. Old records are labeled accordingly; creating a new desktop experiment selects the area rule, while independent refinement preserves its source rule. The twelve fixed local cases and two complete 10000-evaluation searches are separate from the historical acceptance protocol. The F/2.8, 40° target remains unsuccessful.
-
-The preceding **v10 R2** uses Jacobian column scaling and regularized QR steps for the optical phase, preserving the R1 joint objective, continuous Core diagnostic domain and strict physical acceptance. The same eight independent starts improve from **0/8 to 5/8** retained physical passes, all independently recalculated. See [R2 implementation and verification](../../docs/INITIAL_STRUCTURE_DSEARCH_R2_2026-09-26.md).
-
-The preceding **v8** implementation established the DSEARCH form-search workflow: enumerate binary starting directions, screen with QUICK or optimize each start with FULL, retain candidates and allocate continuation by persistent branch history. The desktop groups System / Goals / Search settings and shows the initial form, coverage, work history and unchanged Core acceptance results. This uses the existing bounded trust-region solver, not SYNOPSYS PSD. See the [implementation and verification](../../docs/INITIAL_STRUCTURE_DSEARCH_2026-09-26.md).
-
-The subsequent [implementation-path audit](../../docs/INITIAL_STRUCTURE_DSEARCH_ROUTE_AUDIT_2026-09-26.md) identifies important gaps: v8 QUICK is a short-budget real-ray screen, not the official third/fifth-order aberration screen; the local residual definitions, ranking and feasible derivative domain required repair before expanding the outer search. R1 implements the objective/domain repair; R2 improves local convergence on the same independent starts, while complete search coverage remains a separate gate. The audit preserves v8 runtime behavior and results. Its 32 independent diagnostic solves are not additional passing tests or acceptance runs; none meets all final gates.
-
-Historical v18 verification (2026-09-27): v18 integrates physical-stop calibration, aiming and stop-preserving automatic lens sizing. Core focused **39/39**, full laboratory Release **258/258**, and default formal App/lab Debug and Release builds pass with zero warnings/errors. Four 10,000-evaluation searches compare two specifications in both modes; all 40 retained candidates recalculate and export identically. This is not a multiseed release protocol. Formal full **1311/1311**, prior optical focused **315/315**, and comparison **104/104** are historical. No new Zemax capture/full external comparison. See [implementation and measured results](../../docs/INITIAL_STRUCTURE_PHYSICAL_STOP_SEARCH_2026-09-27.md).
-
-The complete v8 original protocol records **30/60 successful runs and 6/12 specifications meeting 4/5**; its independent holdout records **15/15**. Both protocols have zero failed trials or verification errors, and all 75 selected exports reload identically. The original gate requires 10/12, so search acceptance remains failed. See the [v8 evidence](benchmarks/dsearch-v8-20260926/README.md) and [acceptance runner](tools/OptilandWorkbench.InitialStructure.Benchmarks/README.md).
-
-The frozen v4 comparison remains 52/60 successful runs and 9/12 specifications meeting 4/5. v6 and v7 each recorded 25/60, 5/12, and separate holdout 10/15; the unchanged legacy hybrid on the same full targets recorded 30/60 and 5/12. Historical v1–v4 and v6–v18 checkpoints remain readable/exportable and can seed a separate v19 refinement; they cannot silently resume as v19. Area-policy v13–v19 uses scheduling policy 2; legacy sampling retains policy 1, and historical v12 plans retain their original quotas. Existing Zemax 2026 R1 captures are unchanged.
-
-Historical development began with the [2026-09-07 flat-start proposal](../../docs/INITIAL_STRUCTURE_FROM_FLAT_PROPOSAL.md). P0 freezes twelve full-target specifications; P1/P2 provide strict-flat startup and full-target continuation through formal Core. P3 adds `FlatStartSearchService.RunAsync` (`strict-flat-family-search/v1`): real catalog materials, discrete surface stops, element-count families, parent-linked refinement, diversity filtering and budget-preserving checkpoints. P4 connects this engine to the independent desktop with formal layout/rays, target tables, resume, selected-candidate refinement and validated export. The P3 survey remains four accepted specifications out of twelve; eight retain explicit gaps. The P5 release gate remains pending. See [P4 workflow and verification](../../docs/INITIAL_STRUCTURE_P4_2026-09-07.md) and [P3 numerical results](../../docs/INITIAL_STRUCTURE_P3_2026-09-07.md).
-
-This directory contains the initial-structure domain libraries, persistence, tests and frozen search evidence. The current UI is in `src/OptilandWorkbench.App/Laboratories/InitialStructure`; the main desktop opens it under **实验室 → AI 初始结构** in the same process. `OptilandWorkbench.Modules` converts shared Core results into presentation DTOs; the main UI assembly does not reference Core.
-
-Mandatory shared computation boundary (user clarification, 2026-09-07): every optical trace and analysis calls the formal product's shared Core. Module boundaries apply to features, search orchestration and editing state, never a separate process or optical engine. P1/P2 now call formal `SpotMetricEvaluator.EvaluatePupilSamples` and `Paraxial.EstimateOpticalPower`, with identical snapshot/settings checks. Missing capabilities belong in the formal shared layer, with no laboratory formula copies or approximation fallbacks. Independent analytical/Snell code remains test-only and cannot supply runtime results. P2 adds no separate tracer or optical analysis engine.
-
-Historical verification (2026-09-07, P4): the complete laboratory suite passes **104/104**, with no failures/skips (previous 91 plus 13 cases). After the final numeric-input correction, the relevant **14/14** subset passes on the final Release code; it is included in the 104 cases, not an additional total. The solver did not change during the full run. Default Debug/Release builds have zero warnings/errors; formatting and diff checks pass. Actual Avalonia mouse/keyboard interactions, Skia renders at 1240/600/480 px, formal-scene equality, cancellation/export/resume, source-preserving additional refinement and stale-scene clearing are verified. A separate native Windows launch/close check passes; this is not native manual or cross-platform UI certification. Evidence: `artifacts/validation/initial-structure-p4-20260907`. All ten legacy gates and the twelve full-target specifications remain unchanged. The P3 seed-101 survey is not the sixty-run release protocol or new-candidate external certification. Formal Core was unchanged and formal tests were not rerun for P4; the formal 46/46 and laboratory 63/63 counts belong to P2. Existing cached dependencies were used; no new online vulnerability audit was completed.
-
-The P3 API accepts `FlatStartSearchOptions` and a separate `FlatStartSearchCheckpoint`; `FlatStartSearchCheckpointStore` saves checksummed atomic JSON. It supports at most 128 initial families, 256 trials, four simultaneous root workers, 64 allowed material names and a 64 MiB checkpoint. Cancellation completes the current bounded batch. Resume preserves consumed budget; uncertain in-flight work keeps its whole reserved quota and reserved wall-time charge. This does not restore an unfinished internal Jacobian. Independent stop surfaces inserted into air gaps remain a later extension.
-
-Launch-entry verification (2026-09-07): the formal App's launcher/dependency/layering filter passes **33/33**, and the laboratory's unchanged project-isolation/responsive-source filter passes **2/2**. A separate Windows startup smoke check created the **智能初始结构实验室** window and closed only that owned process. The formal and laboratory solutions build independently in Debug and Release with zero warnings/errors. No search algorithm, frozen specification, installer or numerical test baseline changed; the full laboratory suite was not rerun for this launch-only change.
+当前桌面调用 `FlatStartSearchService` 的 v19 形式搜索与渐进恢复流程。所有光学计算复用正式共享 Core；模型不因“AI”名称而具有机器学习或设计智能体能力。生成有效候选不等于满足所有规格，更不等于可制造成品。当前工程测试和已知失败只在 [状态页](../../docs/CURRENT_STATUS.md) 汇总。
 
 ## Current desktop workflow
 
@@ -39,31 +11,6 @@ Enter focal length, F/# or entrance-pupil diameter, maximum half-field angle, an
 Generate, stop/save and resume use the v19 form-search engine. The Search plan shows actual planned root counts and the budget reserved for later operators; the requested seed count is an upper limit. Each binary direction starts from a recorded flat root followed by an explicit curvature initialization, not an assumed optical result. The Search plan/history tab distinguishes requested, planned and fully evaluated forms; a budget-limited root without initialization is not completed coverage. Inputs lock during a run, and editing parameters clears old candidate tables and scenes immediately. Candidate details show full targets, prescription, per-field/per-wavelength transmission and original flat-root provenance. `Layout2DBuilder` supplies all lens geometry and directed ray segments; A/B uses one physical scale. Layout requests explicitly use the primary wavelength, all defined fields and seven pupil samples per field across [-1, 1], retaining truncated vignetted paths. This is a display request, not a replacement for dense final analysis.
 
 Selected refinement creates a new `strict-flat-selected-refinement/v19` run with an explicit additional evaluation budget and the source time limit. `Origin` preserves the source run, charged work, candidate and original strict-flat proof. Targets and material contents remain unchanged, the source file is not rewritten, and the source snapshot is reevaluated with the current dense objective and retained if no better physical class / objective value is found. Its historical record remains in Origin; legacy summary scores and current dense objective scores are never mixed. Physical-stop mode is part of score identity and is retained from the source specification; scores from different modes cannot mix. Completed evaluations count actual Core propagation work, including aiming and circular-aperture diagnostics, excluding cache hits. Historical work counts retain their original sampling meaning. The legacy objective retains its historical meaning; the area rule publishes a separate V2 objective, sampling identity and independent-validation flag. Coarse and final candidate scores are not mixed. Resume restores the current run's remaining budget; it never silently adds more work.
-
-## Historical hybrid v3 implementation
-
-The following describes the retained legacy engine and its historical validation; the current desktop uses the workflow above.
-
-- versioned specification, run, candidate, evaluation, violation, and lineage contracts;
-- exact plane-parallel roots with curvature `c = 0` and complete root snapshots;
-- deterministic first-order power expansion using curvature variables;
-- paraxial focal-length recovery plus deterministic multi-wavelength real-ray reachability and spot checks;
-- specification-level RMS and maximum spot-radius gates, with `Refinable` reserved for candidates that satisfy focal, F/#, trace, and image-quality limits;
-- cancellable CPU-parallel seed evaluation;
-- bounded curvature, center-thickness, and air-gap parameterization followed by deterministic differential evolution, budget-dependent damped least-squares refinement, and a separate density-4 acceptance evaluation;
-- structural-family quotas keyed by element count and stop placement, followed by exact optic-fingerprint deduplication;
-- strict `MaximumEvaluations` enforcement across seed, global, local, and dense-validation evaluations, including exact-budget boundary handling and a structured consumption diagnostic;
-- bounded JSON run and candidate persistence through a complete staging tree and one immutable directory publish, with canonical-hash and exact-sidecar-set validation on load;
-- atomic seed-stage checkpoints that preserve run identity and deterministically skip completed seeds on resume; interruption during refinement restarts the deterministic refinement from the completed-seed checkpoint;
-- ten frozen synthetic benchmark specifications plus a versioned minimum-result baseline;
-- standalone Avalonia laboratory application with structured preflight, responsive table/geometry layout, A/B candidate comparison, resume/cancel controls, and validated STAROPT export;
-- architecture, reproducibility, snapshot-isolation, cancellation, and persistence tests.
-
-The L3 engine gate and L4 core desktop workflow are implemented. `LabAccepted` is published only by the separate dense-validation request after every structured constraint passes; it means the candidate meets the frozen laboratory initial-structure threshold, not that the lens is a finished or manufacturable design. That historical hybrid engine did not implement CMA-ES, discrete glass search, optical-distance/Pareto clustering within a structural family, SQLite indexing, database retrieval, machine learning, or a design agent. Checkpoints resume completed seeds, not an in-progress differential-evolution population.
-
-On 2026-08-30, the four-test L3 contract filter passed `4/4`, the separate frozen-benchmark gate passed `1/1` in about four seconds, and the L4 checkpoint/export/responsive-source filter passed `4/4`. The final combined key-path replay passed `5/5`, covering the frozen gate, dense acceptance, deterministic checkpoint resume, validated STAROPT export, and responsive accessible App source. Eight of ten frozen specifications produced three distinct accepted element/stop families; the 85 mm and 100 mm specifications produced two each. The laboratory solution build and format verification passed with `0` warnings and `0` errors, and the online direct/transitive dependency audit reported no known vulnerable package. A wide macOS screenshot showed no overlap; the unpackaged Avalonia process was not discoverable by the Computer Use accessibility driver, so automated narrow-window interaction remains a cross-platform UI follow-up. These targeted runs overlap, are not a full-suite total, and remain independent of the formal product baseline.
-
-Repository CI restores/builds/formats/audits the one root solution and runs both module test projects on Linux, macOS and Windows. Historical numerical gates remain unchanged; integrating delivery does not turn known optical failures into passes.
 
 ## Build and test
 
@@ -90,6 +37,15 @@ Shared legacy specification limits include 10,000 initial seeds, 100,000 evaluat
 
 See [the development plan](../../docs/INITIAL_STRUCTURE_LAB_PLAN.md) for scope, isolation rules, acceptance gates, and later phases.
 
-## 另一个独立实验室
+## 历史方法与验证
 
-光学镀膜设计位于 [labs/CoatingDesign](../CoatingDesign/README.md)，提供减反、高反和单腔窄带设计。本目录的版本、预算、候选及验收数据只属于初始结构实验室；两者各自构建和保存实验，共享正式 Core，均不隐式修改主程序当前镜头。
+早期独立 App、混合 v3 和 P0–P5 命令只描述当时实现，不是当前启动方式。旧运行保持算法、采样、预算和失败身份；不能直接改写为 v19 或把不同协议的成功率相加。当前算法可显式从受支持旧快照创建一个新的细化运行，源记录不被覆盖。
+
+- [混合/形式搜索冻结协议](benchmarks/README.md) 与 [验收工具](tools/OptilandWorkbench.InitialStructure.Benchmarks/README.md)：固定目标、种子、预算和未达到的发布门槛。
+- [从平板生成提案](../../docs/INITIAL_STRUCTURE_FROM_FLAT_PROPOSAL.md)、[P3 数值结果](../../docs/INITIAL_STRUCTURE_P3_2026-09-07.md)、[P4 历史 UI 验证](../../docs/INITIAL_STRUCTURE_P4_2026-09-07.md)。
+- [v8 形式搜索](../../docs/INITIAL_STRUCTURE_DSEARCH_2026-09-26.md)、[路径审计](../../docs/INITIAL_STRUCTURE_DSEARCH_ROUTE_AUDIT_2026-09-26.md)、[R2 收敛修正](../../docs/INITIAL_STRUCTURE_DSEARCH_R2_2026-09-26.md)。
+- [质量审计](../../docs/INITIAL_STRUCTURE_QUALITY_AUDIT_2026-09-26.md)、[实体光阑](../../docs/INITIAL_STRUCTURE_PHYSICAL_STOP_SEARCH_2026-09-27.md)、[v19 渐进恢复](../../docs/INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md)：包括仍未达到像质目标的宽角案例，历史失败保留。
+
+## 同一产品中的镀膜模块
+
+[光学镀膜设计](../CoatingDesign/README.md) 提供减反、高反和 1–5 腔设计。两个模块各自保存实验状态，但由同一个主程序构建、安装和管理，均不隐式修改当前镜头。

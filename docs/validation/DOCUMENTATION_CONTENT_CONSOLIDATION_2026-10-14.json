@@ -1,0 +1,283 @@
+{
+  "Date": "2026-10-14",
+  "SourceCommit": "15c9ef9b6b4aaf90a5ff499e02fbb2f61eca8c69",
+  "SourceDirty": true,
+  "Scope": "Repository documentation contents, duplication/link/fence checker, its isolated regressions and CI configuration. No product C# or optical baseline changes.",
+  "Changes": [
+    "Made STAROPT_FILE_FORMAT.md the only current container/payload/schema version source (2/7/6); removed stale v4/v6 copies from architecture, format overview, parity matrix and non-sequential guides.",
+    "Corrected GRIN Gradient 5/editor and coherent multilayer sequential-tracing capabilities while preserving unsupported modes and native-certification gaps.",
+    "Removed independent-module/source-linked-theme/one-time settings-reader claims from current module, UI and theme guides; updated code map to current FlatStartSearchService rather than legacy hybrid search.",
+    "Separated module usage, computation contracts, file contracts and non-sequential roadmap; removed repeated unrelated UI/test broadcasts and reduced repeated synchronization summaries.",
+    "Changed exact normalized prose threshold from 180 characters/five copies to 100 characters/two distinct documents; strict mode rejects duplication across current guides while historical/mixed groups remain visible.",
+    "Excluded fenced/indented code and tables from prose repetition; preserved fence types/lengths, Unicode anchors and case-sensitive prose.",
+    "Fixed existing Windows absolute output-path resolution exposed by new regressions; configured independent three-platform Documentation CI job."
+  ],
+  "Documentation": {
+    "Documents": 888,
+    "Categories": [
+      {
+        "Category": "Evidence",
+        "Count": 702
+      },
+      {
+        "Category": "Guide",
+        "Count": 48
+      },
+      {
+        "Category": "Historical",
+        "Count": 127
+      },
+      {
+        "Category": "ThirdParty",
+        "Count": 11
+      }
+    ],
+    "BrokenLinks": 0,
+    "MarkdownFenceIssues": 0,
+    "LocalOnlyLinks": 0,
+    "GuideRepeatedParagraphGroups": 0,
+    "HistoricalRepeatedParagraphGroups": 11,
+    "MixedRepeatedParagraphGroups": 0,
+    "MinimumCharacters": 100,
+    "MinimumDocuments": 2,
+    "SemanticReview": "Manual topic/implementation review; exact paragraph check does not prove absence of near-duplicates.",
+    "FilesDeleted": 0
+  },
+  "Verification": {
+    "CheckerTests": {
+      "Cases": 17,
+      "Passed": 17,
+      "Failed": 0,
+      "Results": [
+        {
+          "Name": "Two current guides fail strict repetition check",
+          "Passed": true
+        },
+        {
+          "Name": "Whitespace and CRLF normalize",
+          "Passed": true
+        },
+        {
+          "Name": "One document repeated twice is not cross-document duplication",
+          "Passed": true
+        },
+        {
+          "Name": "Below 100 characters is ignored",
+          "Passed": true
+        },
+        {
+          "Name": "Exactly 100 characters is detected",
+          "Passed": true
+        },
+        {
+          "Name": "Letter case remains distinct",
+          "Passed": true
+        },
+        {
+          "Name": "Historical notices remain reported without strict failure",
+          "Passed": true
+        },
+        {
+          "Name": "Mixed guide/history group remains visible",
+          "Passed": true
+        },
+        {
+          "Name": "Historical comparison audit is not a current guide",
+          "Passed": true
+        },
+        {
+          "Name": "Fenced code and links inside it are ignored",
+          "Passed": true
+        },
+        {
+          "Name": "Longer fence may contain shorter fence",
+          "Passed": true
+        },
+        {
+          "Name": "Indented code and Markdown tables are ignored",
+          "Passed": true
+        },
+        {
+          "Name": "Evidence and notices keep fingerprints and bytes",
+          "Passed": true
+        },
+        {
+          "Name": "Chinese, duplicate and encoded anchors resolve",
+          "Passed": true
+        },
+        {
+          "Name": "Missing file is rejected",
+          "Passed": true
+        },
+        {
+          "Name": "Missing anchor is rejected",
+          "Passed": true
+        },
+        {
+          "Name": "Wrong fence type cannot close a fence",
+          "Passed": true
+        }
+      ]
+    },
+    "InitialFailures": {
+      "TestScriptSyntax": "Fence test string quoting failed initial parse and was repaired before executing fixtures.",
+      "FirstFixtureRun": {
+        "Cases": 17,
+        "Passed": 0,
+        "Failed": 17,
+        "Reason": "Existing checker combined a Windows absolute OutputPath with the fixture root, so no fixture report could be written.",
+        "Report": "artifacts/validation/documentation-content-20261014/checker-tests.json"
+      },
+      "Repair": "Use Path.GetFullPath(OutputPath, repositoryRoot); all same 17 fixture identities passed on the final run."
+    },
+    "ProtectedDocumentation": {
+      "Documents": 713,
+      "Matched": 713,
+      "Unchanged": true,
+      "Scope": "Existing Evidence and ThirdParty document inventory, including binary reports."
+    },
+    "FrozenNumericalEvidence": {
+      "HeadMatched": 2668,
+      "WorkingTreeMatched": 2668,
+      "Unchanged": true,
+      "AggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10"
+    },
+    "WorkflowYaml": {
+      "Parsed": true,
+      "DocumentationPlatforms": [
+        "ubuntu-22.04",
+        "macos-latest",
+        "windows-latest"
+      ],
+      "Steps": 4,
+      "RemoteRunsVerified": false
+    },
+    "GitDiffCheck": true,
+    "ProductBuildRerun": false,
+    "ProductTestsRerun": false,
+    "InstallerRebuilt": false,
+    "NewZemaxCapture": false,
+    "ManualDesktopAcceptance": false
+  },
+  "SnapshotFiles": [
+    {
+      "Path": ".github/workflows/ci.yml",
+      "Sha256": "ec13f4198fb8e05522adb594fd83a13ee4ad5d7db44daef2bca393c84f9750af"
+    },
+    {
+      "Path": "docs/ARCHITECTURE.md",
+      "Sha256": "610960000b1655a3b6606cc01b0ca93c6cceb0e29810f65a6de9f01fe935e225"
+    },
+    {
+      "Path": "docs/COATING_DESIGN_LAB.md",
+      "Sha256": "4d7bb5baaa7a5443e8fca1e091881301008b4f283d95dd37a271585476b2415a"
+    },
+    {
+      "Path": "docs/CODE_READING_MAP.md",
+      "Sha256": "2b0646fc98a21349a97da838daa2e384ee54466336d514c200391ada334d98fe"
+    },
+    {
+      "Path": "docs/FILE_FORMATS_AND_PLUGINS.md",
+      "Sha256": "dbfd8884f396768d29d487352c0cb03fbd738859b7e0c942a6168386eaf219a4"
+    },
+    {
+      "Path": "docs/GUI_QUICKSTART_REFACTOR.md",
+      "Sha256": "3785a58511a6678abce7b756a0dd172613e922b9c70e4ae8cfa09b9f8a8de676"
+    },
+    {
+      "Path": "docs/LENS_LIBRARY.md",
+      "Sha256": "15f4b89cba3a45fea4a47da1d8c86e5c721f29d13c2e01feec1adc82ad05a645"
+    },
+    {
+      "Path": "docs/NON_SEQUENTIAL_TRACING.md",
+      "Sha256": "0050065a688c62d2cbbd81957d6ab487a55e3d7f71e190d3dc3ed25163537f29"
+    },
+    {
+      "Path": "docs/NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md",
+      "Sha256": "e991473cef2c67495d2b3d7ef92b832509fa97c9541da9065a73d169ebbde698"
+    },
+    {
+      "Path": "docs/NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md",
+      "Sha256": "f8299759af06745fae3791a444d43e500912d56c1b6bf51064fed5828e882ba6"
+    },
+    {
+      "Path": "docs/NUMERICAL_PARITY.md",
+      "Sha256": "23223d4cbbac4c16cd465bc22e63dbd7e8b2f62efc306296ebc4acc5ab4b77dd"
+    },
+    {
+      "Path": "docs/OPTIMIZATION_ALGORITHMS.md",
+      "Sha256": "b662d1237a45dbab28dd39ae44726562040559242313c4a8f54a487813b6164a"
+    },
+    {
+      "Path": "docs/PARITY_MATRIX.md",
+      "Sha256": "348351fd7512aac335317bcfc2ad477606ce4477eadd5b662a0f7235bda3b786"
+    },
+    {
+      "Path": "docs/README.md",
+      "Sha256": "bb5bdac6637245b968baed3d080f81b95d3da5c01e93bc54162721c1a39fb919"
+    },
+    {
+      "Path": "docs/STAROPT_FILE_FORMAT.md",
+      "Sha256": "31506afb193df48912f4c4edbc1e070f764a9833493e858c4716785299602970"
+    },
+    {
+      "Path": "docs/THEME_PACKAGES.md",
+      "Sha256": "4c3dd783111d76bf8979c227597491f8c9ec5c54d72f012b495870f30d4019d0"
+    },
+    {
+      "Path": "docs/TOLERANCING.md",
+      "Sha256": "8f85b024163fea4f9f056aabe74eb543b9327bc16729115f58dc9619930d6209"
+    },
+    {
+      "Path": "docs/UI_DESIGN_SPEC.md",
+      "Sha256": "ea07fba03c19c963fa158c706bb9e2133882f9bf0f7c3c0e591af663ca93bb71"
+    },
+    {
+      "Path": "docs/ZEMAX_ANALYSIS_REFERENCE.md",
+      "Sha256": "854ca9b089fbd8cd78a0301dd7b30b3a458f2eef22b6398383d55f6a989f9cf3"
+    },
+    {
+      "Path": "docs/ZEMAX_BASELINE_CONFIGURATION_BOUNDARY.md",
+      "Sha256": "384926b86d5a7b9bbe0e80fdbc9ba6b571e5e660715fe04b0bf5acab6b2debe1"
+    },
+    {
+      "Path": "labs/CoatingDesign/README.md",
+      "Sha256": "a12f351d7e97232d303f8f9138c6fb82d0aec03a7e4447449be5e484dd2efb46"
+    },
+    {
+      "Path": "labs/InitialStructure/README.md",
+      "Sha256": "ab1fab6ce377986cd8f02c9269312e10ba8dd282f627e67334dbe850b1d7447f"
+    },
+    {
+      "Path": "scripts/tests/verify-documentation.tests.ps1",
+      "Sha256": "a4f3835a6914dad58ee641eab3d0146fab405deec9481d667c4173c023e30627"
+    },
+    {
+      "Path": "scripts/verify-documentation.ps1",
+      "Sha256": "fa967990415f435c44d87791a4d6b30dd87f479a4141343ad8e1e4c30cd87376"
+    }
+  ],
+  "LocalEvidence": {
+    "Availability": "Generated locally under ignored artifacts; not uploaded as release attachments.",
+    "Reports": [
+      "artifacts/validation/documentation-content-20261014/before.json",
+      "artifacts/validation/documentation-content-20261014/after.json",
+      "artifacts/validation/documentation-content-20261014/final.json",
+      "artifacts/validation/documentation-content-20261014/checker-tests.json",
+      "artifacts/validation/documentation-content-20261014/checker-tests-final.json",
+      "artifacts/validation/documentation-content-20261014/protected-documents.json",
+      "artifacts/validation/documentation-content-20261014/frozen-before.json",
+      "artifacts/validation/documentation-content-20261014/frozen-after.json"
+    ]
+  },
+  "DeliveryAtValidation": {
+    "Committed": false,
+    "Pushed": false,
+    "Note": "Based on the already synchronized 15c9ef9. This documentation repair is not claimed as pushed."
+  },
+  "Limitations": [
+    "External URLs were not re-fetched.",
+    "Historical warning and phase-result duplicates remain reported, not automatically deleted.",
+    "Known full-product test/search/installation/manual-platform failures remain open; this is not product release certification."
+  ]
+}

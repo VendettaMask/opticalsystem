@@ -42,7 +42,7 @@ OpticalSurface
 
 支持平面、标准面、偶次/奇次非球面、双锥面、环曲面、多项式、Chebyshev、Zernike、Forbes Q 等模型。非物理平方根域返回 `NaN` 并拒绝交点，不延伸不存在的曲面分支。
 
-现有膜层和散射近似不作为物理 Thin Film、Lambertian 或 Measured BSDF 对外提供。生产名称为 `ApproximateTransmissionRippleCoating`、`MainRayScatterLossApproximation` 和 `MeanMeasuredScatterLoss`，界面统一标记 `Experimental`；旧类名和旧序列化 kind 仅为兼容入口并带弃用警告。2026-09-27 新增共享 `CoherentThinFilmSolver` 和 `ThinFilmSpectrum`，采用稳定散射递推计算真实 n/k、角度、S/P 与 R/T/A，供独立镀膜实验室使用。2026-10-02 新增明确的 `CoherentMultilayerCoating` 接入正式顺序追迹和照度 Jones 链；非序列集成未在本轮验证，旧经验类型含义不变。BSDF `Evaluate + Sample + Pdf` 仍未实现。
+现有膜层和散射近似不作为物理 Thin Film、Lambertian 或 Measured BSDF 对外提供。生产名称为 `ApproximateTransmissionRippleCoating`、`MainRayScatterLossApproximation` 和 `MeanMeasuredScatterLoss`，界面统一标记 `Experimental`；旧类名和旧序列化 kind 仅为兼容入口并带弃用警告。2026-09-27 新增共享 `CoherentThinFilmSolver` 和 `ThinFilmSpectrum`，采用稳定散射递推计算真实 n/k、角度、S/P 与 R/T/A，供内置镀膜模块使用。2026-10-02 新增明确的 `CoherentMultilayerCoating` 接入正式顺序追迹和照度 Jones 链；非序列集成未在本轮验证，旧经验类型含义不变。BSDF `Evaluate + Sample + Pdf` 仍未实现。
 
 ## 数值后端与光线追迹
 
@@ -64,7 +64,7 @@ OpticalSurface
 
 Core 通过 `AnalysisCatalog` 注册规范分析，其中包含非序列光线追迹和探测器查看器。应用层 `IWorkbenchModeService` 只负责顺序/非序列模式边界，`INonSequentialDocumentService` 负责独立非序列文档的对象、波长和显式转换事务。`AnalysisService` 按模式分别暴露顺序或非序列目录并拒绝跨模式执行；桌面端根据同一状态重建 Ribbon、主编辑文档和左侧工具页。Workbench 的规范键、中文显示名、兼容别名、展示类型和两套 Ribbon 目录由 `WorkbenchAnalysisCatalog` 统一描述。独立 `Distortion` 与重复的 `Through Focus MTF` 已退出公开目录，旧名称分别兼容映射到 `Field Curvature and Distortion` 与 `Fourier Through Focus MTF`。结果 DTO 使用 `AnalysisPresentationKind` 选择专用控件，并通过 `AnalysisAxisQuantity` 与 `AnalysisAxisUnit` 描述坐标量和单位；显示字符串不能决定控件、缩放、缓存身份或导出逻辑。
 
-`WorkbenchRuntime` 与顺序多配置并列持有 `NonSequentialDocument`。整文档快照、撤销/重做、保存排队、脏状态和事务回滚都包含该文档。STAROPT容器版本为2、工程负载版本为 6（新增显式多配置单元格变量）；旧容器/负载继续有界迁移，v3保存内容寻址的网格资产，v4增加扩展原生光源。正常非序列追迹直接接收该文档；旧的顺序表面投影只作为显式转换器的可复用逻辑。非序列文档全量验证先建立对象和网格资产索引，再用迭代图遍历检查参考和包含关系；长链不会因重复线性查找退化。STL对象使用对象级BVH之外的三角形级BVH，网格资产在导入或附加时复制内容并只公开只读字节视图，解码几何不暴露可改写数组。`INonSequentialTraceSink`把完整分支流式送入独立STARRDB，Core不接收输出路径。Fresnel 分裂父分支只发布一次，父子共享历史用段自身的分支 ID 表示。探测器数据库重建只累计当前分支拥有的段，并用受单分支段数约束的集合去重；波长号使用一次建立的有序索引查找，不为每个命中重新分配波长列表。应用层把分析结果和3D布局结果保存在不同会话：分析会话服务探测器、分页数据库和路径分析，布局会话只保存有界确定性3D样本。两个会话使用独立串行通道，但每次追迹都会取得材料注册表快照，避免并发布局和分析追迹共享可写玻璃缓存。每次追迹同时捕获文档代次和结果会话代次，最终数据库移动与会话发布只在两者仍有效时执行；文件切换、清空或手动选择数据库后，旧后台结果不能重新成为当前结果。非序列3D页面打开或发现布局会话过期时会自动准备布局样本；旋转、缩放和显示设置只重绘，不改变随机追迹结果。手动“准备布局光线”执行强制刷新，成功后原子替换布局会话，失败或取消保留旧会话。布局数据库头的场景哈希必须与当前文档一致才会默认加载；过期结果只能在显式选择后显示，并携带结果哈希、当前哈希、来源修订和红色过期状态。两类会话均不进入工程脏状态。
+`WorkbenchRuntime` 与顺序多配置并列持有 `NonSequentialDocument`。整文档快照、撤销/重做、保存排队、脏状态和事务回滚都包含该文档。STAROPT 完整保存该状态并有界迁移旧文件；容器/负载/快照版本和资产布局只在 [格式契约](STAROPT_FILE_FORMAT.md) 维护。正常非序列追迹直接接收该文档；旧的顺序表面投影只作为显式转换器的可复用逻辑。非序列文档全量验证先建立对象和网格资产索引，再用迭代图遍历检查参考和包含关系；长链不会因重复线性查找退化。STL对象使用对象级BVH之外的三角形级BVH，网格资产在导入或附加时复制内容并只公开只读字节视图，解码几何不暴露可改写数组。`INonSequentialTraceSink`把完整分支流式送入独立STARRDB，Core不接收输出路径。Fresnel 分裂父分支只发布一次，父子共享历史用段自身的分支 ID 表示。探测器数据库重建只累计当前分支拥有的段，并用受单分支段数约束的集合去重；波长号使用一次建立的有序索引查找，不为每个命中重新分配波长列表。应用层把分析结果和3D布局结果保存在不同会话：分析会话服务探测器、分页数据库和路径分析，布局会话只保存有界确定性3D样本。两个会话使用独立串行通道，但每次追迹都会取得材料注册表快照，避免并发布局和分析追迹共享可写玻璃缓存。每次追迹同时捕获文档代次和结果会话代次，最终数据库移动与会话发布只在两者仍有效时执行；文件切换、清空或手动选择数据库后，旧后台结果不能重新成为当前结果。非序列3D页面打开或发现布局会话过期时会自动准备布局样本；旋转、缩放和显示设置只重绘，不改变随机追迹结果。手动“准备布局光线”执行强制刷新，成功后原子替换布局会话，失败或取消保留旧会话。布局数据库头的场景哈希必须与当前文档一致才会默认加载；过期结果只能在显式选择后显示，并携带结果哈希、当前哈希、来源修订和红色过期状态。两类会话均不进入工程脏状态。
 
 未知顺序几何由 `OpaqueGeometryPayload` 保存完整组件类型、数值、文本和递归子组件；其 Sag、交点和法线接口始终抛出确定错误。`OpticCapabilityPreflight` 是实光线追迹、全部公共旁轴/一阶入口、分析、优化、公差、顺序转非序列、二维/三维布局和导出的统一阻断入口，错误包含面号、原始类型及原因。STAROPT和原生光学快照可无损往返 opaque 数据；STEP、ZMX、SEQ、LEN和制造图纸等有损目标默认禁止输出。
 

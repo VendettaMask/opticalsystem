@@ -55,6 +55,34 @@ jobs:
             ${{ runner.temp }}/frozen-evidence-tests/results.json
           if-no-files-found: warn
 
+  documentation:
+    name: Documentation (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify documentation links and current-guide duplication
+        shell: pwsh
+        run: |
+          ./scripts/verify-documentation.ps1 -Strict -OutputPath (Join-Path '${{ runner.temp }}' 'documentation/audit.json')
+
+      - name: Test documentation checker
+        shell: pwsh
+        run: |
+          ./scripts/tests/verify-documentation.tests.ps1 -OutputPath (Join-Path '${{ runner.temp }}' 'documentation/tests.json')
+
+      - name: Upload documentation results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation-${{ matrix.os }}
+          path: ${{ runner.temp }}/documentation
+          if-no-files-found: warn
+
   build-main:
     name: Build main
     runs-on: ubuntu-22.04

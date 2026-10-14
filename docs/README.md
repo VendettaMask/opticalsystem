@@ -1,6 +1,6 @@
 # 项目文档索引
 
-整理日期：2026-10-13。先按任务阅读当前指南；带日期的记录只证明对应阶段，不能把旧通过数、旧独立模块架构或旧命令当作当前状态。
+整理日期：2026-10-14。先按任务阅读当前指南；带日期的记录只证明对应阶段，不能把旧通过数、旧独立模块架构或旧命令当作当前状态。
 
 ## 从这里开始
 
@@ -18,7 +18,7 @@
 - [应用品牌资源](BRANDING.md)
 - [构建与发布](BUILD_AND_RELEASE.md)
 - [初始结构与镀膜设计：统一产品交付（2026-10-13）](BUILT_IN_MODULES_2026-10-13.md)
-- [光学镀膜设计实验室](COATING_DESIGN_LAB.md)
+- [镀膜设计计算与实现契约](COATING_DESIGN_LAB.md)
 - [全仓库代码阅读地图](CODE_READING_MAP.md)
 - [当前实现与验证状态](CURRENT_STATUS.md)
 - [文件格式与插件](FILE_FORMATS_AND_PLUGINS.md)
@@ -47,14 +47,13 @@
 - [Windows 未签名交付与升级保护（2026-10-12）](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)
 - [Zemax 分析设置与实现方式参考](ZEMAX_ANALYSIS_REFERENCE.md)
 - [Zemax 基准配置边界](ZEMAX_BASELINE_CONFIGURATION_BOUNDARY.md)
-- [独立 C# Zemax 比较工具审计](ZEMAX_COMPARISON_TOOL.md)
 - [Zemax 顺序模式操作数支持规范](ZEMAX_OPERAND_SUPPORT.md)
 
 ## 模块、工具和样例入口
 
 - [Project collaboration instructions](../AGENTS.md)
 - [光学镀膜设计（产品内置模块）](../labs/CoatingDesign/README.md)
-- [Initial Structure — Built-in Product Module](../labs/InitialStructure/README.md)
+- [初始结构（产品内置模块）](../labs/InitialStructure/README.md)
 - [Fixed-protocol search evidence](../labs/InitialStructure/tools/OptilandWorkbench.InitialStructure.Benchmarks/README.md)
 - [Optical System Design](../README.md)
 - [测试镜头样例](../samples/lenses/README.md)
@@ -107,6 +106,7 @@
 <summary>光学、UI、架构和可靠性阶段记录</summary>
 
 - [精度与页面对比验证（2026-09-05 更新）](ACCURACY_VALIDATION_2026-07-31.md)
+- [C# Zemax 比较工具首轮历史审计（2026-09-05）](ZEMAX_COMPARISON_TOOL.md)
 - [旧、新架构收敛与单一结果链路修正计划](ARCHITECTURE_CONVERGENCE_PLAN.md)
 - [软件可靠性问题修复 · 2026-10-05](AUDIT_RELIABILITY_FIXES_2026-10-05.md)
 - [SVIG 自动渐晕](AUTOMATIC_VIGNETTING_2026-10-03.md)
@@ -231,4 +231,4 @@
 
 当前测试状态只汇总在状态页并链接对应证据；专题页不再复制无关阶段的验收广播。更新行为时修改对应正文，而不是在过时正文前不断加免责声明。已失效的执行命令应修正或明确归入历史；合并/删除必须同时修复反向链接，并保留有价值的失败证据。
 
-检查命令：`pwsh -File scripts/verify-documentation.ps1 -Strict -OutputPath .tmp/documentation-audit.json`。它检查本地 Markdown 链接与指纹，不在线核验网址、不重新运行产品测试，也不宣称历史数值结果获得了新认证。
+检查命令：`pwsh -File scripts/verify-documentation.ps1 -Strict -OutputPath .tmp/documentation-audit.json`。它检查本地链接、围栏、指纹及至少 100 字符的跨文档段落重复；`-Strict` 会拒绝两份现行指南之间的正文重复，历史警示与混合范围仍报告而不删除。代码块和表格不参与正文重复判定；它不判断语义近似、不在线核验网址、不重跑产品测试，也不认证历史数值。检查器回归命令为 `pwsh -File scripts/tests/verify-documentation.tests.ps1`；两项检查已配置到三平台 CI 的独立 Documentation 任务，远端运行结果需另行核验。

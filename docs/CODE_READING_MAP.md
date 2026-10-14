@@ -53,7 +53,7 @@
 | Phase | 常相位、线性光栅、径向、多项式和网格相位；网格支持插值 |
 | Coatings | 无镀膜、标量系数和经验兼容模型保持原义；`CoherentThinFilmSolver` / `ThinFilmSpectrum` 提供真实相干功率及复振幅，`CoherentMultilayerCoating` 接入正式顺序追迹和照度 Jones 链，完整材料快照可保存；实验室 UI 应用与旧电场 Jones 光瞳尚未接通 |
 | Scattering | 现有近似主要扣除主光线强度，不生成完整 BSDF 方向分布 |
-| Propagation | 均匀传播、旧入口方向近似，以及独立的 Gradient 1～4 连续曲线积分；正式顺序显式光线及限定共轴系统的连续近轴矩阵已接通 |
+| Propagation | 均匀传播、旧入口方向近似，以及 Gradient 1～5 连续曲线积分；正式顺序显式光线及限定共轴系统的连续近轴矩阵已接通 |
 | Plugins | 通过程序集加载与注册工厂扩展几何、材料、分析；注册机制本身不能证明桌面已接入全部扩展入口 |
 
 `OpaqueGeometryPayload` 保留未知组件树，但其 Sag、法线、求交不可计算。`OpticCapabilityPreflight` 是多种计算与有损输出入口的共同能力检查。
@@ -146,15 +146,15 @@ STAROPT 容器版本、工程负载版本、Optic 快照版本是不同概念。
 
 光学装调实验室另走主程序内独立窗口：`MainWindow.OpticalAssembly.cs` → `Laboratories/OpticalAssemblyWindow.cs` → Application 的 `OpticalAssemblyService` → 正式 Core 的 `Analysis/Assembly/AssemblyConjugates.cs`。Core 复用既有 `OpticalSurface.TraceRayValue` 和薄透镜交互模型，窗口使用 DTO；`AssemblyReticleView` 只渲染固定毫米坐标的光线计数网格。`AssemblyMeasurementMode` / Core `AssemblyProbeMode` 显式区分附加物镜与无穷远配置；无穷远模式不创建附加物镜，结果分别携带自准直仪位置、可空的附加物镜位置和共轭匹配状态。找像由共享内核残差导数外推求解。功能边界和测试见 [光学装调实验室](OPTICAL_ASSEMBLY_LAB.md)。
 
-`FlatRootFactory → FirstOrderSeedGenerator → HybridCandidateRefiner → CandidateDiversityOrdering` 是搜索主线。根结构为精确平行平面，后续以曲率和厚度参数化形成候选。
+当前桌面入口在 `Laboratories/InitialStructure/MainWindow.Workflow.cs`：预检查、生成、恢复和追加细化统一调用 `FlatStartSearchService`。形式枚举、v19 渐进恢复、预算和完整目标验收位于内部 Engine；`FlatStartSearchCheckpointStore` 保存有界、带校验的 family checkpoint。当前源文件定位可运行：
 
-搜索按镜片数和光阑位置形成结构族，使用确定性随机序列、差分进化及预算允许的局部细化，再进行更密集的独立验收。`LabAccepted` 表示满足实验室约束，不表示制造设计已完成。
+```powershell
+rg --files labs/InitialStructure/src | rg 'FlatStartSearch|FlatStartSearchCheckpoint|CandidateExport'
+```
 
-`InitialStructureSearchService` 管理规格验证、并行种子、预算、取消、检查点和诊断。检查点恢复已完成种子；细化中断后并非恢复完整种群内部状态。
+UI 经 Modules 消费共享 Core 的正式布局/分析 DTO，候选导出由 `CandidateExportService` 写 STAROPT、重开并比对同一快照。操作、数据目录和支持范围分别见 [模块说明](../labs/InitialStructure/README.md) 与 [模块契约](INITIAL_STRUCTURE_LAB_PLAN.md)。
 
-`RunDirectoryStore` 先写 staging 树，再发布不可变运行目录；加载检查候选集合、哈希和光学快照。`CandidateExportService` 写临时 STAROPT 后重新打开并比对快照，再发布用户目标文件。
-
-实验室内存在差分进化实现，不代表正式产品 `OptimizerCatalog` 已公开同名算法。
+`InitialStructureSearchService`、`FlatRootFactory → FirstOrderSeedGenerator → HybridCandidateRefiner` 和 `RunDirectoryStore` 是保留的历史 hybrid 路径，不是当前桌面的搜索/保存主线。其差分进化也不代表正式 `OptimizerCatalog` 已公开同名算法；旧记录、测试和外部验证入口在 [历史方法索引](../labs/InitialStructure/README.md#历史方法与验证) 中区分。
 
 ## 10. 工具与测试如何配合
 
@@ -260,5 +260,3 @@ rg --files src labs tools tests -g *.cs -g *.csproj
 源归档、上游对照脚本和物理验收相互独立；完整依据见[实施文档](COATING_DESIGN_LAB.md)与[验收记录](../validation/coating/README.md)。
 
 镀膜入口（2026-10-13 更新）：[结构搜索](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/DesignService.Search.cs)、[显式单位 n/k 表交换](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/MaterialTable.cs)、[材料对话框](../src/OptilandWorkbench.App/Laboratories/CoatingDesign/MaterialEditorWindow.cs)。UI 已移入主程序，直接使用主程序主题与字体服务，不再通过独立 csproj 源码链接。
-
-指定频率 MTF 制造公差：FFT/几何 MTF、逐视场极限/增量反求和联合良率、有界间隔/单表面偏心/倾斜补偿、startol v3（兼容 v1/v2）已实现；未认证原生 Zemax 公差数值。见 [使用、边界与验证](MTF_TOLERANCING_2026-10-04.md)。

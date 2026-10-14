@@ -1,90 +1,26 @@
 # 文件格式与插件
 
+更新：2026-10-14。本页说明文件入口、导出边界和插件接口。STAROPT 的二进制布局、版本与迁移只在 [格式契约](STAROPT_FILE_FORMAT.md) 维护；操作数逐项参数和历史验证只在 [支持规范](ZEMAX_OPERAND_SUPPORT.md) 维护。
+
 ## 分析 CSV 的输出来源（2026-10-13）
 
 有实际绘图点时保留既有 12 列 CSV：`pane,series,x_quantity,x_unit,x,y_quantity,y_unit,y,value_quantity,value_unit,value,label`，数量和单位来自类型化元数据，数值保持 invariant / round-trip 精度。空绘图子窗不会遮蔽仍存在的顶层曲线。图表与表格并存时仍导出绘图数据，保持旧消费方式；本轮没有增加混合多表 CSV 或完整工程数值交换协议。
 
 没有绘图点时，优先逐列、逐行导出 `AnalysisTableDto`；若含非空行分组，追加 `row_group` 列。无表格时导出指标/值摘要，表头为 `metric,value`。逗号、引号、换行、空格和已格式化单元格文本保留，不从显示字符串推断量纲或重新计算数值。表格行列数不一致时明确拒绝，无可导出数据时也报错；有明确列定义的零行表格可以只输出表头。桌面继续使用已有大小限制和原子写入，格式化失败不会覆盖旧导出文件。验证状态与源/证据哈希见[当前状态](CURRENT_STATUS.md)及[本轮账本](validation/RELIABILITY_FIXES_2026-10-13.json)。
 
-前批阶段记录：2026-10-03 膜层约束：CM/CI/CE 九项可本地编辑及 STAROPT 保存；原生 ZMX 行保持禁用只读并保留尾列。所有已有物理膜层及调整参数在未映射的文本导出时明确拒绝，避免从完整层定义降成名称。 详见[实现与验证](COATING_LAYER_CONSTRAINTS_2026-10-03.md)。
-
-2026-10-03 膜层约束：新增 CMGT/CMLT/CMVA、CIGT/CILT/CIVA、CEGT/CELT/CEVA 九项受限执行；共享薄膜求解读取每层倍率与 n/k 偏移，物理膜层编辑、变量优化和 STAROPT 保存撤销已接通。**335/383 项受限执行、48 项兼容保留**（41 项已知功能、2 项定义待核实、5 项 Unused）；另 4 项本程序扩展。默认输出 Debug/Release 合并回归各 **3089/3089**（前批 3034 + 新增 54 + 既有样式检查 1），零失败、零跳过、零编译警告/错误。原生膜层字段、聚合边界数值、倍率开关/拾取仍有缺口，ZMX 行保持只读。见[膜层约束记录](COATING_LAYER_CONSTRAINTS_2026-10-03.md)。下方保留历史阶段范围，不是全量发布验收。
-
-2026-10-02：原生 JSON/STAROPT 快照 schema 6 新增 `coherent_multilayer` 物理膜层组件，逐层完整保存材料和厚度，严格拒绝缺失材料系数；旧经验类型含义不变。这不解析 ZMX `COAT` 名称为真实膜系，也没有把独立 `.coating.json` 自动应用到镜头，见[原生格式](STAROPT_FILE_FORMAT.md#物理相干镀膜组件)及[物理镀膜追迹与保存](COHERENT_COATING_TRANSPORT_2026-10-02.md)。
-
-2026-09-30 全局坐标数据：快照新增可选 `GlobalReferenceSurfaceNumber`（缺省 1），STAROPT 与克隆保留。ZMX `GLRS` 与本批 GLC/RAG 活动表面槽位按坐标断点折叠后的物理面编号同步转换；被折叠坐标断点的直接引用尚未支持，明确拒绝。旧 STAROPT 已丢失的原始 GLRS 不能自动恢复。旧兼容行仅在类型已实现且正式参数/引用校验通过时解除只读，保留启用状态；无效引用继续可保存。详见 [第七批](ZEMAX_OPERAND_SUPPORT.md#2026-09-30-第七批全局坐标与光线扇导数部分完成)。
-
-2026-10-01 操作数帮助已改为三级导航，帮助阶段默认桌面 Debug/Release 输出已更新；当时帮助、名称标识及字号检查各 **19/19** 通过，含明暗主题和窄窗口渲染。见[层级与验证](OPERAND_HELP_HIERARCHY_2026-10-01.md)。该 19 项记录保留原阶段范围，后续合并回归见下方第二十六批。
-
-Huygens MTF 后处理修复只改变相关分析数值，并增加变换大小、频率取值约定的元数据，
-不改变镜头文件格式。STAROPT、ZMX、SEQ、LEN 入口和通用 JSON 基础设施保持原有边界；
-见 [本轮兼容影响](ZEMAX_HUYGENS_REPAIR_2026-09-06.md)。
-
-2026-09-06 能量/相位修复没有更改 STAROPT、ZMX、SEQ、LEN 或通用 JSON 的格式入口。兼容能量图的输出点数变为 396，分析 CSV/JSON 消费者应读取实际点数和类型化单位，不硬编码旧点数；这不恢复 Python Optiland 专用格式。详见 [数值输出边界](ZEMAX_ENERGY_REPAIR_2026-09-06.md)。
-
-2026-10-02 第二十六批：DIST 本地六槽、DISA 本地八槽（RefField/Wave/Field/Data/A/B/C/D）可经编辑器与 STAROPT 往返；两项原生列未捕获验证，ZMX 导入禁用只读且不自动升级，保留完整原记录文本，不补造缺失 Data5/Data6。快照仍为 schema 6。
-
-2026-10-02 第二十五批：MECA 本地六槽、编辑与 STAROPT 往返可用；原生 MECA 列和平均规则未捕获，ZMX 导入禁用只读且不自动升级。MECS/MECT 已知六槽保持；改为共同参考波前差，原始 Px/Py 不改写，旧向导中点行需按新向导重建以保持原光线对。快照仍为 schema 6。
-
-2026-10-02 第二十四批：ZERN 的本地七槽 Term/Wave/Samp/Field/Type/Epsilon/Vertex 贯通编辑与 STAROPT；Term 可为负诊断项，Field 位于 Data2，按元数据校验 DataN 视场引用。原生扩展列未捕获，ZMX 行禁用只读并保留原记录注释，不自动升级。快照仍为 schema 6。
-
-2026-10-01 第二十三批：视场快照 schema 6 保存可选 `VignetteDecenterX/Y` 与 `VignetteAngleDegrees`；旧 schema 1–5 缺失字段默认 0。ZMX VDXN/VDYN/VANN 与现有 VCXN/VCYN 双向保存。FDMO 本地八槽贯通 DTO/编辑器/STAROPT，FDRE 保留 Field 引用；两项原生 MFE 列仍只读，禁止自动升级。REQS 是无贡献位置标记，需求自动插入未实现。
-
-2026-10-01 第二十二批历史：SPHS/PSLP 与 DPHS/QSLP 均使用本程序六槽；Mode、Data、Samp 保持整数模式语义，不被误读成波长。主波长取自当前光学配置。本地编辑/项目保存可执行，原生列未核对的行仍禁用只读且不自动升级。
-
-2026-10-01 第二十一批历史：本程序 DENC/DENF 使用 Samp/Wave/Field/Type/Refp/Fraction 或 Distance/I Samp/I Delta 八槽。Wave=0 按严格谱权重汇总；FFT 忽略后两槽，惠更斯使用后两槽。原生八列尚未实机核对，导入禁用只读且不自动升级。
-
-2026-10-01 第二十批历史：本程序 SSAG 使用 Surf/Mode/X/Y/Off-axis/Remove/BFS 七槽，SSLP/SCRV 再使用 Data6=Orientation，第八槽从 DTO、编辑器、应用服务到 Core 快照完整往返。Int2 为模式整数，不是波长。缺少参数的可执行快照被拒绝；旧兼容行不补虚构 Data5/Data6，原生导入继续禁用只读。
-
-2026-10-01 第十九批历史：本程序 GENC/GENF 使用 Samp/Wave/Field/Type/Refp/Fraction 或 Distance/No Diff Lim 七槽，ERFP 使用 Samp/Wave/Field/Type/Fraction/Max Radius 六槽。Int1 是采样代码，Int2 是波长。编辑与 STAROPT 往返已验证；三项原生列映射缺少实机捕获，ZMX 保持禁用兼容只读，快照不自动升级。
-
-2026-10-01 第十八批历史：本程序 VOLU/TMAS 使用 Int1/Int2=闭区间起止面、Data2=Mode；DSAG 使用 Surface/Data/Samp/Off-axis/Remove/BFS，DSLP/DCRV 再使用 Data5=Orientation。六/七槽在本程序与 STAROPT 内可编辑往返；五项原生列布局未捕获核实，ZMX 记录禁用只读并保持兼容状态，不自动升级。
-
-2026-10-01 第十七批历史：本程序 PRIM 使用 Int1=Wave，IMSF 使用 Int1=Surface（0 恢复）/Int2=Refocus；这两类原生 ZMX 列位置尚未捕获核实，导入记录保持兼容只读，快照也不会自动升级。应用创建的行可执行并通过 STAROPT 与编辑器往返。CVIG 无有效参数列，可直接导入并清除当前批次已有 X/Y 压缩因子；当时偏移/旋转渐晕未实现，现已由第二十三批补齐。
-
-2026-10-01 第十六批历史：STRH 使用 Samp/Wave/Field/Pol/All Conf；CEHX/CEHY 使用 Wave/Field/Pol/Pupil Samp/Image Samp/All Conf。通用六槽与 STAROPT 往返已验证，Int1=Wave、Int2=Field 的引用校验已补齐；不可把质心操作数 Int1 当作表面号。原生 MFE 实机槽位/数值对照仍未验证。
-
-2026-10-01 第十五批历史：表面快照追加可空 `ThermalExpansionPpmPerC`（10⁻⁶/°C），显式 0 与未知 null 分开保存。旧 STAROPT/JSON 缺项为 null；新建表面默认 0。ZMX 表面 TCE 记录尚无已验证映射，因此导入表面保留 null，TCVA/TCGT/TCLT 行保留原参数、目标、权重并禁用只读；仅引用面已有明确 TCE 时，原生项目再加载可升级并保留禁用状态。
-
-2026-10-01 第十四批历史：GBPD/GBPP/GBPR/GBPS/GBPW/GBPZ 使用通用六槽 Surf/Wave/UseX/W0/S1toW/M²；W0 和 S1toW 作为原始数值保存，不能按视场编号处理。ZMX 六槽导入、STAROPT 及编辑器往返已验证；仍无原生 MFE 槽位/数值捕获。
-
-2026-09-30 第十三批历史：MTHA/MTHS/MTHT/MTHN/MTHX 采用已有七槽链路，第七列为 Ima Delta（µm），不能当作 Py。快照对所有七槽已实现类型统一要求完整 Data1..Data5；缺失扩展参数的旧行不自动补零升级。五种 MTH 原生 ZMX 扩展文本位置未验证，保持禁用只读、保留原始尾部文本；完整 STAROPT 行支持往返。
-
-2026-09-30 第十二批历史：应用 DTO 增加可选 `ZemaxData5`；编辑器按类型支持六或七槽，七槽的第七列为 Py。STAROPT 继续使用已有原始参数数组，无须容器版本迁移。面范围的两项原始整数和 Data1 波长分别验证，不能将终止面混作波长。四个角度范围的原生 ZMX 扩展位置未获得已提交捕获验证，整行参数文本继续只读保留；缺少 Data5 的旧行不能自动升级。编辑其他行、刷新或保存不会填零并解除只读。SFNO/TFNO 当前使用 Field/Wave 两个整数槽，0 分别解释为轴上/主波长；原生 MFE 槽位/数值对齐仍待捕获。
-
-2026-09-30 第十一批：ABCD/DISG/DIMX/SMIA/FCGS/FCGT 六槽及目标/权重接通。新增类型化 `SignedWavelength`：DISG 的负 Int2 按绝对编号选择波长并输出 mm，不能被当作非法负编号或普通波长而丢失符号；0 仅作可保存的编辑占位，求值报错，选定波长后可继续编辑。快照校验原始 Int1 视场引用，旧 Field 别名不能掩盖无效引用。有效旧兼容行可升级但保留禁用状态；无效引用继续兼容保留。
-
-2026-09-30 第十批：GMT/MTF/MSW 的 Samp/Wave/Field/Freq 与 Grid、!Scl、Data Type 按六个原始槽位保留；Samp 不作为面号映射。原始 Data1 为 Field 时新增整数/范围检查，不能由旧 Field 字段掩盖非法引用。仅 Grid=1 可执行，Grid=0 保留后求值明确报错。
-
-2026-09-30 第九批：RW/MW 的 Int1 为 Ring/Samp，不参与表面编号映射；Int2 波长引用按原始槽位校验，旧字段有效但原始 Int2 越界时不能自动升级兼容行。六槽、目标、权重及禁用状态经 ZMX/STAROPT 和编辑往返保留。
-
-2026-09-30 第八批：CEN/CNP/CNA 的非零 Surf 随坐标断点映射至物理面号，Surf=0 仍为像面别名；GS 的 Int1 是采样数，不参与表面编号转换。六个原始槽位经 ZMX、STAROPT 与桌面编辑往返保留。
-
 ## 原生 STAROPT 工程
 
-桌面端唯一原生工程扩展名是 `.staropt`。它是版本化二进制容器，不是改后缀的 JSON。固定文件头包含 `STAROPT` 魔数、容器版本、Brotli 标志、压缩/解压长度和负载 SHA-256；保存使用临时文件与原子替换。
+桌面“保存”只写 `.staropt`；旧 Workbench JSON 和商业顺序文本用于导入或显式交换，保存迁移结果不覆盖源文件。STAROPT 完整保留顺序配置、多配置行/变量/拾取及非序列场景和网格资产；容器、负载、快照版本、校验和临时构建顺序见 [唯一格式契约](STAROPT_FILE_FORMAT.md#工程负载)。
 
-当前容器版本为2、工程负载版本为 6（新增显式多配置单元格变量）；顺序光学快照使用 schema 6 `OpticSnapshot`。负载保存：
+旧经验膜层与损耗模型保留兼容含义，不自动变为真实膜系或 BSDF。物理相干膜层使用单独的 `coherent_multilayer` 组件，见 [组件契约](STAROPT_FILE_FORMAT.md#物理相干镀膜组件)。
 
-- 系统名称、孔径、数值后端；
-- 视场、波长和全部表面；
-- 丰富的表面组件快照；
-- 半径拾取、求解、评价操作数；
-- 环境设置和有序当前玻璃目录；
-- 全部光学配置、活配置索引，以及从属配置按表面/属性记录的继承断开关系；
-- 独立非序列文档的波长、追迹默认值、10类类型化原生光源、几何/探测器对象、GUID引用关系，以及内容寻址的STL网格资产。
+`.starrdb` 保存可重新生成的非序列追迹结果，不嵌入工程。完整分析与有界 3D 布局各自使用结果会话；格式、生命周期和过期校验见 [数据库契约](NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md#分支输出和-starrdb)。
 
-加载器除校验容器完整性外，还验证顺序主波长、有限数值、表面编号、组件布局，以及非序列对象类型、唯一GUID、引用图、光源参数/径向样本、网格资产哈希和集合上限。容器v1及工程负载v1–6继续兼容；保存始终写容器v2和负载v7。构建在临时文档中完成，全部成功后才替换活动状态。`OpticSnapshot` schema 1–5 会先迁移到 schema 6；新增瞳孔偏移和旋转缺省为 0。
-
-顺序组件快照的新建内容使用 `approximate_transmission_ripple`、`main_ray_scatter_loss_approximation` 和 `mean_measured_scatter_loss`，明确表示这些是 Experimental 损耗近似。旧 `thin_film_stack`、`lambertian` 和 `measured_bsdf` kind 继续只读兼容，加载后迁移到准确命名的模型；它们不表示已经实现真实薄膜或 BSDF 物理。
-
-非序列光线可另存为 `.starrdb`。该文件保存场景哈希、来源修订、追迹设置、随机种子、可选分裂模式、分支终止状态和分块压缩光线树；它是可重新生成的结果，不嵌入STAROPT。应用分别管理完整分析结果和有界3D布局结果：前者驱动数据库、路径和探测器，后者由非序列3D页面在打开、过期或用户手动刷新时生成。任何布局读取都会核对数据库头与当前场景哈希，过期光线默认不加载；显式查看时仍保留过期标记。详见[非序列第二阶段：杂散光基础链路](NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md)。
-
-旧 `.optiland.json`、`.optic.json`、`.json` 和 `.optiland` 可继续读取用于迁移，但桌面“保存”不再生成这些格式。二进制结构见 [STAROPT 工程格式](STAROPT_FILE_FORMAT.md)。
+旧 `.optiland.json`、`.optic.json`、`.json` 和 `.optiland` 可读取本项目原生快照用于迁移；这不是已退役的 Python Optiland 字典格式。
 
 ## 镀膜实验文件
 
-独立镀膜实验室使用 `.coating.json` schema 1，与主程序 `.staropt` 分开。保存膜系、完整材料公式/n/k 表和来源/有效范围、目标、采样/约束、候选、运行算法与版本、停止原因、评价次数、求解器版本、输入 SHA-256、光谱和逐项指标；公差结果还记录种子与输入哈希。正式 `BoundedFile` 提供有界读取和原子替换；格式/输入非法或结果哈希不匹配明确拒绝。重开有结果的实验后以冻结快照重新计算。此格式不承诺兼容 TFStudio 文件，也不进入当前镜头。
+内置镀膜模块使用 `.coating.json` schema 1，实验编辑状态与镜头 `.staropt` 分开；文件隔离不是独立产品或进程。保存膜系、完整材料公式/n/k 表和来源/有效范围、目标、采样/约束、候选、运行算法与版本、停止原因、评价次数、求解器版本、输入 SHA-256、光谱和逐项指标；公差结果还记录种子与输入哈希。正式 `BoundedFile` 提供有界读取和原子替换；格式/输入非法或结果哈希不匹配明确拒绝。重开有结果的实验后以冻结快照重新计算。此格式不承诺兼容 TFStudio 文件，也不进入当前镜头。
 
 导出目录含 `layers.csv`、`spectrum.csv`、`metrics.csv`、`run.json`、`experiment.coating.json`。CSV 使用 nm、原始 R/T/A 比例以及 ln(T)/OD，保留 G17 数值，不使用界面舍入值或 OD 显示饱和值；每个文件原子写入，整个导出目录不是多文件事务。参见[镀膜实验室说明](../labs/CoatingDesign/README.md)。
 
@@ -92,7 +28,7 @@ Huygens MTF 后处理修复只改变相关分析数值，并增加变换大小�
 
 公差定义使用 `*.startol.json`，保存版本、操作数顺序和启用状态、类型、表面、上下偏差、分布、注释、评价准则、Monte Carlo 数量/种子、补偿迭代和良率阈值。公差编辑器独立跟踪未保存状态；新建、打开、镜头库载入和退出都会与原生工程一起进入统一保存确认。写入使用同目录临时文件和原子替换。
 
-加载时验证表面范围、有限且有序的偏差、重复操作数以及至少一个有效非补偿操作数。该格式是 Workbench 自有的可读交换格式，不宣称兼容 Zemax 专有 `.TOL`。
+加载时验证表面范围、有限且有序的偏差、重复操作数以及至少一个有效非补偿操作数。文件版本、指定频率 MTF 准则和旧版本迁移见 [公差保存契约](TOLERANCING.md)。该格式不宣称兼容 Zemax 专有 `.TOL`。
 
 ## CAD 交换
 
@@ -102,7 +38,7 @@ Huygens MTF 后处理修复只改变相关分析数值，并增加变换大小�
 - 网格直接采样每个表面的真实 `Geometry.Sag(x,y)`，再通过该表面的 `CoordinateSystem` 转换到全局 XYZ；不复用查看器的轴对称旋转网格。
 - 未支持的几何类型不会按平面解释。STAROPT和原生 JSON 将其数字、文本及递归子组件保存为不可计算的 opaque payload；追迹、分析、优化、公差、布局和导出前统一报告面号、原始类型及阻断原因。
 - opaque 几何只允许保存到能完整保留该 payload 的原生格式。STEP、ZMX、CODE V SEQ、OSLO LEN及制造图纸等有损导出默认拒绝，不提供静默降级开关。
-- 镜片实体外形使用 `SemiDiameter`。物理孔径只表示通光范围，不会被误切成材料孔洞；前后口径不同时，较小表面会在边缘 Sag 高度延伸为平坦环带，再以共同外径侧壁连接，与三维查看器的镜片边缘拓扑保持一致。
+- 镜片实体外径使用前后面的 `MechanicalSemiDiameter`，光学曲面采样覆盖净半径加 `ChipZone`；机械半径不得小于该覆盖范围。物理孔径只表示通光范围，不被误切成材料孔洞；曲面边缘外的机械延伸形成平坦环带并连接侧壁，不扩大有效通光口径。
 - `SurfaceSamples` 和 `AngularSamples` 是最低种子密度，默认继续细分到最大弦高误差不超过 `0.005 mm`；单片默认上限为 `500,000` 个三角形，超限会失败而不是静默降精度。
 - 写出前检查非有限 Sag、占位自由曲面、退化面、非流形边、法向、正体积和三角网格自相交。错误包含镜片或表面编号；没有基底实体定义的反射面跳过并返回警告。
 - 文件先写入目标目录中的临时文件，再原子替换目标；取消或失败不会破坏已有 STEP。
@@ -137,7 +73,7 @@ ZMX 导入边界包括编码检测、顺序模式验证、`UNIT` 长度单位缩
 
 ZMX 导出写入 `UNIT MM`、系统孔径、视场、像方无焦标志、波长、主波长和有序 `GCAT`。导出只对可无损表达为 Zemax `STANDARD`、`EVENASPH`、`ODDASPHE` 和基础 `TOROIDAL` 的几何写出 `TYPE`；环形物理孔径写为 `APMN`，其它 Workbench 特有或尚未映射到 Zemax 的几何/孔径会明确失败，不再静默降级为 `TYPE STANDARD`。像方无焦按 Zemax 风格作为像空间角度坐标处理：点列图、光线扇形、RMS Spot、FFT/MMDFT/Huygens PSF、MTF 和波前/OPD 会在最终像面使用相对主光线的角度坐标（mrad）、角频率（cycles/mrad）和屈光度离焦（D）；波前参考由参考球切换为垂直主光线的平面。CODE V、OSLO 和通用顺序文本只覆盖公共表面字段。完整状态应使用 STAROPT。
 
-Zemax 顺序操作数的目标边界见 [Zemax 顺序模式操作数支持规范](ZEMAX_OPERAND_SUPPORT.md)。当前 `[MS-L7]` 参考文件的 103 行评价函数已按源顺序导入；324 个 Zemax 顺序操作数已有受限可执行路径，覆盖 `TRAR`、范围厚度 `TTHI/TGTH`、实际光线径向坐标 `REAR`、实际光线角度 `RANG`、基础数学与行约束（含 `DIVB/PROB/OSUM/QSUM/EQUA` 定义级语义）、常见厚度/边厚/曲率/圆锥/半口径、`WLEN/INDX`、`MNIN/MXIN/MNAB/MXAB`、`POWR`、若干一阶量以及 `CTGT`、`PMAG`、`PETZ`、`MXEG` 和 `GOTO/ENDX/OOFF/SKIN/SKIS/USYM`。当前 383 个名称已与官方 2026 R1 API 枚举核对的顺序兼容代码中，`DISC` 等未实现类型保持兼容只读；`DIST/DISA` 本地受限执行，原生导入仍只读，`DISG` 的负波长编号和 `DIMX` 的 Field/Absolute 已接通。兼容表中出现或能够往返的操作数不等于已经完成参数语义、求值和 Zemax 数值等价；新增执行路径也必须通过 Zemax/ZOS-API golden 对照后才能标为完整兼容。
+ZMX 评价函数保留代码、参数、目标、权重、注释和禁用状态。可读取或往返不等于可求值；未经核实的原生列保持只读，不能补零并自动升级。注册范围、受限执行数量、逐项参数与原生验证缺口统一见 [操作数支持规范](ZEMAX_OPERAND_SUPPORT.md)。
 
 ## 文档服务
 
@@ -202,5 +138,3 @@ schema 1 新增可选 Structure/Search/Tolerancing 设置，缺省时不参与�
 ## 延伸区的导出边界（2026-10-02）
 
 本地 `ChipZone` 已进入 JSON/STAROPT；CAD/STEP 曲面延伸到净半径加延伸区，然后生成机械平环。外部 ZMX/CODE V/OSLO/通用处方的非零延伸区列尚未验证，当前明确拒绝导出，避免静默丢失。TSAG 原始 MFE 行仍禁用保留，本地八槽可执行。见[完整范围](DIRECTIONAL_SAG_OPERAND_2026-10-02.md)。
-
-指定频率 MTF 制造公差：FFT/几何 MTF、逐视场极限/增量反求和联合良率、有界间隔/单表面偏心/倾斜补偿、startol v3（兼容 v1/v2）已实现；未认证原生 Zemax 公差数值。见 [使用、边界与验证](MTF_TOLERANCING_2026-10-04.md)。
