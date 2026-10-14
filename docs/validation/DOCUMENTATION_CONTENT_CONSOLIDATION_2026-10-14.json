@@ -275,6 +275,63 @@
     "Pushed": false,
     "Note": "Based on the already synchronized 15c9ef9. This documentation repair is not claimed as pushed."
   },
+  "Synchronization": {
+    "Date": "2026-10-14",
+    "Branch": "main",
+    "RepairCommit": "83582e76bd09f13a3173c01437411bd8b6ad88d7",
+    "RemoteHeadAtVerification": "83582e76bd09f13a3173c01437411bd8b6ad88d7",
+    "Committed": true,
+    "Pushed": true,
+    "RemoteIdentityVerified": true,
+    "WorkingTreeCleanAtRemoteVerification": true,
+    "DocumentationRecheck": {
+      "Documents": 888,
+      "BrokenLinks": 0,
+      "MarkdownFenceIssues": 0,
+      "GuideRepeatedParagraphGroups": 0,
+      "PreservedHistoricalRepeatedParagraphGroups": 11
+    },
+    "CheckerRegressionRecheck": {
+      "Cases": 17,
+      "Passed": 17,
+      "Failed": 0
+    },
+    "FrozenIndexBeforeCommit": {
+      "source": "Index",
+      "commit": "15c9ef9b6b4aaf90a5ff499e02fbb2f61eca8c69",
+      "count": 2668,
+      "matched": 2668,
+      "unchanged": true
+    },
+    "FrozenHeadAfterPush": {
+      "source": "HEAD",
+      "commit": "83582e76bd09f13a3173c01437411bd8b6ad88d7",
+      "count": 2668,
+      "matched": 2668,
+      "unchanged": true
+    },
+    "WorkingFrozenMatchedAfterPush": 2668,
+    "Evidence": [
+      {
+        "Path": "artifacts/validation/documentation-content-20261014/pre-sync.json",
+        "Sha256": "23b44db7f7cef70d2fd852aa5cbe3864144a3e76203667a643e6ccf63c5a5fcc"
+      },
+      {
+        "Path": "artifacts/validation/documentation-content-20261014/pre-sync-tests.json",
+        "Sha256": "24b8d53fa3d91226ce5e3117ef414f8e18cabaaf9c17e70b9d88ad1e5fc5d2f0"
+      },
+      {
+        "Path": "artifacts/validation/documentation-content-20261014/index-pre-sync.json",
+        "Sha256": "861078db0965729cddc23153ca19790fa4c8b632968de07fb67b1631731560e2"
+      },
+      {
+        "Path": "artifacts/validation/documentation-content-20261014/head-post-sync.json",
+        "Sha256": "d2fda38e3d5f4fb4e322dc612d7c8f6e1d1b8feccda1c10c0115463e5d8a92a6"
+      }
+    ],
+    "RemoteCiResultsVerified": false,
+    "Note": "Original validation SourceCommit/SourceDirty/DeliveryAtValidation remain unchanged. Synchronization notes are committed separately after confirming the pushed repair; local generated reports are not release attachments."
+  },
   "Limitations": [
     "External URLs were not re-fetched.",
     "Historical warning and phase-result duplicates remain reported, not automatically deleted.",
