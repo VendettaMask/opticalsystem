@@ -106,7 +106,7 @@ internal static class BoundedTrustRegionLeastSquares
                 var scaledUpper = upper.Select((value, index) => (value - vector[index]) * scales[index]).ToArray();
                 var step = regularized is null
                     ? Dogleg(jacobian, gradient, gaussNewton, new double[vector.Length], scaledLower, scaledUpper, free, radius)
-                    : RegularizedStep(regularized, jacobian, gradient, scaledLower, scaledUpper, free, radius, ref factorizations);
+                    : RegularizedStep(regularized, jacobian, evaluation.Residuals, gradient, scaledLower, scaledUpper, free, radius, ref factorizations);
                 var proposed = vector.Select((value, index) => Math.Clamp(value + step[index] / scales[index], lower[index], upper[index])).ToArray();
                 if (proposed.Any(value => !double.IsFinite(value))) return Finish(LeastSquaresTermination.NonFiniteModel);
                 for (var index = 0; index < step.Length; index++) step[index] = (proposed[index] - vector[index]) * scales[index];
@@ -130,7 +130,11 @@ internal static class BoundedTrustRegionLeastSquares
                 var accepted = ratio is > 0.1 && actual is > 0;
                 var nextRadius = radius;
                 if (ratio is null or < 0.25) nextRadius = 0.25 * stepNorm;
-                else if (ratio > 0.75 && stepNorm >= radius * (1 - 16 * PivotedLeastSquares.MachineEpsilon))
+                // The damped solve deliberately stops within [0.9 * radius, radius].
+                // Requiring equality to the boundary prevents an accurate regularized
+                // model from ever enlarging its region and wastes the function budget.
+                else if (ratio > 0.75 && stepNorm >= radius * (regularized is null
+                    ? 1 - 16 * PivotedLeastSquares.MachineEpsilon : .9))
                     nextRadius = Math.Min(maximumRadius, 2 * radius);
                 trials.Add(new(models, count, workUnits, Array.AsReadOnly((double[])vector.Clone()),
                     Array.AsReadOnly(proposed), radius, nextRadius, predicted, actual, ratio, accepted));
@@ -257,13 +261,36 @@ internal static class BoundedTrustRegionLeastSquares
     }
 
     private static double[] RegularizedStep(RegularizedLeastSquaresModel model, double[,] jacobian,
-        double[] gradient, double[] lower, double[] upper, int[] free, double radius, ref int factorizations)
+        IReadOnlyList<double> residuals, double[] gradient, double[] lower, double[] upper, int[] free,
+        double radius, ref int factorizations)
     {
-        var solved = model.Step(radius, out var solves);
-        factorizations += solves;
         var candidate = new double[gradient.Length];
-        for (var column = 0; column < free.Length; column++)
-            candidate[free[column]] = Math.Clamp(solved[column], lower[free[column]], upper[free[column]]);
+        var movable = free;
+        while (movable.Length > 0)
+        {
+            var solved = model.Step(radius, out var solves);
+            factorizations += solves;
+            var remaining = movable.Where((column, index) =>
+                !(lower[column] >= 0 && solved[index] < 0)
+                && !(upper[column] <= 0 && solved[index] > 0)).ToArray();
+            if (remaining.Length == movable.Length)
+            {
+                for (var column = 0; column < movable.Length; column++)
+                    candidate[movable[column]] = Math.Clamp(solved[column], lower[movable[column]], upper[movable[column]]);
+                break;
+            }
+            // An inward gradient does not guarantee an inward coupled Newton step.
+            // Clipping an outward active-bound coordinate leaves the other coordinates
+            // solving the wrong model. Resolve the remaining columns at that bound;
+            // the outer gradient check can release it again on the next iteration.
+            movable = remaining;
+            if (movable.Length == 0) break;
+            var reduced = new double[jacobian.GetLength(0), movable.Length];
+            for (var column = 0; column < movable.Length; column++)
+                for (var row = 0; row < jacobian.GetLength(0); row++) reduced[row, column] = jacobian[row, movable[column]];
+            model = new(reduced, residuals);
+            factorizations++;
+        }
         var cauchy = Dogleg(jacobian, gradient, new double[gradient.Length], new double[gradient.Length], lower, upper, free, radius);
         var norm = cauchy.Aggregate(0.0, double.Hypot);
         if (norm > radius)

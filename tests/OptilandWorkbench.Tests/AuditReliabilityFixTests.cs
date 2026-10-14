@@ -205,24 +205,27 @@ public sealed class AuditReliabilityFixTests
     [InlineData("variables")]
     public async Task OptimizationPreparationDoesNotBlockReadsAndRejectsConcurrentEdits(string method)
     {
-        using var started = new ManualResetEventSlim();
+        var started = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         using var release = new ManualResetEventSlim();
+        using var cancellation = new CancellationTokenSource();
         using var workspace = new WorkspaceCoordinator(new OpticContext(Optic.CreateCookeTriplet()), _ =>
         {
-            started.Set();
-            if (!release.Wait(TimeSpan.FromSeconds(5))) throw new TimeoutException();
+            started.TrySetResult();
+            release.Wait(cancellation.Token);
         });
         workspace.Runtime.Surfaces[1].RadiusVariable = true;
         var optimization = new OptimizationService(workspace);
         Task pending = method switch
         {
-            "radius" => optimization.OptimizeSurfaceRadiusAsync(1, "Damped Least Squares", 1),
-            "variables" => optimization.OptimizeVariablesAsync("Damped Least Squares", 1),
-            _ => optimization.QuickFocusAsync()
+            "radius" => optimization.OptimizeSurfaceRadiusAsync(1, "Damped Least Squares", 1, cancellation.Token),
+            "variables" => optimization.OptimizeVariablesAsync("Damped Least Squares", 1, cancellation.Token),
+            _ => optimization.QuickFocusAsync(cancellation.Token)
         };
-        Assert.True(started.Wait(TimeSpan.FromSeconds(5)));
         try
         {
+            // Yield the xUnit worker while the optimization is queued; a blocking
+            // startup wait can starve the very pool worker whose entry it measures.
+            await started.Task.WaitAsync(TimeSpan.FromSeconds(5));
             // Measure document-lock availability, independently of a saturated test thread pool.
             await Task.Factory.StartNew(workspace.GetDocumentSnapshot, CancellationToken.None,
                 TaskCreationOptions.LongRunning, TaskScheduler.Default).WaitAsync(TimeSpan.FromSeconds(2));
@@ -233,7 +236,15 @@ public sealed class AuditReliabilityFixTests
             await Assert.ThrowsAnyAsync<OperationCanceledException>(() => pending);
             Assert.Equal(expected, SerializeDocument(workspace.Runtime.CaptureDocument()));
         }
-        finally { release.Set(); }
+        finally
+        {
+            cancellation.Cancel();
+            release.Set();
+            // Drain the worker before disposing its callback resources, including
+            // when the startup/lock assertion fails under concurrent test load.
+            try { await pending; }
+            catch (OperationCanceledException) { }
+        }
     }
 
     [Theory]

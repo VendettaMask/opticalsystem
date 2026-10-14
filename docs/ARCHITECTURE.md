@@ -48,6 +48,8 @@ OpticalSurface
 
 2026-10-13：标量批处理适配与 SIMD 批处理共用 `StandardIntersectionValidation` 的显式矢高选根/容差校验；向量化系数计算和标量尾部处理仍分开。制造端通过 Application 的只读几何 DTO 恢复同一 Core 面型，径向矢高/斜率/厚度计算不再留在 App；适用面型和图纸边界见 [制造说明](MANUFACTURING_DRAWINGS.md#实际面型与共享计算2026-10-13)。
 
+2026-10-14：`SurfaceGeometryDefinitionDto` 按面型标识和全部参数键值判等；字典插入顺序不影响相等或哈希值。构造时仍复制并冻结参数，使重新读取、撤销和事务回滚得到的同值处方保持一致，参数变化仍可区分。
+
 `INumericBackend` 定义标量运算，`IBatchedNumericBackend` 定义批量运算。内置 CPU 后端在常见顺序路径使用 `System.Numerics.Vector<double>`，不支持的曲面回退到标量内核。
 
 `TraceRequest` 明确指定：

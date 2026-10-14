@@ -42,6 +42,47 @@ public sealed class BoundedTrustRegionLeastSquaresTests
     }
 
     [Fact]
+    public void AccurateDampedStepsExpandWithinTheRadiusSolveTolerance()
+    {
+        // An anisotropic model selects a damped step inside the radius tolerance;
+        // a one-coordinate model instead selects the boundary Cauchy step.
+        var result = BoundedTrustRegionLeastSquares.Solve([0.0, 0.0], [-10, -10], [10, 10],
+            (point, _) => new([point[0] - 3, 100 * (point[1] - 2)]), new()
+            {
+                InitialRadius = 2.5,
+                MaximumEvaluations = 60,
+                StepMethod = LeastSquaresStepMethod.Regularized
+            });
+        Assert.Equal(LeastSquaresTermination.Stationary, result.Termination);
+        Assert.Equal(3, result.Variables[0], 8);
+        Assert.Equal(2, result.Variables[1], 8);
+        Assert.Equal(2 * result.Trials[0].Radius, result.Trials[0].NextRadius);
+        Assert.Contains(result.Trials, trial => trial.NextRadius > trial.Radius);
+        Assert.All(result.Trials, trial =>
+            Assert.InRange(trial.TrialPoint.Zip(trial.BasePoint, (a, b) => a - b).Aggregate(0.0, double.Hypot),
+                0, trial.Radius * (1 + 1e-12)));
+    }
+
+    [Fact]
+    public void CoupledOutwardNewtonDirectionResolvesTheOtherActiveBoundCoordinates()
+    {
+        // At x=0 the gradient points inward, but the unconstrained coupled solution
+        // is (-100,2). Clipping x wastes its compensating y step; the constrained
+        // solution is (0,1.00000001) and must be found without more function calls.
+        var result = BoundedTrustRegionLeastSquares.Solve([0.0, 0.0], [0, -10], [10, 10],
+            (point, _) => new([point[0] + 100 * point[1] - 100, .01 * (point[1] - 2)]),
+            new() { MaximumEvaluations = 32, InitialRadius = 10, StepMethod = LeastSquaresStepMethod.Regularized });
+        Assert.True(result.Termination is LeastSquaresTermination.Stationary or LeastSquaresTermination.StepTooSmall);
+        Assert.InRange(Math.Abs(result.Variables[0]), 0, 1e-8);
+        Assert.Equal(1.00000001, result.Variables[1], 8);
+        Assert.InRange(result.Evaluation!.Residuals.Sum(value => value * value), 0, .0001);
+        var residuals = result.Evaluation.Residuals;
+        Assert.True(residuals[0] >= -1e-8); // Active x bound satisfies the KKT sign.
+        Assert.InRange(Math.Abs(100 * residuals[0] + .01 * residuals[1]), 0, 1e-8);
+        Assert.All(result.Trials.Where(trial => trial.Accepted), trial => Assert.True(trial.ActualReduction > 0));
+    }
+
+    [Fact]
     public void RejectedStepsReuseJacobianAndFactorizationAndChargeEveryCall()
     {
         var calls = 0;

@@ -1,12 +1,12 @@
 # 初始结构内置模块：范围与后续计划
 
-更新：2026-10-13。本页取代旧的“独立软件开发计划”；旧版本中的独立解决方案、外部启动器、默认不打包和可选产品入口均已撤销。历史原文可从 Git 查询，不再作为开发约束。
+更新：2026-10-14。本页取代旧的“独立软件开发计划”；旧版本中的独立解决方案、外部启动器、默认不打包和可选产品入口均已撤销。历史原文可从 Git 查询，不再作为开发约束。
 
 ## 当前实现
 
 模块通过主程序“实验室 → AI 初始结构”打开，在主程序进程和 UI 程序集中运行。标准构建、安装、升级、修复和卸载必须包含它，不允许单独交付。现有 `labs/InitialStructure` 只保存 Contracts、Engine、Persistence、测试和基准；界面在 `src/OptilandWorkbench.App/Laboratories/InitialStructure`，显示适配在 `src/OptilandWorkbench.Modules`。
 
-当前工作流是输入规格、真实材料预检查、从精确零曲率平板根生成、候选比较、停止/恢复、追加细化及 STAROPT 导出。搜索入口为 `FlatStartSearchService`；v19 渐进恢复是算法版本，不是独立软件版本。操作与数据目录见 [模块 README](../labs/InitialStructure/README.md)，当前工程验收见 [统一交付](BUILT_IN_MODULES_2026-10-13.md)。
+当前工作流是输入规格、真实材料预检查、从精确零曲率平板根生成、候选比较、停止/恢复、追加细化及 STAROPT 导出。搜索入口为 `FlatStartSearchService`；v20 有界求解修正沿用渐进恢复，是算法版本，不是独立软件版本。操作与数据目录见 [模块 README](../labs/InitialStructure/README.md)，当前工程验收见 [统一交付](BUILT_IN_MODULES_2026-10-13.md)。
 
 ## 不变的计算与数据边界
 

@@ -18,6 +18,25 @@ namespace OptilandWorkbench.Tests;
 public sealed class SharedCalculationConvergenceTests(ITestOutputHelper output)
 {
     [Fact]
+    public void GeometryDefinitionsUseValuesForEqualityAndHashingAcrossNewSnapshots()
+    {
+        var first = new SurfaceGeometryDefinitionDto("standard", new Dictionary<string, double>
+        { ["radius"] = 25, ["conic"] = -.5 });
+        var reordered = new SurfaceGeometryDefinitionDto("standard", new Dictionary<string, double>
+        { ["conic"] = -.5, ["radius"] = 25 });
+        Assert.Equal(first, reordered);
+        Assert.Equal(first.GetHashCode(), reordered.GetHashCode());
+        Assert.Single(new HashSet<SurfaceGeometryDefinitionDto> { first, reordered });
+        Assert.NotEqual(first, new SurfaceGeometryDefinitionDto("plane", first.Numbers));
+        Assert.NotEqual(first, new SurfaceGeometryDefinitionDto("standard", new Dictionary<string, double>
+        { ["radius"] = 26, ["conic"] = -.5 }));
+        Assert.NotEqual(first, new SurfaceGeometryDefinitionDto("standard", new Dictionary<string, double>
+        { ["radius"] = 25 }));
+        Assert.NotEqual(first, new SurfaceGeometryDefinitionDto("standard", new Dictionary<string, double>
+        { ["Radius"] = 25, ["conic"] = -.5 }));
+    }
+
+    [Fact]
     public void ManufacturingUsesCompleteAsphereForSagThicknessSlopeAndDrawing()
     {
         var geometry = new EvenAsphereGeometry(0, 0, [0, 0.001]);

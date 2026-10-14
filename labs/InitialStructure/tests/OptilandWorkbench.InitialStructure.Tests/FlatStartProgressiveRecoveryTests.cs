@@ -45,13 +45,22 @@ public sealed class FlatStartProgressiveRecoveryTests
             Assert.Equal(f.AttemptedRays, f.ValidRays);
             Assert.Equal(f.CheckAttemptedRays, f.CheckValidRays);
         });
-        // Recovery is not acceptance: this frozen difficult start still misses the RMS target.
-        Assert.False(final.MeetsTargets);
-        Assert.Equal(CandidateStatus.TraceValid, result.Candidate!.Status);
-        Assert.True(result.Candidate.Evaluation.RmsSpotRadiusMillimeters > specification.MaximumRmsSpotRadiusMillimeters);
+        // v20 reaches the original target from this start; acceptance still requires
+        // the unchanged independent full-field, geometry and throughput gates.
+        Assert.True(final.MeetsTargets);
+        Assert.Empty(final.Violations);
+        Assert.Equal(CandidateStatus.LabAccepted, result.Candidate!.Status);
+        Assert.True(result.Candidate.Evaluation.RmsSpotRadiusMillimeters <= specification.MaximumRmsSpotRadiusMillimeters);
         var problem = new FlatStartDesignProblem(specification, family.ElementCount, result.Candidate.Optic, family);
         var fresh = problem.Evaluate(Optic.FromSnapshot(result.Candidate.Optic), FlatStartDesignProblem.FullStage, true, default, true);
         Assert.Equal(ContentFingerprint.Compute(final), ContentFingerprint.Compute(fresh));
         Assert.Equal(result.Candidate.OpticFingerprint, ContentFingerprint.Compute(fresh.EvaluatedOptic!));
+        // The same recovered prescription cannot bypass a tighter physical target.
+        var tighter = specification with { MaximumRmsSpotRadiusMillimeters = .001 };
+        var rejected = new FlatStartDesignProblem(tighter, family.ElementCount, result.Candidate.Optic, family)
+            .Evaluate(Optic.FromSnapshot(result.Candidate.Optic), FlatStartDesignProblem.FullStage, true, default, true);
+        Assert.True(rejected.IsFeasible);
+        Assert.False(rejected.MeetsTargets);
+        Assert.Contains(rejected.Violations, violation => violation.Code.EndsWith(".rms", StringComparison.Ordinal));
     }
 }

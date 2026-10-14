@@ -37,13 +37,15 @@ public sealed class SecantLeastSquaresTests
         static int Rank(DesignEvaluation e) => e.MeetsTargets ? 0 : e.IsFeasible ? 1 : 2;
     }
 
-    [Fact]
-    public async Task PreviousAreaVersionRemainsReadableWithItsScheduleButRequiresSeparateRefinement()
+    [Theory]
+    [InlineData("13")]
+    [InlineData("19")]
+    public async Task PreviousAreaVersionRemainsReadableWithItsScheduleButRequiresSeparateRefinement(string version)
     {
         var spec = FlatStartQualityRegressionTests.Upgrade(FlatStartRefinementTests.Spec());
         using var stop = new CancellationTokenSource(); stop.Cancel();
         var current = (await new FlatStartSearchService().RunAsync(spec, cancellationToken: stop.Token)).Checkpoint;
-        var previous = current with { Algorithm = current.Algorithm with { Version = "13" } };
+        var previous = current with { Algorithm = current.Algorithm with { Version = version } };
         Assert.Equal(2, previous.Schedule!.PolicyVersion);
         FlatStartCheckpointValidation.Validate(previous);
         var error = await Assert.ThrowsAsync<InvalidDataException>(() => new FlatStartSearchService().RunAsync(spec, previous.Options, checkpoint: previous));
