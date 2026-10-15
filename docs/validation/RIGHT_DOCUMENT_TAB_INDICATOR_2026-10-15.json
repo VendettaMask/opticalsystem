@@ -1,0 +1,55 @@
+{
+  "Date": "2026-10-15",
+  "Scope": "Move the ordinary Light document-tab blue selected effect from the bottom to the right",
+  "SourceCommit": "0179e2fb8fff814826176043271fac6e241c2c24",
+  "SourceDirty": true,
+  "ChangedProductionCode": ["src/OpticalSystemDesign.App/Theming/BlueThemeStyles.cs"],
+  "Implemented": [
+    "Native Dock PART_TabBody reserves 0/0/2/0 DIP border thickness in every ordinary Light state instead of 0/0/0/2",
+    "Only an enabled selected document tab paints the edge blue; unselected/disabled edges stay transparent",
+    "Existing native template, rounded corners, title/close controls, selection colors and docking behavior retained; no new blurred shadow or workspace-border change",
+    "Tool tabs, Dark, Pixel and Isekai are not restyled by this position change"
+  ],
+  "Builds": [
+    { "Configuration": "Debug", "Target": "OpticalSystemDesign.slnx", "Projects": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/right-tab-indicator-20261015/build-debug.log" },
+    { "Configuration": "Release", "Target": "OpticalSystemDesign.slnx", "Projects": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/right-tab-indicator-20261015/build-release.log" }
+  ],
+  "AppAssemblySha256": {
+    "Debug": "87de68fe751ffdf09f42a009aa8289ec2f44f7cd4560ab5b7fd827a3eb5cd914",
+    "Release": "b27acef3fb8b5abe546e5969b0d5741db7cacec831edd9366ab2aa3e130e08cc",
+    "DefaultAndTestOutputMatch": true
+  },
+  "Tests": {
+    "Project": "tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj",
+    "Classes": ["DocumentTabCornerTests", "ReferenceWorkbenchLayoutTests", "BlueThemeInteractionTests", "ThemeRuntimeTests", "ToolDockCornerTests", "LayeringArchitectureTests"],
+    "Debug": { "Passed": 50, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/right-tab-indicator-20261015/right-tab-final-debug.trx" },
+    "Release": { "Passed": 50, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/right-tab-indicator-20261015/right-tab-final-release.trx" },
+    "NewCases": 0,
+    "ExtendedCoverage": "Existing real-tab state loops now include enabled/disabled combinations and assert right-edge thickness/color plus stable tab size and title bounds; actual workbench compositions assert right rather than bottom thickness",
+    "FullProductSuiteRun": false
+  },
+  "RenderedControlFixtures": {
+    "Mechanism": "Separate Skia headless processes; not native desktop screenshots",
+    "StandaloneTabsDebug": { "Passed": 3, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/right-tab-indicator-20261015/right-tab-render-debug.trx", "LocalDirectory": "artifacts/validation/right-tab-indicator-20261015/render-debug" },
+    "WorkbenchDebug": { "Passed": 6, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/right-tab-indicator-20261015/right-tab-workbench-debug.trx", "LocalDirectory": "artifacts/validation/right-tab-indicator-20261015/workbench-debug" },
+    "VisualAcceptanceImage": "artifacts/validation/right-tab-indicator-20261015/workbench-debug/workbench-Light-1280-13.png",
+    "Observation": "Actual Lens Data tab has a rounded blue right edge rather than a bottom edge; adjacent 2D View title and close button remain visible",
+    "StandaloneFixtureBoundary": "Standalone tab fixture includes unavailable-page placeholder text from its test documents; it verifies native part styling and is not used as a product-content preview",
+    "CountsOverlapRelatedTests": true
+  },
+  "Checks": {
+    "ScopedWhitespaceFormat": "passed",
+    "GitDiffCheck": "passed",
+    "StrictDocumentation": "passed",
+    "DocumentationDocuments": 891,
+    "DocumentationBrokenLinks": 0,
+    "DocumentationFenceIssues": 0,
+    "DocumentationLocalOnlyLinks": 0,
+    "DocumentationGuideRepeatedParagraphGroups": 0,
+    "HistoricalRepeatedParagraphGroupsRetained": 11,
+    "LocalDocumentationReport": "artifacts/validation/right-tab-indicator-20261015/documentation.json",
+    "CoreOrFrozenEvidenceChangedByThisTask": false
+  },
+  "Limitations": ["No full optical/laboratory suite or new numerical reference capture", "No native manual desktop, drag/close action matrix, DPI or ARM64 acceptance", "No installer rebuild or user installation replacement", "No commit or push"],
+  "DeliveryAtValidation": "Default runnable Debug/Release outputs updated; earlier project rename and UI work preserved"
+}

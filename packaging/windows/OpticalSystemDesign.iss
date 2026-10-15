@@ -21,7 +21,7 @@
   #define ProductAppId "OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A"
 #endif
 #define AppName "Optical System Design"
-#define AppExe "OptilandWorkbench.App.exe"
+#define AppExe "OpticalSystemDesign.App.exe"
 #define PayloadDir "versions\" + ReleaseId
 #define ApplicationMutex "Local\" + ProductAppId + "-Application"
 #if ProductAppId == "OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A"
@@ -83,8 +83,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "{#PublishDir}\OptilandWorkbench.Application.dll"; DestDir: "{app}\{#PayloadDir}"; Flags: ignoreversion; Check: NeedsPayload; AfterInstall: AfterPartialPayloadCopy
-Source: "{#PublishDir}\*"; DestDir: "{app}\{#PayloadDir}"; Excludes: "release.files.sha256,OptilandWorkbench.Application.dll"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: NeedsPayload
+Source: "{#PublishDir}\OpticalSystemDesign.Application.dll"; DestDir: "{app}\{#PayloadDir}"; Flags: ignoreversion; Check: NeedsPayload; AfterInstall: AfterPartialPayloadCopy
+Source: "{#PublishDir}\*"; DestDir: "{app}\{#PayloadDir}"; Excludes: "release.files.sha256,OpticalSystemDesign.Application.dll"; Flags: ignoreversion recursesubdirs createallsubdirs; Check: NeedsPayload
 Source: "{#PublishDir}\release.files.sha256"; DestDir: "{app}\{#PayloadDir}"; Flags: ignoreversion; Check: NeedsPayload; AfterInstall: VerifyPayload
 Source: "inno\LICENSE.txt"; DestDir: "{app}\ThirdParty\InnoSetup"; Flags: ignoreversion
 Source: "inno\SOURCE.md"; DestDir: "{app}\ThirdParty\InnoSetup"; Flags: ignoreversion

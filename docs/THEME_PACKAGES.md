@@ -16,9 +16,15 @@
 | `Pixel` | 像素风格 | Light 派生 | `FarmFresh32` | 明亮 8-bit 色板、中文像素字、彩色 32×32 图标、方角硬边与紧凑点阵 Ribbon |
 | `System` | 跟随系统 | 由系统决定 Light/Dark | 对应实际明暗主题 | 对应实际明暗主题 |
 
-`Light` 和 `Dark` 保留原有图标几何。普通亮模式采用“正蓝 × 雾蓝”，普通卡片圆角为 6、无投影，侧栏分组内部连续白底，使用内收底部分隔线和两侧留白的小圆角标题悬停底色；暗夜主题保留原有 Chrome。`BlueThemeTokens` 是背景、文字、边框等语义色值的唯一来源；`LightTheme` 映射 Fluent/Dock 实际资源，`BlueThemeStyles` 在原模板层修复状态组合、焦点及禁用优先级，业务面板不判断主题名。详见[实现与验收](BLUE_THEME_2026-09-27.md)。顶部 Ribbon 已统一为紧凑分类页签与横向工具栏，所有主题共用布局资源：最小高度 72、命令最小尺寸 56×36、20px 图标、自动宽度和单行文字；不再使用像素主题独有的固定宽度大图标命令布局。异世界主题使用从 Game-icons.net 官方仓库筛选并内嵌的 `GameIconsFantasy` SVG 路径目录，包含 86 个语义映射并覆盖当前界面全部图标用法；旧金 Chrome 和装饰层不会修改命令 ID 或文案。像素风格改用 CC BY 3.0 授权的 FatCow Farm-Fresh 3.92 彩色 32×32 PNG 目录，并以 OFL 授权的 `Fusion Pixel 10px Mono zh_hans` 矢量 TTF 提供中文像素字；亮蓝标题带、珊瑚红活动页签、向日葵黄选中行、绿色复选状态、连续浅蓝紧凑 Ribbon 及其悬停硬框只由像素主题资源表达，不改动其他主题布局。
+`Light` 和 `Dark` 保留原有图标几何。普通亮模式采用确认的参考图工作台：正蓝渐变顶栏、白色编辑区、雾蓝背景、独立白色圆角侧栏分组（圆角 6、间距 6、无投影），选中文档页签白底蓝字，蓝色选中边从下沿移至右侧（2 DIP），保留原生模板与圆角。原连续白底内收分隔线已移除，嵌套视场/波长卡片恢复完整细轮廓；暗夜主题保留自己的 Chrome。`BlueThemeTokens` 集中语义色值，`LightTheme` 映射 Fluent/Dock 实际资源及当前布局资源，`BlueThemeStyles` 修复原模板的组合状态、焦点及禁用优先级；业务面板不判断主题名。顶部 Ribbon 仍为紧凑分类页签与横向工具栏，各主题共用最小高度 72、命令最小尺寸 56×36、18 DIP 图标、6 DIP 图文间距和 22 DIP 居中短分隔线。Light 工具栏及状态栏的浅渐变分别通过 `RibbonPageBackground`、`StatusBarBackground` 语义资源提供，其他主题回落到自身 Surface/SubtleSurface；背景渐变为不可变资源，避免跨界面线程共享可变画刷。布局细节见 [UI 规范](UI_DESIGN_SPEC.md)，历史记录见 [主题报告](BLUE_THEME_2026-09-27.md)。
 
-`MainWindowTitleBar` 为 macOS 普通 Light 主窗口提供正蓝标题区域，沿用相同语义 token，并保留原生交通灯及平台标题命中处理；动态标题、全屏和主题切换独立于光学业务。其他主题及 Windows/Linux 保留原窗口装饰。
+异世界主题使用从 Game-icons.net 官方仓库筛选并内嵌的 `GameIconsFantasy` SVG 路径目录，包含 86 个语义映射并覆盖当前界面全部图标用法；旧金 Chrome 和装饰层不会修改命令 ID 或文案。像素风格改用 CC BY 3.0 授权的 FatCow Farm-Fresh 3.92 彩色 32×32 PNG 目录，并以 OFL 授权的 `Fusion Pixel 10px Mono zh_hans` 矢量 TTF 提供中文像素字；亮蓝标题带、珊瑚红活动页签、向日葵黄选中行、绿色复选状态、连续浅蓝紧凑 Ribbon 及其悬停硬框只由像素主题资源表达，不改动其他主题布局。
+
+Ribbon 下沿通过 `ThemeChromeRole.Ribbon` 提供主题圆角，Light/Dark 为仅底部 8 DIP，Isekai/Pixel 保留锐角/方角。`ThemeLayoutResources.RibbonWorkspaceMargin` 在所有主题提供下方 8 DIP 间隔；外露区域绑定工作区背景，内容随圆角裁切。业务布局不判断主题名称，顺序和非序列模式共用框架。
+
+普通 Light 的文档区全宽分隔使用原内容框顶部 1 DIP 的 `Divider` 淡线，不使用 Dock 的额外蓝色激活色带；`BlueThemeStyles` 将该原生色带宿主限制为零高并裁切，不依赖会被 Dock 自行更新的可见性，也不增加覆盖层或修改全局强调色资源。页签右侧蓝色选中边及其他主题的激活反馈保持独立。
+
+`MainWindowTitleBar` 在 Windows/macOS 的扩展客户区提供实时标题与紧凑搜索，普通 Light 使用正蓝渐变，其他主题使用自己的资源；保留原生窗口按钮及平台标题命中处理，动态标题、全屏和主题切换独立于光学业务。Linux 保留原窗口装饰，快捷键搜索仍可使用命令面板。
 
 ## 主题包组成
 

@@ -1,0 +1,91 @@
+{
+  "Date": "2026-10-15",
+  "Scope": "Apply the approved full-workbench reference preview to the production Avalonia UI without replacing engineering data or behavior",
+  "SourceCommit": "0179e2fb8fff814826176043271fac6e241c2c24",
+  "SourceDirty": true,
+  "PreExistingWorkPreserved": ["About and splash version display", "Integrated caption and compact search", "Compact ribbon and bottom-only rounding", "All previous tests, documentation and dated evidence"],
+  "Implemented": [
+    "Ordinary Light header gradient #1876E9 to #1455B8, mist-blue workspace/sidebar and pale table headers",
+    "Immutable semantic brushes supply subtle toolbar/status gradients; other themes fall back to their own surfaces",
+    "Separate white 6 DIP rounded sidebar sections with 6 DIP gaps; removed the obsolete connecting divider visual and style",
+    "Nested field/wavelength cards retain their full outline; sidebar idle inputs have softer borders without replacing focus/error/disabled feedback",
+    "Sidebar form labels use normal weight in Light without reducing font sizes; all themes keep native editing and a reserved vertical-scrollbar column",
+    "Existing mapped semantic icons are used in all four icon packs, with regression assertions that no section resolves to the question-mark fallback",
+    "Selected Light document tabs have a white body, blue text and a 2 DIP lower line in the existing Dock template; tool tabs remain distinct",
+    "Light workspace side/bottom inset 5/6 DIP, lens-editor side/bottom inset 6 DIP, surface-properties header vertical padding 7 DIP",
+    "Status metrics use a Light minimum width of 96 DIP instead of 128, with real snapshot values and the existing status messages",
+    "All lens columns, material-row semantics, commands, optical calculations, saves and initial two-document behavior are retained"
+  ],
+  "ChangedProductionCode": [
+    "src/OptilandWorkbench.App/Theming/BlueThemeTokens.cs",
+    "src/OptilandWorkbench.App/Theming/BlueThemeStyles.cs",
+    "src/OptilandWorkbench.App/Theming/LightTheme.cs",
+    "src/OptilandWorkbench.App/Theming/ThemePalette.cs",
+    "src/OptilandWorkbench.App/Services/ThemeResourceBindings.cs",
+    "src/OptilandWorkbench.App/Services/ThemeLayoutResources.cs",
+    "src/OptilandWorkbench.App/Shell/MainWindow.Shell.cs",
+    "src/OptilandWorkbench.App/Panels/SystemPropertiesPanel.cs",
+    "src/OptilandWorkbench.App/Panels/LensEditorPanel.cs",
+    "src/OptilandWorkbench.App/Panels/LensEditorPanel.SurfaceProperties.cs"
+  ],
+  "Builds": [
+    { "Configuration": "Debug", "Target": "OptilandWorkbench.slnx", "ProjectCount": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/reference-workbench-20261015/build-final-debug.log" },
+    { "Configuration": "Release", "Target": "OptilandWorkbench.slnx", "ProjectCount": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/reference-workbench-20261015/build-final-release.log" }
+  ],
+  "AppAssemblySha256": {
+    "Debug": "836aaef3003897eb9b85e7c52782f38e22fad1870072b5c1030c0cdcd0631cfc",
+    "Release": "c0c886cc3a6c3dec73a4267505f69c6564848f4aa39d2955a79c848078ba30f6"
+  },
+  "Tests": {
+    "Project": "tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj",
+    "RelatedClasses": ["ReferenceWorkbenchLayoutTests", "CompactRibbonTests", "CommandSearchTests", "MainWindowTitleBarTests", "BlueThemeInteractionTests", "ThemeResourceTests", "ThemeRuntimeTests", "AnalysisGuiContractTests", "BrandAssetTests", "AppStartupTests", "AboutWindowTests", "ProductVersionInfoTests", "LayeringArchitectureTests", "CompactSidebarTests", "SystemPropertiesPanelSectionThemeTests", "LensMaterialRowThemeTests", "DocumentTabCornerTests", "LensEditorLayoutTests", "SurfacePropertiesPanelTests", "SurfaceEditorRowTests", "WorkspaceDockModelTests", "WorkspaceSessionTests", "WorkspaceMdiInteractionTests"],
+    "Debug": { "Passed": 237, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/reference-workbench-20261015/reference-workbench-final-v2-debug.trx" },
+    "Release": { "Passed": 237, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/reference-workbench-20261015/reference-workbench-final-v2-release.trx" },
+    "NewCases": 7,
+    "FullProductSuiteRun": false,
+    "Note": "This is a scoped UI/workspace regression. Stage counts and dedicated capture runs overlap and must not be added."
+  },
+  "RenderedControlFixtures": {
+    "Mechanism": "Dedicated ReferenceWorkbenchLayoutTests processes with Skia/HarfBuzz and headless drawing disabled",
+    "ProductionControls": ["MainWindowTitleBar and CommandSearchControl", "BuildRibbonFrame and ribbon presentation factories", "BuildShellLayout and BuildStatusBarFrame", "PanelManager/DockControl", "SystemPropertiesPanel", "LensEditorPanel"],
+    "FixtureBoundaries": "Not a full MainWindow: default File-page presentation is assembled from production factories, other category pages are fixture placeholders, and the complete production action matrix/native window buttons are not exercised by these images. Workspace panels and displayed engineering/status values come from a real blank WorkbenchApplication.",
+    "CaptureEnvironment": "OPTILAND_WORKBENCH_CAPTURE_DIR",
+    "Debug": { "Passed": 6, "Failed": 0, "Skipped": 0, "ImageCount": 6, "LocalDirectory": "artifacts/validation/reference-workbench-20261015/render-final-debug", "LocalTrx": "artifacts/validation/reference-workbench-20261015/reference-workbench-render-final-debug.trx" },
+    "Release": { "Passed": 6, "Failed": 0, "Skipped": 0, "ImageCount": 6, "LocalDirectory": "artifacts/validation/reference-workbench-20261015/render-final-release", "LocalTrx": "artifacts/validation/reference-workbench-20261015/reference-workbench-render-final-release.trx" },
+    "Configurations": ["Light/1280/13", "Light/1024/18", "Light/640/13", "Dark/1280/13", "Pixel/1280/13", "Isekai/1280/13"],
+    "VisuallyInspected": ["render-final-debug/workbench-Light-1280-13.png", "render-final-debug/workbench-Light-1024-18.png", "render-final-release/workbench-Dark-1280-13.png"],
+    "ObservedLimitation": "The collapsed field-card caption appears blank in the Dark headless composition image. A dedicated six-case probe without nested clipping produced the same observation; that probe was reverted, and the default Debug assembly was rebuilt byte-identically to the validated identity. This image alone does not establish a native-product defect or certify all Dark text rendering; no fix or native acceptance is claimed for that observation.",
+    "NativeDesktopAcceptance": false
+  },
+  "Checks": {
+    "ScopedWhitespaceFormat": "passed",
+    "GitDiffCheck": "passed",
+    "Documentation": {
+      "StrictCheck": "passed",
+      "Documents": 891,
+      "BrokenLinks": 0,
+      "MarkdownFenceIssues": 0,
+      "LocalOnlyLinks": 0,
+      "GuideRepeatedParagraphGroups": 0,
+      "HistoricalRepeatedParagraphGroupsRetained": 11,
+      "LocalReport": "artifacts/validation/reference-workbench-20261015/documentation.json"
+    },
+    "CoreOrFrozenEvidenceChanged": false,
+    "Frozen2668ByteIntegritySuiteRerun": false
+  },
+  "IntermediateResults": [
+    "An initial test compilation used the ambiguous Controls.LocalIcon name and Assert.Single with a Where clause. Qualified the icon namespace/import and used the predicate overload; final builds have no warnings.",
+    "The first completed scoped run passed 38/39. Its only failure retained a 364 DIP section-width assertion from the old margins; replaced it with the actual parent bounds and kept finite-width/sidebar checks.",
+    "The seven-case composition/section run and subsequent 41-case focused run passed. Their TRX files remain local.",
+    "Visual inspection found a waves name absent from the bundled icon set and an insufficiently visible document selection line. Switched section symbols to existing, attributed cross-theme mappings and added the line to the existing Dock body, with assertions.",
+    "An earlier pair of scoped runs passed 237/237 and render runs passed 6/6. Inspection still found auto-hidden scrollbar overlays covering right-hand input/card arcs. Restored reserved scrollbar space, added viewport assertions, rebuilt both default configurations and reran final-v2/final-render checks. Earlier files are retained locally.",
+    "The later optional nested-clipping render probe passed 6/6 (reference-workbench-nested-clip.trx) but did not explain the Dark caption observation. Reverted the probe; the default Debug App assembly was rebuilt and verified byte-identical to the final-v2 validation snapshot."
+  ],
+  "Limitations": [
+    "No full main/laboratory/numerical suite, new Zemax capture or optical-accuracy claim",
+    "No native manual desktop/window-button, multi-monitor DPI or ARM64 acceptance",
+    "No installer rebuild or installed-product replacement",
+    "No commit or push"
+  ],
+  "DeliveryAtValidation": "Default runnable Debug/Release application binaries updated; uncommitted working tree"
+}

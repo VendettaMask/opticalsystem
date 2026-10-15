@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net10.0": {
+      "opticalsystemdesign.core": {
+        "type": "Project"
+      },
+      "opticalsystemdesign.initialstructure.contracts": {
+        "type": "Project",
+        "dependencies": {
+          "OpticalSystemDesign.Core": "[1.0.0, )"
+        }
+      },
+      "opticalsystemdesign.initialstructure.engine": {
+        "type": "Project",
+        "dependencies": {
+          "OpticalSystemDesign.Core": "[1.0.0, )",
+          "OpticalSystemDesign.InitialStructure.Contracts": "[1.0.0, )"
+        }
+      },
+      "opticalsystemdesign.initialstructure.persistence": {
+        "type": "Project",
+        "dependencies": {
+          "OpticalSystemDesign.Core": "[1.0.0, )",
+          "OpticalSystemDesign.InitialStructure.Contracts": "[1.0.0, )"
+        }
+      }
+    }
+  }
+}

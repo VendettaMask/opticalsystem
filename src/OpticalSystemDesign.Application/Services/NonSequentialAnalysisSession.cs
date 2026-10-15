@@ -1,0 +1,289 @@
+using System.Diagnostics;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Core.NonSequential;
+
+namespace OpticalSystemDesign.Application.Services;
+
+internal abstract class NonSequentialResultSession : IDisposable
+{
+    private readonly object _gate = new();
+    private readonly IWorkspaceEventStream _events;
+    private Selection? _selection;
+    private long _publicationGeneration;
+
+    protected NonSequentialResultSession(IWorkspaceEventStream events)
+    {
+        _events = events;
+        _events.Changed += OnWorkspaceChanged;
+    }
+
+    public event EventHandler? Changed;
+
+    public long PublicationGeneration
+    {
+        get { lock (_gate) return _publicationGeneration; }
+    }
+
+    public bool TryPublish(
+        NonSequentialTraceSessionDto session,
+        bool ownsDatabase,
+        long expectedPublicationGeneration,
+        Action publishFile,
+        bool notifyChanged = true)
+    {
+        ArgumentNullException.ThrowIfNull(session);
+        ArgumentNullException.ThrowIfNull(publishFile);
+        Selection? previous;
+        lock (_gate)
+        {
+            if (_publicationGeneration != expectedPublicationGeneration)
+            {
+                return false;
+            }
+
+            publishFile();
+            previous = _selection;
+            var file = new FileInfo(session.RayDatabasePath);
+            _selection = new Selection(
+                Path.GetFullPath(session.RayDatabasePath),
+                session.FilterExpression,
+                session,
+                ownsDatabase,
+                file.Length);
+        }
+        DeleteOwned(previous, session.RayDatabasePath);
+        if (notifyChanged)
+        {
+            NotifyChanged();
+        }
+
+        return true;
+    }
+
+    internal void NotifyChanged()
+    {
+        var handlers = Changed;
+        if (handlers is null)
+        {
+            return;
+        }
+
+        foreach (EventHandler handler in handlers.GetInvocationList())
+        {
+            try
+            {
+                handler(this, EventArgs.Empty);
+            }
+            catch (Exception exception)
+            {
+                Trace.TraceError($"Non-sequential session observer failed: {exception}");
+            }
+        }
+    }
+
+    public void Set(string path, string? filterExpression)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(path);
+        var fullPath = Path.GetFullPath(path);
+        using var stream = new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        using var reader = new NonSequentialRayDatabaseReader(stream);
+        var splitting = reader.Header.SplittingMode is { } storedSplitting
+            ? (OpticalSystemDesign.Application.Contracts.NonSequentialSplittingMode)(int)storedSplitting
+            : reader.Header.TraceSettings.SplitFresnelRays
+                ? OpticalSystemDesign.Application.Contracts.NonSequentialSplittingMode.FullFresnel
+                : OpticalSystemDesign.Application.Contracts.NonSequentialSplittingMode.None;
+        var loadedSession = new NonSequentialTraceSessionDto(
+            Guid.NewGuid(), NonSequentialTraceSessionState.Completed,
+            reader.Header.SceneHash, reader.Header.SourceRevision,
+            reader.Header.CreatedUtc, DateTimeOffset.UtcNow, 1,
+            reader.Header.RandomSeed, splitting, Array.Empty<Guid>(),
+            reader.BranchCount, 0, 0, 0, 0, 0, 0, 0, 0,
+            TimeSpan.Zero, fullPath, false, false, filterExpression,
+            Array.Empty<string>());
+        Selection? previous = null;
+        lock (_gate)
+        {
+            _publicationGeneration++;
+            if (_selection is { } existing
+                && fullPath.Equals(existing.Path, StringComparison.Ordinal)
+                && existing.FileLength == stream.Length
+                && existing.Session.SceneHash.Equals(reader.Header.SceneHash, StringComparison.OrdinalIgnoreCase)
+                && existing.Session.CreatedUtc == reader.Header.CreatedUtc
+                && existing.Session.BranchCount == reader.BranchCount)
+            {
+                _selection = existing with
+                {
+                    FilterExpression = filterExpression,
+                    Session = existing.Session with { FilterExpression = filterExpression }
+                };
+            }
+            else
+            {
+                previous = _selection;
+                var ownsDatabase = existingOwnsDatabase(_selection, fullPath);
+                _selection = new Selection(
+                    fullPath,
+                    filterExpression,
+                    loadedSession with { IsTemporaryDatabase = ownsDatabase },
+                    ownsDatabase,
+                    stream.Length);
+            }
+        }
+        DeleteOwned(previous, fullPath);
+        NotifyChanged();
+
+        static bool existingOwnsDatabase(Selection? selection, string candidatePath) =>
+            selection is { OwnsDatabase: true }
+            && candidatePath.Equals(selection.Path, StringComparison.Ordinal);
+    }
+
+    public NonSequentialTraceSessionDto? Snapshot(NonSequentialDocument document, long revision)
+    {
+        lock (_gate)
+        {
+            if (_selection is null || !File.Exists(_selection.Path)) return null;
+            var stale = !_selection.Session.SceneHash.Equals(
+                NonSequentialSceneHasher.Compute(document),
+                StringComparison.OrdinalIgnoreCase);
+            return _selection.Session with
+            {
+                IsStale = stale,
+                FilterExpression = _selection.FilterExpression
+            };
+        }
+    }
+
+    public string? SelectedPath
+    {
+        get { lock (_gate) return _selection?.Path; }
+    }
+
+    public string? SelectedFilter
+    {
+        get { lock (_gate) return _selection?.FilterExpression; }
+    }
+
+    public NonSequentialLayoutBranchSet? LoadLayoutBranches(
+        NonSequentialDocument document,
+        bool includeStale = false,
+        int maximumCount = 2_000)
+    {
+        var selection = SelectionSnapshot();
+        if (selection is null || !File.Exists(selection.Path)) return null;
+        using var stream = new FileStream(selection.Path, FileMode.Open, FileAccess.Read, FileShare.Read);
+        using var reader = new NonSequentialRayDatabaseReader(stream);
+        var currentSceneHash = NonSequentialSceneHasher.Compute(document);
+        var stale = !reader.Header.SceneHash.Equals(
+            currentSceneHash,
+            StringComparison.OrdinalIgnoreCase);
+        if (stale && !includeStale)
+        {
+            return new NonSequentialLayoutBranchSet(
+                reader.Header.SceneHash,
+                currentSceneHash,
+                reader.Header.SourceRevision,
+                true,
+                selection.Path,
+                Array.Empty<NonSequentialRayBranch>());
+        }
+
+        var filter = NonSequentialPathFilter.Parse(selection.FilterExpression);
+        return new NonSequentialLayoutBranchSet(
+            reader.Header.SceneHash,
+            currentSceneHash,
+            reader.Header.SourceRevision,
+            stale,
+            selection.Path,
+            reader.ReadBranches(filter, maximumCount).ToArray());
+    }
+
+    public IReadOnlyList<NonSequentialDetectorFrame>? ReconstructDetectors(
+        NonSequentialDocument document,
+        Guid? sourceObjectId = null)
+    {
+        var selection = SelectionSnapshot();
+        if (selection is null || !File.Exists(selection.Path)) return null;
+        using var stream = new FileStream(selection.Path, FileMode.Open, FileAccess.Read, FileShare.Read);
+        using var reader = new NonSequentialRayDatabaseReader(stream);
+        if (reader.IsStale(document)) return null;
+        var filter = NonSequentialPathFilter.Parse(selection.FilterExpression);
+        return NonSequentialDetectorReconstruction.Reconstruct(
+            document,
+            reader.ReadBranches(filter),
+            sourceObjectId);
+    }
+
+    public void Clear()
+    {
+        Selection? previous;
+        lock (_gate)
+        {
+            _publicationGeneration++;
+            previous = _selection;
+            _selection = null;
+        }
+        DeleteOwned(previous);
+        NotifyChanged();
+    }
+
+    public void Dispose()
+    {
+        _events.Changed -= OnWorkspaceChanged;
+        Clear();
+    }
+
+    private Selection? SelectionSnapshot()
+    {
+        lock (_gate) return _selection;
+    }
+
+    private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
+    {
+        if (args.FileSwitched) Clear();
+        else NotifyChanged();
+    }
+
+    private static void DeleteOwned(Selection? selection, string? exceptPath = null)
+    {
+        if (selection is not { OwnsDatabase: true }) return;
+        if (exceptPath is not null
+            && Path.GetFullPath(exceptPath).Equals(selection.Path, StringComparison.OrdinalIgnoreCase)) return;
+        try
+        {
+            if (File.Exists(selection.Path)) File.Delete(selection.Path);
+        }
+        catch (IOException) { }
+        catch (UnauthorizedAccessException) { }
+    }
+
+    private sealed record Selection(
+        string Path,
+        string? FilterExpression,
+        NonSequentialTraceSessionDto Session,
+        bool OwnsDatabase,
+        long FileLength);
+}
+
+internal sealed class NonSequentialAnalysisSession : NonSequentialResultSession
+{
+    public NonSequentialAnalysisSession(IWorkspaceEventStream events)
+        : base(events)
+    {
+    }
+}
+
+internal sealed class NonSequentialLayoutSession : NonSequentialResultSession
+{
+    public NonSequentialLayoutSession(IWorkspaceEventStream events)
+        : base(events)
+    {
+    }
+}
+
+internal sealed record NonSequentialLayoutBranchSet(
+    string SceneHash,
+    string CurrentSceneHash,
+    long SourceRevision,
+    bool IsStale,
+    string DatabasePath,
+    IReadOnlyList<NonSequentialRayBranch> Branches);

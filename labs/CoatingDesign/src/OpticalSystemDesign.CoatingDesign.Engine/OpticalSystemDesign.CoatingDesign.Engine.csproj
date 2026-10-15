@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../../../../src/OpticalSystemDesign.Core/OpticalSystemDesign.Core.csproj" />
+    <ProjectReference Include="../../../../src/OpticalSystemDesign.Application/OpticalSystemDesign.Application.csproj" />
+    <EmbeddedResource Include="Data/*.json" />
+  </ItemGroup>
+</Project>

@@ -38,10 +38,10 @@ Ansys [Gradient 5，2026 R1.03](https://ansyshelp.ansys.com/public/Views/Secured
 
 ## 代码与证据
 
-- [空间模型与色散](../src/OptilandWorkbench.Core/Materials/Gradient5IndexProfile.cs)
-- [轴向区间检查](../src/OptilandWorkbench.Core/Propagation/Gradient5AxialDomain.cs)与[共享近轴传递](../src/OptilandWorkbench.Core/Propagation/GradientIndexParaxialTransport.cs)
-- [色散组件保存](../src/OptilandWorkbench.Core/Serialization/ComponentSnapshot.Gradient5.cs)
-- [功能回归](../tests/OptilandWorkbench.Tests/Gradient5MaterialTests.cs)与[帮助界面回归](../tests/OptilandWorkbench.Tests/Gradient5HelpPanelTests.cs)
+- [空间模型与色散](../src/OpticalSystemDesign.Core/Materials/Gradient5IndexProfile.cs)
+- [轴向区间检查](../src/OpticalSystemDesign.Core/Propagation/Gradient5AxialDomain.cs)与[共享近轴传递](../src/OpticalSystemDesign.Core/Propagation/GradientIndexParaxialTransport.cs)
+- [色散组件保存](../src/OpticalSystemDesign.Core/Serialization/ComponentSnapshot.Gradient5.cs)
+- [功能回归](../tests/OpticalSystemDesign.Tests/Gradient5MaterialTests.cs)与[帮助界面回归](../tests/OpticalSystemDesign.Tests/Gradient5HelpPanelTests.cs)
 - [累计测试过滤器](../artifacts/validation/gradient5-dispersion-20261003/test-filter.txt)
 
 ## 实际帮助界面

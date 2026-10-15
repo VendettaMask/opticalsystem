@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Materials/Data/glass-catalog.json"
+                      LogicalName="OpticalSystemDesign.Core.Materials.Data.glass-catalog.json" />
+    <EmbeddedResource Include="Materials/Data/zemax-glass-catalogs.ogdb"
+                      LogicalName="OpticalSystemDesign.Core.Materials.Data.zemax-glass-catalogs.ogdb" />
+  </ItemGroup>
+
+</Project>

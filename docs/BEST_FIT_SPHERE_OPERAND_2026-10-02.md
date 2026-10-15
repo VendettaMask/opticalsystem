@@ -57,4 +57,4 @@ BFSD 的原生列、非球面捕获、RMS 权重、偏移与体积语义，以�
 
 本次还复核了两个实际光线项：官方 [HHCN](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Constraints_on_Real_Ray_Data.html)需要比较真实交点和常规矢高分支，但当前 StandardGeometry 求交明确验证常规矢高分支，不能据此返回恒零并称已实现。HYLD 的公开分类页说明所需光线量，尚不足以确定完整公式；需要进一步依据原始论文或原生捕获核实，不能用入射角平方冒充高良率贡献。两项继续保留在实现任务中。
 
-源码：[共享球面拟合](../src/OptilandWorkbench.Core/Services/SurfaceBestFitSphere.cs)、[共享体积积分](../src/OptilandWorkbench.Core/Services/ElementVolumeMetrics.cs)、[评价入口](../src/OptilandWorkbench.Core/Optimization/MeritFunction.ManufacturingProfiles.cs)、[验证用例](../tests/OptilandWorkbench.Tests/BestFitSphereOperandTests.cs)。
+源码：[共享球面拟合](../src/OpticalSystemDesign.Core/Services/SurfaceBestFitSphere.cs)、[共享体积积分](../src/OpticalSystemDesign.Core/Services/ElementVolumeMetrics.cs)、[评价入口](../src/OpticalSystemDesign.Core/Optimization/MeritFunction.ManufacturingProfiles.cs)、[验证用例](../tests/OpticalSystemDesign.Tests/BestFitSphereOperandTests.cs)。

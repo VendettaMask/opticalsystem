@@ -61,4 +61,4 @@
 - 吸收入射介质及其他尚未支持的完整偏振运输。
 - 其余 76 个已知操作数、2 个定义待核实项，以及已执行项的未完成模式与原生验证。
 
-源码入口：[评价函数接入](../src/OptilandWorkbench.Core/Optimization/MeritFunction.Illumination.cs)、[共享积分](../src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs)、[回归用例](../tests/OptilandWorkbench.Tests/IlluminationOperandTests.cs)。
+源码入口：[评价函数接入](../src/OpticalSystemDesign.Core/Optimization/MeritFunction.Illumination.cs)、[共享积分](../src/OpticalSystemDesign.Core/Services/IlluminationMetrics.cs)、[回归用例](../tests/OpticalSystemDesign.Tests/IlluminationOperandTests.cs)。

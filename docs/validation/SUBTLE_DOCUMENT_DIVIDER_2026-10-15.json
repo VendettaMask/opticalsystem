@@ -1,0 +1,59 @@
+{
+  "Date": "2026-10-15",
+  "Scope": "Implement the selected faint document-wide divider preview in ordinary Light",
+  "SourceCommit": "0179e2fb8fff814826176043271fac6e241c2c24",
+  "SourceDirty": true,
+  "ChangedProductionCode": ["src/OpticalSystemDesign.App/Theming/BlueThemeStyles.cs"],
+  "Implemented": [
+    "Collapse native DocumentControl PART_DocumentSeperatorHost with MaxHeight=0 and ClipToBounds=true in exactly the ordinary Light variant",
+    "Retain only the existing content frame's one-DIP Divider-colored top edge; no added overlay or second line",
+    "Do not rely on host visibility because Dock updates that local property when activation changes",
+    "Retain the native selected tab's blue right edge, rounded corners, controls, content frame side/bottom edges and all other themes"
+  ],
+  "Builds": [
+    { "Configuration": "Debug", "Target": "OpticalSystemDesign.slnx", "Projects": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/subtle-document-divider-20261015/build-final-debug.log" },
+    { "Configuration": "Release", "Target": "OpticalSystemDesign.slnx", "Projects": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/subtle-document-divider-20261015/build-final-release.log" }
+  ],
+  "AppAssemblySha256": {
+    "Debug": "dc5263c6d92a978c9c949face0a0d9e5dbba25b81d4e0f0043632fa50763ebf0",
+    "Release": "e6b89b52d80317ddef982518b2b3c3b99b85b58e377363673400632fd35060d8",
+    "DefaultAndTestOutputMatch": true
+  },
+  "Tests": {
+    "Project": "tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj",
+    "Classes": ["DocumentWorkspaceDividerTests", "DocumentTabCornerTests", "ReferenceWorkbenchLayoutTests", "BlueThemeInteractionTests", "ThemeRuntimeTests", "ToolDockCornerTests", "LayeringArchitectureTests"],
+    "Debug": { "Passed": 53, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/subtle-document-divider-20261015/subtle-divider-verified-debug.trx" },
+    "Release": { "Passed": 53, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/subtle-document-divider-20261015/subtle-divider-verified-release.trx" },
+    "NewCases": 3,
+    "NewCoverage": "Actual Dock at 640/1024/1280 DIP, configured/applied 13/18 fonts, active/inactive and hovered states, Light/Dark/Pixel/Isekai/Light switches; frame top thickness/color, collapsed and clipped stripe, no extra vertical gap, selected right edge retained and custom themes restored",
+    "FullProductSuiteRun": false
+  },
+  "RenderedControlFixtures": {
+    "Mechanism": "Separate Skia/HarfBuzz ReferenceWorkbenchLayoutTests process; not native desktop screenshots",
+    "Debug": { "Passed": 6, "Failed": 0, "Skipped": 0, "ImageCount": 9, "LocalTrx": "artifacts/validation/subtle-document-divider-20261015/subtle-divider-render-final-debug.trx", "LocalDirectory": "artifacts/validation/subtle-document-divider-20261015/render-final-debug" },
+    "Images": "Six original theme/size/font combinations plus three additional active Light captures",
+    "VisuallyInspected": ["workbench-Light-1280-13-active.png", "workbench-Light-1024-18-active.png"],
+    "Observation": "Single subtle divider remains when the document is active; no full-width blue stripe, and the selected tab's blue right edge and adjacent close button remain visible",
+    "CountsOverlapRelatedTests": true
+  },
+  "Checks": {
+    "ScopedWhitespaceFormat": "passed",
+    "GitDiffCheck": "passed",
+    "StrictDocumentation": "passed",
+    "DocumentationDocuments": 891,
+    "DocumentationBrokenLinks": 0,
+    "DocumentationFenceIssues": 0,
+    "DocumentationLocalOnlyLinks": 0,
+    "DocumentationGuideRepeatedParagraphGroups": 0,
+    "HistoricalRepeatedParagraphGroupsRetained": 11,
+    "LocalDocumentationReport": "artifacts/validation/subtle-document-divider-20261015/documentation.json",
+    "CoreOrFrozenEvidenceChangedByThisTask": false
+  },
+  "IntermediateResults": [
+    "Two pre-fix three-case inspection runs identified that the long line belongs to DocumentControl's native separator Panel, not a tab Border. Original divider-before-debug.trx and divider-parts-debug.trx retained.",
+    "Initial visibility-only style was overridden when Dock activated the document. Initial 53-case runs each passed 47 and failed 6, and initial six-case capture passed 3 and failed 3; their original subtle-divider-final-*.trx and subtle-divider-render-debug.trx files remain unchanged and are not the final accepted results.",
+    "Replaced visibility-only styling with a zero maximum height plus clipping. Focused three-case Debug run passed, then final verified runs passed 53/53 each configuration and final capture passed 6/6. Counts overlap and are not additive."
+  ],
+  "Limitations": ["No full optical/laboratory suite or new numerical reference capture", "No native manual desktop, DPI, floating/pinning action matrix or ARM64 acceptance", "No installer rebuild or user installation replacement", "No commit or push"],
+  "DeliveryAtValidation": "Updated default runnable Debug/Release outputs; earlier uncommitted project rename and UI work preserved"
+}

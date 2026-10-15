@@ -8,9 +8,9 @@
 
 ## 已实现的共享接口
 
-- [空间折射率](../src/OptilandWorkbench.Core/Materials/SpatialRefractiveIndex.cs)：`ISpatialRefractiveIndex` 分别提供局部位置的折射率查询和折射率/解析空间梯度联合查询。四个不可变模型覆盖 Gradient 1、2、3、4 的指数分布公式，当前均无色散；波长仍须为有限正数。Gradient 2 的基准参数是 **n²**，不是 n。坐标及梯度采用镜头长度单位和其倒数。
+- [空间折射率](../src/OpticalSystemDesign.Core/Materials/SpatialRefractiveIndex.cs)：`ISpatialRefractiveIndex` 分别提供局部位置的折射率查询和折射率/解析空间梯度联合查询。四个不可变模型覆盖 Gradient 1、2、3、4 的指数分布公式，当前均无色散；波长仍须为有限正数。Gradient 2 的基准参数是 **n²**，不是 n。坐标及梯度采用镜头长度单位和其倒数。
 - Gradient 1 非零径向一次项在轴上的折射率仍可读取，但其梯度不可微；连续传播明确拒绝该点，不用零梯度掩盖。官方轴上追迹约定尚未核实。其他模型支持轴上解析梯度。
-- [连续传播](../src/OptilandWorkbench.Core/Propagation/GradientIndexRayIntegrator.cs)：用弧长 s 积分 `dr/ds=u`、`du/ds=(∇n−u(u·∇n))/n` 和 `dOPL/ds=n`，使用 Dormand–Prince 5(4) 自适应步进。位置、方向和光程分别控制局部误差，接受步后归一化方向；不以终点折射率乘弦长代替光程积分。
+- [连续传播](../src/OpticalSystemDesign.Core/Propagation/GradientIndexRayIntegrator.cs)：用弧长 s 积分 `dr/ds=u`、`du/ds=(∇n−u(u·∇n))/n` 和 `dOPL/ds=n`，使用 Dormand–Prince 5(4) 自适应步进。位置、方向和光程分别控制局部误差，接受步后归一化方向；不以终点折射率乘弦长代替光程积分。
 - 场坐标系与目标表面坐标系独立，支持平移和三个轴旋转；交点直接使用两坐标系的相对原点，避免经过大绝对坐标后丢失局部位移；积分在场的局部坐标系内进行，返回全局位置、显式传播方向、累计实际路程、累计光程和局部折射率。可选保留曲线采样节点，供后续场景接入使用。
 - `TraceDistance` 传播指定弧长；`TraceToSurface` 沿曲线求 `z−Sag(x,y)=0`，复用正式 `IGeometry` 矢高及法线。检查步长中点并对符号变化区间细化，区分表面到达、切向接触、距离完成和到达路径预算但未找到交点。正/负 Z 传播均由光线方向决定。
 - 试探步超出有限、正折射率定义域时拒绝并缩步。初始点无效、取消、最小步长精度不足、尝试次数超限、非有限几何或交点不收敛均明确失败；不截断折射率、不退回直线、不返回伪成功。交点细化也计入有界工作预算。
@@ -32,7 +32,7 @@
 
 ## 验证范围
 
-[新测试](../tests/OptilandWorkbench.Tests/GradientIndexIntegrationTests.cs)检查四种分布的手算值和独立差分梯度、正负轴向梯度精确解、横向线性梯度的非近轴悬链线精确解、强梯度步长收敛、坐标变换、守恒量和可逆性、球面/倾斜出口、内部折返、传播预算端点、取消及非法数据。
+[新测试](../tests/OpticalSystemDesign.Tests/GradientIndexIntegrationTests.cs)检查四种分布的手算值和独立差分梯度、正负轴向梯度精确解、横向线性梯度的非近轴悬链线精确解、强梯度步长收敛、坐标变换、守恒量和可逆性、球面/倾斜出口、内部折返、传播预算端点、取消及非法数据。
 
 解析解仅用于测试，不向运行时提供光线、接受条件或显示结果。初次定向测试为 31 通过/1 失败，暴露大试探步越过指数定义域的问题；已通过域错误识别与缩步修复，保持解析解门槛不变。后续补充路径预算端点的正反向用例。收尾复现了 ±10¹² 绝对坐标下约 6.9923×10⁻⁵ 的路程误差，已改为相对坐标转换，两个用例保持 3×10⁻⁹ 的路程及光程门槛。
 

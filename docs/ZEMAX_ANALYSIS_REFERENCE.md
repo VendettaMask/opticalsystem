@@ -2,7 +2,7 @@
 
 2026-09-06 的 Huygens 后处理和 MS-L7 结果属于 [历史修复记录](ZEMAX_HUYGENS_REPAIR_2026-09-06.md)；其中 52 项数值契约为 44 Pass、6 Close、2 Difference，仅适用于声明的物理量和捕获设置，不是当前分析目录或发布验收。
 
-文档入口核对：2026-10-14；以下资料与逐项参考保留原版本范围，外部网址未在本轮重新核验。当前目录和命令见 [比较工具指南](../tools/OptilandWorkbench.ZemaxComparison/README.md)，工程验收见 [状态页](CURRENT_STATUS.md)。本页保留官方分析名称及英文专有名词，不把固定 `123456.ZMX` 的捕获值解释为 Zemax 通用默认值。2026-09-06 的逐项契约、MS-L7 实测及物理定义差异见 [历史全分析扩展](ZEMAX_ANALYSIS_EXPANSION_2026-09-06.md)，下文已有能力描述不能替代逐项数值结论。
+文档入口核对：2026-10-14；以下资料与逐项参考保留原版本范围，外部网址未在本轮重新核验。当前目录和命令见 [比较工具指南](../tools/OpticalSystemDesign.ZemaxComparison/README.md)，工程验收见 [状态页](CURRENT_STATUS.md)。本页保留官方分析名称及英文专有名词，不把固定 `123456.ZMX` 的捕获值解释为 Zemax 通用默认值。2026-09-06 的逐项契约、MS-L7 实测及物理定义差异见 [历史全分析扩展](ZEMAX_ANALYSIS_EXPANSION_2026-09-06.md)，下文已有能力描述不能替代逐项数值结论。
 
 本参考严格区分官方分析定义、Workbench 产品预设和 `123456.ZMX` 捕获设置；完整约束见 [Zemax 基准配置边界](ZEMAX_BASELINE_CONFIGURATION_BOUNDARY.md)。文中凡列出该镜头的采样数、视场/波长选择或焦移范围，均只描述该次捕获，不代表 Zemax 通用默认值。评价函数导入属于另一条兼容链路，当前 103 行 `[MS-L7]` 夹具及 51 个代码/兼容类型的边界见 [Zemax 顺序模式操作数支持规范](ZEMAX_OPERAND_SUPPORT.md)，不得并入本文的 69 页分析结论。
 

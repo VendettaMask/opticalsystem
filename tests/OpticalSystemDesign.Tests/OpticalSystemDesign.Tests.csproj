@@ -1,0 +1,158 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\validation\zemax\2026-r1\huygens-extensions-2026-10-11\**\*"
+          Link="Validation\Zemax\HuygensExtensions\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\validation\zemax\2026-r1\huygens-offaxis-2026-10-11\**\*"
+          Link="Validation\Zemax\HuygensOffAxis\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\validation\zemax\2026-r1\huygens-integration-2026-10-11\**\*"
+          Link="Validation\Zemax\HuygensIntegration\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\validation\zemax\2026-r1\fft-energy-integration-2026-10-11\**\*"
+          Link="Validation\Zemax\FftEnergyIntegration\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+    <PackageReference Include="Avalonia.Headless" Version="12.1.0" />
+    <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\OpticalSystemDesign.App\OpticalSystemDesign.App.csproj" />
+    <ProjectReference Include="..\..\src\OpticalSystemDesign.Application\OpticalSystemDesign.Application.csproj" />
+    <ProjectReference Include="..\..\src\OpticalSystemDesign.Core\OpticalSystemDesign.Core.csproj" />
+    <ProjectReference Include="..\..\tools\OpticalSystemDesign.LensLibraryBuilder\OpticalSystemDesign.LensLibraryBuilder.csproj" />
+    <ProjectReference Include="..\..\tools\OpticalSystemDesign.ZemaxLibraryImporter\OpticalSystemDesign.ZemaxLibraryImporter.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\validation\zemax\2026-r1\signed-vignetting-2026-10-08\**\*"
+          Link="Validation\Zemax\SignedVignetting\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\validation\zemax\2026-r1\fft-pupil-phase-2026-10-09\**\*"
+          Link="Validation\Zemax\FftPupilPhase\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\validation\zemax\2026-r1\tessar-vignetting-2026-10-06\**\*"
+          Link="Validation\Zemax\TessarVignetting\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\validation\zemax\2026-r1\standard-sample-opd-2026-10-06\**\*"
+          Link="Validation\Zemax\StandardSampleOpd\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\validation\zemax\2026-r1\huygens-mtf-sampling-2026-09-06\**\*"
+          Link="Validation\Zemax\HuygensMtfSampling\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\validation\zemax\2026-r1\numerical-repair-2026-09-06\**\*"
+          Link="Validation\Zemax\NumericalRepair\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\validation\history\optiland-0.5.8\**\*"
+          Link="Validation\History\optiland-0.5.8\%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Fixtures\beam-expander-266nm-6x.zmx" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Fixtures\zemax-2026-r1-official-merit-operand-catalog.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Fixtures\zmax_38668.ZMX" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\packaging\macos\Info.plist"
+          Link="Fixtures\macos-Info.plist"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\local-data\lens-library\originals\user-zmx\project\samples\lenses\*.zmx"
+          Link="Samples\%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\source\123456.ZMX"
+          Link="Fixtures\zemax-123456.ZMX"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\079-cardinalpoints\data.txt"
+          Link="Fixtures\zemax-123456-cardinal-points.txt"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\078-sagtable\data.txt"
+          Link="Fixtures\zemax-123456-sag-table.txt"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\017-fftthroughfocusmtf\data.json"
+          Link="Fixtures\zemax-123456-fft-through-focus-mtf.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\008-longitudinalaberration\data.json"
+          Link="Fixtures\zemax-123456-longitudinal-aberration.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\010-seidelcoefficients\data.txt"
+          Link="Fixtures\zemax-123456-seidel-coefficients.txt"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\local-data\lens-library\originals\user-zmx\project\root\[MS-L7](10X大NA大视场).ZMX"
+          Link="Fixtures\zemax-ms-l7-high-na.ZMX"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\ms-l7-zemax-2026-r1-baseline\merit-function.json"
+          Link="Fixtures\zemax-ms-l7-merit-function.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\002-opticalpathfan\data.json"
+          Link="Fixtures\zemax-123456-optical-path-difference.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\003-pupilaberrationfan\data.json"
+          Link="Fixtures\zemax-123456-pupil-aberration.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\007-lateralcolor\data.json"
+          Link="Fixtures\zemax-123456-lateral-color.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\035-geometricencircledenergy\data.json"
+          Link="Fixtures\zemax-123456-geometric-encircled-energy.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\034-diffractionencircledenergy\data.json"
+          Link="Fixtures\zemax-123456-diffraction-encircled-energy.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\037-extendedsourceencircledenergy\data.json"
+          Link="Fixtures\zemax-123456-extended-source-encircled-energy.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\source\LETTERF.IMA"
+          Link="Fixtures\LETTERF.IMA"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\028-huygensthroughfocusmtf\data.json"
+          Link="Fixtures\zemax-123456-huygens-through-focus-mtf.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\025-huygensmtfvsfield\data.json"
+          Link="Fixtures\zemax-123456-huygens-mtf-vs-field.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\026-huygensmtf\data.json"
+          Link="Fixtures\zemax-123456-huygens-mtf.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\033-huygenspsf\data.json"
+          Link="Fixtures\zemax-123456-huygens-psf.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\049-rmsfield\data.json"
+          Link="Fixtures\zemax-123456-rms-wavefront-vs-field.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\052-rmsfocus\data.json"
+          Link="Fixtures\zemax-123456-rms-wavefront-vs-focus.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\069-relativeillumination\data.json"
+          Link="Fixtures\zemax-123456-relative-illumination.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\072-yybardiagram\data.txt"
+          Link="Fixtures\zemax-123456-y-ybar.txt"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\055-wavefrontmap\data.json"
+          Link="Fixtures\zemax-123456-wavefront-map.json"
+          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\139-contrastloss\data.json"
+          Link="Fixtures\zemax-123456-contrast-loss.json"
+          CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../validation/zemax/2026-r1/single-ray-path-2026-10-07/**/*" Link="Fixtures/single-ray-path/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/**/*" Link="Fixtures/tessar-ray-audit/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/rms-field-sampling-2026-10-07/**/*" Link="Fixtures/rms-field-sampling/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Fixtures/retired-product.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

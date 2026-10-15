@@ -60,7 +60,7 @@
 
 默认 App 输出已重新构建（0 警告、0 错误）。紧凑标题修改后，`SurfacePropertiesPanelTests` 增至 **6/6** 项通过，与半径求解及右键行操作组合定向检查 **14/14** 通过、0 跳过。覆盖 600/1000 DIP 宽度、圆形按钮布局、真实鼠标展开/收起与前后导航、首尾禁用、选中面同步、待提交数值、失效导航、十类导航、参数显示、四种主题及应用/还原。背景断言在类型页挂接视觉树后执行，不要求已卸载页面继续持有祖先样式。
 
-独立 Skia 再跑 `SurfacePropertiesPanelTests` **6/6** 通过，人工复核 `artifacts/validation/surface-properties-header/surface-properties-header-1000.png` 的紧凑横条。可用环境变量 `OPTILAND_SURFACE_PROPERTIES_CAPTURE_DIR` 输出布局诊断图；该复跑包含重复用例，不累加为全量基线，亦不宣称完整 Zemax 外观或功能等价。上文 11 项服务/组件检查是此前记录，本轮未修改或重新测试该服务。
+独立 Skia 再跑 `SurfacePropertiesPanelTests` **6/6** 通过，人工复核 `artifacts/validation/surface-properties-header/surface-properties-header-1000.png` 的紧凑横条。可用环境变量 `OPTICAL_SYSTEM_DESIGN_SURFACE_PROPERTIES_CAPTURE_DIR` 输出布局诊断图；该复跑包含重复用例，不累加为全量基线，亦不宣称完整 Zemax 外观或功能等价。上文 11 项服务/组件检查是此前记录，本轮未修改或重新测试该服务。
 
 本次运行的是默认目录中的更新程序，不是仅 `/t:Compile` 或旧 App 二进制。未运行全量测试或打包程序，未提交/推送。
 

@@ -20,7 +20,7 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 $repositoryRoot = Split-Path -Parent $PSScriptRoot
-$project = Join-Path $repositoryRoot 'src\OptilandWorkbench.App\OptilandWorkbench.App.csproj'
+$project = Join-Path $repositoryRoot 'src\OpticalSystemDesign.App\OpticalSystemDesign.App.csproj'
 if ([string]::IsNullOrWhiteSpace($OutputRoot)) {
     $OutputRoot = Join-Path $repositoryRoot 'artifacts\windows'
 } elseif (-not [System.IO.Path]::IsPathRooted($OutputRoot)) {
@@ -75,13 +75,13 @@ try {
 
     Write-Host '[3/3] Checking the EXE, runtime and bundled resources...'
     $requiredFiles = @(
-        'OptilandWorkbench.App.exe',
-        'OptilandWorkbench.App.dll',
-        'OptilandWorkbench.App.runtimeconfig.json',
-        'OptilandWorkbench.InitialStructure.Contracts.dll',
-        'OptilandWorkbench.InitialStructure.Engine.dll',
-        'OptilandWorkbench.InitialStructure.Persistence.dll',
-        'OptilandWorkbench.CoatingDesign.Engine.dll', 'OptilandWorkbench.Modules.dll',
+        'OpticalSystemDesign.App.exe',
+        'OpticalSystemDesign.App.dll',
+        'OpticalSystemDesign.App.runtimeconfig.json',
+        'OpticalSystemDesign.InitialStructure.Contracts.dll',
+        'OpticalSystemDesign.InitialStructure.Engine.dll',
+        'OpticalSystemDesign.InitialStructure.Persistence.dll',
+        'OpticalSystemDesign.CoatingDesign.Engine.dll', 'OpticalSystemDesign.Modules.dll',
         'Licenses\TFStudio-LICENSE.txt',
         'Licenses\tmmcore-LICENSE.txt',
         'Licenses\MATERIAL-NOTICE.txt',
@@ -103,14 +103,14 @@ try {
     if (-not (Test-Path -LiteralPath (Join-Path $stagingDirectory 'LensLibrary\StockCatalogs') -PathType Container)) {
         throw "Manufacturer stock catalogs are missing. Output retained at: $stagingDirectory"
     }
-    foreach ($retired in @('OptilandWorkbench.InitialStructure.App.exe', 'OptilandWorkbench.CoatingDesign.App.exe')) {
+    foreach ($retired in @('OpticalSystemDesign.InitialStructure.App.exe', 'OpticalSystemDesign.CoatingDesign.App.exe')) {
         if (Get-ChildItem -LiteralPath $stagingDirectory -Recurse -File -Filter $retired) {
             throw "Independent module executables are not permitted: $retired"
         }
     }
 
     # This license is tracked but is not currently copied by the application project.
-    Copy-Item -LiteralPath (Join-Path $repositoryRoot 'src\OptilandWorkbench.App\Assets\Icons\LUCIDE-LICENSE.txt') `
+    Copy-Item -LiteralPath (Join-Path $repositoryRoot 'src\OpticalSystemDesign.App\Assets\Icons\LUCIDE-LICENSE.txt') `
         -Destination (Join-Path $stagingDirectory 'Assets\Icons\LUCIDE-LICENSE.txt')
     Copy-Item -LiteralPath (Join-Path $repositoryRoot 'packaging\windows\README.txt') `
         -Destination (Join-Path $stagingDirectory 'README.txt')
@@ -126,7 +126,7 @@ try {
     Write-Host 'Packaging completed. Copy the ENTIRE folder to the destination computer:'
     Write-Host $packageDirectory
     Write-Host 'Run this EXE (no separate .NET installation required):'
-    Write-Host (Join-Path $packageDirectory 'OptilandWorkbench.App.exe')
+    Write-Host (Join-Path $packageDirectory 'OpticalSystemDesign.App.exe')
     if ($PassThru) {
         [pscustomobject]@{ Directory = $packageDirectory; Runtime = $Runtime; Version = $AppVersion }
     }

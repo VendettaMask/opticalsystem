@@ -41,12 +41,12 @@ v1–5 缺少变量表按空表读取；低版本夹带非空变量表、重复�
 
 ## 源码
 
-- [变量标识、检查与正式参数访问](../src/OptilandWorkbench.Core/Multiconfig/MultiConfigurationVariable.cs)
-- [变量与基准链接管理](../src/OptilandWorkbench.Core/Multiconfig/MultiConfiguration.Variables.cs)
-- [候选隔离、变量收集和联合优化](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Optimization.cs)
-- [配置行表交互](../src/OptilandWorkbench.App/Panels/MultiConfigurationPanel.Operands.cs)
-- [数值、保存和服务回归](../tests/OptilandWorkbench.Tests/MultiConfigurationVariableTests.cs)
-- [实际控件回归](../tests/OptilandWorkbench.Tests/MultiConfigurationPanelTests.cs)
+- [变量标识、检查与正式参数访问](../src/OpticalSystemDesign.Core/Multiconfig/MultiConfigurationVariable.cs)
+- [变量与基准链接管理](../src/OpticalSystemDesign.Core/Multiconfig/MultiConfiguration.Variables.cs)
+- [候选隔离、变量收集和联合优化](../src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Optimization.cs)
+- [配置行表交互](../src/OpticalSystemDesign.App/Panels/MultiConfigurationPanel.Operands.cs)
+- [数值、保存和服务回归](../tests/OpticalSystemDesign.Tests/MultiConfigurationVariableTests.cs)
+- [实际控件回归](../tests/OpticalSystemDesign.Tests/MultiConfigurationPanelTests.cs)
 
 ## 实际控件渲染
 

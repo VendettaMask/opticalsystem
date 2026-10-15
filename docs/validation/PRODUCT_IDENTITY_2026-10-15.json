@@ -1,0 +1,107 @@
+{
+  "Date": "2026-10-15",
+  "Scope": "Replace retired product branding in maintained production code, project identities, resource keys, launch/build/publish inputs and newly generated output",
+  "SourceCommit": "0179e2fb8fff814826176043271fac6e241c2c24",
+  "SourceDirty": true,
+  "DisplayName": "Optical System Design",
+  "CodeIdentity": "OpticalSystemDesign",
+  "FormalProjectsRenamed": 19,
+  "PreExistingChangesPreserved": "All uncommitted version-display, caption/search, compact/rounded ribbon, reference-workbench and hidden-sidebar changes, with their existing dated evidence",
+  "Implemented": [
+    "Solution, project files/directories, namespaces, assemblies, embedded resource identities, theme resource keys and development launchers use the current identity",
+    "Sample names, catalog error messages, capture-window title and new ZMX/CODE V/OSLO/STEP author identifiers no longer use the retired product brand",
+    "Plugin interface renamed to IOpticalSystemDesignPlugin; old binary plugins require recompilation",
+    "Build, publish, installer, macOS bundle and CI references, dependency project identities and current guides synchronized",
+    "Only packaging/legacy-product.ini retains old external compatibility identifiers; production code reads the table through Core and Application, without a new App-to-Core assembly dependency",
+    "Existing user-data directories remain in place for settings, workspaces, catalogs and recovery copies; new profiles use the current product directory",
+    "Legacy native documents and opaque blocking-reason metadata remain readable; retired foreign suffixes remain rejected",
+    "Installer preparation, interrupted-transaction recovery and receipt-verified cleanup recognize both previous and current executable names, including exclusive-lock checks",
+    "Old build outputs and four source-free retired-project output folders archived locally, not deleted; no user projects or profiles modified"
+  ],
+  "NameAudit": {
+    "ProductionAndBuildFilesContainingRetiredBrand": 0,
+    "Scope": "src, both module src trees, scripts, packaging code, CI, root solution and launch/build wrappers; C#, project/build XML, scripts, installer and bundle definitions; generated bin/obj excluded",
+    "DeliberateExceptions": ["Read-only legacy compatibility data", "Unchanged material provenance", "Frozen historical inputs, evidence and their test-only schema/file references", "Git history and recoverable local build/source archives"],
+    "Regression": "ProductIdentityTests checks production/build source names and text, assembly/reference/resource names, all 19 solution project targets, user-profile preservation and previous-executable resolution"
+  },
+  "Integrity": {
+    "ProtectedEvidenceAndLicenseFiles": 5280,
+    "ChangedProtectedFiles": 0,
+    "HistoricalReportsRestoredToPreRenameProse": 53,
+    "HistoricalEditBoundary": "Only actual current source-link destinations remapped; original prose, commands, counts and dated assertions retained",
+    "CoreFilesMechanicallyRenamed": 277,
+    "CoreAdditionalExistingFileEdits": ["FileIO/ZemaxZmxReader.cs: write the current opaque blocking-reason key", "Geometries/GeometryModels.cs: read current key with legacy-key fallback"],
+    "CoreNewFile": "Serialization/LegacyProductIdentity.cs: read-only compatibility identifiers",
+    "ExternalPackageLockEntriesCompared": 260,
+    "ChangedExternalPackageEntries": 0,
+    "MaterialDataGitBlobsUnchanged": { "glass-catalog.json": "5c55c452d6484585346c2f4e5ba63fe5ad876975", "zemax-glass-catalogs.ogdb": "88524a96386e6275f4563d1acb9c1cacbc1a753a" },
+    "LocalAudit": "artifacts/validation/product-identity-20261015/production-mechanical-audit.json",
+    "LocalProtectedInventory": "artifacts/validation/product-identity-20261015/frozen-before.json"
+  },
+  "Builds": [
+    { "Configuration": "Debug", "Target": "OpticalSystemDesign.slnx", "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/product-identity-20261015/build-final-v2-debug.log" },
+    { "Configuration": "Release", "Target": "OpticalSystemDesign.slnx", "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/product-identity-20261015/build-final-v2-release.log" }
+  ],
+  "AppAssemblySha256": {
+    "Debug": "35c8659173a587626feba9c41cb382476f6a588b0b629c568ea341409f72681c",
+    "Release": "00d8dc3baba5a55cac7e594e93850306ac74b6f9cc4528064bce7e09fa78454a"
+  },
+  "FinalTests": {
+    "NewCases": 6,
+    "MainRelatedClasses": ["ProductIdentityTests", "DocumentFormatBoundaryTests", "DocumentRecoveryTests", "WindowsInstallation*", "WindowsPackagingTests", "LayeringArchitectureTests", "ProductDependencyArchitectureTests", "ReferenceWorkbenchLayoutTests", "CompactSidebarTests", "Plugin*", "ZemaxImportTests"],
+    "MainDebug": { "Passed": 202, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/product-identity-20261015/final-tests/identity-related-v2-debug.trx" },
+    "MainRelease": { "Passed": 202, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/product-identity-20261015/final-tests/identity-related-v2-release.trx" },
+    "ComparisonFullRelease": { "Passed": 201, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/product-identity-20261015/final-tests/identity-final-comparison-release.trx" },
+    "CoatingFullRelease": { "Passed": 54, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/product-identity-20261015/final-tests/identity-final-coating-release.trx" },
+    "InitialStructureRelatedRelease": {
+      "Passed": 22, "Failed": 0, "Skipped": 0,
+      "Filter": "FullyQualifiedName~FlatStartDesktopTests|FullyQualifiedName~IncompleteSpotPresentationTests|FullyQualifiedName~InitialStructureLabTests.RunDirectory|FullyQualifiedName~InitialStructureLabTests.CheckpointStore|FullyQualifiedName~InitialStructureLabTests.CandidateExport|FullyQualifiedName~InitialStructureLabTests.Product|FullyQualifiedName~InitialStructureLabTests.Formal",
+      "LocalTrx": "artifacts/validation/product-identity-20261015/final-tests/identity-final-initial-related-release.trx"
+    },
+    "EarlierRelatedRuns": "137/137 Debug and 108/108 Debug overlap the final 202-case collection and are not additive",
+    "FullMainAndInitialStructureAcceptance": false
+  },
+  "FullMainExploratoryAttempt": {
+    "Completed": false,
+    "AbortedByAgent": true,
+    "StoppedAfterMinutes": 12,
+    "ReportedPassedBeforeStop": 4436,
+    "ReportedFailedBeforeStop": 1,
+    "ReportedSkippedBeforeStop": 0,
+    "Failure": "A test expected a renamed title in an immutable historical ZMX fixture. Restored the original expected title via read-only legacy identity data; did not modify the fixture or optical assertions.",
+    "CorrectedCaseVerified": "Frozen058ZemaxFixtureImportsSystemAndPrescription is included in both final 202/202 collections and the prior Debug 108/108 import check",
+    "StopReason": "Bounded an additional long-running numerical run outside the naming acceptance scope; only the verified task-owned testhost was terminated. VSTest reports this intentional stop as a host crash/aborted run, not a demonstrated product crash.",
+    "LocalTrx": "artifacts/validation/product-identity-20261015/final-tests/identity-final-main-release.trx",
+    "NotAFullPassingBaseline": true
+  },
+  "RenderedControlFixtures": {
+    "Configuration": "Debug", "Passed": 6, "Failed": 0, "Skipped": 0,
+    "LocalTrx": "artifacts/validation/product-identity-20261015/final-tests/identity-render-debug.trx",
+    "LocalDirectory": "artifacts/validation/product-identity-20261015/render-debug",
+    "VisuallyInspected": "workbench-Light-1280-13.png",
+    "Scope": "Existing production-control composition with renamed resources and factories; not full native desktop acceptance; overlaps related tests"
+  },
+  "Installer": {
+    "Version": "1.0.3", "Runtime": "win-x64", "ReleaseId": "1.0.3-win-x64-5d26bc9bf9a4", "Signed": false,
+    "StandardScript": "scripts/build-installer.ps1",
+    "Compiled": true,
+    "LocalSetup": "artifacts/validation/product-identity-20261015/final-installers/installer-win-x64-bb359b93/OpticalSystemDesign-1.0.3-win-x64-Unsigned-Setup.exe",
+    "SetupSha256": "824e34e8a3108ffb78459f40c56f2a50ec48f3cf4bdf5b9c656dc4983838e46b",
+    "PackageChecks": { "Passed": 12, "Failed": 0, "ManifestFiles": 1187, "LocalSummary": "artifacts/validation/product-identity-20261015/package-check/summary.json" },
+    "Checks": "Complete manifest, required licenses, no independent module executables, actual self-contained startup verification, both modules in the main process, missing-library rejection; mutations confined to a disposable package copy",
+    "UserInstallationModified": false,
+    "NativeGuiVerified": false,
+    "PublishedRemotely": false
+  },
+  "Checks": { "ScopedWhitespaceFormat": "passed", "PowerShellScriptsParsed": 9, "PowerShellParseErrors": 0, "GitDiffCheck": "passed", "DocumentationStrictCheck": "passed", "Documents": 891, "BrokenLinks": 0, "GuideRepeatedParagraphGroups": 0, "HistoricalRepeatedParagraphGroupsRetained": 11, "LocalDocumentationReport": "artifacts/validation/product-identity-20261015/documentation-final.json" },
+  "IntermediateResults": [
+    "Initial locked restore rejected renamed project identities. Re-evaluated project lock entries, verified all 260 external dependency entries unchanged, then locked restore passed.",
+    "Initial Release build emitted two test platform warnings; added an OS guard and final builds have zero warnings.",
+    "The first related Debug run passed 136/137; its layering guard caught direct App-to-Core references added for legacy identity access. Added an Application facade; final 202-case collections pass without relaxing the guard.",
+    "An early all-solution test attempt completed coating 54/54 and was deliberately stopped in the long initial-structure search suite before final corrected-binary verification. It is not counted as all-solution or initial-structure acceptance.",
+    "Documentation validation caught 17 historical links accidentally affected by environment-prefix replacement. Restored their original destinations and preserved historical report prose from the pre-rename backups; strict checks then passed.",
+    "The first installer build predates the layering correction and is retained only as an intermediate local artifact; only the final installer identity above is delivered."
+  ],
+  "Limitations": ["No completed full main/initial-structure numerical suite or new external numerical certification", "No native manual desktop, real installed cross-version upgrade, power-loss, multi-session or ARM64 acceptance", "No signed-publisher identity claim", "No user-profile deletion or migration rewrite", "No commit or push"],
+  "Delivery": "Renamed default runnable Debug/Release outputs, current launchers and a complete locally rebuilt unsigned Windows x64 installer"
+}

@@ -1,10 +1,10 @@
 # 构建与发布
 
-更新：2026-10-13。本文只说明当前命令和交付规则。最新验收见 [当前状态](CURRENT_STATUS.md)，历史构建验收原文已集中到 [历史账本](validation/BUILD_VERIFICATION_HISTORY_2026-10-13.json)，不作为当前通过结论或可直接执行的旧命令。
+更新：2026-10-15。本文只说明当前命令和交付规则。最新验收见 [当前状态](CURRENT_STATUS.md)，历史构建验收原文已集中到 [历史账本](validation/BUILD_VERIFICATION_HISTORY_2026-10-13.json)，不作为当前通过结论或可直接执行的旧命令。
 
 ## 唯一产品入口
 
-`OptilandWorkbench.slnx` 是唯一产品解决方案，包含主程序、初始结构和镀膜内置模块，以及对应测试。模块 UI 在主程序进程内运行；不再维护独立 App 或解决方案，也不接受外部可执行路径。
+`OpticalSystemDesign.slnx` 是唯一产品解决方案，包含主程序、初始结构和镀膜内置模块，以及对应测试。模块 UI 在主程序进程内运行；不再维护独立 App 或解决方案，也不接受外部可执行路径。
 
 普通构建与 CI 不探测、不启动 Zemax。外部比较工具、参考捕获、第三方源归档和测试数据不进入产品运行依赖。
 
@@ -13,19 +13,19 @@
 安装 [global.json](../global.json) 指定兼容范围的 .NET SDK（当前 10.0.300 / latestPatch），在仓库根目录运行：
 
 ```powershell
-dotnet restore OptilandWorkbench.slnx --locked-mode
-dotnet build OptilandWorkbench.slnx -c Debug --no-restore /m:1 /nr:false
-dotnet build OptilandWorkbench.slnx -c Release --no-restore /m:1 /nr:false
+dotnet restore OpticalSystemDesign.slnx --locked-mode
+dotnet build OpticalSystemDesign.slnx -c Debug --no-restore /m:1 /nr:false
+dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false
 ```
 
-依赖有意变更时才使用 `dotnet restore OptilandWorkbench.slnx --force-evaluate` 并审查锁文件。仓库通过 `Directory.Build.targets` 关闭 Avalonia 构建统计，不关闭 NuGet 安全审计。若运行中的产品锁住默认 App 输出，应正常关闭该特定程序再重建，不用另一个输出目录冒充默认产物更新。
+依赖有意变更时才使用 `dotnet restore OpticalSystemDesign.slnx --force-evaluate` 并审查锁文件。仓库通过 `Directory.Build.targets` 关闭 Avalonia 构建统计，不关闭 NuGet 安全审计。若运行中的产品锁住默认 App 输出，应正常关闭该特定程序再重建，不用另一个输出目录冒充默认产物更新。
 
 ## 测试
 
 ```powershell
-dotnet test OptilandWorkbench.slnx -c Release --no-build --no-restore /m:1 /nr:false
-dotnet test labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/OptilandWorkbench.InitialStructure.Tests.csproj -c Release --no-build --no-restore
-dotnet test labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/OptilandWorkbench.CoatingDesign.Tests.csproj -c Release --no-build --no-restore
+dotnet test OpticalSystemDesign.slnx -c Release --no-build --no-restore /m:1 /nr:false
+dotnet test labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj -c Release --no-build --no-restore
+dotnet test labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/OpticalSystemDesign.CoatingDesign.Tests.csproj -c Release --no-build --no-restore
 ```
 
 后两条用于模块定向运行，不是单独产品构建。VSTest 需要本地套接字；受限环境中的权限或网络故障应如实报告，不能当作通过。全量/定向、Debug/Release、原生/Headless、内部/外部数值验收分别记录，不能相加。
@@ -34,10 +34,10 @@ CI 使用同一根解决方案，分别运行主测试、模块测试和比较�
 
 ## 启动桌面应用
 
-Windows 使用 `Run-Optiland.cmd`，macOS 使用 `Run-Optiland.command`，或执行：
+Windows 使用 `Run-OpticalSystemDesign.cmd`，macOS 使用 `Run-OpticalSystemDesign.command`，或执行：
 
 ```powershell
-dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release --no-build
+dotnet run --project src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj -c Release --no-build
 ```
 
 脚本先还原，再清理、构建和启动；清理只处理构建输出，不删除工程、主题或工作区。两个模块均从主程序“实验室”菜单打开，无独立启动脚本。
@@ -58,7 +58,7 @@ dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c R
 
 `build-installer.ps1` 调用 `publish-windows.ps1` 再编译 Inno Setup 脚本。优先使用指定或已安装的编译器，否则下载固定版本并核对固定哈希；来源和许可见 [编译器说明](../packaging/windows/inno/SOURCE.md)。不因非商业使用而删除第三方授权材料。
 
-RID 专用锁文件放在项目 `obj` 下，不覆盖源锁文件。发布禁用裁剪、AOT 和单文件合并，保留原生依赖和授权；每次使用新输出目录，失败的 `.partial` 产物不当成成功包。自动化可设置 `OPTILAND_PACKAGE_NO_PAUSE=1`。
+RID 专用锁文件放在项目 `obj` 下，不覆盖源锁文件。发布禁用裁剪、AOT 和单文件合并，保留原生依赖和授权；每次使用新输出目录，失败的 `.partial` 产物不当成成功包。自动化可设置 `OPTICAL_SYSTEM_DESIGN_PACKAGE_NO_PAUSE=1`。
 
 当前标准 1.0.3 完整包已经生成，不再是“只有测试包”；旧正式 1.0.2 文件和用户现有安装未覆盖。当前包身份与验收见 [统一交付记录](BUILT_IN_MODULES_2026-10-13.md)。
 
@@ -85,9 +85,9 @@ bash scripts/publish-cross-platform.sh
 ## 基准与教学样例
 
 ```powershell
-dotnet run -c Release --project tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj
-dotnet run -c Release --project tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj -- --non-sequential 1000000
-dotnet run --project tools/OptilandWorkbench.NonSequentialSamples/OptilandWorkbench.NonSequentialSamples.csproj -- samples/non-sequential
+dotnet run -c Release --project tools/OpticalSystemDesign.Benchmarks/OpticalSystemDesign.Benchmarks.csproj
+dotnet run -c Release --project tools/OpticalSystemDesign.Benchmarks/OpticalSystemDesign.Benchmarks.csproj -- --non-sequential 1000000
+dotnet run --project tools/OpticalSystemDesign.NonSequentialSamples/OpticalSystemDesign.NonSequentialSamples.csproj -- samples/non-sequential
 ```
 
 基准用于同机同运行时比较，不是普通 CI 的硬阈值；`PsfMtfSampling` 历史名称实际测几何 MTF，不认证 FFT/Huygens。非序列样例生成会写目标目录，不应指向用户工程位置；教学说明见 [样例入口](../samples/non-sequential/README.md)。

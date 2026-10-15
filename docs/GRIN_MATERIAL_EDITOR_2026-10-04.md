@@ -40,9 +40,9 @@
 
 ## 代码及实际渲染
 
-- [共享系数映射](../src/OptilandWorkbench.Core/Materials/GradientIndexProfileData.cs)、[变量读写](../src/OptilandWorkbench.Core/Services/GradientIndexParameters.cs)和[严格组件保存](../src/OptilandWorkbench.Core/Serialization/ComponentSnapshot.GradientIndex.cs)
-- [事务编辑服务](../src/OptilandWorkbench.Application/Services/PrescriptionService.GradientIndex.cs)和[桌面编辑器](../src/OptilandWorkbench.App/Panels/GradientIndexMaterialEditorWindow.cs)
-- [功能测试](../tests/OptilandWorkbench.Tests/GradientIndexEditingTests.cs)与[实际界面测试](../tests/OptilandWorkbench.Tests/GradientIndexEditorPanelTests.cs)
+- [共享系数映射](../src/OpticalSystemDesign.Core/Materials/GradientIndexProfileData.cs)、[变量读写](../src/OpticalSystemDesign.Core/Services/GradientIndexParameters.cs)和[严格组件保存](../src/OpticalSystemDesign.Core/Serialization/ComponentSnapshot.GradientIndex.cs)
+- [事务编辑服务](../src/OpticalSystemDesign.Application/Services/PrescriptionService.GradientIndex.cs)和[桌面编辑器](../src/OpticalSystemDesign.App/Panels/GradientIndexMaterialEditorWindow.cs)
+- [功能测试](../tests/OpticalSystemDesign.Tests/GradientIndexEditingTests.cs)与[实际界面测试](../tests/OpticalSystemDesign.Tests/GradientIndexEditorPanelTests.cs)
 - [累计过滤器](../artifacts/validation/grin-material-editor-20261004/test-filter.txt)和[真实渲染目录](../artifacts/validation/grin-material-editor-20261004/screenshots)
 
 ![分布与系数变量](../artifacts/validation/grin-material-editor-20261004/screenshots/grin-editor-light-840-coefficients.png)

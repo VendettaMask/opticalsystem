@@ -1,0 +1,63 @@
+{
+  "Date": "2026-10-15",
+  "Scope": "Round the two upper corners of the ordinary Light System Options Dock header",
+  "SourceCommit": "0179e2fb8fff814826176043271fac6e241c2c24",
+  "SourceDirty": true,
+  "Implemented": [
+    "ToolChromeControl's actual PART_Border uses a shared 6/6/0/0 DIP corner token and ClipToBounds in exactly the ordinary Light variant",
+    "Header background is clipped along the arc; original Dock title, menu, pin controls and templates are retained",
+    "No sidebar width, header height, inner-card, scroll behavior, document-tab or optical computation change",
+    "Dark, Pixel and Isekai remain unchanged; switching back to Light restores the rounded header"
+  ],
+  "ChangedProductionCode": [
+    "src/OpticalSystemDesign.App/Theming/BlueThemeStyles.cs",
+    "src/OpticalSystemDesign.App/Theming/ThemeChrome.cs"
+  ],
+  "Builds": [
+    { "Configuration": "Debug", "Target": "OpticalSystemDesign.slnx", "Projects": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/rounded-sidebar-20261015/build-debug.log" },
+    { "Configuration": "Release", "Target": "OpticalSystemDesign.slnx", "Projects": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/rounded-sidebar-20261015/build-release.log" }
+  ],
+  "AppAssemblySha256": {
+    "Debug": "8d34d73fbbced287e1fe0f87eabf2c1df128865823b7ee621d315c63e804aa7a",
+    "Release": "98508e49f00f748e84a39ccad8e1a21f0e586245b88b167bf8546c33640cf310",
+    "DefaultAndTestOutputMatch": true
+  },
+  "Tests": {
+    "Project": "tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj",
+    "Classes": ["ToolDockCornerTests", "ReferenceWorkbenchLayoutTests", "CompactSidebarTests", "SystemPropertiesPanelSectionThemeTests", "ThemeRuntimeTests", "BlueThemeInteractionTests", "LensMaterialRowThemeTests", "LayeringArchitectureTests", "DocumentTabCornerTests"],
+    "Debug": { "Passed": 62, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/rounded-sidebar-20261015/sidebar-corners-final-debug.trx" },
+    "Release": { "Passed": 62, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/rounded-sidebar-20261015/sidebar-corners-final-release.trx" },
+    "NewCases": 2,
+    "NewCaseCoverage": "Real System Options Dock at 240/280 DIP and configured 13/18 font sizes, active/inactive and pointer-over states, Light/Dark/Pixel/Isekai/Light switches; actual header radius/clipping, stable chrome size and visible enabled hit-testable menu/pin buttons",
+    "ExistingCompositionCoverage": "Three Light real-workbench compositions now additionally assert actual Dock header radius and clipping",
+    "FullProductSuiteRun": false
+  },
+  "RenderedControlFixtures": {
+    "Mechanism": "Separate ReferenceWorkbenchLayoutTests process with Skia/HarfBuzz; not a native desktop screenshot",
+    "Debug": { "Passed": 6, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/rounded-sidebar-20261015/sidebar-corners-render-debug.trx", "LocalDirectory": "artifacts/validation/rounded-sidebar-20261015/render-debug" },
+    "Configurations": ["Light/1280/13", "Light/1024/18", "Light/640/13", "Dark/1280/13", "Pixel/1280/13", "Isekai/1280/13"],
+    "VisuallyInspected": ["render-debug/workbench-Light-1280-13.png"],
+    "Observation": "Both upper corners of the System Options title surface are rounded, lower corners remain straight, menu and pin remain visible; no outer sidebar scrollbar",
+    "CountsOverlapRelatedTests": true
+  },
+  "Checks": {
+    "ScopedWhitespaceFormat": "passed",
+    "GitDiffCheck": "passed",
+    "StrictDocumentation": "passed",
+    "DocumentationDocuments": 891,
+    "DocumentationBrokenLinks": 0,
+    "DocumentationFenceIssues": 0,
+    "DocumentationLocalOnlyLinks": 0,
+    "DocumentationGuideRepeatedParagraphGroups": 0,
+    "HistoricalRepeatedParagraphGroupsRetained": 11,
+    "LocalDocumentationReport": "artifacts/validation/rounded-sidebar-20261015/documentation.json",
+    "CoreOrFrozenEvidenceChangedByThisTask": false
+  },
+  "IntermediateResults": [
+    "First new test ran before deferred Dock controls were created; added the existing UI-dispatch/layout lifecycle used by the workbench fixture. Original sidebar-corners-before-debug.trx retained.",
+    "Two pre-fix inspection runs exposed the square, unclipped native ToolChromeControl PART_Border; their TRX files retain the original control-tree diagnostics.",
+    "After styling that actual header part, the two focused cases passed, followed by both final 62-case runs and the six-case capture run. Counts overlap and are not additive."
+  ],
+  "Limitations": ["No full optical/laboratory suite or new external numerical capture", "No native manual desktop, multi-monitor DPI, floating/pinning action matrix or ARM64 acceptance", "No installer rebuild or user installation replacement", "No commit or push"],
+  "DeliveryAtValidation": "Updated default runnable Debug and Release outputs; pre-existing uncommitted project rename and UI changes preserved"
+}

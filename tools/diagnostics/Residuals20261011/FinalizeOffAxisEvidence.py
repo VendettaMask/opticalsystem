@@ -103,16 +103,16 @@ files = [dict(path=path.relative_to(fixture).as_posix(), sha256=digest(path)) fo
 write(fixture / 'capture-file-hashes.json', files)
 environments = [read(path) for path in fixture.rglob('environment.json')]
 assert environments and all(e['major'] == 26 and e['minor'] == 1 and e['validLicense'] for e in environments)
-sources = ['src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs', 'src/OptilandWorkbench.Core/Analysis/MtfScanAnalysis.cs',
-           'src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs',
-           'tools/OptilandWorkbench.ZemaxComparison/ExtendedAnalysisContracts.Diffraction.cs',
+sources = ['src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs', 'src/OpticalSystemDesign.Core/Analysis/MtfScanAnalysis.cs',
+           'src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs',
+           'tools/OpticalSystemDesign.ZemaxComparison/ExtendedAnalysisContracts.Diffraction.cs',
            'tools/diagnostics/N02Layers20261009/NativeEnergyControl.cs']
 binaries = {}
 for config in ['Debug', 'Release']:
-    paths = [root / f'src/OptilandWorkbench.Core/bin/{config}/net10.0/OptilandWorkbench.Core.dll',
-             root / f'src/OptilandWorkbench.App/bin/{config}/net10.0/OptilandWorkbench.Core.dll',
-             root / f'tests/OptilandWorkbench.Tests/bin/{config}/net10.0/OptilandWorkbench.Core.dll',
-             root / f'tests/OptilandWorkbench.ZemaxComparison.Tests/bin/{config}/net10.0/OptilandWorkbench.Core.dll']
+    paths = [root / f'src/OpticalSystemDesign.Core/bin/{config}/net10.0/OpticalSystemDesign.Core.dll',
+             root / f'src/OpticalSystemDesign.App/bin/{config}/net10.0/OpticalSystemDesign.Core.dll',
+             root / f'tests/OpticalSystemDesign.Tests/bin/{config}/net10.0/OpticalSystemDesign.Core.dll',
+             root / f'tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/{config}/net10.0/OpticalSystemDesign.Core.dll']
     hashes = [digest(path) for path in paths]
     assert len(set(hashes)) == 1, (config, hashes)
     binaries[config] = [dict(path=relative(path), sha256=sha) for path, sha in zip(paths, hashes)]

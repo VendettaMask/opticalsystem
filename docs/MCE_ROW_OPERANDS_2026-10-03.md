@@ -59,4 +59,4 @@ STAROPT 工程负载升级为 v5，新增 OperandRows（Kind、SurfaceNumber）�
 
 ## 代码入口
 
-[Core 行绑定](../src/OptilandWorkbench.Core/Multiconfig/MultiConfigurationOperand.cs)、[表结构与引用](../src/OptilandWorkbench.Core/Multiconfig/MultiConfiguration.Operands.cs)、[MCO 求值](../src/OptilandWorkbench.Core/Optimization/MeritFunction.MultiConfiguration.cs)、[行表界面](../src/OptilandWorkbench.App/Panels/MultiConfigurationPanel.Operands.cs)、[Core/应用回归](../tests/OptilandWorkbench.Tests/MultiConfigurationTableTests.cs)、[界面回归](../tests/OptilandWorkbench.Tests/MultiConfigurationPanelTests.cs)。
+[Core 行绑定](../src/OpticalSystemDesign.Core/Multiconfig/MultiConfigurationOperand.cs)、[表结构与引用](../src/OpticalSystemDesign.Core/Multiconfig/MultiConfiguration.Operands.cs)、[MCO 求值](../src/OpticalSystemDesign.Core/Optimization/MeritFunction.MultiConfiguration.cs)、[行表界面](../src/OpticalSystemDesign.App/Panels/MultiConfigurationPanel.Operands.cs)、[Core/应用回归](../tests/OpticalSystemDesign.Tests/MultiConfigurationTableTests.cs)、[界面回归](../tests/OpticalSystemDesign.Tests/MultiConfigurationPanelTests.cs)。

@@ -100,10 +100,10 @@ def evidence_summary() -> dict:
         assert sha(ROOT / path) == digest
     for path, digest in matrix["fixedProductSourceHashes"].items():
         assert sha(ROOT / path) == digest
-    binary_paths = ["src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll",
-                    "tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
-                    "tests/OptilandWorkbench.ZemaxComparison.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll",
-                    "tools/diagnostics/CalculationPaths20261008/bin/Release/net10.0/OptilandWorkbench.Core.dll"]
+    binary_paths = ["src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+                    "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+                    "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+                    "tools/diagnostics/CalculationPaths20261008/bin/Release/net10.0/OpticalSystemDesign.Core.dll"]
     hashes = {p: sha(ROOT / p) for p in binary_paths}
     assert len(set(hashes.values())) == 1 and matrix["coreAssemblySha256"] == hashes[binary_paths[0]]
     # Large per-test name lists stay in the immutable TRXs, not the concise report.
@@ -186,7 +186,7 @@ def make_pdf(summary: dict) -> None:
         ["负 Image Delta", "负数不拉伸，0 自动，正数重新生成共轭光瞳", "不再静默钳制成 0；非有限值拒绝"],
         ["Huygens 原点", "兼容权重改用镜头自身局部基准", "九组整体 Z 平移；完整物理传播模型未认证"],
         ["Foucault 偏振", "Core 明确拒绝 true，桌面禁用并说明", "仍是定性梯度响应，不冒称完整物理刀口"]], [39, 75, 54])
-    p("所有产品计算仍使用正式共享 C# Core。没有引入第二套光学公式，没有改写冻结输入、重生成 Optiland 历史参考或放宽原容差。", small)
+    p("所有产品计算仍使用正式共享 C# Core。没有引入第二套光学公式，没有改写冻结输入、重生成 OpticalSystemDesign 历史参考或放宽原容差。", small)
     story.append(PageBreak())
 
     h("修复前后数值")
@@ -218,7 +218,7 @@ def make_pdf(summary: dict) -> None:
     failures = []
     for label, data in (("正式", summary["formal"]), ("工具", summary["tool"])):
         for failure in data["failures"]:
-            name = failure["name"].replace("OptilandWorkbench.Tests.", "").replace("OptilandWorkbench.ZemaxComparison.Tests.", "")
+            name = failure["name"].replace("OpticalSystemDesign.Tests.", "").replace("OpticalSystemDesign.ZemaxComparison.Tests.", "")
             message = failure["message"]
             explanation = "" if label == "工具" else ("既有 finite_angle 历史辅助差异，数值未变" if "finite_angle" in message else "既有界面会话 Dispose 空引用；未以隔离通过抵消全量失败")
             if label == "工具":

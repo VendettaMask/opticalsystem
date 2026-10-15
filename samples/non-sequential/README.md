@@ -128,7 +128,7 @@
 从仓库根目录重新生成全部文件：
 
 ```bash
-dotnet run --project tools/OptilandWorkbench.NonSequentialSamples/OptilandWorkbench.NonSequentialSamples.csproj -- samples/non-sequential
+dotnet run --project tools/OpticalSystemDesign.NonSequentialSamples/OpticalSystemDesign.NonSequentialSamples.csproj -- samples/non-sequential
 ```
 
 生成器使用固定GUID和随机种子，先完成真实追迹和能量/筛选验收，再通过STAROPT原子保存发布文件。生成中断不会留下半个工程文件。

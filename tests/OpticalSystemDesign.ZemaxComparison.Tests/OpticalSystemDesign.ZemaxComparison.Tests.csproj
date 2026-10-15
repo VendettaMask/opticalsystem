@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="../../artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX" Link="Fixtures/recapture-source.ZMX" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/huygens-offaxis-2026-10-11/**/*" Link="Fixtures/huygens-offaxis/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/ra256-field-sampling-2026-10-07/**/*" Link="Fixtures/ra256-field-sampling/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/rms-field-sampling-2026-10-07/**/*" Link="Fixtures/rms-field-sampling/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Using Include="Xunit" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+    <ProjectReference Include="../../tools/OpticalSystemDesign.ZemaxComparison/OpticalSystemDesign.ZemaxComparison.csproj" />
+    <None Include="../../artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/033-huygenspsf/data.json" Link="Fixtures/huygens-psf.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../tools/OpticalSystemDesign.ZemaxComparison/comparison-settings.json" Link="comparison-settings.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/ms-l7-analysis-expansion-2026-09-06/**/*" Link="Fixtures/analysis-expansion/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/energy-repair-2026-09-06/**/*" Link="Fixtures/energy-repair/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/tessar-vignetting-2026-10-06/rotated30-axis-compressed/*-native.json" Link="Fixtures/tessar-vignetting/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

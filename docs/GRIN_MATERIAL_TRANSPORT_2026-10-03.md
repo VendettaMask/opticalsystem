@@ -8,8 +8,8 @@
 
 ## 已实现
 
-- [GradientIndexMaterial](../src/OptilandWorkbench.Core/Materials/GradientIndexMaterial.cs) 保存名称、不可变折射率分布、有限正数路径预算和完整积分设置。四种分布当前均无色散、无吸收；系数及积分精度使用镜头长度单位。未知自定义分布明确拒绝，避免无法保存的材料进入处方。
-- [正式表面追迹](../src/OptilandWorkbench.Core/Domain/OpticalSurface.StateTracing.cs) 在进入材料时绑定入口面的体坐标系，逐光线保留介质状态。体内段调用共享连续积分器，使用实际弧长和光程；到达目标面的曲线交点后，以两侧局部折射率、实际入射方向和目标面的局部法线执行既有反射/折射、孔径及标量膜层作用。
+- [GradientIndexMaterial](../src/OpticalSystemDesign.Core/Materials/GradientIndexMaterial.cs) 保存名称、不可变折射率分布、有限正数路径预算和完整积分设置。四种分布当前均无色散、无吸收；系数及积分精度使用镜头长度单位。未知自定义分布明确拒绝，避免无法保存的材料进入处方。
+- [正式表面追迹](../src/OpticalSystemDesign.Core/Domain/OpticalSurface.StateTracing.cs) 在进入材料时绑定入口面的体坐标系，逐光线保留介质状态。体内段调用共享连续积分器，使用实际弧长和光程；到达目标面的曲线交点后，以两侧局部折射率、实际入射方向和目标面的局部法线执行既有反射/折射、孔径及标量膜层作用。
 - 反射及全反射保留原体坐标；只有透射到下一 GRIN 材料才绑定新的入口坐标。空间分布坐标不随出口面移动。单面 `TraceRay` 接受显式入射体坐标，也可直接接续上一次返回的介质状态；缺少体坐标时明确报错。
 - 曲线命中点用于物理孔径、诊断延续和圆孔净空；像面入射终点可在折射前返回。弯曲后的方向、相互作用类型、实际路程和累计光程继续通过既有类型化样本输出。求解器额外返回精确局部积分位置，法线求值采用相对坐标转换。
 - 批处理遇到 GRIN 段或 GRIN 入射界面时转入同一正式标量表面实现；出射后的均匀段仍可批处理。取消使用当前计算令牌。达到路径预算或切向接触而未得到有效出口时终止光线，不产生有效像点。
@@ -17,7 +17,7 @@
 
 ## 保存契约
 
-[严格材料快照](../src/OptilandWorkbench.Core/Serialization/ComponentSnapshot.GradientIndex.cs) 使用 `kind=gradient_index`。容器 2、工程负载 4、顺序 schema 6 不变；旧读取器不认识该材料 kind 时拒绝加载。
+[严格材料快照](../src/OpticalSystemDesign.Core/Serialization/ComponentSnapshot.GradientIndex.cs) 使用 `kind=gradient_index`。容器 2、工程负载 4、顺序 schema 6 不变；旧读取器不认识该材料 kind 时拒绝加载。
 
 | 字段 | 内容 |
 | --- | --- |
@@ -42,7 +42,7 @@
 
 ## 验证
 
-[新增运输测试](../tests/OptilandWorkbench.Tests/GradientIndexTransportTests.cs)共 29 项。覆盖横向梯度悬链线精确解、局部界面 n、曲面出口法线、独立 Fresnel 标量膜层参考、反射和全反射回程、体坐标旋转平移、弯曲交点孔径、入射像面终点、批处理并行一致性、缓存共享/失效、四种模型文件往返及非法数据拒绝。解析公式只在测试中提供独立参考。
+[新增运输测试](../tests/OpticalSystemDesign.Tests/GradientIndexTransportTests.cs)共 29 项。覆盖横向梯度悬链线精确解、局部界面 n、曲面出口法线、独立 Fresnel 标量膜层参考、反射和全反射回程、体坐标旋转平移、弯曲交点孔径、入射像面终点、批处理并行一致性、缓存共享/失效、四种模型文件往返及非法数据拒绝。解析公式只在测试中提供独立参考。
 
 初步定向测试 61/61，通过补充曲面出口、膜层及非法负载/配置检查后为 65/65（原积分器 36 + 本批 29）。最终默认 Debug/Release 输出重新构建，合并回归各 **2728/2728**（第二十九批 2560 + GRIN 积分 36 + 本批运输 29 + 相邻非顺序 103），零失败、零跳过、零编译警告/错误。两个配置包含相同用例，先前 2560 项全部保留；本次完整合并运行包含基础阶段最后的大坐标修复。C# 格式检查和 `git diff --check` 通过，29 份指定 Zemax 资产与 HEAD 字节一致。命令过滤器、TRX、日志、源文件/文档和默认二进制哈希见[本批验证清单](../artifacts/validation/grin-material-transport-20261003/verification.json)。
 

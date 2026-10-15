@@ -33,7 +33,7 @@ foreach ($line in [IO.File]::ReadAllLines($manifest)) {
     $count++
 }
 Assert-Check 'complete-payload-manifest' ($count -gt 0) $count
-$independent = @(Get-ChildItem -LiteralPath $source -Recurse -File | Where-Object { $_.Name -match '^OptilandWorkbench\.(InitialStructure|CoatingDesign)\.App\.(exe|dll)$' })
+$independent = @(Get-ChildItem -LiteralPath $source -Recurse -File | Where-Object { $_.Name -match '^OpticalSystemDesign\.(InitialStructure|CoatingDesign)\.App\.(exe|dll)$' })
 Assert-Check 'no-independent-module-applications' ($independent.Count -eq 0) $independent.Count
 foreach ($notice in @('TFStudio-LICENSE.txt', 'tmmcore-LICENSE.txt', 'MATERIAL-NOTICE.txt')) {
     Assert-Check "license-$notice" (Test-Path -LiteralPath (Join-Path $source "Licenses\$notice")) $notice
@@ -42,7 +42,7 @@ foreach ($notice in @('TFStudio-LICENSE.txt', 'tmmcore-LICENSE.txt', 'MATERIAL-N
 # Test only a disposable copy. The completed release and the user's installation stay untouched.
 $copy = Join-Path $output 'package copy'
 Copy-Item -LiteralPath $source -Destination $copy -Recurse
-$exe = Join-Path $copy 'OptilandWorkbench.App.exe'
+$exe = Join-Path $copy 'OpticalSystemDesign.App.exe'
 $report = Join-Path $output 'native-product.json'
 $process = Start-Process -FilePath $exe -ArgumentList @('--verify-installation', ('"{0}"' -f $report)) -WorkingDirectory $output -WindowStyle Hidden -Wait -PassThru
 Assert-Check 'self-contained-executable' ($process.ExitCode -eq 0 -and (Test-Path -LiteralPath $report)) $process.ExitCode

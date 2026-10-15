@@ -57,9 +57,9 @@ foreach ($configuration in @('Release','Debug')) {
     if ($content -notmatch '已成功生成。' -or $content -notmatch '(?m)^\s*0 个警告\s*$' -or
         $content -notmatch '(?m)^\s*0 个错误\s*$') {throw 'Default build did not pass cleanly.'}
     $builds += [ordered]@{configuration=$configuration;sha256=(Hash $log);warnings=0;errors=0;defaultOutput=$true}
-    foreach ($directory in @('src/OptilandWorkbench.Core','src/OptilandWorkbench.App','tests/OptilandWorkbench.Tests',
-        'tests/OptilandWorkbench.ZemaxComparison.Tests')) {
-        $path="$directory/bin/$configuration/net10.0/OptilandWorkbench.Core.dll"
+    foreach ($directory in @('src/OpticalSystemDesign.Core','src/OpticalSystemDesign.App','tests/OpticalSystemDesign.Tests',
+        'tests/OpticalSystemDesign.ZemaxComparison.Tests')) {
+        $path="$directory/bin/$configuration/net10.0/OpticalSystemDesign.Core.dll"
         $binaries += [ordered]@{configuration=$configuration;path=$path;sha256=(Hash (Join-Path $repository $path))}
     }
     if (@($binaries | Where-Object {$_.configuration -eq $configuration} | ForEach-Object {$_.sha256} | Sort-Object -Unique).Count -ne 1) {
@@ -87,8 +87,8 @@ if ($rawCount -ne 165) {throw 'Native capture inventory differs.'}
 $referenceDirectory = Join-Path $repository 'artifacts/validation/huygens-reference-20261010/final-current-core'
 $referenceRun = Read-Trx (Join-Path $referenceDirectory 'reference-final.trx')
 if ($referenceRun.total -ne 5 -or $referenceRun.passed -ne 5 -or $referenceRun.skipped) {throw 'Reference measurement run incomplete.'}
-$referenceCoreHash = Hash (Join-Path $repository 'tools/diagnostics/HuygensReference20261010/bin/Release/net10.0/OptilandWorkbench.Core.dll')
-if ($referenceCoreHash -cne (Hash (Join-Path $repository 'src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll'))) {
+$referenceCoreHash = Hash (Join-Path $repository 'tools/diagnostics/HuygensReference20261010/bin/Release/net10.0/OpticalSystemDesign.Core.dll')
+if ($referenceCoreHash -cne (Hash (Join-Path $repository 'src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll'))) {
     throw 'Reference measurement used an older Core.'
 }
 $referenceRows = @('endpoints','centers','zemax','halfopen','closed32intervals') | ForEach-Object {
@@ -99,8 +99,8 @@ $referenceRows = @('endpoints','centers','zemax','halfopen','closed32intervals')
 }
 $prepared = @(Get-Content (Join-Path $evidence 'prepared-native-final.json') -Raw | ConvertFrom-Json)
 if ($prepared.Count -ne 4 -or @($prepared | Where-Object {$_.physicalRelativeL2 -ge 1e-6}).Count) {throw 'Prepared native controls regressed.'}
-$sourcePaths=@('src/OptilandWorkbench.Core/Analysis/Radiometry/EncircledEnergyVariants.cs',
-    'tests/OptilandWorkbench.Tests/FftEnergyGridIntegrityTests.cs','tools/diagnostics/HuygensReference20261010/PlanarReferenceTests.cs',
+$sourcePaths=@('src/OpticalSystemDesign.Core/Analysis/Radiometry/EncircledEnergyVariants.cs',
+    'tests/OpticalSystemDesign.Tests/FftEnergyGridIntegrityTests.cs','tools/diagnostics/HuygensReference20261010/PlanarReferenceTests.cs',
     'tools/diagnostics/HuygensReference20261010/HuygensReference20261010.csproj',
     'tools/diagnostics/HuygensReference20261010/packages.lock.json','tools/validation/CollectFftEnergyGridRepair20261010.ps1')
 $installationPaths=@('D:\Program Files\ANSYS Inc\v261\Zemax OpticStudio','C:\Program Files\ANSYS Inc\v261\Zemax OpticStudio',

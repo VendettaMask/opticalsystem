@@ -1,0 +1,735 @@
+{
+  "version": "1.0.0-captured-settings",
+  "zemaxVersion": "2026 R1",
+  "analyses": {
+    "Single Ray Trace": {
+      "quantities": {
+        "Coordinate": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05
+        },
+        "DirectionCosine": {
+          "absolute": 1E-08,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05
+        },
+        "IncidentAngle": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05
+        }
+      }
+    },
+    "Cardinal Points Data": {
+      "quantities": {
+        "Coordinate": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05
+        }
+      }
+    },
+    "Y-Ybar": {
+      "quantities": {
+        "RayHeight": {
+          "absolute": 1E-08,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05
+        }
+      }
+    },
+    "Angle vs Image Height": {
+      "quantities": {
+        "IncidentAngle": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "Grid Distortion": {
+      "quantities": {
+        "ImageHeight": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "Full Field Aberration": {
+      "pupilSampling": 32,
+      "quantities": {
+        "WavefrontError": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "Seidel Coefficients": {
+      "quantities": {
+        "Coefficient": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 0.0001,
+          "closeNrmse": 0.0003
+        },
+        "WaveCoefficient": {
+          "nrmse": 0.0001,
+          "relative": 1E-06,
+          "absolute": 1E-06,
+          "closeNrmse": 0.0003
+        }
+      }
+    },
+    "Seidel Diagram": {
+      "quantities": {
+        "Coefficient": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 0.0001,
+          "closeNrmse": 0.0003
+        }
+      }
+    },
+    "Field Curvature": {
+      "quantities": {
+        "Defocus": {
+          "absolute": 1E-06,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "Field Curvature and Distortion": {
+      "quantities": {
+        "Defocus": {
+          "absolute": 1E-06,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01
+        },
+        "Distortion": {
+          "absolute": 0.0001,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "Color Focus Shift": {
+      "quantities": {
+        "Defocus": {
+          "absolute": 1E-06,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "Lateral Color": {
+      "quantities": {
+        "ImageHeight": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "Axial Aberration": {
+      "quantities": {
+        "Defocus": {
+          "absolute": 1E-06,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "First Order": {
+      "quantities": {
+        "EffectiveFocalLength": {
+          "absolute": 1E-08,
+          "relative": 1E-06,
+          "nrmse": 1E-06,
+          "closeNrmse": 1E-05
+        },
+        "FNumber": {
+          "absolute": 1E-08,
+          "relative": 1E-06,
+          "nrmse": 1E-06,
+          "closeNrmse": 1E-05
+        }
+      }
+    },
+    "Spot Diagram": {
+      "quantities": {
+        "RmsSpotRadius": {
+          "absolute": 0.001,
+          "relative": 0.01,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03
+        },
+        "GeoSpotRadius": {
+          "absolute": 0.001,
+          "relative": 0.01,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03
+        }
+      }
+    },
+    "Ray Fan": {
+      "quantities": {
+        "ImageHeight": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "Pupil Aberration": {
+      "quantities": {
+        "Distortion": {
+          "absolute": 0.0001,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "Optical Path Difference": {
+      "quantities": {
+        "WavefrontError": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "MTF": {
+      "quantities": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03
+        }
+      }
+    },
+    "Huygens MTF": {
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "quantities": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03
+        }
+      }
+    },
+    "Wavefront": {
+      "quantities": {
+        "WavefrontError": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "PSF": {
+      "imageSampling": 128,
+      "quantities": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03
+        }
+      }
+    },
+    "Huygens PSF": {
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "quantities": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03
+        }
+      }
+    },
+    "Prescription Report": {
+      "quantities": {
+        "Coordinate": {
+          "absolute": 1E-06,
+          "nrmse": 1E-05,
+          "relative": 1E-06,
+          "closeNrmse": 3E-05
+        },
+        "Curvature": {
+          "absolute": 1E-06,
+          "nrmse": 1E-05,
+          "relative": 1E-06,
+          "closeNrmse": 3E-05
+        },
+        "PrimaryWavelengthMicrometers": {
+          "absolute": 1E-06,
+          "nrmse": 1E-05,
+          "relative": 1E-06,
+          "closeNrmse": 3E-05
+        },
+        "StopSurface": {
+          "absolute": 0,
+          "nrmse": 0,
+          "relative": 0,
+          "closeNrmse": 0
+        },
+        "Conic": {
+          "absolute": 1E-06,
+          "nrmse": 1E-05,
+          "relative": 1E-06,
+          "closeNrmse": 3E-05
+        },
+        "SurfaceCount": {
+          "absolute": 0,
+          "nrmse": 0,
+          "relative": 0,
+          "closeNrmse": 0
+        },
+        "FiniteState": {
+          "absolute": 0,
+          "closeNrmse": 0,
+          "minimumCoverage": 1,
+          "relative": 0,
+          "nrmse": 0
+        }
+      }
+    },
+    "System Data Report": {
+      "quantities": {
+        "ExitPupilDiameter": {
+          "absolute": 1E-06,
+          "nrmse": 1E-05,
+          "relative": 1E-06,
+          "closeNrmse": 3E-05
+        },
+        "PrimaryWavelengthMicrometers": {
+          "absolute": 1E-06,
+          "nrmse": 1E-05,
+          "relative": 1E-06,
+          "closeNrmse": 3E-05
+        },
+        "EntrancePupilDiameter": {
+          "absolute": 1E-06,
+          "nrmse": 1E-05,
+          "relative": 1E-06,
+          "closeNrmse": 3E-05
+        },
+        "StopSurface": {
+          "absolute": 0,
+          "nrmse": 0,
+          "relative": 0,
+          "closeNrmse": 0
+        },
+        "EffectiveFocalLength": {
+          "absolute": 1E-06,
+          "nrmse": 1E-05,
+          "relative": 1E-06,
+          "closeNrmse": 3E-05
+        },
+        "SurfaceCount": {
+          "absolute": 0,
+          "nrmse": 0,
+          "relative": 0,
+          "closeNrmse": 0
+        },
+        "FNumber": {
+          "absolute": 1E-06,
+          "nrmse": 1E-05,
+          "relative": 1E-06,
+          "closeNrmse": 3E-05
+        }
+      }
+    },
+    "RMS vs Field": {
+      "quantities": {
+        "Radius": {
+          "absolute": 0.001,
+          "nrmse": 0.003,
+          "relative": 0.001,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "RMS vs Wavelength": {
+      "quantities": {
+        "Radius": {
+          "absolute": 0.001,
+          "nrmse": 0.003,
+          "relative": 0.001,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "RMS vs Focus": {
+      "quantities": {
+        "WavefrontError": {
+          "absolute": 1E-05,
+          "nrmse": 0.003,
+          "relative": 0.001,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "RMS Wavefront vs Field": {
+      "quantities": {
+        "WavefrontError": {
+          "absolute": 1E-05,
+          "nrmse": 0.003,
+          "relative": 0.001,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "Through Focus MTF": {
+      "pupilSampling": 32,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "closeNrmse": 0.01,
+          "relative": 0.002,
+          "nrmse": 0.003
+        }
+      },
+      "imageSampling": 32
+    },
+    "Fourier Through Focus MTF": {
+      "pupilSampling": 32,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "closeNrmse": 0.01,
+          "relative": 0.002,
+          "nrmse": 0.003
+        }
+      },
+      "imageSampling": 32
+    },
+    "Huygens Through Focus MTF": {
+      "pupilSampling": 32,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "closeNrmse": 0.01,
+          "relative": 0.002,
+          "nrmse": 0.003
+        }
+      },
+      "imageSampling": 32
+    },
+    "Geometric Through Focus MTF": {
+      "pupilSampling": 32,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "closeNrmse": 0.01,
+          "relative": 0.002,
+          "nrmse": 0.003
+        }
+      },
+      "imageSampling": 32
+    },
+    "Fourier MTF vs Field": {
+      "pupilSampling": 32,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "closeNrmse": 0.01,
+          "relative": 0.002,
+          "nrmse": 0.003
+        }
+      },
+      "imageSampling": 32
+    },
+    "Huygens MTF vs Field": {
+      "pupilSampling": 32,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "closeNrmse": 0.01,
+          "relative": 0.002,
+          "nrmse": 0.003
+        }
+      },
+      "imageSampling": 32
+    },
+    "Geometric MTF vs Field": {
+      "pupilSampling": 32,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "closeNrmse": 0.01,
+          "relative": 0.002,
+          "nrmse": 0.003
+        }
+      },
+      "imageSampling": 32
+    },
+    "Geometric MTF": {
+      "pupilSampling": 32,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "closeNrmse": 0.01,
+          "relative": 0.002,
+          "nrmse": 0.003
+        }
+      },
+      "imageSampling": 32
+    },
+    "FFT PSF Cross Section": {
+      "pupilSampling": 32,
+      "quantities": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "closeNrmse": 0.01,
+          "relative": 0.002,
+          "nrmse": 0.003
+        }
+      },
+      "imageSampling": 32
+    },
+    "Huygens PSF Cross Section": {
+      "pupilSampling": 32,
+      "quantities": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "closeNrmse": 0.01,
+          "relative": 0.002,
+          "nrmse": 0.003
+        }
+      },
+      "imageSampling": 32
+    },
+    "FFT Line Edge Spread": {
+      "pupilSampling": 32,
+      "quantities": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "closeNrmse": 0.01,
+          "relative": 0.002,
+          "nrmse": 0.003
+        }
+      },
+      "imageSampling": 32
+    },
+    "Encircled Energy": {
+      "quantities": {
+        "EnergyFraction": {
+          "closeNrmse": 0.01,
+          "nrmse": 0.003,
+          "absolute": 1E-05,
+          "relative": 0.002
+        }
+      },
+      "pupilSampling": 32,
+      "imageSampling": 64
+    },
+    "Diffraction Encircled Energy": {
+      "quantities": {
+        "EnergyFraction": {
+          "closeNrmse": 0.01,
+          "nrmse": 0.003,
+          "absolute": 1E-05,
+          "relative": 0.002
+        }
+      },
+      "pupilSampling": 32,
+      "imageSampling": 64
+    },
+    "Geometric Line Edge Spread": {
+      "quantities": {
+        "Irradiance": {
+          "closeNrmse": 0.01,
+          "nrmse": 0.003,
+          "absolute": 1E-05,
+          "relative": 0.002
+        }
+      },
+      "pupilSampling": 32,
+      "imageSampling": 64
+    },
+    "RMS Field Map": {
+      "quantities": {
+        "WavefrontError": {
+          "closeNrmse": 0.01,
+          "nrmse": 0.003,
+          "absolute": 1E-05,
+          "relative": 0.002
+        }
+      },
+      "pupilSampling": 32,
+      "imageSampling": 64
+    },
+    "Zernike": {
+      "quantities": {
+        "WaveCoefficient": {
+          "closeNrmse": 0.01,
+          "nrmse": 0.003,
+          "absolute": 1E-05,
+          "relative": 0.002
+        }
+      },
+      "pupilSampling": 32,
+      "imageSampling": 64
+    },
+    "Relative Illumination": {
+      "quantities": {
+        "Irradiance": {
+          "closeNrmse": 0.01,
+          "nrmse": 0.003,
+          "absolute": 1E-05,
+          "relative": 0.002
+        }
+      },
+      "pupilSampling": 32,
+      "imageSampling": 64
+    },
+    "Footprint Diagram": {
+      "quantities": {
+        "MaximumRayRadiusMillimeters": {
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "absolute": 1E-06,
+          "closeNrmse": 0.01
+        },
+        "RayXMinimumMillimeters": {
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "absolute": 1E-06,
+          "closeNrmse": 0.01
+        },
+        "RayYMaximumMillimeters": {
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "absolute": 1E-06,
+          "closeNrmse": 0.01
+        },
+        "RayYMinimumMillimeters": {
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "absolute": 1E-06,
+          "closeNrmse": 0.01
+        },
+        "RayXMaximumMillimeters": {
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "absolute": 1E-06,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "Jones Pupil": {
+      "quantities": {
+        "Coefficient": {
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "absolute": 1E-06,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "Contrast Loss Map": {
+      "quantities": {
+        "Modulation": {
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "absolute": 1E-06,
+          "closeNrmse": 0.01
+        },
+        "PhaseComponent": {
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "absolute": 1E-06,
+          "closeNrmse": 0.01
+        }
+      }
+    },
+    "Angle vs Image Height - Through Pupil": {
+      "quantities": {
+        "ImageHeight": {
+          "nrmse": 1E-05,
+          "relative": 1E-06,
+          "closeNrmse": 3E-05,
+          "absolute": 1E-06
+        },
+        "IncidentAngle": {
+          "nrmse": 1E-05,
+          "relative": 1E-06,
+          "closeNrmse": 3E-05,
+          "absolute": 1E-06
+        },
+        "FiniteState": {
+          "nrmse": 0,
+          "minimumCoverage": 1,
+          "relative": 0,
+          "closeNrmse": 0,
+          "absolute": 0
+        }
+      },
+      "imageSampling": 32,
+      "pupilSampling": 32
+    },
+    "Angle vs Image Height - Through Field": {
+      "quantities": {
+        "ImageHeight": {
+          "nrmse": 1E-05,
+          "relative": 1E-06,
+          "closeNrmse": 3E-05,
+          "absolute": 1E-06
+        },
+        "IncidentAngle": {
+          "nrmse": 1E-05,
+          "relative": 1E-06,
+          "closeNrmse": 3E-05,
+          "absolute": 1E-06
+        },
+        "FiniteState": {
+          "nrmse": 0,
+          "minimumCoverage": 1,
+          "relative": 0,
+          "closeNrmse": 0,
+          "absolute": 0
+        }
+      },
+      "imageSampling": 32,
+      "pupilSampling": 32
+    },
+    "Extended Source Encircled Energy": {
+      "quantities": {
+        "EnergyFraction": {
+          "closeNrmse": 0.01,
+          "nrmse": 0.003,
+          "absolute": 1E-05,
+          "relative": 0.002
+        }
+      }
+    }
+  }
+}

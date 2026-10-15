@@ -24,7 +24,7 @@ try {
     function Get-Category([string]$Path) {
         if ($Path -match '(?i)(LICENSE|COPYING|NOTICE|OFL)' -or $Path -match '^third_party/' -or $Path -eq 'packaging/windows/inno/SOURCE.md') { return 'ThirdParty' }
         if ($Path -match '^(artifacts/|validation/|labs/InitialStructure/benchmarks/|output/pdf/|reports/)') { return 'Evidence' }
-        if ($Path -match '^docs/history/' -or $Path -match '^tools/diagnostics/' -or $Path -match '^docs/(ARCHITECTURE_CONVERGENCE_PLAN|INITIAL_STRUCTURE_FROM_FLAT_PROPOSAL|PYTHON_OPTILAND_REMOVAL|UI_DESIGN_REVIEW|ZEMAX_APODIZATION_LAYOUT_FIX|ZEMAX_38668_WORKING_F_NUMBER|ZEMAX_COMPARISON_TOOL|FFT_PSF_STOP_AIMING)\.md$' -or $Path -match '^docs/.*\d{4}-\d{2}-\d{2}\.md$' -and $Path -notmatch '(BUILT_IN_MODULES|WINDOWS_INSTALLATION_UPGRADE|OPEN_ISSUES)') { return 'Historical' }
+        if ($Path -match '^docs/history/' -or $Path -match '^tools/diagnostics/' -or $Path -match '^docs/(ARCHITECTURE_CONVERGENCE_PLAN|INITIAL_STRUCTURE_FROM_FLAT_PROPOSAL|PYTHON_[A-Z_]+_REMOVAL|UI_DESIGN_REVIEW|ZEMAX_APODIZATION_LAYOUT_FIX|ZEMAX_38668_WORKING_F_NUMBER|ZEMAX_COMPARISON_TOOL|FFT_PSF_STOP_AIMING)\.md$' -or $Path -match '^docs/.*\d{4}-\d{2}-\d{2}\.md$' -and $Path -notmatch '(BUILT_IN_MODULES|WINDOWS_INSTALLATION_UPGRADE|OPEN_ISSUES)') { return 'Historical' }
         return 'Guide'
     }
 

@@ -10,7 +10,7 @@
 
 官方[真实光线约束目录](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v26102/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Constraints_on_Real_Ray_Data.html)确认 HYLD 的 Surf/Wave/归一化光线定义。[Ansys 高良率优化文章](https://optics.ansys.com/hc/en-us/articles/43071054749459-Designing-for-as-built-performance-with-High-Yield-Optimization)的公式为 `τ = |n−n′| (1−R·N)`，进入较高折射率介质时选入射方向，否则选出射方向。该量是降低角度敏感性的惩罚，不是成品率百分比，也不能替代公差 Monte Carlo。
 
-[共享 Core 服务](../src/OptilandWorkbench.Core/Services/RayManufacturingMetrics.cs)读取同一次正式追迹的交点、入射/出射方向和界面局部折射率，并使用该交点的几何法线。普通透射面取锐角；法线朝所选方向，`1−cosθ` 通过单位向量差平方的一半计算，保留极小角度贡献。
+[共享 Core 服务](../src/OpticalSystemDesign.Core/Services/RayManufacturingMetrics.cs)读取同一次正式追迹的交点、入射/出射方向和界面局部折射率，并使用该交点的几何法线。普通透射面取锐角；法线朝所选方向，`1−cosθ` 通过单位向量差平方的一半计算，保留极小角度贡献。
 
 | 模式 | 当前行为 |
 | --- | --- |
@@ -33,7 +33,7 @@ GRIN 光线生成仍受正式 RayGenerator/近轴/瞄准现有能力限制；共
 
 ## 验证
 
-[新增测试](../tests/OptilandWorkbench.Tests/HighYieldOperandTests.cs)共 46 项：独立 Snell/角度参考、双向与刚体坐标、球面法线、小角度、标量/批量/保留模式与公开 DTO 转换、解析 GRIN 曲线及局部 n、反射后介质坐标、材料/面形变更、波长选择、无效输入与失败状态、原生只读往返、应用编辑保存和生产 DLS。定向 **64/64**（新增 46 + 原帮助/名称 18）已通过。测试夹具的命名空间、色散类型、厚度改动后坐标同步和已有权重约定已修正，未放宽阈值。首次合并回归指出入射像面结果不应带有交互后折射率；已修正停止模式的元数据边界，并在原照度测试中增加 Before/After 断言。
+[新增测试](../tests/OpticalSystemDesign.Tests/HighYieldOperandTests.cs)共 46 项：独立 Snell/角度参考、双向与刚体坐标、球面法线、小角度、标量/批量/保留模式与公开 DTO 转换、解析 GRIN 曲线及局部 n、反射后介质坐标、材料/面形变更、波长选择、无效输入与失败状态、原生只读往返、应用编辑保存和生产 DLS。定向 **64/64**（新增 46 + 原帮助/名称 18）已通过。测试夹具的命名空间、色散类型、厚度改动后坐标同步和已有权重约定已修正，未放宽阈值。首次合并回归指出入射像面结果不应带有交互后折射率；已修正停止模式的元数据边界，并在原照度测试中增加 Before/After 断言。
 
 默认输出 Debug/Release 合并回归各 **2915/2915**（前阶段 2869 + 新增 46），零失败、零跳过，构建零警告、零错误。两种配置的测试名称集合一致，包含所有上一阶段用例。格式与差异检查通过，29 个已提交 Zemax 基线文件与 HEAD 逐字节一致，1407 个本地文档链接有效。测试筛选、源码与默认二进制哈希、383 项状态和剩余分类见[验证清单](../artifacts/validation/high-yield-20261003/verification.json)。初次 Debug 为 2914/2915，入射像面边界修复后完整复验通过；初次记录保留为 debug-initial，不覆盖最终通过证据。
 

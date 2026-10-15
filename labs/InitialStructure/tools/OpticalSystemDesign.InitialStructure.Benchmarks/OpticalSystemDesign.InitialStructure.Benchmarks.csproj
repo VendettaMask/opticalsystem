@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FrozenInputs.json" />
+    <ProjectReference Include="../../src/OpticalSystemDesign.InitialStructure.Engine/OpticalSystemDesign.InitialStructure.Engine.csproj" />
+    <ProjectReference Include="../../src/OpticalSystemDesign.InitialStructure.Persistence/OpticalSystemDesign.InitialStructure.Persistence.csproj" />
+  </ItemGroup>
+</Project>

@@ -17,7 +17,7 @@ $corpusRoot = Join-Path $repository 'local-data\lens-library\originals\user-zmx\
 $downloadRoot = Join-Path $corpusRoot 'dan-reiley'
 $manifestPath = Join-Path $corpusRoot 'dan-reiley-manifest.json'
 $siteRoot = 'https://sites.google.com/site/danreiley'
-$userAgent = 'OptilandWorkbench-Dan-Reiley-Lens-Exchange/1.0'
+$userAgent = 'OpticalSystemDesign-Dan-Reiley-Lens-Exchange/1.0'
 [IO.Directory]::CreateDirectory($downloadRoot) | Out-Null
 
 $folders = @(

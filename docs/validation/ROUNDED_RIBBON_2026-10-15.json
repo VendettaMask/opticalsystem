@@ -1,0 +1,78 @@
+{
+  "Date": "2026-10-15",
+  "Scope": "Apply the approved bottom-only rounded ribbon and workspace gap to the production Avalonia shell",
+  "SourceCommit": "0179e2fb8fff814826176043271fac6e241c2c24",
+  "SourceDirty": true,
+  "PreExistingWorkPreserved": ["About and splash version display", "Integrated caption and command search", "Compact inline commands and disabled history explanations", "Their tests, documentation and dated evidence"],
+  "Implemented": [
+    "Standard Light/Dark Ribbon chrome has 8 DIP bottom-left and bottom-right corners; top corners stay square and flush with the menu",
+    "All themes share an 8 DIP bottom margin with no added side or top margin; shell background uses the theme workspace resource",
+    "Border clips command-page content to its theme corners, preventing square page backgrounds from covering the arcs",
+    "Isekai/Pixel retain theme-owned sharp/square chrome",
+    "Sequential and non-sequential ribbon construction share BuildRibbonFrame; actual shell composition uses BuildShellLayout",
+    "Compact layout, original action IDs, native dropdowns and horizontal overflow remain unchanged"
+  ],
+  "ChangedCode": [
+    "src/OptilandWorkbench.App/Shell/MainWindow.Shell.cs",
+    "src/OptilandWorkbench.App/Services/ThemeLayoutResources.cs",
+    "src/OptilandWorkbench.App/Theming/ThemePalette.cs",
+    "src/OptilandWorkbench.App/Theming/ThemeChrome.cs"
+  ],
+  "Builds": [
+    { "Configuration": "Debug", "Target": "OptilandWorkbench.slnx", "ProjectCount": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/rounded-toolbar-20261015/build-debug.log" },
+    { "Configuration": "Release", "Target": "OptilandWorkbench.slnx", "ProjectCount": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/rounded-toolbar-20261015/build-release.log" }
+  ],
+  "AppAssemblySha256": {
+    "Debug": "1b4b565882ceef1ba636feddbc74ac4f48c4d2b93a133f614fa8939366eddd59",
+    "Release": "d512efa03c09061290828c8064ebd2bfa04a61d2863789fef11794db2ed2c6e2"
+  },
+  "Tests": {
+    "Project": "tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj",
+    "RelatedClasses": ["CompactRibbonTests", "CommandSearchTests", "MainWindowTitleBarTests", "BlueThemeInteractionTests", "ThemeResourceTests", "ThemeRuntimeTests", "AnalysisGuiContractTests", "BrandAssetTests", "AppStartupTests", "AboutWindowTests", "ProductVersionInfoTests", "LayeringArchitectureTests"],
+    "Debug": { "Passed": 161, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/rounded-toolbar-20261015/rounded-toolbar-final-debug.trx" },
+    "Release": { "Passed": 161, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/rounded-toolbar-20261015/rounded-toolbar-final-release.trx" },
+    "NewCases": 4,
+    "ExtendedExistingCases": "Six compact ribbon cases now use the production ribbon frame and shell layout; theme resource assertions also cover the new chrome and margin",
+    "FullProductSuiteRun": false,
+    "Note": "Counts overlap preceding UI stages; do not add them."
+  },
+  "RenderedControlFixtures": {
+    "Mechanism": "Dedicated CompactRibbonTests processes with Skia/HarfBuzz and headless drawing disabled, using production presentation/layout factories rather than a full running MainWindow",
+    "CaptureEnvironment": "OPTILAND_TOOLBAR_CAPTURE_DIR",
+    "Debug": { "Passed": 11, "Failed": 0, "Skipped": 0, "ImageCount": 6, "LocalDirectory": "artifacts/validation/rounded-toolbar-20261015/render-debug", "LocalTrx": "artifacts/validation/rounded-toolbar-20261015/rounded-toolbar-render-debug.trx" },
+    "Release": { "Passed": 11, "Failed": 0, "Skipped": 0, "ImageCount": 6, "LocalDirectory": "artifacts/validation/rounded-toolbar-20261015/render-release", "LocalTrx": "artifacts/validation/rounded-toolbar-20261015/rounded-toolbar-render-release.trx" },
+    "Configurations": ["Light/736/13", "Light/640/13", "Light/640/18", "Dark/736/13", "Pixel/736/13", "Isekai/736/13"],
+    "PixelAssertions": "Light/Dark lower-left and lower-right arc exterior pixels match the theme workspace background within 2 channel values; the center of the same row retains the page fill",
+    "VisuallyInspected": ["render-debug/toolbar-Light-736-13.png", "render-debug/toolbar-Light-640-18.png", "render-release/toolbar-Dark-736-13.png"],
+    "OverlapWithRelatedTests": true,
+    "NativeDesktopAcceptance": false
+  },
+  "Checks": {
+    "ScopedWhitespaceFormat": "passed",
+    "GitDiffCheck": "passed",
+    "Documentation": {
+      "StrictCheck": "passed",
+      "Documents": 891,
+      "BrokenLinks": 0,
+      "MarkdownFenceIssues": 0,
+      "LocalOnlyLinks": 0,
+      "GuideRepeatedParagraphGroups": 0,
+      "HistoricalRepeatedParagraphGroupsRetained": 11,
+      "LocalReport": "artifacts/validation/rounded-toolbar-20261015/documentation.json"
+    },
+    "CoreOrFrozenEvidenceChanged": false,
+    "Frozen2668ByteIntegritySuiteRerun": false
+  },
+  "IntermediateResults": [
+    "Initial Debug test build was blocked by the verified default-output Optical System Design process (PID 39204). CloseMainWindow succeeded; the process exited and final default-output builds passed.",
+    "An initial test assertion referenced Avalonia's inaccessible internal IVisualWithRoundRectClip interface. Removed that test-only dependency; public radius/clip assertions and rendered pixel checks verify the behavior instead.",
+    "First completed targeted Debug run passed 23/23 (rounded-toolbar-third.trx). An initial dedicated render passed 11/11 (rounded-toolbar-render-first.trx). Both are covered by final runs."
+  ],
+  "Limitations": [
+    "No complete main/laboratory/numerical test suite or new external optical comparison",
+    "No full native manual desktop, multi-monitor DPI or ARM64 acceptance",
+    "No installer rebuild or installed-product replacement",
+    "No commit or push"
+  ],
+  "DeliveryAtValidation": "Default Debug and Release runnable application binaries updated; uncommitted working tree"
+}

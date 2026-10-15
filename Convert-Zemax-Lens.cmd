@@ -1,4 +1,4 @@
 @echo off
 setlocal
-dotnet run --project "%~dp0tools\OptilandWorkbench.ZemaxLibraryImporter\OptilandWorkbench.ZemaxLibraryImporter.csproj" -- %*
+dotnet run --project "%~dp0tools\OpticalSystemDesign.ZemaxLibraryImporter\OpticalSystemDesign.ZemaxLibraryImporter.csproj" -- %*
 exit /b %errorlevel%

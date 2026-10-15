@@ -10,13 +10,13 @@
 
 ## 原生 STAROPT 工程
 
-桌面“保存”只写 `.staropt`；旧 Workbench JSON 和商业顺序文本用于导入或显式交换，保存迁移结果不覆盖源文件。STAROPT 完整保留顺序配置、多配置行/变量/拾取及非序列场景和网格资产；容器、负载、快照版本、校验和临时构建顺序见 [唯一格式契约](STAROPT_FILE_FORMAT.md#工程负载)。
+桌面“保存”只写 `.staropt`；当前 `.optic.json` 数据快照和商业顺序文本用于导入或显式交换，不覆盖源文件。STAROPT 完整保留顺序配置、多配置行/变量/拾取及非序列场景和网格资产；容器、负载、快照版本、校验和临时构建顺序见 [唯一格式契约](STAROPT_FILE_FORMAT.md#工程负载)。
 
 旧经验膜层与损耗模型保留兼容含义，不自动变为真实膜系或 BSDF。物理相干膜层使用单独的 `coherent_multilayer` 组件，见 [组件契约](STAROPT_FILE_FORMAT.md#物理相干镀膜组件)。
 
 `.starrdb` 保存可重新生成的非序列追迹结果，不嵌入工程。完整分析与有界 3D 布局各自使用结果会话；格式、生命周期和过期校验见 [数据库契约](NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md#分支输出和-starrdb)。
 
-旧 `.optiland.json`、`.optic.json`、`.json` 和 `.optiland` 可读取本项目原生快照用于迁移；这不是已退役的 Python Optiland 字典格式。
+按用户决定不提供旧名称兼容。原生 JSON 路由只接受大小写不敏感的 `.optic.json`；普通 `.json`、旧品牌后缀和退役外部格式均在工程读取/写入前拒绝，不通过内容嗅探绕过后缀边界。底层 `OpticJsonStore` 仍校验当前原生快照结构，它不是通用外部字典读取器。
 
 ## 镀膜实验文件
 
@@ -84,14 +84,16 @@ await application.Documents.OpenAsync(path);
 await application.Documents.SaveAsync(path);
 ```
 
-`OpticalDocumentService` 委托规范 `WorkbenchRuntime` 按内容和扩展名识别 STAROPT、旧 Workbench JSON 或商业格式适配器。旧连接器及 Compatibility 项目已删除，生产调用和行为测试统一使用 `WorkbenchRuntime`。
+`OpticalDocumentService` 委托规范 `WorkbenchRuntime` 识别 STAROPT、当前 `.optic.json` 快照或商业格式适配器。旧连接器、Compatibility 项目及旧名称兼容层已删除，生产调用和行为测试统一使用 `WorkbenchRuntime`。
 
 ## 插件模型
+
+程序集与接口已随产品统一命名；旧插件需针对当前 `OpticalSystemDesign.Core` 和下述接口重新编译，不承诺旧程序集的二进制兼容。旧工程格式的兼容导入不受此接口更名影响。
 
 插件实现：
 
 ```csharp
-public interface IOptilandPlugin
+public interface IOpticalSystemDesignPlugin
 {
     string Name { get; }
     void Register(PluginRegistry registry);
@@ -101,7 +103,7 @@ public interface IOptilandPlugin
 可注册几何工厂、材料实例和分析工厂。示例：
 
 ```csharp
-public sealed class ExamplePlugin : IOptilandPlugin
+public sealed class ExamplePlugin : IOpticalSystemDesignPlugin
 {
     public string Name => "example";
 
@@ -119,7 +121,7 @@ public sealed class ExamplePlugin : IOptilandPlugin
 
 ## 已退役格式
 
-Python Optiland 字典格式不再导入或导出；`.optiland-python.json`、`.python-optiland.json`（大小写不敏感）会在读取和保存前拒绝，也不再提供专用文件筛选器。扩展名拒绝检查只防止它们落入通用 `.json` 分派，不是兼容开关。把旧字典改名为 `.json` 也不能绕过原生快照的模式校验。旧 Workbench `.optiland`/`.optiland.json` 名称属于本项目原生格式，继续保留。
+退役外部字典和旧品牌快照均不再导入或导出，没有旧名称筛选器、兼容开关或通用 `.json` 工程分派。把旧字典改名为 `.optic.json` 也不能绕过当前原生快照的结构校验。不得恢复旧品牌后缀支持。
 
 `zemax-zmx` 是 ZMX 的格式标识；不再附带历史参考软件版本。通用 JSON、原生快照、STAROPT、ZMX、SEQ、LEN、通用顺序文本和 .NET 插件基础设施保留。
 

@@ -1,8 +1,8 @@
 using System.Security.Cryptography;
 using System.Text.Json;
-using OptilandWorkbench.Core;
-using OptilandWorkbench.Core.FileIO;
-using OptilandWorkbench.Core.Optimization;
+using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Core.Optimization;
 
 if (args.Length != 3) throw new ArgumentException("Usage: <repository> <capture-manifest.json> <report.json>");
 var root = Path.GetFullPath(args[0]);

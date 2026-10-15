@@ -1,12 +1,12 @@
 using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using OptilandWorkbench.Core;
-using OptilandWorkbench.Core.Analysis;
-using OptilandWorkbench.Core.Domain;
-using OptilandWorkbench.Core.Serialization;
-using OptilandWorkbench.Core.Services;
-using OptilandWorkbench.Application.Runtime;
+using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.Analysis;
+using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Serialization;
+using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Application.Runtime;
 
 // Diagnostic only. Optical samples, fits, PSFs and MTFs come exclusively from
 // the formal shared Core. No native values are used to fit or adjust a result.
@@ -32,16 +32,16 @@ if (args.Length == 3)
 var inputs = new Dictionary<string, string>();
 var fixedProductFiles = new[]
 {
-    "src/OptilandWorkbench.Core/Analysis/Wavefront/WavefrontAnalyses.cs",
-    "src/OptilandWorkbench.Core/Analysis/WavefrontEngine.cs",
-    "src/OptilandWorkbench.Core/Analysis/ReferenceSphereWavefrontAnalysis.cs",
-    "src/OptilandWorkbench.Core/Analysis/ReferenceSphereWavefrontEngine.cs",
-    "src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs",
-    "src/OptilandWorkbench.Core/Analysis/JonesPupilEngine.cs",
-    "src/OptilandWorkbench.Core/Analysis/MtfScanAnalysis.cs",
-    "src/OptilandWorkbench.Core/Analysis/Fields/FieldSweepAnalyses.cs",
-    "src/OptilandWorkbench.Core/Services/ZernikeMetrics.cs",
-    "src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.cs"
+    "src/OpticalSystemDesign.Core/Analysis/Wavefront/WavefrontAnalyses.cs",
+    "src/OpticalSystemDesign.Core/Analysis/WavefrontEngine.cs",
+    "src/OpticalSystemDesign.Core/Analysis/ReferenceSphereWavefrontAnalysis.cs",
+    "src/OpticalSystemDesign.Core/Analysis/ReferenceSphereWavefrontEngine.cs",
+    "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs",
+    "src/OpticalSystemDesign.Core/Analysis/JonesPupilEngine.cs",
+    "src/OpticalSystemDesign.Core/Analysis/MtfScanAnalysis.cs",
+    "src/OpticalSystemDesign.Core/Analysis/Fields/FieldSweepAnalyses.cs",
+    "src/OpticalSystemDesign.Core/Services/ZernikeMetrics.cs",
+    "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs"
 }.ToDictionary(p => p, p => Hash(Path.Combine(root, p)));
 using var manifest = JsonDocument.Parse(Read("validation/zemax/2026-r1/standard-sample-opd-2026-10-06/manifest.json"));
 var rows = new List<object>();

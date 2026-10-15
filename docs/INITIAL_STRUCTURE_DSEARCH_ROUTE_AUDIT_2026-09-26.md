@@ -33,15 +33,15 @@ QUICK 的两层流程由 [OSD Automatic Design Tools，第 7–8 页](https://os
 
 ### 1. 局部优化、保留候选和外层排序使用三种目标
 
-[`FlatStartLocalSolver`](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartLocalSolver.cs) 在 Targets 阶段使用 `ConstraintResiduals`：焦距/光焦度/F 数超限，以及各视场的 RMS/最大半径超限。只有全部门槛满足后，才进入使用逐光线 `ImageResiduals` 的阶段；默认不继续改善已达标候选。
+[`FlatStartLocalSolver`](../labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatStartLocalSolver.cs) 在 Targets 阶段使用 `ConstraintResiduals`：焦距/光焦度/F 数超限，以及各视场的 RMS/最大半径超限。只有全部门槛满足后，才进入使用逐光线 `ImageResiduals` 的阶段；默认不继续改善已达标候选。
 
-[`FlatStartDesignService`](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartDesignService.cs) 保留密采样最佳点时使用 `Merit`；[`FlatStartCandidateArchive.Score`](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartCandidateArchive.cs) 又按最大 RMS、最大半径、总通光和焦距误差重新组合分数。三者并不相同。状态分层与多样性选择有必要，但需要统一每个采样阶段的目标定义、尺度和排序依据，避免局部下降后在另一套分数下无意义地换分支。
+[`FlatStartDesignService`](../labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatStartDesignService.cs) 保留密采样最佳点时使用 `Merit`；[`FlatStartCandidateArchive.Score`](../labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatStartCandidateArchive.cs) 又按最大 RMS、最大半径、总通光和焦距误差重新组合分数。三者并不相同。状态分层与多样性选择有必要，但需要统一每个采样阶段的目标定义、尺度和排序依据，避免局部下降后在另一套分数下无意义地换分支。
 
 ### 2. 残差压缩与当前求解器不匹配
 
 对四片、非固定后焦、非零视场的情况，变量为 16 个；粗采样 Targets 残差只有 9 项，密采样只有 15 项。门槛内的 hinge 残差还会变成零。由矩阵维度可知，雅可比不可能有满列秩；这不等于问题无解，但限制了 Gauss–Newton 模型携带的方向信息。多个焦距相关指标也不是独立的物理自由度。
 
-现有 [`BoundedTrustRegionLeastSquares`](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/Optimization/BoundedTrustRegionLeastSquares.cs) 使用矩形信赖域 dogleg。作为数值方法参考，SciPy 官方对同类 dogbox 方法明确提示秩不足时可能收敛缓慢。[least_squares 文档](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.least_squares.html)不是本项目的运行依赖，也不证明两个实现完全相同。
+现有 [`BoundedTrustRegionLeastSquares`](../labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/Optimization/BoundedTrustRegionLeastSquares.cs) 使用矩形信赖域 dogleg。作为数值方法参考，SciPy 官方对同类 dogbox 方法明确提示秩不足时可能收敛缓慢。[least_squares 文档](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.least_squares.html)不是本项目的运行依赖，也不证明两个实现完全相同。
 
 优先试验应保留 Core 返回的逐光线残差结构，明确尺度及约束处理，再比较局部求解器。把残差直接取一个总 RMS 或一个总范数交给最小二乘，虽然可能保持标量目标值，却改变了近似曲率信息。
 
@@ -78,9 +78,9 @@ Targets 阶段要求每个数值差分点满足 `IsFeasible`，其中包含物�
 
 ## Core 能力边界
 
-正式 Core 已有 [`SeidelCoefficientsAnalysis`](../src/OptilandWorkbench.Core/Analysis/Reports/SeidelCoefficientsAnalysis.cs)，但目前是报告接口；未找到可直接用于 DSEARCH 式筛选的完整三/五阶类型化评估接口。后续若走该路线，应先在共享 Core 建立并验证服务，实验室只组装残差。
+正式 Core 已有 [`SeidelCoefficientsAnalysis`](../src/OpticalSystemDesign.Core/Analysis/Reports/SeidelCoefficientsAnalysis.cs)，但目前是报告接口；未找到可直接用于 DSEARCH 式筛选的完整三/五阶类型化评估接口。后续若走该路线，应先在共享 Core 建立并验证服务，实验室只组装残差。
 
-Core 的 [`AbbeMaterial`](../src/OptilandWorkbench.Core/Materials/IMaterial.cs) 目前采用简单波长线性关系，不能因它接受 Nd/Vd 就认定等效于 SYNOPSYS 的玻璃图拟合模型。连续模型玻璃需要合法材料域、部分色散与目录替换后的复验。最终只能接受规格允许的真实材料，不得扩大冻结允许集合或让模型玻璃直接通过最终验收。
+Core 的 [`AbbeMaterial`](../src/OpticalSystemDesign.Core/Materials/IMaterial.cs) 目前采用简单波长线性关系，不能因它接受 Nd/Vd 就认定等效于 SYNOPSYS 的玻璃图拟合模型。连续模型玻璃需要合法材料域、部分色散与目录替换后的复验。最终只能接受规格允许的真实材料，不得扩大冻结允许集合或让模型玻璃直接通过最终验收。
 
 PSD 文献支持研究导数历史与曲率更新：[Dilworth 1978](https://doi.org/10.1364/AO.17.003372)、[Lesson 23，第 3 页](https://osdoptics.com/wp-content/uploads/2020/05/23_parametric_optimization_study_and_ray_failure_correction.pdf)。独立论文 [Open-source optimization algorithms for optical design](https://doi.org/10.1016/j.ijleo.2018.10.073)也说明通用算法可以用于镜头问题，并指出商业 PSD 实现源码不公开。不能声称必须复制 PSD 才能成功，也不应把一个通用曲率更新重新命名为 PSD。
 

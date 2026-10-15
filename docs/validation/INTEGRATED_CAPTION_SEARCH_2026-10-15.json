@@ -1,0 +1,75 @@
+{
+  "Date": "2026-10-15",
+  "Scope": "Approved reference-style blue title/menu chrome with compact caption-row search in the production Avalonia application",
+  "SourceCommit": "0179e2fb8fff814826176043271fac6e241c2c24",
+  "SourceDirty": true,
+  "PreExistingChangesPreserved": "About-window version display, splash version source, tests and documentation from the preceding task",
+  "Implemented": [
+    "Immutable shared horizontal Light header gradient #316CE0 to #2452B8, transparent unselected menu tabs, existing selected/hover/focus behavior retained",
+    "Real brand bitmap and live document title at left; 216 DIP compact command search in the caption row",
+    "Windows/macOS extended client caption with WindowDecorations.Full; native/framework caption buttons retained; User hit-test role for search, TitleBar role for caption",
+    "Platform button space reserved, OffScreenMargin applied, automatic caption height and fullscreen hiding",
+    "Same ActionManager.Search and ExecuteAsync as the existing command palette; Ctrl+Q focus/select, arrows, Enter, result taps, Escape/light dismiss, no-match state, failure routing and execution reentrancy guard",
+    "Successful query clearing does not reopen the result popup; hidden caption closes the popup; Ctrl+K and no-caption Ctrl+Q retain the command palette",
+    "Existing ribbon command pages, mode separation, workspace startup and optical/storage behavior retained"
+  ],
+  "Builds": [
+    { "Configuration": "Debug", "Target": "OptilandWorkbench.slnx", "ProjectCount": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/blue-caption-20261015/build-debug.log" },
+    { "Configuration": "Release", "Target": "OptilandWorkbench.slnx", "ProjectCount": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/blue-caption-20261015/build-release.log" }
+  ],
+  "AppAssemblySha256": {
+    "Debug": "88e2cea060c10380960a9c6edcb64f06cf502b221b90a71dd3a5431b33c197b8",
+    "Release": "387d827ff0902b10bd097e9264fdfdcf776c9f5b9e300af2f751b405109ed78c"
+  },
+  "Tests": {
+    "Project": "tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj",
+    "RelatedClasses": ["CommandSearchTests", "MainWindowTitleBarTests", "BlueThemeInteractionTests", "ThemeResourceTests", "ThemeRuntimeTests", "AnalysisGuiContractTests", "BrandAssetTests", "AppStartupTests", "AboutWindowTests", "ProductVersionInfoTests", "LayeringArchitectureTests"],
+    "Debug": { "Passed": 150, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/blue-caption-20261015/blue-caption-final-debug.trx" },
+    "Release": { "Passed": 150, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/blue-caption-20261015/blue-caption-final-release.trx" },
+    "NewCases": 9,
+    "FullProductSuiteRun": false,
+    "Note": "Scoped sets overlap prior About validation; counts must not be added to form a full-suite total."
+  },
+  "RenderedControlFixtures": {
+    "Mechanism": "Dedicated process per configuration, CommandSearchTests with Skia/HarfBuzz and Headless drawing disabled; not native OS screenshots",
+    "CaptureEnvironment": "OPTILAND_CHROME_CAPTURE_DIR",
+    "Debug": { "Passed": 9, "Failed": 0, "Skipped": 0, "ImageCount": 6, "LocalDirectory": "artifacts/validation/blue-caption-20261015/debug", "LocalTrx": "artifacts/validation/blue-caption-20261015/blue-caption-render-debug.trx" },
+    "Release": { "Passed": 9, "Failed": 0, "Skipped": 0, "ImageCount": 6, "LocalDirectory": "artifacts/validation/blue-caption-20261015/release", "LocalTrx": "artifacts/validation/blue-caption-20261015/blue-caption-render-release.trx" },
+    "Configurations": ["Light/640/13", "Light/1024/13", "Light/640/18", "Dark/640/18", "Pixel/640/13", "Isekai/640/13"],
+    "VisuallyInspected": ["debug/chrome-Light-1024-13.png", "debug/chrome-Light-640-18.png", "debug/chrome-Dark-640-18.png"],
+    "OverlapWithRelatedTests": true,
+    "FullRunningWorkbenchScreenshot": false,
+    "NativeCaptionButtonsCaptured": false
+  },
+  "Checks": {
+    "ScopedWhitespaceFormat": "passed",
+    "GitDiffCheck": "passed",
+    "Documentation": {
+      "StrictCheck": "passed",
+      "Documents": 891,
+      "BrokenLinks": 0,
+      "MarkdownFenceIssues": 0,
+      "LocalOnlyLinks": 0,
+      "GuideRepeatedParagraphGroups": 0,
+      "HistoricalRepeatedParagraphGroupsRetained": 11,
+      "LocalReport": "artifacts/validation/blue-caption-20261015/documentation.json"
+    },
+    "CoreOrFrozenEvidenceChanged": false,
+    "Frozen2668ByteIntegritySuiteRerun": false
+  },
+  "IntermediateFailures": [
+    "Initial implementation builds exposed three missing API/member names; corrected before successful builds.",
+    "Initial test compilations lacked required physical-key arguments; corrected without weakening key input checks.",
+    "blue-caption-third.trx: 6 failed / 16 passed; mutable shared gradient caused cross-dispatcher access, replaced with an immutable brush. Mixed headless/Skia glyph stubs also affected rendering.",
+    "blue-caption-fourth.trx: 1 failed / 7 passed; dispatcher-delayed TextChanged reopened results after executing and clearing a query. Added suppression and retained the delayed-event regression.",
+    "blue-caption-fifth.trx: 6 failed / 17 passed; mixed headless/Skia glyph-run implementations. Capture now uses dedicated processes, general regression has capture disabled.",
+    "blue-caption-related-debug.trx: 1 failed / 149 passed; popup radius violated shared Chrome roles. Corrected to ThemeChromeRole.ControlFrame."
+  ],
+  "Limitations": [
+    "Windows/macOS native manual dragging, snapping, multi-monitor DPI and caption-button interaction not accepted in this task",
+    "ARM64, full desktop workflow and Linux native UI not accepted",
+    "Full main/laboratory/numerical regression and new Zemax capture not run",
+    "No installer rebuild, installation replacement, commit or push"
+  ],
+  "DeliveryAtValidation": "Default Debug and Release runnable application outputs updated; uncommitted working tree"
+}

@@ -83,7 +83,7 @@ assert len(formal) == 15 and all(row['metric']['conclusion'] == 'Pass' for row i
 assert formal == prior['formalMetrics'], 'Original N01/N02/MTF metrics changed.'
 before_provenance = read(run / 'before-fast/provenance.json')
 base_commit = 'f8dbcdefdccb9f531315da8f7aeb993d33b39239'
-base_core_path = 'src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs'
+base_core_path = 'src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs'
 base_core_bytes = subprocess.check_output(['git', 'show', base_commit + ':' + base_core_path], cwd=root)
 base_core_sha = hashlib.sha256(base_core_bytes).hexdigest()
 assert base_core_sha == next(row['sha256'] for row in prior['sourceHashes'] if row['path'] == base_core_path)
@@ -125,17 +125,17 @@ assert len(environments) == 16 and all(e['major'] == 26 and e['minor'] == 1 and 
 
 binaries = {}
 for configuration in ['Debug', 'Release']:
-    paths = [root / f'{project}/bin/{configuration}/net10.0/OptilandWorkbench.Core.dll' for project in
-             ['src/OptilandWorkbench.Core', 'src/OptilandWorkbench.App', 'tests/OptilandWorkbench.Tests',
-              'tests/OptilandWorkbench.ZemaxComparison.Tests']]
+    paths = [root / f'{project}/bin/{configuration}/net10.0/OpticalSystemDesign.Core.dll' for project in
+             ['src/OpticalSystemDesign.Core', 'src/OpticalSystemDesign.App', 'tests/OpticalSystemDesign.Tests',
+              'tests/OpticalSystemDesign.ZemaxComparison.Tests']]
     hashes = [digest(p) for p in paths]
     assert len(set(hashes)) == 1, (configuration, hashes)
     binaries[configuration] = [dict(path=relative(p), sha256=h) for p, h in zip(paths, hashes)]
 for configuration in ['debug', 'release']:
     log = (run / f'build-{configuration}.log').read_text(encoding='utf-8-sig')
     assert '0 个警告' in log and '0 个错误' in log
-sources = ['src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs',
-           'tests/OptilandWorkbench.Tests/HuygensSphericalNativeTests.cs',
+sources = ['src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs',
+           'tests/OpticalSystemDesign.Tests/HuygensSphericalNativeTests.cs',
            'tools/diagnostics/HuygensExtensions20261011/Program.cs',
            'tools/diagnostics/HuygensExtensions20261011/CaptureControls.ps1']
 report = dict(date='2026-10-11', generatedUtc=datetime.now(timezone.utc).isoformat(),

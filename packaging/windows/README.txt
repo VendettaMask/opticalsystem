@@ -4,7 +4,7 @@ If you received a *-Setup.exe, run it to use the installation wizard.
 Choose an installation folder and optional shortcuts. Windows Settings > Apps
 provides the uninstall entry. Installation is per-user, without elevation.
 
-If you received a portable folder instead, start OptilandWorkbench.App.exe.
+If you received a portable folder instead, start OpticalSystemDesign.App.exe.
 A separate .NET runtime installation is not required on the target computer.
 Initial-structure and coating design are mandatory built-in modules. They run
 inside the main application and are installed, upgraded, repaired and removed
@@ -43,7 +43,7 @@ versioned layout are rejected. Legacy flat-layout version comparisons are not
 supported. Use the installed Start Menu shortcut to launch the active release.
 
 Unsaved projects receive a recovery copy every 30 seconds while the desktop is
-running. Copies are kept in %APPDATA%\OptilandWorkbench\Recovery, separately
+running. Copies are kept in %APPDATA%\OpticalSystemDesign\Recovery, separately
 from the original project. Startup offers valid copies left by a crashed session;
 the Help recovery command can reopen this chooser. A recovered project is
 unsaved and must be saved separately. The last edits not yet checkpointed may

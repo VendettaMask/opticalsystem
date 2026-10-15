@@ -8,7 +8,7 @@
 
 ## 计算与定义边界
 
-[共享材料约束服务](../src/OptilandWorkbench.Core/Services/GradientIndexControlMetrics.cs)直接读取正式 `GradientIndexMaterial` 的入口局部空间场。没有单点均匀折射率替代、追迹近似或实验室专用公式。四种不可变分布目前无色散，波长依然必须有效。
+[共享材料约束服务](../src/OpticalSystemDesign.Core/Services/GradientIndexControlMetrics.cs)直接读取正式 `GradientIndexMaterial` 的入口局部空间场。没有单点均匀折射率替代、追迹近似或实验室专用公式。四种不可变分布目前无色散，波长依然必须有效。
 
 | 项目 | 本地计算 |
 | --- | --- |
@@ -25,7 +25,7 @@
 
 ## 编辑、保存与帮助
 
-[评价函数接入](../src/OptilandWorkbench.Core/Optimization/MeritFunction.GradientIndex.cs)采用 Surf/Wave/Unused/Unused/Unused/Unused 六槽；Surf 为有后端边界的实际材料入口面，Wave 为正编号。原始槽位优先于派生字段。Application/桌面操作数编辑器可编辑前两槽，未用槽锁定，STAROPT 保存全部原始值、目标、权重及状态；旧兼容行不会被自动升级。
+[评价函数接入](../src/OpticalSystemDesign.Core/Optimization/MeritFunction.GradientIndex.cs)采用 Surf/Wave/Unused/Unused/Unused/Unused 六槽；Surf 为有后端边界的实际材料入口面，Wave 为正编号。原始槽位优先于派生字段。Application/桌面操作数编辑器可编辑前两槽，未用槽锁定，STAROPT 保存全部原始值、目标、权重及状态；旧兼容行不会被自动升级。
 
 21 种 ZMX 行仍禁用、只读保留，原始整数/数据槽和目标权重不丢失。正式 GRIN TYPE/参数导入未完成，不能把材料导成普通玻璃后自动启用这些行。本程序创建的执行行可经应用服务编辑保存；I4VA 和 DLTN 已用于正式 DLS 厚度优化，迭代快照仍走共享 Core。
 
@@ -33,7 +33,7 @@
 
 ## 验证与剩余工作
 
-新增 [70 项测试](../tests/OptilandWorkbench.Tests/GradientIndexOperandTests.cs)：四种分布 × 六位置的独立多项式/球面参考、21 种边界与原生保留往返、凹凸毛坯端点、非单调分布反例、圆锥与材料/口径更新、刚体姿态、无效输入、取消、完整应用保存和两项生产 DLS。初次定向检查发现帮助状态断言及测试夹具问题，并发现共用说明引起的点位搜索误匹配；修正后定向 **88/88**（本批 70 + 既有帮助/名称 18）通过。未放宽数值阈值。
+新增 [70 项测试](../tests/OpticalSystemDesign.Tests/GradientIndexOperandTests.cs)：四种分布 × 六位置的独立多项式/球面参考、21 种边界与原生保留往返、凹凸毛坯端点、非单调分布反例、圆锥与材料/口径更新、刚体姿态、无效输入、取消、完整应用保存和两项生产 DLS。初次定向检查发现帮助状态断言及测试夹具问题，并发现共用说明引起的点位搜索误匹配；修正后定向 **88/88**（本批 70 + 既有帮助/名称 18）通过。未放宽数值阈值。
 
 默认输出 Debug/Release 合并回归各 **2869/2869**（2799 + 70），零失败、零跳过，构建零警告、零错误。格式和差异检查通过，29 个已提交 Zemax 基线文件保持原样。筛选与结果、383 项状态、剩余分类、基线完整性及文件哈希见[验证清单](../artifacts/validation/grin-operands-20261003/verification.json)。前阶段 [2799 项范围](GRIN_PARAXIAL_AIMING_2026-10-03.md)全部纳入。合并捕获曾为空白，已作为无效图片另存；独立 Skia 进程的两项帮助交互通过，重新生成并逐张复核明暗主题共 8 张有效图片，见[视觉复核记录](../artifacts/validation/grin-operands-20261003/visual-review.md)。
 

@@ -63,9 +63,9 @@ foreach ($configuration in @('Release','Debug')) {
         $content -notmatch '(?m)^\s*0 个错误\s*$') {throw 'Default build did not pass cleanly.'}
     $builds += [ordered]@{configuration=$configuration;path=[IO.Path]::GetRelativePath($repository,$log).Replace('\','/');
         sha256=(Hash $log);warnings=0;errors=0;defaultOutput=$true}
-    foreach ($directory in @('src/OptilandWorkbench.Core','src/OptilandWorkbench.App','tests/OptilandWorkbench.Tests',
-        'tests/OptilandWorkbench.ZemaxComparison.Tests')) {
-        $path="$directory/bin/$configuration/net10.0/OptilandWorkbench.Core.dll"
+    foreach ($directory in @('src/OpticalSystemDesign.Core','src/OpticalSystemDesign.App','tests/OpticalSystemDesign.Tests',
+        'tests/OpticalSystemDesign.ZemaxComparison.Tests')) {
+        $path="$directory/bin/$configuration/net10.0/OpticalSystemDesign.Core.dll"
         $binaries += [ordered]@{configuration=$configuration;path=$path;sha256=(Hash (Join-Path $repository $path))}
     }
     if (@($binaries | Where-Object {$_.configuration -eq $configuration} | ForEach-Object {$_.sha256} | Sort-Object -Unique).Count -ne 1) {
@@ -90,18 +90,18 @@ foreach ($name in @('fft-pupil-phase-2026-10-09','n02-energy-layer-controls-2026
     }
 }
 if ($rawCount -ne 165) {throw 'Native capture inventory differs.'}
-$sourcePaths=@('src/OptilandWorkbench.Core/Analysis/Wavefront/FoucaultEngine.cs',
-    'src/OptilandWorkbench.Core/Analysis/Wavefront/FoucaultAnalysis.cs','src/OptilandWorkbench.Core/Analysis/Wavefront/WavefrontAnalyses.cs',
-    'src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs','src/OptilandWorkbench.Core/Analysis/AnalysisModels.cs',
-    'src/OptilandWorkbench.Application/Contracts/WorkspaceContracts.cs','src/OptilandWorkbench.Application/Services/Mapping/WorkbenchMapper.cs',
-    'src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs',
-    'src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Localization.cs',
-    'src/OptilandWorkbench.App/Controls/FoucaultPlotControl.cs','src/OptilandWorkbench.App/Controls/WavefrontSurfaceControl.cs',
-    'src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Results.cs','src/OptilandWorkbench.App/Panels/Analysis/AnalysisPanel.Parameters.cs',
-    'tests/OptilandWorkbench.Tests/PupilShapeAndFoucaultPhysicsTests.cs','tests/OptilandWorkbench.Tests/PupilShapeAndFoucaultPanelTests.cs',
-    'tests/OptilandWorkbench.Tests/FoucaultAnalysisTests.cs','tests/OptilandWorkbench.Tests/CalculationPathRepairTests.cs',
-    'tests/OptilandWorkbench.Tests/CalculationPathPanelTests.cs','tests/OptilandWorkbench.Tests/WavefrontAimingRepairTests.cs',
-    'tests/OptilandWorkbench.Tests/AnalysisGuiContractTests.cs','tools/validation/CollectPupilShapeFoucault20261010.ps1')
+$sourcePaths=@('src/OpticalSystemDesign.Core/Analysis/Wavefront/FoucaultEngine.cs',
+    'src/OpticalSystemDesign.Core/Analysis/Wavefront/FoucaultAnalysis.cs','src/OpticalSystemDesign.Core/Analysis/Wavefront/WavefrontAnalyses.cs',
+    'src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs','src/OpticalSystemDesign.Core/Analysis/AnalysisModels.cs',
+    'src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs','src/OpticalSystemDesign.Application/Services/Mapping/WorkbenchMapper.cs',
+    'src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs',
+    'src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Localization.cs',
+    'src/OpticalSystemDesign.App/Controls/FoucaultPlotControl.cs','src/OpticalSystemDesign.App/Controls/WavefrontSurfaceControl.cs',
+    'src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs','src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Parameters.cs',
+    'tests/OpticalSystemDesign.Tests/PupilShapeAndFoucaultPhysicsTests.cs','tests/OpticalSystemDesign.Tests/PupilShapeAndFoucaultPanelTests.cs',
+    'tests/OpticalSystemDesign.Tests/FoucaultAnalysisTests.cs','tests/OpticalSystemDesign.Tests/CalculationPathRepairTests.cs',
+    'tests/OpticalSystemDesign.Tests/CalculationPathPanelTests.cs','tests/OpticalSystemDesign.Tests/WavefrontAimingRepairTests.cs',
+    'tests/OpticalSystemDesign.Tests/AnalysisGuiContractTests.cs','tools/validation/CollectPupilShapeFoucault20261010.ps1')
 $screenshot = Join-Path $evidence 'screenshots/pupil-shape-foucault.png'
 $ledger=[ordered]@{
     date='2026-10-10';baseHead=(git -C $repository rev-parse HEAD);gitState='Uncommitted local implementation; not pushed'

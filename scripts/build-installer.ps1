@@ -63,10 +63,10 @@ if ($null -eq $package -or -not (Test-Path -LiteralPath $package.Directory -Path
 }
 $releaseId = "$AppVersion-$Runtime-$([Guid]::NewGuid().ToString('N').Substring(0, 12))"
 if ($signing) {
-    foreach ($name in @('OptilandWorkbench.App.exe', 'OptilandWorkbench.App.dll',
-        'OptilandWorkbench.Application.dll', 'OptilandWorkbench.Core.dll',
-        'OptilandWorkbench.InitialStructure.Contracts.dll', 'OptilandWorkbench.InitialStructure.Engine.dll',
-        'OptilandWorkbench.InitialStructure.Persistence.dll', 'OptilandWorkbench.CoatingDesign.Engine.dll', 'OptilandWorkbench.Modules.dll')) {
+    foreach ($name in @('OpticalSystemDesign.App.exe', 'OpticalSystemDesign.App.dll',
+        'OpticalSystemDesign.Application.dll', 'OpticalSystemDesign.Core.dll',
+        'OpticalSystemDesign.InitialStructure.Contracts.dll', 'OpticalSystemDesign.InitialStructure.Engine.dll',
+        'OpticalSystemDesign.InitialStructure.Persistence.dll', 'OpticalSystemDesign.CoatingDesign.Engine.dll', 'OpticalSystemDesign.Modules.dll')) {
         Invoke-WindowsFileSigning -Configuration $signing -Path (Join-Path $package.Directory $name)
     }
 }

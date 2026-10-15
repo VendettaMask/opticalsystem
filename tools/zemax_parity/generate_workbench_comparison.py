@@ -49,7 +49,7 @@ configure_fonts()
 # comparison cannot silently reintroduce an invalid numerical baseline.
 NON_EQUIVALENT_NUMERIC_MAPPINGS: dict[tuple[str, str], str] = {
     ("Centroid Sphere Wavefront", "WavefrontMap"): (
-        "Workbench uses Optiland's centroid-sphere fit as the reference surface. "
+        "Workbench uses OpticalSystemDesign's centroid-sphere fit as the reference surface. "
         "Zemax Wavefront Map keeps the wavelength reference sphere; its Remove "
         "Tilt option only removes linear X and Y tilt (centroid-referenced OPD). "
         "The two analyses therefore do not report the same physical quantity."

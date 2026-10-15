@@ -82,4 +82,4 @@
 
 - [持久化 132 项修复结果](validation/ZEMAX_STANDARD_SAMPLE_OPD_REPAIR_2026-10-06.json)、当前误差矩阵（历史本地产物，当前检出缺失：`artifacts/zemax-standard-samples/20261006/opd-core-repair-v2/matrix.csv`）、[原始首批结果](validation/ZEMAX_STANDARD_SAMPLE_RESULTS_2026-10-06.json)。
 - 重算汇总与新旧证据（历史本地产物，当前检出缺失：`artifacts/zemax-standard-samples/20261006/opd-core-repair-v2/summary.json`）、1769 文件完整性清单（历史本地产物，当前检出缺失：`artifacts/zemax-standard-samples/20261006/opd-core-repair-v2/immutable-evidence.json`）、[辅助程序源码](../artifacts/zemax-standard-samples/20261006/core-replay/Program.cs)。
-- [新增正式回归与原生参考说明](../validation/zemax/2026-r1/standard-sample-opd-2026-10-06/README.md)、[测试源码](../tests/OptilandWorkbench.Tests/StandardSampleOpdParityTests.cs)、[最终构建与测试清单](../artifacts/validation/zemax-standard-sample-opd-20261006/verification-final.json)。
+- [新增正式回归与原生参考说明](../validation/zemax/2026-r1/standard-sample-opd-2026-10-06/README.md)、[测试源码](../tests/OpticalSystemDesign.Tests/StandardSampleOpdParityTests.cs)、[最终构建与测试清单](../artifacts/validation/zemax-standard-sample-opd-20261006/verification-final.json)。

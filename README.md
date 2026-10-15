@@ -1,6 +1,6 @@
 # Optical System Design
 
-S.T.A.R. Labs 的非商业光学设计项目。产品计算采用纯 C#/.NET，桌面界面采用 Avalonia，不依赖 Python Optiland 运行时。非商业定位不等于自动取得全部第三方素材的再分发权，使用与分发仍须遵守各资源许可证。
+S.T.A.R. Labs 的非商业光学设计项目。产品计算采用纯 C#/.NET，桌面界面采用 Avalonia，不依赖外部 Python 光学运行时。非商业定位不等于自动取得全部第三方素材的再分发权，使用与分发仍须遵守各资源许可证。
 
 初始结构与镀膜设计是主程序的**必装内置模块**：同一进程、同一个标准安装包，一次安装全部功能；没有独立程序、可选组件或额外安装步骤。`labs/` 只是内部领域代码与测试目录，不代表独立产品。
 
@@ -17,19 +17,19 @@ S.T.A.R. Labs 的非商业光学设计项目。产品计算采用纯 C#/.NET，�
 开发者需安装 [global.json](global.json) 指定兼容范围的 .NET SDK，在仓库根目录执行：
 
 ```powershell
-dotnet restore OptilandWorkbench.slnx --locked-mode
-dotnet build OptilandWorkbench.slnx -c Release --no-restore /m:1 /nr:false
-dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release --no-build
+dotnet restore OpticalSystemDesign.slnx --locked-mode
+dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false
+dotnet run --project src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj -c Release --no-build
 ```
 
-也可使用 Windows 的 `Run-Optiland.cmd` 或 macOS 的 `Run-Optiland.command`。开发入口依次还原、清理、构建并启动，不删除用户工程、主题或工作区数据。
+也可使用 Windows 的 `Run-OpticalSystemDesign.cmd` 或 macOS 的 `Run-OpticalSystemDesign.command`。开发入口依次还原、清理、构建并启动，不删除用户工程、主题或工作区数据。
 
 进入主程序的“实验室 → AI 初始结构 / 光学镀膜设计”即可使用两个模块。顺序工作区自动打开镜头数据与二维视图；非序列工作区和显式保存布局有各自规则。详见 [桌面工作流](docs/GUI_QUICKSTART_REFACTOR.md)。
 
 ## 构建、测试与发布
 
 ```powershell
-dotnet test OptilandWorkbench.slnx -c Release --no-build --no-restore /m:1 /nr:false
+dotnet test OpticalSystemDesign.slnx -c Release --no-build --no-restore /m:1 /nr:false
 .\Build-Installer.cmd
 ```
 
@@ -39,10 +39,10 @@ dotnet test OptilandWorkbench.slnx -c Release --no-build --no-restore /m:1 /nr:f
 
 | 路径 | 职责 |
 | --- | --- |
-| `src/OptilandWorkbench.Core` | 唯一共享光学模型、材料、追迹、分析、优化、公差和文件内核 |
-| `src/OptilandWorkbench.Application` | 无 UI 的应用服务、事务、工作区与 DTO 映射 |
-| `src/OptilandWorkbench.App` | 桌面端、工作区、内置模块 UI 与恢复入口 |
-| `src/OptilandWorkbench.Modules` | 内置模块显示适配，复用共享计算和规范 DTO |
+| `src/OpticalSystemDesign.Core` | 唯一共享光学模型、材料、追迹、分析、优化、公差和文件内核 |
+| `src/OpticalSystemDesign.Application` | 无 UI 的应用服务、事务、工作区与 DTO 映射 |
+| `src/OpticalSystemDesign.App` | 桌面端、工作区、内置模块 UI 与恢复入口 |
+| `src/OpticalSystemDesign.Modules` | 内置模块显示适配，复用共享计算和规范 DTO |
 | `labs/InitialStructure`、`labs/CoatingDesign` | 内部领域库、搜索/设计流程和测试 |
 | `tests/`、`tools/` | 回归、离线验证和维护工具，不是产品运行依赖 |
 | `docs/` | 当前指南、专题契约和明确标注的历史报告 |

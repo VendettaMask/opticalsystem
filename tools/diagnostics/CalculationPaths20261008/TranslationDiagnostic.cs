@@ -1,11 +1,11 @@
 using System.Security.Cryptography;
 using System.Text.Json;
-using OptilandWorkbench.Core;
-using OptilandWorkbench.Core.Analysis;
-using OptilandWorkbench.Core.Backend;
-using OptilandWorkbench.Core.Domain;
-using OptilandWorkbench.Core.FileIO;
-using OptilandWorkbench.Core.Serialization;
+using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.Analysis;
+using OpticalSystemDesign.Core.Backend;
+using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Core.Serialization;
 
 internal static class TranslationDiagnostic
 {

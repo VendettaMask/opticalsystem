@@ -44,7 +44,7 @@
 
 仓库的[`samples/non-sequential`](../samples/non-sequential/README.md)提供12个可直接打开的STAROPT工程：前6个覆盖基础镜片与探测器、Fresnel主光/鬼像分支、矩形光管全反射、双镜折叠光路、三波长多光源探测和内嵌STL机械挡光，后6个分别演示椭圆面、双角度、径向分布、长方体体、椭球体和椭圆柱体光源。光源样例同时提供3D布局、近场和远场探测器效果图。每个工程都有固定GUID、随机种子、建议路径筛选和确定性能量结果，并由自动测试重新载入和追迹。
 
-样例生成器位于`tools/OptilandWorkbench.NonSequentialSamples`。它先执行真实追迹、能量守恒和筛选命中验证，再原子保存STAROPT文件；教学样例不复制或转换Zemax文件，只借鉴其公开教程中的非序列工作流。
+样例生成器位于`tools/OpticalSystemDesign.NonSequentialSamples`。它先执行真实追迹、能量守恒和筛选命中验证，再原子保存STAROPT文件；教学样例不复制或转换Zemax文件，只借鉴其公开教程中的非序列工作流。
 
 ## 数值与安全规则
 

@@ -16,18 +16,18 @@
 
 ## 已实现
 
-- [FresnelPower](../src/OptilandWorkbench.Core/Coatings/FresnelPower.cs) 发布按功率通量归一化的复数 s/p 反射、透射振幅。透射振幅包含 `sqrt(n₂ cosθ₂ / n₁ cosθ₁)`，不能把电场透射率直接平方当成功率。全反射保留 s/p 相位；相同折射率、正入射和布儒斯特角均有独立验证。物理定义参考 [MIT Fresnel 与能流讲义](https://ocw.mit.edu/courses/6-007-electromagnetic-energy-from-motors-to-lasers-spring-2011/resources/mit6_007s11_lec33/)。
-- [UnpolarizedPowerTransport](../src/OptilandWorkbench.Core/Rays/UnpolarizedPowerTransport.cs) 传播两个相互不相干的正交 Jones 输入，保留每条光路中旋转的入射面和复相位，最后才求平均功率。不能将每个界面的非偏振平均透过率直接连乘；斜入射双界面平板和旋转的衰减轴会暴露这个错误。
-- [孔径诊断](../src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs) 继续调用正式相交和传播引擎，严格使用 `RayInteractionKind` 区分透射、指定反射和全反射。`NoneCoatingModel` 的透明介质界面计算 Fresnel；指定镜面按现有理想反射器语义处理。`SimpleCoatingModel` 表示不区分偏振、无额外相对相位的标量响应，替换界面损耗，其标量系数已在普通追迹中应用，不再重复乘一次。
+- [FresnelPower](../src/OpticalSystemDesign.Core/Coatings/FresnelPower.cs) 发布按功率通量归一化的复数 s/p 反射、透射振幅。透射振幅包含 `sqrt(n₂ cosθ₂ / n₁ cosθ₁)`，不能把电场透射率直接平方当成功率。全反射保留 s/p 相位；相同折射率、正入射和布儒斯特角均有独立验证。物理定义参考 [MIT Fresnel 与能流讲义](https://ocw.mit.edu/courses/6-007-electromagnetic-energy-from-motors-to-lasers-spring-2011/resources/mit6_007s11_lec33/)。
+- [UnpolarizedPowerTransport](../src/OpticalSystemDesign.Core/Rays/UnpolarizedPowerTransport.cs) 传播两个相互不相干的正交 Jones 输入，保留每条光路中旋转的入射面和复相位，最后才求平均功率。不能将每个界面的非偏振平均透过率直接连乘；斜入射双界面平板和旋转的衰减轴会暴露这个错误。
+- [孔径诊断](../src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs) 继续调用正式相交和传播引擎，严格使用 `RayInteractionKind` 区分透射、指定反射和全反射。`NoneCoatingModel` 的透明介质界面计算 Fresnel；指定镜面按现有理想反射器语义处理。`SimpleCoatingModel` 表示不区分偏振、无额外相对相位的标量响应，替换界面损耗，其标量系数已在普通追迹中应用，不再重复乘一次。
 - 像面照度改为入射功率。正式表面引擎新增显式 `stopBeforeInteraction` 分支：仍完成入射介质传播、吸收和像面物理孔径检查，在像面自身折射、反射、镀膜之前停止。照度调用通过 `stopAtIncidentImage: true` 选择此分支。普通追迹与默认诊断仍返回表面作用后的结果；没有改变其既有语义。
-- [IlluminationMetrics](../src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs) 可选择 `usePolarization`，仍共用正式光线生成、瞄准、孔径掩码、像面方向余弦积分和有界并行视场计算。非偏振光 Jones 结果与光线本身的标量源强、镀膜权重相乘；物理遮挡独立于零强度，不把诊断延续的被挡光线计入通光面积。
+- [IlluminationMetrics](../src/OpticalSystemDesign.Core/Services/IlluminationMetrics.cs) 可选择 `usePolarization`，仍共用正式光线生成、瞄准、孔径掩码、像面方向余弦积分和有界并行视场计算。非偏振光 Jones 结果与光线本身的标量源强、镀膜权重相乘；物理遮挡独立于零强度，不把诊断延续的被挡光线计入通光面积。
 - 相对照度分析与应用参数接通 `UsePolarization`，默认 `false`，参数显示为“偏振损耗（透明介质）”，结果同时发布选择值和计算模型。该开关考虑非偏振入射光在系统中的偏振损耗，不等于任意用户输入 Jones 状态。官方说明见 [OpticStudio 相对照度](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Relative_Illumination.html)。
 
 图像模拟仍采用此前标量照度路径。没有改动其已有的实验性偏振选项，也没有将旧的 `JonesPupilEngine` 电场振幅语义改为功率振幅；这两者需要独立审计后才能接入相同传输服务。
 
 ## 验证
 
-[PolarizedIlluminationTests](../tests/OptilandWorkbench.Tests/PolarizedIlluminationTests.cs) 包括分别对 s/p 的能量守恒、正入射功率通量、布儒斯特角、全反射复相位、旋转基底、相位延迟后的衰减、正式双界面平板、显式标量镀膜、全反射与理想镜面的类型化分支、像面作用前停止、完整光瞳积分、并行一致性、不支持模型和应用参数联动。独立公式与高精度积分只在测试内使用，不提供产品结果。
+[PolarizedIlluminationTests](../tests/OpticalSystemDesign.Tests/PolarizedIlluminationTests.cs) 包括分别对 s/p 的能量守恒、正入射功率通量、布儒斯特角、全反射复相位、旋转基底、相位延迟后的衰减、正式双界面平板、显式标量镀膜、全反射与理想镜面的类型化分支、像面作用前停止、完整光瞳积分、并行一致性、不支持模型和应用参数联动。独立公式与高精度积分只在测试内使用，不提供产品结果。
 
 首轮 25/25 通过。应用联动测试最初误以为底层 `WorkbenchRuntime.BuildAnalysisView` 会把不支持的模型转换为空视图；实际契约是抛出明确异常，由上层呈现。测试按该现有契约修正，没有吞掉异常或更换计算模型。最终默认 Debug/Release Core、Application、App 与主测试项目构建成功，相关同一过滤器各 **126/126**，零失败、零跳过，编译无警告/错误。126 中包含本轮新增 **26** 项偏振照度用例、此前照度基础的 83 项，以及 17 项既有正式追迹/批量后端用例；没有与此前 2308 项合并回归相加。格式和 `git diff --check` 通过。机器记录见 [verification.json](../artifacts/validation/illumination-polarization-20261002/verification.json)，命令见[构建记录](ILLUMINATION_POLARIZATION_2026-10-02.md)。本机测试运行窗口 Debug 约 185 秒，Release 约 50 秒，包含不同配置和调度开销，不能作为严格性能比较。
 

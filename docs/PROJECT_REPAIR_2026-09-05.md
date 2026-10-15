@@ -83,7 +83,7 @@ Optiland 辅助点列和离焦夹具缺少新的质心权重信息：其回归�
 
 ## 复现
 
-以下命令保留 2026-09-05 原阶段记录。2026-10-13 独立 AccuracyCapture 项目已删除；现行重算使用 [ZemaxComparison 子命令](../tools/OptilandWorkbench.ZemaxComparison/README.md#historical-workbench-recapture)和全新输出目录。
+以下命令保留 2026-09-05 原阶段记录。2026-10-13 独立 AccuracyCapture 项目已删除；现行重算使用 [ZemaxComparison 子命令](../tools/OpticalSystemDesign.ZemaxComparison/README.md#historical-workbench-recapture)和全新输出目录。
 
 ```powershell
 dotnet restore OptilandWorkbench.slnx --locked-mode

@@ -22,7 +22,7 @@ $examplesDirectory = if ([string]::IsNullOrWhiteSpace($ExamplesDirectory)) {
     [IO.Path]::GetFullPath($ExamplesDirectory)
 }
 $libraryDirectory = if ([string]::IsNullOrWhiteSpace($LibraryDirectory)) {
-    Join-Path $repository 'src\OptilandWorkbench.App\Assets\LensLibrary'
+    Join-Path $repository 'src\OpticalSystemDesign.App\Assets\LensLibrary'
 } else {
     [IO.Path]::GetFullPath($LibraryDirectory)
 }
@@ -48,7 +48,7 @@ if ([string]::IsNullOrWhiteSpace($ImporterDll)) {
 }
 $ImporterDll = [IO.Path]::GetFullPath($ImporterDll)
 if (-not [IO.File]::Exists($ImporterDll)) {
-    throw "Importer not found: $ImporterDll. Build OptilandWorkbench.ZemaxLibraryImporter first."
+    throw "Importer not found: $ImporterDll. Build OpticalSystemDesign.ZemaxLibraryImporter first."
 }
 
 function Get-SafeName {

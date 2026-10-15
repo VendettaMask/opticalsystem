@@ -1,6 +1,6 @@
 """Validate generated STEP fixtures with FreeCAD/OpenCascade.
 
-Run inside a FreeCAD console with OPTILAND_STEP_FIXTURE_DIR or a directory argument.
+Run inside a FreeCAD console with OPTICAL_SYSTEM_DESIGN_STEP_FIXTURE_DIR or a directory argument.
 """
 
 from __future__ import annotations
@@ -64,7 +64,7 @@ def validate(path: pathlib.Path, expected_count: int) -> None:
 
 
 def main() -> int:
-    fixture_argument = os.environ.get("OPTILAND_STEP_FIXTURE_DIR")
+    fixture_argument = os.environ.get("OPTICAL_SYSTEM_DESIGN_STEP_FIXTURE_DIR")
     if not fixture_argument and len(sys.argv) < 2:
         raise RuntimeError("fixture directory argument is required")
     fixture_argument = fixture_argument or sys.argv[-1]

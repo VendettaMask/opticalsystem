@@ -1,12 +1,12 @@
 using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using OptilandWorkbench.Core;
-using OptilandWorkbench.Core.Analysis;
-using OptilandWorkbench.Core.Domain;
-using OptilandWorkbench.Core.FileIO;
-using OptilandWorkbench.Core.Raytrace;
-using OptilandWorkbench.Core.Serialization;
+using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.Analysis;
+using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Core.Serialization;
 
 // Diagnostic only: all optical calculations come from the formal product Core.
 // Native fan knots are compared exactly, never interpolated onto a wavefront map.

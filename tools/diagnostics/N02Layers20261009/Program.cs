@@ -1,12 +1,12 @@
 using System.Reflection;
 using System.Text.Json;
-using OptilandWorkbench.Application.Runtime;
-using OptilandWorkbench.Core.Analysis;
-using OptilandWorkbench.Core.FileIO;
-using OptilandWorkbench.Core.Services;
-using OptilandWorkbench.ZemaxComparison;
-using OptilandWorkbench.ZemaxComparison.Metrics;
-using OptilandWorkbench.ZemaxComparison.Normalization;
+using OpticalSystemDesign.Application.Runtime;
+using OpticalSystemDesign.Core.Analysis;
+using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.ZemaxComparison;
+using OpticalSystemDesign.ZemaxComparison.Metrics;
+using OpticalSystemDesign.ZemaxComparison.Normalization;
 
 if (args.Length == 3 && args[0] == "--prepared-controls")
 {

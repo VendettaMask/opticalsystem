@@ -59,10 +59,10 @@
 
 ## 实现与验证
 
-- [分类映射](../src/OptilandWorkbench.App/Panels/OperandHelpTaxonomy.cs)：稳定代码到浏览层级的映射；未知新代码进入明确的“待分类”，测试阻止发布目录出现漏分项。
-- [筛选与树投影](../src/OptilandWorkbench.App/Panels/OperandHelpProjection.cs)：只从优化服务提供的条目生成树，不补造可执行操作数。
-- [帮助面板](../src/OptilandWorkbench.App/Panels/OperandHelpPanel.cs)：选择、展开、详情和状态展示。
-- [交互回归](../tests/OptilandWorkbench.Tests/OperandHelpTests.cs)：覆盖完整目录唯一性、GRIN 分组、搜索路径、支持状态筛选、空结果清除、选择保留、键盘展开、明暗主题和窄窗口。
+- [分类映射](../src/OpticalSystemDesign.App/Panels/OperandHelpTaxonomy.cs)：稳定代码到浏览层级的映射；未知新代码进入明确的“待分类”，测试阻止发布目录出现漏分项。
+- [筛选与树投影](../src/OpticalSystemDesign.App/Panels/OperandHelpProjection.cs)：只从优化服务提供的条目生成树，不补造可执行操作数。
+- [帮助面板](../src/OpticalSystemDesign.App/Panels/OperandHelpPanel.cs)：选择、展开、详情和状态展示。
+- [交互回归](../tests/OpticalSystemDesign.Tests/OperandHelpTests.cs)：覆盖完整目录唯一性、GRIN 分组、搜索路径、支持状态筛选、空结果清除、选择保留、键盘展开、明暗主题和窄窗口。
 
 验证命令、结果与范围见[构建记录](OPERAND_HELP_HIERARCHY_2026-10-01.md)。此前 [2057 项名称核对及光学回归](ZEMAX_OPERAND_AUTHENTICITY_AUDIT_2026-10-01.md)保留其当时的独立范围，本次没有重跑全部光学回归或新增 Zemax 数值捕获。
 

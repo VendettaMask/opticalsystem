@@ -55,18 +55,18 @@ $oldComparison=Inventory $previousComparison; $currentComparison=Inventory $comp
 $comparisonDifference=@($oldComparison.Keys | Where-Object { !$currentComparison.ContainsKey($_) -or $currentComparison[$_] -ne $oldComparison[$_] })
 if($comparison.total -ne 180 -or $comparisonDifference.Count -ne 0 -or $currentComparison.Count -ne $oldComparison.Count){throw 'Comparison identity differs'}
 $corePaths=@(
-    'src/OptilandWorkbench.Core/bin/Release/net10.0/OptilandWorkbench.Core.dll',
-    'tests/OptilandWorkbench.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll',
-    'tests/OptilandWorkbench.ZemaxComparison.Tests/bin/Release/net10.0/OptilandWorkbench.Core.dll',
-    'src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.Core.dll',
-    'tools/diagnostics/N02Layers20261009/bin/Release/net10.0/OptilandWorkbench.Core.dll',
-    'src/OptilandWorkbench.Core/bin/Debug/net10.0/OptilandWorkbench.Core.dll',
-    'tests/OptilandWorkbench.Tests/bin/Debug/net10.0/OptilandWorkbench.Core.dll',
-    'src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.Core.dll')
+    'src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll',
+    'tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll',
+    'tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll',
+    'src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll',
+    'tools/diagnostics/N02Layers20261009/bin/Release/net10.0/OpticalSystemDesign.Core.dll',
+    'src/OpticalSystemDesign.Core/bin/Debug/net10.0/OpticalSystemDesign.Core.dll',
+    'tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/OpticalSystemDesign.Core.dll',
+    'src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Core.dll')
 $binaries=@($corePaths | ForEach-Object { [ordered]@{path=$_;sha256=(Hash (Join-Path $repository $_))} })
 if(@($binaries | Where-Object {$_.path -like '*/Release/*'} | ForEach-Object {$_.sha256} | Sort-Object -Unique).Count -ne 1){throw 'Release Core copies differ'}
 if(@($binaries | Where-Object {$_.path -like '*/Debug/*'} | ForEach-Object {$_.sha256} | Sort-Object -Unique).Count -ne 1){throw 'Debug Core copies differ'}
-$sourcePaths=@('src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs','src/OptilandWorkbench.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs','tests/OptilandWorkbench.Tests/FftPupilPhaseParityTests.cs','tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj')
+$sourcePaths=@('src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs','src/OpticalSystemDesign.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs','tests/OpticalSystemDesign.Tests/FftPupilPhaseParityTests.cs','tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj')
 $sourceHashes=@($sourcePaths | ForEach-Object {[ordered]@{path=$_;sha256=(Hash (Join-Path $repository $_))}})
 $rawCount=0;$rawBytes=0L;$manifests=@()
 foreach($name in @('fft-pupil-phase-2026-10-09','n02-energy-layer-controls-2026-10-09','huygens-method-controls-2026-10-09')) {

@@ -67,7 +67,7 @@ function Run-Product {
 }
 
 Assert-Check 'legacy-install' ((Run-Setup $LegacySetupPath 'legacy-install') -eq 0) '1.0.0 flat layout'
-$legacyExe = Join-Path $install 'OptilandWorkbench.App.exe'
+$legacyExe = Join-Path $install 'OpticalSystemDesign.App.exe'
 Assert-Check 'legacy-payload-present' (Test-Path -LiteralPath $legacyExe) $legacyExe
 $legacyHash = File-Hash $legacyExe
 $shortcut = Join-Path ([Environment]::GetFolderPath('Programs')) "$group\Optical System Design.lnk"
@@ -107,7 +107,7 @@ Run-Product $legacyExe 'recovered-legacy-native-read'
 # Inno rolls back failed owned copies. If any verified files were retained,
 # same-package retry validates them before reuse instead of overwriting them.
 Assert-Check 'real-version-upgrade' ((Run-Setup $SetupPath 'upgrade') -eq 0) '1.0.0 -> 1.0.1'
-$currentExe = Join-Path $install "versions\$($metadata.ReleaseId)\OptilandWorkbench.App.exe"
+$currentExe = Join-Path $install "versions\$($metadata.ReleaseId)\OpticalSystemDesign.App.exe"
 Assert-Check 'new-payload-present' (Test-Path -LiteralPath $currentExe) $currentExe
 Run-Product $currentExe 'upgraded-native-read'
 $newCommand = '"{0}" "%1"' -f $currentExe
@@ -144,7 +144,7 @@ try {
     Assert-Check 'corrupted-payload-state-preserved' ((File-Hash $state) -eq $stateHash) $stateHash
 } finally { [IO.File]::WriteAllBytes($readme, $readmeBytes) }
 
-$missingFile = Join-Path (Split-Path -Parent $currentExe) 'OptilandWorkbench.Application.dll'
+$missingFile = Join-Path (Split-Path -Parent $currentExe) 'OpticalSystemDesign.Application.dll'
 $missingHash = File-Hash $missingFile
 Remove-Item -LiteralPath $missingFile -Force
 Assert-Check 'missing-payload-repaired' ((Run-Setup $SetupPath 'missing-payload') -eq 0) 'Same-package repair restores missing installer-owned DLL'
@@ -152,10 +152,10 @@ Assert-Check 'missing-file-restored-exactly' ((File-Hash $missingFile) -eq $miss
 
 if ($metadata.PSObject.Properties.Name -contains 'RequiredModules') {
     foreach ($module in @('InitialStructure.Contracts', 'InitialStructure.Engine', 'InitialStructure.Persistence', 'CoatingDesign.Engine', 'Modules')) {
-        $moduleFile = [IO.Path]::GetFullPath((Join-Path (Split-Path -Parent $currentExe) "OptilandWorkbench.$module.dll"))
+        $moduleFile = [IO.Path]::GetFullPath((Join-Path (Split-Path -Parent $currentExe) "OpticalSystemDesign.$module.dll"))
         if (-not $moduleFile.StartsWith($install + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { throw 'Invalid test-owned module target.' }
         $moduleHash = File-Hash $moduleFile
-        $held = Join-Path $output ("OptilandWorkbench.$module.dll.held")
+        $held = Join-Path $output ("OpticalSystemDesign.$module.dll.held")
         Move-Item -LiteralPath $moduleFile -Destination $held
         try {
             Assert-Check "missing-$module-repaired" ((Run-Setup $SetupPath "missing-$module") -eq 0) 'Mandatory module restored by the one product installer'
@@ -263,14 +263,14 @@ if ($VerifyCleanup) {
     Assert-Check 'committed-release-has-cleanup-receipt' (Test-Path -LiteralPath $receipt) $receipt
     Assert-Check 'cleanup-second-release-install' ((Run-Setup $RecoverySetupPath 'cleanup-second') -eq 0) 'First release becomes previous'
     $active = ([IO.File]::ReadAllLines($state) | Where-Object { $_ -like 'Active=*' }).Substring(7)
-    $secondExe = Join-Path $install "versions\$active\OptilandWorkbench.App.exe"
+    $secondExe = Join-Path $install "versions\$active\OpticalSystemDesign.App.exe"
     Run-Product $secondExe 'cleanup-keeps-previous'
     Assert-Check 'previous-release-preserved' (Test-Path -LiteralPath $firstExe) $firstExe
     $extra = Join-Path $firstDirectory 'user-extra.staropt'
     [IO.File]::WriteAllText($extra, 'test-owned extra user data')
     Assert-Check 'cleanup-third-release-install' ((Run-Setup $PartialCopySetupPath 'cleanup-third') -eq 0) 'Second release becomes previous'
     $active = ([IO.File]::ReadAllLines($state) | Where-Object { $_ -like 'Active=*' }).Substring(7)
-    $currentExe = Join-Path $install "versions\$active\OptilandWorkbench.App.exe"
+    $currentExe = Join-Path $install "versions\$active\OpticalSystemDesign.App.exe"
     Run-Product $currentExe 'cleanup-keeps-user-files'
     Assert-Check 'user-extra-preserves-whole-old-release' ((Test-Path -LiteralPath $firstExe) -and [IO.File]::ReadAllText($extra) -eq 'test-owned extra user data') $extra
     # Remove only this harness-created fixture, inside the validated test root.

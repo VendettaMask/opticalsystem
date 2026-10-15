@@ -1,0 +1,29 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/OpticalSystemDesign.Modules/OpticalSystemDesign.Modules.csproj" />
+    <Project Path="src/OpticalSystemDesign.Application/OpticalSystemDesign.Application.csproj" />
+    <Project Path="src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj" />
+    <Project Path="src/OpticalSystemDesign.Core/OpticalSystemDesign.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/OpticalSystemDesign.ZemaxComparison.Tests/OpticalSystemDesign.ZemaxComparison.Tests.csproj" />
+    <Project Path="tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj" />
+  </Folder>
+  <Folder Name="/modules/">
+    <Project Path="labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/OpticalSystemDesign.InitialStructure.Contracts.csproj" />
+    <Project Path="labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/OpticalSystemDesign.InitialStructure.Engine.csproj" />
+    <Project Path="labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Persistence/OpticalSystemDesign.InitialStructure.Persistence.csproj" />
+    <Project Path="labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/OpticalSystemDesign.CoatingDesign.Engine.csproj" />
+    <Project Path="labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj" />
+    <Project Path="labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/OpticalSystemDesign.CoatingDesign.Tests.csproj" />
+    <Project Path="labs/InitialStructure/tools/OpticalSystemDesign.InitialStructure.Benchmarks/OpticalSystemDesign.InitialStructure.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/OpticalSystemDesign.ZemaxComparison/OpticalSystemDesign.ZemaxComparison.csproj" />
+    <Project Path="tools/OpticalSystemDesign.LensLibraryBuilder/OpticalSystemDesign.LensLibraryBuilder.csproj" />
+    <Project Path="tools/OpticalSystemDesign.Benchmarks/OpticalSystemDesign.Benchmarks.csproj" />
+    <Project Path="tools/OpticalSystemDesign.NonSequentialSamples/OpticalSystemDesign.NonSequentialSamples.csproj" />
+    <Project Path="tools/OpticalSystemDesign.GlassCatalogConverter/OpticalSystemDesign.GlassCatalogConverter.csproj" />
+    <Project Path="tools/OpticalSystemDesign.ZemaxLibraryImporter/OpticalSystemDesign.ZemaxLibraryImporter.csproj" />
+  </Folder>
+</Solution>

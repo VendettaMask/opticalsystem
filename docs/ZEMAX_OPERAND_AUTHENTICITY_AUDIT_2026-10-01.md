@@ -47,7 +47,7 @@
 
 - [383 行逐项核对 CSV](../artifacts/validation/zemax-operand-authenticity-20261001/registered-codes.csv)：每项列出名称、官方来源和本程序连接状态。
 - [机器审计摘要](../artifacts/validation/zemax-operand-authenticity-20261001/audit.json)：数量、例外、网页 SHA-256 和证据边界。
-- [独立官方枚举夹具](../tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json)：仅保存名称、来源和哈希，不依赖产品注册表生成期望值。
+- [独立官方枚举夹具](../tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json)：仅保存名称、来源和哈希，不依赖产品注册表生成期望值。
 - [构建与测试记录](ZEMAX_OPERAND_AUTHENTICITY_AUDIT_2026-10-01.md)：名称、标识及既有相关回归；不是新 Zemax 数值认证。
 
 官方来源：[2026 R1 API 枚举](https://developer.synopsys.com/docs/zemax-opticstudio-zos-api-2026-r1/reference/namespace_z_o_s_a_p_i_1_1_editors_1_1_m_f_e.md)、[v261 操作数字母表](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Optimization_Operands_Alphabetically.html)、[v261 实际光线分类（HYLD）](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Constraints_on_Real_Ray_Data.html)。

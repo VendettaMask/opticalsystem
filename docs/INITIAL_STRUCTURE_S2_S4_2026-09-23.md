@@ -59,7 +59,7 @@ v6/v7 检查点保存策略版本、下一决策序号、确定性随机种子�
 
 `Core.Raytrace.SequentialTraceMeasurement` 提供可选的异步作用域计数，包含真实发起的顺序光线计算、光阑瞄准、诊断和失效光线，排除缓存命中；它不计表面交点数，也不改变计算结果。并行与嵌套作用域及缓存排除均有回归。旧 `SearchRays` 仍指分析请求的采样数；新 `MeasuredSearchRays` 用于本机新旧算法比较，两种计数不混用。
 
-验收入口见[运行器说明](../labs/InitialStructure/tools/OptilandWorkbench.InitialStructure.Benchmarks/README.md)：
+验收入口见[运行器说明](../labs/InitialStructure/tools/OpticalSystemDesign.InitialStructure.Benchmarks/README.md)：
 
 1. 原 `flat-start-v1` 的 12 个规格 × 101–105，原 10000 次评价、600 秒和至少 10/12 各 4/5 的门槛完全保留。
 2. 独立 `holdout-v1` 为 42 mm 单色、65 mm 可见光、120 mm 固定后焦三个新目标，使用 201–205。在 v6 验收前固定，单独报告，不参与原门槛分母。

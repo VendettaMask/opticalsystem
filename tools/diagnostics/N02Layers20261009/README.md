@@ -12,7 +12,7 @@ dotnet run --project tools/diagnostics/N02Layers20261009 -c Release -- --prepare
 
 完整 N02 层诊断参数为 `repository-root native-run-directory fresh-output-directory`。输出目录须为空；native run 需保留原始捕获结构 `input/source.ZMX`、`dee-32`、`psf-32` 和可选复场/批量瞳孔目录。工具确认同源哈希和原 DEE 数值未变，再记录原设置的正式曲线、二维 PSF、窗口和积分控制。
 
-`CaptureControls.ps1` 对三份独立控制先复制处方并核对 SHA-256，再读取模型、捕获复场和批量 OPD。它需要已经编译的 `host/ZemaxHost.exe` 和 `host/NativeEnergyControl.exe`。客户端编译用系统 .NET Framework x64 csc、现有 `tools/OptilandWorkbench.ZemaxComparison/ZemaxHost/*.cs`、本诊断源，引用 System.Web.Extensions 和安装目录的 ZOSAPI、ZOSAPI_Interfaces、ZOSAPI_NetHelper；原生客户端入口指定 `/main:NativeEnergyControl`。
+`CaptureControls.ps1` 对三份独立控制先复制处方并核对 SHA-256，再读取模型、捕获复场和批量 OPD。它需要已经编译的 `host/ZemaxHost.exe` 和 `host/NativeEnergyControl.exe`。客户端编译用系统 .NET Framework x64 csc、现有 `tools/OpticalSystemDesign.ZemaxComparison/ZemaxHost/*.cs`、本诊断源，引用 System.Web.Extensions 和安装目录的 ZOSAPI、ZOSAPI_Interfaces、ZOSAPI_NetHelper；原生客户端入口指定 `/main:NativeEnergyControl`。
 
 原生客户端隐藏启动，并只等待宿主进程；许可子进程可能保留重定向管道，因此不能将其通过 PowerShell 输出管道作为完成判断。请求和设置只作用于未保存的原生副本，不保存或修改冻结处方。
 

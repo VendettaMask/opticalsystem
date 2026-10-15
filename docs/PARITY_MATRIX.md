@@ -24,7 +24,7 @@
 | 文件 | `Serialization`、`FileIO` | STAROPT 完整工程和受支持旧版本有界迁移；版本以 [格式契约](STAROPT_FILE_FORMAT.md) 为准。ZMX 与 SEQ/LEN 是交换子集；只读评价函数参数往返时不裁剪，不支持内容禁止静默降级 |
 | 插件 | `Plugins` | 程序集/目录发现，几何、材料、分析注册和失败隔离 |
 | 可视化 | `Visualization` | 二维/三维、显式光段方向和交互类型、主题资源 |
-| GUI | `OptilandWorkbench.App` | 中文 Avalonia、Dock 分栏/浮动/平铺/层叠、命令面板、四个具体主题和按文件会话 |
+| GUI | `OpticalSystemDesign.App` | 中文 Avalonia、Dock 分栏/浮动/平铺/层叠、命令面板、四个具体主题和按文件会话 |
 
 ## 当前里程碑
 

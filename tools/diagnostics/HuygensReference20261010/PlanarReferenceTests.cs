@@ -1,11 +1,11 @@
 using System.Numerics;
 using System.Text.Json;
-using OptilandWorkbench.Core;
-using OptilandWorkbench.Core.Analysis;
-using OptilandWorkbench.Core.Backend;
-using OptilandWorkbench.Core.FileIO;
-using OptilandWorkbench.Core.Rays;
-using OptilandWorkbench.Core.Raytrace;
+using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.Analysis;
+using OpticalSystemDesign.Core.Backend;
+using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Core.Rays;
+using OpticalSystemDesign.Core.Raytrace;
 using Xunit;
 using Xunit.Abstractions;
 

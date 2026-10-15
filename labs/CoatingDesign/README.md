@@ -13,8 +13,8 @@
 安装标准 Optical System Design 后，通过“实验室 → 光学镀膜设计”打开；不需要安装额外模块，也不会启动其他进程。开发时只构建/运行根产品：
 
 ```sh
-dotnet build OptilandWorkbench.slnx -c Release
-dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release
+dotnet build OpticalSystemDesign.slnx -c Release
+dotnet run --project src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj -c Release
 ```
 
 模块使用主程序主题与显示设置。关闭主程序、切换示例或打开其他实验时，未保存修改仍有保存/放弃/取消保护；这不是模块安装提示。
@@ -51,7 +51,7 @@ dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c R
 重新运行三例并保存证据（会写入指定目录）：
 
 ```sh
-dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release -- --batch-coating-examples artifacts/coating-examples
+dotnet run --project src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj -c Release -- --batch-coating-examples artifacts/coating-examples
 ```
 
 ## 数据与物理边界
@@ -67,7 +67,7 @@ dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c R
 [本地审计、源码复用边界和计算契约](../../docs/COATING_DESIGN_LAB.md)、[源码版本与许可证](../../third_party/coating-reference/README.md)、[实际验收记录](../../validation/coating/README.md)。TFStudio/tmmcore MIT 原始声明和 CC0 材料说明随标准主程序发布到 `Licenses/`。
 
 ```sh
-dotnet test labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/OptilandWorkbench.CoatingDesign.Tests.csproj -c Release
+dotnet test labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/OpticalSystemDesign.CoatingDesign.Tests.csproj -c Release
 ```
 
 测试包含固定 tmmcore 0.4.2 的 120 组对照、独立解析物理检查、采样收敛、约束、取消/过期结果、原子保存重开和真实 Avalonia 控件交互。测试通过仅覆盖这些边界，不替代正式产品全量或跨平台安装包验收。
@@ -91,7 +91,7 @@ dotnet test labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/Optil
 每例另有 5 次正态、同材料同步厚度误差和 0.1° 角度误差公差演示，样本少，仅演示可重现流程，不代表生产良率认证。搜索结果只是给定预算内最优的有效候选，不能据此推断物理无解。
 
 ```sh
-dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release -- --batch-coating-daily-examples artifacts/coating-daily-examples
+dotnet run --project src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj -c Release -- --batch-coating-daily-examples artifacts/coating-daily-examples
 ```
 
 机器数据见 [daily/verification.json](examples/daily/verification.json)。

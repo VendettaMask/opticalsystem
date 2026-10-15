@@ -46,6 +46,6 @@ ZTHI 读取整个文档配置集合的原始几何，不按临时 IMSF 截断。
 
 ## 代码入口
 
-- [配置上下文](../src/OptilandWorkbench.Core/Optimization/MeritConfigurationContext.cs)、[ZTHI 求值](../src/OptilandWorkbench.Core/Optimization/MeritFunction.MultiConfiguration.cs)、[临时状态](../src/OptilandWorkbench.Core/Optimization/MeritFunction.SystemState.cs)。
-- [生产优化接线](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Optimization.cs)、[评价页服务](../src/OptilandWorkbench.Application/Services/OptimizationService.cs)。
-- [跨配置回归](../tests/OptilandWorkbench.Tests/MultiConfigurationOperandTests.cs)。
+- [配置上下文](../src/OpticalSystemDesign.Core/Optimization/MeritConfigurationContext.cs)、[ZTHI 求值](../src/OpticalSystemDesign.Core/Optimization/MeritFunction.MultiConfiguration.cs)、[临时状态](../src/OpticalSystemDesign.Core/Optimization/MeritFunction.SystemState.cs)。
+- [生产优化接线](../src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Optimization.cs)、[评价页服务](../src/OpticalSystemDesign.Application/Services/OptimizationService.cs)。
+- [跨配置回归](../tests/OpticalSystemDesign.Tests/MultiConfigurationOperandTests.cs)。

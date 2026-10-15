@@ -29,7 +29,7 @@ P1 表示应优先修复的计算或验收错误；P2 表示功能可靠性或�
 
 ### F01 · P1：复色 MTF 返回值与复色 OTF 的模不一致
 
-位置：[MtfScanAnalysis.cs:863](D:/Projects/opticalsystem/src/OptilandWorkbench.Core/Analysis/MtfScanAnalysis.cs:863)，相关路径为该文件的 `CombinePolychromatic` 和 `EvaluateFourierThroughFocusPolychromatic`，以及 [GeometricMtfAnalysis.cs:118](D:/Projects/opticalsystem/src/OptilandWorkbench.Core/Analysis/GeometricMtfAnalysis.cs:118)。
+位置：[MtfScanAnalysis.cs:863](D:/Projects/opticalsystem/src/OpticalSystemDesign.Core/Analysis/MtfScanAnalysis.cs:863)，相关路径为该文件的 `CombinePolychromatic` 和 `EvaluateFourierThroughFocusPolychromatic`，以及 [GeometricMtfAnalysis.cs:118](D:/Projects/opticalsystem/src/OpticalSystemDesign.Core/Analysis/GeometricMtfAnalysis.cs:118)。
 
 `CombinePolychromatic` 已经计算加权复数 OTF，但 `Tangential/Sagittal` 仍返回各单色 MTF 模值的加权平均。普通 Modulation 显示使用这个标量数组，Real/Imaginary 使用另一个复数数组，因此同一结果违反 `MTF = |OTF|`。离焦 FFT 分支也分别累加 `.Magnitude`；几何 MTF 在合成前同样已经丢弃单色 OTF 相位。
 
@@ -39,7 +39,7 @@ P1 表示应优先修复的计算或验收错误；P2 表示功能可靠性或�
 
 ### F02 · P1：Float by Stop Size 把光阑直径直接当作入瞳直径
 
-位置：[Paraxial.cs:84](D:/Projects/opticalsystem/src/OptilandWorkbench.Core/Services/Paraxial.cs:84)、[SurfaceGroup.cs:106](D:/Projects/opticalsystem/src/OptilandWorkbench.Core/Domain/SurfaceGroup.cs:106)。
+位置：[Paraxial.cs:84](D:/Projects/opticalsystem/src/OpticalSystemDesign.Core/Services/Paraxial.cs:84)、[SurfaceGroup.cs:106](D:/Projects/opticalsystem/src/OpticalSystemDesign.Core/Domain/SurfaceGroup.cs:106)。
 
 `fallbackDiameter` 是 `2 × stop.SemiDiameter`，`FloatByStopSize` 直接返回它，遗漏光阑前光学系统对光阑的成像倍率。光阑是第一物理面时测试容易通过；光阑位于有光焦度的前组之后时不成立。
 
@@ -49,7 +49,7 @@ Cooke 反例：光阑半径 4.6 mm，当前入瞳直径 9.2 mm，所定义旁轴
 
 ### F03 · P1：点列图及共用 RMS 路径遗漏波长权重
 
-位置：[SpotAnalysisSupport.cs:112](D:/Projects/opticalsystem/src/OptilandWorkbench.Core/Analysis/Rays/SpotAnalysisSupport.cs:112)、[RayGenerator.cs:173](D:/Projects/opticalsystem/src/OptilandWorkbench.Core/Raytrace/RayGenerator.cs:173)、[RmsScanAnalyses.cs:553](D:/Projects/opticalsystem/src/OptilandWorkbench.Core/Analysis/RmsScanAnalyses.cs:553)。
+位置：[SpotAnalysisSupport.cs:112](D:/Projects/opticalsystem/src/OpticalSystemDesign.Core/Analysis/Rays/SpotAnalysisSupport.cs:112)、[RayGenerator.cs:173](D:/Projects/opticalsystem/src/OpticalSystemDesign.Core/Raytrace/RayGenerator.cs:173)、[RmsScanAnalyses.cs:553](D:/Projects/opticalsystem/src/OpticalSystemDesign.Core/Analysis/RmsScanAnalyses.cs:553)。
 
 每个波长生成相同的 pupil samples，传入生成器的是波长数值，没有把 `Wavelength.Weight` 应用于 `SpotRayData.Intensity` 或统计。RMS 汇总直接拼接各波长光线；权重为零的波长仍参与。
 
@@ -59,7 +59,7 @@ Cooke 反例：光阑半径 4.6 mm，当前入瞳直径 9.2 mm，所定义旁轴
 
 ### F04 · P1：复色 centroid 实际取主波长光斑中心
 
-位置：[SpotAnalysisSupport.cs:163](D:/Projects/opticalsystem/src/OptilandWorkbench.Core/Analysis/Rays/SpotAnalysisSupport.cs:163)，尤其 178–181 行。
+位置：[SpotAnalysisSupport.cs:163](D:/Projects/opticalsystem/src/OpticalSystemDesign.Core/Analysis/Rays/SpotAnalysisSupport.cs:163)，尤其 178–181 行。
 
 选中 `centroid` 时，代码只对 `referenceRays`（主波长或第一个波长）做简单平均，然后把这个中心应用于所有波长。它既不是全波长质心，也没有与 RMS 的强度权重保持一致。
 
@@ -69,7 +69,7 @@ Cooke 反例：光阑半径 4.6 mm，当前入瞳直径 9.2 mm，所定义旁轴
 
 ### F05 · P1：普通点列与方向余弦未转换为选定面的局部坐标
 
-位置：[ImageSpaceAnalysisSupport.cs:109](D:/Projects/opticalsystem/src/OptilandWorkbench.Core/Analysis/Shared/ImageSpaceAnalysisSupport.cs:109)，普通位置返回在 139 行。
+位置：[ImageSpaceAnalysisSupport.cs:109](D:/Projects/opticalsystem/src/OpticalSystemDesign.Core/Analysis/Shared/ImageSpaceAnalysisSupport.cs:109)，普通位置返回在 139 行。
 
 afocal 分支使用 `targetSurface.CoordinateSystem`，但普通像高和方向余弦分支直接使用全局 `Position.X/Y`、`Direction.X/Y`；焦移也沿全局 Z 投影。这会使旋转、偏心、倾斜像面和中间面的结果不符合所选面的坐标系。
 
@@ -79,7 +79,7 @@ afocal 分支使用 `targetSurface.CoordinateSystem`，但普通像高和方向�
 
 ### F06 · P1：主 Zemax 基准的赛德尔结果仍存在符号与幅值差异
 
-位置：[SeidelCoefficientsAnalysis.cs:43](D:/Projects/opticalsystem/src/OptilandWorkbench.Core/Analysis/Reports/SeidelCoefficientsAnalysis.cs:43)、[Paraxial.cs:257](D:/Projects/opticalsystem/src/OptilandWorkbench.Core/Services/Paraxial.cs:257)。
+位置：[SeidelCoefficientsAnalysis.cs:43](D:/Projects/opticalsystem/src/OpticalSystemDesign.Core/Analysis/Reports/SeidelCoefficientsAnalysis.cs:43)、[Paraxial.cs:257](D:/Projects/opticalsystem/src/OpticalSystemDesign.Core/Services/Paraxial.cs:257)。
 
 本次实际导入不可改写的 `123456.ZMX`、显式选择波长 2（0.44 µm）重算：
 
@@ -98,7 +98,7 @@ Petzval 在本次工作区已经吻合，不能继续照抄旧文档中的 −37
 
 ### F07 · P2：近轴主光线只取 Y 视场，纯 X 视场退化为轴上
 
-位置：[Paraxial.cs:324](D:/Projects/opticalsystem/src/OptilandWorkbench.Core/Services/Paraxial.cs:324)。
+位置：[Paraxial.cs:324](D:/Projects/opticalsystem/src/OpticalSystemDesign.Core/Services/Paraxial.cs:324)。
 
 `ChiefRay` 取最大的 `abs(field.Y)`，未处理 X 分量。对旋转对称 Cooke 系统，把原 Y 视场等幅旋转到 X 方向，赛德尔累计 COMA/ASTI/FCUR/DIST/CTR 全部变为零，例如 ASTI 从 −0.008907 变为 0。
 
@@ -118,7 +118,7 @@ Petzval 在本次工作区已经吻合，不能继续照抄旧文档中的 −37
 
 ### F09 · P2：采集成功被误当成分析计算成功
 
-位置：[AccuracyCapture/Program.cs:83](D:/Projects/opticalsystem/tools/OptilandWorkbench.AccuracyCapture/Program.cs:83)、[generate_workbench_comparison.py:1013](D:/Projects/opticalsystem/tools/zemax_parity/generate_workbench_comparison.py:1013)。
+位置：[AccuracyCapture/Program.cs:83](D:/Projects/opticalsystem/tools/OpticalSystemDesign.AccuracyCapture/Program.cs:83)、[generate_workbench_comparison.py:1013](D:/Projects/opticalsystem/tools/zemax_parity/generate_workbench_comparison.py:1013)。
 
 只要 `BuildAnalysisView` 没抛异常，工具就写 `captured`，报告再转换成“72/72 成功”。本次 72 个输出中至少 3 项实际只有状态提示：
 
@@ -130,7 +130,7 @@ Petzval 在本次工作区已经吻合，不能继续照抄旧文档中的 −37
 
 ### F10 · P2：镜头库预览异常处理覆盖不完整
 
-位置：[LensLibraryService.cs:129](D:/Projects/opticalsystem/src/OptilandWorkbench.Application/Services/LensLibraryService.cs:129)。
+位置：[LensLibraryService.cs:129](D:/Projects/opticalsystem/src/OpticalSystemDesign.Application/Services/LensLibraryService.cs:129)。
 
 现有代码只对特定英文前缀的 RealImageHeight 异常退回无光线布局。新的 `RayAimingException` 未进入该处理。主测试实际遍历 925 个打包镜头，169 个预览失败，日志中大量出现光阑瞄准不收敛。
 
@@ -142,9 +142,9 @@ Petzval 在本次工作区已经吻合，不能继续照抄旧文档中的 −37
 
 | 位置 | 判断与建议 |
 | --- | --- |
-| [Tolerancing.Helpers.cs:29](D:/Projects/opticalsystem/src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Tolerancing.Helpers.cs:29) 与 [Tolerancing.Parallel.cs:15](D:/Projects/opticalsystem/src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Tolerancing.Parallel.cs:15) | 默认/配置公差构建、变量映射存在两套相似流程。一套捕获 CurrentOptic，一套接受 worker optic；两者有实际调用。建议共用显式接收 Optic 的工厂，避免维护时分歧。 |
-| [Tolerancing.Helpers.cs:119](D:/Projects/opticalsystem/src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Tolerancing.Helpers.cs:119) | `EvaluateToleranceCriterion(ToleranceCriterion)` 私有包装重载未找到调用；有用的是接收 definitions 的重载。可作为定向删除候选。 |
-| [MtfScanAnalysis.cs:1099](D:/Projects/opticalsystem/src/OptilandWorkbench.Core/Analysis/MtfScanAnalysis.cs:1099) 与 [PsfAndMtfAnalyses.cs:508](D:/Projects/opticalsystem/src/OptilandWorkbench.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs:508) | MTF 数据类型/方波响应/插值选择重复，且有有界与无界插值差异。先定义行为再合并，优先随 F01 修复统一。 |
+| [Tolerancing.Helpers.cs:29](D:/Projects/opticalsystem/src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Tolerancing.Helpers.cs:29) 与 [Tolerancing.Parallel.cs:15](D:/Projects/opticalsystem/src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Tolerancing.Parallel.cs:15) | 默认/配置公差构建、变量映射存在两套相似流程。一套捕获 CurrentOptic，一套接受 worker optic；两者有实际调用。建议共用显式接收 Optic 的工厂，避免维护时分歧。 |
+| [Tolerancing.Helpers.cs:119](D:/Projects/opticalsystem/src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Tolerancing.Helpers.cs:119) | `EvaluateToleranceCriterion(ToleranceCriterion)` 私有包装重载未找到调用；有用的是接收 definitions 的重载。可作为定向删除候选。 |
+| [MtfScanAnalysis.cs:1099](D:/Projects/opticalsystem/src/OpticalSystemDesign.Core/Analysis/MtfScanAnalysis.cs:1099) 与 [PsfAndMtfAnalyses.cs:508](D:/Projects/opticalsystem/src/OpticalSystemDesign.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs:508) | MTF 数据类型/方波响应/插值选择重复，且有有界与无界插值差异。先定义行为再合并，优先随 F01 修复统一。 |
 | ScalarBatchedNumericBackendAdapter 与 ManagedCpuBackend.BatchedIntersections | 最明显的相同 20 行窗口为 40 组，许多来自参数签名、校验和后备实现。标量适配器与 SIMD 路径各有用途，不应直接删除一套；可抽取共同校验/标量尾部。 |
 | WorkspaceContracts 与 Core Analysis/NonSequential models | 存在重复枚举/DTO 形状，是分层边界。保留 DTO 边界，以映射完整性检查控制漂移。 |
 | Through Focus MTF / Fourier Through Focus MTF | 都走 Fourier 路径，当前捕获对同组数据重复计算约 46.40 / 44.94 秒。可评估一个规范入口加兼容别名；须迁移保存的工作区/分析设置后再处理。 |

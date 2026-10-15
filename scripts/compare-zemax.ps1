@@ -15,7 +15,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $repositoryRoot = Split-Path -Parent $PSScriptRoot
-$toolProject = Join-Path $repositoryRoot 'tools/OptilandWorkbench.ZemaxComparison/OptilandWorkbench.ZemaxComparison.csproj'
+$toolProject = Join-Path $repositoryRoot 'tools/OpticalSystemDesign.ZemaxComparison/OpticalSystemDesign.ZemaxComparison.csproj'
 if (-not (Test-Path -LiteralPath $InputFile -PathType Leaf)) { throw "ZMX input not found: $InputFile" }
 if (-not (Get-Command dotnet -ErrorAction SilentlyContinue)) { throw '.NET 10 SDK is required.' }
 
@@ -33,5 +33,5 @@ if (-not $Analysis) { $arguments += '--all' }
 if ($CaptureScreenshots) { $arguments += '--capture-screenshots' }
 if ($KeepRaw) { $arguments += '--keep-raw' }
 if ($Overwrite) { $arguments += '--overwrite' }
-& dotnet (Join-Path (Split-Path -Parent $toolProject) 'bin/Release/net10.0/OptilandWorkbench.ZemaxComparison.dll') @arguments
+& dotnet (Join-Path (Split-Path -Parent $toolProject) 'bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.dll') @arguments
 exit $LASTEXITCODE

@@ -1,0 +1,201 @@
+using System.Text.Json;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Runtime;
+using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.Analysis;
+using OpticalSystemDesign.Core.Apodization;
+using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Coatings;
+using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Geometries;
+using OpticalSystemDesign.Core.Interactions;
+using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Core.NonSequential;
+using NonSequentialObjectKind = OpticalSystemDesign.Core.NonSequential.NonSequentialObjectKind;
+using OpticalSystemDesign.Core.Optimization;
+using OpticalSystemDesign.Core.Phase;
+using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Core.Visualization;
+using ContractAnalysisColorMap = OpticalSystemDesign.Application.Contracts.AnalysisColorMap;
+using ContractAnalysisLineStyle = OpticalSystemDesign.Application.Contracts.AnalysisLineStyle;
+using ContractAnalysisMarkerStyle = OpticalSystemDesign.Application.Contracts.AnalysisMarkerStyle;
+using ContractAnalysisParameterDescriptor = OpticalSystemDesign.Application.Contracts.AnalysisParameterDescriptor;
+using ContractAnalysisParameterKind = OpticalSystemDesign.Application.Contracts.AnalysisParameterKind;
+using ContractAnalysisSeriesKind = OpticalSystemDesign.Application.Contracts.AnalysisSeriesKind;
+using static OpticalSystemDesign.Application.Services.WorkbenchMapper;
+
+namespace OpticalSystemDesign.Application.Services;
+
+internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizationService
+{
+    private readonly IWorkbenchModeService? _modes;
+    private readonly NonSequentialLayoutSession? _nonSequentialLayoutSession;
+
+    public VisualizationService(
+        WorkspaceCoordinator workspace,
+        IWorkbenchModeService? modes = null,
+        NonSequentialLayoutSession? nonSequentialLayoutSession = null)
+        : base(workspace)
+    {
+        _modes = modes;
+        _nonSequentialLayoutSession = nonSequentialLayoutSession;
+    }
+
+    public Task<SceneDto> BuildSceneAsync(
+        SceneDimension dimension,
+        CancellationToken cancellationToken = default)
+    {
+        return BuildSceneAsync(new VisualizationRequestDto(
+            dimension,
+            RayCount: dimension == SceneDimension.TwoDimensional ? 3 : 5), cancellationToken);
+    }
+
+    public VisualizationOptionsDto GetVisualizationOptions()
+    {
+        lock (Gate)
+        {
+            if (_modes?.CurrentMode == OpticalWorkbenchMode.NonSequential)
+            {
+                var document = Runtime.CurrentNonSequentialDocument;
+                return new VisualizationOptionsDto(
+                    Enumerable.Range(1, document.Objects.Count).ToArray(),
+                    document.Objects.Where(item => item.Enabled
+                        && item.Parameters is OpticalSystemDesign.Core.NonSequential.SourceParameters)
+                        .Select((item, index) => new VisualizationSelectorOptionDto(index, item.Name)).ToArray(),
+                    document.Wavelengths.Select((item, index) => new VisualizationSelectorOptionDto(
+                        index, $"{item.Label}  {item.Nanometers:0.####} nm")).ToArray());
+            }
+
+            return new VisualizationOptionsDto(
+                Runtime.CurrentOptic.SurfaceGroup.Items.Select(surface => surface.Number).ToArray(),
+                Runtime.CurrentOptic.Fields.Select((field, index) =>
+                    new VisualizationSelectorOptionDto(index, field.Label)).ToArray(),
+                Runtime.CurrentOptic.Wavelengths.Select((wavelength, index) =>
+                    new VisualizationSelectorOptionDto(
+                        index,
+                        $"{wavelength.Label}  {wavelength.Nanometers:0.####} nm")).ToArray());
+        }
+    }
+
+    public Task<SceneDto> BuildSceneAsync(
+        VisualizationRequestDto request,
+        CancellationToken cancellationToken = default)
+    {
+        Optic snapshot;
+        NonSequentialDocument? nonSequentialSnapshot;
+        long sourceRevision;
+        OpticalDocumentSnapshot summary;
+        CancellationTokenSource linked;
+        lock (Gate)
+        {
+            sourceRevision = Workspace.Revision;
+            summary = Workspace.GetDocumentSnapshot();
+            snapshot = Optic.FromSnapshot(Runtime.CurrentOptic.ToSnapshot());
+            nonSequentialSnapshot = _modes?.CurrentMode == OpticalWorkbenchMode.NonSequential
+                ? Runtime.CurrentNonSequentialDocument.Clone()
+                : null;
+            linked = Workspace.LinkDocumentToken(cancellationToken);
+        }
+
+        return nonSequentialSnapshot is null
+            ? BuildSceneWorkerAsync(snapshot, sourceRevision, summary, request, linked)
+            : BuildNonSequentialSceneWorkerAsync(
+                snapshot,
+                nonSequentialSnapshot,
+                sourceRevision,
+                summary,
+                request,
+                linked,
+                _nonSequentialLayoutSession);
+    }
+
+    private static async Task<SceneDto> BuildNonSequentialSceneWorkerAsync(
+        Optic optic,
+        NonSequentialDocument document,
+        long sourceRevision,
+        OpticalDocumentSnapshot summary,
+        VisualizationRequestDto request,
+        CancellationTokenSource linked,
+        NonSequentialLayoutSession? layoutSession)
+    {
+        using (linked)
+        {
+            return await Task.Run(() =>
+            {
+                linked.Token.ThrowIfCancellationRequested();
+                using var cancellationScope = ComputationCancellation.Push(linked.Token);
+                var currentSceneHash = NonSequentialSceneHasher.Compute(document);
+                var layout = layoutSession?.LoadLayoutBranches(
+                    document,
+                    request.IncludeStaleNonSequentialRays);
+                var scene = NonSequentialVisualizationBuilder.Build(
+                    optic,
+                    document,
+                    request,
+                    layout?.Branches);
+                var provenance = layout is null
+                    ? new NonSequentialLayoutResultDto(
+                        false,
+                        currentSceneHash,
+                        null,
+                        null,
+                        false,
+                        false,
+                        null)
+                    : new NonSequentialLayoutResultDto(
+                        true,
+                        layout.CurrentSceneHash,
+                        layout.SceneHash,
+                        layout.SourceRevision,
+                        layout.IsStale,
+                        layout.Branches.Count > 0,
+                        layout.DatabasePath);
+                return new SceneDto(
+                    sourceRevision,
+                    SceneDimension.ThreeDimensional,
+                    null,
+                    scene,
+                    summary,
+                    provenance);
+            }, linked.Token).ConfigureAwait(false);
+        }
+    }
+
+    private static async Task<SceneDto> BuildSceneWorkerAsync(
+        Optic snapshot,
+        long sourceRevision,
+        OpticalDocumentSnapshot summary,
+        VisualizationRequestDto request,
+        CancellationTokenSource linked)
+    {
+        using (linked)
+        {
+            return await Task.Run(() =>
+            {
+                linked.Token.ThrowIfCancellationRequested();
+                var builder = new Layout2DBuilder(snapshot);
+                var options = new LayoutBuildOptions(
+                    request.FirstSurface,
+                    request.LastSurface,
+                    request.FieldIndex,
+                    request.WavelengthIndex,
+                    request.IncludeAllWavelengths,
+                    request.RayCount,
+                    request.LowerPupil,
+                    request.UpperPupil,
+                    request.DeleteVignetted,
+                    request.MarginalAndChiefOnly);
+                if (request.Dimension == SceneDimension.TwoDimensional)
+                {
+                    var scene = builder.Build(options: options);
+                    linked.Token.ThrowIfCancellationRequested();
+                    return new SceneDto(sourceRevision, request.Dimension, ToScene2Dto(scene), null, summary);
+                }
+
+                var scene3 = builder.Build3D(options: options);
+                linked.Token.ThrowIfCancellationRequested();
+                return new SceneDto(sourceRevision, request.Dimension, null, ToScene3Dto(scene3), summary);
+            }, linked.Token).ConfigureAwait(false);
+        }
+    }
+}

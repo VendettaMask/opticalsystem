@@ -17,8 +17,8 @@ v20 corrects the regularized trust-region expansion threshold and resolves coupl
 ## Build and test
 
 ```bash
-dotnet build OptilandWorkbench.slnx /m:1 /nr:false
-dotnet test labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/OptilandWorkbench.InitialStructure.Tests.csproj --no-restore /m:1 /nr:false
+dotnet build OpticalSystemDesign.slnx /m:1 /nr:false
+dotnet test labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj --no-restore /m:1 /nr:false
 ```
 
 ## Run
@@ -26,7 +26,7 @@ dotnet test labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests
 Install the standard product once, start Optical System Design, and choose **实验室 → AI 初始结构**. No additional download, build, environment override or separate executable is used. For development, start the main application:
 
 ```bash
-dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release
+dotnet run --project src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj -c Release
 ```
 
 Both module windows are owned by the main window and share its theme and display settings. Search records and coating experiments retain their own editing state. Closing the product stops/awaits module operations and preserves unsaved-data safeguards.
@@ -43,7 +43,7 @@ See [the development plan](../../docs/INITIAL_STRUCTURE_LAB_PLAN.md) for scope, 
 
 早期独立 App、混合 v3 和 P0–P5 命令只描述当时实现，不是当前启动方式。旧运行保持算法、采样、预算和失败身份；不能直接改写为 v20 或把不同协议的成功率相加。当前算法可显式从受支持旧快照创建一个新的细化运行，源记录不被覆盖。
 
-- [混合/形式搜索冻结协议](benchmarks/README.md) 与 [验收工具](tools/OptilandWorkbench.InitialStructure.Benchmarks/README.md)：固定目标、种子、预算和未达到的发布门槛。
+- [混合/形式搜索冻结协议](benchmarks/README.md) 与 [验收工具](tools/OpticalSystemDesign.InitialStructure.Benchmarks/README.md)：固定目标、种子、预算和未达到的发布门槛。
 - [从平板生成提案](../../docs/INITIAL_STRUCTURE_FROM_FLAT_PROPOSAL.md)、[P3 数值结果](../../docs/INITIAL_STRUCTURE_P3_2026-09-07.md)、[P4 历史 UI 验证](../../docs/INITIAL_STRUCTURE_P4_2026-09-07.md)。
 - [v8 形式搜索](../../docs/INITIAL_STRUCTURE_DSEARCH_2026-09-26.md)、[路径审计](../../docs/INITIAL_STRUCTURE_DSEARCH_ROUTE_AUDIT_2026-09-26.md)、[R2 收敛修正](../../docs/INITIAL_STRUCTURE_DSEARCH_R2_2026-09-26.md)。
 - [质量审计](../../docs/INITIAL_STRUCTURE_QUALITY_AUDIT_2026-09-26.md)、[实体光阑](../../docs/INITIAL_STRUCTURE_PHYSICAL_STOP_SEARCH_2026-09-27.md)、[v19 渐进恢复](../../docs/INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md)：包括仍未达到像质目标的宽角案例，历史失败保留。

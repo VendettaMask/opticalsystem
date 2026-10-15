@@ -8,14 +8,14 @@
 
 ## 计算与适用范围
 
-[GradientIndexParaxialTransport](../src/OptilandWorkbench.Core/Propagation/GradientIndexParaxialTransport.cs) 对正式连续光线方程在直轴参考光线处作一阶线性化。内部以高度 y 和约化斜率 p=n·dy/dz 为状态，积分 `dy/dz=p/n(z)`、`dp/dz=n_yy(z)·y` 的两组独立初值。结果转回高度/斜率矩阵；轴向 n 变化时行列式为入口 n / 出口 n。X 截面使用 n_xx，Y 截面使用 n_yy。
+[GradientIndexParaxialTransport](../src/OpticalSystemDesign.Core/Propagation/GradientIndexParaxialTransport.cs) 对正式连续光线方程在直轴参考光线处作一阶线性化。内部以高度 y 和约化斜率 p=n·dy/dz 为状态，积分 `dy/dz=p/n(z)`、`dp/dz=n_yy(z)·y` 的两组独立初值。结果转回高度/斜率矩阵；轴向 n 变化时行列式为入口 n / 出口 n。X 截面使用 n_xx，Y 截面使用 n_yy。
 
 - n(z) 直接调用原有不可变空间材料。横向二阶导数来自四种已实现分布的解析导数；Gradient 2 使用 n² 基准，高阶径向项对轴上一阶量的零贡献不会被误读成当前光线的均匀 n。
 - 使用 Dormand–Prince 5(4) 自适应积分，同时控制两组初值的矩阵误差；步长、误差及次数来自材料配置。矩阵上两项用位置绝对阈值、下两项用约化斜率绝对阈值，并分别加相对误差项；这是规范初值的积分误差控制，不是整套分析的误差认证。
 - 支持局部轴坐标任意起止位置及反向传播；有限路径预算、最小步长、最大尝试次数和取消均生效。轴向二/三次多项式的全部区间内驻点先检查正折射率，防止大步跨过非正区间。零距离返回单位矩阵，但仍验证模型、波长和当前位置。
 - 不用两条有限高度真实光线作差来生成运行时矩阵，不使用入口方向近似。真实光线的微小扰动只用于测试中的独立交叉检查。
 
-[公共 Paraxial 接入](../src/OptilandWorkbench.Core/Services/Paraxial.GradientIndex.cs)在材料自身入口坐标中传播；界面分别读取入射体出口和下一介质入口的局部 n。全系统/子系统矩阵、正向与反向高度/斜率、入出瞳、边缘/主光线共用此实现。反向斜率按反向 Z 定义转换；有限物面返回时传播到真实物面位置，不在第一实际面提前终止。
+[公共 Paraxial 接入](../src/OpticalSystemDesign.Core/Services/Paraxial.GradientIndex.cs)在材料自身入口坐标中传播；界面分别读取入射体出口和下一介质入口的局部 n。全系统/子系统矩阵、正向与反向高度/斜率、入出瞳、边缘/主光线共用此实现。反向斜率按反向 Z 定义转换；有限物面返回时传播到真实物面位置，不在第一实际面提前终止。
 
 **系统集成范围**为共轴、旋转对称、直轴可微的 Gradient 1～4、标准球面/圆锥或平面、透射或理想薄透镜，顺序间距非负且与顶点一致。Gradient 1 非零径向一次项、Gradient 4 横向一次梯度、X/Y 不同二次梯度、偏心/倾斜、反射、非球面/相位面、无明确出口的物方或像后 GRIN 均明确拒绝。底层矩阵服务可以分别求 X/Y 不同的轴上矩阵，但公共标量瞳孔/瞄准链未据此开放非旋转系统。
 
@@ -29,7 +29,7 @@
 
 ## 文件打开时的孔径修复
 
-工作流复验实际发现：`FloatByStopSize` 下，普通自动半口径更新把光阑当成待求解的光线包络，打开文件后改变了入瞳直径。本批修正 [AutomaticSemiDiameterSolver](../src/OptilandWorkbench.Core/Services/AutomaticSemiDiameterSolver.cs)：该模式保留作为孔径输入的光阑半口径，同时继续更新其他自动表面。该规则同时适用于均匀介质和 GRIN，即使旧文件没有设置显式固定标志也不会改写输入光阑。
+工作流复验实际发现：`FloatByStopSize` 下，普通自动半口径更新把光阑当成待求解的光线包络，打开文件后改变了入瞳直径。本批修正 [AutomaticSemiDiameterSolver](../src/OpticalSystemDesign.Core/Services/AutomaticSemiDiameterSolver.cs)：该模式保留作为孔径输入的光阑半口径，同时继续更新其他自动表面。该规则同时适用于均匀介质和 GRIN，即使旧文件没有设置显式固定标志也不会改写输入光阑。
 
 这与官方[孔径类型](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Aperture_Type.html)中该模式由光阑尺寸定义孔径的规则一致。本批只修复普通自动更新，不宣称完成原生固定求解显示或 Floating Aperture 等其他行为。
 
@@ -42,7 +42,7 @@
 
 ## 验证证据
 
-[新增测试](../tests/OptilandWorkbench.Tests/GradientIndexParaxialTests.cs)共 40 项：四种模型谐振解、轴向梯度对数精确解、双轴聚焦/散焦、矩阵组合与逆、连续真实光线一阶极限、两端不同 n 的曲面界面、瞳孔与前后向系统路径、光阑瞄准、共享点列、应用文件往返、DLS 厚度优化，以及无效定义域、工作预算、取消和未支持模型拒绝。
+[新增测试](../tests/OpticalSystemDesign.Tests/GradientIndexParaxialTests.cs)共 40 项：四种模型谐振解、轴向梯度对数精确解、双轴聚焦/散焦、矩阵组合与逆、连续真实光线一阶极限、两端不同 n 的曲面界面、瞳孔与前后向系统路径、光阑瞄准、共享点列、应用文件往返、DLS 厚度优化，以及无效定义域、工作预算、取消和未支持模型拒绝。
 
 初次新增核心定向 99/99；扩展应用工作流时 102 通过/1 失败，暴露上面的自动光阑更新问题，原失败阈值保持 2×10⁻⁸。修复并增加均匀/GRIN 重复刷新检查后，GRIN 定向 105/105（前批 65 + 本批 40）。最终默认输出 Debug/Release 合并回归各 **2799/2799**：前批全部 2728 项、本批新增 40 项及相邻孔径/事务 31 项；两种配置均零失败、零跳过，构建零警告、零错误。格式和差异检查通过，已提交 Zemax 基线的 29 个文件逐字节保持不变。具体筛选范围、解析误差及源文件/默认二进制哈希见[验证清单](../artifacts/validation/grin-paraxial-20261003/verification.json)。
 

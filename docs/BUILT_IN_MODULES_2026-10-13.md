@@ -8,17 +8,17 @@
 
 ## 实现与维护入口
 
-- UI 已移到 `src/OptilandWorkbench.App/Laboratories/InitialStructure` 与 `CoatingDesign`，使用主程序主题、字体、进度状态与可用性说明。
+- UI 已移到 `src/OpticalSystemDesign.App/Laboratories/InitialStructure` 与 `CoatingDesign`，使用主程序主题、字体、进度状态与可用性说明。
 - `IntegratedLaboratories` 管理窗口；`ProductModules` 在启动和安装验证时确认两个内置窗口及五个内部模块库。缺失模块必须受控退出，不能回退搜索开发机目录。
-- `src/OptilandWorkbench.Modules` 是内部类库，转换共享 Core 结果到 Application 的场景/曲线 DTO；App 仍不直接引用 Core。数值公式、搜索算法和冻结目标没有改变。
+- `src/OpticalSystemDesign.Modules` 是内部类库，转换共享 Core 结果到 Application 的场景/曲线 DTO；App 仍不直接引用 Core。数值公式、搜索算法和冻结目标没有改变。
 - `labs/` 只保留领域库、持久化、测试、基准工具和历史证据。原两个 App 项目、独立解决方案、启动器和 `Run-CoatingDesign` 脚本已移除，历史可从 Git 恢复；用户文件没有删除。
 - 根解决方案统一构建 19 个项目。CI 使用根解决方案还原、构建、格式检查和依赖审计，并运行两个内置模块的测试；不再维护独立产品构建。
 
-安装与修复必需的内部类库：`OptilandWorkbench.Modules.dll`、`OptilandWorkbench.InitialStructure.Contracts.dll`、`OptilandWorkbench.InitialStructure.Engine.dll`、`OptilandWorkbench.InitialStructure.Persistence.dll`、`OptilandWorkbench.CoatingDesign.Engine.dll`。镀膜的两份 MIT 许可及材料来源声明随主程序发布到 `Licenses/`。
+安装与修复必需的内部类库：`OpticalSystemDesign.Modules.dll`、`OpticalSystemDesign.InitialStructure.Contracts.dll`、`OpticalSystemDesign.InitialStructure.Engine.dll`、`OpticalSystemDesign.InitialStructure.Persistence.dll`、`OpticalSystemDesign.CoatingDesign.Engine.dll`。镀膜的两份 MIT 许可及材料来源声明随主程序发布到 `Licenses/`。
 
 ```powershell
-dotnet build OptilandWorkbench.slnx -c Release
-dotnet run --project src/OptilandWorkbench.App/OptilandWorkbench.App.csproj -c Release
+dotnet build OpticalSystemDesign.slnx -c Release
+dotnet run --project src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj -c Release
 ./scripts/build-installer.ps1
 ```
 

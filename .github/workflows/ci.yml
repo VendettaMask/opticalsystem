@@ -12,12 +12,12 @@ permissions:
 
 env:
   DOTNET_CI_ARGS: -p:ContinuousIntegrationBuild=true
-  MAIN_SOLUTION: OptilandWorkbench.slnx
-  MAIN_TEST_PROJECT: tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj
-  COMPARISON_TEST_PROJECT: tests/OptilandWorkbench.ZemaxComparison.Tests/OptilandWorkbench.ZemaxComparison.Tests.csproj
+  MAIN_SOLUTION: OpticalSystemDesign.slnx
+  MAIN_TEST_PROJECT: tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj
+  COMPARISON_TEST_PROJECT: tests/OpticalSystemDesign.ZemaxComparison.Tests/OpticalSystemDesign.ZemaxComparison.Tests.csproj
   MAIN_TEST_HANG_TIMEOUT: 12m
-  LAB_TEST_PROJECT: labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/OptilandWorkbench.InitialStructure.Tests.csproj
-  COATING_TEST_PROJECT: labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests/OptilandWorkbench.CoatingDesign.Tests.csproj
+  LAB_TEST_PROJECT: labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj
+  COATING_TEST_PROJECT: labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/OpticalSystemDesign.CoatingDesign.Tests.csproj
   LAB_TEST_HANG_TIMEOUT: 8m
 
 jobs:
@@ -239,7 +239,7 @@ jobs:
       - name: Validate shell scripts
         if: ${{ always() }}
         run: |
-          bash -n Run-Optiland.command
+          bash -n Run-OpticalSystemDesign.command
           bash -n scripts/publish-cross-platform.sh
 
   dependency-audit:
@@ -283,13 +283,13 @@ jobs:
       - name: Build benchmark tool
         run: >-
           dotnet build
-          tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj
+          tools/OpticalSystemDesign.Benchmarks/OpticalSystemDesign.Benchmarks.csproj
           --no-restore /m:1 /nr:false ${{ env.DOTNET_CI_ARGS }}
 
       - name: Run bounded performance smoke
         run: >-
           dotnet run
-          --project tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj
+          --project tools/OpticalSystemDesign.Benchmarks/OpticalSystemDesign.Benchmarks.csproj
           --no-build -- --ci-smoke
 
   step-fixtures:
@@ -313,7 +313,7 @@ jobs:
 
       - name: Generate STEP validation fixtures
         env:
-          OPTILAND_STEP_FIXTURE_DIR: ${{ runner.temp }}/step-fixtures
+          OPTICAL_SYSTEM_DESIGN_STEP_FIXTURE_DIR: ${{ runner.temp }}/step-fixtures
         run: >-
           dotnet test
           ${{ env.MAIN_TEST_PROJECT }}
@@ -418,7 +418,7 @@ jobs:
       - name: Validate STEP with OpenCascade
         shell: bash
         env:
-          OPTILAND_STEP_FIXTURE_DIR: ${{ runner.temp }}/step-fixtures
+          OPTICAL_SYSTEM_DESIGN_STEP_FIXTURE_DIR: ${{ runner.temp }}/step-fixtures
         run: |
           set -euo pipefail
           mkdir -p "$STEP_VALIDATION_LOG_DIR"

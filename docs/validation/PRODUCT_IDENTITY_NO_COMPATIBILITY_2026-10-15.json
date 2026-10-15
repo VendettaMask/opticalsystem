@@ -1,0 +1,58 @@
+{
+  "Date": "2026-10-15",
+  "Scope": "Final user decision: use only the current product identity, without old-brand compatibility or profile migration",
+  "SourceCommit": "0179e2fb8fff814826176043271fac6e241c2c24",
+  "SourceDirty": true,
+  "Supersedes": "PRODUCT_IDENTITY_2026-10-15.json records the earlier, now-abandoned compatibility stage, not the final product policy or final package",
+  "DisplayName": "Optical System Design",
+  "CodeIdentity": "OpticalSystemDesign",
+  "RemovedFiles": ["packaging/legacy-product.ini", "src/OpticalSystemDesign.Core/Serialization/LegacyProductIdentity.cs", "src/OpticalSystemDesign.Application/Services/ProductIdentity.cs", "src/OpticalSystemDesign.App/Services/ProductDataDirectory.cs"],
+  "RemovedBehavior": ["Previous profile directory lookup/migration", "Previous executable name recognition in installer, recovery and cleanup", "Old native extension routing and generic .json optical-document routing", "Legacy opaque blocking-reason alias", "Shipped legacy-identity table and Core/Application/UI access layers"],
+  "SupportedDocumentRoutes": "STAROPT .staropt, current .optic.json, and exact text extensions declared by the formal OpticalFormatCatalog importers; no unknown-extension text fallback at the application boundary",
+  "Safety": "No actual user projects, settings, profiles or previous installed payloads deleted. Unknown payload identity is retained rather than claimed for cleanup. Removed compatibility source is recoverably archived under artifacts/validation/product-identity-20261015/compatibility-stage-source.",
+  "NameAudit": {
+    "ProductionCodeAndBuildMatches": 0,
+    "Scope": "Production C#, project/build inputs, resource identity declarations, launch/build/publish scripts, installer/bundle definitions and CI; generated outputs excluded",
+    "Exceptions": "Authentic material provenance, frozen historical evidence/test fixture identities and Git/local archives only; no runtime compatibility data ships",
+    "TestOnlyNegativeIdentityFixture": "tests/OpticalSystemDesign.Tests/Fixtures/retired-product.json",
+    "ProtectedEvidenceAndLicenseFiles": 5280,
+    "ChangedProtectedFiles": 0
+  },
+  "Builds": [
+    { "Configuration": "Debug", "Target": "OpticalSystemDesign.slnx", "Projects": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/product-identity-20261015/build-no-compat-v2-debug.log" },
+    { "Configuration": "Release", "Target": "OpticalSystemDesign.slnx", "Projects": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/product-identity-20261015/build-no-compat-final-release.log" }
+  ],
+  "DefaultAppAssemblySha256": {
+    "Debug": "625c90cd5da7e81681a851879229d3119ced2fb4f11e2317040171073b464cac",
+    "Release": "662d36e5f41b05cc085b9d32efd08742c4b011e675062b4928be43d874815d08"
+  },
+  "FinalTests": {
+    "MainRelatedClasses": ["ProductIdentityTests", "DocumentFormatBoundaryTests", "DocumentRecoveryTests", "WindowsInstallation*", "WindowsPackagingTests", "LayeringArchitectureTests", "ProductDependencyArchitectureTests", "ReferenceWorkbenchLayoutTests", "CompactSidebarTests", "Plugin*", "ZemaxImportTests", "MultiConfigurationOperandTests", "OpticSnapshotValidationTests", "OpticCapabilityPreflightTests", "OpticalSystemDesignParityTests.Json*", "WorkspaceSessionTests"],
+    "Debug": { "Passed": 279, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/product-identity-20261015/no-compat-tests/no-compat-final-debug.trx" },
+    "Release": { "Passed": 279, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/product-identity-20261015/no-compat-tests/no-compat-final-release.trx" },
+    "ComparisonRecaptureRelease": { "Passed": 18, "Failed": 0, "Skipped": 0, "Class": "WorkbenchRecaptureTests", "LocalTrx": "artifacts/validation/product-identity-20261015/no-compat-tests/no-compat-recapture-release.trx" },
+    "Coverage": "Original brand absent from product code/build identities; retired identity table/type absent; only current profile/recovery directory; current formats still read/write; generic JSON and old/unknown suffixes rejected before file reads or overwrite, including uppercase and valid project payloads renamed to an invalid suffix; unknown executable payload retained",
+    "FullMainOrModuleSuiteRerun": false,
+    "EarlierStageCountsNotReusedAsFinalAcceptance": true
+  },
+  "Installer": {
+    "Version": "1.0.3", "Runtime": "win-x64", "ReleaseId": "1.0.3-win-x64-e711a0d55d69", "Signed": false,
+    "Script": "scripts/build-installer.ps1, standard default output location",
+    "LocalSetup": "artifacts/installers/installer-win-x64-e22c6db0/OpticalSystemDesign-1.0.3-win-x64-Unsigned-Setup.exe",
+    "SetupSha256": "97edaedcd1bcb7f54154d4038c50d2e08d5622ff7a75fcecb2c90a86558b9793",
+    "Compiled": true,
+    "PackageChecks": { "Passed": 12, "Failed": 0, "ManifestFiles": 1187, "LocalSummary": "artifacts/validation/product-identity-20261015/no-compat-package-check/summary.json" },
+    "ModulesInMainProcess": true,
+    "MissingModulesRejected": true,
+    "NativeGuiVerified": false,
+    "UserInstallationModified": false,
+    "PublishedRemotely": false
+  },
+  "Checks": { "ScopedWhitespaceFormat": "passed", "GitDiffCheck": "passed", "DocumentationStrictCheck": "passed", "Documents": 891, "BrokenLinks": 0, "GuideRepeatedParagraphGroups": 0, "HistoricalRepeatedParagraphGroupsRetained": 11, "LocalDocumentationReport": "artifacts/validation/product-identity-20261015/documentation-no-compat-final.json" },
+  "IntermediateResults": [
+    "Initial no-compatibility runs passed 277/279 in both configurations. Two cases found that the Core importer catalog's permissive unknown-extension fallback still accepted the old bare suffix as text. Added application-level validation against explicitly declared importer extensions, without introducing retired-name literals or duplicating the catalog; final 279-case runs pass.",
+    "A staging attempt under a long validation output root hit the existing Inno Setup 259-character source-path guard after publish. The guard was retained; the final standard default output build completed. The failed .partial staging folder is not a delivery package.",
+    "After publishing, restored locked default dependencies and rebuilt the default Release solution to avoid leaving runtime-specific/versioned publish outputs as the default desktop verification identity."
+  ],
+  "Limitations": ["No completed full main/laboratory/numerical suite or new external optical certification at this final snapshot", "No native manual desktop, real cross-version installation, power-loss, multi-session or ARM64 acceptance", "No old-brand profile/file/executable compatibility promised", "No signed publisher claim", "No commit or push"]
+}

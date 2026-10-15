@@ -68,8 +68,8 @@ foreach ($configuration in @('Debug','Release')) {
     $content=Get-Content -LiteralPath $log -Raw
     if ($content -notmatch '已成功生成。' -or $content -notmatch '(?m)^\s*0 个警告\s*$' -or $content -notmatch '(?m)^\s*0 个错误\s*$') {throw 'Default build failed.'}
     $builds += [ordered]@{configuration=$configuration;path=[IO.Path]::GetRelativePath($repository,$log).Replace('\','/');sha256=(Hash $log);warnings=0;errors=0}
-    foreach ($directory in @('src/OptilandWorkbench.Core','src/OptilandWorkbench.App','tests/OptilandWorkbench.Tests','tests/OptilandWorkbench.ZemaxComparison.Tests')) {
-        $path="$directory/bin/$configuration/net10.0/OptilandWorkbench.Core.dll"
+    foreach ($directory in @('src/OpticalSystemDesign.Core','src/OpticalSystemDesign.App','tests/OpticalSystemDesign.Tests','tests/OpticalSystemDesign.ZemaxComparison.Tests')) {
+        $path="$directory/bin/$configuration/net10.0/OpticalSystemDesign.Core.dll"
         $binaries += [ordered]@{configuration=$configuration;path=$path;sha256=(Hash (Join-Path $repository $path))}
     }
     if (@($binaries|Where-Object configuration -eq $configuration|ForEach-Object sha256|Sort-Object -Unique).Count -ne 1) {throw 'Default Core copies differ.'}

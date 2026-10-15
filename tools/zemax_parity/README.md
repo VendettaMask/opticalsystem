@@ -1,6 +1,6 @@
 # Zemax 一致性采集工具
 
-面向任意新 ZMX 的入口已新增为独立 [C# ZemaxComparison](../OptilandWorkbench.ZemaxComparison/README.md)。本目录保留固定基准维护流程，新工具不会调用这里的脚本；固定镜头的映射/设置不得作为新工具的通用默认值。原生 ZPL 截图方式在新工具中由 C# 调度，并显式加载捕获 CFG。
+面向任意新 ZMX 的入口已新增为独立 [C# ZemaxComparison](../OpticalSystemDesign.ZemaxComparison/README.md)。本目录保留固定基准维护流程，新工具不会调用这里的脚本；固定镜头的映射/设置不得作为新工具的通用默认值。原生 ZPL 截图方式在新工具中由 C# 调度，并显式加载捕获 CFG。
 
 本目录保存 OpticStudio 基线采集、Workbench 结果捕获和对比报告工具。
 这是产品之外的外部验证工具边界：Python 和 pythonnet 只服务于 Zemax ZOS-API 捕获与离线报告，不是产品计算后端，不随产品发布，不得从 `src` 项目引用。这里不使用 Optiland，也不生成 Optiland 对照。主要权威为已提交的 OpticStudio 2026 R1 基准；结论逐项绑定镜头、设置、版本、单位、采样和容差，不能把一个捕获文件的设置称为通用默认值。
@@ -78,7 +78,7 @@
 构建桌面应用后可按固定基线清单捕获历史 69 个 GUI 分析页。69 是旧 `current-manifest.json` 的捕获项数，当前分析目录以 Core 为准；新增和合并入口不追溯改写原清单。捕获与报告写入独立的新目录，原基准只读：
 
 ```powershell
-dotnet src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll `
+dotnet src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.dll `
   --capture-analysis-gui `
   --source=artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX `
   --settings-manifest=artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current-manifest.json `
@@ -101,10 +101,10 @@ python tools/zemax_parity/generate_gui_image_report.py `
 
 ## 重算与定向采集
 
-历史重算已并入 [ZemaxComparison](../OptilandWorkbench.ZemaxComparison/README.md#historical-workbench-recapture) 的 `--recapture-workbench`，独立 AccuracyCapture 工程已删除。使用保存的设置作为只读输入，在全新的输出目录重算：
+历史重算已并入 [ZemaxComparison](../OpticalSystemDesign.ZemaxComparison/README.md#historical-workbench-recapture) 的 `--recapture-workbench`，独立 AccuracyCapture 工程已删除。使用保存的设置作为只读输入，在全新的输出目录重算：
 
 ```powershell
-dotnet run -c Release --project tools/OptilandWorkbench.ZemaxComparison -- --recapture-workbench `
+dotnet run -c Release --project tools/OpticalSystemDesign.ZemaxComparison -- --recapture-workbench `
   artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX `
   artifacts/zemax/123456-zemax-2026-r1-baseline/comparison-reports/workbench-vs-zemax-2026-07-31/current-manifest.json `
   artifacts/workbench-recapture/new-run

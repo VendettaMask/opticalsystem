@@ -1,0 +1,553 @@
+using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Core.Services;
+
+namespace OpticalSystemDesign.Core.Analysis;
+
+public sealed class PsfAnalysis : BaseAnalysis
+{
+    private readonly int _requestedRays;
+    private readonly int? _gridSize;
+    private readonly int _wavelengthNumber;
+    private readonly int _fieldNumber;
+    private readonly int _surfaceNumber;
+    private readonly double _imageDeltaMicrometers;
+    private readonly double _rotationDegrees;
+    private readonly string _type;
+    private readonly string _displayAs;
+    private readonly bool _usePolarization;
+    private readonly bool _normalize;
+    private readonly bool _zemaxCompatible;
+    private readonly bool _ignoreOpd;
+    private readonly int? _displaySize;
+
+    public PsfAnalysis(
+        Optic optic,
+        int numRays = 128,
+        int? gridSize = null,
+        int wavelengthNumber = -1,
+        int fieldNumber = 0,
+        int surfaceNumber = -1,
+        double imageDeltaMicrometers = 0,
+        double rotationDegrees = 0,
+        string type = "线性",
+        string displayAs = "伪彩色",
+        bool usePolarization = false,
+        bool normalize = false,
+        bool zemaxCompatible = false,
+        bool ignoreOpd = false,
+        int? displaySize = null) : base(optic)
+    {
+        _requestedRays = Math.Max(2, numRays);
+        _gridSize = gridSize;
+        _wavelengthNumber = Math.Max(-1, wavelengthNumber);
+        _fieldNumber = Math.Max(0, fieldNumber);
+        _surfaceNumber = surfaceNumber;
+        if (!double.IsFinite(imageDeltaMicrometers) || (!zemaxCompatible && imageDeltaMicrometers < 0))
+            throw new ArgumentOutOfRangeException(nameof(imageDeltaMicrometers));
+        _imageDeltaMicrometers = imageDeltaMicrometers;
+        _rotationDegrees = rotationDegrees;
+        _type = type;
+        _displayAs = displayAs;
+        _usePolarization = usePolarization;
+        _normalize = normalize;
+        _zemaxCompatible = zemaxCompatible;
+        _ignoreOpd = ignoreOpd;
+        if (displaySize is < 2) throw new ArgumentOutOfRangeException(nameof(displaySize));
+        _displaySize = displaySize;
+    }
+
+    public override string Name => "PSF";
+
+    public override AnalysisData GenerateData()
+    {
+        var analysisOptic = ResolveAnalysisOptic();
+        var allWavelengths = analysisOptic.Wavelengths.ToArray();
+        if (allWavelengths.Length == 0)
+        {
+            return AnalysisData.Unavailable(Name, "No wavelengths");
+        }
+
+        var wavelengths = _wavelengthNumber switch
+        {
+            < 0 => new[]
+            {
+                allWavelengths.FirstOrDefault(item => item.IsPrimary) ?? allWavelengths[0]
+            },
+            0 => allWavelengths,
+            _ => new[]
+            {
+                allWavelengths[Math.Clamp(_wavelengthNumber - 1, 0, allWavelengths.Length - 1)]
+            }
+        };
+        var allFields = SpotAnalysisEngine.DefinedFields(analysisOptic);
+        var field = allFields.Count == 0
+            ? (Hx: 0.0, Hy: 0.0)
+            : _fieldNumber <= 0
+                ? allFields[^1]
+                : allFields[Math.Clamp(_fieldNumber - 1, 0, allFields.Count - 1)];
+        var pupilSampling = _requestedRays;
+        var gridSize = Math.Max(pupilSampling, _gridSize ?? (_requestedRays * 2));
+        var displaySize = Math.Min(gridSize, _displaySize ?? gridSize);
+        var displayOffset = (gridSize - displaySize) / 2;
+        var results = DiffractionEngine.ComputeFftPsfSpectrum(analysisOptic, field, wavelengths,
+            pupilSampling, gridSize, usePolarization: _usePolarization,
+            cellCenteredPupil: _zemaxCompatible, zemaxFftSampling: _zemaxCompatible,
+            ignoreOpd: _ignoreOpd, aimAtStop: analysisOptic.RayAimingEnabled,
+            referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0],
+            imageDelta: _zemaxCompatible ? _imageDeltaMicrometers : 0);
+        var primary = results.FirstOrDefault(item => item.Wavelength.IsPrimary);
+        if (primary.Wavelength is null)
+        {
+            primary = results[0];
+        }
+
+        var afocalImageSpace = analysisOptic.ImageSpaceAfocal;
+        var sampleSpacing = _imageDeltaMicrometers > 0
+            ? _imageDeltaMicrometers
+            : _zemaxCompatible
+                ? results.Min(item => item.Result.SampleSpacingMicrometers)
+                : primary.Result.SampleSpacingMicrometers;
+        var imageUnitLabel = afocalImageSpace
+            ? ImageSpaceAnalysisSupport.MilliradianLabel
+            : "µm";
+        var imageAxisUnit = afocalImageSpace
+            ? AnalysisAxisUnit.Milliradian
+            : AnalysisAxisUnit.Micrometer;
+        var values = new double[gridSize, gridSize];
+        var useConfiguredWeights = results.Any(item => item.Wavelength.Weight > 0);
+        var totalWeight = results.Sum(item =>
+            useConfiguredWeights ? item.Wavelength.Weight : 1);
+
+        for (var row = 0; row < gridSize; row++)
+        {
+            var y = Coordinate(row, gridSize, sampleSpacing);
+            for (var column = 0; column < gridSize; column++)
+            {
+                var x = Coordinate(column, gridSize, sampleSpacing);
+                var sum = 0.0;
+                foreach (var item in results)
+                {
+                    var weight = useConfiguredWeights ? item.Wavelength.Weight : 1;
+                    sum += weight * BilinearSample(item.Result, x, y) / 100.0;
+                }
+
+                values[row, column] = sum / totalWeight;
+            }
+        }
+
+        var peak = values.Cast<double>().DefaultIfEmpty(0).Max();
+        if (_normalize && peak > 0)
+        {
+            for (var row = 0; row < gridSize; row++)
+            {
+                for (var column = 0; column < gridSize; column++)
+                {
+                    values[row, column] /= peak;
+                }
+            }
+        }
+
+        var logarithmic = _type.Contains("对数", StringComparison.Ordinal)
+            || _type.Contains("log", StringComparison.OrdinalIgnoreCase);
+        var xExtent = displaySize * sampleSpacing;
+        var yExtent = displaySize * sampleSpacing;
+        var points = new List<AnalysisPoint>(displaySize * displaySize);
+        for (var row = displayOffset; row < displayOffset + displaySize; row++)
+        {
+            var y = Coordinate(row, gridSize, sampleSpacing);
+            for (var column = displayOffset; column < displayOffset + displaySize; column++)
+            {
+                var value = values[row, column];
+                points.Add(new AnalysisPoint(
+                    Coordinate(column, gridSize, sampleSpacing),
+                    y,
+                    Value: logarithmic ? 10 * Math.Log10(Math.Max(1e-12, value)) : value));
+            }
+        }
+
+        var series = new AnalysisSeries(
+            $"X ({imageUnitLabel})",
+            $"Y ({imageUnitLabel})",
+            points,
+            AnalysisSeriesKind.Heatmap,
+            ValueLabel: logarithmic ? "Relative Intensity (dB)" : "Relative Intensity",
+            XQuantity: afocalImageSpace ? AnalysisAxisQuantity.IncidentAngle : AnalysisAxisQuantity.ImageHeight,
+            XUnit: imageAxisUnit,
+            YQuantity: afocalImageSpace ? AnalysisAxisQuantity.IncidentAngle : AnalysisAxisQuantity.ImageHeight,
+            YUnit: imageAxisUnit,
+            ValueQuantity: AnalysisAxisQuantity.Irradiance,
+            ValueUnit: logarithmic ? AnalysisAxisUnit.Decibel : AnalysisAxisUnit.Dimensionless);
+        var centerIndex = _zemaxCompatible ? (gridSize - 1) / 2 : gridSize / 2;
+        var centerValue = values[centerIndex, centerIndex];
+        var title = _usePolarization
+            ? wavelengths.Length > 1
+                ? "复色光 Polarization-weighted scalar FFT PSF（Experimental）"
+                : "Polarization-weighted scalar FFT PSF（Experimental）"
+            : wavelengths.Length > 1 ? "复色光FFT PSF" : "FFT PSF";
+        return new AnalysisData(Name, new Dictionary<string, object>
+        {
+            ["Method"] = "FFT",
+            ["PupilSampling"] = pupilSampling,
+            ["GridSize"] = gridSize,
+            ["DisplaySize"] = displaySize,
+            ["RequestedDisplaySize"] = _displaySize ?? gridSize,
+            ["RequestedImageDelta"] = _imageDeltaMicrometers,
+            ["PupilGridStretch"] = results.Select(item => item.Result.PupilGridStretch).ToArray(),
+            ["UseRayAiming"] = results.Select(item => item.Result.UseRayAiming).ToArray(),
+            ["StopAimingFallbackUsed"] = results.Any(item => item.Result.StopAimingFallbackUsed),
+            ["ImageDeltaMicrometers"] = afocalImageSpace ? 0 : sampleSpacing,
+            ["ImageDeltaMilliradians"] = afocalImageSpace ? sampleSpacing : 0,
+            ["ImageSpaceAfocal"] = afocalImageSpace,
+            ["ImageCoordinateUnit"] = imageUnitLabel,
+            ["WorkingFNumber"] = results.Average(item => item.Result.WorkingFNumber),
+            ["StrehlRatio"] = centerValue,
+            ["PeakStrehlRatio"] = values.Cast<double>().DefaultIfEmpty(0).Max(),
+            ["WavelengthNumber"] = _wavelengthNumber,
+            ["WavelengthRange"] = $"{wavelengths.Min(item => item.Micrometers):0.0000}–{wavelengths.Max(item => item.Micrometers):0.0000} µm",
+            ["FieldNumber"] = _fieldNumber,
+            ["FieldHx"] = field.Hx,
+            ["FieldHy"] = field.Hy,
+            ["SurfaceNumber"] = _surfaceNumber,
+            ["RotationDegrees"] = _rotationDegrees,
+            ["Type"] = _type,
+            ["DisplayAs"] = _displayAs,
+            ["UsePolarization"] = _usePolarization,
+            ["PolarizationModel"] = _usePolarization
+                ? "Polarization-weighted scalar approximation"
+                : "Scalar",
+            ["PolarizationLimit"] = _usePolarization
+                ? "Jones component powers are collapsed before scalar diffraction; complex cross-polarization interference and longitudinal high-NA fields are not modeled."
+                : string.Empty,
+            ["Normalized"] = _normalize
+        }, series, new[] { series }, new AnalysisPlotOptions(
+            Title: title,
+            EqualAspect: true,
+            XMinimum: -xExtent / 2,
+            XMaximum: xExtent / 2,
+            YMinimum: -yExtent / 2,
+            YMaximum: yExtent / 2));
+    }
+
+    private Optic ResolveAnalysisOptic()
+    {
+        if (_surfaceNumber <= 0)
+        {
+            return Optic;
+        }
+
+        var surfaceIndex = Optic.SurfaceGroup.Items.ToList()
+            .FindIndex(surface => surface.Number == _surfaceNumber);
+        if (surfaceIndex < 1)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(_surfaceNumber),
+                $"FFT PSF surface {_surfaceNumber} does not exist.");
+        }
+
+        if (surfaceIndex == Optic.SurfaceGroup.Items.Count - 1)
+        {
+            return Optic;
+        }
+
+        var clone = Optic.FromSnapshot(Optic.ToSnapshot());
+        var surfaces = clone.SurfaceGroup.Items
+            .Take(surfaceIndex + 1)
+            .Select(surface => surface.Clone())
+            .ToArray();
+        clone.SurfaceGroup.Replace(surfaces);
+        return clone;
+    }
+
+    private double Coordinate(int index, int size, double spacing)
+    {
+        return (index - (_zemaxCompatible ? (size - 1) / 2 : size / 2)) * spacing;
+    }
+
+    internal static double BilinearSample(PsfResult source, double x, double y)
+    {
+        var column = (x / source.SampleSpacingMicrometers) + (source.GridSize / 2);
+        var row = (y / source.SampleSpacingMicrometers) + (source.GridSize / 2);
+        // A separately computed physical pitch can round the Nyquist endpoint
+        // just outside the grid. Retain that endpoint without wrapping exterior data.
+        var roundoff = 1e-12 * source.GridSize;
+        if (column < -roundoff || row < -roundoff
+            || column > source.GridSize + roundoff || row > source.GridSize + roundoff)
+        {
+            return 0;
+        }
+        column = Math.Clamp(column, 0, source.GridSize);
+        row = Math.Clamp(row, 0, source.GridSize);
+
+        // The positive Nyquist boundary is the same Fourier sample as the
+        // negative boundary. Preserve it when presenting Zemax's even grid.
+        var floorColumn = (int)Math.Floor(column);
+        var floorRow = (int)Math.Floor(row);
+        var tx = column - floorColumn;
+        var ty = row - floorRow;
+        var left = floorColumn % source.GridSize;
+        var top = floorRow % source.GridSize;
+        var right = (left + 1) % source.GridSize;
+        var bottom = (top + 1) % source.GridSize;
+        var topValue = source.Values[top, left] * (1 - tx)
+            + source.Values[top, right] * tx;
+        var bottomValue = source.Values[bottom, left] * (1 - tx)
+            + source.Values[bottom, right] * tx;
+        return topValue * (1 - ty) + bottomValue * ty;
+    }
+}
+
+public sealed class MtfAnalysis : BaseAnalysis
+{
+    private readonly int _requestedRays;
+    private readonly int? _gridSize;
+    private readonly double? _maximumFrequency;
+    private readonly int _wavelengthNumber;
+    private readonly int _fieldNumber;
+    private readonly int _surfaceNumber;
+    private readonly FftMtfDataType _dataType;
+    private readonly bool _showDiffractionLimit;
+    private readonly bool _usePolarization;
+    private readonly bool _useDashes;
+    private readonly bool _zemaxCompatible;
+
+    public MtfAnalysis(
+        Optic optic,
+        int numRays = 128,
+        int? gridSize = null,
+        double? maximumFrequency = null,
+        int wavelengthNumber = -1,
+        int fieldNumber = 0,
+        int surfaceNumber = 0,
+        string type = "Modulation",
+        bool showDiffractionLimit = false,
+        bool usePolarization = false,
+        bool useDashes = false,
+        bool zemaxCompatible = false) : base(optic)
+    {
+        _requestedRays = Math.Max(2, numRays);
+        _gridSize = gridSize;
+        _maximumFrequency = maximumFrequency is > 0 && double.IsFinite(maximumFrequency.Value)
+            ? maximumFrequency
+            : null;
+        _wavelengthNumber = wavelengthNumber;
+        _fieldNumber = Math.Max(0, fieldNumber);
+        _surfaceNumber = Math.Max(0, surfaceNumber);
+        _dataType = MtfDataTypeSupport.Parse(type);
+        _showDiffractionLimit = showDiffractionLimit;
+        _usePolarization = usePolarization;
+        _useDashes = useDashes;
+        _zemaxCompatible = zemaxCompatible;
+    }
+
+    public override string Name => "MTF";
+
+    public override AnalysisData GenerateData()
+    {
+        var analysisOptic = ResolveAnalysisOptic();
+        var wavelengths = MtfMethodEvaluator.SelectWavelengths(analysisOptic, _wavelengthNumber);
+        if (wavelengths.Count == 0)
+        {
+            return AnalysisData.Unavailable(Name, "No wavelengths");
+        }
+
+        var pupilSampling = _gridSize.HasValue
+            ? _requestedRays
+            : (int)Math.Floor(32 * Math.Pow(2, (Math.Log2(_requestedRays) - 5) / 2));
+        var gridSize = _gridSize ?? (_requestedRays * 2);
+        var allFields = SpotAnalysisEngine.DefinedFields(analysisOptic);
+        var fieldIndices = _fieldNumber <= 0
+            ? Enumerable.Range(0, allFields.Count).ToArray()
+            : new[] { Math.Clamp(_fieldNumber - 1, 0, Math.Max(0, allFields.Count - 1)) };
+        var fields = fieldIndices.Select(index => allFields[index]).ToArray();
+        var series = new List<AnalysisSeries>();
+        var cutoff = 0.0;
+        IReadOnlyList<AnalysisPoint>? diffractionLimit = null;
+        var yAxisLabel = MtfDataTypeSupport.Label(_dataType, "Modulation");
+        var frequencyLabel = ImageSpaceAnalysisSupport.SpatialFrequencyLabel(analysisOptic);
+        var frequencyUnit = ImageSpaceAnalysisSupport.SpatialFrequencyUnit(analysisOptic);
+        var frequencyUnitLabel = ImageSpaceAnalysisSupport.SpatialFrequencyUnitLabel(analysisOptic);
+        for (var fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
+        {
+            var field = fields[fieldIndex];
+            var wavelengthResults = wavelengths.Select(wavelength =>
+            {
+                var psf = DiffractionEngine.ComputeFftPsf(
+                    analysisOptic,
+                    field,
+                    wavelength,
+                    pupilSampling,
+                    gridSize,
+                    _usePolarization,
+                    cellCenteredPupil: _zemaxCompatible,
+                    referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0]);
+                return (wavelength, DiffractionEngine.ComputeFftMtf(psf, analysisOptic, wavelength));
+            }).ToArray();
+            var fullMtf = MtfMethodEvaluator.CombinePolychromatic(wavelengthResults);
+            cutoff = cutoff <= 0
+                ? fullMtf.CutoffFrequency
+                : Math.Min(cutoff, fullMtf.CutoffFrequency);
+            var fieldPlottedMaximum = _maximumFrequency ?? fullMtf.CutoffFrequency;
+            var mtf = _zemaxCompatible
+                ? Resample(fullMtf, fieldPlottedMaximum, _dataType, 300)
+                : DiffractionEngine.LimitFrequency(fullMtf, _maximumFrequency);
+            if (_showDiffractionLimit && diffractionLimit is null)
+            {
+                diffractionLimit = mtf.Frequency.Select(frequency => new AnalysisPoint(
+                    frequency,
+                    DiffractionLimit(wavelengthResults, frequency))).ToArray();
+            }
+
+            series.Add(new AnalysisSeries(
+                frequencyLabel,
+                yAxisLabel,
+                mtf.Frequency.Select((frequency, index) => new AnalysisPoint(frequency, mtf.Tangential[index])).ToArray(),
+                Name: MtfPresentation.SeriesName(Optic, field, "Tangential"),
+                ColorIndex: _useDashes ? 0 : fieldIndices[fieldIndex],
+                XQuantity: AnalysisAxisQuantity.SpatialFrequency,
+                XUnit: frequencyUnit,
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: _dataType == FftMtfDataType.Phase ? AnalysisAxisUnit.Radian : AnalysisAxisUnit.Dimensionless));
+            series.Add(new AnalysisSeries(
+                frequencyLabel,
+                yAxisLabel,
+                mtf.Frequency.Select((frequency, index) => new AnalysisPoint(frequency, mtf.Sagittal[index])).ToArray(),
+                Name: MtfPresentation.SeriesName(Optic, field, "Sagittal"),
+                LineStyle: AnalysisLineStyle.Dashed,
+                ColorIndex: _useDashes ? 0 : fieldIndices[fieldIndex],
+                XQuantity: AnalysisAxisQuantity.SpatialFrequency,
+                XUnit: frequencyUnit,
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: _dataType == FftMtfDataType.Phase ? AnalysisAxisUnit.Radian : AnalysisAxisUnit.Dimensionless));
+        }
+
+        if (diffractionLimit is not null)
+        {
+            series.Add(new AnalysisSeries(
+                frequencyLabel,
+                "Modulation",
+                diffractionLimit,
+                Name: "Diffraction Limit",
+                ColorIndex: fields.Length,
+                XQuantity: AnalysisAxisQuantity.SpatialFrequency,
+                XUnit: frequencyUnit,
+                YQuantity: AnalysisAxisQuantity.Modulation,
+                YUnit: AnalysisAxisUnit.Dimensionless));
+        }
+
+        var plottedMaximum = _zemaxCompatible
+            ? _maximumFrequency ?? cutoff
+            : _maximumFrequency.HasValue
+                ? Math.Min(_maximumFrequency.Value, cutoff)
+                : cutoff;
+        var values = new Dictionary<string, object>
+        {
+            ["Method"] = "FFT",
+            ["PupilSampling"] = pupilSampling,
+            ["GridSize"] = gridSize,
+            ["MaximumFrequency"] = plottedMaximum,
+            ["CutoffFrequency"] = cutoff,
+            ["FrequencyUnit"] = frequencyUnitLabel,
+            ["ImageSpaceAfocal"] = analysisOptic.ImageSpaceAfocal,
+            ["WavelengthNumber"] = _wavelengthNumber,
+            ["WavelengthsMicrometers"] = wavelengths.Select(item => item.Micrometers).ToArray(),
+            ["FieldNumber"] = _fieldNumber,
+            ["FieldCount"] = fields.Length,
+            ["SurfaceNumber"] = _surfaceNumber,
+            ["Type"] = MtfDataTypeSupport.Name(_dataType),
+            ["ShowDiffractionLimit"] = _showDiffractionLimit,
+            ["UsePolarization"] = _usePolarization,
+            ["UseDashes"] = _useDashes,
+            ["ZemaxCompatible"] = _zemaxCompatible,
+            ["PlotPointCount"] = series.FirstOrDefault()?.Points.Count ?? 0
+        };
+        var (yMinimum, yMaximum) = _dataType switch
+        {
+            FftMtfDataType.Real or FftMtfDataType.Imaginary => (-1.0, 1.0),
+            FftMtfDataType.Phase => (-Math.PI, Math.PI),
+            _ => (0.0, _zemaxCompatible ? 1.05 : 1.0)
+        };
+        return new AnalysisData(Name, values, series.FirstOrDefault(), series, new AnalysisPlotOptions(
+            XMinimum: 0,
+            XMaximum: plottedMaximum,
+            YMinimum: yMinimum,
+            YMaximum: yMaximum,
+            ShowLegend: true,
+            GridOpacity: 0.25));
+    }
+
+    private Optic ResolveAnalysisOptic()
+    {
+        if (_surfaceNumber <= 0)
+        {
+            return Optic;
+        }
+
+        var surfaceIndex = Optic.SurfaceGroup.Items.ToList()
+            .FindIndex(surface => surface.Number == _surfaceNumber);
+        if (surfaceIndex < 1)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(_surfaceNumber),
+                $"FFT MTF surface {_surfaceNumber} does not exist.");
+        }
+
+        if (surfaceIndex == Optic.SurfaceGroup.Items.Count - 1)
+        {
+            return Optic;
+        }
+
+        var clone = Optic.FromSnapshot(Optic.ToSnapshot());
+        var surfaces = clone.SurfaceGroup.Items
+            .Take(surfaceIndex + 1)
+            .Select(surface => surface.Clone())
+            .ToArray();
+        clone.SurfaceGroup.Replace(surfaces);
+        return clone;
+    }
+
+    private static MtfResult Resample(
+        MtfResult source,
+        double maximumFrequency,
+        FftMtfDataType type,
+        int pointCount)
+    {
+        pointCount = Math.Max(2, pointCount);
+        maximumFrequency = Math.Max(0, maximumFrequency);
+        var frequency = Enumerable.Range(0, pointCount)
+            .Select(index => maximumFrequency * index / (pointCount - 1.0))
+            .ToArray();
+        var tangential = frequency.Select(value => MtfMethodEvaluator.Sample(source, value, type, tangential: true)).ToArray();
+        var sagittal = frequency.Select(value => MtfMethodEvaluator.Sample(source, value, type, tangential: false)).ToArray();
+        return new MtfResult(frequency, tangential, sagittal, source.CutoffFrequency);
+    }
+
+    private static double DiffractionLimit(
+        IReadOnlyList<(Wavelength Wavelength, MtfResult Result)> results,
+        double frequency)
+    {
+        var totalWeight = results.Sum(item => item.Wavelength.Weight);
+        var equalWeights = totalWeight <= 1e-30;
+        if (equalWeights)
+        {
+            totalWeight = Math.Max(1, results.Count);
+        }
+
+        var value = 0.0;
+        foreach (var item in results)
+        {
+            var normalized = item.Result.CutoffFrequency <= 1e-30
+                ? 1
+                : frequency / item.Result.CutoffFrequency;
+            var monochromatic = normalized >= 1
+                ? 0
+                : 2 * (Math.Acos(normalized)
+                    - (normalized * Math.Sqrt(Math.Max(0, 1 - (normalized * normalized))))) / Math.PI;
+            value += monochromatic * (equalWeights ? 1 : item.Wavelength.Weight);
+        }
+
+        return value / totalWeight;
+    }
+
+}

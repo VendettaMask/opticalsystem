@@ -1,0 +1,133 @@
+{
+  "Date": "2026-10-15",
+  "SourceCommit": "0179e2fb8fff814826176043271fac6e241c2c24",
+  "SourceDirty": true,
+  "Scope": "About-window version label and shared splash/about product version source; no optical calculation changes.",
+  "Behavior": {
+    "Location": "Below Optical System Design product name in the existing About dialog.",
+    "Source": "Main application AssemblyInformationalVersion without '+' build metadata, preserving prerelease suffix; actual three-part assembly version fallback; unknown if both absent.",
+    "DefaultDevelopmentVersion": "1.0.0",
+    "DefaultInformationalVersion": "1.0.0+0179e2fb8fff814826176043271fac6e241c2c24",
+    "ReleaseVersionSource": "scripts/publish-windows.ps1 supplies -p:Version=$AppVersion; no fixed UI release number.",
+    "Preserved": "Author portrait, publisher, product description, runtime text, theme resources, bitmap lifetime and Close action.",
+    "Splash": "Uses the same ProductVersionInfo.Current."
+  },
+  "Verification": {
+    "DefaultSolutionBuilds": [
+      {
+        "Configuration": "Debug",
+        "Projects": 19,
+        "Warnings": 0,
+        "Errors": 0
+      },
+      {
+        "Configuration": "Release",
+        "Projects": 19,
+        "Warnings": 0,
+        "Errors": 0
+      }
+    ],
+    "RelatedTests": [
+      {
+        "Configuration": "Debug",
+        "Total": 41,
+        "Passed": 41,
+        "Failed": 0,
+        "Skipped": 0
+      },
+      {
+        "Configuration": "Release",
+        "Total": 41,
+        "Passed": 41,
+        "Failed": 0,
+        "Skipped": 0
+      }
+    ],
+    "NewTests": 16,
+    "Filter": "FullyQualifiedName~ProductVersionInfoTests|FullyQualifiedName~AboutWindowTests|FullyQualifiedName~BrandAssetTests|FullyQualifiedName~AppStartupTests|FullyQualifiedName~LayeringArchitectureTests",
+    "UiCoverage": "Real Avalonia controls, Light/Dark, font sizes 13/18, label placement, no overlap with publisher/Close, actual product assembly version, Close action and same splash version.",
+    "RenderedFrames": {
+      "Directory": "artifacts/validation/about-version-20261015",
+      "Configurations": [
+        "rendered-debug",
+        "rendered-release"
+      ],
+      "FilesPerConfiguration": [
+        "about-Light-13.png",
+        "about-Dark-13.png",
+        "about-Light-18.png",
+        "about-Dark-18.png"
+      ],
+      "Kind": "Headless/Skia, not native desktop screenshots.",
+      "VisuallyInspected": [
+        "rendered-debug/about-Light-13.png",
+        "rendered-debug/about-Dark-18.png"
+      ]
+    },
+    "ChangedFileWhitespaceCheck": true,
+    "GitDiffCheck": true,
+    "FrozenReferenceChanges": {
+      "ChangedTrackedManifestFiles": 0,
+      "Method": "Git diff paths compared with the existing frozen manifest; full byte verifier was not rerun for this UI-only change."
+    }
+  },
+  "Hashes": [
+    {
+      "Path": "src/OptilandWorkbench.App/Services/ProductVersionInfo.cs",
+      "Sha256": "e048bc290870b3b86897ca42582a1fea4b925bf49e78f5d0ffc516bd9a9c066c"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/Shell/MainWindow.Documents.cs",
+      "Sha256": "071c49ebb7b2eb7775df42b7e511a2c87c5748163c8dad1a5a63025590107212"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/SplashWindow.cs",
+      "Sha256": "62d5717e1b005327d6bf1b76d03ac0357b3b1951770687d80e2d36b10fd8182a"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/ProductVersionInfoTests.cs",
+      "Sha256": "aba8ce0a63cdaa57f47365d3a412dcb4a659bae73d53e70ff7de3c3fdf1e8388"
+    },
+    {
+      "Path": "tests/OptilandWorkbench.Tests/AboutWindowTests.cs",
+      "Sha256": "b371b4ba4421ae9297ad711e14049e9e53a66f07ddbfd7429da3beb1cd137868"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/bin/Debug/net10.0/OptilandWorkbench.App.dll",
+      "Sha256": "8e2ab0050be71ce747325dec76c5da3597f0546b295856a5d382196d0d7ef236"
+    },
+    {
+      "Path": "src/OptilandWorkbench.App/bin/Release/net10.0/OptilandWorkbench.App.dll",
+      "Sha256": "df40e928383034e60fe28301ca1ca7d0d3db1636604a6621c706c60d16573a0e"
+    },
+    {
+      "Path": "artifacts/validation/about-version-20261015/build-debug.log",
+      "Sha256": "a392857536f58729eb05673702a27a6e7349e39c374c1b8de9a30035905d5c02"
+    },
+    {
+      "Path": "artifacts/validation/about-version-20261015/build-release.log",
+      "Sha256": "ac91719776a82f2813bd8210059c5b561ea47f75cf2ea1f871e5453b2c84b0c8"
+    },
+    {
+      "Path": "artifacts/validation/about-version-20261015/about-related-debug.trx",
+      "Sha256": "bd2e787104abf8975473bbf159081108216346fa97ba620f52804eef17b12464"
+    },
+    {
+      "Path": "artifacts/validation/about-version-20261015/about-related-release.trx",
+      "Sha256": "58b8bb793c278c547037caa20560e2dbe6cafe1a4ced08502d8ec1bc9554a2a1"
+    }
+  ],
+  "LocalEvidence": "Build logs, TRX, rendered frames and binaries are local generated artifacts, not uploaded release attachments.",
+  "DeliveryAtValidation": {
+    "DefaultDebugAndReleaseOutputsUpdated": true,
+    "InstallerRebuilt": false,
+    "InstalledProductReplaced": false,
+    "Committed": false,
+    "Pushed": false
+  },
+  "Limitations": [
+    "No full product, laboratory or comparison suite rerun.",
+    "No new Zemax captures or numerical certification.",
+    "Native manual desktop acceptance and cross-platform installed-package acceptance were not performed."
+  ]
+}

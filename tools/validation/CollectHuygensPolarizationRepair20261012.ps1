@@ -68,8 +68,8 @@ foreach ($configuration in @('Debug','Release')) {
     $content=Get-Content -LiteralPath $log -Raw
     if ($content -notmatch '已成功生成。' -or $content -notmatch '(?m)^\s*0 个警告\s*$' -or $content -notmatch '(?m)^\s*0 个错误\s*$') {throw 'Default build did not pass cleanly.'}
     $builds += [ordered]@{configuration=$configuration;path=[IO.Path]::GetRelativePath($repository,$log).Replace('\','/');sha256=(Hash $log);warnings=0;errors=0;defaultOutput=$true}
-    foreach ($directory in @('src/OptilandWorkbench.Core','src/OptilandWorkbench.App','tests/OptilandWorkbench.Tests','tests/OptilandWorkbench.ZemaxComparison.Tests')) {
-        $path="$directory/bin/$configuration/net10.0/OptilandWorkbench.Core.dll"
+    foreach ($directory in @('src/OpticalSystemDesign.Core','src/OpticalSystemDesign.App','tests/OpticalSystemDesign.Tests','tests/OpticalSystemDesign.ZemaxComparison.Tests')) {
+        $path="$directory/bin/$configuration/net10.0/OpticalSystemDesign.Core.dll"
         $binaries += [ordered]@{configuration=$configuration;path=$path;sha256=(Hash (Join-Path $repository $path))}
     }
     if (@($binaries|Where-Object {$_.configuration -eq $configuration}|ForEach-Object {$_.sha256}|Sort-Object -Unique).Count -ne 1) {throw 'Default Core copies differ.'}
@@ -93,12 +93,12 @@ if ($LASTEXITCODE -ne 0) {throw 'Frozen Git or working bytes failed.'}
 $frozen=$frozenJson -join "`n"|ConvertFrom-Json
 $historical='docs/HUYGENS_SPHERICAL_REPAIR_2026-10-11.json'
 if ((Hash (Join-Path $repository $historical)) -cne '2980d73fde660765c744302597eceea4caa34d9853305737aaa79cf0e7f9dcb2') {throw 'Historical ledger bytes changed.'}
-$sourcePaths=@('src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs','src/OptilandWorkbench.Core/Coatings/FresnelPower.cs',
-    'src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.Polarization.cs','src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs',
-    'src/OptilandWorkbench.Core/Analysis/Diffraction/HuygensPsfSynthesis.cs','src/OptilandWorkbench.Core/Analysis/Diffraction/HuygensDiffractionAnalyses.cs',
-    'src/OptilandWorkbench.Core/Analysis/Diffraction/PsfProfileAnalyses.cs','src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs',
-    'src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Localization.cs','tests/OptilandWorkbench.Tests/HuygensPolarizationRepairTests.cs',
-    'tests/OptilandWorkbench.Tests/PolarizationPsfLabelTests.cs','tools/validation/CollectHuygensPolarizationRepair20261012.ps1')
+$sourcePaths=@('src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs','src/OpticalSystemDesign.Core/Coatings/FresnelPower.cs',
+    'src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.Polarization.cs','src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs',
+    'src/OpticalSystemDesign.Core/Analysis/Diffraction/HuygensPsfSynthesis.cs','src/OpticalSystemDesign.Core/Analysis/Diffraction/HuygensDiffractionAnalyses.cs',
+    'src/OpticalSystemDesign.Core/Analysis/Diffraction/PsfProfileAnalyses.cs','src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs',
+    'src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Localization.cs','tests/OpticalSystemDesign.Tests/HuygensPolarizationRepairTests.cs',
+    'tests/OpticalSystemDesign.Tests/PolarizationPsfLabelTests.cs','tools/validation/CollectHuygensPolarizationRepair20261012.ps1')
 $ledger=[ordered]@{
     date='2026-10-12';baseHead=(git -C $repository rev-parse HEAD);gitState='Uncommitted local repair; not pushed'
     scope='Original MS-L7 Unpolarized=true Huygens intensity residual closed; limited transparent coherent XYZ path implemented without new native phase certification'

@@ -13,7 +13,7 @@ if ([string]::IsNullOrWhiteSpace($RepositoryRoot)) {
 $repository = [IO.Path]::GetFullPath($RepositoryRoot)
 $corpusRoot = Join-Path $repository 'local-data\lens-library\originals\user-zmx\public'
 $manifestPath = Join-Path $corpusRoot 'manifest.json'
-$userAgent = 'OptilandWorkbench-Public-Zemax-Corpus/1.0'
+$userAgent = 'OpticalSystemDesign-Public-Zemax-Corpus/1.0'
 [IO.Directory]::CreateDirectory($corpusRoot) | Out-Null
 
 function Test-OpenLicense {

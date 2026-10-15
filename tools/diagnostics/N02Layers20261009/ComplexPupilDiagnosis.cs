@@ -1,8 +1,8 @@
 using System.Numerics;
 using System.Reflection;
 using System.Text.Json;
-using OptilandWorkbench.Core.Analysis;
-using OptilandWorkbench.ZemaxComparison;
+using OpticalSystemDesign.Core.Analysis;
+using OpticalSystemDesign.ZemaxComparison;
 
 internal static class ComplexPupilDiagnosis
 {

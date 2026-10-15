@@ -16,17 +16,17 @@
 
 有效 F 数由透过率加权的投影立体角面积 `A` 得到 `0.5 × sqrt(π/A)`。计算假设包括均匀朗伯物面、合理局域成像及方向余弦空间无焦散；官方采样为像空间方向余弦均匀网格。本轮采用不同的光瞳网格积分，因此尚不声称同一 Samp 下与原生算法一致。[官方相对照度与有效 F 数说明](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Relative_Illumination.html)。
 
-- [IlluminationMetrics](../src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs) 将整个单位光瞳三角化，内部采用三点求积，物理遮挡边界按追迹结果二分并细分。内圈按半径分配角向节点，外缘保留精细多边形；不再仅用外缘强度代表整个光瞳。
-- [孔径诊断](../src/OptilandWorkbench.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs) 使用正式表面相交、折射/反射、吸收与标量镀膜路径，独立检查每个实际孔径的局部交点。被挡光线的延续仅为几何诊断，不计入通光面积，不写入正常追迹缓存或表面记录。原镜头和孔径不变。
-- [生成器](../src/OptilandWorkbench.Core/Raytrace/RayGenerator.cs) 在一次积分内复用视场、瞳孔、渐晕和近轴瞄准目标的准备结果；实际光线继续调用正式生成和瞄准路径。该准备对象不跨镜头修改复用。
+- [IlluminationMetrics](../src/OpticalSystemDesign.Core/Services/IlluminationMetrics.cs) 将整个单位光瞳三角化，内部采用三点求积，物理遮挡边界按追迹结果二分并细分。内圈按半径分配角向节点，外缘保留精细多边形；不再仅用外缘强度代表整个光瞳。
+- [孔径诊断](../src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.ApertureDiagnostics.cs) 使用正式表面相交、折射/反射、吸收与标量镀膜路径，独立检查每个实际孔径的局部交点。被挡光线的延续仅为几何诊断，不计入通光面积，不写入正常追迹缓存或表面记录。原镜头和孔径不变。
+- [生成器](../src/OpticalSystemDesign.Core/Raytrace/RayGenerator.cs) 在一次积分内复用视场、瞳孔、渐晕和近轴瞄准目标的准备结果；实际光线继续调用正式生成和瞄准路径。该准备对象不跨镜头修改复用。
 - 独立视场最多使用 4 个工作线程，并保留原结果次序、具体错误类型与取消语义。在无孔径、无吸收、无镀膜衰减、均匀光瞳且采用标准均匀介质折反射模型时，强度严格为 1，可省去额外强度求积点；仍保留内部几何网格与方向余弦折叠检查。该等价简化有一般积分路径对照测试，不用于非均匀透过率或物理遮挡。
 - 投影使用主光线交点处的像面法线及入射方向余弦，计入像面倾斜。有效 F 数不再额外除以像方折射率；折射率对角锥的影响已在追迹中体现。
-- [相对照度分析](../src/OptilandWorkbench.Core/Analysis/RelativeIlluminationAnalysis.cs) 保留原扫描和峰值归一化，发布积分方法与 `SampledPupilNodeCounts`；该数量是积分所采样的光瞳节点，不包含瞄准求解内部的迭代追迹。越界波长不再静默钳到末波长，全部无通光时明确返回无数据。
-- [图像模拟](../src/OptilandWorkbench.Core/Analysis/ImageSimulationEngine.cs) 共用该积分，在同一次固定波长计算内复用重复视场；全暗光瞳产生黑色图像，不能保留未衰减的原图。
+- [相对照度分析](../src/OpticalSystemDesign.Core/Analysis/RelativeIlluminationAnalysis.cs) 保留原扫描和峰值归一化，发布积分方法与 `SampledPupilNodeCounts`；该数量是积分所采样的光瞳节点，不包含瞄准求解内部的迭代追迹。越界波长不再静默钳到末波长，全部无通光时明确返回无数据。
+- [图像模拟](../src/OpticalSystemDesign.Core/Analysis/ImageSimulationEngine.cs) 共用该积分，在同一次固定波长计算内复用重复视场；全暗光瞳产生黑色图像，不能保留未衰减的原图。
 
 ## 验证与剩余边界
 
-独立测试以解析圆锥、环形角域、偏心孔径的测试专用数值积分为参照，覆盖渐变及二维透过率、中心遮挡、不连通通光区、标量镀膜、浸没介质、像面倾斜、无通光、取消、非法参数与生成器准备复用。[新增测试](../tests/OptilandWorkbench.Tests/IlluminationMetricTests.cs)。测试中的独立公式不进入产品运行时。
+独立测试以解析圆锥、环形角域、偏心孔径的测试专用数值积分为参照，覆盖渐变及二维透过率、中心遮挡、不连通通光区、标量镀膜、浸没介质、像面倾斜、无通光、取消、非法参数与生成器准备复用。[新增测试](../tests/OpticalSystemDesign.Tests/IlluminationMetricTests.cs)。测试中的独立公式不进入产品运行时。
 
 固定 `123456.ZMX`、主波长 0.44 µm、21 个视场、Ray Density 10、+Y、移除渐晕的当前曲线仍通过既有 RMSE ≤ 0.002、最大误差 ≤ 0.004 门槛，但不能称为比此前更贴近 Zemax：复算 RMSE **0.0014395487**、最大误差 **0.0031274627**、边缘值 **0.969163938**；此前边缘/主光线切平面积分约为 0.000434 / 0.000819。像面投影和原生采样约定仍需继续核对，门槛未放宽。该比较只覆盖原捕获文件、设置及 2026 R1 版本。
 

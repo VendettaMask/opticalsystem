@@ -1,0 +1,261 @@
+using Avalonia;
+using Avalonia.Controls;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.App.Panels;
+
+namespace OpticalSystemDesign.Tests;
+
+public sealed class ViewerInteractionTests
+{
+    [Fact]
+    public void GaussianRayBrightnessUsesRelativeIntensity()
+    {
+        var edgeIntensity = Math.Exp(-2 * 1.44 * 0.85 * 0.85);
+        Assert.Equal(1, OpticSceneControl.RayOpacityFor(1, 1));
+        Assert.Equal(edgeIntensity, OpticSceneControl.RayOpacityFor(edgeIntensity, 1), 12);
+        Assert.Equal(1, OpticSceneControl.RayOpacityFor(0.3, 0.3));
+        Assert.Equal(0, OpticSceneControl.RayOpacityFor(0, 1));
+    }
+
+    [Fact]
+    public void AnnotationLabelsUseAdditionalLanesOnlyWhenTheyOverlap()
+    {
+        var lanes = OpticSceneControl.AssignAnnotationLanes(new[]
+        {
+            (Left: 10.0, Right: 90.0),
+            (Left: 30.0, Right: 110.0),
+            (Left: 120.0, Right: 180.0),
+            (Left: 125.0, Right: 185.0)
+        });
+
+        Assert.Equal(new[] { 0, 1, 0, 1 }, lanes);
+    }
+
+    [Fact]
+    public void CrowdedCardinalAnnotationsReserveIndependentTopAndBottomBands()
+    {
+        var padding = OpticSceneControl.CalculateAnnotationPadding(
+            availableHeight: 1000,
+            aboveLabelCount: 6,
+            belowLabelCount: 5);
+
+        Assert.Equal(142, padding.Top);
+        Assert.Equal(123, padding.Bottom);
+    }
+
+    [Fact]
+    public void AnnotationPaddingRemainsBoundedInShortViews()
+    {
+        var padding = OpticSceneControl.CalculateAnnotationPadding(
+            availableHeight: 420,
+            aboveLabelCount: 12,
+            belowLabelCount: 12);
+
+        Assert.Equal(134.4, padding.Top, precision: 10);
+        Assert.Equal(134.4, padding.Bottom, precision: 10);
+    }
+
+    [Fact]
+    public void SceneViewportMovesAxisAndContentTogether()
+    {
+        var viewport = new SceneViewport();
+        var size = new Size(800, 500);
+        var axisPoint = new Point(200, 250);
+        var lensPoint = new Point(420, 180);
+        var delta = new Vector(37, -24);
+
+        var axisBefore = viewport.Apply(axisPoint, size);
+        var lensBefore = viewport.Apply(lensPoint, size);
+        viewport.PanBy(delta);
+
+        Assert.Equal(axisBefore + delta, viewport.Apply(axisPoint, size));
+        Assert.Equal(lensBefore + delta, viewport.Apply(lensPoint, size));
+    }
+
+    [Fact]
+    public void SceneViewportZoomKeepsPointerAnchorStable()
+    {
+        var viewport = new SceneViewport();
+        var size = new Size(800, 500);
+        var scenePoint = new Point(620, 140);
+        viewport.PanBy(new Vector(31, -17));
+        var anchor = viewport.Apply(scenePoint, size);
+
+        viewport.ZoomAt(1.8, anchor, size);
+
+        Assert.Equal(anchor.X, viewport.Apply(scenePoint, size).X, precision: 10);
+        Assert.Equal(anchor.Y, viewport.Apply(scenePoint, size).Y, precision: 10);
+    }
+
+    [Fact]
+    public void DrawingPreviewZoomButtonsAndResetUpdateZoom()
+    {
+        var preview = new DrawingPreviewControl
+        {
+            Width = 800,
+            Height = 600
+        };
+
+        preview.ZoomIn();
+        Assert.Equal(1.25, preview.Zoom, precision: 10);
+
+        preview.ZoomOut();
+        Assert.Equal(1, preview.Zoom, precision: 10);
+
+        preview.ZoomIn();
+        preview.ResetView();
+        Assert.Equal(1, preview.Zoom, precision: 10);
+    }
+
+    [Fact]
+    public void PsfSurfaceViewRotatesZoomsPansAndResets()
+    {
+        var surface = new WavefrontSurfaceControl
+        {
+            DisplayAs = "表面",
+            RotationDegrees = 10
+        };
+
+        Assert.Equal(45, surface.ViewYawDegrees, precision: 10);
+        Assert.Equal(28, surface.ViewPitchDegrees, precision: 10);
+        Assert.Equal(1, surface.ViewZoom, precision: 10);
+
+        surface.RotateView(30, 12);
+        surface.ZoomView(1.8);
+        surface.PanView(new Vector(20, -15));
+
+        Assert.Equal(75, surface.ViewYawDegrees, precision: 10);
+        Assert.Equal(40, surface.ViewPitchDegrees, precision: 10);
+        Assert.Equal(1.8, surface.ViewZoom, precision: 10);
+
+        var analysisRoot = new Grid
+        {
+            Children =
+            {
+                surface,
+                new AnalysisPlotControl()
+            }
+        };
+        Assert.Equal(2, AnalysisPanel.ResetInteractiveViewState(analysisRoot));
+
+        Assert.Equal(45, surface.ViewYawDegrees, precision: 10);
+        Assert.Equal(28, surface.ViewPitchDegrees, precision: 10);
+        Assert.Equal(1, surface.ViewZoom, precision: 10);
+    }
+
+    [Fact]
+    public void WavefrontSurfaceAcceptsCircularPupilGridWithMissingCorners()
+    {
+        var points = new[]
+        {
+            new AnalysisPointDto(0, -1, Value: 0.1),
+            new AnalysisPointDto(-1, 0, Value: 0.2),
+            new AnalysisPointDto(0, 0, Value: 0.3),
+            new AnalysisPointDto(1, 0, Value: 0.4),
+            new AnalysisPointDto(0, 1, Value: 0.5)
+        };
+        var surface = new WavefrontSurfaceControl
+        {
+            Series = new AnalysisSeriesDto(
+                "Pupil X",
+                "Pupil Y",
+                points,
+                AnalysisSeriesKind.Heatmap),
+            DisplayAs = "表面"
+        };
+
+        Assert.True(surface.HasRenderableGrid);
+    }
+
+    [Fact]
+    public void ContourBuilderInterpolatesLevelAcrossGridCells()
+    {
+        var values = new double[,]
+        {
+            { 0, 1 },
+            { 0, 1 }
+        };
+
+        var segment = Assert.Single(WavefrontSurfaceControl.BuildContourSegments(values, 0.25));
+
+        Assert.Equal(0.25, segment.Start.X, precision: 10);
+        Assert.Equal(0.25, segment.End.X, precision: 10);
+        Assert.Equal(new[] { 0.0, 1.0 }, new[] { segment.Start.Y, segment.End.Y }.Order());
+    }
+
+    [Fact]
+    public void CutawayClipsEveryRaySegmentToTheRetainedHalfSpace()
+    {
+        var paths = OpticSceneControl.ClipPolylineToCutaway(new[]
+        {
+            new ScenePoint3Dto(2, 0, 0),
+            new ScenePoint3Dto(-2, 4, 4),
+            new ScenePoint3Dto(2, 8, 8),
+            new ScenePoint3Dto(-2, 12, 12)
+        });
+
+        Assert.Equal(2, paths.Count);
+        Assert.Equal(3, paths[0].Count);
+        Assert.Equal(2, paths[1].Count);
+        Assert.All(paths.SelectMany(path => path), point => Assert.True(point.X <= 1e-9));
+        Assert.Equal(0, paths[0][0].X, precision: 12);
+        Assert.Equal(0, paths[0][^1].X, precision: 12);
+        Assert.Equal(0, paths[1][0].X, precision: 12);
+
+        var oriented2D = OpticSceneControl.OrientSegment(new SceneRaySegment2Dto(
+            new ScenePoint2Dto(2, 0),
+            new ScenePoint2Dto(0, 0),
+            new SceneRayDirection2Dto(1, 0),
+            SceneRaySegmentType.Reflected,
+            SceneRayInteractionType.Reflective,
+            1,
+            0));
+        Assert.Equal(0, oriented2D.Start.Z);
+        Assert.Equal(2, oriented2D.End.Z);
+
+        var oriented3D = OpticSceneControl.OrientSegment(new SceneRaySegment3Dto(
+            new ScenePoint3Dto(0, 0, 2),
+            new ScenePoint3Dto(0, 0, 0),
+            new SceneRayDirection3Dto(0, 0, 1),
+            SceneRaySegmentType.TotalInternalReflection,
+            SceneRayInteractionType.Refractive,
+            1,
+            0));
+        Assert.Equal(0, oriented3D.Start.Z);
+        Assert.Equal(2, oriented3D.End.Z);
+    }
+
+    [Fact]
+    public void SolidRenderingKeepsCurvedSurfaceTessellation()
+    {
+        var center = new ScenePoint3Dto(0, 0, 1);
+        var rim = new[]
+        {
+            new ScenePoint3Dto(-1, -1, 0),
+            new ScenePoint3Dto(1, -1, 0),
+            new ScenePoint3Dto(1, 1, 0),
+            new ScenePoint3Dto(-1, 1, 0)
+        };
+        var surface = new SceneSurface3Dto(
+            1,
+            "S1",
+            false,
+            false,
+            "N-BK7",
+            rim,
+            Array.Empty<ScenePoint3Dto>(),
+            Array.Empty<ScenePoint3Dto>(),
+            new[]
+            {
+                new SceneSurfaceFace3Dto(new[] { center, rim[0], rim[1] }),
+                new SceneSurfaceFace3Dto(new[] { center, rim[1], rim[2] })
+            });
+
+        var faces = OpticSceneControl.SurfaceFacesForRendering(surface, cutawayEnabled: false);
+
+        Assert.Equal(2, faces.Count);
+        Assert.All(faces, face => Assert.Equal(3, face.Count));
+        Assert.All(faces, face => Assert.Contains(center, face));
+    }
+}

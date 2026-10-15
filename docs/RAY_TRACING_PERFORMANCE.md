@@ -51,8 +51,8 @@ PSF、MTF、点列、波前、查看器和公差只请求需要的表面。Monte
 ## 基准
 
 ```bash
-dotnet run -c Release --project tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj
-dotnet run -c Release --project tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj -- --non-sequential 1000000
+dotnet run -c Release --project tools/OpticalSystemDesign.Benchmarks/OpticalSystemDesign.Benchmarks.csproj
+dotnet run -c Release --project tools/OpticalSystemDesign.Benchmarks/OpticalSystemDesign.Benchmarks.csproj -- --non-sequential 1000000
 ```
 
 第二条命令使用确定性“点光源—矩形探测器”场景，将完整分支流式写入临时 `.starrdb`，输出耗时、吞吐量、总分配、托管堆、峰值工作集、数据库大小和文件路径。源光线采用惰性枚举，每棵分支树完成后才取得下一条源光线，不会预存百万条源射线。

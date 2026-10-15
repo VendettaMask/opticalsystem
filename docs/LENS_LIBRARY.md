@@ -32,12 +32,12 @@ LensLibrary/
 
 原有 6 条经厂商官方页面核验的记录已在转换时按厂商和料号合并，保留更丰富的名称、产品页和规格字段。所有库存条目默认不能“载入模型”；只有取得明确许可、转换为 STAROPT 并通过校验的模型才允许载入，不能依据目录规格反推并冒充厂商处方。
 
-ZMF 解析仅保留在离线维护工具 `OptilandWorkbench.LensLibraryBuilder` 中。维护人员显式提供来源目录并更新同步资源：
+ZMF 解析仅保留在离线维护工具 `OpticalSystemDesign.LensLibraryBuilder` 中。维护人员显式提供来源目录并更新同步资源：
 
 ```powershell
-dotnet run --project tools\OptilandWorkbench.LensLibraryBuilder -- `
+dotnet run --project tools\OpticalSystemDesign.LensLibraryBuilder -- `
   --stock-catalog <ZMF来源目录> `
-  src\OptilandWorkbench.App\Assets\LensLibrary\StockCatalogs
+  src\OpticalSystemDesign.App\Assets\LensLibrary\StockCatalogs
 ```
 
 转换器要求五家源目录齐全，限制文件和记录大小，跳过处方正文，并分别原子替换五个厂商 JSON 文件。转换得到的数据仍继承其来源授权；改成自有 JSON 格式不代表获得重新分发许可，发布前必须审核来源许可。
@@ -52,7 +52,7 @@ dotnet run --project tools\OptilandWorkbench.LensLibraryBuilder -- `
 
 ## 离线构建
 
-维护工具 `tools/OptilandWorkbench.LensLibraryBuilder`：
+维护工具 `tools/OpticalSystemDesign.LensLibraryBuilder`：
 
 1. 在临时目录安全解压 ZIP；
 2. 扫描本地 ZMX；
@@ -62,10 +62,10 @@ dotnet run --project tools\OptilandWorkbench.LensLibraryBuilder -- `
 
 ```bash
 dotnet run \
-  --project tools/OptilandWorkbench.LensLibraryBuilder \
+  --project tools/OpticalSystemDesign.LensLibraryBuilder \
   -- \
   tools/lens-library-public-sources.json \
-  src/OptilandWorkbench.App/Assets/LensLibrary
+  src/OpticalSystemDesign.App/Assets/LensLibrary
 ```
 
 当前打包库共 925 项：56 个独立显微物镜、5 个工业示例和 864 个可转换公开 Zemax 设计。显微类别只允许独立物镜；筒镜、聚光镜、Fourier 成像链和完整显微系统排除。
@@ -114,8 +114,8 @@ Windows 可把 `.zmx` 拖到 `Convert-Zemax-Lens.cmd`，或执行：
 已有 STAROPT 库升级索引或重新计算元数据时，可执行：
 
 ```powershell
-dotnet run --project tools\OptilandWorkbench.LensLibraryBuilder -- `
-  --reindex src\OptilandWorkbench.App\Assets\LensLibrary
+dotnet run --project tools\OpticalSystemDesign.LensLibraryBuilder -- `
+  --reindex src\OpticalSystemDesign.App\Assets\LensLibrary
 ```
 
 重建过程先完整读取所有原生工程，全部成功后才原子替换 `index.json`，不会修改 `.staropt`。该操作是重新提取元数据，不等同于重新导入源 ZMX，因此不会填写历史条目缺失的导入时间。

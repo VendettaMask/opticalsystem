@@ -36,10 +36,10 @@
 
 ## 源码
 
-- [共享计算入口](../src/OptilandWorkbench.Core/Services/VignettingSolver.cs)与[孔径搜索](../src/OptilandWorkbench.Core/Services/VignettingSolver.Search.cs)
-- [有序状态发布](../src/OptilandWorkbench.Core/Optimization/MeritFunction.SystemState.cs)
-- [数值和应用回归](../tests/OptilandWorkbench.Tests/AutomaticVignettingTests.cs)
-- [实际帮助界面回归](../tests/OptilandWorkbench.Tests/AutomaticVignettingPanelTests.cs)
+- [共享计算入口](../src/OpticalSystemDesign.Core/Services/VignettingSolver.cs)与[孔径搜索](../src/OpticalSystemDesign.Core/Services/VignettingSolver.Search.cs)
+- [有序状态发布](../src/OpticalSystemDesign.Core/Optimization/MeritFunction.SystemState.cs)
+- [数值和应用回归](../tests/OpticalSystemDesign.Tests/AutomaticVignettingTests.cs)
+- [实际帮助界面回归](../tests/OpticalSystemDesign.Tests/AutomaticVignettingPanelTests.cs)
 
 ## 实际界面渲染
 

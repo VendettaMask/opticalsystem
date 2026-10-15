@@ -30,7 +30,7 @@
 
 - [AGENTS.md](../AGENTS.md) 要求所有后续改动遵守三层边界。
 - `AnalysisPresetBoundaryTests` 直接检查关键 Core 构造器的默认参数；若基准采样数、焦移范围或兼容开关再次进入 Core 默认值，测试会失败。
-- `OptilandParityTests.RmsVsFieldRetainsZeroWeightFieldsButExcludesThemFromAggregate` 验证 Core catalog 仍按已定义视场运行通用 RMS spot 分析。
+- `OpticalSystemDesignParityTests.RmsVsFieldRetainsZeroWeightFieldsButExcludesThemFromAggregate` 验证 Core catalog 仍按已定义视场运行通用 RMS spot 分析。
 - `ZemaxRmsWavefrontVsFieldParityTests.WorkbenchProductPresetUsesTheCaptured123456RmsFieldSettings` 单独验证 Workbench 产品预设使用显式捕获设置，避免把产品行为和 Core 规格混在一起。
 
 ## 验证结果

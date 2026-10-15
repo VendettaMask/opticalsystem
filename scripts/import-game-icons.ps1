@@ -2,7 +2,7 @@ param(
     [Parameter(Mandatory = $true)]
     [string] $SourceRoot,
 
-    [string] $OutputPath = "src/OptilandWorkbench.App/Assets/Icons/game-icons-isekai.json"
+    [string] $OutputPath = "src/OpticalSystemDesign.App/Assets/Icons/game-icons-isekai.json"
 )
 
 $ErrorActionPreference = "Stop"

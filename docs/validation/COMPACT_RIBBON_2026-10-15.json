@@ -1,0 +1,76 @@
+{
+  "Date": "2026-10-15",
+  "Scope": "Apply the approved compact inline ribbon design to the production Avalonia shell",
+  "SourceCommit": "0179e2fb8fff814826176043271fac6e241c2c24",
+  "SourceDirty": true,
+  "PreExistingWorkPreserved": ["About-window and splash version display", "Integrated caption and command search", "Their tests, documentation and original evidence snapshots"],
+  "Implemented": [
+    "Shared ribbon factories keep icons left, labels right and dropdown arrows after labels",
+    "18 DIP icons, 6 DIP content spacing, 13 DIP baseline body text, at least 56x36 DIP native hit areas",
+    "2 DIP within-group spacing, 12 DIP page group spacing, 22 DIP vertically centered non-interactive dividers, 6 DIP top/bottom page margins",
+    "Light enabled neutral ribbon icons use the theme accent; disabled states and other theme icon packs remain separate",
+    "Existing document-history availability uses shared ControlAvailability, visible disabled reasons and cleared stale accessibility help",
+    "Original action IDs, menu contents, command order, native controls, horizontal scrolling and mode differences are retained"
+  ],
+  "ChangedCode": [
+    "src/OptilandWorkbench.App/Services/ThemeLayoutResources.cs",
+    "src/OptilandWorkbench.App/Theming/ThemePalette.cs",
+    "src/OptilandWorkbench.App/Theming/BlueThemeStyles.cs",
+    "src/OptilandWorkbench.App/Shell/MainWindow.Shell.cs",
+    "src/OptilandWorkbench.App/Shell/MainWindow.Workspace.cs"
+  ],
+  "Builds": [
+    { "Configuration": "Debug", "Target": "OptilandWorkbench.slnx", "ProjectCount": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/compact-toolbar-20261015/build-debug.log" },
+    { "Configuration": "Release", "Target": "OptilandWorkbench.slnx", "ProjectCount": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/compact-toolbar-20261015/build-release.log" }
+  ],
+  "AppAssemblySha256": {
+    "Debug": "48dcf1c151559db069f590760bce93ca772b6f3c81f5386ff6b9ef24469216bc",
+    "Release": "2e428a7125e9e9905af46a11918c957b6fa566bef3444877d63ba4d858702271"
+  },
+  "Tests": {
+    "Project": "tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj",
+    "RelatedClasses": ["CompactRibbonTests", "CommandSearchTests", "MainWindowTitleBarTests", "BlueThemeInteractionTests", "ThemeResourceTests", "ThemeRuntimeTests", "AnalysisGuiContractTests", "BrandAssetTests", "AppStartupTests", "AboutWindowTests", "ProductVersionInfoTests", "LayeringArchitectureTests"],
+    "Debug": { "Passed": 157, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/compact-toolbar-20261015/compact-toolbar-final-debug.trx" },
+    "Release": { "Passed": 157, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/compact-toolbar-20261015/compact-toolbar-final-release.trx" },
+    "NewCases": 7,
+    "FullProductSuiteRun": false,
+    "Note": "Related tests overlap the preceding UI sets; do not add stage counts."
+  },
+  "RenderedControlFixtures": {
+    "Mechanism": "Dedicated CompactRibbonTests processes with Skia/HarfBuzz and headless drawing disabled; production shell presentation factories are invoked, not a full running MainWindow",
+    "CaptureEnvironment": "OPTILAND_TOOLBAR_CAPTURE_DIR",
+    "Debug": { "Passed": 7, "Failed": 0, "Skipped": 0, "ImageCount": 6, "LocalDirectory": "artifacts/validation/compact-toolbar-20261015/render-debug", "LocalTrx": "artifacts/validation/compact-toolbar-20261015/compact-toolbar-render-debug.trx" },
+    "Release": { "Passed": 7, "Failed": 0, "Skipped": 0, "ImageCount": 6, "LocalDirectory": "artifacts/validation/compact-toolbar-20261015/render-release", "LocalTrx": "artifacts/validation/compact-toolbar-20261015/compact-toolbar-render-release.trx" },
+    "Configurations": ["Light/736/13", "Light/640/13", "Light/640/18", "Dark/736/13", "Pixel/736/13", "Isekai/736/13"],
+    "VisuallyInspected": ["render-debug/toolbar-Light-736-13.png", "render-debug/toolbar-Light-640-18.png", "render-debug/toolbar-Dark-736-13.png"],
+    "OverlapWithRelatedTests": true,
+    "NativeDesktopAcceptance": false
+  },
+  "Checks": {
+    "ScopedWhitespaceFormat": "passed",
+    "GitDiffCheck": "passed",
+    "Documentation": {
+      "StrictCheck": "passed",
+      "Documents": 891,
+      "BrokenLinks": 0,
+      "MarkdownFenceIssues": 0,
+      "LocalOnlyLinks": 0,
+      "GuideRepeatedParagraphGroups": 0,
+      "HistoricalRepeatedParagraphGroupsRetained": 11,
+      "LocalReport": "artifacts/validation/compact-toolbar-20261015/documentation.json"
+    },
+    "CoreOrFrozenEvidenceChanged": false,
+    "Frozen2668ByteIntegritySuiteRerun": false
+  },
+  "IntermediateResults": [
+    "First test compilation found an ambiguous Shapes.Path versus System.IO.Path reference in the capture helper; qualified System.IO.Path without changing assertions.",
+    "Initial scoped Debug run passed 114/114; compact-toolbar-second.trx is retained locally. It is covered by the final 157-case run."
+  ],
+  "Limitations": [
+    "No full main/laboratory/numerical suite or new Zemax capture",
+    "No native manual desktop, multi-monitor DPI or ARM64 acceptance",
+    "No installer rebuild or installed-product replacement",
+    "No commit or push"
+  ],
+  "DeliveryAtValidation": "Default Debug and Release runnable application binaries updated; uncommitted working tree"
+}

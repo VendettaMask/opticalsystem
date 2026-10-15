@@ -1,0 +1,184 @@
+using OpticalSystemDesign.Application.Runtime;
+using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.Analysis;
+using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Core.Services;
+
+namespace OpticalSystemDesign.Tests;
+
+public sealed class PsfWorkingFNumberRegressionTests
+{
+    [Fact]
+    public void ImportedHighNaLensCompletesApplicationDefaultPolychromaticFftPsf()
+    {
+        var optic = Import("zemax-ms-l7-high-na.ZMX");
+        var before = optic.SurfaceGroup.Items.Select(surface => (surface.SemiDiameter, surface.Thickness, surface.PhysicalAperture)).ToArray();
+        var view = new WorkbenchRuntime(optic).BuildAnalysisView("PSF", new Dictionary<string, string>());
+        var series = Assert.IsType<AnalysisSeries>(view.Series);
+        Assert.Equal(AnalysisSeriesKind.Heatmap, series.Kind);
+        Assert.Equal(128 * 128, series.Points.Count);
+        Assert.All(series.Points, point => Assert.True(double.IsFinite(point.Value!.Value)));
+        Assert.Contains(series.Points, point => point.Value > 0);
+        Assert.Equal(before, optic.SurfaceGroup.Items.Select(surface => (surface.SemiDiameter, surface.Thickness, surface.PhysicalAperture)).ToArray());
+    }
+
+    [Theory]
+    [InlineData(0, false)]
+    [InlineData(0, true)]
+    [InlineData(-10.6 / 15, false)]
+    [InlineData(-10.6 / 15, true)]
+    [InlineData(-1, false)]
+    [InlineData(-1, true)]
+    public void MissingParaxialEdgeLaunchRetriesWholePupilWithStopAiming(double hy, bool polarized)
+    {
+        var optic = Import("zemax-ms-l7-high-na.ZMX");
+        foreach (var wave in optic.Wavelengths)
+        {
+            // The public scale estimate can use a smaller pupil when marginal
+            // geometry fails; FFT still regenerates the whole aimed pupil.
+            Assert.InRange(DiffractionEngine.WorkingFNumber(optic, (0, hy), wave), 0.5, 2);
+            var expectedFNumber = DiffractionEngine.WorkingFNumber(optic, (0, hy), wave, aimAtStop: true);
+            var actual = DiffractionEngine.ComputeFftPsf(optic, (0, hy), wave, 16, 32,
+                usePolarization: polarized, aimAtStop: false);
+            var expected = DiffractionEngine.ComputeFftPsf(optic, (0, hy), wave, 16, 32,
+                usePolarization: polarized, aimAtStop: true);
+            Assert.InRange(actual.WorkingFNumber, 0.5, 2);
+            Assert.True(actual.UseRayAiming);
+            Assert.True(actual.StopAimingFallbackUsed);
+            Assert.False(expected.StopAimingFallbackUsed);
+            Assert.Equal(expectedFNumber, actual.WorkingFNumber, 12);
+            Assert.Equal(wave.Micrometers * expectedFNumber * 15 / 32, actual.SampleSpacingMicrometers, 12);
+            Assert.Equal(expected.Values.Cast<double>(), actual.Values.Cast<double>());
+            Assert.All(actual.Values.Cast<double>(), value => Assert.True(double.IsFinite(value)));
+            Assert.True(actual.PeakStrehlRatio > 0);
+        }
+    }
+
+    [Fact]
+    public void PreparedStopAimedPupilIsPreservedIncludingItsPhase()
+    {
+        var optic = Import("zemax-ms-l7-high-na.ZMX");
+        var wave = optic.Wavelengths.First(item => item.IsPrimary);
+        var pupil = WavefrontEngine.GenerateChiefRayUniform(optic, (0, 0), wave, 16,
+            cellCentered: true, aimAtStop: true);
+        // A prepared wavefront can contain caller-supplied defocus: do not silently regenerate it.
+        pupil = pupil with
+        {
+            Samples = pupil.Samples.Select(sample => sample with
+            {
+                OpdWaves = sample.OpdWaves + sample.NormalizedPupilX * 2
+            }).ToArray()
+        };
+        var actual = DiffractionEngine.ComputeFftPsf(optic, (0, 0), wave, 16, 32,
+            cellCenteredPupil: true, preparedWavefront: pupil);
+        var expected = DiffractionEngine.ComputeFftPsf(optic, (0, 0), wave, 16, 32,
+            cellCenteredPupil: true, preparedWavefront: pupil, aimAtStop: true);
+        Assert.Equal(expected.Values.Cast<double>(), actual.Values.Cast<double>());
+        var regenerated = DiffractionEngine.ComputeFftPsf(optic, (0, 0), wave, 16, 32,
+            cellCenteredPupil: true, aimAtStop: true);
+        Assert.NotEqual(regenerated.Values.Cast<double>().ToArray(), actual.Values.Cast<double>().ToArray());
+    }
+
+    [Fact]
+    public void UnaimedPreparedPupilIsNotSilentlyCombinedWithAimedScale()
+    {
+        var optic = Import("zemax-ms-l7-high-na.ZMX");
+        var wave = optic.Wavelengths.First(item => item.IsPrimary);
+        var pupil = WavefrontEngine.GenerateChiefRayUniform(optic, (0, 0), wave, 16);
+        var error = Assert.Throws<InvalidOperationException>(() => DiffractionEngine.ComputeFftPsf(
+            optic, (0, 0), wave, 16, 32, preparedWavefront: pupil));
+        Assert.Contains("Regenerate the prepared wavefront", error.Message);
+    }
+
+    [Fact]
+    public void PhysicallyBlockedMarginalRaysAreNotIgnored()
+    {
+        var optic = Import("zemax-ms-l7-high-na.ZMX");
+        optic.SurfaceGroup.Items[10].PhysicalAperture = new CircularAperture(0.01);
+        var wave = optic.Wavelengths.First(item => item.IsPrimary);
+        var error = Assert.Throws<AnalysisDataUnavailableException>(() =>
+            DiffractionEngine.ComputeFftPsf(optic, (0, 0), wave, 16, 32));
+        Assert.Contains("no illuminated pupil samples", error.Message);
+    }
+
+    [Fact]
+    public void CancellationIsNotSwallowedByStopAimingRetry()
+    {
+        var optic = Import("zemax-ms-l7-high-na.ZMX");
+        using var scope = ComputationCancellation.Push(new CancellationToken(canceled: true));
+        Assert.Throws<OperationCanceledException>(() => DiffractionEngine.ComputeFftPsf(
+            optic, (0, 0), optic.Wavelengths[0], 16, 32));
+    }
+
+    [Fact]
+    public void Primary123456FixtureStillProducesFiniteFftPsfWithoutChangingItsScale()
+    {
+        var optic = Import("zemax-123456.ZMX");
+        var wave = optic.Wavelengths.First(item => item.IsPrimary);
+        var expectedFNumber = DiffractionEngine.WorkingFNumber(
+            optic,
+            (0, 0),
+            wave,
+            aimAtStop: optic.RayAimingEnabled);
+        var result = DiffractionEngine.ComputeFftPsf(optic, (0, 0), wave, 16, 32);
+        Assert.Equal(expectedFNumber, result.WorkingFNumber, 12);
+        Assert.All(result.Values.Cast<double>(), value => Assert.True(double.IsFinite(value)));
+        Assert.True(result.PeakStrehlRatio > 0);
+    }
+
+    [Fact]
+    public void LegacyPsfMtfKeepsItsOffAxisFrequencyScale()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var wave = optic.Wavelengths.First(item => item.IsPrimary);
+        var psf = DiffractionEngine.ComputeFftPsf(optic, (0, 1), wave, 16, 32);
+        Assert.True(Math.Abs(psf.WorkingFNumber - DiffractionEngine.WorkingFNumber(optic, (0, 0), wave)) > 1e-3);
+        var legacyPsf = new PsfResult(psf.Values, psf.PupilSampling, psf.GridSize,
+            psf.WorkingFNumber, psf.SampleSpacingMicrometers);
+
+        var mtf = DiffractionEngine.ComputeFftMtf(legacyPsf, optic, wave);
+
+        Assert.Equal(1 / (wave.Micrometers * 1e-3 * psf.WorkingFNumber), mtf.CutoffFrequency, 10);
+        Assert.Equal(1 / (psf.GridSize * psf.SampleSpacingMicrometers * 1e-3), mtf.Frequency[1], 10);
+    }
+
+    [Fact]
+    public void Primary123456FixtureProducesSpotDiagramWithAiryDiskAfterDiamImport()
+    {
+        var optic = Import("zemax-123456.ZMX");
+
+        var data = new SpotDiagramAnalysis(
+            optic,
+            new SpotDiagramSettings(
+                RayDensity: 3,
+                FieldNumber: 1,
+                ShowAiryDisk: true)).GenerateData();
+
+        Assert.True((double)data.Values["AiryRadius"] > 0);
+        var pane = Assert.Single(data.PlotPanes!);
+        Assert.Contains(pane.Series, series => series.Name == "艾里斑");
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void OffAxisFftFrequencyGridIsReciprocalToThePhysicalImageSampling(bool tessar)
+    {
+        var optic = tessar ? Optic.CreateTessarLens() : Optic.CreateCookeTriplet();
+        var wave = optic.Wavelengths.First(item => item.IsPrimary);
+        var psf = DiffractionEngine.ComputeFftPsf(optic, (0, 1), wave, 16, 32);
+        var mtf = DiffractionEngine.ComputeFftMtf(psf, optic, wave);
+        // Independent DFT dual-grid identity: frequency bin = k / (N * image pitch).
+        var period = psf.GridSize * psf.SampleSpacingMicrometers * 1e-3;
+        for (var index = 0; index < mtf.Frequency.Count; index++)
+            Assert.Equal(index / period, mtf.Frequency[index], 10);
+        Assert.Equal((psf.PupilSampling - 1) / period, mtf.CutoffFrequency, 10);
+        var data = new MtfAnalysis(optic, numRays: 16, gridSize: 32).GenerateData();
+        Assert.Equal(mtf.Frequency, data.PlotSeries[^2].Points.Select(point => point.X));
+        Assert.Equal(mtf.CutoffFrequency, data.PlotOptions!.XMaximum);
+    }
+
+    private static Optic Import(string name) => OpticalFormatCatalog.Import(
+        File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", name)), ".zmx");
+}

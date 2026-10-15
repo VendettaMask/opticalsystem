@@ -14,7 +14,7 @@ Application 的文档服务提供轻量恢复状态、完整恢复快照与未�
 
 2026-09-05 数值与结果契约修复见 [项目修复报告](PROJECT_REPAIR_2026-09-05.md)。分析结果以 `AnalysisOutcome` 发布成功、不可计算或不适用状态及原因，并通过 Runtime/DTO 保留；状态页不可统计为数值计算成功。`NormalizedField` 是独立的无量纲轴类型，DTO 映射不依赖不同程序集枚举的相同序号。光斑显示光线与含波长权重的统计视图分开，质心和 RMS 共用统计权重；MTF 在共同物理坐标/频率中合成复数 OTF。串行公差和工作线程共用显式 optic 参数的变量工厂。
 
-`Optic` 是计算中心，拥有系统孔径、视场、波长、表面组、材料注册表、数值后端、光线追迹器、分析、优化、公差和多配置入口。主工作台的可变工程由 `OptilandWorkbench.Application` 协调；内部模块引擎可在自己的隔离计算中使用共享 Core 模型，但不能原地改写主工作台工程。Avalonia 层通过应用服务、模块适配和不可变 DTO 访问，不直接引用 Core。
+`Optic` 是计算中心，拥有系统孔径、视场、波长、表面组、材料注册表、数值后端、光线追迹器、分析、优化、公差和多配置入口。主工作台的可变工程由 `OpticalSystemDesign.Application` 协调；内部模块引擎可在自己的隔离计算中使用共享 Core 模型，但不能原地改写主工作台工程。Avalonia 层通过应用服务、模块适配和不可变 DTO 访问，不直接引用 Core。
 
 所有编辑走统一命令路径，以保证验证、撤销/重做、拾取和求解刷新、修订号递增及结构化失效通知一致。
 
@@ -141,13 +141,13 @@ MainWindow
 
 顺序模式的系统初始布局由 `WorkspaceDockFactory` 创建“镜头数据”和“二维视图”两个文档，镜头数据为活动页，左侧系统选项保留。`PanelManager` 的顺序启动及自动文件切换不再加载保存会话中的额外页面；显式载入默认布局/槽位仍使用完整反序列化路径，非序列模式的恢复流程保持原样。
 
-光学工程和 Dock 会话分开保存。全局默认布局位于 `%APPDATA%\OptilandWorkbench\workspace-default.json`；按文件会话使用规范化绝对路径的 SHA-256 哈希作为文件名。
+光学工程和 Dock 会话分开保存。全局默认布局位于 `%APPDATA%\OpticalSystemDesign\workspace-default.json`；按文件会话使用规范化绝对路径的 SHA-256 哈希作为文件名。
 
 会话保存 Dock 图、文档描述符、分析设置、实例 ID、活动文档、锁定状态和浮动边界，不保存大型计算结果。布局修改经 500 ms 防抖保存并在退出时刷新。损坏会话会备份并回退；未知分析会跳过；空浮动窗口会过滤。
 
 ## 光学镀膜设计实验室
 
-`labs/CoatingDesign` 保存内部 Engine 和测试，`.coating.json` schema 1 仍是模块自己的实验格式。UI 已移入 `src/OptilandWorkbench.App/Laboratories/CoatingDesign`，由 `IntegratedLaboratories` 创建同进程、受主窗口管理的窗口；不存在外部启动器或独立 App。主程序引用 Modules 和必要领域库，App 本身仍不直接引用 Core。Engine 复用 Core 的材料、薄膜求解、优化器、取消、公差与原子文件；Modules 通过规范映射输出显示 DTO，UI 直接共享主程序主题和字体。模板、残差、候选、采样收敛和目标判定属于流程层，不产生第二套光学实现。
+`labs/CoatingDesign` 保存内部 Engine 和测试，`.coating.json` schema 1 仍是模块自己的实验格式。UI 已移入 `src/OpticalSystemDesign.App/Laboratories/CoatingDesign`，由 `IntegratedLaboratories` 创建同进程、受主窗口管理的窗口；不存在外部启动器或独立 App。主程序引用 Modules 和必要领域库，App 本身仍不直接引用 Core。Engine 复用 Core 的材料、薄膜求解、优化器、取消、公差与原子文件；Modules 通过规范映射输出显示 DTO，UI 直接共享主程序主题和字体。模板、残差、候选、采样收敛和目标判定属于流程层，不产生第二套光学实现。
 
 后台深拷贝输入，按实验 ID 与代次提交；输入失效、取消、切换实验使旧回调无效。保存结果核对输入哈希，打开用冻结材料复算。主程序关闭统一协调取消、等待和未保存确认。两个模块拥有各自编辑状态和测试集，但构成一个必装产品。已实现能力与真实未达标示例见[镀膜计算契约](COATING_DESIGN_LAB.md)，最新工程验收见[统一交付](BUILT_IN_MODULES_2026-10-13.md)；早期数值资料见[历史验收](../validation/coating/README.md)。
 

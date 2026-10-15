@@ -38,13 +38,13 @@ STAROPT 工程负载 **v7** 新增 `OperandPickups`，保存配置索引和行�
 
 ## 源码
 
-- [绑定与参数验证](../src/OptilandWorkbench.Core/Multiconfig/MultiConfigurationPickup.cs)
-- [统一依赖求值](../src/OptilandWorkbench.Core/Multiconfig/MultiConfiguration.PickupGraph.cs)
-- [拾取元数据与原子编辑](../src/OptilandWorkbench.Core/Multiconfig/MultiConfiguration.Pickups.cs)
-- [优化候选与最终写回](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Optimization.cs)
-- [实际拾取编辑器](../src/OptilandWorkbench.App/Panels/MultiConfigurationPanel.Pickups.cs)
-- [数值与服务回归](../tests/OptilandWorkbench.Tests/MultiConfigurationPickupTests.cs)
-- [实际控件回归](../tests/OptilandWorkbench.Tests/MultiConfigurationPickupPanelTests.cs)
+- [绑定与参数验证](../src/OpticalSystemDesign.Core/Multiconfig/MultiConfigurationPickup.cs)
+- [统一依赖求值](../src/OpticalSystemDesign.Core/Multiconfig/MultiConfiguration.PickupGraph.cs)
+- [拾取元数据与原子编辑](../src/OpticalSystemDesign.Core/Multiconfig/MultiConfiguration.Pickups.cs)
+- [优化候选与最终写回](../src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Optimization.cs)
+- [实际拾取编辑器](../src/OpticalSystemDesign.App/Panels/MultiConfigurationPanel.Pickups.cs)
+- [数值与服务回归](../tests/OpticalSystemDesign.Tests/MultiConfigurationPickupTests.cs)
+- [实际控件回归](../tests/OpticalSystemDesign.Tests/MultiConfigurationPickupPanelTests.cs)
 
 ## 实际控件渲染
 

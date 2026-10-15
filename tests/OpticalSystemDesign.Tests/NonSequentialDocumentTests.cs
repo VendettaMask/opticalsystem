@@ -1,0 +1,780 @@
+using System.Buffers.Binary;
+using System.IO.Compression;
+using System.Security.Cryptography;
+using System.Text.Json;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Services;
+using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.Backend;
+using OpticalSystemDesign.Core.Coordinates;
+using OpticalSystemDesign.Core.NonSequential;
+using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Core.Serialization;
+using ContractDetectorRectangleParameters = OpticalSystemDesign.Application.Contracts.DetectorRectangleParameters;
+using ContractKind = OpticalSystemDesign.Application.Contracts.NonSequentialObjectKind;
+using ContractSphereParameters = OpticalSystemDesign.Application.Contracts.SphereParameters;
+using BoxParameters = OpticalSystemDesign.Core.NonSequential.BoxParameters;
+using CylinderParameters = OpticalSystemDesign.Core.NonSequential.CylinderParameters;
+using DetectorRectangleParameters = OpticalSystemDesign.Core.NonSequential.DetectorRectangleParameters;
+using NonSequentialObjectKind = OpticalSystemDesign.Core.NonSequential.NonSequentialObjectKind;
+using NonSequentialObjectParameters = OpticalSystemDesign.Core.NonSequential.NonSequentialObjectParameters;
+using NonSequentialSurfaceBehavior = OpticalSystemDesign.Core.NonSequential.NonSequentialSurfaceBehavior;
+using NonSequentialTraceSettings = OpticalSystemDesign.Core.NonSequential.NonSequentialTraceSettings;
+using PlaneRectangleParameters = OpticalSystemDesign.Core.NonSequential.PlaneRectangleParameters;
+using SourceRectangleParameters = OpticalSystemDesign.Core.NonSequential.SourceRectangleParameters;
+using CoreSourceRadialParameters = OpticalSystemDesign.Core.NonSequential.SourceRadialParameters;
+using CoreSourceRadialSample = OpticalSystemDesign.Core.NonSequential.SourceRadialSample;
+using SphereParameters = OpticalSystemDesign.Core.NonSequential.SphereParameters;
+using StandardLensParameters = OpticalSystemDesign.Core.NonSequential.StandardLensParameters;
+
+namespace OpticalSystemDesign.Tests;
+
+public sealed class NonSequentialDocumentTests
+{
+    [Fact]
+    public void DocumentCollectionsDoNotExposeMutableBackingLists()
+    {
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(Optic.CreateBlank());
+        var source = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRay);
+
+        document.Insert(0, source);
+
+        Assert.IsNotType<List<NonSequentialWavelength>>(document.Wavelengths);
+        Assert.IsNotType<List<NonSequentialObjectDefinition>>(document.Objects);
+        Assert.IsNotType<List<NonSequentialMeshAsset>>(document.MeshAssets);
+        Assert.Throws<NotSupportedException>(() =>
+            ((IList<NonSequentialObjectDefinition>)document.Objects).Clear());
+        Assert.Single(document.Objects);
+    }
+
+    [Fact]
+    public void SourceRadialSamplesAreDefensivelyCopied()
+    {
+        var samples = new List<CoreSourceRadialSample>
+        {
+            new(0, 1),
+            new(30, 0.25)
+        };
+        var parameters = new CoreSourceRadialParameters(samples);
+
+        samples[1] = new CoreSourceRadialSample(45, 0);
+
+        Assert.Equal(30, parameters.Distribution[1].AngleDegrees);
+        Assert.IsNotType<List<CoreSourceRadialSample>>(parameters.Samples);
+        Assert.Throws<NotSupportedException>(() =>
+            ((IList<CoreSourceRadialSample>)parameters.Distribution).Clear());
+
+        var replacement = new List<CoreSourceRadialSample>
+        {
+            new(0, 1),
+            new(60, 0)
+        };
+        var copied = parameters with { Samples = replacement };
+        replacement[1] = new CoreSourceRadialSample(90, 0);
+
+        Assert.Equal(60, copied.Distribution[1].AngleDegrees);
+
+        var source = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRadial) with
+        {
+            Parameters = copied
+        };
+        var document = new NonSequentialDocument(
+            "radial immutable",
+            new[] { new NonSequentialWavelength("d", 587.6, 1, true) },
+            new[] { source });
+
+        replacement.Add(new CoreSourceRadialSample(120, 0));
+
+        var stored = Assert.IsType<CoreSourceRadialParameters>(document.Objects.Single().Parameters);
+        Assert.Equal(2, stored.Distribution.Count);
+        Assert.Equal(60, stored.Distribution[1].AngleDegrees);
+    }
+
+    [Fact]
+    public void DetectorAndSurfaceSourceBudgetsRejectUnsafeDocuments()
+    {
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(Optic.CreateBlank());
+        var oversizedDetector = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle) with
+        {
+            Parameters = new DetectorRectangleParameters(10, 10, 2_048, 1_024)
+        };
+        Assert.Throws<InvalidDataException>(() => document.Insert(0, oversizedDetector));
+
+        var thinEllipse = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceEllipse) with
+        {
+            Parameters = new OpticalSystemDesign.Core.NonSequential.SourceEllipseParameters(
+                WidthMillimeters: 10,
+                HeightMillimeters: 10,
+                MinimumXHalfWidthMillimeters: 4.999,
+                MinimumYHalfWidthMillimeters: 4.999)
+        };
+        Assert.Throws<InvalidDataException>(() => document.Insert(0, thinEllipse));
+        Assert.Empty(document.Objects);
+    }
+
+    [Fact]
+    public void DetectorPixelWavelengthBudgetRejectsUnsafeDocuments()
+    {
+        var wavelengths = Enumerable.Range(0, NonSequentialDocument.MaximumWavelengthCount)
+            .Select(index => new NonSequentialWavelength($"W{index}", 400 + index, 1, index == 0))
+            .ToArray();
+        var detector = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle) with
+        {
+            Parameters = new DetectorRectangleParameters(10, 10, 128, 128)
+        };
+
+        Assert.Throws<InvalidDataException>(() =>
+            new NonSequentialDocument("unsafe detector budget", wavelengths, new[] { detector }));
+    }
+
+    [Fact]
+    public void ValidateAcceptsLongReferenceChainThroughIndexedGraphPass()
+    {
+        var objects = new List<NonSequentialObjectDefinition>();
+        Guid? previous = null;
+        for (var index = 0; index < 2_048; index++)
+        {
+            var item = NonSequentialObjectDefinition.Create(
+                NonSequentialObjectKind.SourceRay,
+                $"ray {index}");
+            objects.Add(item with { ReferenceObjectId = previous });
+            previous = item.Id;
+        }
+
+        var document = new NonSequentialDocument(
+            "long reference chain",
+            new[] { new NonSequentialWavelength("d", 587.6, 1, true) },
+            objects);
+
+        Assert.Equal(objects.Count, document.Objects.Count);
+    }
+
+    [Fact]
+    public void ValidateDetectsReferenceAndContainmentCyclesWithIndexedGraphPass()
+    {
+        var first = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRay, "first");
+        var second = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRay, "second");
+
+        Assert.Throws<InvalidDataException>(() => new NonSequentialDocument(
+            "reference cycle",
+            new[] { new NonSequentialWavelength("d", 587.6, 1, true) },
+            new[]
+            {
+                first with { ReferenceObjectId = second.Id },
+                second with { ReferenceObjectId = first.Id }
+            }));
+
+        Assert.Throws<InvalidDataException>(() => new NonSequentialDocument(
+            "containment cycle",
+            new[] { new NonSequentialWavelength("d", 587.6, 1, true) },
+            new[]
+            {
+                first with { ContainingObjectId = second.Id },
+                second with { ContainingObjectId = first.Id }
+            }));
+    }
+
+    [Fact]
+    public void DetectorReconstructionDoesNotAllocateEmptyWavelengthPlanes()
+    {
+        var wavelengths = Enumerable.Range(0, 64)
+            .Select(index => new NonSequentialWavelength($"W{index}", 500 + index, 1, index == 0))
+            .ToArray();
+        var detector = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle);
+        var document = new NonSequentialDocument("sparse detector", wavelengths, new[] { detector });
+
+        var frame = Assert.Single(NonSequentialDetectorReconstruction.Reconstruct(
+            document,
+            Array.Empty<NonSequentialRayBranch>()));
+
+        Assert.Empty(frame.PowerByWavelength);
+        Assert.Empty(frame.HitCountByWavelength!);
+        Assert.Empty(frame.AngularPowerByWavelength!);
+    }
+
+    [Fact]
+    public void DetectorReconstructionHonorsCancellation()
+    {
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(Optic.CreateBlank());
+        var branch = new NonSequentialRayBranch(
+            1,
+            null,
+            0,
+            null,
+            Array.Empty<NonSequentialRaySegment>(),
+            NonSequentialTerminationReason.Escaped,
+            1);
+        using var cancellation = new CancellationTokenSource();
+        cancellation.Cancel();
+
+        Assert.ThrowsAny<OperationCanceledException>(() =>
+            NonSequentialDetectorReconstruction.Reconstruct(
+                document,
+                new[] { branch },
+                cancellationToken: cancellation.Token));
+    }
+
+    [Fact]
+    public async Task StarOptVersionOneMigratesToEmptyIndependentScene()
+    {
+        var optic = Optic.CreateDemo();
+        var payload = JsonSerializer.SerializeToUtf8Bytes(new
+        {
+            FormatVersion = 1,
+            Application = "Optical System Design",
+            ActiveConfigurationIndex = 0,
+            Configurations = new[] { optic.ToSnapshot() }
+        });
+        var bytes = CreateStarOptContainer(payload);
+        var path = Path.Combine(Path.GetTempPath(), $"staropt-v1-{Guid.NewGuid():N}.staropt");
+        try
+        {
+            await File.WriteAllBytesAsync(path, bytes);
+            var migrated = await StarOptProjectStore.LoadAsync(path);
+
+            Assert.Empty(Assert.IsType<NonSequentialDocument>(migrated.NonSequentialDocument).Objects);
+            Assert.Equal(
+                optic.Wavelengths.Select(wavelength => wavelength.Nanometers),
+                migrated.NonSequentialDocument!.Wavelengths.Select(wavelength => wavelength.Nanometers));
+        }
+        finally
+        {
+            if (File.Exists(path)) File.Delete(path);
+        }
+    }
+
+    [Fact]
+    public void ReferenceTransformUsesStableIdsAndZyxRotationChain()
+    {
+        var optic = Optic.CreateBlank();
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        var parent = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.Box) with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(10, 0, 0), RotationZDegrees: 90)
+        };
+        var child = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRay) with
+        {
+            ReferenceObjectId = parent.Id,
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(2, 0, 0))
+        };
+        document.Insert(0, parent);
+        document.Insert(1, child);
+
+        var world = document.ToWorldPoint(child.Id, Vector3D.Zero);
+
+        Assert.Equal(10, world.X, 10);
+        Assert.Equal(2, world.Y, 10);
+        Assert.Equal(0, world.Z, 10);
+    }
+
+    [Fact]
+    public void ReferenceCyclesAndReferencedDeletesAreRejectedWithoutMutation()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        var firstId = application.NonSequential.AddObject(ContractKind.Box);
+        var secondId = application.NonSequential.AddObject(ContractKind.Sphere);
+        var second = application.NonSequential.GetDocument().Objects.Single(item => item.Id == secondId);
+        application.NonSequential.UpdateObject(ToUpdate(second) with { ReferenceObjectId = firstId });
+        var first = application.NonSequential.GetDocument().Objects.Single(item => item.Id == firstId);
+
+        Assert.Throws<InvalidDataException>(() =>
+            application.NonSequential.UpdateObject(ToUpdate(first) with { ReferenceObjectId = secondId }));
+        Assert.Throws<InvalidOperationException>(() => application.NonSequential.DeleteObject(firstId));
+        Assert.Equal(2, application.NonSequential.GetDocument().Objects.Count);
+        Assert.Null(application.NonSequential.GetDocument().Objects.Single(item => item.Id == firstId).ReferenceObjectId);
+    }
+
+    [Fact]
+    public void InvalidMaterialEditRollsBackAndSingleUndoRestoresAdd()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        var id = application.NonSequential.AddObject(ContractKind.Sphere);
+        var row = application.NonSequential.GetDocument().Objects.Single(item => item.Id == id);
+
+        Assert.Throws<KeyNotFoundException>(() => application.NonSequential.UpdateObject(
+            ToUpdate(row) with { Parameters = ((ContractSphereParameters)row.Parameters) with { Material = "NOT-A-GLASS" } }));
+        Assert.Equal("N-BK7", ((ContractSphereParameters)application.NonSequential.GetDocument().Objects.Single().Parameters).Material);
+
+        Assert.True(application.Documents.Undo());
+        Assert.Empty(application.NonSequential.GetDocument().Objects);
+        Assert.True(application.Documents.Redo());
+        Assert.Single(application.NonSequential.GetDocument().Objects);
+    }
+
+    [Fact]
+    public void SwitchingModesDoesNotDirtyOrConvertScene()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        Assert.False(application.Documents.GetSnapshot().IsDirty);
+
+        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+        application.Modes.SwitchTo(OpticalWorkbenchMode.Sequential);
+
+        Assert.Empty(application.NonSequential.GetDocument().Objects);
+        Assert.False(application.Documents.GetSnapshot().IsDirty);
+    }
+
+    [Fact]
+    public void ExplicitSequentialConversionCreatesIndependentLensAndDetectorWithoutSource()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+
+        var result = application.NonSequential.ConvertFromSequential();
+        var objects = application.NonSequential.GetDocument().Objects;
+
+        Assert.True(result.ObjectCount > 0);
+        Assert.Contains(objects, item => item.Kind == ContractKind.StandardLens);
+        Assert.Equal(ContractKind.DetectorRectangle, objects[^1].Kind);
+        Assert.DoesNotContain(objects, item => item.Parameters is OpticalSystemDesign.Application.Contracts.SourceParameters);
+        Assert.Contains(result.Warnings, warning => warning.Contains("光源", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void SequentialConversionRejectsCementedGlassGroupInsteadOfCreatingInvalidSolids()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        application.Prescription.AddSurface();
+        application.Prescription.AddSurface();
+        application.Prescription.AddSurface();
+        var surfaces = application.Prescription.GetSurfaces();
+        application.Prescription.UpdateSurface(surfaces[1] with
+        {
+            Radius = 40,
+            Thickness = 4,
+            Material = "N-BK7",
+            SemiDiameter = 10,
+            SemiDiameterFixed = true
+        });
+        application.Prescription.UpdateSurface(surfaces[2] with
+        {
+            Radius = -35,
+            Thickness = 3,
+            Material = "N-F2",
+            SemiDiameter = 10,
+            SemiDiameterFixed = true
+        });
+        application.Prescription.UpdateSurface(surfaces[3] with
+        {
+            Radius = -80,
+            Thickness = 20,
+            Material = "Air",
+            SemiDiameter = 10,
+            SemiDiameterFixed = true
+        });
+
+        var conversion = application.NonSequential.ConvertFromSequential();
+
+        Assert.Contains(conversion.Warnings, warning =>
+            warning.Contains("胶合或浸没", StringComparison.Ordinal));
+        Assert.DoesNotContain(
+            application.NonSequential.GetDocument().Objects,
+            item => item.Kind == ContractKind.StandardLens);
+        Assert.DoesNotContain(
+            application.NonSequential.GetDocument().Objects,
+            item => item.Kind == ContractKind.PlaneRectangle);
+    }
+
+    [Fact]
+    public void SeededRectangleSourceIsDeterministic()
+    {
+        var optic = Optic.CreateBlank();
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        document.Insert(0, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRectangle) with
+        {
+            Parameters = new SourceRectangleParameters(4, 3, 10, AnalysisRayCount: 12)
+        });
+        document.Insert(1, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle) with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 10)),
+            Parameters = new DetectorRectangleParameters(100, 100, 10, 10)
+        });
+        var tracer = new NonSequentialDocumentTracer();
+
+        var first = tracer.Trace(document, optic.Materials);
+        var second = tracer.Trace(document, optic.Materials);
+
+        Assert.Equal(
+            first.Branches.SelectMany(branch => branch.Segments).Select(segment => segment.End).ToArray(),
+            second.Branches.SelectMany(branch => branch.Segments).Select(segment => segment.End).ToArray());
+        Assert.Equal(first.Detectors.Single().PowerByWavelength[1], second.Detectors.Single().PowerByWavelength[1]);
+    }
+
+    [Theory]
+    [InlineData(NonSequentialObjectKind.Sphere)]
+    [InlineData(NonSequentialObjectKind.Cylinder)]
+    [InlineData(NonSequentialObjectKind.Box)]
+    public void SolidPrimitiveIntersectionsAreIndependentOfObjectOrder(NonSequentialObjectKind kind)
+    {
+        var optic = Optic.CreateBlank();
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        var far = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle) with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 30))
+        };
+        var solid = NonSequentialObjectDefinition.Create(kind) with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 10)),
+            Parameters = ReflectiveParameters(kind)
+        };
+        document.Insert(0, far);
+        document.Insert(1, solid);
+        var ray = new OpticalSystemDesign.Core.Rays.RealRay(new Vector3D(0, 0, -10), new Vector3D(0, 0, 1), 587.5618);
+
+        var result = new NonSequentialDocumentTracer().Trace(
+            document,
+            optic.Materials,
+            new NonSequentialDocumentTraceRequest(DirectRay: ray));
+
+        Assert.Equal(solid.Id, result.Branches.SelectMany(branch => branch.Segments).First().ObjectId);
+    }
+
+    [Fact]
+    public void FrontOnlyDetectorIgnoresBacksideRay()
+    {
+        var optic = Optic.CreateBlank();
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        document.Insert(0, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle) with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 5)),
+            Parameters = new DetectorRectangleParameters(20, 20, 10, 10, FrontOnly: true)
+        });
+        var ray = new OpticalSystemDesign.Core.Rays.RealRay(new Vector3D(0, 0, 10), new Vector3D(0, 0, -1), 587.5618);
+
+        var result = new NonSequentialDocumentTracer().Trace(
+            document,
+            optic.Materials,
+            new NonSequentialDocumentTraceRequest(DirectRay: ray));
+
+        Assert.Equal(0, result.EnergyBalance.DetectorPowerWatts, 12);
+        Assert.Equal(1, result.EnergyBalance.EscapedPowerWatts, 12);
+    }
+
+    [Fact]
+    public void NonAbsorbingDetectorRecordsPowerAndAllowsRayToReachFollowingDetector()
+    {
+        var optic = Optic.CreateBlank();
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        document.Insert(0, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRay));
+        document.Insert(1, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle, "近场") with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 10)),
+            Parameters = new DetectorRectangleParameters(20, 20, 20, 20, Absorb: false)
+        });
+        document.Insert(2, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle, "远场") with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 20)),
+            Parameters = new DetectorRectangleParameters(20, 20, 20, 20)
+        });
+
+        var result = new NonSequentialDocumentTracer().Trace(document, optic.Materials);
+
+        Assert.Equal(2, result.Detectors.Count);
+        Assert.All(result.Detectors, detector => Assert.Equal(1, detector.TotalPowerWatts, 12));
+        Assert.Equal(1, result.EnergyBalance.DetectorPowerWatts, 12);
+        Assert.Equal(NonSequentialTerminationReason.DetectorHit, Assert.Single(result.Branches).TerminationReason);
+    }
+
+    [Fact]
+    public void StandardLensProducesTwoSolidBoundaryHitsAndReachesDetector()
+    {
+        var optic = Optic.CreateBlank();
+        var document = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        document.Insert(0, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRay) with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, -10))
+        });
+        var lens = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.StandardLens) with
+        {
+            Parameters = new StandardLensParameters(50, -50, 0, 0, 5, 10, "N-BK7")
+        };
+        document.Insert(1, lens);
+        document.Insert(2, NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle) with
+        {
+            LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 20)),
+            Parameters = new DetectorRectangleParameters(30, 30, 10, 10)
+        });
+
+        var result = new NonSequentialDocumentTracer().Trace(
+            document,
+            optic.Materials,
+            new NonSequentialDocumentTraceRequest(SplitFresnelRays: false));
+        var lensHits = result.Branches.SelectMany(branch => branch.Segments)
+            .Where(segment => segment.ObjectId == lens.Id).ToArray();
+
+        Assert.Equal(2, lensHits.Length);
+        Assert.Equal(new[] { 1, 2 }, lensHits.Select(segment => segment.FaceNumber));
+        Assert.InRange(result.EnergyBalance.DetectorPowerWatts, 0.9, 1);
+        Assert.Equal(1, result.EnergyBalance.AccountedPowerWatts, 10);
+    }
+
+    [Fact]
+    public async Task NonSequentialVisualizationReadsIndependentObjectsAndTraceTree()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        application.NonSequential.AddObject(ContractKind.SourceRay);
+        application.NonSequential.AddObject(ContractKind.Box);
+        var detectorId = application.NonSequential.AddObject(ContractKind.DetectorRectangle);
+        var detector = application.NonSequential.GetDocument().Objects.Single(item => item.Id == detectorId);
+        application.NonSequential.UpdateObject(ToUpdate(detector) with { Z = 20 });
+        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+
+        var scene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        var threeDimensional = Assert.IsType<Scene3Dto>(scene.ThreeDimensional);
+
+        Assert.Equal(3, threeDimensional.Surfaces.Count);
+        Assert.NotEmpty(threeDimensional.Surfaces.SelectMany(surface => surface.Faces));
+        Assert.Equal(SceneSurfaceRenderRole.Source, threeDimensional.Surfaces[0].RenderRole);
+        Assert.Equal(
+            application.NonSequential.GetDocument().Wavelengths[0].Nanometers,
+            threeDimensional.Surfaces[0].DisplayWavelengthNanometers);
+        Assert.Null(threeDimensional.Surfaces[1].DisplayWavelengthNanometers);
+        Assert.Null(threeDimensional.Surfaces[2].DisplayWavelengthNanometers);
+        Assert.Equal(SceneSurfaceRenderRole.NonSequentialObject, threeDimensional.Surfaces[1].RenderRole);
+        Assert.Equal(SceneSurfaceRenderRole.Detector, threeDimensional.Surfaces[2].RenderRole);
+        Assert.False(threeDimensional.Surfaces[2].IsReferencePlane);
+        Assert.Empty(threeDimensional.Surfaces[1].Rim);
+        Assert.Equal(5, threeDimensional.Surfaces[2].Rim.Count);
+        Assert.Equal(threeDimensional.Surfaces[2].Rim[0], threeDimensional.Surfaces[2].Rim[^1]);
+        Assert.Empty(threeDimensional.Rays);
+        Assert.Empty(threeDimensional.LensElements);
+
+        await application.NonSequentialAnalysis.TraceAsync(new NonSequentialTraceRunRequestDto());
+        var analysisOnly = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        Assert.Empty(Assert.IsType<Scene3Dto>(analysisOnly.ThreeDimensional).Rays);
+        Assert.NotNull(application.NonSequentialAnalysis.GetCurrentSession());
+        Assert.Null(application.NonSequentialAnalysis.GetCurrentLayoutSession());
+
+        await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        var traced = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        Assert.NotEmpty(Assert.IsType<Scene3Dto>(traced.ThreeDimensional).Rays);
+    }
+
+    [Fact]
+    public async Task ExplicitLayoutSessionIsCreatedOnceAndReusedUntilSceneChanges()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        application.NonSequential.AddObject(ContractKind.SourcePoint);
+        var detectorId = application.NonSequential.AddObject(ContractKind.DetectorRectangle);
+        var detector = application.NonSequential.GetDocument().Objects.Single(item => item.Id == detectorId);
+        application.NonSequential.UpdateObject(ToUpdate(detector) with { Z = 20 });
+        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+
+        var first = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        var second = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+
+        Assert.Equal(first.Id, second.Id);
+        Assert.Null(application.NonSequentialAnalysis.GetCurrentSession());
+        Assert.Equal(first.Id, application.NonSequentialAnalysis.GetCurrentLayoutSession()!.Id);
+        Assert.Equal(1, second.TracePassCount);
+        Assert.Equal(20, second.BranchCount);
+        var scene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        Assert.Equal(20, Assert.IsType<Scene3Dto>(scene.ThreeDimensional).Rays.Count);
+
+        var source = application.NonSequential.GetDocument().Objects[0];
+        application.NonSequential.UpdateObject(ToUpdate(source) with { X = 1 });
+        Assert.True(application.NonSequentialAnalysis.GetCurrentLayoutSession()!.IsStale);
+
+        var refreshed = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+
+        Assert.NotEqual(first.Id, refreshed.Id);
+        Assert.False(refreshed.IsStale);
+    }
+
+    [Fact]
+    public async Task RefreshLayoutSessionRetracesEvenWhenCurrentSessionIsValid()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        application.NonSequential.AddObject(ContractKind.SourcePoint);
+        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+
+        var prepared = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        var reused = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        var refreshed = await application.NonSequentialAnalysis.RefreshLayoutSessionAsync();
+
+        Assert.Equal(prepared.Id, reused.Id);
+        Assert.NotEqual(prepared.Id, refreshed.Id);
+        Assert.False(refreshed.IsStale);
+        Assert.Equal(1, refreshed.TracePassCount);
+        Assert.Equal(refreshed.Id, application.NonSequentialAnalysis.GetCurrentLayoutSession()!.Id);
+    }
+
+    [Fact]
+    public async Task VisualizationDrawsEscapedSourceOnlyLayoutRays()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        application.NonSequential.AddObject(ContractKind.SourceEllipse);
+        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+
+        await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        var scene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        var threeDimensional = Assert.IsType<Scene3Dto>(scene.ThreeDimensional);
+
+        Assert.Equal(20, threeDimensional.Rays.Count);
+        Assert.All(threeDimensional.Rays, ray =>
+        {
+            var segment = Assert.Single(ray.Segments);
+            Assert.Equal(SceneRaySegmentType.Unspecified, segment.SegmentType);
+            Assert.Equal(SceneRayInteractionType.None, segment.InteractionType);
+            Assert.Null(segment.TargetSurfaceNumber);
+            Assert.Equal(1, segment.Direction.Z, 12);
+            Assert.True(segment.End.Z > segment.Start.Z);
+        });
+        Assert.True(threeDimensional.ZMax > 0);
+    }
+
+    [Fact]
+    public async Task AnalysisAndLayoutSessionsRemainIndependent()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        application.NonSequential.AddObject(ContractKind.SourcePoint);
+        var detectorId = application.NonSequential.AddObject(ContractKind.DetectorRectangle);
+        var detector = application.NonSequential.GetDocument().Objects.Single(item => item.Id == detectorId);
+        application.NonSequential.UpdateObject(ToUpdate(detector) with { Z = 20 });
+        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+
+        await application.NonSequentialAnalysis.TraceAsync(new NonSequentialTraceRunRequestDto());
+        var analysis = Assert.IsType<NonSequentialTraceSessionDto>(
+            application.NonSequentialAnalysis.GetCurrentSession());
+        var layout = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+
+        Assert.NotEqual(analysis.Id, layout.Id);
+        Assert.NotEqual(analysis.RayDatabasePath, layout.RayDatabasePath);
+        Assert.Equal(analysis.Id, application.NonSequentialAnalysis.GetCurrentSession()!.Id);
+        Assert.Equal(layout.Id, application.NonSequentialAnalysis.GetCurrentLayoutSession()!.Id);
+        Assert.True(File.Exists(analysis.RayDatabasePath));
+        Assert.True(File.Exists(layout.RayDatabasePath));
+    }
+
+    [Fact]
+    public async Task StaleLayoutRaysAreHiddenUntilExplicitlyRequested()
+    {
+        using var application = WorkbenchApplication.Create("blank");
+        var sourceId = application.NonSequential.AddObject(ContractKind.SourcePoint);
+        var sphereId = application.NonSequential.AddObject(ContractKind.Sphere);
+        var detectorId = application.NonSequential.AddObject(ContractKind.DetectorRectangle);
+        var sphereAtStart = application.NonSequential.GetDocument().Objects.Single(item => item.Id == sphereId);
+        application.NonSequential.UpdateObject(ToUpdate(sphereAtStart) with { Z = 10 });
+        var detector = application.NonSequential.GetDocument().Objects.Single(item => item.Id == detectorId);
+        application.NonSequential.UpdateObject(ToUpdate(detector) with { Z = 20 });
+        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+
+        var layout = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        var current = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        Assert.NotEmpty(Assert.IsType<Scene3Dto>(current.ThreeDimensional).Rays);
+        Assert.False(Assert.IsType<NonSequentialLayoutResultDto>(current.NonSequentialLayoutResult).IsStale);
+
+        var source = application.NonSequential.GetDocument().Objects.Single(item => item.Id == sourceId);
+        application.NonSequential.UpdateObject(ToUpdate(source) with
+        {
+            Parameters = ((OpticalSystemDesign.Application.Contracts.SourcePointParameters)source.Parameters) with
+            {
+                ConeHalfAngleDegrees = 12
+            }
+        });
+
+        var hidden = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        var hiddenLayout = Assert.IsType<NonSequentialLayoutResultDto>(hidden.NonSequentialLayoutResult);
+        Assert.True(hiddenLayout.IsStale);
+        Assert.False(hiddenLayout.RaysLoaded);
+        Assert.NotEqual(hiddenLayout.ResultSceneHash, hiddenLayout.CurrentSceneHash);
+        Assert.Empty(Assert.IsType<Scene3Dto>(hidden.ThreeDimensional).Rays);
+        Assert.Equal(layout.RayDatabasePath, hiddenLayout.DatabasePath);
+        Assert.True(File.Exists(layout.RayDatabasePath));
+
+        var visible = await application.Visualization.BuildSceneAsync(new VisualizationRequestDto(
+            SceneDimension.ThreeDimensional,
+            IncludeStaleNonSequentialRays: true));
+        var visibleLayout = Assert.IsType<NonSequentialLayoutResultDto>(visible.NonSequentialLayoutResult);
+        Assert.True(visibleLayout.IsStale);
+        Assert.True(visibleLayout.RaysLoaded);
+        Assert.NotEmpty(Assert.IsType<Scene3Dto>(visible.ThreeDimensional).Rays);
+
+        await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        Assert.False(application.NonSequentialAnalysis.GetCurrentLayoutSession()!.IsStale);
+        var sphere = application.NonSequential.GetDocument().Objects.Single(item => item.Id == sphereId);
+        application.NonSequential.UpdateObject(ToUpdate(sphere) with { X = sphere.X + 1 });
+        Assert.True(application.NonSequentialAnalysis.GetCurrentLayoutSession()!.IsStale);
+        var moved = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        Assert.Empty(Assert.IsType<Scene3Dto>(moved.ThreeDimensional).Rays);
+
+        await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+        Assert.False(application.NonSequentialAnalysis.GetCurrentLayoutSession()!.IsStale);
+        sphere = application.NonSequential.GetDocument().Objects.Single(item => item.Id == sphereId);
+        application.NonSequential.UpdateObject(ToUpdate(sphere) with
+        {
+            Parameters = ((ContractSphereParameters)sphere.Parameters) with { Material = "SCHOTT:F2" }
+        });
+        Assert.True(application.NonSequentialAnalysis.GetCurrentLayoutSession()!.IsStale);
+        var materialChanged = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+        Assert.Empty(Assert.IsType<Scene3Dto>(materialChanged.ThreeDimensional).Rays);
+    }
+
+    [Fact]
+    public void NewTracerTerminatesMirrorCavityAtMaximumSegments()
+    {
+        var optic = Optic.CreateBlank();
+        var baseDocument = StarOptProjectStore.CreateDefaultNonSequentialDocument(optic);
+        var document = new NonSequentialDocument(
+            baseDocument.Name,
+            baseDocument.Wavelengths,
+            new[]
+            {
+                NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRay) with
+                {
+                    LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 5))
+                },
+                NonSequentialObjectDefinition.Create(NonSequentialObjectKind.PlaneRectangle) with
+                {
+                    Parameters = new PlaneRectangleParameters(20, 20, NonSequentialSurfaceBehavior.Reflective)
+                },
+                NonSequentialObjectDefinition.Create(NonSequentialObjectKind.PlaneRectangle) with
+                {
+                    LocalCoordinateSystem = new CoordinateSystem(new Vector3D(0, 0, 10)),
+                    Parameters = new PlaneRectangleParameters(20, 20, NonSequentialSurfaceBehavior.Reflective)
+                }
+            },
+            traceSettings: new NonSequentialTraceSettings(MaximumSegmentsPerRay: 3));
+
+        var result = new NonSequentialDocumentTracer().Trace(document, optic.Materials);
+
+        Assert.Equal(NonSequentialTerminationReason.MaximumSegments, Assert.Single(result.Branches).TerminationReason);
+        Assert.Equal(3, result.SegmentCount);
+    }
+
+    private static NonSequentialObjectUpdateDto ToUpdate(NonSequentialObjectRowDto row) => new(
+        row.Id, row.Enabled, row.Visible, row.Kind, row.Name, row.ReferenceObjectId, row.ContainingObjectId,
+        row.X, row.Y, row.Z, row.TiltXDegrees, row.TiltYDegrees, row.TiltZDegrees, row.Parameters);
+
+    private static NonSequentialObjectParameters ReflectiveParameters(NonSequentialObjectKind kind) => kind switch
+    {
+        NonSequentialObjectKind.Sphere => new SphereParameters(5, Behavior: NonSequentialSurfaceBehavior.Reflective),
+        NonSequentialObjectKind.Cylinder => new CylinderParameters(5, 10, Behavior: NonSequentialSurfaceBehavior.Reflective),
+        NonSequentialObjectKind.Box => new BoxParameters(10, 10, 10, Behavior: NonSequentialSurfaceBehavior.Reflective),
+        _ => throw new ArgumentOutOfRangeException(nameof(kind))
+    };
+
+    private static byte[] CreateStarOptContainer(byte[] payload)
+    {
+        byte[] compressed;
+        using (var output = new MemoryStream())
+        {
+            using (var brotli = new BrotliStream(output, CompressionLevel.Optimal, leaveOpen: true))
+            {
+                brotli.Write(payload);
+            }
+
+            compressed = output.ToArray();
+        }
+
+        const int headerLength = 52;
+        var bytes = new byte[headerLength + compressed.Length];
+        "STAROPT\x1a"u8.CopyTo(bytes);
+        BinaryPrimitives.WriteUInt16LittleEndian(bytes.AsSpan(8, 2), 1);
+        BinaryPrimitives.WriteUInt16LittleEndian(bytes.AsSpan(10, 2), 1);
+        BinaryPrimitives.WriteInt32LittleEndian(bytes.AsSpan(12, 4), payload.Length);
+        BinaryPrimitives.WriteInt32LittleEndian(bytes.AsSpan(16, 4), compressed.Length);
+        SHA256.HashData(payload).CopyTo(bytes, 20);
+        compressed.CopyTo(bytes, headerLength);
+        return bytes;
+    }
+}

@@ -20,7 +20,7 @@
 
 单面 `OptimizeSurfaceRadius` 也会把平面改为 +40 mm，但其范围生成方式不同，不能把多变量入口的 +20 至 +60 mm 范围套用到单面动作。
 
-代码：[`WorkbenchRuntime.Optimization.cs`](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Optimization.cs)，`OptimizeSurfaceRadius`、`OptimizeMarkedVariables`。
+代码：[`WorkbenchRuntime.Optimization.cs`](../src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Optimization.cs)，`OptimizeSurfaceRadius`、`OptimizeMarkedVariables`。
 
 **建议，未实施：** 首先定义“设置变量不改变处方”的契约，并检查处方→参数向量→处方的往返一致性。研究用曲率表达平面附近变化，并让物理范围、局部搜索范围和结构符号限制分别可见。不能简单取消所有边界；几何可行性仍需由正式 Core 判断。上轮发现的实验室统一曲率限幅也应纳入同一类入口检查。
 
@@ -32,7 +32,7 @@
 
 **已存在的能力：** `MeritFunctionCatalog.CreateDefaultRmsSpot` / `CreateFromWizard` 已能生成逐光线像差操作数，实验室真实光线阶段也已有坐标残差。因此不应把这个问题描述成整个产品缺少逐光线优化。需要核对的是不同入口采用什么默认问题，以及用户是否知情。
 
-代码：[`WorkbenchRuntime.Optimization.cs`](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Optimization.cs) 的 `enabledMeritRows.Length == 0` 分支；[`MeritFunction.cs`](../src/OptilandWorkbench.Core/Optimization/MeritFunction.cs) 的 `CreateFromWizard`、`AddRayAberrationOperands`。
+代码：[`WorkbenchRuntime.Optimization.cs`](../src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Optimization.cs) 的 `enabledMeritRows.Length == 0` 分支；[`MeritFunction.cs`](../src/OpticalSystemDesign.Core/Optimization/MeritFunction.cs) 的 `CreateFromWizard`、`AddRayAberrationOperands`。
 
 ### 1.3 非有限梯度与满足梯度容差共用一个终止标签
 
@@ -42,7 +42,7 @@
 
 正式 DLS 当前计算的是目标的未投影梯度范数；有活动边界或等式约束时，它也不能独自构成约束问题的一阶最优性证据。
 
-代码：[`NumericalOptimizers.cs`](../src/OptilandWorkbench.Core/Optimization/NumericalOptimizers.cs)，`DampedLeastSquaresSearch.Run`、`MomentumGradientDescentOptimizer`。
+代码：[`NumericalOptimizers.cs`](../src/OpticalSystemDesign.Core/Optimization/NumericalOptimizers.cs)，`DampedLeastSquaresSearch.Run`、`MomentumGradientDescentOptimizer`。
 
 ### 1.4 评价失败被替换为固定大数，可能形成假的平坦区域
 
@@ -52,7 +52,7 @@
 
 应将有效性、失败原因、可用残差与终止原因一起纳入契约验证。具体采用拒绝无效步、缩短步长还是正式 Core 支持的可行性恢复，要由实际失败样例决定；不能在实验室添加近似追迹填补这些值。
 
-代码：[`WorkbenchRuntime.Optimization.cs`](../src/OptilandWorkbench.Application/Runtime/WorkbenchRuntime.Optimization.cs) 的 `EvaluateSpotMerit`、`EvaluateIndependentValues`；[`OptimizationFramework.cs`](../src/OptilandWorkbench.Core/Optimization/OptimizationFramework.cs) 的 `BuildEvaluation`。
+代码：[`WorkbenchRuntime.Optimization.cs`](../src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Optimization.cs) 的 `EvaluateSpotMerit`、`EvaluateIndependentValues`；[`OptimizationFramework.cs`](../src/OpticalSystemDesign.Core/Optimization/OptimizationFramework.cs) 的 `BuildEvaluation`。
 
 ## 2. 局部求解器与光学评价之间的边界
 
@@ -68,7 +68,7 @@
 
 表格仅描述查到的实现，不评定哪套更优。实验室的独立数值求解器不等于第二套光学引擎，也不违反共享 Core 要求。应优先统一可比较的输入和诊断记录；没有证据支持现在就合并或替换两个求解器。
 
-代码：[`NumericalOptimizers.cs`](../src/OptilandWorkbench.Core/Optimization/NumericalOptimizers.cs)、[`FlatStartLocalSolver.cs`](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartLocalSolver.cs)、[`BoundedTrustRegionLeastSquares.cs`](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/Optimization/BoundedTrustRegionLeastSquares.cs)。
+代码：[`NumericalOptimizers.cs`](../src/OpticalSystemDesign.Core/Optimization/NumericalOptimizers.cs)、[`FlatStartLocalSolver.cs`](../labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatStartLocalSolver.cs)、[`BoundedTrustRegionLeastSquares.cs`](../labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/Optimization/BoundedTrustRegionLeastSquares.cs)。
 
 ### 2.2 “存在连续搜索残差”的标志不保证目标处处光滑
 
@@ -78,7 +78,7 @@
 
 应选择光学样例进行差分步长扫描，比较不同方向的直接残差变化与雅可比预测，检查边界两侧、瞄准收敛精度和重新计算雅可比后的结果。已有整次评价的有限差分会包含部分口径变化效应，不能直接套用“自动微分漏掉边界项”来判定本项目有同样缺陷。
 
-代码：[`FlatStartDesignProblem.cs`](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartDesignProblem.cs)，`Evaluate`。
+代码：[`FlatStartDesignProblem.cs`](../labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatStartDesignProblem.cs)，`Evaluate`。
 
 ### 2.3 归档的起始家族不完全等于最终结构家族
 
@@ -86,7 +86,7 @@
 
 这说明家族定义混合了来源和终态，尚不证明已有结果中重复占位的数量。后续应对既有档案量化：按起始标签和最终处方描述分别统计多样性，检查重复保留和误合并。来源标签继续用于追溯；光焦度等光学结构描述若被采用，必须调用正式 Core。
 
-代码：[`FlatStartCandidateArchive.cs`](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/FlatStartCandidateArchive.cs)，`Select`、`FamilyKey`、`Distance`。
+代码：[`FlatStartCandidateArchive.cs`](../labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatStartCandidateArchive.cs)，`Select`、`FamilyKey`、`Distance`。
 
 ## 3. 本轮补充资料及其适用边界
 

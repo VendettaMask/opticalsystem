@@ -1,19 +1,19 @@
 using System.Numerics;
 using System.Reflection;
 using System.Text.Json;
-using OptilandWorkbench.Core;
-using OptilandWorkbench.Core.Analysis;
-using OptilandWorkbench.Core.Apodization;
-using OptilandWorkbench.Core.Backend;
-using OptilandWorkbench.Core.FileIO;
-using OptilandWorkbench.Core.Domain;
-using OptilandWorkbench.Core.Rays;
-using OptilandWorkbench.Core.Raytrace;
-using OptilandWorkbench.Core.Services;
-using OptilandWorkbench.Application.Runtime;
-using OptilandWorkbench.ZemaxComparison;
-using OptilandWorkbench.ZemaxComparison.Metrics;
-using OptilandWorkbench.ZemaxComparison.Normalization;
+using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.Analysis;
+using OpticalSystemDesign.Core.Apodization;
+using OpticalSystemDesign.Core.Backend;
+using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Rays;
+using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Application.Runtime;
+using OpticalSystemDesign.ZemaxComparison;
+using OpticalSystemDesign.ZemaxComparison.Metrics;
+using OpticalSystemDesign.ZemaxComparison.Normalization;
 
 if (args.Length != 3) throw new ArgumentException("Usage: <repository-root> <fresh-output-directory> <mode>");
 if (!new[] { "energy", "huygens", "knots", "dense", "full-dense", "energy-grids", "cubic-grid", "reproduce", "inputs", "rays", "airy", "plane-phase", "integer-grid", "native-huygens", "geo-nodes", "gaussian-controls", "kernel-controls", "geometry-controls", "finite-cells", "dee-native-grid", "dee-phase-controls", "dee-grid-scale", "offaxis", "mtf-offaxis" }.Contains(args[2]))
@@ -74,7 +74,7 @@ void MtfOffAxis()
 {
     var records = new List<object>();
     var nativeRoot = Path.Combine(root, "validation/zemax/2026-r1/huygens-offaxis-2026-10-11/mtf");
-    var sampleMethod = typeof(DiffractionEngine).Assembly.GetType("OptilandWorkbench.Core.Analysis.MtfMethodEvaluator")!
+    var sampleMethod = typeof(DiffractionEngine).Assembly.GetType("OpticalSystemDesign.Core.Analysis.MtfMethodEvaluator")!
         .GetMethod("SampleHuygensMtf", BindingFlags.NonPublic | BindingFlags.Static)!;
     foreach (var name in new[] { "positive-chief", "positive-centroid", "negative-centroid" })
     {
@@ -1031,7 +1031,7 @@ void Huygens()
     var frame = DiffractionEngine.CreateHuygensImageFrame(optic, (0, 0), wave, true);
     var k = 2 * Math.PI / (wave.Micrometers * .001);
     var records = new List<object>();
-    var pixelGridType = typeof(DiffractionEnergyDistribution).Assembly.GetType("OptilandWorkbench.Core.Analysis.PsfPixelEnergyGrid")!;
+    var pixelGridType = typeof(DiffractionEnergyDistribution).Assembly.GetType("OpticalSystemDesign.Core.Analysis.PsfPixelEnergyGrid")!;
     var pixelType = pixelGridType.GetNestedType("Pixel", BindingFlags.NonPublic)!;
     var areaFraction = pixelGridType.GetMethod("AreaFraction", BindingFlags.Static | BindingFlags.NonPublic)!;
     foreach (var aiming in new[] { true, false })

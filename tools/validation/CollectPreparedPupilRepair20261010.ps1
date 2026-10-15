@@ -54,13 +54,13 @@ foreach ($failure in $failures) {
         $prior[0].Output.StdOut -cne $failure.Output.StdOut) {$failureDetailsUnchanged=$false}
 }
 if (!$failureDetailsUnchanged -or $formal.skipped -ne 0 -or $debug.skipped -ne 0 -or $comparison.skipped -ne 0) {throw 'Comparison changed or tests skipped.'}
-$corePaths=@('src/OptilandWorkbench.Core','src/OptilandWorkbench.App','tests/OptilandWorkbench.Tests',
-    'tests/OptilandWorkbench.ZemaxComparison.Tests','tools/diagnostics/N02Layers20261009')
+$corePaths=@('src/OpticalSystemDesign.Core','src/OpticalSystemDesign.App','tests/OpticalSystemDesign.Tests',
+    'tests/OpticalSystemDesign.ZemaxComparison.Tests','tools/diagnostics/N02Layers20261009')
 $binaries=@()
 foreach ($configuration in @('Release','Debug')) {
     foreach ($directory in $corePaths) {
         if ($configuration -eq 'Debug' -and $directory -eq 'tools/diagnostics/N02Layers20261009') {continue}
-        $path="$directory/bin/$configuration/net10.0/OptilandWorkbench.Core.dll"
+        $path="$directory/bin/$configuration/net10.0/OpticalSystemDesign.Core.dll"
         $binaries += [ordered]@{configuration=$configuration;path=$path;sha256=(Hash (Join-Path $repository $path))}
     }
     if (@($binaries | Where-Object {$_.configuration -eq $configuration} | ForEach-Object {$_.sha256} | Sort-Object -Unique).Count -ne 1) {throw 'Default Core copies differ.'}
@@ -108,9 +108,9 @@ if ($rawCount -ne 165) {throw 'Native capture inventory differs.'}
 $n02Rows=@($comparison.rows | Where-Object {$_.testName -like '*Diffraction Encircled Energy*'})
 $n02Output=$n02Rows.Output.StdOut -join "`n"
 if ($n02Output -notmatch '0\.011173141548632002' -or $n02Output -notmatch '0\.013875784968407625') {throw 'N02 measured residual changed or was not recorded.'}
-$sourcePaths=@('src/OptilandWorkbench.Core/Analysis/PupilSourceIdentity.cs','src/OptilandWorkbench.Core/Analysis/DiffractionEngine.cs',
-    'src/OptilandWorkbench.Core/Analysis/WavefrontEngine.cs','src/OptilandWorkbench.Core/Analysis/JonesPupilEngine.cs',
-    'tests/OptilandWorkbench.Tests/PreparedPupilProvenanceTests.cs','tools/validation/FrozenIntegrity.ps1',
+$sourcePaths=@('src/OpticalSystemDesign.Core/Analysis/PupilSourceIdentity.cs','src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs',
+    'src/OpticalSystemDesign.Core/Analysis/WavefrontEngine.cs','src/OpticalSystemDesign.Core/Analysis/JonesPupilEngine.cs',
+    'tests/OpticalSystemDesign.Tests/PreparedPupilProvenanceTests.cs','tools/validation/FrozenIntegrity.ps1',
     'tools/validation/FrozenIntegrity.Tests.ps1','tools/diagnostics/N02Layers20261009/CollectVerification.ps1',
     'tools/validation/CollectPreparedPupilRepair20261010.ps1')
 $ledger=[ordered]@{

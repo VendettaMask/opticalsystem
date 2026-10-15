@@ -1,0 +1,425 @@
+using OpticalSystemDesign.Core.Serialization;
+using OpticalSystemDesign.Core.Domain;
+
+namespace OpticalSystemDesign.Core.Multiconfig;
+
+public sealed record MultiConfigurationLinkOverride(
+    int ConfigurationIndex,
+    int SurfaceNumber,
+    string Property);
+
+public sealed partial class MultiConfiguration
+{
+    private readonly HashSet<(int Config, int Surface, string Property)> _brokenLinks = new();
+
+    public MultiConfiguration(Optic baseOptic)
+        : this(new[] { baseOptic })
+    {
+    }
+
+    public MultiConfiguration(
+        IEnumerable<Optic> configurations,
+        IEnumerable<MultiConfigurationLinkOverride>? brokenLinks = null,
+        IReadOnlyList<MultiConfigurationOperand>? operandRows = null,
+        IReadOnlyList<MultiConfigurationVariable>? operandVariables = null,
+        IReadOnlyList<MultiConfigurationPickup>? operandPickups = null)
+    {
+        ArgumentNullException.ThrowIfNull(configurations);
+        Configurations.AddRange(configurations.Select(configuration => configuration.Clone()));
+        if (Configurations.Count == 0)
+        {
+            throw new ArgumentException("At least one optical configuration is required.", nameof(configurations));
+        }
+
+        MultiConfigurationOperand.ValidateRows(operandRows, Configurations);
+        _operandRows.AddRange(operandRows ?? []);
+
+        if (brokenLinks is null)
+        {
+            InferBrokenLinks();
+        }
+        else
+        {
+            foreach (var link in brokenLinks)
+            {
+                ValidateLink(link);
+                _brokenLinks.Add((
+                    link.ConfigurationIndex,
+                    link.SurfaceNumber,
+                    NormalizeProperty(link.Property)));
+            }
+        }
+        InitializeOperandVariables(operandVariables);
+        InitializeOperandPickups(operandPickups);
+    }
+
+    private void InitializeOperandVariables(IReadOnlyList<MultiConfigurationVariable>? variables)
+    {
+        MultiConfigurationVariable.Validate(variables, _operandRows, Configurations);
+        foreach (var variable in variables ?? [])
+            SetOperandVariable(_operandRows.IndexOf(variable.Operand) + 1, variable.ConfigurationIndex, true);
+    }
+
+    public List<Optic> Configurations { get; } = new();
+
+    public IReadOnlyList<MultiConfigurationLinkOverride> BrokenLinks => _brokenLinks
+        .OrderBy(link => link.Config)
+        .ThenBy(link => link.Surface)
+        .ThenBy(link => link.Property, StringComparer.Ordinal)
+        .Select(link => new MultiConfigurationLinkOverride(link.Config, link.Surface, link.Property))
+        .ToArray();
+
+    public int AddConfiguration(int sourceConfigIndex = 0)
+    {
+        if (sourceConfigIndex < 0 || sourceConfigIndex >= Configurations.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(sourceConfigIndex));
+        }
+
+        var source = Configurations[sourceConfigIndex];
+        Configurations.Add(source.Clone());
+        var addedIndex = Configurations.Count - 1;
+        foreach (var link in _brokenLinks.Where(link => link.Config == sourceConfigIndex).ToArray())
+        {
+            _brokenLinks.Add((addedIndex, link.Surface, link.Property));
+        }
+
+        foreach (var variable in _operandVariables.Where(v => v.ConfigurationIndex == sourceConfigIndex).ToArray())
+            SetOperandVariable(_operandRows.IndexOf(variable.Operand) + 1, addedIndex, true);
+        foreach (var pickup in _operandPickups.Where(p => p.ConfigurationIndex == sourceConfigIndex).ToArray())
+        {
+            var copy = pickup with
+            {
+                ConfigurationIndex = addedIndex,
+                SourceConfigurationIndex = pickup.SourceConfigurationIndex == sourceConfigIndex ? addedIndex : pickup.SourceConfigurationIndex
+            };
+            _operandPickups.Add(copy); PinPickupTarget(copy);
+        }
+        ApplyOperandPickups();
+        return addedIndex;
+    }
+
+    public int AddSurfaceBeforeImage()
+    {
+        ValidateCompatibleSurfaceStructures();
+        var insertedSurfaceNumber = Math.Max(0, Configurations[0].SurfaceGroup.Items.Count - 1);
+        foreach (var configuration in Configurations)
+        {
+            configuration.Pickups.InsertSurface(insertedSurfaceNumber);
+            configuration.SurfaceGroup.AddDefaultSurface();
+        }
+
+        RemapBrokenLinks(surfaceNumber =>
+            surfaceNumber >= insertedSurfaceNumber ? surfaceNumber + 1 : surfaceNumber);
+        RemapOperandSurfaces(number => number >= insertedSurfaceNumber ? number + 1 : number);
+        return insertedSurfaceNumber;
+    }
+
+    public void InsertSurface(int surfaceNumber)
+    {
+        ValidateCompatibleSurfaceStructures();
+        if (surfaceNumber <= 0 || surfaceNumber >= Configurations[0].SurfaceGroup.Items.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(surfaceNumber), "Insert between the object and image surfaces.");
+        }
+
+        foreach (var configuration in Configurations)
+        {
+            configuration.Pickups.InsertSurface(surfaceNumber);
+            configuration.SurfaceGroup.InsertDefaultSurface(surfaceNumber);
+        }
+
+        RemapBrokenLinks(number => number >= surfaceNumber ? number + 1 : number);
+        RemapOperandSurfaces(number => number >= surfaceNumber ? number + 1 : number);
+    }
+
+    public void RemoveSurface(int surfaceNumber)
+    {
+        ValidateCompatibleSurfaceStructures();
+        if (_operandRows.Any(row => row.SurfaceNumber == surfaceNumber))
+            throw new InvalidOperationException("该表面正被多配置操作数行引用，请先移除行引用。");
+        var surfaceCount = Configurations[0].SurfaceGroup.Items.Count;
+        if (surfaceCount <= 2 || surfaceNumber <= 0 || surfaceNumber >= surfaceCount - 1)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(surfaceNumber),
+                "Object and image surfaces cannot be removed, and at least two surfaces are required.");
+        }
+
+        foreach (var configuration in Configurations)
+        {
+            var surface = FindSurface(configuration, surfaceNumber);
+            configuration.Pickups.RemoveSurface(surfaceNumber);
+            configuration.SurfaceGroup.Remove(surface);
+        }
+
+        RemapBrokenLinks(surfaceNumberToMap => surfaceNumberToMap switch
+        {
+            var value when value == surfaceNumber => null,
+            var value when value > surfaceNumber => value - 1,
+            var value => value
+        });
+        RemapOperandSurfaces(number => number > surfaceNumber ? number - 1 : number);
+    }
+
+    public void SetRadius(int configIndex, int surfaceNumber, double value)
+    {
+        SetProperty(configIndex, surfaceNumber, "radius", value);
+    }
+
+    public void SetThickness(int configIndex, int surfaceNumber, double value)
+    {
+        SetProperty(configIndex, surfaceNumber, "thickness", value);
+    }
+
+    public void SetProperty(int configIndex, int surfaceNumber, string property, double value)
+    {
+        var normalizedProperty = NormalizeProperty(property);
+        if (IsOperandPickupTarget(configIndex, surfaceNumber, normalizedProperty))
+            throw new InvalidOperationException("该参数由多配置拾取控制，请编辑源单元格或移除拾取。");
+        var surface = Configurations[configIndex].SurfaceGroup.Items.First(item => item.Number == surfaceNumber);
+        switch (normalizedProperty)
+        {
+            case "radius":
+                surface.Radius = value;
+                break;
+            case "thickness":
+                surface.Thickness = value;
+                Configurations[configIndex].SurfaceGroup.Renumber();
+                break;
+            case "conic":
+                surface.Conic = value;
+                break;
+            case "semiDiameter":
+                surface.SemiDiameter = value;
+                surface.SemiDiameterFixed = true;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(property));
+        }
+        if (configIndex != 0) _brokenLinks.Add((configIndex, surfaceNumber, normalizedProperty));
+    }
+
+    public void UpdateLinkState(int configIndex, int surfaceNumber, string property)
+    {
+        if (configIndex <= 0 || configIndex >= Configurations.Count)
+        {
+            return;
+        }
+
+        var normalizedProperty = NormalizeProperty(property);
+        var source = FindSurface(Configurations[0], surfaceNumber);
+        var target = FindSurface(Configurations[configIndex], surfaceNumber);
+        var link = (configIndex, surfaceNumber, normalizedProperty);
+        if (!IsOperandPickupTarget(configIndex, surfaceNumber, normalizedProperty) && !_operandVariables.Any(v => v.ConfigurationIndex == configIndex && v.Operand.SurfaceNumber == surfaceNumber
+                && v.Operand.Property == normalizedProperty) && PropertyEquals(source, target, normalizedProperty))
+        {
+            _brokenLinks.Remove(link);
+        }
+        else
+        {
+            _brokenLinks.Add(link);
+        }
+    }
+
+    public void PropagateBaseProperty(int surfaceNumber, string property)
+    {
+        var normalizedProperty = NormalizeProperty(property);
+        var source = FindSurface(Configurations[0], surfaceNumber);
+        for (var config = 1; config < Configurations.Count; config++)
+        {
+            if (_brokenLinks.Contains((config, surfaceNumber, normalizedProperty)))
+            {
+                continue;
+            }
+
+            var target = FindSurface(Configurations[config], surfaceNumber);
+            CopyProperty(source, target, normalizedProperty);
+            if (normalizedProperty == "material") SynchronizeFollowingMedia(Configurations[config], surfaceNumber);
+            Configurations[config].SurfaceGroup.Renumber();
+        }
+    }
+
+    public void PropagateBaseLinks()
+    {
+        ValidateCompatibleSurfaceStructures();
+        var baseOptic = Configurations[0];
+        for (var config = 1; config < Configurations.Count; config++)
+        {
+            for (var index = 0; index < baseOptic.SurfaceGroup.Items.Count; index++)
+            {
+                var source = baseOptic.SurfaceGroup.Items[index];
+                var target = Configurations[config].SurfaceGroup.Items[index];
+                var surfaceNumber = source.Number;
+                if (!_brokenLinks.Contains((config, surfaceNumber, "radius")))
+                {
+                    target.Radius = source.Radius;
+                }
+
+                if (!_brokenLinks.Contains((config, surfaceNumber, "conic")))
+                {
+                    target.Conic = source.Conic;
+                }
+
+                if (index < baseOptic.SurfaceGroup.Items.Count - 1 && !_brokenLinks.Contains((config, surfaceNumber, "thickness")))
+                {
+                    target.Thickness = source.Thickness;
+                }
+
+                if (!_brokenLinks.Contains((config, surfaceNumber, "semiDiameter")))
+                {
+                    target.SemiDiameter = source.SemiDiameter;
+                    target.SemiDiameterFixed = source.SemiDiameterFixed;
+                }
+
+                if (!_brokenLinks.Contains((config, surfaceNumber, "material")))
+                {
+                    CopyMaterial(source, target);
+                    SynchronizeFollowingMedia(Configurations[config], surfaceNumber);
+                }
+            }
+
+            Configurations[config].SurfaceGroup.Renumber();
+        }
+    }
+
+    private static OpticalSurface FindSurface(Optic optic, int surfaceNumber) =>
+        optic.SurfaceGroup.Items.SingleOrDefault(surface => surface.Number == surfaceNumber)
+        ?? throw new InvalidOperationException($"Configuration does not contain surface {surfaceNumber}.");
+
+    private void ValidateCompatibleSurfaceStructures()
+    {
+        var expectedNumbers = Configurations[0].SurfaceGroup.Items
+            .Select(surface => surface.Number)
+            .ToArray();
+        for (var configIndex = 1; configIndex < Configurations.Count; configIndex++)
+        {
+            var actualNumbers = Configurations[configIndex].SurfaceGroup.Items
+                .Select(surface => surface.Number)
+                .ToArray();
+            if (!expectedNumbers.SequenceEqual(actualNumbers))
+            {
+                throw new InvalidOperationException(
+                    $"Configuration {configIndex} has an incompatible surface structure.");
+            }
+        }
+    }
+
+    private void RemapBrokenLinks(Func<int, int?> mapSurfaceNumber)
+    {
+        var remapped = _brokenLinks
+            .Select(link => (Link: link, Surface: mapSurfaceNumber(link.Surface)))
+            .Where(item => item.Surface.HasValue)
+            .Select(item => (item.Link.Config, item.Surface!.Value, item.Link.Property))
+            .ToArray();
+        _brokenLinks.Clear();
+        foreach (var link in remapped)
+        {
+            _brokenLinks.Add(link);
+        }
+    }
+
+    private static void CopyProperty(OpticalSurface source, OpticalSurface target, string property)
+    {
+        switch (property)
+        {
+            case "radius":
+                target.Radius = source.Radius;
+                break;
+            case "thickness":
+                target.Thickness = source.Thickness;
+                break;
+            case "conic":
+                target.Conic = source.Conic;
+                break;
+            case "semiDiameter":
+                target.SemiDiameter = source.SemiDiameter;
+                target.SemiDiameterFixed = source.SemiDiameterFixed;
+                break;
+            case "material":
+                CopyMaterial(source, target);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(property));
+        }
+    }
+
+    private static void CopyMaterial(OpticalSurface source, OpticalSurface target)
+    {
+        target.MaterialAfter = source.MaterialAfter.Clone();
+        target.IsReflective = source.IsReflective;
+        target.Material = source.Material;
+    }
+
+    private static void SynchronizeFollowingMedia(Optic optic, int surfaceNumber)
+    {
+        for (var index = surfaceNumber + 1; index < optic.SurfaceGroup.Items.Count; index++)
+        {
+            var next = optic.SurfaceGroup.Items[index];
+            next.MaterialBefore = optic.SurfaceGroup.Items[index - 1].MaterialAfter.Clone();
+            if (!next.IsReflective) break;
+            next.MaterialAfter = next.MaterialBefore.Clone();
+        }
+    }
+
+    private static bool PropertyEquals(OpticalSurface source, OpticalSurface target, string property) => property switch
+    {
+        "radius" => source.Radius.Equals(target.Radius),
+        "thickness" => source.Thickness.Equals(target.Thickness),
+        "conic" => source.Conic.Equals(target.Conic),
+        "semiDiameter" => source.SemiDiameter.Equals(target.SemiDiameter)
+            && source.SemiDiameterFixed == target.SemiDiameterFixed,
+        "material" => source.Material.Equals(target.Material, StringComparison.OrdinalIgnoreCase)
+            && source.MaterialAfter.Name.Equals(target.MaterialAfter.Name, StringComparison.OrdinalIgnoreCase)
+            && source.IsReflective == target.IsReflective
+            && (source.MaterialAfter is not Materials.GradientIndexMaterial && target.MaterialAfter is not Materials.GradientIndexMaterial
+                || System.Text.Json.JsonSerializer.Serialize(ComponentSnapshotFactory.FromMaterial(source.MaterialAfter))
+                    == System.Text.Json.JsonSerializer.Serialize(ComponentSnapshotFactory.FromMaterial(target.MaterialAfter))),
+        _ => throw new ArgumentOutOfRangeException(nameof(property))
+    };
+
+    private static string NormalizeProperty(string property)
+    {
+        var normalized = property?.Trim().ToLowerInvariant();
+        return normalized is "radius" or "thickness" or "semidiameter" or "conic" or "material"
+            ? normalized == "semidiameter" ? "semiDiameter" : normalized
+            : throw new ArgumentOutOfRangeException(nameof(property));
+    }
+
+    private void ValidateLink(MultiConfigurationLinkOverride link)
+    {
+        if (link.ConfigurationIndex <= 0 || link.ConfigurationIndex >= Configurations.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(link), "The linked configuration index is invalid.");
+        }
+
+        _ = FindSurface(Configurations[0], link.SurfaceNumber);
+        _ = FindSurface(Configurations[link.ConfigurationIndex], link.SurfaceNumber);
+        _ = NormalizeProperty(link.Property);
+    }
+
+    private void InferBrokenLinks()
+    {
+        var baseOptic = Configurations[0];
+        for (var configIndex = 1; configIndex < Configurations.Count; configIndex++)
+        {
+            foreach (var target in Configurations[configIndex].SurfaceGroup.Items)
+            {
+                var source = baseOptic.SurfaceGroup.Items.FirstOrDefault(
+                    surface => surface.Number == target.Number);
+                if (source is null)
+                {
+                    continue;
+                }
+
+                foreach (var property in new[] { "radius", "thickness", "semiDiameter", "conic", "material" })
+                {
+                    if (!PropertyEquals(source, target, property))
+                    {
+                        _brokenLinks.Add((configIndex, target.Number, property));
+                    }
+                }
+            }
+        }
+    }
+}

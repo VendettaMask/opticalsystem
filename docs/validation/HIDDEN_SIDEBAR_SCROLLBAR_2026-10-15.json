@@ -1,0 +1,66 @@
+{
+  "Date": "2026-10-15",
+  "Scope": "Hide only the outer System Options vertical scrollbar while retaining access to all settings",
+  "SourceCommit": "0179e2fb8fff814826176043271fac6e241c2c24",
+  "SourceDirty": true,
+  "PreExistingWorkPreserved": "All earlier version-display, caption/search, ribbon and reference-workbench UI changes and their dated evidence",
+  "Implemented": [
+    "SystemPropertiesPanel outer ScrollViewer uses VerticalScrollBarVisibility.Hidden rather than Auto or Disabled",
+    "No rail, thumb, arrows, hover reappearance or reserved scrollbar column; wheel and focus-driven keyboard scrolling remain enabled",
+    "Sidebar horizontal scrolling stays disabled; lens-table and ribbon scrolling are unchanged",
+    "Standing project preference and current UI guides updated; supersedes the previous stage's reserved-column choice without rewriting its evidence"
+  ],
+  "ChangedProductionCode": ["src/OptilandWorkbench.App/Panels/SystemPropertiesPanel.cs"],
+  "Builds": [
+    { "Configuration": "Debug", "Target": "OptilandWorkbench.slnx", "ProjectCount": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/hidden-sidebar-20261015/build-debug.log" },
+    { "Configuration": "Release", "Target": "OptilandWorkbench.slnx", "ProjectCount": 19, "DefaultOutput": true, "Warnings": 0, "Errors": 0, "LocalLog": "artifacts/validation/hidden-sidebar-20261015/build-final-release.log" }
+  ],
+  "AppAssemblySha256": {
+    "Debug": "a8f8f63c17b5e38d7362330cc2b28694b3c35577516f194b7cc6e046d64929b7",
+    "Release": "735c2adf3f3cb431fa6c0af8ade9f5f7e7b1acd809a1647a28c4939aeaf732df",
+    "DefaultAndTestOutputMatch": true
+  },
+  "Tests": {
+    "Project": "tests/OptilandWorkbench.Tests/OptilandWorkbench.Tests.csproj",
+    "RelatedClasses": ["CompactSidebarTests", "ReferenceWorkbenchLayoutTests", "SystemPropertiesPanelSectionThemeTests", "ThemeRuntimeTests", "BlueThemeInteractionTests", "LensMaterialRowThemeTests", "LayeringArchitectureTests"],
+    "Debug": { "Passed": 57, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/hidden-sidebar-20261015/hidden-sidebar-final-debug.trx" },
+    "Release": { "Passed": 57, "Failed": 0, "Skipped": 0, "LocalTrx": "artifacts/validation/hidden-sidebar-20261015/hidden-sidebar-final-release.trx" },
+    "NewCases": 5,
+    "NewCaseCoverage": "Light at 240 DIP/13 and 280 DIP/18; Dark, Pixel and Isekai at 256 DIP/13. Actual mouse-wheel input and Tab-driven focus navigation move the vertical offset without exposing the scrollbar, enabling horizontal scrolling or changing the document revision.",
+    "ExistingCompositionCoverage": "Six production-control compositions additionally assert the outer vertical scrollbar is hidden and input right edges remain within the viewport.",
+    "FullProductSuiteRun": false
+  },
+  "RenderedControlFixtures": {
+    "Mechanism": "Dedicated ReferenceWorkbenchLayoutTests processes with Skia/HarfBuzz, not native desktop screenshots",
+    "Debug": { "Passed": 6, "Failed": 0, "Skipped": 0, "ImageCount": 6, "LocalDirectory": "artifacts/validation/hidden-sidebar-20261015/render-debug", "LocalTrx": "artifacts/validation/hidden-sidebar-20261015/hidden-sidebar-render-debug.trx" },
+    "Release": { "Passed": 6, "Failed": 0, "Skipped": 0, "ImageCount": 6, "LocalDirectory": "artifacts/validation/hidden-sidebar-20261015/render-release", "LocalTrx": "artifacts/validation/hidden-sidebar-20261015/hidden-sidebar-render-release.trx" },
+    "Configurations": ["Light/1280/13", "Light/1024/18", "Light/640/13", "Dark/1280/13", "Pixel/1280/13", "Isekai/1280/13"],
+    "VisuallyInspected": ["render-debug/workbench-Light-1280-13.png", "render-debug/workbench-Light-1024-18.png"],
+    "Observation": "No outer sidebar scrollbar or reserved column; visible input/card right outlines remain intact.",
+    "Boundaries": "Uses the existing real-control composition fixture, not a complete MainWindow action matrix. Earlier Dark-caption fixture observation remains scoped to its own ledger; this change makes no fix or native acceptance claim for it.",
+    "CountsOverlapRelatedTests": true
+  },
+  "Checks": {
+    "ScopedWhitespaceFormat": "passed",
+    "GitDiffCheck": "passed",
+    "Documentation": {
+      "StrictCheck": "passed",
+      "Documents": 891,
+      "BrokenLinks": 0,
+      "MarkdownFenceIssues": 0,
+      "LocalOnlyLinks": 0,
+      "GuideRepeatedParagraphGroups": 0,
+      "HistoricalRepeatedParagraphGroupsRetained": 11,
+      "LocalReport": "artifacts/validation/hidden-sidebar-20261015/documentation.json"
+    },
+    "CoreOrFrozenEvidenceChanged": false
+  },
+  "IntermediateResults": [
+    "Initial test build could not copy the default App output because the verified running main application held it. Closed only that instance normally and rebuilt the default outputs.",
+    "First completed five-case run failed because nested TextBox scrollbar template parts shared the same name. Limited the lookup to bars whose nearest ScrollViewer ancestor is the sidebar; original TRX retained as hidden-sidebar-first-completed.trx.",
+    "Second five-case run passed wheel checks but failed an End-key assertion while a Button held focus. Replaced that unsupported test gesture with actual Tab/focus navigation, without adding product shortcuts; hidden-sidebar-second.trx retained.",
+    "Corrected focused run passed 5/5 (hidden-sidebar-third.trx), then both final 57-case runs and both six-case capture runs passed. Intermediate counts overlap and are not additive."
+  ],
+  "Limitations": ["No full product/laboratory/numerical suite or new Zemax capture", "No native manual desktop, multi-monitor DPI or ARM64 acceptance", "No installer rebuild or installed-product replacement", "No commit or push"],
+  "DeliveryAtValidation": "Default runnable Debug and Release application outputs updated; uncommitted working tree"
+}

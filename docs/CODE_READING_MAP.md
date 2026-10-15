@@ -4,8 +4,8 @@
 
 ## 1. 工程边界
 
-- 正式产品：`OptilandWorkbench.slnx`，由 Core、Application、App、正式测试和离线工具组成（2026-09-25 校正：Compatibility 项目已移除）。
-- 内置初始结构与镀膜设计：根 `OptilandWorkbench.slnx` 统一构建，界面在 `src/OptilandWorkbench.App/Laboratories/`，显示适配在 `src/OptilandWorkbench.Modules/`；`labs/` 仅保留内部领域库、测试及历史证据，不是独立产品。
+- 正式产品：`OpticalSystemDesign.slnx`，由 Core、Application、App、正式测试和离线工具组成（2026-09-25 校正：Compatibility 项目已移除）。
+- 内置初始结构与镀膜设计：根 `OpticalSystemDesign.slnx` 统一构建，界面在 `src/OpticalSystemDesign.App/Laboratories/`，显示适配在 `src/OpticalSystemDesign.Modules/`；`labs/` 仅保留内部领域库、测试及历史证据，不是独立产品。
 - 桌面启动：`Program.Main → App → MainWindow → WorkbenchApplication.Create`。`MainWindow` 创建工作区、命令和服务，具体功能分布在 `Shell` 与 `Panels`。
 - 实际依赖方向：主工作台为 `App → Application → Core`；内置模块为 `App → Modules / 内部领域库 → Application / Core`。App 没有直接 Core 引用，UI 契约不暴露 Core 类型；旧 Compatibility 项目已移除。
 - Core 没有第三方 NuGet 计算库依赖；FFT、几何交点、数值优化、材料公式等实现位于仓库内。Application 引用 SkiaSharp，App 引用 Avalonia、Dock 与 SkiaSharp。
@@ -72,8 +72,8 @@
 - MTF 扫描：`MtfMethodEvaluator` 统一 Fourier、Huygens、几何方法的扫描入口；`SampledMtfEngine` 使用拟合波前与光瞳位移计算采样 OTF。
 - RMS：`RmsScanSupport` 处理焦移、波长、视场、参考方式和单位；显示名称相近的分析不一定采用相同采样定义。
 - 辐射与能量：圈入能量、线/边缘扩散、扩展源、相对照度、辐照度和辐射强度分别处理权重、归一化及采样域。
-- 新增可选均匀像方方向余弦采样见 [IlluminationMetrics.ImageCosine.cs](../src/OptilandWorkbench.Core/Services/IlluminationMetrics.ImageCosine.cs)：真实追迹求逆、孔径掩码和有界失败；`RelativeToAxis` 单独实现轴上归一化。默认路径与原生等价的边界见[像方网格与轴上参考](IMAGE_COSINE_ILLUMINATION_2026-10-02.md)。
-- 相对照度与图像模拟共用 [IlluminationMetrics](../src/OptilandWorkbench.Core/Services/IlluminationMetrics.cs) 的内部求积、物理孔径掩码及像面投影。透明介质偏振使用 `FresnelPower` 和 `UnpolarizedPowerTransport`，诊断通过显式选项停在像面自身作用前。后续物理膜层连接见[物理镀膜追迹与保存](COHERENT_COATING_TRANSPORT_2026-10-02.md)；RELI/EFNO 的评价入口为 [MeritFunction.Illumination](../src/OptilandWorkbench.Core/Optimization/MeritFunction.Illumination.cs)。吸收入射介质及原生采样一致性仍未完成。
+- 新增可选均匀像方方向余弦采样见 [IlluminationMetrics.ImageCosine.cs](../src/OpticalSystemDesign.Core/Services/IlluminationMetrics.ImageCosine.cs)：真实追迹求逆、孔径掩码和有界失败；`RelativeToAxis` 单独实现轴上归一化。默认路径与原生等价的边界见[像方网格与轴上参考](IMAGE_COSINE_ILLUMINATION_2026-10-02.md)。
+- 相对照度与图像模拟共用 [IlluminationMetrics](../src/OpticalSystemDesign.Core/Services/IlluminationMetrics.cs) 的内部求积、物理孔径掩码及像面投影。透明介质偏振使用 `FresnelPower` 和 `UnpolarizedPowerTransport`，诊断通过显式选项停在像面自身作用前。后续物理膜层连接见[物理镀膜追迹与保存](COHERENT_COATING_TRANSPORT_2026-10-02.md)；RELI/EFNO 的评价入口为 [MeritFunction.Illumination](../src/OpticalSystemDesign.Core/Optimization/MeritFunction.Illumination.cs)。吸收入射介质及原生采样一致性仍未完成。
 - 图像模拟：`ImageSimulationEngine` 组织测试图、PSF 基、空间变化卷积、畸变映射和重采样；扩展图像分析在此之上构造不同工作流。
 - 报告：一阶量、基面、Seidel、处方、系统和分类报告均属于分析目录。
 - `AnalysisResourceLimits` 在昂贵采样、FFT 网格和图像模拟前约束资源。
@@ -200,7 +200,7 @@ CI 统一构建根解决方案，分别执行主程序和内置模块的三平�
 | 双页启动/MDI 点击空白 | `WorkspaceDockFactory.cs`、`PanelManager.cs`、`WorkspaceViewLocator.cs` | `WorkspaceDockModelTests`、`WorkspaceMdiInteractionTests` |
 | 材料蓝行/机械半径精度 | `ViewModels/EditorRows.cs`，`LensEditorPanel`，`NumericDisplayFormatter` | `LensMaterialRowThemeTests`、`SurfacePropertiesPanelTests` |
 
-表内 App 源文件均相对 `src/OptilandWorkbench.App`，测试位于 `tests/OptilandWorkbench.Tests`。此表用于职责定位；完整文件集合以 `rg --files` 为准。验证数字按 [当前状态](CURRENT_STATUS.md) 的范围分别解释。
+表内 App 源文件均相对 `src/OpticalSystemDesign.App`，测试位于 `tests/OpticalSystemDesign.Tests`。此表用于职责定位；完整文件集合以 `rg --files` 为准。验证数字按 [当前状态](CURRENT_STATUS.md) 的范围分别解释。
 
 ## 12. 实时文件索引
 
@@ -219,44 +219,44 @@ rg --files src labs tools tests -g *.cs -g *.csproj
 | [Directory.Build.props](../Directory.Build.props) | MSBuild 构建规则 |
 | [Directory.Build.targets](../Directory.Build.targets) | MSBuild 构建规则 |
 | [labs/InitialStructure/Directory.Build.props](../labs/InitialStructure/Directory.Build.props) | MSBuild 构建规则 |
-| [src/OptilandWorkbench.Modules/OptilandWorkbench.Modules.csproj](../src/OptilandWorkbench.Modules/OptilandWorkbench.Modules.csproj) | Application、初始结构/镀膜领域服务的内部显示适配；无可执行入口 |
-| [labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Contracts/OptilandWorkbench.InitialStructure.Contracts.csproj](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Contracts/OptilandWorkbench.InitialStructure.Contracts.csproj) | OptilandWorkbench.Core |
-| [labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/OptilandWorkbench.InitialStructure.Engine.csproj](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Engine/OptilandWorkbench.InitialStructure.Engine.csproj) | OptilandWorkbench.InitialStructure.Contracts, OptilandWorkbench.Core |
-| [labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Persistence/OptilandWorkbench.InitialStructure.Persistence.csproj](../labs/InitialStructure/src/OptilandWorkbench.InitialStructure.Persistence/OptilandWorkbench.InitialStructure.Persistence.csproj) | OptilandWorkbench.InitialStructure.Contracts, OptilandWorkbench.Core |
-| [labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/OptilandWorkbench.InitialStructure.Tests.csproj](../labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/OptilandWorkbench.InitialStructure.Tests.csproj) | 主程序、Contracts、Engine、Persistence；与根解决方案统一构建 |
-| [OptilandWorkbench.slnx](../OptilandWorkbench.slnx) | 解决方案项目集合 |
-| [src/OptilandWorkbench.App/Assets/DrawingTemplates/gb-13323-1991.xml](../src/OptilandWorkbench.App/Assets/DrawingTemplates/gb-13323-1991.xml) | 内置图纸布局、规格与字段绑定 |
-| [src/OptilandWorkbench.App/Assets/DrawingTemplates/gb-13323-2009.xml](../src/OptilandWorkbench.App/Assets/DrawingTemplates/gb-13323-2009.xml) | 内置图纸布局、规格与字段绑定 |
-| [src/OptilandWorkbench.App/Assets/DrawingTemplates/iso-10110.xml](../src/OptilandWorkbench.App/Assets/DrawingTemplates/iso-10110.xml) | 内置图纸布局、规格与字段绑定 |
-| [src/OptilandWorkbench.App/OptilandWorkbench.App.csproj](../src/OptilandWorkbench.App/OptilandWorkbench.App.csproj) | Application、Modules、InitialStructure.Engine/Persistence、CoatingDesign.Engine；App 无直接 Core 引用 |
-| [src/OptilandWorkbench.Application/OptilandWorkbench.Application.csproj](../src/OptilandWorkbench.Application/OptilandWorkbench.Application.csproj) | OptilandWorkbench.Core |
-| [src/OptilandWorkbench.Core/OptilandWorkbench.Core.csproj](../src/OptilandWorkbench.Core/OptilandWorkbench.Core.csproj) | 目标框架、资源或包引用 |
-| [tools/OptilandWorkbench.ZemaxComparison/OptilandWorkbench.ZemaxComparison.csproj](../tools/OptilandWorkbench.ZemaxComparison/OptilandWorkbench.ZemaxComparison.csproj) | 原生对照与离线历史重算统一入口；引用 Application，随根解决方案构建 |
-| [tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj](../tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj) | OptilandWorkbench.Core |
-| [tools/OptilandWorkbench.GlassCatalogConverter/OptilandWorkbench.GlassCatalogConverter.csproj](../tools/OptilandWorkbench.GlassCatalogConverter/OptilandWorkbench.GlassCatalogConverter.csproj) | OptilandWorkbench.Core |
-| [tools/OptilandWorkbench.LensLibraryBuilder/OptilandWorkbench.LensLibraryBuilder.csproj](../tools/OptilandWorkbench.LensLibraryBuilder/OptilandWorkbench.LensLibraryBuilder.csproj) | OptilandWorkbench.Application, OptilandWorkbench.Core |
-| [tools/OptilandWorkbench.NonSequentialSamples/OptilandWorkbench.NonSequentialSamples.csproj](../tools/OptilandWorkbench.NonSequentialSamples/OptilandWorkbench.NonSequentialSamples.csproj) | OptilandWorkbench.Core |
-| [tools/OptilandWorkbench.ZemaxLibraryImporter/OptilandWorkbench.ZemaxLibraryImporter.csproj](../tools/OptilandWorkbench.ZemaxLibraryImporter/OptilandWorkbench.ZemaxLibraryImporter.csproj) | OptilandWorkbench.Application, OptilandWorkbench.Core |
+| [src/OpticalSystemDesign.Modules/OpticalSystemDesign.Modules.csproj](../src/OpticalSystemDesign.Modules/OpticalSystemDesign.Modules.csproj) | Application、初始结构/镀膜领域服务的内部显示适配；无可执行入口 |
+| [labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/OpticalSystemDesign.InitialStructure.Contracts.csproj](../labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/OpticalSystemDesign.InitialStructure.Contracts.csproj) | OpticalSystemDesign.Core |
+| [labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/OpticalSystemDesign.InitialStructure.Engine.csproj](../labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/OpticalSystemDesign.InitialStructure.Engine.csproj) | OpticalSystemDesign.InitialStructure.Contracts, OpticalSystemDesign.Core |
+| [labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Persistence/OpticalSystemDesign.InitialStructure.Persistence.csproj](../labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Persistence/OpticalSystemDesign.InitialStructure.Persistence.csproj) | OpticalSystemDesign.InitialStructure.Contracts, OpticalSystemDesign.Core |
+| [labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj](../labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj) | 主程序、Contracts、Engine、Persistence；与根解决方案统一构建 |
+| [OpticalSystemDesign.slnx](../OpticalSystemDesign.slnx) | 解决方案项目集合 |
+| [src/OpticalSystemDesign.App/Assets/DrawingTemplates/gb-13323-1991.xml](../src/OpticalSystemDesign.App/Assets/DrawingTemplates/gb-13323-1991.xml) | 内置图纸布局、规格与字段绑定 |
+| [src/OpticalSystemDesign.App/Assets/DrawingTemplates/gb-13323-2009.xml](../src/OpticalSystemDesign.App/Assets/DrawingTemplates/gb-13323-2009.xml) | 内置图纸布局、规格与字段绑定 |
+| [src/OpticalSystemDesign.App/Assets/DrawingTemplates/iso-10110.xml](../src/OpticalSystemDesign.App/Assets/DrawingTemplates/iso-10110.xml) | 内置图纸布局、规格与字段绑定 |
+| [src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj](../src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj) | Application、Modules、InitialStructure.Engine/Persistence、CoatingDesign.Engine；App 无直接 Core 引用 |
+| [src/OpticalSystemDesign.Application/OpticalSystemDesign.Application.csproj](../src/OpticalSystemDesign.Application/OpticalSystemDesign.Application.csproj) | OpticalSystemDesign.Core |
+| [src/OpticalSystemDesign.Core/OpticalSystemDesign.Core.csproj](../src/OpticalSystemDesign.Core/OpticalSystemDesign.Core.csproj) | 目标框架、资源或包引用 |
+| [tools/OpticalSystemDesign.ZemaxComparison/OpticalSystemDesign.ZemaxComparison.csproj](../tools/OpticalSystemDesign.ZemaxComparison/OpticalSystemDesign.ZemaxComparison.csproj) | 原生对照与离线历史重算统一入口；引用 Application，随根解决方案构建 |
+| [tools/OpticalSystemDesign.Benchmarks/OpticalSystemDesign.Benchmarks.csproj](../tools/OpticalSystemDesign.Benchmarks/OpticalSystemDesign.Benchmarks.csproj) | OpticalSystemDesign.Core |
+| [tools/OpticalSystemDesign.GlassCatalogConverter/OpticalSystemDesign.GlassCatalogConverter.csproj](../tools/OpticalSystemDesign.GlassCatalogConverter/OpticalSystemDesign.GlassCatalogConverter.csproj) | OpticalSystemDesign.Core |
+| [tools/OpticalSystemDesign.LensLibraryBuilder/OpticalSystemDesign.LensLibraryBuilder.csproj](../tools/OpticalSystemDesign.LensLibraryBuilder/OpticalSystemDesign.LensLibraryBuilder.csproj) | OpticalSystemDesign.Application, OpticalSystemDesign.Core |
+| [tools/OpticalSystemDesign.NonSequentialSamples/OpticalSystemDesign.NonSequentialSamples.csproj](../tools/OpticalSystemDesign.NonSequentialSamples/OpticalSystemDesign.NonSequentialSamples.csproj) | OpticalSystemDesign.Core |
+| [tools/OpticalSystemDesign.ZemaxLibraryImporter/OpticalSystemDesign.ZemaxLibraryImporter.csproj](../tools/OpticalSystemDesign.ZemaxLibraryImporter/OpticalSystemDesign.ZemaxLibraryImporter.csproj) | OpticalSystemDesign.Application, OpticalSystemDesign.Core |
 | [global.json](../global.json) | SDK 10.0.300，latestPatch，禁止预览 SDK |
 | [packaging/macos/Info.plist](../packaging/macos/Info.plist) | macOS 应用包身份及 STAROPT 文档关联 |
 
 ## 镀膜实验室代码入口（2026-09-27）
 
-唯一解决方案为 [OptilandWorkbench.slnx](../OptilandWorkbench.slnx)。主程序直接包含模块 UI，并引用 Modules 与必要内部领域库；上游归档不参与产品运行。
+唯一解决方案为 [OpticalSystemDesign.slnx](../OpticalSystemDesign.slnx)。主程序直接包含模块 UI，并引用 Modules 与必要内部领域库；上游归档不参与产品运行。
 
 | 职责 | 入口 |
 | --- | --- |
-| 真实 n/k、S/P、稳定散射递推与对数透射 | [CoherentThinFilmSolver.cs](../src/OptilandWorkbench.Core/Coatings/CoherentThinFilmSolver.cs) |
-| 采样、峰值/FWHM 与类型化光谱 | [ThinFilmSpectrum.cs](../src/OptilandWorkbench.Core/Coatings/ThinFilmSpectrum.cs) |
-| 目标、膜层、完整材料快照、输入哈希 | [Experiment.cs](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/Experiment.cs) |
-| 材料搜索与共享模型接入 | [MaterialLibrary.cs](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/MaterialLibrary.cs) |
-| 模板、目标残差、共享优化器、公差和密集验收 | [DesignService.cs](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/DesignService.cs) |
-| 取消与过期结果隔离 | [ExperimentSession.cs](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/ExperimentSession.cs) |
-| 原子保存、重开复算、精确 CSV 导出 | [ExperimentStore.cs](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/ExperimentStore.cs) |
-| 中文界面与光谱 | [MainWindow.cs](../src/OptilandWorkbench.App/Laboratories/CoatingDesign/MainWindow.cs)、[SpectrumPlot.cs](../src/OptilandWorkbench.App/Laboratories/CoatingDesign/SpectrumPlot.cs) |
-| 主程序同进程工作区 | [IntegratedLaboratories.cs](../src/OptilandWorkbench.App/Services/IntegratedLaboratories.cs) |
-| 数值/工作流/控件测试 | [测试目录](../labs/CoatingDesign/tests/OptilandWorkbench.CoatingDesign.Tests) |
+| 真实 n/k、S/P、稳定散射递推与对数透射 | [CoherentThinFilmSolver.cs](../src/OpticalSystemDesign.Core/Coatings/CoherentThinFilmSolver.cs) |
+| 采样、峰值/FWHM 与类型化光谱 | [ThinFilmSpectrum.cs](../src/OpticalSystemDesign.Core/Coatings/ThinFilmSpectrum.cs) |
+| 目标、膜层、完整材料快照、输入哈希 | [Experiment.cs](../labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/Experiment.cs) |
+| 材料搜索与共享模型接入 | [MaterialLibrary.cs](../labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/MaterialLibrary.cs) |
+| 模板、目标残差、共享优化器、公差和密集验收 | [DesignService.cs](../labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.cs) |
+| 取消与过期结果隔离 | [ExperimentSession.cs](../labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/ExperimentSession.cs) |
+| 原子保存、重开复算、精确 CSV 导出 | [ExperimentStore.cs](../labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/ExperimentStore.cs) |
+| 中文界面与光谱 | [MainWindow.cs](../src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.cs)、[SpectrumPlot.cs](../src/OpticalSystemDesign.App/Laboratories/CoatingDesign/SpectrumPlot.cs) |
+| 主程序同进程工作区 | [IntegratedLaboratories.cs](../src/OpticalSystemDesign.App/Services/IntegratedLaboratories.cs) |
+| 数值/工作流/控件测试 | [测试目录](../labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests) |
 
 源归档、上游对照脚本和物理验收相互独立；完整依据见[实施文档](COATING_DESIGN_LAB.md)与[验收记录](../validation/coating/README.md)。
 
-镀膜入口（2026-10-13 更新）：[结构搜索](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/DesignService.Search.cs)、[显式单位 n/k 表交换](../labs/CoatingDesign/src/OptilandWorkbench.CoatingDesign.Engine/MaterialTable.cs)、[材料对话框](../src/OptilandWorkbench.App/Laboratories/CoatingDesign/MaterialEditorWindow.cs)。UI 已移入主程序，直接使用主程序主题与字体服务，不再通过独立 csproj 源码链接。
+镀膜入口（2026-10-13 更新）：[结构搜索](../labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.Search.cs)、[显式单位 n/k 表交换](../labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/MaterialTable.cs)、[材料对话框](../src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MaterialEditorWindow.cs)。UI 已移入主程序，直接使用主程序主题与字体服务，不再通过独立 csproj 源码链接。
