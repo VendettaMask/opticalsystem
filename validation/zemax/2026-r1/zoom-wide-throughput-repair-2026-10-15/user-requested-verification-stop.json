@@ -1,0 +1,17 @@
+{
+  "processes": [
+    {
+      "ProcessId": 30124,
+      "ParentProcessId": 32880,
+      "CommandLine": "\"C:\\Program Files\\dotnet\\dotnet.exe\" test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --logger trx;LogFileName=full-accepted-release.trx --results-directory artifacts/validation/zoom-wide-20261015/tests -v:minimal"
+    },
+    {
+      "ProcessId": 34704,
+      "ParentProcessId": 30432,
+      "CommandLine": "\"C:\\Program Files\\dotnet\\dotnet.exe\" test labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj -c Release --no-build --no-restore --logger trx;LogFileName=initial-accepted-release.trx --results-directory artifacts/validation/zoom-wide-20261015/tests -v:minimal"
+    }
+  ],
+  "requestedByUser": "全推送，能不验就就不验了",
+  "stoppedUtc": "2026-10-15T15:07:08.5667597Z",
+  "reason": "User requested all changes pushed without waiting for optional full verification"
+}

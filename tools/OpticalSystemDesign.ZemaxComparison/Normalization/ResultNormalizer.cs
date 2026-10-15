@@ -1,5 +1,6 @@
 using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis;
+using OpticalSystemDesign.ZemaxComparison.Zemax;
 
 namespace OpticalSystemDesign.ZemaxComparison.Normalization;
 
@@ -117,6 +118,7 @@ public static class ResultNormalizer
 
     public static NumericResult Zemax(string path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request)
     {
+        ValidateNumberedConfiguration(path, entry, request);
         using var doc = JsonDocument.Parse(File.ReadAllText(path)); var root = doc.RootElement;
         NativeReferenceDiagnostics.Validate(root);
         if (entry.ZemaxSettingsMapper == "contract") return ExtendedResultNormalizer.Zemax(path, request);
@@ -178,6 +180,20 @@ public static class ResultNormalizer
         result.Transformations.Add(mtf ? "IAS MTF Modulation: native columns 0=T, 1=S; explicit selected field/wavelength, cycles/mm."
             : "IAS_Fan: native groups 0=T, 1=S; one selected wavelength per group, normalized pupil. No localized label parsing.");
         return result;
+    }
+
+    private static void ValidateNumberedConfiguration(string path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request)
+    {
+        // Old frozen single-configuration captures remain valid in their scope.
+        // A multi-configuration request must prove its separate analysis selector.
+        if (request.Configuration <= 1 || !(entry.ZemaxSettingsMapper is "spot" or "huygens-psf" or "huygens-mtf"
+            || request.ZemaxSettings.ContainsKey("Configuration"))) return;
+        var settings = Path.Combine(Path.GetDirectoryName(path)!, "captured-settings.json");
+        if (!File.Exists(settings)) throw new InvalidDataException("Native multi-configuration selector readback is missing");
+        using var doc = JsonDocument.Parse(File.ReadAllText(settings));
+        if (!doc.RootElement.GetProperty("properties").TryGetProperty("Configuration", out var selected)
+            || selected.GetInt32() != NativeConfigurationSelector.Numbered(request.Configuration))
+            throw new InvalidDataException("Native analysis configuration selector differs from the requested numbered configuration");
     }
     private static double? Finite(JsonElement e) => e.ValueKind == JsonValueKind.Number && e.TryGetDouble(out var d) && double.IsFinite(d) ? d : null;
     private static string Semantics(AnalysisComparisonEntry e) => e.ZemaxSettingsMapper switch

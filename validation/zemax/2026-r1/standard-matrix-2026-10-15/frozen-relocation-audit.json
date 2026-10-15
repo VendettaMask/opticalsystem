@@ -1,0 +1,111 @@
+{
+  "originalPathCheck": {
+    "source": "HEAD",
+    "commit": "48591521b4b9bd1d2b748f8ed0d2599551159f02",
+    "count": 2668,
+    "matched": 2664,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "60316ce297c81a5b14f4df7aa7771eca61a3cc1a0908aad1e25adbbbab35648e",
+    "unchanged": false,
+    "mismatches": [
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+        "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+        "actualSha256": null,
+        "gitBlob": null,
+        "bytes": null,
+        "matches": false
+      },
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+        "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+        "actualSha256": null,
+        "gitBlob": null,
+        "bytes": null,
+        "matches": false
+      },
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+        "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+        "actualSha256": null,
+        "gitBlob": null,
+        "bytes": null,
+        "matches": false
+      },
+      {
+        "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+        "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "actualSha256": null,
+        "gitBlob": null,
+        "bytes": null,
+        "matches": false
+      }
+    ],
+    "workingTree": {
+      "count": 2668,
+      "matched": 2664,
+      "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "actualAggregateSha256": "60316ce297c81a5b14f4df7aa7771eca61a3cc1a0908aad1e25adbbbab35648e",
+      "unchanged": false,
+      "mismatches": [
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+          "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+          "actualSha256": null,
+          "matches": false
+        },
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+          "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+          "actualSha256": null,
+          "matches": false
+        },
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+          "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+          "actualSha256": null,
+          "matches": false
+        },
+        {
+          "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+          "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+          "actualSha256": null,
+          "matches": false
+        }
+      ]
+    }
+  },
+  "relocations": [
+    {
+      "originalPath": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+      "currentPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+      "originalSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+      "currentSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+      "exactByteMatch": true
+    },
+    {
+      "originalPath": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+      "currentPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+      "originalSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+      "currentSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+      "exactByteMatch": true
+    },
+    {
+      "originalPath": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+      "currentPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+      "originalSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+      "currentSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+      "exactByteMatch": true
+    },
+    {
+      "originalPath": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+      "currentPath": "tools/OpticalSystemDesign.ZemaxComparison/comparison-settings.json",
+      "originalSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+      "currentSha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+      "exactByteMatch": false
+    }
+  ],
+  "comparisonPolicySemanticallyEqual": true,
+  "originalPolicyExactArchive": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+  "explanation": "The upstream identity rename moved four entries. Three fixture byte identities remain exact. The maintained tool policy was reformatted, without changing JSON values. The original policy is preserved exactly in this new validation archive. The old-path HEAD gate is not reported as passing."
+}

@@ -1,0 +1,29 @@
+{
+  "preparedUtc": "2026-10-15T12:33:55.8671116+00:00",
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "planSha256": "deeda658f1af50bae6766e1976020622e7a068dca5700bfa6d16218e65c2a406",
+  "nativeJobs": 758,
+  "analysisRequests": 868,
+  "assemblies": [
+    {
+      "path": "D:\\Projects\\opticalsystem\\tools\\diagnostics\\StandardMatrix20261015\\bin\\Release\\net10.0\\OpticalSystemDesign.Core.dll",
+      "sha256": "66b9308ea0cb38a174feb9dc0009394e8daa9a9211c6350153839462b50b272d"
+    },
+    {
+      "path": "D:\\Projects\\opticalsystem\\tools\\diagnostics\\StandardMatrix20261015\\bin\\Release\\net10.0\\OpticalSystemDesign.ZemaxComparison.dll",
+      "sha256": "e0eda4c941399c0d48a05658596007d8c9d42dde64baacfd493d3949fe6fe279"
+    },
+    {
+      "path": "D:\\Projects\\opticalsystem\\tools\\diagnostics\\StandardMatrix20261015\\bin\\Release\\net10.0\\StandardMatrix20261015.dll",
+      "sha256": "738a6288e70a785c4d9350f97ca1f8f86b2ee661d581d214198f7fb9d8816f2a"
+    }
+  ],
+  "rayPolicy": {
+    "coordinateAbsoluteMillimeters": 1E-06,
+    "coordinateRelative": 1E-06,
+    "directionAbsolute": 1E-08,
+    "directionRelative": 1E-06,
+    "acceptanceAndFirstClipMustMatch": true,
+    "source": "Existing Single Ray Trace pointwise tolerances; fixed before native capture; GQ6 explicit rays, no analysis convergence claim"
+  }
+}

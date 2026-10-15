@@ -360,6 +360,11 @@ public sealed partial class Paraxial
     {
         var objectPosition = objectAtInfinity ? firstSurfacePosition : objectSurface?.CoordinateSystem.Origin.Z ?? 0;
         var objectHeightUnit = -(entrancePupilLocation - objectPosition);
+        if (objectAtInfinity && _optic.FieldDefinition == FieldDefinitionKind.ParaxialImageHeight)
+        {
+            var slope = imageHeight * EstimateOpticalPower();
+            return (objectHeightUnit * slope, firstSurfacePosition, slope);
+        }
         var trace = TraceGeneric(new[] { objectHeightUnit }, new[] { 1.0 }, objectPosition,
             PrimaryWavelengthNanometers() / 1000.0);
         var imageHeightUnit = trace.Heights[^1][0];

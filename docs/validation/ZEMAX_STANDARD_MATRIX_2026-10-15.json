@@ -1,0 +1,619 @@
+{
+  "date": "2026-10-15",
+  "recordedUtc": "2026-10-15T12:47:01.153816+00:00",
+  "sourceCommit": "48591521b4b9bd1d2b748f8ed0d2599551159f02",
+  "productSourceChanged": false,
+  "scope": "25 official standard lenses from the original 27-file plan, excluding independent Cooke/Tessar; plus unchanged 123456 baseline. This is a scoped audit, not full software or all-sampling certification.",
+  "sourceCountIncludingExcluded": 28,
+  "includedLenses": 26,
+  "configurations": 28,
+  "nativeJobs": 758,
+  "nativeJobCounts": {
+    "0": 757,
+    "2": 1
+  },
+  "nativeVersion": {
+    "major": 26,
+    "minor": 1,
+    "build": 260127,
+    "license": "EnterpriseEdition",
+    "validAPI": true
+  },
+  "analysis": {
+    "completedUtc": "2026-10-15T12:42:28.5446117+00:00",
+    "total": 868,
+    "counts": {
+      "Pass": 381,
+      "Incomparable": 300,
+      "Close": 19,
+      "Difference": 32,
+      "Error": 136
+    },
+    "lenses": [
+      {
+        "lens": "Objectives/Apochromat.zmx",
+        "total": 50,
+        "counts": {
+          "Pass": 45,
+          "Incomparable": 4,
+          "Close": 1
+        }
+      },
+      {
+        "lens": "Objectives/Apochromat2.zmx",
+        "total": 38,
+        "counts": {
+          "Pass": 34,
+          "Incomparable": 4
+        }
+      },
+      {
+        "lens": "Objectives/Apochromat3.zmx",
+        "total": 30,
+        "counts": {
+          "Pass": 26,
+          "Incomparable": 4
+        }
+      },
+      {
+        "lens": "Objectives/Apochromat4.zmx",
+        "total": 70,
+        "counts": {
+          "Incomparable": 70
+        }
+      },
+      {
+        "lens": "Objectives/Double Gauss 28 degree field.zmx",
+        "total": 30,
+        "counts": {
+          "Pass": 28,
+          "Incomparable": 1,
+          "Difference": 1
+        }
+      },
+      {
+        "lens": "Objectives/Double Gauss 5 degree field.zmx",
+        "total": 38,
+        "counts": {
+          "Incomparable": 38
+        }
+      },
+      {
+        "lens": "Objectives/Doublet using MIL number glasses.zmx",
+        "total": 38,
+        "counts": {
+          "Error": 38
+        }
+      },
+      {
+        "lens": "Objectives/Doublet.zmx",
+        "total": 30,
+        "counts": {
+          "Pass": 26,
+          "Close": 1,
+          "Incomparable": 3
+        }
+      },
+      {
+        "lens": "Objectives/Even Asphere.zmx",
+        "total": 22,
+        "counts": {
+          "Pass": 18,
+          "Incomparable": 2,
+          "Difference": 1,
+          "Close": 1
+        }
+      },
+      {
+        "lens": "Objectives/Gaussian Quadrature over Annular Pupils.zmx",
+        "total": 22,
+        "counts": {
+          "Pass": 15,
+          "Difference": 3,
+          "Incomparable": 4
+        }
+      },
+      {
+        "lens": "Objectives/Gaussian Quadrature Over Wavelength.ZMX",
+        "total": 30,
+        "counts": {
+          "Pass": 29,
+          "Incomparable": 1
+        }
+      },
+      {
+        "lens": "Objectives/Inverse telephoto lens.zmx",
+        "total": 30,
+        "counts": {
+          "Pass": 23,
+          "Incomparable": 3,
+          "Close": 3,
+          "Difference": 1
+        }
+      },
+      {
+        "lens": "Objectives/Petzval.zmx",
+        "total": 30,
+        "counts": {
+          "Pass": 26,
+          "Close": 2,
+          "Incomparable": 1,
+          "Error": 1
+        }
+      },
+      {
+        "lens": "Objectives/Relay lens.zmx",
+        "total": 30,
+        "counts": {
+          "Pass": 28,
+          "Incomparable": 1,
+          "Difference": 1
+        }
+      },
+      {
+        "lens": "Objectives/Wide angle lens 100 degree field.zmx",
+        "total": 30,
+        "counts": {
+          "Incomparable": 30
+        }
+      },
+      {
+        "lens": "Objectives/Wide angle lens 200 degree field.zmx",
+        "total": 30,
+        "counts": {
+          "Incomparable": 30
+        }
+      },
+      {
+        "lens": "Objectives/Wide angle lens 210 degree field.zmx",
+        "total": 30,
+        "counts": {
+          "Pass": 1,
+          "Incomparable": 8,
+          "Difference": 6,
+          "Error": 14,
+          "Close": 1
+        }
+      },
+      {
+        "lens": "Tilted systems & prisms/Offner relay.zmx",
+        "total": 22,
+        "counts": {
+          "Difference": 1,
+          "Incomparable": 2,
+          "Pass": 18,
+          "Close": 1
+        }
+      },
+      {
+        "lens": "Tilted systems & prisms/Tilted mirror.zmx",
+        "total": 22,
+        "counts": {
+          "Error": 22
+        }
+      },
+      {
+        "lens": "Tilted systems & prisms/Prism using total internal reflection.zmx",
+        "total": 22,
+        "counts": {
+          "Difference": 2,
+          "Incomparable": 4,
+          "Pass": 11,
+          "Close": 4,
+          "Error": 1
+        }
+      },
+      {
+        "lens": "Zoom systems/Zoom lens.zmx",
+        "total": 90,
+        "counts": {
+          "Pass": 6,
+          "Incomparable": 36,
+          "Difference": 16,
+          "Error": 30,
+          "Close": 2
+        }
+      },
+      {
+        "lens": "Telescopes/Schmidt-Cassegrain.zmx",
+        "total": 30,
+        "counts": {
+          "Incomparable": 30
+        }
+      },
+      {
+        "lens": "Afocal/Beam Expander.ZMX",
+        "total": 22,
+        "counts": {
+          "Incomparable": 22
+        }
+      },
+      {
+        "lens": "Miscellaneous/Doubly telecentric system.zmx",
+        "total": 22,
+        "counts": {
+          "Pass": 19,
+          "Close": 2,
+          "Incomparable": 1
+        }
+      },
+      {
+        "lens": "Image Simulation/Example 2, Double Gauss Experimental Arrangement.ZMX",
+        "total": 30,
+        "counts": {
+          "Error": 30
+        }
+      },
+      {
+        "lens": "baseline/123456.ZMX",
+        "total": 30,
+        "counts": {
+          "Pass": 28,
+          "Close": 1,
+          "Incomparable": 1
+        }
+      }
+    ]
+  },
+  "explicitRays": {
+    "jobs": 91,
+    "counts": {
+      "Pass": 55,
+      "Error": 9,
+      "Difference": 25,
+      "Incomparable": 2
+    },
+    "inputs": 15768,
+    "surfaceResults": 192672,
+    "physicalSurfaceComparisons": 112265,
+    "comparedValues": 673590,
+    "lenses": [
+      "Afocal/Beam Expander.ZMX",
+      "Image Simulation/Example 2, Double Gauss Experimental Arrangement.ZMX",
+      "Miscellaneous/Doubly telecentric system.zmx",
+      "Objectives/Apochromat.zmx",
+      "Objectives/Apochromat2.zmx",
+      "Objectives/Apochromat3.zmx",
+      "Objectives/Apochromat4.zmx",
+      "Objectives/Double Gauss 28 degree field.zmx",
+      "Objectives/Double Gauss 5 degree field.zmx",
+      "Objectives/Doublet using MIL number glasses.zmx",
+      "Objectives/Doublet.zmx",
+      "Objectives/Even Asphere.zmx",
+      "Objectives/Gaussian Quadrature Over Wavelength.ZMX",
+      "Objectives/Gaussian Quadrature over Annular Pupils.zmx",
+      "Objectives/Inverse telephoto lens.zmx",
+      "Objectives/Petzval.zmx",
+      "Objectives/Relay lens.zmx",
+      "Objectives/Wide angle lens 100 degree field.zmx",
+      "Objectives/Wide angle lens 200 degree field.zmx",
+      "Objectives/Wide angle lens 210 degree field.zmx",
+      "Telescopes/Schmidt-Cassegrain.zmx",
+      "Tilted systems & prisms/Offner relay.zmx",
+      "Tilted systems & prisms/Prism using total internal reflection.zmx",
+      "Tilted systems & prisms/Tilted mirror.zmx",
+      "Zoom systems/Zoom lens.zmx",
+      "baseline/123456.ZMX"
+    ]
+  },
+  "curvatureAndIllumination": [
+    {
+      "name": "123456",
+      "summary": [
+        {
+          "Code": "FCGS",
+          "Total": 324,
+          "Computable": 324,
+          "MaxAbsoluteError": 5.510125389816822e-10,
+          "MaxRelativeError": 8.73246457377963e-06,
+          "ComparisonTarget": 1e-05,
+          "Status": "Pass"
+        },
+        {
+          "Code": "FCGT",
+          "Total": 324,
+          "Computable": 324,
+          "MaxAbsoluteError": 6.269861609065064e-10,
+          "MaxRelativeError": 8.73246457377963e-06,
+          "ComparisonTarget": 1e-05,
+          "Status": "Pass"
+        },
+        {
+          "Code": "EFNO",
+          "Total": 60,
+          "Computable": 60,
+          "MaxAbsoluteError": 0.28025325713977134,
+          "MaxRelativeError": 0.0928911250071981,
+          "ComparisonTarget": null,
+          "Status": "Difference"
+        },
+        {
+          "Code": "RELI",
+          "Total": 60,
+          "Computable": 60,
+          "MaxAbsoluteError": 0.004913497838650471,
+          "MaxRelativeError": 0.005054860991141941,
+          "ComparisonTarget": null,
+          "Status": "Difference"
+        }
+      ]
+    },
+    {
+      "name": "double-gauss-28-degree-field",
+      "summary": [
+        {
+          "Code": "FCGS",
+          "Total": 324,
+          "Computable": 324,
+          "MaxAbsoluteError": 3.341700832715233e-09,
+          "MaxRelativeError": 1.4271817830868727e-06,
+          "ComparisonTarget": 1e-05,
+          "Status": "Pass"
+        },
+        {
+          "Code": "FCGT",
+          "Total": 324,
+          "Computable": 324,
+          "MaxAbsoluteError": 3.3274103194980142e-09,
+          "MaxRelativeError": 6.557337872692415e-08,
+          "ComparisonTarget": 1e-05,
+          "Status": "Pass"
+        },
+        {
+          "Code": "EFNO",
+          "Total": 36,
+          "Computable": 36,
+          "MaxAbsoluteError": 0.39591265785060914,
+          "MaxRelativeError": 0.12061828840935307,
+          "ComparisonTarget": null,
+          "Status": "Difference"
+        },
+        {
+          "Code": "RELI",
+          "Total": 36,
+          "Computable": 36,
+          "MaxAbsoluteError": 0.02324421773652785,
+          "MaxRelativeError": 0.025180047945289163,
+          "ComparisonTarget": null,
+          "Status": "Difference"
+        }
+      ]
+    },
+    {
+      "name": "relay-lens",
+      "summary": [
+        {
+          "Code": "FCGS",
+          "Total": 324,
+          "Computable": 324,
+          "MaxAbsoluteError": 2.36214237059329e-09,
+          "MaxRelativeError": 4.218413840462176e-09,
+          "ComparisonTarget": 1e-05,
+          "Status": "Pass"
+        },
+        {
+          "Code": "FCGT",
+          "Total": 324,
+          "Computable": 324,
+          "MaxAbsoluteError": 2.6416983045507436e-09,
+          "MaxRelativeError": 3.7537059460746036e-08,
+          "ComparisonTarget": 1e-05,
+          "Status": "Pass"
+        },
+        {
+          "Code": "EFNO",
+          "Total": 24,
+          "Computable": 24,
+          "MaxAbsoluteError": 1.5459506412519843,
+          "MaxRelativeError": 0.12307935378765489,
+          "ComparisonTarget": null,
+          "Status": "Difference"
+        },
+        {
+          "Code": "RELI",
+          "Total": 24,
+          "Computable": 24,
+          "MaxAbsoluteError": 0.0056214812874526565,
+          "MaxRelativeError": 0.005632694423495677,
+          "ComparisonTarget": null,
+          "Status": "Difference"
+        }
+      ]
+    },
+    {
+      "name": "even-asphere",
+      "summary": [
+        {
+          "Code": "FCGS",
+          "Total": 108,
+          "Computable": 108,
+          "MaxAbsoluteError": 2.4292312716944764e-08,
+          "MaxRelativeError": 1.0796178506744525e-07,
+          "ComparisonTarget": 1e-05,
+          "Status": "Pass"
+        },
+        {
+          "Code": "FCGT",
+          "Total": 108,
+          "Computable": 108,
+          "MaxAbsoluteError": 3.054520025802532e-08,
+          "MaxRelativeError": 1.213684257539427e-07,
+          "ComparisonTarget": 1e-05,
+          "Status": "Pass"
+        },
+        {
+          "Code": "EFNO",
+          "Total": 8,
+          "Computable": 8,
+          "MaxAbsoluteError": 0.39152702713779597,
+          "MaxRelativeError": 0.12537048705040443,
+          "ComparisonTarget": null,
+          "Status": "Difference"
+        },
+        {
+          "Code": "RELI",
+          "Total": 8,
+          "Computable": 8,
+          "MaxAbsoluteError": 0.013255150768054724,
+          "MaxRelativeError": 0.013358467434274601,
+          "ComparisonTarget": null,
+          "Status": "Difference"
+        }
+      ]
+    }
+  ],
+  "isolatedNativeControls": [
+    {
+      "lens": "Zoom systems/Zoom lens.zmx",
+      "configuration": 3,
+      "key": "Spot Diagram",
+      "exitCode": 0,
+      "normalizedPersistentSha256": "8dee073eaf7b7baea163712204b28ee435f4aa9f4d0c7988c3f18c633fba450e",
+      "normalizedIsolatedSha256": "8dee073eaf7b7baea163712204b28ee435f4aa9f4d0c7988c3f18c633fba450e",
+      "exactMatch": true,
+      "directory": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261015\\full-matrix-v1\\isolated-controls\\0707-zoom-lens-c3-primary-f1-w1-spot-diagram"
+    },
+    {
+      "lens": "Zoom systems/Zoom lens.zmx",
+      "configuration": 1,
+      "key": "Spot Diagram",
+      "exitCode": 0,
+      "normalizedPersistentSha256": "f4a617079e2fc1334a0e63b8195be72308b65f6b7a913818ac55d42cb12f0ceb",
+      "normalizedIsolatedSha256": "f4a617079e2fc1334a0e63b8195be72308b65f6b7a913818ac55d42cb12f0ceb",
+      "exactMatch": true,
+      "directory": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261015\\full-matrix-v1\\isolated-controls\\0647-zoom-lens-c1-primary-f1-w1-spot-diagram"
+    },
+    {
+      "lens": "Objectives/Double Gauss 28 degree field.zmx",
+      "configuration": 1,
+      "key": "Spot Diagram",
+      "exitCode": 0,
+      "normalizedPersistentSha256": "344b29d961b53d040a9ac1303d7d5fe3f673468915a55c77236f46343b8313d4",
+      "normalizedIsolatedSha256": "344b29d961b53d040a9ac1303d7d5fe3f673468915a55c77236f46343b8313d4",
+      "exactMatch": true,
+      "directory": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261015\\full-matrix-v1\\isolated-controls\\0191-double-gauss-28-degree-field-c1-primary-f1-w2-spot-diagram"
+    },
+    {
+      "lens": "Objectives/Apochromat.zmx",
+      "configuration": 1,
+      "key": "Spot Diagram",
+      "exitCode": 0,
+      "normalizedPersistentSha256": "cd7d20ee0fdb335d857510bee3460afac5262a8461eb0e1a8775c79bc921be72",
+      "normalizedIsolatedSha256": "cd7d20ee0fdb335d857510bee3460afac5262a8461eb0e1a8775c79bc921be72",
+      "exactMatch": true,
+      "directory": "D:\\Projects\\opticalsystem\\artifacts\\zemax-standard-samples\\20261015\\full-matrix-v1\\isolated-controls\\0003-apochromat-c1-primary-f1-w4-spot-diagram"
+    }
+  ],
+  "policy": {
+    "preparedPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+    "originalFrozenPolicySha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+    "semanticIdentity": true,
+    "tolerancesRelaxed": false
+  },
+  "frozenEvidence": {
+    "originalPathGateMatched": 2664,
+    "originalPathGateTotal": 2668,
+    "originalPathGatePassed": false,
+    "relocations": [
+      {
+        "originalPath": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+        "currentPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+        "originalSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+        "currentSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+        "exactByteMatch": true
+      },
+      {
+        "originalPath": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+        "currentPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+        "originalSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+        "currentSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+        "exactByteMatch": true
+      },
+      {
+        "originalPath": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+        "currentPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+        "originalSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+        "currentSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+        "exactByteMatch": true
+      },
+      {
+        "originalPath": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+        "currentPath": "tools/OpticalSystemDesign.ZemaxComparison/comparison-settings.json",
+        "originalSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "currentSha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+        "exactByteMatch": false
+      }
+    ],
+    "originalPolicyArchivedExactly": true,
+    "audit": "validation/zemax/2026-r1/standard-matrix-2026-10-15/frozen-relocation-audit.json"
+  },
+  "verification": {
+    "comparisonToolRelease": {
+      "passed": 201,
+      "failed": 0,
+      "skipped": 0,
+      "trx": "checks/test-results/comparison-tool-release.trx"
+    },
+    "diagnosticReleaseBuildWarnings": 0,
+    "diagnosticReleaseBuildErrors": 0,
+    "fullMainSuiteRun": false,
+    "samplingConvergenceCertified": false,
+    "documentationStrict": {
+      "documents": 893,
+      "brokenLinks": 0,
+      "fenceIssues": 0,
+      "localOnlyLinks": 0,
+      "guideRepeatedParagraphGroups": 0
+    },
+    "pythonSyntax": "passed",
+    "powershellSyntax": "passed",
+    "gitDiffCheck": "passed"
+  },
+  "archive": {
+    "path": "validation/zemax/2026-r1/standard-matrix-2026-10-15/native-and-core-evidence.zip",
+    "sha256": "f9dec857670564c9a8319a801a2c928834fe51fa9eee7fb0dc6486804d66b771",
+    "bytes": 60762498,
+    "files": 13152,
+    "everyArchivedFileSHA256Verified": true,
+    "containsProprietaryBinaries": false
+  },
+  "limitations": [
+    "18 primary analysis requests and 4 edge controls per positive-weight wavelength/configuration; overlapping physical conditions remain separately identified requests.",
+    "64 pupil/image base sampling where applicable; no 32/128/256 convergence matrix or full field-by-wavelength diffraction certification.",
+    "220 requests lack MM/focal analysis adapters, 14 have native diagnostic warnings, and other Incomparables retain their detailed reasons.",
+    "MIL catalog glasses 517642/648338 and native PARAXIAL surfaces are blocked, not modeled by fallbacks.",
+    "Raw reflective local directions require a convention audit; coordinate-break row folding needs explicit surface correspondence.",
+    "One native FFT cross-section capture failed in Host.Capture with a null series; this is a capture-adapter error, not proof of a product optical residual.",
+    "No independent Cooke/Tessar recapture, installer rebuild, full desktop acceptance or external commit/push."
+  ],
+  "toolSources": [
+    {
+      "path": "tools/diagnostics/StandardMatrix20261015/AuditResults.py",
+      "sha256": "7806585376accb1d21dca4277000def69404d3799c0e8f702875092515c7ef0f"
+    },
+    {
+      "path": "tools/diagnostics/StandardMatrix20261015/NativeBatchHost.cs",
+      "sha256": "05e54b169926823e887afc552256ef4b53f583da9019dbe3f400da8f55ab86de"
+    },
+    {
+      "path": "tools/diagnostics/StandardMatrix20261015/packages.lock.json",
+      "sha256": "0581d8d45c1a32ab4d889060f60db39a9618519ba974e4b28509aa7569547bad"
+    },
+    {
+      "path": "tools/diagnostics/StandardMatrix20261015/Program.cs",
+      "sha256": "b26b040b8d479502b933b21f55c28f22ca27aa7860164014edbc2cc5b6065720"
+    },
+    {
+      "path": "tools/diagnostics/StandardMatrix20261015/README.md",
+      "sha256": "43e1971111d771baf849e868a49ae0364ee733c0afdef1781bbc2964b600c1e4"
+    },
+    {
+      "path": "tools/diagnostics/StandardMatrix20261015/Run-Native.ps1",
+      "sha256": "dfe46bf3e26c50c0b16b78b434b86ccbfaf5b77d663a8fd97b1717eef492a9bf"
+    },
+    {
+      "path": "tools/diagnostics/StandardMatrix20261015/StandardMatrix20261015.csproj",
+      "sha256": "b88b583e506952ba137d4398d3602cb0c8c976a6d4ab87c9e95934612d90b582"
+    }
+  ]
+}

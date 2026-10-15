@@ -9,6 +9,7 @@
     <PackageReference Include="SkiaSharp" Version="3.119.4" />
     <ProjectReference Include="../../src/OpticalSystemDesign.Application/OpticalSystemDesign.Application.csproj" />
     <Compile Remove="ZemaxHost/**/*.cs" />
+    <Compile Include="ZemaxHost/NativeConfigurationSelector.cs" />
     <None Include="comparison-settings.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="ZemaxHost/*.cs" CopyToOutputDirectory="PreserveNewest" />
     <None Update="assets/*" CopyToOutputDirectory="PreserveNewest" />

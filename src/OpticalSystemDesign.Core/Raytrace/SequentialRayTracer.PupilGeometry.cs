@@ -22,7 +22,7 @@ public sealed partial class SequentialRayTracer
             ComputationCancellation.ThrowIfCancellationRequested();
             var step = TraceSequentialSurface(surfaces[index], index, ray, material, path, opticalPath,
                 ignorePhysicalAperture: true, stopBeforeInteraction: index == surfaces.Count - 1,
-                allowVirtualIntersection: index == surfaces.Count - 1);
+                allowVirtualIntersection: index == surfaces.Count - 1 || AllowsReferenceBacktrack(surfaces, index));
             if (step.StopTracing || step.Sample.Vignetted) return null;
             if (index == surfaces.Count - 1) return step.Sample.ToRayTraceSample();
             ray = step.Ray;

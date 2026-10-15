@@ -21,7 +21,7 @@ public static partial class ExtendedAnalysisContracts
                     ["Field"] = 0,
                     ["Wavelength"] = primary,
                     ["Surface"] = -1,
-                    ["Configuration"] = r.Configuration,
+                    ["Configuration"] = Zemax.NativeConfigurationSelector.Numbered(r.Configuration),
                     ["Pattern"] = "Hexapolar",
                     ["ReferTo"] = "ChiefRay",
                     ["RayDensity"] = 6,

@@ -15,6 +15,7 @@ using ZOSAPI.Analysis.Settings.Mtf;
 using ZOSAPI.Analysis.Settings.Psf;
 using ZOSAPI.Analysis.Settings.Spot;
 using ZOSAPI.Editors.MFE;
+using OpticalSystemDesign.ZemaxComparison.Zemax;
 
 internal static class Host
 {
@@ -281,7 +282,7 @@ internal sealed class SpotAdapter : Adapter
     {
         var s = (IAS_Spot)settings; Select(s.Field, s.Wavelength, s.Surface);
         s.Pattern = Patterns.Hexapolar; s.ReferTo = Reference.ChiefRay; s.RayDensity = Host.Int("rayCount");
-        s.Configuration = Host.Int("configuration"); s.DirectionCosines = false; s.UsePolarization = false;
+        s.Configuration = NativeConfigurationSelector.Numbered(Host.Int("configuration")); s.DirectionCosines = false; s.UsePolarization = false;
         s.ScatterRays = false; s.IgnoreLateralColor = false; s.DeltaFocus = 0;
     }
     public override void Extra(IOpticalSystem system, IAR_ result, Dictionary<string, object> raw)
@@ -322,7 +323,7 @@ internal sealed class HuygensMtfAdapter : Adapter
         var s = (IAS_HuygensMtf)settings; Select(s.Field, s.Wavelength, null);
         s.PupilSampleSize = Host.Sampling(Host.Int("pupilSampling")); s.ImageSampleSize = Host.Sampling(Host.Int("imageSampling"));
         s.MaximumFrequency = Host.Number("maximumFrequency"); s.ImageDelta = Host.Number("imageDeltaMicrometers");
-        s.UsePolarization = false; s.Configuration = Host.Int("configuration");
+        s.UsePolarization = false; s.Configuration = NativeConfigurationSelector.Numbered(Host.Int("configuration"));
         s.Type = Host.EnumValue<HuygensMtfTypes>("Modulation");
     }
 }
@@ -354,7 +355,7 @@ internal sealed class HuygensPsfAdapter : Adapter
         var s = (IAS_HuygensPsf)settings; Select(s.Field, s.Wavelength, null);
         s.PupilSampleSize = Host.Sampling(Host.Int("pupilSampling")); s.ImageSampleSize = Host.Sampling(Host.Int("imageSampling"));
         s.ImageDelta = Host.Number("imageDeltaMicrometers"); s.UsePolarization = false; s.UseCentroid = false;
-        s.Normalize = false; s.Configuration = Host.Int("configuration"); s.Type = Host.EnumValue<HuygensPsfTypes>("Linear");
+        s.Normalize = false; s.Configuration = NativeConfigurationSelector.Numbered(Host.Int("configuration")); s.Type = Host.EnumValue<HuygensPsfTypes>("Linear");
         s.Rotation = Host.EnumValue<Rotations>("Rotate_0");
     }
 }

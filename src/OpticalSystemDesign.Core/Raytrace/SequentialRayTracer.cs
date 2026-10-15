@@ -1,7 +1,11 @@
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Coatings;
+using OpticalSystemDesign.Core.Interactions;
+using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Core.Propagation;
 using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Services;
 
@@ -167,7 +171,8 @@ public sealed partial class SequentialRayTracer
                 currentMaterial,
                 cumulativePathLength,
                 cumulativeOpticalPathLength,
-                ignorePhysicalAperture: true);
+                ignorePhysicalAperture: true,
+                allowVirtualIntersection: AllowsReferenceBacktrack(_optic.SurfaceGroup.Items, index));
             if (index == surfaceIndex)
             {
                 return result.Sample.ToRayTraceSample();
@@ -185,6 +190,26 @@ public sealed partial class SequentialRayTracer
         }
 
         return null;
+    }
+
+    private bool AllowsReferenceBacktrack(IList<OpticalSurface> surfaces, int index)
+    {
+        // An ordered plane has a unique signed intercept. This includes virtual
+        // image/reference planes and a plane face slightly overlapped by the
+        // preceding sag. Its actual aperture and interaction remain in force.
+        if (index > 0 && surfaces[index].Geometry is PlaneGeometry) return true;
+        if (index == 1 && ObjectConjugate.IsInfinite(surfaces[0])) return true;
+        if (index <= 1) return false;
+        var previous = surfaces[index - 1];
+        if (previous.IsReflective
+            || previous.InteractionModel is not RefractiveReflectiveInteractionModel { IsReflective: false }
+            || previous.CoatingModel is not NoneCoatingModel || previous.ScatteringModel is not null
+            || previous.MaterialBefore.PropagationModel is not HomogeneousPropagationModel
+            || previous.MaterialAfter.PropagationModel is not HomogeneousPropagationModel) return false;
+        return _optic.Wavelengths.All(w =>
+            previous.MaterialBefore.RefractiveIndex(w.Micrometers * 1000) == previous.MaterialAfter.RefractiveIndex(w.Micrometers * 1000)
+            && previous.MaterialBefore.ExtinctionCoefficient(w.Micrometers * 1000) == 0
+            && previous.MaterialAfter.ExtinctionCoefficient(w.Micrometers * 1000) == 0);
     }
 
     private static SurfaceRayTraceStateResult TraceSequentialSurface(

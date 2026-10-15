@@ -7,6 +7,33 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class ZemaxLayoutApertureTests
 {
+    [Theory]
+    [InlineData("DIAM 0 1 0 0 1", false)]
+    [InlineData("DIAM 4 1 0 0 1", false)]
+    [InlineData("DIAM 4 1 0 0 1\n  APMN .5\n  APMX 2", true)]
+    public void CurvedDummyDoesNotAcquireAnImplicitFloatingAperture(string apertureRecords, bool explicitAperture)
+    {
+        var source = """
+            MODE SEQ
+            UNIT MM
+            ENPD 6
+            FTYP 0 0 1 1 0 0 0
+            XFLN 0
+            YFLN 0
+            WAVM 1 .55 1
+            PWAV 1
+            SURF 0
+              DISZ INFINITY
+            SURF 1
+              CURV .01
+              DISZ 20
+              GLAS AIR
+            """ + "\n  " + apertureRecords + "\nSURF 2\n  STOP\n  DISZ 1\n  DIAM 3 1 0 0 1\nSURF 3\n  DISZ 0";
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        Assert.Equal(explicitAperture, optic.SurfaceGroup.Items[1].PhysicalAperture is not null);
+        Assert.NotNull(optic.SurfaceGroup.Items[2].PhysicalAperture);
+    }
+
     private const string Source = """
         MODE SEQ
         NAME "Clear aperture is independent from the part edge"

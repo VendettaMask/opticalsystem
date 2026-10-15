@@ -968,7 +968,7 @@ public sealed class WorkbenchApplicationTests
     }
 
     [Fact]
-    public async Task StarOptProjectIsRecognizedByContentAfterRename()
+    public async Task StarOptProjectWithUnknownExtensionIsRejectedWithoutChangingTheDocument()
     {
         var projectPath = Path.Combine(Path.GetTempPath(), $"project-{Guid.NewGuid():N}.staropt");
         var renamedPath = Path.ChangeExtension(projectPath, ".bin");
@@ -983,8 +983,12 @@ public sealed class WorkbenchApplicationTests
 
             File.Move(projectPath, renamedPath);
             using var restored = WorkbenchApplication.Create("blank");
-            await restored.Documents.OpenAsync(renamedPath);
-
+            var previous = restored.Documents.GetSnapshot().Name;
+            await Assert.ThrowsAsync<NotSupportedException>(() => restored.Documents.OpenAsync(renamedPath));
+            Assert.Equal(previous, restored.Documents.GetSnapshot().Name);
+            Assert.True(File.Exists(renamedPath));
+            File.Move(renamedPath, projectPath);
+            await restored.Documents.OpenAsync(projectPath);
             Assert.Equal(expectedName, restored.Documents.GetSnapshot().Name);
         }
         finally

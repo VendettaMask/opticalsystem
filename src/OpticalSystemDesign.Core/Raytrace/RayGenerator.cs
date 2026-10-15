@@ -25,7 +25,13 @@ public sealed partial class RayGenerator
         PupilVignetting Vignetting,
         Vector3D EntrancePupilGlobalCenter,
         Vector3D BaseOrigin,
-        bool TranslateOriginWithPupil);
+        bool TranslateOriginWithPupil)
+    {
+        // One immutable field/wavelength evaluation only; never retained by the
+        // generator or shared across optic revisions or analysis snapshots.
+        public Lazy<InfiniteChiefSolution>? InfiniteChief { get; init; }
+    }
+    private sealed record InfiniteChiefSolution(bool Success, Vector3D Origin, double Residual);
 
     public RayGenerator(Optic optic)
     {
@@ -219,6 +225,7 @@ public sealed partial class RayGenerator
         var context = new FieldRayContext(normalizedFieldX, normalizedFieldY, vignetting,
             EntrancePupilGlobalCenter(), FieldOrigin(field.X, field.Y, 0, 0, apertureRadius, launch),
             ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items.FirstOrDefault()));
+        context = PrepareInfiniteContinuation(context, field.X, field.Y, apertureRadius, launch, wavelength, aimAtStop);
         // Paraxial transfer and the vignetting transform are affine in pupil
         // coordinates. Resolve their basis with the existing shared calculation.
         var targets = aimAtStop
@@ -277,6 +284,8 @@ public sealed partial class RayGenerator
             EntrancePupilGlobalCenter(),
             FieldOrigin(field.X, field.Y, 0, 0, apertureRadius, realImageLaunch),
             ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items.FirstOrDefault()));
+        fieldRayContext = PrepareInfiniteContinuation(fieldRayContext, field.X, field.Y,
+            apertureRadius, realImageLaunch, wavelengthNanometers, aimAtStop);
         var resolvedStopTargets = aimAtStop
             ? stopTargets ?? ParaxialStopTargets(
                 samples,
@@ -506,6 +515,20 @@ public sealed partial class RayGenerator
             pupilY * apertureRadius,
             0);
         var direction = Normalize(entrancePupil - origin);
+        if (ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items.FirstOrDefault())
+            && (_optic.FieldDefinition == FieldDefinitionKind.Angle
+                || _optic.FieldDefinition == FieldDefinitionKind.RealImageHeight))
+        {
+            var angles = realImageLaunch ?? (fieldX, fieldY);
+            // Preserve the existing floating-point construction at ordinary
+            // angles; only transverse/backward fields need an explicit sign.
+            if (Math.Abs(angles.Item1) >= 90 || Math.Abs(angles.Item2) >= 90)
+            {
+                var sign = Math.Abs(angles.Item1) > 90 || Math.Abs(angles.Item2) > 90 ? -1 : 1;
+                direction = Normalize(new Vector3D(Math.Tan(DegreesToRadians(angles.Item1)),
+                    Math.Tan(DegreesToRadians(angles.Item2)), 1)) * sign;
+            }
+        }
         if (!aimAtStop)
         {
             return (origin, direction);
@@ -521,7 +544,8 @@ public sealed partial class RayGenerator
                 pupilX,
                 pupilY,
                 effectiveWavelength,
-                paraxialStopTarget)
+                paraxialStopTarget,
+                fieldRayContext)
             : AimFiniteRayAtStop(
                 origin,
                 direction,
@@ -537,7 +561,8 @@ public sealed partial class RayGenerator
         double normalizedPupilX,
         double normalizedPupilY,
         double wavelengthNanometers,
-        (double X, double Y)? paraxialStopTarget = null)
+        (double X, double Y)? paraxialStopTarget = null,
+        FieldRayContext? fieldRayContext = null)
     {
         var stopIndex = _optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
         if (stopIndex <= 0)
@@ -548,23 +573,106 @@ public sealed partial class RayGenerator
         var stop = _optic.SurfaceGroup.Items[stopIndex];
         var target = paraxialStopTarget ?? ParaxialStopTarget(normalizedPupilX, normalizedPupilY, stopIndex);
         if (TryAimStopTarget(origin, direction, wavelengthNanometers, stopIndex, target.X, target.Y,
-                origin.X, origin.Y, infinite: true, out var aimedOrigin, out _, out var residual))
+                origin.X, origin.Y, infinite: true, out var aimedOrigin, out _, out var residual, origin))
             return (aimedOrigin, direction);
 
         // Continue on a traceable chief-to-marginal branch if the direct launch misses.
         var chiefOrigin = origin - new Vector3D(normalizedPupilX * EntrancePupilRadius(),
             normalizedPupilY * EntrancePupilRadius(), 0);
         if (!TryAimStopTarget(chiefOrigin, direction, wavelengthNanometers, stopIndex, 0, 0,
-                chiefOrigin.X, chiefOrigin.Y, infinite: true, out aimedOrigin, out _, out residual))
-            throw new RayAimingException(stop.Number, 1, residual);
-        for (var step = 1; step <= 16; step++)
+                chiefOrigin.X, chiefOrigin.Y, infinite: true, out aimedOrigin, out _, out residual, chiefOrigin))
         {
-            if (!TryAimStopTarget(origin, direction, wavelengthNanometers, stopIndex,
-                    target.X * step / 16, target.Y * step / 16,
-                    aimedOrigin.X, aimedOrigin.Y, infinite: true, out aimedOrigin, out _, out residual))
-                throw new RayAimingException(stop.Number, step, residual);
+            var continued = fieldRayContext?.InfiniteChief?.Value;
+            var success = continued is null
+                ? TryContinueInfiniteChief(direction, wavelengthNanometers, stopIndex, out aimedOrigin, out residual)
+                : continued.Success;
+            if (continued is not null) (aimedOrigin, residual) = (continued.Origin, continued.Residual);
+            if (!success) throw new RayAimingException(stop.Number, 1, residual);
         }
+        var fraction = 0d;
+        var increment = 1d / 16;
+        for (var step = 1; fraction < 1 && step <= 4096; step++)
+        {
+            var nextFraction = Math.Min(1, fraction + increment);
+            if (!TryAimStopTarget(origin, direction, wavelengthNanometers, stopIndex,
+                    target.X * nextFraction, target.Y * nextFraction,
+                    aimedOrigin.X, aimedOrigin.Y, infinite: true, out var nextOrigin, out _, out residual, aimedOrigin))
+            {
+                increment /= 2;
+                if (increment < 1e-6)
+                {
+                    if (TryContinueInfiniteChief(direction, wavelengthNanometers, stopIndex,
+                            out var continued, out residual, target.X, target.Y)) return (continued, direction);
+                    throw new RayAimingException(stop.Number, step, residual);
+                }
+                continue;
+            }
+            aimedOrigin = nextOrigin;
+            fraction = nextFraction;
+            increment = Math.Min(1d / 16, increment * 1.5);
+        }
+        if (fraction < 1) throw new RayAimingException(stop.Number, 4096, residual);
         return (aimedOrigin, direction);
+    }
+
+    private FieldRayContext PrepareInfiniteContinuation(FieldRayContext context, double fieldX, double fieldY,
+        double apertureRadius, (double X, double Y)? launch, double wavelengthNanometers, bool aimAtStop)
+    {
+        if (!aimAtStop || !context.TranslateOriginWithPupil
+            || _optic.FieldDefinition is not (FieldDefinitionKind.Angle or FieldDefinitionKind.RealImageHeight)) return context;
+        var stop = _optic.SurfaceGroup.Items.ToList().FindIndex(s => s.IsStop);
+        if (stop <= 0) return context;
+        var direction = CreateFieldRay(fieldX, fieldY, 0, 0, apertureRadius, true, launch,
+            wavelengthNanometers, aimAtStop: false, fieldRayContext: context).Direction;
+        return context with
+        {
+            InfiniteChief = new Lazy<InfiniteChiefSolution>(() =>
+            {
+                var success = TryContinueInfiniteChief(direction, wavelengthNanometers, stop, out var origin, out var residual);
+                return new InfiniteChiefSolution(success, origin, residual);
+            })
+        };
+    }
+
+    private bool TryContinueInfiniteChief(Vector3D direction, double wavelengthNanometers, int stopIndex,
+        out Vector3D origin, out double residual, double targetX = 0, double targetY = 0)
+    {
+        var center = EntrancePupilGlobalCenter();
+        var (firstZ, clearance) = InfiniteObjectStart(EntrancePupilRadius());
+        origin = new Vector3D(center.X, center.Y, firstZ - clearance);
+        if (!TryAimStopTarget(origin, new Vector3D(0, 0, 1), wavelengthNanometers, stopIndex, targetX, targetY,
+                origin.X, origin.Y, true, out origin, out _, out residual, origin)) return false;
+        var angle = Math.Acos(Math.Clamp(direction.Z, -1, 1));
+        var transverseLength = double.Hypot(direction.X, direction.Y);
+        if (transverseLength <= 1e-15) return angle <= 1e-15;
+        var transverse = new Vector3D(direction.X / transverseLength, direction.Y / transverseLength, 0);
+        // Follow a continuous physical chief branch from the axis. This is a
+        // checked homotopy solve, not an untraced paraxial fallback.
+        var theta = 0d;
+        var increment = DegreesToRadians(2);
+        var previousOrigin = origin;
+        var previousTheta = 0d;
+        for (var attempt = 0; theta < angle && attempt < 4096; attempt++)
+        {
+            var nextTheta = Math.Min(angle, theta + increment);
+            var nextDirection = transverse * Math.Sin(nextTheta) + new Vector3D(0, 0, Math.Cos(nextTheta));
+            var guess = origin;
+            if (theta > previousTheta && Math.Abs(origin.Y - previousOrigin.Y) < 1e-10)
+                guess += (origin - previousOrigin) * ((nextTheta - theta) / (theta - previousTheta));
+            if (!TryAimStopTarget(guess, nextDirection, wavelengthNanometers, stopIndex, targetX, targetY,
+                    guess.X, guess.Y, true, out var nextOrigin, out _, out residual, guess))
+            {
+                increment /= 2;
+                if (increment < DegreesToRadians(.0001)) return false;
+                continue;
+            }
+            previousOrigin = origin;
+            previousTheta = theta;
+            origin = nextOrigin;
+            theta = nextTheta;
+            increment = Math.Min(DegreesToRadians(2), increment * 1.5);
+        }
+        return theta >= angle;
     }
 
     private (Vector3D Origin, Vector3D Direction) AimFiniteRayAtStop(
@@ -797,10 +905,27 @@ public sealed partial class RayGenerator
 
         var (firstSurfaceZ, offset) = InfiniteObjectStart(apertureRadius);
         var startZ = firstSurfaceZ - offset;
-        return new Vector3D(
+        var origin = new Vector3D(
             pupilCenter.X + (pupilX * apertureRadius) - (Math.Tan(DegreesToRadians(fieldX)) * (offset + entrancePupilZ)),
             pupilCenter.Y + (pupilY * apertureRadius) - (Math.Tan(DegreesToRadians(fieldY)) * (offset + entrancePupilZ)),
             startZ);
+        var sign = Math.Abs(fieldX) > 90 || Math.Abs(fieldY) > 90 ? -1 : 1;
+        var direction = Normalize(new Vector3D(Math.Tan(DegreesToRadians(fieldX)), Math.Tan(DegreesToRadians(fieldY)), 1)) * sign;
+        if (Math.Abs(direction.Z) < 1e-8)
+            return pupilCenter + new Vector3D(pupilX * apertureRadius, pupilY * apertureRadius, 0)
+                - direction * InfiniteLaunchExtent(apertureRadius);
+        // Above 90 degrees an arbitrary vertex-plane datum may lie inside the
+        // front sphere. Start upstream so its first physical branch is selected.
+        return direction.Z < 0 ? origin - direction * (InfiniteLaunchExtent(apertureRadius)
+            + (origin - pupilCenter).Length) : origin;
+    }
+
+    private double InfiniteLaunchExtent(double apertureRadius)
+    {
+        var first = _optic.SurfaceGroup.Items[1];
+        var curvatureExtent = double.IsFinite(first.Radius) ? 2 * Math.Abs(first.Radius) : 0;
+        return Math.Max(apertureRadius * 2, curvatureExtent)
+            + (EntrancePupilGlobalCenter() - first.CoordinateSystem.Origin).Length + 1;
     }
 
     private Vector3D ObjectHeightOrigin(double fieldX, double fieldY)
@@ -823,31 +948,32 @@ public sealed partial class RayGenerator
         double pupilY,
         double apertureRadius)
     {
-        var (imageHeightUnit, objectHeightUnit, objectSlopeUnit) = TraceUnitChiefRay();
+        var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
+        if (ObjectConjugate.IsInfinite(objectSurface))
+        {
+            // The field refers to the primary paraxial focal surface, not a
+            // possibly defocused image plane. Moving that plane must not change
+            // the incoming object direction.
+            var power = _optic.Paraxial.EstimateOpticalPower();
+            if (!double.IsFinite(power) || Math.Abs(power) <= 1e-15)
+                throw new InvalidOperationException("Paraxial image-height fields require finite optical power.");
+            var center = EntrancePupilGlobalCenter();
+            var (firstZ, clearance) = InfiniteObjectStart(apertureRadius);
+            var distance = center.Z - firstZ + clearance;
+            return new Vector3D(center.X + pupilX * apertureRadius - fieldX * power * distance,
+                center.Y + pupilY * apertureRadius - fieldY * power * distance, firstZ - clearance);
+        }
+        var (imageHeightUnit, objectHeightUnit, _) = TraceUnitChiefRay();
         if (Math.Abs(imageHeightUnit) <= 1e-15)
         {
             throw new InvalidOperationException("The paraxial image height cannot be resolved for this optical system.");
         }
 
-        var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
-        if (!ObjectConjugate.IsInfinite(objectSurface))
-        {
-            var objectX = objectHeightUnit * (fieldX / imageHeightUnit);
-            var objectY = objectHeightUnit * (fieldY / imageHeightUnit);
-            var sag = objectSurface?.Geometry.Sag(objectX, objectY) ?? 0;
-            var localOrigin = new Vector3D(objectX, objectY, sag);
-            return objectSurface?.CoordinateSystem.ToGlobalPoint(localOrigin) ?? localOrigin;
-        }
-
-        var entrancePupilZ = _optic.Paraxial.EstimateEntrancePupilLocation();
-        var pupilCenter = EntrancePupilGlobalCenter();
-        var (firstSurfaceZ, offset) = InfiniteObjectStart(apertureRadius);
-        var objectSlopeX = objectSlopeUnit * (fieldX / imageHeightUnit);
-        var objectSlopeY = objectSlopeUnit * (fieldY / imageHeightUnit);
-        return new Vector3D(
-            pupilCenter.X + (pupilX * apertureRadius) - (objectSlopeX * (offset + entrancePupilZ)),
-            pupilCenter.Y + (pupilY * apertureRadius) - (objectSlopeY * (offset + entrancePupilZ)),
-            firstSurfaceZ - offset);
+        var objectX = objectHeightUnit * (fieldX / imageHeightUnit);
+        var objectY = objectHeightUnit * (fieldY / imageHeightUnit);
+        var sag = objectSurface?.Geometry.Sag(objectX, objectY) ?? 0;
+        var localOrigin = new Vector3D(objectX, objectY, sag);
+        return objectSurface?.CoordinateSystem.ToGlobalPoint(localOrigin) ?? localOrigin;
     }
 
     private (double ImageHeight, double ObjectHeight, double ObjectSlope) TraceUnitChiefRay()

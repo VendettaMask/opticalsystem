@@ -30,7 +30,8 @@ public sealed partial class SequentialRayTracer
         RayTraceSampleValue[] samples,
         bool[] hasSamples,
         double[]? finalOpticalPaths,
-        bool[]? hasFinalOpticalPath)
+        bool[]? hasFinalOpticalPath,
+        bool allowReferenceBacktrack)
     {
         if ((surfaceIndex == 0 && ObjectConjugate.IsInfinite(surface))
             || surface.MaterialAfter is GradientIndexMaterial
@@ -119,6 +120,20 @@ public sealed partial class SequentialRayTracer
             for (var localIndex = 0; localIndex < count; localIndex++)
             {
                 var rayIndex = start + localIndex;
+                if (active[rayIndex] && !workspace.Intersects[localIndex] && allowReferenceBacktrack)
+                {
+                    // A reference/dummy surface is not a physical propagation
+                    // boundary. The following specified sag may lie just before
+                    // it (for example a concave lens touching a plane stop).
+                    var backward = surface.Geometry.DistanceToIntersection(
+                        new Vector3D(workspace.OriginX[localIndex], workspace.OriginY[localIndex], workspace.OriginZ[localIndex]),
+                        new Vector3D(-workspace.DirectionX[localIndex], -workspace.DirectionY[localIndex], -workspace.DirectionZ[localIndex]));
+                    if (backward.IsHit)
+                    {
+                        workspace.Intersects[localIndex] = true;
+                        workspace.Distance[localIndex] = -backward.Distance;
+                    }
+                }
                 if (!active[rayIndex] || !workspace.Intersects[localIndex])
                 {
                     workspace.Distance[localIndex] = 0;
@@ -213,9 +228,9 @@ public sealed partial class SequentialRayTracer
                 }
                 else
                 {
-                    var segmentLength = Math.Max(0, workspace.Distance[localIndex]);
+                    var segmentLength = allowReferenceBacktrack ? workspace.Distance[localIndex] : Math.Max(0, workspace.Distance[localIndex]);
                     var refractiveIndexBefore = workspace.RefractiveIndexBefore[localIndex];
-                    var segmentOpticalPathLength = Math.Abs(segmentLength * refractiveIndexBefore);
+                    var segmentOpticalPathLength = allowReferenceBacktrack ? segmentLength * refractiveIndexBefore : Math.Abs(segmentLength * refractiveIndexBefore);
                     cumulativePaths[rayIndex] += segmentLength;
                     cumulativeOpticalPaths[rayIndex] += segmentOpticalPathLength;
                     var localHit = new Vector3D(
@@ -229,7 +244,7 @@ public sealed partial class SequentialRayTracer
                     var attenuation = extinction <= 0
                         ? 1.0
                         : Math.Exp(
-                            (-4.0 * Math.PI * extinction * segmentLength * 1000.0)
+                            (-4.0 * Math.PI * extinction * Math.Abs(segmentLength) * 1000.0)
                             / wavelengthMicrometers);
                     var propagatedIntensity = incoming.Intensity * attenuation;
                     var propagatedOpd = incoming.OpticalPathDifference + segmentOpticalPathLength;

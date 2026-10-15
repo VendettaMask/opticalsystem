@@ -20,7 +20,7 @@ public static partial class ExtendedAnalysisContracts
         }
         else Set("Field", r.Field);
         if (key.StartsWith("Huygens", StringComparison.Ordinal) && !key.Contains("vs Field", StringComparison.Ordinal))
-            Set("PupilSampleSize", $"S_{r.PupilSampling}x{r.PupilSampling}", "ImageSampleSize", $"S_{r.ImageSampling}x{r.ImageSampling}", "Configuration", r.Configuration);
+            Set("PupilSampleSize", $"S_{r.PupilSampling}x{r.PupilSampling}", "ImageSampleSize", $"S_{r.ImageSampling}x{r.ImageSampling}", "Configuration", Zemax.NativeConfigurationSelector.Numbered(r.Configuration));
         else Set("SampleSize", $"S_{r.PupilSampling}x{r.PupilSampling}");
         if (key.StartsWith("Huygens", StringComparison.Ordinal)) Set("ImageDelta", r.ImageDeltaMicrometers);
         if (IsMtfContract(key))

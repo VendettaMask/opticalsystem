@@ -765,7 +765,12 @@ internal static class ZemaxZmxReader
                 && double.IsFinite(configuredSemiDiameter)
                     ? Math.Max(0.1, Math.Abs(configuredSemiDiameter))
                     : 10;
-            var physicalAperture = CreatePhysicalAperture(source, semiDiameter);
+            // Curvature alone does not make a refracting surface: curved dummy
+            // surfaces can carry a fixed DIAM without defining a floating stop.
+            var hasOpticalPower = HasSurfacePower(source)
+                && (isReflective || !string.Equals(previousMaterial.Name, materialAfter.Name,
+                    StringComparison.OrdinalIgnoreCase));
+            var physicalAperture = CreatePhysicalAperture(source, semiDiameter, hasOpticalPower);
             var surface = new OpticalSurface
             {
                 Number = index,
@@ -820,7 +825,8 @@ internal static class ZemaxZmxReader
         return result;
     }
 
-    private static IPhysicalAperture? CreatePhysicalAperture(ZemaxSurface source, double semiDiameter)
+    private static IPhysicalAperture? CreatePhysicalAperture(
+        ZemaxSurface source, double semiDiameter, bool hasOpticalPower)
     {
         if (source.MinimumAperture is { } minimumAperture
             && double.IsFinite(minimumAperture)
@@ -833,7 +839,7 @@ internal static class ZemaxZmxReader
         // it must not become a physical clipping boundary. A user-defined stop
         // or powered-surface DIAM defines a circular aperture. MEMA only describes
         // the part edge and is deliberately excluded.
-        if (source.SemiDiameterFixed && (source.IsStop || HasSurfacePower(source)))
+        if (source.SemiDiameterFixed && (source.IsStop || hasOpticalPower))
         {
             return new CircularAperture(semiDiameter);
         }
