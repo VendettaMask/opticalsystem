@@ -1,0 +1,594 @@
+{
+  "Date": "2026-10-16",
+  "Status": "Two diffraction-image adapter defects repaired; native environment restored; EFNO/RELI differences remain open",
+  "SourceBaseCommit": "7862fba0a8071346c6130dee4e74157684ac5bc0",
+  "UserScope": {
+    "LocalZemaxInstalledAndApiVerified": true,
+    "IndependentCookeTessarInvestigations": "Excluded",
+    "OptionalFullSuite": "Not run; user preference retained"
+  },
+  "NativeControls": {
+    "Cases": [
+      {
+        "Source": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+        "SourceSha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+        "Name": "123456",
+        "Capture": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/123456",
+        "NativeRows": 120,
+        "MaxNativeChange": 0,
+        "Environment": {
+          "version": 260127,
+          "major": 26,
+          "minor": 1,
+          "validLicense": true,
+          "license": "EnterpriseEdition"
+        },
+        "ArchiveFolder": "native-current-final/123456"
+      },
+      {
+        "Source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/double-gauss-28-degree-field-gq6-remove/source.zmx",
+        "SourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+        "Name": "double-gauss-28-degree-field",
+        "Capture": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/double-gauss-28-degree-field",
+        "NativeRows": 72,
+        "MaxNativeChange": 0,
+        "Environment": {
+          "version": 260127,
+          "major": 26,
+          "minor": 1,
+          "validLicense": true,
+          "license": "EnterpriseEdition"
+        },
+        "ArchiveFolder": "native-current-final/double-gauss-28-degree-field"
+      },
+      {
+        "Source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/relay-lens-gq6-remove/source.zmx",
+        "SourceSha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+        "Name": "relay-lens",
+        "Capture": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/relay-lens",
+        "NativeRows": 48,
+        "MaxNativeChange": 0,
+        "Environment": {
+          "version": 260127,
+          "major": 26,
+          "minor": 1,
+          "validLicense": true,
+          "license": "EnterpriseEdition"
+        },
+        "ArchiveFolder": "native-current-final/relay-lens"
+      },
+      {
+        "Source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/even-asphere-gq6-remove/source.zmx",
+        "SourceSha256": "e7523a0a2b8247667d53cd559eded64442af41318f2d985d61296d5c5d1756da",
+        "Name": "even-asphere",
+        "Capture": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/even-asphere",
+        "NativeRows": 16,
+        "MaxNativeChange": 0,
+        "Environment": {
+          "version": 260127,
+          "major": 26,
+          "minor": 1,
+          "validLicense": true,
+          "license": "EnterpriseEdition"
+        },
+        "ArchiveFolder": "native-current-final/even-asphere"
+      }
+    ],
+    "Rows": 256,
+    "MaxChangeFromFrozenValues": 0,
+    "AllFinalCaptureHostsExitedSuccessfully": true,
+    "CaptureSourceSnapshotMatchesCurrentTool": true,
+    "OriginalLensSaved": false
+  },
+  "CurrentCoreComparison": {
+    "ArchiveEntry": "current-illumination-accepted.json",
+    "Sha256": "7f7da42470141dfcfc736d5733dc8b31648dad1c6c91ecc83b11efda076775ce",
+    "Cases": [
+      {
+        "Name": "123456",
+        "Summary": [
+          {
+            "Code": "EFNO",
+            "Total": 60,
+            "Computable": 60,
+            "MaxAbsoluteError": 0.36617238466490853,
+            "MaxRelativeError": 0.1198968722561976,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 60,
+            "Computable": 60,
+            "MaxAbsoluteError": 0.0006663491482958861,
+            "MaxRelativeError": 0.0006850956121549068,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ]
+      },
+      {
+        "Name": "double-gauss-28-degree-field",
+        "Summary": [
+          {
+            "Code": "EFNO",
+            "Total": 36,
+            "Computable": 36,
+            "MaxAbsoluteError": 0.42414668132606215,
+            "MaxRelativeError": 0.12917789247549571,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 36,
+            "Computable": 36,
+            "MaxAbsoluteError": 0.024859662747668154,
+            "MaxRelativeError": 0.02693003081391321,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ]
+      },
+      {
+        "Name": "relay-lens",
+        "Summary": [
+          {
+            "Code": "EFNO",
+            "Total": 24,
+            "Computable": 24,
+            "MaxAbsoluteError": 1.55896379882188,
+            "MaxRelativeError": 0.12411538364637187,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 24,
+            "Computable": 24,
+            "MaxAbsoluteError": 0.005621076301030925,
+            "MaxRelativeError": 0.005632288629249915,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ]
+      },
+      {
+        "Name": "even-asphere",
+        "Summary": [
+          {
+            "Code": "EFNO",
+            "Total": 8,
+            "Computable": 8,
+            "MaxAbsoluteError": 0.39352792489232735,
+            "MaxRelativeError": 0.12601119256659188,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 8,
+            "Computable": 8,
+            "MaxAbsoluteError": 0.013255300369056089,
+            "MaxRelativeError": 0.013358618201334105,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ]
+      }
+    ],
+    "Status": "Difference",
+    "NewAcceptanceThreshold": false
+  },
+  "OriginalTenControls": {
+    "DebugReleaseIdentical": true,
+    "ControlsPerConfiguration": 10,
+    "OriginalDiagnosticProgramSha256": "ab3dc057ced993c1a2dd947c273c9665fb22fadcb215046aa9503a6239cc6a93",
+    "AllDiffractionWithoutGeometricFallback": true,
+    "MaxPhysicalYToRasterOffsetErrorPixels": 2.853273173286652e-14,
+    "ReleaseResults": {
+      "diffraction-even-anchor": [
+        {
+          "Size": 7,
+          "Modes": [
+            "Diffraction"
+          ],
+          "GeometricFallbackCount": 0,
+          "KernelPeak": {
+            "X": 3,
+            "Y": 2,
+            "Value": 0.2028242379326183
+          },
+          "ConvolutionAnchor": 3,
+          "ConvolvedPeak": {
+            "X": 16,
+            "Y": 15,
+            "Value": 0.2028242379326183
+          },
+          "SimulatedPeak": {
+            "X": 16,
+            "Y": 15,
+            "Value": 0.2028229334120573
+          },
+          "KernelMoment": {
+            "X": 3.0000000000000004,
+            "Y": 2.9999999999999996
+          },
+          "ConvolvedMoment": {
+            "X": 15.999999999999998,
+            "Y": 16
+          },
+          "SimulatedMoment": {
+            "X": 15.999998428942904,
+            "Y": 15.9999984289429
+          },
+          "UnblurredControlMoment": {
+            "X": 16,
+            "Y": 16
+          }
+        },
+        {
+          "Size": 8,
+          "Modes": [
+            "Diffraction"
+          ],
+          "GeometricFallbackCount": 0,
+          "KernelPeak": {
+            "X": 3,
+            "Y": 4,
+            "Value": 0.20270359231297028
+          },
+          "ConvolutionAnchor": 3,
+          "ConvolvedPeak": {
+            "X": 16,
+            "Y": 17,
+            "Value": 0.20270359231297028
+          },
+          "SimulatedPeak": {
+            "X": 15,
+            "Y": 16,
+            "Value": 0.2027022889942947
+          },
+          "KernelMoment": {
+            "X": 2.999999999999999,
+            "Y": 3
+          },
+          "ConvolvedMoment": {
+            "X": 15.999999999999996,
+            "Y": 15.999999999999996
+          },
+          "SimulatedMoment": {
+            "X": 15.999998428040476,
+            "Y": 15.999998428040477
+          },
+          "UnblurredControlMoment": {
+            "X": 16,
+            "Y": 16
+          }
+        },
+        {
+          "Size": 9,
+          "Modes": [
+            "Diffraction"
+          ],
+          "GeometricFallbackCount": 0,
+          "KernelPeak": {
+            "X": 4,
+            "Y": 5,
+            "Value": 0.20270359231297028
+          },
+          "ConvolutionAnchor": 4,
+          "ConvolvedPeak": {
+            "X": 16,
+            "Y": 17,
+            "Value": 0.20270359231297028
+          },
+          "SimulatedPeak": {
+            "X": 15,
+            "Y": 16,
+            "Value": 0.2027022889942947
+          },
+          "KernelMoment": {
+            "X": 4,
+            "Y": 4
+          },
+          "ConvolvedMoment": {
+            "X": 15.999999999999996,
+            "Y": 15.999999999999996
+          },
+          "SimulatedMoment": {
+            "X": 15.999998428040476,
+            "Y": 15.999998428040477
+          },
+          "UnblurredControlMoment": {
+            "X": 16,
+            "Y": 16
+          }
+        },
+        {
+          "Size": 15,
+          "Modes": [
+            "Diffraction"
+          ],
+          "GeometricFallbackCount": 0,
+          "KernelPeak": {
+            "X": 7,
+            "Y": 8,
+            "Value": 0.20270359231297028
+          },
+          "ConvolutionAnchor": 7,
+          "ConvolvedPeak": {
+            "X": 16,
+            "Y": 17,
+            "Value": 0.20270359231297028
+          },
+          "SimulatedPeak": {
+            "X": 15,
+            "Y": 16,
+            "Value": 0.2027022889942947
+          },
+          "KernelMoment": {
+            "X": 7,
+            "Y": 6.999999999999999
+          },
+          "ConvolvedMoment": {
+            "X": 15.999999999999996,
+            "Y": 15.999999999999996
+          },
+          "SimulatedMoment": {
+            "X": 15.999998428040476,
+            "Y": 15.999998428040477
+          },
+          "UnblurredControlMoment": {
+            "X": 16,
+            "Y": 16
+          }
+        },
+        {
+          "Size": 16,
+          "Modes": [
+            "Diffraction"
+          ],
+          "GeometricFallbackCount": 0,
+          "KernelPeak": {
+            "X": 7,
+            "Y": 8,
+            "Value": 0.20270359231297028
+          },
+          "ConvolutionAnchor": 7,
+          "ConvolvedPeak": {
+            "X": 16,
+            "Y": 17,
+            "Value": 0.20270359231297028
+          },
+          "SimulatedPeak": {
+            "X": 15,
+            "Y": 16,
+            "Value": 0.2027022889942947
+          },
+          "KernelMoment": {
+            "X": 7,
+            "Y": 6.999999999999999
+          },
+          "ConvolvedMoment": {
+            "X": 15.999999999999996,
+            "Y": 15.999999999999996
+          },
+          "SimulatedMoment": {
+            "X": 15.999998428040476,
+            "Y": 15.999998428040477
+          },
+          "UnblurredControlMoment": {
+            "X": 16,
+            "Y": 16
+          }
+        },
+        {
+          "Size": 17,
+          "Modes": [
+            "Diffraction"
+          ],
+          "GeometricFallbackCount": 0,
+          "KernelPeak": {
+            "X": 8,
+            "Y": 9,
+            "Value": 0.20270359231297028
+          },
+          "ConvolutionAnchor": 8,
+          "ConvolvedPeak": {
+            "X": 16,
+            "Y": 17,
+            "Value": 0.20270359231297028
+          },
+          "SimulatedPeak": {
+            "X": 15,
+            "Y": 16,
+            "Value": 0.2027022889942947
+          },
+          "KernelMoment": {
+            "X": 7.999999999999999,
+            "Y": 7.999999999999998
+          },
+          "ConvolvedMoment": {
+            "X": 15.999999999999996,
+            "Y": 15.999999999999996
+          },
+          "SimulatedMoment": {
+            "X": 15.999998428040476,
+            "Y": 15.999998428040477
+          },
+          "UnblurredControlMoment": {
+            "X": 16,
+            "Y": 16
+          }
+        }
+      ],
+      "diffraction-y-orientation": [
+        {
+          "Field": -0.8,
+          "Modes": [
+            "Diffraction"
+          ],
+          "GeometricFallbackCount": 0,
+          "RawHuygensPhysicalCentroidOffsetYmm": 0.00031764797779136063,
+          "ExpectedDownwardRasterOffsetPixels": -0.6352959555827212,
+          "ActualDownwardRasterOffsetPixels": -0.635295955582734,
+          "GeometricDownwardRasterOffsetPixels": -0.4563021591251655,
+          "BasisVersusUnadaptedRawMaximumDifference": 0.004112151332696604,
+          "BasisVersusCorrectYReflectionMaximumDifference": 1.474514954580286e-17
+        },
+        {
+          "Field": -0.5,
+          "Modes": [
+            "Diffraction"
+          ],
+          "GeometricFallbackCount": 0,
+          "RawHuygensPhysicalCentroidOffsetYmm": 0.00039740096881620175,
+          "ExpectedDownwardRasterOffsetPixels": -0.7948019376324035,
+          "ActualDownwardRasterOffsetPixels": -0.7948019376323749,
+          "GeometricDownwardRasterOffsetPixels": -0.7538710093506324,
+          "BasisVersusUnadaptedRawMaximumDifference": 0.004074970294278621,
+          "BasisVersusCorrectYReflectionMaximumDifference": 4.336808689942018e-18
+        },
+        {
+          "Field": 0.5,
+          "Modes": [
+            "Diffraction"
+          ],
+          "GeometricFallbackCount": 0,
+          "RawHuygensPhysicalCentroidOffsetYmm": -0.00039740096886106235,
+          "ExpectedDownwardRasterOffsetPixels": 0.7948019377221247,
+          "ActualDownwardRasterOffsetPixels": 0.79480193772212,
+          "GeometricDownwardRasterOffsetPixels": 0.7538710093506218,
+          "BasisVersusUnadaptedRawMaximumDifference": 0.00407497029785128,
+          "BasisVersusCorrectYReflectionMaximumDifference": 1.734723475976807e-18
+        },
+        {
+          "Field": 0.8,
+          "Modes": [
+            "Diffraction"
+          ],
+          "GeometricFallbackCount": 0,
+          "RawHuygensPhysicalCentroidOffsetYmm": -0.0003176479796484905,
+          "ExpectedDownwardRasterOffsetPixels": 0.6352959592969809,
+          "ActualDownwardRasterOffsetPixels": 0.6352959592969967,
+          "GeometricDownwardRasterOffsetPixels": 0.45630215912515126,
+          "BasisVersusUnadaptedRawMaximumDifference": 0.004112151343098992,
+          "BasisVersusCorrectYReflectionMaximumDifference": 3.469446951953614e-18
+        }
+      ]
+    }
+  },
+  "Verification": {
+    "Related": {
+      "debug": {
+        "Total": 115,
+        "Passed": 115,
+        "Failed": 0,
+        "Skipped": 0,
+        "TrxSha256": "810f9d8267a83f2513c41e49f1d4c5f01d0fc632fa266fd106938f18546503fa"
+      },
+      "release": {
+        "Total": 115,
+        "Passed": 115,
+        "Failed": 0,
+        "Skipped": 0,
+        "TrxSha256": "d469ce454d0d31adda1c9955a7b5ad663cbb7f29451bc4d0a08d6f0663f2d4f5"
+      }
+    },
+    "AddedTests": 13,
+    "SelectedTestNamesMatch": true,
+    "DefaultBuilds": {
+      "Debug": {
+        "Projects": 19,
+        "Warnings": 0,
+        "Errors": 0,
+        "LogSha256": "ffd442319a04714570cc381a8a9f66eb53ac4ca9bfbf30500d8e43c82b3bbd5c"
+      },
+      "Release": {
+        "Projects": 19,
+        "Warnings": 0,
+        "Errors": 0,
+        "LogSha256": "d13a62dbeb30e13c7cfe5fecfc9b91023f890c89daae3675e9d1a586b27e5095"
+      }
+    },
+    "ChangedCSharpFormatVerify": "Passed; five files; no changes",
+    "Documentation": {
+      "Status": "Passed",
+      "Strict": true,
+      "ArchiveEntry": "documentation-accepted.json",
+      "Sha256": "d12cb222d8af8ff80df03193486bdcef90a5ccb4ce18b92cbbe24c95d8c444a5"
+    },
+    "FullSuite": false,
+    "InstallerRebuilt": false,
+    "FcgsFcgtRerun": false
+  },
+  "DevelopmentAttemptsNotAccepted": [
+    {
+      "Name": "diffraction-adapter-release-v2.trx",
+      "Total": 39,
+      "Passed": 29,
+      "Failed": 10,
+      "Accepted": false,
+      "Sha256": "fa0eb7ecfd6c3c63d11afb381e2e1c1fefe917aaf2a47326ee0cbaf2bb97b397"
+    },
+    {
+      "Name": "diffraction-adapter-release-v3.trx",
+      "Total": 39,
+      "Passed": 38,
+      "Failed": 1,
+      "Accepted": false,
+      "Sha256": "f40d650b4988217345bf6bd30748f0d0e82f66a1df19e308da985e0c386ae0db"
+    },
+    {
+      "Name": "related-release-final.trx",
+      "Total": 115,
+      "Passed": 109,
+      "Failed": 6,
+      "Accepted": false,
+      "Sha256": "a0ecd29e61486aac54da7fb7f4126e8a0eed2c7f8459262b35a6de5cae772058"
+    },
+    {
+      "Name": "related-release-v2.trx",
+      "Total": 114,
+      "Passed": 113,
+      "Failed": 1,
+      "Accepted": false,
+      "Sha256": "53f06e158f011da4bf555fb07ae5272a964ec263120ac33eeefcf334aa057066"
+    }
+  ],
+  "DevelopmentCorrections": [
+    "Initial sandbox native IPC failure preserved; final native hosts use approved local access",
+    "Initial default test startup stopped before results; final builds use two MSBuild nodes",
+    "Intermediate even-kernel center-offset approach replaced by physical-window sampling to retain footprint",
+    "Impulse assertions corrected for finite-window tails and multi-lobed finite-sampling PSFs; final uses original diagnostic settings and centroid contract",
+    "Test-config compiler error fixed; no compiler failure counted as test success"
+  ],
+  "SourceSha256": {
+    "src/OpticalSystemDesign.Core/Analysis/AnalysisResourceLimits.cs": "eb3c69bb8f06116a6f3c268b730d6ff5ee26a1c299450a43d6f13b53f1c64d7e",
+    "src/OpticalSystemDesign.Core/Analysis/ImageSimulationEngine.cs": "eab5cdc300aab50682f14b1daec8bd9be235f4b1e0686887a8bb74a326d1f67f",
+    "tests/OpticalSystemDesign.Tests/ImageCoordinateReferenceRepairTests.cs": "c0422641987ebc635553babebc07ae1066bccc7e373d679a37ca213c4fee6179",
+    "tests/OpticalSystemDesign.Tests/ImageSimulationRepairTests.cs": "ccccf83645455f8ace13d31f5047e5ebe16abeb831c92802e6809eda616c9ca0",
+    "tools/diagnostics/Accuracy20261014/NativeAccuracyCapture.cs": "8dc7da8cfeae135312b5b6c6c014692d4229dd4f36232a25056c8b5f239d589f"
+  },
+  "DefaultCoreBinarySha256": {
+    "Debug": "e76c42d7389ab2ff7d91bd2cd95d394c7eb9c04ade2885ef3e921f83ac7d9ad4",
+    "Release": "a3841d0b3d48db9eba1766f732c2280bcd3f2630e80723c7e2d1416cfbc75c03"
+  },
+  "DefaultAppCoreCopiesMatch": true,
+  "Evidence": {
+    "Path": "validation/repairs/2026-10-16/native-diffraction-adapter-evidence.zip",
+    "Entries": 128,
+    "Bytes": 307583,
+    "Sha256": "e452e029523ac4c2a0f806a07fe3a4a05920371ff797a04de4d503e81bfc2a6c",
+    "EveryEntryReadbackSha256MatchesOriginal": true,
+    "ProprietaryApiBinariesIncluded": false
+  },
+  "ProductHuygensPhysicsOrGenericConvolutionChanged": false,
+  "FrozenReferenceValuesOrTolerancesChanged": false,
+  "StillOpen": [
+    "EFNO/RELI finite-grid, image-point reference and aberration-removal differences",
+    "Broader coherent electric-field and native image certification",
+    "Previously documented standard-matrix unsupported glass, PARAXIAL, reflection and adapter boundaries"
+  ]
+}

@@ -302,8 +302,12 @@ public sealed class ImageSimulationRepairTests
             UsePolarization = true
         });
         Assert.Equal("Diffraction", Assert.Single(basis.EffectiveModes!));
-        var expected = DiffractionEngine.ComputeHuygensPsf(optic, (0, 0), wavelength, 8, 8, .0002,
+        var physical = DiffractionEngine.ComputeHuygensPsf(optic, (0, 0), wavelength, 8, 9, .0002,
             usePolarization: true, aimAtStop: optic.RayAimingEnabled).Values;
+        // Detector zero is (3,3): physical X=column-3, Y=3-row.
+        var expected = new double[8, 8];
+        for (var y = 0; y < 8; y++)
+            for (var x = 0; x < 8; x++) expected[y, x] = physical[7 - y, x + 1];
         var sum = expected.Cast<double>().Sum();
         for (var y = 0; y < 8; y++)
             for (var x = 0; x < 8; x++) expected[y, x] /= sum;

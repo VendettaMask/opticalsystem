@@ -251,7 +251,7 @@ public static class AnalysisResourceLimits
             throw new ArgumentOutOfRangeException(nameof(config), "PSF size or pupil sampling is outside the supported range.");
         }
 
-        ValidateDirectPsfWork(config.NumRays, config.PsfSize);
+        ValidateDirectPsfWork(config.NumRays, PsfSamplingSize(config));
         if (PsfBasisOperations(config) > MaximumPsfBasisOperations)
         {
             throw new ArgumentOutOfRangeException(
@@ -291,6 +291,11 @@ public static class AnalysisResourceLimits
 
     private static long PsfBasisOperations(ImageSimulationConfig config) => checked(
         (long)config.NumRays * config.NumRays
-        * config.PsfSize * config.PsfSize
+        * PsfSamplingSize(config) * PsfSamplingSize(config)
         * config.PsfGridRows * config.PsfGridColumns);
+
+    private static int PsfSamplingSize(ImageSimulationConfig config) =>
+        string.Equals(config.AberrationMode, "None", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(config.AberrationMode, "Geometric", StringComparison.OrdinalIgnoreCase)
+            ? config.PsfSize : config.PsfSize | 1;
 }

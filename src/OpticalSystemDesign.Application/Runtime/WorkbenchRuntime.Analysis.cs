@@ -656,7 +656,8 @@ public partial class WorkbenchRuntime
                 Text("ScanDirection", "+y"),
                 Bool("RemoveVignettingFactors", true),
                 Bool("UsePolarization", false),
-                includeScalarTransmission: Bool("UsePolarization", false)),
+                includeScalarTransmission: Bool("UsePolarization", false),
+                sampling: IlluminationSamplingKind.FiniteImageCosine),
             "Incoherent Irradiance" => new IncoherentIrradianceAnalysis(
                 CurrentOptic,
                 Int("NumRays", 5),

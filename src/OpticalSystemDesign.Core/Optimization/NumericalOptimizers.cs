@@ -1,3 +1,5 @@
+using OpticalSystemDesign.Core.Analysis;
+using SvdFactor = OpticalSystemDesign.Core.Analysis.JacobiSvd.Factorization;
 using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Core.Optimization;
@@ -359,113 +361,10 @@ internal static class DampedLeastSquaresSearch
         return Solve(FactorSvd(matrix), rightHandSide);
     }
 
-    private static SvdFactor FactorSvd(double[,] matrix)
-    {
-        var rows = matrix.GetLength(0);
-        var columns = matrix.GetLength(1);
-        var rotated = (double[,])matrix.Clone();
-        var rightVectors = new double[columns, columns];
-        for (var index = 0; index < columns; index++)
-        {
-            rightVectors[index, index] = 1;
-        }
+    private static SvdFactor FactorSvd(double[,] matrix) => JacobiSvd.Factor(matrix);
 
-        var maximumSweeps = Math.Max(12, Math.Min(64, columns * 4));
-        for (var sweep = 0; sweep < maximumSweeps; sweep++)
-        {
-            var changed = false;
-            for (var left = 0; left < columns - 1; left++)
-            {
-                for (var right = left + 1; right < columns; right++)
-                {
-                    var alpha = ColumnDot(rotated, left, left);
-                    var beta = ColumnDot(rotated, right, right);
-                    var gamma = ColumnDot(rotated, left, right);
-                    if (Math.Abs(gamma) <= 1e-14 * Math.Sqrt(Math.Max(0, alpha * beta)))
-                    {
-                        continue;
-                    }
-
-                    var zeta = (beta - alpha) / (2 * gamma);
-                    var tangent = Math.CopySign(1, zeta)
-                        / (Math.Abs(zeta) + Math.Sqrt(1 + (zeta * zeta)));
-                    var cosine = 1 / Math.Sqrt(1 + (tangent * tangent));
-                    var sine = cosine * tangent;
-                    RotateColumns(rotated, left, right, cosine, sine);
-                    RotateColumns(rightVectors, left, right, cosine, sine);
-                    changed = true;
-                }
-            }
-
-            if (!changed)
-            {
-                break;
-            }
-        }
-
-        var singularSquared = Enumerable.Range(0, columns)
-            .Select(column => ColumnDot(rotated, column, column))
-            .ToArray();
-        var maximum = singularSquared.DefaultIfEmpty(0).Max();
-        var relativeTolerance = Math.Max(rows, columns) * 1e-12;
-        var threshold = maximum * relativeTolerance * relativeTolerance;
-        return new SvdFactor(rotated, rightVectors, singularSquared, threshold);
-    }
-
-    private static double[] Solve(SvdFactor factor, IReadOnlyList<double> rightHandSide)
-    {
-        var columns = factor.RightVectors.GetLength(0);
-        var result = new double[columns];
-        for (var component = 0; component < columns; component++)
-        {
-            var sigmaSquared = factor.SingularSquared[component];
-            if (sigmaSquared <= factor.Threshold)
-            {
-                continue;
-            }
-
-            var projection = 0.0;
-            for (var row = 0; row < rightHandSide.Count; row++)
-            {
-                projection += factor.Rotated[row, component] * rightHandSide[row];
-            }
-
-            var coefficient = projection / sigmaSquared;
-            for (var row = 0; row < columns; row++)
-            {
-                result[row] += factor.RightVectors[row, component] * coefficient;
-            }
-        }
-
-        return result;
-    }
-
-    private static double ColumnDot(double[,] matrix, int left, int right)
-    {
-        var total = 0.0;
-        for (var row = 0; row < matrix.GetLength(0); row++)
-        {
-            total += matrix[row, left] * matrix[row, right];
-        }
-
-        return total;
-    }
-
-    private static void RotateColumns(
-        double[,] matrix,
-        int left,
-        int right,
-        double cosine,
-        double sine)
-    {
-        for (var row = 0; row < matrix.GetLength(0); row++)
-        {
-            var leftValue = matrix[row, left];
-            var rightValue = matrix[row, right];
-            matrix[row, left] = (cosine * leftValue) - (sine * rightValue);
-            matrix[row, right] = (sine * leftValue) + (cosine * rightValue);
-        }
-    }
+    private static double[] Solve(SvdFactor factor, IReadOnlyList<double> rightHandSide) =>
+        JacobiSvd.Solve(factor, rightHandSide);
 
     private static double[,] Multiply(double[,] left, double[,] right)
     {
@@ -573,11 +472,6 @@ internal static class DampedLeastSquaresSearch
 
     private sealed record Jacobian(double[,] Objective, double[,] Constraints);
 
-    private sealed record SvdFactor(
-        double[,] Rotated,
-        double[,] RightVectors,
-        double[] SingularSquared,
-        double Threshold);
 }
 
 public sealed class MomentumGradientDescentOptimizer : IOptimizer

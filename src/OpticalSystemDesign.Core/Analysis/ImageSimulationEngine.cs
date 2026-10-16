@@ -516,14 +516,24 @@ public static class ImageSimulationEngine
                             ? DiffractionEngine.HuygensGeometricCenterOffset(optic, (hx, hy), [wavelength],
                                 wavelength, Math.Max(2, config.NumRays), optic.RayAimingEnabled)
                             : null;
-                        values = DiffractionEngine.ComputeHuygensPsf(
+                        // The physical grid has increasing +Y and zero at size/2.
+                        // An odd grid includes both edges of an even detector
+                        // window without changing the physical footprint/reference.
+                        var physicalSize = config.PsfSize | 1;
+                        var physical = DiffractionEngine.ComputeHuygensPsf(
                             optic,
                             (hx, hy),
                             wavelength,
                             Math.Max(2, config.NumRays),
-                            config.PsfSize,
+                            physicalSize,
                             pixelPitchMillimeters, usePolarization: config.UsePolarization,
                             aimAtStop: optic.RayAimingEnabled, imageCenterOffset: imageCenterOffset).Values;
+                        values = new double[config.PsfSize, config.PsfSize];
+                        var physicalCenter = physicalSize / 2;
+                        var anchor = (config.PsfSize - 1) / 2;
+                        for (var y = 0; y < config.PsfSize; y++)
+                            for (var x = 0; x < config.PsfSize; x++)
+                                values[y, x] = physical[physicalCenter + anchor - y, physicalCenter + x - anchor];
                     }
                     catch (Exception exception) when (!config.UsePolarization && (exception is InvalidOperationException
                         or ArgumentException

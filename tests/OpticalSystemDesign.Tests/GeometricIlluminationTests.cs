@@ -24,6 +24,9 @@ public sealed class GeometricIlluminationTests(ITestOutputHelper output)
     [InlineData(IlluminationSamplingKind.UniformImageCosine, true, false)]
     [InlineData(IlluminationSamplingKind.UniformImageCosine, false, true)]
     [InlineData(IlluminationSamplingKind.UniformImageCosine, true, true)]
+    [InlineData(IlluminationSamplingKind.FiniteImageCosine, true, false)]
+    [InlineData(IlluminationSamplingKind.FiniteImageCosine, false, true)]
+    [InlineData(IlluminationSamplingKind.FiniteImageCosine, true, true)]
     public void GeometricModeRetainsRefractionApodizationAndAperturesButNotTransmission(
         IlluminationSamplingKind sampling, bool absorbing, bool coated)
     {
@@ -91,11 +94,13 @@ public sealed class GeometricIlluminationTests(ITestOutputHelper output)
         SetLoss(optic, 1e-6, 0.25);
         var physical = new RelativeIlluminationAnalysis(optic, fieldDensity: 2).GenerateData();
         var geometric = new RelativeIlluminationAnalysis(optic, fieldDensity: 2,
-            includeScalarTransmission: false).GenerateData();
+            includeScalarTransmission: false, sampling: IlluminationSamplingKind.FiniteImageCosine).GenerateData();
         var product = new WorkbenchRuntime(optic).BuildAnalysisData("Relative Illumination",
             new Dictionary<string, string> { ["FieldDensity"] = "2" });
         Assert.Equal(true, physical.Values["IncludesScalarTransmission"]);
         Assert.Equal(false, product.Values["IncludesScalarTransmission"]);
+        Assert.Equal("AdaptivePupil", physical.Values["IlluminationSampling"]);
+        Assert.Equal("FiniteImageCosine", product.Values["IlluminationSampling"]);
         Assert.Equal(geometric.Values["EffectiveFNumbers"], product.Values["EffectiveFNumbers"]);
         Assert.True(Assert.IsType<double[]>(physical.Values["EffectiveFNumbers"])[0]
             > Assert.IsType<double[]>(product.Values["EffectiveFNumbers"])[0]);

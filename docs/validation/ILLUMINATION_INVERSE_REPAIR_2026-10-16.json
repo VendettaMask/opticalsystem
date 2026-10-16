@@ -1,0 +1,491 @@
+{
+  "date": "2026-10-16",
+  "baseCommit": "7862fba0a8071346c6130dee4e74157684ac5bc0",
+  "workingTreeDirty": true,
+  "scope": "Original four-file EFNO/RELI finite profile algorithm closure; new scoped identity assertions, independent native nodes and native-input kernel controls",
+  "algorithm": {
+    "inversePolynomialTotalDegree": 6,
+    "rawUncenteredUnscaledImageCosines": true,
+    "relativeSingularCutoff": 1e-07,
+    "pupilReference": "system primary wavelength",
+    "distance": "selected-wave chief-ray distance to scalar pupil-reference plane",
+    "coefficients": "shared-Core coarse rays only"
+  },
+  "matrix": {
+    "curvatureRows": 2160,
+    "curvatureTargetMm": 1e-05,
+    "curvatureMaximumAbsoluteErrorMm": 3.054520025802532e-08,
+    "illuminationRows": 256,
+    "newScopedGuard": {
+      "efnoRelative": 1e-08,
+      "reliAbsolute": 1e-08,
+      "passed": 256
+    },
+    "maximumEfnoRelativeDifference": 1.0912371006810417e-09,
+    "maximumReliAbsoluteDifference": 3.528987435608144e-09,
+    "legacyReporterStatus": "Difference with null illumination target retained; new scoped regression passes separately",
+    "cases": [
+      {
+        "name": "123456",
+        "source": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+        "sourceSha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+        "before": [
+          {
+            "Code": "FCGS",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 5.510125389816822e-10,
+            "MaxRelativeError": 8.73246457377963e-06,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "FCGT",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 5.63499759657568e-10,
+            "MaxRelativeError": 8.73246457377963e-06,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "EFNO",
+            "Total": 60,
+            "Computable": 60,
+            "MaxAbsoluteError": 3.5317667128609287e-06,
+            "MaxRelativeError": 1.2526130993562035e-06,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 60,
+            "Computable": 60,
+            "MaxAbsoluteError": 2.161230720276741e-06,
+            "MaxRelativeError": 2.2230610010609553e-06,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ],
+        "after": [
+          {
+            "Code": "FCGS",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 5.510125389816822e-10,
+            "MaxRelativeError": 8.73246457377963e-06,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "FCGT",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 5.63499759657568e-10,
+            "MaxRelativeError": 8.73246457377963e-06,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "EFNO",
+            "Total": 60,
+            "Computable": 60,
+            "MaxAbsoluteError": 2.742650107023792e-09,
+            "MaxRelativeError": 9.520735311241424e-10,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 60,
+            "Computable": 60,
+            "MaxAbsoluteError": 3.528987435608144e-09,
+            "MaxRelativeError": 3.534993409104459e-09,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ]
+      },
+      {
+        "name": "double-gauss-28-degree-field",
+        "source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/double-gauss-28-degree-field-gq6-remove/source.zmx",
+        "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+        "before": [
+          {
+            "Code": "FCGS",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 3.341700832715233e-09,
+            "MaxRelativeError": 1.4271817830868727e-06,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "FCGT",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 3.3274103194980142e-09,
+            "MaxRelativeError": 6.557337872692415e-08,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "EFNO",
+            "Total": 36,
+            "Computable": 36,
+            "MaxAbsoluteError": 6.788234777799218e-05,
+            "MaxRelativeError": 2.1600061747895083e-05,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 36,
+            "Computable": 36,
+            "MaxAbsoluteError": 3.7464876934345526e-05,
+            "MaxRelativeError": 4.0580386660993284e-05,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ],
+        "after": [
+          {
+            "Code": "FCGS",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 3.341700832715233e-09,
+            "MaxRelativeError": 1.4271817830868727e-06,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "FCGT",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 3.3274103194980142e-09,
+            "MaxRelativeError": 6.557337872692415e-08,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "EFNO",
+            "Total": 36,
+            "Computable": 36,
+            "MaxAbsoluteError": 9.916822918398793e-11,
+            "MaxRelativeError": 3.155520289510605e-11,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 36,
+            "Computable": 36,
+            "MaxAbsoluteError": 8.552492047897431e-11,
+            "MaxRelativeError": 9.263700917472306e-11,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ]
+      },
+      {
+        "name": "relay-lens",
+        "source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/relay-lens-gq6-remove/source.zmx",
+        "sourceSha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+        "before": [
+          {
+            "Code": "FCGS",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 2.3098145618405397e-09,
+            "MaxRelativeError": 4.218413840462176e-09,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "FCGT",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 2.6215056792011637e-09,
+            "MaxRelativeError": 3.7537059460746036e-08,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "EFNO",
+            "Total": 24,
+            "Computable": 24,
+            "MaxAbsoluteError": 3.077494992709262e-05,
+            "MaxRelativeError": 2.6635661407592437e-06,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 24,
+            "Computable": 24,
+            "MaxAbsoluteError": 3.362954341001867e-06,
+            "MaxRelativeError": 3.36966021330376e-06,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ],
+        "after": [
+          {
+            "Code": "FCGS",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 2.3098145618405397e-09,
+            "MaxRelativeError": 4.218413840462176e-09,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "FCGT",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 2.6215056792011637e-09,
+            "MaxRelativeError": 3.7537059460746036e-08,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "EFNO",
+            "Total": 24,
+            "Computable": 24,
+            "MaxAbsoluteError": 1.3692936562392788e-08,
+            "MaxRelativeError": 1.0912371006810417e-09,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 24,
+            "Computable": 24,
+            "MaxAbsoluteError": 1.3849192903592211e-09,
+            "MaxRelativeError": 1.3876808591106737e-09,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ]
+      },
+      {
+        "name": "even-asphere",
+        "source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/even-asphere-gq6-remove/source.zmx",
+        "sourceSha256": "e7523a0a2b8247667d53cd559eded64442af41318f2d985d61296d5c5d1756da",
+        "before": [
+          {
+            "Code": "FCGS",
+            "Total": 108,
+            "Computable": 108,
+            "MaxAbsoluteError": 2.4292312716944764e-08,
+            "MaxRelativeError": 1.0796178506744525e-07,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "FCGT",
+            "Total": 108,
+            "Computable": 108,
+            "MaxAbsoluteError": 3.054520025802532e-08,
+            "MaxRelativeError": 1.213684257539427e-07,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "EFNO",
+            "Total": 8,
+            "Computable": 8,
+            "MaxAbsoluteError": 7.221144738078777e-05,
+            "MaxRelativeError": 2.5130017566210583e-05,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 8,
+            "Computable": 8,
+            "MaxAbsoluteError": 2.835527833355833e-05,
+            "MaxRelativeError": 2.8572809502525054e-05,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ],
+        "after": [
+          {
+            "Code": "FCGS",
+            "Total": 108,
+            "Computable": 108,
+            "MaxAbsoluteError": 2.4292312716944764e-08,
+            "MaxRelativeError": 1.0796178506744525e-07,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "FCGT",
+            "Total": 108,
+            "Computable": 108,
+            "MaxAbsoluteError": 3.054520025802532e-08,
+            "MaxRelativeError": 1.213684257539427e-07,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "EFNO",
+            "Total": 8,
+            "Computable": 8,
+            "MaxAbsoluteError": 2.716582514494803e-11,
+            "MaxRelativeError": 9.310774373716413e-12,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 8,
+            "Computable": 8,
+            "MaxAbsoluteError": 8.730238754139918e-12,
+            "MaxRelativeError": 8.79829542554944e-12,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ]
+      }
+    ]
+  },
+  "nativeNodeVerification": {
+    "scope": "Independent native off-axis node locations vs raw degree-six SVD map built only from shared-Core rays",
+    "nodes": 305,
+    "rank": 26,
+    "relativeCutoff": 1e-07,
+    "maximumPupilCoordinateDifference": 7.191358619706989e-12,
+    "relativeSingularTail": [
+      2.191555125796301e-07,
+      2.0019407450468963e-07,
+      8.584135961667282e-08,
+      8.485263668407514e-08
+    ],
+    "nativeEnvironment": {
+      "version": 260127,
+      "major": 26,
+      "minor": 1,
+      "validLicense": true,
+      "license": "EnterpriseEdition"
+    }
+  },
+  "nativeInputKernelVerification": {
+    "scope": "Native coarse and fine rays with independent offline finite-grid reconstruction; separates integration profile from end-to-end ray aiming differences",
+    "controls": [
+      {
+        "name": "123456",
+        "wave": 1,
+        "field": 5,
+        "density": 10,
+        "coarseRays": 149,
+        "fineRays": 305,
+        "rank": 28,
+        "nativeEfno": 2.8807123561893193,
+        "nativeInputKernelEfno": 2.880712356189324,
+        "relativeDifference": 1.7763568394002505e-15,
+        "primaryExitPupilCore": -52.53542932394924,
+        "primaryExitPupilNative": -52.5357091236946
+      },
+      {
+        "name": "relay-lens",
+        "wave": 2,
+        "field": 1,
+        "density": 5,
+        "coarseRays": 149,
+        "fineRays": 69,
+        "rank": 13,
+        "nativeEfno": 12.548085241085781,
+        "nativeInputKernelEfno": 12.548085241085767,
+        "relativeDifference": 1.1102230246251565e-15,
+        "primaryExitPupilCore": -284.6303864124028,
+        "primaryExitPupilNative": -284.6303868063488
+      }
+    ]
+  },
+  "optimizerSvdParity": {
+    "matrices": 80,
+    "factorAndSolveBitwiseIdentical": true,
+    "beforeSha256": "4b575fec831a31d7de8d74166154549d8fdcaaf87282f8de3decb75a005e2d1a",
+    "afterSha256": "85b03f863a37582e7e6c14874f8087c52a3fba05c2d96b210c9c74397e592481"
+  },
+  "tests": {
+    "Debug": {
+      "passed": 212,
+      "total": 212,
+      "failed": 0,
+      "skipped": 0,
+      "trx": "test-results/related-debug-final.trx",
+      "buildLog": "diagnostics/build-debug-final.log"
+    },
+    "Release": {
+      "passed": 212,
+      "total": 212,
+      "failed": 0,
+      "skipped": 0,
+      "trx": "test-results/related-release-v1.trx",
+      "buildLog": "diagnostics/build-release-v1.log"
+    }
+  },
+  "identicalSelectedTestNames": true,
+  "newTests": 21,
+  "builds": {
+    "Debug": {
+      "projects": 19,
+      "warnings": 0,
+      "errors": 0
+    },
+    "Release": {
+      "projects": 19,
+      "warnings": 0,
+      "errors": 0
+    }
+  },
+  "productCurve": {
+    "rmse": 7.358760343515339e-10,
+    "maximumAbsoluteError": 1.2404495208784283e-09,
+    "unchangedRmseTarget": 0.002,
+    "unchangedMaximumTarget": 0.004
+  },
+  "defaultCoreSha256": {
+    "Debug": "df3c06a3c255cd3787de1a9fa235a54bfdaff6fd3fcd74e7ca71a64c61d4c4f8",
+    "Release": "85b03f863a37582e7e6c14874f8087c52a3fba05c2d96b210c9c74397e592481"
+  },
+  "defaultApplicationAndTestCoreCopiesIdentical": true,
+  "previousEvidenceArchivesUnchanged": {
+    "validation/repairs/2026-10-16/native-diffraction-adapter-evidence.zip": "e452e029523ac4c2a0f806a07fe3a4a05920371ff797a04de4d503e81bfc2a6c",
+    "validation/repairs/2026-10-16/illumination-finite-grid-evidence.zip": "a137625a22a2e7e333f637b17e2117b3602569add648b60445e09f8782d3e83d"
+  },
+  "finalSourceSha256": {
+    "src/OpticalSystemDesign.Core/Services/IlluminationMetrics.cs": "accd6d634852b06d950e0cd6761fcdf15aee2c8ecd69c5def2297ffe7945df20",
+    "src/OpticalSystemDesign.Core/Services/IlluminationMetrics.FiniteImageCosine.cs": "f4fea650aad62d5ca892b4bf53dbda57dcf09c19de9d3de5247236201a2219d8",
+    "src/OpticalSystemDesign.Core/Services/IlluminationMetrics.FinitePupilMap.cs": "39765ceadff2acb3e077b183019de35221ae3d56235e335cdb8a39511e8a28ac",
+    "src/OpticalSystemDesign.Core/Services/IlluminationMetrics.ImageCosine.cs": "aa02644c73e75a9edcab2e2d8f0d4a02ed363157a4ba93a4d9c85cb136c11748",
+    "src/OpticalSystemDesign.Core/Analysis/Shared/JacobiSvd.cs": "6916dadff48f0d9584b05d9efe4f9a23ec0f1a343027dc31bbb09677a4b9c84b",
+    "src/OpticalSystemDesign.Core/Optimization/NumericalOptimizers.cs": "f39b1e929ee181b411ebe189ead21dc6fa58f7b26c789df55908c45223a111ef",
+    "src/OpticalSystemDesign.Application/Services/MeritOperandReferenceCatalog.cs": "1cd584a0db5728e39c1535cf4a6f9e20ae8ce18d30e31ebab3f03e322183128e",
+    "tests/OpticalSystemDesign.Tests/IlluminationInverseNativeTests.cs": "ada62465bec652b891ac2f1ac09b4e07d6a29265ad5c8c094d6a3a51dd2e4fbf",
+    "tests/OpticalSystemDesign.Tests/FiniteIlluminationGridTests.cs": "a08742ca26fc3710e19af4d6aca2c0344f97e99976e39fab6e6602a6232bc869",
+    "tools/diagnostics/Accuracy20261014/Program.cs": "55a90553a7d9165b816b83da37516d026f5a496670380d68cc91cde20fa79000",
+    "tools/diagnostics/Accuracy20261014/Accuracy20261014.csproj": "813294c137c8be4c1bc5c48c7dff889cfc6e60a15ede8cae0af409ab90d16735"
+  },
+  "evidence": {
+    "path": "validation/repairs/2026-10-16/illumination-inverse-evidence.zip",
+    "size": 1053823,
+    "sha256": "bcd5df8b59d0e7437c906503e4b4cbfc514fbe032f09f90595236a845c2657bb",
+    "entries": 213,
+    "allEntriesReadbackVerified": true
+  },
+  "documentation": {
+    "documents": 905,
+    "strict": true,
+    "source": "diagnostics/documentation-final.json"
+  },
+  "limits": [
+    "No complete repository suite, installer rebuild, submission or push in this stage",
+    "Actual nonzero end-to-end differences remain reported; this is not bitwise identity or arbitrary native-system certification",
+    "Independent Cooke/Tessar, native polarized/coherent fields, EFNO vignetting factors and Wave=0 are excluded",
+    "Scalar paraxial pupil reference is not an aberrated 3D pupil model; native/core reference input differences are preserved"
+  ]
+}

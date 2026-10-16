@@ -13,7 +13,7 @@ public static partial class MeritFunctionCatalog
         var field = IntegerDataParameter(definition, 0, definition.Field);
         var polarization = IntegerDataParameter(definition, 1, 0);
         if (sampling is < 5 or > 128)
-            throw new ArgumentOutOfRangeException(nameof(definition), "RELI/EFNO 的 Samp 必须在 5..128，每边使用指定数量的像方方向余弦网格点。");
+            throw new ArgumentOutOfRangeException(nameof(definition), "RELI/EFNO 的 Samp 必须在 5..128；有限网格配置将超过 100 的采样值按 100 计算。");
         if (wave <= 0)
             throw new NotSupportedException("RELI/EFNO 需要明确的正波长编号；Wave=0 的原生语义尚未核实。");
         var wavelength = RequireWavelength(optic, wave).Micrometers;
@@ -29,7 +29,7 @@ public static partial class MeritFunctionCatalog
         // physical-power default intact and select geometric transport explicitly.
         if (type == "RELI")
             return IlluminationMetrics.RelativeToAxis(optic, normalized, wavelength, sampling,
-                polarization == 1, IlluminationSamplingKind.UniformImageCosine,
+                polarization == 1, IlluminationSamplingKind.FiniteImageCosine,
                 includeScalarTransmission: polarization == 1);
 
         // RELI explicitly removes factors. EFNO's native policy has not been captured;
@@ -37,7 +37,7 @@ public static partial class MeritFunctionCatalog
         if (optic.Fields.Any(item => PupilVignetting.FromField(item) != PupilVignetting.Identity))
             throw new NotSupportedException("EFNO 的非零渐晕因子处理尚待原生核实；请先用 CVIG 清除渐晕因子。");
         return IlluminationMetrics.Evaluate(optic, normalized, wavelength, sampling,
-            usePolarization: polarization == 1, sampling: IlluminationSamplingKind.UniformImageCosine,
+            usePolarization: polarization == 1, sampling: IlluminationSamplingKind.FiniteImageCosine,
             includeScalarTransmission: polarization == 1).EffectiveFNumber;
     }
 }

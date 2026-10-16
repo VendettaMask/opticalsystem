@@ -192,15 +192,110 @@ public sealed class ImageCoordinateReferenceRepairTests
         var offset = DiffractionEngine.HuygensGeometricCenterOffset(optic, (0, field), [wave], wave,
             sampling, optic.RayAimingEnabled);
         Assert.True(double.Hypot(offset.X, offset.Y) / pitch > .5);
-        var expectedChief = DiffractionEngine.ComputeHuygensPsf(optic, (0, field), wave, sampling, size, pitch,
-            usePolarization: usePolarization, aimAtStop: optic.RayAimingEnabled).Values;
-        var expectedCentroid = DiffractionEngine.ComputeHuygensPsf(optic, (0, field), wave, sampling, size, pitch,
-            usePolarization: usePolarization, aimAtStop: optic.RayAimingEnabled, imageCenterOffset: offset).Values;
+        // An odd physical grid contains every coordinate of the even detector
+        // window. Select by physical X=(column-anchor)*pitch, Y=(anchor-row)*pitch.
+        var expectedChief = DetectorWindow(DiffractionEngine.ComputeHuygensPsf(optic, (0, field), wave, sampling, size + 1, pitch,
+            usePolarization: usePolarization, aimAtStop: optic.RayAimingEnabled).Values, size);
+        var expectedCentroid = DetectorWindow(DiffractionEngine.ComputeHuygensPsf(optic, (0, field), wave, sampling, size + 1, pitch,
+            usePolarization: usePolarization, aimAtStop: optic.RayAimingEnabled, imageCenterOffset: offset).Values, size);
         Normalize(expectedChief);
         Normalize(expectedCentroid);
         EqualPixels(expectedChief, chief.MeanPsf);
         EqualPixels(expectedCentroid, centroid.MeanPsf);
         Assert.True(Difference(chief.MeanPsf, centroid.MeanPsf) > 1e-5);
+    }
+
+    private static double[,] DetectorWindow(double[,] physical, int size)
+    {
+        var values = new double[size, size];
+        var physicalCenter = physical.GetLength(0) / 2;
+        var anchor = (size - 1) / 2;
+        for (var row = 0; row < size; row++)
+            for (var column = 0; column < size; column++)
+                values[row, column] = physical[physicalCenter + anchor - row, physicalCenter + column - anchor];
+        return values;
+    }
+
+    [Theory]
+    [InlineData(7)]
+    [InlineData(8)]
+    [InlineData(9)]
+    [InlineData(15)]
+    [InlineData(16)]
+    [InlineData(17)]
+    public void SymmetricDiffractionKernelDoesNotTranslateAnImpulse(int size)
+    {
+        var optic = ThinLens();
+        var basis = ImageSimulationEngine.GenerateBasis(optic, optic.Wavelengths[0],
+            Config(mode: "Diffraction", size: size, rays: 16, pitch: .01, fieldHeight: 1e-8));
+        Assert.Equal("Diffraction", Assert.Single(basis.EffectiveModes!));
+        Assert.Equal(0, basis.GeometricFallbackCount);
+        var source = new double[32, 32];
+        source[16, 16] = 1;
+        var result = ImageSimulationEngine.SpatiallyVariableConvolution(source, basis.EigenPsfs,
+            ImageSimulationEngine.ResizeCoefficientMaps(basis.CoefficientGrid, 32, 32), basis.MeanPsf);
+        var power = result.Cast<double>().Sum();
+        double xMoment = 0, yMoment = 0;
+        for (var row = 0; row < 32; row++)
+            for (var column = 0; column < 32; column++)
+            {
+                xMoment += column * result[row, column];
+                yMoment += row * result[row, column];
+            }
+        Assert.Equal(1, power, 12);
+        // This control's finite-cell support fits inside the smallest window;
+        // an asymmetric crop of nonzero tails cannot bias the centroid.
+        Assert.Equal(16, xMoment / power, 10);
+        Assert.Equal(16, yMoment / power, 10);
+    }
+
+    [Theory]
+    [InlineData(.5, 8)]
+    [InlineData(-.5, 8)]
+    [InlineData(.5, 33)]
+    [InlineData(-.5, 33)]
+    public void DiffractionKernelUsesDetectorRowsAndThePhysicalWindow(double field, int size)
+    {
+        var optic = Primary();
+        var wave = new Wavelength { Nanometers = 550, IsPrimary = true };
+        const double pitch = .0005;
+        var basis = ImageSimulationEngine.GenerateBasis(optic, wave,
+            Config(mode: "Diffraction", size: size, rays: 32, pitch: pitch, field: field, fieldHeight: 1e-8));
+        Assert.Equal("Diffraction", Assert.Single(basis.EffectiveModes!));
+        Assert.Equal(0, basis.GeometricFallbackCount);
+        var rawSize = size % 2 == 0 ? size + 1 : size;
+        var expected = DetectorWindow(DiffractionEngine.ComputeHuygensPsf(optic, (0, field), wave, 32,
+            rawSize, pitch, aimAtStop: optic.RayAimingEnabled).Values, size);
+        Normalize(expected);
+        EqualPixels(expected, basis.MeanPsf);
+        if (size % 2 == 1)
+        {
+            var anchor = (size - 1) / 2;
+            var moment = Enumerable.Range(0, size).Sum(row =>
+                Enumerable.Range(0, size).Sum(column => (row - anchor) * basis.MeanPsf[row, column]));
+            Assert.True(moment * field > 0, "Positive physical Y offsets must move towards smaller detector rows.");
+            Assert.InRange(Math.Abs(moment), .7, .9);
+        }
+    }
+
+    [Theory]
+    [InlineData(128, 78, 1)]
+    [InlineData(64, 109, 4)]
+    public void DiffractionWorkBudgetsIncludeTheAdditionalPhysicalEdge(int size, int rays, int columns)
+    {
+        var config = Config(mode: "Diffraction", size: size, rays: rays, columns: columns);
+        Assert.Throws<ArgumentOutOfRangeException>(() => AnalysisResourceLimits.ValidatePsfConfiguration(config));
+        AnalysisResourceLimits.ValidatePsfConfiguration(Config(mode: "Geometric", size: size, rays: rays, columns: columns));
+    }
+
+    [Fact]
+    public void MultispectralDiffractionWorkIncludesThePhysicalWindowForEveryFieldAndWave()
+    {
+        var source = Source();
+        var config = Config(mode: "Diffraction", size: 64, rays: 95, columns: 4, wavelengths: [.55, .65]);
+        Assert.Throws<ArgumentOutOfRangeException>(() => AnalysisResourceLimits.ValidateImageSimulation(source, config));
+        AnalysisResourceLimits.ValidateImageSimulation(source,
+            Config(mode: "Geometric", size: 64, rays: 95, columns: 4, wavelengths: [.55, .65]));
     }
 
     private static Optic Primary() => OpticalFormatCatalog.Import(File.ReadAllText(
@@ -244,14 +339,15 @@ public sealed class ImageCoordinateReferenceRepairTests
     }
 
     private static ImageSimulationConfig Config(string mode = "None", string reference = "chief", int size = 8,
-        double field = 0, double pitch = .01, int rays = 8, double fieldHeight = 1, bool polarization = false) => new()
+        double field = 0, double pitch = .01, int rays = 8, double fieldHeight = 1, bool polarization = false,
+        int columns = 1, IReadOnlyList<double>? wavelengths = null) => new()
         {
             ImageWidth = 16,
             ImageHeight = 16,
             Padding = 0,
-            WavelengthsMicrometers = [.55],
+            WavelengthsMicrometers = wavelengths ?? [.55],
             PsfGridRows = 1,
-            PsfGridColumns = 1,
+            PsfGridColumns = columns,
             PsfSize = size,
             NumRays = rays,
             Components = 1,

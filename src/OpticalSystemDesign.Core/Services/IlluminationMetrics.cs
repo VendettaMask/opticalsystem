@@ -10,7 +10,7 @@ using OpticalSystemDesign.Core.Rays;
 
 namespace OpticalSystemDesign.Core.Services;
 
-public enum IlluminationSamplingKind { AdaptivePupil, UniformImageCosine }
+public enum IlluminationSamplingKind { AdaptivePupil, UniformImageCosine, FiniteImageCosine }
 
 /// <summary>Transmission-weighted image-space pupil integral.</summary>
 public sealed record IlluminationMetricResult(double ProjectedCosineArea, int ValidRays, int SampledPupilNodes)
@@ -30,6 +30,10 @@ public sealed record IlluminationMetricResult(double ProjectedCosineArea, int Va
 /// aperture-boundary tracing retain obscurations and nonuniform transmission.
 /// The optional uniform image-cosine grid inversely solves each sample through
 /// the same formal tracer; its cell placement is not certified native-equivalent.
+/// The finite profile uses independently observed 2026 R1 operand grid placement,
+/// edge weights, a raw sixth-degree truncated-SVD pupil map and image-point
+/// reference along the chief ray to the primary-wave pupil plane. It follows configured ray
+/// aiming; it is not general native certification or a full 3-D pupil model.
 /// Optional unpolarized Fresnel power transport retains the complete Jones chain;
 /// unsupported complex-index interfaces and coating models are rejected.
 /// Scalar transmission is included by default. Explicit geometric evaluation
@@ -115,7 +119,8 @@ public static partial class IlluminationMetrics
         if (optic.SurfaceGroup.Items.Any(surface => surface.ScatteringModel is not null))
             throw Unavailable("stochastic scattering is not supported by a deterministic pupil integral");
         var result = new Integrator(optic, normalizedField, wavelengthMicrometers, cancellationToken, usePolarization,
-            includeScalarTransmission).Evaluate(rayDensity, sampling);
+            includeScalarTransmission, sampling != IlluminationSamplingKind.FiniteImageCosine || optic.RayAimingEnabled)
+            .Evaluate(rayDensity, sampling);
         return result with
         {
             IncludesScalarTransmission = includeScalarTransmission
@@ -136,12 +141,14 @@ public static partial class IlluminationMetrics
         private readonly bool _includeScalarTransmission;
         private Vector3D _tangentX;
         private Vector3D _tangentY;
+        private Vector3D _finiteImageCenter;
+        private double? _finiteReferenceDistance;
         private int _orientation;
         private int _validRays;
         private double _boundaryChordAngle;
 
         internal Integrator(Optic optic, (double Hx, double Hy) field, double wavelength,
-            CancellationToken cancellation, bool usePolarization, bool includeScalarTransmission)
+            CancellationToken cancellation, bool usePolarization, bool includeScalarTransmission, bool aimAtStop = true)
         {
             _optic = optic;
             _cancellation = cancellation;
@@ -149,7 +156,7 @@ public static partial class IlluminationMetrics
             _includeScalarTransmission = includeScalarTransmission;
             _image = optic.SurfaceGroup.Items[^1];
             _generate = optic.SequentialRayTracer.RayGenerator.CreatePupilRaySampler(
-                field.Hx, field.Hy, wavelength, aimAtStop: true);
+                field.Hx, field.Hy, wavelength, aimAtStop);
             _uniformOpenPupil = !usePolarization && (optic.Apodization is null or UniformApodization)
                 && optic.SurfaceGroup.Items.All(surface => surface.PhysicalAperture is null
                     && (!includeScalarTransmission || surface.CoatingModel is NoneCoatingModel)
@@ -172,9 +179,27 @@ public static partial class IlluminationMetrics
             var reference = Math.Abs(normal.X) < 0.95 ? new Vector3D(1, 0, 0) : new Vector3D(0, 1, 0);
             _tangentX = Normalize(reference - normal * Dot(reference, normal));
             _tangentY = Normalize(Cross(normal, _tangentX));
+            if (sampling == IlluminationSamplingKind.FiniteImageCosine)
+            {
+                _finiteImageCenter = localHit;
+                // The native finite profile uses the system primary-wavelength
+                // paraxial pupil reference, even for an explicitly selected wave.
+                var axialDistance = localHit.Z - _optic.Paraxial.EstimateExitPupilLocation();
+                if (!double.IsFinite(axialDistance) || Math.Abs(axialDistance) <= 1e-12)
+                    throw Unavailable("the finite image-cosine profile requires a finite nonzero pupil reference distance");
+                var chiefDirection = Normalize(_image.CoordinateSystem.ToLocalDirection(chief.IncidentDirection ?? chief.Direction));
+                if (Math.Abs(chiefDirection.Z) <= 1e-12)
+                    throw Unavailable("the finite image-cosine chief ray is parallel to the pupil reference plane");
+                // Signed chief-ray distance to the scalar pupil-reference plane.
+                // A chord to the paraxial axial pupil point is a different
+                // convention when the actual chief ray misses that point.
+                _finiteReferenceDistance = axialDistance / chiefDirection.Z;
+            }
 
             if (sampling == IlluminationSamplingKind.UniformImageCosine)
                 return IntegrateUniformImageCosine(density);
+            if (sampling == IlluminationSamplingKind.FiniteImageCosine)
+                return IntegrateFiniteImageCosine(density);
 
             var center = Sample(0, 0);
             var previous = new[] { center };
@@ -255,7 +280,16 @@ public static partial class IlluminationMetrics
                     : image.Intensity;
                 if (!double.IsFinite(intensity) || intensity < 0)
                     throw Unavailable("ray transmission must be finite and nonnegative");
-                node = new(x, y, Dot(direction, _tangentX), Dot(direction, _tangentY),
+                // First-order image-point reference. Keep the angular correction
+                // unnormalized; normalizing it would introduce a different
+                // second-order aberration-removal convention.
+                var referenceDirection = direction;
+                if (_finiteReferenceDistance is { } distance)
+                {
+                    var offset = _image.CoordinateSystem.ToLocalPoint(image.Position) - _finiteImageCenter;
+                    referenceDirection -= (offset - direction * Dot(direction, offset)) / distance;
+                }
+                node = new(x, y, Dot(referenceDirection, _tangentX), Dot(referenceDirection, _tangentY),
                     intensity, diagnostic.InsideAllApertures);
                 if (node.Inside && node.Weight > 0) _validRays++;
             }

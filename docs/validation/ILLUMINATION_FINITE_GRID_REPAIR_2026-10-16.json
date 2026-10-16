@@ -1,0 +1,431 @@
+{
+  "date": "2026-10-16",
+  "scope": "Finite-grid EFNO/RELI repair; original four-file matrix and independent native square/node controls",
+  "nativeEnvironment": {
+    "version": 260127,
+    "major": 26,
+    "minor": 1,
+    "validLicense": true,
+    "license": "EnterpriseEdition"
+  },
+  "originalMatrix": {
+    "total": 2416,
+    "curvature": 2160,
+    "illumination": 256,
+    "curvatureTargetMm": 1e-05,
+    "curvatureMaximumAbsoluteErrorMm": 3.054520025802532e-08,
+    "illuminationAcceptanceTarget": null,
+    "illuminationStatus": "Difference",
+    "cases": [
+      {
+        "name": "123456",
+        "source": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+        "sourceSha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+        "before": [
+          {
+            "Code": "EFNO",
+            "Total": 60,
+            "Computable": 60,
+            "MaxAbsoluteError": 0.36617238466490853,
+            "MaxRelativeError": 0.1198968722561976,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 60,
+            "Computable": 60,
+            "MaxAbsoluteError": 0.0006663491482958861,
+            "MaxRelativeError": 0.0006850956121549068,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ],
+        "after": [
+          {
+            "Code": "FCGS",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 5.510125389816822e-10,
+            "MaxRelativeError": 8.73246457377963e-06,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "FCGT",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 5.63499759657568e-10,
+            "MaxRelativeError": 8.73246457377963e-06,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "EFNO",
+            "Total": 60,
+            "Computable": 60,
+            "MaxAbsoluteError": 3.5317667128609287e-06,
+            "MaxRelativeError": 1.2526130993562035e-06,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 60,
+            "Computable": 60,
+            "MaxAbsoluteError": 2.161230720276741e-06,
+            "MaxRelativeError": 2.2230610010609553e-06,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ]
+      },
+      {
+        "name": "double-gauss-28-degree-field",
+        "source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/double-gauss-28-degree-field-gq6-remove/source.zmx",
+        "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+        "before": [
+          {
+            "Code": "EFNO",
+            "Total": 36,
+            "Computable": 36,
+            "MaxAbsoluteError": 0.42414668132606215,
+            "MaxRelativeError": 0.12917789247549571,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 36,
+            "Computable": 36,
+            "MaxAbsoluteError": 0.024859662747668154,
+            "MaxRelativeError": 0.02693003081391321,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ],
+        "after": [
+          {
+            "Code": "FCGS",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 3.341700832715233e-09,
+            "MaxRelativeError": 1.4271817830868727e-06,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "FCGT",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 3.3274103194980142e-09,
+            "MaxRelativeError": 6.557337872692415e-08,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "EFNO",
+            "Total": 36,
+            "Computable": 36,
+            "MaxAbsoluteError": 6.788234777799218e-05,
+            "MaxRelativeError": 2.1600061747895083e-05,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 36,
+            "Computable": 36,
+            "MaxAbsoluteError": 3.7464876934345526e-05,
+            "MaxRelativeError": 4.0580386660993284e-05,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ]
+      },
+      {
+        "name": "relay-lens",
+        "source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/relay-lens-gq6-remove/source.zmx",
+        "sourceSha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+        "before": [
+          {
+            "Code": "EFNO",
+            "Total": 24,
+            "Computable": 24,
+            "MaxAbsoluteError": 1.55896379882188,
+            "MaxRelativeError": 0.12411538364637187,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 24,
+            "Computable": 24,
+            "MaxAbsoluteError": 0.005621076301030925,
+            "MaxRelativeError": 0.005632288629249915,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ],
+        "after": [
+          {
+            "Code": "FCGS",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 2.3098145618405397e-09,
+            "MaxRelativeError": 4.218413840462176e-09,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "FCGT",
+            "Total": 324,
+            "Computable": 324,
+            "MaxAbsoluteError": 2.6215056792011637e-09,
+            "MaxRelativeError": 3.7537059460746036e-08,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "EFNO",
+            "Total": 24,
+            "Computable": 24,
+            "MaxAbsoluteError": 3.077494992709262e-05,
+            "MaxRelativeError": 2.6635661407592437e-06,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 24,
+            "Computable": 24,
+            "MaxAbsoluteError": 3.362954341001867e-06,
+            "MaxRelativeError": 3.36966021330376e-06,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ]
+      },
+      {
+        "name": "even-asphere",
+        "source": "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/even-asphere-gq6-remove/source.zmx",
+        "sourceSha256": "e7523a0a2b8247667d53cd559eded64442af41318f2d985d61296d5c5d1756da",
+        "before": [
+          {
+            "Code": "EFNO",
+            "Total": 8,
+            "Computable": 8,
+            "MaxAbsoluteError": 0.39352792489232735,
+            "MaxRelativeError": 0.12601119256659188,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 8,
+            "Computable": 8,
+            "MaxAbsoluteError": 0.013255300369056089,
+            "MaxRelativeError": 0.013358618201334105,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ],
+        "after": [
+          {
+            "Code": "FCGS",
+            "Total": 108,
+            "Computable": 108,
+            "MaxAbsoluteError": 2.4292312716944764e-08,
+            "MaxRelativeError": 1.0796178506744525e-07,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "FCGT",
+            "Total": 108,
+            "Computable": 108,
+            "MaxAbsoluteError": 3.054520025802532e-08,
+            "MaxRelativeError": 1.213684257539427e-07,
+            "ComparisonTarget": 1e-05,
+            "Status": "Pass"
+          },
+          {
+            "Code": "EFNO",
+            "Total": 8,
+            "Computable": 8,
+            "MaxAbsoluteError": 7.221144738078777e-05,
+            "MaxRelativeError": 2.5130017566210583e-05,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          },
+          {
+            "Code": "RELI",
+            "Total": 8,
+            "Computable": 8,
+            "MaxAbsoluteError": 2.835527833355833e-05,
+            "MaxRelativeError": 2.8572809502525054e-05,
+            "ComparisonTarget": null,
+            "Status": "Difference"
+          }
+        ]
+      }
+    ]
+  },
+  "tests": {
+    "debug": {
+      "total": 168,
+      "passed": 168,
+      "failed": 0,
+      "skipped": 0,
+      "source": "test-results/related-debug-final.trx"
+    },
+    "release": {
+      "total": 168,
+      "passed": 168,
+      "failed": 0,
+      "skipped": 0,
+      "source": "test-results/related-release-final.trx"
+    }
+  },
+  "identicalTestNames": true,
+  "newTests": 26,
+  "productCurve": {
+    "rmse": 2.8525041193335847e-07,
+    "maximumAbsoluteError": 7.903964132083274e-07,
+    "unchangedRmseGate": 0.002,
+    "unchangedMaximumGate": 0.004
+  },
+  "remainingResidualIsolation": {
+    "scope": "Even Asphere wave 1 axial field; central and edge nodes blocked after the stop; transparent plane leaves baseline identical",
+    "rows": [
+      {
+        "density": 5,
+        "nativeBaseline": 3.1108598922175372,
+        "nativeCellArea": 0.001276369247098275,
+        "coreCellArea": 0.0012763692470867257,
+        "relativeCellAreaDifference": -9.048650717602413e-12,
+        "relativeEfnoDifference": -4.053985911300906e-06
+      },
+      {
+        "density": 10,
+        "nativeBaseline": 2.9656806058777274,
+        "nativeCellArea": 0.00031909231177453337,
+        "coreCellArea": 0.00031909231177168143,
+        "relativeCellAreaDifference": -8.937628415139898e-12,
+        "relativeEfnoDifference": 3.195254032473116e-07
+      },
+      {
+        "density": 20,
+        "nativeBaseline": 2.896492640906802,
+        "nativeCellArea": 7.977307794375323e-05,
+        "coreCellArea": 7.977307794292036e-05,
+        "relativeCellAreaDifference": -1.0440537323574972e-11,
+        "relativeEfnoDifference": 4.208506297675996e-06
+      },
+      {
+        "density": 40,
+        "nativeBaseline": 2.862554356910176,
+        "nativeCellArea": 1.9943269485218935e-05,
+        "coreCellArea": 1.994326948573009e-05,
+        "relativeCellAreaDifference": 2.563038670189144e-11,
+        "relativeEfnoDifference": 1.0843151742490065e-05
+      }
+    ],
+    "inverseNodes": [
+      {
+        "density": 10,
+        "corePupilX": -0.9084354921380382,
+        "nativePupilXInterval": [
+          -0.9084440921380381,
+          -0.9084439921380382
+        ],
+        "nativePupilXMidpoint": -0.9084440421380382,
+        "normalizedPupilDifference": -8.54999999999606e-06,
+        "coreEdgeWeight": 0.9825450978505941,
+        "nativeObservedWeight": 0.9825097644067006,
+        "nativeCoordinateFormulaWeight": 0.9825099040796498,
+        "coordinateFormulaWeightInterval": [
+          0.982509698165735,
+          0.9825101099923749
+        ]
+      },
+      {
+        "density": 40,
+        "corePupilX": -0.9846313483038082,
+        "nativePupilXInterval": [
+          -0.9846223483038081,
+          -0.9846222483038082
+        ],
+        "nativePupilXMidpoint": -0.9846222983038082,
+        "normalizedPupilDifference": 9.049999999954927e-06,
+        "coreEdgeWeight": 0.6763642398054722,
+        "nativeObservedWeight": 0.6768953174379025,
+        "nativeCoordinateFormulaWeight": 0.6768962057368335,
+        "coordinateFormulaWeightInterval": [
+          0.6768932673264325,
+          0.6768991441402575
+        ]
+      }
+    ],
+    "conclusion": "Central cell area agrees at ~3e-11 relative; two native edge-node pupil positions differ from tightly converged shared-Core inversion by ~9e-6 normalized pupil. Observed native node weight is consistent with the same sine-squared profile evaluated at the native coordinate interval. This isolates a finite inverse-position difference in these controls, not universal native solver reconstruction."
+  },
+  "defaultBuilds": {
+    "debug": {
+      "projects": 19,
+      "warnings": 0,
+      "errors": 0
+    },
+    "release": {
+      "projects": 19,
+      "warnings": 0,
+      "errors": 0
+    }
+  },
+  "defaultCoreSha256": {
+    "Debug": "ada86a2b449cee3167542dcdd4d267df0c2048e23f078bff1f37026f39d86646",
+    "Release": "a1a4019ceae933f24c34a33b6be62264e3daa30c44381dde275bf09767c0677f"
+  },
+  "finalSourceSha256": {
+    "src/OpticalSystemDesign.Core/Services/IlluminationMetrics.cs": "169d552afd12372ce7d34c36e81b6fd2d5f39a37d4f1ea8f5aa1fe78f5dd04ab",
+    "src/OpticalSystemDesign.Core/Services/IlluminationMetrics.FiniteImageCosine.cs": "a4ae87983a1dd2006fdc9ecb15b8214ada6d47ae8eeccd44ad393cd7f0773c0b",
+    "src/OpticalSystemDesign.Core/Services/IlluminationMetrics.ImageCosine.cs": "aa02644c73e75a9edcab2e2d8f0d4a02ed363157a4ba93a4d9c85cb136c11748",
+    "src/OpticalSystemDesign.Core/Optimization/MeritFunction.Illumination.cs": "94772df18f74d5e66a9d31a5bc5fd0ab62aa4c050bcf71016613af2218d5663f",
+    "src/OpticalSystemDesign.Core/Analysis/RelativeIlluminationAnalysis.cs": "37c1f7ff4acb3bb13f16c3a0a97e7603910b0bfd2fe17308ee70b5bb451ea6f5",
+    "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs": "b83d7a7949f33edcedc599d36f01dd7c9ecaff8213c037631947eed9932df206",
+    "src/OpticalSystemDesign.Application/Services/MeritOperandReferenceCatalog.cs": "82eae71723ec0b64ed50045b04a86c40243b714b5babdb1bfe436d4091c90900",
+    "tests/OpticalSystemDesign.Tests/FiniteIlluminationGridTests.cs": "d9e685a7d591f88e3c7ab0f15c22a58ea52d1d1fb6c848d864bd7ca1f057f1c6",
+    "tests/OpticalSystemDesign.Tests/GeometricIlluminationTests.cs": "08d9437d9c4bce8030d2572e8bd75087152d0bcc4a9a15cfc17d20585a467091",
+    "tests/OpticalSystemDesign.Tests/IlluminationOperandTests.cs": "cbfa61341e7028767aa6a5923c3ce46c896119b0375eb8e8c114faa804cb1a95",
+    "tools/diagnostics/Accuracy20261014/Program.cs": "55a90553a7d9165b816b83da37516d026f5a496670380d68cc91cde20fa79000",
+    "tools/diagnostics/Accuracy20261014/Accuracy20261014.csproj": "813294c137c8be4c1bc5c48c7dff889cfc6e60a15ede8cae0af409ab90d16735",
+    "tools/diagnostics/Accuracy20261014/NativeIlluminationGridCapture.cs": "bc918f33b613ec03d091f6a1483c452f64adcbffdfa288a7a3e171e069e49176"
+  },
+  "evidence": {
+    "path": "validation/repairs/2026-10-16/illumination-finite-grid-evidence.zip",
+    "size": 728012,
+    "sha256": "a137625a22a2e7e333f637b17e2117b3602569add648b60445e09f8782d3e83d",
+    "entries": 194,
+    "readbackVerified": true
+  },
+  "limits": [
+    "No complete repository suite, installer rebuild, push or independent Cooke/Tessar investigation in this stage",
+    "First-order scalar paraxial pupil-reference distance; not arbitrary 3D native certification",
+    "Original four-file EFNO/RELI fine differences remain open; no acceptance threshold invented",
+    "Native grid controls Pol=0; polarized software regressions are not new native polarization certification",
+    "Synthetic PARAXIAL capture is constructed explicitly with the existing Core thin lens, not PARAXIAL import support"
+  ],
+  "retainedFailures": [
+    "build-release-v1: xUnit precision argument outside 0..15",
+    "illumination-release-v2: 164 pass, 4 failures; target/moved synthetic thickness required Renumber; zero-distance IMSF is unavailable",
+    "One residual launcher invocation returned 2 before API startup because the output-name assignment followed exit; corrected before successful v2 capture"
+  ],
+  "documentationVerification": {
+    "source": "diagnostics/documentation-final.json",
+    "documents": 903,
+    "strict": true,
+    "brokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0,
+    "guideRepeatedParagraphGroups": 0
+  }
+}

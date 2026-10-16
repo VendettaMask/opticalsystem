@@ -80,6 +80,11 @@ internal static class NativeAccuracyCapture
                         }
             }
             Host.Write("operands.json", rows);
+            if (Host.Request.ContainsKey("illuminationOnly") && Convert.ToBoolean(Host.Request["illuminationOnly"]))
+            {
+                Host.Write("capture-complete.json", Host.Object("scope", "EFNO/RELI only", "complete", true));
+                return 0;
+            }
             var curvatureRows = new List<object>();
             foreach (string code in new[] { "FCGS", "FCGT" })
             {
@@ -129,6 +134,16 @@ internal static class NativeAccuracyCapture
             return 0;
         }
         catch (Exception e) { Host.Write("error.json", Host.Object("error", e.ToString())); Console.Error.WriteLine(e); return 2; }
-        finally { if (app != null) app.CloseApplication(); }
+        finally
+        {
+            if (app != null)
+            {
+                // Operand-schema probes dirty the in-memory MFE. Discard those
+                // edits before closing so unattended capture cannot wait on a
+                // save prompt. The source file is never saved.
+                try { app.PrimarySystem.LoadFile((string)Host.Request["input"], false); }
+                finally { app.CloseApplication(); }
+            }
+        }
     }
 }

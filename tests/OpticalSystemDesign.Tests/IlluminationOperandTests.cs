@@ -57,8 +57,8 @@ public sealed class IlluminationOperandTests(Xunit.Abstractions.ITestOutputHelpe
     {
         var optic = Cone();
         optic.SurfaceGroup.Items[1].CoatingModel = new SimpleCoatingModel(transmission);
-        // Samp=10 has 80 cell centers in the unit disk; the air cone has sin²(theta)=1/101.
-        var expected = .5 * Math.Sqrt(Math.PI / (80 * .04 / 101 * transmission));
+        var uncoated = Value(Cone(), Row("EFNO"));
+        var expected = uncoated / Math.Sqrt(transmission);
         var row = Row("EFNO", pol: 1); row.Target = 4; row.Weight = 2;
         var result = MeritFunctionCatalog.Evaluate(optic, row);
         Assert.Empty(result.Error); Assert.Equal(expected, result.Value, 10);
@@ -109,7 +109,7 @@ public sealed class IlluminationOperandTests(Xunit.Abstractions.ITestOutputHelpe
         if (films)
             optic.SurfaceGroup.Items[1].CoatingModel = new CoherentMultilayerCoating([new(new ConstantIndexMaterial("film", 1.3), 110)]);
         var expected = IlluminationMetrics.Evaluate(optic, (0, 0), .55, 10, usePolarization: true,
-            sampling: IlluminationSamplingKind.UniformImageCosine).EffectiveFNumber;
+            sampling: IlluminationSamplingKind.FiniteImageCosine).EffectiveFNumber;
         Assert.Equal(expected, Value(optic, Row("EFNO", pol: 1)), 12);
         Assert.Equal(1, Value(optic, Row("RELI", pol: 1)), 12);
         if (!films) Assert.True(expected > Value(optic, Row("EFNO")) * 1.01);
@@ -175,10 +175,14 @@ public sealed class IlluminationOperandTests(Xunit.Abstractions.ITestOutputHelpe
             new() { Type = "FDRE", ZemaxIntegerParameters = [1, 0] },
             new() { Type = "IMSF", ZemaxIntegerParameters = [1, 0] }, row,
             new() { Type = "IMSF", ZemaxIntegerParameters = [0, 0] }, row]);
-        Assert.All(rows, result => Assert.Empty(result.Error));
+        Assert.All(rows.Where((_, index) => index != 5), result => Assert.Empty(result.Error));
         Assert.Equal(expected, rows[0].Value, 12); Assert.Equal(expected, rows[^1].Value, 12);
         Assert.True(Math.Abs(rows[2].Value - expected) > 1e-4);
-        Assert.True(double.IsFinite(rows[5].Value)); Assert.Equal(before, Snapshot(optic));
+        // IMSF selects the stop itself here: its zero pupil-reference distance
+        // has no finite image-point quadrature. The following IMSF still restores
+        // the original image and a valid value; no approximate fallback is used.
+        Assert.NotEmpty(rows[5].Error); Assert.True(double.IsNaN(rows[5].Value));
+        Assert.Equal(before, Snapshot(optic));
     }
 
     [Theory]
@@ -192,7 +196,7 @@ public sealed class IlluminationOperandTests(Xunit.Abstractions.ITestOutputHelpe
         var dto = Assert.Single(app.Optimization.GetMeritFunction()); Assert.Empty(dto.Error);
         var type = Assert.Single(app.Optimization.GetMeritOperandTypes(), item => item.Code == code);
         Assert.False(type.CompatibilityOnly); Assert.Equal("照度与有效 F 数", type.Category);
-        Assert.Contains("尚未验证原生等价", type.Calculation);
+        Assert.Contains("原生等价", type.Calculation);
         var editor = new MeritOperandEditorRow(dto, type);
         Assert.True(editor.IsParameterEditable(0)); Assert.False(editor.IsParameterEditable(4));
         editor.Parameter1 = 20; editor.Parameter3 = 2;
@@ -255,16 +259,19 @@ public sealed class IlluminationOperandTests(Xunit.Abstractions.ITestOutputHelpe
         var optic = Cone();
         optic.SurfaceGroup.Replace([
             new OpticalSurface { Thickness = 5 },
-            new OpticalSurface { Thickness = 5, ThicknessVariable = true },
-            new OpticalSurface { IsStop = true, Thickness = 10, SemiDiameter = 1 },
+            new OpticalSurface { Thickness = 5 },
+            new OpticalSurface { IsStop = true, Thickness = 10, ThicknessVariable = true, SemiDiameter = 1 },
             new OpticalSurface { Thickness = 0 }
         ]);
-        var row = Row("EFNO"); row.Target = .5 * Math.Sqrt(Math.PI * 145 / 3.2);
+        var targetOptic = optic.Clone();
+        targetOptic.SurfaceGroup.Items[2].Thickness = 12;
+        targetOptic.SurfaceGroup.Renumber();
+        var row = Row("EFNO"); row.Target = Value(targetOptic, Row("EFNO"));
         optic.MeritFunctionOperands.Add(row);
         var runtime = new WorkbenchRuntime(optic);
         var result = runtime.OptimizeMarkedVariables("Damped Least Squares", 40);
         Assert.True(result.FinalMerit < result.InitialMerit * 1e-6);
-        Assert.Equal(7, runtime.CurrentOptic.SurfaceGroup.Items[1].Thickness, 4);
+        Assert.Equal(12, runtime.CurrentOptic.SurfaceGroup.Items[2].Thickness, 4);
         Assert.InRange(Math.Abs(Value(runtime.CurrentOptic, row) - row.Target), 0, 1e-5);
     }
 

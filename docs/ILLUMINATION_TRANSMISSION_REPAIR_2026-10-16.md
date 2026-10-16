@@ -39,6 +39,6 @@ EFNO/RELI 的 Pol=0 原先直接使用含玻璃吸收和镀膜损耗的标量光
 
 有限像方网格放置、边界权重和像差消除仍未与原生算法对齐。不能使用随采样密度变化的经验增益、改写冻结值或扩大容差代替修复。
 
-当前机器中此前捕获的 `D:\Program Files\ANSYS Inc\v261\Zemax OpticStudio` 不存在；标准安装位置与已安装程序记录也未找到 OpticStudio。2026-10-16 用户确认本机未安装，并明确允许本轮跳过此类问题。因此依赖该原生环境的补充控制按用户授权跳过，不再要求本轮提供安装目录、补装或采集；残余差异仍记为未解决，不转为通过。今后继续原生核对仍需可用、API 授权的 **OpticStudio 2026 R1** 环境。独立 Cooke/Tessar 调查继续不在范围内。
+本传输修复阶段记录了未找到原生安装及按用户授权跳过补采的范围，因此该阶段没有新增原生捕获，残余差异不转为通过。随后用户澄清本机已有 Zemax；现已实际核验 `D:\Program Files\ANSYS Inc\v261\Zemax OpticStudio` 的 **2026 R1 build 260127 Enterprise API** 授权，并重新采集原四文件全部 256 个控制。最新环境与结果见[后续本机复核](ZEMAX_NATIVE_DIFFRACTION_ADAPTER_REPAIR_2026-10-16.md)，不再把此前环境跳过作为当前工作限制。独立 Cooke/Tessar 调查仍不在范围内。
 
 源码：[共享积分](../src/OpticalSystemDesign.Core/Services/IlluminationMetrics.cs)、[操作数策略](../src/OpticalSystemDesign.Core/Optimization/MeritFunction.Illumination.cs)、[回归](../tests/OpticalSystemDesign.Tests/GeometricIlluminationTests.cs)。复算命令与仅照度选项见[诊断工具说明](../tools/diagnostics/Accuracy20261014/README.md)。

@@ -12,6 +12,7 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
     private readonly bool _removeVignettingFactors;
     private readonly bool _usePolarization;
     private readonly bool _includeScalarTransmission;
+    private readonly IlluminationSamplingKind _sampling;
 
     public RelativeIlluminationAnalysis(
         Optic optic,
@@ -21,7 +22,8 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
         string scanDirection = "+y",
         bool removeVignettingFactors = true,
         bool usePolarization = false,
-        bool includeScalarTransmission = true) : base(optic)
+        bool includeScalarTransmission = true,
+        IlluminationSamplingKind sampling = IlluminationSamplingKind.AdaptivePupil) : base(optic)
     {
         _rayDensity = Math.Clamp(rayDensity, 5, 128);
         _fieldDensity = Math.Clamp(fieldDensity, 2, 201);
@@ -33,6 +35,8 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
         if (usePolarization && !includeScalarTransmission)
             throw new ArgumentException("Polarized illumination requires scalar transmission.");
         _includeScalarTransmission = includeScalarTransmission;
+        if (!Enum.IsDefined(sampling)) throw new ArgumentOutOfRangeException(nameof(sampling));
+        _sampling = sampling;
     }
 
     public override string Name => "Relative Illumination";
@@ -56,7 +60,7 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
         var fields = Enumerable.Range(0, _fieldDensity)
             .Select(index => AnalysisTrace.ScanField(_scanDirection, index / (_fieldDensity - 1.0))).ToArray();
         var results = IlluminationMetrics.EvaluateFields(workingOptic, fields, wavelength.Micrometers, _rayDensity, _usePolarization,
-            includeScalarTransmission: _includeScalarTransmission);
+            _sampling, includeScalarTransmission: _includeScalarTransmission);
 
         for (var index = 0; index < _fieldDensity; index++)
         {
@@ -96,6 +100,8 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
             [AnalysisTrace.MaximumFieldValueKey(workingOptic)] = maximumField,
             ["FieldUnit"] = fieldUnit,
             ["RayDensity"] = _rayDensity,
+            ["IlluminationSampling"] = _sampling.ToString(),
+            ["EffectiveRayDensity"] = _sampling == IlluminationSamplingKind.FiniteImageCosine ? Math.Min(_rayDensity, 100) : _rayDensity,
             ["FieldDensity"] = _fieldDensity,
             ["WavelengthNumber"] = WavelengthNumber(workingOptic, wavelength),
             ["WavelengthMicrometers"] = wavelength.Micrometers,
@@ -112,8 +118,12 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
             ["SampledPupilNodeCounts"] = sampledNodes,
             ["FoldedCellCounts"] = foldedCells,
             ["MaximumProjectedCosineArea"] = maximumIllumination,
-            ["PupilIntegration"] = _includeScalarTransmission
-                ? "Adaptive full-pupil power quadrature" : "Adaptive full-pupil geometric quadrature"
+            ["PupilIntegration"] = _sampling switch
+            {
+                IlluminationSamplingKind.FiniteImageCosine => "Finite image-point-referenced cosine grid with pupil-edge quadrature weights",
+                IlluminationSamplingKind.UniformImageCosine => "Uniform image-cosine cell-center quadrature",
+                _ => _includeScalarTransmission ? "Adaptive full-pupil power quadrature" : "Adaptive full-pupil geometric quadrature"
+            }
         }, series, new[] { series }, new AnalysisPlotOptions(
             Title: $"Relative Illumination, λ = {wavelength.Micrometers:0.0000} µm",
             YMinimum: 0,
