@@ -1,0 +1,97 @@
+{
+  "Date": "2026-10-16",
+  "BaseCommit": "4a63729f17c49de28de4af97b1804d851c01c27b",
+  "Conclusion": "Pol=0 transmission policy repaired; EFNO/RELI native numerical equivalence remains unresolved",
+  "WorkingTreeNote": "Preserves the earlier uncommitted paraxial-field and stop-aiming repairs. Before measurements include those repairs, not bare HEAD.",
+  "Policy": {
+    "MeritPolZeroAndApplicationUnpolarizedIllumination": "Geometric: bulk absorption and coatings bypassed; refraction, initial apodization and physical apertures retained",
+    "CoreDefaultAndImageSimulation": "Physical scalar power retained",
+    "Polarized": "Scalar losses and existing Jones power chain retained; unsupported absorbing interfaces still rejected",
+    "NoRuntimeReferenceLookup": true,
+    "NoEmpiricalGain": true,
+    "NoToleranceChanges": true
+  },
+  "NativeEvidence": {
+    "Manifest": "validation/zemax/2026-r1/fcgt-efno-2026-10-14/manifest.json",
+    "Version": "OpticStudio 2026 R1",
+    "Configuration": 1,
+    "Densities": [5, 10, 20, 40],
+    "Polarization": 0,
+    "Scope": "All active wavelengths and defined fields of the four unchanged manifest sources",
+    "NewNativeCaptures": 0,
+    "ReferenceAndSourceChangesAgainstHead": 0,
+    "RayPowerControls": 60,
+    "RayPowerControlsPassed": 60,
+    "CurvatureControls": 2160,
+    "CurvatureControlsPassed": 2160,
+    "CurvatureOriginalAbsoluteTargetMillimeters": 1e-5,
+    "CurvatureMaximumAbsoluteErrorMillimeters": 3.054520025802532e-8,
+    "IlluminationOperandControls": 256,
+    "IlluminationOperandStatus": "Difference",
+    "EfnoAcceptanceTarget": null,
+    "BeforeReportSha256": "a723075fcab58f930d3a2fa365674129754fa18653ed4c5c3f2544c922d2491f",
+    "AfterReportSha256": "d74485b71aa77bf034f989176194b1ce99e8714279f146adb8ea2f7544ebf3c7"
+  },
+  "ExpandedMatrix": [
+    { "Name": "123456", "RowsPerOperand": 60, "BeforeEfnoMaximumRelativeError": 0.0928911250071981, "AfterEfnoMaximumRelativeError": 0.1198968722561976, "BeforeReliMaximumAbsoluteError": 0.00491349783864492, "AfterReliMaximumAbsoluteError": 0.0006663491482958861 },
+    { "Name": "double-gauss-28-degree-field", "RowsPerOperand": 36, "BeforeEfnoMaximumRelativeError": 0.12061828840935307, "AfterEfnoMaximumRelativeError": 0.12917789247549571, "BeforeReliMaximumAbsoluteError": 0.02324421773652785, "AfterReliMaximumAbsoluteError": 0.024859662747668154 },
+    { "Name": "relay-lens", "RowsPerOperand": 24, "BeforeEfnoMaximumRelativeError": 0.12307935378765489, "AfterEfnoMaximumRelativeError": 0.12411538364637187, "BeforeReliMaximumAbsoluteError": 0.0056214812874526565, "AfterReliMaximumAbsoluteError": 0.005621076301030925 },
+    { "Name": "even-asphere", "RowsPerOperand": 8, "BeforeEfnoMaximumRelativeError": 0.12537048705040443, "AfterEfnoMaximumRelativeError": 0.12601119256659188, "BeforeReliMaximumAbsoluteError": 0.013255150768054724, "AfterReliMaximumAbsoluteError": 0.013255300369056089 }
+  ],
+  "CapturedProductCurve": {
+    "Source": "123456",
+    "RayDensity": 10,
+    "FieldDensity": 21,
+    "WavelengthMicrometers": 0.44,
+    "ScanDirection": "+y",
+    "RemoveVignettingFactors": true,
+    "UsePolarization": false,
+    "Normalization": "Peak, not the operand's axis reference",
+    "RiRmse": 0.00013580598817169025,
+    "RiMaximumAbsoluteError": 0.0003334504898485635,
+    "OriginalRmseTarget": 0.002,
+    "OriginalMaximumErrorTarget": 0.004,
+    "RiStatus": "Pass",
+    "AxisEffectiveFNumber": 2.7436156635407603,
+    "NativeAxisEffectiveFNumber": 2.87577716994446,
+    "EfnoStatus": "Difference"
+  },
+  "Verification": {
+    "NewTests": 16,
+    "DebugTargeted": { "Total": 203, "Passed": 203, "Failed": 0, "Skipped": 0 },
+    "ReleaseTargeted": { "Total": 203, "Passed": 203, "Failed": 0, "Skipped": 0 },
+    "FinalReleaseNewTests": { "Total": 16, "Passed": 16, "Failed": 0, "Skipped": 0 },
+    "IntermediateLegacyPolicyFailure": { "Total": 121, "Passed": 119, "Failed": 2, "Explanation": "Two old zero-coating assertions were assigned to Pol=0. Physical assertions now run with Pol=1; Pol=0 total physical-aperture blockage assertions added. Original failed log preserved." },
+    "IntermediatePassedScopes": [182, 202],
+    "RootBuilds": { "ProjectsPerConfiguration": 19, "DebugWarnings": 0, "DebugErrors": 0, "ReleaseWarnings": 0, "ReleaseErrors": 0 },
+    "ChangedCSharpWhitespace": "Pass: root solution and diagnostic project checked separately",
+    "DocumentationStrict": { "Documents": 896, "BrokenLinks": 0, "LocalOnlyLinks": 0, "FenceIssues": 0, "GuideRepeatedParagraphGroups": 0, "HistoricalRepeatedParagraphGroups": 11 },
+    "GitDiffCheck": "Pass",
+    "FullSuitesRerunAfterThisRepair": false,
+    "PriorFullSuitesAreNotReusedAsCurrentVerification": true
+  },
+  "EvidenceArchive": {
+    "Path": "validation/repairs/2026-10-16/illumination-transmission-evidence.zip",
+    "Sha256": "bc1901d746fa131e249036694932f06d42b3ac21182bab281fb05e64d151b6ee",
+    "Bytes": 394310,
+    "Entries": 11,
+    "Readback": "Every entry SHA256 matches its original file",
+    "Contents": ["before-matrix.json", "after-transmission-matrix.json", "initial-policy-failures.trx", "release-intermediate-182.trx", "release-targeted-203.trx", "debug-intermediate-202.trx", "debug-targeted-203.trx", "release-final-new-16.trx", "debug-build.log", "release-build.log", "documentation-audit.json"]
+  },
+  "Remaining": [
+    "Finite image-cosine grid placement and boundary weights",
+    "Native image-aberration removal",
+    "Expanded matrix still has differences; some increase when erroneous transmission cancellation is removed",
+    "Native-environment-dependent investigation skipped for this run by explicit user authorization; residual numerical differences remain unresolved"
+  ],
+  "UserScopeDecision": {
+    "Date": "2026-10-16",
+    "ConfirmedInstallation": "Not installed on current machine",
+    "Instruction": "没有安装，你如果遇到此类问题本轮可以跳过",
+    "NativeEnvironmentDependentWork": "SkippedByUserAuthorizationForThisRun",
+    "InstallationOrCaptureRequiredForThisRun": false,
+    "NumericalDifferenceStatus": "Unresolved; not converted to Pass",
+    "ProductCodeChangedByThisScopeUpdate": false
+  },
+  "NotPerformed": ["New native control capture (user-authorized skip)", "Independent Cooke/Tessar investigation", "New Optiland evidence", "Installer rebuild", "Full manual desktop acceptance", "Commit or push"]
+}

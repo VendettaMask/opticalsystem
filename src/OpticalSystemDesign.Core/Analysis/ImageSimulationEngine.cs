@@ -1,4 +1,5 @@
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Core.Analysis;
@@ -137,7 +138,7 @@ public static class ImageSimulationEngine
             throw new ArgumentException("At least one wavelength is required.", nameof(config));
         }
 
-        var workingOptic = RealImageFieldConversion.ForImageSimulation(optic);
+        var workingOptic = PrepareOptic(optic, config);
         var orientedSource = TransformImage(
             source.Values,
             config.SourceFlip,
@@ -196,7 +197,8 @@ public static class ImageSimulationEngine
                     halfFieldY,
                     Math.Max(5, Math.Min(33, config.NumRays)),
                     config.FieldCenterX,
-                    config.FieldCenterY);
+                    config.FieldCenterY,
+                    config.UsePolarization);
             }
 
             var blurred = SpatiallyVariableConvolution(
@@ -399,7 +401,9 @@ public static class ImageSimulationEngine
 
     public static PsfBasisResult GenerateBasis(Optic optic, Wavelength wavelength, ImageSimulationConfig config)
     {
+        ComputationCancellation.ThrowIfCancellationRequested();
         AnalysisResourceLimits.ValidatePsfConfiguration(config);
+        optic = PrepareOptic(optic, config, convertRealImageFields: false);
         AnalysisResourceLimits.ValidateImageDimensions(
             Math.Max(1, config.ImageWidth),
             Math.Max(1, config.ImageHeight),
@@ -421,6 +425,24 @@ public static class ImageSimulationEngine
                 config.FieldCenterX,
                 config.FieldCenterY);
         return GenerateBasis(optic, wavelength, config, halfFieldX, halfFieldY, pixelPitch);
+    }
+
+    private static Optic PrepareOptic(Optic optic, ImageSimulationConfig config, bool convertRealImageFields = true)
+    {
+        ArgumentNullException.ThrowIfNull(optic);
+        if (config.ApplyFixedApertures && (!convertRealImageFields || optic.FieldDefinition != FieldDefinitionKind.RealImageHeight))
+            return optic;
+
+        // Keep runtime catalogs/backends, but never share trace cache entries with a changed analysis optic.
+        var working = optic.CreateMeritEvaluationCopy();
+        if (convertRealImageFields && working.FieldDefinition == FieldDefinitionKind.RealImageHeight)
+            working.FieldDefinition = FieldDefinitionKind.ParaxialImageHeight;
+        if (!config.ApplyFixedApertures)
+        {
+            foreach (var surface in working.SurfaceGroup.Items.Where(surface => !surface.IsStop))
+                surface.PhysicalAperture = null;
+        }
+        return working;
     }
 
     private static PsfBasisResult GenerateBasis(
@@ -446,7 +468,7 @@ public static class ImageSimulationEngine
             var maximumY = Math.Min(1, config.FieldCenterY + halfFieldY);
             var hy = rows == 1
                 ? (minimumY + maximumY) / 2
-                : minimumY + ((maximumY - minimumY) * row / (rows - 1));
+                : maximumY + ((minimumY - maximumY) * row / (rows - 1));
             for (var column = 0; column < columns; column++)
             {
                 ComputationCancellation.ThrowIfCancellationRequested();
@@ -464,7 +486,8 @@ public static class ImageSimulationEngine
                         config.NumRays,
                         config.PsfSize,
                         pixelPitchMillimeters,
-                        config.Reference)
+                        config.Reference,
+                        config.UsePolarization)
                     : null;
                 var actualMode = requestedMode;
                 double[,] values;
@@ -489,17 +512,22 @@ public static class ImageSimulationEngine
                 {
                     try
                     {
+                        (double X, double Y)? imageCenterOffset = string.Equals(config.Reference, "centroid", StringComparison.OrdinalIgnoreCase)
+                            ? DiffractionEngine.HuygensGeometricCenterOffset(optic, (hx, hy), [wavelength],
+                                wavelength, Math.Max(2, config.NumRays), optic.RayAimingEnabled)
+                            : null;
                         values = DiffractionEngine.ComputeHuygensPsf(
                             optic,
                             (hx, hy),
                             wavelength,
                             Math.Max(2, config.NumRays),
                             config.PsfSize,
-                            pixelPitchMillimeters, aimAtStop: optic.RayAimingEnabled).Values;
+                            pixelPitchMillimeters, usePolarization: config.UsePolarization,
+                            aimAtStop: optic.RayAimingEnabled, imageCenterOffset: imageCenterOffset).Values;
                     }
-                    catch (Exception exception) when (exception is InvalidOperationException
+                    catch (Exception exception) when (!config.UsePolarization && (exception is InvalidOperationException
                         or ArgumentException
-                        or ArithmeticException)
+                        or ArithmeticException))
                     {
                         values = geometric.Value.Psf;
                         actualMode = "Geometric";
@@ -508,13 +536,16 @@ public static class ImageSimulationEngine
                 }
 
                 effectiveModes[sample] = actualMode;
-                var sum = values.Cast<double>().Where(double.IsFinite).Sum();
+                var sum = values.Cast<double>().Where(value => double.IsFinite(value) && value > 0).Sum();
+                if (!double.IsFinite(sum) || sum <= 0)
+                    throw new AnalysisDataUnavailableException("Image Simulation PSF",
+                        FormattableString.Invariant($"no positive PSF power was sampled; enlarge the PSF window or increase pupil sampling (normalized field X={hx:G17}, Y={hy:G17}; wavelength={wavelength.Micrometers:G17} µm)"));
                 for (var y = 0; y < config.PsfSize; y++)
                 {
                     for (var x = 0; x < config.PsfSize; x++)
                     {
                         var value = double.IsFinite(values[y, x]) ? Math.Max(0, values[y, x]) : 0;
-                        psfs[sample, (y * config.PsfSize) + x] = value / Math.Max(1e-30, sum);
+                        psfs[sample, (y * config.PsfSize) + x] = value / sum;
                     }
                 }
 
@@ -634,21 +665,13 @@ public static class ImageSimulationEngine
         int sampleParameter,
         int size,
         double pixelPitchMillimeters,
-        string reference)
+        string reference,
+        bool usePolarization)
     {
-        var spot = SpotAnalysisEngine.Generate(
-            optic,
-            new[] { field },
-            new[] { wavelength },
-            Math.Max(2, sampleParameter),
-            "uniform",
-            reference: string.Equals(reference, "centroid", StringComparison.OrdinalIgnoreCase)
-                ? "centroid"
-                : "chief");
-        var rays = spot.Fields.FirstOrDefault()?.Wavelengths.FirstOrDefault()?.Rays
-            ?? Array.Empty<SpotRayData>();
+        var rays = GeometricPsfRays(optic, field, wavelength, sampleParameter, reference, usePolarization);
         var psf = new double[size, size];
-        var center = (size - 1) / 2.0;
+        // Match the discrete delta and same-convolution anchor, including even-sized kernels.
+        var center = (size - 1) / 2;
         var totalWeight = 0.0;
         var secondMoment = 0.0;
         foreach (var ray in rays)
@@ -670,15 +693,64 @@ public static class ImageSimulationEngine
             secondMoment += weight * ((ray.X * ray.X) + (ray.Y * ray.Y));
         }
 
-        if (psf.Cast<double>().Sum() <= 0)
-        {
-            psf[(size - 1) / 2, (size - 1) / 2] = 1;
-        }
-
         var rms = totalWeight <= 0
             ? double.PositiveInfinity
             : Math.Sqrt(secondMoment / totalWeight);
         return (psf, rms);
+    }
+
+    private static IReadOnlyList<SpotRayData> GeometricPsfRays(Optic optic, (double Hx, double Hy) field,
+        Wavelength wavelength, int sampleParameter, string reference, bool usePolarization)
+    {
+        if (usePolarization)
+        {
+            var image = optic.SurfaceGroup.Items.Last();
+            var descriptor = ImageSpaceAnalysisSupport.CoordinateDescriptor(optic);
+            SpotRayData? Trace(RealRay ray)
+            {
+                var diagnostic = optic.SequentialRayTracer.DiagnoseApertures(ray,
+                    stopAtIncidentImage: true, usePolarization: true);
+                if (!diagnostic.InsideAllApertures || diagnostic.UnclippedImage is not { } hit)
+                    return null;
+                var power = diagnostic.PolarizationWeightedIntensity
+                    ?? throw new InvalidOperationException("Missing polarized image power.");
+                return ImageSpaceAnalysisSupport.ToImageSpaceRayData(optic, hit, image, descriptor)
+                    with
+                { Intensity = power };
+            }
+
+            var pupils = SpotAnalysisEngine.CreatePupilSamples(Math.Max(2, sampleParameter), "uniform");
+            var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+                field.Hx, field.Hy, wavelength.Micrometers, pupils, aimAtStop: optic.RayAimingEnabled);
+            var rays = new List<SpotRayData>();
+            foreach (var ray in bundle.Rays)
+            {
+                ComputationCancellation.ThrowIfCancellationRequested();
+                if (Trace(ray) is { Intensity: > 0 } sample && double.IsFinite(sample.Intensity))
+                    rays.Add(sample);
+            }
+            var center = SpotAnalysisEngine.Centroid(rays);
+            if (!string.Equals(reference, "centroid", StringComparison.OrdinalIgnoreCase))
+            {
+                var chief = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(field.Hx, field.Hy,
+                    0, 0, wavelength.Micrometers, optic.RayAimingEnabled).Rays.Single();
+                if (Trace(chief) is { Intensity: > 0 } point) center = (point.X, point.Y);
+            }
+            return rays.Select(ray => ray with { X = ray.X - center.X, Y = ray.Y - center.Y }).ToArray();
+        }
+
+        var spot = SpotAnalysisEngine.Generate(
+            optic,
+            new[] { field },
+            new[] { wavelength },
+            Math.Max(2, sampleParameter),
+            "uniform",
+            reference: string.Equals(reference, "centroid", StringComparison.OrdinalIgnoreCase)
+                ? "centroid"
+                : "chief",
+            aimAtStop: optic.RayAimingEnabled);
+        return spot.Fields.FirstOrDefault()?.Wavelengths.FirstOrDefault()?.Rays
+            ?? Array.Empty<SpotRayData>();
     }
 
     private static double[,] DeltaPsf(int size)
@@ -723,30 +795,18 @@ public static class ImageSimulationEngine
     {
         try
         {
-            var left = optic.TraceGenericFinalSample(
-                Math.Max(-1, fieldCenterX - halfFieldX),
-                fieldCenterY,
-                0,
-                0,
-                wavelength.Micrometers)?.Position;
-            var right = optic.TraceGenericFinalSample(
-                Math.Min(1, fieldCenterX + halfFieldX),
-                fieldCenterY,
-                0,
-                0,
-                wavelength.Micrometers)?.Position;
-            var bottom = optic.TraceGenericFinalSample(
-                fieldCenterX,
-                Math.Max(-1, fieldCenterY - halfFieldY),
-                0,
-                0,
-                wavelength.Micrometers)?.Position;
-            var top = optic.TraceGenericFinalSample(
-                fieldCenterX,
-                Math.Min(1, fieldCenterY + halfFieldY),
-                0,
-                0,
-                wavelength.Micrometers)?.Position;
+            var imageCoordinates = optic.SurfaceGroup.Items[^1].CoordinateSystem;
+            (double X, double Y)? LocalHit(double hx, double hy)
+            {
+                var hit = optic.TraceGenericFinalSample(hx, hy, 0, 0, wavelength.Micrometers);
+                if (hit is null) return null;
+                var local = imageCoordinates.ToLocalPoint(hit.Position);
+                return (local.X, local.Y);
+            }
+            var left = LocalHit(Math.Max(-1, fieldCenterX - halfFieldX), fieldCenterY);
+            var right = LocalHit(Math.Min(1, fieldCenterX + halfFieldX), fieldCenterY);
+            var bottom = LocalHit(fieldCenterX, Math.Max(-1, fieldCenterY - halfFieldY));
+            var top = LocalHit(fieldCenterX, Math.Min(1, fieldCenterY + halfFieldY));
             var pitchX = left.HasValue && right.HasValue
                 ? Math.Abs(right.Value.X - left.Value.X) / Math.Max(1, width - 1)
                 : 0;
@@ -780,7 +840,8 @@ public static class ImageSimulationEngine
         double halfFieldY,
         int rayDensity,
         double fieldCenterX,
-        double fieldCenterY)
+        double fieldCenterY,
+        bool usePolarization = false)
     {
         const int gridSize = 9;
         var fieldIndices = new int[gridSize, gridSize];
@@ -805,7 +866,8 @@ public static class ImageSimulationEngine
         }
 
         var samples = IlluminationMetrics.EvaluateFields(optic,
-            fields.OrderBy(pair => pair.Value).Select(pair => pair.Key).ToArray(), wavelength.Micrometers, rayDensity);
+            fields.OrderBy(pair => pair.Value).Select(pair => pair.Key).ToArray(), wavelength.Micrometers, rayDensity,
+            usePolarization: usePolarization);
         var maximum = samples.Max(sample => sample.ProjectedCosineArea);
 
         if (maximum <= 0)
@@ -890,12 +952,14 @@ public static class ImageSimulationEngine
         double fieldCenterX = 0,
         double fieldCenterY = 0)
     {
+        ComputationCancellation.ThrowIfCancellationRequested();
+        numGridPoints = AnalysisResourceLimits.ValidateImageDistortion(width, height, numGridPoints, degree);
         optic = RealImageFieldConversion.ForImageSimulation(optic);
         halfFieldX = Math.Clamp(Math.Abs(halfFieldX), 1e-9, 1);
         halfFieldY = Math.Clamp(Math.Abs(halfFieldY), 1e-9, 1);
         referenceWavelength ??= wavelength;
-        numGridPoints = Math.Max(degree + 1, numGridPoints);
-        var count = numGridPoints * numGridPoints;
+        var imageCoordinates = optic.SurfaceGroup.Items[^1].CoordinateSystem;
+        var count = checked(numGridPoints * numGridPoints);
         var realX = new double[count];
         var realY = new double[count];
         var referenceX = new double[count];
@@ -909,6 +973,7 @@ public static class ImageSimulationEngine
         var index = 0;
         for (var row = 0; row < numGridPoints; row++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var normalizedY = -1.0 + (2.0 * row / (numGridPoints - 1));
             var hy = minimumFieldY + ((maximumFieldY - minimumFieldY) * row / (numGridPoints - 1));
             for (var column = 0; column < numGridPoints; column++)
@@ -924,29 +989,48 @@ public static class ImageSimulationEngine
                     0,
                     referenceWavelength.Micrometers)
                     ?? throw new InvalidOperationException("Reference distortion-grid ray did not reach the image surface.");
-                realX[index] = final.Position.X;
-                realY[index] = final.Position.Y;
-                referenceX[index] = reference.Position.X;
-                referenceY[index] = reference.Position.Y;
+                // The detector grid and source field rotate with their frames, not global X/Y.
+                var local = imageCoordinates.ToLocalPoint(final.Position);
+                var localReference = imageCoordinates.ToLocalPoint(reference.Position);
+                realX[index] = local.X;
+                realY[index] = local.Y;
+                referenceX[index] = localReference.X;
+                referenceY[index] = localReference.Y;
                 fieldX[index] = normalizedX;
                 fieldY[index] = normalizedY;
                 index++;
             }
         }
 
-        var scaleX = realX.Select(Math.Abs).DefaultIfEmpty(1).Max();
-        var scaleY = realY.Select(Math.Abs).DefaultIfEmpty(1).Max();
-        scaleX = scaleX <= 0 ? 1 : scaleX;
-        scaleY = scaleY <= 0 ? 1 : scaleY;
-        var featureCount = (degree + 1) * (degree + 2) / 2;
+        // Fit in a centered unit box: absolute world coordinates make high-order
+        // monomials nearly parallel even after max-absolute-value scaling.
+        var centerX = realX.Min() + (realX.Max() - realX.Min()) / 2;
+        var centerY = realY.Min() + (realY.Max() - realY.Min()) / 2;
+        var scaleX = (realX.Max() - realX.Min()) / 2;
+        var scaleY = (realY.Max() - realY.Min()) / 2;
+        if (!double.IsFinite(centerX) || !double.IsFinite(centerY)
+            || !double.IsFinite(scaleX) || !double.IsFinite(scaleY) || scaleX <= 0 || scaleY <= 0)
+            throw new AnalysisDataUnavailableException("Image Simulation Distortion",
+                "a finite, nondegenerate two-dimensional chief-ray mapping is required");
+        var featureCount = checked((degree + 1) * (degree + 2) / 2);
         var design = new double[count, featureCount];
         for (index = 0; index < count; index++)
         {
-            FillPolynomialFeatures(design, index, realX[index] / scaleX, realY[index] / scaleY, degree);
+            FillPolynomialFeatures(design, index, (realX[index] - centerX) / scaleX, (realY[index] - centerY) / scaleY, degree);
         }
 
-        var coefficientX = LeastSquares(design, fieldX);
-        var coefficientY = LeastSquares(design, fieldY);
+        double[] coefficientX;
+        double[] coefficientY;
+        try
+        {
+            coefficientX = QrLeastSquares.Solve(design, fieldX, requireFullRank: true);
+            coefficientY = QrLeastSquares.Solve(design, fieldY, requireFullRank: true);
+        }
+        catch (InvalidOperationException exception)
+        {
+            throw new AnalysisDataUnavailableException("Image Simulation Distortion",
+                $"the inverse distortion fit is not uniquely resolved: {exception.Message}");
+        }
         var minX = referenceX.Min();
         var maxX = referenceX.Max();
         var minY = referenceY.Min();
@@ -955,11 +1039,12 @@ public static class ImageSimulationEngine
         var features = new double[featureCount];
         for (var row = 0; row < height; row++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var y = height == 1 ? maxY : maxY + ((minY - maxY) * row / (height - 1.0));
             for (var column = 0; column < width; column++)
             {
                 var x = width == 1 ? minX : minX + ((maxX - minX) * column / (width - 1.0));
-                FillPolynomialFeatures(features, x / scaleX, y / scaleY, degree);
+                FillPolynomialFeatures(features, (x - centerX) / scaleX, (y - centerY) / scaleY, degree);
                 grid[row, column] = (Dot(features, coefficientX), -Dot(features, coefficientY));
             }
         }
@@ -969,15 +1054,30 @@ public static class ImageSimulationEngine
 
     public static double[,] WarpImage(double[,] source, (double X, double Y)[,] grid)
     {
+        ComputationCancellation.ThrowIfCancellationRequested();
+        ArgumentNullException.ThrowIfNull(source);
+        ArgumentNullException.ThrowIfNull(grid);
+        AnalysisResourceLimits.ValidateImageDimensions(source.GetLength(1), source.GetLength(0), "Warp source");
         var height = grid.GetLength(0);
         var width = grid.GetLength(1);
+        AnalysisResourceLimits.ValidateImageDimensions(width, height, "Warp output");
         var output = new double[height, width];
         for (var row = 0; row < height; row++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             for (var column = 0; column < width; column++)
             {
-                var sourceX = ((grid[row, column].X + 1) * source.GetLength(1) - 1) / 2;
-                var sourceY = ((grid[row, column].Y + 1) * source.GetLength(0) - 1) / 2;
+                // Distortion grids sample the endpoint pixel centers, not the outer pixel edges.
+                var point = grid[row, column];
+                if (!double.IsFinite(point.X) || !double.IsFinite(point.Y)
+                    || source.GetLength(1) == 1 && Math.Abs(point.X) > 1
+                    || source.GetLength(0) == 1 && Math.Abs(point.Y) > 1)
+                    continue;
+                var sourceX = (point.X + 1) * (source.GetLength(1) - 1) / 2;
+                var sourceY = (point.Y + 1) * (source.GetLength(0) - 1) / 2;
+                if (sourceX <= -1 || sourceX >= source.GetLength(1)
+                    || sourceY <= -1 || sourceY >= source.GetLength(0))
+                    continue;
                 output[row, column] = BilinearWithZeroPadding(source, sourceY, sourceX);
             }
         }
@@ -1284,67 +1384,6 @@ public static class ImageSimulationEngine
                 destination[feature++] = Math.Pow(x, xPower) * Math.Pow(y, order - xPower);
             }
         }
-    }
-
-    private static double[] LeastSquares(double[,] design, double[] values)
-    {
-        var rows = design.GetLength(0);
-        var columns = design.GetLength(1);
-        var q = new double[rows, columns];
-        var r = new double[columns, columns];
-        var vector = new double[rows];
-        for (var column = 0; column < columns; column++)
-        {
-            for (var row = 0; row < rows; row++)
-            {
-                vector[row] = design[row, column];
-            }
-
-            for (var previous = 0; previous < column; previous++)
-            {
-                var projection = 0.0;
-                for (var row = 0; row < rows; row++)
-                {
-                    projection += q[row, previous] * vector[row];
-                }
-
-                r[previous, column] = projection;
-                for (var row = 0; row < rows; row++)
-                {
-                    vector[row] -= projection * q[row, previous];
-                }
-            }
-
-            var norm = Math.Sqrt(vector.Sum(value => value * value));
-            r[column, column] = norm;
-            for (var row = 0; row < rows; row++)
-            {
-                q[row, column] = vector[row] / Math.Max(1e-30, norm);
-            }
-        }
-
-        var projected = new double[columns];
-        for (var column = 0; column < columns; column++)
-        {
-            for (var row = 0; row < rows; row++)
-            {
-                projected[column] += q[row, column] * values[row];
-            }
-        }
-
-        var result = new double[columns];
-        for (var row = columns - 1; row >= 0; row--)
-        {
-            var value = projected[row];
-            for (var column = row + 1; column < columns; column++)
-            {
-                value -= r[row, column] * result[column];
-            }
-
-            result[row] = value / Math.Max(1e-30, r[row, row]);
-        }
-
-        return result;
     }
 
     private static (double[] Values, double[,] Vectors) SymmetricEigen(double[,] source)

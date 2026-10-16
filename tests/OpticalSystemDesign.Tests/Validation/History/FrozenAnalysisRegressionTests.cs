@@ -527,7 +527,7 @@ public sealed class FrozenAnalysisRegressionTests
 
     [Theory]
     [MemberData(nameof(OfficialSamples))]
-    public void RadiantIntensityMatchesFrozenReferencePixelForPixel(string sampleName, Func<Optic> createOptic)
+    public void RadiantIntensityRawPowerPreservesFrozenHistoricalBins(string sampleName, Func<Optic> createOptic)
     {
         using var reference = LoadReference();
         var expected = reference.RootElement.GetProperty(sampleName).GetProperty("radiant_intensity");
@@ -539,9 +539,15 @@ public sealed class FrozenAnalysisRegressionTests
             angleXMaximum: 30,
             angleYMinimum: -30,
             angleYMaximum: 30,
-            useAbsoluteUnits: true,
+            useAbsoluteUnits: false,
             numRays: 3,
-            distribution: "hexapolar").GenerateData();
+            distribution: "hexapolar",
+            normalize: false).GenerateData();
+
+        // The frozen auxiliary fixture used the paraxial angular-area approximation.
+        // Preserve its original bins, values and tolerance as a raw-ray-power control;
+        // exact physical solid angles are independently checked by current tests.
+        var historicalAngularArea = (60d / 15 * Math.PI / 180) * (60d / 13 * Math.PI / 180);
 
         Assert.NotNull(data.PlotPanes);
         Assert.Equal(18, data.PlotPanes.Count);
@@ -562,8 +568,9 @@ public sealed class FrozenAnalysisRegressionTests
                 Assert.Equal(AnalysisSeriesKind.Heatmap, map.Kind);
                 Assert.Equal(AnalysisColorMap.Jet, map.ColorMap);
                 Assert.Equal(0, map.ValueMinimum);
-                AssertClose(expectedPeak, map.ValueMaximum!.Value);
-                Assert.Equal("Radiant Intensity (W/sr)", map.ValueLabel);
+                AssertClose(expectedPeak, map.ValueMaximum!.Value / historicalAngularArea);
+                Assert.Equal("Ray Power (W)", map.ValueLabel);
+                Assert.Equal(AnalysisAxisUnit.Watt, map.ValueUnit);
                 Assert.Equal(15 * 13, map.Points.Count);
                 for (var x = 0; x < 15; x++)
                 {
@@ -572,11 +579,11 @@ public sealed class FrozenAnalysisRegressionTests
                         var point = map.Points[(x * 13) + y];
                         AssertClose(xCenters[x].GetDouble(), point.X);
                         AssertClose(yCenters[y].GetDouble(), point.Y);
-                        AssertClose(expectedMaps[field][wavelength][x][y].GetDouble(), point.Value!.Value);
+                        AssertClose(expectedMaps[field][wavelength][x][y].GetDouble(), point.Value!.Value / historicalAngularArea);
                     }
 
                     AssertClose(xCenters[x].GetDouble(), crossSection.Points[x].X);
-                    AssertClose(expectedMaps[field][wavelength][x][6].GetDouble(), crossSection.Points[x].Y);
+                    AssertClose(expectedMaps[field][wavelength][x][6].GetDouble(), crossSection.Points[x].Y / historicalAngularArea);
                 }
 
                 Assert.Equal("Central Cross-Section", data.PlotPanes[paneIndex + 1].Title);
@@ -584,7 +591,7 @@ public sealed class FrozenAnalysisRegressionTests
             }
         }
 
-        AssertClose(expectedPeak, Convert.ToDouble(data.Values["PeakRadiantIntensity"]));
+        AssertClose(expectedPeak, Convert.ToDouble(data.Values["PeakRadiantIntensity"]) / historicalAngularArea);
     }
 
     [Theory]

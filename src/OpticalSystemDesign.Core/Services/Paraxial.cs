@@ -44,6 +44,22 @@ public sealed partial class Paraxial
         return -TraceSystemMatrix(PrimaryWavelengthNanometers()).C;
     }
 
+    internal double ParaxialImageHeightObjectSlope(double imageHeight)
+    {
+        EnsureComputable();
+        if (_optic.SurfaceGroup.Items.Count < 2)
+            throw new InvalidOperationException("Paraxial image-height fields require an optical surface.");
+        // At the primary paraxial focal plane, h = -det(M) * u / C.
+        // Start after the object plane: its material is the incident medium,
+        // not another refracting interface from an assumed unit index.
+        var matrix = TraceMatrix(1, _optic.SurfaceGroup.Items.Count,
+            PrimaryWavelengthNanometers(), out var determinant);
+        if (!double.IsFinite(matrix.C) || Math.Abs(matrix.C) <= 1e-15
+            || !double.IsFinite(determinant) || determinant == 0)
+            throw new InvalidOperationException("Paraxial image-height fields require finite optical power and conjugate mapping.");
+        return imageHeight * -matrix.C / determinant;
+    }
+
     public double EstimateEffectiveFocalLengthBetweenSurfaces(int startSurface, int endSurface)
     {
         EnsureComputable();
@@ -362,7 +378,7 @@ public sealed partial class Paraxial
         var objectHeightUnit = -(entrancePupilLocation - objectPosition);
         if (objectAtInfinity && _optic.FieldDefinition == FieldDefinitionKind.ParaxialImageHeight)
         {
-            var slope = imageHeight * EstimateOpticalPower();
+            var slope = ParaxialImageHeightObjectSlope(imageHeight);
             return (objectHeightUnit * slope, firstSurfacePosition, slope);
         }
         var trace = TraceGeneric(new[] { objectHeightUnit }, new[] { 1.0 }, objectPosition,
@@ -522,15 +538,27 @@ public sealed partial class Paraxial
         int endSurfaceExclusive,
         double wavelengthNanometers,
         bool includeTrailingTranslation = true)
+        => TraceMatrix(startSurfaceInclusive, endSurfaceExclusive, wavelengthNanometers,
+            out _, includeTrailingTranslation);
+
+    private RayMatrix TraceMatrix(
+        int startSurfaceInclusive,
+        int endSurfaceExclusive,
+        double wavelengthNanometers,
+        out double determinant,
+        bool includeTrailingTranslation = true)
     {
         if (HasGradientIndex)
-            return TraceGradientMatrix(startSurfaceInclusive, endSurfaceExclusive, wavelengthNanometers, includeTrailingTranslation);
+            return TraceGradientMatrix(startSurfaceInclusive, endSurfaceExclusive, wavelengthNanometers,
+                includeTrailingTranslation, out determinant);
         var matrix = RayMatrix.Identity;
         var currentIndex = startSurfaceInclusive <= 0
             ? 1.0
             : _optic.SurfaceGroup.Items[startSurfaceInclusive - 1]
                 .MaterialAfter
                 .RefractiveIndex(wavelengthNanometers);
+        var initialIndex = currentIndex;
+        var orientation = 1;
 
         for (var index = startSurfaceInclusive; index < endSurfaceExclusive; index++)
         {
@@ -561,8 +589,15 @@ public sealed partial class Paraxial
             {
                 currentIndex = nextIndex;
             }
+            else
+            {
+                orientation = -orientation;
+            }
         }
 
+        // Use the index ratio rather than A*D-B*C, which loses precision at
+        // large defocus. Unit-index, even-reflection paths retain exactly 1.
+        determinant = orientation * initialIndex / currentIndex;
         return matrix;
     }
 

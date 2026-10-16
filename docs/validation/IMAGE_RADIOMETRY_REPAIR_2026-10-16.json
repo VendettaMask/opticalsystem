@@ -1,0 +1,79 @@
+{
+  "Date": "2026-10-16",
+  "Status": "Four defects fixed; scoped verification passed",
+  "Scope": [
+    "Translation-stable inverse distortion fitting with shared reorthogonalized QR",
+    "Reject empty selected PSFs rather than fabricate a unit delta",
+    "Shared incident-surface tracing for detector irradiance, with cache separation",
+    "Exact projected-angle solid-angle normalization and honest raw-power units"
+  ],
+  "UserScopeDecision": {
+    "OpticStudioInstalled": false,
+    "NativeDependentWork": "Skipped with explicit user authorization",
+    "IndependentCookeTessarInvestigations": "Excluded; existing historical regressions preserved"
+  },
+  "RedRegression": { "Total": 30, "Passed": 2, "Failed": 28, "Skipped": 0 },
+  "IntermediateRegression": [
+    { "Stage": "Initial repair plus previous image controls", "Total": 74, "Passed": 74, "Failed": 0 },
+    { "Stage": "Expanded incident and radiometry controls", "Total": 99, "Passed": 99, "Failed": 0 }
+  ],
+  "AddedTests": 43,
+  "FinalVerification": {
+    "RelatedDebug": { "Total": 242, "Passed": 242, "Failed": 0, "Skipped": 0, "AddedCount": 43, "TrxSha256": "95d3497b3296c672cc274df06db99fce7f72d4fdc47cb4eb04aa217905dbba86" },
+    "RelatedRelease": { "Total": 242, "Passed": 242, "Failed": 0, "Skipped": 0, "AddedCount": 43, "TrxSha256": "8a7fc3c121da32e4342e3c4dfa74974d0d876e0cb3db7b2bee208d86f4f3424c" },
+    "DefaultDebugBuild": { "Solution": "OpticalSystemDesign.slnx", "Projects": 19, "Warnings": 0, "Errors": 0 },
+    "DefaultReleaseBuild": { "Solution": "OpticalSystemDesign.slnx", "Projects": 19, "Warnings": 0, "Errors": 0 },
+    "ChangedCSharpWhitespaceCheck": "Passed, twelve files, verify-no-changes",
+    "DiffCheck": "Passed",
+    "DocumentationStrictCheck": { "Documents": 898, "BrokenLinks": 0, "MarkdownFenceIssues": 0, "LocalOnlyLinks": 0, "RepeatedParagraphGroups": 11, "GuideRepeatedParagraphGroups": 0 },
+    "CoreDebugSha256": "03c092bb63a6b801e0b45d9f8cbb9a96dbdf15e65efdd51b7f1aa8033634680a",
+    "CoreReleaseSha256": "ffddd8b1cd10e27a023394adc350db7d821b5e041ccb993c6d0126176a35d840",
+    "AppCopiesMatchCorrespondingCoreOutputs": true,
+    "CountsOverlapAndMustNotBeAdded": true
+  },
+  "SourceSha256": {
+    "src/OpticalSystemDesign.Core/Analysis/ImageSimulationEngine.cs": "247486ede846038eb1e5f679a8c800b0f85a0f630e2cc1a04c701d7446226f25",
+    "src/OpticalSystemDesign.Core/Analysis/AnalysisResourceLimits.cs": "0fd1af7c4ea5380ce0517eac558096c1c92afa06b3f14980e27f6eea4642621b",
+    "src/OpticalSystemDesign.Core/Analysis/Radiometry/IncoherentIrradianceAnalysis.cs": "471b9ad0e5fc440a428fe448e1ca074d6dd1f436b03150a6d35e7d7ee6c81216",
+    "src/OpticalSystemDesign.Core/Analysis/RadiantIntensityAnalysis.cs": "ae6b6615d04cfa517a0baf7b6f9b4fef00db97189aa7ec56da2ca35cd1293cbc",
+    "src/OpticalSystemDesign.Core/Services/ProjectedAngleSolidAngle.cs": "93bdfd0de7291ff5264a663aa16a4e40fd1f96a7921a0b76f8492cdec76bc54d",
+    "src/OpticalSystemDesign.Core/Raytrace/TraceRequest.cs": "868fdc3d352b5860a98eee2b608fbc761c4bd6e8292b950ce8ce100bc0c29383",
+    "src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.cs": "85838b72095ae21843db286fbafa0c5a05ec858aaed9ef7b71d97ffb43eebfe3",
+    "src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.Batched.cs": "efa060bc2f1f2223db40c98a2385b409d582623c4e4f4c372502954ad4f26ec8",
+    "src/OpticalSystemDesign.Core/Raytrace/RayTraceCache.cs": "dcf883cf93bd979eb6d4a29985af9c08b77022980b73d5f9b5c4fbb19448e5af",
+    "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Localization.cs": "f30b73296e4aded483289c241463bdef7a361a9c9abb3098a2deda0992ca304a",
+    "tests/OpticalSystemDesign.Tests/ImageRadiometryRepairTests.cs": "add27ad7d76ecf7cfd678de23799b75711e49c4f21b525bdd58abd25bd805c19",
+    "tests/OpticalSystemDesign.Tests/Validation/History/FrozenAnalysisRegressionTests.cs": "50432439c67a16dc08deb4ef99a1d387d75c1f44881a19fc2ef0b6775c359145"
+  },
+  "Evidence": {
+    "Path": "validation/repairs/2026-10-16/image-radiometry-evidence.zip",
+    "Bytes": 3739487,
+    "Entries": 12,
+    "Sha256": "14104e38afc20c8af0748940dc45eca041c6fe697b3a48aa6b1bc1cc9bc89b68",
+    "EveryEntryReadBackSha256MatchesOriginal": true,
+    "AuditCoreBeforeDebugSha256": "0b505836ebf06ea0c94c959c3fbf32344bec3e550e85393ac843a121d8575227",
+    "AuditCoreBeforeReleaseSha256": "31b904452d765636e8343f2d746348a87dddfa437bfd00cd5a58565ce3aa3699"
+  },
+  "OriginalControlsAfterRepair": {
+    "MaximumImageDifferenceAcross20TranslationControls": 9.869882688917642e-14,
+    "EmptyPsf": "Typed AnalysisDataUnavailableException, no fabricated point kernel",
+    "DetectorBarePeak": 2.6325,
+    "DetectorCoatedPeak": 2.6325,
+    "WideBinReintegratedPower": 32,
+    "WideBinRelativeEnergyError": 0,
+    "DefaultRangeCoarseBinReintegratedPower": 28.00000000000001,
+    "DefaultRangeCoarseBinRelativeEnergyError": 4.440892098500626e-16
+  },
+  "HistoricalFixtureHandling": "Existing angular-bin fixture checks raw ray power through its original fixed angular-area convention, in tests only; reference bytes and tolerance unchanged",
+  "ReferenceFilesOrTolerancesChanged": false,
+  "RegeneratedHistoricalComparisons": false,
+  "NewNativeCapture": false,
+  "FullSuiteRerun": false,
+  "Repackaged": false,
+  "CommittedOrPushed": false,
+  "StillOpen": [
+    "Original effective-F-number and expanded relative-illumination native differences",
+    "Previously documented partial-coherence approximation",
+    "Image simulation pre-display versus final-display statistic contract"
+  ]
+}

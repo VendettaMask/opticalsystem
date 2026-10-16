@@ -222,7 +222,8 @@ public sealed partial class SequentialRayTracer
         bool ignorePhysicalAperture = false,
         bool stopBeforeInteraction = false,
         bool bypassCoating = false,
-        bool allowVirtualIntersection = false)
+        bool allowVirtualIntersection = false,
+        bool ignoreMaterialAbsorption = false)
     {
         if (surfaceIndex == 0 && ObjectConjugate.IsInfinite(surface))
         {
@@ -248,7 +249,7 @@ public sealed partial class SequentialRayTracer
 
         return surface.TraceRayState(ray, materialBefore, surface.MaterialAfter,
             cumulativePathLength, cumulativeOpticalPathLength, ignorePhysicalAperture, stopBeforeInteraction, bypassCoating,
-            allowVirtualIntersection: allowVirtualIntersection);
+            allowVirtualIntersection: allowVirtualIntersection, ignoreMaterialAbsorption: ignoreMaterialAbsorption);
     }
 
     public SequentialTrace Trace(RealRayBundle bundle)
@@ -280,6 +281,15 @@ public sealed partial class SequentialRayTracer
             .Select(surface => surface.Clone())
             .ToArray();
         var retainedSurfaceIndices = request.ResolveSurfaceIndices(surfaces.Length);
+        if (request.StopAtIncidentSurfaceIndex is { } incident)
+        {
+            incident = incident < 0 ? surfaces.Length + incident : incident;
+            if (incident < 0 || incident >= surfaces.Length
+                || retainedSurfaceIndices.Any(index => index > incident)
+                || request.NormalizeOpticalPathDifference || request.RecordSurfaceData)
+                throw new ArgumentException("Incident-surface traces require a valid terminal surface, no later retention, no final-image OPD normalization and no surface-data recording.", nameof(request));
+            request = request with { StopAtIncidentSurfaceIndex = incident };
+        }
         if (request.RecordSurfaceData && request.Retention != TraceRetention.FullHistory)
         {
             throw new ArgumentException(
@@ -352,9 +362,8 @@ public sealed partial class SequentialRayTracer
         }
 
         var ambientMaterial = ResolveMaterial("Air");
-        var maximumRequiredSurface = request.NormalizeOpticalPathDifference
-            ? surfaces.Length - 1
-            : retainedSurfaceIndices[^1];
+        var maximumRequiredSurface = request.StopAtIncidentSurfaceIndex
+            ?? (request.NormalizeOpticalPathDifference ? surfaces.Length - 1 : retainedSurfaceIndices[^1]);
 
         using var initialDirections = PooledDirectionBatch.Create(
             bundle,

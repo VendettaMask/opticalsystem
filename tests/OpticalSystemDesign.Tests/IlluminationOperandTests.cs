@@ -59,7 +59,7 @@ public sealed class IlluminationOperandTests(Xunit.Abstractions.ITestOutputHelpe
         optic.SurfaceGroup.Items[1].CoatingModel = new SimpleCoatingModel(transmission);
         // Samp=10 has 80 cell centers in the unit disk; the air cone has sin²(theta)=1/101.
         var expected = .5 * Math.Sqrt(Math.PI / (80 * .04 / 101 * transmission));
-        var row = Row("EFNO"); row.Target = 4; row.Weight = 2;
+        var row = Row("EFNO", pol: 1); row.Target = 4; row.Weight = 2;
         var result = MeritFunctionCatalog.Evaluate(optic, row);
         Assert.Empty(result.Error); Assert.Equal(expected, result.Value, 10);
         Assert.Equal(2 * Math.Pow(expected - 4, 2), result.Contribution, 10);
@@ -121,6 +121,8 @@ public sealed class IlluminationOperandTests(Xunit.Abstractions.ITestOutputHelpe
     public void DarkOrUnsupportedComplexTransportIsAnErrorAndCancellationPropagates(string code)
     {
         var optic = Cone(); optic.SurfaceGroup.Items[1].CoatingModel = new SimpleCoatingModel(0);
+        Invalid(optic, Row(code, pol: 1));
+        optic.SurfaceGroup.Items[1].PhysicalAperture = new OffsetRadialAperture(0.1, offsetX: 5);
         Invalid(optic, Row(code));
         optic = Cone(); var glass = new ConstantIndexMaterial("absorbing", 1.5, .01);
         optic.SurfaceGroup.Items[1].MaterialAfter = glass; optic.SurfaceGroup.Items[2].MaterialBefore = glass;

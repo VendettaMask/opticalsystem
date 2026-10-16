@@ -11,6 +11,7 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
     private readonly string _scanDirection;
     private readonly bool _removeVignettingFactors;
     private readonly bool _usePolarization;
+    private readonly bool _includeScalarTransmission;
 
     public RelativeIlluminationAnalysis(
         Optic optic,
@@ -19,7 +20,8 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
         int wavelengthNumber = 0,
         string scanDirection = "+y",
         bool removeVignettingFactors = true,
-        bool usePolarization = false) : base(optic)
+        bool usePolarization = false,
+        bool includeScalarTransmission = true) : base(optic)
     {
         _rayDensity = Math.Clamp(rayDensity, 5, 128);
         _fieldDensity = Math.Clamp(fieldDensity, 2, 201);
@@ -28,6 +30,9 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
         _scanDirection = AnalysisTrace.NormalizeScanDirection(scanDirection);
         _removeVignettingFactors = removeVignettingFactors;
         _usePolarization = usePolarization;
+        if (usePolarization && !includeScalarTransmission)
+            throw new ArgumentException("Polarized illumination requires scalar transmission.");
+        _includeScalarTransmission = includeScalarTransmission;
     }
 
     public override string Name => "Relative Illumination";
@@ -50,7 +55,8 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
         var foldedCells = new int[_fieldDensity];
         var fields = Enumerable.Range(0, _fieldDensity)
             .Select(index => AnalysisTrace.ScanField(_scanDirection, index / (_fieldDensity - 1.0))).ToArray();
-        var results = IlluminationMetrics.EvaluateFields(workingOptic, fields, wavelength.Micrometers, _rayDensity, _usePolarization);
+        var results = IlluminationMetrics.EvaluateFields(workingOptic, fields, wavelength.Micrometers, _rayDensity, _usePolarization,
+            includeScalarTransmission: _includeScalarTransmission);
 
         for (var index = 0; index < _fieldDensity; index++)
         {
@@ -96,7 +102,9 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
             ["ScanDirection"] = _scanDirection,
             ["RemoveVignettingFactors"] = _removeVignettingFactors,
             ["UsePolarization"] = _usePolarization,
-            ["PolarizationModel"] = _usePolarization ? "Unpolarized power Jones chain; transparent incident media, scalar and coherent multilayer coatings" : "Scalar ray power",
+            ["IncludesScalarTransmission"] = _includeScalarTransmission,
+            ["PolarizationModel"] = _usePolarization ? "Unpolarized power Jones chain; transparent incident media, scalar and coherent multilayer coatings"
+                : _includeScalarTransmission ? "Scalar ray power" : "Geometric transmission; apodization and physical apertures retained",
             ["RawProjectedCosineArea"] = rawIllumination,
             ["RelativeIllumination"] = points.Select(point => point.Y).ToArray(),
             ["EffectiveFNumbers"] = effectiveFNumbers,
@@ -104,7 +112,8 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
             ["SampledPupilNodeCounts"] = sampledNodes,
             ["FoldedCellCounts"] = foldedCells,
             ["MaximumProjectedCosineArea"] = maximumIllumination,
-            ["PupilIntegration"] = "Adaptive full-pupil scalar quadrature"
+            ["PupilIntegration"] = _includeScalarTransmission
+                ? "Adaptive full-pupil power quadrature" : "Adaptive full-pupil geometric quadrature"
         }, series, new[] { series }, new AnalysisPlotOptions(
             Title: $"Relative Illumination, λ = {wavelength.Micrometers:0.0000} µm",
             YMinimum: 0,

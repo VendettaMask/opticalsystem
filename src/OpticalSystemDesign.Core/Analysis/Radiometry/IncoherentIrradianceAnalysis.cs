@@ -101,7 +101,7 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
                     field.Hy,
                     wavelength.Micrometers,
                     pupilSamples);
-                using var trace = Optic.SequentialRayTracer.Trace(bundle, TraceRequest.Selected(new[] { detectorIndex }));
+                using var trace = Optic.SequentialRayTracer.Trace(bundle, TraceRequest.IncidentSurface(detectorIndex));
                 var irradiance = new double[_resolutionX, _resolutionY];
                 foreach (var sampleValue in trace.GetSurfaceSamples(detectorIndex))
                 {
@@ -180,6 +180,7 @@ public sealed class IncoherentIrradianceAnalysis : BaseAnalysis
             ["NumRays"] = _numRays,
             ["Distribution"] = _distribution,
             ["Normalized"] = _normalize,
+            ["PowerReference"] = "Incident surface power before detector interaction",
             ["ValidRayCount"] = validRayCount,
             ["PeakIrradiance"] = peaks.DefaultIfEmpty(0).Max(),
             ["FieldCount"] = fields.Count,

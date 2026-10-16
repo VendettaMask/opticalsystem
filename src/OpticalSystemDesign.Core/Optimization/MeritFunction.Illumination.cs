@@ -25,15 +25,19 @@ public static partial class MeritFunctionCatalog
             throw new NotSupportedException("RELI/EFNO 当前需要有焦像方系统。");
         var selected = optic.Fields[field - 1];
         var normalized = FieldCoordinates.Normalize(optic.Fields, selected.X, selected.Y);
+        // Native Pol=0 ignores system transmission. Keep the general metric's
+        // physical-power default intact and select geometric transport explicitly.
         if (type == "RELI")
             return IlluminationMetrics.RelativeToAxis(optic, normalized, wavelength, sampling,
-                polarization == 1, IlluminationSamplingKind.UniformImageCosine);
+                polarization == 1, IlluminationSamplingKind.UniformImageCosine,
+                includeScalarTransmission: polarization == 1);
 
         // RELI explicitly removes factors. EFNO's native policy has not been captured;
         // never silently choose either policy for a non-identity input.
         if (optic.Fields.Any(item => PupilVignetting.FromField(item) != PupilVignetting.Identity))
             throw new NotSupportedException("EFNO 的非零渐晕因子处理尚待原生核实；请先用 CVIG 清除渐晕因子。");
         return IlluminationMetrics.Evaluate(optic, normalized, wavelength, sampling,
-            usePolarization: polarization == 1, sampling: IlluminationSamplingKind.UniformImageCosine).EffectiveFNumber;
+            usePolarization: polarization == 1, sampling: IlluminationSamplingKind.UniformImageCosine,
+            includeScalarTransmission: polarization == 1).EffectiveFNumber;
     }
 }

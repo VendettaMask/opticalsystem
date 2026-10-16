@@ -170,6 +170,7 @@ internal sealed class RayTraceCacheKey : IEquatable<RayTraceCacheKey>
         BackendName = backendName;
         NormalizeOpticalPathDifference = request.NormalizeOpticalPathDifference;
         UseBatchedBackend = request.UseBatchedBackend;
+        StopAtIncidentSurfaceIndex = request.StopAtIncidentSurfaceIndex;
         _surfaceIndices = surfaceIndices.ToArray();
         _rays = rays.Select(RaySignature.FromRay).ToArray();
 
@@ -178,6 +179,7 @@ internal sealed class RayTraceCacheKey : IEquatable<RayTraceCacheKey>
         hash.Add(BackendName, StringComparer.Ordinal);
         hash.Add(NormalizeOpticalPathDifference);
         hash.Add(UseBatchedBackend);
+        hash.Add(StopAtIncidentSurfaceIndex);
         foreach (var surfaceIndex in _surfaceIndices)
         {
             hash.Add(surfaceIndex);
@@ -198,6 +200,7 @@ internal sealed class RayTraceCacheKey : IEquatable<RayTraceCacheKey>
     private bool NormalizeOpticalPathDifference { get; }
 
     private bool UseBatchedBackend { get; }
+    private int? StopAtIncidentSurfaceIndex { get; }
 
     public static RayTraceCacheKey Create(
         long opticRevision,
@@ -214,6 +217,7 @@ internal sealed class RayTraceCacheKey : IEquatable<RayTraceCacheKey>
             && string.Equals(BackendName, other.BackendName, StringComparison.Ordinal)
             && NormalizeOpticalPathDifference == other.NormalizeOpticalPathDifference
             && UseBatchedBackend == other.UseBatchedBackend
+            && StopAtIncidentSurfaceIndex == other.StopAtIncidentSurfaceIndex
             && _surfaceIndices.AsSpan().SequenceEqual(other._surfaceIndices)
             && _rays.AsSpan().SequenceEqual(other._rays);
     }

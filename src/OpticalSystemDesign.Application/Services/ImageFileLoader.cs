@@ -1,3 +1,4 @@
+using System.Buffers.Binary;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
 using SkiaSharp;
@@ -23,7 +24,9 @@ internal static class ImageFileLoader
             fullPath,
             BoundedFile.MaximumImageDataBytes,
             "Image-simulation bitmap");
-        using (var codec = SKCodec.Create(stream)
+        // The metadata codec owns its Skia stream, not the file needed by the decoder below.
+        using (var codecStream = new SKManagedStream(stream, disposeManagedStream: false))
+        using (var codec = SKCodec.Create(codecStream)
             ?? throw new InvalidDataException("The image simulation input file is not a supported bitmap."))
         {
             AnalysisResourceLimits.ValidateImageDimensions(codec.Info.Width, codec.Info.Height, "Input bitmap");
@@ -81,22 +84,54 @@ internal static class ImageFileLoader
         }
 
         var fullPath = Path.GetFullPath(path);
-        var format = Path.GetExtension(fullPath).ToLowerInvariant() switch
-        {
-            ".jpg" or ".jpeg" => SKEncodedImageFormat.Jpeg,
-            ".bmp" => SKEncodedImageFormat.Bmp,
-            _ => SKEncodedImageFormat.Png
-        };
-        using var image = SKImage.FromBitmap(bitmap);
-        using var encoded = image.Encode(format, 95)
-            ?? throw new InvalidOperationException("Unable to encode the image simulation output.");
+        var extension = Path.GetExtension(fullPath).ToLowerInvariant();
+        var bytes = EncodeRaster(bitmap, extension);
         BoundedFile.WriteAllBytesAtomic(
             fullPath,
-            encoded.ToArray(),
+            bytes,
             BoundedFile.MaximumImageDataBytes,
             "Analysis raster");
 
         static byte Channel(double? value) => (byte)Math.Round(
             255 * Math.Clamp(value ?? 0, 0, 1));
+    }
+
+    private static byte[] EncodeRaster(SKBitmap bitmap, string extension)
+    {
+        if (extension == ".bmp") return EncodeBmp(bitmap);
+        var format = extension is ".jpg" or ".jpeg" ? SKEncodedImageFormat.Jpeg : SKEncodedImageFormat.Png;
+        using var image = SKImage.FromBitmap(bitmap);
+        using var encoded = image.Encode(format, 95)
+            ?? throw new InvalidOperationException("Unable to encode the image simulation output.");
+        return encoded.ToArray();
+    }
+
+    private static byte[] EncodeBmp(SKBitmap bitmap)
+    {
+        // Skia does not encode BMP. Emit uncompressed 24-bit BI_RGB with padded bottom-up BGR rows.
+        const int pixelOffset = 14 + 40;
+        var stride = checked((bitmap.Width * 3 + 3) / 4 * 4);
+        var pixelBytes = checked(stride * bitmap.Height);
+        var bytes = new byte[checked(pixelOffset + pixelBytes)];
+        bytes[0] = (byte)'B';
+        bytes[1] = (byte)'M';
+        BinaryPrimitives.WriteInt32LittleEndian(bytes.AsSpan(2), bytes.Length);
+        BinaryPrimitives.WriteInt32LittleEndian(bytes.AsSpan(10), pixelOffset);
+        BinaryPrimitives.WriteInt32LittleEndian(bytes.AsSpan(14), 40);
+        BinaryPrimitives.WriteInt32LittleEndian(bytes.AsSpan(18), bitmap.Width);
+        BinaryPrimitives.WriteInt32LittleEndian(bytes.AsSpan(22), bitmap.Height);
+        BinaryPrimitives.WriteInt16LittleEndian(bytes.AsSpan(26), 1);
+        BinaryPrimitives.WriteInt16LittleEndian(bytes.AsSpan(28), 24);
+        BinaryPrimitives.WriteInt32LittleEndian(bytes.AsSpan(34), pixelBytes);
+        for (var row = 0; row < bitmap.Height; row++)
+            for (var column = 0; column < bitmap.Width; column++)
+            {
+                var color = bitmap.GetPixel(column, bitmap.Height - 1 - row);
+                var offset = pixelOffset + row * stride + column * 3;
+                bytes[offset] = color.Blue;
+                bytes[offset + 1] = color.Green;
+                bytes[offset + 2] = color.Red;
+            }
+        return bytes;
     }
 }

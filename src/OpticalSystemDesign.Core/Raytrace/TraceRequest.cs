@@ -31,6 +31,13 @@ public sealed record TraceRequest
     public int MaxDegreeOfParallelism { get; init; } = -1;
     public bool UseBatchedBackend { get; init; } = true;
 
+    /// <summary>Stop after propagation and aperture testing, before this surface's interaction. Negative indices count from the end.</summary>
+    public int? StopAtIncidentSurfaceIndex { get; init; }
+
+    public static TraceRequest IncidentSurface(int surfaceIndex, int maxDegreeOfParallelism = -1) =>
+        Selected(new[] { surfaceIndex }, maxDegreeOfParallelism: maxDegreeOfParallelism) with
+        { StopAtIncidentSurfaceIndex = surfaceIndex };
+
 
     public static TraceRequest FinalOnly(
         bool normalizeOpticalPathDifference = true,

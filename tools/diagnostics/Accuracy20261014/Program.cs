@@ -4,7 +4,9 @@ using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Optimization;
 
-if (args.Length != 3) throw new ArgumentException("Usage: <repository> <capture-manifest.json> <report.json>");
+if (args.Length is < 3 or > 4 || args.Length == 4 && args[3] != "--illumination-only")
+    throw new ArgumentException("Usage: <repository> <capture-manifest.json> <report.json> [--illumination-only]");
+var illuminationOnly = args.Length == 4;
 var root = Path.GetFullPath(args[0]);
 using var manifest = JsonDocument.Parse(File.ReadAllText(args[1]));
 var casesElement = manifest.RootElement.ValueKind == JsonValueKind.Array ? manifest.RootElement : manifest.RootElement.GetProperty("Cases");
@@ -24,6 +26,7 @@ foreach (var item in cases)
     var values = new List<Comparison>();
     foreach (var file in new[] { "curvature-operands.json", "operands.json", "signed-curvature-operands.json" })
     {
+        if (illuminationOnly && file != "operands.json") continue;
         if (!File.Exists(Path.Combine(root, item.Capture, file))) continue;
         using var capture = JsonDocument.Parse(File.ReadAllText(Path.Combine(root, item.Capture, file)));
         foreach (var row in capture.RootElement.EnumerateArray())
@@ -78,7 +81,8 @@ foreach (var item in cases)
 File.WriteAllText(args[2], JsonSerializer.Serialize(new
 {
     CapturedUtc = DateTimeOffset.UtcNow,
-    Scope = "Offline current Core vs explicit native MFE controls; no product runtime dependency",
+    Scope = illuminationOnly ? "Offline current Core vs native EFNO/RELI controls only; curvature not evaluated"
+        : "Offline current Core vs explicit native MFE controls; no product runtime dependency",
     Cases = records
 }, new JsonSerializerOptions { WriteIndented = true }));
 

@@ -106,7 +106,7 @@ public sealed partial class RayGenerator
             var (origin, direction) = Geometry(u, v);
             var sample = _optic.SequentialRayTracer.TraceToSurface(
                 new RealRay(origin, direction, wavelengthNanometers), stopIndex);
-            if (sample is null) return false;
+            if (sample is null || sample.Vignetted) return false;
             point = stop.CoordinateSystem.ToLocalPoint(sample.Position);
             return double.IsFinite(point.X) && double.IsFinite(point.Y);
         }

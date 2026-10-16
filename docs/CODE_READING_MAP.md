@@ -39,6 +39,8 @@
 
 `TraceRequest` 将计算与结果保留分开：末面、选定表面、完整历史可以拥有不同内存成本。`RequestedTrace` 是需要释放的结果所有者，其视图受同一生命周期约束。
 
+`TraceRequest.IncidentSurface` 选择入射探测面功率：保留传播与孔径检查，停在该面自身作用前；终止面选项参与缓存身份，不能与出射样本混用。约束及回归见[图像与辐射量修复](IMAGE_RADIOMETRY_REPAIR_2026-10-16.md)。
+
 `RayTraceCache` 有条目和样本预算，按插入顺序淘汰，不是访问即更新的 LRU。缓存使用文档修订、后端、精确输入光线、保留面和影响结果的选项。`RayTraceCacheBinding` 订阅模型变化，在追迹相关变更发生时解除共享缓存绑定。
 
 ## 3. 几何、材料和物理组件
@@ -72,9 +74,12 @@
 - MTF 扫描：`MtfMethodEvaluator` 统一 Fourier、Huygens、几何方法的扫描入口；`SampledMtfEngine` 使用拟合波前与光瞳位移计算采样 OTF。
 - RMS：`RmsScanSupport` 处理焦移、波长、视场、参考方式和单位；显示名称相近的分析不一定采用相同采样定义。
 - 辐射与能量：圈入能量、线/边缘扩散、扩展源、相对照度、辐照度和辐射强度分别处理权重、归一化及采样域。
+- 探测面辐照度使用共享入射追迹，不计自身膜层损耗；绝对辐射强度使用 `ProjectedAngleSolidAngle` 的逐箱真实立体角，未缩放光线功率的类型化单位为 W。
 - 新增可选均匀像方方向余弦采样见 [IlluminationMetrics.ImageCosine.cs](../src/OpticalSystemDesign.Core/Services/IlluminationMetrics.ImageCosine.cs)：真实追迹求逆、孔径掩码和有界失败；`RelativeToAxis` 单独实现轴上归一化。默认路径与原生等价的边界见[像方网格与轴上参考](IMAGE_COSINE_ILLUMINATION_2026-10-02.md)。
 - 相对照度与图像模拟共用 [IlluminationMetrics](../src/OpticalSystemDesign.Core/Services/IlluminationMetrics.cs) 的内部求积、物理孔径掩码及像面投影。透明介质偏振使用 `FresnelPower` 和 `UnpolarizedPowerTransport`，诊断通过显式选项停在像面自身作用前。后续物理膜层连接见[物理镀膜追迹与保存](COHERENT_COATING_TRANSPORT_2026-10-02.md)；RELI/EFNO 的评价入口为 [MeritFunction.Illumination](../src/OpticalSystemDesign.Core/Optimization/MeritFunction.Illumination.cs)。吸收入射介质及原生采样一致性仍未完成。
-- 图像模拟：`ImageSimulationEngine` 组织测试图、PSF 基、空间变化卷积、畸变映射和重采样；扩展图像分析在此之上构造不同工作流。
+- 图像模拟：`ImageSimulationEngine` 组织测试图、PSF 基、空间变化卷积、畸变映射和重采样；扩展图像分析在此之上构造不同工作流。图像/PSF 行使用高 Y 到低 Y 的共同顺序；偏振接通共享功率/Huygens 服务，固定孔径关闭只修改独立副本的非光阑掩码；畸变公开入口在采样前检查尺寸、阶数和工作量。边界与回归见[图像模拟修复](IMAGE_SIMULATION_REPAIR_2026-10-16.md)。
+- 坐标与参考：图像模拟的逆畸变和自动采样间距使用像面局部 X/Y；几何核以 `floor((N-1)/2)` 对齐点核和 same 卷积，Huygens 质心选项调用共享 `HuygensGeometricCenterOffset` 并传入真实采样偏移。见[后续坐标修复](IMAGE_COORDINATE_REFERENCE_REPAIR_2026-10-16.md)。
+- 图像文件边界：Application 的 `ImageFileLoader` 负责受限位图读取和原子导出，`WorkbenchRuntime` 按源类型解析实际输入；App 的 `ImageFileViewerWindow` 保留独立查看工具职责。元数据 Skia 包装流不拥有随后解码所需的文件流，BMP 由文件服务写出标准 BGR/填充行。见[文件修复](IMAGE_FILE_REPAIR_2026-10-16.md)。
 - 报告：一阶量、基面、Seidel、处方、系统和分类报告均属于分析目录。
 - `AnalysisResourceLimits` 在昂贵采样、FFT 网格和图像模拟前约束资源。
 

@@ -21,6 +21,9 @@ public static class AnalysisResourceLimits
     public const int MaximumGridDistortionDimension = 512;
     public const long MaximumAnalysisRayWork = 100_000_000;
     public const long MaximumWavefrontInterpolationWork = 250_000_000;
+    public const int MaximumImageDistortionGridSize = 33;
+    public const int MaximumImageDistortionDegree = 9;
+    public const long MaximumImageDistortionOperations = 100_000_000;
 
     public static int RoundUpPowerOfTwo(int value, string parameterName)
     {
@@ -191,6 +194,8 @@ public static class AnalysisResourceLimits
         }
 
         ValidatePsfConfiguration(config);
+        ValidateImageDistortion(preparedWidth, preparedHeight, config.DistortionGridSize,
+            config.DistortionPolynomialDegree, config.WavelengthsMicrometers.Count);
         ValidateConvolutionWork(preparedWidth, preparedHeight, config.PsfSize, config.PsfSize,
             1 + Math.Min(config.Components, config.PsfGridRows * config.PsfGridColumns),
             config.WavelengthsMicrometers.Count);
@@ -205,6 +210,31 @@ public static class AnalysisResourceLimits
                 nameof(config),
                 $"Image simulation PSF work exceeds the {MaximumImageSimulationPsfOperations:N0}-operation safety budget.");
         }
+    }
+
+    /// <summary>Bounds both QR fitting and evaluation before tracing or allocating a distortion grid.</summary>
+    public static int ValidateImageDistortion(int width, int height, int numGridPoints, int degree,
+        int wavelengthCount = 1)
+    {
+        ValidateImageDimensions(width, height, "Distortion image");
+        if (numGridPoints is < 2 or > MaximumImageDistortionGridSize)
+            throw new ArgumentOutOfRangeException(nameof(numGridPoints),
+                $"Distortion sampling must be between 2 and {MaximumImageDistortionGridSize} points per side.");
+        if (degree is < 1 or > MaximumImageDistortionDegree)
+            throw new ArgumentOutOfRangeException(nameof(degree),
+                $"Distortion polynomial degree must be between 1 and {MaximumImageDistortionDegree}.");
+        if (wavelengthCount is < 1 or > 16)
+            throw new ArgumentOutOfRangeException(nameof(wavelengthCount));
+        var effectiveGrid = Math.Max(degree + 1, numGridPoints);
+        var samples = checked((long)effectiveGrid * effectiveGrid);
+        var features = checked((long)(degree + 1) * (degree + 2) / 2);
+        // Two reorthogonalized QR fits plus two polynomial evaluations per output pixel.
+        var operations = checked(wavelengthCount * (8 * samples * features * features
+            + 2L * width * height * features));
+        if (operations > MaximumImageDistortionOperations)
+            throw new ArgumentOutOfRangeException(nameof(degree),
+                $"Image distortion exceeds the {MaximumImageDistortionOperations:N0}-operation safety budget.");
+        return effectiveGrid;
     }
 
     public static void ValidatePsfConfiguration(ImageSimulationConfig config)

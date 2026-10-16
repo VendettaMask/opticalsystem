@@ -1,0 +1,231 @@
+{
+  "date": "2026-10-16",
+  "timezone": "Asia/Shanghai",
+  "baseCommit": "4a63729f17c49de28de4af97b1804d851c01c27b",
+  "sourceDirty": true,
+  "status": "VerifiedRepair",
+  "findings": [
+    {
+      "id": "PIH-01",
+      "closed": true,
+      "problem": "Infinite-conjugate paraxial-image-height mapping assumed a unit transfer determinant, losing object/image index ratio and odd-reflection sign.",
+      "fix": "Share the primary-wavelength focal-plane mapping u=-h*C/det(M), starting after the object plane; derive determinant from endpoint indices and reflection parity, including GRIN endpoint indices."
+    },
+    {
+      "id": "AIM-01",
+      "closed": true,
+      "problem": "Stop aiming could accept a missed-intersection sample whose retained preceding position matched the target.",
+      "fix": "Reject Vignetted failure samples before using stop-local coordinates; preserve existing single-ray exceptions and batch zero-intensity invalid samples."
+    }
+  ],
+  "verification": {
+    "builds": {
+      "Debug": {
+        "projects": 19,
+        "warnings": 0,
+        "errors": 0,
+        "output": "default"
+      },
+      "Release": {
+        "projects": 19,
+        "warnings": 0,
+        "errors": 0,
+        "output": "default"
+      }
+    },
+    "originalReproducers": {
+      "before": {
+        "passed": 0,
+        "failed": 6,
+        "total": 6
+      },
+      "after": {
+        "passed": 6,
+        "failed": 0,
+        "total": 6
+      }
+    },
+    "newRegressionCases": 13,
+    "debugRelated": {
+      "passed": 232,
+      "failed": 0,
+      "skipped": 0
+    },
+    "fullRelease": {
+      "main": {
+        "passed": 4942,
+        "failed": 0,
+        "skipped": 0
+      },
+      "initialStructure": {
+        "passed": 263,
+        "failed": 0,
+        "skipped": 0
+      },
+      "zemaxComparison": {
+        "passed": 209,
+        "failed": 0,
+        "skipped": 0
+      },
+      "coatingDesign": {
+        "passed": 54,
+        "failed": 0,
+        "skipped": 0
+      }
+    },
+    "changedCSharpWhitespace": {
+      "files": 6,
+      "passed": true
+    },
+    "documentation": {
+      "strict": true,
+      "documents": 895,
+      "brokenLinks": 0,
+      "markdownFenceIssues": 0,
+      "guideRepeatedParagraphGroups": 0
+    },
+    "setsAreNotSummed": true
+  },
+  "infrastructureAttempt": {
+    "entry": "baseline-targeted.trx",
+    "description": "Restricted VSTest host failed to connect within 90 seconds; zero tests executed. Subsequent tests and scoped formatting succeeded with normal host permissions."
+  },
+  "archive": {
+    "path": "validation/repairs/2026-10-16/field-and-stop-aiming-tests.zip",
+    "sha256": "8348142c36c79b321d30aec749e53b8c263d5018fa9f50ea8132a47b472e97a3",
+    "bytes": 1571957,
+    "entriesVerified": 8
+  },
+  "logs": [
+    {
+      "entry": "baseline-targeted.trx",
+      "sha256": "21891dd463285906ae10c9eb7cbbe9a16955b6bb1aaf025ff71dde5e6d68b719",
+      "outcome": "Failed",
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "notExecuted": 0,
+      "newCasesPassed": 0,
+      "start": "2026-10-16T09:08:52.3445126+08:00",
+      "finish": "2026-10-16T09:10:22.8081634+08:00"
+    },
+    {
+      "entry": "before-fix.trx",
+      "sha256": "bf6e37d3c8f933ea9e84588271f291bc6ca4d71ee5e31897435c8d91df945e73",
+      "outcome": "Failed",
+      "total": 6,
+      "passed": 0,
+      "failed": 6,
+      "notExecuted": 0,
+      "newCasesPassed": 0,
+      "start": "2026-10-16T09:12:12.2643790+08:00",
+      "finish": "2026-10-16T09:12:19.3184103+08:00"
+    },
+    {
+      "entry": "after-fix.trx",
+      "sha256": "d4c9daa89785507f6c95267323c2ed7b32fc5f91d719327bae2fc85f57e40d74",
+      "outcome": "Completed",
+      "total": 6,
+      "passed": 6,
+      "failed": 0,
+      "notExecuted": 0,
+      "newCasesPassed": 6,
+      "start": "2026-10-16T09:13:14.0445835+08:00",
+      "finish": "2026-10-16T09:13:17.0242377+08:00"
+    },
+    {
+      "entry": "debug-targeted.trx",
+      "sha256": "2a115a6c726677f5f32d18fb840c7370065e8c1eae905494a85bd7a96803b6a3",
+      "outcome": "Completed",
+      "total": 232,
+      "passed": 232,
+      "failed": 0,
+      "notExecuted": 0,
+      "newCasesPassed": 13,
+      "start": "2026-10-16T09:24:58.5101856+08:00",
+      "finish": "2026-10-16T09:25:26.8805663+08:00"
+    },
+    {
+      "entry": "release-opticalsystemdesign.coatingdesign.tests.trx",
+      "sha256": "0416d884e194201a64cbbd0aa580f8a41cdf4604fdac5ec7a5e5b3b96887f174",
+      "outcome": "Completed",
+      "total": 54,
+      "passed": 54,
+      "failed": 0,
+      "notExecuted": 0,
+      "newCasesPassed": 0,
+      "start": "2026-10-16T09:14:01.7997746+08:00",
+      "finish": "2026-10-16T09:14:51.9441771+08:00"
+    },
+    {
+      "entry": "release-opticalsystemdesign.initialstructure.tests.trx",
+      "sha256": "ac609fdd6c9aeb4a435482504d2a5f7e75391f8a0109327a8c3c89d3cfdf9b76",
+      "outcome": "Completed",
+      "total": 263,
+      "passed": 263,
+      "failed": 0,
+      "notExecuted": 0,
+      "newCasesPassed": 0,
+      "start": "2026-10-16T09:14:53.9589634+08:00",
+      "finish": "2026-10-16T09:36:31.2299959+08:00"
+    },
+    {
+      "entry": "release-opticalsystemdesign.tests.trx",
+      "sha256": "f23778fc50af5f8ad24371d6d9e74c735aaf85aeaac5ea0deeb14ae204d8fa0d",
+      "outcome": "Completed",
+      "total": 4942,
+      "passed": 4942,
+      "failed": 0,
+      "notExecuted": 0,
+      "newCasesPassed": 13,
+      "start": "2026-10-16T09:36:32.5834215+08:00",
+      "finish": "2026-10-16T10:21:51.9488304+08:00"
+    },
+    {
+      "entry": "release-opticalsystemdesign.zemaxcomparison.tests.trx",
+      "sha256": "821beef23c47bd8521b7811ee559175cdc6cc0e6d816d5a0052ca5ce8329537f",
+      "outcome": "Completed",
+      "total": 209,
+      "passed": 209,
+      "failed": 0,
+      "notExecuted": 0,
+      "newCasesPassed": 0,
+      "start": "2026-10-16T10:21:54.7830255+08:00",
+      "finish": "2026-10-16T10:28:16.5845084+08:00"
+    }
+  ],
+  "changedSourceSha256": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/Paraxial.cs",
+      "sha256": "301ea19151289177f975bcff988482fa515ea3c4e8d60fcbee0f2eda38c3ca0a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/Paraxial.GradientIndex.cs",
+      "sha256": "2b9bac0df1372a3acd3143bf0cc77e18338bd97d9eedfe2cc481954f5a3373d2"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/RayGenerator.cs",
+      "sha256": "cd031407037c92d7d0827c22655f7626e4f78b7b93a3c7be39576bd0b3176977"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Raytrace/RayGenerator.StopAiming.cs",
+      "sha256": "b307a048b89dc0e0eee65619a733deddff809177229f60d594b1772aeaa5ba47"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ParaxialImageHeightLaunchTests.cs",
+      "sha256": "e1476d7050f502284b57f87abdc92206ef597cd76f483d03f609a6ce3f3d4f7c"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/StopAimingIntersectionTests.cs",
+      "sha256": "b66b487b6e47b57592ece66837d12b69b186acc08e5ce3891489233d70458f2b"
+    }
+  ],
+  "boundaries": [
+    "No new Zemax native capture or native equivalence certification.",
+    "Frozen prescriptions, references and numerical tolerances were not changed.",
+    "Effective F-number and illumination residuals remain open.",
+    "Full Debug suite, installer rebuild and manual desktop acceptance were not run.",
+    "Whitespace verification covers the six changed C# files, not the repository-wide historical format backlog.",
+    "Changes remain local; no commit or push was performed."
+  ]
+}

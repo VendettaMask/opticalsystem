@@ -17,6 +17,7 @@ public sealed record IlluminationMetricResult(double ProjectedCosineArea, int Va
 {
     public IlluminationSamplingKind Sampling { get; init; } = IlluminationSamplingKind.AdaptivePupil;
     public int IntegrationSamples { get; init; }
+    public bool IncludesScalarTransmission { get; init; } = true;
     // An equal-irradiance ideal circular pupil: A = pi / (4 E^2).
     // Refractive index is already reflected in the traced angular cone.
     public double EffectiveFNumber => ProjectedCosineArea > 0
@@ -31,20 +32,24 @@ public sealed record IlluminationMetricResult(double ProjectedCosineArea, int Va
 /// the same formal tracer; its cell placement is not certified native-equivalent.
 /// Optional unpolarized Fresnel power transport retains the complete Jones chain;
 /// unsupported complex-index interfaces and coating models are rejected.
+/// Scalar transmission is included by default. Explicit geometric evaluation
+/// bypasses coatings and bulk absorption, retaining refraction, apodization and
+/// physical apertures; it cannot be combined with polarized power transport.
 /// </summary>
 public static partial class IlluminationMetrics
 {
     /// <summary>Axis-referenced RI, distinct from peak-normalized analysis curves.
     /// All five vignetting factors are removed on an isolated copy when necessary.
-    /// Physical apertures and transmission remain active.</summary>
+    /// Physical apertures remain active; transmission follows the explicit policy.</summary>
     public static double RelativeToAxis(Optic optic, (double Hx, double Hy) normalizedField,
         double wavelengthMicrometers, int rayDensity = 10, bool usePolarization = false,
-        IlluminationSamplingKind sampling = IlluminationSamplingKind.AdaptivePupil)
+        IlluminationSamplingKind sampling = IlluminationSamplingKind.AdaptivePupil,
+        bool includeScalarTransmission = true)
     {
         ArgumentNullException.ThrowIfNull(optic);
         var working = AnalysisTrace.PrepareVignettingFactors(optic, true);
         var results = EvaluateFields(working, [(0, 0), normalizedField], wavelengthMicrometers,
-            rayDensity, usePolarization, sampling);
+            rayDensity, usePolarization, sampling, includeScalarTransmission);
         if (results[0].ProjectedCosineArea <= 0)
             throw Unavailable("axis-referenced illumination requires a transmitting on-axis pupil");
         var ratio = results[1].ProjectedCosineArea / results[0].ProjectedCosineArea;
@@ -54,7 +59,8 @@ public static partial class IlluminationMetrics
     /// <summary>Bounded parallel evaluation of independent fields on one immutable analysis snapshot.</summary>
     public static IReadOnlyList<IlluminationMetricResult> EvaluateFields(Optic optic,
         IReadOnlyList<(double Hx, double Hy)> fields, double wavelengthMicrometers, int rayDensity = 10,
-        bool usePolarization = false, IlluminationSamplingKind sampling = IlluminationSamplingKind.AdaptivePupil)
+        bool usePolarization = false, IlluminationSamplingKind sampling = IlluminationSamplingKind.AdaptivePupil,
+        bool includeScalarTransmission = true)
     {
         ArgumentNullException.ThrowIfNull(optic);
         ArgumentNullException.ThrowIfNull(fields);
@@ -68,7 +74,7 @@ public static partial class IlluminationMetrics
             MaxDegreeOfParallelism = Math.Min(4, Environment.ProcessorCount)
         }, (index, state) =>
         {
-            try { results[index] = Evaluate(optic, fields[index], wavelengthMicrometers, rayDensity, cancellation, usePolarization, sampling); }
+            try { results[index] = Evaluate(optic, fields[index], wavelengthMicrometers, rayDensity, cancellation, usePolarization, sampling, includeScalarTransmission); }
             catch (AnalysisDataUnavailableException exception)
             {
                 errors[index] = new AnalysisDataUnavailableException(exception.AnalysisName,
@@ -89,7 +95,8 @@ public static partial class IlluminationMetrics
     public static IlluminationMetricResult Evaluate(Optic optic,
         (double Hx, double Hy) normalizedField, double wavelengthMicrometers, int rayDensity = 10,
         CancellationToken cancellationToken = default, bool usePolarization = false,
-        IlluminationSamplingKind sampling = IlluminationSamplingKind.AdaptivePupil)
+        IlluminationSamplingKind sampling = IlluminationSamplingKind.AdaptivePupil,
+        bool includeScalarTransmission = true)
     {
         ArgumentNullException.ThrowIfNull(optic);
         cancellationToken.ThrowIfCancellationRequested();
@@ -97,6 +104,8 @@ public static partial class IlluminationMetrics
         if (rayDensity is < 5 or > 128)
             throw new ArgumentOutOfRangeException(nameof(rayDensity), "Illumination density must be in 5..128.");
         if (!Enum.IsDefined(sampling)) throw new ArgumentOutOfRangeException(nameof(sampling));
+        if (usePolarization && !includeScalarTransmission)
+            throw new ArgumentException("Polarized illumination requires scalar transmission as well as interface power.");
         if (!double.IsFinite(wavelengthMicrometers) || wavelengthMicrometers <= 0)
             throw new ArgumentOutOfRangeException(nameof(wavelengthMicrometers));
         if (!double.IsFinite(normalizedField.Hx) || !double.IsFinite(normalizedField.Hy))
@@ -105,7 +114,12 @@ public static partial class IlluminationMetrics
             throw Unavailable("an object and image surface are required");
         if (optic.SurfaceGroup.Items.Any(surface => surface.ScatteringModel is not null))
             throw Unavailable("stochastic scattering is not supported by a deterministic pupil integral");
-        return new Integrator(optic, normalizedField, wavelengthMicrometers, cancellationToken, usePolarization).Evaluate(rayDensity, sampling);
+        var result = new Integrator(optic, normalizedField, wavelengthMicrometers, cancellationToken, usePolarization,
+            includeScalarTransmission).Evaluate(rayDensity, sampling);
+        return result with
+        {
+            IncludesScalarTransmission = includeScalarTransmission
+        };
     }
 
     private sealed partial class Integrator
@@ -119,6 +133,7 @@ public static partial class IlluminationMetrics
         private readonly Func<double, double, RealRay> _generate;
         private readonly bool _uniformOpenPupil;
         private readonly bool _usePolarization;
+        private readonly bool _includeScalarTransmission;
         private Vector3D _tangentX;
         private Vector3D _tangentY;
         private int _orientation;
@@ -126,29 +141,31 @@ public static partial class IlluminationMetrics
         private double _boundaryChordAngle;
 
         internal Integrator(Optic optic, (double Hx, double Hy) field, double wavelength,
-            CancellationToken cancellation, bool usePolarization)
+            CancellationToken cancellation, bool usePolarization, bool includeScalarTransmission)
         {
             _optic = optic;
             _cancellation = cancellation;
             _usePolarization = usePolarization;
+            _includeScalarTransmission = includeScalarTransmission;
             _image = optic.SurfaceGroup.Items[^1];
             _generate = optic.SequentialRayTracer.RayGenerator.CreatePupilRaySampler(
                 field.Hx, field.Hy, wavelength, aimAtStop: true);
             _uniformOpenPupil = !usePolarization && (optic.Apodization is null or UniformApodization)
                 && optic.SurfaceGroup.Items.All(surface => surface.PhysicalAperture is null
-                    && surface.CoatingModel is NoneCoatingModel
+                    && (!includeScalarTransmission || surface.CoatingModel is NoneCoatingModel)
                     && surface.InteractionModel is RefractiveReflectiveInteractionModel
                     && surface.MaterialBefore.PropagationModel is HomogeneousPropagationModel
                     && surface.MaterialAfter.PropagationModel is HomogeneousPropagationModel
-                    && surface.MaterialBefore.ExtinctionCoefficient(wavelength * 1000) == 0
-                    && surface.MaterialAfter.ExtinctionCoefficient(wavelength * 1000) == 0);
+                    && (!includeScalarTransmission || surface.MaterialBefore.ExtinctionCoefficient(wavelength * 1000) == 0
+                        && surface.MaterialAfter.ExtinctionCoefficient(wavelength * 1000) == 0));
         }
 
         internal IlluminationMetricResult Evaluate(int density, IlluminationSamplingKind sampling)
         {
             _boundaryChordAngle = 2 * Math.PI / (24 * density);
             var source = _generate(0, 0);
-            var chief = _optic.SequentialRayTracer.DiagnoseApertures(source, _cancellation, stopAtIncidentImage: true).UnclippedImage
+            var chief = _optic.SequentialRayTracer.DiagnoseApertures(source, _cancellation, stopAtIncidentImage: true,
+                ignoreScalarTransmission: !_includeScalarTransmission).UnclippedImage
                 ?? throw Unavailable("the geometric chief ray does not reach the image surface");
             var localHit = _image.CoordinateSystem.ToLocalPoint(chief.Position);
             var normal = Normalize(_image.Geometry.SurfaceNormal(localHit));
@@ -224,7 +241,8 @@ public static partial class IlluminationMetrics
                 return node;
             }
             var diagnostic = _optic.SequentialRayTracer.DiagnoseApertures(source, _cancellation,
-                stopAtIncidentImage: true, usePolarization: _usePolarization);
+                stopAtIncidentImage: true, usePolarization: _usePolarization,
+                ignoreScalarTransmission: !_includeScalarTransmission);
             if (diagnostic.UnclippedImage is not { } image)
                 node = new(x, y, 0, 0, 0, false, false);
             else

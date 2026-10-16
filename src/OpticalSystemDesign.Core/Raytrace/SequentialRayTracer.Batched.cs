@@ -49,7 +49,7 @@ public sealed partial class SequentialRayTracer
                     _optic.Backend.CurrentBatched,
                     request.UseBatchedBackend);
 
-                if (TryTraceSurfaceBatched(
+                if (request.StopAtIncidentSurfaceIndex != surfaceIndex && TryTraceSurfaceBatched(
                         surface,
                         surfaceIndex,
                         surfaces.Length,
@@ -85,6 +85,7 @@ public sealed partial class SequentialRayTracer
                         materials[rayIndex],
                         cumulativePaths[rayIndex],
                         cumulativeOpticalPaths[rayIndex],
+                        stopBeforeInteraction: request.StopAtIncidentSurfaceIndex == surfaceIndex,
                         allowVirtualIntersection: allowReferenceBacktrack);
                     var slot = surfaceSlots[surfaceIndex];
                     if (slot >= 0)

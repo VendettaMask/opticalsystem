@@ -1,0 +1,77 @@
+{
+  "Date": "2026-10-16",
+  "Scope": "Five reproduced image simulation software defects; no new native certification",
+  "Status": "Five reproduced software defects fixed; scoped verification passed",
+  "UserScopeDecision": {
+    "OpticStudioInstalled": false,
+    "NativeDependentWork": "Skipped with explicit user authorization",
+    "IndependentCookeTessarInvestigations": "Excluded",
+    "EffectiveFNumberAndExpandedRelativeIlluminationParity": "Open, unchanged by this repair"
+  },
+  "RedRegression": { "Total": 25, "Failed": 22, "Passed": 3, "Skipped": 0 },
+  "IntermediateRegression": [
+    { "Stage": "Initial repair", "Total": 25, "Passed": 24, "Failed": 1 },
+    { "Stage": "Expanded controls", "Total": 40, "Passed": 37, "Failed": 3 },
+    { "Stage": "Corrected fixture contracts", "Total": 40, "Passed": 40, "Failed": 0 },
+    { "Stage": "Related Release before extreme-coordinate guard", "Total": 184, "Passed": 184, "Failed": 0 }
+  ],
+  "Fixes": [
+    "Endpoint pixel-center distortion resampling, retaining genuine zero padding",
+    "High-Y to low-Y PSF coefficient rows",
+    "Shared physical system polarization for illumination and PSFs, explicit unsupported errors",
+    "Isolated non-stop physical aperture removal without source or cache mutation",
+    "Early bounded distortion fitting, aggregate work and cancellation"
+  ],
+  "DistortionLimits": { "GridSideMinimum": 2, "GridSideMaximum": 33, "DegreeMinimum": 1, "DegreeMaximum": 9, "MaximumAggregateOperations": 100000000 },
+  "FinalVerification": {
+    "AddedTests": 44,
+    "RelatedDebug": { "Total": 185, "Passed": 185, "Failed": 0, "Skipped": 0, "TrxSha256": "fc565e74baed8bc41b952841886f9ffaee1170e1a9dfb61985ce03ed3356a3fd" },
+    "RelatedRelease": { "Total": 185, "Passed": 185, "Failed": 0, "Skipped": 0, "TrxSha256": "f6bedde0db91a0a25f25cf6ac7241484f034e6740c597db4a887c182e71de255" },
+    "DefaultDebugBuild": { "Solution": "OpticalSystemDesign.slnx", "Projects": 19, "Warnings": 0, "Errors": 0 },
+    "DefaultReleaseBuild": { "Solution": "OpticalSystemDesign.slnx", "Projects": 19, "Warnings": 0, "Errors": 0 },
+    "ChangedCSharpWhitespaceCheck": "Passed, three files, verify-no-changes",
+    "DiffCheck": "Passed",
+    "DocumentationStrictCheck": {
+      "Status": "Passed",
+      "Documents": 897,
+      "BrokenLinks": 0,
+      "MarkdownFenceIssues": 0,
+      "LocalOnlyLinks": 0,
+      "RepeatedParagraphGroups": 11,
+      "GuideRepeatedParagraphGroups": 0
+    },
+    "CoreDebugSha256": "0b505836ebf06ea0c94c959c3fbf32344bec3e550e85393ac843a121d8575227",
+    "CoreReleaseSha256": "31b904452d765636e8343f2d746348a87dddfa437bfd00cd5a58565ce3aa3699",
+    "AppCopiesMatchCorrespondingCoreOutputs": true,
+    "CountsOverlapAndMustNotBeAdded": true
+  },
+  "OriginalControlsAfterRepair": {
+    "WhiteImage": { "Corner": 1, "Edge": 1, "Center": 1, "MeanAbsoluteChange": 2.0816681711721685e-16 },
+    "PolarizationMaximumImageDifference": 3.6940997411027965e-6,
+    "AbsorbingPolarization": "Explicit NotSupportedException, expected rejection",
+    "FixedApertureOnVsOff": 0.005406061815160568,
+    "FixedApertureDisabledVsRemoved": 0,
+    "SourceAperturePreserved": true,
+    "PsfFirstRowVsHighField": 2.7755575615628914e-17,
+    "PsfLastRowVsLowField": 1.3877787807814457e-17,
+    "Degree200AndGrid65536": "Early ArgumentOutOfRangeException, expected rejection; no large allocation attempted"
+  },
+  "SourceSha256": {
+    "src/OpticalSystemDesign.Core/Analysis/ImageSimulationEngine.cs": "66d15ad27979d81adcc0a8581d94192fa73f11d60a3d533dd9d372c340814d4f",
+    "src/OpticalSystemDesign.Core/Analysis/AnalysisResourceLimits.cs": "52ef4acee872560e1418c7fb7891308e2e09c01f2836bdec4eeaea25e84f40dd",
+    "tests/OpticalSystemDesign.Tests/ImageSimulationRepairTests.cs": "58a6bdfda52c6f5f075933596365984e8de5f427e1a56e9abbead1ceb859e1a5"
+  },
+  "Evidence": {
+    "Path": "validation/repairs/2026-10-16/image-simulation-evidence.zip",
+    "Sha256": "224399eda6fd8bfabc8e5efde5bcdfbcb6edb8836563d31c45977df814bcf38c",
+    "Bytes": 3768766,
+    "Entries": 13,
+    "EveryEntryReadBackSha256MatchesOriginal": true,
+    "AuditCoreBeforeSha256": "2273b071b170e1ea147b1c36205a4f0776d115e80c457bda2717ac345b504a16"
+  },
+  "FullSuiteRerun": false,
+  "NewNativeCapture": false,
+  "FrozenReferencesOrTolerancesChanged": false,
+  "Repackaged": false,
+  "CommittedOrPushed": false
+}

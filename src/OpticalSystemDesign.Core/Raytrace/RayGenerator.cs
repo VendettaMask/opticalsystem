@@ -954,14 +954,12 @@ public sealed partial class RayGenerator
             // The field refers to the primary paraxial focal surface, not a
             // possibly defocused image plane. Moving that plane must not change
             // the incoming object direction.
-            var power = _optic.Paraxial.EstimateOpticalPower();
-            if (!double.IsFinite(power) || Math.Abs(power) <= 1e-15)
-                throw new InvalidOperationException("Paraxial image-height fields require finite optical power.");
+            var slopePerHeight = _optic.Paraxial.ParaxialImageHeightObjectSlope(1);
             var center = EntrancePupilGlobalCenter();
             var (firstZ, clearance) = InfiniteObjectStart(apertureRadius);
             var distance = center.Z - firstZ + clearance;
-            return new Vector3D(center.X + pupilX * apertureRadius - fieldX * power * distance,
-                center.Y + pupilY * apertureRadius - fieldY * power * distance, firstZ - clearance);
+            return new Vector3D(center.X + pupilX * apertureRadius - fieldX * slopePerHeight * distance,
+                center.Y + pupilY * apertureRadius - fieldY * slopePerHeight * distance, firstZ - clearance);
         }
         var (imageHeightUnit, objectHeightUnit, _) = TraceUnitChiefRay();
         if (Math.Abs(imageHeightUnit) <= 1e-15)

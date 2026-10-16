@@ -73,12 +73,14 @@ public sealed partial class Paraxial
         after.A * before.A + after.B * before.C, after.A * before.B + after.B * before.D,
         after.C * before.A + after.D * before.C, after.C * before.B + after.D * before.D);
 
-    private RayMatrix TraceGradientMatrix(int first, int end, double wavelength, bool includeTrailingTranslation)
+    private RayMatrix TraceGradientMatrix(int first, int end, double wavelength,
+        bool includeTrailingTranslation, out double determinant)
     {
         var surfaces = _optic.SurfaceGroup.Items;
         var matrix = RayMatrix.Identity;
         var currentIndex = first <= 0 ? 1.0
             : AxialIndex(surfaces[first - 1].MaterialAfter, surfaces[first - 1], surfaces[first].CoordinateSystem.Origin.Z, wavelength);
+        var initialIndex = currentIndex;
         for (var i = first; i < end; i++)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
@@ -95,6 +97,7 @@ public sealed partial class Paraxial
                 currentIndex = AxialIndex(s.MaterialAfter, s, z + s.Thickness, wavelength);
             }
         }
+        determinant = initialIndex / currentIndex;
         return matrix;
     }
 

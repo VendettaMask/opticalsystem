@@ -21,7 +21,8 @@ public sealed partial class OpticalSurface
         bool stopBeforeInteraction = false,
         bool bypassCoating = false,
         CoordinateSystem? materialBeforeCoordinates = null,
-        bool allowVirtualIntersection = false)
+        bool allowVirtualIntersection = false,
+        bool ignoreMaterialAbsorption = false)
     {
         OpticCapabilityPreflight.EnsureSurfaceSupported(this, OpticCapabilityOperation.RayTrace);
         var ray = inputRay.Normalize();
@@ -82,7 +83,7 @@ public sealed partial class OpticalSurface
         var nextCumulativeOpticalPathLength = cumulativeOpticalPathLength + segmentOpticalPathLength;
         var extinctionCoefficient = materialBefore.ExtinctionCoefficient(ray.WavelengthNanometers);
         var wavelengthMicrometers = ray.WavelengthNanometers / 1000.0;
-        var attenuation = extinctionCoefficient <= 0
+        var attenuation = ignoreMaterialAbsorption || extinctionCoefficient <= 0
             ? 1.0
             : Math.Exp((-4.0 * Math.PI * extinctionCoefficient * Math.Abs(segmentLength) * 1000.0) / wavelengthMicrometers);
         propagated = propagated with

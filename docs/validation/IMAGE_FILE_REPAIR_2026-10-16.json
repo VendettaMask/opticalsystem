@@ -1,0 +1,111 @@
+{
+  "Date": "2026-10-16",
+  "Status": "Three defects fixed; final scoped verification passed",
+  "Scope": [
+    "Keep bounded file streams alive through metadata checks and bitmap decoding in image simulation and bitmap viewer",
+    "Honor selected image source mode, reject missing external input, ignore retained paths for built-in sources",
+    "Encode real 24-bit BI_RGB output and preserve existing atomic-write behavior"
+  ],
+  "UserScopeDecision": {
+    "OpticStudioInstalled": false,
+    "NativeDependentWork": "Skipped with explicit user authorization",
+    "IndependentCookeTessarInvestigations": "Excluded; existing regressions preserved"
+  },
+  "RedRegression": {
+    "Total": 33,
+    "Passed": 6,
+    "Failed": 27,
+    "Skipped": 0,
+    "TrxSha256": "82917afeb50f5f07fb9e14caa6e9358e85df7ebe8171abe864fa4b7191b1c373"
+  },
+  "InitialGreenAttempt": {
+    "Total": 33,
+    "Passed": 30,
+    "Failed": 3,
+    "Reason": "Viewer fixture used headless 1x1 placeholder decoding; corrected host to use real Skia without relaxing pixel-size assertions",
+    "TrxSha256": "1f73083e78e361d3dfa0f639cf8e144ec40e5784149f6cade092d399e1afdcf6"
+  },
+  "ExpandedNewRegression": {
+    "Total": 39,
+    "Passed": 39,
+    "Failed": 0,
+    "Skipped": 0,
+    "TrxSha256": "af3da8cc8d82a48829731124886f7499a0e92c615168a16207dc4cfdfcc8168c"
+  },
+  "AddedTests": 39,
+  "BroadAttemptsStopped": {
+    "Reason": "Excluded existing ExtendedSceneAnalysesProduceRenderableResults after confirming its prior full-suite duration was 36m22s; unrelated to file IO. Only the two verified test hosts were stopped intentionally.",
+    "Debug": { "CompletedPassed": 233, "TestFailures": 0, "OverallRunAccepted": false, "TrxOutcome": "Failed after intentional host termination", "TrxSha256": "773ba49ea5ed42ade1eaaa7d38ed25b849294dc1db8d6dd9e4cabd63420a1c87" },
+    "Release": { "CompletedPassed": 233, "TestFailures": 0, "OverallRunAccepted": false, "TrxOutcome": "Failed after intentional host termination", "TrxSha256": "4cc56b3ab0a9b3e5e0143d4f97a4c959f1cd7f57493a50ef1637ce39ab740d2c" }
+  },
+  "MixedBackendAttempts": {
+    "Reason": "New viewer fixture switched rendering to Skia inside a mixed headless process; cached placeholder fonts caused two old footer tests to fail. New fixture now keeps the ordinary backend and runs real decoding in dedicated processes; no product or old footer-test change.",
+    "Debug": { "Total": 245, "Passed": 243, "Failed": 2, "TrxSha256": "25669117694aad7e79862972fa0f7802535ca6e87b166422d5852bce753531bf" },
+    "Release": { "Total": 245, "Passed": 243, "Failed": 2, "TrxSha256": "8f237ccc98d70bc6dfec631c7a0ec9b5f6caf58aaa7316bb0e0adb1f98193333" }
+  },
+  "ViewerTestIsolation": {
+    "NormalBackend": "Headless placeholder (explicit 1x1 assertion)",
+    "RealDecodeFlag": "OPTICALSYSTEMDESIGN_IMAGE_FILE_DECODE_TESTS=1; test process only",
+    "RealBackend": "Skia/Avalonia actual decoding, strict 3x2 size assertion",
+    "DefaultMixedHostControlDebug": { "Total": 9, "Passed": 9, "Failed": 0, "TrxSha256": "20f68de0c43262e8b4abd408e4521769fa1107c4209022c0dbd00a69619820bf" },
+    "RealDecodeDebug": { "Total": 7, "Passed": 7, "Failed": 0, "TrxSha256": "b04cba8d8b1ef1b73adda11bddbf6c67afbaa0aeb58b96c86be1eb654c77af8f" },
+    "RealDecodeRelease": { "Total": 7, "Passed": 7, "Failed": 0, "TrxSha256": "46a44851718811aa553ccf8b2256a4e108b20df90340c62822e226cb6dd01f4e" },
+    "OverlapsWithRelatedTests": true
+  },
+  "FinalVerification": {
+    "RelatedDebug": { "Total": 245, "Passed": 245, "Failed": 0, "Skipped": 0, "AddedCount": 39, "DurationSeconds": 168.1003918, "TrxSha256": "a8a94736363dc0f70b1faa9028acec964b36646d2f9877e3f0a48303c77cf781" },
+    "RelatedRelease": { "Total": 245, "Passed": 245, "Failed": 0, "Skipped": 0, "AddedCount": 39, "DurationSeconds": 73.3222481, "TrxSha256": "262bab57dbe7ede140ef5262e71cbe7b8332646807356b8c12a6e6f22fd662c8" },
+    "DefaultDebugBuild": { "Solution": "OpticalSystemDesign.slnx", "Projects": 19, "Warnings": 0, "Errors": 0 },
+    "DefaultReleaseBuild": { "Solution": "OpticalSystemDesign.slnx", "Projects": 19, "Warnings": 0, "Errors": 0 },
+    "ChangedCSharpWhitespaceCheck": "Passed, four files, verify-no-changes",
+    "DiffCheck": "Passed",
+    "DocumentationStrictCheck": { "Documents": 899, "BrokenLinks": 0, "MarkdownFenceIssues": 0, "LocalOnlyLinks": 0, "RepeatedParagraphGroups": 11, "GuideRepeatedParagraphGroups": 0 },
+    "RelatedDebugAndReleaseHaveSameCaseNames": true,
+    "ExcludedExistingLongTest": "OpticalSystemDesign.Tests.ExtendedImageAnalysisTests.ExtendedSceneAnalysesProduceRenderableResults",
+    "CountsOverlapAndMustNotBeAdded": true
+  },
+  "SourceSha256": {
+    "src/OpticalSystemDesign.Application/Services/ImageFileLoader.cs": "20fe38729ce0b379a097ac03719029b668264b025b31c52ec0f9e119fa384693",
+    "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs": "ddba40785b077f852b67253566b3b09b5161fd02122103e4100b2e96e2e5274d",
+    "src/OpticalSystemDesign.App/Panels/ImageFileViewerWindow.cs": "c21bb982f61232ff79a7b0df42788481cf958957b3afe0e92a6fcb484202c63a",
+    "tests/OpticalSystemDesign.Tests/ImageFileRepairTests.cs": "bb6918c1e6d60d5a11080f2b859ef5689d1bfa65347f754a693180d6932932e7"
+  },
+  "BinarySha256": {
+    "ApplicationDebug": "6929c8528aa8e1cfe13e1a3ed3a18bd18102671a5a257a93913cc984944a4fb3",
+    "ApplicationRelease": "d71f510ab231b4ed5e3b0261f4e0dbe678110f67e4c3e7bd35bd98d147f65111",
+    "AppDebug": "2c2c5f24ea69da4e49b413be9f3d72457e79ca45ec01873d94bd15be1f925dc4",
+    "AppRelease": "c62925fc9efe1f45988683edfdcd671afbf3f8067447ff723ce0a0ac34093ff7",
+    "CoreDebug": "03c092bb63a6b801e0b45d9f8cbb9a96dbdf15e65efdd51b7f1aa8033634680a",
+    "CoreRelease": "ffddd8b1cd10e27a023394adc350db7d821b5e041ccb993c6d0126176a35d840",
+    "DefaultAppApplicationCopiesMatch": true,
+    "CoreMatchesPreviousRepairBinaries": true,
+    "AllNinePriorCoreSourceFingerprintsMatch": true
+  },
+  "OriginalControlsAfterRepair": {
+    "ValidPngAndJpegImport": "Success in Debug and Release",
+    "BuiltInWithRetainedValidOrMissingFile": "Uses built-in chart; does not access retained path",
+    "ExternalWithoutFile": "Explicit InvalidOperationException; no fallback",
+    "ExternalMissingFile": "FileNotFoundException",
+    "PngJpgJpegBmpOutput": "Real matching signatures, independently decodable 16x16 images in both configurations"
+  },
+  "Evidence": {
+    "Path": "validation/repairs/2026-10-16/image-files-evidence.zip",
+    "Bytes": 3732647,
+    "Entries": 20,
+    "TrxEntries": 12,
+    "Sha256": "90efa6c5411d3ee372901cdca0803f4fb3cd5cfeeb886e338d83c9c8218c1337",
+    "EveryEntryReadBackSha256MatchesOriginal": true,
+    "IncludesFailedAndIntentionallyAbortedStages": true
+  },
+  "CoreOpticalAlgorithmsChanged": false,
+  "ReferenceFilesOrTolerancesChanged": false,
+  "NewNativeCapture": false,
+  "FullSuiteRerun": false,
+  "Repackaged": false,
+  "CommittedOrPushed": false,
+  "StillOpen": [
+    "Original effective-F-number and expanded relative-illumination native differences",
+    "Previously documented partial-coherence implementation limitation",
+    "Image simulation pre-display versus final-display statistic contract"
+  ]
+}

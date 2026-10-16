@@ -74,7 +74,9 @@ internal sealed class ImageFileViewerWindow : Window
                 path,
                 BoundedApplicationFile.MaximumImageDataBytes,
                 "Bitmap image");
-            using (var codec = SKCodec.Create(stream)
+            // Keep the bounded file open after metadata validation for Avalonia's decoder.
+            using (var codecStream = new SKManagedStream(stream, disposeManagedStream: false))
+            using (var codec = SKCodec.Create(codecStream)
                 ?? throw new InvalidDataException("The selected file is not a supported bitmap."))
             {
                 ValidateBitmapDimensions(codec.Info.Width, codec.Info.Height);

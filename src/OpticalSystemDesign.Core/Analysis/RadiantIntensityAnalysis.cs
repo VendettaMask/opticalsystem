@@ -98,7 +98,18 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
 
         var xStep = (_angleXMaximum - _angleXMinimum) / _binsX;
         var yStep = (_angleYMaximum - _angleYMinimum) / _binsY;
-        var solidAngle = DegreesToRadians(xStep) * DegreesToRadians(yStep);
+        var solidAngles = _useAbsoluteUnits ? new double[_binsX, _binsY] : null;
+        if (solidAngles is not null)
+        {
+            for (var x = 0; x < _binsX; x++)
+            {
+                ComputationCancellation.ThrowIfCancellationRequested();
+                for (var y = 0; y < _binsY; y++)
+                    solidAngles[x, y] = ProjectedAngleSolidAngle.RectangleDegrees(
+                        _angleXMinimum + x * xStep, _angleXMinimum + (x + 1) * xStep,
+                        _angleYMinimum + y * yStep, _angleYMinimum + (y + 1) * yStep);
+            }
+        }
         var pupilSamples = GenerateRadiometricPupilSamples(
             _numRays,
             RayGenerator.ParseSampling(_distribution));
@@ -147,12 +158,17 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
                     validRayCount++;
                 }
 
-                if (_useAbsoluteUnits && solidAngle > 1e-12)
+                if (solidAngles is not null)
                 {
                     for (var x = 0; x < _binsX; x++)
                     {
                         for (var y = 0; y < _binsY; y++)
                         {
+                            if (values[x, y] <= 0) continue;
+                            var solidAngle = solidAngles[x, y];
+                            if (solidAngle <= 0 || !double.IsFinite(solidAngle))
+                                throw new AnalysisDataUnavailableException(Name,
+                                    "a populated angular bin has no resolved solid angle; use a coarser angular grid");
                             values[x, y] /= solidAngle;
                         }
                     }
@@ -183,7 +199,10 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
                 }
             }
 
-            var valueLabel = _normalize ? "Normalized Intensity" : "Radiant Intensity (W/sr)";
+            var valueLabel = _normalize ? "Normalized Intensity"
+                : _useAbsoluteUnits ? "Radiant Intensity (W/sr)" : "Ray Power (W)";
+            var valueUnit = _normalize ? AnalysisAxisUnit.Dimensionless
+                : _useAbsoluteUnits ? AnalysisAxisUnit.WattsPerSteradian : AnalysisAxisUnit.Watt;
             var title = $"{MtfPresentation.FieldName(Optic, map.Field)}, "
                 + $"\u03BB={map.Wavelength.Micrometers:0.000} \u00B5m";
             var heatmapPoints = new List<AnalysisPoint>(_binsX * _binsY);
@@ -212,7 +231,7 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
                 YQuantity: AnalysisAxisQuantity.FieldAngle,
                 YUnit: AnalysisAxisUnit.Degree,
                 ValueQuantity: AnalysisAxisQuantity.Intensity,
-                ValueUnit: _normalize ? AnalysisAxisUnit.Dimensionless : AnalysisAxisUnit.WattsPerSteradian);
+                ValueUnit: valueUnit);
             panes.Add(new AnalysisPlotPane(title, new[] { heatmap }, new AnalysisPlotOptions(
                 Title: title,
                 XMinimum: _angleXMinimum,
@@ -233,7 +252,7 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
                 XQuantity: AnalysisAxisQuantity.FieldAngle,
                 XUnit: AnalysisAxisUnit.Degree,
                 YQuantity: AnalysisAxisQuantity.Intensity,
-                YUnit: _normalize ? AnalysisAxisUnit.Dimensionless : AnalysisAxisUnit.WattsPerSteradian);
+                YUnit: valueUnit);
             panes.Add(new AnalysisPlotPane("Central Cross-Section", new[] { crossSection }, new AnalysisPlotOptions(
                 Title: "Central Cross-Section",
                 XMinimum: _angleXMinimum + (xStep / 2),
@@ -253,6 +272,7 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
             ["AngleYRange"] = $"[{_angleYMinimum:R}, {_angleYMaximum:R}] deg",
             ["UseAbsoluteUnits"] = _useAbsoluteUnits,
             ["Normalized"] = _normalize,
+            ["AngularPowerNormalization"] = _useAbsoluteUnits ? "Exact projected-angle solid angle" : "Unscaled ray power",
             ["NumRays"] = _numRays,
             ["Distribution"] = _distribution,
             ["ValidRayCount"] = validRayCount,
@@ -276,8 +296,6 @@ public sealed class RadiantIntensityAnalysis : BaseAnalysis
 
         return Math.Clamp((int)Math.Floor((value - minimum) / (maximum - minimum) * count), 0, count - 1);
     }
-
-    private static double DegreesToRadians(double degrees) => degrees * Math.PI / 180;
 
     private static void ValidateSamplingBudget(int numRays, PupilSampling sampling)
     {

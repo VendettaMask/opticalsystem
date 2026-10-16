@@ -1,0 +1,96 @@
+{
+  "Date": "2026-10-16",
+  "Status": "Three scoped software defects repaired; final Debug and Release related verification passed",
+  "Scope": [
+    "Use image-local chief-ray coordinates for inverse distortion and automatic detector pitch",
+    "Align geometric PSF zero-offset bins with the existing delta/same-convolution lower-center anchor",
+    "Forward diffraction centroid reference through shared Huygens geometric center offsets"
+  ],
+  "UserScopeDecision": {
+    "OpticStudioInstalled": false,
+    "NativeDependentWork": "Skipped with explicit user authorization",
+    "IndependentCookeTessarInvestigations": "Excluded; existing regressions preserved"
+  },
+  "TestCompilerBootstrap": "Missing Rays namespace corrected before executable regression; no TRX and no test count claimed for compiler failures",
+  "RedReplay": {
+    "Method": "Same new test source linked into an isolated test project referencing the preserved original audit Core; product sources and default binaries were not rolled back or replaced",
+    "OriginalCoreReleaseSha256": "ffddd8b1cd10e27a023394adc350db7d821b5e041ccb993c6d0126176a35d840",
+    "Total": 29,
+    "Passed": 6,
+    "Failed": 23,
+    "Skipped": 0,
+    "TrxSha256": "59027fb81a9e4d43d313c5f22f2de89a8fd32ee328da8cd302e60b723a60cd3f"
+  },
+  "InitialGreen": {
+    "Total": 116,
+    "Passed": 116,
+    "Failed": 0,
+    "Skipped": 0,
+    "TrxSha256": "11af24bd7725a2dd9986d4a9e009bb8068d1eba75e566ad74fc41f495f4aac36"
+  },
+  "AddedTests": 30,
+  "ExpandedRedReplay": {
+    "Total": 30,
+    "Passed": 7,
+    "Failed": 23,
+    "Skipped": 0,
+    "TrxSha256": "73c883634847f3599dfe38298eaf4341815df291ba367683180768b4e56cf17e"
+  },
+  "BroadAttemptsStopped": {
+    "Reason": "Existing RGB side-by-side full-pipeline test had a prior duration of 24m21s. Only this task's verified hosts were stopped intentionally. Final scope explicitly excludes it and the prior 36-minute extended-scene rendering test; both remain unchanged and are not counted as passed.",
+    "Debug": { "CompletedPassed": 277, "TestFailures": 0, "OverallRunAccepted": false, "TrxOutcome": "Failed after intentional host termination", "TrxSha256": "cc0798cd1645a39240ac6be2dccbc0f0f35a1ce0df6aec85926c8465fb6d9749" },
+    "Release": { "CompletedPassed": 277, "TestFailures": 0, "OverallRunAccepted": false, "TrxOutcome": "Failed after intentional host termination", "TrxSha256": "1f87ae0892477992fde1010f1018394f6102c930f28cea83b61767c7c39e84e0" }
+  },
+  "FinalVerification": {
+    "RelatedDebug": { "Total": 290, "Passed": 290, "Failed": 0, "Skipped": 0, "AddedTestsPassed": 30, "TrxSha256": "414ba97d862382019ef63b99bfd6d431a9e15d1c205cd2fbcb8ee32a571b8f81" },
+    "RelatedRelease": { "Total": 290, "Passed": 290, "Failed": 0, "Skipped": 0, "AddedTestsPassed": 30, "TrxSha256": "0e2be3c187759ed45501229d4c225c0334e886ac462172311f03d6c89cc245d8" },
+    "DebugAndReleaseSelectedTestNamesMatch": true,
+    "DefaultDebugBuild": { "Solution": "OpticalSystemDesign.slnx", "Projects": 19, "Warnings": 0, "Errors": 0 },
+    "DefaultReleaseBuild": { "Solution": "OpticalSystemDesign.slnx", "Projects": 19, "Warnings": 0, "Errors": 0 },
+    "ChangedCSharpWhitespaceCheck": "Passed, two files, verify-no-changes",
+    "DiffCheck": "Passed",
+    "DocumentationStrictCheck": { "Documents": 900, "BrokenLinks": 0, "MarkdownFenceIssues": 0, "LocalOnlyLinks": 0, "RepeatedParagraphGroups": 11, "GuideRepeatedParagraphGroups": 0 },
+    "ExcludedExistingLongTests": ["ExtendedSceneAnalysesProduceRenderableResults", "ImageSimulationAnalysisUsesFrozenSideBySideRgbContract"],
+    "CountsOverlapAndMustNotBeAdded": true
+  },
+  "SourceSha256": {
+    "src/OpticalSystemDesign.Core/Analysis/ImageSimulationEngine.cs": "24580c16e410bad92a445787a60e03237bccadc210af7b7376aba5d5bf501121",
+    "tests/OpticalSystemDesign.Tests/ImageCoordinateReferenceRepairTests.cs": "5c272c81b34fefdd4380e1d3933ff299412414a3b30005c6642d4597559ecf63"
+  },
+  "BinarySha256": {
+    "CoreDebug": "9a7529421bf6c0810a85b56688d1f87238a78ca2079ee995ceb9fcdac2da0931",
+    "CoreRelease": "63250df913702936fad1f407dd31f95aec2d81d3f923d66b7a5aa64853218899",
+    "DefaultAppCoreCopiesMatch": true
+  },
+  "OriginalControlsAfterRepair": {
+    "MaximumPixelDifferenceAcrossFiveJointRotations": 6.661338147750939e-16,
+    "BlackPixelsAcrossJointRotations": 0,
+    "EvenGeometricKernelMinimumBeforeDistortion": 1,
+    "EvenGeometricVersusDeltaImageMaximumDifference": 0,
+    "ChiefPsfVersusExplicitSharedHuygensMaximumDifference": 0,
+    "CentroidPsfVersusExplicitSharedHuygensMaximumDifference": 0,
+    "ReferenceControlFields": [0.2, 0.5, 0.8],
+    "ReferenceControlOffsetPixels": [0.911052057098101, 2.191617510043489, 3.244858513757585],
+    "ReferenceControlModes": "Diffraction, zero geometric fallbacks"
+  },
+  "Evidence": {
+    "Path": "validation/repairs/2026-10-16/image-coordinate-reference-evidence.zip",
+    "Entries": 21,
+    "Bytes": 6183162,
+    "Sha256": "0aa7b5bbaa23968d6cccbc2bd712f12371c1e3dee89c0e3ddd4ea9832a4ec7d5",
+    "EveryEntryReadbackSha256MatchesOriginal": true,
+    "Contains": "Seven staged TRX files including two intentionally stopped/non-accepted attempts; two default build binlogs; four before/after control JSONL files; diagnostic and red-replay projects; preserved pre-repair Core DLL/PDB; final two C# source snapshots; unchanged primary baseline source copy"
+  },
+  "GenericConvolutionOrOriginalHuygensGridChanged": false,
+  "ReferenceFilesOrTolerancesChanged": false,
+  "NewNativeCapture": false,
+  "FullSuiteRerun": false,
+  "Repackaged": false,
+  "CommittedOrPushed": false,
+  "StillOpen": [
+    "Original effective-F-number and expanded relative-illumination native differences",
+    "Previously documented partial-coherence implementation limitation",
+    "Image simulation pre-display versus final-display statistic contract",
+    "Full native image numerical equivalence and arbitrary 3D/curved-detector coordinate certification"
+  ]
+}

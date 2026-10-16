@@ -283,6 +283,10 @@ public partial class WorkbenchRuntime
                 IgnoreLateralColor: Bool("IgnoreLateralColor", false));
         }
 
+        // A retained path is inert in built-in mode; an empty external path must still reach validation.
+        var imageSimulationSourceFile = Text("SourceMode", "内置图像") == "外部位图"
+            ? Text("SourceFile", string.Empty)
+            : null;
         var axis = Text("Axis", "Y").Equals("X", StringComparison.OrdinalIgnoreCase) ? 0 : 1;
         return name switch
         {
@@ -651,7 +655,8 @@ public partial class WorkbenchRuntime
                 Int("WavelengthNumber", 0),
                 Text("ScanDirection", "+y"),
                 Bool("RemoveVignettingFactors", true),
-                Bool("UsePolarization", false)),
+                Bool("UsePolarization", false),
+                includeScalarTransmission: Bool("UsePolarization", false)),
             "Incoherent Irradiance" => new IncoherentIrradianceAnalysis(
                 CurrentOptic,
                 Int("NumRays", 5),
@@ -947,10 +952,10 @@ public partial class WorkbenchRuntime
                     "西门子星" => ImageSimulationSourcePattern.SiemensStar,
                     _ => ImageSimulationSourcePattern.ColorChart
                 },
-                SourceFile = Text("SourceFile", string.Empty),
-                SourceImage = string.IsNullOrWhiteSpace(Text("SourceFile", string.Empty))
+                SourceFile = imageSimulationSourceFile ?? string.Empty,
+                SourceImage = imageSimulationSourceFile is null
                     ? null
-                    : ImageFileLoader.LoadRgb(Text("SourceFile", string.Empty)),
+                    : ImageFileLoader.LoadRgb(imageSimulationSourceFile),
                 PsfSize = LeadingInt("PsfSize", 32),
                 NumRays = LeadingInt("NumRays", 32),
                 Components = Int("EigenPsfComponents", 3),
@@ -959,7 +964,7 @@ public partial class WorkbenchRuntime
                 PsfGridRows = LeadingInt("PsfGridRows", 3),
                 PsfGridColumns = LeadingInt("PsfGridColumns", 3),
                 Padding = LeadingInt("GuardBand", 0),
-                SourceMode = string.IsNullOrWhiteSpace(Text("SourceFile", string.Empty))
+                SourceMode = imageSimulationSourceFile is null
                     ? "Built-in"
                     : "External bitmap",
                 FieldHeight = Double("FieldHeight", 0),

@@ -41,14 +41,19 @@ public sealed partial class SequentialRayTracer
     /// Traces through the shared surface engine and checks every original aperture
     /// at its local intercept. Does not mutate apertures, record surface data or
     /// publish unclipped rays to the normal trace cache.
+    /// Geometric transmission bypasses bulk absorption and coatings, not the
+    /// initial ray weight, refraction, or the physical-aperture mask.
     /// </summary>
     public ApertureRayDiagnostic DiagnoseApertures(RealRay sourceRay,
         CancellationToken cancellationToken = default,
         bool stopAtIncidentImage = false,
         bool usePolarization = false,
-        bool allowHomogeneousAbsorbingPower = false)
+        bool allowHomogeneousAbsorbingPower = false,
+        bool ignoreScalarTransmission = false)
     {
         ArgumentNullException.ThrowIfNull(sourceRay);
+        if (ignoreScalarTransmission && usePolarization)
+            throw new ArgumentException("Geometric transmission cannot be combined with polarized power transport.");
         if (allowHomogeneousAbsorbingPower && (!usePolarization || !_optic.Polarization.Unpolarized))
             throw new ArgumentException("Homogeneous absorbing power is only defined for explicit unpolarized power tracing.");
         cancellationToken.ThrowIfCancellationRequested();
@@ -82,7 +87,8 @@ public sealed partial class SequentialRayTracer
                 throw new NotSupportedException("Polarization transport through inhomogeneous media is not implemented.");
             var result = TraceSequentialSurface(surface, index, ray, material, path, opticalPath,
                 ignorePhysicalAperture: true, stopBeforeInteraction: incidentImage,
-                bypassCoating: usePolarization && surface.CoatingModel is CoherentMultilayerCoating);
+                bypassCoating: ignoreScalarTransmission || usePolarization && surface.CoatingModel is CoherentMultilayerCoating,
+                ignoreMaterialAbsorption: ignoreScalarTransmission);
             if (result.Sample.Vignetted || result.StopTracing)
                 return new(null, false, firstBlocked);
             if ((index != 0 || !ObjectConjugate.IsInfinite(surface))

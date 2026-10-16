@@ -1,0 +1,91 @@
+{
+  "Date": "2026-10-16",
+  "Scope": "Synchronize accumulated optical-field, stop-aiming, illumination, image simulation, radiometry and image-file repairs, their tests, documentation and scoped evidence; preserve two newly audited diffraction adapter defects as open",
+  "Branch": "main",
+  "Remote": "origin",
+  "Repository": "https://github.com/VendettaMask/opticalsystem.git",
+  "SourceBaseCommit": "4a63729f17c49de28de4af97b1804d851c01c27b",
+  "FetchedRemoteBeforeCommit": "4a63729f17c49de28de4af97b1804d851c01c27b",
+  "AheadBehindBeforeCommit": { "Ahead": 0, "Behind": 0 },
+  "CommitIdentity": "The containing Git commit; final push and remote identity are verified after committing and reported in the synchronization conversation, avoiding a self-referential commit hash",
+  "ExpectedChangePaths": 61,
+  "VerificationLedgers": [
+    "PARAXIAL_FIELD_AND_STOP_AIMING_REPAIR_2026-10-16.json",
+    "ILLUMINATION_TRANSMISSION_REPAIR_2026-10-16.json",
+    "IMAGE_SIMULATION_REPAIR_2026-10-16.json",
+    "IMAGE_RADIOMETRY_REPAIR_2026-10-16.json",
+    "IMAGE_FILE_REPAIR_2026-10-16.json",
+    "IMAGE_COORDINATE_REFERENCE_REPAIR_2026-10-16.json"
+  ],
+  "RepairEvidence": {
+    "Archives": 6,
+    "Entries": 85,
+    "Bytes": 19390329,
+    "AllArchiveSha256SizesAndEntryCountsMatchTheirDatedLedgers": true,
+    "HistoricalFailedAndIntentionallyStoppedTestRunsRetained": true
+  },
+  "OpenDiffractionAudit": {
+    "Status": "Two defects reproduced and not repaired",
+    "ControlsPerConfiguration": 10,
+    "Configurations": ["Debug", "Release"],
+    "NumericalResultsMatchAcrossConfigurations": true,
+    "EveryEffectiveMode": "Diffraction",
+    "GeometricFallbacks": 0,
+    "Findings": [
+      {
+        "Id": "diffraction-even-kernel-origin-not-adapted",
+        "Priority": 1,
+        "SyntheticControl": "Symmetric thin lens; 32x32 central impulse at (16,16); 16 pupil sampling; 0.01 mm pitch; sizes 7,8,9,15,16,17",
+        "Even8And16ConvolutionCentroid": [17, 17],
+        "OddControlConvolutionCentroid": [16, 16],
+        "EvenFinalImageCentroid": [16.999994975464293, 16.999994975464297],
+        "NoAberrationFinalImageCentroid": [16, 16],
+        "Cause": "Raw Huygens origin N/2 is not adapted to the existing same-convolution lower-center anchor"
+      },
+      {
+        "Id": "diffraction-kernel-y-axis-not-adapted-to-raster",
+        "Priority": 1,
+        "PrimaryPrescriptionControl": "Existing 123456.ZMX, custom fields -0.8,-0.5,0.5,0.8; 550 nm; 32 pupil sampling; odd 33 PSF; 0.0005 mm pitch; chief reference",
+        "PositiveHalfFieldExpectedDownwardOffsetPixels": 0.7948019377221247,
+        "PositiveHalfFieldActualDownwardOffsetPixels": -0.794801937722049,
+        "Cause": "Raw physical-Y-ascending Huygens rows enter a downward-row raster convolution without an orientation adapter",
+        "EvenOriginConfoundExcludedByOddKernel": true
+      }
+    ],
+    "Evidence": {
+      "Path": "validation/repairs/2026-10-16/diffraction-kernel-open-audit-evidence.zip",
+      "Entries": 4,
+      "Bytes": 4968,
+      "Sha256": "6d812d8bb9aed98afeea5cb93ce2757321ffc9e35c59beed58eb283b999b3f8f",
+      "EveryEntryReadbackSha256MatchesOriginal": true,
+      "Contents": "Diagnostic project/source and original Debug/Release JSONL. Place diagnostic files under a two-level repository scratch folder such as .tmp/issue-audit-20261016e for relative Core references; run from the repository root. No Core binaries are added by this audit archive."
+    },
+    "CoreIdentity": {
+      "DebugSha256": "9a7529421bf6c0810a85b56688d1f87238a78ca2079ee995ceb9fcdac2da0931",
+      "ReleaseSha256": "63250df913702936fad1f407dd31f95aec2d81d3f923d66b7a5aa64853218899",
+      "MatchesLatestScopedRepairOutputs": true
+    },
+    "NotANewNativeCaptureOrCertification": true
+  },
+  "Checks": {
+    "ExistingTrackedReferenceChanges": 0,
+    "ReferencePathsCheckedAgainstBase": ["validation/history", "validation/zemax", "artifacts/zemax", "third_party"],
+    "FrozenReferenceBytesAndTolerancesChanged": false,
+    "LocalDocumentationReport": ".tmp/source-sync-20261016/documentation-final.json",
+    "DocumentationStrictCheck": "Passed",
+    "DocumentationDocuments": 900,
+    "DocumentationBrokenLinks": 0,
+    "DocumentationFenceIssues": 0,
+    "DocumentationLocalOnlyLinks": 0,
+    "DocumentationGuideRepeatedParagraphGroups": 0,
+    "DocumentationHistoricalRepeatedParagraphGroups": 11,
+    "StagedDiffCheck": "Passed",
+    "StagedPathsReviewed": 61,
+    "UnexpectedSensitiveOrBuildOutputPaths": 0,
+    "CredentialPatternMatchesInAddedTextAndArchiveTextEntries": 0,
+    "MergeConflicts": 0
+  },
+  "VerificationBoundary": "This synchronization task does not change product computation or replace the dated verification scopes. No new full-suite, numerical, native desktop or installer acceptance is inferred from synchronization. Existing scoped passing tests do not close the two later diffraction findings.",
+  "DeliveryBoundary": "Normal non-force origin/main synchronization only. Repository source, tests, documentation and explicit validation archives are included; ignored build directories, scratch directories, installation packages, profiles and unrelated user data are excluded. Some older evidence archives deliberately contain isolated old assemblies for red-replay provenance, not runnable product deployment. No release or tag is created and no installed application is replaced.",
+  "StillOpen": ["Two diffraction-kernel adapter findings", "Original effective-F-number and expanded relative-illumination differences", "Previously documented partial-coherence limitation", "Image simulation pre-display versus final-display statistic contract"]
+}

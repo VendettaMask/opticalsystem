@@ -528,11 +528,16 @@ Workbench 一侧引用 `images/gui-current`。
 - PSF 方法：`Diffraction` 使用 Huygens PSF；`Geometric` 使用 spot diagram 积分；`None` 使用 delta functions。若 Diffraction 模式下像差过严重，官方说明可自动切换到 Geometric。
 - `Field Height` 表示完成 oversampling、旋转和 guard band 后整幅源图所覆盖的视场高度；它不是只写入结果页的显示参数。
 - `Guard Band` 是原图四周的黑色零强度边界，不是镜像、重复或边缘延拓。
+- 图像模拟要求实际选用的 PSF 核有有限正功率；窗口内未采到能量或光瞳全无有效数据时返回不可用并提示调整窗口/采样，不自动补成理想点。显式无像差模式的点核保留。逆畸变先居中缩放，再用共享满秩 QR，避免系统整体平移改变图像；这些软件契约不等于原生图像等价。
 - Workbench 实现状态（2026-07-30）：设置页按 Zemax 分为“源位图设置”“网格卷积设置”“探测器和显示设置”。可读取 BMP/PNG/JPEG；先执行源位图翻转、90° 步进旋转、最近邻 oversampling 和黑色 guard band，再把整幅准备后位图映射到 `FieldHeight`。可选择一个视场作为网格中心，选择 RGB 或单一系统波长；随后按视场网格生成并插值 PSF，应用二维 relative-illumination 网格，最后在统一的参考波长像面坐标上拟合逆畸变，从而保留畸变和垂轴色差。
-- Workbench 的图像模拟入口默认使用 `Geometric`，以匹配 Zemax 设置页示例；也可切换 `Diffraction` 或 `None`。`Diffraction` 调用 Huygens PSF；几何 RMS 半径超过 Airy 半径 20 倍，或 Huygens 计算失效时，该 field × wavelength 节点独立回退到 `Geometric`，结果中报告实际模式和回退节点数。`Geometric` 和 `None` 不再经过固定 FFT PSF。
+- Workbench 的图像模拟入口默认使用 `Geometric`，以匹配 Zemax 设置页示例；也可切换 `Diffraction` 或 `None`。`Diffraction` 调用 Huygens PSF；几何 RMS 半径超过 Airy 半径 20 倍时，该 field × wavelength 节点独立回退到 `Geometric`，结果中报告实际模式和回退节点数。非偏振模式保留 Huygens 数值失效时的几何回退；偏振计算异常不能被标量回退掩盖。`Geometric` 和 `None` 不再经过固定 FFT PSF。
 - 源图和仿真结果均可按设置翻转；`Reference` 可选择主光线或质心。显式 pixel size 会覆盖自动估算的像面采样间距；非零 X/Y detector pixels 会重采样最终输出。`显示为` 可选择仿真图或源位图，输出文件支持 BMP/JPG/PNG。
+- Workbench 的源类型以选择项为准：内置模式不读取保留的路径，外部模式缺少文件时拒绝执行。普通位图导入/查看在尺寸检查后保留受限文件流供真实解码；BMP 输出使用 24 位 BI_RGB，保持颜色、上下方向和行填充。文件行为的本机回归见[图像文件修复](IMAGE_FILE_REPAIR_2026-10-16.md)，不作为 Zemax 原生数值等价认证。
+- Workbench 的逆畸变坐标和自动像素间距采用像面局部框架；几何 PSF 偶数核使用与点核/same 卷积相同的离散下中心。衍射选择质心参考时，向共享 Huygens 采样传入实际几何中心偏移，同时保留偏振、瞄准和有效模式报告；未改变 Huygens 原栅格约定或通用卷积，具体控制见[坐标与参考修复](IMAGE_COORDINATE_REFERENCE_REPAIR_2026-10-16.md)。
 - Workbench 当前 `GuardBand` 数值仍表示每边加入的像素数；它与 OpticStudio 界面中的 guard-band level 表示法不同，但边界内容和管线位置遵循上述定义。
-- `Use Polarization`、`Apply Fixed Apertures` 和 `Compress Frame` 已作为 Zemax 设置兼容项保存并显示；`Use Polarization` 当前在 PSF 界面显示为“偏振加权（标量近似，Experimental）”，结果元数据同时给出 `PolarizationModel` 和限制说明。真正的 Ex/Ey 复场传播、高 NA 纵向场及 Richards–Wolf/Debye 积分尚未实现。固定孔径仍采用现有顺序追迹的固定孔径行为，`Compress Frame` 尚不改变无框架的栅格输出。PSF-grid 单独显示仍未接入本入口。
+- `Use Polarization` 在图像模拟中实际选择共享照度功率、几何光线功率与 Huygens 偏振计算；系统非偏振/指定 Jones 输入由共享传输服务解释。卷积核仍按单色总能量归一化，视场通量变化由启用的相对照度阶段承担。`None` 且关闭相对照度时没有偏振加权阶段。吸收复接口、GRIN 或其他共享服务不支持的组合明确拒绝，不冒充原生图像一致性。
+- `Apply Fixed Apertures=false` 在保留运行时材料、数值后端且不共享原缓存的副本上移除非光阑面的物理孔径；光阑掩码和系统发射光瞳保留，原镜头不变。PSF 系数、照度和图像行统一从高 Y 视场向低 Y 排列；畸变端点按像素中心重采样，真实越界仍为黑色。畸变采样 Core 支持每边 2–33 点、拟合 1–9 阶，并按全部波长检查工作量（UI 采样最小 3 点）。
+- `Compress Frame` 尚不改变无框架的栅格输出；PSF-grid 单独显示仍未接入本入口。图像模拟不宣称完整高 NA 矢量积分或 Zemax 图像数值等价；本次修复与证据见[图像模拟修复](IMAGE_SIMULATION_REPAIR_2026-10-16.md)。
 
 ### Geometric Image Analysis
 
