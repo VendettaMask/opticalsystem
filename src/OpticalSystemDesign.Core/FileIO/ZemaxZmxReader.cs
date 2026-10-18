@@ -13,7 +13,7 @@ using OpticalSystemDesign.Core.Serialization;
 
 namespace OpticalSystemDesign.Core.FileIO;
 
-internal static class ZemaxZmxReader
+internal static partial class ZemaxZmxReader
 {
     public static Optic Import(string text)
     {
@@ -56,10 +56,13 @@ internal static class ZemaxZmxReader
         optic.ImageSpaceAfocal = document.AfocalImageSpace;
         ConfigureFields(optic, document, configurationIndex);
         ConfigureWavelengths(optic, document, configurationIndex);
-        // Keep the file's stored thicknesses when dispersion is unavailable.
+        // Keep the stored prescription when dispersion is unavailable.
         // A ray-based solve must not prevent the rest of the document from importing.
         if (!optic.SurfaceGroup.Items.Any(surface => surface.MaterialAfter is UnresolvedMaterial))
+        {
+            ApplyCurvatureSolves(optic, configuredSurfaces, document.GlassCatalogs);
             ApplyThicknessSolves(optic, configuredSurfaces, document.GlassCatalogs);
+        }
         ConfigureMeritFunction(optic, document);
         return optic;
     }
@@ -561,9 +564,13 @@ internal static class ZemaxZmxReader
                     break;
                 case "CURV":
                     var curvature = RequiredDouble(tokens, 1, command);
-                    RequireSurface(current, command).Radius = RadiusFromCurvature(
+                    var curvedSurface = RequireSurface(current, command);
+                    curvedSurface.Radius = RadiusFromCurvature(
                         curvature,
                         document.LengthScaleToMillimeters);
+                    if (tokens.Length > 3 && RequiredInt(tokens, 2, command) is 2 or 11)
+                        curvedSurface.CurvatureSolve = new ZemaxCurvatureSolve(
+                            RequiredInt(tokens, 2, command), RequiredDouble(tokens, 3, command));
                     break;
                 case "DISZ":
                     RequireSurface(current, command).Thickness = RequiredDistance(document, tokens, 1, command);
@@ -590,6 +597,9 @@ internal static class ZemaxZmxReader
                     break;
                 case "DIAM":
                     ReadSemiDiameter(document, RequireSurface(current, command), tokens);
+                    break;
+                case "FLAP":
+                    RequireSurface(current, command).FloatingAperture = true;
                     break;
                 case "MEMA":
                     ReadMechanicalSemiDiameter(document, RequireSurface(current, command), tokens);
@@ -681,6 +691,7 @@ internal static class ZemaxZmxReader
                     configurationIndex),
                     source.MinimumAperture),
                 SemiDiameterFixed = source.SemiDiameterFixed,
+                FloatingAperture = source.FloatingAperture,
                 SemiDiameterSolveCode = source.SemiDiameterSolveCode,
                 SemiDiameterPickupSource = source.SemiDiameterPickupSource,
                 SemiDiameterPickupScale = source.SemiDiameterPickupScale,
@@ -692,6 +703,7 @@ internal static class ZemaxZmxReader
                 IsMirror = source.IsMirror || material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase)
             };
             configured.MarginalRayHeightSolve = source.MarginalRayHeightSolve;
+            configured.CurvatureSolve = source.CurvatureSolve;
             foreach (var parameter in source.Parameters)
             {
                 configured.Parameters[parameter.Key] = parameter.Value;
@@ -767,10 +779,11 @@ internal static class ZemaxZmxReader
                     : 10;
             // Curvature alone does not make a refracting surface: curved dummy
             // surfaces can carry a fixed DIAM without defining a floating stop.
-            var hasOpticalPower = HasSurfacePower(source)
-                && (isReflective || !string.Equals(previousMaterial.Name, materialAfter.Name,
-                    StringComparison.OrdinalIgnoreCase));
-            var physicalAperture = CreatePhysicalAperture(source, semiDiameter, hasOpticalPower);
+            var hasOpticalInteraction = isReflective || !string.Equals(previousMaterial.Name, materialAfter.Name,
+                StringComparison.OrdinalIgnoreCase);
+            var hasOpticalPower = HasSurfacePower(source) && hasOpticalInteraction;
+            var physicalAperture = CreatePhysicalAperture(source, semiDiameter,
+                hasOpticalPower || source.IsStop && hasOpticalInteraction);
             var surface = new OpticalSurface
             {
                 Number = index,
@@ -826,7 +839,7 @@ internal static class ZemaxZmxReader
     }
 
     private static IPhysicalAperture? CreatePhysicalAperture(
-        ZemaxSurface source, double semiDiameter, bool hasOpticalPower)
+        ZemaxSurface source, double semiDiameter, bool hasImplicitFloatingAperture)
     {
         if (source.MinimumAperture is { } minimumAperture
             && double.IsFinite(minimumAperture)
@@ -836,10 +849,12 @@ internal static class ZemaxZmxReader
         }
 
         // Automatic DIAM is a ray-footprint estimate, including at the stop;
-        // it must not become a physical clipping boundary. A user-defined stop
-        // or powered-surface DIAM defines a circular aperture. MEMA only describes
-        // the part edge and is deliberately excluded.
-        if (source.SemiDiameterFixed && (source.IsStop || hasOpticalPower))
+        // it must not become a physical clipping boundary. A fixed DIAM on a
+        // powered surface or interacting stop defines a floating aperture. A dummy stop can
+        // set the system pupil without defining a surface aperture: native
+        // OpticStudio reports ApertureData.CurrentType=None in that case.
+        // MEMA only describes the part edge and is deliberately excluded.
+        if (source.FloatingAperture || source.SemiDiameterFixed && hasImplicitFloatingAperture)
         {
             return new CircularAperture(semiDiameter);
         }
@@ -1874,12 +1889,14 @@ internal static class ZemaxZmxReader
         public int MechanicalSemiDiameterSolveCode { get; set; }
         public double? MinimumAperture { get; set; }
         public bool SemiDiameterFixed { get; set; }
+        public bool FloatingAperture { get; set; }
         public int SemiDiameterSolveCode { get; set; }
         public int SemiDiameterPickupSource { get; set; }
         public double SemiDiameterPickupScale { get; set; } = 1;
         public bool IsStop { get; set; }
         public bool IsMirror { get; set; }
         public ZemaxMarginalRayHeightSolve? MarginalRayHeightSolve { get; set; }
+        public ZemaxCurvatureSolve? CurvatureSolve { get; set; }
         public Dictionary<int, double> Parameters { get; } = new();
 
         public double Parameter(int index) => Parameters.GetValueOrDefault(index);

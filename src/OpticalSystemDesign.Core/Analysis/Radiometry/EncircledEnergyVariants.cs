@@ -260,21 +260,17 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
         IReadOnlyList<Wavelength> wavelengths = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
         if (wavelengths.Count == 0) return null;
         var field = SpotAnalysisEngine.DefinedFields(Optic)[fieldIndex];
-        var shortest = wavelengths.MinBy(w => w.Nanometers)!;
-        var reference = wavelengths.FirstOrDefault(w => w.IsPrimary) ?? wavelengths[0];
+        var reference = Optic.Wavelengths.FirstOrDefault(w => w.IsPrimary) ?? Optic.Wavelengths[0];
         var size = 2 * _pupilSampling;
-        // The enclosed-energy grid has a separate Fourier-conjugate pupil
-        // interval convention. Native 32/64/128 controls retain these settings;
-        // resampling the FFT PSF display window cannot reproduce this grid.
-        var stretch = Math.Sqrt(_pupilSampling / 4d - 1);
-        var fNumber = DiffractionEngine.WorkingFNumber(Optic, field, shortest, Optic.RayAimingEnabled);
-        var pitch = shortest.Micrometers * fNumber * (_pupilSampling - 2) / (size * stretch);
-        var results = DiffractionEngine.ComputeFftPsfSpectrum(Optic, field, wavelengths,
-            _pupilSampling, size, cellCenteredPupil: true, zemaxFftSampling: true,
-            ignoreOpd: ignoreOpd, aimAtStop: Optic.RayAimingEnabled,
-            referenceWavelength: reference, imageDelta: pitch, ignoreScalarTransmission: true);
+        var results = DiffractionEngine.ComputeFftCumulativeEnergySpectrum(
+            Optic, field, wavelengths, _pupilSampling, ignoreOpd);
+        var pitch = results[0].Result.SampleSpacingMicrometers;
         var weightScale = wavelengths.Max(w => w.Weight);
-        var weights = wavelengths.Select(w => weightScale > 0 ? Math.Max(0, w.Weight) / weightScale : 1).ToArray();
+        // FFT PSF display values use the monochromatic ideal peak. Convert
+        // those values to a common spectral irradiance before integration.
+        var waveScale = wavelengths.Min(w => w.Micrometers);
+        var weights = wavelengths.Select(w => (weightScale > 0 ? Math.Max(0, w.Weight) / weightScale : 1)
+            * Math.Pow(waveScale / w.Micrometers, 2)).ToArray();
         var totalWeight = weights.Sum();
         var samples = Enumerable.Range(0, size).SelectMany(row => Enumerable.Range(0, size).Select(column =>
             new EnergySample((column - size / 2d + 1) * pitch, (row - size / 2d + 1) * pitch,

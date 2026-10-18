@@ -388,6 +388,10 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
 
     private static void WriteSurfaceAperture(List<string> lines, OpticalSurface surface)
     {
+        if (surface.PhysicalAperture is CircularAperture)
+        {
+            lines.Add($"  FLAP 0 {FormatDouble(ZemaxSemiDiameter(surface))} 0");
+        }
         if (surface.PhysicalAperture is AnnularAperture annular
             && annular.InnerRadius > 1e-12)
         {

@@ -66,7 +66,15 @@ public static partial class ExtendedResultNormalizer
         var expected = key == "Diffraction Encircled Energy" ? 2 : key == "Encircled Energy" ? r.FieldCount : 1;
         Require(groups.GetArrayLength() == expected, "Native energy/illumination curve count differs");
         var id = 0;
-        foreach (var g in groups.EnumerateArray())
+        var energyType = r.WorkbenchSettings.GetValueOrDefault("Type", "encircled");
+        var omitDiffractionLimit = key == "Diffraction Encircled Energy"
+            && (energyType.StartsWith("X", StringComparison.OrdinalIgnoreCase)
+                || energyType.StartsWith("Y", StringComparison.OrdinalIgnoreCase)
+                || energyType.Contains("square", StringComparison.OrdinalIgnoreCase));
+        // Native retains an ideal curve for slit/square requests. The product
+        // displays the requested field only, so match that field to curve:0.
+        // Retain both raw native curves and the strict count check above.
+        foreach (var g in groups.EnumerateArray().Skip(omitDiffractionLimit ? 1 : 0))
         {
             var x = g.GetProperty("x").EnumerateArray().Select(v => v.GetDouble() / (key == "Relative Illumination" ? r.MaximumFieldRadius : 1)).ToArray();
             var rows = g.GetProperty("y").Deserialize<double[][]>()!;

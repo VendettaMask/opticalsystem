@@ -376,6 +376,10 @@ public sealed class AuditReliabilityFixTests
             Components = 3,
             WavelengthsMicrometers = [.55]
         };
+        // Local PSF reconstruction and normalized scattering now require five
+        // passes for three components; the former four-pass boundary is unsafe.
+        Assert.Throws<ArgumentOutOfRangeException>(() => AnalysisResourceLimits.ValidateImageSimulation(source, config));
+        source = new RgbImage(new double[1, 224, 224]);
         AnalysisResourceLimits.ValidateImageSimulation(source, config);
         config = new ImageSimulationConfig
         {

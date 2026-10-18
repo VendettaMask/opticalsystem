@@ -59,7 +59,7 @@ public enum FftMtfDataType
     SquareWave
 }
 
-public static class DiffractionEngine
+public static partial class DiffractionEngine
 {
     public static MtfResult LimitFrequency(MtfResult result, double? maximumFrequency)
     {
@@ -184,6 +184,21 @@ public static class DiffractionEngine
         double imageDelta = 0,
         bool ignoreScalarTransmission = false)
     {
+        return ComputeFftPsfCore(optic, field, wavelength, pupilSampling, gridSize, usePolarization,
+            cellCenteredPupil, defocusMillimeters, preparedWavefront, preparedPolarization,
+            zemaxFftSampling, ignoreOpd, aimAtStop, referenceWavelength, imageDelta,
+            ignoreScalarTransmission, out _);
+    }
+
+    private static PsfResult ComputeFftPsfCore(
+        Optic optic, (double Hx, double Hy) field, Wavelength wavelength, int pupilSampling, int gridSize,
+        bool usePolarization, bool cellCenteredPupil, double defocusMillimeters,
+        WavefrontResult? preparedWavefront, JonesPupilResult? preparedPolarization,
+        bool zemaxFftSampling, bool ignoreOpd, bool? aimAtStop, Wavelength? referenceWavelength,
+        double imageDelta, bool ignoreScalarTransmission, out Complex[,] complexPupil,
+        WavefrontReferenceSphere? referenceSphere = null,
+        PupilGridSpecification? explicitPupilGrid = null)
+    {
         AnalysisResourceLimits.ValidateFftGrid(pupilSampling, gridSize);
 
         var pupilAimAtStop = aimAtStop ?? optic.RayAimingEnabled;
@@ -230,16 +245,19 @@ public static class DiffractionEngine
             if (Math.Abs(pupilGridStretch - automaticStretch) <= 1e-14 * automaticStretch)
                 pupilGridStretch = automaticStretch;
         }
-        var grid = new PupilGridSpecification(pupilSampling, cellCenteredPupil, zemaxFftSampling, pupilGridStretch);
+        if (explicitPupilGrid is not null) pupilGridStretch = explicitPupilGrid.Stretch;
+        var grid = explicitPupilGrid ?? new PupilGridSpecification(pupilSampling, cellCenteredPupil, zemaxFftSampling, pupilGridStretch);
         var currentSource = preparedWavefront is not null || (usePolarization && preparedPolarization is not null)
             ? PupilSourceIdentity.Capture(optic) : null;
         if (zemaxFftSampling && imageDelta > 0)
         {
             if (!double.IsFinite(pupilGridStretch) || pupilGridStretch <= 0)
                 throw new InvalidOperationException("FFT image delta cannot produce a finite pupil grid.");
-            if (grid.Coordinate(0) > -1 + 1e-12 || grid.Coordinate(pupilSampling - 1) < 1 - 1e-12)
+            if (grid.Coordinate(0) > -1 + 1e-12 || grid.Coordinate(pupilSampling - 1) < 1 - 1e-12
+                || grid.YCoordinate(0) > -1 + 1e-12 || grid.YCoordinate(pupilSampling - 1) < 1 - 1e-12)
                 throw new InvalidOperationException("FFT image delta is too large: the sampling grid does not cover the full pupil.");
-            if (Enumerable.Range(0, pupilSampling).Count(i => Math.Abs(grid.Coordinate(i)) <= 1) < 2)
+            if (Enumerable.Range(0, pupilSampling).Count(i => Math.Abs(grid.Coordinate(i)) <= 1) < 2
+                || Enumerable.Range(0, pupilSampling).Count(i => Math.Abs(grid.YCoordinate(i)) <= 1) < 2)
                 throw new InvalidOperationException("FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction.");
         }
         if (preparedWavefront is not null)
@@ -253,7 +271,7 @@ public static class DiffractionEngine
             for (var row = 0; row < pupilSampling; row++)
                 for (var column = 0; column < pupilSampling; column++)
                 {
-                    var x = grid.Coordinate(column); var y = grid.Coordinate(row);
+                    var x = grid.Coordinate(column); var y = grid.YCoordinate(row);
                     if (x * x + y * y <= 1) expectedNodes.Add((x, y));
                 }
             if (preparedWavefront.Samples.Count != expectedNodes.Count
@@ -269,19 +287,11 @@ public static class DiffractionEngine
                 || preparedPolarization.Samples.Count != pupilSampling * pupilSampling
                 || preparedPolarization.Samples.Where((sample, index) =>
                     sample.Px != grid.Coordinate(index % pupilSampling)
-                    || sample.Py != grid.Coordinate(index / pupilSampling)).Any())
+                    || sample.Py != grid.YCoordinate(index / pupilSampling)).Any())
                 throw new InvalidOperationException("FFT PSF prepared polarization nodes, coating or bulk-absorption model do not match the computation request.");
         }
-        var wavefront = preparedWavefront ?? WavefrontEngine.GenerateChiefRayUniform(
-            optic,
-            field,
-            wavelength,
-            pupilSampling,
-            cellCenteredPupil,
-            aimAtStop: pupilAimAtStop,
-            pupilGridStretch: pupilGridStretch,
-            zemaxCentered: zemaxFftSampling,
-            referenceWavelength: referenceWavelength);
+        var wavefront = preparedWavefront ?? WavefrontEngine.GenerateChiefRayGrid(
+            optic, field, wavelength, grid, pupilAimAtStop, referenceWavelength, referenceSphere);
         if (ignoreScalarTransmission && !usePolarization && preparedWavefront is null)
         {
             // The frozen native scalar FFT captures exclude transmission when
@@ -330,6 +340,7 @@ public static class DiffractionEngine
             pupilGridStretch,
             ignoreOpd,
             zemaxCentered: zemaxFftSampling);
+        complexPupil = pupil;
 
         var nonzeroCount = pupil.Cast<Complex>().Count(value => value.Magnitude > 0);
         if (nonzeroCount == 0)
@@ -400,9 +411,11 @@ public static class DiffractionEngine
                 throw new InvalidOperationException($"FFT PSF pupil aiming mismatch. Regenerate the prepared wavefront and polarization with the requested aiming ({pupilAimAtStop}).");
             if (sourceField != field || sourceWavelength != wavelength.Nanometers
                 || preparedGrid is null || preparedGrid.SampleCount != grid.SampleCount
+                || preparedGrid.UseCachedFftStopMap != grid.UseCachedFftStopMap
                 || !double.IsFinite(preparedGrid.Stretch) || preparedGrid.Stretch <= 0
                 || Enumerable.Range(0, pupilSampling).Any(index =>
-                    Math.Abs(preparedGrid.Coordinate(index) - grid.Coordinate(index)) > 1e-12))
+                    Math.Abs(preparedGrid.Coordinate(index) - grid.Coordinate(index)) > 1e-12
+                    || Math.Abs(preparedGrid.YCoordinate(index) - grid.YCoordinate(index)) > 1e-12))
                 throw new InvalidOperationException($"FFT PSF prepared {component} field, wavelength or pupil grid does not match the computation request.");
         }
     }
@@ -899,8 +912,7 @@ public static class DiffractionEngine
         return wavefront with { Samples = samples };
 
         (int Column, int Row) Index(WavefrontSample sample) => (
-            (int)Math.Round(sample.NormalizedPupilX / grid.Stretch * (grid.SampleCount / 2d - 1) + grid.SampleCount / 2d),
-            (int)Math.Round(sample.NormalizedPupilY / grid.Stretch * (grid.SampleCount / 2d - 1) + grid.SampleCount / 2d));
+            grid.ColumnIndex(sample.NormalizedPupilX), grid.RowIndex(sample.NormalizedPupilY));
         static bool Illuminated(WavefrontSample sample) => sample.Intensity > 0 && double.IsFinite(sample.OpdWaves);
     }
 
@@ -920,10 +932,11 @@ public static class DiffractionEngine
         var pupil = new Complex[pupilSampling, pupilSampling];
         var valid = wavefront.Samples.Where(sample => sample.Intensity > 0).ToArray();
         var meanIntensity = valid.Select(sample => sample.Intensity).DefaultIfEmpty(0).Average();
+        var sourceGrid = wavefront.PupilGrid;
         foreach (var sample in wavefront.Samples)
         {
-            var column = PupilIndex(sample.NormalizedPupilX);
-            var row = PupilIndex(sample.NormalizedPupilY);
+            var column = sourceGrid?.ColumnIndex(sample.NormalizedPupilX) ?? PupilIndex(sample.NormalizedPupilX);
+            var row = sourceGrid?.RowIndex(sample.NormalizedPupilY) ?? PupilIndex(sample.NormalizedPupilY);
             var relativeIntensity = meanIntensity <= 1e-30 ? 0 : sample.Intensity / meanIntensity;
             if (polarization is not null)
             {
@@ -1297,8 +1310,11 @@ public static class DiffractionEngine
                 imageSize,
                 WorkingFNumber(optic, field, wavelength, aimAtStop),
                 pixelPitchMillimeters,
-                SampleSpacingUnit: AnalysisAxisUnit.Milliradian) { UseRayAiming = aimAtStop,
-                    HuygensPolarization = usePolarization ? HuygensPolarizationMode.LegacyScalarApproximation : HuygensPolarizationMode.None };
+                SampleSpacingUnit: AnalysisAxisUnit.Milliradian)
+            {
+                UseRayAiming = aimAtStop,
+                HuygensPolarization = usePolarization ? HuygensPolarizationMode.LegacyScalarApproximation : HuygensPolarizationMode.None
+            };
         }
 
         var imageCoordinates = CreateHuygensImageCoordinatesAtCenter(optic, field, referenceWavelength ?? wavelength,
@@ -1350,8 +1366,11 @@ public static class DiffractionEngine
             numRays,
             imageSize,
             WorkingFNumber(optic, field, wavelength, aimAtStop),
-            pixelPitchMillimeters * 1000.0) { UseRayAiming = aimAtStop,
-                HuygensPolarization = usePolarization ? HuygensPolarizationMode.LegacyScalarApproximation : HuygensPolarizationMode.None };
+            pixelPitchMillimeters * 1000.0)
+        {
+            UseRayAiming = aimAtStop,
+            HuygensPolarization = usePolarization ? HuygensPolarizationMode.LegacyScalarApproximation : HuygensPolarizationMode.None
+        };
     }
 
     private static IReadOnlyList<PupilSample> HuygensPupilSamples(int count)
@@ -1362,12 +1381,12 @@ public static class DiffractionEngine
         var limit = nativeGrid ? 1 - .5 / radius : 1;
         var samples = new List<PupilSample>();
         for (var row = 0; row < count; row++)
-        for (var column = 0; column < count; column++)
-        {
-            var x = nativeGrid ? (column - count / 2d) / radius : -1 + 2d * column / (count - 1);
-            var y = nativeGrid ? (row - count / 2d) / radius : -1 + 2d * row / (count - 1);
-            if (x * x + y * y <= limit * limit) samples.Add(new(x, y, 1));
-        }
+            for (var column = 0; column < count; column++)
+            {
+                var x = nativeGrid ? (column - count / 2d) / radius : -1 + 2d * column / (count - 1);
+                var y = nativeGrid ? (row - count / 2d) / radius : -1 + 2d * row / (count - 1);
+                if (x * x + y * y <= limit * limit) samples.Add(new(x, y, 1));
+            }
         return samples;
     }
 
@@ -1395,7 +1414,9 @@ public static class DiffractionEngine
             // Native Unpolarized mode averages the two transported input powers
             // before the scalar Huygens sum. It does not retain their XYZ fields.
             // Source illumination, coating and bulk attenuation enter exactly once.
-            return result with { Samples = result.Samples.Select(sample =>
+            return result with
+            {
+                Samples = result.Samples.Select(sample =>
             {
                 if (sample.Intensity <= 0) return sample;
                 var source = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(sourceField.Hx, sourceField.Hy,
@@ -1405,7 +1426,8 @@ public static class DiffractionEngine
                 var intensity = diagnostic.InsideAllApertures ? diagnostic.UnpolarizedIntensity
                     ?? throw new InvalidOperationException("Missing unpolarized pupil power.") : 0;
                 return sample with { Intensity = intensity };
-            }).ToArray() };
+            }).ToArray()
+            };
         }
         var wavefront = Wavefront(field);
         // Transmission-weighted Strehl uses the unaberrated pupil of this
@@ -1504,9 +1526,12 @@ public static class DiffractionEngine
             }
         }
         return new(values, pupilSampling, imageSize, WorkingFNumber(optic, field, wavelength, aimAtStop), pitch * 1000)
-            { UseRayAiming = aimAtStop, FiniteCellHuygensUsed = true,
-                HuygensPolarization = coherentVector ? HuygensPolarizationMode.CoherentXyz
-                : useUnpolarizedPower ? HuygensPolarizationMode.UnpolarizedMeanPower : HuygensPolarizationMode.None };
+        {
+            UseRayAiming = aimAtStop,
+            FiniteCellHuygensUsed = true,
+            HuygensPolarization = coherentVector ? HuygensPolarizationMode.CoherentXyz
+                : useUnpolarizedPower ? HuygensPolarizationMode.UnpolarizedMeanPower : HuygensPolarizationMode.None
+        };
 
         static double Sinc(double argument) => Math.Abs(argument) < 1e-8
             ? 1 - argument * argument / 6 : Math.Sin(argument) / argument;
@@ -1714,37 +1739,7 @@ public static class DiffractionEngine
         bool strict = false)
     {
         axes = default;
-        var pupil = new[]
-        {
-            (0.0, 0.0),
-            (0.0, pupilZone),
-            (0.0, -pupilZone),
-            (pupilZone, 0.0),
-            (-pupilZone, 0.0)
-        };
-        var directions = new Vector3D[pupil.Length];
-        for (var index = 0; index < pupil.Length; index++)
-        {
-            var item = pupil[index];
-            var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
-                field.Hx,
-                field.Hy,
-                item.Item1,
-                item.Item2,
-                wavelength.Micrometers,
-                aimAtStop);
-            // These probes define the diffraction coordinate scale, not pupil
-            // transmission. Wavefront/Jones sampling still applies every aperture.
-            var sample = optic.SequentialRayTracer.TraceToSurface(
-                bundle.Rays.Single(),
-                optic.SurfaceGroup.Items.Count - 1);
-            if (sample is null || sample.Vignetted || sample.Intensity <= 0)
-            {
-                return false;
-            }
-
-            directions[index] = sample.Direction;
-        }
+        if (!TryWorkingPupilDirections(optic, field, wavelength, aimAtStop, pupilZone, out var directions)) return false;
         var chief = directions[0];
         var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter.RefractiveIndex(wavelength.Nanometers);
         double DirectionalFNumber(IEnumerable<Vector3D> marginalDirections)
@@ -1782,6 +1777,43 @@ public static class DiffractionEngine
         return true;
     }
 
+    private static bool TryWorkingPupilDirections(Optic optic, (double Hx, double Hy) field,
+        Wavelength wavelength, bool aimAtStop, double pupilZone, out Vector3D[] directions)
+    {
+        var pupil = new[]
+        {
+            (0.0, 0.0),
+            (0.0, pupilZone),
+            (0.0, -pupilZone),
+            (pupilZone, 0.0),
+            (-pupilZone, 0.0)
+        };
+        directions = new Vector3D[pupil.Length];
+        for (var index = 0; index < pupil.Length; index++)
+        {
+            var item = pupil[index];
+            var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
+                field.Hx,
+                field.Hy,
+                item.Item1,
+                item.Item2,
+                wavelength.Micrometers,
+                aimAtStop);
+            // These probes define the diffraction coordinate scale, not pupil
+            // transmission. Wavefront/Jones sampling still applies every aperture.
+            var sample = optic.SequentialRayTracer.TraceToSurface(
+                bundle.Rays.Single(),
+                optic.SurfaceGroup.Items.Count - 1);
+            if (sample is null || sample.Vignetted || sample.Intensity <= 0)
+            {
+                return false;
+            }
+
+            directions[index] = sample.Direction;
+        }
+        return true;
+    }
+
     /// <summary>Shared unshifted DFT; inverse includes the 1/N² normalization.</summary>
     internal static void FourierTransform2D(Complex[,] data, bool inverse = false)
     {
@@ -1791,13 +1823,13 @@ public static class DiffractionEngine
         AnalysisResourceLimits.ValidateFftGrid(size, size);
         if (inverse)
             for (var row = 0; row < size; row++)
-            for (var column = 0; column < size; column++)
-                data[row, column] = Complex.Conjugate(data[row, column]);
+                for (var column = 0; column < size; column++)
+                    data[row, column] = Complex.Conjugate(data[row, column]);
         Fft2D(data);
         if (inverse)
             for (var row = 0; row < size; row++)
-            for (var column = 0; column < size; column++)
-                data[row, column] = Complex.Conjugate(data[row, column]) / ((double)size * size);
+                for (var column = 0; column < size; column++)
+                    data[row, column] = Complex.Conjugate(data[row, column]) / ((double)size * size);
     }
 
     private static void Fft2D(Complex[,] data)

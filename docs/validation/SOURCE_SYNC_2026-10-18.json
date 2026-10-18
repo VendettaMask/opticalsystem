@@ -1,0 +1,604 @@
+{
+  "Remote": "origin",
+  "VerifiedDefaultOutputs": [
+    {
+      "configuration": "Release",
+      "warnings": 0,
+      "coreCopies": [
+        {
+          "path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "6696909ecf6b552ece4928bb507df9d0ced6cdd301305936ddc3fe80c848d8ad"
+        },
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "6696909ecf6b552ece4928bb507df9d0ced6cdd301305936ddc3fe80c848d8ad"
+        },
+        {
+          "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "6696909ecf6b552ece4928bb507df9d0ced6cdd301305936ddc3fe80c848d8ad"
+        },
+        {
+          "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "6696909ecf6b552ece4928bb507df9d0ced6cdd301305936ddc3fe80c848d8ad"
+        },
+        {
+          "path": "tools/OpticalSystemDesign.ZemaxComparison/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "6696909ecf6b552ece4928bb507df9d0ced6cdd301305936ddc3fe80c848d8ad"
+        }
+      ],
+      "projects": 19,
+      "logSha256": "6b7ba6ca194fa0bb5b6b7843f0f20dd112912c6917b97dbb010d892f4ba1944d",
+      "errors": 0
+    },
+    {
+      "configuration": "Debug",
+      "warnings": 0,
+      "coreCopies": [
+        {
+          "path": "src/OpticalSystemDesign.Core/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "c95fb712f72b1f4021adf43ae454da19a73b60d81e6576dd6f90fd51fc229600"
+        },
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "c95fb712f72b1f4021adf43ae454da19a73b60d81e6576dd6f90fd51fc229600"
+        },
+        {
+          "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "c95fb712f72b1f4021adf43ae454da19a73b60d81e6576dd6f90fd51fc229600"
+        },
+        {
+          "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "c95fb712f72b1f4021adf43ae454da19a73b60d81e6576dd6f90fd51fc229600"
+        },
+        {
+          "path": "tools/OpticalSystemDesign.ZemaxComparison/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "c95fb712f72b1f4021adf43ae454da19a73b60d81e6576dd6f90fd51fc229600"
+        }
+      ],
+      "projects": 19,
+      "logSha256": "d1744a22daf8a69da7a077dd0ddd41daf8d3903a0b0447149423299b8c92dc92",
+      "errors": 0
+    }
+  ],
+  "Checks": {
+    "NewNumericalOrBuildRuns": false,
+    "NativeFixturesVerified": 19,
+    "ExecutableSourceAndTestStatementsUnchanged": true,
+    "VerifiedDefaultOutputsUnchanged": true,
+    "ArchivesVerified": 26,
+    "VerifiedSourcesAndDefaultOutputsUnchanged": false,
+    "ExistingTrackedReferenceChanges": 0
+  },
+  "Scope": "Synchronize accumulated image safety, partially coherent propagation, numerical stability, cumulative diffraction energy and imported curvature solve repairs, their tests and all scoped evidence",
+  "FetchedRemoteBeforeCommit": "cfcf7aeadb9c359fd18b8f2862527c29af8bf348",
+  "GitLfs": {
+    "Bytes": 138555767,
+    "CheckoutRequirement": "git lfs pull when LFS smudge is disabled or Git LFS is not installed",
+    "OriginalArchiveBytesUnchanged": true,
+    "Path": "validation/repairs/2026-10-18/relay-stop-branch-repair-evidence.zip",
+    "ObjectSha256": "0607d2ef5bffbd983405a29be9aa2afb4164dc4ca520a501152e3aabf5b35431"
+  },
+  "FrozenArchives": [
+    {
+      "bytes": 728012,
+      "sha256": "a137625a22a2e7e333f637b17e2117b3602569add648b60445e09f8782d3e83d",
+      "path": "validation/repairs/2026-10-16/illumination-finite-grid-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 1053823,
+      "sha256": "bcd5df8b59d0e7437c906503e4b4cbfc514fbe032f09f90595236a845c2657bb",
+      "path": "validation/repairs/2026-10-16/illumination-inverse-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 307583,
+      "sha256": "e452e029523ac4c2a0f806a07fe3a4a05920371ff797a04de4d503e81bfc2a6c",
+      "path": "validation/repairs/2026-10-16/native-diffraction-adapter-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 285919,
+      "sha256": "042f1a564379bad9b1be57e5f2c9f8139616f9327074fcfabbbcee9437987a65",
+      "path": "validation/repairs/2026-10-17/image-psf-safety-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 280669,
+      "sha256": "22daf84d477f762a2129d8a7d2c56a9c60f1ce0ac8de88ec0156b19672b3473c",
+      "path": "validation/repairs/2026-10-17/image-sampling-statistics-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 552110,
+      "sha256": "f52185274a24079ff411fcbf1bf42be2bec7e19200767950d9fd707931b5653d",
+      "path": "validation/repairs/2026-10-17/partial-coherence-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 7295194,
+      "sha256": "432e35047887f0f4f83b562e05f3838c8cd45d6a810b5e3aaff6b84c00ed6ba4",
+      "path": "validation/repairs/2026-10-17/partial-coherence-finite-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 5065934,
+      "sha256": "4efbe05188d84348745dfb35c416b5e3f17d789d9bd8f06e9816d171ab70a402",
+      "path": "validation/repairs/2026-10-17/partial-coherence-native-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 15419,
+      "sha256": "252b9e2c236698a57130e82da28aba409fff10403fa5ff061d3e33f63b7aedd9",
+      "path": "validation/repairs/2026-10-17/product-image-audit-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 29735668,
+      "sha256": "6d20e7c74ab3903089e12393c1ec0e94278c680fb0fe91cee12cae128e762cdf",
+      "path": "validation/repairs/2026-10-18/apochromat-128-energy-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 10357800,
+      "sha256": "c0c5e507689e6d8acccd869a2d77c56a622e5b61ba3f15cc31825b00ac4b5b98",
+      "path": "validation/repairs/2026-10-18/coherence-numerical-stability-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 77904505,
+      "sha256": "93dc10c84a2f68743ba02ccfc5ebe6118864fdd45e13c5b29f928822e119baf2",
+      "path": "validation/repairs/2026-10-18/expanded-sampling-energy-repair-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 43935770,
+      "sha256": "b8bb3826ec39be0a487f186de062ec0f1f3e143a98fc682d41e40c3243f61597",
+      "path": "validation/repairs/2026-10-18/fft-cumulative-boundary-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 33297083,
+      "sha256": "0668c99fa3c1ac2a6b11f7405c349b6df6a7775a928db7442913fc1b7437dfbe",
+      "path": "validation/repairs/2026-10-18/fnum-perturbation-energy-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 34924865,
+      "sha256": "72fd0b404fa2e44aa2f3b778c9d1b64923b78c069860ac8de0adcbbde821eac6",
+      "path": "validation/repairs/2026-10-18/high-sampling-energy-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 43313080,
+      "sha256": "53967af666b04e0f1857a02a1fd3f77c979c048059dbcb68e7d529fc84cb9343",
+      "path": "validation/repairs/2026-10-18/multi-lens-dee-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 54689869,
+      "sha256": "259e7c8766b6edc49b780d080b77f494ddd6e101650cfb778d62f2df396da706",
+      "path": "validation/repairs/2026-10-18/offner-128-energy-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 47535814,
+      "sha256": "02d196c5351cedebaf9d8a9271ac0dfc350dc1f433c229857ee8ee4c15652984",
+      "path": "validation/repairs/2026-10-18/offner-decenter-128-energy-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 14589864,
+      "sha256": "48e30bd1b3a27f70a03e9cfa66401aa141f43241de2c54a081d5f2bd4fd05413",
+      "path": "validation/repairs/2026-10-18/partial-coherence-psf-window-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 46847761,
+      "sha256": "3ae8a97b1fc33dee1f1df8664ee8c252e8e0c9f6c1d4c2adcf480c13b10d8e68",
+      "path": "validation/repairs/2026-10-18/polychromatic-128-boundary-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 46555308,
+      "sha256": "f42c089e89a12cfef9937bd4117ea02fc2271f966fb106b547bafd9efa41599e",
+      "path": "validation/repairs/2026-10-18/polychromatic-128-energy-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 40656245,
+      "sha256": "e7c208adb8ea54373a393743503e1976c38caff12c6ada3a6847907c740978e5",
+      "path": "validation/repairs/2026-10-18/polychromatic-energy-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 45038678,
+      "sha256": "113f51eb72f81431d784f85502e68fc77fa405131b6d2bc8f96602f0d5df7d90",
+      "path": "validation/repairs/2026-10-18/relay-64-w3-aiming-diagnosis-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 49774093,
+      "sha256": "2a50142892d2fa4cf31d8f879954c9dcbf713a140acc9d55ea9c6d083bd16ac8",
+      "path": "validation/repairs/2026-10-18/relay-64-w3-energy-repair-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 46304670,
+      "sha256": "e457785d81142f4f4855e9af11aa436f6a230cf552bdd2726dcb61ca2026d35e",
+      "path": "validation/repairs/2026-10-18/relay-64-w3-residual-diagnosis-evidence.zip",
+      "gitLfs": false
+    },
+    {
+      "bytes": 138555767,
+      "sha256": "0607d2ef5bffbd983405a29be9aa2afb4164dc4ca520a501152e3aabf5b35431",
+      "path": "validation/repairs/2026-10-18/relay-stop-branch-repair-evidence.zip",
+      "gitLfs": true
+    }
+  ],
+  "EndOfFileFormattingChanges": [
+    {
+      "beforeSha256": "350e9feb6033b114133eb615f722a17ef582fe5ef9b27cf720c90ac599be7cd9",
+      "afterSha256": "b55552b01b408d66bebb885ad72a1454cfce0bbc30bece67af130dead7be1077",
+      "path": "tests/OpticalSystemDesign.Tests/FiniteFftAimingEnergyTests.cs",
+      "onlyFinalLineTerminatorsChanged": true
+    },
+    {
+      "beforeSha256": "980151b12be866d4be47b31b2df5c12e9e775f1524df10686cc4acda5e48e24b",
+      "afterSha256": "16ae5a5b6efcbf0574608a2662e80b74052d48283b156cddd2d552aa2bae0d2a",
+      "path": "tests/OpticalSystemDesign.Tests/HighSamplingPolychromaticEnergyTests.cs",
+      "onlyFinalLineTerminatorsChanged": true
+    },
+    {
+      "beforeSha256": "5de750859f999a55f8fa336ab5a17d8aab1861d28ce9c63fd3ed2336a4d20f10",
+      "afterSha256": "cfc7943b747f881edcc79761508713cd3573d3a8e8ac9c76cd6fd3eabbcb1bf3",
+      "path": "tests/OpticalSystemDesign.Tests/Offner128EnergyTests.cs",
+      "onlyFinalLineTerminatorsChanged": true
+    },
+    {
+      "beforeSha256": "baff83c054fef60d7eeb9cc120757a56716f214a6b0fb093850ae55bdd10fbac",
+      "afterSha256": "f3ce56d847131166f0fc3d94ec48bf497da779ca76dd5572e7b71d3fe1a93d5c",
+      "path": "tests/OpticalSystemDesign.Tests/OffnerDecenter128EnergyTests.cs",
+      "onlyFinalLineTerminatorsChanged": true
+    },
+    {
+      "beforeSha256": "272c012d3db269790f7535e3ab427b23b401c99173765a2c91c4acf299a93055",
+      "afterSha256": "991e6f26fbbe92688608f0c36d58e44d934e382a79f5eceac6bcb911be0970f1",
+      "path": "tests/OpticalSystemDesign.Tests/Polychromatic128BoundaryEnergyTests.cs",
+      "onlyFinalLineTerminatorsChanged": true
+    },
+    {
+      "beforeSha256": "2cb98a04abd3a8cf639c2e73aaad346c758318d2638ff0b3b93064b6ef84a43b",
+      "afterSha256": "9c4c73540c2eb411d59723785da6ed0989e26e7f1a87c57ef331a2da2f98a902",
+      "path": "tests/OpticalSystemDesign.Tests/PolychromaticCumulativeEnergyTests.cs",
+      "onlyFinalLineTerminatorsChanged": true
+    }
+  ],
+  "CommitIdentity": "The containing Git commit; successful normal push and final remote identity are verified afterward and reported in the synchronization conversation",
+  "SourceBaseCommit": "cfcf7aeadb9c359fd18b8f2862527c29af8bf348",
+  "ExpectedChangePaths": 143,
+  "AheadBehindBeforeCommit": {
+    "Behind": 0,
+    "Ahead": 0
+  },
+  "SourceVerificationLedger": "docs/validation/EXPANDED_SAMPLING_ENERGY_REPAIR_2026-10-18.json",
+  "LocalAuditDirectory": "artifacts/validation/source-sync-20261018",
+  "Repository": "https://github.com/VendettaMask/opticalsystem.git",
+  "FormattingBoundary": "Six newly staged test files lost only surplus final line terminators to pass the default staged whitespace check. Original source bytes and their executed test evidence remain frozen in dated repair archives; no test statement, assertion or product code changed and no tests were rerun for this formatting cleanup.",
+  "FrozenNativeFixtures": [
+    {
+      "sha256": "fe1915b4c23c3f9759e14b600693ccbabc4a9e20202c348da15739ec500b97ff",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-apochromat128-zemax-2026-r1.zip"
+    },
+    {
+      "sha256": "5b6f68b5eda124cb0e228a89565f5267a0ad6896670644786b79488cfa2318d9",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-boundary-perturb-zemax-2026-r1.zip"
+    },
+    {
+      "sha256": "e612a75ba0fd374c43b141d67d9fe0e23c678fee0354225ef066f0aa41513940",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-directional-zemax-2026-r1.zip"
+    },
+    {
+      "sha256": "cf131b20203fd59c899351a9da8d88859892efab4be07f2c3ad311e907f17688",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-expanded-zemax-2026-r1.zip"
+    },
+    {
+      "sha256": "3e54167da64521bda26810e1ad9048be40d45bcdbdb952a9f03cf65215aaa251",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-finite-aiming-zemax-2026-r1.zip"
+    },
+    {
+      "sha256": "cf5c3b1df0b22f876d5885f9f7a26538fac9336ee681e3dab666ba26a4e9c387",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-fnum-perturb-zemax-2026-r1.zip"
+    },
+    {
+      "sha256": "db1d4a91a82c7abde24de941f66658f20c5225170bafae973a0929aebe1f307a",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-offner-decenter128-zemax-2026-r1.zip"
+    },
+    {
+      "sha256": "1eaf3e4dd7cb7df527f6e326894e31938e96b1eda399b3998b21659a61ec194d",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-offner128-zemax-2026-r1.zip"
+    },
+    {
+      "sha256": "007c7b891652cc15d5bf91143291f4f41be80d2c5a6a40f5c1ae24297e97a703",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-perturb128-zemax-2026-r1.zip"
+    },
+    {
+      "sha256": "359b239e996e40222624786e1fe1b2f2eed8d43c33dde89e9ec27c9d27c9cb61",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-poly128-boundary-zemax-2026-r1.zip"
+    },
+    {
+      "sha256": "6091e0f13f66434087e5aaba5c450b6458d87a1a0075a5adf851cdaeb8503413",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-polychromatic-zemax-2026-r1.zip"
+    },
+    {
+      "sha256": "e9393b93f0b4b1e30c04385eacc5a1fe6fb02f97b95ced652cb637172aacd6e9",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-polychromatic128-zemax-2026-r1.zip"
+    },
+    {
+      "sha256": "0b7d2a683d86667335a01a2b873343100711255d52908c73a0d695c03274f85f",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-stop-branch-holdout-zemax-2026-r1.zip"
+    },
+    {
+      "sha256": "b5f27bef5322fad72f6092826f29397aa82e94118a8ab54d94479158889477a0",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/fft-cumulative-stop-branch-zemax-2026-r1.zip"
+    },
+    {
+      "sha256": "bf561676bdda9655a719c2cd2604c591e9f9cfab1bd4e3b15f43d97f0f5f4677",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/multi-lens-dee-zemax-2026-r1.zip"
+    },
+    {
+      "sha256": "760720d655352ff36a1bd813ab2aab083a00302d0568dbe28778dec930a0e5a6",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/partial-coherence-finite-zemax-2026-r1.json"
+    },
+    {
+      "sha256": "c1a0b905a6ab7f74ca02d4407dfeb97b27f088466e988fbed4abcb6ae753f7f4",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/partial-coherence-psf-window-zemax-2026-r1.zip"
+    },
+    {
+      "sha256": "791dd29a4aeae2ec6cd522c6e647f0843b0eaef3fdfc53ec15e75d51967f18d2",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/partial-coherence-sampling-boundary-zemax-2026-r1.zip"
+    },
+    {
+      "sha256": "884b68907ae76f4e560397957724e4d20be54c84550231dc564bce63e52bac14",
+      "path": "tests/OpticalSystemDesign.Tests/Fixtures/partial-coherence-zemax-2026-r1.json"
+    }
+  ],
+  "Branch": "main",
+  "NumericalVerification": {
+    "OriginalEnergyLimit": 1E-08,
+    "FormalPasses": 165,
+    "NewMaximumNrmse": 5.613938329239332E-10,
+    "ReleaseRelatedPassed": 1148,
+    "ComparisonPassedPerConfiguration": 5,
+    "NewNativeCases": 30,
+    "TolerancesAndReferencesUnchanged": true,
+    "DebugFocusedPassed": 435
+  },
+  "GitAttributes": "Raw native JSON fixtures and newly frozen dated verification ledgers use -text; only the named large archive uses LFS. Existing frozen bytes are retained.",
+  "VerifiedCSharpFiles": [
+    {
+      "sha256": "c5a50dd22482417bf5d98e14397e473f3183b29ca76e8a3bf71496de71247c11",
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs"
+    },
+    {
+      "sha256": "d98703a55772f957818e4821300aea4a19c9a69103b5a35853225bf24bc5c6e9",
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs"
+    },
+    {
+      "sha256": "6dcb8bb1ee07a2a1aa8275ed61d749f1ab8004df81f91ee7c135bfde8032d1e1",
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Localization.cs"
+    },
+    {
+      "sha256": "4e32db69d911604fd22fa2e4abb364860843f0009ef6af54514a7332898aab95",
+      "path": "src/OpticalSystemDesign.Core/Analysis/AnalysisResourceLimits.cs"
+    },
+    {
+      "sha256": "1e9a7a4523e4063ac45b96361e449a0f45ff6a5915a70f2ab158121ba406abc7",
+      "path": "src/OpticalSystemDesign.Core/Analysis/CoherentImagingDiagnostics.cs"
+    },
+    {
+      "sha256": "349e86d97eaaa6bf67d5a1b4ccecb578143e1dab92162db431a055831826290c",
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.CoherentImaging.cs"
+    },
+    {
+      "sha256": "414a1727a004765493e5c0a1ec03d1dd792e4539973137fa087a5a951a09421f",
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs"
+    },
+    {
+      "sha256": "e755f5acbedc457cd4d37e8662e0890bc2f71453c68fc19b467b47ec525912a6",
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.CumulativeEnergy.cs"
+    },
+    {
+      "sha256": "0b6531b954590a6c32888bcaa68efa0017352f50f00d87ba5f186dc19df160e8",
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.CumulativeEnergy.Numerics.cs"
+    },
+    {
+      "sha256": "ff0ba9d4491ecba3505c4d7e51f8954397288146ba7f1c680506435990cbac88",
+      "path": "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.CumulativeEnergy.Reference.cs"
+    },
+    {
+      "sha256": "7944e4270e5173ead78acf718e88f6d9aa355f2c6cd7f5537eec1a149c5680a0",
+      "path": "src/OpticalSystemDesign.Core/Analysis/Extended/ExtendedSceneImageAnalyses.cs"
+    },
+    {
+      "sha256": "6ae9886c63133aad895a3e6c9d57f3abe8d85b92cfbb558e4bebfe4adbb517e6",
+      "path": "src/OpticalSystemDesign.Core/Analysis/Extended/ImageAndPolarizationAnalyses.cs"
+    },
+    {
+      "sha256": "5fd010e771e7a1cb8348c79c5f0bd0314b6f9316f7043ae2faeb6799251b41d7",
+      "path": "src/OpticalSystemDesign.Core/Analysis/ImageSimulationEngine.cs"
+    },
+    {
+      "sha256": "9f3c4eef70b75e97f629dc0b5aa2fefd55eb2ee3a6af7a88919ca308d8bdd55f",
+      "path": "src/OpticalSystemDesign.Core/Analysis/ImageSimulationEngine.Intensity.cs"
+    },
+    {
+      "sha256": "31588a9d9d488de2cce264a57ac471c7278047c72ac757ef65461d7fcfc26937",
+      "path": "src/OpticalSystemDesign.Core/Analysis/ImageSimulationEngine.Sampling.cs"
+    },
+    {
+      "sha256": "db926a1fff316906cde408ff8e2dd1058d265f078ce0c73ea2937872321335ee",
+      "path": "src/OpticalSystemDesign.Core/Analysis/MutualIntensityEngine.cs"
+    },
+    {
+      "sha256": "1d54d30abf9c6c77396b69b51cc2c4792a106cf96745a79defde13acd939072e",
+      "path": "src/OpticalSystemDesign.Core/Analysis/MutualIntensityEngine.Numerics.cs"
+    },
+    {
+      "sha256": "b5690d42bc5d3ae9c89741e8e376ad6bd20777e4c1af8ab59b3043a99a25261d",
+      "path": "src/OpticalSystemDesign.Core/Analysis/MutualIntensityEngine.Spatial.cs"
+    },
+    {
+      "sha256": "0c46024d1913be798dd29039095a4f294799214d7ed8d2aef3348a4845cc9105",
+      "path": "src/OpticalSystemDesign.Core/Analysis/Radiometry/EncircledEnergyVariants.cs"
+    },
+    {
+      "sha256": "31b1e0fb02ff679f0b5d3d4f59094d36e7382402311e51788c4ecd9bf0583d98",
+      "path": "src/OpticalSystemDesign.Core/Analysis/WavefrontEngine.cs"
+    },
+    {
+      "sha256": "08809503886f1b5f1f5280048804ba0923298f8b5c9d0db43efe31394886eec1",
+      "path": "src/OpticalSystemDesign.Core/FileIO/CommercialFormatIO.cs"
+    },
+    {
+      "sha256": "ba85e79370e10987e17db60ff7b9220754ef1b5e5173089bdaa0e9e80a5992d2",
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxZmxReader.cs"
+    },
+    {
+      "sha256": "13089fd1b945c297709fae80441e321f90f3860057899ee17377691ccf84f860",
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxZmxReader.CurvatureSolves.cs"
+    },
+    {
+      "sha256": "6b559cfe54369bfe1a660057510b1920d08766c7aa3cadf3ddfa9f8beaedc5a2",
+      "path": "src/OpticalSystemDesign.Core/Raytrace/RayGenerator.FftAiming.cs"
+    },
+    {
+      "sha256": "c92cd0479d4e43d9815df5b67b6b103f6b0a1031702c86f23218775a7f130292",
+      "path": "tests/OpticalSystemDesign.Tests/Apochromat128EnergyTests.cs"
+    },
+    {
+      "sha256": "954188d589485e3e6f244c29ee1c66eb63965daa34c72bbe0e50bc9bd4c5402a",
+      "path": "tests/OpticalSystemDesign.Tests/AuditReliabilityFixTests.cs"
+    },
+    {
+      "sha256": "c90dcd8e0eaa7d3fb74efac1ce55b8a0d806c7f06fbb65e5ea831926c8d3043b",
+      "path": "tests/OpticalSystemDesign.Tests/CoherenceNumericalStabilityTests.cs"
+    },
+    {
+      "sha256": "bd3f40ac797e4f80644317a0f4176b55d0cc911caa86f8a76368aaf343901ebd",
+      "path": "tests/OpticalSystemDesign.Tests/CommercialReliabilityTests.cs"
+    },
+    {
+      "sha256": "cc525edd7067cef5cb8af3d271f18162b5a8161670d35bb912806a600386948c",
+      "path": "tests/OpticalSystemDesign.Tests/CumulativeEnergyBoundaryTests.cs"
+    },
+    {
+      "sha256": "24f39fc0413d3b2e44a4d4985828d9163deef637952a5ca0dc0f72d721dc4bc5",
+      "path": "tests/OpticalSystemDesign.Tests/CumulativeEnergyHighSamplingTests.cs"
+    },
+    {
+      "sha256": "73b4a7f9fdeb025af54b25d8b32001cfb76a268c28ddc36ed5dd2803734eb211",
+      "path": "tests/OpticalSystemDesign.Tests/ExpandedSamplingEnergyTests.cs"
+    },
+    {
+      "sha256": "3b90bc9c8e838eaa2cf09c60690c25d3b88b2536afa42b5762573709e70bddcf",
+      "path": "tests/OpticalSystemDesign.Tests/ExtendedImageAnalysisTests.cs"
+    },
+    {
+      "sha256": "6a64ff635d4725238745c5488aa1df9a168acd90c4c81b06a6abdc65b22a5dfa",
+      "path": "tests/OpticalSystemDesign.Tests/FftAimingStopBranchTests.cs"
+    },
+    {
+      "sha256": "b55552b01b408d66bebb885ad72a1454cfce0bbc30bece67af130dead7be1077",
+      "path": "tests/OpticalSystemDesign.Tests/FiniteFftAimingEnergyTests.cs"
+    },
+    {
+      "sha256": "7e42c41c5893686c4040bc2cef6e767dbcc25b94927bc53f6bf2e29acac51eea",
+      "path": "tests/OpticalSystemDesign.Tests/FiniteSpatialCoherenceNativeTests.cs"
+    },
+    {
+      "sha256": "4863d309a9c5a75aca41c5a53c568176896c75d5f33885babab6273539ada03b",
+      "path": "tests/OpticalSystemDesign.Tests/FNumberPerturbationEnergyTests.cs"
+    },
+    {
+      "sha256": "16ae5a5b6efcbf0574608a2662e80b74052d48283b156cddd2d552aa2bae0d2a",
+      "path": "tests/OpticalSystemDesign.Tests/HighSamplingPolychromaticEnergyTests.cs"
+    },
+    {
+      "sha256": "e6faeb1b3968afc57c4f368211f4de03966b152a5104e01e1c36c18fdd2ee142",
+      "path": "tests/OpticalSystemDesign.Tests/ImagePsfSafetyRepairTests.cs"
+    },
+    {
+      "sha256": "96278ea689720a05e18ab8b6f18b3992e66b6cf332d50dcd68816f11869ef1be",
+      "path": "tests/OpticalSystemDesign.Tests/ImageSamplingStatisticsRepairTests.cs"
+    },
+    {
+      "sha256": "a238c5eadadbae284cc1caa99c227229d2d9802e2dd5e0ae10f4fa55007ab2d5",
+      "path": "tests/OpticalSystemDesign.Tests/MultiLensEncircledEnergyTests.cs"
+    },
+    {
+      "sha256": "cfc7943b747f881edcc79761508713cd3573d3a8e8ac9c76cd6fd3eabbcb1bf3",
+      "path": "tests/OpticalSystemDesign.Tests/Offner128EnergyTests.cs"
+    },
+    {
+      "sha256": "f3ce56d847131166f0fc3d94ec48bf497da779ca76dd5572e7b71d3fe1a93d5c",
+      "path": "tests/OpticalSystemDesign.Tests/OffnerDecenter128EnergyTests.cs"
+    },
+    {
+      "sha256": "1c8a438dda2d4d89cb0508be82a13dfeac54d061c4a6d4ef16a5c4bee9b61faf",
+      "path": "tests/OpticalSystemDesign.Tests/PartiallyCoherentImagingTests.cs"
+    },
+    {
+      "sha256": "991e6f26fbbe92688608f0c36d58e44d934e382a79f5eceac6bcb911be0970f1",
+      "path": "tests/OpticalSystemDesign.Tests/Polychromatic128BoundaryEnergyTests.cs"
+    },
+    {
+      "sha256": "9c4c73540c2eb411d59723785da6ed0989e26e7f1a87c57ef331a2da2f98a902",
+      "path": "tests/OpticalSystemDesign.Tests/PolychromaticCumulativeEnergyTests.cs"
+    },
+    {
+      "sha256": "3c45434dd8ec98534d21ded76ed5d006815e114b636f50343b8e9b3a4b68bd9a",
+      "path": "tests/OpticalSystemDesign.Tests/PsfEnergyWindowNativeTests.cs"
+    },
+    {
+      "sha256": "0b7740443c7e41ed61e2aee5230b4b7ce5e562887f17c426b7bb33dbbd7c6721",
+      "path": "tests/OpticalSystemDesign.Tests/SpatialCoherenceNativeTests.cs"
+    },
+    {
+      "sha256": "ce7807675b593deab8ba5faf97ca1705d8d00db247d209d9f922d3f2e85884ab",
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/SlitEnergyNormalizationTests.cs"
+    },
+    {
+      "sha256": "0ab6a8fb139a73abb21893b1749aab9e60b9af1131ce8e8d74549eafd48e3c35",
+      "path": "tools/OpticalSystemDesign.ZemaxComparison/Normalization/ExtendedResultNormalizer.Energy.cs"
+    }
+  ],
+  "SourceVerificationLedgerSha256": "06d3a98c24441879debd90c02fdd0cb75a1439103ca4f6d3ce90db545e1f3311",
+  "VerificationLedgers": [
+    "docs/validation/APOCHROMAT_128_ENERGY_REPAIR_2026-10-18.json",
+    "docs/validation/COHERENCE_NUMERICAL_STABILITY_REPAIR_2026-10-18.json",
+    "docs/validation/EXPANDED_SAMPLING_ENERGY_REPAIR_2026-10-18.json",
+    "docs/validation/FFT_CUMULATIVE_BOUNDARY_REPAIR_2026-10-18.json",
+    "docs/validation/FNUMBER_PERTURBATION_ENERGY_REPAIR_2026-10-18.json",
+    "docs/validation/HIGH_SAMPLING_ENERGY_REPAIR_2026-10-18.json",
+    "docs/validation/IMAGE_PSF_SAFETY_REPAIR_2026-10-17.json",
+    "docs/validation/IMAGE_SAMPLING_STATISTICS_REPAIR_2026-10-17.json",
+    "docs/validation/MULTI_LENS_ENCIRCLED_ENERGY_REPAIR_2026-10-18.json",
+    "docs/validation/OFFNER_128_ENERGY_REPAIR_2026-10-18.json",
+    "docs/validation/OFFNER_DECENTER_128_ENERGY_REPAIR_2026-10-18.json",
+    "docs/validation/PARTIAL_COHERENCE_FINITE_REPAIR_2026-10-17.json",
+    "docs/validation/PARTIAL_COHERENCE_IMPLEMENTATION_2026-10-17.json",
+    "docs/validation/PARTIAL_COHERENCE_NATIVE_REPAIR_2026-10-17.json",
+    "docs/validation/PARTIAL_COHERENCE_PSF_WINDOW_REPAIR_2026-10-18.json",
+    "docs/validation/POLYCHROMATIC_128_BOUNDARY_REPAIR_2026-10-18.json",
+    "docs/validation/POLYCHROMATIC_128_ENERGY_REPAIR_2026-10-18.json",
+    "docs/validation/POLYCHROMATIC_ENERGY_REPAIR_2026-10-18.json",
+    "docs/validation/PRODUCT_IMAGE_AUDIT_2026-10-17.json",
+    "docs/validation/RELAY_64_W3_AIMING_DIAGNOSIS_2026-10-18.json",
+    "docs/validation/RELAY_64_W3_ENERGY_REPAIR_2026-10-18.json",
+    "docs/validation/RELAY_64_W3_RESIDUAL_DIAGNOSIS_2026-10-18.json",
+    "docs/validation/RELAY_STOP_BRANCH_REPAIR_2026-10-18.json"
+  ],
+  "DeliveryBoundary": "Normal non-force origin/main push. Source, tests, documentation and 23 new evidence archives are included; ignored build output, scratch data, native installation and user profiles are excluded. Existing archived diagnostic assemblies remain evidence only; no release, tag or installer deployment.",
+  "Date": "2026-10-18"
+}

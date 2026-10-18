@@ -1,0 +1,204 @@
+{
+  "date": "2026-10-17",
+  "status": "Six open findings reproduced; no product repair",
+  "sourceCommit": "cfcf7aeadb9c359fd18b8f2862527c29af8bf348",
+  "findings": [
+    {
+      "id": "IMG01",
+      "priority": "P1",
+      "status": "Open",
+      "newlyConfirmed": true,
+      "subject": "Negative EigenPSF intensity and final-clamp power increase",
+      "finalImageClampRelativeIncrease": 0.0030650680493664595,
+      "actualVsReplayedMaximumDifference": 0.0,
+      "kernelControlPositiveMass": 1.0510316340088868,
+      "scope": "Kernel control and finite edge-source image are separate; no whole-system native equivalence claim"
+    },
+    {
+      "id": "IMG02",
+      "priority": "P1",
+      "status": "Open",
+      "newlyConfirmed": true,
+      "subject": "Extended diffraction hides geometric fallback",
+      "nativeCapture": false,
+      "geometricFallbackPsfCount": 27,
+      "engineMode": "Geometric",
+      "reportedAberrationMode": "Diffraction"
+    },
+    {
+      "id": "IMG03",
+      "priority": "P1",
+      "status": "Open",
+      "newlyConfirmed": true,
+      "subject": "Rotation/output resource validation mismatch",
+      "acceptedOutputPixels": 524288,
+      "configuredPixelLimit": 262144,
+      "wronglyRejectedOutputPixels": 32768
+    },
+    {
+      "id": "IMG04",
+      "priority": "P2",
+      "status": "Open",
+      "newlyConfirmed": true,
+      "subject": "Guard band changes automatic physical sampling",
+      "noGuardRmsPixels": 1.3809317793261022,
+      "guard16RmsPixels": 2.614800745476042,
+      "fixedPitchControlRmsPixels": 1.3809317793261024
+    },
+    {
+      "id": "IMG05",
+      "priority": "P2",
+      "status": "Open",
+      "newlyConfirmed": false,
+      "subject": "Displayed image and statistics refer to different stages",
+      "displayedFlippedMeanChange": 0.42666509915708134,
+      "reportedMeanChange": 4.113920565120043E-06,
+      "resizedDisplayedMaximum": 0.0,
+      "reportedMaximum": 0.9999961922810465
+    },
+    {
+      "id": "IMG06",
+      "priority": "P1",
+      "status": "Open",
+      "newlyConfirmed": false,
+      "subject": "Partial coherence is intensity/source blending",
+      "sourceBlendMaximumDifference": 0.0,
+      "coherenceOneOutputVsSourceDifference": 0.0,
+      "unchangedReportedMeanChange": 0.3585283914577544
+    }
+  ],
+  "proof": {
+    "date": "2026-10-17",
+    "sourceCommit": "cfcf7aeadb9c359fd18b8f2862527c29af8bf348",
+    "status": "Open defects reproduced; not repaired",
+    "nativeCapture": false,
+    "productCodeChanged": false,
+    "formalTestsChanged": false,
+    "rootSolutionRebuilt": false,
+    "fullSuiteRerun": false,
+    "installerRebuilt": false,
+    "independentCookeTessar": "Excluded",
+    "baseline": {
+      "path": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+      "sha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b"
+    },
+    "sourceFiles": [
+      {
+        "path": "src/OpticalSystemDesign.Core/Analysis/ImageSimulationEngine.cs",
+        "sha256": "eab5cdc300aab50682f14b1daec8bd9be235f4b1e0686887a8bb74a326d1f67f"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Core/Analysis/AnalysisResourceLimits.cs",
+        "sha256": "eb3c69bb8f06116a6f3c268b730d6ff5ee26a1c299450a43d6f13b53f1c64d7e"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Core/Analysis/Extended/ExtendedSceneImageAnalyses.cs",
+        "sha256": "5a25b13da1a82c719374ede6823356d4c34525a60ecac6db8a6b2eab454938e7"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Core/Analysis/Extended/ImageAndPolarizationAnalyses.cs",
+        "sha256": "bccffa3b28a794cc2d219034364ee4434920411190be21448693801072116750"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Core/Analysis/RealImageFieldConversion.cs",
+        "sha256": "ee50c043939035b64ae6c7f39cf2ce97d962d3cec8abb1d3c7fb52b2d507b7f5"
+      }
+    ],
+    "defaultCoreAssemblies": [
+      {
+        "configuration": "Debug",
+        "corePath": "src/OpticalSystemDesign.Core/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+        "appCorePath": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+        "sha256": "df3c06a3c255cd3787de1a9fa235a54bfdaff6fd3fcd74e7ca71a64c61d4c4f8"
+      },
+      {
+        "configuration": "Release",
+        "corePath": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+        "appCorePath": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+        "sha256": "85b03f863a37582e7e6c14874f8087c52a3fba05c2d96b210c9c74397e592481"
+      }
+    ],
+    "verification": [
+      {
+        "name": "rotation-output-budget",
+        "debug": "Reproduced",
+        "release": "Reproduced",
+        "observationValuesEqual": true
+      },
+      {
+        "name": "display-statistics",
+        "debug": "Reproduced",
+        "release": "Reproduced",
+        "observationValuesEqual": true
+      },
+      {
+        "name": "partial-coherence",
+        "debug": "Reproduced",
+        "release": "Reproduced",
+        "observationValuesEqual": true
+      },
+      {
+        "name": "guard-band-scale",
+        "debug": "Reproduced",
+        "release": "Reproduced",
+        "observationValuesEqual": true
+      },
+      {
+        "name": "eigen-psf-negative-power",
+        "debug": "Reproduced",
+        "release": "Reproduced",
+        "observationValuesEqual": true
+      },
+      {
+        "name": "extended-diffraction-mode-reporting",
+        "debug": "Reproduced",
+        "release": "Reproduced",
+        "observationValuesEqual": true
+      },
+      {
+        "name": "eigen-psf-end-to-end",
+        "debug": "Reproduced",
+        "release": "Reproduced",
+        "observationValuesEqual": true
+      }
+    ]
+  },
+  "evidence": {
+    "path": "validation/repairs/2026-10-17/product-image-audit-evidence.zip",
+    "bytes": 15419,
+    "sha256": "252b9e2c236698a57130e82da28aba409fff10403fa5ff061d3e33f63b7aedd9",
+    "entries": [
+      {
+        "path": "probe/Program.cs",
+        "bytes": 15264,
+        "sha256": "0111a41491fb4657173c0fbfe4f733826087d232ff42c22867a2582aa2b7e982"
+      },
+      {
+        "path": "probe/IssueAudit.csproj",
+        "bytes": 626,
+        "sha256": "cc72f3e6ba57fe935c1cc3952679c04efb9584403ae94029c979e75ed8473c27"
+      },
+      {
+        "path": "observations-release.json",
+        "bytes": 30147,
+        "sha256": "2a768cc05d7049d539b2d88bf607c6a164214b15c66f90d323a13138bf967164"
+      },
+      {
+        "path": "observations-debug.json",
+        "bytes": 30145,
+        "sha256": "01997bd9dc31b23e3086bd161590b4f7997bf8073052c3fa564d8a753db864d1"
+      },
+      {
+        "path": "proof.json",
+        "bytes": 3331,
+        "sha256": "2af08d3e783e9a188cb8ca40db7df2e7289f8c677587ea92fe8bd6f87373ea8c"
+      },
+      {
+        "path": "record-evidence.ps1",
+        "bytes": 8395,
+        "sha256": "dfaca7231d1c83087622e1e550cac50e9b5668b7cf480ff4a4ac064bee2dd10b"
+      }
+    ],
+    "allEntriesReadbackVerified": true
+  }
+}

@@ -36,10 +36,10 @@ public sealed class ExtendedImageAnalysisTests
         var optic = Optic.CreateCookeTriplet();
         var imageAnalyses = new BaseAnalysis[]
         {
-            new GeometricImageAnalysis(optic, imageSize: 16, numRays: 2),
-            new GeometricBitmapImageAnalysis(optic, imageSize: 16, raysPerPixel: 2),
-            new PartiallyCoherentImageAnalysis(optic, imageSize: 16, pupilSampling: 4),
-            new ExtendedDiffractionImageAnalysis(optic, imageSize: 16, pupilSampling: 4, fieldGrid: 2)
+            new GeometricImageAnalysis(optic, imageSize: 16, numRays: 4, relativeIllumination: false),
+            new GeometricBitmapImageAnalysis(optic, imageSize: 16, raysPerPixel: 4, relativeIllumination: false),
+            new PartiallyCoherentImageAnalysis(optic, imageSize: 16, pupilSampling: 4, coherence: 0, relativeIllumination: false),
+            new ExtendedDiffractionImageAnalysis(optic, imageSize: 16, pupilSampling: 4, fieldGrid: 2, relativeIllumination: false)
         };
 
         Assert.All(imageAnalyses, analysis =>
@@ -52,6 +52,21 @@ public sealed class ExtendedImageAnalysisTests
 
         var source = new LightSourceAnalysis(optic, resolution: 9, numRays: 32).GenerateData();
         Assert.Contains(source.PlotSeries, series => series.Kind == AnalysisSeriesKind.Heatmap);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void OriginalCoarseGeometricImageInputsRemainExplicitlyUnavailable(bool bitmap)
+    {
+        var optic = Optic.CreateCookeTriplet();
+        BaseAnalysis analysis = bitmap
+            ? new GeometricBitmapImageAnalysis(optic, imageSize: 16, raysPerPixel: 2)
+            : new GeometricImageAnalysis(optic, imageSize: 16, numRays: 2);
+        var data = analysis.GenerateData();
+        Assert.Equal(AnalysisOutcome.Unavailable, data.Outcome);
+        Assert.Contains("no positive PSF power was sampled", data.OutcomeReason);
+        Assert.Null(data.PlotPanes);
     }
 
     [Fact]

@@ -138,6 +138,17 @@ public sealed class PartiallyCoherentImageAnalysis : BaseAnalysis
     private readonly int _imageSize;
     private readonly int _pupilSampling;
     private readonly double _coherence;
+    private readonly int _psfSize;
+    private readonly double _pixelSizeMillimeters;
+    private readonly SpatialCoherenceFunction _coherenceFunction;
+    private readonly double _alphaMillimeters;
+    private readonly double _fileSizeMillimeters;
+    private readonly bool _normalizeImagePeak;
+    private readonly IReadOnlyList<double>? _wavelengthsMicrometers;
+    private readonly SpatialCoherenceMethod _coherenceMethod;
+    private readonly double _coherenceFraction;
+    private readonly int _coherenceSampling;
+    private readonly double _psfEnergyFraction;
     private readonly double _fieldHeight;
     private readonly int _oversampling;
     private readonly int _guardBand;
@@ -151,10 +162,34 @@ public sealed class PartiallyCoherentImageAnalysis : BaseAnalysis
         double fieldHeight = 0,
         int oversampling = 1,
         int guardBand = 16,
-        bool relativeIllumination = true) : base(optic)
+        bool relativeIllumination = true,
+        int psfSize = 32,
+        double pixelSizeMillimeters = 0,
+        SpatialCoherenceFunction coherenceFunction = SpatialCoherenceFunction.Uniform,
+        double alphaMillimeters = .001,
+        double fileSizeMillimeters = 0,
+        bool normalizeImagePeak = false,
+        IReadOnlyList<double>? wavelengthsMicrometers = null,
+        SpatialCoherenceMethod coherenceMethod = SpatialCoherenceMethod.ExactSourcePairs,
+        double coherenceFraction = .98, int coherenceSampling = 64, double psfEnergyFraction = 0) : base(optic)
     {
+        if (!double.IsFinite(coherence))
+            throw new ArgumentOutOfRangeException(nameof(coherence), "Coherence must be finite.");
+        if (!double.IsFinite(pixelSizeMillimeters) || pixelSizeMillimeters < 0)
+            throw new ArgumentOutOfRangeException(nameof(pixelSizeMillimeters));
+        _psfSize = Math.Clamp(psfSize, 1, 256);
+        _pixelSizeMillimeters = pixelSizeMillimeters;
+        _coherenceFunction = coherenceFunction;
+        _alphaMillimeters = alphaMillimeters;
+        _fileSizeMillimeters = fileSizeMillimeters;
+        _normalizeImagePeak = normalizeImagePeak;
+        _wavelengthsMicrometers = wavelengthsMicrometers;
+        _coherenceMethod = coherenceMethod;
+        _coherenceFraction = coherenceFraction;
+        _coherenceSampling = coherenceSampling;
+        _psfEnergyFraction = psfEnergyFraction;
         _imageSize = Math.Clamp(imageSize, 16, 256);
-        _pupilSampling = Math.Clamp(pupilSampling, 4, 128);
+        _pupilSampling = Math.Clamp(pupilSampling, 4, 512);
         _coherence = Math.Clamp(coherence, 0, 1);
         _fieldHeight = Math.Max(0, fieldHeight);
         _oversampling = Math.Clamp(oversampling, 1, 16);
@@ -172,19 +207,28 @@ public sealed class PartiallyCoherentImageAnalysis : BaseAnalysis
             ImageSimulationSourcePattern.ResolutionTarget,
             _imageSize,
             _pupilSampling,
-            psfSize: 32,
-            psfGridSize: 3,
-            pipeline: "Partially coherent diffraction image",
-            sourceBlend: _coherence,
+            psfSize: _psfSize,
+            psfGridSize: 1,
+            pipeline: CoherentImagingDiagnostics.Pipeline,
             fieldHeight: _fieldHeight,
             oversampling: _oversampling,
             guardBand: _guardBand,
             relativeIllumination: _relativeIllumination,
             aberrationMode: "Partially Coherent",
-            additionalValues: new Dictionary<string, object>
-            {
-                ["Coherence"] = _coherence
-            });
+            spatialCoherence: _coherence,
+            pixelSizeMillimeters: _pixelSizeMillimeters,
+            coherenceFunction: _coherenceFunction,
+            alphaMillimeters: _alphaMillimeters,
+            fileSizeMillimeters: _fileSizeMillimeters,
+            normalizeImagePeak: _normalizeImagePeak,
+            coherenceMethod: _coherenceMethod,
+            coherenceFraction: _coherenceFraction,
+            coherenceSampling: _coherenceSampling,
+            psfEnergyFraction: _psfEnergyFraction,
+            wavelengthsMicrometers: _wavelengthsMicrometers
+                ?? [(Optic.Wavelengths.FirstOrDefault(w => w.IsPrimary) ?? Optic.Wavelengths.First()).Micrometers],
+            additionalValues: _coherenceFunction == SpatialCoherenceFunction.Uniform
+                ? new Dictionary<string, object> { ["Coherence"] = _coherence } : null);
     }
 }
 
@@ -255,13 +299,22 @@ internal static class ExtendedSceneImageSupport
         int psfSize,
         int psfGridSize,
         string pipeline,
-        double sourceBlend = 0,
         double fieldHeight = 0,
         int oversampling = 1,
         int guardBand = -1,
         bool relativeIllumination = true,
         string aberrationMode = "Diffraction",
         string sourceMode = "Built-in",
+        double spatialCoherence = 0.5,
+        double pixelSizeMillimeters = 0,
+        SpatialCoherenceFunction coherenceFunction = SpatialCoherenceFunction.Uniform,
+        double alphaMillimeters = .001,
+        double fileSizeMillimeters = 0,
+        bool normalizeImagePeak = false,
+        IReadOnlyList<double>? wavelengthsMicrometers = null,
+        SpatialCoherenceMethod coherenceMethod = SpatialCoherenceMethod.ExactSourcePairs,
+        double coherenceFraction = .98, int coherenceSampling = 64,
+        double psfEnergyFraction = 0,
         IReadOnlyDictionary<string, object>? additionalValues = null)
     {
         oversampling = Math.Clamp(oversampling, 1, 16);
@@ -278,6 +331,17 @@ internal static class ExtendedSceneImageSupport
             Oversampling = oversampling,
             UseRelativeIllumination = relativeIllumination,
             AberrationMode = aberrationMode,
+            SpatialCoherence = spatialCoherence,
+            CoherenceFunction = coherenceFunction,
+            CoherenceAlphaMillimeters = alphaMillimeters,
+            CoherenceMethod = coherenceMethod,
+            CoherenceFraction = coherenceFraction,
+            CoherenceSampling = coherenceSampling,
+            PsfEnergyFraction = psfEnergyFraction,
+            FileSizeMillimeters = fileSizeMillimeters,
+            NormalizeImagePeak = normalizeImagePeak,
+            WavelengthsMicrometers = wavelengthsMicrometers ?? [.65, .55, .45],
+            PixelSizeMillimeters = pixelSizeMillimeters,
             ImageWidth = imageSize,
             ImageHeight = imageSize,
             PsfGridRows = psfGridSize,
@@ -295,14 +359,12 @@ internal static class ExtendedSceneImageSupport
         {
             return ImageSimulationAnalysis.UnavailableSimulation(name, exception);
         }
-        var simulated = sourceBlend > 0
-            ? Blend(result.Source, result.Simulated, sourceBlend)
-            : result.Simulated;
+        var simulated = result.Simulated;
         var originalSeries = RasterSeries(result.Source);
         var simulatedSeries = RasterSeries(simulated);
         var values = new Dictionary<string, object>
         {
-            ["Pipeline"] = pipeline,
+            ["Pipeline"] = $"{pipeline}; actual PSF: {result.EffectiveAberrationMode}",
             ["SourceMode"] = sourceMode,
             ["SourcePattern"] = sourcePattern.ToString(),
             ["ImageSize"] = imageSize,
@@ -310,12 +372,19 @@ internal static class ExtendedSceneImageSupport
             ["Oversampling"] = oversampling,
             ["GuardBand"] = padding,
             ["RelativeIllumination"] = relativeIllumination,
-            ["AberrationMode"] = aberrationMode,
+            ["AberrationMode"] = result.EffectiveAberrationMode,
+            ["RequestedAberrationMode"] = aberrationMode,
+            ["EffectiveAberrationMode"] = result.EffectiveAberrationMode,
+            ["GeometricFallbackCount"] = result.GeometricFallbackCount,
+            ["PsfIntensityCorrectionCount"] = result.PsfIntensityCorrectionCount,
+            ["MaximumPsfNegativeMass"] = result.MaximumPsfNegativeMass,
             ["PupilRaySampling"] = numRays,
+            ["WavelengthsMicrometers"] = config.WavelengthsMicrometers.ToArray(),
             ["PsfSize"] = psfSize,
             ["FieldGrid"] = $"{psfGridSize} x {psfGridSize}",
             ["MeanAbsoluteChange"] = result.MeanAbsoluteChange
         };
+        result.CoherentImaging?.AddValues(values);
         if (additionalValues is not null)
         {
             foreach (var item in additionalValues)
@@ -335,28 +404,6 @@ internal static class ExtendedSceneImageSupport
                 RasterPane("Image", simulatedSeries, simulated)
             },
             PlotPaneColumns: 2);
-    }
-
-    private static RgbImage Blend(RgbImage source, RgbImage simulated, double sourceFraction)
-    {
-        var values = new double[
-            simulated.Channels,
-            simulated.Height,
-            simulated.Width];
-        for (var channel = 0; channel < simulated.Channels; channel++)
-        {
-            for (var row = 0; row < simulated.Height; row++)
-            {
-                for (var column = 0; column < simulated.Width; column++)
-                {
-                    values[channel, row, column] =
-                        (sourceFraction * source[Math.Min(channel, source.Channels - 1), row, column])
-                        + ((1 - sourceFraction) * simulated[channel, row, column]);
-                }
-            }
-        }
-
-        return new RgbImage(values);
     }
 
     private static AnalysisSeries RasterSeries(RgbImage image)

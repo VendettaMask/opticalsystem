@@ -48,9 +48,11 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
             }
         };
         var selectedSeries = panes[0].Series[0];
-        return new AnalysisData(Name, new Dictionary<string, object>
+        var values = new Dictionary<string, object>
         {
-            ["Pipeline"] = "EigenPSF spatially variable convolution + geometric distortion + lateral color",
+            ["Pipeline"] = result.CoherentImaging is null
+                ? $"EigenPSF spatially variable convolution ({result.EffectiveAberrationMode}) + geometric distortion + lateral color"
+                : CoherentImagingDiagnostics.Pipeline,
             ["ZemaxImageSimulationSettings"] =
                 "Source bitmap, orientation, field, wavelength, grid convolution, detector, display, and output settings",
             ["SourceMode"] = _config.SourceMode,
@@ -63,7 +65,8 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
             ["SourceRotationDegrees"] = _config.SourceRotationDegrees,
             ["ImageFlip"] = _config.ImageFlip,
             ["RelativeIllumination"] = _config.UseRelativeIllumination,
-            ["AberrationMode"] = _config.AberrationMode,
+            ["AberrationMode"] = result.EffectiveAberrationMode,
+            ["RequestedAberrationMode"] = _config.AberrationMode,
             ["Reference"] = _config.Reference,
             ["DisplayAs"] = _config.DisplayAs,
             ["FieldCenter"] = $"({_config.FieldCenterX:0.####}, {_config.FieldCenterY:0.####})",
@@ -77,6 +80,8 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
             ["OutputShape"] = $"(1, {result.Simulated.Channels}, {result.Simulated.Height}, {result.Simulated.Width})",
             ["EffectiveAberrationMode"] = result.EffectiveAberrationMode,
             ["GeometricFallbackCount"] = result.GeometricFallbackCount,
+            ["PsfIntensityCorrectionCount"] = result.PsfIntensityCorrectionCount,
+            ["MaximumPsfNegativeMass"] = result.MaximumPsfNegativeMass,
             ["WavelengthsMicrometers"] = string.Join(", ", _config.WavelengthsMicrometers.Select(value => value.ToString("0.00"))),
             ["PsfGridShape"] = $"({_config.PsfGridRows}, {_config.PsfGridColumns})",
             ["PsfSize"] = _config.PsfSize,
@@ -86,7 +91,9 @@ public sealed class ImageSimulationAnalysis : BaseAnalysis
             ["DistortionPolynomialDegree"] = _config.DistortionPolynomialDegree,
             ["MeanAbsoluteChange"] = result.MeanAbsoluteChange,
             ["MaximumOutputValue"] = result.MaximumValue
-        }, selectedSeries, new[] { selectedSeries }, PlotPanes: panes, PlotPaneColumns: panes.Length);
+        };
+        result.CoherentImaging?.AddValues(values);
+        return new AnalysisData(Name, values, selectedSeries, new[] { selectedSeries }, PlotPanes: panes, PlotPaneColumns: panes.Length);
     }
 
     internal static AnalysisData UnavailableSimulation(string name, AnalysisDataUnavailableException exception)

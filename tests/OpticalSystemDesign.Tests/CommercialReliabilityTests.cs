@@ -178,12 +178,12 @@ public sealed class CommercialReliabilityTests
     [InlineData("Image Simulation")]
     [InlineData("Partially Coherent Image Analysis")]
     [InlineData("Extended Diffraction Image Analysis")]
-    public void StarterImageSimulationReportsFoldedPupilWithSettingsAndNoFabricatedRaster(string name)
+    public void StarterImageSimulationReportsPhysicalUnavailableReasonWithoutFabricatedRaster(string name)
     {
         var optic = Optic.CreateDemo();
         BaseAnalysis analysis = name switch
         {
-            "Partially Coherent Image Analysis" => new PartiallyCoherentImageAnalysis(optic, imageSize: 16),
+            "Partially Coherent Image Analysis" => new PartiallyCoherentImageAnalysis(optic, imageSize: 16, coherence: 0),
             "Extended Diffraction Image Analysis" => new ExtendedDiffractionImageAnalysis(optic, imageSize: 16, fieldGrid: 2),
             _ => new ImageSimulationAnalysis(optic, new ImageSimulationConfig
             {
@@ -196,10 +196,19 @@ public sealed class CommercialReliabilityTests
         var result = analysis.GenerateData();
         Assert.Equal(name, result.Name);
         Assert.Equal(AnalysisOutcome.Unavailable, result.Outcome);
-        Assert.Contains("folds", result.OutcomeReason, StringComparison.Ordinal);
-        Assert.Contains("normalized field", result.OutcomeReason, StringComparison.Ordinal);
-        Assert.Contains("wavelength=", result.OutcomeReason, StringComparison.Ordinal);
-        Assert.Contains("reduce the image field height", result.OutcomeReason, StringComparison.Ordinal);
+        if (name == "Partially Coherent Image Analysis")
+        {
+            // The new single-reference-pupil model does not sample the old off-axis pupil grid.
+            // This unchanged demo instead requires unimplemented coating phase.
+            Assert.Contains("phase-bearing coatings", result.OutcomeReason, StringComparison.Ordinal);
+        }
+        else
+        {
+            Assert.Contains("folds", result.OutcomeReason, StringComparison.Ordinal);
+            Assert.Contains("normalized field", result.OutcomeReason, StringComparison.Ordinal);
+            Assert.Contains("wavelength=", result.OutcomeReason, StringComparison.Ordinal);
+            Assert.Contains("reduce the image field height", result.OutcomeReason, StringComparison.Ordinal);
+        }
         Assert.Empty(result.PlotSeries);
         Assert.Null(result.PlotPanes);
     }

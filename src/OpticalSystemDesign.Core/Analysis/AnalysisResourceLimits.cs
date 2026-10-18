@@ -174,18 +174,9 @@ public static class AnalysisResourceLimits
             throw new ArgumentException("Source image must contain one or three channels.", nameof(source));
         }
 
-        if (config.Oversampling is < 1 or > 16 || config.Padding is < 0 or > 512)
-        {
-            throw new ArgumentOutOfRangeException(nameof(config), "Oversampling or padding is outside the supported range.");
-        }
-
-        var preparedWidth = checked((source.Width * config.Oversampling) + (2 * config.Padding));
-        var preparedHeight = checked((source.Height * config.Oversampling) + (2 * config.Padding));
-        ValidateImageDimensions(preparedWidth, preparedHeight, "Prepared image");
-
-        var outputWidth = config.OutputWidth > 0 ? config.OutputWidth : preparedWidth;
-        var outputHeight = config.OutputHeight > 0 ? config.OutputHeight : preparedHeight;
-        ValidateImageDimensions(outputWidth, outputHeight, "Output image");
+        var dimensions = ResolveImageSimulationDimensions(source.Width, source.Height, config);
+        var preparedWidth = dimensions.PreparedWidth;
+        var preparedHeight = dimensions.PreparedHeight;
 
         if (config.WavelengthsMicrometers.Count is < 1 or > 16
             || config.WavelengthsMicrometers.Any(value => !double.IsFinite(value) || value <= 0))
@@ -193,11 +184,89 @@ public static class AnalysisResourceLimits
             throw new ArgumentOutOfRangeException(nameof(config), "Image simulation wavelengths are invalid or exceed the supported count.");
         }
 
+        if (string.Equals(config.AberrationMode, "Partially Coherent", StringComparison.OrdinalIgnoreCase))
+        {
+            MutualIntensityEngine.ValidateSpatialMethod(config.CoherenceMethod, config.CoherenceFraction, config.CoherenceSampling);
+            if (config.CoherenceFunction == SpatialCoherenceFunction.Uniform && config.CoherenceMethod != SpatialCoherenceMethod.ExactSourcePairs)
+                throw new ArgumentException("Finite spatial coherence methods require Gaussian or Sinc coherence.", nameof(config));
+            if (!double.IsFinite(config.PsfEnergyFraction) || config.PsfEnergyFraction < 0 || config.PsfEnergyFraction >= 1
+                || config.PsfEnergyFraction > 0 && config.PsfSize < 2)
+                throw new ArgumentOutOfRangeException(nameof(config), "Invalid PSF energy fraction or maximum kernel size.");
+            if (config.PsfEnergyFraction > 0 && config.CoherenceFunction == SpatialCoherenceFunction.Uniform)
+                throw new ArgumentException("PSF energy selection requires Gaussian/Sinc direct Fourier-conjugate sampling.", nameof(config));
+            if (!double.IsFinite(config.SpatialCoherence) || config.SpatialCoherence < 0 || config.SpatialCoherence > 1
+                || !Enum.IsDefined(config.CoherenceFunction)
+                || config.CoherenceFunction != SpatialCoherenceFunction.Uniform
+                    && (!double.IsFinite(config.CoherenceAlphaMillimeters) || config.CoherenceAlphaMillimeters <= 0)
+                || !double.IsFinite(config.FileSizeMillimeters) || config.FileSizeMillimeters < 0
+                || config.FileSizeMillimeters > 0 && config.PixelSizeMillimeters > 0
+                || !double.IsFinite(config.PixelSizeMillimeters) || config.PixelSizeMillimeters < 0
+                || !double.IsFinite(config.FieldHeight) || config.FieldHeight < 0
+                || config.PsfSize is < 1 or > 256 || config.NumRays is < 2 or > 512
+                || !double.IsFinite(config.FieldCenterX) || Math.Abs(config.FieldCenterX) > 1
+                || !double.IsFinite(config.FieldCenterY) || Math.Abs(config.FieldCenterY) > 1)
+                throw new ArgumentOutOfRangeException(nameof(config), "Invalid spatial coherence, pupil/kernel sampling or reference field.");
+            if (config.UsePolarization || !string.Equals(config.Reference, "chief", StringComparison.OrdinalIgnoreCase)
+                || config.PsfGridRows != 1 || config.PsfGridColumns != 1)
+                throw new AnalysisDataUnavailableException("Partially Coherent Image",
+                    "the scalar isoplanatic model requires a 1 x 1 chief-referenced pupil; polarized or field-dependent complex imaging is not implemented");
+            if (config.CoherenceFunction != SpatialCoherenceFunction.Uniform
+                && config.PsfEnergyFraction == 0
+                && RoundUpPowerOfTwo(config.NumRays, nameof(config.NumRays)) < config.PsfSize)
+                throw new ArgumentOutOfRangeException(nameof(config.NumRays), "Gaussian/Sinc kernel support must fit inside the Fourier-conjugate pupil sampling grid.");
+            if (config.CoherenceFunction != SpatialCoherenceFunction.Uniform)
+            {
+                var active = new double[source.Channels];
+                for (var c = 0; c < source.Channels; c++) for (var y = 0; y < source.Height; y++)
+                    for (var x = 0; x < source.Width; x++)
+                    {
+                        var value = source[c, y, x];
+                        if (!double.IsFinite(value) || value < 0)
+                            throw new ArgumentException("Spatial mutual-intensity source must be finite and nonnegative.", nameof(source));
+                        if (value > 0) active[c] += (double)config.Oversampling * config.Oversampling;
+                    }
+                double pairWork = 0;
+                for (var c = 0; c < config.WavelengthsMicrometers.Count; c++)
+                {
+                    var count = active[Math.Min(c, source.Channels - 1)];
+                    pairWork += count * (count + 1) / 2 * preparedWidth * preparedHeight;
+                }
+                if (pairWork > MaximumImageSimulationConvolutionOperations)
+                    throw new ArgumentOutOfRangeException(nameof(config), "Exact spatial mutual-intensity work across all wavelengths exceeds the image convolution budget. Reduce source sampling, active area, oversampling or wavelength count.");
+            }
+            if (config.SourcePhaseRadians is { } phase)
+            {
+                if (phase.GetLength(1) != source.Height || phase.GetLength(2) != source.Width
+                    || phase.GetLength(0) != 1 && phase.GetLength(0) != source.Channels)
+                    throw new ArgumentException("Source phase must match the original source dimensions, with one or source-matched channels.");
+                foreach (var value in phase)
+                    if (!double.IsFinite(value)) throw new ArgumentException("Source phase must be finite.");
+            }
+            // Uniform uses sampled-field convolutions. Gaussian/Sinc use the separately bounded
+            // sparse source-pair sum above, not an image-area times kernel-area convolution.
+            if (config.CoherenceFunction == SpatialCoherenceFunction.Uniform)
+                ValidateConvolutionWork(preparedWidth, preparedHeight, config.PsfSize, config.PsfSize, 4,
+                    config.WavelengthsMicrometers.Count);
+            var fourierSize = RoundUpPowerOfTwo(Math.Max(2 * config.PsfSize, 2 * config.NumRays), nameof(config));
+            var fourierWork = checked(4L * fourierSize * fourierSize * (long)Math.Log2(fourierSize) * config.WavelengthsMicrometers.Count);
+            if (config.CoherenceMethod == SpatialCoherenceMethod.FourierModes)
+            {
+                var coherenceGrid = MutualIntensityEngine.ResolveSpatialCoherenceSampling(config.CoherenceSampling, config.PsfSize, config.PsfSize);
+                fourierWork = checked(fourierWork + 4L * coherenceGrid * coherenceGrid
+                    * (long)Math.Log2(coherenceGrid) * config.WavelengthsMicrometers.Count);
+            }
+            if (fourierWork > MaximumImageSimulationPsfOperations)
+                throw new ArgumentOutOfRangeException(nameof(config), "Coherent image Fourier work exceeds the supported budget.");
+            return;
+        }
+        if (config.SourcePhaseRadians is not null)
+            throw new ArgumentException("Source phase is supported only by the mutual-intensity image model.", nameof(config));
+
         ValidatePsfConfiguration(config);
         ValidateImageDistortion(preparedWidth, preparedHeight, config.DistortionGridSize,
             config.DistortionPolynomialDegree, config.WavelengthsMicrometers.Count);
         ValidateConvolutionWork(preparedWidth, preparedHeight, config.PsfSize, config.PsfSize,
-            1 + Math.Min(config.Components, config.PsfGridRows * config.PsfGridColumns),
+            2 + Math.Min(config.Components, config.PsfGridRows * config.PsfGridColumns),
             config.WavelengthsMicrometers.Count);
         if (checked(PsfDecompositionOperations(config) * config.WavelengthsMicrometers.Count)
             > MaximumPsfDecompositionOperations)
@@ -211,6 +280,26 @@ public static class AnalysisResourceLimits
                 $"Image simulation PSF work exceeds the {MaximumImageSimulationPsfOperations:N0}-operation safety budget.");
         }
     }
+
+    public static (int PreparedWidth, int PreparedHeight, int OutputWidth, int OutputHeight)
+        ResolveImageSimulationDimensions(int sourceWidth, int sourceHeight, ImageSimulationConfig config)
+    {
+        ArgumentNullException.ThrowIfNull(config);
+        ValidateImageDimensions(sourceWidth, sourceHeight, "Source image");
+        if (config.Oversampling is < 1 or > 16 || config.Padding is < 0 or > 512)
+            throw new ArgumentOutOfRangeException(nameof(config), "Oversampling or padding is outside the supported range.");
+        if (NormalizeImageRotation(config.SourceRotationDegrees) is 90 or 270)
+            (sourceWidth, sourceHeight) = (sourceHeight, sourceWidth);
+        var preparedWidth = checked(sourceWidth * config.Oversampling + 2 * config.Padding);
+        var preparedHeight = checked(sourceHeight * config.Oversampling + 2 * config.Padding);
+        ValidateImageDimensions(preparedWidth, preparedHeight, "Prepared image");
+        var outputWidth = config.OutputWidth > 0 ? config.OutputWidth : preparedWidth;
+        var outputHeight = config.OutputHeight > 0 ? config.OutputHeight : preparedHeight;
+        ValidateImageDimensions(outputWidth, outputHeight, "Output image");
+        return (preparedWidth, preparedHeight, outputWidth, outputHeight);
+    }
+
+    internal static int NormalizeImageRotation(int degrees) => ((degrees % 360) + 360) % 360;
 
     /// <summary>Bounds both QR fitting and evaluation before tracing or allocating a distortion grid.</summary>
     public static int ValidateImageDistortion(int width, int height, int numGridPoints, int degree,

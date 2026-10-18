@@ -36,6 +36,30 @@ public sealed class ImageSimulationConfig
 
     public string AberrationMode { get; init; } = "Diffraction";
 
+    public double SpatialCoherence { get; init; } = 0.5;
+
+    public SpatialCoherenceFunction CoherenceFunction { get; init; } = SpatialCoherenceFunction.Uniform;
+
+    public double CoherenceAlphaMillimeters { get; init; } = .001;
+
+    public SpatialCoherenceMethod CoherenceMethod { get; init; } = SpatialCoherenceMethod.ExactSourcePairs;
+
+    public double CoherenceFraction { get; init; } = .98;
+
+    public int CoherenceSampling { get; init; } = 64;
+
+    /// <summary>Zero keeps explicit support. Positive values select an even finite PSF window from
+    /// the complete Fourier-conjugate intensity; PsfSize remains its maximum allowed size.</summary>
+    public double PsfEnergyFraction { get; init; }
+
+    /// <summary>Full active source width in image space, before oversampling and guard pixels; zero selects the existing pitch/field controls.</summary>
+    public double FileSizeMillimeters { get; init; }
+
+    public bool NormalizeImagePeak { get; init; }
+
+    /// <summary>Optional object phase in radians, in the original source orientation; one or source-matched channels.</summary>
+    public double[,,]? SourcePhaseRadians { get; init; }
+
     public string Reference { get; init; } = "chief";
 
     public string DisplayAs { get; init; } = "Both";
@@ -108,9 +132,12 @@ public sealed record ImageSimulationResult(
     double MeanAbsoluteChange,
     double MaximumValue,
     string EffectiveAberrationMode = "Diffraction",
-    int GeometricFallbackCount = 0);
+    int GeometricFallbackCount = 0,
+    int PsfIntensityCorrectionCount = 0,
+    double MaximumPsfNegativeMass = 0,
+    CoherentImagingDiagnostics? CoherentImaging = null);
 
-public static class ImageSimulationEngine
+public static partial class ImageSimulationEngine
 {
     public static RgbImage CreateSourceImage(
         ImageSimulationSourcePattern pattern,
@@ -132,6 +159,8 @@ public static class ImageSimulationEngine
         ComputationCancellation.ThrowIfCancellationRequested();
         config ??= new ImageSimulationConfig();
         AnalysisResourceLimits.ValidateImageSimulation(source, config);
+        var partialCoherence = NormalizeAberrationMode(config.AberrationMode) == "Partially Coherent";
+        var dimensions = AnalysisResourceLimits.ResolveImageSimulationDimensions(source.Width, source.Height, config);
 
         if (config.WavelengthsMicrometers.Count == 0)
         {
@@ -145,30 +174,77 @@ public static class ImageSimulationEngine
             config.SourceRotationDegrees);
         var oversampled = NearestNeighborOversample(orientedSource, config.Oversampling);
         var prepared = ZeroPad(oversampled, config.Padding);
+        var sourcePhase = partialCoherence && config.SourcePhaseRadians is not null
+            ? NearestNeighborOversample(TransformImage(config.SourcePhaseRadians,
+                config.SourceFlip, config.SourceRotationDegrees), config.Oversampling)
+            : null;
         var (halfFieldX, halfFieldY) = ResolveNormalizedFieldExtent(
             workingOptic,
             config.FieldHeight,
-            prepared.GetLength(2),
-            prepared.GetLength(1));
+            oversampled.GetLength(2),
+            oversampled.GetLength(1));
         var referenceWavelength = ResolveReferenceWavelength(workingOptic, config);
-        var pixelPitch = config.PixelSizeMillimeters > 0
+        var pixelPitch = partialCoherence && config.FileSizeMillimeters > 0
+            ? config.FileSizeMillimeters / oversampled.GetLength(2)
+            : config.PixelSizeMillimeters > 0
             ? config.PixelSizeMillimeters
             : EstimateDetectorPixelPitch(
                 workingOptic,
                 referenceWavelength,
                 halfFieldX,
                 halfFieldY,
-                prepared.GetLength(2),
-                prepared.GetLength(1),
+                oversampled.GetLength(2),
+                oversampled.GetLength(1),
                 config.FieldCenterX,
                 config.FieldCenterY);
         var output = new double[config.WavelengthsMicrometers.Count, prepared.GetLength(1), prepared.GetLength(2)];
         var effectiveModes = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         var fallbackCount = 0;
+        var correctionCount = 0;
+        var maximumNegativeMass = 0.0;
+        var minimumCapturedFraction = 1.0;
+        var coherentFourierGrid = 0;
+        var coherentWindows = new List<CoherentKernelWindow>();
         for (var channel = 0; channel < config.WavelengthsMicrometers.Count; channel++)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             var wavelength = ResolveWavelength(workingOptic, config.WavelengthsMicrometers[channel]);
+            if (partialCoherence)
+            {
+                var kernel = DiffractionEngine.ComputeCoherentImageKernel(workingOptic,
+                    (config.FieldCenterX, config.FieldCenterY), wavelength, config.NumRays, config.PsfSize, pixelPitch,
+                    fourierConjugateSampling: config.CoherenceFunction != SpatialCoherenceFunction.Uniform,
+                    energyWindowFraction: config.PsfEnergyFraction);
+                var coherenceSampling = config.CoherenceMethod == SpatialCoherenceMethod.FourierModes
+                    ? MutualIntensityEngine.ResolveSpatialCoherenceSampling(config.CoherenceSampling, kernel.Values.GetLength(1), kernel.Values.GetLength(0)) : config.CoherenceSampling;
+                coherentWindows.Add(new CoherentKernelWindow(wavelength.Micrometers, kernel.Values.GetLength(0),
+                    kernel.EnergyWindowFraction, kernel.SelectionCapturedPowerFraction, kernel.CapturedPowerFraction,
+                    config.CoherenceMethod == SpatialCoherenceMethod.FourierModes ? coherenceSampling : 0,
+                    kernel.MaximumIntensityPixelPitchMillimeters));
+                var intensity = SliceChannel(oversampled, Math.Min(channel, source.Channels - 1));
+                if (config.UseRelativeIllumination)
+                    ApplyRelativeIllumination(intensity, workingOptic, wavelength, halfFieldX, halfFieldY,
+                        Math.Max(5, Math.Min(33, config.NumRays)), config.FieldCenterX, config.FieldCenterY, false);
+                var phase = sourcePhase is null ? null
+                    : PadChannel(SliceChannel(sourcePhase, Math.Min(channel, sourcePhase.GetLength(0) - 1)), config.Padding);
+                var paddedIntensity = PadChannel(intensity, config.Padding);
+                var image = config.CoherenceFunction == SpatialCoherenceFunction.Uniform
+                    ? MutualIntensityEngine.PropagateUniformCoherence(paddedIntensity, kernel.Values, config.SpatialCoherence, phase)
+                    : MutualIntensityEngine.PropagateSpatialCoherence(paddedIntensity, kernel.Values,
+                        config.CoherenceFunction, config.CoherenceAlphaMillimeters, pixelPitch, phase,
+                        config.CoherenceMethod, config.CoherenceFraction, coherenceSampling);
+                if (config.NormalizeImagePeak)
+                {
+                    var peak = image.Cast<double>().Max();
+                    if (peak > 0) for (var y = 0; y < image.GetLength(0); y++)
+                        for (var x = 0; x < image.GetLength(1); x++) image[y, x] /= peak;
+                }
+                CopyChannel(output, channel, image);
+                effectiveModes.Add("Partially Coherent (Scalar Isoplanatic)");
+                minimumCapturedFraction = Math.Min(minimumCapturedFraction, kernel.CapturedPowerFraction);
+                coherentFourierGrid = Math.Max(coherentFourierGrid, kernel.FourierGridSize);
+                continue;
+            }
             var basis = GenerateBasis(
                 workingOptic,
                 wavelength,
@@ -185,8 +261,9 @@ public static class ImageSimulationEngine
             var coefficientMaps = ResizeCoefficientMaps(
                 basis.CoefficientGrid,
                 prepared.GetLength(1),
-                prepared.GetLength(2));
-            var sourceChannel = SliceChannel(prepared, Math.Min(channel, source.Channels - 1));
+                prepared.GetLength(2),
+                config.Padding);
+            var sourceChannel = SliceChannel(oversampled, Math.Min(channel, source.Channels - 1));
             if (config.UseRelativeIllumination)
             {
                 ApplyRelativeIllumination(
@@ -201,11 +278,14 @@ public static class ImageSimulationEngine
                     config.UsePolarization);
             }
 
-            var blurred = SpatiallyVariableConvolution(
-                sourceChannel,
+            var convolution = ConvolvePsfIntensity(
+                PadChannel(sourceChannel, config.Padding),
                 basis.EigenPsfs,
                 coefficientMaps,
                 basis.MeanPsf);
+            var blurred = convolution.Values;
+            correctionCount += convolution.CorrectedKernelCount;
+            maximumNegativeMass = Math.Max(maximumNegativeMass, convolution.MaximumNegativeMass);
             var distortionGrid = GenerateDistortionGrid(
                 workingOptic,
                 wavelength,
@@ -217,25 +297,21 @@ public static class ImageSimulationEngine
                 halfFieldY,
                 referenceWavelength,
                 config.FieldCenterX,
-                config.FieldCenterY);
+                config.FieldCenterY,
+                config.Padding);
             var warped = WarpImage(blurred, distortionGrid);
             CopyChannel(output, channel, warped);
         }
 
-        var maximum = 0.0;
-        var totalChange = 0.0;
-        var count = 0;
         for (var channel = 0; channel < output.GetLength(0); channel++)
         {
             for (var row = 0; row < output.GetLength(1); row++)
             {
                 for (var column = 0; column < output.GetLength(2); column++)
                 {
-                    output[channel, row, column] = Math.Max(0, output[channel, row, column]);
-                    maximum = Math.Max(maximum, output[channel, row, column]);
-                    var sourceValue = prepared[Math.Min(channel, prepared.GetLength(0) - 1), row, column];
-                    totalChange += Math.Abs(output[channel, row, column] - sourceValue);
-                    count++;
+                    if (!double.IsFinite(output[channel, row, column]) || output[channel, row, column] < 0)
+                        throw new AnalysisDataUnavailableException("Image Simulation",
+                            "the intensity image must remain finite and nonnegative");
                 }
             }
         }
@@ -244,18 +320,46 @@ public static class ImageSimulationEngine
             ? NormalizeAberrationMode(config.AberrationMode)
             : string.Join(" + ", effectiveModes.OrderBy(value => value, StringComparer.OrdinalIgnoreCase));
         var orientedOutput = TransformImage(output, config.ImageFlip, 0);
-        var outputWidth = config.OutputWidth > 0 ? config.OutputWidth : orientedOutput.GetLength(2);
-        var outputHeight = config.OutputHeight > 0 ? config.OutputHeight : orientedOutput.GetLength(1);
+        var outputWidth = dimensions.OutputWidth;
+        var outputHeight = dimensions.OutputHeight;
         var displayedSource = ResizeRgb(prepared, outputHeight, outputWidth);
         var displayedOutput = ResizeRgb(orientedOutput, outputHeight, outputWidth);
+        var maximum = 0.0;
+        var totalChange = 0.0;
+        for (var channel = 0; channel < displayedOutput.GetLength(0); channel++)
+            for (var row = 0; row < outputHeight; row++)
+            {
+                ComputationCancellation.ThrowIfCancellationRequested();
+                for (var column = 0; column < outputWidth; column++)
+                {
+                    var value = displayedOutput[channel, row, column];
+                    maximum = Math.Max(maximum, value);
+                    totalChange += Math.Abs(value - displayedSource[Math.Min(channel, displayedSource.GetLength(0) - 1), row, column]);
+                }
+            }
         return new ImageSimulationResult(
             new RgbImage(displayedSource),
             new RgbImage(displayedOutput),
             config,
-            totalChange / Math.Max(1, count),
+            totalChange / displayedOutput.Length,
             maximum,
             effectiveMode,
-            fallbackCount);
+            fallbackCount,
+            correctionCount,
+            maximumNegativeMass,
+            partialCoherence ? new CoherentImagingDiagnostics(config.SpatialCoherence, coherentFourierGrid,
+                pixelPitch, minimumCapturedFraction, sourcePhase is null ? "Zero object phase" : "Supplied object phase in radians")
+            {
+                Function = config.CoherenceFunction,
+                AlphaMillimeters = config.CoherenceAlphaMillimeters,
+                Method = config.CoherenceMethod,
+                Fraction = config.CoherenceFraction,
+                CoherenceSampling = config.CoherenceSampling,
+                PsfEnergyFraction = config.PsfEnergyFraction,
+                KernelWindows = coherentWindows.ToArray(),
+                FileSizeMillimeters = config.FileSizeMillimeters,
+                NormalizedImagePeak = config.NormalizeImagePeak
+            } : null);
     }
 
     public static RgbImage CreateTestChart(int width = 96, int height = 64)
@@ -478,6 +582,8 @@ public static class ImageSimulationEngine
                     ? (minimumX + maximumX) / 2
                     : minimumX + ((maximumX - minimumX) * column / (columns - 1));
                 var requestedMode = NormalizeAberrationMode(config.AberrationMode);
+                if (requestedMode == "Partially Coherent")
+                    throw new AnalysisDataUnavailableException("EigenPSF Basis", "an intensity-only PCA basis cannot represent a complex coherent response; use image simulation's mutual-intensity path");
                 (double[,] Psf, double RmsRadiusMillimeters)? geometric = requestedMode is "Geometric" or "Diffraction"
                     ? ComputeGeometricPsf(
                         optic,
@@ -655,6 +761,9 @@ public static class ImageSimulationEngine
 
     private static string NormalizeAberrationMode(string mode)
     {
+        if (string.Equals(mode, "Partially Coherent", StringComparison.OrdinalIgnoreCase))
+            return "Partially Coherent";
+
         if (string.Equals(mode, "None", StringComparison.OrdinalIgnoreCase))
         {
             return "None";
@@ -960,10 +1069,15 @@ public static class ImageSimulationEngine
         double halfFieldY = 1,
         Wavelength? referenceWavelength = null,
         double fieldCenterX = 0,
-        double fieldCenterY = 0)
+        double fieldCenterY = 0,
+        int padding = 0)
     {
         ComputationCancellation.ThrowIfCancellationRequested();
         numGridPoints = AnalysisResourceLimits.ValidateImageDistortion(width, height, numGridPoints, degree);
+        if (padding < 0 || 2L * padding >= Math.Min(width, height))
+            throw new ArgumentOutOfRangeException(nameof(padding), "The guard band must leave a nonempty active image.");
+        var activeWidth = width - 2 * padding;
+        var activeHeight = height - 2 * padding;
         optic = RealImageFieldConversion.ForImageSimulation(optic);
         halfFieldX = Math.Clamp(Math.Abs(halfFieldX), 1e-9, 1);
         halfFieldY = Math.Clamp(Math.Abs(halfFieldY), 1e-9, 1);
@@ -1050,12 +1164,22 @@ public static class ImageSimulationEngine
         for (var row = 0; row < height; row++)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
-            var y = height == 1 ? maxY : maxY + ((minY - maxY) * row / (height - 1.0));
+            // Fit only traced active fields. The guard extends the same detector lattice;
+            // it contains PSF spillover, without adding object fields or rescaling them.
+            var y = activeHeight == 1
+                ? (minY + maxY) / 2 + (minY - maxY) * (row - padding)
+                : maxY + ((minY - maxY) * (row - padding) / (activeHeight - 1.0));
             for (var column = 0; column < width; column++)
             {
-                var x = width == 1 ? minX : minX + ((maxX - minX) * column / (width - 1.0));
+                var x = activeWidth == 1
+                    ? (minX + maxX) / 2 + (maxX - minX) * (column - padding)
+                    : minX + ((maxX - minX) * (column - padding) / (activeWidth - 1.0));
                 FillPolynomialFeatures(features, (x - centerX) / scaleX, (y - centerY) / scaleY, degree);
-                grid[row, column] = (Dot(features, coefficientX), -Dot(features, coefficientY));
+                var sourceX = Dot(features, coefficientX);
+                var sourceY = -Dot(features, coefficientY);
+                grid[row, column] = padding == 0 ? (sourceX, sourceY)
+                    : (sourceX * Math.Max(1, activeWidth - 1) / (width - 1.0),
+                        sourceY * Math.Max(1, activeHeight - 1) / (height - 1.0));
             }
         }
 
@@ -1105,18 +1229,22 @@ public static class ImageSimulationEngine
         };
     }
 
-    public static double[,,] ResizeCoefficientMaps(double[,,] source, int height, int width)
+    public static double[,,] ResizeCoefficientMaps(double[,,] source, int height, int width, int padding = 0)
     {
+        if (padding < 0 || 2L * padding >= Math.Min(width, height))
+            throw new ArgumentOutOfRangeException(nameof(padding), "The guard band must leave a nonempty active image.");
+        var activeHeight = height - 2 * padding;
+        var activeWidth = width - 2 * padding;
         var output = new double[source.GetLength(0), height, width];
         for (var component = 0; component < source.GetLength(0); component++)
         {
-            for (var row = 0; row < height; row++)
+            for (var row = 0; row < activeHeight; row++)
             {
-                var y = height == 1 ? 0 : row * (source.GetLength(1) - 1.0) / (height - 1.0);
-                for (var column = 0; column < width; column++)
+                var y = activeHeight == 1 ? 0 : row * (source.GetLength(1) - 1.0) / (activeHeight - 1.0);
+                for (var column = 0; column < activeWidth; column++)
                 {
-                    var x = width == 1 ? 0 : column * (source.GetLength(2) - 1.0) / (width - 1.0);
-                    output[component, row, column] = Bilinear(source, component, y, x);
+                    var x = activeWidth == 1 ? 0 : column * (source.GetLength(2) - 1.0) / (activeWidth - 1.0);
+                    output[component, row + padding, column + padding] = Bilinear(source, component, y, x);
                 }
             }
         }
@@ -1215,7 +1343,7 @@ public static class ImageSimulationEngine
             || flip.Contains("水平", StringComparison.Ordinal);
         var vertical = flip.Contains("Vertical", StringComparison.OrdinalIgnoreCase)
             || flip.Contains("垂直", StringComparison.Ordinal);
-        var rotation = ((rotationDegrees % 360) + 360) % 360;
+        var rotation = AnalysisResourceLimits.NormalizeImageRotation(rotationDegrees);
         var sourceHeight = source.GetLength(1);
         var sourceWidth = source.GetLength(2);
         var outputHeight = rotation is 90 or 270 ? sourceWidth : sourceHeight;

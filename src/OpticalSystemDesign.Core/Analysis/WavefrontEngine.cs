@@ -51,18 +51,44 @@ public sealed record WavefrontResult(
 public sealed record PupilGridSpecification(
     int SampleCount, bool CellCentered, bool ZemaxCentered, double Stretch)
 {
-    public double Coordinate(int index) => Stretch * (ZemaxCentered && SampleCount % 2 == 0
+    internal double? ExplicitCoordinateStep { get; init; }
+    internal double? ExplicitCoordinateStepY { get; init; }
+    internal double? StretchY { get; init; }
+    internal bool UseCachedFftStopMap { get; init; }
+
+    public double Coordinate(int index) => Coordinate(index, Stretch, ExplicitCoordinateStep);
+
+    internal double YCoordinate(int index) => Coordinate(index, StretchY ?? Stretch,
+        ExplicitCoordinateStepY ?? ExplicitCoordinateStep);
+
+    private double Coordinate(int index, double stretch, double? explicitStep) => explicitStep is { } step
+        ? (index - SampleCount / 2d) * step
+        : stretch * (ZemaxCentered && SampleCount % 2 == 0
         ? (index - SampleCount / 2.0) / Math.Max(1, SampleCount / 2.0 - 1)
         : CellCentered
             ? -1 + (2.0 * index + 1) / SampleCount
             : -1 + 2.0 * index / (SampleCount - 1.0));
+
+    internal int ColumnIndex(double coordinate) => Index(coordinate, Stretch, ExplicitCoordinateStep);
+    internal int RowIndex(double coordinate) => Index(coordinate, StretchY ?? Stretch,
+        ExplicitCoordinateStepY ?? ExplicitCoordinateStep);
+
+    private int Index(double coordinate, double stretch, double? step) => (int)Math.Round(step is { } spacing
+        ? coordinate / spacing + SampleCount / 2d
+        : ZemaxCentered && SampleCount % 2 == 0
+            ? coordinate / stretch * (SampleCount / 2d - 1) + SampleCount / 2d
+            : (coordinate / stretch + 1) / 2 * (SampleCount - 1));
 }
 
 public sealed record WavefrontReferenceSphere(
     double CenterX,
     double CenterY,
     double CenterZ,
-    double Radius);
+    double Radius)
+{
+    /// <summary>Use the forward intersection for a virtual exit-pupil reference.</summary>
+    public bool IsVirtual { get; init; }
+}
 
 public static class WavefrontEngine
 {
@@ -76,7 +102,8 @@ public static class WavefrontEngine
                 -1 + (2d * row + 1) / sampling, 1)))
             .Where(p => p.X * p.X + p.Y * p.Y <= 1).ToArray();
         return GenerateChiefRay(optic, field, wavelength, pupils, aimAtStop, forceReferencePlane: true)
-            with { PupilGrid = new(sampling, true, false, 1), SourceIdentity = PupilSourceIdentity.Capture(optic) };
+            with
+        { PupilGrid = new(sampling, true, false, 1), SourceIdentity = PupilSourceIdentity.Capture(optic) };
     }
     public static WavefrontResult GenerateChiefRay(
         Optic optic,
@@ -101,21 +128,23 @@ public static class WavefrontEngine
         Wavelength? referenceWavelength = null)
     {
         samplesAcrossPupil = Math.Max(2, samplesAcrossPupil);
+        return GenerateChiefRayGrid(optic, field, wavelength,
+            new(samplesAcrossPupil, cellCentered, zemaxCentered, pupilGridStretch),
+            aimAtStop, referenceWavelength, null);
+    }
+
+    internal static WavefrontResult GenerateChiefRayGrid(
+        Optic optic, (double Hx, double Hy) field, Wavelength wavelength,
+        PupilGridSpecification grid, bool aimAtStop, Wavelength? referenceWavelength,
+        WavefrontReferenceSphere? referenceSphere)
+    {
         var pupilSamples = new List<PupilSample>();
-        for (var row = 0; row < samplesAcrossPupil; row++)
+        for (var row = 0; row < grid.SampleCount; row++)
         {
-            var y = PupilGridCoordinate(
-                row,
-                samplesAcrossPupil,
-                cellCentered,
-                zemaxCentered) * pupilGridStretch;
-            for (var column = 0; column < samplesAcrossPupil; column++)
+            var y = grid.YCoordinate(row);
+            for (var column = 0; column < grid.SampleCount; column++)
             {
-                var x = PupilGridCoordinate(
-                    column,
-                    samplesAcrossPupil,
-                    cellCentered,
-                    zemaxCentered) * pupilGridStretch;
+                var x = grid.Coordinate(column);
                 if ((x * x) + (y * y) <= 1)
                 {
                     pupilSamples.Add(new PupilSample(x, y, 1));
@@ -124,30 +153,12 @@ public static class WavefrontEngine
         }
 
         return GenerateChiefRay(optic, field, wavelength, pupilSamples, aimAtStop,
-            referenceWavelength: referenceWavelength) with
+            referenceWavelength: referenceWavelength, referenceSphere: referenceSphere,
+            useCachedFftStopMap: grid.UseCachedFftStopMap && grid.SampleCount >= 32) with
         {
-            PupilGrid = new(samplesAcrossPupil, cellCentered, zemaxCentered, pupilGridStretch),
+            PupilGrid = grid,
             SourceIdentity = PupilSourceIdentity.Capture(optic)
         };
-    }
-
-    private static double PupilGridCoordinate(
-        int index,
-        int sampleCount,
-        bool cellCentered,
-        bool zemaxCentered)
-    {
-        if (zemaxCentered && sampleCount % 2 == 0)
-        {
-            // Zemax places the chief-ray sample at index N/2 on even Wavefront
-            // Map grids. The usable pupil radius is N/2-1, leaving the first
-            // row/column outside the unit pupil for a 64x64 grid.
-            return (index - (sampleCount / 2.0)) / Math.Max(1, (sampleCount / 2.0) - 1);
-        }
-
-        return cellCentered
-            ? -1 + ((2.0 * index + 1) / sampleCount)
-            : -1 + (2.0 * index / (sampleCount - 1.0));
     }
 
     public static WavefrontResult GenerateChiefRaySamples(
@@ -223,7 +234,8 @@ public static class WavefrontEngine
         WavefrontReferenceSphere? referenceSphere = null,
         bool usePolarization = false,
         Wavelength? referenceWavelength = null,
-        bool forceReferencePlane = false)
+        bool forceReferencePlane = false,
+        bool useCachedFftStopMap = false)
     {
         var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
             field.Hx,
@@ -284,11 +296,15 @@ public static class WavefrontEngine
             sphere.CenterX,
             sphere.CenterY,
             sphere.CenterZ,
-            radius,
+            sphere.IsVirtual ? -radius : radius,
             imageIndex);
         var referenceOpticalPath = chief.CumulativeOpticalPathLength - chiefImagePath;
 
-        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+        var generator = optic.SequentialRayTracer.RayGenerator;
+        var bundle = useCachedFftStopMap && aimAtStop
+            && generator.TryGenerateCachedFftPupil(field.Hx, field.Hy, wavelength.Micrometers,
+                pupilSamples, out var cachedBundle) ? cachedBundle!
+            : generator.GenerateNormalizedPupilSamples(
             field.Hx,
             field.Hy,
             wavelength.Micrometers,
@@ -319,7 +335,7 @@ public static class WavefrontEngine
                 sphere.CenterX,
                 sphere.CenterY,
                 sphere.CenterZ,
-                radius,
+                sphere.IsVirtual ? -radius : radius,
                 imageIndex);
             var tilt = EntrancePupilPhasePath((ux, uy), entrancePupilRadius,
                 vignetting.Transform(pupil.X, pupil.Y), chiefPupil);
@@ -341,7 +357,8 @@ public static class WavefrontEngine
                 pupilPosition.Z,
                 opdWaves,
                 intensity,
-                ray.Direction.Z) { LaunchIntensity = bundle.Rays[index].Intensity, ImageDirection = ray.Direction });
+                ray.Direction.Z)
+            { LaunchIntensity = bundle.Rays[index].Intensity, ImageDirection = ray.Direction });
         }
 
         return new WavefrontResult(
@@ -429,7 +446,7 @@ public static class WavefrontEngine
                 opdWaves,
                 intensity,
                 Dot(Normalize(ray.Direction), chiefDirection))
-                { LaunchIntensity = bundle.Rays[index].Intensity, ImageDirection = ray.Direction });
+            { LaunchIntensity = bundle.Rays[index].Intensity, ImageDirection = ray.Direction });
         }
 
         return new WavefrontResult(
@@ -528,6 +545,8 @@ public static class WavefrontEngine
         var c = Dot(relative, relative) - (radius * radius);
         var discriminant = Math.Max(0, (b * b) - (4 * a * c));
         var root = Math.Sqrt(discriminant);
+        if (radius < 0)
+            return imageIndex * ((-b - root) / (2 * a));
         var t = (-b - root) / (2 * a);
         if (t < 0)
         {

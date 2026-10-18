@@ -184,9 +184,11 @@ public partial class WorkbenchRuntime
                 : fallback;
         }
 
-        IReadOnlyList<double> ImageSimulationWavelengths()
+        IReadOnlyList<double> ImageSimulationWavelengths(bool primaryDefault = false)
         {
-            var selection = Text("WavelengthNumber", "RGB");
+            var selection = Text("WavelengthNumber", primaryDefault
+                ? Math.Max(1, CurrentOptic.Wavelengths.ToList().FindIndex(w => w.IsPrimary) + 1).ToString(CultureInfo.InvariantCulture)
+                : "RGB");
             if (!string.Equals(selection, "RGB", StringComparison.OrdinalIgnoreCase))
             {
                 var index = Math.Clamp(LeadingInt("WavelengthNumber", 1) - 1, 0, Math.Max(0, CurrentOptic.Wavelengths.Count - 1));
@@ -932,7 +934,30 @@ public partial class WorkbenchRuntime
                 Double("FieldHeight", 0),
                 Int("Oversampling", 1),
                 Int("GuardBand", 16),
-                Bool("RelativeIllumination", true)),
+                Bool("RelativeIllumination", true),
+                psfSize: Int("PsfSize", 32),
+                pixelSizeMillimeters: Double("PixelSize", 0),
+                coherenceFunction: Text("CoherenceFunction", "Uniform") switch
+                {
+                    "Gaussian" => SpatialCoherenceFunction.Gaussian,
+                    "Sinc" => SpatialCoherenceFunction.Sinc,
+                    "Uniform" => SpatialCoherenceFunction.Uniform,
+                    _ => throw new ArgumentException("Unknown spatial coherence function.")
+                },
+                alphaMillimeters: Double("Alpha", .001),
+                fileSizeMillimeters: Double("FileSize", 0),
+                normalizeImagePeak: Bool("NormalizeImagePeak", false),
+                coherenceMethod: Text("CoherenceMethod", "ExactSourcePairs") switch
+                {
+                    "ExactSourcePairs" => SpatialCoherenceMethod.ExactSourcePairs,
+                    "FiniteCorrelationWindow" => SpatialCoherenceMethod.FiniteCorrelationWindow,
+                    "FourierModes" => SpatialCoherenceMethod.FourierModes,
+                    _ => throw new ArgumentException("Unknown spatial coherence method.")
+                },
+                coherenceFraction: Double("CoherenceFraction", .98),
+                coherenceSampling: LeadingInt("CoherenceSampling", 64),
+                psfEnergyFraction: Double("PsfEnergyFraction", 0),
+                wavelengthsMicrometers: ImageSimulationWavelengths(primaryDefault: true)),
             "Extended Diffraction Image Analysis" => new ExtendedDiffractionImageAnalysis(
                 CurrentOptic,
                 ParseImageSourcePattern(Text("SourceImage", "分辨率靶标")),
