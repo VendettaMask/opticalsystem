@@ -1,0 +1,116 @@
+{
+  "date": "2026-10-19",
+  "baseHead": "33f6ac99a78c05160bfabd9e12be720650679ba1",
+  "scope": "Repair frozen-evidence path resolution after product rename without changing the original manifest, frozen bytes, aggregate definition or tolerances. Evidence-only mapping; no runtime legacy compatibility.",
+  "manifest": {
+    "path": "artifacts/validation/n02-layer-diagnosis-20261009/frozen-after.json",
+    "sha256": "ae139611dd9cb89667d5e588773035551dd984e1ec3ef0c8186c017f6a1ce047",
+    "count": 2668,
+    "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "changed": false
+  },
+  "relocationMap": {
+    "path": "tools/validation/frozen-evidence-relocations.json",
+    "sha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+    "count": 4,
+    "renamedExactFixtures": 3,
+    "originalConfigurationArchive": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+    "originalConfigurationSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+    "configurationSemanticEqualityAcceptedAsByteEquality": false,
+    "gitAndWorkingMapBothRequired": true,
+    "implicitPrefixAliasesOrMissingFileExceptions": false,
+    "aggregateUsesOriginalLogicalPaths": true,
+    "retiredProductDirectoriesRecreated": false
+  },
+  "controls": {
+    "unmappedHead": {
+      "matched": 2664,
+      "workingMatched": 2664,
+      "unchanged": false,
+      "exitCode": 1,
+      "reportEntry": "unmapped-head.json",
+      "reportSha256": "002b82069fe28c31b513064719b07274b81955bde4c9ba29894045f0f3d50584"
+    },
+    "workingMapCannotCertifyUnchangedHead": {
+      "frozenBlobsMatched": 2668,
+      "workingMatched": 2668,
+      "mapInHead": false,
+      "unchanged": false,
+      "exitCode": 1,
+      "reportEntry": "uncommitted-map-head.json",
+      "reportSha256": "f21251a0455a9b0cc88958b014e68a8e4d7b264b90c74a426d9523dac8871eeb"
+    }
+  },
+  "candidate": {
+    "source": "Index",
+    "tree": "358b28ea12c74218287926dc023cf90a2ab30398",
+    "treeScope": "Base HEAD plus the seven validation script/test/map, CI and attributes changes; documentation and unrelated prior local revalidation changes are not part of this executable candidate tree.",
+    "indexIsIsolated": true,
+    "realIndexChanged": false,
+    "realIndexSha256BeforeAndAfter": "480390ba823b678ef898a88b2a78695394c5999890e553129471b6b959f82c68",
+    "matched": 2668,
+    "workingMatched": 2668,
+    "mapMatchesInBothSources": true,
+    "unchanged": true,
+    "exitCode": 0,
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "reportEntry": "candidate-index.json",
+    "reportSha256": "d5be4ba8cee57b821958947427e8ca3cf2c4692a3ffc54a589099084014d078c"
+  },
+  "tests": {
+    "working": {
+      "passed": 28,
+      "failed": 0,
+      "originalCasesRetained": 8,
+      "reportEntry": "working-tests/results.json",
+      "reportSha256": "f6516c3d0884d1988f415194f76bc25dc4ffcd29b3bf4637e672f731c4ddb854"
+    },
+    "git": {
+      "passed": 22,
+      "failed": 0,
+      "originalCasesRetained": 9,
+      "reportEntry": "git-tests/results.json",
+      "reportSha256": "a1c034957902022f427e4537d3cb81b76461f5daee569008dee8116249e18f6c"
+    },
+    "negativeControls": [
+      "Original-path checks do not silently fall back after rename",
+      "Pinned map and original manifest identity cannot be replaced",
+      "Unknown or duplicated sources and conflicting destinations are rejected",
+      "Missing, modified or EOL-normalized destination bytes are rejected",
+      "Escaping, absolute, nonportable and newline paths are rejected",
+      "Working links and Git symlink modes are rejected, even with identical blob hashes",
+      "Working bytes cannot hide missing or modified Git blobs or maps",
+      "Existing old paths cannot be hidden in either source",
+      "Staged candidate changes cannot certify the old HEAD"
+    ],
+    "platformExecuted": "Windows / PowerShell 7",
+    "ciPlatformsConfigured": ["ubuntu-22.04", "macos-latest", "windows-latest"],
+    "remoteCiExecuted": false,
+    "includedInProductCSharpTestCounts": false
+  },
+  "candidateSources": [
+    {"path": ".gitattributes", "sha256": "cb122c5e35fec0d9dedfd683fb3c37679f0ac3230cf29ba3f5f4189f93f151dd"},
+    {"path": ".github/workflows/ci.yml", "sha256": "d5a0f3da47c52bd691c69c9fc9c3b30198b11e195074f70f2f4046a2976bed0a"},
+    {"path": "tools/validation/FrozenIntegrity.ps1", "sha256": "b979d6ceada209eafd9c38e8e2ae68ee7dfcc5004ebd7ec97dc8a0a8394b39cf"},
+    {"path": "tools/validation/FrozenIntegrity.Tests.ps1", "sha256": "25214ee47cbccabc62873626a2210591270d89e0cfc2b3625b98a717c02bbf05"},
+    {"path": "tools/validation/GitFrozenIntegrity.ps1", "sha256": "66877277552537326f02d95c956cec731c8a299fbd91a58c1956982a8a504f13"},
+    {"path": "tools/validation/GitFrozenIntegrity.Tests.ps1", "sha256": "98d1ea05c6fda859181151394f4dff70d3c89a00795cbedc608a97ff5ebd3c9c"},
+    {"path": "tools/validation/frozen-evidence-relocations.json", "sha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e"}
+  ],
+  "evidence": {
+    "path": "validation/repairs/2026-10-19/frozen-evidence-relocation-repair.zip",
+    "entries": 33,
+    "bytes": 32454,
+    "sha256": "6094150ccf72d4b6cd2316f9ffd64f111d83483c774e534153d6e98613b8cc74",
+    "allEntryHashesReadBackAndVerified": true
+  },
+  "boundaries": {
+    "originalEvidenceOrDatedLedgersRewritten": false,
+    "productCodeOrNumericalTolerancesChanged": false,
+    "nativeCapturesGenerated": false,
+    "productBuildOrOpticalTestsRerun": false,
+    "installerRebuilt": false,
+    "branchCommitCreatedOrPushed": false,
+    "unrelatedLocalChangesPreserved": true
+  }
+}

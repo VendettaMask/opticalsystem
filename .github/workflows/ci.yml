@@ -36,12 +36,14 @@ jobs:
         run: |
           $evidence = Join-Path '${{ runner.temp }}' 'frozen-evidence'
           New-Item -ItemType Directory -Path $evidence -Force | Out-Null
-          ./tools/validation/GitFrozenIntegrity.ps1 -RepositoryRoot . -ManifestPath ./artifacts/validation/n02-layer-diagnosis-20261009/frozen-after.json -ExpectedAggregateSha256 3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10 -OutputPath (Join-Path $evidence 'integrity.json')
+          ./tools/validation/GitFrozenIntegrity.ps1 -RepositoryRoot . -ManifestPath ./artifacts/validation/n02-layer-diagnosis-20261009/frozen-after.json -ExpectedAggregateSha256 3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10 -RelocationMapPath tools/validation/frozen-evidence-relocations.json -ExpectedRelocationMapSha256 6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e -OutputPath (Join-Path $evidence 'integrity.json')
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
 
       - name: Test Git frozen-byte checks
         shell: pwsh
         run: |
+          ./tools/validation/FrozenIntegrity.Tests.ps1 -OutputDirectory (Join-Path '${{ runner.temp }}' 'frozen-working-tests')
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
           ./tools/validation/GitFrozenIntegrity.Tests.ps1 -OutputDirectory (Join-Path '${{ runner.temp }}' 'frozen-evidence-tests')
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
 
@@ -52,6 +54,7 @@ jobs:
           name: frozen-evidence-${{ matrix.os }}
           path: |
             ${{ runner.temp }}/frozen-evidence
+            ${{ runner.temp }}/frozen-working-tests/results.json
             ${{ runner.temp }}/frozen-evidence-tests/results.json
           if-no-files-found: warn
 

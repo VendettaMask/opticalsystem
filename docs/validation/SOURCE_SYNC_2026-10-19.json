@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-19",
+  "scope": "Publish the README redesign, strict frozen-evidence relocation repair, and existing local build revalidation records; no optical product code or reference changes.",
+  "remote": "origin",
+  "branch": "main",
+  "baseHead": "33f6ac99a78c05160bfabd9e12be720650679ba1",
+  "fetchedRemoteBeforeCommit": "33f6ac99a78c05160bfabd9e12be720650679ba1",
+  "remoteDivergenceBeforeCommit": {
+    "localOnly": 0,
+    "remoteOnly": 0
+  },
+  "commitIdentity": "The Git commit containing this ledger. Push completion is verified separately against the remote branch; this pre-commit ledger does not assert a remote CI pass.",
+  "payloadPathCount": 20,
+  "payloadPaths": [
+    ".gitattributes",
+    ".github/workflows/ci.yml",
+    "README.md",
+    "docs/BUILD_AND_RELEASE.md",
+    "docs/CURRENT_STATUS.md",
+    "docs/OPEN_ISSUES_2026-10-08.md",
+    "docs/assets/readme/manifest.json",
+    "docs/assets/readme/workbench-dark.png",
+    "docs/assets/readme/workbench-light.png",
+    "docs/validation/FROZEN_EVIDENCE_RELOCATION_REPAIR_2026-10-19.json",
+    "docs/validation/LOCAL_BUILD_REVALIDATION_2026-10-19.json",
+    "docs/validation/SOURCE_SYNC_2026-10-19.json",
+    "tools/validation/FrozenIntegrity.Tests.ps1",
+    "tools/validation/FrozenIntegrity.ps1",
+    "tools/validation/GitFrozenIntegrity.Tests.ps1",
+    "tools/validation/GitFrozenIntegrity.ps1",
+    "tools/validation/README.md",
+    "tools/validation/frozen-evidence-relocations.json",
+    "validation/rechecks/2026-10-19/local-build-and-regression-evidence.zip",
+    "validation/repairs/2026-10-19/frozen-evidence-relocation-repair.zip"
+  ],
+  "validation": {
+    "frozenWorkingMatched": 2668,
+    "frozenIndexMatched": 2668,
+    "frozenAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "relocationMapSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+    "workingCheckerTests": {
+      "total": 28,
+      "passed": 28,
+      "failed": 0,
+      "resultsSha256": "f6516c3d0884d1988f415194f76bc25dc4ffcd29b3bf4637e672f731c4ddb854"
+    },
+    "gitCheckerTests": {
+      "total": 22,
+      "passed": 22,
+      "failed": 0,
+      "resultsSha256": "a1c034957902022f427e4537d3cb81b76461f5daee569008dee8116249e18f6c"
+    },
+    "frozenIndexReportSha256": "d5be4ba8cee57b821958947427e8ca3cf2c4692a3ffc54a589099084014d078c",
+    "repeatedResultsMatchArchivedRepairEntries": true,
+    "strictDocumentationAndStagedDiffChecksRequiredBeforeCommit": true,
+    "priorBuildAndOpticalRegressionReused": true,
+    "localRevalidationLedger": "docs/validation/LOCAL_BUILD_REVALIDATION_2026-10-19.json",
+    "originalFrozenManifestChanged": false,
+    "existingTrackedProductOrFrozenReferenceChanges": 0
+  },
+  "exactByteProtection": {
+    "newRule": "docs/validation/*_2026-10-19.json -text whitespace=cr-at-eol",
+    "reason": "Preserve the original bytes of the new verification ledgers when staged and checked out.",
+    "earlierRepairCandidateAttributesSha256": "cb122c5e35fec0d9dedfd683fb3c37679f0ac3230cf29ba3f5f4189f93f151dd",
+    "currentAttributesSha256": "d5b9fd479d2d38914a66cbacfdd73f12392ffe3a741f347ff7a54ebeafd4edca",
+    "earlierCandidateArchiveAndDatedLedgersRewritten": false,
+    "archivedCheckerSourceHashesUnchanged": true
+  },
+  "archives": [
+    {
+      "path": "validation/rechecks/2026-10-19/local-build-and-regression-evidence.zip",
+      "bytes": 4269647,
+      "sha256": "0f43e3e3e7babac1140fc9c1fdcb4f447cd0d9f051ddf55711e8ad685ce44136"
+    },
+    {
+      "path": "validation/repairs/2026-10-19/frozen-evidence-relocation-repair.zip",
+      "bytes": 32454,
+      "sha256": "6094150ccf72d4b6cd2316f9ffd64f111d83483c774e534153d6e98613b8cc74"
+    }
+  ],
+  "readme": {
+    "assetManifest": "docs/assets/readme/manifest.json",
+    "images": 2,
+    "featureCards": 6,
+    "originalRenderBytesPreserved": true,
+    "previewKind": "Existing Avalonia offscreen production-control renders, not native desktop or numerical validation.",
+    "localBrowserPreviewChecked": true,
+    "remoteCiBadgeIsLiveNotManuallyMarkedPassing": true
+  },
+  "exclusions": {
+    "temporaryFilesOrBuildOutputsIncluded": false,
+    "installerRebuiltOrPublished": false,
+    "nativeCapturesGenerated": false,
+    "newProductBuildOrOpticalTestRuns": false,
+    "numericalTolerancesOrAlgorithmsChanged": false,
+    "remoteCiResultClaimed": false
+  }
+}

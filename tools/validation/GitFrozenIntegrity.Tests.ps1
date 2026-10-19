@@ -25,9 +25,9 @@ function Write-Manifest([string]$relative = 'reference.txt') {
         [Text.Encoding]::UTF8.GetBytes($entry.path+'='+$entry.sha256+"`r`n"))).ToLowerInvariant()
     [IO.File]::WriteAllText($manifestPath,([ordered]@{count=1;sha256=$aggregate;files=@($entry)} | ConvertTo-Json -Depth 4))
 }
-function Check([string]$name, [bool]$pass, [string]$source = 'HEAD') {
+function Check([string]$name, [bool]$pass, [string]$source = 'HEAD', [hashtable]$Options = @{}) {
     $output = Join-Path $outputRoot ($results.Count.ToString('00')+'.json')
-    & pwsh -NoProfile -File $checker -RepositoryRoot $fixture -ManifestPath $manifestPath -Source $source -OutputPath $output | Out-Null
+    & $checker -RepositoryRoot $fixture -ManifestPath $manifestPath -Source $source -OutputPath $output @Options | Out-Null
     $exitCode = $LASTEXITCODE
     $report = Get-Content -LiteralPath $output -Raw | ConvertFrom-Json
     if (($exitCode -eq 0) -ne $pass) { throw "Unexpected checker result: $name" }
@@ -70,5 +70,63 @@ $pinnedHash = '0' * 64
 & pwsh -NoProfile -File $checker -RepositoryRoot $fixture -ManifestPath $manifestPath -ExpectedAggregateSha256 $pinnedHash 2> (Join-Path $outputRoot 'pinned-rejection.log') | Out-Null
 if ($LASTEXITCODE -eq 0) { throw 'A replacement manifest bypassed the pinned identity.' }
 $results.Add([pscustomobject]@{name='replacement manifest cannot bypass pinned aggregate';passed=$true;expectedSuccess=$false;exitCode=$LASTEXITCODE})
+
+# Keep the old manifest byte-for-byte while Git carries the moved evidence.
+$original = [IO.File]::ReadAllBytes($untracked)
+$manifestBytes = [IO.File]::ReadAllBytes($manifestPath)
+Invoke-FixtureGit @('mv','untracked.bin','renamed.bin')
+[void](Check 'rename without explicit map still fails' $false 'Index')
+$mapPath = Join-Path $fixture 'relocations.json'
+$manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
+[IO.File]::WriteAllText($mapPath,([ordered]@{schemaVersion=1;manifestAggregateSha256=$manifest.sha256;count=1;
+    relocations=@([ordered]@{path='untracked.bin';resolvedPath='renamed.bin';sha256=$manifest.files[0].sha256})} | ConvertTo-Json -Depth 5))
+$options = @{RelocationMapPath='relocations.json';ExpectedRelocationMapSha256=(Get-FileHash -LiteralPath $mapPath).Hash.ToLowerInvariant()}
+$report = Check 'unstaged map cannot certify Git index' $false 'Index' $options
+if (!$report.workingTree.unchanged -or $report.relocationMap.matches) { throw 'Missing Git map was not rejected.' }
+Invoke-FixtureGit @('add','relocations.json')
+[void](Check 'explicit staged relocation passes exact byte checks' $true 'Index' $options)
+[void](Check 'staged relocation cannot certify pre-migration HEAD' $false 'HEAD' $options)
+Commit
+$report = Check 'committed relocation preserves frozen logical aggregate' $true 'HEAD' $options
+if ($report.actualAggregateSha256 -cne $manifest.sha256 -or $report.relocations[0].path -cne 'untracked.bin' -or
+    [Convert]::ToHexString([IO.File]::ReadAllBytes($manifestPath)) -cne [Convert]::ToHexString($manifestBytes)) {
+    throw 'Migration changed the original manifest identity.'
+}
+$renamed = Join-Path $fixture 'renamed.bin'
+[IO.File]::WriteAllBytes($renamed,[byte[]]@(1,2,3))
+$report = Check 'committed relocation cannot hide modified working bytes' $false 'HEAD' $options
+if (!$report.unchanged -or $report.workingTree.unchanged) { throw 'Relocated working mismatch was not isolated.' }
+Invoke-FixtureGit @('add','renamed.bin')
+[IO.File]::WriteAllBytes($renamed,$original)
+$report = Check 'correct relocated working bytes cannot hide changed index blob' $false 'Index' $options
+if (!$report.workingTree.unchanged -or $report.unchanged) { throw 'Relocated index mismatch was not isolated.' }
+Invoke-FixtureGit @('add','renamed.bin')
+Invoke-FixtureGit @('rm','--cached','renamed.bin')
+[void](Check 'untracked relocated bytes cannot certify missing index blob' $false 'Index' $options)
+Invoke-FixtureGit @('add','renamed.bin')
+$mapBytes = [IO.File]::ReadAllBytes($mapPath)
+[IO.File]::WriteAllText($mapPath,'{}')
+Invoke-FixtureGit @('add','relocations.json')
+[IO.File]::WriteAllBytes($mapPath,$mapBytes)
+$report = Check 'correct working map cannot hide changed Git map' $false 'Index' $options
+if (!$report.workingTree.unchanged -or $report.relocationMap.matches) { throw 'Git map mismatch was not isolated.' }
+Invoke-FixtureGit @('add','relocations.json')
+[IO.File]::WriteAllBytes($untracked,$original)
+Invoke-FixtureGit @('add','untracked.bin')
+Remove-Item -LiteralPath $untracked
+$report = Check 'relocation cannot hide original path retained in Git' $false 'Index' $options
+if (!$report.mismatches[0].originalPathPresent) { throw 'Original Git path was not detected.' }
+Invoke-FixtureGit @('rm','--cached','untracked.bin')
+$blob = (& git -C $fixture rev-parse 'HEAD:renamed.bin').Trim()
+Invoke-FixtureGit @('update-index','--cacheinfo',"120000,$blob,renamed.bin")
+$report = Check 'same blob hash in a Git symlink cannot certify relocated evidence' $false 'Index' $options
+if ($report.mismatches[0].gitLinkPath -cne 'renamed.bin') { throw 'Git symlink mode was not rejected.' }
+Invoke-FixtureGit @('update-index','--cacheinfo',"100644,$blob,renamed.bin")
+$mapBlob = (& git -C $fixture rev-parse 'HEAD:relocations.json').Trim()
+Invoke-FixtureGit @('update-index','--cacheinfo',"120000,$mapBlob,relocations.json")
+$report = Check 'same map hash in a Git symlink is rejected' $false 'Index' $options
+if ($report.relocationMap.matches -or !$report.relocationMap.gitLinkPath) { throw 'Git map link mode was not rejected.' }
+Invoke-FixtureGit @('update-index','--cacheinfo',"100644,$mapBlob,relocations.json")
+[void](Check 'repaired index passes after all negative controls' $true 'Index' $options)
 $results | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $outputRoot 'results.json') -Encoding utf8
 [ordered]@{total=$results.Count;passed=$results.Count;failed=0} | ConvertTo-Json

@@ -1,0 +1,160 @@
+{
+  "Date": "2026-10-19",
+  "SourceCommit": "33f6ac99a78c05160bfabd9e12be720650679ba1",
+  "Scope": "Local default Debug/Release root builds and exact replay of the incoming latest related/focused test selections",
+  "Sdk": "10.0.300",
+  "Builds": [
+    {
+      "Seconds": 51.08,
+      "Projects": 19,
+      "Configuration": "Debug",
+      "Warnings": 0,
+      "BinlogSha256": "e38c6abb1854dbd0d2a6410db840c7003dc852e5c3f58a1f04fabc86f6c46730",
+      "Errors": 0
+    },
+    {
+      "Seconds": 43.3,
+      "Projects": 19,
+      "Configuration": "Release",
+      "Warnings": 0,
+      "BinlogSha256": "7e2bdcfce854de6c54abda920c72e32c38f7a96b0e66133b47862c2cc32c7f09",
+      "Errors": 0
+    }
+  ],
+  "Tests": [
+    {
+      "Scope": "Main related Release",
+      "Total": 1148,
+      "Passed": 1148,
+      "Failed": 0,
+      "Skipped": 0,
+      "Seconds": 258.6798744,
+      "TestNamesExactlyMatchFrozenRun": true,
+      "TestNameSetSha256": "a0da49bae6c46a2901b203c9d14bed95593c496c2ade214f3266396cea50fcd1",
+      "TrxSha256": "0604585878b36f5c2048ebd2c95d0275ac4b716be675707c92e22731132a1a9e",
+      "OriginalTrxSha256": "f18af07be11411bed40f2181182fb4f0235a7c7dc0e9779a93159f7f5bc14523"
+    },
+    {
+      "Scope": "Main focused Debug",
+      "Total": 435,
+      "Passed": 435,
+      "Failed": 0,
+      "Skipped": 0,
+      "Seconds": 270.671193,
+      "TestNamesExactlyMatchFrozenRun": true,
+      "TestNameSetSha256": "efa8d01f3f57d5c180713047f0bfddc5b997a8d4a7c4e842453a106ed8c55472",
+      "TrxSha256": "507bb42b47b186d7d6015bb3a7217d6e8e0e558e0f25fb49b7dea684389c53ab",
+      "OriginalTrxSha256": "3f251b25d9d8b38beef4a65f85ba49152ef83db310fd7db70f5a63844dc67d90"
+    },
+    {
+      "Scope": "Comparison Release",
+      "Total": 5,
+      "Passed": 5,
+      "Failed": 0,
+      "Skipped": 0,
+      "Seconds": 8.5076256,
+      "TestNamesExactlyMatchFrozenRun": true,
+      "TestNameSetSha256": "ba2c5b64a35befd6b80ab507e5af55a1b333e7aae9dc6ddb5781b2e33dba1268",
+      "TrxSha256": "c18d10616b6cf9116e230921c402dc48d773ba52b0826641c02381f35066aaf4",
+      "OriginalTrxSha256": "7dcef2c6d901fd81cdfa5cb324fa5cdf26fc2ded4cc27503ea22b76eddae9e5b"
+    },
+    {
+      "Scope": "Comparison Debug",
+      "Total": 5,
+      "Passed": 5,
+      "Failed": 0,
+      "Skipped": 0,
+      "Seconds": 7.8309454,
+      "TestNamesExactlyMatchFrozenRun": true,
+      "TestNameSetSha256": "ba2c5b64a35befd6b80ab507e5af55a1b333e7aae9dc6ddb5781b2e33dba1268",
+      "TrxSha256": "42d66970fb6c473181c38a30abf7ba8a46f6b7ce502b6149971010bf8163bcd9",
+      "OriginalTrxSha256": "33e18a610ed5f9871a242f70500d839cf0cf32bb1580ead4074d2b19f83244ba"
+    }
+  ],
+  "CountsOverlapAndMustNotBeAdded": true,
+  "SourceAndFrozenInputIntegrity": [
+    {
+      "Group": "FrozenNativeFixtures",
+      "Checked": 19,
+      "ExactByteMatches": 19,
+      "ExplainedLineEndingExceptions": [],
+      "UnresolvedMismatches": 0
+    },
+    {
+      "Group": "FrozenArchives",
+      "Checked": 26,
+      "ExactByteMatches": 26,
+      "ExplainedLineEndingExceptions": [],
+      "UnresolvedMismatches": 0
+    },
+    {
+      "Group": "VerifiedCSharpFiles",
+      "Checked": 49,
+      "ExactByteMatches": 48,
+      "ExplainedLineEndingExceptions": [
+        {
+          "Path": "tests/OpticalSystemDesign.Tests/FiniteFftAimingEnergyTests.cs",
+          "RecordedPostFormatSha256": "b55552b01b408d66bebb885ad72a1454cfce0bbc30bece67af130dead7be1077",
+          "CurrentGitCheckoutSha256": "1f7055933d9b075151b2c693109fab40a7455c918c6d69e8eae4e8f0266099ed",
+          "ArchivedPreFormatSha256": "350e9feb6033b114133eb615f722a17ef582fe5ef9b27cf720c90ac599be7cd9",
+          "RecordedPostFormatHashReconstructedFromArchive": true,
+          "Difference": "Only Git CRLF-to-LF checkout normalization; exact source matches after line-ending conversion",
+          "TestStatementsAndAssertionsChanged": false,
+          "MatchesCommittedGitBlob": true
+        }
+      ],
+      "UnresolvedMismatches": 0
+    }
+  ],
+  "InitialRawSourceHashAudit": "48/49 exact source byte matches; the one mismatch is fully reconstructed from the frozen pre-format archive and explained by Git CRLF-to-LF checkout normalization. No frozen ledger or source was edited to hide it.",
+  "DefaultOutputs": [
+    {
+      "Configuration": "Debug",
+      "CoreSha256": "e7e6c33b63f9b9da7865373ed0b404d5c7f3bbbc43e1bcf7cb88f401fa88b91b",
+      "MatchingDefaultCoreCopies": [
+        "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+        "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+        "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+        "tools/OpticalSystemDesign.ZemaxComparison/bin/Debug/net10.0/OpticalSystemDesign.Core.dll"
+      ],
+      "AppExeSha256": "a9934fbdc6cf5b8c20cb632b862d12f05e358471fb968988393ead9458a5490b",
+      "AppDllSha256": "89f410580bb52f228363cddf4a062502d2ca4ea658b0e66dc394e2ad422415b6"
+    },
+    {
+      "Configuration": "Release",
+      "CoreSha256": "6d8867f4aa302279784b2aac0e14495187b2e953f6e6edbaa411b4ab3af17fcb",
+      "MatchingDefaultCoreCopies": [
+        "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+        "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+        "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+        "tools/OpticalSystemDesign.ZemaxComparison/bin/Release/net10.0/OpticalSystemDesign.Core.dll"
+      ],
+      "AppExeSha256": "a9934fbdc6cf5b8c20cb632b862d12f05e358471fb968988393ead9458a5490b",
+      "AppDllSha256": "9990cc69280d27e973b511dfa47fe4ecc1e7372f9e47287711121f462046fd5f"
+    }
+  ],
+  "Evidence": {
+    "Path": "validation/rechecks/2026-10-19/local-build-and-regression-evidence.zip",
+    "Entries": 15,
+    "Bytes": 4269647,
+    "Sha256": "0f43e3e3e7babac1140fc9c1fdcb4f447cd0d9f051ddf55711e8ad685ce44136",
+    "EveryEntryReadbackSha256MatchesOriginal": true
+  },
+  "FullSuiteRerun": false,
+  "NewNativeCapture": false,
+  "DesktopManuallyLaunched": false,
+  "ProductOrTestSourceChanged": false,
+  "ReferencesOrTolerancesChanged": false,
+  "InstallerRebuilt": false,
+  "CommittedOrPushed": false,
+  "DocumentationCheck": {
+    "Strict": "Passed",
+    "Documents": 928,
+    "BrokenLinks": 0,
+    "MarkdownFenceIssues": 0,
+    "LocalOnlyLinks": 0,
+    "HistoricalRepeatedParagraphGroups": 11,
+    "GuideRepeatedParagraphGroups": 0,
+    "DiffCheck": "Passed"
+  }
+}

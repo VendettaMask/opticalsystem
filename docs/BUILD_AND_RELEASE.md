@@ -1,6 +1,6 @@
 # 构建与发布
 
-更新：2026-10-15。本文只说明当前命令和交付规则。最新验收见 [当前状态](CURRENT_STATUS.md)，历史构建验收原文已集中到 [历史账本](validation/BUILD_VERIFICATION_HISTORY_2026-10-13.json)，不作为当前通过结论或可直接执行的旧命令。
+更新：2026-10-19。本文只说明当前命令和交付规则。最新验收见 [当前状态](CURRENT_STATUS.md)，历史构建验收原文已集中到 [历史账本](validation/BUILD_VERIFICATION_HISTORY_2026-10-13.json)，不作为当前通过结论或可直接执行的旧命令。
 
 ## 唯一产品入口
 
@@ -31,6 +31,18 @@ dotnet test labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/Opt
 后两条用于模块定向运行，不是单独产品构建。VSTest 需要本地套接字；受限环境中的权限或网络故障应如实报告，不能当作通过。全量/定向、Debug/Release、原生/Headless、内部/外部数值验收分别记录，不能相加。
 
 CI 使用同一根解决方案，分别运行主测试、模块测试和比较工具的离线测试；长测试有 hang 诊断。最新流程与阈值以 [.github/workflows/ci.yml](../.github/workflows/ci.yml) 为准，真实 Zemax 捕获仍需对应许可和运行时。
+
+## 冻结证据门禁
+
+CI 在三个系统上同时核对工作区与 HEAD 的原始字节。历史清单保持原路径、2668 项和原汇总 SHA-256；产品更名后的四项证据通过[显式迁移表](../tools/validation/frozen-evidence-relocations.json)定位，绝不按旧目录前缀自动回退。三份夹具读取现目录，旧配置读取已保存的原字节归档，不以现配置的 JSON 语义相同代替字节校验。此表仅用于历史证据验证，不进入产品运行或旧名称兼容。
+
+从仓库根目录执行与 CI 相同的门禁：
+
+```powershell
+./tools/validation/GitFrozenIntegrity.ps1 -RepositoryRoot . -ManifestPath ./artifacts/validation/n02-layer-diagnosis-20261009/frozen-after.json -ExpectedAggregateSha256 3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10 -RelocationMapPath tools/validation/frozen-evidence-relocations.json -ExpectedRelocationMapSha256 6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e
+```
+
+迁移表必须匹配固定字节哈希、原清单身份和逐项原 SHA-256，并存在于同一 Git 校验来源。内容或换行变化、文件缺失、目标冲突、越界或链接、旧路径重现均拒绝；不带迁移表仍按原路径检查并失败。`-Source Index` 仅认证所选索引，不能宣称 HEAD 或远端 CI 通过。新增表尚未提交时，HEAD 门禁也必须失败；临时索引的候选复验及回归记录见[本轮账本](validation/FROZEN_EVIDENCE_RELOCATION_REPAIR_2026-10-19.json)。
 
 ## 启动桌面应用
 

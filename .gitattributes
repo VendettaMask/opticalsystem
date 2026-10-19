@@ -6,6 +6,8 @@
 validation/** -text whitespace=cr-at-eol
 # Captured logs and reports keep their original bytes, including trailing spaces.
 artifacts/** -text -whitespace
+# CI pins this explicit evidence-only relocation map by exact byte SHA-256.
+tools/validation/frozen-evidence-relocations.json -text
 # Captured comparison settings are part of the published exact-byte manifest.
 tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json -text whitespace=cr-at-eol
 # These verification ledgers are referenced by exact file SHA-256.
@@ -19,6 +21,7 @@ docs/validation/FROZEN_GIT_INTEGRITY_REPAIR_2026-10-11.json -text whitespace=cr-
 # Preserve newly frozen ledgers and raw native JSON on checkout as well as in archives.
 docs/validation/*_2026-10-17.json -text whitespace=cr-at-eol
 docs/validation/*_2026-10-18.json -text whitespace=cr-at-eol
+docs/validation/*_2026-10-19.json -text whitespace=cr-at-eol
 tests/OpticalSystemDesign.Tests/Fixtures/partial-coherence-zemax-2026-r1.json -text whitespace=cr-at-eol
 tests/OpticalSystemDesign.Tests/Fixtures/partial-coherence-finite-zemax-2026-r1.json -text whitespace=cr-at-eol
 

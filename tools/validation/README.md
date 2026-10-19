@@ -2,14 +2,16 @@
 
 Windows 安装升级验收另见 [2026-10-12 报告](../../docs/WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)和 `scripts/verify-windows-upgrade.ps1`。该脚本仅允许独立测试产品标识，实际安装矩阵 48/48 与正式安装相关定向回归各 32/32 分别记录，不修改冻结光学账本，也不替代光学完整回归。
 
-2026-10-11 新增 Git 字节检查，核对原件及 Git 提交/索引，避免工作区完整但远端 blob 不完整。当前 E04 已在原 2668 条清单下通过索引和全新检出，见[修复记录](../../docs/FROZEN_GIT_INTEGRITY_REPAIR_2026-10-11.md)。10 月 10 日的专用 Collect 脚本保留原验收修订和 2660/2668 条件，不用当前通过改写旧账本。
+2026-10-11 新增 Git 字节检查，核对原件及 Git 提交/索引，避免工作区完整但远端 blob 不完整；原 E04 索引与全新检出的结果保留在[阶段记录](../../docs/FROZEN_GIT_INTEGRITY_REPAIR_2026-10-11.md)。2026-10-19 为产品更名后的四项证据增加显式迁移，当前结果以[最新账本](../../docs/validation/FROZEN_EVIDENCE_RELOCATION_REPAIR_2026-10-19.json)为准。10 月 10 日的专用 Collect 脚本保留原验收修订和 2660/2668 条件，不用当前通过改写旧账本。
 
 ```powershell
-pwsh -NoProfile -File tools/validation/GitFrozenIntegrity.ps1 -RepositoryRoot . -ManifestPath artifacts/validation/n02-layer-diagnosis-20261009/frozen-after.json -ExpectedAggregateSha256 3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10
+pwsh -NoProfile -File tools/validation/GitFrozenIntegrity.ps1 -RepositoryRoot . -ManifestPath artifacts/validation/n02-layer-diagnosis-20261009/frozen-after.json -ExpectedAggregateSha256 3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10 -RelocationMapPath tools/validation/frozen-evidence-relocations.json -ExpectedRelocationMapSha256 6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e
 pwsh -NoProfile -File tools/validation/GitFrozenIntegrity.Tests.ps1 -OutputDirectory <全新夹具目录>
 ```
 
-提交前可用 `-Source Index`；默认 HEAD 检查不接受“索引已修复”替代提交完整。两份脚本回归集合各为 9/9 与 8/8，不纳入 C# 正式测试计数。CI 新任务在三个平台核对固定聚合身份；远端执行结果不由本机通过代替。
+提交前可用 `-Source Index`；默认 HEAD 检查不接受“索引已修复”替代提交完整。两份脚本回归已覆盖迁移的正负控制，不纳入 C# 正式测试计数，实际结果统一见[当前状态](../../docs/CURRENT_STATUS.md)。CI 在三个平台核对固定聚合身份及迁移表身份；远端执行结果不由本机通过代替。
+
+[迁移表](frozen-evidence-relocations.json)只能绑定原清单内的原 SHA-256，物理目标唯一且不能隐藏重现的旧路径。三份夹具在现目录读取，旧配置在既有原字节归档读取；不根据 JSON 语义、路径前缀或缺失项跳过规则放行。迁移表本身必须有固定字节哈希，并存在于被检的 Git 来源；链接、越界、缺失、内容或换行变化均拒绝。不传迁移表继续按原路径失败，历史聚合仍按原逻辑路径计算。本表不供产品兼容旧名称使用。
 
 `FrozenIntegrity.ps1` 只读取清单和当前文件，不修改参考。`Get-FrozenIntegrityReport` 返回实际差异，`Assert-FrozenIntegrity` 在差异上抛错。历史 `unchanged` 标记不参与判定。聚合采用保留大小写的 ordinal 路径、小写 SHA-256、UTF-8 无 BOM 与带末尾 CRLF 的行序列。
 
