@@ -1,0 +1,41 @@
+AutoLens algorithm adaptation in native C# (not an upstream runtime distribution)
+
+Upstream: https://github.com/AI4Optics/AutoLens
+Pinned commit: e58db32f3a0b07f25861b5839a45970f77b5c947
+Source inspected: 1_autolens.py; deeplens/geolens_pkg/optim.py;
+deeplens/geolens_pkg/optim_init.py; deeplens/material/materials.py
+Copyright 2024 Xinge Yang (upstream root license).
+Copyright 2026 KAUST Computational Imaging Group, Xinge Yang and DeepLens
+contributors (upstream optimization source header).
+License: Apache-2.0; full upstream license in AutoLens-LICENSE.txt.
+
+Reference: Xinge Yang, Qiang Fu and Wolfgang Heidrich,
+"Curriculum learning for ab initio deep learned refractive optics,"
+Nature Communications, 2024.
+
+Adaptation by Optical System Design contributors, 2026-10-19:
+Native C# cosine half-to-full aperture curriculum with full fields and all
+configured wavelengths, bounded finite-difference Adam, and existing Core
+trust-region polishing and independent dense validation. The upstream code
+uses 0.5 times the aperture radius despite its prose saying 25 percent.
+
+The separately identified autolens-managed-v1 path adds Core-owned forward
+automatic tangents along formal intersections/refraction, implicit stop aiming,
+two-phase Adam with explicit moments and cosine warm restarts, deterministic
+area-stratified pupil resampling, normalized n/V catalog projection, and tied
+spherical/even-aspheric cemented groups. The optimizable Cauchy reference uses
+the upstream 0.587/0.486/0.656 micrometer wavelengths. The existing product's
+manufacturing bounds, budgets and independent full-aperture acceptance remain
+authoritative. This adaptation changes loss scaling, parameter normalization,
+sampling, initialization and physical-domain handling for product integration.
+The optional product target-polish handoff uses existing Core-backed native
+numeric-Jacobian residual solvers, separately counted from the automatic-tangent
+Adam stages. Non-descent Adam momentum restarts retain phase progress and use
+an independent bias-correction age. Every accepted Adam step measures a decrease.
+
+Both paths are opt-in and pure C#. Neither includes Python, PyTorch, DeepLens
+runtime code, CUDA or pretrained model weights. The historical CPU experiment
+remains distinct and does not acquire the managed path's differentiation.
+All optical computation uses the existing shared Optical System Design Core.
+No upstream glass catalogs, trained weights or example prescriptions are copied.
+No upstream numerical equivalence or endorsement is claimed.

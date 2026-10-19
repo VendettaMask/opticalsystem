@@ -36,6 +36,13 @@ public sealed partial class MainWindow
     private readonly NumericUpDown _seedCount = Number("RootCount", "起始试验上限", 24, 1, 128, 1);
     private readonly NumericUpDown _maximumEvaluations = Number("EvaluationBudget", "评价次数上限", 10000, 1, 100000, 100);
     private readonly ComboBox _searchMode = Named(new ComboBox { ItemsSource = new[] { "QUICK · 筛选后择优优化", "FULL · 逐形式完整优化" }, SelectedIndex = 0, HorizontalAlignment = HorizontalAlignment.Stretch }, "SearchMode", "形式搜索方式");
+    private readonly ComboBox _optimizationMethod = Named(new ComboBox { ItemsSource = new[] { "原生信赖域（默认）", "AutoLens 启发式 · C# CPU 试验", "AutoLens · C# 自动求导" }, SelectedIndex = 0, HorizontalAlignment = HorizontalAlignment.Stretch }, "OptimizationMethod", "局部优化算法");
+    private readonly CheckBox _autoLensMaterials = Named(new CheckBox { Content = "AutoLens 连续材料优化后匹配允许玻璃", IsChecked = true }, "AutoLensMaterials", "连续材料优化后匹配允许玻璃");
+    private readonly ComboBox _autoLensAsphere = Named(new ComboBox { ItemsSource = new[] { "仅球面", "偶次非球面至 r⁴", "偶次非球面至 r⁶", "偶次非球面至 r⁸", "偶次非球面至 r¹⁰" }, SelectedIndex = 3, HorizontalAlignment = HorizontalAlignment.Stretch }, "AutoLensAsphere", "AutoLens 面型");
+    private readonly NumericUpDown _autoLensCurriculum = Number("AutoLensCurriculum", "AutoLens 初始优化步数上限", 2000, 1, 10000, 100);
+    private readonly NumericUpDown _autoLensRefinement = Number("AutoLensRefinement", "AutoLens 目录玻璃精修步数上限", 3000, 1, 10000, 100);
+    private readonly NumericUpDown _autoLensPolish = Number("AutoLensPolish", "完整目标原生精修评价上限", 400, 0, 2000, 50);
+    private readonly TextBox _autoLensCemented = Named(new TextBox { Text = "", PlaceholderText = "如 1,2；为空时全部空气间隔" }, "AutoLensCemented", "AutoLens 胶合间隔编号");
     private readonly NumericUpDown _startingRadius = Number("StartingRadius", "起始半径 mm（0 自动）", 0, 0, 10000000, 10);
     private readonly NumericUpDown _startingCenter = Number("StartingCenter", "起始厚度 mm（0 最小值）", 0, 0, 100000, 1);
     private readonly NumericUpDown _startingAir = Number("StartingAir", "起始空气隙 mm（0 最小值）", 0, 0, 100000, 1);
@@ -101,6 +108,8 @@ public sealed partial class MainWindow
         panel = searchPanel;
         panel.Children.Add(new TextBlock { Text = "SEARCH · 形式搜索", FontSize = DisplayTypography.SectionTitle, FontWeight = Avalonia.Media.FontWeight.SemiBold });
         panel.Children.Add(Field("搜索方式", _searchMode, 276));
+        panel.Children.Add(Field("局部优化算法", _optimizationMethod, 276));
+        panel.Children.Add(Text("C# 自动求导：共享 Core 导数、渐进口径、真实玻璃匹配后精修。仅支持当前中心旋转对称镜片；CPU 实现，未宣称与原版数值等效。旧启发式试验仍单独保留。"));
         panel.Children.Add(Field("起始半径 mm（0 = 10 倍目标焦距）", _startingRadius, 276));
         panel.Children.Add(Pairs(Field("起始厚度 mm（0 自动）", _startingCenter), Field("起始空气隙 mm（0 自动）", _startingAir)));
         panel.Children.Add(Field("起始形式 + / - / *（固定片数时）", _signFilter, 276));
@@ -111,6 +120,13 @@ public sealed partial class MainWindow
         panel.Children.Add(Text("枚举正负初始形式，再比较与优化候选。+ / - 指起始方向，优化中可改变。自动厚度与空气隙使用目标页中的最小值。"));
 
         var advanced = new StackPanel { Spacing = 10 };
+        advanced.Children.Add(Field("AutoLens 面型", _autoLensAsphere, 276));
+        advanced.Children.Add(_autoLensMaterials);
+        advanced.Children.Add(Field("AutoLens 胶合间隔（从 1 编号）", _autoLensCemented, 276));
+        advanced.Children.Add(Field("AutoLens 初始优化步数上限", _autoLensCurriculum, 276));
+        advanced.Children.Add(Field("AutoLens 目录玻璃精修步数上限", _autoLensRefinement, 276));
+        advanced.Children.Add(Field("完整目标原生精修评价上限", _autoLensPolish, 276));
+        advanced.Children.Add(Text("评价和时间预算始终优先；自动分配两阶段步数，不代表每次都会完成上述步数。"));
         advanced.Children.Add(Pairs(Field("最小中心厚度 mm", _minimumCenter), Field("最小空气隙 mm", _minimumAir)));
         advanced.Children.Add(Pairs(Field("最小后焦 mm", _minimumBack), Field("最小边厚 mm", _minimumEdge)));
         advanced.Children.Add(_fixedBack);
@@ -174,6 +190,21 @@ public sealed partial class MainWindow
             FlatStart = new()
             {
                 SamplingPolicy = FlatStartSamplingPolicy.UniformAreaGaussianV1,
+                OptimizationMethod = _optimizationMethod.SelectedIndex switch
+                {
+                    1 => FlatStartOptimizationMethod.AutoLensCpuExperimentV1,
+                    2 => FlatStartOptimizationMethod.AutoLensManagedV1,
+                    _ => FlatStartOptimizationMethod.TrustRegion
+                },
+                AutoLens = _optimizationMethod.SelectedIndex == 2 ? (_inputTemplate.FlatStart?.AutoLens ?? new AutoLensManagedSettings()) with
+                {
+                    OptimizeMaterials = _autoLensMaterials.IsChecked == true,
+                    EvenAsphereOrder = _autoLensAsphere.SelectedIndex == 0 ? 0 : _autoLensAsphere.SelectedIndex + 1,
+                    CementedGaps = CementedGaps(_autoLensCemented.Text),
+                    CurriculumIterations = Integer(_autoLensCurriculum),
+                    RefinementIterations = Integer(_autoLensRefinement),
+                    TargetPolishEvaluations = Integer(_autoLensPolish)
+                } : null,
                 AutomaticLensDiameters = _automaticDiameters.IsChecked == true,
                 UsePhysicalStop = _physicalStop.IsChecked == true,
                 FixedBackFocusMillimeters = _fixedBack.IsChecked == true ? Value(_fixedBackValue) : null,
@@ -215,6 +246,15 @@ public sealed partial class MainWindow
         _inputTemplate = spec; _inputOptions = options;
         var search = options.DesignSearch ?? new();
         _searchMode.SelectedIndex = search.Mode == DesignSearchMode.Full ? 1 : 0;
+        _optimizationMethod.SelectedIndex = spec.FlatStart.OptimizationMethod switch
+        { FlatStartOptimizationMethod.AutoLensCpuExperimentV1 => 1, FlatStartOptimizationMethod.AutoLensManagedV1 => 2, _ => 0 };
+        var autoLens = spec.FlatStart.AutoLens ?? new();
+        _autoLensMaterials.IsChecked = autoLens.OptimizeMaterials;
+        _autoLensAsphere.SelectedIndex = autoLens.EvenAsphereOrder == 0 ? 0 : autoLens.EvenAsphereOrder - 1;
+        _autoLensCurriculum.Value = (decimal)autoLens.CurriculumIterations;
+        _autoLensRefinement.Value = (decimal)autoLens.RefinementIterations;
+        _autoLensPolish.Value = (decimal)autoLens.TargetPolishEvaluations;
+        _autoLensCemented.Text = string.Join(", ", autoLens.CementedGaps.Select(gap => gap + 1));
         Set(_startingRadius, search.StartingRadiusMillimeters ?? 0);
         Set(_startingCenter, search.StartingCenterThicknessMillimeters ?? 0);
         Set(_startingAir, search.StartingAirGapMillimeters ?? 0);
@@ -258,6 +298,9 @@ public sealed partial class MainWindow
         ParametersChanged();
     }
     private static string[] Names(string? text) => (text ?? "").Split([',', ';', '，', '；', '\n'], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+    private static int[] CementedGaps(string? text) => Names(text).Select(value =>
+        int.TryParse(value, out var gap) && gap > 0 ? gap - 1
+            : throw new ArgumentException("胶合间隔请填写从 1 开始的整数，多个编号用逗号分隔。")).ToArray();
     private static double Value(NumericUpDown input)
     {
         // Collapsed, untemplated advanced controls have a Value but no Text yet.

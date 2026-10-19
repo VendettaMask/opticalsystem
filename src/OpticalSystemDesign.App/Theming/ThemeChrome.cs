@@ -118,6 +118,9 @@ internal sealed class ThemeChromeProfile
 
 internal static class ThemeChromeResources
 {
+    public static BoxShadows CaptionButtonShadow { get; } = BoxShadows.Parse("0 1 3 0 #60000000");
+    public static BoxShadows CaptionButtonHoverShadow { get; } = BoxShadows.Parse("0 2 4 0 #70000000");
+    public static BoxShadows CaptionButtonPressedShadow { get; } = BoxShadows.Parse("0 1 1 0 #60000000");
     public static CornerRadius StandardOverlayCornerRadius { get; } = new(6);
     public static CornerRadius StandardSectionHeaderCornerRadius { get; } = new(6);
     public static CornerRadius StandardDocumentTabCornerRadius { get; } = new(6);

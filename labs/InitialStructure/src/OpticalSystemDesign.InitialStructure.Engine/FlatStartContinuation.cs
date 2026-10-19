@@ -10,13 +10,13 @@ internal sealed class FlatStartContinuation
     public static IReadOnlyList<DesignStage> ProgressiveStages { get; } =
         [new(.3, 0, false), new(.65, .5, true), FlatStartDesignProblem.FullStage];
 
-    public static int ProgressiveWindow(int remaining, int dimension, int stageIndex)
+    public static int ProgressiveWindow(int remaining, int dimension, int stageIndex, int stageCount = 3)
     {
-        if (stageIndex == ProgressiveStages.Count - 1) return remaining;
+        if (stageIndex == stageCount - 1) return remaining;
         var modelWindow = 2 * dimension + 3;
         var fullReserve = Math.Min(modelWindow, remaining);
         return Math.Min(Math.Max(0, remaining - fullReserve),
-            Math.Max(modelWindow, remaining / (ProgressiveStages.Count - stageIndex)));
+            Math.Max(modelWindow, remaining / (stageCount - stageIndex)));
     }
 
     public DesignStage Established { get; private set; } = new(.3, 0, false);

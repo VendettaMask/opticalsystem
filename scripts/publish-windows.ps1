@@ -6,8 +6,7 @@ param(
 
     [string]$OutputRoot = '',
 
-    [ValidatePattern('^\d+\.\d+\.\d+(\.\d+)?$')]
-    [string]$AppVersion = '1.0.3',
+    [string]$AppVersion = '',
 
     [ValidatePattern('^[a-zA-Z0-9-]{1,128}$')]
     [string]$ProductAppId = 'OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A',
@@ -20,6 +19,7 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 $repositoryRoot = Split-Path -Parent $PSScriptRoot
+$AppVersion = & (Join-Path $PSScriptRoot 'get-product-version.ps1') -AppVersion $AppVersion
 $project = Join-Path $repositoryRoot 'src\OpticalSystemDesign.App\OpticalSystemDesign.App.csproj'
 if ([string]::IsNullOrWhiteSpace($OutputRoot)) {
     $OutputRoot = Join-Path $repositoryRoot 'artifacts\windows'
@@ -74,6 +74,10 @@ try {
     }
 
     Write-Host '[3/3] Checking the EXE, runtime and bundled resources...'
+    $assemblyInfo = [Diagnostics.FileVersionInfo]::GetVersionInfo((Join-Path $stagingDirectory 'OpticalSystemDesign.App.dll'))
+    if ($assemblyInfo.ProductVersion.Split('+')[0] -cne $AppVersion) {
+        throw 'Published application version does not match the package version. No release was created.'
+    }
     $requiredFiles = @(
         'OpticalSystemDesign.App.exe',
         'OpticalSystemDesign.App.dll',
@@ -85,6 +89,8 @@ try {
         'Licenses\TFStudio-LICENSE.txt',
         'Licenses\tmmcore-LICENSE.txt',
         'Licenses\MATERIAL-NOTICE.txt',
+        'Licenses\AutoLens-LICENSE.txt',
+        'Licenses\AutoLens-NOTICE.txt',
         'coreclr.dll',
         'hostfxr.dll',
         'libSkiaSharp.dll',

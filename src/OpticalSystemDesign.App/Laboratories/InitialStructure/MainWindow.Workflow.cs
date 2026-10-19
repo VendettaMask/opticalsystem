@@ -62,7 +62,7 @@ public sealed partial class MainWindow
                 if (args.Property == NumericUpDown.TextProperty && !TextRepresentsCurrentValue(number)) ParametersChanged();
             };
         }
-        foreach (var input in new[] { _name, _glasses, _catalogs, _initialGlass, _signFilter })
+        foreach (var input in new[] { _name, _glasses, _catalogs, _initialGlass, _signFilter, _autoLensCemented })
             input.PropertyChanged += (_, args) => { if (args.Property == TextBox.TextProperty) ParametersChanged(); };
         _apertureMode.SelectionChanged += (_, _) => ParametersChanged();
         _fixedBack.IsCheckedChanged += (_, _) => ParametersChanged();
@@ -70,6 +70,9 @@ public sealed partial class MainWindow
         _physicalStop.IsCheckedChanged += (_, _) => ParametersChanged();
         _freeStop.IsCheckedChanged += (_, _) => ParametersChanged();
         _searchMode.SelectionChanged += (_, _) => ParametersChanged();
+        _optimizationMethod.SelectionChanged += (_, _) => ParametersChanged();
+        _autoLensAsphere.SelectionChanged += (_, _) => ParametersChanged();
+        _autoLensMaterials.IsCheckedChanged += (_, _) => ParametersChanged();
         Closing += (_, args) =>
         {
             if (_allowClose || !_busy) return;

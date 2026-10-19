@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-19",
+  "scope": "Windows title-bar startup failure and recent caption/document-close styling",
+  "rootCause": "Two template selectors in the hover/pressed styles under WindowDrawnDecorations.ControlTheme; runtime validation failed while constructing MainWindowTitleBar.",
+  "implementation": [
+    "Single-template button state selectors with bound appearance properties",
+    "Separate circle background and native content layers, registered template parts, full rectangular hit testing",
+    "Preserved native geometry changes, dynamic content, and shared caption shadow resources",
+    "Original Dock ordinary/compact close commands and geometry with foreground-bound glyph fill and theme-aware disabled color",
+    "User-guide diagram nodes reuse the shared corner radius"
+  ],
+  "before": {
+    "trx": "artifacts/validation/chrome-repair-20261019/chrome-before.trx",
+    "total": 4,
+    "passed": 1,
+    "failed": 3,
+    "notes": "Reproduced the exact startup exception and two incorrect tab-button test assumptions. Development and failed render attempts remain in the same local evidence directory."
+  },
+  "verification": {
+    "status": "Startup and scoped UI repair verified; one pre-existing architecture guard remains failing",
+    "builds": {
+      "Debug": { "projects": 19, "warnings": 0, "errors": 0, "log": "artifacts/validation/chrome-repair-20261019/build-debug-final.log" },
+      "Release": { "projects": 19, "warnings": 0, "errors": 0, "log": "artifacts/validation/chrome-repair-20261019/build-release-final.log" }
+    },
+    "regressions": {
+      "Debug": { "total": 75, "passed": 74, "failed": 1, "skipped": 0, "trx": "artifacts/validation/chrome-repair-20261019/chrome-final-debug.trx" },
+      "Release": { "total": 75, "passed": 74, "failed": 1, "skipped": 0, "trx": "artifacts/validation/chrome-repair-20261019/chrome-final-release.trx" },
+      "onlyFailure": "LayeringArchitectureTests.AppAssemblyDoesNotReferenceCore",
+      "scope": "Real MainWindow construction/show with the laboratory entry; native caption host states, full hit regions and dynamic content; both Dock close presenters, disabled colors and actual document close; theme/search/workspace/MDI/guide and related architecture guards. The two configurations and rendering subsets overlap and are not added together."
+    },
+    "desktopInputUsed": false,
+    "captureDirectory": "artifacts/validation/chrome-repair-20261019/captures",
+    "captureCount": 18,
+    "rendering": "Skia with the Headless backend; real TopLevelHost drawn decorations and workspace controls. Inspected idle, restore and hover images and the Light document-close workspace; native symbols render above the circle layer.",
+    "formatting": "Scoped dotnet format whitespace succeeded for the six changed C# files; git diff --check passed",
+    "documentation": { "strict": true, "documents": 934, "brokenLinks": 0, "fenceIssues": 0, "localOnlyLinks": 0, "guideRepeatedParagraphGroups": 0 }
+  },
+  "existingArchitectureFailure": {
+    "test": "LayeringArchitectureTests.AppAssemblyDoesNotReferenceCore",
+    "reason": "The App assembly already referenced OpticalSystemDesign.Core before this repair; the guard predates the mandatory in-process module integration.",
+    "preRepairReleaseBinary": {
+      "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "lastWriteTimeLocal": "2026-10-19T13:41:01+08:00",
+      "sha256": "7d0da4e9c1dcc6cbfa02af1a89a059d08146ba0b5871f6ec918d9b5b71624f20",
+      "coreReferencePresent": true
+    },
+    "status": "Reported separately; neither the architecture assertion nor product computation was changed to mask it."
+  },
+  "limits": [
+    "Scoped UI checks, not a complete repository test run or native Snap Layout, multi-monitor or DPI certification",
+    "No desktop mouse or keyboard input, installer rebuild, installation, commit or push"
+  ]
+}

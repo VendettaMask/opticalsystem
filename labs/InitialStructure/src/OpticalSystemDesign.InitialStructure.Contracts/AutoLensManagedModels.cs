@@ -1,0 +1,56 @@
+using OpticalSystemDesign.Core.Differentiation;
+using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Core.Serialization;
+
+namespace OpticalSystemDesign.InitialStructure.Contracts;
+
+/// <summary>Pure managed C# differentiation without a foreign runtime dependency.</summary>
+public sealed record AutoLensManagedSettings
+{
+    public int CurriculumIterations { get; init; } = 2000;
+    public int RefinementIterations { get; init; } = 3000;
+    public bool OptimizeMaterials { get; init; } = true;
+    // Zero: spherical, 2..5: coefficients through r^4..r^10. r^2 stays exactly zero.
+    public int EvenAsphereOrder { get; init; } = 4;
+    public double LearningRateFactor { get; init; } = 1;
+    public int FieldRings { get; init; } = 5;
+    public int PupilRings { get; init; } = 3;
+    public int PupilArms { get; init; } = 12;
+    public int ResampleInterval { get; init; } = 20;
+    public int TargetPolishEvaluations { get; init; } = 400;
+    /// <summary>Zero-based element gaps cemented to the following element; other gaps keep the ordinary air-gap bound.</summary>
+    public IReadOnlyList<int> CementedGaps { get; init; } = [];
+}
+
+public enum AutoLensManagedPhase { Curriculum, CatalogProjection, CatalogRefinement, Completed, DomainFailure }
+
+public sealed record AutoLensAdamState(int Iteration, IReadOnlyList<double> Coordinates,
+    IReadOnlyList<double> FirstMoment, IReadOnlyList<double> SecondMoment, int MomentIteration = 0);
+
+public sealed record AutoLensManagedStep(AutoLensManagedPhase Phase, int Iteration, double PupilFraction,
+    double BeforeLoss, double AfterLoss, double StepFraction, int ChargedEvaluation);
+
+/// <summary>Evaluated design state, never a physical acceptance certificate.</summary>
+public sealed record AutoLensManagedState
+{
+    public int SchemaVersion { get; init; } = 1;
+    public string SpecificationFingerprint { get; init; } = "";
+    public string AllowedGlassFingerprint { get; init; } = "";
+    public string RootFingerprint { get; init; } = "";
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public string? ParentCandidateId { get; init; }
+    public AutoLensManagedPhase Phase { get; init; }
+    public int PlannedCurriculumIterations { get; init; }
+    public int PlannedRefinementIterations { get; init; }
+    public OpticSnapshot Optic { get; init; } = null!;
+    public OpticSnapshot? FullTargetIncumbent { get; init; }
+    public IReadOnlyList<OpticalDesignParameter> Parameters { get; init; } = [];
+    public AutoLensAdamState Adam { get; init; } = new(0, [], [], []);
+    public IReadOnlyList<DesignGlassMatch> GlassMatches { get; init; } = [];
+    public IReadOnlyList<AutoLensManagedStep> TrainingSteps { get; init; } = [];
+    public int EvaluationCount { get; init; }
+    public long TracedRayCount { get; init; }
+    public long ElapsedComputeTicks { get; init; }
+    public int TargetPolishEvaluationCount { get; init; }
+    public double? LastLoss { get; init; }
+}

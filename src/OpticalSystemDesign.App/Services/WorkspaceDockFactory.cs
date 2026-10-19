@@ -31,6 +31,7 @@ public sealed class WorkspaceDockFactory : Factory
     private readonly IWorkbenchApplication _application;
     private readonly AppSettings _settings;
     private readonly Func<string, Task<bool>>? _openProjectAsync;
+    private readonly Func<IReadOnlyList<AppAction>> _userGuideActions;
     private readonly SurfaceSelectionService _surfaceSelection = new();
     private readonly Dictionary<string, WorkspaceDocumentDescriptor> _descriptors = new(StringComparer.Ordinal);
     private readonly Dictionary<string, Control> _content = new(StringComparer.Ordinal);
@@ -38,11 +39,13 @@ public sealed class WorkspaceDockFactory : Factory
     public WorkspaceDockFactory(
         IWorkbenchApplication application,
         AppSettings settings,
-        Func<string, Task<bool>>? openProjectAsync = null)
+        Func<string, Task<bool>>? openProjectAsync = null,
+        Func<IReadOnlyList<AppAction>>? userGuideActions = null)
     {
         _application = application;
         _settings = settings;
         _openProjectAsync = openProjectAsync;
+        _userGuideActions = userGuideActions ?? (() => Array.Empty<AppAction>());
         HostWindowLocator = new Dictionary<string, Func<IHostWindow?>>
         {
             [nameof(IDockWindow)] = () => new HostWindow()
@@ -598,6 +601,7 @@ public sealed class WorkspaceDockFactory : Factory
                 () => TolerancingEditor().BuildHistogramChartView()),
             WorkspaceDocumentTypes.ToleranceYield => new ToleranceChartDocumentPanel(
                 () => TolerancingEditor().BuildYieldChartView()),
+            WorkspaceDocumentTypes.UserGuide => new UserGuidePanel(_userGuideActions()),
             WorkspaceDocumentTypes.OperandHelp => new OperandHelpPanel(_application.Optimization),
             WorkspaceDocumentTypes.MultiConfiguration => new MultiConfigurationPanel(_application.Prescription, _application.MultiConfiguration, _application.Events),
             WorkspaceDocumentTypes.Analysis => new AnalysisPanel(

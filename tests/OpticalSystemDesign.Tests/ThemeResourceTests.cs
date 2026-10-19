@@ -40,9 +40,9 @@ public sealed class ThemeResourceTests
     public void ThemeRegistryOwnsSelectionResourcesIconsAndChrome()
     {
         Assert.Equal(
-            new[] { "Light", "Dark", "Isekai", "Pixel", "System" },
+            new[] { "Light", "Dark", "Isekai", "Pixel", "Lumen", "System" },
             ThemeRegistry.SelectableThemes.Select(theme => theme.SettingsValue));
-        Assert.Equal(4, ThemeRegistry.ConcreteThemes.Count);
+        Assert.Equal(5, ThemeRegistry.ConcreteThemes.Count);
         Assert.Equal(ThemeVariant.Light, ThemeRegistry.FromSettings("Light").RequestedVariant);
         Assert.Equal(ThemeVariant.Dark, ThemeRegistry.FromSettings("Dark").RequestedVariant);
         Assert.Equal(IsekaiTheme.Variant, ThemeRegistry.FromSettings("Isekai").RequestedVariant);

@@ -25,6 +25,7 @@ public sealed partial class MainWindow
 {
     private Button? _undoButton;
     private Button? _redoButton;
+    private readonly List<MenuItem> _languageMenuItems = new();
 
     private Control BuildShell()
     {
@@ -77,7 +78,8 @@ public sealed partial class MainWindow
                         RibbonButton("show-lens-editor", "table-2", "镜头数据"),
                         RibbonButton("show-multiconfig", "panels-top-left", "多配置")),
                     RibbonGroup("显示",
-                        RibbonButton("display-settings", "type", "格式与字体")))),
+                        RibbonButton("display-settings", "type", "格式与字体")),
+                    RibbonGroup("语言", RibbonLanguageMenuButton()))),
                 RibbonTab("视图", BuildRibbonPage(
                     RibbonGroup("系统布局",
                         RibbonButton("show-viewer-2d", "panel-top", "2D视图"),
@@ -159,8 +161,10 @@ public sealed partial class MainWindow
                         RibbonButton("restore-default-layout", "rotate-ccw", "载入默认")))),
                 RibbonTab("帮助", BuildRibbonPage(
                     RibbonGroup("支持",
+                        RibbonButton("show-user-guide", "book-open-text", "用户指南"),
                         RibbonButton("show-operand-help", "book-open-text", "操作数帮助"),
                         RibbonButton("recover-document", "history", "恢复未保存工程"),
+                        RibbonButton("check-for-updates", "refresh-cw", "检查更新"),
                         RibbonButton("about", "circle-question-mark", "关于"))))
             }
         };
@@ -184,6 +188,8 @@ public sealed partial class MainWindow
                         RibbonButton("enter-sequential-mode", "rows-3", "顺序模式")),
                     RibbonGroup("对象",
                         RibbonButton("show-non-sequential-objects", "boxes", "对象数据")))),
+                RibbonTab("设置", BuildRibbonPage(
+                    RibbonGroup("语言", RibbonLanguageMenuButton()))),
                 RibbonTab("视图", BuildRibbonPage(
                     RibbonGroup("非序列布局",
                         RibbonButton("show-viewer-3d", "box", "3D视图"),
@@ -203,7 +209,9 @@ public sealed partial class MainWindow
                         RibbonButton("close-all-pages", "x", "关闭其他页")))),
                 RibbonTab("帮助", BuildRibbonPage(
                     RibbonGroup("支持",
+                        RibbonButton("show-user-guide", "book-open-text", "用户指南"),
                         RibbonButton("show-operand-help", "book-open-text", "操作数帮助"),
+                        RibbonButton("check-for-updates", "refresh-cw", "检查更新"),
                         RibbonButton("about", "circle-question-mark", "关于"))))
             }
         };
@@ -456,6 +464,73 @@ public sealed partial class MainWindow
         ("show-material-athermal-map", "thermometer-sun", "无热化玻璃图"),
         ("show-material-transmission", "arrow-right-left", "内部透过率 vs. 波长"),
         ("show-material-dispersion-wavelength", "chart-line", "色散 vs. 波长"));
+
+    private DropDownButton RibbonLanguageMenuButton()
+    {
+        var flyout = new MenuFlyout();
+        _languageMenuItems.Clear();
+        foreach (var (code, displayName) in UiLocalization.SupportedLanguages)
+        {
+            var item = new MenuItem
+            {
+                Header = displayName,
+                ToggleType = MenuItemToggleType.Radio,
+                IsChecked = string.Equals(_settings.Language, code, StringComparison.Ordinal),
+                MinWidth = 150,
+                Padding = new Thickness(10, 8)
+            };
+            AutomationProperties.SetName(item, displayName);
+            AutomationProperties.SetAutomationId(item, $"language-{code}");
+            item.Click += (_, _) => ChangeLanguage(code);
+            _languageMenuItems.Add(item);
+            flyout.Items.Add(item);
+        }
+
+        var content = RibbonDropDownCommandContent("languages", "语言");
+        var button = new DropDownButton
+        {
+            HorizontalContentAlignment = HorizontalAlignment.Center,
+            VerticalContentAlignment = VerticalAlignment.Center,
+            Flyout = flyout,
+            Content = content
+        };
+        BindRibbonCommandLayout(button);
+        BindRibbonCommandChrome(button);
+        AutomationProperties.SetName(button, "语言");
+        AutomationProperties.SetAutomationId(button, "ribbon-language");
+        ToolTip.SetTip(button, "选择界面语言");
+        button.Classes.Add("ribbon-command");
+        button.Classes.Add("ribbon-dropdown");
+        AttachRibbonCommandHover(button, content);
+        return button;
+    }
+
+    private void ChangeLanguage(string language)
+    {
+        var normalized = UiLocalization.NormalizeLanguage(language);
+        if (string.Equals(_settings.Language, normalized, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        _settings.Language = normalized;
+        UiLocalization.Apply(normalized);
+        RefreshStatus();
+        foreach (var item in _languageMenuItems)
+        {
+            var automationId = AutomationProperties.GetAutomationId(item);
+            item.IsChecked = string.Equals(automationId, $"language-{normalized}", StringComparison.Ordinal);
+        }
+
+        if (!_settings.TrySave(out var errorMessage))
+        {
+            _statusText.Text = UiLocalization.Text("保存设置失败：") + errorMessage;
+        }
+        else
+        {
+            _statusText.Text = UiLocalization.Text("设置已保存");
+        }
+    }
 
     private DropDownButton RibbonMenuButton(string menuId, string menuIcon, string menuLabel,
         params (string ActionId, string IconName, string Label)[] commands)

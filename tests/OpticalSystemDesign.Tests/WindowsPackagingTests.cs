@@ -6,6 +6,22 @@ namespace OpticalSystemDesign.Tests;
 public sealed class WindowsPackagingTests
 {
     [Fact]
+    public void PackagingVersionResolverUsesAuthorityAndAllowsExplicitTestOverrides()
+    {
+        if (!OperatingSystem.IsWindows()) return;
+        var current = RunScriptFile("get-product-version.ps1");
+        Assert.Equal(0, current.ExitCode);
+        Assert.Equal(global::OpticalSystemDesign.App.Services.ProductVersionInfo.Current, current.Output.Trim());
+        var specific = RunScriptFile("get-product-version.ps1", "-AppVersion", "2.3.4");
+        Assert.Equal(0, specific.ExitCode);
+        Assert.Equal("2.3.4", specific.Output.Trim());
+        foreach (var bad in new[] { "01.0.4", "1.0.4.0", "1.0.4-rc.1", "1.0.65535", "-1.0.4" })
+        {
+            Assert.NotEqual(0, RunScriptFile("get-product-version.ps1", "-AppVersion", bad).ExitCode);
+        }
+    }
+
+    [Fact]
     public void PackagingUsesPortableUntrimmedOutputWithoutOverwritingTrackedLocks()
     {
         var root = RepositoryRoot();

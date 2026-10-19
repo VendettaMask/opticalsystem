@@ -24,6 +24,77 @@ public sealed class FlatStartDesktopTests
     public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<global::OpticalSystemDesign.App.App>()
         .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
 
+    [Fact]
+    public async Task AutoLensCpuIsExplicitOptInPersistsAndChangingMethodClearsStaleResults()
+    {
+        using var host = new DesktopHost();
+        await host.Run(async () =>
+        {
+            var window = host.Window(defaultInputs: true);
+            window.Show(); await window.Ready;
+            var method = Find<ComboBox>(window, "OptimizationMethod");
+            Assert.Equal(0, method.SelectedIndex);
+            method.SelectedIndex = 1;
+            Find<NumericUpDown>(window, "EvaluationBudget").Value = 120;
+            Find<NumericUpDown>(window, "RootCount").Value = 1;
+            Click(window, "Generate");
+            Assert.False(method.IsEffectivelyEnabled);
+            await window.PendingOperation;
+            var checkpoint = window.CurrentCheckpoint!;
+            Assert.Equal(FlatStartOptimizationMethod.AutoLensCpuExperimentV1, checkpoint.Specification.FlatStart!.OptimizationMethod);
+            Assert.Contains("autolens-cpu-experiment-v1", checkpoint.Algorithm.Name);
+            var row = Assert.IsType<CandidateRow>(Find<DataGrid>(window, "Candidates").SelectedItem);
+            Assert.Contains("非原版可微/GPU", row.Details(checkpoint));
+            File.Copy(Path.Combine(host.Directory, checkpoint.RunId + ".family.json"), host.OpenPath);
+            method.SelectedIndex = 0;
+            Assert.Null(window.CurrentCheckpoint);
+            Assert.Null(Find<CandidatePreviewControl>(window, "Preview").PrimaryScene);
+            Assert.False(Find<Button>(window, "Export").IsEnabled);
+            Click(window, "OpenRun"); await window.PendingOperation;
+            Assert.Equal(1, method.SelectedIndex);
+            Assert.Equal(checkpoint.RunId, window.CurrentCheckpoint!.RunId);
+            Find<TabControl>(window, "InputTabs").SelectedIndex = 2;
+            method.BringIntoView(); window.UpdateLayout();
+            Capture(window, "autolens-cpu-experiment");
+            window.Close();
+        });
+    }
+
+    [Fact]
+    public async Task ManagedAutoLensControlsRoundTripAndTopologyChangesInvalidateDisplayedResults()
+    {
+        using var host = new DesktopHost();
+        await host.Run(async () =>
+        {
+            var window = host.Window(defaultInputs: true);
+            window.Show(); await window.Ready;
+            var method = Find<ComboBox>(window, "OptimizationMethod");
+            method.SelectedIndex = 2;
+            Find<ComboBox>(window, "AutoLensAsphere").SelectedIndex = 1;
+            Find<NumericUpDown>(window, "AutoLensCurriculum").Value = 1;
+            Find<NumericUpDown>(window, "AutoLensRefinement").Value = 1;
+            Find<TextBox>(window, "AutoLensCemented").Text = "1";
+            Find<NumericUpDown>(window, "EvaluationBudget").Value = 60;
+            Find<NumericUpDown>(window, "RootCount").Value = 1;
+            Click(window, "Generate"); await window.PendingOperation;
+            var checkpoint = Assert.IsType<FlatStartSearchCheckpoint>(window.CurrentCheckpoint);
+            Assert.Equal(FlatStartOptimizationMethod.AutoLensManagedV1, checkpoint.Specification.FlatStart!.OptimizationMethod);
+            Assert.Equal(new[] { 0 }, checkpoint.Specification.FlatStart.AutoLens!.CementedGaps);
+            Assert.Contains("autolens-managed-v1", checkpoint.Algorithm.Name);
+            File.Copy(Path.Combine(host.Directory, checkpoint.RunId + ".family.json"), host.OpenPath);
+            Find<TextBox>(window, "AutoLensCemented").Text = "";
+            Assert.Null(window.CurrentCheckpoint);
+            Click(window, "OpenRun"); await window.PendingOperation;
+            Assert.Equal(2, method.SelectedIndex);
+            Assert.Equal(1, Find<ComboBox>(window, "AutoLensAsphere").SelectedIndex);
+            Assert.Equal("1", Find<TextBox>(window, "AutoLensCemented").Text);
+            Find<TabControl>(window, "InputTabs").SelectedIndex = 2;
+            method.BringIntoView(); window.UpdateLayout();
+            Capture(window, "autolens-managed");
+            window.Close();
+        });
+    }
+
     [Theory]
     [InlineData("AutomaticDiameters")]
     [InlineData("PhysicalStop")]

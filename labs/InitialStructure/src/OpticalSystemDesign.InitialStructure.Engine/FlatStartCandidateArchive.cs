@@ -73,6 +73,13 @@ internal static class FlatStartCandidateArchive
                 - (right.Radius == 0 ? 0 : specification.EffectiveFocalLengthMillimeters / right.Radius);
             var thickness = (left.Thickness - right.Thickness) / specification.MaximumTrackLengthMillimeters;
             sum += curvature * curvature + thickness * thickness;
+            if (specification.FlatStart?.OptimizationMethod == FlatStartOptimizationMethod.AutoLensManagedV1)
+            {
+                var profile = Core.Differentiation.OpticalDesignParameters.NormalizedProfileDifference(left, right);
+                // An unavailable shape comparison cannot establish structural identity.
+                if (profile is null) return double.PositiveInfinity;
+                sum += profile.Value;
+            }
         }
         return Math.Sqrt(sum / (2 * (a.Optic.Surfaces.Count - 2)));
     }

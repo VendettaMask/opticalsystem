@@ -35,6 +35,7 @@ public static class WorkspaceDocumentTypes
     public const string ToleranceReport = "tolerance-report";
     public const string ToleranceHistogram = "tolerance-histogram";
     public const string ToleranceYield = "tolerance-yield";
+    public const string UserGuide = "user-guide";
     public const string OperandHelp = "operand-help";
 
     private static readonly HashSet<string> Known = new(StringComparer.Ordinal)
@@ -60,6 +61,7 @@ public static class WorkspaceDocumentTypes
         ToleranceReport,
         ToleranceHistogram,
         ToleranceYield,
+        UserGuide,
         OperandHelp
     };
 

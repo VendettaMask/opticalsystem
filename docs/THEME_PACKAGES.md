@@ -8,12 +8,47 @@
 
 ## 当前主题包
 
+### 光域（Lumen）
+
+“光域”现已作为独立主题包注册，设置值为 `Lumen`，可从“设置 → 显示格式设置 → 界面主题”选择；默认仍为普通模式，不自动改写用户选择。实现集中在 [LumenTheme](../src/OpticalSystemDesign.App/Theming/LumenTheme.cs)、[状态样式](../src/OpticalSystemDesign.App/Theming/LumenThemeStyles.cs)及注册表，不在业务面板中增加主题分支。
+
+主题采用近黑灰青底、灰白文字、暖金主操作、灰蓝选择态，以及无阴影的方角细边框。侧栏、菜单、输入框、下拉项、表格、Dock 页签和对话框共享资源；使用原有 `StandardLucide` 图标及用户字体。材料行始终保留蓝色语义，普通/悬停/选中分别绘制实际 Fluent 行背景，焦点和禁用状态独立处理。没有装饰计数圆环、假进度或假性能读数。
+
+科学画布使用暗底和银灰镜片填充，2 DIP 黑色透镜轮廓、物理光线/波长色及标准导出版式不变。主题不复制光学计算，不改变默认镜头数据/二维文档布局；此前预览中的三维主视觉、外围读数和自定义上下分栏不是正式产品启动布局。
+
+可运行真实 C# 交互预览，直接应用注册资源而不使用旧预览的临时调色板和材料行覆盖；“控件与对话框”按钮打开原生交互示例，示例不计算、不保存设置：
+
+```powershell
+dotnet run --project tools/previews/FuiThemePreview/FuiThemePreview.csproj -c Release -- --lumen --engineering
+```
+
+追加 `--capture artifacts/validation/lumen-theme-20261019/lumen.png` 可离屏验证工作台并输出原生控件示例图。新主题已进入源码和正常 Debug/Release 输出；后续源码同步见[当前状态](CURRENT_STATUS.md)，不重打安装包或修改远端发布附件。主题实现阶段核对范围及保留失败见[主题交付账目](validation/LUMEN_THEME_2026-10-19.json)。
+
+### 独立 FUI C# 预览（未注册为产品主题）
+
+不带 `--lumen` 的 [C# 工具](../tools/previews/FuiThemePreview/Program.cs)仍保留较早的“光域 03”独立布局试验；这一临时调色板/布局本身**不是正式主题，不进入安装包，不改写用户主题/工程/工作区设置**，与上面的已注册 `Lumen` 主题包区分。独立进程中的[空间仪表窗口](../tools/previews/FuiThemePreview/FuiPreviewWindow.cs)保留暖金/灰白三维线框，增加与暗场统一的二维光路剖面；周边显示同工程实际读数，下方保留 12 列原生镜头编辑器，侧栏复用 `SystemPropertiesPanel`。支持编辑处方、拖动旋转/滚轮缩放三维结构、二维平移/缩放、复位当前图、辅助线开关、重建模型及调整上下分栏，关闭即丢弃修改。顶部菜单用于外观预览，不接入正式文件/保存命令。
+
+右侧“光学参数”已移除表示镜片数量的装饰圆环与刻度，改用“结构：3 片 / 6 面”一行文字；数量来自当前场景，处方刷新或构建失败时清空旧数量。焦距、F 数与参考折射率保持实际读数。该调整仅涉及预览，验证范围见[紧凑读数账目](validation/FUI_CSHARP_PREVIEW_COMPACT_READOUTS_2026-10-19.json)。
+
+新增的 [C# 三维展示控件](../tools/previews/FuiThemePreview/FuiSpatialStage.cs)只投影共享 Core 返回的 `Scene3Dto` 网格、轮廓与材料信息，不生成光学曲面、不计算光线或像质；环线/网格/引导标注是明确标示的 UI 结构辅助，不是工程标准线或性能图。右侧焦距、F 数、参考折射率与镜组计数均来自当前 Core 场景，不绘制假进度或假达标结果。处方变化后先清除旧模型与读数，只有二维和三维均匹配当前修订的结果才能显示。新的[二维仪表壳](../tools/previews/FuiThemePreview/FuiEngineeringView.cs)直接复用产品 `OpticSceneControl`，不另写二维几何、光线映射或物理配色；仅在预览局部资源中使用暗底/银灰镜片填充，并保留可切换的浅底、2 DIP 黑色镜片轮廓、原物理光线颜色、原生平移缩放和比例尺。工具栏移至图外，原生标注展示实际镜组表面编号、材料与像面，光线采用控件已有的 0.85 DIP 细线设置。材料行在真实 Fluent 填充层保持全行蓝色。预览显式采用空间/剖面与底部处方分栏，**不改变产品启动时镜头数据/二维视图的默认文档布局**。调色板反射适配仅在工具中使用，不构成运行时主题插件接口。
+
+```powershell
+dotnet restore tools/previews/FuiThemePreview/FuiThemePreview.csproj --locked-mode
+dotnet run --project tools/previews/FuiThemePreview/FuiThemePreview.csproj -c Release
+dotnet run --project tools/previews/FuiThemePreview/FuiThemePreview.csproj -c Release -- --engineering
+```
+
+`--engineering` 直接打开二维页。可用 `-- --engineering --capture artifacts/validation/fui-csharp-preview-v3-20261019/section.png` 在独立 Headless/Skia 进程中做真实控件渲染自检并退出。自检等待实际场景修订完成，执行处方编辑/还原、二维视图切换、光线/标注/明暗底色切换及配色恢复/应用，不以固定延迟代替更新成功。GUI 预览不保存设置；仅 `--capture` 显式写入目标 PNG、自检 JSON 或失败日志。此工具不加入产品解决方案或依赖树。当前核对范围见[二维修订账目](validation/FUI_CSHARP_PREVIEW_V3_2026-10-19.json)；[第二版](validation/FUI_CSHARP_PREVIEW_V2_2026-10-19.json)及[第一版记录](validation/FUI_CSHARP_PREVIEW_2026-10-19.json)保留原始范围，不代表当前外观。
+
+### 正式注册的主题
+
 | 设置值 | 显示名称 | 基础外观 | 图标包 | Chrome/装饰 |
 | --- | --- | --- | --- | --- |
 | `Light` | 普通模式 | Avalonia Light | `StandardLucide` | 正蓝菜单、白色主区、雾蓝侧栏与表头、统一蓝色交互，无投影 |
 | `Dark` | 暗夜模式 | Avalonia Dark | `StandardLucide` | 现有圆角、边框和阴影 |
 | `Isekai` | 异世界 | Dark 派生 | `GameIconsFantasy` | 旧金锐角框、工作区/视口/对话框双框、皮革剑刃 Ribbon |
 | `Pixel` | 像素风格 | Light 派生 | `FarmFresh32` | 明亮 8-bit 色板、中文像素字、彩色 32×32 图标、方角硬边与紧凑点阵 Ribbon |
+| `Lumen` | 光域 | Dark 派生 | `StandardLucide` | 灰青暗场、暖金主操作、灰蓝选择态、蓝色材料行、方角细边框，无装饰圆环或阴影 |
 | `System` | 跟随系统 | 由系统决定 Light/Dark | 对应实际明暗主题 | 对应实际明暗主题 |
 
 `Light` 和 `Dark` 保留原有图标几何。普通亮模式采用确认的参考图工作台：正蓝渐变顶栏、白色编辑区、雾蓝背景、独立白色圆角侧栏分组（圆角 6、间距 6、无投影），选中文档页签白底蓝字，蓝色选中边从下沿移至右侧（2 DIP），保留原生模板与圆角。原连续白底内收分隔线已移除，嵌套视场/波长卡片恢复完整细轮廓；暗夜主题保留自己的 Chrome。`BlueThemeTokens` 集中语义色值，`LightTheme` 映射 Fluent/Dock 实际资源及当前布局资源，`BlueThemeStyles` 修复原模板的组合状态、焦点及禁用优先级；业务面板不判断主题名。顶部 Ribbon 仍为紧凑分类页签与横向工具栏，各主题共用最小高度 72、命令最小尺寸 56×36、18 DIP 图标、6 DIP 图文间距和 22 DIP 居中短分隔线。Light 工具栏及状态栏的浅渐变分别通过 `RibbonPageBackground`、`StatusBarBackground` 语义资源提供，其他主题回落到自身 Surface/SubtleSurface；背景渐变为不可变资源，避免跨界面线程共享可变画刷。布局细节见 [UI 规范](UI_DESIGN_SPEC.md)，历史记录见 [主题报告](BLUE_THEME_2026-09-27.md)。

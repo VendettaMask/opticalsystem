@@ -51,7 +51,7 @@ public sealed class FlatStartSearchService
         FlatStartSearchPlanning.Validate(specification, source.Options);
         return new()
         {
-            Algorithm = new("strict-flat-selected-refinement", FlatStartAlgorithm.Version, "Managed CPU", true),
+            Algorithm = new(FlatStartAlgorithm.Name("strict-flat-selected-refinement", specification), FlatStartAlgorithm.Version, "Managed CPU", true),
             RunId = "flat-refine-" + Guid.NewGuid().ToString("N"),
             Specification = specification,
             Options = source.Options,
@@ -89,6 +89,7 @@ public sealed class FlatStartSearchService
         var quota = RootQuota(specification, options, roots.Count, checkpoint?.Algorithm.Version ?? FlatStartAlgorithm.Version);
         var current = checkpoint ?? new FlatStartSearchCheckpoint
         {
+            Algorithm = new(FlatStartAlgorithm.Name("strict-flat-family-search", specification), FlatStartAlgorithm.Version, "Managed CPU", true),
             RunId = "flat-search-" + Guid.NewGuid().ToString("N"),
             Specification = specification,
             Options = options,
@@ -178,7 +179,7 @@ public sealed class FlatStartSearchService
                     work[^1].Reason)
             };
             await Save(); // Persist reservations before dispatching any evaluations.
-            var completed = await Task.WhenAll(work.Select(item => Task.Run(() => Execute(specification, item, timeLimit))));
+            var completed = await Task.WhenAll(work.Select(item => Task.Run(() => Execute(specification, item, timeLimit, materials.Names))));
             // Task.WhenAll preserves proposal order, independent of worker completion order.
             var updated = current.Trials.ToArray();
             foreach (var trial in completed) updated[trial.Index] = trial;
@@ -235,7 +236,7 @@ public sealed class FlatStartSearchService
         }
     }
 
-    private static FamilyTrial Execute(InitialStructureSpecification specification, TrialWork work, TimeSpan timeLimit)
+    private static FamilyTrial Execute(InitialStructureSpecification specification, TrialWork work, TimeSpan timeLimit, IReadOnlyList<string> allowedGlassNames)
     {
         var trial = work.Trial;
         try
@@ -246,11 +247,11 @@ public sealed class FlatStartSearchService
                 { MaximumEvaluations = trial.AllocatedEvaluations, MaximumParallelism = 1, TimeLimit = timeLimit }
             };
             var service = new FlatStartDesignService();
-            var result = work.Start is null ? service.Solve(request, work.Family.ElementCount, family: work.Family, screenOnly: work.ScreenOnly)
+            var result = work.Start is null ? service.Solve(request, work.Family.ElementCount, family: work.Family, screenOnly: work.ScreenOnly, allowedGlassNames: allowedGlassNames)
                 : service.Continue(request, work.Family, work.RootProof!, work.Start, work.Parent!.Candidate!.CandidateId,
                     improveBeyondTargets: work.Operation == "refine-selected",
                     screenOnly: specification.FlatStart!.SamplingPolicy != FlatStartSamplingPolicy.UniformAreaGaussianV1
-                        && work.Operation is not ("refine" or "refine-selected"));
+                        && work.Operation is not ("refine" or "refine-selected"), allowedGlassNames: allowedGlassNames);
             var candidate = result.Candidate is { } value ? value with
             {
                 CandidateId = (work.Operation == "refine-selected" ? "selected-" + ContentFingerprint.Compute(work.Parent!.Candidate!.CandidateId)[..8] + "-" : "")
@@ -276,6 +277,7 @@ public sealed class FlatStartSearchService
                 Stages = result.Steps.Where(step => step.Operation != "curvature-thickness-step").Select(step => Compact(step)!).ToArray(),
                 Candidate = candidate,
                 FinalValidation = result.FinalValidation is { } validation ? validation with { Residuals = [] } : null,
+                AutoLensState = result.AutoLensState,
                 Diagnostics = trial.Diagnostics.Concat(result.Diagnostics).ToArray()
             };
         }
@@ -310,6 +312,12 @@ public sealed class FlatStartSearchService
         var optic = Optic.FromSnapshot(parent.Candidate!.Optic);
         var n = parent.Family.ElementCount;
         var selectedGlass = parent.Family.GlassNames.ToArray();
+        if (specification.FlatStart?.OptimizationMethod == FlatStartOptimizationMethod.AutoLensManagedV1)
+            for (var element = 0; element < n; element++)
+            {
+                var actual = optic.SurfaceGroup.Items[2 * element + 1].MaterialAfter.Name;
+                selectedGlass[element] = glasses.First(name => optic.Materials.Resolve(name).Name.Equals(actual, StringComparison.OrdinalIgnoreCase));
+            }
         var random = new DeterministicRandom(FlatStartScheduler.Seed(specification.Budget.RandomSeed, ordinal));
         var operation = decision.Operation;
         if (glasses.Count == 1 && operation is 1 or 2) operation = 4;
@@ -330,6 +338,7 @@ public sealed class FlatStartSearchService
             var stop = 1 + parent.Family.StopSurfaceIndex % (2 * n);
             for (var index = 1; index <= 2 * n; index++) optic.SurfaceGroup.Items[index].IsStop = index == stop;
         }
+        AutoLensManagedTopology.Apply(optic, specification, n);
         optic.SurfaceGroup.Renumber();
         var family = parent.Family with
         {

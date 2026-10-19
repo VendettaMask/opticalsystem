@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <ProductVersion>1.0.4</ProductVersion>
+    <Version Condition="'$(Version)' == ''">$(ProductVersion)</Version>
+  </PropertyGroup>
+</Project>

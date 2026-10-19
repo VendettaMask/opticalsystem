@@ -2,6 +2,10 @@
   <img src="src/OpticalSystemDesign.App/Assets/Brand/AppIcon.png" alt="Optical System Design 应用图标" width="104" />
 </p>
 
+<p align="center">
+  <strong>简体中文</strong> · <a href="README_EN.md">English</a>
+</p>
+
 <h1 align="center">Optical System Design</h1>
 
 <p align="center">
@@ -45,6 +49,7 @@
 这是 S.T.A.R. Labs 的非商业光学设计项目：用纯 C#/.NET 构建共享计算内核，用 Avalonia 提供桌面工作流，让镜头模型、分析结果和设计过程在一处衔接。
 
 - **一个工作台**：镜头编辑、二维/三维布局、分析、优化和公差共用工程与工作区。
+- **三种界面语言**：默认简体中文，可即时切换 English 与日本語并记住选择。
 - **一套计算内核**：主程序、初始结构和镀膜模块复用共享 Core，不依赖外部 Python 光学运行时。
 - **一个完整产品**：两个模块均为同进程、必装内置功能，标准安装一次包含，无须另外启动或安装。
 - **可追溯的验证**：区分已实现能力、冻结参考、数值对照和待验证边界，不把界面展示当作精度证明。
@@ -96,9 +101,13 @@
 
 ### 使用 Windows 安装包
 
-使用项目提供的 `OpticalSystemDesign-*-Setup.exe`，按向导完成安装后启动主程序。Windows x64 标准包为自包含交付，使用者无须另装 .NET、初始结构或镀膜模块。
+安装包通过 [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases) 分发。使用正式发布中的 `OpticalSystemDesign-*-Setup.exe`，按向导完成安装后启动主程序。Windows x64 标准包为自包含交付，使用者无须另装 .NET、初始结构或镀膜模块。
+
+软件版本可在“帮助 → 关于”或“帮助 → 检查更新”查看；检查更新仅由用户手动发起，并可打开 GitHub 发布页下载完整包。在线自动升级先预留，不会自动下载或安装。版本与发布规则见[构建与发布](docs/BUILD_AND_RELEASE.md#软件版本与-github-分发)；开发版本不代表已有对应公开安装包。
 
 在主程序的 **实验室 → AI 初始结构 / 光学镀膜设计** 中进入两个内置模块。
+
+完整使用方法可在主程序的 **帮助 → 用户指南** 中搜索查看；该图文指南包含真实界面截图和主题自适应说明图，覆盖当前注册的全部功能命令和分析，并随界面切换中文、英文或日文。仓库内的范围说明见[用户指南](docs/USER_GUIDE.md)。
 
 当前安装包未签名，系统可能显示未知发布者提示；源码更新不会自动替换已有安装。安装、修复和恢复方式见 [Windows 安装说明](docs/WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)，实际包身份以[交付记录](docs/BUILT_IN_MODULES_2026-10-13.md)为准。
 

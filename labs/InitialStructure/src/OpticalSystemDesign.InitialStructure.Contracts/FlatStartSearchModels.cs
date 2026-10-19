@@ -51,6 +51,13 @@ public static class FlatStartAlgorithm
     // Version 5 was an abandoned weighting experiment, never a frozen release.
     public const string Version = "20";
 
+    public static string Name(string name, InitialStructureSpecification specification) => specification.FlatStart?.OptimizationMethod switch
+    {
+        FlatStartOptimizationMethod.AutoLensCpuExperimentV1 => name + "-autolens-cpu-experiment-v1",
+        FlatStartOptimizationMethod.AutoLensManagedV1 => name + "-autolens-managed-v1",
+        _ => name
+    };
+
     public static int SchedulingPolicy(string version, InitialStructureSpecification specification) =>
         version is "13" or "14" or "15" or "16" or "17" or "18" or "19" or Version && specification.FlatStart?.SamplingPolicy == FlatStartSamplingPolicy.UniformAreaGaussianV1 ? 2 : 1;
 }
@@ -79,6 +86,8 @@ public sealed record FamilyTrial
     public CandidateSnapshot? Candidate { get; init; }
     public DesignEvaluation? FinalValidation { get; init; }
     public IReadOnlyList<SearchDiagnostic> Diagnostics { get; init; } = [];
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public AutoLensManagedState? AutoLensState { get; init; }
 }
 
 /// <summary>Reserved work is charged before dispatch; interrupted work never restores its quota.</summary>

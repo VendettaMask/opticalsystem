@@ -64,7 +64,7 @@ dotnet run --project src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj 
 .\Build-Installer.cmd -WhatIf
 ```
 
-`Build-Exe.cmd` 是兼容入口。默认发布 Windows x64 Release 自包含未签名 1.0.3 安装包，输出到 `artifacts/installers/installer-win-x64-<编号>/`，含 Setup EXE、SHA-256、`release.json` 与载荷目录。分发只需 Setup EXE；哈希不证明发布者身份。首次构建需要联网还原并准备编译器，目标用户安装不需要 .NET 或联网。
+`Build-Exe.cmd` 是兼容入口。默认发布 Windows x64 Release 自包含未签名安装包，版本从 [ProductVersion.props](../ProductVersion.props) 读取（当前 1.0.4，尚未正式发布；已有明确标注的测试预发布），输出到 `artifacts/installers/installer-win-x64-<编号>/`，含 Setup EXE、SHA-256、`release.json` 与载荷目录。分发只需 Setup EXE；哈希不证明发布者身份。首次构建需要联网还原并准备编译器，目标用户安装不需要 .NET 或联网。
 
 脚本必须打包主程序、五个内部模块库和镀膜授权文件；缺少任何一项则失败。安装没有模块选装。仅目录、快捷方式等普通安装设置可由用户选择，完成页启动默认不勾选。默认按当前用户安装，不要求管理员权限。
 
@@ -72,7 +72,21 @@ dotnet run --project src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj 
 
 RID 专用锁文件放在项目 `obj` 下，不覆盖源锁文件。发布禁用裁剪、AOT 和单文件合并，保留原生依赖和授权；每次使用新输出目录，失败的 `.partial` 产物不当成成功包。自动化可设置 `OPTICAL_SYSTEM_DESIGN_PACKAGE_NO_PAUSE=1`。
 
-当前标准 1.0.3 完整包已经生成，不再是“只有测试包”；旧正式 1.0.2 文件和用户现有安装未覆盖。当前包身份与验收见 [统一交付记录](BUILT_IN_MODULES_2026-10-13.md)。
+此前标准 1.0.3 完整包已经生成；它不是当前 1.0.4 源码的交付验收。旧包和用户现有安装不覆盖。此前包身份与验收见 [统一交付记录](BUILT_IN_MODULES_2026-10-13.md)，当前范围见 [当前状态](CURRENT_STATUS.md)。
+
+## 软件版本与 GitHub 分发
+
+[ProductVersion.props](../ProductVersion.props) 是默认版本唯一来源，普通构建、启动画面、“关于”、更新窗口、Windows 发布及安装器均使用该值；macOS 发布脚本将同一值写入产物的两个 bundle 版本字段。安装脚本显式 `-AppVersion` 仅用于受控测试或明确指定版本，要求规范的三段稳定版本（每段 0..65534），并将同一版本传入编译。Windows 发布额外核对实际程序集的产品版本，不允许安装器和软件版本漂移。修改版本号不会自动发布。
+
+软件中选择“帮助 → 检查更新”，窗口显示当前/最新正式版本及对应完整安装包名称。只有点击检查才向固定仓库 `VendettaMask/opticalsystem` 的 GitHub Releases API 发起只读、无凭据请求；不会启动即检查，也不发送工程、处方或设置。正式通道拒绝草稿、预发布、不规范版本、不匹配仓库/标签的地址、重复或未完整上传的安装包。版本按数字及 SemVer 预发布规则比较，不按字符串排序，不提供降级。Windows 按当前进程架构匹配 `win-x64` / `win-arm64`；macOS 等平台可查看版本与发布页，但本阶段不提供安装包匹配。离线、超时、访问限制、没有公开正式版或缺少对应安装包分别提示，不误报为“已是最新”。404 也可能是仓库不可访问。
+
+“打开 GitHub 发布页”由用户主动打开浏览器，不执行安装包。在线安装接口 `IOnlineUpgradeInstaller` 已预留，但默认实现不可用且调用明确拒绝；禁用按钮附不可用原因。**本阶段没有后台联网、自动下载、自动安装、自动重启或在线升级完成的承诺。** 用户在发布页核对版本、架构及 SHA-256，下载完整包，保存工程并关闭程序后手动安装；所有必装模块整体升级。未签名包仍不能认证发布者身份；未来启用在线安装前须另行实现可信签名/载荷验证、用户授权、未保存工程保护、进程退出与失败恢复。
+
+安装包正式分发地址为 [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases)。[发布工作流](../.github/workflows/release.yml) 在推送 `v<产品版本>` 标签后核对版本、构建完整解决方案、运行定向交付测试及原冻结门禁，再生成 x64/ARM64 完整未签名 Setup EXE、各自 SHA-256 和 release 元数据，最后只创建**发布草稿**。x64 对包副本运行完整性/内置模块探测；ARM64 在 x64 runner 上仅交叉打包，不宣称原生执行验收。维护者须另行核对正常 CI、资产和发布说明，手动发布草稿为正式版并标为 Latest，软件才会检测到。标签推送、草稿创建、公开发布均是独立外部操作，本地构建不会触发。
+
+每个稳定发布及架构只上传一个生产安装器：`OpticalSystemDesign-<版本>-<RID>-Setup.exe` 或明确标注未签名的 `OpticalSystemDesign-<版本>-<RID>-Unsigned-Setup.exe`，并附同名 `.sha256`；`UnsignedTest` 不能作为升级安装包。不可把源码压缩包或工作流临时产物冒充 Setup。API 约定见 [GitHub Releases REST 文档](https://docs.github.com/en/rest/releases/releases)。
+
+当前已按用户要求手动上传 [1.0.4 x64 测试预发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)，含 `UnsignedTest-Setup.exe`、同名 SHA-256 与 `release.json`；不标 Latest，不进入正式更新检测。此包是含未提交修改的工作区构建，标签仅指向源码基线；GitHub 自动源码压缩包不能复现本包。测试包使用正常产品安装标识，安装可能升级已有同产品安装，应先保存并备份重要工程；本轮没有实际安装。软件内部仍显示 1.0.4，同版本正式包不会被判为更高版本，必要时应手动安装。实际身份与验证见[本轮账目](validation/VERSION_UPDATES_2026-10-19.json)。
 
 ## 安装、修复和验证
 

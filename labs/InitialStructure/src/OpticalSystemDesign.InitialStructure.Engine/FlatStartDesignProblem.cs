@@ -75,7 +75,8 @@ internal sealed class FlatStartDesignProblem
 
     private double MinimumThickness(int surfaceIndex) => surfaceIndex == SurfaceCount - 1
         ? _specification.MinimumBackFocusMillimeters
-        : surfaceIndex % 2 == 0 ? _specification.MinimumCenterThicknessMillimeters : _specification.MinimumAirGapMillimeters;
+        : surfaceIndex % 2 == 0 ? _specification.MinimumCenterThicknessMillimeters
+        : AutoLensManagedTopology.IsCemented(_specification, surfaceIndex / 2) ? 0 : _specification.MinimumAirGapMillimeters;
 
     public Optic CreateOptic(IReadOnlyList<double> values, DesignStage stage)
     {
@@ -90,6 +91,7 @@ internal sealed class FlatStartDesignProblem
                 ? vector[SurfaceCount + index] * _focalLength : _specification.FlatStart!.FixedBackFocusMillimeters!.Value;
             surface.ThicknessVariable = SurfaceCount + index < Dimension;
         }
+        AutoLensManagedTopology.Apply(optic, _specification, _elementCount);
         optic.SurfaceGroup.Renumber();
         return optic;
     }

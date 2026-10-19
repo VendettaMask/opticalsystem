@@ -1,12 +1,15 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Chrome;
+using Avalonia.Controls.Presenters;
+using Avalonia.Controls.Templates;
 using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Styling;
+using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Controls;
 
@@ -20,6 +23,15 @@ internal sealed class MainWindowTitleBar : Border
 {
     internal const double CaptionHeight = 36;
     internal const double WindowsCaptionButtonsWidth = 144;
+    internal const double TrafficLightDiameter = 22;
+    internal static Color MinimizeButtonColor => Color.Parse("#FFBD2E");
+    internal static Color MaximizeButtonColor => Color.Parse("#28C840");
+    internal static Color CloseButtonColor => Color.Parse("#FF5F57");
+    internal static Color CaptionButtonGlyphColor => Color.Parse("#301C16");
+    private static readonly AttachedProperty<IBrush?> TrafficLightFillProperty =
+        AvaloniaProperty.RegisterAttached<MainWindowTitleBar, Button, IBrush?>("TrafficLightFill");
+    private static readonly AttachedProperty<BoxShadows> TrafficLightShadowProperty =
+        AvaloniaProperty.RegisterAttached<MainWindowTitleBar, Button, BoxShadows>("TrafficLightShadow");
     private readonly Window _window;
     private readonly TextBlock _title;
     private readonly Bitmap _iconBitmap;
@@ -111,9 +123,34 @@ internal sealed class MainWindowTitleBar : Border
             theme.Children.Add(new Style(s => s.Nesting().Template().OfType<Panel>().Name("PART_TitleTextPanel")
                 .Child().OfType<TextBlock>())
             { Setters = { new Setter(IsVisibleProperty, false) } });
+            if (OperatingSystem.IsWindows())
+            {
+                AddTrafficLightButtonStyle(
+                    theme,
+                    "PART_MinimizeButton",
+                    Color.Parse("#FFD45A"), MinimizeButtonColor,
+                    Color.Parse("#FFE47C"), Color.Parse("#FFC13A"),
+                    Color.Parse("#E6AA25"), Color.Parse("#D59616"));
+                AddTrafficLightButtonStyle(
+                    theme,
+                    "PART_MaximizeButton",
+                    Color.Parse("#58DD70"), MaximizeButtonColor,
+                    Color.Parse("#78E98D"), Color.Parse("#37CE55"),
+                    Color.Parse("#22AE3B"), Color.Parse("#168F2D"));
+                AddTrafficLightButtonStyle(
+                    theme,
+                    "PART_CloseButton",
+                    Color.Parse("#FF8179"), CloseButtonColor,
+                    Color.Parse("#FF9A94"), Color.Parse("#FF6961"),
+                    Color.Parse("#E4514A"), Color.Parse("#C93E38"));
+                theme.Resources["CaptionButtonForeground"] = new SolidColorBrush(CaptionButtonGlyphColor);
+            }
             if (_window.ActualThemeVariant == ThemeVariant.Light)
             {
-                theme.Resources["CaptionButtonForeground"] = new SolidColorBrush(BlueThemeTokens.TitleText);
+                if (!OperatingSystem.IsWindows())
+                {
+                    theme.Resources["CaptionButtonForeground"] = new SolidColorBrush(BlueThemeTokens.TitleText);
+                }
                 theme.Resources["CaptionButtonBackground"] = new SolidColorBrush(BlueThemeTokens.CaptionSearchHover);
                 theme.Resources["CaptionButtonBorderBrush"] = new SolidColorBrush(BlueThemeTokens.CaptionButtonPressed);
             }
@@ -121,6 +158,89 @@ internal sealed class MainWindowTitleBar : Border
             _decorationVariant = _window.ActualThemeVariant;
         }
     }
+
+    private static void AddTrafficLightButtonStyle(
+        ControlTheme theme,
+        string buttonName,
+        Color top,
+        Color bottom,
+        Color hoverTop,
+        Color hoverBottom,
+        Color pressedTop,
+        Color pressedBottom)
+    {
+        var style = new Style(s => s.Nesting().Template().OfType<Button>().Name(buttonName));
+        style.Setters.Add(new Setter(Button.ForegroundProperty, new SolidColorBrush(CaptionButtonGlyphColor)));
+        style.Setters.Add(new Setter(TrafficLightFillProperty, VerticalGradient(top, bottom)));
+        style.Setters.Add(new Setter(TrafficLightShadowProperty, ThemeChromeResources.CaptionButtonShadow));
+        style.Setters.Add(new Setter(Button.TemplateProperty, CreateTrafficLightButtonTemplate()));
+        theme.Children.Add(style);
+
+        // State setters stay on the button. The disc binds to them rather than
+        // crossing a second /template/ boundary, which ControlTheme rejects.
+        var hoverStyle = new Style(s => s.Nesting().Template().OfType<Button>().Name(buttonName)
+            .Class(":pointerover"));
+        hoverStyle.Setters.Add(new Setter(TrafficLightFillProperty, VerticalGradient(hoverTop, hoverBottom)));
+        hoverStyle.Setters.Add(new Setter(TrafficLightShadowProperty, ThemeChromeResources.CaptionButtonHoverShadow));
+        theme.Children.Add(hoverStyle);
+
+        var pressedStyle = new Style(s => s.Nesting().Template().OfType<Button>().Name(buttonName)
+            .Class(":pressed"));
+        pressedStyle.Setters.Add(new Setter(TrafficLightFillProperty, VerticalGradient(pressedTop, pressedBottom)));
+        pressedStyle.Setters.Add(new Setter(TrafficLightShadowProperty, ThemeChromeResources.CaptionButtonPressedShadow));
+        theme.Children.Add(pressedStyle);
+    }
+
+    private static FuncControlTemplate<Button> CreateTrafficLightButtonTemplate()
+    {
+        return new FuncControlTemplate<Button>((button, scope) =>
+        {
+            if (button.Content is Control content)
+                foreach (var glyph in content.GetVisualDescendants().Prepend(content).OfType<Avalonia.Controls.Shapes.Shape>())
+                {
+                    glyph.Bind(Avalonia.Controls.Shapes.Shape.FillProperty, button.GetObservable(Button.ForegroundProperty));
+                    glyph.Bind(Avalonia.Controls.Shapes.Shape.StrokeProperty, button.GetObservable(Button.ForegroundProperty));
+                }
+            var presenter = new ContentPresenter
+            {
+                Name = "PART_ContentPresenter",
+                Background = Brushes.Transparent,
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                VerticalContentAlignment = VerticalAlignment.Center
+            };
+            presenter.Bind(ContentPresenter.ContentProperty, button.GetObservable(Button.ContentProperty));
+            presenter.Bind(ContentPresenter.ContentTemplateProperty, button.GetObservable(Button.ContentTemplateProperty));
+            presenter.Bind(ContentPresenter.ForegroundProperty, button.GetObservable(Button.ForegroundProperty));
+            scope.Register("PART_ContentPresenter", presenter);
+            var disc = new Border
+            {
+                Name = "PART_TrafficLightDisc",
+                BorderBrush = new SolidColorBrush(Color.Parse("#70FFFFFF")),
+                BorderThickness = new Thickness(0.75),
+                Width = TrafficLightDiameter,
+                Height = TrafficLightDiameter,
+                CornerRadius = new CornerRadius(TrafficLightDiameter / 2),
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            disc.Bind(BackgroundProperty, button.GetObservable(TrafficLightFillProperty));
+            disc.Bind(BoxShadowProperty, button.GetObservable(TrafficLightShadowProperty));
+            scope.Register("PART_TrafficLightDisc", disc);
+            // The full caption slot remains hittable outside the smaller disc.
+            return new Panel { Background = Brushes.Transparent, Children = { disc, presenter } };
+        });
+    }
+
+    private static IBrush VerticalGradient(Color top, Color bottom) => new LinearGradientBrush
+    {
+        StartPoint = new RelativePoint(0, 0, RelativeUnit.Relative),
+        EndPoint = new RelativePoint(0, 1, RelativeUnit.Relative),
+        GradientStops = new GradientStops
+        {
+            new(top, 0),
+            new(bottom, 1)
+        }
+    }.ToImmutable();
 
     private void OnThemeChanged(object? sender, EventArgs args) => UpdateChrome();
 

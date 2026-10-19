@@ -1,0 +1,26 @@
+{
+  "Date": "2026-10-19",
+  "Scope": "Standalone C# preview: remove the decorative glass-element count dial",
+  "Source": "tools/previews/FuiThemePreview/FuiPreviewWindow.cs",
+  "Changes": [
+    "Removed AssemblyDial control and drawing implementation",
+    "Replaced the dial with scene-derived compact Chinese structure text",
+    "Kept actual focal length, F-number and reference refractive index",
+    "Clear structure text together with stale scene readouts on refresh or failure"
+  ],
+  "Verification": {
+    "ReleaseToolBuildWarnings": 0,
+    "ReleaseToolBuildErrors": 0,
+    "ActualHeadlessSkiaRenderAndSelfTestPassed": true,
+    "RemovedDialTypeAbsent": true,
+    "StructureText": "结构：3 片 / 6 面",
+    "PrescriptionEditRestoreAndSectionControlsPassed": true,
+    "RawReport": "artifacts/validation/fui-compact-readouts-20261019/section.json",
+    "Capture": "artifacts/validation/fui-compact-readouts-20261019/section.png"
+  },
+  "FormalProductChanged": false,
+  "OpticalCalculationChanged": false,
+  "UserSettingsSaved": false,
+  "InstallerOrRemoteUpdated": false,
+  "FullProductRegressionOrOpticalAcceptanceClaimed": false
+}

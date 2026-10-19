@@ -8,7 +8,8 @@ namespace OpticalSystemDesign.InitialStructure.Engine;
 public sealed class FlatStartDesignService
 {
     public FlatStartDesignResult Solve(InitialStructureSpecification specification, int elementCount,
-        CancellationToken cancellationToken = default, FlatStartFamily? family = null, bool screenOnly = false)
+        CancellationToken cancellationToken = default, FlatStartFamily? family = null, bool screenOnly = false,
+        IReadOnlyList<string>? allowedGlassNames = null)
     {
         cancellationToken.ThrowIfCancellationRequested();
         SpecificationValidator.Validate(specification);
@@ -19,15 +20,41 @@ public sealed class FlatStartDesignService
         {
             Budget = specification.Budget with { MaximumEvaluations = Math.Max(1, Math.Min(800, progressive ? budget / 3 : budget - 1)) }
         }, elementCount, cancellationToken, family);
+        if (specification.FlatStart.OptimizationMethod == FlatStartOptimizationMethod.AutoLensManagedV1)
+            return AutoLensManagedDesign.Run(specification, elementCount, bootstrap, stopwatch, family, null, null,
+                allowedGlassNames ?? [specification.InitialGlass], cancellationToken, screenOnly: screenOnly);
         return Run(specification, elementCount, bootstrap, stopwatch, family, null, null, cancellationToken, false, screenOnly);
     }
 
     internal FlatStartDesignResult Continue(InitialStructureSpecification specification, FlatStartFamily family,
         FlatStartBootstrapResult rootProof, OpticSnapshot start, string parentCandidateId,
-        CancellationToken cancellationToken = default, bool improveBeyondTargets = false, bool screenOnly = false)
+        CancellationToken cancellationToken = default, bool improveBeyondTargets = false, bool screenOnly = false,
+        IReadOnlyList<string>? allowedGlassNames = null)
     {
         SpecificationValidator.Validate(specification);
+        if (specification.FlatStart!.OptimizationMethod == FlatStartOptimizationMethod.AutoLensManagedV1)
+            return AutoLensManagedDesign.Run(specification, family.ElementCount, rootProof, Stopwatch.StartNew(), family, start, parentCandidateId,
+                allowedGlassNames ?? [specification.InitialGlass], cancellationToken, screenOnly: screenOnly);
         return Run(specification, family.ElementCount, rootProof, Stopwatch.StartNew(), family, start, parentCandidateId, cancellationToken, improveBeyondTargets, screenOnly);
+    }
+
+    public FlatStartDesignResult ResumeAutoLens(InitialStructureSpecification specification, FlatStartBootstrapResult rootProof,
+        AutoLensManagedState state, IReadOnlyList<string> allowedGlassNames, FlatStartFamily? family = null,
+        CancellationToken cancellationToken = default)
+    {
+        SpecificationValidator.Validate(specification);
+        if (specification.FlatStart!.OptimizationMethod != FlatStartOptimizationMethod.AutoLensManagedV1)
+            throw new ArgumentException("This state requires the native automatic differentiation strategy.", nameof(specification));
+        AutoLensManagedStateValidation.Validate(state);
+        if (rootProof.Steps is not { Count: > 0 }) throw new InvalidDataException("A saved strict-flat root proof is required.");
+        var root = rootProof.Steps[0].Optic;
+        OpticSnapshotValidator.Validate(root);
+        if (root.Surfaces.Count < 4 || (root.Surfaces.Count - 2) % 2 != 0 || root.Surfaces.Count != state.Optic.Surfaces.Count
+            || root.Surfaces.Any(surface => surface.Radius != 0 || surface.Components?.GeometryKind is not (null or "plane" or "standard")))
+            throw new InvalidDataException("The saved ancestor is not an exact-flat design of the same topology.");
+        var elements = rootProof.Steps[0].Optic.Surfaces.Count / 2 - 1;
+        return AutoLensManagedDesign.Run(specification, elements, rootProof, Stopwatch.StartNew(), family, state.Optic, state.ParentCandidateId,
+            allowedGlassNames, cancellationToken, state);
     }
 
     private static FlatStartDesignResult Run(InitialStructureSpecification specification, int elementCount,
@@ -37,6 +64,7 @@ public sealed class FlatStartDesignService
         var budget = specification.Budget.MaximumEvaluations;
         var progressive = specification.FlatStart!.SamplingPolicy == FlatStartSamplingPolicy.UniformAreaGaussianV1;
         var count = restart is null ? bootstrap.EvaluationCount : 0;
+        var autoLensCpu = specification.FlatStart.OptimizationMethod == FlatStartOptimizationMethod.AutoLensCpuExperimentV1;
         var startingOptic = restart ?? bootstrap.Steps[^1].Optic;
         var problem = new FlatStartDesignProblem(specification, elementCount, startingOptic, family);
         var vector = problem.Vector(startingOptic);
@@ -48,6 +76,8 @@ public sealed class FlatStartDesignService
                 : "Explicit catalog material allocation and stop surface; all geometry and optical results use formal Core."),
             new("design.engine", "Formal Core sampled spot analysis, common polychromatic centroid, geometric pupil weights and real aperture clipping.")
         };
+        if (autoLensCpu) diagnostics.Add(new("design.autolens-cpu-experiment-v1",
+            "AutoLens-inspired CPU adaptation: cosine aperture 0.5 to 1, full field/all wavelengths, finite-difference bounded Adam, then native full-target trust-region polish. Fixed real catalog glasses; no autograd, CUDA, continuous material search or upstream numerical equivalence."));
         var canContinue = restart is not null || bootstrap.State is FlatStartBootstrapState.Focused or FlatStartBootstrapState.Initialized;
         var state = canContinue
             ? FlatStartDesignState.TargetsNotMet : FlatStartDesignState.StartupFailed;
@@ -74,16 +104,17 @@ public sealed class FlatStartDesignService
         {
             DesignStage? established = null;
             double[]? establishedVector = null;
-            for (var index = 0; index < FlatStartContinuation.ProgressiveStages.Count && CanEvaluate(true); index++)
+            var stages = autoLensCpu ? AutoLensCpuCurriculum.Stages : FlatStartContinuation.ProgressiveStages;
+            for (var index = 0; index < stages.Count && CanEvaluate(true); index++)
             {
-                var stage = FlatStartContinuation.ProgressiveStages[index];
-                var window = FlatStartContinuation.ProgressiveWindow(budget - count - 1, problem.Dimension, index);
+                var stage = stages[index];
+                var window = FlatStartContinuation.ProgressiveWindow(budget - count - 1, problem.Dimension, index, stages.Count);
                 if (window <= 1) continue;
                 var stageEnd = Math.Min(budget - 1, count + window);
                 var dense = stage == FlatStartDesignProblem.FullStage;
                 var evaluation = Evaluate(vector, stage, dense);
                 if (dense) RetainFullTarget(evaluation);
-                steps.Add(new(count, "progressive-stage-entry", stage, evaluation.EvaluatedOptic!, evaluation));
+                steps.Add(new(count, autoLensCpu ? "autolens-cpu-stage-entry" : "progressive-stage-entry", stage, evaluation.EvaluatedOptic!, evaluation));
                 var local = Optimize(stage, evaluation, stageEnd, dense);
                 evaluation = local?.Evaluation ?? evaluation;
                 var failedStage = stage;
@@ -192,7 +223,8 @@ public sealed class FlatStartDesignService
                 Lineage = new()
                 {
                     RootFingerprint = ContentFingerprint.Compute(bootstrap.Steps[0].Optic),
-                    Operation = family is null ? $"strict-flat-design-v{FlatStartAlgorithm.Version}" : $"strict-flat-family-design-v{FlatStartAlgorithm.Version}",
+                    Operation = FlatStartAlgorithm.Name(family is null ? $"strict-flat-design-v{FlatStartAlgorithm.Version}"
+                        : $"strict-flat-family-design-v{FlatStartAlgorithm.Version}", specification),
                     ParentCandidateId = parentCandidateId,
                     Generation = bootstrap.Steps.Count + steps.Count - 1,
                     ElementCount = elementCount,
@@ -224,8 +256,8 @@ public sealed class FlatStartDesignService
         if (validation is null) diagnostics.Add(new("design.validation-not-run", "Budget or time ended before full-target validation; no accepted candidate is published."));
         return new()
         {
-            Algorithm = family is null ? new("strict-flat-design", FlatStartAlgorithm.Version, "Managed CPU", true)
-                : new("strict-flat-family-design", FlatStartAlgorithm.Version, "Managed CPU", true),
+            Algorithm = new(FlatStartAlgorithm.Name(family is null ? "strict-flat-design" : "strict-flat-family-design", specification),
+                FlatStartAlgorithm.Version, "Managed CPU", true),
             Specification = specification,
             SpecificationFingerprint = ContentFingerprint.Compute(specification),
             State = state,
@@ -271,6 +303,21 @@ public sealed class FlatStartDesignService
             bool refinePastTargets = false)
         {
             if (stageEnd <= count || !CanEvaluate(true)) return null;
+            if (autoLensCpu && !dense)
+            {
+                var adam = AutoLensCpuCurriculum.Solve(problem.SolverCoordinates, vector, evaluation, stageEnd - count,
+                    values => Evaluate(values, stage), () => !CanEvaluate(true), cancellationToken,
+                    (values, accepted) =>
+                    {
+                        vector = values;
+                        steps.Add(new(count, "autolens-cpu-adam-step", stage, accepted.EvaluatedOptic!, accepted));
+                    },
+                    statistics => diagnostics.Add(new("design.autolens-cpu-adam",
+                        $"{statistics.Termination}; {statistics.EvaluationCount} evaluations, {statistics.DifferenceEvaluationCount} difference probes, {statistics.AcceptedSteps} accepted steps, {statistics.WorkUnits} rays.")),
+                    () => problem.TracedRayCount);
+                vector = adam.Variables;
+                return adam;
+            }
             var result = FlatStartLocalSolver.Solve(problem.SolverCoordinates, vector, evaluation, stageEnd - count,
                 values => Evaluate(values, stage, dense), improveBeyondTargets || refinePastTargets,
                 () => !CanEvaluate(true), cancellationToken,

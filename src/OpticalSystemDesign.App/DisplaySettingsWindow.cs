@@ -121,7 +121,7 @@ public sealed class DisplaySettingsWindow : Window
                 {
                     At(Section(
                         "主题",
-                        SettingRow("界面主题", _theme, "切换普通模式、暗夜模式、异世界、像素风格或跟随系统外观"),
+                        SettingRow("界面主题", _theme, "从主题列表选择外观，下方可预览配色"),
                         BuildThemeSample()), 0),
                     At(Section(
                         "数字格式",

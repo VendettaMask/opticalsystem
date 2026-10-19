@@ -1,0 +1,737 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-19",
+  "Product": "Optical System Design",
+  "Status": "NativeCSharpCpuWorkflowImplementedAndScopedVerified",
+  "SourceCommit": "9242b31abf38b4d97f23d19e4b00f8df47abfabb",
+  "WorkingTreeDirty": true,
+  "ConcurrentLocalizationAndUserGuideEditsPreserved": true,
+  "Upstream": {
+    "Repository": "https://github.com/AI4Optics/AutoLens",
+    "Commit": "e58db32f3a0b07f25861b5839a45970f77b5c947",
+    "License": "Apache-2.0"
+  },
+  "Scope": {
+    "PureManagedCSharp": true,
+    "SameProductProcess": true,
+    "SharedCoreOnly": true,
+    "ForwardAutomaticTangentsAlongFormalTrace": true,
+    "ImplicitStopAimingDerivatives": true,
+    "ContinuousNVAndPermittedRealGlassProjection": true,
+    "EvenAspheresR4ThroughR10": true,
+    "TiedAdjacentCementedGroups": true,
+    "TwoPhaseAdamWithExplicitMomentsAndAge": true,
+    "MeasuredDecreaseAndMomentumRestart": true,
+    "SeededAreaStratifiedPupils": true,
+    "NativeTargetPolishUsesExistingNumericJacobiansAndIsSeparatelyCharged": true,
+    "IndependentDensePhysicalAcceptanceUnchanged": true,
+    "RelaxedMaterialsForbiddenInPublishedCandidatesAndIncumbents": true,
+    "DefaultV20StrategyChanged": false,
+    "OldCpuExperimentRelabeledAsFullPort": false,
+    "Gpu": false,
+    "PretrainedNetwork": false,
+    "UpstreamNumericalEquivalence": false,
+    "MultiSeedSuccessRateCertification": false,
+    "CrashSafePerIterationJournaling": false,
+    "FullRepositorySuite": false,
+    "FullHistoricalModuleLongProtocol": false,
+    "NewNativeReferenceCapture": false,
+    "InstallerRebuilt": false,
+    "Committed": false,
+    "Pushed": false,
+    "RemoteCiVerified": false
+  },
+  "Builds": [
+    {
+      "Configuration": "Debug",
+      "DefaultOutput": true,
+      "Projects": 19,
+      "Warnings": 0,
+      "Errors": 0,
+      "ExitCode": 0,
+      "Log": {
+        "Path": "artifacts/validation/autolens-managed-20261019/build-debug-delivery.log",
+        "ArchiveEntry": "raw/build-debug-delivery.log",
+        "Bytes": 3656,
+        "Sha256": "c07ada6d2116dee9ed65f75130ad0037ac4542879ae0b1704bc0b50fb335cd78"
+      }
+    },
+    {
+      "Configuration": "Release",
+      "DefaultOutput": true,
+      "Projects": 19,
+      "Warnings": 0,
+      "Errors": 0,
+      "ExitCode": 0,
+      "Log": {
+        "Path": "artifacts/validation/autolens-managed-20261019/build-release-delivery.log",
+        "ArchiveEntry": "raw/build-release-delivery.log",
+        "Bytes": 3694,
+        "Sha256": "6f066acfef057a2598cb5b59c093fadc61ca71b53dcb7baba8de6df6e674a7a3"
+      }
+    }
+  ],
+  "Tests": [
+    {
+      "Name": "delivery-core-debug.trx",
+      "Total": 54,
+      "Passed": 54,
+      "Failed": 0,
+      "NotExecuted": 0,
+      "File": {
+        "Path": "artifacts/validation/autolens-managed-20261019/delivery-core-debug.trx",
+        "Bytes": 83970,
+        "Sha256": "cfa0e48b3c255bc7298a1c3a1a54abbba3acdc1e5121ecbb2e0d8e571f33595a",
+        "ArchiveEntry": "raw/delivery-core-debug.trx"
+      }
+    },
+    {
+      "Name": "delivery-core-release.trx",
+      "Total": 54,
+      "Passed": 54,
+      "Failed": 0,
+      "NotExecuted": 0,
+      "File": {
+        "Path": "artifacts/validation/autolens-managed-20261019/delivery-core-release.trx",
+        "Bytes": 84186,
+        "Sha256": "405fde9600b7b3dd78d4b6693fb34f7b01ea1d791564e993e6bc5072d4faf9ff",
+        "ArchiveEntry": "raw/delivery-core-release.trx"
+      }
+    },
+    {
+      "Name": "delivery-lab-debug.trx",
+      "Total": 71,
+      "Passed": 71,
+      "Failed": 0,
+      "NotExecuted": 0,
+      "File": {
+        "Path": "artifacts/validation/autolens-managed-20261019/delivery-lab-debug.trx",
+        "Bytes": 119237,
+        "Sha256": "5b1892a1c8bf22769bd70c325f79f6b8e14f82217c6a2de39f6b0c3ecde4e2b1",
+        "ArchiveEntry": "raw/delivery-lab-debug.trx"
+      }
+    },
+    {
+      "Name": "delivery-managed-release.trx",
+      "Total": 21,
+      "Passed": 21,
+      "Failed": 0,
+      "NotExecuted": 0,
+      "File": {
+        "Path": "artifacts/validation/autolens-managed-20261019/delivery-managed-release.trx",
+        "Bytes": 37111,
+        "Sha256": "8d590853fab9f893f5c38d6a2e12fc79aef5e0013fe09b24fd6368f56b3c08ce",
+        "ArchiveEntry": "raw/delivery-managed-release.trx"
+      }
+    }
+  ],
+  "CountInterpretation": "Test collections overlap across scopes/configurations and are not added. Passing integration checks does not imply design acceptance.",
+  "Goals": {
+    "RealBudgetProtocol": {
+      "Accepted": 1,
+      "Cases": 1,
+      "EvaluationUpperBound": 1600,
+      "TimeUpperBoundMinutes": 3
+    },
+    "ShortBudgetProtocol": {
+      "Accepted": 0,
+      "Cases": 3,
+      "EvaluationUpperBound": 200,
+      "CurriculumSteps": 4,
+      "CatalogSteps": 6,
+      "NativePolishUpperBound": 120
+    },
+    "InfrastructureCasesExcludedFromSuccessRate": true,
+    "NotAnEqualActualWorkComparisonWithNativeOrV1": true,
+    "WallTimeCanChangeExecutedIterations": true
+  },
+  "Cases": [
+    {
+      "id": "03-50mm-managed-1600",
+      "purpose": "Real-budget design acceptance",
+      "specificationFingerprint": "0c9e89f1a9ec83be8393634b251a7dac11c9a3fc99f7b07b2adae61ca5f03c35",
+      "accepted": true,
+      "evaluations": 850,
+      "tracedRays": 2961804,
+      "worstRmsMillimeters": 0.04158930268759747,
+      "maximumRadiusMillimeters": 0.09714978859572998,
+      "effectiveFocalLengthMillimeters": 50.37753464385371,
+      "fNumber": 8.060405543016593,
+      "geometricValidRayFraction": 1,
+      "independentValidation": true,
+      "automaticSteps": 408,
+      "nativePolishEvaluations": 25,
+      "violationCount": 0,
+      "violationFamilies": [],
+      "phase": 2,
+      "elapsedSeconds": 118.584474,
+      "file": {
+        "Path": "artifacts/validation/autolens-managed-20261019/delivery-cases/03-50mm-managed-1600.result.json",
+        "Bytes": 1993159,
+        "Sha256": "d36e9b375e03eda91aab15d50ed10368c2725e3006730345b673fb77d7888adc",
+        "ArchiveEntry": "raw/delivery-cases/03-50mm-managed-1600.result.json"
+      }
+    },
+    {
+      "id": "03-50mm-monochrome.json",
+      "purpose": "Short-budget integration/negative-gate check",
+      "specificationFingerprint": "4eb6d8e8b6ca8ebf18a0563d2b9623bd51bf64483c528f8c956dc0e0cfc06f35",
+      "accepted": false,
+      "evaluations": 147,
+      "tracedRays": 2091512,
+      "worstRmsMillimeters": 0.08026822945625277,
+      "maximumRadiusMillimeters": 0.10421294099933465,
+      "effectiveFocalLengthMillimeters": 50.11326934341337,
+      "fNumber": 8.018123094946139,
+      "geometricValidRayFraction": 1,
+      "independentValidation": true,
+      "automaticSteps": 10,
+      "nativePolishEvaluations": 120,
+      "violationCount": 21,
+      "violationFamilies": [
+        "field.*.rms"
+      ],
+      "phase": 3,
+      "elapsedSeconds": 5.6813741,
+      "file": {
+        "Path": "artifacts/validation/autolens-managed-20261019/delivery-cases/03-50mm-monochrome.json.result.json",
+        "Bytes": 1896188,
+        "Sha256": "c4f25318859f47180d7bead1252bbfe3e033c67a38cd94ce04df00b98b906c96",
+        "ArchiveEntry": "raw/delivery-cases/03-50mm-monochrome.json.result.json"
+      }
+    },
+    {
+      "id": "07-24mm-visible.json",
+      "purpose": "Short-budget integration/negative-gate check",
+      "specificationFingerprint": "06c1473f698d900052073ba8857e0e0294b9e6c532e7486ace072d54993da32b",
+      "accepted": false,
+      "evaluations": 147,
+      "tracedRays": 6507086,
+      "worstRmsMillimeters": 0.04378370209288765,
+      "maximumRadiusMillimeters": 0.12477659082677572,
+      "effectiveFocalLengthMillimeters": 24.796904905182405,
+      "fNumber": 4.1328174841970675,
+      "geometricValidRayFraction": 1,
+      "independentValidation": true,
+      "automaticSteps": 10,
+      "nativePolishEvaluations": 120,
+      "violationCount": 1,
+      "violationFamilies": [
+        "target.focal-length"
+      ],
+      "phase": 3,
+      "elapsedSeconds": 19.3696283,
+      "file": {
+        "Path": "artifacts/validation/autolens-managed-20261019/delivery-cases/07-24mm-visible.json.result.json",
+        "Bytes": 5127296,
+        "Sha256": "e59c483463460277e6591e5053e037cff88a2c11c92d733f06bcc04ec40a3834",
+        "ArchiveEntry": "raw/delivery-cases/07-24mm-visible.json.result.json"
+      }
+    },
+    {
+      "id": "09-50mm-visible.json",
+      "purpose": "Short-budget integration/negative-gate check",
+      "specificationFingerprint": "328627b676e54cf2abcfd3b4dd5594a7638791a7ad210666fadfc11d2a405942",
+      "accepted": false,
+      "evaluations": 147,
+      "tracedRays": 6720482,
+      "worstRmsMillimeters": 2.2582594995809546,
+      "maximumRadiusMillimeters": 3.1825029916308054,
+      "effectiveFocalLengthMillimeters": 149.36696878479248,
+      "fNumber": 11.949357502783398,
+      "geometricValidRayFraction": 1,
+      "independentValidation": true,
+      "automaticSteps": 10,
+      "nativePolishEvaluations": 120,
+      "violationCount": 44,
+      "violationFamilies": [
+        "target.focal-length",
+        "target.f-number",
+        "field.*.rms",
+        "field.*.maximum-radius"
+      ],
+      "phase": 3,
+      "elapsedSeconds": 22.547888,
+      "file": {
+        "Path": "artifacts/validation/autolens-managed-20261019/delivery-cases/09-50mm-visible.json.result.json",
+        "Bytes": 4985928,
+        "Sha256": "dd6d450e9986f9a6177548cf0eb9078199c565111b949009fce0837631491f55",
+        "ArchiveEntry": "raw/delivery-cases/09-50mm-visible.json.result.json"
+      }
+    },
+    {
+      "id": "cemented-three-element",
+      "purpose": "Infrastructure only; not a design-success case",
+      "specificationFingerprint": "58b118b9eb9a90b9a9a92dae785e2a232a15e699211d5b4de9eb54bb4c7fc0d0",
+      "accepted": false,
+      "evaluations": 9,
+      "tracedRays": 738599,
+      "worstRmsMillimeters": 1.935702022594005,
+      "maximumRadiusMillimeters": 2.7239331198982577,
+      "effectiveFocalLengthMillimeters": 450.996313112896,
+      "fNumber": 72.15941009806336,
+      "geometricValidRayFraction": 1,
+      "independentValidation": true,
+      "automaticSteps": 2,
+      "nativePolishEvaluations": 0,
+      "violationCount": 44,
+      "violationFamilies": [
+        "target.focal-length",
+        "target.f-number",
+        "field.*.rms",
+        "field.*.maximum-radius"
+      ],
+      "phase": 3,
+      "elapsedSeconds": 3.8060684,
+      "file": {
+        "Path": "artifacts/validation/autolens-managed-20261019/delivery-cases/cemented-three-element.result.json",
+        "Bytes": 1796324,
+        "Sha256": "e900f5aad970076b0665ca63bedc79c0d5ba499694472c853e6e506f5aa71fb9",
+        "ArchiveEntry": "raw/delivery-cases/cemented-three-element.result.json"
+      }
+    },
+    {
+      "id": "monochrome-two-phase",
+      "purpose": "Infrastructure only; not a design-success case",
+      "specificationFingerprint": "094484700804a381d1f2d35b69b877a3d47a7062745ea18abc11e2aed981e4de",
+      "accepted": false,
+      "evaluations": 17,
+      "tracedRays": 182708,
+      "worstRmsMillimeters": 2.0791077029301728,
+      "maximumRadiusMillimeters": 2.9376112230933127,
+      "effectiveFocalLengthMillimeters": 925.4450284639399,
+      "fNumber": 148.07120455423038,
+      "geometricValidRayFraction": 1,
+      "independentValidation": true,
+      "automaticSteps": 5,
+      "nativePolishEvaluations": 0,
+      "violationCount": 44,
+      "violationFamilies": [
+        "target.focal-length",
+        "target.f-number",
+        "field.*.rms",
+        "field.*.maximum-radius"
+      ],
+      "phase": 3,
+      "elapsedSeconds": 0.993498,
+      "file": {
+        "Path": "artifacts/validation/autolens-managed-20261019/delivery-cases/monochrome-two-phase.result.json",
+        "Bytes": 1867817,
+        "Sha256": "0ca7560cc4c830abc0cf5fee927f8ac7add288b53475400c744d61471cdc4153",
+        "ArchiveEntry": "raw/delivery-cases/monochrome-two-phase.result.json"
+      }
+    }
+  ],
+  "Sources": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/Differentiation/DifferentialScalar.cs",
+      "Bytes": 3483,
+      "Sha256": "ceff845b8b0cdc8e4ca32e6ca1f839538c3d4304bce11222291a47ab1044c123"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Differentiation/OpticalDesignParameters.cs",
+      "Bytes": 9982,
+      "Sha256": "95b03d3cea4894e1afe8b10a23b7238941ea13aed3d9a174002bf9a44cc89ce0"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Differentiation/OpticalDifferentialContext.cs",
+      "Bytes": 7382,
+      "Sha256": "15f815cf263c83e8d3a31e1dd948f1efa9f2d8c0d90d0a7a03fceb8c660c6b50"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Differentiation/DifferentiableOpticalMetrics.cs",
+      "Bytes": 10067,
+      "Sha256": "26ad2ea325000dea1a43eba59262e0d75b00dbcb3a910f4daacee92dfb1572c8"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.DesignSensitivity.cs",
+      "Bytes": 8551,
+      "Sha256": "d48047365fa50364dfc7e6b97f3835bbc88738034e00e0fabee530ec27c9cff1"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Raytrace/ApertureSampler.cs",
+      "Bytes": 15005,
+      "Sha256": "7fe27efc0bb53b211907495d64fa3c442140bfa12e06985e0fd2cb7dd3e81eed"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Materials/DesignGlassMatcher.cs",
+      "Bytes": 2256,
+      "Sha256": "9b36eae4eb41038ee9467dd8d5b395ef2e4f868fdd5e7f255e406827c5004ae7"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/OpticalDesignDerivativeTests.cs",
+      "Bytes": 14300,
+      "Sha256": "b12fd003cde6e966519e42c8b80cee4f40163a1322408c348195501610cfdcf6"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/AutoLensManagedModels.cs",
+      "Bytes": 3036,
+      "Sha256": "afd3509faa1b62a8264595c0474fce422b0fbb3544e23ca27147c067b2090b26"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/AutoLensManagedStateValidation.cs",
+      "Bytes": 5037,
+      "Sha256": "09fb7b076b368c5caa4e7d27521c5c34a1fb170b700d64b6dbdbc96a096e5190"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/FlatStartModels.cs",
+      "Bytes": 3603,
+      "Sha256": "f43ec7b92fbddf0c593712f2099649c511f070e2965ed8c72cebf7ba2fb78982"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/FlatStartDesignModels.cs",
+      "Bytes": 5280,
+      "Sha256": "f825ebc134383984848692bad7b9d4621cfc36efbeb17c4de9f6bfb64f2ed4f6"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/FlatStartSearchModels.cs",
+      "Bytes": 6855,
+      "Sha256": "41b2372ec0304c7d647c89052e8cefbc91e731edb35be606c623313efd247406"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/FlatStartCheckpointValidation.cs",
+      "Bytes": 11241,
+      "Sha256": "67415245368af5d5aa33eac1615c08bf2dac6c755d76cf2fd49000a71bd943b1"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutoLensManagedDesign.cs",
+      "Bytes": 30317,
+      "Sha256": "40aaf3bcb1159d01b995d89a7fb97152e74de9b753a8148ac71f131a0eb0d325"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutoLensManagedLoss.cs",
+      "Bytes": 4231,
+      "Sha256": "916b57817d57b07bd847a643040bd19db7c86ec4719e20a14ade6a07162be744"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutoLensManagedTopology.cs",
+      "Bytes": 2429,
+      "Sha256": "35dcd8f388fef85ee38504063927f70f0d9dae6e14ee5297488c59feb3864d94"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/Optimization/DifferentiableAdam.cs",
+      "Bytes": 3097,
+      "Sha256": "f69181961cf7f5f15fdf2fbf794f3260857851c095ca78ac0a572bdd361add47"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatStartDesignService.cs",
+      "Bytes": 21758,
+      "Sha256": "4dda329ee78d9515092326c00ab2209644ae38c324986e493fd441ece6009cad"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatStartDesignProblem.cs",
+      "Bytes": 19609,
+      "Sha256": "5b68d6637251908f4f13fe96560862063a2eb7518b6fd9e55f453c8c7c248794"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatStartProblem.cs",
+      "Bytes": 13946,
+      "Sha256": "72492f699a9274d6e92530c22292db885ad8e36be9934b10c6b20447205b7d1c"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatStartFamilySupport.cs",
+      "Bytes": 3319,
+      "Sha256": "e5f662b23f730b6b4a0d7a386e3cbef1e2ff21a9221f577a5aadcb3bba7af863"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/DesignFormSearch.cs",
+      "Bytes": 7892,
+      "Sha256": "ab135a450433172b9f09a5eda4c6c1d6832cf2bb9ce5fb284320c94455afab75"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatStartSearchPlanning.cs",
+      "Bytes": 6179,
+      "Sha256": "5986d7431d509ae7723018518735dd1bc022a132516ecbf4cd6d289bc4bb9854"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatStartSearchService.cs",
+      "Bytes": 28790,
+      "Sha256": "d3ee676a759a239eaa8ee25283aea4c8ee3196e55bf688947ad64a2a83741b43"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/SpecificationValidator.cs",
+      "Bytes": 12725,
+      "Sha256": "3a11af3127dba1b1a3b6b897082f36196590f66dd9e3d49a65d192f6f6415106"
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/AutoLensManagedTests.cs",
+      "Bytes": 18460,
+      "Sha256": "abf399bd7da415bb336f79040f212edbbf7e6079192599bb545401cf9834e009"
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/FlatStartDesktopTests.cs",
+      "Bytes": 27157,
+      "Sha256": "4fb169d60ddd9ff9910a4343824cc26deab7c62342a33924c236086e072c7424"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.Inputs.cs",
+      "Bytes": 28226,
+      "Sha256": "75221dd46a017503e6a4b713d28a622a73266db146013505ae06645347f66523"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.Workflow.cs",
+      "Bytes": 23424,
+      "Sha256": "ed7fadac5091aacd24f13106a83a7bafd4f056e8a7fad9defae2cd1789dff1c9"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/CandidateRow.cs",
+      "Bytes": 9273,
+      "Sha256": "34f187fa33a6d05e65e558a3d335c57be7099d7704ea48f59718cc7c64fc40ad"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutoLensTargetPolisher.cs",
+      "Bytes": 2850,
+      "Sha256": "a1290426a03d87d1be2530fb30a12f00b47efb32103bb719135b1eadf54304aa"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatRootFactory.cs",
+      "Bytes": 6645,
+      "Sha256": "e5cd6f7449bc37a4832d7161b4457c79ddc5efd7cdd60344e63ab68247e0304c"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatStartCandidateArchive.cs",
+      "Bytes": 5519,
+      "Sha256": "83ec320b7bd474c8e0f66991f32acbad5cda1a07ab6036f7108ce49870be7039"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatStartContinuation.cs",
+      "Bytes": 2181,
+      "Sha256": "44d9d974db5f779a74faa6df331b213df839d94c476fcdfc4292ad7c468bf703"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutoLensCpuCurriculum.cs",
+      "Bytes": 2308,
+      "Sha256": "14f4a15468adad9257d76af8ab21604c03fedcf63c028c19f3fa9a7dad14ef40"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/Optimization/BoundedAdam.cs",
+      "Bytes": 7603,
+      "Sha256": "79c213c4c1389322a0d2425e2ece47932d09ba823624f316e61ce07045f562a8"
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/AutoLensCpuTests.cs",
+      "Bytes": 15429,
+      "Sha256": "0b23f352937dad596940ac6b698a179b6c6d9579b1ac9b295e4c55321cf48732"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/InitialStructureLabLauncherTests.cs",
+      "Bytes": 4485,
+      "Sha256": "f947c20f60a32155303e9c0cdf648dc8fd5e3243eab174b9e0c51dc6badb2d87"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj",
+      "Bytes": 5125,
+      "Sha256": "88d0916c1cda67a5f09450cb7b5e2fe4594725a57bdaae77788b8ebd474059fb"
+    },
+    {
+      "Path": "scripts/publish-windows.ps1",
+      "Bytes": 6735,
+      "Sha256": "b35486cbec36e9dc63ca785b3036c56f16747c12fb707d36a115b82d01d05aab"
+    },
+    {
+      "Path": "scripts/verify-built-in-package.ps1",
+      "Bytes": 4598,
+      "Sha256": "e3ccca9399020a81d0e34380ad4e10569fc40fcadbc82fbc1abb0e8d1b711eb8"
+    },
+    {
+      "Path": "third_party/autolens/AutoLens-LICENSE.txt",
+      "Bytes": 10112,
+      "Sha256": "8cf6b06f1ca13796d2a0e42e7b1973bf47262292abd54f4a7d2207c24e66aec4"
+    },
+    {
+      "Path": "third_party/autolens/AutoLens-NOTICE.txt",
+      "Bytes": 2545,
+      "Sha256": "e8f4513316a406f9d7867ab1d2143510ccdc36e72a2a2b5041c803cf6380f396"
+    },
+    {
+      "Path": "labs/InitialStructure/benchmarks/flat-start-v1/specs/03-50mm-monochrome.json",
+      "Bytes": 980,
+      "Sha256": "b9405d8374f4cd2646ef40adbebbd3abcce4560e87c5b2a4afa847b073e29ccd"
+    },
+    {
+      "Path": "labs/InitialStructure/benchmarks/flat-start-v1/specs/07-24mm-visible.json",
+      "Bytes": 1189,
+      "Sha256": "67d004e28776a4b91da581407db86599f55795419353a615a02cfc9f100391a9"
+    },
+    {
+      "Path": "labs/InitialStructure/benchmarks/flat-start-v1/specs/09-50mm-visible.json",
+      "Bytes": 1190,
+      "Sha256": "ee145ffaf1c5951a2286555bc203c5f2926edf7cd1c2e2ee0fff9d25c01f3f33"
+    }
+  ],
+  "Binaries": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 5660160,
+      "Sha256": "52222d021d044fdb95471b51acc9066c1aa6f3215470230412ad4a97b3adcd2e"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 5660160,
+      "Sha256": "52222d021d044fdb95471b51acc9066c1aa6f3215470230412ad4a97b3adcd2e"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 5660160,
+      "Sha256": "52222d021d044fdb95471b51acc9066c1aa6f3215470230412ad4a97b3adcd2e"
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 5660160,
+      "Sha256": "52222d021d044fdb95471b51acc9066c1aa6f3215470230412ad4a97b3adcd2e"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.ZemaxComparison/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 5660160,
+      "Sha256": "52222d021d044fdb95471b51acc9066c1aa6f3215470230412ad4a97b3adcd2e"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/bin/Debug/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "Bytes": 265728,
+      "Sha256": "65f0f1f17dc6b987373d35accf5fa5b56a083b1589349891c66baf5325fede8a"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.dll",
+      "Bytes": 26126336,
+      "Sha256": "19b7f2c5236553c0f8a393d935e0a8de2b1ac46c3c62f5e39c23998755251cc7"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/OpticalSystemDesign.Tests.dll",
+      "Bytes": 3189760,
+      "Sha256": "c84b97153e03545acd0bc4f2ba479be71f4d2b263339f2342c50679cf78dc8a6"
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Debug/net10.0/OpticalSystemDesign.InitialStructure.Tests.dll",
+      "Bytes": 358400,
+      "Sha256": "264a416d7c73477fc54945389c8235661a3f5532c770537ec0b31dc6cd9cc7af"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 5534720,
+      "Sha256": "94691a254a1fe25fd7a14656300250093684b78a10fba326813227048e81ee47"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 5534720,
+      "Sha256": "94691a254a1fe25fd7a14656300250093684b78a10fba326813227048e81ee47"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 5534720,
+      "Sha256": "94691a254a1fe25fd7a14656300250093684b78a10fba326813227048e81ee47"
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 5534720,
+      "Sha256": "94691a254a1fe25fd7a14656300250093684b78a10fba326813227048e81ee47"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.ZemaxComparison/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Bytes": 5534720,
+      "Sha256": "94691a254a1fe25fd7a14656300250093684b78a10fba326813227048e81ee47"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "Bytes": 253440,
+      "Sha256": "bc5482b1f92cab0f3ca39fa04c1ea29a39e693eae0049cef64bffa47e65474a7"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Bytes": 26031104,
+      "Sha256": "0f5b1b40069ef710a5cc67fe89f50f50baeb5de7f7261ae09c6da917fd890aca"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.dll",
+      "Bytes": 3050496,
+      "Sha256": "9b18fed1d24f132c8d0d282c453d3020b25735cb1d51c247bbc78d945668792b"
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Tests.dll",
+      "Bytes": 336384,
+      "Sha256": "47becbbc6e995e69bf77c7f42a09ed26ebe4747450ab4dc6d010e4fb1f6e68f6"
+    }
+  ],
+  "SharedCoreCopiesPerConfigurationMatched": true,
+  "FrozenEvidence": {
+    "headMatched": 2668,
+    "workingMatched": 2668,
+    "count": 2668,
+    "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10"
+  },
+  "Format": {
+    "csharpFiles": 34,
+    "verifyNoChangesExitCode": 0
+  },
+  "Documentation": {
+    "strictPassed": true,
+    "documents": 934,
+    "brokenLinks": 0,
+    "unclosedFences": 0,
+    "localOnlyLinks": 0,
+    "guideRepeatedParagraphGroups": 0
+  },
+  "Evidence": {
+    "Archive": {
+      "Path": "validation/experiments/2026-10-19/autolens-managed-native-evidence.zip",
+      "Bytes": 17397289,
+      "Sha256": "49e23cf6d7edbb0de5cfd31668114bb7f92174fd9dab9939845171b3240ce627",
+      "Entries": 128,
+      "ReadBackMatched": 128,
+      "UncompressedBytes": 97421846,
+      "Sources": 47,
+      "BinaryLogsExcluded": true
+    },
+    "Files": [
+      {
+        "Path": "artifacts/validation/autolens-managed-20261019/build-debug-delivery.log",
+        "ArchiveEntry": "raw/build-debug-delivery.log",
+        "Bytes": 3656,
+        "Sha256": "c07ada6d2116dee9ed65f75130ad0037ac4542879ae0b1704bc0b50fb335cd78"
+      },
+      {
+        "Path": "artifacts/validation/autolens-managed-20261019/build-release-delivery.log",
+        "ArchiveEntry": "raw/build-release-delivery.log",
+        "Bytes": 3694,
+        "Sha256": "6f066acfef057a2598cb5b59c093fadc61ca71b53dcb7baba8de6df6e674a7a3"
+      },
+      {
+        "Path": "artifacts/validation/autolens-managed-20261019/delivery-inputs.json",
+        "ArchiveEntry": "raw/delivery-inputs.json",
+        "Bytes": 17723,
+        "Sha256": "7fe3d106191bc8d5cc907134a350780dba0832867ab8e218782a83f3b1f49462"
+      },
+      {
+        "Path": "artifacts/validation/autolens-managed-20261019/delivery-summary.json",
+        "ArchiveEntry": "raw/delivery-summary.json",
+        "Bytes": 24365,
+        "Sha256": "3cfd37c76437b34a8a8944bc8573e20fae13d911881db6f29032b117f542dd32"
+      },
+      {
+        "Path": "artifacts/validation/autolens-managed-20261019/documentation-delivery.json",
+        "ArchiveEntry": "raw/documentation-delivery.json",
+        "Bytes": 268303,
+        "Sha256": "bcaad52a30b9138488631416c4bf156fe2b09d790243f81b7cc188456a10d528"
+      },
+      {
+        "Path": "artifacts/validation/autolens-managed-20261019/frozen-sealed.json",
+        "ArchiveEntry": "raw/frozen-sealed.json",
+        "Bytes": 5255,
+        "Sha256": "201bbf9c386da8b395ab9af85461d0f1ae19298ea9b29ad6ff889073f54e211a"
+      }
+    ],
+    "RawFailuresAndEarlierDesignRegressionsRetained": true,
+    "NoBuildEnvironmentBinaryLogsPublished": true,
+    "ScopedSourceBytesReadBackMatched": 47,
+    "FullInputManifestArchiveEntry": "raw/delivery-inputs.json",
+    "SummaryArchiveEntry": "raw/delivery-summary.json"
+  },
+  "Limitations": [
+    "Centered infinite-conjugate angle-field refractive systems only; no finite-conjugate, decentered/tilted, reflective, folded or zoom generation.",
+    "Cemented groups use tied coincident same-medium reference rows in the product fixed-row prescription; not unconstrained topology discovery.",
+    "Body sizing is projected outside differentiation and held fixed within each automatic-gradient phase.",
+    "Existing native target polishing is an explicit product adaptation, not claimed as upstream automatic differentiation.",
+    "Search records persist at existing atomic batch boundaries; ResumeAutoLens validates exact settings, permitted glasses, lineage, strict-flat root, moments, consumed evaluations and elapsed time.",
+    "The three short-budget cases and the two infrastructure-only cases remain below full requested targets; no tolerances were weakened.",
+    "External numerical authority remains the existing scoped captured Zemax 2026 R1 baseline; no new native certification."
+  ]
+}

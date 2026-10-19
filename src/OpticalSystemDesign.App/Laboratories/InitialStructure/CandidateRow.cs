@@ -62,10 +62,16 @@ internal sealed class CandidateRow(int number, FamilyTrial trial, bool inherited
         var lines = new List<string>
         {
             $"{Name} · {Status} · {Elements} 片",
+            checkpoint.Specification.FlatStart?.OptimizationMethod switch
+            {
+                FlatStartOptimizationMethod.AutoLensCpuExperimentV1 => "算法：AutoLens 启发式 C# CPU 试验 v1；数值梯度 Adam + 原生完整目标细化，非原版可微/GPU。",
+                FlatStartOptimizationMethod.AutoLensManagedV1 => "算法：AutoLens C# 自动求导；共享 Core、两阶段 Adam、允许玻璃匹配及原生完整目标精修；CPU，非原版数值等效认证。",
+                _ => "算法：原生信赖域（默认）。"
+            },
             AreaSampling ? "像质：均匀照明圆瞳面积 RMS；独立加密验收，边缘光线另行检查。"
                 : "像质：历史等圈离散 RMS；保留原采样含义，与面积积分结果不能直接比较。",
             $"起始形式：{InitialForm}；这是初始曲率方向，最终光学性能以正式 Core 验证结果为准。",
-            "玻璃：" + string.Join(" / ", Trial.Family.GlassNames),
+            "玻璃：" + string.Join(" / ", Candidate.Optic.Surfaces.Skip(1).Where(surface => !string.IsNullOrWhiteSpace(surface.Material) && !surface.Material.Equals("Air", StringComparison.OrdinalIgnoreCase)).Select(surface => surface.Material)),
             $"光阑：面 {Trial.Family.StopSurfaceIndex}；从零曲率平板起步，当前为第 {Candidate.Lineage.Generation} 代。",
             Candidate.Evaluation.FlatStartObjective?.UsePhysicalStop == true
                 ? "实体光阑：净口径按系统入瞳标定并瞄准；镜片机械半径单独计算。" : "历史口径模式：按近轴入瞳发射，光阑面随镜片口径更新。",

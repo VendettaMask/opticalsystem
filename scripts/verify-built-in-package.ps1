@@ -35,7 +35,7 @@ foreach ($line in [IO.File]::ReadAllLines($manifest)) {
 Assert-Check 'complete-payload-manifest' ($count -gt 0) $count
 $independent = @(Get-ChildItem -LiteralPath $source -Recurse -File | Where-Object { $_.Name -match '^OpticalSystemDesign\.(InitialStructure|CoatingDesign)\.App\.(exe|dll)$' })
 Assert-Check 'no-independent-module-applications' ($independent.Count -eq 0) $independent.Count
-foreach ($notice in @('TFStudio-LICENSE.txt', 'tmmcore-LICENSE.txt', 'MATERIAL-NOTICE.txt')) {
+foreach ($notice in @('TFStudio-LICENSE.txt', 'tmmcore-LICENSE.txt', 'MATERIAL-NOTICE.txt', 'AutoLens-LICENSE.txt', 'AutoLens-NOTICE.txt')) {
     Assert-Check "license-$notice" (Test-Path -LiteralPath (Join-Path $source "Licenses\$notice")) $notice
 }
 

@@ -1,0 +1,52 @@
+{
+  "Date": "2026-10-19",
+  "Status": "StandaloneCSharpSectionPreviewOnly",
+  "UserFeedback": "The spatial view is promising, but the two-dimensional drawing does not yet match it.",
+  "Entry": "tools/previews/FuiThemePreview/Program.cs",
+  "SectionShell": "tools/previews/FuiThemePreview/FuiEngineeringView.cs",
+  "Implementation": "Native Avalonia/C# instrument shell using the existing product OpticSceneControl, not a generated image or a second 2-D renderer.",
+  "Changes": [
+    "Dark section canvas with silver-grey lens fill, optional light background",
+    "Fine rays through the renderer's existing 0.85 DIP display setting",
+    "Tools outside the drawing instead of floating across the optical path",
+    "Native annotations from actual surface numbers, materials and image-plane coordinates",
+    "Native pan, zoom, fit and scale bar retained",
+    "Clear both views before prescription refresh; publish only when both scenes match the current revision",
+    "Global reset follows the selected view; guide control reaches both spatial and section annotations"
+  ],
+  "Boundaries": {
+    "ProductRendererSourceChanged": false,
+    "BlackLensOutline": "Existing 2 DIP solid black native pen, checked by the preview self-test",
+    "PhysicalRayColour": "Existing native field palette; first-field pen checked as RGB 220,55,48",
+    "LocalCanvasResourcesOnly": true,
+    "NewOpticalGeometryOrRayCalculation": false,
+    "ProductThemeRegistered": false,
+    "DefaultProductWorkspaceChanged": false,
+    "UserSettingsOrProjectsSaved": false,
+    "InstallerOrRemoteReleaseUpdated": false
+  },
+  "Verification": {
+    "ReleaseToolBuildWarnings": 0,
+    "ReleaseToolBuildErrors": 0,
+    "HeadlessSkiaActualControlRenderPassed": true,
+    "SectionOpenedForCapture": true,
+    "SameRevisionTwoAndThreeDimensionalScenes": true,
+    "PrescriptionEditAndRestore": true,
+    "SectionTracedPaths": 7,
+    "NativeAnnotations": 4,
+    "RayAnnotationAndCanvasContrastTogglesExercised": true,
+    "SurfaceRows": 8,
+    "EditorColumns": 12,
+    "BlueMaterialRows": 3,
+    "SidebarDIP": 256,
+    "Capture": "artifacts/validation/fui-csharp-preview-v3-20261019/section-delivery.png",
+    "RawReport": "artifacts/validation/fui-csharp-preview-v3-20261019/section-delivery.json",
+    "NotClaimed": [
+      "User visual acceptance",
+      "Full product build or repository regression",
+      "Optical accuracy or design acceptance",
+      "Full ViewerPanel settings interface in this reduced preview shell",
+      "Installed or published theme"
+    ]
+  }
+}

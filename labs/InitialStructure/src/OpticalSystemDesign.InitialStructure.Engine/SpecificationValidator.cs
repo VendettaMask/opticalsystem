@@ -74,7 +74,7 @@ public static class SpecificationValidator
 
         var minimumTrack = (specification.MaximumElementCount
                 * specification.MinimumCenterThicknessMillimeters)
-            + ((specification.MaximumElementCount - 1)
+            + (AutoLensManagedTopology.AirGapCount(specification, specification.MaximumElementCount)
                 * specification.MinimumAirGapMillimeters)
             + specification.MinimumBackFocusMillimeters;
         if (!double.IsFinite(minimumTrack))
@@ -184,6 +184,28 @@ public static class SpecificationValidator
         if (specification.FlatStart is { } flat)
         {
             if (!Enum.IsDefined(flat.SamplingPolicy)) errors.Add("flat-start sampling policy is invalid");
+            if (!Enum.IsDefined(flat.OptimizationMethod)) errors.Add("flat-start optimization method is invalid");
+            if (flat.OptimizationMethod != FlatStartOptimizationMethod.TrustRegion
+                && flat.SamplingPolicy != FlatStartSamplingPolicy.UniformAreaGaussianV1)
+                errors.Add("AutoLens strategies require area sampling and independent final validation");
+            if (flat.AutoLens is not null && flat.OptimizationMethod != FlatStartOptimizationMethod.AutoLensManagedV1)
+                errors.Add("automatic differentiation settings require the native AutoLens strategy");
+            if (flat.OptimizationMethod == FlatStartOptimizationMethod.AutoLensManagedV1)
+            {
+                var autoLens = flat.AutoLens ?? new();
+                if (!flat.UsePhysicalStop) errors.Add("native AutoLens requires the physical stop and formal stop aiming");
+                if (autoLens.CurriculumIterations is < 1 or > 10000 || autoLens.RefinementIterations is < 1 or > 10000
+                    || autoLens.EvenAsphereOrder is not (0 or >= 2 and <= 5)
+                    || autoLens.FieldRings is < 2 or > 21 || autoLens.PupilRings is < 1 or > 10 || autoLens.PupilArms is < 4 or > 64
+                    || autoLens.ResampleInterval is < 1 or > 10000
+                    || autoLens.TargetPolishEvaluations is < 0 or > 2000
+                    || !double.IsFinite(autoLens.LearningRateFactor) || autoLens.LearningRateFactor is <= 0 or > 100)
+                    errors.Add("native AutoLens iteration, profile, sampling or learning-rate settings are outside supported bounds");
+                if (autoLens.CementedGaps is null || autoLens.CementedGaps.Count > 7
+                    || autoLens.CementedGaps.Distinct().Count() != autoLens.CementedGaps.Count
+                    || autoLens.CementedGaps.Any(gap => gap < 0 || gap >= specification.MinimumElementCount - 1))
+                    errors.Add("cemented gap indices must be unique and valid for every requested element count");
+            }
             Positive(flat.EffectiveFocalLengthRelativeTolerance, "focal length tolerance", errors);
             Positive(flat.FNumberRelativeTolerance, "F-number tolerance", errors);
             if (flat.EffectiveFocalLengthRelativeTolerance >= 1 || flat.FNumberRelativeTolerance >= 1)

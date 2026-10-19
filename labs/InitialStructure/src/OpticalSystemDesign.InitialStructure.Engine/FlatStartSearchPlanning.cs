@@ -75,7 +75,7 @@ internal static class FlatStartSearchPlanning
                 if ((element + round) % 2 == 0) selected[element] = other;
         }
         var center = Enumerable.Repeat(specification.MinimumCenterThicknessMillimeters, count).ToArray();
-        var gaps = Enumerable.Repeat(specification.MinimumAirGapMillimeters, count - 1).ToArray();
+        var gaps = Enumerable.Range(0, count - 1).Select(gap => AutoLensManagedTopology.IsCemented(specification, gap) ? 0 : specification.MinimumAirGapMillimeters).ToArray();
         var available = specification.MaximumTrackLengthMillimeters - center.Sum() - gaps.Sum()
             - (specification.FlatStart!.FixedBackFocusMillimeters ?? specification.MinimumBackFocusMillimeters);
         if (round > 0)
@@ -83,7 +83,8 @@ internal static class FlatStartSearchPlanning
             var extra = Enumerable.Range(0, center.Length + gaps.Length).Select(_ => random.NextUnitDouble()).ToArray();
             var scale = Math.Min(1, Math.Max(0, available) / Math.Max(1e-12, extra.Sum()));
             for (var index = 0; index < center.Length; index++) center[index] += extra[index] * scale;
-            for (var index = 0; index < gaps.Length; index++) gaps[index] += extra[center.Length + index] * scale;
+            for (var index = 0; index < gaps.Length; index++)
+                if (!AutoLensManagedTopology.IsCemented(specification, index)) gaps[index] += extra[center.Length + index] * scale;
         }
         return new()
         {

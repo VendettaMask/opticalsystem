@@ -9,6 +9,15 @@ public static class FlatStartCheckpointValidation
     {
         ArgumentNullException.ThrowIfNull(checkpoint);
         var algorithm = checkpoint.Origin is null ? "strict-flat-family-search" : "strict-flat-selected-refinement";
+        if (checkpoint.Specification?.FlatStart is { } flat)
+        {
+            if (!Enum.IsDefined(flat.OptimizationMethod)
+                || flat.OptimizationMethod != FlatStartOptimizationMethod.TrustRegion
+                    && (checkpoint.Algorithm?.Version != FlatStartAlgorithm.Version
+                        || flat.SamplingPolicy != FlatStartSamplingPolicy.UniformAreaGaussianV1))
+                throw new InvalidDataException("Invalid optimization method or historical algorithm identity.");
+            algorithm = FlatStartAlgorithm.Name(algorithm, checkpoint.Specification);
+        }
         if (checkpoint.SchemaVersion != 1 || checkpoint.Algorithm is null
             || checkpoint.Algorithm.Version is not ("1" or "2" or "3" or "4" or "6" or "7" or "8" or "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" or "18" or "19" or FlatStartAlgorithm.Version)
             || checkpoint.Algorithm != new AlgorithmIdentity(algorithm, checkpoint.Algorithm.Version, "Managed CPU", true)
@@ -52,6 +61,13 @@ public static class FlatStartCheckpointValidation
         for (var index = 0; index < checkpoint.Trials.Count; index++)
         {
             var trial = checkpoint.Trials[index];
+            if (trial?.AutoLensState is { } autoLens)
+            {
+                AutoLensManagedStateValidation.Validate(autoLens);
+                if (checkpoint.Specification.FlatStart.OptimizationMethod != FlatStartOptimizationMethod.AutoLensManagedV1
+                    || autoLens.EvaluationCount != trial.CompletedEvaluations || autoLens.TracedRayCount != trial.TracedRealRayCount)
+                    throw new InvalidDataException("Native AutoLens state does not match its strategy or charged trial work.");
+            }
             if (trial is null || trial.Index != index || trial.TrialId != $"trial-{index:D4}" || !Enum.IsDefined(trial.State)
                 || trial.AllocatedEvaluations < 1 || trial.AllocatedEvaluations > checkpoint.Options.MaximumEvaluationsPerTrial
                 || trial.ChargedEvaluations < 0 || trial.ChargedEvaluations > trial.AllocatedEvaluations

@@ -1,0 +1,61 @@
+{
+  "Date": "2026-10-19",
+  "Status": "ManualStableReleaseDiscoveryImplementedAndX64TestPrereleasePublished",
+  "ProductVersion": "1.0.4",
+  "VersionAuthority": "ProductVersion.props",
+  "SourceBaseCommit": "9242b31abf38b4d97f23d19e4b00f8df47abfabb",
+  "SourceDirty": true,
+  "SourceChangesCommittedOrPushed": false,
+  "Implemented": [
+    "Shared default build, display, Windows package and installer version",
+    "Manual stable-only GitHub release discovery with numeric SemVer precedence",
+    "Exact repository/tag/full-installer matching for Windows x64 and ARM64 processes",
+    "Bounded response and whole-request timeout, offline/rate-limit/missing-asset states",
+    "No startup/background network requests, duplicate-check suppression and close cancellation",
+    "Chinese, English and Japanese update dialog, help ribbon and command-palette entry",
+    "GitHub tag workflow creates draft full Windows installer releases for manual approval"
+  ],
+  "OnlineInstallation": {
+    "InterfaceReserved": "IOnlineUpgradeInstaller",
+    "Available": false,
+    "AutomaticDownload": false,
+    "AutomaticInstall": false,
+    "AutomaticRestart": false,
+    "SignatureVerificationImplemented": false
+  },
+  "TestRelease": {
+    "Url": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019",
+    "Id": 416939680,
+    "Tag": "v1.0.4-test.20261019",
+    "Prerelease": true,
+    "Draft": false,
+    "MarkedLatest": false,
+    "ReleaseId": "1.0.4-win-x64-d03a495e5f08",
+    "Runtime": "win-x64",
+    "Signed": false,
+    "TestPackage": true,
+    "ValidationHooks": false,
+    "InstallerName": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+    "InstallerBytes": 275200112,
+    "InstallerSha256": "51108789445754e3e7e902306de495af1b5253c84ec6c8fde0c3c1bd30e67eb1",
+    "RemoteAssetDigestsMatched": 3,
+    "RemoteAssetNames": ["OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe", "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe.sha256", "release.json"],
+    "SourceArchiveWarning": "Tag identifies the base commit only. GitHub generated source archives exclude uncommitted worktree changes and do not reproduce this installer.",
+    "UsesNormalProductInstallationIdentity": true,
+    "SameVersionStableReplacementRequiresManualInstallation": true
+  },
+  "Verification": {
+    "Scope": "Targeted local verification, not full repository tests or final release certification",
+    "DebugSolution": { "Projects": 19, "Warnings": 0, "Errors": 0, "Log": "artifacts/validation/version-updates-20261019/build-debug-delivery.log" },
+    "ReleaseSolution": { "Projects": 19, "Warnings": 0, "Errors": 0, "Log": "artifacts/validation/version-updates-20261019/build-release-delivery.log" },
+    "DebugTargetedTests": { "Passed": 115, "Failed": 0, "Skipped": 0, "Trx": "artifacts/validation/version-updates-20261019/delivery-debug.trx" },
+    "ReleaseTargetedTests": { "Passed": 115, "Failed": 0, "Skipped": 0, "Trx": "artifacts/validation/version-updates-20261019/delivery-release.trx" },
+    "IsolatedRealRenderTests": { "Passed": 5, "Failed": 0, "Languages": ["zh-CN", "en-US", "ja-JP"], "Trx": "artifacts/validation/version-updates-20261019/delivery-ui-debug.trx" },
+    "CountsOverlapAndMustNotBeAdded": true,
+    "PackageProbe": { "Passed": 14, "Failed": 0, "ManifestFiles": 1189, "BothModulesInProcess": true, "MissingModuleRejection": true, "NativeGuiVerified": false, "UserInstallationModified": false },
+    "FrozenEvidence": { "HeadMatched": 2668, "WorkingMatched": 2668, "AggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10", "ThresholdsRelaxed": false },
+    "Formatting": { "CSharpFiles": 9, "Passed": true },
+    "InitialFailuresRetained": ["Missing test namespace import fixed", "Default Debug output lock cleared by requesting the exact application instance to close normally", "Layout checks narrowed to named user actions instead of internal scrollbar buttons", "Real render capture isolated from mixed headless glyph caches"],
+    "NotPerformed": ["Full repository tests", "Actual installation or upgrade", "ARM64 or macOS native verification", "Remote workflow execution", "Source commit or push"]
+  }
+}

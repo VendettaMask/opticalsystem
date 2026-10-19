@@ -90,4 +90,7 @@ public sealed record FlatStartDesignResult
     public DesignEvaluation? FinalValidation { get; init; }
     public CandidateSnapshot? Candidate { get; init; }
     public IReadOnlyList<SearchDiagnostic> Diagnostics { get; init; } = [];
+
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public AutoLensManagedState? AutoLensState { get; init; }
 }

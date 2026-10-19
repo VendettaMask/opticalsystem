@@ -1,8 +1,10 @@
 # 初始结构（产品内置模块）
 
-更新：2026-10-14。本页维护操作流程、运行记录和历史方法入口；计算隔离、支持范围与后续计划见 [模块契约](../../docs/INITIAL_STRUCTURE_LAB_PLAN.md)。初始结构和镀膜设计均在主程序同一进程内运行，由根解决方案和标准安装包统一交付，不是独立软件。
+更新：2026-10-19。本页维护操作流程、运行记录和历史方法入口；计算隔离、支持范围与后续计划见 [模块契约](../../docs/INITIAL_STRUCTURE_LAB_PLAN.md)。初始结构和镀膜设计均在主程序同一进程内运行，由根解决方案和标准安装包统一交付，不是独立软件。
 
 当前桌面调用 `FlatStartSearchService` 的 v20 形式搜索与渐进恢复流程。所有光学计算复用正式共享 Core；模型不因“AI”名称而具有机器学习或设计智能体能力。生成有效候选不等于满足所有规格，更不等于可制造成品。当前工程测试和已知失败只在 [状态页](../../docs/CURRENT_STATUS.md) 汇总。
+
+搜索页新增可选择的“AutoLens 启发式 · C# CPU 试验”，默认仍为原生信赖域。试验用半到全口径余弦课程与数值梯度 Adam，再以现有完整目标求解器细化；保存恢复、真实材料、计费与独立验收沿用产品流程。它不包含 Python、原版自动微分、GPU、连续材料或非球面生成；实现差异与对照协议见 [C# 集成评估](../../docs/INITIAL_STRUCTURE_AUTOLENS_CSHARP_2026-10-19.md)。
 
 ## Current desktop workflow
 
@@ -15,6 +17,14 @@ Selected refinement creates a new `strict-flat-selected-refinement/v20` run with
 v20 corrects the regularized trust-region expansion threshold and resolves coupled steps that point outside an active coordinate bound. It retains the Core objective, physical gates and exact evaluation quotas. Older v19 records remain readable and can start a separate refinement; resuming them as v20 is rejected.
 
 ## Build and test
+
+The local-optimization selector also offers **AutoLens · C# 自动求导** (`autolens-managed-v1`). This path uses shared Core automatic tangents and implicit physical-stop aiming, a half-to-full cosine aperture curriculum, explicit-state Adam with cosine restarts, seeded area-stratified pupils and symmetric full fields, continuous n/V relaxation followed by projection onto the permitted real glasses, then fixed-catalog refinement. Advanced controls choose spherical/even-aspheric profiles through r¹⁰ and optionally cemented gap numbers (UI starts at 1, stored indices at 0). The r² term stays zero. A cemented pair ties its coincident profile and shared medium; its zero-power reference row is retained in the native fixed-row prescription.
+
+Every accepted Adam step measures a loss decrease on identical samples; non-descent momentum resets its bias-correction age without rewinding curriculum progress. Real-ray body sizing is a projection outside differentiation, with body radii held fixed within a phase. The product's optional native full-target polish reserves a bounded budget, fixes real glasses/aspheric coefficients and refines curvature/thickness using the existing numeric-Jacobian Core residual solver. These evaluations are separately counted, not advertised as automatic-gradient steps; set `TargetPolishEvaluations` to zero to disable that handoff.
+
+Every trial ends, budget/time permitting, with a fresh dense full-aperture physical evaluation and the existing independent edge checks. Unclipped training coordinates and relaxed glasses cannot establish acceptance or become exported candidate materials. A separately verified better full-target incumbent is retained. Evaluation/time budgets override requested iteration counts. Results retain actual work, Adam moments/age, lineage and the evaluated snapshot; `ResumeAutoLens` validates exact specification, glass-list and strict-flat-root identities and does not reset consumed resources. Search-file saves remain at batch boundaries, not crash-safe per-iteration journaling. Default v20 and the old finite-difference experiment retain distinct identities.
+
+This is a managed CPU workflow adaptation, not upstream numerical equivalence, GPU training or a pretrained specification-to-lens network. See the [implementation scope](../../docs/INITIAL_STRUCTURE_LAB_PLAN.md) and [native rework ledger](../../docs/validation/AUTOLENS_MANAGED_2026-10-19.json).
 
 ```bash
 dotnet build OpticalSystemDesign.slnx /m:1 /nr:false
@@ -31,7 +41,7 @@ dotnet run --project src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj 
 
 Both module windows are owned by the main window and share its theme and display settings. Search records and coating experiments retain their own editing state. Closing the product stops/awaits module operations and preserves unsaved-data safeguards.
 
-The entry's “AI” label names the experimental feature requested by the user; this change adds no model, training, retrieval or agent implementation. The implemented generator remains the deterministic optical search described above.
+The entry's “AI” label does not imply a pretrained network, retrieval system or autonomous design agent. The native AutoLens option performs gradient-based optical optimization; the other strategies retain their separately described deterministic searches.
 
 Current desktop data is written below the user's local application-data directory at `OpticalSystemDesign/Labs/InitialStructure/flat-start/runs`. Each unique run has a checksummed atomic `<run-id>.family.json` file; `last-run.json` is the bounded last-run pointer. Open a saved record to inspect it, then explicitly resume if its algorithm is current and budget remains. Historical strict-flat checkpoints can instead seed a separate current-version refinement. Legacy `runs` and `checkpoints` directories stay separate; the desktop does not reinterpret hybrid v3 records as strict-flat runs. The App exports only the selected candidate through the Core STAROPT store and verifies the exact snapshot after reopening it. Export remains available after stopping a search and does not modify the currently open formal workbench.
 

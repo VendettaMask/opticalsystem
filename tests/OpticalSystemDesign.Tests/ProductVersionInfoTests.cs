@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Xml.Linq;
 using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.Tests;
@@ -44,5 +45,29 @@ public sealed class ProductVersionInfoTests
         var informational = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
         Assert.False(string.IsNullOrWhiteSpace(informational));
         Assert.Equal(informational.Split('+', 2)[0], ProductVersionInfo.Current);
+    }
+
+    [Fact]
+    public void ProductVersionAuthorityMatchesAssemblyAndAllDefaultPackagingEntrypoints()
+    {
+        var directory = new DirectoryInfo(AppContext.BaseDirectory);
+        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) directory = directory.Parent;
+        Assert.NotNull(directory);
+        var root = directory.FullName;
+        var version = Assert.Single(XDocument.Load(Path.Combine(root, "ProductVersion.props")).Descendants("ProductVersion")).Value;
+        Assert.Equal(version, ProductVersionInfo.Current);
+        Assert.Contains("ProductVersion.props", File.ReadAllText(Path.Combine(root, "Directory.Build.props")));
+        foreach (var script in new[] { "build-installer.ps1", "publish-windows.ps1" })
+        {
+            var text = File.ReadAllText(Path.Combine(root, "scripts", script));
+            Assert.Contains("get-product-version.ps1", text);
+            Assert.DoesNotContain("$AppVersion = '1.0.3'", text);
+        }
+        var workflow = File.ReadAllText(Path.Combine(root, ".github/workflows/release.yml"));
+        Assert.Contains("--draft", workflow);
+        Assert.Contains("--verify-tag", workflow);
+        Assert.Contains("$env:GITHUB_REF_NAME -cne \"v$version\"", workflow);
+        Assert.Contains("win-x64, win-arm64", workflow);
+        Assert.Contains("-PublishDirectory $payload -OutputDirectory", workflow);
     }
 }

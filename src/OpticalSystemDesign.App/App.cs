@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls;
 using Avalonia.Controls.Documents;
 using Avalonia.Controls.Presenters;
+using Avalonia.Controls.Templates;
 using Avalonia.Data;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Markup.Xaml.Styling;
@@ -21,11 +22,15 @@ namespace OpticalSystemDesign.App;
 public sealed class App : Avalonia.Application
 {
     internal const int StartupTimeoutMilliseconds = 30_000;
+    internal static Color DocumentTabCloseColor => MainWindowTitleBar.CloseButtonColor;
+    internal static Color DocumentTabCloseHoverColor => Color.Parse("#E5484D");
+    internal static Color DocumentTabClosePressedColor => Color.Parse("#C9353A");
     private static readonly TimeSpan MinimumSplashDisplay = TimeSpan.FromMilliseconds(900);
 
     public override void Initialize()
     {
         Name = "Optical System Design";
+        UiLocalization.InstallGlobalHooks();
         Styles.Add(new FluentTheme());
         Styles.Add(new DockFluentTheme());
         AddThemeResources();
@@ -430,6 +435,7 @@ public sealed class App : Avalonia.Application
         AddDataGridSelectionVisualStyles();
         AddDockIconStyles();
         Styles.Add(new BlueThemeStyles());
+        Styles.Add(new LumenThemeStyles());
     }
 
     internal static Selector RibbonCommandPointerOverSelector(Selector? selector) => selector
@@ -526,12 +532,35 @@ public sealed class App : Avalonia.Application
     }
     private void AddDockIconStyles()
     {
+        // Reuse Dock's own commands, visibility and geometry. Its default glyph
+        // has a local Fill resource, so bind that glyph to the button's state
+        // color instead of trying to override it with a lower-priority style.
+        var originalCloseTemplate = (IDataTemplate)this.FindResource("DockDefaultDocumentCloseTemplate")!;
+        var closeTemplate = new FuncDataTemplate<object>((data, _) =>
+        {
+            var control = originalCloseTemplate.Build(data);
+            if (control is Button button && button.Content is Avalonia.Controls.Shapes.Shape glyph)
+                glyph.Bind(Avalonia.Controls.Shapes.Shape.FillProperty, button.GetObservable(Button.ForegroundProperty));
+            return control;
+        });
+        Styles.Add(new Style(selector => selector.OfType<DocumentControl>())
+        {
+            Setters = { new Setter(DocumentControl.CloseTemplateProperty, closeTemplate) }
+        });
+        Styles.Add(new Style(selector => selector.OfType<DocumentTabStrip>())
+        {
+            Setters = { new Setter(DocumentTabStrip.CloseTemplateProperty, closeTemplate) }
+        });
         var documentCloseStyle = new Style(selector => selector
             .OfType<DocumentTabStripItem>()
             .Descendant()
             .OfType<Button>());
         AddDockButtonSetters(documentCloseStyle, 18, 2, new Thickness(0));
         Styles.Add(documentCloseStyle);
+        AddDocumentCloseColorStyle(null, new SolidColorBrush(DocumentTabCloseColor));
+        AddDocumentCloseColorStyle(":pointerover", new SolidColorBrush(DocumentTabCloseHoverColor));
+        AddDocumentCloseColorStyle(":pressed", new SolidColorBrush(DocumentTabClosePressedColor));
+        AddDocumentCloseColorStyle(":disabled", new DynamicResourceExtension(ThemeResourceBindings.TextDisabled));
         AddDockChromeButtonStyle("PART_MenuButton");
         AddDockChromeButtonStyle("PART_PinButton");
         AddDockChromeButtonStyle("PART_MaximizeRestoreButton");
@@ -556,6 +585,23 @@ public sealed class App : Avalonia.Application
         {
             Setters = { new Setter(Visual.ClipToBoundsProperty, true) }
         });
+    }
+
+    private void AddDocumentCloseColorStyle(string? pseudoClass, object foreground)
+    {
+        foreach (var presenterName in new[] { "PART_ClosePresenter", "PART_CompactClosePresenter" })
+        {
+            var buttonStyle = new Style(selector =>
+            {
+                var button = selector.OfType<DocumentTabStripItem>()
+                    .Template().OfType<ContentPresenter>().Name(presenterName)
+                    .Descendant()
+                    .OfType<Button>();
+                return pseudoClass is null ? button : button.Class(pseudoClass);
+            });
+            buttonStyle.Setters.Add(new Setter(Button.ForegroundProperty, foreground));
+            Styles.Add(buttonStyle);
+        }
     }
 
     private void AddDockChromeButtonStyle(string partName)

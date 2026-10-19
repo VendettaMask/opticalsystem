@@ -56,6 +56,7 @@ public sealed class FlatRootFactory
             for (var index = 0; index < surfaces.Count; index++) surfaces[index].IsStop = index == family.StopSurfaceIndex;
         }
         optic.SurfaceGroup.ImportLegacySurfaces(surfaces);
+        AutoLensManagedTopology.Apply(optic, specification, elementCount);
         if (specification.FlatStart?.UsePhysicalStop == true)
         {
             optic.RayAimingEnabled = true;

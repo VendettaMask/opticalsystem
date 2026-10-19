@@ -20,39 +20,39 @@ namespace OpticalSystemDesign.App;
 
 public sealed partial class MainWindow : Window
 {
-    private static readonly FilePickerFileType NativeOpticFileType = new("STAROPT 光学设计项目")
+    private static FilePickerFileType NativeOpticFileType => new(UiLocalization.Text("STAROPT 光学设计项目"))
     {
         Patterns = new[] { "*.staropt" },
         AppleUniformTypeIdentifiers = new[] { "public.data" },
         MimeTypes = new[] { "application/vnd.starlabs.staropt" }
     };
 
-    private static readonly FilePickerFileType OpticJsonFileType = new("光学数据快照")
+    private static FilePickerFileType OpticJsonFileType => new(UiLocalization.Text("光学数据快照"))
     {
         Patterns = new[] { "*.optic.json" },
         AppleUniformTypeIdentifiers = new[] { "public.json" },
         MimeTypes = new[] { "application/json" }
     };
 
-    private static readonly FilePickerFileType CommercialOpticFileType = new("序列光学格式")
+    private static FilePickerFileType CommercialOpticFileType => new(UiLocalization.Text("序列光学格式"))
     {
         Patterns = new[] { "*.zmx", "*.seq", "*.len" },
         MimeTypes = new[] { "text/plain" }
     };
 
-    private static readonly FilePickerFileType ZemaxOpticFileType = new("Zemax 光学系统")
+    private static FilePickerFileType ZemaxOpticFileType => new(UiLocalization.Text("Zemax 光学系统"))
     {
         Patterns = new[] { "*.zmx" },
         MimeTypes = new[] { "text/plain" }
     };
 
-    private static readonly FilePickerFileType PlainSequentialFileType = new("序列光学文本")
+    private static FilePickerFileType PlainSequentialFileType => new(UiLocalization.Text("序列光学文本"))
     {
         Patterns = new[] { "*.lens", "*.dat", "*.txt" },
         MimeTypes = new[] { "text/plain" }
     };
 
-    private static readonly FilePickerFileType StepCadFileType = new("STEP CAD 模型")
+    private static FilePickerFileType StepCadFileType => new(UiLocalization.Text("STEP CAD 模型"))
     {
         Patterns = new[] { "*.step", "*.stp" },
         AppleUniformTypeIdentifiers = new[] { "public.item" },
@@ -137,6 +137,7 @@ public sealed partial class MainWindow : Window
         var startup = StartupRequest.Parse(Environment.GetCommandLineArgs().Skip(1));
         _startupDocumentPath = startup.DocumentPath;
         _settings = AppSettings.Load();
+        UiLocalization.Apply(_settings.Language);
         ConfigureDisplaySettings();
         _application = WorkbenchApplication.Create(
             startup.Sample,
@@ -150,7 +151,8 @@ public sealed partial class MainWindow : Window
         _panels = new PanelManager(
             _application,
             _settings,
-            openProjectAsync: OpenLensLibraryProjectAsync);
+            openProjectAsync: OpenLensLibraryProjectAsync,
+            userGuideActions: () => _actions.Actions);
         RegisterActions();
         _commandSearch = new CommandSearchControl(_actions);
         _actions.ExecutionFailed += OnActionExecutionFailed;
@@ -164,6 +166,7 @@ public sealed partial class MainWindow : Window
         MinHeight = 480;
         ApplyTheme(save: false);
         Content = MainWindowTitleBar.Wrap(this, BuildShell(), _commandSearch);
+        UiLocalization.Attach(this);
         DisplayTypography.Apply(this);
 
         _application.Events.Changed += OnWorkspaceChanged;

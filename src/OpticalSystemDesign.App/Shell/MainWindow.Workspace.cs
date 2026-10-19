@@ -63,10 +63,13 @@ public sealed partial class MainWindow
         UpdateHistoryButtons(_undoButton, _redoButton, snapshot.CanUndo, snapshot.CanRedo);
         var dirtyMarker = snapshot.IsDirty ? " *" : string.Empty;
         var modeName = _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
-            ? "非序列模式"
-            : "顺序模式";
+            ? UiLocalization.Text("非序列模式")
+            : UiLocalization.Text("顺序模式");
         Title = $"{snapshot.Name}{dirtyMarker} - {modeName} - Optical System Design";
-        _statusText.Text = $"{modeName}   |   {snapshot.Status}   |   {snapshot.SurfaceCount} 个表面   |   {snapshot.FieldCount} 个视场   |   {snapshot.WavelengthCount} 个波长";
+        _statusText.Text = $"{modeName}   |   {UiLocalization.Text(snapshot.Status)}   |   "
+            + $"{UiLocalization.Count(snapshot.SurfaceCount, "表面")}   |   "
+            + $"{UiLocalization.Count(snapshot.FieldCount, "视场")}   |   "
+            + UiLocalization.Count(snapshot.WavelengthCount, "波长");
         ToolTip.SetTip(_statusText, _statusText.Text);
         _eflText.Text = $"EFFL: {FormatMetric(snapshot.EffectiveFocalLength)}";
         _fNumberText.Text = $"F/#: {FormatMetric(snapshot.FNumber)}";

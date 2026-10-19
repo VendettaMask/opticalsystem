@@ -40,12 +40,13 @@ public sealed class PanelManager : IDisposable
         IWorkbenchApplication application,
         AppSettings settings,
         WorkspaceSessionStore? sessionStore = null,
-        Func<string, Task<bool>>? openProjectAsync = null)
+        Func<string, Task<bool>>? openProjectAsync = null,
+        Func<IReadOnlyList<AppAction>>? userGuideActions = null)
     {
         _application = application;
         _settings = settings;
         _sessionStore = sessionStore ?? new WorkspaceSessionStore();
-        Factory = new WorkspaceDockFactory(application, settings, openProjectAsync);
+        Factory = new WorkspaceDockFactory(application, settings, openProjectAsync, userGuideActions);
         Layout = Factory.CreateLayout();
         Factory.InitLayout(Layout);
         WorkspaceControl = new DockControl
@@ -218,6 +219,11 @@ public sealed class PanelManager : IDisposable
     public void ShowOperandHelp()
     {
         OpenStable("document:operand-help", WorkspaceDocumentTypes.OperandHelp, "操作数帮助");
+    }
+
+    public void ShowUserGuide()
+    {
+        OpenStable("document:user-guide", WorkspaceDocumentTypes.UserGuide, "用户指南");
     }
 
     public void ShowMaterialAnalysis(MaterialAnalysisKind kind)

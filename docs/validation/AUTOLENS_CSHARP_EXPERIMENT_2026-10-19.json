@@ -1,0 +1,814 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-19",
+  "Product": "Optical System Design",
+  "Status": "OptInCpuExperimentNotFullAutoLensPort",
+  "SourceCommit": "9242b31abf38b4d97f23d19e4b00f8df47abfabb",
+  "WorkingTreeDirty": true,
+  "ConcurrentUnrelatedLocalizationEditsPreserved": true,
+  "Upstream": {
+    "Repository": "https://github.com/AI4Optics/AutoLens",
+    "Commit": "e58db32f3a0b07f25861b5839a45970f77b5c947",
+    "License": "Apache-2.0"
+  },
+  "Scope": {
+    "ManagedCSharpOnly": true,
+    "SharedCoreOnly": true,
+    "CoreSourcesUnmodified": true,
+    "DefaultV20Unchanged": true,
+    "LearnedModelAdded": false,
+    "AutomaticDifferentiation": false,
+    "Gpu": false,
+    "ContinuousMaterialRelaxation": false,
+    "AsphericGeneration": false,
+    "UpstreamNumericalEquivalence": false,
+    "FullModuleSuiteCompleted": false,
+    "LongSelectionsStopped": 2,
+    "NewNativeCaptures": 0,
+    "InstallerRebuilt": false,
+    "Committed": false,
+    "Pushed": false,
+    "RemoteCiVerified": false
+  },
+  "Builds": [
+    {
+      "Configuration": "debug",
+      "Projects": 19,
+      "ZeroWarnings": true,
+      "ZeroErrors": true,
+      "DefaultOutput": true,
+      "Path": "build-debug-verified.log",
+      "Sha256": "15622ac3b4e062551cfd5c089608711a7a64f55d9c55f888a56999c69a09c780"
+    },
+    {
+      "Configuration": "release",
+      "Projects": 19,
+      "ZeroWarnings": true,
+      "ZeroErrors": true,
+      "DefaultOutput": true,
+      "Path": "build-release-verified.log",
+      "Sha256": "b006b6c1e34fb4b49a0ee471dd163a053f96413a8f7ebf311ac31b754972dc28"
+    }
+  ],
+  "FinalScopedTests": [
+    {
+      "Path": "debug/autolens-critical-debug-verified.trx",
+      "Total": 53,
+      "Passed": 53,
+      "Failed": 0,
+      "Skipped": 0,
+      "Aborted": 0,
+      "Sha256": "f7003760ed7a80f20b2d501a509fe6806e2c2a44c60ff30cdb76696a4b58c492",
+      "TestNames": [
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.AdamBoundAndResidualDimensionGuardsAreEnforced",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.AdamCancellationAndStopPreventFurtherComputation",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.AdamMeasuresDecreaseAndChargesAllCoreCallbackWorkWithoutPublishingProbes",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.AdamMissingOrNonFiniteDerivativeDoesNotBecomeZeroGradient",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.CurriculumUsesUpstreamHalfRadiusCosineNotQuarterRadiusAndEndsAtFullTarget",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.ExperimentPersistsResumesRefinesAndCannotMasqueradeAsDefaultOrHistoricalAlgorithm",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.IntegratedDesignReservesFinalGateAndChargesEveryProbe(budget: 1)",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.IntegratedDesignReservesFinalGateAndChargesEveryProbe(budget: 160)",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.IntegratedDesignReservesFinalGateAndChargesEveryProbe(budget: 2)",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.IntegratedDesignReservesFinalGateAndChargesEveryProbe(budget: 30)",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.InvalidCurriculumProgressIsRejected(progress: -0.10000000000000001)",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.InvalidCurriculumProgressIsRejected(progress: ∞)",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.InvalidCurriculumProgressIsRejected(progress: 1.1000000000000001)",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.InvalidCurriculumProgressIsRejected(progress: NaN)",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.InvalidOrLegacyExperimentConfigurationIsRejected(method: -1, sampling: UniformAreaGaussianV1)",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.InvalidOrLegacyExperimentConfigurationIsRejected(method: 1, sampling: LegacyEqualRings)",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.InvalidOrLegacyExperimentConfigurationIsRejected(method: 2, sampling: UniformAreaGaussianV1)",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.LegacySerializationAndDefaultAlgorithmIdentityStayUnchanged",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.PartialGradientNeverExceedsBudgetOrBecomesPublishedCandidate(budget: 1)",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.PartialGradientNeverExceedsBudgetOrBecomesPublishedCandidate(budget: 2)",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.PartialGradientNeverExceedsBudgetOrBecomesPublishedCandidate(budget: 3)",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.PartialGradientNeverExceedsBudgetOrBecomesPublishedCandidate(budget: 7)",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.ActiveBoundIsResolvedBeforeCoupledStepIsProjected",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.FeasibleRestartUsesFullDenseTargetsAndRetainsTheIncumbent(name: \"03-50mm-monochrome.json\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.FeasibleRestartUsesFullDenseTargetsAndRetainsTheIncumbent(name: \"04-75mm-visible.json\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(version: \"1\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(version: \"10\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(version: \"11\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(version: \"12\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(version: \"13\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(version: \"14\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(version: \"15\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(version: \"16\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(version: \"17\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(version: \"18\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(version: \"2\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(version: \"3\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(version: \"4\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(version: \"6\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(version: \"7\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(version: \"8\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.HistoricalVersionCanBeReadButCannotSilentlyResumeWithChangedSolver(version: \"9\")",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartPolicyTests.ContinuationTriesFullTargetThenReducesDifficultyAndRestoresFullTarget",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartPolicyTests.GlobalStagnationRequiresRestartsAndNoValidatedImprovement",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartPolicyTests.LocalAdapterChargesEveryProbeAndHonorsCancellation",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartPolicyTests.LocalGeometryRestorationSwitchesToOneRayObjectiveAndKeepsAcceptanceSeparate",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartPolicyTests.SchedulerStateTamperingIsRejectedBeforeResuming",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartPolicyTests.ScreeningPromotionNeighborhoodExplorationAndRestartAreMeasuredDecisions",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartProgressiveRecoveryTests.FailedFullFieldEntryRecoversThroughMeasuredBridgeAndStillEnforcesFinalTargets",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartSolverCoordinatesTests.AcceptedObserverNeverPublishesFiniteDifferenceOrRejectedTrials",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartSolverCoordinatesTests.DifferentialIncludesTrackCouplingInsteadOfSilentlyProjectingOtherCoordinates",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartSolverCoordinatesTests.IndependentBoxCornersRespectMinimumThicknessAndCoupledTrack(fixedBack: False)",
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartSolverCoordinatesTests.IndependentBoxCornersRespectMinimumThicknessAndCoupledTrack(fixedBack: True)"
+      ]
+    },
+    {
+      "Path": "release/autolens-comparison-release-verified.trx",
+      "Total": 3,
+      "Passed": 3,
+      "Failed": 0,
+      "Skipped": 0,
+      "Aborted": 0,
+      "Sha256": "a7a87afeeaad9cc98969732a2baf5cf92ef4ce31eea82a27a25afb14f74e7ba8",
+      "TestNames": [
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.SameBudgetComparisonReportsActualGapsAndChecksFreshCoreAcceptance(name: \"03-50mm-monochrome.json\")",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.SameBudgetComparisonReportsActualGapsAndChecksFreshCoreAcceptance(name: \"07-24mm-visible.json\")",
+        "OpticalSystemDesign.InitialStructure.Tests.AutoLensCpuTests.SameBudgetComparisonReportsActualGapsAndChecksFreshCoreAcceptance(name: \"09-50mm-visible.json\")"
+      ]
+    },
+    {
+      "Path": "debug/autolens-ui-debug.trx",
+      "Total": 1,
+      "Passed": 1,
+      "Failed": 0,
+      "Skipped": 0,
+      "Aborted": 0,
+      "Sha256": "301462eec6cdb2b9747770b09189ff8cfa46483ed0fb4dd3cb30abda73acd0a8",
+      "TestNames": [
+        "OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.AutoLensCpuIsExplicitOptInPersistsAndChangingMethodClearsStaleResults"
+      ]
+    },
+    {
+      "Path": "debug/delivery-debug-verified.trx",
+      "Total": 16,
+      "Passed": 16,
+      "Failed": 0,
+      "Skipped": 0,
+      "Aborted": 0,
+      "Sha256": "e73f1c2e55c2468fedbb5260f360e92d8b6412b744fd0dfe29ea1f0bcbd2f653",
+      "TestNames": [
+        "OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.AutoLensCpuExperimentShipsExactLicenseAndHasNoForeignRuntimeReference",
+        "OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.BothWorkspacesBelongToTheMainExecutableAssembly",
+        "OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.IndependentApplicationsAndExternalLaunchersAreRetired(module: \"CoatingDesign\")",
+        "OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.IndependentApplicationsAndExternalLaunchersAreRetired(module: \"InitialStructure\")",
+        "OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.PublishRejectsMissingModulesAndIncludesTheirNotices",
+        "OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.RootSolutionAndMainBuildIncludeEveryModule",
+        "OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.SearchAndCoatingUseTheSameProductCore",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: \"Content Include=\\\"../../tools/python-reference/inp\"···)",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: \"File.ReadAllText(\\\"../../validation/history/refere\"···)",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: \"new ProcessStartInfo(\\\"py\\\", \\\"worker.py\\\")\")",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: \"new ProcessStartInfo(\\\"python3.exe\\\")\")",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: \"PackageReference Include=\\\"pythonnet\\\"\")",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: \"Process.Start(\\\"python\\\", \\\"worker.py\\\")\")",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: \"Python.Runtime.PythonEngine.Initialize()\")",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.ProductProjectReferencesStayInsideProductAndAssembliesExcludeRetiredAdapters",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.ProductSourcesAndBuildInputsHaveNoPythonOrValidationDependencies"
+      ]
+    },
+    {
+      "Path": "release/delivery-release-final.trx",
+      "Total": 16,
+      "Passed": 16,
+      "Failed": 0,
+      "Skipped": 0,
+      "Aborted": 0,
+      "Sha256": "467a14935c88cf8fb912e7986b3fb5dbb9153fac87f12def7cc6af7902915a39",
+      "TestNames": [
+        "OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.AutoLensCpuExperimentShipsExactLicenseAndHasNoForeignRuntimeReference",
+        "OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.BothWorkspacesBelongToTheMainExecutableAssembly",
+        "OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.IndependentApplicationsAndExternalLaunchersAreRetired(module: \"CoatingDesign\")",
+        "OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.IndependentApplicationsAndExternalLaunchersAreRetired(module: \"InitialStructure\")",
+        "OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.PublishRejectsMissingModulesAndIncludesTheirNotices",
+        "OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.RootSolutionAndMainBuildIncludeEveryModule",
+        "OpticalSystemDesign.Tests.BuiltInModuleDeliveryTests.SearchAndCoatingUseTheSameProductCore",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: \"Content Include=\\\"../../tools/python-reference/inp\"···)",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: \"File.ReadAllText(\\\"../../validation/history/refere\"···)",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: \"new ProcessStartInfo(\\\"py\\\", \\\"worker.py\\\")\")",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: \"new ProcessStartInfo(\\\"python3.exe\\\")\")",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: \"PackageReference Include=\\\"pythonnet\\\"\")",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: \"Process.Start(\\\"python\\\", \\\"worker.py\\\")\")",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: \"Python.Runtime.PythonEngine.Initialize()\")",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.ProductProjectReferencesStayInsideProductAndAssembliesExcludeRetiredAdapters",
+        "OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.ProductSourcesAndBuildInputsHaveNoPythonOrValidationDependencies"
+      ]
+    }
+  ],
+  "Comparisons": [
+    {
+      "Case": "03-50mm-monochrome.json",
+      "RawPath": "comparison-release-verified/03-50mm-monochrome.json",
+      "RawSha256": "439d373ec346f5cf2fb9edf1ad49859e5dd4c9a905c90626a263c624b84ff00b",
+      "UpstreamCommit": "e58db32f3a0b07f25861b5839a45970f77b5c947",
+      "FrozenSpecificationFingerprint": "10a08993eee2fd6ffd569fb707fd67cf2326bdbaacd1eb250e1e1e378c302839",
+      "SameTargetsExceptMethod": true,
+      "SameInitialRoot": true,
+      "Family": {
+        "GlassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "CenterThicknesses": [
+          2,
+          2,
+          2
+        ],
+        "AirGaps": [
+          1,
+          1
+        ],
+        "StopSurfaceIndex": 3,
+        "SeedIndex": 2,
+        "ElementCount": 3,
+        "BinaryStart": {
+          "Signs": "++-",
+          "RadiusMillimeters": 500
+        }
+      },
+      "Native": {
+        "Algorithm": {
+          "Name": "strict-flat-family-design",
+          "Version": "20",
+          "NumericBackend": "Managed CPU",
+          "Deterministic": true
+        },
+        "State": "Accepted",
+        "Budget": {
+          "InitialSeedCount": 24,
+          "MaximumEvaluations": 600,
+          "MaximumParallelism": 1,
+          "TimeLimit": "00:02:00",
+          "RandomSeed": 101
+        },
+        "Evaluations": 102,
+        "TracedRealRays": 305480,
+        "Accepted": true,
+        "IsFeasible": true,
+        "CompleteOpticalData": true,
+        "HasFinal": true,
+        "IndependentValidation": true,
+        "DenseSampling": true,
+        "FinalFieldCount": 21,
+        "IntegrationAndCheckRaysAllPropagated": true,
+        "RmsMillimeters": 0.046749814443330436,
+        "PartialRayDiagnosticRmsNotForRanking": null,
+        "MaximumRadiusMillimeters": 0.08270102992538675,
+        "ViolationCount": 0,
+        "ViolationCodes": [],
+        "AcceptedAdamSteps": 0,
+        "FinalSnapshotCoreReplayMatched": true,
+        "SpecificationFingerprint": "da918f8710814d2ebd216dd96be411b55a348d0bec5e69975cfa37c07442b12d"
+      },
+      "Experiment": {
+        "Algorithm": {
+          "Name": "strict-flat-family-design-autolens-cpu-experiment-v1",
+          "Version": "20",
+          "NumericBackend": "Managed CPU",
+          "Deterministic": true
+        },
+        "State": "Accepted",
+        "Budget": {
+          "InitialSeedCount": 24,
+          "MaximumEvaluations": 600,
+          "MaximumParallelism": 1,
+          "TimeLimit": "00:02:00",
+          "RandomSeed": 101
+        },
+        "Evaluations": 556,
+        "TracedRealRays": 2911816,
+        "Accepted": true,
+        "IsFeasible": true,
+        "CompleteOpticalData": true,
+        "HasFinal": true,
+        "IndependentValidation": true,
+        "DenseSampling": true,
+        "FinalFieldCount": 21,
+        "IntegrationAndCheckRaysAllPropagated": true,
+        "RmsMillimeters": 0.037480485674253036,
+        "PartialRayDiagnosticRmsNotForRanking": null,
+        "MaximumRadiusMillimeters": 0.052663204194323576,
+        "ViolationCount": 0,
+        "ViolationCodes": [],
+        "AcceptedAdamSteps": 19,
+        "FinalSnapshotCoreReplayMatched": true,
+        "SpecificationFingerprint": "daa15311e9698b4e56c40116fdae508001dde0597e80f08185b790ebacb1cc4c"
+      }
+    },
+    {
+      "Case": "07-24mm-visible.json",
+      "RawPath": "comparison-release-verified/07-24mm-visible.json",
+      "RawSha256": "f4cd2b316a0bc99bd512831d263f3c7003de4a0d7c9a77005364dc4a440ea623",
+      "UpstreamCommit": "e58db32f3a0b07f25861b5839a45970f77b5c947",
+      "FrozenSpecificationFingerprint": "4c7bd4848e0427cd2ce4ec8b5311ebac3f11ffdc758d0b9b3f925ac85564231e",
+      "SameTargetsExceptMethod": true,
+      "SameInitialRoot": true,
+      "Family": {
+        "GlassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "CenterThicknesses": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "AirGaps": [
+          1,
+          1,
+          1
+        ],
+        "StopSurfaceIndex": 5,
+        "SeedIndex": 1,
+        "ElementCount": 4,
+        "BinaryStart": {
+          "Signs": "---+",
+          "RadiusMillimeters": 240
+        }
+      },
+      "Native": {
+        "Algorithm": {
+          "Name": "strict-flat-family-design",
+          "Version": "20",
+          "NumericBackend": "Managed CPU",
+          "Deterministic": true
+        },
+        "State": "Accepted",
+        "Budget": {
+          "InitialSeedCount": 24,
+          "MaximumEvaluations": 600,
+          "MaximumParallelism": 1,
+          "TimeLimit": "00:02:00",
+          "RandomSeed": 101
+        },
+        "Evaluations": 71,
+        "TracedRealRays": 673612,
+        "Accepted": true,
+        "IsFeasible": true,
+        "CompleteOpticalData": true,
+        "HasFinal": true,
+        "IndependentValidation": true,
+        "DenseSampling": true,
+        "FinalFieldCount": 21,
+        "IntegrationAndCheckRaysAllPropagated": true,
+        "RmsMillimeters": 0.04041338620118218,
+        "PartialRayDiagnosticRmsNotForRanking": null,
+        "MaximumRadiusMillimeters": 0.10224515433532044,
+        "ViolationCount": 0,
+        "ViolationCodes": [],
+        "AcceptedAdamSteps": 0,
+        "FinalSnapshotCoreReplayMatched": true,
+        "SpecificationFingerprint": "58babc6d63e36b397a8fd8d479921a92ab444838bd41697556ae9529d8f01b23"
+      },
+      "Experiment": {
+        "Algorithm": {
+          "Name": "strict-flat-family-design-autolens-cpu-experiment-v1",
+          "Version": "20",
+          "NumericBackend": "Managed CPU",
+          "Deterministic": true
+        },
+        "State": "Accepted",
+        "Budget": {
+          "InitialSeedCount": 24,
+          "MaximumEvaluations": 600,
+          "MaximumParallelism": 1,
+          "TimeLimit": "00:02:00",
+          "RandomSeed": 101
+        },
+        "Evaluations": 554,
+        "TracedRealRays": 8843296,
+        "Accepted": true,
+        "IsFeasible": true,
+        "CompleteOpticalData": true,
+        "HasFinal": true,
+        "IndependentValidation": true,
+        "DenseSampling": true,
+        "FinalFieldCount": 21,
+        "IntegrationAndCheckRaysAllPropagated": true,
+        "RmsMillimeters": 0.03934216278536209,
+        "PartialRayDiagnosticRmsNotForRanking": null,
+        "MaximumRadiusMillimeters": 0.14303126719193493,
+        "ViolationCount": 0,
+        "ViolationCodes": [],
+        "AcceptedAdamSteps": 16,
+        "FinalSnapshotCoreReplayMatched": true,
+        "SpecificationFingerprint": "f792eef4a3ed98a9a8ef0429d09e3a2348b1e651a7f82b7bb3ccb288dacdfc92"
+      }
+    },
+    {
+      "Case": "09-50mm-visible.json",
+      "RawPath": "comparison-release-verified/09-50mm-visible.json",
+      "RawSha256": "bd1aa636b30136c14b0f9a922bccf60be13bc05567a035cae4f71521c98ef50c",
+      "UpstreamCommit": "e58db32f3a0b07f25861b5839a45970f77b5c947",
+      "FrozenSpecificationFingerprint": "8c16afdb9cfa19f6692c1dc7239b3ec945daa5f7bbce2def98a54e6536c38d9a",
+      "SameTargetsExceptMethod": true,
+      "SameInitialRoot": true,
+      "Family": {
+        "GlassNames": [
+          "N-BK7",
+          "N-BK7",
+          "N-BK7",
+          "N-BK7"
+        ],
+        "CenterThicknesses": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "AirGaps": [
+          1,
+          1,
+          1
+        ],
+        "StopSurfaceIndex": 5,
+        "SeedIndex": 1,
+        "ElementCount": 4,
+        "BinaryStart": {
+          "Signs": "---+",
+          "RadiusMillimeters": 500
+        }
+      },
+      "Native": {
+        "Algorithm": {
+          "Name": "strict-flat-family-design",
+          "Version": "20",
+          "NumericBackend": "Managed CPU",
+          "Deterministic": true
+        },
+        "State": "TimeLimit",
+        "Budget": {
+          "InitialSeedCount": 24,
+          "MaximumEvaluations": 600,
+          "MaximumParallelism": 1,
+          "TimeLimit": "00:02:00",
+          "RandomSeed": 101
+        },
+        "Evaluations": 320,
+        "TracedRealRays": 20034221,
+        "Accepted": false,
+        "IsFeasible": false,
+        "CompleteOpticalData": false,
+        "HasFinal": true,
+        "IndependentValidation": true,
+        "DenseSampling": true,
+        "FinalFieldCount": 21,
+        "IntegrationAndCheckRaysAllPropagated": false,
+        "RmsMillimeters": null,
+        "PartialRayDiagnosticRmsNotForRanking": 0.03975000461031846,
+        "MaximumRadiusMillimeters": null,
+        "ViolationCount": 138,
+        "ViolationCodes": [
+          "geometry.aperture-envelope-incomplete",
+          "field.0.check-lost-rays",
+          "field.0.lost-fraction",
+          "field.0.wave.0.lost-fraction",
+          "field.0.wave.1.lost-fraction",
+          "field.0.wave.2.lost-fraction",
+          "field.1.check-lost-rays",
+          "field.1.lost-fraction",
+          "field.1.wave.0.lost-fraction",
+          "field.1.wave.1.lost-fraction",
+          "field.1.wave.2.lost-fraction",
+          "field.2.check-lost-rays",
+          "field.2.lost-fraction",
+          "field.2.wave.0.lost-fraction",
+          "field.2.wave.1.lost-fraction",
+          "field.2.wave.2.lost-fraction",
+          "field.3.check-lost-rays",
+          "field.3.lost-fraction",
+          "field.3.wave.0.lost-fraction",
+          "field.3.wave.1.lost-fraction",
+          "field.3.wave.2.lost-fraction",
+          "field.4.check-lost-rays",
+          "field.4.lost-fraction",
+          "field.4.wave.0.lost-fraction",
+          "field.4.wave.1.lost-fraction",
+          "field.4.wave.2.lost-fraction",
+          "field.5.check-lost-rays",
+          "field.5.lost-fraction",
+          "field.5.rms",
+          "field.5.maximum-radius",
+          "field.5.wave.0.lost-fraction",
+          "field.5.wave.1.lost-fraction",
+          "field.5.wave.2.lost-fraction",
+          "field.6.check-lost-rays",
+          "field.6.lost-fraction",
+          "field.6.rms",
+          "field.6.maximum-radius",
+          "field.6.wave.0.lost-fraction",
+          "field.6.wave.1.lost-fraction",
+          "field.6.wave.2.lost-fraction",
+          "field.7.check-lost-rays",
+          "field.7.lost-fraction",
+          "field.7.rms",
+          "field.7.maximum-radius",
+          "field.7.wave.0.lost-fraction",
+          "field.7.wave.1.lost-fraction",
+          "field.7.wave.2.lost-fraction",
+          "field.8.check-lost-rays",
+          "field.8.lost-fraction",
+          "field.8.rms",
+          "field.8.maximum-radius",
+          "field.8.wave.0.lost-fraction",
+          "field.8.wave.1.lost-fraction",
+          "field.8.wave.2.lost-fraction",
+          "field.9.check-lost-rays",
+          "field.9.lost-fraction",
+          "field.9.rms",
+          "field.9.maximum-radius",
+          "field.9.wave.0.lost-fraction",
+          "field.9.wave.1.lost-fraction",
+          "field.9.wave.2.lost-fraction",
+          "field.10.check-lost-rays",
+          "field.10.lost-fraction",
+          "field.10.rms",
+          "field.10.maximum-radius",
+          "field.10.wave.0.lost-fraction",
+          "field.10.wave.1.lost-fraction",
+          "field.10.wave.2.lost-fraction",
+          "field.11.check-lost-rays",
+          "field.11.lost-fraction",
+          "field.11.rms",
+          "field.11.maximum-radius",
+          "field.11.wave.0.lost-fraction",
+          "field.11.wave.1.lost-fraction",
+          "field.11.wave.2.lost-fraction",
+          "field.12.check-lost-rays",
+          "field.12.lost-fraction",
+          "field.12.rms",
+          "field.12.maximum-radius",
+          "field.12.wave.0.lost-fraction",
+          "field.12.wave.1.lost-fraction",
+          "field.12.wave.2.lost-fraction",
+          "field.13.check-lost-rays",
+          "field.13.lost-fraction",
+          "field.13.rms",
+          "field.13.maximum-radius",
+          "field.13.wave.0.lost-fraction",
+          "field.13.wave.1.lost-fraction",
+          "field.13.wave.2.lost-fraction",
+          "field.14.check-lost-rays",
+          "field.14.lost-fraction",
+          "field.14.rms",
+          "field.14.maximum-radius",
+          "field.14.wave.0.lost-fraction",
+          "field.14.wave.1.lost-fraction",
+          "field.14.wave.2.lost-fraction",
+          "field.15.check-lost-rays",
+          "field.15.lost-fraction",
+          "field.15.rms",
+          "field.15.maximum-radius",
+          "field.15.wave.0.lost-fraction",
+          "field.15.wave.1.lost-fraction",
+          "field.15.wave.2.lost-fraction",
+          "field.16.check-lost-rays",
+          "field.16.lost-fraction",
+          "field.16.rms",
+          "field.16.maximum-radius",
+          "field.16.wave.0.lost-fraction",
+          "field.16.wave.1.lost-fraction",
+          "field.16.wave.2.lost-fraction",
+          "field.17.check-lost-rays",
+          "field.17.lost-fraction",
+          "field.17.rms",
+          "field.17.maximum-radius",
+          "field.17.wave.0.lost-fraction",
+          "field.17.wave.1.lost-fraction",
+          "field.17.wave.2.lost-fraction",
+          "field.18.check-lost-rays",
+          "field.18.lost-fraction",
+          "field.18.rms",
+          "field.18.maximum-radius",
+          "field.18.wave.0.lost-fraction",
+          "field.18.wave.1.lost-fraction",
+          "field.18.wave.2.lost-fraction",
+          "field.19.check-lost-rays",
+          "field.19.lost-fraction",
+          "field.19.rms",
+          "field.19.maximum-radius",
+          "field.19.wave.0.lost-fraction",
+          "field.19.wave.1.lost-fraction",
+          "field.19.wave.2.lost-fraction",
+          "field.20.check-lost-rays",
+          "field.20.lost-fraction",
+          "field.20.rms",
+          "field.20.maximum-radius",
+          "field.20.wave.0.lost-fraction",
+          "field.20.wave.1.lost-fraction",
+          "field.20.wave.2.lost-fraction"
+        ],
+        "AcceptedAdamSteps": 0,
+        "FinalSnapshotCoreReplayMatched": true,
+        "SpecificationFingerprint": "b12a1b0203087af06bb09c8ea3c4c08a95ed4a6104541bea5b64ecc593b2cdfb"
+      },
+      "Experiment": {
+        "Algorithm": {
+          "Name": "strict-flat-family-design-autolens-cpu-experiment-v1",
+          "Version": "20",
+          "NumericBackend": "Managed CPU",
+          "Deterministic": true
+        },
+        "State": "BudgetExhausted",
+        "Budget": {
+          "InitialSeedCount": 24,
+          "MaximumEvaluations": 600,
+          "MaximumParallelism": 1,
+          "TimeLimit": "00:02:00",
+          "RandomSeed": 101
+        },
+        "Evaluations": 600,
+        "TracedRealRays": 11590112,
+        "Accepted": false,
+        "IsFeasible": true,
+        "CompleteOpticalData": true,
+        "HasFinal": true,
+        "IndependentValidation": true,
+        "DenseSampling": true,
+        "FinalFieldCount": 21,
+        "IntegrationAndCheckRaysAllPropagated": true,
+        "RmsMillimeters": 0.05746458349758919,
+        "PartialRayDiagnosticRmsNotForRanking": null,
+        "MaximumRadiusMillimeters": 0.17350360832551281,
+        "ViolationCount": 8,
+        "ViolationCodes": [
+          "field.0.rms",
+          "field.1.rms",
+          "field.2.rms",
+          "field.3.rms",
+          "field.4.rms",
+          "field.19.maximum-radius",
+          "field.20.rms",
+          "field.20.maximum-radius"
+        ],
+        "AcceptedAdamSteps": 16,
+        "FinalSnapshotCoreReplayMatched": true,
+        "SpecificationFingerprint": "c1ef974c09afcdcbc9e3847ebea560d826f65726c2f5dcc470a54a22ad37bad4"
+      }
+    }
+  ],
+  "ComparisonInterpretation": "Each method accepted cases 03 and 07, not case 09. CPU curriculum used more actual evaluations; not an equal-work efficiency study. Case 09 native surviving-ray RMS is invalid for ranking. CPU experiment has full propagation but fails unchanged RMS and maximum-radius gates.",
+  "CoreCopies": [
+    {
+      "Configuration": "Debug",
+      "Path": "src/OpticalSystemDesign.Core/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "256fb68cfa6359beb0f9b46ba9640d298878b60b6e9370ae25722ca38c5093dc"
+    },
+    {
+      "Configuration": "Debug",
+      "Path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "256fb68cfa6359beb0f9b46ba9640d298878b60b6e9370ae25722ca38c5093dc"
+    },
+    {
+      "Configuration": "Debug",
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "256fb68cfa6359beb0f9b46ba9640d298878b60b6e9370ae25722ca38c5093dc"
+    },
+    {
+      "Configuration": "Debug",
+      "Path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "256fb68cfa6359beb0f9b46ba9640d298878b60b6e9370ae25722ca38c5093dc"
+    },
+    {
+      "Configuration": "Release",
+      "Path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "b7294a58afd348a9f57c9736b0893cb0b486b81b136a44409f2aacaa35353cad"
+    },
+    {
+      "Configuration": "Release",
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "b7294a58afd348a9f57c9736b0893cb0b486b81b136a44409f2aacaa35353cad"
+    },
+    {
+      "Configuration": "Release",
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "b7294a58afd348a9f57c9736b0893cb0b486b81b136a44409f2aacaa35353cad"
+    },
+    {
+      "Configuration": "Release",
+      "Path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "b7294a58afd348a9f57c9736b0893cb0b486b81b136a44409f2aacaa35353cad"
+    }
+  ],
+  "SourceFiles": [
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/FlatStartCheckpointValidation.cs",
+      "Sha256": "f625ed53b512f11c7aab5a8f3df03b6ecc3658ec48fb1c9b436f0625870bc96c"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/FlatStartModels.cs",
+      "Sha256": "e4ce78b0fda78fd565a987ab73bb4afbcef2ee6a36ef026734c10ab8a9171f48"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/FlatStartSearchModels.cs",
+      "Sha256": "e48cb5cf3ee10e59c8bbd4d0f33e8268e2e3505ecdc4ff23326ffd9430f4a00c"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutoLensCpuCurriculum.cs",
+      "Sha256": "14f4a15468adad9257d76af8ab21604c03fedcf63c028c19f3fa9a7dad14ef40"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/Optimization/BoundedAdam.cs",
+      "Sha256": "79c213c4c1389322a0d2425e2ece47932d09ba823624f316e61ce07045f562a8"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatStartContinuation.cs",
+      "Sha256": "44d9d974db5f779a74faa6df331b213df839d94c476fcdfc4292ad7c468bf703"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatStartDesignService.cs",
+      "Sha256": "877ee5c0c13fb55ee3e19ba19dee903ed7af0694d500750b7018218c25ba3ab6"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FlatStartSearchService.cs",
+      "Sha256": "0829915b4e9784f85f3f2f225d364e10756880c7fd7ddb57be34546f8ff0e1c4"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/SpecificationValidator.cs",
+      "Sha256": "0fa660cbea8297d74481966255f738b65572469c2f509c95bf32d2c16d47c74b"
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/AutoLensCpuTests.cs",
+      "Sha256": "0b23f352937dad596940ac6b698a179b6c6d9579b1ac9b295e4c55321cf48732"
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/FlatStartDesktopTests.cs",
+      "Sha256": "c83d1210179af1f7de15aa60e3ec0907c41793903b4f0168d24bc3ce013b9d79"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/CandidateRow.cs",
+      "Sha256": "3919cd81bf6191dede417be5cac24210f54265b132653420842b646f8d7ae5bd"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.Inputs.cs",
+      "Sha256": "ea462abff0eed8f5a9c87143f122b464d38430a4616a6b20978baba05d525bd7"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.Workflow.cs",
+      "Sha256": "d5513670328cafbe664323f79eee97d291cf485755b7bd57c239628ff48f6694"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/InitialStructureLabLauncherTests.cs",
+      "Sha256": "f947c20f60a32155303e9c0cdf648dc8fd5e3243eab174b9e0c51dc6badb2d87"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj",
+      "Sha256": "88d0916c1cda67a5f09450cb7b5e2fe4594725a57bdaae77788b8ebd474059fb"
+    },
+    {
+      "Path": "scripts/publish-windows.ps1",
+      "Sha256": "b35486cbec36e9dc63ca785b3036c56f16747c12fb707d36a115b82d01d05aab"
+    },
+    {
+      "Path": "scripts/verify-built-in-package.ps1",
+      "Sha256": "e3ccca9399020a81d0e34380ad4e10569fc40fcadbc82fbc1abb0e8d1b711eb8"
+    },
+    {
+      "Path": "third_party/autolens/AutoLens-LICENSE.txt",
+      "Sha256": "8cf6b06f1ca13796d2a0e42e7b1973bf47262292abd54f4a7d2207c24e66aec4"
+    },
+    {
+      "Path": "third_party/autolens/AutoLens-NOTICE.txt",
+      "Sha256": "c23433e03d112acb57f11cd0c70822735e01a4c1b2a1372b33469bd76a2bc7b6"
+    }
+  ],
+  "FrozenEvidence": {
+    "Count": 2668,
+    "HeadMatched": 2668,
+    "WorkingMatched": 2668,
+    "AggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "Unchanged": true,
+    "RawPath": "frozen-integrity.json",
+    "RawSha256": "201bbf9c386da8b395ab9af85461d0f1ae19298ea9b29ad6ff889073f54e211a"
+  },
+  "Format": {
+    "Files": 15,
+    "ExitCode": 0,
+    "RawPath": "format-verified.log",
+    "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "EvidenceArchive": {
+    "Path": "validation/experiments/2026-10-19/autolens-cpu-experiment-evidence.zip",
+    "Sha256": "a123912812f5750ee42388406cdf49e01e7d1b01f0d283b93f2c51827f15240e",
+    "Bytes": 4644432,
+    "Entries": 47,
+    "UncompressedBytes": 30775938,
+    "EveryEntryReadBackMatched": true
+  },
+  "Documentation": {
+    "Documents": 932,
+    "StrictPassed": true,
+    "BrokenLinks": 0,
+    "MarkdownFenceIssues": 0,
+    "LocalOnlyLinks": 0,
+    "GuideRepeatedParagraphGroups": 0,
+    "RawPath": "documentation-audit-final.json",
+    "Sha256": "4bd6f0dbfd206fcea39694584a5163decba377f6dde78c4d9e88be396a5c32b5"
+  },
+  "SourceFilesReadBackMatched": 20
+}

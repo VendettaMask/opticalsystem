@@ -21,6 +21,32 @@ public static class ApertureSampler
     public const int MaximumPupilSampleCount = 1_000_000;
     public const int MaximumHexapolarRings = 576;
 
+    /// <summary>Area-stratified disk samples with a stable explicit seed, independent of global random state.</summary>
+    public static IReadOnlyList<PupilSample> GenerateSeededUniformDisk(int count, ulong seed)
+    {
+        if (count is < 1 or > MaximumPupilSampleCount) throw new ArgumentOutOfRangeException(nameof(count));
+        var samples = new PupilSample[count];
+        var state = seed;
+        for (var index = 0; index < count; index++)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            var radius = Math.Sqrt((index + Unit()) / count);
+            var angle = 2 * Math.PI * Unit();
+            samples[index] = new(radius * Math.Cos(angle), radius * Math.Sin(angle), 1.0 / count);
+        }
+        return Array.AsReadOnly(samples);
+
+        double Unit()
+        {
+            state = unchecked(state + 0x9e3779b97f4a7c15UL);
+            var value = state;
+            value = unchecked((value ^ (value >> 30)) * 0xbf58476d1ce4e5b9UL);
+            value = unchecked((value ^ (value >> 27)) * 0x94d049bb133111ebUL);
+            value ^= value >> 31;
+            return (value >> 11) * (1.0 / (1UL << 53));
+        }
+    }
+
     private const int MaximumCachedSamplingPlans = 128;
     private const int MaximumCacheableSampleCount = 4_096;
     private static readonly ConcurrentDictionary<GaussianSamplingKey, IReadOnlyList<PupilSample>>

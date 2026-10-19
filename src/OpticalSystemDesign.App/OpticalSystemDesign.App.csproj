@@ -27,6 +27,8 @@
     <AvaloniaResource Include="Assets/Author.jpg" />
     <AvaloniaResource Include="Assets/Brand/AppIcon.png" />
     <AvaloniaResource Include="Assets/Brand/Splash.png" />
+    <AvaloniaResource Include="../../docs/assets/readme/workbench-light.png"
+                      Link="Assets/UserGuide/workbench-light.png" />
     <Content Include="Assets/Brand/AppIcon.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets/Brand/Splash.png" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets/Brand/AppIcon.ico" CopyToOutputDirectory="PreserveNewest" />
@@ -57,6 +59,7 @@
     <Content Include="Assets/Fonts/FUSION-PIXEL-FONT-OFL.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="../../third_party/coating-reference/*LICENSE.txt" Link="Licenses/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="../../third_party/coating-reference/*NOTICE.txt" Link="Licenses/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../third_party/autolens/*.txt" Link="Licenses/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <PropertyGroup>

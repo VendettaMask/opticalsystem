@@ -1,0 +1,628 @@
+using Avalonia;
+using Avalonia.Automation;
+using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Layout;
+using Avalonia.Media;
+using Avalonia.VisualTree;
+using OpticalSystemDesign.Application.Services;
+using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.App.Services;
+
+namespace OpticalSystemDesign.App.Panels;
+
+/// <summary>
+/// Searchable in-product manual. Conceptual chapters explain complete workflows, while the
+/// generated command and analysis reference guarantees that every registered feature remains
+/// discoverable as the application grows.
+/// </summary>
+public sealed class UserGuidePanel : UserControl
+{
+    private readonly IReadOnlyList<GuideChapter> _chapters;
+    private readonly HashSet<string> _coveredCommandIds;
+    private readonly TextBox _search = new() { Name = "UserGuideSearch" };
+    private readonly TreeView _contents = new() { Name = "UserGuideTree", AutoScrollToSelectedItem = true };
+    private readonly TextBlock _resultCount = new() { Name = "UserGuideResultCount" };
+    private readonly TextBlock _path = new() { Name = "UserGuidePath", TextWrapping = TextWrapping.Wrap };
+    private readonly TextBlock _title = new()
+    {
+        Name = "UserGuideTitle",
+        FontSize = DisplayTypography.LargeTitle,
+        FontWeight = FontWeight.SemiBold,
+        TextWrapping = TextWrapping.Wrap
+    };
+    private readonly TextBlock _summary = new() { Name = "UserGuideSummary", TextWrapping = TextWrapping.Wrap };
+    private readonly StackPanel _sections = new() { Name = "UserGuideSections", Spacing = 18 };
+    private readonly ScrollViewer _detailScroller = new()
+    {
+        HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
+        VerticalScrollBarVisibility = ScrollBarVisibility.Auto
+    };
+    private readonly Dictionary<string, TreeViewItem> _chapterItems = new(StringComparer.Ordinal);
+    private string? _selectedChapterId;
+    private bool _updatingTree;
+    private bool _listeningForLanguage;
+
+    public UserGuidePanel(IReadOnlyList<AppAction> actions)
+    {
+        ArgumentNullException.ThrowIfNull(actions);
+        _coveredCommandIds = actions.Select(action => action.Id).ToHashSet(StringComparer.Ordinal);
+        _chapters = BuildChapters(actions);
+
+        _search.TextChanged += (_, _) => RebuildContents();
+        _contents.SelectionChanged += (_, _) =>
+        {
+            if (!_updatingTree)
+            {
+                ShowSelectedChapter();
+            }
+        };
+        AttachedToVisualTree += OnAttachedToVisualTree;
+        DetachedFromVisualTree += OnDetachedFromVisualTree;
+        ScrollViewer.SetHorizontalScrollBarVisibility(_contents, ScrollBarVisibility.Disabled);
+        Content = BuildContent();
+        RefreshLanguage();
+    }
+
+    internal IReadOnlySet<string> CoveredCommandIds => _coveredCommandIds;
+    internal int ChapterCount => _chapters.Count;
+    internal int IllustratedChapterCount => _chapters.Count(chapter => Enum.IsDefined(chapter.Figure));
+
+    private Control BuildContent()
+    {
+        _resultCount.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+        _path.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+        _summary.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
+
+        var navigation = new Grid
+        {
+            RowDefinitions = new RowDefinitions("Auto,Auto,*"),
+            RowSpacing = 8,
+            Margin = new Thickness(10),
+            Children = { _search, _resultCount, _contents }
+        };
+        Grid.SetRow(_resultCount, 1);
+        Grid.SetRow(_contents, 2);
+
+        var navigationBorder = new Border
+        {
+            Child = navigation,
+            BorderThickness = new Thickness(0, 0, 1, 0)
+        };
+        navigationBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+
+        var detail = new StackPanel
+        {
+            Margin = new Thickness(24, 18, 28, 28),
+            Spacing = 8,
+            Children = { _path, _title, _summary, new Border { Height = 8 }, _sections }
+        };
+        _detailScroller.Content = detail;
+
+        var root = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("280,*"),
+            Children = { navigationBorder, _detailScroller }
+        };
+        Grid.SetColumn(_detailScroller, 1);
+        AutomationProperties.SetName(_contents, "用户指南目录");
+        AutomationProperties.SetHelpText(_contents, "按章节浏览；使用方向键展开、折叠和选择。");
+        return root;
+    }
+
+    private void OnAttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs args)
+    {
+        if (_listeningForLanguage)
+        {
+            return;
+        }
+
+        UiLocalization.LanguageChanged += OnLanguageChanged;
+        _listeningForLanguage = true;
+    }
+
+    private void OnDetachedFromVisualTree(object? sender, VisualTreeAttachmentEventArgs args)
+    {
+        if (!_listeningForLanguage)
+        {
+            return;
+        }
+
+        UiLocalization.LanguageChanged -= OnLanguageChanged;
+        _listeningForLanguage = false;
+    }
+
+    private void OnLanguageChanged(object? sender, EventArgs args) => RefreshLanguage();
+
+    private void RefreshLanguage()
+    {
+        _search.PlaceholderText = Current(
+            T("搜索章节、命令、分析或关键词", "Search chapters, commands, analyses, or keywords", "章、コマンド、解析、キーワードを検索"));
+        AutomationProperties.SetName(_search, Current(T("搜索用户指南", "Search the user guide", "ユーザーガイドを検索")));
+        AutomationProperties.SetName(this, Current(T("用户指南", "User Guide", "ユーザーガイド")));
+        RebuildContents();
+    }
+
+    private void RebuildContents()
+    {
+        var query = _search.Text?.Trim();
+        var visible = string.IsNullOrEmpty(query)
+            ? _chapters
+            : _chapters.Where(chapter => Matches(chapter, query)).ToArray();
+        var previous = _selectedChapterId;
+        _updatingTree = true;
+        try
+        {
+            _contents.SelectedItem = null;
+            _chapterItems.Clear();
+            var roots = new List<TreeViewItem>();
+            foreach (var group in visible.GroupBy(chapter => Current(chapter.Group)))
+            {
+                var root = new TreeViewItem
+                {
+                    Header = group.Key,
+                    IsExpanded = true,
+                    ItemsSource = group.Select(CreateChapterItem).ToArray()
+                };
+                AutomationProperties.SetName(root, group.Key);
+                roots.Add(root);
+            }
+
+            _contents.ItemsSource = roots;
+            var selectedId = previous is not null && _chapterItems.ContainsKey(previous)
+                ? previous
+                : visible.FirstOrDefault()?.Id;
+            if (selectedId is not null)
+            {
+                _contents.SelectedItem = _chapterItems[selectedId];
+            }
+        }
+        finally
+        {
+            _updatingTree = false;
+        }
+
+        _resultCount.Text = CurrentLanguage() switch
+        {
+            UiLocalization.English => $"{visible.Count} of {_chapters.Count} chapters",
+            UiLocalization.Japanese => $"{visible.Count} / {_chapters.Count} 章",
+            _ => $"显示 {visible.Count} / {_chapters.Count} 章"
+        };
+        ShowSelectedChapter();
+    }
+
+    private TreeViewItem CreateChapterItem(GuideChapter chapter)
+    {
+        var item = new TreeViewItem { Header = Current(chapter.Title), Tag = chapter };
+        AutomationProperties.SetName(item, Current(chapter.Title));
+        ToolTip.SetTip(item, Current(chapter.Summary));
+        _chapterItems[chapter.Id] = item;
+        return item;
+    }
+
+    private void ShowSelectedChapter()
+    {
+        if ((_contents.SelectedItem as TreeViewItem)?.Tag is not GuideChapter chapter)
+        {
+            _selectedChapterId = null;
+            _path.Text = string.Empty;
+            _title.Text = Current(T("没有匹配的章节", "No matching chapters", "一致する章はありません"));
+            _summary.Text = Current(T("请清除或更改搜索条件。", "Clear or change the search query.", "検索条件をクリアまたは変更してください。"));
+            _sections.Children.Clear();
+            return;
+        }
+
+        _selectedChapterId = chapter.Id;
+        _detailScroller.Offset = default;
+        _path.Text = $"{Current(chapter.Group)}  ›  {Current(chapter.Title)}";
+        _title.Text = Current(chapter.Title);
+        _summary.Text = Current(chapter.Summary);
+        _sections.Children.Clear();
+        _sections.Children.Add(UserGuideIllustration.Build(chapter.Figure, CurrentLanguage()));
+        foreach (var section in chapter.Sections)
+        {
+            var block = new StackPanel { Spacing = 6 };
+            block.Children.Add(new TextBlock
+            {
+                Text = Current(section.Title),
+                FontSize = DisplayTypography.SectionTitle,
+                FontWeight = FontWeight.SemiBold,
+                TextWrapping = TextWrapping.Wrap
+            });
+            block.Children.Add(new TextBlock
+            {
+                Text = Current(section.Body),
+                TextWrapping = TextWrapping.Wrap,
+                LineHeight = 22
+            });
+            _sections.Children.Add(block);
+        }
+    }
+
+    private static bool Matches(GuideChapter chapter, string query)
+    {
+        static bool Contains(GuideText text, string value) => text.AllText.Contains(value, StringComparison.OrdinalIgnoreCase);
+        return chapter.Id.Contains(query, StringComparison.OrdinalIgnoreCase)
+               || Contains(chapter.Group, query)
+               || Contains(chapter.Title, query)
+               || Contains(chapter.Summary, query)
+               || chapter.Sections.Any(section => Contains(section.Title, query) || Contains(section.Body, query));
+    }
+
+    private static IReadOnlyList<GuideChapter> BuildChapters(IReadOnlyList<AppAction> actions)
+    {
+        var chapters = CoreChapters().ToList();
+        var analysisById = WorkbenchAnalysisCatalog.AllRibbonCommands.ToDictionary(item => item.Id, StringComparer.Ordinal);
+        foreach (var group in actions.Where(action => !analysisById.ContainsKey(action.Id)).GroupBy(action => action.Category))
+        {
+            var sections = group.OrderBy(action => action.Text, StringComparer.Ordinal)
+                .Select(action => new GuideSection(
+                    CommandName(action),
+                    CommandDescription(action)))
+                .ToArray();
+            chapters.Add(new GuideChapter(
+                $"commands-{Slug(group.Key)}",
+                T("完整命令参考", "Complete Command Reference", "完全コマンドリファレンス"),
+                CategoryName(group.Key),
+                T(
+                    "列出当前版本实际注册的功能命令。每个命令均可在对应功能区找到，或通过 Ctrl+Q 命令面板搜索。",
+                    "Lists the feature commands actually registered by this version. Find each command on its ribbon tab or with the Ctrl+Q command palette.",
+                    "このバージョンで実際に登録されている機能コマンドを一覧します。リボンまたは Ctrl+Q コマンドパレットから検索できます。"),
+                UserGuideFigureKind.CommandReference,
+                sections));
+        }
+
+        foreach (var group in WorkbenchAnalysisCatalog.AllRibbonCommands.GroupBy(command => command.Group))
+        {
+            var sections = group.Select(command => new GuideSection(
+                new GuideText(command.Label),
+                AnalysisDescription(command)))
+            .ToArray();
+            chapters.Add(new GuideChapter(
+                $"analyses-{Slug(group.Key)}",
+                T("完整分析参考", "Complete Analysis Reference", "完全解析リファレンス"),
+                AnalysisGroupName(group.Key),
+                T(
+                    "本章逐项列出该分析组中的全部命令。分析使用当前工程快照，参数、单位、导出内容与适用范围以分析页中的控件和结果元数据为准。",
+                    "This chapter lists every command in the analysis group. Analyses use the current project snapshot; parameters, units, exports, and scope are defined by the controls and result metadata on each analysis page.",
+                    "この章では解析グループの全コマンドを列挙します。解析は現在のプロジェクトスナップショットを使用し、パラメーター、単位、エクスポート、適用範囲は各解析ページのコントロールと結果メタデータに従います。"),
+                UserGuideFigureKind.AnalysisReference,
+                sections));
+        }
+
+        return chapters;
+    }
+
+    private static IEnumerable<GuideChapter> CoreChapters()
+    {
+        yield return Chapter("start", "入门", "Getting Started", "はじめに", "推荐工作流", "Recommended Workflow", "推奨ワークフロー",
+            "从建立系统到保存结果的完整起点。", "The complete starting point from creating a system to saving results.", "システム作成から結果保存までの基本手順です。",
+            S("基本步骤", "Basic steps", "基本手順",
+                "1. 新建、打开或导入光学系统。\n2. 在系统属性中设置孔径、视场、波长、环境与偏振。\n3. 在镜头数据或非序列对象数据中建立模型。\n4. 用二维/三维视图检查结构，再运行分析。\n5. 需要时设置变量、评价函数和公差。\n6. 保存为 STAROPT 工程并导出所需结果。",
+                "1. Create, open, or import an optical system.\n2. Set aperture, fields, wavelengths, environment, and polarization in System Properties.\n3. Build the model in Lens Data or Non-Sequential Object Data.\n4. Inspect it in 2D/3D views, then run analyses.\n5. Add variables, merit operands, and tolerances when needed.\n6. Save a STAROPT project and export the required results.",
+                "1. 光学系を新規作成、開く、またはインポートします。\n2. システムプロパティで開口、視野、波長、環境、偏光を設定します。\n3. レンズデータまたはノンシーケンシャルオブジェクトデータでモデルを構築します。\n4. 2D/3D ビューで構造を確認してから解析を実行します。\n5. 必要に応じて変数、メリットオペランド、公差を設定します。\n6. STAROPT プロジェクトを保存し、必要な結果をエクスポートします。"),
+            S("结果可信度", "Result integrity", "結果の信頼性",
+                "先确认材料、波长、孔径、视场和单位，再解释分析结果。页面显示的警告、不可用状态和导入兼容提示属于结果边界，不能忽略。",
+                "Confirm materials, wavelengths, aperture, fields, and units before interpreting results. Warnings, unavailable states, and import-compatibility notices define result boundaries and must not be ignored.",
+                "結果を解釈する前に、材料、波長、開口、視野、単位を確認してください。警告、利用不可状態、インポート互換性の注意は結果の適用範囲を示すため、無視しないでください。"));
+
+        yield return Chapter("interface", "入门", "Getting Started", "はじめに", "界面与工作模式", "Interface and Workbench Modes", "画面とワークベンチモード",
+            "理解功能区、系统侧栏、文档页、状态栏以及顺序/非序列模式。", "Understand the ribbon, system sidebar, document pages, status bar, and sequential/non-sequential modes.", "リボン、システムサイドバー、ドキュメントページ、ステータスバー、シーケンシャル／ノンシーケンシャルモードを理解します。",
+            S("主界面", "Main window", "メイン画面",
+                "顶部功能区按文件、设置、分析、优化、公差、数据库、窗口和帮助组织命令。左侧系统属性管理全局光学条件，中部文档区承载编辑器、视图和分析页，底部状态栏显示当前工程与一阶摘要。",
+                "The ribbon organizes commands for files, settings, analyses, optimization, tolerancing, databases, windows, and help. The system sidebar controls global optical conditions, the document area hosts editors/views/analyses, and the status bar shows the current project and first-order summary.",
+                "上部リボンはファイル、設定、解析、最適化、公差、データベース、ウィンドウ、ヘルプを整理します。システムサイドバーは全体条件、中央は編集・ビュー・解析、下部はプロジェクトと一次特性を表示します。"),
+            S("两种模式", "Two modes", "2 つのモード",
+                "顺序模式按表面次序追迹，适合成像镜头；非序列模式按对象与相交路径追迹，适合杂散光、照明、探测器和多路径系统。切换模式不会把一种模型自动转换成另一种模型。",
+                "Sequential mode traces ordered surfaces and is suited to imaging lenses. Non-sequential mode traces objects and intersection paths for stray light, illumination, detectors, and multipath systems. Switching modes does not automatically convert one model into the other.",
+                "シーケンシャルモードは面順に追跡し結像レンズ向けです。ノンシーケンシャルモードはオブジェクトと交差経路を追跡し、迷光、照明、検出器、多経路系向けです。モード切替でモデルは自動変換されません。"));
+
+        yield return Chapter("projects", "工程与数据", "Projects and Data", "プロジェクトとデータ", "新建、打开、保存与恢复", "Create, Open, Save, and Recover", "新規作成、開く、保存、復元",
+            "管理原生工程、光学快照、商业格式导入和未保存恢复。", "Manage native projects, optical snapshots, commercial imports, and unsaved recovery.", "ネイティブプロジェクト、光学スナップショット、商用形式のインポート、未保存データの復元を管理します。",
+            S("原生工程", "Native projects", "ネイティブプロジェクト",
+                "STAROPT 工程保存处方、系统设置、配置、分析设置以及内置模块数据。保存前检查当前路径和修改状态；源码更新不会自动替换已安装程序或用户工程。",
+                "STAROPT projects store prescriptions, system settings, configurations, analysis settings, and built-in module data. Check the path and modified state before saving; source updates do not replace installed applications or user projects automatically.",
+                "STAROPT プロジェクトは処方、システム設定、構成、解析設定、内蔵モジュールデータを保存します。保存前にパスと変更状態を確認してください。ソース更新はインストール済みアプリやユーザープロジェクトを自動置換しません。"),
+            S("导入与导出", "Import and export", "インポートとエクスポート",
+                "可导入受支持范围内的 ZMX、SEQ、LEN 和文本处方；不受支持的数据会保留兼容信息或给出明确提示。STEP 导出面向机械交换，不等同于保存完整光学工程。异常退出后可在帮助页使用恢复未保存工程。",
+                "Supported subsets of ZMX, SEQ, LEN, and text prescriptions can be imported. Unsupported data is retained with compatibility information or reported explicitly. STEP export is for mechanical exchange and is not a complete optical-project save. Use Recover Unsaved Project from Help after an abnormal exit.",
+                "対応範囲の ZMX、SEQ、LEN、テキスト処方をインポートできます。未対応データは互換情報を保持するか明示的に通知します。STEP は機械交換用で、完全な光学プロジェクト保存ではありません。異常終了後はヘルプの未保存プロジェクト復元を使用します。"));
+
+        yield return Chapter("sequential-model", "系统建模", "System Modeling", "システムモデリング", "顺序系统与镜头数据", "Sequential Systems and Lens Data", "シーケンシャル系とレンズデータ",
+            "设置系统级条件并编辑物面、光学面、光阑面和像面。", "Set system-level conditions and edit object, optical, stop, and image surfaces.", "システム条件を設定し、物体面、光学面、絞り面、像面を編集します。",
+            S("系统属性", "System properties", "システムプロパティ",
+                "系统孔径支持入瞳直径、像方 F 数、物方数值孔径和按光阑面尺寸浮动。视场与波长卡片定义采样点、权重和主波长；环境与偏振设置会影响相应计算路径。",
+                "System aperture supports entrance-pupil diameter, image-space F/#, object-space numerical aperture, and floating by stop-surface size. Field and wavelength cards define samples, weights, and the primary wavelength; environment and polarization affect applicable calculations.",
+                "システム開口は入射瞳径、像側 F ナンバー、物体側開口数、絞り面サイズ連動に対応します。視野と波長カードはサンプル、重み、主波長を定義し、環境と偏光は対応する計算に影響します。"),
+            S("镜头数据编辑器", "Lens Data Editor", "レンズデータエディター",
+                "每行表示一个表面。编辑面型、曲率半径、厚度、材料、膜层、净口径、延伸区、机械半径和圆锥系数；右键单元格设置变量或求解。表面属性区提供几何、材料、膜层、偏振和导入状态的详细编辑。",
+                "Each row represents a surface. Edit type, radius, thickness, material, coating, clear semi-diameter, extension zone, mechanical radius, and conic; use cell context menus for variables and solves. Surface Properties provides detailed geometry, material, coating, polarization, and import-state editing.",
+                "各行は 1 面を表します。面タイプ、曲率半径、厚さ、材料、コーティング、有効半径、拡張領域、機械半径、円錐係数を編集し、セルのコンテキストメニューで変数やソルブを設定します。面プロパティでは詳細設定を行います。"),
+            S("多配置", "Multi-configuration", "マルチコンフィグレーション",
+                "多配置编辑器用操作数行绑定可变化参数，各配置列保存实际值。先确认活动配置，再运行分析、优化或导出，避免把单一配置结果误认为全配置结果。",
+                "The multi-configuration editor binds varying parameters through operand rows, with actual values in configuration columns. Confirm the active configuration before analysis, optimization, or export so a single-configuration result is not mistaken for all configurations.",
+                "マルチコンフィグレーションエディターはオペランド行で可変パラメーターを結び、各構成列に実値を保存します。解析、最適化、エクスポート前にアクティブ構成を確認してください。"));
+
+        yield return Chapter("non-sequential-model", "系统建模", "System Modeling", "システムモデリング", "非序列对象、光源与探测器", "Non-Sequential Objects, Sources, and Detectors", "ノンシーケンシャルオブジェクト、光源、検出器",
+            "建立基于对象、相交路径、光源和探测器的系统。", "Build systems based on objects, intersection paths, sources, and detectors.", "オブジェクト、交差経路、光源、検出器に基づく系を構築します。",
+            S("对象模型", "Object model", "オブジェクトモデル",
+                "对象数据编辑器定义对象类型、位置、姿态、材料、尺寸和对象专用参数。对象顺序不是顺序模式的面顺序；光线按实际相交、散射、反射、折射和终止条件传播。",
+                "Object Data defines object type, position, orientation, material, dimensions, and object-specific parameters. Object order is not a sequential surface order; rays propagate through actual intersections, scattering, reflection, refraction, and termination rules.",
+                "オブジェクトデータは種類、位置、姿勢、材料、寸法、固有パラメーターを定義します。並び順は面順ではなく、光線は実際の交差、散乱、反射、屈折、終了条件で伝搬します。"),
+            S("追迹与结果", "Tracing and results", "追跡と結果",
+                "先在追迹控制中设置光线数、分裂、散射、偏振和数据库选项，再运行追迹。探测器查看器显示累积结果；清空探测器会移除旧累积。光线数据库和路径分析用于检查单条路径、功率与交互类型。",
+                "Set ray count, splitting, scattering, polarization, and database options in Trace Control before tracing. Detector Viewer shows accumulated results; Clear Detectors removes previous accumulation. Ray Database and Path Analysis inspect individual paths, power, and interaction types.",
+                "追跡前に光線数、分割、散乱、偏光、データベースを設定します。検出器ビューアーは累積結果を表示し、検出器クリアで以前の累積を削除します。光線データベースと経路解析で個別経路、パワー、相互作用を確認します。"));
+
+        yield return Chapter("analyses", "分析与结果", "Analyses and Results", "解析と結果", "运行和解释分析", "Run and Interpret Analyses", "解析の実行と解釈",
+            "统一理解报告、光线、像差、波前、PSF、MTF、能量和图像分析。", "A common workflow for reports, rays, aberrations, wavefront, PSF, MTF, energy, and image analyses.", "レポート、光線、収差、波面、PSF、MTF、エネルギー、画像解析に共通する手順です。",
+            S("分析页面", "Analysis pages", "解析ページ",
+                "从分析功能区选择类型后，页面使用当前工程快照。设置视场、波长、采样、参考、偏振等参数并运行；工程修订变化后旧结果会失效或清除。锁定页面只控制更新行为，不改变计算定义。",
+                "Choose an analysis from the ribbon to create a page using the current project snapshot. Set field, wavelength, sampling, reference, polarization, and other parameters, then run it. Old results become stale or clear after a project revision. Page lock controls updating, not calculation definitions.",
+                "リボンから解析を選ぶと現在のプロジェクトスナップショットを使用するページが作成されます。視野、波長、サンプリング、基準、偏光などを設定して実行します。プロジェクト変更後、古い結果は無効化または消去されます。ロックは更新のみを制御します。"),
+            S("单位与导出", "Units and export", "単位とエクスポート",
+                "以坐标轴和结果元数据给出的物理量与单位为准，不从标题文字猜测单位。导出数据前确认活动配置、结果修订、归一化、参考波长和采样密度。完整分析命令见本指南的“完整分析参考”。",
+                "Use the quantities and units published by axes and result metadata; do not infer units from titles. Before export, confirm active configuration, result revision, normalization, reference wavelength, and sampling density. See Complete Analysis Reference for every analysis command.",
+                "軸と結果メタデータが示す物理量・単位を使用し、タイトルから推測しないでください。エクスポート前に構成、結果リビジョン、正規化、基準波長、サンプリング密度を確認します。全解析は完全解析リファレンスを参照してください。"));
+
+        yield return Chapter("optimization", "设计与验证", "Design and Verification", "設計と検証", "优化与评价函数", "Optimization and Merit Functions", "最適化とメリット関数",
+            "建立变量和评价函数，选择优化器并检查约束。", "Create variables and merit functions, choose an optimizer, and inspect constraints.", "変数とメリット関数を作成し、最適化手法を選び、制約を確認します。",
+            S("变量与操作数", "Variables and operands", "変数とオペランド",
+                "可从镜头数据单元格、表面属性或批量命令设置曲率、厚度及支持参数为变量。评价函数编辑器用操作数、目标、权重和启用状态定义目标；操作数帮助列出每个代码的定义、参数和计算支持状态。",
+                "Set radii, thicknesses, and supported parameters as variables from Lens Data cells, Surface Properties, or batch commands. The Merit Function Editor defines goals with operands, targets, weights, and enabled states. Operand Help documents every code, parameter, and calculation-support state.",
+                "レンズデータセル、面プロパティ、または一括コマンドで曲率、厚さ、対応パラメーターを変数にします。メリット関数エディターはオペランド、目標、重み、有効状態で目標を定義します。オペランドヘルプに各コードの定義と対応状態があります。"),
+            S("执行优化", "Run optimization", "最適化の実行",
+                "快速聚焦用于焦面调整；DLS、随机扰动、优化向导、滑块和可视化优化器服务于不同设计阶段。运行前保存工程并检查变量边界、玻璃选择和评价函数；比较优化前后处方及多个分析，不只看单一评价值。",
+                "Quick Focus adjusts focus. DLS, random perturbation, the optimization wizard, sliders, and the visual optimizer serve different design stages. Save first and inspect variable bounds, glass choices, and the merit function; compare prescriptions and multiple analyses before and after, not only one merit value.",
+                "クイックフォーカスは焦点調整用です。DLS、ランダム摂動、最適化ウィザード、スライダー、可視化最適化は段階に応じて使います。事前保存し、変数境界、ガラス、メリット関数を確認し、単一値だけでなく処方と複数解析を比較します。"));
+
+        yield return Chapter("tolerancing", "设计与验证", "Design and Verification", "設計と検証", "公差、制造与图纸", "Tolerancing, Manufacturing, and Drawings", "公差、製造、図面",
+            "从公差定义到良率、可加工性和光学图纸的完整链路。", "The complete path from tolerance definitions to yield, manufacturability, and optical drawings.", "公差定義から歩留まり、製造性、光学図面までの流れです。",
+            S("公差流程", "Tolerance workflow", "公差ワークフロー",
+                "在公差数据编辑器中定义参数、分布、上下限、补偿量和评价指标，保存后运行分析。数据查看器、报告、直方图和良率页面分别提供试验明细、文本汇总、分布和同时通过全部限值的总体良率。",
+                "Define parameters, distributions, limits, compensators, and metrics in the Tolerance Data Editor, save, then run. Data Viewer, Report, Histogram, and Yield provide trial details, text summaries, distributions, and overall yield requiring simultaneous passage of all limits.",
+                "公差データエディターでパラメーター、分布、限界、補償量、評価指標を定義して保存後に実行します。データ表示、レポート、ヒストグラム、歩留まりは試行詳細、要約、分布、全限界同時合格率を示します。"),
+            S("制造输出", "Manufacturing output", "製造出力",
+                "可加工性评估检查曲面域、边厚、材料和其他制造约束。ISO 10110 与 GB/T 图纸使用当前处方和公差数据；生成图纸或 STEP 前必须复核单位、口径、材料、膜层、基准和标准版本。",
+                "Manufacturability Assessment checks surface domains, edge thickness, materials, and other constraints. ISO 10110 and GB/T drawings use the current prescription and tolerance data. Verify units, apertures, materials, coatings, datums, and standard version before drawings or STEP export.",
+                "製造性評価は曲面領域、縁厚、材料などを確認します。ISO 10110 と GB/T 図面は現在の処方と公差データを使用します。図面または STEP 前に単位、開口、材料、コーティング、基準、規格版を確認します。"));
+
+        yield return Chapter("libraries", "资源与模块", "Resources and Modules", "リソースとモジュール", "材料库、镜头库与内置模块", "Libraries and Built-in Modules", "ライブラリと内蔵モジュール",
+            "使用材料、商业镜头、初始结构、镀膜和装调功能。", "Use materials, commercial lenses, initial structure, coating, and alignment features.", "材料、商用レンズ、初期構成、コーティング、組立調整機能を使用します。",
+            S("数据库", "Databases", "データベース",
+                "材料库提供折射率、色散和透过率数据以及色散图、玻璃图和无热化玻璃图。镜头库、库存镜头查看与匹配用于浏览或引入目录处方；导入后应核对材料目录、单位、口径和有效波长范围。",
+                "Material Library provides refractive-index, dispersion, and transmission data plus dispersion, glass, and athermal maps. Lens Library, Stock Lens Browser, and Matching browse or introduce catalog prescriptions. After import, verify catalogs, units, apertures, and valid wavelength ranges.",
+                "材料ライブラリは屈折率、分散、透過率と各種マップを提供します。レンズライブラリ、在庫レンズ表示、照合でカタログ処方を利用できます。インポート後に材料カタログ、単位、開口、有効波長範囲を確認します。"),
+            S("内置实验室", "Built-in laboratories", "内蔵ラボ",
+                "AI 初始结构生成并筛选候选起始处方，光学镀膜设计编辑膜系并计算 R/T/A，光学装调处理装调测量与流程。它们都是主程序内置模块，数据边界各自明确；候选或实验结果仍需回到主工作台验证。",
+                "AI Initial Structure generates and screens starting prescriptions, Optical Coating Design edits stacks and calculates R/T/A, and Optical Alignment supports alignment measurements and workflow. All are built-in modules with explicit data boundaries; candidates and experiments still require validation in the main workbench.",
+                "AI 初期構成は開始処方を生成・選別し、光学コーティング設計は膜系と R/T/A、光学組立調整は測定と手順を扱います。すべて内蔵モジュールでデータ境界があり、結果はメインワークベンチで検証します。"));
+
+        yield return Chapter("workspace", "操作参考", "Operation Reference", "操作リファレンス", "窗口、布局与快捷键", "Windows, Layouts, and Shortcuts", "ウィンドウ、レイアウト、ショートカット",
+            "管理停靠页面、保存布局并使用键盘高效操作。", "Manage docked pages, save layouts, and work efficiently with the keyboard.", "ドッキングページ、レイアウト保存、キーボード操作を管理します。",
+            S("页面与布局", "Pages and layouts", "ページとレイアウト",
+                "页面可停靠、分栏、浮动、平铺、层叠、克隆或锁定。保存默认布局和槽位布局用于显式恢复；普通启动只加载当前模式规定的基础页面，不自动恢复分析页。关闭其他页会保留镜头数据等基础页面。",
+                "Pages can dock, split, float, tile, cascade, clone, or lock. Saved default and slot layouts are restored explicitly; normal startup loads only the base pages defined for the current mode and does not restore analysis pages automatically. Close Other Pages preserves base pages such as Lens Data.",
+                "ページはドッキング、分割、フロート、整列、カスケード、複製、ロックが可能です。既定・スロットレイアウトは明示的に復元します。通常起動は基本ページのみで解析ページを自動復元しません。他ページを閉じてもレンズデータ等は保持します。"),
+            S("常用快捷键", "Common shortcuts", "主なショートカット",
+                "Ctrl+Q 打开命令面板；方向键选择，Enter 执行，Esc 关闭。常规文本编辑遵循平台快捷键。图表获得焦点后可用方向键平移、加号/减号缩放、Home 重置视图。",
+                "Ctrl+Q opens the command palette; use arrow keys to select, Enter to run, and Esc to close. Text editing follows platform conventions. When a chart has focus, use arrow keys to pan, plus/minus to zoom, and Home to reset.",
+                "Ctrl+Q でコマンドパレットを開き、矢印で選択、Enter で実行、Esc で閉じます。テキスト編集はプラットフォーム標準です。グラフは矢印で移動、＋／－でズーム、Home でリセットします。"));
+
+        yield return Chapter("help", "操作参考", "Operation Reference", "操作リファレンス", "帮助系统与范围说明", "Help System and Scope", "ヘルプシステムと適用範囲",
+            "区分用户指南、操作数帮助、状态提示和版本信息。", "Distinguish the User Guide, Operand Help, status messages, and version information.", "ユーザーガイド、オペランドヘルプ、状態メッセージ、バージョン情報を区別します。",
+            S("帮助入口", "Help entries", "ヘルプ項目",
+                "用户指南讲解完整工作流并自动列出全部注册命令和分析；操作数帮助逐项说明评价函数代码；关于页面显示产品版本与运行时。控件工具提示和不可用原因提供当前上下文说明。",
+                "User Guide explains complete workflows and automatically lists every registered command and analysis. Operand Help documents merit-function codes. About shows product and runtime versions. Tooltips and unavailable reasons provide context-specific guidance.",
+                "ユーザーガイドは全ワークフローと登録済み全コマンド・解析を一覧し、オペランドヘルプはメリット関数コードを説明します。バージョン情報は製品とランタイムを表示し、ツールチップは現在の状況を説明します。"),
+            S("版本与更新", "Version and updates", "バージョンと更新",
+                "在帮助页打开检查更新，手动查询 GitHub 正式发布及匹配的完整安装包。通过发布页下载，保存工程并关闭软件后手动安装。在线安装仅预留，不会后台检查、自动下载、自动安装或重启。未签名包不能认证发布者身份。",
+                "Open Check for Updates under Help to manually query stable GitHub releases and matching full installers. Download from the release page, save projects, close the app, then install manually. Online installation is reserved: no background checks, automatic downloads, installation or restart. Unsigned packages do not authenticate the publisher.",
+                "ヘルプの更新確認で GitHub の安定版と対応インストーラーを手動照会します。リリースページから取得し、プロジェクトを保存してアプリを終了後、手動でインストールしてください。オンラインインストールは準備中です。バックグラウンド確認、自動取得・インストール・再起動は行いません。未署名パッケージは発行元を認証しません。"),
+            S("适用范围", "Scope", "適用範囲",
+                "指南描述当前程序中实际可见和注册的功能，不把计划功能、兼容保留数据或外部软件行为写成已实现能力。具体算法限制、采样定义和验证范围以对应分析页、专题文档及版本状态为准。",
+                "The guide describes features actually visible and registered in the current application. Planned features, compatibility-only data, and external-software behavior are not presented as implemented. Algorithm limits, sampling definitions, and validation scope remain governed by the relevant analysis page, topic documentation, and version status.",
+                "本ガイドは現在のアプリで実際に表示・登録される機能を説明します。計画機能、互換保持データ、外部ソフトの動作を実装済みとは扱いません。アルゴリズム制限、サンプリング定義、検証範囲は各解析ページと専門文書、バージョン状態に従います。"));
+    }
+
+    private static GuideChapter Chapter(
+        string id,
+        string groupZh, string groupEn, string groupJa,
+        string titleZh, string titleEn, string titleJa,
+        string summaryZh, string summaryEn, string summaryJa,
+        params GuideSection[] sections) =>
+        new(
+            id,
+            T(groupZh, groupEn, groupJa),
+            T(titleZh, titleEn, titleJa),
+            T(summaryZh, summaryEn, summaryJa),
+            id switch
+            {
+                "start" => UserGuideFigureKind.Workflow,
+                "interface" => UserGuideFigureKind.Interface,
+                "projects" => UserGuideFigureKind.ProjectFlow,
+                "sequential-model" => UserGuideFigureKind.SequentialModel,
+                "non-sequential-model" => UserGuideFigureKind.NonSequentialModel,
+                "analyses" => UserGuideFigureKind.AnalysisFlow,
+                "optimization" => UserGuideFigureKind.OptimizationLoop,
+                "tolerancing" => UserGuideFigureKind.ToleranceFlow,
+                "libraries" => UserGuideFigureKind.LibrariesAndModules,
+                "workspace" => UserGuideFigureKind.WorkspaceLayout,
+                _ => UserGuideFigureKind.HelpSystem
+            },
+            sections);
+
+    private static GuideSection S(
+        string titleZh, string titleEn, string titleJa,
+        string bodyZh, string bodyEn, string bodyJa) =>
+        new(T(titleZh, titleEn, titleJa), T(bodyZh, bodyEn, bodyJa));
+
+    private static GuideText CommandName(AppAction action) => CommandNames.TryGetValue(action.Id, out var value)
+        ? value
+        : new GuideText(action.Text, action.Id.Replace('-', ' '), action.Id.Replace('-', ' '));
+
+    private static GuideText CommandDescription(AppAction action)
+    {
+        var name = CommandName(action);
+        return T(
+            $"从“{action.Category}”功能区或 Ctrl+Q 命令面板执行“{name.Chinese}”。命令标识：{action.Id}。具体输入、禁用原因和结果边界以打开页面或对话框中的说明为准。",
+            $"Run {name.English ?? name.Chinese} from its ribbon area or the Ctrl+Q command palette. Command ID: {action.Id}. Inputs, disabled reasons, and result boundaries are defined by the opened page or dialog.",
+            $"リボンまたは Ctrl+Q コマンドパレットから「{name.Japanese ?? name.Chinese}」を実行します。コマンド ID: {action.Id}。入力、無効理由、結果範囲は開いたページまたはダイアログの説明に従います。");
+    }
+
+    private static GuideText AnalysisDescription(AnalysisRibbonCommand command)
+    {
+        var group = AnalysisGroupName(command.Group);
+        return T(
+            $"“{command.Label}”属于“{group.Chinese}”组。打开后设置页面参数并运行；它使用当前工程快照，且不会自动修改原处方。命令标识：{command.Id}。",
+            $"This command belongs to the {group.English ?? group.Chinese} analysis group. Set its page parameters and run it; it uses the current project snapshot and does not automatically modify the prescription. Command ID: {command.Id}.",
+            $"このコマンドは {group.Japanese ?? group.Chinese} 解析グループに属します。ページのパラメーターを設定して実行します。現在のプロジェクトスナップショットを使用し、処方を自動変更しません。コマンド ID: {command.Id}。");
+    }
+
+    private static GuideText AnalysisGroupName(string group) => group switch
+    {
+        "光线迹点" => T("光线迹点", "Ray Tracing and Spots", "光線追跡とスポット"),
+        "报告" => T("报告", "Reports", "レポート"),
+        "像差分析" => T("像差分析", "Aberration Analysis", "収差解析"),
+        "波前" => T("波前", "Wavefront", "波面"),
+        "点扩散函数" => T("点扩散函数", "Point Spread Function", "点像分布関数"),
+        "MTF 曲线" => T("MTF 曲线", "MTF Curves", "MTF 曲線"),
+        "RMS" => T("RMS", "RMS", "RMS"),
+        "圈入能量" => T("圈入能量", "Encircled Energy", "包囲エネルギー"),
+        "扩展图像分析" => T("扩展图像分析", "Extended Image Analysis", "拡張画像解析"),
+        "光线追迹" => T("光线追迹", "Ray Trace", "光線追跡"),
+        "探测器" => T("探测器", "Detectors", "検出器"),
+        "光线数据库" => T("光线数据库", "Ray Database", "光線データベース"),
+        "布局" => T("布局", "Layout", "レイアウト"),
+        _ => new GuideText(group)
+    };
+
+    private static GuideText CategoryName(string category) => category switch
+    {
+        "文件" => T("文件", "File", "ファイル"),
+        "编辑" => T("编辑", "Edit", "編集"),
+        "面板" => T("面板", "Panels", "パネル"),
+        "模式" => T("模式", "Modes", "モード"),
+        "设置" => T("设置", "Settings", "設定"),
+        "视图" => T("视图", "View", "表示"),
+        "数据库" => T("数据库", "Databases", "データベース"),
+        "加工与图纸" => T("加工与图纸", "Manufacturing and Drawings", "製造と図面"),
+        "优化" => T("优化", "Optimization", "最適化"),
+        "实验室" => T("实验室", "Laboratory", "ラボ"),
+        "公差" => T("公差", "Tolerancing", "公差"),
+        "布局" => T("布局", "Layouts", "レイアウト"),
+        "窗口" => T("窗口", "Window", "ウィンドウ"),
+        "工具" => T("工具", "Tools", "ツール"),
+        "帮助" => T("帮助", "Help", "ヘルプ"),
+        _ => new GuideText(category)
+    };
+
+    private static string Slug(string value) => string.Concat(value.Select(ch => char.IsLetterOrDigit(ch) ? ch : '-'));
+    private static string Current(GuideText text) => text.Value(CurrentLanguage());
+    private static string CurrentLanguage() => UiLocalization.CurrentLanguage;
+    private static GuideText T(string chinese, string english, string japanese) => new(chinese, english, japanese);
+
+    private static readonly IReadOnlyDictionary<string, GuideText> CommandNames =
+        new Dictionary<string, GuideText>(StringComparer.Ordinal)
+        {
+            ["new"] = T("新建空白系统", "New Blank System", "空のシステムを新規作成"),
+            ["new-demo"] = T("新建 Cooke 三片式样例", "New Cooke Triplet Example", "Cooke トリプレット例を新規作成"),
+            ["new-tessar"] = T("新建 Tessar F/4.5 四片式样例", "New Tessar F/4.5 Example", "Tessar F/4.5 例を新規作成"),
+            ["open"] = T("打开光学系统", "Open Optical System", "光学系を開く"),
+            ["import-zemax"] = T("导入 Zemax ZMX", "Import Zemax ZMX", "Zemax ZMX をインポート"),
+            ["save-as"] = T("保存项目", "Save Project", "プロジェクトを保存"),
+            ["export-cad"] = T("导出 CAD（STEP）", "Export CAD (STEP)", "CAD（STEP）をエクスポート"),
+            ["exit"] = T("退出", "Exit", "終了"),
+            ["undo"] = T("撤销", "Undo", "元に戻す"),
+            ["redo"] = T("重做", "Redo", "やり直す"),
+            ["show-lens-editor"] = T("镜头数据编辑器", "Lens Data Editor", "レンズデータエディター"),
+            ["show-non-sequential-objects"] = T("非序列对象数据", "Non-Sequential Object Data", "ノンシーケンシャルオブジェクトデータ"),
+            ["enter-sequential-mode"] = T("进入顺序模式", "Enter Sequential Mode", "シーケンシャルモードへ"),
+            ["enter-non-sequential-mode"] = T("进入非序列模式", "Enter Non-Sequential Mode", "ノンシーケンシャルモードへ"),
+            ["show-system"] = T("系统属性", "System Properties", "システムプロパティ"),
+            ["display-settings"] = T("显示格式设置", "Display Format Settings", "表示形式設定"),
+            ["show-viewer"] = T("系统视图", "System View", "システムビュー"),
+            ["show-viewer-2d"] = T("二维布局", "2D Layout", "2D レイアウト"),
+            ["show-viewer-3d"] = T("三维布局", "3D Layout", "3D レイアウト"),
+            ["show-solid-model"] = T("实体模型", "Solid Model", "ソリッドモデル"),
+            ["show-material-library"] = T("材料库", "Material Library", "材料ライブラリ"),
+            ["show-lens-library"] = T("镜头库", "Lens Library", "レンズライブラリ"),
+            ["show-stock-lens-catalog"] = T("库存镜头查看", "Stock Lens Browser", "在庫レンズ表示"),
+            ["show-stock-lens-matching"] = T("库存镜头匹配", "Stock Lens Matching", "在庫レンズ照合"),
+            ["show-material-dispersion-diagram"] = T("色散图", "Dispersion Diagram", "分散図"),
+            ["show-material-glass-map"] = T("玻璃图", "Glass Map", "ガラスマップ"),
+            ["show-material-athermal-map"] = T("无热化玻璃图", "Athermal Glass Map", "アサーマルガラスマップ"),
+            ["show-material-transmission"] = T("内部透过率 vs. 波长", "Internal Transmittance vs. Wavelength", "内部透過率 vs. 波長"),
+            ["show-material-dispersion-wavelength"] = T("色散 vs. 波长", "Dispersion vs. Wavelength", "分散 vs. 波長"),
+            ["show-manufacturability"] = T("可加工性评估", "Manufacturability Assessment", "製造性評価"),
+            ["show-optical-drawing-iso"] = T("ISO 10110 光学制图", "ISO 10110 Optical Drawing", "ISO 10110 光学図面"),
+            ["show-optical-drawing-gb"] = T("GB/T 13323—2009 光学制图", "GB/T 13323—2009 Optical Drawing", "GB/T 13323—2009 光学図面"),
+            ["show-optical-drawing-gb-1991"] = T("GB/T 13323—1991 光学制图", "GB/T 13323—1991 Optical Drawing", "GB/T 13323—1991 光学図面"),
+            ["show-analysis"] = T("分析面板", "Analysis Panel", "解析パネル"),
+            ["show-optimization"] = T("优化面板", "Optimization Panel", "最適化パネル"),
+            ["quick-focus"] = T("快速聚焦", "Quick Focus", "クイックフォーカス"),
+            ["quick-adjust"] = T("快速调整", "Quick Adjust", "クイック調整"),
+            ["optimization-slider"] = T("滑块", "Slider", "スライダー"),
+            ["show-visual-optimizer"] = T("可视化优化器", "Visual Optimizer", "可視化オプティマイザー"),
+            ["show-merit-editor"] = T("评价函数编辑器", "Merit Function Editor", "メリット関数エディター"),
+            ["show-optimization-wizard"] = T("优化向导", "Optimization Wizard", "最適化ウィザード"),
+            ["run-optimization"] = T("执行优化", "Run Optimization", "最適化を実行"),
+            ["clear-optimization-variables"] = T("移除所有变量", "Remove All Variables", "すべての変数を削除"),
+            ["set-all-radius-variables"] = T("设全部半径变量", "Set All Radius Variables", "全半径を変数に設定"),
+            ["set-all-thickness-variables"] = T("设全部厚度变量", "Set All Thickness Variables", "全厚さを変数に設定"),
+            ["run-random-perturbation"] = T("随机扰动搜索", "Random Perturbation Search", "ランダム摂動探索"),
+            ["glass-replacement-template"] = T("玻璃替换模板", "Glass Replacement Template", "ガラス置換テンプレート"),
+            ["open-optical-assembly-lab"] = T("光学装调", "Optical Alignment", "光学組立調整"),
+            ["launch-initial-structure-lab"] = T("AI 初始结构", "AI Initial Structure", "AI 初期構成"),
+            ["launch-coating-design-lab"] = T("光学镀膜设计", "Optical Coating Design", "光学コーティング設計"),
+            ["show-tolerancing"] = T("公差数据编辑器", "Tolerance Data Editor", "公差データエディター"),
+            ["run-tolerancing"] = T("运行公差分析", "Run Tolerance Analysis", "公差解析を実行"),
+            ["show-tolerance-data-viewer"] = T("公差数据查看器", "Tolerance Data Viewer", "公差データビューアー"),
+            ["show-tolerance-report"] = T("公差报告", "Tolerance Report", "公差レポート"),
+            ["show-tolerance-histogram"] = T("公差直方图", "Tolerance Histogram", "公差ヒストグラム"),
+            ["show-tolerance-yield"] = T("公差良率", "Tolerance Yield", "公差歩留まり"),
+            ["show-multiconfig"] = T("多配置编辑器", "Multi-Configuration Editor", "マルチコンフィグレーションエディター"),
+            ["reset-layout"] = T("重置为系统初始布局", "Reset to Initial Layout", "初期レイアウトにリセット"),
+            ["save-layout-1"] = T("保存布局到槽位 1", "Save Layout to Slot 1", "レイアウトをスロット 1 に保存"),
+            ["save-layout-2"] = T("保存布局到槽位 2", "Save Layout to Slot 2", "レイアウトをスロット 2 に保存"),
+            ["load-layout-1"] = T("加载布局槽位 1", "Load Layout Slot 1", "レイアウトスロット 1 を読み込む"),
+            ["load-layout-2"] = T("加载布局槽位 2", "Load Layout Slot 2", "レイアウトスロット 2 を読み込む"),
+            ["analysis-dock-all"] = T("保留分栏停靠", "Keep Split Docking", "分割ドッキングを維持"),
+            ["dock-single-pane"] = T("合并单窗格", "Merge into One Pane", "単一ペインに統合"),
+            ["analysis-float-all"] = T("全部独立浮动", "Float All", "すべてフロート"),
+            ["analysis-tile-all"] = T("平铺全部", "Tile All", "すべて並べて表示"),
+            ["analysis-cascade-all"] = T("层叠全部", "Cascade All", "すべて重ねて表示"),
+            ["analysis-clone"] = T("克隆分析", "Clone Analysis", "解析を複製"),
+            ["toggle-page-lock"] = T("切换锁定", "Toggle Lock", "ロック切替"),
+            ["close-all-pages"] = T("关闭其他页", "Close Other Pages", "他のページを閉じる"),
+            ["save-default-layout"] = T("保存默认", "Save Default", "既定として保存"),
+            ["restore-default-layout"] = T("载入默认", "Load Default", "既定を読み込む"),
+            ["command-palette"] = T("命令面板", "Command Palette", "コマンドパレット"),
+            ["show-user-guide"] = T("用户指南", "User Guide", "ユーザーガイド"),
+            ["show-operand-help"] = T("操作数帮助", "Operand Help", "オペランドヘルプ"),
+            ["recover-document"] = T("恢复未保存工程", "Recover Unsaved Project", "未保存プロジェクトを復元"),
+            ["check-for-updates"] = T("检查更新", "Check for Updates", "更新を確認"),
+            ["about"] = T("关于 Optical System Design", "About Optical System Design", "Optical System Design について")
+        };
+
+    internal sealed record GuideText(string Chinese, string? English = null, string? Japanese = null)
+    {
+        public string AllText => $"{Chinese}\n{English}\n{Japanese}";
+
+        public string Value(string language) => language switch
+        {
+            UiLocalization.English => English ?? UiLocalization.Text(Chinese),
+            UiLocalization.Japanese => Japanese ?? UiLocalization.Text(Chinese),
+            _ => Chinese
+        };
+    }
+
+    internal sealed record GuideSection(GuideText Title, GuideText Body);
+    internal sealed record GuideChapter(
+        string Id,
+        GuideText Group,
+        GuideText Title,
+        GuideText Summary,
+        UserGuideFigureKind Figure,
+        IReadOnlyList<GuideSection> Sections);
+}

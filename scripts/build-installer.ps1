@@ -5,8 +5,7 @@ param(
     [string]$Runtime = 'win-x64',
     [string]$OutputRoot = '',
     [string]$InnoSetupCompiler = '',
-    [ValidatePattern('^\d+\.\d+\.\d+(\.\d+)?$')]
-    [string]$AppVersion = '1.0.3',
+    [string]$AppVersion = '',
     [switch]$UnsignedTestPackage,
     [ValidateSet('Unsigned', 'Required')]
     [string]$SigningMode = 'Unsigned',
@@ -23,6 +22,7 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 $repositoryRoot = Split-Path -Parent $PSScriptRoot
+$AppVersion = & (Join-Path $PSScriptRoot 'get-product-version.ps1') -AppVersion $AppVersion
 if ([string]::IsNullOrWhiteSpace($OutputRoot)) {
     $OutputRoot = Join-Path $repositoryRoot 'artifacts\installers'
 } elseif (-not [IO.Path]::IsPathRooted($OutputRoot)) {

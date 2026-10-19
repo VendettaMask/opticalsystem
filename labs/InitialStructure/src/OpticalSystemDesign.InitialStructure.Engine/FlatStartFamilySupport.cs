@@ -16,7 +16,8 @@ internal static class FlatStartFamilySupport
                 || start.Signs.Any(sign => sign is not ('+' or '-')) || !double.IsFinite(start.RadiusMillimeters) || start.RadiusMillimeters <= 0)
             || family.GlassNames.Any(name => string.IsNullOrWhiteSpace(name) || name.Length > 256)
             || family.CenterThicknesses.Any(value => !double.IsFinite(value) || value < specification.MinimumCenterThicknessMillimeters)
-            || family.AirGaps.Any(value => !double.IsFinite(value) || value < specification.MinimumAirGapMillimeters))
+            || family.AirGaps.Where((value, gap) => !double.IsFinite(value)
+                || (AutoLensManagedTopology.IsCemented(specification, gap) ? value != 0 : value < specification.MinimumAirGapMillimeters)).Any())
             throw new ArgumentException("Invalid flat-start family.", nameof(family));
         var length = family.CenterThicknesses.Sum() + family.AirGaps.Sum()
             + (specification.FlatStart?.FixedBackFocusMillimeters ?? specification.MinimumBackFocusMillimeters);

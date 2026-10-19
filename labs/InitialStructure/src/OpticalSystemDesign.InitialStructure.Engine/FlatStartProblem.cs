@@ -75,6 +75,7 @@ internal sealed class FlatStartProblem
             var curvature = Bound(index, vector[index]) / _specification.EffectiveFocalLengthMillimeters;
             optic.SurfaceGroup.Items[index + 1].Radius = curvature == 0 ? 0 : 1 / curvature;
         }
+        AutoLensManagedTopology.Apply(optic, _specification, _elementCount);
         if (Dimension > 2 * _elementCount)
             optic.SurfaceGroup.Items[2 * _elementCount].Thickness = Bound(Dimension - 1, vector[^1]) * _specification.EffectiveFocalLengthMillimeters;
         optic.SurfaceGroup.Renumber();
@@ -156,10 +157,14 @@ internal sealed class FlatStartProblem
             Minimum(Math.Min(front.Thickness, edge), _specification.FlatStart!.MinimumEdgeThicknessMillimeters, "geometry.edge-thickness");
             if (element < _elementCount - 1)
             {
-                Minimum(back.Thickness, _specification.MinimumAirGapMillimeters, "geometry.air-gap");
+                var cemented = AutoLensManagedTopology.IsCemented(_specification, element);
+                Minimum(back.Thickness, cemented ? 0 : _specification.MinimumAirGapMillimeters, "geometry.air-gap");
+                if (cemented && !AutoLensManagedTopology.IsValid(optic, element))
+                    violations.Add(new("geometry.cemented-interface", ConstraintSeverity.Hard,
+                        "A cemented interface requires coincident tied profiles and the same outgoing medium on its reference row.", null, null));
                 var nextRadius = Math.Max(BodyRadius(optic.SurfaceGroup.Items[2 * element + 3]),
                     BodyRadius(optic.SurfaceGroup.Items[2 * element + 4]));
-                Minimum(AxialSurfaceSeparation.Evaluate(optic, 2 * element + 2, 0, Math.Min(radius, nextRadius)), 0, "geometry.edge-clearance");
+                Minimum(AxialSurfaceSeparation.Evaluate(optic, 2 * element + 2, 0, Math.Min(radius, nextRadius)), 0, "geometry.edge-clearance", cemented);
             }
             else
             {
@@ -174,9 +179,9 @@ internal sealed class FlatStartProblem
         double BodyRadius(OpticalSystemDesign.Core.Domain.OpticalSurface surface) => _specification.FlatStart!.UsePhysicalStop
             ? Math.Max(surface.SemiDiameter, surface.MechanicalSemiDiameter) : surface.SemiDiameter;
 
-        void Minimum(double actual, double minimum, string code)
+        void Minimum(double actual, double minimum, string code, bool allowContact = false)
         {
-            var interior = code is "geometry.edge-thickness" or "geometry.edge-clearance" ? searchInteriorMillimeters : 0;
+            var interior = !allowContact && (code is "geometry.edge-thickness" or "geometry.edge-clearance") ? searchInteriorMillimeters : 0;
             residuals?.Add(double.IsFinite(actual)
                 ? Math.Max(0, minimum + interior - actual) / _specification.EffectiveFocalLengthMillimeters : 1);
             if (!double.IsFinite(actual) || actual < minimum - 1e-9)

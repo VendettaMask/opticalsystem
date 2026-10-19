@@ -95,6 +95,19 @@ internal static class ThemeRegistry
         PixelTheme.ApplyAccentResources,
         IsDarkLike: false);
 
+    private static readonly ThemeDefinition Lumen = new(
+        LumenTheme.SettingsValue,
+        "光域",
+        LumenTheme.Variant,
+        LumenTheme.Palette,
+        StandardThemeIconPack.Instance,
+        FontFamily.Default,
+        TextRenderingMode.Unspecified,
+        LumenTheme.Chrome,
+        NoThemeDecorationRenderer.Instance,
+        LumenTheme.ApplyAccentResources,
+        IsDarkLike: true);
+
     private static readonly ThemeDefinition System = new(
         "System",
         "跟随系统",
@@ -110,10 +123,10 @@ internal static class ThemeRegistry
         FollowsSystem: true);
 
     public static IReadOnlyList<ThemeDefinition> SelectableThemes { get; } =
-        new[] { Light, Dark, Isekai, Pixel, System };
+        new[] { Light, Dark, Isekai, Pixel, Lumen, System };
 
     public static IReadOnlyList<ThemeDefinition> ConcreteThemes { get; } =
-        new[] { Light, Dark, Isekai, Pixel };
+        new[] { Light, Dark, Isekai, Pixel, Lumen };
 
     public static bool IsSupportedSettingsValue(string? value) =>
         SelectableThemes.Any(theme => string.Equals(

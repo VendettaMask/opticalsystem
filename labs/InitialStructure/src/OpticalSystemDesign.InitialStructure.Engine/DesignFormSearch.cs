@@ -28,7 +28,7 @@ public static class DesignFormSearch
             || settings.StopSurfaceIndex is { } stop && (stop < 1 || stop > 2 * spec.MinimumElementCount))
             throw new ArgumentException("Invalid form search controls: use positive radii, permitted thicknesses, a physical stop, and one + / - / * per element for a fixed element count.");
         var length = spec.MaximumElementCount * (settings.StartingCenterThicknessMillimeters ?? spec.MinimumCenterThicknessMillimeters)
-            + (spec.MaximumElementCount - 1) * (settings.StartingAirGapMillimeters ?? spec.MinimumAirGapMillimeters)
+            + AutoLensManagedTopology.AirGapCount(spec, spec.MaximumElementCount) * (settings.StartingAirGapMillimeters ?? spec.MinimumAirGapMillimeters)
             + (spec.FlatStart?.FixedBackFocusMillimeters ?? spec.MinimumBackFocusMillimeters);
         if (length > spec.MaximumTrackLengthMillimeters)
             throw new ArgumentException("The requested starting thicknesses and gaps exceed the total length limit.");
@@ -91,7 +91,8 @@ public static class DesignFormSearch
             family = family with
             {
                 CenterThicknesses = Enumerable.Repeat(settings.StartingCenterThicknessMillimeters ?? spec.MinimumCenterThicknessMillimeters, count).ToArray(),
-                AirGaps = Enumerable.Repeat(settings.StartingAirGapMillimeters ?? spec.MinimumAirGapMillimeters, count - 1).ToArray(),
+                AirGaps = Enumerable.Range(0, count - 1).Select(gap => AutoLensManagedTopology.IsCemented(spec, gap) ? 0
+                    : settings.StartingAirGapMillimeters ?? spec.MinimumAirGapMillimeters).ToArray(),
                 StopSurfaceIndex = settings.ExploreStopPositions && cycle > 0 ? family.StopSurfaceIndex : settings.StopSurfaceIndex ?? 2 * (count / 2) + 1,
                 SeedIndex = index,
                 BinaryStart = new(signs, settings.StartingRadiusMillimeters ?? 10 * spec.EffectiveFocalLengthMillimeters)

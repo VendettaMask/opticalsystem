@@ -13,12 +13,15 @@ public sealed class AppSettings
     private static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true };
 
     public const string DefaultTheme = "Light";
+    public const string DefaultLanguage = UiLocalization.Chinese;
     public const int DefaultDecimalPlaces = NumericDisplayOptions.DefaultDecimalPlaces;
     public const int DefaultUpperScientificExponent = 6;
     public const int DefaultLowerScientificExponent = -4;
     public const double DefaultFontSize = 13;
 
     public string Theme { get; set; } = DefaultTheme;
+
+    public string Language { get; set; } = DefaultLanguage;
 
     public int DecimalPlaces { get; set; } = DefaultDecimalPlaces;
 
@@ -58,6 +61,7 @@ public sealed class AppSettings
         LeftPaneWidth = Math.Clamp(double.IsFinite(LeftPaneWidth) ? LeftPaneWidth : UiDensity.SystemOptionsPreferredWidth,
             UiDensity.SystemOptionsMinimumWidth, UiDensity.SystemOptionsMaximumWidth);
         Theme = ThemeRegistry.NormalizeSettingsValue(Theme);
+        Language = UiLocalization.NormalizeLanguage(Language);
         DecimalPlaces = Math.Clamp(DecimalPlaces, 0, 15);
         UpperScientificExponent = Math.Clamp(UpperScientificExponent, 1, 15);
         LowerScientificExponent = Math.Clamp(LowerScientificExponent, -15, -1);
@@ -79,6 +83,7 @@ public sealed class AppSettings
     public void ResetDisplaySettings()
     {
         Theme = DefaultTheme;
+        Language = DefaultLanguage;
         DecimalPlaces = DefaultDecimalPlaces;
         UpperScientificExponent = DefaultUpperScientificExponent;
         LowerScientificExponent = DefaultLowerScientificExponent;

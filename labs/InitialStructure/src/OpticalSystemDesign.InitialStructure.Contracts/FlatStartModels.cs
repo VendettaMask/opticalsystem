@@ -4,8 +4,18 @@ namespace OpticalSystemDesign.InitialStructure.Contracts;
 
 public enum FlatStartSamplingPolicy { LegacyEqualRings, UniformAreaGaussianV1 }
 
+public enum FlatStartOptimizationMethod { TrustRegion = 0, AutoLensCpuExperimentV1 = 1, AutoLensManagedV1 = 3 }
+
 public sealed record FlatStartSettings
 {
+    // Opt-in CPU adaptation, not the upstream differentiable/GPU implementation.
+    // Omission preserves historical serialized fingerprints and the v20 default.
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public FlatStartOptimizationMethod OptimizationMethod { get; init; }
+
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public AutoLensManagedSettings? AutoLens { get; init; }
+
     // Zero/omitted retains the exact historical ring metric and serialized fingerprint.
     [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
     public FlatStartSamplingPolicy SamplingPolicy { get; init; }
