@@ -1,0 +1,1400 @@
+{
+  "version": "1.0.0-captured-settings",
+  "zemaxVersion": "2026 R1",
+  "analyses": {
+    "Single Ray Trace": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Coordinate": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        },
+        "DirectionCosine": {
+          "absolute": 1E-08,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        },
+        "IncidentAngle": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Cardinal Points Data": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Coordinate": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Y-Ybar": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "RayHeight": {
+          "absolute": 1E-08,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Angle vs Image Height": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "IncidentAngle": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Grid Distortion": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "ImageHeight": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Full Field Aberration": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "WavefrontError": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Seidel Coefficients": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Coefficient": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 0.0001,
+          "closeNrmse": 0.0003,
+          "minimumCoverage": 0.95
+        },
+        "WaveCoefficient": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 0.0001,
+          "closeNrmse": 0.0003,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Seidel Diagram": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Coefficient": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 0.0001,
+          "closeNrmse": 0.0003,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Field Curvature": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Defocus": {
+          "absolute": 1E-06,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Field Curvature and Distortion": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Defocus": {
+          "absolute": 1E-06,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        },
+        "Distortion": {
+          "absolute": 0.0001,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Color Focus Shift": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Defocus": {
+          "absolute": 1E-06,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Lateral Color": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "ImageHeight": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Axial Aberration": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Defocus": {
+          "absolute": 1E-06,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "First Order": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "EffectiveFocalLength": {
+          "absolute": 1E-08,
+          "relative": 1E-06,
+          "nrmse": 1E-06,
+          "closeNrmse": 1E-05,
+          "minimumCoverage": 0.95
+        },
+        "FNumber": {
+          "absolute": 1E-08,
+          "relative": 1E-06,
+          "nrmse": 1E-06,
+          "closeNrmse": 1E-05,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Spot Diagram": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "RmsSpotRadius": {
+          "absolute": 0.001,
+          "relative": 0.01,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        },
+        "GeoSpotRadius": {
+          "absolute": 0.001,
+          "relative": 0.01,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Ray Fan": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 64,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "ImageHeight": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "afocalQuantities": {
+        "IncidentAngle": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Pupil Aberration": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Distortion": {
+          "absolute": 0.0001,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Optical Path Difference": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "WavefrontError": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "MTF": {
+      "field": 0,
+      "wavelength": 0,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 1.7188733853924698,
+      "quantities": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Huygens MTF": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Wavefront": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "WavefrontError": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "PSF": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 128,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Huygens PSF": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Prescription Report": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Coordinate": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        },
+        "Curvature": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        },
+        "PrimaryWavelengthMicrometers": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        },
+        "StopSurface": {
+          "absolute": 0,
+          "relative": 0,
+          "nrmse": 0,
+          "closeNrmse": 0,
+          "minimumCoverage": 0.95
+        },
+        "Conic": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        },
+        "SurfaceCount": {
+          "absolute": 0,
+          "relative": 0,
+          "nrmse": 0,
+          "closeNrmse": 0,
+          "minimumCoverage": 0.95
+        },
+        "FiniteState": {
+          "absolute": 0,
+          "relative": 0,
+          "nrmse": 0,
+          "closeNrmse": 0,
+          "minimumCoverage": 1
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "System Data Report": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "ExitPupilDiameter": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        },
+        "PrimaryWavelengthMicrometers": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        },
+        "EntrancePupilDiameter": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        },
+        "StopSurface": {
+          "absolute": 0,
+          "relative": 0,
+          "nrmse": 0,
+          "closeNrmse": 0,
+          "minimumCoverage": 0.95
+        },
+        "EffectiveFocalLength": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        },
+        "SurfaceCount": {
+          "absolute": 0,
+          "relative": 0,
+          "nrmse": 0,
+          "closeNrmse": 0,
+          "minimumCoverage": 0.95
+        },
+        "FNumber": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "RMS vs Field": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Radius": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "RMS vs Wavelength": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Radius": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "RMS vs Focus": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "WavefrontError": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "RMS Wavefront vs Field": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "WavefrontError": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Through Focus MTF": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Fourier Through Focus MTF": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Huygens Through Focus MTF": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Geometric Through Focus MTF": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Fourier MTF vs Field": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Huygens MTF vs Field": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Geometric MTF vs Field": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Geometric MTF": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "FFT PSF Cross Section": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Huygens PSF Cross Section": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "FFT Line Edge Spread": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Encircled Energy": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "EnergyFraction": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Diffraction Encircled Energy": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "EnergyFraction": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Geometric Line Edge Spread": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "RMS Field Map": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "WavefrontError": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Zernike": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "WaveCoefficient": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Relative Illumination": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Footprint Diagram": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "MaximumRayRadiusMillimeters": {
+          "absolute": 1E-06,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        },
+        "RayXMinimumMillimeters": {
+          "absolute": 1E-06,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        },
+        "RayYMaximumMillimeters": {
+          "absolute": 1E-06,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        },
+        "RayYMinimumMillimeters": {
+          "absolute": 1E-06,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        },
+        "RayXMaximumMillimeters": {
+          "absolute": 1E-06,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Jones Pupil": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Coefficient": {
+          "absolute": 1E-06,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Contrast Loss Map": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1E-06,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        },
+        "PhaseComponent": {
+          "absolute": 1E-06,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Angle vs Image Height - Through Pupil": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "ImageHeight": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        },
+        "IncidentAngle": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        },
+        "FiniteState": {
+          "absolute": 0,
+          "relative": 0,
+          "nrmse": 0,
+          "closeNrmse": 0,
+          "minimumCoverage": 1
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Angle vs Image Height - Through Field": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "ImageHeight": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        },
+        "IncidentAngle": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        },
+        "FiniteState": {
+          "absolute": 0,
+          "relative": 0,
+          "nrmse": 0,
+          "closeNrmse": 0,
+          "minimumCoverage": 1
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "Extended Source Encircled Energy": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "EnergyFraction": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    }
+  }
+}

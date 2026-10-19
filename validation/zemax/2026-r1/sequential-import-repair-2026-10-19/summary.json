@@ -1,0 +1,308 @@
+{
+  "date": "2026-10-19",
+  "nativeReferenceFormat": "zmx",
+  "sourceLenses": 14,
+  "sourceFiles": 28,
+  "originalSourceFilesUnchanged": 28,
+  "nativeJobs": 496,
+  "nativeFailures": 6,
+  "completedNativeAttemptsIncludingRetainedFailures": 496,
+  "completedWorkbenchAttemptsIncludingRetainedFailures": 916,
+  "analysisRequests": 518,
+  "analysisCounts": {
+    "Incomparable": 79,
+    "Error": 397,
+    "Pass": 31,
+    "Difference": 9,
+    "Close": 2
+  },
+  "rayJobs": 35,
+  "rayCounts": {
+    "Error": 32,
+    "Pass": 1,
+    "Incomparable": 2
+  },
+  "physicalSurfaceComparisons": 576,
+  "comparedValues": 3456,
+  "comparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "inventorySha256": "515f8b4754d915a4b10007461bf5d000489bde7b864399e84c27b3deb7b8827b",
+  "completeExecutionAttempts": true,
+  "scope": "18 primary analyses plus 4 edge-field controls at each positive-weight wavelength and GQ6 rays for every successfully prepared configuration. Not all field/wavelength/sampling combinations. ZOS/ZMX equality covers captured configuration-1 model properties only, not all numerical outputs.",
+  "lensRows": [
+    {
+      "lens": "Afocal/Binocular_System.ZMX",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Incomparable": 60
+      },
+      "rayCounts": {
+        "Error": 6
+      },
+      "formatModelReadback": "Difference",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 6,\r\n        \"originalType\": \"Zemax TYPE NONSEQCO\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE NONSEQCO \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 60
+    },
+    {
+      "lens": "Birefringent prisms/Birefringent cube.zmx",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 60
+      },
+      "rayCounts": {
+        "Error": 6
+      },
+      "formatModelReadback": "Difference",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE BIRE__IN\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE__IN \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE BIRE_OUT\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE_OUT \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 4,\r\n        \"originalType\": \"Zemax TYPE PARAXIAL\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAXIAL \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 60
+    },
+    {
+      "lens": "Birefringent prisms/Rochon prism.zmx",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 60
+      },
+      "rayCounts": {
+        "Error": 6
+      },
+      "formatModelReadback": "Difference",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE BIRE__IN\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE__IN \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE BIRE_OUT\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE_OUT \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 4,\r\n        \"originalType\": \"Zemax TYPE BIRE__IN\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE__IN \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 5,\r\n        \"originalType\": \"Zemax TYPE BIRE_OUT\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE_OUT \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 6,\r\n        \"originalType\": \"Zemax TYPE PARAXIAL\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAXIAL \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 60
+    },
+    {
+      "lens": "Birefringent prisms/Senarmont prism.zmx",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 44
+      },
+      "rayCounts": {
+        "Error": 2
+      },
+      "formatModelReadback": "Difference",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE BIRE__IN\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE__IN \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE BIRE_OUT\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE_OUT \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 4,\r\n        \"originalType\": \"Zemax TYPE BIRE__IN\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE__IN \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 5,\r\n        \"originalType\": \"Zemax TYPE BIRE_OUT\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE_OUT \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 6,\r\n        \"originalType\": \"Zemax TYPE PARAXIAL\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAXIAL \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 44
+    },
+    {
+      "lens": "Birefringent prisms/Wollaston prism.zmx",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 44
+      },
+      "rayCounts": {
+        "Error": 2
+      },
+      "formatModelReadback": "Difference",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE BIRE__IN\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE__IN \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE BIRE_OUT\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE_OUT \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 4,\r\n        \"originalType\": \"Zemax TYPE BIRE__IN\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE__IN \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 5,\r\n        \"originalType\": \"Zemax TYPE BIRE_OUT\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE_OUT \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 6,\r\n        \"originalType\": \"Zemax TYPE PARAXIAL\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAXIAL \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 44
+    },
+    {
+      "lens": "Diffractive components/Achromatic singlet.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 30
+      },
+      "rayCounts": {
+        "Error": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE BINARY_2\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BINARY_2 \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Miscellaneous/Cylinder.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 16,
+        "Incomparable": 3,
+        "Error": 2,
+        "Difference": 1
+      },
+      "rayCounts": {
+        "Pass": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.7713271923251165,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Miscellaneous/Grid Sag Example.zmx",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 44
+      },
+      "rayCounts": {
+        "Error": 2
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE GRID_SAG\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE GRID_SAG \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE GRID_SAG\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE GRID_SAG \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 44
+    },
+    {
+      "lens": "Miscellaneous/Grid sag surface.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 22
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE GRID_SAG\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE GRID_SAG \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Miscellaneous/MEMS DLL Sample.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 22
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Difference",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE USERSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE USERSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Miscellaneous/Toroid.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 7,
+        "Incomparable": 9,
+        "Difference": 4,
+        "Error": 2
+      },
+      "rayCounts": {
+        "Incomparable": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 8.936074287432826,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Optical testing/Mach Zender Interferometer.zmx",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 44
+      },
+      "rayCounts": {
+        "Error": 2
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 4,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 8,\r\n        \"originalType\": \"Zemax TYPE FZERNSAG\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE FZERNSAG \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 10,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 11,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 44
+    },
+    {
+      "lens": "Telescopes/Yolo.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Difference": 4,
+        "Incomparable": 7,
+        "Close": 2,
+        "Pass": 8,
+        "Error": 1
+      },
+      "rayCounts": {
+        "Incomparable": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 1.7340155712859204,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Tilted systems & prisms/OAP using Chebyshev Polynomial surface.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 22
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE CHEBYSHV\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE CHEBYSHV \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    }
+  ]
+}

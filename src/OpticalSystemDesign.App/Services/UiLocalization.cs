@@ -160,7 +160,8 @@ internal static class UiLocalization
                 : $"Surface {number} Properties";
         }
 
-        if (TryTranslatePrefixedValue(source, "波长 ", "Wavelength ", "波長 ", out var prefixed)
+        if (TryTranslatePrefixedValue(source, "版本 ", "Version ", "バージョン ", out var prefixed)
+            || TryTranslatePrefixedValue(source, "波长 ", "Wavelength ", "波長 ", out prefixed)
             || TryTranslatePrefixedValue(source, "视场 ", "Field ", "視野 ", out prefixed)
             || TryTranslatePrefixedValue(source, "权重 ", "Weight ", "重み ", out prefixed))
         {
@@ -459,15 +460,10 @@ internal static class UiLocalization
         Add("操作数帮助", "Operand Help", "オペランドヘルプ");
         Add("用户指南", "User Guide", "ユーザーガイド");
         Add("恢复未保存工程", "Recover Unsaved Project", "未保存プロジェクトを復元");
-        Add("软件版本与更新", "Software Version and Updates", "ソフトウェアのバージョンと更新");
         Add("检查更新", "Check for Updates", "更新を確認");
         Add("当前版本", "Installed version", "現在のバージョン");
         Add("最新正式版本", "Latest stable version", "最新の安定版");
-        Add("打开 GitHub 发布页", "Open GitHub Releases", "GitHub リリースを開く");
-        Add("在线升级（预留）", "Online upgrade (reserved)", "オンライン更新（準備中）");
-        Add("点击检查以查询 GitHub 上的正式版本。", "Click Check to query the stable release on GitHub.", "確認を押すと GitHub の安定版を照会します。");
-        Add("在线自动安装尚未开放。请在 GitHub 下载完整安装包，关闭软件后手动安装。", "Automatic installation is not available. Download the full installer from GitHub, close the app, then install manually.", "自動インストールは未対応です。GitHub から完全なインストーラーを取得し、アプリを終了して手動でインストールしてください。");
-        Add("仅手动检查；不会后台联网、自动下载或安装。未签名安装包不提供发布者身份认证。", "Manual checks only; no background requests, automatic downloads or installation. Unsigned installers do not authenticate the publisher.", "手動確認のみです。バックグラウンド通信、自動ダウンロード、自動インストールは行いません。未署名インストーラーは発行元を認証しません。");
+        Add("打开发布页", "Open release page", "リリースページを開く");
         Add("正在检查更新，请稍候。", "Checking for updates. Please wait.", "更新を確認中です。お待ちください。");
         Add("发现新版本，可在 GitHub 发布页下载对应安装包。", "A new version is available. Download the matching installer from GitHub Releases.", "新しいバージョンがあります。GitHub リリースから対応するインストーラーを取得してください。");
         Add("当前版本无需升级（没有更高的正式版本）。", "No upgrade needed (no newer stable release).", "更新は不要です（より新しい安定版はありません）。");

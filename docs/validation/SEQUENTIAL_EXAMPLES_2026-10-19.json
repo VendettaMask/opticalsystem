@@ -1,0 +1,155 @@
+{
+  "Date": "2026-10-19",
+  "Scope": "Replace generated sample entries with all 95 ZMX files in the 14 installed Zemax Sequential folders.",
+  "Source": "Zemax/Samples/Sequential",
+  "SourceVersion": "OpticStudio 2026 R1",
+  "Catalog": {
+    "Path": "src/OpticalSystemDesign.App/Assets/SequentialExamples/index.json",
+    "Sha256": "218771ebb8b001af026ab58cb98be8ffd0b2db2f15fc73d61c60c61ab28d1aaa"
+  },
+  "Examples": 95,
+  "Categories": 14,
+  "SourceBytes": 1219836,
+  "Behavior": [
+    "Original categories and lens names in hierarchical File > Samples menu",
+    "All 95 lenses registered for command search and guide reference",
+    "Former generated Cooke/Tessar UI actions removed; historical precision fixtures retained",
+    "Normal importer, unsaved-changes guard and document replacement; original configurations retained",
+    "ZMX examples saved as user STAROPT projects; paired ZOS files not duplicated or substituted",
+    "Copied into default Debug, Release and local framework-dependent publish outputs; no dependency on local Zemax at runtime"
+  ],
+  "Tests": [
+    {
+      "File": {
+        "Path": "artifacts/validation/sequential-examples-20261019/tests/related-release-final.trx",
+        "Sha256": "f2bd6bb9e8f54fd73c23e26d2db2b8d0de59229ecc3415416d39c279e3dab87e"
+      },
+      "Total": 136,
+      "Passed": 136,
+      "Failed": 0,
+      "Skipped": 0
+    },
+    {
+      "File": {
+        "Path": "artifacts/validation/sequential-examples-20261019/tests/examples-debug.trx",
+        "Sha256": "cb9757b9c248123be401414d420d859f8ccfb2171b0f7fd4f4b0937b045e068f"
+      },
+      "Total": 9,
+      "Passed": 9,
+      "Failed": 0,
+      "Skipped": 0
+    }
+  ],
+  "Builds": [
+    {
+      "Errors": 0,
+      "Configuration": "Debug",
+      "Warnings": 0,
+      "Log": {
+        "Path": "artifacts/validation/sequential-examples-20261019/build-debug.log",
+        "Sha256": "bde08bcde124954051f7657a1a2a612fc964aa60fac013ad76d1dcfdadfab5fb"
+      }
+    },
+    {
+      "Errors": 0,
+      "Configuration": "Release",
+      "Warnings": 0,
+      "Log": {
+        "Path": "artifacts/validation/sequential-examples-20261019/build-release-final.log",
+        "Sha256": "4dde345f77fdfaada0b3ecfe09aed8c66eea97acfd985f6f23f02219e9bbf0c1"
+      }
+    }
+  ],
+  "PayloadIntegrity": {
+    "Copies": [
+      {
+        "Output": "Publish",
+        "Files": 95,
+        "AllSourceHashesMatch": true
+      },
+      {
+        "Output": "Release",
+        "Files": 95,
+        "AllSourceHashesMatch": true
+      },
+      {
+        "Output": "Debug",
+        "Files": 95,
+        "AllSourceHashesMatch": true
+      }
+    ],
+    "Core": [
+      {
+        "Configuration": "Debug",
+        "Before": "2b6d993b60fd9b9d8b56c354eca62a2d25480df094d0e2d0f1cad55f942a90d9",
+        "After": "2b6d993b60fd9b9d8b56c354eca62a2d25480df094d0e2d0f1cad55f942a90d9",
+        "Unchanged": true
+      },
+      {
+        "Configuration": "Release",
+        "Before": "0768a8ef72eacd1392c1869c197e6b2b657ad6a92b627d1af0b54a3cfd03bd17",
+        "After": "0768a8ef72eacd1392c1869c197e6b2b657ad6a92b627d1af0b54a3cfd03bd17",
+        "Unchanged": true
+      }
+    ]
+  },
+  "Publish": {
+    "Log": {
+      "Path": "artifacts/validation/sequential-examples-20261019/publish.log",
+      "Sha256": "3c936da7727667f2dece69320a2a648f6444195bc877d19254b206396bef3c0d"
+    },
+    "Verification": {
+      "Path": "artifacts/validation/sequential-examples-20261019/publish-open-verification.json",
+      "Sha256": "734d3e9503c18f7ef66b108d4ff3738511130ec4955c10174c24fd98b16a40e1"
+    },
+    "GuiVerified": false,
+    "InstallerBuilt": false,
+    "Uploaded": false
+  },
+  "Limitations": [
+    "Sample inclusion does not certify numerical parity or support for all surfaces and analyses. Prior scoped corpus and import-repair results still apply.",
+    "Unsupported imports retain their existing errors and do not replace the current document. Apochromat_prism remains covered by this check.",
+    "No optical engine, original numerical tolerances or frozen references changed in this task. No full optical matrix or full-repository test suite rerun."
+  ],
+  "EarlierRestrictedBuildAttempt": {
+    "Path": "artifacts/validation/sequential-examples-20261019/build-release.log",
+    "Sha256": "bd92607d1b111e93af233da66f42781b17c72ad9c29fb764f1d3937e0458f604"
+  },
+  "FinalSourceFiles": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/SequentialExampleCatalog.cs",
+      "Sha256": "f9a59f09f6804fff819c89ffadfc25385b22481e623a642f7eb3cc452c76a4d5"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Shell/MainWindow.Examples.cs",
+      "Sha256": "3a0f9f6131bf5ca7363512189ef3be6447a2eb613a9c0fe27ef5e315232424a3"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Shell/MainWindow.Actions.cs",
+      "Sha256": "ddbc9778f1560c28b63108748c46cd17df48775d25be749b8ff56264cf952758"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs",
+      "Sha256": "5c27831dde03a64fb6122e8fab198bc504da3711c3b6ed8cad4e52bde99753fb"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj",
+      "Sha256": "76572b6bee467b752f37746520879a21af1ebe0d5eeb0cef84b7cc2269676b54"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.cs",
+      "Sha256": "ae29ed79e1b37274bb1075970b591c08bc7d14354db894d14b17575541dbba1f"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/SequentialExampleTests.cs",
+      "Sha256": "78ab179550586a53b209b72eeb7b5eb2499abd030326d458098bc5cc66582cf4"
+    }
+  ],
+  "DocumentationAudit": {
+    "BrokenLinks": 0,
+    "LocalOnlyLinks": 0,
+    "Report": "artifacts/validation/sequential-examples-20261019/documentation-audit.json",
+    "MarkdownFenceIssues": 0,
+    "Strict": true
+  }
+}

@@ -17,7 +17,11 @@ public static class OpticalDesignParameters
     public static double[] Read(Optic optic, IReadOnlyList<OpticalDesignParameter> parameters)
     {
         Validate(optic, parameters);
-        return parameters.Select(parameter => ReadPhysical(optic, parameter) / parameter.Scale).ToArray();
+        var physical = parameters.Select(parameter => ReadPhysical(optic, parameter)).ToArray();
+        var coordinates = parameters.Select((parameter, index) => physical[index] / parameter.Scale).ToArray();
+        if (coordinates.Where((value, index) => !double.IsFinite(value) || value == 0 && physical[index] != 0).Any())
+            throw new ArgumentException("The physical parameters cannot be represented in the requested optimizer coordinates.", nameof(parameters));
+        return coordinates;
     }
 
     public static Optic Apply(OpticSnapshot template, IReadOnlyList<OpticalDesignParameter> parameters, IReadOnlyList<double> values)
@@ -37,6 +41,10 @@ public static class OpticalDesignParameters
             foreach (var (parameter, index) in group)
             {
                 var value = values[index] * parameter.Scale;
+                if (!double.IsFinite(value) || value == 0 && values[index] != 0
+                    || parameter.Kind == OpticalDesignParameterKind.Curvature && value != 0
+                    && (!double.IsFinite(1 / value) || Curvature(1 / value) == 0))
+                    throw new ArgumentException("The optimizer coordinate cannot be represented by the physical surface parameter.", nameof(values));
                 switch (parameter.Kind)
                 {
                     case OpticalDesignParameterKind.Curvature: curvature = value; break;
@@ -121,7 +129,8 @@ public static class OpticalDesignParameters
     {
         if (parameters.Count == 0 || parameters.Count > 512 || parameters.Any(parameter =>
                 parameter.SurfaceIndex <= 0 || parameter.SurfaceIndex >= optic.SurfaceGroup.Items.Count
-                || !Enum.IsDefined(parameter.Kind) || !double.IsFinite(parameter.Scale) || parameter.Scale <= 0)
+                || !Enum.IsDefined(parameter.Kind) || !double.IsFinite(parameter.Scale) || parameter.Scale <= 0
+                || parameter.CoefficientIndex < 0 || parameter.Kind != OpticalDesignParameterKind.EvenAsphereCoefficient && parameter.CoefficientIndex != 0)
             || parameters.Any(parameter => parameter.LinkedSurfaceIndex is { } linked && (linked <= 0 || linked >= optic.SurfaceGroup.Items.Count || linked == parameter.SurfaceIndex))
             || Expand(parameters).Select(item => (item.parameter.SurfaceIndex, item.parameter.Kind, item.parameter.CoefficientIndex)).Distinct().Count() != Expand(parameters).Count())
             throw new ArgumentException("Invalid, duplicate or excessive design parameters.", nameof(parameters));
@@ -138,6 +147,10 @@ public static class OpticalDesignParameters
             if (parameter.Kind == OpticalDesignParameterKind.Thickness && !double.IsFinite(surface.Thickness))
                 throw new NotSupportedException("An infinite conjugate is not an optimization coordinate.");
         }
+        foreach (var parameter in parameters)
+            if (parameter.LinkedSurfaceIndex is { } linked
+                && ReadPhysical(optic, parameter) != ReadPhysical(optic, parameter with { SurfaceIndex = linked, LinkedSurfaceIndex = null }))
+                throw new ArgumentException("Linked design parameters must describe the same nominal physical value.", nameof(parameters));
     }
 
     private static IEnumerable<(OpticalDesignParameter parameter, int index)> Expand(IReadOnlyList<OpticalDesignParameter> parameters)

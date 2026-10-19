@@ -101,6 +101,8 @@ internal sealed class OpticalDifferentialContext
     public (DifferentialScalar Power, DifferentialScalar StopHeight) Paraxial()
     {
         if (_paraxial is { } cached) return cached;
+        if (_parameters.Any(parameter => parameter.Kind == OpticalDesignParameterKind.EvenAsphereCoefficient && parameter.CoefficientIndex == 0))
+            throw new NotSupportedException("The design spot/power derivative contract fixes the quadratic asphere term A2 at zero; geometry-only tangents remain supported.");
         var wavelength = _optic.Wavelengths.First(wave => wave.IsPrimary).Nanometers;
         DifferentialScalar a = 1, b = 0, c = 0, d = 1;
         DifferentialScalar stopHeight = double.NaN;

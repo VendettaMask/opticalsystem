@@ -14,6 +14,8 @@ public sealed record AnalysisConfiguration
     public double ImageDeltaMicrometers { get; init; } = 0.25;
     public double MaximumFrequency { get; init; } = 50;
     public Dictionary<string, Tolerances> Quantities { get; init; } = [];
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public Dictionary<string, Tolerances>? AfocalQuantities { get; init; }
     public Dictionary<string, string> WorkbenchSettings { get; init; } = [];
 }
 public sealed record ComparisonConfiguration
@@ -33,7 +35,8 @@ public sealed record ComparisonConfiguration
             var entry = AnalysisComparisonRegistry.Get(key);
             if (a is null || a.Quantities is null || a.WorkbenchSettings is null)
                 throw new ArgumentException($"Null analysis settings: {key}");
-            if (a.Field < 1 || a.Wavelength < 1 || a.RayCount < 1 || a.RayCount > 500
+            var allMtf = key == "MTF";
+            if (a.Field < (allMtf ? 0 : 1) || a.Wavelength < (allMtf ? 0 : 1) || a.RayCount < 1 || a.RayCount > 500
                 || a.PupilSampling is not (32 or 64 or 128 or 256) || a.ImageSampling is not (32 or 64 or 128 or 256)
                 || !double.IsFinite(a.ImageDeltaMicrometers) || a.ImageDeltaMicrometers <= 0
                 || !double.IsFinite(a.MaximumFrequency) || a.MaximumFrequency <= 0)
@@ -43,7 +46,10 @@ public sealed record ComparisonConfiguration
             ExtendedAnalysisContracts.ValidateRmsFieldSampling(key, a);
             if (entry.ZemaxSettingsMapper != "unimplemented" && a.WorkbenchSettings.Count != 0)
                 throw new ArgumentException($"{key}: comparable adapters accept canonical typed settings only; unmatched Workbench-only overrides would invalidate alignment");
-            foreach (var (quantity, t) in a.Quantities)
+            if (a.AfocalQuantities is not null && (key != "Ray Fan"
+                || a.AfocalQuantities.Count != 1 || !a.AfocalQuantities.ContainsKey("IncidentAngle")))
+                throw new ArgumentException("AfocalQuantities currently requires Ray Fan/IncidentAngle in degrees.");
+            foreach (var (quantity, t) in a.Quantities.Concat(a.AfocalQuantities ?? []))
             {
                 if (t is null || new[] { t.Absolute, t.Relative, t.Nrmse, t.CloseNrmse, t.MinimumCoverage }.Any(v => !double.IsFinite(v))
                     || t.Absolute < 0 || t.Relative < 0 || t.Nrmse < 0 || t.CloseNrmse < t.Nrmse

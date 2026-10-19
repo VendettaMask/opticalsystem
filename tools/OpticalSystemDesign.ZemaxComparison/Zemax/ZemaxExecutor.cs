@@ -64,6 +64,7 @@ public sealed class ZemaxExecutor(string apiPath, string hostExe)
         payload["zosApiPath"] = apiPath; payload["input"] = input; payload["zemaxVersion"] = version;
         payload["adapter"] = adapter; payload["analysisType"] = analysisType; payload["configuration"] = configuration;
         payload["captureScreenshots"] = screenshots;
+        if (request is not null) AfocalAnalysisContracts.MapNativePayload(payload, request);
         var path = Path.Combine(output, "request.json"); JsonFiles.Write(path, payload);
         var result = await ProcessIsolation.Run(hostExe, [path, output], Path.GetDirectoryName(hostExe)!, seconds, ct,
             new Dictionary<string, string> { ["PATH"] = apiPath + Path.PathSeparator + Environment.GetEnvironmentVariable("PATH") });
@@ -77,8 +78,14 @@ public sealed class ZemaxExecutor(string apiPath, string hostExe)
         Directory.CreateDirectory(output);
         var payload = new
         {
-            zosApiPath = apiPath, input, zemaxVersion = job.ZemaxVersion, adapter = "ray-audit",
-            job.Configuration, job.Wavelength, job.RemoveVignettingFactors, rayAuditInputs = inputs,
+            zosApiPath = apiPath,
+            input,
+            zemaxVersion = job.ZemaxVersion,
+            adapter = "ray-audit",
+            job.Configuration,
+            job.Wavelength,
+            job.RemoveVignettingFactors,
+            rayAuditInputs = inputs,
             surfaceRecordLimit = OpticalSystemDesign.Core.Raytrace.SequentialTraceLimits.MaximumRetainedSamples
         };
         var path = Path.Combine(output, "request.json");

@@ -43,7 +43,7 @@ internal static partial class ZemaxZmxReader
         var converted = ConvertSurfaces(optic, configuredSurfaces, document.GlassCatalogs);
         InstallConvertedSurfaces(optic, converted);
         var sourceSurfaceNumbers = configuredSurfaces
-            .Where(surface => !surface.Type.Equals("COORDBRK", StringComparison.OrdinalIgnoreCase))
+            .Where(IsImportedSurface)
             .Select(surface => surface.Number).ToArray();
         optic.GlobalReferenceSurfaceNumber = Array.IndexOf(sourceSurfaceNumbers, document.GlobalReferenceSurfaceNumber);
         if (optic.GlobalReferenceSurfaceNumber < 0)
@@ -63,7 +63,7 @@ internal static partial class ZemaxZmxReader
             ApplyCurvatureSolves(optic, configuredSurfaces, document.GlassCatalogs);
             ApplyThicknessSolves(optic, configuredSurfaces, document.GlassCatalogs);
         }
-        ConfigureMeritFunction(optic, document);
+        ConfigureMeritFunction(optic, document, configuredSurfaces);
         return optic;
     }
 
@@ -88,7 +88,7 @@ internal static partial class ZemaxZmxReader
         IReadOnlyList<ZemaxSurface> sourceSurfaces)
     {
         var sourceToImported = sourceSurfaces
-            .Where(surface => !surface.Type.Equals("COORDBRK", StringComparison.OrdinalIgnoreCase))
+            .Where(IsImportedSurface)
             .Select((surface, index) => (surface.Number, index))
             .ToDictionary(item => item.Number, item => item.index);
         foreach (var surface in sourceSurfaces.Where(surface => surface.SemiDiameterSolveCode == 2))
@@ -549,12 +549,15 @@ internal static partial class ZemaxZmxReader
                     RequireSurface(current, command).Type = RequiredToken(tokens, 1, command).ToUpperInvariant();
                     break;
                 case "PARM":
-                    var parameterIndex = RequiredInt(tokens, 1, command) - 1;
-                    if (parameterIndex < 0)
+                    var parameterNumber = RequiredInt(tokens, 1, command);
+                    if (parameterNumber < 0)
                     {
-                        throw new InvalidDataException("Zemax PARM indices are one-based positive integers.");
+                        throw new InvalidDataException("Zemax PARM indices must be non-negative integers.");
                     }
 
+                    // Some native surface types use PARM 0. Keep it separately
+                    // from the zero-based PARM 1..N geometry coefficients.
+                    var parameterIndex = parameterNumber - 1;
                     var parameterSurface = RequireSurface(current, command);
                     parameterSurface.Parameters[parameterIndex] = ScaleSurfaceParameter(
                         document,
@@ -660,6 +663,9 @@ internal static partial class ZemaxZmxReader
             var configured = new ZemaxSurface(source.Number)
             {
                 Type = source.Type,
+                RetainReferencePlane = source.Type == "COORDBRK" && document.MeritOperands.Any(operand =>
+                    !operand.CompatibilityOnly && operand.Surface == source.Number
+                    && operand.Type is "REAX" or "REAY" or "REAR" or "REAZ"),
                 Comment = source.Comment,
                 Radius = RadiusFromConfiguredCurvature(
                     document,
@@ -736,6 +742,9 @@ internal static partial class ZemaxZmxReader
         return 0;
     }
 
+    private static bool IsImportedSurface(ZemaxSurface surface) =>
+        surface.Type != "COORDBRK" || surface.RetainReferencePlane;
+
     private static IReadOnlyList<ConvertedSurface> ConvertSurfaces(
         Optic optic,
         IReadOnlyList<ZemaxSurface> sourceSurfaces,
@@ -750,8 +759,8 @@ internal static partial class ZemaxZmxReader
         {
             if (source.Type == "COORDBRK")
             {
-                ApplyCoordinateBreak(source, ref origin, ref rotation);
-                continue;
+                ApplyCoordinateBreak(source, ref origin, ref rotation, !source.RetainReferencePlane);
+                if (!source.RetainReferencePlane) continue;
             }
 
             var index = result.Count;
@@ -759,10 +768,13 @@ internal static partial class ZemaxZmxReader
                 ? ObjectSurfaceOrigin(source.Thickness)
                 : origin;
             var coordinate = CoordinateFrom(surfaceOrigin, rotation);
-            var geometry = CreateGeometry(source);
-            var isReflective = source.IsMirror || source.Material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase);
+            // A referenced coordinate break is its own transparent plane, before
+            // its thickness translation; it is not the neighbouring curved face.
+            var referencePlane = source.RetainReferencePlane;
+            var geometry = referencePlane ? new PlaneGeometry() : CreateGeometry(source);
+            var isReflective = !referencePlane && (source.IsMirror || source.Material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase));
             IMaterial materialAfter;
-            if (isReflective)
+            if (isReflective || referencePlane)
             {
                 materialAfter = previousMaterial.Clone();
             }
@@ -771,7 +783,7 @@ internal static partial class ZemaxZmxReader
                 materialAfter = ResolveGlass(optic, source, glassCatalogs);
             }
 
-            var legacyRadius = double.IsInfinity(source.Radius) ? 0 : source.Radius;
+            var legacyRadius = referencePlane || double.IsInfinity(source.Radius) ? 0 : source.Radius;
             var thickness = source.Thickness;
             var semiDiameter = source.SemiDiameter is { } configuredSemiDiameter
                 && double.IsFinite(configuredSemiDiameter)
@@ -781,8 +793,8 @@ internal static partial class ZemaxZmxReader
             // surfaces can carry a fixed DIAM without defining a floating stop.
             var hasOpticalInteraction = isReflective || !string.Equals(previousMaterial.Name, materialAfter.Name,
                 StringComparison.OrdinalIgnoreCase);
-            var hasOpticalPower = HasSurfacePower(source) && hasOpticalInteraction;
-            var physicalAperture = CreatePhysicalAperture(source, semiDiameter,
+            var hasOpticalPower = !referencePlane && HasSurfacePower(source) && hasOpticalInteraction;
+            var physicalAperture = referencePlane ? null : CreatePhysicalAperture(source, semiDiameter,
                 hasOpticalPower || source.IsStop && hasOpticalInteraction);
             var surface = new OpticalSurface
             {
@@ -795,7 +807,7 @@ internal static partial class ZemaxZmxReader
                 SemiDiameter = semiDiameter,
                 MechanicalSemiDiameterSolveCode = source.MechanicalSemiDiameterSolveCode,
                 SemiDiameterFixed = source.SemiDiameterFixed,
-                Conic = source.Conic,
+                Conic = referencePlane ? 0 : source.Conic,
                 IsStop = source.IsStop,
                 IsReflective = isReflective,
                 Geometry = geometry,
@@ -871,7 +883,8 @@ internal static partial class ZemaxZmxReader
     private static void ApplyCoordinateBreak(
         ZemaxSurface source,
         ref Vector3D origin,
-        ref Matrix3x3 rotation)
+        ref Matrix3x3 rotation,
+        bool includeThickness = true)
     {
         if (Math.Abs(source.Parameter(5)) > 1e-12)
         {
@@ -882,7 +895,7 @@ internal static partial class ZemaxZmxReader
         var decenter = new Vector3D(source.Parameter(0), source.Parameter(1), 0);
         origin += rotation.Transform(decenter);
         rotation *= RotationMatrix(source.Parameter(2), source.Parameter(3), source.Parameter(4));
-        if (!double.IsInfinity(source.Thickness))
+        if (includeThickness && !double.IsInfinity(source.Thickness))
         {
             origin += rotation.Transform(new Vector3D(0, 0, source.Thickness));
         }
@@ -890,6 +903,12 @@ internal static partial class ZemaxZmxReader
 
     private static IGeometry CreateGeometry(ZemaxSurface surface)
     {
+        if (surface.Type is "STANDARD" or "EVENASPH" or "ODDASPHE" or "TOROIDAL"
+            && surface.Parameter(-1) != 0)
+        {
+            throw new NotSupportedException(
+                $"Nonzero Zemax PARM 0 on TYPE {surface.Type} is not supported (SURF {surface.Number}).");
+        }
         var radius = double.IsInfinity(surface.Radius) ? 0 : surface.Radius;
         return surface.Type switch
         {
@@ -1084,7 +1103,7 @@ internal static partial class ZemaxZmxReader
         IReadOnlyList<string> glassCatalogs)
     {
         var physicalSurfaces = configuredSurfaces
-            .Where(surface => surface.Type != "COORDBRK")
+            .Where(IsImportedSurface)
             .ToArray();
         var wavelength = (optic.Wavelengths.FirstOrDefault(item => item.IsPrimary)
             ?? optic.Wavelengths.FirstOrDefault())?.Micrometers ?? 0.5875618;
@@ -1150,25 +1169,34 @@ internal static partial class ZemaxZmxReader
         }
     }
 
-    private static void ConfigureMeritFunction(Optic optic, ZemaxDocument document)
+    private static void ConfigureMeritFunction(Optic optic, ZemaxDocument document, IReadOnlyList<ZemaxSurface> configuredSurfaces)
     {
+        var sourceToImported = configuredSurfaces
+            .Where(IsImportedSurface)
+            .Select((surface, index) => (surface.Number, index))
+            .ToDictionary(surface => surface.Number, surface => surface.index);
         optic.MeritFunctionOperands.Clear();
         foreach (var operand in document.MeritOperands)
         {
             var imported = operand.Clone();
-            var centroidSurface = imported.Type is "CENX" or "CENY" or "CNPX" or "CNPY" or "CNAX" or "CNAY";
-            if ((centroidSurface && imported.Surface != 0)
-                || imported.Type is "GLCX" or "GLCY" or "GLCZ" or "GLCA" or "GLCB" or "GLCC" or "GLCR"
-                or "RAGX" or "RAGY" or "RAGZ" or "RAGA" or "RAGB" or "RAGC")
+            if (!imported.CompatibilityOnly && ZemaxOperandRegistry.TryGet(imported.Type, out var descriptor))
             {
-                // Coordinate breaks are folded into physical frames by the importer.
-                // Remap active surface references together with GLRS, never use shifted source numbering.
-                var numbers = document.Surfaces.Where(s => !s.Type.Equals("COORDBRK", StringComparison.OrdinalIgnoreCase))
-                    .Select(s => s.Number).ToArray();
-                imported.Surface = Array.IndexOf(numbers, imported.Surface);
-                if (imported.Surface < 0)
-                    throw new NotSupportedException($"{imported.Type} 指向不存在或已折叠的坐标断点面，当前尚未支持该参考。");
-                if (imported.ZemaxIntegerParameters.Length > 0) imported.ZemaxIntegerParameters[0] = imported.Surface;
+                // Use typed slots: sampling, field, wavelength and operand-row
+                // indices must never be interpreted as physical surface numbers.
+                for (var slot = 0; slot < imported.ZemaxIntegerParameters.Length; slot++)
+                {
+                    if (!descriptor.UsesSlotAs($"Int{slot + 1}", ZemaxOperandParameterValueKind.Surface)
+                        && !descriptor.UsesSlotAs($"Int{slot + 1}", ZemaxOperandParameterValueKind.EndSurface))
+                        continue;
+                    var sourceNumber = imported.ZemaxIntegerParameters[slot];
+                    // Preserve operand-specific zero conventions (image/all/object).
+                    if (sourceNumber == 0) continue;
+                    if (!sourceToImported.TryGetValue(sourceNumber, out var mapped))
+                        throw new NotSupportedException($"{imported.Type} 指向不存在或已折叠的坐标断点面，当前尚未支持该参考。");
+                    imported.ZemaxIntegerParameters[slot] = mapped;
+                    if (slot == 0) imported.Surface = mapped;
+                    if (slot == 1) imported.Wavelength = mapped;
+                }
             }
             optic.MeritFunctionOperands.Add(imported);
         }
@@ -1734,12 +1762,13 @@ internal static partial class ZemaxZmxReader
             return "Object";
         }
 
-        if (index == source.Count(item => item.Type != "COORDBRK") - 1)
+        if (index == source.Count(IsImportedSurface) - 1)
         {
             return "Image";
         }
 
-        return surface.IsStop ? "Aperture stop" : $"Surface {index}";
+        return surface.RetainReferencePlane ? $"Coordinate break {surface.Number} reference plane"
+            : surface.IsStop ? "Aperture stop" : $"Surface {index}";
     }
 
     private static string NormalizeMaterial(string material)
@@ -1895,6 +1924,7 @@ internal static partial class ZemaxZmxReader
         public double SemiDiameterPickupScale { get; set; } = 1;
         public bool IsStop { get; set; }
         public bool IsMirror { get; set; }
+        public bool RetainReferencePlane { get; set; }
         public ZemaxMarginalRayHeightSolve? MarginalRayHeightSolve { get; set; }
         public ZemaxCurvatureSolve? CurvatureSolve { get; set; }
         public Dictionary<int, double> Parameters { get; } = new();

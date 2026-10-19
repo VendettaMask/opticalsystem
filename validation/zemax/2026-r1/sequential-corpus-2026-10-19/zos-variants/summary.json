@@ -1,0 +1,266 @@
+{
+  "date": "2026-10-19",
+  "nativeReferenceFormat": "zos",
+  "sourceLenses": 13,
+  "sourceFiles": 26,
+  "originalSourceFilesUnchanged": 26,
+  "nativeJobs": 203,
+  "nativeFailures": 2,
+  "completedNativeAttemptsIncludingRetainedFailures": 203,
+  "completedWorkbenchAttemptsIncludingRetainedFailures": 156,
+  "analysisRequests": 356,
+  "analysisCounts": {
+    "Incomparable": 207,
+    "Error": 54,
+    "Pass": 87,
+    "Close": 2,
+    "Difference": 6
+  },
+  "rayJobs": 26,
+  "rayCounts": {
+    "Error": 10,
+    "Pass": 7,
+    "Difference": 8,
+    "Incomparable": 1
+  },
+  "physicalSurfaceComparisons": 34855,
+  "comparedValues": 209130,
+  "comparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "inventorySha256": "72be192deb6330edae013ec1fb51f587e7b8dc949c4f00d6c1f0b80427179c89",
+  "completeExecutionAttempts": true,
+  "scope": "18 primary analyses plus 4 edge-field controls at each positive-weight wavelength and GQ6 rays for every successfully prepared configuration. Not all field/wavelength/sampling combinations. ZOS/ZMX equality covers captured configuration-1 model properties only, not all numerical outputs.",
+  "lensRows": [
+    {
+      "lens": "Afocal/Binocular_System.ZMX",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Incomparable": 60
+      },
+      "rayCounts": {
+        "Error": 6
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 6,\r\n        \"originalType\": \"Zemax TYPE ODDCOSIN\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE ODDCOSIN \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 60
+    },
+    {
+      "lens": "Birefringent prisms/Birefringent cube.zmx",
+      "coreConfigurations": 0,
+      "nativeConfigurations": 2,
+      "importErrors": [
+        "System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers.\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Parse(String text) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\ZemaxZmxReader.cs:line 555\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\ZemaxZmxReader.cs:line 25\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.ImportConfigurationSet(String text) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\CommercialFormatIO.cs:line 217\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.ImportConfigurationSetFileAsync(String path, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\CommercialFormatIO.cs:line 243\r\n   at OpticalSystemDesign.ZemaxComparison.Workbench.WorkbenchExecutor.Import(String path) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Workbench\\WorkbenchExecutor.cs:line 31\r\n   at Program.<Main>$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\SequentialCorpus20261019\\Program.cs:line 85"
+      ],
+      "analysisCounts": {},
+      "rayCounts": {},
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers.",
+        "Native configurations=2, completed Core snapshots=0; review missing import/configuration coverage."
+      ],
+      "analysisRequests": 0
+    },
+    {
+      "lens": "Birefringent prisms/Rochon prism.zmx",
+      "coreConfigurations": 0,
+      "nativeConfigurations": 2,
+      "importErrors": [
+        "System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers.\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Parse(String text) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\ZemaxZmxReader.cs:line 555\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\ZemaxZmxReader.cs:line 25\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.ImportConfigurationSet(String text) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\CommercialFormatIO.cs:line 217\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.ImportConfigurationSetFileAsync(String path, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\CommercialFormatIO.cs:line 243\r\n   at OpticalSystemDesign.ZemaxComparison.Workbench.WorkbenchExecutor.Import(String path) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Workbench\\WorkbenchExecutor.cs:line 31\r\n   at Program.<Main>$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\SequentialCorpus20261019\\Program.cs:line 85"
+      ],
+      "analysisCounts": {},
+      "rayCounts": {},
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers.",
+        "Native configurations=2, completed Core snapshots=0; review missing import/configuration coverage."
+      ],
+      "analysisRequests": 0
+    },
+    {
+      "lens": "Birefringent prisms/Senarmont prism.zmx",
+      "coreConfigurations": 0,
+      "nativeConfigurations": 2,
+      "importErrors": [
+        "System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers.\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Parse(String text) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\ZemaxZmxReader.cs:line 555\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\ZemaxZmxReader.cs:line 25\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.ImportConfigurationSet(String text) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\CommercialFormatIO.cs:line 217\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.ImportConfigurationSetFileAsync(String path, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\CommercialFormatIO.cs:line 243\r\n   at OpticalSystemDesign.ZemaxComparison.Workbench.WorkbenchExecutor.Import(String path) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Workbench\\WorkbenchExecutor.cs:line 31\r\n   at Program.<Main>$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\SequentialCorpus20261019\\Program.cs:line 85"
+      ],
+      "analysisCounts": {},
+      "rayCounts": {},
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers.",
+        "Native configurations=2, completed Core snapshots=0; review missing import/configuration coverage."
+      ],
+      "analysisRequests": 0
+    },
+    {
+      "lens": "Birefringent prisms/Wollaston prism.zmx",
+      "coreConfigurations": 0,
+      "nativeConfigurations": 2,
+      "importErrors": [
+        "System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers.\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Parse(String text) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\ZemaxZmxReader.cs:line 555\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\ZemaxZmxReader.cs:line 25\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.ImportConfigurationSet(String text) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\CommercialFormatIO.cs:line 217\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.ImportConfigurationSetFileAsync(String path, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\CommercialFormatIO.cs:line 243\r\n   at OpticalSystemDesign.ZemaxComparison.Workbench.WorkbenchExecutor.Import(String path) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Workbench\\WorkbenchExecutor.cs:line 31\r\n   at Program.<Main>$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\SequentialCorpus20261019\\Program.cs:line 85"
+      ],
+      "analysisCounts": {},
+      "rayCounts": {},
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers.",
+        "Native configurations=2, completed Core snapshots=0; review missing import/configuration coverage."
+      ],
+      "analysisRequests": 0
+    },
+    {
+      "lens": "Diffractive components/Sample Spectrometer.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 30
+      },
+      "rayCounts": {
+        "Error": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE DGRATING\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE DGRATING \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Miscellaneous/Doubly telecentric system.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 20,
+        "Close": 1,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Pass": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.012291776422362186,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Miscellaneous/MEMS DLL Sample.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 22
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE SLIDESRF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE SLIDESRF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Objectives/Double Gauss 28 degree field.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 26,
+        "Incomparable": 3,
+        "Error": 1
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.0008404406818883996,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Wide angle lens 100 degree field.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Incomparable": 30
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Telescopes/Schalcktelescope 10.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Difference": 5,
+        "Pass": 22,
+        "Incomparable": 1,
+        "Close": 1,
+        "Error": 1
+      },
+      "rayCounts": {
+        "Difference": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 1.999999999999999,
+      "notes": [
+        "Reflection raw local direction convention requires review."
+      ],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Tilted systems & prisms/Offner relay.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Difference": 1,
+        "Incomparable": 2,
+        "Pass": 19
+      },
+      "rayCounts": {
+        "Incomparable": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 1.9999999999999987,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Zoom systems/Mirror zoom.zmx",
+      "coreConfigurations": 5,
+      "nativeConfigurations": 5,
+      "importErrors": [],
+      "analysisCounts": {
+        "Incomparable": 110
+      },
+      "rayCounts": {
+        "Difference": 5
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "Reflection raw local direction convention requires review."
+      ],
+      "analysisRequests": 110
+    }
+  ]
+}

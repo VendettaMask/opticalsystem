@@ -22,8 +22,7 @@ public sealed partial class MainWindow
     private void RegisterActions()
     {
         _actions.Register("new", "新建空白系统", "文件", () => SwitchDocumentAsync(_application.Documents.NewBlank));
-        _actions.Register("new-demo", "新建 Cooke 三片式样例", "文件", () => SwitchDocumentAsync(_application.Documents.NewCooke));
-        _actions.Register("new-tessar", "新建 Tessar F/4.5 四片式样例", "文件", () => SwitchDocumentAsync(_application.Documents.NewTessar));
+        RegisterSequentialExamples();
         _actions.Register("open", "打开光学系统", "文件", OpenAsync);
         _actions.Register("import-zemax", "导入 Zemax ZMX", "文件", ImportZemaxAsync);
         _actions.Register("save-as", "保存项目", "文件", SaveProjectAsync);
@@ -207,7 +206,6 @@ public sealed partial class MainWindow
         _actions.Register("show-operand-help", "操作数帮助", "帮助", _panels.ShowOperandHelp);
         _actions.Register("recover-document", "恢复未保存工程", "帮助", ShowDocumentRecoveryAsync);
         _actions.Register("about", "关于 Optical System Design", "帮助", ShowAboutAsync);
-        _actions.Register("check-for-updates", "检查更新", "帮助", ShowUpdatesAsync);
         foreach (var analysis in WorkbenchAnalysisCatalog.AllRibbonCommands)
         {
             _actions.Register(

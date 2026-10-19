@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-19",
+  "scope": "Ordinary Light ribbon DropDownButton active-state chrome only.",
+  "cause": "RootBorder and PART_ContentPresenter both drew an outline in active ribbon states.",
+  "change": "Keep the single 1 DIP RootBorder outline; make the ribbon dropdown content presenter transparent with zero border. Existing focus adorner and native popup behavior retained.",
+  "tests": {
+    "total": 40,
+    "passed": 40,
+    "failed": 0,
+    "skipped": 0,
+    "trx": "artifacts/validation/ribbon-dropdown-border-20261019/tests/ribbon-border-Release.trx",
+    "sha256": "4f3ac01adef494a32d0046e47edbbc7c7afe8b5e0000f07a04a331f6ca76b72a"
+  },
+  "renderedStates": [
+    {
+      "name": "idle",
+      "regular": "0,0,0,0",
+      "dropdownOuter": "0,0,0,0",
+      "dropdownInner": "0,0,0,0",
+      "dropdownStates": [
+        "ribbon-command",
+        "ribbon-dropdown"
+      ]
+    },
+    {
+      "name": "save-hover",
+      "regular": "1,1,1,1",
+      "dropdownOuter": "0,0,0,0",
+      "dropdownInner": "0,0,0,0",
+      "dropdownStates": [
+        "ribbon-command",
+        "ribbon-dropdown"
+      ]
+    },
+    {
+      "name": "dropdown-hover",
+      "regular": "0,0,0,0",
+      "dropdownOuter": "1,1,1,1",
+      "dropdownInner": "0,0,0,0",
+      "dropdownStates": [
+        "ribbon-command",
+        "ribbon-dropdown",
+        ":pointerover"
+      ]
+    },
+    {
+      "name": "dropdown-pressed",
+      "regular": "0,0,0,0",
+      "dropdownOuter": "1,1,1,1",
+      "dropdownInner": "0,0,0,0",
+      "dropdownStates": [
+        "ribbon-command",
+        "ribbon-dropdown",
+        ":pointerover",
+        ":focus-within",
+        ":focus",
+        ":pressed"
+      ]
+    },
+    {
+      "name": "dropdown-open",
+      "regular": "0,0,0,0",
+      "dropdownOuter": "1,1,1,1",
+      "dropdownInner": "0,0,0,0",
+      "dropdownStates": [
+        "ribbon-command",
+        "ribbon-dropdown",
+        ":flyout-open"
+      ]
+    },
+    {
+      "name": "dropdown-keyboard-focus",
+      "regular": "0,0,0,0",
+      "dropdownOuter": "0,0,0,0",
+      "dropdownInner": "0,0,0,0",
+      "dropdownStates": [
+        "ribbon-command",
+        "ribbon-dropdown",
+        ":focus-within",
+        ":focus"
+      ]
+    }
+  ],
+  "verification": [
+    "Default Release App and related test project built with zero warnings/errors.",
+    "Default Debug App built with zero warnings/errors.",
+    "Changed C# file whitespace verification passed.",
+    "Existing CompactRibbonTests, BlueThemeInteractionTests, ThemeResourceTests and LumenThemeTests passed.",
+    "Real Headless/Skia captures used for visual comparison; no new permanent regression tests added for this UI-only repair."
+  ],
+  "source": "src/OpticalSystemDesign.App/Theming/BlueThemeStyles.cs",
+  "sourceSha256": "7a8074eef9ad8543895e2a47926ec0e929729fda70d4ac90cda29e1a5c5a7647",
+  "localEvidenceRoot": "artifacts/validation/ribbon-dropdown-border-20261019",
+  "boundaries": [
+    "No changes to other theme selectors, non-ribbon dropdowns, optical computations, references or tolerances in this task.",
+    "Earlier worktree changes retained. No installer rebuild, install, commit or push."
+  ]
+}

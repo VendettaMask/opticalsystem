@@ -319,6 +319,10 @@ public sealed class UserGuidePanel : UserControl
 
         yield return Chapter("projects", "工程与数据", "Projects and Data", "プロジェクトとデータ", "新建、打开、保存与恢复", "Create, Open, Save, and Recover", "新規作成、開く、保存、復元",
             "管理原生工程、光学快照、商业格式导入和未保存恢复。", "Manage native projects, optical snapshots, commercial imports, and unsaved recovery.", "ネイティブプロジェクト、光学スナップショット、商用形式のインポート、未保存データの復元を管理します。",
+            S("镜头示例", "Lens examples", "レンズサンプル",
+                "从“文件 → 示例”按原目录分类选择镜头。现有示例为 Zemax Sequential 的 14 类、95 个 ZMX 文件，替换原先生成的示例入口；也可搜索镜头名称打开。文件随软件提供，无需本机安装 Zemax。示例使用同一个导入器，菜单收录不表示全部面型、分析或数值精度均已支持。修改后保存为自己的 STAROPT 工程。",
+                "Choose a lens by its original folder under File → Samples, or search for its name. The 14 categories contain 95 Zemax Sequential ZMX files, replacing the former generated sample entries. Files ship with the application and do not require a Zemax installation. They use the same importer; listing a sample does not certify all surface types, analyses, or numerical accuracy. Save edits as your own STAROPT project.",
+                "ファイル → サンプルから元のフォルダー別にレンズを選択するか、名前で検索します。従来の生成サンプルに代わり、Zemax Sequential の 14 分類・95 個の ZMX を同梱しており、Zemax のインストールは不要です。通常と同じインポーターを使用し、掲載は全ての面型・解析・数値精度への対応を保証しません。編集後は自分の STAROPT プロジェクトとして保存してください。"),
             S("原生工程", "Native projects", "ネイティブプロジェクト",
                 "STAROPT 工程保存处方、系统设置、配置、分析设置以及内置模块数据。保存前检查当前路径和修改状态；源码更新不会自动替换已安装程序或用户工程。",
                 "STAROPT projects store prescriptions, system settings, configurations, analysis settings, and built-in module data. Check the path and modified state before saving; source updates do not replace installed applications or user projects automatically.",
@@ -416,9 +420,9 @@ public sealed class UserGuidePanel : UserControl
                 "User Guide explains complete workflows and automatically lists every registered command and analysis. Operand Help documents merit-function codes. About shows product and runtime versions. Tooltips and unavailable reasons provide context-specific guidance.",
                 "ユーザーガイドは全ワークフローと登録済み全コマンド・解析を一覧し、オペランドヘルプはメリット関数コードを説明します。バージョン情報は製品とランタイムを表示し、ツールチップは現在の状況を説明します。"),
             S("版本与更新", "Version and updates", "バージョンと更新",
-                "在帮助页打开检查更新，手动查询 GitHub 正式发布及匹配的完整安装包。通过发布页下载，保存工程并关闭软件后手动安装。在线安装仅预留，不会后台检查、自动下载、自动安装或重启。未签名包不能认证发布者身份。",
-                "Open Check for Updates under Help to manually query stable GitHub releases and matching full installers. Download from the release page, save projects, close the app, then install manually. Online installation is reserved: no background checks, automatic downloads, installation or restart. Unsigned packages do not authenticate the publisher.",
-                "ヘルプの更新確認で GitHub の安定版と対応インストーラーを手動照会します。リリースページから取得し、プロジェクトを保存してアプリを終了後、手動でインストールしてください。オンラインインストールは準備中です。バックグラウンド確認、自動取得・インストール・再起動は行いません。未署名パッケージは発行元を認証しません。"),
+                "在“帮助 → 关于”中点击“检查更新”，手动查询正式发布及匹配的完整安装包。“打开发布页”可前往下载；检查结果详情可悬停最新正式版本查看。保存工程并关闭软件后手动安装，不会自动下载或安装。",
+                "Open Help → About and click Check for Updates to query stable releases and matching full installers. Open release page leads to the download page; hover over the latest stable version for check details. Save projects and close the app before installing manually. Downloads and installation are not automatic.",
+                "ヘルプ → バージョン情報の「更新を確認」で安定版と対応インストーラーを手動照会します。「リリースページを開く」で取得ページを開けます。最新安定版にカーソルを合わせると確認結果を表示します。プロジェクトを保存してアプリを終了後、手動でインストールしてください。自動取得・インストールは行いません。"),
             S("适用范围", "Scope", "適用範囲",
                 "指南描述当前程序中实际可见和注册的功能，不把计划功能、兼容保留数据或外部软件行为写成已实现能力。具体算法限制、采样定义和验证范围以对应分析页、专题文档及版本状态为准。",
                 "The guide describes features actually visible and registered in the current application. Planned features, compatibility-only data, and external-software behavior are not presented as implemented. Algorithm limits, sampling definitions, and validation scope remain governed by the relevant analysis page, topic documentation, and version status.",
@@ -457,9 +461,16 @@ public sealed class UserGuidePanel : UserControl
         string bodyZh, string bodyEn, string bodyJa) =>
         new(T(titleZh, titleEn, titleJa), T(bodyZh, bodyEn, bodyJa));
 
-    private static GuideText CommandName(AppAction action) => CommandNames.TryGetValue(action.Id, out var value)
-        ? value
-        : new GuideText(action.Text, action.Id.Replace('-', ' '), action.Id.Replace('-', ' '));
+    private static GuideText CommandName(AppAction action)
+    {
+        if (CommandNames.TryGetValue(action.Id, out var value)) return value;
+        if (action.Id.StartsWith("example-", StringComparison.Ordinal))
+        {
+            var name = Path.GetFileNameWithoutExtension(action.Id["example-".Length..]);
+            return T($"打开示例：{name}", $"Open example: {name}", $"サンプルを開く：{name}");
+        }
+        return new GuideText(action.Text, action.Id.Replace('-', ' '), action.Id.Replace('-', ' '));
+    }
 
     private static GuideText CommandDescription(AppAction action)
     {
@@ -500,6 +511,7 @@ public sealed class UserGuidePanel : UserControl
     private static GuideText CategoryName(string category) => category switch
     {
         "文件" => T("文件", "File", "ファイル"),
+        "示例" => T("示例", "Samples", "サンプル"),
         "编辑" => T("编辑", "Edit", "編集"),
         "面板" => T("面板", "Panels", "パネル"),
         "模式" => T("模式", "Modes", "モード"),
@@ -526,8 +538,6 @@ public sealed class UserGuidePanel : UserControl
         new Dictionary<string, GuideText>(StringComparer.Ordinal)
         {
             ["new"] = T("新建空白系统", "New Blank System", "空のシステムを新規作成"),
-            ["new-demo"] = T("新建 Cooke 三片式样例", "New Cooke Triplet Example", "Cooke トリプレット例を新規作成"),
-            ["new-tessar"] = T("新建 Tessar F/4.5 四片式样例", "New Tessar F/4.5 Example", "Tessar F/4.5 例を新規作成"),
             ["open"] = T("打开光学系统", "Open Optical System", "光学系を開く"),
             ["import-zemax"] = T("导入 Zemax ZMX", "Import Zemax ZMX", "Zemax ZMX をインポート"),
             ["save-as"] = T("保存项目", "Save Project", "プロジェクトを保存"),
@@ -601,7 +611,6 @@ public sealed class UserGuidePanel : UserControl
             ["show-user-guide"] = T("用户指南", "User Guide", "ユーザーガイド"),
             ["show-operand-help"] = T("操作数帮助", "Operand Help", "オペランドヘルプ"),
             ["recover-document"] = T("恢复未保存工程", "Recover Unsaved Project", "未保存プロジェクトを復元"),
-            ["check-for-updates"] = T("检查更新", "Check for Updates", "更新を確認"),
             ["about"] = T("关于 Optical System Design", "About Optical System Design", "Optical System Design について")
         };
 

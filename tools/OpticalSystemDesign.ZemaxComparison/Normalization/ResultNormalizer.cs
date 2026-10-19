@@ -42,6 +42,9 @@ public static class ResultNormalizer
     {
         var data = JsonFiles.Read<AnalysisData>(path);
         if (data.Outcome != AnalysisOutcome.Success) throw new InvalidDataException($"{data.Outcome}: {data.OutcomeReason}");
+        if ((request.ImageSpaceAfocal && entry.CanonicalAnalysisKey is "Ray Fan" or "MTF")
+            || (entry.CanonicalAnalysisKey == "MTF" && request.Field == 0))
+            return AfocalCurveNormalizer.Workbench(data, request);
         if (entry.ZemaxSettingsMapper == "contract") return ExtendedResultNormalizer.Workbench(data, request);
         var result = new NumericResult { Semantics = Semantics(entry) };
         if (entry.ZemaxSettingsMapper == "first-order")
@@ -121,6 +124,10 @@ public static class ResultNormalizer
         ValidateNumberedConfiguration(path, entry, request);
         using var doc = JsonDocument.Parse(File.ReadAllText(path)); var root = doc.RootElement;
         NativeReferenceDiagnostics.Validate(root);
+        AfocalAnalysisContracts.ValidateNativeModel(path, request);
+        if ((request.ImageSpaceAfocal && entry.CanonicalAnalysisKey is "Ray Fan" or "MTF")
+            || (entry.CanonicalAnalysisKey == "MTF" && request.Field == 0))
+            return AfocalCurveNormalizer.Zemax(root, request);
         if (entry.ZemaxSettingsMapper == "contract") return ExtendedResultNormalizer.Zemax(path, request);
         var result = new NumericResult { Semantics = Semantics(entry) };
         if (entry.ZemaxSettingsMapper == "first-order")

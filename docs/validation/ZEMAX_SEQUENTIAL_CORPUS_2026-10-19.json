@@ -1,0 +1,100 @@
+{
+  "date": "2026-10-19",
+  "scope": "95 installed Sequential sample names, 13 overlapping ZOS format controls",
+  "productOpticalCodeChanged": false,
+  "tolerancesChanged": false,
+  "main": {
+    "Incomparable": 744,
+    "Error": 836,
+    "Pass": 770,
+    "Difference": 150,
+    "Close": 26
+  },
+  "mainRequests": 2526,
+  "supplement": {
+    "Incomparable": 207,
+    "Error": 54,
+    "Pass": 87,
+    "Close": 2,
+    "Difference": 6
+  },
+  "supplementRequests": 356,
+  "lensRows": 95,
+  "details": 95,
+  "perLensAnalysisTotalsMatch": true,
+  "originalSourcesUnchanged": 295,
+  "frozenAssetsMatched": 2668,
+  "coreReleaseSha256": "992b7c8005b03b4e848b4e1eaee51233273b3ebfc8d54a57462a27143aae439e",
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "lensStatuses": [
+    {
+      "Name": "本次请求全部通过",
+      "Count": 2
+    },
+    {
+      "Name": "部分接近，仍需核对",
+      "Count": 1
+    },
+    {
+      "Name": "存在分析差异",
+      "Count": 29
+    },
+    {
+      "Name": "存在光线差异，待核坐标约定",
+      "Count": 4
+    },
+    {
+      "Name": "存在计算/采集错误",
+      "Count": 30
+    },
+    {
+      "Name": "导入/准备失败",
+      "Count": 16
+    },
+    {
+      "Name": "分析不可比，精度未认证",
+      "Count": 8
+    },
+    {
+      "Name": "已比较项通过，存在未覆盖项",
+      "Count": 5
+    }
+  ],
+  "strictDocumentationAudit": "artifacts/validation/sequential-corpus-documentation-audit-20261019.json",
+  "rawCaptures": "artifacts/zemax-sequential-corpus/20261019",
+  "rawArchiveCreated": false,
+  "outputs": [
+    {
+      "path": "validation/zemax/2026-r1/sequential-corpus-2026-10-19/BY_LENS.md",
+      "sha256": "f4e7e37f3f8b0c7ae41a6e63a9ce62f437dababa44ac5c4a56e0c75d4b3b0bc8"
+    },
+    {
+      "path": "validation/zemax/2026-r1/sequential-corpus-2026-10-19/lens-results.csv",
+      "sha256": "2fe479555b312ed22deefd0b48117080a6af2f08d5087ccf5d29df6c39dcad3f"
+    },
+    {
+      "path": "validation/zemax/2026-r1/sequential-corpus-2026-10-19/summary.json",
+      "sha256": "15d026cda86b85ed76a5905f179f6c19563f602dc14b729e126d0857316b1286"
+    },
+    {
+      "path": "validation/zemax/2026-r1/sequential-corpus-2026-10-19/analysis-matrix.csv",
+      "sha256": "64e1db0d4afdf5524cf428428bee087e43f82d4dc4009cf8d545f9b568a1a77a"
+    },
+    {
+      "path": "validation/zemax/2026-r1/sequential-corpus-2026-10-19/ray-results.json",
+      "sha256": "bed3675b29b1fa45b2f37f3e7ddb65ce5c49a9ff762c62057367a3cedbc195ba"
+    },
+    {
+      "path": "validation/zemax/2026-r1/sequential-corpus-2026-10-19/failure-matrix.csv",
+      "sha256": "12e7144fda613ee01767f1debbf52113e5b80a4e02844d9538c2ff3c56a775ad"
+    },
+    {
+      "path": "validation/zemax/2026-r1/sequential-corpus-2026-10-19/source-integrity.json",
+      "sha256": "7bdc9e21447ab75e28c31e68f9883d42690c5f867036f74ef11dbfa041ae16dd"
+    },
+    {
+      "path": "validation/zemax/2026-r1/sequential-corpus-2026-10-19/zos-variants/summary.json",
+      "sha256": "f33348970fe48c06f623750c94c71c71aa5d4692926e450d7aa72ca47c71d056"
+    }
+  ]
+}

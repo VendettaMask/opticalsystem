@@ -36,6 +36,13 @@
     <Content Include="Assets/LensLibrary/**/*"
              CopyToOutputDirectory="PreserveNewest"
              Link="LensLibrary/%(RecursiveDir)%(Filename)%(Extension)" />
+    <Content Include="Assets/SequentialExamples/**/*"
+             Exclude="Assets/SequentialExamples/index.json"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest"
+             Link="Examples/Sequential/%(RecursiveDir)%(Filename)%(Extension)" />
+    <EmbeddedResource Include="Assets/SequentialExamples/index.json"
+                      LogicalName="OpticalSystemDesign.App.SequentialExamples.index.json" />
     <EmbeddedResource Include="Assets/Brand/CompanyLogo.png"
                       LogicalName="OpticalSystemDesign.App.Assets.Brand.CompanyLogo.png" />
     <EmbeddedResource Include="Assets/DrawingTemplates/*.xml">

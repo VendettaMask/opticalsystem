@@ -133,9 +133,16 @@ internal sealed class BlueThemeStyles : Styles
         })
         {
             Rule(s => InState(Enabled(s.Is<Button>().PropertyEquals(ThemeVariantScope.ActualThemeVariantProperty, ThemeVariant.Light))
-                .Class("ribbon-command"), state).Template().OfType<ContentPresenter>().Name("PART_ContentPresenter"),
+                .Class("ribbon-command").Not(s => s.OfType<DropDownButton>()), state).Template().OfType<ContentPresenter>().Name("PART_ContentPresenter"),
                 new Setter(ContentPresenter.BackgroundProperty, B(background)), new Setter(ContentPresenter.BorderBrushProperty, B(border)),
                 new Setter(ContentPresenter.BorderThicknessProperty, new Thickness(1)));
+            // DropDownButton already paints its chrome on RootBorder. The shared
+            // ribbon hover style must not add another outline on its presenter.
+            Rule(s => InState(Enabled(Light<DropDownButton>(s)).Class("ribbon-command"), state)
+                .Template().OfType<ContentPresenter>().Name("PART_ContentPresenter"),
+                new Setter(ContentPresenter.BackgroundProperty, Brushes.Transparent),
+                new Setter(ContentPresenter.BorderBrushProperty, Brushes.Transparent),
+                new Setter(ContentPresenter.BorderThicknessProperty, new Thickness(0)));
             Rule(s => InState(Enabled(Light<DropDownButton>(s)), state).Template().OfType<Border>().Name("RootBorder"),
                 new Setter(Border.BackgroundProperty, B(background)), new Setter(Border.BorderBrushProperty, B(border)),
                 new Setter(Border.BorderThicknessProperty, new Thickness(1)));

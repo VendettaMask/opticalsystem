@@ -1,4 +1,6 @@
-# 测试镜头样例
+# 导入器回归夹具
+
+产品“文件 → 示例”现使用 Zemax Sequential 的全部 14 类、95 个镜头，原来的生成示例入口已删除。随程序提供的源文件及清单位于 [`src/OpticalSystemDesign.App/Assets/SequentialExamples`](../../src/OpticalSystemDesign.App/Assets/SequentialExamples/README.md)，操作见[用户指南](../../docs/USER_GUIDE.md#镜头示例)。下列历史文件保留用于导入器和数值回归，不再作为产品示例菜单。
 
 用于手工界面和导入器测试的 Zemax 顺序模式源文件位于：
 

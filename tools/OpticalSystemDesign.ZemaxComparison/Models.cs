@@ -32,6 +32,10 @@ public sealed record NumericResult
 public sealed record CanonicalAnalysisRequest
 {
     public required string CanonicalAnalysisKey { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool ImageSpaceAfocal { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? NativeAfocalAngleUnit { get; init; }
     public int Configuration { get; init; } = 1;
     public int Field { get; init; } = 1;
     public int Wavelength { get; init; } = 1;

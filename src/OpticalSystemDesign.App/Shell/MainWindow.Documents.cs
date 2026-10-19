@@ -13,7 +13,9 @@ using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Manufacturing;
+using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Services.Updates;
 
 namespace OpticalSystemDesign.App;
 
@@ -179,18 +181,19 @@ public sealed partial class MainWindow
         await dialog.ShowDialog(this);
     }
 
-    internal static Window CreateAboutDialog(Bitmap authorBitmap)
+    internal static Window CreateAboutDialog(Bitmap authorBitmap, IReleaseUpdateService? updateService = null,
+        Func<Uri, Task<bool>>? openReleasePage = null)
     {
         ArgumentNullException.ThrowIfNull(authorBitmap);
         var dialog = new Window
         {
             Title = "关于 Optical System Design",
-            Width = 640,
-            Height = 370,
+            Width = 680,
+            Height = 480,
             CanResize = false,
             WindowStartupLocation = WindowStartupLocation.CenterOwner
         };
-        var closeButton = new Button { Content = "关闭", MinWidth = 88, HorizontalAlignment = HorizontalAlignment.Right };
+        var closeButton = new Button { Name = "CloseAboutWindow", Content = "关闭", MinWidth = 88, HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Bottom };
         closeButton.Click += (_, _) => dialog.Close();
         var versionText = new TextBlock
         {
@@ -265,10 +268,18 @@ public sealed partial class MainWindow
             RowDefinitions = new RowDefinitions("*,Auto"),
             RowSpacing = 18
         };
-        Grid.SetRow(closeButton, 1);
+        var updates = new SoftwareUpdatePanel(updateService, openReleasePage);
+        var footer = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 16 };
+        footer.Children.Add(updates);
+        Grid.SetColumn(closeButton, 1);
+        footer.Children.Add(closeButton);
+        Grid.SetRow(footer, 1);
         root.Children.Add(main);
-        root.Children.Add(closeButton);
+        root.Children.Add(footer);
         dialog.Content = root;
+        dialog.Closed += (_, _) => updates.Dispose();
+        DisplayTypography.Apply(dialog);
+        UiLocalization.Attach(dialog);
         return dialog;
     }
 }

@@ -1,5 +1,6 @@
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Materials;
@@ -1408,8 +1409,8 @@ public static partial class MeritFunctionCatalog
             "GLCX" or "GLCY" or "GLCZ" or "GLCA" or "GLCB" or "GLCC" or "GLCR" => EvaluateGlobalSurfaceData(optic, definition),
             "RAGX" or "RAGY" or "RAGZ" or "RAGA" or "RAGB" or "RAGC" => EvaluateGlobalRayData(optic, definition),
             "DXDX" or "DXDY" or "DYDX" or "DYDY" => EvaluateRayFanDerivative(optic, definition),
-            "REAX" => SampleAtSurface(optic, definition).Position.X,
-            "REAY" => SampleAtSurface(optic, definition).Position.Y,
+            "REAX" => LocalRealRayPosition(optic, definition).X,
+            "REAY" => LocalRealRayPosition(optic, definition).Y,
             "REAR" => EvaluateRealRayRadius(optic, definition),
             "RANG" => EvaluateRealRayAngle(optic, definition),
             "REAZ" or "REAA" or "REAB" or "REAC" or "RENA" or "RENB" or "RENC"
@@ -1712,8 +1713,14 @@ public static partial class MeritFunctionCatalog
 
     private static double EvaluateRealRayRadius(Optic optic, MeritOperandDefinition definition)
     {
+        var position = LocalRealRayPosition(optic, definition);
+        return Math.Sqrt((position.X * position.X) + (position.Y * position.Y));
+    }
+
+    private static Vector3D LocalRealRayPosition(Optic optic, MeritOperandDefinition definition)
+    {
         var sample = SampleAtSurface(optic, definition);
-        return Math.Sqrt((sample.Position.X * sample.Position.X) + (sample.Position.Y * sample.Position.Y));
+        return ResolveSurface(optic, sample.SurfaceNumber).CoordinateSystem.ToLocalPoint(sample.Position);
     }
 
     private static double EvaluateRealRayAngle(Optic optic, MeritOperandDefinition definition)

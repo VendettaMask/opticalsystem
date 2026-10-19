@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-19",
+  "scope": "Move manual update controls into About; remove independent update command/window, repository and body messages, reserved upgrade button; rename release-page button in all three languages.",
+  "queryBehavior": "No check when About opens; duplicate requests suppressed; closing About cancels; details available through latest-version tooltip and accessibility help.",
+  "verification": {
+    "total": 70,
+    "groups": [
+      {
+        "file": "artifacts\\validation\\about-updates-20261019\\tests\\final-AboutUpdateTests-Release.trx",
+        "total": 5,
+        "passed": 5,
+        "failed": 0,
+        "sha256": "d1c6ba836a7ef7b87ae8ce8649c6ff757df22c730c4231338e6282632e2dbc3a"
+      },
+      {
+        "file": "artifacts\\validation\\about-updates-20261019\\tests\\final-AboutWindowTests-Release.trx",
+        "total": 5,
+        "passed": 5,
+        "failed": 0,
+        "sha256": "6936dd239927c32f04a439c17f558aef55fa7d1b0eaf25a382571c8602009fae"
+      },
+      {
+        "file": "artifacts\\validation\\about-updates-20261019\\tests\\final-related-Release.trx",
+        "total": 60,
+        "passed": 60,
+        "failed": 0,
+        "sha256": "eb2f4f8bdf83c560ae3413b44eed5af6cf50ebd34e0b0d3f5e4d966ec3c4aeea"
+      }
+    ],
+    "rendering": "Seven real Headless/Skia captures: three localized update states and four About theme/font variants. Test update version 99.0.0 is a synthetic fixture, not a live release.",
+    "builds": [
+      "Default Release tests and App: 0 warnings, 0 errors",
+      "Default Debug App: 0 warnings, 0 errors"
+    ],
+    "core": [
+      {
+        "configuration": "Debug",
+        "sha256": "b7da90d4148c3336bac5c46f3bba76d1653f3732ba77b1cdd9f1ca9fbe89eaf4",
+        "unchangedFromPriorPrecisionRepair": true
+      },
+      {
+        "configuration": "Release",
+        "sha256": "992b7c8005b03b4e848b4e1eaee51233273b3ebfc8d54a57462a27143aae439e",
+        "unchangedFromPriorPrecisionRepair": true
+      }
+    ]
+  },
+  "harnessRecords": [
+    "Initial mixed rendering run: 63 passed, 7 failed with HeadlessGlyphRunStub/Skia backend conflict. Final rendering classes run in separate processes; all 70 final cases passed.",
+    "Initial Debug output locked by workspace process 17020. Verified executable path and closed normally, then rebuilt default Debug successfully."
+  ],
+  "boundaries": [
+    "UI and help changes only in this task; preceding uncommitted numerical repairs preserved.",
+    "No new Zemax capture or optical matrix rerun.",
+    "No installer rebuild, installation, commit, push or release upload."
+  ],
+  "localEvidenceRoot": "artifacts/validation/about-updates-20261019"
+}

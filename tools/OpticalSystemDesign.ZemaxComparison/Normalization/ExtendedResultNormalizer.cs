@@ -38,6 +38,9 @@ public static partial class ExtendedResultNormalizer
         {
             var series = new Series1DResult(id, s.Name, s.Points.Select(p => p.Y / divisor).ToArray(), s.Points.Select(p => p.X).ToArray(),
                 x, new(s.XQuantity.ToString(), s.XUnit.ToString()));
+            if (r.ImageSpaceAfocal && r.CanonicalAnalysisKey is "Field Curvature" or "Field Curvature and Distortion"
+                && id is "tangential" or "sagittal")
+                y = series.YAxis; // Preserve unsupported Core mm output; never relabel it as diopters.
             result.Series.Add(PhysicalNormalization.Convert(series, x, y, result.Transformations));
         }
         switch (r.CanonicalAnalysisKey)
@@ -119,8 +122,9 @@ public static partial class ExtendedResultNormalizer
             case "Field Curvature and Distortion":
                 Require(r.FieldDefinition is "ObjectHeight" or "Angle", "Field-coordinate conversion requires an audited native field-type mapping");
                 Require(rows[0].Length == 5, "Field curvature native contract has five columns");
-                Curve(0, "tangential", Field, Defocus, r.MaximumFieldRadius);
-                Curve(1, "sagittal", Field, Defocus, r.MaximumFieldRadius);
+                var focus = r.ImageSpaceAfocal ? new Axis("Defocus", "Diopter") : Defocus;
+                Curve(0, "tangential", Field, focus, r.MaximumFieldRadius);
+                Curve(1, "sagittal", Field, focus, r.MaximumFieldRadius);
                 if (r.CanonicalAnalysisKey == "Field Curvature and Distortion") Curve(4, "distortion", Field, new("Distortion", "Percent"), r.MaximumFieldRadius);
                 break;
             case "Color Focus Shift": Require(rows[0].Length == 1, "Expected one continuous chromatic-focus column"); Curve(0, "focus", Wavelength, Defocus); break;

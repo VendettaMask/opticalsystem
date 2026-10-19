@@ -193,6 +193,7 @@ public sealed class ComparisonRunner
                         Apodization = JsonSerializer.Serialize(snapshot.Apodization, JsonFiles.Options),
                         UseRayAiming = optic.RayAimingEnabled,
                         WavelengthCount = optic.Wavelengths.Count,
+                        WavelengthScope = a.Wavelength == 0 ? "AllDefined" : "Selected",
                         FieldDefinition = optic.FieldDefinition.ToString(),
                         SurfaceCount = optic.SurfaceGroup.Items.Count,
                         FieldCount = optic.Fields.Count,
@@ -205,6 +206,7 @@ public sealed class ComparisonRunner
                     var clock = Stopwatch.StartNew(); Console.WriteLine($"c{c} {entry.CanonicalAnalysisKey}");
                     try
                     {
+                        request = AfocalAnalysisContracts.Configure(request, optic.ImageSpaceAfocal, text);
                         request = ExtendedAnalysisContracts.Configure(entry, request, Math.Max(1, snapshot.Wavelengths.FindIndex(w => w.IsPrimary) + 1));
                         if (request.SourceImagePath is { } sourceImage)
                         {
@@ -241,8 +243,9 @@ public sealed class ComparisonRunner
                         if (wb.Cancelled) continue;
                         if (entry.ZemaxSettingsMapper == "unimplemented") { if (wb.ExitCode == 0) run.Conclusion = Conclusion.Incomparable; continue; }
                         if (zemax is null) { run.ZemaxStatus = CaptureStatus.Failed; run.Conclusion = Conclusion.Error; run.Reason = "ZOS-API setup failed; see probe log"; continue; }
-                        if (optic.ImageSpaceAfocal || !headers.Any(h => h.StartsWith("UNIT MM", StringComparison.Ordinal)))
-                        { run.Conclusion = Conclusion.Incomparable; run.Reason = "Live adapter currently requires focal image space and MM lens units; no angular/linear unit substitution"; continue; }
+                        var lensUnit = headers.Single(h => h.StartsWith("UNIT ", StringComparison.Ordinal)).Split(' ', StringSplitOptions.RemoveEmptyEntries)[1];
+                        if (AfocalAnalysisContracts.BlockReason(lensUnit, optic.ImageSpaceAfocal, run.Key) is { } blockReason)
+                        { run.Conclusion = Conclusion.Incomparable; run.Reason = blockReason; continue; }
                         var zDir = Path.Combine(output, "raw", "zemax", run.Directory);
                         var z = await zemax.Capture(snapshotInput, zDir, version, entry.ZemaxSettingsMapper, entry.ZemaxAnalysisType, request, c, options.Timeout, options.CaptureScreenshots, ct);
                         run.ZemaxStatus = Status(z); timedOut |= z.TimedOut; Log(output, "zemax", run.Key + ": " + z.StandardOutput + z.StandardError);
@@ -333,6 +336,9 @@ public sealed class ComparisonRunner
     // Callers retain the captured request, tolerances and immutable native data.
     public static void Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, string output)
     {
+        config = AfocalAnalysisContracts.ComparisonSettings(config, run.Request);
+        run.Tolerances = config.Quantities;
+        var physicalGaps = new List<string>();
         var directory = Path.Combine(output, "comparisons", run.Directory); Directory.CreateDirectory(directory);
         Tolerances T(string key) => config.Quantities.GetValueOrDefault(key) ?? throw new InvalidDataException("No per-quantity tolerance: " + key);
         foreach (var scalar in z.Scalars)
@@ -344,12 +350,19 @@ public sealed class ComparisonRunner
         }
         foreach (var curve in z.Series)
         {
-            var actual = w.Series.Single(s => s.Id == curve.Id);
-            var values = ComparisonMetrics.Align(actual, curve, run.Normalizations);
-            var metric = ComparisonMetrics.Calculate(curve.Id, curve.YAxis.Unit, values, T(curve.YAxis.Quantity));
-            if (curve.YAxis.Quantity == "Modulation" && curve.XAxis.Quantity == "SpatialFrequency") metric = metric with { Extra = ComparisonMetrics.MtfStatistics(values) };
-            run.Metrics.Add(metric); ReportWriter.Values(Path.Combine(directory, JsonFiles.Slug(curve.Id) + "-values.csv"), values);
-            PlotWriter.Curves(directory, JsonFiles.Slug(curve.Id), values, curve.XAxis.Quantity + " / " + curve.XAxis.Unit, curve.YAxis.Quantity + " / " + curve.YAxis.Unit);
+            try
+            {
+                var actual = w.Series.Single(s => s.Id == curve.Id);
+                var values = ComparisonMetrics.Align(actual, curve, run.Normalizations);
+                var metric = ComparisonMetrics.Calculate(curve.Id, curve.YAxis.Unit, values, T(curve.YAxis.Quantity));
+                if (curve.YAxis.Quantity == "Modulation" && curve.XAxis.Quantity == "SpatialFrequency") metric = metric with { Extra = ComparisonMetrics.MtfStatistics(values) };
+                run.Metrics.Add(metric); ReportWriter.Values(Path.Combine(directory, JsonFiles.Slug(curve.Id) + "-values.csv"), values);
+                PlotWriter.Curves(directory, JsonFiles.Slug(curve.Id), values, curve.XAxis.Quantity + " / " + curve.XAxis.Unit, curve.YAxis.Quantity + " / " + curve.YAxis.Unit);
+            }
+            catch (InvalidDataException error) when (run.Request?.ImageSpaceAfocal == true)
+            {
+                physicalGaps.Add(curve.Id + ": " + error.Message);
+            }
         }
         foreach (var grid in z.Grids)
         {
@@ -360,10 +373,15 @@ public sealed class ComparisonRunner
                 metric = metric with { Extra = ComparisonMetrics.GridStatistics(values, grid.Id, grid.ValueAxis.Quantity == "WavefrontError") };
             run.Metrics.Add(metric); ReportWriter.Values(Path.Combine(directory, JsonFiles.Slug(grid.Id) + "-values.csv"), values); PlotWriter.Grid(directory, JsonFiles.Slug(grid.Id), values);
         }
-        if (run.Metrics.Count == 0) { run.Conclusion = Conclusion.Incomparable; run.Reason = "No shared numerical output"; return; }
+        if (run.Metrics.Count == 0) { run.Conclusion = Conclusion.Incomparable; run.Reason = string.Join("; ", physicalGaps.Prepend("No shared numerical output")); return; }
         run.Conclusion = run.Metrics.Any(m => m.Conclusion == Conclusion.Incomparable) ? Conclusion.Incomparable
             : run.Metrics.Any(m => m.Conclusion == Conclusion.Difference) ? Conclusion.Difference
             : run.Metrics.Any(m => m.Conclusion == Conclusion.Close) ? Conclusion.Close : Conclusion.Pass;
         run.Reason = entry.Reason;
+        if (physicalGaps.Count > 0)
+        {
+            if (run.Conclusion is Conclusion.Pass or Conclusion.Close) run.Conclusion = Conclusion.Incomparable;
+            run.Reason = string.Join("; ", physicalGaps.Prepend("Incomplete physical coverage; shared quantities compared separately"));
+        }
     }
 }

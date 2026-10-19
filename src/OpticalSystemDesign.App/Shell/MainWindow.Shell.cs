@@ -164,7 +164,6 @@ public sealed partial class MainWindow
                         RibbonButton("show-user-guide", "book-open-text", "用户指南"),
                         RibbonButton("show-operand-help", "book-open-text", "操作数帮助"),
                         RibbonButton("recover-document", "history", "恢复未保存工程"),
-                        RibbonButton("check-for-updates", "refresh-cw", "检查更新"),
                         RibbonButton("about", "circle-question-mark", "关于"))))
             }
         };
@@ -211,7 +210,6 @@ public sealed partial class MainWindow
                     RibbonGroup("支持",
                         RibbonButton("show-user-guide", "book-open-text", "用户指南"),
                         RibbonButton("show-operand-help", "book-open-text", "操作数帮助"),
-                        RibbonButton("check-for-updates", "refresh-cw", "检查更新"),
                         RibbonButton("about", "circle-question-mark", "关于"))))
             }
         };
@@ -256,9 +254,7 @@ public sealed partial class MainWindow
                     ("import-zemax", "file-input", "Zemax ZMX")),
                 RibbonMenuButton("export", "upload", "导出",
                     ("export-cad", "box", "CAD（STEP）")),
-                RibbonMenuButton("examples", "aperture", "示例",
-                    ("new-demo", "aperture", "Cooke 示例"),
-                    ("new-tessar", "disc-2", "Tessar 示例"))));
+                RibbonSequentialExamplesButton()));
         }
 
         _undoButton = RibbonButton("undo", "undo", "撤销");

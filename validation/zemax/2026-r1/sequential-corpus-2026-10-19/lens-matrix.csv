@@ -1,0 +1,272 @@
+﻿Lens,CoreConfigurations,NativeConfigurations,ImportErrors,Pass,Close,Difference,Incomparable,Error,Skipped,RayPass,RayDifference,RayIncomparable,RayError,FormatModelReadback,WorstNRMSE,Notes
+"Afocal/Afocal Riflescope.ZMX","1","1","0","0","0","0","30","0","0","3","0","0","0","Equal","",""
+"Afocal/Beam Expander.ZMX","1","1","0","0","0","0","22","0","0","1","0","0","0","Equal","",""
+"Afocal/Binocular_System.ZMX","0","2","1","0","0","0","0","0","0","0","0","0","0","Difference","","System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers. | Native configurations=2, completed Core snapshots=0; review missing import/configuration coverage."
+"Birefringent prisms/Birefringent cube.zmx","0","2","1","0","0","0","0","0","0","0","0","0","0","Difference","","System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers. | Native configurations=2, completed Core snapshots=0; review missing import/configuration coverage."
+"Birefringent prisms/Rochon prism.zmx","0","2","1","0","0","0","0","0","0","0","0","0","0","Difference","","System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers. | Native configurations=2, completed Core snapshots=0; review missing import/configuration coverage."
+"Birefringent prisms/Senarmont prism.zmx","0","2","1","0","0","0","0","0","0","0","0","0","0","Difference","","System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers. | Native configurations=2, completed Core snapshots=0; review missing import/configuration coverage."
+"Birefringent prisms/Wollaston prism.zmx","0","2","1","0","0","0","0","0","0","0","0","0","0","Difference","","System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers. | Native configurations=2, completed Core snapshots=0; review missing import/configuration coverage."
+"Diffractive components/Achromatic singlet.zmx","0","1","1","0","0","0","0","0","0","0","0","0","0","Equal","","System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers. | Native configurations=1, completed Core snapshots=0; review missing import/configuration coverage."
+"Diffractive components/Dual Zone CD-DVD lens.ZMX","2","2","0","0","0","0","0","44","0","0","0","0","2","Equal","","{
+        ""surfaceNumber"": 2,
+        ""originalType"": ""Zemax TYPE BINARY_3"",
+        ""reason"": ""Zemax \u9762\u578B TYPE BINARY_3 \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Diffractive components/Grating.zmx","1","1","0","0","0","0","0","38","0","0","0","0","5","Equal","","{
+        ""surfaceNumber"": 2,
+        ""originalType"": ""Zemax TYPE DGRATING"",
+        ""reason"": ""Zemax \u9762\u578B TYPE DGRATING \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      } | {
+        ""surfaceNumber"": 3,
+        ""originalType"": ""Zemax TYPE PARAXIAL"",
+        ""reason"": ""Zemax \u9762\u578B TYPE PARAXIAL \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Diffractive components/Reflection hologram.zmx","1","1","0","0","0","0","0","22","0","0","0","0","1","Equal","","{
+        ""surfaceNumber"": 1,
+        ""originalType"": ""Zemax TYPE HOLOGRM2"",
+        ""reason"": ""Zemax \u9762\u578B TYPE HOLOGRM2 \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Diffractive components/Sample Spectrometer.ZMX","1","1","0","0","0","0","0","30","0","0","0","0","3","Equal","","{
+        ""surfaceNumber"": 3,
+        ""originalType"": ""Zemax TYPE DGRATING"",
+        ""reason"": ""Zemax \u9762\u578B TYPE DGRATING \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Diffractive components/Transmission hologram.zmx","1","1","0","0","0","0","0","22","0","0","0","0","1","Equal","","{
+        ""surfaceNumber"": 1,
+        ""originalType"": ""Zemax TYPE HOLOGRM2"",
+        ""reason"": ""Zemax \u9762\u578B TYPE HOLOGRM2 \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"GRINs/Grid GRIN.ZMX","1","1","0","0","0","0","0","30","0","0","0","0","3","Equal","","{
+        ""surfaceNumber"": 1,
+        ""originalType"": ""Zemax TYPE GRINSU11"",
+        ""reason"": ""Zemax \u9762\u578B TYPE GRINSU11 \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"GRINs/Selfoc lens.zmx","1","1","0","0","0","0","0","30","0","0","0","0","3","Equal","","{
+        ""surfaceNumber"": 1,
+        ""originalType"": ""Zemax TYPE GRINSUR9"",
+        ""reason"": ""Zemax \u9762\u578B TYPE GRINSUR9 \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      } | {
+        ""surfaceNumber"": 1,
+        ""originalType"": ""SLS-1.0"",
+        ""reason"": ""\u627E\u4E0D\u5230\u73BB\u7483\u201CSLS-1.0\u201D\uFF0C\u8BF7\u5339\u914D\u6750\u6599\u540E\u518D\u8BA1\u7B97\u3002""
+      } | {
+        ""surfaceNumber"": 2,
+        ""originalType"": ""SLS-1.0"",
+        ""reason"": ""\u627E\u4E0D\u5230\u73BB\u7483\u201CSLS-1.0\u201D\uFF0C\u8BF7\u5339\u914D\u6750\u6599\u540E\u518D\u8BA1\u7B97\u3002""
+      }"
+"Image Simulation/Example 1, A singlet eyepiece.ZMX","1","1","0","13","0","4","11","2","0","3","0","0","0","Equal","2.8934613407860295",""
+"Image Simulation/Example 2, Double Gauss Experimental Arrangement.ZMX","1","1","0","0","0","0","0","30","0","0","0","0","3","Equal","","{
+        ""surfaceNumber"": 1,
+        ""originalType"": ""Zemax TYPE PARAXIAL"",
+        ""reason"": ""Zemax \u9762\u578B TYPE PARAXIAL \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Image Simulation/Example 3, A blue notch filter.ZMX","1","1","0","0","0","0","0","38","0","0","0","0","5","Equal","","{
+        ""surfaceNumber"": 3,
+        ""originalType"": ""Zemax TYPE PARAXIAL"",
+        ""reason"": ""Zemax \u9762\u578B TYPE PARAXIAL \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Image Simulation/Example 4, a diffraction limited system.ZMX","1","1","0","0","0","0","22","0","0","0","0","0","1","Equal","",""
+"Image Simulation/Example 5, spatially varying resolution.ZMX","1","1","0","0","0","0","0","30","0","0","0","0","3","Equal","","{
+        ""surfaceNumber"": 1,
+        ""originalType"": ""Zemax TYPE PARAXIAL"",
+        ""reason"": ""Zemax \u9762\u578B TYPE PARAXIAL \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Image Simulation/Example 6, tilted image plane.ZMX","2","2","0","0","0","0","0","60","0","0","0","0","6","Equal","","{
+        ""surfaceNumber"": 0,
+        ""originalType"": ""Zemax TYPE TILTSURF"",
+        ""reason"": ""Zemax \u9762\u578B TYPE TILTSURF \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Interconnects/2 Ball lens interconnect.ZMX","1","1","0","16","0","3","3","0","0","1","0","0","0","Equal","0.15418663142336866",""
+"Interconnects/Ball coupling.ZMX","1","1","0","13","1","3","5","0","0","1","0","0","0","Equal","0.13514204651234127",""
+"Interconnects/Conic interconnect.ZMX","1","1","0","17","1","1","3","0","0","1","0","0","0","Equal","0.012215668728299083",""
+"Interconnects/GRIN interconnect.ZMX","1","1","0","0","0","0","0","22","0","0","0","0","1","Equal","","{
+        ""surfaceNumber"": 1,
+        ""originalType"": ""Zemax TYPE GRINSUR1"",
+        ""reason"": ""Zemax \u9762\u578B TYPE GRINSUR1 \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Interconnects/Optical interconnect.ZMX","1","1","0","0","0","0","0","22","0","0","0","0","1","Equal","","{
+        ""surfaceNumber"": 2,
+        ""originalType"": ""Zemax TYPE GRINSUR9"",
+        ""reason"": ""Zemax \u9762\u578B TYPE GRINSUR9 \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      } | {
+        ""surfaceNumber"": 2,
+        ""originalType"": ""SLS-1.0"",
+        ""reason"": ""\u627E\u4E0D\u5230\u73BB\u7483\u201CSLS-1.0\u201D\uFF0C\u8BF7\u5339\u914D\u6750\u6599\u540E\u518D\u8BA1\u7B97\u3002""
+      } | {
+        ""surfaceNumber"": 3,
+        ""originalType"": ""SLS-1.0"",
+        ""reason"": ""\u627E\u4E0D\u5230\u73BB\u7483\u201CSLS-1.0\u201D\uFF0C\u8BF7\u5339\u914D\u6750\u6599\u540E\u518D\u8BA1\u7B97\u3002""
+      } | {
+        ""surfaceNumber"": 4,
+        ""originalType"": ""Zemax TYPE GRINSUR9"",
+        ""reason"": ""Zemax \u9762\u578B TYPE GRINSUR9 \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      } | {
+        ""surfaceNumber"": 4,
+        ""originalType"": ""SLS-1.0"",
+        ""reason"": ""\u627E\u4E0D\u5230\u73BB\u7483\u201CSLS-1.0\u201D\uFF0C\u8BF7\u5339\u914D\u6750\u6599\u540E\u518D\u8BA1\u7B97\u3002""
+      } | {
+        ""surfaceNumber"": 5,
+        ""originalType"": ""SLS-1.0"",
+        ""reason"": ""\u627E\u4E0D\u5230\u73BB\u7483\u201CSLS-1.0\u201D\uFF0C\u8BF7\u5339\u914D\u6750\u6599\u540E\u518D\u8BA1\u7B97\u3002""
+      }"
+"Manufacturing/Apochromatic_for_Cost_3_TDE_defaults.zmx","1","1","0","0","0","0","70","0","0","13","0","0","0","Equal","",""
+"Miscellaneous/Apochromat_prism.zmx","0","1","1","0","0","0","0","0","0","0","0","0","0","Equal","","System.NotSupportedException: Zemax coordinate-break order flags are not supported (SURF 4, PARM 6). | Native configurations=1, completed Core snapshots=0; review missing import/configuration coverage."
+"Miscellaneous/Axicon model.zmx","1","1","0","5","0","1","3","13","0","1","0","0","0","Equal","0.9961317549209602",""
+"Miscellaneous/Beam splitter.zmx","2","2","0","0","0","0","0","44","0","0","0","0","2","Equal","","{
+        ""surfaceNumber"": 4,
+        ""originalType"": ""Zemax TYPE TILTSURF"",
+        ""reason"": ""Zemax \u9762\u578B TYPE TILTSURF \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      } | {
+        ""surfaceNumber"": 5,
+        ""originalType"": ""Zemax TYPE TILTSURF"",
+        ""reason"": ""Zemax \u9762\u578B TYPE TILTSURF \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Miscellaneous/Bi-ocular lens.ZMX","2","2","0","28","4","18","10","0","0","0","0","6","0","Equal","3029.0773869415702",""
+"Miscellaneous/Cylinder.zmx","0","1","1","0","0","0","0","0","0","0","0","0","0","Equal","","System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers. | Native configurations=1, completed Core snapshots=0; review missing import/configuration coverage."
+"Miscellaneous/Diode source simulation.zmx","1","1","0","0","0","0","0","22","0","0","0","0","1","Equal","","{
+        ""surfaceNumber"": 1,
+        ""originalType"": ""Zemax TYPE PARAX_XY"",
+        ""reason"": ""Zemax \u9762\u578B TYPE PARAX_XY \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Miscellaneous/Doubly telecentric system.zmx","1","1","0","20","1","0","1","0","0","1","0","0","0","Equal","0.012291776422362186",""
+"Miscellaneous/Elliptical reflector 320 degree light cone .zmx","0","1","1","0","0","0","0","0","0","0","0","0","0","Equal","","System.NotSupportedException: Zemax object-cone-angle apertures (OBNA subtype 1) are not supported. | Native configurations=1, completed Core snapshots=0; review missing import/configuration coverage."
+"Miscellaneous/Grid Sag Example.zmx","0","2","1","0","0","0","0","0","0","0","0","0","0","Equal","","System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers. | Native configurations=2, completed Core snapshots=0; review missing import/configuration coverage."
+"Miscellaneous/Grid sag surface.zmx","0","1","1","0","0","0","0","0","0","0","0","0","0","Equal","","System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers. | Native configurations=1, completed Core snapshots=0; review missing import/configuration coverage."
+"Miscellaneous/Irregular surface.ZMX","1","1","0","0","0","0","0","22","0","0","0","0","1","Equal","","{
+        ""surfaceNumber"": 3,
+        ""originalType"": ""Zemax TYPE IRREGULA"",
+        ""reason"": ""Zemax \u9762\u578B TYPE IRREGULA \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Miscellaneous/Mangin mirror.zmx","1","1","0","16","0","3","3","0","0","0","1","0","0","Equal","2.0000000000000004","Reflection raw local direction convention requires review."
+"Miscellaneous/MEMS DLL Sample.ZMX","0","1","1","0","0","0","0","0","0","0","0","0","0","Difference","","System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers. | Native configurations=1, completed Core snapshots=0; review missing import/configuration coverage."
+"Miscellaneous/Optimization demo 1.zmx","1","1","0","8","3","4","5","2","0","0","1","0","0","Equal","2","Reflection raw local direction convention requires review."
+"Miscellaneous/Optimization demo 2.zmx","1","1","0","26","0","1","2","1","0","3","0","0","0","Equal","0.03825249267704539",""
+"Miscellaneous/Parabolas at 90 degrees.zmx","1","1","0","0","0","1","7","14","0","0","0","1","0","Equal","1.6666666666666687",""
+"Miscellaneous/Telecentric system.zmx","1","1","0","0","0","0","0","22","0","0","0","0","1","Equal","","{
+        ""surfaceNumber"": 3,
+        ""originalType"": ""Zemax TYPE PARAXIAL"",
+        ""reason"": ""Zemax \u9762\u578B TYPE PARAXIAL \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Miscellaneous/Toroid.zmx","0","1","1","0","0","0","0","0","0","0","0","0","0","Equal","","System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers. | Native configurations=1, completed Core snapshots=0; review missing import/configuration coverage."
+"Miscellaneous/vacuum cell.zmx","1","1","0","17","0","4","1","0","0","0","1","0","0","Equal","0.016254345712348624",""
+"Objectives/Apochromat.zmx","1","1","0","46","0","0","4","0","0","8","0","0","0","Equal","0.002596084111392397",""
+"Objectives/Apochromat2.zmx","1","1","0","33","0","1","4","0","0","5","0","0","0","Equal","0.011433558634052285",""
+"Objectives/Apochromat3.zmx","1","1","0","26","0","0","4","0","0","3","0","0","0","Equal","0.002500881625999798",""
+"Objectives/Apochromat4.zmx","1","1","0","0","0","0","70","0","0","13","0","0","0","Equal","",""
+"Objectives/Cooke 40 degree field.zmx","1","1","0","30","0","0","0","0","0","3","0","0","0","Equal","0.005558270428760688",""
+"Objectives/Double Gauss 28 degree field.zmx","1","1","0","29","0","0","1","0","0","3","0","0","0","Difference","0.0030488572541816873",""
+"Objectives/Double Gauss 5 degree field.zmx","1","1","0","0","0","0","38","0","0","5","0","0","0","Equal","",""
+"Objectives/Doublet using MIL number glasses.zmx","1","1","0","0","0","0","0","38","0","0","0","0","5","Equal","","{
+        ""surfaceNumber"": 1,
+        ""originalType"": ""517642"",
+        ""reason"": ""\u627E\u4E0D\u5230\u73BB\u7483\u201C517642\u201D\uFF0C\u8BF7\u5339\u914D\u6750\u6599\u540E\u518D\u8BA1\u7B97\u3002""
+      } | {
+        ""surfaceNumber"": 2,
+        ""originalType"": ""517642"",
+        ""reason"": ""\u627E\u4E0D\u5230\u73BB\u7483\u201C517642\u201D\uFF0C\u8BF7\u5339\u914D\u6750\u6599\u540E\u518D\u8BA1\u7B97\u3002""
+      } | {
+        ""surfaceNumber"": 2,
+        ""originalType"": ""648338"",
+        ""reason"": ""\u627E\u4E0D\u5230\u73BB\u7483\u201C648338\u201D\uFF0C\u8BF7\u5339\u914D\u6750\u6599\u540E\u518D\u8BA1\u7B97\u3002""
+      } | {
+        ""surfaceNumber"": 3,
+        ""originalType"": ""648338"",
+        ""reason"": ""\u627E\u4E0D\u5230\u73BB\u7483\u201C648338\u201D\uFF0C\u8BF7\u5339\u914D\u6750\u6599\u540E\u518D\u8BA1\u7B97\u3002""
+      }"
+"Objectives/Doublet.zmx","1","1","0","25","0","0","3","2","0","3","0","0","0","Equal","0.0025056848093838167",""
+"Objectives/Even Asphere.zmx","1","1","0","19","0","1","2","0","0","1","0","0","0","Equal","0.031776294953050496",""
+"Objectives/Gaussian Quadrature over Annular Pupils.zmx","1","1","0","16","0","2","4","0","0","0","1","0","0","Equal","0.8164965809766014","Reflection raw local direction convention requires review."
+"Objectives/Gaussian Quadrature Over Wavelength.ZMX","1","1","0","29","0","0","1","0","0","3","0","0","0","Equal","0.001339800889882094",""
+"Objectives/Inverse telephoto lens.zmx","1","1","0","30","0","0","0","0","0","3","0","0","0","Equal","0.0013290837918764834",""
+"Objectives/Petzval.zmx","1","1","0","26","2","0","1","1","0","3","0","0","0","Equal","0.011984531441633776",""
+"Objectives/Relay lens.zmx","1","1","0","29","0","0","1","0","0","3","0","0","0","Equal","0.00737022094985192",""
+"Objectives/Tessar lens using vignetting factors.zmx","1","1","0","27","0","0","2","1","0","3","0","0","0","Equal","0.008220616092237489",""
+"Objectives/Wide angle lens 100 degree field.zmx","1","1","0","0","0","0","30","0","0","3","0","0","0","Difference","",""
+"Objectives/Wide angle lens 200 degree field.zmx","1","1","0","0","0","0","30","0","0","3","0","0","0","Equal","",""
+"Objectives/Wide angle lens 210 degree field.zmx","1","1","0","24","0","2","4","0","0","3","0","0","0","Equal","2019.9537873829756",""
+"Optical testing/Double-pass null test.zmx","1","1","0","1","1","2","6","12","0","0","1","0","0","Equal","1.9966921332812348",""
+"Optical testing/Mach Zender Interferometer.zmx","0","2","1","0","0","0","0","0","0","0","0","0","0","Equal","","System.IO.InvalidDataException: Zemax PARM indices are one-based positive integers. | Native configurations=2, completed Core snapshots=0; review missing import/configuration coverage."
+"Optical testing/Offner reflecting compensator.zmx","1","1","0","0","0","0","22","0","0","0","1","0","0","Equal","","Reflection raw local direction convention requires review."
+"Optical testing/Offner refracting compensator.zmx","1","1","0","15","1","3","2","1","0","0","1","0","0","Equal","2.0000000000000013","Reflection raw local direction convention requires review."
+"Optical testing/Twyman Green Interferometer.zmx","2","2","0","0","0","0","0","44","0","0","0","0","2","Equal","","{
+        ""surfaceNumber"": 3,
+        ""originalType"": ""Zemax TYPE TILTSURF"",
+        ""reason"": ""Zemax \u9762\u578B TYPE TILTSURF \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      } | {
+        ""surfaceNumber"": 4,
+        ""originalType"": ""Zemax TYPE TILTSURF"",
+        ""reason"": ""Zemax \u9762\u578B TYPE TILTSURF \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      } | {
+        ""surfaceNumber"": 10,
+        ""originalType"": ""Zemax TYPE TILTSURF"",
+        ""reason"": ""Zemax \u9762\u578B TYPE TILTSURF \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      } | {
+        ""surfaceNumber"": 11,
+        ""originalType"": ""Zemax TYPE TILTSURF"",
+        ""reason"": ""Zemax \u9762\u578B TYPE TILTSURF \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      } | {
+        ""surfaceNumber"": 12,
+        ""originalType"": ""Zemax TYPE TILTSURF"",
+        ""reason"": ""Zemax \u9762\u578B TYPE TILTSURF \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Polarization/Etalon.ZMX","1","1","0","13","0","6","4","3","0","2","0","0","0","Equal","1",""
+"Polarization/Fabry-Perot.ZMX","1","1","0","0","0","0","0","22","0","0","0","0","1","Equal","","{
+        ""surfaceNumber"": 4,
+        ""originalType"": ""Zemax TYPE PARAXIAL"",
+        ""reason"": ""Zemax \u9762\u578B TYPE PARAXIAL \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Telescopes/Cassegrain-type Ritchey Chretien.zmx","1","1","0","2","1","10","9","0","0","0","1","0","0","Equal","0.8164965809766014","Reflection raw local direction convention requires review."
+"Telescopes/Flat-field Schmidt.zmx","1","1","0","15","2","5","8","0","0","0","3","0","0","Equal","2","Reflection raw local direction convention requires review."
+"Telescopes/Houghton.zmx","1","1","0","0","0","0","34","0","0","0","4","0","0","Equal","","Reflection raw local direction convention requires review."
+"Telescopes/Hubble.zmx","1","1","0","0","0","0","22","0","0","0","0","0","1","Equal","",""
+"Telescopes/Maksutov offset secondary.zmx","1","1","0","4","1","10","7","0","0","0","1","0","0","Equal","0.8164965810698295","Reflection raw local direction convention requires review."
+"Telescopes/Maksutov.zmx","1","1","0","4","0","11","7","0","0","0","1","0","0","Equal","1.5396735290747365","Reflection raw local direction convention requires review."
+"Telescopes/Schalcktelescope 10.ZMX","1","1","0","22","1","5","1","1","0","0","3","0","0","Equal","1.999999999999999","Reflection raw local direction convention requires review."
+"Telescopes/Schmidt-Cassegrain spider obscuration.zmx","1","1","0","0","0","0","38","0","0","0","0","5","0","Equal","",""
+"Telescopes/Schmidt-Cassegrain.zmx","1","1","0","0","0","0","30","0","0","0","3","0","0","Equal","","Reflection raw local direction convention requires review."
+"Telescopes/Unobscured Gregorian.zmx","1","1","0","1","0","1","6","14","0","0","0","1","0","Equal","113.09102837149068",""
+"Telescopes/Yolo.zmx","1","1","1","0","0","0","0","1","0","0","0","0","0","Equal","","System.IO.InvalidDataException: Invalid optic snapshot at $.meritOperands[0].surface: surface reference 9 does not exist."
+"Tilted systems & prisms/Beamsplitter cube.zmx","1","1","0","0","0","0","0","22","0","0","0","0","1","Equal","","{
+        ""surfaceNumber"": 3,
+        ""originalType"": ""Zemax TYPE TILTSURF"",
+        ""reason"": ""Zemax \u9762\u578B TYPE TILTSURF \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Tilted systems & prisms/Lens pivoted about a point.zmx","1","1","0","20","2","1","6","1","0","0","0","3","0","Equal","0.14218426006114676",""
+"Tilted systems & prisms/OAP using Chebyshev Polynomial surface.zmx","1","1","1","0","0","0","0","1","0","0","0","0","0","Equal","","System.IO.InvalidDataException: Invalid optic snapshot at $.meritOperands[1].surface: surface reference 4 does not exist. | {
+        ""surfaceNumber"": 2,
+        ""originalType"": ""Zemax TYPE CHEBYSHV"",
+        ""reason"": ""Zemax \u9762\u578B TYPE CHEBYSHV \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Tilted systems & prisms/Offner relay.zmx","1","1","0","19","0","1","2","0","0","0","0","1","0","Equal","1.9999999999999987",""
+"Tilted systems & prisms/Prism using tilted surface.zmx","1","1","0","0","0","0","0","38","0","0","0","0","5","Equal","","{
+        ""surfaceNumber"": 1,
+        ""originalType"": ""Zemax TYPE PARAXIAL"",
+        ""reason"": ""Zemax \u9762\u578B TYPE PARAXIAL \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      } | {
+        ""surfaceNumber"": 3,
+        ""originalType"": ""Zemax TYPE TILTSURF"",
+        ""reason"": ""Zemax \u9762\u578B TYPE TILTSURF \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Tilted systems & prisms/Prism using total internal reflection.zmx","1","1","0","12","3","2","4","1","0","0","0","1","0","Equal","1.9999999999999993",""
+"Tilted systems & prisms/Prisms using coordinate breaks.ZMX","1","1","0","0","0","0","0","22","0","0","0","0","1","Equal","","{
+        ""surfaceNumber"": 8,
+        ""originalType"": ""Zemax TYPE PARAXIAL"",
+        ""reason"": ""Zemax \u9762\u578B TYPE PARAXIAL \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Tilted systems & prisms/Tilted mirror.zmx","1","1","0","0","0","0","0","22","0","0","0","0","1","Equal","","{
+        ""surfaceNumber"": 1,
+        ""originalType"": ""Zemax TYPE PARAXIAL"",
+        ""reason"": ""Zemax \u9762\u578B TYPE PARAXIAL \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Tilted systems & prisms/Tilted object.zmx","1","1","0","0","0","0","0","22","0","0","0","0","1","Equal","","{
+        ""surfaceNumber"": 0,
+        ""originalType"": ""Zemax TYPE TILTSURF"",
+        ""reason"": ""Zemax \u9762\u578B TYPE TILTSURF \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      } | {
+        ""surfaceNumber"": 3,
+        ""originalType"": ""Zemax TYPE TILTSURF"",
+        ""reason"": ""Zemax \u9762\u578B TYPE TILTSURF \u5C1A\u672A\u6620\u5C04\u5230\u53EF\u8BA1\u7B97\u51E0\u4F55\uFF1B\u539F\u59CB\u66F2\u7387\u3001\u5706\u9525\u5E38\u6570\u548C PARM \u53C2\u6570\u5DF2\u4FDD\u7559\u4E3A\u53EA\u8BFB\u6570\u636E\u3002""
+      }"
+"Zoom systems/Mirror zoom.zmx","5","5","0","0","0","0","110","0","0","0","5","0","0","Equal","","Reflection raw local direction convention requires review."
+"Zoom systems/Scanning mirror.zmx","3","3","0","5","1","34","22","4","0","0","0","3","0","Equal","66.77355045313618",""
+"Zoom systems/Zoom lens.zmx","3","3","0","69","1","10","7","3","0","9","0","0","0","Equal","2172.6725646401687",""

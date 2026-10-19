@@ -1,0 +1,1243 @@
+{
+  "Date": "2026-10-19",
+  "Scope": "Repair per-analysis afocal comparison support and verify only Afocal/Afocal Riflescope.ZMX against licensed local OpticStudio 2026 R1.",
+  "SourceSha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+  "FinalToolSha256": "6ded8aae5a6e8988fe57c612271add3fe46dd73979036ca07c52c45b748089c8",
+  "FinalFormalReport": {
+    "Path": "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/formal/run-summary.json",
+    "Sha256": "08970f7ceb3067ab1fb17e410dd2456a085723f7440558ad4b7434be9094e4e3"
+  },
+  "Tests": [
+    {
+      "File": {
+        "Path": "artifacts/validation/afocal-riflescope-20261019/tests/comparison-release-final.trx",
+        "Sha256": "973ff1fe1e72b829dd9d040a048b9c15d58ba091b71a54416fde36a00c503e91"
+      },
+      "Total": 223,
+      "Passed": 223,
+      "Failed": 0,
+      "Skipped": 0
+    },
+    {
+      "File": {
+        "Path": "artifacts/validation/afocal-riflescope-20261019/tests/contracts-debug.trx",
+        "Sha256": "25df5257d7d457a53d0faf51c17ddd8a3d6f52115379b515c8d6f4ca802ba829"
+      },
+      "Total": 69,
+      "Passed": 69,
+      "Failed": 0,
+      "Skipped": 0
+    },
+    {
+      "File": {
+        "Path": "artifacts/validation/afocal-riflescope-20261019/tests/afocal-debug-verified.trx",
+        "Sha256": "6f968abc1c9010af6789ef8df0850170b13968f38708e057dd1e9e6e1cf851f7"
+      },
+      "Total": 10,
+      "Passed": 10,
+      "Failed": 0,
+      "Skipped": 0
+    },
+    {
+      "File": {
+        "Path": "artifacts/validation/afocal-riflescope-20261019/tests/afocal-release-final.trx",
+        "Sha256": "69771686996f7e2229ba5669c4c07a29b4b868c7ad0bed920d0313226929260b"
+      },
+      "Total": 10,
+      "Passed": 10,
+      "Failed": 0,
+      "Skipped": 0
+    }
+  ],
+  "TestScope": "Full final Release suite 223; Debug contract group 69 and final targeted afocal groups overlap. No full product or 95-lens recertification.",
+  "SelectedAnalysisResults": [
+    {
+      "key": "Ray Fan",
+      "directory": "ray-fan-c1",
+      "support": "Comparable",
+      "zemaxStatus": "Captured",
+      "workbenchStatus": "Captured",
+      "conclusion": "Pass",
+      "reason": "",
+      "request": {
+        "canonicalAnalysisKey": "Ray Fan",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 64,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "PlotScaleMicrometers": "0",
+          "NumberOfRays": "64",
+          "UseDashes": "false",
+          "VignettedPupil": "True",
+          "CheckApertures": "True",
+          "WavelengthNumber": "1",
+          "FieldNumber": "1",
+          "TangentialAberration": "Y Aberration",
+          "SagittalAberration": "X Aberration",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "True"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "tolerances": {
+        "IncidentAngle": {
+          "absolute": 1E-06,
+          "relative": 1E-06,
+          "nrmse": 1E-05,
+          "closeNrmse": 3E-05,
+          "minimumCoverage": 0.95
+        }
+      },
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Degree",
+          "count": 129,
+          "maxAbsolute": 2.660821174504946E-09,
+          "meanAbsolute": 3.6869941592621364E-11,
+          "rmse": 2.730177090397359E-10,
+          "nrmse": 5.065137270471346E-09,
+          "maxRelative": 3.71988713362244E-07,
+          "p50": 8.5378535838454E-14,
+          "p90": 2.9145172386613196E-12,
+          "p95": 3.460684169787065E-11,
+          "pearson": 1.0000000000000002,
+          "worstX": 0.96875,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Degree",
+          "count": 129,
+          "maxAbsolute": 2.660821174504946E-09,
+          "meanAbsolute": 3.6869941592621364E-11,
+          "rmse": 2.730177090397359E-10,
+          "nrmse": 5.065137270471346E-09,
+          "maxRelative": 3.71988713362244E-07,
+          "p50": 8.5378535838454E-14,
+          "p90": 2.9145172386613196E-12,
+          "p95": 3.460684169787065E-11,
+          "pearson": 1.0000000000000002,
+          "worstX": 0.96875,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "normalizations": [
+        "tangential: unit conversion X Dimensionless->Dimensionless x1; Y Milliradian->Degree x0.057295779513082325",
+        "sagittal: unit conversion X Dimensionless->Dimensionless x1; Y Milliradian->Degree x0.057295779513082325",
+        "tangential: unit conversion X Dimensionless->Dimensionless x1; Y ArcMinute->Degree x0.016666666666666666",
+        "sagittal: unit conversion X Dimensionless->Dimensionless x1; Y ArcMinute->Degree x0.016666666666666666",
+        "tangential: sorted coordinates; linear interpolation on union of 129 physical knots in [-1, 1]; no extrapolation",
+        "sagittal: sorted coordinates; linear interpolation on union of 129 physical knots in [-1, 1]; no extrapolation"
+      ],
+      "screenshotStatus": "NotRequested",
+      "elapsedMilliseconds": 7432
+    },
+    {
+      "key": "Field Curvature and Distortion",
+      "directory": "field-curvature-and-distortion-c1",
+      "support": "Comparable",
+      "zemaxStatus": "Captured",
+      "workbenchStatus": "Captured",
+      "conclusion": "Difference",
+      "reason": "Incomplete physical coverage; shared quantities compared separately; tangential: Incompatible or unspecified units: Millimeter/Diopter; sagittal: Incompatible or unspecified units: Millimeter/Diopter",
+      "request": {
+        "canonicalAnalysisKey": "Field Curvature and Distortion",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "MaximumCurvature": "0",
+          "MaximumDistortion": "0",
+          "WavelengthNumber": "1",
+          "DistortionType": "F-Tan(Theta)",
+          "DisplayMode": "百分比",
+          "ScanDirection": "+y",
+          "ReferenceFieldNumber": "1",
+          "ParabasalDelta": "1E-05",
+          "ChiefRayParabasal": "true",
+          "IgnoreVignettingFactors": "True",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "True",
+          "NumPoints": "101",
+          "DisplayAs": "百分比"
+        },
+        "zemaxSettings": {
+          "Wavelength": 1,
+          "ReferenceField": 1,
+          "DisplayAs": "Percent",
+          "Distortion": "F_TanTheta",
+          "ScanType": "Plus_Y",
+          "UseDashes": false,
+          "IgnoreVignette": true,
+          "MaximumCurvature": 0,
+          "MaximumDistortion": 0,
+          "FieldAspectRatio": 1
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "tolerances": {
+        "Distortion": {
+          "absolute": 0.0001,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "metrics": [
+        {
+          "id": "distortion",
+          "unit": "Percent",
+          "count": 119,
+          "maxAbsolute": 547.5606546779043,
+          "meanAbsolute": 216.56546596554074,
+          "rmse": 278.73562482036283,
+          "nrmse": 465.2291561575564,
+          "maxRelative": 1054.5188206050182,
+          "p50": 181.18096663996323,
+          "p90": 483.2118236682945,
+          "p95": 514.811338378567,
+          "pearson": 0.9702851981721399,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "normalizations": [
+        "Exchange plot axes into independent-variable order; field normalization uses the model's maximum field radius. No fitted translation, scale or intensity normalization.",
+        "distortion: sorted coordinates; linear interpolation on union of 119 physical knots in [0, 1]; no extrapolation"
+      ],
+      "screenshotStatus": "NotRequested",
+      "elapsedMilliseconds": 7953
+    },
+    {
+      "key": "MTF",
+      "directory": "mtf-c1",
+      "support": "Comparable",
+      "zemaxStatus": "Captured",
+      "workbenchStatus": "Captured",
+      "conclusion": "Difference",
+      "reason": "",
+      "request": {
+        "canonicalAnalysisKey": "MTF",
+        "imageSpaceAfocal": true,
+        "nativeAfocalAngleUnit": "ArcMinute",
+        "configuration": 1,
+        "field": 0,
+        "wavelength": 0,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 1.7188733853924698,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": true,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "MaximumFrequency": "1.7188733853924698",
+          "WavelengthNumber": "0",
+          "FieldNumber": "0",
+          "SurfaceNumber": "-1",
+          "Type": "调制",
+          "ShowDiffractionLimit": "false",
+          "UsePolarization": "False",
+          "UseDashes": "false",
+          "UseRayAiming": "True"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "AllDefined",
+        "wavelengthCount": 3,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 2.5,
+        "surfaceCount": 19,
+        "fieldCount": 3,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1.75
+          ],
+          [
+            0,
+            2.5
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.587,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      },
+      "tolerances": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "metrics": [
+        {
+          "id": "field:1:tangential",
+          "unit": "Dimensionless",
+          "count": 396,
+          "maxAbsolute": 0.0033828612405999436,
+          "meanAbsolute": 0.0019351491094485782,
+          "rmse": 0.0021338940402414043,
+          "nrmse": 0.0021338940402414043,
+          "maxRelative": 0.005700453392087193,
+          "p50": 0.002126228327835211,
+          "p90": 0.003011492349725642,
+          "p95": 0.0031087908315647617,
+          "pearson": 0.999993250080761,
+          "worstX": 1.16699430513268,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench.dc": 1,
+            "workbench.frequency10": null,
+            "workbench.frequency20": null,
+            "workbench.frequency30": null,
+            "workbench.frequency50": null,
+            "workbench.firstCrossing50": 1.6186467764502677,
+            "workbench.firstCrossing10": null,
+            "zemax.dc": 1,
+            "zemax.frequency10": null,
+            "zemax.frequency20": null,
+            "zemax.frequency30": null,
+            "zemax.frequency50": null,
+            "zemax.firstCrossing50": 1.6307117685476846,
+            "zemax.firstCrossing10": null
+          }
+        },
+        {
+          "id": "field:1:sagittal",
+          "unit": "Dimensionless",
+          "count": 396,
+          "maxAbsolute": 0.0033828612405998326,
+          "meanAbsolute": 0.0019351491094485444,
+          "rmse": 0.002133894040241374,
+          "nrmse": 0.002133894040241374,
+          "maxRelative": 0.005700453392087006,
+          "p50": 0.002126228327835211,
+          "p90": 0.003011492349725531,
+          "p95": 0.0031087908315647617,
+          "pearson": 0.9999932500807611,
+          "worstX": 1.16699430513268,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench.dc": 1,
+            "workbench.frequency10": null,
+            "workbench.frequency20": null,
+            "workbench.frequency30": null,
+            "workbench.frequency50": null,
+            "workbench.firstCrossing50": 1.6186467764502677,
+            "workbench.firstCrossing10": null,
+            "zemax.dc": 1,
+            "zemax.frequency10": null,
+            "zemax.frequency20": null,
+            "zemax.frequency30": null,
+            "zemax.frequency50": null,
+            "zemax.firstCrossing50": 1.6307117685476846,
+            "zemax.firstCrossing10": null
+          }
+        },
+        {
+          "id": "field:2:tangential",
+          "unit": "Dimensionless",
+          "count": 396,
+          "maxAbsolute": 0.852976837148203,
+          "meanAbsolute": 0.3724319673010119,
+          "rmse": 0.4159287110322835,
+          "nrmse": 0.4159287110322835,
+          "maxRelative": 0.9975018281702859,
+          "p50": 0.34337620530883284,
+          "p90": 0.5989534240437442,
+          "p95": 0.6687523179962072,
+          "pearson": 0.6339421457873035,
+          "worstX": 0.09197984670996494,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {
+            "workbench.dc": 1,
+            "workbench.frequency10": null,
+            "workbench.frequency20": null,
+            "workbench.frequency30": null,
+            "workbench.frequency50": null,
+            "workbench.firstCrossing50": 0.04775850209061877,
+            "workbench.firstCrossing10": 0.08664536079339864,
+            "zemax.dc": 1,
+            "zemax.frequency10": null,
+            "zemax.frequency20": null,
+            "zemax.frequency30": null,
+            "zemax.frequency50": null,
+            "zemax.firstCrossing50": 0.6195582800039777,
+            "zemax.firstCrossing10": null
+          }
+        },
+        {
+          "id": "field:2:sagittal",
+          "unit": "Dimensionless",
+          "count": 396,
+          "maxAbsolute": 0.5492392432041033,
+          "meanAbsolute": 0.21667207509170858,
+          "rmse": 0.28734068894968234,
+          "nrmse": 0.28734068894968234,
+          "maxRelative": 1.474924496174147,
+          "p50": 0.16013350032914125,
+          "p90": 0.5113901582055436,
+          "p95": 0.53316035148535,
+          "pearson": 0.8112865188730276,
+          "worstX": 0.25869331887177643,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {
+            "workbench.dc": 1,
+            "workbench.frequency10": null,
+            "workbench.frequency20": null,
+            "workbench.frequency30": null,
+            "workbench.frequency50": null,
+            "workbench.firstCrossing50": 0.11873923109625906,
+            "workbench.firstCrossing10": 1.0962253527273014,
+            "zemax.dc": 1,
+            "zemax.frequency10": null,
+            "zemax.frequency20": null,
+            "zemax.frequency30": null,
+            "zemax.frequency50": null,
+            "zemax.firstCrossing50": 0.5946196165234653,
+            "zemax.firstCrossing10": 1.282894576381713
+          }
+        },
+        {
+          "id": "field:3:tangential",
+          "unit": "Dimensionless",
+          "count": 396,
+          "maxAbsolute": 0.7633989640967644,
+          "meanAbsolute": 0.33438797176951934,
+          "rmse": 0.39472027223014383,
+          "nrmse": 0.39472027223014383,
+          "maxRelative": 0.9974294538137451,
+          "p50": 0.2806573597916028,
+          "p90": 0.6566059589478739,
+          "p95": 0.7227468611874435,
+          "pearson": 0.6319274777960477,
+          "worstX": 0.1322210296455746,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {
+            "workbench.dc": 1,
+            "workbench.frequency10": null,
+            "workbench.frequency20": null,
+            "workbench.frequency30": null,
+            "workbench.frequency50": null,
+            "workbench.firstCrossing50": 0.0710460335514292,
+            "workbench.firstCrossing10": 0.1525484339522726,
+            "zemax.dc": 1,
+            "zemax.frequency10": null,
+            "zemax.frequency20": null,
+            "zemax.frequency30": null,
+            "zemax.frequency50": null,
+            "zemax.firstCrossing50": 0.5729886699285879,
+            "zemax.firstCrossing10": 1.63591358271175
+          }
+        },
+        {
+          "id": "field:3:sagittal",
+          "unit": "Dimensionless",
+          "count": 396,
+          "maxAbsolute": 0.6865789427563518,
+          "meanAbsolute": 0.1965759444178623,
+          "rmse": 0.30149314704565655,
+          "nrmse": 0.30149314704565655,
+          "maxRelative": 0.8403563707942443,
+          "p50": 0.06494511381109969,
+          "p90": 0.6134981026890207,
+          "p95": 0.6590385310366087,
+          "pearson": 0.7303828354384992,
+          "worstX": 0.1322210296455746,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {
+            "workbench.dc": 1,
+            "workbench.frequency10": null,
+            "workbench.frequency20": null,
+            "workbench.frequency30": null,
+            "workbench.frequency50": null,
+            "workbench.firstCrossing50": 0.08487133035020825,
+            "workbench.firstCrossing10": 0.36811177026051184,
+            "zemax.dc": 1,
+            "zemax.frequency10": null,
+            "zemax.frequency20": null,
+            "zemax.frequency30": null,
+            "zemax.frequency50": null,
+            "zemax.firstCrossing50": 0.44753072884887424,
+            "zemax.firstCrossing10": 0.8333155865956859
+          }
+        }
+      ],
+      "normalizations": [
+        "field:1:tangential: unit conversion X CyclesPerArcMinute->CyclesPerMilliradian x3.4377467707849396; Y Dimensionless->Dimensionless x1",
+        "field:1:sagittal: unit conversion X CyclesPerArcMinute->CyclesPerMilliradian x3.4377467707849396; Y Dimensionless->Dimensionless x1",
+        "field:2:tangential: unit conversion X CyclesPerArcMinute->CyclesPerMilliradian x3.4377467707849396; Y Dimensionless->Dimensionless x1",
+        "field:2:sagittal: unit conversion X CyclesPerArcMinute->CyclesPerMilliradian x3.4377467707849396; Y Dimensionless->Dimensionless x1",
+        "field:3:tangential: unit conversion X CyclesPerArcMinute->CyclesPerMilliradian x3.4377467707849396; Y Dimensionless->Dimensionless x1",
+        "field:3:sagittal: unit conversion X CyclesPerArcMinute->CyclesPerMilliradian x3.4377467707849396; Y Dimensionless->Dimensionless x1",
+        "field:1:tangential: sorted coordinates; linear interpolation on union of 396 physical knots in [0, 1.7188733853924698]; no extrapolation",
+        "field:1:sagittal: sorted coordinates; linear interpolation on union of 396 physical knots in [0, 1.7188733853924698]; no extrapolation",
+        "field:2:tangential: sorted coordinates; linear interpolation on union of 396 physical knots in [0, 1.7188733853924698]; no extrapolation",
+        "field:2:sagittal: sorted coordinates; linear interpolation on union of 396 physical knots in [0, 1.7188733853924698]; no extrapolation",
+        "field:3:tangential: sorted coordinates; linear interpolation on union of 396 physical knots in [0, 1.7188733853924698]; no extrapolation",
+        "field:3:sagittal: sorted coordinates; linear interpolation on union of 396 physical knots in [0, 1.7188733853924698]; no extrapolation"
+      ],
+      "screenshotStatus": "NotRequested",
+      "elapsedMilliseconds": 10703
+    }
+  ],
+  "RayResults": [
+    {
+      "id": "001-afocal-riflescope-c1-w1",
+      "lens": "Afocal/Afocal Riflescope.ZMX",
+      "conclusion": "Pass",
+      "calculatedConclusion": null,
+      "reason": null,
+      "inputs": 216,
+      "surfaceResults": 3888,
+      "physicalSurfaceComparisons": 3888,
+      "acceptanceDifferences": 0,
+      "firstClipDifferences": 0,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumCoordinateMillimeters": 7.512221023020516E-08,
+      "maximumDirection": 2.6601484348631743E-09,
+      "reflectionDirectionConventionReview": false
+    },
+    {
+      "id": "001-afocal-riflescope-c1-w2",
+      "lens": "Afocal/Afocal Riflescope.ZMX",
+      "conclusion": "Pass",
+      "calculatedConclusion": null,
+      "reason": null,
+      "inputs": 216,
+      "surfaceResults": 3888,
+      "physicalSurfaceComparisons": 3888,
+      "acceptanceDifferences": 0,
+      "firstClipDifferences": 0,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumCoordinateMillimeters": 7.224213582901484E-08,
+      "maximumDirection": 2.536617693671417E-09,
+      "reflectionDirectionConventionReview": false
+    },
+    {
+      "id": "001-afocal-riflescope-c1-w3",
+      "lens": "Afocal/Afocal Riflescope.ZMX",
+      "conclusion": "Pass",
+      "calculatedConclusion": null,
+      "reason": null,
+      "inputs": 216,
+      "surfaceResults": 3888,
+      "physicalSurfaceComparisons": 3888,
+      "acceptanceDifferences": 0,
+      "firstClipDifferences": 0,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumCoordinateMillimeters": 7.298732551674902E-08,
+      "maximumDirection": 2.5317526963775094E-09,
+      "reflectionDirectionConventionReview": false
+    }
+  ],
+  "Integrity": {
+    "VerifiedSources": [
+      {
+        "Path": "Afocal/Afocal Riflescope.ZMX",
+        "Sha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Afocal/Beam Expander.ZMX",
+        "Sha256": "21f7e12aa610b21ca489976c28333053e7c27ad2aad36e27e3472671004c2028",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Afocal/Binocular_System.ZMX",
+        "Sha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Birefringent prisms/Birefringent cube.zmx",
+        "Sha256": "bf6d27e96ff4b37b47c607404a38d925b90156edcb62afa41410fe1e1e58e627",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Birefringent prisms/Rochon prism.zmx",
+        "Sha256": "4ed8318a47f9f8fee3934d0bdc55f4c37b1ccc2b5445b8f2f1bb33268f239401",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Birefringent prisms/Senarmont prism.zmx",
+        "Sha256": "5c7162e88e15ed5e18f3b52f9fcda84f879b55a3f52e842332bf397c90bc3032",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Birefringent prisms/Wollaston prism.zmx",
+        "Sha256": "2f7445de8dc5683fd4752193aedfc4f387af10bbb8332ae84bedc51805a7fd0b",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Diffractive components/Achromatic singlet.zmx",
+        "Sha256": "d7ef329ca119263563b1e04a4fa2e3ce5d1d458e9fd85c5d3c917d876ac23b91",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Diffractive components/Dual Zone CD-DVD lens.ZMX",
+        "Sha256": "8de9d71b501dbe7cdef693aea929ec984ffc71ce9dea3e77740f092c02537bf9",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Diffractive components/Grating.zmx",
+        "Sha256": "a44b51511647438fc88a2f74026a2fd37f746c6fd3b4ff3f856ca763b83dca3a",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Diffractive components/Reflection hologram.zmx",
+        "Sha256": "a61480088ea08e84e9f87005a6ddd1593a105747a0ae8f39e772488d1a3d0204",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Diffractive components/Sample Spectrometer.ZMX",
+        "Sha256": "2f85aa23896797969b375d24a4d5e43a103aa39e498b07dca22d8c6adc247b0f",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Diffractive components/Transmission hologram.zmx",
+        "Sha256": "fe2cfb59f88e8f9ae10734bbb47c0c4bb38a3ec31928c0e0ae307aa20733cd71",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "GRINs/Grid GRIN.ZMX",
+        "Sha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "GRINs/Selfoc lens.zmx",
+        "Sha256": "a0ab285e9e8a87c0c4a512149c8eaa0a11ee69e90e96d5c315c3db2d2413d08c",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Image Simulation/Example 1, A singlet eyepiece.ZMX",
+        "Sha256": "8b9d3cb3c43ae2356462247afa6e3a5b84d4fc5626aa435d04bfa5f9c2db3bc9",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Image Simulation/Example 2, Double Gauss Experimental Arrangement.ZMX",
+        "Sha256": "3962d9e97f2ddc49ed8ace0b15d72014e03d7292d9cbb32880c196ab8da3b04a",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Image Simulation/Example 3, A blue notch filter.ZMX",
+        "Sha256": "f949455a49dae9e927eda56550fbff8fe797cf0908823ec8806d51f980ff986f",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Image Simulation/Example 4, a diffraction limited system.ZMX",
+        "Sha256": "f62da96ae3351e40a088dedc731603c1ebfe0641ada8a8aea125a615204cea7d",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Image Simulation/Example 5, spatially varying resolution.ZMX",
+        "Sha256": "2e26c4d9d56ce1b5fd0feb6300c8467c53ef6e55fd70cb669b218fb407ab359a",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Image Simulation/Example 6, tilted image plane.ZMX",
+        "Sha256": "3d99b357ca4cf3b6f8e6ef7aa8cbe8fd41d3a739d89411b23b0330a8bedca92c",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Interconnects/2 Ball lens interconnect.ZMX",
+        "Sha256": "5e24e18b56515c62fbcb5b39a00f10837a9da6d0314b3f66af5df061ef38db35",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Interconnects/Ball coupling.ZMX",
+        "Sha256": "71e4e98abd6da67653a6c9bd209e9744dc3d5d3d76a50d76c0667d8058779eb1",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Interconnects/Conic interconnect.ZMX",
+        "Sha256": "0d441b2eace043442820a79a18b5e6726c91cb87ed6c57cb879c2bd39adb3e33",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Interconnects/GRIN interconnect.ZMX",
+        "Sha256": "4ebef758aa869859bd2ef45149ed73a255905f78d928932816e5d29fee00b6b7",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Interconnects/Optical interconnect.ZMX",
+        "Sha256": "ce3178977e7fe160560a0333b2bdcfcaa549915c87ff8e7003433d36e59225ff",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Manufacturing/Apochromatic_for_Cost_3_TDE_defaults.zmx",
+        "Sha256": "b08f276f4be00fb0d578d3df88feece2a0897e34b1f62169cb2c4dec7de0b40e",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/Apochromat_prism.zmx",
+        "Sha256": "704a18d47e16536c6af269559990c7e38b1476cbda1b28ae7579c883934a8de7",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/Axicon model.zmx",
+        "Sha256": "2306d27415b9adcd38497a6b9885c9727577a0ea7d7409e46dcb2bb8ca9b705f",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/Beam splitter.zmx",
+        "Sha256": "6531e67cfdc292d68ad4c5bd23fef5912f69ad9a69879047ec52e818a8b399a2",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/Bi-ocular lens.ZMX",
+        "Sha256": "c189f6e95deacc7eca0784ff971f83391b729cb856b9fb4413b3d850dbf16a63",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/Cylinder.zmx",
+        "Sha256": "adc9e96bd53e9356794b2b9d29608dd304774755a3c15a7873cbc24f4b42e4c8",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/Diode source simulation.zmx",
+        "Sha256": "c22e0ae7f6655dba582da1a61b9fafab7b93fc6a396c388692249e73848d58da",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/Doubly telecentric system.zmx",
+        "Sha256": "71ddcd6d95bfa4dd596aeb10e51f78787a4025cca8526bc9f0bb635c053a7b69",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/Elliptical reflector 320 degree light cone .zmx",
+        "Sha256": "7abbd48e52c9f2c9473411d28fa8afac3ec212c89f62783fda74c2364ba7383c",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/Grid Sag Example.zmx",
+        "Sha256": "e9e24d1321cac024bf275d14294bd82ef4b6ab16e0d9474c506b7ddcac058b0f",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/Grid sag surface.zmx",
+        "Sha256": "0e7075efed0615fcc3c29d5462ea164d6ba7463058bfaed99d7a5dfa9330c465",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/Irregular surface.ZMX",
+        "Sha256": "8badb1a5aa3a642738a051da8d1b83d3525af6e727d6a1eafe3fe7438194751a",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/Mangin mirror.zmx",
+        "Sha256": "97f1c49f54ffa62e0faef9435e426abbd43867b34a6da95307bbc74a4733be34",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/MEMS DLL Sample.ZMX",
+        "Sha256": "de9dad5c977a8dde3598ca4247b6e5300587af54b302eca6898bf84bf228caf5",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/Optimization demo 1.zmx",
+        "Sha256": "02a7985cfcccc0b3b19524b3d81326bfd5e0f08377d22d8ad028f13a54fabf05",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/Optimization demo 2.zmx",
+        "Sha256": "6a40b596ea7f4a8ee47f9038613fa887bbdea38ae195b1404e3c9da848dd2af9",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/Parabolas at 90 degrees.zmx",
+        "Sha256": "9f21c558f410b9482d0883758400db1e9e1ac8b486da0190ab143ca3da4e1b25",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/Telecentric system.zmx",
+        "Sha256": "309ff2c2cc5eb1071bd4915ac7ecaacbc0d7a107f3d131a6269bbc78fcef1070",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/Toroid.zmx",
+        "Sha256": "eb5b15894ed4861de0db6052b0e3c6ec646694d5701f8673c45e33b43a597ea2",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Miscellaneous/vacuum cell.zmx",
+        "Sha256": "fd2a3063b4ed4aab4f50aee4786faa4b498f5731fb6746985b81066aae869911",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Apochromat.zmx",
+        "Sha256": "2399670b025a492f8dcaa960b258aa9e73ebc805c1142e7fd09ab409941ddb80",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Apochromat2.zmx",
+        "Sha256": "f3f970e300f62e1bb1b4db9a689c28de3bb44a7530767e0aeeb40c8aec2150c2",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Apochromat3.zmx",
+        "Sha256": "e721af4393533d0afb9000de84e648fb79a35ec853b39ba964580aa4f68bf15c",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Apochromat4.zmx",
+        "Sha256": "437b760e9554783d102ed7da2d071416ffcdcc6d30eedb6e5dd595e05f220ce8",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Cooke 40 degree field.zmx",
+        "Sha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Double Gauss 28 degree field.zmx",
+        "Sha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Double Gauss 5 degree field.zmx",
+        "Sha256": "e3876119a9140f4dd5283d88916793a4af74013a649e107e79788472b4b1ff71",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Doublet using MIL number glasses.zmx",
+        "Sha256": "67ec6a470027729b825c63ec2f4261c9bf0ef27d7e3088bec13db14698640745",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Doublet.zmx",
+        "Sha256": "b178db86e4deec9397eb66c59689b866878188990c756957e3215892d97594c1",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Even Asphere.zmx",
+        "Sha256": "e7523a0a2b8247667d53cd559eded64442af41318f2d985d61296d5c5d1756da",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Gaussian Quadrature over Annular Pupils.zmx",
+        "Sha256": "dc90e1c94d3100baf109315308a8a44815e6d325653988cce64330b77c93e03b",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Gaussian Quadrature Over Wavelength.ZMX",
+        "Sha256": "54b66676482691f8042a8faedf74717e425ac309c30deb820ac494c497f55b63",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Inverse telephoto lens.zmx",
+        "Sha256": "058dacb1d5653717f8b928242a3174db301ba448d62638e3d6ad85c070b11e1d",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Petzval.zmx",
+        "Sha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Relay lens.zmx",
+        "Sha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Tessar lens using vignetting factors.zmx",
+        "Sha256": "c7ed96a7688abdf2fae197cd67be96bc69f397826a036a7dab424be6394f2644",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Wide angle lens 100 degree field.zmx",
+        "Sha256": "cc6c044226a35a3ff448bfcfd52994c70738730acddd6d941faf276107fbfa3f",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Wide angle lens 200 degree field.zmx",
+        "Sha256": "fd8a4a96d1dea380462078281b2db5c39185b087b6c85f36f298abbfd74e5c49",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Objectives/Wide angle lens 210 degree field.zmx",
+        "Sha256": "11b37f823a96c7137e1e965f154bcb75410384f86a67b1bc082d5df5abc0dd6c",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Optical testing/Double-pass null test.zmx",
+        "Sha256": "d19c40e536bc7120deeed0f011df4b3553898e44d670aab71f5f88af4be81333",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Optical testing/Mach Zender Interferometer.zmx",
+        "Sha256": "254bdafc78667865c1dbdcceb8e6fc04d1334479c36579a2964f75f9d2d6cc2c",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Optical testing/Offner reflecting compensator.zmx",
+        "Sha256": "ceaf7e565e4cfbbec9964d8543b306c811be329582bd66f6fe1f95eb5bdfb394",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Optical testing/Offner refracting compensator.zmx",
+        "Sha256": "4c17ca45d226e81a6cd142d0bd4386983bbdc2e661bb00862a037adfda42bddf",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Optical testing/Twyman Green Interferometer.zmx",
+        "Sha256": "975be62693a8c3d8870c2ee3fd01e2f51de37d558afe7265cd939fe262f49051",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Polarization/Etalon.ZMX",
+        "Sha256": "4e0986acbda55315669b6ca8a35da5462a09cbfc015ebf4cb355119ea7ce1d64",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Polarization/Fabry-Perot.ZMX",
+        "Sha256": "cd7a4ba77056b49bfbd1f6630536a053806a24b2c39a4d98d3c0e43947a646c3",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Telescopes/Cassegrain-type Ritchey Chretien.zmx",
+        "Sha256": "4487b6b0502ec179e8e98be6b01652289c24550950c4972530e12446aa7cccab",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Telescopes/Flat-field Schmidt.zmx",
+        "Sha256": "457c20612ea9d5854c77bf404131faea577a71b1526a7d122dd3148c2769f9b1",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Telescopes/Houghton.zmx",
+        "Sha256": "9aaa9b7f9d77d358ea25f15b470bce6a93f315eb90653e0d3818c508e557f709",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Telescopes/Hubble.zmx",
+        "Sha256": "07a84224ec7c4422de621b38aae3665a894005afbd201ae9a146afff17b2dbcf",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Telescopes/Maksutov offset secondary.zmx",
+        "Sha256": "b19c8b39abfa1e74239f31465d1addda7c0169c86ea1e3b633ee1d2ff1283e77",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Telescopes/Maksutov.zmx",
+        "Sha256": "423279de5aea6b7ed6a19cd03c95bdb006edfc2b761cc6e506507abdb35cb1c6",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Telescopes/Schalcktelescope 10.ZMX",
+        "Sha256": "6cc9b151283079e3cfd337c0f1de13f69ab5c6cc40b0d1bd942d0de9c3d6cdd9",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Telescopes/Schmidt-Cassegrain spider obscuration.zmx",
+        "Sha256": "76e61a4974019a9c4473fa9c8f37d357b6380994da5437e7b4e9ffb6aa8a1b0d",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Telescopes/Schmidt-Cassegrain.zmx",
+        "Sha256": "1c423da6e3b927b28745a3679ffa6d60d32689f7ff7c7685c03e7507e70190ab",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Telescopes/Unobscured Gregorian.zmx",
+        "Sha256": "2f826fada9a0f05cc105101172c858d5fdbe1ee87000f1ebd44b5e79597ee398",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Telescopes/Yolo.zmx",
+        "Sha256": "6a39e474aebba39360f7deb75a0ca07997ed9055caaa3988c006c59addb28e9a",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Tilted systems & prisms/Beamsplitter cube.zmx",
+        "Sha256": "b7a37c131d5d2b9cbdf91a8363dbf9e9447facecf2cbcfeb3553938c50e5d1a4",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Tilted systems & prisms/Lens pivoted about a point.zmx",
+        "Sha256": "5c9cf177112ee81f9ac34992fb5264cf4d4caf9d0a7f41a42a4d609ba04c2f7c",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Tilted systems & prisms/OAP using Chebyshev Polynomial surface.zmx",
+        "Sha256": "1e0db932a67d31dcae4f3633811e65081401e0b0cdf8136789ac0ea76b6fa8c7",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Tilted systems & prisms/Offner relay.zmx",
+        "Sha256": "fe081641765eaf693bc9377b5a19f0b6489de76068e715e5ed6f38a73acbef01",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Tilted systems & prisms/Prism using tilted surface.zmx",
+        "Sha256": "3c0a53f0ba39013c3688ee1ee64481ab185f1d3c960d2b09adfa2e4f7860ebe1",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Tilted systems & prisms/Prism using total internal reflection.zmx",
+        "Sha256": "8a74f066e49a037aa0307c5f8a2be7f95d1940777edbe99523b74dad3f57de8d",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Tilted systems & prisms/Prisms using coordinate breaks.ZMX",
+        "Sha256": "93b3a79d35c097f82df84b68bb4703b4621d0731903d094a771a50b00bd8677b",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Tilted systems & prisms/Tilted mirror.zmx",
+        "Sha256": "9cc4d6101d4927b36ff3a62f68e54f5e40d8869652ed818e647707b6987f79e6",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Tilted systems & prisms/Tilted object.zmx",
+        "Sha256": "5fe8a4c6cffca20ccee36ab53af33d3078ba1838d2fd10b9ef48315d4afc61a9",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Zoom systems/Mirror zoom.zmx",
+        "Sha256": "1e753355a9b8394cb29d87c65b4580e1c33280149eb88aeb23840fcda4532cae",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Zoom systems/Scanning mirror.zmx",
+        "Sha256": "ad2b7a0922cf0dbc29d560a8507ce38254b0862c3f0d94329d91d22b48d30af6",
+        "GitCleanMatchesRaw": true
+      },
+      {
+        "Path": "Zoom systems/Zoom lens.zmx",
+        "Sha256": "7103aaf9130acc1b94a864267348ce1df6a7651910adc07379a9321a4670adc9",
+        "GitCleanMatchesRaw": true
+      }
+    ],
+    "Core": [
+      {
+        "Configuration": "Debug",
+        "Sha256": "2b6d993b60fd9b9d8b56c354eca62a2d25480df094d0e2d0f1cad55f942a90d9",
+        "Unchanged": true
+      },
+      {
+        "Configuration": "Release",
+        "Sha256": "0768a8ef72eacd1392c1869c197e6b2b657ad6a92b627d1af0b54a3cfd03bd17",
+        "Unchanged": true
+      }
+    ],
+    "OriginalFocalPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+    "OriginalRiflescopeSha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b"
+  },
+  "FrozenEvidence": {
+    "Path": "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/frozen-integrity.json",
+    "Sha256": "780d6c2764065c7f55a97322f7b742feb9aca79afd5a6b23eff633a7925576a9"
+  },
+  "ToleranceScope": "Original focal policy unchanged; new scoped angular Ray Fan explicitly uses unchanged Single Ray Trace/IncidentAngle degree tolerances. Original Modulation/Distortion limits retained. No length tolerance reused for power.",
+  "BuildScope": "Comparison tool/tests Debug+Release and diagnostic entries built with 0 warnings/0 errors; product optical engine unchanged.",
+  "FinalMatchesPreviousMetrics": true,
+  "PortableCaptures": {
+    "Path": "validation/zemax/2026-r1/afocal-riflescope-2026-10-19/capture-manifest.json",
+    "Sha256": "badee17cb8bcc176f07a1ee0dcced7d4ffb610d22f6d5837cd1bac0854a33d6e"
+  },
+  "SourceFiles": [
+    {
+      "Path": ".gitattributes",
+      "Sha256": "7c07a3d3b72912f271c16f6e1fcbe50c12753cc2fd23a7b1ee57ed82939b8796"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.ZemaxComparison/AfocalAnalysisContracts.cs",
+      "Sha256": "cea3fac8e429c4d93a91b8664792a7d653453f5825438552f3f81be5d6e1d635"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.ZemaxComparison/Models.cs",
+      "Sha256": "0af3e76effbf5f3d40aeca56ab11e8b31013b3df82b7e20e13cc60876157016a"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.ZemaxComparison/ComparisonRunner.cs",
+      "Sha256": "212f78f56453c68c5bdfaed70e23e4c45f2d917e4cd5df68b3b35b19ecc3b112"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.ZemaxComparison/Configuration/ComparisonConfiguration.cs",
+      "Sha256": "11c37b623144823bae50af5567e030d85d70dd24ee68f021db24feb010b7ec71"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.ZemaxComparison/Normalization/AfocalCurveNormalizer.cs",
+      "Sha256": "5c06ee7801ccdbc3b12f76c17d375798bd49ff55cfd1b960719ef9bdfbb93668"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.ZemaxComparison/Normalization/ResultNormalizer.cs",
+      "Sha256": "50fb3a21a2cbc6e6ba722015e2150f6ae1efcf99969f3b91a28b5beded25966b"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.ZemaxComparison/Normalization/ExtendedResultNormalizer.cs",
+      "Sha256": "23e9cbd658fc3e1d03b33cc5e330334e4c2f8522b53c1965ea80bec1939eacbf"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.ZemaxComparison/Normalization/PhysicalNormalization.cs",
+      "Sha256": "a9aeb76d78cbc7e671a5d8e8dbb20fa8cd884f2ec680c96960d4644dcf207aa5"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.ZemaxComparison/Zemax/ZemaxExecutor.cs",
+      "Sha256": "1e57579c71774bfff33168eaff95bbbd637459108501ea8cf13db30e3d5f0c1c"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/AfocalComparisonTests.cs",
+      "Sha256": "02c03c5bc657c7fbc8f4019a9ca3d5936d16385fddca6a2df8a2c10786a12494"
+    },
+    {
+      "Path": "tools/diagnostics/SequentialCorpus20261019/Program.cs",
+      "Sha256": "05fa162ddfcc20384e651aa462f8c140e74103dd39077587c575968cccc59e01"
+    },
+    {
+      "Path": "tools/diagnostics/AfocalRiflescope20261019/Program.cs",
+      "Sha256": "88ef5625f76b2b2b1e60a41563e97b8e420fe54f15958b482aa62fb347c3a32f"
+    }
+  ],
+  "KnownOpenIssues": [
+    "Afocal Core field curvature is millimeters, native is diopters. Incomparable components retained.",
+    "Off-axis polychromatic FFT MTF has remaining Differences, maximum absolute modulation error 0.852976837148203.",
+    "Angular-system percent distortion has remaining Difference, maximum 547.5606546779043 percentage points.",
+    "Other afocal analysis contracts remain explicitly unverified. Hidden screenshot settings not certified identical."
+  ],
+  "DocumentationAudit": {
+    "Strict": true,
+    "Output": "artifacts/validation/afocal-riflescope-20261019/documentation-final.json"
+  }
+}

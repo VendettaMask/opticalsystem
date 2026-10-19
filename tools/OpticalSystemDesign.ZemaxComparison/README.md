@@ -1,5 +1,17 @@
 # C# Zemax / Workbench comparison
 
+## Afocal comparisons
+
+The main runner and Sequential corpus runner now dispatch afocal support per analysis, rather than excluding every afocal system. MM lenses currently have audited unit contracts for Ray Fan, FFT MTF, and Field Curvature/Distortion. Other afocal contracts remain explicitly unverified. Native `AFocalImageSpace`, `AfocalModeUnits`, selected field/wavelength and angular MTF frequency must agree with the request and captured settings; localized axis captions never select a unit.
+
+For afocal FFT MTF, `MaximumFrequency` is **cycles/mrad** in canonical configuration and Workbench requests. The native request converts to the source's angle unit (for example cycles/arcminute); normalized outputs return to cycles/mrad. `Field=0` and `Wavelength=0` explicitly select all fields and all defined wavelengths for FFT MTF. Every field retains separate T/S curves.
+
+The native `captured-settings.json/request` is the converted native adapter payload. For offline Workbench replay use the canonical request in `run-summary.json` or `raw/workbench/.../request.json`, not the converted native frequency as a canonical frequency.
+
+Afocal Ray Fan normalizes to **degrees** and requires an explicit per-analysis `AfocalQuantities` object containing `IncidentAngle` tolerances. Focal `Quantities.ImageHeight` limits remain unchanged and cannot become angular limits. The scoped Riflescope configuration explicitly copies the existing Single Ray Trace/IncidentAngle degree limits; this choice is recorded separately, not presented as a universal angular tolerance. FFT MTF modulation and percent distortion retain their original limits.
+
+Afocal native field curvature is defocus in diopters. The current Core field-curvature output remains millimeters and is retained with that physical metadata; it is never relabeled as diopters. A mixed result can report a percent-distortion Difference while identifying the two incompatible field-curvature curves separately. Passing available components cannot close missing physical coverage. Current scope, real capture results and remaining product errors are in the [Riflescope report](../../docs/AFOCAL_COMPARISON_REPAIR_2026-10-19.md).
+
 Explicit ray audits also limit the total number of surface records to the shared Core retained-sample budget (2,000,000), checked both before tracing and in the isolated native host. Dense arrays over many fields/surfaces require smaller separate diagnostic jobs.
 
 2026-10-08: one-sided pure Y tables now interpolate squared radial distance in either sign, with native mixed/asymmetric tables retaining nearest-row selection and exact physical-unit midpoint ties. Three derived official Tessar controls certify 384 native launches; an independent finite-object Tessar adds 128. Native ray-audit preflight updates the system, records EPDI/ENPP and rejects zero/non-finite entrance pupils. The six unchanged official sources now replay as 100 Pass / 9 Close / 14 Difference / 8 Incomparable / 1 Error, with all 95 previous passes retained. Fresh MS-L7 Huygens and DEE captures still leave numerical differences; no existing baseline, setting or tolerance was changed. See [current fixes, evidence and limitations](../../docs/CONFIRMED_ISSUE_REPAIR_2026-10-08.md). The next paragraph is the earlier stage.

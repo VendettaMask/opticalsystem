@@ -10,6 +10,7 @@ public static class PhysicalNormalization
         ["Radian"] = ("angle", 1),
         ["Degree"] = ("angle", Math.PI / 180),
         ["Milliradian"] = ("angle", 1e-3),
+        ["ArcMinute"] = ("angle", Math.PI / (180 * 60)),
         ["Dimensionless"] = ("ratio", 1),
         ["Percent"] = ("ratio", 0.01),
         ["Wave"] = ("wave", 1),
@@ -18,6 +19,9 @@ public static class PhysicalNormalization
         ["InverseMicrometer"] = ("frequency", 1000),
         ["InverseMillimeter"] = ("inverseLength", 1),
         ["CyclesPerMilliradian"] = ("angularFrequency", 1),
+        ["CyclesPerArcMinute"] = ("angularFrequency", 60 * 180 / (1000 * Math.PI)),
+        ["CyclesPerDegree"] = ("angularFrequency", 180 / (1000 * Math.PI)),
+        ["CyclesPerRadian"] = ("angularFrequency", 0.001),
         ["Watt"] = ("powerFlux", 1),
         ["WattsPerSquareMillimeter"] = ("irradiance", 1)
     };

@@ -1,0 +1,129 @@
+{
+  "date": "2026-10-19",
+  "baseCommit": "38fddb1dcc4e77ea162c2388b325b560b94a930e",
+  "scope": "PARM 0 parsing and typed merit surface remapping for 14 selected lenses; includes related local real-ray-coordinate repair",
+  "lenses": 14,
+  "configurations": 21,
+  "importPreparationErrors": 0,
+  "analysisRequests": 518,
+  "analysisCounts": {
+    "Incomparable": 79,
+    "Error": 397,
+    "Pass": 31,
+    "Difference": 9,
+    "Close": 2
+  },
+  "rayJobs": 35,
+  "rayCounts": {
+    "Error": 32,
+    "Pass": 1,
+    "Incomparable": 2
+  },
+  "nativeFailures": 6,
+  "tolerancesChanged": false,
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "originalSourceFilesUnchanged": 295,
+  "frozenMatched": 2668,
+  "formalPassed": 165,
+  "formalExcluded": 3,
+  "formalMetricsAndInputsExactlyUnchanged": true,
+  "focusedPassed": 239,
+  "tests": [
+    {
+      "configuration": "Release",
+      "passed": 1276,
+      "originalTests": 1244,
+      "originalIdentitiesRetained": true,
+      "newGuards": 32,
+      "comparisonPassed": 5,
+      "coreSha256": "0768a8ef72eacd1392c1869c197e6b2b657ad6a92b627d1af0b54a3cfd03bd17",
+      "coreCopies": [
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "0768a8ef72eacd1392c1869c197e6b2b657ad6a92b627d1af0b54a3cfd03bd17"
+        },
+        {
+          "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "0768a8ef72eacd1392c1869c197e6b2b657ad6a92b627d1af0b54a3cfd03bd17"
+        }
+      ],
+      "trxSha256": "657c559393cd656185ddd97af42f7e26baf691503b3f7eacf5f92a5a374bcdf3"
+    },
+    {
+      "configuration": "Debug",
+      "passed": 563,
+      "originalTests": 531,
+      "originalIdentitiesRetained": true,
+      "newGuards": 32,
+      "comparisonPassed": 5,
+      "coreSha256": "2b6d993b60fd9b9d8b56c354eca62a2d25480df094d0e2d0f1cad55f942a90d9",
+      "coreCopies": [
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "2b6d993b60fd9b9d8b56c354eca62a2d25480df094d0e2d0f1cad55f942a90d9"
+        },
+        {
+          "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "2b6d993b60fd9b9d8b56c354eca62a2d25480df094d0e2d0f1cad55f942a90d9"
+        }
+      ],
+      "trxSha256": "a634495926297aa4df86e425e46150857ab836fc7dfbf0f6416e9c434cd54c5e"
+    }
+  ],
+  "finalCoreSha256": "0768a8ef72eacd1392c1869c197e6b2b657ad6a92b627d1af0b54a3cfd03bd17",
+  "preparationIdentityPreserved": true,
+  "workbenchRecompute": {
+    "reason": "Explicit recomputation with final local-coordinate operand repair; prior captures retained",
+    "jobs": 458,
+    "preparationIdentitySha256": "d7ac1fb0744e3c71d3ff34bbf76342144705670731ed604a87e0b42c889ae002",
+    "computationCoreSha256": "0768a8ef72eacd1392c1869c197e6b2b657ad6a92b627d1af0b54a3cfd03bd17",
+    "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+    "nativeCapturesChanged": false,
+    "snapshotsChanged": false
+  },
+  "sourceFiles": [
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxZmxReader.cs",
+      "sha256": "e94145cb1bb55eedfb5ffbb0761dfde2482d36954ce22aaa800edd5647268799"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Optimization/MeritFunction.cs",
+      "sha256": "d24a0fc322068620a5ca59bebdf7ac89c77924426a43b02fdd3aa5c437b04e57"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ZemaxImportParameterAndSurfaceMappingTests.cs",
+      "sha256": "c326cc5bc0b0890e5ba6653c6b22d394edef78725d4bc483208774c5a34fa536"
+    }
+  ],
+  "yoloControls": {
+    "beforeMaximumAbsoluteMillimeters": 311.4214442585522,
+    "difference": 20,
+    "admissible": 20,
+    "maximumAbsoluteMillimeters": 0.34619336320795036
+  },
+  "syntheticPlaneControls": {
+    "incomparableNativeFailures": 18,
+    "difference": 2,
+    "admissible": 2,
+    "maximumAbsoluteMillimeters": 3.0465608781518605E-05
+  },
+  "full95LensesRecertified": false,
+  "perLensReport": "validation/zemax/2026-r1/sequential-import-repair-2026-10-19/BY_LENS.md",
+  "limitations": [
+    "Unsupported geometries and afocal/unit adapters remain limited",
+    "Yolo and synthetic tilted-plane numerical differences remain open",
+    "Other two original import failures are outside this 14-lens scope"
+  ],
+  "evidenceArchive": {
+    "path": "validation/zemax/2026-r1/sequential-import-repair-2026-10-19/import-repair-evidence.zip",
+    "bytes": 25517717,
+    "payloadFiles": 10249,
+    "verifiedReadback": true,
+    "sha256": "dc7d42e38c7b0f2b412b32b9284b78b6fd827c66582ec3361513b29308989b27"
+  },
+  "documentationAudit": {
+    "path": "artifacts/validation/zemax-import-repair-20261019/documentation-audit-final.json",
+    "sha256": "87f780bae7b526c55be6a86c722d7373cc887242c551133751ddaa3b695be97c",
+    "strictPassed": true
+  }
+}

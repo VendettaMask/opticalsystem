@@ -1,0 +1,135 @@
+{
+  "key": "Ray Fan",
+  "directory": "ray-fan-c1",
+  "support": "Comparable",
+  "zemaxStatus": "Captured",
+  "workbenchStatus": "Captured",
+  "conclusion": "Pass",
+  "reason": "",
+  "request": {
+    "canonicalAnalysisKey": "Ray Fan",
+    "imageSpaceAfocal": true,
+    "nativeAfocalAngleUnit": "ArcMinute",
+    "configuration": 1,
+    "field": 1,
+    "wavelength": 1,
+    "surface": -1,
+    "pupilSampling": 64,
+    "imageSampling": 64,
+    "rayCount": 64,
+    "gridSize": 64,
+    "imageDeltaMicrometers": 0.25,
+    "maximumFrequency": 50,
+    "focusMinimum": -0.1,
+    "focusMaximum": 0.1,
+    "reference": "ChiefRay",
+    "polarization": false,
+    "apodization": "{\r\n  \u0022kind\u0022: \u0022zemax_pupil\u0022,\r\n  \u0022numbers\u0022: {\r\n    \u0022type\u0022: 0,\r\n    \u0022factor\u0022: 0\r\n  },\r\n  \u0022text\u0022: {},\r\n  \u0022children\u0022: null\r\n}",
+    "deleteVignetted": true,
+    "useRayAiming": true,
+    "normalization": "NativePhysical",
+    "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+    "outputUnits": "TypedAxes",
+    "settingsOrigin": "CapturedSettings",
+    "workbenchSettings": {
+      "PlotScaleMicrometers": "0",
+      "NumberOfRays": "64",
+      "UseDashes": "false",
+      "VignettedPupil": "True",
+      "CheckApertures": "True",
+      "WavelengthNumber": "1",
+      "FieldNumber": "1",
+      "TangentialAberration": "Y Aberration",
+      "SagittalAberration": "X Aberration",
+      "SurfaceNumber": "-1",
+      "UsePolarization": "False",
+      "UseRayAiming": "True"
+    },
+    "zemaxSettings": {},
+    "zemaxCfgSettings": {},
+    "wavelengthScope": "Selected",
+    "wavelengthCount": 3,
+    "fieldDefinition": "Angle",
+    "maximumFieldRadius": 2.5,
+    "surfaceCount": 19,
+    "fieldCount": 3,
+    "definedFields": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1.75
+      ],
+      [
+        0,
+        2.5
+      ]
+    ],
+    "fieldScanDirection": "\u002By",
+    "primaryWavelengthMicrometers": 0.587,
+    "zemaxSettingsMode": "TypedProperties",
+    "sourceImagePath": null,
+    "sourceImageSha256": null
+  },
+  "tolerances": {
+    "IncidentAngle": {
+      "absolute": 1E-06,
+      "relative": 1E-06,
+      "nrmse": 1E-05,
+      "closeNrmse": 3E-05,
+      "minimumCoverage": 0.95
+    }
+  },
+  "metrics": [
+    {
+      "id": "tangential",
+      "unit": "Degree",
+      "count": 129,
+      "maxAbsolute": 2.660821174504946E-09,
+      "meanAbsolute": 3.6869941592621364E-11,
+      "rmse": 2.730177090397359E-10,
+      "nrmse": 5.065137270471346E-09,
+      "maxRelative": 3.71988713362244E-07,
+      "p50": 8.5378535838454E-14,
+      "p90": 2.9145172386613196E-12,
+      "p95": 3.460684169787065E-11,
+      "pearson": 1.0000000000000002,
+      "worstX": 0.96875,
+      "worstY": null,
+      "coverage": 1,
+      "conclusion": "Pass",
+      "extra": {}
+    },
+    {
+      "id": "sagittal",
+      "unit": "Degree",
+      "count": 129,
+      "maxAbsolute": 2.660821174504946E-09,
+      "meanAbsolute": 3.6869941592621364E-11,
+      "rmse": 2.730177090397359E-10,
+      "nrmse": 5.065137270471346E-09,
+      "maxRelative": 3.71988713362244E-07,
+      "p50": 8.5378535838454E-14,
+      "p90": 2.9145172386613196E-12,
+      "p95": 3.460684169787065E-11,
+      "pearson": 1.0000000000000002,
+      "worstX": 0.96875,
+      "worstY": null,
+      "coverage": 1,
+      "conclusion": "Pass",
+      "extra": {}
+    }
+  ],
+  "normalizations": [
+    "tangential: unit conversion X Dimensionless-\u003EDimensionless x1; Y Milliradian-\u003EDegree x0.057295779513082325",
+    "sagittal: unit conversion X Dimensionless-\u003EDimensionless x1; Y Milliradian-\u003EDegree x0.057295779513082325",
+    "tangential: unit conversion X Dimensionless-\u003EDimensionless x1; Y ArcMinute-\u003EDegree x0.016666666666666666",
+    "sagittal: unit conversion X Dimensionless-\u003EDimensionless x1; Y ArcMinute-\u003EDegree x0.016666666666666666",
+    "tangential: sorted coordinates; linear interpolation on union of 129 physical knots in [-1, 1]; no extrapolation",
+    "sagittal: sorted coordinates; linear interpolation on union of 129 physical knots in [-1, 1]; no extrapolation"
+  ],
+  "screenshotStatus": "NotRequested",
+  "elapsedMilliseconds": 7432
+}
