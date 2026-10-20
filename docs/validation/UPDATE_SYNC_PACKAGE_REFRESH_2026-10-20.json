@@ -1,0 +1,234 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "status": "package-replaced-and-verified-source-code-synchronized",
+  "evidenceRoot": "artifacts/validation/package-refresh-20261020-v2",
+  "source": {
+    "oldTagCommit": "9242b31abf38b4d97f23d19e4b00f8df47abfabb",
+    "branch": "main",
+    "sourcePush": "complete:67fc82b4bd1102c8003ce0a4d2666a8fc29f7fd4",
+    "remote": "origin",
+    "lfsArchive": {
+      "path": "validation/repairs/2026-10-20/objectives-matrix-evidence.zip",
+      "bytes": 177781052,
+      "sha256": "3667d211280d50bf694e19f8105d40b38c93f24672a4aec04a8a44629a7d4f2b"
+    },
+    "repository": "https://github.com/VendettaMask/opticalsystem",
+    "existingReleaseTagMoved": false,
+    "sourceDirty": false,
+    "codeCommit": "67fc82b4bd1102c8003ce0a4d2666a8fc29f7fd4",
+    "remoteReceipt": "artifacts/validation/package-refresh-20261020-v2/remote-source-receipt.txt",
+    "lfsFsck": "passed",
+    "deliveryMetadataHandoff": {
+      "scope": "Delivery records and current guides only; package remains built from codeCommit",
+      "finalReceipt": "artifacts/validation/package-refresh-20261020-v2/source-sync-final-receipt.json",
+      "rule": "After committing these records, independently verify origin/main equals local HEAD, clean worktree and unchanged old tag; save actual metadata commit and push outcome in the ignored local receipt to avoid a self-referential commit hash."
+    }
+  },
+  "package": {
+    "sha256": "3373a8dbfcee4abd6d07d31426d45de9ed8612db27bb3ea5a765af8799da98d5",
+    "version": "1.0.4",
+    "manifestFiles": 1285,
+    "requiredModules": [
+      "InitialStructure",
+      "CoatingDesign"
+    ],
+    "releaseId": "1.0.4-win-x64-973fe980dc92",
+    "modulesInProcess": true,
+    "installer": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-60b11e6d\\OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+    "bytes": 276567899,
+    "validationHooks": false,
+    "runtime": "win-x64",
+    "directory": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-60b11e6d",
+    "manifestSha256": "557569aa251d6d6bb7079a29901033fb972b1247274088e4b35e815247ccaaeb",
+    "testPackage": true,
+    "signed": false
+  },
+  "github": {
+    "replacementStatus": "complete: three canonical assets verified; old remote backups removed after public checks",
+    "url": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019",
+    "releaseId": 416939680,
+    "tag": "v1.0.4-test.20261019",
+    "newReleaseCreated": false,
+    "prerelease": true,
+    "markedLatest": false,
+    "draft": false,
+    "canonicalAssetCount": 3,
+    "finalSnapshot": "artifacts/validation/package-refresh-20261020-v2/release-final.json",
+    "replacementJournal": "artifacts/validation/package-refresh-20261020-v2/replacement-journal.json",
+    "previousRemoteAssetDeletionProof": "artifacts/validation/package-refresh-20261020-v2/previous-remote-assets-removed.json",
+    "assets": [
+      {
+        "id": 659616762,
+        "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+        "bytes": 276567899,
+        "sha256": "3373a8dbfcee4abd6d07d31426d45de9ed8612db27bb3ea5a765af8799da98d5",
+        "url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe"
+      },
+      {
+        "id": 659616763,
+        "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe.sha256",
+        "bytes": 124,
+        "sha256": "36dbe4d7380e1f940854ef7f56ae074cd98b214149d9c5de58be338d173b3f3a",
+        "url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe.sha256"
+      },
+      {
+        "id": 659616766,
+        "name": "release.json",
+        "bytes": 763,
+        "sha256": "89724a689347a7863f6fc01af782dc6e13cacf1257f704520631b7597e509ce0",
+        "url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/release.json"
+      }
+    ],
+    "publicDownloadVerification": {
+      "passed": 4,
+      "failed": 0,
+      "fullInstallerDownloadRepeated": false,
+      "installerFullSha256VerifiedThroughGitHubDigest": true,
+      "checks": [
+        {
+          "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe.sha256",
+          "completePublicDownload": true,
+          "sha256": "36dbe4d7380e1f940854ef7f56ae074cd98b214149d9c5de58be338d173b3f3a",
+          "bytes": 124
+        },
+        {
+          "name": "release.json",
+          "completePublicDownload": true,
+          "sha256": "89724a689347a7863f6fc01af782dc6e13cacf1257f704520631b7597e509ce0",
+          "bytes": 763
+        },
+        {
+          "name": "installer-prefix",
+          "rangeStart": 0,
+          "bytes": 4096,
+          "sha256": "bb9e70b0cfd731c0e3ef0b591567a971bf00bef3b206f4c9c0dbf2c768fb6bd7",
+          "matchesLocalPackage": true
+        },
+        {
+          "name": "installer-suffix",
+          "rangeStart": 276563803,
+          "bytes": 4096,
+          "sha256": "d5a11806046d15c389ddbf6ff43763e7c95132f36ae73e2dfc8022f9e04b8e14",
+          "matchesLocalPackage": true
+        }
+      ],
+      "proof": "artifacts/validation/package-refresh-20261020-v2/public-download-verification.json"
+    },
+    "remoteOldAssetIdsRemoved": [
+      658226269,
+      658227018,
+      658227060
+    ]
+  },
+  "validation": {
+    "rootBuilds": [
+      {
+        "configuration": "Debug",
+        "errors": 0,
+        "projects": 19,
+        "warnings": 0
+      },
+      {
+        "configuration": "Release",
+        "errors": 0,
+        "projects": 19,
+        "warnings": 0
+      }
+    ],
+    "fullTestSuiteRerun": false,
+    "userInstallationModified": false,
+    "packagedPetzvalGuards": {
+      "passed": 2,
+      "trx": "artifacts\\validation\\package-refresh-20261020-v2\\tests\\packaged-petzval.trx",
+      "failed": 0,
+      "scope": "Packaged Core and Application under installed test host; packaged executable/runtime/modules probed separately"
+    },
+    "frozenWorkingAndHead": {
+      "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "matched": 2668,
+      "count": 2668,
+      "proof": "artifacts\\validation\\package-refresh-20261020-v2\\frozen-after-commit.json"
+    },
+    "crossPlatformInstallValidation": false,
+    "changedCSharpFormat": {
+      "exitCode": 0,
+      "files": 38,
+      "log": "artifacts\\validation\\package-refresh-20261020-v2\\format-source.log"
+    },
+    "deliveryTests": {
+      "passed": 77,
+      "trx": "artifacts\\validation\\package-refresh-20261020-v2\\tests\\delivery-release.trx",
+      "failed": 0
+    },
+    "packageChecks": {
+      "manifestFiles": 1285,
+      "passed": 14,
+      "failed": 0,
+      "summary": "artifacts\\validation\\package-refresh-20261020-v2\\package-verification\\summary.json",
+      "runtimeScope": "Self-contained executable and built-in module probes, integrity checks and missing-internal-library rejection; not a full native GUI or numerical suite."
+    },
+    "packagedAssemblyIdentity": {
+      "scope": "Packaged Core/Application assembly Petzval guards under the installed test host; complete packaged runtime/modules checked separately",
+      "assemblies": [
+        {
+          "assembly": "OpticalSystemDesign.Core.dll",
+          "sha256": "ae64717e27a142414c31230ca7b420012bd279b1857fea785e3efb5df6c47259",
+          "packageSource": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-60b11e6d\\payload\\app-6dacdcc7\\OpticalSystemDesign.Core.dll"
+        },
+        {
+          "assembly": "OpticalSystemDesign.Application.dll",
+          "sha256": "4f3fa3e0791d2d4746ada933f640a9f1cbcc508f3407f27153fa1c3006a4a0ec",
+          "packageSource": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-60b11e6d\\payload\\app-6dacdcc7\\OpticalSystemDesign.Application.dll"
+        }
+      ]
+    },
+    "nativeGuiVerified": false,
+    "documentation": {
+      "command": "./scripts/verify-documentation.ps1 -Strict",
+      "proof": "artifacts/validation/package-refresh-20261020-v2/documentation-final.json",
+      "actualResultInFinalSyncReceipt": true
+    },
+    "sourceDiffCheck": {
+      "command": "git diff --check; git diff --cached --check",
+      "actualResultInFinalSyncReceipt": true
+    },
+    "originalOpticalReferencesAndTolerancesModifiedDuringPackaging": false,
+    "opticalNineteenLensMatrixRerunDuringPackaging": false,
+    "installerBuild": {
+      "command": "./scripts/build-installer.ps1 -Runtime win-x64 -UnsignedTestPackage -PassThru",
+      "exitCode": 0,
+      "fullConsoleLogCaptured": false,
+      "partialConsoleLog": "artifacts/validation/package-refresh-20261020-v2/installer-console-partial.log"
+    }
+  },
+  "notes": "GitHub tag source archives retain the older baseline; package built from a clean exact code commit, with delivery metadata committed separately. Existing repair reports retain scoped numerical identities; no optical algorithm/reference/tolerance changed during packaging.",
+  "previousPackageBackup": {
+    "prefixBytes": 63356099,
+    "verifiedSegments": 204,
+    "verifiedAssets": 3,
+    "files": [
+      {
+        "id": 658226269,
+        "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+        "bytes": 276499068,
+        "sha256": "f650be6fe664a9202dc760c107232e352b8e01d5359a3860cbbb45e2e8075a9c",
+        "backup": "D:\\Projects\\opticalsystem\\artifacts\\validation\\package-refresh-20261020-v2\\previous-package-complete\\OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe"
+      },
+      {
+        "id": 658227018,
+        "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe.sha256",
+        "bytes": 124,
+        "sha256": "ddcb9a58a494c80f9161ae6dbce560ef7640c5500ee15b79e522c7cb04f92e84",
+        "backup": "D:\\Projects\\opticalsystem\\artifacts\\validation\\package-refresh-20261020-v2\\previous-package-complete\\OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe.sha256"
+      },
+      {
+        "id": 658227060,
+        "name": "release.json",
+        "bytes": 762,
+        "sha256": "060d273a07609c3d06fa934a1671bdc8c1190c7454ab0e7435a72fa4f90cafd6",
+        "backup": "D:\\Projects\\opticalsystem\\artifacts\\validation\\package-refresh-20261020-v2\\previous-package-complete\\release.json"
+      }
+    ]
+  }
+}

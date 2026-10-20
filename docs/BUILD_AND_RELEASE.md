@@ -22,6 +22,8 @@ dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false
 
 ## 测试
 
+日常修改默认只运行与改动行为及已观察退化直接相关的筛选；只有明确风险或用户要求才扩大范围。以下完整解决方案命令用于需要全量验证时，不要求每次修改都执行。各次实际范围见[当前状态](CURRENT_STATUS.md)。
+
 ```powershell
 dotnet test OpticalSystemDesign.slnx -c Release --no-build --no-restore /m:1 /nr:false
 dotnet test labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj -c Release --no-build --no-restore
@@ -96,7 +98,7 @@ RID 专用锁文件放在项目 `obj` 下，不覆盖源锁文件。发布禁用
 
 每个稳定发布及架构只上传一个生产安装器：`OpticalSystemDesign-<版本>-<RID>-Setup.exe` 或明确标注未签名的 `OpticalSystemDesign-<版本>-<RID>-Unsigned-Setup.exe`，并附同名 `.sha256`；`UnsignedTest` 不能作为升级安装包。不可把源码压缩包或工作流临时产物冒充 Setup。API 约定见 [GitHub Releases REST 文档](https://docs.github.com/en/rest/releases/releases)。
 
-当前 [1.0.4 x64 测试预发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)已于 **2026-10-20 按用户要求覆盖旧附件**，保留发布页和文件名，含新的 `UnsignedTest-Setup.exe`、同名 SHA-256 与 `release.json`。当前身份为 `1.0.4-win-x64-f54b01168c53`，不标 Latest，不进入正式更新检测。旧包在本地保留，旧远端附件在新附件全部校验通过后移除。此包是含未提交修改的工作区构建，原标签没有移动；GitHub 自动源码压缩包不能复现本包。测试包使用正常产品安装标识，安装可能升级已有同产品安装，应先保存并备份重要工程、关闭程序；本轮没有实际安装。软件内部仍显示 1.0.4，同版本正式包不会被判为更高版本，必要时应手动安装。当前身份与验证见[本轮交付账目](validation/PACKAGE_UPLOAD_2026-10-20.json)，被替换包的原始阶段记录保留在[版本功能账目](validation/VERSION_UPDATES_2026-10-19.json)。
+当前 [1.0.4 x64 测试预发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)已于 **2026-10-20 按用户要求再次覆盖旧附件**，保留发布页和三个文件名，含新的 `UnsignedTest-Setup.exe`、同名 SHA-256 与 `release.json`。当前身份为 `1.0.4-win-x64-973fe980dc92`，不标 Latest，不进入正式更新检测。包从已推送的干净代码提交 `67fc82b4bd1102c8003ce0a4d2666a8fc29f7fd4` 生成，交付文档随后单独提交；原标签没有移动，GitHub 标签源码压缩包仍指向旧基线，应使用该代码提交查看本包源码。旧包完整备份在本地，新附件服务端哈希和公开下载复核通过后，旧远端附件已移除。测试包使用正常产品安装标识，安装可能升级已有同产品安装，应先保存并备份重要工程、关闭程序；本轮没有实际安装。软件内部仍显示 1.0.4，同版本正式包不会被判为更高版本，必要时应手动安装。当前身份与验收边界见[本轮交付账目](validation/UPDATE_SYNC_PACKAGE_REFRESH_2026-10-20.json)，上一包记录保留在[前轮账目](validation/PACKAGE_UPLOAD_2026-10-20.json)，最初阶段见[版本功能账目](validation/VERSION_UPDATES_2026-10-19.json)。
 
 ## 安装、修复和验证
 
