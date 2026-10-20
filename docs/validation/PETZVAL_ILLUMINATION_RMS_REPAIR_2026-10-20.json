@@ -1,0 +1,327 @@
+{
+  "date": "2026-10-20",
+  "finalCandidate": "v3 stable-root fallback only after both ordinary roots fail unchanged explicit-sag validation",
+  "outcome": "Both Petzval analyses pass original reference and tolerance; final-v3 original 90-request comparison is88 Pass/2 native low-sampling Incomparable, all86 previous passes preserved",
+  "userTestPreference": "Focused regressions by default; no routine full-suite rerun on every edit",
+  "rootCause": {
+    "surface": 8,
+    "radiusMillimeters": 1111723.0516534068,
+    "problem": "Cancellation in small quadratic root caused valid scalar ray intersections to fail unchanged residual validation",
+    "nativeAuditRays": 1152,
+    "beforeLostRays": 28,
+    "afterLostRays": 0,
+    "physicalSurfaceRecords": 10368,
+    "maximumCoordinateDifferenceMillimeters": 2.1025809316278093E-10,
+    "maximumDirectionDifference": 1.5543122344752192E-15,
+    "detail": "validation/repairs/2026-10-20/petzval-illumination-rms/final-v3/root-cancellation-example.json",
+    "nativeAudit": "validation/repairs/2026-10-20/petzval-illumination-rms/final-v3/gaussian-native-v3.json"
+  },
+  "comparisonPolicy": {
+    "path": "tools/OpticalSystemDesign.ZemaxComparison/comparison-settings.json",
+    "sha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+    "tolerancesUnchanged": true,
+    "prescriptionsUnchanged": true,
+    "settingsUnchanged": true,
+    "referencesUnchanged": true,
+    "passNrmse": 0.003,
+    "closeNrmse": 0.01
+  },
+  "fixedAnalyses": [
+    {
+      "analysis": "Relative Illumination",
+      "beforeConclusion": "Difference",
+      "beforeMaximumAbsolute": 0.037892383417905906,
+      "afterConclusion": "Pass",
+      "afterMaximumAbsolute": 3.8176239947063095E-11,
+      "afterNrmse": 1.417717768697242E-11,
+      "unit": "Dimensionless"
+    },
+    {
+      "analysis": "RMS vs Field",
+      "beforeConclusion": "Close",
+      "beforeMaximumAbsolute": 0.25251506061864504,
+      "afterConclusion": "Pass",
+      "afterMaximumAbsolute": 2.593485870505674E-07,
+      "afterNrmse": 5.9582390099802745E-09,
+      "unit": "Micrometer"
+    }
+  ],
+  "threeLensReplay": {
+    "date": "2026-10-20",
+    "candidate": "v3 fallback only after ordinary intersection failure",
+    "sourceLenses": 3,
+    "analysisRequests": 90,
+    "analysisCounts": {
+      "Incomparable": 2,
+      "Pass": 88
+    },
+    "rayJobs": 9,
+    "rayCounts": {
+      "Pass": 9
+    },
+    "physicalSurfaceComparisons": 16200.0,
+    "comparedValues": 97200.0,
+    "originalPassesPreserved": 86,
+    "coreSha256": "cf3647652213542dae90d0ed1c16b9df5290e740a0b204f1b4a6e0a9f40a6b2c",
+    "comparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+    "parentRun": "artifacts/validation/objectives-20261020/final-v7-intersection-fallback",
+    "parentReport": "artifacts/validation/objectives-20261020/report-final-v7",
+    "originalReferenceComparison": "artifacts/petzval-repair/2026-10-20/final-v3-original-references",
+    "parentIdentitySha256": "dcd24beb100c7b6d5f3257834777aea844f42242ea3dc818fd69581f47cffc72",
+    "canonicalRequestsIdentical": 90,
+    "typedSettingsIdentical": 90,
+    "comparisonTolerancesIdentical": 90,
+    "originalNativeDataBytesIdentical": 90,
+    "originalRayRequestsIdentical": 9,
+    "scope": "Exact final-v3 Workbench bytes selected from coordinated directory run, compared again with the original 90 native reference captures without optical recalculation. Nine ray groups have identical original launch requests and native payload bytes. No new native recapture claim.",
+    "status": "complete",
+    "before": {
+      "Error": 0,
+      "Close": 1,
+      "Incomparable": 2,
+      "Pass": 86,
+      "Difference": 1
+    },
+    "after": {
+      "Error": 0,
+      "Close": 0,
+      "Incomparable": 2,
+      "Pass": 88,
+      "Difference": 0
+    },
+    "regressions": 0,
+    "summary": "validation/repairs/2026-10-20/petzval-illumination-rms/final-v3/summary.json",
+    "originalReferenceCopyIntegrity": "artifacts/petzval-repair/2026-10-20/final-v3-original-references/copy-integrity.json",
+    "originalReferenceCopyIntegritySha256": "61765cc9f369d0d759c771232e76592a6279085b2446b01ff326cd226b34cdd4"
+  },
+  "nativeProvenance": {
+    "version": "OpticStudio 2026 R1 build 260127 Enterprise",
+    "freshThisTask": 102,
+    "freshStage": "v1",
+    "v2VerifiedReuse": 102,
+    "v2ReuseLedger": "validation/repairs/2026-10-20/petzval-illumination-rms/final-v2/native-reuse.json",
+    "v3PetzvalReference": "Original unchanged two-analysis fixtures captured before repair",
+    "originalFixtureManifest": "validation/repairs/2026-10-20/petzval-illumination-rms/manifest.json",
+    "v3GaussianReference": "Fresh task-local 1152-ray native capture at 16 scan positions, reused unchanged",
+    "integrity": "validation/repairs/2026-10-20/petzval-illumination-rms/final-v3/final-integrity.json",
+    "directoryReplay": "Final-v3 software outputs taken from coordinated complete run; original90 native captures copied unchanged and compared again without optical recalculation,90 data.json payloads identical. Nine original ray requests/native payloads identical.",
+    "finalAlignment": "validation/repairs/2026-10-20/petzval-illumination-rms/final-v3/request-alignment.json",
+    "finalRayAlignment": "validation/repairs/2026-10-20/petzval-illumination-rms/final-v3/ray-request-alignment.json",
+    "copiedOutputFilesVerified": 1530
+  },
+  "builds": [
+    {
+      "configuration": "Debug",
+      "defaultSolution": "OpticalSystemDesign.slnx",
+      "projects": 19,
+      "exitCode": 0,
+      "warnings": 0,
+      "errors": 0,
+      "defaultDesktopOutputUpdated": true,
+      "log": "artifacts\\petzval-repair\\2026-10-20\\build-v3-debug.log",
+      "sha256": "0819a53e41ab00c3babb03c76170b3cd575683d083807eab01dc0f51caebd937"
+    },
+    {
+      "configuration": "Release",
+      "defaultSolution": "OpticalSystemDesign.slnx",
+      "projects": 19,
+      "exitCode": 0,
+      "warnings": 0,
+      "errors": 0,
+      "defaultDesktopOutputUpdated": true,
+      "log": "artifacts\\petzval-repair\\2026-10-20\\build-v3-release.log",
+      "sha256": "502ffb71f2f0a12ab86337da1703f4ccc6d2b980d0d898f4e04af2b9bfbd711c"
+    }
+  ],
+  "completedTestSets": [
+    {
+      "configuration": "Release",
+      "scope": "14 roots and Petzval ray guards plus five observed legacy energy failure classes",
+      "total": 146,
+      "passed": 146,
+      "failed": 0,
+      "notExecuted": 0,
+      "classes": [
+        "OpticalSystemDesign.Tests.CumulativeEnergyHighSamplingTests",
+        "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests",
+        "OpticalSystemDesign.Tests.FiniteFftAimingEnergyTests",
+        "OpticalSystemDesign.Tests.FNumberPerturbationEnergyTests",
+        "OpticalSystemDesign.Tests.Polychromatic128BoundaryEnergyTests",
+        "OpticalSystemDesign.Tests.StandardIntersectionPrecisionTests"
+      ],
+      "trx": "artifacts\\petzval-repair\\2026-10-20\\tests\\v3-roots-energy-targeted.trx",
+      "sha256": "4312c7e4a0e40171e581e24f1ed8a45d07ab461ec5e7d47420495853f1797a4b"
+    },
+    {
+      "configuration": "Release",
+      "scope": "Two actually failed initial-structure methods and neighboring parameter cases, default built-in Engine",
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "notExecuted": 0,
+      "classes": [
+        "OpticalSystemDesign.InitialStructure.Tests.JointGeometryRestartTests",
+        "OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests"
+      ],
+      "trx": "artifacts\\petzval-repair\\2026-10-20\\tests\\v3-initial-targeted.trx",
+      "sha256": "c8ea95efc6176b3a7e2c22bfcb8f47c8e147f633b5107eface977c1a6b9f1f10"
+    },
+    {
+      "configuration": "Release",
+      "scope": "Petzval two original-reference analyses",
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "notExecuted": 0,
+      "classes": [
+        "OpticalSystemDesign.ZemaxComparison.Tests.PetzvalNativeRepairTests"
+      ],
+      "trx": "artifacts\\petzval-repair\\2026-10-20\\tests\\v3-petzval-native.trx",
+      "sha256": "7fdb9c99e59ec23884003b2c85ad9c4ae92563cec49c05532d094932bd8b589c"
+    },
+    {
+      "configuration": "Release",
+      "scope": "Intersection scalar, vector and adapter guards, DOTNET_EnableHWIntrinsic=0",
+      "total": 17,
+      "passed": 17,
+      "failed": 0,
+      "notExecuted": 0,
+      "classes": [
+        "OpticalSystemDesign.Tests.BatchedBackendKernelTests",
+        "OpticalSystemDesign.Tests.ScalarBackendAdapterTests",
+        "OpticalSystemDesign.Tests.StandardIntersectionPrecisionTests"
+      ],
+      "trx": "artifacts\\petzval-repair\\2026-10-20\\tests\\v3-scalar-fallback.trx",
+      "sha256": "3d0974d3b9f63df723b50134ddc9108566c3dbcaf0a806715325f21045d03e46"
+    },
+    {
+      "configuration": "Debug",
+      "scope": "14 intersection guards",
+      "total": 14,
+      "passed": 14,
+      "failed": 0,
+      "notExecuted": 0,
+      "classes": [
+        "OpticalSystemDesign.Tests.StandardIntersectionPrecisionTests"
+      ],
+      "trx": "artifacts\\petzval-repair\\2026-10-20\\tests\\v3-debug-roots.trx",
+      "sha256": "07b794af6254830acd2090c669e3c4211f938c2ac9a8aa79faa46ed565c380f4"
+    },
+    {
+      "configuration": "Debug",
+      "scope": "Petzval two original-reference analyses",
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "notExecuted": 0,
+      "classes": [
+        "OpticalSystemDesign.ZemaxComparison.Tests.PetzvalNativeRepairTests"
+      ],
+      "trx": "artifacts\\petzval-repair\\2026-10-20\\tests\\v3-debug-petzval.trx",
+      "sha256": "3d48982178206cdd04c3a713e96093a5b6f98127f6f9c26434e7dc94e6e7e61c"
+    }
+  ],
+  "testSetCountsMustNotBeSummed": true,
+  "interruptedMainSuite": {
+    "scope": "Full main Release",
+    "status": "cancelled at user request, incomplete",
+    "exitCode": 1,
+    "completedPassLinesObserved": 4546,
+    "observedFailureLines": 0,
+    "completedSuiteClaim": false,
+    "log": "artifacts\\petzval-repair\\2026-10-20\\main-final-release.log",
+    "sha256": "e79d50ee472af62d3d2dd2b562ea6b0b5b59012098398d3619f3a1e65071001c",
+    "reason": "User requested not to run full tests each time; stopped owned run and completed only focused regressions.",
+    "candidate": "v2, not final-v3",
+    "coreSha256": "71562147fec264ad9b034f3d5c10da757e29c138c1cac7c26eed3b5f3eecc660"
+  },
+  "checks": {
+    "format": {
+      "scope": "Four intersection files and two new regression files",
+      "log": "artifacts/petzval-repair/2026-10-20/format-v3.log",
+      "exitCode": 0
+    },
+    "documentation": {
+      "exitCode": 0,
+      "strict": true,
+      "documents": 984,
+      "brokenLinks": 0,
+      "markdownFenceIssues": 0,
+      "localOnlyLinks": 0,
+      "guideRepeatedParagraphGroups": 0,
+      "report": "artifacts/petzval-repair/2026-10-20/documentation-v3.json",
+      "reportSha256": "da79554760614a2dc37c5eb6a2dd3a63865e4603e6fe57e4aa0a9211649c3c94"
+    },
+    "diff": {
+      "command": "git diff --check",
+      "exitCode": 0
+    }
+  },
+  "evidenceScope": "Tracked raw Petzval original-reference fixtures and final summaries; large candidate runs, raw ray histories, full computation outputs and logs retained locally under artifacts, not claimed distributed by Git.",
+  "exclusions": [
+    "No installer rebuild or upload",
+    "No cross-platform execution",
+    "No reopening independent Cooke/Tessar studies",
+    "No full main test completion claim",
+    "No new 19-lens or wider field/wavelength/sampling certification"
+  ],
+  "finalCoreSha256": "cf3647652213542dae90d0ed1c16b9df5290e740a0b204f1b4a6e0a9f40a6b2c",
+  "historicalStages": [
+    {
+      "candidate": "v1 unconditional stable roots",
+      "accepted": false,
+      "record": "validation/repairs/2026-10-20/petzval-illumination-rms/final-v3/candidate-v1-rejected.json"
+    },
+    {
+      "candidate": "v2 error-selected stable roots",
+      "accepted": false,
+      "coreSha256": "71562147fec264ad9b034f3d5c10da757e29c138c1cac7c26eed3b5f3eecc660",
+      "record": "validation/repairs/2026-10-20/petzval-illumination-rms/final-v3/candidate-v2-rejected.json",
+      "originalPetzvalReport": "artifacts/petzval-repair/2026-10-20/candidate-v2-sources/PETZVAL_ILLUMINATION_RMS_REPAIR_2026-10-20.md",
+      "originalLedger": "artifacts/petzval-repair/2026-10-20/candidate-v2-sources/PETZVAL_ILLUMINATION_RMS_REPAIR_2026-10-20.json",
+      "threeLensReplay": {
+        "requests": 90,
+        "before": {
+          "Incomparable": 2,
+          "Error": 0,
+          "Pass": 86,
+          "Difference": 1,
+          "Close": 1
+        },
+        "after": {
+          "Incomparable": 2,
+          "Error": 0,
+          "Pass": 88,
+          "Difference": 0,
+          "Close": 0
+        },
+        "oldPassesPreserved": 86,
+        "regressions": 0,
+        "nativeFailures": 0,
+        "workbenchFailures": 0,
+        "rayGroupsPassed": 9,
+        "rayGroupsTotal": 9,
+        "physicalSurfaceComparisons": 16200,
+        "comparedValues": 97200,
+        "summary": "validation/repairs/2026-10-20/petzval-illumination-rms/final-v2/summary.json",
+        "incomparableReason": "Double Gauss and Petzval native 32x32 diffraction encircled energy low-sampling warnings remain Incomparable; old separate 128 controls are not recounted",
+        "notAFull19LensRerun": true
+      },
+      "initialSuite": {
+        "scope": "Coordinated initial-structure regular group; old targets unchanged",
+        "failed": 2,
+        "total": 308,
+        "passed": 306
+      },
+      "note": "Local numerical pass claims remain scoped; acceptance superseded after cross-module failures"
+    }
+  ],
+  "newGeometryGuardContract": "Accepted ordinary intersections must retain exact original results; rejected ordinary roots must recover manufactured known intersection within unchanged 2e-12 new-test guard. Earlier twelve strict-distance failures belong to first test revision only. All seven original energy and initial-structure test source files unchanged from HEAD.",
+  "coordination": {
+    "threadId": "01a10bc0-3f8c-7b60-b8ed-9f960bb5e2ab",
+    "humanAuthorization": "Explicit permission to collaborate and exchange repair progress, verified via read_thread human message",
+    "ownership": "This thread owns the four intersection files and focused Petzval/observed-failure guards; other thread owns directory replay and complementary related guards"
+  },
+  "diagnosticSetupFailures": "artifacts/petzval-repair/2026-10-20/diagnostic-setup-record-v3.json",
+  "finalizedUtc": "2026-10-20T14:24:32.7099616Z"
+}

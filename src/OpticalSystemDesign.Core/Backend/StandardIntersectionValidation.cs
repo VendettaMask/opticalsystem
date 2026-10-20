@@ -3,6 +3,14 @@ namespace OpticalSystemDesign.Core.Backend;
 // Scalar and SIMD roots share identical explicit-sag branch and tolerance checks.
 internal static class StandardIntersectionValidation
 {
+    // Called only after both ordinary roots fail the unchanged explicit-sag
+    // validation. Preserve every already accepted ordinary intersection.
+    internal static (double First, double Second) StableQuadraticRoots(double a, double b, double c, double squareRoot)
+    {
+        var q = -0.5 * (b + Math.CopySign(squareRoot, b));
+        return q == 0 ? (0, 0) : (q / a, c / q);
+    }
+
     internal static double? SelectStandardExplicitSagDistance(
         double first,
         double second,

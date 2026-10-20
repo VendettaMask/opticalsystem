@@ -339,6 +339,16 @@ public static class WavefrontEngine
                 imageIndex);
             var tilt = EntrancePupilPhasePath((ux, uy), entrancePupilRadius,
                 vignetting.Transform(pupil.X, pupil.Y), chiefPupil);
+            if (ObjectConjugate.IsInfinite(optic.SurfaceGroup.Items.FirstOrDefault())
+                && (aimAtStop || chiefBundle.Rays[0].Direction.Z < 0))
+            {
+                // Stop aiming changes the entrance coordinates, and backward
+                // fields have pupil-dependent upstream launch distances. Refer
+                // both to the actual incident plane wave rather than assuming
+                // a translated paraxial entrance-pupil grid.
+                tilt = Dot(bundle.Rays[index].Origin - chiefBundle.Rays[0].Origin,
+                    chiefBundle.Rays[0].Direction);
+            }
             var opticalPath = ray.CumulativeOpticalPathLength - imagePath + tilt;
             var opdWaves = (referenceOpticalPath - opticalPath) / (wavelength.Micrometers * 1e-3);
             var t = imageIndex <= 1e-30 ? 0 : imagePath / imageIndex;
@@ -527,7 +537,10 @@ public static class WavefrontEngine
         var tx = Math.Tan(fieldX * Math.PI / 180.0);
         var ty = Math.Tan(fieldY * Math.PI / 180.0);
         var uz = 1 / Math.Sqrt(1 + (tx * tx) + (ty * ty));
-        return (tx * uz, ty * uz);
+        // Match the launch hemisphere used by RayGenerator. Tangents alone
+        // fold fields beyond 90 degrees onto the opposite incoming plane wave.
+        var hemisphere = Math.Abs(fieldX) > 90 || Math.Abs(fieldY) > 90 ? -1 : 1;
+        return (hemisphere * tx * uz, hemisphere * ty * uz);
     }
 
     private static double ImageToReferenceSphere(

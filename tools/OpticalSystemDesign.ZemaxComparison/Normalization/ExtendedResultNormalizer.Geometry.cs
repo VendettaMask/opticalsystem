@@ -64,7 +64,17 @@ public static partial class ExtendedResultNormalizer
         switch (r.CanonicalAnalysisKey)
         {
             case "Single Ray Trace":
-                AddRayTable(result, NativeRealRayRows(text), r.SurfaceCount); break;
+                var rayRows = NativeRealRayRows(text);
+                var modelPath = Path.Combine(Path.GetDirectoryName(path)!, "model.json");
+                if (File.Exists(modelPath))
+                {
+                    using var model = JsonDocument.Parse(File.ReadAllText(modelPath));
+                    var signs = NativeReflectionConvention.PropagationSigns(model.RootElement);
+                    NativeReflectionConvention.ConvertRayReport(rayRows, signs);
+                    if (signs.Any(sign => sign < 0)) result.Transformations.Add(
+                        "Convert native signed-index direction, incident normal and segment length to physical propagation using explicit MIRROR rows; raw report retained.");
+                }
+                AddRayTable(result, rayRows, r.SurfaceCount); break;
             case "Cardinal Points Data":
                 VerifyPrimaryRange(text, r, true);
                 var cardinal = Regex.Matches(text, @"^.*?:\s+([-+\d.Ee]+)\s+([-+\d.Ee]+)\s*$", RegexOptions.Multiline)

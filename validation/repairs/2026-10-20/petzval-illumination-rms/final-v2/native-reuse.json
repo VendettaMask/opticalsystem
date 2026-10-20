@@ -1,0 +1,4345 @@
+{
+  "reason": "Reuse successful native outputs only when original source bytes and all request properties except the workspace input path are identical. Raw arrays/settings/environment/completion records copied byte-for-byte; originals retained.",
+  "count": 102,
+  "pending": 0,
+  "jobs": [
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\native-models/001-cooke-40-degree-field-c1",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "7efeabba2000b9d719260865c999fd743b35a453c5be94a54add91cf3e24b47a",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        }
+      ],
+      "id": "probe:001-cooke-40-degree-field:c1",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\native-models/001-cooke-40-degree-field-c1",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0001-001-cooke-40-degree-field-c1-primary-f1-w2-first-order\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "23185c89465159449f8ae01e44e85b267184dd91f6124a7ef7cbb71ef9bba71b",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "103d8525179dbeb262e9f570d02c1ff36bdec2ead5689e6334e54a14cd1ddf7c",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "2140186cf1dcba50fdd4ba6477fe3fdbe3651513ddbe25acbb98120d96f683c8",
+          "name": "data.json"
+        },
+        {
+          "sha256": "284871ade6c9681b1daa56635600a87b4c1754dfe47960320bfb76a0165bce8f",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0001-001-cooke-40-degree-field-c1-primary-f1-w2-first-order",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0001-001-cooke-40-degree-field-c1-primary-f1-w2-first-order\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0002-001-cooke-40-degree-field-c1-primary-f1-w2-single-ray-trace\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "b91b2d0e3e4ffaa7aefc8c8720db291af92ee762c1edb34e1da7fc874ac3d8b3",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "73d887783e56c7bd686272e077194f89cd18778f0b487b65f462516662942951",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "fb03fabf1d7e9460af4ecb45fa24ecf3945f1fb76580920ed2ebf368e974aecf",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "476141a6137694beb0a72fab070ee19fa755dd3bf717f69231033dc3f65c74f2",
+          "name": "data.json"
+        },
+        {
+          "sha256": "323ceac8ae2b25c278c7bbd02017965c760af7ec1ecc6759ce2c665125e31550",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "47b4e085edcc22fa9b97af03375500d4b40c30e2ebba1cef7a6a38195f5c7fbc",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0002-001-cooke-40-degree-field-c1-primary-f1-w2-single-ray-trace",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0002-001-cooke-40-degree-field-c1-primary-f1-w2-single-ray-trace\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0003-001-cooke-40-degree-field-c1-primary-f1-w2-spot-diagram\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "eeeeb7134500efbe5d497abe632994940b76c5eacde56bac059f094432a08d5d",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "ae6b7408febce75ec2adc80d468da8004305cebe86985f80f9e7b598f2969aa7",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "ae0c54404141fb59722d1f8931cac647b8e104af3b46cc0e4a53d155ea425ba5",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "5690d941dd8b270835db2a8c8262f2bf03f029f4724498ae4bf2b45fe79d0f85",
+          "name": "data.json"
+        },
+        {
+          "sha256": "b65aed416f8f9b4294c09f0503e47e4e6f813bf1c8696527005db880a000b783",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "d72291063810d7d1335bac5d620e44eac6cbc45b0432f7b9e95dd48287ee1ac7",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0003-001-cooke-40-degree-field-c1-primary-f1-w2-spot-diagram",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0003-001-cooke-40-degree-field-c1-primary-f1-w2-spot-diagram\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0004-001-cooke-40-degree-field-c1-primary-f1-w2-ray-fan\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "bd14273b5ae2b6dd00501b9dae1c6ddb6a7f27cef6765c3f556df33dd603155f",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "f75eabc0487e8babeb7c564916aa67cf71b7926b63373a6a0977037a3ebed2cc",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "fd51bf902b2a2075a7f6c34489fb7e0460ca60e4d0a0246469d2ee1f52d0b66b",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "ffd9efaaf713f2b1aede8bfd81d958da828e73988a07bb38c96cd9b3f8772190",
+          "name": "data.json"
+        },
+        {
+          "sha256": "4570915ba3ee69798d8a2f2732c8768c0d5ad4462ff0f0b21018100d738e8edd",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "f2d39af04885177c9bed8ea2aa433a6c87c0ea599ea050c8771af095241eff12",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0004-001-cooke-40-degree-field-c1-primary-f1-w2-ray-fan",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0004-001-cooke-40-degree-field-c1-primary-f1-w2-ray-fan\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0005-001-cooke-40-degree-field-c1-primary-f1-w2-optical-path-difference\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "8404f64645b888b954e11f5b376c4945ba517a94688c0c73719f6ad51c86efb2",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "43ba2aaf499aa1183aca1b33d3dab5dc7dc281e4732fbf4d64ced14c59886d8c",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "e60a157cf5ac1e2959aa85a9a8277a15e0aaeedbdd79ce74cf25f7291f4d8a3f",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "7b46608351539a54baea73095abdd858126226298e5a6b800feeeeb1fbf6450e",
+          "name": "data.json"
+        },
+        {
+          "sha256": "df60f1336490aff646d789690419653ff92109075365f920200a8a4f360410b2",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "e15ae52e4e80714a3a5ae6f66f160d8f8d794adb59af1bc6871379de952cfdc8",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0005-001-cooke-40-degree-field-c1-primary-f1-w2-optical-path-difference",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0005-001-cooke-40-degree-field-c1-primary-f1-w2-optical-path-difference\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0006-001-cooke-40-degree-field-c1-primary-f1-w2-wavefront\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "e87e27988712548e2af678e015932c6917eab55ae5b4b017af35ae9310d10419",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "a7ace7a2a1c066c320c90f56a8ba15eda289c15de6a732183fe7f879f0d08c81",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "bf6f53442eb5ccf32e62ae3830a660781c92ad028c595d7aa2d1b60b4ef75a49",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "59ff2a681c24816e932c5267e3a5a9c88a3c644f45504f02f40e9e65540dbcf4",
+          "name": "data.json"
+        },
+        {
+          "sha256": "0bfe5f6f9aab7d0bceda195c2beec1c285753c8515c261bc3cdb5e9be2dda326",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "2770a8b8fa38319536f33128ce2ffb40cb520de07f3c58500a376ca350b6ab76",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0006-001-cooke-40-degree-field-c1-primary-f1-w2-wavefront",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0006-001-cooke-40-degree-field-c1-primary-f1-w2-wavefront\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0007-001-cooke-40-degree-field-c1-primary-f1-w2-psf\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "ae5feb626193ca9c907f370cad6f88b684e278bda7ebfbeb25abdbc1ed6153cc",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "fc33f59b5c3d2ec8482544e4c8a23b4a251dc9c1c0c7381b3f1bde13815bf273",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "99974f0ed166c2d87ab278f013eff6d4310bb60ce8cd7039b9c8385d2f991ea8",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "b719fa3f69596e533dc23a8aaad0a9d46fda94a55304fe113d84fb244bb981b6",
+          "name": "data.json"
+        },
+        {
+          "sha256": "68f924cab132c71a61205ad2ecf8eea457682e78a83e1c421dcb55b330956cdb",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "ace5745ba65b5c06ed21fb95e565754c7c0258e6c3f5d385a47a7cdec849bdc8",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0007-001-cooke-40-degree-field-c1-primary-f1-w2-psf",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0007-001-cooke-40-degree-field-c1-primary-f1-w2-psf\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0008-001-cooke-40-degree-field-c1-primary-f1-w2-huygens-psf\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "3ec41c983cf501a3de392905435f88a9a46994d8465c284ae4b945677f2c2b48",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "fdab7f0ee1d6f6742a162bd176b93672b567f381971e55836ff0e61344370876",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "9a39f1faeec4c5b2517fee192cf6d7a737467d8058d8e3921f879b0dd2077996",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "77728577d6ce44f0922a0b040fcd67f69b3d544d18292e0494a9e98a6e29af11",
+          "name": "data.json"
+        },
+        {
+          "sha256": "abc939abf218bcf46b99b0ee5aaeae66e4a923c544e07085363cafbcf18b9764",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "0b93d87b1a8adfb51adb463f00485768e8b2615045f5c8302df30a4f87d1a0f7",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0008-001-cooke-40-degree-field-c1-primary-f1-w2-huygens-psf",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0008-001-cooke-40-degree-field-c1-primary-f1-w2-huygens-psf\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0009-001-cooke-40-degree-field-c1-primary-f1-w2-mtf\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "3be64e7f181227ef438e54d1023971a27c941bf564ac3f9ab633067ebe130609",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "b4b074b1676b96b0b2c9ed4edd312ee70094255507308fd4a486a297245fc117",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "ec0242c8b11923a20f08b6ce04637fde68958b1a17fbf66580b6509f890d1af7",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "bb476e884d2b8ec0f36428431090aa3e88f4088d3c397e374d5bc7f39253e109",
+          "name": "data.json"
+        },
+        {
+          "sha256": "7961604e4d4e7d06236a06e451b52b5bbe5c8fbdbd3b95d5e10a4c3effee0660",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "bd619b0567b2e7fb25168370d5f80dcbee3b1cae46a3a01d0b5336daaf27b727",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0009-001-cooke-40-degree-field-c1-primary-f1-w2-mtf",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0009-001-cooke-40-degree-field-c1-primary-f1-w2-mtf\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0010-001-cooke-40-degree-field-c1-primary-f1-w2-huygens-mtf\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "28981618b296e22de2cf7a2847a9c2e6ecff3f1e027e12dffb776ffaeca047f8",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "c31968bae4ae420a8240e25edb92970efaf00a515abccf8810ffb1fa2e78172b",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "400a953729cc7b76014e81aab2bffc746648ff3bb2dead6b3642bbd3db77a198",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "8b91fb3c4a65d32c46a0b0d5819d2f5d33baa023485d441ced4457cfbea7c7de",
+          "name": "data.json"
+        },
+        {
+          "sha256": "e2e2e8e813a0efa0825b111c66c6d497e617f54f18768ff7893ee0057a6032f6",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "86f7ea36a86ec61d9b7c4b67ca7b4b3260a2768379003e7711a659cb14bdd210",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0010-001-cooke-40-degree-field-c1-primary-f1-w2-huygens-mtf",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0010-001-cooke-40-degree-field-c1-primary-f1-w2-huygens-mtf\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0011-001-cooke-40-degree-field-c1-primary-f1-w2-fft-psf-cross-section\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "478a85b27017b3cd273d9303e76f6fc5895263c37f8c448addb9c04de8155468",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "5b88974bfbc178f157830d9d70051a9b440e0aeb8aa006e0655d738a0eda1117",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "fc80ed8b8d2ef3a8af1c319cb50ba53eeab34f62cfc73a17e6045d6a7f9fe374",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "bfa978384f81f2c8a7a242fa1a9dda426eab83bef89e59589c611ad89eafbf31",
+          "name": "data.json"
+        },
+        {
+          "sha256": "7e5293a466c0a481c4286d3ecfee6e48e5a6e522bcb0d7788527bb98c24a7465",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "b60cf3161d0ae3dab508148d803672adc6b896ac54ab11bed4d8d3f8690c8f3c",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0011-001-cooke-40-degree-field-c1-primary-f1-w2-fft-psf-cross-section",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0011-001-cooke-40-degree-field-c1-primary-f1-w2-fft-psf-cross-section\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0012-001-cooke-40-degree-field-c1-primary-f1-w2-huygens-psf-cross-section\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "7fc7ddda4a111dbcbe3f2879642978e3b599ca706a08a7c9075b46e5e183c84c",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "426d49f5763091ff3bc50c15a3884bf8182e1df3ecc04f299f1035b71eca7811",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "8e89a6b2c1c201444a1d6c84f64d37d502cac414e7521095c171af0002bcbd38",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "bafb252d3e03e00545ecfe1a49821e4b7e022cb14676c399da54628b965ae2ed",
+          "name": "data.json"
+        },
+        {
+          "sha256": "21db74076bbf14f265d3c44189b19579249971a0d9af1d4db30ef655f687bc63",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "e3de3c3b14634cccbdb7fe2ac627e2a38fd1bdf5063b08dc3ba123b2c35594ba",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0012-001-cooke-40-degree-field-c1-primary-f1-w2-huygens-psf-cross-section",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0012-001-cooke-40-degree-field-c1-primary-f1-w2-huygens-psf-cross-section\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0013-001-cooke-40-degree-field-c1-primary-f1-w2-encircled-energy\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "b902a1cc80cfb79e3dbe428adee359cb6385f668fa69804a906cf5606f559427",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "aa33864349c7287eda2834b378a9edc4631a1692a600a4dcb51164967d052b58",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "52c455659393392d78ea22b1e9252c2a40234b145dd15d4bc119083407da3d36",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "ced78ce5e9fd72e1fb6d8b4fdbf514c4c6b902bc1f2cffb309c6644e1117dfb7",
+          "name": "data.json"
+        },
+        {
+          "sha256": "43b46a42b1f4f22eb6f250933abed727c0dbc4d792f949f39e540281ac4c5aec",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "32e70f99ef288697d6dd459ab4a3164296212fb768f56e3e177c1e0bd11183fb",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0013-001-cooke-40-degree-field-c1-primary-f1-w2-encircled-energy",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0013-001-cooke-40-degree-field-c1-primary-f1-w2-encircled-energy\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0014-001-cooke-40-degree-field-c1-primary-f1-w2-diffraction-encircled-energy\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "c5210e3fd74531d76a37a93a860137024f2306502efe0d4559e24628f40a11d0",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "7d002ef9bfc918491f112b513c160723f6694274f2cdd7bb885759107221e7f8",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "87204fa23f2a1ad80e4f215eee11362fb0caf758690183ce3aee778ef922d942",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "0545e89d3f54227aa0e31b6efc8968758de601b0aafe7fef6d09b1e8995a7bdc",
+          "name": "data.json"
+        },
+        {
+          "sha256": "24a9f54a2a9915d71c69bacacf7b3ccf1052888b7e5b585b1a4503f697cdca12",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "6d5774acc81ffaa47b910ccd1d861ef51a26116e4c180533328d754533981a90",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0014-001-cooke-40-degree-field-c1-primary-f1-w2-diffraction-encircled-energy",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0014-001-cooke-40-degree-field-c1-primary-f1-w2-diffraction-encircled-energy\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0015-001-cooke-40-degree-field-c1-primary-f1-w2-huygens-through-focus-mtf\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "6eed83a7858dac09697dda695dd2e4c3a8d8bab532b1bb5bbc346019d5bcb01b",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "2803152bc6b929a28917f5c2bdb5ca1204ed9c553f62e235f10741f48415e3bb",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "5cf3183bbfaf6d056f12b45860b15700e9d99bd5b4ddb3bd3bf9a72e345cb8e8",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "b1b29872fbc53dd46388d1ea4b929dd7e0d30baf91c5fb1e76b484f53429106e",
+          "name": "data.json"
+        },
+        {
+          "sha256": "337d7696830601a50753b7d9d45fbb23aefbefb37e48becf1f99b7bff42504c4",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "aeac790be069159d3cd0af4fdc5093b5241ecff1c1b5e49d498fd934c843efa7",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0015-001-cooke-40-degree-field-c1-primary-f1-w2-huygens-through-focus-mtf",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0015-001-cooke-40-degree-field-c1-primary-f1-w2-huygens-through-focus-mtf\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0016-001-cooke-40-degree-field-c1-primary-f1-w2-relative-illumination\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "3d14cf3b4ab4ab9584421b4fab3753123ba66b8310d01102b21ecf1405d02fca",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "f32a95df5d0e21471769b745710088de4e078c696cfe85c9c1ac2fd6bc56dd75",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "021376324d7eb61e5247d58093847158da1717bd4cb734006117e9fd94232140",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "db2e61fdd76916c4c048539176e99cd4f4c7003b3cae5ea357bd272f940a04be",
+          "name": "data.json"
+        },
+        {
+          "sha256": "9c930f8d5cd647f0b85c4b302eac49ba34bc7c322c9188af10cf13f0ffdd7675",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "010236102f1a3f9e1c88bf8b6b32673646a1f999a86921101ba9dd1d4464934b",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0016-001-cooke-40-degree-field-c1-primary-f1-w2-relative-illumination",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0016-001-cooke-40-degree-field-c1-primary-f1-w2-relative-illumination\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0017-001-cooke-40-degree-field-c1-primary-f1-w2-rms-vs-field\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "bd41b7ba6cc7ebf28a699aaf4209b14cde84bd51a38e4c2c0c1730d8860e131a",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "22a1e673ab257f837977af1013bc740777c5972c49c3ed857c9b8891d6f7c3ab",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "6e9d15eeb7c22bcf6569337261916f4c4a6d6a4d2c6123d0879cce4f98bb1f34",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "42564eeb60d908c4b30d8f95f1d6bc174d0981fe00cf7eb6afeedc9947c2fb24",
+          "name": "data.json"
+        },
+        {
+          "sha256": "f8c8ddaafdada5d7a7563a8f7a0fbede289816420fd056c3bb21686870130ed3",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "1cdda21388c9b14c8469231872f9c99935fa0308d61a6a284db4a579bf0c983b",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0017-001-cooke-40-degree-field-c1-primary-f1-w2-rms-vs-field",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0017-001-cooke-40-degree-field-c1-primary-f1-w2-rms-vs-field\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0018-001-cooke-40-degree-field-c1-primary-f1-w2-field-curvature-and-distortion\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "4e42743b3c25476012f4a5c66293b1d3fc88d4c0b47bf46bebcec22d61e36b67",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "fa82e214770378ab3e68877185af256a6e1acc99b6e84a3fd8082c4ba7fe3c4a",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "24a4ede105266fd01150ba6d7bde01f95c230309510eacd6692161231fff47f2",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "bf1846e0b9e5fc0bb3294b26350eaca77d9b6b26426acec5533984b876d8d997",
+          "name": "data.json"
+        },
+        {
+          "sha256": "24540a35bd3e64f72cca87a3057e9f192a5de823c774063fc8a260a77478672e",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "7f6bbcf48fd7ef69fa22832029d2393ff29b5913a2bffff9cf716d3c1049eb7b",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0018-001-cooke-40-degree-field-c1-primary-f1-w2-field-curvature-and-distortion",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0018-001-cooke-40-degree-field-c1-primary-f1-w2-field-curvature-and-distortion\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0019-001-cooke-40-degree-field-c1-edge-f3-w1-single-ray-trace\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "6c70dad20013428a35099439ce38399e4e28eef02af1907465ec0b4e7b81e947",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "73d887783e56c7bd686272e077194f89cd18778f0b487b65f462516662942951",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "1fab63f6abdabeeb99356f23b5e7fc2adb0944898733c8f97b9d3039c46568f6",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "476141a6137694beb0a72fab070ee19fa755dd3bf717f69231033dc3f65c74f2",
+          "name": "data.json"
+        },
+        {
+          "sha256": "34c22093f885369f91b01d7aafb0c86c8e50a8bfb272be93b56be2d0b7569ee8",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "825cf9212b9f07ab57026c4deefe2878d869b3aa3bc341478b89f04724fa5153",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0019-001-cooke-40-degree-field-c1-edge-f3-w1-single-ray-trace",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0019-001-cooke-40-degree-field-c1-edge-f3-w1-single-ray-trace\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0020-001-cooke-40-degree-field-c1-edge-f3-w1-spot-diagram\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "9de50ec7e681e8ed3795a05cc9343402d367a587a35413d17f2c84f04bf45703",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "ae6b7408febce75ec2adc80d468da8004305cebe86985f80f9e7b598f2969aa7",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "e3167de94ed12573c71bf81aacf35dc432f81329bda33d35b1b834426b9d4550",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "70b0c7d6a583fadbf649af2608ad9ac252c5bffa25b8c46a89e3504db51efda7",
+          "name": "data.json"
+        },
+        {
+          "sha256": "c25ae46d34ec915edda7a664c24558d13e9ff3c9d9524f982f6a9b42ef12c4f6",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "3e91d989f867632650438e7d27addc3d47a9061a2f4f05e9b4dd2ae12807b978",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0020-001-cooke-40-degree-field-c1-edge-f3-w1-spot-diagram",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0020-001-cooke-40-degree-field-c1-edge-f3-w1-spot-diagram\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0021-001-cooke-40-degree-field-c1-edge-f3-w1-ray-fan\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "821c9cbeff46a67d07007f80b1a076688c267cecc0395a182a304568eff6aace",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "f75eabc0487e8babeb7c564916aa67cf71b7926b63373a6a0977037a3ebed2cc",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "143ace6b2a6004fe0e3cf8df60a7af112ff7a1c2bc2badccbfd49c8cbb2be11f",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "295151b62667c1f6932598f92353ce55f08bab1b6b33b9f78aed8f058200aae3",
+          "name": "data.json"
+        },
+        {
+          "sha256": "782bc6cb5a06741c587357d4c8c6ce4059fa3685a6d416ae80cbcc29e0e634e6",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "6e16e0d1107fcf97b255ab3d464b067a913c9e3443c15a51e9bfb1eea3c73ce4",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0021-001-cooke-40-degree-field-c1-edge-f3-w1-ray-fan",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0021-001-cooke-40-degree-field-c1-edge-f3-w1-ray-fan\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0022-001-cooke-40-degree-field-c1-edge-f3-w1-optical-path-difference\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "1f6a4e8aedf2cd911d65c2332fde2797839aa56643640aab2d3216fc7d725e28",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "43ba2aaf499aa1183aca1b33d3dab5dc7dc281e4732fbf4d64ced14c59886d8c",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "038693444e5437fe0c3ffea70f30f2aa96a97ab494b03be1a6669656a5c35355",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "b068c777038c0928cf7f37f2085ee30ee5283cc918d1389b001e9c8fbd91f059",
+          "name": "data.json"
+        },
+        {
+          "sha256": "c4af5b0327fd7ca10d186cf529b04aa7fae1134034290766df9089ebba3f0d75",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "d1abb76a8003b3290d7ff71144c07e17b4f3ba5f3a84c5ad2954cf975dfd8530",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0022-001-cooke-40-degree-field-c1-edge-f3-w1-optical-path-difference",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0022-001-cooke-40-degree-field-c1-edge-f3-w1-optical-path-difference\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0023-001-cooke-40-degree-field-c1-edge-f3-w2-single-ray-trace\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "dd1b82967824a2dd038d5076bb2038ea98f69490603fa5bb8df7c91b59424833",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "73d887783e56c7bd686272e077194f89cd18778f0b487b65f462516662942951",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "2ed331b88bcecf77d8c208176013eccad799ef25a363cd18b8a4c40e0e03ed0e",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "476141a6137694beb0a72fab070ee19fa755dd3bf717f69231033dc3f65c74f2",
+          "name": "data.json"
+        },
+        {
+          "sha256": "18ee8fbebcb9e530eaefd8458dac0d0d21de1a7460067907ab5f06d5a4ac687c",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "b59fb252aac9e6eece9f335d9f2a7bf40de97fe212e9e4e5f30753348c1dd94d",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0023-001-cooke-40-degree-field-c1-edge-f3-w2-single-ray-trace",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0023-001-cooke-40-degree-field-c1-edge-f3-w2-single-ray-trace\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0024-001-cooke-40-degree-field-c1-edge-f3-w2-spot-diagram\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "d1b54efa10c962fa66eb960031dd02e435f89ea85526743208e92f2ae9e5567d",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "ae6b7408febce75ec2adc80d468da8004305cebe86985f80f9e7b598f2969aa7",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "1cafb792a2af00f85a073cc4b8d3b9560dd8e8863ebf2f94cd738832aac6b4fd",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "3984a6e5cdb1c7bc1db760f58524f75ea4bb3984ebaa991ef05382346d7fdd02",
+          "name": "data.json"
+        },
+        {
+          "sha256": "d98102934ffcc2be5bcf7f7060909dd90e3dac06b34b4e55e5a8f50d9239cb00",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "a5ceffef0a28ba03338c6b14a6d8de5827e9ee578ec4faffde0ee9b02e6a589b",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0024-001-cooke-40-degree-field-c1-edge-f3-w2-spot-diagram",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0024-001-cooke-40-degree-field-c1-edge-f3-w2-spot-diagram\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0025-001-cooke-40-degree-field-c1-edge-f3-w2-ray-fan\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "6fdc60b45ed9f86140ae56dd039e22ed8dd21a77a2a954674810a8aae12bb841",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "f75eabc0487e8babeb7c564916aa67cf71b7926b63373a6a0977037a3ebed2cc",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "4cad397949a4ac272c8ce6f5e6362db7f425a45f8570e94eed2a319224fb2495",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "aa8c00f91448a449f3b2386ed040e2403e58b5a52951478d139fae18077412e8",
+          "name": "data.json"
+        },
+        {
+          "sha256": "7297754e6e8b38eb32839503be4fddbdca208a31467fec584ed21686e1548c8b",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "74868c0413d9385b1d55626e25e3d2a6c18a7a09a6069c6f026523f6a2e8d178",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0025-001-cooke-40-degree-field-c1-edge-f3-w2-ray-fan",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0025-001-cooke-40-degree-field-c1-edge-f3-w2-ray-fan\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0026-001-cooke-40-degree-field-c1-edge-f3-w2-optical-path-difference\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "4c9570f0cc2846b76b9c72fda51a369d89c9381626585a685bf64b5b8d802c1a",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "43ba2aaf499aa1183aca1b33d3dab5dc7dc281e4732fbf4d64ced14c59886d8c",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "f338ccfb9b994870db3d3a6580868354155392805775a59d57f17d3c040efed7",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "0201d65c45a507f1f43150819133259ec463e9b9956232dbef6fe032c80c77e8",
+          "name": "data.json"
+        },
+        {
+          "sha256": "d5436643239100d62033f3f211dc29af2164d6173dcefd7a2d8916576beec90a",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "5af8039ba86ab1585a4b5839e7a07b1b7e6e77f6f8f0bde0f76ecf74d9c66cd8",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0026-001-cooke-40-degree-field-c1-edge-f3-w2-optical-path-difference",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0026-001-cooke-40-degree-field-c1-edge-f3-w2-optical-path-difference\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0027-001-cooke-40-degree-field-c1-edge-f3-w3-single-ray-trace\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "3e3316dc1b00b72bc30de3354fab6631420397f656a368553ccdcab6332dd467",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "73d887783e56c7bd686272e077194f89cd18778f0b487b65f462516662942951",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "9e589233161390197aa8045e136fd45c0f0c7d5b2eca8d2ece3bc6af90778e98",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "476141a6137694beb0a72fab070ee19fa755dd3bf717f69231033dc3f65c74f2",
+          "name": "data.json"
+        },
+        {
+          "sha256": "5b7c05c68369b1ef4e5624158b0a0c080fd22cfcfb26dab5736d6db865cdb18f",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "e83873a35d694fd12fcd5537dbac1d7d7946361be44cf87c53517dca55e07660",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0027-001-cooke-40-degree-field-c1-edge-f3-w3-single-ray-trace",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0027-001-cooke-40-degree-field-c1-edge-f3-w3-single-ray-trace\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0028-001-cooke-40-degree-field-c1-edge-f3-w3-spot-diagram\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "58f4f2185e3e544ce8d76b3ec49aebe42aba3f3c0c6d6503732354ca1b0391c2",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "ae6b7408febce75ec2adc80d468da8004305cebe86985f80f9e7b598f2969aa7",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "3f91c6d5954044a66ffe5bf7cb4d59b5572a574930081d7f9ffb4758de4c1b8b",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "cd148da8cdc865b0269cc90f78327dc6f0fcb4b5514e03c08c0e66eacf74ecd1",
+          "name": "data.json"
+        },
+        {
+          "sha256": "5b0074594b24e9f1bfeeb16d678dd65bf94657462397b440bc4cec2f4c9c5117",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "9785f936faaed444a7c453a8b09aa3c6c4dfe54d0659708880afa7114deda53c",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0028-001-cooke-40-degree-field-c1-edge-f3-w3-spot-diagram",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0028-001-cooke-40-degree-field-c1-edge-f3-w3-spot-diagram\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0029-001-cooke-40-degree-field-c1-edge-f3-w3-ray-fan\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "486510676587a16dbf071c7543013bdd5959482525ef6e7a6dab5d0f55a9e2bf",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "f75eabc0487e8babeb7c564916aa67cf71b7926b63373a6a0977037a3ebed2cc",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "f7ce4c3e8a8d64305d16f336dd674d6b30c3593789eeac1d985bb67e617fe1c2",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "f3401e65c60caef84efddc4c9770fe505ac3f3f3c7e7d1f6c309819d656866e5",
+          "name": "data.json"
+        },
+        {
+          "sha256": "f76e2b70f108853f72b7ae76a7fb169d7ca234fa0012414a71ac1cf68e380731",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "d224440597bb639ab38d9c72f961e1d962d4620d1e1952b63e36d906a58e0b5a",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0029-001-cooke-40-degree-field-c1-edge-f3-w3-ray-fan",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0029-001-cooke-40-degree-field-c1-edge-f3-w3-ray-fan\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0030-001-cooke-40-degree-field-c1-edge-f3-w3-optical-path-difference\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "131d6b5308cb8d8be4e4d8a4e078405f916791a550601706b73e03c304134be7",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "43ba2aaf499aa1183aca1b33d3dab5dc7dc281e4732fbf4d64ced14c59886d8c",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "25a5b86e92abade1b8a666cba2acad901c39382278ba7883f5496f7073f11282",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "4ecd5f7500e0771f43aa67efc25620ad9ef19d8b3f4a9cb007b20dc63eff75f1",
+          "name": "data.json"
+        },
+        {
+          "sha256": "d084a0856326afdd6d5dcfd1b0e1f8328ef0962dc18335729eafdd0f3dc236c6",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "61d815d109cfe758b094371ff731ea2482c0c1c1c67f6ca56c8c0739341ac511",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0030-001-cooke-40-degree-field-c1-edge-f3-w3-optical-path-difference",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0030-001-cooke-40-degree-field-c1-edge-f3-w3-optical-path-difference\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\rays/001-cooke-40-degree-field-c1-w1\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "494d9646359996bdf7f47b3afed95dd10b1deb0e72c864f56bfb6afcb7899abf",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "c488bfa3eaf598015e91ce8cd896cd2f53afbcbd0098ac2436284cd4d59b1a33",
+          "name": "ray-audit.json"
+        }
+      ],
+      "id": "rays:001-cooke-40-degree-field-c1-w1",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\rays/001-cooke-40-degree-field-c1-w1\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\rays/001-cooke-40-degree-field-c1-w2\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "b9b975bdb200573a080a7c0a2f4814c71b916bc0731c7116e9f6a5b42997b0aa",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "38341cf9af54c97dd2688d3aa302855c41107104d06f4a6fe49e69ab49e4f75c",
+          "name": "ray-audit.json"
+        }
+      ],
+      "id": "rays:001-cooke-40-degree-field-c1-w2",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\rays/001-cooke-40-degree-field-c1-w2\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\rays/001-cooke-40-degree-field-c1-w3\\native",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "files": [
+        {
+          "sha256": "5c3050e97ef05348e4279786c5a1559ee62b8fe52e43e3230623145cd22cb109",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "5236aa7423fc2284481bbf08894e190ca19b972fad8db92ddbf6f17932ca0dcb",
+          "name": "model.json"
+        },
+        {
+          "sha256": "a6b0ee73d807df7021a82c502ceefc5099b1a8f03c1a68363ef3d62a65c7e13e",
+          "name": "ray-audit.json"
+        }
+      ],
+      "id": "rays:001-cooke-40-degree-field-c1-w3",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\rays/001-cooke-40-degree-field-c1-w3\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\native-models/002-double-gauss-28-degree-field-c1",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "88d55d2b66be6303e7204ffa1a15d030f6948cb2e75bae12e8aedeb1227ee119",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        }
+      ],
+      "id": "probe:002-double-gauss-28-degree-field:c1",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\native-models/002-double-gauss-28-degree-field-c1",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0031-002-double-gauss-28-degree-field-c1-primary-f1-w2-first-order\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "3389e99e09216f4202f5bfb3aa8120f0e61d5a3384c806ea9b59ef67a0eb92c3",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "b37a495c6166110b751f57b119a2d9e365d02c749c7b42535bd92049fec98418",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "b1045ca51d6b28bd6042729a20281af5f3976848042ce495095bcb814dab2f64",
+          "name": "data.json"
+        },
+        {
+          "sha256": "e13f6fb56252d3edd1e691af615f54aaee44d8a948a98d5ba573a26b6afacc0c",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0031-002-double-gauss-28-degree-field-c1-primary-f1-w2-first-order",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0031-002-double-gauss-28-degree-field-c1-primary-f1-w2-first-order\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0032-002-double-gauss-28-degree-field-c1-primary-f1-w2-single-ray-trace\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "0f0642d86443540e34b747a7a53a20a6884fa2450753d1035d1ddb96cb61271b",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "73d887783e56c7bd686272e077194f89cd18778f0b487b65f462516662942951",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "e71709c019880a98445a118346ec89d18d2b4df6ec5fe8d8a9d174e0cee149ce",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "ab815f9965851d49690a2766e172b784add3cb1a307dda58f8e4f08aa2779dd4",
+          "name": "data.json"
+        },
+        {
+          "sha256": "1680d090c542ecf2f3c08d7291eef151094b6ea7a98eec413f3cc73f31a66553",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "47b4e085edcc22fa9b97af03375500d4b40c30e2ebba1cef7a6a38195f5c7fbc",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0032-002-double-gauss-28-degree-field-c1-primary-f1-w2-single-ray-trace",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0032-002-double-gauss-28-degree-field-c1-primary-f1-w2-single-ray-trace\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0033-002-double-gauss-28-degree-field-c1-primary-f1-w2-spot-diagram\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "40c8414d94ef66fa4212715c9647b35fe352a9dca3e9037d760fefeedfff0a11",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "ae6b7408febce75ec2adc80d468da8004305cebe86985f80f9e7b598f2969aa7",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "79074862f91d075259ced4402400f1236f36c1bf3bd788c2a9c25b0760729d35",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "4f910a0ccdcb4efb7bf2252d062e5ff96ab1a8ec5819a3908d26186c6f5c1ced",
+          "name": "data.json"
+        },
+        {
+          "sha256": "4c2be35b02539519200f01b421bfe0480a18c22ce157939acbe3cd50085224f0",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "d72291063810d7d1335bac5d620e44eac6cbc45b0432f7b9e95dd48287ee1ac7",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0033-002-double-gauss-28-degree-field-c1-primary-f1-w2-spot-diagram",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0033-002-double-gauss-28-degree-field-c1-primary-f1-w2-spot-diagram\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0034-002-double-gauss-28-degree-field-c1-primary-f1-w2-ray-fan\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "21a13cde2147c71306f0bfa7139389a5262d9910a1d306fc92a3fd8feeecd917",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "f75eabc0487e8babeb7c564916aa67cf71b7926b63373a6a0977037a3ebed2cc",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "071a79b63c6c2221ae7526cdb4254281339eabd741bd9c8bd673876743a2489d",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "8ee0ebd4060bd74e977a3402932236af5b3cc11a5fedf27040280c8583f79204",
+          "name": "data.json"
+        },
+        {
+          "sha256": "7ffa7f4bc05b9039ee18f75c620ed3ad50828668eece64e897bbb90749992eb7",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "f2d39af04885177c9bed8ea2aa433a6c87c0ea599ea050c8771af095241eff12",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0034-002-double-gauss-28-degree-field-c1-primary-f1-w2-ray-fan",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0034-002-double-gauss-28-degree-field-c1-primary-f1-w2-ray-fan\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0035-002-double-gauss-28-degree-field-c1-primary-f1-w2-optical-path-difference\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "b40121a16317a2932825a93760302f4c43b19d1005c46629852a0f89336e2802",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "43ba2aaf499aa1183aca1b33d3dab5dc7dc281e4732fbf4d64ced14c59886d8c",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "06e94a76f328bf912ed50706320b6b507a9a3357e504f631c421f50f85682f4b",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "9af93e38b0be7604c21c74466bb919aeadc9a3844a99270b9e12f4339f3c7183",
+          "name": "data.json"
+        },
+        {
+          "sha256": "8d598d784997e72bf212e6c9945804a8bdbf62cfa957d081c1063f0295a0a1de",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "e15ae52e4e80714a3a5ae6f66f160d8f8d794adb59af1bc6871379de952cfdc8",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0035-002-double-gauss-28-degree-field-c1-primary-f1-w2-optical-path-difference",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0035-002-double-gauss-28-degree-field-c1-primary-f1-w2-optical-path-difference\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0036-002-double-gauss-28-degree-field-c1-primary-f1-w2-wavefront\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "82062072eac7256f86f02c6b8c4920ffa5b2b601c019972f1e4c34c48b8a3967",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "a7ace7a2a1c066c320c90f56a8ba15eda289c15de6a732183fe7f879f0d08c81",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "8fea3c6cb0601e4640cf72d3c361f9ccc185fdba23a3eebb16041342390ae375",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "7bbec60f3fa008fa8234256571927d0035dd47ad7678e0c3fa924ba6cf82fa64",
+          "name": "data.json"
+        },
+        {
+          "sha256": "72bea3c03851d80375e0f28be4671b2f65fbea64eee6659c5d031db5261571d4",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "2770a8b8fa38319536f33128ce2ffb40cb520de07f3c58500a376ca350b6ab76",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0036-002-double-gauss-28-degree-field-c1-primary-f1-w2-wavefront",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0036-002-double-gauss-28-degree-field-c1-primary-f1-w2-wavefront\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0037-002-double-gauss-28-degree-field-c1-primary-f1-w2-psf\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "79727d82eb4b38765069ed59386e8af0eaa2caf669901d686af09f350887f627",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "fc33f59b5c3d2ec8482544e4c8a23b4a251dc9c1c0c7381b3f1bde13815bf273",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "2c4d477cb21d336b06e9399ed4f39f574dd070622fb2538b37734e84672d5ed4",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "1aca9a930268ee6cc75ff6101537f61be76fd20b9b92ebeec37cc8709eb9e7b9",
+          "name": "data.json"
+        },
+        {
+          "sha256": "1bdac705c75af0359bb5e13c2174a6ed807cda4cec181b14b0a484740f4a3518",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "ace5745ba65b5c06ed21fb95e565754c7c0258e6c3f5d385a47a7cdec849bdc8",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0037-002-double-gauss-28-degree-field-c1-primary-f1-w2-psf",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0037-002-double-gauss-28-degree-field-c1-primary-f1-w2-psf\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0038-002-double-gauss-28-degree-field-c1-primary-f1-w2-huygens-psf\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "503d0fd2c2c5804bea8099ed317f2980af71ddda727ab031718180769adec082",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "fdab7f0ee1d6f6742a162bd176b93672b567f381971e55836ff0e61344370876",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "d49bce6e8cae28550441fef533cc1264a0518892e550788b6f2cb7c6b194e664",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "a0bed55d25ba1b0bffc3704fb66e520517e60629dbc135eaf94ce8a44001d552",
+          "name": "data.json"
+        },
+        {
+          "sha256": "a7fadbe70c604a37c1e2d55c4a44ec92f1fb64050bc56ba140f7a1267480ea01",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "0b93d87b1a8adfb51adb463f00485768e8b2615045f5c8302df30a4f87d1a0f7",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0038-002-double-gauss-28-degree-field-c1-primary-f1-w2-huygens-psf",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0038-002-double-gauss-28-degree-field-c1-primary-f1-w2-huygens-psf\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0039-002-double-gauss-28-degree-field-c1-primary-f1-w2-mtf\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "23c7bffa8e1a22a519c158363fa97d491b0f193e5b01a342add63f3b1f5751ed",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "b4b074b1676b96b0b2c9ed4edd312ee70094255507308fd4a486a297245fc117",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "c01883c401e921ef1882faaad958fafdf5f1ba845d7c9ff63ab40bc4c2307cd6",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "d231251153c626ede3ff4a9d3cb59edc7f95285e8f0c3e30683b5705a80d2ec9",
+          "name": "data.json"
+        },
+        {
+          "sha256": "0dc04df7f2692cc56cec163672ee2bec8566635c45f619206187283bd168d231",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "bd619b0567b2e7fb25168370d5f80dcbee3b1cae46a3a01d0b5336daaf27b727",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0039-002-double-gauss-28-degree-field-c1-primary-f1-w2-mtf",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0039-002-double-gauss-28-degree-field-c1-primary-f1-w2-mtf\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0040-002-double-gauss-28-degree-field-c1-primary-f1-w2-huygens-mtf\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "2248614910ecf7e3e1a9bd12bd92184ebf06610feedaefb914c7de78953880f4",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "c31968bae4ae420a8240e25edb92970efaf00a515abccf8810ffb1fa2e78172b",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "65be00b2f296c1eadc63ca25f8a5015c67a687b96153334feef47c95cf73bdfa",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "6583d45826adf1aa0bd1a286e9a7700259480819fb7ebee5646ae2a00c5e01f9",
+          "name": "data.json"
+        },
+        {
+          "sha256": "68376d8dd281c46bb7c5631324e52c7619478b5bd97c2d246e0b54eb5132ad04",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "86f7ea36a86ec61d9b7c4b67ca7b4b3260a2768379003e7711a659cb14bdd210",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0040-002-double-gauss-28-degree-field-c1-primary-f1-w2-huygens-mtf",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0040-002-double-gauss-28-degree-field-c1-primary-f1-w2-huygens-mtf\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0041-002-double-gauss-28-degree-field-c1-primary-f1-w2-fft-psf-cross-section\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "e788fe374a7e40229659182a2823e88163851c34f9fc552c4300fa538ece5f31",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "5b88974bfbc178f157830d9d70051a9b440e0aeb8aa006e0655d738a0eda1117",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "b5cf470da0471e3504083c2f30ba9088667403c0cc3b61e11fa6e03439a46833",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "1278e46f451703ea28e188bcedc156fffba2fedad00cc2284c447426cf681576",
+          "name": "data.json"
+        },
+        {
+          "sha256": "0329578f726d544f414bf70135d4bdbd8bb8bd09b8785c517165d2ecc854ccc0",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "b60cf3161d0ae3dab508148d803672adc6b896ac54ab11bed4d8d3f8690c8f3c",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0041-002-double-gauss-28-degree-field-c1-primary-f1-w2-fft-psf-cross-section",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0041-002-double-gauss-28-degree-field-c1-primary-f1-w2-fft-psf-cross-section\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0042-002-double-gauss-28-degree-field-c1-primary-f1-w2-huygens-psf-cross-section\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "a0d3922a4c191bc3c291141148d27d7a4e5260b950fcc8ef463753ad7c1f3a4e",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "426d49f5763091ff3bc50c15a3884bf8182e1df3ecc04f299f1035b71eca7811",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "6a86e9c81fe33921e59525f57e3bf6a11087bf391dcc4db500653051631a5a14",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "a4e77235836f7aa889d231eb609c86ae0681b32a6a46cc530a348121cbda0562",
+          "name": "data.json"
+        },
+        {
+          "sha256": "53ef15114ea90b151f0d6b8103e631db5feee830499121ec091aa5f94ec72a7d",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "e3de3c3b14634cccbdb7fe2ac627e2a38fd1bdf5063b08dc3ba123b2c35594ba",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0042-002-double-gauss-28-degree-field-c1-primary-f1-w2-huygens-psf-cross-section",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0042-002-double-gauss-28-degree-field-c1-primary-f1-w2-huygens-psf-cross-section\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0043-002-double-gauss-28-degree-field-c1-primary-f1-w2-encircled-energy\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "09de3b12848e138132b91ad8d476f49d7d0db5b00bc90bf40ecc975be2f23c52",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "aa33864349c7287eda2834b378a9edc4631a1692a600a4dcb51164967d052b58",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "f28086a2e17ed11d4491023577213d4af8004ba41f5fe33c44fd4e3a993599bd",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "4aa032cc430adb76fb1b8642bc0594a24fd3dca32147484aaa6c40d4ac3ef862",
+          "name": "data.json"
+        },
+        {
+          "sha256": "4d100acbbc7b867f4eb9677d8d9f337d01df04bda96f9f20463d0cd884b0297f",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "32e70f99ef288697d6dd459ab4a3164296212fb768f56e3e177c1e0bd11183fb",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0043-002-double-gauss-28-degree-field-c1-primary-f1-w2-encircled-energy",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0043-002-double-gauss-28-degree-field-c1-primary-f1-w2-encircled-energy\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0044-002-double-gauss-28-degree-field-c1-primary-f1-w2-diffraction-encircled-energy\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "dfb1605f1ea10594741540a4b3f184fac0b1c4ae01dbbf487e8ccffe50462978",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "7d002ef9bfc918491f112b513c160723f6694274f2cdd7bb885759107221e7f8",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "156290feb3e5d8f0bb00b889d88c7cd6daf9d5a522d5a9ad6a401994ca72c71a",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "f87d205b801f3e289df591dd9049be3405921e72a930387b255aa39982a45229",
+          "name": "data.json"
+        },
+        {
+          "sha256": "da8882344751b8669e07a2902c5514d72cc87ed793f5844ed270942d41c1c61e",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "6d5774acc81ffaa47b910ccd1d861ef51a26116e4c180533328d754533981a90",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0044-002-double-gauss-28-degree-field-c1-primary-f1-w2-diffraction-encircled-energy",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0044-002-double-gauss-28-degree-field-c1-primary-f1-w2-diffraction-encircled-energy\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0045-002-double-gauss-28-degree-field-c1-primary-f1-w2-huygens-through-focus-mtf\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "eee9b330afc624d3a1fd82e25ef23b2aec11df7e2bd47216c0ff3c26c43aac48",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "2803152bc6b929a28917f5c2bdb5ca1204ed9c553f62e235f10741f48415e3bb",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "5beeec321a36aa5a1fe2528ed14b1bfe3e247afb27d3b6a69c3e9fe6fccdf7f9",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "dda9c0480c7ea5bcfd2f9223f54ef3b21899b422899546f33bc1f11bc8f17e6a",
+          "name": "data.json"
+        },
+        {
+          "sha256": "4222f9bdef3d98ad2512af8360ea3927b8c34b9bf20f8bf368c9d44b5913783e",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "aeac790be069159d3cd0af4fdc5093b5241ecff1c1b5e49d498fd934c843efa7",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0045-002-double-gauss-28-degree-field-c1-primary-f1-w2-huygens-through-focus-mtf",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0045-002-double-gauss-28-degree-field-c1-primary-f1-w2-huygens-through-focus-mtf\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0046-002-double-gauss-28-degree-field-c1-primary-f1-w2-relative-illumination\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "8ed88cfa14a55668052bd325f21bab6fab1023d7e93496271ff580f79069538e",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "f32a95df5d0e21471769b745710088de4e078c696cfe85c9c1ac2fd6bc56dd75",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "6081fc845febf58a96aed87140bfb4b701d3ef506e040a07e7e0a3443f62b771",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "12a47ec54ec4319da301e668a9fb5ab337a556c5dcf1948e7211cb4fb18a74a0",
+          "name": "data.json"
+        },
+        {
+          "sha256": "95819f1101d6c6ee6d89a7d0ff254d2e5ce6f66899adfa34bc67f6f26ac2e455",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "010236102f1a3f9e1c88bf8b6b32673646a1f999a86921101ba9dd1d4464934b",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0046-002-double-gauss-28-degree-field-c1-primary-f1-w2-relative-illumination",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0046-002-double-gauss-28-degree-field-c1-primary-f1-w2-relative-illumination\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0047-002-double-gauss-28-degree-field-c1-primary-f1-w2-rms-vs-field\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "6b214592ab45779871025959ab7d01793b78bfd2f6f3b583b598511716d6beca",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "22a1e673ab257f837977af1013bc740777c5972c49c3ed857c9b8891d6f7c3ab",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "db4d1faa1176840a85af279cc764e45389e721c5c5b8d93b734da515ed33a818",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "5142fe9872f9217ac2c7eeecdde2ca2ea043a6677081311f4ca3eae6a57d5fcf",
+          "name": "data.json"
+        },
+        {
+          "sha256": "13e86db68ff9116d0236dd6c8d4f3f4ec8ce4bbeed0cb9029bd05e043cc3a34b",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "1cdda21388c9b14c8469231872f9c99935fa0308d61a6a284db4a579bf0c983b",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0047-002-double-gauss-28-degree-field-c1-primary-f1-w2-rms-vs-field",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0047-002-double-gauss-28-degree-field-c1-primary-f1-w2-rms-vs-field\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0048-002-double-gauss-28-degree-field-c1-primary-f1-w2-field-curvature-and-distortion\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "1205a7e6b94fbe19d32d4e8231a786de77eb34a50e0810ba858c5b87a163b176",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "fa82e214770378ab3e68877185af256a6e1acc99b6e84a3fd8082c4ba7fe3c4a",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "27db250efe0bba8798474dc64ae6eb513c84ab0eaf39d9f0ed2035dfc1e6af4f",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "6c8ecc69351011e5ea331b50c535b76aa783a0c7d6abe54433e479bd26d8f26f",
+          "name": "data.json"
+        },
+        {
+          "sha256": "72b75c6f49bd90d45b28d1108833248c9f3b24457fa7130302c9874eb2e4781e",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "7f6bbcf48fd7ef69fa22832029d2393ff29b5913a2bffff9cf716d3c1049eb7b",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0048-002-double-gauss-28-degree-field-c1-primary-f1-w2-field-curvature-and-distortion",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0048-002-double-gauss-28-degree-field-c1-primary-f1-w2-field-curvature-and-distortion\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0049-002-double-gauss-28-degree-field-c1-edge-f3-w1-single-ray-trace\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "76851befe20e09ac56a3b3c9bda46345cfc348c0540739dbae902ecaacfdf8b5",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "73d887783e56c7bd686272e077194f89cd18778f0b487b65f462516662942951",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "1dcb314ab4bd83b1e985e9fdd68c65ce443429a0cc82ad39b50a99b16594efa3",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "ab815f9965851d49690a2766e172b784add3cb1a307dda58f8e4f08aa2779dd4",
+          "name": "data.json"
+        },
+        {
+          "sha256": "d13be40463ca6705fc9c5ea0efbe258bd5f4a89a509c198ff9b9032fe4d4a6c5",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "825cf9212b9f07ab57026c4deefe2878d869b3aa3bc341478b89f04724fa5153",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0049-002-double-gauss-28-degree-field-c1-edge-f3-w1-single-ray-trace",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0049-002-double-gauss-28-degree-field-c1-edge-f3-w1-single-ray-trace\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0050-002-double-gauss-28-degree-field-c1-edge-f3-w1-spot-diagram\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "0de73f6e44644c461873a4461ad5efe011e06f99aeba18c1fa0280f495d87b91",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "ae6b7408febce75ec2adc80d468da8004305cebe86985f80f9e7b598f2969aa7",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "4cbac71c545169897ec54c01b69724d61c5eb35f667d705f3fa9266bd716f30b",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "96cab931b6aa090920be6a1189e860a43693a264f9d74dc56a63a911d5c5ba00",
+          "name": "data.json"
+        },
+        {
+          "sha256": "1c1ba13342a7d851d84d4cd26d6c4f8268dd5b27616c112eb633f41af8347baf",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "3e91d989f867632650438e7d27addc3d47a9061a2f4f05e9b4dd2ae12807b978",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0050-002-double-gauss-28-degree-field-c1-edge-f3-w1-spot-diagram",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0050-002-double-gauss-28-degree-field-c1-edge-f3-w1-spot-diagram\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0051-002-double-gauss-28-degree-field-c1-edge-f3-w1-ray-fan\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "36b1c0358722890ed8b810968039a0c6a346decaa9d4306d983b6d39e10f222b",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "f75eabc0487e8babeb7c564916aa67cf71b7926b63373a6a0977037a3ebed2cc",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "cdf1142558633279293e83e602a865a6c3342c1ba4314bfe9580019f5a0b7a5d",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "18797c928ab812752c886c769ad10be53c3e397958d65ae4f4f3af185b7b57f5",
+          "name": "data.json"
+        },
+        {
+          "sha256": "7b65b76e7d821440f45b408c0c8c978e8630c2529815a4eaf44ebf00b277b686",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "6e16e0d1107fcf97b255ab3d464b067a913c9e3443c15a51e9bfb1eea3c73ce4",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0051-002-double-gauss-28-degree-field-c1-edge-f3-w1-ray-fan",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0051-002-double-gauss-28-degree-field-c1-edge-f3-w1-ray-fan\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0052-002-double-gauss-28-degree-field-c1-edge-f3-w1-optical-path-difference\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "2023a0709e71d3e82e149a9fb633bcc69f4017a8d8f2ed51a576e037cd4911f9",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "43ba2aaf499aa1183aca1b33d3dab5dc7dc281e4732fbf4d64ced14c59886d8c",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "25ab6e32f1f584a3ea86bbf5b176a8cf1e70655115d046266d51b5cf0d133926",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "620b5eb11422ada240ff55f332938e7180d3967c4a124040f4062eb9e289cd84",
+          "name": "data.json"
+        },
+        {
+          "sha256": "fc96b7c4110e414c8bc3e7cb85bfc8d77093b4d3d4d2ea6e28a8a65c99109962",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "d1abb76a8003b3290d7ff71144c07e17b4f3ba5f3a84c5ad2954cf975dfd8530",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0052-002-double-gauss-28-degree-field-c1-edge-f3-w1-optical-path-difference",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0052-002-double-gauss-28-degree-field-c1-edge-f3-w1-optical-path-difference\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0053-002-double-gauss-28-degree-field-c1-edge-f3-w2-single-ray-trace\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "f05f0d494c041b765d6d16ea1cf98d94e3983877c9b2f37c1c3dc25ec87645f0",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "73d887783e56c7bd686272e077194f89cd18778f0b487b65f462516662942951",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "f95068be3738e1fbbd03e332a11ce28813580e962a9edb5b1e5ff57fc00b4a9a",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "ab815f9965851d49690a2766e172b784add3cb1a307dda58f8e4f08aa2779dd4",
+          "name": "data.json"
+        },
+        {
+          "sha256": "b2ac3fbe52fed8382c905aeff5619e1b0a3959db775e2782c6e03bde0baf919c",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "b59fb252aac9e6eece9f335d9f2a7bf40de97fe212e9e4e5f30753348c1dd94d",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0053-002-double-gauss-28-degree-field-c1-edge-f3-w2-single-ray-trace",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0053-002-double-gauss-28-degree-field-c1-edge-f3-w2-single-ray-trace\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0054-002-double-gauss-28-degree-field-c1-edge-f3-w2-spot-diagram\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "8927935c387c47115373b94aea4fa99dd8c7f08b94a1ef92567485d6fbf199c4",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "ae6b7408febce75ec2adc80d468da8004305cebe86985f80f9e7b598f2969aa7",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "2c3ebe1f81224247b00b910591c28da3fcde79b960cc713ccbfb4f695e791482",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "9f5225d95fe5e73267fc10e0505e8c0b0a7479f422416d5ffff497c25e0c402a",
+          "name": "data.json"
+        },
+        {
+          "sha256": "1462b48d4494b6a8f1a2604ecafb5e2dabf6c751ac69c7bb556cd44cc40d25d3",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "a5ceffef0a28ba03338c6b14a6d8de5827e9ee578ec4faffde0ee9b02e6a589b",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0054-002-double-gauss-28-degree-field-c1-edge-f3-w2-spot-diagram",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0054-002-double-gauss-28-degree-field-c1-edge-f3-w2-spot-diagram\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0055-002-double-gauss-28-degree-field-c1-edge-f3-w2-ray-fan\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "68a1cd206280306b0b471577c8c3423ff8f7481d2aac90efeb9dff89dc5b4414",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "f75eabc0487e8babeb7c564916aa67cf71b7926b63373a6a0977037a3ebed2cc",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "317ef692dd64eb54786a02923815ce96e5349106f76656a6c248bd456522a96f",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "45c98b796cf0cf372ed2e642c36c2c2f4df5403b35cda19831e7f2b21fc6a970",
+          "name": "data.json"
+        },
+        {
+          "sha256": "6a94d8c261ea3e068a1b182c6c091d2da5a4ffcfa4d18bab360658733fd6c2ab",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "74868c0413d9385b1d55626e25e3d2a6c18a7a09a6069c6f026523f6a2e8d178",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0055-002-double-gauss-28-degree-field-c1-edge-f3-w2-ray-fan",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0055-002-double-gauss-28-degree-field-c1-edge-f3-w2-ray-fan\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0056-002-double-gauss-28-degree-field-c1-edge-f3-w2-optical-path-difference\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "4877ab364051a31667d6ad0acbb673c305b40ad59133475e910565062608add3",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "43ba2aaf499aa1183aca1b33d3dab5dc7dc281e4732fbf4d64ced14c59886d8c",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "f434d5186bb6e73f2114f622c2eb9dec6b2b1fd5b6287fa01e7aa6edcf682b99",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "3de0513da291def58cfd955d48b28e960e1b1bc3bb45ce19e7358e277c2b6f0d",
+          "name": "data.json"
+        },
+        {
+          "sha256": "9795e64d23c52f58f3e3459263cc225f600f12a61441652ea76601251ad650f2",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "5af8039ba86ab1585a4b5839e7a07b1b7e6e77f6f8f0bde0f76ecf74d9c66cd8",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0056-002-double-gauss-28-degree-field-c1-edge-f3-w2-optical-path-difference",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0056-002-double-gauss-28-degree-field-c1-edge-f3-w2-optical-path-difference\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0057-002-double-gauss-28-degree-field-c1-edge-f3-w3-single-ray-trace\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "1f333f62d57335445e7ec8046e765403b2825db24e6c53490241bfd2167a8c2e",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "73d887783e56c7bd686272e077194f89cd18778f0b487b65f462516662942951",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "decb23e9e8c7af1aa9c80c68d47faffc184fcff7aab1c26c589c38b7d0d4081e",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "ab815f9965851d49690a2766e172b784add3cb1a307dda58f8e4f08aa2779dd4",
+          "name": "data.json"
+        },
+        {
+          "sha256": "6dfa175e15587f3436c4b0d073f25d47bd7c62cb0ef351f9e8acc457c3d6423b",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "e83873a35d694fd12fcd5537dbac1d7d7946361be44cf87c53517dca55e07660",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0057-002-double-gauss-28-degree-field-c1-edge-f3-w3-single-ray-trace",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0057-002-double-gauss-28-degree-field-c1-edge-f3-w3-single-ray-trace\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0058-002-double-gauss-28-degree-field-c1-edge-f3-w3-spot-diagram\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "0a9c3e2fa5e62f721df34653993ff56c12cf97cd0633f996de81b07b7ceaf700",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "ae6b7408febce75ec2adc80d468da8004305cebe86985f80f9e7b598f2969aa7",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "597bc1919bb9bfb24c06b1773b32b50ddc812d4694d07e23d13445742d6be6df",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "cb4c9b2c77f05335286a2a735f1d5ba5f94a9b5766c37cc90771776d6af36e1d",
+          "name": "data.json"
+        },
+        {
+          "sha256": "5a32d18e3db769c02547524655ff90c5e7cb9e4ea4c8bc47bd8f337ed07073eb",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "9785f936faaed444a7c453a8b09aa3c6c4dfe54d0659708880afa7114deda53c",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0058-002-double-gauss-28-degree-field-c1-edge-f3-w3-spot-diagram",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0058-002-double-gauss-28-degree-field-c1-edge-f3-w3-spot-diagram\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0059-002-double-gauss-28-degree-field-c1-edge-f3-w3-ray-fan\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "de0582c6fcfad9ff6111cab78f3740efe7aca113198ead49b9b6d08398432fc1",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "f75eabc0487e8babeb7c564916aa67cf71b7926b63373a6a0977037a3ebed2cc",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "f1dd96b19634bb7236aa1d47ca6b43b01ac6c5a0c6ade6c91d9966a42e1d8d64",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "8fdc0b8e9d1f14bf17ba2a3291adc900901cd46b9b66345786b031bb34268eb4",
+          "name": "data.json"
+        },
+        {
+          "sha256": "7b4a2ce2e550dfe49485a0c21fa410f44bc8180c5dbd916f24e486eb9168ca5e",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "d224440597bb639ab38d9c72f961e1d962d4620d1e1952b63e36d906a58e0b5a",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0059-002-double-gauss-28-degree-field-c1-edge-f3-w3-ray-fan",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0059-002-double-gauss-28-degree-field-c1-edge-f3-w3-ray-fan\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0060-002-double-gauss-28-degree-field-c1-edge-f3-w3-optical-path-difference\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "f10ed21e9b567626926dfd2f1196b2eb120000bc6a5a5be11d6b671dd41c7c30",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "43ba2aaf499aa1183aca1b33d3dab5dc7dc281e4732fbf4d64ced14c59886d8c",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "bd6bf8e585015f36ef0b3d51627c5536f789dbaf0b93f6670cf8cac3e726badd",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "15f7b6e5cc79c31deb57f80337f37252ccfe7487f99f7c5850409336280bd3be",
+          "name": "data.json"
+        },
+        {
+          "sha256": "68141f8bf19e30fe748a72914d265ae9ea8e9e63741b61ae8946b8c70f4f3380",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "61d815d109cfe758b094371ff731ea2482c0c1c1c67f6ca56c8c0739341ac511",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0060-002-double-gauss-28-degree-field-c1-edge-f3-w3-optical-path-difference",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0060-002-double-gauss-28-degree-field-c1-edge-f3-w3-optical-path-difference\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\rays/002-double-gauss-28-degree-field-c1-w1\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "12c6c8dbba92e13fa14dbd0b91958b7ca8b94031cbbe4d391d140a1c8bf596ed",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "f40b6ebc2ac2d1a5a6ab6ec6046bd7b723ae94290c12f0c359c8cc6f61bd09e0",
+          "name": "ray-audit.json"
+        }
+      ],
+      "id": "rays:002-double-gauss-28-degree-field-c1-w1",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\rays/002-double-gauss-28-degree-field-c1-w1\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\rays/002-double-gauss-28-degree-field-c1-w2\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "582433a90d2257c5aa1f10974fc75f1088029d7c8a8f3e7fe5dce86ea3f393c8",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "5d8b9b3972ef3bb057a40fc3051c15f8951961ce872c9359aaea77af4ef0ef88",
+          "name": "ray-audit.json"
+        }
+      ],
+      "id": "rays:002-double-gauss-28-degree-field-c1-w2",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\rays/002-double-gauss-28-degree-field-c1-w2\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\rays/002-double-gauss-28-degree-field-c1-w3\\native",
+      "sourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+      "files": [
+        {
+          "sha256": "249b13e7ae83cf81a0b0dbdfb3d9990111e59e77ca9967ccba26e3399de40d06",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "191ab5e0a764a9f4658a068d82758227a6e35a3cc59e1b92d9eb488dc1725bee",
+          "name": "model.json"
+        },
+        {
+          "sha256": "1f1d364201195b78c55ab8498ac6c15013acd3bd5bab601efe3f791408e5cb34",
+          "name": "ray-audit.json"
+        }
+      ],
+      "id": "rays:002-double-gauss-28-degree-field-c1-w3",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\rays/002-double-gauss-28-degree-field-c1-w3\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\native-models/003-petzval-c1",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "64e3defadba47691084823e894a19c32f4fcfbba9f972585af21c897cd271516",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        }
+      ],
+      "id": "probe:003-petzval:c1",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\native-models/003-petzval-c1",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0061-003-petzval-c1-primary-f1-w2-first-order\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "13529beb78b9f67a2de586802d7fd302dcb7688e38ec320c0ccb09316a67c42c",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "4c6510124ce24b9c93cbee734af03c930aded2dad6d2bd928aecc0184c1f8ed2",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "dad3c23ca6f75aba43fd7a7c5041e0c3d94cd4d88e350bd494068e59c174b458",
+          "name": "data.json"
+        },
+        {
+          "sha256": "bd58c708bb3d59fc809990f35380f7de71d062962ecbfc1cc57ab3b9983d6c03",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0061-003-petzval-c1-primary-f1-w2-first-order",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0061-003-petzval-c1-primary-f1-w2-first-order\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0062-003-petzval-c1-primary-f1-w2-single-ray-trace\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "3aa0a82d8b8f30ff9065aaf5f04f7c3bd47a63988db349bbaf3f16c8f18218ef",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "73d887783e56c7bd686272e077194f89cd18778f0b487b65f462516662942951",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "f137929af532c1e9d0abee1dcc6808840fb85d955471f3c9897afcebb374a018",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "5184d975eb6823df8210ecca8fa617f37b37ebbb9249719b1d7f76e3cc4d1517",
+          "name": "data.json"
+        },
+        {
+          "sha256": "ebc111138a83bbdda5dc14c7dc28ffcab1af7929525ef56eb5e17aade238df10",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "47b4e085edcc22fa9b97af03375500d4b40c30e2ebba1cef7a6a38195f5c7fbc",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0062-003-petzval-c1-primary-f1-w2-single-ray-trace",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0062-003-petzval-c1-primary-f1-w2-single-ray-trace\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0063-003-petzval-c1-primary-f1-w2-spot-diagram\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "a4750b78016cf47a6f8d278b6e97f9bbac947fdbc09c631c657e1bcecfcae495",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "ae6b7408febce75ec2adc80d468da8004305cebe86985f80f9e7b598f2969aa7",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "692d6fce2bffc49d3466872f068387af858bc34fed9e9347cf8b3838e82a9e61",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "f04ec585e569a0a817e8fa01eb61feb15280943dab3bf98bdfc7571b49683970",
+          "name": "data.json"
+        },
+        {
+          "sha256": "69b44d5cb0136694b5f0a4a63377dd5ea77f46d703863d14623b32879f071b9a",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "d72291063810d7d1335bac5d620e44eac6cbc45b0432f7b9e95dd48287ee1ac7",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0063-003-petzval-c1-primary-f1-w2-spot-diagram",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0063-003-petzval-c1-primary-f1-w2-spot-diagram\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0064-003-petzval-c1-primary-f1-w2-ray-fan\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "d0e853f835880d7537b8721cf24e960264a0e955d9ce064bf874966d89373770",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "f75eabc0487e8babeb7c564916aa67cf71b7926b63373a6a0977037a3ebed2cc",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "bccfc2b901b07ec0e9c9304a0780645c871b830fd8811581711f224eb0f98f8d",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "4205e7d4572bd23d5ccd534e0728fad4c2468b6d0a88f137243b609a0832cafe",
+          "name": "data.json"
+        },
+        {
+          "sha256": "7934fc71ae433bda2d79c734dbf53c19637ce9fb9ea3044c023b456d6e6e160a",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "f2d39af04885177c9bed8ea2aa433a6c87c0ea599ea050c8771af095241eff12",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0064-003-petzval-c1-primary-f1-w2-ray-fan",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0064-003-petzval-c1-primary-f1-w2-ray-fan\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0065-003-petzval-c1-primary-f1-w2-optical-path-difference\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "d02b8c9bf18bc0c144bb2b33b0222cf006bf947409fbed195ca9f8b41c2469ab",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "43ba2aaf499aa1183aca1b33d3dab5dc7dc281e4732fbf4d64ced14c59886d8c",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "0af4891bb2f15d6691e4d13964e6564948db948bfab47bc227fe05fb637efdbc",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "b53da0e943063ad277930bf9f054408866ed9c3bd22cdc5ba2960845878bcf6a",
+          "name": "data.json"
+        },
+        {
+          "sha256": "63c2f8ebe7b7e30f3ae2d1174a08ff7c3e1b7d90345b580b6764dc418ec1b839",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "e15ae52e4e80714a3a5ae6f66f160d8f8d794adb59af1bc6871379de952cfdc8",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0065-003-petzval-c1-primary-f1-w2-optical-path-difference",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0065-003-petzval-c1-primary-f1-w2-optical-path-difference\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0066-003-petzval-c1-primary-f1-w2-wavefront\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "065041eafe671265ea0132ac654a1ef49a46101c2dc8cb7c896b758fed60a06d",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "a7ace7a2a1c066c320c90f56a8ba15eda289c15de6a732183fe7f879f0d08c81",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "871b768efce584e5dd62b80b36e83defc497f06a1c390d926d12641228544c0b",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "0d2ad978441881ec6ba336b3aee5af7464d3a9eee1b19c46b8b3bebbee67aa8f",
+          "name": "data.json"
+        },
+        {
+          "sha256": "afff0cb25f83162b379420ad0f5e860e742f0aeb52cdf86e8374da50856bac86",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "2770a8b8fa38319536f33128ce2ffb40cb520de07f3c58500a376ca350b6ab76",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0066-003-petzval-c1-primary-f1-w2-wavefront",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0066-003-petzval-c1-primary-f1-w2-wavefront\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0067-003-petzval-c1-primary-f1-w2-psf\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "610bb965b77ae7da1cfc4682ec0523fec1101d2270ea9613584a26e0959766c9",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "fc33f59b5c3d2ec8482544e4c8a23b4a251dc9c1c0c7381b3f1bde13815bf273",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "448bd72db770d4eed4ed28a867e335f737d8f8e980b3e7ea6c26f283d2822498",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "8babff759935113ea991dd6d944a0aa2db5e4964b561ebad2d9709bc57cf74e2",
+          "name": "data.json"
+        },
+        {
+          "sha256": "6c4816919f742c10ed5007c867790a6549f68e35a461e6093e1d79c1ed9b3574",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "ace5745ba65b5c06ed21fb95e565754c7c0258e6c3f5d385a47a7cdec849bdc8",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0067-003-petzval-c1-primary-f1-w2-psf",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0067-003-petzval-c1-primary-f1-w2-psf\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0068-003-petzval-c1-primary-f1-w2-huygens-psf\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "ba2746ea6033706762882de404c4685ef12beb42a1dff5439182bacab1f3efb0",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "fdab7f0ee1d6f6742a162bd176b93672b567f381971e55836ff0e61344370876",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "03a2ee1dc56bf5ad7e110334cff279ce4850ccd712f0973df7534c4a42bfe44f",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "8808d4f391fc96c0a7933c11479109ffed6375f7e5967d8d275cfae07ebd3a9a",
+          "name": "data.json"
+        },
+        {
+          "sha256": "6530a4f3ae751662ec4f7f013cabe5b6c11bac8860ddec05042fa2df09812ad1",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "0b93d87b1a8adfb51adb463f00485768e8b2615045f5c8302df30a4f87d1a0f7",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0068-003-petzval-c1-primary-f1-w2-huygens-psf",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0068-003-petzval-c1-primary-f1-w2-huygens-psf\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0069-003-petzval-c1-primary-f1-w2-mtf\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "4d5885581e1e3557e49a82fb141d80d8874df82e073707df694e50bafb9f9b3e",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "b4b074b1676b96b0b2c9ed4edd312ee70094255507308fd4a486a297245fc117",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "076680918dcc85f87a077b8011e85c3ef1ef589e6d017418724e05f20a593f56",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "cd021038519ca7ae9869c45f0ed9bc6e7cf80bd6add11b215d32e2a78bc2b364",
+          "name": "data.json"
+        },
+        {
+          "sha256": "91cb70256e962a4534cac0a75e4b8bee51b4f4ffb06351204001f7a7fed1859c",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "bd619b0567b2e7fb25168370d5f80dcbee3b1cae46a3a01d0b5336daaf27b727",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0069-003-petzval-c1-primary-f1-w2-mtf",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0069-003-petzval-c1-primary-f1-w2-mtf\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0070-003-petzval-c1-primary-f1-w2-huygens-mtf\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "c588f4f9143c65c832f71b89133d2093d977dc0669b979ad32bbf47edd2b60e7",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "c31968bae4ae420a8240e25edb92970efaf00a515abccf8810ffb1fa2e78172b",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "e36427a57f7e6be7a166dc702752fee81ca4514eafd1da39438935840574fdac",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "09c1af38afe015f0f9fa119ec34500421b1039729fec7e6b4331ce769242ca05",
+          "name": "data.json"
+        },
+        {
+          "sha256": "733368ab46b7e653506e6b3ce6cdb73893f9a27360b8ba7eb126fe2bc294cf80",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "86f7ea36a86ec61d9b7c4b67ca7b4b3260a2768379003e7711a659cb14bdd210",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0070-003-petzval-c1-primary-f1-w2-huygens-mtf",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0070-003-petzval-c1-primary-f1-w2-huygens-mtf\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0071-003-petzval-c1-primary-f1-w2-fft-psf-cross-section\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "997ff05fd52354bd98021dcc1c8aa317b60ecac25108fc8ef38020609cf3b77b",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "5b88974bfbc178f157830d9d70051a9b440e0aeb8aa006e0655d738a0eda1117",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "31bac35165efb7d17117f785bdee81ea009816dc2cea0e8729315b0ac766692c",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "d8a5a91a159943a7b0f5e31290a51d863bb50da97df2d82421e0f81682b36517",
+          "name": "data.json"
+        },
+        {
+          "sha256": "7f0c0bee9a69a34cce54818562dcaafced9a8d1b5b37b095f84e8f19ee2af11f",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "b60cf3161d0ae3dab508148d803672adc6b896ac54ab11bed4d8d3f8690c8f3c",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0071-003-petzval-c1-primary-f1-w2-fft-psf-cross-section",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0071-003-petzval-c1-primary-f1-w2-fft-psf-cross-section\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0072-003-petzval-c1-primary-f1-w2-huygens-psf-cross-section\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "d8d8067fa657392250c3ee613e20dbf03bb86958d7e5541ed963e863110888eb",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "426d49f5763091ff3bc50c15a3884bf8182e1df3ecc04f299f1035b71eca7811",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "2142e2b64736622ff2153d286b84970e5495e0e15f9e490a550745c3d0e9df32",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "21f4885774f6cb5492627178eface7214ab1332fb48d9084352954731a146cc4",
+          "name": "data.json"
+        },
+        {
+          "sha256": "1f4466046850f372617897b598dea531aaf766f18521daf1873d00b8ea252864",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "e3de3c3b14634cccbdb7fe2ac627e2a38fd1bdf5063b08dc3ba123b2c35594ba",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0072-003-petzval-c1-primary-f1-w2-huygens-psf-cross-section",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0072-003-petzval-c1-primary-f1-w2-huygens-psf-cross-section\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0073-003-petzval-c1-primary-f1-w2-encircled-energy\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "211c4e01033c3244ddbaee15b49bdfd9d1404f0645f8ec0c088a3ccd96a755bb",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "aa33864349c7287eda2834b378a9edc4631a1692a600a4dcb51164967d052b58",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "16bf5a7058a8bb5c75e1c8148dfb645a196d44c5c2862d23025208ff00b66a34",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "e7a8f31d8ec83f9161ff53dba2ece48b256000f4e9e3c899f410134ab05b0d36",
+          "name": "data.json"
+        },
+        {
+          "sha256": "9207a2374c68b1e6948614a512bc6f87267848d9ec9a92c8864d524701bb4919",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "32e70f99ef288697d6dd459ab4a3164296212fb768f56e3e177c1e0bd11183fb",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0073-003-petzval-c1-primary-f1-w2-encircled-energy",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0073-003-petzval-c1-primary-f1-w2-encircled-energy\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0074-003-petzval-c1-primary-f1-w2-diffraction-encircled-energy\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "135411cc7232ee7fdab3dedba8025cb5af7a543334b9fc29b41ddb86d65182c8",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "7d002ef9bfc918491f112b513c160723f6694274f2cdd7bb885759107221e7f8",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "1469814868f970df66dc53edc3a3a0dbde4ab7b9710e1abd7834dee2b4803986",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "31f2e24eeabac411975ea09c9a14d4fb0e200b7351c3930fe0fb0c60cd4e344f",
+          "name": "data.json"
+        },
+        {
+          "sha256": "708067d8e1ae665ef478a605f290359d10656499ed663affc0bc83c64f842739",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "6d5774acc81ffaa47b910ccd1d861ef51a26116e4c180533328d754533981a90",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0074-003-petzval-c1-primary-f1-w2-diffraction-encircled-energy",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0074-003-petzval-c1-primary-f1-w2-diffraction-encircled-energy\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0075-003-petzval-c1-primary-f1-w2-huygens-through-focus-mtf\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "e500cffa70d0be881e041215761b0b438eb90ff84225e7e003b0eaebc8127e2b",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "2803152bc6b929a28917f5c2bdb5ca1204ed9c553f62e235f10741f48415e3bb",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "cb94360f50b853dfeba1e059e8e2b545b1aabf56620a40c7fd088f2d44cbaae9",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "dab8c7d948569ca4188d26ad67285f814a5820eb6d46331e5fa0922cc1b81bcb",
+          "name": "data.json"
+        },
+        {
+          "sha256": "eb5ea550a319e947b0e63033453b6a949fde71e53e0af8d1e2c7dd867138c7d2",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "aeac790be069159d3cd0af4fdc5093b5241ecff1c1b5e49d498fd934c843efa7",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0075-003-petzval-c1-primary-f1-w2-huygens-through-focus-mtf",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0075-003-petzval-c1-primary-f1-w2-huygens-through-focus-mtf\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0076-003-petzval-c1-primary-f1-w2-relative-illumination\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "bb567d314839483aa23b3cfd1ad7763268a2b6f3d0908f0f8788682555ed1a93",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "f32a95df5d0e21471769b745710088de4e078c696cfe85c9c1ac2fd6bc56dd75",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "5797ba592a156e052227c3c192112da985dcdb028ad952201b870771b5773712",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "8cdce9c30edfae7caa30833c52287587de9fb88ac9e458838d146c7a157bff46",
+          "name": "data.json"
+        },
+        {
+          "sha256": "b291fe9d656a4b7a937155cb4bdd638e2f79e4c2cd7be2ee917f469cfd214702",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "010236102f1a3f9e1c88bf8b6b32673646a1f999a86921101ba9dd1d4464934b",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0076-003-petzval-c1-primary-f1-w2-relative-illumination",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0076-003-petzval-c1-primary-f1-w2-relative-illumination\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0077-003-petzval-c1-primary-f1-w2-rms-vs-field\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "51091c3d297bf779d58b78a30f5cb42632d2982ceedf04ce3b511616296410f7",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "22a1e673ab257f837977af1013bc740777c5972c49c3ed857c9b8891d6f7c3ab",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "985c6bdb4d9f253070d33d0189bc461f91650900337bfb505e4aaa92a2c5686a",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "b11e0a99495eb40420c116b0272f63a6cc8a874a1e577a6753f0e5f956f0c1f8",
+          "name": "data.json"
+        },
+        {
+          "sha256": "7c42147f3097da4e418cd07e067b879550f7489086d9d207af598d2797bbb131",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "1cdda21388c9b14c8469231872f9c99935fa0308d61a6a284db4a579bf0c983b",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0077-003-petzval-c1-primary-f1-w2-rms-vs-field",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0077-003-petzval-c1-primary-f1-w2-rms-vs-field\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0078-003-petzval-c1-primary-f1-w2-field-curvature-and-distortion\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "382c42c00cecafbcd6a3b19c0e27e36e0621701f0cd70c43f611f5f4ede91a19",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "fa82e214770378ab3e68877185af256a6e1acc99b6e84a3fd8082c4ba7fe3c4a",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "f4af90cc2e8d9645116d68d361f2a3de525157a83e3048e2f18f69e42a826f25",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "42079c08bb8f41a6f36a081bc27060831a0c85e2c0d6db4a23bfb46885306cb1",
+          "name": "data.json"
+        },
+        {
+          "sha256": "f102fd5a60eb6fddf400705c924f39dab0bf127bb3a2e3941300270da9e49031",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "7f6bbcf48fd7ef69fa22832029d2393ff29b5913a2bffff9cf716d3c1049eb7b",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0078-003-petzval-c1-primary-f1-w2-field-curvature-and-distortion",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0078-003-petzval-c1-primary-f1-w2-field-curvature-and-distortion\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0079-003-petzval-c1-edge-f2-w1-single-ray-trace\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "85bdc30bd1bd58d56442df22423828087a6ed6804fc50103cefb78a7d2fab4ff",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "73d887783e56c7bd686272e077194f89cd18778f0b487b65f462516662942951",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "a4a0b548df2c49682fa51e899b86103cde4afb45051c931af52e7be05dbe3459",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "5184d975eb6823df8210ecca8fa617f37b37ebbb9249719b1d7f76e3cc4d1517",
+          "name": "data.json"
+        },
+        {
+          "sha256": "2bbb59bdd10e388b6cbfbe830bcfb44e875f5b66c6ddcae704f6ce1aa4f8bf64",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "df30658a73a3cbdfc03361b0e3a1c9589e46984b05f76c60ff555715cea104a4",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0079-003-petzval-c1-edge-f2-w1-single-ray-trace",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0079-003-petzval-c1-edge-f2-w1-single-ray-trace\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0080-003-petzval-c1-edge-f2-w1-spot-diagram\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "89b243845e10cf1942d418a39902901dc28a66c63c49a7f648462456817a6473",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "ae6b7408febce75ec2adc80d468da8004305cebe86985f80f9e7b598f2969aa7",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "a41ec9f6e0eee8c20c1092c03176211855646ccbcdef232e687ca199be49a26d",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "2e03c87dace2d36fced72c3c9d9e7c62c6c0e6ab2cf94573b8437f6c80de7479",
+          "name": "data.json"
+        },
+        {
+          "sha256": "e39b5d060ad064f39a55415982fb0c0d0418e1f59d6db57a63a82d61da266c0c",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "544d5664cca85ee0d4cc8363c79cf2de98ab373e3b41a7c4930d4321d0436bf4",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0080-003-petzval-c1-edge-f2-w1-spot-diagram",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0080-003-petzval-c1-edge-f2-w1-spot-diagram\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0081-003-petzval-c1-edge-f2-w1-ray-fan\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "2abb68458b48739cd088fee33bb5862ffc25b904b6f5511d87599c1ef63a40e2",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "f75eabc0487e8babeb7c564916aa67cf71b7926b63373a6a0977037a3ebed2cc",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "cfec2376789a0d1a8cab7dc6fd4732e9cf4724b87325c4bdd1a290520a018700",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "1ee758d315beff4442eb282c6f5c01b72f2f413aadc9db7fd69afee802f1f91a",
+          "name": "data.json"
+        },
+        {
+          "sha256": "3c51d0e239f37d60d942ec0972985e46eff362716bf34a3f6ee7f877a7ff2af6",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "53010f67f835fcf0f20abd71c58b1437c234ce6207a28191ddca10e130b68b19",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0081-003-petzval-c1-edge-f2-w1-ray-fan",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0081-003-petzval-c1-edge-f2-w1-ray-fan\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0082-003-petzval-c1-edge-f2-w1-optical-path-difference\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "c03c834a635d4b7aec6878b6b1052e1b74a6320607fec16221948478c5a46fd6",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "43ba2aaf499aa1183aca1b33d3dab5dc7dc281e4732fbf4d64ced14c59886d8c",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "c06d36a01e7df8a161e2f61bcccc2734d2520f52608eb5e0c13b2de470c19255",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "dcd6de50152600044d62f9a9a1f249ae343db1a8dde5aa2b374c2a4dbe2314ee",
+          "name": "data.json"
+        },
+        {
+          "sha256": "d90d2af991f8dba479e5150aff993c3992cf9cbff2e8f55111b65a91e42fde6d",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "535740c0a8be9cb5aef51c5a043dec210323db1ecf8423feb3a7fcda83560169",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0082-003-petzval-c1-edge-f2-w1-optical-path-difference",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0082-003-petzval-c1-edge-f2-w1-optical-path-difference\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0083-003-petzval-c1-edge-f2-w2-single-ray-trace\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "3eb5845bbabdf304176a1e87f7fd97b795ac8358511c1d91d1e6152700289c95",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "73d887783e56c7bd686272e077194f89cd18778f0b487b65f462516662942951",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "541a3fa5d6853b857e3fb59a6bf58fff34b05f6c1427938eadec5e5997aa9cb2",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "5184d975eb6823df8210ecca8fa617f37b37ebbb9249719b1d7f76e3cc4d1517",
+          "name": "data.json"
+        },
+        {
+          "sha256": "c6848f27cc651c2bbb5f9998767b944d6dd580b52e1d9292e2b74ca8ee97f4a1",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "b08d6c90ae1f4bbeb3145b0b7c29fa3238ca838c8e4e527dc56aec071d0eb960",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0083-003-petzval-c1-edge-f2-w2-single-ray-trace",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0083-003-petzval-c1-edge-f2-w2-single-ray-trace\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0084-003-petzval-c1-edge-f2-w2-spot-diagram\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "b78619a340d5c24b57575fd3eedb6642223fc31b89f4a226852bccd591918e0c",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "ae6b7408febce75ec2adc80d468da8004305cebe86985f80f9e7b598f2969aa7",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "46884e72818232e628682cd6697a7761c146f32904a746fb8454f02c0f49756f",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "4106bce73aa5e287766ea7c7ffac08f6335f951e8560b9de33771769b32cb924",
+          "name": "data.json"
+        },
+        {
+          "sha256": "2471daae2ac1cf6b3d6e1f5dbf53fed0db54b75f71bef519fe761cc3e761f378",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "6572c02e79b9426682279f0b11f892c43a60c9a67f825290ff83a9de76908c29",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0084-003-petzval-c1-edge-f2-w2-spot-diagram",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0084-003-petzval-c1-edge-f2-w2-spot-diagram\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0085-003-petzval-c1-edge-f2-w2-ray-fan\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "b71f5f240e7e78325f14fb06c414cdd7e35b33a48e5ce0bbf18e18adc973c2c8",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "f75eabc0487e8babeb7c564916aa67cf71b7926b63373a6a0977037a3ebed2cc",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "1ca70204b1dd946ec4e26e69d5fbc51bdec2d4724a28f3d6b1c771a99dab9d52",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "240909a74cd84ec4db7d9e8bd09b1e18586e5bf28baeba8ce5483b7b47a99975",
+          "name": "data.json"
+        },
+        {
+          "sha256": "e2ce7831cd76becf5c1974bba71ebc442e7596ae3632a876ee57d0d5c69a045d",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "e48169fd48d038ea2af8dc33974acabb8cf45adf4b0c9b1d2084911127d6fcb8",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0085-003-petzval-c1-edge-f2-w2-ray-fan",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0085-003-petzval-c1-edge-f2-w2-ray-fan\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0086-003-petzval-c1-edge-f2-w2-optical-path-difference\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "610cd181c2f7ed4f05ca99df95a371ebc143b6251feaf1547ff9a58944db23ae",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "43ba2aaf499aa1183aca1b33d3dab5dc7dc281e4732fbf4d64ced14c59886d8c",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "72191d28e01f3d0c3607228cec129841cd70f3e7a1604654b999a9ca194b5fde",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "6b602b91a036d9d90f8f05276a50d5c9e62c860c713c725960c57c41a62cf784",
+          "name": "data.json"
+        },
+        {
+          "sha256": "8475dd2d2e7e1b50bc29bada0c814c140878222b7910610bbc749ab3b1914def",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "98c8239938544e4b03e0c803f039be6ad618a64a2d1535cb5e28809028063b11",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0086-003-petzval-c1-edge-f2-w2-optical-path-difference",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0086-003-petzval-c1-edge-f2-w2-optical-path-difference\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0087-003-petzval-c1-edge-f2-w3-single-ray-trace\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "1d0e4254d6af280dc305053176cd87a2b5b9410ed199f42bb2a8ea2631d00a77",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "73d887783e56c7bd686272e077194f89cd18778f0b487b65f462516662942951",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "e4c8408f1e8acf9f262c96fe9a3c5b525ef2de8d6c9067458207704f0a775981",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "5184d975eb6823df8210ecca8fa617f37b37ebbb9249719b1d7f76e3cc4d1517",
+          "name": "data.json"
+        },
+        {
+          "sha256": "2a0e30a4a83a62d08cab4520f48cd091cbe4a8b7faf5ed529c97147497630190",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "f6a55400af942cb94f35567309a341f599a1500f33270c5ad5aa53164068c688",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0087-003-petzval-c1-edge-f2-w3-single-ray-trace",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0087-003-petzval-c1-edge-f2-w3-single-ray-trace\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0088-003-petzval-c1-edge-f2-w3-spot-diagram\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "2dbe1fe550e5fbfa24b7273798bc7dc5e9264db399b250a6aa7cafff0bcc7b37",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "ae6b7408febce75ec2adc80d468da8004305cebe86985f80f9e7b598f2969aa7",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "8d60a335e1c7266a358e5a1750040c12fb92a9aff619c262cd435ef453a5e41a",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "a55cc9ee6003fbef625f28c76412f26463f9caa07ce4863cdcfd6d258ceb8885",
+          "name": "data.json"
+        },
+        {
+          "sha256": "92538806562daa3d60c3e550f2ba235cea33a4d9ab842c719081d3e690d02ae9",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "fb8d3b54e35b5090313731a557b528f661045846986b2a56946dd8c5264eea50",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0088-003-petzval-c1-edge-f2-w3-spot-diagram",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0088-003-petzval-c1-edge-f2-w3-spot-diagram\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0089-003-petzval-c1-edge-f2-w3-ray-fan\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "cf56470b412327f3e2d9191a73282e68d2b4060add28455c9183f518a6abbb31",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "f75eabc0487e8babeb7c564916aa67cf71b7926b63373a6a0977037a3ebed2cc",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "27252c7274dc79af98f8c0e44ee96dd91c583281aad05359c890aeabb839445c",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "bdc2fce5fb79775c53a954ff94e64b76de71e6a5f900eec80d39606f2d16421e",
+          "name": "data.json"
+        },
+        {
+          "sha256": "2c05478621b04b5347252b92a8faf0251f3bf3eaf6ac443833fca49c44653b38",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "b38316051527f584501535411f6a554ddfee9a033f67939192cb4dbb4c384ecc",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0089-003-petzval-c1-edge-f2-w3-ray-fan",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0089-003-petzval-c1-edge-f2-w3-ray-fan\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\analyses/0090-003-petzval-c1-edge-f2-w3-optical-path-difference\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "797114faed824fab5f72883c0af20d13a53eac3c3e484bb6500b5321e4a268be",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "43ba2aaf499aa1183aca1b33d3dab5dc7dc281e4732fbf4d64ced14c59886d8c",
+          "name": "capture.json"
+        },
+        {
+          "sha256": "8a6316c3b10837060a82cf947c485454884dc66f8d8aadb9a7356025cf98b44f",
+          "name": "captured-settings.json"
+        },
+        {
+          "sha256": "0b17c154480611ded070257fb1ee395c8373496d55e8297abc826466266e8dba",
+          "name": "data.json"
+        },
+        {
+          "sha256": "baa9e8c5f4c105316227e0f7bf50d58e5c7d67c29ce4aca3460e67002e81315d",
+          "name": "data.txt"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "6b2ea95957ce9c2ffdb849b812b22eae4ee14b1be7a928108755e5d9073a9d2b",
+          "name": "settings.CFG"
+        },
+        {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "name": "zemax.log"
+        }
+      ],
+      "id": "0090-003-petzval-c1-edge-f2-w3-optical-path-difference",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\analyses/0090-003-petzval-c1-edge-f2-w3-optical-path-difference\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\rays/003-petzval-c1-w1\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "5c96612878850b345e78690ac91c28010cd44d50964cabf51694e34eb58b0695",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "f5aae2ea8c778cba431bd5153dd75aee2780bcd9bf1ba4e9a42837e05cb0fe53",
+          "name": "ray-audit.json"
+        }
+      ],
+      "id": "rays:003-petzval-c1-w1",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\rays/003-petzval-c1-w1\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\rays/003-petzval-c1-w2\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "bd17cfce7a5891dcbb12a4c4f891e93d463e9c579e333e1dbe50ee93470ff787",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "04fe0ad3f4f743d66258b3b3ca95ab4bbd47bfec8bd9bd6fe06fe6ac7b788b53",
+          "name": "ray-audit.json"
+        }
+      ],
+      "id": "rays:003-petzval-c1-w2",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\rays/003-petzval-c1-w2\\native",
+      "allNonPathRequestPropertiesExact": true
+    },
+    {
+      "destination": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v2\\rays/003-petzval-c1-w3\\native",
+      "sourceSha256": "f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e8b6ad42617b08f",
+      "files": [
+        {
+          "sha256": "2fbc2d9a84e47bbb6cc3d07a63b37d8d16057558251a1e54e93950ec28c53f93",
+          "name": "batch-result.json"
+        },
+        {
+          "sha256": "3887a5d3cd3cc11ef74580ec0534ec1c7a37cab7a8317c4f6776c3bbcc590d9c",
+          "name": "environment.json"
+        },
+        {
+          "sha256": "73f7e170638fd01598deba3a48c49381b071a5baa93df7a89983801d5597d845",
+          "name": "model.json"
+        },
+        {
+          "sha256": "eafe73fdab2331a17535668b9996076a9fdd6257b3f88aa3e9af3102e0f1adcc",
+          "name": "ray-audit.json"
+        }
+      ],
+      "id": "rays:003-petzval-c1-w3",
+      "original": "D:\\Projects\\opticalsystem\\artifacts\\petzval-repair\\2026-10-20\\final-v1\\rays/003-petzval-c1-w3\\native",
+      "allNonPathRequestPropertiesExact": true
+    }
+  ]
+}

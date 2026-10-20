@@ -6,9 +6,10 @@ namespace OpticalSystemDesign.ZemaxComparison;
 
 public static class AfocalAnalysisContracts
 {
-    public static string? BlockReason(string lensUnit, bool afocal, string key)
+    public static string? BlockReason(string lensUnit, bool afocal, string key, bool normalizeNativeLength = false)
     {
-        if (lensUnit != "MM") return "Live adapter requires MM lens units; no length/angle substitution.";
+        if (lensUnit != "MM" && !(normalizeNativeLength && NativeLengthUnitContract.IsSupported(lensUnit)))
+            return "Live adapter requires MM lens units or an explicit native millimeter conversion contract; no length/angle substitution.";
         return afocal && key is not ("Ray Fan" or "MTF" or "Field Curvature" or "Field Curvature and Distortion")
             ? $"Afocal {key}: settings/result contract has not been verified; no focal interpretation."
             : null;

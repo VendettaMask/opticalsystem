@@ -1,0 +1,21 @@
+{
+  "candidate": "v1 unconditional stable roots",
+  "status": "rejected",
+  "reason": "Petzval and original comparison policy passed, but full main-suite exploration exposed old high-sampling cumulative-energy regressions. Remaining obsolete candidate tests were explicitly cancelled; this is not a completed full-suite result.",
+  "observedFailureClasses": [
+    "FiniteFftAimingEnergyTests",
+    "FNumberPerturbationEnergyTests",
+    "Polychromatic128BoundaryEnergyTests",
+    "CumulativeEnergyHighSamplingTests",
+    "ExpandedSamplingEnergyTests"
+  ],
+  "targetedReleasePassed": 256,
+  "targetedDebugPassed": 257,
+  "comparisonReleasePassed": 244,
+  "freshThreeLensCounts": {
+    "Pass": 88,
+    "Incomparable": 2
+  },
+  "cancelledByAgent": true,
+  "finalCandidate": "v2 error-bounded stable roots; validation pending"
+}

@@ -38,9 +38,12 @@ public static partial class IlluminationMetrics
 
             // Retain actual-map fold/overlap checks independently of the finite
             // polynomial map. Node acceptance and power use shared-Core traces.
-            var mesh = ImageCosineSeedMesh(density);
-            if (mesh.Any(triangle => !triangle.A.Mapped || !triangle.B.Mapped || !triangle.C.Mapped))
-                throw Unavailable("the finite image-cosine seed mesh contains an untraceable ray");
+            // An untraceable outer pupil region (for example total internal
+            // reflection) contributes no transmitted area. Only mapped triangles
+            // can establish orientation/overlap; final quadrature samples still
+            // require a real image hit and all physical apertures to transmit.
+            var mesh = ImageCosineSeedMesh(density)
+                .Where(triangle => triangle.A.Mapped && triangle.B.Mapped && triangle.C.Mapped).ToArray();
             foreach (var triangle in mesh) CheckOrientation(triangle.A, triangle.B, triangle.C);
             if (_orientation == 0) throw Unavailable("the pupil has no invertible image direction-cosine area");
             var pupilMap = new FinitePupilMap(mappingNodes);

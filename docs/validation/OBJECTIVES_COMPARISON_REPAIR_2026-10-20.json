@@ -1,0 +1,1381 @@
+{
+  "schemaVersion": 2,
+  "date": "2026-10-20",
+  "timezone": "Asia/Shanghai",
+  "status": "locally-verified-with-three-open-energy-differences",
+  "sourceCommit": "59bb1de5b8202d3389a686a7ac7e8ef2a8a43f69",
+  "sourceDirty": true,
+  "scope": "18 primary analyses plus 4 edge-field controls at each positive-weight wavelength and GQ6 rays for every successfully prepared configuration. Not all field/wavelength/sampling combinations. ZOS/ZMX equality covers captured configuration-1 model properties only, not all numerical outputs.",
+  "coreSha256": "cf3647652213542dae90d0ed1c16b9df5290e740a0b204f1b4a6e0a9f40a6b2c",
+  "fixedComputation": {
+    "path": "artifacts/validation/objectives-20261020/intersection-v3-fixed-runner.json",
+    "bytes": 1404,
+    "sha256": "9b5ba75335cd29a1f0de90d912ebc73d21fcdf07bc59b53224a5541b3fc0bf83"
+  },
+  "defaultReleaseMatchesFixedCore": true,
+  "matrix": {
+    "lenses": 19,
+    "analyses": 638,
+    "counts": {
+      "Pass": 564,
+      "Incomparable": 70,
+      "Difference": 3,
+      "Close": 1
+    },
+    "error": 0,
+    "rayGroups": 74,
+    "rayPass": 74,
+    "physicalSurfaceComparisons": 145841,
+    "comparedValues": 875046,
+    "originalPass": 391,
+    "originalPassPreserved": 391,
+    "previousV4Pass": 562,
+    "previousV4PassPreserved": 562,
+    "regressions": 0,
+    "summary": {
+      "path": "artifacts/validation/objectives-20261020/report-final-v7/summary.json",
+      "bytes": 9521,
+      "sha256": "8e02e0a3891bc34491e386f7735a5fcdbd2a89b24cc0f73314ccedb43606ac79"
+    },
+    "originalGuard": {
+      "path": "artifacts/validation/objectives-20261020/report-final-v7/previous-pass-preservation.json",
+      "bytes": 76,
+      "sha256": "89bb7fe1cec79db97d7bcf65279d6cc86615797145f7d96fbdb9fc5f0b281468"
+    },
+    "v4Guard": {
+      "path": "artifacts/validation/objectives-20261020/report-final-v7/v4-pass-preservation.json",
+      "bytes": 76,
+      "sha256": "541dfa1df184bd1b7d07061feabccab00b4759e059b5e7e261b1d9136d0bfd6f"
+    }
+  },
+  "remainingNumericalControls": [
+    {
+      "Lens": "Objectives/Apochromat2.zmx",
+      "Configuration": "1",
+      "Scope": "primary",
+      "Analysis": "Diffraction Encircled Energy",
+      "Conclusion": "Difference",
+      "Field": "1",
+      "Wavelength": "3",
+      "PupilSampling": "32",
+      "WorstNRMSE": "0.011433558634052285",
+      "MaximumAbsolute": "0.013207881802895782",
+      "Reason": ""
+    },
+    {
+      "Lens": "Objectives/Apochromat4.zmx",
+      "Configuration": "1",
+      "Scope": "primary",
+      "Analysis": "Diffraction Encircled Energy",
+      "Conclusion": "Difference",
+      "Field": "1",
+      "Wavelength": "12",
+      "PupilSampling": "32",
+      "WorstNRMSE": "0.011540333600375475",
+      "MaximumAbsolute": "0.01320291846083399",
+      "Reason": ""
+    },
+    {
+      "Lens": "Objectives/Double Gauss 5 degree field.zmx",
+      "Configuration": "1",
+      "Scope": "primary",
+      "Analysis": "FFT PSF Cross Section",
+      "Conclusion": "Close",
+      "Field": "1",
+      "Wavelength": "3",
+      "PupilSampling": "32",
+      "WorstNRMSE": "0.008850410094116778",
+      "MaximumAbsolute": "0.0019316246012178401",
+      "Reason": ""
+    },
+    {
+      "Lens": "Objectives/Doublet using MIL number glasses.zmx",
+      "Configuration": "1",
+      "Scope": "primary",
+      "Analysis": "Diffraction Encircled Energy",
+      "Conclusion": "Difference",
+      "Field": "1",
+      "Wavelength": "3",
+      "PupilSampling": "32",
+      "WorstNRMSE": "0.011408651512398879",
+      "MaximumAbsolute": "0.013210155293478243",
+      "Reason": ""
+    }
+  ],
+  "nativeReference": {
+    "authority": "Licensed local OpticStudio 2026 R1",
+    "sourceLensesSaved": false,
+    "successfulSameInputSameSettingsRawCapturesReused": 749,
+    "oneUnavailableCaseReattempted": true,
+    "typedUnavailable": "NativeInvalidResult: 200-degree FFT PSF cross section",
+    "nativeJobs": 750,
+    "completedAttempts": 750,
+    "nativeValid": 749,
+    "nativeUnavailable": 1,
+    "unavailableCountedAsPrecisionPass": false,
+    "reuse": {
+      "path": "artifacts/validation/objectives-20261020/final-v7-intersection-fallback/native-reuse.json",
+      "bytes": 1407651,
+      "sha256": "b1bd01797503431b737c797473f59406614a22c4d1fa3d4d2120e9db0ec252d7"
+    }
+  },
+  "originalAssets": {
+    "originalZmxAndEmbeddedMatches": 19,
+    "stagedZmxAndZosUnchanged": 38,
+    "frozenAssets": 2668,
+    "frozenAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "comparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+    "tolerancesChanged": false,
+    "frozenReferencesChanged": false
+  },
+  "verification": {
+    "acceptedTestScopes": [
+      {
+        "name": "legacy-energy-and-material",
+        "scope": "Original FftCumulative, MultiLensEncircledEnergy, PolychromaticCumulativeEnergy and material controls; no changed original assertion.",
+        "passed": 116,
+        "failed": 0,
+        "skipped": 0,
+        "outcome": "Completed",
+        "started": "2026-10-20T22:05:36.0706547+08:00",
+        "finished": "2026-10-20T22:05:46.4760027+08:00",
+        "evidence": {
+          "path": "artifacts/validation/objectives-20261020/tests/intersection-v3-legacy-116.trx",
+          "bytes": 183147,
+          "sha256": "255cbf81b23213080fb3bcd928fb8c2b5b022b7e78a74d055e93a9938b322cbc"
+        }
+      },
+      {
+        "name": "roots-and-five-energy-classes",
+        "scope": "Near-planar root guards and five previously affected energy classes; fixed v3 main copy.",
+        "passed": 146,
+        "failed": 0,
+        "skipped": 0,
+        "outcome": "Completed",
+        "started": "2026-10-20T22:02:16.1561024+08:00",
+        "finished": "2026-10-20T22:03:16.1650875+08:00",
+        "evidence": {
+          "path": "artifacts/petzval-repair/2026-10-20/tests/v3-roots-energy-targeted.trx",
+          "bytes": 227951,
+          "sha256": "4312c7e4a0e40171e581e24f1ed8a45d07ab461ec5e7d47420495853f1797a4b"
+        }
+      },
+      {
+        "name": "initial-structure-regression-repair",
+        "scope": "Both previously failing methods and adjacent data cases in the default built-in Engine; not all 308 contracts.",
+        "passed": 4,
+        "failed": 0,
+        "skipped": 0,
+        "outcome": "Completed",
+        "started": "2026-10-20T22:00:34.5615616+08:00",
+        "finished": "2026-10-20T22:00:52.7534312+08:00",
+        "evidence": {
+          "path": "artifacts/petzval-repair/2026-10-20/tests/v3-initial-targeted.trx",
+          "bytes": 8752,
+          "sha256": "c8ea95efc6176b3a7e2c22bfcb8f47c8e147f633b5107eface977c1a6b9f1f10"
+        }
+      },
+      {
+        "name": "petzval-native",
+        "scope": "Original relative-illumination and RMS-vs-field native settings and policy.",
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0,
+        "outcome": "Completed",
+        "started": "2026-10-20T22:02:21.0541155+08:00",
+        "finished": "2026-10-20T22:02:23.4531218+08:00",
+        "evidence": {
+          "path": "artifacts/petzval-repair/2026-10-20/tests/v3-petzval-native.trx",
+          "bytes": 4993,
+          "sha256": "7fdb9c99e59ec23884003b2c85ad9c4ae92563cec49c05532d094932bd8b589c"
+        }
+      },
+      {
+        "name": "coating-complete",
+        "scope": "Complete coating test project with the accepted shared Core.",
+        "passed": 54,
+        "failed": 0,
+        "skipped": 0,
+        "outcome": "Completed",
+        "started": "2026-10-20T22:05:47.9764524+08:00",
+        "finished": "2026-10-20T22:06:12.4131937+08:00",
+        "evidence": {
+          "path": "artifacts/validation/objectives-20261020/tests/coating-intersection-v3.trx",
+          "bytes": 84788,
+          "sha256": "5e00af243cb4101a950aa84e58c7677703a251e0dd2b6ca4a0b4b5ed5985cc2e"
+        }
+      },
+      {
+        "name": "roots-debug",
+        "scope": "Default Debug source, fixed copy; targeted root contracts only.",
+        "passed": 14,
+        "failed": 0,
+        "skipped": 0,
+        "outcome": "Completed",
+        "started": "2026-10-20T22:06:37.5271656+08:00",
+        "finished": "2026-10-20T22:06:42.1630918+08:00",
+        "evidence": {
+          "path": "artifacts/petzval-repair/2026-10-20/tests/v3-debug-roots.trx",
+          "bytes": 23467,
+          "sha256": "07b794af6254830acd2090c669e3c4211f938c2ac9a8aa79faa46ed565c380f4"
+        }
+      },
+      {
+        "name": "petzval-debug",
+        "scope": "Default Debug source, fixed copy; original native Petzval controls.",
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0,
+        "outcome": "Completed",
+        "started": "2026-10-20T22:06:39.7634166+08:00",
+        "finished": "2026-10-20T22:06:44.8260179+08:00",
+        "evidence": {
+          "path": "artifacts/petzval-repair/2026-10-20/tests/v3-debug-petzval.trx",
+          "bytes": 5017,
+          "sha256": "3d48982178206cdd04c3a713e96093a5b6f98127f6f9c26434e7dc94e6e7e61c"
+        }
+      },
+      {
+        "name": "scalar-hardware-fallback",
+        "scope": "Release fixed copy with hardware intrinsics disabled; overlaps standard root controls, do not sum.",
+        "passed": 17,
+        "failed": 0,
+        "skipped": 0,
+        "outcome": "Completed",
+        "started": "2026-10-20T22:04:00.316674+08:00",
+        "finished": "2026-10-20T22:04:03.8251551+08:00",
+        "evidence": {
+          "path": "artifacts/petzval-repair/2026-10-20/tests/v3-scalar-fallback.trx",
+          "bytes": 27610,
+          "sha256": "3d0974d3b9f63df723b50134ddc9108566c3dbcaf0a806715325f21045d03e46"
+        }
+      }
+    ],
+    "mainSelectedUniqueCases": 262,
+    "existingAssertionsChanged": false,
+    "fullMainRerunAfterV4": false,
+    "fullInitialContractsRerunAfterR2": false,
+    "userPreference": "Do not repeat the complete test suite; validate affected numerical controls, known regressions and every requested lens.",
+    "earlierFullMain6271CertifiesOnlySealedV4": true,
+    "initialLongSurveysNotRun": 12,
+    "crossPlatformNotRun": true,
+    "installerNotRebuilt": true,
+    "rootBuilds": {
+      "configurations": [
+        "Debug",
+        "Release"
+      ],
+      "projectsPerConfiguration": 19,
+      "warnings": 0,
+      "errors": 0,
+      "defaultOutputs": true,
+      "releaseLog": {
+        "path": "artifacts/petzval-repair/2026-10-20/build-v3-release.log",
+        "bytes": 3531,
+        "sha256": "502ffb71f2f0a12ab86337da1703f4ccc6d2b980d0d898f4e04af2b9bfbd711c"
+      },
+      "debugLog": {
+        "path": "artifacts/petzval-repair/2026-10-20/build-v3-debug.log",
+        "bytes": 3493,
+        "sha256": "0819a53e41ab00c3babb03c76170b3cd575683d083807eab01dc0f51caebd937"
+      }
+    },
+    "frozenReadback": {
+      "path": "artifacts/validation/objectives-20261020/final-identities/frozen-v7.json",
+      "bytes": 5255,
+      "sha256": "c420ae9ba2d5fe15a1d336d349ceff4388d8a1061042b6f98294f6ce7c629c74"
+    },
+    "originalSourceReadback": {
+      "path": "artifacts/validation/objectives-20261020/final-identities/original-examples-v7.json",
+      "bytes": 3935,
+      "sha256": "c4969556482681a2ce44606000db47466dda0b0700501b86e4dd165cc4d095bc"
+    },
+    "finalDocumentation": {
+      "strict": true,
+      "documents": 984,
+      "brokenLinks": 0,
+      "fenceIssues": 0,
+      "localOnlyLinks": 0,
+      "repeatedHistoricalGroups": 11,
+      "evidence": {
+        "path": "artifacts/validation/objectives-20261020/documentation-v7-final.json",
+        "bytes": 281508,
+        "sha256": "b820004b4208a2d39b4f2d0a8ad8f76d4ddd12a2d67dc026cae4a91fc6b751b0"
+      },
+      "log": {
+        "path": "artifacts/validation/objectives-20261020/documentation-v7-final.log",
+        "bytes": 245,
+        "sha256": "730ac9eb41ebb296cf93a5db1225dedeaacade6fb551834af2465eaa38206271"
+      }
+    },
+    "finalBinaryIdentities": [
+      {
+        "path": "src/OpticalSystemDesign.Core/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+        "bytes": 5731840,
+        "sha256": "bf9c15e4b96135be33cf642b1158e77d31220ff3f48620474786fcc6bb4b8084"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Application/bin/Debug/net10.0/OpticalSystemDesign.Application.dll",
+        "bytes": 1141760,
+        "sha256": "db32a00f0ead63955ff6b9feb1809f49f5156492a3aaeed58a909bcd468fec78"
+      },
+      {
+        "path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.dll",
+        "bytes": 26489856,
+        "sha256": "4840ee6450fa548de652da3032c693e651354cb6a4d031a6be75167ccd9a3b96"
+      },
+      {
+        "path": "tools/OpticalSystemDesign.ZemaxComparison/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.dll",
+        "bytes": 402944,
+        "sha256": "4de0c95eb9af50f523257dbd2c14dbc9b1c66d96a1192f1faad866f5c94c7312"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+        "bytes": 5605888,
+        "sha256": "cf3647652213542dae90d0ed1c16b9df5290e740a0b204f1b4a6e0a9f40a6b2c"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Application/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+        "bytes": 1110528,
+        "sha256": "57ac5bd3eb3e01ee0786f7aca332ebc4470d3472f85b1845209e7ce27cc28fc2"
+      },
+      {
+        "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+        "bytes": 26390528,
+        "sha256": "8af53a06a2d6a4489029919e9d9eaee35ba4a3b1a958bc79a12820344de08eb6"
+      },
+      {
+        "path": "tools/OpticalSystemDesign.ZemaxComparison/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.dll",
+        "bytes": 385024,
+        "sha256": "7a8df828ade7d60efb40fdcafcd86a9707028d0568df876c9cdd3a13007fbecb"
+      }
+    ],
+    "finalFixedSourceReadback": true,
+    "originalComparisonPolicy": {
+      "path": "tools/OpticalSystemDesign.ZemaxComparison/comparison-settings.json",
+      "bytes": 16501,
+      "sha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5"
+    },
+    "finalPortableResultsMatch": true,
+    "finalDiffCheck": true,
+    "baseArchiveLfsAttributes": {
+      "path": ".gitattributes",
+      "bytes": 2248,
+      "sha256": "a928820f1ccccda13c81ab8226b2925e40b79342c0aa79e0d859c1ed1f5fe91f"
+    }
+  },
+  "integratedPetzvalRepair": {
+    "sharedWorkspaceCollaborationExplicitlyAuthorized": true,
+    "peerThreadTitle": "调整结构数量设置位置",
+    "ordinaryAcceptedIntersectionsPreserved": true,
+    "stableRootsOnlyWhenBothOriginalRootsFailExplicitSagValidation": true,
+    "linearBranchesAndResidualLimitsUnchanged": true,
+    "standardRootNewControls": 14,
+    "initialEngineSha256": "127f5fb0b79028151e2f0f703fcaaa64fa5b8895766f4176e06899e58f0c3487",
+    "fixedModuleSource": "Default root solution Release build, not prototype",
+    "fixedPeerManifest": {
+      "path": "artifacts/petzval-repair/2026-10-20/frozen-v3/manifest.json",
+      "bytes": 1087961,
+      "sha256": "8963da49a7214a55bc1b8ff15b60a0afb9e1c81cc16f166d39e9de1097f8c531"
+    },
+    "r1BroadRootCandidateRejected": true,
+    "r2ErrorBoundCandidateRejected": true,
+    "r2InitialContracts": {
+      "total": 308,
+      "passed": 306,
+      "failed": 2,
+      "evidence": {
+        "path": "artifacts/validation/objectives-20261020/tests/initial-intersection-contracts.trx",
+        "bytes": 520878,
+        "sha256": "fc13065b425703e3773671be7b00e0c09061f7016b460b49e6e591391c574e8e"
+      }
+    },
+    "failedAssertionsNotWeakened": true,
+    "peerFinalLedger": {
+      "path": "docs/validation/PETZVAL_ILLUMINATION_RMS_REPAIR_2026-10-20.json",
+      "bytes": 14847,
+      "sha256": "d8cba1ffbca7dd6ec703049a5871f9757040ef81a36af0a91a5d5575c375b561"
+    }
+  },
+  "importedMaterialInputs": {
+    "supportedMilNumbers": [
+      "517642",
+      "648338"
+    ],
+    "wavelengthNanometers": [
+      350,
+      1050
+    ],
+    "nodesPerMaterial": 704,
+    "independentHeldOutPointsPerMaterial": 700,
+    "heldOutMaximumAllowedAbsoluteIndexDifference": 1E-10,
+    "interpolation": "Local four-node Neville cubic; exact stored-node return; no extrapolation.",
+    "provenance": "Independent native LDE.GetIndex input queries at 20 C / relative pressure 1, not optical analysis-output fitting.",
+    "freshRecaptureByteIdentical": true,
+    "identity": {
+      "path": "validation/zemax/2026-r1/objectives-2026-10-20/materials/reproduction-identity.json",
+      "bytes": 1058,
+      "sha256": "fe162dd949474af56e4a87cc87402e746d8fb1c95918d50a680e7ba98790ba80"
+    }
+  },
+  "repairs": [
+    "Bounded MIL material resolution, snapshot validation and exact table restoration.",
+    "Explicit native physical unit conversion with mandatory readback evidence.",
+    "Native reflection reporting convention normalized from explicit MIRROR records.",
+    "Wide-angle incident hemisphere and actual-launch-position plane-wave phase.",
+    "Native-compatible even FFT MTF lattice/frequency endpoints and complex-OTF spline sampling.",
+    "Illumination mapping checks use actually mapped triangles; real tracing and aperture checks retained.",
+    "Empty native result buffers remain typed unavailable references.",
+    "Recover lost near-planar intersections only after the original explicit-sag tests reject both ordinary roots; retain successful-root bit patterns and original optimization/energy guards."
+  ],
+  "currentSourceFiles": [
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Plots.cs",
+      "bytes": 41006,
+      "sha256": "81cd8977ec7d223cdc527a3d49a8d3c5499c9820f19c22d8897ef2f692081aeb"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.Configurations.cs",
+      "bytes": 5007,
+      "sha256": "ec7decc5e7c7298703bee7385c490f22aafac1c785e753622f9b2a07911054fe"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.cs",
+      "bytes": 21035,
+      "sha256": "801ade4bafc34bc322d52145bca36fd6c9806e644239a6e011e011204f3cc2b5"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.cs",
+      "bytes": 67735,
+      "sha256": "3711760147acbd7986793689b7faf263119101c4c2af41d92f4a51de93d3c58c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/WorkspaceDockFactory.cs",
+      "bytes": 35160,
+      "sha256": "fcea7a2f32acdc0fde5b30c45cb07f1f924aa1b5a64ee4366669b2972dc58859"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs",
+      "bytes": 34076,
+      "sha256": "bca79aebda0eddb160ea09a575666d13f53a89024c8307c25a20c95529a656df"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Configuration.cs",
+      "bytes": 9253,
+      "sha256": "734e33c11c21ea9e11fe43851e74115c907abaab47e3594b9ef1d35f5aaa345e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs",
+      "bytes": 25492,
+      "sha256": "b9b4a246f7eb83fdc82ce29baad1e45ba4fc78a0749179eeffb742d888bc73f6"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/WavefrontEngine.cs",
+      "bytes": 24514,
+      "sha256": "00c50f1c861b2b929f779aaa67bab85bdd6f5697a5596f8c93b8d06ac8d96ed4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Backend/IBatchedNumericBackend.cs",
+      "bytes": 12054,
+      "sha256": "dc475b10be2d94dacdbfa313578850a389a2c14491d52d692d62c6d2335e11c8"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Backend/ManagedCpuBackend.BatchedIntersections.cs",
+      "bytes": 5228,
+      "sha256": "93c63c62f6634a0c09609b752f633900303d6ee20bf210bcefac20667dc76b2c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Backend/StandardIntersectionValidation.cs",
+      "bytes": 2841,
+      "sha256": "a095ce8a69fcad8cd32a51126fc93401634d93d48aed076eb5ae4391e93de806"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Geometries/GeometryModels.cs",
+      "bytes": 26981,
+      "sha256": "934c36176afd9c0249ab56871ed499025b32cb647a88711574087e2e756f8474"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Materials/Data/zemax-mil-profiles.json",
+      "bytes": 61176,
+      "sha256": "3ee7bbe0088309330989504b4373757dcd88c3a0a0ec9570aa75ff1385350d25"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Materials/MaterialRegistry.cs",
+      "bytes": 6717,
+      "sha256": "e67d361105d89b0a1972ab4a654f48e8ce538cc131c389a5e6d78370b7747aa0"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Materials/TabulatedMaterial.cs",
+      "bytes": 3337,
+      "sha256": "ed5e16b103d5a8f5db3ed58030e9354c484a3f564b70771e0de5d59d50fe963a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Materials/ZemaxMilMaterialProfiles.cs",
+      "bytes": 1538,
+      "sha256": "8583162cf6cefaf77c91efb26b6cdbff1012774e0c83a019d445259bb56e7150"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/OpticalSystemDesign.Core.csproj",
+      "bytes": 756,
+      "sha256": "651ff734a448471a3784c52a49684c7e400fcdee6a47ed2bc01de235a94e3db0"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Serialization/ComponentSnapshot.cs",
+      "bytes": 40693,
+      "sha256": "3435be77e35b3016e50defd86eba8d75902da244c4a73239b633203e424c0cb9"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Serialization/OpticSnapshotValidator.cs",
+      "bytes": 51569,
+      "sha256": "68c888a79e9f31c9c70eb62587bf97df049c9f2345f65a8a30025a8fc1fc6731"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/IlluminationMetrics.FiniteImageCosine.cs",
+      "bytes": 5141,
+      "sha256": "63de0f310779dda7813bd1bfeba3ec7d4ab88d73a7dc0f3db1b4d25ccdf4275d"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/LensConfigurationNavigationTests.cs",
+      "bytes": 20698,
+      "sha256": "c2749e10ff5d326f73f802ccd79f77db384f5a22725506029521826cca68833b"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/MultiConfigurationThicknessPrecisionTests.cs",
+      "bytes": 5979,
+      "sha256": "7ab3dcd705f608a6154bad2793876623e0fd32b26a2c8e1b13bfd803474b2372"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ObjectivesMaterialPrecisionTests.cs",
+      "bytes": 3281,
+      "sha256": "8f71d876391e36e0c78891cb35211d1f94eb5ee4f5ca4635490c8780d47cba43"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/RayFanLayoutRepairTests.cs",
+      "bytes": 5688,
+      "sha256": "e79a0b56074dffb7eba4cf124aba26002128ebf86a2dc90596d219cab6bc7d31"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/StandardIntersectionPrecisionTests.cs",
+      "bytes": 7308,
+      "sha256": "49d6db36da2087fa603d48f7c2874ee73d6db145df0e85c5f2474339e117c7c8"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/NativePhysicalConventionTests.cs",
+      "bytes": 1622,
+      "sha256": "79376f14a09b75df09f5ee6c8b14434af90adcf6bfbc34d2c86e78007d4caf19"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/ObjectivesNativePrecisionTests.cs",
+      "bytes": 3373,
+      "sha256": "40f0453c817034ac87af78e0ad4b561a6dbad05b34382f6f4d3197f2afcb04ee"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/PetzvalNativeRepairTests.cs",
+      "bytes": 3150,
+      "sha256": "1a4f4370adbca5577422bf53d2be7276fc0e7f90828bbff563daae9cfe39cf69"
+    },
+    {
+      "path": "tools/diagnostics/Objectives20261020/Build-NativeHost.ps1",
+      "bytes": 2525,
+      "sha256": "7207b2b2d67d1728af98978ccb43d1ecb75b40b8e31c522931a148e1b550be1c"
+    },
+    {
+      "path": "tools/diagnostics/Objectives20261020/MaterialCapture.cs",
+      "bytes": 2924,
+      "sha256": "a3b9df9275e02d1c0a1adfd4ce6f89dc352730fc4b638fd6b0a384ba58890774"
+    },
+    {
+      "path": "tools/diagnostics/Objectives20261020/Objectives20261020.csproj",
+      "bytes": 408,
+      "sha256": "3ad6a39bfbc912f79ffcb25c06f8d6483d26410eeac6d7b544f54d92f73f5892"
+    },
+    {
+      "path": "tools/diagnostics/Objectives20261020/Pack-IntegrationEvidence.ps1",
+      "bytes": 6771,
+      "sha256": "934107b3bea3f9043ff14558b231e146401b8578be23929f813d0fe3c805fd78"
+    },
+    {
+      "path": "tools/diagnostics/Objectives20261020/packages.lock.json",
+      "bytes": 1390,
+      "sha256": "d9c0fd3083522605687d2485f705e3c97e3167e2c17ccce7b03feaa70b78ab26"
+    },
+    {
+      "path": "tools/diagnostics/Objectives20261020/Program.cs",
+      "bytes": 5820,
+      "sha256": "4d36db84032001a52d25409531fc71d9cec8b6e478baebce4497e981721e33a1"
+    },
+    {
+      "path": "tools/diagnostics/Objectives20261020/Reuse-NativeCaptures.ps1",
+      "bytes": 3268,
+      "sha256": "d9dc7461c5ff996460f60cc71ac8c135ee4728ab82f6b416dafd491293f0fa10"
+    },
+    {
+      "path": "tools/diagnostics/Objectives20261020/Write-Results.ps1",
+      "bytes": 4401,
+      "sha256": "f207d3ad561fe0e2dfa95416f383d6b08c91f5c90afdca1a839c3e74e3c42348"
+    },
+    {
+      "path": "tools/diagnostics/SequentialCorpus20261019/Pack-Evidence.ps1",
+      "bytes": 5116,
+      "sha256": "c758da8eafb0533a4a8f9fc16e710a0273699d7ed46fca241cdde5ee26b252d5"
+    },
+    {
+      "path": "tools/diagnostics/SequentialCorpus20261019/Program.cs",
+      "bytes": 25988,
+      "sha256": "474463aa23528632f835a402b20fadc7a7d242215386a9015cecad2d69ae873c"
+    },
+    {
+      "path": "tools/diagnostics/SequentialCorpus20261019/Reporting/Program.cs",
+      "bytes": 20230,
+      "sha256": "daca5290d393a1959ad02165298f02a46510017f42b0e8e95d346aa218e74f46"
+    },
+    {
+      "path": "tools/diagnostics/SequentialCorpus20261019/Reporting/Reporting.csproj",
+      "bytes": 382,
+      "sha256": "66a0254663c38a101abf61be1ed686a71f2a47d32999bcf09be4082682eebcb3"
+    },
+    {
+      "path": "tools/OpticalSystemDesign.ZemaxComparison/AfocalAnalysisContracts.cs",
+      "bytes": 5732,
+      "sha256": "4c44b0ba22c612d6bb51e5423d2bfd262cce303bce014b3be5399cfa71a1721a"
+    },
+    {
+      "path": "tools/OpticalSystemDesign.ZemaxComparison/Models.cs",
+      "bytes": 8959,
+      "sha256": "078945e54e06745ccc2e83f9234a9b6a22880f836fbe8d4d6f4825df48d7d7af"
+    },
+    {
+      "path": "tools/OpticalSystemDesign.ZemaxComparison/NativeLengthUnitContract.cs",
+      "bytes": 1828,
+      "sha256": "a628c07eb2c4d5ccd437946cab0b9ed339e78699d35c78a095b91ff8d4d226a3"
+    },
+    {
+      "path": "tools/OpticalSystemDesign.ZemaxComparison/NativeReflectionConvention.cs",
+      "bytes": 1476,
+      "sha256": "41ece0a49008ef8f9250f0d9a62e6311d95dbaca9668aa376af714035ebfa1fc"
+    },
+    {
+      "path": "tools/OpticalSystemDesign.ZemaxComparison/Normalization/ExtendedResultNormalizer.Geometry.cs",
+      "bytes": 14054,
+      "sha256": "dd60f46eba6f2023d3b31041eecdaaa59265eede3c2736374c598f97bd4d0842"
+    },
+    {
+      "path": "tools/OpticalSystemDesign.ZemaxComparison/Normalization/ResultNormalizer.cs",
+      "bytes": 16484,
+      "sha256": "b385f7e4fa7b269bebade99d175d0ca9ca9038b5eae27dcb849884af0421d137"
+    },
+    {
+      "path": "tools/OpticalSystemDesign.ZemaxComparison/ZemaxHost/Host.cs",
+      "bytes": 22201,
+      "sha256": "c1c242a0c392f4147e88923b735bac762835ad81ec922bc629202b8f7847ebd8"
+    }
+  ],
+  "sealedV4": {
+    "schemaVersion": 1,
+    "date": "2026-10-20",
+    "timezone": "Asia/Shanghai",
+    "status": "locally-verified-with-open-numerical-differences",
+    "baseCommit": "59bb1de5b8202d3389a686a7ac7e8ef2a8a43f69",
+    "sourceDirty": true,
+    "scope": "Every Objectives example: 19 original ZMX files, one active configuration per lens; 18 primary analyses plus four edge-field controls per positive-weight wavelength and GQ6 rays for every defined field. Not the Cartesian product of all settings. Common-folder Cooke/Tessar controls only.",
+    "nativeAuthority": {
+      "product": "Zemax OpticStudio",
+      "version": "2026 R1",
+      "licensedLocalCapture": true,
+      "sourceFilesSaved": false,
+      "apiApplicationsOwnedByCapture": true,
+      "referenceCaptureFiles": {
+        "path": "artifacts/validation/objectives-20261020/final-v4/native-reuse.json",
+        "bytes": 1391173,
+        "sha256": "2624223f658496724382e8686bbd6aabf6db12a1de7493b7dae8ec7d7a88d159"
+      },
+      "successfulIdenticalCapturesReused": 749,
+      "newInvalidCaptureAttempts": 1,
+      "invalidReferenceConclusion": "Incomparable / NativeInvalidResult, not a precision pass"
+    },
+    "matrix": {
+      "lenses": 19,
+      "successfullyImported": 19,
+      "analyses": 638,
+      "pass": 562,
+      "close": 2,
+      "difference": 4,
+      "incomparable": 70,
+      "error": 0,
+      "workbenchAttempts": 638,
+      "workbenchFailures": 0,
+      "nativeAttempts": 750,
+      "nativeValid": 749,
+      "nativeInvalid": 1,
+      "rayGroups": 74,
+      "rayGroupsPass": 74,
+      "physicalSurfaceComparisons": 145841,
+      "comparedCoordinatesAndDirections": 875046,
+      "previousPass": 391,
+      "preservedPass": 391,
+      "regressedPass": 0,
+      "report": {
+        "path": "validation/zemax/2026-r1/objectives-2026-10-20/summary.json",
+        "bytes": 9566,
+        "sha256": "b7bf424ec10f9ebfe958136090b8a7f2df74706725d9798a2a9bae9d542bbacf"
+      },
+      "preservation": {
+        "path": "validation/zemax/2026-r1/objectives-2026-10-20/previous-pass-preservation.json",
+        "bytes": 76,
+        "sha256": "89bb7fe1cec79db97d7bcf65279d6cc86615797145f7d96fbdb9fc5f0b281468"
+      }
+    },
+    "remainingNumericalControls": [
+      {
+        "Lens": "Objectives/Apochromat2.zmx",
+        "Configuration": "1",
+        "Scope": "primary",
+        "Analysis": "Diffraction Encircled Energy",
+        "Conclusion": "Difference",
+        "Field": "1",
+        "Wavelength": "3",
+        "PupilSampling": "32",
+        "WorstNRMSE": "0.011433558634052285",
+        "MaximumAbsolute": "0.013207881802895782",
+        "Reason": ""
+      },
+      {
+        "Lens": "Objectives/Apochromat4.zmx",
+        "Configuration": "1",
+        "Scope": "primary",
+        "Analysis": "Diffraction Encircled Energy",
+        "Conclusion": "Difference",
+        "Field": "1",
+        "Wavelength": "12",
+        "PupilSampling": "32",
+        "WorstNRMSE": "0.011540333600375475",
+        "MaximumAbsolute": "0.01320291846083399",
+        "Reason": ""
+      },
+      {
+        "Lens": "Objectives/Double Gauss 5 degree field.zmx",
+        "Configuration": "1",
+        "Scope": "primary",
+        "Analysis": "FFT PSF Cross Section",
+        "Conclusion": "Close",
+        "Field": "1",
+        "Wavelength": "3",
+        "PupilSampling": "32",
+        "WorstNRMSE": "0.008850410094116778",
+        "MaximumAbsolute": "0.0019316246012178401",
+        "Reason": ""
+      },
+      {
+        "Lens": "Objectives/Doublet using MIL number glasses.zmx",
+        "Configuration": "1",
+        "Scope": "primary",
+        "Analysis": "Diffraction Encircled Energy",
+        "Conclusion": "Difference",
+        "Field": "1",
+        "Wavelength": "3",
+        "PupilSampling": "32",
+        "WorstNRMSE": "0.011408651512398879",
+        "MaximumAbsolute": "0.013210155293478243",
+        "Reason": ""
+      },
+      {
+        "Lens": "Objectives/Petzval.zmx",
+        "Configuration": "1",
+        "Scope": "primary",
+        "Analysis": "Relative Illumination",
+        "Conclusion": "Difference",
+        "Field": "1",
+        "Wavelength": "2",
+        "PupilSampling": "32",
+        "WorstNRMSE": "0.01790008791683797",
+        "MaximumAbsolute": "0.037892383417905906",
+        "Reason": ""
+      },
+      {
+        "Lens": "Objectives/Petzval.zmx",
+        "Configuration": "1",
+        "Scope": "primary",
+        "Analysis": "RMS vs Field",
+        "Conclusion": "Close",
+        "Field": "1",
+        "Wavelength": "2",
+        "PupilSampling": "64",
+        "WorstNRMSE": "0.008790004758462085",
+        "MaximumAbsolute": "0.25251506061864504",
+        "Reason": ""
+      }
+    ],
+    "importedMaterialInputs": {
+      "supportedMilNumbers": [
+        "517642",
+        "648338"
+      ],
+      "wavelengthNanometers": [
+        350,
+        1050
+      ],
+      "nodesPerMaterial": 704,
+      "independentHeldOutPointsPerMaterial": 700,
+      "heldOutMaximumAllowedAbsoluteIndexDifference": 1E-10,
+      "interpolation": "Local four-node Neville cubic; exact stored-node return; no extrapolation.",
+      "provenance": "Independent native LDE.GetIndex input queries at 20 C / relative pressure 1, not optical analysis-output fitting.",
+      "freshRecaptureByteIdentical": true,
+      "identity": {
+        "path": "validation/zemax/2026-r1/objectives-2026-10-20/materials/reproduction-identity.json",
+        "bytes": 1058,
+        "sha256": "fe162dd949474af56e4a87cc87402e746d8fb1c95918d50a680e7ba98790ba80"
+      }
+    },
+    "repairs": [
+      "Bounded MIL material resolution, snapshot validation and exact table restoration.",
+      "Explicit native physical unit conversion with mandatory readback evidence.",
+      "Native reflection reporting convention normalized from explicit MIRROR records.",
+      "Wide-angle incident hemisphere and actual-launch-position plane-wave phase.",
+      "Native-compatible even FFT MTF lattice/frequency endpoints and complex-OTF spline sampling.",
+      "Illumination mapping checks use actually mapped triangles; real tracing and aperture checks retained.",
+      "Empty native result buffers remain typed unavailable references."
+    ],
+    "rejectedEnergyCandidates": {
+      "finalEnergySourceChanged": false,
+      "allOriginalTolerancesPreserved": true,
+      "candidateThatImprovedApochromatButRegressedCookeWithdrawn": true,
+      "negativeGuard": {
+        "path": "artifacts/validation/objectives-20261020/rejected-v3-pass-guard.json",
+        "bytes": 108,
+        "sha256": "3ff94d1bef7ed912eaaf855b619eb80247f9b7f4357b941ac8e26bba5bd7a5ed"
+      },
+      "failedAttemptsRetained": true
+    },
+    "newRegressionControls": {
+      "mainMaterialCases": 3,
+      "comparisonPhysicalConventionCases": 4,
+      "comparisonRepairedNativeCases": 15,
+      "storedNativeCaptureCases": 17,
+      "openEnergyCaptureCases": 2,
+      "openCasesCountedAsPass": false
+    },
+    "verification": {
+      "rootBuilds": {
+        "configurations": [
+          "Release",
+          "Debug"
+        ],
+        "projectsPerConfiguration": 19,
+        "warnings": 0,
+        "errors": 0,
+        "defaultOutputs": true,
+        "evidence": [
+          {
+            "path": "artifacts/validation/objectives-20261020/build-release-v4.log",
+            "bytes": 3531,
+            "sha256": "c5c647e2c6a1295073f6288d118531e1fdd3bce8d9f599f923adb128c8d4d3e6"
+          },
+          {
+            "path": "artifacts/validation/objectives-20261020/build-debug-final.log",
+            "bytes": 3493,
+            "sha256": "5b5c960ca1979ad18cc4686ffb95bf7ae5724a370f8335544840cd963412be23"
+          }
+        ]
+      },
+      "tests": [
+        {
+          "name": "main-release-complete",
+          "configuration": "Release",
+          "scope": "Complete main test project, including existing thickness and layout repairs.",
+          "passed": 6271,
+          "failed": 0,
+          "skipped": 0,
+          "outcome": "Completed",
+          "started": "2026-10-20T21:01:12.6286445+08:00",
+          "finished": "2026-10-20T21:21:57.3795702+08:00",
+          "durationSeconds": 1244.7509257,
+          "evidence": {
+            "path": "artifacts/validation/objectives-20261020/tests/main-release-final.trx",
+            "bytes": 9399059,
+            "sha256": "23ead238dce22e9583e5f52cfcbef567cef67ec429e15eedbe4e68c4b953def7"
+          }
+        },
+        {
+          "name": "main-debug-focused",
+          "configuration": "Debug",
+          "scope": "Material, native wavefront/illumination, strict multi-lens diffraction energy, configuration thickness and analysis layout controls; not complete main Debug.",
+          "passed": 279,
+          "failed": 0,
+          "skipped": 0,
+          "outcome": "Completed",
+          "started": "2026-10-20T21:12:37.8693509+08:00",
+          "finished": "2026-10-20T21:13:39.5457376+08:00",
+          "durationSeconds": 61.6763867,
+          "evidence": {
+            "path": "artifacts/validation/objectives-20261020/tests/main-debug-focused.trx",
+            "bytes": 427607,
+            "sha256": "a2cd29d511e6049030f4e282304453981095ec4ff750259cc0b9ac9a7c811aca"
+          }
+        },
+        {
+          "name": "comparison-release-complete",
+          "configuration": "Release",
+          "scope": "Complete formal comparison test project; 15 repaired native cases and four physical convention controls added, two open energy captures not certified.",
+          "passed": 242,
+          "failed": 0,
+          "skipped": 0,
+          "outcome": "Completed",
+          "started": "2026-10-20T20:52:20.5371898+08:00",
+          "finished": "2026-10-20T20:55:55.6221326+08:00",
+          "durationSeconds": 215.0849428,
+          "evidence": {
+            "path": "artifacts/validation/objectives-20261020/tests/comparison-release-final.trx",
+            "bytes": 418459,
+            "sha256": "f8e0f77fd0832390f4bfc2ffa665801d2d9bb486f2a4d5883312b6f3a0411871"
+          }
+        },
+        {
+          "name": "comparison-debug-complete",
+          "configuration": "Debug",
+          "scope": "Complete formal comparison test project.",
+          "passed": 242,
+          "failed": 0,
+          "skipped": 0,
+          "outcome": "Completed",
+          "started": "2026-10-20T21:13:40.912154+08:00",
+          "finished": "2026-10-20T21:19:16.1743296+08:00",
+          "durationSeconds": 335.2621756,
+          "evidence": {
+            "path": "artifacts/validation/objectives-20261020/tests/comparison-debug-full.trx",
+            "bytes": 417491,
+            "sha256": "c318065192d0c378e53073229ffde62ab91463ebc2f544b71b0547d9a36bbe05"
+          }
+        },
+        {
+          "name": "coating-release-complete",
+          "configuration": "Release",
+          "scope": "Complete built-in coating test project.",
+          "passed": 54,
+          "failed": 0,
+          "skipped": 0,
+          "outcome": "Completed",
+          "started": "2026-10-20T20:55:56.6363373+08:00",
+          "finished": "2026-10-20T20:56:41.5576968+08:00",
+          "durationSeconds": 44.9213595,
+          "evidence": {
+            "path": "artifacts/validation/objectives-20261020/tests/coating-release-final.trx",
+            "bytes": 86300,
+            "sha256": "63f0405a8657be179f6b061223aaba7f77085e2aa9a7e36d50f00dd53d16662f"
+          }
+        },
+        {
+          "name": "initial-structure-release-contracts",
+          "configuration": "Release",
+          "scope": "Existing regular contracts partition; 12 long survey tests not run.",
+          "passed": 308,
+          "failed": 0,
+          "skipped": 0,
+          "outcome": "Completed",
+          "started": "2026-10-20T20:56:42.9046495+08:00",
+          "finished": "2026-10-20T21:07:00.6832721+08:00",
+          "durationSeconds": 617.7786226,
+          "evidence": {
+            "path": "artifacts/validation/objectives-20261020/tests/initial-contracts-final/initial-contracts.trx",
+            "bytes": 511525,
+            "sha256": "65ae18443e2603ad7098a67394e92e7d6aac96ca5b5d78a5f2b353d2d6199fee"
+          }
+        }
+      ],
+      "testScopesOverlapAndMustNotBeSummed": true,
+      "initialLongSurveysNotRun": 12,
+      "crossPlatformNotRun": true,
+      "installerNotRebuilt": true,
+      "fullDebugMainNotRun": true,
+      "defaultReleaseBinariesUnchangedDuringDebugBuild": {
+        "path": "artifacts/validation/objectives-20261020/final-identities/release-preserved-after-debug-build.json",
+        "bytes": 1834,
+        "sha256": "bde39da894a85908f89839fc2a8c15bc8848f29ebbe462ae108907b864011a88"
+      },
+      "formatVerifyLog": {
+        "path": "artifacts/validation/objectives-20261020/format-final-verify.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "documentation": {
+        "documents": 981,
+        "brokenLinks": 0,
+        "markdownFenceIssues": 0,
+        "localOnlyLinks": 0,
+        "historicalRepeatedParagraphGroups": 11,
+        "guideRepeatedParagraphGroups": 0,
+        "strictPassed": true,
+        "evidence": {
+          "path": "artifacts/validation/objectives-20261020/documentation-final.json",
+          "sha256": "921d82653a393207609c32a1abea8a377cda673a8c5385448325eee7bdddce4e"
+        }
+      },
+      "gitDiffCheckPassed": true,
+      "postTestReleaseIdentity": [
+        {
+          "path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "605518a66aaab74348fe46db836d8d987972255573ef6e188320a2a04f4e6fb4",
+          "matches": true
+        },
+        {
+          "path": "src/OpticalSystemDesign.Application/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+          "sha256": "5102aab6b5a306c52db09f383400fe70533ec22aeeed7c8eaed5cf45da57058e",
+          "matches": true
+        },
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+          "sha256": "82fae5b99deffa225a5f56a9acb61521dde511621c623c160ac4a049d7e7fb39",
+          "matches": true
+        },
+        {
+          "path": "tools/OpticalSystemDesign.ZemaxComparison/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.dll",
+          "sha256": "a17f8700d5dc6de97c12e7314c2c3d4a220745e66f0f190a0a8dfa1448e763a9",
+          "matches": true
+        },
+        {
+          "path": "tools/diagnostics/SequentialCorpus20261019/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "605518a66aaab74348fe46db836d8d987972255573ef6e188320a2a04f4e6fb4",
+          "matches": true
+        },
+        {
+          "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "605518a66aaab74348fe46db836d8d987972255573ef6e188320a2a04f4e6fb4",
+          "matches": true
+        }
+      ],
+      "postTestDebugIdentity": [
+        {
+          "path": "src/OpticalSystemDesign.Core/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "bf454b6d45d65b3e56de71d1c6a5f2a62a75e8d6bfe656d2d17f49faf6d91a5f"
+        },
+        {
+          "path": "src/OpticalSystemDesign.Application/bin/Debug/net10.0/OpticalSystemDesign.Application.dll",
+          "sha256": "19c8289239f09aeb864d2f69008bc86a6d0cb25df7dae91bfca0af290e0643e9"
+        },
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.dll",
+          "sha256": "1f8b29bb5fe0895e94494f017b75bf2221b0f4b04213a6e1972dfa0eecf9d1c9"
+        },
+        {
+          "path": "tools/OpticalSystemDesign.ZemaxComparison/bin/Debug/net10.0/OpticalSystemDesign.ZemaxComparison.dll",
+          "sha256": "08cf71bf268e2ead037f1622f522f43495c3b0053ed643efd9427a3610195bda"
+        }
+      ]
+    },
+    "originalAssets": {
+      "sourceLenses": 19,
+      "originalAndEmbeddedSha256Matches": 19,
+      "stagedZmxAndZosUnchanged": 38,
+      "originals": {
+        "path": "artifacts/validation/objectives-20261020/final-identities/original-examples.json",
+        "bytes": 3935,
+        "sha256": "c4969556482681a2ce44606000db47466dda0b0700501b86e4dd165cc4d095bc"
+      },
+      "tolerancesChanged": false,
+      "frozenReferencesChanged": false,
+      "comparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+      "frozenAssets": 2668,
+      "frozenAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "frozenReadback": {
+        "path": "artifacts/validation/objectives-20261020/final-identities/frozen-final.json",
+        "bytes": 5255,
+        "sha256": "c420ae9ba2d5fe15a1d336d349ceff4388d8a1061042b6f98294f6ce7c629c74"
+      }
+    },
+    "releaseBinaries": [
+      {
+        "path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+        "sha256": "605518a66aaab74348fe46db836d8d987972255573ef6e188320a2a04f4e6fb4"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Application/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+        "sha256": "5102aab6b5a306c52db09f383400fe70533ec22aeeed7c8eaed5cf45da57058e"
+      },
+      {
+        "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+        "sha256": "82fae5b99deffa225a5f56a9acb61521dde511621c623c160ac4a049d7e7fb39"
+      },
+      {
+        "path": "tools/OpticalSystemDesign.ZemaxComparison/bin/Release/net10.0/OpticalSystemDesign.ZemaxComparison.dll",
+        "sha256": "a17f8700d5dc6de97c12e7314c2c3d4a220745e66f0f190a0a8dfa1448e763a9"
+      },
+      {
+        "path": "tools/diagnostics/SequentialCorpus20261019/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+        "sha256": "605518a66aaab74348fe46db836d8d987972255573ef6e188320a2a04f4e6fb4"
+      },
+      {
+        "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+        "sha256": "605518a66aaab74348fe46db836d8d987972255573ef6e188320a2a04f4e6fb4"
+      }
+    ],
+    "currentSourceFiles": [
+      {
+        "path": "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Plots.cs",
+        "bytes": 41006,
+        "sha256": "81cd8977ec7d223cdc527a3d49a8d3c5499c9820f19c22d8897ef2f692081aeb"
+      },
+      {
+        "path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.Configurations.cs",
+        "bytes": 5007,
+        "sha256": "ec7decc5e7c7298703bee7385c490f22aafac1c785e753622f9b2a07911054fe"
+      },
+      {
+        "path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.cs",
+        "bytes": 21035,
+        "sha256": "801ade4bafc34bc322d52145bca36fd6c9806e644239a6e011e011204f3cc2b5"
+      },
+      {
+        "path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.cs",
+        "bytes": 67735,
+        "sha256": "3711760147acbd7986793689b7faf263119101c4c2af41d92f4a51de93d3c58c"
+      },
+      {
+        "path": "src/OpticalSystemDesign.App/Services/WorkspaceDockFactory.cs",
+        "bytes": 35160,
+        "sha256": "fcea7a2f32acdc0fde5b30c45cb07f1f924aa1b5a64ee4366669b2972dc58859"
+      },
+      {
+        "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs",
+        "bytes": 34076,
+        "sha256": "bca79aebda0eddb160ea09a575666d13f53a89024c8307c25a20c95529a656df"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Configuration.cs",
+        "bytes": 9253,
+        "sha256": "734e33c11c21ea9e11fe43851e74115c907abaab47e3594b9ef1d35f5aaa345e"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs",
+        "bytes": 25492,
+        "sha256": "b9b4a246f7eb83fdc82ce29baad1e45ba4fc78a0749179eeffb742d888bc73f6"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Core/Analysis/WavefrontEngine.cs",
+        "bytes": 24514,
+        "sha256": "00c50f1c861b2b929f779aaa67bab85bdd6f5697a5596f8c93b8d06ac8d96ed4"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Core/Materials/Data/zemax-mil-profiles.json",
+        "bytes": 61176,
+        "sha256": "3ee7bbe0088309330989504b4373757dcd88c3a0a0ec9570aa75ff1385350d25"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Core/Materials/MaterialRegistry.cs",
+        "bytes": 6717,
+        "sha256": "e67d361105d89b0a1972ab4a654f48e8ce538cc131c389a5e6d78370b7747aa0"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Core/Materials/TabulatedMaterial.cs",
+        "bytes": 3337,
+        "sha256": "ed5e16b103d5a8f5db3ed58030e9354c484a3f564b70771e0de5d59d50fe963a"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Core/Materials/ZemaxMilMaterialProfiles.cs",
+        "bytes": 1538,
+        "sha256": "8583162cf6cefaf77c91efb26b6cdbff1012774e0c83a019d445259bb56e7150"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Core/OpticalSystemDesign.Core.csproj",
+        "bytes": 756,
+        "sha256": "651ff734a448471a3784c52a49684c7e400fcdee6a47ed2bc01de235a94e3db0"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Core/Serialization/ComponentSnapshot.cs",
+        "bytes": 40693,
+        "sha256": "3435be77e35b3016e50defd86eba8d75902da244c4a73239b633203e424c0cb9"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Core/Serialization/OpticSnapshotValidator.cs",
+        "bytes": 51569,
+        "sha256": "68c888a79e9f31c9c70eb62587bf97df049c9f2345f65a8a30025a8fc1fc6731"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Core/Services/IlluminationMetrics.FiniteImageCosine.cs",
+        "bytes": 5141,
+        "sha256": "63de0f310779dda7813bd1bfeba3ec7d4ab88d73a7dc0f3db1b4d25ccdf4275d"
+      },
+      {
+        "path": "tests/OpticalSystemDesign.Tests/LensConfigurationNavigationTests.cs",
+        "bytes": 20698,
+        "sha256": "c2749e10ff5d326f73f802ccd79f77db384f5a22725506029521826cca68833b"
+      },
+      {
+        "path": "tests/OpticalSystemDesign.Tests/MultiConfigurationThicknessPrecisionTests.cs",
+        "bytes": 5979,
+        "sha256": "7ab3dcd705f608a6154bad2793876623e0fd32b26a2c8e1b13bfd803474b2372"
+      },
+      {
+        "path": "tests/OpticalSystemDesign.Tests/ObjectivesMaterialPrecisionTests.cs",
+        "bytes": 3281,
+        "sha256": "8f71d876391e36e0c78891cb35211d1f94eb5ee4f5ca4635490c8780d47cba43"
+      },
+      {
+        "path": "tests/OpticalSystemDesign.Tests/RayFanLayoutRepairTests.cs",
+        "bytes": 5688,
+        "sha256": "e79a0b56074dffb7eba4cf124aba26002128ebf86a2dc90596d219cab6bc7d31"
+      },
+      {
+        "path": "tests/OpticalSystemDesign.Tests/StandardIntersectionPrecisionTests.cs",
+        "bytes": 2672,
+        "sha256": "1792734025ed3413655591ed410ec8b792076be21d3383600b827e01d8a6ee83"
+      },
+      {
+        "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/NativePhysicalConventionTests.cs",
+        "bytes": 1622,
+        "sha256": "79376f14a09b75df09f5ee6c8b14434af90adcf6bfbc34d2c86e78007d4caf19"
+      },
+      {
+        "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/ObjectivesNativePrecisionTests.cs",
+        "bytes": 3373,
+        "sha256": "40f0453c817034ac87af78e0ad4b561a6dbad05b34382f6f4d3197f2afcb04ee"
+      },
+      {
+        "path": "tools/diagnostics/Objectives20261020/Build-NativeHost.ps1",
+        "bytes": 2525,
+        "sha256": "7207b2b2d67d1728af98978ccb43d1ecb75b40b8e31c522931a148e1b550be1c"
+      },
+      {
+        "path": "tools/diagnostics/Objectives20261020/MaterialCapture.cs",
+        "bytes": 2924,
+        "sha256": "a3b9df9275e02d1c0a1adfd4ce6f89dc352730fc4b638fd6b0a384ba58890774"
+      },
+      {
+        "path": "tools/diagnostics/Objectives20261020/Objectives20261020.csproj",
+        "bytes": 408,
+        "sha256": "3ad6a39bfbc912f79ffcb25c06f8d6483d26410eeac6d7b544f54d92f73f5892"
+      },
+      {
+        "path": "tools/diagnostics/Objectives20261020/packages.lock.json",
+        "bytes": 1390,
+        "sha256": "d9c0fd3083522605687d2485f705e3c97e3167e2c17ccce7b03feaa70b78ab26"
+      },
+      {
+        "path": "tools/diagnostics/Objectives20261020/Program.cs",
+        "bytes": 5820,
+        "sha256": "4d36db84032001a52d25409531fc71d9cec8b6e478baebce4497e981721e33a1"
+      },
+      {
+        "path": "tools/diagnostics/Objectives20261020/Reuse-NativeCaptures.ps1",
+        "bytes": 3268,
+        "sha256": "d9dc7461c5ff996460f60cc71ac8c135ee4728ab82f6b416dafd491293f0fa10"
+      },
+      {
+        "path": "tools/diagnostics/Objectives20261020/Write-Results.ps1",
+        "bytes": 4401,
+        "sha256": "f207d3ad561fe0e2dfa95416f383d6b08c91f5c90afdca1a839c3e74e3c42348"
+      },
+      {
+        "path": "tools/diagnostics/SequentialCorpus20261019/Pack-Evidence.ps1",
+        "bytes": 5116,
+        "sha256": "c758da8eafb0533a4a8f9fc16e710a0273699d7ed46fca241cdde5ee26b252d5"
+      },
+      {
+        "path": "tools/diagnostics/SequentialCorpus20261019/Program.cs",
+        "bytes": 25988,
+        "sha256": "474463aa23528632f835a402b20fadc7a7d242215386a9015cecad2d69ae873c"
+      },
+      {
+        "path": "tools/diagnostics/SequentialCorpus20261019/Reporting/Program.cs",
+        "bytes": 20230,
+        "sha256": "daca5290d393a1959ad02165298f02a46510017f42b0e8e95d346aa218e74f46"
+      },
+      {
+        "path": "tools/diagnostics/SequentialCorpus20261019/Reporting/Reporting.csproj",
+        "bytes": 382,
+        "sha256": "66a0254663c38a101abf61be1ed686a71f2a47d32999bcf09be4082682eebcb3"
+      },
+      {
+        "path": "tools/OpticalSystemDesign.ZemaxComparison/AfocalAnalysisContracts.cs",
+        "bytes": 5732,
+        "sha256": "4c44b0ba22c612d6bb51e5423d2bfd262cce303bce014b3be5399cfa71a1721a"
+      },
+      {
+        "path": "tools/OpticalSystemDesign.ZemaxComparison/Models.cs",
+        "bytes": 8959,
+        "sha256": "078945e54e06745ccc2e83f9234a9b6a22880f836fbe8d4d6f4825df48d7d7af"
+      },
+      {
+        "path": "tools/OpticalSystemDesign.ZemaxComparison/NativeLengthUnitContract.cs",
+        "bytes": 1828,
+        "sha256": "a628c07eb2c4d5ccd437946cab0b9ed339e78699d35c78a095b91ff8d4d226a3"
+      },
+      {
+        "path": "tools/OpticalSystemDesign.ZemaxComparison/NativeReflectionConvention.cs",
+        "bytes": 1476,
+        "sha256": "41ece0a49008ef8f9250f0d9a62e6311d95dbaca9668aa376af714035ebfa1fc"
+      },
+      {
+        "path": "tools/OpticalSystemDesign.ZemaxComparison/Normalization/ExtendedResultNormalizer.Geometry.cs",
+        "bytes": 14054,
+        "sha256": "dd60f46eba6f2023d3b31041eecdaaa59265eede3c2736374c598f97bd4d0842"
+      },
+      {
+        "path": "tools/OpticalSystemDesign.ZemaxComparison/Normalization/ResultNormalizer.cs",
+        "bytes": 16484,
+        "sha256": "b385f7e4fa7b269bebade99d175d0ca9ca9038b5eae27dcb849884af0421d137"
+      },
+      {
+        "path": "tools/OpticalSystemDesign.ZemaxComparison/ZemaxHost/Host.cs",
+        "bytes": 22201,
+        "sha256": "c1c242a0c392f4147e88923b735bac762835ad81ec922bc629202b8f7847ebd8"
+      }
+    ],
+    "archive": {
+      "evidence": {
+        "path": "validation/repairs/2026-10-20/objectives-matrix-evidence.zip",
+        "bytes": 177781052,
+        "sha256": "3667d211280d50bf694e19f8105d40b38c93f24672a4aec04a8a44629a7d4f2b"
+      },
+      "payloadFiles": 20316,
+      "entries": 20317,
+      "everyPayloadReadbackSha256Verified": true,
+      "containsProprietaryApiBinaries": false,
+      "finalLedgerIncludedInOwnArchive": false,
+      "gitLfsAttribute": {
+        "path": ".gitattributes",
+        "sha256": "a928820f1ccccda13c81ab8226b2925e40b79342c0aa79e0d859c1ed1f5fe91f",
+        "filter": "lfs",
+        "trackedNewArchive": false,
+        "registeredPattern": true
+      }
+    },
+    "delivery": {
+      "committed": false,
+      "pushed": false,
+      "installedPackageUpdated": false,
+      "currentSourceAndDefaultBuildOnly": true
+    }
+  },
+  "archive": {
+    "evidence": {
+      "path": "validation/repairs/2026-10-20/objectives-v7-integration-evidence.zip",
+      "bytes": 7750525,
+      "sha256": "2d5fa889246bc875f932fb0ee48894aa7186a4cacc163471608d9538e1a60974"
+    },
+    "baseArchive": {
+      "path": "validation/repairs/2026-10-20/objectives-matrix-evidence.zip",
+      "sha256": "3667d211280d50bf694e19f8105d40b38c93f24672a4aec04a8a44629a7d4f2b"
+    },
+    "bothArchivesRequired": true,
+    "logicalPayloadFiles": 19657,
+    "inheritedPayloadFiles": 17203,
+    "freshPayloadFiles": 2454,
+    "allFreshAndInheritedPayloadReadbackVerified": true,
+    "finalExternalLedgerIncludedInOwnArchive": false,
+    "baseArchiveReadback": {
+      "path": "validation/repairs/2026-10-20/objectives-matrix-evidence.zip",
+      "bytes": 177781052,
+      "sha256": "3667d211280d50bf694e19f8105d40b38c93f24672a4aec04a8a44629a7d4f2b"
+    },
+    "finalArchiveReadback": {
+      "path": "validation/repairs/2026-10-20/objectives-v7-integration-evidence.zip",
+      "bytes": 7750525,
+      "sha256": "2d5fa889246bc875f932fb0ee48894aa7186a4cacc163471608d9538e1a60974"
+    }
+  },
+  "delivery": {
+    "pushedByThisTask": false,
+    "committedByThisTask": false,
+    "installedPackageUpdated": false,
+    "sourceAndDefaultBuildOnly": true
+  }
+}

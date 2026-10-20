@@ -36,6 +36,8 @@ public sealed record CanonicalAnalysisRequest
     public bool ImageSpaceAfocal { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? NativeAfocalAngleUnit { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? NativeLensUnit { get; init; }
     public int Configuration { get; init; } = 1;
     public int Field { get; init; } = 1;
     public int Wavelength { get; init; } = 1;

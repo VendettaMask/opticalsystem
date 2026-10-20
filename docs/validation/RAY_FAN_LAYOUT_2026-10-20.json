@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "timezone": "Asia/Shanghai",
+  "baseCommit": "59bb1de5b8202d3389a686a7ac7e8ef2a8a43f69",
+  "scope": "Presentation-only repair for real paired ray-fan, pupil-aberration and OPD layouts. Preserves the preceding uncommitted numerical repair.",
+  "status": "locally-verified",
+  "cause": "64-DIP paired canvas minimum did not reserve drawable axes after label margins. Prior synthetic presentation tests did not enter the real P_x/P_y pairing branch.",
+  "implementation": "Both paired plot control and square host have a 200-DIP logical minimum; existing whole-page fit, field grouping and centered final row remain.",
+  "source": {
+    "relativePath": "Objectives/Cooke 40 degree field.zmx",
+    "sha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+    "role": "UI reproduction only, not independent native numerical certification"
+  },
+  "measurements": {
+    "windowDip": [
+      1000,
+      460
+    ],
+    "beforeDrawableDip": [
+      15,
+      19
+    ],
+    "afterDrawableDip": [
+      83.90243902439025,
+      86.52439024390245
+    ],
+    "windowSizesDip": [
+      [
+        1000,
+        460
+      ],
+      [
+        1000,
+        340
+      ],
+      [
+        600,
+        290
+      ]
+    ],
+    "restoredRectangleMatches": true,
+    "serializedDtoUnchangedAtEachSize": true
+  },
+  "completedChecks": [
+    {
+      "kind": "default-complete-product-builds",
+      "configurations": [
+        "Debug",
+        "Release"
+      ],
+      "projectsPerConfiguration": 19,
+      "warnings": 0,
+      "errors": 0,
+      "logs": [
+        "build-debug-final.log",
+        "build-release-final.log"
+      ]
+    },
+    {
+      "kind": "related-display-regressions",
+      "configuration": "Debug",
+      "passed": 80,
+      "failed": 0,
+      "skipped": 0,
+      "trx": "related-debug-final.trx"
+    },
+    {
+      "kind": "related-display-regressions",
+      "configuration": "Release",
+      "passed": 80,
+      "failed": 0,
+      "skipped": 0,
+      "trx": "related-release-final.trx"
+    },
+    {
+      "kind": "isolated-real-Skia-render",
+      "configuration": "Release",
+      "passed": 3,
+      "failed": 0,
+      "framesIncludingRestores": 12,
+      "uniqueFinalImages": 9,
+      "trx": "real-skia-final.trx",
+      "captures": "verified-captures"
+    },
+    {
+      "kind": "changed-source-format-check",
+      "exitCode": 0,
+      "log": "format-final.log"
+    },
+    {
+      "kind": "strict-documentation",
+      "documents": 958,
+      "brokenLinks": 0,
+      "markdownFenceIssues": 0,
+      "guideRepeatedParagraphGroups": 0,
+      "result": "documentation-final.json"
+    }
+  ],
+  "preservedNumericalBinaries": [
+    {
+      "path": "src/OpticalSystemDesign.Core/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "235a3c96e1ec39833888f16274865e21d91ae3061fe7f6b70e92f1ceca3300e8",
+      "matchesPriorNumericalVerification": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "sha256": "859a48b376f8f246cfd7814f6d8e3654400d8d51858503571a993049cf52e77c",
+      "matchesPriorNumericalVerification": true
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/OpticalSystemDesign.Application.dll",
+      "sha256": "7de322427929e68472a965aef5d68dd10405919ddb8772e001a1f02dd9074470",
+      "matchesPriorNumericalVerification": true
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+      "sha256": "5b738dbf63296e5520e2ae2abe68e1d90ed119c18b7e12a43d5d4cee20cc8401",
+      "matchesPriorNumericalVerification": true
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Plots.cs",
+      "sha256": "81cd8977ec7d223cdc527a3d49a8d3c5499c9820f19c22d8897ef2f692081aeb"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/RayFanLayoutRepairTests.cs",
+      "sha256": "e79a0b56074dffb7eba4cf124aba26002128ebf86a2dc90596d219cab6bc7d31"
+    }
+  ],
+  "tolerancesChanged": false,
+  "referencesChanged": false,
+  "originalLensChanged": false,
+  "newNativeCapture": false,
+  "priorFullNumericalRun": "UPDATE_NUMERICAL_PRECISION_REPAIR_2026-10-20.json; not rerun or recounted by this display task",
+  "preservedFailures": [
+    "before.trx: all three real paired layout controls fail at original size",
+    "related-release.trx: 77 pass / 3 new screenshot failures from mixing HeadlessGlyphRunStub with Skia; final 80-case regression and isolated three-case capture both pass without changing assertions"
+  ],
+  "evidenceRoot": "artifacts/validation/ray-fan-layout-20261020",
+  "countingRule": "Collections overlap; do not sum results.",
+  "explicitAnalysisSettings": {
+    "NumberOfRays": "10",
+    "WavelengthNumber": "所有",
+    "SurfaceNumber": "像面"
+  },
+  "portableEvidence": {
+    "path": "validation/repairs/2026-10-20/ray-fan-layout-evidence.zip",
+    "bytes": 752268,
+    "sha256": "db94c798723a909e54808e74eca1354adeeb2ce5bea58812ac9176a929f46bea",
+    "payloadFiles": 55,
+    "everyPayloadHashVerified": true
+  }
+}

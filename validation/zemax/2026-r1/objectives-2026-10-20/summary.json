@@ -1,0 +1,357 @@
+{
+  "date": "2026-10-20",
+  "nativeReferenceFormat": "zmx",
+  "sourceLenses": 19,
+  "sourceFiles": 38,
+  "originalSourceFilesUnchanged": 38,
+  "nativeJobs": 750,
+  "nativeFailures": 1,
+  "completedNativeAttemptsIncludingRetainedFailures": 750,
+  "completedWorkbenchAttemptsIncludingRetainedFailures": 638,
+  "analysisRequests": 638,
+  "analysisCounts": {
+    "Pass": 564,
+    "Incomparable": 70,
+    "Difference": 3,
+    "Close": 1
+  },
+  "rayJobs": 74,
+  "rayCounts": {
+    "Pass": 74
+  },
+  "physicalSurfaceComparisons": 145841,
+  "comparedValues": 875046,
+  "comparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "inventorySha256": "4880ba3d8931d25e565c10dd5cf12da712795ce54b499ee01e05a15ad79aa6b9",
+  "completeExecutionAttempts": true,
+  "scope": "18 primary analyses plus 4 edge-field controls at each positive-weight wavelength and GQ6 rays for every successfully prepared configuration. Not all field/wavelength/sampling combinations. ZOS/ZMX equality covers captured configuration-1 model properties only, not all numerical outputs.",
+  "lensRows": [
+    {
+      "lens": "Objectives/Apochromat.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 46,
+        "Incomparable": 4
+      },
+      "rayCounts": {
+        "Pass": 8
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 3.5205428911516776E-06,
+      "notes": [],
+      "analysisRequests": 50
+    },
+    {
+      "lens": "Objectives/Apochromat2.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 33,
+        "Incomparable": 4,
+        "Difference": 1
+      },
+      "rayCounts": {
+        "Pass": 5
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.011433558634052285,
+      "notes": [],
+      "analysisRequests": 38
+    },
+    {
+      "lens": "Objectives/Apochromat3.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 26,
+        "Incomparable": 4
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.0003101848126148359,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Apochromat4.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 42,
+        "Incomparable": 27,
+        "Difference": 1
+      },
+      "rayCounts": {
+        "Pass": 13
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.011540333600375475,
+      "notes": [],
+      "analysisRequests": 70
+    },
+    {
+      "lens": "Objectives/Cooke 40 degree field.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 30
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 8.207968401871012E-05,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Double Gauss 28 degree field.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 29,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Difference",
+      "worstNrmse": 0.00047718279838495227,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Double Gauss 5 degree field.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 34,
+        "Close": 1,
+        "Incomparable": 3
+      },
+      "rayCounts": {
+        "Pass": 5
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.008850410094116778,
+      "notes": [],
+      "analysisRequests": 38
+    },
+    {
+      "lens": "Objectives/Doublet using MIL number glasses.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 33,
+        "Incomparable": 4,
+        "Difference": 1
+      },
+      "rayCounts": {
+        "Pass": 5
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.011408651512398879,
+      "notes": [],
+      "analysisRequests": 38
+    },
+    {
+      "lens": "Objectives/Doublet.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 27,
+        "Incomparable": 3
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 1.0962981343040268E-05,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Even Asphere.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 20,
+        "Incomparable": 2
+      },
+      "rayCounts": {
+        "Pass": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.00013995193292167725,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Objectives/Gaussian Quadrature over Annular Pupils.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 18,
+        "Incomparable": 4
+      },
+      "rayCounts": {
+        "Pass": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 3.2217429701332533E-06,
+      "notes": [
+        "Native reflection signed-index directions normalized to physical propagation from MIRROR rows."
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Objectives/Gaussian Quadrature Over Wavelength.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 29,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.001339800889882094,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Inverse telephoto lens.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 30
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.00039150529543683325,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Petzval.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 29,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.0009664710741027221,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Relay lens.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 29,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 7.718959493603786E-05,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Tessar lens using vignetting factors.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 28,
+        "Incomparable": 2
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.00045457498827944305,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Wide angle lens 100 degree field.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 29,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.002775989959653999,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Wide angle lens 200 degree field.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 26,
+        "Incomparable": 4
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.001966343770977332,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Wide angle lens 210 degree field.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 26,
+        "Incomparable": 4
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.0015667515053156508,
+      "notes": [],
+      "analysisRequests": 30
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "key": "RMS vs Field",
+  "directory": "0077-003-petzval-c1-primary-f1-w2-rms-vs-field",
+  "support": "Comparable",
+  "zemaxStatus": "Captured",
+  "workbenchStatus": "Captured",
+  "conclusion": "Close",
+  "reason": "",
+  "request": {
+    "canonicalAnalysisKey": "RMS vs Field",
+    "configuration": 1,
+    "field": 1,
+    "wavelength": 2,
+    "surface": -1,
+    "pupilSampling": 64,
+    "imageSampling": 64,
+    "rayCount": 20,
+    "gridSize": 64,
+    "imageDeltaMicrometers": 0.25,
+    "maximumFrequency": 50,
+    "focusMinimum": -0.1,
+    "focusMaximum": 0.1,
+    "reference": "Centroid",
+    "polarization": false,
+    "apodization": "{\r\n  \u0022kind\u0022: \u0022zemax_pupil\u0022,\r\n  \u0022numbers\u0022: {\r\n    \u0022type\u0022: 0,\r\n    \u0022factor\u0022: 0\r\n  },\r\n  \u0022text\u0022: {},\r\n  \u0022children\u0022: null\r\n}",
+    "deleteVignetted": true,
+    "useRayAiming": false,
+    "normalization": "NativePhysical",
+    "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+    "outputUnits": "TypedAxes",
+    "settingsOrigin": "CapturedSettings",
+    "workbenchSettings": {
+      "FieldDensity": "15",
+      "ScanDirection": "\u002By",
+      "NumRings": "6",
+      "Method": "GQ",
+      "GaussianAzimuthalSamples": "12",
+      "Data": "spot",
+      "Distribution": "hexapolar",
+      "WavelengthNumber": "2",
+      "Reference": "centroid",
+      "ShowDiffractionLimit": "False",
+      "UsePolarization": "False",
+      "RemoveVignetting": "True",
+      "FieldNumber": "1",
+      "SurfaceNumber": "-1",
+      "UseRayAiming": "False",
+      "RayDensity": "6",
+      "RemoveVignettingFactors": "True",
+      "WaveDensity": "21",
+      "FocusDensity": "16",
+      "MinimumFocus": "-0.1",
+      "MaximumFocus": "0.1",
+      "ScanType": "\u002By"
+    },
+    "zemaxSettings": {
+      "Method": "GaussQuad",
+      "RayDensity": "RayDens_6",
+      "ReferTo": "ChiefRay",
+      "Data": "SpotRadius",
+      "ShowDiffractionLimit": false,
+      "UseDashes": false,
+      "UsePolarization": false,
+      "PlotScale": 0,
+      "Wavelength": 2,
+      "FieldDensity": "FieldDens_75",
+      "Orientation": "Plus_Y",
+      "RemoveVignettingFactors": true
+    },
+    "zemaxCfgSettings": {},
+    "wavelengthScope": "Selected",
+    "wavelengthCount": 3,
+    "fieldDefinition": "Angle",
+    "maximumFieldRadius": 4,
+    "surfaceCount": 10,
+    "fieldCount": 2,
+    "definedFields": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        4
+      ]
+    ],
+    "fieldScanDirection": "\u002By",
+    "primaryWavelengthMicrometers": 0.5876,
+    "zemaxSettingsMode": "TypedProperties",
+    "sourceImagePath": null,
+    "sourceImageSha256": null
+  },
+  "tolerances": {
+    "Radius": {
+      "absolute": 0.001,
+      "relative": 0.001,
+      "nrmse": 0.003,
+      "closeNrmse": 0.01,
+      "minimumCoverage": 0.95
+    }
+  },
+  "metrics": [
+    {
+      "id": "curve:0",
+      "unit": "Micrometer",
+      "count": 16,
+      "maxAbsolute": 0.25251506061864504,
+      "meanAbsolute": 0.06566927770841746,
+      "rmse": 0.10228251734338577,
+      "nrmse": 0.008790004758462085,
+      "maxRelative": 0.03137137196462413,
+      "p50": 0.017817889725861846,
+      "p90": 0.168222502398379,
+      "p95": 0.19083444623459167,
+      "pearson": 0.9986329965598203,
+      "worstX": 0.2,
+      "worstY": null,
+      "coverage": 1,
+      "conclusion": "Close",
+      "extra": {}
+    }
+  ],
+  "normalizations": [
+    "curve:0: unit conversion X Dimensionless-\u003EDimensionless x1; Y Millimeter-\u003EMicrometer x1000",
+    "Field coordinate is distance along \u002By, divided by the captured field extent; Workbench signed coordinates converted using the requested orientation.",
+    "26.1 RMS enum-name discrepancy: physical reference and interval count verified from native report/data, not inferred from interface enum display names.",
+    "curve:0: sorted coordinates; linear interpolation on union of 16 physical knots in [0, 1]; no extrapolation"
+  ],
+  "screenshotStatus": "NotRequested",
+  "elapsedMilliseconds": 0
+}

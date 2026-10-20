@@ -146,6 +146,8 @@ public sealed class MaterialRegistry
             }
         }
 
+        if (ZemaxMilMaterialProfiles.TryResolve(normalized, out material)) return true;
+
         if (Catalog.TryResolve(normalized, effectiveManufacturers, out var catalogMaterial))
         {
             lock (_gate)

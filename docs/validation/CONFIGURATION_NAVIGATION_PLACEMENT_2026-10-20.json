@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-20",
+  "scope": "Lens configuration position between arrows; editor entry in Settings",
+  "implementation": {
+    "navigationOrder": ["previous", "position", "next"],
+    "editorEntry": "设置 → 系统 → 多重结构",
+    "existingAction": "show-multiconfig",
+    "lensEditorButtonRemoved": true,
+    "unusedOpenCallbackRemoved": true,
+    "guideLanguages": ["zh-CN", "en-US", "ja-JP"]
+  },
+  "verification": {
+    "defaultOutput": "Debug/net10.0",
+    "testProject": "tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj",
+    "relatedTestClasses": [
+      "LensConfigurationNavigationTests",
+      "MultiConfigurationMatrixTests",
+      "UserGuidePanelTests",
+      "CompactRibbonTests"
+    ],
+    "relatedTests": { "passed": 28, "failed": 0, "skipped": 0 },
+    "skiaLayoutTests": { "passed": 4, "failed": 0, "skipped": 0, "overlapsRelatedTests": true },
+    "skiaThemes": ["Light", "Dark", "Pixel", "Isekai"],
+    "skiaWidthsDip": [1000, 680, 360, 600],
+    "visuallyInspected": ["Light-zh-CN-1000", "Pixel-ja-JP-360"],
+    "documentationAudit": "passed",
+    "diffCheck": "passed",
+    "localEvidenceDirectory": ".tmp/configuration-navigation-placement",
+    "sandboxBuildAttempts": "Initial sandboxed commands returned no build output; stopped and rerun successfully outside sandbox."
+  },
+  "limits": {
+    "releaseRebuilt": false,
+    "installerRebuilt": false,
+    "fullTestSuiteRerun": false,
+    "numericalCertification": false
+  }
+}

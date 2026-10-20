@@ -3,7 +3,9 @@ param(
     [Parameter(Mandatory)][string]$ReportDirectory,
     [Parameter(Mandatory)][string]$ArchivePath,
     [string]$AdditionalRunDirectory,
-    [string]$AdditionalReportDirectory
+    [string]$AdditionalReportDirectory,
+    [ValidateRange(1, 100000)][int]$ExpectedLensCount = 95,
+    [string]$AdditionalEvidenceDirectory
 )
 $ErrorActionPreference = 'Stop'
 $repository = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '../../..')).Path
@@ -13,7 +15,7 @@ $archive = [IO.Path]::GetFullPath($ArchivePath)
 if (-not $archive.StartsWith($repository + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { throw 'Evidence archive must remain in the repository.' }
 if (Test-Path -LiteralPath $archive) { throw 'Evidence archive already exists.' }
 $summary = Get-Content -LiteralPath (Join-Path $report 'summary.json') -Raw | ConvertFrom-Json
-if (-not $summary.completeExecutionAttempts -or $summary.sourceLenses -ne 95) { throw 'A complete 95-lens report is required.' }
+if (-not $summary.completeExecutionAttempts -or $summary.sourceLenses -ne $ExpectedLensCount) { throw "A complete $ExpectedLensCount-lens report is required." }
 $files = [Collections.Generic.List[object]]::new()
 function Add-Payload([string]$Directory, [string]$Prefix, [switch]$SourcesOnly) {
     foreach ($file in Get-ChildItem -LiteralPath $Directory -File -Recurse) {
@@ -27,6 +29,7 @@ Add-Payload $run 'run'
 Add-Payload $report 'report'
 if ($AdditionalRunDirectory) { Add-Payload (Resolve-Path -LiteralPath $AdditionalRunDirectory).Path 'zos-variant-run' }
 if ($AdditionalReportDirectory) { Add-Payload (Resolve-Path -LiteralPath $AdditionalReportDirectory).Path 'zos-variant-report' }
+if ($AdditionalEvidenceDirectory) { Add-Payload (Resolve-Path -LiteralPath $AdditionalEvidenceDirectory).Path 'task-evidence' }
 Add-Payload $PSScriptRoot 'diagnostic-source' -SourcesOnly
 Add-Payload (Join-Path $repository 'tools/OpticalSystemDesign.ZemaxComparison/ZemaxHost') 'native-helper-source' -SourcesOnly
 foreach ($log in Get-ChildItem -LiteralPath (Join-Path $repository 'artifacts/validation') -File -Filter 'sequential-corpus*') {

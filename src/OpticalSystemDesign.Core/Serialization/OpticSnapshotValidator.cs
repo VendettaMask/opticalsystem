@@ -53,6 +53,7 @@ public static class OpticSnapshotValidator
         "polynomial_dispersion",
         "abbe",
         "catalog_glass",
+        "tabulated_index",
         "catalog");
 
     private static readonly IReadOnlySet<string> CoatingKinds = Kinds(
@@ -853,6 +854,12 @@ public static class OpticSnapshotValidator
         }
 
         ValidateEncodedCollectionSizes(component, role, path);
+        if (role == ComponentRole.Material && component.Kind == "tabulated_index")
+        {
+            try { _ = ComponentSnapshotFactory.ToMaterial(component, "", new Materials.MaterialRegistry()); }
+            catch (Exception exception) when (exception is ArgumentException or KeyNotFoundException or InvalidOperationException)
+            { Invalid(path, exception.Message); }
+        }
         if (role == ComponentRole.Material && component.Kind == "gradient_index")
         {
             try { _ = ComponentSnapshotFactory.ToGradientIndex(component); }

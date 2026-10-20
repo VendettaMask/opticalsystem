@@ -216,6 +216,11 @@ public static partial class ComponentSnapshotFactory
             LocatedGradientIndexMaterial => throw new NotSupportedException("GRIN 的运行时体坐标绑定不能保存为处方材料，请使用原始空间分布材料。"),
             AirMaterial => ComponentSnapshot.Empty("air"),
             CatalogGlassMaterial catalog => FromCatalogGlass(catalog),
+            TabulatedMaterial table => new ComponentSnapshot("tabulated_index",
+                Coefficients(table.WavelengthsNanometers, new Dictionary<string, double>(), "w")
+                    .Concat(Coefficients(table.Indices, new Dictionary<string, double>(), "n"))
+                    .ToDictionary(item => item.Key, item => item.Value),
+                new Dictionary<string, string> { ["name"] = table.Name, ["provenance"] = table.Provenance }),
             UnresolvedMaterial unresolved => new ComponentSnapshot("unresolved", new Dictionary<string, double>(),
                 new Dictionary<string, string> { ["name"] = unresolved.Name, ["catalogs"] = unresolved.Catalogs }),
             ConstantIndexMaterial constant => new ComponentSnapshot("constant", new Dictionary<string, double>
@@ -263,6 +268,8 @@ public static partial class ComponentSnapshotFactory
             "air" => new AirMaterial(),
             "gradient_index" => ToGradientIndex(snapshot),
             "catalog_glass" => ToCatalogGlass(snapshot, name),
+            "tabulated_index" => new TabulatedMaterial(name, ReadCoefficients(snapshot.Numbers, "w"),
+                ReadCoefficients(snapshot.Numbers, "n"), snapshot.Text["provenance"]),
             "unresolved" => new UnresolvedMaterial(name, snapshot.Text.GetValueOrDefault("catalogs", "")),
             "constant" => new ConstantIndexMaterial(name, Get(snapshot.Numbers, "index", 1.5), Get(snapshot.Numbers, "extinction", 0)),
             "cauchy" => new CauchyMaterial(name, Get(snapshot.Numbers, "a", 1.5), Get(snapshot.Numbers, "b", 0), Get(snapshot.Numbers, "c", 0)),

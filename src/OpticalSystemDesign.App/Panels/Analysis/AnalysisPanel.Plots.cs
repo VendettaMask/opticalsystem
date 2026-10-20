@@ -691,6 +691,10 @@ public sealed partial class AnalysisPanel
         bool defaultSquareCells = false)
     {
         const int panesPerField = 2;
+        // Include room for axes and captions in each fan's logical minimum.
+        // The responsive page can scale this layout; a 64-DIP square leaves
+        // almost no drawable area after the plot's axis margins are removed.
+        const double minimumFanSize = 200;
         var fieldPanes = PairFanPanesByField(panes);
         if (fieldPanes is null)
         {
@@ -735,14 +739,16 @@ public sealed partial class AnalysisPanel
                 {
                     Series = pane.Series,
                     PlotOptions = pane.PlotOptions with { Title = string.Empty },
+                    MinWidth = minimumFanSize,
+                    MinHeight = minimumFanSize,
                     Margin = new Thickness(2)
                 };
                 var squareHost = new OptionalSquarePlotHost
                 {
                     Child = plot,
                     IsSquare = defaultSquareCells,
-                    MinWidth = 64,
-                    MinHeight = 64
+                    MinWidth = minimumFanSize,
+                    MinHeight = minimumFanSize
                 };
                 Grid.SetColumn(squareHost, paneOffset);
                 Grid.SetRow(squareHost, 1);

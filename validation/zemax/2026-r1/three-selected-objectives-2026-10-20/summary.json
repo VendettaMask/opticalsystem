@@ -1,0 +1,82 @@
+{
+  "date": "2026-10-20",
+  "nativeReferenceFormat": "zmx",
+  "sourceLenses": 3,
+  "sourceFiles": 3,
+  "originalSourceFilesUnchanged": 3,
+  "nativeJobs": 102,
+  "nativeFailures": 0,
+  "completedNativeAttemptsIncludingRetainedFailures": 102,
+  "completedWorkbenchAttemptsIncludingRetainedFailures": 90,
+  "analysisRequests": 90,
+  "analysisCounts": {
+    "Pass": 86,
+    "Incomparable": 2,
+    "Difference": 1,
+    "Close": 1
+  },
+  "rayJobs": 9,
+  "rayCounts": {
+    "Pass": 9
+  },
+  "physicalSurfaceComparisons": 16200,
+  "comparedValues": 97200,
+  "comparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "inventorySha256": "1966f1ec0cdc1623baa7530410daa29dd51ae7e16ef7437f592d34279ec6a61b",
+  "completeExecutionAttempts": true,
+  "scope": "18 primary analyses plus 4 edge-field controls at each positive-weight wavelength and GQ6 rays for every successfully prepared configuration. Not all field/wavelength/sampling combinations. ZOS/ZMX equality covers captured configuration-1 model properties only, not all numerical outputs.",
+  "lensRows": [
+    {
+      "lens": "Cooke 40 degree field.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 30
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Unavailable",
+      "worstNrmse": 8.207968401871012E-05,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Double Gauss 28 degree field.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 29,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Unavailable",
+      "worstNrmse": 0.00047718279838495227,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Petzval.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 27,
+        "Incomparable": 1,
+        "Difference": 1,
+        "Close": 1
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Unavailable",
+      "worstNrmse": 0.01790008791683797,
+      "notes": [],
+      "analysisRequests": 30
+    }
+  ]
+}

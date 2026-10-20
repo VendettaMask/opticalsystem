@@ -1,0 +1,62 @@
+{
+  "scalars": [],
+  "series": [
+    {
+      "id": "curve:0",
+      "displayName": "Native RMS column 0",
+      "x": [
+        0,
+        0.06666666666666667,
+        0.13333333333333333,
+        0.2,
+        0.26666666666666666,
+        0.3333333333333333,
+        0.4,
+        0.4666666666666667,
+        0.5333333333333333,
+        0.6,
+        0.6666666666666666,
+        0.7333333333333333,
+        0.8,
+        0.8666666666666667,
+        0.9333333333333333,
+        1
+      ],
+      "y": [
+        7.373696231886078,
+        7.454277259052557,
+        7.687328441809545,
+        8.049219552890232,
+        8.507080605287518,
+        9.024572051913406,
+        9.565731663535075,
+        10.096764133816338,
+        10.58658455910512,
+        11.007022589421197,
+        11.333443288179218,
+        11.54652631815099,
+        11.636230031038265,
+        11.609653211058788,
+        11.505575392654265,
+        11.418985835390398
+      ],
+      "xAxis": {
+        "quantity": "NormalizedField",
+        "unit": "Dimensionless"
+      },
+      "yAxis": {
+        "quantity": "Radius",
+        "unit": "Micrometer"
+      }
+    }
+  ],
+  "grids": [],
+  "reports": [],
+  "images": [],
+  "complexFields": [],
+  "transformations": [
+    "Field coordinate is distance along \u002By, divided by the captured field extent; Workbench signed coordinates converted using the requested orientation.",
+    "26.1 RMS enum-name discrepancy: physical reference and interval count verified from native report/data, not inferred from interface enum display names."
+  ],
+  "semantics": "Native configured RMS data; normalized field or physical wavelength/focus axis; no fitted normalization."
+}

@@ -25,7 +25,11 @@ docs/validation/FROZEN_GIT_INTEGRITY_REPAIR_2026-10-11.json -text whitespace=cr-
 docs/validation/*_2026-10-17.json -text whitespace=cr-at-eol
 docs/validation/*_2026-10-18.json -text whitespace=cr-at-eol
 docs/validation/*_2026-10-19.json -text whitespace=cr-at-eol
+docs/validation/*_2026-10-20.json -text whitespace=cr-at-eol
 tests/OpticalSystemDesign.Tests/Fixtures/partial-coherence-zemax-2026-r1.json -text whitespace=cr-at-eol
 tests/OpticalSystemDesign.Tests/Fixtures/partial-coherence-finite-zemax-2026-r1.json -text whitespace=cr-at-eol
 
 validation/repairs/2026-10-18/relay-stop-branch-repair-evidence.zip filter=lfs diff=lfs merge=lfs -text
+validation/repairs/2026-10-20/objectives-matrix-evidence.zip filter=lfs diff=lfs merge=lfs -text
+# This captured report's terminal blank line is part of its sealed evidence bytes.
+validation/zemax/2026-r1/objectives-2026-10-20/LENS_COMPARISON.md -whitespace

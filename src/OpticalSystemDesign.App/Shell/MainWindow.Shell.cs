@@ -76,7 +76,7 @@ public sealed partial class MainWindow
                     RibbonGroup("系统",
                         RibbonButton("show-system", "settings", "系统选项"),
                         RibbonButton("show-lens-editor", "table-2", "镜头数据"),
-                        RibbonButton("show-multiconfig", "panels-top-left", "多配置")),
+                        RibbonButton("show-multiconfig", "panels-top-left", "多重结构")),
                     RibbonGroup("显示",
                         RibbonButton("display-settings", "type", "格式与字体")),
                     RibbonGroup("语言", RibbonLanguageMenuButton()))),

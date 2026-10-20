@@ -26,6 +26,8 @@
 
 ## Desktop build output locking
 
+- User validation preference (2026-10-20): run focused regression tests for the changed behavior and concrete regressions observed during the task. Do not routinely rerun full test suites on every change; expand the scope only when a specific unresolved risk requires it or the user requests it. Report interrupted runs as incomplete.
+
 - If a running `Optical System Design` process locks the default App build output, close that specific application process and rerun the build or test against the default output directory so the runnable desktop binaries are updated. Do not work around the lock by treating an alternate output directory as the completed verification.
 
 ## Accuracy reference priority

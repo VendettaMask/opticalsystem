@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "timezone": "Asia/Shanghai",
+  "status": "locally-verified",
+  "baseCommit": "59bb1de5b8202d3389a686a7ac7e8ef2a8a43f69",
+  "scope": "Post-update numerical input consistency: linked active prescriptions, thickness pickups and protected targets. Shared Core optical formulas and every existing regression assertion remain unchanged.",
+  "repairs": [
+    "Resolve configuration copies before replacing storage and the active optic, including base-linked inactive edits.",
+    "Resolve surface thickness pickups and image solves through existing Core interfaces. Preserve independent overrides.",
+    "Reject direct writes to surface-pickup-controlled thickness targets."
+  ],
+  "newRegressionCases": 11,
+  "precisionAssertions": "Exact double equality for prescription values, paraxial EFL, independent overrides, pickup dependency results, undo/redo and STAROPT round trip; no fitted correction or new optical tolerance.",
+  "reproduction": {
+    "baselineTheoryCases": 6,
+    "passed": 2,
+    "failed": 4,
+    "expectedThicknessMillimeters": 3.123456789012345,
+    "observedStaleThicknessMillimeters": 3,
+    "trx": "thickness-before.trx"
+  },
+  "originalAssets": {
+    "frozenCount": 2668,
+    "frozenMatched": 2668,
+    "originalLenses": 95,
+    "originalLensesMatched": 95,
+    "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+    "tolerancesChanged": false,
+    "nativeReferencesRegenerated": false,
+    "modifiedCoreSourceFiles": [],
+    "modifiedExistingTestFiles": []
+  },
+  "identity": {
+    "baseCommit": "59bb1de5b8202d3389a686a7ac7e8ef2a8a43f69",
+    "sources": [
+      {
+        "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Configuration.cs",
+        "sha256": "734e33c11c21ea9e11fe43851e74115c907abaab47e3594b9ef1d35f5aaa345e",
+        "bytes": 9253
+      },
+      {
+        "path": "tests/OpticalSystemDesign.Tests/MultiConfigurationThicknessPrecisionTests.cs",
+        "sha256": "7ab3dcd705f608a6154bad2793876623e0fd32b26a2c8e1b13bfd803474b2372",
+        "bytes": 5979
+      }
+    ],
+    "binaries": [
+      {
+        "path": "src/OpticalSystemDesign.Core/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+        "sha256": "235a3c96e1ec39833888f16274865e21d91ae3061fe7f6b70e92f1ceca3300e8"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+        "sha256": "859a48b376f8f246cfd7814f6d8e3654400d8d51858503571a993049cf52e77c"
+      },
+      {
+        "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/OpticalSystemDesign.Application.dll",
+        "sha256": "7de322427929e68472a965aef5d68dd10405919ddb8772e001a1f02dd9074470"
+      },
+      {
+        "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+        "sha256": "5b738dbf63296e5520e2ae2abe68e1d90ed119c18b7e12a43d5d4cee20cc8401"
+      }
+    ],
+    "comparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+    "modifiedCoreSourceFiles": [],
+    "modifiedExistingTestFiles": [],
+    "nativeReferencesRegenerated": false,
+    "tolerancesChanged": false
+  },
+  "completedChecks": [
+    {
+      "kind": "complete-main-regression",
+      "configuration": "Release",
+      "passed": 6265,
+      "existingCases": 6254,
+      "newPrecisionCases": 11,
+      "failed": 0,
+      "skipped": 0,
+      "trx": "main-release-full.trx",
+      "classResults": "release-class-results.json",
+      "duration": "19m04s"
+    },
+    {
+      "kind": "default-root-build",
+      "configuration": "Release",
+      "projects": 19,
+      "warnings": 0,
+      "errors": 0,
+      "log": "build-release-after.log"
+    },
+    {
+      "kind": "default-root-build",
+      "configuration": "Debug",
+      "projects": 19,
+      "warnings": 0,
+      "errors": 0,
+      "log": "build-debug-after-unlocked.log"
+    },
+    {
+      "kind": "new-exact-precision-guards",
+      "configuration": "Release",
+      "passed": 11,
+      "failed": 0,
+      "trx": "precision-final-release.trx",
+      "includedInMainRuns": true
+    },
+    {
+      "kind": "focused-main-regression",
+      "configuration": "Debug",
+      "passed": 343,
+      "failed": 0,
+      "trx": "main-debug-focused.trx",
+      "precisionCases": 11,
+      "classResults": "debug-class-results.json"
+    },
+    {
+      "kind": "complete-comparison-tests",
+      "configuration": "Release",
+      "passed": 223,
+      "failed": 0,
+      "trx": "comparison-release.trx"
+    },
+    {
+      "kind": "complete-coating-regression",
+      "configuration": "Release",
+      "passed": 54,
+      "failed": 0,
+      "trx": "coating-release.trx"
+    },
+    {
+      "kind": "initial-structure-contracts-partition",
+      "configuration": "Release",
+      "passed": 308,
+      "failed": 0,
+      "trx": "initial-contracts/initial-contracts.trx",
+      "separatelyScheduledLongSurveyCases": 12,
+      "surveyCasesExecuted": 0
+    },
+    {
+      "kind": "strict-documentation-check",
+      "documents": 958,
+      "brokenLinks": 0,
+      "markdownFenceIssues": 0,
+      "guideRepeatedParagraphGroups": 0,
+      "result": "documentation-final.json"
+    },
+    {
+      "kind": "changed-source-format-and-diff-check",
+      "formatExitCode": 0,
+      "sourceDiffCheckExitCode": 0,
+      "log": "format-verify.log"
+    }
+  ],
+  "pendingChecks": [],
+  "excludedClaims": [
+    "No new 95-lens native certification or closure of prior Riflescope/Yolo residuals.",
+    "No actual Linux/macOS verification or execution claim for the twelve separately scheduled long frozen surveys."
+  ],
+  "evidenceRoot": "artifacts/validation/update-precision-20261020",
+  "preservedIntermediateEvidence": [
+    "thickness-before.trx",
+    "thickness-expanded-before.trx",
+    "configuration-after.trx",
+    "build-release-before.log",
+    "build-debug-after.log"
+  ],
+  "intermediateNotes": "configuration-after.trx retains two newly added pickup fixture initialization failures; the final fixture explicitly resolves its initial surface pickups. No existing test or tolerance changed. The default Debug lock was resolved with a verified normal close, never forced termination.",
+  "countingRule": "Test collections overlap; do not sum counts.",
+  "gracefulDebugProcessClose": {
+    "ProcessId": 19656,
+    "VerifiedPath": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\bin\\Debug\\net10.0\\OpticalSystemDesign.App.exe",
+    "SavedStateTitle": "A SIMPLE COOKE TRIPLET. - 顺序模式 - Optical System Design",
+    "GracefulCloseRequested": true,
+    "Exited": true
+  },
+  "portableEvidence": {
+    "path": "validation/repairs/2026-10-20/update-numerical-precision-repair-evidence.zip",
+    "bytes": 2186641,
+    "sha256": "0db61d2d0f9b84a7a8a068b130ad65cdcfd2984fca602f0559fe0ab2132a3e8a",
+    "payloadFiles": 41,
+    "totalEntriesIncludingManifestAndEmptyDirectories": 44,
+    "emptyDirectories": [
+      "5f8e6cc0-65e4-44f5-ba17-be237e88e04a/",
+      "initial-contracts/4e6e424b-2e42-4067-96ff-c07f9b72c8a8/"
+    ],
+    "everyPayloadHashVerified": true,
+    "manifestSha256": "6d33dda3588258b8eaa3cd0506b5441b61f5d9162859b9894213f2d9c76826a7"
+  },
+  "finalIdentityVerified": true
+}

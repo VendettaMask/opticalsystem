@@ -161,26 +161,39 @@ public partial class WorkbenchRuntime
             throw new ArgumentOutOfRangeException(nameof(surfaceNumber));
         }
 
+        if (_multiConfiguration.Configurations[configIndex].Pickups.ThicknessPickups.Any(pickup => pickup.TargetSurface == surfaceNumber))
+            throw new InvalidOperationException("该参数由表面拾取控制，请编辑源表面或先移除拾取。");
+
         if (surface.Thickness.Equals(thickness))
         {
             return;
         }
 
-        CaptureCurrentState();
-        _multiConfiguration.SetThickness(configIndex, surfaceNumber, thickness);
-        if (configIndex == 0)
+        MutateConfigurationOperands(candidate =>
         {
-            _multiConfiguration.PropagateBaseLinks();
-        }
+            candidate.SetThickness(configIndex, surfaceNumber, thickness);
+            if (candidate.OperandPickups.Count > 0)
+            {
+                candidate.ApplyOperandPickups();
+                return;
+            }
 
-        if (configIndex == _activeConfigurationIndex)
-        {
-            CurrentOptic = _multiConfiguration.Configurations[configIndex].Clone();
-            SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
-        }
-
-        SynchronizeConfigurationPickups();
+            var changed = candidate.Configurations[configIndex];
+            changed.Pickups.ApplyAll();
+            changed.Solves.ApplyAll();
+            if (configIndex == 0)
+            {
+                candidate.PropagateBaseProperty(surfaceNumber, "thickness");
+                foreach (var target in changed.Pickups.ThicknessPickups.Select(pickup => pickup.TargetSurface).Distinct())
+                    candidate.PropagateBaseProperty(target, "thickness");
+            }
+            foreach (var configuration in candidate.Configurations)
+            {
+                configuration.Pickups.ApplyAll();
+                configuration.Solves.ApplyAll();
+                configuration.SurfaceGroup.Renumber();
+            }
+        });
         SetStatus($"配置 {configIndex} 表面 {surfaceNumber} 厚度已更新。");
-        OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 }

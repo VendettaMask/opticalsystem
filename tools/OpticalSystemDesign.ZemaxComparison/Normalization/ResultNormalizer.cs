@@ -124,6 +124,7 @@ public static class ResultNormalizer
         ValidateNumberedConfiguration(path, entry, request);
         using var doc = JsonDocument.Parse(File.ReadAllText(path)); var root = doc.RootElement;
         NativeReferenceDiagnostics.Validate(root);
+        NativeLengthUnitContract.Validate(path, request);
         AfocalAnalysisContracts.ValidateNativeModel(path, request);
         if ((request.ImageSpaceAfocal && entry.CanonicalAnalysisKey is "Ray Fan" or "MTF")
             || (entry.CanonicalAnalysisKey == "MTF" && request.Field == 0))

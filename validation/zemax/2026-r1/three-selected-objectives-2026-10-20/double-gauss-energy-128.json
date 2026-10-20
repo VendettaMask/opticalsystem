@@ -1,0 +1,149 @@
+{
+  "key": "Diffraction Encircled Energy",
+  "directory": "diffraction-encircled-energy-c1",
+  "support": "Comparable",
+  "zemaxStatus": "Captured",
+  "workbenchStatus": "Captured",
+  "conclusion": "Pass",
+  "reason": "",
+  "request": {
+    "canonicalAnalysisKey": "Diffraction Encircled Energy",
+    "configuration": 1,
+    "field": 1,
+    "wavelength": 2,
+    "surface": -1,
+    "pupilSampling": 128,
+    "imageSampling": 64,
+    "rayCount": 20,
+    "gridSize": 64,
+    "imageDeltaMicrometers": 0.25,
+    "maximumFrequency": 50,
+    "focusMinimum": -0.1,
+    "focusMaximum": 0.1,
+    "reference": "Centroid",
+    "polarization": false,
+    "apodization": "{\r\n  \u0022kind\u0022: \u0022zemax_pupil\u0022,\r\n  \u0022numbers\u0022: {\r\n    \u0022type\u0022: 0,\r\n    \u0022factor\u0022: 0\r\n  },\r\n  \u0022text\u0022: {},\r\n  \u0022children\u0022: null\r\n}",
+    "deleteVignetted": true,
+    "useRayAiming": false,
+    "normalization": "NativePhysical",
+    "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+    "outputUnits": "TypedAxes",
+    "settingsOrigin": "CapturedSettings",
+    "workbenchSettings": {
+      "PupilSampling": "128",
+      "ImageSampling": "256",
+      "NumPoints": "401",
+      "WavelengthNumber": "2",
+      "FieldNumber": "1",
+      "Type": "encircled",
+      "Reference": "centroid",
+      "MaximumDistanceMicrometers": "5",
+      "SurfaceNumber": "-1",
+      "UsePolarization": "False",
+      "UseRayAiming": "False",
+      "Sampling": "128",
+      "ZernikeTerms": "37",
+      "NumRays": "128",
+      "Distribution": "uniform",
+      "MaximumRadiusMicrometers": "5",
+      "MultiplyByDiffractionLimit": "False"
+    },
+    "zemaxSettings": {
+      "Wavelength": 2,
+      "Field": 1,
+      "Surface": -1,
+      "SampleSize": "S_128x128",
+      "UsePolarization": false,
+      "RadiusMaximum": 5,
+      "Type": "Encircled",
+      "ReferTo": "Centroid",
+      "ScatterRays": false,
+      "ShowDiffractionLimit": true,
+      "UseDashes": false,
+      "UseHuygensPSF": false,
+      "HuygensSample": "S_64x64",
+      "HuygensDelta": 0
+    },
+    "zemaxCfgSettings": {},
+    "wavelengthScope": "Selected",
+    "wavelengthCount": 3,
+    "fieldDefinition": "Angle",
+    "maximumFieldRadius": 14,
+    "surfaceCount": 13,
+    "fieldCount": 3,
+    "definedFields": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        10
+      ],
+      [
+        0,
+        14
+      ]
+    ],
+    "fieldScanDirection": "\u002By",
+    "primaryWavelengthMicrometers": 0.5876,
+    "zemaxSettingsMode": "TypedProperties",
+    "sourceImagePath": null,
+    "sourceImageSha256": null
+  },
+  "tolerances": {
+    "EnergyFraction": {
+      "absolute": 1E-05,
+      "relative": 0.002,
+      "nrmse": 0.003,
+      "closeNrmse": 0.01,
+      "minimumCoverage": 0.95
+    }
+  },
+  "metrics": [
+    {
+      "id": "curve:0",
+      "unit": "Dimensionless",
+      "count": 786,
+      "maxAbsolute": 1.2712053631958042E-14,
+      "meanAbsolute": 2.8502469525968653E-15,
+      "rmse": 4.091922152419403E-15,
+      "nrmse": 4.392536845593262E-15,
+      "maxRelative": 1.535486557498141E-13,
+      "p50": 1.6653345369377348E-15,
+      "p90": 7.882583474838611E-15,
+      "p95": 9.367506770274758E-15,
+      "pearson": 0.9999999999999997,
+      "worstX": 0.7124999999999995,
+      "worstY": null,
+      "coverage": 1,
+      "conclusion": "Pass",
+      "extra": {}
+    },
+    {
+      "id": "curve:1",
+      "unit": "Dimensionless",
+      "count": 786,
+      "maxAbsolute": 8.376410676191881E-11,
+      "meanAbsolute": 4.259886115647619E-11,
+      "rmse": 4.918682202001987E-11,
+      "nrmse": 1.4710348065098215E-10,
+      "maxRelative": 6.35951012972865E-10,
+      "p50": 3.390816100123928E-11,
+      "p90": 7.881359453953962E-11,
+      "p95": 8.110637161884426E-11,
+      "pearson": 0.9999999999999992,
+      "worstX": 5,
+      "worstY": null,
+      "coverage": 1,
+      "conclusion": "Pass",
+      "extra": {}
+    }
+  ],
+  "normalizations": [
+    "curve:0: sorted coordinates; linear interpolation on union of 786 physical knots in [0, 5]; no extrapolation",
+    "curve:1: sorted coordinates; linear interpolation on union of 786 physical knots in [0, 5]; no extrapolation"
+  ],
+  "screenshotStatus": "NotRequested",
+  "elapsedMilliseconds": 7713
+}

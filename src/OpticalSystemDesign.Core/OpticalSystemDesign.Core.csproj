@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Materials/Data/zemax-mil-profiles.json"
+                      LogicalName="OpticalSystemDesign.Core.Materials.Data.zemax-mil-profiles.json" />
     <EmbeddedResource Include="Materials/Data/glass-catalog.json"
                       LogicalName="OpticalSystemDesign.Core.Materials.Data.glass-catalog.json" />
     <EmbeddedResource Include="Materials/Data/zemax-glass-catalogs.ogdb"

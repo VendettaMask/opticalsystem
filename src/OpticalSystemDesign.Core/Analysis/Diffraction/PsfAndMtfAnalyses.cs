@@ -381,7 +381,10 @@ public sealed class MtfAnalysis : BaseAnalysis
                     gridSize,
                     _usePolarization,
                     cellCenteredPupil: _zemaxCompatible,
+                    zemaxFftSampling: _zemaxCompatible,
+                    imageDelta: _zemaxCompatible ? -1 : 0,
                     referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0]);
+                if (_zemaxCompatible) psf = psf with { FrequencySampleCount = pupilSampling - 1 };
                 return (wavelength, DiffractionEngine.ComputeFftMtf(psf, analysisOptic, wavelength));
             }).ToArray();
             var fullMtf = MtfMethodEvaluator.CombinePolychromatic(wavelengthResults);
@@ -518,6 +521,27 @@ public sealed class MtfAnalysis : BaseAnalysis
         var frequency = Enumerable.Range(0, pointCount)
             .Select(index => maximumFrequency * index / (pointCount - 1.0))
             .ToArray();
+        if (type != FftMtfDataType.SquareWave && source.TangentialOtf is { } tOtf && source.SagittalOtf is { } sOtf)
+        {
+            // Interpolate the complex OTF before deriving modulation/phase.
+            // Interpolating magnitudes loses sign reversals at MTF zeros.
+            var tAxis = source.TangentialFrequency ?? source.Frequency;
+            var sAxis = source.SagittalFrequency ?? source.Frequency;
+            return new MtfResult(frequency, Direction(tAxis, tOtf), Direction(sAxis, sOtf), source.CutoffFrequency);
+
+            double[] Direction(IReadOnlyList<double> axis, IReadOnlyList<System.Numerics.Complex> otf)
+            {
+                var real = MtfThroughFocusAnalysis.CubicSplineInterpolate(axis, otf.Select(value => value.Real).ToArray(), frequency);
+                var imaginary = MtfThroughFocusAnalysis.CubicSplineInterpolate(axis, otf.Select(value => value.Imaginary).ToArray(), frequency);
+                return frequency.Select((value, index) => value > axis[^1] ? 0 : type switch
+                {
+                    FftMtfDataType.Real => real[index],
+                    FftMtfDataType.Imaginary => imaginary[index],
+                    FftMtfDataType.Phase => Math.Atan2(imaginary[index], real[index]),
+                    _ => Math.Clamp(System.Numerics.Complex.Abs(new(real[index], imaginary[index])), 0, 1)
+                }).ToArray();
+            }
+        }
         var tangential = frequency.Select(value => MtfMethodEvaluator.Sample(source, value, type, tangential: true)).ToArray();
         var sagittal = frequency.Select(value => MtfMethodEvaluator.Sample(source, value, type, tangential: false)).ToArray();
         return new MtfResult(frequency, tangential, sagittal, source.CutoffFrequency);

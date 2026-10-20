@@ -232,6 +232,14 @@ internal sealed class ScalarBatchedNumericBackendAdapter : IBatchedNumericBacken
                         directionZ[index],
                         radius,
                         conic);
+                    if (!validDistance.HasValue)
+                    {
+                        (first, second) = StableQuadraticRoots(a, b, c, root);
+                        validDistance = SelectStandardExplicitSagDistance(
+                            first, second,
+                            originX[index], originY[index], originZ[index],
+                            directionX[index], directionY[index], directionZ[index], radius, conic);
+                    }
                 }
             }
 

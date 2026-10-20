@@ -1,0 +1,95 @@
+{
+  "candidate": "v3 stable-root fallback only after both ordinary roots fail unchanged explicit-sag validation",
+  "coreSha256": "cf3647652213542dae90d0ed1c16b9df5290e740a0b204f1b4a6e0a9f40a6b2c",
+  "completedTestSets": [
+    {
+      "configuration": "Release",
+      "scope": "14 roots and Petzval ray guards plus five observed legacy energy failure classes",
+      "total": 146,
+      "passed": 146,
+      "failed": 0,
+      "notExecuted": 0,
+      "classes": [
+        "OpticalSystemDesign.Tests.CumulativeEnergyHighSamplingTests",
+        "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests",
+        "OpticalSystemDesign.Tests.FiniteFftAimingEnergyTests",
+        "OpticalSystemDesign.Tests.FNumberPerturbationEnergyTests",
+        "OpticalSystemDesign.Tests.Polychromatic128BoundaryEnergyTests",
+        "OpticalSystemDesign.Tests.StandardIntersectionPrecisionTests"
+      ],
+      "trx": "artifacts\\petzval-repair\\2026-10-20\\tests\\v3-roots-energy-targeted.trx",
+      "sha256": "4312c7e4a0e40171e581e24f1ed8a45d07ab461ec5e7d47420495853f1797a4b"
+    },
+    {
+      "configuration": "Release",
+      "scope": "Two actually failed initial-structure methods and neighboring parameter cases, default built-in Engine",
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "notExecuted": 0,
+      "classes": [
+        "OpticalSystemDesign.InitialStructure.Tests.JointGeometryRestartTests",
+        "OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests"
+      ],
+      "trx": "artifacts\\petzval-repair\\2026-10-20\\tests\\v3-initial-targeted.trx",
+      "sha256": "c8ea95efc6176b3a7e2c22bfcb8f47c8e147f633b5107eface977c1a6b9f1f10"
+    },
+    {
+      "configuration": "Release",
+      "scope": "Petzval two original-reference analyses",
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "notExecuted": 0,
+      "classes": [
+        "OpticalSystemDesign.ZemaxComparison.Tests.PetzvalNativeRepairTests"
+      ],
+      "trx": "artifacts\\petzval-repair\\2026-10-20\\tests\\v3-petzval-native.trx",
+      "sha256": "7fdb9c99e59ec23884003b2c85ad9c4ae92563cec49c05532d094932bd8b589c"
+    },
+    {
+      "configuration": "Release",
+      "scope": "Intersection scalar, vector and adapter guards, DOTNET_EnableHWIntrinsic=0",
+      "total": 17,
+      "passed": 17,
+      "failed": 0,
+      "notExecuted": 0,
+      "classes": [
+        "OpticalSystemDesign.Tests.BatchedBackendKernelTests",
+        "OpticalSystemDesign.Tests.ScalarBackendAdapterTests",
+        "OpticalSystemDesign.Tests.StandardIntersectionPrecisionTests"
+      ],
+      "trx": "artifacts\\petzval-repair\\2026-10-20\\tests\\v3-scalar-fallback.trx",
+      "sha256": "3d0974d3b9f63df723b50134ddc9108566c3dbcaf0a806715325f21045d03e46"
+    },
+    {
+      "configuration": "Debug",
+      "scope": "14 intersection guards",
+      "total": 14,
+      "passed": 14,
+      "failed": 0,
+      "notExecuted": 0,
+      "classes": [
+        "OpticalSystemDesign.Tests.StandardIntersectionPrecisionTests"
+      ],
+      "trx": "artifacts\\petzval-repair\\2026-10-20\\tests\\v3-debug-roots.trx",
+      "sha256": "07b794af6254830acd2090c669e3c4211f938c2ac9a8aa79faa46ed565c380f4"
+    },
+    {
+      "configuration": "Debug",
+      "scope": "Petzval two original-reference analyses",
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "notExecuted": 0,
+      "classes": [
+        "OpticalSystemDesign.ZemaxComparison.Tests.PetzvalNativeRepairTests"
+      ],
+      "trx": "artifacts\\petzval-repair\\2026-10-20\\tests\\v3-debug-petzval.trx",
+      "sha256": "3d48982178206cdd04c3a713e96093a5b6f98127f6f9c26434e7dc94e6e7e61c"
+    }
+  ],
+  "overlappingSetsMustNotBeSummed": true,
+  "fullMainSuiteCompleted": false,
+  "originalTestsUnchanged": "Seven original energy and initial-structure source files verified against HEAD; details in final-integrity.json"
+}

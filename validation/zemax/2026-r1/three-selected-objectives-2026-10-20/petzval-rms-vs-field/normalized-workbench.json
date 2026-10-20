@@ -1,0 +1,61 @@
+{
+  "scalars": [],
+  "series": [
+    {
+      "id": "curve:0",
+      "displayName": "RMS curve 0",
+      "x": [
+        0,
+        0.06666666666666667,
+        0.13333333333333333,
+        0.2,
+        0.26666666666666666,
+        0.3333333333333333,
+        0.4,
+        0.4666666666666667,
+        0.5333333333333333,
+        0.6,
+        0.6666666666666666,
+        0.7333333333333333,
+        0.8,
+        0.8666666666666667,
+        0.9333333333333333,
+        1
+      ],
+      "y": [
+        7.373696232997787,
+        7.562382783881839,
+        7.79689161381525,
+        8.301734613508877,
+        8.673251368644369,
+        8.991994709972262,
+        9.5657316643114,
+        10.008846337242115,
+        10.46605884163054,
+        11.007022589122377,
+        11.330384850668638,
+        11.546526321371816,
+        11.465955789598357,
+        11.609653241207486,
+        11.505575485333063,
+        11.418986094738985
+      ],
+      "xAxis": {
+        "quantity": "NormalizedField",
+        "unit": "Dimensionless"
+      },
+      "yAxis": {
+        "quantity": "Radius",
+        "unit": "Micrometer"
+      }
+    }
+  ],
+  "grids": [],
+  "reports": [],
+  "images": [],
+  "complexFields": [],
+  "transformations": [
+    "curve:0: unit conversion X Dimensionless-\u003EDimensionless x1; Y Millimeter-\u003EMicrometer x1000"
+  ],
+  "semantics": "GQ density 6; spot about centroid, wavefront piston-only chief reference; explicit scan settings."
+}

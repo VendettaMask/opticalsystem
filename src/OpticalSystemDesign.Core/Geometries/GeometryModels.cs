@@ -243,6 +243,13 @@ public sealed class StandardGeometry : NotifyObject, IGeometry
         var second = (-b + root) / (2.0 * a);
         var firstDistance = ValidateExplicitSagDistance(first, origin, direction);
         var secondDistance = ValidateExplicitSagDistance(second, origin, direction);
+        if (!firstDistance.IsHit && !secondDistance.IsHit)
+        {
+            (first, second) = StandardIntersectionValidation.StableQuadraticRoots(a, b, c, root);
+            firstDistance = ValidateExplicitSagDistance(first, origin, direction);
+            secondDistance = ValidateExplicitSagDistance(second, origin, direction);
+        }
+
         if (!firstDistance.IsHit)
         {
             return secondDistance;

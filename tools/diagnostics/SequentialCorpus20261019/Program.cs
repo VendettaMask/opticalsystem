@@ -187,7 +187,7 @@ if (mode == "prepare")
                     var run = new AnalysisRun { Key = key, Directory = id, Support = entry.Support, Tolerances = a.Quantities };
                     var item = new Item(source.Id, source.Unit, c, scope, directory, snapshot, null, a, run);
                     items.Add(item);
-                    if (AfocalAnalysisContracts.BlockReason(source.Unit, optic.ImageSpaceAfocal, key) is { } blockReason)
+                    if (AfocalAnalysisContracts.BlockReason(source.Unit, optic.ImageSpaceAfocal, key, normalizeNativeLength: true) is { } blockReason)
                     {
                         run.Conclusion = Conclusion.Incomparable;
                         run.Reason = blockReason;
@@ -217,6 +217,7 @@ if (mode == "prepare")
                         MaximumFieldRadius = optic.Fields.Max(f => Math.Sqrt(f.X * f.X + f.Y * f.Y)),
                         WorkbenchSettings = runtime.MergeAnalysisSettings(key, a.WorkbenchSettings)
                     };
+                    request = NativeLengthUnitContract.Configure(request, source.Unit);
                     request = AfocalAnalysisContracts.Configure(request, optic.ImageSpaceAfocal, File.ReadAllText(copy));
                     request = ExtendedAnalysisContracts.Configure(entry, request, primary);
                     request = ExtendedAnalysisContracts.ConfigureRmsFieldSampling(request, a);
@@ -313,7 +314,7 @@ else if (mode == "compare")
                 {
                     var error = JsonFiles.Read<JsonElement>(Path.Combine(native, "error.json"));
                     run.Reason += ": " + error.GetRawText();
-                    if (error.TryGetProperty("errorCode", out var code) && code.GetString() is "UnsupportedFieldMapping" or "AnalysisUnavailableForProgramMode" or "FeatureNotSupported" or "NotYetImplemented")
+                    if (error.TryGetProperty("errorCode", out var code) && code.GetString() is "UnsupportedFieldMapping" or "AnalysisUnavailableForProgramMode" or "FeatureNotSupported" or "NotYetImplemented" or "NativeInvalidResult")
                         run.Conclusion = Conclusion.Incomparable;
                 }
                 continue;

@@ -609,9 +609,7 @@ public sealed class WorkspaceDockFactory : Factory
                 _application.Prescription,
                 _application.Events,
                 _surfaceSelection,
-                _application.MultiConfiguration,
-                () => OpenDocument(new WorkspaceDocumentDescriptor(
-                    "document:multi-configuration", WorkspaceDocumentTypes.MultiConfiguration, "多配置"))),
+                _application.MultiConfiguration),
             WorkspaceDocumentTypes.NonSequentialObjectEditor => new NonSequentialObjectEditorPanel(
                 _application.NonSequential,
                 _application.Events),

@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using OpticalSystemDesign.ZemaxComparison;
 
 if (args.Length != 2) throw new ArgumentException("<completed-run-directory> <fresh-report-directory>");
 var root = Path.GetFullPath(args[0]);
@@ -40,6 +41,7 @@ var models = Read(Full("models.json")).EnumerateArray().ToArray();
 var items = Read(Full("analysis-results.json")).EnumerateArray().ToArray();
 var jobs = Read(Full("native-jobs.json")).EnumerateArray().ToArray();
 var identity = Read(Full("identity.json"));
+var runDate = DateTimeOffset.Parse(Text(identity, "preparedUtc"), CultureInfo.InvariantCulture).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
 var nativeReferenceFormat = Text(identity, "nativeReferenceFormat") is "zos" ? "zos" : "zmx";
 var missing = jobs.Where(job => !File.Exists(Path.Combine(Text(job, "output"), "batch-result.json"))).ToArray();
 var missingWorkers = items.Where(item => Text(item, "workbenchJob") != "" && !File.Exists(Path.Combine(Text(item, "path"), "workbench/worker-result.json"))).ToArray();
@@ -73,6 +75,7 @@ foreach (var directory in Directory.EnumerateDirectories(Full("rays")).Order(Str
         var inputs = Read(Path.Combine(directory, "inputs.json"));
         if (!Equivalent(inputs, native.GetProperty("inputs"))) throw new InvalidDataException("Native inputs differ from formal Core sample inputs.");
         var surfaces = native.GetProperty("surfaces").EnumerateArray().ToArray();
+        var propagationSigns = NativeReflectionConvention.PropagationSigns(Read(Path.Combine(directory, "native/model.json")));
         row.Inputs = inputs.GetArrayLength();
         row.SurfaceResults = row.Inputs * surfaces.Length;
         var coreSurfaceCount = Int(model, "surfaceCount");
@@ -119,7 +122,7 @@ foreach (var directory in Directory.EnumerateDirectories(Full("rays")).Order(Str
                 }
                 foreach (var (key, nativeKey) in new[] { ("x", "l"), ("y", "m"), ("z", "n") })
                 {
-                    var expected = Number(nativeRay, nativeKey);
+                    var expected = Number(nativeRay, nativeKey) * propagationSigns[si];
                     var delta = Math.Abs(Number(sample.GetProperty("direction"), key) - expected);
                     row.MaximumDirection = Math.Max(row.MaximumDirection, delta);
                     if (delta > 1e-8 + 1e-6 * Math.Abs(expected)) row.DirectionFailures++;
@@ -134,15 +137,15 @@ foreach (var directory in Directory.EnumerateDirectories(Full("rays")).Order(Str
             row.Conclusion = "Incomparable";
             row.Reason = "Unsupported imported capability; diagnostic rays do not certify the model.";
         }
-        else if (row.ReflectionDirectionConventionReview && row.DirectionFailures != 0)
-            row.Reason = "Raw reflection-direction convention requires alignment before interpreting direction errors as physical tracing defects.";
+        else if (row.ReflectionDirectionConventionReview)
+            row.Reason = "Native signed-index directions converted to physical propagation from explicit MIRROR rows; raw values retained.";
     }
     catch (Exception exception) { row.Conclusion = "Error"; row.Reason = exception.Message; }
 }
 Write("ray-results.json", rayResults);
 var lensRows = new List<object>();
 var csv = new List<string> { "Lens,CoreConfigurations,NativeConfigurations,ImportErrors,Pass,Close,Difference,Incomparable,Error,Skipped,RayPass,RayDifference,RayIncomparable,RayError,FormatModelReadback,WorstNRMSE,Notes" };
-var markdown = new StringBuilder("# Sequential 全目录逐镜头对比\n\n日期：2026-10-19。所有源文件逐字节保持；保留原比较策略、采样及容差。原生数据为本机新采集，Core 由正式 Application 执行。\n\n");
+var markdown = new StringBuilder($"# Sequential 选定目录逐镜头对比\n\n日期：{runDate}。所有源文件逐字节保持；保留原比较策略、采样及容差。原生数据为本机新采集，Core 由正式 Application 执行。\n\n");
 markdown.AppendLine("| 镜头 | Core/原生配置 | 导入错误 | Pass | Close | Difference | 不可比 | Error | 光线 P/D/I/E | ZMX/ZOS 模型读回 | 最大 NRMSE |\n|---|---:|---:|---:|---:|---:|---:|---:|---|---|---:|");
 string Csv(object? value) => '"' + Convert.ToString(value, CultureInfo.InvariantCulture)!.Replace("\"", "\"\"") + '"';
 var nativeProbes = jobs.Where(job => Text(job, "id").StartsWith("probe:", StringComparison.Ordinal)).ToArray();
@@ -180,7 +183,7 @@ foreach (var sourceRecord in sources)
     if (importErrors.Length != 0) notes.AddRange(importErrors.Select(error => error.Split('\n')[0].Trim()));
     notes.AddRange(imported.SelectMany(model => model.GetProperty("preflight").EnumerateArray()).Select(issue => issue.GetRawText()).Distinct());
     if (nativeConfigurations != imported.Length) notes.Add($"Native configurations={nativeConfigurations}, completed Core snapshots={imported.Length}; review missing import/configuration coverage.");
-    if (rays.Any(ray => ray.ReflectionDirectionConventionReview)) notes.Add("Reflection raw local direction convention requires review.");
+    if (rays.Any(ray => ray.ReflectionDirectionConventionReview)) notes.Add("Native reflection signed-index directions normalized to physical propagation from MIRROR rows.");
     var metrics = lensItems.SelectMany(item => item.GetProperty("run").GetProperty("metrics").EnumerateArray()).ToArray();
     double? worst = metrics.Length == 0 ? null : metrics.Max(metric => Number(metric, "nrmse"));
     lensRows.Add(new
@@ -202,7 +205,7 @@ foreach (var sourceRecord in sources)
 }
 var summary = new
 {
-    date = "2026-10-19",
+    date = runDate,
     nativeReferenceFormat,
     sourceLenses = sources.Length,
     sourceFiles = integrity.Length,

@@ -45,14 +45,12 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         IPrescriptionService prescription,
         IWorkspaceEventStream events,
         SurfaceSelectionService surfaceSelection,
-        IMultiConfigurationService? configurations = null,
-        Action? showConfigurations = null)
+        IMultiConfigurationService? configurations = null)
     {
         _prescription = prescription;
         _events = events;
         _surfaceSelection = surfaceSelection;
         _configurations = configurations;
-        _showConfigurations = showConfigurations;
         _grid = CreateGrid();
         var options = prescription.GetOptions();
         _geometryPicker.ItemsSource = options.GeometryKinds.Select(SurfaceEditorRow.SurfaceTypeForGeometry).Distinct().ToArray();

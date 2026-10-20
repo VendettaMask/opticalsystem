@@ -90,11 +90,11 @@ public sealed class LensConfigurationNavigationTests
                 var revision = app.Events.Revision;
                 for (var read = 0; read < 10; read++) Assert.Equal(new MultiConfigurationNavigationDto(3, 1), app.MultiConfiguration.GetNavigationState());
                 Assert.Equal(revision, app.Events.Revision);
-                MouseClick(window, Find<Button>(editor, "OpenLensMultiConfiguration"));
+                panels.Show(WorkspacePanelId.MultiConfiguration); Tick(window);
                 var multi = Assert.Single(panels.Factory.OpenDocuments(), d => d.Context is MultiConfigurationPanel);
                 Assert.Equal(3, panels.Factory.OpenDocuments().Count);
                 panels.Factory.SetActiveDockable(lens); Tick(window);
-                MouseClick(window, Find<Button>(editor, "OpenLensMultiConfiguration"));
+                panels.Show(WorkspacePanelId.MultiConfiguration); Tick(window);
                 Assert.Same(multi, Assert.Single(panels.Factory.OpenDocuments(), d => d.Context is MultiConfigurationPanel));
                 Assert.Equal(revision, app.Events.Revision);
             }
@@ -214,12 +214,20 @@ public sealed class LensConfigurationNavigationTests
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
             using var app = WorkbenchApplication.Create();
             await app.Documents.OpenAsync(ZoomPath());
-            using var editor = new LensEditorPanel(app.Prescription, app.Events, new SurfaceSelectionService(), app.MultiConfiguration, () => { });
+            using var editor = new LensEditorPanel(app.Prescription, app.Events, new SurfaceSelectionService(), app.MultiConfiguration);
             var window = new Window { Content = editor, Width = width, Height = 700 };
             try
             {
                 window.Show(); Tick(window);
                 var position = Find<TextBlock>(editor, "LensConfigurationPosition");
+                var previous = Find<Button>(editor, "PreviousLensConfiguration");
+                var next = Find<Button>(editor, "NextLensConfiguration");
+                var positionBounds = new Rect(position.TranslatePoint(default, window)!.Value, position.Bounds.Size);
+                var previousBounds = new Rect(previous.TranslatePoint(default, window)!.Value, previous.Bounds.Size);
+                var nextBounds = new Rect(next.TranslatePoint(default, window)!.Value, next.Bounds.Size);
+                Assert.True(previousBounds.Right <= positionBounds.Left && positionBounds.Right <= nextBounds.Left);
+                Assert.InRange(Math.Abs(positionBounds.Center.X - (previousBounds.Center.X + nextBounds.Center.X) / 2), 0, 1);
+                Assert.DoesNotContain(editor.GetVisualDescendants(), control => control.Name == "OpenLensMultiConfiguration");
                 var surfaceItems = Find<StackPanel>(editor, "SurfacePropertiesHeaderItems");
                 if (width >= 1000)
                 {
@@ -238,7 +246,7 @@ public sealed class LensConfigurationNavigationTests
                 UiLocalization.Apply(language); Tick(window);
                 Assert.Equal(caption, position.Text);
                 Assert.Equal(revision, app.Events.Revision);
-                foreach (var name in new[] { "PreviousLensConfiguration", "NextLensConfiguration", "OpenLensMultiConfiguration" })
+                foreach (var name in new[] { "PreviousLensConfiguration", "NextLensConfiguration" })
                 {
                     var control = Find<Button>(editor, name);
                     var bounds = new Rect(control.TranslatePoint(default, window)!.Value, control.Bounds.Size);

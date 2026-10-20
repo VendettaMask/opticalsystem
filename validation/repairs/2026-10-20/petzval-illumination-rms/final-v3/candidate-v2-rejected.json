@@ -1,0 +1,15 @@
+{
+  "candidate": "v2 forward-error-selected stable roots",
+  "coreSha256": "71562147fec264ad9b034f3d5c10da757e29c138c1cac7c26eed3b5f3eecc660",
+  "status": "rejected after coordinated cross-module regression",
+  "total": 308,
+  "passed": 306,
+  "failed": 2,
+  "failures": [
+    "JointGeometryRestartTests.CompleteRaysAcrossGeometryBoundKeepFullFieldDuringRestart(trial-0078,0.45)",
+    "SecantLeastSquaresTests.TinyInitialRoundoffDoesNotLoseTheOriginalFullTarget(-1e-12)"
+  ],
+  "log": "artifacts/petzval-repair/2026-10-20/candidate-v2-initial-failures.log",
+  "trx": "artifacts/petzval-repair/2026-10-20/tests/candidate-v2-initial-failures.trx",
+  "note": "Petzval and energy results remain truthful for their scopes; wider module failures invalidate final acceptance. No original assertions or tolerances changed."
+}

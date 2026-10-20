@@ -147,6 +147,10 @@ Native screenshots use the existing OpticStudio ZPL window-export mechanism, orc
 
 ## Troubleshooting and extending
 
+The selected Objectives corpus run opts into `NativeLengthUnitContract`: original centimeter/inch/meter source bytes are preserved, and OpticStudio's own `Tools.OpenScale` converts the loaded copy physically to millimeters before each analysis. The native source-unit request, conversion method and actual model-unit readback are mandatory; missing or mismatched records cannot certify a result. The default non-MM gate stays closed unless this explicit contract is requested. Raw ray audits keep their original native lens units and convert coordinates with the original fixed unit factors in the reporting layer. Native signed-index reflection directions, report normals and segment lengths are converted using explicit `MIRROR` model rows; original arrays/reports remain intact. Null native series/grid buffers are `NativeInvalidResult`, an unavailable reference, never a precision pass.
+
+The bounded [Objectives workflow](../diagnostics/Objectives20261020/README.md) retains per-lens differences and open controls separately from repaired precision regressions. Its current native FFT MTF contract uses the even pupil lattice, endpoint frequency interval and natural cubic complex OTF display interpolation. That is a verified finite sampling convention for the captured requests, not universal convergence or an afocal certification claim.
+
 - Missing source: provide the actual path. The tool never substitutes a similarly named historical file.
 - API not found: supply `--zos-api-path` or `ZOS_API_PATH`.
 - License/connection failure: inspect `raw/zemax/probe/environment.json`, `error.json` and `logs/zemax.log`; check whether another instance consumes the available API license.

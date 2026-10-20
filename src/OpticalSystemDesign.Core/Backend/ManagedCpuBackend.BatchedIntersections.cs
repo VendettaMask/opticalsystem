@@ -101,6 +101,14 @@ public sealed partial class ManagedCpuBackend
                         directionZ[index + lane],
                         radius,
                         conic);
+                    if (!validDistance.HasValue)
+                    {
+                        var (stableFirst, stableSecond) = StableQuadraticRoots(a[lane], b[lane], c[lane], root[lane]);
+                        validDistance = SelectStandardExplicitSagDistance(
+                            stableFirst, stableSecond,
+                            originX[index + lane], originY[index + lane], originZ[index + lane],
+                            directionX[index + lane], directionY[index + lane], directionZ[index + lane], radius, conic);
+                    }
                 }
 
                 intersects[index + lane] = validDistance.HasValue;

@@ -100,6 +100,26 @@ internal static class Host
             app.BeginMessageLogging();
             var system = app.PrimarySystem;
             if (!system.LoadFile((string)Request["input"], false)) throw new InvalidOperationException("Zemax failed to load snapshot");
+            if (Request.ContainsKey("nativeLensUnit") && Request["nativeLensUnit"] != null)
+            {
+                string requested = (string)Request["nativeLensUnit"];
+                string expectedUnit = requested == "CM" ? "Centimeters" : requested == "IN" ? "Inches" : requested == "M" ? "Meters" : "Unverified";
+                string originalUnit = system.SystemData.Units.LensUnits.ToString();
+                if (expectedUnit == "Unverified" || originalUnit != expectedUnit)
+                    throw new InvalidOperationException("Native source length unit differs from explicit conversion request");
+                var scaling = system.Tools.OpenScale();
+                try
+                {
+                    scaling.ScaleByUnits = true;
+                    scaling.ScaleToUnit = ZOSAPI.Tools.General.ScaleToUnits.Millimeters;
+                    scaling.RunAndWaitForCompletion();
+                }
+                finally { scaling.Close(); }
+                string convertedUnit = system.SystemData.Units.LensUnits.ToString();
+                if (convertedUnit != "Millimeters") throw new InvalidOperationException("Native millimeter scaling failed");
+                Write("unit-normalization.json", Object("originalUnit", originalUnit, "convertedUnit", convertedUnit,
+                    "method", "OpticStudio.Tools.OpenScale.ScaleByUnits", "savedInput", false));
+            }
             system.MCE.SetCurrentConfiguration(Int("configuration"));
             var fields = Enumerable.Range(1, system.SystemData.Fields.NumberOfFields)
                 .Select(i => Object("number", i, "data", Properties(system.SystemData.Fields.GetField(i)))).ToArray();
@@ -218,12 +238,16 @@ internal static class Host
         var series = Enumerable.Range(0, r.NumberOfDataSeries).Select(i =>
         {
             var s = r.GetDataSeries(i);
+            if (s == null || s.XData == null || s.YData == null)
+                throw new CaptureFailure("NativeInvalidResult", "OpticStudio returned a null data-series buffer; no numerical reference is available.");
             return Object("index", i, "description", s.Description, "xLabel", s.XLabel, "seriesLabels", s.SeriesLabels,
                 "x", s.XData.Data.Select(Finite).ToArray(), "y", Matrix(s.YData.Data));
         }).ToArray();
         var grids = Enumerable.Range(0, r.NumberOfDataGrids).Select(i =>
         {
             var g = r.GetDataGrid(i);
+            if (g == null || g.Values == null)
+                throw new CaptureFailure("NativeInvalidResult", "OpticStudio returned a null data-grid buffer; no numerical reference is available.");
             return Object("index", i, "description", g.Description, "nx", g.Nx, "ny", g.Ny,
                 "dx", Finite(g.Dx), "dy", Finite(g.Dy), "minX", Finite(g.MinX), "minY", Finite(g.MinY),
                 "xLabel", g.XLabel, "yLabel", g.YLabel, "valueLabel", g.ValueLabel, "values", Matrix(g.Values));

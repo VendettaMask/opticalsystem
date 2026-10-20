@@ -1,0 +1,30 @@
+{
+  "preparedUtc": "2026-10-20T13:05:36.1270758+00:00",
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "inventorySha256": "1966f1ec0cdc1623baa7530410daa29dd51ae7e16ef7437f592d34279ec6a61b",
+  "nativeReferenceFormat": "zmx",
+  "nativeJobs": 102,
+  "analysisRequests": 90,
+  "assemblies": [
+    {
+      "path": "D:\\Projects\\opticalsystem\\tools\\diagnostics\\SequentialCorpus20261019\\bin\\Release\\net10.0\\OpticalSystemDesign.Core.dll",
+      "sha256": "605518a66aaab74348fe46db836d8d987972255573ef6e188320a2a04f4e6fb4"
+    },
+    {
+      "path": "D:\\Projects\\opticalsystem\\tools\\diagnostics\\SequentialCorpus20261019\\bin\\Release\\net10.0\\OpticalSystemDesign.ZemaxComparison.dll",
+      "sha256": "a17f8700d5dc6de97c12e7314c2c3d4a220745e66f0f190a0a8dfa1448e763a9"
+    },
+    {
+      "path": "D:\\Projects\\opticalsystem\\tools\\diagnostics\\SequentialCorpus20261019\\bin\\Release\\net10.0\\SequentialCorpus20261019.dll",
+      "sha256": "82ad2b4bcfe4810de3efe7eed87ecc97a791c7f94d52a77bfa23597101f1adcb"
+    }
+  ],
+  "rayPolicy": {
+    "coordinateAbsoluteMillimeters": 1E-06,
+    "coordinateRelative": 1E-06,
+    "directionAbsolute": 1E-08,
+    "directionRelative": 1E-06,
+    "acceptanceAndFirstClipMustMatch": true,
+    "source": "Existing Single Ray Trace pointwise tolerances; fixed before native capture; GQ6 explicit rays, no analysis convergence claim"
+  }
+}

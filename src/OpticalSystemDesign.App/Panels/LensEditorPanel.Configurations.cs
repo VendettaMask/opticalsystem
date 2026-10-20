@@ -13,7 +13,6 @@ namespace OpticalSystemDesign.App.Panels;
 public sealed partial class LensEditorPanel
 {
     private readonly IMultiConfigurationService? _configurations;
-    private readonly Action? _showConfigurations;
     private readonly TextBlock _configurationPosition = new()
     {
         Name = "LensConfigurationPosition",
@@ -35,29 +34,15 @@ public sealed partial class LensEditorPanel
         _previousConfiguration.Click += (_, _) => NavigateConfiguration(-1);
         _nextConfiguration.Click += (_, _) => NavigateConfiguration(1);
         _configurationMessage.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextError);
-        var edit = CommandButton("panels-top-left", "多重结构", 0);
-        edit.Name = "OpenLensMultiConfiguration";
-        edit.IsVisible = _showConfigurations is not null;
-        ToolTip.SetTip(edit, "打开多重结构编辑器");
-        AutomationProperties.SetName(edit, "打开多重结构编辑器");
-        edit.Click += (_, _) => { if (!_disposed) _showConfigurations?.Invoke(); };
-        var navigation = new StackPanel
-        {
-            Orientation = Orientation.Horizontal,
-            Spacing = 6,
-            VerticalAlignment = VerticalAlignment.Center,
-            Margin = new Thickness(0, 0, 10, 0),
-            Children = { _configurationPosition, _previousConfiguration, _nextConfiguration }
-        };
-        var toolbar = new WrapPanel
+        return new StackPanel
         {
             Name = "LensConfigurationToolbar",
             Orientation = Orientation.Horizontal,
+            Spacing = 6,
             VerticalAlignment = VerticalAlignment.Center,
             Margin = new Thickness(16, 0, 0, 0),
-            Children = { navigation, edit }
+            Children = { _previousConfiguration, _configurationPosition, _nextConfiguration }
         };
-        return toolbar;
     }
 
     private void RefreshConfigurationNavigation()
