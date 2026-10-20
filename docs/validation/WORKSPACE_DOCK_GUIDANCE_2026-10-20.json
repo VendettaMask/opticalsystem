@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "timezone": "Asia/Shanghai",
+  "status": "locally-verified-scoped-ui-regression",
+  "baseCommit": "62d3e49dfbebfacff6e839add6b76db993a846f3",
+  "scope": "Document docking compass and translucent gray placement preview; preserve unrelated post-sync repairs already present in the working tree.",
+  "evidenceRoot": "artifacts/validation/workspace-dock-guidance-20261020",
+  "implementation": [
+    "Enable native directional docking for MDI document title drag handles without replacing document templates or pointer routing.",
+    "Decorate native DockTarget/GlobalDockTarget selectors with theme-bound plates, gray preview borders, and canonical Chinese strings localized by the existing live hook.",
+    "Nest document splits using the native CreateSplitLayout instead of flattening them into the sidebar's constrained horizontal parent; retain native splitters, ownership, capability validation, and events.",
+    "Give split document groups unique IDs, allow empty split groups to collapse, and promote a populated main group if the reserved primary group becomes empty. Retain an empty main drop area when all pages are floating.",
+    "Cancel via native pointer CaptureLost on Escape. Do not recreate page content or dispose controls during docking.",
+    "Update the built-in Chinese/English/Japanese guide and maintained user guide. Normal startup remains the base lens editor plus 2D viewer, not automatic analysis restoration."
+  ],
+  "dependency": {
+    "package": "Dock.Avalonia / Dock.Avalonia.Themes.Fluent / Dock.Model.Mvvm",
+    "version": "12.0.0.2",
+    "upstreamCommit": "ebbf3d46a9c9e7b4d6b898df2a685a2f956344ee",
+    "source": "https://github.com/wieslawsoltes/Dock/tree/ebbf3d46a9c9e7b4d6b898df2a685a2f956344ee",
+    "updated": false
+  },
+  "verification": [
+    { "kind": "root-solution-build", "configuration": "Debug", "projects": 19, "warnings": 0, "errors": 0, "defaultOutput": true, "log": "build-debug-accepted.log" },
+    { "kind": "root-solution-build", "configuration": "Release", "projects": 19, "warnings": 0, "errors": 0, "defaultOutput": true, "log": "build-release-accepted.log" },
+    { "kind": "workspace-related-regression", "configuration": "Debug", "passed": 90, "failed": 0, "skipped": 0, "trx": "workspace-ui-debug-final.trx" },
+    { "kind": "workspace-related-regression", "configuration": "Release", "passed": 90, "failed": 0, "skipped": 0, "trx": "workspace-ui-release-final.trx" },
+    { "kind": "isolated-real-Skia-docking", "configuration": "Debug", "passed": 21, "failed": 0, "skipped": 0, "trx": "guidance-skia-final.trx", "captureDirectory": "captures-accepted", "platformScreenshotOrUserDesktop": false },
+    { "kind": "bidirectional-tabbed-and-MDI-merge-full-width", "configuration": "Release", "passed": 4, "failed": 0, "trx": "merge-empty-pane-final.trx" },
+    { "kind": "strict-documentation-check", "documents": 957, "brokenLinks": 0, "markdownFenceIssues": 0, "guideRepeatedParagraphGroups": 0, "result": "documentation-final.json" },
+    { "kind": "CI-equivalent-format-verification", "exitCode": 0, "log": "format-verify-final.log" },
+    { "kind": "frozen-working-and-HEAD-bytes", "matchedPerSource": 2668, "totalPerSource": 2668, "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10", "result": "frozen-integrity.json" }
+  ],
+  "regressionClasses": [
+    "WorkspaceDockGuidanceTests", "WorkspaceDockModelTests", "WorkspaceSessionTests", "WorkspaceMdiInteractionTests",
+    "DocumentWorkspaceDividerTests", "DocumentTabCornerTests", "DocumentCloseButtonTests", "CompactSidebarTests",
+    "UserGuidePanelTests", "UiLocalizationTests", "AppStartupTests"
+  ],
+  "representativeCapture": {
+    "path": "captures-accepted/dock-mdi-Left-preview.png",
+    "widthPixels": 1400,
+    "heightPixels": 900,
+    "sha256": "9d33a9b0511fbf5dc6f51a8083d51ebfcb321160c2658d44a28d3eff65b0bbee",
+    "meaning": "Actual application controls rendered to a background bitmap while a synthetic pointer hovers the native left-docking target; not optical accuracy evidence."
+  },
+  "preservedIntermediateEvidence": [
+    "dock-guidance-geometry.trx: four horizontal preview/actual size mismatches before nested document splits; vertical splits passed.",
+    "merge-empty-pane-before.trx: all four new full-width merge assertions failed (572 DIP remained instead of 1148 DIP), corrected by empty-pane collapse and primary-group promotion.",
+    "merge-empty-pane-after.trx: two reverse-merge assertions incorrectly inspected an inactive tab's detached content, rather than its live document container; harness corrected without weakening the width assertion.",
+    "dock-guidance-debug.trx: 20 passed and one headless/Skia typeface mismatch from mixing rendering backends in one test process. Ordinary tests now use the common headless drawing backend; explicit screenshot tests run Skia in isolation.",
+    "Earlier synthetic pointer tests omitted the held-left-button modifier or hit native double-tap floating when grabbing the same tab point immediately after Escape; the input harness now models an actual held drag and distinct title grab points.",
+    "The first restricted root build attempt returned exit 1 with zero compiler errors; the restricted format build host reported named-pipe permission denial. Final builds and formatting use the required local IPC permission."
+  ],
+  "boundaries": {
+    "desktopInputOrScreenCaptureUsed": false,
+    "applicationProcessClosed": false,
+    "installationChanged": false,
+    "opticalAlgorithmChanged": false,
+    "referencesRegenerated": false,
+    "numericalTolerancesRelaxed": false,
+    "independentCookeOrTessarInvestigationAdded": false,
+    "committedOrPushed": false,
+    "fullRepositorySuiteOrPlatformCertificationClaimed": false
+  },
+  "countingRule": "Scoped collections overlap and must not be added. Synthetic pointer inputs are delivered only to background headless windows, not the user's desktop. Geometry assertions allow up to 8 DIP for native borders and splitters; horizontal pre-fix discrepancies were approximately 190 DIP. MDI directional splitting targets its document group, not a free-positioned child rectangle."
+}

@@ -567,19 +567,19 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
         Point Screen(AnalysisSpatialPointDto p) => new(plot.Center.X + p.X * plot.Width / 2,
             plot.Center.Y - p.Y * plot.Height / 2);
         using (context.PushClip(plot))
-        for (var row = 0; row < grid.Ys.Length - 1; row++)
-        for (var column = 0; column < grid.Xs.Length - 1; column++)
-        {
-            var corners = new[] { (row, column), (row, column + 1), (row + 1, column + 1), (row + 1, column) };
-            var validCorners = corners.Where(v => double.IsFinite(grid.Values[v.Item1, v.Item2])
-                && SpatialPoint(grid.Xs[v.Item2], grid.Ys[v.Item1]) is not null).ToArray();
-            if (validCorners.Length == 3) Draw(validCorners);
-            else if (validCorners.Length == 4)
-            {
-                Draw(new[] { corners[0], corners[1], corners[2] });
-                Draw(new[] { corners[0], corners[2], corners[3] });
-            }
-        }
+            for (var row = 0; row < grid.Ys.Length - 1; row++)
+                for (var column = 0; column < grid.Xs.Length - 1; column++)
+                {
+                    var corners = new[] { (row, column), (row, column + 1), (row + 1, column + 1), (row + 1, column) };
+                    var validCorners = corners.Where(v => double.IsFinite(grid.Values[v.Item1, v.Item2])
+                        && SpatialPoint(grid.Xs[v.Item2], grid.Ys[v.Item1]) is not null).ToArray();
+                    if (validCorners.Length == 3) Draw(validCorners);
+                    else if (validCorners.Length == 4)
+                    {
+                        Draw(new[] { corners[0], corners[1], corners[2] });
+                        Draw(new[] { corners[0], corners[2], corners[3] });
+                    }
+                }
         DrawPlanarAxes(context, plot, -1, 1, -1, 1, drawGrid: false);
         var bar = new Rect(Math.Min(Bounds.Width - 76, plot.Right + 38), plot.Top + 28,
             24, Math.Max(80, plot.Height - 56));

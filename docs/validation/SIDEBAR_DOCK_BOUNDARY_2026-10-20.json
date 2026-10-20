@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "timezone": "Asia/Shanghai",
+  "status": "locally-verified-scoped-ui-regression",
+  "baseCommit": "62d3e49dfbebfacff6e839add6b76db993a846f3",
+  "scope": "Keep the default System Options sidebar at full workspace height when arranging document pages; preserve unrelated dirty-worktree changes.",
+  "evidenceRoot": "artifacts/validation/sidebar-dock-boundary-20261020",
+  "implementation": [
+    "Use the pinned Dock library's native docking-group validation. Documents and document docks use a document group; the system tool, its dock and the main root use a distinct tool group.",
+    "Suppress root-wide document targets whose previews and drops would span the sidebar. Retain the local four-way compass, gray preview, center merge, Escape cancellation and existing nested document split layout.",
+    "Assign groups to new pages and split groups, and supplement missing group metadata when explicitly restoring older layouts. Exclude ITool from IDocument classification because the native tool interface also implements IDocument.",
+    "Preserve saved geometry, sidebar pin/float capabilities, native tool-to-root validation and the 240–280 DIP sidebar-width constraints. Resetting the layout restores the default full-height left sidebar; older explicitly saved geometry is not silently rearranged.",
+    "Update the maintained user guide and built-in Chinese/English/Japanese operation reference. No optical calculation or plot data changed."
+  ],
+  "verification": [
+    { "kind": "root-solution-build", "configuration": "Debug", "projects": 19, "warnings": 0, "errors": 0, "defaultOutput": true, "log": "build-debug-final.log" },
+    { "kind": "root-solution-build", "configuration": "Release", "projects": 19, "warnings": 0, "errors": 0, "defaultOutput": true, "log": "build-release-final.log" },
+    { "kind": "workspace-related-regression", "configuration": "Debug", "passed": 96, "failed": 0, "skipped": 0, "trx": "workspace-debug-final.trx" },
+    { "kind": "workspace-related-regression", "configuration": "Release", "passed": 96, "failed": 0, "skipped": 0, "trx": "workspace-release-final.trx" },
+    { "kind": "isolated-real-Skia-docking", "configuration": "Release", "passed": 27, "failed": 0, "skipped": 0, "trx": "boundary-skia-final.trx", "captureDirectory": "captures-accepted", "platformScreenshotOrUserDesktop": false },
+    { "kind": "CI-equivalent-format-verification", "exitCode": 0, "log": "format-verify.log" },
+    { "kind": "strict-documentation-check", "documents": 957, "brokenLinks": 0, "markdownFenceIssues": 0, "guideRepeatedParagraphGroups": 0, "result": "documentation-final.json" },
+    { "kind": "frozen-working-and-HEAD-bytes", "matchedPerSource": 2668, "totalPerSource": 2668, "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10", "result": "frozen-integrity.json" }
+  ],
+  "regressionClasses": [
+    "WorkspaceDockGuidanceTests", "WorkspaceDockModelTests", "WorkspaceSessionTests", "WorkspaceMdiInteractionTests",
+    "DocumentWorkspaceDividerTests", "DocumentTabCornerTests", "DocumentCloseButtonTests", "CompactSidebarTests",
+    "UserGuidePanelTests", "UiLocalizationTests", "AppStartupTests"
+  ],
+  "preservedIntermediateEvidence": [
+    "boundary-before.trx: all 12 targeted assertions failed before the fix; the root-wide GlobalDockTarget appeared during document drags and document boundaries were absent.",
+    "boundary-after.trx: 17 passed and 8 failed. Interactive four-way preview/drop and full-height assertions passed; a new model assertion mistakenly included the system tool because ITool implements IDocument.",
+    "boundary-groups.trx: 19 passed and 8 failed with the same model-classification issue; sidebar-hover rejection also passed.",
+    "boundary-diagnostic.trx: diagnostic output identified the wrongly included source as tool:system-options. Production and test document classification now explicitly excludes ITool; no geometry or group-compatibility assertion was relaxed."
+  ],
+  "representativeCapture": {
+    "path": "captures-accepted/dock-tabs-Bottom-placed.png",
+    "widthPixels": 1400,
+    "heightPixels": 900,
+    "sha256": "3ac2178f7811deb22533d94a8d01ce44cc6a24ad769d929269ac898f50952b7b",
+    "meaning": "Actual application controls rendered offscreen after a bottom split. The System Options sidebar retains the full height while both document panes stay to its right. The matching bottom preview and placed image were visually inspected."
+  },
+  "boundaries": {
+    "desktopInputOrScreenCaptureUsed": false,
+    "applicationProcessClosed": false,
+    "installationChanged": false,
+    "opticalAlgorithmChanged": false,
+    "referencesRegenerated": false,
+    "numericalTolerancesRelaxed": false,
+    "independentCookeOrTessarInvestigationAdded": false,
+    "committedOrPushed": false,
+    "fullRepositorySuiteOrPlatformCertificationClaimed": false
+  },
+  "countingRule": "Scoped collections overlap and must not be added. Synthetic pointer input targets only background headless controls, not the user desktop. New assertions require unchanged sidebar bounds and document preview placement strictly to its right."
+}

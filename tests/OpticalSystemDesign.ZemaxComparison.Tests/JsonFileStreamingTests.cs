@@ -11,8 +11,12 @@ public sealed class JsonFileStreamingTests
     {
         InDirectory(root =>
         {
-            var value = new { text = "镜头 Δ μm\n", value = double.PositiveInfinity,
-                request = new CanonicalAnalysisRequest { CanonicalAnalysisKey = "RMS vs Field", Apodization = "Uniform", WorkbenchSettings = [] } };
+            var value = new
+            {
+                text = "镜头 Δ μm\n",
+                value = double.PositiveInfinity,
+                request = new CanonicalAnalysisRequest { CanonicalAnalysisKey = "RMS vs Field", Apodization = "Uniform", WorkbenchSettings = [] }
+            };
             var expected = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value, JsonFiles.Options));
             var path = Path.Combine(root, "data.json");
             JsonFiles.Write(path, value);

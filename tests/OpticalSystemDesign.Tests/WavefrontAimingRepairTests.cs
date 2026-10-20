@@ -96,9 +96,9 @@ public sealed class WavefrontAimingRepairTests
     public static IEnumerable<object[]> NativeMapFanCases()
     {
         foreach (var lens in new[] { "cooke-40-degree-field", "double-gauss-28-degree-field", "relay-lens" })
-        foreach (var setting in new[] { "primary", "edge-shortwave" })
-        foreach (var shape in new[] { false, true })
-            yield return [lens, setting, shape];
+            foreach (var setting in new[] { "primary", "edge-shortwave" })
+                foreach (var shape in new[] { false, true })
+                    yield return [lens, setting, shape];
     }
 
     [Theory]

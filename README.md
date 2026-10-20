@@ -170,8 +170,6 @@ dotnet test OpticalSystemDesign.slnx -c Release --no-build --no-restore /m:1 /nr
 
 默认主要外部精度基准是已提交的 Zemax OpticStudio 2026 R1 `123456.ZMX` 捕获，结论仅覆盖所捕获的文件、设置与版本。导入、保留某个字段不代表对应计算已经实现，也不承诺与其它软件全面等价；未支持的能力应明确拒绝。
 
-Optiland 0.5.8 资料只作为冻结历史辅助证据保留，不重新生成比较，也不进入产品依赖。
-
 ## 参与改进
 
 欢迎通过 [Issues](https://github.com/VendettaMask/opticalsystem/issues) 提交问题与建议，或通过 [Pull Requests](https://github.com/VendettaMask/opticalsystem/pulls) 参与改进。
@@ -182,7 +180,18 @@ Optiland 0.5.8 资料只作为冻结历史辅助证据保留，不重新生成�
 
 本项目由 **S.T.A.R. Labs** 按非商业定位维护。非商业用途不等于自动取得全部第三方资源的使用或再分发权；代码、依赖、字体、图标和材料数据仍须分别遵守适用授权。
 
-感谢 .NET、Avalonia 及相关项目提供的基础设施。第三方材料来源和授权说明保留在各资源目录，分发时不得省略。
+感谢以下开源项目及其贡献者。直接与传递依赖按上游项目归并列出，算法参考、资源和离线工具分别注明用途；参考项目不等同于程序运行依赖。
+
+- **运行与桌面界面**：[.NET](https://github.com/dotnet/runtime)、[Avalonia](https://github.com/AvaloniaUI/Avalonia)、[Dock](https://github.com/wieslawsoltes/Dock)、[CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet)。
+- **图形、文字与平台适配**：[SkiaSharp / HarfBuzzSharp](https://github.com/mono/SkiaSharp) 及其上游 [Skia](https://skia.org/)、[HarfBuzz](https://github.com/harfbuzz/harfbuzz)，以及 [Avalonia ANGLE](https://github.com/AvaloniaUI/angle)、[MicroCom](https://github.com/kekekeks/MicroCom)、[Tmds.DBus](https://github.com/tmds/Tmds.DBus)。
+- **光学算法与交互参考**：[Optiland](https://github.com/optiland/optiland)、[AutoLens](https://github.com/AI4Optics/AutoLens)、[DeepLens](https://github.com/vccimaging/DeepLens)、[TFStudio](https://github.com/aai2k/TFStudio)、[tmmcore](https://github.com/aai2k/tmmcore)。感谢其在光学建模、初始结构与镀膜设计方面的工作。
+- **开放材料数据**：[refractiveindex.info database](https://github.com/polyanskiy/refractiveindex.info-database)。
+- **字体**：[Noto Sans CJK](https://github.com/notofonts/noto-cjk)、[Inter](https://github.com/rsms/inter)、[Fusion Pixel Font](https://github.com/TakWolf/fusion-pixel-font)。
+- **图标**：[Lucide](https://github.com/lucide-icons/lucide) 及其源项目 [Feather](https://github.com/feathericons/feather)、[Game-icons.net](https://game-icons.net/)（Delapouite、Lorc 等贡献者）、[FatCow / Farm-Fresh](https://github.com/gammasoft/fatcow)（FatCow Web Hosting / Marcis Gasuns）。
+- **构建、测试与测试依赖**：[MSBuild](https://github.com/dotnet/msbuild)、[NuGet](https://github.com/NuGet/NuGet.Client)、[PowerShell](https://github.com/PowerShell/PowerShell)、[VSTest / .NET Test SDK](https://github.com/microsoft/vstest)、[xUnit.net](https://github.com/xunit/xunit)、[Coverlet](https://github.com/coverlet-coverage/coverlet)、[Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)、[Inno Setup](https://github.com/jrsoftware/issrc)。
+- **离线验证与报告工具**：[Python](https://github.com/python/cpython)、[NumPy](https://github.com/numpy/numpy)、[SciPy](https://github.com/scipy/scipy)、[Matplotlib](https://github.com/matplotlib/matplotlib)、[Pillow](https://github.com/python-pillow/Pillow)、[pythonnet](https://github.com/pythonnet/pythonnet)、[python-docx](https://github.com/python-openxml/python-docx)、[ReportLab](https://pypi.org/project/reportlab/)、[FreeCAD](https://github.com/FreeCAD/FreeCAD) / [Open CASCADE Technology](https://github.com/Open-Cascade-SAS/OCCT)、[Node.js](https://github.com/nodejs/node)。这些工具不参与产品运行时光学计算。
+
+具体来源、署名与授权保留在[算法参考声明](third_party/autolens/AutoLens-NOTICE.txt)、[镀膜参考归档](third_party/coating-reference/README.md)、[材料目录说明](src/OpticalSystemDesign.Core/Materials/Data/README.md)、字体及图标目录的许可证中。致谢不能替代许可证；分发时须保留各项目要求的版权、许可和署名文件。
 
 <p align="center">
   <sub>Optical System Design · S.T.A.R. Labs<br />让设计过程清晰，让计算依据可追溯。</sub>

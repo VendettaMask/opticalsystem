@@ -1,6 +1,6 @@
 # 构建与发布
 
-更新：2026-10-19。本文只说明当前命令和交付规则。最新验收见 [当前状态](CURRENT_STATUS.md)，历史构建验收原文已集中到 [历史账本](validation/BUILD_VERIFICATION_HISTORY_2026-10-13.json)，不作为当前通过结论或可直接执行的旧命令。
+更新：2026-10-20。本文只说明当前命令和交付规则。最新验收见 [当前状态](CURRENT_STATUS.md)，历史构建验收原文已集中到 [历史账本](validation/BUILD_VERIFICATION_HISTORY_2026-10-13.json)，不作为当前通过结论或可直接执行的旧命令。
 
 ## 唯一产品入口
 
@@ -31,6 +31,16 @@ dotnet test labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/Opt
 后两条用于模块定向运行，不是单独产品构建。VSTest 需要本地套接字；受限环境中的权限或网络故障应如实报告，不能当作通过。全量/定向、Debug/Release、原生/Headless、内部/外部数值验收分别记录，不能相加。
 
 CI 使用同一根解决方案，分别运行主测试、模块测试和比较工具的离线测试；长测试有 hang 诊断。最新流程与阈值以 [.github/workflows/ci.yml](../.github/workflows/ci.yml) 为准，真实 Zemax 捕获仍需对应许可和运行时。
+
+初始结构 CI 在每个平台分为普通契约、前六个调查案例、后六个调查案例三组。`scripts/test-initial-structure-partition.ps1` 从原测试数据生成筛选器，并核对每个调查案例的实际 TRX 结果；12 个原案例必须恰好各运行一次，不删除调查、不缩减评价或时间预算。单案例冻结预算为 30 分钟，因此模块无进展诊断阈值为 35 分钟，调查分组任务上限为 240 分钟；主测试无进展阈值为 30 分钟。比较工具测试即使主测试失败也独立执行。分组只解决执行安排，不代表长调查已通过。
+
+可用以下命令检查分组或定向执行（先完成对应配置构建）：
+
+```powershell
+./scripts/tests/test-initial-structure-partition.tests.ps1
+./scripts/test-initial-structure-partition.ps1 -Partition survey-first -PlanOnly
+./scripts/test-initial-structure-partition.ps1 -Partition contracts -Configuration Release -ResultsDirectory artifacts/validation/initial-contracts
+```
 
 ## 冻结证据门禁
 
@@ -86,7 +96,7 @@ RID 专用锁文件放在项目 `obj` 下，不覆盖源锁文件。发布禁用
 
 每个稳定发布及架构只上传一个生产安装器：`OpticalSystemDesign-<版本>-<RID>-Setup.exe` 或明确标注未签名的 `OpticalSystemDesign-<版本>-<RID>-Unsigned-Setup.exe`，并附同名 `.sha256`；`UnsignedTest` 不能作为升级安装包。不可把源码压缩包或工作流临时产物冒充 Setup。API 约定见 [GitHub Releases REST 文档](https://docs.github.com/en/rest/releases/releases)。
 
-当前已按用户要求手动上传 [1.0.4 x64 测试预发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)，含 `UnsignedTest-Setup.exe`、同名 SHA-256 与 `release.json`；不标 Latest，不进入正式更新检测。此包是含未提交修改的工作区构建，标签仅指向源码基线；GitHub 自动源码压缩包不能复现本包。测试包使用正常产品安装标识，安装可能升级已有同产品安装，应先保存并备份重要工程；本轮没有实际安装。软件内部仍显示 1.0.4，同版本正式包不会被判为更高版本，必要时应手动安装。实际身份与验证见[本轮账目](validation/VERSION_UPDATES_2026-10-19.json)。
+当前 [1.0.4 x64 测试预发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)已于 **2026-10-20 按用户要求覆盖旧附件**，保留发布页和文件名，含新的 `UnsignedTest-Setup.exe`、同名 SHA-256 与 `release.json`。当前身份为 `1.0.4-win-x64-f54b01168c53`，不标 Latest，不进入正式更新检测。旧包在本地保留，旧远端附件在新附件全部校验通过后移除。此包是含未提交修改的工作区构建，原标签没有移动；GitHub 自动源码压缩包不能复现本包。测试包使用正常产品安装标识，安装可能升级已有同产品安装，应先保存并备份重要工程、关闭程序；本轮没有实际安装。软件内部仍显示 1.0.4，同版本正式包不会被判为更高版本，必要时应手动安装。当前身份与验证见[本轮交付账目](validation/PACKAGE_UPLOAD_2026-10-20.json)，被替换包的原始阶段记录保留在[版本功能账目](validation/VERSION_UPDATES_2026-10-19.json)。
 
 ## 安装、修复和验证
 

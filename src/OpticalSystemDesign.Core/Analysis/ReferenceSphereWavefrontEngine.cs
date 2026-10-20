@@ -131,7 +131,8 @@ public static class ReferenceSphereWavefrontEngine
             sphere.CenterZ,
             sphere.Radius,
             meanReferencePath,
-            pupilSamples.Count - valid.Length) { UseRayAiming = optic.RayAimingEnabled };
+            pupilSamples.Count - valid.Length)
+        { UseRayAiming = optic.RayAimingEnabled };
     }
 
     private static Sphere CentroidSphere(

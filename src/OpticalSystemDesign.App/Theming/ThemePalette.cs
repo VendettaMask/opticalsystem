@@ -176,6 +176,8 @@ internal sealed record ThemePalette(
             [ThemeResourceBindings.RibbonPageBackground] = Brush(Surface),
             [ThemeResourceBindings.StatusBarBackground] = Brush(SubtleSurface),
             [ThemeResourceBindings.Border] = Brush(Border),
+            [ThemeResourceBindings.DockPreviewFill] = Brush(Color.FromArgb(112, 128, 128, 128)),
+            [ThemeResourceBindings.DockPreviewBorder] = Brush(Color.FromRgb(112, 112, 112)),
             [ThemeResourceBindings.TextPrimary] = Brush(TextPrimary),
             [ThemeResourceBindings.TextSecondary] = Brush(TextSecondary),
             [ThemeResourceBindings.TextMuted] = Brush(TextMuted),

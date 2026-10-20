@@ -51,10 +51,24 @@ public sealed class SignedVignettingParityTests
         var optic = Optic.CreateCookeTriplet();
         optic.Fields.Clear();
         optic.Fields.Add(new FieldPoint { Y = 0 });
-        optic.Fields.Add(new FieldPoint { Y = 10, VignetteDecenterX = .02, VignetteDecenterY = -.06,
-            VignetteFactorX = .05, VignetteFactorY = .09, VignetteAngleDegrees = 12 });
-        optic.Fields.Add(new FieldPoint { Y = 25, VignetteDecenterX = .08, VignetteDecenterY = -.1,
-            VignetteFactorX = .12, VignetteFactorY = .31, VignetteAngleDegrees = 35 });
+        optic.Fields.Add(new FieldPoint
+        {
+            Y = 10,
+            VignetteDecenterX = .02,
+            VignetteDecenterY = -.06,
+            VignetteFactorX = .05,
+            VignetteFactorY = .09,
+            VignetteAngleDegrees = 12
+        });
+        optic.Fields.Add(new FieldPoint
+        {
+            Y = 25,
+            VignetteDecenterX = .08,
+            VignetteDecenterY = -.1,
+            VignetteFactorX = .12,
+            VignetteFactorY = .31,
+            VignetteAngleDegrees = 35
+        });
         var mirrored = Optic.FromSnapshot(optic.ToSnapshot());
         foreach (var field in mirrored.Fields)
         {

@@ -53,11 +53,11 @@ public static class AngularSpectrumEngine
         var e = Enumerable.Range(0, 3).Select(_ => new Complex[n, n]).ToArray();
         var h = Enumerable.Range(0, 3).Select(_ => new Complex[n, n]).ToArray();
         for (var row = 0; row < n; row++)
-        for (var column = 0; column < n; column++)
-        {
-            var value = input[row, column]; Validate(value.X); Validate(value.Y); Validate(value.Z);
-            e[0][row, column] = value.X; e[1][row, column] = value.Y; e[2][row, column] = value.Z;
-        }
+            for (var column = 0; column < n; column++)
+            {
+                var value = input[row, column]; Validate(value.X); Validate(value.Y); Validate(value.Z);
+                e[0][row, column] = value.X; e[1][row, column] = value.Y; e[2][row, column] = value.Z;
+            }
         foreach (var component in e) DiffractionEngine.FourierTransform2D(component);
         var k = 2 * Math.PI * refractiveIndex / wavelengthMillimeters;
         double removed = 0;
@@ -89,14 +89,14 @@ public static class AngularSpectrumEngine
         var electric = new ComplexElectricField[n, n]; var magnetic = new ComplexElectricField[n, n];
         double norm = 0, flux = 0;
         for (var row = 0; row < n; row++)
-        for (var column = 0; column < n; column++)
-        {
-            var value = new ComplexElectricField(e[0][row, column], e[1][row, column], e[2][row, column]);
-            var magnet = new ComplexElectricField(h[0][row, column], h[1][row, column], h[2][row, column]);
-            electric[row, column] = value; magnetic[row, column] = magnet;
-            norm += value.SquaredNorm;
-            flux += (value.X * Complex.Conjugate(magnet.Y) - value.Y * Complex.Conjugate(magnet.X)).Real;
-        }
+            for (var column = 0; column < n; column++)
+            {
+                var value = new ComplexElectricField(e[0][row, column], e[1][row, column], e[2][row, column]);
+                var magnet = new ComplexElectricField(h[0][row, column], h[1][row, column], h[2][row, column]);
+                electric[row, column] = value; magnetic[row, column] = magnet;
+                norm += value.SquaredNorm;
+                flux += (value.X * Complex.Conjugate(magnet.Y) - value.Y * Complex.Conjugate(magnet.X)).Real;
+            }
         var area = pitchXMillimeters * pitchYMillimeters;
         if (!double.IsFinite(norm) || !double.IsFinite(flux) || !double.IsFinite(removed))
             throw new ArithmeticException("Non-finite vector angular-spectrum result.");

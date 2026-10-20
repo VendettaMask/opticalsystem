@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "timezone": "Asia/Shanghai",
+  "status": "locally-verified-platform-ci-and-long-surveys-pending",
+  "baseCommit": "62d3e49dfbebfacff6e839add6b76db993a846f3",
+  "scope": "Repair findings in POST_SYNC_AUDIT_2026-10-20.json; local verification only, not a new optical certification.",
+  "evidenceRoot": "artifacts/validation/post-sync-repair-20261020",
+  "evidenceInventory": "accepted-evidence.json",
+  "evidenceInventorySha256": "9695b509ac266b56b012edd8a199c3eba85494bc2ae751fb6970fb20a333e858",
+  "committedOrPushed": false,
+  "mouseKeyboardOrScreenAutomationUsed": false,
+  "userApprovedGracefulClose": { "processId": 25436, "reason": "Default Debug build lock", "normalExitConfirmed": true },
+  "installationChanged": false,
+  "repairs": [
+    {
+      "area": "Localization and command search",
+      "change": "Translate observed field/wavelength deletion, phase, polarization, catalog and environment text. Search canonical command names/categories and all three translations without changing language, IDs or document data."
+    },
+    {
+      "area": "Recovery paths",
+      "change": "Canonicalize aliased ancestors once to a physical recovery boundary. Continue rejecting linked recovery roots, sessions/files, ancestor replacement and paths outside that boundary.",
+      "localPlatform": "Windows directory junctions; actual macOS /var behavior still requires platform CI."
+    },
+    {
+      "area": "Native replay and aperture contract tests",
+      "change": "Replay exact frozen pupil inputs rather than recomputing platform-dependent libm coordinates; retain all original native ray budgets. Add independent disk/annulus moments. Preserve importer behavior: an air-air dummy with fixed semi-diameter is not an implicit physical aperture; explicit FLAP still is.",
+      "nativeReferencesRegenerated": false,
+      "opticalTolerancesRelaxed": false,
+      "independentCookeOrTessarInvestigationAdded": false
+    },
+    {
+      "area": "Initial nonstationary projection stall",
+      "change": "Keep normal projected search. Only if the first nonstationary model produces a sub-resolution or non-descent projected step, retry that same model with explicit crossed-bound elimination, actual fixed residual offsets and remaining trust radius. All callbacks consume the existing budget.",
+      "algorithmVersion": "21",
+      "historicalVersion20": "Readable, exportable and eligible for a separate refinement; silent resume as version 21 is rejected.",
+      "opticalFormulaChanged": false,
+      "originalOpticalCases": "Original inputs, 600 evaluations, 0.03 mm assertion and independent validation retained.",
+      "additionalControls": "Upper/lower stalled-start linear counterexamples and +/-1e-12 initial perturbations with an explicitly requested 0.03 mm target."
+    },
+    {
+      "area": "CI execution and formatting",
+      "change": "Split initial-structure contracts and the two six-case frozen-survey groups. Preserve all 12 survey cases and original budgets. Validate actual TRX coverage; run comparison even if main tests fail. Set main/module inactivity thresholds to 30/35 minutes, survey job limit 240 minutes. Apply whitespace formatting only to unrelated files.",
+      "coreTokenIdentity": "All nine formatted Core files have identical Roslyn token kinds/text to HEAD; this is not a binary-identity claim."
+    }
+  ],
+  "completedChecks": [
+    { "kind": "default-solution-build", "configuration": "Debug", "projects": 19, "warnings": 0, "errors": 0, "log": "build-debug-unlocked.log" },
+    { "kind": "default-solution-build", "configuration": "Release", "projects": 19, "warnings": 0, "errors": 0, "log": "build-release-accepted.log" },
+    { "kind": "main-scoped-tests", "configuration": "Debug", "passed": 101, "failed": 0, "trx": "main-focused-debug.trx" },
+    { "kind": "main-scoped-tests", "configuration": "Release", "passed": 101, "failed": 0, "trx": "main-focused-release.trx" },
+    { "kind": "real-Skia-caption-and-close", "configuration": "Release", "passed": 9, "failed": 0, "trx": "caption-release.trx", "captures": "captions" },
+    { "kind": "startup-and-about", "configuration": "Release", "passed": 12, "failed": 0, "trx": "startup-about-release.trx" },
+    { "kind": "complete-portable-comparison", "configuration": "Release", "passed": 223, "failed": 0, "trx": "comparison-release.trx" },
+    { "kind": "complete-coating-tests", "configuration": "Release", "passed": 54, "failed": 0, "trx": "coating-release.trx" },
+    { "kind": "minimal-stalled-start-controls", "configuration": "Release", "passed": 2, "failed": 0, "trx": "optimizer-stall-controls.trx" },
+    { "kind": "complete-initial-structure-contracts-partition", "configuration": "Release", "passed": 308, "failed": 0, "skipped": 0, "trx": "initial-contracts-final/initial-contracts.trx", "excludesOnlySeparatelyScheduledSurveyCases": 12 },
+    { "kind": "optimizer-and-compatibility-scoped-tests", "configuration": "Debug", "passed": 73, "failed": 0, "trx": "optimizer-accepted-debug.trx" },
+    { "kind": "optimizer-and-compatibility-scoped-tests", "configuration": "Release", "DOTNET_EnableHWIntrinsic": "0", "passed": 73, "failed": 0, "trx": "optimizer-accepted-scalar.trx", "platformCertification": false },
+    { "kind": "partition-plan-unit-tests", "passed": 3, "failed": 0, "surveyCases": 12, "droppedCases": 0 },
+    { "kind": "actual-VSTest-partition-discovery", "discovered": 320, "contracts": 308, "surveyFirst": 6, "surveySecond": 6, "missing": 0, "duplicates": 0, "surveyTestsExecutedByDiscovery": 0 },
+    { "kind": "CI-equivalent-format-verification", "exitCode": 0, "log": "format-verify-accepted.log" },
+    { "kind": "strict-documentation-check", "documents": 957, "brokenLinks": 0, "markdownFenceIssues": 0, "guideRepeatedParagraphGroups": 0, "result": "documentation-final.json" },
+    { "kind": "real-Skia-system-properties", "languages": ["en-US", "ja-JP"], "observedChineseLeaksRemoved": 7, "log": "localization-render.log", "captures": ["system-properties-en-US.png", "system-properties-ja-JP.png"] },
+    { "kind": "frozen-working-and-HEAD-bytes", "matchedPerSource": 2668, "totalPerSource": 2668, "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10", "result": "frozen-integrity-final.json" }
+  ],
+  "preservedFailureEvidence": [
+    "Earlier optimizer variants, including all-crossed projection and active-set derivative refresh, regressed old physical/quality gates and were not retained. Logs and TRX files remain in the evidence root.",
+    "initial-contracts/initial-contracts.trx is a deliberately stopped intermediate run: 267 passed, 2 failed, incomplete. The two failures were an invalid newly added test specification and a discarded optimizer variant. Its host-exit message is not a spontaneous product crash.",
+    "optimizer-start-safeguard.trx contains 72 passed and two failed exploratory new assertions that incorrectly required every initial step to equal the constrained optimum. Replace these exploratory assertions with the actual upper/lower stalled-start counterexamples; all preexisting gates remain.",
+    "build-debug-accepted.log records a lock from a user-opened default Debug application. After explicit permission and saved-data confirmation, PID 25436 was closed normally; no forced termination or alternate-output workaround was used."
+  ],
+  "pendingVerification": [
+    "Actual Linux/macOS CI and both six-case long frozen-survey execution groups; local discovery/partition integrity is not execution or success-rate evidence.",
+    "No final full main suite or new installer/package acceptance is claimed."
+  ],
+  "countingRule": "Scoped collections overlap and must not be summed. Historical successes do not replace current failures."
+}

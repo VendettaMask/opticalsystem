@@ -6,7 +6,9 @@ public sealed class RayAuditContractTests
 {
     private static RayAuditJob Valid => new()
     {
-        Source = "source.zmx", SourceSha256 = new string('a', 64), Output = "fresh-output",
+        Source = "source.zmx",
+        SourceSha256 = new string('a', 64),
+        Output = "fresh-output",
         Fields = [[0, 0], [0, 1]]
     };
 
@@ -55,7 +57,7 @@ public sealed class RayAuditContractTests
         var path = Path.Combine(Path.GetTempPath(), "ray-audit-job-" + Guid.NewGuid() + ".json");
         try
         {
-            await File.WriteAllTextAsync(path, "{\"source\":\"source.zmx\",\"sourceSha256\":\"" + new string('a',64)
+            await File.WriteAllTextAsync(path, "{\"source\":\"source.zmx\",\"sourceSha256\":\"" + new string('a', 64)
                 + "\",\"output\":\"output\",\"removeVignettingFactros\":true}");
             await Assert.ThrowsAsync<System.Text.Json.JsonException>(() => RayAuditRunner.Run(path, CancellationToken.None));
         }

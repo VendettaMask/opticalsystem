@@ -64,9 +64,12 @@ public sealed class NativeScalarFftAmplitudeTests
     {
         var optic = Lens(); optic.Apodization = new GaussianApodization(.5);
         var pupil = Prepare(optic, true);
-        var accepted = pupil with { Samples = pupil.Samples.Select(s => s.Intensity > 0
+        var accepted = pupil with
+        {
+            Samples = pupil.Samples.Select(s => s.Intensity > 0
             ? s with { Intensity = optic.Apodization.Intensity(s.NormalizedPupilX, s.NormalizedPupilY) }
-            : s).ToArray() };
+            : s).ToArray()
+        };
         Assert.True(accepted.Samples.Where(s => s.Intensity > 0).Max(s => s.Intensity)
             > 2 * accepted.Samples.Where(s => s.Intensity > 0).Min(s => s.Intensity));
         var expected = Compute(optic, 32, true, pupil: accepted);
@@ -82,8 +85,11 @@ public sealed class NativeScalarFftAmplitudeTests
     public void PreparedAmplitudesRemainAuthoritativeIncludingZeroPower()
     {
         var optic = Lens(); var pupil = Prepare(optic, true);
-        var masked = pupil with { Samples = pupil.Samples.Select(s => s with
-            { Intensity = s.NormalizedPupilX < 0 ? 0 : s.Intensity * .5 }).ToArray() };
+        var masked = pupil with
+        {
+            Samples = pupil.Samples.Select(s => s with
+            { Intensity = s.NormalizedPupilX < 0 ? 0 : s.Intensity * .5 }).ToArray()
+        };
         var original = masked.Samples.ToArray();
         var maskedPsf = Compute(optic, 32, true, pupil: masked);
         Assert.Equal(original, masked.Samples);

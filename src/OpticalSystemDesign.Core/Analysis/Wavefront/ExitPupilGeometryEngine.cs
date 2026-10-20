@@ -96,11 +96,11 @@ public static class ExitPupilGeometryEngine
             var d = Unit(direction); var p = point - origin;
             var v = new[] { d.X, d.Y, d.Z }; var q = new[] { p.X, p.Y, p.Z };
             for (var r = 0; r < 3; r++)
-            for (var c = 0; c < 3; c++)
-            {
-                var value = (r == c ? 1 : 0) - v[r] * v[c];
-                matrix[r, c] += value; matrix[r, 3] += value * q[c];
-            }
+                for (var c = 0; c < 3; c++)
+                {
+                    var value = (r == c ? 1 : 0) - v[r] * v[c];
+                    matrix[r, c] += value; matrix[r, 3] += value * q[c];
+                }
         }
         for (var c = 0; c < 3; c++)
         {

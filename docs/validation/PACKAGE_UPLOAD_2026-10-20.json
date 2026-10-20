@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "status": "existing-test-release-assets-replaced-and-public-downloads-verified",
+  "scope": "User requested packaging/upload, then explicitly requested replacing the old package instead of creating a new release page.",
+  "evidenceRoot": "artifacts/validation/package-upload-20261020",
+  "source": {
+    "baseCommit": "62d3e49dfbebfacff6e839add6b76db993a846f3",
+    "dirty": true,
+    "sourceCommittedOrPushed": false,
+    "tagChanged": false,
+    "warning": "Existing tag still identifies the earlier source baseline. GitHub-generated source archives do not reproduce this installer built from uncommitted worktree changes."
+  },
+  "package": {
+    "version": "1.0.4",
+    "runtime": "win-x64",
+    "releaseId": "1.0.4-win-x64-f54b01168c53",
+    "directory": "artifacts/installers/installer-win-x64-17ac8ae1",
+    "installer": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+    "bytes": 276499068,
+    "sha256": "f650be6fe664a9202dc760c107232e352b8e01d5359a3860cbbb45e2e8075a9c",
+    "manifestFiles": 1285,
+    "manifestSha256": "8660daa25858a2f343725d52d7fddffdfd33a0c7b91047ec09ed27086f57c3ef",
+    "signed": false,
+    "testPackage": true,
+    "validationHooks": false,
+    "modulesInProcess": true,
+    "requiredModules": ["InitialStructure", "CoatingDesign"],
+    "usesNormalProductInstallationIdentity": true,
+    "installationWarning": "Save and back up projects, close the application, and install manually. The normal product identity can update an existing installation; this is not an isolated sandbox."
+  },
+  "github": {
+    "repository": "VendettaMask/opticalsystem",
+    "releaseId": 416939680,
+    "url": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019",
+    "tag": "v1.0.4-test.20261019",
+    "draft": false,
+    "prerelease": true,
+    "markedLatest": false,
+    "newReleaseCreated": false,
+    "updatedExistingReleaseNotes": true,
+    "finalAssets": [
+      { "id": 658226269, "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe", "bytes": 276499068, "sha256": "f650be6fe664a9202dc760c107232e352b8e01d5359a3860cbbb45e2e8075a9c" },
+      { "id": 658227018, "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe.sha256", "bytes": 124, "sha256": "ddcb9a58a494c80f9161ae6dbce560ef7640c5500ee15b79e522c7cb04f92e84" },
+      { "id": 658227060, "name": "release.json", "bytes": 762, "sha256": "060d273a07609c3d06fa934a1671bdc8c1190c7454ab0e7435a72fa4f90cafd6" }
+    ],
+    "remoteDigestsAndSizesMatched": 3,
+    "publicApiAssetsMatched": 3,
+    "publicChecksumDownloadVerified": true,
+    "publicReleaseMetadataDownloadVerified": true,
+    "removedOldAssetIds": [655362754, 655366249, 655366291],
+    "replacementSafety": "Verified the local old installer/checksum/metadata against the old remote SHA-256 digests. Temporarily renamed the exact old asset IDs; uploaded and verified all replacements before retiring the three old remote assets.",
+    "previousLocalPackageRetained": "artifacts/test-release-20261019/installer-win-x64-320327d0",
+    "previousInstallerSha256": "51108789445754e3e7e902306de495af1b5253c84ec6c8fde0c3c1bd30e67eb1",
+    "previousReleaseSnapshot": "release-before.json",
+    "uploadResult": "uploaded-release.json",
+    "uploadLog": "upload.log"
+  },
+  "verification": [
+    { "kind": "standard-x64-self-contained-installer", "passed": true, "log": "build-installer.log" },
+    { "kind": "release-workflow-delivery-test-filter", "configuration": "Release", "passed": 77, "failed": 0, "skipped": 0, "trx": "delivery-release.trx" },
+    { "kind": "disposable-package-integrity-and-in-process-modules", "passed": 14, "failed": 0, "manifestFiles": 1285, "guiVerified": false, "userInstallationModified": false, "summary": "package-verification/summary.json" },
+    { "kind": "frozen-HEAD-and-worktree-integrity", "matchedPerSource": 2668, "totalPerSource": 2668, "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10", "result": "frozen-integrity.json" },
+    { "kind": "strict-documentation-and-diff-check", "documents": 957, "brokenLinks": 0, "markdownFenceIssues": 0, "guideRepeatedParagraphGroups": 0, "diffCheckPassed": true, "result": "documentation-final.json" }
+  ],
+  "relatedPriorVerification": [
+    "docs/validation/SIDEBAR_DOCK_BOUNDARY_2026-10-20.json",
+    "docs/validation/ANALYSIS_RESPONSIVE_2026-10-20.json",
+    "docs/validation/WORKSPACE_DOCK_GUIDANCE_2026-10-20.json"
+  ],
+  "boundaries": {
+    "sourceVersionBumped": false,
+    "productBuildOrInstallerScriptsChanged": false,
+    "sourceDependencyLocksChanged": false,
+    "userApplicationClosedOrDesktopControlled": false,
+    "userInstallationChanged": false,
+    "arm64OrMacNativeVerificationClaimed": false,
+    "fullRepositoryNumericalSuiteRerun": false,
+    "opticalReferenceOrToleranceChanged": false
+  },
+  "countingRule": "The fresh 77-test delivery filter and 14-check package probe have different scopes. Prior UI regression collections overlap and must not be added. Package verification mode is not manual desktop or installed-upgrade acceptance."
+}

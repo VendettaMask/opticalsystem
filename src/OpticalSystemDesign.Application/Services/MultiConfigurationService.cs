@@ -31,6 +31,37 @@ internal sealed class MultiConfigurationService : WorkbenchServiceBase, IMultiCo
     {
     }
 
+    public MultiConfigurationNavigationDto GetNavigationState()
+    {
+        lock (Gate)
+        {
+            var state = Runtime.GetMultiConfigurationNavigation();
+            return new MultiConfigurationNavigationDto(state.Count, state.ActiveIndex);
+        }
+    }
+
+    public IReadOnlyList<double> GetApertureValues()
+    {
+        lock (Gate)
+        {
+            return Runtime.CreateMeritConfigurationContext().Configurations.Select(optic => optic.Aperture.Value).ToArray();
+        }
+    }
+
+    public IReadOnlyList<MultiConfigurationThicknessRowDto> GetThicknessDifferences()
+    {
+        lock (Gate)
+        {
+            var configurations = Runtime.CreateMeritConfigurationContext().Configurations;
+            if (configurations.Count < 2) return [];
+            var surfaces = configurations.Select(optic => optic.SurfaceGroup.Items.ToDictionary(surface => surface.Number)).ToArray();
+            return surfaces[0].Keys.Where(number => number > 0 && surfaces.All(items => items.ContainsKey(number)))
+                .Select(number => new MultiConfigurationThicknessRowDto(number, surfaces.Select(items => items[number].Thickness).ToArray()))
+                .Where(row => row.Values.All(double.IsFinite) && row.Values.Distinct().Skip(1).Any())
+                .OrderBy(row => row.SurfaceNumber).ToArray();
+        }
+    }
+
     public IReadOnlyList<MultiConfigurationOperandRowDto> GetOperandRows()
     {
         lock (Gate)
@@ -103,7 +134,12 @@ internal sealed class MultiConfigurationService : WorkbenchServiceBase, IMultiCo
             () => Runtime.ActivateMultiConfiguration(configurationIndex));
     }
 
-    public void SetThickness(int configurationIndex, int surfaceNumber, double thickness) => MutateTransactional(
+    public void SetThickness(int configurationIndex, int surfaceNumber, double thickness, long? expectedRevision = null) => MutateTransactional(
         WorkspaceChangeCategory.Configuration,
-        () => Runtime.SetMultiConfigurationThickness(configurationIndex, surfaceNumber, thickness));
+        () =>
+        {
+            if (expectedRevision.HasValue && expectedRevision != Workspace.Revision)
+                throw new InvalidOperationException("工程已变化，请刷新多配置行表后重试。");
+            Runtime.SetMultiConfigurationThickness(configurationIndex, surfaceNumber, thickness);
+        });
 }

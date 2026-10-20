@@ -97,6 +97,9 @@ public partial class WorkbenchRuntime
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    public (int Count, int ActiveIndex) GetMultiConfigurationNavigation() =>
+        (_multiConfiguration.Configurations.Count, _activeConfigurationIndex);
+
     public IReadOnlyList<MultiConfigurationRow> GetMultiConfigurationRows()
     {
         SyncActiveConfigurationFromCurrent();

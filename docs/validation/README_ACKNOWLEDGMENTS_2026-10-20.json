@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "status": "verified-documentation-only",
+  "scope": "Remove the standalone Optiland history paragraph from both root READMEs and consolidate linked open-source acknowledgments in their existing project-positioning sections.",
+  "files": ["README.md", "README_EN.md"],
+  "sourceInventory": {
+    "nugetLockFilesReviewed": 53,
+    "uniqueNugetPackages": 54,
+    "unmappedPackageFamilies": 0,
+    "packageSources": ["src/**/packages.lock.json", "tests/**/packages.lock.json", "labs/**/packages.lock.json", "tools/**/packages.lock.json", "**/*.csproj"],
+    "referenceAndAssetSources": [
+      "third_party/autolens/AutoLens-NOTICE.txt",
+      "third_party/coating-reference/README.md",
+      "third_party/coating-reference/tmmcore-0.4.2.tgz:package/package.json",
+      "src/OpticalSystemDesign.Core/Materials/Data/README.md",
+      "src/OpticalSystemDesign.App/Assets/Fonts/*LICENSE.txt",
+      "src/OpticalSystemDesign.App/Assets/Fonts/FUSION-PIXEL-FONT-OFL.txt",
+      "src/OpticalSystemDesign.App/Assets/Icons/*LICENSE.txt",
+      "packaging/windows/inno/LICENSE.txt",
+      "scripts/*.ps1",
+      "tools/**/*.py",
+      "validation/coating/generate-reference.mjs"
+    ],
+    "grouping": "Group NuGet package families by upstream project; distinguish runtime, transitive platform dependencies, references, assets, build/test dependencies, and offline-only tooling. Do not list the dependency trees of reference-only projects as product dependencies."
+  },
+  "verification": {
+    "uniqueExternalProjectLinksPerReadme": 42,
+    "chineseAndEnglishProjectUrlSetsMatch": true,
+    "optilandMentionsPerReadme": 1,
+    "optilandMentionsRestrictedToAcknowledgments": true,
+    "standaloneHistoricalParagraphRemovedInBothLanguages": true,
+    "strictDocumentationCheck": {
+      "documents": 957,
+      "brokenLinks": 0,
+      "markdownFenceIssues": 0,
+      "guideRepeatedParagraphGroups": 0,
+      "result": "artifacts/validation/readme-acknowledgments-20261020/documentation-final.json"
+    },
+    "gitDiffCheck": "passed",
+    "externalLinkBoundary": "Upstream metadata and selected official project pages checked; the strict documentation checker validates local links, not every external URL or third-party licensing obligation."
+  },
+  "unchanged": ["Product code and binaries", "Package versions and lock files", "Third-party licenses and notices", "Frozen historical and native reference bytes"],
+  "productTestsOrBuildRerun": false,
+  "committedOrPushed": false
+}

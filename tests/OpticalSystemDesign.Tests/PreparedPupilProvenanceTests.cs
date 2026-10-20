@@ -61,10 +61,12 @@ public sealed class PreparedPupilProvenanceTests
             traced.VignettedRayCount, traced.ChiefImageDirectionZ, traced.ImageRefractiveIndex,
             traced.ImageSpaceAfocal, traced.AfocalPupilDiameterMillimeters)
         {
-            UseRayAiming = traced.UseRayAiming, SourceField = traced.SourceField,
+            UseRayAiming = traced.UseRayAiming,
+            SourceField = traced.SourceField,
             SourceWavelengthNanometers = traced.SourceWavelengthNanometers,
             SourceReferenceWavelengthNanometers = traced.SourceReferenceWavelengthNanometers,
-            PupilGrid = traced.PupilGrid, ReferenceSphere = traced.ReferenceSphere
+            PupilGrid = traced.PupilGrid,
+            ReferenceSphere = traced.ReferenceSphere
         };
         Assert.Throws<InvalidOperationException>(() => Compute(optic, unknown));
     }
@@ -88,8 +90,11 @@ public sealed class PreparedPupilProvenanceTests
     {
         var optic = Fixture();
         var pupil = Prepare(optic);
-        var changed = pupil with { Samples = pupil.Samples.Select(sample =>
-            sample with { OpdWaves = sample.OpdWaves + 2 * sample.NormalizedPupilX }).ToArray() };
+        var changed = pupil with
+        {
+            Samples = pupil.Samples.Select(sample =>
+            sample with { OpdWaves = sample.OpdWaves + 2 * sample.NormalizedPupilX }).ToArray()
+        };
         var original = changed.Samples.ToArray();
         var result = Compute(optic, changed);
         Assert.Equal(original, changed.Samples);

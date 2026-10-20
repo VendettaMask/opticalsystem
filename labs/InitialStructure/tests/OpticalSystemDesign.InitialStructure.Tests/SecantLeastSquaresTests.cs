@@ -2,20 +2,37 @@ using OpticalSystemDesign.InitialStructure.Engine.Optimization;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
+using System.Text.Json;
+using Xunit.Abstractions;
 
 namespace OpticalSystemDesign.InitialStructure.Tests;
 
-public sealed class SecantLeastSquaresTests
+public sealed class SecantLeastSquaresTests(ITestOutputHelper output)
 {
     [Theory]
     [InlineData(6)]
     [InlineData(9)]
     public void FrozenOpticalCasesReachOriginalTargetsWithFreshCoreValidation(int index)
+        => ValidateOpticalCase(index, 0, false);
+
+    [Theory]
+    [InlineData(-1e-12)]
+    [InlineData(1e-12)]
+    public void TinyInitialRoundoffDoesNotLoseTheOriginalFullTarget(double perturbation)
+        => ValidateOpticalCase(9, perturbation, true);
+
+    private void ValidateOpticalCase(int index, double perturbation, bool strictRequestedTarget)
     {
         var input = FlatStartQualityRegressionTests.Inputs()[index];
+        // Preserve the original frozen-case inputs and 0.03 mm assertion.
+        // The additional roundoff controls explicitly request that stricter
+        // target instead of depending on the frozen spec's 0.05 mm headroom.
         var spec = FlatStartQualityRegressionTests.Upgrade(input.Specification);
+        if (strictRequestedTarget) spec = spec with { MaximumRmsSpotRadiusMillimeters = .03 };
         var problem = new FlatStartDesignProblem(spec, input.Family.ElementCount, input.Initial, input.Family);
         var initial = problem.Vector(input.Initial);
+        for (var column = 0; column < initial.Length; column++)
+            initial[column] += perturbation * Math.Max(1, Math.Abs(initial[column]));
         var best = Evaluate(initial);
         var updates = 0;
         var result = FlatStartLocalSolver.Solve(problem.SolverCoordinates, initial, best, 600, Evaluate,
@@ -24,9 +41,22 @@ public sealed class SecantLeastSquaresTests
                 var rank = Rank(evaluation); var previous = Rank(best);
                 if (rank < previous || rank == previous && evaluation.Merit < best.Merit) best = evaluation;
             }, (_, statistics) => updates += statistics.SecantUpdateCount);
+        var fresh = problem.Evaluate(Optic.FromSnapshot(best.EvaluatedOptic!), FlatStartDesignProblem.FullStage, true, default, true);
+        output.WriteLine(JsonSerializer.Serialize(new
+        {
+            index,
+            perturbation,
+            strictRequestedTarget,
+            result.Evaluations,
+            result.Termination,
+            updates,
+            fresh.MeetsTargets,
+            fresh.GeometryFeasible,
+            maximumRms = fresh.Fields.Max(field => field.RmsRadiusMillimeters),
+            fresh.Violations
+        }));
         Assert.InRange(result.Evaluations, 1, 600);
         Assert.True(updates > 0);
-        var fresh = problem.Evaluate(Optic.FromSnapshot(best.EvaluatedOptic!), FlatStartDesignProblem.FullStage, true, default, true);
         Assert.True(fresh.MeetsTargets);
         Assert.True(fresh.GeometryFeasible);
         Assert.True(fresh.Objective!.IndependentValidation);
@@ -40,6 +70,7 @@ public sealed class SecantLeastSquaresTests
     [Theory]
     [InlineData("13")]
     [InlineData("19")]
+    [InlineData("20")]
     public async Task PreviousAreaVersionRemainsReadableWithItsScheduleButRequiresSeparateRefinement(string version)
     {
         var spec = FlatStartQualityRegressionTests.Upgrade(FlatStartRefinementTests.Spec());
@@ -50,6 +81,36 @@ public sealed class SecantLeastSquaresTests
         FlatStartCheckpointValidation.Validate(previous);
         var error = await Assert.ThrowsAsync<InvalidDataException>(() => new FlatStartSearchService().RunAsync(spec, previous.Options, checkpoint: previous));
         Assert.Contains("historical search version", error.Message);
+    }
+
+    [Theory]
+    [InlineData(FlatStartOptimizationMethod.AutoLensCpuExperimentV1)]
+    [InlineData(FlatStartOptimizationMethod.AutoLensManagedV1)]
+    public async Task Version20ExperimentalRecordsRemainReadableWithoutSilentResume(FlatStartOptimizationMethod method)
+    {
+        var spec = method == FlatStartOptimizationMethod.AutoLensManagedV1
+            ? AutoLensManagedTests.Specification() : AutoLensCpuTests.Specification();
+        using var stop = new CancellationTokenSource(); stop.Cancel();
+        var current = (await new FlatStartSearchService().RunAsync(spec, cancellationToken: stop.Token)).Checkpoint;
+        var previous = current with { Algorithm = current.Algorithm with { Version = "20" } };
+        FlatStartCheckpointValidation.Validate(previous);
+        var error = await Assert.ThrowsAsync<InvalidDataException>(() => new FlatStartSearchService().RunAsync(spec,
+            previous.Options, checkpoint: previous));
+        Assert.Contains("historical search version", error.Message);
+        Assert.Throws<InvalidDataException>(() => FlatStartCheckpointValidation.Validate(previous with
+        { Algorithm = previous.Algorithm with { Version = "19" } }));
+    }
+
+    [Fact]
+    public void OneUlpAboveTheBoundResolutionCannotFreezeAnIndependentCoordinate()
+    {
+        var result = BoundedTrustRegionLeastSquares.Solve([.5, double.BitIncrement(1e-12)], [0, 0], [1, 1],
+            (point, _) => new([point[0] - .8, point[1] + 1]),
+            new() { InitialRadius = .2, StepMethod = LeastSquaresStepMethod.Regularized, MaximumSecantUpdates = 4 });
+        Assert.Equal(LeastSquaresTermination.Stationary, result.Termination);
+        Assert.Equal(.8, result.Variables[0], 8);
+        Assert.InRange(result.Variables[1], 0, 1.01e-12);
+        Assert.Contains(result.Trials, trial => trial.Accepted && trial.ActualReduction > 0);
     }
 
     [Theory]

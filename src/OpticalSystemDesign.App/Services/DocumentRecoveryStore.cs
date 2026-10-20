@@ -31,8 +31,13 @@ internal sealed class DocumentRecoveryStore : IAsyncDisposable
     internal DocumentRecoveryStore(IOpticalDocumentService documents, string root)
     {
         _documents = documents;
-        _root = Path.GetFullPath(root);
-        Directory.CreateDirectory(_root);
+        var requestedRoot = Path.GetFullPath(root);
+        Directory.CreateDirectory(requestedRoot);
+        if ((File.GetAttributes(requestedRoot) & FileAttributes.ReparsePoint) != 0)
+            throw new InvalidDataException("恢复目录本身不能是符号链接或目录联接。");
+        // Establish one physical trust boundary. OS-owned parents may be aliases
+        // (for example macOS /var); links within the recovery root remain forbidden.
+        _root = CanonicalDirectory(requestedRoot);
         CheckPath(_root);
         _session = Path.Combine(_root, Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(_session);
@@ -142,7 +147,7 @@ internal sealed class DocumentRecoveryStore : IAsyncDisposable
         var session = Path.GetFullPath(candidate.SessionDirectory);
         if (!Guid.TryParseExact(candidate.Entry.Id, "N", out _))
             throw new InvalidDataException("恢复副本身份无效。");
-        if (!string.Equals(Path.GetDirectoryName(session), _root, StringComparison.OrdinalIgnoreCase)
+        if (!string.Equals(Path.GetDirectoryName(session), _root, PathComparison)
             || !Guid.TryParseExact(Path.GetFileName(session), "N", out _))
             throw new InvalidDataException("恢复副本不属于本恢复目录。");
         CheckPath(session);
@@ -156,7 +161,7 @@ internal sealed class DocumentRecoveryStore : IAsyncDisposable
         return project;
     }
 
-    private static DocumentRecoveryEntry ReadEntry(string path)
+    private DocumentRecoveryEntry ReadEntry(string path)
     {
         CheckPath(path);
         var entry = JsonSerializer.Deserialize<DocumentRecoveryEntry>(
@@ -201,18 +206,45 @@ internal sealed class DocumentRecoveryStore : IAsyncDisposable
         File.Delete(Path.Combine(_session, entry.Id + ".staropt"));
     }
 
-    private static string Hash(string path)
+    private string Hash(string path)
     {
         CheckPath(path);
         using var stream = BoundedApplicationFile.OpenRead(path, 1024L * 1024 * 1024, "Recovery project");
         return Convert.ToHexString(SHA256.HashData(stream));
     }
 
-    private static void CheckPath(string path)
+    private static StringComparison PathComparison => OperatingSystem.IsWindows()
+        ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+
+    private void CheckPath(string path)
     {
-        for (var item = Path.GetFullPath(path); !string.IsNullOrEmpty(item); item = Path.GetDirectoryName(item))
+        var fullPath = Path.GetFullPath(path);
+        if (!string.Equals(fullPath, _root, PathComparison)
+            && !fullPath.StartsWith(_root + Path.DirectorySeparatorChar, PathComparison))
+            throw new InvalidDataException("恢复路径超出本恢复目录。");
+        for (var item = fullPath; !string.IsNullOrEmpty(item); item = Path.GetDirectoryName(item))
+        {
             if (Path.Exists(item) && (File.GetAttributes(item) & FileAttributes.ReparsePoint) != 0)
                 throw new InvalidDataException("恢复目录不能包含符号链接或目录联接。");
+        }
+    }
+
+    private static string CanonicalDirectory(string path, int depth = 0)
+    {
+        if (depth >= 40) throw new InvalidDataException("恢复目录的父路径包含循环链接。");
+        var fullPath = Path.GetFullPath(path);
+        var current = Path.GetPathRoot(fullPath)!;
+        foreach (var segment in fullPath[current.Length..].Split(
+                     [Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar], StringSplitOptions.RemoveEmptyEntries))
+        {
+            current = Path.Combine(current, segment);
+            var info = new DirectoryInfo(current);
+            if ((info.Attributes & FileAttributes.ReparsePoint) == 0) continue;
+            var target = info.ResolveLinkTarget(returnFinalTarget: true)
+                ?? throw new InvalidDataException("无法解析恢复目录的父路径链接。");
+            current = CanonicalDirectory(target.FullName, depth + 1);
+        }
+        return Path.TrimEndingDirectorySeparator(current);
     }
 
     internal async Task StopAsync(bool cleanExit)

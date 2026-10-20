@@ -33,7 +33,7 @@ public sealed partial class AnalysisPanel
     {
         if (IsCardinalPointsView(view) && cardinalScene?.TwoDimensional is not null)
         {
-            return BuildCardinalPointsScene(view, cardinalScene);
+            return new ResponsiveAnalysisPlotHost { Child = BuildCardinalPointsScene(view, cardinalScene) };
         }
 
         if (IsSeidelCoefficientsView(view))
@@ -88,7 +88,6 @@ public sealed partial class AnalysisPanel
             AcceptsReturn = true,
             TextWrapping = TextWrapping.NoWrap,
             FontFamily = new FontFamily("Cascadia Mono, Consolas"),
-            MinHeight = 300,
             Text = view.ReportText
         };
         report.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
@@ -98,7 +97,7 @@ public sealed partial class AnalysisPanel
             TabStripPlacement = Avalonia.Controls.Dock.Bottom,
             ItemsSource = new object[]
             {
-                AnalysisResultTab("绘图", plotPage),
+                AnalysisResultTab("绘图", new ResponsiveAnalysisPlotHost { Child = plotPage }),
                 AnalysisResultTab("数据", resultsGrid),
                 AnalysisResultTab("文本", report)
             },
@@ -534,7 +533,6 @@ public sealed partial class AnalysisPanel
             CanUserResizeColumns = true,
             GridLinesVisibility = DataGridGridLinesVisibility.All,
             HeadersVisibility = DataGridHeadersVisibility.Column,
-            MinHeight = 220,
             ItemsSource = view.Table is null
                 ? (System.Collections.IEnumerable)view.Rows
                 : view.Table.Rows

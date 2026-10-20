@@ -322,7 +322,7 @@ public sealed class CalculationPathRepairTests
     public static IEnumerable<object[]> NativeZeroDefocusCases()
     {
         foreach (var lens in new[] { "cooke-40-degree-field", "double-gauss-28-degree-field", "relay-lens" })
-        foreach (var setting in new[] { "primary", "edge-shortwave" }) yield return [lens, setting];
+            foreach (var setting in new[] { "primary", "edge-shortwave" }) yield return [lens, setting];
     }
 
     [Theory]

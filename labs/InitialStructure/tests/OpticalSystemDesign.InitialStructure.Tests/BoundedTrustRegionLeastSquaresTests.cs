@@ -82,6 +82,23 @@ public sealed class BoundedTrustRegionLeastSquaresTests
         Assert.All(result.Trials.Where(trial => trial.Accepted), trial => Assert.True(trial.ActualReduction > 0));
     }
 
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void InitialProjectionStallResolvesTheCoupledModelAtItsActualBound(bool upper)
+    {
+        var sign = upper ? -1d : 1d;
+        var result = BoundedTrustRegionLeastSquares.Solve([sign * double.BitIncrement(1e-12), 2],
+            upper ? [-10, -10] : [0, -10], upper ? [0, 10] : [10, 10],
+            (point, _) => new([sign * point[0] + point[1] - 1, point[1] - 3.1]),
+            new() { MaximumEvaluations = 32, InitialRadius = 10, StepMethod = LeastSquaresStepMethod.Regularized });
+        var first = result.Trials.First(trial => trial.Accepted);
+        Assert.Equal(0, first.TrialPoint[0], 12);
+        Assert.Equal(2.05, first.TrialPoint[1], 8);
+        Assert.True(first.ActualReduction > 0);
+        Assert.InRange(first.TrialPoint.Zip(first.BasePoint, (a, b) => a - b).Aggregate(0d, double.Hypot), 0, first.Radius);
+    }
+
     [Fact]
     public void RejectedStepsReuseJacobianAndFactorizationAndChargeEveryCall()
     {

@@ -16,6 +16,8 @@ public static class ThemeResourceBindings
     public const string RibbonPageBackground = "OpticalSystemDesignRibbonPageBackgroundBrush";
     public const string StatusBarBackground = "OpticalSystemDesignStatusBarBackgroundBrush";
     public const string Border = "OpticalSystemDesignBorderBrush";
+    public const string DockPreviewFill = "OpticalSystemDesignDockPreviewFillBrush";
+    public const string DockPreviewBorder = "OpticalSystemDesignDockPreviewBorderBrush";
     public const string TextPrimary = "OpticalSystemDesignTextPrimaryBrush";
     public const string TextSecondary = "OpticalSystemDesignTextSecondaryBrush";
     public const string TextMuted = "OpticalSystemDesignTextMutedBrush";

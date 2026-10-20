@@ -99,6 +99,7 @@ internal static class BoundedTrustRegionLeastSquares
             // Rejections of a freshly differentiated model reuse its full-row QR;
             // an approximate model instead triggers fresh derivatives. Regularization
             // refactors only the small triangular model and charges no function calls.
+            var resolveCrossedBounds = false;
             while (true)
             {
                 if (!CanEvaluate()) return Finish(interrupted!.Value);
@@ -106,13 +107,19 @@ internal static class BoundedTrustRegionLeastSquares
                 var scaledUpper = upper.Select((value, index) => (value - vector[index]) * scales[index]).ToArray();
                 var step = regularized is null
                     ? Dogleg(jacobian, gradient, gaussNewton, new double[vector.Length], scaledLower, scaledUpper, free, radius)
-                    : RegularizedStep(regularized, jacobian, evaluation.Residuals, gradient, scaledLower, scaledUpper, free, radius, ref factorizations);
+                    : RegularizedStep(regularized, jacobian, evaluation.Residuals, gradient, scaledLower, scaledUpper, free,
+                        radius, resolveCrossedBounds, ref factorizations);
                 var proposed = vector.Select((value, index) => Math.Clamp(value + step[index] / scales[index], lower[index], upper[index])).ToArray();
                 if (proposed.Any(value => !double.IsFinite(value))) return Finish(LeastSquaresTermination.NonFiniteModel);
                 for (var index = 0; index < step.Length; index++) step[index] = (proposed[index] - vector[index]) * scales[index];
                 var stepNorm = regularized is null ? MaxAbs(step) : step.Aggregate(0.0, double.Hypot);
                 if (stepNorm <= options.StepTolerance * Math.Max(1, vector.Select((value, index) => Math.Abs(value * scales[index])).Max()))
                 {
+                    // A nonstationary initial model can be immobilized by projection
+                    // at an almost-active bound. Retry that model with explicit
+                    // crossed-bound elimination before declaring no usable step.
+                    if (regularized is not null && models == 1 && !resolveCrossedBounds)
+                    { resolveCrossedBounds = true; continue; }
                     if (reused) break;
                     return Finish(LeastSquaresTermination.StepTooSmall);
                 }
@@ -120,6 +127,8 @@ internal static class BoundedTrustRegionLeastSquares
                 if (!double.IsFinite(predicted)) return Finish(LeastSquaresTermination.NonFiniteModel);
                 if (predicted <= 0)
                 {
+                    if (regularized is not null && models == 1 && !resolveCrossedBounds)
+                    { resolveCrossedBounds = true; continue; }
                     if (reused) break;
                     return Finish(LeastSquaresTermination.StepTooSmall);
                 }
@@ -262,33 +271,50 @@ internal static class BoundedTrustRegionLeastSquares
 
     private static double[] RegularizedStep(RegularizedLeastSquaresModel model, double[,] jacobian,
         IReadOnlyList<double> residuals, double[] gradient, double[] lower, double[] upper, int[] free,
-        double radius, ref int factorizations)
+        double radius, bool resolveCrossedBounds, ref int factorizations)
     {
         var candidate = new double[gradient.Length];
         var movable = free;
         while (movable.Length > 0)
         {
-            var solved = model.Step(radius, out var solves);
+            var fixedNorm = candidate.Aggregate(0.0, double.Hypot);
+            var remainingRadius = resolveCrossedBounds
+                ? Math.Sqrt(Math.Max(0, (radius - fixedNorm) * (radius + fixedNorm))) : radius;
+            if (!(remainingRadius > 0)) break;
+            var solved = model.Step(remainingRadius, out var solves);
             factorizations += solves;
             var remaining = movable.Where((column, index) =>
-                !(lower[column] >= 0 && solved[index] < 0)
-                && !(upper[column] <= 0 && solved[index] > 0)).ToArray();
+                resolveCrossedBounds ? solved[index] >= lower[column] && solved[index] <= upper[column]
+                : !(lower[column] >= 0 && solved[index] < 0)
+                    && !(upper[column] <= 0 && solved[index] > 0)).ToArray();
             if (remaining.Length == movable.Length)
             {
                 for (var column = 0; column < movable.Length; column++)
                     candidate[movable[column]] = Math.Clamp(solved[column], lower[movable[column]], upper[movable[column]]);
                 break;
             }
-            // An inward gradient does not guarantee an inward coupled Newton step.
-            // Clipping an outward active-bound coordinate leaves the other coordinates
-            // solving the wrong model. Resolve the remaining columns at that bound;
-            // the outer gradient check can release it again on the next iteration.
+            // Preserve ordinary projection. The stalled-start safeguard includes
+            // the actual fixed contribution and remaining trust radius, rather
+            // than merely clipping a coupled step to a tiny bound distance.
+            if (resolveCrossedBounds)
+                for (var index = 0; index < movable.Length; index++)
+                {
+                    var column = movable[index];
+                    if (!remaining.Contains(column))
+                        candidate[column] = Math.Clamp(solved[index], lower[column], upper[column]);
+                }
             movable = remaining;
             if (movable.Length == 0) break;
             var reduced = new double[jacobian.GetLength(0), movable.Length];
             for (var column = 0; column < movable.Length; column++)
                 for (var row = 0; row < jacobian.GetLength(0); row++) reduced[row, column] = jacobian[row, movable[column]];
-            model = new(reduced, residuals);
+            if (resolveCrossedBounds)
+            {
+                var adjustedResiduals = Multiply(jacobian, candidate);
+                for (var row = 0; row < adjustedResiduals.Length; row++) adjustedResiduals[row] += residuals[row];
+                model = new(reduced, adjustedResiduals);
+            }
+            else model = new(reduced, residuals);
             factorizations++;
         }
         var cauchy = Dogleg(jacobian, gradient, new double[gradient.Length], new double[gradient.Length], lower, upper, free, radius);

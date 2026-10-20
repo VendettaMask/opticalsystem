@@ -24,7 +24,8 @@ public sealed class CalculationPathPanelTests
         {
             using var app = WorkbenchApplication.Create("cooke");
             using var panel = new AnalysisPanel(app.Analyses, app.Visualization, app.Documents, app.Events,
-                new AppSettings(), "Foucault Analysis") { IsLocked = true };
+                new AppSettings(), "Foucault Analysis")
+            { IsLocked = true };
             typeof(AnalysisPanel).GetField("_initialRunRequested", BindingFlags.Instance | BindingFlags.NonPublic)!.SetValue(panel, true);
             ((CheckBox)typeof(AnalysisPanel).GetField("_parameterAutoApply", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(panel)!).IsChecked = false;
             ((Border)typeof(AnalysisPanel).GetField("_settingsHost", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(panel)!).IsVisible = true;

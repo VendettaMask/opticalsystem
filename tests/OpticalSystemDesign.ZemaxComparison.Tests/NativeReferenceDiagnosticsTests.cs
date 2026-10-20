@@ -20,7 +20,7 @@ public sealed class NativeReferenceDiagnosticsTests
     [InlineData("Failure", "")]
     public void DiagnosticsAreRejectedWithoutParsingLanguageOrTrustingSuccess(string code, string message)
     {
-        using var report = JsonDocument.Parse(JsonSerializer.Serialize(new { messages = new[] { new { ErrorCode=code, Text=message } } }));
+        using var report = JsonDocument.Parse(JsonSerializer.Serialize(new { messages = new[] { new { ErrorCode = code, Text = message } } }));
         var error = Assert.Throws<InvalidDataException>(() => NativeReferenceDiagnostics.Validate(report.RootElement));
         Assert.Contains("Native report emitted diagnostics", error.Message);
         Assert.Contains(code, error.Message);
@@ -51,7 +51,9 @@ public sealed class NativeReferenceDiagnosticsTests
             var error = Assert.Throws<InvalidDataException>(() => ResultNormalizer.Zemax(path,
                 AnalysisComparisonRegistry.Get(key), new CanonicalAnalysisRequest
                 {
-                    CanonicalAnalysisKey=key, Apodization="None", WorkbenchSettings=[]
+                    CanonicalAnalysisKey = key,
+                    Apodization = "None",
+                    WorkbenchSettings = []
                 }));
             Assert.Contains("Native report emitted diagnostics", error.Message);
         }

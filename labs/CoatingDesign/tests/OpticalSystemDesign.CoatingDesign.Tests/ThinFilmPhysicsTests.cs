@@ -49,7 +49,9 @@ public sealed class ThinFilmPhysicsTests
     }
 
     [Theory]
-    [InlineData(0)] [InlineData(35)] [InlineData(70)]
+    [InlineData(0)]
+    [InlineData(35)]
+    [InlineData(70)]
     public void LosslessPowerAndUnpolarizedAverage(double angle)
     {
         var solver = new CoherentThinFilmSolver(N(1), N(1.5), Enumerable.Range(0, 120).Select(i => new CoherentFilm(N(i % 2 == 0 ? 2.3 : 1.45), 63 + i % 9)));

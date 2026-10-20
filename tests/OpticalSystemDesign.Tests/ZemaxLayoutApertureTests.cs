@@ -31,7 +31,26 @@ public sealed class ZemaxLayoutApertureTests
             """ + "\n  " + apertureRecords + "\nSURF 2\n  STOP\n  DISZ 1\n  DIAM 3 1 0 0 1\nSURF 3\n  DISZ 0";
         var optic = OpticalFormatCatalog.Import(source, ".zmx");
         Assert.Equal(explicitAperture, optic.SurfaceGroup.Items[1].PhysicalAperture is not null);
-        Assert.NotNull(optic.SurfaceGroup.Items[2].PhysicalAperture);
+        var stop = optic.SurfaceGroup.Items[2];
+        Assert.True(stop.IsStop);
+        Assert.Equal(3, stop.SemiDiameter);
+        Assert.True(stop.SemiDiameterFixed);
+        // A plane air-to-air dummy stop establishes the pupil, not an implicit
+        // clipping aperture. Native replay and explicit FLAP controls are kept
+        // in MultiLensEncircledEnergyTests.PlaneStopAcceptanceMatchesItsExplicitNativeAperture.
+        Assert.Null(stop.PhysicalAperture);
+    }
+
+    [Theory]
+    [InlineData("", false)]
+    [InlineData("FLAP 0 0 0 0 0 0", true)]
+    public void ExplicitFloatingApertureRemainsDistinctFromAFixedDummyStop(string record, bool clips)
+    {
+        var source = $"MODE SEQ\nENPD 6\nSURF 0\nDISZ INFINITY\nSURF 1\nSTOP\nDIAM 3 1 0 0 1\n{record}\nDISZ 10\nSURF 2\nDISZ 0";
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        var stop = optic.SurfaceGroup.Items.Single(surface => surface.IsStop);
+        Assert.Equal(clips, stop.PhysicalAperture is not null);
+        if (clips) Assert.Equal(3, Assert.IsType<CircularAperture>(stop.PhysicalAperture).Radius);
     }
 
     private const string Source = """

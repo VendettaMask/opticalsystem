@@ -39,23 +39,23 @@ public sealed class RayLaunchCoordinateRepairTests
     public void PreparedAndBatchLaunchesUseTheSameMovingDatum()
     {
         foreach (var finite in new[] { false, true })
-        foreach (var aiming in new[] { false, true })
-        {
-            var source = Fixture(finite ? FieldDefinitionKind.ObjectHeight : FieldDefinitionKind.Angle, finite);
-            var shift = new Vector3D(10, -10, 7);
-            var translated = Translate(source, shift);
-            var wave = source.Wavelengths[0].Micrometers;
-            var pupils = SpotAnalysisEngine.CreatePupilSamples(4, "uniform");
-            var a = source.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(.6, .8, wave, pupils, aiming);
-            var b = translated.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(.6, .8, wave, pupils, aiming);
-            Assert.Equal(a.Rays.Count, b.Rays.Count);
-            foreach (var pair in a.Rays.Zip(b.Rays)) AssertTranslatedRay(pair.First, pair.Second, shift);
-            var originalSampler = source.SequentialRayTracer.RayGenerator.CreatePupilRaySampler(.6, .8, wave, aiming);
-            var translatedSampler = translated.SequentialRayTracer.RayGenerator.CreatePupilRaySampler(.6, .8, wave, aiming);
-            foreach (var pupil in new[] { (0d, 0d), (.25, .5), (-.5, 0d) })
-                AssertTranslatedRay(originalSampler(pupil.Item1, pupil.Item2),
-                    translatedSampler(pupil.Item1, pupil.Item2), shift);
-        }
+            foreach (var aiming in new[] { false, true })
+            {
+                var source = Fixture(finite ? FieldDefinitionKind.ObjectHeight : FieldDefinitionKind.Angle, finite);
+                var shift = new Vector3D(10, -10, 7);
+                var translated = Translate(source, shift);
+                var wave = source.Wavelengths[0].Micrometers;
+                var pupils = SpotAnalysisEngine.CreatePupilSamples(4, "uniform");
+                var a = source.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(.6, .8, wave, pupils, aiming);
+                var b = translated.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(.6, .8, wave, pupils, aiming);
+                Assert.Equal(a.Rays.Count, b.Rays.Count);
+                foreach (var pair in a.Rays.Zip(b.Rays)) AssertTranslatedRay(pair.First, pair.Second, shift);
+                var originalSampler = source.SequentialRayTracer.RayGenerator.CreatePupilRaySampler(.6, .8, wave, aiming);
+                var translatedSampler = translated.SequentialRayTracer.RayGenerator.CreatePupilRaySampler(.6, .8, wave, aiming);
+                foreach (var pupil in new[] { (0d, 0d), (.25, .5), (-.5, 0d) })
+                    AssertTranslatedRay(originalSampler(pupil.Item1, pupil.Item2),
+                        translatedSampler(pupil.Item1, pupil.Item2), shift);
+            }
     }
 
     [Fact]
@@ -113,25 +113,25 @@ public sealed class RayLaunchCoordinateRepairTests
             {
                 var translated = Translate(source, shift);
                 foreach (var field in new[] { (0d, 0d), (.6, .8) })
-                foreach (var pupil in new[] { (0d, 0d), (.25, .5), (-.5, 0d) })
-                foreach (var wave in source.Wavelengths)
-                {
-                    var a = source.SequentialRayTracer.RayGenerator.GenerateGeneric(field.Item1, field.Item2,
-                        pupil.Item1, pupil.Item2, wave.Micrometers, aiming);
-                    var b = translated.SequentialRayTracer.RayGenerator.GenerateGeneric(field.Item1, field.Item2,
-                        pupil.Item1, pupil.Item2, wave.Micrometers, aiming);
-                    AssertTranslatedRay(a.Rays.Single(), b.Rays.Single(), shift);
-                    var original = source.SequentialRayTracer.TraceFinalSamples(a).Single();
-                    var actual = translated.SequentialRayTracer.TraceFinalSamples(b).Single();
-                    Assert.NotNull(original);
-                    Assert.NotNull(actual);
-                    Assert.True(original.Intensity > 0 && !original.Vignetted);
-                    Assert.True(actual.Intensity > 0 && !actual.Vignetted);
-                    Assert.InRange((actual.Position - original.Position - shift).Length, 0, 1e-8);
-                    Assert.InRange((actual.Direction - original.Direction).Length, 0, 1e-9);
-                    Assert.InRange(Math.Abs(actual.CumulativeOpticalPathLength - original.CumulativeOpticalPathLength), 0, 1e-8);
-                    Assert.InRange(Math.Abs(actual.Intensity - original.Intensity), 0, 1e-10);
-                }
+                    foreach (var pupil in new[] { (0d, 0d), (.25, .5), (-.5, 0d) })
+                        foreach (var wave in source.Wavelengths)
+                        {
+                            var a = source.SequentialRayTracer.RayGenerator.GenerateGeneric(field.Item1, field.Item2,
+                                pupil.Item1, pupil.Item2, wave.Micrometers, aiming);
+                            var b = translated.SequentialRayTracer.RayGenerator.GenerateGeneric(field.Item1, field.Item2,
+                                pupil.Item1, pupil.Item2, wave.Micrometers, aiming);
+                            AssertTranslatedRay(a.Rays.Single(), b.Rays.Single(), shift);
+                            var original = source.SequentialRayTracer.TraceFinalSamples(a).Single();
+                            var actual = translated.SequentialRayTracer.TraceFinalSamples(b).Single();
+                            Assert.NotNull(original);
+                            Assert.NotNull(actual);
+                            Assert.True(original.Intensity > 0 && !original.Vignetted);
+                            Assert.True(actual.Intensity > 0 && !actual.Vignetted);
+                            Assert.InRange((actual.Position - original.Position - shift).Length, 0, 1e-8);
+                            Assert.InRange((actual.Direction - original.Direction).Length, 0, 1e-9);
+                            Assert.InRange(Math.Abs(actual.CumulativeOpticalPathLength - original.CumulativeOpticalPathLength), 0, 1e-8);
+                            Assert.InRange(Math.Abs(actual.Intensity - original.Intensity), 0, 1e-10);
+                        }
             }
         }
     }

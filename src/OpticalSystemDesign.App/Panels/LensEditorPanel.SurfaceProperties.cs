@@ -61,21 +61,29 @@ public sealed partial class LensEditorPanel
         };
         _previousPropertySurface.Click += (_, _) => NavigatePropertySurface(-1);
         _nextPropertySurface.Click += (_, _) => NavigatePropertySurface(1);
+        var surfaceItems = new StackPanel
+        {
+            Name = "SurfacePropertiesHeaderItems",
+            Orientation = Orientation.Horizontal,
+            Spacing = 6,
+            VerticalAlignment = VerticalAlignment.Center,
+            Children = { toggle, _surfacePropertiesTitle, _previousPropertySurface, _nextPropertySurface }
+        };
+        var headerItems = new WrapPanel
+        {
+            Name = "LensEditorHeaderItems",
+            Orientation = Orientation.Horizontal,
+            Children = { surfaceItems }
+        };
+        if (_configurations is not null) headerItems.Children.Add(BuildConfigurationNavigation());
         var header = new Border
         {
             Name = "SurfacePropertiesHeader",
             Padding = new Thickness(8, 7),
-            Child = new StackPanel
-            {
-                Name = "SurfacePropertiesHeaderItems",
-                Orientation = Orientation.Horizontal,
-                Spacing = 6,
-                HorizontalAlignment = HorizontalAlignment.Left,
-                Children = { toggle, _surfacePropertiesTitle, _previousPropertySurface, _nextPropertySurface }
-            }
+            Child = headerItems
         };
         header.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
-        return new StackPanel { Children = { header, editorBorder } };
+        return new StackPanel { Children = { header, _configurationMessage, editorBorder } };
     }
 
     private static Button PropertyHeaderButton(string name, string iconName, string caption)

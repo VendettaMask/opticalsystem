@@ -13,6 +13,25 @@ public sealed class FlatStartRefinementTests
     internal static FlatStartSearchOptions Options => new() { MaximumEvaluationsPerTrial = 120 };
 
     [Fact]
+    public async Task CompletedVersion20CanStartSeparateVersion21RefinementWithoutRewritingHistory()
+    {
+        var current = (await new FlatStartSearchService().RunAsync(Spec(), Options)).Checkpoint;
+        var historical = current with { Algorithm = current.Algorithm with { Version = "20" } };
+        FlatStartCheckpointValidation.Validate(historical);
+        var hash = ContentFingerprint.Compute(historical);
+        var selected = FlatStartSearchService.SelectCandidates(historical)[0];
+        var child = FlatStartSearchService.CreateRefinementCheckpoint(historical, selected.CandidateId, 20, TimeSpan.FromMinutes(1));
+        FlatStartCheckpointValidation.Validate(child);
+        Assert.Equal("21", child.Algorithm.Version);
+        Assert.Equal(historical.RunId, child.Origin!.RunId);
+        Assert.Equal(selected.OpticFingerprint, child.Origin.Source.Candidate!.OpticFingerprint);
+        Assert.Equal(0, child.ChargedEvaluations);
+        Assert.Equal(hash, ContentFingerprint.Compute(historical));
+        await Assert.ThrowsAsync<InvalidDataException>(() => new FlatStartSearchService().RunAsync(historical.Specification,
+            historical.Options, checkpoint: historical));
+    }
+
+    [Fact]
     public async Task SelectedRefinementPreservesTargetsRootSourceAndUsesOnlyNewBudget()
     {
         var source = (await new FlatStartSearchService().RunAsync(Spec(), Options)).Checkpoint;

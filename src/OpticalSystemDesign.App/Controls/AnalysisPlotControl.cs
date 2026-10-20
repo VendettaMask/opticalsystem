@@ -5,6 +5,7 @@ using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
+using Avalonia.Media.Immutable;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.App.Services;
@@ -22,7 +23,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
     private static readonly IBrush TextBrush = new SolidColorBrush(Color.FromRgb(38, 38, 38));
     private static readonly IBrush TickBrush = new SolidColorBrush(Color.FromRgb(80, 80, 80));
     private static readonly IBrush BarBrush = new SolidColorBrush(Color.FromArgb(190, 31, 145, 94));
-    private static readonly Pen AxisPen = new(new SolidColorBrush(Color.FromRgb(38, 38, 38)), 1);
+    private static readonly IPen AxisPen = new ImmutablePen(new ImmutableSolidColorBrush(Color.FromRgb(38, 38, 38)), 1);
     private static readonly Color[] Palette =
     {
         Color.FromRgb(31, 119, 180),
@@ -53,7 +54,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         return alpha.HasValue ? Color.FromArgb(alpha.Value, color.R, color.G, color.B) : color;
     }
 
-    private Pen ThemePen(string key, Pen fallback) => new(
+    private Pen ThemePen(string key, IPen fallback) => new(
         ThemeBrush(key, fallback.Brush ?? Brushes.Black),
         fallback.Thickness,
         fallback.DashStyle,

@@ -68,6 +68,16 @@ public sealed class UserGuidePanelTests
                 Assert.Equal("ツール", Named<TextBlock>(panel, "UserGuideTitle").Text);
                 Assert.Contains("future command", VisibleText(panel));
                 Assert.Contains("全機能", AutomationProperties.GetName(Named<Border>(panel, "UserGuideIllustration")));
+
+                Named<TextBox>(panel, "UserGuideSearch").Text = "停靠预览";
+                Tick(window);
+                Assert.Contains("灰色枠", VisibleText(panel));
+                UiLocalization.Apply(UiLocalization.English);
+                Tick(window);
+                Assert.Contains("translucent gray frame", VisibleText(panel));
+                UiLocalization.Apply(UiLocalization.Chinese);
+                Tick(window);
+                Assert.Contains("半透明灰框", VisibleText(panel));
             }
             finally
             {

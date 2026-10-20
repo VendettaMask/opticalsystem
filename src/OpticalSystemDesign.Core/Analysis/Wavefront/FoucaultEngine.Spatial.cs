@@ -103,38 +103,41 @@ public static partial class FoucaultEngine
                 var observed = AngularSpectrumEngine.PropagateVector(blade, pitch, pitch, wavelength.Micrometers * .001, index, observationDistance);
                 outputPower += observed.NormalFluxIntegral; projectionDifference += observed.ProjectionDifferenceNormIntegral;
                 for (var row = 0; row < sampling; row++)
-                for (var column = 0; column < sampling; column++)
-                {
-                    var e = observed.Electric[row + offset, column + offset];
-                    var h = observed.Magnetic[row + offset, column + offset];
-                    intensity[row, column] += e.SquaredNorm;
-                    displayedPower += (e.X * Complex.Conjugate(h.Y) - e.Y * Complex.Conjugate(h.X)).Real * pitch * pitch;
-                }
+                    for (var column = 0; column < sampling; column++)
+                    {
+                        var e = observed.Electric[row + offset, column + offset];
+                        var h = observed.Magnetic[row + offset, column + offset];
+                        intensity[row, column] += e.SquaredNorm;
+                        displayedPower += (e.X * Complex.Conjugate(h.Y) - e.Y * Complex.Conjugate(h.X)).Real * pitch * pitch;
+                    }
             }
             else
             {
                 var scalar = new Complex[gridSize, gridSize];
                 for (var row = 0; row < gridSize; row++)
-                for (var column = 0; column < gridSize; column++) scalar[row, column] = pupil[row, column].X;
+                    for (var column = 0; column < gridSize; column++) scalar[row, column] = pupil[row, column].X;
                 inputPower += scalar.Cast<Complex>().Sum(Power) * pitch * pitch;
                 var blade = AngularSpectrumEngine.PropagateScalar(scalar, pitch, pitch, wavelength.Micrometers * .001, index, knifeDistance);
                 Mask(blade, pitch, knife, positionMicrometers * .001);
                 var observed = AngularSpectrumEngine.PropagateScalar(blade, pitch, pitch, wavelength.Micrometers * .001, index, observationDistance);
                 outputPower += observed.Cast<Complex>().Sum(Power) * pitch * pitch;
                 for (var row = 0; row < sampling; row++)
-                for (var column = 0; column < sampling; column++)
-                {
-                    var value = Power(observed[row + offset, column + offset]);
-                    intensity[row, column] += value; displayedPower += value * pitch * pitch;
-                }
+                    for (var column = 0; column < sampling; column++)
+                    {
+                        var value = Power(observed[row + offset, column + offset]);
+                        intensity[row, column] += value; displayedPower += value * pitch * pitch;
+                    }
             }
         }
         if (!double.IsFinite(inputPower) || inputPower <= 0 || !double.IsFinite(outputPower) || !double.IsFinite(displayedPower)
             || intensity.Cast<double>().Any(v => !double.IsFinite(v))) throw new ArithmeticException("Invalid spatial Foucault field/flux.");
         return new(intensity, gridSize, pitch * 1000, pitch * 1000, inputPower, outputPower,
             displayedPower, illuminated, wavefront.VignettedRayCount, stateCount * (vector ? 3 : 1))
-        { PropagationMode = mode, ObservationHalfWidthMicrometers = halfWidth * 1000,
-            TransverseProjectionDifferenceNormIntegral = projectionDifference };
+        {
+            PropagationMode = mode,
+            ObservationHalfWidthMicrometers = halfWidth * 1000,
+            TransverseProjectionDifferenceNormIntegral = projectionDifference
+        };
     }
 
     private static ComplexElectricField[][,] Rasterize(PlaneVertex?[,] vertices, int states, int size, double pitch,
@@ -144,18 +147,18 @@ public static partial class FoucaultEngine
         var result = Enumerable.Range(0, states).Select(_ => new ComplexElectricField[size, size]).ToArray();
         var covered = new bool[size, size]; long work = 0; int orientation = 0;
         for (var row = 0; row < sampling - 1; row++)
-        for (var column = 0; column < sampling - 1; column++)
-        {
-            var corners = new[] { vertices[row, column], vertices[row, column + 1],
-                vertices[row + 1, column + 1], vertices[row + 1, column] };
-            var validCorners = corners.Where(p => p is not null).ToArray();
-            if (validCorners.Length == 3) Fill(validCorners[0], validCorners[1], validCorners[2]);
-            else if (validCorners.Length == 4)
+            for (var column = 0; column < sampling - 1; column++)
             {
-                Fill(corners[0], corners[1], corners[2]);
-                Fill(corners[0], corners[2], corners[3]);
+                var corners = new[] { vertices[row, column], vertices[row, column + 1],
+                vertices[row + 1, column + 1], vertices[row + 1, column] };
+                var validCorners = corners.Where(p => p is not null).ToArray();
+                if (validCorners.Length == 3) Fill(validCorners[0], validCorners[1], validCorners[2]);
+                else if (validCorners.Length == 4)
+                {
+                    Fill(corners[0], corners[1], corners[2]);
+                    Fill(corners[0], corners[2], corners[3]);
+                }
             }
-        }
         return result;
 
         void Fill(PlaneVertex? a, PlaneVertex? b, PlaneVertex? c)
@@ -209,11 +212,11 @@ public static partial class FoucaultEngine
     private static void Mask(ComplexElectricField[,] grid, double pitch, FoucaultKnifeEdge knife, double position)
     {
         for (var r = 0; r < grid.GetLength(0); r++)
-        for (var c = 0; c < grid.GetLength(1); c++) grid[r, c] *= SpatialKnifeTransmission(r, c, grid.GetLength(0), pitch, knife, position);
+            for (var c = 0; c < grid.GetLength(1); c++) grid[r, c] *= SpatialKnifeTransmission(r, c, grid.GetLength(0), pitch, knife, position);
     }
     private static void Mask(Complex[,] grid, double pitch, FoucaultKnifeEdge knife, double position)
     {
         for (var r = 0; r < grid.GetLength(0); r++)
-        for (var c = 0; c < grid.GetLength(1); c++) grid[r, c] *= SpatialKnifeTransmission(r, c, grid.GetLength(0), pitch, knife, position);
+            for (var c = 0; c < grid.GetLength(1); c++) grid[r, c] *= SpatialKnifeTransmission(r, c, grid.GetLength(0), pitch, knife, position);
     }
 }

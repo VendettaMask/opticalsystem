@@ -62,7 +62,7 @@ internal sealed class CommandSearchControl : Grid
             MaxHeight = 320,
             ItemTemplate = new FuncDataTemplate<AppAction>((action, _) => new TextBlock
             {
-                Text = action is null ? string.Empty : $"{action.Text}   ·   {action.Category}",
+                Text = action?.ToString() ?? string.Empty,
                 TextWrapping = TextWrapping.Wrap,
                 Margin = new Thickness(6, 4)
             })

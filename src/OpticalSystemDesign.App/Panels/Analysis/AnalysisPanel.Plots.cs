@@ -25,7 +25,7 @@ public sealed partial class AnalysisPanel
         {
             Series = view.Series,
             PlotOptions = view.PlotOptions,
-            MinHeight = 360
+            MinHeight = AnalysisPlotMinimumHeight
         };
         Control plotRoot = plot;
         if (view.PlotOptions.DefaultSquareViewport)

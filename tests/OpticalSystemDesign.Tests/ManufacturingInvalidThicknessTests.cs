@@ -67,7 +67,11 @@ public sealed class ManufacturingInvalidThicknessTests
 
     private static OpticalSurface Surface(double thickness, string material = "Air", bool isStop = false) => new()
     {
-        Radius = 100, Thickness = thickness, Material = material, IsStop = isStop,
-        SemiDiameter = 4, SemiDiameterFixed = true
+        Radius = 100,
+        Thickness = thickness,
+        Material = material,
+        IsStop = isStop,
+        SemiDiameter = 4,
+        SemiDiameterFixed = true
     };
 }

@@ -39,13 +39,16 @@ public sealed class MultiConfigurationPanelTests
             {
                 window.Show(); Tick();
                 var tabs = window.GetVisualDescendants().OfType<TabControl>().Single(); tabs.SelectedIndex = 1; Tick();
+                panel.GetVisualDescendants().OfType<Button>().Single(b => b.Name == "ToggleMultiConfigurationProperties")
+                    .RaiseEvent(new RoutedEventArgs(Avalonia.Controls.Button.ClickEvent)); Tick();
                 var grid = window.GetVisualDescendants().OfType<DataGrid>().Single(g => g.Name == "MultiConfigurationOperands");
                 TextBox Input(string name) => window.GetVisualDescendants().OfType<TextBox>().Single(t => AutomationProperties.GetName(t) == name);
                 Button Button(string name) => window.GetVisualDescendants().OfType<Button>().Single(b => b.Name == name);
                 void Click(string name) { Button(name).RaiseEvent(new RoutedEventArgs(Avalonia.Controls.Button.ClickEvent)); Tick(); }
                 var surface = Input("多配置行表面号"); var config = Input("编辑配置号（从 1 开始）"); var value = Input("多配置单元格值");
                 surface.Text = "4"; Click("AddMultiConfigurationOperand"); Assert.Single(app.MultiConfiguration.GetOperandRows());
-                Assert.Equal(new[] { "Op#", "类型", "表面", "配置 1", "配置 2" }, grid.Columns.Select(column => column.Header));
+                Assert.Equal(new[] { "Op#", "活动: 1/2", "表面", "结构 1*", "结构 2" },
+                    grid.Columns.Select(column => column.Header is TextBlock text ? text.Text : column.Header));
                 config.Text = "2"; Tick(); value.Text = "-2"; Click("ApplyMultiConfigurationValue");
                 Assert.Equal(-2, app.MultiConfiguration.GetOperandRows()[0].Values[1]);
                 Assert.Contains("accent", Button("ApplyMultiConfigurationValue").Classes);
@@ -79,9 +82,9 @@ public sealed class MultiConfigurationPanelTests
                 Click("ReloadMultiConfigurationValue"); value.Text = "6"; Click("ApplyMultiConfigurationValue");
                 Assert.Equal(6, app.MultiConfiguration.GetOperandRows()[0].Values[0]);
                 surface.Text = "3"; Click("AddMultiConfigurationOperand"); Assert.Equal(2, app.MultiConfiguration.GetOperandRows().Count);
-                grid.SelectedIndex = 1; Tick(); Click("MoveMultiConfigurationOperandUp"); Assert.Equal(3, app.MultiConfiguration.GetOperandRows()[0].SurfaceNumber);
+                grid.SelectedIndex = 2; Tick(); Click("MoveMultiConfigurationOperandUp"); Assert.Equal(3, app.MultiConfiguration.GetOperandRows()[0].SurfaceNumber);
                 Click("RemoveMultiConfigurationOperand"); Assert.Single(app.MultiConfiguration.GetOperandRows());
-                Assert.True(app.Documents.Undo()); Tick(); Assert.Equal(2, grid.ItemsSource!.Cast<object>().Count());
+                Assert.True(app.Documents.Undo()); Tick(); Assert.Equal(3, grid.ItemsSource!.Cast<object>().Count());
 
                 void Tick() { Dispatcher.UIThread.RunJobs(); window.UpdateLayout(); AvaloniaHeadlessPlatform.ForceRenderTimerTick(); }
                 void Capture(string state)

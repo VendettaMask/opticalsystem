@@ -153,7 +153,7 @@ public sealed class WavefrontAnalysis : BaseAnalysis
         var geometry = geometricShape ? ExitPupilGeometryEngine.Compute(Optic, field, wavelength,
             mapPoints.Select(p => ((p.X - _pupilSx) / _pupilSr, (p.Y - _pupilSy) / _pupilSr)).ToArray()) : null;
         var spatial = geometry?.Points.Select((p, i) => p with
-            { SourceX = mapPoints[i].X, SourceY = mapPoints[i].Y }).ToArray();
+        { SourceX = mapPoints[i].X, SourceY = mapPoints[i].Y }).ToArray();
         var series = new AnalysisSeries(
             "Pupil X",
             "Pupil Y",

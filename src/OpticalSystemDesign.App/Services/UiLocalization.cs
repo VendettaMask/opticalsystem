@@ -113,23 +113,26 @@ internal static class UiLocalization
         LanguageChanged?.Invoke(null, EventArgs.Empty);
     }
 
-    public static string Text(string source)
+    public static string Text(string source) => Text(source, CurrentLanguage);
+
+    public static string Text(string source, string language)
     {
-        if (CurrentLanguage == Chinese || string.IsNullOrEmpty(source))
+        language = NormalizeLanguage(language);
+        if (language == Chinese || string.IsNullOrEmpty(source))
         {
             return source;
         }
 
         if (Texts.TryGetValue(source, out var translation))
         {
-            return CurrentLanguage == Japanese ? translation.Japanese : translation.English;
+            return language == Japanese ? translation.Japanese : translation.English;
         }
 
         // Form labels commonly append a full-width colon to a translated caption.
         if (source.EndsWith('：') && Texts.TryGetValue(source[..^1], out translation))
         {
-            var localized = CurrentLanguage == Japanese ? translation.Japanese : translation.English;
-            return localized + (CurrentLanguage == Japanese ? "：" : ":");
+            var localized = language == Japanese ? translation.Japanese : translation.English;
+            return localized + (language == Japanese ? "：" : ":");
         }
 
         // Accelerator labels use the same visible text as their ordinary ribbon tab.
@@ -139,7 +142,7 @@ internal static class UiLocalization
             var prefix = source[..acceleratorStart];
             if (Texts.TryGetValue(prefix, out translation))
             {
-                var localized = CurrentLanguage == Japanese ? translation.Japanese : translation.English;
+                var localized = language == Japanese ? translation.Japanese : translation.English;
                 return localized + source[acceleratorStart..];
             }
         }
@@ -148,22 +151,45 @@ internal static class UiLocalization
         // recognized fragments so numeric values, units and imported text remain untouched.
         if (source.Contains(" · ", StringComparison.Ordinal))
         {
-            return string.Join(" · ", source.Split(" · ", StringSplitOptions.None).Select(Text));
+            return string.Join(" · ", source.Split(" · ", StringSplitOptions.None).Select(part => Text(part, language)));
         }
 
         if (source.StartsWith("表面 ", StringComparison.Ordinal)
             && source.EndsWith(" 属性", StringComparison.Ordinal))
         {
             var number = source[3..^3];
-            return CurrentLanguage == Japanese
+            return language == Japanese
                 ? $"面 {number} プロパティ"
                 : $"Surface {number} Properties";
         }
 
-        if (TryTranslatePrefixedValue(source, "版本 ", "Version ", "バージョン ", out var prefixed)
-            || TryTranslatePrefixedValue(source, "波长 ", "Wavelength ", "波長 ", out prefixed)
-            || TryTranslatePrefixedValue(source, "视场 ", "Field ", "視野 ", out prefixed)
-            || TryTranslatePrefixedValue(source, "权重 ", "Weight ", "重み ", out prefixed))
+        if (source.StartsWith("结构 ", StringComparison.Ordinal)
+            && source[3..].Split('/') is [var current, var total]
+            && int.TryParse(current, NumberStyles.None, CultureInfo.InvariantCulture, out _)
+            && int.TryParse(total, NumberStyles.None, CultureInfo.InvariantCulture, out _))
+        {
+            return (language == Japanese ? "構成 " : "Configuration ") + source[3..];
+        }
+
+        if (source.StartsWith("结构 ", StringComparison.Ordinal)
+            && int.TryParse(source[3..].TrimEnd('*'), NumberStyles.None, CultureInfo.InvariantCulture, out _))
+            return (language == Japanese ? "構成 " : "Configuration ") + source[3..];
+
+        if (source.StartsWith("活动: ", StringComparison.Ordinal)
+            && source[4..].Split('/') is [var active, var count]
+            && int.TryParse(active, NumberStyles.None, CultureInfo.InvariantCulture, out _)
+            && int.TryParse(count, NumberStyles.None, CultureInfo.InvariantCulture, out _))
+            return (language == Japanese ? "アクティブ: " : "Active: ") + source[4..];
+
+        if (source.StartsWith("操作数 ", StringComparison.Ordinal) && source.EndsWith(" 属性", StringComparison.Ordinal)
+            && int.TryParse(source[4..^3], NumberStyles.None, CultureInfo.InvariantCulture, out _))
+            return language == Japanese ? $"オペランド {source[4..^3]} プロパティ" : $"Operand {source[4..^3]} Properties";
+
+        if (TryTranslatePrefixedValue(source, language, "版本 ", "Version ", "バージョン ", out var prefixed)
+            || TryTranslatePrefixedValue(source, language, "未切换结构：", "Configuration not switched: ", "構成を切り替えられません：", out prefixed)
+            || TryTranslatePrefixedValue(source, language, "波长 ", "Wavelength ", "波長 ", out prefixed)
+            || TryTranslatePrefixedValue(source, language, "视场 ", "Field ", "視野 ", out prefixed)
+            || TryTranslatePrefixedValue(source, language, "权重 ", "Weight ", "重み ", out prefixed))
         {
             return prefixed;
         }
@@ -173,6 +199,7 @@ internal static class UiLocalization
 
     private static bool TryTranslatePrefixedValue(
         string source,
+        string language,
         string chinesePrefix,
         string englishPrefix,
         string japanesePrefix,
@@ -184,7 +211,7 @@ internal static class UiLocalization
             return false;
         }
 
-        var localizedPrefix = CurrentLanguage == Japanese ? japanesePrefix : englishPrefix;
+        var localizedPrefix = language == Japanese ? japanesePrefix : englishPrefix;
         translated = localizedPrefix + source[chinesePrefix.Length..];
         return true;
     }
@@ -409,6 +436,11 @@ internal static class UiLocalization
         Add("对象数据", "Object Data", "オブジェクトデータ");
         Add("文档", "Documents", "ドキュメント");
         Add("工作区", "Workspace", "ワークスペース");
+        Add("停靠到左侧", "Dock Left", "左側にドッキング");
+        Add("停靠到右侧", "Dock Right", "右側にドッキング");
+        Add("停靠到上方", "Dock Above", "上側にドッキング");
+        Add("停靠到下方", "Dock Below", "下側にドッキング");
+        Add("合并为标签页", "Merge as Tabs", "タブとしてまとめる");
         Add("系统选项", "System Options", "システムオプション");
         Add("镜头数据", "Lens Data", "レンズデータ");
         Add("多配置", "Multi-Configuration", "マルチコンフィグ");
@@ -598,6 +630,29 @@ internal static class UiLocalization
         Add("视场类型", "Field Type", "視野タイプ");
         Add("视场数据", "Field Data", "視野データ");
         Add("波长数据", "Wavelength Data", "波長データ");
+        Add("删除此视场", "Delete Field", "この視野を削除");
+        Add("删除此波长", "Delete Wavelength", "この波長を削除");
+        Add("X 相位 / °", "X Phase / °", "X 位相 / °");
+        Add("Y 相位 / °", "Y Phase / °", "Y 位相 / °");
+        Add("因子", "Factor", "係数");
+        Add("余弦立方", "Cosine Cubed", "余弦の三乗");
+        Add("旧版设置（保留）", "Legacy Setting (Preserved)", "旧設定（保持）");
+        Add("应用系统偏振设置", "Apply System Polarization Settings", "システム偏光設定を適用");
+        Add("系统非偏振", "System Unpolarized", "システムの非偏光設定");
+        Add("偏振参考轴", "Polarization Reference Axis", "偏光基準軸");
+        Add("Jones X 相位（度）", "Jones X Phase (degrees)", "Jones X 位相（度）");
+        Add("Jones Y 相位（度）", "Jones Y Phase (degrees)", "Jones Y 位相（度）");
+        Add("偏振设置已更新。", "Polarization settings updated.", "偏光設定を更新しました。");
+        Add("偏振参数必须为有限数值；小数使用英文句点。", "Polarization parameters must be finite numbers; use a decimal point.", "偏光パラメーターには有限の数値を入力し、小数点にはピリオドを使用してください。");
+        Add("CODA 始终使用所填 Jones 输入；RRET 使用参考轴。照度偏振计算遵循非偏振开关。", "CODA always uses the entered Jones input; RRET uses the reference axis. Polarized irradiance calculations follow the unpolarized setting.", "CODA は入力された Jones 値を、RRET は基準軸を使用します。照度の偏光計算は非偏光設定に従います。");
+        Add("当前列表按从上到下的顺序解析未指定厂商的玻璃名称；至少保留一个目录。", "Glass names without a manufacturer are resolved from top to bottom; keep at least one catalog.", "メーカー未指定のガラス名は上から順に検索します。カタログを少なくとも一つ残してください。");
+        Add("将选中的可用玻璃库加入当前系统。", "Add the selected available glass catalog to the current system.", "選択した利用可能なガラスカタログを現在のシステムに追加します。");
+        Add("将选中的当前玻璃库移回可用列表。", "Move the selected current glass catalog back to the available list.", "選択した現在のガラスカタログを利用可能な一覧に戻します。");
+        Add("提高当前玻璃库的同名玻璃解析优先级。", "Increase this catalog's priority when resolving glass names.", "同名ガラスの検索でこのカタログの優先度を上げます。");
+        Add("降低当前玻璃库的同名玻璃解析优先级。", "Decrease this catalog's priority when resolving glass names.", "同名ガラスの検索でこのカタログの優先度を下げます。");
+        Add("当前仅保存环境参数，暂不启用温度补偿计算。", "Environment parameters are saved only; temperature compensation is not enabled.", "環境パラメーターは保存のみ行い、温度補償計算は有効になりません。");
+        Add("Ctrl+Q 聚焦；输入命令名称、类别或标识；上下选择，Enter 执行，Esc 关闭。", "Ctrl+Q focuses search. Enter a command name, category, or ID; use arrow keys to select, Enter to run, and Esc to close.", "Ctrl+Q で検索に移動します。コマンド名、分類、ID を入力し、上下キーで選択、Enter で実行、Esc で閉じます。");
+        Add("搜索命令、面板或动作", "Search commands, panels, or actions", "コマンド、パネル、操作を検索");
         Add("偏振", "Polarization", "偏光");
         Add("环境", "Environment", "環境");
         Add("计算后端", "Compute Backend", "計算バックエンド");
@@ -638,6 +693,72 @@ internal static class UiLocalization
         Add("表面属性", "Surface Properties", "面プロパティ");
         Add("上一面", "Previous Surface", "前の面");
         Add("下一面", "Next Surface", "次の面");
+        Add("多重结构", "Multi-Configuration", "マルチコンフィグレーション");
+        Add("配置概览", "Configuration Overview", "構成一覧");
+        Add("操作数行表", "Operand Matrix", "オペランド行列");
+        Add("新增配置", "Add Configuration", "構成を追加");
+        Add("激活配置", "Activate Configuration", "構成をアクティブ化");
+        Add("应用厚度", "Apply Thickness", "厚さを適用");
+        Add("系统孔径属性", "System Aperture Properties", "システム開口プロパティ");
+        Add("厚度差异属性", "Thickness Difference Properties", "厚さ差分プロパティ");
+        Add("未登记的有限厚度差异也会显示为 THIC 行，可编辑厚度但不占用 Op#；设置变量或拾取前需新增对应操作数行。", "Unregistered finite thickness differences also appear as THIC rows. Their thickness is editable without an Op#; add the corresponding operand row before setting variables or pickups.", "未登録の有限な厚さ差分も THIC 行として表示します。厚さは編集できますが Op# はありません。変数やピックアップを設定する前に、対応するオペランド行を追加してください。");
+        Add("厚度差异尚未登记为操作数行；可新增相同类型和表面号后设置变量或拾取。", "This thickness difference is not an operand row; add its type and surface before setting variables or pickups.", "この厚さ差分はオペランド行に未登録です。同じタイプと面を追加してから変数やピックアップを設定してください。");
+        Add("系统孔径（只读）", "System Aperture (read-only)", "システム開口（読み取り専用）");
+        Add("展开操作数属性", "Expand Operand Properties", "オペランドプロパティを展開");
+        Add("收起操作数属性", "Collapse Operand Properties", "オペランドプロパティを折りたたむ");
+        Add("上一个操作数", "Previous Operand", "前のオペランド");
+        Add("下一个操作数", "Next Operand", "次のオペランド");
+        Add("已是第一行", "Already at the first row", "最初の行です");
+        Add("已是最后一行", "Already at the last row", "最後の行です");
+        Add("双击列标题激活结构", "Double-click the column header to activate this configuration", "列見出しをダブルクリックして構成をアクティブ化");
+        Add("单击选择单元格，双击展开属性编辑。", "Click to select a cell; double-click to open its properties.", "クリックでセル選択、ダブルクリックでプロパティを表示します。");
+        Add("APER 为只读系统孔径，请在系统选项中修改。", "APER is a read-only system aperture; edit it in System Options.", "APER は読み取り専用のシステム開口です。システムオプションで編集してください。");
+        Add("请选择可编辑操作数；APER 请在系统选项中修改。", "Select an editable operand; edit APER in System Options.", "編集可能なオペランドを選択してください。APER はシステムオプションで編集します。");
+        Add("Op# 为可编辑操作数行号。APER 为只读系统孔径，请在系统选项中修改；它不占用 Op#，不改变拾取或评价函数行引用。", "Op# identifies editable operand rows. APER shows the read-only system aperture; edit it in System Options. It has no Op# and does not shift pickup or merit-function row references.", "Op# は編集可能なオペランド行番号です。APER は読み取り専用のシステム開口で、システムオプションで編集します。Op# を消費せず、ピックアップや評価関数の行参照は変わりません。");
+        Add("新增行", "Add Row", "行を追加");
+        Add("上移", "Move Up", "上へ移動");
+        Add("下移", "Move Down", "下へ移動");
+        Add("删除行", "Remove Row", "行を削除");
+        Add("配置号", "Configuration", "構成番号");
+        Add("应用数值", "Apply Value", "値を適用");
+        Add("还原输入", "Restore Input", "入力を元に戻す");
+        Add("设为变量", "Set Variable", "変数に設定");
+        Add("取消变量", "Clear Variable", "変数を解除");
+        Add("V = 联合变量；P = 拾取；其他配置无需先激活", "V = joint variable; P = pickup; other configurations need not be activated first", "V = 連成変数、P = ピックアップ。別構成をアクティブ化せず編集できます");
+        Add("拾取设置（P）", "Pickup Settings (P)", "ピックアップ設定（P）");
+        Add("应用拾取", "Apply Pickup", "ピックアップを適用");
+        Add("移除拾取", "Remove Pickup", "ピックアップを削除");
+        Add("源行", "Source Row", "参照元行");
+        Add("源配置", "Source Configuration", "参照元構成");
+        Add("比例", "Scale", "倍率");
+        Add("偏移", "Offset", "オフセット");
+        Add("当前单元格 = 源值 × 比例 + 偏移。源行号、源配置号均不能晚于目标；移除拾取保留当前数值。", "Cell = source value × scale + offset. Source row and configuration cannot follow the target; removing a pickup keeps the current value.", "セル = 参照元の値 × 倍率 + オフセット。参照元の行・構成は参照先より後にはできません。解除時は現在値を保持します。");
+        Add("请先应用或还原当前单元格输入。", "Apply or restore the current cell input first.", "先に現在のセル入力を適用するか元に戻してください。");
+        Add("请先应用拾取设置或还原输入。", "Apply the pickup settings or restore the input first.", "先にピックアップ設定を適用するか入力を元に戻してください。");
+        Add("工程已变化；当前输入已保留，请还原输入后重新编辑。", "The project changed; your input is preserved. Restore it before editing again.", "プロジェクトが変更されました。入力は保持されています。元に戻してから再編集してください。");
+        Add("已重新读取当前单元格。", "Current cell reloaded.", "現在のセルを再読み込みしました。");
+        Add("多配置行表已更新。", "Configuration matrix updated.", "構成行列を更新しました。");
+        Add("厚度（mm）", "Thickness (mm)", "厚さ（mm）");
+        Add("曲率（mm⁻¹）", "Curvature (mm⁻¹)", "曲率（mm⁻¹）");
+        Add("半口径（mm）", "Semi-diameter (mm)", "半径（mm）");
+        Add("多配置行类型", "Configuration Operand Type", "構成オペランドタイプ");
+        Add("多配置行表面号", "Configuration Operand Surface", "構成オペランド面番号");
+        Add("编辑配置号（从 1 开始）", "Editing Configuration (1-based)", "編集する構成番号（1から）");
+        Add("多配置单元格值", "Configuration Cell Value", "構成セルの値");
+        Add("拾取源行号", "Pickup Source Row", "ピックアップ参照元行番号");
+        Add("拾取源配置号", "Pickup Source Configuration", "ピックアップ参照元構成番号");
+        Add("拾取比例", "Pickup Scale", "ピックアップ倍率");
+        Add("拾取偏移", "Pickup Offset", "ピックアップオフセット");
+        Add("请输入有限数值；曲率单位为 mm⁻¹，厚度和半口径为 mm。", "Enter a finite number; curvature is in mm⁻¹, thickness and semi-diameter in mm.", "有限値を入力してください。曲率は mm⁻¹、厚さと半径は mm です。");
+        Add("输入仍属于之前选择的单元格；请先还原输入，再编辑当前单元格。", "This input still belongs to the previous cell; restore it before editing the current cell.", "入力は前のセルに属しています。元に戻してから現在のセルを編集してください。");
+        Add("打开多重结构编辑器", "Open Multi-Configuration Editor", "マルチコンフィグレーションエディタを開く");
+        Add("上一个结构", "Previous Configuration", "前の構成");
+        Add("下一个结构", "Next Configuration", "次の構成");
+        Add("正在切换结构", "Switching configurations", "構成を切り替えています");
+        Add("只有一个结构，无需切换", "Only one configuration; no switching is needed", "構成は1つだけのため、切り替えは不要です");
+        Add("已是第一个结构", "Already at the first configuration", "最初の構成です");
+        Add("已是最后一个结构", "Already at the last configuration", "最後の構成です");
+        Add("请先修正当前单元格的输入，或按 Esc 还原后再切换结构。", "Correct the current cell or press Esc to restore it before switching configurations.", "構成を切り替える前に、現在のセルを修正するか Esc で元に戻してください。");
         Add("展开表面属性", "Expand Surface Properties", "面プロパティを展開");
         Add("收起表面属性", "Collapse Surface Properties", "面プロパティを折りたたむ");
         Add("应用偏振", "Apply Polarization", "偏光を適用");

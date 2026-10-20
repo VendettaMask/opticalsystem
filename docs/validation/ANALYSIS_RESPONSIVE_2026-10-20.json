@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "timezone": "Asia/Shanghai",
+  "status": "locally-verified-scoped-ui-regression",
+  "baseCommit": "62d3e49dfbebfacff6e839add6b76db993a846f3",
+  "scope": "Fit analysis plot pages into docked panes without canvas/axis/legend/footer overflow. Presentation-only change; preserve unrelated dirty worktree changes.",
+  "evidenceRoot": "artifacts/validation/analysis-responsive-20261020",
+  "implementation": [
+    "ResponsiveAnalysisPlotHost measures the page's natural minimum and fits it uniformly to the finite viewport. The normal scale is never enlarged; a zero-sized viewport is safely collapsed and unconstrained dimensions use a finite natural size.",
+    "Transform the plot, axes, legend and footer as one page. Keep normal logical footer typography/height, native pointer coordinate conversion, and manual plot pan/zoom state.",
+    "Use the existing shared 280-DIP plot minimum instead of the single plot's separate 360-DIP minimum. Adapt the common plot route and the cardinal-point scene/table route.",
+    "Remove extra 220/300-DIP minima on Data/Text results; retain native scrolling, normal text size and theme editor minima.",
+    "Replace the shared mutable fallback axis pen with an immutable same-color, same-width pen so isolated rendering contexts can read it safely. No axis or unit semantics changed.",
+    "Update the maintained user guide and built-in Chinese/English/Japanese operation reference."
+  ],
+  "verification": [
+    { "kind": "root-solution-build", "configuration": "Debug", "projects": 19, "warnings": 0, "errors": 0, "defaultOutput": true, "log": "build-debug.log" },
+    { "kind": "root-solution-build", "configuration": "Release", "projects": 19, "warnings": 0, "errors": 0, "defaultOutput": true, "log": "build-release.log" },
+    { "kind": "analysis-related-ui-regression", "configuration": "Debug", "passed": 175, "failed": 0, "skipped": 0, "trx": "analysis-ui-debug-final.trx" },
+    { "kind": "analysis-related-ui-regression", "configuration": "Release", "passed": 175, "failed": 0, "skipped": 0, "trx": "analysis-ui-release-final.trx" },
+    { "kind": "isolated-real-Skia-fitting", "configuration": "Release", "passed": 35, "failed": 0, "skipped": 0, "plotPresentationKinds": 23, "trx": "responsive-skia-verified.trx", "captureDirectory": "captures-accepted" },
+    { "kind": "CI-equivalent-format-check", "exitCode": 0, "log": "format-verify.log" },
+    { "kind": "strict-documentation-check", "documents": 957, "brokenLinks": 0, "markdownFenceIssues": 0, "guideRepeatedParagraphGroups": 0, "result": "documentation-final.json" },
+    { "kind": "frozen-working-and-HEAD-bytes", "matchedPerSource": 2668, "totalPerSource": 2668, "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10", "result": "frozen-integrity.json" }
+  ],
+  "regressionClasses": [
+    "AnalysisResponsivePlotTests", "AnalysisGuiContractTests", "AnalysisSettingsFooterLayoutTests", "FieldCurvatureFooterTests",
+    "InterferogramFooterTests", "RayFanFooterTests", "AccessibilityAndResponsiveLayoutTests", "UiAuditRegressionTests",
+    "UserGuidePanelTests", "WorkspaceDockGuidanceTests"
+  ],
+  "representativeCapture": {
+    "path": "captures-accepted/stacked-Light-zh-CN.png",
+    "widthPixels": 820,
+    "heightPixels": 610,
+    "sha256": "9a68b8e5fda4c26197907a0014f63ecfed6555da5ebba40a881773810fe7e4df",
+    "meaning": "Actual application plot, legend and footer controls with synthetic display-only data rendered in a background headless window; not optical accuracy evidence.",
+    "negativeControl": "captures-accepted/unfitted-overflow.png",
+    "fittedControl": "captures-accepted/fitted-no-overlap.png"
+  },
+  "preservedIntermediateEvidence": [
+    "responsive-before.trx and responsive-fit-release.trx each record three failures caused by the existing mutable static axis pen being accessed from a different isolated UI thread. The immutable fallback pen resolves this without changing drawing colors or line width.",
+    "responsive-expanded.trx contains an invalid new assertion that the effective editor minimum must be zero; the theme legitimately supplies 32 DIP. The final test retains the theme minimum and asserts actual viewport bounds and report/row preservation.",
+    "responsive-skia-final.trx and responsive-skia-accepted.trx include new harness failures from assuming a DataGrid uses a ScrollViewer and from inspecting the outer star-sized grid rather than its overflowing minimum-height canvas. Final assertions inspect the actual canvas, and the unfitted negative control independently demonstrates the original overflow. analysis-ui-debug.trx records the same intermediate negative-control assertion failure; it is superseded by both final 175-case runs.",
+    "The first Debug fit rebuild was blocked by the user-opened default application (PID 28752). After explicit saved-data and close approval, only that executable was closed normally, and the final default outputs were rebuilt."
+  ],
+  "userApprovedGracefulClose": { "processId": 28752, "normalExitConfirmed": true, "forcedTermination": false },
+  "boundaries": {
+    "desktopMouseKeyboardOrScreenCaptureUsed": false,
+    "opticalAlgorithmsOrTypedUnitsChanged": false,
+    "referenceDataRegenerated": false,
+    "numericalTolerancesRelaxed": false,
+    "independentCookeOrTessarInvestigationAdded": false,
+    "installationOrPackageChanged": false,
+    "committedOrPushed": false,
+    "fullRepositorySuiteOrCrossPlatformCertificationClaimed": false
+  },
+  "countingRule": "Scoped collections overlap and must not be summed. Synthetic display fixtures verify geometry and interaction only, not the numerical validity of the analyses represented. Very small panes necessarily show smaller plot text; enlarge the pane or use unscaled Data/Text tabs for detailed reading."
+}

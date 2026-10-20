@@ -88,11 +88,12 @@ public static class RayAuditRunner
         foreach (var surface in unclipped.SurfaceGroup.Items) surface.PhysicalAperture = null;
         var wave = optic.Wavelengths[job.Wavelength - 1];
         var inputs = job.Fields.SelectMany((f, fi) => pupils.Select((p, pi) => new
-            { fieldIndex = fi, pupilIndex = pi, hx = f[0], hy = f[1], px = p.X, py = p.Y, weight = p.Weight })).ToArray();
+        { fieldIndex = fi, pupilIndex = pi, hx = f[0], hy = f[1], px = p.X, py = p.Y, weight = p.Weight })).ToArray();
         JsonFiles.Write(Path.Combine(output, "inputs.json"), inputs);
         var coreFields = job.Fields.Select(f => new
         {
-            hx = f[0], hy = f[1],
+            hx = f[0],
+            hy = f[1],
             vignetting = diagnostic.SequentialRayTracer.RayGenerator.GetPupilVignetting(f[0], f[1]),
             physical = Trace(diagnostic, f),
             unclippedDiagnostic = Trace(unclipped, f),
@@ -111,14 +112,21 @@ public static class RayAuditRunner
         JsonFiles.Write(Path.Combine(output, "manifest.json"), new
         {
             semantics = "Explicit pupil ray audit; unclipped continuation is diagnostic only. No comparison conclusion or RMS-analysis sampling equivalence is implied.",
-            job, sourceSha256 = JsonFiles.Hash(bytes), originalFileUnchanged = unchanged,
-            wavelengthMicrometers = wave.Micrometers, optic.RayAimingEnabled,
-            surfaceCount = optic.SurfaceGroup.Items.Count, pupilCount = pupils.Count, inputCount = inputs.Length,
+            job,
+            sourceSha256 = JsonFiles.Hash(bytes),
+            originalFileUnchanged = unchanged,
+            wavelengthMicrometers = wave.Micrometers,
+            optic.RayAimingEnabled,
+            surfaceCount = optic.SurfaceGroup.Items.Count,
+            pupilCount = pupils.Count,
+            inputCount = inputs.Length,
             snapshotSha256 = JsonFiles.Hash(File.ReadAllBytes(Path.Combine(output, "snapshot.json"))),
             inputsSha256 = JsonFiles.Hash(File.ReadAllBytes(Path.Combine(output, "inputs.json"))),
             coreAssemblySha256 = JsonFiles.Hash(File.ReadAllBytes(typeof(Optic).Assembly.Location)),
             toolAssemblySha256 = JsonFiles.Hash(File.ReadAllBytes(typeof(RayAuditRunner).Assembly.Location)),
-            nativeExitCode = result.ExitCode, result.TimedOut, completedUtc = DateTimeOffset.UtcNow
+            nativeExitCode = result.ExitCode,
+            result.TimedOut,
+            completedUtc = DateTimeOffset.UtcNow
         });
         Console.WriteLine($"Ray audit: {output}; inputs={inputs.Length}, native exit={result.ExitCode}, unchanged={unchanged}");
         return result.TimedOut ? 4 : !unchanged ? 2 : result.ExitCode == 0 ? 0 : 3;
@@ -132,10 +140,15 @@ public static class RayAuditRunner
                 : model.SequentialRayTracer.Trace(bundle).RayHistories;
             return histories.Select((history, index) => new
             {
-                pupilIndex = index, launch = bundle.Rays[index],
+                pupilIndex = index,
+                launch = bundle.Rays[index],
                 samples = history.Select(s => new
                 {
-                    s.SurfaceNumber, s.Vignetted, s.Intensity, s.InteractionKind, s.SegmentLength,
+                    s.SurfaceNumber,
+                    s.Vignetted,
+                    s.Intensity,
+                    s.InteractionKind,
+                    s.SegmentLength,
                     localPosition = model.SurfaceGroup.Items[s.SurfaceNumber].CoordinateSystem.ToLocalPoint(s.Position),
                     localDirection = model.SurfaceGroup.Items[s.SurfaceNumber].CoordinateSystem.ToLocalDirection(s.Direction),
                     localIncidentDirection = s.IncidentDirection is { } incident

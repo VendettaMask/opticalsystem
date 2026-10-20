@@ -31,6 +31,7 @@ public sealed class App : Avalonia.Application
     {
         Name = "Optical System Design";
         UiLocalization.InstallGlobalHooks();
+        WorkspaceDockGuidance.Install();
         Styles.Add(new FluentTheme());
         Styles.Add(new DockFluentTheme());
         AddThemeResources();

@@ -45,10 +45,6 @@ public sealed partial class MainWindow
 
             await _panels.SaveCurrentSessionAsync();
             await _application.Documents.OpenAsync(files[0].Path.LocalPath);
-            if (_application.MultiConfiguration.GetRows().Count > 1)
-            {
-                _panels.Show(WorkspacePanelId.MultiConfiguration);
-            }
         }
     }
 
@@ -124,10 +120,6 @@ public sealed partial class MainWindow
 
         await _panels.SaveCurrentSessionAsync();
         await _application.Documents.OpenAsync(path);
-        if (_application.MultiConfiguration.GetRows().Count > 1)
-        {
-            _panels.Show(WorkspacePanelId.MultiConfiguration);
-        }
 
         return true;
     }

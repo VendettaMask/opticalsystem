@@ -22,7 +22,7 @@ public sealed class PupilFoucaultExtensionPanelTests
         var builder = AppBuilder.Configure<global::OpticalSystemDesign.App.App>();
         if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("OPTICAL_PUPIL_EXTENSION_CAPTURE_DIR"))) builder.UseSkia();
         return builder.UseHeadless(new AvaloniaHeadlessPlatformOptions
-            { UseHeadlessDrawing = string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("OPTICAL_PUPIL_EXTENSION_CAPTURE_DIR")) });
+        { UseHeadlessDrawing = string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("OPTICAL_PUPIL_EXTENSION_CAPTURE_DIR")) });
     }
 
     [Theory]
@@ -111,9 +111,14 @@ public sealed class PupilFoucaultExtensionPanelTests
         { ["Sampling"] = "16", ["FieldNumber"] = "1", ["ExitPupilGeometry"] = geometry, ["DisplayAs"] = display }));
     private static AnalysisViewDto Foucault(WorkbenchRuntime runtime, string propagation, string type) =>
         WorkbenchMapper.ToAnalysisViewDto(runtime.BuildAnalysisView("Foucault Analysis", new Dictionary<string, string>
-        { ["Sampling"] = "16", ["FoucaultPropagation"] = propagation, ["Type"] = type,
+        {
+            ["Sampling"] = "16",
+            ["FoucaultPropagation"] = propagation,
+            ["Type"] = type,
             ["UsePolarization"] = (propagation == "物理平面矢量角谱").ToString(),
-            ["KnifeDistanceMillimeters"] = "1", ["ObservationDistanceMillimeters"] = "2" }));
+            ["KnifeDistanceMillimeters"] = "1",
+            ["ObservationDistanceMillimeters"] = "2"
+        }));
     private static T Build<T>(string method, AnalysisViewDto view) where T : Control =>
         Assert.IsType<T>(typeof(AnalysisPanel).GetMethod(method, BindingFlags.NonPublic | BindingFlags.Static)!.Invoke(null, new object[] { view }));
 }

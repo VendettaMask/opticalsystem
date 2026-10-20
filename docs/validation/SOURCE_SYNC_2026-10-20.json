@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "status": "local-verification-complete-source-synchronization-handoff",
+  "request": "Update the default development build after the user saved/closed it, and synchronize the approved accumulated workspace changes to GitHub.",
+  "evidenceRoot": "artifacts/validation/configuration-matrix-20261020",
+  "git": {
+    "remote": "origin",
+    "url": "https://github.com/VendettaMask/opticalsystem.git",
+    "branch": "main",
+    "baseCommit": "62d3e49dfbebfacff6e839add6b76db993a846f3",
+    "remoteBeforeSynchronization": "62d3e49dfbebfacff6e839add6b76db993a846f3",
+    "incomingCommitsAfterFetch": 0,
+    "existingOutgoingCommitsAfterFetch": 0,
+    "strategy": "Commit the reviewed workspace changes, then normal fast-forward push to origin/main. Never force-push, reset, or move the existing release tag.",
+    "postPushReceipt": "source-sync-receipt.json",
+    "receiptRule": "The exact resulting commit and independent remote/clean-worktree checks are recorded after pushing in the evidence root. This tracked handoff does not attempt to embed its own future commit hash or claim cross-platform CI has completed."
+  },
+  "scope": [
+    "Matrix-style multi-configuration editor, same-row Lens Data controls and bold column headers.",
+    "Previously completed but uncommitted source repairs: observed localization/search, recovery path protection, exact frozen native replay fixtures and the initial-model optimizer safeguard.",
+    "Previously completed workspace dock guidance, full-height sidebar boundary, responsive analysis plots, README acknowledgments, maintained guides and scoped validation ledgers.",
+    "CI partition scheduling and formatting already covered by the earlier repair ledger; preserve the original long-survey cases, budgets, optical assertions and frozen references."
+  ],
+  "verification": [
+    { "kind": "default-root-solution-build", "configuration": "Debug", "projects": 19, "warnings": 0, "errors": 0, "log": "sync-build-debug.log" },
+    { "kind": "default-root-solution-build", "configuration": "Release", "projects": 19, "warnings": 0, "errors": 0, "log": "sync-build-release.log" },
+    { "kind": "related-regression", "configuration": "Debug", "passed": 313, "failed": 0, "skipped": 0, "trx": "matrix-debug-accepted.trx" },
+    { "kind": "related-regression", "configuration": "Release", "passed": 313, "failed": 0, "skipped": 0, "trx": "matrix-release-accepted.trx", "freshInPriorMatrixAcceptance": true },
+    { "kind": "isolated-real-Skia-regression", "passed": 20, "failed": 0, "trx": "matrix-skia-accepted.trx", "freshInPriorMatrixAcceptance": true },
+    { "kind": "whole-root-CI-format-verification", "exitCode": 0, "log": "sync-format-full.log" },
+    { "kind": "initial-structure-partition-integrity", "passed": 3, "failed": 0, "surveyCases": 12, "droppedCases": 0, "longSurveysExecuted": false },
+    { "kind": "frozen-working-and-HEAD-bytes-before-commit", "matchedPerSource": 2668, "totalPerSource": 2668, "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10", "result": "sync-frozen-before.json" },
+    { "kind": "strict-documentation-and-diff-check", "documents": 957, "brokenLinks": 0, "markdownFenceIssues": 0, "guideRepeatedParagraphGroups": 0, "diffCheckPassed": true, "result": "documentation-sync-final.json" }
+  ],
+  "earlierScopedEvidence": [
+    "POST_SYNC_REPAIR_2026-10-20.json", "WORKSPACE_DOCK_GUIDANCE_2026-10-20.json", "SIDEBAR_DOCK_BOUNDARY_2026-10-20.json",
+    "ANALYSIS_RESPONSIVE_2026-10-20.json", "README_ACKNOWLEDGMENTS_2026-10-20.json", "LENS_CONFIGURATION_NAVIGATION_2026-10-20.json",
+    "LENS_HEADER_BOLD_2026-10-20.json", "CONFIGURATION_MATRIX_2026-10-20.json", "PACKAGE_UPLOAD_2026-10-20.json"
+  ],
+  "boundaries": {
+    "userConfirmedSavedAndClosed": true,
+    "originalLockedPid": 63380,
+    "originalLockedPidAbsentBeforeRebuild": true,
+    "forcedTermination": false,
+    "automaticDiscard": false,
+    "alternateBuildOutputWorkaround": false,
+    "userDesktopControlledOrCaptured": false,
+    "installationChanged": false,
+    "installerRebuiltOrReuploaded": false,
+    "releaseTagMoved": false,
+    "forcePushOrHistoryRewrite": false,
+    "newOpticalReferenceCaptureOrToleranceRelaxation": false,
+    "fullRepositoryNumericalSuiteRerun": false,
+    "crossPlatformCISuccessClaimed": false
+  },
+  "countingRule": "Related rendering and regression cases overlap and must not be added; prior-stage checks retain their own timestamps and scope. Source synchronization does not make the previously uploaded installer contain these newer UI changes."
+}

@@ -50,11 +50,15 @@ public sealed class ActionManager
             return _actions;
         }
 
+        query = query.Trim();
         return _actions
             .Where(action =>
                 action.Text.Contains(query, StringComparison.OrdinalIgnoreCase)
                 || action.Category.Contains(query, StringComparison.OrdinalIgnoreCase)
-                || action.Id.Contains(query, StringComparison.OrdinalIgnoreCase))
+                || action.Id.Contains(query, StringComparison.OrdinalIgnoreCase)
+                || UiLocalization.SupportedLanguages.Any(language =>
+                    UiLocalization.Text(action.Text, language.Code).Contains(query, StringComparison.OrdinalIgnoreCase)
+                    || UiLocalization.Text(action.Category, language.Code).Contains(query, StringComparison.OrdinalIgnoreCase)))
             .ToArray();
     }
 }
@@ -65,6 +69,6 @@ public sealed record AppAction(string Id, string Text, string Category, Func<Tas
 {
     public override string ToString()
     {
-        return $"{Text}    {Category}";
+        return $"{Text} · {Category}";
     }
 }

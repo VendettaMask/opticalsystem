@@ -18,8 +18,12 @@ public sealed class HuygensZeroWeightTests
         var runtime = new WorkbenchRuntime(optic);
         var parameters = new Dictionary<string, string>
         {
-            ["PupilSampling"] = "8", ["ImageSampling"] = "8", ["ImageDeltaMicrometers"] = "0.25",
-            ["FieldNumber"] = "1", ["WavelengthNumber"] = "1", ["UsePolarization"] = "true",
+            ["PupilSampling"] = "8",
+            ["ImageSampling"] = "8",
+            ["ImageDeltaMicrometers"] = "0.25",
+            ["FieldNumber"] = "1",
+            ["WavelengthNumber"] = "1",
+            ["UsePolarization"] = "true",
             ["UseCentroid"] = centroid.ToString()
         };
         var expected = runtime.BuildAnalysisData("Huygens PSF", parameters);

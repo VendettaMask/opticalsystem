@@ -18,9 +18,16 @@ public sealed class VignettedWavefrontPhaseTests
     {
         var optic = new Optic("Tilted plane wave") { ImageSpaceAfocal = true };
         optic.Aperture.Value = 10;
-        optic.Fields.Add(new FieldPoint { X = .7, Y = -1.1,
-            VignetteFactorX = .25, VignetteFactorY = .4,
-            VignetteDecenterX = .1, VignetteDecenterY = -.15, VignetteAngleDegrees = angle });
+        optic.Fields.Add(new FieldPoint
+        {
+            X = .7,
+            Y = -1.1,
+            VignetteFactorX = .25,
+            VignetteFactorY = .4,
+            VignetteDecenterX = .1,
+            VignetteDecenterY = -.15,
+            VignetteAngleDegrees = angle
+        });
         optic.Wavelengths.Add(new Wavelength { Nanometers = 550, IsPrimary = true });
         optic.SurfaceGroup.ImportLegacySurfaces([
             new() { Thickness = double.PositiveInfinity, SemiDiameter = 50 },

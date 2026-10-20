@@ -41,7 +41,10 @@ public sealed class HuygensPolarizationRepairTests(ITestOutputHelper output)
             ["ImageDeltaMicrometers"] = properties.GetProperty("ImageDelta").GetDouble().ToString("R", CultureInfo.InvariantCulture),
             ["WavelengthNumber"] = request.RootElement.GetProperty("wavelength").GetInt32().ToString(CultureInfo.InvariantCulture),
             ["FieldNumber"] = request.RootElement.GetProperty("field").GetInt32().ToString(CultureInfo.InvariantCulture),
-            ["UsePolarization"] = "true", ["UseCentroid"] = "false", ["Normalized"] = "false", ["Type"] = "线性"
+            ["UsePolarization"] = "true",
+            ["UseCentroid"] = "false",
+            ["Normalized"] = "false",
+            ["Type"] = "线性"
         };
         var result = new WorkbenchRuntime(optic).BuildAnalysisData("Huygens PSF", parameters);
         result = JsonSerializer.Deserialize<AnalysisData>(JsonSerializer.Serialize(result))!;

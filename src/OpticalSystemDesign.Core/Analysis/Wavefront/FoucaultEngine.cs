@@ -102,8 +102,8 @@ public static partial class FoucaultEngine
             var nearField = FilterPupil(channel, gridSize, spacingX, spacingY, knife, positionMicrometers);
             outputPower += nearField.Cast<Complex>().Sum(Power);
             for (var row = 0; row < sampling; row++)
-            for (var column = 0; column < sampling; column++)
-                intensity[row, column] += Power(nearField[row + offset, column + offset]);
+                for (var column = 0; column < sampling; column++)
+                    intensity[row, column] += Power(nearField[row + offset, column + offset]);
         }
         // Do not remask diffraction outside the input circle. Full padded-grid energy
         // and the displayed central square are different quantities.
@@ -125,8 +125,8 @@ public static partial class FoucaultEngine
         var padded = new Complex[gridSize, gridSize];
         var offset = (gridSize - sampling) / 2;
         for (var row = 0; row < sampling; row++)
-        for (var column = 0; column < sampling; column++)
-            padded[row + offset, column + offset] = pupil[row, column];
+            for (var column = 0; column < sampling; column++)
+                padded[row + offset, column + offset] = pupil[row, column];
         DiffractionEngine.FourierTransform2D(padded);
         var horizontal = knife is FoucaultKnifeEdge.HorizontalAbove or FoucaultKnifeEdge.HorizontalBelow;
         for (var row = 0; row < gridSize; row++)

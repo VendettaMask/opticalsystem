@@ -38,7 +38,8 @@ public sealed class PupilSourceIdentity
             // optical geometry. All physical component parameters are retained.
             snapshot = snapshot with
             {
-                Name = "", MeritOperands = [],
+                Name = "",
+                MeritOperands = [],
                 Fields = snapshot.Fields.Select(field => field with { Label = "" }).ToList(),
                 Wavelengths = snapshot.Wavelengths.Select(wave => wave with { Label = "" }).ToList(),
                 Surfaces = snapshot.Surfaces.Select(surface => surface with { Label = "" }).ToList()

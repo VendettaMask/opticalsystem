@@ -10,8 +10,11 @@ namespace OpticalSystemDesign.Tests;
 public sealed class TessarVignettingParityTests
 {
     private static readonly string Root = Path.Combine(AppContext.BaseDirectory, "Validation", "Zemax", "TessarVignetting");
-    private static readonly JsonSerializerOptions Options = new() { PropertyNameCaseInsensitive = true,
-        NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals };
+    private static readonly JsonSerializerOptions Options = new()
+    {
+        PropertyNameCaseInsensitive = true,
+        NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals
+    };
 
     [Theory]
     [InlineData("original-primary", "ray-fan")]

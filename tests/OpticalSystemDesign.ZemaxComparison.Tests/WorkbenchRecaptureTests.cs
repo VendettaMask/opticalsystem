@@ -213,9 +213,12 @@ public sealed class WorkbenchRecaptureTests
         using var previous = scope.Manifest();
         var path = Path.Combine(scope.Output, Find(previous, name).GetProperty("output").GetString()!);
         if (changeSettings)
-            JsonFiles.Write(scope.Settings, new { analyses = new[] { new {
+            JsonFiles.Write(scope.Settings, new
+            {
+                analyses = new[] { new {
                 name, settings = new Dictionary<string, string> { ["NumberOfRays"] = "21" }
-            } } });
+            } }
+            });
         else File.WriteAllText(path, "{\"name\":\"tampered\"}");
         var bytes = File.ReadAllBytes(path);
 

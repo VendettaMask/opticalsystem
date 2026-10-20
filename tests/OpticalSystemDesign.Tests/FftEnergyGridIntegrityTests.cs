@@ -45,10 +45,16 @@ public sealed class FftEnergyGridIntegrityTests
     public void InvalidIntensitiesAreRejectedRatherThanRemoved(string fault)
     {
         var points = IsolatedBrightPixel();
-        points[0] = points[0] with { Value = fault switch
+        points[0] = points[0] with
         {
-            "negative" => -1, "nan" => double.NaN, "infinity" => double.PositiveInfinity, _ => null
-        } };
+            Value = fault switch
+            {
+                "negative" => -1,
+                "nan" => double.NaN,
+                "infinity" => double.PositiveInfinity,
+                _ => null
+            }
+        };
         Assert.Throws<InvalidOperationException>(() =>
             DiffractionEncircledEnergyAnalysis.SelectFftWindowSamples(points, 5, 5));
     }

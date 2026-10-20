@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "status": "locally-verified-scoped-ui-regression",
+  "baseCommit": "62d3e49dfbebfacff6e839add6b76db993a846f3",
+  "evidenceRoot": "artifacts/validation/lens-header-bold-20261020",
+  "scope": "Bold the Lens Data column-header row identified in the user's screenshot, preserving existing worktree changes.",
+  "implementation": [
+    "Use a Lens Data grid-local style setting the native DataGridColumnHeader font weight to Bold (700). Numeric TextBlock header content inherits this weight.",
+    "Keep existing font sizes, column widths, numeric right alignment, colors and data-row font weights. Unrelated DataGrid headers retain their original typography.",
+    "Document the presentation change in the maintained user guide. No optical algorithm or reference data changed."
+  ],
+  "verification": [
+    { "kind": "related-regression-and-default-test-build", "configuration": "Debug", "passed": 46, "failed": 0, "skipped": 0, "defaultAppOutputUpdated": true, "trx": "header-debug-verified.trx", "log": "header-debug-verified.log" },
+    { "kind": "related-regression-and-default-test-build", "configuration": "Release", "passed": 46, "failed": 0, "skipped": 0, "defaultAppOutputUpdated": true, "trx": "header-release-verified.trx", "log": "header-release-verified.log" },
+    { "kind": "isolated-real-Skia-typography", "configuration": "Release", "passed": 10, "failed": 0, "skipped": 0, "trx": "header-skia-verified.trx", "log": "header-skia-verified.log", "captureDirectory": "captures-verified", "userDesktopCaptured": false },
+    { "kind": "CI-equivalent-format-verification", "files": 2, "exitCode": 0, "log": "format-verify.log" },
+    { "kind": "strict-documentation-and-diff-check", "documents": 957, "brokenLinks": 0, "markdownFenceIssues": 0, "guideRepeatedParagraphGroups": 0, "diffCheckPassed": true, "result": "documentation-final.json" }
+  ],
+  "regressionClasses": [
+    "LensHeaderTypographyTests", "LensEditorLayoutTests", "SurfacePropertiesPanelTests",
+    "LensConfigurationNavigationTests", "LayeringArchitectureTests"
+  ],
+  "renderingCases": {
+    "themeAndLanguagePairs": ["Light/zh-CN", "Dark/en-US", "Pixel/ja-JP", "Isekai/en-US", "Lumen/zh-CN"],
+    "editorFontSizes": [13, 18],
+    "assertions": "Compare header font size with an unmodified same-theme DataGrid, check actual header TextBlocks are bold, numeric alignment is right, data rows and input boxes remain normal, unrelated headers are not bold, and workspace revision is unchanged."
+  },
+  "preservedIntermediateEvidence": [
+    "header-initial.log: the new test required the Avalonia.Layout import for HorizontalAlignment; the harness was corrected.",
+    "header-typography.trx: ten typography cases failed an incorrect assumption that native header font size followed the editor's 13/18 setting; two layout tests passed. The native theme header size was 12. The corrected assertion compares against an unmodified native header in the same theme rather than altering production font sizes.",
+    "header-baseline-checked.trx: the corrected ten typography cases plus two layout cases passed before the final broader regression runs."
+  ],
+  "representativeCapture": {
+    "path": "captures-verified/lens-headers-Light-zh-CN-13.png",
+    "widthPixels": 1500,
+    "heightPixels": 650,
+    "sha256": "20382f15fbabecc67627534f758f0504ba18074a0fcf585d5941ff2885507c8e",
+    "meaning": "Real Lens Data controls rendered offscreen with bold headers and normal data, plus an unrelated normal-weight comparison table below. Visually inspected without capturing the user's screen."
+  },
+  "boundaries": {
+    "userDesktopControlledOrCaptured": false,
+    "userApplicationClosed": false,
+    "installationChanged": false,
+    "installerRebuiltOrUploaded": false,
+    "sourceCommittedOrPushed": false,
+    "rootSolutionAllProjectsRebuilt": false,
+    "fullRepositorySuiteRerun": false,
+    "frozenIntegrityRerun": false,
+    "opticalAlgorithmsChanged": false,
+    "referenceDataRegenerated": false
+  },
+  "countingRule": "Scoped regression and isolated rendering collections overlap and must not be added. Default application compilation occurred through the targeted test project build, not a fresh full root-solution build."
+}

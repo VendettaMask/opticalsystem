@@ -83,19 +83,27 @@ public sealed class FoucaultAnalysis : BaseAnalysis
             ValueQuantity: AnalysisAxisQuantity.Intensity, ValueUnit: AnalysisAxisUnit.Dimensionless);
         return new AnalysisData(Name, new Dictionary<string, object>
         {
-            ["Sampling"] = $"{_sampling} x {_sampling}", ["Type"] = _type, ["DisplayAs"] = _displayAs,
-            ["KnifeEdge"] = _knifeEdge, ["KnifeAxis"] = _knife is FoucaultKnifeEdge.HorizontalAbove or FoucaultKnifeEdge.HorizontalBelow ? "Y" : "X",
-            ["DataSource"] = "计算的", ["WavelengthMicrometers"] = wavelength.Micrometers,
+            ["Sampling"] = $"{_sampling} x {_sampling}",
+            ["Type"] = _type,
+            ["DisplayAs"] = _displayAs,
+            ["KnifeEdge"] = _knifeEdge,
+            ["KnifeAxis"] = _knife is FoucaultKnifeEdge.HorizontalAbove or FoucaultKnifeEdge.HorizontalBelow ? "Y" : "X",
+            ["DataSource"] = "计算的",
+            ["WavelengthMicrometers"] = wavelength.Micrometers,
             ["WavelengthNumber"] = Array.IndexOf(wavelengths, wavelength) + 1,
-            ["FieldNumber"] = _fieldNumber, ["FieldHx"] = field.Hx, ["FieldHy"] = field.Hy,
-            ["KnifePositionMicrometers"] = _positionMicrometers, ["UsePolarization"] = _usePolarization,
+            ["FieldNumber"] = _fieldNumber,
+            ["FieldHx"] = field.Hx,
+            ["FieldHy"] = field.Hy,
+            ["KnifePositionMicrometers"] = _positionMicrometers,
+            ["UsePolarization"] = _usePolarization,
             ["UseRayAiming"] = Optic.RayAimingEnabled,
             ["ComputationModel"] = !spatial ? "FFT complex-field knife filtering and inverse-FFT ideal pupil reimaging"
                 : _propagationMode == FoucaultPropagationMode.VectorAngularSpectrum
                     ? "Homogeneous Maxwell vector angular spectrum; ideal thin-amplitude knife and explicit transverse projection"
                     : "Homogeneous scalar angular spectrum; physical-plane thin-amplitude knife",
             ["PropagationMode"] = _propagationMode.ToString(),
-            ["KnifeDistanceMillimeters"] = _knifeDistance, ["ObservationDistanceMillimeters"] = _observationDistance,
+            ["KnifeDistanceMillimeters"] = _knifeDistance,
+            ["ObservationDistanceMillimeters"] = _observationDistance,
             ["ObservationHalfWidthMillimeters"] = result.ObservationHalfWidthMicrometers / 1000,
             ["TransverseProjectionDifferenceNormIntegral"] = result.TransverseProjectionDifferenceNormIntegral,
             ["SpatialFieldBoundary"] = spatial ? "Chief-normal plane at image chief intercept; triangle Jacobian; no caustic/multibranch reconstruction" : "Focal Fourier plane",
@@ -114,11 +122,15 @@ public sealed class FoucaultAnalysis : BaseAnalysis
             ["FourierGridSize"] = result.FourierGridSize,
             ["ImageSpacingXMicrometers"] = result.ImageSpacingXMicrometers,
             ["ImageSpacingYMicrometers"] = result.ImageSpacingYMicrometers,
-            ["InputPupilPowerSum"] = result.InputPower, ["OutputNearFieldPowerSum"] = result.OutputPower,
-            ["DisplayedNearFieldPowerSum"] = result.DisplayedPower, ["KnifeThroughput"] = result.KnifeThroughput,
-            ["CoherentChannels"] = result.CoherentChannels, ["IlluminatedSamples"] = result.IlluminatedSamples,
+            ["InputPupilPowerSum"] = result.InputPower,
+            ["OutputNearFieldPowerSum"] = result.OutputPower,
+            ["DisplayedNearFieldPowerSum"] = result.DisplayedPower,
+            ["KnifeThroughput"] = result.KnifeThroughput,
+            ["CoherentChannels"] = result.CoherentChannels,
+            ["IlluminatedSamples"] = result.IlluminatedSamples,
             ["VignettedRayCount"] = result.VignettedSamples,
-            ["MinimumResponse"] = points.Min(point => point.Value!.Value), ["MaximumResponse"] = points.Max(point => point.Value!.Value)
+            ["MinimumResponse"] = points.Min(point => point.Value!.Value),
+            ["MaximumResponse"] = points.Max(point => point.Value!.Value)
         }, series, new[] { series }, new AnalysisPlotOptions(Title: spatial ? "Foucault 物理平面刀口（角谱传播）" : "Foucault 物理刀口阴影图（FFT）",
             EqualAspect: true, XMinimum: -extent, XMaximum: extent, YMinimum: -extent, YMaximum: extent,
             LogarithmicIntensity: _type == "对数"));

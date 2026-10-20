@@ -160,7 +160,7 @@ public sealed class HuygensImplementationRepairTests
             var expectedPeak = expectedMtf.Cast<double>().Max();
             var normalized = new double[16, 16];
             for (var y = 0; y < 16; y++)
-            for (var x = 0; x < 16; x++) normalized[y, x] = shared.Values[y, x] / peak;
+                for (var x = 0; x < 16; x++) normalized[y, x] = shared.Values[y, x] / peak;
             Assert.InRange(MaxDifference(normalized, Scale(expectedMtf, 1 / expectedPeak)), 0, 1e-11);
         }
     }
@@ -181,7 +181,7 @@ public sealed class HuygensImplementationRepairTests
             var psf = DiffractionEngine.ComputeHuygensPsf(optic, field, wave, 16, 16, .0005,
                 aimAtStop: optic.RayAimingEnabled, referenceWavelength: primary, imageCenterOffset: offset);
             for (var y = 0; y < 16; y++)
-            for (var x = 0; x < 16; x++) values[y, x] += weight * psf.Values[y, x];
+                for (var x = 0; x < 16; x++) values[y, x] += weight * psf.Values[y, x];
         }
         return Scale(values, 1 / (100 * ideal));
     }
@@ -239,8 +239,8 @@ public sealed class HuygensImplementationRepairTests
         var points = Assert.Single(data.PlotSeries).Points;
         Assert.Equal(256, points.Count);
         for (var y = 0; y < 16; y++)
-        for (var x = 0; x < 16; x++)
-            Assert.InRange(Math.Abs(points[y * 16 + x].Value!.Value - expected[y, x]), 0, 1e-11);
+            for (var x = 0; x < 16; x++)
+                Assert.InRange(Math.Abs(points[y * 16 + x].Value!.Value - expected[y, x]), 0, 1e-11);
         Assert.Equal(expected.Cast<double>().Max(), Convert.ToDouble(data.Values["PeakStrehlRatio"]), 11);
     }
 
@@ -249,7 +249,7 @@ public sealed class HuygensImplementationRepairTests
     {
         var result = new double[values.GetLength(0), values.GetLength(1)];
         for (var y = 0; y < result.GetLength(0); y++)
-        for (var x = 0; x < result.GetLength(1); x++) result[y, x] = values[y, x] * factor;
+            for (var x = 0; x < result.GetLength(1); x++) result[y, x] = values[y, x] * factor;
         return result;
     }
     private static double MaxDifference(double[,] a, double[,] b)

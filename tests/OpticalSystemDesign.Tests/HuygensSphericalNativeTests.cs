@@ -47,10 +47,14 @@ public sealed class HuygensSphericalNativeTests
         var parameters = new Dictionary<string, string>
         {
             ["PupilSampling"] = pupilCount.ToString(CultureInfo.InvariantCulture),
-            ["ImageSampling"] = "32", ["ImageDeltaMicrometers"] = pitch.ToString("R", CultureInfo.InvariantCulture),
+            ["ImageSampling"] = "32",
+            ["ImageDeltaMicrometers"] = pitch.ToString("R", CultureInfo.InvariantCulture),
             ["WavelengthNumber"] = waveNumber.ToString(CultureInfo.InvariantCulture),
             ["FieldNumber"] = fieldNumber.ToString(CultureInfo.InvariantCulture),
-            ["UsePolarization"] = "false", ["UseCentroid"] = "false", ["Normalized"] = "false", ["Type"] = "线性"
+            ["UsePolarization"] = "false",
+            ["UseCentroid"] = "false",
+            ["Normalized"] = "false",
+            ["Type"] = "线性"
         };
         var data = new WorkbenchRuntime(optic).BuildAnalysisData("Huygens PSF", parameters);
         data = JsonSerializer.Deserialize<AnalysisData>(JsonSerializer.Serialize(data))!;
@@ -59,8 +63,8 @@ public sealed class HuygensSphericalNativeTests
         var method = Grid(Path.Combine(folder, spherical ? "Spherical" : "Planar", "data.json"));
         Assert.Equal(expected, method);
         Assert.Equal(1024, actual.Length);
-        var maximum = actual.Zip(expected, (a,b) => Math.Abs(a-b)).Max();
-        var relative = Math.Sqrt(actual.Zip(expected, (a,b) => (a-b)*(a-b)).Sum() / expected.Sum(v => v*v));
+        var maximum = actual.Zip(expected, (a, b) => Math.Abs(a - b)).Max();
+        var relative = Math.Sqrt(actual.Zip(expected, (a, b) => (a - b) * (a - b)).Sum() / expected.Sum(v => v * v));
         Assert.True(maximum < 1e-5, $"{name}: max absolute difference {maximum:R}");
         Assert.True(relative < 5e-5, $"{name}: relative L2 {relative:R}");
     }
@@ -78,7 +82,7 @@ public sealed class HuygensSphericalNativeTests
         foreach (var surface in shifted.SurfaceGroup.Items)
             surface.CoordinateSystem = surface.CoordinateSystem with { Origin = surface.CoordinateSystem.Origin + delta };
         var actual = DiffractionEngine.ComputeHuygensPsf(shifted, (0, hy), shifted.Wavelengths[0], 32, 32, .004, aimAtStop: true);
-        Assert.InRange(actual.Values.Cast<double>().Zip(baseline.Values.Cast<double>(), (a,b) => Math.Abs(a-b)/100).Max(), 0, 1e-7);
+        Assert.InRange(actual.Values.Cast<double>().Zip(baseline.Values.Cast<double>(), (a, b) => Math.Abs(a - b) / 100).Max(), 0, 1e-7);
     }
 
     private static Optic Import(string root)

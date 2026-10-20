@@ -13,13 +13,13 @@ public static class FlatStartCheckpointValidation
         {
             if (!Enum.IsDefined(flat.OptimizationMethod)
                 || flat.OptimizationMethod != FlatStartOptimizationMethod.TrustRegion
-                    && (checkpoint.Algorithm?.Version != FlatStartAlgorithm.Version
+                    && (checkpoint.Algorithm?.Version is not ("20" or FlatStartAlgorithm.Version)
                         || flat.SamplingPolicy != FlatStartSamplingPolicy.UniformAreaGaussianV1))
                 throw new InvalidDataException("Invalid optimization method or historical algorithm identity.");
             algorithm = FlatStartAlgorithm.Name(algorithm, checkpoint.Specification);
         }
         if (checkpoint.SchemaVersion != 1 || checkpoint.Algorithm is null
-            || checkpoint.Algorithm.Version is not ("1" or "2" or "3" or "4" or "6" or "7" or "8" or "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" or "18" or "19" or FlatStartAlgorithm.Version)
+            || checkpoint.Algorithm.Version is not ("1" or "2" or "3" or "4" or "6" or "7" or "8" or "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" or "18" or "19" or "20" or FlatStartAlgorithm.Version)
             || checkpoint.Algorithm != new AlgorithmIdentity(algorithm, checkpoint.Algorithm.Version, "Managed CPU", true)
             || checkpoint.Specification?.FlatStart is null || checkpoint.Specification.Budget is null || checkpoint.Options is null
             || checkpoint.RootPlan is not { Count: <= 128 } || checkpoint.Trials is not { Count: <= 256 }
@@ -35,7 +35,7 @@ public static class FlatStartCheckpointValidation
             || string.IsNullOrWhiteSpace(checkpoint.RunId) || checkpoint.RunId.Length > 128
             || !Hash(checkpoint.SpecificationFingerprint) || !Hash(checkpoint.OptionsFingerprint) || !Hash(checkpoint.MaterialFingerprint))
             throw new InvalidDataException("Invalid flat-family checkpoint header or counters.");
-        if (checkpoint.Algorithm.Version is "6" or "7" or "8" or "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" or "18" or "19" or FlatStartAlgorithm.Version
+        if (checkpoint.Algorithm.Version is "6" or "7" or "8" or "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" or "18" or "19" or "20" or FlatStartAlgorithm.Version
             && (checkpoint.Schedule is not { } schedule
                 || schedule.PolicyVersion != FlatStartAlgorithm.SchedulingPolicy(checkpoint.Algorithm.Version, checkpoint.Specification)
                 || schedule.NextDecisionIndex != checkpoint.NextRefinementIndex
@@ -105,7 +105,7 @@ public static class FlatStartCheckpointValidation
                 || candidate.Lineage.ParentCandidateId != parent?.Candidate?.CandidateId
                 || trial.FinalValidation is null || candidate.Status == CandidateStatus.LabAccepted && !trial.FinalValidation.MeetsTargets))
                 throw new InvalidDataException("A candidate has inconsistent lineage or no full-target validation.");
-            if (checkpoint.Algorithm.Version is "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" or "18" or "19" or FlatStartAlgorithm.Version && trial.Candidate is { } scored
+            if (checkpoint.Algorithm.Version is "9" or "10" or "11" or "12" or "13" or "14" or "15" or "16" or "17" or "18" or "19" or "20" or FlatStartAlgorithm.Version && trial.Candidate is { } scored
                 && (scored.Evaluation.FlatStartObjective is not { DenseSampling: true } objective
                     || !Enum.IsDefined(objective.Kind)
                     || objective.SamplingPolicy != checkpoint.Specification.FlatStart.SamplingPolicy

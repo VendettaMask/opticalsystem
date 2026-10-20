@@ -36,6 +36,8 @@ public sealed class MultiConfigurationPickupPanelTests
             try
             {
                 window.Show(); Tick(); window.GetVisualDescendants().OfType<TabControl>().Single().SelectedIndex = 1; Tick();
+                panel.GetVisualDescendants().OfType<Button>().Single(b => b.Name == "ToggleMultiConfigurationProperties")
+                    .RaiseEvent(new RoutedEventArgs(Avalonia.Controls.Button.ClickEvent)); Tick();
                 var expander = window.GetVisualDescendants().OfType<Expander>().Single(e => e.Name == "MultiConfigurationPickupEditor");
                 expander.IsExpanded = true; Tick();
                 TextBox Input(string name) => window.GetVisualDescendants().OfType<TextBox>().Single(t => AutomationProperties.GetName(t) == name);

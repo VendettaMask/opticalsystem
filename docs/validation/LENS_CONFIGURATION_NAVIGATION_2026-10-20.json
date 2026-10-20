@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "status": "locally-verified-scoped-ui-regression",
+  "baseCommit": "62d3e49dfbebfacff6e839add6b76db993a846f3",
+  "evidenceRoot": "artifacts/validation/lens-configuration-20261020",
+  "scope": "Show and switch the active imported multi-configuration directly above the Lens Data table, using the supplied Zemax screenshot as the interaction reference. Preserve unrelated worktree changes.",
+  "implementation": [
+    "The real workspace lens editor has a current/total configuration label, previous/next buttons, and a Multi-Configuration button opening the existing editor without duplicating the document.",
+    "Use the existing IMultiConfigurationService.Activate workflow and shared workspace revision events for prescription, system options and views. Add locked, read-only count/index metadata so repainting the toolbar never requests all configurations' optical metrics.",
+    "Commit valid DataGrid and numeric LostFocus edits in the old configuration before queued activation; preserve invalid input and explain why switching was blocked. Reject stale queued commands after file changes or disposal; clear old navigation errors on a file switch.",
+    "Keep selected surface numbers through configuration switching, undo and redo. Show single-configuration and first/last disabled reasons through the shared ControlAvailability helper, including disabled tooltips and accessibility help.",
+    "Localize the current/total label, buttons, tooltips and explanations through the existing live Chinese/English/Japanese hooks. Wrap the header controls for narrow panes without shrinking typography.",
+    "Remove automatic multi-configuration document opening from the file-open, library-open and Zemax-import shell routes; the visible header provides an explicit entry while the existing base-page startup rule remains intact.",
+    "Related layering regression exposed pre-existing fixed colors in WorkspaceDockGuidance. Move the identical gray preview colors to shared semantic theme resources and bind the preview dynamically; retain the exact color assertions rather than weakening the architecture gate.",
+    "Synchronize the built-in three-language user guide and maintained operation guide. No shared Core optical algorithm, tolerance or reference data changed."
+  ],
+  "verification": [
+    { "kind": "root-solution-build", "configuration": "Debug", "projects": 19, "warnings": 0, "errors": 0, "defaultOutput": true, "log": "build-debug-verified.log" },
+    { "kind": "root-solution-build", "configuration": "Release", "projects": 19, "warnings": 0, "errors": 0, "defaultOutput": true, "log": "build-release-verified.log" },
+    { "kind": "configuration-related-regression", "configuration": "Debug", "passed": 296, "failed": 0, "skipped": 0, "trx": "configuration-debug-verified.trx" },
+    { "kind": "configuration-related-regression", "configuration": "Release", "passed": 296, "failed": 0, "skipped": 0, "trx": "configuration-release-verified.trx" },
+    { "kind": "isolated-real-Skia-navigation", "configuration": "Release", "passed": 9, "failed": 0, "skipped": 0, "trx": "navigation-skia-verified.trx", "captureDirectory": "captures-verified", "platformScreenshotOrUserDesktop": false },
+    { "kind": "CI-equivalent-format-verification", "files": 16, "exitCode": 0, "log": "format-verify-final.log" },
+    { "kind": "frozen-working-and-HEAD-bytes", "matchedPerSource": 2668, "totalPerSource": 2668, "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10", "result": "frozen-integrity.json" },
+    { "kind": "strict-documentation-and-diff-check", "documents": 957, "brokenLinks": 0, "markdownFenceIssues": 0, "guideRepeatedParagraphGroups": 0, "diffCheckPassed": true, "result": "documentation-final.json" }
+  ],
+  "regressionClasses": [
+    "LensConfigurationNavigationTests", "MultiConfigurationPanelTests", "MultiConfigurationPickupPanelTests",
+    "MultiConfigurationTableTests", "MultiConfigurationVariableTests", "MultiConfigurationPickupTests",
+    "MultiConfigurationOperandTests", "SurfacePropertiesPanelTests", "SurfaceSolveUiTests", "RadiusSolveUiTests",
+    "LensEditorLayoutTests", "WorkspaceDockModelTests", "WorkspaceDockGuidanceTests", "UiLocalizationTests",
+    "UserGuidePanelTests", "LayeringArchitectureTests", "AppStartupTests", "SequentialExampleTests"
+  ],
+  "fixture": {
+    "path": "src/OpticalSystemDesign.App/Assets/SequentialExamples/Zoom systems/Zoom lens.zmx",
+    "sha256": "7103aaf9130acc1b94a864267348ce1df6a7651910adc07379a9321a4670adc9",
+    "configurations": 3,
+    "surface8Thicknesses": [9.48, 4.48, 2.0],
+    "surface15Thicknesses": [4.46970613, 21.21, 43.81],
+    "systemApertureValues": [5.0, 6.2, 7.8],
+    "meaning": "Byte-preserved imported example used to check configuration selection, actual displayed values and fresh 2D viewer revisions. This is not a new Zemax numerical certification."
+  },
+  "preservedIntermediateEvidence": [
+    "navigation-initial.log: test compilation required the complete headless Escape-key API arguments; the harness was corrected.",
+    "navigation-after-compile.trx: all initial eight navigation cases passed.",
+    "configuration-related-debug.trx and configuration-related-release.trx: each 295 passed and one failed. The sole failure was the pre-existing WorkspaceDockGuidance fixed-color architecture violation; final acceptance reruns use semantic resources with unchanged gray values.",
+    "configuration-debug-accepted.trx, configuration-release-accepted.trx and navigation-skia-accepted.trx: a newly strengthened viewer assertion tried to find a visual control inside an inactive tab before its template had ever loaded. The fixture now visits the actual 2D tab before retaining its scene control; the revision/refresh assertion was retained. real-viewer-template-check.trx passed before the final full related reruns."
+  ],
+  "representativeCapture": {
+    "path": "captures-verified/zoom-workspace-configuration-2.png",
+    "widthPixels": 1400,
+    "heightPixels": 900,
+    "sha256": "821bd490d1a20b720e0e5a658aa4c25c6d4fa7618aa782a748addf7640df61f0",
+    "meaning": "Actual workspace rendered offscreen after switching to configuration 2/3; shows aperture 6.2, surface 8 thickness 4.48 and surface 15 thickness 21.21. This image and the Light header screenshot were visually inspected."
+  },
+  "boundaries": {
+    "userDesktopControlledOrCaptured": false,
+    "userApplicationClosed": false,
+    "installationChanged": false,
+    "installerRebuiltOrUploaded": false,
+    "sourceCommittedOrPushed": false,
+    "fullRepositorySuiteRerun": false,
+    "opticalAlgorithmsChanged": false,
+    "referenceDataRegenerated": false,
+    "independentCookeOrTessarInvestigationAdded": false
+  },
+  "countingRule": "Scoped regression and isolated rendering collections overlap and must not be added. Screenshots render real controls offscreen, without operating the user desktop."
+}

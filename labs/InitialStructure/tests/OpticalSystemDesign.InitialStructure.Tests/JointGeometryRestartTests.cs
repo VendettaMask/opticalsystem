@@ -25,8 +25,15 @@ public sealed class JointGeometryRestartTests
         var result = Solve(input);
         Assert.Equal("full-target-refinement-entry", result.Steps[0].Operation);
         Assert.All(result.Steps, step => Assert.Equal(FlatStartDesignProblem.FullStage, step.Stage));
-        Assert.True(result.FinalValidation!.IsFeasible);
-        Assert.True(result.FinalValidation.Fields.Max(field => field.RmsRadiusMillimeters) < maximumRms);
+        var diagnostic = JsonSerializer.Serialize(new
+        {
+            result.EvaluationCount,
+            result.FinalValidation!.GeometryFeasible,
+            maximumRms = result.FinalValidation.Fields.Max(field => field.RmsRadiusMillimeters),
+            result.FinalValidation.Violations
+        });
+        Assert.True(result.FinalValidation.IsFeasible, diagnostic);
+        Assert.True(result.FinalValidation.Fields.Max(field => field.RmsRadiusMillimeters) < maximumRms, diagnostic);
         Assert.InRange(result.EvaluationCount, 1, input.Specification.Budget.MaximumEvaluations);
         var fresh = problem.Evaluate(Optic.FromSnapshot(result.Candidate!.Optic), FlatStartDesignProblem.FullStage, true, default, true);
         Assert.Equal(ContentFingerprint.Compute(result.FinalValidation), ContentFingerprint.Compute(fresh));

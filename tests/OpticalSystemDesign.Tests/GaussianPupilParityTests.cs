@@ -17,6 +17,29 @@ public sealed class GaussianPupilParityTests
         { PropertyNameCaseInsensitive = true, NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals })!);
 
     [Theory]
+    [InlineData(0)]
+    [InlineData(.35)]
+    public void GaussianSamplerIntegratesIndependentDiskAndAnnulusMoments(double obscuration)
+    {
+        var samples = ApertureSampler.GenerateGaussianQuadrature(6, 12, obscuration);
+        var innerSquared = obscuration * obscuration;
+        var area = 1 - innerSquared;
+        Assert.Equal(72, samples.Count);
+        Assert.All(samples, sample =>
+        {
+            Assert.True(double.IsFinite(sample.Weight) && sample.Weight > 0);
+            Assert.InRange(sample.X * sample.X + sample.Y * sample.Y, innerSquared, 1);
+        });
+        Assert.InRange(Math.Abs(samples.Sum(sample => sample.Weight) - area), 0, 1e-14);
+        Assert.InRange(Math.Abs(samples.Sum(sample => sample.Weight * sample.X)), 0, 1e-14);
+        Assert.InRange(Math.Abs(samples.Sum(sample => sample.Weight * sample.X * sample.Y)), 0, 1e-14);
+        Assert.InRange(Math.Abs(samples.Sum(sample => sample.Weight * sample.X * sample.X)
+            - (1 - innerSquared * innerSquared) / 4), 0, 1e-14);
+        Assert.InRange(Math.Abs(samples.Sum(sample => sample.Weight * Math.Pow(sample.X, 4))
+            - (1 - innerSquared * innerSquared * innerSquared) / 8), 0, 1e-14);
+    }
+
+    [Theory]
     [InlineData("tessar-gq6-remove")]
     [InlineData("tessar-gq6-retain")]
     [InlineData("tessar-gq6-retain-orientations")]
@@ -39,23 +62,31 @@ public sealed class GaussianPupilParityTests
         if (clear) foreach (var f in optic.Fields) PupilVignetting.Clear(f);
         var wave = optic.Wavelengths[job.RootElement.GetProperty("wavelength").GetInt32() - 1].Micrometers;
         var fields = job.RootElement.GetProperty("fields").EnumerateArray().ToArray();
-        var pupils = ApertureSampler.GenerateGaussianQuadrature(6, 12);
-        Assert.Equal(fields.Length * pupils.Count, inputs.RootElement.GetArrayLength());
+        var samplingCount = ApertureSampler.GenerateGaussianQuadrature(6, 12).Count;
+        Assert.Equal(fields.Length * samplingCount, inputs.RootElement.GetArrayLength());
         for (var fi = 0; fi < fields.Length; fi++)
         {
+            // Replay the exact captured launches on every platform. Recomputing
+            // sin/cos here changes a few low bits across libm implementations;
+            // that is a different input, not a failed native ray comparison.
+            // The sampler's independent quadrature tests remain separate.
+            var pupils = Enumerable.Range(0, samplingCount).Select(pi =>
+            {
+                var input = inputs.RootElement[fi * samplingCount + pi];
+                return new PupilSample(input.GetProperty("px").GetDouble(), input.GetProperty("py").GetDouble(),
+                    input.GetProperty("weight").GetDouble());
+            }).ToArray();
             var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(fields[fi][0].GetDouble(),
                 fields[fi][1].GetDouble(), wave, pupils, aimAtStop: optic.RayAimingEnabled);
             var trace = optic.SequentialRayTracer.TraceGaussianPupil(bundle);
-            for (var pi = 0; pi < pupils.Count; pi++)
+            for (var pi = 0; pi < pupils.Length; pi++)
             {
-                var input = inputs.RootElement[fi * pupils.Count + pi];
-                Assert.Equal(pupils[pi].X, input.GetProperty("px").GetDouble());
-                Assert.Equal(pupils[pi].Y, input.GetProperty("py").GetDouble());
-                Assert.Equal(pupils[pi].Weight, input.GetProperty("weight").GetDouble());
+                Assert.InRange(pupils[pi].X * pupils[pi].X + pupils[pi].Y * pupils[pi].Y, 0, 1);
+                Assert.True(double.IsFinite(pupils[pi].Weight) && pupils[pi].Weight > 0);
                 foreach (var surface in native.RootElement.GetProperty("surfaces").EnumerateArray())
                 {
                     var index = surface.GetProperty("surface").GetInt32();
-                    var nr = surface.GetProperty("rays")[fi * pupils.Count + pi];
+                    var nr = surface.GetProperty("rays")[fi * pupils.Length + pi];
                     Assert.Equal(0, nr.GetProperty("error").GetInt32());
                     var sample = Assert.Single(trace[pi], s => s.SurfaceNumber == index);
                     Assert.False(sample.Vignetted);
@@ -111,7 +142,8 @@ public sealed class GaussianPupilParityTests
         using var native = JsonDocument.Parse(File.ReadAllText(Path.Combine(root, "data.json")));
         var optic = Load("tessar-gq6-remove");
         var result = new RmsVsFieldAnalysis(optic, fieldDensity: 15, numRings: density, method: method,
-            wavelengthNumber: 2, removeVignetting: remove) { GaussianAzimuthalSamples = 2 * density }.GenerateData().Series!;
+            wavelengthNumber: 2, removeVignetting: remove)
+        { GaussianAzimuthalSamples = 2 * density }.GenerateData().Series!;
         Assert.Equal(16, result.Points.Count);
         for (var i = 0; i < 16; i++)
             Assert.InRange(Math.Abs(result.Points[i].Y * 1000 - native.RootElement.GetProperty("dataSeries")[0]

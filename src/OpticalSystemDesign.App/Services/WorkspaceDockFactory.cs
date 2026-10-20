@@ -23,6 +23,8 @@ public sealed class WorkspaceDockFactory : Factory
     public const string ToolDockId = "workspace:tools";
     public const string SystemToolId = "tool:system-options";
     public const string DocumentDockId = "workspace:documents";
+    private const string DocumentDockGroup = "workspace:document-area";
+    private const string ToolDockGroup = "workspace:tool-area";
     public const string LensDocumentId = "document:lens-editor";
     public const string Viewer2DDocumentId = "document:viewer-2d";
     public const string NonSequentialObjectDocumentId = "document:non-sequential-object-editor";
@@ -95,11 +97,48 @@ public sealed class WorkspaceDockFactory : Factory
     {
         return new DocumentDock
         {
+            DockGroup = DocumentDockGroup,
             IsCollapsable = false,
             CanCreateDocument = false,
             EnableWindowDrag = true,
             CloseButtonShowMode = DocumentCloseButtonShowMode.Always
         };
+    }
+
+    public override void SplitToDock(IDock dock, IDockable dockable, DockOperation operation)
+    {
+        if (dock is not IDocumentDock || dockable is not IDocumentDock split
+            || operation is not (DockOperation.Left or DockOperation.Right or DockOperation.Top or DockOperation.Bottom)
+            || dock.Owner is not IDock { VisibleDockables: { } children } owner
+            || !children.Contains(dock))
+        {
+            base.SplitToDock(dock, dockable, operation);
+            return;
+        }
+
+        // Dock copies the source group's ID when creating a split. Groups must
+        // remain distinct when the layout is serialized and explicitly restored.
+        if (RootLayout is not null && EnumerateDockables(RootLayout)
+            .Any(item => !ReferenceEquals(item, split) && item.Id == split.Id))
+            split.Id = DocumentDockId + ":" + Guid.NewGuid().ToString("N");
+        split.IsCollapsable = true;
+
+        // Keep document splits inside the target's rectangle. Dock's default
+        // same-orientation flattening can rebalance the constrained sidebar and
+        // make a half-width preview become a third-width document after dropping.
+        // Reuse its native split layout, splitter, ownership and docking events.
+        var index = children.IndexOf(dock);
+        var layout = CreateSplitLayout(dock, split, operation);
+        var wasDefault = ReferenceEquals(owner.DefaultDockable, dock);
+        RemoveVisibleDockableAt(owner, index);
+        OnDockableRemoved(split);
+        OnDockableUndocked(split, operation);
+        InsertVisibleDockable(owner, index, layout);
+        OnDockableAdded(split);
+        owner.ActiveDockable = layout;
+        if (wasDefault) owner.DefaultDockable = layout;
+        InitDockable(layout, owner);
+        OnDockableDocked(split, operation);
     }
 
     public override IRootDock CreateLayout()
@@ -137,6 +176,7 @@ public sealed class WorkspaceDockFactory : Factory
         var systemTool = new Tool
         {
             Id = SystemToolId,
+            DockGroup = ToolDockGroup,
             Title = _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
                 ? "非序列设置"
                 : "系统选项",
@@ -151,6 +191,7 @@ public sealed class WorkspaceDockFactory : Factory
         var toolDock = new ToolDock
         {
             Id = ToolDockId,
+            DockGroup = ToolDockGroup,
             Title = "系统选项",
             Alignment = Alignment.Left,
             Proportion = initialWidth / 1440.0,
@@ -174,6 +215,7 @@ public sealed class WorkspaceDockFactory : Factory
         var root = new RootDock
         {
             Id = RootId,
+            DockGroup = ToolDockGroup,
             Title = "Optical System Design",
             IsCollapsable = false,
             VisibleDockables = CreateList<IDockable>(mainLayout),
@@ -212,6 +254,13 @@ public sealed class WorkspaceDockFactory : Factory
             ?? mainDockables.OfType<IDocumentDock>().FirstOrDefault();
         foreach (var dockable in EnumerateDockables(layout))
         {
+            // Give restored pages the same boundary as new ones. Native group
+            // validation suppresses root-wide targets (whose preview includes
+            // the sidebar) and prevents documents from docking onto tools.
+            if (dockable is (IDocument and not ITool) or IDocumentDock)
+                dockable.DockGroup = DocumentDockGroup;
+            if (dockable.Id is RootId or ToolDockId or SystemToolId)
+                dockable.DockGroup = ToolDockGroup;
             // Apply to restored layouts as well as newly created ones. The table can
             // scroll horizontally; the system editors need a usable sidebar width.
             if (dockable.Id is SystemToolId or ToolDockId)
@@ -441,6 +490,7 @@ public sealed class WorkspaceDockFactory : Factory
         }
 
         base.OnDockableClosed(dockable);
+        RepairEmptyPrimaryDocumentDock();
         RaiseLayoutChanged();
     }
 
@@ -452,8 +502,30 @@ public sealed class WorkspaceDockFactory : Factory
 
     public override void OnDockableDocked(IDockable? dockable, DockOperation operation)
     {
+        // A split's temporary document group is not attached until SplitToDock
+        // finishes; do not promote it while the native move is still in flight.
+        var target = dockable as IDocumentDock ?? dockable?.Owner as IDocumentDock;
+        if (RootLayout is not null && target is not null
+            && EnumerateMainDockables(RootLayout).Any(item => ReferenceEquals(item, target)))
+            RepairEmptyPrimaryDocumentDock();
         base.OnDockableDocked(dockable, operation);
         RaiseLayoutChanged();
+    }
+
+    private void RepairEmptyPrimaryDocumentDock()
+    {
+        if (RootLayout is null || PrimaryDocumentDock is not { VisibleDockables.Count: 0 } empty) return;
+        var groups = EnumerateMainDockables(RootLayout).OfType<IDocumentDock>()
+            .Where(group => group.VisibleDockables is { Count: > 0 }).ToArray();
+        var replacement = groups.FirstOrDefault(group => group.VisibleDockables!.Any(item =>
+            item.Id is LensDocumentId or NonSequentialObjectDocumentId)) ?? groups.FirstOrDefault();
+        // Retain the empty main drop area when all pages are floating elsewhere.
+        if (replacement is null) return;
+        empty.IsCollapsable = true;
+        CollapseDock(empty);
+        replacement.Id = DocumentDockId;
+        replacement.IsCollapsable = false;
+        PrimaryDocumentDock = replacement;
     }
 
     public override void OnDockableUndocked(IDockable? dockable, DockOperation operation)
@@ -496,6 +568,7 @@ public sealed class WorkspaceDockFactory : Factory
         return new Document
         {
             Id = descriptor.Id,
+            DockGroup = DocumentDockGroup,
             Title = descriptor.Title,
             CanClose = descriptor.TypeId is not WorkspaceDocumentTypes.LensEditor
                 and not WorkspaceDocumentTypes.NonSequentialObjectEditor,
@@ -535,7 +608,10 @@ public sealed class WorkspaceDockFactory : Factory
             WorkspaceDocumentTypes.LensEditor => new LensEditorPanel(
                 _application.Prescription,
                 _application.Events,
-                _surfaceSelection),
+                _surfaceSelection,
+                _application.MultiConfiguration,
+                () => OpenDocument(new WorkspaceDocumentDescriptor(
+                    "document:multi-configuration", WorkspaceDocumentTypes.MultiConfiguration, "多配置"))),
             WorkspaceDocumentTypes.NonSequentialObjectEditor => new NonSequentialObjectEditorPanel(
                 _application.NonSequential,
                 _application.Events),

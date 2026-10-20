@@ -169,8 +169,6 @@ Continue reading: [System Architecture](docs/ARCHITECTURE.md) · [Code Map](docs
 
 The default primary external accuracy reference is the committed Zemax OpticStudio 2026 R1 capture for `123456.ZMX`. Its conclusions cover only the captured file, settings, and software version. Importing or retaining a field does not mean its computation is implemented, and the project does not promise comprehensive equivalence with other software. Unsupported capabilities must be rejected explicitly.
 
-Optiland 0.5.8 material is retained only as frozen historical auxiliary evidence. It is not regenerated and is not a product dependency.
-
 ## Contributing
 
 Use [Issues](https://github.com/VendettaMask/opticalsystem/issues) for problems and suggestions, or contribute through [Pull Requests](https://github.com/VendettaMask/opticalsystem/pulls).
@@ -181,7 +179,18 @@ When reporting a computation issue, please include a shareable minimal project, 
 
 This project is maintained by **S.T.A.R. Labs** as a non-commercial project. Non-commercial use does not automatically grant rights to use or redistribute every third-party resource; code, dependencies, fonts, icons, and material data remain subject to their respective licenses.
 
-Thanks to .NET, Avalonia, and related projects for the underlying infrastructure. Third-party sources and license notices are retained in their resource directories and must not be omitted from distributions.
+We thank the following open-source projects and their contributors. Direct and transitive dependencies are grouped by upstream project; algorithm references, assets, and offline tools are identified separately. A reference project is not necessarily a product runtime dependency.
+
+- **Runtime and desktop UI:** [.NET](https://github.com/dotnet/runtime), [Avalonia](https://github.com/AvaloniaUI/Avalonia), [Dock](https://github.com/wieslawsoltes/Dock), and [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet).
+- **Graphics, text, and platform integration:** [SkiaSharp / HarfBuzzSharp](https://github.com/mono/SkiaSharp) and their upstream projects [Skia](https://skia.org/) and [HarfBuzz](https://github.com/harfbuzz/harfbuzz), plus [Avalonia ANGLE](https://github.com/AvaloniaUI/angle), [MicroCom](https://github.com/kekekeks/MicroCom), and [Tmds.DBus](https://github.com/tmds/Tmds.DBus).
+- **Optical algorithms and interaction references:** [Optiland](https://github.com/optiland/optiland), [AutoLens](https://github.com/AI4Optics/AutoLens), [DeepLens](https://github.com/vccimaging/DeepLens), [TFStudio](https://github.com/aai2k/TFStudio), and [tmmcore](https://github.com/aai2k/tmmcore). We appreciate their work on optical modeling, initial-structure design, and thin-film coating design.
+- **Open material data:** [refractiveindex.info database](https://github.com/polyanskiy/refractiveindex.info-database).
+- **Fonts:** [Noto Sans CJK](https://github.com/notofonts/noto-cjk), [Inter](https://github.com/rsms/inter), and [Fusion Pixel Font](https://github.com/TakWolf/fusion-pixel-font).
+- **Icons:** [Lucide](https://github.com/lucide-icons/lucide) and its source project [Feather](https://github.com/feathericons/feather), [Game-icons.net](https://game-icons.net/) (Delapouite, Lorc, and other contributors), and [FatCow / Farm-Fresh](https://github.com/gammasoft/fatcow) (FatCow Web Hosting / Marcis Gasuns).
+- **Build, test, and test dependencies:** [MSBuild](https://github.com/dotnet/msbuild), [NuGet](https://github.com/NuGet/NuGet.Client), [PowerShell](https://github.com/PowerShell/PowerShell), [VSTest / .NET Test SDK](https://github.com/microsoft/vstest), [xUnit.net](https://github.com/xunit/xunit), [Coverlet](https://github.com/coverlet-coverage/coverlet), [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json), and [Inno Setup](https://github.com/jrsoftware/issrc).
+- **Offline validation and report tools:** [Python](https://github.com/python/cpython), [NumPy](https://github.com/numpy/numpy), [SciPy](https://github.com/scipy/scipy), [Matplotlib](https://github.com/matplotlib/matplotlib), [Pillow](https://github.com/python-pillow/Pillow), [pythonnet](https://github.com/pythonnet/pythonnet), [python-docx](https://github.com/python-openxml/python-docx), [ReportLab](https://pypi.org/project/reportlab/), [FreeCAD](https://github.com/FreeCAD/FreeCAD) / [Open CASCADE Technology](https://github.com/Open-Cascade-SAS/OCCT), and [Node.js](https://github.com/nodejs/node). These tools do not perform optical calculations in the product runtime.
+
+Specific provenance, credits, and licenses are retained in the [algorithm reference notice](third_party/autolens/AutoLens-NOTICE.txt), [coating reference archive](third_party/coating-reference/README.md), [material catalog notes](src/OpticalSystemDesign.Core/Materials/Data/README.md), and the font and icon license files. Acknowledgments do not replace licenses; distributions must retain the copyright, license, and attribution files required by each project.
 
 <p align="center">
   <sub>Optical System Design · S.T.A.R. Labs<br />Make the design process clear. Keep the computational basis traceable.</sub>

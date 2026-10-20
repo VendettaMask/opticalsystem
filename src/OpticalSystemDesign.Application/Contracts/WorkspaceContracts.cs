@@ -1713,6 +1713,9 @@ public sealed record TolerancingResultDto(
     IReadOnlyList<ToleranceFieldStatisticsDto>? FieldStatistics = null,
     IReadOnlyList<ToleranceCompensatorValueDto>? NominalCompensators = null);
 
+public sealed record MultiConfigurationNavigationDto(int Count, int ActiveIndex);
+public sealed record MultiConfigurationThicknessRowDto(int SurfaceNumber, IReadOnlyList<double> Values);
+
 public sealed record MultiConfigurationRowDto(
     int Index,
     string Name,

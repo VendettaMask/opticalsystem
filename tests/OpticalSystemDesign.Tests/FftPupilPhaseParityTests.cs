@@ -31,10 +31,14 @@ public sealed class FftPupilPhaseParityTests
         var captured = Enumerable.Range(0, rows.GetArrayLength()).ToDictionary(i =>
             (inputs[i].GetProperty("px").GetDouble(), inputs[i].GetProperty("py").GetDouble()), i => rows[i]);
         Assert.All(captured.Values, ray => { Assert.Equal(0, ray.GetProperty("error").GetInt32()); Assert.Equal(0, ray.GetProperty("vignette").GetInt32()); });
-        var prepared = wavefront with { Samples = wavefront.Samples.Select(sample => sample with {
-            OpdWaves = captured[(sample.NormalizedPupilX, sample.NormalizedPupilY)].GetProperty("opd").GetDouble(),
-            Intensity = captured[(sample.NormalizedPupilX, sample.NormalizedPupilY)].GetProperty("intensity").GetDouble()
-        }).ToArray() };
+        var prepared = wavefront with
+        {
+            Samples = wavefront.Samples.Select(sample => sample with
+            {
+                OpdWaves = captured[(sample.NormalizedPupilX, sample.NormalizedPupilY)].GetProperty("opd").GetDouble(),
+                Intensity = captured[(sample.NormalizedPupilX, sample.NormalizedPupilY)].GetProperty("intensity").GetDouble()
+            }).ToArray()
+        };
         var original = prepared.Samples.ToArray();
         var psf = DiffractionEngine.ComputeFftPsf(optic, (0, 0), wave, sampling, 2 * sampling,
             cellCenteredPupil: true, zemaxFftSampling: true, preparedWavefront: prepared,

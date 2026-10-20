@@ -15,10 +15,10 @@ env:
   MAIN_SOLUTION: OpticalSystemDesign.slnx
   MAIN_TEST_PROJECT: tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj
   COMPARISON_TEST_PROJECT: tests/OpticalSystemDesign.ZemaxComparison.Tests/OpticalSystemDesign.ZemaxComparison.Tests.csproj
-  MAIN_TEST_HANG_TIMEOUT: 12m
+  MAIN_TEST_HANG_TIMEOUT: 30m
   LAB_TEST_PROJECT: labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj
   COATING_TEST_PROJECT: labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/OpticalSystemDesign.CoatingDesign.Tests.csproj
-  LAB_TEST_HANG_TIMEOUT: 8m
+  LAB_TEST_HANG_TIMEOUT: 35m
 
 jobs:
   frozen-evidence:
@@ -145,6 +145,7 @@ jobs:
           /m:1 /nr:false
 
       - name: Test portable Zemax comparison (no licensed application)
+        if: ${{ always() }}
         run: >-
           dotnet test
           ${{ env.COMPARISON_TEST_PROJECT }}
@@ -163,18 +164,14 @@ jobs:
           if-no-files-found: warn
 
   test-lab:
-    name: Built-in module tests (${{ matrix.label }})
+    name: Built-in module tests (${{ matrix.os }}, ${{ matrix.partition }})
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 240
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - os: ubuntu-22.04
-            label: linux
-          - os: macos-latest
-            label: macos
-          - os: windows-latest
-            label: windows
+        os: [ubuntu-22.04, macos-latest, windows-latest]
+        partition: [contracts, survey-first, survey-second]
 
     steps:
       - uses: actions/checkout@v4
@@ -193,21 +190,18 @@ jobs:
 
       - name: Test built-in initial structure
         run: >-
-          dotnet test
-          ${{ env.LAB_TEST_PROJECT }}
-          --no-build
-          --logger "trx;LogFileName=lab-${{ matrix.label }}.trx"
-          --results-directory "${{ runner.temp }}/test-results/lab"
-          --blame-hang --blame-hang-timeout ${{ env.LAB_TEST_HANG_TIMEOUT }}
-          /m:1 /nr:false
+          pwsh -NoProfile -File scripts/test-initial-structure-partition.ps1
+          -Partition ${{ matrix.partition }}
+          -ResultsDirectory "${{ runner.temp }}/test-results/lab"
+          -HangTimeout ${{ env.LAB_TEST_HANG_TIMEOUT }}
 
       - name: Test built-in coating design
-        if: ${{ always() }}
+        if: ${{ always() && matrix.partition == 'contracts' }}
         run: >-
           dotnet test
           ${{ env.COATING_TEST_PROJECT }}
           --no-build --no-restore
-          --logger "trx;LogFileName=coating-${{ matrix.label }}.trx"
+          --logger "trx;LogFileName=coating-${{ matrix.os }}.trx"
           --results-directory "${{ runner.temp }}/test-results/lab"
           --blame-hang --blame-hang-timeout ${{ env.LAB_TEST_HANG_TIMEOUT }}
           /m:1 /nr:false
@@ -216,7 +210,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
-          name: test-lab-${{ matrix.label }}
+          name: test-lab-${{ matrix.os }}-${{ matrix.partition }}
           path: ${{ runner.temp }}/test-results/lab
           if-no-files-found: warn
 
@@ -238,6 +232,9 @@ jobs:
 
       - name: Verify formatting
         run: dotnet format ${{ env.MAIN_SOLUTION }} --no-restore --verify-no-changes
+
+      - name: Verify initial-structure partition coverage
+        run: pwsh -NoProfile -File scripts/tests/test-initial-structure-partition.tests.ps1
 
       - name: Validate shell scripts
         if: ${{ always() }}

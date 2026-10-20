@@ -21,8 +21,8 @@ public sealed class PupilShapeAndFoucaultPhysicsTests
         var actual = FoucaultEngine.FilterPupil(input, 16, .4, .7, knife, .21);
         var expected = DirectReference(input, 16, .4, .7, knife, .21);
         for (var row = 0; row < 16; row++)
-        for (var column = 0; column < 16; column++)
-            Assert.InRange((actual[row, column] - expected[row, column]).Magnitude, 0, 2e-12);
+            for (var column = 0; column < 16; column++)
+                Assert.InRange((actual[row, column] - expected[row, column]).Magnitude, 0, 2e-12);
         Assert.InRange(Power(actual), 0, Power(input) * (1 + 1e-12));
     }
 
@@ -37,12 +37,12 @@ public sealed class PupilShapeAndFoucaultPhysicsTests
         var opened = FoucaultEngine.FilterPupil(input, 16, .4, .7, knife, openSign * 1e6);
         var closed = FoucaultEngine.FilterPupil(input, 16, .4, .7, knife, -openSign * 1e6);
         for (var row = 0; row < 16; row++)
-        for (var column = 0; column < 16; column++)
-        {
-            var expected = row is >= 6 and < 10 && column is >= 6 and < 10 ? input[row - 6, column - 6] : Complex.Zero;
-            Assert.InRange((opened[row, column] - expected).Magnitude, 0, 2e-12);
-            Assert.Equal(Complex.Zero, closed[row, column]);
-        }
+            for (var column = 0; column < 16; column++)
+            {
+                var expected = row is >= 6 and < 10 && column is >= 6 and < 10 ? input[row - 6, column - 6] : Complex.Zero;
+                Assert.InRange((opened[row, column] - expected).Magnitude, 0, 2e-12);
+                Assert.Equal(Complex.Zero, closed[row, column]);
+            }
         Assert.Equal(Power(input), Power(opened), 10);
     }
 
@@ -55,11 +55,11 @@ public sealed class PupilShapeAndFoucaultPhysicsTests
         var a = FoucaultEngine.FilterPupil(input, 16, .4, .7, first, .1);
         var b = FoucaultEngine.FilterPupil(input, 16, .4, .7, second, .1);
         for (var row = 0; row < 16; row++)
-        for (var column = 0; column < 16; column++)
-        {
-            var expected = row is >= 6 and < 10 && column is >= 6 and < 10 ? input[row - 6, column - 6] : Complex.Zero;
-            Assert.InRange((a[row, column] + b[row, column] - expected).Magnitude, 0, 2e-12);
-        }
+            for (var column = 0; column < 16; column++)
+            {
+                var expected = row is >= 6 and < 10 && column is >= 6 and < 10 ? input[row - 6, column - 6] : Complex.Zero;
+                Assert.InRange((a[row, column] + b[row, column] - expected).Magnitude, 0, 2e-12);
+            }
     }
 
     [Theory]
@@ -71,8 +71,8 @@ public sealed class PupilShapeAndFoucaultPhysicsTests
     {
         var input = new Complex[8, 8];
         for (var row = 0; row < 8; row++)
-        for (var column = 0; column < 8; column++)
-            input[row, column] = Complex.FromPolarCoordinates(1, 2 * Math.PI * frequency * column / 8);
+            for (var column = 0; column < 8; column++)
+                input[row, column] = Complex.FromPolarCoordinates(1, 2 * Math.PI * frequency * column / 8);
         Assert.Equal(expectedPower * 64, Power(FoucaultEngine.FilterPupil(input, 8, 1, 1, knife, 0)), 10);
     }
 
@@ -90,11 +90,11 @@ public sealed class PupilShapeAndFoucaultPhysicsTests
         var input = Pupil();
         var shifted = (Complex[,])input.Clone();
         for (var row = 0; row < 4; row++)
-        for (var column = 0; column < 4; column++) shifted[row, column] *= Complex.FromPolarCoordinates(1, 1.2);
+            for (var column = 0; column < 4; column++) shifted[row, column] *= Complex.FromPolarCoordinates(1, 1.2);
         var a = FoucaultEngine.FilterPupil(input, 16, .4, .7, FoucaultKnifeEdge.VerticalLeft, .1);
         var b = FoucaultEngine.FilterPupil(shifted, 16, .4, .7, FoucaultKnifeEdge.VerticalLeft, .1);
         for (var row = 0; row < 16; row++)
-        for (var column = 0; column < 16; column++) Assert.Equal(a[row, column].Magnitude, b[row, column].Magnitude, 11);
+            for (var column = 0; column < 16; column++) Assert.Equal(a[row, column].Magnitude, b[row, column].Magnitude, 11);
         shifted[1, 1] *= Complex.ImaginaryOne;
         var changed = FoucaultEngine.FilterPupil(shifted, 16, .4, .7, FoucaultKnifeEdge.VerticalLeft, .1);
         Assert.Contains(a.Cast<Complex>().Zip(changed.Cast<Complex>()), pair => Math.Abs(pair.First.Magnitude - pair.Second.Magnitude) > 1e-4);
@@ -112,8 +112,8 @@ public sealed class PupilShapeAndFoucaultPhysicsTests
         optic.Polarization = new(Unpolarized: false, Jx: 0, Jy: 1);
         var y = FoucaultEngine.Compute(optic, (0, 0), wave, 8, FoucaultKnifeEdge.VerticalLeft, 0, true);
         for (var row = 0; row < 8; row++)
-        for (var column = 0; column < 8; column++)
-            Assert.Equal((x.Intensity[row, column] + y.Intensity[row, column]) / 2, unpolarized.Intensity[row, column], 11);
+            for (var column = 0; column < 8; column++)
+                Assert.Equal((x.Intensity[row, column] + y.Intensity[row, column]) / 2, unpolarized.Intensity[row, column], 11);
         Assert.Equal((x.InputPower + y.InputPower) / 2, unpolarized.InputPower, 11);
         Assert.InRange(unpolarized.KnifeThroughput, 0, 1 + 1e-12);
     }
@@ -133,8 +133,8 @@ public sealed class PupilShapeAndFoucaultPhysicsTests
         Assert.Equal(half.InputPower / 2, quarter.InputPower, 10);
         Assert.Equal(half.OutputPower / 2, quarter.OutputPower, 10);
         for (var row = 0; row < 8; row++)
-        for (var column = 0; column < 8; column++)
-            Assert.Equal(half.Intensity[row, column] / 2, quarter.Intensity[row, column], 10);
+            for (var column = 0; column < 8; column++)
+                Assert.Equal(half.Intensity[row, column] / 2, quarter.Intensity[row, column], 10);
     }
 
     [Fact]
@@ -244,8 +244,8 @@ public sealed class PupilShapeAndFoucaultPhysicsTests
     {
         var result = new Complex[4, 4];
         for (var row = 0; row < 4; row++)
-        for (var column = 0; column < 4; column++)
-            result[row, column] = Complex.FromPolarCoordinates(.2 + .1 * (row + column), .4 * row - .2 * column);
+            for (var column = 0; column < 4; column++)
+                result[row, column] = Complex.FromPolarCoordinates(.2 + .1 * (row + column), .4 * row - .2 * column);
         result[0, 0] = Complex.Zero;
         return result;
     }
@@ -257,24 +257,24 @@ public sealed class PupilShapeAndFoucaultPhysicsTests
     {
         var focal = new Complex[n, n]; var result = new Complex[n, n]; var offset = (n - 4) / 2;
         for (var ky = 0; ky < n; ky++)
-        for (var kx = 0; kx < n; kx++)
-        {
-            for (var y = 0; y < 4; y++)
-            for (var x = 0; x < 4; x++)
-                focal[ky, kx] += pupil[y, x] * Complex.FromPolarCoordinates(1, -2 * Math.PI * (kx * (x + offset) + ky * (y + offset)) / n);
-            var horizontal = knife is FoucaultKnifeEdge.HorizontalAbove or FoucaultKnifeEdge.HorizontalBelow;
-            var index = horizontal ? ky : kx;
-            var coordinate = (index < n / 2 ? index : index - n) * (horizontal ? dy : dx);
-            var pitch = horizontal ? dy : dx;
-            var lowerPart = Math.Max(0, Math.Min(coordinate + pitch / 2, position) - (coordinate - pitch / 2)) / pitch;
-            lowerPart = Math.Min(1, lowerPart);
-            focal[ky, kx] *= knife is FoucaultKnifeEdge.HorizontalAbove or FoucaultKnifeEdge.VerticalRight ? lowerPart : 1 - lowerPart;
-        }
+            for (var kx = 0; kx < n; kx++)
+            {
+                for (var y = 0; y < 4; y++)
+                    for (var x = 0; x < 4; x++)
+                        focal[ky, kx] += pupil[y, x] * Complex.FromPolarCoordinates(1, -2 * Math.PI * (kx * (x + offset) + ky * (y + offset)) / n);
+                var horizontal = knife is FoucaultKnifeEdge.HorizontalAbove or FoucaultKnifeEdge.HorizontalBelow;
+                var index = horizontal ? ky : kx;
+                var coordinate = (index < n / 2 ? index : index - n) * (horizontal ? dy : dx);
+                var pitch = horizontal ? dy : dx;
+                var lowerPart = Math.Max(0, Math.Min(coordinate + pitch / 2, position) - (coordinate - pitch / 2)) / pitch;
+                lowerPart = Math.Min(1, lowerPart);
+                focal[ky, kx] *= knife is FoucaultKnifeEdge.HorizontalAbove or FoucaultKnifeEdge.VerticalRight ? lowerPart : 1 - lowerPart;
+            }
         for (var y = 0; y < n; y++)
-        for (var x = 0; x < n; x++)
-        for (var ky = 0; ky < n; ky++)
-        for (var kx = 0; kx < n; kx++)
-            result[y, x] += focal[ky, kx] * Complex.FromPolarCoordinates(1, 2 * Math.PI * (kx * x + ky * y) / n) / (n * n);
+            for (var x = 0; x < n; x++)
+                for (var ky = 0; ky < n; ky++)
+                    for (var kx = 0; kx < n; kx++)
+                        result[y, x] += focal[ky, kx] * Complex.FromPolarCoordinates(1, 2 * Math.PI * (kx * x + ky * y) / n) / (n * n);
         return result;
     }
 }

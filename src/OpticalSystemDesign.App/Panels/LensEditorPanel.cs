@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Data;
 using Avalonia.Layout;
@@ -43,11 +44,15 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
     public LensEditorPanel(
         IPrescriptionService prescription,
         IWorkspaceEventStream events,
-        SurfaceSelectionService surfaceSelection)
+        SurfaceSelectionService surfaceSelection,
+        IMultiConfigurationService? configurations = null,
+        Action? showConfigurations = null)
     {
         _prescription = prescription;
         _events = events;
         _surfaceSelection = surfaceSelection;
+        _configurations = configurations;
+        _showConfigurations = showConfigurations;
         _grid = CreateGrid();
         var options = prescription.GetOptions();
         _geometryPicker.ItemsSource = options.GeometryKinds.Select(SurfaceEditorRow.SurfaceTypeForGeometry).Distinct().ToArray();
@@ -110,6 +115,10 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         };
         grid.BindThemeResource(DataGrid.RowBackgroundProperty, ThemeResourceBindings.Surface);
         grid.BindThemeResource(DataGrid.BorderBrushProperty, ThemeResourceBindings.Border);
+        grid.Styles.Add(new Style(selector => selector.OfType<DataGridColumnHeader>())
+        {
+            Setters = { new Setter(TemplatedControl.FontWeightProperty, FontWeight.Bold) }
+        });
         grid.Styles.Add(new Style(selector => selector
             .OfType<DataGridRow>()
             .Class("glass-material-row"))
@@ -191,7 +200,11 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
 
     private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
     {
-        Dispatcher.UIThread.Post(() => Refresh(preserveSelection: !args.FileSwitched));
+        Dispatcher.UIThread.Post(() =>
+        {
+            if (args.FileSwitched) _configurationMessage.IsVisible = false;
+            Refresh(preserveSelection: !args.FileSwitched);
+        });
     }
 
     private void Refresh(bool preserveSelection = true)
@@ -221,6 +234,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         _grid.SelectedItem = rows.FirstOrDefault(row => row.Number == selectedNumber)
             ?? rows.ElementAtOrDefault(Math.Min(1, Math.Max(0, rows.Length - 1)));
         LoadComponentSelection();
+        RefreshConfigurationNavigation();
     }
 
     private void LoadComponentSelection()

@@ -27,7 +27,7 @@ public sealed class PupilFoucaultExtensionTests
             - Math.Pow(2 * Math.PI * fy / (n * pitch), 2));
         var phase = Complex.Exp(Complex.ImaginaryOne * kz * distance);
         for (var r = 0; r < n; r++)
-        for (var c = 0; c < n; c++) Assert.InRange((output[r, c] - field[r, c] * phase).Magnitude, 0, 3e-13);
+            for (var c = 0; c < n; c++) Assert.InRange((output[r, c] - field[r, c] * phase).Magnitude, 0, 3e-13);
     }
 
     [Fact]
@@ -35,11 +35,11 @@ public sealed class PupilFoucaultExtensionTests
     {
         var input = new Complex[8, 8];
         for (var r = 0; r < 8; r++)
-        for (var c = 0; c < 8; c++) input[r, c] = Complex.FromPolarCoordinates(.3 + .02 * r * c, .7 * r - .31 * c);
+            for (var c = 0; c < 8; c++) input[r, c] = Complex.FromPolarCoordinates(.3 + .02 * r * c, .7 * r - .31 * c);
         var actual = AngularSpectrumEngine.PropagateScalar(input, .18, .27, .7, 1.2, .15);
         var expected = DirectScalar(input, .18, .27, .7, 1.2, .15);
         for (var r = 0; r < 8; r++)
-        for (var c = 0; c < 8; c++) Assert.InRange((actual[r, c] - expected[r, c]).Magnitude, 0, 2e-12);
+            for (var c = 0; c < 8; c++) Assert.InRange((actual[r, c] - expected[r, c]).Magnitude, 0, 2e-12);
     }
 
     [Theory]
@@ -75,12 +75,12 @@ public sealed class PupilFoucaultExtensionTests
         var actual = AngularSpectrumEngine.PropagateVector(input, pitch, pitch, lambda, 1, distance, false);
         var phase = Complex.Exp(Complex.ImaginaryOne * 2 * Math.PI * cz * distance / lambda);
         for (var r = 0; r < n; r++)
-        for (var c = 0; c < n; c++)
-        {
-            Assert.InRange((actual.Electric[r, c].X - input[r, c].X * phase).Magnitude, 0, 2e-13);
-            Assert.InRange((actual.Electric[r, c].Z - input[r, c].Z * phase).Magnitude, 0, 2e-13);
-            Assert.InRange((sx * actual.Electric[r, c].X + cz * actual.Electric[r, c].Z).Magnitude, 0, 2e-13);
-        }
+            for (var c = 0; c < n; c++)
+            {
+                Assert.InRange((actual.Electric[r, c].X - input[r, c].X * phase).Magnitude, 0, 2e-13);
+                Assert.InRange((actual.Electric[r, c].Z - input[r, c].Z * phase).Magnitude, 0, 2e-13);
+                Assert.InRange((sx * actual.Electric[r, c].X + cz * actual.Electric[r, c].Z).Magnitude, 0, 2e-13);
+            }
         Assert.Equal(n * n * pitch * pitch, actual.ElectricNormIntegral, 12);
         Assert.Equal(n * n * pitch * pitch * cz, actual.NormalFluxIntegral, 12);
     }
@@ -120,11 +120,11 @@ public sealed class PupilFoucaultExtensionTests
         var composed = AngularSpectrumEngine.PropagateScalar(first, .6, .7, 1, 1.3, .2);
         var scaled = AngularSpectrumEngine.PropagateScalar(input, 6, 7, 10, 1.3, 3);
         for (var r = 0; r < 8; r++)
-        for (var c = 0; c < 8; c++)
-        {
-            Assert.InRange((direct[r, c] - composed[r, c]).Magnitude, 0, 3e-13);
-            Assert.InRange((direct[r, c] - scaled[r, c]).Magnitude, 0, 3e-13);
-        }
+            for (var c = 0; c < 8; c++)
+            {
+                Assert.InRange((direct[r, c] - composed[r, c]).Magnitude, 0, 3e-13);
+                Assert.InRange((direct[r, c] - scaled[r, c]).Magnitude, 0, 3e-13);
+            }
     }
 
     [Fact]
@@ -180,7 +180,7 @@ public sealed class PupilFoucaultExtensionTests
         optic.Polarization = new(Unpolarized: false, Jx: 1, Jy: 0); var x = Run();
         optic.Polarization = new(Unpolarized: false, Jx: 0, Jy: 1); var y = Run();
         for (var r = 0; r < 16; r++)
-        for (var c = 0; c < 16; c++) Assert.Equal((x.Intensity[r, c] + y.Intensity[r, c]) / 2, mean.Intensity[r, c], 10);
+            for (var c = 0; c < 16; c++) Assert.Equal((x.Intensity[r, c] + y.Intensity[r, c]) / 2, mean.Intensity[r, c], 10);
         Assert.Equal((x.OutputPower + y.OutputPower) / 2, mean.OutputPower, 10);
         Assert.Equal(6, mean.CoherentChannels);
     }
@@ -198,7 +198,7 @@ public sealed class PupilFoucaultExtensionTests
         var b = FoucaultEngine.Compute(optic, (0, 0), wave, 16, FoucaultKnifeEdge.HorizontalAbove, 0, vector, mode);
         Assert.Equal(a.InputPower / 2, b.InputPower, 9); Assert.Equal(a.OutputPower / 2, b.OutputPower, 9);
         for (var r = 0; r < 16; r++)
-        for (var c = 0; c < 16; c++) Assert.Equal(a.Intensity[r, c] / 2, b.Intensity[r, c], 9);
+            for (var c = 0; c < 16; c++) Assert.Equal(a.Intensity[r, c] / 2, b.Intensity[r, c], 9);
     }
 
     [Fact]
@@ -374,11 +374,11 @@ public sealed class PupilFoucaultExtensionTests
             FoucaultKnifeEdge.VerticalRight, 1e6, propagationMode: FoucaultPropagationMode.SpatialAngularSpectrum,
             observationHalfWidthMillimeters: halfWidth);
         for (var row = 0; row < 16; row++)
-        for (var column = 0; column < 16; column++)
-        {
-            Assert.Equal(open.Intensity[row, column], open.Intensity[row, 15 - column], 10);
-            Assert.Equal(open.Intensity[row, column], open.Intensity[15 - row, column], 10);
-        }
+            for (var column = 0; column < 16; column++)
+            {
+                Assert.Equal(open.Intensity[row, column], open.Intensity[row, 15 - column], 10);
+                Assert.Equal(open.Intensity[row, column], open.Intensity[15 - row, column], 10);
+            }
     }
 
     internal static Optic CollimatedPlate()
@@ -410,33 +410,33 @@ public sealed class PupilFoucaultExtensionTests
     {
         var result = new Complex[n, n];
         for (var r = 0; r < n; r++)
-        for (var c = 0; c < n; c++) result[r, c] = Complex.Exp(Complex.ImaginaryOne * 2 * Math.PI * (fx * c + fy * r) / n);
+            for (var c = 0; c < n; c++) result[r, c] = Complex.Exp(Complex.ImaginaryOne * 2 * Math.PI * (fx * c + fy * r) / n);
         return result;
     }
     private static ComplexElectricField[,] VectorMode(Complex[,] mode, Vector3D direction)
     {
         var result = new ComplexElectricField[mode.GetLength(0), mode.GetLength(1)];
         for (var r = 0; r < mode.GetLength(0); r++)
-        for (var c = 0; c < mode.GetLength(1); c++) result[r, c] = ComplexElectricField.FromReal(direction) * mode[r, c];
+            for (var c = 0; c < mode.GetLength(1); c++) result[r, c] = ComplexElectricField.FromReal(direction) * mode[r, c];
         return result;
     }
     private static Complex[,] DirectScalar(Complex[,] field, double dx, double dy, double lambda, double index, double distance)
     {
         const int n = 8; var spectrum = new Complex[n, n]; var result = new Complex[n, n];
         for (var fy = 0; fy < n; fy++)
-        for (var fx = 0; fx < n; fx++)
-        {
-            for (var r = 0; r < n; r++)
-            for (var c = 0; c < n; c++) spectrum[fy, fx] += field[r, c] * Complex.Exp(-Complex.ImaginaryOne * 2 * Math.PI * (fx * c + fy * r) / n);
-            var kx = 2 * Math.PI * (fx < n / 2 ? fx : fx - n) / (n * dx);
-            var ky = 2 * Math.PI * (fy < n / 2 ? fy : fy - n) / (n * dy);
-            var kz = Complex.Sqrt(Math.Pow(2 * Math.PI * index / lambda, 2) - kx * kx - ky * ky);
-            spectrum[fy, fx] *= Complex.Exp(Complex.ImaginaryOne * kz * distance);
-        }
+            for (var fx = 0; fx < n; fx++)
+            {
+                for (var r = 0; r < n; r++)
+                    for (var c = 0; c < n; c++) spectrum[fy, fx] += field[r, c] * Complex.Exp(-Complex.ImaginaryOne * 2 * Math.PI * (fx * c + fy * r) / n);
+                var kx = 2 * Math.PI * (fx < n / 2 ? fx : fx - n) / (n * dx);
+                var ky = 2 * Math.PI * (fy < n / 2 ? fy : fy - n) / (n * dy);
+                var kz = Complex.Sqrt(Math.Pow(2 * Math.PI * index / lambda, 2) - kx * kx - ky * ky);
+                spectrum[fy, fx] *= Complex.Exp(Complex.ImaginaryOne * kz * distance);
+            }
         for (var r = 0; r < n; r++)
-        for (var c = 0; c < n; c++)
-        for (var fy = 0; fy < n; fy++)
-        for (var fx = 0; fx < n; fx++) result[r, c] += spectrum[fy, fx] * Complex.Exp(Complex.ImaginaryOne * 2 * Math.PI * (fx * c + fy * r) / n) / (n * n);
+            for (var c = 0; c < n; c++)
+                for (var fy = 0; fy < n; fy++)
+                    for (var fx = 0; fx < n; fx++) result[r, c] += spectrum[fy, fx] * Complex.Exp(Complex.ImaginaryOne * 2 * Math.PI * (fx * c + fy * r) / n) / (n * n);
         return result;
     }
 }

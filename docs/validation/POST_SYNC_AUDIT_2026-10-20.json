@@ -1,0 +1,394 @@
+{
+  "schemaVersion": 1,
+  "auditDate": "2026-10-20",
+  "timezone": "Asia/Shanghai",
+  "scope": "Read-only implementation audit after remote synchronization; diagnostic outputs and documentation only.",
+  "sourceCommit": "62d3e49dfbebfacff6e839add6b76db993a846f3",
+  "productCodeChanged": false,
+  "referencesOrTolerancesChanged": false,
+  "committedOrPushed": false,
+  "localEvidenceRoot": "artifacts/validation/post-sync-check-20261020",
+  "completedLocalChecks": [
+    {
+      "kind": "solution-build",
+      "configuration": "Debug",
+      "projects": 19,
+      "warnings": 0,
+      "errors": 0,
+      "log": "build-debug.log"
+    },
+    {
+      "kind": "solution-build",
+      "configuration": "Release",
+      "projects": 19,
+      "warnings": 0,
+      "errors": 0,
+      "log": "build-release.log"
+    },
+    {
+      "kind": "portable-comparison-tests",
+      "configuration": "Release",
+      "passed": 223,
+      "failed": 0,
+      "skipped": 0,
+      "total": 223,
+      "trx": "comparison-release-retry.trx",
+      "sha256": "9d3c1dd07dd771fd8cd7d40fdaba33da4289762774df1d10d6a14713a5a67345"
+    },
+    {
+      "kind": "coating-tests",
+      "configuration": "Release",
+      "passed": 54,
+      "failed": 0,
+      "skipped": 0,
+      "total": 54,
+      "trx": "coating-release-retry.trx",
+      "sha256": "56879d33d441d6c5c19642c5183e9dcf456c04852828841638f183bc655eef1f"
+    },
+    {
+      "kind": "caption-and-document-close-real-skia-tests",
+      "configuration": "Release",
+      "passed": 9,
+      "failed": 0,
+      "total": 9,
+      "trx": "caption-isolated.trx",
+      "sha256": "9dd31eaf43605e249e3eb67768f6ec3ec402565a52741ba83a9333c203386c6a",
+      "offscreenCaptures": 18
+    },
+    {
+      "kind": "guide-language-examples-layering-tests",
+      "configuration": "Release",
+      "passed": 26,
+      "failed": 0,
+      "total": 26,
+      "trx": "ui-contracts-isolated.trx",
+      "sha256": "4ad0ae46d6756f93efea26d04fb79997965088ac8960728fbc508c4fc1c798f7"
+    },
+    {
+      "kind": "aperture-import-independent-reproduction",
+      "configuration": "Release",
+      "passed": 6,
+      "failed": 3,
+      "skipped": 0,
+      "total": 9,
+      "trx": "aperture-isolated-release.trx",
+      "sha256": "f01684f20abee7146c089f8ae8a9f37964eb64844fd7aff5209ee19229474100"
+    },
+    {
+      "kind": "strict-documentation-audit-before-ledger",
+      "documents": 957,
+      "brokenLinks": 0,
+      "markdownFenceIssues": 0,
+      "localOnlyLinks": 0,
+      "guideRepeatedParagraphGroups": 0,
+      "historicalRepeatedParagraphGroups": 11,
+      "json": "documentation.json"
+    },
+    {
+      "kind": "frozen-working-and-HEAD-bytes",
+      "total": 2668,
+      "workingMatched": 2668,
+      "headMatched": 2668,
+      "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "json": "frozen-integrity.json"
+    }
+  ],
+  "incompleteLocalChecks": [
+    {
+      "kind": "main-tests",
+      "configuration": "Release",
+      "status": "deliberately-stopped-by-auditor",
+      "completedCases": 3075,
+      "passedCompletedCases": 3072,
+      "failedCompletedCases": 3,
+      "trx": "main-release-retry.trx",
+      "sha256": "c2994b092830855fe3649747ad15a17be75ccb0efe7043e4eee7924c36e92418",
+      "note": "No claim for the remaining suite. Test host PID 54256 was deliberately stopped after verifying its executable path and parent; resulting host-crashed text is not evidence of an application crash."
+    },
+    {
+      "kind": "initial-structure-tests",
+      "configuration": "Release",
+      "filter": "Category!=LongRunning",
+      "status": "deliberately-stopped-by-auditor",
+      "completedCases": 260,
+      "passedCompletedCases": 260,
+      "failedCompletedCases": 0,
+      "trx": "initial-release-retry.trx",
+      "sha256": "6683503335ed5e8c294359e2d7d607409960ee722794a3f3f56a47a3ab9390e6",
+      "note": "Unmarked long surveys remain despite this category filter. Test host PID 75892 was deliberately stopped after verifying its executable path and parent; this is not a full pass or spontaneous crash."
+    }
+  ],
+  "findings": [
+    {
+      "id": "I01",
+      "priority": "P1",
+      "title": "Aperture import test contract is inconsistent with the current dummy-stop policy",
+      "evidence": "CurvedDummyDoesNotAcquireAnImplicitFloatingAperture fails its final Assert.NotNull for all three inputs, independently and in CI.",
+      "locations": [
+        "tests/OpticalSystemDesign.Tests/ZemaxLayoutApertureTests.cs:34",
+        "src/OpticalSystemDesign.Core/FileIO/ZemaxZmxReader.cs:797"
+      ],
+      "interpretation": "The stop is air-to-air, so current hasOpticalInteraction is false and no implicit physical aperture is created. Resolve against the captured aperture contract; do not blindly change product optics or weaken tests. This is not proof that every imported stop is wrong."
+    },
+    {
+      "id": "I02",
+      "priority": "P2",
+      "title": "English and Japanese interface still contain untranslated product text",
+      "evidence": "Real Skia offscreen system-properties probe shows Chinese delete-field/delete-wavelength buttons, phase labels, polarization help, glass-catalog help and environment help in both languages.",
+      "examples": [
+        "删除此视场",
+        "删除此波长",
+        "X 相位 / °",
+        "Y 相位 / °",
+        "CODA 始终使用所填 Jones 输入；RRET 使用参考轴。照度偏振计算遵循非偏振开关。",
+        "当前列表按从上到下的顺序解析未指定厂商的玻璃名称；至少保留一个目录。",
+        "当前仅保存环境参数，暂不启用温度补偿计算。"
+      ],
+      "locations": [
+        "src/OpticalSystemDesign.App/Services/UiLocalization.cs:113",
+        "src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs:721",
+        "src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.Polarization.cs:64"
+      ],
+      "log": "localization-probe-final.log",
+      "sha256": "8e44d4671e651f2cc697325a8061005404643def49826bedb0ef4c75894e3543",
+      "captures": [
+        "system-properties-en-US.png",
+        "system-properties-ja-JP.png"
+      ]
+    },
+    {
+      "id": "I03",
+      "priority": "P2",
+      "title": "Command search does not match translated command names",
+      "locations": [
+        "src/OpticalSystemDesign.App/Services/ActionManager.cs:46",
+        "src/OpticalSystemDesign.App/Controls/CommandSearchControl.cs:130"
+      ],
+      "evidence": {
+        "registered": {
+          "id": "quick-focus",
+          "text": "快速聚焦",
+          "category": "优化"
+        },
+        "englishQuery": "Quick Focus",
+        "japaneseQuery": "クイックフォーカス",
+        "matchesForEachLocalizedQuery": 0,
+        "matchesForChineseAndId": 1
+      },
+      "log": "localization-probe-final.log"
+    },
+    {
+      "id": "I04",
+      "priority": "P1",
+      "title": "Current remote CI is failing, including additional platform-specific failures and long-test aborts",
+      "workflowRun": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013",
+      "note": "Remote results are read, not rerun; no remote mutations were performed. They are separate from local Release checks. Observed failures do not certify root cause or numerical equivalence."
+    }
+  ],
+  "remoteCI": {
+    "runId": 39272986013,
+    "commit": "62d3e49dfbebfacff6e839add6b76db993a846f3",
+    "status": "completed",
+    "conclusion": "failure",
+    "jobs": [
+      {
+        "id": 118129887218,
+        "name": "Built-in module tests (windows)",
+        "conclusion": "failure",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118129887218"
+      },
+      {
+        "id": 118129887455,
+        "name": "Generate STEP fixtures",
+        "conclusion": "success",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118129887455"
+      },
+      {
+        "id": 118129887555,
+        "name": "Dependency vulnerability audit",
+        "conclusion": "success",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118129887555"
+      },
+      {
+        "id": 118129887564,
+        "name": "Main tests (linux)",
+        "conclusion": "failure",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118129887564"
+      },
+      {
+        "id": 118129887577,
+        "name": "Documentation (macos-latest)",
+        "conclusion": "success",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118129887577"
+      },
+      {
+        "id": 118129887614,
+        "name": "Frozen evidence (macos-latest)",
+        "conclusion": "success",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118129887614"
+      },
+      {
+        "id": 118129887699,
+        "name": "Frozen evidence (ubuntu-22.04)",
+        "conclusion": "success",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118129887699"
+      },
+      {
+        "id": 118129887709,
+        "name": "Frozen evidence (windows-latest)",
+        "conclusion": "success",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118129887709"
+      },
+      {
+        "id": 118129887724,
+        "name": "Main tests (windows)",
+        "conclusion": "failure",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118129887724"
+      },
+      {
+        "id": 118129887756,
+        "name": "Main tests (macos)",
+        "conclusion": "failure",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118129887756"
+      },
+      {
+        "id": 118129887763,
+        "name": "Performance smoke",
+        "conclusion": "success",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118129887763"
+      },
+      {
+        "id": 118129887766,
+        "name": "Built-in module tests (linux)",
+        "conclusion": "failure",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118129887766"
+      },
+      {
+        "id": 118129887935,
+        "name": "Documentation (windows-latest)",
+        "conclusion": "success",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118129887935"
+      },
+      {
+        "id": 118129887993,
+        "name": "Build main",
+        "conclusion": "success",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118129887993"
+      },
+      {
+        "id": 118129888005,
+        "name": "Documentation (ubuntu-22.04)",
+        "conclusion": "success",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118129888005"
+      },
+      {
+        "id": 118129888096,
+        "name": "Built-in module tests (macos)",
+        "conclusion": "failure",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118129888096"
+      },
+      {
+        "id": 118129888168,
+        "name": "Repository quality",
+        "conclusion": "failure",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118129888168"
+      },
+      {
+        "id": 118131195035,
+        "name": "STEP OpenCascade validation",
+        "conclusion": "success",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39272986013/job/118131195035"
+      }
+    ],
+    "testSummaries": [
+      {
+        "platform": "Windows",
+        "suite": "main",
+        "configuration": "Debug",
+        "completed": true,
+        "passed": 6152,
+        "failed": 3,
+        "skipped": 0,
+        "total": 6155,
+        "reason": "Three dummy-stop aperture assertions."
+      },
+      {
+        "platform": "Linux",
+        "suite": "main",
+        "configuration": "Debug",
+        "completed": false,
+        "passed": 5705,
+        "failed": 10,
+        "skipped": 15,
+        "totalObserved": 5730,
+        "reason": "Three aperture assertions, seven exact Gaussian sample-coordinate assertions, followed by 12-minute inactivity abort."
+      },
+      {
+        "platform": "macOS",
+        "suite": "main",
+        "configuration": "Debug",
+        "completed": false,
+        "passed": 5693,
+        "failed": 20,
+        "skipped": 15,
+        "totalObserved": 5728,
+        "reason": "Ten recovery-path reparse/symlink guard failures, three aperture assertions, seven exact Gaussian sample-coordinate assertions, followed by 12-minute inactivity abort."
+      },
+      {
+        "platform": "Windows",
+        "suite": "initial-structure",
+        "configuration": "Debug",
+        "completed": false,
+        "passed": 282,
+        "failed": 0,
+        "reason": "Eight-minute inactivity abort while frozen family survey was running."
+      },
+      {
+        "platform": "Linux",
+        "suite": "initial-structure",
+        "configuration": "Debug",
+        "completed": false,
+        "passed": 279,
+        "failed": 1,
+        "reason": "SecantLeastSquares frozen case 9 assertion plus eight-minute inactivity abort in survey."
+      },
+      {
+        "platform": "macOS",
+        "suite": "initial-structure",
+        "configuration": "Debug",
+        "completed": false,
+        "passed": 280,
+        "failed": 2,
+        "reason": "SecantLeastSquares frozen case 9 and progressive-recovery assertions plus eight-minute inactivity abort in survey."
+      }
+    ],
+    "platformObservations": [
+      {
+        "kind": "macOS-recovery",
+        "location": "src/OpticalSystemDesign.App/Services/DocumentRecoveryStore.cs:211",
+        "evidence": "Recovery directory guard checks every ancestor and rejects a symbolic-link/reparse-point path. CI temporary recovery roots fail during store construction.",
+        "scope": "Observed on macOS CI temporary paths; not a claim that every macOS user profile or Windows recovery path fails."
+      },
+      {
+        "kind": "Gaussian-sample-cross-platform",
+        "location": "tests/OpticalSystemDesign.Tests/GaussianPupilParityTests.cs:52",
+        "example": "Even-asphere sample expected -0.091876605970214145 versus actual -0.091876605970214131.",
+        "scope": "Exact pupil-input equality fails before the downstream traced-ray comparisons. This does not demonstrate a new large optical residual. Existing independent Cooke/Tessar cases are recorded only, not reopened as investigations or new gates."
+      }
+    ],
+    "formatting": {
+      "jobId": 118129888168,
+      "conclusion": "failure",
+      "diagnostic": "WHITESPACE",
+      "note": "Repository-wide formatter gate fails. No formatting was applied during this audit."
+    }
+  },
+  "limitations": [
+    "Windows local checks only; no local macOS/Linux GUI or DPI/multi-monitor certification.",
+    "No licensed Zemax application was opened and no new native capture or optical matrix was generated.",
+    "Test collections overlap and must not be summed into one all-repository passing count.",
+    "Initial sandbox test attempts could not connect to testhost/datacollector and were rerun with appropriate local-process permissions. Those attempts did not execute a valid product test run.",
+    "The first temporary probe omitted native DLLs and failed; a subsequent stub-drawing probe is superseded by the final independent real-Skia probe. Neither diagnostic setup failure is a product startup failure.",
+    "No source fixes, installation, release publication, commit, push, baseline regeneration or tolerance changes."
+  ]
+}

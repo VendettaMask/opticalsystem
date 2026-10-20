@@ -48,19 +48,16 @@ public sealed partial class MultiConfigurationPanel : UserControl, IDisposable
         this.BindThemeResource(BackgroundProperty, ThemeResourceBindings.Surface);
         _configGrid.BindThemeResource(DataGrid.RowBackgroundProperty, ThemeResourceBindings.Surface);
         ConfigureGrid();
-        var addButton = new Button { Content = new LocalIconLabel("plus", "新增配置"), MinWidth = 96 };
-        addButton.Click += (_, _) => _configurations.Add();
-        var activateButton = new Button { Content = new LocalIconLabel("circle-check", "激活配置"), MinWidth = 96 };
-        activateButton.Click += (_, _) =>
+        var addButton = ActionButton("新增配置", "AddOverviewConfiguration", () => _configurations.Add());
+        var activateButton = ActionButton("激活配置", "ActivateOverviewConfiguration", () =>
         {
             if (_configGrid.SelectedItem is MultiConfigurationRowDto row)
             {
                 _configurations.Activate(row.Index);
             }
-        };
-        var applyButton = new Button { Content = new LocalIconLabel("check", "应用厚度"), MinWidth = 96 };
+        });
+        var applyButton = ActionButton("应用厚度", "ApplyOverviewThickness", ApplyThickness);
         applyButton.Classes.Add("accent");
-        applyButton.Click += (_, _) => ApplyThickness();
         var toolbar = new WrapPanel
         {
             Orientation = Orientation.Horizontal,
@@ -83,16 +80,21 @@ public sealed partial class MultiConfigurationPanel : UserControl, IDisposable
         root.Children.Add(_summary);
         var pages = new TabControl
         {
+            Name = "MultiConfigurationPages",
+            TabStripPlacement = Avalonia.Controls.Dock.Bottom,
             ItemsSource = new[]
             {
-                new TabItem { Header = "配置", Content = _configGrid },
+                new TabItem { Header = "配置概览", Content = _configGrid },
                 new TabItem { Header = "操作数行表", Content = BuildOperandTable() }
-            }
+            },
+            SelectedIndex = 1
         };
+        toolbar.IsVisible = false;
         pages.SelectionChanged += (_, _) => toolbar.IsVisible = pages.SelectedIndex != 1;
         root.Children.Add(pages);
         Content = root;
         _events.Changed += OnWorkspaceChanged;
+        UiLocalization.LanguageChanged += OnLanguageChanged;
         Refresh();
     }
 
@@ -105,6 +107,7 @@ public sealed partial class MultiConfigurationPanel : UserControl, IDisposable
 
         _disposed = true;
         _events.Changed -= OnWorkspaceChanged;
+        UiLocalization.LanguageChanged -= OnLanguageChanged;
     }
 
     private void ConfigureGrid()
@@ -122,6 +125,7 @@ public sealed partial class MultiConfigurationPanel : UserControl, IDisposable
         {
             if (!_disposed)
             {
+                if (args.FileSwitched) { _operandDraft = false; _pickupDraft = false; _operandMessage.Text = string.Empty; }
                 Refresh();
             }
         });
@@ -145,9 +149,21 @@ public sealed partial class MultiConfigurationPanel : UserControl, IDisposable
         _surfacePicker.ItemsSource = surfaces;
         _surfacePicker.SelectedItem = surfaces.FirstOrDefault(surface => surface.Number == selectedSurface)
             ?? surfaces.ElementAtOrDefault(Math.Min(2, Math.Max(0, surfaces.Length - 1)));
-        _summary.Text = $"配置数：{rows.Count}    当前系统表面数：{surfaces.Length}";
+        RefreshSummary(rows.Count, surfaces.Length);
         RefreshOperandTable();
     }
+
+    private void OnLanguageChanged(object? sender, EventArgs args)
+    {
+        if (!_disposed) RefreshSummary(_configurations.GetNavigationState().Count, _prescription.GetSurfaces().Count);
+    }
+
+    private void RefreshSummary(int configurations, int surfaces) => _summary.Text = UiLocalization.CurrentLanguage switch
+    {
+        UiLocalization.English => $"Configurations: {configurations}    Current system surfaces: {surfaces}",
+        UiLocalization.Japanese => $"構成数: {configurations}    現在の面数: {surfaces}",
+        _ => $"配置数：{configurations}    当前系统表面数：{surfaces}"
+    };
 
     private void ApplyThickness()
     {

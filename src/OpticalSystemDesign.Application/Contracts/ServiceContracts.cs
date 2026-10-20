@@ -270,6 +270,10 @@ public interface ITolerancingService
 
 public interface IMultiConfigurationService
 {
+    MultiConfigurationNavigationDto GetNavigationState();
+    IReadOnlyList<double> GetApertureValues();
+    IReadOnlyList<MultiConfigurationThicknessRowDto> GetThicknessDifferences();
+
     IReadOnlyList<MultiConfigurationOperandRowDto> GetOperandRows();
     void ReplaceOperandRows(IReadOnlyList<MultiConfigurationOperandBindingDto> rows, long expectedRevision);
     void SetOperandValue(int oneBasedRow, int configurationIndex, double value, long expectedRevision);
@@ -282,7 +286,7 @@ public interface IMultiConfigurationService
 
     void Activate(int configurationIndex);
 
-    void SetThickness(int configurationIndex, int surfaceNumber, double thickness);
+    void SetThickness(int configurationIndex, int surfaceNumber, double thickness, long? expectedRevision = null);
 }
 
 public interface IMaterialCatalogService

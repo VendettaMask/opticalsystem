@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "status": "locally-verified-debug-and-release-default-outputs-updated",
+  "baseCommit": "62d3e49dfbebfacff6e839add6b76db993a846f3",
+  "evidenceRoot": "artifacts/validation/configuration-matrix-20261020",
+  "scope": "Place surface properties and configuration navigation on the same Lens Data header row, and use the supplied Zemax screenshot as the Multi-Configuration editor's matrix-layout reference.",
+  "implementation": [
+    "Use one wrapping Lens Data header: surface properties at the left, configuration position/arrows/editor entry alongside it. Preserve surface property controls, data headers, font sizes and table editing.",
+    "Default the Multi-Configuration editor to an operand-row/configuration-column matrix. Keep the original configuration overview and thickness workflow in a bottom tab; use the same pending-input guards on its actions.",
+    "Bold native matrix column headers, mark the active configuration with an asterisk, use semantic theme colors for active columns/value cells and preserve current-cell focus feedback. Freeze the three identity columns and retain horizontal scrolling for narrow panes.",
+    "Activate configurations using arrows or double-clicking the actual native column header. Route native pointer events rather than relying on a header-content TextBlock receiving a gesture. Keep double-click autosizing on the resize edges. Select a value cell by pointer or current-column navigation and expand properties for value, variable and pickup editing.",
+    "Read actual aperture values and finite thickness differences through application DTOs, without optical calculations or creating local operand bindings. Show APER read-only and unregistered THIC differences with a dash instead of Op#. Edit difference thickness through the existing service with an expected-revision guard. Explicitly adding the matching operand removes its duplicate difference and enables existing variable/pickup controls.",
+    "Preserve invalid, pending and stale drafts; refuse navigation or writes until applied/restored. Reset drafts on file changes. Localize maintained guide sections, matrix controls, structured numeric captions and summary text in Chinese, English and Japanese.",
+    "No optical tracing algorithm, tolerance, native source file, frozen reference, or native merit/pickup row reference is rewritten. This is a scoped layout/editor change, not full Zemax operand compatibility."
+  ],
+  "verification": [
+    { "kind": "related-regression-and-default-test-build", "configuration": "Release", "passed": 313, "failed": 0, "skipped": 0, "warnings": 0, "errors": 0, "defaultAppOutputUpdated": true, "trx": "matrix-release-accepted.trx", "log": "matrix-release-accepted.log" },
+    { "kind": "related-regression-and-default-test-build", "configuration": "Debug", "passed": 313, "failed": 0, "skipped": 0, "warnings": 0, "errors": 0, "defaultAppOutputUpdated": true, "trx": "matrix-debug-accepted.trx", "log": "matrix-debug-accepted.log", "priorBuildLockLog": "matrix-debug-verified.log" },
+    { "kind": "isolated-real-Skia-regression", "configuration": "Release", "passed": 20, "failed": 0, "skipped": 0, "captureDirectory": "captures-accepted", "trx": "matrix-skia-accepted.trx", "log": "matrix-skia-accepted.log" },
+    { "kind": "CI-equivalent-format-verification", "exitCode": 0, "files": 16, "log": "format-verify-accepted.log" },
+    { "kind": "strict-documentation-and-diff-check", "documents": 957, "brokenLinks": 0, "markdownFenceIssues": 0, "guideRepeatedParagraphGroups": 0, "diffCheckPassed": true, "result": "documentation-final.json" }
+  ],
+  "regressionClasses": [
+    "LensConfigurationNavigationTests", "MultiConfigurationMatrixTests", "MultiConfigurationPanelTests", "MultiConfigurationPickupPanelTests",
+    "MultiConfigurationTableTests", "MultiConfigurationVariableTests", "MultiConfigurationPickupTests", "MultiConfigurationOperandTests",
+    "SurfacePropertiesPanelTests", "SurfaceSolveUiTests", "RadiusSolveUiTests", "LensEditorLayoutTests", "LensHeaderTypographyTests",
+    "LensMaterialRowThemeTests", "WorkspaceDockModelTests", "WorkspaceDockGuidanceTests", "UiLocalizationTests", "UserGuidePanelTests",
+    "LayeringArchitectureTests", "AppStartupTests", "SequentialExampleTests"
+  ],
+  "fixture": {
+    "path": "src/OpticalSystemDesign.App/Assets/SequentialExamples/Zoom systems/Zoom lens.zmx",
+    "sha256": "7103aaf9130acc1b94a864267348ce1df6a7651910adc07379a9321a4670adc9",
+    "apertureValues": [5.0, 6.2, 7.8],
+    "surface8Thicknesses": [9.48, 4.48, 2.0],
+    "surface15Thicknesses": [4.46970613, 21.21, 43.81],
+    "meaning": "Byte-preserved existing example; compare actual UI values and service edits. The imported configurations do not contain registered local operand rows, which must remain empty until an explicit Add Row action. No new numerical accuracy certification."
+  },
+  "preservedIntermediateEvidence": [
+    "initial-build.trx: two layout tests passed; three nullable warnings in the new optional-row handling were then corrected.",
+    "matrix-initial.trx: 23 passed, five new matrix cases failed because imported Zoom configurations had no registered operand rows. The implementation was extended to display actual unregistered thickness differences instead of silently registering imported rows or weakening the display requirement.",
+    "matrix-differences.trx: 28 passed after difference projection and revision-guarded editing were added.",
+    "matrix-skia-initial.trx: 13 passed and one header-alignment assertion failed on a normal half-DIP glyph-center rounding difference. The same-row check now permits one DIP while retaining bounds and side-by-side ordering checks.",
+    "matrix-release-verified.trx: 313 passed before adding the native double-click assertion. matrix-release-final.trx then exposed four failures: header-content TextBlocks did not receive native header double-clicks. The product now handles the actual native header pointer route; matrix-native-header.trx passed all six strengthened matrix cases without removing those assertions.",
+    "matrix-debug-verified.log: the default Debug build failed copying locked dependencies before any tests executed. PID 63380 was confirmed as the default Debug App executable; user permission to save/close was requested, and the process was not closed without it."
+  ],
+  "representativeCaptures": [
+    {
+      "path": "captures-accepted/matrix-Light-zh-CN-1000-default.png",
+      "widthPixels": 1000,
+      "heightPixels": 300,
+      "sha256": "b7a84d5b7fde422ee367c5de01912b224d9eb58d49c55ff6916017770e421a1b",
+      "meaning": "Actual default matrix showing three real aperture values and the two unregistered thickness differences. The default-preview bitmap uses a compact 300-pixel offscreen viewport without changing the window layout or editing a user screenshot."
+    },
+    {
+      "path": "captures-accepted/configuration-header-Light-zh-CN-1000.png",
+      "widthPixels": 1000,
+      "heightPixels": 700,
+      "sha256": "9936e114de45a564f86e2a9a775d9a5caa433b697fbe6aa67736a1aecc128e73",
+      "meaning": "Actual Lens Data header with surface and configuration controls on one row. This and the accepted Light/Dark matrix previews were visually inspected."
+    }
+  ],
+  "debugCloseFollowUp": {
+    "userConfirmedSavedAndAllowedNormalClose": true,
+    "pid": 63380,
+    "executable": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.exe",
+    "processStartTime": "2026-10-20T15:14:19.1467379+08:00",
+    "identityRecheckedBeforeClose": true,
+    "closeMainWindowReturned": true,
+    "exitedWithin15000Milliseconds": false,
+    "titleStillShowsUnsavedMarker": true,
+    "forcedTermination": false,
+    "saveOrDiscardDialogAutomaticallyAnswered": false,
+    "userSubsequentlyConfirmedSavedAndClosed": true,
+    "pidAbsentBeforeRebuild": true,
+    "defaultDebugRebuildAndSameRelatedTestsCompleted": true,
+    "resolution": "The user completed the pending save/normal-close step. The original PID was absent before the default Debug test build; all 313 related cases passed. No forced termination, automatic discard or alternate-output workaround was used."
+  },
+  "boundaries": {
+    "userDesktopControlledOrCaptured": false,
+    "userApplicationClosed": true,
+    "installationChanged": false,
+    "installerRebuiltOrUploaded": false,
+    "sourceCommittedOrPushed": false,
+    "rootSolutionAllProjectsRebuilt": false,
+    "fullRepositorySuiteRerun": false,
+    "frozenIntegrityRerun": false,
+    "opticalAlgorithmsChanged": false,
+    "referenceDataRegenerated": false
+  },
+  "subsequentSourceSynchronization": "SOURCE_SYNC_2026-10-20.json",
+  "countingRule": "Related and isolated rendering test collections overlap and must not be added. RenderTargetBitmap captures real controls offscreen, not the user desktop. The initial blocked Debug build remains failure evidence; only matrix-debug-accepted.trx establishes the completed default Debug update."
+}

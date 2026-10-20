@@ -72,7 +72,10 @@ internal static class HuygensPsfSynthesis
             optic.ImageSpaceAfocal ? pixelPitchMillimeters : pixelPitchMillimeters * 1000,
             SampleSpacingUnit: optic.ImageSpaceAfocal
                 ? AnalysisAxisUnit.Milliradian : AnalysisAxisUnit.Micrometer)
-            { UseRayAiming = optic.RayAimingEnabled, HuygensPolarization = polarizationMode ?? HuygensPolarizationMode.None,
-                FiniteCellHuygensUsed = finiteCellHuygensUsed }, idealPeakWeight);
+        {
+            UseRayAiming = optic.RayAimingEnabled,
+            HuygensPolarization = polarizationMode ?? HuygensPolarizationMode.None,
+            FiniteCellHuygensUsed = finiteCellHuygensUsed
+        }, idealPeakWeight);
     }
 }
