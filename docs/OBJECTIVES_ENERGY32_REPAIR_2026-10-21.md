@@ -35,4 +35,4 @@
 
 原生 112/112 球面折射控制、36/36 FFT 坐标控制，以及上述色散、间隔、边界控制与被拒绝候选均保留。临时自有探针已移除；不归档 Zemax SDK 二进制或专有头文件。证据入口见[机器账目](validation/OBJECTIVES_ENERGY32_REPAIR_2026-10-21.json)和[冻结回归夹具](../validation/zemax/2026-r1/objectives-energy32-repair-2026-10-21/cases.json)。
 
-[前阶段调查](OBJECTIVES_ENERGY32_INVESTIGATION_2026-10-21.md)与[新增 128 档验收](../validation/zemax/2026-r1/objectives-energy128-acceptance-2026-10-21/acceptance.json)保留其原阶段身份。本次结果更新原 32 档的当前状态，不改写历史未解决记录。同步与原测试包覆盖另记交付账目。
+[前阶段调查](OBJECTIVES_ENERGY32_INVESTIGATION_2026-10-21.md)与[新增 128 档验收](../validation/zemax/2026-r1/objectives-energy128-acceptance-2026-10-21/acceptance.json)保留其原阶段身份。本次结果更新原 32 档的当前状态，不改写历史未解决记录。源码已同步，原测试包已覆盖；包内相关数值守卫 20/20、完整性和模块检查 14/14、公开下载复核 4/4，详见[交付账目](validation/UPDATE_SYNC_ENERGY32_PACKAGE_2026-10-21.json)。

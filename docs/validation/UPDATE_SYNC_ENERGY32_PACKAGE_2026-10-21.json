@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "status": "original32-repaired-source-synchronized-original-package-replaced",
+  "evidenceRoot": "artifacts/validation/package-energy32-20261021",
+  "source": {
+    "branch": "main",
+    "remote": "origin",
+    "codeCommit": "39a2b3d23e087db507678279a5e46ae8812cad77",
+    "sourceDirty": false,
+    "codePush": "complete",
+    "oldTagCommit": "9242b31abf38b4d97f23d19e4b00f8df47abfabb",
+    "tagMoved": false,
+    "pushReceipt": "artifacts/validation/objectives32-source-push-20261021.txt",
+    "lfsFsck": "passed",
+    "deliveryMetadataHandoff": {
+      "scope": "Delivery records only; installer remains built from codeCommit",
+      "finalReceipt": "artifacts/validation/package-energy32-20261021/source-sync-final-receipt.json"
+    }
+  },
+  "acceptance": {
+    "original32Repaired": 3,
+    "previousPassesPreserved": 7,
+    "original32Passed": 10,
+    "repeatedNativeControlsPassed": 4,
+    "perturbedControlsPassed": 8,
+    "originalTolerancesUnchanged": true,
+    "nativeReferencesUnchanged": true,
+    "productSamplingDefaultsUnchanged": true,
+    "report": "docs/OBJECTIVES_ENERGY32_REPAIR_2026-10-21.md",
+    "ledger": "docs/validation/OBJECTIVES_ENERGY32_REPAIR_2026-10-21.json"
+  },
+  "package": {
+    "version": "1.0.4",
+    "runtime": "win-x64",
+    "releaseId": "1.0.4-win-x64-6d6d99501fab",
+    "sourceCommit": "39a2b3d23e087db507678279a5e46ae8812cad77",
+    "sourceDirty": false,
+    "signed": false,
+    "testPackage": true,
+    "setup": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-582e7d2e\\OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+    "buildSetup": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-ebba980b\\OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+    "bytes": 276574062,
+    "sha256": "fe42ad5e04b028aaac3f5ade5e885f29182e5957ebe51aa03f4cab2c6f1f0377",
+    "manifestFiles": 1285,
+    "manifestSha256": "2cfcd06bda129109fc9380319adb38e7a2a6ef5b06e9274af02ff9d43a04a7db",
+    "modulesInProcess": true,
+    "requiredModules": [
+      "InitialStructure",
+      "CoatingDesign"
+    ],
+    "actualPackagedAssemblies": [
+      {
+        "assembly": "OpticalSystemDesign.Core.dll",
+        "packageSource": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-ebba980b\\payload\\app-5bce16a7\\OpticalSystemDesign.Core.dll",
+        "sha256": "adc10844716bdfa207305a42362c45081603e0f6ace858ac2c95cc07d1e78cdf"
+      },
+      {
+        "assembly": "OpticalSystemDesign.Application.dll",
+        "packageSource": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-ebba980b\\payload\\app-5bce16a7\\OpticalSystemDesign.Application.dll",
+        "sha256": "2dded43d08f242c846393c55edda8d94d1e5e95a39f1a463af24eb7ead71ed76"
+      }
+    ]
+  },
+  "release": {
+    "url": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019",
+    "id": 416939680,
+    "tag": "v1.0.4-test.20261019",
+    "prerelease": true,
+    "draft": false,
+    "makeLatestRequested": false,
+    "includedInStableUpdateDetection": false,
+    "canonicalFileNamesPreserved": true,
+    "assets": [
+      {
+        "id": 662263163,
+        "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+        "bytes": 276574062,
+        "digest": "sha256:fe42ad5e04b028aaac3f5ade5e885f29182e5957ebe51aa03f4cab2c6f1f0377",
+        "downloadUrl": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe"
+      },
+      {
+        "id": 662263164,
+        "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe.sha256",
+        "bytes": 124,
+        "digest": "sha256:a1ccc0e90e4277a328c11b741e286353624dc1fffcdb20fa14cc47c04b0ecf96",
+        "downloadUrl": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe.sha256"
+      },
+      {
+        "id": 662263172,
+        "name": "release.json",
+        "bytes": 763,
+        "digest": "sha256:b90fd52e8bf5357e49ed7996ce98ff9ec1386a98e60c5adb20ffadefc47a9bd8",
+        "downloadUrl": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/release.json"
+      }
+    ],
+    "publicChecksPassed": 4,
+    "fullInstallerSha256VerifiedThroughServerDigest": true,
+    "repeatedFullInstallerDownload": false,
+    "replacementJournal": "artifacts/validation/package-energy32-20261021/replacement-journal.json",
+    "publicProof": "artifacts/validation/package-energy32-20261021/public-download-verification.json"
+  },
+  "backup": {
+    "previousReleaseId": "1.0.4-win-x64-33f392807053",
+    "threeAssets": "artifacts/validation/package-energy32-20261021/previous-package-complete",
+    "assetProof": "artifacts/validation/package-energy32-20261021/previous-package-proof.json",
+    "previousFullBuildDirectory": "D:\\Projects\\opticalsystem\\artifacts\\validation\\package-energy32-20261021\\previous-build-directory",
+    "originalLocalDirectoryReplaced": true,
+    "localReplacementProof": "artifacts/validation/package-energy32-20261021/local-package-replacement.json",
+    "oldRemoteAssetsRemovedAfterReplacementVerified": true,
+    "removalProof": "artifacts/validation/package-energy32-20261021/previous-remote-assets-removed.json"
+  },
+  "verification": {
+    "packagedTestsPassed": 20,
+    "packagedTestsFailed": 0,
+    "packagedTrx": "artifacts/validation/package-energy32-20261021/tests/packaged-energy32-guards.trx",
+    "packagedTestScope": "Actual packaged Core/Application under installed test host: original32 ten, material136, integrity, Petzval RI/RMS, PSF and 128 guards",
+    "packageChecksPassed": 14,
+    "packageChecksFailed": 0,
+    "packageCheckProof": "artifacts/validation/package-energy32-20261021/package-verification/summary.json",
+    "defaultAppBuilds": [
+      {
+        "configuration": "Debug",
+        "warnings": 0,
+        "errors": 0,
+        "log": "artifacts/validation/package-energy32-20261021/build-app-Debug.log"
+      },
+      {
+        "configuration": "Release",
+        "warnings": 0,
+        "errors": 0,
+        "log": "artifacts/validation/package-energy32-20261021/build-app-Release.log"
+      }
+    ],
+    "rootBuilds": "Default Debug/Release root builds: each 19 projects, zero warnings/errors; see repair ledger",
+    "focusedTests": "Release: new32 12, Core123 plus new grid identity2, existing native8. Debug native20. Overlap not summed.",
+    "frozen": {
+      "count": 2668,
+      "matched": 2668,
+      "workingMatched": 2668,
+      "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "proof": "artifacts/validation/package-energy32-20261021/frozen-after-code-commit.json"
+    },
+    "allTestsRerun": false,
+    "complete638MatrixRerun": false,
+    "crossPlatformCertified": false,
+    "manualGuiCertified": false,
+    "userInstallationModified": false,
+    "firstInstallerAttempt": "Restricted restore failed; no installer produced; escalated repeat succeeded."
+  }
+}
