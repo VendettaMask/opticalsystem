@@ -30,6 +30,23 @@ public sealed partial class StandardGeometry
         var point = plane + direction * sagDistance;
         var verified = GeometryIntersectionSolver.CreateVerifiedResult(point, direction, 0, Sag, SurfaceNormal, 0);
         if (!verified.IsHit) return false;
+        // An oblique line can cross a spherical sag cap twice. The stable
+        // small root is not necessarily the first forward hit from the launch
+        // plane. Check its conjugate without changing the usual unique hit.
+        // General conics retain their vertex-associated branch, including the
+        // existing virtual continuation used by Gaussian pupil integrals.
+        if (Conic == 0)
+        {
+            var otherSagDistance = denominator / (quadratic * curvature);
+            var otherDistance = toPlane + otherSagDistance;
+            if (double.IsFinite(otherDistance) && otherDistance >= -ConicDomainTolerance
+                && otherDistance < distance)
+            {
+                var otherPoint = plane + direction * otherSagDistance;
+                var other = GeometryIntersectionSolver.CreateVerifiedResult(otherPoint, direction, 0, Sag, SurfaceNormal, 0);
+                if (other.IsHit) { verified = other; distance = otherDistance; }
+            }
+        }
         result = verified with
         {
             Distance = Math.Max(0, distance),

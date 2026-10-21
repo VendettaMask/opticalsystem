@@ -7,6 +7,36 @@ using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
 
+if (args.Length >= 2 && args[0] == "wide-schmidt-recheck")
+{
+    WideSchmidtRepair.Recheck(args[1], args.Length > 2 ? args[2] : "targets");
+    return;
+}
+
+if (args.Length == 2 && args[0] == "wide-schmidt-stage")
+{
+    WideSchmidtRepair.Stage(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "schmidt-grid-stage")
+{
+    WideSchmidtRepair.Schmidt(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "wide-schmidt-rays")
+{
+    WideSchmidtRays.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "gregorian-stage")
+{
+    WideSchmidtRays.Gregorian(args[1]);
+    return;
+}
+
 if (args.Length == 2 && args[0] == "energy32-perturbed-recheck")
 {
     Energy32Recheck.RunPerturbed(args[1]);

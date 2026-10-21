@@ -351,7 +351,24 @@ public sealed class EvenAsphereGeometry : IGeometry
 
     public Vector3D SurfaceNormal(Vector3D localPoint)
     {
-        return GeometryMath.FiniteDifferenceNormal(Sag, localPoint);
+        var r2 = localPoint.X * localPoint.X + localPoint.Y * localPoint.Y;
+        var curvature = Math.Abs(Base.Radius) < 1e-12 || double.IsInfinity(Base.Radius) ? 0 : 1 / Base.Radius;
+        var rootArgument = 1 - (1 + Base.Conic) * curvature * curvature * r2;
+        if (rootArgument < -StandardGeometry.ConicDomainTolerance)
+            return new Vector3D(double.NaN, double.NaN, double.NaN);
+        var root = Math.Sqrt(Math.Max(0, rootArgument));
+        var polynomialDerivative = 0d;
+        var power = 1d;
+        for (var i = 0; i < Coefficients.Count; i++)
+        {
+            polynomialDerivative += 2 * (i + 1) * Coefficients[i] * power;
+            power *= r2;
+        }
+        // Differentiate the exact sag rather than subtracting nearby sag
+        // values. Retain a finite limiting normal at the conic domain rim.
+        var slope = root == 0 ? curvature : curvature / root + polynomialDerivative;
+        var normal = new Vector3D(-localPoint.X * slope, -localPoint.Y * slope, root == 0 ? 0 : 1);
+        return normal / normal.Length;
     }
 
     public IGeometry Clone() => new EvenAsphereGeometry(Base.Radius, Base.Conic, Coefficients);

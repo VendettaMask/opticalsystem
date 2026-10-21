@@ -1,0 +1,69 @@
+{
+  "canonicalAnalysisKey": "Ray Fan",
+  "configuration": 1,
+  "field": 4,
+  "wavelength": 2,
+  "surface": -1,
+  "pupilSampling": 64,
+  "imageSampling": 64,
+  "rayCount": 20,
+  "gridSize": 64,
+  "imageDeltaMicrometers": 0.25,
+  "maximumFrequency": 50,
+  "focusMinimum": -0.1,
+  "focusMaximum": 0.1,
+  "reference": "ChiefRay",
+  "polarization": false,
+  "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+  "deleteVignetted": true,
+  "useRayAiming": true,
+  "normalization": "NativePhysical",
+  "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+  "outputUnits": "TypedAxes",
+  "settingsOrigin": "CapturedSettings",
+  "workbenchSettings": {
+    "PlotScaleMicrometers": "0",
+    "NumberOfRays": "20",
+    "UseDashes": "false",
+    "VignettedPupil": "True",
+    "CheckApertures": "True",
+    "WavelengthNumber": "2",
+    "FieldNumber": "4",
+    "TangentialAberration": "Y Aberration",
+    "SagittalAberration": "X Aberration",
+    "SurfaceNumber": "-1",
+    "UsePolarization": "False",
+    "UseRayAiming": "True"
+  },
+  "zemaxSettings": {},
+  "zemaxCfgSettings": {},
+  "wavelengthScope": "Selected",
+  "wavelengthCount": 3,
+  "fieldDefinition": "Angle",
+  "maximumFieldRadius": 105,
+  "surfaceCount": 28,
+  "fieldCount": 4,
+  "definedFields": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      30
+    ],
+    [
+      0,
+      60
+    ],
+    [
+      0,
+      105
+    ]
+  ],
+  "fieldScanDirection": "+y",
+  "primaryWavelengthMicrometers": 0.587,
+  "zemaxSettingsMode": "TypedProperties",
+  "sourceImagePath": null,
+  "sourceImageSha256": null
+}
