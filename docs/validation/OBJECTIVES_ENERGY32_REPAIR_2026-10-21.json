@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "status": "original32-repaired-seven-previous-passes-preserved",
+  "scope": "Ten originally comparable Objectives 32/64 energy requests; not a rerun of the full 638 matrix",
+  "evidenceRoot": "artifacts/validation/objectives32-continuation-20261021",
+  "fixtures": "validation/zemax/2026-r1/objectives-energy32-repair-2026-10-21/cases.json",
+  "originalPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "tolerancesChanged": false,
+  "nativeReferencesChanged": false,
+  "productSamplingDefaultsChanged": false,
+  "stopAimingConvergenceToleranceChanged": false,
+  "runtimeUsesNativeReferences": false,
+  "lensSpecificRules": false,
+  "formal": {
+    "originalUniqueCases": 10, "repairedDifferences": 3, "preservedPreviousPasses": 7,
+    "conclusion": "Pass", "summary": "base-domain-formal-v5-cached-cone/summary.json",
+    "repeatedNativeControls": 4, "originalAndRepeatedComparisonsPassed": 14,
+    "perturbedApertureCasesPassed": 8, "perturbedSummary": "perturbed-formal-v1/summary.json"
+  },
+  "independentControls": {
+    "sphericalRefractionExact": "112/112",
+    "conicMirrorPointsAndDirectionsExact": "8/8",
+    "sellmeier2IndicesExact": "136/136 (old arithmetic: 96/136)",
+    "fftCoordinatesExact": "36/36",
+    "uniqueAutomaticImagePitchesMatched": "18/18",
+    "adjacentDoubleImagePitchSupportsMatched": "162/162",
+    "primitiveApiBitAudit": "4300 doubles; 148 negative-zero signs lost through JSON, no nonzero differences",
+    "temporaryProbeRemoved": true,
+    "temporaryProbeReceipt": "probe-registration-explicit-delta-v2.json"
+  },
+  "tests": [
+    { "scope": "New original32 native guards and integrity", "configuration": "Release", "passed": 12, "failed": 0, "trx": "related-new32-v4/energy32-repair.trx" },
+    { "scope": "Intersection, FFT grid, prepared pupil, finite conjugate and stop aiming", "configuration": "Release", "passed": 123, "failed": 0, "trx": "related-core-final/energy32-core-guards.trx" },
+    { "scope": "New prepared grid arithmetic identity guards", "configuration": "Release", "passed": 2, "failed": 0, "trx": "related-grid-identity/energy32-grid-identity.trx" },
+    { "scope": "Existing Petzval RI/RMS, PSF and 128 guards", "configuration": "Release", "passed": 8, "failed": 0, "trx": "related-residuals-v2/residual-guards.trx" },
+    { "scope": "Original32 plus Petzval, PSF and 128 guards", "configuration": "Debug", "passed": 20, "failed": 0, "trx": "related-debug-final/energy32-debug-native.trx" }
+  ],
+  "builds": [
+    { "configuration": "Debug", "projects": 19, "warnings": 0, "errors": 0, "log": "build-debug.log" },
+    { "configuration": "Release", "projects": 19, "warnings": 0, "errors": 0, "log": "build-release.log" }
+  ],
+  "incompleteOrRejected": [
+    "Initial sandbox test host hung and was interrupted; no completed result claimed.",
+    "Fixture v2/v3: 11 pass, 1 missing Apochromat4 unit conversion sidecar/model; original sidecars added without editing numerical capture.",
+    "Formal v1-v4 retain observed Cooke/Gaussian/Relay regressions; superseded by v5.",
+    "Native explicit delta 4 sampling too low and empty series excluded as nonnumeric.",
+    "Native delta sweep v1 wrong enum and explicit probe v1 missing capture path retained as invalid attempts.",
+    "Exploratory expression v4 completed; reduced v5 is selected verified coordinate audit."
+  ],
+  "fullTestSuiteRun": false, "full638MatrixRun": false, "crossPlatformCertified": false,
+  "historical128AcceptancePreserved": true, "historicalInvestigationPreserved": true,
+  "frozenOriginals": {
+    "count": 2668, "matched": 2668, "workingMatched": 2668,
+    "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "proof": "artifacts/validation/objectives32-frozen-final-20261021.json"
+  },
+  "archive": {
+    "path": "validation/repairs/2026-10-21/objectives-energy32-repair-evidence.zip",
+    "payloads": 4803, "bytes": 48720559,
+    "sha256": "f8de64c9e52709149adc0b4250cd16ccc6e5b55e5df237cb94238729fb2ea9db",
+    "readBackVerified": true, "proprietarySdkIncluded": false
+  }
+}

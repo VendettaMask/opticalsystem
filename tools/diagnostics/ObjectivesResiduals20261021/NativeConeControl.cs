@@ -19,6 +19,18 @@ internal static class NativeConeControl
     {
         var serializer = new JavaScriptSerializer { MaxJsonLength = int.MaxValue };
         var request = serializer.Deserialize<Dictionary<string, object>>(File.ReadAllText(args[0]));
+        if (request.ContainsKey("inputDoubleBits"))
+            foreach (var pair in (Dictionary<string, object>)request["inputDoubleBits"])
+            {
+                string[] parts = pair.Key.TrimStart('/').Split('/');
+                object container = request;
+                for (int i = 0; i < parts.Length - 1; i++)
+                    container = container is IDictionary ? ((IDictionary)container)[parts[i]] : ((IList)container)[int.Parse(parts[i])];
+                double value = BitConverter.Int64BitsToDouble(unchecked((long)ulong.Parse((string)pair.Value,
+                    System.Globalization.NumberStyles.HexNumber, System.Globalization.CultureInfo.InvariantCulture)));
+                if (container is IDictionary) ((IDictionary)container)[parts[parts.Length - 1]] = value;
+                else ((IList)container)[int.Parse(parts[parts.Length - 1])] = value;
+            }
         string api = (string)request["zosApiPath"];
         string output = Path.GetFullPath(args[1]);
         if (Directory.Exists(output)) throw new IOException("Use a fresh output directory.");
@@ -65,6 +77,20 @@ internal static class NativeConeControl
                 }
                 if (job.ContainsKey("apertureScale"))
                     system.SystemData.Aperture.ApertureValue *= Convert.ToDouble(job["apertureScale"]);
+                if (job.ContainsKey("probePlaneDll"))
+                {
+                    int probeSurface = job.ContainsKey("probeSurface") ? Convert.ToInt32(job["probeSurface"]) : 1;
+                    string incidentMaterial = system.LDE.GetSurfaceAt(probeSurface - 1).Material;
+                    var plane = system.LDE.InsertNewSurfaceAt(probeSurface);
+                    plane.Thickness = 0;
+                    plane.Radius = 0;
+                    plane.Material = incidentMaterial;
+                    var type = plane.GetSurfaceTypeSettings(ZOSAPI.Editors.LDE.SurfaceType.UserDefined);
+                    type.Filename = Path.GetFileName((string)job["probePlaneDll"]);
+                    if (!type.IsValid || !plane.ChangeType(type)) throw new InvalidOperationException("Diagnostic probe DLL rejected");
+                    plane.Comment = Path.GetFileName((string)job["probePlaneDll"]);
+                    plane.GetSurfaceCell(ZOSAPI.Editors.LDE.SurfaceColumn.Par1).DoubleValue = Convert.ToDouble(job["probeCaptureId"]);
+                }
                 system.UpdateStatus();
                 if (job.ContainsKey("rayAuditRequest"))
                 {
@@ -74,7 +100,21 @@ internal static class NativeConeControl
                     Host.Write("request.json", job);
                     Host.Write("unit-normalization.json", Host.Object("originalUnit", originalUnit,
                         "convertedUnit", system.SystemData.Units.LensUnits.ToString(), "savedInput", false));
+                    var indices = new List<object>();
+                    for (int surface = 0; surface < system.LDE.NumberOfSurfaces; surface++)
+                    {
+                        var values = new double[system.SystemData.Wavelengths.NumberOfWavelengths];
+                        int count = system.LDE.GetIndex(surface, values.Length, values);
+                        indices.Add(Host.Object("surface", surface, "material", system.LDE.GetSurfaceAt(surface).Material,
+                            "activeCurvature", system.MFE.GetOperandValue(MeritOperandType.CVVA, surface, 0, 0, 0, 0, 0, 0, 0),
+                            "radius", double.IsInfinity(system.LDE.GetSurfaceAt(surface).Radius) ? (object)null : system.LDE.GetSurfaceAt(surface).Radius,
+                            "count", count, "indices", values));
+                    }
+                    Host.Write("refractive-indices.json", indices);
+                    if (job.ContainsKey("probeCapturePath")) File.WriteAllBytes((string)job["probeCapturePath"], new byte[0]);
                     NativeRayAuditCapture.Run(system);
+                    if (job.ContainsKey("probeCapturePath"))
+                        File.Copy((string)job["probeCapturePath"], Path.Combine(Host.Output, "probe-rays.bin"), false);
                     Host.Output = output;
                     Console.WriteLine(job["id"]);
                     continue;
@@ -105,11 +145,20 @@ internal static class NativeConeControl
                         new ContractAdapter().Configure(settings);
                         Host.Write("captured-settings.json", Host.Properties(settings));
                         settings.SaveTo(Path.Combine(Host.Output, "settings.CFG"));
+                        if (job.ContainsKey("probeCapturePath"))
+                        {
+                            Host.Write("probe-context.json", Host.Object("primaryWorkingFNumber", system.MFE.GetOperandValue(MeritOperandType.WFNO, 0, 0, 0, 0, 0, 0, 0, 0),
+                                "entrancePupil", system.SystemData.Aperture.ApertureValue,
+                                "probeSurface", Host.Properties(system.LDE.GetSurfaceAt(job.ContainsKey("probeSurface") ? Convert.ToInt32(job["probeSurface"]) : 1))));
+                            File.WriteAllBytes((string)job["probeCapturePath"], new byte[0]);
+                        }
                         var status = analysis.ApplyAndWaitForCompletion();
                         if (status != null && status.ErrorCode != ErrorType.Success) throw new InvalidOperationException(status.Text);
                         var result = analysis.GetResults();
                         Host.Write("data.json", typeof(Host).GetMethod("Capture", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, new object[] { result }));
                         if (!result.GetTextFile(Path.Combine(Host.Output, "data.txt"))) throw new InvalidOperationException("Text export failed");
+                        if (job.ContainsKey("probeCapturePath"))
+                            File.Copy((string)job["probeCapturePath"], Path.Combine(Host.Output, "probe-rays.bin"), false);
                     }
                     finally { analysis.Close(); }
                     Host.Output = output;
@@ -149,7 +198,9 @@ internal static class NativeConeControl
                     }
                     finally { tool.Close(); }
                 }
-                rows.Add(Host.Object("lens", job["lens"], "input", input, "originalUnit", originalUnit,
+                rows.Add(Host.Object("id", job.ContainsKey("id") ? job["id"] : job["lens"],
+                    "apertureScale", job.ContainsKey("apertureScale") ? job["apertureScale"] : 1d,
+                    "lens", job["lens"], "input", input, "originalUnit", originalUnit,
                     "evaluatedUnit", system.SystemData.Units.LensUnits.ToString(), "savedInput", false, "waveSchema", schema, "waves", waves));
                 Host.Write("cones.json", rows);
                 Console.WriteLine(job["lens"]);

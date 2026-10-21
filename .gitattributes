@@ -34,7 +34,10 @@ validation/repairs/2026-10-18/relay-stop-branch-repair-evidence.zip filter=lfs d
 validation/repairs/2026-10-20/objectives-matrix-evidence.zip filter=lfs diff=lfs merge=lfs -text
 validation/repairs/2026-10-21/objectives-residual-controls-evidence.zip filter=lfs diff=lfs merge=lfs -text
 validation/repairs/2026-10-21/objectives-energy128-acceptance-evidence.zip filter=lfs diff=lfs merge=lfs -text
+validation/repairs/2026-10-21/objectives-energy32-investigation-evidence.zip filter=lfs diff=lfs merge=lfs -text
 # This captured report's terminal blank line is part of its sealed evidence bytes.
 validation/zemax/2026-r1/objectives-2026-10-20/LENS_COMPARISON.md -whitespace
 # Preserve native report whitespace in the new exact-byte capture manifest.
 validation/zemax/2026-r1/objectives-residuals-2026-10-21/** -whitespace
+validation/zemax/2026-r1/objectives-energy32-repair-2026-10-21/** -text -whitespace
+validation/repairs/2026-10-21/objectives-energy32-repair-evidence.zip filter=lfs diff=lfs merge=lfs -text

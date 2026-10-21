@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "status": "original32-repaired",
+  "supersedesUnresolved32Status": "objectives-energy128-acceptance-2026-10-21/acceptance.json",
+  "originalComparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "pupilSampling": 32,
+  "imageSampling": 64,
+  "numPoints": 401,
+  "changedTolerance": false,
+  "replacedOriginalNativeBytes": false,
+  "cases": [
+    {
+      "id": "apochromat",
+      "lens": "Objectives/Apochromat.zmx",
+      "sourceSha256": "2399670b025a492f8dcaa960b258aa9e73ebc805c1142e7fd09ab409941ddb80",
+      "original32Conclusion": "Pass",
+      "originalCapture": "artifacts/validation/objectives-20261020/final-v7-intersection-fallback/analyses/0014-001-apochromat-c1-primary-f1-w4-diffraction-encircled-energy/native",
+      "currentConclusion": "Pass"
+    },
+    {
+      "id": "apochromat2",
+      "lens": "Objectives/Apochromat2.zmx",
+      "sourceSha256": "f3f970e300f62e1bb1b4db9a689c28de3bb44a7530767e0aeeb40c8aec2150c2",
+      "original32Conclusion": "Difference",
+      "originalCapture": "artifacts/validation/objectives-20261020/final-v7-intersection-fallback/analyses/0064-002-apochromat2-c1-primary-f1-w3-diffraction-encircled-energy/native",
+      "currentConclusion": "Pass"
+    },
+    {
+      "id": "apochromat3",
+      "lens": "Objectives/Apochromat3.zmx",
+      "sourceSha256": "e721af4393533d0afb9000de84e648fb79a35ec853b39ba964580aa4f68bf15c",
+      "original32Conclusion": "Pass",
+      "originalCapture": "artifacts/validation/objectives-20261020/final-v7-intersection-fallback/analyses/0102-003-apochromat3-c1-primary-f1-w2-diffraction-encircled-energy/native",
+      "currentConclusion": "Pass"
+    },
+    {
+      "id": "apochromat4",
+      "lens": "Objectives/Apochromat4.zmx",
+      "sourceSha256": "437b760e9554783d102ed7da2d071416ffcdcc6d30eedb6e5dd595e05f220ce8",
+      "original32Conclusion": "Difference",
+      "originalCapture": "artifacts/validation/objectives-20261020/final-v7-intersection-fallback/analyses/0132-004-apochromat4-c1-primary-f1-w12-diffraction-encircled-energy/native",
+      "currentConclusion": "Pass"
+    },
+    {
+      "id": "cooke-40-degree-field",
+      "lens": "Objectives/Cooke 40 degree field.zmx",
+      "sourceSha256": "a3f4baa1433f36c7f363bbb1c7721d972854f2ec842e916efc17de2ff9a77585",
+      "original32Conclusion": "Pass",
+      "originalCapture": "artifacts/validation/objectives-20261020/final-v7-intersection-fallback/analyses/0202-005-cooke-40-degree-field-c1-primary-f1-w2-diffraction-encircled-energy/native",
+      "currentConclusion": "Pass"
+    },
+    {
+      "id": "doublet",
+      "lens": "Objectives/Doublet.zmx",
+      "sourceSha256": "b178db86e4deec9397eb66c59689b866878188990c756957e3215892d97594c1",
+      "original32Conclusion": "Pass",
+      "originalCapture": "artifacts/validation/objectives-20261020/final-v7-intersection-fallback/analyses/0338-009-doublet-c1-primary-f1-w2-diffraction-encircled-energy/native",
+      "currentConclusion": "Pass"
+    },
+    {
+      "id": "doublet-using-mil-number-glasses",
+      "lens": "Objectives/Doublet using MIL number glasses.zmx",
+      "sourceSha256": "67ec6a470027729b825c63ec2f4261c9bf0ef27d7e3088bec13db14698640745",
+      "original32Conclusion": "Difference",
+      "originalCapture": "artifacts/validation/objectives-20261020/final-v7-intersection-fallback/analyses/0300-008-doublet-using-mil-number-glasses-c1-primary-f1-w3-diffraction-encircled-energy/native",
+      "currentConclusion": "Pass"
+    },
+    {
+      "id": "gaussian-quadrature-over-annular-pupils",
+      "lens": "Objectives/Gaussian Quadrature over Annular Pupils.zmx",
+      "sourceSha256": "dc90e1c94d3100baf109315308a8a44815e6d325653988cce64330b77c93e03b",
+      "original32Conclusion": "Pass",
+      "originalCapture": "artifacts/validation/objectives-20261020/final-v7-intersection-fallback/analyses/0390-011-gaussian-quadrature-over-annular-pupils-c1-primary-f1-w1-diffraction-encircled-energy/native",
+      "currentConclusion": "Pass"
+    },
+    {
+      "id": "inverse-telephoto-lens",
+      "lens": "Objectives/Inverse telephoto lens.zmx",
+      "sourceSha256": "058dacb1d5653717f8b928242a3174db301ba448d62638e3d6ad85c070b11e1d",
+      "original32Conclusion": "Pass",
+      "originalCapture": "artifacts/validation/objectives-20261020/final-v7-intersection-fallback/analyses/0442-013-inverse-telephoto-lens-c1-primary-f1-w2-diffraction-encircled-energy/native",
+      "currentConclusion": "Pass"
+    },
+    {
+      "id": "relay-lens",
+      "lens": "Objectives/Relay lens.zmx",
+      "sourceSha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+      "original32Conclusion": "Pass",
+      "originalCapture": "artifacts/validation/objectives-20261020/final-v7-intersection-fallback/analyses/0502-015-relay-lens-c1-primary-f1-w2-diffraction-encircled-energy/native",
+      "currentConclusion": "Pass"
+    }
+  ]
+}

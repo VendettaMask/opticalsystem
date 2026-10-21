@@ -39,4 +39,5 @@ public sealed record SurfaceInteractionContext(
     IGeometry? Geometry = null,
     Vector3D? IncidentDirection = null,
     double? ExtinctionCoefficientBefore = null,
-    double? ExtinctionCoefficientAfter = null);
+    double? ExtinctionCoefficientAfter = null,
+    double? IncidenceCosineSquared = null);

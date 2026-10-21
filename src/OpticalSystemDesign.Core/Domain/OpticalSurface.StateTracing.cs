@@ -39,6 +39,7 @@ public sealed partial class OpticalSurface
         double segmentOpticalPathLength;
         double refractiveIndexBefore;
         Vector3D localHit;
+        double? incidenceCosineSquared = null;
         RayState propagated;
         if (materialBefore is LocatedGradientIndexMaterial located)
         {
@@ -74,7 +75,8 @@ public sealed partial class OpticalSurface
             segmentOpticalPathLength = allowVirtualIntersection
                 ? segmentLength * refractiveIndexBefore : Math.Abs(segmentLength * refractiveIndexBefore);
             propagated = Propagate(ray, materialBefore.PropagationModel, segmentLength);
-            localHit = CoordinateSystem.ToLocalPoint(propagated.Origin);
+            localHit = intersection.Point;
+            incidenceCosineSquared = intersection.IncidenceCosineSquared;
         }
         var refractiveIndexAfter = materialAfter is GradientIndexMaterial afterGradient
             ? afterGradient.RefractiveIndex(localHit, ray.WavelengthNanometers)
@@ -153,7 +155,8 @@ public sealed partial class OpticalSurface
             Geometry,
             CoordinateSystem.ToLocalDirection(propagated.Direction),
             extinctionCoefficient,
-            materialAfter.ExtinctionCoefficient(ray.WavelengthNanometers));
+            materialAfter.ExtinctionCoefficient(ray.WavelengthNanometers),
+            incidenceCosineSquared);
         var localRay = propagated with
         {
             Origin = localHit,
@@ -231,7 +234,8 @@ public sealed partial class OpticalSurface
         Geometries.IGeometry? Geometry,
         Vector3D IncidentDirection,
         double ExtinctionCoefficientBefore,
-        double ExtinctionCoefficientAfter)
+        double ExtinctionCoefficientAfter,
+        double? IncidenceCosineSquared)
     {
         public SurfaceInteractionContext ToPublic() => new(
             SurfaceNormal,
@@ -242,7 +246,8 @@ public sealed partial class OpticalSurface
             Geometry,
             IncidentDirection,
             ExtinctionCoefficientBefore,
-            ExtinctionCoefficientAfter);
+            ExtinctionCoefficientAfter,
+            IncidenceCosineSquared);
     }
 
 }

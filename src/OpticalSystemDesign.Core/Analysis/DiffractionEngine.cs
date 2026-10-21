@@ -412,6 +412,8 @@ public static partial class DiffractionEngine
             if (sourceField != field || sourceWavelength != wavelength.Nanometers
                 || preparedGrid is null || preparedGrid.SampleCount != grid.SampleCount
                 || preparedGrid.UseCachedFftStopMap != grid.UseCachedFftStopMap
+                || preparedGrid.CoordinateDivisor != grid.CoordinateDivisor
+                || preparedGrid.ClipInBaseGrid != grid.ClipInBaseGrid
                 || !double.IsFinite(preparedGrid.Stretch) || preparedGrid.Stretch <= 0
                 || Enumerable.Range(0, pupilSampling).Any(index =>
                     Math.Abs(preparedGrid.Coordinate(index) - grid.Coordinate(index)) > 1e-12

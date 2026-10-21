@@ -23,10 +23,13 @@ public sealed class PlaneGeometry : IGeometry
         }
 
         var distance = -origin.Z / direction.Z;
-        return distance >= 0
+        var result = distance >= 0
             ? GeometryIntersectionSolver.CreateVerifiedResult(
                 origin, direction, distance, Sag, SurfaceNormal, 0)
             : IntersectionResult.Failure(IntersectionStatus.NoRoot);
+        return result.IsHit && Math.Abs(direction.Length - 1) <= 1e-14
+            ? result with { Point = result.Point with { Z = 0 }, IncidenceCosineSquared = direction.Z * direction.Z }
+            : result;
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint) => new(0, 0, 1);
@@ -155,7 +158,7 @@ public sealed class StandardGratingGeometry : IGratingGeometry
     }
 }
 
-public sealed class StandardGeometry : NotifyObject, IGeometry
+public sealed partial class StandardGeometry : NotifyObject, IGeometry
 {
     internal const double ConicDomainTolerance = 1e-12;
     private double _radius;
@@ -206,6 +209,9 @@ public sealed class StandardGeometry : NotifyObject, IGeometry
         {
             return new PlaneGeometry().DistanceToIntersection(origin, direction);
         }
+
+        if (TryVertexPlaneIntersection(origin, direction, out var vertexIntersection))
+            return vertexIntersection;
 
         var conicFactor = 1.0 + Conic;
         var a = (direction.X * direction.X)
@@ -290,11 +296,13 @@ public sealed class StandardGeometry : NotifyObject, IGeometry
             return new Vector3D(double.NaN, double.NaN, double.NaN);
         }
 
-        var normal = new Vector3D(
-            -localPoint.X,
-            -localPoint.Y,
-            Radius - ((1.0 + Conic) * localPoint.Z));
-        return normal / normal.Length;
+        if (Conic == 0)
+            return new Vector3D(-c * localPoint.X, -c * localPoint.Y, 1 - c * localPoint.Z)
+                * Math.CopySign(1, Radius);
+        var zc = localPoint.Z * c;
+        var factor = c / Math.Sqrt(zc * Conic * (zc * (Conic + 1) - 2) + 1);
+        return new Vector3D(localPoint.X * factor, localPoint.Y * factor,
+            (localPoint.Z - (1 / c - localPoint.Z * Conic)) * factor) * -Math.CopySign(1, Radius);
     }
 
     public IGeometry Clone() => new StandardGeometry(Radius, Conic);

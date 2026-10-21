@@ -55,25 +55,45 @@ public sealed record PupilGridSpecification(
     internal double? ExplicitCoordinateStepY { get; init; }
     internal double? StretchY { get; init; }
     internal bool UseCachedFftStopMap { get; init; }
+    internal double? CoordinateDivisor { get; init; }
+    internal bool ClipInBaseGrid { get; init; }
 
     public double Coordinate(int index) => Coordinate(index, Stretch, ExplicitCoordinateStep);
 
     internal double YCoordinate(int index) => Coordinate(index, StretchY ?? Stretch,
         ExplicitCoordinateStepY ?? ExplicitCoordinateStep);
 
-    private double Coordinate(int index, double stretch, double? explicitStep) => explicitStep is { } step
+    private double Coordinate(int index, double stretch, double? explicitStep) => CoordinateDivisor is { } divisor
+        ? BaseCoordinate(index) / divisor
+        : explicitStep is { } step
         ? (index - SampleCount / 2d) * step
-        : stretch * (ZemaxCentered && SampleCount % 2 == 0
+        : stretch * BaseCoordinate(index);
+
+    private double BaseCoordinate(int index) => ZemaxCentered && SampleCount % 2 == 0
         ? (index - SampleCount / 2.0) / Math.Max(1, SampleCount / 2.0 - 1)
         : CellCentered
             ? -1 + (2.0 * index + 1) / SampleCount
-            : -1 + 2.0 * index / (SampleCount - 1.0));
+            : -1 + 2.0 * index / (SampleCount - 1.0);
+
+    internal bool ContainsSample(int column, int row)
+    {
+        if (ClipInBaseGrid && CoordinateDivisor is { } divisor)
+        {
+            var baseX = BaseCoordinate(column);
+            var baseY = BaseCoordinate(row);
+            return baseX * baseX + baseY * baseY <= divisor * divisor;
+        }
+        var x = Coordinate(column); var y = YCoordinate(row);
+        return x * x + y * y <= 1;
+    }
 
     internal int ColumnIndex(double coordinate) => Index(coordinate, Stretch, ExplicitCoordinateStep);
     internal int RowIndex(double coordinate) => Index(coordinate, StretchY ?? Stretch,
         ExplicitCoordinateStepY ?? ExplicitCoordinateStep);
 
-    private int Index(double coordinate, double stretch, double? step) => (int)Math.Round(step is { } spacing
+    private int Index(double coordinate, double stretch, double? step) => (int)Math.Round(CoordinateDivisor is { } divisor
+        ? coordinate * divisor * (SampleCount / 2d - 1) + SampleCount / 2d
+        : step is { } spacing
         ? coordinate / spacing + SampleCount / 2d
         : ZemaxCentered && SampleCount % 2 == 0
             ? coordinate / stretch * (SampleCount / 2d - 1) + SampleCount / 2d
@@ -145,7 +165,7 @@ public static class WavefrontEngine
             for (var column = 0; column < grid.SampleCount; column++)
             {
                 var x = grid.Coordinate(column);
-                if ((x * x) + (y * y) <= 1)
+                if (grid.ContainsSample(column, row))
                 {
                     pupilSamples.Add(new PupilSample(x, y, 1));
                 }

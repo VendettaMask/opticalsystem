@@ -159,6 +159,21 @@ public sealed class PreparedPupilProvenanceTests
     {
         var optic = Optic.CreateCookeTriplet(); optic.RayAimingEnabled = true; return optic;
     }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void MatchingCoordinatesCannotHideDifferentBoundaryArithmetic(bool changeClipping)
+    {
+        var optic = Fixture();
+        var pupil = Prepare(optic);
+        var grid = pupil.PupilGrid!;
+        var changed = changeClipping ? grid with { ClipInBaseGrid = true }
+            : grid with { CoordinateDivisor = 1 };
+        Assert.Equal(Enumerable.Range(0, grid.SampleCount).Select(grid.Coordinate),
+            Enumerable.Range(0, grid.SampleCount).Select(changed.Coordinate));
+        Assert.Throws<InvalidOperationException>(() => Compute(optic, pupil with { PupilGrid = changed }));
+    }
     private static WavefrontResult Prepare(Optic optic) => WavefrontEngine.GenerateChiefRayUniform(
         optic, (0, 0), optic.Wavelengths[0], 16, cellCentered: true, aimAtStop: true);
     private static PsfResult Compute(Optic optic, WavefrontResult pupil, JonesPupilResult? jones = null)

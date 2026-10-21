@@ -24,6 +24,10 @@ public readonly record struct IntersectionResult(
 {
     public bool IsHit => Status is IntersectionStatus.Success or IntersectionStatus.Tangent;
 
+    // An analytic intersection may retain the squared incidence before taking
+    // its square root. Reconstructing it from a rounded hit normal loses bits.
+    public double? IncidenceCosineSquared { get; init; }
+
     public static IntersectionResult Failure(
         IntersectionStatus status,
         double residual = double.NaN,

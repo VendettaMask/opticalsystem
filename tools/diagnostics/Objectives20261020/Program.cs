@@ -7,6 +7,173 @@ using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
 
+if (args.Length == 2 && args[0] == "energy32-perturbed-recheck")
+{
+    Energy32Recheck.RunPerturbed(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-conic-audit")
+{
+    Energy32ConicAudit.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-dispersion-audit")
+{
+    Energy32DispersionAudit.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-current-marginals")
+{
+    Energy32MarginalAudit.Prepare(args[1], importSource: true);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-expression-audit")
+{
+    Energy32ExpressionAudit.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-frequency-boundary-audit")
+{
+    Energy32FrequencyBoundaryAudit.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-grid-stage-audit")
+{
+    Energy32GridStageAudit.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-delta-sweep-audit")
+{
+    Energy32DeltaSweepAudit.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-fourier-audit")
+{
+    Energy32FourierAudit.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-discriminant-control")
+{
+    Energy32GeometryAudit.Run(args[1], vertexPlane: true, activeParameters: true, nativeIndices: true, discriminant: true);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-discriminant-audit")
+{
+    Energy32GeometryAudit.Run(args[1], vertexPlane: true, discriminant: true);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-surface-stage-audit")
+{
+    Energy32SurfaceStageAudit.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-active-vertex-audit")
+{
+    Energy32GeometryAudit.Run(args[1], vertexPlane: true, activeParameters: true, nativeIndices: true);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-active-geometry-audit")
+{
+    Energy32GeometryAudit.Run(args[1], activeParameters: true, nativeIndices: true);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-vertex-plane-audit")
+{
+    Energy32GeometryAudit.Run(args[1], vertexPlane: true);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-width-holdout")
+{
+    Energy32WidthHoldout.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-momentum-audit")
+{
+    Energy32MomentumAudit.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-incidence-audit")
+{
+    Energy32IncidentCosineAudit.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-recheck")
+{
+    Energy32Recheck.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-frequency-control")
+{
+    Energy32FrequencyControl.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-extended-snell-audit")
+{
+    Energy32ExtendedSnellAudit.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-geometry-audit")
+{
+    Energy32GeometryAudit.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-native-step-audit")
+{
+    Energy32NativeStepAudit.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-snell-audit")
+{
+    Energy32SnellAudit.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-marginal-prepare")
+{
+    Energy32MarginalAudit.Prepare(args[1]);
+    return;
+}
+if (args.Length == 2 && args[0] == "energy32-marginal-compare")
+{
+    Energy32MarginalAudit.Compare(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-plane-audit")
+{
+    Energy32PlaneAudit.Run(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy32-coordinate-audit")
+{
+    Energy32CoordinateAudit.Run(args[1]);
+    return;
+}
+
 if (args.Length == 2 && args[0] == "energy128-rays-prepare")
 {
     Energy128RayControls.Prepare(args[1]);

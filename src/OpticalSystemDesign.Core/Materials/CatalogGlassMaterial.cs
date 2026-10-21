@@ -144,9 +144,11 @@ public sealed class CatalogGlassMaterial : IMaterial
                 Coefficient(3) / Math.Pow(wavelengthMicrometers, 4) +
                 Coefficient(4) / Math.Pow(wavelengthMicrometers, 6) +
                 Coefficient(5) / Math.Pow(wavelengthMicrometers, 8)),
-            2 => Math.Sqrt(1 + SellmeierTerm(0, 1, wavelengthSquared) +
+            // Sum the resonance contributions before adding the unit term.
+            // Retaining that grouping also preserves the catalog's last bits.
+            2 => Math.Sqrt(1 + (SellmeierTerm(0, 1, wavelengthSquared) +
                 SellmeierTerm(2, 3, wavelengthSquared) +
-                SellmeierTerm(4, 5, wavelengthSquared)),
+                SellmeierTerm(4, 5, wavelengthSquared))),
             3 => Herzberger(wavelengthMicrometers, wavelengthSquared),
             4 => Math.Sqrt(1 + Coefficient(0) +
                 Coefficient(1) * wavelengthSquared /

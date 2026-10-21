@@ -27,9 +27,33 @@ public sealed class RefractiveReflectiveInteractionModel : IInteractionModel
 
         if (IsReflective || context.IsReflective)
         {
+            if (context.Geometry is StandardGeometry or PlaneGeometry)
+            {
+                var reflected = context.IncidenceCosineSquared is { } squared
+                    ? incoming + (2 * Math.Sqrt(squared)) * normal
+                    : Reflect(incoming, normal);
+                return new RealRayInteractionResult(ray with { Direction = reflected }, RayInteractionKind.Reflected);
+            }
             return new RealRayInteractionResult(
                 ray with { Direction = Normalize(Reflect(incoming, normal)) },
                 RayInteractionKind.Reflected);
+        }
+
+        if (context.RefractiveIndexBefore == context.RefractiveIndexAfter)
+            return new RealRayInteractionResult(ray, RayInteractionKind.Transmitted);
+
+        if (context.IncidenceCosineSquared is { } incidenceSquared)
+        {
+            var eta = context.RefractiveIndexBefore / Math.Max(1e-9, context.RefractiveIndexAfter);
+            var sineTransmittedSquared = eta * eta * (1 - incidenceSquared);
+            if (sineTransmittedSquared > 1)
+                return new RealRayInteractionResult(ray with { Direction = Normalize(Reflect(incoming, normal)) },
+                    RayInteractionKind.TotalInternalReflection);
+            var correction = eta * Math.Sqrt(incidenceSquared) - Math.Sqrt(1 - sineTransmittedSquared);
+            // Snell's vector equation already transports a normalized ray.
+            // A second normalization changes the retained direction cosines.
+            return new RealRayInteractionResult(ray with { Direction = eta * incoming + correction * normal },
+                RayInteractionKind.Transmitted);
         }
 
         var refraction = Refract(

@@ -13,6 +13,19 @@ $hostDirectory = Join-Path $output 'host'
 New-Item -ItemType Directory -Path $hostDirectory | Out-Null
 $sources = @((Get-ChildItem -LiteralPath (Join-Path $repo 'tools/OpticalSystemDesign.ZemaxComparison/ZemaxHost') -Filter '*.cs').FullName)
 $sources += Join-Path $PSScriptRoot 'NativeConeControl.cs'
+if ($request.rawDoubleBits) {
+    $sources += Join-Path $PSScriptRoot 'BitPreservingCapture.cs'
+    $originalHost = Join-Path $repo 'tools/OpticalSystemDesign.ZemaxComparison/ZemaxHost/Host.cs'
+    $hostText = [IO.File]::ReadAllText($originalHost)
+    $anchor = 'internal static void Write(string name, object value)'
+    $start = $hostText.IndexOf($anchor, [StringComparison]::Ordinal)
+    if ($start -lt 0) { throw 'Host write method not found.' }
+    $brace = $hostText.IndexOf('{', $start)
+    $hostText = $hostText.Insert($brace + 1, "`r`n        BitPreservingCapture.Write(name, value);")
+    $instrumentedHost = Join-Path $hostDirectory 'Host.BitCapture.cs'
+    [IO.File]::WriteAllText($instrumentedHost, $hostText)
+    $sources = @($sources | Where-Object { $_ -ne $originalHost }) + $instrumentedHost
+}
 $inputs = @($request.jobs.input | Sort-Object -Unique | ForEach-Object {
     @{ path = $_; sha256 = (Get-FileHash -LiteralPath $_).Hash.ToLowerInvariant() }
 })

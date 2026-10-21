@@ -1,0 +1,595 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "status": "Unresolved",
+  "request": "继续修复原 32 档三项，保持原容差，仅相关测试，修好后同步并覆盖原包",
+  "productRevision": "ecf35b1f5ca1365e426ad0b3ac2e8695fb836965",
+  "productChanged": false,
+  "originalComparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "originalSettings": {
+    "field": 1,
+    "imageSampling": 64,
+    "configuration": 1,
+    "numPoints": 401,
+    "reference": "Centroid",
+    "wavelength": "Captured primary",
+    "pupilSampling": 32,
+    "maximumDistanceMicrometers": 5,
+    "polarization": false
+  },
+  "original32": [
+    {
+      "lens": "Objectives/Apochromat.zmx",
+      "capture": "frozen",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 1.0558220964185239E-13,
+          "meanAbsolute": 5.110436039471404E-14,
+          "rmse": 5.923255961790638E-14,
+          "nrmse": 7.136744931519283E-14,
+          "maxRelative": 3.1519376011509687E-13,
+          "p50": 5.409561687486075E-14,
+          "p90": 9.00390872971002E-14,
+          "p95": 9.672818102046676E-14,
+          "pearson": 1.0000000000000004,
+          "worstX": 2.75,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 9.2237328885858E-12,
+          "meanAbsolute": 4.0349356325508694E-12,
+          "rmse": 5.144185029636098E-12,
+          "nrmse": 6.209154364676762E-12,
+          "maxRelative": 1.1145352475483605E-11,
+          "p50": 3.589795127822981E-12,
+          "p90": 8.728906486510368E-12,
+          "p95": 9.069606177192213E-12,
+          "pearson": 0.9999999999999991,
+          "worstX": 5,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "lens": "Objectives/Apochromat2.zmx",
+      "capture": "frozen",
+      "conclusion": "Difference",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 0.013207881802895782,
+          "meanAbsolute": 0.008145212283038982,
+          "rmse": 0.009179407073655815,
+          "nrmse": 0.011432481978434205,
+          "maxRelative": 0.04462830415817528,
+          "p50": 0.009095580619764843,
+          "p90": 0.012941994377080879,
+          "p95": 0.01314192644885026,
+          "pearson": 0.9999401906901451,
+          "worstX": 3.300000000000013,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 0.013207487429917286,
+          "meanAbsolute": 0.00814506517347092,
+          "rmse": 0.00917922030691933,
+          "nrmse": 0.011433558634052285,
+          "maxRelative": 0.044630799192479774,
+          "p50": 0.00909551802695821,
+          "p90": 0.012941651292281198,
+          "p95": 0.01314155319964666,
+          "pearson": 0.9999401885863045,
+          "worstX": 3.300000000000013,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "lens": "Objectives/Apochromat3.zmx",
+      "capture": "frozen",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 4.5630166312093934E-14,
+          "meanAbsolute": 2.114022053730728E-14,
+          "rmse": 2.418646719798504E-14,
+          "nrmse": 3.101033366688473E-14,
+          "maxRelative": 4.906464667744648E-13,
+          "p50": 2.3592239273284576E-14,
+          "p90": 3.652633751016765E-14,
+          "p95": 3.93574062229618E-14,
+          "pearson": 0.9999999999999994,
+          "worstX": 2.7375,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 2.9185509564655376E-10,
+          "meanAbsolute": 1.5252890178962139E-10,
+          "rmse": 1.8205900722024944E-10,
+          "nrmse": 2.4337359639194717E-10,
+          "maxRelative": 1.6120865943816697E-09,
+          "p50": 1.583516651137984E-10,
+          "p90": 2.773136165146184E-10,
+          "p95": 2.8620514291866073E-10,
+          "pearson": 1.0000000000000002,
+          "worstX": 4.875,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "lens": "Objectives/Apochromat4.zmx",
+      "capture": "frozen",
+      "conclusion": "Difference",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 0.01320291846083399,
+          "meanAbsolute": 0.0081771693444634,
+          "rmse": 0.009218794578585777,
+          "nrmse": 0.01153808361799915,
+          "maxRelative": 0.04463079492509627,
+          "p50": 0.00922332254523106,
+          "p90": 0.012937022115860897,
+          "p95": 0.013148748420607925,
+          "pearson": 0.9999430342893554,
+          "worstX": 3.35,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 0.013198800141370759,
+          "meanAbsolute": 0.008174813471195237,
+          "rmse": 0.009216093956799455,
+          "nrmse": 0.011540333600375475,
+          "maxRelative": 0.044638040792306766,
+          "p50": 0.009220764709595985,
+          "p90": 0.01293304712075527,
+          "p95": 0.013144652275526802,
+          "pearson": 0.9999430193708145,
+          "worstX": 3.35,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "lens": "Objectives/Cooke 40 degree field.zmx",
+      "capture": "frozen",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 3.164135620181696E-14,
+          "meanAbsolute": 1.0390515041019976E-14,
+          "rmse": 1.4024987491571294E-14,
+          "nrmse": 1.5714338787107746E-14,
+          "maxRelative": 1.210644356966494E-13,
+          "p50": 6.772360450213455E-15,
+          "p90": 2.556288514199423E-14,
+          "p95": 2.6978419498391304E-14,
+          "pearson": 0.9999999999999991,
+          "worstX": 1.9249999999999952,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 3.9331593537639264E-11,
+          "meanAbsolute": 2.2878494518797566E-11,
+          "rmse": 2.648311870996196E-11,
+          "nrmse": 4.002630364106582E-11,
+          "maxRelative": 1.6062212788211562E-10,
+          "p50": 2.557609679598727E-11,
+          "p90": 3.865321951401768E-11,
+          "p95": 3.913395996146818E-11,
+          "pearson": 1.0000000000000009,
+          "worstX": 3.3375,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "lens": "Objectives/Doublet using MIL number glasses.zmx",
+      "capture": "frozen",
+      "conclusion": "Difference",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 0.013210155293478243,
+          "meanAbsolute": 0.008137547132425748,
+          "rmse": 0.009171063918997177,
+          "nrmse": 0.011408651512398879,
+          "maxRelative": 0.04465440746671089,
+          "p50": 0.009068306515607416,
+          "p90": 0.012942350689818305,
+          "p95": 0.013135716724522961,
+          "pearson": 0.9999394293757365,
+          "worstX": 3.300000000000013,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 0.009771899587863175,
+          "meanAbsolute": 0.0058692075265448914,
+          "rmse": 0.006669666448259506,
+          "nrmse": 0.008631718728120864,
+          "maxRelative": 0.034913440775013335,
+          "p50": 0.006320822779924837,
+          "p90": 0.009723873294779861,
+          "p95": 0.009761727813059992,
+          "pearson": 0.9999472388627313,
+          "worstX": 3.1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "lens": "Objectives/Doublet.zmx",
+      "capture": "frozen",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 1.687538997430238E-14,
+          "meanAbsolute": 3.828856730561178E-15,
+          "rmse": 5.3861240302481915E-15,
+          "nrmse": 6.1618257717943006E-15,
+          "maxRelative": 2.2631933120553867E-13,
+          "p50": 2.7755575615628914E-15,
+          "p90": 8.992806499463768E-15,
+          "p95": 1.3197776205231548E-14,
+          "pearson": 0.9999999999999993,
+          "worstX": 1.6375,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 1.5882306581005423E-10,
+          "meanAbsolute": 9.739546054319663E-11,
+          "rmse": 1.0900244335528787E-10,
+          "nrmse": 1.3536582694278725E-10,
+          "maxRelative": 2.8686597464659465E-10,
+          "p50": 1.0330813982051268E-10,
+          "p90": 1.567467822205515E-10,
+          "p95": 1.584207487415057E-10,
+          "pearson": 1.0000000000000013,
+          "worstX": 2.8125,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "lens": "Objectives/Gaussian Quadrature over Annular Pupils.zmx",
+      "capture": "frozen",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 6.290523657526137E-13,
+          "meanAbsolute": 2.941822221743829E-13,
+          "rmse": 3.520131330807452E-13,
+          "nrmse": 5.487909404655753E-13,
+          "maxRelative": 1.6867905628269416E-12,
+          "p50": 3.319566843629218E-13,
+          "p90": 5.175304629290167E-13,
+          "p95": 5.531686220194842E-13,
+          "pearson": 1,
+          "worstX": 4.2125,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 1.444642183656697E-10,
+          "meanAbsolute": 6.283621236828178E-11,
+          "rmse": 7.776287992936024E-11,
+          "nrmse": 1.2125513451444673E-10,
+          "maxRelative": 9.88594948387409E-10,
+          "p50": 6.596669044345305E-11,
+          "p90": 1.3045664548627656E-10,
+          "p95": 1.3554657396497305E-10,
+          "pearson": 0.9999999999999996,
+          "worstX": 4.8875,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "lens": "Objectives/Inverse telephoto lens.zmx",
+      "capture": "frozen",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 2.5091040356528538E-14,
+          "meanAbsolute": 9.960340379776578E-15,
+          "rmse": 1.2068182499049975E-14,
+          "nrmse": 1.3202774037031201E-14,
+          "maxRelative": 7.69208168789258E-14,
+          "p50": 8.43769498715119E-15,
+          "p90": 2.2148949341271873E-14,
+          "p95": 2.328692794151266E-14,
+          "pearson": 1.0000000000000013,
+          "worstX": 1.325,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 1.9328982858723975E-13,
+          "meanAbsolute": 1.235800041901507E-13,
+          "rmse": 1.3388274568447548E-13,
+          "nrmse": 1.4714177908961365E-13,
+          "maxRelative": 1.0182489738950713E-12,
+          "p50": 1.386113446244508E-13,
+          "p90": 1.7541523789077473E-13,
+          "p95": 1.7857937351095643E-13,
+          "pearson": 0.9999999999999986,
+          "worstX": 1.2999999999999974,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "lens": "Objectives/Relay lens.zmx",
+      "capture": "frozen",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 6.754596881819452E-13,
+          "meanAbsolute": 3.518181901334633E-13,
+          "rmse": 4.1446563356919194E-13,
+          "nrmse": 5.884637044380931E-13,
+          "maxRelative": 1.9379251974029126E-12,
+          "p50": 4.1359971003629425E-13,
+          "p90": 6.157296894571118E-13,
+          "p95": 6.461220447562255E-13,
+          "pearson": 0.9999999999999997,
+          "worstX": 3.8375,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 786,
+          "maxAbsolute": 1.8243487276414783E-10,
+          "meanAbsolute": 6.779673365439323E-11,
+          "rmse": 8.790907721494478E-11,
+          "nrmse": 4.586354666802126E-10,
+          "maxRelative": 9.517913924218263E-10,
+          "p50": 5.6281909688316034E-11,
+          "p90": 1.5444408252296427E-10,
+          "p95": 1.6807752412084653E-10,
+          "pearson": 0.9999999999999996,
+          "worstX": 5,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ]
+    }
+  ],
+  "nativeRepeat": {
+    "pointsPerSeries": 401,
+    "rawBytesEqual": false,
+    "jobs": 4,
+    "environment": {
+      "validLicense": true,
+      "license": "EnterpriseEdition",
+      "version": 260127
+    },
+    "exitCode": 0,
+    "detail": "Original and newly serialized raw JSON differ in formatting; all normalized X/Y arrays are exactly equal.",
+    "seriesPerCase": 2,
+    "arraysEqual": true
+  },
+  "candidate": {
+    "regression": "Objectives/Apochromat.zmx",
+    "method": "Frequency cutoff product before reciprocal",
+    "allTenPreserved": false,
+    "regressionIdealMax": 0.013171869225769406,
+    "status": "Rejected",
+    "formalProductChange": false,
+    "regressionActualMax": 0.013072329601317434,
+    "threeProblemCasesNumericallyPass": true
+  },
+  "verification": {
+    "frozenCount": 2668,
+    "diagnosticBuild": {
+      "errors": 0,
+      "warnings": 0,
+      "configuration": "Release"
+    },
+    "fullTestsRun": false,
+    "frozenMatched": 2668,
+    "formalPass": 7,
+    "relatedTests": {
+      "shellExitCode": 1,
+      "note": "VSTest completed successfully; an unquoted logger semicolon made PowerShell attempt a second command after the test process. The completed TRX was copied into this evidence directory, verified, and tests were not repeated.",
+      "trx": "related-residual-guards.trx",
+      "passed": 6,
+      "failed": 0
+    },
+    "frozenAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "formalComparableCases": 10,
+    "formalDifference": 3,
+    "assemblies": {
+      "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+      "coreSha256": "491f5903cda789d8390164047673d32f2660efc27d066f60d156731212d5a0f1",
+      "applicationSha256": "8174c117c2517faed31ffed4cedbbee9a5d9884958e906de4a05cc564e8a0f46"
+    },
+    "fullMatrixRun": false,
+    "documentation": {
+      "markdownFenceIssues": 0,
+      "strict": true,
+      "documents": 993,
+      "brokenLinks": 0,
+      "guideRepeatedParagraphGroups": 0
+    }
+  },
+  "evidence": {
+    "path": "validation/repairs/2026-10-21/objectives-energy32-investigation-evidence.zip",
+    "payloads": 429,
+    "bytes": 19970604,
+    "sha256": "a8fce156f8d4af99ee3208d6783323fd718615b46a5e6c7b87a533be18946b50",
+    "readBackVerified": true
+  },
+  "sourceHashes": [
+    {
+      "sha256": "e90ca71190a877dfd9985aaea4ad924f05a89503ea40a92f434743f003355ac3",
+      "path": "tools/diagnostics/Objectives20261020/Energy32CoordinateAudit.cs"
+    },
+    {
+      "sha256": "cda9e2c346572ff54a131777804a95c7a129b7edcdb0f91d197e37a832a1a0c2",
+      "path": "tools/diagnostics/Objectives20261020/Energy32ExtendedSnellAudit.cs"
+    },
+    {
+      "sha256": "e872d39bb2e8db7ccc28a7cb05e05734fca19945aef9b07d4a744eb5773b30a6",
+      "path": "tools/diagnostics/Objectives20261020/Energy32FrequencyControl.cs"
+    },
+    {
+      "sha256": "213162e8a240cef8854dc5995cbf7ca46dc2ddc2c51d9a654172afd2f11a425e",
+      "path": "tools/diagnostics/Objectives20261020/Energy32GeometryAudit.cs"
+    },
+    {
+      "sha256": "4256354263b859355584dfe6abcb29d8b2750e1179c6d82f564aeaa6da68b76d",
+      "path": "tools/diagnostics/Objectives20261020/Energy32MarginalAudit.cs"
+    },
+    {
+      "sha256": "251c44708826926b4ca573f36a6e97b54ca90cef99c8ef5a883abb5bb488952b",
+      "path": "tools/diagnostics/Objectives20261020/Energy32NativeStepAudit.cs"
+    },
+    {
+      "sha256": "6e91e359e188c45d888fc94ba9cbbc5a15eecd6929fe56dfc7f1cb67c1174faf",
+      "path": "tools/diagnostics/Objectives20261020/Energy32PlaneAudit.cs"
+    },
+    {
+      "sha256": "901fa1fedde843fc7dc983ff919995d6e608f4080fc102f376a020ad24545dfb",
+      "path": "tools/diagnostics/Objectives20261020/Energy32Recheck.cs"
+    },
+    {
+      "sha256": "226e3c2497f8e8d2fca2e11ed009c85f81a737cf5fb521685be5b46c97338c36",
+      "path": "tools/diagnostics/Objectives20261020/Energy32SnellAudit.cs"
+    },
+    {
+      "sha256": "a11cc8d60f79b2763b26eee50261d916e1d03d4e52efe33ee12574a46bc9c600",
+      "path": "tools/diagnostics/Objectives20261020/Program.cs"
+    },
+    {
+      "sha256": "86c5a5beeb0c637a141cecf6c684aebfa8fe52376cc47a4afb98e246fd92e228",
+      "path": "tools/diagnostics/Objectives20261020/Seal-Energy32-Investigation.ps1"
+    },
+    {
+      "sha256": "7e189480d731de57fb14ba6d626e1c037fefed18a51491ba61e215c86901fd35",
+      "path": "tools/diagnostics/ObjectivesResiduals20261021/NativeConeControl.cs"
+    }
+  ],
+  "delivery": {
+    "originalPackageOverwritten": false,
+    "currentPackageId": "1.0.4-win-x64-33f392807053",
+    "reason": "Original 32 cases remain unresolved and no candidate preserves all related existing passes.",
+    "newPackageCreated": false,
+    "remotePushed": false,
+    "unchangedLocalInstallerSha256": "23183f2e7ae2e041ddbc4cca41c845b80cd733e1c69c00a8397efc583c380f3f"
+  }
+}
