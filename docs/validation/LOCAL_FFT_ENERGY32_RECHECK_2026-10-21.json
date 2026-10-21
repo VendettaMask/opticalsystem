@@ -1,0 +1,453 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "recordedAt": "2026-10-21T19:47:36.548190+08:00",
+  "sourceRevision": "18a09e47fc5d203ca022db389ca1ff3a3793e170",
+  "status": "builds-and-original32-guards-pass-two-pre-existing-sampling-contract-failures",
+  "environment": {
+    "os": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "architecture": "arm64",
+    "sdk": "10.0.300",
+    "runtime": "10.0.8",
+    "details": "dotnet-info.txt"
+  },
+  "restore": {
+    "command": "dotnet restore OpticalSystemDesign.slnx --locked-mode --verbosity minimal",
+    "exitCode": 0,
+    "log": "restore-retry.log",
+    "initialSandboxAttempt": {
+      "status": "canceled-incomplete",
+      "log": "restore.log",
+      "reason": "No progress in restricted execution. Confirmed exact restore PID before termination; retry outside sandbox succeeded."
+    }
+  },
+  "builds": [
+    {
+      "configuration": "Debug",
+      "command": "dotnet build OpticalSystemDesign.slnx -c Debug --no-restore /m:1 /nr:false",
+      "exitCode": 0,
+      "projects": [
+        "OpticalSystemDesign.App",
+        "OpticalSystemDesign.Application",
+        "OpticalSystemDesign.Benchmarks",
+        "OpticalSystemDesign.CoatingDesign.Engine",
+        "OpticalSystemDesign.CoatingDesign.Tests",
+        "OpticalSystemDesign.Core",
+        "OpticalSystemDesign.GlassCatalogConverter",
+        "OpticalSystemDesign.InitialStructure.Benchmarks",
+        "OpticalSystemDesign.InitialStructure.Contracts",
+        "OpticalSystemDesign.InitialStructure.Engine",
+        "OpticalSystemDesign.InitialStructure.Persistence",
+        "OpticalSystemDesign.InitialStructure.Tests",
+        "OpticalSystemDesign.LensLibraryBuilder",
+        "OpticalSystemDesign.Modules",
+        "OpticalSystemDesign.NonSequentialSamples",
+        "OpticalSystemDesign.Tests",
+        "OpticalSystemDesign.ZemaxComparison",
+        "OpticalSystemDesign.ZemaxComparison.Tests",
+        "OpticalSystemDesign.ZemaxLibraryImporter"
+      ],
+      "projectCount": 19,
+      "warnings": 0,
+      "errors": 0,
+      "log": "build-debug.log",
+      "defaultOutputAssemblies": [
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.dll",
+          "bytes": 26489344,
+          "sha256": "b6462c4a3abb14ba0dedecdd71b7687165b9c8501ae25fcc3e1b28e8d6afd427"
+        },
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+          "bytes": 5735424,
+          "sha256": "5badfb46b419fd1a344df493b6d841ebc0fcf3665f04957d4bc722acc382df25"
+        },
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Application.dll",
+          "bytes": 1141760,
+          "sha256": "27b4c7cfe1d126b106324020509c3a373de7b1beb574f712d9bb94cf92e0b55e"
+        },
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+          "bytes": 266240,
+          "sha256": "70853c9fb7013752d9041d8677765898b6ccd9f32ae2788c7fb349ff8d225248"
+        },
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.CoatingDesign.Engine.dll",
+          "bytes": 141824,
+          "sha256": "8d8a0cac20b1bddebf9a3b827d977f422b8e53312254ed7e9fd886ba9033badb"
+        }
+      ],
+      "coreOutputMatchesAppAndBothTestHosts": true
+    },
+    {
+      "configuration": "Release",
+      "command": "dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false",
+      "exitCode": 0,
+      "projects": [
+        "OpticalSystemDesign.App",
+        "OpticalSystemDesign.Application",
+        "OpticalSystemDesign.Benchmarks",
+        "OpticalSystemDesign.CoatingDesign.Engine",
+        "OpticalSystemDesign.CoatingDesign.Tests",
+        "OpticalSystemDesign.Core",
+        "OpticalSystemDesign.GlassCatalogConverter",
+        "OpticalSystemDesign.InitialStructure.Benchmarks",
+        "OpticalSystemDesign.InitialStructure.Contracts",
+        "OpticalSystemDesign.InitialStructure.Engine",
+        "OpticalSystemDesign.InitialStructure.Persistence",
+        "OpticalSystemDesign.InitialStructure.Tests",
+        "OpticalSystemDesign.LensLibraryBuilder",
+        "OpticalSystemDesign.Modules",
+        "OpticalSystemDesign.NonSequentialSamples",
+        "OpticalSystemDesign.Tests",
+        "OpticalSystemDesign.ZemaxComparison",
+        "OpticalSystemDesign.ZemaxComparison.Tests",
+        "OpticalSystemDesign.ZemaxLibraryImporter"
+      ],
+      "projectCount": 19,
+      "warnings": 0,
+      "errors": 0,
+      "log": "build-release.log",
+      "defaultOutputAssemblies": [
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+          "bytes": 26390016,
+          "sha256": "30e7448f218178fdf8e323da092cdc16200b17fef82ed337968fadfd3d37e7a0"
+        },
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+          "bytes": 5608960,
+          "sha256": "f69e3c7ac8c82be2c4e99f555d1f109756b41b3d3b6acb3e57bc523bca1c47be"
+        },
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+          "bytes": 1110528,
+          "sha256": "083d3b4653afabb1ee2fe93fa6152685e2f1e320cadf9b58b86dd274fe692764"
+        },
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+          "bytes": 253952,
+          "sha256": "35bafab6e0d917901410b5ef7d01fe25825d2c7356894c83c2c5d0c51eac2d1c"
+        },
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.CoatingDesign.Engine.dll",
+          "bytes": 137728,
+          "sha256": "4a268096ea45b47675991a230f761e58ae05136e59798d9480a5bb9d9e8e17d1"
+        }
+      ],
+      "coreOutputMatchesAppAndBothTestHosts": true
+    }
+  ],
+  "tests": [
+    {
+      "id": "release-native",
+      "configuration": "Release",
+      "scope": "ZemaxComparison",
+      "sourceRevision": "18a09e47fc5d203ca022db389ca1ff3a3793e170",
+      "filter": "FullyQualifiedName~ObjectivesEnergy32RepairTests|FullyQualifiedName~ObjectivesResidualPrecisionTests|FullyQualifiedName~PetzvalNativeRepairTests",
+      "exitCode": 0,
+      "counters": {
+        "total": 20,
+        "executed": 20,
+        "passed": 20,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "classes": {
+        "ObjectivesEnergy32RepairTests": 12,
+        "ObjectivesResidualPrecisionTests": 6,
+        "PetzvalNativeRepairTests": 2
+      },
+      "failures": [],
+      "times": {
+        "creation": "2026-10-21T19:42:37.4324180+08:00",
+        "queuing": "2026-10-21T19:42:37.4324180+08:00",
+        "start": "2026-10-21T19:42:33.7762190+08:00",
+        "finish": "2026-10-21T19:42:37.7978080+08:00"
+      },
+      "trx": "release-native.trx",
+      "log": "test-release-native.log"
+    },
+    {
+      "id": "release-core",
+      "configuration": "Release",
+      "scope": "Core",
+      "sourceRevision": "18a09e47fc5d203ca022db389ca1ff3a3793e170",
+      "filter": "FullyQualifiedName~StandardIntersectionPrecisionTests|FullyQualifiedName~GeometryIntersectionResultTests|FullyQualifiedName~StopAimingIntersectionTests|FullyQualifiedName~FftCumulativeEnergyTests|FullyQualifiedName~FftEnergyGridIntegrityTests|FullyQualifiedName~PreparedPupilProvenanceTests|FullyQualifiedName~FiniteFftAimingEnergyTests|FullyQualifiedName~FftAimingStopBranchTests",
+      "exitCode": 0,
+      "counters": {
+        "total": 117,
+        "executed": 117,
+        "passed": 117,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "classes": {
+        "FftAimingStopBranchTests": 18,
+        "FftCumulativeEnergyTests": 17,
+        "FftEnergyGridIntegrityTests": 10,
+        "FiniteFftAimingEnergyTests": 26,
+        "GeometryIntersectionResultTests": 7,
+        "PreparedPupilProvenanceTests": 23,
+        "StandardIntersectionPrecisionTests": 14,
+        "StopAimingIntersectionTests": 2
+      },
+      "failures": [],
+      "times": {
+        "creation": "2026-10-21T19:43:02.4428440+08:00",
+        "queuing": "2026-10-21T19:43:02.4428440+08:00",
+        "start": "2026-10-21T19:43:01.0444700+08:00",
+        "finish": "2026-10-21T19:43:09.2068520+08:00"
+      },
+      "trx": "release-core.trx",
+      "log": "test-release-core.log"
+    },
+    {
+      "id": "debug-native",
+      "configuration": "Debug",
+      "scope": "ZemaxComparison",
+      "sourceRevision": "18a09e47fc5d203ca022db389ca1ff3a3793e170",
+      "filter": "FullyQualifiedName~ObjectivesEnergy32RepairTests|FullyQualifiedName~ObjectivesResidualPrecisionTests|FullyQualifiedName~PetzvalNativeRepairTests",
+      "exitCode": 0,
+      "counters": {
+        "total": 20,
+        "executed": 20,
+        "passed": 20,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "classes": {
+        "ObjectivesEnergy32RepairTests": 12,
+        "ObjectivesResidualPrecisionTests": 6,
+        "PetzvalNativeRepairTests": 2
+      },
+      "failures": [],
+      "times": {
+        "creation": "2026-10-21T19:43:30.7316620+08:00",
+        "queuing": "2026-10-21T19:43:30.7316620+08:00",
+        "start": "2026-10-21T19:43:28.6797210+08:00",
+        "finish": "2026-10-21T19:43:31.2763450+08:00"
+      },
+      "trx": "debug-native.trx",
+      "log": "test-debug-native.log"
+    },
+    {
+      "id": "release-sampling",
+      "configuration": "Release",
+      "scope": "Core",
+      "sourceRevision": "18a09e47fc5d203ca022db389ca1ff3a3793e170",
+      "filter": "FullyQualifiedName~FftSamplingReferenceRepairTests",
+      "exitCode": 1,
+      "counters": {
+        "total": 13,
+        "executed": 13,
+        "passed": 11,
+        "failed": 2,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "classes": {
+        "FftSamplingReferenceRepairTests": 13
+      },
+      "failures": [
+        {
+          "test": "OpticalSystemDesign.Tests.FftSamplingReferenceRepairTests.PolychromaticEnergyPlotAndOperandShareTheSameSampling",
+          "outcome": "Failed",
+          "message": "Assert.Equal() Failure: Values are not within 10 decimal places\nExpected: 0.0259958406 (rounded from 0.025995840573815331)\nActual:   0.0259948973 (rounded from 0.025994897253101158)"
+        },
+        {
+          "test": "OpticalSystemDesign.Tests.FftSamplingReferenceRepairTests.VertexPlotMatchesImageLocalReferenceUsedByEnergyOperand",
+          "outcome": "Failed",
+          "message": "Assert.Equal() Failure: Values are not within 10 decimal places\nExpected: 0.0060172567000000001 (rounded from 0.0060172566694638892)\nActual:   0.0060174177000000004 (rounded from 0.0060174176614033121)"
+        }
+      ],
+      "times": {
+        "creation": "2026-10-21T19:43:59.9514290+08:00",
+        "queuing": "2026-10-21T19:43:59.9514290+08:00",
+        "start": "2026-10-21T19:43:57.8048190+08:00",
+        "finish": "2026-10-21T19:44:01.3871000+08:00"
+      },
+      "trx": "release-sampling.trx",
+      "log": "test-release-sampling.log"
+    },
+    {
+      "id": "debug-sampling-failures",
+      "configuration": "Debug",
+      "scope": "Core",
+      "sourceRevision": "18a09e47fc5d203ca022db389ca1ff3a3793e170",
+      "filter": "FullyQualifiedName~FftSamplingReferenceRepairTests.VertexPlotMatchesImageLocalReferenceUsedByEnergyOperand|FullyQualifiedName~FftSamplingReferenceRepairTests.PolychromaticEnergyPlotAndOperandShareTheSameSampling",
+      "exitCode": 1,
+      "counters": {
+        "total": 2,
+        "executed": 2,
+        "passed": 0,
+        "failed": 2,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "classes": {
+        "FftSamplingReferenceRepairTests": 2
+      },
+      "failures": [
+        {
+          "test": "OpticalSystemDesign.Tests.FftSamplingReferenceRepairTests.PolychromaticEnergyPlotAndOperandShareTheSameSampling",
+          "outcome": "Failed",
+          "message": "Assert.Equal() Failure: Values are not within 10 decimal places\nExpected: 0.0259958406 (rounded from 0.025995840573815331)\nActual:   0.0259948973 (rounded from 0.025994897253101158)"
+        },
+        {
+          "test": "OpticalSystemDesign.Tests.FftSamplingReferenceRepairTests.VertexPlotMatchesImageLocalReferenceUsedByEnergyOperand",
+          "outcome": "Failed",
+          "message": "Assert.Equal() Failure: Values are not within 10 decimal places\nExpected: 0.0060172567000000001 (rounded from 0.0060172566694638892)\nActual:   0.0060174177000000004 (rounded from 0.0060174176614033121)"
+        }
+      ],
+      "times": {
+        "creation": "2026-10-21T19:45:07.7708010+08:00",
+        "queuing": "2026-10-21T19:45:07.7708010+08:00",
+        "start": "2026-10-21T19:45:05.8080640+08:00",
+        "finish": "2026-10-21T19:45:07.7894200+08:00"
+      },
+      "trx": "debug-sampling-failures.trx",
+      "log": "test-debug-sampling-failures.log"
+    },
+    {
+      "id": "baseline-sampling-failures",
+      "configuration": "Release",
+      "scope": "Pre-sync Core diagnostic",
+      "sourceRevision": "ecf35b1f5ca1365e426ad0b3ac2e8695fb836965",
+      "filter": "FullyQualifiedName~FftSamplingReferenceRepairTests.VertexPlotMatchesImageLocalReferenceUsedByEnergyOperand|FullyQualifiedName~FftSamplingReferenceRepairTests.PolychromaticEnergyPlotAndOperandShareTheSameSampling",
+      "exitCode": 1,
+      "counters": {
+        "total": 2,
+        "executed": 2,
+        "passed": 0,
+        "failed": 2,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      },
+      "classes": {
+        "FftSamplingReferenceRepairTests": 2
+      },
+      "failures": [
+        {
+          "test": "OpticalSystemDesign.Tests.FftSamplingReferenceRepairTests.VertexPlotMatchesImageLocalReferenceUsedByEnergyOperand",
+          "outcome": "Failed",
+          "message": "Assert.Equal() Failure: Values are not within 10 decimal places\nExpected: 0.0060172567000000001 (rounded from 0.0060172566696781362)\nActual:   0.0060174177000000004 (rounded from 0.0060174176616175495)"
+        },
+        {
+          "test": "OpticalSystemDesign.Tests.FftSamplingReferenceRepairTests.PolychromaticEnergyPlotAndOperandShareTheSameSampling",
+          "outcome": "Failed",
+          "message": "Assert.Equal() Failure: Values are not within 10 decimal places\nExpected: 0.0259958406 (rounded from 0.025995840573273806)\nActual:   0.0259948973 (rounded from 0.025994897252559723)"
+        }
+      ],
+      "times": {
+        "creation": "2026-10-21T19:45:57.1507790+08:00",
+        "queuing": "2026-10-21T19:45:57.1507790+08:00",
+        "start": "2026-10-21T19:45:55.5322610+08:00",
+        "finish": "2026-10-21T19:45:57.1530170+08:00"
+      },
+      "trx": "baseline-sampling-failures.trx",
+      "log": "test-baseline-sampling-failures.log"
+    }
+  ],
+  "conclusions": {
+    "original32FormalCasesPassedPerConfiguration": 10,
+    "original32RepairAndIntegrityGuardsPassedPerConfiguration": 12,
+    "nativeGuardGroupPassedPerConfiguration": 20,
+    "releaseCoreGuardGroupPassed": 117,
+    "additionalSamplingClass": {
+      "passed": 11,
+      "failed": 2,
+      "skipped": 0
+    },
+    "twoFailuresReproducedWithDebugAndPreSyncCore": true,
+    "baselineDiagnostic": "Unchanged complete sampling test source and matching test packages; only two failing methods executed against independently exported pre-sync Core. It is a failure-origin control, not product-build verification.",
+    "original32CasesRemainPassed": true,
+    "allRelatedTestsPassed": false,
+    "scopeNote": "Counts overlap across configurations and the two-method diagnostic; do not add them into a unique test baseline."
+  },
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "sourceOrTestsChanged": false,
+  "tolerancesChanged": false,
+  "nativeReferencesChanged": false,
+  "fullTestSuiteRun": false,
+  "full638MatrixRun": false,
+  "newZemaxCaptureRun": false,
+  "nativeCertificationClaimed": false,
+  "productLaunched": false,
+  "installerRepublished": false,
+  "committedOrPushed": false,
+  "evidenceRoot": "artifacts/validation/local-fft-energy32-recheck-20261021",
+  "relatedRepairLedger": "docs/validation/OBJECTIVES_ENERGY32_REPAIR_2026-10-21.json",
+  "archive": {
+    "path": "validation/rechecks/2026-10-21/macos-fft-energy32-recheck-evidence.zip",
+    "bytes": 87171,
+    "sha256": "15d7f8ffbfc9e5c6d5eb5ae02fc4989cfecd8ec98ddf4ab412b9bd4254d39d58",
+    "files": 23,
+    "readBackVerified": true,
+    "includesOriginalFailedRuns": true
+  }
+}

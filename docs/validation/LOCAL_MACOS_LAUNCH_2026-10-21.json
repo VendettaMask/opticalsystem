@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-21",
+  "verifiedAt": "2026-10-21T19:58:27.962208+08:00",
+  "sourceRevision": "18a09e47fc5d203ca022db389ca1ff3a3793e170",
+  "scope": "macOS Finder launch permission repair",
+  "script": "Run-OpticalSystemDesign.command",
+  "previousGitMode": "100644",
+  "newWorkingTreeGitMode": "100755",
+  "scriptContentChanged": false,
+  "executableCheckPassed": true,
+  "bashSyntaxCheckPassed": true,
+  "launchMethod": "open -a Terminal /Users/starlab/Documents/opticalsystem/Run-OpticalSystemDesign.command",
+  "launchCommandExitCode": 0,
+  "configuration": "Debug (existing launcher default)",
+  "observedProductProcess": {
+    "pid": 40967,
+    "executable": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App"
+  },
+  "observationType": "process verification; no window screenshot captured",
+  "gitPermissionChangeCommitted": false,
+  "notes": [
+    "The script retains its existing restore, clean, build and run behavior.",
+    "Earlier restricted Release launch failed Avalonia native RenderTimer initialization (-6661); a subsequent direct Release run exited 0 and had no surviving process. The normal Terminal script launch produced the observed Debug product process."
+  ]
+}

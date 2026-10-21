@@ -14,6 +14,16 @@ Optical System Design 按非商业产品维护。初始结构与镀膜设计已�
 
 ## 最新验证账目
 
+### 2026-10-21 macOS 启动脚本执行权限
+
+Finder 拒绝运行是因为 `Run-OpticalSystemDesign.command` 的仓库文件模式为 `100644`，缺少执行位。本机已修正为 `100755`，脚本内容和既有还原/清理/构建/启动行为保持；可执行检查及 `bash -n` 通过。通过正常 Terminal 打开脚本后，已确认默认 Debug 产品进程运行。该结论是进程检查，不是窗口截图验收；执行位修正随本次验证记录一并提交，启动回执保留验证当时的未提交状态。见[启动回执](validation/LOCAL_MACOS_LAUNCH_2026-10-21.json)与[构建指南](BUILD_AND_RELEASE.md#启动桌面应用)。
+
+### 2026-10-21 macOS 最新编译与 FFT 能量定向复验
+
+本机 macOS arm64 / .NET SDK 10.0.300、运行时 10.0.8 复验源码 `18a09e47fc5d203ca022db389ca1ff3a3793e170`：锁定依赖还原完成，默认 Debug/Release 根解决方案各 **19 项目**、零警告/错误，桌面默认产物及两个内置模块均已更新，App 与两个测试宿主的 Core 字节哈希一致。原 32 档十项正式应用重算、136 个折射率逐位检查、参考/策略完整性及既有 PSF/128 档/Petzval 守卫在两种配置下各 **20/20**；Release 求交、FFT 网格、准备光瞳、有限共轭及缓存瞄准守卫 **117/117**。
+
+补查 `FftSamplingReferenceRepairTests` 为 **11 通过 / 2 失败 / 0 跳过**：`VertexPlotMatchesImageLocalReferenceUsedByEnergyOperand` 与 `PolychromaticEnergyPlotAndOperandShareTheSameSampling` 的能量图/操作数一致性未达到原 10 位小数断言。仅这两个失败方法在 Debug 及同步前 `ecf35b1f` Core 上也均失败；隔离对照的 **311** 个导出文件逐一匹配原提交，测试源码与当前及原提交逐字相同。因此是本机可复现的既有失败，不能宣称相关回归全部通过；不影响上述十项原 32 档请求的通过结论，也不推断其他平台状态。未修改产品/测试代码、容差或原生参考，未跑全测试、638 项矩阵或新 Zemax 采集。首个受限还原已取消，单独记为未完成，正常权限重试完成。各组范围与旧报告不同，跨配置及诊断复跑不相加；日志、成功/失败 TRX 和隔离对照证据见[本机复验账目](validation/LOCAL_FFT_ENERGY32_RECHECK_2026-10-21.json)及[归档](../validation/rechecks/2026-10-21/macos-fft-energy32-recheck-evidence.zip)。
+
 ### 2026-10-21 原 32 档三项能量修复与原通过保护
 
 原 32/64 档 Apochromat2、Apochromat4、MIL 三项已从 Difference 修复为 Pass，Apochromat 等七个原通过对照全部保持，十项原请求和四项重复捕获比较均 Pass。共享 Core 修复球面顶点平面求交及入射平方保持、Sellmeier 2 加法顺序、FFT 基坐标裁剪顺序，并使 Relay 定标与实际光瞳共用现有缓存瞄准映射。原容差、原生参考、产品默认采样和瞄准收敛限均不变；八项孔径扰动另外全部通过。原生 136 个折射率、36 个坐标逐位一致，162 个相邻双精度间隔的支持集全部匹配。

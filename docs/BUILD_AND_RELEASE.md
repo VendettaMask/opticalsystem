@@ -1,6 +1,6 @@
 # 构建与发布
 
-更新：2026-10-20。本文只说明当前命令和交付规则。最新验收见 [当前状态](CURRENT_STATUS.md)，历史构建验收原文已集中到 [历史账本](validation/BUILD_VERIFICATION_HISTORY_2026-10-13.json)，不作为当前通过结论或可直接执行的旧命令。
+更新：2026-10-21。本文只说明当前命令和交付规则。最新验收见 [当前状态](CURRENT_STATUS.md)，历史构建验收原文已集中到 [历史账本](validation/BUILD_VERIFICATION_HISTORY_2026-10-13.json)，不作为当前通过结论或可直接执行的旧命令。
 
 ## 唯一产品入口
 
@@ -63,6 +63,8 @@ Windows 使用 `Run-OpticalSystemDesign.cmd`，macOS 使用 `Run-OpticalSystemDe
 ```powershell
 dotnet run --project src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj -c Release --no-build
 ```
+
+macOS 的 `.command` 启动脚本须保留可执行位（Git 文件模式 `100755`）。若 Finder 提示“无法执行，因为你没有正确的访问权限”，在仓库根目录执行 `chmod +x Run-OpticalSystemDesign.command` 后再双击；该脚本会还原依赖、清理并重建默认 Debug 输出，然后启动主程序。
 
 脚本先还原，再清理、构建和启动；清理只处理构建输出，不删除工程、主题或工作区。两个模块均从主程序“实验室”菜单打开，无独立启动脚本。
 

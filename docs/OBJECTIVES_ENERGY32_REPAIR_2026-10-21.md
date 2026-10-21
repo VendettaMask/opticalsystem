@@ -36,3 +36,11 @@
 原生 112/112 球面折射控制、36/36 FFT 坐标控制，以及上述色散、间隔、边界控制与被拒绝候选均保留。临时自有探针已移除；不归档 Zemax SDK 二进制或专有头文件。证据入口见[机器账目](validation/OBJECTIVES_ENERGY32_REPAIR_2026-10-21.json)和[冻结回归夹具](../validation/zemax/2026-r1/objectives-energy32-repair-2026-10-21/cases.json)。
 
 [前阶段调查](OBJECTIVES_ENERGY32_INVESTIGATION_2026-10-21.md)与[新增 128 档验收](../validation/zemax/2026-r1/objectives-energy128-acceptance-2026-10-21/acceptance.json)保留其原阶段身份。本次结果更新原 32 档的当前状态，不改写历史未解决记录。源码已同步，原测试包已覆盖；包内相关数值守卫 20/20、完整性和模块检查 14/14、公开下载复核 4/4，详见[交付账目](validation/UPDATE_SYNC_ENERGY32_PACKAGE_2026-10-21.json)。
+
+## 同日本机 macOS 补充复验
+
+同步后的 `18a09e47` 在 macOS arm64 / .NET SDK 10.0.300、运行时 10.0.8 上完成默认 Debug/Release 根构建，各 19 项目、零警告/错误。上述新原 32 档守卫 12 项及既有 PSF/128 档/Petzval 8 项在两种配置下均通过；Release 另外运行的求交、FFT 网格、准备光瞳、有限共轭与缓存瞄准 117 项全部通过。这些筛选与前述原交付范围不同，不能据此相加或重标原交付记录。
+
+额外采样契约类 `FftSamplingReferenceRepairTests` 为 **11/13 通过，2 项失败**：顶点参考和复色能量图与操作数的结果未达到既有 10 位小数一致性断言，首个不符点绝对差分别约 `1.610e-7`、`9.433e-7`。两项在当前 Debug 下同样失败；使用逐字未改的测试源码和从同步前 `ecf35b1f` 导出的 Core 隔离执行，两项也失败，311 个基线导出文件均与该提交匹配。该对照证明这两项失败在本机同步前已存在，不代表它们已经修复，也不改变原 32 档十项正式请求全部通过的结果。
+
+本轮只编译、定向复验和记录结果，没有修改产品/测试实现、断言、容差或参考，没有新采原生数据或重新发布。受限环境的首次依赖还原已取消并按未完成保留，正常权限重试后完成；失败记录同样保留。完整筛选、程序集哈希、TRX 和基线控制见[本机复验账目](validation/LOCAL_FFT_ENERGY32_RECHECK_2026-10-21.json)及[23 文件证据归档](../validation/rechecks/2026-10-21/macos-fft-energy32-recheck-evidence.zip)。
