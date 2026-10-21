@@ -64,4 +64,4 @@ Ansys 的 [FFT PSF 说明](https://ansyshelp.ansys.com/public/Views/Secured/Zema
 
 [完整调查证据包](../validation/repairs/2026-10-21/objectives-residual-controls-evidence.zip)保存 2107 个载荷，55,407,652 字节，SHA-256 为 `8e963519a7851253224d2ca8df56a25015fde831de3ad23a8c3cac19843f9eae`。每个载荷均从 ZIP 读回核对字节数与 SHA-256，包含原请求、原生数据、失败候选、最终结果、定向 TRX、源码快照及旧矩阵中本轮涉及的输入；不含专有 API 二进制。三个 32 档超差及其他失败记录未从档案中移除。
 
-当前修复先更新工作区源码和默认桌面输出；上一测试安装包仍为 `1.0.4-win-x64-973fe980dc92`，未把此次调查包装成“全部问题已解决”。当前状态、程序集、来源、完整证据包及具体边界见[机器账目](validation/OBJECTIVES_RESIDUALS_2026-10-21.json)。
+调查阶段先更新工作区源码和默认桌面输出。用户选定新增 128 档验收后，源码与两份 LFS 证据已同步；从干净提交 `1364dd14dda9b6e2f11d76e477f443ad1b067b53` 生成新包 `1.0.4-win-x64-33f392807053`，覆盖原测试发布的三个附件，仍保持预发布且不标 Latest。包副本检查 **14/14**，包内实际 Core/Application 的指定守卫 **7/7 + 2/2** 通过，含六项新增验收/PSF/完整性、Petzval MTF、相对照度和 RMS；各组互不重复。没有将原 32 档三项记为已修复。当前来源、完整证据与具体边界见[调查机器账目](validation/OBJECTIVES_RESIDUALS_2026-10-21.json)及[交付账目](validation/UPDATE_SYNC_PACKAGE_REFRESH_2026-10-21.json)。

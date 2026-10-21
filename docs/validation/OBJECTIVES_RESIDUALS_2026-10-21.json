@@ -539,11 +539,14 @@
     "payloadManifestEntry": "manifest.json"
   },
   "delivery": {
-    "sourceCommittedOrPushedInThisStage": false,
-    "installerRebuiltInThisStage": false,
-    "existingPackage": "1.0.4-win-x64-973fe980dc92",
-    "existingPackageContainsThisPsfRepair": false,
-    "defaultDebugAndReleaseUpdated": true
+    "sourceCommittedOrPushedInThisStage": true,
+    "installerRebuiltInThisStage": true,
+    "existingPackage": "1.0.4-win-x64-33f392807053",
+    "existingPackageContainsThisPsfRepair": true,
+    "defaultDebugAndReleaseUpdated": true,
+    "previousPackage": "1.0.4-win-x64-973fe980dc92",
+    "codeCommit": "1364dd14dda9b6e2f11d76e477f443ad1b067b53",
+    "deliveryLedger": "docs/validation/UPDATE_SYNC_PACKAGE_REFRESH_2026-10-21.json"
   },
   "externalDocumentation": [
     "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/FFT_PSF.html",

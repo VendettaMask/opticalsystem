@@ -1,0 +1,206 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "status": "package-replaced-and-verified-source-code-synchronized",
+  "evidenceRoot": "artifacts/validation/package-refresh-20261021",
+  "source": {
+    "branch": "main",
+    "remote": "origin",
+    "codeCommit": "1364dd14dda9b6e2f11d76e477f443ad1b067b53",
+    "sourceDirty": false,
+    "sourcePush": "complete:1364dd14dda9b6e2f11d76e477f443ad1b067b53",
+    "oldTagCommit": "9242b31abf38b4d97f23d19e4b00f8df47abfabb",
+    "existingReleaseTagMoved": false,
+    "remoteReceipt": "artifacts/validation/package-refresh-20261021/remote-source-receipt.txt",
+    "lfsFsck": "passed",
+    "archives": [
+      {
+        "path": "validation/repairs/2026-10-21/objectives-residual-controls-evidence.zip",
+        "bytes": 55407652,
+        "sha256": "8e963519a7851253224d2ca8df56a25015fde831de3ad23a8c3cac19843f9eae",
+        "verifiedPayloads": 2107,
+        "proprietaryApiBinariesIncluded": false,
+        "payloadManifestEntry": "manifest.json"
+      },
+      {
+        "bytes": 1012147,
+        "sha256": "7e9b80a05ae34cae2acde2dfd7c80feaaa3d142884ae458079287c4aaca435e1",
+        "proprietaryApiBinariesIncluded": false,
+        "verifiedPayloads": 108,
+        "path": "validation/repairs/2026-10-21/objectives-energy128-acceptance-evidence.zip"
+      }
+    ],
+    "deliveryMetadataHandoff": {
+      "scope": "Delivery records and current status only; package remains built from codeCommit",
+      "rule": "After committing these records, verify origin/main equals local HEAD, clean worktree and unchanged original tag; record actual metadata commit in the ignored receipt.",
+      "finalReceipt": "artifacts/validation/package-refresh-20261021/source-sync-final-receipt.json"
+    }
+  },
+  "acceptance": {
+    "userDecision": "新增 128 档验收，32 档继续记为未解决",
+    "additional128Cases": 3,
+    "additional128Conclusion": "Pass",
+    "original32Unresolved": 3,
+    "originalTolerancesUnchanged": true,
+    "changesProductSamplingDefaults": false,
+    "allOriginalIssuesResolved": false,
+    "manifest": "validation/zemax/2026-r1/objectives-energy128-acceptance-2026-10-21/acceptance.json",
+    "rayRecordCount": 6075,
+    "rayCasesPassed": 3,
+    "investigation": "docs/validation/OBJECTIVES_RESIDUALS_2026-10-21.json"
+  },
+  "package": {
+    "version": "1.0.4",
+    "runtime": "win-x64",
+    "releaseId": "1.0.4-win-x64-33f392807053",
+    "setup": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-582e7d2e\\OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+    "bytes": 276566379,
+    "sha256": "23183f2e7ae2e041ddbc4cca41c845b80cd733e1c69c00a8397efc583c380f3f",
+    "signed": false,
+    "testPackage": true,
+    "sourceCommit": "1364dd14dda9b6e2f11d76e477f443ad1b067b53",
+    "sourceDirty": false,
+    "containsNewPsfRepair": true,
+    "modulesInProcess": true,
+    "requiredModules": [
+      "InitialStructure",
+      "CoatingDesign"
+    ],
+    "manifestFiles": 1285,
+    "manifestSha256": "016352dfb4975b6267dfdf9a445ddbdfe277a789b1485f4962434318411c7e1e",
+    "actualPackagedNumericalAssemblies": [
+      {
+        "packageSource": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-582e7d2e\\payload\\app-61a2e979\\OpticalSystemDesign.Core.dll",
+        "assembly": "OpticalSystemDesign.Core.dll",
+        "sha256": "870a9ff98cfd407fbd42ca28a9ee374221c7bce9c89ae13389579c63921f1f97"
+      },
+      {
+        "packageSource": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-582e7d2e\\payload\\app-61a2e979\\OpticalSystemDesign.Application.dll",
+        "assembly": "OpticalSystemDesign.Application.dll",
+        "sha256": "869c7f3c412db0fc1c4d505c1c0e99ceead97556d362968d1403890920c361f2"
+      }
+    ]
+  },
+  "release": {
+    "url": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019",
+    "id": 416939680,
+    "tag": "v1.0.4-test.20261019",
+    "prerelease": true,
+    "draft": false,
+    "makeLatestRequested": false,
+    "includedInStableUpdateDetection": false,
+    "canonicalFileNamesPreserved": true,
+    "assets": [
+      {
+        "bytes": 276566379,
+        "digest": "sha256:23183f2e7ae2e041ddbc4cca41c845b80cd733e1c69c00a8397efc583c380f3f",
+        "downloadUrl": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+        "id": 661380031,
+        "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe"
+      },
+      {
+        "bytes": 124,
+        "digest": "sha256:8353e57c12a0a8082b33278fadf68fe1ddd6424fb4f3d86c0f14c3d4b8d580fe",
+        "downloadUrl": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe.sha256",
+        "id": 661380030,
+        "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe.sha256"
+      },
+      {
+        "bytes": 763,
+        "digest": "sha256:7523ea375df8fd9fa765b48447dcfa778aee910a83918301222158382660bcfc",
+        "downloadUrl": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/release.json",
+        "id": 661380029,
+        "name": "release.json"
+      }
+    ],
+    "notes": "artifacts/validation/package-refresh-20261021/release-notes.md",
+    "replacementJournal": "artifacts/validation/package-refresh-20261021/replacement-journal.json",
+    "publicDownloadVerification": "artifacts/validation/package-refresh-20261021/public-download-verification.json",
+    "publicChecksPassed": 4,
+    "fullInstallerSha256VerifiedThroughServerDigest": true,
+    "repeatedFullInstallerDownload": false
+  },
+  "backup": {
+    "previousReleaseId": "1.0.4-win-x64-973fe980dc92",
+    "completeLocalDirectory": "artifacts/validation/package-refresh-20261021/previous-package-complete",
+    "proof": "artifacts/validation/package-refresh-20261021/previous-package-proof.json",
+    "oldRemoteAssetsRemovedOnlyAfterReplacementVerified": true,
+    "removalProof": "artifacts/validation/package-refresh-20261021/previous-remote-assets-removed.json"
+  },
+  "verification": {
+    "builds": [
+      {
+        "log": "artifacts/validation/package-refresh-20261021/build-debug.log",
+        "configuration": "Debug",
+        "warnings": 0,
+        "errors": 0,
+        "projects": 19
+      },
+      {
+        "log": "artifacts/validation/package-refresh-20261021/build-release.log",
+        "configuration": "Release",
+        "warnings": 0,
+        "errors": 0,
+        "projects": 19
+      }
+    ],
+    "defaultAssemblies": "artifacts/validation/package-refresh-20261021/default-assembly-identities.json",
+    "packageChecks": {
+      "proof": "artifacts/validation/package-refresh-20261021/package-verification/summary.json",
+      "manifestFiles": 1285,
+      "failed": 0,
+      "passed": 14
+    },
+    "packagedTests": [
+      {
+        "failed": 0,
+        "trx": "artifacts\\validation\\package-refresh-20261021\\tests\\packaged-acceptance128-and-petzval.trx",
+        "tests": [
+          "OpticalSystemDesign.ZemaxComparison.Tests.ObjectivesNativePrecisionTests.RecalculationMatchesIndependentNativeCaptureAtOriginalTolerances(id: \"12-014-petzval-c1-primary-f1-w2-mtf\", lens: \"Objectives/Petzval.zmx\", sourceSha256: \"f5d6934ca398b9de0d1d1f725d3e52be831badddda879f8a2e\"···)",
+          "OpticalSystemDesign.ZemaxComparison.Tests.ObjectivesResidualPrecisionTests.FormalDisplayMatchesIndependentNativeCaptureAtOriginalTolerances(id: \"apochromat2-energy128\")",
+          "OpticalSystemDesign.ZemaxComparison.Tests.ObjectivesResidualPrecisionTests.FormalDisplayMatchesIndependentNativeCaptureAtOriginalTolerances(id: \"double-gauss5-psf-cross32\")",
+          "OpticalSystemDesign.ZemaxComparison.Tests.ObjectivesResidualPrecisionTests.FormalDisplayMatchesIndependentNativeCaptureAtOriginalTolerances(id: \"double-gauss5-psf32\")",
+          "OpticalSystemDesign.ZemaxComparison.Tests.ObjectivesResidualPrecisionTests.IndependentNativeCaptureBytesRetainTheirRecordedHashes",
+          "OpticalSystemDesign.ZemaxComparison.Tests.ObjectivesResidualPrecisionTests.FormalDisplayMatchesIndependentNativeCaptureAtOriginalTolerances(id: \"apochromat4-energy128\")",
+          "OpticalSystemDesign.ZemaxComparison.Tests.ObjectivesResidualPrecisionTests.FormalDisplayMatchesIndependentNativeCaptureAtOriginalTolerances(id: \"mil-doublet-energy128\")"
+        ],
+        "scope": "Six new PSF/128-grid/integrity guards plus Petzval MTF",
+        "passed": 7
+      },
+      {
+        "failed": 0,
+        "trx": "artifacts\\validation\\package-refresh-20261021\\tests\\packaged-petzval-ri-rms.trx",
+        "tests": [
+          "OpticalSystemDesign.ZemaxComparison.Tests.PetzvalNativeRepairTests.FreshCalculationPassesTheUnchangedOriginalNativeReferenceAndTolerance(name: \"rms-vs-field\")",
+          "OpticalSystemDesign.ZemaxComparison.Tests.PetzvalNativeRepairTests.FreshCalculationPassesTheUnchangedOriginalNativeReferenceAndTolerance(name: \"relative-illumination\")"
+        ],
+        "scope": "Petzval relative illumination and RMS vs field",
+        "passed": 2
+      }
+    ],
+    "packagedTestsTotal": 9,
+    "packagedTestHostScope": "Actual packaged Core/Application in disposable installed test host; self-contained app and module startup checked separately",
+    "firstPackageFilterScope": "First filter selected six new guards and Petzval MTF (7); a separate targeted run then verified the intended RI/RMS guards (2).",
+    "frozen": {
+      "workingMatched": 2668,
+      "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "proof": "artifacts/validation/package-refresh-20261021/frozen-after-commit.json",
+      "earlierOmittedMapCheckRetained": "artifacts/validation/package-refresh-20261021/frozen-without-relocation-map.json",
+      "headMatched": 2668,
+      "publishedRelocationMapUsed": true,
+      "count": 2668
+    },
+    "allTestsRerun": false,
+    "complete638MatrixRerun": false,
+    "crossPlatformCertification": false,
+    "manualGuiCertification": false,
+    "userInstallationModified": false,
+    "documentation": {
+      "proof": "artifacts/validation/package-refresh-20261021/documentation-final.json",
+      "strict": true,
+      "passed": true,
+      "documents": 992,
+      "brokenLinks": 0
+    }
+  }
+}
