@@ -7,6 +7,12 @@ using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
 
+if (args.Length == 2 && args[0] == "spot-apodization-stage")
+{
+    RemainingLensControls.SpotApodization(args[1]);
+    return;
+}
+
 if (args.Length >= 2 && args[0] == "wide-schmidt-recheck")
 {
     WideSchmidtRepair.Recheck(args[1], args.Length > 2 ? args[2] : "targets");

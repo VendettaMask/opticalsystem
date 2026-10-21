@@ -13,6 +13,12 @@ Optical System Design 按非商业产品维护。初始结构与镀膜设计已�
 
 ## 最新验证账目
 
+### 2026-10-21 继续修复 9 支镜头的 11 项一阶参数差异
+
+Mangin、Double-pass null test、两种 Offner compensator、Flat-field Schmidt、Schalcktelescope、Offner relay、TIR prism 及 Scanning mirror 三配置的 **11 个原 Difference 请求恢复 Pass**。共享 Core 修正奇数次反射后的焦距符号、偶次非球面 r² 项的近轴顶点曲率，并使反射薄透镜矩阵与已有交互模型一致。保留原容差、原请求、采样、瞄准限与原生参考；Zemax 2026 R1 重新采集 11 项，22 个标量与原参考逐位相同。
+
+原有 **1131/1131 Pass** 均保持，加本轮 11 项为 **1142/1142**，完整请求逐项一致。Core 定向 **104/104**，加强解析守卫补跑 **17/17**（有重叠、106 个不同用例）；原生相关守卫单次 **64/64**。默认 Debug/Release 各 19 项目、零警告/错误，2668 冻结资产保持。未跑全测试、3024 项矩阵或 251 组全光线回放，其他未通过项继续保留；这 9 支的修复请求通过不代表整支镜头全部分析通过。见[修复报告](REFLECTIVE_PARAXIAL_REPAIR_2026-10-21.md)及[机器账目](validation/REFLECTIVE_PARAXIAL_REPAIR_2026-10-21.json)。
+
 ### 2026-10-21 广角与 Schmidt 的 29 项回退全部修复
 
 200° 广角 15 项、210° 广角 13 项、Flat-field Schmidt 原 32 档能量 1 项均按原请求及原容差恢复 Pass。球面稳定求交补查共轭根，修正瞄准与批量追迹选根不一致；偶次非球面改用解析法线，消除 Schmidt 光锥误差引发的四个 FFT 边界点变化。一般圆锥曲面的既有延拓分支保持，拒绝过宽候选后新增 Gregorian 守卫。无镜头名称分支，没有改容差、瞄准限、采样或原生参考。

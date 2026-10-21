@@ -3,6 +3,7 @@ using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Core.Geometries;
 
 namespace OpticalSystemDesign.Core.Services;
 
@@ -33,15 +34,18 @@ public sealed partial class Paraxial
     public double EstimateEffectiveFocalLength()
     {
         EnsureComputable();
-        var matrix = TraceSystemMatrix(PrimaryWavelengthNanometers());
-        return Math.Abs(matrix.C) < 1e-12 ? 0 : -1.0 / matrix.C;
+        var matrix = TraceMatrix(0, _optic.SurfaceGroup.Items.Count,
+            PrimaryWavelengthNanometers(), out var determinant);
+        return FocalLength(matrix, determinant);
     }
 
     /// <summary>Reciprocal effective focal length from matrix C, finite at an exact plane system.</summary>
     public double EstimateOpticalPower()
     {
         EnsureComputable();
-        return -TraceSystemMatrix(PrimaryWavelengthNanometers()).C;
+        var matrix = TraceMatrix(0, _optic.SurfaceGroup.Items.Count,
+            PrimaryWavelengthNanometers(), out var determinant);
+        return -Math.CopySign(1, determinant) * matrix.C;
     }
 
     internal double ParaxialImageHeightObjectSlope(double imageHeight)
@@ -90,8 +94,9 @@ public sealed partial class Paraxial
             throw new ArgumentOutOfRangeException(nameof(endSurface), endSurface, "End surface must be at or after start surface.");
         }
 
-        var matrix = TraceMatrix(startIndex, endIndex + 1, PrimaryWavelengthNanometers());
-        return Math.Abs(matrix.C) < 1e-12 ? 0 : -1.0 / matrix.C;
+        var matrix = TraceMatrix(startIndex, endIndex + 1,
+            PrimaryWavelengthNanometers(), out var determinant);
+        return FocalLength(matrix, determinant);
     }
 
     public double EstimateFNumber()
@@ -197,8 +202,10 @@ public sealed partial class Paraxial
             return new CardinalPointEstimate(0, 0, 0, 0, 0, 0, 0, 0, 0);
         }
 
-        var matrix = TraceSystemMatrix(PrimaryWavelengthNanometers());
-        var effectiveFocalLength = Math.Abs(matrix.C) < 1e-12 ? 0 : -1.0 / matrix.C;
+        var matrix = TraceMatrix(0, _optic.SurfaceGroup.Items.Count,
+            PrimaryWavelengthNanometers(), out var determinant);
+        var effectiveFocalLength = FocalLength(matrix, determinant);
+        var axialFocalLength = Math.Abs(matrix.C) < 1e-12 ? 0 : -1.0 / matrix.C;
         var matrixStart = positions[0];
         var matrixEnd = matrixStart + _optic.SurfaceGroup.TotalTrack;
         var firstReference = positions.Count > 1 ? positions[1] : positions[0];
@@ -209,16 +216,20 @@ public sealed partial class Paraxial
         var backFocalPosition = Math.Abs(matrix.C) < 1e-12
             ? lastReference
             : matrixEnd - (matrix.A / matrix.C);
-        var frontPrincipalPlane = frontFocalPosition + effectiveFocalLength;
-        var backPrincipalPlane = backFocalPosition - effectiveFocalLength;
+        // Positions remain in the original axial frame; focal length is signed
+        // along outgoing propagation. The determinant also retains n/object:n/image.
+        var frontPrincipalPlane = frontFocalPosition + determinant * axialFocalLength;
+        var backPrincipalPlane = backFocalPosition - axialFocalLength;
+        var frontNodalPlane = frontFocalPosition + effectiveFocalLength;
+        var backNodalPlane = backFocalPosition - Math.Abs(determinant) * axialFocalLength;
         return new CardinalPointEstimate(
             effectiveFocalLength,
             frontFocalPosition,
             backFocalPosition,
             frontPrincipalPlane,
             backPrincipalPlane,
-            frontPrincipalPlane,
-            backPrincipalPlane,
+            frontNodalPlane,
+            backNodalPlane,
             firstReference,
             lastReference);
     }
@@ -453,7 +464,7 @@ public sealed partial class Paraxial
         var surfaces = _optic.SurfaceGroup.Items.ToArray();
         var positions = SurfacePositions().ToArray();
         var radii = surfaces
-            .Select(surface => surface.IsPlane ? double.PositiveInfinity : surface.Radius)
+            .Select(ParaxialRadius)
             .ToArray();
         var indices = surfaces
             .Select(surface => surface.MaterialAfter.RefractiveIndex(wavelengthNanometers))
@@ -506,7 +517,7 @@ public sealed partial class Paraxial
                 u[rayIndex] = surface.InteractionModel switch
                 {
                     ThinLensInteractionModel thinLens when reflective =>
-                        -u[rayIndex] - (y[rayIndex] / thinLens.FocalLength),
+                        -u[rayIndex] + (y[rayIndex] / (indexBefore * thinLens.FocalLength)),
                     ThinLensInteractionModel thinLens =>
                         ((indexBefore * u[rayIndex]) - (y[rayIndex] / thinLens.FocalLength)) / indexAfter,
                     _ when reflective => -u[rayIndex] - (2 * y[rayIndex] / radii[surfaceIndex]),
@@ -528,9 +539,23 @@ public sealed partial class Paraxial
             .ToArray();
     }
 
-    private RayMatrix TraceSystemMatrix(double wavelengthNanometers)
+    private static double FocalLength(RayMatrix matrix, double determinant)
     {
-        return TraceMatrix(0, _optic.SurfaceGroup.Items.Count, wavelengthNanometers);
+        // Matrix slopes use the original +Z axis. Each reflection reverses
+        // propagation, so -1/C alone reports the wrong sign after an odd count.
+        return Math.Abs(matrix.C) < 1e-12 ? 0 : -Math.CopySign(1, determinant) / matrix.C;
+    }
+
+    private static double ParaxialRadius(OpticalSurface surface)
+    {
+        var radius = surface.IsPlane ? double.PositiveInfinity : surface.Radius;
+        if (surface.Geometry is not EvenAsphereGeometry asphere
+            || asphere.Coefficients.Count == 0 || asphere.Coefficients[0] == 0)
+            return radius;
+        // z = c*r²/2 + A2*r² + O(r⁴). A plane base can still have
+        // paraxial power; the higher asphere terms do not change that power.
+        var curvature = (double.IsInfinity(radius) ? 0 : 1 / radius) + 2 * asphere.Coefficients[0];
+        return curvature == 0 ? double.PositiveInfinity : 1 / curvature;
     }
 
     private RayMatrix TraceMatrix(
@@ -563,6 +588,7 @@ public sealed partial class Paraxial
         for (var index = startSurfaceInclusive; index < endSurfaceExclusive; index++)
         {
             var surface = _optic.SurfaceGroup.Items[index];
+            var radius = ParaxialRadius(surface);
             var nextIndex = surface.MaterialAfter.RefractiveIndex(wavelengthNanometers);
             var reflective = surface.IsReflective
                 || surface.InteractionModel is RefractiveReflectiveInteractionModel { IsReflective: true }
@@ -577,8 +603,8 @@ public sealed partial class Paraxial
                     currentIndex,
                     nextIndex,
                     reflective),
-                _ when reflective => Reflect(matrix, surface.Radius),
-                _ => Refract(matrix, surface.Radius, currentIndex, nextIndex)
+                _ when reflective => Reflect(matrix, radius),
+                _ => Refract(matrix, radius, currentIndex, nextIndex)
             };
             if ((index != 0 || !ObjectConjugate.IsInfinite(surface))
                 && (includeTrailingTranslation || index + 1 < endSurfaceExclusive))
@@ -659,7 +685,7 @@ public sealed partial class Paraxial
             throw new InvalidOperationException("Thin-lens focal length must be finite and non-zero.");
         }
 
-        var c = reflective ? -1 / focalLength : -1 / (indexAfter * focalLength);
+        var c = reflective ? 1 / (indexBefore * focalLength) : -1 / (indexAfter * focalLength);
         var d = reflective ? -1 : indexBefore / indexAfter;
         return new RayMatrix(
             matrix.A,

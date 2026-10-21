@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "status": "eleven-first-order-differences-repaired-with-original-policy",
+  "baseCommit": "beb2bd5ce122e63b0ec5e153600fee8f12183e69",
+  "report": "docs/REFLECTIVE_PARAXIAL_REPAIR_2026-10-21.md",
+  "evidenceRoot": "artifacts/validation/remaining-lenses-20261021",
+  "acceptance": {
+    "lensesWithRepairedRequests": 9,
+    "newlyRepairedRequests": 11,
+    "previousPassesPreserved": 1131,
+    "totalPass": 1142,
+    "completeRequestsExactlyEqual": 1142,
+    "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+    "tolerancesChanged": false,
+    "nativeReferencesChanged": false,
+    "samplingChanged": false,
+    "aimingLimitsChanged": false,
+    "nativeRepeatRequests": 11,
+    "nativeRepeatFailures": 0,
+    "nativeScalarBitwiseEqual": 22,
+    "nativeVersion": "2026 R1",
+    "replayCoreSha256": "ce0285d57f9253c5cb17229b2a7c22102ed6cf3e4dfdb2e78798af45a63b73d9"
+  },
+  "tests": {
+    "coreFocused": { "passed": 104, "failed": 0, "trx": "tests/paraxial-final.trx" },
+    "analyticFollowup": { "passed": 17, "failed": 0, "overlapsCoreFocused": true, "trx": "tests/paraxial-analytic-final.trx" },
+    "coreUniqueCases": 106,
+    "nativeGuards": { "passed": 64, "failed": 0, "singleRun": true, "trx": "tests/native-final.trx" },
+    "defaultBuildConfigurations": ["Debug", "Release"],
+    "projectsPerBuild": 19,
+    "buildWarnings": 0,
+    "buildErrors": 0,
+    "fullTestSuiteRun": false
+  },
+  "integrity": {
+    "frozenFiles": 2668,
+    "unchangedWorkingAndGit": true,
+    "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "relocationMapSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e"
+  },
+  "archive": {
+    "path": "validation/repairs/2026-10-21/reflective-paraxial-repair-evidence.zip",
+    "bytes": 5744715,
+    "sha256": "08649ae1ffc7dc7438cca914d62e7cf6d59c715d025997455a7c0bc50a55e445",
+    "payloadFiles": 2223,
+    "readbackVerified": true,
+    "scope": "Delta comparison records, repaired/native data, tests and controls; full original native corpus references remain in prior archive."
+  },
+  "limits": {
+    "fullCorpusRerun": false,
+    "allLensesCertified": false,
+    "full251RayGroupsReplayed": false,
+    "otherKnownFailuresPreserved": true,
+    "firstOrderAfter": { "Pass": 58, "Difference": 5, "Error": 44 },
+    "independentCookeTessarInvestigationExcluded": true,
+    "packagedBinaryVerification": "recorded separately in delivery ledger"
+  }
+}

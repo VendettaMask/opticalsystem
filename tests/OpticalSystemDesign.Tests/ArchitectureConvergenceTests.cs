@@ -385,7 +385,9 @@ public sealed class ArchitectureConvergenceTests
             new OpticalSurface { Label = "Stop", IsStop = true }
         });
 
-        Assert.Equal(-12.5, optic.Paraxial.EstimateEntrancePupilLocation(), 10);
+        // u' = -u + y/f for a positive reflective thin lens. After t=10,
+        // A=1+t/f and B=-t, so B/A=-10/1.2.
+        Assert.Equal(-10 / 1.2, optic.Paraxial.EstimateEntrancePupilLocation(), 10);
     }
 
     private sealed class ClosedAperture : IPhysicalAperture
