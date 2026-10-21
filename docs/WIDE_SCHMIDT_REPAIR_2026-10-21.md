@@ -35,3 +35,5 @@ Schmidt 原 32/64 档能量的最终理想曲线最大差 **4.663e-15**，实际
 对比策略 SHA-256 仍为 `30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5`。新增[不可变原生夹具](../validation/zemax/2026-r1/wide-schmidt-repair-2026-10-21/cases.json)保留全部请求、结果、文本和单位读回；[机器账目](validation/WIDE_SCHMIDT_REPAIR_2026-10-21.json)列出执行身份、指标、未完成尝试和证据哈希。[新证据档案](../validation/repairs/2026-10-21/wide-schmidt-repair-evidence.zip)保存全部定向重算、诊断、原生控制及成功/失败测试；复用的全目录原生参考由[上一轮档案](../validation/repairs/2026-10-21/sequential-corpus-full-evidence.zip)提供，两份档案各自保持原身份，不含专有 SDK 二进制。
 
 本次修复不处理全目录中的其他既有差异、能力缺口或不可比设置，也没有重新给全部 95 支镜头计数。源码同步与包交付身份见[当前状态](CURRENT_STATUS.md)。
+
+源码已同步并覆盖原测试包；实际包内 52 项单次全部通过，包检查 14/14、公开下载复核 4/4，详见[交付账目](validation/UPDATE_SYNC_WIDE_SCHMIDT_PACKAGE_2026-10-21.json)。

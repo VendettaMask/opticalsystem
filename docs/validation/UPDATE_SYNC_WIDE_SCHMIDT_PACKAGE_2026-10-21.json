@@ -1,0 +1,262 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "status": "all29-repaired-source-synchronized-original-package-replaced",
+  "evidenceRoot": "artifacts/validation/package-wide-schmidt-20261021",
+  "source": {
+    "branch": "main",
+    "remote": "origin",
+    "codeCommit": "8d4ec1878dbe39654981fcaba4f307170f019c47",
+    "sourceDirty": false,
+    "codePush": "complete",
+    "sourcePushProof": "artifacts/validation/package-wide-schmidt-20261021/source-push.log",
+    "tagCommit": "9242b31abf38b4d97f23d19e4b00f8df47abfabb",
+    "tagMoved": false,
+    "lfsPointerFsck": "passed",
+    "finalDeliverySyncReceipt": "artifacts/validation/package-wide-schmidt-20261021/source-sync-final-receipt.json"
+  },
+  "acceptance": {
+    "regressionsRepaired": 29,
+    "wide200": 15,
+    "wide210": 13,
+    "schmidtOriginal32": 1,
+    "previousPassesPreserved": 1102,
+    "uniqueRequests": 1131,
+    "requestsExactlyEqual": 1131,
+    "originalTolerancesUnchanged": true,
+    "originalNativeReferencesUnchanged": true,
+    "samplingUnchanged": true,
+    "report": "docs/WIDE_SCHMIDT_REPAIR_2026-10-21.md",
+    "ledger": "docs/validation/WIDE_SCHMIDT_REPAIR_2026-10-21.json"
+  },
+  "package": {
+    "version": "1.0.4",
+    "runtime": "win-x64",
+    "releaseId": "1.0.4-win-x64-164b6813662d",
+    "sourceCommit": "8d4ec1878dbe39654981fcaba4f307170f019c47",
+    "sourceDirty": false,
+    "signed": false,
+    "testPackage": true,
+    "setup": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-582e7d2e\\OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+    "buildDirectory": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-2cd2dd7d",
+    "bytes": 276572498,
+    "sha256": "54f173280b11aa37c33abde89a44a20e0aa17ce1c19ab0234489daf257dfcae4",
+    "manifestFiles": 1285,
+    "manifestSha256": "32e3b942dfa043fb3976a4e87851619155ceb7baa6e716eedb2a9b58a6af941d",
+    "modulesInProcess": true,
+    "requiredModules": [
+      "InitialStructure",
+      "CoatingDesign"
+    ],
+    "actualPackagedAssemblies": [
+      {
+        "assembly": "OpticalSystemDesign.Core.dll",
+        "packageSource": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-2cd2dd7d\\payload\\app-724b6e4b\\OpticalSystemDesign.Core.dll",
+        "sha256": "28a6488880edf5435308ac67b85106a4d159dcfa6991c4521c3a87722c248cd3"
+      },
+      {
+        "assembly": "OpticalSystemDesign.Application.dll",
+        "packageSource": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-2cd2dd7d\\payload\\app-724b6e4b\\OpticalSystemDesign.Application.dll",
+        "sha256": "385b667637fc2a3509d75ba2f08099f18814b021d423c062b040fce4d942281b"
+      }
+    ]
+  },
+  "release": {
+    "url": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019",
+    "id": 416939680,
+    "tag": "v1.0.4-test.20261019",
+    "prerelease": true,
+    "draft": false,
+    "makeLatestRequested": false,
+    "canonicalFileNamesPreserved": true,
+    "assets": [
+      {
+        "id": 662554523,
+        "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+        "bytes": 276572498,
+        "digest": "sha256:54f173280b11aa37c33abde89a44a20e0aa17ce1c19ab0234489daf257dfcae4",
+        "downloadUrl": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe"
+      },
+      {
+        "id": 662554540,
+        "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe.sha256",
+        "bytes": 124,
+        "digest": "sha256:3dc7213eb388969fa765e7c1d165047a46d2642492f4430e0c3224d79283db4a",
+        "downloadUrl": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe.sha256"
+      },
+      {
+        "id": 662554525,
+        "name": "release.json",
+        "bytes": 763,
+        "digest": "sha256:ef6726e77fffa0ec19e38d383b045a8072a780d312c4f92755d39046d57b1a2e",
+        "downloadUrl": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/release.json"
+      }
+    ],
+    "serverFullDigestsMatchLocal": 3,
+    "publicChecksPassed": 4,
+    "publicProof": "artifacts/validation/package-wide-schmidt-20261021/public-download-verification.json",
+    "repeatedFullInstallerDownload": false,
+    "replacementJournal": "artifacts/validation/package-wide-schmidt-20261021/replacement-journal.json"
+  },
+  "backup": {
+    "previousReleaseId": "1.0.4-win-x64-6d6d99501fab",
+    "threeAssets": "artifacts/validation/package-wide-schmidt-20261021/previous-package-complete",
+    "assetProof": "artifacts/validation/package-wide-schmidt-20261021/previous-package-proof.json",
+    "previousFullBuildDirectory": "D:\\Projects\\opticalsystem\\artifacts\\validation\\package-wide-schmidt-20261021\\previous-build-directory",
+    "originalLocalDirectoryReplaced": true,
+    "localReplacementProof": "artifacts/validation/package-wide-schmidt-20261021/local-package-replacement.json",
+    "oldRemoteAssetsRemovedAfterReplacementVerified": true
+  },
+  "deliveryArchive": {
+    "path": "validation/repairs/2026-10-21/wide-schmidt-package-delivery-evidence.zip",
+    "bytes": 150005,
+    "sha256": "bbb01f07ce0e957ed3162208c55167575e25c12494970b092f11669418661ed1",
+    "payloadFiles": 40,
+    "verifiedReadback": true
+  },
+  "verification": {
+    "packagedTestsPassed": 52,
+    "packagedTestsFailed": 0,
+    "packagedTrx": "artifacts/validation/package-wide-schmidt-20261021/tests/packaged-wide-schmidt-guards.trx",
+    "packagedTestScope": "Actual packaged Core/Application under installed test host: exact29, independent Schmidt normals/marginals, Gregorian continuation, integrity, original32 ten and existing Petzval/PSF/128 controls",
+    "packageChecksPassed": 14,
+    "packageChecksFailed": 0,
+    "packageCheckProof": "artifacts/validation/package-wide-schmidt-20261021/package-verification/summary.json",
+    "manifestCopyReadback": {
+      "originalDirectory": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-582e7d2e",
+      "releaseId": "1.0.4-win-x64-164b6813662d",
+      "manifestFiles": 1285,
+      "verifiedFiles": 1285,
+      "manifestSha256": "32e3b942dfa043fb3976a4e87851619155ceb7baa6e716eedb2a9b58a6af941d",
+      "allMatched": true
+    },
+    "defaultAppBuilds": [
+      {
+        "warnings": 0,
+        "configuration": "Debug",
+        "errors": 0,
+        "log": "artifacts/validation/package-wide-schmidt-20261021/build-app-Debug.log"
+      },
+      {
+        "warnings": 0,
+        "configuration": "Release",
+        "errors": 0,
+        "log": "artifacts/validation/package-wide-schmidt-20261021/build-app-Release.log"
+      }
+    ],
+    "sourceTests": "Release Core132; native52 unique across primary51 and targeted fixture retry2. Debug geometry28/native22. Overlap not summed.",
+    "frozen": {
+      "source": "HEAD",
+      "commit": "8d4ec1878dbe39654981fcaba4f307170f019c47",
+      "count": 2668,
+      "matched": 2668,
+      "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "unchanged": true,
+      "mismatches": [],
+      "relocationMap": {
+        "path": "tools/validation/frozen-evidence-relocations.json",
+        "count": 4,
+        "expectedSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+        "actualSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+        "gitBlob": "54fb7863a30f8808fd335a62332dd3301c1243ea",
+        "gitLinkPath": null,
+        "matches": true
+      },
+      "relocations": [
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+          "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+          "actualSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+          "gitBlob": "8ce33ef8a9c26d3b26cfef84d8f88e03acf30286",
+          "bytes": 10182,
+          "originalPathPresent": false,
+          "gitLinkPath": null,
+          "matches": true
+        },
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+          "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+          "actualSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+          "gitBlob": "16aefa0dc68de132b63abb9260bac174ad652b7b",
+          "bytes": 6098,
+          "originalPathPresent": false,
+          "gitLinkPath": null,
+          "matches": true
+        },
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+          "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+          "actualSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+          "gitBlob": "31bef72740c8acfb69c3ade3e0c03cc2a2f63b7a",
+          "bytes": 2010,
+          "originalPathPresent": false,
+          "gitLinkPath": null,
+          "matches": true
+        },
+        {
+          "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+          "resolvedPath": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+          "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+          "actualSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+          "gitBlob": "1356ccedaee37e9e41da3c9074ae375dbca33bab",
+          "bytes": 17236,
+          "originalPathPresent": false,
+          "gitLinkPath": null,
+          "matches": true
+        }
+      ],
+      "workingTree": {
+        "count": 2668,
+        "matched": 2668,
+        "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+        "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+        "unchanged": true,
+        "mismatches": [],
+        "relocationMap": {
+          "path": "tools/validation/frozen-evidence-relocations.json",
+          "sha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+          "count": 4
+        },
+        "relocations": [
+          {
+            "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+            "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+            "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+            "actualSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+            "matches": true
+          },
+          {
+            "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+            "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+            "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+            "actualSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+            "matches": true
+          },
+          {
+            "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+            "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+            "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+            "actualSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+            "matches": true
+          },
+          {
+            "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+            "resolvedPath": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+            "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+            "actualSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+            "matches": true
+          }
+        ]
+      }
+    },
+    "allTestsRerun": false,
+    "all3024MatrixRerun": false,
+    "crossPlatformCertified": false,
+    "manualGuiCertified": false,
+    "userInstallationModified": false
+  }
+}
