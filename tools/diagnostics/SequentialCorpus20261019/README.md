@@ -1,5 +1,18 @@
 # Complete installed Sequential sample comparison
 
+For a fresh complete 95-lens rerun, `Write-CurrentLensResults.ps1` renders the
+current report date and validates counts against its completed summary rather
+than the historical 2526-request matrix. It generates a Chinese 95-row overview,
+CSV and mutually exclusive lens-status counts. Close, incomparable, unsupported,
+failed preparation and missing configurations do not count as complete passes.
+The original `Write-LensResults.ps1` remains tied to the historical report and its
+13 ZOS supplements. Fresh raw matrices and reports always use new directories.
+
+`Compare-PriorPasses.ps1` audits old Pass rows against the current matrix by lens,
+configuration, scope, analysis, field, wavelength and pupil sampling. It reports
+complete canonical request equality separately, retains changed-settings and
+missing-request cases for review, and rejects a changed tolerance policy.
+
 Offline validation tool derived from the existing [standard matrix runner](../StandardMatrix20261015/README.md). It uses the formal Application/Core and comparison adapters, with no product optical formulas or alternate engine. The 2026-10-19 user request selects the entire installed `Documents/Zemax/Samples/Sequential` directory, including Cooke/Tessar within this common comparison; it does not request a new independent residual investigation.
 
 Preparation inventories and hashes every original file. Each ZMX is one logical lens; its paired ZOS is preserved and receives an additional native model probe. Only workspace copies are loaded, and the original sources are never saved. Source ZDA caches are inventoried but not supplied as numerical reference data. All imported configurations receive the existing 18 primary analysis requests, four edge-field controls per positive-weight wavelength and the existing GQ6 explicit-ray controls. Unsupported units, afocal adapters, surfaces, missing assets, failed imports and failed captures remain visible in the inventory and results; they are never counted as numerical passes.

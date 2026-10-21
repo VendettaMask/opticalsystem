@@ -1,0 +1,1817 @@
+{
+  "date": "2026-10-21",
+  "nativeReferenceFormat": "zmx",
+  "sourceLenses": 95,
+  "sourceFiles": 295,
+  "originalSourceFilesUnchanged": 295,
+  "nativeJobs": 3279,
+  "nativeFailures": 25,
+  "completedNativeAttemptsIncludingRetainedFailures": 3279,
+  "completedWorkbenchAttemptsIncludingRetainedFailures": 2904,
+  "analysisRequests": 3024,
+  "analysisCounts": {
+    "Incomparable": 449,
+    "Pass": 1102,
+    "Difference": 181,
+    "Error": 1267,
+    "Close": 25
+  },
+  "rayJobs": 251,
+  "rayCounts": {
+    "Pass": 119,
+    "Error": 88,
+    "Incomparable": 23,
+    "Difference": 21
+  },
+  "physicalSurfaceComparisons": 245360,
+  "comparedValues": 1472160,
+  "comparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "inventorySha256": "311d76a307eef0d790a3063df110dcae4e30238bdfe248a203e2df1f8d3b2b74",
+  "completeExecutionAttempts": true,
+  "scope": "18 primary analyses plus 4 edge-field controls at each positive-weight wavelength and GQ6 rays for every successfully prepared configuration. Not all field/wavelength/sampling combinations. ZOS/ZMX equality covers captured configuration-1 model properties only, not all numerical outputs.",
+  "lensRows": [
+    {
+      "lens": "Afocal/Afocal Riflescope.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Incomparable": 28,
+        "Pass": 1,
+        "Difference": 1
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 32226639494.43694,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Afocal/Beam Expander.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [
+        "System.IO.InvalidDataException: Unverified source afocal angular unit: AS\r\n   at OpticalSystemDesign.ZemaxComparison.AfocalAnalysisContracts.Configure(CanonicalAnalysisRequest request, Boolean afocal, String source) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\AfocalAnalysisContracts.cs:line 29\r\n   at Program.<>c__DisplayClass0_5.<<Main>$>g__Analysis|11(String key, String scope, Int32 field, Int32 wavelength, <>c__DisplayClass0_3&, <>c__DisplayClass0_4&) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\SequentialCorpus20261019\\Program.cs:line 221\r\n   at Program.<Main>$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\SequentialCorpus20261019\\Program.cs:line 113"
+      ],
+      "analysisCounts": {
+        "Incomparable": 3,
+        "Error": 1
+      },
+      "rayCounts": {},
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "System.IO.InvalidDataException: Unverified source afocal angular unit: AS"
+      ],
+      "analysisRequests": 4
+    },
+    {
+      "lens": "Afocal/Binocular_System.ZMX",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Incomparable": 48,
+        "Error": 12
+      },
+      "rayCounts": {
+        "Error": 6
+      },
+      "formatModelReadback": "Difference",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 6,\r\n        \"originalType\": \"Zemax TYPE NONSEQCO\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE NONSEQCO \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 60
+    },
+    {
+      "lens": "Birefringent prisms/Birefringent cube.zmx",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 60
+      },
+      "rayCounts": {
+        "Error": 6
+      },
+      "formatModelReadback": "Difference",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE BIRE__IN\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE__IN \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE BIRE_OUT\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE_OUT \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 4,\r\n        \"originalType\": \"Zemax TYPE PARAXIAL\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAXIAL \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 60
+    },
+    {
+      "lens": "Birefringent prisms/Rochon prism.zmx",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 60
+      },
+      "rayCounts": {
+        "Error": 6
+      },
+      "formatModelReadback": "Difference",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE BIRE__IN\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE__IN \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE BIRE_OUT\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE_OUT \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 4,\r\n        \"originalType\": \"Zemax TYPE BIRE__IN\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE__IN \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 5,\r\n        \"originalType\": \"Zemax TYPE BIRE_OUT\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE_OUT \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 6,\r\n        \"originalType\": \"Zemax TYPE PARAXIAL\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAXIAL \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 60
+    },
+    {
+      "lens": "Birefringent prisms/Senarmont prism.zmx",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 44
+      },
+      "rayCounts": {
+        "Error": 2
+      },
+      "formatModelReadback": "Difference",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE BIRE__IN\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE__IN \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE BIRE_OUT\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE_OUT \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 4,\r\n        \"originalType\": \"Zemax TYPE BIRE__IN\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE__IN \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 5,\r\n        \"originalType\": \"Zemax TYPE BIRE_OUT\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE_OUT \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 6,\r\n        \"originalType\": \"Zemax TYPE PARAXIAL\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAXIAL \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 44
+    },
+    {
+      "lens": "Birefringent prisms/Wollaston prism.zmx",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 44
+      },
+      "rayCounts": {
+        "Error": 2
+      },
+      "formatModelReadback": "Difference",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE BIRE__IN\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE__IN \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE BIRE_OUT\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE_OUT \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 4,\r\n        \"originalType\": \"Zemax TYPE BIRE__IN\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE__IN \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 5,\r\n        \"originalType\": \"Zemax TYPE BIRE_OUT\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BIRE_OUT \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 6,\r\n        \"originalType\": \"Zemax TYPE PARAXIAL\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAXIAL \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 44
+    },
+    {
+      "lens": "Diffractive components/Achromatic singlet.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 30
+      },
+      "rayCounts": {
+        "Error": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE BINARY_2\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BINARY_2 \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Diffractive components/Dual Zone CD-DVD lens.ZMX",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 44
+      },
+      "rayCounts": {
+        "Error": 2
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE BINARY_3\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE BINARY_3 \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 44
+    },
+    {
+      "lens": "Diffractive components/Grating.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 38
+      },
+      "rayCounts": {
+        "Error": 5
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE DGRATING\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE DGRATING \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE PARAXIAL\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAXIAL \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 38
+    },
+    {
+      "lens": "Diffractive components/Reflection hologram.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 22
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 1,\r\n        \"originalType\": \"Zemax TYPE HOLOGRM2\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE HOLOGRM2 \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Diffractive components/Sample Spectrometer.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 29,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Error": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE DGRATING\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE DGRATING \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Diffractive components/Transmission hologram.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 22
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 1,\r\n        \"originalType\": \"Zemax TYPE HOLOGRM2\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE HOLOGRM2 \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "GRINs/Grid GRIN.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 29,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Error": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 1,\r\n        \"originalType\": \"Zemax TYPE GRINSU11\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE GRINSU11 \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "GRINs/Selfoc lens.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 30
+      },
+      "rayCounts": {
+        "Error": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 1,\r\n        \"originalType\": \"Zemax TYPE GRINSUR9\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE GRINSUR9 \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 1,\r\n        \"originalType\": \"SLS-1.0\",\r\n        \"reason\": \"\\u627E\\u4E0D\\u5230\\u73BB\\u7483\\u201CSLS-1.0\\u201D\\uFF0C\\u8BF7\\u5339\\u914D\\u6750\\u6599\\u540E\\u518D\\u8BA1\\u7B97\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"SLS-1.0\",\r\n        \"reason\": \"\\u627E\\u4E0D\\u5230\\u73BB\\u7483\\u201CSLS-1.0\\u201D\\uFF0C\\u8BF7\\u5339\\u914D\\u6750\\u6599\\u540E\\u518D\\u8BA1\\u7B97\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Image Simulation/Example 1, A singlet eyepiece.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 13,
+        "Difference": 4,
+        "Error": 2,
+        "Incomparable": 11
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 2.893461340775727,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Image Simulation/Example 2, Double Gauss Experimental Arrangement.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 30
+      },
+      "rayCounts": {
+        "Error": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 1,\r\n        \"originalType\": \"Zemax TYPE PARAXIAL\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAXIAL \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Image Simulation/Example 3, A blue notch filter.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 38
+      },
+      "rayCounts": {
+        "Error": 5
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE PARAXIAL\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAXIAL \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 38
+    },
+    {
+      "lens": "Image Simulation/Example 4, a diffraction limited system.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Incomparable": 22
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Image Simulation/Example 5, spatially varying resolution.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 30
+      },
+      "rayCounts": {
+        "Error": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 1,\r\n        \"originalType\": \"Zemax TYPE PARAXIAL\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAXIAL \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Image Simulation/Example 6, tilted image plane.ZMX",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 60
+      },
+      "rayCounts": {
+        "Error": 6
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 0,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 60
+    },
+    {
+      "lens": "Interconnects/2 Ball lens interconnect.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 16,
+        "Difference": 3,
+        "Incomparable": 3
+      },
+      "rayCounts": {
+        "Pass": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.1541866314233711,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Interconnects/Ball coupling.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 14,
+        "Difference": 3,
+        "Incomparable": 5
+      },
+      "rayCounts": {
+        "Pass": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.13514204651234218,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Interconnects/Conic interconnect.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 18,
+        "Difference": 1,
+        "Incomparable": 3
+      },
+      "rayCounts": {
+        "Pass": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.012215762315319626,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Interconnects/GRIN interconnect.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 22
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 1,\r\n        \"originalType\": \"Zemax TYPE GRINSUR1\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE GRINSUR1 \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Interconnects/Optical interconnect.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 22
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE GRINSUR9\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE GRINSUR9 \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"SLS-1.0\",\r\n        \"reason\": \"\\u627E\\u4E0D\\u5230\\u73BB\\u7483\\u201CSLS-1.0\\u201D\\uFF0C\\u8BF7\\u5339\\u914D\\u6750\\u6599\\u540E\\u518D\\u8BA1\\u7B97\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"SLS-1.0\",\r\n        \"reason\": \"\\u627E\\u4E0D\\u5230\\u73BB\\u7483\\u201CSLS-1.0\\u201D\\uFF0C\\u8BF7\\u5339\\u914D\\u6750\\u6599\\u540E\\u518D\\u8BA1\\u7B97\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 4,\r\n        \"originalType\": \"Zemax TYPE GRINSUR9\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE GRINSUR9 \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 4,\r\n        \"originalType\": \"SLS-1.0\",\r\n        \"reason\": \"\\u627E\\u4E0D\\u5230\\u73BB\\u7483\\u201CSLS-1.0\\u201D\\uFF0C\\u8BF7\\u5339\\u914D\\u6750\\u6599\\u540E\\u518D\\u8BA1\\u7B97\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 5,\r\n        \"originalType\": \"SLS-1.0\",\r\n        \"reason\": \"\\u627E\\u4E0D\\u5230\\u73BB\\u7483\\u201CSLS-1.0\\u201D\\uFF0C\\u8BF7\\u5339\\u914D\\u6750\\u6599\\u540E\\u518D\\u8BA1\\u7B97\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Manufacturing/Apochromatic_for_Cost_3_TDE_defaults.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 68,
+        "Incomparable": 2
+      },
+      "rayCounts": {
+        "Pass": 13
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.0005423023982034405,
+      "notes": [],
+      "analysisRequests": 70
+    },
+    {
+      "lens": "Miscellaneous/Apochromat_prism.zmx",
+      "coreConfigurations": 0,
+      "nativeConfigurations": 1,
+      "importErrors": [
+        "System.NotSupportedException: Zemax coordinate-break order flags are not supported (SURF 4, PARM 6).\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ApplyCoordinateBreak(ZemaxSurface source, Vector3D& origin, Matrix3x3& rotation, Boolean includeThickness) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\ZemaxZmxReader.cs:line 891\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ConvertSurfaces(Optic optic, IReadOnlyList`1 sourceSurfaces, IReadOnlyList`1 glassCatalogs) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\ZemaxZmxReader.cs:line 762\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.BuildOptic(ZemaxDocument document, Int32 configurationIndex) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\ZemaxZmxReader.cs:line 43\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.<>c__DisplayClass1_0.<ImportConfigurationSet>b__0(Int32 configurationIndex) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\ZemaxZmxReader.cs:line 29\r\n   at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)\r\n   at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\ZemaxZmxReader.cs:line 28\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.ImportConfigurationSet(String text) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\CommercialFormatIO.cs:line 217\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.ImportConfigurationSetFileAsync(String path, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\CommercialFormatIO.cs:line 243\r\n   at OpticalSystemDesign.ZemaxComparison.Workbench.WorkbenchExecutor.Import(String path) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Workbench\\WorkbenchExecutor.cs:line 31\r\n   at Program.<Main>$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\SequentialCorpus20261019\\Program.cs:line 85"
+      ],
+      "analysisCounts": {},
+      "rayCounts": {},
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "System.NotSupportedException: Zemax coordinate-break order flags are not supported (SURF 4, PARM 6).",
+        "Native configurations=1, completed Core snapshots=0; review missing import/configuration coverage."
+      ],
+      "analysisRequests": 0
+    },
+    {
+      "lens": "Miscellaneous/Axicon model.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 5,
+        "Incomparable": 5,
+        "Error": 11,
+        "Difference": 1
+      },
+      "rayCounts": {
+        "Pass": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.9961317549209602,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Miscellaneous/Beam splitter.zmx",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 42,
+        "Incomparable": 2
+      },
+      "rayCounts": {
+        "Error": 2
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 4,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 5,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 44
+    },
+    {
+      "lens": "Miscellaneous/Bi-ocular lens.ZMX",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 28,
+        "Incomparable": 10,
+        "Difference": 18,
+        "Close": 4
+      },
+      "rayCounts": {
+        "Incomparable": 6
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 3029.0773869415702,
+      "notes": [],
+      "analysisRequests": 60
+    },
+    {
+      "lens": "Miscellaneous/Cylinder.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 16,
+        "Incomparable": 4,
+        "Error": 1,
+        "Difference": 1
+      },
+      "rayCounts": {
+        "Pass": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.7713271923251165,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Miscellaneous/Diode source simulation.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 21,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 1,\r\n        \"originalType\": \"Zemax TYPE PARAX_XY\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAX_XY \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Miscellaneous/Doubly telecentric system.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 21,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Pass": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.001156830915167075,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Miscellaneous/Elliptical reflector 320 degree light cone .zmx",
+      "coreConfigurations": 0,
+      "nativeConfigurations": 1,
+      "importErrors": [
+        "System.NotSupportedException: Zemax object-cone-angle apertures (OBNA subtype 1) are not supported.\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ReadObjectNumericalAperture(ZemaxDocument document, IReadOnlyList`1 tokens) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\ZemaxZmxReader.cs:line 1507\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Parse(String text) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\ZemaxZmxReader.cs:line 210\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\ZemaxZmxReader.cs:line 25\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.ImportConfigurationSet(String text) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\CommercialFormatIO.cs:line 217\r\n   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.ImportConfigurationSetFileAsync(String path, CancellationToken cancellationToken) in D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.Core\\FileIO\\CommercialFormatIO.cs:line 243\r\n   at OpticalSystemDesign.ZemaxComparison.Workbench.WorkbenchExecutor.Import(String path) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Workbench\\WorkbenchExecutor.cs:line 31\r\n   at Program.<Main>$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\SequentialCorpus20261019\\Program.cs:line 85"
+      ],
+      "analysisCounts": {},
+      "rayCounts": {},
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "System.NotSupportedException: Zemax object-cone-angle apertures (OBNA subtype 1) are not supported.",
+        "Native configurations=1, completed Core snapshots=0; review missing import/configuration coverage."
+      ],
+      "analysisRequests": 0
+    },
+    {
+      "lens": "Miscellaneous/Grid Sag Example.zmx",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 42,
+        "Incomparable": 2
+      },
+      "rayCounts": {
+        "Error": 2
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE GRID_SAG\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE GRID_SAG \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE GRID_SAG\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE GRID_SAG \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 44
+    },
+    {
+      "lens": "Miscellaneous/Grid sag surface.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 22
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE GRID_SAG\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE GRID_SAG \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Miscellaneous/Irregular surface.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 21,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE IRREGULA\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE IRREGULA \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Miscellaneous/Mangin mirror.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Difference": 1,
+        "Pass": 18,
+        "Incomparable": 3
+      },
+      "rayCounts": {
+        "Pass": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 2.0000000000000004,
+      "notes": [
+        "Native reflection signed-index directions normalized to physical propagation from MIRROR rows."
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Miscellaneous/MEMS DLL Sample.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 21,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Difference",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE USERSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE USERSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Miscellaneous/Optimization demo 1.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Difference": 2,
+        "Pass": 10,
+        "Error": 1,
+        "Close": 3,
+        "Incomparable": 6
+      },
+      "rayCounts": {
+        "Pass": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 1,
+      "notes": [
+        "Native reflection signed-index directions normalized to physical propagation from MIRROR rows."
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Miscellaneous/Optimization demo 2.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 27,
+        "Incomparable": 3
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.0024283439959738636,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Miscellaneous/Parabolas at 90 degrees.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Difference": 1,
+        "Incomparable": 7,
+        "Error": 14
+      },
+      "rayCounts": {
+        "Incomparable": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 1.6666666666666687,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Miscellaneous/Telecentric system.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 22
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE PARAXIAL\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAXIAL \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Miscellaneous/Toroid.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 7,
+        "Incomparable": 10,
+        "Difference": 4,
+        "Error": 1
+      },
+      "rayCounts": {
+        "Incomparable": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 8.936074287432042,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Miscellaneous/vacuum cell.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Difference": 4,
+        "Pass": 17,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Difference": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.0162543457126513,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Objectives/Apochromat.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 46,
+        "Incomparable": 4
+      },
+      "rayCounts": {
+        "Pass": 8
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 3.5205429377311955E-06,
+      "notes": [],
+      "analysisRequests": 50
+    },
+    {
+      "lens": "Objectives/Apochromat2.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 34,
+        "Incomparable": 4
+      },
+      "rayCounts": {
+        "Pass": 5
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 7.727503484840992E-06,
+      "notes": [],
+      "analysisRequests": 38
+    },
+    {
+      "lens": "Objectives/Apochromat3.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 26,
+        "Incomparable": 4
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.0003101848392701826,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Apochromat4.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 43,
+        "Incomparable": 27
+      },
+      "rayCounts": {
+        "Pass": 13
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.0011321984582330035,
+      "notes": [],
+      "analysisRequests": 70
+    },
+    {
+      "lens": "Objectives/Cooke 40 degree field.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 30
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 8.20787406433441E-05,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Double Gauss 28 degree field.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 29,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Difference",
+      "worstNrmse": 0.00047718097156992966,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Double Gauss 5 degree field.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 35,
+        "Incomparable": 3
+      },
+      "rayCounts": {
+        "Pass": 5
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.0013597543156326157,
+      "notes": [],
+      "analysisRequests": 38
+    },
+    {
+      "lens": "Objectives/Doublet using MIL number glasses.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 34,
+        "Incomparable": 4
+      },
+      "rayCounts": {
+        "Pass": 5
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 3.2342098013025523E-06,
+      "notes": [],
+      "analysisRequests": 38
+    },
+    {
+      "lens": "Objectives/Doublet.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 27,
+        "Incomparable": 3
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 1.0962981047966903E-05,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Even Asphere.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 20,
+        "Incomparable": 2
+      },
+      "rayCounts": {
+        "Pass": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 2.079095907213289E-05,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Objectives/Gaussian Quadrature over Annular Pupils.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 18,
+        "Incomparable": 4
+      },
+      "rayCounts": {
+        "Pass": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 3.221743018874999E-06,
+      "notes": [
+        "Native reflection signed-index directions normalized to physical propagation from MIRROR rows."
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Objectives/Gaussian Quadrature Over Wavelength.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 29,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.001339814080155794,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Inverse telephoto lens.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 30
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.00039150548641794124,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Petzval.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 29,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.0009664700994506428,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Relay lens.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 29,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 7.718959149650164E-05,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Tessar lens using vignetting factors.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 28,
+        "Incomparable": 2
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.00045457657973885446,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Wide angle lens 100 degree field.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 29,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.0027759585938927616,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Wide angle lens 200 degree field.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 11,
+        "Incomparable": 6,
+        "Error": 13
+      },
+      "rayCounts": {
+        "Difference": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.0007902410306426283,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Objectives/Wide angle lens 210 degree field.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 13,
+        "Error": 13,
+        "Incomparable": 4
+      },
+      "rayCounts": {
+        "Difference": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 1.3830844968126875E-05,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Optical testing/Double-pass null test.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Difference": 2,
+        "Incomparable": 6,
+        "Error": 12,
+        "Pass": 1,
+        "Close": 1
+      },
+      "rayCounts": {
+        "Difference": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 1.9966921332812348,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Optical testing/Mach Zender Interferometer.zmx",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 44
+      },
+      "rayCounts": {
+        "Error": 2
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 4,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 8,\r\n        \"originalType\": \"Zemax TYPE FZERNSAG\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE FZERNSAG \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 10,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 11,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 44
+    },
+    {
+      "lens": "Optical testing/Offner reflecting compensator.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Difference": 7,
+        "Pass": 4,
+        "Incomparable": 9,
+        "Close": 2
+      },
+      "rayCounts": {
+        "Difference": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 2.0000000000000027,
+      "notes": [
+        "Native reflection signed-index directions normalized to physical propagation from MIRROR rows."
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Optical testing/Offner refracting compensator.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Difference": 1,
+        "Pass": 17,
+        "Close": 1,
+        "Incomparable": 3
+      },
+      "rayCounts": {
+        "Pass": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 2.0000000000000013,
+      "notes": [
+        "Native reflection signed-index directions normalized to physical propagation from MIRROR rows."
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "coreConfigurations": 2,
+      "nativeConfigurations": 2,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 42,
+        "Incomparable": 2
+      },
+      "rayCounts": {
+        "Error": 2
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 4,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 10,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 11,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 12,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 44
+    },
+    {
+      "lens": "Polarization/Etalon.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Difference": 6,
+        "Pass": 13,
+        "Error": 2,
+        "Incomparable": 5
+      },
+      "rayCounts": {
+        "Pass": 2
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 1,
+      "notes": [],
+      "analysisRequests": 26
+    },
+    {
+      "lens": "Polarization/Fabry-Perot.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 21,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 4,\r\n        \"originalType\": \"Zemax TYPE PARAXIAL\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAXIAL \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Telescopes/Cassegrain-type Ritchey Chretien.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 4,
+        "Difference": 8,
+        "Incomparable": 9,
+        "Close": 1
+      },
+      "rayCounts": {
+        "Difference": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.12609263505724275,
+      "notes": [
+        "Native reflection signed-index directions normalized to physical propagation from MIRROR rows."
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Telescopes/Flat-field Schmidt.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Difference": 1,
+        "Pass": 18,
+        "Incomparable": 8,
+        "Close": 3
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 2,
+      "notes": [
+        "Native reflection signed-index directions normalized to physical propagation from MIRROR rows."
+      ],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Telescopes/Houghton.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 9,
+        "Difference": 12,
+        "Incomparable": 12,
+        "Close": 1
+      },
+      "rayCounts": {
+        "Difference": 4
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.2372373069589328,
+      "notes": [
+        "Native reflection signed-index directions normalized to physical propagation from MIRROR rows."
+      ],
+      "analysisRequests": 34
+    },
+    {
+      "lens": "Telescopes/Hubble.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Incomparable": 22
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Telescopes/Maksutov offset secondary.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 6,
+        "Difference": 8,
+        "Incomparable": 7,
+        "Close": 1
+      },
+      "rayCounts": {
+        "Difference": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.43778901222003513,
+      "notes": [
+        "Native reflection signed-index directions normalized to physical propagation from MIRROR rows."
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Telescopes/Maksutov.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 6,
+        "Difference": 9,
+        "Incomparable": 7
+      },
+      "rayCounts": {
+        "Difference": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 1.5396735290738373,
+      "notes": [
+        "Native reflection signed-index directions normalized to physical propagation from MIRROR rows."
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Telescopes/Schalcktelescope 10.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Difference": 1,
+        "Pass": 27,
+        "Incomparable": 1,
+        "Error": 1
+      },
+      "rayCounts": {
+        "Pass": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 1.9999999999999991,
+      "notes": [
+        "Native reflection signed-index directions normalized to physical propagation from MIRROR rows."
+      ],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Telescopes/Schmidt-Cassegrain spider obscuration.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 5,
+        "Incomparable": 21,
+        "Difference": 12
+      },
+      "rayCounts": {
+        "Incomparable": 5
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.14624688078402248,
+      "notes": [],
+      "analysisRequests": 38
+    },
+    {
+      "lens": "Telescopes/Schmidt-Cassegrain.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 8,
+        "Difference": 10,
+        "Incomparable": 10,
+        "Close": 2
+      },
+      "rayCounts": {
+        "Difference": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.21834486635297076,
+      "notes": [
+        "Native reflection signed-index directions normalized to physical propagation from MIRROR rows."
+      ],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Telescopes/Unobscured Gregorian.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 2,
+        "Incomparable": 6,
+        "Error": 14
+      },
+      "rayCounts": {
+        "Incomparable": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 2.0822518494709968E-12,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Telescopes/Yolo.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Difference": 4,
+        "Incomparable": 7,
+        "Close": 2,
+        "Pass": 8,
+        "Error": 1
+      },
+      "rayCounts": {
+        "Incomparable": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 1.7340155712859204,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Tilted systems & prisms/Beamsplitter cube.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 21,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Tilted systems & prisms/Lens pivoted about a point.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 21,
+        "Incomparable": 6,
+        "Close": 1,
+        "Difference": 1,
+        "Error": 1
+      },
+      "rayCounts": {
+        "Incomparable": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.14082938559235825,
+      "notes": [],
+      "analysisRequests": 30
+    },
+    {
+      "lens": "Tilted systems & prisms/OAP using Chebyshev Polynomial surface.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 21,
+        "Incomparable": 1
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 2,\r\n        \"originalType\": \"Zemax TYPE CHEBYSHV\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE CHEBYSHV \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Tilted systems & prisms/Offner relay.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Difference": 1,
+        "Incomparable": 2,
+        "Pass": 19
+      },
+      "rayCounts": {
+        "Incomparable": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 1.9999999999999987,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Tilted systems & prisms/Prism using tilted surface.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 38
+      },
+      "rayCounts": {
+        "Error": 5
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 1,\r\n        \"originalType\": \"Zemax TYPE PARAXIAL\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAXIAL \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 38
+    },
+    {
+      "lens": "Tilted systems & prisms/Prism using total internal reflection.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Difference": 2,
+        "Incomparable": 5,
+        "Pass": 13,
+        "Close": 2
+      },
+      "rayCounts": {
+        "Incomparable": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 1.9999999999999993,
+      "notes": [],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Tilted systems & prisms/Prisms using coordinate breaks.ZMX",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 22
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 8,\r\n        \"originalType\": \"Zemax TYPE PARAXIAL\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAXIAL \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Tilted systems & prisms/Tilted mirror.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 22
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 1,\r\n        \"originalType\": \"Zemax TYPE PARAXIAL\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE PARAXIAL \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Tilted systems & prisms/Tilted object.zmx",
+      "coreConfigurations": 1,
+      "nativeConfigurations": 1,
+      "importErrors": [],
+      "analysisCounts": {
+        "Error": 22
+      },
+      "rayCounts": {
+        "Error": 1
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": null,
+      "notes": [
+        "{\r\n        \"surfaceNumber\": 0,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }",
+        "{\r\n        \"surfaceNumber\": 3,\r\n        \"originalType\": \"Zemax TYPE TILTSURF\",\r\n        \"reason\": \"Zemax \\u9762\\u578B TYPE TILTSURF \\u5C1A\\u672A\\u6620\\u5C04\\u5230\\u53EF\\u8BA1\\u7B97\\u51E0\\u4F55\\uFF1B\\u539F\\u59CB\\u66F2\\u7387\\u3001\\u5706\\u9525\\u5E38\\u6570\\u548C PARM \\u53C2\\u6570\\u5DF2\\u4FDD\\u7559\\u4E3A\\u53EA\\u8BFB\\u6570\\u636E\\u3002\"\r\n      }"
+      ],
+      "analysisRequests": 22
+    },
+    {
+      "lens": "Zoom systems/Mirror zoom.zmx",
+      "coreConfigurations": 5,
+      "nativeConfigurations": 5,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 26,
+        "Incomparable": 10,
+        "Error": 65,
+        "Difference": 9
+      },
+      "rayCounts": {
+        "Pass": 3,
+        "Difference": 2
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 0.49207405732764725,
+      "notes": [
+        "Native reflection signed-index directions normalized to physical propagation from MIRROR rows."
+      ],
+      "analysisRequests": 110
+    },
+    {
+      "lens": "Zoom systems/Scanning mirror.zmx",
+      "coreConfigurations": 3,
+      "nativeConfigurations": 3,
+      "importErrors": [],
+      "analysisCounts": {
+        "Difference": 34,
+        "Incomparable": 25,
+        "Pass": 5,
+        "Close": 1,
+        "Error": 1
+      },
+      "rayCounts": {
+        "Incomparable": 3
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 66.77355045313618,
+      "notes": [],
+      "analysisRequests": 66
+    },
+    {
+      "lens": "Zoom systems/Zoom lens.zmx",
+      "coreConfigurations": 3,
+      "nativeConfigurations": 3,
+      "importErrors": [],
+      "analysisCounts": {
+        "Pass": 71,
+        "Error": 3,
+        "Incomparable": 7,
+        "Difference": 9
+      },
+      "rayCounts": {
+        "Pass": 9
+      },
+      "formatModelReadback": "Equal",
+      "worstNrmse": 2172.6725646401765,
+      "notes": [],
+      "analysisRequests": 90
+    }
+  ]
+}

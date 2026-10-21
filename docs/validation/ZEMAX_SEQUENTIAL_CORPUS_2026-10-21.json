@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "status": "completed-full-95-execution-with-open-differences-and-regressions",
+  "rawRun": "artifacts/zemax-sequential-corpus/20261021/full-v1",
+  "report": "validation/zemax/2026-r1/sequential-corpus-2026-10-21",
+  "source": {
+    "head": "18a09e47fc5d203ca022db389ca1ff3a3793e170",
+    "productCodeCommit": "39a2b3d23e087db507678279a5e46ae8812cad77",
+    "productCodeChangedThisRun": false,
+    "actualAssemblies": [
+      {
+        "path": "tools\\diagnostics\\SequentialCorpus20261019\\bin\\Release\\net10.0\\OpticalSystemDesign.Core.dll",
+        "sha256": "cdd11b7144e2a0ac0c49b2ad2ba1bb09d79c0a11fc5d855695f849b0e3807d90"
+      },
+      {
+        "path": "tools\\diagnostics\\SequentialCorpus20261019\\bin\\Release\\net10.0\\OpticalSystemDesign.Application.dll",
+        "sha256": "e7698fbc4e9a447ba252d46c74d3d7b12fd84a4114c51c44f9504b077e406dd0"
+      },
+      {
+        "path": "tools\\diagnostics\\SequentialCorpus20261019\\bin\\Release\\net10.0\\OpticalSystemDesign.ZemaxComparison.dll",
+        "sha256": "5ba4f0f9a506fffa94949c29cad78737c3309aab04733cb4b38318970ba1de26"
+      },
+      {
+        "path": "tools\\diagnostics\\SequentialCorpus20261019\\bin\\Release\\net10.0\\SequentialCorpus20261019.dll",
+        "sha256": "4b14a88b9aae0e4d63e635720126a695339a3cd4942652029603270105aecd01"
+      }
+    ],
+    "assembliesStableDuringRun": true,
+    "sourceFiles": 295,
+    "sourceFilesUnchanged": 295
+  },
+  "comparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "tolerancesChanged": false,
+  "lenses": {
+    "total": 95,
+    "allRequestsPassed": 2,
+    "notCompletelyPassed": 93,
+    "statusCounts": [
+      {
+        "Name": "本次请求全部通过",
+        "Count": 2
+      },
+      {
+        "Name": "存在分析差异",
+        "Count": 32
+      },
+      {
+        "Name": "存在计算/采集错误",
+        "Count": 38
+      },
+      {
+        "Name": "存在逐面光线差异",
+        "Count": 2
+      },
+      {
+        "Name": "导入/准备阻断",
+        "Count": 3
+      },
+      {
+        "Name": "可比项通过，仍有不可比",
+        "Count": 18
+      }
+    ],
+    "strictPassNames": [
+      "Objectives/Cooke 40 degree field.zmx",
+      "Objectives/Inverse telephoto lens.zmx"
+    ]
+  },
+  "analyses": {
+    "requests": 3024,
+    "counts": {
+      "Incomparable": 449,
+      "Pass": 1102,
+      "Difference": 181,
+      "Error": 1267,
+      "Close": 25
+    },
+    "previousFullRequests": 2526,
+    "additionalRequests": 498,
+    "softwareTasks": 2904,
+    "softwareExitZero": 1622,
+    "softwareExitNonzero": 1282,
+    "softwareTimeouts": 0,
+    "rowsWithoutSoftwareTask": 120,
+    "errorCategories": [
+      {
+        "Name": "ChiefRayFailure",
+        "Count": 98
+      },
+      {
+        "Name": "PreparationOrComparison",
+        "Count": 1
+      },
+      {
+        "Name": "RayAimingFailure",
+        "Count": 26
+      },
+      {
+        "Name": "UnsupportedModelCapability",
+        "Count": 1110
+      },
+      {
+        "Name": "WorkbenchCalculationFailure",
+        "Count": 32
+      }
+    ]
+  },
+  "native": {
+    "fresh": true,
+    "version": "OpticStudio 2026 R1",
+    "tasks": 3279,
+    "completed": 3279,
+    "failures": 25,
+    "recognizedInfrastructureFailures": 0,
+    "chunks": 66,
+    "chunkSize": 50,
+    "analysisJobs": 2904,
+    "modelJobs": 115,
+    "pairedModelJobs": 95,
+    "rayJobs": 165
+  },
+  "rays": {
+    "attemptGroups": 251,
+    "counts": {
+      "Pass": 119,
+      "Error": 88,
+      "Incomparable": 23,
+      "Difference": 21
+    },
+    "physicalSurfaceComparisons": 245360,
+    "comparedValues": 1472160
+  },
+  "regressions": {
+    "uniqueRequests": 29,
+    "lenses": 3,
+    "old95Baseline": {
+      "previousPasses": 770,
+      "stillPass": 758,
+      "notMaintained": 12,
+      "proof": "prior-pass-preservation.json"
+    },
+    "objectivesBaseline": {
+      "previousPasses": 564,
+      "stillPass": 536,
+      "notMaintained": 28,
+      "proof": "objectives-prior-pass-preservation.json"
+    },
+    "setsOverlap": true,
+    "wideAngle200Lost": 15,
+    "wideAngle210Lost": 13,
+    "flatFieldSchmidtEnergy32Lost": 1,
+    "rootCausesResolved": false
+  },
+  "additionalSamplingControls": [
+    {
+      "lens": "Objectives/Apochromat4.zmx",
+      "sampling": 64,
+      "imageSampling": 128,
+      "conclusion": "Close",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "maxAbsolute": 0.006712589575009864,
+          "nrmse": 0.005792102759422012
+        },
+        {
+          "id": "curve:1",
+          "maxAbsolute": 0.0067103978018980825,
+          "nrmse": 0.005793397170635462
+        }
+      ],
+      "nativePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\extra-sampling\\apochromat4-64\\native",
+      "workbenchPath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\extra-sampling\\apochromat4-64\\workbench"
+    },
+    {
+      "lens": "Objectives/Cooke 40 degree field.zmx",
+      "sampling": 128,
+      "imageSampling": 256,
+      "conclusion": "Close",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "maxAbsolute": 0.003357141137749431,
+          "nrmse": 0.0019306594323332108
+        },
+        {
+          "id": "curve:1",
+          "maxAbsolute": 0.006192520717463235,
+          "nrmse": 0.005655861291314555
+        }
+      ],
+      "nativePath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\extra-sampling\\cooke40-128\\native",
+      "workbenchPath": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\extra-sampling\\cooke40-128\\workbench"
+    }
+  ],
+  "frozen": {
+    "count": 2668,
+    "headMatched": 2668,
+    "workingMatched": 2668,
+    "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "proof": "validation/zemax/2026-r1/sequential-corpus-2026-10-21/frozen-after.json"
+  },
+  "archive": {
+    "path": "validation/repairs/2026-10-21/sequential-corpus-full-evidence.zip",
+    "bytes": 382060824,
+    "sha256": "1dc562461d4e39ac9bf54f3c2309a0bb81fdeccfb092554cd8e9c14aa80760ad",
+    "payloadFiles": 65871,
+    "verifiedReadback": true,
+    "proprietaryApiBinariesIncluded": false
+  },
+  "retainedFailedAttempts": [
+    "Initial registry access denied before preparation; escalated repeat succeeded.",
+    "Two supplementary software wrappers used incorrect path keys; archived and corrected without numerical request changes.",
+    "First preservation self-check grouped dictionary statuses incorrectly; raw rows retained and corrected check is 770 StillPass."
+  ],
+  "scope": {
+    "allUnitTestsRun": false,
+    "matrixUsesZmx": true,
+    "zosConfiguration1ModelReadback": true,
+    "old13ZosNumericalSupplementRerun": false,
+    "allFieldWavelengthSamplingCombinations": false,
+    "crossPlatformCertified": false,
+    "userInstallationModified": false,
+    "packageRebuilt": false
+  }
+}

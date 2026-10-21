@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-21",
+  "scope": "User requested a fresh complete 95-lens rerun; no general test suite",
+  "sourceCommit": "18a09e47fc5d203ca022db389ca1ff3a3793e170",
+  "productCodeCommit": "39a2b3d23e087db507678279a5e46ae8812cad77",
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "assemblies": [
+    {
+      "path": "tools\\diagnostics\\SequentialCorpus20261019\\bin\\Release\\net10.0\\OpticalSystemDesign.Core.dll",
+      "sha256": "cdd11b7144e2a0ac0c49b2ad2ba1bb09d79c0a11fc5d855695f849b0e3807d90"
+    },
+    {
+      "path": "tools\\diagnostics\\SequentialCorpus20261019\\bin\\Release\\net10.0\\OpticalSystemDesign.Application.dll",
+      "sha256": "e7698fbc4e9a447ba252d46c74d3d7b12fd84a4114c51c44f9504b077e406dd0"
+    },
+    {
+      "path": "tools\\diagnostics\\SequentialCorpus20261019\\bin\\Release\\net10.0\\OpticalSystemDesign.ZemaxComparison.dll",
+      "sha256": "5ba4f0f9a506fffa94949c29cad78737c3309aab04733cb4b38318970ba1de26"
+    },
+    {
+      "path": "tools\\diagnostics\\SequentialCorpus20261019\\bin\\Release\\net10.0\\SequentialCorpus20261019.dll",
+      "sha256": "4b14a88b9aae0e4d63e635720126a695339a3cd4942652029603270105aecd01"
+    }
+  ],
+  "initialGitStatus": [
+    " M tools/diagnostics/SequentialCorpus20261019/README.md",
+    "?? tools/diagnostics/SequentialCorpus20261019/Write-CurrentLensResults.ps1"
+  ],
+  "nativeFresh": true,
+  "rawRun": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\full-v1",
+  "additionalSamplingControls": 2,
+  "allUnitTestsRun": false
+}
