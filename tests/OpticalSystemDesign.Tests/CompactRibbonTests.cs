@@ -71,8 +71,11 @@ public sealed class CompactRibbonTests
                 AssertFrame(ribbon, workspace, window, theme);
                 Assert.Equal(8, buttons.Length);
                 Assert.Equal(2, groups.SelectMany(g => g.GetVisualDescendants()).OfType<Border>().Count(b => b.Name == "RibbonGroupDivider"));
-                Assert.Equal(Avalonia.Controls.Primitives.ScrollBarVisibility.Auto, page.HorizontalScrollBarVisibility);
+                Assert.Equal(Avalonia.Controls.Primitives.ScrollBarVisibility.Hidden, page.HorizontalScrollBarVisibility);
                 Assert.Equal(Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled, page.VerticalScrollBarVisibility);
+                Assert.False(page.GetVisualDescendants().OfType<Avalonia.Controls.Primitives.ScrollBar>()
+                    .Single(bar => bar.Name == "PART_HorizontalScrollBar"
+                        && bar.GetVisualAncestors().OfType<ScrollViewer>().First() == page).IsVisible);
                 Assert.All(buttons, button =>
                 {
                     var content = Assert.IsType<Grid>(button.Content);

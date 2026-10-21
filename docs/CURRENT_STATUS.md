@@ -14,6 +14,10 @@ Optical System Design 按非商业产品维护。初始结构与镀膜设计已�
 
 ## 最新验证账目
 
+### 2026-10-21 顶部工具栏隐藏横向滚动条
+
+共用 Ribbon 命令页将横向滚动条从 `Auto` 改为 `Hidden`：底部不再显示轨道或拖块，也不再占用滚动条高度；继续允许原生横向溢出滚动和焦点访问，四套主题及顺序/非序列模式共用同一设置。按钮字号、尺寸、分组和命令行为保持。默认 Debug App 及其测试依赖已重新编译，现有 `CompactRibbonTests` **11/11** 通过，零失败/跳过；真实模板的横向滚动条均断言不可见。生成六份 Skia/Headless 渲染图，已人工检查普通亮色 736 DIP 及 640 DIP / 18 DIP 字号两份，未显示底部滚动条；这是控件渲染复核，不是原生桌面截图，也未另行实测滚轮/键盘输入。未跑全套或光学回归，见[定向验证账目](validation/HIDDEN_RIBBON_SCROLLBAR_2026-10-21.json)与[证据归档](../validation/rechecks/2026-10-21/hidden-ribbon-scrollbar-evidence.zip)。已打开的旧程序需重启后加载新界面。
+
 ### 2026-10-21 macOS 启动脚本执行权限
 
 Finder 拒绝运行是因为 `Run-OpticalSystemDesign.command` 的仓库文件模式为 `100644`，缺少执行位。本机已修正为 `100755`，脚本内容和既有还原/清理/构建/启动行为保持；可执行检查及 `bash -n` 通过。通过正常 Terminal 打开脚本后，已确认默认 Debug 产品进程运行。该结论是进程检查，不是窗口截图验收；执行位修正随本次验证记录一并提交，启动回执保留验证当时的未提交状态。见[启动回执](validation/LOCAL_MACOS_LAUNCH_2026-10-21.json)与[构建指南](BUILD_AND_RELEASE.md#启动桌面应用)。

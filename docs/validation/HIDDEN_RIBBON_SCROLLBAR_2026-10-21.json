@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "recordedAt": "2026-10-21T20:26:33.173132+08:00",
+  "baseRevision": "7240b073b32f750ebff4eb7a7d785279fe59de79",
+  "scope": "Hide the top ribbon horizontal scrollbar while retaining native overflow; shared page factory across themes and sequential/non-sequential workspaces.",
+  "implementation": {
+    "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs",
+    "horizontalScrollBarVisibility": "Hidden",
+    "verticalScrollBarVisibility": "Disabled",
+    "commandLayoutChanged": false
+  },
+  "build": {
+    "configuration": "Debug",
+    "defaultAppOutputUpdated": true,
+    "projects": [
+      "OpticalSystemDesign.App",
+      "OpticalSystemDesign.Application",
+      "OpticalSystemDesign.CoatingDesign.Engine",
+      "OpticalSystemDesign.Core",
+      "OpticalSystemDesign.InitialStructure.Contracts",
+      "OpticalSystemDesign.InitialStructure.Engine",
+      "OpticalSystemDesign.InitialStructure.Persistence",
+      "OpticalSystemDesign.LensLibraryBuilder",
+      "OpticalSystemDesign.Modules",
+      "OpticalSystemDesign.Tests",
+      "OpticalSystemDesign.ZemaxLibraryImporter"
+    ],
+    "projectCount": 11,
+    "warningsObserved": 0,
+    "errorsObserved": 0,
+    "exitCode": 0
+  },
+  "test": {
+    "filter": "FullyQualifiedName~CompactRibbonTests",
+    "configuration": "Debug",
+    "counters": {
+      "total": 11,
+      "executed": 11,
+      "passed": 11,
+      "failed": 0,
+      "error": 0,
+      "timeout": 0,
+      "aborted": 0,
+      "inconclusive": 0,
+      "passedButRunAborted": 0,
+      "notRunnable": 0,
+      "notExecuted": 0,
+      "disconnected": 0,
+      "warning": 0,
+      "completed": 0,
+      "inProgress": 0,
+      "pending": 0
+    },
+    "exitCode": 0,
+    "trx": "compact-ribbon.trx",
+    "log": "build-and-test.log"
+  },
+  "rendering": {
+    "kind": "Headless Avalonia with Skia rendering; not a native desktop screenshot",
+    "captures": 6,
+    "themes": [
+      "Light",
+      "Dark",
+      "Pixel",
+      "Isekai"
+    ],
+    "widthsDIP": [
+      640,
+      736
+    ],
+    "fontSizesDIP": [
+      13,
+      18
+    ],
+    "visuallyReviewed": [
+      "captures/toolbar-Light-640-18.png",
+      "captures/toolbar-Light-736-13.png"
+    ],
+    "nativeTemplateHorizontalBarVisibilityAsserted": true,
+    "wheelAndFocusScrollingSeparatelyExercised": false
+  },
+  "fullSuiteRun": false,
+  "opticalComputationChanged": false,
+  "opticalReferencesOrTolerancesChanged": false,
+  "sourceAppSha256": "13ee3ebe74bb2a6cbb03c376048a3c73a300993a831aea3efce49b56b58f551a",
+  "evidenceRoot": "artifacts/validation/hidden-ribbon-scrollbar-20261021",
+  "archive": {
+    "path": "validation/rechecks/2026-10-21/hidden-ribbon-scrollbar-evidence.zip",
+    "bytes": 138481,
+    "sha256": "4ac3ee2c2bfc84c9272992406068f273ce0d7c2f2c4978d9472c0c8832fdbb14",
+    "files": 10,
+    "readBackVerified": true
+  }
+}
