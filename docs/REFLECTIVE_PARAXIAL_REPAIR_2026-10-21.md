@@ -51,4 +51,4 @@
 - [新增增量档案](../validation/repairs/2026-10-21/reflective-paraxial-repair-evidence.zip)：5744715 字节，2223 个载荷逐项读回，SHA-256 `08649ae1ffc7dc7438cca914d62e7cf6d59c715d025997455a7c0bc50a55e445`。
 - 本轮本地原始工作目录 `artifacts/validation/remaining-lenses-20261021`。档案包含全部 1142 项比较/请求记录、原生重采集、修复项数据、测试及失败假设；庞大的已保护项软件数组保留在本地回放，未重复封装。原始全目录参考继续由既有 [全目录档案](../validation/repairs/2026-10-21/sequential-corpus-full-evidence.zip)提供。
 
-源码同步及原包覆盖的最终身份另记入交付账目。
+源码已同步，原本地包目录和原测试发布的三个同名附件均已覆盖。新包身份 `1.0.4-win-x64-20f20ca93130`，来自干净代码提交 `b37d1b31c9ca6e2b861c776af4d2dc7e943f1d94`；实际包内程序集 64/64、完整性/内置模块 14/14、公开下载 4/4，通过后保留完整前包备份。详见[交付账目](validation/UPDATE_SYNC_REFLECTIVE_PARAXIAL_PACKAGE_2026-10-21.json)。

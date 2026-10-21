@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "status": "eleven-first-order-differences-repaired-source-synchronized-original-package-replaced",
+  "evidenceRoot": "artifacts/validation/package-reflective-paraxial-20261021",
+  "source": {
+    "branch": "main",
+    "remote": "origin",
+    "codeCommit": "b37d1b31c9ca6e2b861c776af4d2dc7e943f1d94",
+    "sourceDirty": false,
+    "codePush": "complete",
+    "tagCommit": "9242b31abf38b4d97f23d19e4b00f8df47abfabb",
+    "tagMoved": false,
+    "lfsPointerFsck": "passed",
+    "finalDeliverySyncReceipt": "artifacts/validation/package-reflective-paraxial-20261021/source-sync-final-receipt.json"
+  },
+  "acceptance": {
+    "newlyRepairedRequests": 11,
+    "lensesWithRepairedRequests": 9,
+    "previousPassesPreserved": 1131,
+    "requestsPass": 1142,
+    "completeRequestsExactlyEqual": 1142,
+    "nativeRepeatRequests": 11,
+    "nativeRepeatScalarsBitwiseEqual": 22,
+    "originalTolerancesUnchanged": true,
+    "samplingUnchanged": true,
+    "originalNativeReferencesUnchanged": true,
+    "report": "docs/REFLECTIVE_PARAXIAL_REPAIR_2026-10-21.md",
+    "ledger": "docs/validation/REFLECTIVE_PARAXIAL_REPAIR_2026-10-21.json"
+  },
+  "package": {
+    "version": "1.0.4",
+    "runtime": "win-x64",
+    "releaseId": "1.0.4-win-x64-20f20ca93130",
+    "sourceCommit": "b37d1b31c9ca6e2b861c776af4d2dc7e943f1d94",
+    "sourceDirty": false,
+    "signed": false,
+    "testPackage": true,
+    "setup": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-582e7d2e\\OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+    "buildDirectory": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-6d946d64",
+    "bytes": 276573020,
+    "sha256": "9892ee800f8bfad32737c1f20973cf4d657fb3a2be81ece99894d0f46d29912c",
+    "manifestFiles": 1285,
+    "manifestSha256": "f8be88cf6fb2cd2723550790970c3586338ea424cd5e2dd9871c984f4f3aaf52",
+    "modulesInProcess": true,
+    "requiredModules": [
+      "InitialStructure",
+      "CoatingDesign"
+    ],
+    "actualPackagedAssemblies": [
+      {
+        "assembly": "OpticalSystemDesign.Core.dll",
+        "packageSource": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-6d946d64\\payload\\app-38a0ef6d\\OpticalSystemDesign.Core.dll",
+        "sha256": "81070bcefc8755318bcc416bff568f643a1e771bf31058956b88e786ad05f0c5"
+      },
+      {
+        "assembly": "OpticalSystemDesign.Application.dll",
+        "packageSource": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-6d946d64\\payload\\app-38a0ef6d\\OpticalSystemDesign.Application.dll",
+        "sha256": "dde4944a5be3fca485761ce9bb6100b1c0e097aee044b34e1fba3d013a35a5f4"
+      }
+    ]
+  },
+  "release": {
+    "url": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019",
+    "id": 416939680,
+    "tag": "v1.0.4-test.20261019",
+    "prerelease": true,
+    "draft": false,
+    "makeLatestRequested": false,
+    "assets": [
+      {
+        "id": 662674287,
+        "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+        "size": 276573020,
+        "digest": "sha256:9892ee800f8bfad32737c1f20973cf4d657fb3a2be81ece99894d0f46d29912c",
+        "browser_download_url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe"
+      },
+      {
+        "id": 662674304,
+        "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe.sha256",
+        "size": 124,
+        "digest": "sha256:a3dcc95e289b4e0c4e7a3a2929381294987c1f9cfb92c6ab8963ae5dc99118a4",
+        "browser_download_url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe.sha256"
+      },
+      {
+        "id": 662674284,
+        "name": "release.json",
+        "size": 763,
+        "digest": "sha256:9576b6b2e20c54e4b533229052bebb87ab9329112a086abcc6c1b89002cf1c69",
+        "browser_download_url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/release.json"
+      }
+    ],
+    "allThreeServerDigestsVerified": true
+  },
+  "verification": {
+    "actualPackagedNumericalTestsPassed": 64,
+    "actualPackagedNumericalTestsFailed": 0,
+    "packageChecksPassed": 14,
+    "packageChecksFailed": 0,
+    "localPayloadFilesVerified": 1285,
+    "publicDownloadsPassed": 4,
+    "fullInstallerDigestVerifiedByServer": true,
+    "frozenAssetsUnchanged": 2668,
+    "coreFocusedPassed": 104,
+    "analyticFollowupPassed": 17,
+    "coreUniqueCases": 106,
+    "sourceNativeGuardsPassed": 64,
+    "defaultBuildConfigurations": [
+      "Debug",
+      "Release"
+    ],
+    "projectsPerBuild": 19,
+    "fullTestSuiteRun": false,
+    "fullCorpusRerun": false,
+    "nativeGuiVerified": false,
+    "userInstallationModified": false
+  },
+  "replacement": {
+    "originalPathReplaced": true,
+    "originalDirectory": "D:\\Projects\\opticalsystem\\artifacts\\installers\\installer-win-x64-582e7d2e",
+    "previousReleaseId": "1.0.4-win-x64-164b6813662d",
+    "previousFullBuildBackup": "D:\\Projects\\opticalsystem\\artifacts\\validation\\package-reflective-paraxial-20261021\\previous-build-directory",
+    "previousAssetsBackup": "D:\\Projects\\opticalsystem\\artifacts\\validation\\package-reflective-paraxial-20261021\\previous-package-complete",
+    "previousRemoteAssetsRemovedOnlyAfterPublicValidation": true,
+    "canonicalFileNamesPreserved": true
+  },
+  "deliveryArchive": {
+    "path": "validation/repairs/2026-10-21/reflective-paraxial-package-delivery-evidence.zip",
+    "bytes": 155280,
+    "sha256": "77c88c4b257660529d836de2a91c9c4cf603a1710de83427c4b598a8deaf1403",
+    "payloadFiles": 41,
+    "verifiedReadback": true
+  },
+  "limitations": [
+    "Nine lenses have repaired first-order requests; this is not full analysis acceptance for those lenses.",
+    "Other known corpus differences, Close, errors, unsupported capabilities and preparation blocks remain open.",
+    "No full 3024-analysis or 251-ray-group replay, full test suite, cross-platform or user installation certification."
+  ]
+}
