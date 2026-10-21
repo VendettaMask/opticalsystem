@@ -1,0 +1,599 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "timezone": "Asia/Shanghai",
+  "status": "psf-display-repaired-additional-128-grid-accepted-original32-open",
+  "allRequestedIssuesResolved": false,
+  "source": {
+    "baseCommit": "0ce0d20b7427a50362b665933ec9228f886cf4f0",
+    "dirty": true,
+    "finalIdentityProof": "artifacts/validation/objectives-residuals-20261021/final-identities.json",
+    "sources": [
+      {
+        "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs",
+        "sha256": "d64b749e90cde19d8d56372184c12c1033186a44f8ad5c70989c77e336a356b2"
+      },
+      {
+        "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/PsfProfileAnalyses.cs",
+        "sha256": "1d760711fa525e37a599b596fcfa81f47aba29083c620509d58b34f77a01a6ae"
+      },
+      {
+        "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/ObjectivesResidualPrecisionTests.cs",
+        "sha256": "b41bba40849b2de73b737c9777d37de33c0c32bf855385450490d2a95652b892"
+      },
+      {
+        "path": "tools/diagnostics/Objectives20261020/EnergyGridControls.cs",
+        "sha256": "7da8b7fdb07d6cd5fd19bae57534073e60ef73e4717371ad31ee6886a511d189"
+      },
+      {
+        "path": "tools/diagnostics/Objectives20261020/PrecisionControls.cs",
+        "sha256": "3b72c3b3882994f153bbbbd3e0d2900a2fd0c8e44c4ea9506fd0b94607387264"
+      },
+      {
+        "path": "tools/diagnostics/Objectives20261020/Program.cs",
+        "sha256": "bd9f5ace710ea9785fdb822af33d7862cb9a364553d9907be878b3fc2ab608a4"
+      },
+      {
+        "path": "tools/diagnostics/Objectives20261020/RawSnellControls.cs",
+        "sha256": "0d60a46d75f7841b69dc2cd7aba44fe877580822cb1616b7df51e102d433e147"
+      },
+      {
+        "path": "tools/diagnostics/ObjectivesResiduals20261021/NativeConeControl.cs",
+        "sha256": "aee95d0fd321ed4ece89393fc7700d86aeabee99de959fa0beb2cc65c6ddee54"
+      },
+      {
+        "path": "tools/diagnostics/ObjectivesResiduals20261021/Build-And-Capture.ps1",
+        "sha256": "07fdf3e1f539ac4737b4a44caa8a93cb8eb0f74dd05d343c5d1ee0093269475f"
+      },
+      {
+        "sha256": "c58906e44231e97eecaba16f53f211acee5dbf0638da06591f90a7734c60ceb9",
+        "path": "tools/diagnostics/Objectives20261020/Energy128RayControls.cs"
+      }
+    ],
+    "assemblies": [
+      {
+        "configuration": "Debug",
+        "path": "src/OpticalSystemDesign.Core/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+        "sha256": "0bd6a0dd67eb5f96e33e36eca3eb6b0ce11ae81e33db0061a798801d8a45ccfd"
+      },
+      {
+        "configuration": "Debug",
+        "path": "src/OpticalSystemDesign.Application/bin/Debug/net10.0/OpticalSystemDesign.Application.dll",
+        "sha256": "3c8d51d612f32ed3768eec7dbc659789ce649bc38f9a56073aecbb3214b9cd87"
+      },
+      {
+        "configuration": "Debug",
+        "path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+        "sha256": "0bd6a0dd67eb5f96e33e36eca3eb6b0ce11ae81e33db0061a798801d8a45ccfd"
+      },
+      {
+        "configuration": "Debug",
+        "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+        "sha256": "0bd6a0dd67eb5f96e33e36eca3eb6b0ce11ae81e33db0061a798801d8a45ccfd"
+      },
+      {
+        "configuration": "Release",
+        "path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+        "sha256": "aec5529f725ddad828a6c300fd2913167415d02714312ddddc35b503071d9962"
+      },
+      {
+        "configuration": "Release",
+        "path": "src/OpticalSystemDesign.Application/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+        "sha256": "9c309f62f9cbe7421fcc19be1c0f85a26274d7c8cb551f449a764030ba606c49"
+      },
+      {
+        "configuration": "Release",
+        "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+        "sha256": "aec5529f725ddad828a6c300fd2913167415d02714312ddddc35b503071d9962"
+      },
+      {
+        "configuration": "Release",
+        "path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+        "sha256": "aec5529f725ddad828a6c300fd2913167415d02714312ddddc35b503071d9962"
+      }
+    ],
+    "productOpticalFormulasCopiedToModules": false
+  },
+  "policy": {
+    "sha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+    "originalFileUnchanged": true,
+    "original32SettingsRetained": true,
+    "higherSamplingReplacesOriginal": false,
+    "absolute": 1E-05,
+    "relative": 0.002,
+    "nrmse": 0.003,
+    "closeNrmse": 0.01,
+    "minimumCoverage": 0.95
+  },
+  "closed": {
+    "lens": "Objectives/Double Gauss 5 degree field.zmx",
+    "analysis": "FFT PSF Cross Section",
+    "before": {
+      "conclusion": "Close",
+      "maximumAbsolute": 0.0019316246012178401,
+      "nrmse": 0.008850410094116778
+    },
+    "after": {
+      "lens": "Objectives/Double Gauss 5 degree field.zmx",
+      "key": "FFT PSF Cross Section",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "maxAbsolute": 5.243402225992358E-07,
+          "nrmse": 2.0634104926185666E-05,
+          "conclusion": "Pass"
+        }
+      ]
+    },
+    "raw32PsfMaximumDifference": 2.4900666598104415E-11,
+    "raw32PsfRelativeL2": 1.2890538278880186E-09,
+    "proof": "artifacts/validation/objectives-residuals-20261021/psf-plane-v3.log",
+    "repairs": [
+      "Native-compatible scalar PsfAnalysis forwards ignoreScalarTransmission while preserving launch acceptance and polarized behavior",
+      "Profiles use N independent FFT knots and hold the final knot through the positive display boundary"
+    ]
+  },
+  "remaining": {
+    "original32": [
+      {
+        "id": "01-original32",
+        "lens": "Objectives/Apochromat2.zmx",
+        "pupilSampling": 32,
+        "apertureScale": 1,
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "maxAbsolute": 0.013207881802895782,
+            "nrmse": 0.011432481978434205,
+            "conclusion": "Difference"
+          },
+          {
+            "id": "curve:1",
+            "maxAbsolute": 0.013207487429917286,
+            "nrmse": 0.011433558634052285,
+            "conclusion": "Difference"
+          }
+        ]
+      },
+      {
+        "id": "06-original32",
+        "lens": "Objectives/Apochromat4.zmx",
+        "pupilSampling": 32,
+        "apertureScale": 1,
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "maxAbsolute": 0.01320291846083399,
+            "nrmse": 0.01153808361799915,
+            "conclusion": "Difference"
+          },
+          {
+            "id": "curve:1",
+            "maxAbsolute": 0.013198800141370759,
+            "nrmse": 0.011540333600375475,
+            "conclusion": "Difference"
+          }
+        ]
+      },
+      {
+        "id": "16-original32",
+        "lens": "Objectives/Doublet using MIL number glasses.zmx",
+        "pupilSampling": 32,
+        "apertureScale": 1,
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "maxAbsolute": 0.013210155293478243,
+            "nrmse": 0.011408651512398879,
+            "conclusion": "Difference"
+          },
+          {
+            "id": "curve:1",
+            "maxAbsolute": 0.009771899587863175,
+            "nrmse": 0.008631718728120864,
+            "conclusion": "Close"
+          }
+        ]
+      }
+    ],
+    "additional64And128": [
+      {
+        "id": "04-original64",
+        "lens": "Objectives/Apochromat2.zmx",
+        "pupilSampling": 64,
+        "apertureScale": 1,
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "maxAbsolute": 1.5154544286133387E-13,
+            "nrmse": 1.146156026081177E-13,
+            "conclusion": "Pass"
+          },
+          {
+            "id": "curve:1",
+            "maxAbsolute": 1.6062706720276765E-12,
+            "nrmse": 1.0482112860049169E-12,
+            "conclusion": "Pass"
+          }
+        ]
+      },
+      {
+        "id": "05-original128",
+        "lens": "Objectives/Apochromat2.zmx",
+        "pupilSampling": 128,
+        "apertureScale": 1,
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "maxAbsolute": 1.7696955012524995E-13,
+            "nrmse": 1.2159832675596669E-13,
+            "conclusion": "Pass"
+          },
+          {
+            "id": "curve:1",
+            "maxAbsolute": 1.1119993814645568E-12,
+            "nrmse": 8.848678238051449E-13,
+            "conclusion": "Pass"
+          }
+        ]
+      },
+      {
+        "id": "09-original64",
+        "lens": "Objectives/Apochromat4.zmx",
+        "pupilSampling": 64,
+        "apertureScale": 1,
+        "conclusion": "Close",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "maxAbsolute": 0.006712589575009864,
+            "nrmse": 0.005792102759422012,
+            "conclusion": "Close"
+          },
+          {
+            "id": "curve:1",
+            "maxAbsolute": 0.006710397801609647,
+            "nrmse": 0.00579339716974408,
+            "conclusion": "Close"
+          }
+        ]
+      },
+      {
+        "id": "10-original128",
+        "lens": "Objectives/Apochromat4.zmx",
+        "pupilSampling": 128,
+        "apertureScale": 1,
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "maxAbsolute": 8.870681966755001E-14,
+            "nrmse": 5.817309812572653E-14,
+            "conclusion": "Pass"
+          },
+          {
+            "id": "curve:1",
+            "maxAbsolute": 2.0278223544778484E-12,
+            "nrmse": 1.434997878934807E-12,
+            "conclusion": "Pass"
+          }
+        ]
+      },
+      {
+        "id": "14-original64",
+        "lens": "Objectives/Cooke 40 degree field.zmx",
+        "pupilSampling": 64,
+        "apertureScale": 1,
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "maxAbsolute": 3.4638958368304884E-14,
+            "nrmse": 1.430494539866054E-14,
+            "conclusion": "Pass"
+          },
+          {
+            "id": "curve:1",
+            "maxAbsolute": 5.820832704728218E-11,
+            "nrmse": 6.68091558986334E-11,
+            "conclusion": "Pass"
+          }
+        ]
+      },
+      {
+        "id": "15-original128",
+        "lens": "Objectives/Cooke 40 degree field.zmx",
+        "pupilSampling": 128,
+        "apertureScale": 1,
+        "conclusion": "Close",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "maxAbsolute": 0.0033571411377478766,
+            "nrmse": 0.0019306594323324122,
+            "conclusion": "Pass"
+          },
+          {
+            "id": "curve:1",
+            "maxAbsolute": 0.006192520720843087,
+            "nrmse": 0.0056558612932073,
+            "conclusion": "Close"
+          }
+        ]
+      },
+      {
+        "id": "19-original64",
+        "lens": "Objectives/Doublet using MIL number glasses.zmx",
+        "pupilSampling": 64,
+        "apertureScale": 1,
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "maxAbsolute": 3.042011087472929E-14,
+            "nrmse": 1.4218060571016285E-14,
+            "conclusion": "Pass"
+          },
+          {
+            "id": "curve:1",
+            "maxAbsolute": 1.2596701459699489E-11,
+            "nrmse": 1.0625032648416515E-11,
+            "conclusion": "Pass"
+          }
+        ]
+      },
+      {
+        "id": "20-original128",
+        "lens": "Objectives/Doublet using MIL number glasses.zmx",
+        "pupilSampling": 128,
+        "apertureScale": 1,
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "maxAbsolute": 5.245803791353865E-15,
+            "nrmse": 1.838557786570391E-15,
+            "conclusion": "Pass"
+          },
+          {
+            "id": "curve:1",
+            "maxAbsolute": 2.1461943333633826E-11,
+            "nrmse": 1.8778235784395553E-11,
+            "conclusion": "Pass"
+          }
+        ]
+      }
+    ],
+    "samplingAcceptanceChanged": true,
+    "independentCookeOrTessarCertificationAdded": false,
+    "reason": "No accepted general grid construction simultaneously closes the original 32-grid requests and preserves all existing passes; native tiny-perturbation and complex-FFT controls show discrete pupil-support jumps."
+  },
+  "verification": {
+    "rootBuilds": [
+      {
+        "configuration": "Release",
+        "projects": 19,
+        "warnings": 0,
+        "errors": 0,
+        "log": "artifacts/validation/objectives-residuals-20261021/build-release-final.log"
+      },
+      {
+        "configuration": "Debug",
+        "projects": 19,
+        "warnings": 0,
+        "errors": 0,
+        "log": "artifacts/validation/objectives-residuals-20261021/build-debug-final.log"
+      }
+    ],
+    "targetedTests": [
+      {
+        "scope": "Core PSF/amplitude/polarization and affected energy paths",
+        "configuration": "Release",
+        "passed": 56,
+        "failed": 0,
+        "skipped": 0,
+        "trx": "artifacts/validation/objectives-residuals-20261021/tests/core-release-final.trx"
+      },
+      {
+        "scope": "15 existing Objectives controls, 2 existing FFT display controls, and 6 new controls",
+        "configuration": "Release",
+        "passed": 23,
+        "failed": 0,
+        "skipped": 0,
+        "trx": "artifacts/validation/objectives-residuals-20261021/tests/comparison-release-final.trx"
+      },
+      {
+        "scope": "5 new numerical controls plus capture manifest integrity",
+        "configuration": "Debug",
+        "passed": 6,
+        "failed": 0,
+        "skipped": 0,
+        "trx": "artifacts/validation/objectives-residuals-20261021/tests/comparison-debug-final.trx"
+      }
+    ],
+    "negativeControl": {
+      "previousPackageCoreSha256": "ae64717e27a142414c31230ca7b420012bd279b1857fea785e3efb5df6c47259",
+      "expectedFailures": 2,
+      "observedFailures": 2,
+      "scope": "Two new PSF guards before adding three independent 128-grid controls and integrity guard",
+      "trx": "artifacts/validation/objectives-residuals-20261021/tests/psf-previous-package-expected-failure.trx",
+      "defaultOutputModified": false
+    },
+    "subset": {
+      "requests": 57,
+      "coreSha256": "aec5529f725ddad828a6c300fd2913167415d02714312ddddc35b503071d9962",
+      "counts": [
+        {
+          "conclusion": "Difference",
+          "count": 3
+        },
+        {
+          "conclusion": "Incomparable",
+          "count": 20
+        },
+        {
+          "conclusion": "Pass",
+          "count": 34
+        }
+      ],
+      "previousPasses": 33,
+      "preserved": 33,
+      "regressed": 0,
+      "promoted": 1,
+      "proof": "artifacts/validation/objectives-residuals-20261021/previous-pass-preservation.json",
+      "complete638MatrixRerun": false
+    },
+    "energyControls": {
+      "requests": 20,
+      "pass": 11,
+      "close": 2,
+      "difference": 7,
+      "error": 0,
+      "proof": "artifacts/validation/objectives-residuals-20261021/energy-convergence-final-v2/summary.json",
+      "originalSettingsAndDiagnosticPerturbationsSeparated": true
+    },
+    "native": {
+      "version": "OpticStudio 2026 R1",
+      "build": 260127,
+      "validEnterpriseApi": true,
+      "acceptedEnergyAnalyses": 20,
+      "nativeComplexFftAnalyses": 24,
+      "new32PsfAnalyses": 1,
+      "rimSourceLenses": 19,
+      "rimWaveGroups": 74,
+      "rimRayRecords": 1258,
+      "normalExitProofs": [
+        "artifacts/validation/objectives-residuals-20261021/native-energy-controls-v3-exit.json",
+        "artifacts/validation/objectives-residuals-20261021/native-complex-controls-v1-exit.json",
+        "artifacts/validation/objectives-residuals-20261021/native-rim-controls-v1-exit.json"
+      ],
+      "earlierV2HostNormalExitNotClaimed": true,
+      "earlierV2InterruptionProof": "artifacts/validation/objectives-residuals-20261021/native-v2-interruption.json",
+      "wfnoScope": "System primary wave; earlier raw workingFNumber field repeated per wave is not a per-wave operand value"
+    },
+    "frozen": {
+      "count": 2668,
+      "headMatched": 2668,
+      "workingMatched": 2668,
+      "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "proof": "artifacts/validation/objectives-residuals-20261021/frozen-final.json"
+    },
+    "sourceLenses": {
+      "count": 19,
+      "productAndNativeLoadedCopiesUnchanged": true,
+      "proof": "artifacts/validation/objectives-residuals-20261021/original-source-and-policy-integrity.json"
+    },
+    "format": {
+      "productExitCode": 0,
+      "diagnosticsExitCode": 0,
+      "logs": [
+        "artifacts/validation/objectives-residuals-20261021/format-product-retry.log",
+        "artifacts/validation/objectives-residuals-20261021/format-diagnostics.log"
+      ],
+      "initialSandboxFailureRetained": true,
+      "finalVerifyExitCodes": {
+        "product": 0,
+        "diagnostics": 0
+      },
+      "finalVerifyLogs": [
+        "artifacts/validation/objectives-residuals-20261021/format-product-verify.log",
+        "artifacts/validation/objectives-residuals-20261021/format-diagnostics-verify.log"
+      ]
+    },
+    "fullTestSuiteRerun": false,
+    "userInstallationModified": false,
+    "crossPlatformOrManualDesktopCertification": false,
+    "documentation": {
+      "strict": true,
+      "passed": true,
+      "documents": 991,
+      "brokenLinks": 0,
+      "guideRepeatedParagraphGroups": 0,
+      "proof": "artifacts/validation/objectives-residuals-20261021/documentation-final.json"
+    }
+  },
+  "archive": {
+    "path": "validation/repairs/2026-10-21/objectives-residual-controls-evidence.zip",
+    "bytes": 55407652,
+    "sha256": "8e963519a7851253224d2ca8df56a25015fde831de3ad23a8c3cac19843f9eae",
+    "verifiedPayloads": 2107,
+    "proprietaryApiBinariesIncluded": false,
+    "payloadManifestEntry": "manifest.json"
+  },
+  "delivery": {
+    "sourceCommittedOrPushedInThisStage": false,
+    "installerRebuiltInThisStage": false,
+    "existingPackage": "1.0.4-win-x64-973fe980dc92",
+    "existingPackageContainsThisPsfRepair": false,
+    "defaultDebugAndReleaseUpdated": true
+  },
+  "externalDocumentation": [
+    "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/FFT_PSF.html",
+    "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Diffraction_enclosed_energy.html"
+  ],
+  "acceptance128": {
+    "userDecision": "新增 128 档验收，32 档继续记为未解决",
+    "manifest": "validation/zemax/2026-r1/objectives-energy128-acceptance-2026-10-21/acceptance.json",
+    "acceptedCases": 3,
+    "acceptedConclusion": "Pass",
+    "original32Unresolved": 3,
+    "replacesOriginal32": false,
+    "changesProductSamplingDefaults": false,
+    "originalComparisonPolicyUnchanged": true,
+    "rayComparison": "validation/zemax/2026-r1/objectives-energy128-acceptance-2026-10-21/ray-comparison.json",
+    "pupilInputsPerLens": 405,
+    "surfaceRecords": 6075,
+    "maxCoordinateMillimeters": 1.9849573373864615E-14,
+    "maxDirectionCosine": 7.771561172376096E-16,
+    "traceOrVignetteStatusMismatches": 0,
+    "strictGridProof": "artifacts/validation/objectives-residuals-20261021/acceptance128-strict-grid-proof.json",
+    "nativeExitCode": 0,
+    "nativeIdentity": "artifacts/validation/objectives-residuals-20261021/acceptance128-rays-v1/native/identity.json",
+    "tests": [
+      {
+        "trx": "artifacts/validation/objectives-residuals-20261021/tests/comparison-acceptance128-release-final.trx",
+        "passed": 6,
+        "failed": 0,
+        "configuration": "Release"
+      },
+      {
+        "trx": "artifacts/validation/objectives-residuals-20261021/tests/comparison-acceptance128-debug-final.trx",
+        "passed": 6,
+        "failed": 0,
+        "configuration": "Debug"
+      }
+    ],
+    "archive": {
+      "bytes": 1012147,
+      "sha256": "7e9b80a05ae34cae2acde2dfd7c80feaaa3d142884ae458079287c4aaca435e1",
+      "proprietaryApiBinariesIncluded": false,
+      "verifiedPayloads": 108,
+      "path": "validation/repairs/2026-10-21/objectives-energy128-acceptance-evidence.zip"
+    },
+    "documentation": {
+      "passed": true,
+      "documents": 992,
+      "proof": "artifacts/validation/objectives-residuals-20261021/documentation-acceptance128.json",
+      "strict": true,
+      "brokenLinks": 0
+    }
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "userDecision": "新增 128 档验收，32 档继续记为未解决",
+  "purpose": "Additional explicitly selected acceptance, preserving failed original requests and frozen captures",
+  "replacesOriginal32": false,
+  "changesProductSamplingDefaults": false,
+  "allOriginalIssuesResolved": false,
+  "originalComparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "preservedCaptureManifestSha256": "57a7245336cd177a9d3d67ecb89181ce16c4a5b976eb6f74edf5ebd81ced6afc",
+  "cases": [
+    {
+      "id": "apochromat2-energy128",
+      "lens": "Objectives/Apochromat2.zmx",
+      "sourceSha256": "f3f970e300f62e1bb1b4db9a689c28de3bb44a7530767e0aeeb40c8aec2150c2",
+      "captureRoot": "validation/zemax/2026-r1/objectives-residuals-2026-10-21",
+      "pupilSampling": 128,
+      "imageSampling": 256,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "maxAbsolute": 1.7696955012524995E-13,
+          "nrmse": 1.2159832675596669E-13,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "curve:1",
+          "maxAbsolute": 1.1119993814645568E-12,
+          "nrmse": 8.848678238051449E-13,
+          "conclusion": "Pass"
+        }
+      ],
+      "original32Status": "Unresolved",
+      "original32Conclusion": "Difference",
+      "original32Metrics": [
+        {
+          "id": "curve:0",
+          "maxAbsolute": 0.013207881802895782,
+          "nrmse": 0.011432481978434205,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "curve:1",
+          "maxAbsolute": 0.013207487429917286,
+          "nrmse": 0.011433558634052285,
+          "conclusion": "Difference"
+        }
+      ]
+    },
+    {
+      "id": "apochromat4-energy128",
+      "lens": "Objectives/Apochromat4.zmx",
+      "sourceSha256": "437b760e9554783d102ed7da2d071416ffcdcc6d30eedb6e5dd595e05f220ce8",
+      "captureRoot": "validation/zemax/2026-r1/objectives-residuals-2026-10-21",
+      "pupilSampling": 128,
+      "imageSampling": 256,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "maxAbsolute": 8.870681966755001E-14,
+          "nrmse": 5.817309812572653E-14,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "curve:1",
+          "maxAbsolute": 2.0278223544778484E-12,
+          "nrmse": 1.434997878934807E-12,
+          "conclusion": "Pass"
+        }
+      ],
+      "original32Status": "Unresolved",
+      "original32Conclusion": "Difference",
+      "original32Metrics": [
+        {
+          "id": "curve:0",
+          "maxAbsolute": 0.01320291846083399,
+          "nrmse": 0.01153808361799915,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "curve:1",
+          "maxAbsolute": 0.013198800141370759,
+          "nrmse": 0.011540333600375475,
+          "conclusion": "Difference"
+        }
+      ]
+    },
+    {
+      "id": "mil-doublet-energy128",
+      "lens": "Objectives/Doublet using MIL number glasses.zmx",
+      "sourceSha256": "67ec6a470027729b825c63ec2f4261c9bf0ef27d7e3088bec13db14698640745",
+      "captureRoot": "validation/zemax/2026-r1/objectives-residuals-2026-10-21",
+      "pupilSampling": 128,
+      "imageSampling": 256,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "maxAbsolute": 5.245803791353865E-15,
+          "nrmse": 1.838557786570391E-15,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "curve:1",
+          "maxAbsolute": 2.1461943333633826E-11,
+          "nrmse": 1.8778235784395553E-11,
+          "conclusion": "Pass"
+        }
+      ],
+      "original32Status": "Unresolved",
+      "original32Conclusion": "Difference",
+      "original32Metrics": [
+        {
+          "id": "curve:0",
+          "maxAbsolute": 0.013210155293478243,
+          "nrmse": 0.011408651512398879,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "curve:1",
+          "maxAbsolute": 0.009771899587863175,
+          "nrmse": 0.008631718728120864,
+          "conclusion": "Close"
+        }
+      ]
+    }
+  ]
+}

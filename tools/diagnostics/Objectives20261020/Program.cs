@@ -7,6 +7,48 @@ using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
 
+if (args.Length == 2 && args[0] == "energy128-rays-prepare")
+{
+    Energy128RayControls.Prepare(args[1]);
+    return;
+}
+if (args.Length == 2 && args[0] == "energy128-rays-compare")
+{
+    Energy128RayControls.Compare(args[1]);
+    return;
+}
+
+if (args.Length == 2 && args[0] == "energy-grid-controls")
+{
+    EnergyGridControls.Run(args[1]);
+    return;
+}
+if (args.Length == 2 && args[0] == "precision-controls")
+{
+    PrecisionControls.Run(args[1]);
+    return;
+}
+if (args.Length == 2 && args[0] == "psf-plane-controls")
+{
+    PrecisionControls.PsfPlane(args[1]);
+    return;
+}
+if (args.Length == 2 && args[0] == "energy-convergence-controls")
+{
+    PrecisionControls.EnergyConvergence(args[1]);
+    return;
+}
+if (args.Length == 2 && args[0] == "native-complex-controls")
+{
+    PrecisionControls.ComplexPupil(args[1]);
+    return;
+}
+if (args.Length == 2 && args[0] == "raw-snell-controls")
+{
+    RawSnellControls.Run(args[1]);
+    return;
+}
+
 if (args.Length != 3) throw new ArgumentException("<matrix> <selected-workbench-root> <fresh-output>");
 var matrix = Path.GetFullPath(args[0]);
 var workers = Path.GetFullPath(args[1]);

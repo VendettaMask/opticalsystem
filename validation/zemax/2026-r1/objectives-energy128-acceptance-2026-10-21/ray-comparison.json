@@ -1,0 +1,40 @@
+{
+  "scope": "Actual formal Core 128 cumulative-energy pupil nodes; axial selected primary wavelength; all physical surfaces; coordinate/direction component limits and exact acceptance status",
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "original32EnergyCasesRemainUnresolved": true,
+  "rows": [
+    {
+      "id": "apochromat2-energy128",
+      "conclusion": "Pass",
+      "pupilCount": 405,
+      "records": 2025,
+      "maxCoordinateMillimeters": 1.199040866595169E-14,
+      "maxDirectionCosine": 7.771561172376096E-16,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "statusFailures": 0
+    },
+    {
+      "id": "apochromat4-energy128",
+      "conclusion": "Pass",
+      "pupilCount": 405,
+      "records": 2430,
+      "maxCoordinateMillimeters": 1.199040866595169E-14,
+      "maxDirectionCosine": 7.771561172376096E-16,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "statusFailures": 0
+    },
+    {
+      "id": "mil-doublet-energy128",
+      "conclusion": "Pass",
+      "pupilCount": 405,
+      "records": 1620,
+      "maxCoordinateMillimeters": 1.9849573373864615E-14,
+      "maxDirectionCosine": 6.661338147750939E-16,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "statusFailures": 0
+    }
+  ]
+}

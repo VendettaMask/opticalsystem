@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-21",
+  "cases": [
+    {
+      "id": "double-gauss5-psf-cross32",
+      "lens": "Objectives/Double Gauss 5 degree field.zmx",
+      "sourceSha256": "e3876119a9140f4dd5283d88916793a4af74013a649e107e79788472b4b1ff71",
+      "scope": "PSF display repair",
+      "originalCapturePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-20261020\\final-v7-intersection-fallback\\analyses\\0259-007-double-gauss-5-degree-field-c1-primary-f1-w3-fft-psf-cross-section\\native"
+    },
+    {
+      "id": "double-gauss5-psf32",
+      "lens": "Objectives/Double Gauss 5 degree field.zmx",
+      "sourceSha256": "e3876119a9140f4dd5283d88916793a4af74013a649e107e79788472b4b1ff71",
+      "scope": "PSF display repair",
+      "originalCapturePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-residuals-20261021\\native-psf-controls\\double-gauss5-psf32"
+    },
+    {
+      "id": "apochromat2-energy128",
+      "lens": "Objectives/Apochromat2.zmx",
+      "sourceSha256": "f3f970e300f62e1bb1b4db9a689c28de3bb44a7530767e0aeeb40c8aec2150c2",
+      "scope": "Additional matched 128-grid control; original 32-grid Difference retained",
+      "originalCapturePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-residuals-20261021\\native-energy-controls-v3\\05-original128"
+    },
+    {
+      "id": "apochromat4-energy128",
+      "lens": "Objectives/Apochromat4.zmx",
+      "sourceSha256": "437b760e9554783d102ed7da2d071416ffcdcc6d30eedb6e5dd595e05f220ce8",
+      "scope": "Additional matched 128-grid control; original 32-grid Difference retained",
+      "originalCapturePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-residuals-20261021\\native-energy-controls-v3\\10-original128"
+    },
+    {
+      "id": "mil-doublet-energy128",
+      "lens": "Objectives/Doublet using MIL number glasses.zmx",
+      "sourceSha256": "67ec6a470027729b825c63ec2f4261c9bf0ef27d7e3088bec13db14698640745",
+      "scope": "Additional matched 128-grid control; original 32-grid Difference retained",
+      "originalCapturePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-residuals-20261021\\native-energy-controls-v3\\20-original128"
+    }
+  ],
+  "note": "Original 2026-10-20 cross-section bytes retained; fresh licensed 2026 R1 32-pupil/64-image scalar FFT capture. Canonical PSF replay corrects unused Workbench sampling/display selectors to the actual native readback; raw request is retained unchanged.",
+  "original32EnergyCasesRemainUnresolved": true,
+  "originalComparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5"
+}

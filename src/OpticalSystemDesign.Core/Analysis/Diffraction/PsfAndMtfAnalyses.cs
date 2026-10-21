@@ -91,12 +91,16 @@ public sealed class PsfAnalysis : BaseAnalysis
         var gridSize = Math.Max(pupilSampling, _gridSize ?? (_requestedRays * 2));
         var displaySize = Math.Min(gridSize, _displaySize ?? gridSize);
         var displayOffset = (gridSize - displaySize) / 2;
+        // Native scalar FFT display excludes surface/material attenuation.
+        // The shared engine retains launch apodization, clipping and polarized
+        // transmission; general-purpose callers retain their normal defaults.
         var results = DiffractionEngine.ComputeFftPsfSpectrum(analysisOptic, field, wavelengths,
             pupilSampling, gridSize, usePolarization: _usePolarization,
             cellCenteredPupil: _zemaxCompatible, zemaxFftSampling: _zemaxCompatible,
             ignoreOpd: _ignoreOpd, aimAtStop: analysisOptic.RayAimingEnabled,
             referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0],
-            imageDelta: _zemaxCompatible ? _imageDeltaMicrometers : 0);
+            imageDelta: _zemaxCompatible ? _imageDeltaMicrometers : 0,
+            ignoreScalarTransmission: _zemaxCompatible);
         var primary = results.FirstOrDefault(item => item.Wavelength.IsPrimary);
         if (primary.Wavelength is null)
         {

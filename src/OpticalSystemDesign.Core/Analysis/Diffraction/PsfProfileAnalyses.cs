@@ -207,8 +207,8 @@ internal static class PsfProfilePresentation
         var vertical = CenterProfile(heatmap.Points, horizontal: false);
         if (interpolateFftProfile)
         {
-            horizontal = InterpolatePeriodicFftProfile(horizontal);
-            vertical = InterpolatePeriodicFftProfile(vertical);
+            horizontal = InterpolateFftProfile(horizontal);
+            vertical = InterpolateFftProfile(vertical);
         }
         var logarithmic = profileType.Contains("对数", StringComparison.Ordinal)
             || profileType.Contains("log", StringComparison.OrdinalIgnoreCase);
@@ -319,7 +319,7 @@ internal static class PsfProfilePresentation
             heatmap.Points,
             independentAxisIsX: !lineRunsAlongX,
             useCoherentPsf);
-        if (interpolateFftProfile) lineProfile = InterpolatePeriodicFftProfile(lineProfile);
+        if (interpolateFftProfile) lineProfile = InterpolateFftProfile(lineProfile);
         var linePoints = Normalize(lineProfile);
         var total = linePoints.Sum(point => Math.Max(0, point.Y));
         var cumulative = 0.0;
@@ -383,17 +383,19 @@ internal static class PsfProfilePresentation
         return heatmap.Kind == AnalysisSeriesKind.Heatmap && heatmap.Points.Count > 0;
     }
 
-    private static IReadOnlyList<AnalysisPoint> InterpolatePeriodicFftProfile(IReadOnlyList<AnalysisPoint> points)
+    private static IReadOnlyList<AnalysisPoint> InterpolateFftProfile(IReadOnlyList<AnalysisPoint> points)
     {
         if (points.Count < 3) return points;
-        // An FFT samples a periodic interval. Include the matching left endpoint
-        // before interpolation; this is the existing right endpoint, not extrapolation.
+        // The heatmap stores (-N/2+1)..N/2. Native FFT profiles use the N
+        // independent knots -N/2..(N/2-1), then hold the last knot through the
+        // positive plot boundary. Including both Nyquist endpoints changes the
+        // right spline boundary and incorrectly wraps the displayed profile.
         var spacing = points[1].X - points[0].X;
-        var x = new[] { points[0].X - spacing }.Concat(points.Select(p => p.X)).ToArray();
-        var y = new[] { points[^1].Y }.Concat(points.Select(p => p.Y)).ToArray();
+        var x = new[] { points[0].X - spacing }.Concat(points.SkipLast(1).Select(p => p.X)).ToArray();
+        var y = new[] { points[^1].Y }.Concat(points.SkipLast(1).Select(p => p.Y)).ToArray();
         var count = Math.Max(201, 2 * points.Count + 1);
-        var coordinates = Enumerable.Range(0, count).Select(i => x[0] + (x[^1] - x[0]) * i / (count - 1.0)).ToArray();
-        var values = MtfThroughFocusAnalysis.CubicSplineInterpolate(x, y, coordinates);
+        var coordinates = Enumerable.Range(0, count).Select(i => x[0] + (points[^1].X - x[0]) * i / (count - 1.0)).ToArray();
+        var values = MtfThroughFocusAnalysis.CubicSplineInterpolate(x, y, coordinates.Select(v => Math.Min(v, x[^1])).ToArray());
         return coordinates.Select((v, i) => new AnalysisPoint(v, Math.Max(0, values[i]))).ToArray();
     }
 
