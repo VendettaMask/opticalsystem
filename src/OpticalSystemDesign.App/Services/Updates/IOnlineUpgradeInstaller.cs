@@ -1,6 +1,6 @@
 namespace OpticalSystemDesign.App.Services.Updates;
 
-/// <summary>Future boundary for verified, user-approved installation and application lifecycle handling.</summary>
+/// <summary>Compatibility boundary. Production OTA uses verified download + guarded WindowsOtaHandoff.</summary>
 internal interface IOnlineUpgradeInstaller
 {
     bool IsAvailable { get; }

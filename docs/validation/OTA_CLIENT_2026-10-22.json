@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-22",
+  "timezone": "Asia/Shanghai",
+  "scope": "Manually initiated signed Windows OTA client, cloud-focused verification; not an installed upgrade certification",
+  "status": "pending-cloud-checks",
+  "channel": "Newer stable releases only; test prereleases and same-version repairs are manual",
+  "trust": "Embedded RSA-4096 public key, RSA-PSS/SHA-256 signed release envelope, exact repository/version/runtime/filename/size/SHA-256/release identity",
+  "lifecycle": "Explicit download, explicit save/restart, normal close guards, helper only after Closed, wait for parent exit; no process kill or Windows restart",
+  "testing": "Cryptographic tampering, redirect/file validation, cancellation, replay/ticket identity, headless Chinese/English/Japanese UI, save and session persistence guards",
+  "realInstallerHandoffExecuted": false,
+  "realInstalledUpgradeExecuted": false,
+  "arm64NativeVerified": false,
+  "bootstrapInstallerPublished": false,
+  "publicReleaseChanged": false,
+  "localBuildOrPackagingPerformed": false
+}

@@ -12,7 +12,7 @@ internal enum UpdateCheckStatus
 }
 
 internal sealed record ReleaseInstaller(string Name, Uri DownloadUri, long Size);
-internal sealed record AvailableRelease(string Version, Uri PageUri, ReleaseInstaller? Installer);
+internal sealed record AvailableRelease(string Version, Uri PageUri, ReleaseInstaller? Installer, SignedOtaUpdate? Ota = null);
 internal sealed record UpdateCheckResult(UpdateCheckStatus Status, AvailableRelease? Release = null);
 
 internal interface IReleaseUpdateService
@@ -75,7 +75,7 @@ internal sealed class GitHubReleaseUpdateService(HttpClient client, string curre
         catch (IOException) { return new(UpdateCheckStatus.NetworkError); }
     }
 
-    internal static UpdateCheckResult Parse(ReadOnlyMemory<byte> json, string currentVersion, string? runtime)
+    internal static UpdateCheckResult Parse(ReadOnlyMemory<byte> json, string currentVersion, string? runtime, string? otaPublicKey = null)
     {
         if (!ReleaseVersion.TryParse(currentVersion, out var installed)) return new(UpdateCheckStatus.InvalidCurrentVersion);
         if (json.Length > MaximumResponseBytes) return new(UpdateCheckStatus.InvalidResponse);
@@ -100,6 +100,7 @@ internal sealed class GitHubReleaseUpdateService(HttpClient client, string curre
             var signedName = $"OpticalSystemDesign-{version}-{runtime}-Setup.exe";
             var unsignedName = $"OpticalSystemDesign-{version}-{runtime}-Unsigned-Setup.exe";
             var matches = new List<ReleaseInstaller>();
+            string? digest = null;
             foreach (var asset in assets.EnumerateArray())
             {
                 if (asset.ValueKind != JsonValueKind.Object) continue;
@@ -111,12 +112,14 @@ internal sealed class GitHubReleaseUpdateService(HttpClient client, string curre
                         $"releases/download/{Uri.EscapeDataString(tag!)}/{Uri.EscapeDataString(name)}", out var download))
                     return new(UpdateCheckStatus.InvalidResponse);
                 matches.Add(new(name, download!, bytes));
+                digest = String(asset, "digest");
             }
             // A release must publish exactly one production installer per runtime, never test packages.
             if (matches.Count > 1) return new(UpdateCheckStatus.InvalidResponse);
             return matches.Count == 0
                 ? new(UpdateCheckStatus.NoCompatibleInstaller, new(version!, page!, null))
-                : new(UpdateCheckStatus.UpdateAvailable, new(version!, page!, matches[0]));
+                : new(UpdateCheckStatus.UpdateAvailable, new(version!, page!, matches[0],
+                    OtaManifest.FromReleaseBody(String(root, "body"), version!, runtime, matches[0], digest, otaPublicKey)));
         }
         catch (JsonException) { return new(UpdateCheckStatus.InvalidResponse); }
     }

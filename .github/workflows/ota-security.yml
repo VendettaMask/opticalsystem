@@ -39,7 +39,7 @@ jobs:
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
-          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~ReleaseUpdateTests|FullyQualifiedName~AboutUpdateTests' --logger 'trx;LogFileName=ota-publisher.trx' --results-directory artifacts/ota-checks
+          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~ReleaseUpdateTests|FullyQualifiedName~AboutUpdateTests|FullyQualifiedName~OtaClientTests|FullyQualifiedName~OtaUpdatePanelTests|FullyQualifiedName~OtaShutdownGuardTests' --logger 'trx;LogFileName=ota-publisher.trx' --results-directory artifacts/ota-checks
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
       - uses: actions/upload-artifact@v4
         if: always()

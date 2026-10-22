@@ -169,19 +169,30 @@ public sealed partial class MainWindow
         using var authorStream = Avalonia.Platform.AssetLoader.Open(
             new Uri("avares://OpticalSystemDesign.App/Assets/Author.jpg"));
         using var authorBitmap = new Bitmap(authorStream);
-        var dialog = CreateAboutDialog(authorBitmap);
+        Window? dialog = null;
+        dialog = CreateAboutDialog(authorBitmap, handoff: async prepared =>
+        {
+            if (_closed || _closeInProgress || _pendingOtaUpdate is not null) return false;
+            // OTA never chooses "don't save" for the main project or tolerance documents.
+            if (!await TrySaveAllChangesAsync()) return false;
+            _pendingOtaUpdate = prepared;
+            prepared.HandedOff = true; // Closing About must not delete the verified download.
+            dialog!.Close();
+            Close();
+            return true;
+        });
         await dialog.ShowDialog(this);
     }
 
     internal static Window CreateAboutDialog(Bitmap authorBitmap, IReleaseUpdateService? updateService = null,
-        Func<Uri, Task<bool>>? openReleasePage = null)
+        Func<Uri, Task<bool>>? openReleasePage = null, Func<PreparedOtaUpdate, Task<bool>>? handoff = null)
     {
         ArgumentNullException.ThrowIfNull(authorBitmap);
         var dialog = new Window
         {
             Title = "关于 Optical System Design",
             Width = 680,
-            Height = 480,
+            Height = 600,
             CanResize = false,
             WindowStartupLocation = WindowStartupLocation.CenterOwner
         };
@@ -260,7 +271,7 @@ public sealed partial class MainWindow
             RowDefinitions = new RowDefinitions("*,Auto"),
             RowSpacing = 18
         };
-        var updates = new SoftwareUpdatePanel(updateService, openReleasePage);
+        var updates = new SoftwareUpdatePanel(updateService, openReleasePage, handoff);
         var footer = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 16 };
         footer.Children.Add(updates);
         Grid.SetColumn(closeButton, 1);

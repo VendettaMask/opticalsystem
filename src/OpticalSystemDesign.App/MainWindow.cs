@@ -127,6 +127,7 @@ public sealed partial class MainWindow : Window
     private bool _closeAfterPersistence;
     private bool _closeInProgress;
     private bool _closed;
+    private Services.Updates.PreparedOtaUpdate? _pendingOtaUpdate;
     private bool _startupCompleted;
     private readonly string? _startupDocumentPath;
 
@@ -224,16 +225,15 @@ public sealed partial class MainWindow : Window
         _closeInProgress = true;
         try
         {
-            if (!await ConfirmUnsavedChangesAsync("退出程序"))
-            {
-                return;
-            }
-
-            SaveLayout();
-            if (_laboratories is not null && !await _laboratories.TryCloseAsync()) return;
-            await _panels.SaveCurrentSessionAsync();
-            _recoveryTimer?.Stop();
-            if (_recovery is not null) await _recovery.StopAsync(cleanExit: true);
+            if (!await Services.Updates.OtaShutdownGuard.PrepareAsync(
+                () => _pendingOtaUpdate is not null ? TrySaveAllChangesAsync() : ConfirmUnsavedChangesAsync("退出程序"),
+                async () => { SaveLayout(); return _laboratories is null || await _laboratories.TryCloseAsync(); },
+                async () =>
+                {
+                    await _panels.SaveCurrentSessionAsync();
+                    _recoveryTimer?.Stop();
+                    if (_recovery is not null) await _recovery.StopAsync(cleanExit: true);
+                })) return;
             _closeAfterPersistence = true;
             Close();
         }
@@ -245,12 +245,30 @@ public sealed partial class MainWindow : Window
         finally
         {
             _closeInProgress = false;
+            if (!_closed && _pendingOtaUpdate is { } cancelledUpdate)
+            {
+                _pendingOtaUpdate = null;
+                cancelledUpdate.HandedOff = false;
+                cancelledUpdate.Dispose();
+                _statusText.Text = UiLocalization.Text("更新已取消，未执行安装。");
+            }
         }
     }
 
     private void OnClosed(object? sender, EventArgs args)
     {
         _closed = true;
+        if (_pendingOtaUpdate is { } update)
+        {
+            try { Services.Updates.WindowsOtaHandoff.StartAfterClose(update); }
+            catch (Exception exception) when (exception is IOException or InvalidOperationException or UnauthorizedAccessException
+                or System.ComponentModel.Win32Exception or System.Security.SecurityException)
+            {
+                update.HandedOff = false;
+                update.Dispose();
+                WindowsInstallationLifetime.ShowBlockedStartup(UiLocalization.Text("无法准备更新，未执行安装。"));
+            }
+        }
         _recoveryTimer?.Stop();
         if (_recoveryTimer is not null) _recoveryTimer.Tick -= OnRecoveryTick;
         Opened -= OnOpened;

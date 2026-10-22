@@ -8,6 +8,12 @@ internal static class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        // An update helper must not acquire the application's installation/file gate.
+        if (args.Contains("--apply-update", StringComparer.Ordinal))
+        {
+            Environment.ExitCode = Services.Updates.WindowsOtaHandoff.Run(args);
+            return;
+        }
         var productId = WindowsInstallationLifetime.ProductId;
         WindowsInstallationLifetime installationLifetime;
         try
