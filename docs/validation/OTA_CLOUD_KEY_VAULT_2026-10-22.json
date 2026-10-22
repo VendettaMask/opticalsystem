@@ -5,7 +5,9 @@
   "privateRepository": "VendettaMask/opticalsystem-ota-vault",
   "privateRepositoryConfirmed": true,
   "trustedKeyId": "1d360b38844b1ba09b91786eea7c2c86ce1d6ebf900359174483ada5b613b521",
-  "vaultSourceCommit": "8e060867795fb01fac92d135f37bcc206dea1d3a",
+  "vaultSourceCommit": "405698e28f6538dff9423ba6b42681b7fbfe694f",
+  "vaultBackupCommit": "c9a27fc9c49653334127309b41244d17d97adea2",
+  "mainSigningSourceCommit": "0c52936c4d8ebb88f2492e780096a9931c1c0bea",
   "encryption": "AES-256-GCM, PBKDF2-HMAC-SHA256, 600000 iterations, random salt and nonce",
   "machineBound": false,
   "secretsOrCiphertextIncludedInThisReport": false,
@@ -24,11 +26,57 @@
       "selfTest": "success",
       "backup": "failure",
       "reason": "Recovery password length or line-break policy rejected, no durable backup created"
+    },
+    {
+      "id": 39737485111,
+      "url": "https://github.com/VendettaMask/opticalsystem-ota-vault/actions/runs/39737485111",
+      "operation": "Backup",
+      "conclusion": "success",
+      "scope": "Committed password-encrypted backup, downloaded it independently and recovered the same signing identity"
+    },
+    {
+      "id": 39737758698,
+      "url": "https://github.com/VendettaMask/opticalsystem-ota-vault/actions/runs/39737758698",
+      "operation": "Verify",
+      "conclusion": "success",
+      "originalSigningSecretAvailableToRecoveryJob": false,
+      "scope": "Recovered the committed ciphertext using only the recovery password Secret and proved the pinned signing identity"
     }
   ],
-  "durableBackupVerified": false,
-  "independentRecoveryVerified": false,
-  "mainPublisherFocusedChecks": "pending",
+  "durableBackupVerified": true,
+  "independentRecoveryVerified": true,
+  "durableBackup": {
+    "privateRepositoryPath": "backups/ota-1d360b38844b1ba09b91786eea7c2c86ce1d6ebf900359174483ada5b613b521.json",
+    "gitBlob": "817b41ab446fab597022c0ef01343ed80dbcd8b5",
+    "bytes": 3671,
+    "storage": "Versioned private GitHub repository file, not a temporary workflow artifact"
+  },
+  "syntheticCryptoChecks": {
+    "distinctCases": 30,
+    "ubuntu": "success",
+    "windows": "success",
+    "coverage": "Correct recovery, wrong password/key, ciphertext/tag/nonce/salt and metadata tampering, missing/invalid signing Secrets, stable signing envelope and payload tampering"
+  },
+  "mainPublisherFocusedChecks": {
+    "status": "success",
+    "id": 39737654242,
+    "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39737654242",
+    "configuration": "Release",
+    "solutionBuild": "success",
+    "dotNetPassed": 68,
+    "dotNetFailed": 0,
+    "dotNetSkipped": 0,
+    "filter": "CloudReleaseTests|ReleaseUpdateTests|AboutUpdateTests"
+  },
+  "localDocumentationAudit": {
+    "scope": "Local working-tree documentation only; no build or runtime test",
+    "documents": 1048,
+    "guideBrokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "guideRepeatedParagraphGroups": 0
+  },
+  "realMainSigningSecretDeletedForFaultInjection": false,
+  "actualRecoveryReleasePublished": false,
   "clientOtaReleased": false,
   "realUserInstallationExercised": false,
   "publicReleaseChanged": false,
