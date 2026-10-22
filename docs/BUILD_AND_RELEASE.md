@@ -98,9 +98,9 @@ RID 专用锁文件放在项目 `obj` 下，不覆盖源锁文件。发布禁用
 
 下载验证成功后，用户另行点击“保存并重启更新”。主项目、容差编辑、两个内置模块的退出保护，以及工作区/恢复状态持久化完成后，才在真实窗口关闭事件启动同一主 EXE 的受限更新模式。保存取消或失败不启动安装；更新进程等待原进程正常退出，不强杀任何窗口。只接受当前用户注册且身份完整的标准版本化安装，开发/便携/隔离测试版本显示不可用原因。安装前重新验证签名、版本、架构、原安装身份和文件哈希，并保持文件只读锁；同版本、降级、过期或不匹配票据拒绝。安装器保留原目录和快捷方式，不传 `/DIR`、`/GROUP` 或强制关闭参数，不重启 Windows；成功后核对激活的发布 ID，再启动新版本。失败保留工程/设置和诊断记录，只有现有校验事务恢复逻辑可以恢复中断安装，不承诺所有失败都自动回滚。
 
-新代码须先通过定向云端回归并重新生成安装包才能交付；软件端真实升级/取消/失败交互与 ARM64 实机验证仍须单独验收。已有未包含 OTA 的版本需要先手动安装一次引导版本；稳定通道不会因为重包同版本或覆盖测试预发布而自动更新。旧 `IOnlineUpgradeInstaller` 仅保留不可用兼容边界，生产流程使用 `OtaDownloader` 与 `WindowsOtaHandoff`。当前已安装程序和既有下载包不会因代码提交自动获得 OTA，实际验证/发布状态见[当前状态](CURRENT_STATUS.md)。
+包含 OTA 的 x64 引导测试包已由 GitHub 完成定向检查并发布；软件端真实升级/取消/失败交互与 ARM64 实机验证仍须单独验收。已有未包含 OTA 的版本需要先手动安装一次引导版本；稳定通道不会因为重包同版本或覆盖测试预发布而自动更新。旧 `IOnlineUpgradeInstaller` 仅保留不可用兼容边界，生产流程使用 `OtaDownloader` 与 `WindowsOtaHandoff`。当前已安装程序不会因代码提交或附件替换自动获得 OTA，实际验证/发布状态见[当前状态](CURRENT_STATUS.md)。
 
-OTA 云端签名与密钥备份独立推进，不把客户端草稿当作已交付功能。正式版 EXE 现在由发布脚本生成 RSA-PSS/SHA-256 签名元数据，公钥匹配失败或没有可用签名密钥时在发布前停止；测试预发布仍不进入稳定更新通道。私有 GitHub 密钥仓库保存密码加密的备份，日常发布不需要维护者电脑在线；恢复只需 GitHub 访问权限、加密文件和维护者单独保管的一个恢复密码。不使用机器绑定、明文私钥附件或永久依赖 Actions artifact。密钥来源、纯网页恢复步骤及安全边界见[云端发布指南](GITHUB_CLOUD_RELEASE.md#ota-签名与纯云端密钥备份)，实际执行结果见[当前状态](CURRENT_STATUS.md)。
+OTA 云端签名与密钥备份和客户端实机验收分别记账。正式版 EXE 现在由发布脚本生成 RSA-PSS/SHA-256 签名元数据，公钥匹配失败或没有可用签名密钥时在发布前停止；测试预发布仍不进入稳定更新通道。私有 GitHub 密钥仓库保存密码加密的备份，日常发布不需要维护者电脑在线；恢复只需 GitHub 访问权限、加密文件和维护者单独保管的一个恢复密码。不使用机器绑定、明文私钥附件或永久依赖 Actions artifact。密钥来源、纯网页恢复步骤及安全边界见[云端发布指南](GITHUB_CLOUD_RELEASE.md#ota-签名与纯云端密钥备份)，实际执行结果见[当前状态](CURRENT_STATUS.md)。
 
 安装包分发地址为 [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases)。[发布工作流](../.github/workflows/release.yml) 在 GitHub 托管 Windows runner 编译完整解决方案，运行版本、升级、安装、内置模块、自动初始结构界面的定向测试及冻结证据/文档门禁，再生成自包含 Setup EXE。x64 对实际载荷的隔离副本运行完整性/内置模块探测；ARM64 在 x64 runner 上仅交叉打包，不宣称原生执行验收。全部所选架构通过后自动上传并公开发布；不再止于草稿。本地构建本身不会联网发布。
 
@@ -108,7 +108,7 @@ OTA 云端签名与密钥备份独立推进，不把客户端草稿当作已交�
 
 每个架构只上传一个 EXE 附件，目前云端未配置签名证书，文件名明确标注 `Unsigned` 或 `UnsignedTest`；测试包不能作为正式升级安装包。SHA-256 写在发布说明，元数据、检查结果和替换前附件保存在 Actions 的 30 天工作流产物中，不上传 `.sha256` 或 `release.json` 到 Releases。替换前备份旧附件，先上传临时名新 EXE 并核对 GitHub 的大小/完整 SHA-256，再切换原下载名；切换失败尝试恢复旧下载名。未知附件或不可变发布停止处理，不随意删除。GitHub 自动提供的 Source code ZIP/tar.gz 不是安装附件，也不代表手动刷新后的源码提交。API 约定见 [GitHub Releases REST 文档](https://docs.github.com/en/rest/releases/releases)。
 
-原 [1.0.4 x64 测试预发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019) 已于 2026-10-22 完成[云端构建与公开替换](https://github.com/VendettaMask/opticalsystem/actions/runs/39715666744)，包身份 `1.0.4-win-x64-1da73ed106cf`，实际源码 `e2dbe1a0c4b54e30538492af591f38d1b2cfb309`。仅保留一个 EXE 附件，原下载链接和标签不变；旧三个附件已在替换前校验备份到 Actions，保留至 2026-11-21。完整 SHA-256 与云端源文件一致，下载入口范围复核通过；没有本机实装。交付明细及边界见[机器账目](validation/GITHUB_CLOUD_RELEASE_2026-10-22.json)。测试包使用正常产品安装标识，安装前应保存工程并正常关闭程序；软件内部版本仍为 1.0.4，同版本安装按修复处理。
+当前 [1.0.4 x64 测试预发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)已由 [GitHub 云端流程](https://github.com/VendettaMask/opticalsystem/actions/runs/39747605306)替换为包含 OTA 的引导包，包身份 `1.0.4-win-x64-06c437b23332`，实际源码 `4ad9210874745fb68d2ccb1503696080dd9c97d0`。发布页只保留一个 EXE，完整 SHA-256 与云端源文件一致；旧包已备份在 Actions，原下载链接和标签保持。使用正常产品安装标识，安装前保存工程并正常关闭软件，同版本按修复处理。云端构建通过不等于用户实装或跨版本 OTA 验收，详情见[本次交付账目](validation/OTA_BOOTSTRAP_RELEASE_2026-10-22.json)；[早期云端账目](validation/GITHUB_CLOUD_RELEASE_2026-10-22.json)保留当时记录。
 
 ## 安装、修复和验证
 

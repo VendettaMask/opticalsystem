@@ -1,0 +1,97 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-22",
+  "Product": "Optical System Design",
+  "Repository": "VendettaMask/opticalsystem",
+  "Status": "published-bootstrap-test-installer-awaiting-user-installation",
+  "SourceCommit": "4ad9210874745fb68d2ccb1503696080dd9c97d0",
+  "SourceDirty": false,
+  "PublishedUtc": "2026-10-22T08:33:12.2930863Z",
+  "Release": {
+    "Id": 416939680,
+    "Tag": "v1.0.4-test.20261019",
+    "TagCommit": "9242b31abf38b4d97f23d19e4b00f8df47abfabb",
+    "TagMoved": false,
+    "ReleaseId": "1.0.4-win-x64-06c437b23332",
+    "Url": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019",
+    "Draft": false,
+    "Prerelease": true,
+    "MarkLatestRequested": false,
+    "UploadedAssetCount": 1,
+    "AutomaticSourceArchivesAreNotUploadedAssets": true
+  },
+  "Asset": {
+    "Id": 665196390,
+    "Name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+    "Size": 276840004,
+    "State": "uploaded",
+    "Sha256": "8ef701a5978e2750dce4d0b5af2a7c535677a8da31b01cf6b8371ef08aef15a2",
+    "ServerDigestMatchedCloudSource": true,
+    "Url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe"
+  },
+  "Workflow": {
+    "RunId": 39747605306,
+    "Url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39747605306",
+    "Event": "workflow_dispatch",
+    "Conclusion": "success",
+    "Jobs": ["plan", "package (win-x64)", "publish"],
+    "Runtime": "win-x64",
+    "BuildConfiguration": "Release",
+    "BuildWarnings": 0,
+    "BuildErrors": 0,
+    "FullTestSuitesRun": false,
+    "PushCiSkippedIntentionally": true,
+    "DedicatedReleaseChecksExecuted": true
+  },
+  "CloudVerification": {
+    "ReleaseOtaPackagingAndModuleTests": {"Passed": 160, "Failed": 0, "Skipped": 0},
+    "InitialStructureDesktopAndOfficialPresetTests": {"Passed": 23, "Failed": 0, "Skipped": 0},
+    "ActualPayloadAndBuiltInModuleChecks": {"Passed": 14, "Failed": 0, "ManifestFiles": 1285},
+    "SyntheticKeyEncryptionRecoveryAndSigningChecks": {"Passed": 30, "Platform": "windows-latest", "UsesThrowawayKeys": true},
+    "FrozenEvidence": {"Count": 2668, "HeadMatched": 2668, "Unchanged": true},
+    "Documentation": {"Documents": 1048, "Strict": true, "BrokenLinks": 0, "MarkdownFenceIssues": 0, "GuideRepeatedParagraphGroups": 0},
+    "ProductProbe": {"Success": true, "Architecture": "X64", "ModulesInProcess": true, "Modules": ["InitialStructure", "CoatingDesign"], "GuiVerified": false, "UserDataWritten": false}
+  },
+  "PublicDownloadCheck": {
+    "Authenticated": false,
+    "HttpStatus": 206,
+    "ContentRange": "bytes 0-1/276840004",
+    "BytesRead": 2,
+    "WindowsExeMzPrefix": true,
+    "FullDownloadPerformed": false
+  },
+  "Evidence": {
+    "Path": "validation/rechecks/2026-10-22/ota-bootstrap-release-evidence.zip",
+    "Size": 101016,
+    "Sha256": "cd2717c106223cc791a18b4e97cb1406c8905290088bdf14b6ae52b89cd9fe8e",
+    "Contents": ["cloud-checks-win-x64.zip", "published.json", "plan.json", "previous-assets.json"],
+    "ContainsProductionSecrets": false,
+    "CloudArtifactDigestsVerified": true,
+    "PreviousInstallerBackupStreamHashVerified": true
+  },
+  "ActionsArtifacts": [
+    {"Id": 12412801299, "Name": "cloud-release-receipt", "Size": 105152848, "Sha256": "2d1270467aa2aaeaa99ade20db2b45dc4c402c8de2c0cc5ec66564adffc97146", "ExpiresUtc": "2026-11-21T08:33:12Z", "ContainsPreviousInstaller": true},
+    {"Id": 12412686289, "Name": "cloud-package-win-x64", "Size": 105170086, "Sha256": "15c6810d65d94fbcda4c5bc11753c09a15d612d8dac71c8c891a835a2fea4624", "ExpiresUtc": "2026-11-21T08:32:04Z", "DownloadedLocally": false},
+    {"Id": 12412322191, "Name": "cloud-checks-win-x64", "Size": 99063, "Sha256": "927f37033bbe38eaab1f300e97b3c6fa7ab896d4a52feaf300343016c1ae38b0", "ExpiresUtc": "2026-11-21T08:32:14Z"}
+  ],
+  "ReplacedAsset": {
+    "Id": 664850180,
+    "Size": 276794372,
+    "Sha256": "9e56b62e3391f5cec72e7392a708311cc452bea4b48f6d1352c4c52aa6e4d8d2",
+    "RecoverableFromActionsUntilUtc": "2026-11-21T08:33:12Z"
+  },
+  "InstallTestBoundary": {
+    "BootstrapVersion": "1.0.4",
+    "SameVersionInstall": "repair",
+    "ManualBootstrapRequiredForOldClients": true,
+    "OtaChannel": "newer stable releases only; this prerelease is excluded",
+    "RealInstallerHandoffExecuted": false,
+    "RealInstalledUpgradeExecuted": false,
+    "ProductionInstallationModified": false,
+    "LocalBuildTestOrPackagingPerformed": false,
+    "Arm64NativeVerified": false,
+    "WindowsAuthenticodeSigned": false
+  },
+  "ExcludedUncommittedConcurrentWork": ["lens column headers and surface labels/width", "2D viewer independent configuration selection", "3D geometry repairs"],
+  "NotCertified": ["full repository test suites", "new optical numerical equivalence", "native GUI installation", "cross-version OTA handoff/restart", "ARM64 native execution"]
+}

@@ -2,7 +2,7 @@
   "date": "2026-10-22",
   "timezone": "Asia/Shanghai",
   "scope": "Manually initiated signed Windows OTA client, cloud-focused verification; not an installed upgrade certification",
-  "status": "cloud-focused-checks-passed-not-packaged",
+  "status": "cloud-focused-checks-passed-bootstrap-test-installer-published",
   "verifiedRun": {
     "id": 39742775938,
     "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39742775938",
@@ -63,7 +63,9 @@
   "realInstallerHandoffExecuted": false,
   "realInstalledUpgradeExecuted": false,
   "arm64NativeVerified": false,
-  "bootstrapInstallerPublished": false,
-  "publicReleaseChanged": false,
+  "bootstrapInstallerPublished": true,
+  "bootstrapReleaseEvidence": "docs/validation/OTA_BOOTSTRAP_RELEASE_2026-10-22.json",
+  "bootstrapWorkflowRunId": 39747605306,
+  "publicReleaseChanged": true,
   "localBuildOrPackagingPerformed": false
 }
