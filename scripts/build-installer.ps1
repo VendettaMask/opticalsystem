@@ -13,7 +13,9 @@ param(
     [string]$SignToolPath = '',
     [string]$TimestampUrl = '',
     [switch]$MachineCertificateStore,
-    [ValidatePattern('^[a-zA-Z0-9-]{1,128}$')]
+    # Stay within the production identity's known exact-key range. Longer names
+    # may be hashed/truncated by Inno, defeating exact registration lookup.
+    [ValidatePattern('^[a-zA-Z0-9-]{1,56}$')]
     [string]$ProductAppId = 'OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A',
     [switch]$EnableValidationHooks,
     [switch]$PassThru
@@ -86,6 +88,7 @@ $metadata = [ordered]@{ FormatVersion = 1; ReleaseId = $releaseId; Version = $Ap
     RequiredModules = @('InitialStructure', 'CoatingDesign'); ModulesInProcess = $true;
     InstallerScriptSha256 = (Get-FileHash -LiteralPath (Join-Path $repositoryRoot 'packaging/windows/OpticalSystemDesign.iss')).Hash.ToLowerInvariant();
     RecoveryScriptSha256 = (Get-FileHash -LiteralPath (Join-Path $repositoryRoot 'packaging/windows/InstallationRecovery.iss')).Hash.ToLowerInvariant();
+    InstallationPolicyScriptSha256 = (Get-FileHash -LiteralPath (Join-Path $repositoryRoot 'packaging/windows/InstallationPolicy.iss')).Hash.ToLowerInvariant();
     Files = $payloadRows.Count;
     ManifestSha256 = (Get-FileHash -LiteralPath (Join-Path $package.Directory 'release.files.sha256')).Hash.ToLowerInvariant() }
 [IO.File]::WriteAllText((Join-Path $stagingDirectory 'release.json'), ($metadata | ConvertTo-Json), [Text.UTF8Encoding]::new($false))

@@ -9,6 +9,8 @@ using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Visualization;
 using OpticalSystemDesign.App.Laboratories.InitialStructure;
+using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Persistence;
@@ -21,6 +23,179 @@ public sealed class LabDesktopCollection { public const string Name = "Initial s
 [Collection(LabDesktopCollection.Name)]
 public sealed class FlatStartDesktopTests
 {
+    [Theory]
+    [InlineData(1240)]
+    [InlineData(480)]
+    public async Task OrganizedSettingsKeepEveryGroupReachableWithoutChangingInputs(int width)
+    {
+        using var host = new DesktopHost();
+        await host.Run(async () =>
+        {
+            var window = host.Window(width: width, defaultInputs: true);
+            window.Show(); await window.Ready;
+            Assert.True(Find<Border>(window, "CandidateEmpty").IsVisible);
+            Assert.True(Find<Border>(window, "PreviewEmpty").IsVisible);
+            Assert.False(Find<Expander>(window, "OfficialExampleSource").IsExpanded);
+            Assert.Contains("accent", Find<Button>(window, "Generate").Classes);
+            Assert.DoesNotContain("accent", Find<Button>(window, "Export").Classes);
+            Capture(window, $"organized-system-{width}");
+            var tabs = Find<TabControl>(window, "InputTabs");
+            var groups = new (int Tab, string Id, string[] Inputs)[]
+            {
+                (1, "Advanced", ["MinimumCenter", "MinimumAir", "MinimumBack", "MinimumEdge", "FixedBack", "FixedBackValue"]),
+                (1, "MaterialSettings", ["AllowedGlasses", "InitialGlass", "Catalogs"]),
+                (1, "ApertureSettings", ["AutomaticDiameters", "PhysicalStop", "ApertureMargin"]),
+                (2, "AutoLensSettings", ["AutoLensAsphere", "AutoLensMaterials", "AutoLensCemented", "AutoLensCurriculum", "AutoLensRefinement", "AutoLensPolish"]),
+                (2, "StartingSettings", ["StartingRadius", "StartingCenter", "StartingAir", "SignFilter", "SearchStop", "FreeStop"]),
+                (2, "RefinementSettings", ["RefinementBudget"])
+            };
+            foreach (var group in groups)
+            {
+                tabs.SelectedIndex = group.Tab;
+                var disclosure = Find<Expander>(window, group.Id);
+                Assert.False(disclosure.IsExpanded);
+                disclosure.IsExpanded = true;
+                window.UpdateLayout();
+                foreach (var name in group.Inputs)
+                {
+                    var control = Find<Control>(window, name);
+                    control.BringIntoView(); window.UpdateLayout();
+                    Assert.True(control.IsEffectivelyVisible, name);
+                    Assert.True(control.Bounds.Width > 50, name);
+                    var point = control.TranslatePoint(new Point(control.Bounds.Width / 2, control.Bounds.Height / 2), window)!.Value;
+                    Assert.InRange(point.X, 0, window.Bounds.Width);
+                    Assert.InRange(point.Y, 0, window.Bounds.Height);
+                }
+                disclosure.IsExpanded = false;
+            }
+            tabs.SelectedIndex = 1;
+            var fixedBack = Find<CheckBox>(window, "FixedBack");
+            var fixedValue = Find<NumericUpDown>(window, "FixedBackValue");
+            Assert.False(fixedValue.IsEnabled);
+            Assert.NotNull(ToolTip.GetTip(fixedValue));
+            fixedBack.IsChecked = true;
+            Assert.True(fixedValue.IsEnabled);
+            fixedBack.IsChecked = false;
+            Assert.False(fixedValue.IsEnabled);
+            Assert.Equal(50m, Find<NumericUpDown>(window, "FocalLength").Value);
+            Assert.Equal(8m, Find<NumericUpDown>(window, "FNumber").Value);
+            Assert.Equal(2m, Find<NumericUpDown>(window, "MinimumCenter").Value);
+            Assert.Null(window.CurrentCheckpoint);
+            // Expanding/collapsing the reorganized sections must not alter the specification.
+            Click(window, "Validate"); await window.PendingOperation;
+            Assert.Contains("预检查通过", Find<TextBlock>(window, "Status").Text);
+            window.Close();
+        });
+    }
+
+    [Fact]
+    public async Task OrganizedPresentationLocalizesAndTracksThemeResources()
+    {
+        using var host = new DesktopHost();
+        await host.Run(async () =>
+        {
+            var app = global::Avalonia.Application.Current!;
+            var originalTheme = ThemeRegistry.FromActualVariant(app.ActualThemeVariant).SettingsValue;
+            var originalLanguage = UiLocalization.CurrentLanguage;
+            var window = host.Window(defaultInputs: true);
+            try
+            {
+                ThemeApplicationService.Apply(app, "Light"); UiLocalization.Apply(UiLocalization.Chinese);
+                window.Show(); await window.Ready;
+                var tabs = Find<TabControl>(window, "InputTabs");
+                foreach (var language in new[] { UiLocalization.Chinese, UiLocalization.English, UiLocalization.Japanese })
+                {
+                    UiLocalization.Apply(language);
+                    tabs.SelectedIndex = 0; window.UpdateLayout();
+                    Assert.Equal(UiLocalization.Text("开始形式搜索"), Find<Button>(window, "Generate").Content);
+                    Assert.Equal(UiLocalization.Text("目标"), Assert.IsType<TextBlock>(((TabItem)tabs.Items[1]!).Header).Text);
+                    foreach (var item in tabs.Items.Cast<TabItem>().Concat(Find<TabControl>(window, "DetailsTabs").Items.Cast<TabItem>()))
+                    {
+                        var label = Assert.IsType<TextBlock>(item.Header);
+                        var measured = new Avalonia.Media.FormattedText(label.Text!, System.Globalization.CultureInfo.CurrentUICulture,
+                            Avalonia.Media.FlowDirection.LeftToRight, new Avalonia.Media.Typeface(label.FontFamily, label.FontStyle, label.FontWeight),
+                            label.FontSize, Avalonia.Media.Brushes.Black);
+                        Assert.True(label.Bounds.Width >= measured.Width - 1,
+                            $"{language}: {label.Text}; label={label.Bounds}; desired={label.DesiredSize}; tab={item.Bounds}; tab desired={item.DesiredSize}; natural={measured.Width}");
+                    }
+                    Capture(window, "organized-" + language);
+                    tabs.SelectedIndex = 1; window.UpdateLayout();
+                    Capture(window, "organized-goals-" + language);
+                    tabs.SelectedIndex = 2; window.UpdateLayout();
+                    Capture(window, "organized-search-" + language);
+                }
+                UiLocalization.Apply(UiLocalization.Chinese);
+                tabs.SelectedIndex = 0;
+                ThemeApplicationService.Apply(app, "Dark"); window.UpdateLayout();
+                var root = Find<Grid>(window, "InitialStructureDesign");
+                Assert.True(root.TryFindResource(ThemeResourceBindings.Workspace, root.ActualThemeVariant, out var brush));
+                Assert.Same(brush, root.Background);
+                Assert.Equal(Avalonia.Styling.ThemeVariant.Dark, root.ActualThemeVariant);
+                Capture(window, "organized-dark");
+                Assert.Equal(50m, Find<NumericUpDown>(window, "FocalLength").Value);
+                Assert.Equal(8m, Find<NumericUpDown>(window, "FNumber").Value);
+                Assert.Null(window.CurrentCheckpoint);
+            }
+            finally
+            {
+                window.Close();
+                ThemeApplicationService.Apply(app, originalTheme);
+                UiLocalization.Apply(originalLanguage);
+            }
+        });
+    }
+
+    [Fact]
+    public async Task OfficialExamplePresetsLoadWithoutSearchingAndClearStaleResults()
+    {
+        using var host = new DesktopHost();
+        await host.Run(async () =>
+        {
+            var window = host.Window();
+            window.Show(); await window.Ready;
+            Click(window, "Generate"); await window.PendingOperation;
+            Assert.NotNull(window.CurrentCheckpoint);
+            var selector = Find<ComboBox>(window, "OfficialExample");
+            var presets = AutoLensOfficialExamples.Create();
+            Assert.Equal(presets.Count, selector.ItemCount);
+            for (var index = 0; index < presets.Count; index++)
+            {
+                Find<TabControl>(window, "InputTabs").SelectedIndex = 0;
+                selector.SelectedIndex = index;
+                Click(window, "LoadOfficialExample"); await window.PendingOperation;
+                Assert.Null(window.CurrentCheckpoint);
+                Assert.Empty(Find<DataGrid>(window, "Candidates").ItemsSource.Cast<CandidateRow>());
+                Assert.False(Find<Button>(window, "Export").IsEnabled);
+                Assert.Equal((decimal)presets[index].Specification.EffectiveFocalLengthMillimeters, Find<NumericUpDown>(window, "FocalLength").Value);
+                Assert.Equal((decimal)presets[index].Specification.FNumber, Find<NumericUpDown>(window, "FNumber").Value);
+                Assert.Equal((decimal)presets[index].Specification.MaximumFieldAngleDegrees, Find<NumericUpDown>(window, "HalfField").Value);
+                Assert.Equal(2, Find<ComboBox>(window, "OptimizationMethod").SelectedIndex);
+                Assert.Equal(4, Find<ComboBox>(window, "AutoLensAsphere").SelectedIndex);
+                Assert.Equal(4000m, Find<NumericUpDown>(window, "EvaluationBudget").Value);
+                Assert.Contains("尚未运行", Find<TextBlock>(window, "Status").Text);
+                Click(window, "Validate"); await window.PendingOperation;
+                Assert.Contains("预检查通过", Find<TextBlock>(window, "Status").Text);
+            }
+            Capture(window, "autolens-official-presets");
+            var originalLanguage = UiLocalization.CurrentLanguage;
+            try
+            {
+                foreach (var language in new[] { UiLocalization.English, UiLocalization.Japanese })
+                {
+                    UiLocalization.Apply(language);
+                    window.UpdateLayout();
+                    Assert.Equal(UiLocalization.Text(presets[^1].Notes), Find<TextBlock>(window, "OfficialExampleNotes").Text);
+                    Assert.Equal(UiLocalization.Text("载入预设"), Find<Button>(window, "LoadOfficialExample").Content);
+                    Assert.Equal(4.55m, Find<NumericUpDown>(window, "FocalLength").Value);
+                    Assert.Equal(60m, Find<NumericUpDown>(window, "HalfField").Value);
+                    Capture(window, "autolens-official-presets-" + language);
+                }
+            }
+            finally { UiLocalization.Apply(originalLanguage); }
+            window.Close();
+        });
+    }
+
     public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<global::OpticalSystemDesign.App.App>()
         .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
 
@@ -147,6 +322,8 @@ public sealed class FlatStartDesktopTests
         {
             var window = host.Window(width: width);
             window.Show(); await window.Ready;
+            Assert.True(Find<Border>(window, "CandidateEmpty").IsVisible);
+            Assert.True(Find<Border>(window, "PreviewEmpty").IsVisible);
             Assert.False(Find<CheckBox>(window, "PhysicalStop").IsChecked);
             Click(window, "Generate");
             Assert.False(Find<NumericUpDown>(window, "FocalLength").IsEffectivelyEnabled);
@@ -157,6 +334,8 @@ public sealed class FlatStartDesktopTests
             var row = Assert.IsType<CandidateRow>(grid.SelectedItem);
             var preview = Find<CandidatePreviewControl>(window, "Preview");
             await preview.PendingLoad;
+            Assert.False(Find<Border>(window, "CandidateEmpty").IsVisible);
+            Assert.False(Find<Border>(window, "PreviewEmpty").IsVisible);
             Assert.Null(preview.Error);
             Assert.Equal(row.Candidate.OpticFingerprint, preview.PrimaryFingerprint);
             Assert.True(preview.TryFindResource(global::OpticalSystemDesign.App.Services.ThemeResourceBindings.PlotAxis, preview.ActualThemeVariant, out var axisBrush));

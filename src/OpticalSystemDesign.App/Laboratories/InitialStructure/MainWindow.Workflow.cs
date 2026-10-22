@@ -47,10 +47,14 @@ public sealed partial class MainWindow
         _compareBButton.Click += (_, _) => SetComparison(false);
         _clearComparisonButton.Click += (_, _) => { _comparisonA = _comparisonB = null; RefreshComparison(); UpdateCommands(); };
         _candidateGrid.SelectionChanged += (_, _) => SelectionChanged();
-        _preview.Changed += () => _previewCaption.Text = _preview.IsLoading ? "正在读取实际布局与光线…"
+        _preview.Changed += () =>
+        {
+            _previewEmpty.IsVisible = _preview.PrimaryScene is null && !_preview.IsLoading && _preview.Error is null;
+            _previewCaption.Text = _preview.IsLoading ? "正在读取实际布局与光线…"
             : _preview.Error is { } error ? $"布局未完成：{error}"
             : _preview.PrimaryScene is { } scene ? $"主波长 · 全部已定义视场 · 每视场 7 个瞳采样 · A 共 {scene.Rays.Count} 条轨迹 · mm"
             : "选择方案查看实际布局与光线。";
+        };
         SizeChanged += (_, args) => ApplyResponsiveLayout(args.NewSize.Width);
         foreach (var number in _form.GetLogicalDescendants().OfType<NumericUpDown>().Where(number => number != _refineBudget))
         {
@@ -141,13 +145,18 @@ public sealed partial class MainWindow
     }
     private void UpdateCommands()
     {
+        _candidateEmpty.IsVisible = _rows.Count == 0;
+        _operationStatus.IsVisible = _busy;
         var selected = _candidateGrid.SelectedItem is CandidateRow;
         foreach (var input in _form.GetLogicalDescendants().OfType<Control>()
             .Where(control => control is TextBox or NumericUpDown or ComboBox or CheckBox))
             ControlAvailability.Set(input, !_busy, "正在计算，请停止并保存后修改输入。");
+        ControlAvailability.Set(_fixedBackValue, !_busy && _fixedBack.IsChecked == true,
+            _busy ? "正在计算，请停止并保存后修改输入。" : "请先启用固定后焦距。");
         _candidateGrid.IsEnabled = !_busy || _running;
         foreach (var button in new[] { _validateButton, _runButton, _openButton })
             ControlAvailability.Set(button, !_busy, "正在执行操作，请等待完成或停止并保存。");
+        ControlAvailability.Set(_loadOfficialExample, !_busy, "正在执行操作，请等待完成或停止并保存。");
         _resumeButton.Content = _current is null ? "上次实验" : "继续运行";
         ControlAvailability.Set(_resumeButton, !_busy && !_resumeLoading && (_current is null ? _hasLastRun : CanResume(_current)),
             _busy || _resumeLoading ? "正在处理或读取实验记录。" : "没有可继续的记录，或当前记录的版本/预算不允许继续。");

@@ -73,6 +73,7 @@ public sealed class WindowsPackagingTests
         Assert.Contains("WizardStyle=modern", installer);
         Assert.Contains("DisableWelcomePage=no", installer);
         Assert.Contains("DisableDirPage=no", installer);
+        Assert.Contains("UsePreviousGroup=yes", installer);
         Assert.Contains("ChineseSimplified.isl", installer);
         Assert.Contains("PrivilegesRequired=lowest", installer);
         Assert.Contains("CloseApplications=no", installer);
@@ -91,6 +92,65 @@ public sealed class WindowsPackagingTests
         Assert.Contains("-PassThru -CompactName", builder);
         Assert.Contains("Get-FileHash -LiteralPath $setupPath -Algorithm SHA256", builder);
         Assert.Contains("[IO.Directory]::Move($stagingDirectory, $buildDirectory)", builder);
+    }
+
+    [Fact]
+    public void InstallerLocksRegisteredLocationAndShortcutsAndClassifiesRepairBeforeCopying()
+    {
+        var root = RepositoryRoot();
+        var installer = File.ReadAllText(Path.Combine(root, "packaging", "windows", "OpticalSystemDesign.iss"));
+        var policy = File.ReadAllText(Path.Combine(root, "packaging", "windows", "InstallationPolicy.iss"));
+        Assert.Contains("#include \"InstallationPolicy.iss\"", installer);
+        Assert.Contains("RegKeyExists(HKCU, Key)", policy);
+        Assert.Contains("RegKeyExists(HKLM32, Key)", policy);
+        Assert.Contains("RegKeyExists(HKLM64, Key)", policy);
+        Assert.Contains("WizardForm.DirEdit.Text := RegisteredDirectory", policy);
+        Assert.Contains("WizardForm.GroupEdit.Text := RegisteredGroup", policy);
+        Assert.Contains("WizardForm.NoIconsCheck.Checked := RegisteredNoIcons", policy);
+        Assert.Contains("WizardSelectTasks('!desktopicon')", policy);
+        Assert.Contains("PageID = wpSelectDir", policy);
+        Assert.Contains("PageID = wpSelectProgramGroup", policy);
+        Assert.Contains("PageID = wpSelectTasks", policy);
+        Assert.Contains("StrToVersion(RegisteredVersion", policy);
+        Assert.Contains("StrToVersion(StateVersion", policy);
+        Assert.Contains("InstallationMode := 'Repair'", policy);
+        Assert.Contains("InstallationMode := 'Upgrade'", policy);
+        Assert.Contains("Downgrade refused", policy);
+        Assert.Contains("function UpdateReadyMemo", policy);
+        Assert.DoesNotContain("RegDelete", policy);
+        Assert.DoesNotContain("DelTree", policy);
+        Assert.DoesNotContain("Exec(", policy);
+        var prepare = installer[installer.IndexOf("function PrepareToInstall", StringComparison.Ordinal)..];
+        Assert.True(prepare.IndexOf("EnforceInstallationIdentity;", StringComparison.Ordinal) < prepare.IndexOf("AcquireInstallationFileGate;", StringComparison.Ordinal));
+        Assert.True(prepare.IndexOf("RecoverInterruptedTransaction;", StringComparison.Ordinal) < prepare.IndexOf("ValidateInstallationPolicy;", StringComparison.Ordinal));
+        Assert.True(prepare.IndexOf("ValidateInstallationPolicy;", StringComparison.Ordinal) < prepare.IndexOf("CaptureDurableJournal;", StringComparison.Ordinal));
+        Assert.Contains("InstallationPolicyScriptSha256", File.ReadAllText(Path.Combine(root, "scripts", "build-installer.ps1")));
+    }
+
+    [Fact]
+    public void NativeInstallationPolicyRegressionUsesOnlyFreshIsolatedIdentityAndCrossDirectoryAttempts()
+    {
+        var script = File.ReadAllText(Path.Combine(RepositoryRoot(), "scripts", "verify-windows-installation-policy.ps1"));
+        Assert.Contains("OpticalSystemDesign-UpgradeValidation-", script);
+        Assert.Contains("[Guid]::NewGuid()", script);
+        Assert.Contains("Assert-OwnedPath", script);
+        Assert.Contains("-WindowStyle Hidden", script);
+        Assert.Contains("alternate-directory-not-created", script);
+        Assert.Contains("flat-downgrade-blocked", script);
+        Assert.Contains("same-version-repacked-repair", script);
+        Assert.Contains("noicons-maintenance-preserved", script);
+        Assert.Contains("user-data-byte-preserved", script);
+    }
+
+    [Fact]
+    public void InstallerRejectsOverlongProductIdentityBeforeCreatingAnyOutput()
+    {
+        if (!OperatingSystem.IsWindows()) return;
+        var destination = Path.Combine(Path.GetTempPath(), $"optical invalid identity {Guid.NewGuid():N}");
+        var result = RunScriptFile("build-installer.ps1", "-WhatIf", "-OutputRoot", destination,
+            "-ProductAppId", new string('A', 57));
+        Assert.NotEqual(0, result.ExitCode);
+        Assert.False(Directory.Exists(destination));
     }
 
     [Fact]

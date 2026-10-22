@@ -20,7 +20,12 @@
 #ifndef ProductAppId
   #define ProductAppId "OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A"
 #endif
-#define AppName "Optical System Design"
+#if Len(ProductAppId) > 56
+  #error ProductAppId must remain within the production identity length to preserve exact registry lookup
+#endif
+#ifndef AppName
+  #define AppName "Optical System Design"
+#endif
 #define AppExe "OpticalSystemDesign.App.exe"
 #define PayloadDir "versions\" + ReleaseId
 #define ApplicationMutex "Local\" + ProductAppId + "-Application"
@@ -44,6 +49,7 @@ DisableDirPage=no
 DisableProgramGroupPage=no
 AllowNoIcons=yes
 UsePreviousAppDir=yes
+UsePreviousGroup=yes
 UsePreviousTasks=yes
 MinVersion=10.0.19045
 #if TargetRuntime == "win-arm64"
@@ -116,6 +122,8 @@ var
   FailureReason: String;
   AssociationOwned, AssociationChanged, PreviousIconExists: Boolean;
   PreviousCommand, PreviousIcon: String;
+  HasRegisteredInstall, RegisteredNoIcons, RegisteredDesktopIcon: Boolean;
+  RegisteredDirectory, RegisteredGroup, RegisteredVersion, InstallationMode: String;
 
 function MoveFileExW(ExistingFile, NewFile: String; Flags: Cardinal): Boolean;
   external 'MoveFileExW@kernel32.dll stdcall';
@@ -290,6 +298,7 @@ begin
 end;
 
 #include "InstallationRecovery.iss"
+#include "InstallationPolicy.iss"
 
 // An external manifest survives interrupted cleanup. Publish its receipt last,
 // only after a committed, verified installation; never infer ownership of old
@@ -329,12 +338,16 @@ var PreviousRelease, PreviousVersion, PreviousExe, CommandKey: String; PayloadEn
 begin
   Result := '';
   try
+    EnforceInstallationIdentity;
     CheckNoReparsePath(ExpandConstant('{app}'));
     CheckNoReparsePath(StatePath);
     AcquireInstallationFileGate;
     if CheckForMutexes('{#ApplicationMutex}') then
       RaiseException('程序仍在运行，请保存工作并正常退出后再安装。安装器不会强制关闭窗口。');
     RecoverInterruptedTransaction;
+    // Recovery may restore an older registry/state pair. Decide only after replay,
+    // under the installation lock, and before copying or capturing a new transaction.
+    ValidateInstallationPolicy;
     PreviousExe := ExpandConstant('{app}\{#AppExe}');
     if FileExists(StatePath) then begin
       if GetIniString('Release', 'ProductAppId', '', StatePath) <> '{#ProductAppId}' then
@@ -456,6 +469,7 @@ end;
 
 procedure CurPageChanged(CurPageID: Integer);
 begin
+  UpdateMaintenancePage(CurPageID);
   if (CurPageID = wpFinished) and Failed then begin
     WizardForm.FinishedHeadingLabel.Caption := '安装未完成';
     WizardForm.FinishedLabel.Caption := FailureReason + #13#10 +

@@ -1,12 +1,16 @@
 # 初始结构（产品内置模块）
 
-更新：2026-10-20。本页维护操作流程、运行记录和历史方法入口；计算隔离、支持范围与后续计划见 [模块契约](../../docs/INITIAL_STRUCTURE_LAB_PLAN.md)。初始结构和镀膜设计均在主程序同一进程内运行，由根解决方案和标准安装包统一交付，不是独立软件。
+系统页 **从预设开始 → 载入预设** 提供 AutoLens 官方目标：覆盖广角、全画幅、20 种子协议和 F/1.2 / 120° 两种极端目标适配。只载入原生参数，不自动运行，不伪装成上游成功处方；“来源与适配说明”中逐项注明补充几何、材料、波长、阈值和预算。使用与固定来源见 [原生预设指南](../../docs/AUTOLENS_OFFICIAL_EXAMPLES.md)，实际验证见 [当前状态](../../docs/CURRENT_STATUS.md)。
+
+更新：2026-10-22。本页维护操作流程、运行记录和历史方法入口；计算隔离、支持范围与后续计划见 [模块契约](../../docs/INITIAL_STRUCTURE_LAB_PLAN.md)。初始结构和镀膜设计均在主程序同一进程内运行，由根解决方案和标准安装包统一交付，不是独立软件。
 
 当前桌面调用 `FlatStartSearchService` 的 v21 形式搜索与渐进恢复流程。所有光学计算复用正式共享 Core；模型不因“AI”名称而具有机器学习或设计智能体能力。生成有效候选不等于满足所有规格，更不等于可制造成品。当前工程测试和已知失败只在 [状态页](../../docs/CURRENT_STATUS.md) 汇总。
 
 搜索页新增可选择的“AutoLens 启发式 · C# CPU 试验”，默认仍为原生信赖域。试验用半到全口径余弦课程与数值梯度 Adam，再以现有完整目标求解器细化；保存恢复、真实材料、计费与独立验收沿用产品流程。它不包含 Python、原版自动微分、GPU、连续材料或非球面生成；实现差异与对照协议见 [C# 集成评估](../../docs/INITIAL_STRUCTURE_AUTOLENS_CSHARP_2026-10-19.md)。
 
 ## Current desktop workflow
+
+The reorganized desktop groups settings into System, Targets and Search cards. Geometry/back focus, glasses/catalogs and aperture/stop are separate collapsible Target sections; AutoLens settings now belong to Search, alongside separate starting-form and refinement-budget sections. Collapsing a group never drops its inputs or resets values. Run/record commands stay above the workspace; refine/export belong beside the candidate table, with layout and inspection tabs below. Narrow windows stack the two panels with scrolling and wrapping tab headings. Colors, card chrome and icons use existing theme resources; live Chinese/English/Japanese changes reflow tab labels. This is presentation-only: search algorithms, default targets, acceptance rules and persistence formats are unchanged. See the [UI walkthrough](../../docs/INITIAL_STRUCTURE_UI_2026-10-22.md).
 
 Enter focal length, F/# or entrance-pupil diameter, maximum half-field angle, an element-count range, maximum track and editable wavelengths/weights/primary selection. The Goals tab exposes geometry limits, permitted catalog glasses and full quality gates. The Search tab exposes QUICK/FULL mode, initial radius/thickness/gap, a + / - / * initial-form filter, starting stop and stop exploration, trial/candidate limits and budgets. A blank sign filter covers all directions within the explicit trial cap. Invalid or fractional count inputs are rejected; invalid numeric edits remain visible after focus changes rather than silently reverting to an old target.
 

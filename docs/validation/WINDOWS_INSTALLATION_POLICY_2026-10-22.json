@@ -1,0 +1,306 @@
+{
+    "EvidenceDirectory": "artifacts/installation-policy-20261022-final",
+    "PackagingRegression": {
+        "Passed": 13,
+        "Failed": 0,
+        "Results": "artifacts/installation-policy-20261022-tests/packaging-final.trx"
+    },
+    "Date":  "2026-10-22",
+    "ProductAppId":  "OpticalSystemDesign-UpgradeValidation-Policy-df5a0a035f",
+    "TestFixtureOnly":  true,
+    "ProductionInstallationModified":  false,
+    "GuiVerified":  false,
+    "MachineWideInstallExecuted":  false,
+    "Arm64HardwareVerified":  false,
+    "HarnessSha256":  "821EA0B9D15E3E84309C8C86EFE7C5DA61BD1CA8DB99ED9E942C978DF67907D7",
+    "Passed":  49,
+    "Failed":  0,
+    "Sources":  [
+                    {
+                        "Path":  "packaging/windows/OpticalSystemDesign.iss",
+                        "Sha256":  "EBB4D52AE29ED0264D4DB24738EBFD7D57B78D3306C0D7A75AA2F5E21FB93B9D"
+                    },
+                    {
+                        "Path":  "packaging/windows/InstallationRecovery.iss",
+                        "Sha256":  "BC9D834614CA65D12EB4CC6450E3E514B73267C1FE8505895FCA15BFA5AEF676"
+                    },
+                    {
+                        "Path":  "packaging/windows/InstallationPolicy.iss",
+                        "Sha256":  "D3BB91D3D0CFE2C8335793BF8981E60DF114F35D9AF81C212E14CB94D8B0C2FC"
+                    }
+                ],
+    "Inputs":  [
+                   {
+                       "Name":  "base.exe",
+                       "Sha256":  "7DA0CD95A3062A004EB1B9D17970A71424E23A8CBD9AF75DF1F7F1188C56D2AB"
+                   },
+                   {
+                       "Name":  "flat.exe",
+                       "Sha256":  "ECA518B13B9B6C7C942EAD187A22D1A0B136FC0F93DC6ED4E7344E55F5887D82"
+                   },
+                   {
+                       "Name":  "newer.exe",
+                       "Sha256":  "572263DA13678EFFB102FD5ADA66319FF26EED7C29D1A5ACDD0924691915F864"
+                   },
+                   {
+                       "Name":  "older.exe",
+                       "Sha256":  "4972151E6E9467164B0294436A52A162D05C0ACC64828545CFF172B8AB8C2BD5"
+                   },
+                   {
+                       "Name":  "repacked.exe",
+                       "Sha256":  "10F0AACE696520DADED043E051290935298DF6F6E561A35AFEC4E67737F40F0F"
+                   }
+               ],
+    "Checks":  [
+                   {
+                       "Name":  "test-shortcuts-not-preexisting",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "fresh-install",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "fresh-mode-install",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "fresh-shortcut",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "same-version-repair",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "same-version-mode-repair",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "alternate-directory-not-created",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "alternate-shortcuts-not-created",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "original-shortcut-retained",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "same-package-state-unchanged",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "original-directory-registration",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "failed-maintenance-restored",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "failed-maintenance-state-and-shortcut-preserved",
+                       "Passed":  true,
+                       "Detail":  {
+                                      "Shortcut":  "81A9681456874CB78001F60FD8EC764F1382FD9086573619DFEB508429BDBE02",
+                                      "ExpectedShortcut":  "81A9681456874CB78001F60FD8EC764F1382FD9086573619DFEB508429BDBE02",
+                                      "ExpectedState":  "5015D7B60F2B830E9F78F0BDD284AFBC7EC2E6856D95A6954F6FE2C0A07A2B85",
+                                      "State":  "5015D7B60F2B830E9F78F0BDD284AFBC7EC2E6856D95A6954F6FE2C0A07A2B85"
+                                  }
+                   },
+                   {
+                       "Name":  "same-version-repacked-repair",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "old-payload-preserved",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "newer-version-upgrade",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "shortcut-updates-in-place",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "only-one-test-registration",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "downgrade-alternate-directory-blocked",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "downgrade-does-not-change-active-state",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "downgrade-cannot-create-alternate-directory",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "state-also-blocks-downgrade",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "invalid-version-fails-closed",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "conflicting-path-records-fail-closed",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "missing-module-repaired-in-original-location",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "user-data-byte-preserved",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "uninstall-versioned-one-uninstaller",
+                       "Passed":  true,
+                       "Detail":  1
+                   },
+                   {
+                       "Name":  "uninstall-versioned-exit",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "uninstall-versioned-registration-removed",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "user-data-survives-test-uninstall",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "fresh-noicons-install",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "noicons-original-shortcuts",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "noicons-maintenance",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "noicons-maintenance-preserved",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "uninstall-noicons-one-uninstaller",
+                       "Passed":  true,
+                       "Detail":  1
+                   },
+                   {
+                       "Name":  "uninstall-noicons-exit",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "uninstall-noicons-registration-removed",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "test-desktop-removed",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "flat-fixture-install",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "flat-downgrade-blocked",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "flat-registration-preserved",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "flat-upgrade-in-place",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "flat-original-files-retained",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "flat-shortcut-updated-in-place",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "uninstall-flat-one-uninstaller",
+                       "Passed":  true,
+                       "Detail":  1
+                   },
+                   {
+                       "Name":  "uninstall-flat-exit",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "uninstall-flat-registration-removed",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "test-shortcut-removed",
+                       "Passed":  true,
+                       "Detail":  ""
+                   },
+                   {
+                       "Name":  "all-alternate-locations-unused",
+                       "Passed":  true,
+                       "Detail":  ""
+                   }
+               ]
+}

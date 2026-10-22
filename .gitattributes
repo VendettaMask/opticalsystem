@@ -27,6 +27,7 @@ docs/validation/*_2026-10-18.json -text whitespace=cr-at-eol
 docs/validation/*_2026-10-19.json -text whitespace=cr-at-eol
 docs/validation/*_2026-10-20.json -text whitespace=cr-at-eol
 docs/validation/*_2026-10-21.json -text whitespace=cr-at-eol
+docs/validation/*_2026-10-22.json -text whitespace=cr-at-eol
 tests/OpticalSystemDesign.Tests/Fixtures/partial-coherence-zemax-2026-r1.json -text whitespace=cr-at-eol
 tests/OpticalSystemDesign.Tests/Fixtures/partial-coherence-finite-zemax-2026-r1.json -text whitespace=cr-at-eol
 
@@ -49,3 +50,4 @@ validation/repairs/2026-10-21/wide-schmidt-package-delivery-evidence.zip filter=
 validation/zemax/2026-r1/reflective-paraxial-repair-2026-10-21/** -text -whitespace
 validation/repairs/2026-10-21/reflective-paraxial-repair-evidence.zip filter=lfs diff=lfs merge=lfs -text
 validation/repairs/2026-10-21/reflective-paraxial-package-delivery-evidence.zip filter=lfs diff=lfs merge=lfs -text
+validation/experiments/2026-10-22/autolens-official-targets-evidence.zip filter=lfs diff=lfs merge=lfs -text

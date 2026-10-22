@@ -14,6 +14,7 @@ using OpticalSystemDesign.InitialStructure.Persistence;
 
 if (args.FirstOrDefault() == "--legacy") return await SupplementalBenchmarks.RunLegacy(args[1..]);
 if (args.FirstOrDefault() == "--holdout") return await SupplementalBenchmarks.RunHoldout(args[1..]);
+if (args.FirstOrDefault() == "--autolens-official") return await AutoLensOfficialBenchmarks.Run(args[1..]);
 
 if (args.Length is not (2 or 4))
 {

@@ -1,6 +1,21 @@
-name: Windows release packages
+name: Windows EXE build and publish
 
 on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Existing release tag to update (the tag is not moved)
+        required: true
+        default: v1.0.4-test.20261019
+      runtime:
+        description: Windows architecture
+        type: choice
+        options: [win-x64, win-arm64]
+        default: win-x64
+      replace_existing:
+        description: Replace the existing EXE and remove old checksum/metadata attachments
+        type: boolean
+        default: false
   push:
     tags: ['v*']
 
@@ -8,63 +23,105 @@ permissions:
   contents: read
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: release-${{ inputs.release_tag || github.ref_name }}
   cancel-in-progress: false
 
 jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.plan.outputs.tag }}
+      runtimes: ${{ steps.plan.outputs.runtimes }}
+      test_package: ${{ steps.plan.outputs.test_package }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: plan
+        name: Validate version, tag and architecture
+        shell: pwsh
+        env:
+          REQUESTED_TAG: ${{ inputs.release_tag }}
+          REQUESTED_RUNTIME: ${{ inputs.runtime }}
+        run: |
+          $version = ./scripts/get-product-version.ps1
+          $tag = if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch') { $env:REQUESTED_TAG } else { $env:GITHUB_REF_NAME }
+          $test = $tag -cmatch ('^v' + [regex]::Escape($version) + '-test\.[0-9]{8}$')
+          if (-not $test -and $tag -cne "v$version") { throw 'Tag and ProductVersion.props differ.' }
+          $runtimes = if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch') { @($env:REQUESTED_RUNTIME) } else { @('win-x64', 'win-arm64') }
+          foreach ($runtime in $runtimes) { if ($runtime -notin @('win-x64', 'win-arm64')) { throw 'Unsupported architecture.' } }
+          "tag=$tag" >> $env:GITHUB_OUTPUT
+          "runtimes=$($runtimes | ConvertTo-Json -Compress -AsArray)" >> $env:GITHUB_OUTPUT
+          "test_package=$($test.ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
+
   package:
+    needs: plan
     runs-on: windows-latest
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
-        runtime: [win-x64, win-arm64]
+        runtime: ${{ fromJSON(needs.plan.outputs.runtimes) }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
-      - name: Require the tag to match the product version
-        shell: pwsh
-        run: |
-          $version = ./scripts/get-product-version.ps1
-          if ($env:GITHUB_REF_NAME -cne "v$version") { throw 'Tag and ProductVersion.props differ.' }
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
       - name: Restore and build the complete product
         shell: pwsh
         run: |
           dotnet restore OpticalSystemDesign.slnx --locked-mode
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
-          dotnet build OpticalSystemDesign.slnx -c Release --no-restore -p:ContinuousIntegrationBuild=true
+          dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false -p:ContinuousIntegrationBuild=true
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
-      - name: Verify version, update discovery, and packaging boundaries
+      - name: Verify release and installation boundaries
         shell: pwsh
         run: |
-          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~ProductVersionInfoTests|FullyQualifiedName~ReleaseUpdateTests|FullyQualifiedName~SoftwareUpdateWindowTests|FullyQualifiedName~WindowsPackagingTests|FullyQualifiedName~InitialStructureLabLauncherTests|FullyQualifiedName~ProductDependencyArchitectureTests'
+          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~ProductVersionInfoTests|FullyQualifiedName~ReleaseUpdateTests|FullyQualifiedName~SoftwareUpdateWindowTests|FullyQualifiedName~WindowsPackagingTests|FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~InitialStructureLabLauncherTests|FullyQualifiedName~ProductDependencyArchitectureTests' --logger 'trx;LogFileName=release.trx' --results-directory artifacts/cloud-verification
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          dotnet test labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~FlatStartDesktopTests|FullyQualifiedName~AutoLensOfficialExampleTests' --logger 'trx;LogFileName=initial-structure.trx' --results-directory artifacts/cloud-verification
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
       - name: Verify frozen evidence and documentation
         shell: pwsh
         run: |
-          ./tools/validation/GitFrozenIntegrity.ps1 -RepositoryRoot . -ManifestPath ./artifacts/validation/n02-layer-diagnosis-20261009/frozen-after.json -ExpectedAggregateSha256 3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10 -RelocationMapPath tools/validation/frozen-evidence-relocations.json -ExpectedRelocationMapSha256 6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e
+          ./tools/validation/GitFrozenIntegrity.ps1 -RepositoryRoot . -ManifestPath ./artifacts/validation/n02-layer-diagnosis-20261009/frozen-after.json -ExpectedAggregateSha256 3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10 -RelocationMapPath tools/validation/frozen-evidence-relocations.json -ExpectedRelocationMapSha256 6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e -OutputPath artifacts/cloud-verification/frozen.json
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
-          ./scripts/verify-documentation.ps1 -Strict
-      - name: Build full unsigned installer and collect distribution assets
+          ./scripts/verify-documentation.ps1 -Strict -OutputPath artifacts/cloud-verification/documentation.json
+      - name: Build the complete self-contained EXE installer
         shell: pwsh
+        env:
+          TARGET_RUNTIME: ${{ matrix.runtime }}
+          TEST_PACKAGE: ${{ needs.plan.outputs.test_package }}
         run: |
-          $package = ./scripts/build-installer.ps1 -Runtime '${{ matrix.runtime }}' -PassThru
-          if ('${{ matrix.runtime }}' -eq 'win-x64') {
+          $package = ./scripts/build-installer.ps1 -Runtime $env:TARGET_RUNTIME -UnsignedTestPackage:($env:TEST_PACKAGE -eq 'true') -PassThru
+          if ($env:TARGET_RUNTIME -eq 'win-x64') {
             $payload = Get-ChildItem -LiteralPath (Join-Path $package.Directory 'payload') -Directory | Select-Object -First 1 -ExpandProperty FullName
-            ./scripts/verify-built-in-package.ps1 -PublishDirectory $payload -OutputDirectory 'artifacts/release-package-verification'
+            ./scripts/verify-built-in-package.ps1 -PublishDirectory $payload -OutputDirectory artifacts/cloud-package-verification
           }
-          # ARM64 is cross-published here, not natively executed on the x64 runner.
+          # Internal Actions handoff only. Publishing filters out these build records.
           New-Item -ItemType Directory -Path distribution | Out-Null
-          Copy-Item -LiteralPath $package.Setup, "$($package.Setup).sha256" -Destination distribution
-          Copy-Item -LiteralPath (Join-Path $package.Directory 'release.json') -Destination 'distribution/release-${{ matrix.runtime }}.json'
+          Copy-Item -LiteralPath $package.Setup -Destination distribution
+          Copy-Item -LiteralPath (Join-Path $package.Directory 'release.json') -Destination "distribution/release-$env:TARGET_RUNTIME.json"
+          Get-FileHash -LiteralPath $package.Setup -Algorithm SHA256 | Format-List
       - uses: actions/upload-artifact@v4
         with:
-          name: installers-${{ matrix.runtime }}
+          name: cloud-package-${{ matrix.runtime }}
           path: distribution/*
           if-no-files-found: error
-  draft:
-    needs: package
+          retention-days: 30
+      - name: Retain validation records inside Actions, not release attachments
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloud-checks-${{ matrix.runtime }}
+          path: |
+            artifacts/cloud-verification
+            artifacts/cloud-package-verification/*.json
+          if-no-files-found: warn
+          retention-days: 30
+
+  publish:
+    needs: [plan, package]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -72,11 +129,22 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
-          pattern: installers-*
+          pattern: cloud-package-*
           path: distribution
           merge-multiple: true
-      - name: Create a draft for manual release approval
+      - name: Verify and publish only EXE installers
+        shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.plan.outputs.tag }}
+          REPLACE_EXISTING: ${{ inputs.replace_existing || false }}
         run: |
-          gh release create "$GITHUB_REF_NAME" distribution/* --verify-tag --draft --title "Optical System Design $GITHUB_REF_NAME" --notes "Full Windows installers for x64 and ARM64, including both built-in laboratories. UNSIGNED: publisher identity is not authenticated. Verify SHA-256; close the app and install manually. Automatic online installation is not implemented. Review the normal CI and release assets before publishing this draft as the latest stable release."
+          ./scripts/publish-github-exe.ps1 -Repository $env:GITHUB_REPOSITORY -Tag $env:RELEASE_TAG -DistributionDirectory distribution -ReplaceExisting:($env:REPLACE_EXISTING -eq 'true') -NotesFile packaging/windows/RELEASE_NOTES.md
+      - name: Retain replacement receipts and previous assets inside Actions
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloud-release-receipt
+          path: distribution/release-evidence
+          if-no-files-found: warn
+          retention-days: 30

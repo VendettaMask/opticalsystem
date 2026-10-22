@@ -72,85 +72,88 @@ public sealed partial class MainWindow
 
     private Control BuildInputs()
     {
-        var panel = new StackPanel { Spacing = 10, Margin = new Thickness(0, 0, 8, 0) };
-        var systemPanel = panel;
-        var goalsPanel = new StackPanel { Spacing = 10, Margin = new Thickness(0, 0, 8, 0) };
-        var searchPanel = new StackPanel { Spacing = 10, Margin = new Thickness(0, 0, 8, 0) };
-        panel.Children.Add(new TextBlock { Text = "SYSTEM · 系统定义", FontSize = DisplayTypography.SectionTitle, FontWeight = Avalonia.Media.FontWeight.SemiBold });
-        panel.Children.Add(Field("实验名称", _name, 276));
-        panel.Children.Add(Pairs(Field("焦距 mm", _effectiveFocalLength), Field("最大半视场 °", _fieldAngle)));
-        panel.Children.Add(Field("孔径定义", _apertureMode, 276));
-        var fInput = Field("F/#", _fNumber, 276);
-        var epdInput = Field("入瞳直径 mm", _epd, 276);
+        foreach (var option in new[] { _fixedBack, _automaticDiameters, _physicalStop, _freeStop, _autoLensMaterials })
+            if (option.Content is string caption)
+                option.Content = new TextBlock { Text = caption, FontSize = DisplayTypography.BodySmall, TextWrapping = Avalonia.Media.TextWrapping.Wrap };
+        var systemPanel = new StackPanel { Spacing = 12, Margin = new Thickness(10) };
+        var goalsPanel = new StackPanel { Spacing = 12, Margin = new Thickness(10) };
+        var searchPanel = new StackPanel { Spacing = 12, Margin = new Thickness(10) };
+        systemPanel.Children.Add(BuildOfficialExamples());
+        var fInput = Field("F/#", _fNumber);
+        var epdInput = Field("入瞳直径 mm", _epd);
         epdInput.IsVisible = false;
         _apertureMode.SelectionChanged += (_, _) => { fInput.IsVisible = _apertureMode.SelectedIndex == 0; epdInput.IsVisible = !fInput.IsVisible; };
-        panel.Children.Add(fInput); panel.Children.Add(epdInput);
-        panel.Children.Add(Text("无限远物方 · 球面定焦系统；半视场为光轴到边缘的角度。"));
+        var apertureValue = new Grid { Children = { fInput, epdInput } };
+        systemPanel.Children.Add(Section("光学系统", "aperture",
+            Field("实验名称", _name),
+            Pairs(Field("焦距 mm", _effectiveFocalLength), Field("最大半视场 °", _fieldAngle)),
+            Pairs(Field("孔径定义", _apertureMode), apertureValue),
+            Hint("无限远物方 · 中心旋转对称定焦系统；半视场为光轴到边缘的角度。")));
 
         _wavelengthGrid.ItemsSource = _wavelengths;
         _wavelengthGrid.Columns.Add(new DataGridTextColumn { Header = "波长 nm", Binding = new Binding(nameof(WavelengthRow.Nanometers)) { Mode = BindingMode.TwoWay }, Width = new DataGridLength(96) });
         _wavelengthGrid.Columns.Add(new DataGridTextColumn { Header = "权重", Binding = new Binding(nameof(WavelengthRow.Weight)) { Mode = BindingMode.TwoWay }, Width = new DataGridLength(70) });
         _wavelengthGrid.Columns.Add(new DataGridCheckBoxColumn { Header = "主波长", Binding = new Binding(nameof(WavelengthRow.IsPrimary)) { Mode = BindingMode.TwoWay }, Width = new DataGridLength(84) });
-        panel.Children.Add(Text("波长与权重")); panel.Children.Add(_wavelengthGrid);
+        _wavelengthGrid.FontSize = DisplayTypography.BodySmall;
+        _wavelengthGrid.RowHeight = 32;
+        _wavelengthGrid.Columns[2].Width = new DataGridLength(1, DataGridLengthUnitType.Star);
         var add = Command("添加", "AddWave");
         var remove = Command("移除", "RemoveWave");
         var visible = Command("F / d / C", "VisibleSpectrum");
         add.Click += (_, _) => { if (_wavelengths.Count < 64) AddWave(new() { Nanometers = 550, Weight = 1 }); };
         remove.Click += (_, _) => { if (_wavelengthGrid.SelectedItem is WavelengthRow row) { _wavelengths.Remove(row); ParametersChanged(); } };
         visible.Click += (_, _) => SetWaves(new InitialStructureSpecification().Wavelengths);
-        panel.Children.Add(Buttons(add, remove, visible));
+        systemPanel.Children.Add(Section("波长与权重", "activity", _wavelengthGrid, Buttons(add, remove, visible)));
         SetWaves([new() { Label = "d", Nanometers = 587.6, Weight = 1, IsPrimary = true }]);
 
-        panel = goalsPanel;
-        panel.Children.Add(new TextBlock { Text = "GOALS · 设计约束", FontSize = DisplayTypography.SectionTitle, FontWeight = Avalonia.Media.FontWeight.SemiBold });
-        panel.Children.Add(Pairs(Field("最少片数", _minimumElements), Field("最多片数", _maximumElements)));
-        panel.Children.Add(Field("最大总长 mm", _maximumTrack, 276));
-        panel = searchPanel;
-        panel.Children.Add(new TextBlock { Text = "SEARCH · 形式搜索", FontSize = DisplayTypography.SectionTitle, FontWeight = Avalonia.Media.FontWeight.SemiBold });
-        panel.Children.Add(Field("搜索方式", _searchMode, 276));
-        panel.Children.Add(Field("局部优化算法", _optimizationMethod, 276));
-        panel.Children.Add(Text("C# 自动求导：共享 Core 导数、渐进口径、真实玻璃匹配后精修。仅支持当前中心旋转对称镜片；CPU 实现，未宣称与原版数值等效。旧启发式试验仍单独保留。"));
-        panel.Children.Add(Field("起始半径 mm（0 = 10 倍目标焦距）", _startingRadius, 276));
-        panel.Children.Add(Pairs(Field("起始厚度 mm（0 自动）", _startingCenter), Field("起始空气隙 mm（0 自动）", _startingAir)));
-        panel.Children.Add(Field("起始形式 + / - / *（固定片数时）", _signFilter, 276));
-        panel.Children.Add(Field("起始光阑面（0 = 中间面）", _stopSurface, 276));
-        panel.Children.Add(_freeStop);
-        panel.Children.Add(Pairs(Field("起始试验上限", _seedCount), Field("保留方案数", _retainedForms)));
-        panel.Children.Add(Pairs(Field("评价次数上限", _maximumEvaluations), Field("时间上限 min", _minutes)));
-        panel.Children.Add(Text("枚举正负初始形式，再比较与优化候选。+ / - 指起始方向，优化中可改变。自动厚度与空气隙使用目标页中的最小值。"));
-
-        var advanced = new StackPanel { Spacing = 10 };
-        advanced.Children.Add(Field("AutoLens 面型", _autoLensAsphere, 276));
-        advanced.Children.Add(_autoLensMaterials);
-        advanced.Children.Add(Field("AutoLens 胶合间隔（从 1 编号）", _autoLensCemented, 276));
-        advanced.Children.Add(Field("AutoLens 初始优化步数上限", _autoLensCurriculum, 276));
-        advanced.Children.Add(Field("AutoLens 目录玻璃精修步数上限", _autoLensRefinement, 276));
-        advanced.Children.Add(Field("完整目标原生精修评价上限", _autoLensPolish, 276));
-        advanced.Children.Add(Text("评价和时间预算始终优先；自动分配两阶段步数，不代表每次都会完成上述步数。"));
-        advanced.Children.Add(Pairs(Field("最小中心厚度 mm", _minimumCenter), Field("最小空气隙 mm", _minimumAir)));
-        advanced.Children.Add(Pairs(Field("最小后焦 mm", _minimumBack), Field("最小边厚 mm", _minimumEdge)));
-        advanced.Children.Add(_fixedBack);
-        advanced.Children.Add(Field("固定后焦 mm", _fixedBackValue, 276));
+        goalsPanel.Children.Add(Section("结构规模", "layers",
+            Pairs(Field("最少片数", _minimumElements), Field("最多片数", _maximumElements)),
+            Field("最大总长 mm", _maximumTrack)));
+        goalsPanel.Children.Add(Section("像质与验收", "target",
+            Pairs(Field("最差 RMS 上限 mm", _rmsLimit), Field("最大光斑半径 mm", _maximumSpotLimit)),
+            Pairs(Field("焦距容差 %", _focalTolerance), Field("F/# 容差 %", _fNumberTolerance)),
+            Field("最低通光 %", _transmission),
+            Hint("新实验按均匀照明圆瞳的面积 RMS 评价像质，独立加密验收；边缘光线必须全部通过。")));
         _fixedBackValue.IsEnabled = false;
-        _fixedBack.IsCheckedChanged += (_, _) => _fixedBackValue.IsEnabled = _fixedBack.IsChecked == true;
-        advanced.Children.Add(Field("允许的目录玻璃（逗号分隔）", _glasses, 276));
-        advanced.Children.Add(Field("起始玻璃", _initialGlass, 276));
-        advanced.Children.Add(Field("优先玻璃目录（逗号分隔）", _catalogs, 276));
-        advanced.Children.Add(Pairs(Field("最差 RMS 上限 mm", _rmsLimit), Field("最大光斑半径 mm", _maximumSpotLimit)));
-        advanced.Children.Add(Text("新实验按均匀照明圆瞳的面积 RMS 评价像质，独立加密验收；边缘光线必须全部通过。"));
-        advanced.Children.Add(Pairs(Field("焦距容差 %", _focalTolerance), Field("F/# 容差 %", _fNumberTolerance)));
-        advanced.Children.Add(_automaticDiameters);
-        advanced.Children.Add(_physicalStop);
-        advanced.Children.Add(Text("镜片外径按真实光束包络增减；实体光阑的通光口径由系统入瞳标定，不随镜片裕量放大。关闭实体光阑保留旧版近轴入瞳采样方式。"));
-        advanced.Children.Add(Pairs(Field("最低通光 %", _transmission), Field("半口径裕量", _apertureMargin)));
-        panel.Children.Add(Pairs(Field("并行任务数", _parallelism), Field("随机种子", _randomSeed)));
-        panel.Children.Add(Field("追加细化次数", _refineBudget, 276));
-        panel.Children.Add(Text("追加细化使用选中方案的原目标和新预算；不改变原实验。"));
-        goalsPanel.Children.Add(Named(new Expander { Header = "几何、材料与验收", IsExpanded = true, Content = advanced, HorizontalAlignment = HorizontalAlignment.Stretch }, "Advanced", "几何、材料与验收"));
-        var tabs = Named(new TabControl(), "InputTabs", "系统、目标与搜索设置");
-        tabs.Items.Add(new TabItem { Header = "系统", Content = Scroll(systemPanel) });
-        tabs.Items.Add(new TabItem { Header = "目标", Content = Scroll(goalsPanel) });
-        tabs.Items.Add(new TabItem { Header = "搜索", Content = Scroll(searchPanel) });
+        _fixedBack.IsCheckedChanged += (_, _) => UpdateCommands();
+        goalsPanel.Children.Add(Disclosure("几何与后焦", "Advanced",
+            Pairs(Field("最小中心厚度 mm", _minimumCenter), Field("最小空气隙 mm", _minimumAir)),
+            Pairs(Field("最小后焦 mm", _minimumBack), Field("最小边厚 mm", _minimumEdge)),
+            _fixedBack, Field("固定后焦 mm", _fixedBackValue)));
+        goalsPanel.Children.Add(Disclosure("玻璃与目录", "MaterialSettings",
+            Field("允许的目录玻璃（逗号分隔）", _glasses), Field("起始玻璃", _initialGlass),
+            Field("优先玻璃目录（逗号分隔）", _catalogs)));
+        goalsPanel.Children.Add(Disclosure("口径与光阑", "ApertureSettings",
+            _automaticDiameters, _physicalStop, Field("半口径裕量", _apertureMargin),
+            Hint("镜片外径按真实光束包络增减；实体光阑的通光口径由系统入瞳标定，不随镜片裕量放大。关闭实体光阑保留旧版近轴入瞳采样方式。")));
+
+        searchPanel.Children.Add(Section("搜索策略", "sliders-horizontal",
+            Field("搜索方式", _searchMode), Field("局部优化算法", _optimizationMethod),
+            Hint("计算后端：共享 Core · C# CPU")));
+        searchPanel.Children.Add(Section("运行预算", "timer",
+            Pairs(Field("起始试验上限", _seedCount), Field("保留方案数", _retainedForms)),
+            Pairs(Field("评价次数上限", _maximumEvaluations), Field("时间上限 min", _minutes)),
+            Pairs(Field("并行任务数", _parallelism), Field("随机种子", _randomSeed))));
+        searchPanel.Children.Add(Disclosure("AutoLens 参数", "AutoLensSettings",
+            Field("AutoLens 面型", _autoLensAsphere), _autoLensMaterials,
+            Field("AutoLens 胶合间隔（从 1 编号）", _autoLensCemented),
+            Field("AutoLens 初始优化步数上限", _autoLensCurriculum),
+            Field("AutoLens 目录玻璃精修步数上限", _autoLensRefinement),
+            Field("完整目标原生精修评价上限", _autoLensPolish),
+            Hint("评价和时间预算始终优先；自动分配两阶段步数，不代表每次都会完成上述步数。"),
+            Hint("C# 自动求导：共享 Core 导数、渐进口径、真实玻璃匹配后精修。仅支持当前中心旋转对称镜片；CPU 实现，未宣称与原版数值等效。旧启发式试验仍单独保留。")));
+        searchPanel.Children.Add(Disclosure("起始形式与光阑位置", "StartingSettings",
+            Field("起始半径 mm（0 = 10 倍目标焦距）", _startingRadius),
+            Pairs(Field("起始厚度 mm（0 自动）", _startingCenter), Field("起始空气隙 mm（0 自动）", _startingAir)),
+            Field("起始形式 + / - / *（固定片数时）", _signFilter),
+            Field("起始光阑面（0 = 中间面）", _stopSurface), _freeStop,
+            Hint("枚举正负初始形式，再比较与优化候选。+ / - 指起始方向，优化中可改变。自动厚度与空气隙使用目标页中的最小值。")));
+        searchPanel.Children.Add(Disclosure("候选细化预算", "RefinementSettings",
+            Field("追加细化次数", _refineBudget), Hint("追加细化使用选中方案的原目标和新预算；不改变原实验。")));
+        var tabs = Named(CompactTabs(), "InputTabs", "系统、目标与搜索设置");
+        tabs.Items.Add(DetailTab("系统", Scroll(systemPanel)));
+        tabs.Items.Add(DetailTab("目标", Scroll(goalsPanel)));
+        tabs.Items.Add(DetailTab("搜索", Scroll(searchPanel)));
         return tabs;
 
         static ScrollViewer Scroll(Control content) => new() { Content = content, HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto };
@@ -335,16 +338,16 @@ public sealed partial class MainWindow
             FormatString = "0.######",
             HorizontalAlignment = HorizontalAlignment.Stretch
         }, id, label);
-    private static StackPanel Field(string label, Control control, double width = 132) => new()
+    private static StackPanel Field(string label, Control control) => new()
     {
-        Width = width,
         Spacing = 4,
-        Margin = new Thickness(0, 0, 8, 4),
-        Children = { Text(label), control }
+        HorizontalAlignment = HorizontalAlignment.Stretch,
+        Children = { Hint(label), control }
     };
-    private static WrapPanel Pairs(params Control[] controls)
+    private static Grid Pairs(Control left, Control right)
     {
-        var panel = new WrapPanel(); foreach (var control in controls) panel.Children.Add(control); return panel;
+        var panel = new Grid { ColumnDefinitions = new("*,*"), ColumnSpacing = 8 };
+        panel.Children.Add(left); Grid.SetColumn(right, 1); panel.Children.Add(right); return panel;
     }
 }
 

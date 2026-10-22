@@ -1,6 +1,6 @@
 # 构建与发布
 
-更新：2026-10-21。本文只说明当前命令和交付规则。最新验收见 [当前状态](CURRENT_STATUS.md)，历史构建验收原文已集中到 [历史账本](validation/BUILD_VERIFICATION_HISTORY_2026-10-13.json)，不作为当前通过结论或可直接执行的旧命令。
+更新：2026-10-22。本文只说明当前命令和交付规则。最新验收见 [当前状态](CURRENT_STATUS.md)，历史构建验收原文已集中到 [历史账本](validation/BUILD_VERIFICATION_HISTORY_2026-10-13.json)，不作为当前通过结论或可直接执行的旧命令。
 
 ## 唯一产品入口
 
@@ -96,13 +96,19 @@ RID 专用锁文件放在项目 `obj` 下，不覆盖源锁文件。发布禁用
 
 “打开发布页”由用户主动打开浏览器，不执行安装包。在线安装接口 `IOnlineUpgradeInstaller` 已预留，但默认实现不可用且调用明确拒绝；界面不显示预留升级按钮。**本阶段没有后台联网、自动下载、自动安装、自动重启或在线升级完成的承诺。** 用户在发布页核对版本、架构及 SHA-256，下载完整包，保存工程并关闭程序后手动安装；所有必装模块整体升级。未签名包仍不能认证发布者身份；未来启用在线安装前须另行实现可信签名/载荷验证、用户授权、未保存工程保护、进程退出与失败恢复。
 
-安装包正式分发地址为 [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases)。[发布工作流](../.github/workflows/release.yml) 在推送 `v<产品版本>` 标签后核对版本、构建完整解决方案、运行定向交付测试及原冻结门禁，再生成 x64/ARM64 完整未签名 Setup EXE、各自 SHA-256 和 release 元数据，最后只创建**发布草稿**。x64 对包副本运行完整性/内置模块探测；ARM64 在 x64 runner 上仅交叉打包，不宣称原生执行验收。维护者须另行核对正常 CI、资产和发布说明，手动发布草稿为正式版并标为 Latest，软件才会检测到。标签推送、草稿创建、公开发布均是独立外部操作，本地构建不会触发。
+安装包分发地址为 [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases)。[发布工作流](../.github/workflows/release.yml) 在 GitHub 托管 Windows runner 编译完整解决方案，运行版本、升级、安装、内置模块、自动初始结构界面的定向测试及冻结证据/文档门禁，再生成自包含 Setup EXE。x64 对实际载荷的隔离副本运行完整性/内置模块探测；ARM64 在 x64 runner 上仅交叉打包，不宣称原生执行验收。全部所选架构通过后自动上传并公开发布；不再止于草稿。本地构建本身不会联网发布。
 
-每个稳定发布及架构只上传一个生产安装器：`OpticalSystemDesign-<版本>-<RID>-Setup.exe` 或明确标注未签名的 `OpticalSystemDesign-<版本>-<RID>-Unsigned-Setup.exe`，并附同名 `.sha256`；`UnsignedTest` 不能作为升级安装包。不可把源码压缩包或工作流临时产物冒充 Setup。API 约定见 [GitHub Releases REST 文档](https://docs.github.com/en/rest/releases/releases)。
+推送与产品版本一致的 `v<产品版本>` 标签自动构建 x64/ARM64 并发布正式版；推送 `v<产品版本>-test.YYYYMMDD` 标签发布测试预发布、不标 Latest。维护者也可在 Actions 的 **Windows EXE build and publish → Run workflow** 选择分支、已有标签及单一架构，勾选 `replace_existing` 才允许覆盖已有附件。手动刷新不移动旧标签，发布说明记录实际源码提交。详细操作和边界见[云端发布指南](GITHUB_CLOUD_RELEASE.md)。
 
-当前 [1.0.4 x64 测试预发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)已于 **2026-10-20 按用户要求再次覆盖旧附件**，保留发布页和三个文件名，含新的 `UnsignedTest-Setup.exe`、同名 SHA-256 与 `release.json`。当前身份为 `1.0.4-win-x64-973fe980dc92`，不标 Latest，不进入正式更新检测。包从已推送的干净代码提交 `67fc82b4bd1102c8003ce0a4d2666a8fc29f7fd4` 生成，交付文档随后单独提交；原标签没有移动，GitHub 标签源码压缩包仍指向旧基线，应使用该代码提交查看本包源码。旧包完整备份在本地，新附件服务端哈希和公开下载复核通过后，旧远端附件已移除。测试包使用正常产品安装标识，安装可能升级已有同产品安装，应先保存并备份重要工程、关闭程序；本轮没有实际安装。软件内部仍显示 1.0.4，同版本正式包不会被判为更高版本，必要时应手动安装。当前身份与验收边界见[本轮交付账目](validation/UPDATE_SYNC_PACKAGE_REFRESH_2026-10-20.json)，上一包记录保留在[前轮账目](validation/PACKAGE_UPLOAD_2026-10-20.json)，最初阶段见[版本功能账目](validation/VERSION_UPDATES_2026-10-19.json)。
+每个架构只上传一个 EXE 附件，目前云端未配置签名证书，文件名明确标注 `Unsigned` 或 `UnsignedTest`；测试包不能作为正式升级安装包。SHA-256 写在发布说明，元数据、检查结果和替换前附件保存在 Actions 的 30 天工作流产物中，不上传 `.sha256` 或 `release.json` 到 Releases。替换前备份旧附件，先上传临时名新 EXE 并核对 GitHub 的大小/完整 SHA-256，再切换原下载名；切换失败尝试恢复旧下载名。未知附件或不可变发布停止处理，不随意删除。GitHub 自动提供的 Source code ZIP/tar.gz 不是安装附件，也不代表手动刷新后的源码提交。API 约定见 [GitHub Releases REST 文档](https://docs.github.com/en/rest/releases/releases)。
+
+截至本轮云端交付前，原 [1.0.4 x64 测试预发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019) 最近包为 2026-10-21 的 `1.0.4-win-x64-20f20ca93130`，来自干净提交 `b37d1b31c9ca6e2b861c776af4d2dc7e943f1d94`；历史三个附件与验证范围见[当时交付账目](validation/UPDATE_SYNC_REFLECTIVE_PARAXIAL_PACKAGE_2026-10-21.json)。最新云端执行状态见[当前状态](CURRENT_STATUS.md)。测试包使用正常产品安装标识，安装前应保存工程并正常关闭程序；软件内部版本仍为 1.0.4，同版本安装按修复处理。
 
 ## 安装、修复和验证
+
+安装器按固定产品标识识别当前用户的已有安装：检测到后进入“更新”或“修复”，锁定原安装目录、开始菜单目录、无开始菜单选项和桌面快捷方式配置，跳过这些选择页；命令行 `/DIR`、`/GROUP`、`/NOICONS`、`/TASKS` 等也不能另建一份。同版本（含不同发布 ID 的重包）按修复处理，新版本原位升级，低版本拒绝；平铺安装没有 `release-state.ini` 时仍根据卸载注册版本拒绝降级。复制前持锁恢复未完成事务，再复核注册信息与状态版本。目录冲突、坏版本和无法确认的安装身份停止处理，不猜测新目录或删除旧目录。全用户同产品安装阻止当前用户包另建副本，不自动跨范围迁移。细节及验证边界见[安装维护策略](WINDOWS_INSTALLATION_POLICY_2026-10-22.md)。
+
+标准构建的 `ProductAppId` 保持不变；自定义隔离标识限制为字母、数字和连字符、最多 56 字符，与生产标识的已验证精确注册键范围一致，防止 Inno 对过长键名归一化后绕过维护识别。`release.json` 同时记录主安装脚本、恢复脚本和维护策略脚本的 SHA-256。新的策略只随重新构建的安装包交付，旧下载包与当前已安装程序不会因修改源码自动改变。
 
 版本载荷放在 `versions/<release-id>`，校验清单与全部文件后才切换入口。持久事务支持异常中断后的恢复；同发布重装修复损坏或缺失文件；目录文件锁协调应用、安装、卸载和维护。安全清理保留当前、上一与正在启动版本，并保留未知、额外或修改文件。用户不需要一键版本回退，不提供回退入口。
 

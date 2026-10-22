@@ -64,10 +64,13 @@ public sealed class ProductVersionInfoTests
             Assert.DoesNotContain("$AppVersion = '1.0.3'", text);
         }
         var workflow = File.ReadAllText(Path.Combine(root, ".github/workflows/release.yml"));
-        Assert.Contains("--draft", workflow);
-        Assert.Contains("--verify-tag", workflow);
-        Assert.Contains("$env:GITHUB_REF_NAME -cne \"v$version\"", workflow);
-        Assert.Contains("win-x64, win-arm64", workflow);
+        Assert.Contains("$tag -cne \"v$version\"", workflow);
+        Assert.Contains("options: [win-x64, win-arm64]", workflow);
+        Assert.Contains("needs: [plan, package]", workflow);
+        var publisher = File.ReadAllText(Path.Combine(root, "scripts/publish-github-exe.ps1"));
+        Assert.Contains("git/ref/tags/$Tag", publisher);
+        Assert.Contains("draft = $true", publisher);
+        Assert.Contains("draft = $false", publisher);
         Assert.Contains("-PublishDirectory $payload -OutputDirectory", workflow);
     }
 }
