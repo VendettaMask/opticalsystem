@@ -204,6 +204,6 @@ internal static class WindowsOtaHandoff
     private static bool SamePath(string first, string second) =>
         Path.TrimEndingDirectorySeparator(Path.GetFullPath(first)).Equals(Path.TrimEndingDirectorySeparator(Path.GetFullPath(second)), StringComparison.OrdinalIgnoreCase);
 
-    private static bool IsExpectedFailure(Exception exception) => exception is IOException or UnauthorizedAccessException or InvalidOperationException
+    private static bool IsExpectedFailure(Exception exception) => exception is IOException or InvalidDataException or UnauthorizedAccessException or InvalidOperationException
         or ArgumentException or System.ComponentModel.Win32Exception or System.Security.SecurityException or CryptographicException or JsonException or OperationCanceledException;
 }

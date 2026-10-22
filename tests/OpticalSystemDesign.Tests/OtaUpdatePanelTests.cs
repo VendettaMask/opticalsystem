@@ -4,6 +4,8 @@ using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Panels;
@@ -16,22 +18,32 @@ namespace OpticalSystemDesign.Tests;
 [Collection(HeadlessAvaloniaCollection.Name)]
 public sealed class OtaUpdatePanelTests
 {
-    public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<global::OpticalSystemDesign.App.App>()
-        .UseHeadless(new AvaloniaHeadlessPlatformOptions());
+    public static AppBuilder BuildAvaloniaApp()
+    {
+        var capture = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_OTA_CAPTURE_DIR"));
+        var builder = AppBuilder.Configure<global::OpticalSystemDesign.App.App>();
+        if (capture) builder.UseSkia();
+        return builder.UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = !capture });
+    }
 
     [Theory]
-    [InlineData("zh-CN", "Light")][InlineData("en-US", "Dark")][InlineData("ja-JP", "Light")]
-    public async Task ManualDownloadAndCanceledSaveAreLocalizedAndNeverAutoInstall(string language, string theme)
+    [InlineData("zh-CN", "Light", 13)][InlineData("en-US", "Dark", 18)][InlineData("ja-JP", "Light", 18)]
+    public async Task ManualDownloadAndCanceledSaveAreLocalizedAndNeverAutoInstall(string language, string theme, double fontSize)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OtaUpdatePanelTests));
         await session.Dispatch(async () =>
         {
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
             UiLocalization.InstallGlobalHooks(); UiLocalization.Apply(language);
+            DisplayTypography.Configure(new AppSettings { FontSize = fontSize });
             var service = new FixedService(); var downloader = new FakeDownloader(); var installs = 0;
-            using var panel = new SoftwareUpdatePanel(service, handoff: _ => { installs++; return Task.FromResult(false); },
+            using var stream = AssetLoader.Open(new Uri("avares://OpticalSystemDesign.App/Assets/Author.jpg"));
+            using var portrait = new Bitmap(stream);
+            var window = global::OpticalSystemDesign.App.MainWindow.CreateAboutDialog(portrait, service,
+                handoff: _ => { installs++; return Task.FromResult(false); },
                 downloader: downloader, unavailableReason: () => null);
-            var window = Show(panel);
+            window.Show(); Tick(window);
+            var panel = Named<SoftwareUpdatePanel>(window, "AboutUpdates");
             try
             {
                 Assert.Equal(0, service.Calls);
@@ -46,6 +58,20 @@ public sealed class OtaUpdatePanelTests
                 var install = Named<Button>(panel, "InstallUpdate");
                 Assert.True(install.IsVisible); Assert.True(install.IsEnabled); Assert.Contains("accent", install.Classes);
                 Assert.Equal(UiLocalization.Text("保存并重启更新"), install.Content);
+                foreach (var name in new[] { "CheckForUpdates", "InstallUpdate", "UpdateReleasePage", "CloseAboutWindow" })
+                {
+                    var button = Named<Button>(window, name);
+                    var position = button.TranslatePoint(default, window)!.Value;
+                    Assert.InRange(position.X + button.Bounds.Width, 0, window.ClientSize.Width);
+                    Assert.InRange(position.Y + button.Bounds.Height, 0, window.ClientSize.Height);
+                }
+                var capture = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_OTA_CAPTURE_DIR");
+                if (!string.IsNullOrWhiteSpace(capture))
+                {
+                    Directory.CreateDirectory(capture);
+                    using var bitmap = new RenderTargetBitmap(new((int)window.Width * 2, (int)window.Height * 2), new(192, 192));
+                    bitmap.Render(window); bitmap.Save(Path.Combine(capture, $"ota-ready-{language}-{theme}.png"), PngBitmapEncoderOptions.Default);
+                }
                 await panel.InstallAsync(); Tick(window);
                 Assert.Equal(1, installs);
                 Assert.Equal(UiLocalization.Text("更新已取消，未执行安装。"), Named<TextBlock>(panel, "OtaUpdateStatus").Text);
@@ -55,6 +81,7 @@ public sealed class OtaUpdatePanelTests
             {
                 window.Close(); panel.Dispose();
                 Assert.False(File.Exists(downloader.Prepared?.InstallerPath));
+                DisplayTypography.Configure(new AppSettings());
                 UiLocalization.Apply(UiLocalization.Chinese);
             }
         }, CancellationToken.None);
@@ -123,6 +150,28 @@ public sealed class OtaUpdatePanelTests
     }
 
     [Fact]
+    public async Task VerificationFailureIsVisibleAndNeverReachesInstallation()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OtaUpdatePanelTests));
+        await session.Dispatch(async () =>
+        {
+            var installs = 0;
+            using var panel = new SoftwareUpdatePanel(new FixedService(), handoff: _ => { installs++; return Task.FromResult(true); },
+                downloader: new FakeDownloader { Failure = new InvalidDataException("fixture signature/hash mismatch") }, unavailableReason: () => null);
+            var window = Show(panel);
+            try
+            {
+                await panel.CheckAsync(); await panel.DownloadAsync(); await panel.InstallAsync(); Tick(window);
+                Assert.Equal(0, installs);
+                Assert.False(Named<Button>(panel, "InstallUpdate").IsVisible);
+                Assert.True(Named<Button>(panel, "DownloadUpdate").IsEnabled);
+                Assert.Equal(UiLocalization.Text("下载或校验失败，未执行安装。请重试或使用发布页。"), Named<TextBlock>(panel, "OtaUpdateStatus").Text);
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
     public async Task MissingSignatureOrUnsupportedInstallationNeverDownloads()
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OtaUpdatePanelTests));
@@ -152,10 +201,11 @@ public sealed class OtaUpdatePanelTests
     }
     private sealed class FakeDownloader : IOtaDownloader
     {
-        internal int Calls; internal bool Pending; internal CancellationToken Token; internal PreparedOtaUpdate? Prepared;
+        internal int Calls; internal bool Pending; internal CancellationToken Token; internal PreparedOtaUpdate? Prepared; internal Exception? Failure;
         public async Task<PreparedOtaUpdate> DownloadAsync(SignedOtaUpdate update, string installedVersion, IProgress<double> progress, CancellationToken token)
         {
             Calls++; Token = token;
+            if (Failure is not null) throw Failure;
             if (Pending) await Task.Delay(Timeout.Infinite, token);
             var directory = Path.Combine(Path.GetTempPath(), "optical-ota-panel-" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(directory); Prepared = new(directory, update);

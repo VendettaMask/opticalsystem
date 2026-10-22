@@ -175,6 +175,7 @@ public sealed partial class MainWindow
             if (_closed || _closeInProgress || _pendingOtaUpdate is not null) return false;
             // OTA never chooses "don't save" for the main project or tolerance documents.
             if (!await TrySaveAllChangesAsync()) return false;
+            if (_closed || _closeInProgress || dialog?.IsVisible != true) return false;
             _pendingOtaUpdate = prepared;
             prepared.HandedOff = true; // Closing About must not delete the verified download.
             dialog!.Close();
@@ -185,7 +186,8 @@ public sealed partial class MainWindow
     }
 
     internal static Window CreateAboutDialog(Bitmap authorBitmap, IReleaseUpdateService? updateService = null,
-        Func<Uri, Task<bool>>? openReleasePage = null, Func<PreparedOtaUpdate, Task<bool>>? handoff = null)
+        Func<Uri, Task<bool>>? openReleasePage = null, Func<PreparedOtaUpdate, Task<bool>>? handoff = null,
+        IOtaDownloader? downloader = null, Func<string?>? unavailableReason = null)
     {
         ArgumentNullException.ThrowIfNull(authorBitmap);
         var dialog = new Window
@@ -271,7 +273,7 @@ public sealed partial class MainWindow
             RowDefinitions = new RowDefinitions("*,Auto"),
             RowSpacing = 18
         };
-        var updates = new SoftwareUpdatePanel(updateService, openReleasePage, handoff);
+        var updates = new SoftwareUpdatePanel(updateService, openReleasePage, handoff, downloader, unavailableReason);
         var footer = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 16 };
         footer.Children.Add(updates);
         Grid.SetColumn(closeButton, 1);

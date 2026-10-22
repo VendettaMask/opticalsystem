@@ -184,7 +184,7 @@ internal sealed class SoftwareUpdatePanel : StackPanel, IDisposable
         }
         catch (OperationCanceledException) { if (!_disposed) ShowOtaStatus("下载已取消，未执行安装。"); }
         catch (TimeoutException) { if (!_disposed) ShowOtaStatus("下载更新超时，请检查网络后重试。"); }
-        catch (Exception exception) when (exception is IOException or HttpRequestException or UnauthorizedAccessException or InvalidOperationException or NotSupportedException or System.Security.SecurityException)
+        catch (Exception exception) when (exception is IOException or InvalidDataException or HttpRequestException or UnauthorizedAccessException or InvalidOperationException or NotSupportedException or System.Security.SecurityException)
         { if (!_disposed) ShowOtaStatus("下载或校验失败，未执行安装。请重试或使用发布页。"); }
         finally
         {
@@ -215,7 +215,7 @@ internal sealed class SoftwareUpdatePanel : StackPanel, IDisposable
             if (!await _handoff(_prepared) && !_disposed)
                 ShowOtaStatus("更新已取消，未执行安装。");
         }
-        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or InvalidOperationException or NotSupportedException or System.Security.SecurityException)
+        catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException or InvalidOperationException or NotSupportedException or System.Security.SecurityException)
         { if (!_disposed) ShowOtaStatus("无法准备更新，未执行安装。"); }
         finally
         {

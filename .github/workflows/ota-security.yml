@@ -34,6 +34,8 @@ jobs:
           global-json-file: global.json
       - name: Build in GitHub and run only the publisher boundary regressions
         shell: pwsh
+        env:
+          OPTICAL_SYSTEM_DESIGN_OTA_CAPTURE_DIR: artifacts/ota-checks/screenshots
         run: |
           dotnet restore OpticalSystemDesign.slnx --locked-mode
           if ($LASTEXITCODE) { exit $LASTEXITCODE }

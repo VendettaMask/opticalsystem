@@ -33,6 +33,10 @@ internal static class OtaTestData
 public sealed class OtaClientTests
 {
     [Fact]
+    public void DevelopmentInstallationHasAnUnavailableReasonRatherThanThrowing() =>
+        Assert.False(string.IsNullOrEmpty(WindowsOtaHandoff.UnavailableReason()));
+
+    [Fact]
     public void EmbeddedTrustKeyIsTheConfiguredPublicKeyOnly()
     {
         using var rsa = RSA.Create();

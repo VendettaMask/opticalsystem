@@ -261,7 +261,7 @@ public sealed partial class MainWindow : Window
         if (_pendingOtaUpdate is { } update)
         {
             try { Services.Updates.WindowsOtaHandoff.StartAfterClose(update); }
-            catch (Exception exception) when (exception is IOException or InvalidOperationException or UnauthorizedAccessException
+            catch (Exception exception) when (exception is IOException or InvalidDataException or InvalidOperationException or UnauthorizedAccessException
                 or System.ComponentModel.Win32Exception or System.Security.SecurityException)
             {
                 update.HandedOff = false;
