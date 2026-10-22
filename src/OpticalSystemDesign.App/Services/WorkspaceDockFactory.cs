@@ -9,6 +9,7 @@ using Dock.Model.Core;
 using Dock.Model.Mvvm;
 using Dock.Model.Mvvm.Controls;
 using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Manufacturing;
 using OpticalSystemDesign.App.Panels;
@@ -269,6 +270,9 @@ public sealed class WorkspaceDockFactory : Factory
                 dockable.MaxWidth = UiDensity.SystemOptionsMaximumWidth;
             if (dockable.Id == SystemToolId || _descriptors.ContainsKey(dockable.Id))
             {
+                if (dockable is Document && _descriptors.TryGetValue(dockable.Id, out var descriptor)
+                    && descriptor.TypeId == WorkspaceDocumentTypes.Analysis)
+                    dockable.Title = descriptor.Title;
                 dockable.Context = ResolveContent(dockable.Id);
             }
         }
@@ -279,7 +283,7 @@ public sealed class WorkspaceDockFactory : Factory
         _descriptors.Clear();
         foreach (var descriptor in descriptors)
         {
-            _descriptors[descriptor.Id] = NormalizeMaterialLibrary(descriptor);
+            _descriptors[descriptor.Id] = NormalizeDocumentDescriptor(descriptor);
         }
 
         var primaryId = _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
@@ -301,7 +305,7 @@ public sealed class WorkspaceDockFactory : Factory
 
     public Document OpenDocument(WorkspaceDocumentDescriptor descriptor)
     {
-        descriptor = NormalizeMaterialLibrary(descriptor);
+        descriptor = NormalizeDocumentDescriptor(descriptor);
         var existing = RootLayout is null
             ? null
             : EnumerateDockables(RootLayout).OfType<Document>()
@@ -313,6 +317,7 @@ public sealed class WorkspaceDockFactory : Factory
             if (existing.Id == descriptor.Id)
             {
                 _descriptors[descriptor.Id] = descriptor;
+                if (descriptor.TypeId == WorkspaceDocumentTypes.Analysis) existing.Title = descriptor.Title;
             }
 
             SetActiveDockable(existing);
@@ -340,6 +345,25 @@ public sealed class WorkspaceDockFactory : Factory
         descriptor.TypeId is WorkspaceDocumentTypes.MaterialLibrary or WorkspaceDocumentTypes.GlassCatalog
             ? descriptor with { TypeId = WorkspaceDocumentTypes.MaterialLibrary, Title = "材料库" }
             : descriptor;
+
+    private WorkspaceDocumentDescriptor NormalizeDocumentDescriptor(WorkspaceDocumentDescriptor descriptor)
+    {
+        descriptor = NormalizeMaterialLibrary(descriptor);
+        if (descriptor.TypeId != WorkspaceDocumentTypes.Analysis) return descriptor;
+        var canonical = _application.Analyses.CanonicalKey(descriptor.AnalysisName ?? descriptor.Title);
+        var displayName = WorkbenchAnalysisCatalog.DisplayName(canonical);
+        if (_application.Analyses.CanonicalKey(descriptor.Title) == canonical)
+            return descriptor with { Title = displayName };
+        // Normalize built-in clone captions from saved layouts without rewriting
+        // user-supplied titles or the analysis identity/settings.
+        if (descriptor.Title.StartsWith(canonical + "（副本）", StringComparison.Ordinal))
+        {
+            var suffix = descriptor.Title[canonical.Length..];
+            if (suffix.Replace("（副本）", string.Empty, StringComparison.Ordinal).Length == 0)
+                return descriptor with { Title = displayName + suffix };
+        }
+        return descriptor;
+    }
 
     private void ConsolidateMaterialLibraries(IDockable layout)
     {

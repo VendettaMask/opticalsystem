@@ -33,6 +33,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
     private readonly ContentControl _resultHost = new();
     private readonly OperationStatusBar _operationStatus = new();
     private readonly Button _syncButton;
+    private readonly Button _exportImageButton;
     private readonly Border _settingsHost;
     private readonly CheckBox _parameterAutoApply = new()
     {
@@ -83,6 +84,10 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         copyButton.Click += async (_, _) => await CopyReportAsync();
         var exportButton = CommandButton("upload", "导出文本", 96);
         exportButton.Click += async (_, _) => await ExportReportAsync();
+        _exportImageButton = IconButton("camera", "导出图片（PNG）");
+        _exportImageButton.Name = "ExportAnalysisImage";
+        _exportImageButton.IsVisible = false;
+        _exportImageButton.Click += async (_, _) => await ExportImageAsync();
 
         var settingsButton = SettingsPanelChrome.CreateToggleButton();
         _settingsHost = new Border
@@ -114,12 +119,14 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 _syncButton,
                 copyButton,
                 exportButton,
+                _exportImageButton,
                 _operationStatus
             }
         };
         _syncButton.Margin = new Thickness(2, 0, 0, 0);
         copyButton.Margin = new Thickness(2, 0, 0, 0);
-        exportButton.Margin = new Thickness(2, 0, 8, 0);
+        exportButton.Margin = new Thickness(2, 0, 2, 0);
+        _exportImageButton.Margin = new Thickness(2, 0, 8, 0);
 
         var toolbar = new StackPanel
         {
@@ -243,6 +250,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
         var cancellationToken = _runCancellation.Token;
         var generation = ++_generation;
         _isRunning = true;
+        UpdateImageExportButton();
         _syncButton.IsEnabled = true;
         _operationStatus.Start("正在计算…", () => _runCancellation?.Cancel());
 
@@ -251,7 +259,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
             var result = await _analyses.RunAsync(
                 new AnalysisRequestDto(InstanceId, generation, AnalysisKey, _settings),
                 cancellationToken);
-            var cardinalScene = IsCardinalPointsView(result.View)
+            var cardinalScene = result.ReferenceScene ?? (IsCardinalPointsView(result.View)
                 ? await _visualization.BuildSceneAsync(
                     new VisualizationRequestDto(
                         SceneDimension.TwoDimensional,
@@ -261,7 +269,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                         UpperPupil: 1,
                         MarginalAndChiefOnly: true),
                     cancellationToken)
-                : null;
+                : null);
             if (_disposed
                 || cancellationToken.IsCancellationRequested
                 || result.InstanceId != InstanceId
@@ -284,10 +292,9 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                     ResetInteractiveViewState(_resultHost.Content as Control);
                 }
 
-                _view = result.View;
-                _resultHost.Content = BuildResultContent(
+                PresentResult(
                     result.View,
-                    _documents.GetSnapshot(),
+                    result.SourceDocument ?? _documents.GetSnapshot(),
                     DateTimeOffset.Now,
                     cardinalScene);
                 _displayedSourceRevision = result.SourceRevision;
@@ -325,6 +332,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 _view = null;
                 _displayedSourceRevision = null;
                 _resultHost.Content = BuildAnalysisErrorContent(exception.Message);
+                UpdateImageExportButton();
                 _operationStatus.MarkFailed($"分析失败：{exception.Message}");
             });
         }
@@ -336,6 +344,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 {
                     _isRunning = false;
                     _syncButton.IsEnabled = true;
+                    UpdateImageExportButton();
                 });
             }
         }
@@ -378,9 +387,15 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 _view = null;
                 _displayedSourceRevision = null;
                 _resultHost.Content = null;
+                UpdateImageExportButton();
+                RefreshConfigurationParameters();
                 _operationStatus.MarkStale("文件已切换，请同步");
                 return;
             }
+
+            if (args.Category is WorkspaceChangeCategory.Configuration or WorkspaceChangeCategory.Field
+                or WorkspaceChangeCategory.Wavelength or WorkspaceChangeCategory.SystemSettings)
+                RefreshConfigurationParameters();
 
             if (_locked)
             {
@@ -393,7 +408,8 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
 
             if (args.Category is WorkspaceChangeCategory.SystemSettings
                 or WorkspaceChangeCategory.Field
-                or WorkspaceChangeCategory.Wavelength)
+                or WorkspaceChangeCategory.Wavelength
+                or WorkspaceChangeCategory.Configuration)
             {
                 _operationStatus.MarkStale("系统设置已变化，正在自动刷新…");
                 _automaticRefreshTimer.Stop();

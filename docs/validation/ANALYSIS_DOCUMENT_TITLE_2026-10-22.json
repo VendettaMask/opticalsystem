@@ -1,0 +1,66 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-22",
+  "Product": "Optical System Design",
+  "BaseCommit": "759005faf9bd351128943e1cf5eca53625155758",
+  "WorkingTreeDirty": true,
+  "Cause": "Ribbon display names were localized, but ShowAnalysis assigned the internal English analysis name directly to the document title.",
+  "Fix": "Resolve the canonical analysis key through WorkbenchAnalysisCatalog.DisplayName for the title; retain analysis name, stable document ID and instance identity.",
+  "Source": "src/OpticalSystemDesign.App/Services/PanelManager.cs",
+  "SourceSha256": "7fe9b6f4590450a9697b3bd9a5a0220f1b483e8e8ce067cdfff8060d35a1ffe6",
+  "Verification": {
+    "Configuration": "Debug",
+    "Passed": 13,
+    "Failed": 0,
+    "Skipped": 0,
+    "NewTitleTests": 11,
+    "ExistingLanguageTests": 2,
+    "Results": "artifacts/analysis-title-localization-20261022/tests/analysis-titles-final.trx",
+    "Languages": ["zh-CN", "en-US", "ja-JP"],
+    "SameGroupAnalysisKinds": 7,
+    "RealDockTabs": true,
+    "RealFloatingHostWindow": true,
+    "HeadlessOnly": true,
+    "OpticalImageCalculationsRunForTitleTests": false,
+    "AnalysisAndInstanceIdentityPreserved": true
+  },
+  "EarlierFixtureRuns": [
+    { "Results": "analysis-titles.trx", "Passed": 10, "Failed": 3 },
+    { "Results": "analysis-titles-themed.trx", "Passed": 10, "Failed": 3 },
+    { "Results": "analysis-titles-real-template.trx", "Passed": 10, "Failed": 3 }
+  ],
+  "FixtureCorrection": "Initialize the actual App templates and drain Dispatcher layout work before asserting visible Dock captions.",
+  "ReleaseBuild": {
+    "Project": "src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj",
+    "Configuration": "Release",
+    "DefaultOutputUpdated": true,
+    "Succeeded": true,
+    "Warnings": 0,
+    "Errors": 0
+  },
+  "DocumentationCheck": {
+    "Strict": true,
+    "BrokenLinks": 0,
+    "MarkdownFenceIssues": 0,
+    "GuideRepeatedParagraphGroups": 0,
+    "Results": "artifacts/analysis-title-localization-20261022/documentation.json"
+  },
+  "ConcurrentWorkingTreeChangesObserved": {
+    "Preserved": true,
+    "CreatedOrEditedByThisTurn": false,
+    "IndependentImageExportVerificationClaimed": false,
+    "Paths": [
+      "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Export.cs",
+      "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs",
+      "src/OpticalSystemDesign.App/Panels/AnalysisPanel.cs",
+      "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "src/OpticalSystemDesign.App/Services/WorkspaceDockFactory.cs",
+      "tests/OpticalSystemDesign.Tests/AnalysisImageExportTests.cs"
+    ]
+  },
+  "DesktopControlled": false,
+  "FullTestSuitesRun": false,
+  "CoreModified": false,
+  "CommittedOrPushed": false,
+  "InstallerRebuiltOrPublished": false
+}

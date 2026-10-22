@@ -1,4 +1,5 @@
 using System.Globalization;
+using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Core.Analysis;
 
@@ -13,14 +14,19 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
 {
     private readonly SpotDiagramVariant _variant;
     private readonly SpotDiagramSettings _settings;
+    private readonly IReadOnlyList<Optic> _configurations;
 
     public SpotDiagramVariantAnalysis(
         Optic optic,
         SpotDiagramVariant variant,
-        SpotDiagramSettings? settings = null) : base(optic)
+        SpotDiagramSettings? settings = null,
+        IReadOnlyList<Optic>? configurations = null) : base(optic)
     {
         _variant = variant;
         _settings = settings ?? new SpotDiagramSettings();
+        _configurations = configurations?.ToArray() ?? [optic];
+        if (_configurations.Count == 0)
+            throw new ArgumentException("At least one optical configuration is required.", nameof(configurations));
     }
 
     public override string Name => _variant switch
@@ -36,14 +42,70 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
         {
             return BuildFullField();
         }
+        if (_variant == SpotDiagramVariant.ConfigurationMatrix) return BuildConfigurationMatrix();
 
         var source = new SpotDiagramAnalysis(Optic, _settings).GenerateData();
         var values = source.Values
             .Concat(new[] { new KeyValuePair<string, object>("Variant", Name) })
             .ToDictionary(item => item.Key, item => item.Value);
-        return _variant == SpotDiagramVariant.Matrix
-            ? BuildMatrix(source, values, configurationMatrix: false)
-            : BuildMatrix(source, values, configurationMatrix: true);
+        return BuildMatrix(source, values);
+    }
+
+    private AnalysisData BuildConfigurationMatrix()
+    {
+        var sources = _configurations.Select((configuration, index) =>
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            if (_settings.FieldNumber > Math.Max(1, configuration.Fields.Count))
+                throw new ArgumentException($"结构 {index + 1} 未定义所选视场 {_settings.FieldNumber}，请选择所有视场或有效视场。");
+            if (_settings.WavelengthNumber > Math.Max(1, configuration.Wavelengths.Count))
+                throw new ArgumentException($"结构 {index + 1} 未定义所选波长 {_settings.WavelengthNumber}，请选择所有波长或有效波长。");
+            return new SpotDiagramAnalysis(configuration, _settings).GenerateData();
+        }).ToArray();
+        var sourcePanes = sources.Select(source => source.PlotPanes ?? []).ToArray();
+        var fieldCount = sourcePanes.Max(panes => panes.Count);
+        var allPanes = sourcePanes.SelectMany(panes => panes).ToArray();
+        var units = allPanes.SelectMany(pane => pane.Series).Select(series => (series.XUnit, series.YUnit)).Distinct().ToArray();
+        // A single scale makes configuration columns directly comparable. Keep
+        // differently typed coordinates separate rather than comparing units.
+        var sharedLimit = units.Length == 1
+            ? allPanes.SelectMany(pane => new[] { pane.PlotOptions.XMinimum, pane.PlotOptions.XMaximum,
+                    pane.PlotOptions.YMinimum, pane.PlotOptions.YMaximum })
+                .Where(value => value.HasValue && double.IsFinite(value.Value))
+                .Select(value => Math.Abs(value!.Value)).DefaultIfEmpty(0).Max()
+            : 0;
+        var panes = new List<AnalysisPlotPane>();
+        for (var fieldIndex = 0; fieldIndex < fieldCount; fieldIndex++)
+        {
+            for (var configurationIndex = 0; configurationIndex < sources.Length; configurationIndex++)
+            {
+                var fieldNumber = _settings.FieldNumber > 0 ? _settings.FieldNumber : fieldIndex + 1;
+                var source = sourcePanes[configurationIndex].ElementAtOrDefault(fieldIndex);
+                var fieldLabel = source?.Title ?? $"视场 {fieldNumber}";
+                var title = $"结构 {configurationIndex + 1} · {fieldLabel}";
+                source ??= new AnalysisPlotPane(fieldLabel, [], new AnalysisPlotOptions(), Footer: "此结构未定义该视场");
+                var options = source.PlotOptions with { Title = title, HideTickLabels = true };
+                if (sharedLimit > 0)
+                    options = options with { XMinimum = -sharedLimit, XMaximum = sharedLimit, YMinimum = -sharedLimit, YMaximum = sharedLimit };
+                panes.Add(source with
+                {
+                    Title = title,
+                    PlotOptions = options,
+                    MatrixCell = new AnalysisMatrixCell(configurationIndex + 1, fieldNumber, fieldLabel)
+                });
+            }
+        }
+        var values = sources[0].Values.ToDictionary(item => item.Key, item => item.Value);
+        values["Variant"] = Name;
+        values["ConfigurationCount"] = sources.Length;
+        values["FieldCount"] = fieldCount;
+        values["WavelengthCount"] = allPanes.Select(pane => pane.Series.Count(series => series.Kind == AnalysisSeriesKind.Scatter)).DefaultIfEmpty(0).Max();
+        values["RayCount"] = sources.Sum(source => (int)source.Values["RayCount"]);
+        values["VignettedRayCount"] = sources.Sum(source => (int)source.Values["VignettedRayCount"]);
+        values["MaximumGeometricSpotRadius"] = sources.Max(source => (double)source.Values["MaximumGeometricSpotRadius"]);
+        var firstSeries = panes.FirstOrDefault()?.Series.FirstOrDefault();
+        return new AnalysisData(Name, values, firstSeries, firstSeries is null ? null : [firstSeries],
+            PlotPanes: panes, PlotPaneColumns: sources.Length);
     }
 
     private AnalysisData BuildFullField()
@@ -242,26 +304,10 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
 
     private AnalysisData BuildMatrix(
         AnalysisData source,
-        IReadOnlyDictionary<string, object> values,
-        bool configurationMatrix)
+        IReadOnlyDictionary<string, object> values)
     {
         var sourcePanes = source.PlotPanes ?? Array.Empty<AnalysisPlotPane>();
-        var panes = configurationMatrix
-            ? sourcePanes.Select(pane =>
-            {
-                var title = $"结构 1 · {pane.Title}";
-                return new AnalysisPlotPane(
-                    title,
-                    pane.Series,
-                    pane.PlotOptions with
-                    {
-                        Title = title,
-                        HideTickLabels = true
-                    },
-                    pane.Metrics,
-                    pane.Footer);
-            }).ToArray()
-            : sourcePanes
+        var panes = sourcePanes
                 .SelectMany(pane => pane.Series.Select(series => new AnalysisPlotPane(
                     series.Name,
                     new[] { series },
@@ -273,19 +319,16 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
                     Footer: MatrixFieldLabel(pane.Title))))
                 .ToArray();
         var matrixValues = values.ToDictionary(item => item.Key, item => item.Value);
-        if (!configurationMatrix)
-        {
-            var imageSpaceAfocal = matrixValues.TryGetValue("ImageSpaceAfocal", out var afocalValue)
-                && afocalValue is bool afocal
-                && afocal;
-            var firstOptions = panes.FirstOrDefault()?.PlotOptions;
-            var scaleBar = firstOptions?.XMinimum is { } xMinimum
-                && firstOptions.XMaximum is { } xMaximum
-                    ? Math.Abs(xMaximum - xMinimum) * (imageSpaceAfocal ? 1 : 1000)
-                    : 0;
-            matrixValues["ScaleBarMicrometers"] = imageSpaceAfocal ? 0 : scaleBar;
-            matrixValues["ScaleBarMilliradians"] = imageSpaceAfocal ? scaleBar : 0;
-        }
+        var imageSpaceAfocal = matrixValues.TryGetValue("ImageSpaceAfocal", out var afocalValue)
+            && afocalValue is bool afocal
+            && afocal;
+        var firstOptions = panes.FirstOrDefault()?.PlotOptions;
+        var scaleBar = firstOptions?.XMinimum is { } xMinimum
+            && firstOptions.XMaximum is { } xMaximum
+                ? Math.Abs(xMaximum - xMinimum) * (imageSpaceAfocal ? 1 : 1000)
+                : 0;
+        matrixValues["ScaleBarMicrometers"] = imageSpaceAfocal ? 0 : scaleBar;
+        matrixValues["ScaleBarMilliradians"] = imageSpaceAfocal ? scaleBar : 0;
 
         var firstSeries = panes.FirstOrDefault()?.Series.FirstOrDefault();
         return new AnalysisData(
@@ -294,9 +337,7 @@ public sealed class SpotDiagramVariantAnalysis : BaseAnalysis
             firstSeries,
             firstSeries is null ? null : new[] { firstSeries },
             PlotPanes: panes,
-            PlotPaneColumns: configurationMatrix
-                ? 1
-                : Math.Max(1, sourcePanes.FirstOrDefault()?.Series.Count ?? 1));
+            PlotPaneColumns: Math.Max(1, sourcePanes.FirstOrDefault()?.Series.Count ?? 1));
     }
 
     private static string MatrixFieldLabel(string title)

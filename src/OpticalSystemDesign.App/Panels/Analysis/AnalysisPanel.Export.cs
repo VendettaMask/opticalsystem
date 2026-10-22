@@ -8,6 +8,7 @@ using Avalonia.Data;
 using Avalonia.Input.Platform;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using Avalonia.VisualTree;
 using Avalonia.Threading;
@@ -21,6 +22,90 @@ namespace OpticalSystemDesign.App.Panels;
 
 public sealed partial class AnalysisPanel
 {
+    private ResponsiveAnalysisPlotHost? ImageExportPage()
+    {
+        if (_view is not { Outcome: AnalysisOutcome.Success }) return null;
+        if (_resultHost.Content is ResponsiveAnalysisPlotHost page) return page;
+        if (_resultHost.Content is not TabControl { SelectedIndex: 0 } tabs
+            || tabs.SelectedItem is not TabItem { Content: ResponsiveAnalysisPlotHost plot }) return null;
+
+        // Some plots consume a table rather than series. Text-only reports also
+        // have a fallback plot tab, which must not offer an empty image export.
+        var hasPlot = _view.Series.Any(series => series.Points.Count > 0)
+            || _view.PlotPanes.Any(pane => pane.Series.Any(series => series.Points.Count > 0))
+            || (_view.PresentationKind == AnalysisPresentationKind.SeidelDiagram && _view.Table?.Rows.Count > 0);
+        return hasPlot ? plot : null;
+    }
+
+    private void UpdateImageExportButton()
+    {
+        _exportImageButton.IsVisible = ImageExportPage() is not null;
+        _exportImageButton.IsEnabled = !_isRunning && !_disposed;
+        var explanation = _isRunning ? "正在计算，完成后可导出图片" : "导出图片（PNG）";
+        ControlAvailability.Explain(_exportImageButton, explanation);
+    }
+
+    internal RenderTargetBitmap CapturePlotImage()
+    {
+        var page = ImageExportPage() ?? throw new InvalidOperationException("请先显示分析绘图页");
+        page.UpdateLayout();
+        var scale = TopLevel.GetTopLevel(this)?.RenderScaling ?? 1;
+        var size = page.Bounds.Size;
+        if (!double.IsFinite(size.Width) || !double.IsFinite(size.Height) || size.Width <= 0 || size.Height <= 0)
+            throw new InvalidOperationException("分析图像尚未显示");
+
+        var pixels = new PixelSize(checked((int)Math.Ceiling(size.Width * scale)), checked((int)Math.Ceiling(size.Height * scale)));
+        var bitmap = new RenderTargetBitmap(pixels, new Vector(96 * scale, 96 * scale));
+        try
+        {
+            // Render the existing page to retain its camera, zoom, legend and
+            // complete footer. The toolbar, settings overlay and result tabs
+            // are siblings/ancestors and never enter the exported image.
+            bitmap.Render(page);
+            return bitmap;
+        }
+        catch
+        {
+            bitmap.Dispose();
+            throw;
+        }
+    }
+
+    internal static void SavePlotImage(RenderTargetBitmap bitmap, string path) =>
+        BoundedApplicationFile.WriteAtomic(path, BoundedApplicationFile.MaximumImageDataBytes,
+            "Analysis image export", stream => bitmap.Save(stream, PngBitmapEncoderOptions.Default));
+
+    private async Task ExportImageAsync()
+    {
+        try
+        {
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (_isRunning || _disposed || ImageExportPage() is null || topLevel is null) return;
+            // Capture at the click, before a native picker can outlive a result
+            // refresh, file switch or closed document.
+            using var bitmap = CapturePlotImage();
+            var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+            {
+                Title = UiLocalization.Text("导出分析图片"),
+                SuggestedFileName = $"{_view!.Name}.png",
+                DefaultExtension = "png",
+                ShowOverwritePrompt = true,
+                FileTypeChoices = [new FilePickerFileType(UiLocalization.Text("PNG 图片"))
+                {
+                    Patterns = ["*.png"],
+                    MimeTypes = ["image/png"]
+                }]
+            });
+            if (file is null) return;
+            SavePlotImage(bitmap, file.Path.LocalPath);
+            if (!_disposed) _operationStatus.MarkSynced("分析图片已导出");
+        }
+        catch (Exception exception)
+        {
+            if (!_disposed) _operationStatus.MarkFailed($"导出失败：{exception.Message}");
+        }
+    }
+
     private async Task CopyReportAsync()
     {
         try

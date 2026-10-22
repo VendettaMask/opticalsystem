@@ -163,7 +163,9 @@ internal static class WorkbenchMapper
                     metric.Label,
                     metric.Value,
                     metric.Unit)).ToArray(),
-                pane.Footer)).ToArray(),
+                pane.Footer,
+                pane.MatrixCell is null ? null : new AnalysisMatrixCellDto(
+                    pane.MatrixCell.ConfigurationNumber, pane.MatrixCell.FieldNumber, pane.MatrixCell.FieldLabel))).ToArray(),
             view.PlotPaneColumns,
             view.Table is null
                 ? null

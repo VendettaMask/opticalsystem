@@ -290,6 +290,7 @@ public partial class WorkbenchRuntime
         ["Name"] = "名称",
         ["SurfaceCount"] = "表面数",
         ["FieldCount"] = "视场数",
+        ["ConfigurationCount"] = "结构数",
         ["WavelengthCount"] = "波长数",
         ["WavelengthMicrometers"] = "分析波长 (µm)",
         ["WavelengthNumber"] = "波长序号",

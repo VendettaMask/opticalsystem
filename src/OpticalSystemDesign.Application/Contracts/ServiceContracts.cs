@@ -199,7 +199,8 @@ public interface IAnalysisService
 
     string CanonicalKey(string analysisName);
 
-    IReadOnlyList<AnalysisParameterDescriptor> GetParameters(string analysisName);
+    IReadOnlyList<AnalysisParameterDescriptor> GetParameters(
+        string analysisName, IReadOnlyDictionary<string, string>? settings = null);
 
     Dictionary<string, string> MergeSettings(string analysisName, IReadOnlyDictionary<string, string>? saved);
 

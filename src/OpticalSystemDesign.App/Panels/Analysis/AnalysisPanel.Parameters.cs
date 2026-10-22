@@ -21,6 +21,7 @@ namespace OpticalSystemDesign.App.Panels;
 
 public sealed partial class AnalysisPanel
 {
+    private IReadOnlyList<AnalysisParameterDescriptor> _parameterDescriptors = [];
     private static readonly System.Text.Json.JsonSerializerOptions SettingsJsonOptions = new()
     {
         WriteIndented = true
@@ -28,9 +29,34 @@ public sealed partial class AnalysisPanel
 
     private void RebuildParameterPanel()
     {
+        if (_parameterAutoApply.Parent is Panel previousFooter)
+            previousFooter.Children.Remove(_parameterAutoApply);
         _parameterPanel.Children.Clear();
         _parameterControls.Clear();
-        var descriptors = _analyses.GetParameters(AnalysisName);
+        _parameterDescriptors = _analyses.GetParameters(AnalysisName, _settings);
+        var configuration = _parameterDescriptors.FirstOrDefault(parameter => parameter.Key == AnalysisConfigurationSelection.Key);
+        if (configuration is not null)
+        {
+            var row = new Grid
+            {
+                ColumnDefinitions = new ColumnDefinitions("120,210"),
+                RowDefinitions = new RowDefinitions("34"),
+                Margin = new Thickness(0, 0, 0, 6),
+                Name = "AnalysisConfigurationSetting"
+            };
+            AddSpotSetting(row, configuration, 0, 0, 1);
+            var selector = (ComboBox)_parameterControls[configuration.Key];
+            selector.Name = "AnalysisConfigurationSelector";
+            selector.SelectionChanged += (_, _) =>
+            {
+                _settings = CaptureParameterSettings();
+                RebuildParameterPanel();
+                if (_parameterAutoApply.IsChecked != true)
+                    _operationStatus.MarkStale("设置已更改，请同步");
+            };
+            _parameterPanel.Children.Add(row);
+        }
+        var descriptors = _parameterDescriptors.Where(parameter => parameter.Key != AnalysisConfigurationSelection.Key).ToArray();
         if (string.Equals(AnalysisKey, "Full Field Spot Diagram", StringComparison.Ordinal))
         {
             _parameterPanel.Children.Add(BuildFullFieldSpotSettings(descriptors));
@@ -793,8 +819,8 @@ public sealed partial class AnalysisPanel
 
     private Dictionary<string, string> CaptureParameterSettings()
     {
-        var settings = _analyses.MergeSettings(AnalysisName, null);
-        foreach (var descriptor in _analyses.GetParameters(AnalysisName))
+        var settings = new Dictionary<string, string>(_settings);
+        foreach (var descriptor in _parameterDescriptors)
         {
             if (!_parameterControls.TryGetValue(descriptor.Key, out var control))
             {
@@ -806,6 +832,7 @@ public sealed partial class AnalysisPanel
                 NumericUpDown numeric when numeric.Value.HasValue =>
                     numeric.Value.Value.ToString(CultureInfo.InvariantCulture),
                 ComboBox combo when combo.SelectedItem is string selected => selected,
+                ComboBox combo when combo.SelectedItem is ComboBoxItem { Tag: string selected } => selected,
                 CheckBox check => (check.IsChecked == true).ToString(CultureInfo.InvariantCulture),
                 FilePathInput file => file.Value,
                 _ => settings[descriptor.Key]
@@ -907,12 +934,42 @@ public sealed partial class AnalysisPanel
     private static ComboBox ChoiceInput(AnalysisParameterDescriptor descriptor, string value)
     {
         var choices = descriptor.Choices?.ToArray() ?? Array.Empty<string>();
+        if (descriptor.ChoiceLabels is { } labels)
+        {
+            var items = choices.Select(choice =>
+            {
+                var label = new TextBlock { Text = labels.GetValueOrDefault(choice, choice) };
+                UiLocalization.LocalizeChoiceLabel(label);
+                return new ComboBoxItem { Tag = choice, Content = label };
+            }).ToArray();
+            return new ComboBox
+            {
+                ItemsSource = items,
+                SelectedItem = items.FirstOrDefault(item => Equals(item.Tag, value))
+                    ?? items.First(item => Equals(item.Tag, descriptor.DefaultValue)),
+                MinWidth = 104
+            };
+        }
         return new ComboBox
         {
             ItemsSource = choices,
             SelectedItem = choices.Contains(value) ? value : descriptor.DefaultValue,
             MinWidth = 104
         };
+    }
+
+    private void RefreshConfigurationParameters()
+    {
+        var settings = CaptureParameterSettings();
+        var descriptor = _analyses.GetParameters(AnalysisName)
+            .FirstOrDefault(parameter => parameter.Key == AnalysisConfigurationSelection.Key);
+        if (descriptor is null)
+            settings.Remove(AnalysisConfigurationSelection.Key);
+        else if (settings.TryGetValue(descriptor.Key, out var selection)
+            && descriptor.Choices?.Contains(selection, StringComparer.Ordinal) != true)
+            settings[descriptor.Key] = descriptor.DefaultValue;
+        _settings = _analyses.MergeSettings(AnalysisName, settings);
+        RebuildParameterPanel();
     }
 
     private static CheckBox BooleanInput(string value) => new()

@@ -29,7 +29,7 @@ using static OpticalSystemDesign.Application.Services.WorkbenchMapper;
 
 namespace OpticalSystemDesign.Application.Services;
 
-internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
+internal sealed partial class AnalysisService : WorkbenchServiceBase, IAnalysisService
 {
     private readonly RayTraceCache _rayTraceCache = new();
     private readonly IWorkbenchModeService _modes;
@@ -52,18 +52,35 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
 
     public string CanonicalKey(string analysisName) => WorkbenchAnalysisCatalog.CanonicalKey(analysisName);
 
-    public IReadOnlyList<ContractAnalysisParameterDescriptor> GetParameters(string analysisName)
+    public IReadOnlyList<ContractAnalysisParameterDescriptor> GetParameters(
+        string analysisName, IReadOnlyDictionary<string, string>? settings = null)
     {
         EnsureAvailable(analysisName);
-        return Runtime.GetAnalysisParameters(analysisName).Select(parameter => new ContractAnalysisParameterDescriptor(
-            parameter.Key,
-            parameter.DisplayName,
-            (ContractAnalysisParameterKind)(int)parameter.Kind,
-            parameter.DefaultValue,
-            parameter.Minimum,
-            parameter.Maximum,
-            parameter.Increment,
-            parameter.Choices)).ToArray();
+        lock (Gate)
+        {
+            var navigation = Runtime.GetMultiConfigurationNavigation();
+            var worker = Runtime;
+            var selection = AnalysisConfigurationSelection.Read(analysisName, settings);
+            if (_modes.CurrentMode == OpticalWorkbenchMode.Sequential && navigation.Count > 1
+                && selection is not (AnalysisConfigurationSelection.Current or AnalysisConfigurationSelection.All))
+            {
+                var index = AnalysisConfigurationSelection.Resolve(selection, navigation.ActiveIndex, navigation.Count);
+                var document = Runtime.CaptureDocument();
+                worker = new WorkbenchRuntime(document.Configurations[index]);
+            }
+            var parameters = worker.GetAnalysisParameters(analysisName).Select(parameter => new ContractAnalysisParameterDescriptor(
+                parameter.Key,
+                parameter.DisplayName,
+                (ContractAnalysisParameterKind)(int)parameter.Kind,
+                parameter.DefaultValue,
+                parameter.Minimum,
+                parameter.Maximum,
+                parameter.Increment,
+                parameter.Choices)).ToList();
+            if (_modes.CurrentMode == OpticalWorkbenchMode.Sequential && navigation.Count > 1)
+                parameters.Insert(0, AnalysisConfigurationSelection.Descriptor(analysisName, navigation.Count));
+            return parameters;
+        }
     }
 
     public Dictionary<string, string> MergeSettings(
@@ -71,7 +88,16 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
         IReadOnlyDictionary<string, string>? saved)
     {
         EnsureAvailable(analysisName);
-        return Runtime.MergeAnalysisSettings(analysisName, saved);
+        var available = GetParameters(analysisName).FirstOrDefault(parameter => parameter.Key == AnalysisConfigurationSelection.Key);
+        var applicable = saved?.ToDictionary(item => item.Key, item => item.Value);
+        if (applicable is not null && applicable.TryGetValue(AnalysisConfigurationSelection.Key, out var selection)
+            && available?.Choices?.Contains(selection, StringComparer.Ordinal) != true)
+            applicable[AnalysisConfigurationSelection.Key] = AnalysisConfigurationSelection.Current;
+        var merged = GetParameters(analysisName, applicable).ToDictionary(parameter => parameter.Key, parameter => parameter.DefaultValue);
+        if (applicable is not null)
+            foreach (var item in applicable)
+                if (merged.ContainsKey(item.Key)) merged[item.Key] = item.Value;
+        return merged;
     }
 
     public Task<AnalysisResultDto> RunAsync(
@@ -81,20 +107,31 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
         EnsureAvailable(request.AnalysisKey);
         Optic snapshot;
         NonSequentialDocument nonSequentialSnapshot;
+        LoadedOpticalDocument? configurationSnapshot;
+        OpticalDocumentSnapshot sourceDocument;
         long sourceRevision;
         CancellationTokenSource linked;
         lock (Gate)
         {
             sourceRevision = Workspace.Revision;
+            sourceDocument = Workspace.GetDocumentSnapshot();
             snapshot = Optic.FromSnapshot(Runtime.CurrentOptic.ToSnapshot());
             nonSequentialSnapshot = Runtime.CurrentNonSequentialDocument.Clone();
             snapshot.ConfigureRayTraceCache(_rayTraceCache, sourceRevision);
+            // Freeze inactive optics too. Distinct configurations must never
+            // share the current optic's ray-cache identity.
+            configurationSnapshot = _modes.CurrentMode == OpticalWorkbenchMode.Sequential
+                && (Runtime.GetMultiConfigurationNavigation().Count > 1
+                    || CanonicalKey(request.AnalysisKey) == "Configuration Matrix Spot Diagram")
+                ? Runtime.CaptureDocument() : null;
             linked = Workspace.LinkDocumentToken(cancellationToken);
         }
 
         return RunAnalysisWorkerAsync(
             snapshot,
             nonSequentialSnapshot,
+            configurationSnapshot,
+            sourceDocument,
             sourceRevision,
             request,
             linked,
@@ -113,6 +150,8 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
     private static async Task<AnalysisResultDto> RunAnalysisWorkerAsync(
         Optic snapshot,
         NonSequentialDocument nonSequentialSnapshot,
+        LoadedOpticalDocument? configurationSnapshot,
+        OpticalDocumentSnapshot sourceDocument,
         long sourceRevision,
         AnalysisRequestDto request,
         CancellationTokenSource linked,
@@ -124,11 +163,27 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
             {
                 linked.Token.ThrowIfCancellationRequested();
                 var canonicalAnalysisKey = WorkbenchAnalysisCatalog.CanonicalKey(request.AnalysisKey);
-                var parameterWorker = new WorkbenchRuntime(snapshot, nonSequentialSnapshot);
+                var selection = AnalysisConfigurationSelection.Read(canonicalAnalysisKey, request.Settings);
+                var count = configurationSnapshot?.Configurations.Count ?? 1;
+                var activeIndex = configurationSnapshot?.ActiveConfigurationIndex ?? 0;
+                AnalysisConfigurationSelection.Validate(canonicalAnalysisKey, selection, activeIndex, count);
+                var selectedIndex = AnalysisConfigurationSelection.Resolve(selection, activeIndex, count);
+                var selectedOptic = configurationSnapshot?.Configurations[selectedIndex] ?? snapshot;
+                var parameterWorker = selection == AnalysisConfigurationSelection.All
+                    && canonicalAnalysisKey == "Configuration Matrix Spot Diagram" && configurationSnapshot is not null
+                    ? WorkbenchRuntime.CreateComputationRuntime(configurationSnapshot)
+                    : new WorkbenchRuntime(selectedOptic, nonSequentialSnapshot);
                 var normalizedSettings = NormalizeAnalysisSettings(
                     parameterWorker,
                     canonicalAnalysisKey,
                     request.Settings);
+                if (count > 1)
+                {
+                    if (selection == AnalysisConfigurationSelection.All)
+                        foreach (var (optic, index) in configurationSnapshot!.Configurations.Select((optic, index) => (optic, index)))
+                            ValidateConfigurationInputs(optic, normalizedSettings, index + 1);
+                    else ValidateConfigurationInputs(selectedOptic, normalizedSettings, selectedIndex + 1);
+                }
                 Guid? selectedSourceId = null;
                 if (canonicalAnalysisKey == "Non-Sequential Detector Viewer"
                     && normalizedSettings.TryGetValue("SourceNumber", out var sourceText)
@@ -147,21 +202,42 @@ internal sealed class AnalysisService : WorkbenchServiceBase, IAnalysisService
                 var databaseDetectors = canonicalAnalysisKey == "Non-Sequential Detector Viewer"
                     ? analysisSession?.ReconstructDetectors(nonSequentialSnapshot, selectedSourceId)
                     : null;
-                var worker = new WorkbenchRuntime(snapshot, nonSequentialSnapshot, databaseDetectors);
-                var view = worker.BuildAnalysisView(canonicalAnalysisKey, normalizedSettings, linked.Token);
+                var worker = databaseDetectors is null ? parameterWorker
+                    : new WorkbenchRuntime(selectedOptic, nonSequentialSnapshot, databaseDetectors);
+                var view = selection == AnalysisConfigurationSelection.All && count > 1
+                    && AnalysisConfigurationSelection.AllDisplay(canonicalAnalysisKey) == AnalysisConfigurationDisplay.Overlay
+                    ? BuildConfigurationOverlay(configurationSnapshot!, canonicalAnalysisKey, request.Settings, linked.Token)
+                    : ToAnalysisViewDto(worker.BuildAnalysisView(canonicalAnalysisKey, normalizedSettings, linked.Token)) with
+                    {
+                        PresentationKind = WorkbenchAnalysisCatalog.PresentationKind(canonicalAnalysisKey)
+                    };
+                if (canonicalAnalysisKey == "Configuration Matrix Spot Diagram" && selection != AnalysisConfigurationSelection.All)
+                    view = RemapSingleConfigurationMatrix(view, selectedIndex + 1);
+                var numbers = selection == AnalysisConfigurationSelection.All
+                    ? Enumerable.Range(1, count).ToArray() : [selectedIndex + 1];
+                if (count > 1)
+                    view = DescribeConfiguration(view, new(selection, count, numbers,
+                        selection == AnalysisConfigurationSelection.All
+                            ? AnalysisConfigurationSelection.AllDisplay(canonicalAnalysisKey) : AnalysisConfigurationDisplay.Single));
+                var summary = SourceSummary(sourceDocument, selectedOptic);
+                var scene = view.PresentationKind == AnalysisPresentationKind.CardinalPoints
+                    && view.Outcome == Contracts.AnalysisOutcome.Success
+                    ? new SceneDto(sourceRevision, SceneDimension.TwoDimensional,
+                        ToScene2Dto(new Layout2DBuilder(selectedOptic).Build(options: new LayoutBuildOptions(
+                            LowerPupil: -1, UpperPupil: 1, MarginalAndChiefOnly: true))), null, summary)
+                    : null;
+                var fingerprintSettings = normalizedSettings.ToDictionary(item => item.Key, item => item.Value);
+                if (count > 1) fingerprintSettings[AnalysisConfigurationSelection.Key] = selection;
                 linked.Token.ThrowIfCancellationRequested();
                 return new AnalysisResultDto(
                     request.InstanceId,
                     request.Generation,
                     sourceRevision,
-                    ToAnalysisViewDto(view) with
-                    {
-                        PresentationKind = WorkbenchAnalysisCatalog.PresentationKind(canonicalAnalysisKey)
-                    },
+                    view,
                     new AnalysisExecutionProvenanceDto(
                         canonicalAnalysisKey,
-                        CreateRequestFingerprint(canonicalAnalysisKey, normalizedSettings),
-                        "Application.WorkbenchRuntime.BuildAnalysisView/v1"));
+                        CreateRequestFingerprint(canonicalAnalysisKey, fingerprintSettings),
+                        "Application.WorkbenchRuntime.BuildAnalysisView/v1"), summary, scene);
             }, linked.Token).ConfigureAwait(false);
         }
     }

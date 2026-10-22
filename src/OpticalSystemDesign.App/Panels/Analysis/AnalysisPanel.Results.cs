@@ -25,6 +25,21 @@ public sealed partial class AnalysisPanel
     internal const double AnalysisFooterHeight = 132;
     internal const double AnalysisPlotMinimumHeight = 280;
 
+    internal void PresentResult(
+        AnalysisViewDto view,
+        OpticalDocumentSnapshot document,
+        DateTimeOffset generatedAt,
+        SceneDto? cardinalScene = null)
+    {
+        _view = view;
+        _resultHost.Content = BuildResultContent(view, document, generatedAt, cardinalScene);
+        if (_resultHost.Content is TabControl tabs)
+        {
+            tabs.SelectionChanged += (_, _) => UpdateImageExportButton();
+        }
+        UpdateImageExportButton();
+    }
+
     private static Control BuildResultContent(
         AnalysisViewDto view,
         OpticalDocumentSnapshot document,
@@ -418,6 +433,13 @@ public sealed partial class AnalysisPanel
             Children = { sceneControl, table }
         };
         Grid.SetRow(table, 1);
+        if (view.ConfigurationScope is not null)
+        {
+            content.RowDefinitions.Insert(0, new RowDefinition(GridLength.Auto));
+            Grid.SetRow(sceneControl, 1);
+            Grid.SetRow(table, 2);
+            content.Children.Add(new TextBlock { Text = ConfigurationCaption(view).Trim(), Margin = new Thickness(16, 6) });
+        }
         return content;
 
         void AddPair(string rowName, string objectLabel, string imageLabel, Color color)
@@ -650,14 +672,15 @@ public sealed partial class AnalysisPanel
         OpticalDocumentSnapshot document,
         DateTimeOffset generatedAt)
     {
-        if (IsPupilAberrationView(view))
+        if (IsPupilAberrationView(view) && view.ConfigurationScope is null)
         {
             return BuildPupilAberrationTitleBlock(view, generatedAt);
         }
 
-        var compactSummary = BuildCompactAnalysisSummary(view);
-        var useFanFooter = IsRayFanView(view) || IsOpticalPathDifferenceView(view);
-        var showPaneMetrics = !IsConfigurationMatrixSpotView(view);
+        var overlay = view.ConfigurationScope?.Display == AnalysisConfigurationDisplay.Overlay;
+        var compactSummary = overlay ? null : BuildCompactAnalysisSummary(view);
+        var useFanFooter = !overlay && (IsRayFanView(view) || IsOpticalPathDifferenceView(view));
+        var showPaneMetrics = !overlay && !IsConfigurationMatrixSpotView(view);
         var hasPaneMetrics = showPaneMetrics
             && view.PlotPanes.Any(pane => pane.Metrics is { Count: > 0 });
         var visibleRows = hasPaneMetrics || compactSummary is not null
@@ -666,10 +689,11 @@ public sealed partial class AnalysisPanel
                 .Where(row => !string.IsNullOrWhiteSpace(row.Metric))
                 .Take(4)
                 .ToArray();
-        var resultLines = compactSummary?.Lines ?? (visibleRows.Length == 0
+        var resultLines = overlay ? "各结构独立计算，按图例叠加显示。\n各结构指标见“数据”页；完整结果见“文本”页。"
+            : compactSummary?.Lines ?? (visibleRows.Length == 0
             ? "暂无摘要数据"
             : string.Join(Environment.NewLine, visibleRows.Select(row => $"{row.Metric}: {row.Value}")));
-        if (compactSummary is null && view.Rows.Count > visibleRows.Length)
+        if (!overlay && compactSummary is null && view.Rows.Count > visibleRows.Length)
         {
             resultLines += $"{Environment.NewLine}其余 {view.Rows.Count - visibleRows.Length} 项见“数据”页";
         }
@@ -704,7 +728,12 @@ public sealed partial class AnalysisPanel
             FontSize = AnalysisFooterCaptionSize
         };
         generatedAtText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextMuted);
-        left.Children.Add(generatedAtText);
+        if (view.ConfigurationScope is null) left.Children.Add(generatedAtText);
+        else left.Children.Add(new StackPanel
+        {
+            Orientation = Orientation.Horizontal, Spacing = 12,
+            Children = { generatedAtText, new TextBlock { Text = ConfigurationCaption(view), FontSize = AnalysisFooterCaptionSize } }
+        });
         var resultSummary = new TextBlock
         {
             Text = resultLines,
@@ -823,7 +852,7 @@ public sealed partial class AnalysisPanel
         };
         // Analysis-specific summaries occupy only the left region. Keep the brand
         // and document controls, typography and full-height layout shared.
-        grid.Children.Add(view.PresentationKind == AnalysisPresentationKind.FieldCurvatureAndDistortion
+        grid.Children.Add(!overlay && view.PresentationKind == AnalysisPresentationKind.FieldCurvatureAndDistortion
             ? BuildFieldCurvatureAndDistortionSummary(view, generatedAt)
             : left);
         var rightBorder = new Border
@@ -843,6 +872,15 @@ public sealed partial class AnalysisPanel
         titleBorder.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
         titleBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         return titleBorder;
+    }
+
+    private static string ConfigurationCaption(AnalysisViewDto view)
+    {
+        if (view.ConfigurationScope is not { } scope) return "";
+        var label = scope.Selection == "All" ? $"所有 · {scope.TotalCount}"
+            : scope.Selection == "Current" ? $"当前的 · {scope.ConfigurationNumbers[0]} / {scope.TotalCount}"
+            : $"{scope.ConfigurationNumbers[0]} / {scope.TotalCount}";
+        return "结构：" + label;
     }
 
     private static Control BuildFieldCurvatureAndDistortionSummary(
@@ -1368,18 +1406,20 @@ public sealed partial class AnalysisPanel
 
         if (IsConfigurationMatrixSpotView(view))
         {
-            var wavelengthCount = Math.Clamp(
+            var configurationCount = Math.Clamp(
                 view.PlotPaneColumns,
                 1,
                 Math.Max(1, view.PlotPanes.Count));
-            var fieldCount = (int)Math.Ceiling(view.PlotPanes.Count / (double)wavelengthCount);
+            var fieldCount = (int)Math.Ceiling(view.PlotPanes.Count / (double)configurationCount);
+            var wavelengthCount = view.PlotPanes.Select(pane => pane.Series.Count(series => series.Kind == AnalysisSeriesKind.Scatter)).DefaultIfEmpty(0).Max();
+            var units = view.PlotPanes.SelectMany(pane => pane.Series).Select(series => AnalysisAxisFormatting.UnitSymbol(series.XUnit)).Distinct().ToArray();
             var reference = view.Rows.FirstOrDefault(row =>
                 string.Equals(row.Metric, "参考", StringComparison.Ordinal))?.Value ?? "主光线";
             return new CompactAnalysisSummary(
                 "结构矩阵点列图",
-                $"行：结构 × 视场    列：波长{Environment.NewLine}"
-                + $"{fieldCount} 个视场 × {wavelengthCount} 个波长，共 {view.PlotPanes.Count} 个点列图{Environment.NewLine}"
-                + $"单位：mm    参考：{reference}");
+                $"行：视场    列：结构（各格叠加波长）{Environment.NewLine}"
+                + $"视场数：{fieldCount} · 结构数：{configurationCount} · 点列图数：{view.PlotPanes.Count}{Environment.NewLine}"
+                + $"每格波长数（最多）：{wavelengthCount} · 单位：{string.Join('/', units)} · 参考：{reference}");
         }
 
         if (view.PresentationKind == AnalysisPresentationKind.FullFieldSpot)

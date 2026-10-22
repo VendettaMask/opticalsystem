@@ -872,7 +872,8 @@ public sealed record AnalysisParameterDescriptor(
     double Minimum,
     double Maximum,
     double Increment,
-    IReadOnlyList<string>? Choices = null);
+    IReadOnlyList<string>? Choices = null,
+    IReadOnlyDictionary<string, string>? ChoiceLabels = null);
 
 public enum AnalysisSeriesKind
 {
@@ -1001,7 +1002,8 @@ public sealed record AnalysisSeriesDto(
     AnalysisAxisQuantity YQuantity = AnalysisAxisQuantity.Unspecified,
     AnalysisAxisUnit YUnit = AnalysisAxisUnit.Unspecified,
     AnalysisAxisQuantity ValueQuantity = AnalysisAxisQuantity.Unspecified,
-    AnalysisAxisUnit ValueUnit = AnalysisAxisUnit.Unspecified);
+    AnalysisAxisUnit ValueUnit = AnalysisAxisUnit.Unspecified,
+    int? ConfigurationNumber = null);
 
 public sealed record AnalysisSpatialPointDto(double SourceX, double SourceY,
     double X, double Y, double Z, double PhysicalX, double PhysicalY, double PhysicalZ,
@@ -1039,7 +1041,10 @@ public sealed record AnalysisPlotPaneDto(
     IReadOnlyList<AnalysisSeriesDto> Series,
     AnalysisPlotOptionsDto PlotOptions,
     IReadOnlyList<AnalysisPlotMetricDto>? Metrics = null,
-    string Footer = "");
+    string Footer = "",
+    AnalysisMatrixCellDto? MatrixCell = null);
+
+public sealed record AnalysisMatrixCellDto(int ConfigurationNumber, int FieldNumber, string FieldLabel);
 
 public sealed record AnalysisPlotMetricDto(
     string Label,
@@ -1114,7 +1119,21 @@ public sealed record AnalysisViewDto(
     AnalysisPresentationKind PresentationKind = AnalysisPresentationKind.Standard,
     InterferogramSummaryDto? InterferogramSummary = null,
     AnalysisOutcome Outcome = AnalysisOutcome.Success,
-    string? OutcomeReason = null);
+    string? OutcomeReason = null,
+    AnalysisConfigurationScopeDto? ConfigurationScope = null);
+
+public enum AnalysisConfigurationDisplay
+{
+    Single,
+    Overlay,
+    Matrix
+}
+
+public sealed record AnalysisConfigurationScopeDto(
+    string Selection,
+    int TotalCount,
+    IReadOnlyList<int> ConfigurationNumbers,
+    AnalysisConfigurationDisplay Display);
 
 public sealed record AnalysisRequestDto(
     Guid InstanceId,
@@ -1127,7 +1146,9 @@ public sealed record AnalysisResultDto(
     int Generation,
     long SourceRevision,
     AnalysisViewDto View,
-    AnalysisExecutionProvenanceDto Provenance)
+    AnalysisExecutionProvenanceDto Provenance,
+    OpticalDocumentSnapshot? SourceDocument = null,
+    SceneDto? ReferenceScene = null)
 {
     public string CanonicalAnalysisKey => Provenance.CanonicalAnalysisKey;
 

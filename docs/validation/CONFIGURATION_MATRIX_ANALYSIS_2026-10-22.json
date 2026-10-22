@@ -1,0 +1,110 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-22",
+  "Product": "Optical System Design",
+  "BaseCommit": "759005faf9bd351128943e1cf5eca53625155758",
+  "WorkingTreeDirty": true,
+  "Cause": "AnalysisService captured only the active optic and SpotDiagramVariantAnalysis hard-coded a single configuration caption and column.",
+  "Fix": [
+    "Capture the full multi-configuration document at one revision for Configuration Matrix Spot Diagram",
+    "Run the shared Core SpotDiagramAnalysis for each real configuration; do not switch or mutate the live document",
+    "Compose field rows and configuration columns with typed AnalysisMatrixCell metadata and consistent coordinate ranges for matching units",
+    "Use all matrix cells for the wavelength legend, report actual configuration/cell/wavelength counts, and preserve typed units",
+    "Keep enough logical matrix space for axes and plots before responsive page scaling"
+  ],
+  "SourceLens": "src/OpticalSystemDesign.App/Assets/SequentialExamples/Zoom systems/Zoom lens.zmx",
+  "SourceLensSha256": "7103aaf9130acc1b94a864267348ce1df6a7651910adc07379a9321a4670adc9",
+  "Expected": {
+    "Configurations": 3,
+    "Fields": 3,
+    "WavelengthsPerCell": 3,
+    "Cells": 9
+  },
+  "NumericalChecks": [
+    "Each Core matrix cell matches independent SpotDiagramAnalysis points and metrics for its configuration",
+    "Application worker compared with independent Core for active indices 0, 1, 2; source revision and live prescription unchanged",
+    "Editing inactive configuration 2 changes only its spot coordinates; CSV contains configurations 2 and 3",
+    "Selected field/wavelength settings retained; missing explicitly selected indices rejected with configuration context",
+    "Different field counts preserve matrix shape with empty missing cells"
+  ],
+  "ScreenshotSettings": {
+    "RayDensity": 2,
+    "Reference": "Chief ray",
+    "Fields": "All",
+    "Wavelengths": "All",
+    "FrameSizesDip": [
+      "1280x800",
+      "640x400"
+    ],
+    "Languages": [
+      "zh-CN",
+      "en-US",
+      "ja-JP"
+    ],
+    "SyntheticOptics": false,
+    "Note": "Low-density verification images from the actual built-in Zoom lens, not a new external numerical reference."
+  },
+  "Verification": [
+    {
+      "Results": "configuration-matrix-complete.trx",
+      "Passed": 35,
+      "Failed": 0,
+      "Skipped": 0
+    },
+    {
+      "Results": "configuration-matrix-skia-complete.trx",
+      "Passed": 3,
+      "Failed": 0,
+      "Skipped": 0
+    }
+  ],
+  "Overlap": "The three Skia GUI tests repeat the three language GUI cases included in the 35-test default-headless set; do not add the counts.",
+  "EarlierRuns": [
+    "configuration-matrix-first.trx: 13/13",
+    "configuration-matrix-final.trx: 35/35 before the minimum matrix display-area correction",
+    "configuration-matrix-skia.trx and configuration-matrix-skia-responsive.trx: 3/3 each; pixel review of the narrow image exposed collapsed plot frames despite footer bounds passing"
+  ],
+  "ConcreteDisplayRegression": "Resolved the observed narrow-window plot collapse with minimum logical matrix dimensions; final tests require every plot frame to retain at least 64x64 DIP before whole-page scaling.",
+  "Builds": {
+    "Debug": "Default App/test dependency outputs rebuilt with zero warnings/errors",
+    "Release": "Default App Release rebuilt with zero warnings/errors",
+    "ReleaseLog": "release-build.log"
+  },
+  "VisualReview": [
+    "images/zoom-3-configurations-zh-CN.png",
+    "images/zoom-3-configurations-en-US.png",
+    "images/zoom-3-configurations-en-US-narrow.png"
+  ],
+  "SourceSha256": {
+    "src/OpticalSystemDesign.Core/Analysis/AnalysisModels.cs": "e8c90afc6096f49553034b854b64fd9c2fc5c77c6ed15389f683257d275b76bf",
+    "src/OpticalSystemDesign.Core/Analysis/Rays/SpotDiagramVariantAnalyses.cs": "af4341f933e711961992a403e86d30dc8647e52cea0873fbb8a17550c377b2e5",
+    "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs": "3cb479a459a7cff71fb97abc93fe284b18f1def406a458567e95350ab42989dd",
+    "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs": "c939dc48a4a46c4a7839ef5da35c89936e5ad6078e97c9b312788d174da832a0",
+    "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Localization.cs": "7e875cdc28abbb64e104ea2f8ff5830a4f754c7ec2aa42c58dcdb67f5605bd06",
+    "src/OpticalSystemDesign.Application/Services/AnalysisService.cs": "c37b778bab834e69214d07e7ded682a3129f84128805333221bc252f81fa7d05",
+    "src/OpticalSystemDesign.Application/Services/Mapping/WorkbenchMapper.cs": "1271c3f0cf6e3610e68c1afd12c5731fa8b56aa8d66c5110576427167b17d7cf",
+    "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Plots.cs": "709b7eed9d90ea835ea67b309c401023d0890ead637c2977573a305abd11d705",
+    "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs": "8d51e47412ffe50853756ecbaca1a347c74b200e5efdb52dfa44f3d22348c220",
+    "src/OpticalSystemDesign.App/Services/UiLocalization.cs": "1e3ef68800e67d73f7e432fb4e88336cc6092ad8450ef7c811c0899c0f5a0ea1",
+    "tests/OpticalSystemDesign.Tests/ConfigurationMatrixAnalysisTests.cs": "ea6c29d3361878a21eb3d295ac38dc79c1aba5d01f7432199e8211ede6e8ab88",
+    "tests/OpticalSystemDesign.Tests/ConfigurationMatrixAnalysisGuiTests.cs": "f540f559c260d52218ac46951fdd0d9c423baf5e6020b471a932033a07f36d80"
+  },
+  "EvidenceArchive": "validation/rechecks/2026-10-22/configuration-matrix-analysis-evidence.zip",
+  "EvidenceSha256": "50766f9d38f129cc23d81f915972eb2ffbb33a41e970deb2c2cab31200cd2357",
+  "DocumentationCheck": {
+    "Result": "passed",
+    "BrokenLinks": 0,
+    "GuideBrokenLinks": 0,
+    "MarkdownFenceIssues": 0,
+    "LocalOnlyLinks": 0,
+    "Details": "documentation-check.json"
+  },
+  "CoreCompositionModified": true,
+  "RayTracingFormulaModified": false,
+  "ExternalNumericalCertificationRun": false,
+  "FrozenReferenceModified": false,
+  "FullSuiteRun": false,
+  "DesktopControlled": false,
+  "InstallerRebuiltOrPublished": false,
+  "SingleConfigurationAnalyses": "Continue to use the active configuration; the user can switch it in the lens editor and synchronize the analysis."
+}

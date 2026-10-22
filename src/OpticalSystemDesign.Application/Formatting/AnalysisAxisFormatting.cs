@@ -172,6 +172,11 @@ public static class AnalysisCsvFormatter
     {
         ArgumentNullException.ThrowIfNull(view);
         var builder = new StringBuilder();
+        var includeConfiguration = view.ConfigurationScope is not null;
+        var singleConfiguration = view.ConfigurationScope?.ConfigurationNumbers.Count == 1
+            ? view.ConfigurationScope.ConfigurationNumbers[0].ToString(CultureInfo.InvariantCulture) : string.Empty;
+        IEnumerable<string> WithConfiguration(IEnumerable<string> row, string configuration) =>
+            includeConfiguration ? row.Append(configuration) : row;
         var source = view.PlotPanes.SelectMany(pane => pane.Series.Select(series => (Pane: pane.Title, Series: series)));
         if (!source.Any(item => item.Series.Points.Count > 0))
             source = view.Series.Select(series => (Pane: string.Empty, Series: series));
@@ -183,20 +188,20 @@ public static class AnalysisCsvFormatter
                 if (table.Columns.Count == 0)
                     throw new InvalidDataException("分析表格缺少列定义，无法导出 CSV。");
                 var includeGroups = table.RowGroups?.Any(group => !string.IsNullOrEmpty(group)) == true;
-                AppendRow(builder, includeGroups ? table.Columns.Append("row_group") : table.Columns);
+                AppendRow(builder, WithConfiguration(includeGroups ? table.Columns.Append("row_group") : table.Columns, "configuration"));
                 for (var index = 0; index < table.Rows.Count; index++)
                 {
                     var row = table.Rows[index];
                     if (row.Count != table.Columns.Count)
                         throw new InvalidDataException($"分析表格第 {index + 1} 行的列数与表头不一致，已拒绝导出以免丢失数据。");
                     var group = table.RowGroups is { } groups && index < groups.Count ? groups[index] : string.Empty;
-                    AppendRow(builder, includeGroups ? row.Append(group) : row);
+                    AppendRow(builder, WithConfiguration(includeGroups ? row.Append(group) : row, singleConfiguration));
                 }
             }
             else if (view.Rows.Count > 0)
             {
-                AppendRow(builder, ["metric", "value"]);
-                foreach (var row in view.Rows) AppendRow(builder, [row.Metric, row.Value]);
+                AppendRow(builder, WithConfiguration(["metric", "value"], "configuration"));
+                foreach (var row in view.Rows) AppendRow(builder, WithConfiguration([row.Metric, row.Value], singleConfiguration));
             }
             else
             {
@@ -206,7 +211,8 @@ public static class AnalysisCsvFormatter
         }
 
         // Preserve the existing typed plot schema for chart and mixed views.
-        builder.AppendLine("pane,series,x_quantity,x_unit,x,y_quantity,y_unit,y,value_quantity,value_unit,value,label");
+        builder.AppendLine("pane,series,x_quantity,x_unit,x,y_quantity,y_unit,y,value_quantity,value_unit,value,label"
+            + (includeConfiguration ? ",configuration" : ""));
 
         foreach (var (pane, series) in source)
         {
@@ -223,7 +229,9 @@ public static class AnalysisCsvFormatter
                 Append(builder, series.ValueQuantity.ToString());
                 Append(builder, AnalysisAxisFormatting.UnitSymbol(series.ValueUnit));
                 Append(builder, point.Value?.ToString("R", CultureInfo.InvariantCulture) ?? string.Empty);
-                Append(builder, point.Label, endOfRow: true);
+                Append(builder, point.Label, endOfRow: !includeConfiguration);
+                if (includeConfiguration)
+                    Append(builder, series.ConfigurationNumber?.ToString(CultureInfo.InvariantCulture) ?? singleConfiguration, endOfRow: true);
             }
         }
 

@@ -346,7 +346,9 @@ public partial class WorkbenchRuntime
             "Configuration Matrix Spot Diagram" => new SpotDiagramVariantAnalysis(
                 CurrentOptic,
                 SpotDiagramVariant.ConfigurationMatrix,
-                SpotSettings()),
+                SpotSettings(),
+                _multiConfiguration.Configurations.Select((optic, index) =>
+                    index == _activeConfigurationIndex ? CurrentOptic : optic).ToArray()),
             "Ray Fan" => new RayFanAnalysis(
                 CurrentOptic,
                 numPoints: 256,

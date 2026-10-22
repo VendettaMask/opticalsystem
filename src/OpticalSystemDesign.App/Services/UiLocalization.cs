@@ -115,6 +115,14 @@ internal static class UiLocalization
 
     public static string Text(string source) => Text(source, CurrentLanguage);
 
+    // ComboBox selection content can be displayed through a template without
+    // loading the original item. Track its label before it enters a popup.
+    internal static void LocalizeChoiceLabel(TextBlock label)
+    {
+        Track(label);
+        LocalizeControl(label);
+    }
+
     public static string Text(string source, string language)
     {
         language = NormalizeLanguage(language);
@@ -126,6 +134,17 @@ internal static class UiLocalization
         if (Texts.TryGetValue(source, out var translation))
         {
             return language == Japanese ? translation.Japanese : translation.English;
+        }
+
+        if (source.StartsWith("行：视场    列：结构（各格叠加波长）", StringComparison.Ordinal))
+        {
+            return string.Join(Environment.NewLine, source.Replace("\r\n", "\n", StringComparison.Ordinal).Split('\n').Select((line, index) =>
+                index == 0 ? Text(line, language) : string.Join(" · ", line.Split(" · ", StringSplitOptions.None).Select(fragment =>
+                {
+                    var separator = fragment.IndexOf('：');
+                    return separator < 0 ? Text(fragment, language)
+                        : Text(fragment[..separator], language) + (language == Japanese ? "：" : ": ") + Text(fragment[(separator + 1)..], language);
+                }))));
         }
 
         // Form labels commonly append a full-width colon to a translated caption.
@@ -162,6 +181,16 @@ internal static class UiLocalization
                 ? $"面 {number} プロパティ"
                 : $"Surface {number} Properties";
         }
+
+        if (source.StartsWith("结构：", StringComparison.Ordinal))
+            return Text("结构", language) + ": " + string.Join(" · ", source[3..].Split(" · ")
+                .Select(part => Text(part, language)));
+
+        if (source.StartsWith("结构 ", StringComparison.Ordinal)
+            && source.IndexOf(" · ", StringComparison.Ordinal) is var separator && separator > 3
+            && int.TryParse(source[3..separator], NumberStyles.None, CultureInfo.InvariantCulture, out _))
+            return (language == Japanese ? "構成 " : "Configuration ") + source[3..(separator + 3)]
+                + Text(source[(separator + 3)..], language);
 
         if (source.StartsWith("结构 ", StringComparison.Ordinal)
             && source[3..].Split('/') is [var current, var total]
@@ -677,6 +706,22 @@ internal static class UiLocalization
         Add("全视场点列图", "Full-Field Spot Diagram", "全視野スポット図");
         Add("矩阵点列图", "Matrix Spot Diagram", "マトリクススポット図");
         Add("结构矩阵点列图", "Configuration Matrix Spot Diagram", "構成マトリクススポット図");
+        Add("行：视场    列：结构（各格叠加波长）", "Rows: fields    Columns: configurations (wavelengths overlaid in each cell)", "行：視野    列：構成（各セルに波長を重ね合わせ）");
+        Add("结构数", "Configurations", "構成数");
+        Add("结构", "Configuration", "構成");
+        Add("当前的", "Current", "現在の構成");
+        Add("所有", "All", "すべて");
+        Add("设置已更改，请同步", "Settings changed; refresh required", "設定が変更されました。同期してください");
+        Add("各结构独立计算，按图例叠加显示。\n各结构指标见“数据”页；完整结果见“文本”页。",
+            "Each configuration is calculated independently and overlaid by legend.\nSee Data for per-configuration metrics and Text for complete results.",
+            "各構成を個別に計算し、凡例に従って重ね合わせます。\n構成ごとの指標はデータ、完全な結果はテキストで確認できます。");
+        Add("点列图数", "Spot diagrams", "スポット図数");
+        Add("每格波长数（最多）", "Wavelengths per cell (maximum)", "各セルの波長数（最大）");
+        Add("单位", "Unit", "単位");
+        Add("参考", "Reference", "基準");
+        Add("主光线", "Chief ray", "主光線");
+        Add("质心", "Centroid", "重心");
+        Add("此结构未定义该视场", "This field is not defined in this configuration", "この構成にはこの視野が定義されていません");
         Add("基面数据", "Cardinal Points Data", "基準面データ");
         Add("渐晕图", "Vignetting Diagram", "ビネッティング図");
         Add("网格畸变", "Grid Distortion", "グリッド歪曲");
@@ -945,6 +990,13 @@ internal static class UiLocalization
         Add("小数位数", "Decimal Places", "小数点以下の桁数");
         Add("操作失败", "Operation Failed", "操作に失敗しました");
         Add("正在计算…", "Calculating…", "計算中…");
+        Add("导出图片（PNG）", "Export image (PNG)", "画像を書き出す（PNG）");
+        Add("导出分析图片", "Export analysis image", "解析画像を書き出す");
+        Add("PNG 图片", "PNG image", "PNG 画像");
+        Add("分析图片已导出", "Analysis image exported", "解析画像を書き出しました");
+        Add("正在计算，完成后可导出图片", "Calculating; image export is available when complete", "計算完了後に画像を書き出せます");
+        Add("请先显示分析绘图页", "Display the analysis plot page first", "先に解析プロットページを表示してください");
+        Add("分析图像尚未显示", "The analysis image is not displayed yet", "解析画像はまだ表示されていません");
         Add("计算", "Calculate", "計算");
         Add("结果", "Results", "結果");
         Add("数据", "Data", "データ");

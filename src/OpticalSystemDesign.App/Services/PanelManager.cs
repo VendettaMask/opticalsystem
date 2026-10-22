@@ -5,6 +5,7 @@ using Dock.Model.Controls;
 using Dock.Model.Core;
 using Dock.Model.Mvvm.Controls;
 using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Manufacturing;
 using OpticalSystemDesign.App.Panels;
@@ -279,7 +280,7 @@ public sealed class PanelManager : IDisposable
         Factory.OpenDocument(new WorkspaceDocumentDescriptor(
             $"analysis:{canonical}",
             WorkspaceDocumentTypes.Analysis,
-            analysisName,
+            WorkbenchAnalysisCatalog.DisplayName(canonical),
             analysisName,
             StableAnalysisGuid(canonical)));
     }

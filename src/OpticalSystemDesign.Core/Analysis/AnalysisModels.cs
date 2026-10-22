@@ -156,7 +156,10 @@ public sealed record AnalysisPlotPane(
     IReadOnlyList<AnalysisSeries> Series,
     AnalysisPlotOptions PlotOptions,
     IReadOnlyList<AnalysisPlotMetric>? Metrics = null,
-    string Footer = "");
+    string Footer = "",
+    AnalysisMatrixCell? MatrixCell = null);
+
+public sealed record AnalysisMatrixCell(int ConfigurationNumber, int FieldNumber, string FieldLabel);
 
 public sealed record AnalysisPlotMetric(
     string Label,

@@ -324,6 +324,14 @@ public sealed partial class AnalysisPanel
             Margin = new Thickness(8)
         };
 
+        if (configurationMatrix)
+        {
+            // Preserve enough logical space for each plot's axes and frame;
+            // the responsive page host can then scale the whole matrix to fit.
+            matrix.MinWidth = 120 + columns * 176;
+            matrix.MinHeight = 34 + rows * 176;
+        }
+
         var corner = new TextBlock
         {
             Text = configurationMatrix
@@ -341,7 +349,9 @@ public sealed partial class AnalysisPanel
             var header = new TextBlock
             {
                 Text = configurationMatrix
-                    ? ConfigurationMatrixConfigurationLabel(panes[column].Title)
+                    ? panes[column].MatrixCell is { } cell
+                        ? $"结构 {cell.ConfigurationNumber}"
+                        : ConfigurationMatrixConfigurationLabel(panes[column].Title)
                     : MatrixWavelengthLabel(panes[column].Title),
                 FontSize = AnalysisPlotControl.PlotTextSize,
                 FontFamily = new FontFamily("Cascadia Mono, Consolas"),
@@ -364,7 +374,7 @@ public sealed partial class AnalysisPanel
             var fieldLabel = new TextBlock
             {
                 Text = configurationMatrix
-                    ? ConfigurationMatrixFieldLabel(panes[paneIndex].Title)
+                    ? panes[paneIndex].MatrixCell?.FieldLabel ?? ConfigurationMatrixFieldLabel(panes[paneIndex].Title)
                     : panes[paneIndex].Footer,
                 FontSize = AnalysisPlotControl.PlotTextSize,
                 FontFamily = configurationMatrix
@@ -415,6 +425,7 @@ public sealed partial class AnalysisPanel
                 MinHeight = 64,
                 Margin = new Thickness(3)
             };
+            if (configurationMatrix) ToolTip.SetTip(plotHost, pane.Title + Environment.NewLine + pane.Footer);
             Grid.SetColumn(plotHost, (index % columns) + 1);
             Grid.SetRow(plotHost, (index / columns) + 1);
             matrix.Children.Add(plotHost);
@@ -422,12 +433,19 @@ public sealed partial class AnalysisPanel
         }
 
         var firstPlotOptions = panes.FirstOrDefault()?.PlotOptions;
-        if (firstPlotOptions?.XMinimum is { } xMinimum
+        var firstUnit = panes.SelectMany(pane => pane.Series).FirstOrDefault()?.XUnit ?? AnalysisAxisUnit.Unspecified;
+        var hasSharedScale = !configurationMatrix || panes.All(pane =>
+            pane.Series.All(series => series.XUnit == firstUnit)
+            && pane.PlotOptions.XMinimum == firstPlotOptions?.XMinimum
+            && pane.PlotOptions.XMaximum == firstPlotOptions?.XMaximum);
+        if (hasSharedScale && firstPlotOptions?.XMinimum is { } xMinimum
             && firstPlotOptions.XMaximum is { } xMaximum)
         {
             var sharedScale = new TextBlock
             {
-                Text = (Math.Abs(xMaximum - xMinimum) * 1000)
+                Text = AnalysisAxisFormatting.Convert(Math.Abs(xMaximum - xMinimum), firstUnit,
+                    firstUnit == AnalysisAxisUnit.Millimeter ? AnalysisAxisUnit.Micrometer
+                    : firstUnit == AnalysisAxisUnit.Radian ? AnalysisAxisUnit.Milliradian : firstUnit)
                     .ToString("0.000", CultureInfo.InvariantCulture),
                 FontSize = AnalysisPlotControl.PlotTextSize,
                 FontFamily = new FontFamily("Cascadia Mono, Consolas"),
@@ -445,7 +463,7 @@ public sealed partial class AnalysisPanel
         var legendEntries = new List<(string Key, string Label, Color Color)>();
         if (configurationMatrix)
         {
-            foreach (var series in panes.FirstOrDefault()?.Series ?? Array.Empty<AnalysisSeriesDto>())
+            foreach (var series in panes.SelectMany(pane => pane.Series))
             {
                 if (TryGetSelectableLegend(series, out var key, out var label)
                     && legendEntries.All(entry => entry.Key != key))
@@ -816,7 +834,8 @@ public sealed partial class AnalysisPanel
         IReadOnlyList<AnalysisPlotPaneDto> panes,
         IReadOnlyList<AnalysisPlotControl> plots)
     {
-        var sourceSeries = panes.FirstOrDefault()?.Series ?? Array.Empty<AnalysisSeriesDto>();
+        plotRoot.MinHeight = Math.Max(plotRoot.MinHeight, AnalysisPlotMinimumHeight);
+        var sourceSeries = panes.SelectMany(pane => pane.Series).ToArray();
         var legendEntries = SelectableLegendEntries(sourceSeries);
         Control legend;
         if (legendEntries.Count > 0)
@@ -907,18 +926,16 @@ public sealed partial class AnalysisPanel
         return entries;
     }
 
-    private static StackPanel BuildSelectableLegend(
+    private static Panel BuildSelectableLegend(
         IReadOnlyList<(string Key, string Label, Color Color)> entries,
         Action<string, bool> setVisibility,
         Orientation orientation = Orientation.Vertical)
     {
-        var legend = new StackPanel
-        {
-            Orientation = orientation,
-            Spacing = orientation == Orientation.Horizontal ? 14 : 2,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            Margin = new Thickness(12, 4, 12, 12)
-        };
+        Panel legend = orientation == Orientation.Horizontal && entries.Count > 4
+            ? new WrapPanel { Orientation = Orientation.Horizontal }
+            : new StackPanel { Orientation = orientation, Spacing = orientation == Orientation.Horizontal ? 14 : 2 };
+        legend.HorizontalAlignment = HorizontalAlignment.Center;
+        legend.Margin = new Thickness(12, 4, 12, 12);
         foreach (var entry in entries)
         {
             var brush = new SolidColorBrush(entry.Color);
@@ -950,7 +967,7 @@ public sealed partial class AnalysisPanel
             {
                 IsChecked = true,
                 Content = content,
-                Margin = new Thickness(2, 1)
+                Margin = new Thickness(legend is WrapPanel ? 7 : 2, 1)
             };
             checkBox.IsCheckedChanged += (_, _) =>
                 setVisibility(entry.Key, checkBox.IsChecked == true);
@@ -965,6 +982,12 @@ public sealed partial class AnalysisPanel
         out string key,
         out string label)
     {
+        if (series.ConfigurationNumber is { } configuration && !string.IsNullOrWhiteSpace(series.LegendLabel))
+        {
+            key = $"configuration:{configuration}/{(string.IsNullOrWhiteSpace(series.LegendKey) ? series.Name : series.LegendKey)}";
+            label = series.LegendLabel;
+            return true;
+        }
         if (!string.IsNullOrWhiteSpace(series.LegendKey)
             && !string.IsNullOrWhiteSpace(series.LegendLabel))
         {

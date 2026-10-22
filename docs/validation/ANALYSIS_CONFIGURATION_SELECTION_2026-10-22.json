@@ -1,0 +1,121 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-22",
+  "Product": "Optical System Design",
+  "BaseCommit": "759005faf9bd351128943e1cf5eca53625155758",
+  "WorkingTreeDirty": true,
+  "Scope": {
+    "SequentialAnalyses": 75,
+    "OverlayCapabilities": 36,
+    "ConfigurationMatrixCapabilities": 1,
+    "ChoiceValues": [
+      "Current",
+      "All",
+      "1",
+      "2",
+      "..."
+    ],
+    "SingleConfiguration": "Selector hidden",
+    "PinnedSelection": "Does not activate or mutate the live document",
+    "Languages": [
+      "zh-CN",
+      "en-US",
+      "ja-JP"
+    ]
+  },
+  "TestRuns": [
+    {
+      "File": "analysis-configuration-regression-final.trx",
+      "Total": 86,
+      "Passed": 86,
+      "Failed": 0,
+      "Sha256": "573f67c8b5c3607b7b7e1b663b448a7a7edb18ef4c57cf2161374d691a297eeb"
+    },
+    {
+      "File": "analysis-configuration-expanded-verified.trx",
+      "Total": 40,
+      "Passed": 40,
+      "Failed": 0,
+      "Sha256": "6c4344e32126fb7cd882a71f8bba2918b2dc89d2b64bba2e34c2e9966673f2ef"
+    },
+    {
+      "File": "analysis-image-export-regression.trx",
+      "Total": 12,
+      "Passed": 12,
+      "Failed": 0,
+      "Sha256": "84d425d4a1d4a6bed8e8a24cacf3e8c73b20c05f35835607579aca5d388e0e94"
+    },
+    {
+      "File": "analysis-configuration-popup-language.trx",
+      "Total": 4,
+      "Passed": 4,
+      "Failed": 0,
+      "Sha256": "0afd87adde8bc9f190b728637aba920d560035e51f4251ecec7a4f8001a68b3f"
+    }
+  ],
+  "DistinctPassingCases": 138,
+  "SkiaChecksRepeatGuiCases": true,
+  "Builds": {
+    "Debug": "Default App output successfully rebuilt by the focused test builds, no warnings or errors",
+    "Release": "Default App build succeeded, zero warnings/errors, 17.95 seconds",
+    "Manifest": "source-and-build-manifest.json"
+  },
+  "SourceLens": {
+    "Path": "src/OpticalSystemDesign.App/Assets/SequentialExamples/Zoom systems/Zoom lens.zmx",
+    "Sha256": "7103aaf9130acc1b94a864267348ce1df6a7651910adc07379a9321a4670adc9",
+    "Configurations": 3,
+    "Fields": 3,
+    "Wavelengths": 3
+  },
+  "Captures": {
+    "Folder": "captures",
+    "Files": [
+      "overlay-en-US-narrow.png",
+      "overlay-en-US.png",
+      "overlay-ja-JP-narrow.png",
+      "overlay-ja-JP.png",
+      "overlay-zh-CN-narrow.png",
+      "overlay-zh-CN.png",
+      "settings-en-US.png",
+      "settings-ja-JP.png",
+      "settings-zh-CN.png"
+    ],
+    "WindowSizesDip": [
+      [
+        1280,
+        800
+      ],
+      [
+        640,
+        400
+      ]
+    ],
+    "PlotRayDensity": 2
+  },
+  "References": [
+    "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Standard_Spot_Diagram.html",
+    "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Huygens_PSF.html",
+    "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Huygens_MTF.html"
+  ],
+  "Limitations": [
+    "Huygens coherent multi-configuration summation is not connected; only Current or a single configuration is exposed.",
+    "Incompatible axes or pane layouts are rejected; mixed focal/afocal overlays do not automatically fall back to Current.",
+    "Zoom Relative Illumination already fails for Current with no finite image-cosine-envelope area. All preserves the error and reports the configuration. The overlay smoke case uses three clones of the existing application Cooke fixture.",
+    "Earlier failed UI/fixture runs are retained in the archive; final run counters are listed separately.",
+    "No full test suite, new native numerical certification, independent residual investigation, installation or publication."
+  ],
+  "Documentation": {
+    "Report": "docs/ANALYSIS_CONFIGURATION_SELECTION_2026-10-22.md",
+    "StrictAudit": {
+      "Status": "Passed",
+      "File": "documentation-audit.json",
+      "Documents": 1047,
+      "BrokenLinks": 0,
+      "FenceIssues": 0,
+      "LocalOnlyLinks": 0
+    }
+  },
+  "Archive": "validation/rechecks/2026-10-22/analysis-configuration-selection-evidence.zip",
+  "ArchiveSha256": "eca0966355315affed09fcc996c611d399a62c248f619b525333bf8410b20a59",
+  "ArchiveBytes": 1078517
+}

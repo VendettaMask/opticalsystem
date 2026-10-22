@@ -1,0 +1,93 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-22",
+  "Product": "Optical System Design",
+  "BaseCommit": "759005faf9bd351128943e1cf5eca53625155758",
+  "WorkingTreeDirty": true,
+  "Feature": "Icon-only PNG export of the complete current analysis plot page, preserving interaction state and footer, excluding toolbar/settings/result tabs.",
+  "Scope": [
+    "Common AnalysisPanel graphical results",
+    "Cardinal scene plus data table",
+    "Chinese/English/Japanese icon tooltip and accessibility",
+    "Canonical report captions restored from saved layouts; custom captions retained"
+  ],
+  "Export": {
+    "Icon": "camera",
+    "Format": "PNG",
+    "PixelScale": "TopLevel.RenderScaling",
+    "SnapshotTiming": "Before save picker",
+    "FileWrite": "Bounded atomic replace",
+    "EmptyTextAndUnavailablePages": "Hidden",
+    "WhileCalculating": "Disabled with tooltip/help reason"
+  },
+  "Verification": [
+    {
+      "Results": "analysis-image-export-complete.trx",
+      "Passed": 12,
+      "Failed": 0,
+      "Skipped": 0
+    },
+    {
+      "Results": "analysis-title-workspace-final-60.trx",
+      "Passed": 60,
+      "Failed": 0,
+      "Skipped": 0
+    },
+    {
+      "Results": "analysis-image-default-ui-final.trx",
+      "Passed": 6,
+      "Failed": 0,
+      "Skipped": 0
+    }
+  ],
+  "Overlap": "The 12-image and 60-title/workspace groups are disjoint. The extra 6 default-headless checks repeat four image UI cases and two localization cases; do not add them to the total.",
+  "DefaultHeadlessTests": "Four image UI cases run normally. Real pixel/PNG cases are opt-in via OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR and must run in an isolated AnalysisImageExportTests process to avoid Avalonia glyph cache backend mixing.",
+  "Builds": {
+    "Debug": "Default App/test dependency outputs rebuilt successfully, zero warnings/errors",
+    "Release": "Default App Release rebuilt successfully, zero warnings/errors",
+    "ReleaseLog": "release-build.log"
+  },
+  "EarlierRuns": [
+    "analysis-image-export.trx: testhost connection aborted, zero tests executed in restricted environment",
+    "Connection-timeout retry explicitly cancelled before any tests",
+    "analysis-image-export-local.trx: 19 passed / 7 failed; six mixed Skia/headless glyph-cache fixture failures and one saved-layout fixture accessed outside UI dispatch",
+    "analysis-image-export-skia.trx: isolated initial 7 image checks passed",
+    "analysis-title-workspace-final.trx: initial 58 passed, then expanded with two custom-caption cases"
+  ],
+  "FixtureCorrections": [
+    "Opt-in pixel tests run in an isolated Skia process; default UI tests use the ordinary headless backend",
+    "Saved-layout fixture awaits restoration on the UI dispatcher"
+  ],
+  "VisualReview": [
+    "images/WavefrontMap-840x620.png",
+    "images/WavefrontMap-420x280.png",
+    "images/toolbar-WavefrontMap-840x620.png"
+  ],
+  "ImagesUseSyntheticDtos": true,
+  "NativeSaveDialogUsed": false,
+  "SaveButtonAndCancelValidatedWithStorageProxy": true,
+  "DesktopControlled": false,
+  "CoreModified": false,
+  "FullSuiteRun": false,
+  "NumericalCertificationRun": false,
+  "InstallerRebuiltOrPublished": false,
+  "SourceSha256": {
+    "src/OpticalSystemDesign.App/Panels/AnalysisPanel.cs": "624b1f84e97fe0043b415dbd55b0300830dcaae32fe31d71715851cd199101e0",
+    "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Export.cs": "6ac713c65ca25ecb9acc23160665e51cad6397ac6588403fef58971a3684b311",
+    "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs": "c752608a85648f1c6cae80f65cdfe7e587e5e361bc2726750c19c48d746f8396",
+    "src/OpticalSystemDesign.App/Services/WorkspaceDockFactory.cs": "17de453c274e2961f2c339b95f0aff3a2f255dbe4a2c9d9d539f3c65ce267189",
+    "src/OpticalSystemDesign.App/Services/UiLocalization.cs": "9e89c7520c7c8f4f2d30fe184e59631577171ccd3aaa7804d13edac39c5aa0ee",
+    "tests/OpticalSystemDesign.Tests/AnalysisImageExportTests.cs": "b1c21d1ccf88ff94b29b1577fb0240cbaa2da6bee42869d373b39abd26e3b225",
+    "tests/OpticalSystemDesign.Tests/ReportDocumentTitleTests.cs": "a4e5300049fa8d019eec0419dc3d5ba449922d67fafb0f66860e765aa57f3092"
+  },
+  "EvidenceArchive": "validation/rechecks/2026-10-22/analysis-image-export-evidence.zip",
+  "EvidenceSha256": "62fec0d64abc4f2bc1ac5b76c62d9f78ec6abbf8bc3909978c7b6d1800457ca9",
+  "DocumentationCheck": {
+    "Result": "passed",
+    "BrokenLinks": 0,
+    "GuideBrokenLinks": 0,
+    "MarkdownFenceIssues": 0,
+    "LocalOnlyLinks": 0,
+    "Details": "documentation-check.json"
+  }
+}
