@@ -62,7 +62,10 @@ $headers = @{ Authorization = "Bearer $env:GH_TOKEN"; Accept = 'application/vnd.
 function Invoke-ReleaseApi([string]$Method, [string]$Route, $Body = $null) {
     $arguments = @{ Method = $Method; Uri = "$base/$Route"; Headers = $headers }
     if ($null -ne $Body) { $arguments.Body = $Body | ConvertTo-Json -Depth 8; $arguments.ContentType = 'application/json' }
-    Invoke-RestMethod @arguments
+    # Invoke-RestMethod can emit a JSON array as one pipeline object. Explicitly
+    # enumerate its result so callers do not receive a nested asset collection.
+    $result = Invoke-RestMethod @arguments
+    foreach ($item in $result) { $item }
 }
 function Assert-UploadedAsset($Asset, $Package) {
     if ($Asset.state -cne 'uploaded' -or $Asset.size -ne $Package.Size -or

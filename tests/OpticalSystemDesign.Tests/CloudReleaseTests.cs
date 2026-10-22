@@ -99,6 +99,33 @@ public sealed class CloudReleaseTests
         Assert.True(text.IndexOf("if ($PlanOnly)", StringComparison.Ordinal) < text.IndexOf("if (-not $env:GH_TOKEN)", StringComparison.Ordinal));
     }
 
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(3)]
+    public void GitHubJsonArraysAreEnumeratedRatherThanNested(int count)
+    {
+        // Exercise the actual API wrapper with the same non-enumerated JSON-array
+        // shape as Invoke-RestMethod, without credentials or any network request.
+        var scriptPath = Path.Combine(RepositoryRoot(), "scripts", "publish-github-exe.ps1").Replace("'", "''");
+        var command = $$"""
+            $ErrorActionPreference = 'Stop'
+            $ast = [System.Management.Automation.Language.Parser]::ParseFile('{{scriptPath}}', [ref]$null, [ref]$null)
+            $definition = $ast.Find({ param($node) $node -is [System.Management.Automation.Language.FunctionDefinitionAst] -and $node.Name -eq 'Invoke-ReleaseApi' }, $true)
+            Invoke-Expression $definition.Extent.Text
+            function Invoke-RestMethod { ,@(for ($i=0; $i -lt {{count}}; $i++) { [pscustomobject]@{ name = "asset-$i.exe" } }) }
+            $base = 'https://example.invalid'
+            $headers = @{}
+            $assets = @(Invoke-ReleaseApi GET 'unused')
+            if ($assets.Count -ne {{count}}) { throw "Nested API array: $($assets.Count)" }
+            foreach ($asset in $assets) { if ($asset -is [array]) { throw 'Nested element.' } }
+            'API array shape passed.'
+            """;
+        var result = RunPowerShell("-Command", command);
+        Assert.True(result.ExitCode == 0, result.Output);
+        Assert.Contains("API array shape passed", result.Output);
+    }
+
     private sealed class Handoff : IDisposable
     {
         public string Directory { get; } = Path.Combine(Path.GetTempPath(), "optical-cloud-plan-" + Guid.NewGuid().ToString("N"));
@@ -125,28 +152,33 @@ public sealed class CloudReleaseTests
 
         public (int ExitCode, string Output) Run()
         {
-            var start = new ProcessStartInfo("pwsh")
-            {
-                UseShellExecute = false, CreateNoWindow = true, RedirectStandardOutput = true, RedirectStandardError = true
-            };
-            start.Environment["GH_TOKEN"] = "";
-            start.Environment["GITHUB_SHA"] = "";
-            foreach (var argument in new[] { "-NoProfile", "-NonInteractive", "-File",
+            return RunPowerShell("-File",
                 Path.Combine(RepositoryRoot(), "scripts", "publish-github-exe.ps1"),
                 "-Repository", "VendettaMask/opticalsystem", "-Tag", $"v{Version}-test.20261022",
-                "-DistributionDirectory", Directory, "-PlanOnly" }) start.ArgumentList.Add(argument);
-            using var process = Process.Start(start)!;
-            var output = process.StandardOutput.ReadToEndAsync();
-            var error = process.StandardError.ReadToEndAsync();
-            if (!process.WaitForExit(30_000))
-            {
-                process.Kill(entireProcessTree: true);
-                throw new TimeoutException("Local release-plan validation timed out.");
-            }
-            return (process.ExitCode, output.GetAwaiter().GetResult() + error.GetAwaiter().GetResult());
+                "-DistributionDirectory", Directory, "-PlanOnly");
         }
 
         public void Dispose() => System.IO.Directory.Delete(Directory, recursive: true);
+    }
+
+    private static (int ExitCode, string Output) RunPowerShell(params string[] arguments)
+    {
+        var start = new ProcessStartInfo("pwsh")
+        {
+            UseShellExecute = false, CreateNoWindow = true, RedirectStandardOutput = true, RedirectStandardError = true
+        };
+        start.Environment["GH_TOKEN"] = "";
+        start.Environment["GITHUB_SHA"] = "";
+        foreach (var argument in new[] { "-NoProfile", "-NonInteractive" }.Concat(arguments)) start.ArgumentList.Add(argument);
+        using var process = Process.Start(start)!;
+        var output = process.StandardOutput.ReadToEndAsync();
+        var error = process.StandardError.ReadToEndAsync();
+        if (!process.WaitForExit(30_000))
+        {
+            process.Kill(entireProcessTree: true);
+            throw new TimeoutException("Local release validation timed out.");
+        }
+        return (process.ExitCode, output.GetAwaiter().GetResult() + error.GetAwaiter().GetResult());
     }
 
     private static string RepositoryRoot()
