@@ -135,11 +135,21 @@ internal static class WindowsOtaHandoff
         {
             using (parent)
             {
-                if (parent.StartTime.ToUniversalTime().Ticks != ticket.ParentStartUtcTicks ||
-                    !SamePath(parent.MainModule?.FileName ?? "", Environment.ProcessPath!))
-                    throw new InvalidDataException("Update parent identity mismatch.");
-                using var wait = new CancellationTokenSource(TimeSpan.FromMinutes(2));
-                await parent.WaitForExitAsync(wait.Token).ConfigureAwait(false);
+                try
+                {
+                    if (!parent.HasExited)
+                    {
+                        if (parent.StartTime.ToUniversalTime().Ticks != ticket.ParentStartUtcTicks ||
+                            !SamePath(parent.MainModule?.FileName ?? "", Environment.ProcessPath!))
+                            throw new InvalidDataException("Update parent identity mismatch.");
+                        using var wait = new CancellationTokenSource(TimeSpan.FromMinutes(2));
+                        await parent.WaitForExitAsync(wait.Token).ConfigureAwait(false);
+                    }
+                }
+                // Normal shutdown may finish between probing the PID and reading its module.
+                // Ignore that race only once exit is confirmed; other identity errors fail closed.
+                catch (InvalidOperationException) when (parent.HasExited) { }
+                catch (System.ComponentModel.Win32Exception) when (parent.HasExited) { }
             }
         }
         // Recheck installation/version after waiting. Another maintenance operation may have won.

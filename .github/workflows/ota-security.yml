@@ -34,14 +34,19 @@ jobs:
           global-json-file: global.json
       - name: Build in GitHub and run only the publisher boundary regressions
         shell: pwsh
-        env:
-          OPTICAL_SYSTEM_DESIGN_OTA_CAPTURE_DIR: artifacts/ota-checks/screenshots
         run: |
           dotnet restore OpticalSystemDesign.slnx --locked-mode
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~ReleaseUpdateTests|FullyQualifiedName~AboutUpdateTests|FullyQualifiedName~OtaClientTests|FullyQualifiedName~OtaUpdatePanelTests|FullyQualifiedName~OtaShutdownGuardTests' --logger 'trx;LogFileName=ota-publisher.trx' --results-directory artifacts/ota-checks
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+      - name: Render three languages in a separate real Skia test process
+        shell: pwsh
+        env:
+          OPTICAL_SYSTEM_DESIGN_OTA_CAPTURE_DIR: ${{ github.workspace }}/artifacts/ota-checks/screenshots
+        run: |
+          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~OtaUpdatePanelTests.ManualDownloadAndCanceledSaveAreLocalizedAndNeverAutoInstall' --logger 'trx;LogFileName=ota-render.trx' --results-directory artifacts/ota-checks
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
       - uses: actions/upload-artifact@v4
         if: always()

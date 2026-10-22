@@ -229,6 +229,41 @@ public sealed class OtaClientTests
     }
 
     [Fact]
+    public async Task CancelingAnActiveStreamRemovesTheOwnedPartialFile()
+    {
+        using var directory = new CacheFixture();
+        using var input = new PausingStream();
+        using var handler = new Handler(_ =>
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.OK) { Content = new StreamContent(input) };
+            response.Content.Headers.ContentLength = OtaTestData.InstallerBytes.Length;
+            return response;
+        });
+        using var client = new HttpClient(handler); using var cancel = new CancellationTokenSource();
+        var pending = new OtaDownloader(client, directory.Path, OtaTestData.PublicKey)
+            .DownloadAsync(OtaTestData.Update(), "1.0.4", new Progress<double>(), cancel.Token);
+        await input.Waiting.Task.WaitAsync(TimeSpan.FromSeconds(10));
+        Assert.Single(Directory.GetFiles(directory.Path, "*.partial", SearchOption.AllDirectories));
+        cancel.Cancel(); await Assert.ThrowsAnyAsync<OperationCanceledException>(() => pending);
+        Assert.Empty(Directory.GetDirectories(directory.Path));
+    }
+
+    [Fact]
+    public async Task ARedirectLoopHasABoundedRequestCount()
+    {
+        using var directory = new CacheFixture();
+        using var handler = new Handler(_ =>
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.Redirect);
+            response.Headers.Location = new("https://release-assets.githubusercontent.com/loop"); return response;
+        });
+        using var client = new HttpClient(handler);
+        await Assert.ThrowsAsync<InvalidDataException>(() => new OtaDownloader(client, directory.Path, OtaTestData.PublicKey)
+            .DownloadAsync(OtaTestData.Update(), "1.0.4", new Progress<double>(), CancellationToken.None));
+        Assert.Equal(6, handler.Calls); Assert.Empty(Directory.GetDirectories(directory.Path));
+    }
+
+    [Fact]
     public void HandoffUsesOnlyOwnedCacheAndNonDestructiveInstallerFlags()
     {
         var nonce = new string('A', 64); var now = DateTime.UtcNow; var update = OtaTestData.Update();
@@ -245,6 +280,24 @@ public sealed class OtaClientTests
         internal int Calls;
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         { Calls++; cancellationToken.ThrowIfCancellationRequested(); return Task.FromResult(response(request)); }
+    }
+    private sealed class PausingStream : Stream
+    {
+        private bool _emitted;
+        internal TaskCompletionSource Waiting { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        public override bool CanRead => true; public override bool CanSeek => false; public override bool CanWrite => false;
+        public override long Length => throw new NotSupportedException();
+        public override long Position { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
+        public override async ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken = default)
+        {
+            if (!_emitted) { _emitted = true; buffer.Span[0] = 0x4d; buffer.Span[1] = 0x5a; return 2; }
+            Waiting.TrySetResult(); await Task.Delay(Timeout.Infinite, cancellationToken); return 0;
+        }
+        public override int Read(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+        public override void Flush() { }
+        public override long Seek(long offset, SeekOrigin origin) => throw new NotSupportedException();
+        public override void SetLength(long value) => throw new NotSupportedException();
+        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
     }
     private sealed class CacheFixture : IDisposable
     {

@@ -13,6 +13,16 @@
     "reason": "Uninstalled development runtime raised InvalidDataException instead of showing the unavailable reason in About",
     "repair": "Explicitly classify InvalidDataException for availability, download rejection, handoff failure and UI error handling; add negative-path regression"
   },
+  "intermediateRun": {
+    "id": 39741983749,
+    "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39741983749",
+    "sourceCommit": "b932e80adce50d01d578aa996f531e9cd9eccd7d",
+    "solutionBuild": "success",
+    "passed": 119,
+    "failed": 5,
+    "reason": "Test-process font cache mixed headless and Skia rendering backends between fixture classes",
+    "repair": "Run normal regressions and the three real Skia render cases in separate processes; use an absolute screenshot artifact path"
+  },
   "channel": "Newer stable releases only; test prereleases and same-version repairs are manual",
   "trust": "Embedded RSA-4096 public key, RSA-PSS/SHA-256 signed release envelope, exact repository/version/runtime/filename/size/SHA-256/release identity",
   "lifecycle": "Explicit download, explicit save/restart, normal close guards, helper only after Closed, wait for parent exit; no process kill or Windows restart",
