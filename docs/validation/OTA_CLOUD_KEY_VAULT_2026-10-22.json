@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-22",
+  "timezone": "Asia/Shanghai",
+  "scope": "GitHub-only OTA key backup and signing infrastructure, not client installation certification",
+  "privateRepository": "VendettaMask/opticalsystem-ota-vault",
+  "privateRepositoryConfirmed": true,
+  "trustedKeyId": "1d360b38844b1ba09b91786eea7c2c86ce1d6ebf900359174483ada5b613b521",
+  "vaultSourceCommit": "8e060867795fb01fac92d135f37bcc206dea1d3a",
+  "encryption": "AES-256-GCM, PBKDF2-HMAC-SHA256, 600000 iterations, random salt and nonce",
+  "machineBound": false,
+  "secretsOrCiphertextIncludedInThisReport": false,
+  "runs": [
+    {
+      "id": 39735653960,
+      "url": "https://github.com/VendettaMask/opticalsystem-ota-vault/actions/runs/39735653960",
+      "event": "push",
+      "conclusion": "success",
+      "scope": "Synthetic throwaway-key crypto self-test only"
+    },
+    {
+      "id": 39736621325,
+      "url": "https://github.com/VendettaMask/opticalsystem-ota-vault/actions/runs/39736621325",
+      "operation": "Backup",
+      "selfTest": "success",
+      "backup": "failure",
+      "reason": "Recovery password length or line-break policy rejected, no durable backup created"
+    }
+  ],
+  "durableBackupVerified": false,
+  "independentRecoveryVerified": false,
+  "mainPublisherFocusedChecks": "pending",
+  "clientOtaReleased": false,
+  "realUserInstallationExercised": false,
+  "publicReleaseChanged": false,
+  "localBuildOrPackagingPerformed": false
+}

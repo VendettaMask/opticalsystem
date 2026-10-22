@@ -19,7 +19,12 @@ public sealed class CloudReleaseTests
         Assert.Contains("verify-documentation.ps1 -Strict", text);
         Assert.Contains("publish-github-exe.ps1", text);
         Assert.Contains("GH_TOKEN: ${{ github.token }}", text);
-        Assert.DoesNotContain("${{ secrets.", text);
+        var publishStart = text.IndexOf("  publish:", StringComparison.Ordinal);
+        Assert.DoesNotContain("${{ secrets.", text[..publishStart]);
+        foreach (var name in new[] { "OPTICAL_OTA_SIGNING_KEY", "OPTICAL_OTA_ENCRYPTED_BACKUP", "OPTICAL_OTA_RECOVERY_PASSWORD" })
+            Assert.Contains("${{ secrets." + name + " }}", text[publishStart..]);
+        Assert.Equal(3, System.Text.RegularExpressions.Regex.Matches(text, @"\$\{\{ secrets\.").Count);
+        Assert.Contains("test-ota-key-crypto.ps1", text);
         Assert.DoesNotContain("--clobber", text);
         Assert.True(text.IndexOf("  publish:", StringComparison.Ordinal) < text.IndexOf("contents: write", StringComparison.Ordinal));
         Assert.Contains("$env:REQUESTED_TAG", text);

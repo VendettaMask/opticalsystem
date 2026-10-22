@@ -51,9 +51,20 @@ if (@($packages.Runtime | Sort-Object -Unique).Count -ne $packages.Count -or
     @($packages.SourceCommit | Sort-Object -Unique).Count -ne 1) { throw 'Duplicate architecture or mixed source commits.' }
 $plan = [pscustomobject]@{ Repository = $Repository; Tag = $Tag; TestPackage = $testPackage; Packages = $packages }
 if ($PlanOnly) { $plan | ConvertTo-Json -Depth 6; return }
+if ($Repository -cne 'VendettaMask/opticalsystem') { throw 'OTA signing is restricted to the product repository.' }
 if (-not $env:GH_TOKEN) { throw 'GH_TOKEN is required only for publishing.' }
 if (-not $NotesFile) { throw 'Release notes are required.' }
 $notes = Get-Content -LiteralPath $NotesFile -Raw
+# Fail closed BEFORE any release mutation. The private key is used only in memory.
+# Test packages stay outside the stable OTA channel; a bootstrap is installed manually.
+$otaMarkers = @()
+if (-not $testPackage) {
+    . (Join-Path $PSScriptRoot 'ota-key-crypto.ps1')
+    $otaPublicKey = Get-Content -LiteralPath (Join-Path (Split-Path -Parent $PSScriptRoot) 'src/OpticalSystemDesign.App/Assets/Updates/ota-public-key.pem') -Raw
+    $otaRsa = Get-OtaSigningRsa $otaPublicKey
+    try { $otaMarkers = @($packages | ForEach-Object { New-OtaReleaseEnvelope $otaRsa $_ $version $Tag }) }
+    finally { $otaRsa.Dispose(); $env:OPTICAL_OTA_SIGNING_KEY = $null; $env:OPTICAL_OTA_RECOVERY_PASSWORD = $null; $env:OPTICAL_OTA_ENCRYPTED_BACKUP = $null }
+}
 $evidence = Join-Path $directory 'release-evidence'
 [void][IO.Directory]::CreateDirectory($evidence)
 $plan | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $evidence 'plan.json') -Encoding utf8
@@ -163,6 +174,7 @@ foreach ($asset in @($renamed) + @($sidecars)) { $null = Invoke-ReleaseApi DELET
 $runUrl = if ($env:GITHUB_RUN_ID) { "https://github.com/$Repository/actions/runs/$env:GITHUB_RUN_ID" } else { '' }
 $details = @('', '## 构建来源', '', "源码提交：$($packages[0].SourceCommit)", "云端记录：$runUrl", '')
 foreach ($package in $packages) { $details += "- $($package.Name) | SHA-256: $($package.Sha256) | 发布 ID: $($package.ReleaseId)" }
+$details += $otaMarkers
 $latest = if ($testPackage) { 'false' } else { 'true' }
 $release = Invoke-ReleaseApi PATCH "releases/$($release.id)" @{ name = "Optical System Design $version$(if ($testPackage) { ' 测试版' })"; body = $notes.TrimEnd() + "`n" + ($details -join "`n"); draft = $false; prerelease = $testPackage; make_latest = $latest }
 $final = @(Invoke-ReleaseApi GET "releases/$($release.id)/assets?per_page=100")

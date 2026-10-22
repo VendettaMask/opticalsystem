@@ -1,0 +1,67 @@
+name: OTA encrypted backup and recovery
+
+on:
+  push:
+    paths: ['scripts/**', '.github/workflows/vault.yml', 'trusted-public-key.pem']
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Backup creates the durable encrypted file; Verify tests password recovery without changing keys
+        type: choice
+        options: [Backup, Verify]
+        default: Backup
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ota-vault
+  cancel-in-progress: false
+
+jobs:
+  self-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Test portable encryption and recovery using throwaway keys only
+        shell: pwsh
+        run: ./scripts/test-ota-key-crypto.ps1
+
+  backup:
+    if: github.event_name == 'workflow_dispatch' && inputs.operation == 'Backup' && github.ref == 'refs/heads/main'
+    needs: self-test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Encrypt, commit and independently read back the backup
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OPTICAL_OTA_SIGNING_KEY: ${{ secrets.OPTICAL_OTA_SIGNING_KEY }}
+          OPTICAL_OTA_RECOVERY_PASSWORD: ${{ secrets.OPTICAL_OTA_RECOVERY_PASSWORD }}
+        run: ./scripts/manage-vault.ps1 -Mode Backup
+
+  verify-recovery:
+    if: github.event_name == 'workflow_dispatch' && inputs.operation == 'Verify' && github.ref == 'refs/heads/main'
+    needs: self-test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Recover from committed ciphertext and prove the same signing identity
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OPTICAL_OTA_RECOVERY_PASSWORD: ${{ secrets.OPTICAL_OTA_RECOVERY_PASSWORD }}
+        run: ./scripts/manage-vault.ps1 -Mode Verify
