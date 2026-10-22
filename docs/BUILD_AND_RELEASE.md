@@ -102,7 +102,7 @@ RID 专用锁文件放在项目 `obj` 下，不覆盖源锁文件。发布禁用
 
 每个架构只上传一个 EXE 附件，目前云端未配置签名证书，文件名明确标注 `Unsigned` 或 `UnsignedTest`；测试包不能作为正式升级安装包。SHA-256 写在发布说明，元数据、检查结果和替换前附件保存在 Actions 的 30 天工作流产物中，不上传 `.sha256` 或 `release.json` 到 Releases。替换前备份旧附件，先上传临时名新 EXE 并核对 GitHub 的大小/完整 SHA-256，再切换原下载名；切换失败尝试恢复旧下载名。未知附件或不可变发布停止处理，不随意删除。GitHub 自动提供的 Source code ZIP/tar.gz 不是安装附件，也不代表手动刷新后的源码提交。API 约定见 [GitHub Releases REST 文档](https://docs.github.com/en/rest/releases/releases)。
 
-截至本轮云端交付前，原 [1.0.4 x64 测试预发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019) 最近包为 2026-10-21 的 `1.0.4-win-x64-20f20ca93130`，来自干净提交 `b37d1b31c9ca6e2b861c776af4d2dc7e943f1d94`；历史三个附件与验证范围见[当时交付账目](validation/UPDATE_SYNC_REFLECTIVE_PARAXIAL_PACKAGE_2026-10-21.json)。最新云端执行状态见[当前状态](CURRENT_STATUS.md)。测试包使用正常产品安装标识，安装前应保存工程并正常关闭程序；软件内部版本仍为 1.0.4，同版本安装按修复处理。
+原 [1.0.4 x64 测试预发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019) 已于 2026-10-22 完成[云端构建与公开替换](https://github.com/VendettaMask/opticalsystem/actions/runs/39715666744)，包身份 `1.0.4-win-x64-1da73ed106cf`，实际源码 `e2dbe1a0c4b54e30538492af591f38d1b2cfb309`。仅保留一个 EXE 附件，原下载链接和标签不变；旧三个附件已在替换前校验备份到 Actions，保留至 2026-11-21。完整 SHA-256 与云端源文件一致，下载入口范围复核通过；没有本机实装。交付明细及边界见[机器账目](validation/GITHUB_CLOUD_RELEASE_2026-10-22.json)。测试包使用正常产品安装标识，安装前应保存工程并正常关闭程序；软件内部版本仍为 1.0.4，同版本安装按修复处理。
 
 ## 安装、修复和验证
 

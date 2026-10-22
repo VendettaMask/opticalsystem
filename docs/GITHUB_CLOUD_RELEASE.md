@@ -11,6 +11,8 @@
 
 手动刷新旧发布不会移动标签。包内与发布说明中的源码提交才是本包实际来源；该标签的自动 Source code 压缩包仍是标签原始代码。操作入口和权限说明见 [GitHub 手动运行文档](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow)。
 
+手动流程只重建所选架构，已有其他架构的 EXE 会保留，不表示它也来自本轮源码；要求两个架构统一来源时，应使用新版本标签触发双架构构建。
+
 ## 发布新版本
 
 先修改 `ProductVersion.props`，更新 `packaging/windows/RELEASE_NOTES.md` 并完成检查，再推送代码和匹配的版本标签。`v1.0.5` 会构建两个架构并自动公开为正式版；`v1.0.5-test.20261022` 会公开为测试预发布、不标 Latest。标签和产品版本不一致直接失败。推送普通分支只运行通常的 CI，不发布安装包。
@@ -29,3 +31,5 @@
 云端构建完整解决方案，但只运行与交付、安装、界面和原生预设相关的定向测试，不把它称为全仓库测试。冻结证据与文档校验保留，x64 包执行内置模块完整性检查，ARM64 只有交叉打包检查。AutoLens 目标预设的存在和界面通过不等于设计达标；此前 24 次固定 CPU 运行仍为 0/24 达标。
 
 流程源码见[工作流](../.github/workflows/release.yml)与[安全替换脚本](../scripts/publish-github-exe.ps1)，实际执行和交付结果以[当前状态](CURRENT_STATUS.md)为准。
+
+2026-10-22 已[实际跑通 x64 手动触发后的全自动构建与发布](https://github.com/VendettaMask/opticalsystem/actions/runs/39715666744)，没有操作用户桌面或本机安装。定向测试 97/97 和 23/23、包检查 14/14；首次发布的列表解析失败及其修复也保存在[交付账目](validation/GITHUB_CLOUD_RELEASE_2026-10-22.json)。本次没有实际触发新版本标签、执行 ARM64 包或重新认证完整光学矩阵。

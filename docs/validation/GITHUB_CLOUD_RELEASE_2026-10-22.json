@@ -1,0 +1,109 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-22",
+  "Product": "Optical System Design",
+  "Repository": "VendettaMask/opticalsystem",
+  "SourceCommit": "e2dbe1a0c4b54e30538492af591f38d1b2cfb309",
+  "SourceDirty": false,
+  "Release": {
+    "Id": 416939680,
+    "Tag": "v1.0.4-test.20261019",
+    "TagCommit": "9242b31abf38b4d97f23d19e4b00f8df47abfabb",
+    "TagMoved": false,
+    "Url": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019",
+    "ReleaseId": "1.0.4-win-x64-1da73ed106cf",
+    "Draft": false,
+    "Prerelease": true,
+    "MarkLatestRequested": false,
+    "UploadedAssetCount": 1,
+    "AutomaticSourceArchivesAreNotUploadedAssets": true
+  },
+  "Asset": {
+    "Id": 664535436,
+    "Name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+    "Size": 276748317,
+    "State": "uploaded",
+    "Sha256": "a8375e0951ceb7f3a3b65978aa46d6d9004daf24a1ae00f460e66794b6483153",
+    "ServerDigestMatchedCloudSource": true,
+    "Url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe"
+  },
+  "Workflow": {
+    "RunId": 39715666744,
+    "Url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39715666744",
+    "Event": "workflow_dispatch",
+    "Conclusion": "success",
+    "Jobs": ["plan", "package (win-x64)", "publish"],
+    "Runtime": "win-x64",
+    "BuildConfiguration": "Release",
+    "BuildWarnings": 0,
+    "BuildErrors": 0,
+    "FullTestSuitesRun": false,
+    "PushCiSkippedIntentionally": true,
+    "DedicatedReleaseChecksExecuted": true
+  },
+  "CloudVerification": {
+    "ReleaseVersionPackagingAndModuleTests": { "Passed": 97, "Failed": 0, "Skipped": 0 },
+    "InitialStructureDesktopAndOfficialPresetTests": { "Passed": 23, "Failed": 0, "Skipped": 0 },
+    "ActualPayloadAndBuiltInModuleChecks": { "Passed": 14, "Failed": 0, "ManifestFiles": 1285 },
+    "FrozenEvidence": { "Count": 2668, "HeadMatched": 2668, "WorkingTreeMatched": 2668, "Unchanged": true },
+    "Documentation": { "Strict": true, "BrokenLinks": 0, "MarkdownFenceIssues": 0, "GuideRepeatedParagraphGroups": 0 }
+  },
+  "PublicDownloadCheck": {
+    "Authenticated": false,
+    "HttpStatus": 206,
+    "ContentRange": "bytes 0-1/276748317",
+    "BytesRead": 2,
+    "WindowsExeMzPrefix": true,
+    "FullDownloadPerformed": false
+  },
+  "ActionsArtifacts": [
+    {
+      "Id": 12399062829,
+      "Name": "cloud-release-receipt",
+      "Url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39715666744/artifacts/12399062829",
+      "ContainsPreviousAssetsAndReceipts": true,
+      "Size": 105039929,
+      "Sha256": "6df36f37ac8b16fbe6db1c46ff35b784a4efb89fede9f90e9a16754843519215",
+      "ExpiresUtc": "2026-11-21T03:21:25Z"
+    },
+    {
+      "Id": 12398942167,
+      "Name": "cloud-package-win-x64",
+      "Size": 105132418,
+      "Sha256": "f8c6123aafc3ef0c79b93e68555cdea1602c706d04cef516e3bd52b0aec80cc0",
+      "ExpiresUtc": "2026-11-21T03:20:15Z"
+    },
+    {
+      "Id": 12398149540,
+      "Name": "cloud-checks-win-x64",
+      "Size": 83928,
+      "Sha256": "f8e5c1c2e123769f398b4466f1609ce590362d91b8ed8d28d93f8274429ceab3",
+      "ExpiresUtc": "2026-11-21T03:20:25Z"
+    }
+  ],
+  "RemovedPreviousAssets": [
+    { "Id": 662674287, "Name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe", "Sha256": "9892ee800f8bfad32737c1f20973cf4d657fb3a2be81ece99894d0f46d29912c" },
+    { "Id": 662674304, "Name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe.sha256", "Sha256": "a3dcc95e289b4e0c4e7a3a2929381294987c1f9cfb92c6ab8963ae5dc99118a4" },
+    { "Id": 662674284, "Name": "release.json", "Sha256": "9576b6b2e20c54e4b533229052bebb87ab9329112a086abcc6c1b89002cf1c69" }
+  ],
+  "EarlierFailurePreserved": {
+    "RunId": 39714626591,
+    "Conclusion": "failure",
+    "FailureStage": "publish",
+    "Cause": "Invoke-RestMethod JSON array was emitted as one nested pipeline object; known assets were rejected as unknown.",
+    "PreviousRemoteAssetsModified": false,
+    "CloudPackageAndChecksSucceeded": true,
+    "Fix": "Explicit API result enumeration, with offline regressions for 0, 1 and 3 assets.",
+    "FinalLocalReleaseTestsPassed": 97
+  },
+  "NotExecuted": [
+    "Full repository test suites",
+    "New version tag trigger",
+    "ARM64 publish or native execution",
+    "Full product installation or upgrade on the user's computer",
+    "New complete optical numerical certification",
+    "Publisher code signing"
+  ],
+  "AutoLensFixedCpuAcceptanceUnchanged": { "Accepted": 0, "Runs": 24 },
+  "ProductionInstallationModified": false
+}
