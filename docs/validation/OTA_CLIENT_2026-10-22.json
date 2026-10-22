@@ -2,7 +2,40 @@
   "date": "2026-10-22",
   "timezone": "Asia/Shanghai",
   "scope": "Manually initiated signed Windows OTA client, cloud-focused verification; not an installed upgrade certification",
-  "status": "pending-cloud-checks",
+  "status": "cloud-focused-checks-passed-not-packaged",
+  "verifiedRun": {
+    "id": 39742775938,
+    "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39742775938",
+    "sourceCommit": "58542d642f7eef1667db89f2accff4fc3b9a6977",
+    "configuration": "Release",
+    "solutionBuild": "success",
+    "buildWarnings": 0,
+    "buildErrors": 0,
+    "regressionPassed": 126,
+    "regressionFailed": 0,
+    "regressionSkipped": 0,
+    "realSkiaRenderPassed": 3,
+    "renderCasesAreRepeatsOfRegressionCases": true,
+    "syntheticCryptoChecks": 30,
+    "cryptoPlatforms": ["ubuntu-latest", "windows-latest"],
+    "cryptoPlatformRepeatsNotAddedToDistinctCount": true,
+    "artifactId": 12410122391
+  },
+  "evidence": {
+    "path": "validation/rechecks/2026-10-22/ota-client-evidence.zip",
+    "sha256": "5ffdf543df68b008b850a2ffc1f03cc43b488f3c4cab323da0285cd6f3648119",
+    "regressionTrxSha256": "31c97f7d59c1544753d8bf73df3accfab63b64f0d1d25f1f6f98d4220d070d53",
+    "renderTrxSha256": "3a5ac07019370951699fb282eb41ef13ace23eb086bbc6a7903a046ebe779d6e",
+    "containsProductionSecrets": false,
+    "screenshotsVisuallyInspected": true,
+    "screenshotScope": "Full About window after verified test download; Chinese Light 13, English Dark 18, Japanese Light 18; 1360x1200 pixels",
+    "screenshotLatestVersionIsTestFixture": "99.0.0 is a synthetic release, not a published product version",
+    "screenshots": [
+      {"name": "ota-ready-zh-CN-Light.png", "sha256": "c99e95cb1c17cc32d2b1ece6f1845e59008cbdd2180454dcdbaa2e1f846092cf"},
+      {"name": "ota-ready-en-US-Dark.png", "sha256": "773c793d968e4dce008fbd37672563a1e7ebcdb7a3069f4cce80302c79db0908"},
+      {"name": "ota-ready-ja-JP-Light.png", "sha256": "a429189d19a6d3695aeb1b125020dcd32b6c933e3a741a0b7c9302ba3ac048b9"}
+    ]
+  },
   "initialRun": {
     "id": 39740892652,
     "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39740892652",
