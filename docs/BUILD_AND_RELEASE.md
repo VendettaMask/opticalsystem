@@ -108,7 +108,7 @@ OTA 云端签名与密钥备份和客户端实机验收分别记账。正式版 
 
 每个架构只上传一个 EXE 附件，目前云端未配置签名证书，文件名明确标注 `Unsigned` 或 `UnsignedTest`；测试包不能作为正式升级安装包。SHA-256 写在发布说明，元数据、检查结果和替换前附件保存在 Actions 的 30 天工作流产物中，不上传 `.sha256` 或 `release.json` 到 Releases。替换前备份旧附件，先上传临时名新 EXE 并核对 GitHub 的大小/完整 SHA-256，再切换原下载名；切换失败尝试恢复旧下载名。未知附件或不可变发布停止处理，不随意删除。GitHub 自动提供的 Source code ZIP/tar.gz 不是安装附件，也不代表手动刷新后的源码提交。API 约定见 [GitHub Releases REST 文档](https://docs.github.com/en/rest/releases/releases)。
 
-当前 [1.0.4 x64 测试预发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)已由 [GitHub 云端流程](https://github.com/VendettaMask/opticalsystem/actions/runs/39747605306)替换为包含 OTA 的引导包，包身份 `1.0.4-win-x64-06c437b23332`，实际源码 `4ad9210874745fb68d2ccb1503696080dd9c97d0`。发布页只保留一个 EXE，完整 SHA-256 与云端源文件一致；旧包已备份在 Actions，原下载链接和标签保持。使用正常产品安装标识，安装前保存工程并正常关闭软件，同版本按修复处理。云端构建通过不等于用户实装或跨版本 OTA 验收，详情见[本次交付账目](validation/OTA_BOOTSTRAP_RELEASE_2026-10-22.json)；[早期云端账目](validation/GITHUB_CLOUD_RELEASE_2026-10-22.json)保留当时记录。
+当前 [1.0.4 x64 测试预发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)已由 [GitHub 云端流程](https://github.com/VendettaMask/opticalsystem/actions/runs/39881939233)更新为包含最新镜头/二维/三维改动及 OTA 的安装包，包身份 `1.0.4-win-x64-9aa2e358e654`，实际源码 `9d4e71a4210f7f32edef575a63f3ca1e79e0f495`。发布页只保留一个 EXE，完整 SHA-256 与云端构建日志一致；旧包由发布流程备份在 Actions，原下载链接和标签保持。使用正常产品安装标识，安装前保存工程并正常关闭软件，同版本按修复处理。云端构建通过不等于用户实装或跨版本 OTA 验收，详情见[最新交付账目](validation/EXE_RELEASE_2026-10-23.json)；[首个 OTA 引导包账目](validation/OTA_BOOTSTRAP_RELEASE_2026-10-22.json)保留当时记录。
 
 ## 安装、修复和验证
 

@@ -1,0 +1,88 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-23",
+  "Product": "Optical System Design",
+  "Repository": "VendettaMask/opticalsystem",
+  "Status": "published-refreshed-x64-test-installer",
+  "SourceCommit": "9d4e71a4210f7f32edef575a63f3ca1e79e0f495",
+  "SourceDirty": false,
+  "IncludesSyncedFeatureCommit": "4a0f245d58b398137006e21641b106e875d57533",
+  "Release": {
+    "Id": 416939680,
+    "Tag": "v1.0.4-test.20261019",
+    "TagCommit": "9242b31abf38b4d97f23d19e4b00f8df47abfabb",
+    "TagMoved": false,
+    "ReleaseId": "1.0.4-win-x64-9aa2e358e654",
+    "Url": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019",
+    "Draft": false,
+    "Prerelease": true,
+    "MarkLatestRequested": false,
+    "UploadedAssetCount": 1,
+    "AutomaticSourceArchivesAreNotUploadedAssets": true
+  },
+  "Asset": {
+    "Id": 667592814,
+    "Name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+    "Size": 276858387,
+    "Sha256": "aa4ef31ad9bde99d751c9e876c27cc198d499a17bfa71b788cec79809213cf8c",
+    "ServerDigestMatchedCloudBuildLog": true,
+    "State": "uploaded",
+    "Url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe"
+  },
+  "Workflow": {
+    "RunId": 39881939233,
+    "Url": "https://github.com/VendettaMask/opticalsystem/actions/runs/39881939233",
+    "Event": "workflow_dispatch",
+    "Conclusion": "success",
+    "Jobs": ["plan", "package (win-x64)", "publish"],
+    "BuildConfiguration": "Release",
+    "BuildWarnings": 0,
+    "BuildErrors": 0,
+    "FullTestSuitesRun": false,
+    "PushCiSkippedIntentionally": true
+  },
+  "CloudVerification": {
+    "ReleaseOtaPackagingAndModuleTests": {"Passed": 160, "Failed": 0, "Skipped": 0},
+    "InitialStructureDesktopAndOfficialPresetTests": {"Passed": 23, "Failed": 0, "Skipped": 0},
+    "LensHeaderAndViewerTests": {"Passed": 47, "Failed": 0, "Skipped": 0},
+    "ActualPayloadAndBuiltInModuleChecks": {"Passed": 14, "Failed": 0, "ManifestFiles": 1285},
+    "SyntheticKeyEncryptionRecoveryAndSigningChecks": {"Passed": 30, "Platform": "windows-latest", "UsesThrowawayKeys": true},
+    "FrozenEvidence": {"Count": 2668, "HeadMatched": 2668, "Unchanged": true},
+    "Documentation": {"Documents": 1048, "Strict": true, "BrokenLinks": 0, "MarkdownFenceIssues": 0, "GuideRepeatedParagraphGroups": 0}
+  },
+  "PublicDownloadCheck": {
+    "Authenticated": false,
+    "HttpStatus": 206,
+    "ContentRange": "bytes 0-1/276858387",
+    "BytesRead": 2,
+    "WindowsExeMzPrefix": true,
+    "FullDownloadPerformed": false
+  },
+  "Evidence": {
+    "Path": "validation/rechecks/2026-10-23/exe-release-cloud-checks.zip",
+    "Size": 108810,
+    "Sha256": "613e7b1a29c39aa418f58d72b934b677a4c8be382562451e1c026243bb883a75",
+    "ContainsProductionSecrets": false,
+    "CloudArtifactDigestVerified": true,
+    "Contains": ["release.trx", "initial-structure.trx", "lens-viewers.trx", "frozen.json", "documentation.json", "actual payload verification JSON"]
+  },
+  "ActionsArtifacts": [
+    {"Id": 12471590442, "Name": "cloud-package-win-x64", "Size": 105174225, "Sha256": "cf1384b891040d151a7168ae6f1f7cbc69eae11e1175f613ae67e2439eb602fc", "ExpiresUtc": "2026-11-22T01:12:17Z", "DownloadedLocally": false},
+    {"Id": 12470948961, "Name": "cloud-release-receipt", "Size": 105171803, "Sha256": "ae6e61b56d9f21f14d83ffe803fb705ee1ee0b2a7a931fdc7cef72d406a766a8", "ExpiresUtc": "2026-11-22T01:13:20Z", "ContainsPreviousInstaller": true, "DownloadedLocally": false},
+    {"Id": 12470804161, "Name": "cloud-checks-win-x64", "Size": 108810, "Sha256": "613e7b1a29c39aa418f58d72b934b677a4c8be382562451e1c026243bb883a75", "ExpiresUtc": "2026-11-22T01:12:26Z", "DownloadedLocally": true}
+  ],
+  "ReplacedAsset": {"Id": 665196390, "Size": 276840004, "Sha256": "8ef701a5978e2750dce4d0b5af2a7c535677a8da31b01cf6b8371ef08aef15a2", "BackupHashVerification": "Performed by the successful publisher workflow; not independently downloaded this time"},
+  "Boundaries": {
+    "Version": "1.0.4",
+    "SameVersionInstall": "repair",
+    "OtaChannel": "newer stable releases only; test prereleases are excluded",
+    "LocalBuildTestOrPackagingPerformed": false,
+    "UserInstallationModified": false,
+    "RealInstalledUpgradeExecuted": false,
+    "NativeGuiInstallationVerified": false,
+    "RealSkiaCapturesRepeatedInThisRun": false,
+    "Arm64NativeVerified": false,
+    "WindowsAuthenticodeSigned": false,
+    "NewOpticalNumericalCertification": false
+  }
+}
