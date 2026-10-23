@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
 using Avalonia.VisualTree;
@@ -45,7 +46,7 @@ public sealed class FlatStartDesktopTests
                 (1, "Advanced", ["MinimumCenter", "MinimumAir", "MinimumBack", "MinimumEdge", "FixedBack", "FixedBackValue"]),
                 (1, "MaterialSettings", ["AllowedGlasses", "InitialGlass", "Catalogs"]),
                 (1, "ApertureSettings", ["AutomaticDiameters", "PhysicalStop", "ApertureMargin"]),
-                (2, "AutoLensSettings", ["AutoLensAsphere", "AutoLensMaterials", "AutoLensCemented", "AutoLensCurriculum", "AutoLensRefinement", "AutoLensPolish"]),
+                (2, "AutoLensSettings", ["AutoLensAsphere", "AutoLensMaterials", "AutoLensCemented", "AutoLensCurriculum", "AutoLensRefinement"]),
                 (2, "StartingSettings", ["StartingRadius", "StartingCenter", "StartingAir", "SignFilter", "SearchStop", "FreeStop"]),
                 (2, "RefinementSettings", ["RefinementBudget"])
             };
@@ -108,6 +109,8 @@ public sealed class FlatStartDesktopTests
                     UiLocalization.Apply(language);
                     tabs.SelectedIndex = 0; window.UpdateLayout();
                     Assert.Equal(UiLocalization.Text("开始形式搜索"), Find<Button>(window, "Generate").Content);
+                    Assert.Equal(UiLocalization.Text("AutoLens · C# 自动求导"), Find<TextBlock>(window, "OptimizationMethod").Text);
+                    Assert.DoesNotContain(window.GetLogicalDescendants().OfType<ComboBox>(), control => control.Name == "OptimizationMethod");
                     Assert.Equal(UiLocalization.Text("目标"), Assert.IsType<TextBlock>(((TabItem)tabs.Items[1]!).Header).Text);
                     foreach (var item in tabs.Items.Cast<TabItem>().Concat(Find<TabControl>(window, "DetailsTabs").Items.Cast<TabItem>()))
                     {
@@ -169,7 +172,7 @@ public sealed class FlatStartDesktopTests
                 Assert.Equal((decimal)presets[index].Specification.EffectiveFocalLengthMillimeters, Find<NumericUpDown>(window, "FocalLength").Value);
                 Assert.Equal((decimal)presets[index].Specification.FNumber, Find<NumericUpDown>(window, "FNumber").Value);
                 Assert.Equal((decimal)presets[index].Specification.MaximumFieldAngleDegrees, Find<NumericUpDown>(window, "HalfField").Value);
-                Assert.Equal(2, Find<ComboBox>(window, "OptimizationMethod").SelectedIndex);
+                Assert.Equal(UiLocalization.Text("AutoLens · C# 自动求导"), Find<TextBlock>(window, "OptimizationMethod").Text);
                 Assert.Equal(4, Find<ComboBox>(window, "AutoLensAsphere").SelectedIndex);
                 Assert.Equal(4000m, Find<NumericUpDown>(window, "EvaluationBudget").Value);
                 Assert.Contains("尚未运行", Find<TextBlock>(window, "Status").Text);
@@ -199,38 +202,78 @@ public sealed class FlatStartDesktopTests
     public static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<global::OpticalSystemDesign.App.App>()
         .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
 
-    [Fact]
-    public async Task AutoLensCpuIsExplicitOptInPersistsAndChangingMethodClearsStaleResults()
+    [Theory]
+    [InlineData(FlatStartOptimizationMethod.TrustRegion)]
+    [InlineData(FlatStartOptimizationMethod.AutoLensCpuExperimentV1)]
+    [InlineData(FlatStartOptimizationMethod.AutoLensManagedV1)]
+    public async Task LegacyRecordsRemainViewableButCannotResumeOrRefineAndNewSearchUsesAutoLens(FlatStartOptimizationMethod method)
     {
         using var host = new DesktopHost();
         await host.Run(async () =>
         {
-            var window = host.Window(defaultInputs: true);
+            var specification = method == FlatStartOptimizationMethod.AutoLensManagedV1
+                ? AutoLensManagedTests.Specification(400) : FlatStartRefinementTests.Spec(400);
+            specification = specification with { FlatStart = specification.FlatStart! with
+            {
+                OptimizationMethod = method, SamplingPolicy = FlatStartSamplingPolicy.UniformAreaGaussianV1,
+                AutoLens = specification.FlatStart.AutoLens is { } autoLens ? autoLens with { TargetPolishEvaluations = 2 } : null
+            } };
+            using var cancellation = new CancellationTokenSource();
+            var result = await new FlatStartSearchService().RunAsync(specification, FlatStartRefinementTests.Options, cancellation.Token,
+                checkpointSink: (saved, _) =>
+                {
+                    if (saved.Trials.Any(trial => trial.State == FamilyTrialState.Completed)) cancellation.Cancel();
+                    return ValueTask.CompletedTask;
+                });
+            var checkpoint = result.Checkpoint;
+            Assert.InRange(checkpoint.ChargedEvaluations, 1, 399);
+            Assert.NotEmpty(result.Candidates);
+            if (method == FlatStartOptimizationMethod.AutoLensManagedV1)
+                Assert.Contains(checkpoint.Trials, trial => trial.AutoLensState?.TargetPolishEvaluationCount > 0);
+            var library = new FlatStartRunLibrary(host.Directory);
+            await library.SaveAsync(checkpoint);
+            var sourcePath = library.PathFor(checkpoint.RunId);
+            var originalBytes = await File.ReadAllBytesAsync(sourcePath);
+            File.Copy(sourcePath, host.OpenPath);
+            var window = host.Window();
             window.Show(); await window.Ready;
-            var method = Find<ComboBox>(window, "OptimizationMethod");
-            Assert.Equal(0, method.SelectedIndex);
-            method.SelectedIndex = 1;
-            Find<NumericUpDown>(window, "EvaluationBudget").Value = 120;
-            Find<NumericUpDown>(window, "RootCount").Value = 1;
-            Click(window, "Generate");
-            Assert.False(method.IsEffectivelyEnabled);
-            await window.PendingOperation;
-            var checkpoint = window.CurrentCheckpoint!;
-            Assert.Equal(FlatStartOptimizationMethod.AutoLensCpuExperimentV1, checkpoint.Specification.FlatStart!.OptimizationMethod);
-            Assert.Contains("autolens-cpu-experiment-v1", checkpoint.Algorithm.Name);
-            var row = Assert.IsType<CandidateRow>(Find<DataGrid>(window, "Candidates").SelectedItem);
-            Assert.Contains("非原版可微/GPU", row.Details(checkpoint));
-            File.Copy(Path.Combine(host.Directory, checkpoint.RunId + ".family.json"), host.OpenPath);
-            method.SelectedIndex = 0;
-            Assert.Null(window.CurrentCheckpoint);
-            Assert.Null(Find<CandidatePreviewControl>(window, "Preview").PrimaryScene);
-            Assert.False(Find<Button>(window, "Export").IsEnabled);
-            Click(window, "OpenRun"); await window.PendingOperation;
-            Assert.Equal(1, method.SelectedIndex);
-            Assert.Equal(checkpoint.RunId, window.CurrentCheckpoint!.RunId);
+            // Both the last-run shortcut and file picker must keep historical methods read-only.
+            foreach (var command in new[] { "Resume", "OpenRun" })
+            {
+                Click(window, command); await window.PendingOperation;
+                Assert.Equal(ContentFingerprint.Compute(checkpoint), ContentFingerprint.Compute(window.CurrentCheckpoint!));
+                Assert.Equal(method, window.CurrentCheckpoint!.Specification.FlatStart!.OptimizationMethod);
+                Assert.False(Find<Button>(window, "Resume").IsEnabled);
+                Assert.False(Find<Button>(window, "Refine").IsEnabled);
+                Assert.NotNull(ToolTip.GetTip(Find<Button>(window, "Refine")));
+                Assert.True(Find<Button>(window, "Export").IsEnabled);
+                Assert.Contains("旧算法记录", Find<TextBlock>(window, "Status").Text);
+                // Event invocation must not bypass the execution guard on disabled commands.
+                foreach (var blocked in new[] { "Resume", "Refine" })
+                {
+                    Find<Button>(window, blocked).RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                    await window.PendingOperation;
+                    Assert.Equal(ContentFingerprint.Compute(checkpoint), ContentFingerprint.Compute(window.CurrentCheckpoint!));
+                }
+                Click(window, "Export"); await window.PendingOperation;
+                var exported = await StarOptProjectStore.LoadAsync(host.ExportPath);
+                var row = Assert.IsType<CandidateRow>(Find<DataGrid>(window, "Candidates").SelectedItem);
+                Assert.Equal(row.Candidate.OpticFingerprint, ContentFingerprint.Compute(exported.Configurations[0].ToSnapshot()));
+            }
+            Assert.Equal(originalBytes, await File.ReadAllBytesAsync(sourcePath));
             Find<TabControl>(window, "InputTabs").SelectedIndex = 2;
-            method.BringIntoView(); window.UpdateLayout();
-            Capture(window, "autolens-cpu-experiment");
+            Find<TextBlock>(window, "OptimizationMethod").BringIntoView(); window.UpdateLayout();
+            Capture(window, "autolens-only-legacy-" + method);
+            Find<NumericUpDown>(window, "EvaluationBudget").Value = 8;
+            Find<NumericUpDown>(window, "AutoLensCurriculum").Value = 1;
+            Find<NumericUpDown>(window, "AutoLensRefinement").Value = 1;
+            Click(window, "Generate"); await window.PendingOperation;
+            Assert.NotEqual(checkpoint.RunId, window.CurrentCheckpoint!.RunId);
+            Assert.Equal(FlatStartOptimizationMethod.AutoLensManagedV1, window.CurrentCheckpoint.Specification.FlatStart!.OptimizationMethod);
+            Assert.True(window.CurrentCheckpoint.Specification.FlatStart.UsePhysicalStop);
+            Assert.NotNull(window.CurrentCheckpoint.Specification.FlatStart.AutoLens);
+            Assert.Equal(0, window.CurrentCheckpoint.Specification.FlatStart.AutoLens.TargetPolishEvaluations);
+            Assert.Equal(originalBytes, await File.ReadAllBytesAsync(sourcePath));
             window.Close();
         });
     }
@@ -243,28 +286,34 @@ public sealed class FlatStartDesktopTests
         {
             var window = host.Window(defaultInputs: true);
             window.Show(); await window.Ready;
-            var method = Find<ComboBox>(window, "OptimizationMethod");
-            method.SelectedIndex = 2;
+            Assert.DoesNotContain(window.GetLogicalDescendants().OfType<ComboBox>(), control => control.Name == "OptimizationMethod");
             Find<ComboBox>(window, "AutoLensAsphere").SelectedIndex = 1;
             Find<NumericUpDown>(window, "AutoLensCurriculum").Value = 1;
             Find<NumericUpDown>(window, "AutoLensRefinement").Value = 1;
             Find<TextBox>(window, "AutoLensCemented").Text = "1";
-            Find<NumericUpDown>(window, "EvaluationBudget").Value = 60;
+            Find<NumericUpDown>(window, "EvaluationBudget").Value = 8;
             Find<NumericUpDown>(window, "RootCount").Value = 1;
             Click(window, "Generate"); await window.PendingOperation;
             var checkpoint = Assert.IsType<FlatStartSearchCheckpoint>(window.CurrentCheckpoint);
             Assert.Equal(FlatStartOptimizationMethod.AutoLensManagedV1, checkpoint.Specification.FlatStart!.OptimizationMethod);
             Assert.Equal(new[] { 0 }, checkpoint.Specification.FlatStart.AutoLens!.CementedGaps);
+            Assert.Equal(0, checkpoint.Specification.FlatStart.AutoLens.TargetPolishEvaluations);
+            Assert.All(checkpoint.Trials.Where(trial => trial.AutoLensState is not null), trial =>
+            {
+                Assert.Equal(0, trial.AutoLensState!.TargetPolishEvaluationCount);
+                Assert.DoesNotContain(trial.Diagnostics, diagnostic => diagnostic.Code.StartsWith("design.autolens-native-target-polish", StringComparison.Ordinal));
+            });
+            Assert.DoesNotContain(window.GetLogicalDescendants().OfType<NumericUpDown>(), control => control.Name == "AutoLensPolish");
             Assert.Contains("autolens-managed-v1", checkpoint.Algorithm.Name);
             File.Copy(Path.Combine(host.Directory, checkpoint.RunId + ".family.json"), host.OpenPath);
             Find<TextBox>(window, "AutoLensCemented").Text = "";
             Assert.Null(window.CurrentCheckpoint);
             Click(window, "OpenRun"); await window.PendingOperation;
-            Assert.Equal(2, method.SelectedIndex);
+            Assert.Equal(UiLocalization.Text("AutoLens · C# 自动求导"), Find<TextBlock>(window, "OptimizationMethod").Text);
             Assert.Equal(1, Find<ComboBox>(window, "AutoLensAsphere").SelectedIndex);
             Assert.Equal("1", Find<TextBox>(window, "AutoLensCemented").Text);
             Find<TabControl>(window, "InputTabs").SelectedIndex = 2;
-            method.BringIntoView(); window.UpdateLayout();
+            Find<TextBlock>(window, "OptimizationMethod").BringIntoView(); window.UpdateLayout();
             Capture(window, "autolens-managed");
             window.Close();
         });
@@ -272,7 +321,7 @@ public sealed class FlatStartDesktopTests
 
     [Theory]
     [InlineData("AutomaticDiameters")]
-    [InlineData("PhysicalStop")]
+    [InlineData("AutoLensMaterials")]
     public async Task NewDesktopExperimentDefaultsToPhysicalStopAndAutomaticDiametersAndPolicyChangesClearResults(string changedControl)
     {
         using var host = new DesktopHost();
@@ -283,7 +332,11 @@ public sealed class FlatStartDesktopTests
             var automatic = Find<CheckBox>(window, "AutomaticDiameters");
             Assert.True(automatic.IsChecked);
             Assert.True(Find<CheckBox>(window, "PhysicalStop").IsChecked);
-            Find<NumericUpDown>(window, "EvaluationBudget").Value = 120;
+            Assert.False(Find<CheckBox>(window, "PhysicalStop").IsEnabled);
+            Assert.NotNull(ToolTip.GetTip(Find<CheckBox>(window, "PhysicalStop")));
+            Find<NumericUpDown>(window, "AutoLensCurriculum").Value = 1;
+            Find<NumericUpDown>(window, "AutoLensRefinement").Value = 1;
+            Find<NumericUpDown>(window, "EvaluationBudget").Value = 16;
             Find<NumericUpDown>(window, "RootCount").Value = 1;
             Click(window, "Generate"); await window.PendingOperation;
             var checkpoint = window.CurrentCheckpoint!;
@@ -324,7 +377,7 @@ public sealed class FlatStartDesktopTests
             window.Show(); await window.Ready;
             Assert.True(Find<Border>(window, "CandidateEmpty").IsVisible);
             Assert.True(Find<Border>(window, "PreviewEmpty").IsVisible);
-            Assert.False(Find<CheckBox>(window, "PhysicalStop").IsChecked);
+            Assert.True(Find<CheckBox>(window, "PhysicalStop").IsChecked);
             Click(window, "Generate");
             Assert.False(Find<NumericUpDown>(window, "FocalLength").IsEffectivelyEnabled);
             await window.PendingOperation;
@@ -367,7 +420,7 @@ public sealed class FlatStartDesktopTests
         using var host = new DesktopHost();
         await host.Run(async () =>
         {
-            var window = host.Window(budget: 240); window.Show(); await window.Ready;
+            var window = host.Window(budget: 32); window.Show(); await window.Ready;
             Find<ComboBox>(window, "SearchMode").SelectedIndex = 1;
             Find<TextBox>(window, "SignFilter").Text = "+*-";
             Find<NumericUpDown>(window, "StartingRadius").Value = 400;
@@ -456,18 +509,19 @@ public sealed class FlatStartDesktopTests
         using var host = new DesktopHost();
         await host.Run(async () =>
         {
-            var window = host.Window(budget: 400); window.Show(); await window.Ready;
+            var window = host.Window(budget: 24); window.Show(); await window.Ready;
             Click(window, "Generate");
             await Until(() => window.CurrentCheckpoint?.Trials.Any(trial => trial.State == FamilyTrialState.Completed) == true);
             Click(window, "Cancel"); await window.PendingOperation;
             var stopped = window.CurrentCheckpoint!;
             Assert.Equal(FlatStartSearchState.Cancelled, stopped.State);
-            Assert.InRange(stopped.ChargedEvaluations, 1, 399);
+            Assert.InRange(stopped.ChargedEvaluations, 1, 23);
             Click(window, "Export"); await window.PendingOperation;
             Assert.True(File.Exists(host.ExportPath));
             Click(window, "Resume"); await window.PendingOperation;
             Assert.Equal(stopped.RunId, window.CurrentCheckpoint!.RunId);
-            Assert.Equal(400, window.CurrentCheckpoint.ChargedEvaluations);
+            Assert.Equal(24, window.CurrentCheckpoint.Specification.Budget.MaximumEvaluations);
+            Assert.InRange(window.CurrentCheckpoint.ChargedEvaluations, stopped.ChargedEvaluations, 24);
             Assert.Equal(stopped.Trials[0].Candidate!.CandidateId, window.CurrentCheckpoint.Trials[0].Candidate!.CandidateId);
             window.Close();
         });
@@ -479,7 +533,7 @@ public sealed class FlatStartDesktopTests
         using var host = new DesktopHost();
         await host.Run(async () =>
         {
-            var window = host.Window(budget: 400); window.Show(); await window.Ready;
+            var window = host.Window(budget: 24); window.Show(); await window.Ready;
             Click(window, "Generate");
             await Until(() => window.CurrentCheckpoint?.Trials.Any(trial => trial.State == FamilyTrialState.Completed) == true);
             window.Close(); await window.PendingOperation;
@@ -509,10 +563,11 @@ public sealed class FlatStartDesktopTests
             var selected = Assert.IsType<CandidateRow>(Find<DataGrid>(window, "Candidates").SelectedItem).Candidate;
             var sourcePath = new FlatStartRunLibrary(host.Directory).PathFor(source.RunId);
             var bytes = await File.ReadAllBytesAsync(sourcePath);
-            Find<NumericUpDown>(window, "RefinementBudget").Value = 80;
+            Find<NumericUpDown>(window, "RefinementBudget").Value = 16;
             Click(window, "Refine"); await window.PendingOperation;
             Assert.NotEqual(source.RunId, window.CurrentCheckpoint!.RunId);
-            Assert.Equal(80, window.CurrentCheckpoint.ChargedEvaluations);
+            Assert.Equal(16, window.CurrentCheckpoint.Specification.Budget.MaximumEvaluations);
+            Assert.InRange(window.CurrentCheckpoint.ChargedEvaluations, 1, 16);
             Assert.Equal(selected.CandidateId, window.CurrentCheckpoint.Origin!.Source.Candidate!.CandidateId);
             Assert.Equal(bytes, await File.ReadAllBytesAsync(sourcePath));
             Assert.NotNull(Find<DataGrid>(window, "Candidates").SelectedItem);
@@ -609,12 +664,12 @@ public sealed class FlatStartDesktopTests
         public string ExportPath => Path.Combine(Directory, "chosen.staropt");
         public string OpenPath => Path.Combine(Directory, "open.family.json");
         public DesktopHost() => System.IO.Directory.CreateDirectory(Directory);
-        public MainWindow Window(int width = 1240, int budget = 120, bool defaultInputs = false)
+        public MainWindow Window(int width = 1240, int budget = 16, bool defaultInputs = false)
         {
             var window = new MainWindow(new LabDesktopSettings
             {
                 RunDirectory = Directory,
-                InitialSpecification = defaultInputs ? null : FlatStartRefinementTests.Spec(budget),
+                InitialSpecification = defaultInputs ? null : AutoLensManagedTests.Specification(budget),
                 InitialOptions = FlatStartRefinementTests.Options,
                 SavePicker = (_, _) => Task.FromResult<string?>(ExportPath),
                 OpenPicker = _ => Task.FromResult<string?>(OpenPath)

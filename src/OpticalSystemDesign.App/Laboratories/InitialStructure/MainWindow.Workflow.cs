@@ -71,10 +71,8 @@ public sealed partial class MainWindow
         _apertureMode.SelectionChanged += (_, _) => ParametersChanged();
         _fixedBack.IsCheckedChanged += (_, _) => ParametersChanged();
         _automaticDiameters.IsCheckedChanged += (_, _) => ParametersChanged();
-        _physicalStop.IsCheckedChanged += (_, _) => ParametersChanged();
         _freeStop.IsCheckedChanged += (_, _) => ParametersChanged();
         _searchMode.SelectionChanged += (_, _) => ParametersChanged();
-        _optimizationMethod.SelectionChanged += (_, _) => ParametersChanged();
         _autoLensAsphere.SelectionChanged += (_, _) => ParametersChanged();
         _autoLensMaterials.IsCheckedChanged += (_, _) => ParametersChanged();
         Closing += (_, args) =>
@@ -153,21 +151,29 @@ public sealed partial class MainWindow
             ControlAvailability.Set(input, !_busy, "正在计算，请停止并保存后修改输入。");
         ControlAvailability.Set(_fixedBackValue, !_busy && _fixedBack.IsChecked == true,
             _busy ? "正在计算，请停止并保存后修改输入。" : "请先启用固定后焦距。");
+        ControlAvailability.Set(_physicalStop, false, "AutoLens 使用实体光阑和光线瞄准。");
         _candidateGrid.IsEnabled = !_busy || _running;
         foreach (var button in new[] { _validateButton, _runButton, _openButton })
             ControlAvailability.Set(button, !_busy, "正在执行操作，请等待完成或停止并保存。");
         ControlAvailability.Set(_loadOfficialExample, !_busy, "正在执行操作，请等待完成或停止并保存。");
         _resumeButton.Content = _current is null ? "上次实验" : "继续运行";
+        var historicalMethod = _current is not null && !UsesOnlyAutoLens(_current.Specification);
         ControlAvailability.Set(_resumeButton, !_busy && !_resumeLoading && (_current is null ? _hasLastRun : CanResume(_current)),
-            _busy || _resumeLoading ? "正在处理或读取实验记录。" : "没有可继续的记录，或当前记录的版本/预算不允许继续。");
+            _busy || _resumeLoading ? "正在处理或读取实验记录。" : historicalMethod ? HistoricalMethodMessage : "没有可继续的记录，或当前记录的版本/预算不允许继续。");
         ControlAvailability.Set(_cancelButton, _running && _runCancellation?.IsCancellationRequested == false,
             _running ? "正在停止并保存。" : "当前没有正在运行的搜索。");
-        foreach (var button in new[] { _refineButton, _exportButton, _compareAButton, _compareBButton })
+        ControlAvailability.Set(_refineButton, !_busy && selected && !historicalMethod,
+            _busy ? "请先停止并保存当前搜索。" : historicalMethod ? HistoricalMethodMessage : "请先选择一个候选方案。");
+        foreach (var button in new[] { _exportButton, _compareAButton, _compareBButton })
             ControlAvailability.Set(button, !_busy && selected, _busy ? "请先停止并保存当前搜索。" : "请先选择一个候选方案。");
         ControlAvailability.Set(_clearComparisonButton, !_busy && (_comparisonA is not null || _comparisonB is not null),
             _busy ? "请先停止并保存当前搜索。" : "当前没有 A/B 比较方案。");
     }
-    private static bool CanResume(FlatStartSearchCheckpoint checkpoint) => checkpoint.Algorithm.Version == FlatStartAlgorithm.Version && checkpoint.UsableGlassNames.Count > 0
+    private const string HistoricalMethodMessage = "旧算法记录仅供查看和导出；新实验统一使用 AutoLens。";
+    private static bool UsesOnlyAutoLens(InitialStructureSpecification specification) => specification.FlatStart is
+        { OptimizationMethod: FlatStartOptimizationMethod.AutoLensManagedV1, AutoLens.TargetPolishEvaluations: 0 };
+    private static bool CanResume(FlatStartSearchCheckpoint checkpoint) => UsesOnlyAutoLens(checkpoint.Specification)
+        && checkpoint.Algorithm.Version == FlatStartAlgorithm.Version && checkpoint.UsableGlassNames.Count > 0
         && checkpoint.ChargedEvaluations < checkpoint.Specification.Budget.MaximumEvaluations
         && checkpoint.ElapsedComputeTicks < checkpoint.Specification.Budget.TimeLimit.Ticks && checkpoint.Trials.Count < 256;
 
@@ -216,11 +222,13 @@ public sealed partial class MainWindow
     {
         ApplySpecification(checkpoint.Specification, checkpoint.Options);
         Publish(checkpoint, _runGeneration);
-        _status.Text = CanResume(checkpoint) ? "已打开实验记录。点击“继续运行”使用原有剩余预算。" : "已打开已结束的实验，可查看、导出或给选中方案追加细化。";
+        _status.Text = !UsesOnlyAutoLens(checkpoint.Specification) ? HistoricalMethodMessage
+            : CanResume(checkpoint) ? "已打开实验记录。点击“继续运行”使用原有剩余预算。" : "已打开已结束的实验，可查看、导出或给选中方案追加细化。";
     }
     private async Task RefineAsync()
     {
         if (_current is not { } source || _candidateGrid.SelectedItem is not CandidateRow selected) return;
+        if (!UsesOnlyAutoLens(source.Specification)) { _status.Text = HistoricalMethodMessage; return; }
         var budget = Integer(_refineBudget);
         var child = await Task.Run(() => FlatStartSearchService.CreateRefinementCheckpoint(source, selected.Candidate.CandidateId, budget, source.Specification.Budget.TimeLimit));
         ApplySpecification(child.Specification, child.Options);
@@ -229,6 +237,8 @@ public sealed partial class MainWindow
 
     private async Task RunSearchAsync(InitialStructureSpecification specification, FlatStartSearchOptions options, FlatStartSearchCheckpoint? checkpoint)
     {
+        if (!UsesOnlyAutoLens(specification) || checkpoint is not null && !UsesOnlyAutoLens(checkpoint.Specification))
+            throw new InvalidOperationException(HistoricalMethodMessage);
         ClearResults();
         _running = true;
         _runCancellation = new();
@@ -256,7 +266,8 @@ public sealed partial class MainWindow
     {
         if (_closed || generation != _runGeneration) return;
         _current = checkpoint; _hasLastRun = true;
-        if (checkpoint.Algorithm.Version == FlatStartAlgorithm.Version && checkpoint.Origin is null)
+        if (!UsesOnlyAutoLens(checkpoint.Specification)) _searchPlan.Text = HistoricalMethodMessage;
+        else if (checkpoint.Algorithm.Version == FlatStartAlgorithm.Version && checkpoint.Origin is null)
             ShowSearchPlan(checkpoint.Specification, checkpoint.Options, checkpoint);
         else _searchPlan.Text = checkpoint.Origin is null ? $"历史 v{checkpoint.Algorithm.Version} 记录；可查看、导出或另建细化任务。" : "选中方案使用独立追加预算继续优化，继承原始搜索形式。";
         _searchHistory.ItemsSource = checkpoint.Trials.Select(trial => new SearchHistoryRow(trial.TrialId,

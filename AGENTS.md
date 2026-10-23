@@ -2,6 +2,8 @@
 
 ## Persistent UI preferences
 
+- AI Initial Structure uses only managed AutoLens (`AutoLensManagedV1`, `TargetPolishEvaluations = 0`) for new searches, resumed runs and candidate refinement. Do not expose the former TrustRegion, AutoLens CPU heuristic, or native target-polish options in the desktop UI. Historical old-algorithm and hybrid records remain viewable/exportable with their original identities, but cannot resume or refine through this entry point. Preserve the shared Core and the existing historical engine/validation records.
+
 - Sequential-mode automatic startup, new documents, file opening and system layout reset must load only the lens data editor and the 2D viewer as document tabs, with the lens editor initially active. Keep the system-options sidebar. Do not automatically restore analysis, 3D or other document tabs from a saved session; explicitly loading a saved default/slot remains supported. Preserve the separate non-sequential workspace behavior.
 - The ordinary Light theme's top menu must not show a selected-item underline. Indicate the current category using its existing selected background, retain keyboard focus feedback, and do not remove selection indicators from document or analysis tabs.
 - In the ordinary Light theme, document tabs place their 2-DIP blue selected edge on the right, not below the tab. Reserve that edge in every state so selection does not shift the title or close button; keep the rounded native Dock tab template and other themes unchanged.

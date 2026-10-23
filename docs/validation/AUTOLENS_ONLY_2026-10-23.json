@@ -1,0 +1,175 @@
+{
+  "Date": "2026-10-23",
+  "Scope": "AI Initial Structure desktop uses only managed AutoLens, with native target polish disabled and legacy/hybrid execution blocked.",
+  "BaseCommit": "c03bb718659562b44e2aaab487b5ea9616c84603",
+  "WorkingTreeDirty": true,
+  "SourceHashes": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.Inputs.cs",
+      "Sha256": "c8da9eb7c067b779829d8c4b335adffc344fa524de9dcb4eb1d239ed4be1b50b"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.Workflow.cs",
+      "Sha256": "984ab3356de3a91e6d99b1d795cd11ff47254c1a539f9fb6d19ec4b4e005c7ce"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "Sha256": "3d176df7514b0dc167219ed6d5b021aa7c94c806768ed7319fe0861cddf011d8"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.cs",
+      "Sha256": "70c8ff9b33bf23864370a893836e6a6e8248f525999f9b8268de7315c92ce997"
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/FlatStartDesktopTests.cs",
+      "Sha256": "2f7b67cb3d386a0d4b180fa799c3e96c83b6e9977896ceb65c11cba26f6c1ea5"
+    }
+  ],
+  "Implemented": [
+    "Read-only managed AutoLens algorithm label; no TrustRegion, CPU-heuristic or native-polish selector.",
+    "New and preset-based runs force AutoLensManagedV1, TargetPolishEvaluations=0 and the required physical stop.",
+    "Resume and refinement require pure managed AutoLens; checks also guard command handlers and the search dispatch.",
+    "Legacy and hybrid records retain their original checksum, identity and optical snapshot for inspection, comparison and STAROPT export; starting again creates a distinct pure-AutoLens run.",
+    "Chinese, English and Japanese labels, disabled reasons and built-in guidance updated."
+  ],
+  "FinalTestRuns": [
+    {
+      "Path": "artifacts\\validation\\autolens-only-2026-10-23\\autolens-only-final.trx",
+      "Sha256": "cb231c376d8924f6e955aa35aa1188247cc766a279d2376ae077adc6c2742630",
+      "Total": 15,
+      "Passed": 15,
+      "Failed": 0
+    },
+    {
+      "Path": "artifacts\\validation\\autolens-only-2026-10-23\\guide-localization-modules-final.trx",
+      "Sha256": "a64e60001baf4d06bdc46fe5843c1b964a3106484f41d0743ad56f108c0cf23d",
+      "Total": 4,
+      "Passed": 4,
+      "Failed": 0
+    }
+  ],
+  "FinalDistinctPassed": 19,
+  "Coverage": [
+    "10 real-Skia GUI cases plus five preset-contract cases in the final 15/15 collection; four separate guide/localization/module cases.",
+    "Three historical strategies: TrustRegion, CPU heuristic and a managed record that actually performed native target polish. Last-run and file-open paths, disabled-command event bypass, export identity and unchanged source bytes checked.",
+    "Pure managed AutoLens creation, no native-polish work, stop/export/resume budget preservation and separate candidate-refinement records.",
+    "Settings reachability at 480/1240 DIP, theme resources, three-language reflow and all five official target presets."
+  ],
+  "Captures": [
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/autolens-managed.png",
+      "Sha256": "a2d4c8367d93ce91fba2d6d0ef96eb5af36510566bde3a3bd1be1b94a6e3e031"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/autolens-official-presets-en-US.png",
+      "Sha256": "98d45c191cf898350523577610da3115fba0e7083611ff8b12a767f609ed3e2d"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/autolens-official-presets-ja-JP.png",
+      "Sha256": "f266d283dd18496ac13223b371ecfa16c1d8ca4e373907e232aec91014608463"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/autolens-official-presets.png",
+      "Sha256": "d8774dd096b76d4fa97da411ed94adeeae48d7ad4bb2381ed8115a48946576ff"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/autolens-only-legacy-AutoLensCpuExperimentV1.png",
+      "Sha256": "12aceff0e43fe88c28f0a8064dd44a499fb39f1b2d0c12b611f1e3c70ed7272c"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/autolens-only-legacy-AutoLensManagedV1.png",
+      "Sha256": "e8cdf1262a74560d82ffcee2ebc5b38690ade37b0da8008a441b9d07fbc637ce"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/autolens-only-legacy-TrustRegion.png",
+      "Sha256": "703e6f101507d517dd2061073bd83658016eac0e472b8a59e0e485b2663cc79d"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/organized-dark.png",
+      "Sha256": "cc08b8fc160ff89acc38bfd8a59ffaf16c73bbdccdfceb2d774b8c9a0933584c"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/organized-en-US.png",
+      "Sha256": "a8af18cf0c1e12ef20bc55616f8ddaccf48806e14efbe7f5523d2dfb407327a4"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/organized-goals-en-US.png",
+      "Sha256": "0c85770953cb541bc2c5a7b2cfab59169d1c8955851e188ee428f509a6fccf0b"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/organized-goals-ja-JP.png",
+      "Sha256": "b875ff03369d2dbffb072f162eed3e86b57336e9e18a625aaa1c6c2be9b4022c"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/organized-goals-zh-CN.png",
+      "Sha256": "d95176f5885a0822d99d42c9a8e8f396d884b43a0db88c6c4b074685e1a3bf9e"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/organized-ja-JP.png",
+      "Sha256": "03e9f9c8d9a4168ce89d85ac7850b06d07c079b53df3446b624dac207f24e68e"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/organized-search-en-US.png",
+      "Sha256": "270143fe0ca9dcfdda4402f3e0282842eea575dd3ec409f4ca0453e8f825fd68"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/organized-search-ja-JP.png",
+      "Sha256": "d325d29d68caefe4d4ce4dae049e7e60c2860a954d3146da08cdf9ecf50dc94e"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/organized-search-zh-CN.png",
+      "Sha256": "985672276dd8f1014f415fc3b84400458ccc678384553cd21d2c72e52c338aa7"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/organized-system-1240.png",
+      "Sha256": "62685aac14cc15f954a9d80e00abafd002273af95745cdcf2eeaa18aefac4e33"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/organized-system-480.png",
+      "Sha256": "776fbe51fadc9bafff19904e0e5a9a8eec5307d0e3e9c8f27c59ed6ad5855b4d"
+    },
+    {
+      "Path": "artifacts/validation/autolens-only-2026-10-23/final-captures/organized-zh-CN.png",
+      "Sha256": "62685aac14cc15f954a9d80e00abafd002273af95745cdcf2eeaa18aefac4e33"
+    }
+  ],
+  "Builds": {
+    "Debug": "Default App output rebuilt successfully by final focused checks; zero warnings/errors.",
+    "Release": "Default App Release build passed; zero warnings/errors."
+  },
+  "PriorAttempts": {
+    "Path": "artifacts/validation/autolens-only-2026-10-23/attempts.json",
+    "Sha256": "8bee401c016fa78da016dd31d598cad7527746dde091a8d6ecdac27c2c636632",
+    "Summary": "Earlier incomplete/aborted runs and intermediate 23/24 result are preserved, not counted as final passes. CPU legacy-fixture sampling was corrected before the final run."
+  },
+  "Boundaries": [
+    "No optical formulas, engine defaults, frozen historical benchmark protocols or acceptance thresholds changed. Historical engines remain only for existing records and validation.",
+    "The desktop overrides historical official-preset native-polish budgets to zero. Old v1 benchmark results do not certify the current pure-AutoLens workflow.",
+    "No full suite, upstream success-rate claim, external numerical certification, OS-native picker/desktop interaction or installer/cloud publication. Verification preceded the separately authorized source synchronization."
+  ],
+  "Archive": {
+    "Path": "validation/rechecks/2026-10-23/autolens-only-evidence.zip",
+    "Sha256": "e375a30960205de786f8bb5fe230bb7d6c33d034cc195ee1098d8d72426cc571"
+  },
+  "DocumentationCheck": {
+    "Status": "Passed strict documentation gate",
+    "Documents": 1048,
+    "BrokenLinks": 0,
+    "MarkdownFenceIssues": 0,
+    "GuideRepeatedParagraphGroups": 0,
+    "Path": "artifacts/validation/autolens-only-2026-10-23/docs-audit",
+    "Sha256": "6875746041561a83ebf3b3baa54b6a8e80d436b03d493be62ba86d286f777059"
+  },
+  "VisuallyReviewedCaptures": [
+    "organized-search-zh-CN.png",
+    "organized-search-ja-JP.png",
+    "autolens-only-legacy-AutoLensManagedV1.png"
+  ],
+  "SourceSynchronization": {
+    "AuthorizedOn": "2026-10-23",
+    "Destination": "origin/main",
+    "Scope": "Verified AutoLens-only source, regression tests, maintained guides and scoped validation archive.",
+    "Verification": "Source and archive SHA-256 values rechecked before commit; no product code changed since the passing focused checks.",
+    "InstallerPublication": false
+  }
+}
