@@ -53,7 +53,7 @@ public sealed class BuiltInModuleDeliveryTests
         var root = ProductDependencyArchitectureTests.RepositoryRoot();
         var publish = File.ReadAllText(Path.Combine(root, "scripts/publish-windows.ps1"));
         foreach (var library in ProductModules.Verify().Libraries) Assert.Contains(library + ".dll", publish);
-        foreach (var notice in new[] { "TFStudio-LICENSE.txt", "tmmcore-LICENSE.txt", "MATERIAL-NOTICE.txt", "AutoLens-LICENSE.txt", "AutoLens-NOTICE.txt" })
+        foreach (var notice in new[] { "TFStudio-LICENSE.txt", "tmmcore-LICENSE.txt", "MATERIAL-NOTICE.txt", "AutoLens-LICENSE.txt", "AutoLens-NOTICE.txt", "ILGPU-LICENSE.txt", "ILGPU-THIRD-PARTY-LICENSE.txt", "ILGPU-NOTICE.txt", "ILGPU-ALGORITHMS-LICENSE.txt", "ILGPU-ALGORITHMS-THIRD-PARTY-LICENSE.txt" })
             Assert.Contains(notice, publish);
         var installer = File.ReadAllText(Path.Combine(root, "packaging/windows/OpticalSystemDesign.iss"));
         Assert.DoesNotContain("[Components]", installer, StringComparison.OrdinalIgnoreCase);
@@ -66,6 +66,11 @@ public sealed class BuiltInModuleDeliveryTests
         foreach (var name in new[] { "AutoLens-LICENSE.txt", "AutoLens-NOTICE.txt" })
             Assert.Equal(File.ReadAllBytes(Path.Combine(root, "third_party/autolens", name)),
                 File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Licenses", name)));
+        foreach (var name in new[] { "ILGPU-LICENSE.txt", "ILGPU-THIRD-PARTY-LICENSE.txt", "ILGPU-NOTICE.txt", "ILGPU-ALGORITHMS-LICENSE.txt", "ILGPU-ALGORITHMS-THIRD-PARTY-LICENSE.txt" })
+            Assert.Equal(File.ReadAllBytes(Path.Combine(root, "third_party/ilgpu", name)),
+                File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Licenses", name)));
+        Assert.True(File.Exists(Path.Combine(AppContext.BaseDirectory, "ILGPU.dll")));
+        Assert.True(File.Exists(Path.Combine(AppContext.BaseDirectory, "ILGPU.Algorithms.dll")));
         var references = typeof(OpticalSystemDesign.InitialStructure.Engine.FlatStartSearchService).Assembly.GetReferencedAssemblies();
         Assert.DoesNotContain(references, reference => reference.Name!.Contains("Python", StringComparison.OrdinalIgnoreCase)
             || reference.Name.Contains("Torch", StringComparison.OrdinalIgnoreCase));

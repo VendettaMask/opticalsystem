@@ -21,7 +21,7 @@ public sealed class SequentialTraceMeasurement : IDisposable
     public static SequentialTraceMeasurement Begin() => new();
     public long RayCount => Interlocked.Read(ref _rays);
 
-    internal static void Record(int count)
+    internal static void Record(long count)
     {
         for (var scope = Current.Value; scope is not null; scope = scope._parent)
             Interlocked.Add(ref scope._rays, count);

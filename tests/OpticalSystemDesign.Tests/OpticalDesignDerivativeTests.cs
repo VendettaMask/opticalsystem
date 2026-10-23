@@ -195,7 +195,7 @@ public sealed class OpticalDesignDerivativeTests
         Assert.Equal(0, measurement.RayCount);
     }
 
-    private static OpticalDesignParameter[] Parameters(bool asphere, bool relaxed)
+    internal static OpticalDesignParameter[] Parameters(bool asphere, bool relaxed)
     {
         var parameters = new List<OpticalDesignParameter>
         {
@@ -207,7 +207,7 @@ public sealed class OpticalDesignDerivativeTests
         return parameters.ToArray();
     }
 
-    private static Optic Lens(int stop, bool asphere, bool relaxed)
+    internal static Optic Lens(int stop, bool asphere, bool relaxed)
     {
         var optic = new Optic("Derivative regression singlet");
         optic.Aperture.Kind = ApertureKind.EntrancePupilDiameter;

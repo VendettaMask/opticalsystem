@@ -6,6 +6,7 @@ using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Persistence;
+using OpticalSystemDesign.Core.Differentiation;
 
 namespace OpticalSystemDesign.App.Laboratories.InitialStructure;
 
@@ -73,6 +74,7 @@ public sealed partial class MainWindow
         _automaticDiameters.IsCheckedChanged += (_, _) => ParametersChanged();
         _freeStop.IsCheckedChanged += (_, _) => ParametersChanged();
         _searchMode.SelectionChanged += (_, _) => ParametersChanged();
+        _computeMode.SelectionChanged += (_, _) => { ParametersChanged(); UpdateCommands(); };
         _autoLensAsphere.SelectionChanged += (_, _) => ParametersChanged();
         _autoLensMaterials.IsCheckedChanged += (_, _) => ParametersChanged();
         Closing += (_, args) =>
@@ -155,15 +157,18 @@ public sealed partial class MainWindow
         _candidateGrid.IsEnabled = !_busy || _running;
         foreach (var button in new[] { _validateButton, _runButton, _openButton })
             ControlAvailability.Set(button, !_busy, "正在执行操作，请等待完成或停止并保存。");
+        var missingRequiredGpu = _computeMode.SelectedIndex == 1 && _gpuStatus?.IsAvailable != true;
+        var gpuReason = _gpuStatus is null ? "正在检测 GPU…" : "GPU 不可用，请选择自动或 CPU。";
+        if (missingRequiredGpu) ControlAvailability.Set(_runButton, false, gpuReason);
         ControlAvailability.Set(_loadOfficialExample, !_busy, "正在执行操作，请等待完成或停止并保存。");
         _resumeButton.Content = _current is null ? "上次实验" : "继续运行";
         var historicalMethod = _current is not null && !UsesOnlyAutoLens(_current.Specification);
-        ControlAvailability.Set(_resumeButton, !_busy && !_resumeLoading && (_current is null ? _hasLastRun : CanResume(_current)),
-            _busy || _resumeLoading ? "正在处理或读取实验记录。" : historicalMethod ? HistoricalMethodMessage : "没有可继续的记录，或当前记录的版本/预算不允许继续。");
+        ControlAvailability.Set(_resumeButton, !_busy && !_resumeLoading && !missingRequiredGpu && (_current is null ? _hasLastRun : CanResume(_current)),
+            _busy || _resumeLoading ? "正在处理或读取实验记录。" : historicalMethod ? HistoricalMethodMessage : missingRequiredGpu ? gpuReason : "没有可继续的记录，或当前记录的版本/预算不允许继续。");
         ControlAvailability.Set(_cancelButton, _running && _runCancellation?.IsCancellationRequested == false,
             _running ? "正在停止并保存。" : "当前没有正在运行的搜索。");
-        ControlAvailability.Set(_refineButton, !_busy && selected && !historicalMethod,
-            _busy ? "请先停止并保存当前搜索。" : historicalMethod ? HistoricalMethodMessage : "请先选择一个候选方案。");
+        ControlAvailability.Set(_refineButton, !_busy && selected && !historicalMethod && !missingRequiredGpu,
+            _busy ? "请先停止并保存当前搜索。" : historicalMethod ? HistoricalMethodMessage : missingRequiredGpu ? gpuReason : "请先选择一个候选方案。");
         foreach (var button in new[] { _exportButton, _compareAButton, _compareBButton })
             ControlAvailability.Set(button, !_busy && selected, _busy ? "请先停止并保存当前搜索。" : "请先选择一个候选方案。");
         ControlAvailability.Set(_clearComparisonButton, !_busy && (_comparisonA is not null || _comparisonB is not null),
@@ -239,6 +244,8 @@ public sealed partial class MainWindow
     {
         if (!UsesOnlyAutoLens(specification) || checkpoint is not null && !UsesOnlyAutoLens(checkpoint.Specification))
             throw new InvalidOperationException(HistoricalMethodMessage);
+        if (specification.FlatStart!.AutoLens!.ComputeMode == DesignComputeMode.Gpu && !DesignGpu.Status.IsAvailable)
+            throw new NotSupportedException("GPU 不可用，请选择自动或 CPU。");
         ClearResults();
         _running = true;
         _runCancellation = new();
@@ -366,6 +373,16 @@ public sealed partial class MainWindow
         {
             if (generation == _resumeRefreshGeneration && !_closed) _messages.Text = "上次实验记录无法读取：" + exception.Message;
         }
+    }
+
+    private async Task RefreshGpuStatusAsync()
+    {
+        var status = await Task.Run(() => DesignGpu.Status);
+        if (_closed) return;
+        _gpuStatus = status;
+        _computeStatus.Text = status.IsAvailable ? "GPU · " + status.DeviceName : "GPU 不可用，自动模式使用 CPU。";
+        ToolTip.SetTip(_computeStatus, status.UnavailableReason);
+        UpdateCommands();
     }
 
     private async Task ExportAsync()

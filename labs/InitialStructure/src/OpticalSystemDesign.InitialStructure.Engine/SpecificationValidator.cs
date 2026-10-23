@@ -193,6 +193,7 @@ public static class SpecificationValidator
             if (flat.OptimizationMethod == FlatStartOptimizationMethod.AutoLensManagedV1)
             {
                 var autoLens = flat.AutoLens ?? new();
+                if (!Enum.IsDefined(autoLens.ComputeMode)) errors.Add("AutoLens compute device mode is invalid");
                 if (!flat.UsePhysicalStop) errors.Add("native AutoLens requires the physical stop and formal stop aiming");
                 if (autoLens.CurriculumIterations is < 1 or > 10000 || autoLens.RefinementIterations is < 1 or > 10000
                     || autoLens.EvenAsphereOrder is not (0 or >= 2 and <= 5)

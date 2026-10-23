@@ -6,6 +6,21 @@ public static class AutoLensManagedStateValidation
 {
     public static void Validate(AutoLensManagedState state)
     {
+        if (state.PropagationExecution is { } gpu && (gpu.DeviceName is not {Length:>0 and <=512}
+            || gpu.AimRays<0 || gpu.AimTraces<0 || gpu.PropagatedRays<0 || gpu.Batches<0 || gpu.CpuRecoveryRays<0
+            || gpu.CpuRecoveryRays>gpu.AimRays || !double.IsFinite(gpu.Milliseconds) || gpu.Milliseconds<0
+            || gpu.FallbackReason is {Length:>4096}
+            || gpu.Batches==0 && (gpu.AimRays!=0 || gpu.PropagatedRays!=0 || gpu.AimTraces!=0 || gpu.Milliseconds!=0)))
+            throw new InvalidDataException("Invalid AutoLens CUDA aiming/physical propagation evidence.");
+        if (state.GpuBatches < 0 || state.GpuRays < 0 || !double.IsFinite(state.GpuMilliseconds) || state.GpuMilliseconds < 0
+            || state.LastComputeExecution is { } execution && (execution.Backend is not ("cpu-forward-v1" or "cuda-reverse-tape-v1")
+                || execution.DeviceName is not { Length: > 0 and <= 512 } || execution.GpuBatches < 0 || execution.GpuRays < 0
+                || !double.IsFinite(execution.GpuMilliseconds) || execution.GpuMilliseconds < 0
+                || execution.Backend == "cpu-forward-v1" && (execution.GpuBatches != 0 || execution.GpuRays != 0 || execution.GpuMilliseconds != 0)
+                || execution.Backend == "cuda-reverse-tape-v1" && (execution.GpuBatches == 0 || execution.GpuRays == 0 || execution.FallbackReason is not null)
+                || state.GpuBatches < execution.GpuBatches || state.GpuRays < execution.GpuRays
+                || execution.FallbackReason is { Length: > 4096 }))
+            throw new InvalidDataException("Invalid AutoLens compute-device evidence.");
         if (state.SchemaVersion != 1 || !Enum.IsDefined(state.Phase)
             || !Hash(state.SpecificationFingerprint) || !Hash(state.AllowedGlassFingerprint) || !Hash(state.RootFingerprint)
             || state.PlannedCurriculumIterations is < 0 or > 10000 || state.PlannedRefinementIterations is < 0 or > 10000

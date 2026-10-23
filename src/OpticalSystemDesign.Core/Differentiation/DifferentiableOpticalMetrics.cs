@@ -17,7 +17,12 @@ public sealed record DifferentiableSpotField(double NormalizedFieldY, Differenti
     public DifferentialScalar ChiefRayDirectionZ { get; init; }
 }
 public sealed record DifferentiableOpticalResult(DifferentialScalar OpticalPowerPerMillimeter,
-    IReadOnlyList<DifferentiableSpotField> Fields, long TracedRayCount);
+    IReadOnlyList<DifferentiableSpotField> Fields, long TracedRayCount)
+{
+    public DesignComputeExecution Execution { get; init; } = DesignComputeExecution.Cpu;
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public SequentialGpuExecution? PropagationExecution { get; init; }
+}
 
 /// <summary>
 /// Differentiates shared Core's centered, infinite-conjugate, refractive design path.
@@ -26,7 +31,40 @@ public sealed record DifferentiableOpticalResult(DifferentialScalar OpticalPower
 public static class DifferentiableOpticalMetrics
 {
     public static DifferentiableOpticalResult Evaluate(Optic optic, IReadOnlyList<OpticalDesignParameter> parameters,
-        IReadOnlyList<double> normalizedFields, IReadOnlyList<PupilSample> pupils, CancellationToken cancellationToken = default)
+        IReadOnlyList<double> normalizedFields, IReadOnlyList<PupilSample> pupils, CancellationToken cancellationToken = default,
+        DesignComputeMode computeMode = DesignComputeMode.Cpu)
+    {
+        if (!Enum.IsDefined(computeMode)) throw new ArgumentOutOfRangeException(nameof(computeMode));
+        cancellationToken.ThrowIfCancellationRequested();
+        using var ownedCompute = SequentialGpuSession.Current is null || SequentialGpuSession.Current.Mode!=computeMode
+            ? new SequentialGpuSession(computeMode,cancellationToken) : null;
+        if (computeMode == DesignComputeMode.Cpu) return EvaluateCore(optic, parameters, normalizedFields, pupils, cancellationToken, false);
+        var status = DesignGpu.Status;
+        if (!status.IsAvailable)
+        {
+            if (computeMode == DesignComputeMode.Gpu) throw new NotSupportedException("CUDA is unavailable: " + status.UnavailableReason);
+            return EvaluateCore(optic, parameters, normalizedFields, pupils, cancellationToken, false)
+                with { Execution = DesignComputeExecution.Cpu with { FallbackReason = status.UnavailableReason } };
+        }
+        using var executionMeasurement = SequentialTraceMeasurement.Begin();
+        try { return EvaluateCore(optic, parameters, normalizedFields, pupils, cancellationToken, true); }
+        catch (Exception error) when (computeMode == DesignComputeMode.Automatic
+            && error is GpuTapeRangeException or ILGPU.Runtime.Cuda.CudaException)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            using var fallbackCompute=new SequentialGpuSession(DesignComputeMode.Cpu,cancellationToken);
+            var result = EvaluateCore(optic, parameters, normalizedFields, pupils, cancellationToken, false);
+            return result with { TracedRayCount = executionMeasurement.RayCount,
+                Execution = DesignComputeExecution.Cpu with { FallbackReason = error.Message } };
+        }
+        catch (ILGPU.Runtime.Cuda.CudaException error)
+        {
+            throw new NotSupportedException("CUDA computation failed; select Automatic or CPU. " + error.Message, error);
+        }
+    }
+
+    private static DifferentiableOpticalResult EvaluateCore(Optic optic, IReadOnlyList<OpticalDesignParameter> parameters,
+        IReadOnlyList<double> normalizedFields, IReadOnlyList<PupilSample> pupils, CancellationToken cancellationToken, bool gpu)
     {
         ArgumentNullException.ThrowIfNull(parameters);
         ArgumentNullException.ThrowIfNull(normalizedFields);
@@ -45,6 +83,7 @@ public static class DifferentiableOpticalMetrics
         var stopIndex = optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
         var targets = pupils.Select(pupil => (X: paraxial.StopHeight.Value * pupil.X, Y: paraxial.StopHeight.Value * pupil.Y)).ToArray();
         var fields = new List<DifferentiableSpotField>();
+        var batch = gpu ? new GpuRaySensitivityBatch(parameters.Count, cancellationToken) : null;
         foreach (var field in normalizedFields)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -54,24 +93,29 @@ public static class DifferentiableOpticalMetrics
             {
                 var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(0, field,
                     wave.Micrometers, pupils, aimAtStop: true, applyVignettingFactors: false, stopTargets: targets);
+                var nominal = gpu ? optic.SequentialRayTracer.TraceGpuNominal(bundle.Rays,cancellationToken) : null;
                 for (var index = 0; index < pupils.Count; index++)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
                     if (!bundle.Rays[index].CanTrace || bundle.Rays[index].Intensity <= 0)
                         throw new ArithmeticException("Formal Core could not aim a differentiable pupil ray.");
-                    var ray = optic.SequentialRayTracer.TraceDesignSensitivity(bundle.Rays[index], context, stopIndex,
-                        paraxial.StopHeight * pupils[index].X, paraxial.StopHeight * pupils[index].Y, cancellationToken);
-                    rays.Add(new(ray.X, ray.Y, pupils[index].Weight * wave.Weight,
-                        ray.DirectionZ, ray.MinimumClearance, ray.MinimumBendCosine));
+                    var slot = rays.Count;
+                    var rayWeight = pupils[index].Weight * wave.Weight;
+                    rays.Add(null!);
+                    Trace(bundle.Rays[index], paraxial.StopHeight * pupils[index].X, paraxial.StopHeight * pupils[index].Y,
+                        ray => rays[slot] = new(ray.X, ray.Y, rayWeight, ray.DirectionZ, ray.MinimumClearance, ray.MinimumBendCosine),
+                        nominal,index*optic.SurfaceGroup.Items.Count);
                 }
                 if (wave.IsPrimary)
                 {
                     var chief = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(0, field,
                         wave.Micrometers, [new(0, 0, 1)], aimAtStop: true, applyVignettingFactors: false, stopTargets: [(0, 0)]).Rays[0];
                     if (!chief.CanTrace || chief.Intensity <= 0) throw new ArithmeticException("Formal Core could not aim the chief ray.");
-                    chiefDirection = optic.SequentialRayTracer.TraceDesignSensitivity(chief, context, stopIndex, 0, 0, cancellationToken).DirectionZ;
+                    var chiefNominal=gpu ? optic.SequentialRayTracer.TraceGpuNominal([chief],cancellationToken) : null;
+                    Trace(chief, 0, 0, ray => chiefDirection = ray.DirectionZ,chiefNominal,0);
                 }
             }
+            batch?.Flush();
             var weight = rays.Sum(ray => ray.Weight);
             if (!double.IsFinite(weight) || weight <= 0) throw new ArithmeticException("No positive spectral pupil weight.");
             DifferentialScalar cx = 0, cy = 0;
@@ -85,7 +129,26 @@ public static class DifferentiableOpticalMetrics
             }
             fields.Add(new(field, cx, cy, DifferentialScalar.Sqrt(energy), DifferentialScalar.Sqrt(maximum), rays) { ChiefRayDirectionZ = chiefDirection });
         }
-        return new(Trim(paraxial.Power), fields, measurement.RayCount);
+        return new(Trim(paraxial.Power), fields, measurement.RayCount)
+        {
+            Execution = batch is null ? DesignComputeExecution.Cpu
+                : new("cuda-reverse-tape-v1", DesignGpu.Status.DeviceName, batch.Batches, batch.Rays, batch.Milliseconds),
+            PropagationExecution=gpu ? SequentialGpuSession.Current?.Execution : null
+        };
+
+        void Trace(Rays.RealRay source, DifferentialScalar targetX, DifferentialScalar targetY, Action<DesignRaySensitivity> complete,
+            SequentialGpuSample[]? nominal,int offset)
+        {
+            if (batch is null)
+                complete(optic.SequentialRayTracer.TraceDesignSensitivity(source, context, stopIndex, targetX, targetY, cancellationToken));
+            else
+            {
+                var tape = new DifferentialTape(parameters.Count);
+                DesignRaySensitivity ray;
+                using (tape) ray = optic.SequentialRayTracer.TraceDesignSensitivity(source, context, stopIndex, targetX, targetY, cancellationToken,nominal,offset);
+                batch.Add(tape, ray, complete);
+            }
+        }
 
         DifferentialScalar Trim(DifferentialScalar value) =>
             DifferentialScalar.FromGradient(value.Value, value.Gradient().Take(parameters.Count).ToArray());

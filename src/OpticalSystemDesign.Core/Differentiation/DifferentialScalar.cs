@@ -1,14 +1,18 @@
 namespace OpticalSystemDesign.Core.Differentiation;
 
 /// <summary>Forward automatic differentiation, with immutable values and tangent vectors.</summary>
-public readonly struct DifferentialScalar
+public readonly partial struct DifferentialScalar
 {
     private readonly double[]? _gradient;
+    private readonly DifferentialTape? _tape;
+    private readonly int _node;
+    private readonly double _originX, _originY, _tangentBound;
     public double Value { get; }
-    public int Dimension => _gradient?.Length ?? 0;
-    public double Derivative(int index) => _gradient is null ? 0 : _gradient[index];
-    public double[] Gradient() => _gradient?.ToArray() ?? [];
-    public bool IsFinite => double.IsFinite(Value) && (_gradient is null || _gradient.All(double.IsFinite));
+    public int Dimension => _tape?.Dimension ?? (_gradient?.Length ?? 0);
+    public double Derivative(int index) => _tape is null ? (_gradient is null ? 0 : _gradient[index]) : TapeDerivative(index);
+    public double[] Gradient() => _tape is null ? _gradient?.ToArray() ?? [] : throw new InvalidOperationException("GPU tangents must be materialized before reading a gradient.");
+    public bool IsFinite => double.IsFinite(Value) && (_tape is null ? _gradient is null || _gradient.All(double.IsFinite)
+        : double.IsFinite(_originX) && double.IsFinite(_originY) && double.IsFinite(_tangentBound));
 
     private DifferentialScalar(double value, double[]? gradient) => (Value, _gradient) = (value, gradient);
     public static implicit operator DifferentialScalar(double value) => new(value, null);
@@ -16,18 +20,21 @@ public readonly struct DifferentialScalar
     {
         if (dimension < 1 || index < 0 || index >= dimension || !double.IsFinite(value) || !double.IsFinite(scale))
             throw new ArgumentOutOfRangeException(nameof(index));
+        if (DifferentialTape.Current is { } tape) return tape.Variable(value, dimension, index, scale);
         var gradient = new double[dimension];
         gradient[index] = scale;
         return new(value, gradient);
     }
 
     internal static DifferentialScalar FromGradient(double value, double[] gradient) => new(value, gradient);
-    internal DifferentialScalar WithValue(double value) => new(value, _gradient);
+    internal DifferentialScalar WithValue(double value) => _tape is null ? new(value, _gradient)
+        : new(value, _tape, _node, _originX, _originY, _tangentBound);
 
     private static DifferentialScalar Combine(double value, DifferentialScalar a, double da, DifferentialScalar b, double db)
     {
         if (a.Dimension != 0 && b.Dimension != 0 && a.Dimension != b.Dimension)
             throw new ArgumentException("Automatic differentiation dimensions differ.");
+        if (a._tape is not null || b._tape is not null) return TapeCombine(value, a, da, b, db);
         var dimension = Math.Max(a.Dimension, b.Dimension);
         if (dimension == 0) return value;
         var gradient = new double[dimension];
@@ -51,6 +58,11 @@ public readonly struct DifferentialScalar
         var db = -a.Value / squared;
         var ordinary = double.IsFinite(squared) && squared != 0 && !double.IsSubnormal(squared)
             && double.IsFinite(da) && double.IsFinite(db) && (a.Value == 0 || db != 0);
+        if (a._tape is not null || b._tape is not null)
+        {
+            if (!ordinary) throw new GpuTapeRangeException("The quotient requires the CPU's extended-range tangent evaluation.");
+            return TapeCombine(value, a, da, b, db);
+        }
         var gradient = new double[dimension];
         for (var index = 0; index < dimension; index++)
         {
@@ -101,7 +113,8 @@ public readonly struct DifferentialScalar
     public static DifferentialScalar Sqrt(DifferentialScalar a)
     {
         // A genuinely constant zero is differentiable. A zero carrying tangents is singular.
-        if (a.Value == 0 && (a._gradient is null || a._gradient.All(value => value == 0))) return a;
+        if (a.Value == 0 && (a._tape is null ? a._gradient is null || a._gradient.All(value => value == 0)
+            : a._tangentBound == 0 && a._originX == 0 && a._originY == 0)) return a;
         var root = Math.Sqrt(a.Value);
         return Combine(root, a, .5 / root, 0, 0);
     }

@@ -39,31 +39,26 @@ public sealed class RefractiveReflectiveInteractionModel : IInteractionModel
                 RayInteractionKind.Reflected);
         }
 
-        if (context.RefractiveIndexBefore == context.RefractiveIndexAfter)
-            return new RealRayInteractionResult(ray, RayInteractionKind.Transmitted);
+        var refraction = RefractShared(incoming, normal, context.RefractiveIndexBefore,
+            context.RefractiveIndexAfter, context.IncidenceCosineSquared);
+        return new RealRayInteractionResult(ray with { Direction = refraction.Direction }, refraction.Kind);
+    }
 
-        if (context.IncidenceCosineSquared is { } incidenceSquared)
+    internal static (Vector3D Direction, RayInteractionKind Kind) RefractShared(Vector3D incoming,
+        Vector3D normal, double before, double after, double? incidenceSquared)
+    {
+        if (before == after) return (incoming, RayInteractionKind.Transmitted);
+        if (incidenceSquared is { } squared)
         {
-            var eta = context.RefractiveIndexBefore / Math.Max(1e-9, context.RefractiveIndexAfter);
-            var sineTransmittedSquared = eta * eta * (1 - incidenceSquared);
+            var eta = before / Math.Max(1e-9, after);
+            var sineTransmittedSquared = eta * eta * (1 - squared);
             if (sineTransmittedSquared > 1)
-                return new RealRayInteractionResult(ray with { Direction = Normalize(Reflect(incoming, normal)) },
-                    RayInteractionKind.TotalInternalReflection);
-            var correction = eta * Math.Sqrt(incidenceSquared) - Math.Sqrt(1 - sineTransmittedSquared);
-            // Snell's vector equation already transports a normalized ray.
-            // A second normalization changes the retained direction cosines.
-            return new RealRayInteractionResult(ray with { Direction = eta * incoming + correction * normal },
-                RayInteractionKind.Transmitted);
+                return (Normalize(Reflect(incoming, normal)), RayInteractionKind.TotalInternalReflection);
+            var correction = eta * Math.Sqrt(squared) - Math.Sqrt(1 - sineTransmittedSquared);
+            return (eta * incoming + correction * normal, RayInteractionKind.Transmitted);
         }
-
-        var refraction = Refract(
-            incoming,
-            normal,
-            context.RefractiveIndexBefore,
-            context.RefractiveIndexAfter);
-        return new RealRayInteractionResult(
-            ray with { Direction = Normalize(refraction.Direction) },
-            refraction.Kind);
+        var refraction = Refract(incoming, normal, before, after);
+        return (Normalize(refraction.Direction), refraction.Kind);
     }
 
     public ParaxialRay Interact(ParaxialRay ray, SurfaceInteractionContext context)

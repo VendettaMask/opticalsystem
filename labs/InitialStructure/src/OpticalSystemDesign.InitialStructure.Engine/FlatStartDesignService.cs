@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using OpticalSystemDesign.Core.Serialization;
+using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.InitialStructure.Contracts;
 
 namespace OpticalSystemDesign.InitialStructure.Engine;
@@ -14,6 +15,8 @@ public sealed class FlatStartDesignService
         cancellationToken.ThrowIfCancellationRequested();
         SpecificationValidator.Validate(specification);
         var stopwatch = Stopwatch.StartNew();
+        using var compute = specification.FlatStart!.OptimizationMethod == FlatStartOptimizationMethod.AutoLensManagedV1
+            ? new SequentialGpuSession(specification.FlatStart.AutoLens?.ComputeMode ?? Core.Differentiation.DesignComputeMode.Cpu,cancellationToken) : null;
         var budget = specification.Budget.MaximumEvaluations;
         var progressive = specification.FlatStart!.SamplingPolicy == FlatStartSamplingPolicy.UniformAreaGaussianV1;
         var bootstrap = new FlatStartBootstrap().Solve(specification with

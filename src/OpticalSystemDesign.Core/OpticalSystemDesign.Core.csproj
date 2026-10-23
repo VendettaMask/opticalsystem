@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ILGPU" Version="1.5.3" />
+    <PackageReference Include="ILGPU.Algorithms" Version="1.5.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Materials/Data/zemax-mil-profiles.json"
                       LogicalName="OpticalSystemDesign.Core.Materials.Data.zemax-mil-profiles.json" />
     <EmbeddedResource Include="Materials/Data/glass-catalog.json"

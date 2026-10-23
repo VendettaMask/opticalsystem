@@ -68,7 +68,7 @@ public sealed partial class MainWindow : Window
         if (settings.InitialSpecification is { } specification) ApplySpecification(specification, settings.InitialOptions ?? new());
         ApplyResponsiveLayout(Width);
         UpdateCommands();
-        Ready = RefreshResumeAvailabilityAsync();
+        Ready = Task.WhenAll(RefreshResumeAvailabilityAsync(), RefreshGpuStatusAsync());
         Icon = BrandAssets.LoadWindowIcon();
         DisplayTypography.Apply(this);
     }

@@ -20,17 +20,23 @@ internal static class AutoLensManagedDesign
         AutoLensManagedState? resume = null, bool screenOnly = false)
     {
         var settings = specification.FlatStart!.AutoLens ?? new();
+        using var ownedCompute = SequentialGpuSession.Current is null ? new SequentialGpuSession(settings.ComputeMode,cancellationToken) : null;
+        var propagation = SequentialGpuSession.Current!;
         var budget = specification.Budget.MaximumEvaluations;
         var count = restart is null ? bootstrap.EvaluationCount : 0;
         long rays = restart is null ? bootstrap.TracedRayCount : 0;
         long previousTicks = 0;
         var diagnostics = new List<SearchDiagnostic>
         {
-            new("design.autolens-managed-v1", "Native Core automatic differentiation with implicit stop aiming, bounded Adam, cosine aperture curriculum, permitted-catalog material projection and fixed-catalog refinement. Managed C# CPU only; no foreign runtime, GPU or upstream numerical-equivalence claim."),
+            new("design.autolens-managed-v1", "Native Core automatic differentiation with implicit stop aiming, bounded Adam, cosine aperture curriculum, permitted-catalog material projection and fixed-catalog refinement. Shared C# Core on CPU or CUDA; no foreign runtime or upstream numerical-equivalence claim."),
             new("design.acceptance", "Training uses unclipped Core coordinates only as diagnostics. A new full-aperture dense independent physical evaluation is mandatory; relaxed glass is never published as a candidate.")
         };
         var steps = new List<DesignStep>();
         var trainingSteps = new List<AutoLensManagedStep>(resume?.TrainingSteps ?? []);
+        var gpuBatches = resume?.GpuBatches ?? 0;
+        var gpuRays = resume?.GpuRays ?? 0;
+        var gpuMilliseconds = resume?.GpuMilliseconds ?? 0;
+        var lastComputeExecution = resume?.LastComputeExecution;
         var source = restart ?? bootstrap.Steps[^1].Optic;
         var geometry = new FlatStartDesignProblem(specification, elementCount, source, family);
         var available = Math.Max(0, budget - count - 3);
@@ -190,7 +196,16 @@ internal static class AutoLensManagedDesign
             ElapsedComputeTicks = previousTicks + stopwatch.Elapsed.Ticks,
             FullTargetIncumbent = validation?.EvaluatedOptic ?? state.FullTargetIncumbent
         };
-        if (state is not null) state = state with { TrainingSteps = trainingSteps.ToArray(), TargetPolishEvaluationCount = polishEvaluations };
+        if (state is not null) state = state with
+        {
+            TrainingSteps = trainingSteps.ToArray(), TargetPolishEvaluationCount = polishEvaluations,
+            LastComputeExecution = lastComputeExecution, GpuBatches = gpuBatches, GpuRays = gpuRays, GpuMilliseconds = gpuMilliseconds,
+            PropagationExecution = settings.ComputeMode == DesignComputeMode.Cpu ? resume?.PropagationExecution
+                : MergePropagation(resume?.PropagationExecution,propagation.Execution)
+        };
+        if (lastComputeExecution is { } execution)
+            diagnostics.Add(new("design.autolens-compute", $"{execution.Backend}; {execution.DeviceName}; {gpuBatches} CUDA batches, {gpuRays} differentiated rays; CPU formal tracing and independent physical validation retained."
+                + (execution.FallbackReason is { } reason ? " CPU fallback: " + reason : "")));
         return new()
         {
             Algorithm = new(FlatStartAlgorithm.Name(family is null ? "strict-flat-design" : "strict-flat-family-design", specification), FlatStartAlgorithm.Version, "Managed CPU", true),
@@ -365,7 +380,14 @@ internal static class AutoLensManagedDesign
                     var optic = OpticalDesignParameters.Apply(template, parameters, point);
                     optic.Aperture.Value = specification.EffectiveFocalLengthMillimeters / specification.FNumber * pupilFraction;
                     PhysicalStopCalibration.Apply(optic);
-                    var result = DifferentiableOpticalMetrics.Evaluate(optic, parameters, fields, pupils, cancellationToken);
+                    var result = DifferentiableOpticalMetrics.Evaluate(optic, parameters, fields, pupils, cancellationToken, settings.ComputeMode);
+                    if (settings.ComputeMode != DesignComputeMode.Cpu)
+                    {
+                        lastComputeExecution = result.Execution;
+                        gpuBatches += result.Execution.GpuBatches;
+                        gpuRays += result.Execution.GpuRays;
+                        gpuMilliseconds += result.Execution.GpuMilliseconds;
+                    }
                     var loss = AutoLensManagedLoss.Evaluate(optic, parameters, result, specification, elementCount);
                     if (!loss.IsFinite || loss.Dimension != parameters.Count) throw new ArithmeticException("Incomplete automatic-gradient objective.");
                     return (optic, loss);
@@ -410,6 +432,15 @@ internal static class AutoLensManagedDesign
             return point;
         }
     }
+
+    private static SequentialGpuExecution MergePropagation(SequentialGpuExecution? previous,SequentialGpuExecution current) =>
+        previous is null ? current : current with
+        {
+            AimRays=checked(previous.AimRays+current.AimRays),AimTraces=checked(previous.AimTraces+current.AimTraces),
+            PropagatedRays=checked(previous.PropagatedRays+current.PropagatedRays),Batches=checked(previous.Batches+current.Batches),
+            Milliseconds=previous.Milliseconds+current.Milliseconds,CpuRecoveryRays=checked(previous.CpuRecoveryRays+current.CpuRecoveryRays),
+            FallbackReason=current.FallbackReason ?? previous.FallbackReason
+        };
 
     private static IReadOnlyList<OpticalDesignParameter> Parameters(Optic optic, InitialStructureSpecification specification, int elements, bool materials)
     {

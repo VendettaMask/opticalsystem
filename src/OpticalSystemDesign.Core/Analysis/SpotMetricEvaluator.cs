@@ -54,6 +54,55 @@ public sealed class AnalysisDataUnavailableException : InvalidOperationException
 
 public static class SpotMetricEvaluator
 {
+    /// <summary>GPU batch across fields; null requests the unchanged scalar/general backend.</summary>
+    public static IReadOnlyList<SampledSpotAssessment>? EvaluateGpuPupilGridWithChecks(Optic optic,
+        IReadOnlyList<(double X,double Y)> fields,IReadOnlyList<PupilSample> integrationSamples,IReadOnlyList<PupilSample> checkSamples,
+        int wavelengthNumber=0,bool includeSurfaceTransmission=true,CancellationToken cancellationToken=default)
+    {
+        if (SequentialGpuSession.Current is not {Enabled:true} session) return null;
+        cancellationToken.ThrowIfCancellationRequested();
+        if (fields.Count is <1 or >101 || wavelengthNumber<0 || wavelengthNumber>optic.Wavelengths.Count)
+            throw new ArgumentOutOfRangeException(nameof(fields));
+        var all=integrationSamples.Concat(checkSamples).ToArray();
+        if (integrationSamples.Count==0 || checkSamples.Count==0 || all.Length>65_536
+            || all.Any(p=>!double.IsFinite(p.X)||!double.IsFinite(p.Y)||p.X*p.X+p.Y*p.Y>1+1e-12||!double.IsFinite(p.Weight)||p.Weight<=0))
+            throw new ArgumentException("Finite normalized positive integration and check quadrature is required.");
+        var waves=AnalysisTrace.SelectWavelengths(optic,wavelengthNumber).Where(w=>w.Weight>0).ToArray();
+        if (waves.Length==0) throw new AnalysisDataUnavailableException("GPU sampled spot","no positive wavelengths");
+        var integral=fields.Select(_=>new List<SampledSpotWavelength>()).ToArray();
+        var checks=fields.Select(_=>new List<SampledSpotWavelength>()).ToArray();
+        var imageIndex=optic.SurfaceGroup.Items.Count-1;
+        var target=optic.SurfaceGroup.Items[imageIndex];
+        var descriptor=ImageSpaceAnalysisSupport.CoordinateDescriptor(optic);
+        foreach (var wave in waves)
+        {
+            if (!optic.SequentialRayTracer.RayGenerator.TryGenerateGpuPupilGrid(fields,all,wave.Micrometers,true,out var bundle)) return null;
+            using var trace=optic.SequentialRayTracer.Trace(bundle!,TraceRequest.Selected([imageIndex]));
+            for (var field=0;field<fields.Count;field++)
+            {
+                var integrated=new List<SampledSpotRay>(); var checkedRays=new List<SampledSpotRay>();
+                for (var pupil=0;pupil<all.Length;pupil++)
+                {
+                    var index=field*all.Length+pupil;
+                    if (!trace.TryGetSample(index,imageIndex,out var sample) || sample.Vignetted || sample.Intensity<=0) continue;
+                    var data=ImageSpaceAnalysisSupport.ToImageSpaceRayData(optic,sample.ToRayTraceSample(),target,descriptor);
+                    var weight=includeSurfaceTransmission ? data.Intensity : bundle!.Rays[index].Intensity;
+                    if (!double.IsFinite(data.X)||!double.IsFinite(data.Y)||!double.IsFinite(weight)||weight<=0) continue;
+                    (pupil<integrationSamples.Count ? integrated : checkedRays).Add(new(data.X,data.Y,weight));
+                }
+                integral[field].Add(new(wave.Nanometers,wave.Weight,integrationSamples.Count,integrated));
+                checks[field].Add(new(wave.Nanometers,wave.Weight,checkSamples.Count,checkedRays));
+            }
+        }
+        return Enumerable.Range(0,fields.Count).Select(field=>CenterAssessment(Raw(integral[field],integrationSamples.Count),Raw(checks[field],checkSamples.Count))).ToArray();
+
+        SampledSpotResult Raw(IReadOnlyList<SampledSpotWavelength> data,int count)
+        {
+            var attempted=count*waves.Length;
+            return new(attempted,attempted-data.Sum(w=>w.Rays.Count),null,data,descriptor.Quantity,descriptor.Unit);
+        }
+    }
+
     /// <summary>
     /// Evaluates an integration rule and independent boundary/check samples about the same
     /// polychromatic centroid. Check-ray weights do not alter the integration RMS or centroid.
@@ -68,6 +117,11 @@ public static class SpotMetricEvaluator
             wavelengthNumber, "absolute", includeSurfaceTransmission, cancellationToken);
         var checks = EvaluatePupilSamples(optic, normalizedFieldX, normalizedFieldY, checkSamples,
             wavelengthNumber, "absolute", includeSurfaceTransmission, cancellationToken);
+        return CenterAssessment(integration,checks);
+    }
+
+    private static SampledSpotAssessment CenterAssessment(SampledSpotResult integration,SampledSpotResult checks)
+    {
         var weighted = integration.Wavelengths.SelectMany(wave => wave.Rays.Select(ray =>
             new SpotRayData(ray.X, ray.Y, ray.Weight * wave.SpectralWeight))).ToArray();
         if (weighted.Length == 0) return new(integration, checks with { Metrics = null });

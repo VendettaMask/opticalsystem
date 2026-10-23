@@ -298,6 +298,11 @@ public sealed partial class RayGenerator
                 nameof(stopTargets));
         }
         var rays = new RealRay[samples.Length];
+        if (aimAtStop && resolvedStopTargets is not null && TryGenerateGpuPupils(samples,resolvedStopTargets,
+            wavelengthNanometers,apertureRadius,vignetting,rays,
+            index => CreateRay(field.X,field.Y,samples[index].X,samples[index].Y,apertureRadius,
+                wavelengthNanometers,samples[index].Weight,realImageLaunch,aimAtStop:false,fieldRayContext:fieldRayContext),GenerateRay))
+            return new RealRayBundle(rays);
         void GenerateRay(int index)
         {
             var sample = samples[index];

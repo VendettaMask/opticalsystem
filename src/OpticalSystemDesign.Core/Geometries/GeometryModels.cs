@@ -11,25 +11,7 @@ public sealed class PlaneGeometry : IGeometry
 
     public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
     {
-        if (!GeometryIntersectionSolver.IsFinite(origin)
-            || !GeometryIntersectionSolver.IsFiniteNonZero(direction))
-        {
-            return IntersectionResult.Failure(IntersectionStatus.InvalidInput);
-        }
-
-        if (Math.Abs(direction.Z) < 1e-12)
-        {
-            return IntersectionResult.Failure(IntersectionStatus.NoRoot);
-        }
-
-        var distance = -origin.Z / direction.Z;
-        var result = distance >= 0
-            ? GeometryIntersectionSolver.CreateVerifiedResult(
-                origin, direction, distance, Sag, SurfaceNormal, 0)
-            : IntersectionResult.Failure(IntersectionStatus.NoRoot);
-        return result.IsHit && Math.Abs(direction.Length - 1) <= 1e-14
-            ? result with { Point = result.Point with { Z = 0 }, IncidenceCosineSquared = direction.Z * direction.Z }
-            : result;
+        return default(RotationalSurfaceEquation).Intersect(origin, direction);
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint) => new(0, 0, 1);
@@ -186,123 +168,17 @@ public sealed partial class StandardGeometry : NotifyObject, IGeometry
 
     public double Sag(double x, double y)
     {
-        if (Math.Abs(Radius) < 1e-12 || double.IsInfinity(Radius))
-        {
-            return 0;
-        }
-
-        var r2 = (x * x) + (y * y);
-        var c = 1.0 / Radius;
-        var rootArgument = 1.0 - ((1.0 + Conic) * c * c * r2);
-        if (rootArgument < -ConicDomainTolerance)
-        {
-            return double.NaN;
-        }
-
-        var root = Math.Sqrt(Math.Max(0, rootArgument));
-        return c * r2 / (1 + root);
+        return RotationalSurfaceEquation.StandardSag(Radius, Conic, x, y);
     }
 
     public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
     {
-        if (Math.Abs(Radius) < 1e-12 || double.IsInfinity(Radius))
-        {
-            return new PlaneGeometry().DistanceToIntersection(origin, direction);
-        }
-
-        if (TryVertexPlaneIntersection(origin, direction, out var vertexIntersection))
-            return vertexIntersection;
-
-        var conicFactor = 1.0 + Conic;
-        var a = (direction.X * direction.X)
-            + (direction.Y * direction.Y)
-            + (conicFactor * direction.Z * direction.Z);
-        var b = 2.0 * (
-            (origin.X * direction.X)
-            + (origin.Y * direction.Y)
-            - (Radius * direction.Z)
-            + (conicFactor * origin.Z * direction.Z));
-        var c = (origin.X * origin.X)
-            + (origin.Y * origin.Y)
-            - (2.0 * Radius * origin.Z)
-            + (conicFactor * origin.Z * origin.Z);
-
-        if (Math.Abs(a) < 1e-15)
-        {
-            if (Math.Abs(b) < 1e-15)
-            {
-                return IntersectionResult.Failure(IntersectionStatus.NoRoot);
-            }
-
-            var linearDistance = -c / b;
-            return ValidateExplicitSagDistance(linearDistance, origin, direction);
-        }
-
-        var discriminant = (b * b) - (4.0 * a * c);
-        if (discriminant < 0)
-        {
-            return IntersectionResult.Failure(IntersectionStatus.NoRoot);
-        }
-
-        var root = Math.Sqrt(discriminant);
-        var first = (-b - root) / (2.0 * a);
-        var second = (-b + root) / (2.0 * a);
-        var firstDistance = ValidateExplicitSagDistance(first, origin, direction);
-        var secondDistance = ValidateExplicitSagDistance(second, origin, direction);
-        if (!firstDistance.IsHit && !secondDistance.IsHit)
-        {
-            (first, second) = StandardIntersectionValidation.StableQuadraticRoots(a, b, c, root);
-            firstDistance = ValidateExplicitSagDistance(first, origin, direction);
-            secondDistance = ValidateExplicitSagDistance(second, origin, direction);
-        }
-
-        if (!firstDistance.IsHit)
-        {
-            return secondDistance;
-        }
-
-        if (!secondDistance.IsHit)
-        {
-            return firstDistance;
-        }
-
-        return firstDistance.Distance <= secondDistance.Distance ? firstDistance : secondDistance;
-    }
-
-    private IntersectionResult ValidateExplicitSagDistance(double distance, Vector3D origin, Vector3D direction)
-    {
-        if (!double.IsFinite(distance) || distance < -ConicDomainTolerance)
-        {
-            return IntersectionResult.Failure(IntersectionStatus.NoRoot);
-        }
-
-        var clampedDistance = Math.Max(0, distance);
-        return GeometryIntersectionSolver.CreateVerifiedResult(
-            origin, direction, clampedDistance, Sag, SurfaceNormal, 0);
+        return new RotationalSurfaceEquation { Kind = 1, Radius = Radius, Conic = Conic }.Intersect(origin, direction);
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint)
     {
-        if (Math.Abs(Radius) < 1e-12 || double.IsInfinity(Radius))
-        {
-            return new Vector3D(0, 0, 1);
-        }
-
-        var r2 = (localPoint.X * localPoint.X) + (localPoint.Y * localPoint.Y);
-        var c = 1.0 / Radius;
-        var rootArgument = 1.0 - ((1.0 + Conic) * c * c * r2);
-        if (rootArgument < -ConicDomainTolerance)
-        {
-            return new Vector3D(double.NaN, double.NaN, double.NaN);
-        }
-
-        if (Conic == 0)
-            return new Vector3D(-c * localPoint.X, -c * localPoint.Y, 1 - c * localPoint.Z)
-                * Math.CopySign(1, Radius);
-        var zc = localPoint.Z * c;
-        var factor = c / Math.Sqrt(zc * Conic * (zc * (Conic + 1) - 2) + 1);
-        return new Vector3D(localPoint.X * factor, localPoint.Y * factor,
-            (localPoint.Z - (1 / c - localPoint.Z * Conic)) * factor) * -Math.CopySign(1, Radius);
+        return RotationalSurfaceEquation.StandardNormal(Radius, Conic, localPoint);
     }
 
     public IGeometry Clone() => new StandardGeometry(Radius, Conic);
@@ -332,25 +208,21 @@ public sealed class EvenAsphereGeometry : IGeometry
 
     public double Sag(double x, double y)
     {
-        var r2 = (x * x) + (y * y);
-        var sag = Base.Sag(x, y);
-        var power = r2;
-        foreach (var coefficient in Coefficients)
-        {
-            sag += coefficient * power;
-            power *= r2;
-        }
-
+        if (Coefficients.Count <= 10) return RotationalSurfaceEquation.From(this).Sag(x, y);
+        var r2 = x*x + y*y; var sag = Base.Sag(x, y); var power = r2;
+        foreach (var coefficient in Coefficients) { sag += coefficient*power; power *= r2; }
         return sag;
     }
 
     public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
     {
-        return StandardGeometry.NewtonSolveDistance(origin, direction, Sag, SurfaceNormal);
+        return Coefficients.Count <= 10 ? RotationalSurfaceEquation.From(this).Intersect(origin, direction)
+            : StandardGeometry.NewtonSolveDistance(origin, direction, Sag, SurfaceNormal);
     }
 
     public Vector3D SurfaceNormal(Vector3D localPoint)
     {
+        if (Coefficients.Count <= 10) return RotationalSurfaceEquation.From(this).Normal(localPoint);
         var r2 = localPoint.X * localPoint.X + localPoint.Y * localPoint.Y;
         var curvature = Math.Abs(Base.Radius) < 1e-12 || double.IsInfinity(Base.Radius) ? 0 : 1 / Base.Radius;
         var rootArgument = 1 - (1 + Base.Conic) * curvature * curvature * r2;

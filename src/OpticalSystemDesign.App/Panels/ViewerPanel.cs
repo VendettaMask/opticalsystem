@@ -97,6 +97,8 @@ public sealed class ViewerPanel : UserControl, IDisposable
         _surfaceSelection = surfaceSelection;
         _dimension = dimension;
         _presentationMode = presentationMode;
+        _configurationPicker.Name = dimension == SceneDimension.TwoDimensional
+            ? "Viewer2DConfigurationPicker" : "Viewer3DConfigurationPicker";
         _scene = new OpticSceneControl
         {
             MinHeight = 240,
@@ -224,7 +226,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
         return ThemeChrome.WrapWithDecoration(
             SceneWithOverlay(
                 _scene,
-                new Viewer2DToolbarLayout
+                new ViewerToolbarLayout
                 {
                     VerticalAlignment = VerticalAlignment.Top,
                     Children =
@@ -236,7 +238,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
             ThemeChromeRole.Viewport);
     }
 
-    private sealed class Viewer2DToolbarLayout : Panel
+    private sealed class ViewerToolbarLayout : Panel
     {
         protected override Size MeasureOverride(Size availableSize)
         {
@@ -265,6 +267,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
     {
         var showRays = new CheckBox
         {
+            Name = "Viewer3DShowRays",
             Content = "光线",
             IsChecked = true,
             VerticalAlignment = VerticalAlignment.Center
@@ -337,9 +340,12 @@ public sealed class ViewerPanel : UserControl, IDisposable
         return ThemeChrome.WrapWithDecoration(
             SceneWithOverlay(
                 _scene,
-                topToolbar,
+                new ViewerToolbarLayout
+                {
+                    VerticalAlignment = VerticalAlignment.Top,
+                    Children = { BuildSettingsOverlay(), topToolbar }
+                },
                 presetToolbar,
-                BuildSettingsOverlay(),
                 _staleLayoutBanner),
             ThemeChromeRole.Viewport);
     }
@@ -366,21 +372,21 @@ public sealed class ViewerPanel : UserControl, IDisposable
             Spacing = 3,
             Children = { toggle, synchronize }
         };
-        if (_dimension == SceneDimension.TwoDimensional)
+        AutomationProperties.SetName(_configurationPicker, "结构");
+        ToolTip.SetTip(_configurationPicker, _dimension == SceneDimension.TwoDimensional
+            ? "选择二维图显示的结构" : "选择三维图显示的结构");
+        AutomationProperties.SetHelpText(_configurationPicker, _dimension == SceneDimension.TwoDimensional
+            ? "仅切换此二维图显示的结构，不改变活动结构。"
+            : "仅切换此三维图显示的结构，不改变活动结构。");
+        _configurationPicker.SelectionChanged += (_, _) =>
         {
-            AutomationProperties.SetName(_configurationPicker, "结构");
-            ToolTip.SetTip(_configurationPicker, "选择二维图显示的结构");
-            AutomationProperties.SetHelpText(_configurationPicker, "仅切换此二维图显示的结构，不改变活动结构。");
-            _configurationPicker.SelectionChanged += (_, _) =>
-            {
-                if (_updatingSettings || _disposed) return;
-                _configurationIndex = SelectedValue(_configurationPicker);
-                RefreshSelectorOptions(preserveSelection: true);
-                ClearScene();
-                QueueRefresh(TimeSpan.Zero);
-            };
-            header.Children.Add(_configurationPicker);
-        }
+            if (_updatingSettings || _disposed) return;
+            _configurationIndex = SelectedValue(_configurationPicker);
+            RefreshSelectorOptions(preserveSelection: true);
+            ClearScene();
+            QueueRefresh(TimeSpan.Zero);
+        };
+        header.Children.Add(_configurationPicker);
         var container = new StackPanel { Children = { header, settingsContent } };
         var card = SettingsPanelChrome.CreateCard(
             container,
@@ -552,7 +558,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
             DeleteVignetted: _deleteVignetted.IsChecked == true,
             MarginalAndChiefOnly: _marginalAndChiefOnly.IsChecked == true,
             IncludeStaleNonSequentialRays: _showStaleLayoutRays.IsChecked == true,
-            ConfigurationIndex: _dimension == SceneDimension.TwoDimensional ? _configurationIndex : null);
+            ConfigurationIndex: _modes?.CurrentMode == OpticalWorkbenchMode.NonSequential ? null : _configurationIndex);
     }
 
     private void RefreshSelectorOptions(bool preserveSelection)
@@ -565,7 +571,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
         if (!preserveSelection || options.ConfigurationCount <= 1
             || _configurationIndex >= options.ConfigurationCount)
             _configurationIndex = null;
-        if (_dimension == SceneDimension.TwoDimensional && _configurationIndex.HasValue)
+        if (_configurationIndex.HasValue)
             options = _visualization.GetVisualizationOptions(_configurationIndex);
 
         var wasUpdatingSettings = _updatingSettings;
@@ -575,7 +581,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
             _configurationPicker.ItemsSource = Enumerable.Range(0, options.ConfigurationCount)
                 .Select(index => new SelectorItem(index, $"{index + 1} / {options.ConfigurationCount}")).ToArray();
             SelectValue(_configurationPicker, _configurationIndex ?? options.ActiveConfigurationIndex);
-            _configurationPicker.IsVisible = _dimension == SceneDimension.TwoDimensional
+            _configurationPicker.IsVisible = _modes?.CurrentMode != OpticalWorkbenchMode.NonSequential
                 && options.ConfigurationCount > 1;
             var surfaces = options.SurfaceNumbers
                 .Select(number => new SelectorItem(number, number.ToString()))

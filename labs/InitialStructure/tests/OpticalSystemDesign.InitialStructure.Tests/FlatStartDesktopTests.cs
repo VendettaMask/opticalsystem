@@ -287,6 +287,7 @@ public sealed class FlatStartDesktopTests
             var window = host.Window(defaultInputs: true);
             window.Show(); await window.Ready;
             Assert.DoesNotContain(window.GetLogicalDescendants().OfType<ComboBox>(), control => control.Name == "OptimizationMethod");
+            Assert.Equal(0, Find<ComboBox>(window, "ComputeMode").SelectedIndex);
             Find<ComboBox>(window, "AutoLensAsphere").SelectedIndex = 1;
             Find<NumericUpDown>(window, "AutoLensCurriculum").Value = 1;
             Find<NumericUpDown>(window, "AutoLensRefinement").Value = 1;
@@ -298,6 +299,7 @@ public sealed class FlatStartDesktopTests
             Assert.Equal(FlatStartOptimizationMethod.AutoLensManagedV1, checkpoint.Specification.FlatStart!.OptimizationMethod);
             Assert.Equal(new[] { 0 }, checkpoint.Specification.FlatStart.AutoLens!.CementedGaps);
             Assert.Equal(0, checkpoint.Specification.FlatStart.AutoLens.TargetPolishEvaluations);
+            Assert.Equal(OpticalSystemDesign.Core.Differentiation.DesignComputeMode.Automatic, checkpoint.Specification.FlatStart.AutoLens.ComputeMode);
             Assert.All(checkpoint.Trials.Where(trial => trial.AutoLensState is not null), trial =>
             {
                 Assert.Equal(0, trial.AutoLensState!.TargetPolishEvaluationCount);
@@ -312,9 +314,41 @@ public sealed class FlatStartDesktopTests
             Assert.Equal(UiLocalization.Text("AutoLens · C# 自动求导"), Find<TextBlock>(window, "OptimizationMethod").Text);
             Assert.Equal(1, Find<ComboBox>(window, "AutoLensAsphere").SelectedIndex);
             Assert.Equal("1", Find<TextBox>(window, "AutoLensCemented").Text);
+            Assert.Equal(0, Find<ComboBox>(window, "ComputeMode").SelectedIndex);
             Find<TabControl>(window, "InputTabs").SelectedIndex = 2;
             Find<TextBlock>(window, "OptimizationMethod").BringIntoView(); window.UpdateLayout();
             Capture(window, "autolens-managed");
+            Find<ComboBox>(window, "ComputeMode").SelectedIndex = 2;
+            Assert.Null(window.CurrentCheckpoint);
+            Assert.False(Find<Button>(window, "Export").IsEnabled);
+            window.Close();
+        });
+    }
+
+    [AutoLensCudaFact]
+    public async Task GpuDeviceChoiceRunsActualCudaAndRoundTripsWithoutChangingTheAlgorithm()
+    {
+        using var host = new DesktopHost();
+        await host.Run(async () =>
+        {
+            var window = host.Window();
+            window.Show(); await window.Ready;
+            Assert.Contains("GPU", Find<TextBlock>(window, "ComputeStatus").Text);
+            Find<ComboBox>(window, "ComputeMode").SelectedIndex = 1;
+            Click(window, "Generate"); await window.PendingOperation;
+            var checkpoint = Assert.IsType<FlatStartSearchCheckpoint>(window.CurrentCheckpoint);
+            Assert.Equal(OpticalSystemDesign.Core.Differentiation.DesignComputeMode.Gpu, checkpoint.Specification.FlatStart!.AutoLens!.ComputeMode);
+            Assert.Equal(FlatStartOptimizationMethod.AutoLensManagedV1, checkpoint.Specification.FlatStart.OptimizationMethod);
+            Assert.Contains(checkpoint.Trials, trial => trial.AutoLensState?.GpuRays > 0);
+            File.Copy(Path.Combine(host.Directory, checkpoint.RunId + ".family.json"), host.OpenPath);
+            Find<ComboBox>(window, "ComputeMode").SelectedIndex = 2;
+            Assert.Null(window.CurrentCheckpoint);
+            Click(window, "OpenRun"); await window.PendingOperation;
+            Assert.Equal(1, Find<ComboBox>(window, "ComputeMode").SelectedIndex);
+            Assert.Contains(window.CurrentCheckpoint!.Trials, trial => trial.AutoLensState?.GpuBatches > 0);
+            Find<TabControl>(window, "InputTabs").SelectedIndex = 2;
+            Find<ComboBox>(window, "ComputeMode").BringIntoView(); window.UpdateLayout();
+            Capture(window, "autolens-gpu-device");
             window.Close();
         });
     }

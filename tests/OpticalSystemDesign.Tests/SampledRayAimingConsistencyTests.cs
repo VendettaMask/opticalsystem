@@ -95,9 +95,11 @@ public sealed class SampledRayAimingConsistencyTests
         var actual = result.UnclippedSpot.Metrics!;
         Assert.Equal(expected.RayCount, actual.RayCount);
         Assert.Equal(expected.VignettedRayCount, actual.VignettedRayCount);
-        Assert.Equal(expected.RmsSpotRadius, actual.RmsSpotRadius, 12);
-        Assert.Equal(expected.MaximumSpotRadius, actual.MaximumSpotRadius, 12);
-        Assert.Equal(expected.Radius80, actual.Radius80, 12);
+        // Compare the error itself: two values only 7e-15 apart can round to
+        // opposite sides of a 12-decimal boundary. Retain a half-unit bound.
+        Assert.InRange(Math.Abs(expected.RmsSpotRadius-actual.RmsSpotRadius),0,5e-13);
+        Assert.InRange(Math.Abs(expected.MaximumSpotRadius-actual.MaximumSpotRadius),0,5e-13);
+        Assert.InRange(Math.Abs(expected.Radius80-actual.Radius80),0,5e-13);
         var physical = SpotMetricEvaluator.EvaluatePupilSamples(optic, 0, 1, pupils);
         Assert.True(physical.VignettedRayCount > 0);
     }

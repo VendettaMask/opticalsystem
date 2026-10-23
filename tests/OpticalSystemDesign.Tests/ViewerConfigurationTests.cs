@@ -31,10 +31,13 @@ public sealed class ViewerConfigurationTests
     }
 
     [Theory]
-    [InlineData(0, 2)]
-    [InlineData(1, 0)]
-    [InlineData(2, 1)]
-    public async Task SelectedSceneUsesThatConfigurationsCoreGeometryRaysAndSummary(int active, int selected)
+    [InlineData(SceneDimension.TwoDimensional, 0, 2)]
+    [InlineData(SceneDimension.TwoDimensional, 1, 0)]
+    [InlineData(SceneDimension.TwoDimensional, 2, 1)]
+    [InlineData(SceneDimension.ThreeDimensional, 0, 2)]
+    [InlineData(SceneDimension.ThreeDimensional, 1, 0)]
+    [InlineData(SceneDimension.ThreeDimensional, 2, 1)]
+    public async Task SelectedSceneUsesThatConfigurationsCoreGeometryRaysAndSummary(SceneDimension dimension, int active, int selected)
     {
         using var app = WorkbenchApplication.Create();
         await app.Documents.OpenAsync(ConfigurationMatrixAnalysisTests.ZoomPath());
@@ -44,28 +47,52 @@ public sealed class ViewerConfigurationTests
             File.ReadAllText(ConfigurationMatrixAnalysisTests.ZoomPath()));
         var optic = imported.Configurations[selected];
         AutomaticSemiDiameterSolver.Update(optic);
-        var expected = new Layout2DBuilder(optic).Build(options: new LayoutBuildOptions(
-            IncludeAllWavelengths: true, RayCount: 3, LowerPupil: -1, UpperPupil: 1));
+        var options = new LayoutBuildOptions(
+            IncludeAllWavelengths: true, RayCount: 3, LowerPupil: -1, UpperPupil: 1);
         var result = await app.Visualization.BuildSceneAsync(new VisualizationRequestDto(
-            SceneDimension.TwoDimensional, IncludeAllWavelengths: true, RayCount: 3,
+            dimension, IncludeAllWavelengths: true, RayCount: 3,
             LowerPupil: -1, UpperPupil: 1, ConfigurationIndex: selected));
-        var actual = Assert.IsType<Scene2Dto>(result.TwoDimensional);
         Assert.Equal(new SceneConfigurationDto(selected + 1, 3), result.Configuration);
-        Assert.Equal(expected.Surfaces.Count, actual.Surfaces.Count);
-        foreach (var (left, right) in expected.Surfaces.Zip(actual.Surfaces))
-            Assert.Equal(left.Points.Select(p => (p.Z, p.Y)), right.Points.Select(p => (p.Z, p.Y)));
-        Assert.Equal(expected.LensElements.Count, actual.LensElements.Count);
-        foreach (var (left, right) in expected.LensElements.Zip(actual.LensElements))
-            Assert.Equal(left.Boundary.Select(p => (p.Z, p.Y)), right.Boundary.Select(p => (p.Z, p.Y)));
-        Assert.NotEmpty(actual.Rays);
-        Assert.Equal(expected.Rays.Count, actual.Rays.Count);
-        foreach (var (left, right) in expected.Rays.Zip(actual.Rays))
+        if (dimension == SceneDimension.ThreeDimensional)
         {
-            Assert.Equal(left.Points.Select(p => (p.Z, p.Y)), right.Points.Select(p => (p.Z, p.Y)));
-            Assert.Equal(left.WavelengthIndex, right.WavelengthIndex);
-            Assert.Equal(left.Segments.Count, right.Segments.Count);
-            Assert.Equal(left.Segments.Select(s => (s.Direction.Z, s.Direction.Y)),
-                right.Segments.Select(s => (s.Direction.Z, s.Direction.Y)));
+            var expected3D = WorkbenchMapper.ToScene3Dto(new Layout2DBuilder(optic).Build3D(options: options));
+            var actual3D = Assert.IsType<Scene3Dto>(result.ThreeDimensional);
+            Assert.Equal(expected3D.Surfaces.SelectMany(surface => surface.Rim),
+                actual3D.Surfaces.SelectMany(surface => surface.Rim));
+            Assert.Equal(expected3D.LensElements.SelectMany(element => element.FrontFaces.Concat(element.BackFaces))
+                    .SelectMany(face => face.Points),
+                actual3D.LensElements.SelectMany(element => element.FrontFaces.Concat(element.BackFaces))
+                    .SelectMany(face => face.Points));
+            Assert.NotEmpty(actual3D.LensElements);
+            Assert.NotEmpty(actual3D.Rays);
+            Assert.Equal(expected3D.Rays.Count, actual3D.Rays.Count);
+            foreach (var (left, right) in expected3D.Rays.Zip(actual3D.Rays))
+            {
+                Assert.Equal(left.Points, right.Points);
+                Assert.Equal(left.WavelengthIndex, right.WavelengthIndex);
+                Assert.Equal(left.Segments, right.Segments);
+            }
+        }
+        else
+        {
+            var expected = new Layout2DBuilder(optic).Build(options: options);
+            var actual = Assert.IsType<Scene2Dto>(result.TwoDimensional);
+            Assert.Equal(expected.Surfaces.Count, actual.Surfaces.Count);
+            foreach (var (left, right) in expected.Surfaces.Zip(actual.Surfaces))
+                Assert.Equal(left.Points.Select(p => (p.Z, p.Y)), right.Points.Select(p => (p.Z, p.Y)));
+            Assert.Equal(expected.LensElements.Count, actual.LensElements.Count);
+            foreach (var (left, right) in expected.LensElements.Zip(actual.LensElements))
+                Assert.Equal(left.Boundary.Select(p => (p.Z, p.Y)), right.Boundary.Select(p => (p.Z, p.Y)));
+            Assert.NotEmpty(actual.Rays);
+            Assert.Equal(expected.Rays.Count, actual.Rays.Count);
+            foreach (var (left, right) in expected.Rays.Zip(actual.Rays))
+            {
+                Assert.Equal(left.Points.Select(p => (p.Z, p.Y)), right.Points.Select(p => (p.Z, p.Y)));
+                Assert.Equal(left.WavelengthIndex, right.WavelengthIndex);
+                Assert.Equal(left.Segments.Count, right.Segments.Count);
+                Assert.Equal(left.Segments.Select(s => (s.Direction.Z, s.Direction.Y)),
+                    right.Segments.Select(s => (s.Direction.Z, s.Direction.Y)));
+            }
         }
         Assert.Equal(optic.Paraxial.EstimateEffectiveFocalLength(), result.Summary.EffectiveFocalLength, 12);
         Assert.Equal(optic.Paraxial.EstimateFNumber(), result.Summary.FNumber, 12);
@@ -73,7 +100,7 @@ public sealed class ViewerConfigurationTests
         Assert.Equal(revision, result.SourceRevision);
         Assert.Equal(revision, app.Events.Revision);
         Assert.Equal(active, app.MultiConfiguration.GetNavigationState().ActiveIndex);
-        var current = await app.Visualization.BuildSceneAsync(SceneDimension.TwoDimensional);
+        var current = await app.Visualization.BuildSceneAsync(dimension);
         Assert.Equal(active + 1, current.Configuration!.Number);
         Assert.NotEqual(current.Summary.EffectiveFocalLength, result.Summary.EffectiveFocalLength);
     }
@@ -115,10 +142,17 @@ public sealed class ViewerConfigurationTests
     }
 
     [Theory]
-    [InlineData("Light", "zh-CN", 1000)]
-    [InlineData("Dark", "en-US", 360)]
-    [InlineData("Light", "ja-JP", 600)]
-    public async Task ToolbarSelectsOnlyIndividualConfigurationsAndFitsBesideRefresh(string theme, string language, int width)
+    [InlineData(SceneDimension.TwoDimensional, ViewerPresentationMode.OpticalLayout, "Light", "zh-CN", 1000)]
+    [InlineData(SceneDimension.TwoDimensional, ViewerPresentationMode.OpticalLayout, "Dark", "en-US", 360)]
+    [InlineData(SceneDimension.TwoDimensional, ViewerPresentationMode.OpticalLayout, "Light", "ja-JP", 600)]
+    [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.OpticalLayout, "Light", "zh-CN", 1000)]
+    [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.OpticalLayout, "Dark", "en-US", 360)]
+    [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.OpticalLayout, "Light", "ja-JP", 600)]
+    [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel, "Light", "zh-CN", 1000)]
+    [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel, "Dark", "en-US", 360)]
+    [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel, "Light", "ja-JP", 600)]
+    public async Task ToolbarSelectsOnlyIndividualConfigurationsAndFitsBesideRefresh(
+        SceneDimension dimension, ViewerPresentationMode presentationMode, string theme, string language, int width)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(ViewerConfigurationTests));
         await session.Dispatch(async () =>
@@ -128,7 +162,7 @@ public sealed class ViewerConfigurationTests
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
             using var app = WorkbenchApplication.Create();
             await app.Documents.OpenAsync(ConfigurationMatrixAnalysisTests.ZoomPath());
-            using var viewer = new ViewerPanel(app.Visualization, app.Events, new SurfaceSelectionService(), SceneDimension.TwoDimensional);
+            using var viewer = new ViewerPanel(app.Visualization, app.Events, new SurfaceSelectionService(), dimension, presentationMode);
             var window = new Window { Content = viewer, Width = width, Height = 700 };
             try
             {
@@ -145,23 +179,30 @@ public sealed class ViewerConfigurationTests
                 Assert.True(pickerBounds.Left >= refreshBounds.Right);
                 Assert.InRange(Math.Abs(pickerBounds.Center.Y - refreshBounds.Center.Y), 0, 1);
                 Assert.InRange(pickerBounds.Right, 0, width);
-                var rayToggle = viewer.GetVisualDescendants().OfType<CheckBox>().Single(control => control.Name == "Viewer2DShowRays");
+                var rayToggle = viewer.GetVisualDescendants().OfType<CheckBox>()
+                    .Single(control => control.Name == (dimension == SceneDimension.TwoDimensional ? "Viewer2DShowRays" : "Viewer3DShowRays"));
                 var rayBounds = InWindow(rayToggle, window);
                 Assert.True(pickerBounds.Right <= rayBounds.Left || pickerBounds.Bottom <= rayBounds.Top);
                 Assert.Equal(UiLocalization.Text("结构"), AutomationProperties.GetName(picker));
-                Assert.Equal(UiLocalization.Text("选择二维图显示的结构"), ToolTip.GetTip(picker));
+                Assert.Equal(UiLocalization.Text(dimension == SceneDimension.TwoDimensional
+                    ? "选择二维图显示的结构" : "选择三维图显示的结构"), ToolTip.GetTip(picker));
                 var revision = app.Events.Revision;
-                var first = Scene(viewer)!.TwoDimensional!;
+                var first = Scene(viewer)!;
                 picker.SelectedIndex = 2;
                 Assert.Null(Scene(viewer));
                 await WaitForScene(viewer, window, 3);
                 Assert.Equal(revision, app.Events.Revision);
                 Assert.Equal(0, app.MultiConfiguration.GetNavigationState().ActiveIndex);
-                Assert.NotEqual(first.Surfaces.SelectMany(surface => surface.Points),
-                    Scene(viewer)!.TwoDimensional!.Surfaces.SelectMany(surface => surface.Points));
-                Capture(window, $"viewer2d-configuration-{theme}-{language}-{width}.png");
+                if (dimension == SceneDimension.TwoDimensional)
+                    Assert.NotEqual(first.TwoDimensional!.Surfaces.SelectMany(surface => surface.Points),
+                        Scene(viewer)!.TwoDimensional!.Surfaces.SelectMany(surface => surface.Points));
+                else
+                    Assert.NotEqual(first.ThreeDimensional!.Surfaces.SelectMany(surface => surface.Rim),
+                        Scene(viewer)!.ThreeDimensional!.Surfaces.SelectMany(surface => surface.Rim));
+                var captureName = $"viewer-{dimension}-{presentationMode}-configuration-{theme}-{language}-{width}";
+                Capture(window, $"{captureName}.png");
                 picker.IsDropDownOpen = true; Tick(window);
-                Capture(window, $"viewer2d-configuration-{theme}-{language}-{width}-choices.png");
+                Capture(window, $"{captureName}-choices.png");
                 picker.IsDropDownOpen = false;
                 UiLocalization.Apply(UiLocalization.Chinese); Tick(window);
                 Assert.Equal("结构", AutomationProperties.GetName(picker));
@@ -172,14 +213,18 @@ public sealed class ViewerConfigurationTests
         }, CancellationToken.None);
     }
 
-    [Fact]
-    public async Task DefaultFollowsActiveButExplicitSelectionSurvivesEditsAndResetsOnFileSwitchEvenWhenLocked()
+    [Theory]
+    [InlineData(SceneDimension.TwoDimensional, ViewerPresentationMode.OpticalLayout)]
+    [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.OpticalLayout)]
+    [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel)]
+    public async Task DefaultFollowsActiveButExplicitSelectionSurvivesEditsAndResetsOnFileSwitchEvenWhenLocked(
+        SceneDimension dimension, ViewerPresentationMode presentationMode)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(ViewerConfigurationTests));
         await session.Dispatch(async () =>
         {
             using var app = WorkbenchApplication.Create();
-            using var viewer = new ViewerPanel(app.Visualization, app.Events, new SurfaceSelectionService(), SceneDimension.TwoDimensional);
+            using var viewer = new ViewerPanel(app.Visualization, app.Events, new SurfaceSelectionService(), dimension, presentationMode);
             var window = new Window { Content = viewer, Width = 900, Height = 600 };
             try
             {
@@ -217,7 +262,7 @@ public sealed class ViewerConfigurationTests
     }
 
     private static ComboBox Picker(ViewerPanel viewer) => viewer.GetVisualDescendants().OfType<ComboBox>()
-        .Single(control => control.Name == "Viewer2DConfigurationPicker");
+        .Single(control => control.Name is "Viewer2DConfigurationPicker" or "Viewer3DConfigurationPicker");
     private static SceneDto? Scene(ViewerPanel viewer) => viewer.GetVisualDescendants().OfType<OpticSceneControl>().Single().Scene;
     private static Rect InWindow(Control control, Window window) => new(control.TranslatePoint(default, window)!.Value, control.Bounds.Size);
     private static void Tick(Window window)

@@ -7,6 +7,9 @@ namespace OpticalSystemDesign.InitialStructure.Contracts;
 /// <summary>Pure managed C# differentiation without a foreign runtime dependency.</summary>
 public sealed record AutoLensManagedSettings
 {
+    // Omitted historical settings retain CPU execution and their specification identity.
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public DesignComputeMode ComputeMode { get; init; }
     public int CurriculumIterations { get; init; } = 2000;
     public int RefinementIterations { get; init; } = 3000;
     public bool OptimizeMaterials { get; init; } = true;
@@ -33,6 +36,16 @@ public sealed record AutoLensManagedStep(AutoLensManagedPhase Phase, int Iterati
 /// <summary>Evaluated design state, never a physical acceptance certificate.</summary>
 public sealed record AutoLensManagedState
 {
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public Core.Raytrace.SequentialGpuExecution? PropagationExecution { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public DesignComputeExecution? LastComputeExecution { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public long GpuBatches { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public long GpuRays { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public double GpuMilliseconds { get; init; }
     public int SchemaVersion { get; init; } = 1;
     public string SpecificationFingerprint { get; init; } = "";
     public string AllowedGlassFingerprint { get; init; } = "";

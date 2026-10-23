@@ -2,21 +2,19 @@ using OpticalSystemDesign.Core.Backend;
 
 namespace OpticalSystemDesign.Core.Geometries;
 
-internal static class GeometryIntersectionSolver
+internal static partial class GeometryIntersectionSolver
 {
     private const int MaximumNewtonIterations = 48;
     private const int MaximumBracketIterations = 96;
     private const double MinimumDerivative = 1e-13;
     private const double TangentIncidenceCosine = 1e-4;
 
-    public static IntersectionResult Solve(
+    [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+    public static IntersectionResult Solve<T>(
         Vector3D origin,
         Vector3D direction,
-        Func<double, double, double> sag,
-        Func<Vector3D, Vector3D> normal)
+        T equation) where T : struct, ISurfaceEquation
     {
-        ArgumentNullException.ThrowIfNull(sag);
-        ArgumentNullException.ThrowIfNull(normal);
         if (!IsFinite(origin) || !IsFiniteNonZero(direction))
         {
             return IntersectionResult.Failure(IntersectionStatus.InvalidInput);
@@ -31,11 +29,11 @@ internal static class GeometryIntersectionSolver
 
         for (; iterations < MaximumNewtonIterations; iterations++)
         {
-            if (!TryEvaluate(origin, direction, currentDistance, sag, out var current)) break;
+            if (!TryEvaluate(origin, direction, currentDistance, equation, out var current)) break;
             best = Better(best, current);
             if (IsConverged(current))
             {
-                return CreateVerifiedResult(origin, direction, current.Distance, sag, normal,
+                return CreateVerifiedResult(origin, direction, current.Distance, equation,
                     iterations + 1, current.ConditionEstimate);
             }
 
@@ -56,7 +54,7 @@ internal static class GeometryIntersectionSolver
             var accepted = false;
             for (var backtrack = 0; backtrack < 16; backtrack++)
             {
-                if (TryEvaluate(origin, direction, proposed, sag, out var candidate)
+                if (TryEvaluate(origin, direction, proposed, equation, out var candidate)
                     && (Math.Abs(candidate.Residual) < Math.Abs(current.Residual)
                         || OppositeSigns(current.Residual, candidate.Residual)))
                 {
@@ -72,12 +70,12 @@ internal static class GeometryIntersectionSolver
             if (!accepted) break;
         }
 
-        var search = FindForwardBracket(origin, direction, initial, sag, best);
+        var search = FindForwardBracket(origin, direction, initial, equation, best);
         best = Better(best, search.Best);
         bracket ??= search.Bracket;
         if (best is { } sampled && IsConverged(sampled))
         {
-            return CreateVerifiedResult(origin, direction, sampled.Distance, sag, normal,
+            return CreateVerifiedResult(origin, direction, sampled.Distance, equation,
                 iterations, sampled.ConditionEstimate);
         }
 
@@ -99,10 +97,10 @@ internal static class GeometryIntersectionSolver
                     candidateDistance = Midpoint(lower.Distance, upper.Distance);
                 }
 
-                if (!TryEvaluate(origin, direction, candidateDistance, sag, out var candidate))
+                if (!TryEvaluate(origin, direction, candidateDistance, equation, out var candidate))
                 {
                     candidateDistance = Midpoint(lower.Distance, upper.Distance);
-                    if (!TryEvaluate(origin, direction, candidateDistance, sag, out candidate))
+                    if (!TryEvaluate(origin, direction, candidateDistance, equation, out candidate))
                     {
                         return best is { } domainCandidate
                             ? CandidateFailure(IntersectionStatus.DomainError, domainCandidate, iterations)
@@ -114,7 +112,7 @@ internal static class GeometryIntersectionSolver
                 if (IsConverged(candidate)
                     || Math.Abs(upper.Distance - lower.Distance) <= DistanceTolerance(candidate.Distance))
                 {
-                    return CreateVerifiedResult(origin, direction, candidate.Distance, sag, normal,
+                    return CreateVerifiedResult(origin, direction, candidate.Distance, equation,
                         iterations, candidate.ConditionEstimate);
                 }
 
@@ -132,18 +130,18 @@ internal static class GeometryIntersectionSolver
 
         return CandidateFailure(
             bracket is null ? IntersectionStatus.NoRoot : IntersectionStatus.MaxIterations,
-            best.Value,
+            best.GetValueOrDefault(),
             iterations);
     }
 
-    public static IntersectionResult CreateVerifiedResult(
+    [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+    public static IntersectionResult CreateVerifiedResult<T>(
         Vector3D origin,
         Vector3D direction,
         double distance,
-        Func<double, double, double> sag,
-        Func<Vector3D, Vector3D> normal,
+        T equation,
         int iterations,
-        double? conditionEstimate = null)
+        double? conditionEstimate = null) where T : struct, ISurfaceEquation
     {
         if (!double.IsFinite(distance) || distance < 0)
         {
@@ -151,7 +149,7 @@ internal static class GeometryIntersectionSolver
         }
 
         var point = origin + (direction * distance);
-        var surfaceSag = sag(point.X, point.Y);
+        var surfaceSag = equation.Sag(point.X, point.Y);
         if (!double.IsFinite(surfaceSag))
         {
             return new IntersectionResult(
@@ -169,7 +167,7 @@ internal static class GeometryIntersectionSolver
                 residual, iterations, conditionEstimate ?? double.PositiveInfinity);
         }
 
-        var surfaceNormal = normal(point);
+        var surfaceNormal = equation.Normal(point);
         if (!IsFiniteNonZero(surfaceNormal))
         {
             return new IntersectionResult(
@@ -192,12 +190,13 @@ internal static class GeometryIntersectionSolver
 
     public static bool IsFiniteNonZero(Vector3D value) => IsFinite(value) && value.Length > 1e-15;
 
-    private static SearchResult FindForwardBracket(
+    [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+    private static SearchResult FindForwardBracket<T>(
         Vector3D origin,
         Vector3D direction,
         double initial,
-        Func<double, double, double> sag,
-        Evaluation? existingBest)
+        T equation,
+        Evaluation? existingBest) where T : struct, ISurfaceEquation
     {
         var best = existingBest;
         var upper = Math.Max(1, initial + Math.Max(1, Math.Abs(initial) * 0.25));
@@ -209,7 +208,7 @@ internal static class GeometryIntersectionSolver
             for (var index = 0; index <= subdivisions; index++)
             {
                 var distance = upper * index / subdivisions;
-                if (!TryEvaluate(origin, direction, distance, sag, out var sample))
+                if (!TryEvaluate(origin, direction, distance, equation, out var sample))
                 {
                     sawDomainError = true;
                     previous = null;
@@ -232,19 +231,20 @@ internal static class GeometryIntersectionSolver
         return new SearchResult(null, best, sawDomainError);
     }
 
-    private static bool TryEvaluate(
+    [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+    private static bool TryEvaluate<T>(
         Vector3D origin,
         Vector3D direction,
         double distance,
-        Func<double, double, double> sag,
-        out Evaluation evaluation)
+        T equation,
+        out Evaluation evaluation) where T : struct, ISurfaceEquation
     {
         evaluation = default;
         if (!double.IsFinite(distance) || distance < 0) return false;
         var point = origin + (direction * distance);
-        var surfaceSag = sag(point.X, point.Y);
+        var surfaceSag = equation.Sag(point.X, point.Y);
         if (!double.IsFinite(surfaceSag)
-            || !TrySagGradient(sag, point.X, point.Y, surfaceSag, out var dzdx, out var dzdy))
+            || !TrySagGradient(equation, point.X, point.Y, surfaceSag, out var dzdx, out var dzdy))
         {
             return false;
         }
@@ -258,18 +258,18 @@ internal static class GeometryIntersectionSolver
         return double.IsFinite(residual);
     }
 
-    private static bool TrySagGradient(
-        Func<double, double, double> sag,
+    private static bool TrySagGradient<T>(
+        T equation,
         double x,
         double y,
         double center,
         out double dzdx,
-        out double dzdy)
+        out double dzdy) where T : struct, ISurfaceEquation
     {
         var hx = Math.Max(1e-8, 2e-6 * Math.Max(1, Math.Abs(x)));
         var hy = Math.Max(1e-8, 2e-6 * Math.Max(1, Math.Abs(y)));
-        dzdx = Derivative(sag(x - hx, y), center, sag(x + hx, y), hx);
-        dzdy = Derivative(sag(x, y - hy), center, sag(x, y + hy), hy);
+        dzdx = Derivative(equation.Sag(x - hx, y), center, equation.Sag(x + hx, y), hx);
+        dzdy = Derivative(equation.Sag(x, y - hy), center, equation.Sag(x, y + hy), hy);
         return double.IsFinite(dzdx) && double.IsFinite(dzdy);
     }
 
@@ -292,7 +292,7 @@ internal static class GeometryIntersectionSolver
     private static Evaluation? Better(Evaluation? current, Evaluation? candidate)
     {
         if (candidate is null) return current;
-        return current is null || Math.Abs(candidate.Value.Residual) < Math.Abs(current.Value.Residual)
+        return current is null || Math.Abs(candidate.GetValueOrDefault().Residual) < Math.Abs(current.GetValueOrDefault().Residual)
             ? candidate
             : current;
     }

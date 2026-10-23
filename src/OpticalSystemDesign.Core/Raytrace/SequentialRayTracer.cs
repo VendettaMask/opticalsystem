@@ -332,7 +332,7 @@ public sealed partial class SequentialRayTracer
         {
             cacheKey = RayTraceCacheKey.Create(
                 _cacheOpticRevision,
-                _optic.Backend.Current.Name,
+                _optic.Backend.Current.Name + (SequentialGpuSession.Current is { Enabled: true } ? "/cuda-propagation-v1" : ""),
                 request,
                 retainedSurfaceIndices,
                 bundle.Rays);
@@ -373,7 +373,9 @@ public sealed partial class SequentialRayTracer
 
         try
         {
-            TraceSurfaceMajor(
+            var usedGpu=TryTraceGpu(bundle,request,surfaceSlots,maximumRequiredSurface,samples,hasSamples,finalOpticalPaths,hasFinalOpticalPath);
+            if (!usedGpu)
+                TraceSurfaceMajor(
                 bundle,
                 request,
                 surfaces,
@@ -403,7 +405,7 @@ public sealed partial class SequentialRayTracer
                 _optic.SurfaceGroup.RecordTrace(BuildSurfaceTraceData(surfaces, histories));
             }
 
-            if (cacheKey is not null)
+            if (cacheKey is not null && (SequentialGpuSession.Current is not {Enabled:true} || usedGpu))
             {
                 _traceCache?.Store(cacheKey, samples, hasSamples, sampleCount);
             }

@@ -1,6 +1,7 @@
 using System.Globalization;
 using OpticalSystemDesign.Modules;
 using OpticalSystemDesign.InitialStructure.Contracts;
+using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.App.Laboratories.InitialStructure;
 
@@ -79,6 +80,13 @@ internal sealed class CandidateRow(int number, FamilyTrial trial, bool inherited
                 + (measuredTraces ? "次真实光线追迹计算（含瞄准与诊断）。" : "个分析光线采样（历史计数，不含全部瞄准开销）。")
         };
         if (IncompleteAreaEvaluation) lines.Add("完整口径追迹失败；逐视场光斑值仅供诊断，不代表完整口径像质。RMS 与最大半径目标无法判定。");
+        if (Trial.AutoLensState?.LastComputeExecution is { } execution)
+            lines.Add(UiLocalization.Text("计算设备") + "：" + (execution.GpuBatches > 0 ? "GPU · " + execution.DeviceName : "CPU")
+                + (execution.FallbackReason is { } reason ? " · " + reason : ""));
+        if (Trial.AutoLensState?.PropagationExecution is { Batches: >0 } propagation)
+            lines.Add("GPU · " + propagation.DeviceName + " · " + UiLocalization.Text("GPU 瞄准光线") + " " + propagation.AimRays
+                + " · " + UiLocalization.Text("GPU 追迹光线") + " " + propagation.PropagatedRays
+                + " · " + UiLocalization.Text("CPU 恢复光线") + " " + propagation.CpuRecoveryRays);
         if (checkpoint.Origin is { } origin) lines.Add($"本次是追加细化；来源运行已用 {origin.ChargedEvaluations} 次评价，未计入本次新预算。来源记录：{origin.RunId}");
         lines.Add("差距与约束：");
         lines.AddRange(Candidate.Violations.Count == 0 ? ["完整规格的最终验收通过。"] : Candidate.Violations.Select(violation =>

@@ -416,6 +416,8 @@ internal static class UiLocalization
 
         Add("选择二维图显示的结构", "Choose the configuration shown in the 2D view", "2D ビューに表示する構成を選択");
         Add("仅切换此二维图显示的结构，不改变活动结构。", "Changes this 2D view only; the active configuration stays unchanged.", "この 2D ビューのみ切り替え、アクティブ構成は変更しません。");
+        Add("选择三维图显示的结构", "Choose the configuration shown in the 3D view", "3D ビューに表示する構成を選択");
+        Add("仅切换此三维图显示的结构，不改变活动结构。", "Changes this 3D view only; the active configuration stays unchanged.", "この 3D ビューのみ切り替え、アクティブ構成は変更しません。");
 
         // Initial-structure presentation; numeric values and search identities are not localized.
         Add("自动初始结构", "Automatic Initial Structure", "初期構造の自動生成");
@@ -433,6 +435,16 @@ internal static class UiLocalization
         Add("运行预算", "Run Budget", "実行予算");
         Add("计算后端：共享 Core · C# CPU", "Backend: shared Core · C# CPU", "計算基盤：共有 Core · C# CPU");
         Add("AutoLens 参数", "AutoLens Settings", "AutoLens 設定");
+        Add("GPU 瞄准光线", "GPU aimed rays", "GPU 照準光線");
+        Add("GPU 追迹光线", "GPU traced rays", "GPU 追跡光線");
+        Add("CPU 恢复光线", "CPU recovery rays", "CPU 復旧光線");
+        Add("计算设备", "Compute Device", "計算デバイス");
+        Add("设备检测", "Detected Device", "検出デバイス");
+        Add("计算设备状态", "Compute Device Status", "計算デバイスの状態");
+        Add("自动（优先 GPU）", "Automatic (Prefer GPU)", "自動（GPU 優先）");
+        Add("正在检测 GPU…", "Detecting GPU…", "GPU を確認中…");
+        Add("GPU 不可用，自动模式使用 CPU。", "GPU unavailable; automatic mode uses CPU.", "GPU が利用できないため、自動モードでは CPU を使用します。");
+        Add("GPU 不可用，请选择自动或 CPU。", "GPU unavailable. Select Automatic or CPU.", "GPU が利用できません。自動または CPU を選択してください。");
         Add("起始形式与光阑位置", "Starting Form and Stop", "初期形態と絞り位置");
         Add("候选细化预算", "Refinement Budget", "候補の改良予算");
         Add("候选方案", "Candidates", "候補設計");
@@ -537,13 +549,14 @@ internal static class UiLocalization
         Add("镜片外径按真实光束包络增减；实体光阑的通光口径由系统入瞳标定，不随镜片裕量放大。", "Lens diameters follow the actual ray envelope. The physical stop is calibrated to the entrance pupil, not enlarged by the lens margin.", "レンズ外径は実際の光束包絡に合わせます。実体絞りは入射瞳で校正し、レンズ余裕係数では拡大しません。");
         Add("AutoLens 使用实体光阑和光线瞄准。", "AutoLens requires a physical stop and ray aiming.", "AutoLens は実体絞りと光線照準を使用します。");
         Add("评价和时间预算始终优先；自动分配两阶段步数，不代表每次都会完成上述步数。", "Evaluation and time budgets take priority. Phase limits are allocated automatically and are not guaranteed iteration counts.", "評価回数と時間予算を優先します。2段階のステップは自動配分され、指定回数の完了を保証しません。");
-        Add("C# 自动求导：共享 Core 导数、渐进口径、真实玻璃匹配后精修。仅支持当前中心旋转对称镜片；CPU 实现，未宣称与原版数值等效。", "C# automatic differentiation uses shared Core derivatives, progressive apertures and real-glass refinement. Limited to supported centered rotationally symmetric lenses; CPU only, without upstream numerical-equivalence claims.", "C# 自動微分は共有 Core の導関数、段階的な口径、実在ガラス照合後の改良を使用します。対応する中心回転対称レンズのみで、CPU 実装です。原版との数値同等性は主張しません。");
+        Add("C# 自动求导：共享 Core 导数、渐进口径、真实玻璃匹配后精修。GPU 加速瞄准、正式追迹、批量梯度与密集物理验收；使用原采样和验收标准，未宣称与原版数值等效。", "C# automatic differentiation uses shared Core derivatives, progressive apertures and real-glass refinement. GPU accelerates aiming, formal tracing, batched gradients and dense physical validation with the original sampling and acceptance criteria. No upstream numerical-equivalence claim.", "C# 自動微分は共有 Core の導関数、段階的な口径、実在ガラス照合後の改良を使用します。GPU は照準、正式な追跡、勾配、密な物理判定を元のサンプリングと基準で並列計算します。原版との数値同等性は主張しません。");
         Add("旧算法记录仅供查看和导出；新实验统一使用 AutoLens。", "Legacy algorithm records are available for viewing and export; new runs use AutoLens.", "旧アルゴリズムの記録は表示と出力のみ可能です。新しい実行には AutoLens を使用します。");
         Add("枚举正负初始形式，再比较与优化候选。+ / - 指起始方向，优化中可改变。自动厚度与空气隙使用目标页中的最小值。", "Enumerate signed starting forms, then compare and refine candidates. + / - are starting directions and may change during optimization. Automatic thickness and air gaps use the Targets tab minima.", "正負の初期形態を列挙し、候補を比較・最適化します。+ / - は初期方向であり最適化中に変わる場合があります。自動厚さ・空気間隔には目標タブの最小値を使用します。");
         Add("追加细化使用选中方案的原目标和新预算；不改变原实验。", "Refinement uses the selected candidate's original targets and a new budget; the source run stays unchanged.", "追加改良では選択候補の元の目標と新予算を使用し、元の実行は変更しません。");
 
         // Official AutoLens targets remain explicitly distinguished from upstream solutions.
         Add("AutoLens 官方目标预设", "AutoLens Official Target Presets", "AutoLens 公式目標プリセット");
+        Add("原生 C# 适配 · 非官方成功处方 · 每次上限 4000 次评价 / 1 分钟", "Native C# adaptation · Not an upstream solved prescription · Up to 4000 evaluations / 1 minute", "C# 実装 · 公式の完成処方ではありません · 4000 回評価 / 1 分が上限");
         Add("载入预设", "Load Preset", "プリセットを読み込む");
         Add("预设来源与适配说明", "Preset Source and Adaptations", "プリセットの出典と調整内容");
         Add("选择官方目标预设；载入不会自动开始搜索。", "Choose an official target; loading does not start a search.", "公式目標を選択してください。読み込みだけでは探索を開始しません。");

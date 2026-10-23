@@ -7,7 +7,7 @@ internal static class StandardIntersectionValidation
     // validation. Preserve every already accepted ordinary intersection.
     internal static (double First, double Second) StableQuadraticRoots(double a, double b, double c, double squareRoot)
     {
-        var q = -0.5 * (b + Math.CopySign(squareRoot, b));
+        var q = -0.5 * (b + ScalarSign.CopySign(squareRoot, b));
         return q == 0 ? (0, 0) : (q / a, c / q);
     }
 

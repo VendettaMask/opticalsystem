@@ -12,6 +12,19 @@
           "SkiaSharp.NativeAssets.macOS": "3.119.4"
         }
       },
+      "ILGPU": {
+        "type": "Transitive",
+        "resolved": "1.5.3",
+        "contentHash": "VhAfQqnp/qTcQla5zcBPQIoUJox8T1EuZLuKrynFFE1BQvOOUCksiCb9IQAJa2MSJf6QDi5YIoG45K0I+GWcgg=="
+      },
+      "ILGPU.Algorithms": {
+        "type": "Transitive",
+        "resolved": "1.5.3",
+        "contentHash": "KySqYhghiJKkf77NTLcxebFzD2hz/hpO1Dxz/B0IpnowhwKD3i+PVaGa3E+TXahGHY6711HVOWpKr07wV6qEOg==",
+        "dependencies": {
+          "ILGPU": "1.5.3"
+        }
+      },
       "SkiaSharp.NativeAssets.macOS": {
         "type": "Transitive",
         "resolved": "3.119.4",
@@ -23,7 +36,11 @@
         "contentHash": "XOpbx/4CReO2wYsq2s6rbvdauc6dntG4Zv499sHGTJ87bwZaFXszFkwql3+FIZMc8kUPeaj3Mx2ezIJmo8a1Kg=="
       },
       "opticalsystemdesign.core": {
-        "type": "Project"
+        "type": "Project",
+        "dependencies": {
+          "ILGPU": "[1.5.3, )",
+          "ILGPU.Algorithms": "[1.5.3, )"
+        }
       }
     }
   }

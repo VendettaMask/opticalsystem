@@ -3,6 +3,8 @@ using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Differentiation;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Rays;
+using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Materials;
 
 namespace OpticalSystemDesign.Core.Raytrace;
 
@@ -17,9 +19,10 @@ public sealed partial class SequentialRayTracer
     /// a value mismatch cannot be turned into a zero gradient or an accepted ray.
     /// </summary>
     internal DesignRaySensitivity TraceDesignSensitivity(RealRay source, OpticalDifferentialContext context,
-        int stopIndex, DifferentialScalar targetX, DifferentialScalar targetY, CancellationToken cancellationToken)
+        int stopIndex, DifferentialScalar targetX, DifferentialScalar targetY, CancellationToken cancellationToken,
+        SequentialGpuSample[]? nominalSamples=null,int nominalOffset=0)
     {
-        SequentialTraceMeasurement.Record(1);
+        if (nominalSamples is null) SequentialTraceMeasurement.Record(1);
         var ray = RayState.FromRealRay(source.Normalize());
         var material = ResolveMaterial("Air");
         var path = 0.0;
@@ -36,7 +39,7 @@ public sealed partial class SequentialRayTracer
         {
             cancellationToken.ThrowIfCancellationRequested();
             var surface = _optic.SurfaceGroup.Items[index];
-            var result = TraceSequentialSurface(surface, index, ray, material, path, opticalPath,
+            var result = nominalSamples is not null ? NominalResult(nominalSamples[nominalOffset+index],index,material) : TraceSequentialSurface(surface, index, ray, material, path, opticalPath,
                 ignorePhysicalAperture: true, bypassCoating: true,
                 allowVirtualIntersection: AllowsReferenceBacktrack(_optic.SurfaceGroup.Items, index),
                 ignoreMaterialAbsorption: true);
@@ -90,9 +93,9 @@ public sealed partial class SequentialRayTracer
                 nextX /= length;
                 nextY /= length;
                 nextZ /= length;
-                OpticalDifferentialContext.Verify(nextX, result.Ray.Direction.X, "refraction X");
-                OpticalDifferentialContext.Verify(nextY, result.Ray.Direction.Y, "refraction Y");
-                OpticalDifferentialContext.Verify(nextZ, result.Ray.Direction.Z, "refraction Z");
+                OpticalDifferentialContext.Verify(nextX, result.Ray.Direction.X, $"refraction X at surface {index}");
+                OpticalDifferentialContext.Verify(nextY, result.Ray.Direction.Y, $"refraction Y at surface {index}");
+                OpticalDifferentialContext.Verify(nextZ, result.Ray.Direction.Z, $"refraction Z at surface {index}");
                 var bend = dx * nextX + dy * nextY + dz * nextZ;
                 if (bend.Value < minimumBend.Value) minimumBend = bend;
                 dx = nextX.WithValue(result.Ray.Direction.X);
@@ -117,6 +120,17 @@ public sealed partial class SequentialRayTracer
         var determinant = a * d - b * c;
         if (!double.IsFinite(determinant) || Math.Abs(determinant) < 1e-12)
             throw new ArithmeticException("The stop aiming Jacobian is singular.");
+        if (DifferentialTape.Current is not null)
+        {
+            var ex = targetX - stopX;
+            var ey = targetY - stopY;
+            var lx = (d * ex - b * ey) / determinant;
+            var ly = (a * ey - c * ex) / determinant;
+            return new(ConstrainTape(ox), ConstrainTape(oy), ConstrainTape(dz), ConstrainTape(minimumClearance), ConstrainTape(minimumBend));
+
+            DifferentialScalar ConstrainTape(DifferentialScalar value) =>
+                (value + value.Derivative(parameterCount) * lx + value.Derivative(parameterCount + 1) * ly).WithValue(value.Value);
+        }
         var launchX = new double[parameterCount];
         var launchY = new double[parameterCount];
         for (var index = 0; index < parameterCount; index++)
@@ -135,6 +149,17 @@ public sealed partial class SequentialRayTracer
                 gradient[index] = value.Derivative(index) + value.Derivative(parameterCount) * launchX[index]
                     + value.Derivative(parameterCount + 1) * launchY[index];
             return DifferentialScalar.FromGradient(value.Value, gradient);
+        }
+
+        SurfaceRayTraceStateResult NominalResult(SequentialGpuSample v,int index,IMaterial before)
+        {
+            var surface=_optic.SurfaceGroup.Items[index];
+            var outgoing=index==0 || v.Kind==(int)RayInteractionKind.Transmitted ? surface.MaterialAfter : before;
+            var kind=v.Kind<0 ? (RayInteractionKind?)null : (RayInteractionKind)v.Kind;
+            var state=new RayState(v.Point,v.Direction,source.WavelengthNanometers,v.Intensity,v.Opd,null,true);
+            return new(state,GpuSample(v,index),index==0 ? outgoing.RefractiveIndex(source.WavelengthNanometers)
+                : kind==RayInteractionKind.Transmitted ? v.After : v.Before,outgoing,kind,v.Path,v.OpticalPath,
+                v.Present==0 || v.Miss!=0 || v.Blocked!=0 || !state.CanTrace);
         }
     }
 }

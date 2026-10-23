@@ -1,0 +1,117 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-23",
+  "BaseCommit": "450f19c648f9fc2f5777bc1a1146df2d446d45ed",
+  "WorkingTreeDirty": true,
+  "Scope": "Add independent configuration selection to sequential 3D Layout and Solid Model, sharing existing 2D snapshot selection and responsive top toolbar behavior.",
+  "SourceHashes": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs",
+      "Sha256": "bd2756ec8f6ce3a451291b2d4d7fa4f1bfdbfa5455b19a782aa4062c4be39e23"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.cs",
+      "Sha256": "ce61b08a35528fd2e791c97245fe95e29287c4bdaf4adc1743455853449947c8"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "Sha256": "03116ee3f6212c1dda00d5a514ae6c145e9ac130777a321ebc4d36c5e562f577"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/ViewerConfigurationTests.cs",
+      "Sha256": "41010819e1b4230633addaa44705ebf42a6b87ee8d1d9079392bd69f4ed8ad5b"
+    }
+  ],
+  "TestRuns": [
+    {
+      "File": "viewer3d-configuration.trx",
+      "Total": 40,
+      "Passed": 40,
+      "Failed": 0,
+      "Sha256": "71e698ddc535e7483144b8b80c820423fc7ddc675b31fcc3acfea8c3e65d1688"
+    },
+    {
+      "File": "viewer3d-configuration-skia.trx",
+      "Total": 9,
+      "Passed": 9,
+      "Failed": 0,
+      "Sha256": "d3c45193b8202b32cb1c8a5bcc47928989fde5cbdd0cc7326113572012a4145a"
+    }
+  ],
+  "DistinctPassingCases": 40,
+  "SkiaRepeatsExistingCases": true,
+  "Captures": [
+    "viewer-ThreeDimensional-OpticalLayout-configuration-Dark-en-US-360-choices.png",
+    "viewer-ThreeDimensional-OpticalLayout-configuration-Dark-en-US-360.png",
+    "viewer-ThreeDimensional-OpticalLayout-configuration-Light-ja-JP-600-choices.png",
+    "viewer-ThreeDimensional-OpticalLayout-configuration-Light-ja-JP-600.png",
+    "viewer-ThreeDimensional-OpticalLayout-configuration-Light-zh-CN-1000-choices.png",
+    "viewer-ThreeDimensional-OpticalLayout-configuration-Light-zh-CN-1000.png",
+    "viewer-ThreeDimensional-SolidModel-configuration-Dark-en-US-360-choices.png",
+    "viewer-ThreeDimensional-SolidModel-configuration-Dark-en-US-360.png",
+    "viewer-ThreeDimensional-SolidModel-configuration-Light-ja-JP-600-choices.png",
+    "viewer-ThreeDimensional-SolidModel-configuration-Light-ja-JP-600.png",
+    "viewer-ThreeDimensional-SolidModel-configuration-Light-zh-CN-1000-choices.png",
+    "viewer-ThreeDimensional-SolidModel-configuration-Light-zh-CN-1000.png",
+    "viewer-TwoDimensional-OpticalLayout-configuration-Dark-en-US-360-choices.png",
+    "viewer-TwoDimensional-OpticalLayout-configuration-Dark-en-US-360.png",
+    "viewer-TwoDimensional-OpticalLayout-configuration-Light-ja-JP-600-choices.png",
+    "viewer-TwoDimensional-OpticalLayout-configuration-Light-ja-JP-600.png",
+    "viewer-TwoDimensional-OpticalLayout-configuration-Light-zh-CN-1000-choices.png",
+    "viewer-TwoDimensional-OpticalLayout-configuration-Light-zh-CN-1000.png"
+  ],
+  "VisualInspection": [
+    "3D Layout Light zh-CN 1000 DIP",
+    "Solid Model Dark en-US 360 DIP",
+    "3D Layout Light ja-JP 600 DIP with choices open"
+  ],
+  "Builds": {
+    "Debug": "Default output build succeeded, zero warnings/errors.",
+    "Release": "Default output build succeeded, zero warnings/errors; release-build-final.log."
+  },
+  "InitialIssues": [
+    "Isolated default multi-node test build exited without compiler errors; the single-node Debug build succeeded. initial-build.log retained.",
+    "Isolated testhost did not connect within 90 seconds; run aborted and retained as interrupted-isolated-test.trx. Normal-host rerun passed.",
+    "Initial Release copy failed because the running default Release App held its assemblies. Verified and gracefully closed that exact project process under repository instructions.",
+    "Next Release attempt encountered CS0103 in concurrently edited SequentialRayTracer.Gpu.cs. This task did not edit that file; its required Domain import was present before the final successful rebuild. release-build.log retained."
+  ],
+  "Changes": [
+    "Individual configuration picker beside Settings/Refresh for 3D Layout and Solid Model; hidden for single configurations and non-sequential mode.",
+    "Per-view pinned configuration requests use existing shared Core snapshots, automatic apertures, ray data and footer; main workspace configuration and revision stay unchanged.",
+    "Reuse request-generation and document-revision stale-result guards, immediate scene clearing, and reset/file-switch/invalid-index fallback.",
+    "Use shared top toolbar arrangement to move right controls below selection when narrow; add localized 3D tooltip and accessibility help.",
+    "Extend existing direct-Core and GUI configuration regressions to 3D and Solid Model; synchronize repository and built-in trilingual guide."
+  ],
+  "Boundaries": [
+    "No optical formula or Core source changes by this task.",
+    "Single-configuration display only, no all-configuration overlays or offsets.",
+    "No full test suite, new Zemax numerical certification, installer update or remote publication.",
+    "Unrelated existing and concurrent AutoLens GPU work preserved."
+  ],
+  "EvidenceDirectory": "validation/rechecks/2026-10-23/viewer3d-configuration",
+  "Archive": "validation/rechecks/2026-10-23/viewer3d-configuration-evidence.zip",
+  "DocumentationAudit": {
+    "Passed": true,
+    "Documents": 1052,
+    "BrokenLinks": 0,
+    "FenceIssues": 0,
+    "LocalOnlyLinks": 0,
+    "File": "documentation-audit.json",
+    "Sha256": "427da987df9aa6e4c4fa1d34bcdf59ab308ec1eebd408c91833c0ed28c61d942"
+  },
+  "AssemblyHashes": [
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "c44cbde604e50d712a5d5f0b2c641fb9ce76c265861341f02b26cdf9a371e4f7"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "b96991c99f993c3291959038f17a891474a799c625d7bc712d8ab25307c2abff"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/OpticalSystemDesign.Tests.dll",
+      "Sha256": "184202425174d2b12dc4e594610921ab6d1fba1004cab277181c7098d4b2cab2"
+    }
+  ],
+  "ArchiveSha256": "afad82bd00287e5bc6c5d50326fe13d3e15f6646a801041efb583fdb130a5924"
+}

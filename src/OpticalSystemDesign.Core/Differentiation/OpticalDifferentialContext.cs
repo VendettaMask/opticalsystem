@@ -137,6 +137,6 @@ internal sealed class OpticalDifferentialContext
     internal static void Verify(DifferentialScalar result, double formal, string quantity)
     {
         if (!result.IsFinite || !double.IsFinite(formal) || Math.Abs(result.Value - formal) > 1e-7 * Math.Max(1, Math.Abs(formal)))
-            throw new ArithmeticException($"Formal Core and derivative {quantity} values disagree or are unavailable.");
+            throw new ArithmeticException($"Formal Core and derivative {quantity} values disagree or are unavailable: formal={formal:R}, derivative={result.Value:R}.");
     }
 }

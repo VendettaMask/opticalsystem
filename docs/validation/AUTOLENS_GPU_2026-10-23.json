@@ -1,0 +1,672 @@
+{
+  "Date": "2026-10-23",
+  "Scope": "AutoLens shared-Core CUDA reverse chain-rule gradients; CPU nominal rays, aiming and independent physical acceptance remain authoritative.",
+  "BaseCommit": "450f19c648f9fc2f5777bc1a1146df2d446d45ed",
+  "WorkingTreeDirty": true,
+  "Hardware": {
+    "Name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "Backend": "Real CUDA accelerator, ILGPU 1.5.3; no software emulation",
+    "MemoryMiB": 8151,
+    "ComputeCapability": "12.0",
+    "Driver": "582.05"
+  },
+  "SourceHashes": [
+    {
+      "Path": "AGENTS.md",
+      "Sha256": "3b97d353caacfd59864fc0c7359bb2b340f4e5fcdedce858a054ebd65f57d1ba"
+    },
+    {
+      "Path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/packages.lock.json",
+      "Sha256": "973eda338319abf5a8812ea420a547405355d612c87a03b2fac913eddd6d0add"
+    },
+    {
+      "Path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/packages.lock.json",
+      "Sha256": "ff0a6462fc9a0eb8d0738ce60de110faddaee0274c05dcecdf91d8af0755cb72"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/AutoLensManagedModels.cs",
+      "Sha256": "946824a1b081f1b959067e85d4db16a950cf87e7bf167bb31b66890cb5879175"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/AutoLensManagedStateValidation.cs",
+      "Sha256": "53d7e8e04e32fbe21d1dec3135b1c21f7d64cf25116e002ccd75f773b4b211e2"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/packages.lock.json",
+      "Sha256": "ce23f521044a8decae8bfad68d96542bc531fed389297a02b44aa7e7b9330100"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutoLensManagedDesign.cs",
+      "Sha256": "a4ff282b068450c398a26c823f67e002f9ca73e886902360751ec6dd3b9390c4"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/packages.lock.json",
+      "Sha256": "2f0feaa507e27f327a9daa88af00cbc22e099208428fd0a3da295e0e06deb24f"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/SpecificationValidator.cs",
+      "Sha256": "1aecd5efbbed86d6bb11d5464a24529f88f8944f0fc585cba2047320143ca96a"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Persistence/packages.lock.json",
+      "Sha256": "2f0feaa507e27f327a9daa88af00cbc22e099208428fd0a3da295e0e06deb24f"
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/AutoLensGpuTests.cs",
+      "Sha256": "28b15c825ccabbdf7e398a390c56b209fba138bafb289a1973c0ecdce74122af"
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/FlatStartDesktopTests.cs",
+      "Sha256": "729a8a5dd7acd989f636cca4b479cf0f0ef7bb5f621b4cc9a7ed4ef05ddbca50"
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/packages.lock.json",
+      "Sha256": "ff0a6462fc9a0eb8d0738ce60de110faddaee0274c05dcecdf91d8af0755cb72"
+    },
+    {
+      "Path": "labs/InitialStructure/tools/OpticalSystemDesign.InitialStructure.Benchmarks/packages.lock.json",
+      "Sha256": "896c22ca3546992c4c497ce9584c9a8dbc4c3f2c9cd292c2f12015cb6141e0c3"
+    },
+    {
+      "Path": "scripts/publish-windows.ps1",
+      "Sha256": "5402eba2f1c8ef314e3a74cfc76743d60e7ebb15c19fcbad4d5d3dd09230391b"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/CandidateRow.cs",
+      "Sha256": "2af1ef8588a90cf59b75f242b0731b8900e4d61fe1554c14aa4c8a8dd8a5ed6b"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.cs",
+      "Sha256": "7c6dce0075384935e0277d0e6aa30b8a937afd0741eca223226c6350dc483249"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.Examples.cs",
+      "Sha256": "84ffb84950f9fe956e596e6b200c25beb4273b0558b003fd91b3d6c381a6cc75"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.Inputs.cs",
+      "Sha256": "c45678e1e5002a7787ed2be324b949951e5d5ca98b332bd5e0397604e3fa88c4"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.Workflow.cs",
+      "Sha256": "3daea0f7fe11157989c7a424a307d2c2b252d8ddc3f8d4e0c490f2bfe7042417"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj",
+      "Sha256": "0637d9fc7d62f085dfeb498b786890052468bd11371e7f4e9c6c9205bd081074"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/packages.lock.json",
+      "Sha256": "d0eb266488feca57c559b69c1013da0b6253dbf6ca04996202e75bea712bc0d0"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.cs",
+      "Sha256": "833f9cb29a68a5186cc26c51adaa2a98ea1d9340b91493ce24d98520befb3a66"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "Sha256": "057b9ca4415a04bb9e8cf7cc87ddcc56cc5580c6769508b3e8d02a8907d68478"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/packages.lock.json",
+      "Sha256": "d9124673def2d3bd2ca0b9f4faa554652651c2f2eb61e61cf05e7b6554531de1"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Differentiation/DesignGpu.cs",
+      "Sha256": "bb0f944181dfdde2e5c55e214d1c17cf8b6a1c01c2aae220d118ebe039cbf8b8"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Differentiation/DifferentiableOpticalMetrics.cs",
+      "Sha256": "934367e00021b4609a457d441b6243703ccef776f804e8646c7730cc5cdb5622"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Differentiation/DifferentialScalar.cs",
+      "Sha256": "ea91435cd9c171e5d09b7987a8ed6d682b2c228b88a99c1a1f90ce1f9d392aba"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Differentiation/DifferentialScalar.Tape.cs",
+      "Sha256": "5509291f0031f54b80f1cd5391fc8af6fb237f9d9a472bb10eca30bb12abb061"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Differentiation/DifferentialTape.cs",
+      "Sha256": "abbe0dd2a32b9dd614a010b3ee74eed4a770a4bda0f2a0489a635eae08f0818d"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Differentiation/GpuRaySensitivityBatch.cs",
+      "Sha256": "9a746c2581bb3548b6fba35476c2484ec59631eee79a2cf7454a074f3f274561"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/OpticalSystemDesign.Core.csproj",
+      "Sha256": "16e1a464c0c1deaaf2e8eed7a13438f2b6914af8298d4f8f4b1d54af18743da2"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/packages.lock.json",
+      "Sha256": "9e8e50789ad850a98e9097ce9df62d71798e21d42441773583f9fe657caf365e"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.DesignSensitivity.cs",
+      "Sha256": "3ac47eaa3f708bb9b1d2b115eec6b765292110e23fec280f477e16aa1b5d39af"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Modules/packages.lock.json",
+      "Sha256": "b475030aac9b3b3ddb5e77a6b2f1b73910192032ea8afeab3c30c30d2ebfe04d"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/DesignGpuTests.cs",
+      "Sha256": "90a6c73eac338f2bcfe05069951b31817b1ee142b38885ba4a355b4b6ffba8de"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/InitialStructureLabLauncherTests.cs",
+      "Sha256": "b90242997544cf3206edd2808eece733eba1d4dc9182cfb7d479ef3f7d3a1963"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/OpticalDesignDerivativeTests.cs",
+      "Sha256": "e1fa66a37e9d5d997f022bd134f6e77ac4b9be86809d0a86a69c4ebf486269ab"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/packages.lock.json",
+      "Sha256": "1de59d9c945d3312e81ab16f325dad524ca525cb33a7462badb2722988b7c398"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.ZemaxComparison.Tests/packages.lock.json",
+      "Sha256": "f44040d6462d23ab3801f3f4c7c51a994e6de87488d9ca5a4c287aa2743d124f"
+    },
+    {
+      "Path": "third_party/ilgpu/ILGPU-LICENSE.txt",
+      "Sha256": "0fdc0c048cc3de590d0045b1a7383eccbf3d6319dc112520b9ca98f371bef5f7"
+    },
+    {
+      "Path": "third_party/ilgpu/ILGPU-NOTICE.txt",
+      "Sha256": "632c39c971f17d5c2af071a20948db774d1727612d8e74f5cbd4a18b4d123579"
+    },
+    {
+      "Path": "third_party/ilgpu/ILGPU-THIRD-PARTY-LICENSE.txt",
+      "Sha256": "0d30ad9d6dfc5cdfe6df92f6a8d8e738afe7729410e3088831153f581f375b39"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.Benchmarks/packages.lock.json",
+      "Sha256": "ce23f521044a8decae8bfad68d96542bc531fed389297a02b44aa7e7b9330100"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.GlassCatalogConverter/packages.lock.json",
+      "Sha256": "ce23f521044a8decae8bfad68d96542bc531fed389297a02b44aa7e7b9330100"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.LensLibraryBuilder/packages.lock.json",
+      "Sha256": "973eda338319abf5a8812ea420a547405355d612c87a03b2fac913eddd6d0add"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.NonSequentialSamples/packages.lock.json",
+      "Sha256": "ce23f521044a8decae8bfad68d96542bc531fed389297a02b44aa7e7b9330100"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.ZemaxComparison/packages.lock.json",
+      "Sha256": "8d7d1fdd9e50b09c316f3436792138910340724785d30d608d55c0f8140f1f0d"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.ZemaxLibraryImporter/packages.lock.json",
+      "Sha256": "973eda338319abf5a8812ea420a547405355d612c87a03b2fac913eddd6d0add"
+    }
+  ],
+  "Implemented": [
+    "New desktop runs default to Automatic (prefer real CUDA); explicit GPU and CPU controls. Device probing is asynchronous. Presets preserve choice; saved records restore recorded choice.",
+    "Original shared Core formulas and nominal roots are recorded into bounded derivative tapes; origin tangents and implicit stop constraints are preserved. GPU computes double-precision reverse gradients for five ray outputs.",
+    "Automatic records CPU fallback reason for missing CUDA, CUDA faults or unsupported tangent range. Forced GPU never silently reports CPU as GPU. Original CPU behavior and historical omitted-device identities preserved.",
+    "Actual successful GPU batch/ray/time metadata is persisted and validated. Cancellation and graph/memory bounds retained. AutoLens-only optimizer and zero native target polish unchanged.",
+    "ILGPU package version and 19 current project dependency locks updated; DLL and original NCSA/third-party notices required by standard packaging. No CUDA driver or toolkit redistributed."
+  ],
+  "FinalTestRuns": [
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/gpu-core-delivery-final.trx",
+      "Sha256": "ff901b8c14750d64c960e0abbacb7ef13c3e3d16d191344f6e877e3d4cc459e6",
+      "Total": 64,
+      "Passed": 64,
+      "Failed": 0,
+      "Skipped": 0,
+      "AddsDistinctCases": true
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/autolens-gpu-final.trx",
+      "Sha256": "252120155b9659365b23419b514dd89235113e860bbbff4a165b9ede54b79f5a",
+      "Total": 10,
+      "Passed": 10,
+      "Failed": 0,
+      "Skipped": 0,
+      "AddsDistinctCases": true
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/release/autolens-gpu-release-warm.trx",
+      "Sha256": "a075e159e14033a2a24fde912e4770d4ee40a172453ac8e17c4e26cb38e39525",
+      "Total": 1,
+      "Passed": 1,
+      "Failed": 0,
+      "Skipped": 0,
+      "AddsDistinctCases": true
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/release/autolens-gpu-release.trx",
+      "Sha256": "8e17c93d9c2b393f07f13ba4347c5450d6f3a9bf841fa8766318fe814b9d860d",
+      "Total": 3,
+      "Passed": 3,
+      "Failed": 0,
+      "Skipped": 0,
+      "AddsDistinctCases": false
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/autolens-gpu-ui-final.trx",
+      "Sha256": "c3e0f1300e75832587f7436daa29f64b5c2ccd0f5653124f219516cd2925421e",
+      "Total": 4,
+      "Passed": 4,
+      "Failed": 0,
+      "Skipped": 0,
+      "AddsDistinctCases": false
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/autolens-gpu-guides-final.trx",
+      "Sha256": "3b6eede7c176d4b00f7f62e79072cdf669dfc1f6c47e66ba840504fd696e2b52",
+      "Total": 4,
+      "Passed": 4,
+      "Failed": 0,
+      "Skipped": 0,
+      "AddsDistinctCases": false
+    }
+  ],
+  "FinalDistinctPassed": 75,
+  "Coverage": [
+    "CPU differentiation and precision regressions; CUDA elementary chain rule; four same-optics CPU/GPU ray/centroid/RMS/paraxial comparisons including stop positions and relaxed material.",
+    "Real GPU solve and cemented solve with descending loss and independent CPU physical acceptance; persistence/resume and invalid device-work metadata rejection.",
+    "AutoLens CPU compatibility, actual CUDA UI search, mode roundtrip/invalidation, presets, three languages, themes, built-in guidance, architecture and payload-license requirements."
+  ],
+  "VerificationSequence": [
+    "Core final 64 and Lab final 10 used final numeric product sources. Subsequent product edits only added device-status heading, localized preset provenance text and built-in guide; final UI 4 and guide/localization 4 were rerun afterward.",
+    "Release 3 repeats the hardware Lab cases with final UI/guide sources. The new warmed complete-solve benchmark adds one distinct Release case; it was added after the original collections and all default App builds remain current.",
+    "Default Debug and Release App builds succeeded with zero warnings and zero errors. Test and benchmark runs used actual CUDA hardware with OPTICAL_SYSTEM_DESIGN_GPU_VALIDATION=1; no hardware skips counted."
+  ],
+  "Builds": [
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/build-debug.log",
+      "Warnings": 0,
+      "Configuration": "Debug",
+      "Errors": 0
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/build-release.log",
+      "Warnings": 0,
+      "Configuration": "Release",
+      "Errors": 0
+    }
+  ],
+  "Gates": {
+    "StrictDocumentation": {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/docs-audit",
+      "ExitCode": 0,
+      "BrokenLinks": 0,
+      "Documents": 1052,
+      "GuideRepeatedParagraphGroups": 0
+    },
+    "LockedSolutionRestore": {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/restore-locked.log",
+      "ExitCode": 0
+    },
+    "GitDiffCheck": {
+      "ExitCode": 0
+    }
+  },
+  "Measurements": [
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/gpu-benchmark.json",
+      "Sha256": "632437a6207ae848008acd25f0a72482c700932775934bc9eda0eb49d8544e1a",
+      "Data": {
+        "Device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "Parameters": 42,
+        "Fields": 5,
+        "Pupils": 36,
+        "CpuMilliseconds": [
+          516.4827,
+          533.1156,
+          502.7237
+        ],
+        "GpuMilliseconds": [
+          344.4975,
+          322.3027,
+          290.2974
+        ],
+        "CpuMedianMilliseconds": 516.4827,
+        "GpuMedianMilliseconds": 322.3027,
+        "Speedup": 1.6024771123543178,
+        "MaximumNormalizedGradientError": 8.64059229507637E-12,
+        "GpuExecution": {
+          "Backend": "cuda-reverse-tape-v1",
+          "DeviceName": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "GpuBatches": 5,
+          "GpuRays": 185,
+          "GpuMilliseconds": 36.3622,
+          "FallbackReason": null
+        },
+        "Scope": "One identical optical-gradient evaluation including CPU aiming and formal roots; independent physical acceptance and complete search are not timed here."
+      }
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/gpu-solve.json",
+      "Sha256": "9dfdd557c8f68ce5cdda83ca1904786b8ebd4fb5d3a663633e0830c323488463",
+      "Data": {
+        "Device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "ElapsedMilliseconds": 5144.9502,
+        "CpuElapsedMilliseconds": 5040.1038,
+        "FullSolveSpeedup": 0.9796214937124172,
+        "EvaluationCount": 26,
+        "GpuBatches": 30,
+        "GpuRays": 510,
+        "GpuMilliseconds": 88.4908,
+        "LastComputeExecution": {
+          "Backend": "cuda-reverse-tape-v1",
+          "DeviceName": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "GpuBatches": 5,
+          "GpuRays": 85,
+          "GpuMilliseconds": 7.7782,
+          "FallbackReason": null
+        },
+        "Accepted": false,
+        "TrainingSteps": [
+          {
+            "Phase": 0,
+            "Iteration": 1,
+            "PupilFraction": 1,
+            "BeforeLoss": 3.063773588760814,
+            "AfterLoss": 3.0491120512132057,
+            "StepFraction": 0.25,
+            "ChargedEvaluation": 22
+          },
+          {
+            "Phase": 2,
+            "Iteration": 1,
+            "PupilFraction": 1,
+            "BeforeLoss": 3.300434162480255,
+            "AfterLoss": 3.2464045371229693,
+            "StepFraction": 1,
+            "ChargedEvaluation": 25
+          }
+        ]
+      }
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/gpu-solve-cemented.json",
+      "Sha256": "44b6540100f5e5bc22e946ea2d9fab7fe681395abc0563fbfba817dec9bd12c5",
+      "Data": {
+        "Device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "ElapsedMilliseconds": 4782.5344,
+        "CpuElapsedMilliseconds": null,
+        "FullSolveSpeedup": null,
+        "EvaluationCount": 24,
+        "GpuBatches": 20,
+        "GpuRays": 340,
+        "GpuMilliseconds": 69.46520000000001,
+        "LastComputeExecution": {
+          "Backend": "cuda-reverse-tape-v1",
+          "DeviceName": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "GpuBatches": 5,
+          "GpuRays": 85,
+          "GpuMilliseconds": 14.625200000000001,
+          "FallbackReason": null
+        },
+        "Accepted": false,
+        "TrainingSteps": [
+          {
+            "Phase": 0,
+            "Iteration": 1,
+            "PupilFraction": 1,
+            "BeforeLoss": 42.37899509434445,
+            "AfterLoss": 34.062644881857395,
+            "StepFraction": 1,
+            "ChargedEvaluation": 20
+          },
+          {
+            "Phase": 2,
+            "Iteration": 1,
+            "PupilFraction": 1,
+            "BeforeLoss": 35.83059294809155,
+            "AfterLoss": 31.92478431854578,
+            "StepFraction": 1,
+            "ChargedEvaluation": 23
+          }
+        ]
+      }
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/release/gpu-benchmark.json",
+      "Sha256": "ec7345951988726a43f3aaf0018f8f770c9702f8d5d81792a5fb7425eaea112d",
+      "Data": {
+        "Device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "Parameters": 42,
+        "Fields": 5,
+        "Pupils": 36,
+        "CpuMilliseconds": [
+          96.8584,
+          114.2278,
+          93.4001
+        ],
+        "GpuMilliseconds": [
+          63.0998,
+          66.8669,
+          69.1366
+        ],
+        "CpuMedianMilliseconds": 96.8584,
+        "GpuMedianMilliseconds": 66.8669,
+        "Speedup": 1.4485253540989638,
+        "MaximumNormalizedGradientError": 8.64059229507637E-12,
+        "GpuExecution": {
+          "Backend": "cuda-reverse-tape-v1",
+          "DeviceName": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "GpuBatches": 5,
+          "GpuRays": 185,
+          "GpuMilliseconds": 23.3248,
+          "FallbackReason": null
+        },
+        "Scope": "One identical optical-gradient evaluation including CPU aiming and formal roots; independent physical acceptance and complete search are not timed here."
+      }
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/release/gpu-solve.json",
+      "Sha256": "c795dc18a9d2bbb46710c85994b2535cd50c38bffce2c2c3db8ec07f69c3c138",
+      "Data": {
+        "Device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "ElapsedMilliseconds": 4580.7928,
+        "CpuElapsedMilliseconds": 1982.4993,
+        "FullSolveSpeedup": 0.43278519386425857,
+        "EvaluationCount": 26,
+        "GpuBatches": 30,
+        "GpuRays": 510,
+        "GpuMilliseconds": 63.341400000000014,
+        "LastComputeExecution": {
+          "Backend": "cuda-reverse-tape-v1",
+          "DeviceName": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "GpuBatches": 5,
+          "GpuRays": 85,
+          "GpuMilliseconds": 7.5178,
+          "FallbackReason": null
+        },
+        "Accepted": false,
+        "TrainingSteps": [
+          {
+            "Phase": 0,
+            "Iteration": 1,
+            "PupilFraction": 1,
+            "BeforeLoss": 3.063773588760814,
+            "AfterLoss": 3.0491120512132057,
+            "StepFraction": 0.25,
+            "ChargedEvaluation": 22
+          },
+          {
+            "Phase": 2,
+            "Iteration": 1,
+            "PupilFraction": 1,
+            "BeforeLoss": 3.300434162480255,
+            "AfterLoss": 3.2464045371229693,
+            "StepFraction": 1,
+            "ChargedEvaluation": 25
+          }
+        ]
+      }
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/release/gpu-solve-cemented.json",
+      "Sha256": "730a3bb903143c3419e4546e90826d68f4b642a70afeff8ffb94d2095d64247a",
+      "Data": {
+        "Device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "ElapsedMilliseconds": 1147.8547,
+        "CpuElapsedMilliseconds": null,
+        "FullSolveSpeedup": null,
+        "EvaluationCount": 24,
+        "GpuBatches": 20,
+        "GpuRays": 340,
+        "GpuMilliseconds": 25.9152,
+        "LastComputeExecution": {
+          "Backend": "cuda-reverse-tape-v1",
+          "DeviceName": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "GpuBatches": 5,
+          "GpuRays": 85,
+          "GpuMilliseconds": 6.345599999999999,
+          "FallbackReason": null
+        },
+        "Accepted": false,
+        "TrainingSteps": [
+          {
+            "Phase": 0,
+            "Iteration": 1,
+            "PupilFraction": 1,
+            "BeforeLoss": 42.37899509434445,
+            "AfterLoss": 34.062644881857395,
+            "StepFraction": 1,
+            "ChargedEvaluation": 20
+          },
+          {
+            "Phase": 2,
+            "Iteration": 1,
+            "PupilFraction": 1,
+            "BeforeLoss": 35.83059294809155,
+            "AfterLoss": 31.92478431854578,
+            "StepFraction": 1,
+            "ChargedEvaluation": 23
+          }
+        ]
+      }
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/release/gpu-warmed-solve.json",
+      "Sha256": "b06f3c67cf595fa9a1d2ad7ee664f563ea00cfe596b7b6fdff058e39e8bddf30",
+      "Data": {
+        "Device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "CpuMilliseconds": [
+          1298.6984,
+          1302.8789,
+          1341.7599
+        ],
+        "GpuMilliseconds": [
+          1047.1872,
+          1280.0184,
+          1366.9752
+        ],
+        "CpuMedianMilliseconds": 1302.8789,
+        "GpuMedianMilliseconds": 1280.0184,
+        "Speedup": 1.0178595088945597,
+        "Scope": "Same three-element short complete solve (curriculum 1, refinement 1), including independent CPU physical acceptance; both paths warmed before three alternating timings. Not a multi-trial search or universal speedup."
+      }
+    }
+  ],
+  "PerformanceInterpretation": [
+    "Release same-input optical gradient evaluation: warmed three-run medians CPU 96.8584 ms, GPU 66.8669 ms (1.4485x), max normalized RMS gradient error 8.64059229507637e-12. Includes CPU aiming, roots, recording and GPU transfer.",
+    "Short complete solve (three elements, one curriculum and one refinement iteration), warmed alternating three-run medians CPU 1302.8789 ms, GPU 1280.0184 ms (1.01786x); overlapping ranges, no evidence of substantial whole-workflow speedup.",
+    "First un-warmed GPU short solve 4580.7928 ms versus subsequent CPU 1982.4993 ms includes startup/JIT and order effects; retained as an observation, not a steady-state benchmark.",
+    "No multi-trial search performance, universal acceleration ratio or changed design success rate claimed. This GPU work improves the gradient stage; further substantial whole-search acceleration requires addressing CPU aiming/validation costs."
+  ],
+  "Captures": [
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/captures/autolens-gpu-device.png",
+      "Sha256": "f5f785660efbb9bde94e8de92f73f7b33d367d728abeec8d4ff885fde5a20e82",
+      "VisuallyReviewed": true
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/captures/autolens-managed.png",
+      "Sha256": "5b35446cfac877d3bd4ee59d6f8ab0ce743e444fb6429509be6610a007f92fdb",
+      "VisuallyReviewed": false
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/captures/autolens-official-presets-en-US.png",
+      "Sha256": "98d45c191cf898350523577610da3115fba0e7083611ff8b12a767f609ed3e2d",
+      "VisuallyReviewed": false
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/captures/autolens-official-presets-ja-JP.png",
+      "Sha256": "f266d283dd18496ac13223b371ecfa16c1d8ca4e373907e232aec91014608463",
+      "VisuallyReviewed": false
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/captures/autolens-official-presets.png",
+      "Sha256": "d8774dd096b76d4fa97da411ed94adeeae48d7ad4bb2381ed8115a48946576ff",
+      "VisuallyReviewed": false
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/captures/organized-dark.png",
+      "Sha256": "cc08b8fc160ff89acc38bfd8a59ffaf16c73bbdccdfceb2d774b8c9a0933584c",
+      "VisuallyReviewed": true
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/captures/organized-en-US.png",
+      "Sha256": "a8af18cf0c1e12ef20bc55616f8ddaccf48806e14efbe7f5523d2dfb407327a4",
+      "VisuallyReviewed": false
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/captures/organized-goals-en-US.png",
+      "Sha256": "0c85770953cb541bc2c5a7b2cfab59169d1c8955851e188ee428f509a6fccf0b",
+      "VisuallyReviewed": false
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/captures/organized-goals-ja-JP.png",
+      "Sha256": "b875ff03369d2dbffb072f162eed3e86b57336e9e18a625aaa1c6c2be9b4022c",
+      "VisuallyReviewed": false
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/captures/organized-goals-zh-CN.png",
+      "Sha256": "d95176f5885a0822d99d42c9a8e8f396d884b43a0db88c6c4b074685e1a3bf9e",
+      "VisuallyReviewed": false
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/captures/organized-ja-JP.png",
+      "Sha256": "03e9f9c8d9a4168ce89d85ac7850b06d07c079b53df3446b624dac207f24e68e",
+      "VisuallyReviewed": false
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/captures/organized-search-en-US.png",
+      "Sha256": "de3c5b0351957bc3cb29cb474d0da232c3e79eb5caea4905b23626e15fe7e314",
+      "VisuallyReviewed": true
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/captures/organized-search-ja-JP.png",
+      "Sha256": "a9afc8c39df617bd0a05d9e5536c78b0bbc31da6350dd488fd1851e3620cf2e0",
+      "VisuallyReviewed": true
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/captures/organized-search-zh-CN.png",
+      "Sha256": "0815ff6561a673e4f176d3112f7445db6e457f4fab7a1ff8f1e1f0c31cc7ed78",
+      "VisuallyReviewed": true
+    },
+    {
+      "Path": "artifacts/validation/autolens-gpu-2026-10-23/captures/organized-zh-CN.png",
+      "Sha256": "62685aac14cc15f954a9d80e00abafd002273af95745cdcf2eeaa18aefac4e33",
+      "VisuallyReviewed": false
+    }
+  ],
+  "CaptureReview": "Five selected final real-Skia screenshots visually reviewed; other captures retained but not claimed individually reviewed. No native OS dialog or installed-build GUI validation.",
+  "Attempts": "artifacts/validation/autolens-gpu-2026-10-23/attempts.json",
+  "Limits": [
+    "NVIDIA CUDA validated on this device only. AMD/OpenCL, Apple and cross-device performance unverified.",
+    "Scope is AutoLens design gradients, not general analyses, 2D/3D rendering, all Core tracing, every optimizer or full GPU ray tracing.",
+    "No full test suite, regenerated frozen numerical evidence, new Zemax certification or upstream AutoLens GPU equivalence.",
+    "Missing-device fallback is portable-test covered on unavailable hosts; this CUDA host exercised hardware execution, not injected driver failure.",
+    "No installer published, installed product replaced, source commit or remote push in this task."
+  ],
+  "EvidenceArchive": {
+    "Path": "validation/rechecks/2026-10-23/autolens-gpu-evidence.zip",
+    "Sha256": "9a2ad4e402e0561c6dd3d704ad6ec4fa04b30d612933e5a7f4fe1015e662f00d"
+  }
+}

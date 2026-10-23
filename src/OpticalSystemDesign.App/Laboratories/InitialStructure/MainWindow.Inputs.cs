@@ -6,6 +6,7 @@ using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Layout;
 using OpticalSystemDesign.InitialStructure.Contracts;
+using OpticalSystemDesign.Core.Differentiation;
 
 namespace OpticalSystemDesign.App.Laboratories.InitialStructure;
 
@@ -37,6 +38,12 @@ public sealed partial class MainWindow
     private readonly NumericUpDown _maximumEvaluations = Number("EvaluationBudget", "评价次数上限", 10000, 1, 100000, 100);
     private readonly ComboBox _searchMode = Named(new ComboBox { ItemsSource = new[] { "QUICK · 筛选后择优优化", "FULL · 逐形式完整优化" }, SelectedIndex = 0, HorizontalAlignment = HorizontalAlignment.Stretch }, "SearchMode", "形式搜索方式");
     private readonly TextBlock _optimizationMethod = Named(Text("AutoLens · C# 自动求导"), "OptimizationMethod", "局部优化算法");
+    private readonly ComboBox _computeMode = Named(new ComboBox
+    {
+        ItemsSource = new[] { "自动（优先 GPU）", "GPU", "CPU" }, SelectedIndex = 0, HorizontalAlignment = HorizontalAlignment.Stretch
+    }, "ComputeMode", "计算设备");
+    private readonly TextBlock _computeStatus = Named(Text("正在检测 GPU…"), "ComputeStatus", "计算设备状态");
+    private DesignGpuStatus? _gpuStatus;
     private readonly CheckBox _autoLensMaterials = Named(new CheckBox { Content = "AutoLens 连续材料优化后匹配允许玻璃", IsChecked = true }, "AutoLensMaterials", "连续材料优化后匹配允许玻璃");
     private readonly ComboBox _autoLensAsphere = Named(new ComboBox { ItemsSource = new[] { "仅球面", "偶次非球面至 r⁴", "偶次非球面至 r⁶", "偶次非球面至 r⁸", "偶次非球面至 r¹⁰" }, SelectedIndex = 3, HorizontalAlignment = HorizontalAlignment.Stretch }, "AutoLensAsphere", "AutoLens 面型");
     private readonly NumericUpDown _autoLensCurriculum = Number("AutoLensCurriculum", "AutoLens 初始优化步数上限", 2000, 1, 10000, 100);
@@ -128,7 +135,7 @@ public sealed partial class MainWindow
 
         searchPanel.Children.Add(Section("搜索策略", "sliders-horizontal",
             Field("搜索方式", _searchMode), Field("局部优化算法", _optimizationMethod),
-            Hint("计算后端：共享 Core · C# CPU")));
+            Field("计算设备", _computeMode), Field("设备检测", _computeStatus)));
         searchPanel.Children.Add(Section("运行预算", "timer",
             Pairs(Field("起始试验上限", _seedCount), Field("保留方案数", _retainedForms)),
             Pairs(Field("评价次数上限", _maximumEvaluations), Field("时间上限 min", _minutes)),
@@ -139,7 +146,7 @@ public sealed partial class MainWindow
             Field("AutoLens 初始优化步数上限", _autoLensCurriculum),
             Field("AutoLens 目录玻璃精修步数上限", _autoLensRefinement),
             Hint("评价和时间预算始终优先；自动分配两阶段步数，不代表每次都会完成上述步数。"),
-            Hint("C# 自动求导：共享 Core 导数、渐进口径、真实玻璃匹配后精修。仅支持当前中心旋转对称镜片；CPU 实现，未宣称与原版数值等效。")));
+            Hint("C# 自动求导：共享 Core 导数、渐进口径、真实玻璃匹配后精修。GPU 加速瞄准、正式追迹、批量梯度与密集物理验收；使用原采样和验收标准，未宣称与原版数值等效。")));
         searchPanel.Children.Add(Disclosure("起始形式与光阑位置", "StartingSettings",
             Field("起始半径 mm（0 = 10 倍目标焦距）", _startingRadius),
             Pairs(Field("起始厚度 mm（0 自动）", _startingCenter), Field("起始空气隙 mm（0 自动）", _startingAir)),
@@ -194,6 +201,7 @@ public sealed partial class MainWindow
                 OptimizationMethod = FlatStartOptimizationMethod.AutoLensManagedV1,
                 AutoLens = (_inputTemplate.FlatStart?.AutoLens ?? new AutoLensManagedSettings()) with
                 {
+                    ComputeMode = _computeMode.SelectedIndex switch { 1 => DesignComputeMode.Gpu, 2 => DesignComputeMode.Cpu, _ => DesignComputeMode.Automatic },
                     OptimizeMaterials = _autoLensMaterials.IsChecked == true,
                     EvenAsphereOrder = _autoLensAsphere.SelectedIndex == 0 ? 0 : _autoLensAsphere.SelectedIndex + 1,
                     CementedGaps = CementedGaps(_autoLensCemented.Text),
@@ -243,6 +251,7 @@ public sealed partial class MainWindow
         var search = options.DesignSearch ?? new();
         _searchMode.SelectedIndex = search.Mode == DesignSearchMode.Full ? 1 : 0;
         var autoLens = spec.FlatStart.AutoLens ?? new();
+        _computeMode.SelectedIndex = autoLens.ComputeMode switch { DesignComputeMode.Gpu => 1, DesignComputeMode.Cpu => 2, _ => 0 };
         _autoLensMaterials.IsChecked = autoLens.OptimizeMaterials;
         _autoLensAsphere.SelectedIndex = autoLens.EvenAsphereOrder == 0 ? 0 : autoLens.EvenAsphereOrder - 1;
         _autoLensCurriculum.Value = (decimal)autoLens.CurriculumIterations;

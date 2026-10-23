@@ -44,54 +44,10 @@ public sealed partial class RayGenerator
             guess += fixedDirection * (delta / (fixedAxis == 2 ? fixedDirection.Z : fixedAxis == 1 ? fixedDirection.Y : fixedDirection.X));
             (x, y) = fixedAxis == 2 ? (guess.X, guess.Y) : fixedAxis == 1 ? (guess.X, guess.Z) : (guess.Y, guess.Z);
         }
-        for (var iteration = 0; iteration < 24; iteration++)
-        {
-            ComputationCancellation.ThrowIfCancellationRequested();
-            if (!Sample(x, y, out var point)) return false;
-            var errorX = targetX - point.X;
-            var errorY = targetY - point.Y;
-            residual = double.Hypot(errorX, errorY);
-            if (residual <= tolerance)
-            {
-                (aimedOrigin, aimedDirection) = Geometry(x, y);
-                return true; // Return only this successfully traced, checked iterate.
-            }
-            var hx = 1e-6 * Math.Max(1, Math.Abs(x));
-            var hy = 1e-6 * Math.Max(1, Math.Abs(y));
-            if (!Sample(x + hx, y, out var px))
-            {
-                hx = -hx;
-                if (!Sample(x + hx, y, out px)) return false;
-            }
-            if (!Sample(x, y + hy, out var py))
-            {
-                hy = -hy;
-                if (!Sample(x, y + hy, out py)) return false;
-            }
-            var a = (px.X - point.X) / hx;
-            var b = (py.X - point.X) / hy;
-            var c = (px.Y - point.Y) / hx;
-            var d = (py.Y - point.Y) / hy;
-            var determinant = a * d - b * c;
-            if (!double.IsFinite(determinant) || Math.Abs(determinant) <= 1e-24) return false;
-            var dx = (d * errorX - b * errorY) / determinant;
-            var dy = (a * errorY - c * errorX) / determinant;
-            var improved = false;
-            for (var backtrack = 0; backtrack < 12; backtrack++)
-            {
-                var scale = Math.ScaleB(1, -backtrack);
-                var nextX = x + scale * dx;
-                var nextY = y + scale * dy;
-                if (!Sample(nextX, nextY, out var next)
-                    || double.Hypot(targetX - next.X, targetY - next.Y) >= residual) continue;
-                x = nextX;
-                y = nextY;
-                improved = true;
-                break;
-            }
-            if (!improved) return false;
-        }
-        return false;
+        var map = new DelegateStopMap(Sample);
+        if (!StopAimingSolver.Solve(ref map,targetX,targetY,tolerance,ref x,ref y,out residual)) return false;
+        (aimedOrigin,aimedDirection)=Geometry(x,y);
+        return true;
 
         (Vector3D Origin, Vector3D Direction) Geometry(double u, double v) => infinite
             ? (fixedAxis == 2 ? new Vector3D(u, v, plane.Z)
@@ -111,4 +67,10 @@ public sealed partial class RayGenerator
             return double.IsFinite(point.X) && double.IsFinite(point.Y);
         }
     }
+    private delegate bool StopSample(double x,double y,out Vector3D point);
+    private readonly record struct DelegateStopMap(StopSample Sampler) : IStopMap
+    {
+        public bool Sample(double x,double y,out Vector3D point) => Sampler(x,y,out point);
+    }
+
 }

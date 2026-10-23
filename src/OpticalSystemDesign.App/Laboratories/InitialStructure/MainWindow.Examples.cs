@@ -27,8 +27,10 @@ public sealed partial class MainWindow
             if (index < 0 || index >= _officialExamples.Count)
                 throw new ArgumentException("请先选择官方目标预设。");
             var example = _officialExamples[index];
+            var computeMode = _computeMode.SelectedIndex;
             ClearResults();
             ApplySpecification(example.Specification, example.Options);
+            _computeMode.SelectedIndex = computeMode;
             _status.Text = "已载入目标预设；尚未运行，不代表设计达标。";
             return Task.CompletedTask;
         });
@@ -37,7 +39,7 @@ public sealed partial class MainWindow
         return Section("从预设开始", "sparkles", _officialExample, _loadOfficialExample,
             Hint("仅载入目标参数，不自动开始搜索。"),
             Disclosure("来源与适配说明", "OfficialExampleSource", _officialExampleNotes,
-                Hint("原生 C# CPU 适配 · 非官方成功处方 · 每次上限 4000 次评价 / 1 分钟"),
+                Hint("原生 C# 适配 · 非官方成功处方 · 每次上限 4000 次评价 / 1 分钟"),
                 Hint(AutoLensOfficialExamples.SourceUrl)));
     }
 }

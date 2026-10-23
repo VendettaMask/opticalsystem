@@ -79,13 +79,9 @@ public static partial class AutomaticSemiDiameterSolver
         var maxima = new double[count];
         var completed = 0;
         var retained = indices.Append(count - 1).ToArray();
-        foreach (var field in normalizedFields)
-            foreach (var wave in wavelengths)
+        foreach (var bundle in Bundles())
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                var bundle = working.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
-                    field.X, field.Y, wave.Micrometers, pupilSamples,
-                    aimAtStop: working.RayAimingEnabled, applyVignettingFactors: false);
                 using var trace = working.SequentialRayTracer.Trace(bundle, TraceRequest.Selected(retained));
                 for (var ray = 0; ray < trace.RayCount; ray++)
                 {
@@ -134,5 +130,26 @@ public static partial class AutomaticSemiDiameterSolver
             }
         }
         return new((int)requested, completed, complete, sizes);
+
+        IEnumerable<OpticalSystemDesign.Core.Rays.RealRayBundle> Bundles()
+        {
+            if (SequentialGpuSession.Current is {Enabled:true})
+            {
+                foreach (var wave in wavelengths)
+                {
+                    if (working.SequentialRayTracer.RayGenerator.TryGenerateGpuPupilGrid(normalizedFields,pupilSamples,
+                        wave.Micrometers,false,out var grid)) yield return grid!;
+                    else foreach (var field in normalizedFields)
+                        yield return Generate(field,wave.Micrometers);
+                }
+            }
+            else foreach (var field in normalizedFields)
+                foreach (var wave in wavelengths) yield return Generate(field,wave.Micrometers);
+        }
+
+        OpticalSystemDesign.Core.Rays.RealRayBundle Generate((double X,double Y) field,double wave) =>
+            working.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(field.X,field.Y,wave,pupilSamples,
+                aimAtStop:working.RayAimingEnabled,applyVignettingFactors:false);
+
     }
 }
