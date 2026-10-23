@@ -82,6 +82,11 @@ jobs:
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           dotnet test labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~FlatStartDesktopTests|FullyQualifiedName~AutoLensOfficialExampleTests' --logger 'trx;LogFileName=initial-structure.trx' --results-directory artifacts/cloud-verification
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
+      - name: Verify lens headers and 2D/3D viewers
+        shell: pwsh
+        run: |
+          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~LensConfigurationNavigationTests|FullyQualifiedName~LensEditorLayoutTests|FullyQualifiedName~LensHeaderTypographyTests|FullyQualifiedName~LensMaterialRowThemeTests|FullyQualifiedName~ViewerSettingsInputThemeTests|FullyQualifiedName~ViewerConfigurationTests|FullyQualifiedName~Viewer3DGeometryTests' --logger 'trx;LogFileName=lens-viewers.trx' --results-directory artifacts/cloud-verification
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
       - name: Verify frozen evidence and documentation
         shell: pwsh
         run: |

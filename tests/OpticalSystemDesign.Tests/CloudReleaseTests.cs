@@ -14,6 +14,10 @@ public sealed class CloudReleaseTests
         Assert.Contains("cancel-in-progress: false", text);
         Assert.Contains("needs: [plan, package]", text);
         Assert.Contains("CloudReleaseTests", text);
+        foreach (var name in new[] { "LensConfigurationNavigationTests", "LensEditorLayoutTests", "LensHeaderTypographyTests",
+            "LensMaterialRowThemeTests", "ViewerSettingsInputThemeTests", "ViewerConfigurationTests", "Viewer3DGeometryTests" })
+            Assert.Contains("FullyQualifiedName~" + name, text);
+        Assert.Contains("LogFileName=lens-viewers.trx", text);
         Assert.Contains("verify-built-in-package.ps1", text);
         Assert.Contains("GitFrozenIntegrity.ps1", text);
         Assert.Contains("verify-documentation.ps1 -Strict", text);
