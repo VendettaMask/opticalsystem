@@ -39,6 +39,14 @@ public sealed class ViewerPanel : UserControl, IDisposable
     private readonly ComboBox _colorModePicker = SettingPicker();
     private readonly ComboBox _scalePicker = SettingPicker();
     private readonly ComboBox _lineWidthPicker = SettingPicker();
+    private readonly ComboBox _configurationPicker = new()
+    {
+        Name = "Viewer2DConfigurationPicker",
+        MinWidth = 92,
+        Height = UiDensity.StandardControlHeight,
+        IsVisible = false,
+        VerticalAlignment = VerticalAlignment.Center
+    };
     private readonly NumericUpDown _rayCount = SettingNumber(1, 101, 1, 7);
     private readonly NumericUpDown _yStretch = SettingNumber(0.1m, 10, 0.1m, 1);
     private readonly NumericUpDown _upperPupil = SettingNumber(-1, 1, 0.1m, 1);
@@ -70,6 +78,8 @@ public sealed class ViewerPanel : UserControl, IDisposable
     private bool _disposed;
     private bool _updatingSettings;
     private int _preparingLayoutSession;
+    private int? _configurationIndex;
+    private int _refreshGeneration;
 
     public ViewerPanel(
         IVisualizationService visualization,
@@ -96,6 +106,8 @@ public sealed class ViewerPanel : UserControl, IDisposable
             VisualStyle = presentationMode == ViewerPresentationMode.SolidModel
                 ? OpticSceneVisualStyle.SolidModel
                 : OpticSceneVisualStyle.OpticalLayout,
+            RenderMode = presentationMode == ViewerPresentationMode.SolidModel
+                ? OpticSceneRenderMode.Solid : OpticSceneRenderMode.Wireframe,
             HighlightedSurfaceNumber = surfaceSelection.SelectedSurfaceNumber
         };
 
@@ -200,6 +212,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
     {
         var showRays = new CheckBox
         {
+            Name = "Viewer2DShowRays",
             Content = "显示光线",
             IsChecked = true,
             VerticalAlignment = VerticalAlignment.Center
@@ -211,9 +224,41 @@ public sealed class ViewerPanel : UserControl, IDisposable
         return ThemeChrome.WrapWithDecoration(
             SceneWithOverlay(
                 _scene,
-                Toolbar(new Control[] { showRays, reset }, HorizontalAlignment.Right),
-                BuildSettingsOverlay()),
+                new Viewer2DToolbarLayout
+                {
+                    VerticalAlignment = VerticalAlignment.Top,
+                    Children =
+                    {
+                        BuildSettingsOverlay(),
+                        Toolbar(new Control[] { showRays, reset }, HorizontalAlignment.Right)
+                    }
+                }),
             ThemeChromeRole.Viewport);
+    }
+
+    private sealed class Viewer2DToolbarLayout : Panel
+    {
+        protected override Size MeasureOverride(Size availableSize)
+        {
+            foreach (var child in Children) child.Measure(availableSize);
+            var left = Children[0].DesiredSize;
+            var right = Children[1].DesiredSize;
+            var width = double.IsFinite(availableSize.Width) ? availableSize.Width : left.Width + right.Width;
+            return new Size(width, left.Width + right.Width > width
+                ? left.Height + right.Height : Math.Max(left.Height, right.Height));
+        }
+
+        protected override Size ArrangeOverride(Size finalSize)
+        {
+            var left = Children[0].DesiredSize;
+            var right = Children[1].DesiredSize;
+            var stacked = left.Width + right.Width > finalSize.Width;
+            Children[0].Arrange(new Rect(0, 0, Math.Min(left.Width, finalSize.Width), left.Height));
+            var rightWidth = Math.Min(right.Width, finalSize.Width);
+            Children[1].Arrange(new Rect(finalSize.Width - rightWidth, stacked ? left.Height : 0,
+                rightWidth, right.Height));
+            return finalSize;
+        }
     }
 
     private Control Build3DWorkspace()
@@ -228,27 +273,32 @@ public sealed class ViewerPanel : UserControl, IDisposable
 
         var cutaway = new CheckBox
         {
+            Name = "Viewer3DCutaway",
             Content = "切面",
+            IsVisible = _presentationMode == ViewerPresentationMode.SolidModel,
             IsChecked = false,
             VerticalAlignment = VerticalAlignment.Center
         };
-        ToolTip.SetTip(cutaway, "移除镜片近侧半部并显示内部剖面");
+        ToolTip.SetTip(cutaway, "显示镜片内部剖面");
         cutaway.IsCheckedChanged += (_, _) => _scene.CutawayEnabled = cutaway.IsChecked == true;
 
         var renderMode = new ComboBox
         {
-            ItemsSource = _presentationMode == ViewerPresentationMode.SolidModel
-                ? new[] { "实体", "框架" }
-                : new[] { "透明", "框架" },
+            Name = "Viewer3DRenderMode",
+            ItemsSource = new[] { "实体", "透明", "线框" },
+            IsVisible = _presentationMode == ViewerPresentationMode.SolidModel,
             SelectedIndex = 0,
             MinWidth = 88,
             VerticalAlignment = VerticalAlignment.Center
         };
         renderMode.SelectionChanged += (_, _) =>
         {
-            _scene.RenderMode = renderMode.SelectedIndex == 1
-                ? OpticSceneRenderMode.Wireframe
-                : OpticSceneRenderMode.Solid;
+            _scene.RenderMode = renderMode.SelectedIndex switch
+            {
+                1 => OpticSceneRenderMode.Transparent,
+                2 => OpticSceneRenderMode.Wireframe,
+                _ => OpticSceneRenderMode.Solid
+            };
         };
 
         var topToolbar = Toolbar(
@@ -316,6 +366,21 @@ public sealed class ViewerPanel : UserControl, IDisposable
             Spacing = 3,
             Children = { toggle, synchronize }
         };
+        if (_dimension == SceneDimension.TwoDimensional)
+        {
+            AutomationProperties.SetName(_configurationPicker, "结构");
+            ToolTip.SetTip(_configurationPicker, "选择二维图显示的结构");
+            AutomationProperties.SetHelpText(_configurationPicker, "仅切换此二维图显示的结构，不改变活动结构。");
+            _configurationPicker.SelectionChanged += (_, _) =>
+            {
+                if (_updatingSettings || _disposed) return;
+                _configurationIndex = SelectedValue(_configurationPicker);
+                RefreshSelectorOptions(preserveSelection: true);
+                ClearScene();
+                QueueRefresh(TimeSpan.Zero);
+            };
+            header.Children.Add(_configurationPicker);
+        }
         var container = new StackPanel { Children = { header, settingsContent } };
         var card = SettingsPanelChrome.CreateCard(
             container,
@@ -486,7 +551,8 @@ public sealed class ViewerPanel : UserControl, IDisposable
             UpperPupil: (double)(_upperPupil.Value ?? 1),
             DeleteVignetted: _deleteVignetted.IsChecked == true,
             MarginalAndChiefOnly: _marginalAndChiefOnly.IsChecked == true,
-            IncludeStaleNonSequentialRays: _showStaleLayoutRays.IsChecked == true);
+            IncludeStaleNonSequentialRays: _showStaleLayoutRays.IsChecked == true,
+            ConfigurationIndex: _dimension == SceneDimension.TwoDimensional ? _configurationIndex : null);
     }
 
     private void RefreshSelectorOptions(bool preserveSelection)
@@ -496,11 +562,21 @@ public sealed class ViewerPanel : UserControl, IDisposable
         var previousField = preserveSelection ? SelectedValue(_fieldPicker) : null;
         var previousWavelength = preserveSelection ? SelectedValue(_wavelengthPicker) : null;
         var options = _visualization.GetVisualizationOptions();
+        if (!preserveSelection || options.ConfigurationCount <= 1
+            || _configurationIndex >= options.ConfigurationCount)
+            _configurationIndex = null;
+        if (_dimension == SceneDimension.TwoDimensional && _configurationIndex.HasValue)
+            options = _visualization.GetVisualizationOptions(_configurationIndex);
 
         var wasUpdatingSettings = _updatingSettings;
         _updatingSettings = true;
         try
         {
+            _configurationPicker.ItemsSource = Enumerable.Range(0, options.ConfigurationCount)
+                .Select(index => new SelectorItem(index, $"{index + 1} / {options.ConfigurationCount}")).ToArray();
+            SelectValue(_configurationPicker, _configurationIndex ?? options.ActiveConfigurationIndex);
+            _configurationPicker.IsVisible = _dimension == SceneDimension.TwoDimensional
+                && options.ConfigurationCount > 1;
             var surfaces = options.SurfaceNumbers
                 .Select(number => new SelectorItem(number, number.ToString()))
                 .ToArray();
@@ -577,18 +653,31 @@ public sealed class ViewerPanel : UserControl, IDisposable
 
     private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
     {
-        if (!_locked)
+        Dispatcher.UIThread.Post(() =>
         {
-            Dispatcher.UIThread.Post(() =>
+            if (_disposed) return;
+            if (args.FileSwitched)
             {
-                if (args.Category == WorkspaceChangeCategory.NonSequential)
-                {
-                    _showStaleLayoutRays.IsChecked = false;
-                }
-                RefreshSelectorOptions(preserveSelection: true);
-                QueueRefresh(TimeSpan.FromMilliseconds(120));
-            });
-        }
+                _configurationIndex = null;
+                _refreshCancellation?.Cancel();
+                _refreshGeneration++;
+                ClearScene();
+            }
+            if (args.Category == WorkspaceChangeCategory.NonSequential)
+                _showStaleLayoutRays.IsChecked = false;
+            RefreshSelectorOptions(preserveSelection: !args.FileSwitched);
+            if (_locked) return;
+            ClearScene();
+            QueueRefresh(TimeSpan.FromMilliseconds(120));
+        });
+    }
+
+    private void ClearScene()
+    {
+        _scene.Scene = null;
+        _scene.ResetView();
+        _scene.InvalidateVisual();
+        _summary.Text = string.Empty;
     }
 
     private void OnSurfaceSelectionChanged(object? sender, SurfaceSelectionChangedEventArgs args)
@@ -618,10 +707,10 @@ public sealed class ViewerPanel : UserControl, IDisposable
         _refreshCancellation?.Cancel();
         _refreshCancellation?.Dispose();
         _refreshCancellation = new CancellationTokenSource();
-        _ = RefreshAsync(delay, _refreshCancellation.Token);
+        _ = RefreshAsync(delay, _refreshCancellation.Token, ++_refreshGeneration);
     }
 
-    private async Task RefreshAsync(TimeSpan delay, CancellationToken cancellationToken)
+    private async Task RefreshAsync(TimeSpan delay, CancellationToken cancellationToken, int generation)
     {
         try
         {
@@ -643,6 +732,8 @@ public sealed class ViewerPanel : UserControl, IDisposable
 
             await Dispatcher.UIThread.InvokeAsync(() =>
             {
+                if (_disposed || cancellationToken.IsCancellationRequested || generation != _refreshGeneration
+                    || scene.SourceRevision != _events.Revision) return;
                 _scene.Scene = scene;
                 _scene.InvalidateVisual();
                 var nonSequential = scene.ThreeDimensional is { } threeDimensional
@@ -665,7 +756,9 @@ public sealed class ViewerPanel : UserControl, IDisposable
                         + $"Z 范围 {NumericDisplayFormatter.Format(scene.ThreeDimensional.ZMin)} 至 "
                         + $"{NumericDisplayFormatter.Format(scene.ThreeDimensional.ZMax)} mm"
                         + LayoutStateSummary(scene.NonSequentialLayoutResult)
-                    : $"有效焦距 {NumericDisplayFormatter.Format(scene.Summary.EffectiveFocalLength)} mm    "
+                    : (scene.Configuration is { Count: > 1 } configuration
+                        ? $"{UiLocalization.Text("结构")} {configuration.Number} / {configuration.Count}    " : string.Empty)
+                        + $"有效焦距 {NumericDisplayFormatter.Format(scene.Summary.EffectiveFocalLength)} mm    "
                         + $"F 数 {NumericDisplayFormatter.Format(scene.Summary.FNumber)}    "
                         + $"系统总长 {NumericDisplayFormatter.Format(scene.Summary.TotalTrack)} mm";
             });
@@ -678,8 +771,9 @@ public sealed class ViewerPanel : UserControl, IDisposable
             System.Diagnostics.Trace.TraceError($"Viewer refresh failed: {exception}");
             Dispatcher.UIThread.Post(() =>
             {
-                if (!_disposed)
+                if (!_disposed && generation == _refreshGeneration && !cancellationToken.IsCancellationRequested)
                 {
+                    ClearScene();
                     _summary.Text = $"视图更新失败：{exception.Message}";
                 }
             });

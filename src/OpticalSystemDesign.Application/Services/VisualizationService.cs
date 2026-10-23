@@ -50,7 +50,7 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
             RayCount: dimension == SceneDimension.TwoDimensional ? 3 : 5), cancellationToken);
     }
 
-    public VisualizationOptionsDto GetVisualizationOptions()
+    public VisualizationOptionsDto GetVisualizationOptions(int? configurationIndex = null)
     {
         lock (Gate)
         {
@@ -66,15 +66,28 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
                         index, $"{item.Label}  {item.Nanometers:0.####} nm")).ToArray());
             }
 
+            var navigation = Runtime.GetMultiConfigurationNavigation();
+            var optic = SelectOptic(configurationIndex);
             return new VisualizationOptionsDto(
-                Runtime.CurrentOptic.SurfaceGroup.Items.Select(surface => surface.Number).ToArray(),
-                Runtime.CurrentOptic.Fields.Select((field, index) =>
+                optic.SurfaceGroup.Items.Select(surface => surface.Number).ToArray(),
+                optic.Fields.Select((field, index) =>
                     new VisualizationSelectorOptionDto(index, field.Label)).ToArray(),
-                Runtime.CurrentOptic.Wavelengths.Select((wavelength, index) =>
+                optic.Wavelengths.Select((wavelength, index) =>
                     new VisualizationSelectorOptionDto(
                         index,
-                        $"{wavelength.Label}  {wavelength.Nanometers:0.####} nm")).ToArray());
+                        $"{wavelength.Label}  {wavelength.Nanometers:0.####} nm")).ToArray(),
+                navigation.Count, navigation.ActiveIndex);
         }
+    }
+
+    // Resolve while holding Gate; only a clone may leave the workspace thread.
+    private Optic SelectOptic(int? configurationIndex)
+    {
+        if (!configurationIndex.HasValue) return Runtime.CurrentOptic;
+        var configurations = Runtime.CreateMeritConfigurationContext().Configurations;
+        if (configurationIndex.Value < 0 || configurationIndex.Value >= configurations.Count)
+            throw new ArgumentOutOfRangeException(nameof(configurationIndex));
+        return configurations[configurationIndex.Value];
     }
 
     public Task<SceneDto> BuildSceneAsync(
@@ -85,20 +98,30 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
         NonSequentialDocument? nonSequentialSnapshot;
         long sourceRevision;
         OpticalDocumentSnapshot summary;
+        SceneConfigurationDto? configuration;
+        bool resolveAutomaticApertures;
         CancellationTokenSource linked;
         lock (Gate)
         {
             sourceRevision = Workspace.Revision;
             summary = Workspace.GetDocumentSnapshot();
-            snapshot = Optic.FromSnapshot(Runtime.CurrentOptic.ToSnapshot());
             nonSequentialSnapshot = _modes?.CurrentMode == OpticalWorkbenchMode.NonSequential
                 ? Runtime.CurrentNonSequentialDocument.Clone()
                 : null;
+            snapshot = Optic.FromSnapshot((nonSequentialSnapshot is null
+                ? SelectOptic(request.ConfigurationIndex) : Runtime.CurrentOptic).ToSnapshot());
+            var navigation = Runtime.GetMultiConfigurationNavigation();
+            configuration = nonSequentialSnapshot is null
+                ? new SceneConfigurationDto((request.ConfigurationIndex ?? navigation.ActiveIndex) + 1, navigation.Count)
+                : null;
+            resolveAutomaticApertures = nonSequentialSnapshot is null
+                && request.ConfigurationIndex.HasValue
+                && request.ConfigurationIndex.Value != navigation.ActiveIndex;
             linked = Workspace.LinkDocumentToken(cancellationToken);
         }
 
         return nonSequentialSnapshot is null
-            ? BuildSceneWorkerAsync(snapshot, sourceRevision, summary, request, linked)
+            ? BuildSceneWorkerAsync(snapshot, sourceRevision, summary, request, linked, configuration!, resolveAutomaticApertures)
             : BuildNonSequentialSceneWorkerAsync(
                 snapshot,
                 nonSequentialSnapshot,
@@ -166,13 +189,33 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
         long sourceRevision,
         OpticalDocumentSnapshot summary,
         VisualizationRequestDto request,
-        CancellationTokenSource linked)
+        CancellationTokenSource linked,
+        SceneConfigurationDto configuration,
+        bool resolveAutomaticApertures)
     {
         using (linked)
         {
             return await Task.Run(() =>
             {
                 linked.Token.ThrowIfCancellationRequested();
+                using var cancellationScope = ComputationCancellation.Push(linked.Token);
+                // Inactive configurations have not necessarily had their
+                // automatic apertures resolved by the workspace yet.
+                if (resolveAutomaticApertures) AutomaticSemiDiameterSolver.Update(snapshot);
+                // Geometry, rays and footer must describe the same frozen optic.
+                var computable = Core.Capabilities.OpticCapabilityPreflight.Inspect(snapshot).Count == 0;
+                summary = summary with
+                {
+                    Name = snapshot.Name,
+                    EffectiveFocalLength = computable ? snapshot.Paraxial.EstimateEffectiveFocalLength() : double.NaN,
+                    FNumber = computable ? snapshot.Paraxial.EstimateFNumber() : double.NaN,
+                    ApertureValue = snapshot.Aperture.Value,
+                    TotalTrack = snapshot.SurfaceGroup.TotalTrack,
+                    SurfaceCount = snapshot.SurfaceGroup.Items.Count,
+                    FieldCount = snapshot.Fields.Count,
+                    WavelengthCount = snapshot.Wavelengths.Count,
+                    EntrancePupilDiameter = computable ? snapshot.Paraxial.EstimateEntrancePupilDiameter() : double.NaN
+                };
                 var builder = new Layout2DBuilder(snapshot);
                 var options = new LayoutBuildOptions(
                     request.FirstSurface,
@@ -189,12 +232,14 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
                 {
                     var scene = builder.Build(options: options);
                     linked.Token.ThrowIfCancellationRequested();
-                    return new SceneDto(sourceRevision, request.Dimension, ToScene2Dto(scene), null, summary);
+                    return new SceneDto(sourceRevision, request.Dimension, ToScene2Dto(scene), null, summary,
+                        Configuration: configuration);
                 }
 
                 var scene3 = builder.Build3D(options: options);
                 linked.Token.ThrowIfCancellationRequested();
-                return new SceneDto(sourceRevision, request.Dimension, null, ToScene3Dto(scene3), summary);
+                return new SceneDto(sourceRevision, request.Dimension, null, ToScene3Dto(scene3), summary,
+                    Configuration: configuration);
             }, linked.Token).ConfigureAwait(false);
         }
     }

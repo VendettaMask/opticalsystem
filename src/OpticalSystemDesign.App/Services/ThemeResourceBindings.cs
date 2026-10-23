@@ -13,6 +13,7 @@ public static class ThemeResourceBindings
     public const string Sidebar = "OpticalSystemDesignSidebarBrush";
     public const string HeaderBackground = "OpticalSystemDesignHeaderBackgroundBrush";
     public const string TableHeader = "OpticalSystemDesignTableHeaderBrush";
+    public const string LensEditorHeaderBackground = "OpticalSystemDesignLensEditorHeaderBackgroundBrush";
     public const string RibbonPageBackground = "OpticalSystemDesignRibbonPageBackgroundBrush";
     public const string StatusBarBackground = "OpticalSystemDesignStatusBarBackgroundBrush";
     public const string Border = "OpticalSystemDesignBorderBrush";

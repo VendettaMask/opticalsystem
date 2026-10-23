@@ -1,0 +1,52 @@
+{
+  "Date": "2026-10-22",
+  "Scope": "Hide the redundant ordinary-surface role label and collapse its reserved space in the lens surface-type column; preserve object, stop and image roles.",
+  "BaseCommit": "0c52936c4d8ebb88f2492e780096a9931c1c0bea",
+  "WorkingTreeDirty": true,
+  "SourceHashes": [
+    {
+      "Path": "src/OpticalSystemDesign.App/ViewModels/EditorRows.cs",
+      "Sha256": "7681d42fab6a9a6b041f14ac5770894ed73025d4513ee42fdd32e32735ca0123"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.cs",
+      "Sha256": "b9f811c813041558943400816a0c111feebbf55fbd09515b6247d46cb106a203"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/LensMaterialRowThemeTests.cs",
+      "Sha256": "2ef4dbf19e40dfa81e614e8bd2f34cdd6610f3bfc0d1be92bfb315f0d934c46a"
+    }
+  ],
+  "TestRuns": [
+    {
+      "File": "surface-type-labels.trx",
+      "Total": 4,
+      "Passed": 4,
+      "Failed": 0,
+      "Sha256": "94efa214e54025a0ed82c1d5e9697d746899aed9767a2e4698e0be5230935777"
+    },
+    {
+      "File": "surface-type-labels-skia.trx",
+      "Total": 1,
+      "Passed": 1,
+      "Failed": 0,
+      "Sha256": "18aa2b5659c379746b767208b1dd9232b32d26d075b6dbe923012d15d9a736de"
+    }
+  ],
+  "DistinctPassingCases": 4,
+  "SkiaRepeatsExistingCase": true,
+  "Captures": [
+    "material-rows-recycled-image.png",
+    "material-rows-recycled-roles.png",
+    "material-rows-recycled-stop.png",
+    "material-rows-tessar.png"
+  ],
+  "Builds": {
+    "Debug": "Default App output rebuilt by focused tests; zero warnings/errors.",
+    "Release": "Default App Release build passed with zero warnings/errors."
+  },
+  "Boundaries": [
+    "Presentation only; surface roles and all optical data remain unchanged.",
+    "No full test suite or remote publication. Unrelated ongoing OTA changes were preserved."
+  ]
+}

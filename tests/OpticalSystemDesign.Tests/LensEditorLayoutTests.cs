@@ -25,7 +25,7 @@ public sealed class LensEditorLayoutTests
     }
 
     [Fact]
-    public void NumericDataGridColumnAlignsHeaderAndCellsToTheRight()
+    public void NumericDataGridColumnCentersHeaderAndKeepsCellsRightAligned()
     {
         var factory = typeof(LensEditorPanel).GetMethod(
             "NumericColumn",
@@ -38,8 +38,8 @@ public sealed class LensEditorLayoutTests
         Assert.Equal("numeric", column.Tag);
 
         var header = Assert.IsType<TextBlock>(column.Header);
-        Assert.Equal(TextAlignment.Right, header.TextAlignment);
-        Assert.Equal(HorizontalAlignment.Right, header.HorizontalAlignment);
+        Assert.Equal(TextAlignment.Center, header.TextAlignment);
+        Assert.Equal(HorizontalAlignment.Center, header.HorizontalAlignment);
 
         Assert.NotNull(column.CellTheme);
         var alignment = Assert.IsType<Setter>(Assert.Single(column.CellTheme.Setters));

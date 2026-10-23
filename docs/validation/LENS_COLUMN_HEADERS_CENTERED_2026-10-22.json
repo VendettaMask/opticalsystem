@@ -1,0 +1,52 @@
+{
+  "Date": "2026-10-22",
+  "Scope": "Center all lens table column headers horizontally and vertically while retaining bold titles and existing cell alignment.",
+  "BaseCommit": "0c52936c4d8ebb88f2492e780096a9931c1c0bea",
+  "WorkingTreeDirty": true,
+  "SourceHashes": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.cs",
+      "Sha256": "2166eeef19e21b3fc68151e79c2773003a514fd80f956ecdc3f39832b55f9166"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/LensHeaderTypographyTests.cs",
+      "Sha256": "1cc566e58fee4de6f739acb7dadfa2f6bf8c56ebc5ad06aa54eaa04684e308cb"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/LensEditorLayoutTests.cs",
+      "Sha256": "2b32d83b3ddba41aff9e147447d5ab83ef5424b8f93f9abbabcbeb201adb6086"
+    }
+  ],
+  "TestRun": {
+    "File": "lens-column-headers-centered.trx",
+    "Sha256": "ed64d0e00014f8c1cdad46ae5cd76be5007d78a0227d47564bb5c29520ab5ea0",
+    "Total": 12,
+    "Passed": 12,
+    "Failed": 0
+  },
+  "Captures": [
+    "lens-headers-Dark-en-US-13.png",
+    "lens-headers-Dark-en-US-18.png",
+    "lens-headers-Isekai-en-US-13.png",
+    "lens-headers-Isekai-en-US-18.png",
+    "lens-headers-Light-zh-CN-13.png",
+    "lens-headers-Light-zh-CN-18.png",
+    "lens-headers-Lumen-zh-CN-13.png",
+    "lens-headers-Lumen-zh-CN-18.png",
+    "lens-headers-Pixel-ja-JP-13.png",
+    "lens-headers-Pixel-ja-JP-18.png"
+  ],
+  "Coverage": [
+    "Five themes; Chinese, English and Japanese; font sizes 13 and 18.",
+    "Column-header horizontal and vertical centering; bold titles; unchanged font size and ordinary row weight.",
+    "Numeric cells and editors remain right aligned; unrelated table typography stays unchanged."
+  ],
+  "Builds": {
+    "Debug": "Default App output rebuilt by focused tests; zero warnings/errors.",
+    "Release": "Default App Release build passed with zero warnings/errors."
+  },
+  "Boundaries": [
+    "Header presentation only; no optical data changes.",
+    "No full test suite or remote publication. Other ongoing workspace changes preserved."
+  ]
+}

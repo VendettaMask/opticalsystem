@@ -410,6 +410,12 @@ internal static class UiLocalization
         void Add(string source, string english, string japanese) =>
             values[source] = new Translation(english, japanese);
 
+        Add("线框", "Wireframe", "ワイヤーフレーム");
+        Add("显示镜片内部剖面", "Show lens cross sections", "レンズ内部の断面を表示");
+
+        Add("选择二维图显示的结构", "Choose the configuration shown in the 2D view", "2D ビューに表示する構成を選択");
+        Add("仅切换此二维图显示的结构，不改变活动结构。", "Changes this 2D view only; the active configuration stays unchanged.", "この 2D ビューのみ切り替え、アクティブ構成は変更しません。");
+
         // Initial-structure presentation; numeric values and search identities are not localized.
         Add("自动初始结构", "Automatic Initial Structure", "初期構造の自動生成");
         Add("自动初始结构工作区", "Initial Structure Workspace", "初期構造ワークスペース");

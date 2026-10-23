@@ -34,6 +34,7 @@ internal static class BlueThemeTokens
     public static readonly Color HeaderMuted = Color.Parse("#D1DDF0");
     public static readonly Color HeaderDivider = Color.Parse("#4A82D8");
     public static readonly Color TableHeader = Color.Parse("#EEF4FC");
+    public static readonly Color LensEditorHeaderBackground = Color.Parse("#B8CCE4");
     public static readonly Color TextPrimary = Color.Parse("#22334C");
     public static readonly Color TextSecondary = Color.Parse("#5C6F8A");
     public static readonly Color TextDisabled = Color.Parse("#9BA9BF");

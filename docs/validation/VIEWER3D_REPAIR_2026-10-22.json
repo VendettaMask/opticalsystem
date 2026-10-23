@@ -1,0 +1,117 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-22",
+  "BaseCommit": "e6e4c5f0bc30594b8248e5a4a6b56cae515d638d",
+  "WorkingTreeDirty": true,
+  "Scope": "Repair 3D lens tessellation in local coordinates, actual mesh cutaway caps, engineering wireframe layout, and dedicated shaded/transparent solid model controls.",
+  "SourceHashes": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/Visualization/VisualizationModels.cs",
+      "Sha256": "1c1608d5672894648a3dcf3bc6e137c20c8248b09a73cf7a8a2573b9c271e195"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Controls/OpticSceneControl.cs",
+      "Sha256": "a054d68d7e7380bffb2806f2023adacd3355ec1db46d1af51f1d11323079b3cc"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs",
+      "Sha256": "050c7f5d201bd74357622ad355c0651f35348cbc29d0f87f5cf17f8b4cb16e38"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.cs",
+      "Sha256": "d65e830a95e1c8f932c7fd0bbb23ff91d332d419198e19aaae053d084a4f6114"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "Sha256": "b4c7bf0e67a52fa31c774aabb80c5061fa5766244a4f8a1ad6cce4970abc20e0"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Viewer3DGeometryTests.cs",
+      "Sha256": "584796adf6a95da155442dd0fb63df0852ec675cdc6998571f2b9229a273f43e"
+    }
+  ],
+  "TestRuns": [
+    {
+      "File": "viewer3d-repair-final.trx",
+      "Total": 30,
+      "Passed": 30,
+      "Failed": 0,
+      "Sha256": "013573e6b84d3bb77bbeef44253fe7d98888bd367ec112d91bc783414b30cc31"
+    },
+    {
+      "File": "viewer3d-repair-skia.trx",
+      "Total": 3,
+      "Passed": 3,
+      "Failed": 0,
+      "Sha256": "aa05bc583950e6ff3266d2afa6997a14013d00de54955fa3db412eac88fa6fb6"
+    }
+  ],
+  "DistinctPassingCases": 30,
+  "SkiaRepeatsExistingCases": true,
+  "Captures": [
+    "viewer3d-OpticalLayout-Dark-en-US.png",
+    "viewer3d-OpticalLayout-Light-zh-CN.png",
+    "viewer3d-solid-cutaway.png",
+    "viewer3d-solid-transparent.png",
+    "viewer3d-SolidModel-Light-zh-CN.png"
+  ],
+  "OriginalProbe": {
+    "Scope": "Read-only geometry diagnostic; imported Zoom, all surface frames translated +10 mm along global X, rays disabled. No Zemax numerical certification.",
+    "SurfaceNumber": 2,
+    "TranslationMillimeters": 10,
+    "Before": {
+      "SurfaceRimCenterX": -1.249000902703301E-16,
+      "LensMeshRimCenterX": -1.5265566588595902E-16
+    },
+    "After": {
+      "SurfaceRimCenterX": 9.999999999999998,
+      "LensMeshRimCenterX": -1.5265566588595902E-16
+    }
+  },
+  "RepairedProbe": {
+    "Scope": "Read-only geometry diagnostic; imported Zoom, all surface frames translated +10 mm along global X, rays disabled. No Zemax numerical certification.",
+    "SurfaceNumber": 2,
+    "TranslationMillimeters": 10,
+    "Before": {
+      "SurfaceRimCenterX": -1.249000902703301E-16,
+      "LensMeshRimCenterX": -1.5265566588595902E-16
+    },
+    "After": {
+      "SurfaceRimCenterX": 9.999999999999998,
+      "LensMeshRimCenterX": 10.000000000000004
+    }
+  },
+  "ProbeCoreAssemblySha256": "8460dcf8f40f13a267529c8b9b6ce62a7b7bc272a198cb74441537a22c38311b",
+  "Changes": [
+    "Sample complete local sag at every azimuth before transforming into global XYZ; no global YZ revolution.",
+    "Preserve flat local mechanical shoulders and include solid extents in view bounds.",
+    "Compute closed cut-plane cap contours from actual mesh intersections; skip elements not crossing the cut plane.",
+    "3D Layout uses engineering wireframe; Solid Model owns solid/transparent/wireframe and cutaway controls."
+  ],
+  "Builds": {
+    "Debug": "Default App output rebuilt by focused tests; zero warnings/errors.",
+    "Release": "Default App Release build succeeded; zero warnings/errors."
+  },
+  "InitialBuild": "Test compile initially found an ambiguous Avalonia/Core Vector3D import; resolved with an explicit Core type alias. That compile failure did not run tests.",
+  "Boundaries": [
+    "No changes to optical ray tracing formulas or existing 2D algorithms.",
+    "Full Zemax ray patterns, 3D configuration overlays/offsets, pupils and numeric three-axis rotations remain outside this change.",
+    "No full test suite, independent Cooke/Tessar investigation, Zemax numerical certification, installer update or remote publication.",
+    "Unrelated ongoing OTA changes in the shared workspace were preserved."
+  ],
+  "Archive": "validation/rechecks/2026-10-22/viewer3d-repair-evidence.zip",
+  "DocumentationAudit": {
+    "Passed": true,
+    "Documents": 1047,
+    "BrokenLinks": 0,
+    "FenceIssues": 0,
+    "LocalOnlyLinks": 0,
+    "File": "documentation-audit.json"
+  },
+  "ApplicationReopened": {
+    "ProcessId": 11456,
+    "DefaultDebugOutput": true,
+    "Responding": true
+  },
+  "ArchiveSha256": "ed4edf38a0a02620331b54a85121dab3c8dd2d2b47b0a5956f1701b311e6abea"
+}

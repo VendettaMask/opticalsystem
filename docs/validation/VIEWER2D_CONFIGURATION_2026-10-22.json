@@ -1,0 +1,114 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-22",
+  "BaseCommit": "e6e4c5f0bc30594b8248e5a4a6b56cae515d638d",
+  "WorkingTreeDirty": true,
+  "Scope": "2D toolbar configuration selector beside Settings and Refresh, showing only individual X / N choices, hidden for one configuration.",
+  "SourceHashes": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs",
+      "Sha256": "dd64ffd09b713ecb15f10cc1bc1613278abfc5c511e48056d62d78b7e576bb01"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.cs",
+      "Sha256": "b3cf242107136ab08a70ebe2d2cfd1863e48182c4220349a2105e1a745c8a2c2"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "Sha256": "984ac3f1aa3829c9de71c49da8b5dbd3d30dfce71c7c6782c8a96517c4fb26dc"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/ServiceContracts.cs",
+      "Sha256": "f4091a4f7ef686306061c9e320a329b8ef21194160f9a6899183e9817f70e462"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs",
+      "Sha256": "76f2d0861d83f13c8311123f894310b595b644757d03e9109b30c58b0b319da0"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/VisualizationService.cs",
+      "Sha256": "3e9f4e11985c31cb7bae0ae7d10e84d548075d8bb81640db044c13a4389b98dd"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/ViewerConfigurationTests.cs",
+      "Sha256": "6f47e275e9d58e1905906d5d18e202a583118ef7161544c843d26ecdc3d11867"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/ViewerSettingsInputThemeTests.cs",
+      "Sha256": "01694fbd4d920d61c77c1aae1f5a3b438e47e4d47f476636c1a4b50b4cd89c49"
+    }
+  ],
+  "TestRuns": [
+    {
+      "File": "viewer2d-configuration-final.trx",
+      "Total": 20,
+      "Passed": 20,
+      "Failed": 0,
+      "Sha256": "b383098978dd161393e86bb5bd5bd1804defa962ede00b0b98cd05d3c065e187"
+    },
+    {
+      "File": "viewer2d-configuration-skia.trx",
+      "Total": 10,
+      "Passed": 10,
+      "Failed": 0,
+      "Sha256": "a04f25be7cdf8dedbece3b7ebfa175b3f16035f217357cd11b65e2e7b493668a"
+    }
+  ],
+  "DistinctPassingCases": 20,
+  "SkiaRepeatsExistingCases": true,
+  "SkiaGuiCases": 4,
+  "Captures": [
+    "viewer2d-configuration-Dark-en-US-360-choices.png",
+    "viewer2d-configuration-Dark-en-US-360.png",
+    "viewer2d-configuration-Light-ja-JP-600-choices.png",
+    "viewer2d-configuration-Light-ja-JP-600.png",
+    "viewer2d-configuration-Light-zh-CN-1000-choices.png",
+    "viewer2d-configuration-Light-zh-CN-1000.png"
+  ],
+  "Checks": [
+    "Only individual configuration choices; single configuration hidden.",
+    "Default follows active configuration; explicit view selection does not mutate workspace or revision.",
+    "Real imported Zoom geometry, lens boundaries, rays and directed segment data match direct shared Core results.",
+    "Inactive automatic apertures are resolved on the computation clone, without changing the document.",
+    "Geometry, rays, footer and selector options all come from the selected configuration.",
+    "Invalid indices rejected; undo, count changes, reset and locked file switches clear stale selection and scene.",
+    "Live Chinese, English and Japanese labels and wide/narrow toolbar placement verified."
+  ],
+  "Builds": {
+    "Release": "Default App Release build succeeded with zero warnings and errors.",
+    "Debug": "Default App output rebuilt by focused tests; zero warnings and errors."
+  },
+  "InitialFailures": [
+    "First 17-case run: original input-theme fixture counted the new hidden toolbar picker as a settings-form field. The fixture now isolates the existing seven form pickers and checks that the new picker is hidden for one configuration.",
+    "The same run found unresolved automatic apertures in an unvisited configuration. The scene worker now calls the existing Core automatic-aperture solver for inactive selection and direct Core comparison uses the same resolved inputs. Original failing TRX is retained."
+  ],
+  "Reference": {
+    "Toolbar": "User-provided Zemax screenshot; individual structure selector, no All.",
+    "NumericalCertification": false,
+    "Documentation": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Cross_Section.html"
+  },
+  "Boundaries": [
+    "No Core optical formula changes or new optical solver.",
+    "No All overlay, full test suite, installer update or remote publication."
+  ],
+  "Archive": "validation/rechecks/2026-10-22/viewer2d-configuration-evidence.zip",
+  "DocumentationAudit": {
+    "Status": "Passed",
+    "Documents": 1047,
+    "BrokenLinks": 0,
+    "FenceIssues": 0,
+    "LocalOnlyLinks": 0,
+    "File": "documentation-audit.json",
+    "Sha256": "635762da412b7360ed09bac3d71c6b0d3351958b6816ee159a4d95b93f1ab841"
+  },
+  "ApplicationReopened": {
+    "ProcessId": 66260,
+    "DefaultDebugOutput": true,
+    "Responding": true
+  },
+  "ArchiveExclusions": [
+    "application-reopen.stdout.log",
+    "application-reopen.stderr.log"
+  ],
+  "ArchiveSha256": "2deb41b79e46eec809d112f5ba4ccac913a0e76affc714a1ed31b84ce797a0eb"
+}

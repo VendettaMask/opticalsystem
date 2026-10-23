@@ -1,0 +1,57 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-22",
+  "BaseCommit": "e6e4c5f0bc30594b8248e5a4a6b56cae515d638d",
+  "WorkingTreeDirty": true,
+  "Scope": "Research comparison with Zemax 2026 R1 3D Viewer and Shaded Model; no product-code changes in this audit.",
+  "References": [
+    "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/3D_Viewer.html",
+    "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v261/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Shaded_Model.html"
+  ],
+  "SourceHashes": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/Visualization/VisualizationModels.cs",
+      "Sha256": "006360ce38e2f7fa6aacb2a09831d0ee3dd934bff27adecd8116dcbf5ca1d3fd"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Controls/OpticSceneControl.cs",
+      "Sha256": "417e84600678f0b5b620339125519ad1710dd324696bf1118c4d45b0e765230b"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs",
+      "Sha256": "dd64ffd09b713ecb15f10cc1bc1613278abfc5c511e48056d62d78b7e576bb01"
+    }
+  ],
+  "ProbeCoreAssemblySha256": "24e97bd2578c9a56c0e5dd00cb0752926b49006bc1d4cdc8874e81bd2e9c6ae5",
+  "Probe": {
+    "Scope": "Read-only geometry diagnostic; imported Zoom, all surface frames translated +10 mm along global X, rays disabled. No Zemax numerical certification.",
+    "SurfaceNumber": 2,
+    "TranslationMillimeters": 10,
+    "Before": {
+      "SurfaceRimCenterX": -1.249000902703301E-16,
+      "LensMeshRimCenterX": -1.5265566588595902E-16
+    },
+    "After": {
+      "SurfaceRimCenterX": 9.999999999999998,
+      "LensMeshRimCenterX": -1.5265566588595902E-16
+    }
+  },
+  "Findings": [
+    "Current 3D layout defaults to translucent solid tessellation rather than engineering wireframe.",
+    "True XYZ ray histories and independent surface primitives exist.",
+    "Lens solid meshes revolve a global YZ profile around global Z; a +10 mm X translation moves independent surface rims but leaves solid rims centered at zero.",
+    "The current UI does not provide the full ray-pattern, configuration overlay/offset, pupil and three-axis numeric rotation controls of Zemax 3D Viewer."
+  ],
+  "Fixed": false,
+  "TestSuiteRerun": false,
+  "ZemaxNumericalComparison": false,
+  "Archive": "validation/rechecks/2026-10-22/viewer3d-audit-evidence.zip",
+  "DocumentationAudit": {
+    "Passed": true,
+    "Documents": 1047,
+    "BrokenLinks": 0,
+    "FenceIssues": 0,
+    "LocalOnlyLinks": 0
+  },
+  "ArchiveSha256": "256ecf346229776658a6c850c32d3677eaf5d4c53db9835e3a460b10a506b50a"
+}

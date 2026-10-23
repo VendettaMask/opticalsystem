@@ -56,7 +56,11 @@ public sealed class ViewerSettingsInputThemeTests
                 toggle.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 window.UpdateLayout();
                 var numbers = viewer.GetVisualDescendants().OfType<NumericUpDown>().ToArray();
-                var pickers = viewer.GetVisualDescendants().OfType<ComboBox>().ToArray();
+                var configurationPicker = viewer.GetVisualDescendants().OfType<ComboBox>()
+                    .Single(picker => picker.Name == "Viewer2DConfigurationPicker");
+                Assert.False(configurationPicker.IsVisible);
+                var pickers = viewer.GetVisualDescendants().OfType<ComboBox>()
+                    .Where(picker => picker != configurationPicker).ToArray();
                 Assert.Equal(4, numbers.Length);
                 Assert.Equal(7, pickers.Length);
 

@@ -173,6 +173,7 @@ internal sealed record ThemePalette(
             [ThemeResourceBindings.Sidebar] = Brush(Workspace),
             [ThemeResourceBindings.HeaderBackground] = Brush(Surface),
             [ThemeResourceBindings.TableHeader] = Brush(Surface),
+            [ThemeResourceBindings.LensEditorHeaderBackground] = Brush(SubtleSurface),
             [ThemeResourceBindings.RibbonPageBackground] = Brush(Surface),
             [ThemeResourceBindings.StatusBarBackground] = Brush(SubtleSurface),
             [ThemeResourceBindings.Border] = Brush(Border),

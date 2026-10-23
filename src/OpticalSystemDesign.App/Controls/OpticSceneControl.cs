@@ -30,7 +30,8 @@ public enum OpticSceneViewMode
 public enum OpticSceneRenderMode
 {
     Solid,
-    Wireframe
+    Wireframe,
+    Transparent
 }
 
 public enum OpticSceneRayColorMode
@@ -123,7 +124,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
 
     private readonly SceneViewport _viewport = new();
     private OpticSceneViewMode _viewMode;
-    private OpticSceneRenderMode _renderMode = OpticSceneRenderMode.Solid;
+    private OpticSceneRenderMode _renderMode = OpticSceneRenderMode.Wireframe;
     private double _yaw = -0.72;
     private double _pitch = 0.38;
     private bool _dragging;
@@ -833,7 +834,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             Draw3DRays(context, scene.Rays, Project, CutawayEnabled);
         }
 
-        if (RenderMode == OpticSceneRenderMode.Solid)
+        if (RenderMode != OpticSceneRenderMode.Wireframe)
         {
             Draw3DSolidLensElements(
                 context,
@@ -843,6 +844,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
                 Depth,
                 CutawayEnabled,
                 solidModelStyle,
+                RenderMode == OpticSceneRenderMode.Transparent,
                 HighlightedSurfaceNumber,
                 _yaw,
                 _pitch);
@@ -859,7 +861,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         var elementSurfaceNumbers = scene.LensElements
             .SelectMany(element => new[] { element.FrontSurfaceNumber, element.BackSurfaceNumber })
             .ToHashSet();
-        var surfacesToDraw = RenderMode == OpticSceneRenderMode.Solid
+        var surfacesToDraw = RenderMode != OpticSceneRenderMode.Wireframe
             ? scene.Surfaces.Where(surface => !elementSurfaceNumbers.Contains(surface.SurfaceNumber)).ToArray()
             : scene.Surfaces;
         var objectSurfaces = surfacesToDraw
@@ -1182,6 +1184,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         Func<Layout3DPoint, double> depth,
         bool cutawayEnabled,
         bool solidModelStyle,
+        bool transparent,
         int? highlightedSurfaceNumber,
         double yaw,
         double pitch)
@@ -1220,7 +1223,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
                     glass,
                     viewDirection,
                     cutawayEnabled,
-                    solidModelStyle,
+                    transparent,
                     depth);
             }
 
@@ -1234,7 +1237,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
                     glass,
                     viewDirection,
                     cutawayEnabled,
-                    solidModelStyle,
+                    transparent,
                     depth);
             }
         }
@@ -1263,7 +1266,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
                         glass.RefractiveIndex,
                         glass.ThicknessMillimeters,
                         isSideWall: true,
-                        opticalLayoutStyle: !solidModelStyle),
+                        transparent),
                     depth);
             }
         }
@@ -1272,11 +1275,9 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         {
             foreach (var element in elements)
             {
-                AddProjectedFace(
-                    faces,
-                    element.MeridianBoundary,
-                    solidModelStyle ? SolidLensCutBrush : ThreeDLensCutBrush,
-                    depth);
+                foreach (var cap in CutawayCapsForRendering(element))
+                    AddProjectedFace(faces, cap,
+                        solidModelStyle ? SolidLensCutBrush : ThreeDLensCutBrush, depth);
             }
         }
 
@@ -1284,6 +1285,62 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         {
             DrawProjectedPolygon(context, face.Fill, face.Points, project);
         }
+    }
+
+    internal static IReadOnlyList<IReadOnlyList<Layout3DPoint>> CutawayCapsForRendering(Layout3DLensElement element)
+    {
+        const double tolerance = 1e-7;
+        static bool Near(Layout3DPoint a, Layout3DPoint b) =>
+            Math.Abs(a.Y - b.Y) <= tolerance && Math.Abs(a.Z - b.Z) <= tolerance;
+        var polygons = element.FrontFaces.Concat(element.BackFaces).Select(face => face.Points).ToList();
+        for (var index = 0; index + 1 < Math.Min(element.FrontRim.Count, element.BackRim.Count); index++)
+            polygons.Add(new[] { element.FrontRim[index], element.FrontRim[index + 1],
+                element.BackRim[index + 1], element.BackRim[index] });
+        var vertices = polygons.SelectMany(points => points).ToArray();
+        if (!vertices.Any(point => point.X < -tolerance) || !vertices.Any(point => point.X > tolerance))
+            return Array.Empty<IReadOnlyList<Layout3DPoint>>();
+
+        var segments = new List<(Layout3DPoint A, Layout3DPoint B)>();
+        foreach (var polygon in polygons)
+        {
+            var hits = new List<Layout3DPoint>();
+            for (var index = 0; index < polygon.Count; index++)
+            {
+                var start = polygon[index];
+                var end = polygon[(index + 1) % polygon.Count];
+                Layout3DPoint? hit = Math.Abs(start.X) <= tolerance ? new(0, start.Y, start.Z)
+                    : start.X * end.X < 0 ? CutawayIntersection(start, end) : null;
+                if (hit is not null && !hits.Any(point => Near(point, hit))) hits.Add(hit);
+            }
+            if (hits.Count != 2 || Near(hits[0], hits[1])) continue;
+            if (!segments.Any(segment => (Near(segment.A, hits[0]) && Near(segment.B, hits[1]))
+                || (Near(segment.B, hits[0]) && Near(segment.A, hits[1]))))
+                segments.Add((hits[0], hits[1]));
+        }
+
+        // Stitch the actual mesh/plane intersections. A local meridian is not
+        // the global cut plane for a decentered or tilted element.
+        var caps = new List<IReadOnlyList<Layout3DPoint>>();
+        while (segments.Count > 0)
+        {
+            var first = segments[^1];
+            segments.RemoveAt(segments.Count - 1);
+            var contour = new List<Layout3DPoint> { first.A, first.B };
+            while (!Near(contour[0], contour[^1]))
+            {
+                var next = segments.FindIndex(segment => Near(segment.A, contour[^1]) || Near(segment.B, contour[^1]));
+                if (next < 0) break;
+                var segment = segments[next];
+                segments.RemoveAt(next);
+                contour.Add(Near(segment.A, contour[^1]) ? segment.B : segment.A);
+            }
+            if (contour.Count >= 4 && Near(contour[0], contour[^1]))
+            {
+                contour.RemoveAt(contour.Count - 1);
+                caps.Add(contour);
+            }
+        }
+        return caps;
     }
 
     private static void AddElementSurfaceFaces(
@@ -1294,7 +1351,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         GlassRenderParameters glass,
         Layout3DPoint viewDirection,
         bool cutawayEnabled,
-        bool solidModelStyle,
+        bool transparent,
         Func<Layout3DPoint, double> depth)
     {
         foreach (var face in surfaceFaces)
@@ -1311,7 +1368,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
                         glass.RefractiveIndex,
                         glass.ThicknessMillimeters,
                         isSideWall: false,
-                        opticalLayoutStyle: !solidModelStyle),
+                        transparent),
                 depth);
         }
     }
@@ -1322,7 +1379,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         double refractiveIndex,
         double thicknessMillimeters,
         bool isSideWall,
-        bool opticalLayoutStyle)
+        bool transparent)
     {
         if (!double.IsFinite(refractiveIndex))
             return ThreeDLensCutBrush;
@@ -1337,7 +1394,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             Math.Abs(Dot(normal, rimLightDirection)),
             thicknessMillimeters,
             isSideWall);
-        if (!opticalLayoutStyle)
+        if (!transparent)
         {
             return new SolidColorBrush(sample.Color);
         }

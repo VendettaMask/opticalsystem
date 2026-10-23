@@ -115,7 +115,12 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         grid.BindThemeResource(DataGrid.BorderBrushProperty, ThemeResourceBindings.Border);
         grid.Styles.Add(new Style(selector => selector.OfType<DataGridColumnHeader>())
         {
-            Setters = { new Setter(TemplatedControl.FontWeightProperty, FontWeight.Bold) }
+            Setters =
+            {
+                new Setter(TemplatedControl.FontWeightProperty, FontWeight.Bold),
+                new Setter(DataGridColumnHeader.HorizontalContentAlignmentProperty, HorizontalAlignment.Center),
+                new Setter(DataGridColumnHeader.VerticalContentAlignmentProperty, VerticalAlignment.Center)
+            }
         });
         grid.Styles.Add(new Style(selector => selector
             .OfType<DataGridRow>()
@@ -441,20 +446,20 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
     private static TextBlock NumericHeader(string text) => new()
     {
         Text = text,
-        HorizontalAlignment = HorizontalAlignment.Right,
-        TextAlignment = TextAlignment.Right
+        HorizontalAlignment = HorizontalAlignment.Center,
+        TextAlignment = TextAlignment.Center
     };
 
     private static DataGridTemplateColumn SurfaceTypeColumn() => new()
     {
         Header = "表面类型",
         IsReadOnly = true,
-        Width = new DataGridLength(240),
+        Width = new DataGridLength(180),
         CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) =>
         {
             var content = new Grid
             {
-                ColumnDefinitions = new ColumnDefinitions("100,*")
+                ColumnDefinitions = new ColumnDefinitions("Auto,*")
             };
             var role = new TextBlock
             {
@@ -467,6 +472,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
                 VerticalAlignment = VerticalAlignment.Center
             };
             role.Bind(TextBlock.TextProperty, new Binding(nameof(SurfaceEditorRow.SurfaceRole)));
+            role.Bind(IsVisibleProperty, new Binding(nameof(SurfaceEditorRow.ShowSurfaceRole)));
             type.Bind(TextBlock.TextProperty, new Binding(nameof(SurfaceEditorRow.SurfaceType)));
             Grid.SetColumn(type, 1);
             content.Children.Add(role);

@@ -176,6 +176,8 @@ public sealed class LensConfigurationNavigationTests
             {
                 window.Show(); Tick(window);
                 Assert.Equal("结构 1/1", Find<TextBlock>(editor, "LensConfigurationPosition").Text);
+                AssertHeaderCentered(editor, window);
+                Capture(window, "configuration-header-single-centered.png");
                 Assert.False(Find<Button>(editor, "NextLensConfiguration").IsEnabled);
                 Assert.Equal("只有一个结构，无需切换", AutomationProperties.GetHelpText(Find<Button>(editor, "NextLensConfiguration")));
                 Assert.True(ToolTip.GetShowOnDisabled(Find<Button>(editor, "NextLensConfiguration")));
@@ -229,6 +231,7 @@ public sealed class LensConfigurationNavigationTests
                 Assert.InRange(Math.Abs(positionBounds.Center.X - (previousBounds.Center.X + nextBounds.Center.X) / 2), 0, 1);
                 Assert.DoesNotContain(editor.GetVisualDescendants(), control => control.Name == "OpenLensMultiConfiguration");
                 var surfaceItems = Find<StackPanel>(editor, "SurfacePropertiesHeaderItems");
+                AssertHeaderCentered(editor, window);
                 if (width >= 1000)
                 {
                     var surfaceCenter = surfaceItems.TranslatePoint(new Point(0, surfaceItems.Bounds.Height / 2), window)!.Value;
@@ -243,9 +246,16 @@ public sealed class LensConfigurationNavigationTests
                 var revision = app.Events.Revision;
                 UiLocalization.Apply(UiLocalization.Chinese); Tick(window);
                 Assert.Equal("结构 1/3", position.Text);
+                AssertHeaderCentered(editor, window);
                 UiLocalization.Apply(language); Tick(window);
                 Assert.Equal(caption, position.Text);
+                AssertHeaderCentered(editor, window);
                 Assert.Equal(revision, app.Events.Revision);
+                foreach (var resizedWidth in new[] { 1000, 360, width })
+                {
+                    window.Width = resizedWidth; Tick(window);
+                    AssertHeaderCentered(editor, window);
+                }
                 foreach (var name in new[] { "PreviousLensConfiguration", "NextLensConfiguration" })
                 {
                     var control = Find<Button>(editor, name);
@@ -319,5 +329,29 @@ public sealed class LensConfigurationNavigationTests
         Directory.CreateDirectory(directory);
         using var bitmap = new RenderTargetBitmap(new PixelSize((int)window.Width, (int)window.Height), new Vector(96, 96));
         bitmap.Render(window); bitmap.Save(Path.Combine(directory, fileName), PngBitmapEncoderOptions.Default);
+        if (window.Content is LensEditorPanel editor)
+        {
+            var header = Find<Border>(editor, "SurfacePropertiesHeader");
+            using var headerBitmap = new RenderTargetBitmap(
+                new PixelSize((int)Math.Ceiling(header.Bounds.Width), (int)Math.Ceiling(header.Bounds.Height)), new Vector(96, 96));
+            headerBitmap.Render(header);
+            headerBitmap.Save(Path.Combine(directory, Path.GetFileNameWithoutExtension(fileName) + "-header.png"), PngBitmapEncoderOptions.Default);
+        }
+    }
+
+    private static void AssertHeaderCentered(LensEditorPanel editor, Window window)
+    {
+        static Rect BoundsInWindow(Control control, Window window) =>
+            new(control.TranslatePoint(default, window)!.Value, control.Bounds.Size);
+        var header = BoundsInWindow(Find<Border>(editor, "SurfacePropertiesHeader"), window);
+        var navigation = BoundsInWindow(Find<StackPanel>(editor, "LensConfigurationToolbar"), window);
+        var positionControl = Find<TextBlock>(editor, "LensConfigurationPosition");
+        Assert.Equal(Avalonia.Media.FontWeight.Bold, positionControl.FontWeight);
+        var position = BoundsInWindow(positionControl, window);
+        var surface = BoundsInWindow(Find<StackPanel>(editor, "SurfacePropertiesHeaderItems"), window);
+        Assert.InRange(Math.Abs(header.Center.X - navigation.Center.X), 0, 1);
+        Assert.InRange(Math.Abs(header.Center.X - position.Center.X), 0, 1);
+        Assert.True(surface.Right <= navigation.Left || surface.Bottom <= navigation.Top,
+            $"Surface controls {surface} overlap configuration navigation {navigation}");
     }
 }

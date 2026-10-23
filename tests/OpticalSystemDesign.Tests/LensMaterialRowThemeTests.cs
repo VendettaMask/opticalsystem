@@ -64,8 +64,10 @@ public sealed class LensMaterialRowThemeTests
                         if (row.DataContext is not SurfaceEditorRow item) continue;
                         var hasMaterial = !string.IsNullOrWhiteSpace(item.MaterialDisplay);
                         var typeCell = grid.Columns[1].GetCellContent(row)!;
-                        var labels = typeCell.GetVisualDescendants().OfType<TextBlock>().Select(text => text.Text).ToArray();
-                        Assert.Equal(new[] { item.SurfaceRole, item.SurfaceType }, labels);
+                        var labels = typeCell.GetVisualDescendants().OfType<TextBlock>()
+                            .Where(text => text.IsVisible).Select(text => text.Text).ToArray();
+                        Assert.Equal(item.Number == 0 || item.IsLastSurface || item.IsStop
+                            ? new[] { item.SurfaceRole, item.SurfaceType } : new[] { item.SurfaceType }, labels);
                         Assert.Equal(hasMaterial, row.Classes.Contains("glass-material-row"));
                         if (!row.IsSelected)
                             Equal(hasMaterial ? "#EAF1FF" : "#FFFFFF", Background(row).Fill);

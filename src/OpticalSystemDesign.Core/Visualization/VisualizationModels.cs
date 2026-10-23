@@ -231,7 +231,7 @@ public sealed class Layout2DBuilder
                 && IsSurfaceSelected(element.BackSurfaceNumber, options))
             .ToList();
         var rays = BuildRayPaths(includeDepth: true, options);
-        var extents = Calculate3DExtents(surfaces, rays);
+        var extents = Calculate3DExtents(surfaces, lensElements, rays);
 
         return new Layout3DScene(
             surfaces,
@@ -370,25 +370,20 @@ public sealed class Layout2DBuilder
                 var surface = group[index];
                 var next = group[index + 1];
                 var extent = ElementExtent(surface, next);
-                var frontCurve = BuildExtendedSurfaceCurve(surface, surfaceSamples, extent);
-                var backCurve = BuildExtendedSurfaceCurve(next, surfaceSamples, extent);
-                var frontProfile = PositiveRadialProfile(frontCurve);
-                var backProfile = PositiveRadialProfile(backCurve);
                 var angularSegments = Math.Clamp(rimSamples, 32, 96);
+                var front = BuildElementSurface(surface, surfaceSamples, angularSegments, extent);
+                var back = BuildElementSurface(next, surfaceSamples, angularSegments, extent);
                 elements.Add(new Layout3DLensElement(
                     surface.Number,
                     next.Number,
                     surface.MaterialAfterName,
                     surface.MaterialAfter is UnresolvedMaterial ? double.NaN
                         : surface.MaterialAfter.RefractiveIndex(PrimaryWavelengthNanometers()),
-                    BuildRevolvedRim(frontProfile[^1], angularSegments),
-                    BuildRevolvedRim(backProfile[^1], angularSegments),
-                    BuildRevolvedSurfaceFaces(frontProfile, angularSegments),
-                    BuildRevolvedSurfaceFaces(backProfile, angularSegments),
-                    frontCurve
-                        .Concat(backCurve.Reverse())
-                        .Select(point => new Layout3DPoint(0, point.Y, point.Z))
-                        .ToArray()));
+                    front.Rim,
+                    back.Rim,
+                    front.Faces,
+                    back.Faces,
+                    front.Meridian.Concat(back.Meridian.Reverse()).ToArray()));
             }
         }
 
@@ -804,83 +799,71 @@ public sealed class Layout2DBuilder
         return rim;
     }
 
-    private static IReadOnlyList<Layout2DPoint> PositiveRadialProfile(
-        IReadOnlyList<Layout2DPoint> meridian)
+    private static ElementSurfaceMesh BuildElementSurface(
+        OpticalSurface surface,
+        int surfaceSamples,
+        int angularSegments,
+        double targetExtent)
     {
-        var profile = meridian
-            .Where(point => point.Y >= -1e-9)
-            .Select(point => new Layout2DPoint(point.Z, Math.Max(0, point.Y)))
-            .ToArray();
-        if (profile.Length < 2)
+        var extent = SurfaceExtent(surface);
+        // Sample the actual local sag at every azimuth, then transform the
+        // complete point. Revolving a global YZ slice loses decenter, tilt
+        // and any sag dependence on local X.
+        Layout3DPoint Sample(double x, double y)
         {
-            throw new InvalidOperationException("A revolved optical surface requires at least two radial samples.");
+            var radius = Math.Sqrt(x * x + y * y);
+            var sagScale = radius > extent ? extent / radius : 1;
+            return ToLayoutPoint(surface.CoordinateSystem.ToGlobalPoint(new Vector3D(
+                x, y, SafeSag(surface, x * sagScale, y * sagScale))));
         }
 
-        return profile;
-    }
-
-    private static IReadOnlyList<Layout3DPoint> BuildRevolvedRim(
-        Layout2DPoint edge,
-        int angularSegments)
-    {
-        var rim = new List<Layout3DPoint>(angularSegments + 1);
-        for (var angularIndex = 0; angularIndex <= angularSegments; angularIndex++)
-        {
-            var angle = (2.0 * Math.PI * angularIndex) / angularSegments;
-            rim.Add(Revolve(edge, angle));
-        }
-
-        return rim;
-    }
-
-    private static IReadOnlyList<Layout3DSurfaceFace> BuildRevolvedSurfaceFaces(
-        IReadOnlyList<Layout2DPoint> radialProfile,
-        int angularSegments)
-    {
-        var faces = new List<Layout3DSurfaceFace>(radialProfile.Count * angularSegments);
-        for (var radialIndex = 0; radialIndex < radialProfile.Count - 1; radialIndex++)
-        {
-            var inner = radialProfile[radialIndex];
-            var outer = radialProfile[radialIndex + 1];
-            if (inner.Y <= 1e-12)
+        var radialSegments = Math.Max(1, (surfaceSamples - 1) / 2);
+        var radii = Enumerable.Range(1, radialSegments)
+            .Select(index => extent * index / radialSegments).ToList();
+        // Preserve a flat local shoulder beyond the clear surface instead of
+        // extrapolating its curvature into the mechanical edge.
+        if (targetExtent > extent + 1e-9) radii.Add(targetExtent);
+        var rings = radii.Select(radius => Enumerable.Range(0, angularSegments)
+            .Select(index =>
             {
-                var center = new Layout3DPoint(0, 0, inner.Z);
-                for (var angularIndex = 0; angularIndex < angularSegments; angularIndex++)
-                {
-                    var angle = (2.0 * Math.PI * angularIndex) / angularSegments;
-                    var nextAngle = (2.0 * Math.PI * (angularIndex + 1)) / angularSegments;
-                    faces.Add(new Layout3DSurfaceFace(new[]
-                    {
-                        center,
-                        Revolve(outer, angle),
-                        Revolve(outer, nextAngle)
-                    }));
-                }
-
-                continue;
-            }
-
+                var angle = 2 * Math.PI * index / angularSegments;
+                return Sample(radius * Math.Cos(angle), radius * Math.Sin(angle));
+            }).ToArray()).ToArray();
+        var faces = new List<Layout3DSurfaceFace>(radii.Count * angularSegments);
+        var center = Sample(0, 0);
+        for (var angularIndex = 0; angularIndex < angularSegments; angularIndex++)
+        {
+            var next = (angularIndex + 1) % angularSegments;
+            faces.Add(new Layout3DSurfaceFace(new[] { center, rings[0][angularIndex], rings[0][next] }));
+        }
+        for (var radialIndex = 1; radialIndex < rings.Length; radialIndex++)
+        {
             for (var angularIndex = 0; angularIndex < angularSegments; angularIndex++)
             {
-                var angle = (2.0 * Math.PI * angularIndex) / angularSegments;
-                var nextAngle = (2.0 * Math.PI * (angularIndex + 1)) / angularSegments;
+                var next = (angularIndex + 1) % angularSegments;
                 faces.Add(new Layout3DSurfaceFace(new[]
                 {
-                    Revolve(inner, angle),
-                    Revolve(outer, angle),
-                    Revolve(outer, nextAngle),
-                    Revolve(inner, nextAngle)
+                    rings[radialIndex - 1][angularIndex], rings[radialIndex][angularIndex],
+                    rings[radialIndex][next], rings[radialIndex - 1][next]
                 }));
             }
         }
 
-        return faces;
+        var meridian = Enumerable.Range(0, surfaceSamples).Select(index =>
+            Sample(0, -extent + 2 * extent * index / (surfaceSamples - 1))).ToList();
+        if (targetExtent > extent + 1e-9)
+        {
+            meridian.Insert(0, Sample(0, -targetExtent));
+            meridian.Add(Sample(0, targetExtent));
+        }
+        var rim = rings[^1].Append(rings[^1][0]).ToArray();
+        return new ElementSurfaceMesh(rim, faces, meridian);
     }
 
-    private static Layout3DPoint Revolve(Layout2DPoint point, double angle) => new(
-        point.Y * Math.Cos(angle),
-        point.Y * Math.Sin(angle),
-        point.Z);
+    private sealed record ElementSurfaceMesh(
+        IReadOnlyList<Layout3DPoint> Rim,
+        IReadOnlyList<Layout3DSurfaceFace> Faces,
+        IReadOnlyList<Layout3DPoint> Meridian);
 
     private static IReadOnlyList<Layout3DSurfaceFace> BuildSurfaceFaces(
         OpticalSurface surface,
@@ -1119,6 +1102,7 @@ public sealed class Layout2DBuilder
 
     private (double XExtent, double YExtent, double ZMin, double ZMax) Calculate3DExtents(
         IReadOnlyList<Layout3DSurfacePrimitive> surfaces,
+        IReadOnlyList<Layout3DLensElement> elements,
         IReadOnlyList<Layout3DRayPath> rays)
     {
         var xValues = new List<double>();
@@ -1156,6 +1140,12 @@ public sealed class Layout2DBuilder
                     Add(point);
                 }
             }
+        }
+
+        foreach (var element in elements)
+        {
+            foreach (var point in element.FrontFaces.Concat(element.BackFaces).SelectMany(face => face.Points))
+                Add(point);
         }
 
         foreach (var ray in rays)

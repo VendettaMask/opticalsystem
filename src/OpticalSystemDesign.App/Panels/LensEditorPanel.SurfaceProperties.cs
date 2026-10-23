@@ -69,10 +69,9 @@ public sealed partial class LensEditorPanel
             VerticalAlignment = VerticalAlignment.Center,
             Children = { toggle, _surfacePropertiesTitle, _previousPropertySurface, _nextPropertySurface }
         };
-        var headerItems = new WrapPanel
+        var headerItems = new LensHeaderLayout
         {
             Name = "LensEditorHeaderItems",
-            Orientation = Orientation.Horizontal,
             Children = { surfaceItems }
         };
         if (_configurations is not null) headerItems.Children.Add(BuildConfigurationNavigation());
@@ -82,8 +81,50 @@ public sealed partial class LensEditorPanel
             Padding = new Thickness(8, 7),
             Child = headerItems
         };
-        header.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
+        header.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.LensEditorHeaderBackground);
         return new StackPanel { Children = { header, _configurationMessage, editorBorder } };
+    }
+
+    // Center against the entire header, independently of the left controls.
+    // When they would overlap, keep navigation centered on a second row.
+    private sealed class LensHeaderLayout : Panel
+    {
+        private const double HorizontalGap = 12;
+        private const double RowGap = 4;
+
+        private bool NeedsSecondRow(double width) => Children.Count > 1
+            && Children[0].DesiredSize.Width + HorizontalGap
+                > (width - Children[1].DesiredSize.Width) / 2;
+
+        protected override Size MeasureOverride(Size availableSize)
+        {
+            foreach (var child in Children)
+                child.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            var left = Children[0].DesiredSize;
+            var navigation = Children.Count > 1 ? Children[1].DesiredSize : default;
+            var width = double.IsFinite(availableSize.Width) ? availableSize.Width
+                : Children.Count > 1 ? 2 * (left.Width + HorizontalGap) + navigation.Width : left.Width;
+            var height = NeedsSecondRow(width) ? left.Height + RowGap + navigation.Height
+                : Math.Max(left.Height, navigation.Height);
+            return new Size(width, height);
+        }
+
+        protected override Size ArrangeOverride(Size finalSize)
+        {
+            var left = Children[0].DesiredSize;
+            var stacked = NeedsSecondRow(finalSize.Width);
+            Children[0].Arrange(new Rect(0, stacked ? 0 : (finalSize.Height - left.Height) / 2,
+                Math.Min(left.Width, finalSize.Width), left.Height));
+            if (Children.Count > 1)
+            {
+                var navigation = Children[1].DesiredSize;
+                var width = Math.Min(navigation.Width, finalSize.Width);
+                Children[1].Arrange(new Rect((finalSize.Width - width) / 2,
+                    stacked ? left.Height + RowGap : (finalSize.Height - navigation.Height) / 2,
+                    width, navigation.Height));
+            }
+            return finalSize;
+        }
     }
 
     private static Button PropertyHeaderButton(string name, string iconName, string caption)

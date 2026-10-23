@@ -1173,7 +1173,9 @@ public sealed record VisualizationSelectorOptionDto(int Index, string Label);
 public sealed record VisualizationOptionsDto(
     IReadOnlyList<int> SurfaceNumbers,
     IReadOnlyList<VisualizationSelectorOptionDto> Fields,
-    IReadOnlyList<VisualizationSelectorOptionDto> Wavelengths);
+    IReadOnlyList<VisualizationSelectorOptionDto> Wavelengths,
+    int ConfigurationCount = 1,
+    int ActiveConfigurationIndex = 0);
 
 public sealed record VisualizationRequestDto(
     SceneDimension Dimension,
@@ -1187,7 +1189,8 @@ public sealed record VisualizationRequestDto(
     double UpperPupil = 0.85,
     bool DeleteVignetted = true,
     bool MarginalAndChiefOnly = false,
-    bool IncludeStaleNonSequentialRays = false);
+    bool IncludeStaleNonSequentialRays = false,
+    int? ConfigurationIndex = null);
 
 public sealed record ScenePoint2Dto(double Z, double Y);
 
@@ -1338,6 +1341,8 @@ public sealed record NonSequentialLayoutResultDto(
     bool RaysLoaded,
     string? DatabasePath);
 
+public sealed record SceneConfigurationDto(int Number, int Count);
+
 public sealed record SceneDto(
     long SourceRevision,
     SceneDimension Dimension,
@@ -1345,7 +1350,8 @@ public sealed record SceneDto(
     Scene3Dto? ThreeDimensional,
     OpticalDocumentSnapshot Summary,
     NonSequentialLayoutResultDto? NonSequentialLayoutResult = null,
-    IReadOnlyList<string>? Warnings = null);
+    IReadOnlyList<string>? Warnings = null,
+    SceneConfigurationDto? Configuration = null);
 
 public enum CadExportFormat
 {

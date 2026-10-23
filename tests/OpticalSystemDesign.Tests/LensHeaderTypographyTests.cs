@@ -38,7 +38,7 @@ public sealed class LensHeaderTypographyTests
     [InlineData("Isekai", "en-US", 18)]
     [InlineData("Lumen", "zh-CN", 13)]
     [InlineData("Lumen", "zh-CN", 18)]
-    public async Task OnlyLensHeadersAreBoldAndRetainTheirSizeAndAlignment(string theme, string language, double fontSize)
+    public async Task OnlyLensHeadersAreBoldCenteredAndRetainTheirSize(string theme, string language, double fontSize)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(LensHeaderTypographyTests));
         await session.Dispatch(() =>
@@ -66,6 +66,8 @@ public sealed class LensHeaderTypographyTests
                 foreach (var header in headers)
                 {
                     Assert.Equal(FontWeight.Bold, header.FontWeight);
+                    Assert.Equal(HorizontalAlignment.Center, header.HorizontalContentAlignment);
+                    Assert.Equal(VerticalAlignment.Center, header.VerticalContentAlignment);
                     Assert.Equal(baselineHeader.FontSize, header.FontSize);
                     foreach (var text in header.GetVisualDescendants().OfType<TextBlock>().Where(t => !string.IsNullOrEmpty(t.Text)))
                         Assert.Equal(FontWeight.Bold, text.FontWeight);
@@ -73,8 +75,8 @@ public sealed class LensHeaderTypographyTests
                 foreach (var column in grid.Columns.Where(c => c.Header is TextBlock))
                 {
                     var header = (TextBlock)column.Header!;
-                    Assert.Equal(HorizontalAlignment.Right, header.HorizontalAlignment);
-                    Assert.Equal(TextAlignment.Right, header.TextAlignment);
+                    Assert.Equal(HorizontalAlignment.Center, header.HorizontalAlignment);
+                    Assert.Equal(TextAlignment.Center, header.TextAlignment);
                 }
                 Assert.All(grid.GetVisualDescendants().OfType<DataGridRow>(), row => Assert.Equal(FontWeight.Normal, row.FontWeight));
                 Assert.All(grid.GetVisualDescendants().OfType<TextBox>(), input => Assert.Equal(FontWeight.Normal, input.FontWeight));

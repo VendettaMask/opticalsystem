@@ -1,0 +1,105 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-22",
+  "BaseCommit": "e6e4c5f0bc30594b8248e5a4a6b56cae515d638d",
+  "WorkingTreeDirty": true,
+  "Scope": "Center configuration navigation against the entire Lens Data header, use bold configuration position, and a distinct blue-gray (#B8CCE4) toolbar background in Light. Use a centered second row when the left controls would overlap.",
+  "SourceHashes": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.Configurations.cs",
+      "Sha256": "2ee3e3cdee1483bc1aa40306313cdff2aea1ef3d4fbe316054abf54f9804c6b5"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.SurfaceProperties.cs",
+      "Sha256": "19c5eb03e5ced40b1f2f312283aa5d10358bc31a42d8a619f0f571e046a77ecc"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/UserGuidePanel.cs",
+      "Sha256": "2459cadd729bee459f9bc6450577f109ce275e1d7d2fd0172d320e09785b85d2"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/ThemeResourceBindings.cs",
+      "Sha256": "89897fcfecb19945335c2dd0647afbf585d3209b43cb72b01a2b9045be20c95d"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Theming/BlueThemeTokens.cs",
+      "Sha256": "fc46698abf19d1276f7af1cb77302304f7bc1b9af4ab752566d3a9d8f838be36"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Theming/LightTheme.cs",
+      "Sha256": "4724ef1d2b00c242cac8f95a312b9e71c66d684271e5cbc1b5524b1f16b9663c"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Theming/ThemePalette.cs",
+      "Sha256": "4d45c9c399da52decbb864ea5e01ff4c10ddd0da0b61f099413445901366847e"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/LensConfigurationNavigationTests.cs",
+      "Sha256": "6f681a9267fa33bbcc18e87ac21ce11921f9644b196356679a3cebc02abde009"
+    }
+  ],
+  "TestRuns": [
+    {
+      "File": "lens-header-centered-bold-verified.trx",
+      "Total": 13,
+      "Passed": 13,
+      "Failed": 0,
+      "Sha256": "43fb3d9a248c48f1ba8ef4c8e187f73f5822e062bc45947406e4f3e45ec95088"
+    },
+    {
+      "File": "lens-header-blue-gray-skia.trx",
+      "Total": 5,
+      "Passed": 5,
+      "Failed": 0,
+      "Sha256": "3d3daea5259ac52f7093dba7053d51ea2e4bd3610deb1740ebd852d488c6bd5e"
+    }
+  ],
+  "DistinctPassingCases": 13,
+  "SkiaRepeatsExistingCases": true,
+  "Checks": [
+    "Configuration toolbar and caption centers match the whole header within 1 DIP.",
+    "No overlap with Surface Properties in wide and narrow panes.",
+    "Resizing between 360 and 1000 DIP and live Chinese/English/Japanese changes preserve centering.",
+    "Single configuration, real Zoom configuration switching, edit validation, undo/redo and file resets retain their existing behavior.",
+    "The original header without multi-configuration services retains its compact single-row height.",
+    "Configuration caption is bold between the two navigation buttons.",
+    "The Light toolbar uses semantic #B8CCE4 blue-gray; other themes keep their corresponding subtle surface colors. The final color was visually inspected in real Skia captures."
+  ],
+  "Captures": [
+    "configuration-header-Dark-en-US-680-header.png",
+    "configuration-header-Dark-en-US-680.png",
+    "configuration-header-Isekai-en-US-600-header.png",
+    "configuration-header-Isekai-en-US-600.png",
+    "configuration-header-Light-zh-CN-1000-header.png",
+    "configuration-header-Light-zh-CN-1000.png",
+    "configuration-header-Pixel-ja-JP-360-header.png",
+    "configuration-header-Pixel-ja-JP-360.png",
+    "configuration-header-single-centered-header.png",
+    "configuration-header-single-centered.png"
+  ],
+  "Builds": {
+    "Debug": "Final blue-gray revision rebuilt successfully into the default App output by the five-case real Skia test run.",
+    "Release": "Final blue-gray revision built into the default Release App output with zero warnings and errors.",
+    "InitialBuild": "Blocked by Optical System Design process 76756 holding the default Debug apphost; closed only that verified workspace app as required by AGENTS.md, then rebuilt successfully."
+  },
+  "DocumentationAudit": {
+    "Status": "Passed",
+    "File": "documentation-audit.json",
+    "Documents": 1047,
+    "BrokenLinks": 0,
+    "FenceIssues": 0,
+    "LocalOnlyLinks": 0,
+    "Sha256": "5b70dd7e9fcbc5ebfc20126d46df1b421deae0d005ba7bb21f9f28eaa1bbce92"
+  },
+  "Archive": "validation/rechecks/2026-10-22/lens-header-centered-evidence.zip",
+  "Boundaries": [
+    "UI layout only; no optical algorithm or numerical reference changes.",
+    "No full test suite, installation packaging or remote publication in this task."
+  ],
+  "ApplicationReopened": {
+    "ProcessId": 35736,
+    "DefaultDebugOutput": true,
+    "Responding": true
+  },
+  "ArchiveSha256": "1e5ced22e76a75063102708f0753d03111beeb3e0ce455a941ea8a02256463a4"
+}

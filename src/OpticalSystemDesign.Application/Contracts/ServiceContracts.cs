@@ -209,7 +209,7 @@ public interface IAnalysisService
 
 public interface IVisualizationService
 {
-    VisualizationOptionsDto GetVisualizationOptions();
+    VisualizationOptionsDto GetVisualizationOptions(int? configurationIndex = null);
 
     Task<SceneDto> BuildSceneAsync(SceneDimension dimension, CancellationToken cancellationToken = default);
 

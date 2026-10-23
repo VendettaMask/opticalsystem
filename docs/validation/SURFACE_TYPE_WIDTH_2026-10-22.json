@@ -1,0 +1,77 @@
+{
+  "Date": "2026-10-22",
+  "Scope": "Reduce the lens table Surface Type initial column width from 240 to 180 DIP; retain user resizing.",
+  "BaseCommit": "5342396452d58c899c594ce6cee5eca48a0ea91e",
+  "WorkingTreeDirty": true,
+  "SourceHashes": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.cs",
+      "Sha256": "f08c4ecca9dbd4431d3e4538a69be30c900b4c8ef5b0408dfe86adac945c60a8"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/LensHeaderTypographyTests.cs",
+      "Sha256": "1cc566e58fee4de6f739acb7dadfa2f6bf8c56ebc5ad06aa54eaa04684e308cb"
+    }
+  ],
+  "TestRun": {
+    "Path": "artifacts\\validation\\surface-type-width-2026-10-22\\surface-type-width.trx",
+    "Sha256": "662fbf6c81037b4591aaf6be57cad57da7860868b711408a47a89e4c40697929",
+    "Total": 10,
+    "Passed": 10,
+    "Failed": 0
+  },
+  "Captures": [
+    {
+      "Path": "artifacts/validation/surface-type-width-2026-10-22/captures/lens-headers-Dark-en-US-13.png",
+      "Sha256": "e1219172eea0587aeaf991ca2631aabe32693df9f198a30c926576104b3b0074"
+    },
+    {
+      "Path": "artifacts/validation/surface-type-width-2026-10-22/captures/lens-headers-Dark-en-US-18.png",
+      "Sha256": "8898eaa9138afe616ada87dae191a34437bf8cc865adb48fd5c68efd354d4f5d"
+    },
+    {
+      "Path": "artifacts/validation/surface-type-width-2026-10-22/captures/lens-headers-Isekai-en-US-13.png",
+      "Sha256": "f416f1aa3080f82f7522beeeac5ad6ff59b24c226b4d4e2ea44b91406fb67040"
+    },
+    {
+      "Path": "artifacts/validation/surface-type-width-2026-10-22/captures/lens-headers-Isekai-en-US-18.png",
+      "Sha256": "822454c60b2d36530de2ee384c1e39504f841fb0d09089a931fcc85493b3e070"
+    },
+    {
+      "Path": "artifacts/validation/surface-type-width-2026-10-22/captures/lens-headers-Light-zh-CN-13.png",
+      "Sha256": "28965abff51e474253fd9e9a81be0b486bc1e1e28d0565dd04fd16469a5c8821"
+    },
+    {
+      "Path": "artifacts/validation/surface-type-width-2026-10-22/captures/lens-headers-Light-zh-CN-18.png",
+      "Sha256": "1d11d12b83f2c7bca2265f19e77113877963d732c6c08372e80495caa3c7d7e8"
+    },
+    {
+      "Path": "artifacts/validation/surface-type-width-2026-10-22/captures/lens-headers-Lumen-zh-CN-13.png",
+      "Sha256": "38a062603d4f3f12168450258413e6fe6fb0ad4dc6ccae64240ff055ef35b7f9"
+    },
+    {
+      "Path": "artifacts/validation/surface-type-width-2026-10-22/captures/lens-headers-Lumen-zh-CN-18.png",
+      "Sha256": "057954b686889556bd6841de8e5e7507cf8aebae480351e8b289891a431105c5"
+    },
+    {
+      "Path": "artifacts/validation/surface-type-width-2026-10-22/captures/lens-headers-Pixel-ja-JP-13.png",
+      "Sha256": "91fe049a0a429f0843f7c33cfe8700ded917547342a52d4ee5801d6dbddcf2d7"
+    },
+    {
+      "Path": "artifacts/validation/surface-type-width-2026-10-22/captures/lens-headers-Pixel-ja-JP-18.png",
+      "Sha256": "4f720d232bc950b24d39c3c3a0ba6e32af2fe6cc45db0852990cca634eeeb7be"
+    }
+  ],
+  "Coverage": [
+    "Reused existing LensHeaderTypographyTests with real Skia rendering, five themes, Chinese/English/Japanese, and font sizes 13/18.",
+    "Visually reviewed the Chinese Light capture at font size 18; header and special-role surface labels fit the narrowed column. No new width-specific test was added."
+  ],
+  "Builds": {
+    "Debug": "Default App output rebuilt by focused tests; zero warnings/errors.",
+    "Release": "Default App Release build passed; zero warnings/errors."
+  },
+  "Boundaries": [
+    "Initial column width only; longer names can be accommodated by resizing the column.",
+    "No full suite, optical algorithm changes or remote publication. Other workspace changes preserved."
+  ]
+}

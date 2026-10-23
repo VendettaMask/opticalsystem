@@ -163,6 +163,7 @@ public sealed class SurfaceEditorRow
     public bool GeometryComputable { get; }
     public SurfaceInspectionDto? Inspection { get; }
     public string SurfaceRole { get; }
+    public bool ShowSurfaceRole => Number == 0 || IsLastSurface || IsStop;
     public string SurfaceType { get; }
     public double ExtensionZone { get; private set; }
     public string ExtensionZoneDisplay
