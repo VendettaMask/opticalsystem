@@ -10,7 +10,15 @@ public enum CaptureStatus { Captured, Skipped, Failed, LicenseUnavailable, Timed
 public enum ResultKind { Scalar, Series1D, Grid2D, TextReport, Image, ComplexField, Scatter }
 public sealed record Axis(string Quantity, string Unit);
 public sealed record ScalarResult(string Id, double Value, string Unit);
-public sealed record Series1DResult(string Id, string DisplayName, double[] X, double[] Y, Axis XAxis, Axis YAxis);
+public sealed record Series1DResult(string Id, string DisplayName, double[] X, double[] Y, Axis XAxis, Axis YAxis)
+{
+    // A model with zero field extent requests one physical coordinate, not an
+    // interval. The normalizer must establish this explicitly on both sides.
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool IsPointDomain { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool HasClippingMask { get; init; }
+}
 public sealed record Grid2DResult(string Id, double[] X, double[] Y, double?[][] Z, Axis XAxis, Axis YAxis, Axis ValueAxis)
 {
     public bool[][] InvalidMask => Z.Select(row => row.Select(v => !v.HasValue || !double.IsFinite(v.Value)).ToArray()).ToArray();

@@ -1,0 +1,40 @@
+{
+  "remote": "https://github.com/VendettaMask/opticalsystem.git",
+  "scope": [
+    "Objectives shared Core precision repairs",
+    "52 separate supplemental Zemax analysis comparisons",
+    "Regression fixtures, documentation and immutable validation evidence"
+  ],
+  "baseCommit": "52793e3cc0f11a1dfbf61e7671f57fde9635238d",
+  "verification": {
+    "skipped": 0,
+    "ComparisonPassed": 39,
+    "coordinateAndDirectionPolicyUnchanged": true,
+    "full638Rerun": false,
+    "originalFrozenMatrix": {
+      "Incomparable": 52,
+      "Pass": 586
+    },
+    "supplementalAnalysesPass": 52,
+    "fullSuiteRerun": false,
+    "CorePassed": 195,
+    "distinct": 234,
+    "failed": 0,
+    "reusedResults": true,
+    "defaultReleaseBuild": "Succeeded, zero warnings/errors; see prior build/runtime record"
+  },
+  "evidence": {
+    "priorRepair": "validation/zemax/2026-r1/objectives-repair-2026-10-23/README.md",
+    "tests": "validation/zemax/2026-r1/objectives-completion-2026-10-23/final-test-tally.json",
+    "completion": "validation/zemax/2026-r1/objectives-completion-2026-10-23/evidence-index.json",
+    "sourceIntegrity": "validation/zemax/2026-r1/objectives-completion-2026-10-23/source-integrity.json"
+  },
+  "limitations": [
+    "Additional strict pupil aiming near 89.99/90.01 degrees remains uncertified. Rejected recovery code is not shipped.",
+    "Measured near-horizon native angle adjustments are scoped to captured Paraxial/Heuristic/cache settings; Enhanced and Robust were disabled and have not been retested.",
+    "No installer/release publication or independent Cooke/Tessar certification.",
+    "Existing unrelated stash before-use-remote-main-2026-10-23 remains untouched."
+  ],
+  "date": "2026-10-23",
+  "branch": "main"
+}

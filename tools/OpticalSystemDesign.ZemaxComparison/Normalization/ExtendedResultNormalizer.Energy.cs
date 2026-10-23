@@ -34,8 +34,11 @@ public static partial class ExtendedResultNormalizer
         for (var i = 0; i < data.PlotSeries.Count; i++)
         {
             var s = data.PlotSeries[i];
-            var x = s.Points.Select(p => key == "Relative Illumination" ? p.X / r.MaximumFieldRadius : p.X).ToArray();
-            result.Series.Add(new("curve:" + i, s.Name, x, s.Points.Select(p => p.Y).ToArray(), EnergyAxis(key), new(s.YQuantity.ToString(), s.YUnit.ToString())));
+            var x = s.Points.Select(p => key == "Relative Illumination" && r.MaximumFieldRadius != 0 ? p.X / r.MaximumFieldRadius : p.X).ToArray();
+            var series = new Series1DResult("curve:" + i, s.Name, x, s.Points.Select(p => p.Y).ToArray(), EnergyAxis(key), new(s.YQuantity.ToString(), s.YUnit.ToString()));
+            if (key == "Relative Illumination" && r.MaximumFieldRadius == 0)
+                series = PhysicalNormalization.ZeroFieldPoint(series, false, result.Transformations);
+            result.Series.Add(series);
         }
         return result;
     }
@@ -76,7 +79,7 @@ public static partial class ExtendedResultNormalizer
         // Retain both raw native curves and the strict count check above.
         foreach (var g in groups.EnumerateArray().Skip(omitDiffractionLimit ? 1 : 0))
         {
-            var x = g.GetProperty("x").EnumerateArray().Select(v => v.GetDouble() / (key == "Relative Illumination" ? r.MaximumFieldRadius : 1)).ToArray();
+            var x = g.GetProperty("x").EnumerateArray().Select(v => v.GetDouble() / (key == "Relative Illumination" && r.MaximumFieldRadius != 0 ? r.MaximumFieldRadius : 1)).ToArray();
             var rows = g.GetProperty("y").Deserialize<double[][]>()!;
             var width = key == "Geometric Line Edge Spread" ? 4 : key == "Relative Illumination" ? 2 : 1;
             Require(rows.Length == x.Length && rows.All(v => v.Length == width), "Native energy/illumination column count differs");
@@ -86,7 +89,10 @@ public static partial class ExtendedResultNormalizer
             foreach (var col in columns)
             {
                 var valueAxis = key is "Relative Illumination" or "Geometric Line Edge Spread" ? new Axis("Irradiance", "Dimensionless") : new Axis("EnergyFraction", "Dimensionless");
-                result.Series.Add(new("curve:" + id++, "Native column " + col, x, rows.Select(v => v[col]).ToArray(), EnergyAxis(key), valueAxis));
+                var series = new Series1DResult("curve:" + id++, "Native column " + col, x, rows.Select(v => v[col]).ToArray(), EnergyAxis(key), valueAxis);
+                if (key == "Relative Illumination" && r.MaximumFieldRadius == 0)
+                    series = PhysicalNormalization.ZeroFieldPoint(series, true, result.Transformations);
+                result.Series.Add(series);
             }
         }
         return result;

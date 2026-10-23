@@ -1,0 +1,294 @@
+{
+  "date": "2026-10-23",
+  "scope": "All 19 Objectives lenses; original 638 requests and 74 GQ6 groups",
+  "baseCommit": "52793e3cc0f11a1dfbf61e7671f57fde9635238d",
+  "productionCodeChanged": true,
+  "softwareComputationRoot": "final-frozen",
+  "finalContractRecompareRoot": "final-contract",
+  "lensCount": 19,
+  "originalAnalysisCounts": {
+    "Incomparable": 52,
+    "Pass": 586
+  },
+  "originalRequests": 638,
+  "softwareDataFiles": 638,
+  "rayCounts": {
+    "Pass": 74
+  },
+  "rayGroups": 74,
+  "rayInputs": 13320.0,
+  "physicalSurfaceComparisons": 145841.0,
+  "maximumCoordinateDifferenceMillimeters": 2.1306368758189365E-07,
+  "maximumDirectionDifference": 2.847624691604267E-09,
+  "acceptanceDifferences": 0.0,
+  "firstClipDifferences": 0.0,
+  "preserved20261020Pass": 564,
+  "previous20261020Pass": 564,
+  "preservedPreRepairPass": 568,
+  "preRepairPass": 568,
+  "regressions": [],
+  "preRepairRegressions": [],
+  "nativeOriginalRepeatRequests": 89,
+  "nativeRepeatCounts": {
+    "Incomparable": 52,
+    "Pass": 37
+  },
+  "repeatConclusionChanges": [],
+  "nativeOriginalRequestsEqualIgnoringInput": true,
+  "nativeFirstOrderControls": 19,
+  "nativeFirstOrderMaximumScalarChange": 0.0,
+  "supplementalRequests": 26,
+  "supplementalCounts": {
+    "Incomparable": 4,
+    "Pass": 22
+  },
+  "supplementalSamplingChanged": true,
+  "coreSha256": "6c7d79e3207c2c5c54d2633b05644f030d031a7d51cf19467dabbf1c8908a470",
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "nativeReference": "OpticStudio 2026 R1; frozen 2026-10-21 and independent 2026-10-23 repeats",
+  "tests": {
+    "skipped": 0,
+    "nativeAndComparisonPassed": 29,
+    "fullSuiteRun": false,
+    "distinctPassed": 111,
+    "failed": 0,
+    "corePassed": 82
+  },
+  "incomparableReasons": [
+    {
+      "count": 30,
+      "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001"
+    },
+    {
+      "count": 1,
+      "reason": "Could not find file 'D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses\\1991-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-fft-psf-cross-section\\native\\data.json'."
+    },
+    {
+      "count": 8,
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]"
+    },
+    {
+      "count": 11,
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]"
+    },
+    {
+      "count": 2,
+      "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan."
+    }
+  ],
+  "lenses": [
+    {
+      "analysis": {
+        "Incomparable": 1,
+        "Pass": 49
+      },
+      "lens": "Objectives/Apochromat.zmx",
+      "requests": 50,
+      "rays": {
+        "Pass": 8
+      }
+    },
+    {
+      "analysis": {
+        "Incomparable": 1,
+        "Pass": 37
+      },
+      "lens": "Objectives/Apochromat2.zmx",
+      "requests": 38,
+      "rays": {
+        "Pass": 5
+      }
+    },
+    {
+      "analysis": {
+        "Incomparable": 1,
+        "Pass": 29
+      },
+      "lens": "Objectives/Apochromat3.zmx",
+      "requests": 30,
+      "rays": {
+        "Pass": 3
+      }
+    },
+    {
+      "analysis": {
+        "Incomparable": 27,
+        "Pass": 43
+      },
+      "lens": "Objectives/Apochromat4.zmx",
+      "requests": 70,
+      "rays": {
+        "Pass": 13
+      }
+    },
+    {
+      "analysis": {
+        "Pass": 30
+      },
+      "lens": "Objectives/Cooke 40 degree field.zmx",
+      "requests": 30,
+      "rays": {
+        "Pass": 3
+      }
+    },
+    {
+      "analysis": {
+        "Incomparable": 1,
+        "Pass": 29
+      },
+      "lens": "Objectives/Double Gauss 28 degree field.zmx",
+      "requests": 30,
+      "rays": {
+        "Pass": 3
+      }
+    },
+    {
+      "analysis": {
+        "Incomparable": 3,
+        "Pass": 35
+      },
+      "lens": "Objectives/Double Gauss 5 degree field.zmx",
+      "requests": 38,
+      "rays": {
+        "Pass": 5
+      }
+    },
+    {
+      "analysis": {
+        "Incomparable": 1,
+        "Pass": 37
+      },
+      "lens": "Objectives/Doublet using MIL number glasses.zmx",
+      "requests": 38,
+      "rays": {
+        "Pass": 5
+      }
+    },
+    {
+      "analysis": {
+        "Pass": 30
+      },
+      "lens": "Objectives/Doublet.zmx",
+      "requests": 30,
+      "rays": {
+        "Pass": 3
+      }
+    },
+    {
+      "analysis": {
+        "Incomparable": 2,
+        "Pass": 20
+      },
+      "lens": "Objectives/Even Asphere.zmx",
+      "requests": 22,
+      "rays": {
+        "Pass": 1
+      }
+    },
+    {
+      "analysis": {
+        "Incomparable": 1,
+        "Pass": 21
+      },
+      "lens": "Objectives/Gaussian Quadrature over Annular Pupils.zmx",
+      "requests": 22,
+      "rays": {
+        "Pass": 1
+      }
+    },
+    {
+      "analysis": {
+        "Incomparable": 1,
+        "Pass": 29
+      },
+      "lens": "Objectives/Gaussian Quadrature Over Wavelength.ZMX",
+      "requests": 30,
+      "rays": {
+        "Pass": 3
+      }
+    },
+    {
+      "analysis": {
+        "Pass": 30
+      },
+      "lens": "Objectives/Inverse telephoto lens.zmx",
+      "requests": 30,
+      "rays": {
+        "Pass": 3
+      }
+    },
+    {
+      "analysis": {
+        "Incomparable": 1,
+        "Pass": 29
+      },
+      "lens": "Objectives/Petzval.zmx",
+      "requests": 30,
+      "rays": {
+        "Pass": 3
+      }
+    },
+    {
+      "analysis": {
+        "Incomparable": 1,
+        "Pass": 29
+      },
+      "lens": "Objectives/Relay lens.zmx",
+      "requests": 30,
+      "rays": {
+        "Pass": 3
+      }
+    },
+    {
+      "analysis": {
+        "Incomparable": 2,
+        "Pass": 28
+      },
+      "lens": "Objectives/Tessar lens using vignetting factors.zmx",
+      "requests": 30,
+      "rays": {
+        "Pass": 3
+      }
+    },
+    {
+      "analysis": {
+        "Incomparable": 1,
+        "Pass": 29
+      },
+      "lens": "Objectives/Wide angle lens 100 degree field.zmx",
+      "requests": 30,
+      "rays": {
+        "Pass": 3
+      }
+    },
+    {
+      "analysis": {
+        "Incomparable": 4,
+        "Pass": 26
+      },
+      "lens": "Objectives/Wide angle lens 200 degree field.zmx",
+      "requests": 30,
+      "rays": {
+        "Pass": 3
+      }
+    },
+    {
+      "analysis": {
+        "Incomparable": 4,
+        "Pass": 26
+      },
+      "lens": "Objectives/Wide angle lens 210 degree field.zmx",
+      "requests": 30,
+      "rays": {
+        "Pass": 3
+      }
+    }
+  ],
+  "release": {
+    "processId": 26592,
+    "started": "2026-10-23T20:26:53.8042436+08:00",
+    "hasExited": false,
+    "executable": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.exe",
+    "coreSha256": "eaf8261308928366c2e9eb4c45efb41e856d5eba97c1454a41005eb86a72c7d5"
+  }
+}

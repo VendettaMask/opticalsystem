@@ -112,7 +112,8 @@ public static class ResultNormalizer
             var curve = curves[i];
             var id = i == 0 ? "tangential" : "sagittal";
             var item = new Series1DResult(id, curve.Name, curve.Points.Select(p => p.X).ToArray(), curve.Points.Select(p => p.Y).ToArray(),
-                new(curve.XQuantity.ToString(), curve.XUnit.ToString()), new(curve.YQuantity.ToString(), curve.YUnit.ToString()));
+                new(curve.XQuantity.ToString(), curve.XUnit.ToString()), new(curve.YQuantity.ToString(), curve.YUnit.ToString()))
+            { HasClippingMask = FanChecksApertures(entry, request) };
             result.Series.Add(PhysicalNormalization.Convert(item, entry.XAxis!, entry.YAxis!, result.Transformations));
         }
         result.Transformations.Add("Canonical one-field/one-wavelength output contract: native series/pane 0=tangential, 1=sagittal. No label parsing.");
@@ -180,15 +181,20 @@ public static class ResultNormalizer
             var column = active[mtf ? i : 0];
             var x = group.GetProperty("x").EnumerateArray().Select(e => e.GetDouble()).ToArray();
             // Null samples in an active column represent clipped rays. Retain
-            // them as invalid so the physical comparison gate rejects the curve.
+            // the complete lattice and mask; never substitute zero or bridge a gap.
             var y = ys.EnumerateArray().Select(row => Finite(row[column]) ?? double.NaN).ToArray();
-            result.Series.Add(new(i == 0 ? "tangential" : "sagittal", "Native column " + i, x, y, entry.XAxis!, entry.YAxis!));
+            result.Series.Add(new(i == 0 ? "tangential" : "sagittal", "Native column " + i, x, y, entry.XAxis!, entry.YAxis!)
+            { HasClippingMask = FanChecksApertures(entry, request) });
             result.Transformations.Add($"Native group {(mtf ? 0 : i)} column {column}; other monochromatic wavelength slots are absent/null, never treated as zero.");
         }
         result.Transformations.Add(mtf ? "IAS MTF Modulation: native columns 0=T, 1=S; explicit selected field/wavelength, cycles/mm."
             : "IAS_Fan: native groups 0=T, 1=S; one selected wavelength per group, normalized pupil. No localized label parsing.");
         return result;
     }
+
+    private static bool FanChecksApertures(AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) =>
+        entry.CanonicalAnalysisKey is "Ray Fan" or "Optical Path Difference"
+        && bool.TryParse(request.WorkbenchSettings.GetValueOrDefault("CheckApertures"), out var check) && check;
 
     private static void ValidateNumberedConfiguration(string path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request)
     {

@@ -36,8 +36,12 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
     {
         if (!Enum.IsDefined(integrationConvention)) throw new ArgumentOutOfRangeException(nameof(integrationConvention));
         _integrationConvention = integrationConvention;
-        _pupilSampling = Math.Clamp(pupilSampling, 8, 512);
-        _imageSampling = Math.Clamp(imageSampling, 16, 1024);
+        if (pupilSampling > AnalysisResourceLimits.MaximumFftGridSize / 2)
+            throw new ArgumentOutOfRangeException(nameof(pupilSampling), "Energy sampling exceeds the shared FFT grid budget.");
+        if (imageSampling > AnalysisResourceLimits.MaximumFftGridSize)
+            throw new ArgumentOutOfRangeException(nameof(imageSampling), "Energy sampling exceeds the shared FFT grid budget.");
+        _pupilSampling = Math.Max(pupilSampling, 8);
+        _imageSampling = Math.Max(imageSampling, 16);
         _numPoints = Math.Clamp(numPoints, 2, 2048);
         _wavelengthNumber = Math.Max(0, wavelengthNumber);
         _fieldNumber = Math.Max(0, fieldNumber);

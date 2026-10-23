@@ -42,8 +42,49 @@ internal static class StopAimingSolver
                 if (!map.Sample(nextX,nextY,out var next) || Hypot(targetX-next.X,targetY-next.Y)>=residual) continue;
                 x=nextX; y=nextY; improved=true; break;
             }
-            if (!improved) return false;
+            if (!improved && (residual > 64 * tolerance || !TryRepresentableImprovement(ref map, targetX, targetY,
+                    tolerance, dx != 0, dy != 0, ref x, ref y, ref residual))) return false;
+            if (!improved && residual <= tolerance) return true;
         }
         return false;
+    }
+
+    private static bool TryRepresentableImprovement<T>(ref T map, double targetX, double targetY,
+        double tolerance, bool varyX, bool varyY, ref double x, ref double y, ref double residual) where T : struct, IStopMap
+    {
+        // Rounded intersections can make the stop map locally non-monotone at
+        // machine precision. After Newton stalls, inspect a bounded stencil of
+        // representable launches. Every candidate must trace successfully and
+        // improve the actual residual; acceptance keeps the original tolerance.
+        // This is finishing recovery only (within 64 tolerance budgets), not a
+        // search over missed or far-from-converged rays. Preserve stationary axes.
+        const int radius = 32;
+        var radiusX = varyX ? radius : 0; var radiusY = varyY ? radius : 0;
+        var bestX = x; var bestY = y; var bestResidual = residual;
+        for (var i = -radiusX; i <= radiusX; i++)
+        for (var j = -radiusY; j <= radiusY; j++)
+        {
+            var nextX = Adjacent(x, i); var nextY = Adjacent(y, j);
+            if (i == 0 && j == 0 || !double.IsFinite(nextX) || !double.IsFinite(nextY)
+                || !map.Sample(nextX, nextY, out var point)) continue;
+            var candidate = Hypot(targetX - point.X, targetY - point.Y);
+            if (!(candidate < bestResidual)) continue;
+            bestX = nextX; bestY = nextY; bestResidual = candidate;
+            if (candidate <= tolerance)
+            { x = bestX; y = bestY; residual = bestResidual; return true; }
+        }
+        if (!(bestResidual < residual)) return false;
+        x = bestX; y = bestY; residual = bestResidual;
+        return true;
+    }
+
+    // Signed, ordered IEEE indices also cross zero correctly. BitConverter is
+    // supported by the CUDA compiler; keep this shared solver allocation-free.
+    private static double Adjacent(double value, int offset)
+    {
+        var bits = BitConverter.DoubleToInt64Bits(value);
+        var magnitude = bits & long.MaxValue;
+        var index = (bits < 0 ? -magnitude : magnitude) + offset;
+        return BitConverter.Int64BitsToDouble(index < 0 ? long.MinValue | -index : index);
     }
 }

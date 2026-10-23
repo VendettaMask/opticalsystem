@@ -49,6 +49,19 @@ public static class PhysicalNormalization
             throw new InvalidDataException("Duplicate or non-increasing physical coordinates");
         return (points.Select(p => p.First).ToArray(), points.Select(p => p.Second).ToArray());
     }
+    public static Series1DResult ZeroFieldPoint(Series1DResult series, bool native, List<string> log)
+    {
+        if (series.X.Length != series.Y.Length || series.X.Length == 0
+            || series.X.Any(v => !double.IsFinite(v)) || (!native && series.X.Any(v => v != 0)))
+            throw new InvalidDataException("Zero-extent field output has invalid physical coordinates");
+        var values = series.X.Zip(series.Y).Where(p => p.First == 0).Select(p => p.Second).ToArray();
+        if (values.Length == 0 || values.Any(v => !double.IsFinite(v) || v != values[0]))
+            throw new InvalidDataException("Zero-extent field output requires a consistent finite sample at exactly zero");
+        log.Add($"{series.Id}: zero field extent; compare the exact on-axis point only. "
+            + (native ? "Native nonzero plot coordinates are outside the requested domain; no interpolation or extrapolation."
+                : "Repeated samples at the same zero coordinate were verified identical."));
+        return series with { X = [0], Y = [values[0]], IsPointDomain = true };
+    }
     public static double Interpolate(double[] x, double[] y, double target)
     {
         if (target < x[0] || target > x[^1]) throw new InvalidDataException("Extrapolation is forbidden");

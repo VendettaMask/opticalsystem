@@ -50,6 +50,7 @@ public sealed class DistortionAnalysis : BaseAnalysis
         }
 
         var workingOptic = AnalysisTrace.PrepareVignettingFactors(calculationOptic, _ignoreVignettingFactors);
+        ValidateAngularReferenceDomain(workingOptic);
         var displayReference = displayOptic ?? workingOptic;
         var maxField = AnalysisTrace.MaxFieldValue(workingOptic);
         var fieldAxisLabel = AnalysisTrace.FieldAxisLabel(displayReference);
@@ -168,6 +169,15 @@ public sealed class DistortionAnalysis : BaseAnalysis
             YMinimum: minimumField,
             YMaximum: maximumDefinedField,
             ShowLegend: true));
+    }
+
+    internal void ValidateAngularReferenceDomain(Optic workingOptic)
+    {
+        if (workingOptic.FieldDefinition == FieldDefinitionKind.Angle
+            && _distortionType is "f-tan" or "calibrated-f-tan"
+            && FieldCoordinates.MaximumRadius(workingOptic.Fields) >= 90)
+            throw new AnalysisDataUnavailableException("F-tan distortion",
+                "angular fields at or above 90 degrees have no continuous finite f-tan reference; select F-Theta or reduce the field range");
     }
 
     private static double ComputeSmiaTvDistortion(Optic optic, Wavelength wavelength)
@@ -294,6 +304,7 @@ public sealed class FieldCurvatureAndDistortionAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
+        _distortion.ValidateAngularReferenceDomain(Optic);
         var curvature = _fieldCurvature.GenerateData();
         var distortion = _distortion.GenerateData();
         var values = new Dictionary<string, object>();

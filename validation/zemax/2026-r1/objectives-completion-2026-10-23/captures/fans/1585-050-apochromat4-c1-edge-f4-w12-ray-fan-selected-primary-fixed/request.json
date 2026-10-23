@@ -1,0 +1,752 @@
+{
+  "canonicalAnalysisKey": "Ray Fan",
+  "nativeLensUnit": "CM",
+  "configuration": 1,
+  "field": 4,
+  "wavelength": 12,
+  "surface": -1,
+  "pupilSampling": 64,
+  "imageSampling": 64,
+  "rayCount": 20,
+  "gridSize": 64,
+  "imageDeltaMicrometers": 0.25,
+  "maximumFrequency": 50,
+  "focusMinimum": -0.1,
+  "focusMaximum": 0.1,
+  "reference": "ChiefRay",
+  "polarization": false,
+  "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+  "deleteVignetted": true,
+  "useRayAiming": false,
+  "normalization": "NativePhysical",
+  "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+  "outputUnits": "TypedAxes",
+  "settingsOrigin": "CapturedSettings",
+  "workbenchSettings": {
+    "PlotScaleMicrometers": "0",
+    "NumberOfRays": "20",
+    "UseDashes": "false",
+    "VignettedPupil": "True",
+    "CheckApertures": "True",
+    "WavelengthNumber": "12",
+    "FieldNumber": "4",
+    "TangentialAberration": "Y Aberration",
+    "SagittalAberration": "X Aberration",
+    "SurfaceNumber": "-1",
+    "UsePolarization": "False",
+    "UseRayAiming": "False"
+  },
+  "zemaxSettings": {
+    "ValidationPrimaryWavelength": "12",
+    "ValidationFreezeThicknessSolves": "True"
+  },
+  "zemaxCfgSettings": {},
+  "wavelengthScope": "Selected",
+  "wavelengthCount": 13,
+  "fieldDefinition": "Angle",
+  "maximumFieldRadius": 3,
+  "surfaceCount": 7,
+  "fieldCount": 4,
+  "definedFields": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      0,
+      3
+    ]
+  ],
+  "fieldScanDirection": "+y",
+  "primaryWavelengthMicrometers": 0.7,
+  "zemaxSettingsMode": "TypedProperties",
+  "sourceImagePath": null,
+  "sourceImageSha256": null,
+  "zosApiPath": "D:\\Program Files\\ANSYS Inc\\v261\\Zemax OpticStudio",
+  "input": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\sources\\Objectives\\Apochromat4.zmx",
+  "zemaxVersion": "2026 R1",
+  "adapter": "point-comparison",
+  "analysisType": "RayFan",
+  "captureScreenshots": false,
+  "pointKind": "fan",
+  "originalKeys": [
+    "Objectives/Apochromat4.zmx|1|edge|Ray Fan|4|12|64",
+    "Objectives/Apochromat4.zmx|1|edge|Optical Path Difference|4|12|64"
+  ],
+  "inputSha256": "437b760e9554783d102ed7da2d071416ffcdcc6d30eedb6e5dd595e05f220ce8",
+  "pointInputs": [
+    {
+      "hx": 0.0,
+      "px": 0,
+      "role": "chief",
+      "py": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -1.0,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -1.0,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.95,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.95,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.9,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.9,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.85,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.85,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.8,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.8,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.75,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.75,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.7,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.7,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.65,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.65,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.6,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.6,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.55,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.55,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.5,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.5,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.44999999999999996,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.44999999999999996,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.4,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.4,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.35,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.35,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.30000000000000004,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.30000000000000004,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.25,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.25,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.19999999999999996,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.19999999999999996,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.15000000000000002,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.15000000000000002,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.09999999999999998,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.09999999999999998,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.050000000000000044,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": -0.050000000000000044,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.0,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.0,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.050000000000000044,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.050000000000000044,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.10000000000000009,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.10000000000000009,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.1499999999999999,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.1499999999999999,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.19999999999999996,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.19999999999999996,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.25,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.25,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.30000000000000004,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.30000000000000004,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.3500000000000001,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.3500000000000001,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.3999999999999999,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.3999999999999999,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.44999999999999996,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.44999999999999996,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.5,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.5,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.55,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.55,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.6000000000000001,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.6000000000000001,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.6499999999999999,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.6499999999999999,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.7,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.7,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.75,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.75,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.8,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.8,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.8500000000000001,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.8500000000000001,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.8999999999999999,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.8999999999999999,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.95,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 0.95,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 1.0,
+      "hx": 0.0,
+      "role": "tangential",
+      "py": 1.0,
+      "px": 0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -1.0,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -1.0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.95,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.95,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.9,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.9,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.85,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.85,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.8,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.8,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.75,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.75,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.7,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.7,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.65,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.65,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.6,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.6,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.55,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.55,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.5,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.5,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.44999999999999996,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.44999999999999996,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.4,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.4,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.35,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.35,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.30000000000000004,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.30000000000000004,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.25,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.25,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.19999999999999996,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.19999999999999996,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.15000000000000002,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.15000000000000002,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.09999999999999998,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.09999999999999998,
+      "hy": 1.0
+    },
+    {
+      "coordinate": -0.050000000000000044,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": -0.050000000000000044,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.0,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.0,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.050000000000000044,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.050000000000000044,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.10000000000000009,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.10000000000000009,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.1499999999999999,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.1499999999999999,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.19999999999999996,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.19999999999999996,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.25,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.25,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.30000000000000004,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.30000000000000004,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.3500000000000001,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.3500000000000001,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.3999999999999999,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.3999999999999999,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.44999999999999996,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.44999999999999996,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.5,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.5,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.55,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.55,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.6000000000000001,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.6000000000000001,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.6499999999999999,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.6499999999999999,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.7,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.7,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.75,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.75,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.8,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.8,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.8500000000000001,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.8500000000000001,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.8999999999999999,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.8999999999999999,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 0.95,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 0.95,
+      "hy": 1.0
+    },
+    {
+      "coordinate": 1.0,
+      "hx": 0.0,
+      "role": "sagittal",
+      "py": 0,
+      "px": 1.0,
+      "hy": 1.0
+    }
+  ],
+  "referencePrimaryWavelength": 12,
+  "freezeThicknessSolves": true
+}

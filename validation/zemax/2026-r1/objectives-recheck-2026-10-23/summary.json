@@ -1,0 +1,288 @@
+{
+  "date": "2026-10-23",
+  "sourceCommit": "52793e3cc0f11a1dfbf61e7671f57fde9635238d",
+  "scope": "All 19 Objectives lenses; original 638 analysis requests and 74 GQ6 ray groups",
+  "analysisCounts": {
+    "Error": 1,
+    "Incomparable": 69,
+    "Pass": 568
+  },
+  "rayCounts": {
+    "Pass": 74
+  },
+  "lensCount": 19,
+  "analysisRequests": 638,
+  "rayGroups": 74,
+  "softwareDataFiles": 637,
+  "rayInputs": 13320.0,
+  "physicalSurfaceComparisons": 145841.0,
+  "maximumCoordinateDifferenceMillimeters": 2.1306368758189365E-07,
+  "maximumDirectionDifference": 2.847624691604267E-09,
+  "acceptanceDifferences": 0.0,
+  "firstClipDifferences": 0.0,
+  "previousObjectivesPass": 564,
+  "preservedObjectivesPass": 564,
+  "regressions": [],
+  "coreSha256": "969bfbc84b95c5f2ebc8a126a0541740b21c33995ec0df4e211458a71eefe4ce",
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "softwareRecomputed": true,
+  "nativeRecaptured": false,
+  "referenceCaptureDate": "2026-10-21",
+  "productionCodeChanged": false,
+  "integrationConfiguration": "Debug",
+  "incomparableReasons": [
+    {
+      "reason": "A curve requires at least two finite coordinate/value pairs",
+      "count": 42
+    },
+    {
+      "reason": "Insufficient shared numerical coverage: [{\"id\":\"tangential\",\"coverage\":0.89},{\"id\":\"sagittal\",\"coverage\":0.89},{\"id\":\"distortion\",\"coverage\":0.89}]",
+      "count": 1
+    },
+    {
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]",
+      "count": 8
+    },
+    {
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]",
+      "count": 11
+    },
+    {
+      "reason": "Native RMS field extent differs from the selected scan direction",
+      "count": 6
+    },
+    {
+      "reason": "NativeInvalidResult: null native data-series buffer; no numerical reference.",
+      "count": 1
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "Objectives/Apochromat.zmx",
+      "analysisRequests": 50,
+      "analysisCounts": {
+        "Incomparable": 4,
+        "Pass": 46
+      },
+      "rayGroups": 8,
+      "rayCounts": {
+        "Pass": 8
+      }
+    },
+    {
+      "lens": "Objectives/Apochromat2.zmx",
+      "analysisRequests": 38,
+      "analysisCounts": {
+        "Incomparable": 4,
+        "Pass": 34
+      },
+      "rayGroups": 5,
+      "rayCounts": {
+        "Pass": 5
+      }
+    },
+    {
+      "lens": "Objectives/Apochromat3.zmx",
+      "analysisRequests": 30,
+      "analysisCounts": {
+        "Incomparable": 4,
+        "Pass": 26
+      },
+      "rayGroups": 3,
+      "rayCounts": {
+        "Pass": 3
+      }
+    },
+    {
+      "lens": "Objectives/Apochromat4.zmx",
+      "analysisRequests": 70,
+      "analysisCounts": {
+        "Incomparable": 27,
+        "Pass": 43
+      },
+      "rayGroups": 13,
+      "rayCounts": {
+        "Pass": 13
+      }
+    },
+    {
+      "lens": "Objectives/Cooke 40 degree field.zmx",
+      "analysisRequests": 30,
+      "analysisCounts": {
+        "Pass": 30
+      },
+      "rayGroups": 3,
+      "rayCounts": {
+        "Pass": 3
+      }
+    },
+    {
+      "lens": "Objectives/Double Gauss 28 degree field.zmx",
+      "analysisRequests": 30,
+      "analysisCounts": {
+        "Incomparable": 1,
+        "Pass": 29
+      },
+      "rayGroups": 3,
+      "rayCounts": {
+        "Pass": 3
+      }
+    },
+    {
+      "lens": "Objectives/Double Gauss 5 degree field.zmx",
+      "analysisRequests": 38,
+      "analysisCounts": {
+        "Incomparable": 3,
+        "Pass": 35
+      },
+      "rayGroups": 5,
+      "rayCounts": {
+        "Pass": 5
+      }
+    },
+    {
+      "lens": "Objectives/Doublet using MIL number glasses.zmx",
+      "analysisRequests": 38,
+      "analysisCounts": {
+        "Incomparable": 4,
+        "Pass": 34
+      },
+      "rayGroups": 5,
+      "rayCounts": {
+        "Pass": 5
+      }
+    },
+    {
+      "lens": "Objectives/Doublet.zmx",
+      "analysisRequests": 30,
+      "analysisCounts": {
+        "Incomparable": 3,
+        "Pass": 27
+      },
+      "rayGroups": 3,
+      "rayCounts": {
+        "Pass": 3
+      }
+    },
+    {
+      "lens": "Objectives/Even Asphere.zmx",
+      "analysisRequests": 22,
+      "analysisCounts": {
+        "Incomparable": 2,
+        "Pass": 20
+      },
+      "rayGroups": 1,
+      "rayCounts": {
+        "Pass": 1
+      }
+    },
+    {
+      "lens": "Objectives/Gaussian Quadrature over Annular Pupils.zmx",
+      "analysisRequests": 22,
+      "analysisCounts": {
+        "Incomparable": 4,
+        "Pass": 18
+      },
+      "rayGroups": 1,
+      "rayCounts": {
+        "Pass": 1
+      }
+    },
+    {
+      "lens": "Objectives/Gaussian Quadrature Over Wavelength.ZMX",
+      "analysisRequests": 30,
+      "analysisCounts": {
+        "Incomparable": 1,
+        "Pass": 29
+      },
+      "rayGroups": 3,
+      "rayCounts": {
+        "Pass": 3
+      }
+    },
+    {
+      "lens": "Objectives/Inverse telephoto lens.zmx",
+      "analysisRequests": 30,
+      "analysisCounts": {
+        "Pass": 30
+      },
+      "rayGroups": 3,
+      "rayCounts": {
+        "Pass": 3
+      }
+    },
+    {
+      "lens": "Objectives/Petzval.zmx",
+      "analysisRequests": 30,
+      "analysisCounts": {
+        "Incomparable": 1,
+        "Pass": 29
+      },
+      "rayGroups": 3,
+      "rayCounts": {
+        "Pass": 3
+      }
+    },
+    {
+      "lens": "Objectives/Relay lens.zmx",
+      "analysisRequests": 30,
+      "analysisCounts": {
+        "Incomparable": 1,
+        "Pass": 29
+      },
+      "rayGroups": 3,
+      "rayCounts": {
+        "Pass": 3
+      }
+    },
+    {
+      "lens": "Objectives/Tessar lens using vignetting factors.zmx",
+      "analysisRequests": 30,
+      "analysisCounts": {
+        "Incomparable": 2,
+        "Pass": 28
+      },
+      "rayGroups": 3,
+      "rayCounts": {
+        "Pass": 3
+      }
+    },
+    {
+      "lens": "Objectives/Wide angle lens 100 degree field.zmx",
+      "analysisRequests": 30,
+      "analysisCounts": {
+        "Incomparable": 1,
+        "Pass": 29
+      },
+      "rayGroups": 3,
+      "rayCounts": {
+        "Pass": 3
+      }
+    },
+    {
+      "lens": "Objectives/Wide angle lens 200 degree field.zmx",
+      "analysisRequests": 30,
+      "analysisCounts": {
+        "Incomparable": 4,
+        "Pass": 26
+      },
+      "rayGroups": 3,
+      "rayCounts": {
+        "Pass": 3
+      }
+    },
+    {
+      "lens": "Objectives/Wide angle lens 210 degree field.zmx",
+      "analysisRequests": 30,
+      "analysisCounts": {
+        "Error": 1,
+        "Incomparable": 3,
+        "Pass": 26
+      },
+      "rayGroups": 3,
+      "rayCounts": {
+        "Pass": 3
+      }
+    }
+  ]
+}

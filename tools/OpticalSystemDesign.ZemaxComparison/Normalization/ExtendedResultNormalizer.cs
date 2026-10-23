@@ -36,8 +36,9 @@ public static partial class ExtendedResultNormalizer
         var result = new NumericResult { Semantics = $"Explicit {r.CanonicalAnalysisKey} contract; wavelength scope: {r.WavelengthScope}." };
         void Curve(AnalysisSeries s, string id, Axis x, Axis y, double divisor = 1)
         {
-            var series = new Series1DResult(id, s.Name, s.Points.Select(p => p.Y / divisor).ToArray(), s.Points.Select(p => p.X).ToArray(),
+            var series = new Series1DResult(id, s.Name, s.Points.Select(p => divisor == 0 ? p.Y : p.Y / divisor).ToArray(), s.Points.Select(p => p.X).ToArray(),
                 x, new(s.XQuantity.ToString(), s.XUnit.ToString()));
+            if (divisor == 0) series = PhysicalNormalization.ZeroFieldPoint(series, false, result.Transformations);
             if (r.ImageSpaceAfocal && r.CanonicalAnalysisKey is "Field Curvature" or "Field Curvature and Distortion"
                 && id is "tangential" or "sagittal")
                 y = series.YAxis; // Preserve unsupported Core mm output; never relabel it as diopters.
@@ -114,7 +115,9 @@ public static partial class ExtendedResultNormalizer
         void Curve(int col, string id, Axis x, Axis y, double divisor = 1)
         {
             Require(col < rows[0].Length, "Missing native column " + col);
-            result.Series.Add(new(id, "Native column " + col, xs.Select(v => v / divisor).ToArray(), rows.Select(row => row[col]).ToArray(), x, y));
+            var series = new Series1DResult(id, "Native column " + col, xs.Select(v => divisor == 0 ? v : v / divisor).ToArray(), rows.Select(row => row[col]).ToArray(), x, y);
+            if (divisor == 0) series = PhysicalNormalization.ZeroFieldPoint(series, true, result.Transformations);
+            result.Series.Add(series);
         }
         switch (r.CanonicalAnalysisKey)
         {

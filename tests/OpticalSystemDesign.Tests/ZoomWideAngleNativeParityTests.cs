@@ -109,9 +109,11 @@ public sealed class ZoomWideAngleNativeParityTests
     [InlineData(89.8)]
     [InlineData(90)]
     [InlineData(90.2)]
+    [InlineData(90.3)]
     [InlineData(-89.8)]
     [InlineData(-90)]
     [InlineData(-90.2)]
+    [InlineData(-90.3)]
     public void TransverseChiefKeepsRequestedAngleAndReachesPhysicalStop(double angle)
     {
         using var archive = OpenReference();
@@ -132,6 +134,24 @@ public sealed class ZoomWideAngleNativeParityTests
             Assert.InRange(double.Hypot(p.X, p.Y), 0, 1e-8);
             Assert.True(trace.TryGetSample(0, optic.SurfaceGroup.Items.Count - 1, out var image));
             Assert.False(image.Vignetted);
+        }
+    }
+
+    [Theory]
+    [InlineData("wide-angle-lens-200-degree-field")]
+    [InlineData("wide-angle-lens-210-degree-field")]
+    public void TransverseFtanReferenceReportsUnavailableWithoutFoldingTheField(string slug)
+    {
+        using var archive=OpenReference();
+        var optic=new ZemaxZmxImporter().ImportConfigurationSet(Read(archive,$"run/sources/{slug}.zmx")).Configurations[0];
+        var options=new JsonSerializerOptions {NumberHandling=System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals};
+        var before=JsonSerializer.Serialize(optic.ToSnapshot(),options);
+        foreach(var type in new[]{"F-Tan(Theta)","Calibrated F-Tan(Theta)"})
+        {
+            var error=Assert.Throws<OpticalSystemDesign.Core.Analysis.AnalysisDataUnavailableException>(()=>
+                new OpticalSystemDesign.Core.Analysis.FieldCurvatureAndDistortionAnalysis(optic,distortionType:type).GenerateData());
+            Assert.Contains("select F-Theta",error.Reason);
+            Assert.Equal(before,JsonSerializer.Serialize(optic.ToSnapshot(),options));
         }
     }
 

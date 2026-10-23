@@ -1,0 +1,84 @@
+{
+  "limitations": [
+    "Original settings/references and tolerances are immutable; supplemental Pass is not an original-request Pass.",
+    "F-Theta plots cover 101 native samples through 100/105 degrees, but normalized native launches near 90 degrees alter the angle.",
+    "Rejected launch-plane experiments: 2/6 passed, 4/6 failed or timed out; candidate withdrawn. Additional 89.99/90.01 degree strict pupil aiming is not certified.",
+    "No full test suite, independent Cooke/Tessar certification, remote push or installer release."
+  ],
+  "originalFrozenMatrix": {
+    "Pass": 586,
+    "Error": 0,
+    "replaced": false,
+    "Difference": 0,
+    "Close": 0,
+    "Incomparable": 52,
+    "current638Replay": false
+  },
+  "date": "2026-10-23",
+  "sources": 19,
+  "identity": {
+    "coreSha256": "a11f4091cb675a7ef6c125d2352bea4be3a8445b3d906ce51f4897f0779b9d60",
+    "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5"
+  },
+  "rays": {
+    "inputs": 1245.0,
+    "groups": 15,
+    "directionFailures": 0.0,
+    "maximumCoordinateMillimeters": 1.6384959167226043E-07,
+    "coordinateFailures": 0.0,
+    "compared": 9600.0,
+    "maximumDirection": 2.3566562173948924E-09,
+    "maskMismatches": 0.0
+  },
+  "dependencies": [
+    {
+      "path": "contract-and-stages-evidence.zip",
+      "sha256": "a7c8574470e1776f6668f1da9f0c00c53d443eab6bd4c72671cb04a2e5eeea58"
+    },
+    {
+      "path": "logs-and-source-evidence.zip",
+      "sha256": "5410b17f6fe7167141232a53407eccb87dfc4a433bdcc0e07899368129b1d7fd"
+    },
+    {
+      "path": "logs-and-source-final-evidence.zip",
+      "sha256": "33c45bf5f12879f15ccc44f0e612dae6405df1bf066143474bb2d5a390c63091"
+    },
+    {
+      "path": "native-evidence.zip",
+      "sha256": "cea7405ae877e52e1b910144fcd1ec1cf530b556c5a48e025b3efbf02cf18e15"
+    },
+    {
+      "path": "ray-evidence.zip",
+      "sha256": "c0ad8c966dd40cd25d4ada0e0d05a27616a22e999cce95d36780f1f1fd9fc078"
+    },
+    {
+      "path": "software-evidence.zip",
+      "sha256": "b899d660cc07b092a9ff9b214952513d281085595fb30d4c79803c540761b413"
+    }
+  ],
+  "supplemental": {
+    "FThetaFullFieldPlot": 2,
+    "Pass": 52,
+    "fullPhysicalHorizonCertification": false,
+    "HigherSampling": 20,
+    "NativeExplicitFan": 30
+  },
+  "scope": "Objectives: 19 original lenses",
+  "tests": {
+    "Core": 195,
+    "Failed": 0,
+    "Skipped": 0,
+    "Distinct": 234,
+    "Comparison": 39
+  },
+  "buildRuntime": {
+    "executable": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.exe",
+    "date": "2026-10-23T22:08:46.0762376+08:00",
+    "validation": "Default Release build succeeded; process alive after startup. No installer.",
+    "coreDebugSha256": "a11f4091cb675a7ef6c125d2352bea4be3a8445b3d906ce51f4897f0779b9d60",
+    "coreReleaseSha256": "d91c99cd734053ac7cec0cb1a0c16202b0176deb8b55103a81969751827113e0",
+    "processId": 18908,
+    "appSha256": "1a3f21e9968e78e40dced141ec545ebea111ccce28355084a2c9a51048560c05",
+    "mainWindowTitle": "Optical System Design"
+  }
+}

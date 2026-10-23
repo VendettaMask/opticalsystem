@@ -1,0 +1,2541 @@
+[
+  {
+    "key": "Objectives/Apochromat.zmx|1|primary|First Order|1|4|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 1.4210854715202004E-14,
+        "meanAbsolute": 1.4210854715202004E-14,
+        "rmse": 1.4210854715202004E-14,
+        "nrmse": 1.4210854715202002E-16,
+        "maxRelative": 1.4210854715202002E-16,
+        "p50": 1.4210854715202004E-14,
+        "p90": 1.4210854715202004E-14,
+        "p95": 1.4210854715202004E-14,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 100,
+          "zemax": 100.00000000000001
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 1.7763568394002505E-15,
+        "meanAbsolute": 1.7763568394002505E-15,
+        "rmse": 1.7763568394002505E-15,
+        "nrmse": 1.77635683940025E-16,
+        "maxRelative": 1.77635683940025E-16,
+        "p50": 1.7763568394002505E-15,
+        "p90": 1.7763568394002505E-15,
+        "p95": 1.7763568394002505E-15,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 10,
+          "zemax": 10.000000000000002
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "958775d2de2957c4242276ed8c9c58f6674ec0b80217f783a136ab4e2158f78d",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1403-047-apochromat-c1-primary-f1-w4-first-order\\data.json",
+    "referenceSha256": "fbd68d19854bb88bee423ce04afc0bd49d2cc87d626eb44596b9015cd26d1a88"
+  },
+  {
+    "key": "Objectives/Apochromat.zmx|1|primary|PSF|1|4|64",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u8BA1\u7B97\u7EC8\u6B62; \u65E0\u6548\u7684\u7ED3\u679C!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u8BA1\u7B97\u7EC8\u6B62; \u65E0\u6548\u7684\u7ED3\u679C!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "1e8d5b75bdc4a78a1b421e23383541f0096ddc66e95b04dc9ec0f6fe6e724fc8",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1409-047-apochromat-c1-primary-f1-w4-psf\\data.json",
+    "referenceSha256": "91871dc3ec91456a235bfe181c173bca7964226230eed039ae036711764e0a9c"
+  },
+  {
+    "key": "Objectives/Apochromat.zmx|1|primary|Relative Illumination|1|4|32",
+    "conclusion": "Pass",
+    "reason": "",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 4.3298697960381105E-15,
+        "meanAbsolute": 4.3298697960381105E-15,
+        "rmse": 4.3298697960381105E-15,
+        "nrmse": 4.3298697960381294E-15,
+        "maxRelative": 4.3298697960381294E-15,
+        "p50": 4.3298697960381105E-15,
+        "p90": 4.3298697960381105E-15,
+        "p95": 4.3298697960381105E-15,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 1,
+          "zemax": 0.9999999999999957
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "1c5fd55dc8cd1f29c85218b7571b88a3ef4cb7a39554530438982d0e6320a5b3",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1418-047-apochromat-c1-primary-f1-w4-relative-illumination\\data.json",
+    "referenceSha256": "8e6cc618f3317e2b65bf40830432224980cd5dcf8c9a8d782a18325ccac3f2af"
+  },
+  {
+    "key": "Objectives/Apochromat.zmx|1|primary|RMS vs Field|1|4|64",
+    "conclusion": "Pass",
+    "reason": "",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Micrometer",
+        "count": 1,
+        "maxAbsolute": 2.7572388816565763E-13,
+        "meanAbsolute": 2.7572388816565763E-13,
+        "rmse": 2.7572388816565763E-13,
+        "nrmse": 8.488993316345919E-13,
+        "maxRelative": 8.488993316345919E-13,
+        "p50": 2.7572388816565763E-13,
+        "p90": 2.7572388816565763E-13,
+        "p95": 2.7572388816565763E-13,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 0.32480163182008115,
+          "zemax": 0.3248016318198054
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "80251d6c602bd71c34ebd738533a10ec36253419146b1969a66398ef3b53bcbb",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1419-047-apochromat-c1-primary-f1-w4-rms-vs-field\\data.json",
+    "referenceSha256": "89017518c0c37fd09a9ad9bc11d64bdb5e21c171a9499c915c7f45cc553b8fc6"
+  },
+  {
+    "key": "Objectives/Apochromat.zmx|1|primary|Field Curvature and Distortion|1|4|64",
+    "conclusion": "Pass",
+    "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+    "metrics": [
+      {
+        "id": "tangential",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 1.4344014694772644E-08,
+        "meanAbsolute": 1.4344014694772644E-08,
+        "rmse": 1.4344014694772644E-08,
+        "nrmse": 1.680102300679524E-06,
+        "maxRelative": 1.680102300679524E-06,
+        "p50": 1.4344014694772644E-08,
+        "p90": 1.4344014694772644E-08,
+        "p95": 1.4344014694772644E-08,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": -0.008537569759626584,
+          "zemax": -0.008537584103641279
+        }
+      },
+      {
+        "id": "sagittal",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 1.4344014694772644E-08,
+        "meanAbsolute": 1.4344014694772644E-08,
+        "rmse": 1.4344014694772644E-08,
+        "nrmse": 1.680102300679524E-06,
+        "maxRelative": 1.680102300679524E-06,
+        "p50": 1.4344014694772644E-08,
+        "p90": 1.4344014694772644E-08,
+        "p95": 1.4344014694772644E-08,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": -0.008537569759626584,
+          "zemax": -0.008537584103641279
+        }
+      },
+      {
+        "id": "distortion",
+        "unit": "Percent",
+        "count": 1,
+        "maxAbsolute": 0,
+        "meanAbsolute": 0,
+        "rmse": 0,
+        "nrmse": 0,
+        "maxRelative": 0,
+        "p50": 0,
+        "p90": 0,
+        "p95": 0,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 0,
+          "zemax": 0
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "eda04f5a8e51ffa78bcad529ec317cce2fad234c6fe80820f6db50001b22da9e",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1420-047-apochromat-c1-primary-f1-w4-field-curvature-and-distortion\\data.json",
+    "referenceSha256": "1f4fbb81ed2ed0933608fb81bb75e028e0722486083401e5cc8511ac958d2304"
+  },
+  {
+    "key": "Objectives/Apochromat2.zmx|1|primary|First Order|1|3|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 1.4210854715202004E-14,
+        "meanAbsolute": 1.4210854715202004E-14,
+        "rmse": 1.4210854715202004E-14,
+        "nrmse": 1.4210854715202002E-16,
+        "maxRelative": 1.4210854715202002E-16,
+        "p50": 1.4210854715202004E-14,
+        "p90": 1.4210854715202004E-14,
+        "p95": 1.4210854715202004E-14,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 100,
+          "zemax": 100.00000000000001
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 1.7763568394002505E-15,
+        "meanAbsolute": 1.7763568394002505E-15,
+        "rmse": 1.7763568394002505E-15,
+        "nrmse": 1.77635683940025E-16,
+        "maxRelative": 1.77635683940025E-16,
+        "p50": 1.7763568394002505E-15,
+        "p90": 1.7763568394002505E-15,
+        "p95": 1.7763568394002505E-15,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 10,
+          "zemax": 10.000000000000002
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "150b2df82159df7ab664a9c9d232788a36390913b8565753bb365c305a6bc900",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1453-048-apochromat2-c1-primary-f1-w3-first-order\\data.json",
+    "referenceSha256": "b999b029866ea1679d184884affb94ea285e30bb2a45b89138ecb6865bfe35dc"
+  },
+  {
+    "key": "Objectives/Apochromat2.zmx|1|primary|PSF|1|3|64",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u8BA1\u7B97\u7EC8\u6B62; \u65E0\u6548\u7684\u7ED3\u679C!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u8BA1\u7B97\u7EC8\u6B62; \u65E0\u6548\u7684\u7ED3\u679C!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "cc9cb963291423c298d92405f4f92667f1e2792141cf27ff59b4cd2067187049",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1459-048-apochromat2-c1-primary-f1-w3-psf\\data.json",
+    "referenceSha256": "dabee79b34088c36916b4c5f74c510cc97dcfbb9b7cf177fc76cb2f39505f59d"
+  },
+  {
+    "key": "Objectives/Apochromat2.zmx|1|primary|Relative Illumination|1|3|32",
+    "conclusion": "Pass",
+    "reason": "",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 3.885780586188048E-15,
+        "meanAbsolute": 3.885780586188048E-15,
+        "rmse": 3.885780586188048E-15,
+        "nrmse": 3.885780586188063E-15,
+        "maxRelative": 3.885780586188063E-15,
+        "p50": 3.885780586188048E-15,
+        "p90": 3.885780586188048E-15,
+        "p95": 3.885780586188048E-15,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 1,
+          "zemax": 0.9999999999999961
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "4c65146107ac17c564c29a3353fae025c69e0f0c6b3b3fef2b1918d2ff883c26",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1468-048-apochromat2-c1-primary-f1-w3-relative-illumination\\data.json",
+    "referenceSha256": "a19fef72d1ca0df0c29ad5385b83b469d6d99a8d4274470495279978ce542263"
+  },
+  {
+    "key": "Objectives/Apochromat2.zmx|1|primary|RMS vs Field|1|3|64",
+    "conclusion": "Pass",
+    "reason": "",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Micrometer",
+        "count": 1,
+        "maxAbsolute": 1.5078216453190407E-13,
+        "meanAbsolute": 1.5078216453190407E-13,
+        "rmse": 1.5078216453190407E-13,
+        "nrmse": 1.9029410393212107E-12,
+        "maxRelative": 1.9029410393212107E-12,
+        "p50": 1.5078216453190407E-13,
+        "p90": 1.5078216453190407E-13,
+        "p95": 1.5078216453190407E-13,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 0.0792363827446676,
+          "zemax": 0.07923638274451682
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "29740c5af24e712272bb0e68b6fd98232e26163973b6c14b4c90c39262ffb029",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1469-048-apochromat2-c1-primary-f1-w3-rms-vs-field\\data.json",
+    "referenceSha256": "1e1af377a16ca79831cfd29b36c559e07797e8869dad4c3b05cc6ac6d171531e"
+  },
+  {
+    "key": "Objectives/Apochromat2.zmx|1|primary|Field Curvature and Distortion|1|3|64",
+    "conclusion": "Pass",
+    "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+    "metrics": [
+      {
+        "id": "tangential",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 3.347453050514537E-08,
+        "meanAbsolute": 3.347453050514537E-08,
+        "rmse": 3.347453050514537E-08,
+        "nrmse": 2.757735073840214E-06,
+        "maxRelative": 2.757735073840214E-06,
+        "p50": 3.347453050514537E-08,
+        "p90": 3.347453050514537E-08,
+        "p95": 3.347453050514537E-08,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 0.012138447647336187,
+          "zemax": 0.012138414172805681
+        }
+      },
+      {
+        "id": "sagittal",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 3.347453050514537E-08,
+        "meanAbsolute": 3.347453050514537E-08,
+        "rmse": 3.347453050514537E-08,
+        "nrmse": 2.757735073840214E-06,
+        "maxRelative": 2.757735073840214E-06,
+        "p50": 3.347453050514537E-08,
+        "p90": 3.347453050514537E-08,
+        "p95": 3.347453050514537E-08,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 0.012138447647336187,
+          "zemax": 0.012138414172805681
+        }
+      },
+      {
+        "id": "distortion",
+        "unit": "Percent",
+        "count": 1,
+        "maxAbsolute": 0,
+        "meanAbsolute": 0,
+        "rmse": 0,
+        "nrmse": 0,
+        "maxRelative": 0,
+        "p50": 0,
+        "p90": 0,
+        "p95": 0,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 0,
+          "zemax": 0
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "ce511b97dd727fada98c60068b0618c247ada4915c48e38a1002bbf3534043e6",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1470-048-apochromat2-c1-primary-f1-w3-field-curvature-and-distortion\\data.json",
+    "referenceSha256": "0639a78f160f597ac2877780e15b8c8f2aae88381246225a4ed06802ae814e81"
+  },
+  {
+    "key": "Objectives/Apochromat3.zmx|1|primary|First Order|1|2|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 2.2737367544323206E-13,
+        "meanAbsolute": 2.2737367544323206E-13,
+        "rmse": 2.2737367544323206E-13,
+        "nrmse": 1.4919878783437921E-16,
+        "maxRelative": 1.4919878783437921E-16,
+        "p50": 2.2737367544323206E-13,
+        "p90": 2.2737367544323206E-13,
+        "p95": 2.2737367544323206E-13,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 1523.9646296297813,
+          "zemax": 1523.9646296297815
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 1.7763568394002505E-15,
+        "meanAbsolute": 1.7763568394002505E-15,
+        "rmse": 1.7763568394002505E-15,
+        "nrmse": 1.7763980676530776E-16,
+        "maxRelative": 1.7763980676530776E-16,
+        "p50": 1.7763568394002505E-15,
+        "p90": 1.7763568394002505E-15,
+        "p95": 1.7763568394002505E-15,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 9.99976791095657,
+          "zemax": 9.999767910956571
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "7386540db2b92e6bf54e52eabf8885d534e190509fb953e472fd40c109e3f2df",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1491-049-apochromat3-c1-primary-f1-w2-first-order\\data.json",
+    "referenceSha256": "ca15282f9ff4dde97ec738e17212d20a257c4e0284ddd8aee0e82ea79fa77a5b"
+  },
+  {
+    "key": "Objectives/Apochromat3.zmx|1|primary|PSF|1|2|64",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u8BA1\u7B97\u7EC8\u6B62; \u65E0\u6548\u7684\u7ED3\u679C!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u8BA1\u7B97\u7EC8\u6B62; \u65E0\u6548\u7684\u7ED3\u679C!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "5ee48a8ce3ea3337db1e582b3110e93e957f2aafddc3d7b0436268a7302f21de",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1497-049-apochromat3-c1-primary-f1-w2-psf\\data.json",
+    "referenceSha256": "4fb4d9f16adc5aa10cdb114eb3c3b53b0cf43a3bb2ded655bf8fcc79ccf22be6"
+  },
+  {
+    "key": "Objectives/Apochromat3.zmx|1|primary|Relative Illumination|1|2|32",
+    "conclusion": "Pass",
+    "reason": "",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 2.220446049250313E-16,
+        "meanAbsolute": 2.220446049250313E-16,
+        "rmse": 2.220446049250313E-16,
+        "nrmse": 2.2204460492503136E-16,
+        "maxRelative": 2.2204460492503136E-16,
+        "p50": 2.220446049250313E-16,
+        "p90": 2.220446049250313E-16,
+        "p95": 2.220446049250313E-16,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 1,
+          "zemax": 0.9999999999999998
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "9cc91eefa89728dc4714a4f8e14868a33033b565a4999a39f62e0315732ea023",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1506-049-apochromat3-c1-primary-f1-w2-relative-illumination\\data.json",
+    "referenceSha256": "70f0a055a7ae680b9cc74541ff40b5f4765d8afdd7a87b5ebdf8b87b5e92841c"
+  },
+  {
+    "key": "Objectives/Apochromat3.zmx|1|primary|RMS vs Field|1|2|64",
+    "conclusion": "Pass",
+    "reason": "",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Micrometer",
+        "count": 1,
+        "maxAbsolute": 8.109068971862143E-13,
+        "meanAbsolute": 8.109068971862143E-13,
+        "rmse": 8.109068971862143E-13,
+        "nrmse": 2.773169429299772E-13,
+        "maxRelative": 2.773169429299772E-13,
+        "p50": 8.109068971862143E-13,
+        "p90": 8.109068971862143E-13,
+        "p95": 8.109068971862143E-13,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 2.9241159541816883,
+          "zemax": 2.9241159541808774
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "1af69c576ec7e57e6bf2447121290c5a8b98a073d1fb5fa8df38278dd5aad3bb",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1507-049-apochromat3-c1-primary-f1-w2-rms-vs-field\\data.json",
+    "referenceSha256": "0c505c006e10931c029a11283cfdd2a35f2d321af1c7e6fe634e81fb9cf29d4d"
+  },
+  {
+    "key": "Objectives/Apochromat3.zmx|1|primary|Field Curvature and Distortion|1|2|64",
+    "conclusion": "Pass",
+    "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+    "metrics": [
+      {
+        "id": "tangential",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 4.887450011786809E-07,
+        "meanAbsolute": 4.887450011786809E-07,
+        "rmse": 4.887450011786809E-07,
+        "nrmse": 4.857950623542137E-06,
+        "maxRelative": 4.857950623542137E-06,
+        "p50": 4.887450011786809E-07,
+        "p90": 4.887450011786809E-07,
+        "p95": 4.887450011786809E-07,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 0.10060772810436633,
+          "zemax": 0.10060723935936515
+        }
+      },
+      {
+        "id": "sagittal",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 4.887450011786809E-07,
+        "meanAbsolute": 4.887450011786809E-07,
+        "rmse": 4.887450011786809E-07,
+        "nrmse": 4.857950623542137E-06,
+        "maxRelative": 4.857950623542137E-06,
+        "p50": 4.887450011786809E-07,
+        "p90": 4.887450011786809E-07,
+        "p95": 4.887450011786809E-07,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 0.10060772810436633,
+          "zemax": 0.10060723935936515
+        }
+      },
+      {
+        "id": "distortion",
+        "unit": "Percent",
+        "count": 1,
+        "maxAbsolute": 0,
+        "meanAbsolute": 0,
+        "rmse": 0,
+        "nrmse": 0,
+        "maxRelative": 0,
+        "p50": 0,
+        "p90": 0,
+        "p95": 0,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 0,
+          "zemax": 0
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "59d1d8d1175378c861793466e80bb0bd51bf9c5dc58a32f615585f650035dd90",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1508-049-apochromat3-c1-primary-f1-w2-field-curvature-and-distortion\\data.json",
+    "referenceSha256": "6f6a763edf5caf502c19c9e23e09707f0fd6aabb09f10771c56a7d7e8cca3ba4"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|primary|First Order|1|12|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 5.684341886080802E-14,
+        "meanAbsolute": 5.684341886080802E-14,
+        "rmse": 5.684341886080802E-14,
+        "nrmse": 5.694740612984529E-16,
+        "maxRelative": 5.694740612984529E-16,
+        "p50": 5.684341886080802E-14,
+        "p90": 5.684341886080802E-14,
+        "p95": 5.684341886080802E-14,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 99.81739770763194,
+          "zemax": 99.81739770763188
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 4.440892098500626E-15,
+        "meanAbsolute": 4.440892098500626E-15,
+        "rmse": 4.440892098500626E-15,
+        "nrmse": 5.561270129867704E-16,
+        "maxRelative": 5.561270129867704E-16,
+        "p50": 4.440892098500626E-15,
+        "p90": 4.440892098500626E-15,
+        "p95": 4.440892098500626E-15,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 7.985391816610555,
+          "zemax": 7.985391816610551
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "f7384036b1be88851065726bb65da41517c2d09936831d6812c3f1e92fe5e051",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1521-050-apochromat4-c1-primary-f1-w12-first-order\\data.json",
+    "referenceSha256": "66eab2e8f1de3852149387c894c017c4ef1712a45fd97f1ee84858ce44eb41a6"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|primary|PSF|1|12|64",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u8BA1\u7B97\u7EC8\u6B62; \u65E0\u6548\u7684\u7ED3\u679C!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u8BA1\u7B97\u7EC8\u6B62; \u65E0\u6548\u7684\u7ED3\u679C!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "b2b3666b0025bcf9d512d894850dab7be9fda699f41d219f143bd6ad535db22e",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1527-050-apochromat4-c1-primary-f1-w12-psf\\data.json",
+    "referenceSha256": "524d115428bacda01ad33e4a0955249a3051ab63f7010195e0d8bc10db137026"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Ray Fan|4|1|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "47935f4e3326871441f25e42c9860d2aad93e3f9d334cf79fc1371ae70f06aa6",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1541-050-apochromat4-c1-edge-f4-w1-ray-fan\\data.json",
+    "referenceSha256": "7e986b1caeb7c15c609841def0c6a06e5d845a00a31a2c5e5d72ee6fbc944497"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Optical Path Difference|4|1|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "0e03a41259f498bd79793b9b82a401181f846dec3a2a843779733e6d65fddf02",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1542-050-apochromat4-c1-edge-f4-w1-optical-path-difference\\data.json",
+    "referenceSha256": "912af8372024bff8bb4ae6635db9d3d53ff1ba5e414ba13245d46689fdecdf29"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Ray Fan|4|2|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "81780969d8323daf78602e6bf22c786c4d066bc07b9d3705bf023ea3fd473ca3",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1545-050-apochromat4-c1-edge-f4-w2-ray-fan\\data.json",
+    "referenceSha256": "03b65b2b2e23a88fd5f6e9511b1403a86f394092669fbc107139be856e9d0cd7"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Optical Path Difference|4|2|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "2d8b26c7c3570d6f9024065eeb51e73f3fc4ae7105aeb9bc485fdf53e70281e6",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1546-050-apochromat4-c1-edge-f4-w2-optical-path-difference\\data.json",
+    "referenceSha256": "a8a8cc027e40107f3321188909888ced2b1ab0fbff346ee24572a41e634c29f6"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Ray Fan|4|3|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "57da3db87a28f796c8e74cc3928b39b8bbd14888cee0601f34d41c07b522162a",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1549-050-apochromat4-c1-edge-f4-w3-ray-fan\\data.json",
+    "referenceSha256": "4f64a1a96970ebfc7857913465f04963a9ef595c67d4aeff3c7f6677bf85e87b"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Optical Path Difference|4|3|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "d3e2fe1d1dc9cb46115cf7cb243c9446932bef186f8c4100fcdbe5af702fc809",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1550-050-apochromat4-c1-edge-f4-w3-optical-path-difference\\data.json",
+    "referenceSha256": "92e0ebdeb5d504bbab8c9e5f3da1eddaba930e27f72ecc10e4beafe0bc97f58c"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Ray Fan|4|4|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "5b382dd020445c1c63ce362da6c3c8b8287f95fad5dccfe55ee707cd5a60abdd",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1553-050-apochromat4-c1-edge-f4-w4-ray-fan\\data.json",
+    "referenceSha256": "531877a95b3306ca5c3c761255ac96fe42229af7b56c89c66a8978dad1a0004a"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Optical Path Difference|4|4|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "9daaea5ee0969ad0d3af2ac645953ee0eb5875308a8b53a9c409d57ab9047796",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1554-050-apochromat4-c1-edge-f4-w4-optical-path-difference\\data.json",
+    "referenceSha256": "88fa9c8d6b12f27523419baf0503872de9b16386949a0986a8aa4ea52358dcd5"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Ray Fan|4|5|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "69eef1eecb26e7d60102d25c8e9bc5bebb63a20a9865535252eb1f0392f7d644",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1557-050-apochromat4-c1-edge-f4-w5-ray-fan\\data.json",
+    "referenceSha256": "1a4871a1fc6cbe3d5b846bb946c2756ec38955be2920e6a0d8001ffca93a8f63"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Optical Path Difference|4|5|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "de8df54d31e57b0c27ec32de07213a149240085f9a77c0b2f691fafa1d1a3b49",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1558-050-apochromat4-c1-edge-f4-w5-optical-path-difference\\data.json",
+    "referenceSha256": "cb3c0c439078b39f616e81326beb301e5f0af73f463dd16922d7da5a1df91bed"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Ray Fan|4|6|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "1f50c8bd8900930b4c40f46a140f414cdc0cfb3d923946938a4239a0dbfb66d0",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1561-050-apochromat4-c1-edge-f4-w6-ray-fan\\data.json",
+    "referenceSha256": "6969f15b90c97d4513d880658b5db8bcd2f0ce8454ea9da40c12fbb4c9de1635"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Optical Path Difference|4|6|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "1b5d26166177da11b1a115cbbed68436a7da760cefdb15cb5f609151749402dd",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1562-050-apochromat4-c1-edge-f4-w6-optical-path-difference\\data.json",
+    "referenceSha256": "69105c6c677dbbb323c421f024e0cc4a6bab2c4867c9d59fd8136ad39949af5b"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Ray Fan|4|7|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "1708a5f0072bee0508cb65921ba560aa7538ff909605b5b718804f351a08c934",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1565-050-apochromat4-c1-edge-f4-w7-ray-fan\\data.json",
+    "referenceSha256": "0b3bada9b1f426f88e16c1739b42bc72aed507826fbae3c1760c23df6b987733"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Optical Path Difference|4|7|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "1ad3df1201006ace55bbbd8a1f995950e4aa1f8d28e917fced14e1cd844c8c98",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1566-050-apochromat4-c1-edge-f4-w7-optical-path-difference\\data.json",
+    "referenceSha256": "f4295158d6a5e3f487fef21e75b79e2ae59a3d62676dc46b6dbe45895106a23c"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Ray Fan|4|8|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "e7903175768bd21dfaea935468f9bdd3277610c231726ba58b2bae7c4cf13b08",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1569-050-apochromat4-c1-edge-f4-w8-ray-fan\\data.json",
+    "referenceSha256": "dd719f8d4ef6f709930a01793bca459c8a0ceecae9b1925694cb429031d5b51a"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Optical Path Difference|4|8|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "372182267a5a51f61e1adfd37f84da46465bcdb94ffeacb9460f3d643262811e",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1570-050-apochromat4-c1-edge-f4-w8-optical-path-difference\\data.json",
+    "referenceSha256": "32ae6f86b08799d28c6defd2e436f7e1af7228a7887a007037c158624df42419"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Ray Fan|4|9|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "2407d9cdedf81746756219c1333cb97c85dd6d919c26e146ecb91444e7f9cedf",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1573-050-apochromat4-c1-edge-f4-w9-ray-fan\\data.json",
+    "referenceSha256": "a503e1dd03e0787791cd5705f852e17082da7b8d279d401e4fd289e2725fbcb0"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Optical Path Difference|4|9|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "924a2a094976ec928a979d5bacb1cb1b129a5178a20018829c2586c847f106ae",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1574-050-apochromat4-c1-edge-f4-w9-optical-path-difference\\data.json",
+    "referenceSha256": "4af2dedbf743c1857477df8b5fe1ed9efdeb8c60f38ae7c02f1c58d375e071e2"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Ray Fan|4|10|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "ee2145c9c1815b1d44f95401b54a11f852e46a943f8fd60770fda038de6e54d4",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1577-050-apochromat4-c1-edge-f4-w10-ray-fan\\data.json",
+    "referenceSha256": "cd31aa1985c4314b39bab74a4474ef854a5f754f679b0193c0043a30c1c89b27"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Optical Path Difference|4|10|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "a1d3789a92f387d9b2efc49c1e6424661e06ded15090e3f8f44d44e2eb5adbbf",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1578-050-apochromat4-c1-edge-f4-w10-optical-path-difference\\data.json",
+    "referenceSha256": "fdf16c9cf229b16249fb04a317c192360ff687dea5ac2cd48c983487782928f3"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Ray Fan|4|11|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "c81e060c67ca1deb8d887d58867f508a8b05063a2cbcc65b8ef4c5cd064b3e78",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1581-050-apochromat4-c1-edge-f4-w11-ray-fan\\data.json",
+    "referenceSha256": "30f7905e1ac3b46099608af42d280a2094e32bb0a9ecabb6e8d2dd3ce3abfeab"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Optical Path Difference|4|11|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "6fb563beef843b2b1123a420c871de6d49b44413ff1b820c49044ca3b1999955",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1582-050-apochromat4-c1-edge-f4-w11-optical-path-difference\\data.json",
+    "referenceSha256": "de0b83caa28a2002013b399dd6e3587801749cac1319e500b2622bf93b2fcff0"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Ray Fan|4|12|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "36bac3abf388cb91ec9e4780af4cf0ada23ef9b22c134ddb147b0c39a9613313",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1585-050-apochromat4-c1-edge-f4-w12-ray-fan\\data.json",
+    "referenceSha256": "eebc39091354ae92a8d82739663a8344a439f858d7da25cb35198db8290aa56d"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Optical Path Difference|4|12|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "925dd4aefb2e1ac6574005c81ac45ba6b76c51b39bf6610abc23a34291a4a009",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1586-050-apochromat4-c1-edge-f4-w12-optical-path-difference\\data.json",
+    "referenceSha256": "49dfbd5246e434448465a3fa33e27528fb4f92f0e704ec5f3d5a5d780d0f223b"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Ray Fan|4|13|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "f18737dc4a30b2b453e6724db08c89d25a58e9beb2f7da885bdf9f151a6c16de",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1589-050-apochromat4-c1-edge-f4-w13-ray-fan\\data.json",
+    "referenceSha256": "7ffe0d0490b11b7c7f941d2d911c08e14d40850f1536fce45389daead72d51d3"
+  },
+  {
+    "key": "Objectives/Apochromat4.zmx|1|edge|Optical Path Difference|4|13|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "361b6716549363c07c6ce233e1102887e5e0d7854eecd34656f92bb54083bb30",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1590-050-apochromat4-c1-edge-f4-w13-optical-path-difference\\data.json",
+    "referenceSha256": "e799e4406e9b08677d6fc3bd0f245a4af63f82c1fede8d9c6c56f7b6659b86b4"
+  },
+  {
+    "key": "Objectives/Cooke 40 degree field.zmx|1|primary|First Order|1|2|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 0,
+        "meanAbsolute": 0,
+        "rmse": 0,
+        "nrmse": 0,
+        "maxRelative": 0,
+        "p50": 0,
+        "p90": 0,
+        "p95": 0,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 49.99999950000002,
+          "zemax": 49.99999950000002
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 0,
+        "meanAbsolute": 0,
+        "rmse": 0,
+        "nrmse": 0,
+        "maxRelative": 0,
+        "p50": 0,
+        "p90": 0,
+        "p95": 0,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 4.999999950000002,
+          "zemax": 4.999999950000002
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "e7e1fc4b6f59fa008c328e2b11bd2c8deb023ccb55dfbedb35ba59a8423f6599",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1591-051-cooke-40-degree-field-c1-primary-f1-w2-first-order\\data.json",
+    "referenceSha256": "844495ffdd48192d08cb303413da3cff4042c93b1babad6ad602d1c35e955a03"
+  },
+  {
+    "key": "Objectives/Double Gauss 28 degree field.zmx|1|primary|First Order|1|2|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 1.4210854715202004E-14,
+        "meanAbsolute": 1.4210854715202004E-14,
+        "rmse": 1.4210854715202004E-14,
+        "nrmse": 1.4282168575127143E-16,
+        "maxRelative": 1.4282168575127143E-16,
+        "p50": 1.4210854715202004E-14,
+        "p90": 1.4210854715202004E-14,
+        "p95": 1.4210854715202004E-14,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 99.50067904919332,
+          "zemax": 99.50067904919331
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 4.440892098500626E-16,
+        "meanAbsolute": 4.440892098500626E-16,
+        "rmse": 4.440892098500626E-16,
+        "nrmse": 1.4875771206530864E-16,
+        "maxRelative": 1.4875771206530864E-16,
+        "p50": 4.440892098500626E-16,
+        "p90": 4.440892098500626E-16,
+        "p95": 4.440892098500626E-16,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 2.9853189033661365,
+          "zemax": 2.985318903366136
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "bc6c3ce0bea7ab3e1214adaf316c21a762325452791c7a71ac7887a3034accfe",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1621-052-double-gauss-28-degree-field-c1-primary-f1-w2-first-order\\data.json",
+    "referenceSha256": "8dca8ba249b2fb3af7a3303c3edd25bc7493cdee190c3ddf95bc1ac7673a2d5f"
+  },
+  {
+    "key": "Objectives/Double Gauss 28 degree field.zmx|1|primary|Diffraction Encircled Energy|1|2|32",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "2092fce30b06d33bc9fe0f7857e41babff66bea4304e1f3b070e88ba386958cc",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1634-052-double-gauss-28-degree-field-c1-primary-f1-w2-diffraction-encircled-energy\\data.json",
+    "referenceSha256": "0b79ba85675f6dff47b272eb9df0932740f7262e5a010639d3b743093f79441e"
+  },
+  {
+    "key": "Objectives/Double Gauss 5 degree field.zmx|1|primary|First Order|1|3|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 1.4210854715202004E-14,
+        "meanAbsolute": 1.4210854715202004E-14,
+        "rmse": 1.4210854715202004E-14,
+        "nrmse": 1.3987069098239633E-16,
+        "maxRelative": 1.3987069098239633E-16,
+        "p50": 1.4210854715202004E-14,
+        "p90": 1.4210854715202004E-14,
+        "p95": 1.4210854715202004E-14,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 101.59994646048138,
+          "zemax": 101.59994646048139
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 2.220446049250313E-16,
+        "meanAbsolute": 2.220446049250313E-16,
+        "rmse": 2.220446049250313E-16,
+        "nrmse": 2.2204472193455416E-16,
+        "maxRelative": 2.2204472193455416E-16,
+        "p50": 2.220446049250313E-16,
+        "p90": 2.220446049250313E-16,
+        "p95": 2.220446049250313E-16,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 0.999999473036234,
+          "zemax": 0.9999994730362343
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "4131719c7ca6081f3455c09dab1f69d859d60b79f0ceb149a7435213e60bb777",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1651-053-double-gauss-5-degree-field-c1-primary-f1-w3-first-order\\data.json",
+    "referenceSha256": "0cc747375e105984d6e2353ac11887a81774a51855cc07e3c3c01b7ef9e799ee"
+  },
+  {
+    "key": "Objectives/Double Gauss 5 degree field.zmx|1|primary|Diffraction Encircled Energy|1|3|32",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "78b1079681aeefc5d02b2a6d37c1e933b4a5ddb68f0b950670f9c93604b6f462",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1664-053-double-gauss-5-degree-field-c1-primary-f1-w3-diffraction-encircled-energy\\data.json",
+    "referenceSha256": "40c5031ccc39df63a4c8306989b2f6cc71859c17673ef8b46b95880f8d2965c2"
+  },
+  {
+    "key": "Objectives/Double Gauss 5 degree field.zmx|1|edge|Ray Fan|2|5|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "e8609fdf8aa5b4b4f49ef104a5c243bf33ea54319d1ee256f867d56ec858285a",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1687-053-double-gauss-5-degree-field-c1-edge-f2-w5-ray-fan\\data.json",
+    "referenceSha256": "9e427f54fae0c834933a966f25e8c91decc2b056a07d6a84b1e4683fa36e84df"
+  },
+  {
+    "key": "Objectives/Double Gauss 5 degree field.zmx|1|edge|Optical Path Difference|2|5|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "46d0011f6faa6dea5bf7d4834ebb0d0d2d121598b927a21edf01522760e073df",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1688-053-double-gauss-5-degree-field-c1-edge-f2-w5-optical-path-difference\\data.json",
+    "referenceSha256": "02063585d69e6ef96212aaf6b0ff4f7ef50dc8102a4587cd3e13ad23d90c2dfb"
+  },
+  {
+    "key": "Objectives/Doublet using MIL number glasses.zmx|1|primary|First Order|1|3|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 0,
+        "meanAbsolute": 0,
+        "rmse": 0,
+        "nrmse": 0,
+        "maxRelative": 0,
+        "p50": 0,
+        "p90": 0,
+        "p95": 0,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 100.00000000000001,
+          "zemax": 100.00000000000001
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 0,
+        "meanAbsolute": 0,
+        "rmse": 0,
+        "nrmse": 0,
+        "maxRelative": 0,
+        "p50": 0,
+        "p90": 0,
+        "p95": 0,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 10.000000000000002,
+          "zemax": 10.000000000000002
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "d6d258318214b266255ee98d3a023bb0140f5dc06865fa4f1b2df0c47b439d6e",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1689-054-doublet-using-mil-number-glasses-c1-primary-f1-w3-first-order\\data.json",
+    "referenceSha256": "7b5f53da17b943480bc817900fbffa745fb35ae36e967b603d8ac551c7079912"
+  },
+  {
+    "key": "Objectives/Doublet using MIL number glasses.zmx|1|primary|PSF|1|3|64",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u8BA1\u7B97\u7EC8\u6B62; \u65E0\u6548\u7684\u7ED3\u679C!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u8BA1\u7B97\u7EC8\u6B62; \u65E0\u6548\u7684\u7ED3\u679C!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "c701f66d5e2115a179ec935aa3a9695dd2ff92976d76638b898bb3499f485eea",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1695-054-doublet-using-mil-number-glasses-c1-primary-f1-w3-psf\\data.json",
+    "referenceSha256": "dfa6f2565b54dd4d7337c8046ed66de574259970a466c7e1c46224233d061649"
+  },
+  {
+    "key": "Objectives/Doublet using MIL number glasses.zmx|1|primary|Relative Illumination|1|3|32",
+    "conclusion": "Pass",
+    "reason": "",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 1.5543122344752192E-15,
+        "meanAbsolute": 1.5543122344752192E-15,
+        "rmse": 1.5543122344752192E-15,
+        "nrmse": 1.5543122344752215E-15,
+        "maxRelative": 1.5543122344752215E-15,
+        "p50": 1.5543122344752192E-15,
+        "p90": 1.5543122344752192E-15,
+        "p95": 1.5543122344752192E-15,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 1,
+          "zemax": 0.9999999999999984
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "420210ad1b88940ca934b8748f383eca826a9c5fdd376f38a2fa41b2c91d8c5b",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1704-054-doublet-using-mil-number-glasses-c1-primary-f1-w3-relative-illumination\\data.json",
+    "referenceSha256": "1461bcfcef3a24984381eb04963ad938bbdc7bafae26fb1c308ca84a6a26a01d"
+  },
+  {
+    "key": "Objectives/Doublet using MIL number glasses.zmx|1|primary|RMS vs Field|1|3|64",
+    "conclusion": "Pass",
+    "reason": "",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Micrometer",
+        "count": 1,
+        "maxAbsolute": 2.602362769721367E-13,
+        "meanAbsolute": 2.602362769721367E-13,
+        "rmse": 2.602362769721367E-13,
+        "nrmse": 1.1948903715464463E-13,
+        "maxRelative": 1.1948903715464463E-13,
+        "p50": 2.602362769721367E-13,
+        "p90": 2.602362769721367E-13,
+        "p95": 2.602362769721367E-13,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 2.177909230579587,
+          "zemax": 2.177909230579327
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "9942ff681cc8ab5c3edba327447034462923d3c1c7334fdd82ed107c0495d9b8",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1705-054-doublet-using-mil-number-glasses-c1-primary-f1-w3-rms-vs-field\\data.json",
+    "referenceSha256": "265d7eb201c189161090ad8ee16f70c6662f3e4ade25109ec2a6906e05c5d915"
+  },
+  {
+    "key": "Objectives/Doublet using MIL number glasses.zmx|1|primary|Field Curvature and Distortion|1|3|64",
+    "conclusion": "Pass",
+    "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+    "metrics": [
+      {
+        "id": "tangential",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 5.2711512991271414E-08,
+        "meanAbsolute": 5.2711512991271414E-08,
+        "rmse": 5.2711512991271414E-08,
+        "nrmse": 1.932926374092668E-06,
+        "maxRelative": 1.932926374092668E-06,
+        "p50": 5.2711512991271414E-08,
+        "p90": 5.2711512991271414E-08,
+        "p95": 5.2711512991271414E-08,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": -0.027270263270395344,
+          "zemax": -0.027270315981908336
+        }
+      },
+      {
+        "id": "sagittal",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 5.2711512991271414E-08,
+        "meanAbsolute": 5.2711512991271414E-08,
+        "rmse": 5.2711512991271414E-08,
+        "nrmse": 1.932926374092668E-06,
+        "maxRelative": 1.932926374092668E-06,
+        "p50": 5.2711512991271414E-08,
+        "p90": 5.2711512991271414E-08,
+        "p95": 5.2711512991271414E-08,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": -0.027270263270395344,
+          "zemax": -0.027270315981908336
+        }
+      },
+      {
+        "id": "distortion",
+        "unit": "Percent",
+        "count": 1,
+        "maxAbsolute": 0,
+        "meanAbsolute": 0,
+        "rmse": 0,
+        "nrmse": 0,
+        "maxRelative": 0,
+        "p50": 0,
+        "p90": 0,
+        "p95": 0,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 0,
+          "zemax": 0
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "88cf50508b41c73e08514229a9de529dd458f638bb587efcaa13d0205ccb2523",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1706-054-doublet-using-mil-number-glasses-c1-primary-f1-w3-field-curvature-and-distortion\\data.json",
+    "referenceSha256": "ba431bfc156a18185f7a14b87a863232173abfaf15b5a28c9ee3dbeb1d153214"
+  },
+  {
+    "key": "Objectives/Doublet.zmx|1|primary|First Order|1|2|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 4.263256414560601E-14,
+        "meanAbsolute": 4.263256414560601E-14,
+        "rmse": 4.263256414560601E-14,
+        "nrmse": 4.263256457193164E-16,
+        "maxRelative": 4.263256457193164E-16,
+        "p50": 4.263256414560601E-14,
+        "p90": 4.263256414560601E-14,
+        "p95": 4.263256414560601E-14,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 99.99999899999999,
+          "zemax": 99.99999900000003
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 1.7763568394002505E-15,
+        "meanAbsolute": 1.7763568394002505E-15,
+        "rmse": 1.7763568394002505E-15,
+        "nrmse": 3.5527137143276374E-16,
+        "maxRelative": 3.5527137143276374E-16,
+        "p50": 1.7763568394002505E-15,
+        "p90": 1.7763568394002505E-15,
+        "p95": 1.7763568394002505E-15,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 4.999999949999999,
+          "zemax": 4.999999950000001
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "7375bd89e36b547d4c5beb0b3d69c13845b9b02ab68b3e4e599281f1876de917",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1727-055-doublet-c1-primary-f1-w2-first-order\\data.json",
+    "referenceSha256": "e0726db665872bc68fba24eb403beb118976b9d1850f4b6f7a22a698c2078642"
+  },
+  {
+    "key": "Objectives/Doublet.zmx|1|primary|Relative Illumination|1|2|32",
+    "conclusion": "Pass",
+    "reason": "",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 1.887379141862766E-15,
+        "meanAbsolute": 1.887379141862766E-15,
+        "rmse": 1.887379141862766E-15,
+        "nrmse": 1.8873791418627697E-15,
+        "maxRelative": 1.8873791418627697E-15,
+        "p50": 1.887379141862766E-15,
+        "p90": 1.887379141862766E-15,
+        "p95": 1.887379141862766E-15,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 1,
+          "zemax": 0.9999999999999981
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "65cb59d62374ffb59289d2f5ee98e1fbc615866a645eb28558b64350077155e3",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1742-055-doublet-c1-primary-f1-w2-relative-illumination\\data.json",
+    "referenceSha256": "e22faa83dca3bee3fadaebe48c7abe41eb331ef698998d2eb00470d0e93bacf8"
+  },
+  {
+    "key": "Objectives/Doublet.zmx|1|primary|RMS vs Field|1|2|64",
+    "conclusion": "Pass",
+    "reason": "",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Micrometer",
+        "count": 1,
+        "maxAbsolute": 7.154277170684509E-13,
+        "meanAbsolute": 7.154277170684509E-13,
+        "rmse": 7.154277170684509E-13,
+        "nrmse": 2.9649593595048505E-13,
+        "maxRelative": 2.9649593595048505E-13,
+        "p50": 7.154277170684509E-13,
+        "p90": 7.154277170684509E-13,
+        "p95": 7.154277170684509E-13,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 2.4129427432951913,
+          "zemax": 2.4129427432959067
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "1c643b5117e959e167dca5c65a49976e0734e19d538cea760c0d39567eb91e27",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1743-055-doublet-c1-primary-f1-w2-rms-vs-field\\data.json",
+    "referenceSha256": "86378a8374c11a53022153d4a1180cd161501c4b21d1cb3010c19429d0540e0e"
+  },
+  {
+    "key": "Objectives/Doublet.zmx|1|primary|Field Curvature and Distortion|1|2|64",
+    "conclusion": "Pass",
+    "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+    "metrics": [
+      {
+        "id": "tangential",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 1.8261938554639416E-07,
+        "meanAbsolute": 1.8261938554639416E-07,
+        "rmse": 1.8261938554639416E-07,
+        "nrmse": 0.18261938554639418,
+        "maxRelative": 0.9998996014139555,
+        "p50": 1.8261938554639416E-07,
+        "p90": 1.8261938554639416E-07,
+        "p95": 1.8261938554639416E-07,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": -1.8336569058790904E-11,
+          "zemax": -1.8263772211545294E-07
+        }
+      },
+      {
+        "id": "sagittal",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 1.8261938554639416E-07,
+        "meanAbsolute": 1.8261938554639416E-07,
+        "rmse": 1.8261938554639416E-07,
+        "nrmse": 0.18261938554639418,
+        "maxRelative": 0.9998996014139555,
+        "p50": 1.8261938554639416E-07,
+        "p90": 1.8261938554639416E-07,
+        "p95": 1.8261938554639416E-07,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": -1.8336569058790904E-11,
+          "zemax": -1.8263772211545294E-07
+        }
+      },
+      {
+        "id": "distortion",
+        "unit": "Percent",
+        "count": 1,
+        "maxAbsolute": 0,
+        "meanAbsolute": 0,
+        "rmse": 0,
+        "nrmse": 0,
+        "maxRelative": 0,
+        "p50": 0,
+        "p90": 0,
+        "p95": 0,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 0,
+          "zemax": 0
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "28b18a7f4b19e9013bd132e753bc6b4c144005ebddbce1ceb45f5f0a0090e1e8",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1744-055-doublet-c1-primary-f1-w2-field-curvature-and-distortion\\data.json",
+    "referenceSha256": "11c1add265c702920ec3f8eaac7fe9e5255664c4fddcea1ccfea2988350f70a5"
+  },
+  {
+    "key": "Objectives/Even Asphere.zmx|1|primary|First Order|1|1|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 7.105427357601002E-15,
+        "meanAbsolute": 7.105427357601002E-15,
+        "rmse": 7.105427357601002E-15,
+        "nrmse": 1.26084862150437E-16,
+        "maxRelative": 1.26084862150437E-16,
+        "p50": 7.105427357601002E-15,
+        "p90": 7.105427357601002E-15,
+        "p95": 7.105427357601002E-15,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 56.354325463141045,
+          "zemax": 56.35432546314105
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 0,
+        "meanAbsolute": 0,
+        "rmse": 0,
+        "nrmse": 0,
+        "maxRelative": 0,
+        "p50": 0,
+        "p90": 0,
+        "p95": 0,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 2.8177162731570524,
+          "zemax": 2.8177162731570524
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "611104d6c5c185f5eb8b2454c627459cbec4ca127b42e66faaf0931dc9f77937",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1757-056-even-asphere-c1-primary-f1-w1-first-order\\data.json",
+    "referenceSha256": "b6747720cd2979a165ed14355faa29656830bf3e727fa26f4d4a8645cff620f8"
+  },
+  {
+    "key": "Objectives/Even Asphere.zmx|1|primary|PSF|1|1|64",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "47eb367d1e4dbf4f800226d713ad06220f3e98084bf788b9ab88e92af081bc72",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1763-056-even-asphere-c1-primary-f1-w1-psf\\data.json",
+    "referenceSha256": "99ada4ddde188d90e18d4cb9ac74c05e870874b4d3f54a1b0f35e8453493a8c3"
+  },
+  {
+    "key": "Objectives/Even Asphere.zmx|1|primary|Diffraction Encircled Energy|1|1|32",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "5fca9031e0e4a3798e44eee4f4c90da00d9196ed5ecc9ca9f87688e0f9f81bc9",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1770-056-even-asphere-c1-primary-f1-w1-diffraction-encircled-energy\\data.json",
+    "referenceSha256": "29c159de5a5009d8a9a2070ebedcaadd7d797db27710ddcd00938e5606c3db7a"
+  },
+  {
+    "key": "Objectives/Gaussian Quadrature over Annular Pupils.zmx|1|primary|First Order|1|1|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 1.4779288903810084E-11,
+        "meanAbsolute": 1.4779288903810084E-11,
+        "rmse": 1.4779288903810084E-11,
+        "nrmse": 8.435172641593653E-15,
+        "maxRelative": 8.435172641593653E-15,
+        "p50": 1.4779288903810084E-11,
+        "p90": 1.4779288903810084E-11,
+        "p95": 1.4779288903810084E-11,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 1752.1027170129994,
+          "zemax": 1752.1027170130142
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 9.769962616701378E-14,
+        "meanAbsolute": 9.769962616701378E-14,
+        "rmse": 9.769962616701378E-14,
+        "nrmse": 8.364203641003323E-15,
+        "maxRelative": 8.364203641003323E-15,
+        "p50": 9.769962616701378E-14,
+        "p90": 9.769962616701378E-14,
+        "p95": 9.769962616701378E-14,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 11.680684780086663,
+          "zemax": 11.68068478008676
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "34244c2eacc505b0301743b4c6de3103e7afd5f06f195d4a1991254d96c49558",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1779-057-gaussian-quadrature-over-annular-pupils-c1-primary-f1-w1-first-order\\data.json",
+    "referenceSha256": "a89c1ea85389cf01a5c1c0200e870557a463aca6a2a2d26a6d239189c7a745ca"
+  },
+  {
+    "key": "Objectives/Gaussian Quadrature over Annular Pupils.zmx|1|primary|PSF|1|1|64",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u8BA1\u7B97\u7EC8\u6B62; \u65E0\u6548\u7684\u7ED3\u679C!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u8BA1\u7B97\u7EC8\u6B62; \u65E0\u6548\u7684\u7ED3\u679C!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "428776d1e551544516f1917c9af921c57032007e353b6ef7e4814a1a50e32c0f",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1785-057-gaussian-quadrature-over-annular-pupils-c1-primary-f1-w1-psf\\data.json",
+    "referenceSha256": "b04cd1c76664071511bd0f43d7ef639da9fa96463017764896bc19cc9ecee441"
+  },
+  {
+    "key": "Objectives/Gaussian Quadrature over Annular Pupils.zmx|1|primary|Relative Illumination|1|1|32",
+    "conclusion": "Pass",
+    "reason": "",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 0,
+        "meanAbsolute": 0,
+        "rmse": 0,
+        "nrmse": 0,
+        "maxRelative": 0,
+        "p50": 0,
+        "p90": 0,
+        "p95": 0,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 1,
+          "zemax": 1
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "b6f1541e1175eb1b06cbbee6b0145a17a66763dd4a3c3cd9d7006549131435f5",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1794-057-gaussian-quadrature-over-annular-pupils-c1-primary-f1-w1-relative-illumination\\data.json",
+    "referenceSha256": "b812d706ec9f2bc085cadc2e7026de285a056cc6080d75d9af4fa174bb1f8166"
+  },
+  {
+    "key": "Objectives/Gaussian Quadrature over Annular Pupils.zmx|1|primary|RMS vs Field|1|1|64",
+    "conclusion": "Pass",
+    "reason": "",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Micrometer",
+        "count": 1,
+        "maxAbsolute": 1.0181938625564158E-11,
+        "meanAbsolute": 1.0181938625564158E-11,
+        "rmse": 1.0181938625564158E-11,
+        "nrmse": 7.7456077781198E-11,
+        "maxRelative": 7.7456077781198E-11,
+        "p50": 1.0181938625564158E-11,
+        "p90": 1.0181938625564158E-11,
+        "p95": 1.0181938625564158E-11,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 0.13145435346100645,
+          "zemax": 0.1314543534508245
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "c664bb5f95e9edfa11380a1231b9b211a68bf325d0918de8c7c49a69dadbe431",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1795-057-gaussian-quadrature-over-annular-pupils-c1-primary-f1-w1-rms-vs-field\\data.json",
+    "referenceSha256": "fea4216a4e5091cd9e0ddd84c09e23d1980322d5c706b56e942dab5560dcac75"
+  },
+  {
+    "key": "Objectives/Gaussian Quadrature over Annular Pupils.zmx|1|primary|Field Curvature and Distortion|1|1|64",
+    "conclusion": "Pass",
+    "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+    "metrics": [
+      {
+        "id": "tangential",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 6.955696173552295E-09,
+        "meanAbsolute": 6.955696173552295E-09,
+        "rmse": 6.955696173552295E-09,
+        "nrmse": 7.776450632817199E-07,
+        "maxRelative": 7.776450632817199E-07,
+        "p50": 6.955696173552295E-09,
+        "p90": 6.955696173552295E-09,
+        "p95": 6.955696173552295E-09,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": -0.008944571130255118,
+          "zemax": -0.008944564174558944
+        }
+      },
+      {
+        "id": "sagittal",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 6.955696173552295E-09,
+        "meanAbsolute": 6.955696173552295E-09,
+        "rmse": 6.955696173552295E-09,
+        "nrmse": 7.776450632817199E-07,
+        "maxRelative": 7.776450632817199E-07,
+        "p50": 6.955696173552295E-09,
+        "p90": 6.955696173552295E-09,
+        "p95": 6.955696173552295E-09,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": -0.008944571130255118,
+          "zemax": -0.008944564174558944
+        }
+      },
+      {
+        "id": "distortion",
+        "unit": "Percent",
+        "count": 1,
+        "maxAbsolute": 0,
+        "meanAbsolute": 0,
+        "rmse": 0,
+        "nrmse": 0,
+        "maxRelative": 0,
+        "p50": 0,
+        "p90": 0,
+        "p95": 0,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 0,
+          "zemax": 0
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "60db782a963e24fe74adb0560f0e9e812f62d7daa2c6026faae6f607fae88d9d",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1796-057-gaussian-quadrature-over-annular-pupils-c1-primary-f1-w1-field-curvature-and-distortion\\data.json",
+    "referenceSha256": "b67dfe7b4b297dddc6feef770d1adb8bdbe43c6b7baa7c4ee7710f158d9d461a"
+  },
+  {
+    "key": "Objectives/Gaussian Quadrature Over Wavelength.ZMX|1|primary|First Order|1|2|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 2.842170943040401E-14,
+        "meanAbsolute": 2.842170943040401E-14,
+        "rmse": 2.842170943040401E-14,
+        "nrmse": 2.1318413914194417E-16,
+        "maxRelative": 2.1318413914194417E-16,
+        "p50": 2.842170943040401E-14,
+        "p90": 2.842170943040401E-14,
+        "p95": 2.842170943040401E-14,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 133.32000000000002,
+          "zemax": 133.32000000000005
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 8.881784197001252E-16,
+        "meanAbsolute": 8.881784197001252E-16,
+        "rmse": 8.881784197001252E-16,
+        "nrmse": 2.220446049250312E-16,
+        "maxRelative": 2.220446049250312E-16,
+        "p50": 8.881784197001252E-16,
+        "p90": 8.881784197001252E-16,
+        "p95": 8.881784197001252E-16,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 4.000000000000001,
+          "zemax": 4.000000000000002
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "3d80ac01063415267a876b7cd2a6a2e3af0dccfcedd1728dc44839a8fa48cc9f",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1801-058-gaussian-quadrature-over-wavelength-c1-primary-f1-w2-first-order\\data.json",
+    "referenceSha256": "518fe878c81d7fb031896b5a6ff3dc1a07ecde27accd29ed78a96eaaf5ddf650"
+  },
+  {
+    "key": "Objectives/Gaussian Quadrature Over Wavelength.ZMX|1|primary|Diffraction Encircled Energy|1|2|32",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "5e69ac7353b3b8e54a1d263bd51e3e1db303f66507fc6895f8f97d53e8bc336e",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1814-058-gaussian-quadrature-over-wavelength-c1-primary-f1-w2-diffraction-encircled-energy\\data.json",
+    "referenceSha256": "abdc581c6a910a1b96b7340fe66871e5852bbd4fcde73b9ab750ab7612443a4d"
+  },
+  {
+    "key": "Objectives/Inverse telephoto lens.zmx|1|primary|First Order|1|2|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 1.1102230246251565E-16,
+        "meanAbsolute": 1.1102230246251565E-16,
+        "rmse": 1.1102230246251565E-16,
+        "nrmse": 1.1711404999941768E-16,
+        "maxRelative": 1.1711404999941768E-16,
+        "p50": 1.1102230246251565E-16,
+        "p90": 1.1102230246251565E-16,
+        "p95": 1.1102230246251565E-16,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 0.9479844857475911,
+          "zemax": 0.9479844857475912
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 4.440892098500626E-16,
+        "meanAbsolute": 4.440892098500626E-16,
+        "rmse": 4.440892098500626E-16,
+        "nrmse": 1.2363315479257977E-16,
+        "maxRelative": 1.2363315479257977E-16,
+        "p50": 4.440892098500626E-16,
+        "p90": 4.440892098500626E-16,
+        "p95": 4.440892098500626E-16,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 3.5919912469686164,
+          "zemax": 3.591991246968617
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "b2456ca93971bb396b29fda91a75d2632f6da2c95909b4fbd289449e48ba47b1",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1831-059-inverse-telephoto-lens-c1-primary-f1-w2-first-order\\data.json",
+    "referenceSha256": "d1b88aba96eb01b40916ff3908e54446352667363c087f7cd1a21c433834d60d"
+  },
+  {
+    "key": "Objectives/Petzval.zmx|1|primary|First Order|1|2|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 2.842170943040401E-14,
+        "meanAbsolute": 2.842170943040401E-14,
+        "rmse": 2.842170943040401E-14,
+        "nrmse": 2.842170921785598E-16,
+        "maxRelative": 2.842170921785598E-16,
+        "p50": 2.842170943040401E-14,
+        "p90": 2.842170943040401E-14,
+        "p95": 2.842170943040401E-14,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 100.00000074783692,
+          "zemax": 100.00000074783689
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 4.440892098500626E-16,
+        "meanAbsolute": 4.440892098500626E-16,
+        "rmse": 4.440892098500626E-16,
+        "nrmse": 2.2204460326449983E-16,
+        "maxRelative": 2.2204460326449983E-16,
+        "p50": 4.440892098500626E-16,
+        "p90": 4.440892098500626E-16,
+        "p95": 4.440892098500626E-16,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 2.0000000149567385,
+          "zemax": 2.000000014956738
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "9adb7a366d15a264fd2f984dac9734044fc3e6b0fe8e6adcacde7969a2b9258f",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1861-060-petzval-c1-primary-f1-w2-first-order\\data.json",
+    "referenceSha256": "fe1c06580fcd506a804e1aae1b4621de4c45086ad40f4915cdb875363afe14e2"
+  },
+  {
+    "key": "Objectives/Petzval.zmx|1|primary|Diffraction Encircled Energy|1|2|32",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "1cf817c857b81ea0ff41b4c0969182d8ce781b8d72ac72101edb0e9e9bb253a4",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1874-060-petzval-c1-primary-f1-w2-diffraction-encircled-energy\\data.json",
+    "referenceSha256": "30850e6cb0d9ea7dc6b2240cbdb3954e18d8c2e7e4cc452ba869b898e9f6d3d7"
+  },
+  {
+    "key": "Objectives/Relay lens.zmx|1|primary|First Order|1|2|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 2.842170943040401E-14,
+        "meanAbsolute": 2.842170943040401E-14,
+        "rmse": 2.842170943040401E-14,
+        "nrmse": 1.9945415911899039E-16,
+        "maxRelative": 1.9945415911899039E-16,
+        "p50": 2.842170943040401E-14,
+        "p90": 2.842170943040401E-14,
+        "p95": 2.842170943040401E-14,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 142.49745182524967,
+          "zemax": 142.49745182524964
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 8.881784197001252E-16,
+        "meanAbsolute": 8.881784197001252E-16,
+        "rmse": 8.881784197001252E-16,
+        "nrmse": 1.5582356181171123E-16,
+        "maxRelative": 1.5582356181171123E-16,
+        "p50": 8.881784197001252E-16,
+        "p90": 8.881784197001252E-16,
+        "p95": 8.881784197001252E-16,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 5.699898073009987,
+          "zemax": 5.699898073009986
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "075625a0782ab290c1c58a3460f3565c9c44d12ff617fe8cb3bd16b587ffef25",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1891-061-relay-lens-c1-primary-f1-w2-first-order\\data.json",
+    "referenceSha256": "19211e150b260a6f5cc0277b514ba757b7133e6fc1c972370d3d8fbd63f1cbc8"
+  },
+  {
+    "key": "Objectives/Relay lens.zmx|1|primary|PSF|1|2|64",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u8BA1\u7B97\u7EC8\u6B62; \u65E0\u6548\u7684\u7ED3\u679C!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u8BA1\u7B97\u7EC8\u6B62; \u65E0\u6548\u7684\u7ED3\u679C!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "fa4f513f8de1b6578d293562d55c1e3ad0aa61aa0fcb40af2090ba96a9a54043",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1897-061-relay-lens-c1-primary-f1-w2-psf\\data.json",
+    "referenceSha256": "3173fe53c391d88a71d5ff08e2f54db33cbca8886f24cbd35b330a9110ce2f1d"
+  },
+  {
+    "key": "Objectives/Tessar lens using vignetting factors.zmx|1|primary|First Order|1|2|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 4.263256414560601E-14,
+        "meanAbsolute": 4.263256414560601E-14,
+        "rmse": 4.263256414560601E-14,
+        "nrmse": 4.2674398829330015E-16,
+        "maxRelative": 4.2674398829330015E-16,
+        "p50": 4.263256414560601E-14,
+        "p90": 4.263256414560601E-14,
+        "p95": 4.263256414560601E-14,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 99.90196772568186,
+          "zemax": 99.90196772568181
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 8.881784197001252E-16,
+        "meanAbsolute": 8.881784197001252E-16,
+        "rmse": 8.881784197001252E-16,
+        "nrmse": 1.6148698540002277E-16,
+        "maxRelative": 1.6148698540002277E-16,
+        "p50": 8.881784197001252E-16,
+        "p90": 8.881784197001252E-16,
+        "p95": 8.881784197001252E-16,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 5.499999999999999,
+          "zemax": 5.5
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "3f2becdf9880731091ee30c9f7f4a47ec74206bdf202b059d9086369da60fecc",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1921-062-tessar-lens-using-vignetting-factors-c1-primary-f1-w2-first-order\\data.json",
+    "referenceSha256": "c0cad4961920cff37339d3729e227e0a6aab871d18d698ea456f742760014bd2"
+  },
+  {
+    "key": "Objectives/Tessar lens using vignetting factors.zmx|1|primary|PSF|1|2|64",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u8BA1\u7B97\u7EC8\u6B62; \u65E0\u6548\u7684\u7ED3\u679C!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u8BA1\u7B97\u7EC8\u6B62; \u65E0\u6548\u7684\u7ED3\u679C!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "6d7816f64b52fca155a39abd678b6ebfebf7b9fbcdf307c0586c6a6d13f1f77e",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1927-062-tessar-lens-using-vignetting-factors-c1-primary-f1-w2-psf\\data.json",
+    "referenceSha256": "d72c713f235b3fc9bd037cb4702fbc6f1fbe9304918f69157b1fec42a5984d78"
+  },
+  {
+    "key": "Objectives/Tessar lens using vignetting factors.zmx|1|primary|Diffraction Encircled Energy|1|2|32",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "60834a5c49796d02c011f5f19a0c0aeae090469e49586c0940f587f87e530468",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1934-062-tessar-lens-using-vignetting-factors-c1-primary-f1-w2-diffraction-encircled-energy\\data.json",
+    "referenceSha256": "b22193690801a6da80364d798b67eebd636f660782377066b6121104da892cf6"
+  },
+  {
+    "key": "Objectives/Wide angle lens 100 degree field.zmx|1|primary|First Order|1|2|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 7.105427357601002E-15,
+        "meanAbsolute": 7.105427357601002E-15,
+        "rmse": 7.105427357601002E-15,
+        "nrmse": 3.8315907607139885E-16,
+        "maxRelative": 3.8315907607139885E-16,
+        "p50": 7.105427357601002E-15,
+        "p90": 7.105427357601002E-15,
+        "p95": 7.105427357601002E-15,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 18.54432741213981,
+          "zemax": 18.544327412139804
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 8.881784197001252E-16,
+        "meanAbsolute": 8.881784197001252E-16,
+        "rmse": 8.881784197001252E-16,
+        "nrmse": 4.3795082394960877E-16,
+        "maxRelative": 4.3795082394960877E-16,
+        "p50": 8.881784197001252E-16,
+        "p90": 8.881784197001252E-16,
+        "p95": 8.881784197001252E-16,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 2.028032306664459,
+          "zemax": 2.0280323066644583
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "8dea54d573f99fb73bd7f4f38b37cad70d1faf5b1535be796e18d9e421bc188f",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1951-063-wide-angle-lens-100-degree-field-c1-primary-f1-w2-first-order\\data.json",
+    "referenceSha256": "2e72477bb7dee79546a35681d1ff2945f7a9989c04cda899f1c4e4c9effe2cdc"
+  },
+  {
+    "key": "Objectives/Wide angle lens 100 degree field.zmx|1|primary|Diffraction Encircled Energy|1|2|32",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "3fa6d856c198e82b9aadde647c985d9d964bfab412fd9a3a06611e94f4b7c8a4",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1964-063-wide-angle-lens-100-degree-field-c1-primary-f1-w2-diffraction-encircled-energy\\data.json",
+    "referenceSha256": "f296f056e9244c091ca55dda78da5450e3521b5cbdce9db7ef54cac318aba7ad"
+  },
+  {
+    "key": "Objectives/Wide angle lens 200 degree field.zmx|1|primary|First Order|1|2|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 7.105427357601002E-15,
+        "meanAbsolute": 7.105427357601002E-15,
+        "rmse": 7.105427357601002E-15,
+        "nrmse": 3.2696298227377693E-16,
+        "maxRelative": 3.2696298227377693E-16,
+        "p50": 7.105427357601002E-15,
+        "p90": 7.105427357601002E-15,
+        "p95": 7.105427357601002E-15,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 21.731595754932876,
+          "zemax": 21.73159575493287
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 6.661338147750939E-16,
+        "meanAbsolute": 6.661338147750939E-16,
+        "rmse": 6.661338147750939E-16,
+        "nrmse": 3.3770985283095737E-16,
+        "maxRelative": 3.3770985283095737E-16,
+        "p50": 6.661338147750939E-16,
+        "p90": 6.661338147750939E-16,
+        "p95": 6.661338147750939E-16,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 1.9725033462631347,
+          "zemax": 1.972503346263134
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "5591c49e9c3dfbbad8665abcf2de8c5d8aa5831e81bfad7d12f3d4f459ed4e81",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1981-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-first-order\\data.json",
+    "referenceSha256": "56de99756ce1ccc947e23d3c3ff3a56c2c20322b110b18428bb3cba6a6715845"
+  },
+  {
+    "key": "Objectives/Wide angle lens 200 degree field.zmx|1|primary|PSF|1|2|64",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "9bd689354c3506edfa2adf2c53b42b07db9d3d8746ee327272639962dd1f02be",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1987-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-psf\\data.json",
+    "referenceSha256": "4283b30497b8f98aa0ef34761683fbb75cdd9ab86de14d74b4ee320f35f5cf76"
+  },
+  {
+    "key": "Objectives/Wide angle lens 200 degree field.zmx|1|primary|FFT PSF Cross Section|1|2|32",
+    "conclusion": "Incomparable",
+    "reason": "Could not find file \u0027D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1991-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-fft-psf-cross-section\\data.json\u0027.",
+    "metrics": [],
+    "error": "System.IO.FileNotFoundException: Could not find file \u0027D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1991-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-fft-psf-cross-section\\data.json\u0027.\r\nFile name: \u0027D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1991-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-fft-psf-cross-section\\data.json\u0027\r\n   at Microsoft.Win32.SafeHandles.SafeFileHandle.CreateFile(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options)\r\n   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize, Nullable\u00601 unixCreateMode)\r\n   at System.IO.File.ReadAllText(String path)\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 126\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "7a6ab8e28e8f05a7067f516361eda05515133363777a8165fb0da34a00645641",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1991-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-fft-psf-cross-section\\data.json",
+    "referenceSha256": null
+  },
+  {
+    "key": "Objectives/Wide angle lens 200 degree field.zmx|1|primary|Diffraction Encircled Energy|1|2|32",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "b33ef56871cc342259a3d0a15ecf30ad8cc560cdd69f62829302a4f2fab62b31",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1994-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-diffraction-encircled-energy\\data.json",
+    "referenceSha256": "ef42d188a5814331ddf712fb9d4bab4e8e9348faf26f8ede97fc68ab7301aeb8"
+  },
+  {
+    "key": "Objectives/Wide angle lens 200 degree field.zmx|1|primary|Field Curvature and Distortion|1|2|64",
+    "conclusion": "Incomparable",
+    "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+    "metrics": [
+      {
+        "id": "tangential",
+        "unit": "Millimeter",
+        "count": 189,
+        "maxAbsolute": 0.000200050622103487,
+        "meanAbsolute": 0.00010659809689055635,
+        "rmse": 0.00012085035467027344,
+        "nrmse": 0.00033559139663032986,
+        "maxRelative": 0.0006696625170974799,
+        "p50": 0.00011347671786632318,
+        "p90": 0.0001777517296103426,
+        "p95": 0.00018803880412836537,
+        "pearson": 0.9999998985604419,
+        "worstX": 0.44,
+        "worstY": null,
+        "coverage": 0.89,
+        "conclusion": "Incomparable",
+        "extra": {}
+      },
+      {
+        "id": "sagittal",
+        "unit": "Millimeter",
+        "count": 189,
+        "maxAbsolute": 7.09538663653253E-05,
+        "meanAbsolute": 9.879132688748552E-06,
+        "rmse": 1.6756353354656658E-05,
+        "nrmse": 5.6259953765206385E-05,
+        "maxRelative": 0.0002853831226087733,
+        "p50": 5.7120498131446595E-06,
+        "p90": 2.7808528008044255E-05,
+        "p95": 3.990453053647201E-05,
+        "pearson": 0.9999994430010426,
+        "worstX": 0.8543999999999999,
+        "worstY": null,
+        "coverage": 0.89,
+        "conclusion": "Incomparable",
+        "extra": {}
+      },
+      {
+        "id": "distortion",
+        "unit": "Percent",
+        "count": 189,
+        "maxAbsolute": 0.00314077292273085,
+        "meanAbsolute": 0.0018016907636647186,
+        "rmse": 0.001990333742828789,
+        "nrmse": 2.033902930324323E-05,
+        "maxRelative": 0.12359425985069225,
+        "p50": 0.001968019709624347,
+        "p90": 0.0028888630387697845,
+        "p95": 0.003018342625331627,
+        "pearson": 0.9999999977474835,
+        "worstX": 0.044500000000000005,
+        "worstY": null,
+        "coverage": 0.89,
+        "conclusion": "Incomparable",
+        "extra": {}
+      }
+    ],
+    "error": null,
+    "dataSha256": "7b52eabc44029a2b01e78f9e9bbd58beac9e8b67a18193894d483175ffbafd13",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\1998-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-field-curvature-and-distortion\\data.json",
+    "referenceSha256": "568df5f699ec10312593a0bfffdfffe218e8d2ef629c07aef6a914f94610cda5"
+  },
+  {
+    "key": "Objectives/Wide angle lens 210 degree field.zmx|1|primary|First Order|1|2|64",
+    "conclusion": "Pass",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 7.105427357601002E-15,
+        "meanAbsolute": 7.105427357601002E-15,
+        "rmse": 7.105427357601002E-15,
+        "nrmse": 3.6913617382643043E-16,
+        "maxRelative": 3.6913617382643043E-16,
+        "p50": 7.105427357601002E-15,
+        "p90": 7.105427357601002E-15,
+        "p95": 7.105427357601002E-15,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 19.248797222842782,
+          "zemax": 19.248797222842775
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 6.661338147750939E-16,
+        "meanAbsolute": 6.661338147750939E-16,
+        "rmse": 6.661338147750939E-16,
+        "nrmse": 3.340220952911912E-16,
+        "maxRelative": 3.340220952911912E-16,
+        "p50": 6.661338147750939E-16,
+        "p90": 6.661338147750939E-16,
+        "p95": 6.661338147750939E-16,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 1.9942806903069605,
+          "zemax": 1.9942806903069599
+        }
+      }
+    ],
+    "error": null,
+    "dataSha256": "0e309d31d2de735ef648b2367f68f31ed6e6e054bba826fcd5d08da00d41f828",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\2011-065-wide-angle-lens-210-degree-field-c1-primary-f1-w2-first-order\\data.json",
+    "referenceSha256": "e945c9d9fa3766080299eda410247b038ba0bc0a1b16500db82702fe451b5464"
+  },
+  {
+    "key": "Objectives/Wide angle lens 210 degree field.zmx|1|primary|Diffraction Encircled Energy|1|2|32",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\u0022ErrorCode\u0022:\u0022Success\u0022,\u0022Text\u0022:\u0022\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!\u0022}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 127\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 97",
+    "dataSha256": "8644a50a0a02160bb7630f8bc83c1fc44fbae2e67e98ae34480116385fa91226",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\2024-065-wide-angle-lens-210-degree-field-c1-primary-f1-w2-diffraction-encircled-energy\\data.json",
+    "referenceSha256": "e79a234974b1899a8ff6a8c3faa20b7502d37bf0b6a126be9ae650964bba919b"
+  },
+  {
+    "key": "Objectives/Wide angle lens 210 degree field.zmx|1|primary|Field Curvature and Distortion|1|2|64",
+    "conclusion": "Incomparable",
+    "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+    "metrics": [
+      {
+        "id": "tangential",
+        "unit": "Millimeter",
+        "count": 185,
+        "maxAbsolute": 0.00023646441009062685,
+        "meanAbsolute": 0.00013907089207801889,
+        "rmse": 0.00015670878487950964,
+        "nrmse": 0.001566757153044923,
+        "maxRelative": 0.00957513312531897,
+        "p50": 0.00015139346292694644,
+        "p90": 0.00022401451338898565,
+        "p95": 0.0002301040225629519,
+        "pearson": 0.9999971718968608,
+        "worstX": 0.36,
+        "worstY": null,
+        "coverage": 0.8476190476190476,
+        "conclusion": "Incomparable",
+        "extra": {}
+      },
+      {
+        "id": "sagittal",
+        "unit": "Millimeter",
+        "count": 185,
+        "maxAbsolute": 5.344330149859022E-05,
+        "meanAbsolute": 1.3020950485206404E-05,
+        "rmse": 1.6722537813341042E-05,
+        "nrmse": 0.00013089848359306488,
+        "maxRelative": 0.017413572575048636,
+        "p50": 1.1364290038444469E-05,
+        "p90": 2.6593396591746E-05,
+        "p95": 3.1513271634190253E-05,
+        "pearson": 0.9999999111192979,
+        "worstX": 0.8476190476190476,
+        "worstY": null,
+        "coverage": 0.8476190476190476,
+        "conclusion": "Incomparable",
+        "extra": {}
+      },
+      {
+        "id": "distortion",
+        "unit": "Percent",
+        "count": 185,
+        "maxAbsolute": 0.0037157303701215866,
+        "meanAbsolute": 0.0018166593179605335,
+        "rmse": 0.002040499823417739,
+        "nrmse": 2.0829259029997145E-05,
+        "maxRelative": 0.1797702026041339,
+        "p50": 0.0018092793136439411,
+        "p90": 0.0030793293340074966,
+        "p95": 0.003412573871926126,
+        "pearson": 0.9999999977419274,
+        "worstX": 0.02542857142857143,
+        "worstY": null,
+        "coverage": 0.8476190476190476,
+        "conclusion": "Incomparable",
+        "extra": {}
+      }
+    ],
+    "error": null,
+    "dataSha256": "fb11eabfd3946802ac79a8a3c9c69aa636c6dac4c51b0d5e9f6e2909f284b5f8",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\2028-065-wide-angle-lens-210-degree-field-c1-primary-f1-w2-field-curvature-and-distortion\\data.json",
+    "referenceSha256": "727b59c73328f5d0d7daeb72eb07245924f2bfef3148299fe66d911663f0175d"
+  },
+  {
+    "key": "Objectives/Wide angle lens 210 degree field.zmx|1|edge|Ray Fan|4|3|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "9c8ad03df007cb47fb2df73360a819c652d5816b45773c34e1dcf77de7c04060",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\2039-065-wide-angle-lens-210-degree-field-c1-edge-f4-w3-ray-fan\\data.json",
+    "referenceSha256": "04c6ccaa7362d14b72724d795642a2d64d050e66cfa5e4eba475885f73eb527b"
+  },
+  {
+    "key": "Objectives/Wide angle lens 210 degree field.zmx|1|edge|Optical Path Difference|4|3|64",
+    "conclusion": "Incomparable",
+    "reason": "Checked fan validity masks differ at physical coordinate -0.9500000000000001",
+    "metrics": [],
+    "error": "System.IO.InvalidDataException: Checked fan validity masks differ at physical coordinate -0.9500000000000001\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.AlignClippedFan(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 45\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List\u00601 log) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 21\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 356\r\n   at ObjectivesRepair.Run(String output, String cachedData, String nativeRoot) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\Objectives20261020\\ObjectivesRepair.cs:line 99",
+    "dataSha256": "8e31bbf07b20032093f71346cb26bcd128b95b8b66dab29030ad517e0c7eb950",
+    "referencePath": "D:\\Projects\\opticalsystem\\artifacts\\validation\\objectives-repair-20261023\\native-original\\captures\\2040-065-wide-angle-lens-210-degree-field-c1-edge-f4-w3-optical-path-difference\\data.json",
+    "referenceSha256": "85b5de898fb7664797132b971c8abe926603508a1d7d99f1f2650cdda181906e"
+  }
+]

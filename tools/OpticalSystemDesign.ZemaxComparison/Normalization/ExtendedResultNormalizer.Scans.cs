@@ -24,8 +24,10 @@ public static partial class ExtendedResultNormalizer
         {
             var s = data.PlotSeries[i]; var fieldScan = r.CanonicalAnalysisKey is "RMS vs Field" or "RMS Wavefront vs Field";
             var curve = new Series1DResult("curve:" + i, "RMS curve " + i,
-                s.Points.Select(p => fieldScan ? p.X / r.MaximumFieldRadius * (r.FieldScanDirection.StartsWith('-') ? -1 : 1) : p.X).ToArray(), s.Points.Select(p => p.Y).ToArray(),
+                s.Points.Select(p => fieldScan && r.MaximumFieldRadius != 0 ? p.X / r.MaximumFieldRadius * (r.FieldScanDirection.StartsWith('-') ? -1 : 1) : p.X).ToArray(), s.Points.Select(p => p.Y).ToArray(),
                 RmsScanAxis(r), new(s.YQuantity.ToString(), s.YUnit.ToString()));
+            if (fieldScan && r.MaximumFieldRadius == 0)
+                curve = PhysicalNormalization.ZeroFieldPoint(curve, false, result.Transformations);
             result.Series.Add(PhysicalNormalization.Convert(curve, RmsScanAxis(r), RmsMetricAxis(r), result.Transformations));
         }
         return result;
@@ -45,7 +47,9 @@ public static partial class ExtendedResultNormalizer
         var reference = centroid ? @"(?:质心|中心|Centroid)" : @"(?:主光线|Chief Ray)";
         Require(Regex.IsMatch(text, @"(?:参考|Reference)\s*:\s*" + reference, RegexOptions.IgnoreCase), "Actual native RMS reference differs from canonical request (26.1 enum-name/readback mismatch)");
         Require(x.Length == (r.CanonicalAnalysisKey == "RMS vs Wavelength" ? 21 : 16), "Actual native RMS scan count differs from canonical request");
-        if (r.CanonicalAnalysisKey is "RMS vs Field" or "RMS Wavefront vs Field")
+        var fieldScan = r.CanonicalAnalysisKey is "RMS vs Field" or "RMS Wavefront vs Field";
+        var zeroField = r.MaximumFieldRadius == 0 && fieldScan;
+        if (!zeroField && fieldScan)
         {
             Require(Math.Abs(Math.Abs(x[^1]) - r.MaximumFieldRadius) <= 1e-7 * Math.Max(1, r.MaximumFieldRadius), "Native RMS field extent differs from the selected scan direction");
             x = x.Select(v => v / r.MaximumFieldRadius).ToArray();
@@ -53,7 +57,12 @@ public static partial class ExtendedResultNormalizer
             result.Transformations.Add("Field coordinate is distance along " + r.FieldScanDirection + ", divided by the captured field extent; Workbench signed coordinates converted using the requested orientation.");
         }
         result.Transformations.Add("26.1 RMS enum-name discrepancy: physical reference and interval count verified from native report/data, not inferred from interface enum display names.");
-        for (var i = 0; i < width; i++) result.Series.Add(new("curve:" + i, "Native RMS column " + i, x, rows.Select(row => row[i]).ToArray(), RmsScanAxis(r), RmsMetricAxis(r)));
+        for (var i = 0; i < width; i++)
+        {
+            var series = new Series1DResult("curve:" + i, "Native RMS column " + i, x, rows.Select(row => row[i]).ToArray(), RmsScanAxis(r), RmsMetricAxis(r));
+            if (zeroField) series = PhysicalNormalization.ZeroFieldPoint(series, true, result.Transformations);
+            result.Series.Add(series);
+        }
         return result;
     }
 }

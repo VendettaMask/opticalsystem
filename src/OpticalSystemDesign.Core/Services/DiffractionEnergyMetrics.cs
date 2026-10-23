@@ -64,7 +64,11 @@ public static class DiffractionEnergyMetrics
             vertex = (-chief.Position.X * 1000, -chief.Position.Y * 1000);
             var results = DiffractionEngine.ComputeFftPsfSpectrum(optic, field, wavelengths,
                 pupilSize, imageSize, cellCenteredPupil: true, zemaxFftSampling: true,
-                aimAtStop: optic.RayAimingEnabled, referenceWavelength: primary);
+                aimAtStop: optic.RayAimingEnabled, referenceWavelength: primary,
+                // Match the scalar FFT PSF's irradiance convention before
+                // pixel-area integration. Retaining material attenuation here
+                // changes the pupil shape relative to the same analysis plot.
+                ignoreScalarTransmission: true);
             if (results.Any(r => r.Result.SampleSpacingUnit != AnalysisAxisUnit.Micrometer)) throw new InvalidOperationException("FFT PSF 未发布微米坐标。");
             var delta = results.Min(r => r.Result.SampleSpacingMicrometers);
             // Physical energy operands integrate rectangular PSF pixel areas.

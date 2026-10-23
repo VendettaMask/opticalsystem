@@ -10,6 +10,26 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class StopAimingIntersectionTests
 {
+    [Fact]
+    public void FarFromConvergedStationaryRayDoesNotSearchThousandsOfAdjacentLaunches()
+    {
+        var map = new StationaryStopMap(); var x = 0d; var y = 0d;
+        Assert.False(StopAimingSolver.Solve(ref map, 0, 0, 1e-12, ref x, ref y, out var residual));
+        Assert.Equal(1, residual);
+        Assert.InRange(map.Samples, 1, 100);
+    }
+
+    private struct StationaryStopMap : IStopMap
+    {
+        public int Samples;
+        public bool Sample(double x, double y, out Vector3D point)
+        {
+            Samples++;
+            point = new(1 + Math.Abs(x), y, 0);
+            return true;
+        }
+    }
+
     [Theory]
     [InlineData(90, 5)]
     [InlineData(-90, -5)]

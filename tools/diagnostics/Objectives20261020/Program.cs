@@ -7,6 +7,24 @@ using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
 
+if (args.Length == 3 && args[0] == "objectives-completion") { ObjectivesCompletion.Compare(args[1],args[2]); return; }
+
+if (args.Length == 2 && args[0] == "dense-energy-prepare") { DenseEnergyAudit.Prepare(args[1]); return; }
+if (args.Length == 2 && args[0] == "dense-energy-inspect") { DenseEnergyAudit.Inspect(args[1]); return; }
+if (args.Length == 2 && args[0] == "dense-energy-circular-controls") { DenseEnergyAudit.CircularIntervalControls(args[1]); return; }
+
+if (args.Length == 3 && args[0] == "objectives-sampling-controls")
+{
+    ObjectivesRepair.SamplingControls(args[1], args[2]);
+    return;
+}
+
+if (args.Length >= 2 && args[0] == "objectives-repair")
+{
+    ObjectivesRepair.Run(args[1], args.Length > 2 && args[2] != "fresh" ? args[2] : null, args.Length > 3 ? args[3] : null);
+    return;
+}
+
 if (args.Length == 2 && args[0] == "spot-apodization-stage")
 {
     RemainingLensControls.SpotApodization(args[1]);

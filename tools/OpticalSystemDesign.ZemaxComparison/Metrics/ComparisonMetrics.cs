@@ -8,6 +8,17 @@ public static class ComparisonMetrics
     public static MatchedValues Align(Series1DResult w, Series1DResult z, List<string> log)
     {
         w = PhysicalNormalization.Convert(w, z.XAxis, z.YAxis, log);
+        if (w.IsPointDomain || z.IsPointDomain)
+        {
+            if (!w.IsPointDomain || !z.IsPointDomain || w.X.Length != 1 || z.X.Length != 1
+                || w.Y.Length != 1 || z.Y.Length != 1 || !double.IsFinite(w.X[0]) || w.X[0] != z.X[0]
+                || !double.IsFinite(w.Y[0]) || !double.IsFinite(z.Y[0]))
+                throw new InvalidDataException("Point domains require one finite sample at the same physical coordinate on both sides");
+            log.Add($"{w.Id}: compare the complete point domain at {z.X[0]:R}; coverage=1 of one requested coordinate");
+            return new(z.X, null, w.Y, z.Y, 1);
+        }
+        if (w.Y.Any(v => !double.IsFinite(v)) || z.Y.Any(v => !double.IsFinite(v)))
+            return AlignClippedFan(w, z, log);
         var a = PhysicalNormalization.Sort(w.X, w.Y); var b = PhysicalNormalization.Sort(z.X, z.Y);
         var lo = Math.Max(a.X[0], b.X[0]); var hi = Math.Min(a.X[^1], b.X[^1]);
         if (hi <= lo) throw new InvalidDataException("No common physical coordinate interval");
@@ -16,6 +27,30 @@ public static class ComparisonMetrics
         return new(x, null, x.Select(v => PhysicalNormalization.Interpolate(a.X, a.Y, v)).ToArray(),
             x.Select(v => PhysicalNormalization.Interpolate(b.X, b.Y, v)).ToArray(),
             (hi - lo) / Math.Max(a.X[^1] - a.X[0], b.X[^1] - b.X[0]));
+    }
+    private static MatchedValues AlignClippedFan(Series1DResult w, Series1DResult z, List<string> log)
+    {
+        if (!w.HasClippingMask || !z.HasClippingMask || w.X.Length != w.Y.Length || z.X.Length != z.Y.Length
+            || w.X.Length != z.X.Length || w.X.Length < 2 || w.X.Any(v => !double.IsFinite(v))
+            || z.X.Any(v => !double.IsFinite(v)) || w.Y.Any(double.IsInfinity) || z.Y.Any(double.IsInfinity))
+            throw new InvalidDataException("Clipped fans require explicit aperture checking and complete finite coordinate lattices");
+        var a = w.X.Zip(w.Y).OrderBy(p => p.First).ToArray();
+        var b = z.X.Zip(z.Y).OrderBy(p => p.First).ToArray();
+        if (a.Zip(a.Skip(1)).Any(p => p.First.First >= p.Second.First)
+            || b.Zip(b.Skip(1)).Any(p => p.First.First >= p.Second.First)
+            || a.Zip(b).Any(p => Math.Abs(p.First.First - p.Second.First) > 1e-12 * Math.Max(1, Math.Abs(p.Second.First))))
+            throw new InvalidDataException("Clipped fan coordinate lattices differ; interpolation across missing samples is forbidden");
+        for (var i = 0; i < a.Length; i++)
+            if (double.IsFinite(a[i].Second) != double.IsFinite(b[i].Second))
+                throw new InvalidDataException($"Checked fan validity masks differ at physical coordinate {b[i].First:R}");
+        var valid = Enumerable.Range(0, a.Length).Where(i => double.IsFinite(a[i].Second)).ToArray();
+        if (valid.Length < 2) throw new InvalidDataException("Clipped fan curves require at least two shared finite samples");
+        log.Add($"{w.Id}: verified identical checked-fan validity masks on all {a.Length} physical knots; "
+            + $"compare {valid.Length} finite pairs, {a.Length - valid.Length} agreed invalid plot samples. No interpolation, deletion of mask mismatches or zero substitution.");
+        // All requested plot knots are accounted for. A native invalid plot
+        // sample need not imply that a separate batch-ray trace is blocked.
+        return new(valid.Select(i => b[i].First).ToArray(), null, valid.Select(i => a[i].Second).ToArray(),
+            valid.Select(i => b[i].Second).ToArray(), 1);
     }
     public static MatchedValues Align(Grid2DResult w, Grid2DResult z, List<string> log)
     {

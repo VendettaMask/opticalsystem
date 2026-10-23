@@ -106,10 +106,14 @@ public static partial class DiffractionEngine
                     var cone = item.Cone!.Value;
                     PupilGridSpecification pupilGrid;
                     if (cone.TangentialMean == cone.SagittalMean
-                        && cone.Rms == Math.BitIncrement(cone.TangentialMean))
+                        && (cone.Rms == Math.BitIncrement(cone.TangentialMean)
+                            || pupilSampling >= 256 && cone.Rms == cone.TangentialMean))
                     {
-                        // Adjacent rounded moments of the same circular cone
-                        // must not independently rescale its cutoff and rim.
+                        // Equal dense circular cones, and adjacent rounded
+                        // moments of one cone, must share the same cutoff and
+                        // closed pupil rim. Successive F-number/extent
+                        // conversions can otherwise remove the four axial
+                        // boundary samples even when the cone is identical.
                         // Use the common RMS cone's Fourier coordinate interval;
                         // retain that interval through tracing and FFT indexing.
                         var step = (scale.Rms / cone.Rms) / Math.Sqrt(pupilSampling);

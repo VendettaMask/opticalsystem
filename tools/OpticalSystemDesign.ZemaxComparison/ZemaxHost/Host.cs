@@ -137,6 +137,11 @@ internal static class Host
                 NativeRayAuditCapture.Run(system);
                 return 0;
             }
+            if ((string)Request["adapter"] == "point-comparison")
+            {
+                NativePointComparisonCapture.Run(system);
+                return 0;
+            }
             if ((string)Request["adapter"] == "inspect-settings")
             {
                 InspectSettings(system);

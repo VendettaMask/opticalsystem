@@ -1,5 +1,7 @@
 # C# Zemax / Workbench comparison
 
+The independent `NativeExplicitFanNormalizer` requires `NativeExplicitPointsV1`, millimeter units, the selected wavelength, a valid chief, complete ordered pupil axes and explicit error/vignette masks. It never fills or relabels a built-in plot. The [Objectives continuation](../../docs/OBJECTIVES_COMPLETION_2026-10-23.md) records matched source, primary wavelength and frozen-thickness readbacks, with separate every-surface physical gates. F-Theta full-field controls and higher-sampling energy controls retain different request identities from the original matrix.
+
 ## Afocal comparisons
 
 The main runner and Sequential corpus runner now dispatch afocal support per analysis, rather than excluding every afocal system. MM lenses currently have audited unit contracts for Ray Fan, FFT MTF, and Field Curvature/Distortion. Other afocal contracts remain explicitly unverified. Native `AFocalImageSpace`, `AfocalModeUnits`, selected field/wavelength and angular MTF frequency must agree with the request and captured settings; localized axis captions never select a unit.
@@ -120,6 +122,8 @@ Scalar pass: absolute error <= absolute tolerance + relative tolerance × absolu
 The tool preserves raw and normalized data separately, with scalar, 1D series, 2D grid/invalid mask, structured text, image and complex-field schemas. Schema availability does not establish full image or complex-field equivalence. The required raw arrays/text/CFG are always retained for audit; `--keep-raw` explicitly requests that retention. There is no destructive cleanup mode.
 
 Curves convert only compatible typed quantities/units, sort physical coordinates and interpolate on the union of knots inside the common interval. There is no extrapolation or axis stretching. Grid comparison currently requires equal physical grids after unit conversion; an origin/pitch mismatch is `Incomparable`, with both normalized grids preserved. Explicit orientation utilities move axes, values and masks together; no value-based orientation search is performed.
+
+A zero-extent field request has an explicit point domain: repeated software samples must agree at exactly zero, and only the native sample at exactly zero belongs to that request. Both sides must declare the same point domain; this cannot certify a nonzero interval. Checked ray/OPD fans retain their full physical lattice and invalid-sample masks. Masked comparison requires identical coordinates and validity on every knot, with at least two shared finite pairs; it never interpolates across invalid samples. A mask mismatch remains incomparable even if an independent batch-ray trace finds a native plot omission. See the [Objectives repair and scoped evidence](../../docs/OBJECTIVES_PRECISION_REPAIR_2026-10-23.md).
 
 Wavefront normalizes the known even-grid pupil convention shared with the existing golden tests. Workbench subtracts its own minimum for display; the normalizer recovers signed physical OPD from its unrounded optical-path mean and wavelength, independent of any Zemax value. This is a documented display conversion, not a fitted piston. No phase wrapping, tilt removal, reference-sphere replacement, intensity scaling, peak normalization or chief-to-centroid fitting is silently applied. Unsupported conventions stay incomparable.
 
