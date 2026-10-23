@@ -68,6 +68,17 @@ try {
     $payloadBytes[0] = $payloadBytes[0] -bxor 1
     if ($rsa.VerifyData($payloadBytes, $signature, [Security.Cryptography.HashAlgorithmName]::SHA256, [Security.Cryptography.RSASignaturePadding]::Pss)) { throw 'Tampered release signature accepted.' }; $passed++
     Expect-Rejected { New-OtaReleaseEnvelope $rsa $package '99.0.0' 'v99.0.0-test.20261022' }; $passed++
+    $testPackage = [pscustomobject]@{ Runtime = 'win-x64'; Size = 123456; Name = 'OpticalSystemDesign-99.0.0-win-x64-UnsignedTest-Setup.exe'; Sha256 = 'a' * 64; SourceCommit = 'b' * 40; ReleaseId = '99.0.0-win-x64-0123456789ab'; BuildSequence = 40000000000L }
+    $testMarker = New-OtaReleaseEnvelope $rsa $testPackage '99.0.0' 'v99.0.0-test.20261023'
+    $parts = ($testMarker -split "`n")[1] -split '\.'
+    $testBytes = [Convert]::FromBase64String($parts[0])
+    if (-not $rsa.VerifyData($testBytes, [Convert]::FromBase64String($parts[1]), [Security.Cryptography.HashAlgorithmName]::SHA256, [Security.Cryptography.RSASignaturePadding]::Pss)) { throw 'Test release signature failed.' }; $passed++
+    $testPayload = [Text.Encoding]::UTF8.GetString($testBytes) | ConvertFrom-Json
+    if ($testPayload.Format -ne 2 -or $testPayload.BuildSequence -ne 40000000000L -or @($testPayload.PSObject.Properties).Count -ne 12) { throw 'Test release build identity mismatch.' }; $passed++
+    $testPackage.BuildSequence = 0L
+    Expect-Rejected { New-OtaReleaseEnvelope $rsa $testPackage '99.0.0' 'v99.0.0-test.20261023' }; $passed++
+    $testPackage.BuildSequence = 40000000000L
+    Expect-Rejected { New-OtaReleaseEnvelope $rsa $testPackage '99.0.0' 'v99.0.0' }; $passed++
     $package.Name = '../untrusted.exe'
     Expect-Rejected { New-OtaReleaseEnvelope $rsa $package '99.0.0' 'v99.0.0' }; $passed++
     Write-Host "Portable OTA encryption and recovery: $passed checks passed. Throwaway keys only; no device-bound APIs or product installation."

@@ -83,6 +83,7 @@ $payloadRows = @(Get-ChildItem -LiteralPath $package.Directory -Recurse -File | 
 $head = (& git -C $repositoryRoot rev-parse HEAD).Trim()
 $dirty = @(& git -C $repositoryRoot status --porcelain).Count -gt 0
 $metadata = [ordered]@{ FormatVersion = 1; ReleaseId = $releaseId; Version = $AppVersion; Runtime = $Runtime;
+    OtaBuildSequence = [long]$env:GITHUB_RUN_ID;
     ProductAppId = $ProductAppId; SourceCommit = $head; SourceDirty = $dirty;
     Signed = [bool]$signing; TestPackage = [bool]$UnsignedTestPackage; ValidationHooks = [bool]$EnableValidationHooks;
     RequiredModules = @('InitialStructure', 'CoatingDesign'); ModulesInProcess = $true;

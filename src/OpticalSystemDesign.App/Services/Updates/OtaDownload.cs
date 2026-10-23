@@ -32,7 +32,7 @@ internal interface IOtaDownloader
         IProgress<double> progress, CancellationToken cancellationToken);
 }
 
-internal sealed class OtaDownloader(HttpClient client, string? cacheRoot = null, string? publicKey = null) : IOtaDownloader
+internal sealed class OtaDownloader(HttpClient client, string? cacheRoot = null, string? publicKey = null, long? installedBuildSequence = null) : IOtaDownloader
 {
     internal static string CacheRoot => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         "Optical System Design", "Updates");
@@ -45,7 +45,8 @@ internal sealed class OtaDownloader(HttpClient client, string? cacheRoot = null,
     {
         cancellationToken.ThrowIfCancellationRequested();
         var verified = OtaManifest.Verify(update.Envelope, publicKey);
-        if (verified is null || verified.Payload != update.Payload || !OtaManifest.IsNewer(verified.Payload, installedVersion))
+        if (verified is null || verified.Payload != update.Payload || !OtaManifest.IsNewer(verified.Payload, installedVersion,
+            installedBuildSequence ?? ProductVersionInfo.OtaBuildSequence))
             throw new InvalidDataException("Invalid update signature or version.");
         var directory = Path.Combine(cacheRoot ?? CacheRoot, Guid.NewGuid().ToString("N"));
         if (OperatingSystem.IsWindows()) WindowsInstallationRecovery.CheckPath(directory);

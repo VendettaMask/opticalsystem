@@ -45,26 +45,29 @@ $packages = @($files | ForEach-Object {
         Name = $file.Name; Path = $file.FullName; Size = $file.Length; Runtime = $runtime
         Sha256 = (Get-FileHash -LiteralPath $file.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
         SourceCommit = $record.SourceCommit; ReleaseId = $record.ReleaseId
+        BuildSequence = if ($record.PSObject.Properties['OtaBuildSequence']) { [long]$record.OtaBuildSequence } else { 0L }
     }
 })
 if (@($packages.Runtime | Sort-Object -Unique).Count -ne $packages.Count -or
     @($packages.SourceCommit | Sort-Object -Unique).Count -ne 1) { throw 'Duplicate architecture or mixed source commits.' }
 $plan = [pscustomobject]@{ Repository = $Repository; Tag = $Tag; TestPackage = $testPackage; Packages = $packages }
 if ($PlanOnly) { $plan | ConvertTo-Json -Depth 6; return }
+if ($testPackage -and @($packages | Where-Object { $_.BuildSequence -le 0 -or
+    ($env:GITHUB_RUN_ID -and $_.BuildSequence -ne [long]$env:GITHUB_RUN_ID) }).Count -gt 0) {
+    throw 'Test OTA build sequence is missing or differs from the publishing workflow.'
+}
 if ($Repository -cne 'VendettaMask/opticalsystem') { throw 'OTA signing is restricted to the product repository.' }
 if (-not $env:GH_TOKEN) { throw 'GH_TOKEN is required only for publishing.' }
 if (-not $NotesFile) { throw 'Release notes are required.' }
 $notes = Get-Content -LiteralPath $NotesFile -Raw
 # Fail closed BEFORE any release mutation. The private key is used only in memory.
-# Test packages stay outside the stable OTA channel; a bootstrap is installed manually.
-$otaMarkers = @()
-if (-not $testPackage) {
-    . (Join-Path $PSScriptRoot 'ota-key-crypto.ps1')
-    $otaPublicKey = Get-Content -LiteralPath (Join-Path (Split-Path -Parent $PSScriptRoot) 'src/OpticalSystemDesign.App/Assets/Updates/ota-public-key.pem') -Raw
-    $otaRsa = Get-OtaSigningRsa $otaPublicKey
-    try { $otaMarkers = @($packages | ForEach-Object { New-OtaReleaseEnvelope $otaRsa $_ $version $Tag }) }
-    finally { $otaRsa.Dispose(); $env:OPTICAL_OTA_SIGNING_KEY = $null; $env:OPTICAL_OTA_RECOVERY_PASSWORD = $null; $env:OPTICAL_OTA_ENCRYPTED_BACKUP = $null }
-}
+# Stable and test installers both require the pinned signing identity. The test
+# envelope also binds the monotonic cloud run ID used by the compiled client.
+. (Join-Path $PSScriptRoot 'ota-key-crypto.ps1')
+$otaPublicKey = Get-Content -LiteralPath (Join-Path (Split-Path -Parent $PSScriptRoot) 'src/OpticalSystemDesign.App/Assets/Updates/ota-public-key.pem') -Raw
+$otaRsa = Get-OtaSigningRsa $otaPublicKey
+try { $otaMarkers = @($packages | ForEach-Object { New-OtaReleaseEnvelope $otaRsa $_ $version $Tag }) }
+finally { $otaRsa.Dispose(); $env:OPTICAL_OTA_SIGNING_KEY = $null; $env:OPTICAL_OTA_RECOVERY_PASSWORD = $null; $env:OPTICAL_OTA_ENCRYPTED_BACKUP = $null }
 $evidence = Join-Path $directory 'release-evidence'
 [void][IO.Directory]::CreateDirectory($evidence)
 $plan | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $evidence 'plan.json') -Encoding utf8

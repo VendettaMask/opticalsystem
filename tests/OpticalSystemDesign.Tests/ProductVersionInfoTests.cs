@@ -6,6 +6,14 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class ProductVersionInfoTests
 {
+    [Fact]
+    public void OtaBuildSequenceIsEmbeddedByTheCloudBuild()
+    {
+        Assert.True(ProductVersionInfo.OtaBuildSequence >= 0);
+        var cloudId = Environment.GetEnvironmentVariable("GITHUB_RUN_ID");
+        if (Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true" && long.TryParse(cloudId, out var expected))
+            Assert.Equal(expected, ProductVersionInfo.OtaBuildSequence);
+    }
     [Theory]
     [InlineData("1.0.3", "1.0.3")]
     [InlineData("1.0.3+abcdef012345", "1.0.3")]

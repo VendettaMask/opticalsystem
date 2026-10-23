@@ -65,7 +65,7 @@ internal static class WindowsOtaHandoff
         _ = ReadCurrentInstallation();
         var verified = OtaManifest.Verify(prepared.Update.Envelope);
         if (verified is null || verified.Payload.Runtime != ProductReleaseSource.CurrentRuntime ||
-            !OtaManifest.IsNewer(verified.Payload, ProductVersionInfo.Current)) throw new InvalidDataException("Untrusted update.");
+            !OtaManifest.IsNewer(verified.Payload, ProductVersionInfo.Current, ProductVersionInfo.OtaBuildSequence)) throw new InvalidDataException("Untrusted update.");
         ValidateCacheDirectory(prepared.Directory);
         var nonce = Convert.ToHexString(RandomNumberGenerator.GetBytes(32));
         using var parent = Process.GetCurrentProcess();
@@ -125,7 +125,8 @@ internal static class WindowsOtaHandoff
         OtaHandoffTicket ticket;
         using (var stream = File.OpenRead(ticketPath))
             ticket = JsonSerializer.Deserialize<OtaHandoffTicket>(stream) ?? throw new InvalidDataException("Missing update ticket.");
-        var update = ValidateTicket(ticket, args[2], DateTime.UtcNow, ProductReleaseSource.CurrentRuntime, ProductVersionInfo.Current);
+        var update = ValidateTicket(ticket, args[2], DateTime.UtcNow, ProductReleaseSource.CurrentRuntime, ProductVersionInfo.Current,
+            installedBuildSequence: ProductVersionInfo.OtaBuildSequence);
         var installed = ReadCurrentInstallation();
         // Verify a still-existing parent belongs to this exact executable, not a recycled PID.
         Process? parent = null;
@@ -154,7 +155,7 @@ internal static class WindowsOtaHandoff
         }
         // Recheck installation/version after waiting. Another maintenance operation may have won.
         var current = ReadCurrentInstallation();
-        if (current != installed || !OtaManifest.IsNewer(update.Payload, current.Version))
+        if (current != installed || !OtaManifest.IsNewer(update.Payload, current.Version, ProductVersionInfo.OtaBuildSequence))
             throw new InvalidDataException("Installation changed during update handoff.");
         using (WindowsInstallationGate.Maintenance(installed.Root)) { }
         if (Mutex.TryOpenExisting(WindowsInstallationLifetime.MutexName(WindowsInstallationLifetime.ProductId), out var other))
@@ -192,13 +193,13 @@ internal static class WindowsOtaHandoff
         ["/SILENT", "/SP-", "/NORESTART", "/NOCLOSEAPPLICATIONS", "/NORESTARTAPPLICATIONS", "/LOG=" + Path.Combine(directory, "setup.log")];
 
     internal static SignedOtaUpdate ValidateTicket(OtaHandoffTicket ticket, string nonce, DateTime now,
-        string? runtime, string installedVersion, string? publicKey = null)
+        string? runtime, string installedVersion, string? publicKey = null, long installedBuildSequence = 0)
     {
         var update = OtaManifest.Verify(ticket.Envelope ?? "", publicKey) ?? throw new InvalidDataException("Update signature rejected.");
         if (!Regex.IsMatch(nonce, "^[0-9A-F]{64}$", RegexOptions.CultureInvariant) || ticket.Nonce != nonce ||
             ticket.ParentId <= 0 || ticket.ParentStartUtcTicks <= 0 || ticket.CreatedUtc.Kind != DateTimeKind.Utc ||
             ticket.CreatedUtc > now || now - ticket.CreatedUtc > TimeSpan.FromMinutes(10) ||
-            update.Payload.Runtime != runtime || !OtaManifest.IsNewer(update.Payload, installedVersion))
+            update.Payload.Runtime != runtime || !OtaManifest.IsNewer(update.Payload, installedVersion, installedBuildSequence))
             throw new InvalidDataException("Expired or incompatible update ticket.");
         return update;
     }

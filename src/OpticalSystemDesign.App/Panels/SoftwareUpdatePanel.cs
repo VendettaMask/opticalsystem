@@ -26,11 +26,14 @@ internal sealed class SoftwareUpdatePanel : StackPanel, IDisposable
     private CancellationTokenSource? _downloadCancellation;
     private SignedOtaUpdate? _verifiedUpdate;
     private PreparedOtaUpdate? _prepared;
+    private string? _checkDownloadReason = "请先检查更新；仅接受具有可信签名的更新包。";
     private bool _downloading;
     private bool _installing;
     private readonly Button _check = new() { Name = "CheckForUpdates", Content = "检查更新", MinWidth = 100 };
     private readonly TextBlock _latest = new() { Name = "LatestVersion", Text = "—", TextWrapping = TextWrapping.Wrap };
+    private readonly TextBlock _latestBuild = new() { Name = "LatestUpdateBuild", TextWrapping = TextWrapping.Wrap, IsVisible = false };
     private readonly TextBlock _installer = new() { Name = "ReleaseInstaller", Text = string.Empty, TextWrapping = TextWrapping.Wrap, IsVisible = false };
+    private readonly CheckBox _includeTests = new() { Name = "IncludeTestUpdates", Content = "包含测试版", IsChecked = true, VerticalAlignment = VerticalAlignment.Center };
     private Uri _releasePage = ProductReleaseSource.ReleasesPage;
     private bool _checking;
     private bool _disposed;
@@ -41,7 +44,8 @@ internal sealed class SoftwareUpdatePanel : StackPanel, IDisposable
         if (service is null)
         {
             _client = GitHubReleaseUpdateService.CreateClient();
-            service = new GitHubReleaseUpdateService(_client, ProductVersionInfo.Current, ProductReleaseSource.CurrentRuntime);
+            service = new GitHubReleaseUpdateService(_client, ProductVersionInfo.Current, ProductReleaseSource.CurrentRuntime,
+                includeTestReleases: true, installedBuildSequence: ProductVersionInfo.OtaBuildSequence);
         }
         _service = service;
         _handoff = handoff;
@@ -63,6 +67,17 @@ internal sealed class SoftwareUpdatePanel : StackPanel, IDisposable
         _download.Click += async (_, _) => await DownloadAsync();
         _install.Click += async (_, _) => await InstallAsync();
         _cancel.Click += (_, _) => _downloadCancellation?.Cancel();
+        _includeTests.IsCheckedChanged += (_, _) =>
+        {
+            if (_checking || _downloading || _installing || _disposed) return;
+            _prepared?.Dispose(); _prepared = null; _verifiedUpdate = null;
+            _latest.Text = "—"; _installer.Text = string.Empty; _installer.IsVisible = false;
+            _latestBuild.Text = string.Empty; _latestBuild.IsVisible = false;
+            _releasePage = ProductReleaseSource.ReleasesPage;
+            _checkDownloadReason = "更新范围已更改，请重新检查更新。";
+            SetStatus(_checkDownloadReason);
+            RefreshOtaActions();
+        };
         var releases = new Button { Name = "UpdateReleasePage", Content = "打开发布页" };
         releases.Click += async (_, _) =>
         {
@@ -75,10 +90,13 @@ internal sealed class SoftwareUpdatePanel : StackPanel, IDisposable
                 if (!_disposed) SetStatus("无法打开浏览器，请稍后重试。");
             }
         };
-        var version = new Grid { ColumnDefinitions = new ColumnDefinitions("Auto,*"), ColumnSpacing = 16 };
-        version.Children.Add(new TextBlock { Text = "最新正式版本", TextWrapping = TextWrapping.Wrap });
-        Grid.SetColumn(_latest, 1);
-        version.Children.Add(_latest);
+        var version = new Grid { ColumnDefinitions = new ColumnDefinitions("Auto,*,Auto"), ColumnSpacing = 12 };
+        version.Children.Add(new TextBlock { Text = "最新可用版本", TextWrapping = TextWrapping.Wrap });
+        var latestInfo = new StackPanel { Spacing = 2, Children = { _latest, _latestBuild } };
+        Grid.SetColumn(latestInfo, 1);
+        version.Children.Add(latestInfo);
+        Grid.SetColumn(_includeTests, 2);
+        version.Children.Add(_includeTests);
         var buttons = new WrapPanel { Orientation = Orientation.Horizontal, ItemSpacing = 10, LineSpacing = 10 };
         buttons.Children.Add(_check);
         buttons.Children.Add(_download);
@@ -99,53 +117,80 @@ internal sealed class SoftwareUpdatePanel : StackPanel, IDisposable
         _prepared?.Dispose();
         _prepared = null;
         _verifiedUpdate = null;
-        _otaStatus.IsVisible = false;
+        _checkDownloadReason = "请先检查更新；仅接受具有可信签名的更新包。";
         _checking = true;
         RefreshOtaActions();
         _check.IsEnabled = false;
+        _check.Content = "正在检查…";
+        _progress.Value = 0;
+        _progress.IsIndeterminate = true;
+        _progress.IsVisible = true;
         const string reason = "正在检查更新，请稍候。";
         ToolTip.SetTip(_check, reason);
         AutomationProperties.SetHelpText(_check, reason);
         SetStatus(reason);
         _latest.Text = "—";
+        _latestBuild.Text = string.Empty; _latestBuild.IsVisible = false;
         _installer.Text = string.Empty;
         _installer.IsVisible = false;
         _releasePage = ProductReleaseSource.ReleasesPage;
         try
         {
+            if (_service is GitHubReleaseUpdateService discovery) discovery.IncludeTestReleases = _includeTests.IsChecked == true;
             var result = await _service.CheckAsync(_lifetime.Token);
             if (_disposed) return;
-            _latest.Text = result.Release?.Version ?? "—";
-            _releasePage = result.Release?.PageUri ?? ProductReleaseSource.ReleasesPage;
-            _installer.Text = result.Release?.Installer?.Name ?? string.Empty;
-            _installer.IsVisible = !string.IsNullOrEmpty(_installer.Text);
-            _verifiedUpdate = result.Status == UpdateCheckStatus.UpdateAvailable ? result.Release?.Ota : null;
-            SetStatus(result.Status switch
-            {
-                UpdateCheckStatus.UpdateAvailable => "发现新版本，可在 GitHub 发布页下载对应安装包。",
-                UpdateCheckStatus.UpToDate => "当前版本无需升级（没有更高的正式版本）。",
-                UpdateCheckStatus.NoPublishedRelease => "暂未找到公开的正式版本（也可能仓库不可访问）。",
-                UpdateCheckStatus.NoCompatibleInstaller => "发现新版本，但尚无匹配的完整安装包。",
-                UpdateCheckStatus.UnsupportedPlatform => "发现新版本，此平台暂不提供受支持的安装包检测。",
-                UpdateCheckStatus.RateLimited => "GitHub 访问受限或请求过于频繁，请稍后重试。",
-                UpdateCheckStatus.TimedOut => "检查更新超时，请检查网络后重试。",
-                UpdateCheckStatus.NetworkError => "无法连接 GitHub，请检查网络后重试。",
-                UpdateCheckStatus.InvalidCurrentVersion => "当前软件版本无效，无法比较版本。",
-                _ => "发布信息不完整或不可信，已拒绝此更新信息。"
-            });
+            ApplyCheckResult(result);
         }
         catch (OperationCanceledException) when (_disposed) { }
+        catch (Exception exception) when (exception is OperationCanceledException or TimeoutException)
+        { if (!_disposed) ApplyCheckResult(new(UpdateCheckStatus.TimedOut)); }
+        catch (Exception exception) when (exception is HttpRequestException or IOException)
+        { if (!_disposed) ApplyCheckResult(new(UpdateCheckStatus.NetworkError)); }
+        catch (InvalidDataException)
+        { if (!_disposed) ApplyCheckResult(new(UpdateCheckStatus.InvalidResponse)); }
         finally
         {
             _checking = false;
             if (!_disposed)
             {
                 _check.IsEnabled = true;
+                _check.Content = "检查更新";
+                _progress.IsVisible = false;
+                _progress.IsIndeterminate = false;
                 ToolTip.SetTip(_check, null);
                 AutomationProperties.SetHelpText(_check, null);
                 RefreshOtaActions();
             }
         }
+    }
+
+    private void ApplyCheckResult(UpdateCheckResult result)
+    {
+        _latest.Text = result.Release?.Version ?? "—";
+        _releasePage = result.Release?.PageUri ?? ProductReleaseSource.ReleasesPage;
+        _installer.Text = result.Release?.Installer?.Name ?? string.Empty;
+        _installer.IsVisible = !string.IsNullOrEmpty(_installer.Text);
+        _verifiedUpdate = result.Status == UpdateCheckStatus.UpdateAvailable ? result.Release?.Ota : null;
+        _latestBuild.Text = _verifiedUpdate?.Payload.BuildSequence is > 0
+            ? $"构建编号 {_verifiedUpdate.Payload.BuildSequence.ToString(System.Globalization.CultureInfo.InvariantCulture)}" : string.Empty;
+        _latestBuild.IsVisible = !string.IsNullOrEmpty(_latestBuild.Text);
+        var message = result.Status switch
+        {
+            UpdateCheckStatus.UpdateAvailable when _verifiedUpdate is null => "发现新版本，但缺少有效的可信签名。请打开发布页手动下载。",
+            UpdateCheckStatus.UpdateAvailable when _handoff is null || _unavailableReason() is not null => "发现新版本，但当前安装不支持 OTA。请打开发布页手动下载。",
+            UpdateCheckStatus.UpdateAvailable => "发现可信的新版本，点击“下载更新”开始 OTA。",
+            UpdateCheckStatus.UpToDate => "当前已是所选范围内的最新版本和构建，无需更新。",
+            UpdateCheckStatus.NoPublishedRelease => "未找到所选范围内的可用更新，或暂时无法访问发布信息。请稍后重试或打开发布页。",
+            UpdateCheckStatus.NoCompatibleInstaller => "发现新版本，但尚无匹配的完整安装包。",
+            UpdateCheckStatus.UnsupportedPlatform => "发现新版本，此平台暂不提供受支持的安装包检测。",
+            UpdateCheckStatus.RateLimited => "GitHub 访问受限或请求过于频繁，请稍后重试。",
+            UpdateCheckStatus.TimedOut => "检查更新超时，请检查网络后重试。",
+            UpdateCheckStatus.NetworkError => "无法连接 GitHub，请检查网络后重试。",
+            UpdateCheckStatus.InvalidCurrentVersion => "当前软件版本无效，无法比较版本。",
+            _ => "发布信息不完整或不可信，已拒绝此更新信息。"
+        };
+        _checkDownloadReason = _verifiedUpdate is null ? message : null;
+        SetStatus(message);
     }
 
     public void Dispose()
@@ -169,6 +214,7 @@ internal sealed class SoftwareUpdatePanel : StackPanel, IDisposable
         AutomationProperties.SetHelpText(_check, "正在下载更新，请稍候。");
         _downloadCancellation = CancellationTokenSource.CreateLinkedTokenSource(_lifetime.Token);
         _progress.Value = 0;
+        _progress.IsIndeterminate = false;
         _progress.IsVisible = true;
         ShowOtaStatus("正在下载并校验更新…");
         RefreshOtaActions();
@@ -206,6 +252,7 @@ internal sealed class SoftwareUpdatePanel : StackPanel, IDisposable
     {
         if (_disposed || _prepared is null || _handoff is null || !_install.IsEnabled) return;
         _installing = true;
+        RefreshOtaActions();
         _check.IsEnabled = false;
         ToolTip.SetTip(_check, "正在准备更新，请稍候。");
         AutomationProperties.SetHelpText(_check, "正在准备更新，请稍候。");
@@ -234,12 +281,18 @@ internal sealed class SoftwareUpdatePanel : StackPanel, IDisposable
     {
         var reason = _installing ? "正在准备更新，请稍候。" : _downloading ? "正在下载更新，请稍候。" : _checking ? "正在检查更新，请稍候。" :
             _unavailableReason() ?? (_handoff is null ? "在线更新仅支持已安装的 Windows 版本。" :
-                _verifiedUpdate is null ? "请先检查更新；仅接受具有可信签名的新正式版本。" : null);
+                _verifiedUpdate is null ? _checkDownloadReason : null);
         SetDisabledReason(_download, reason);
         _download.IsVisible = _prepared is null;
         _install.IsVisible = _prepared is not null;
         SetDisabledReason(_install, reason);
         _cancel.IsVisible = _downloading;
+        _includeTests.IsEnabled = !_checking && !_downloading && !_installing;
+        var scopeReason = _checking ? "正在检查更新，请稍候。" : _downloading ? "正在下载更新，请稍候。"
+            : _installing ? "正在准备更新，请稍候。" : null;
+        ToolTip.SetTip(_includeTests, scopeReason);
+        ToolTip.SetShowOnDisabled(_includeTests, true);
+        AutomationProperties.SetHelpText(_includeTests, scopeReason);
     }
 
     private void ShowOtaStatus(string text) { _otaStatus.Text = text; _otaStatus.IsVisible = true; }
@@ -252,6 +305,7 @@ internal sealed class SoftwareUpdatePanel : StackPanel, IDisposable
 
     private void SetStatus(string text)
     {
+        ShowOtaStatus(text);
         ToolTip.SetTip(_latest, text);
         AutomationProperties.SetHelpText(_latest, text);
     }

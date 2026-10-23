@@ -108,19 +108,26 @@ function Get-OtaSigningRsa([string]$TrustedPublicKey) {
 }
 
 function New-OtaReleaseEnvelope([Security.Cryptography.RSA]$Rsa, $Package, [string]$Version, [string]$Tag) {
-    if ($Version -cnotmatch '^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$' -or $Tag -cne "v$Version" -or
+    $test = $Tag -cmatch ('^v' + [regex]::Escape($Version) + '-test\.[0-9]{8}$')
+    $expectedName = "OpticalSystemDesign-$Version-$($Package.Runtime)-$(if ($test) { 'UnsignedTest' } else { 'Unsigned' })-Setup.exe"
+    if ($Version -cnotmatch '^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$' -or (-not $test -and $Tag -cne "v$Version") -or
         $Package.Runtime -cnotin @('win-x64', 'win-arm64') -or $Package.Size -le 2 -or $Package.Size -gt 2147483648 -or
-        $Package.Name -cne "OpticalSystemDesign-$Version-$($Package.Runtime)-Unsigned-Setup.exe" -or
+        $Package.Name -cne $expectedName -or
         $Package.Sha256 -cnotmatch '^[0-9a-f]{64}$' -or $Package.SourceCommit -cnotmatch '^[0-9a-f]{40}$' -or
         $Package.ReleaseId -cnotmatch ('^' + [regex]::Escape("$Version-$($Package.Runtime)-") + '[0-9a-f]{12}$')) {
-        throw 'Invalid stable OTA signing payload.'
+        throw 'Invalid OTA signing payload.'
+    }
+    if ($test -and ($Package.PSObject.Properties['BuildSequence'] -eq $null -or $Package.BuildSequence -isnot [long] -or $Package.BuildSequence -le 0)) {
+        throw 'Test OTA requires a positive cloud build sequence.'
     }
     $payload = [ordered]@{
-        Format = 1; ProductAppId = 'OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A'
+        Format = if ($test) { 2 } else { 1 }; ProductAppId = 'OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A'
         Repository = 'VendettaMask/opticalsystem'; Version = $Version; Runtime = $Package.Runtime
         Name = $Package.Name; Size = [long]$Package.Size; Sha256 = $Package.Sha256; Tag = $Tag
         ReleaseId = $Package.ReleaseId; SourceCommit = $Package.SourceCommit
-    } | ConvertTo-Json -Compress
+    }
+    if ($test) { $payload.BuildSequence = $Package.BuildSequence }
+    $payload = $payload | ConvertTo-Json -Compress
     $bytes = [Text.Encoding]::UTF8.GetBytes($payload)
     $signature = $Rsa.SignData($bytes, [Security.Cryptography.HashAlgorithmName]::SHA256, [Security.Cryptography.RSASignaturePadding]::Pss)
     "<!-- optical-system-design-ota-v1`n$([Convert]::ToBase64String($bytes)).$([Convert]::ToBase64String($signature))`n-->"

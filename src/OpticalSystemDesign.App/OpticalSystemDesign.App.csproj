@@ -72,6 +72,8 @@
   </ItemGroup>
 
   <PropertyGroup>
+    <OtaBuildSequence Condition="'$(GITHUB_ACTIONS)' == 'true'">$(GITHUB_RUN_ID)</OtaBuildSequence>
+    <OtaBuildSequence Condition="'$(OtaBuildSequence)' == ''">0</OtaBuildSequence>
     <OutputType>Exe</OutputType>
     <OutputType Condition="'$(WindowsPackage)' == 'true'">WinExe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
@@ -83,5 +85,9 @@
     <Description>Optical system design and analysis software by S.T.A.R. Labs.</Description>
     <ApplicationIcon>Assets/Brand/AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyMetadata Include="OtaBuildSequence" Value="$(OtaBuildSequence)" />
+  </ItemGroup>
 
 </Project>

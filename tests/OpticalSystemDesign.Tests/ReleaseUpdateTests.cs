@@ -192,6 +192,62 @@ public sealed class ReleaseUpdateTests
         await Assert.ThrowsAsync<NotSupportedException>(() => installer.InstallAsync(Parse(Release()).Release!, default));
     }
 
+    [Theory]
+    [InlineData(199, "UpdateAvailable")][InlineData(200, "UpToDate")][InlineData(201, "UpToDate")]
+    public void TestDiscoveryUsesSignedBuildSequenceAndPreservesStableOnlyChecks(long sequence, string status)
+    {
+        var release = SignedTestRelease();
+        var bytes = Encoding.UTF8.GetBytes(release.ToJsonString());
+        Assert.Equal(UpdateCheckStatus.InvalidResponse, GitHubReleaseUpdateService.Parse(bytes, "99.0.0", "win-x64", OtaTestData.PublicKey).Status);
+        var result = GitHubReleaseUpdateService.ParseReleases(Encoding.UTF8.GetBytes(new JsonArray(release).ToJsonString()),
+            "99.0.0", "win-x64", OtaTestData.PublicKey, sequence);
+        Assert.Equal(status, result.Status.ToString());
+        if (status == "UpdateAvailable") Assert.Equal(200, result.Release!.Ota!.Payload.BuildSequence);
+    }
+
+    [Fact]
+    public void TestListSelectionIsIndependentOfApiOrderAndNeverSelectsDraftsOrOldBuilds()
+    {
+        var current = SignedTestRelease();
+        var newer = SignedTestRelease(201);
+        var draft = Release("100.0.0"); draft["draft"] = true;
+        foreach (var releases in new[] { new JsonArray(current.DeepClone(), newer.DeepClone(), draft.DeepClone()),
+            new JsonArray(draft.DeepClone(), newer.DeepClone(), current.DeepClone()) })
+        {
+            var result = GitHubReleaseUpdateService.ParseReleases(Encoding.UTF8.GetBytes(releases.ToJsonString()), "99.0.0", "win-x64", OtaTestData.PublicKey, 200);
+            Assert.Equal(UpdateCheckStatus.UpdateAvailable, result.Status);
+            Assert.Equal(201, result.Release!.Ota!.Payload.BuildSequence);
+        }
+        Assert.Equal(UpdateCheckStatus.NoPublishedRelease,
+            GitHubReleaseUpdateService.ParseReleases("[]"u8.ToArray(), "99.0.0", "win-x64").Status);
+    }
+
+    [Fact]
+    public async Task IncludingTestsUsesTheBoundedReleaseListWithoutCredentials()
+    {
+        using var client = Client((request, _) =>
+        {
+            Assert.Equal(ProductReleaseSource.ReleasesApi, request.RequestUri);
+            Assert.Null(request.Headers.Authorization);
+            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(new JsonArray(Release()).ToJsonString()) });
+        });
+        Assert.Equal(UpdateCheckStatus.UpdateAvailable, (await new GitHubReleaseUpdateService(client, "1.0.4", "win-x64", includeTestReleases: true).CheckAsync(default)).Status);
+    }
+
+    private static JsonObject SignedTestRelease(long sequence = 200)
+    {
+        var update = OtaTestData.Update(OtaTestData.TestPayload(sequence));
+        var root = Release("99.0.0");
+        root["tag_name"] = update.Payload.Tag; root["prerelease"] = true;
+        root["html_url"] = $"https://github.com/{ProductReleaseSource.Repository}/releases/tag/{update.Payload.Tag}";
+        root["body"] = OtaTestData.Body(update);
+        root["assets"]![0]!["name"] = update.Payload.Name;
+        root["assets"]![0]!["size"] = update.Payload.Size;
+        root["assets"]![0]!["browser_download_url"] = OtaManifest.DownloadUri(update.Payload).AbsoluteUri;
+        root["assets"]![0]!["digest"] = "sha256:" + update.Payload.Sha256;
+        return root;
+    }
+
     internal static JsonObject Release(string version = "1.0.5", string runtime = "win-x64", bool unsigned = false)
     {
         var name = $"OpticalSystemDesign-{version}-{runtime}{(unsigned ? "-Unsigned" : "")}-Setup.exe";

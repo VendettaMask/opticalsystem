@@ -23,13 +23,13 @@
 
 ### OTA 签名与纯云端密钥备份
 
-正式版发布脚本在修改 Release 前验证 RSA-4096 签名密钥与产品内置公钥相同，签名版本、架构、完整 EXE 大小/SHA-256、源码提交和载荷发布 ID；签名元数据放在发布正文的隐藏标记，不增加 Release 附件。测试预发布不进入稳定 OTA 通道，不签成伪正式版本。此签名不是 Windows Authenticode，不能消除未知发布者提醒。
+正式版与测试版在修改 Release 前都必须验证 RSA-4096 签名密钥与产品内置公钥相同，签名版本、架构、完整 EXE 大小/SHA-256、源码提交和载荷发布 ID；签名元数据放在发布正文的隐藏标记，不增加 Release 附件。正式版保留兼容的 v1 信封，测试版使用 v2，额外签名云端 `GITHUB_RUN_ID` 构建编号；该编号也写入主程序集及打包记录，发布时必须与本次工作流一致。测试预发布仍不标 Latest、不伪装正式版，但新版客户端默认“包含测试版”，可按更高版本或同版本更高构建编号 OTA；未勾选时仍只检查正式版。重跑同一个 Actions run 不产生更高编号，要交付新的测试构建应重新 Run workflow。此签名不是 Windows Authenticode，不能消除未知发布者提醒。
 
 正常签名只读取主仓库的 `OPTICAL_OTA_SIGNING_KEY` Actions Secret。经用户批准建立的私有仓库 `VendettaMask/opticalsystem-ota-vault` 提供独立 Backup/Verify 工作流：恢复密码仅通过该私有仓库的 `OPTICAL_OTA_RECOVERY_PASSWORD` Secret 输入，不使用聊天、普通变量或可见的工作流输入。Backup 生成 AES-256-GCM、PBKDF2-HMAC-SHA256（600000 次）的加密文件并提交到私有仓库，再下载并解密核验；Verify 不读取原始签名 Secret，仅用已提交的加密文件和密码恢复并验证同一签名身份。备份不绑定电脑或 Windows 账户，也不依赖会过期的 Actions 产物。只需维护者保管一个独立强密码；软件用户不需要它。
 
 若主签名 Secret 丢失，可从私有仓库网页复制完整加密 JSON 到主仓库的 `OPTICAL_OTA_ENCRYPTED_BACKUP` Secret，再将同一个密码填入主仓库 `OPTICAL_OTA_RECOVERY_PASSWORD` Secret。发布脚本在原始签名 Secret 缺失时从这两个 Secret 在内存中解密，仍必须匹配同一公钥；原 Secret 存在但损坏时直接拒绝，不静默使用备用路径。不需要个人访问令牌、旧电脑或把明文私钥取出。密码修改不是自动重加密；已有备份密码不匹配时停止并保留原文件。全部基于 GitHub 不代表跨平台灾备：失去账户/私有仓库访问权限时，仅恢复密码不足以找回文件。
 
-上述是签名与备份基础设施，不等于软件 OTA 客户端已经发布；客户端、真实安装和主仓库实际恢复发布的验收状态须查看[当前状态](CURRENT_STATUS.md)。私有仓库操作说明的公开模板见[维护说明](../packaging/ota-vault/README.md)，验证账目见[云端密钥账目](validation/OTA_CLOUD_KEY_VAULT_2026-10-22.json)。
+签名基础设施、客户端交付与真实安装分别记账；旧稳定通道客户端不会因云端规则改变就认识测试包，须先手动安装新引导包。客户端、真实安装和主仓库恢复发布的实际状态查看[当前状态](CURRENT_STATUS.md)。私有仓库操作说明的公开模板见[维护说明](../packaging/ota-vault/README.md)，早期备份验证见[云端密钥账目](validation/OTA_CLOUD_KEY_VAULT_2026-10-22.json)。
 
 - Releases 只附加 EXE；SHA-256 放在发布正文，构建元数据、测试结果、旧附件备份放在 Actions 工作流产物内，保留 30 天。仓库可见性和 GitHub 访问权限同样适用于这些产物，不应放秘密。
 - 自动生成的 Source code ZIP / tar.gz 是 GitHub 固定提供的源码入口，不是额外上传的安装文件。

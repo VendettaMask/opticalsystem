@@ -28,6 +28,11 @@ internal static class OtaTestData
         return new(SignRaw(JsonSerializer.SerializeToUtf8Bytes(payload)), payload);
     }
     internal static string Body(SignedOtaUpdate update) => OtaManifest.Marker + update.Envelope + "\n-->";
+    internal static OtaPayload TestPayload(long sequence = 200) => Payload() with
+    {
+        Format = 2, BuildSequence = sequence, Tag = "v99.0.0-test.20261023",
+        Name = "OpticalSystemDesign-99.0.0-win-x64-UnsignedTest-Setup.exe"
+    };
 }
 
 public sealed class OtaClientTests
@@ -120,6 +125,56 @@ public sealed class OtaClientTests
     [InlineData("99.0.0", false)][InlineData("100.0.0", false)][InlineData("98.9.9", true)][InlineData("invalid", false)]
     public void SameVersionAndDowngradesCannotUseOta(string installed, bool expected) =>
         Assert.Equal(expected, OtaManifest.IsNewer(OtaTestData.Payload(), installed));
+
+    [Theory]
+    [InlineData("99.0.0", 199, true)][InlineData("99.0.0", 200, false)]
+    [InlineData("99.0.0", 201, false)][InlineData("100.0.0", 0, false)]
+    [InlineData("98.0.0", 999, true)]
+    public void TestUpdatesCompareSignedBuildSequencesWithoutAllowingVersionDowngrades(string installed, long sequence, bool expected)
+    {
+        var payload = OtaTestData.TestPayload();
+        Assert.NotNull(OtaManifest.Verify(OtaTestData.Update(payload).Envelope, OtaTestData.PublicKey));
+        Assert.Equal(expected, OtaManifest.IsNewer(payload, installed, sequence));
+    }
+
+    [Fact]
+    public void TestEnvelopesBindTheChannelAndRequireSignedPositiveBuildSequence()
+    {
+        var test = OtaTestData.TestPayload();
+        foreach (var invalid in new[] { test with { BuildSequence = 0 }, test with { BuildSequence = -1 },
+            test with { Tag = "v99.0.0" }, test with { Name = OtaTestData.Payload().Name },
+            OtaTestData.Payload() with { BuildSequence = 200 } })
+            Assert.Null(OtaManifest.Verify(OtaTestData.Update(invalid).Envelope, OtaTestData.PublicKey));
+        var envelope = OtaTestData.Update(test).Envelope.Split('.');
+        var changed = Encoding.UTF8.GetBytes(Encoding.UTF8.GetString(Convert.FromBase64String(envelope[0]))
+            .Replace("\"BuildSequence\":200", "\"BuildSequence\":201", StringComparison.Ordinal));
+        Assert.Null(OtaManifest.Verify(Convert.ToBase64String(changed) + "." + envelope[1], OtaTestData.PublicKey));
+    }
+
+    [Theory]
+    [InlineData(199, true)][InlineData(200, false)][InlineData(201, false)]
+    public async Task SameVersionTestDownloadAndHandoffRejectAlreadyInstalledBuilds(long installedBuild, bool allowed)
+    {
+        using var directory = new CacheFixture();
+        using var handler = new Handler(_ => new(HttpStatusCode.OK) { Content = new ByteArrayContent(OtaTestData.InstallerBytes) });
+        using var client = new HttpClient(handler);
+        var update = OtaTestData.Update(OtaTestData.TestPayload());
+        var downloader = new OtaDownloader(client, directory.Path, OtaTestData.PublicKey, installedBuild);
+        var now = DateTime.UtcNow; var nonce = new string('A', 64);
+        var ticket = new OtaHandoffTicket(update.Envelope, nonce, 123, 123456, now);
+        if (allowed)
+        {
+            using var prepared = await downloader.DownloadAsync(update, "99.0.0", new Progress<double>(), default);
+            Assert.Equal(1, handler.Calls);
+            Assert.Equal(update, WindowsOtaHandoff.ValidateTicket(ticket, nonce, now, "win-x64", "99.0.0", OtaTestData.PublicKey, installedBuild));
+        }
+        else
+        {
+            await Assert.ThrowsAsync<InvalidDataException>(() => downloader.DownloadAsync(update, "99.0.0", new Progress<double>(), default));
+            Assert.Equal(0, handler.Calls);
+            Assert.Throws<InvalidDataException>(() => WindowsOtaHandoff.ValidateTicket(ticket, nonce, now, "win-x64", "99.0.0", OtaTestData.PublicKey, installedBuild));
+        }
+    }
 
     [Fact]
     public async Task DownloadIsHashedAndScopedCleanupPreservesUnownedFiles()

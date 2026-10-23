@@ -236,6 +236,7 @@ public sealed partial class MainWindow
                     TextWrapping = TextWrapping.Wrap
                 },
                 versionText,
+                new TextBlock { Name = "AboutBuild", Text = $"构建编号 {ProductVersionInfo.OtaBuildSequence.ToString(System.Globalization.CultureInfo.InvariantCulture)}", TextWrapping = TextWrapping.Wrap },
                 brandText,
                 new TextBlock
                 {
@@ -279,7 +280,12 @@ public sealed partial class MainWindow
         Grid.SetColumn(closeButton, 1);
         footer.Children.Add(closeButton);
         Grid.SetRow(footer, 1);
-        root.Children.Add(main);
+        root.Children.Add(new ScrollViewer
+        {
+            Name = "AboutDetailsScroll", Content = main,
+            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
+            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto
+        });
         root.Children.Add(footer);
         dialog.Content = root;
         dialog.Closed += (_, _) => updates.Dispose();

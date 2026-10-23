@@ -215,6 +215,7 @@ internal static class UiLocalization
             return language == Japanese ? $"オペランド {source[4..^3]} プロパティ" : $"Operand {source[4..^3]} Properties";
 
         if (TryTranslatePrefixedValue(source, language, "版本 ", "Version ", "バージョン ", out var prefixed)
+            || TryTranslatePrefixedValue(source, language, "构建编号 ", "Build ", "ビルド ", out prefixed)
             || TryTranslatePrefixedValue(source, language, "未切换结构：", "Configuration not switched: ", "構成を切り替えられません：", out prefixed)
             || TryTranslatePrefixedValue(source, language, "波长 ", "Wavelength ", "波長 ", out prefixed)
             || TryTranslatePrefixedValue(source, language, "视场 ", "Field ", "視野 ", out prefixed)
@@ -671,6 +672,16 @@ internal static class UiLocalization
         Add("用户指南", "User Guide", "ユーザーガイド");
         Add("恢复未保存工程", "Recover Unsaved Project", "未保存プロジェクトを復元");
         Add("检查更新", "Check for Updates", "更新を確認");
+        Add("包含测试版", "Include test releases", "テスト版を含める");
+        Add("最新可用版本", "Latest available version", "利用可能な最新バージョン");
+        Add("更新范围已更改，请重新检查更新。", "The update scope changed. Check for updates again.", "更新の対象範囲が変更されました。再度更新を確認してください。");
+        Add("请先检查更新；仅接受具有可信签名的更新包。", "Check for updates first. Only update packages with trusted signatures are accepted.", "まず更新を確認してください。信頼できる署名のある更新パッケージのみ受け付けます。");
+        Add("当前已是所选范围内的最新版本和构建，无需更新。", "This is the latest version and build in the selected scope. No update is needed.", "選択した範囲では最新のバージョンとビルドです。更新は不要です。");
+        Add("未找到所选范围内的可用更新，或暂时无法访问发布信息。请稍后重试或打开发布页。", "No update was found in the selected scope, or release information is temporarily inaccessible. Retry later or open the release page.", "選択した範囲に更新がないか、リリース情報に一時的にアクセスできません。後で再試行するかリリースページを開いてください。");
+        Add("正在检查…", "Checking…", "確認中…");
+        Add("发现新版本，但缺少有效的可信签名。请打开发布页手动下载。", "A new version is available, but it has no valid trusted signature. Open the release page to download it manually.", "新しいバージョンがありますが、有効な信頼できる署名がありません。リリースページから手動でダウンロードしてください。");
+        Add("发现新版本，但当前安装不支持 OTA。请打开发布页手动下载。", "A new version is available, but this installation does not support OTA. Open the release page to download it manually.", "新しいバージョンがありますが、このインストールは OTA に対応していません。リリースページから手動でダウンロードしてください。");
+        Add("发现可信的新版本，点击“下载更新”开始 OTA。", "A trusted new version is available. Click Download update to start OTA.", "信頼できる新しいバージョンがあります。「更新をダウンロード」で OTA を開始してください。");
         Add("当前版本", "Installed version", "現在のバージョン");
         Add("最新正式版本", "Latest stable version", "最新の安定版");
         Add("打开发布页", "Open release page", "リリースページを開く");

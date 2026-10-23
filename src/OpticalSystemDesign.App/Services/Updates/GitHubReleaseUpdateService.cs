@@ -25,6 +25,7 @@ internal static class ProductReleaseSource
     internal const string Repository = "VendettaMask/opticalsystem";
     internal static Uri ReleasesPage { get; } = new($"https://github.com/{Repository}/releases");
     internal static Uri LatestApi { get; } = new($"https://api.github.com/repos/{Repository}/releases/latest");
+    internal static Uri ReleasesApi { get; } = new($"https://api.github.com/repos/{Repository}/releases?per_page=100");
     internal static string? CurrentRuntime => OperatingSystem.IsWindows() ? RuntimeInformation.ProcessArchitecture switch
     {
         Architecture.X64 => "win-x64",
@@ -33,10 +34,12 @@ internal static class ProductReleaseSource
     } : null;
 }
 
-/// <summary>Read-only, user-initiated stable-release discovery. Never downloads or runs an installer.</summary>
-internal sealed class GitHubReleaseUpdateService(HttpClient client, string currentVersion, string? runtime, TimeSpan? timeout = null) : IReleaseUpdateService
+/// <summary>Read-only, user-initiated release discovery. Never downloads or runs an installer.</summary>
+internal sealed class GitHubReleaseUpdateService(HttpClient client, string currentVersion, string? runtime, TimeSpan? timeout = null,
+    bool includeTestReleases = false, long installedBuildSequence = 0) : IReleaseUpdateService
 {
     internal const int MaximumResponseBytes = 1024 * 1024;
+    internal bool IncludeTestReleases { get; set; } = includeTestReleases;
 
     internal static HttpClient CreateClient() => new(new HttpClientHandler { AllowAutoRedirect = false })
     {
@@ -50,7 +53,8 @@ internal sealed class GitHubReleaseUpdateService(HttpClient client, string curre
         deadline.CancelAfter(timeout ?? TimeSpan.FromSeconds(20));
         try
         {
-            using var request = new HttpRequestMessage(HttpMethod.Get, ProductReleaseSource.LatestApi);
+            var includeTests = IncludeTestReleases;
+            using var request = new HttpRequestMessage(HttpMethod.Get, includeTests ? ProductReleaseSource.ReleasesApi : ProductReleaseSource.LatestApi);
             request.Headers.UserAgent.ParseAdd("OpticalSystemDesign-UpdateCheck/1.0");
             request.Headers.Accept.ParseAdd("application/vnd.github+json");
             request.Headers.Add("X-GitHub-Api-Version", "2026-03-10");
@@ -68,14 +72,51 @@ internal sealed class GitHubReleaseUpdateService(HttpClient client, string curre
                 if (body.Length + count > MaximumResponseBytes) return new(UpdateCheckStatus.InvalidResponse);
                 body.Write(buffer, 0, count);
             }
-            return Parse(body.ToArray(), currentVersion, runtime);
+            return includeTests ? ParseReleases(body.ToArray(), currentVersion, runtime, installedBuildSequence: installedBuildSequence)
+                : Parse(body.ToArray(), currentVersion, runtime);
         }
         catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested) { return new(UpdateCheckStatus.TimedOut); }
         catch (HttpRequestException) { return new(UpdateCheckStatus.NetworkError); }
         catch (IOException) { return new(UpdateCheckStatus.NetworkError); }
     }
 
-    internal static UpdateCheckResult Parse(ReadOnlyMemory<byte> json, string currentVersion, string? runtime, string? otaPublicKey = null)
+    internal static UpdateCheckResult ParseReleases(ReadOnlyMemory<byte> json, string currentVersion, string? runtime,
+        string? otaPublicKey = null, long installedBuildSequence = 0)
+    {
+        if (!ReleaseVersion.TryParse(currentVersion, out _)) return new(UpdateCheckStatus.InvalidCurrentVersion);
+        if (json.Length > MaximumResponseBytes) return new(UpdateCheckStatus.InvalidResponse);
+        try
+        {
+            using var document = JsonDocument.Parse(json, new JsonDocumentOptions { MaxDepth = 32 });
+            if (document.RootElement.ValueKind != JsonValueKind.Array || document.RootElement.GetArrayLength() > 100)
+                return new(UpdateCheckStatus.InvalidResponse);
+            var results = new List<UpdateCheckResult>();
+            var invalid = false;
+            foreach (var release in document.RootElement.EnumerateArray())
+            {
+                if (release.ValueKind == JsonValueKind.Object && release.TryGetProperty("draft", out var draft) && draft.ValueKind == JsonValueKind.True) continue;
+                var result = Parse(System.Text.Encoding.UTF8.GetBytes(release.GetRawText()), currentVersion, runtime,
+                    otaPublicKey, allowTestPackages: true, installedBuildSequence);
+                invalid |= result.Status == UpdateCheckStatus.InvalidResponse;
+                if (result.Release is not null) results.Add(result);
+            }
+            var candidates = results.Where(result => result.Status != UpdateCheckStatus.UpToDate).ToArray();
+            if (candidates.Length == 0) candidates = results.ToArray();
+            return candidates.OrderByDescending(result =>
+                {
+                    var numeric = result.Release!.Version.Split("-test.", StringSplitOptions.None)[0];
+                    return ReleaseVersion.TryParse(numeric, out var version) ? version : null;
+                })
+                .ThenBy(result => result.Release!.Version.Contains("-test.", StringComparison.Ordinal))
+                .ThenByDescending(result => result.Release!.Ota?.Payload.BuildSequence ?? 0)
+                .ThenByDescending(result => result.Release!.Version, StringComparer.Ordinal)
+                .FirstOrDefault() ?? new(invalid ? UpdateCheckStatus.InvalidResponse : UpdateCheckStatus.NoPublishedRelease);
+        }
+        catch (JsonException) { return new(UpdateCheckStatus.InvalidResponse); }
+    }
+
+    internal static UpdateCheckResult Parse(ReadOnlyMemory<byte> json, string currentVersion, string? runtime, string? otaPublicKey = null,
+        bool allowTestPackages = false, long installedBuildSequence = 0)
     {
         if (!ReleaseVersion.TryParse(currentVersion, out var installed)) return new(UpdateCheckStatus.InvalidCurrentVersion);
         if (json.Length > MaximumResponseBytes) return new(UpdateCheckStatus.InvalidResponse);
@@ -85,27 +126,33 @@ internal sealed class GitHubReleaseUpdateService(HttpClient client, string curre
             var root = document.RootElement;
             if (root.ValueKind != JsonValueKind.Object ||
                 !root.TryGetProperty("draft", out var draft) || draft.ValueKind != JsonValueKind.False ||
-                !root.TryGetProperty("prerelease", out var prerelease) || prerelease.ValueKind != JsonValueKind.False)
+                !root.TryGetProperty("prerelease", out var prerelease) || prerelease.ValueKind is not (JsonValueKind.True or JsonValueKind.False))
                 return new(UpdateCheckStatus.InvalidResponse);
             var tag = String(root, "tag_name");
-            var version = tag?.StartsWith('v') == true ? tag[1..] : tag;
+            var displayVersion = tag?.StartsWith('v') == true ? tag[1..] : tag;
+            var isTest = prerelease.ValueKind == JsonValueKind.True;
+            var version = isTest ? displayVersion?.Split("-test.", StringSplitOptions.None)[0] : displayVersion;
+            if (isTest && (!allowTestPackages || version is null || !OtaManifest.IsTestTag(tag, version)))
+                return new(UpdateCheckStatus.InvalidResponse);
             if (!ReleaseVersion.TryParse(version, out var latest) || latest.Prerelease is not null ||
                 !IsExpectedUrl(String(root, "html_url"), $"releases/tag/{Uri.EscapeDataString(tag!)}", out var page))
                 return new(UpdateCheckStatus.InvalidResponse);
-            if (latest.CompareTo(installed) <= 0) return new(UpdateCheckStatus.UpToDate, new(version!, page!, null));
+            if (latest.CompareTo(installed) < 0 || latest.CompareTo(installed) == 0 && !isTest)
+                return new(UpdateCheckStatus.UpToDate, new(displayVersion!, page!, null));
             if (runtime is not ("win-x64" or "win-arm64"))
-                return new(UpdateCheckStatus.UnsupportedPlatform, new(version!, page!, null));
+                return new(UpdateCheckStatus.UnsupportedPlatform, new(displayVersion!, page!, null));
             if (!root.TryGetProperty("assets", out var assets) || assets.ValueKind != JsonValueKind.Array)
                 return new(UpdateCheckStatus.InvalidResponse);
             var signedName = $"OpticalSystemDesign-{version}-{runtime}-Setup.exe";
             var unsignedName = $"OpticalSystemDesign-{version}-{runtime}-Unsigned-Setup.exe";
+            var testName = $"OpticalSystemDesign-{version}-{runtime}-UnsignedTest-Setup.exe";
             var matches = new List<ReleaseInstaller>();
             string? digest = null;
             foreach (var asset in assets.EnumerateArray())
             {
                 if (asset.ValueKind != JsonValueKind.Object) continue;
                 var name = String(asset, "name");
-                if (name != signedName && name != unsignedName) continue;
+                if (isTest ? name != testName : name != signedName && name != unsignedName) continue;
                 if (String(asset, "state") != "uploaded" ||
                     !asset.TryGetProperty("size", out var size) || !size.TryGetInt64Safe(out var bytes) || bytes <= 0 ||
                     !IsExpectedUrl(String(asset, "browser_download_url"),
@@ -114,12 +161,15 @@ internal sealed class GitHubReleaseUpdateService(HttpClient client, string curre
                 matches.Add(new(name, download!, bytes));
                 digest = String(asset, "digest");
             }
-            // A release must publish exactly one production installer per runtime, never test packages.
+            // Exactly one canonical installer per architecture and selected channel.
             if (matches.Count > 1) return new(UpdateCheckStatus.InvalidResponse);
-            return matches.Count == 0
-                ? new(UpdateCheckStatus.NoCompatibleInstaller, new(version!, page!, null))
-                : new(UpdateCheckStatus.UpdateAvailable, new(version!, page!, matches[0],
-                    OtaManifest.FromReleaseBody(String(root, "body"), version!, runtime, matches[0], digest, otaPublicKey)));
+            if (matches.Count == 0) return new(UpdateCheckStatus.NoCompatibleInstaller, new(displayVersion!, page!, null));
+            var ota = OtaManifest.FromReleaseBody(String(root, "body"), version!, runtime, matches[0], digest, otaPublicKey);
+            if (isTest && latest.CompareTo(installed) == 0 &&
+                (ota is null || !OtaManifest.IsNewer(ota.Payload, currentVersion, installedBuildSequence)))
+                return ota is null ? new(UpdateCheckStatus.InvalidResponse)
+                    : new(UpdateCheckStatus.UpToDate, new(displayVersion!, page!, null));
+            return new(UpdateCheckStatus.UpdateAvailable, new(displayVersion!, page!, matches[0], ota));
         }
         catch (JsonException) { return new(UpdateCheckStatus.InvalidResponse); }
     }

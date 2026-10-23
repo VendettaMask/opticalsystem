@@ -50,6 +50,8 @@ public sealed class OtaUpdatePanelTests
                 Assert.False(Named<Button>(panel, "DownloadUpdate").IsEnabled);
                 Assert.False(string.IsNullOrEmpty(AutomationProperties.GetHelpText(Named<Button>(panel, "DownloadUpdate"))));
                 await panel.CheckAsync(); Tick(window);
+                Assert.True(Named<TextBlock>(panel, "OtaUpdateStatus").IsVisible);
+                Assert.Equal(UiLocalization.Text("发现可信的新版本，点击“下载更新”开始 OTA。"), Named<TextBlock>(panel, "OtaUpdateStatus").Text);
                 var download = Named<Button>(panel, "DownloadUpdate");
                 Assert.Equal(UiLocalization.Text("下载更新"), download.Content);
                 Assert.True(download.IsEnabled); Assert.Null(AutomationProperties.GetHelpText(download));
@@ -184,6 +186,10 @@ public sealed class OtaUpdatePanelTests
             {
                 await panel.CheckAsync(); await panel.DownloadAsync(); Assert.Equal(0, downloader.Calls);
                 Assert.False(Named<Button>(panel, "DownloadUpdate").IsEnabled);
+                Assert.Equal(UiLocalization.Text("发现新版本，但缺少有效的可信签名。请打开发布页手动下载。"), Named<TextBlock>(panel, "OtaUpdateStatus").Text);
+                Assert.True(Named<CheckBox>(panel, "IncludeTestUpdates").IsChecked);
+                Named<CheckBox>(panel, "IncludeTestUpdates").IsChecked = false;
+                Assert.Equal(UiLocalization.Text("更新范围已更改，请重新检查更新。"), Named<TextBlock>(panel, "OtaUpdateStatus").Text);
             }
             finally { window.Close(); }
         }, CancellationToken.None);

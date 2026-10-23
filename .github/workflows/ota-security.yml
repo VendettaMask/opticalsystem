@@ -45,8 +45,9 @@ jobs:
         shell: pwsh
         env:
           OPTICAL_SYSTEM_DESIGN_OTA_CAPTURE_DIR: ${{ github.workspace }}/artifacts/ota-checks/screenshots
+          OPTICAL_SYSTEM_DESIGN_UPDATE_CAPTURE_DIR: ${{ github.workspace }}/artifacts/ota-checks/screenshots
         run: |
-          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~OtaUpdatePanelTests.ManualDownloadAndCanceledSaveAreLocalizedAndNeverAutoInstall' --logger 'trx;LogFileName=ota-render.trx' --results-directory artifacts/ota-checks
+          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~OtaUpdatePanelTests.ManualDownloadAndCanceledSaveAreLocalizedAndNeverAutoInstall|FullyQualifiedName~AboutUpdateTests.CheckButtonShowsBusyProgressAndPersistentLocalizedResults' --logger 'trx;LogFileName=ota-render.trx' --results-directory artifacts/ota-checks
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
       - uses: actions/upload-artifact@v4
         if: always()

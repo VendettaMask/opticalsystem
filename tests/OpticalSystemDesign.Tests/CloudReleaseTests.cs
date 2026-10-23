@@ -18,6 +18,8 @@ public sealed class CloudReleaseTests
             "LensMaterialRowThemeTests", "ViewerSettingsInputThemeTests", "ViewerConfigurationTests", "Viewer3DGeometryTests" })
             Assert.Contains("FullyQualifiedName~" + name, text);
         Assert.Contains("LogFileName=lens-viewers.trx", text);
+        Assert.Contains("AboutUpdateTests.CheckButtonShowsBusyProgressAndPersistentLocalizedResults", text);
+        Assert.Contains("OPTICAL_SYSTEM_DESIGN_UPDATE_CAPTURE_DIR", text);
         Assert.Contains("verify-built-in-package.ps1", text);
         Assert.Contains("GitFrozenIntegrity.ps1", text);
         Assert.Contains("verify-documentation.ps1 -Strict", text);
@@ -103,6 +105,8 @@ public sealed class CloudReleaseTests
         Assert.Contains("$rollbackComplete", text);
         Assert.Contains("Build source differs", text);
         Assert.DoesNotContain("refs/tags", text); // No tag-moving API.
+        Assert.Contains("Test OTA build sequence is missing or differs", text);
+        Assert.DoesNotContain("if (-not $testPackage)", text); // Test EXEs must be signed too.
         var remove = text.IndexOf("foreach ($asset in @($renamed) + @($sidecars))", StringComparison.Ordinal);
         Assert.True(remove > text.IndexOf("Assert-UploadedAsset $uploaded $entry.Package", StringComparison.Ordinal));
         Assert.True(text.IndexOf("if ($PlanOnly)", StringComparison.Ordinal) < text.IndexOf("if (-not $env:GH_TOKEN)", StringComparison.Ordinal));
