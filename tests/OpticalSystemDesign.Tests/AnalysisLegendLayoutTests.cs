@@ -137,7 +137,7 @@ public sealed class AnalysisLegendLayoutTests
     {
         var host = Assert.Single(tabs.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>());
         var page = Assert.IsType<Grid>(host.Child);
-        var layout = Assert.IsType<Grid>(legend.Parent);
+        var layout = Assert.IsAssignableFrom<Grid>(legend.Parent);
         Assert.Same(page.Children[0], layout);
         var legendBounds = Bounds(legend, layout);
         Assert.InRange(legendBounds.Top, 11.9, 12.1);
@@ -148,7 +148,7 @@ public sealed class AnalysisLegendLayoutTests
         var visibleLegend = Bounds(legend, host);
         var footer = Bounds(page.Children[1], host);
         Assert.True(visibleLegend.Top >= 0);
-        Assert.True(visibleLegend.Right <= host.Bounds.Width + 0.1);
+        Assert.True(visibleLegend.Right <= page.Bounds.Width + 0.1);
         Assert.True(visibleLegend.Bottom <= footer.Top + 0.1);
         var toggles = legend.Children.Cast<CheckBox>().ToArray();
         for (var index = 1; index < toggles.Length; index++)

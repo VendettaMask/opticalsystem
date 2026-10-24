@@ -78,7 +78,9 @@ public sealed class RayFanLayoutRepairTests
                     {
                         Assert.True(area.Width >= minimum && area.Height >= minimum,
                             $"{analysis} {width}x{height}: drawable axes {area}, expected at least {minimum} DIP");
-                        Assert.True(area.X >= 0 && area.Right <= width && area.Y >= 0 && area.Bottom <= height);
+                        var page = Assert.Single(tabs.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>()).Child!;
+                        var pageBounds = new Rect(page.Bounds.Size).TransformToAABB(page.TransformToVisual(window)!.Value);
+                        Assert.True(area.X >= 0 && area.Right <= pageBounds.Right && area.Y >= 0 && area.Bottom <= pageBounds.Bottom);
                     });
                     Assert.Equal(originalData, JsonSerializer.Serialize(view));
                     Assert.All(gaps, gap => Assert.InRange(gap, -0.5, 6));

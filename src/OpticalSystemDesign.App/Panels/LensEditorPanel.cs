@@ -146,7 +146,9 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         grid.Columns.Add(Column("标注", nameof(SurfaceEditorRow.Label), 88));
         grid.Columns.Add(RadiusColumn());
         grid.Columns.Add(ThicknessColumn());
-        grid.Columns.Add(Column("材料", nameof(SurfaceEditorRow.MaterialDisplay), 122));
+        var materialColumn = Column("材料", nameof(SurfaceEditorRow.MaterialDisplay), 122,
+            alignment: HorizontalAlignment.Right);
+        grid.Columns.Add(materialColumn);
         grid.Columns.Add(Column("膜层", nameof(SurfaceEditorRow.Coating), 92));
         grid.Columns.Add(SemiDiameterColumn());
         var chipZoneColumn = NumericColumn("延伸区", nameof(SurfaceEditorRow.ExtensionZoneDisplay), 102);
@@ -182,7 +184,8 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         grid.Columns.Add(thermalExpansionColumn);
         grid.PreparingCellForEdit += (_, eventArgs) =>
         {
-            if (Equals(eventArgs.Column.Tag, NumericColumnTag)
+            if ((Equals(eventArgs.Column.Tag, NumericColumnTag)
+                    || ReferenceEquals(eventArgs.Column, materialColumn))
                 && eventArgs.EditingElement is TextBox editor)
             {
                 editor.TextAlignment = TextAlignment.Right;

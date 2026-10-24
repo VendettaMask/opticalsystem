@@ -80,7 +80,7 @@ public sealed class ConfigurationMatrixAnalysisGuiTests
                     Assert.True(frame.Width >= 64 && frame.Height >= 64, $"Plot frame collapsed: {frame}");
                 });
                 var page = Assert.Single(panel.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>());
-                var pageBounds = new Rect(page.Bounds.Size).TransformToAABB(page.TransformToVisual(window)!.Value);
+                var pageBounds = new Rect(page.Child!.Bounds.Size).TransformToAABB(page.Child.TransformToVisual(window)!.Value);
                 var summaryBounds = new Rect(summary.Bounds.Size).TransformToAABB(summary.TransformToVisual(window)!.Value);
                 Assert.True(summaryBounds.Bottom <= pageBounds.Bottom + 1, $"Footer {summaryBounds} exceeds page {pageBounds}");
                 Assert.True(summaryBounds.Right <= pageBounds.Right + 1);

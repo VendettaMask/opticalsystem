@@ -77,15 +77,23 @@ public sealed class AnalysisImageExportTests
                 var camera = (surface?.ViewYawDegrees, surface?.ViewPitchDegrees, surface?.ViewZoom);
                 using var image = panel.CapturePlotImage();
                 Assert.Equal(camera, (surface?.ViewYawDegrees, surface?.ViewPitchDegrees, surface?.ViewZoom));
-                Assert.Equal((int)Math.Ceiling(page.Bounds.Width * window.RenderScaling), image.PixelSize.Width);
-                Assert.Equal((int)Math.Ceiling(page.Bounds.Height * window.RenderScaling), image.PixelSize.Height);
-                Assert.True(image.PixelSize.Height < height); // No toolbar/tab strip.
+                Assert.Equal((int)Math.Ceiling(page.Child!.Bounds.Width * window.RenderScaling), image.PixelSize.Width);
+                Assert.Equal((int)Math.Ceiling(page.Child!.Bounds.Height * window.RenderScaling), image.PixelSize.Height);
+                Assert.True(page.Bounds.Height < height); // No toolbar/tab strip; the exported content may scroll.
                 AssertHasInk(image, 0, image.PixelSize.Height / 2); // The plot.
                 AssertHasInk(image, image.PixelSize.Height * 4 / 5, image.PixelSize.Height); // The full footer.
                 AnalysisPanel.SavePlotImage(image, path);
                 using var decoded = new Bitmap(path);
                 Assert.Equal(image.PixelSize, decoded.PixelSize);
                 Assert.Equal(new byte[] { 137, 80, 78, 71, 13, 10, 26, 10 }, File.ReadAllBytes(path)[..8]);
+
+                var offset = page.Offset;
+                page.Offset = new Vector(page.Extent.Width, page.Extent.Height); Render(window);
+                var scrolledOffset = page.Offset;
+                using var scrolled = panel.CapturePlotImage();
+                Assert.Equal(Pixels(image), Pixels(scrolled));
+                Assert.Equal(scrolledOffset, page.Offset);
+                page.Offset = offset; Render(window);
 
                 // Opening settings overlays the graph but must not enter export.
                 var settings = (Border)typeof(AnalysisPanel).GetField("_settingsHost", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(panel)!;
@@ -106,14 +114,17 @@ public sealed class AnalysisImageExportTests
         }, CancellationToken.None);
     }
 
-    [PlotImageFact]
-    public async Task CardinalSceneExportsItsGraphicAndDataTableWithoutSeries()
+    [PlotImageTheory]
+    [InlineData(840, 620, 13)]
+    [InlineData(420, 280, 32)]
+    public async Task CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(int width, int height, double fontSize)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisImageExportTests));
         await session.Dispatch(() =>
         {
             using var application = WorkbenchApplication.Create();
             using var panel = CreatePanel(application);
+            DisplayTypography.Configure(new AppSettings { FontSize = fontSize });
             var document = application.Documents.GetSnapshot();
             var scene = new SceneDto(0, SceneDimension.TwoDimensional,
                 new Scene2Dto([
@@ -126,7 +137,7 @@ public sealed class AnalysisImageExportTests
                 Table = new AnalysisTableDto(["基面量", "物空间", "像空间"],
                     [["焦平面", "-10", "10"], ["主平面", "1", "2"], ["焦长", "10", "10"]])
             }, document, DateTimeOffset.Now, scene);
-            var window = new Window { Width = 840, Height = 620, Content = panel };
+            var window = new Window { Width = width, Height = height, Content = panel };
             try
             {
                 window.Show(); Render(window);
@@ -134,8 +145,17 @@ public sealed class AnalysisImageExportTests
                 using var image = panel.CapturePlotImage();
                 AssertHasInk(image, 0, image.PixelSize.Height / 2);
                 AssertHasInk(image, image.PixelSize.Height * 4 / 5, image.PixelSize.Height);
+                var page = Assert.Single(panel.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>()).Child!;
+                Assert.Equal(255, Pixels(image)[((image.PixelSize.Height - 20) * image.PixelSize.Width + 20) * 4 + 3]);
+                foreach (var label in page.GetVisualDescendants().OfType<TextBlock>())
+                {
+                    Assert.True(label.TextLayout.Height <= label.Bounds.Height + 1);
+                    Assert.True(label.TextLayout.Width <= label.Bounds.Width + 1);
+                }
+                var directory = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR")!;
+                AnalysisPanel.SavePlotImage(image, Path.Combine(directory, $"Cardinal-{width}x{height}-{fontSize}.png"));
             }
-            finally { window.Close(); }
+            finally { window.Close(); DisplayTypography.Configure(new AppSettings()); }
         }, CancellationToken.None);
     }
 
@@ -229,6 +249,30 @@ public sealed class AnalysisImageExportTests
         {
             if (!RenderImages) Skip = "Set OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR and run AnalysisImageExportTests in a separate process for Skia pixel/PNG checks.";
         }
+    }
+
+    [PlotImageTheory]
+    [InlineData(32_769, 300)]
+    [InlineData(8192, 8192)]
+    public async Task OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(int width, int height)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisImageExportTests));
+        await session.Dispatch(() =>
+        {
+            using var application = WorkbenchApplication.Create();
+            using var panel = CreatePanel(application);
+            panel.PresentResult(View(AnalysisPresentationKind.Standard), application.Documents.GetSnapshot(), DateTimeOffset.Now);
+            var window = new Window { Width = 420, Height = 280, Content = panel };
+            try
+            {
+                window.Show(); Render(window);
+                var page = Assert.Single(panel.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>());
+                page.Child!.Width = width; page.Child.Height = height; Render(window);
+                var exception = Assert.Throws<InvalidOperationException>(() => panel.CapturePlotImage());
+                Assert.Contains("尺寸上限", exception.Message);
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
     }
 
     public sealed class PlotImageTheoryAttribute : TheoryAttribute

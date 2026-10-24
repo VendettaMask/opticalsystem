@@ -18,6 +18,14 @@ public sealed class CloudReleaseTests
             "LensMaterialRowThemeTests", "ViewerSettingsInputThemeTests", "ViewerConfigurationTests", "Viewer3DGeometryTests" })
             Assert.Contains("FullyQualifiedName~" + name, text);
         Assert.Contains("LogFileName=lens-viewers.trx", text);
+        foreach (var name in new[] { "AnalysisResponsivePlotTests", "AnalysisImageExportTests", "SpotTitleLayoutTests",
+            "AnalysisLegendLayoutTests", "FieldCurvatureFooterTests", "ConfigurationMatrixAnalysisGuiTests" })
+            Assert.Contains("FullyQualifiedName~" + name, text);
+        Assert.Contains("OPTICAL_SYSTEM_DESIGN_ANALYSIS_FIT_CAPTURE_DIR", text);
+        Assert.Contains("OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR", text);
+        Assert.Contains("LogFileName=analysis-contracts.trx", text);
+        Assert.Contains("LogFileName=analysis-render.trx", text);
+        Assert.Contains("LogFileName=analysis-export.trx", text);
         Assert.Contains("AboutUpdateTests.CheckButtonShowsBusyProgressAndPersistentLocalizedResults", text);
         Assert.Contains("OPTICAL_SYSTEM_DESIGN_UPDATE_CAPTURE_DIR", text);
         Assert.Contains("verify-built-in-package.ps1", text);

@@ -62,7 +62,7 @@ public sealed class FullFieldAberrationControl : Control, IReadOnlyChartAutomati
             return;
         }
 
-        var plot = new Rect(82, 30, Math.Max(1, Bounds.Width - 112), Math.Max(1, Bounds.Height - 102));
+        var plot = new Rect(DisplayTypography.Scale(82), DisplayTypography.Scale(30), Math.Max(1, Bounds.Width - DisplayTypography.Scale(112)), Math.Max(1, Bounds.Height - DisplayTypography.Scale(102)));
         var yHalf = Math.Max(1e-9, YFieldWidth * 1.1);
         var xHalf = Math.Max(XFieldWidth * 1.1, yHalf * plot.Width / plot.Height);
         var gridPen = new Pen(new SolidColorBrush(ThemeColor(ThemeResourceBindings.PlotGrid, Color.FromRgb(224, 224, 224))), 1);
@@ -93,12 +93,14 @@ public sealed class FullFieldAberrationControl : Control, IReadOnlyChartAutomati
             AnalysisAxisFormatting.FormatLabel(Series.XAxisLabel, Series.XQuantity, Series.XUnit),
             12.5,
             ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
-        context.DrawText(xLabel, new Point(plot.Center.X - (xLabel.Width / 2), plot.Bottom + 33));
+        xLabel.MaxTextWidth = Math.Max(1, plot.Width);
+        context.DrawText(xLabel, new Point(plot.Center.X - (xLabel.Width / 2), plot.Bottom + DisplayTypography.Scale(33)));
         var yLabel = CreateText(
             AnalysisAxisFormatting.FormatLabel(Series.YAxisLabel, Series.YQuantity, Series.YUnit),
             12.5,
             ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
-        var yCenter = new Point(20, plot.Center.Y);
+        yLabel.MaxTextWidth = Math.Max(1, plot.Height);
+        var yCenter = new Point(DisplayTypography.Scale(20), plot.Center.Y);
         using (context.PushTransform(Matrix.CreateRotation(-Math.PI / 2, yCenter)))
         {
             context.DrawText(

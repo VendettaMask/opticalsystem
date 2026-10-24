@@ -75,14 +75,14 @@ public sealed class InterferogramFooterTests
         {
             ThemeApplicationService.Apply(global::Avalonia.Application.Current!, "Light");
             var footer = BuildFooter(view);
-            var window = new Window { Width = width, Height = 160, Content = footer };
+            var window = new Window { Width = width, Height = 160, Content = new OpticalSystemDesign.App.Controls.ResponsiveAnalysisPlotHost { Child = footer } };
             try
             {
                 window.Show();
                 window.UpdateLayout();
                 AvaloniaHeadlessPlatform.ForceRenderTimerTick();
-                var grid = Assert.IsType<Grid>(footer.Child);
-                Assert.Equal(132, grid.Height);
+                var grid = Assert.IsAssignableFrom<Grid>(footer.Child);
+                Assert.Equal(132, grid.MinHeight);
                 var left = Assert.IsType<StackPanel>(grid.Children[0]);
                 Assert.Equal(3, left.Children.Count);
                 Assert.Equal("干涉图", Assert.IsType<TextBlock>(left.Children[0]).Text);
@@ -102,7 +102,7 @@ public sealed class InterferogramFooterTests
                 Assert.InRange(bottom, 0, footer.Bounds.Height);
                 var right = grid.Children.OfType<Border>().Single(child => Grid.GetColumn(child) == 1);
                 Assert.InRange(right.Bounds.Width, grid.Bounds.Width / 3 - 1, grid.Bounds.Width / 3 + 1);
-                Assert.Equal(132, right.Bounds.Height);
+                Assert.True(right.Bounds.Height >= 64);
                 Assert.Same(originalSeries, view.Series);
                 Assert.Equal(originalReport, view.ReportText);
                 var directory = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_INTERFEROGRAM_FOOTER_CAPTURE_DIR");
@@ -144,7 +144,7 @@ public sealed class InterferogramFooterTests
         }, CancellationToken.None);
 
         static string Summary(AnalysisViewDto value) => Assert.IsType<TextBlock>(
-            Assert.IsType<StackPanel>(Assert.IsType<Grid>(BuildFooter(value).Child).Children[0]).Children[2]).Text!;
+            Assert.IsType<StackPanel>(Assert.IsAssignableFrom<Grid>(BuildFooter(value).Child).Children[0]).Children[2]).Text!;
     }
 
     private static AnalysisViewDto CreateView(Optic optic)

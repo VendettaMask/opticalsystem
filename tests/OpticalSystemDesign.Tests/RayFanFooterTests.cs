@@ -137,7 +137,7 @@ public sealed class RayFanFooterTests
             var summary = Assert.IsType<StackPanel>(Left(footer).Children[2]);
             Assert.Equal($"最大缩放比例：± {expected}", Assert.IsType<TextBlock>(summary.Children[0]).Text);
             Assert.Equal("面：5", Assert.IsType<TextBlock>(summary.Children[2]).Text);
-            Assert.Equal(132, Assert.IsType<Grid>(footer.Child).Height);
+            Assert.Equal(132, Assert.IsAssignableFrom<Grid>(footer.Child).MinHeight);
         }, CancellationToken.None);
     }
 
@@ -168,5 +168,5 @@ public sealed class RayFanFooterTests
     }
 
     private static StackPanel Left(Border footer) =>
-        Assert.IsType<StackPanel>(Assert.IsType<Grid>(footer.Child).Children[0]);
+        Assert.IsType<StackPanel>(Assert.IsAssignableFrom<Grid>(footer.Child).Children[0]);
 }

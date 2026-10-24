@@ -61,12 +61,12 @@ public sealed class FoucaultPlotControl : Control, IReadOnlyChartAutomationSourc
             return;
         }
 
-        var availableWidth = Math.Max(120, Bounds.Width - 185);
-        var availableHeight = Math.Max(120, Bounds.Height - 105);
+        var availableWidth = Math.Max(120, Bounds.Width - DisplayTypography.Scale(185));
+        var availableHeight = Math.Max(120, Bounds.Height - DisplayTypography.Scale(105));
         var side = Math.Min(availableWidth, availableHeight);
         var plot = new Rect(
-            Math.Max(62, (Bounds.Width - side - 100) / 2),
-            34,
+            Math.Max(DisplayTypography.Scale(62), (Bounds.Width - side - DisplayTypography.Scale(100)) / 2),
+            DisplayTypography.Scale(34),
             side,
             side);
         var xs = Series.Points.Select(point => point.X).Distinct().Order().ToArray();
@@ -108,9 +108,11 @@ public sealed class FoucaultPlotControl : Control, IReadOnlyChartAutomationSourc
         }
 
         var xLabel = Text(Series.XAxisLabel, 12, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
-        context.DrawText(xLabel, new Point(plot.Center.X - (xLabel.Width / 2), plot.Bottom + 30));
+        xLabel.MaxTextWidth = Math.Max(1, plot.Width);
+        context.DrawText(xLabel, new Point(plot.Center.X - (xLabel.Width / 2), plot.Bottom + DisplayTypography.Scale(30)));
         var yLabel = Text(Series.YAxisLabel, 12, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
-        var yCenter = new Point(plot.Left - 48, plot.Center.Y);
+        yLabel.MaxTextWidth = Math.Max(1, plot.Height);
+        var yCenter = new Point(plot.Left - DisplayTypography.Scale(48), plot.Center.Y);
         using (context.PushTransform(Matrix.CreateRotation(-Math.PI / 2, yCenter)))
         {
             context.DrawText(yLabel, new Point(
@@ -118,7 +120,7 @@ public sealed class FoucaultPlotControl : Control, IReadOnlyChartAutomationSourc
                 yCenter.Y - (yLabel.Height / 2)));
         }
 
-        DrawColorBar(context, new Rect(plot.Right + 20, plot.Top + 26, 38, plot.Height - 76));
+        DrawColorBar(context, new Rect(plot.Right + DisplayTypography.Scale(20), plot.Top + DisplayTypography.Scale(26), DisplayTypography.Scale(38), Math.Max(1, plot.Height - DisplayTypography.Scale(76))));
     }
 
     private void DrawColorBar(DrawingContext context, Rect bar)

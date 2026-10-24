@@ -197,7 +197,8 @@ public sealed partial class AnalysisPanel
             SpatialDisplayScaleY = view.PlotOptions.SpatialDisplayScaleY,
             SpatialGeometry = view.PlotOptions.SpatialGeometry,
             DisplayAs = FindRowText(view, "显示为", "表面"),
-            MinHeight = AnalysisPlotMinimumHeight
+            MinHeight = DisplayTypography.Scale(AnalysisPlotMinimumHeight),
+            MinWidth = DisplayTypography.Scale(360)
         };
     }
 
@@ -221,7 +222,8 @@ public sealed partial class AnalysisPanel
             XAxisLabel = "X 像面（µm）",
             YAxisLabel = "Y 像面（µm）",
             ValueMinimum = logarithmic ? null : 0,
-            MinHeight = AnalysisPlotMinimumHeight
+            MinHeight = DisplayTypography.Scale(AnalysisPlotMinimumHeight),
+            MinWidth = DisplayTypography.Scale(360)
         };
     }
 
@@ -245,7 +247,8 @@ public sealed partial class AnalysisPanel
             XAxisLabel = "X 像面（µm）",
             YAxisLabel = "Y 像面（µm）",
             ValueMinimum = logarithmic ? null : 0,
-            MinHeight = AnalysisPlotMinimumHeight
+            MinHeight = DisplayTypography.Scale(AnalysisPlotMinimumHeight),
+            MinWidth = DisplayTypography.Scale(360)
         };
     }
 
@@ -261,7 +264,8 @@ public sealed partial class AnalysisPanel
             Series = view.Series.FirstOrDefault(),
             DisplayAs = FindRowText(view, "显示为", "灰度"),
             Logarithmic = view.PlotOptions.LogarithmicIntensity,
-            MinHeight = AnalysisPlotMinimumHeight
+            MinHeight = DisplayTypography.Scale(AnalysisPlotMinimumHeight),
+            MinWidth = DisplayTypography.Scale(360)
         };
     }
 
@@ -276,7 +280,8 @@ public sealed partial class AnalysisPanel
             FieldCenterY = FindRowNumber(view, "视场中心 Y", 0),
             DisplayAs = FindRowText(view, "显示为", "图标"),
             DisplayMode = FindRowText(view, "显示", "绝对值"),
-            MinHeight = AnalysisPlotMinimumHeight
+            MinHeight = DisplayTypography.Scale(AnalysisPlotMinimumHeight),
+            MinWidth = DisplayTypography.Scale(360)
         };
     }
 
@@ -296,7 +301,8 @@ public sealed partial class AnalysisPanel
             Table = view.Table,
             MaximumAberration = FindRowNumber(view, "最大像差范围", 0.1),
             GridInterval = FindRowNumber(view, "网格线间隔", 0.01),
-            MinHeight = AnalysisPlotMinimumHeight
+            MinHeight = DisplayTypography.Scale(AnalysisPlotMinimumHeight),
+            MinWidth = DisplayTypography.Scale(Math.Max(360, (view.Table?.Rows.Count ?? 0) * 36 + 48))
         };
     }
 
@@ -376,7 +382,7 @@ public sealed partial class AnalysisPanel
         var titleBlock = BuildAnalysisTitleBlock(view, document, generatedAt);
         Grid.SetRow(titleBlock, 1);
         root.Children.Add(titleBlock);
-        return root;
+        return new ResponsiveAnalysisPlotHost { Child = root };
     }
 
     private static Control BuildCardinalPointsScene(AnalysisViewDto view, SceneDto scene)
@@ -423,7 +429,8 @@ public sealed partial class AnalysisPanel
             ShowRays = true,
             ShowRayArrows = false,
             ShowScaleBar = true,
-            MinHeight = AnalysisPlotMinimumHeight,
+            MinHeight = DisplayTypography.Scale(AnalysisPlotMinimumHeight),
+            MinWidth = DisplayTypography.Scale(360),
             Annotations2D = annotations
         };
         var table = BuildCardinalPointsTable(view, referenceSurface.SurfaceNumber);
@@ -432,13 +439,14 @@ public sealed partial class AnalysisPanel
             RowDefinitions = new RowDefinitions("3*,Auto"),
             Children = { sceneControl, table }
         };
+        content.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.PlotBackground);
         Grid.SetRow(table, 1);
         if (view.ConfigurationScope is not null)
         {
             content.RowDefinitions.Insert(0, new RowDefinition(GridLength.Auto));
             Grid.SetRow(sceneControl, 1);
             Grid.SetRow(table, 2);
-            content.Children.Add(new TextBlock { Text = ConfigurationCaption(view).Trim(), Margin = new Thickness(16, 6) });
+            content.Children.Add(new TextBlock { Text = ConfigurationCaption(view).Trim(), Margin = new Thickness(16, 6), TextWrapping = TextWrapping.Wrap });
         }
         return content;
 
@@ -482,10 +490,12 @@ public sealed partial class AnalysisPanel
 
         var grid = new Grid
         {
+            MinWidth = DisplayTypography.Scale(460),
             ColumnDefinitions = new ColumnDefinitions("1.4*,*,*"),
             RowDefinitions = new RowDefinitions(
-                string.Join(',', Enumerable.Repeat("28", view.Table.Rows.Count + 1)))
+                string.Join(',', Enumerable.Repeat("Auto", view.Table.Rows.Count + 1)))
         };
+        foreach (var row in grid.RowDefinitions) row.MinHeight = DisplayTypography.Scale(28);
         for (var column = 0; column < view.Table.Columns.Count; column++)
         {
             AddCell(view.Table.Columns[column], 0, column, true);
@@ -509,7 +519,8 @@ public sealed partial class AnalysisPanel
                 {
                     Text = $"基面数据（mm）    图中标注距离相对于参考面 S{referenceSurfaceNumber}",
                     FontSize = DisplayTypography.Body,
-                    FontWeight = FontWeight.SemiBold
+                    FontWeight = FontWeight.SemiBold,
+                    TextWrapping = TextWrapping.Wrap
                 },
                 grid
             }
@@ -529,6 +540,7 @@ public sealed partial class AnalysisPanel
                 Text = text,
                 FontSize = header ? DisplayTypography.BodySmall : DisplayTypography.CompactBody,
                 FontWeight = header ? FontWeight.SemiBold : FontWeight.Normal,
+                TextWrapping = TextWrapping.Wrap,
                 Classes = { column == 0 ? "interface-text" : ProductFonts.NumericClass },
                 Margin = new Thickness(8, 3),
                 HorizontalAlignment = column == 0 ? HorizontalAlignment.Left : HorizontalAlignment.Right,
@@ -716,7 +728,8 @@ public sealed partial class AnalysisPanel
         {
             Text = compactSummary?.Title ?? view.Name,
             FontSize = AnalysisFooterTitleSize,
-            FontWeight = FontWeight.SemiBold
+            FontWeight = FontWeight.SemiBold,
+            TextWrapping = TextWrapping.Wrap
         };
         analysisTitle.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextPrimary);
         left.Children.Add(analysisTitle);
@@ -729,23 +742,19 @@ public sealed partial class AnalysisPanel
         };
         generatedAtText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextMuted);
         if (view.ConfigurationScope is null) left.Children.Add(generatedAtText);
-        else left.Children.Add(new StackPanel
+        else left.Children.Add(new WrapPanel
         {
-            Orientation = Orientation.Horizontal, Spacing = 12,
-            Children = { generatedAtText, new TextBlock { Text = ConfigurationCaption(view), FontSize = AnalysisFooterCaptionSize } }
+            Children = { generatedAtText, new TextBlock { Text = ConfigurationCaption(view), FontSize = AnalysisFooterCaptionSize, Margin = new Thickness(12, 0, 0, 0), TextWrapping = TextWrapping.Wrap } }
         });
         var resultSummary = new TextBlock
         {
             Text = resultLines,
             FontSize = AnalysisFooterTextSize,
-            LineHeight = 16,
             TextWrapping = TextWrapping.Wrap
         };
         resultSummary.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
         if (view.PresentationKind == AnalysisPresentationKind.Interferogram)
         {
-            resultSummary.TextWrapping = TextWrapping.NoWrap;
-            resultSummary.TextTrimming = TextTrimming.CharacterEllipsis;
             ToolTip.SetTip(resultSummary, "当前干涉图复用 OPD 波前图；条纹数/波长及 X/Y 倾斜未提供，以 — 表示。");
         }
         var paneMetrics = showPaneMetrics
@@ -769,10 +778,10 @@ public sealed partial class AnalysisPanel
             {
                 var summaryBody = new Grid
                 {
-                    ColumnDefinitions = new ColumnDefinitions("Auto,*")
+                    RowDefinitions = new RowDefinitions("Auto,Auto")
                 };
                 summaryBody.Children.Add(resultSummary);
-                Grid.SetColumn(paneMetrics, 1);
+                Grid.SetRow(paneMetrics, 1);
                 summaryBody.Children.Add(paneMetrics);
                 left.Children.Add(summaryBody);
             }
@@ -790,12 +799,15 @@ public sealed partial class AnalysisPanel
         {
             Text = $"Optical System Design  {version}",
             FontSize = AnalysisFooterCaptionSize,
+            TextWrapping = TextWrapping.Wrap,
+            TextAlignment = TextAlignment.Center,
             HorizontalAlignment = HorizontalAlignment.Center
         };
         productDescription.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
         var product = new StackPanel
         {
             Spacing = 2,
+            MinHeight = 64,
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
             Children =
@@ -808,8 +820,8 @@ public sealed partial class AnalysisPanel
         {
             Text = document.Name,
             FontSize = AnalysisFooterCaptionSize,
-            TextTrimming = TextTrimming.CharacterEllipsis,
-            HorizontalAlignment = HorizontalAlignment.Center
+            TextWrapping = TextWrapping.Wrap,
+            TextAlignment = TextAlignment.Center
         };
         documentDescription.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
         var documentNameText = new TextBlock
@@ -817,15 +829,15 @@ public sealed partial class AnalysisPanel
             Text = documentName,
             FontSize = AnalysisFooterTextSize,
             FontWeight = FontWeight.Medium,
-            TextTrimming = TextTrimming.CharacterEllipsis,
-            HorizontalAlignment = HorizontalAlignment.Center
+            TextWrapping = TextWrapping.Wrap,
+            TextAlignment = TextAlignment.Center
         };
         documentNameText.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
         var documentInfo = new StackPanel
         {
             Spacing = 2,
             Margin = new Thickness(12, 5),
-            HorizontalAlignment = HorizontalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
             VerticalAlignment = VerticalAlignment.Center,
             Children =
             {
@@ -833,7 +845,7 @@ public sealed partial class AnalysisPanel
                 documentDescription
             }
         };
-        var right = new Grid { RowDefinitions = new RowDefinitions("64,*") };
+        var right = new Grid { RowDefinitions = new RowDefinitions("Auto,Auto") };
         right.Children.Add(product);
         var documentBorder = new Border
         {
@@ -844,25 +856,17 @@ public sealed partial class AnalysisPanel
         Grid.SetRow(documentBorder, 1);
         right.Children.Add(documentBorder);
 
-        var grid = new Grid
-        {
-            ColumnDefinitions = new ColumnDefinitions("2*,*"),
-            Height = AnalysisFooterHeight,
-            ClipToBounds = true
-        };
         // Analysis-specific summaries occupy only the left region. Keep the brand
         // and document controls, typography and full-height layout shared.
-        grid.Children.Add(!overlay && view.PresentationKind == AnalysisPresentationKind.FieldCurvatureAndDistortion
-            ? BuildFieldCurvatureAndDistortionSummary(view, generatedAt)
-            : left);
+        var summary = !overlay && view.PresentationKind == AnalysisPresentationKind.FieldCurvatureAndDistortion
+            ? BuildFieldCurvatureAndDistortionSummary(view, generatedAt) : left;
         var rightBorder = new Border
         {
             BorderThickness = new Thickness(1, 0, 0, 0),
             Child = right
         };
         rightBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
-        Grid.SetColumn(rightBorder, 1);
-        grid.Children.Add(rightBorder);
+        var grid = new ResponsiveAnalysisFooterGrid(summary, rightBorder) { MinHeight = AnalysisFooterHeight };
 
         var titleBorder = new Border
         {
@@ -900,8 +904,7 @@ public sealed partial class AnalysisPanel
         var content = new Grid
         {
             ColumnDefinitions = new ColumnDefinitions("*,*"),
-            RowDefinitions = new RowDefinitions("26,*"),
-            ClipToBounds = true
+            RowDefinitions = new RowDefinitions("Auto,Auto")
         };
         AddHeader("场曲", 0);
         AddHeader(distortionTitle, 1);
@@ -939,7 +942,8 @@ public sealed partial class AnalysisPanel
                 Text = title,
                 FontSize = AnalysisFooterTitleSize,
                 FontWeight = FontWeight.SemiBold,
-                TextTrimming = TextTrimming.CharacterEllipsis,
+                TextWrapping = TextWrapping.Wrap,
+                Margin = new Thickness(4, 4),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
             };
@@ -963,7 +967,7 @@ public sealed partial class AnalysisPanel
                 {
                     Text = line,
                     FontSize = AnalysisFooterTextSize,
-                    TextTrimming = TextTrimming.CharacterEllipsis
+                    TextWrapping = TextWrapping.Wrap
                 };
                 text.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextPrimary);
                 body.Children.Add(text);
@@ -1036,7 +1040,8 @@ public sealed partial class AnalysisPanel
         var scale = new TextBlock
         {
             Text = $"最大缩放比例：± {maximumScale.ToString("0.000", CultureInfo.InvariantCulture)} {scaleUnit}",
-            FontSize = AnalysisFooterTextSize
+            FontSize = AnalysisFooterTextSize,
+            TextWrapping = TextWrapping.Wrap
         };
         scale.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextPrimary);
 
@@ -1061,6 +1066,7 @@ public sealed partial class AnalysisPanel
                         ? series.LegendLabel : series.Name),
                     Foreground = brush,
                     FontSize = AnalysisFooterTextSize,
+                    TextWrapping = TextWrapping.Wrap,
                     Classes = { ProductFonts.NumericClass }
                 }
             });
@@ -1100,11 +1106,7 @@ public sealed partial class AnalysisPanel
             .ToArray()
             ?? Array.Empty<AnalysisSeriesDto>();
 
-        var wavelengthLegend = new StackPanel
-        {
-            Orientation = Orientation.Horizontal,
-            Spacing = 4
-        };
+        var wavelengthLegend = new WrapPanel();
         foreach (var series in wavelengths)
         {
             var brush = SeriesBrush(series);
@@ -1120,6 +1122,7 @@ public sealed partial class AnalysisPanel
                     Text = PupilWavelengthLabel(series.Name),
                     Foreground = brush,
                     FontSize = DisplayTypography.BodySmall,
+                    TextWrapping = TextWrapping.Wrap,
                     Classes = { ProductFonts.NumericClass }
                 }
             });
@@ -1140,6 +1143,7 @@ public sealed partial class AnalysisPanel
                 {
                     Text = $"最大缩放比例： ± {maximumScale.ToString("0.00E+00", CultureInfo.InvariantCulture)} Percent.",
                     FontSize = DisplayTypography.BodySmall,
+                    TextWrapping = TextWrapping.Wrap,
                     Classes = { ProductFonts.NumericClass }
                 },
                 wavelengthLegend,
@@ -1163,9 +1167,8 @@ public sealed partial class AnalysisPanel
 
         var content = new Grid
         {
-            RowDefinitions = new RowDefinitions("34,*"),
-            Height = AnalysisFooterHeight,
-            ClipToBounds = true
+            RowDefinitions = new RowDefinitions("Auto,Auto"),
+            MinHeight = AnalysisFooterHeight
         };
         var header = new Border
         {
@@ -1175,6 +1178,8 @@ public sealed partial class AnalysisPanel
                 Text = view.Name,
                 FontSize = DisplayTypography.SectionTitle,
                 FontWeight = FontWeight.SemiBold,
+                TextWrapping = TextWrapping.Wrap,
+                Margin = new Thickness(4),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
             }

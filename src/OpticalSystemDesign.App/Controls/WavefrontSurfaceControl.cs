@@ -442,7 +442,7 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
         double maximum)
     {
         EnsureViewInitialized();
-        var plot = new Rect(28, 22, Math.Max(1, Bounds.Width - 150), Math.Max(1, Bounds.Height - 62));
+        var plot = new Rect(DisplayTypography.Scale(28), DisplayTypography.Scale(22), Math.Max(1, Bounds.Width - DisplayTypography.Scale(150)), Math.Max(1, Bounds.Height - DisplayTypography.Scale(62)));
         var range = Math.Max(1e-12, maximum - minimum);
         var yaw = _yawDegrees * Math.PI / 180;
         var pitch = _pitchDegrees * Math.PI / 180;
@@ -759,10 +759,12 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
 
         var xLabel = Text(XAxisLabel, 12, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         var yLabel = Text(YAxisLabel, 12, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
+        xLabel.MaxTextWidth = Math.Max(1, plot.Width);
+        yLabel.MaxTextWidth = Math.Max(1, plot.Height);
         context.DrawText(
             xLabel,
-            new Point(plot.Center.X - (xLabel.Width / 2), plot.Bottom + 34));
-        var yCenter = new Point(plot.Left - 48, plot.Center.Y);
+            new Point(plot.Center.X - (xLabel.Width / 2), plot.Bottom + DisplayTypography.Scale(34)));
+        var yCenter = new Point(plot.Left - DisplayTypography.Scale(48), plot.Center.Y);
         using (context.PushTransform(Matrix.CreateRotation(-Math.PI / 2, yCenter)))
         {
             context.DrawText(
@@ -901,10 +903,10 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
 
     private Rect PlanarPlotRect()
     {
-        const double leftMargin = 76;
-        const double topMargin = 36;
-        const double rightMargin = 150;
-        const double bottomMargin = 72;
+        var leftMargin = DisplayTypography.Scale(76);
+        var topMargin = DisplayTypography.Scale(36);
+        var rightMargin = DisplayTypography.Scale(150);
+        var bottomMargin = DisplayTypography.Scale(72);
         var availableWidth = Math.Max(1, Bounds.Width - leftMargin - rightMargin);
         var availableHeight = Math.Max(1, Bounds.Height - topMargin - bottomMargin);
         var scales = SpatialDisplayScales;

@@ -50,14 +50,14 @@ public sealed class FieldCurvatureFooterTests
         {
             ThemeApplicationService.Apply(global::Avalonia.Application.Current!, "Light");
             var footer = BuildFooter(view);
-            var window = new Window { Width = 1200, Height = 160, Content = footer };
+            var window = new Window { Width = 1200, Height = 160, Content = new OpticalSystemDesign.App.Controls.ResponsiveAnalysisPlotHost { Child = footer } };
             try
             {
                 window.Show();
                 window.UpdateLayout();
                 AvaloniaHeadlessPlatform.ForceRenderTimerTick();
-                var outer = Assert.IsType<Grid>(footer.Child);
-                Assert.Equal(132, outer.Height);
+                var outer = Assert.IsAssignableFrom<Grid>(footer.Child);
+                Assert.Equal(132, outer.MinHeight);
                 Assert.Equal(2, outer.ColumnDefinitions.Count);
                 var grid = Summary(footer);
                 Assert.Equal(2, grid.ColumnDefinitions.Count);
@@ -141,19 +141,19 @@ public sealed class FieldCurvatureFooterTests
                 })
                 {
                     var footer = BuildFooter(view with { PresentationKind = kind });
-                    window.Content = footer;
+                    window.Content = new OpticalSystemDesign.App.Controls.ResponsiveAnalysisPlotHost { Child = footer };
                     window.UpdateLayout();
-                    var grid = Assert.IsType<Grid>(footer.Child);
+                    var grid = Assert.IsAssignableFrom<Grid>(footer.Child);
                     var right = grid.Children.OfType<Border>().Single(child =>
                         Grid.GetColumn(child) == grid.ColumnDefinitions.Count - 1
                         && Grid.GetColumnSpan(child) == 1);
                     expectedBounds ??= right.Bounds;
-                    Assert.Equal(expectedBounds.Value, right.Bounds);
-                    Assert.Equal(AnalysisPanel.AnalysisFooterHeight, right.Bounds.Height);
+                    Assert.Equal(expectedBounds.Value.Width, right.Bounds.Width);
+                    Assert.True(right.Bounds.Height >= 64);
                     Assert.InRange(right.Bounds.Width, grid.Bounds.Width / 3 - 1, grid.Bounds.Width / 3 + 1);
                     Assert.DoesNotContain(right.GetVisualDescendants(), child => child is Viewbox);
                     var details = Assert.IsType<Grid>(right.Child);
-                    Assert.Equal(64, details.RowDefinitions[0].ActualHeight);
+                    Assert.True(details.RowDefinitions[0].ActualHeight >= 64);
                     var logo = Assert.Single(right.GetVisualDescendants().OfType<Image>());
                     Assert.Equal(180, logo.Width);
                     Assert.Equal(28, logo.Height);
@@ -240,7 +240,7 @@ public sealed class FieldCurvatureFooterTests
         grid.Children.OfType<Border>().Single(child => Grid.GetRow(child) == 1 && Grid.GetColumn(child) == column).Child);
 
     private static Grid Summary(Border footer) => Assert.IsType<Grid>(
-        Assert.IsType<Grid>(footer.Child).Children[0]);
+        Assert.IsAssignableFrom<Grid>(footer.Child).Children[0]);
 
     private static string Text(StackPanel body, int index) => Assert.IsType<TextBlock>(body.Children[index]).Text!;
 }

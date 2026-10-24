@@ -446,6 +446,14 @@ public sealed class App : Avalonia.Application
             }
         });
         AddDataGridSelectionVisualStyles();
+        Styles.Add(new Style(selector => selector
+            .OfType<DocumentTabStripItem>()
+            .Template()
+            .OfType<ContentPresenter>()
+            .Name("PART_HeaderPresenter"))
+        {
+            Setters = { new Setter(TextElement.FontWeightProperty, FontWeight.Bold) }
+        });
         AddDockIconStyles();
         Styles.Add(new BlueThemeStyles());
         Styles.Add(new LumenThemeStyles());

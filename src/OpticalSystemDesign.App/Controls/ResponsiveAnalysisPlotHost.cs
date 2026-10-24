@@ -1,59 +1,97 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Media;
+using Avalonia.Controls.Primitives;
+using Avalonia.Layout;
 
 namespace OpticalSystemDesign.App.Controls;
 
 /// <summary>
-/// Fits an analysis plot page, including its axes, legend and title block, into
-/// a docked viewport without forcing the parent's layout to honor canvas minima.
-/// This transforms presentation only; data, units and interactive zoom are unchanged.
+/// Reflows a plot page at its readable size. Native scrolling handles content
+/// that cannot fit; labels are never reduced by a page-wide scale transform.
 /// </summary>
-internal sealed class ResponsiveAnalysisPlotHost : Decorator
+internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
 {
-    private readonly ScaleTransform _transform = new(1, 1);
-    private Size _minimumContentSize = new(600, 414);
+    private readonly PlotPagePresenter _page = new();
 
-    public ResponsiveAnalysisPlotHost() => ClipToBounds = true;
+    public ResponsiveAnalysisPlotHost()
+    {
+        HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
+        VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+        HorizontalContentAlignment = HorizontalAlignment.Stretch;
+        VerticalContentAlignment = VerticalAlignment.Stretch;
+        Content = _page;
+    }
 
-    internal double ContentScale => _transform.ScaleX;
+    protected override Type StyleKeyOverride => typeof(ScrollViewer);
+
+    public Control? Child
+    {
+        get => _page.Child;
+        set { _page.Child = value; Offset = default; }
+    }
+
+    internal double ContentScale => 1;
 
     protected override Size MeasureOverride(Size availableSize)
     {
-        if (Child is null) return default;
-        // An unconstrained-height pass discovers the real minimum, including
-        // multi-pane titles and legends. Do not merely
-        // clip a 360-DIP canvas behind the fixed-height analysis footer.
-        var width = double.IsFinite(availableSize.Width) ? Math.Max(600, availableSize.Width) : 600;
-        Child.Measure(new Size(width, double.PositiveInfinity));
-        _minimumContentSize = new Size(Math.Max(600, Child.DesiredSize.Width), Math.Max(414, Child.DesiredSize.Height));
-        var viewport = FiniteSize(availableSize, _minimumContentSize);
-        var (contentSize, _) = Fit(viewport, _minimumContentSize);
-        Child.Measure(contentSize);
-        return viewport;
+        _page.SetViewport(new Size(
+            Viewport.Width > 0 ? Math.Min(availableSize.Width, Viewport.Width) : availableSize.Width,
+            Viewport.Height > 0 ? Math.Min(availableSize.Height, Viewport.Height) : availableSize.Height));
+        return base.MeasureOverride(availableSize);
     }
 
-    protected override Size ArrangeOverride(Size finalSize)
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
-        if (Child is null) return finalSize;
-        var (contentSize, scale) = Fit(finalSize, _minimumContentSize);
-        Child.RenderTransformOrigin = RelativePoint.TopLeft;
-        Child.RenderTransform = _transform;
-        _transform.ScaleX = scale;
-        _transform.ScaleY = scale;
-        Child.Arrange(new Rect(contentSize));
-        return finalSize;
+        base.OnPropertyChanged(change);
+        if (change.Property == ViewportProperty && _page is not null && Viewport.Width > 0 && Viewport.Height > 0)
+            _page.SetViewport(Viewport);
     }
 
-    private static Size FiniteSize(Size size, Size fallback) => new(
-        double.IsFinite(size.Width) ? Math.Max(0, size.Width) : fallback.Width,
-        double.IsFinite(size.Height) ? Math.Max(0, size.Height) : fallback.Height);
-
-    internal static (Size ContentSize, double Scale) Fit(Size viewport, Size minimum)
+    private sealed class PlotPagePresenter : Decorator
     {
-        viewport = FiniteSize(viewport, minimum);
-        if (viewport.Width <= 0 || viewport.Height <= 0) return (minimum, 0);
-        var scale = Math.Min(1, Math.Min(viewport.Width / minimum.Width, viewport.Height / minimum.Height));
-        return (new Size(viewport.Width / scale, viewport.Height / scale), scale);
+        private Size _viewport = new(600, 414);
+
+        internal void SetViewport(Size size)
+        {
+            var next = new Size(double.IsFinite(size.Width) ? Math.Max(0, size.Width) : 600,
+                double.IsFinite(size.Height) ? Math.Max(0, size.Height) : 414);
+            if (next == _viewport) return;
+            _viewport = next;
+            InvalidateMeasure();
+        }
+
+        protected override Size MeasureOverride(Size availableSize)
+        {
+            if (Child is null) return default;
+            var width = Math.Max(Math.Max(320, _viewport.Width), MinimumReadableWidth(Child));
+            Child.Measure(new Size(width, double.PositiveInfinity));
+            width = Math.Max(width, Child.DesiredSize.Width);
+            Child.Measure(new Size(width, double.PositiveInfinity));
+            var height = Math.Max(_viewport.Height, Child.DesiredSize.Height);
+            Child.Measure(new Size(width, height));
+            return new Size(Math.Max(width, Child.DesiredSize.Width), Math.Max(height, Child.DesiredSize.Height));
+        }
+
+        // DesiredSize is clipped to the measure constraint by Avalonia. Keep
+        // explicit canvas minima when an ancestor grid has less available width.
+        private static double MinimumReadableWidth(Control control)
+        {
+            var children = control switch
+            {
+                Panel panel => panel.Children.AsEnumerable(),
+                Decorator { Child: { } child } => new[] { child },
+                _ => Enumerable.Empty<Control>()
+            };
+            var minimum = control is ResponsivePlotLegendGrid legend
+                ? MinimumReadableWidth(legend.Children[0]) + ResponsivePlotLegendGrid.MaximumLegendWidth + 2 * ResponsivePlotLegendGrid.LegendInset
+                : children.Select(MinimumReadableWidth).DefaultIfEmpty(0).Max();
+            return Math.Max(control.MinWidth, minimum) + control.Margin.Left + control.Margin.Right;
+        }
+
+        protected override Size ArrangeOverride(Size finalSize)
+        {
+            Child?.Arrange(new Rect(finalSize));
+            return finalSize;
+        }
     }
 }

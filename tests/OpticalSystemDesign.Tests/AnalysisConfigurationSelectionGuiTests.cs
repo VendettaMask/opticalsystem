@@ -83,7 +83,7 @@ public sealed class AnalysisConfigurationSelectionGuiTests
                     Assert.True(AnalysisPlotControl.TryGetWavelengthNanometers(series, out var nanometers));
                     Assert.Equal(AnalysisPlotControl.WavelengthColor(nanometers), AnalysisPlotControl.SeriesColor(series));
                 });
-                var legends = panel.GetVisualDescendants().OfType<CheckBox>().Where(check => check.Content is StackPanel).ToArray();
+                var legends = panel.GetVisualDescendants().OfType<CheckBox>().Where(check => check.Content is Grid).ToArray();
                 Assert.Equal(9, legends.Length);
                 AssertLegendInsidePage(panel, window, legends);
                 legends[0].IsChecked = false;
@@ -156,7 +156,7 @@ public sealed class AnalysisConfigurationSelectionGuiTests
     private static void AssertLegendInsidePage(AnalysisPanel panel, Window window, IEnumerable<CheckBox> legends)
     {
         var page = Assert.Single(panel.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>());
-        var bounds = new Rect(page.Bounds.Size).TransformToAABB(page.TransformToVisual(window)!.Value);
+        var bounds = new Rect(page.Child!.Bounds.Size).TransformToAABB(page.Child.TransformToVisual(window)!.Value);
         foreach (var legend in legends)
         {
             var actual = new Rect(legend.Bounds.Size).TransformToAABB(legend.TransformToVisual(window)!.Value);

@@ -125,6 +125,107 @@ public sealed class AnalysisResponsivePlotTests
         }, CancellationToken.None);
     }
 
+    [Theory]
+    [InlineData("Light", 13)]
+    [InlineData("Dark", 20)]
+    [InlineData("Light", 32)]
+    public async Task EveryPlotFamilyKeepsLongCaptionsReadableAcrossResize(string theme, double fontSize)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResponsivePlotTests));
+        await session.Dispatch(() =>
+        {
+            ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
+            DisplayTypography.Configure(new AppSettings { Theme = theme, FontSize = fontSize });
+            using var application = WorkbenchApplication.Create();
+            var window = new Window { FontSize = fontSize };
+            try
+            {
+                foreach (var kind in PlotPresentations().Select(item => (AnalysisPresentationKind)item[0]))
+                {
+                    var view = View(kind) with { Name = "Extended analysis title 长标题 / " + kind };
+                    if (kind == AnalysisPresentationKind.SpotDiagram)
+                        view = view with { PlotPanes = view.PlotPanes.Select(pane => pane with
+                        {
+                            Metrics = [new("RMS radius 均方根半径", 0.012345, "mm"), new("Geometric radius 几何半径", 0.04321, "mm")]
+                        }).ToArray() };
+                    var document = application.Documents.GetSnapshot() with
+                    { Name = "A long optical document description 复杂镜头结构与波长分析.staropt" };
+                    var tabs = Assert.IsType<TabControl>(typeof(AnalysisPanel)
+                        .GetMethod("BuildResultContent", BindingFlags.Static | BindingFlags.NonPublic)!
+                        .Invoke(null, [view, document, DateTimeOffset.Now, null]));
+                    window.Content = tabs; window.Show();
+                    foreach (var (width, height) in new[] { (420, 280), (1400, 360), (900, 900), (420, 280) })
+                    {
+                        window.Width = width; window.Height = height; Render(window);
+                        AssertFits(tabs, window);
+                        var host = Assert.Single(tabs.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>());
+                        foreach (var plot in host.GetVisualDescendants().OfType<AnalysisPlotControl>())
+                            foreach (var field in new[] { "_xTickLabelBounds", "_yTickLabelBounds" })
+                            {
+                                var labels = (List<Rect>)typeof(AnalysisPlotControl).GetField(field, BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(plot)!;
+                                for (var index = 0; index < labels.Count; index++)
+                                    for (var other = index + 1; other < labels.Count; other++)
+                                        Assert.False(labels[index].Intersects(labels[other]), $"{kind} {fontSize}: tick labels overlap");
+                            }
+                        var page = Assert.IsType<Grid>(host.Child);
+                        var footer = page.Children[1];
+                        foreach (var label in footer.GetVisualDescendants().OfType<TextBlock>().Where(label => label.IsEffectivelyVisible))
+                        {
+                            var bounds = VisualBounds(label, footer);
+                            Assert.True(bounds.Top >= -1 && bounds.Left >= -1 && bounds.Bottom <= footer.Bounds.Height + 1
+                                && bounds.Right <= footer.Bounds.Width + 1, $"{kind} {fontSize}: {label.Text}, {bounds}, footer {footer.Bounds}");
+                            Assert.True(label.TextLayout.Height <= label.Bounds.Height + 1,
+                                $"{kind} {fontSize}: clipped text {label.Text}, {label.TextLayout.Height}, {label.Bounds}");
+                            Assert.True(label.TextLayout.Width <= label.Bounds.Width + 1, $"{kind}: text is wider than its caption: {label.Text}");
+                        }
+                        if (width == 420 && !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_ANALYSIS_FIT_CAPTURE_DIR")))
+                        {
+                            var directory = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_ANALYSIS_FIT_CAPTURE_DIR")!;
+                            Directory.CreateDirectory(directory);
+                            using var bitmap = new RenderTargetBitmap(new PixelSize((int)Math.Ceiling(page.Bounds.Width), (int)Math.Ceiling(page.Bounds.Height)), new Vector(96, 96));
+                            bitmap.Render(page);
+                            bitmap.Save(Path.Combine(directory, $"complete-{kind}-{theme}-{fontSize}.png"), PngBitmapEncoderOptions.Default);
+                        }
+                    }
+                }
+            }
+            finally { window.Close(); DisplayTypography.Configure(new AppSettings()); }
+        }, CancellationToken.None);
+    }
+
+    [Theory]
+    [InlineData(AnalysisPresentationKind.SeidelCoefficients)]
+    [InlineData(AnalysisPresentationKind.ZernikeFringe)]
+    [InlineData(AnalysisPresentationKind.ZernikeStandard)]
+    [InlineData(AnalysisPresentationKind.ZernikeAnnular)]
+    public async Task CoefficientReportsKeepFullTextAndScrollInSmallPanes(AnalysisPresentationKind kind)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResponsivePlotTests));
+        await session.Dispatch(() =>
+        {
+            using var application = WorkbenchApplication.Create();
+            var view = View(kind) with { ReportText = string.Join(Environment.NewLine,
+                Enumerable.Range(0, 100).Select(index => $"Z{index}: " + new string('0', 90))) };
+            var content = Assert.IsAssignableFrom<Control>(typeof(AnalysisPanel)
+                .GetMethod("BuildResultContent", BindingFlags.Static | BindingFlags.NonPublic)!
+                .Invoke(null, [view, application.Documents.GetSnapshot(), DateTimeOffset.Now, null]));
+            var window = new Window { Width = 420, Height = 280, Content = content };
+            try
+            {
+                window.Show(); Render(window);
+                var report = content as TextBox ?? Assert.Single(content.GetVisualDescendants().OfType<TextBox>());
+                Assert.Contains(view.ReportText, report.Text);
+                report.SelectAll(); Assert.Equal(report.Text, report.SelectedText);
+                var scrolls = content.GetVisualDescendants().Prepend(content).OfType<ScrollViewer>().ToArray();
+                Assert.Contains(scrolls, scroll => scroll.Extent.Height > scroll.Viewport.Height);
+                Assert.Contains(scrolls, scroll => scroll.Extent.Width > scroll.Viewport.Width);
+                foreach (var scroll in scrolls.Where(scroll => scroll.Extent.Height > scroll.Viewport.Height))
+                { scroll.Offset = new Vector(scroll.Extent.Width, scroll.Extent.Height); Render(window); Assert.True(scroll.Offset.Y > 0); }
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
+    }
+
     [Fact]
     public async Task FittedPlotsRetainInteractiveZoomAcrossResize()
     {
@@ -163,17 +264,29 @@ public sealed class AnalysisResponsivePlotTests
     }
 
     [Fact]
-    public void FitHandlesCollapsedAndUnconstrainedViewportsWithoutEnlargingContent()
+    public async Task SmallViewportScrollsAtReadableSizeAndCanReachTheFullFooter()
     {
-        var minimum = new Size(600, 414);
-        Assert.Equal(0, ResponsiveAnalysisPlotHost.Fit(new Size(0, 0), minimum).Scale);
-        var unconstrained = ResponsiveAnalysisPlotHost.Fit(Size.Infinity, minimum);
-        Assert.Equal(minimum, unconstrained.ContentSize);
-        Assert.Equal(1, unconstrained.Scale);
-        Assert.Equal(1, ResponsiveAnalysisPlotHost.Fit(new Size(1200, 900), minimum).Scale);
-        var small = ResponsiveAnalysisPlotHost.Fit(new Size(300, 207), minimum);
-        Assert.Equal(0.5, small.Scale);
-        Assert.Equal(minimum, small.ContentSize);
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResponsivePlotTests));
+        await session.Dispatch(() =>
+        {
+            using var application = WorkbenchApplication.Create();
+            var tabs = Build(View(AnalysisPresentationKind.ColorFocusShift), application);
+            var host = Assert.IsType<ResponsiveAnalysisPlotHost>(Assert.IsType<TabItem>(tabs.Items[0]).Content);
+            var window = new Window { Width = 360, Height = 240, Content = tabs };
+            try
+            {
+                window.Show(); Render(window);
+                Assert.Equal(1, host.ContentScale);
+                Assert.Null(host.Child!.RenderTransform);
+                Assert.True(host.Extent.Height > host.Viewport.Height);
+                host.Offset = new Vector(0, host.Extent.Height); Render(window);
+                var footer = Assert.IsType<Grid>(host.Child).Children[1];
+                var bounds = VisualBounds(footer, host);
+                Assert.InRange(bounds.Bottom, host.Viewport.Height - 1, host.Viewport.Height + 1);
+                Assert.True(host.Offset.Y > 0);
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
     }
 
     [Fact]
@@ -248,8 +361,9 @@ public sealed class AnalysisResponsivePlotTests
 
     private static void AssertFits(TabControl tabs, Window window)
     {
-        var page = Assert.IsAssignableFrom<Control>(Assert.IsType<TabItem>(tabs.Items[0]).Content);
-        var grid = page as Grid ?? page.GetVisualDescendants().OfType<Grid>().First();
+        var host = Assert.IsType<ResponsiveAnalysisPlotHost>(Assert.IsType<TabItem>(tabs.Items[0]).Content);
+        var page = host.Child!;
+        var grid = Assert.IsType<Grid>(page);
         var plotRoot = grid.Children[0];
         var footer = grid.Children[1];
         var pageBounds = VisualBounds(page, window);
@@ -259,8 +373,16 @@ public sealed class AnalysisResponsivePlotTests
         Assert.True(footerBounds.Bottom <= pageBounds.Bottom + 1, $"Footer {footerBounds} exceeds page {pageBounds}");
         Assert.True(plotBounds.Width <= pageBounds.Width + 1);
         Assert.True(plotBounds.Height > 10);
+        Assert.Equal(1, host.ContentScale);
+        Assert.True(VisualBounds(host, window).Bottom <= window.Height + 1);
         foreach (var plot in page.GetVisualDescendants().OfType<AnalysisPlotControl>())
             Assert.True(VisualBounds(plot, window).Bottom <= footerBounds.Top + 1);
+        var canvases = page.GetVisualDescendants().OfType<AnalysisPlotControl>()
+            .Select(plot => VisualBounds(plot, page)).ToArray();
+        for (var index = 0; index < canvases.Length; index++)
+            for (var other = index + 1; other < canvases.Length; other++)
+                Assert.False(canvases[index].Deflate(1).Intersects(canvases[other].Deflate(1)),
+                    $"Canvas overlap: {canvases[index]}, {canvases[other]}");
     }
 
     private static Rect VisualBounds(Control control, Visual relativeTo) => new Rect(control.Bounds.Size)

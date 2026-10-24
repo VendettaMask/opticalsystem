@@ -73,7 +73,12 @@ public sealed class SeidelDiagramControl : Control, IReadOnlyChartAutomationSour
 
         var maximum = Math.Max(1e-12, MaximumAberration);
         var interval = Math.Clamp(GridInterval, maximum / 100, maximum);
-        var plot = new Rect(24, 44, Math.Max(1, Bounds.Width - 48), Math.Max(1, Bounds.Height - 112));
+        var legendColumns = Math.Clamp((int)(Bounds.Width / DisplayTypography.Scale(82)), 1, Colors.Length);
+        var legendRows = (int)Math.Ceiling(Colors.Length / (double)legendColumns);
+        var legendRowHeight = DisplayTypography.Scale(48);
+        var plot = new Rect(DisplayTypography.Scale(24), DisplayTypography.Scale(44),
+            Math.Max(1, Bounds.Width - DisplayTypography.Scale(48)),
+            Math.Max(1, Bounds.Height - DisplayTypography.Scale(64) - legendRows * legendRowHeight));
         var rowCount = Table.Rows.Count;
         var groupWidth = plot.Width / rowCount;
         var zeroY = plot.Center.Y;
@@ -136,19 +141,20 @@ public sealed class SeidelDiagramControl : Control, IReadOnlyChartAutomationSour
             }
         }
 
-        var legendTop = plot.Bottom + 10;
-        var legendWidth = plot.Width / Colors.Length;
+        var legendTop = plot.Bottom + DisplayTypography.Scale(10);
+        var legendWidth = plot.Width / legendColumns;
         for (var index = 0; index < Colors.Length; index++)
         {
-            var x = plot.Left + (index * legendWidth);
+            var x = plot.Left + (index % legendColumns * legendWidth);
+            var y = legendTop + index / legendColumns * legendRowHeight;
             context.DrawRectangle(
                 new SolidColorBrush(Colors[index]),
                 null,
-                new Rect(x, legendTop, legendWidth, 21));
+                new Rect(x, y, legendWidth, DisplayTypography.Scale(16)));
             var label = CreateText(Names[index], 9, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
             context.DrawText(
                 label,
-                new Point(x + ((legendWidth - label.Width) / 2), legendTop + 27));
+                new Point(x + ((legendWidth - label.Width) / 2), y + DisplayTypography.Scale(22)));
         }
     }
 

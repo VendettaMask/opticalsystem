@@ -158,6 +158,8 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
     private AnalysisPlotOptions _plotOptions = new();
     private PlotViewport? _viewport;
     private Rect _lastPlot;
+    private readonly List<Rect> _xTickLabelBounds = [];
+    private readonly List<Rect> _yTickLabelBounds = [];
     private PlotViewport _lastRenderedViewport;
     private bool _panning;
     private Point _lastPointer;
@@ -450,7 +452,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         var legendWidth = !compact && !legendBelow && PlotOptions.ShowLegend && legendItems.Length > 0
             ? Math.Min(190, Bounds.Width * 0.28)
             : 0;
-        var legendBelowHeight = legendBelow ? 32 : 0;
+        var legendBelowHeight = legendBelow ? 32.0 : 0;
         var valueSeries = visibleSeries
             .Where(item => item.Series.Kind is AnalysisSeriesKind.Heatmap or AnalysisSeriesKind.ColoredLine)
             .Select(item => item.Series)
@@ -465,16 +467,31 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             : PlotOptions.HideAxes
                 ? string.IsNullOrWhiteSpace(PlotOptions.Title) ? 8.0 : 38.0
                 : string.IsNullOrWhiteSpace(PlotOptions.Title) ? 22.0 : 46.0;
-        var left = compactWithoutTicks
+        double left = compactWithoutTicks
             ? 4
             : PlotOptions.HideAxes ? 8 : PlotOptions.HideTickLabels ? 52 : 76;
-        var bottom = compactWithoutTicks
+        double bottom = compactWithoutTicks
             ? 4
             : (PlotOptions.HideAxes ? 8 : PlotOptions.HideTickLabels ? 46 : 62)
                 + legendBelowHeight;
-        var right = (compactWithoutTicks ? 4 : PlotOptions.HideAxes ? 8 : 20)
+        double right = (compactWithoutTicks ? 4 : PlotOptions.HideAxes ? 8 : 20)
             + legendWidth
             + colorbarWidth;
+        top = DisplayTypography.Scale(top);
+        left = DisplayTypography.Scale(left);
+        bottom = DisplayTypography.Scale(bottom);
+        right = DisplayTypography.Scale(right);
+        var titleText = CreateText(PlotOptions.Title, PlotTextSize,
+            ThemeBrush(ThemeResourceBindings.PlotText, TextBrush), FontWeight.SemiBold);
+        titleText.MaxTextWidth = Math.Max(1, Bounds.Width - left - right);
+        if (!string.IsNullOrWhiteSpace(PlotOptions.Title))
+            top = Math.Max(top, titleText.Height + DisplayTypography.Scale(18));
+        if (!PlotOptions.HideAxes)
+        {
+            var xCaption = CreateText(primaryXAxisLabel, PlotTextSize, Brushes.Black);
+            xCaption.MaxTextWidth = Math.Max(1, Bounds.Width - left - right);
+            bottom = Math.Max(bottom, DisplayTypography.Scale(XAxisLabelOffset(PlotOptions.HideTickLabels) + 8) + xCaption.Height);
+        }
         var plot = new Rect(
             left,
             top,
@@ -522,7 +539,8 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             : plot.Left + ((value - xMin) / (xMax - xMin) * plot.Width);
         double MapY(double value) => plot.Bottom - ((value - yMin) / (yMax - yMin) * plot.Height);
 
-        DrawTitle(context, PlotOptions.Title, plot);
+        if (!string.IsNullOrWhiteSpace(PlotOptions.Title))
+            context.DrawText(titleText, new Point(plot.Center.X - titleText.Width / 2, DisplayTypography.Scale(13)));
         using (context.PushClip(plot))
         {
             foreach (var item in visibleSeries.Where(item => item.Series.Kind is AnalysisSeriesKind.Heatmap or AnalysisSeriesKind.Raster))
@@ -592,6 +610,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             }
 
             var hint = CreateText("滚轮缩放 · 拖动平移 · 双击复位 · 悬停读数", PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotHint, new SolidColorBrush(Color.FromRgb(110, 110, 115))));
+            hint.MaxTextWidth = Math.Max(1, plot.Width - 16);
             context.DrawText(hint, new Point(plot.Right - hint.Width - 8, plot.Bottom - hint.Height - 6));
             return;
         }
@@ -711,17 +730,35 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             var y = plot.Bottom - (plot.Height * fraction);
             context.DrawLine(gridPen, new Point(x, plot.Top), new Point(x, plot.Bottom));
             context.DrawLine(gridPen, new Point(plot.Left, y), new Point(plot.Right, y));
+        }
+        _xTickLabelBounds.Clear();
+        _yTickLabelBounds.Clear();
+        if (PlotOptions.HideTickLabels) return;
 
-            if (!PlotOptions.HideTickLabels)
-            {
-                var xValue = PlotOptions.ReverseX
-                    ? xMax - ((xMax - xMin) * fraction)
-                    : xMin + ((xMax - xMin) * fraction);
-                var xText = CreateText(FormatTick(xValue), PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotTick, TickBrush));
-                context.DrawText(xText, new Point(x - (xText.Width / 2), plot.Bottom + 7));
-                var yText = CreateText(FormatTick(yMin + ((yMax - yMin) * fraction)), PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotTick, TickBrush));
-                context.DrawText(yText, new Point(plot.Left - yText.Width - 8, y - (yText.Height / 2)));
-            }
+        // Reserve the endpoints first, then add intermediate ticks only where
+        // the actual configured glyph sizes fit. Grid lines and data stay fixed.
+        foreach (var index in new[] { 0, divisions }.Concat(Enumerable.Range(1, divisions - 1)))
+        {
+            var fraction = index / (double)divisions;
+            var x = plot.Left + plot.Width * fraction;
+            var y = plot.Bottom - plot.Height * fraction;
+            var xValue = PlotOptions.ReverseX ? xMax - (xMax - xMin) * fraction : xMin + (xMax - xMin) * fraction;
+            var brush = ThemeBrush(ThemeResourceBindings.PlotTick, TickBrush);
+            var xText = CreateText(FormatTick(xValue), PlotTextSize, brush);
+            var yText = CreateText(FormatTick(yMin + (yMax - yMin) * fraction), PlotTextSize, brush);
+            var xBounds = new Rect(x - xText.Width / 2,
+                plot.Bottom + Math.Max(DisplayTypography.Scale(7), yText.Height / 2 + DisplayTypography.Scale(4)),
+                xText.Width, xText.Height);
+            var yBounds = new Rect(plot.Left - yText.Width - 8, y - yText.Height / 2, yText.Width, yText.Height);
+            DrawTick(xText, xBounds, _xTickLabelBounds);
+            DrawTick(yText, yBounds, _yTickLabelBounds);
+        }
+
+        void DrawTick(FormattedText text, Rect bounds, List<Rect> occupied)
+        {
+            if (occupied.Any(previous => previous.Inflate(DisplayTypography.Scale(4)).Intersects(bounds))) return;
+            occupied.Add(bounds);
+            context.DrawText(text, bounds.TopLeft);
         }
     }
 
@@ -1166,17 +1203,6 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         }
     }
 
-    private void DrawTitle(DrawingContext context, string title, Rect plot)
-    {
-        if (string.IsNullOrWhiteSpace(title))
-        {
-            return;
-        }
-
-        var text = CreateText(title, PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush), FontWeight.SemiBold);
-        context.DrawText(text, new Point(plot.Center.X - (text.Width / 2), 13));
-    }
-
     private void DrawAxisLabels(
         DrawingContext context,
         AnalysisSeries series,
@@ -1188,18 +1214,20 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             series.XQuantity,
             series.XUnit);
         var xLabel = CreateText(xLabelText, PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
+        xLabel.MaxTextWidth = Math.Max(1, plot.Width);
         context.DrawText(
             xLabel,
             new Point(
                 plot.Center.X - (xLabel.Width / 2),
-                plot.Bottom + XAxisLabelOffset(hideTickLabels)));
+                plot.Bottom + DisplayTypography.Scale(XAxisLabelOffset(hideTickLabels))));
 
         var yLabelText = AnalysisAxisFormatting.FormatLabel(
             series.YAxisLabel,
             series.YQuantity,
             series.YUnit);
         var yLabel = CreateText(yLabelText, PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
-        var center = new Point(17, plot.Center.Y);
+        yLabel.MaxTextWidth = Math.Max(1, plot.Height);
+        var center = new Point(Math.Max(yLabel.Height / 2 + 2, DisplayTypography.Scale(17)), plot.Center.Y);
         using (context.PushTransform(Matrix.CreateRotation(-Math.PI / 2, center)))
         {
             context.DrawText(yLabel, new Point(center.X - (yLabel.Width / 2), center.Y - (yLabel.Height / 2)));

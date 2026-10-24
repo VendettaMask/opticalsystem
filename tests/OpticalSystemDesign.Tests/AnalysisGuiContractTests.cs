@@ -385,7 +385,7 @@ public sealed class AnalysisGuiContractTests
             "BuildSinglePlot",
             System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
         Assert.NotNull(buildMethod);
-        var layout = Assert.IsType<Avalonia.Controls.Grid>(
+        var layout = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(
             buildMethod.Invoke(null, new object[] { viewDto }));
         var squareHost = Assert.Single(layout.Children.OfType<OptionalSquarePlotHost>());
         Assert.True(squareHost.IsSquare);
@@ -475,20 +475,20 @@ public sealed class AnalysisGuiContractTests
             "BuildMatrixSpotPanePlot",
             System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
         Assert.NotNull(method);
-        var layout = Assert.IsType<Avalonia.Controls.Grid>(method.Invoke(
+        var layout = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(method.Invoke(
             null,
             new object[] { viewDto.PlotPanes, viewDto.PlotPaneColumns }));
         var legend = Assert.IsType<Avalonia.Controls.StackPanel>(layout.Children[1]);
         Assert.Equal(3, legend.Children.Count);
         var firstToggle = Assert.IsType<Avalonia.Controls.CheckBox>(legend.Children[0]);
-        var content = Assert.IsType<Avalonia.Controls.StackPanel>(firstToggle.Content);
+        var content = Assert.IsType<Avalonia.Controls.Grid>(firstToggle.Content);
         var legendLabel = Assert.IsType<Avalonia.Controls.TextBlock>(content.Children[1]);
         Assert.Equal(
             "0.4800 µm",
             legendLabel.Text);
         Assert.Equal(AnalysisPlotControl.PlotTextSize, legendLabel.FontSize);
 
-        var matrix = Assert.IsType<Avalonia.Controls.Grid>(layout.Children[0]);
+        var matrix = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(layout.Children[0]);
         Assert.Empty(matrix.Children.OfType<Avalonia.Controls.Viewbox>());
         Assert.True(double.IsNaN(matrix.Width));
         Assert.True(double.IsNaN(matrix.Height));
@@ -555,10 +555,10 @@ public sealed class AnalysisGuiContractTests
             "BuildConfigurationMatrixSpotPanePlot",
             System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
         Assert.NotNull(method);
-        var layout = Assert.IsType<Avalonia.Controls.Grid>(method.Invoke(
+        var layout = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(method.Invoke(
             null,
             new object[] { viewDto.PlotPanes, viewDto.PlotPaneColumns }));
-        var matrix = Assert.IsType<Avalonia.Controls.Grid>(layout.Children[0]);
+        var matrix = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(layout.Children[0]);
 
         Assert.Empty(matrix.Children.OfType<Avalonia.Controls.Viewbox>());
         Assert.True(double.IsNaN(matrix.Width));
@@ -708,14 +708,14 @@ public sealed class AnalysisGuiContractTests
             "BuildSinglePlot",
             System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
         Assert.NotNull(method);
-        var layout = Assert.IsType<Avalonia.Controls.Grid>(
+        var layout = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(
             method.Invoke(null, new object[] { viewDto }));
         var legend = Assert.Single(layout.Children.OfType<Avalonia.Controls.StackPanel>());
         var labels = legend.Children
             .OfType<Avalonia.Controls.CheckBox>()
             .Select(checkBox =>
             {
-                var content = Assert.IsType<Avalonia.Controls.StackPanel>(checkBox.Content);
+                var content = Assert.IsType<Avalonia.Controls.Grid>(checkBox.Content);
                 return Assert.IsType<Avalonia.Controls.TextBlock>(content.Children[1]).Text
                     ?? string.Empty;
             })
@@ -843,10 +843,10 @@ public sealed class AnalysisGuiContractTests
             "BuildPanePlot",
             System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
         Assert.NotNull(method);
-        var layout = Assert.IsType<Avalonia.Controls.Grid>(method.Invoke(
+        var layout = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(method.Invoke(
             null,
             new object[] { viewDto.PlotPanes, viewDto.PlotPaneColumns, false }));
-        var paneGrid = Assert.IsType<Avalonia.Controls.Grid>(layout.Children[0]);
+        var paneGrid = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(layout.Children[0]);
         var hosts = paneGrid.Children.OfType<OptionalSquarePlotHost>().ToArray();
         Assert.Equal(viewDto.PlotPanes.Count, hosts.Length);
         Assert.All(hosts, host => Assert.False(host.IsSquare));
@@ -882,10 +882,10 @@ public sealed class AnalysisGuiContractTests
             "BuildPairedFanPanePlot",
             System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
         Assert.NotNull(method);
-        var layout = Assert.IsType<Avalonia.Controls.Grid>(method.Invoke(
+        var layout = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(method.Invoke(
             null,
             new object[] { viewDto.PlotPanes, true }));
-        var fieldGrid = Assert.IsType<Avalonia.Controls.Grid>(layout.Children[0]);
+        var fieldGrid = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(layout.Children[0]);
         var cards = FanFieldCards(fieldGrid);
         var hosts = cards.SelectMany(CardHosts).ToArray();
 
@@ -903,10 +903,10 @@ public sealed class AnalysisGuiContractTests
                 Title = $"Field {index / 2 + 1}"
             })
             .ToArray();
-        var dedicatedLayout = Assert.IsType<Avalonia.Controls.Grid>(method.Invoke(
+        var dedicatedLayout = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(method.Invoke(
             null,
             new object[] { dedicatedPanes, true }));
-        var dedicatedFieldGrid = Assert.IsType<Avalonia.Controls.Grid>(dedicatedLayout.Children[0]);
+        var dedicatedFieldGrid = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(dedicatedLayout.Children[0]);
         var dedicatedCards = FanFieldCards(dedicatedFieldGrid);
         var dedicatedHosts = dedicatedCards.SelectMany(CardHosts).ToArray();
 
@@ -1035,10 +1035,10 @@ public sealed class AnalysisGuiContractTests
 
         Assert.Equal(
             AnalysisPanel.AnalysisFooterHeight,
-            Assert.IsType<Avalonia.Controls.Grid>(regular.Child).Height);
+            Assert.IsAssignableFrom<Avalonia.Controls.Grid>(regular.Child).MinHeight);
         Assert.Equal(
             AnalysisPanel.AnalysisFooterHeight,
-            Assert.IsType<Avalonia.Controls.Grid>(pupil.Child).Height);
+            Assert.IsAssignableFrom<Avalonia.Controls.Grid>(pupil.Child).MinHeight);
     }
 
     [Fact]
@@ -1080,8 +1080,8 @@ public sealed class AnalysisGuiContractTests
         {
             var border = Assert.IsType<Avalonia.Controls.Border>(
                 factory.Invoke(null, new object[] { candidate, document, generatedAt }));
-            var grid = Assert.IsType<Avalonia.Controls.Grid>(border.Child);
-            Assert.Equal(AnalysisPanel.AnalysisFooterHeight, grid.Height);
+            var grid = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(border.Child);
+            Assert.Equal(AnalysisPanel.AnalysisFooterHeight, grid.MinHeight);
             Assert.Equal(2, grid.Children.Count);
             return Assert.IsType<Avalonia.Controls.StackPanel>(grid.Children[0]);
         }
@@ -1293,9 +1293,9 @@ public sealed class AnalysisGuiContractTests
             "BuildStandardSpotPanePlot",
             System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
         Assert.NotNull(method);
-        var layout = Assert.IsType<Avalonia.Controls.Grid>(
+        var layout = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(
             method.Invoke(null, new object[] { viewDto.PlotPanes }));
-        var fieldGrid = Assert.IsType<Avalonia.Controls.Grid>(layout.Children[0]);
+        var fieldGrid = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(layout.Children[0]);
         Assert.Empty(fieldGrid.Children.OfType<Avalonia.Controls.Viewbox>());
         Assert.True(double.IsNaN(fieldGrid.Width));
         Assert.True(double.IsNaN(fieldGrid.Height));
@@ -1400,10 +1400,10 @@ public sealed class AnalysisGuiContractTests
             "BuildThroughFocusSpotPanePlot",
             System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
         Assert.NotNull(buildMethod);
-        var layout = Assert.IsType<Avalonia.Controls.Grid>(buildMethod.Invoke(
+        var layout = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(buildMethod.Invoke(
             null,
             new object[] { viewDto.PlotPanes, viewDto.PlotPaneColumns }));
-        var matrix = Assert.IsType<Avalonia.Controls.Grid>(layout.Children[0]);
+        var matrix = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(layout.Children[0]);
         Assert.Empty(matrix.Children.OfType<Avalonia.Controls.Viewbox>());
         Assert.True(double.IsNaN(matrix.Width));
         Assert.True(double.IsNaN(matrix.Height));
@@ -1477,7 +1477,7 @@ public sealed class AnalysisGuiContractTests
             System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
 
         Assert.NotNull(factory);
-        var content = Assert.IsType<Avalonia.Controls.Grid>(
+        var content = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(
             factory.Invoke(null, new object[] { "image", "扩展图像分析" }));
         Assert.Equal(3, content.ColumnDefinitions.Count);
         Assert.True(double.IsNaN(content.Width));
