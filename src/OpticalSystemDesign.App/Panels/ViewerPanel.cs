@@ -20,7 +20,7 @@ public enum ViewerPresentationMode
     SolidModel
 }
 
-public sealed class ViewerPanel : UserControl, IDisposable
+public sealed partial class ViewerPanel : UserControl, IDisposable
 {
     private readonly IVisualizationService _visualization;
     private readonly IWorkspaceEventStream _events;
@@ -30,6 +30,9 @@ public sealed class ViewerPanel : UserControl, IDisposable
     private readonly SceneDimension _dimension;
     private readonly ViewerPresentationMode _presentationMode;
     private readonly OpticSceneControl _scene;
+    private readonly Dictionary<OpticSceneViewPreset, ToggleButton> _viewPresetButtons = new();
+    private readonly WrapPanel _glassLegendItems = new() { Orientation = Orientation.Horizontal };
+    private readonly Border _glassLegend = new() { Name = "Viewer3DGlassLegend", IsVisible = false };
     private readonly TextBlock _summary = new() { VerticalAlignment = VerticalAlignment.Center };
     private readonly Border _summaryBar;
     private readonly ComboBox _startSurfacePicker = SettingPicker();
@@ -81,6 +84,9 @@ public sealed class ViewerPanel : UserControl, IDisposable
     private int? _configurationIndex;
     private int _refreshGeneration;
 
+    private int DefaultRayCount => _presentationMode == ViewerPresentationMode.SolidModel ? 21 : 7;
+    private int DefaultLineWidthIndex => _presentationMode == ViewerPresentationMode.SolidModel ? 0 : 1;
+
     public ViewerPanel(
         IVisualizationService visualization,
         IWorkspaceEventStream events,
@@ -101,7 +107,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
             ? "Viewer2DConfigurationPicker" : "Viewer3DConfigurationPicker";
         _scene = new OpticSceneControl
         {
-            MinHeight = 240,
+            MinHeight = presentationMode == ViewerPresentationMode.SolidModel ? 160 : 240,
             ViewMode = dimension == SceneDimension.TwoDimensional
                 ? OpticSceneViewMode.TwoDimensional
                 : OpticSceneViewMode.ThreeDimensional,
@@ -112,6 +118,8 @@ public sealed class ViewerPanel : UserControl, IDisposable
                 ? OpticSceneRenderMode.Solid : OpticSceneRenderMode.Wireframe,
             HighlightedSurfaceNumber = surfaceSelection.SelectedSurfaceNumber
         };
+        _scene.ViewOrientationChanged += OnViewOrientationChanged;
+        InitializeImageExport();
 
         RefreshSelectorOptions(preserveSelection: false);
         _colorModePicker.ItemsSource = new[] { "视场 #", "波长 #" };
@@ -119,7 +127,8 @@ public sealed class ViewerPanel : UserControl, IDisposable
         _scalePicker.ItemsSource = new[] { "启用", "关闭" };
         _scalePicker.SelectedIndex = 0;
         _lineWidthPicker.ItemsSource = new[] { "细", "标准", "粗" };
-        _lineWidthPicker.SelectedIndex = 1;
+        _lineWidthPicker.SelectedIndex = DefaultLineWidthIndex;
+        _rayCount.Value = DefaultRayCount;
         _deleteVignetted.IsChecked = true;
         _staleLayoutBanner = new Border
         {
@@ -200,6 +209,8 @@ public sealed class ViewerPanel : UserControl, IDisposable
         }
 
         _disposed = true;
+        UpdateImageExportButton();
+        _scene.ViewOrientationChanged -= OnViewOrientationChanged;
         _events.Changed -= OnWorkspaceChanged;
         if (_nonSequentialAnalysis is not null)
         {
@@ -323,7 +334,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
 
         var fitView = CompactButton("maximize-2", "适配窗口");
         fitView.Click += (_, _) => _scene.FitView();
-        var presetToolbar = Toolbar(
+        var presetToolbar = _presentationMode == ViewerPresentationMode.SolidModel ? BuildSolidViewPresetToolbar() : Toolbar(
             new Control[]
             {
                 fitView,
@@ -337,17 +348,66 @@ public sealed class ViewerPanel : UserControl, IDisposable
             },
             HorizontalAlignment.Center,
             VerticalAlignment.Bottom);
-        return ThemeChrome.WrapWithDecoration(
-            SceneWithOverlay(
-                _scene,
-                new ViewerToolbarLayout
-                {
-                    VerticalAlignment = VerticalAlignment.Top,
-                    Children = { BuildSettingsOverlay(), topToolbar }
-                },
-                presetToolbar,
-                _staleLayoutBanner),
-            ThemeChromeRole.Viewport);
+        var topOverlay = new ViewerToolbarLayout
+        {
+            VerticalAlignment = VerticalAlignment.Top,
+            Children = { BuildSettingsOverlay(), topToolbar }
+        };
+        var sceneContent = SceneWithOverlay(_scene, _presentationMode == ViewerPresentationMode.SolidModel
+            ? [topOverlay, _staleLayoutBanner]
+            : [topOverlay, presetToolbar, _staleLayoutBanner]);
+        if (_presentationMode != ViewerPresentationMode.SolidModel)
+            return ThemeChrome.WrapWithDecoration(sceneContent, ThemeChromeRole.Viewport);
+
+        var workspace = new Grid { RowDefinitions = new RowDefinitions("*,Auto,Auto") };
+        workspace.Children.Add(sceneContent);
+        Grid.SetRow(presetToolbar, 1);
+        workspace.Children.Add(presetToolbar);
+        _glassLegend.Padding = new Thickness(10, 4);
+        _glassLegend.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SceneBackground);
+        _glassLegend.Child = new ScrollViewer
+        {
+            MaxHeight = 96,
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
+            VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+            Content = _glassLegendItems
+        };
+        AutomationProperties.SetName(_glassLegend, UiLocalization.Text("玻璃材质图例"));
+        ToolTip.SetTip(_glassLegend, UiLocalization.Text("颜色用于区分玻璃型号"));
+        Grid.SetRow(_glassLegend, 2);
+        workspace.Children.Add(_glassLegend);
+        return ThemeChrome.WrapWithDecoration(workspace, ThemeChromeRole.Viewport);
+    }
+
+    private void UpdateGlassLegend()
+    {
+        _glassLegendItems.Children.Clear();
+        var entries = _dimension == SceneDimension.ThreeDimensional ? _scene.GlassMaterials : [];
+        foreach (var entry in entries)
+        {
+            var swatch = new Border
+            {
+                Width = 16, Height = 12, CornerRadius = new CornerRadius(2),
+                Background = new SolidColorBrush(entry.Color, 0.35),
+                BorderBrush = new SolidColorBrush(entry.Color), BorderThickness = new Thickness(1),
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            var label = new TextBlock
+            {
+                Text = entry.Material, MaxWidth = 200, TextWrapping = TextWrapping.Wrap,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            label.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.PlotText);
+            var item = new StackPanel
+            {
+                Orientation = Orientation.Horizontal, Spacing = 7, Margin = new Thickness(0, 3, 18, 3),
+                Children = { swatch, label }
+            };
+            AutomationProperties.SetName(item, entry.Material);
+            ToolTip.SetTip(item, entry.Material);
+            _glassLegendItems.Children.Add(item);
+        }
+        _glassLegend.IsVisible = entries.Count > 0;
     }
 
     private Control BuildSettingsOverlay()
@@ -370,7 +430,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
         {
             Orientation = Orientation.Horizontal,
             Spacing = 3,
-            Children = { toggle, synchronize }
+            Children = { toggle, synchronize, _exportImageButton }
         };
         AutomationProperties.SetName(_configurationPicker, "结构");
         ToolTip.SetTip(_configurationPicker, _dimension == SceneDimension.TwoDimensional
@@ -387,7 +447,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
             QueueRefresh(TimeSpan.Zero);
         };
         header.Children.Add(_configurationPicker);
-        var container = new StackPanel { Children = { header, settingsContent } };
+        var container = new StackPanel { Children = { header, settingsContent, _imageExportFeedback } };
         var card = SettingsPanelChrome.CreateCard(
             container,
             new Thickness(10),
@@ -529,7 +589,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
             _ => 1.25
         };
         _scene.RayLineWidth = _presentationMode == ViewerPresentationMode.SolidModel
-            ? lineWidth * 3.6
+            ? _lineWidthPicker.SelectedIndex switch { 0 => 0.7, 2 => 1.5, _ => 1.0 }
             : lineWidth;
         _summaryBar.IsVisible = _suppressFrame.IsChecked != true;
         _scene.ShowScaleBar = _scalePicker.SelectedIndex != 1 && _suppressFrame.IsChecked != true;
@@ -552,7 +612,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
             SelectedValue(_fieldPicker),
             wavelengthIndex,
             IncludeAllWavelengths: !wavelengthIndex.HasValue,
-            RayCount: (int)(_rayCount.Value ?? 7),
+            RayCount: (int)(_rayCount.Value ?? DefaultRayCount),
             LowerPupil: (double)(_lowerPupil.Value ?? -1),
             UpperPupil: (double)(_upperPupil.Value ?? 1),
             DeleteVignetted: _deleteVignetted.IsChecked == true,
@@ -617,13 +677,13 @@ public sealed class ViewerPanel : UserControl, IDisposable
         try
         {
             RefreshSelectorOptions(preserveSelection: false);
-            _rayCount.Value = 7;
+            _rayCount.Value = DefaultRayCount;
             _yStretch.Value = 1;
             _upperPupil.Value = 1;
             _lowerPupil.Value = -1;
             _colorModePicker.SelectedIndex = 0;
             _scalePicker.SelectedIndex = 0;
-            _lineWidthPicker.SelectedIndex = 1;
+            _lineWidthPicker.SelectedIndex = DefaultLineWidthIndex;
             _suppressFrame.IsChecked = false;
             _rayArrows.IsChecked = false;
             _deleteVignetted.IsChecked = true;
@@ -657,6 +717,84 @@ public sealed class ViewerPanel : UserControl, IDisposable
         return button;
     }
 
+    private Control BuildSolidViewPresetToolbar()
+    {
+        var items = new WrapPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Center };
+        var fitIcon = new LocalIcon { IconName = "maximize-2", Width = 26, Height = 24 };
+        fitIcon.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.TextPrimary);
+        var fit = new Button
+        {
+            Name = "SolidModelFitView", MinWidth = 64, MinHeight = 56, Height = double.NaN, Margin = new Thickness(3),
+            Padding = new Thickness(8, 4), Content = CaptionedIcon(fitIcon, "适配")
+        };
+        AutomationProperties.SetName(fit, UiLocalization.Text("适配窗口"));
+        ToolTip.SetTip(fit, UiLocalization.Text("适配窗口"));
+        fit.Click += (_, _) => _scene.FitView();
+        items.Children.Add(fit);
+        foreach (var (face, title, preset) in new[]
+        {
+            (ViewCubeFace.Front, "前视图", OpticSceneViewPreset.Front),
+            (ViewCubeFace.Back, "后视图", OpticSceneViewPreset.Back),
+            (ViewCubeFace.Left, "左视图", OpticSceneViewPreset.Left),
+            (ViewCubeFace.Right, "右视图", OpticSceneViewPreset.Right),
+            (ViewCubeFace.Top, "俯视图", OpticSceneViewPreset.Top),
+            (ViewCubeFace.Bottom, "仰视图", OpticSceneViewPreset.Bottom),
+            (ViewCubeFace.Isometric, "等轴测视图", OpticSceneViewPreset.Isometric)
+        })
+        {
+            var button = new ToggleButton
+            {
+                Name = $"SolidModelView{preset}", MinWidth = 64, MinHeight = 56, Height = double.NaN,
+                Margin = new Thickness(3), Padding = new Thickness(8, 4), BorderThickness = new Thickness(2),
+                Content = CaptionedIcon(new ViewCubeIcon(face) { Width = 26, Height = 24, EmphasizeFace = true }, title)
+            };
+            button.Styles.Add(new Style(selector => selector.OfType<ToggleButton>().PropertyEquals(ToggleButton.IsCheckedProperty, true))
+            {
+                Setters =
+                {
+                    new Setter(ToggleButton.BackgroundProperty, new Avalonia.Markup.Xaml.MarkupExtensions.DynamicResourceExtension(ThemeResourceBindings.SelectionBackground)),
+                    new Setter(ToggleButton.BorderBrushProperty, new Avalonia.Markup.Xaml.MarkupExtensions.DynamicResourceExtension(ThemeResourceBindings.TextAccent)),
+                    new Setter(ToggleButton.ForegroundProperty, new Avalonia.Markup.Xaml.MarkupExtensions.DynamicResourceExtension(ThemeResourceBindings.TextPrimary))
+                }
+            });
+            AutomationProperties.SetName(button, UiLocalization.Text(title));
+            ToolTip.SetTip(button, UiLocalization.Text(title));
+            button.Click += (_, _) => _scene.SetViewPreset(preset);
+            _viewPresetButtons.Add(preset, button);
+            items.Children.Add(button);
+        }
+        UpdateViewPresetSelection();
+        var toolbar = new Border
+        {
+            Name = "SolidModelViewPresets", Padding = new Thickness(7, 5), Child = items
+        };
+        toolbar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        return toolbar;
+    }
+
+    private static Control CaptionedIcon(Control icon, string title)
+    {
+        icon.HorizontalAlignment = HorizontalAlignment.Center;
+        return new StackPanel
+        {
+            Spacing = 2, HorizontalAlignment = HorizontalAlignment.Center,
+            Children =
+            {
+                icon,
+                new TextBlock { Text = UiLocalization.Text(title), FontWeight = FontWeight.SemiBold,
+                    HorizontalAlignment = HorizontalAlignment.Center }
+            }
+        };
+    }
+
+    private void OnViewOrientationChanged(object? sender, EventArgs args) => UpdateViewPresetSelection();
+
+    private void UpdateViewPresetSelection()
+    {
+        foreach (var (preset, button) in _viewPresetButtons)
+            button.IsChecked = _scene.ActiveViewPreset == preset;
+    }
+
     private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args)
     {
         Dispatcher.UIThread.Post(() =>
@@ -672,6 +810,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
             if (args.Category == WorkspaceChangeCategory.NonSequential)
                 _showStaleLayoutRays.IsChecked = false;
             RefreshSelectorOptions(preserveSelection: !args.FileSwitched);
+            UpdateImageExportButton();
             if (_locked) return;
             ClearScene();
             QueueRefresh(TimeSpan.FromMilliseconds(120));
@@ -681,6 +820,9 @@ public sealed class ViewerPanel : UserControl, IDisposable
     private void ClearScene()
     {
         _scene.Scene = null;
+        _isRefreshing = false;
+        UpdateImageExportButton();
+        UpdateGlassLegend();
         _scene.ResetView();
         _scene.InvalidateVisual();
         _summary.Text = string.Empty;
@@ -713,6 +855,8 @@ public sealed class ViewerPanel : UserControl, IDisposable
         _refreshCancellation?.Cancel();
         _refreshCancellation?.Dispose();
         _refreshCancellation = new CancellationTokenSource();
+        _isRefreshing = true;
+        UpdateImageExportButton();
         _ = RefreshAsync(delay, _refreshCancellation.Token, ++_refreshGeneration);
     }
 
@@ -741,6 +885,7 @@ public sealed class ViewerPanel : UserControl, IDisposable
                 if (_disposed || cancellationToken.IsCancellationRequested || generation != _refreshGeneration
                     || scene.SourceRevision != _events.Revision) return;
                 _scene.Scene = scene;
+                UpdateGlassLegend();
                 _scene.InvalidateVisual();
                 var nonSequential = scene.ThreeDimensional is { } threeDimensional
                     && threeDimensional.Surfaces.Any(surface =>
@@ -783,6 +928,16 @@ public sealed class ViewerPanel : UserControl, IDisposable
                     _summary.Text = $"视图更新失败：{exception.Message}";
                 }
             });
+        }
+        finally
+        {
+            if (!_disposed)
+                await Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    if (_disposed || generation != _refreshGeneration) return;
+                    _isRefreshing = false;
+                    UpdateImageExportButton();
+                });
         }
     }
 

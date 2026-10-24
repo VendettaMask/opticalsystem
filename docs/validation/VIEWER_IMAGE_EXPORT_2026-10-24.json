@@ -1,0 +1,114 @@
+{
+  "date": "2026-10-24",
+  "scope": "PNG image export for 2D, 3D Layout and Solid Model viewers",
+  "baseCommit": "221b691f3d519b3fde8b43cc0d44b42439ced223",
+  "implemented": {
+    "entry": "Neutral camera button beside settings and refresh in all three viewers",
+    "format": "PNG at current viewport size and live render scaling",
+    "content": [
+      "Actual current scene/camera, pan/zoom, ray visibility, render mode and cutaway",
+      "Orientation indicators and visible scale bar",
+      "Complete material legend, independent of UI scrolling",
+      "Visible metadata with wrapping; preserve displayed stale-ray warning"
+    ],
+    "excluded": [
+      "Settings and export feedback",
+      "Toolbar and view-preset controls",
+      "Keyboard focus decoration"
+    ],
+    "snapshot": "Render image and suggested filename synchronously before awaiting the save picker; file switches do not replace pending content",
+    "storage": "BoundedApplicationFile.WriteAtomic using existing MaximumImageDataBytes; local file picker, PNG MIME/filter, overwrite prompt; cancel never writes",
+    "availability": "Only export action disabled for no scene, refresh, outdated source revision, pending export or disposed viewer; localized tooltip and accessibility explanation; success/failure feedback is separate from optical metadata"
+  },
+  "builds": {
+    "Debug": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "defaultAppOutput": true
+    },
+    "Release": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "defaultAppOutput": true
+    }
+  },
+  "tests": {
+    "distinctPassed": 26,
+    "failed": 0,
+    "skipped": 0,
+    "groups": {
+      "ViewerImageExportTests content/picker/state": 15,
+      "Additional 2x pixel export checks": 2,
+      "ViewerConfigurationTests toolbar regressions": 9
+    },
+    "newCases": 17,
+    "fullSuiteRun": false,
+    "renderProcess": "Independent headless Skia process with VIEWER_EXPORT/VIEWER_CONFIGURATION capture variables. Pixel cases follow existing opt-in image-test convention.",
+    "coverage": [
+      "Six wide/narrow actual viewport exports, ray visibility, pan/zoom, opaque/transparent/cutaway modes",
+      "PNG encoding/decoding and real button saves for all three views",
+      "Cancellation preserves existing file bytes",
+      "Invalid target reports failure without replacing scene metadata",
+      "Pending dialog snapshot survives a locked file switch",
+      "Empty, refreshing and locked outdated views cannot export; enabled state clears old reasons",
+      "Full synthetic 24-material legend extends below screen viewport; last swatch verified in encoded PNG",
+      "Localized tooltips and accessible names in Chinese, English and Japanese",
+      "Nine existing three-view toolbar cases at 360/600/1000 DIP widths",
+      "1x/2x dimensions and footer ink for 2D and Solid Model"
+    ],
+    "reentryCheck": "Final targeted repeat of pending-dialog test passed; ignored duplicate triggers preserve the first export busy state. Not added to distinct count."
+  },
+  "priorStages": [
+    {
+      "result": "Initial test compilation failed",
+      "cause": "Fixture checked IsEnabled on StyledElement instead of Control",
+      "resolution": "Assert the actual parent Control before testing its enabled state"
+    },
+    {
+      "result": "14/15 image tests passed; long-legend color check failed",
+      "cause": "Test assumed raw CopyPixels BGRA channel order",
+      "resolution": "Decode actual PNG with Skia and compare typed RGBA color; final 15/15 passed",
+      "countedInFinal": false
+    }
+  ],
+  "renderEvidence": {
+    "images": 33,
+    "dpi": "96 DIP and explicit 2x pixel density; live UI normally supplies TopLevel.RenderScaling",
+    "reviewed": [
+      "2D narrow/wide PNG",
+      "Solid Model perspective PNG",
+      "Complete 24-material legend PNG",
+      "2x 2D and Solid Model PNG"
+    ],
+    "qualification": "Synthetic material fixture validates display/legend completeness only; 2x offscreen export is not native high-DPI interaction acceptance"
+  },
+  "sourceHashes": {
+    "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs": "6e006811bf7d66e59333d31b9507eee66817ab9e22c25f4eeb8a4a59f286c329",
+    "src/OpticalSystemDesign.App/Panels/ViewerPanel.Export.cs": "ae2d39429bb1464da39d8561887448d8fd32cd8254e651c8f8a9310778d5916f",
+    "src/OpticalSystemDesign.App/Controls/OpticSceneControl.cs": "002aba687fd460bda6382113c0fdbab4a69b7f31d42c4eb7ce27e678c246eb6e",
+    "src/OpticalSystemDesign.App/Services/UiLocalization.cs": "1190d77f1c05c6dbf1314657344a0ceba191426de599041ab793c56b599ef037",
+    "tests/OpticalSystemDesign.Tests/ViewerImageExportTests.cs": "a7d0bd5739d8a563a5f165f034c1f016c055a4c87fb1f3fe5a79161c15688fe1",
+    "AGENTS.md": "7b217a93927bfe0f77d32a315bb73af4b0dea1840c5a2b28d68a8861525a189b",
+    "docs/UI_DESIGN_SPEC.md": "ac7814bed356dca4945770e1cfee903c71157afd319abeb058e01fe734a0ecc9",
+    "docs/USER_GUIDE.md": "799cd02742e2b326dca98fbad70a5a01cddf2e7f5c11ff5ce15a98f271848e31"
+  },
+  "evidence": {
+    "path": "validation/rechecks/2026-10-24/viewer-image-export-evidence.zip",
+    "sha256": "dfc84b19fb80a1de1c7edea8cbc7d6f2fe2c15743f33c19c7d7263c6122c2092"
+  },
+  "limits": [
+    "No full-suite, new optical accuracy or performance certification",
+    "No native save-dialog/high-DPI system acceptance (picker interactions exercised with a storage-provider test double)",
+    "No push or public installer/DMG update"
+  ],
+  "documentation": {
+    "strictPassed": true,
+    "documents": 1076,
+    "brokenLinks": 0,
+    "guideBrokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0
+  }
+}

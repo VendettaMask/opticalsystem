@@ -1,11 +1,24 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Layout;
 
 namespace OpticalSystemDesign.App.Controls;
 
 internal sealed class OptionalSquarePlotHost : Decorator
 {
     private bool _isSquare;
+    private HorizontalAlignment _squareHorizontalAlignment = HorizontalAlignment.Center;
+
+    public HorizontalAlignment SquareHorizontalAlignment
+    {
+        get => _squareHorizontalAlignment;
+        set
+        {
+            if (_squareHorizontalAlignment == value) return;
+            _squareHorizontalAlignment = value;
+            InvalidateArrange();
+        }
+    }
 
     public bool IsSquare
     {
@@ -48,11 +61,12 @@ internal sealed class OptionalSquarePlotHost : Decorator
             return finalSize;
         }
 
-        Child.Arrange(SquareBounds(finalSize, IsSquare));
+        Child.Arrange(SquareBounds(finalSize, IsSquare, SquareHorizontalAlignment));
         return finalSize;
     }
 
-    internal static Rect SquareBounds(Size finalSize, bool isSquare)
+    internal static Rect SquareBounds(Size finalSize, bool isSquare,
+        HorizontalAlignment horizontalAlignment = HorizontalAlignment.Center)
     {
         if (!isSquare)
         {
@@ -61,7 +75,12 @@ internal sealed class OptionalSquarePlotHost : Decorator
 
         var side = Math.Min(finalSize.Width, finalSize.Height);
         return new Rect(
-            (finalSize.Width - side) / 2,
+            horizontalAlignment switch
+            {
+                HorizontalAlignment.Left => 0,
+                HorizontalAlignment.Right => finalSize.Width - side,
+                _ => (finalSize.Width - side) / 2
+            },
             (finalSize.Height - side) / 2,
             side,
             side);

@@ -1,0 +1,125 @@
+{
+  "date": "2026-10-24",
+  "scope": "Solid Model view preset button clarity and actual camera selection feedback",
+  "baseCommit": "221b691f3d519b3fde8b43cc0d44b42439ced223",
+  "implemented": {
+    "buttons": "Fit plus seven presets, visible localized captions with cube icons, native keyboard activation and focus",
+    "selectedState": "Camera yaw/pitch matches typed preset angles within 1e-6 radians; yaw comparison modulo 2π; button state is not the last clicked title",
+    "transitions": "Preset click/re-click and Home retain truthful selection; mouse/keyboard free rotation clears it; fit/pan preserve orientation",
+    "layout": "Dedicated wrapping footer outside the model viewport, above glass material legend; 2 DIP preset borders reserve space; 64 DIP minimum button width, 56 DIP minimum adaptive height; Solid Model viewport minimum reduced to 160 DIP for short windows",
+    "themes": "Selected fill, border and text use theme resources; unchanged neutral Fit role"
+  },
+  "preserved": [
+    "Separate 3D Layout legacy icon toolbar and orientation graphics",
+    "Existing optical data, glass material identification colors, ray density/width and directed ray metadata",
+    "Same scene DTO and document revision through camera controls"
+  ],
+  "builds": {
+    "Debug": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "defaultAppOutput": true
+    },
+    "Release": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "defaultAppOutput": true
+    }
+  },
+  "tests": {
+    "distinctPassed": 10,
+    "failed": 0,
+    "skipped": 0,
+    "groups": {
+      "Real Skia Viewer3DGeometryTests focused": 9,
+      "Existing UI theme-resource contract": 1
+    },
+    "newCases": 3,
+    "fullSuiteRun": false,
+    "repeatPolicy": "Initial 9-case run plus final 3-case assertion cleanup and actual-window-font/preview checks are repeated cases, not additional distinct passes.",
+    "fontChecks": "Label.FontSize equals actual Window.FontSize for Chinese/English 13 DIP and Japanese 18 DIP.",
+    "interactionChecks": [
+      "Real click and re-click on all seven presets",
+      "Space key activation",
+      "Free mouse rotation and keyboard rotation clear selection",
+      "Home restores Isometric",
+      "Fit and Shift-key pan retain selected direction",
+      "Toolbar wraps at 400 DIP; viewport, toolbar and legend do not overlap",
+      "Accessible button names equal visible labels"
+    ]
+  },
+  "stages": [
+    {
+      "result": "9/9 initial UI tests passed",
+      "note": "One xUnit2031 analyzer warning on Assert.Single(Where(...))"
+    },
+    {
+      "result": "3/3 focused UI recheck passed",
+      "note": "Analyzer warning removed with equivalent predicate overload"
+    },
+    {
+      "result": "1/1 Japanese and 2/2 Chinese/English actual-font checks passed",
+      "note": "Use explicit 13/18 DIP window font and assert actual caption size"
+    },
+    {
+      "result": "1/1 Chinese native-toolbar preview capture passed",
+      "note": "Repeated case only; native control render, no edited screenshots"
+    }
+  ],
+  "renders": {
+    "archivedImages": 61,
+    "dpi": 96,
+    "reviewed": [
+      "Chinese Light wide toolbar and full viewer",
+      "English Dark 400 DIP viewer",
+      "Japanese Light 400 DIP with actual 18 DIP captions",
+      "Native Chinese toolbar-only render"
+    ],
+    "finalPreviews": [
+      "captures-final-preview/view-buttons-Light-zh-CN-1100-toolbar.png",
+      "captures-final-preview/view-buttons-Light-zh-CN-1100-initial.png",
+      "captures-font-verified/view-buttons-Dark-en-US-400-initial.png",
+      "captures-font-verified/view-buttons-Light-ja-JP-400-initial.png"
+    ]
+  },
+  "unchanged3DLayout": [
+    {
+      "file": "viewer3d-OpticalLayout-Light-zh-CN.png",
+      "sha256": "509bb0a1c26ff31d363bdb636f8d84fc7773005f1aa00c3a5318311eead8ada7",
+      "byteIdentical": true
+    },
+    {
+      "file": "viewer3d-OpticalLayout-Dark-en-US.png",
+      "sha256": "8b7f8fe5ea445a9fda7c43c2771f3b65e8bda8ebf88138594e7800169d660f76",
+      "byteIdentical": true
+    }
+  ],
+  "sourceHashes": {
+    "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs": "eb9231aace40cd15ff1c3015c35565b68a2334367251fb1486e6bff836b1bae7",
+    "src/OpticalSystemDesign.App/Controls/OpticSceneControl.cs": "06734f9865a22a4c2ba9618cbf2836cd935074bffbee83fb60e1074da8b4fc5a",
+    "src/OpticalSystemDesign.App/Services/UiLocalization.cs": "eeabe3970a3eef7adc397b4c7458f940e4197a2bc35780dffb4f549a1eeb3ac2",
+    "tests/OpticalSystemDesign.Tests/Viewer3DGeometryTests.cs": "f63023bacce9c05b36a875426bf8acd5cd9d470a9a65d46073927522715b291d",
+    "AGENTS.md": "8d69608fa6f9de19fcaf12f273cbd7d7e2085b09b091b79f0cb449c27061d495",
+    "docs/UI_DESIGN_SPEC.md": "1fc5b192f17e297ef3b4e630b6519efae5bc74f6e129c69181c8edd91641e505",
+    "docs/USER_GUIDE.md": "44dc5df86a27084b560b862234dd83837f349f0667e23afd0a073915106f32eb"
+  },
+  "evidence": {
+    "path": "validation/rechecks/2026-10-24/view-preset-labels-evidence.zip",
+    "sha256": "719dfe91f195fff70d70d520d98e6d59b64e3564944a60707e42477bcca61599"
+  },
+  "limits": [
+    "No full-suite run or optical accuracy/performance certification",
+    "Headless Skia checks, not native GUI or high-DPI acceptance",
+    "No push or public package update"
+  ],
+  "documentation": {
+    "strictPassed": true,
+    "documents": 1076,
+    "brokenLinks": 0,
+    "guideBrokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0
+  }
+}

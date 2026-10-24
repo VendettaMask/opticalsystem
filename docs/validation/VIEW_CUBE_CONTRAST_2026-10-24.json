@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-24",
+  "scope": "Strengthen indicated face colors in Solid Model preset cube icons",
+  "baseCommit": "221b691f3d519b3fde8b43cc0d44b42439ced223",
+  "change": "Opt in to theme TextAccent for cube face emphasis in Solid Model labelled presets. Neutral faces, outline, button selection and camera behavior remain unchanged; other ViewCubeIcon callers retain SelectionBackground by default.",
+  "builds": {
+    "Debug": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "defaultAppOutput": true
+    },
+    "Release": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "defaultAppOutput": true
+    }
+  },
+  "tests": {
+    "distinctPassed": 3,
+    "failed": 0,
+    "skipped": 0,
+    "newCases": 0,
+    "fullSuiteRun": false,
+    "filter": "FullyQualifiedName~Viewer3DGeometryTests.SolidViewButtonsShowLabelsAndTrackTheActualCamera"
+  },
+  "verification": {
+    "renderer": "Real Avalonia Skia offscreen rendering",
+    "cases": [
+      "Light zh-CN 1100 DIP width / 13 DIP font",
+      "Dark en-US 400 DIP width / 13 DIP font",
+      "Light ja-JP 400 DIP width / actual 18 DIP font"
+    ],
+    "interaction": "Existing real click and re-click of all seven presets, Space activation, free mouse/keyboard rotation, reset, fit/pan, wrapping and camera selection assertions; scene DTO and prescription revision remain unchanged.",
+    "captures": 12,
+    "reviewed": [
+      "view-buttons-Light-zh-CN-1100-toolbar.png",
+      "view-buttons-Dark-en-US-400-toolbar.png"
+    ]
+  },
+  "scopeLimits": [
+    "No new optical computation or camera behavior",
+    "No full-suite or native high-DPI acceptance",
+    "No commit, push or public package update"
+  ],
+  "sourceHashes": {
+    "src/OpticalSystemDesign.App/Controls/ViewCubeIcon.cs": "9a7a624dbe3fee6de2a2e7d798933bc6df78df739ca66198eedec4269e300784",
+    "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs": "e60e5bb0d71209e4044ff443c76138e8873486d2fa7756162b06859eb8872db5",
+    "tests/OpticalSystemDesign.Tests/Viewer3DGeometryTests.cs": "f63023bacce9c05b36a875426bf8acd5cd9d470a9a65d46073927522715b291d",
+    "AGENTS.md": "8b2bb2e5c83a2b7905deec1f0431b6d79bb4a29bbeda7d0579a2c5b41d20fdef",
+    "docs/UI_DESIGN_SPEC.md": "bdbc64e31e8f236a619dce8e34da4ee27ff595ef7fd6c7b637fc3cb24224ebcd",
+    "docs/USER_GUIDE.md": "1588f17ea15ce50b464b47cafc71f199c707376c33254e1052544db604636f6c"
+  },
+  "evidence": {
+    "path": "validation/rechecks/2026-10-24/view-cube-contrast-evidence.zip",
+    "sha256": "3b30ba5004839cff57608f0876b82ab74c5a836d7ccb57da00cbc7f5b42865e7"
+  },
+  "documentation": {
+    "strictPassed": true,
+    "documents": 1076,
+    "brokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0
+  }
+}

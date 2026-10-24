@@ -1,6 +1,10 @@
 using Avalonia;
+using System.Reflection;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Automation;
 using Avalonia.Headless;
+using Avalonia.Input;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -138,6 +142,7 @@ public sealed class Viewer3DGeometryTests
     [InlineData(ViewerPresentationMode.OpticalLayout, "Light", "zh-CN")]
     [InlineData(ViewerPresentationMode.SolidModel, "Light", "zh-CN")]
     [InlineData(ViewerPresentationMode.OpticalLayout, "Dark", "en-US")]
+    [InlineData(ViewerPresentationMode.SolidModel, "Dark", "en-US")]
     public async Task LayoutIsWireframeAndShadingControlsBelongToSolidModel(ViewerPresentationMode mode, string theme, string language)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(Viewer3DGeometryTests));
@@ -155,26 +160,143 @@ public sealed class Viewer3DGeometryTests
                 var scene = viewer.GetVisualDescendants().OfType<OpticSceneControl>().Single();
                 for (var i = 0; i < 200 && scene.Scene is null; i++) { Tick(window); await Task.Delay(20); }
                 Assert.NotNull(scene.Scene?.ThreeDimensional);
+                Tick(window); // The async scene update adds legend children before their next layout pass.
                 var modes = viewer.GetVisualDescendants().OfType<ComboBox>().Single(c => c.Name == "Viewer3DRenderMode");
                 var cutaway = viewer.GetVisualDescendants().OfType<CheckBox>().Single(c => c.Name == "Viewer3DCutaway");
                 var solid = mode == ViewerPresentationMode.SolidModel;
                 Assert.Equal(solid, modes.IsVisible); Assert.Equal(solid, cutaway.IsVisible);
                 Assert.Equal(solid ? OpticSceneRenderMode.Solid : OpticSceneRenderMode.Wireframe, scene.RenderMode);
+                var request = (VisualizationRequestDto)typeof(ViewerPanel)
+                    .GetMethod("CreateRequest", BindingFlags.Instance | BindingFlags.NonPublic)!.Invoke(viewer, null)!;
+                Assert.Equal(solid ? 21 : 7, request.RayCount);
+                Assert.Equal(solid ? 0.7 : 1.25, scene.RayLineWidth);
+                if (solid)
+                {
+                    var sparse = await app.Visualization.BuildSceneAsync(request with { RayCount = 7 });
+                    Assert.True(scene.Scene!.ThreeDimensional!.Rays.Count > sparse.ThreeDimensional!.Rays.Count);
+                    Assert.Equal(sparse.ThreeDimensional.LensElements.Select(e => (e.FrontSurfaceNumber, e.BackSurfaceNumber, e.Material)),
+                        scene.Scene.ThreeDimensional.LensElements.Select(e => (e.FrontSurfaceNumber, e.BackSurfaceNumber, e.Material)));
+                    var directory = Environment.GetEnvironmentVariable(CaptureDirectory);
+                    if (!string.IsNullOrWhiteSpace(directory))
+                    {
+                        Directory.CreateDirectory(directory);
+                        File.WriteAllText(Path.Combine(directory, $"ray-count-{theme}-{language}.json"),
+                            System.Text.Json.JsonSerializer.Serialize(new
+                            {
+                                previousSampling = 7, sampling = request.RayCount,
+                                previousDisplayedRays = sparse.ThreeDimensional.Rays.Count,
+                                displayedRays = scene.Scene.ThreeDimensional.Rays.Count,
+                                widthDip = scene.RayLineWidth
+                            }));
+                    }
+                }
+                var legends = viewer.GetVisualDescendants().OfType<Border>()
+                    .Where(border => border.Name == "Viewer3DGlassLegend").ToArray();
+                if (solid)
+                {
+                    var legend = Assert.Single(legends);
+                    Assert.True(legend.IsVisible);
+                    Assert.NotEmpty(scene.GlassMaterials);
+                    Assert.Equal(scene.Scene!.ThreeDimensional!.LensElements.Select(e => e.Material.Trim())
+                        .Where(name => name.Length > 0 && !name.Equals("Air", StringComparison.OrdinalIgnoreCase))
+                        .Distinct(StringComparer.OrdinalIgnoreCase).Order(StringComparer.OrdinalIgnoreCase),
+                        legend.GetVisualDescendants().OfType<TextBlock>().Select(text => text.Text));
+                    var sceneBounds = new Rect(scene.Bounds.Size).TransformToAABB(scene.TransformToVisual(window)!.Value);
+                    var legendBounds = new Rect(legend.Bounds.Size).TransformToAABB(legend.TransformToVisual(window)!.Value);
+                    Assert.True(sceneBounds.Bottom <= legendBounds.Top);
+                }
+                else
+                {
+                    Assert.Empty(legends);
+                    Assert.Empty(scene.GlassMaterials);
+                    Assert.All(scene.Scene!.ThreeDimensional!.LensElements, e => Assert.Null(scene.GlassColorFor(e.Material)));
+                }
                 Capture(window, $"viewer3d-{mode}-{theme}-{language}.png");
                 if (solid)
                 {
                     modes.SelectedIndex = 1; Tick(window);
                     Assert.Equal(OpticSceneRenderMode.Transparent, scene.RenderMode);
-                    Capture(window, "viewer3d-solid-transparent.png");
+                    Capture(window, $"viewer3d-solid-transparent-{theme}-{language}.png");
                     cutaway.IsChecked = true; Tick(window);
                     Assert.True(scene.CutawayEnabled);
-                    Capture(window, "viewer3d-solid-cutaway.png");
+                    Capture(window, $"viewer3d-solid-cutaway-{theme}-{language}.png");
                     modes.SelectedIndex = 2; Tick(window);
                     Assert.Equal(OpticSceneRenderMode.Wireframe, scene.RenderMode);
+                    Assert.NotEmpty(scene.GlassMaterials);
+                    Capture(window, $"viewer3d-solid-wireframe-{theme}-{language}.png");
+                    window.Width = 400; window.Height = 460; Tick(window);
+                    var legend = Assert.Single(legends);
+                    Assert.True(legend.IsVisible);
+                    var legendBounds = new Rect(legend.Bounds.Size).TransformToAABB(legend.TransformToVisual(window)!.Value);
+                    Assert.InRange(legendBounds.Right, 0, 400);
+                    Assert.InRange(legendBounds.Bottom, 0, 460);
+                    foreach (var item in legend.GetVisualDescendants().OfType<TextBlock>())
+                        Assert.True(item.Bounds.Width > 0);
+                    Capture(window, $"viewer3d-solid-narrow-{theme}-{language}.png");
                 }
+                var lineWidth = (ComboBox)typeof(ViewerPanel)
+                    .GetField("_lineWidthPicker", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(viewer)!;
+                var widths = solid ? new[] { 0.7, 1.0, 1.5 } : new[] { 0.85, 1.25, 1.8 };
+                for (var index = 0; index < widths.Length; index++)
+                {
+                    lineWidth.SelectedIndex = index;
+                    Assert.Equal(widths[index], scene.RayLineWidth);
+                }
+                var rayCount = (NumericUpDown)typeof(ViewerPanel)
+                    .GetField("_rayCount", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(viewer)!;
+                rayCount.Value = 9;
+                typeof(ViewerPanel).GetMethod("ResetSettings", BindingFlags.Instance | BindingFlags.NonPublic)!.Invoke(viewer, null);
+                Assert.Equal(solid ? 21 : 7, (int)rayCount.Value!.Value);
+                Assert.Equal(solid ? 0.7 : 1.25, scene.RayLineWidth);
             }
             finally { window.Close(); UiLocalization.Apply(oldLanguage); }
             return true;
+        }, CancellationToken.None);
+    }
+
+    [Fact]
+    public async Task GlassColorsFollowMaterialIdentityAndClearOnSceneOrStyleChanges()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(Viewer3DGeometryTests));
+        await session.Dispatch(() =>
+        {
+            using var app = WorkbenchApplication.Create();
+            var source = WorkbenchMapper.ToScene3Dto(Build(Zoom()));
+            var element = source.LensElements[0];
+            var elements = new[]
+            {
+                element with { Material = "N-BK7", RefractiveIndex = 1.5 },
+                element with { Material = " n-bk7 ", RefractiveIndex = 1.8 },
+                element with { Material = "F2", RefractiveIndex = 1.5 },
+                element with { Material = "Air" }, element with { Material = " " }
+            };
+            var dto = new SceneDto(0, SceneDimension.ThreeDimensional, null,
+                source with { LensElements = elements }, app.Documents.GetSnapshot());
+            var control = new OpticSceneControl
+            {
+                Scene = dto, ViewMode = OpticSceneViewMode.ThreeDimensional,
+                VisualStyle = OpticSceneVisualStyle.SolidModel
+            };
+            Assert.Equal(2, control.GlassMaterials.Count);
+            var bk7 = control.GlassColorFor("N-BK7");
+            var f2 = control.GlassColorFor("F2");
+            Assert.NotNull(bk7); Assert.NotEqual(bk7, f2);
+            Assert.Equal(bk7, control.GlassColorFor(" n-bk7 "));
+            Assert.Null(control.GlassColorFor("Air")); Assert.Null(control.GlassColorFor(" "));
+            control.Scene = dto with { ThreeDimensional = source with { LensElements = elements.Reverse().ToArray() } };
+            Assert.Equal(bk7, control.GlassColorFor("N-BK7")); Assert.Equal(f2, control.GlassColorFor("F2"));
+            control.VisualStyle = OpticSceneVisualStyle.OpticalLayout;
+            Assert.Empty(control.GlassMaterials); Assert.Null(control.GlassColorFor("F2"));
+            control.VisualStyle = OpticSceneVisualStyle.SolidModel;
+            Assert.Equal(f2, control.GlassColorFor("F2"));
+            control.Scene = dto with { ThreeDimensional = source with
+            {
+                LensElements = Enumerable.Range(0, 24).Select(index => element with { Material = $"Glass {index:00}" }).ToArray()
+            } };
+            Assert.Equal(24, control.GlassMaterials.Select(entry => entry.Color).Distinct().Count());
+            Assert.DoesNotContain(control.GlassMaterials, entry => entry.Material == "F2");
+            control.Scene = null;
+            Assert.Empty(control.GlassMaterials); Assert.Null(control.GlassColorFor("F2"));
         }, CancellationToken.None);
     }
 
@@ -200,6 +322,188 @@ public sealed class Viewer3DGeometryTests
             Assert.True(cap.Max(p => p.Y) - cap.Min(p => p.Y) > .01);
             Assert.True(cap.Max(p => p.Z) - cap.Min(p => p.Z) > .01);
         });
+    }
+
+    [Theory]
+    [InlineData("Light", 13)]
+    [InlineData("Dark", 18)]
+    public async Task SolidModelAxesTrackPresetsMouseAndKeyboardButIgnorePanZoomAndStretch(string theme, double fontSize)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(Viewer3DGeometryTests));
+        await session.Dispatch(async () =>
+        {
+            ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
+            DisplayTypography.Configure(new AppSettings { Theme = theme, FontSize = fontSize });
+            using var app = WorkbenchApplication.Create();
+            await app.Documents.OpenAsync(ConfigurationMatrixAnalysisTests.ZoomPath());
+            var dto = await app.Visualization.BuildSceneAsync(new VisualizationRequestDto(SceneDimension.ThreeDimensional, RayCount: 5));
+            var control = new OpticSceneControl
+            {
+                Scene = dto, ViewMode = OpticSceneViewMode.ThreeDimensional,
+                VisualStyle = OpticSceneVisualStyle.SolidModel, RenderMode = OpticSceneRenderMode.Solid,
+                RayLineWidth = 0.7
+            };
+            var window = new Window { Width = 800, Height = 560, Content = control };
+            try
+            {
+                window.Show(); Tick(window);
+                // Independent canonical screen directions: model Z is horizontal in Front,
+                // X becomes horizontal in Left/Right, and Y points into the Top/Bottom view.
+                var expected = new[]
+                {
+                    (OpticSceneViewPreset.Front, new[] { new Vector(0,0), new(0,-1), new(1,0) }),
+                    (OpticSceneViewPreset.Back, new[] { new Vector(0,0), new(0,-1), new(-1,0) }),
+                    (OpticSceneViewPreset.Left, new[] { new Vector(-1,0), new(0,-1), new(0,0) }),
+                    (OpticSceneViewPreset.Right, new[] { new Vector(1,0), new(0,-1), new(0,0) }),
+                    (OpticSceneViewPreset.Top, new[] { new Vector(0,1), new(0,0), new(1,0) }),
+                    (OpticSceneViewPreset.Bottom, new[] { new Vector(0,-1), new(0,0), new(1,0) })
+                };
+                foreach (var (preset, directions) in expected)
+                {
+                    control.SetViewPreset(preset); Tick(window);
+                    var axes = control.OrientationAxesForRendering();
+                    Assert.Equal(new[] { "X", "Y", "Z" }, axes.Select(axis => axis.Label));
+                    Assert.Equal(3, axes.Select(axis => axis.Color).Distinct().Count());
+                    for (var i = 0; i < 3; i++)
+                    {
+                        Assert.InRange(Math.Abs(axes[i].Direction.X - directions[i].X), 0, 0.02);
+                        Assert.InRange(Math.Abs(axes[i].Direction.Y - directions[i].Y), 0, 0.02);
+                    }
+                    Capture(window, $"axes-{theme}-{preset}.png");
+                }
+                control.SetViewPreset(OpticSceneViewPreset.Isometric); Tick(window);
+                Vector[] Directions() => control.OrientationAxesForRendering().Select(axis => axis.Direction).ToArray();
+                var initial = Directions();
+                Capture(window, $"axes-{theme}-isometric.png");
+                var pointer = new Point(400, 260);
+                window.MouseDown(pointer, MouseButton.Left);
+                window.MouseMove(pointer + new Vector(65, 28));
+                window.MouseUp(pointer + new Vector(65, 28), MouseButton.Left); Tick(window);
+                var dragged = Directions();
+                Assert.False(initial.SequenceEqual(dragged));
+                Capture(window, $"axes-{theme}-dragged.png");
+                window.KeyPress(Key.Right, RawInputModifiers.None, PhysicalKey.None, null); Tick(window);
+                var rotated = Directions();
+                Assert.False(dragged.SequenceEqual(rotated));
+                window.KeyPress(Key.Left, RawInputModifiers.Shift, PhysicalKey.None, null);
+                window.MouseWheel(pointer, new Vector(0, 1));
+                control.VerticalStretch = 2.5; Tick(window);
+                Assert.Equal(rotated, Directions());
+                Capture(window, $"axes-{theme}-pan-zoom-stretch.png");
+                window.KeyPress(Key.Home, RawInputModifiers.None, PhysicalKey.None, null); Tick(window);
+                Assert.Equal(initial, Directions());
+                Assert.Same(dto, control.Scene);
+                Assert.Equal(dto.SourceRevision, app.Events.Revision);
+            }
+            finally
+            {
+                window.Close();
+                DisplayTypography.Configure(new AppSettings());
+            }
+            return true;
+        }, CancellationToken.None);
+    }
+
+    [Theory]
+    [InlineData("Light", "zh-CN", 1100, 13)]
+    [InlineData("Dark", "en-US", 400, 13)]
+    [InlineData("Light", "ja-JP", 400, 18)]
+    public async Task SolidViewButtonsShowLabelsAndTrackTheActualCamera(string theme, string language, int width, double fontSize)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(Viewer3DGeometryTests));
+        await session.Dispatch(async () =>
+        {
+            var previousLanguage = UiLocalization.CurrentLanguage;
+            UiLocalization.Apply(language);
+            ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
+            DisplayTypography.Configure(new AppSettings { Theme = theme, FontSize = fontSize });
+            using var app = WorkbenchApplication.Create();
+            await app.Documents.OpenAsync(ConfigurationMatrixAnalysisTests.ZoomPath());
+            using var viewer = new ViewerPanel(app.Visualization, app.Events, new SurfaceSelectionService(),
+                SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel);
+            var window = new Window { Width = width, Height = 700, FontSize = fontSize, Content = viewer };
+            try
+            {
+                window.Show(); Tick(window);
+                var scene = viewer.GetVisualDescendants().OfType<OpticSceneControl>().Single();
+                for (var i = 0; i < 200 && scene.Scene is null; i++) { Tick(window); await Task.Delay(20); }
+                Assert.NotNull(scene.Scene); Tick(window);
+                var originalScene = scene.Scene;
+                var revision = app.Events.Revision;
+                var toolbar = viewer.GetVisualDescendants().OfType<Border>().Single(item => item.Name == "SolidModelViewPresets");
+                var buttons = toolbar.GetVisualDescendants().OfType<ToggleButton>().ToArray();
+                Assert.Equal(7, buttons.Length);
+                AssertSelected(OpticSceneViewPreset.Isometric);
+                Capture(window, $"view-buttons-{theme}-{language}-{width}-initial.png");
+                var captureDirectory = Environment.GetEnvironmentVariable(CaptureDirectory);
+                if (!string.IsNullOrWhiteSpace(captureDirectory) && toolbar.Child is Control row)
+                {
+                    using var rowImage = new RenderTargetBitmap(new PixelSize((int)Math.Ceiling(row.Bounds.Width),
+                        (int)Math.Ceiling(row.Bounds.Height)), new Vector(96, 96));
+                    rowImage.Render(row);
+                    rowImage.Save(Path.Combine(captureDirectory, $"view-buttons-{theme}-{language}-{width}-toolbar.png"), PngBitmapEncoderOptions.Default);
+                }
+                foreach (var preset in Enum.GetValues<OpticSceneViewPreset>())
+                {
+                    var button = buttons.Single(item => item.Name == $"SolidModelView{preset}");
+                    var label = button.GetVisualDescendants().OfType<TextBlock>().Single();
+                    Assert.False(string.IsNullOrWhiteSpace(label.Text));
+                    Assert.Equal(fontSize, label.FontSize);
+                    Assert.Equal(label.Text, AutomationProperties.GetName(button));
+                    Click(button); AssertSelected(preset);
+                    Click(button); AssertSelected(preset); // Re-clicking cannot leave the active view unchecked.
+                    Assert.InRange(VisualBounds(button).Left, VisualBounds(toolbar).Left, VisualBounds(toolbar).Right);
+                    Assert.InRange(VisualBounds(button).Right, VisualBounds(toolbar).Left, VisualBounds(toolbar).Right);
+                    Assert.InRange(VisualBounds(button).Bottom, VisualBounds(toolbar).Top, VisualBounds(toolbar).Bottom);
+                }
+                var pointer = scene.TranslatePoint(new Point(scene.Bounds.Width / 2, scene.Bounds.Height / 2), window)!.Value;
+                window.MouseDown(pointer, MouseButton.Left);
+                window.MouseMove(pointer + new Vector(35, 15));
+                window.MouseUp(pointer + new Vector(35, 15), MouseButton.Left); Tick(window);
+                Assert.Null(scene.ActiveViewPreset);
+                Assert.DoesNotContain(buttons, item => item.IsChecked == true);
+                Capture(window, $"view-buttons-{theme}-{language}-{width}-free-rotation.png");
+                var front = buttons.Single(item => item.Name == "SolidModelViewFront");
+                front.Focus();
+                window.KeyPress(Key.Space, RawInputModifiers.None, PhysicalKey.Space, " ");
+                window.KeyRelease(Key.Space, RawInputModifiers.None, PhysicalKey.Space, " "); Tick(window);
+                AssertSelected(OpticSceneViewPreset.Front);
+                Click(toolbar.GetVisualDescendants().OfType<Button>().Single(item => item.Name == "SolidModelFitView"));
+                AssertSelected(OpticSceneViewPreset.Front);
+                scene.Focus();
+                window.KeyPress(Key.Left, RawInputModifiers.Shift, PhysicalKey.None, null); Tick(window);
+                AssertSelected(OpticSceneViewPreset.Front);
+                window.KeyPress(Key.Right, RawInputModifiers.None, PhysicalKey.None, null); Tick(window);
+                Assert.Null(scene.ActiveViewPreset);
+                Assert.DoesNotContain(buttons, item => item.IsChecked == true);
+                window.KeyPress(Key.Home, RawInputModifiers.None, PhysicalKey.None, null); Tick(window);
+                AssertSelected(OpticSceneViewPreset.Isometric);
+                var legend = viewer.GetVisualDescendants().OfType<Border>().Single(item => item.Name == "Viewer3DGlassLegend");
+                Assert.True(VisualBounds(scene).Bottom <= VisualBounds(toolbar).Top);
+                Assert.True(VisualBounds(toolbar).Bottom <= VisualBounds(legend).Top);
+                Assert.InRange(VisualBounds(legend).Bottom, 0, window.Height);
+                Assert.Same(originalScene, scene.Scene);
+                Assert.Equal(revision, app.Events.Revision);
+                Capture(window, $"view-buttons-{theme}-{language}-{width}-reset.png");
+
+                Rect VisualBounds(Control control) => new Rect(control.Bounds.Size).TransformToAABB(control.TransformToVisual(window)!.Value);
+                void Click(Control control)
+                {
+                    var point = control.TranslatePoint(new Point(control.Bounds.Width / 2, control.Bounds.Height / 2), window)!.Value;
+                    window.MouseMove(point); window.MouseDown(point, MouseButton.Left); window.MouseUp(point, MouseButton.Left); Tick(window);
+                }
+                void AssertSelected(OpticSceneViewPreset expected)
+                {
+                    Assert.Equal(expected, scene.ActiveViewPreset);
+                    Assert.Equal($"SolidModelView{expected}", Assert.Single(buttons, item => item.IsChecked == true).Name);
+                }
+            }
+            finally
+            {
+                window.Close(); UiLocalization.Apply(previousLanguage); DisplayTypography.Configure(new AppSettings());
+            }
+            return true;
+        }, CancellationToken.None);
     }
 
     private static Optic Zoom() => new ZemaxZmxImporter().ImportConfigurationSet(

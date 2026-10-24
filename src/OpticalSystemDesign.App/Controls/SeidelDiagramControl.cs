@@ -34,13 +34,13 @@ public sealed class SeidelDiagramControl : Control, IReadOnlyChartAutomationSour
 
     private static readonly Color[] Colors =
     {
-        Color.FromRgb(244, 24, 15),
-        Color.FromRgb(15, 230, 26),
-        Color.FromRgb(122, 124, 235),
-        Color.FromRgb(16, 213, 215),
-        Color.FromRgb(244, 236, 11),
-        Color.FromRgb(151, 151, 91),
-        Color.FromRgb(160, 199, 159)
+        Color.FromRgb(31, 119, 180), // SI: spherical
+        Color.FromRgb(44, 160, 44), // SII: coma
+        Color.FromRgb(214, 39, 40), // SIII: astigmatism
+        Color.FromRgb(23, 190, 207), // SIV: Petzval
+        Color.FromRgb(148, 103, 189), // SV: distortion
+        Color.FromRgb(188, 189, 34), // axial color
+        Color.FromRgb(255, 127, 14) // lateral color
     };
 
     private static readonly string[] Names =

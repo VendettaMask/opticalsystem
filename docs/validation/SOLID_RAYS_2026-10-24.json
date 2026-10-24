@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-24",
+  "scope": "Solid Model viewer ray width and default sample count only",
+  "baseCommit": "221b691f3d519b3fde8b43cc0d44b42439ced223",
+  "change": {
+    "previousDefaultWidthDip": 4.0,
+    "previousWidthMultiplier": 3.6,
+    "defaultWidthDip": 0.7,
+    "widthChoicesDip": [
+      0.7,
+      1.0,
+      1.5
+    ],
+    "previousPupilSampleCountPerGroup": 7,
+    "pupilSampleCountPerGroup": 21,
+    "constructorFallbackResetConsistent": true,
+    "manuallyAdjustable": true,
+    "sampling": "Existing shared Core visualization request, no synthesized or duplicated paths"
+  },
+  "unchanged": [
+    "3D Layout and 2D viewer default sample count 7 and original width choices",
+    "Glass material colors and legend",
+    "Ray colors, relative-intensity opacity and directed segments",
+    "Core optical implementation and sampling rules"
+  ],
+  "builds": {
+    "Debug": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "defaultAppOutput": true
+    },
+    "Release": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "defaultAppOutput": true
+    }
+  },
+  "tests": {
+    "passed": 4,
+    "failed": 0,
+    "skipped": 0,
+    "newCases": 0,
+    "fullSuiteRun": false,
+    "fixture": "Viewer3DGeometryTests.LayoutIsWireframeAndShadingControlsBelongToSolidModel",
+    "checks": [
+      "Light/Dark Solid Model and separate Optical Layout",
+      "Actual shared Core visible-ray count increases",
+      "Three width settings remain distinct, reset restores defaults",
+      "Material legend and solid/transparent/wireframe/cutaway rendering, narrow layout"
+    ]
+  },
+  "observations": {
+    "fixture": "Existing Zoom fixture, configuration 1/3",
+    "counts": {
+      "previousSampling": 7,
+      "sampling": 21,
+      "previousDisplayedRays": 63,
+      "displayedRays": 189,
+      "widthDip": 0.7
+    },
+    "qualification": "Observed fixture count only; vignetting, selected fields/wavelengths and pupil settings affect visible rays"
+  },
+  "renders": {
+    "images": 12,
+    "dpi": 96,
+    "reviewed": [
+      "SolidModel Light",
+      "SolidModel Dark"
+    ],
+    "type": "Headless Skia screenshots"
+  },
+  "sourceHashes": {
+    "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs": "29f5e2645b047f29abc17036903d46533b6dd0bec8ad7f35a3ba64ca4c3e9c2d",
+    "tests/OpticalSystemDesign.Tests/Viewer3DGeometryTests.cs": "f33ec12685b9faeb9d74311530d95253a10a53f2c7c53f8b197f6b8f3b1819bb",
+    "AGENTS.md": "d9d56688ef44bebe8e6f54694dc81006ca120ca007a68bbc6c1f4b861c01b13d",
+    "docs/UI_DESIGN_SPEC.md": "049612b6b572d1e84ebc7bd25daff482b9323001c85c9705aaf94741bfd9c48e",
+    "docs/USER_GUIDE.md": "28f75614a2da3418ef1e2b4efbec83481729630af1799a0fbdf53c9010505cd1"
+  },
+  "evidence": {
+    "path": "validation/rechecks/2026-10-24/solid-rays-evidence.zip",
+    "sha256": "33018a28421a14a556781b0833c0e70d2d525bd0b256e012203893beac8a5fba"
+  },
+  "limits": [
+    "No new optical numerical or performance certification",
+    "No full-suite, native GUI or high-DPI acceptance",
+    "No push or release package update"
+  ],
+  "documentation": {
+    "strictPassed": true,
+    "documents": 1076,
+    "brokenLinks": 0,
+    "guideBrokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0
+  }
+}

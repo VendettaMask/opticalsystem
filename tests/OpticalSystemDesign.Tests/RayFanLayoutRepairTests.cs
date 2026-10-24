@@ -8,6 +8,7 @@ using Avalonia.Threading;
 using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Panels;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Runtime;
@@ -70,7 +71,8 @@ public sealed class RayFanLayoutRepairTests
                     var areas = plots.Select(plot => ((Rect)typeof(AnalysisPlotControl)
                         .GetField("_lastPlot", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(plot)!)
                         .TransformToAABB(plot.TransformToVisual(window)!.Value)).ToArray();
-                    measurements.Add(new { width, height, areas });
+                    var gaps = PairGaps(plots, window);
+                    measurements.Add(new { width, height, areas, gaps });
                     Save(window, analysis, width, height, measurements);
                     Assert.All(areas, area =>
                     {
@@ -79,10 +81,36 @@ public sealed class RayFanLayoutRepairTests
                         Assert.True(area.X >= 0 && area.Right <= width && area.Y >= 0 && area.Bottom <= height);
                     });
                     Assert.Equal(originalData, JsonSerializer.Serialize(view));
+                    Assert.All(gaps, gap => Assert.InRange(gap, -0.5, 6));
+                }
+
+                var single = view with { PlotPanes = view.PlotPanes.Where(pane => pane.Title == view.PlotPanes[0].Title).ToArray() };
+                Assert.Equal(2, single.PlotPanes.Count);
+                foreach (var (theme, fontSize) in new[] { ("Light", 13), ("Dark", 18) })
+                {
+                    ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
+                    DisplayTypography.Configure(new AppSettings { Theme = theme, FontSize = fontSize });
+                    window.FontSize = fontSize;
+                    var singleTabs = Assert.IsType<TabControl>(typeof(AnalysisPanel).GetMethod("BuildResultContent", BindingFlags.Static | BindingFlags.NonPublic)!
+                        .Invoke(null, [single, application.Documents.GetSnapshot(), DateTimeOffset.Now, null]));
+                    window.Content = singleTabs; window.Width = 840; window.Height = 460; Render(window);
+                    var plots = singleTabs.GetVisualDescendants().OfType<AnalysisPlotControl>().ToArray();
+                    Assert.Equal(2, plots.Length);
+                    var gaps = PairGaps(plots, window);
+                    Assert.All(gaps, gap => Assert.InRange(gap, -0.5, 6));
+                    Save(window, analysis + "-single-" + theme, 840, 460, new object[] { new { gaps, fontSize } });
                 }
             }
-            finally { window.Close(); }
+            finally { window.Close(); DisplayTypography.Configure(new AppSettings()); }
         }, CancellationToken.None);
+    }
+
+    private static double[] PairGaps(IReadOnlyList<AnalysisPlotControl> plots, Window window)
+    {
+        var frames = plots.Select(plot => new Rect(plot.Bounds.Size)
+            .TransformToAABB(plot.TransformToVisual(window)!.Value)).ToArray();
+        return Enumerable.Range(0, frames.Length / 2)
+            .Select(index => frames[index * 2 + 1].Left - frames[index * 2].Right).ToArray();
     }
 
     private static void Render(Window window)

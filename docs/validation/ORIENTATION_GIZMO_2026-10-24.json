@@ -1,0 +1,140 @@
+{
+  "date": "2026-10-24",
+  "scope": "Solid Model orientation indicators and lower-left XYZ labels",
+  "baseCommit": "221b691f3d519b3fde8b43cc0d44b42439ced223",
+  "implemented": {
+    "labels": {
+      "X": "red",
+      "Y": "green",
+      "Z": "blue"
+    },
+    "mainGizmo": "Lower-left triad with scaled text and edge-on label separation",
+    "secondaryGizmo": "Existing lower-right miniature follows same rotation; existing frame size retained",
+    "projection": "Scene projection and triads share ProjectDirectionToView; positive unit world axes, camera yaw/pitch and depth sorting. No copied screen-angle constants.",
+    "updates": [
+      "Mouse drag",
+      "Keyboard rotation",
+      "Orthographic and isometric presets",
+      "Home/reset"
+    ],
+    "independentOf": [
+      "Pan",
+      "Zoom",
+      "Scene centering",
+      "Display Y stretch"
+    ]
+  },
+  "builds": {
+    "Debug": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "defaultAppOutput": true
+    },
+    "Release": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "defaultAppOutput": true
+    }
+  },
+  "tests": {
+    "passed": 7,
+    "failed": 0,
+    "skipped": 0,
+    "groups": {
+      "real Skia Viewer3DGeometryTests": 6,
+      "existing theme-resource contract": 1
+    },
+    "newCases": 2,
+    "fullSuiteRun": false,
+    "checks": [
+      "Independent canonical screen-axis expectations for six presets (0.02 tolerance accommodates the existing near-90-degree Top/Bottom presets)",
+      "Real pointer drag and keyboard rotation change axes",
+      "Pan, zoom and Y stretch leave orientation unchanged; Home restores it",
+      "Same scene DTO and document revision after interaction",
+      "Existing solid/transparent/wireframe/cutaway, thin denser rays, material legend and narrow layout checks"
+    ]
+  },
+  "renders": {
+    "images": 30,
+    "dpi": 96,
+    "themes": [
+      "Light",
+      "Dark"
+    ],
+    "fontSizesDip": [
+      13,
+      18
+    ],
+    "reviewed": [
+      "Light full SolidModel viewer",
+      "Light Front",
+      "Dark Top at 18 DIP",
+      "Light after pointer drag"
+    ]
+  },
+  "pixelChecks": {
+    "results": [
+      {
+        "file": "viewer3d-SolidModel-Light-zh-CN.png",
+        "previousSha256": "d021cac36c12e08f5a1b30c5d252185308c2cc188cabdf4ef9f52d1192f66c61",
+        "currentSha256": "b5609f1b63156b0d7a002d748ba4115b022ab79097df8815787697c51fc7c35e",
+        "changedPixels": 637,
+        "changedOutsideGizmoRegions": 0
+      },
+      {
+        "file": "viewer3d-SolidModel-Dark-en-US.png",
+        "previousSha256": "6dd8fcd423388f64c4653de5d8f4f9a6d2c77c0be122729dd59b6d05bc774278",
+        "currentSha256": "78b447ef2fc3290430df5d01dbcf42dfea2148566c0cc7a79d67f2e3d60b71ca",
+        "changedPixels": 636,
+        "changedOutsideGizmoRegions": 0
+      },
+      {
+        "file": "viewer3d-OpticalLayout-Light-zh-CN.png",
+        "previousSha256": "509bb0a1c26ff31d363bdb636f8d84fc7773005f1aa00c3a5318311eead8ada7",
+        "currentSha256": "509bb0a1c26ff31d363bdb636f8d84fc7773005f1aa00c3a5318311eead8ada7",
+        "changedPixels": 0,
+        "changedOutsideGizmoRegions": 0
+      },
+      {
+        "file": "viewer3d-OpticalLayout-Dark-en-US.png",
+        "previousSha256": "8b7f8fe5ea445a9fda7c43c2771f3b65e8bda8ebf88138594e7800169d660f76",
+        "currentSha256": "8b7f8fe5ea445a9fda7c43c2771f3b65e8bda8ebf88138594e7800169d660f76",
+        "changedPixels": 0,
+        "changedOutsideGizmoRegions": 0
+      }
+    ],
+    "scope": "Exact RGBA image comparison against the immediately preceding ray-display stage; no optical accuracy comparison."
+  },
+  "preserved": [
+    "Separate 3D Layout orientation graphics (both full screenshots byte-identical to prior stage)",
+    "Model and optical ray pixels outside the two gizmo regions (exact RGBA equality)",
+    "Shared Core optical calculations and directed ray metadata",
+    "Prior color palette, ray-density and width changes"
+  ],
+  "sourceHashes": {
+    "src/OpticalSystemDesign.App/Controls/OpticSceneControl.cs": "10bc29533af20a90264b78c74904b7c3682efa96e2ef58c05d6d2a8e1ed47cff",
+    "tests/OpticalSystemDesign.Tests/Viewer3DGeometryTests.cs": "7564db02c587dda3d978748d77a02a9e9942a0c1022bff8f394c12fbf0811d00",
+    "AGENTS.md": "f5847db0b769a38729cfb1f58e2910364b0b5044c5178ae961646aabb7f8f54c",
+    "docs/UI_DESIGN_SPEC.md": "1bb60b81c03919c17e32022234d15d87824078fd0a549881cb47f40c6712bc2f",
+    "docs/USER_GUIDE.md": "63a73645fc4268ef7454b1d17c2e725d6f31ffcf8aa99942a95b1577975e4b30"
+  },
+  "evidence": {
+    "path": "validation/rechecks/2026-10-24/orientation-gizmo-evidence.zip",
+    "sha256": "962da60fe92a85e4ecb04f7b145a75532d0e2f22d1f4e8d383ce59a97ca43168"
+  },
+  "limits": [
+    "No new optical accuracy or performance certification",
+    "No full-suite, native GUI or high-DPI acceptance",
+    "No push or public package update"
+  ],
+  "documentation": {
+    "strictPassed": true,
+    "documents": 1076,
+    "brokenLinks": 0,
+    "guideBrokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0
+  }
+}

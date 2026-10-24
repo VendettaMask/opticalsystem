@@ -733,6 +733,7 @@ public sealed partial class AnalysisPanel
                 {
                     Child = plot,
                     IsSquare = defaultSquareCells,
+                    SquareHorizontalAlignment = paneOffset == 0 ? HorizontalAlignment.Right : HorizontalAlignment.Left,
                     MinWidth = minimumFanSize,
                     MinHeight = minimumFanSize
                 };

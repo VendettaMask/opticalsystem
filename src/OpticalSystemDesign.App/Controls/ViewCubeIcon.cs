@@ -26,6 +26,8 @@ public sealed class ViewCubeIcon : Control
 
     public ViewCubeFace Face { get; }
 
+    public bool EmphasizeFace { get; init; }
+
     protected override Size MeasureOverride(Size availableSize) => new(26, 24);
 
     public override void Render(DrawingContext context)
@@ -61,7 +63,8 @@ public sealed class ViewCubeIcon : Control
     private ViewCubePalette CreatePalette()
     {
         var neutral = ThemeColor(ThemeResourceBindings.SceneOrientationFill);
-        var highlight = ThemeColor(ThemeResourceBindings.SelectionBackground);
+        var highlight = ThemeColor(EmphasizeFace
+            ? ThemeResourceBindings.TextAccent : ThemeResourceBindings.SelectionBackground);
         return new ViewCubePalette(
             new SolidColorBrush(Shade(neutral, 0.10)),
             new SolidColorBrush(Shade(neutral, -0.03)),

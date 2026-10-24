@@ -1,0 +1,82 @@
+{
+  "date": "2026-10-24",
+  "scope": "Seidel diagram coefficient palette only",
+  "baseCommit": "221b691f3d519b3fde8b43cc0d44b42439ced223",
+  "palette": {
+    "spherical": "#1F77B4",
+    "coma": "#2CA02C",
+    "astigmatism": "#D62728",
+    "Petzval": "#17BECF",
+    "distortion": "#9467BD",
+    "axialColor": "#BCBD22",
+    "lateralColor": "#FF7F0E"
+  },
+  "behavior": "Bars and legend share this palette; background, axes, grids, text, data, units and layout retain existing implementation.",
+  "builds": {
+    "Debug": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "defaultAppOutput": true
+    },
+    "Release": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "defaultAppOutput": true
+    }
+  },
+  "tests": {
+    "existingCase": "AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(SeidelDiagram)",
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "newTests": 0,
+    "fullSuiteRun": false
+  },
+  "renderChecks": {
+    "passedSamples": 150,
+    "themes": [
+      "Light",
+      "Dark",
+      "Isekai",
+      "Pixel",
+      "Lumen"
+    ],
+    "directControlImages": 10,
+    "analysisPageImages": 1,
+    "dpi": 96,
+    "checks": "Exact RGB samples for all seven positive/negative bars and legend; background samples match each theme resource. Separate reference colors checked after ICC conversion with max 2/255 allowance.",
+    "manuallyReviewed": [
+      "Light sample",
+      "Dark sample",
+      "Dark signed probe"
+    ],
+    "sampleSource": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+    "samplePurpose": "Shared Core display sample only; no external optical numerical comparison."
+  },
+  "sourceHashes": {
+    "src/OpticalSystemDesign.App/Controls/SeidelDiagramControl.cs": "2d8a39f62e097359ccfc2eb83954b265f0656a7118e035b0f96e9735684902bc",
+    "AGENTS.md": "822e6ca84ac55c15e470d78cce087a9d02c127c2194ff6b0d8cac05717e8a677",
+    "docs/UI_DESIGN_SPEC.md": "c817969ef0fb971a70003b44c0f10774af60387656a6d5b8fd6efc79f4ac2af5",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b"
+  },
+  "evidence": {
+    "path": "validation/rechecks/2026-10-24/seidel-palette-evidence.zip",
+    "sha256": "5a53e95f793e7e0d1b33c4182fa2862e386d12bbe2de5d56eaa9eb657c316689"
+  },
+  "limits": [
+    "No native GUI or high-DPI acceptance",
+    "No new optical accuracy certification",
+    "No remote push or release package update"
+  ],
+  "documentation": {
+    "strictPassed": true,
+    "documents": 1076,
+    "brokenLinks": 0,
+    "guideBrokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0,
+    "guideRepeatedParagraphGroups": 0
+  }
+}

@@ -70,6 +70,9 @@ public sealed record OpticSceneAnnotation2D(
     Color Color,
     OpticSceneAnnotationPlacement2D Placement = OpticSceneAnnotationPlacement2D.Auto);
 
+internal sealed record GlassMaterialLegendEntry(string Material, Color Color);
+internal sealed record OrientationAxisProjection(string Label, Color Color, Vector Direction, double Depth);
+
 public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSource
 {
     // Static drawing resources are shared by controls on different UI dispatchers.
@@ -121,6 +124,60 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         Color.FromRgb(15, 158, 177),
         Color.FromRgb(164, 174, 25)
     };
+
+    // Identification colors, independent of ray colors and physical glass transmission.
+    private static readonly Color[] GlassColors =
+    {
+        Color.FromRgb(64, 174, 163), Color.FromRgb(116, 153, 222),
+        Color.FromRgb(213, 169, 91), Color.FromRgb(174, 139, 205),
+        Color.FromRgb(216, 132, 143), Color.FromRgb(139, 181, 112),
+        Color.FromRgb(94, 176, 204), Color.FromRgb(197, 145, 186)
+    };
+
+    private Scene3Dto? _materialColorScene;
+    private IReadOnlyList<GlassMaterialLegendEntry> _glassMaterials = [];
+    private Dictionary<string, Color> _glassColors = new(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<int, Color> _glassSurfaceColors = new();
+
+    internal IReadOnlyList<GlassMaterialLegendEntry> GlassMaterials
+    {
+        get
+        {
+            var scene = VisualStyle == OpticSceneVisualStyle.SolidModel ? Scene?.ThreeDimensional : null;
+            if (ReferenceEquals(scene, _materialColorScene)) return _glassMaterials;
+            _materialColorScene = scene;
+            var names = (scene?.LensElements.Select(element => element.Material.Trim()) ?? [])
+                .Where(name => name.Length > 0 && !name.Equals("Air", StringComparison.OrdinalIgnoreCase))
+                .Distinct(StringComparer.OrdinalIgnoreCase).Order(StringComparer.OrdinalIgnoreCase).ToArray();
+            var used = new HashSet<Color>();
+            var entries = new List<GlassMaterialLegendEntry>();
+            var generated = 0;
+            foreach (var name in names)
+            {
+                var color = entries.Count < GlassColors.Length ? GlassColors[entries.Count]
+                    : new HsvColor(1, (generated++ * 137.507764 + 24) % 360, 0.48, 0.82).ToRgb();
+                while (!used.Add(color))
+                    color = new HsvColor(1, (generated++ * 137.507764 + 24) % 360, 0.48, 0.82).ToRgb();
+                entries.Add(new(name, color));
+            }
+            _glassMaterials = entries;
+            _glassColors = entries.ToDictionary(entry => entry.Material, entry => entry.Color, StringComparer.OrdinalIgnoreCase);
+            _glassSurfaceColors.Clear();
+            foreach (var element in scene?.LensElements ?? [])
+            {
+                if (!_glassColors.TryGetValue(element.Material.Trim(), out var color)) continue;
+                _glassSurfaceColors.TryAdd(element.FrontSurfaceNumber, color);
+                _glassSurfaceColors.TryAdd(element.BackSurfaceNumber, color);
+            }
+            return _glassMaterials;
+        }
+    }
+
+    internal Color? GlassColorFor(string material)
+    {
+        _ = GlassMaterials;
+        return _glassColors.TryGetValue(material.Trim(), out var color) ? color : null;
+    }
 
     private readonly SceneViewport _viewport = new();
     private OpticSceneViewMode _viewMode;
@@ -351,10 +408,23 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
 
     public void ResetView()
     {
-        _viewport.Reset();
-        _yaw = -0.72;
-        _pitch = 0.38;
-        InvalidateVisual();
+        SetViewPreset(OpticSceneViewPreset.Isometric);
+    }
+
+    internal event EventHandler? ViewOrientationChanged;
+
+    internal OpticSceneViewPreset? ActiveViewPreset
+    {
+        get
+        {
+            foreach (var preset in Enum.GetValues<OpticSceneViewPreset>())
+            {
+                var (yaw, pitch) = PresetAngles(preset);
+                if (Math.Abs(Math.IEEERemainder(_yaw - yaw, Math.PI * 2)) < 1e-6
+                    && Math.Abs(_pitch - pitch) < 1e-6) return preset;
+            }
+            return null;
+        }
     }
 
     protected override AutomationPeer OnCreateAutomationPeer() =>
@@ -425,6 +495,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         {
             _yaw += x * 0.08;
             _pitch = Math.Clamp(_pitch + (y * 0.08), -1.25, 1.25);
+            ViewOrientationChanged?.Invoke(this, EventArgs.Empty);
         }
         else
         {
@@ -451,19 +522,22 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
 
     public void SetViewPreset(OpticSceneViewPreset preset)
     {
-        (_yaw, _pitch) = preset switch
-        {
-            OpticSceneViewPreset.Front => (0, 0),
-            OpticSceneViewPreset.Back => (Math.PI, 0),
-            OpticSceneViewPreset.Left => (-Math.PI / 2.0, 0),
-            OpticSceneViewPreset.Right => (Math.PI / 2.0, 0),
-            OpticSceneViewPreset.Top => (0, (Math.PI / 2.0) - 0.01),
-            OpticSceneViewPreset.Bottom => (0, (-Math.PI / 2.0) + 0.01),
-            _ => (-0.72, 0.38)
-        };
+        (_yaw, _pitch) = PresetAngles(preset);
         _viewport.Reset();
+        ViewOrientationChanged?.Invoke(this, EventArgs.Empty);
         InvalidateVisual();
     }
+
+    private static (double Yaw, double Pitch) PresetAngles(OpticSceneViewPreset preset) => preset switch
+    {
+        OpticSceneViewPreset.Front => (0, 0),
+        OpticSceneViewPreset.Back => (Math.PI, 0),
+        OpticSceneViewPreset.Left => (-Math.PI / 2.0, 0),
+        OpticSceneViewPreset.Right => (Math.PI / 2.0, 0),
+        OpticSceneViewPreset.Top => (0, (Math.PI / 2.0) - 0.01),
+        OpticSceneViewPreset.Bottom => (0, (-Math.PI / 2.0) + 0.01),
+        _ => (-0.72, 0.38)
+    };
 
     protected override void OnPointerPressed(PointerPressedEventArgs e)
     {
@@ -498,6 +572,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         {
             _yaw += delta.X * 0.01;
             _pitch = Math.Clamp(_pitch + (delta.Y * 0.01), -1.25, 1.25);
+            ViewOrientationChanged?.Invoke(this, EventArgs.Empty);
         }
         else
         {
@@ -532,6 +607,13 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
     public override void Render(DrawingContext context)
     {
         base.Render(context);
+        RenderContent(context, includeFocus: true);
+    }
+
+    internal void RenderImageContent(DrawingContext context) => RenderContent(context, includeFocus: false);
+
+    private void RenderContent(DrawingContext context, bool includeFocus)
+    {
         context.DrawRectangle(
             SceneBackgroundBrush(
                 ViewMode == OpticSceneViewMode.ThreeDimensional,
@@ -540,7 +622,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             Bounds);
         if (Scene is null)
         {
-            InteractiveCanvasFocus.Draw(context, this);
+            if (includeFocus) InteractiveCanvasFocus.Draw(context, this);
             return;
         }
 
@@ -551,7 +633,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
                 Draw3D(context, Scene.ThreeDimensional);
             }
 
-            InteractiveCanvasFocus.Draw(context, this);
+            if (includeFocus) InteractiveCanvasFocus.Draw(context, this);
             return;
         }
 
@@ -560,7 +642,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             Draw2D(context, Scene.TwoDimensional);
         }
 
-        InteractiveCanvasFocus.Draw(context, this);
+        if (includeFocus) InteractiveCanvasFocus.Draw(context, this);
     }
 
     private void Draw2D(DrawingContext context, Layout2DScene scene)
@@ -802,16 +884,9 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
 
         Point Project(Layout3DPoint point)
         {
-            var z = point.Z - zCenter;
-            var cosYaw = Math.Cos(_yaw);
-            var sinYaw = Math.Sin(_yaw);
-            var screenX = (z * cosYaw) + (point.X * sinYaw);
-            var depth = (-z * sinYaw) + (point.X * cosYaw);
-            var cosPitch = Math.Cos(_pitch);
-            var sinPitch = Math.Sin(_pitch);
-            var screenY = (point.Y * VerticalStretch * cosPitch) - (depth * sinPitch);
+            var projected = ProjectDirectionToView(new Layout3DPoint(point.X, point.Y * VerticalStretch, point.Z - zCenter));
             return _viewport.Apply(
-                new Point(centerX + (screenX * scale), centerY - (screenY * scale)),
+                new Point(centerX + (projected.X * scale), centerY + (projected.Y * scale)),
                 Bounds.Size);
         }
 
@@ -1094,7 +1169,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         }
     }
 
-    private static void Draw3DLensElements(
+    private void Draw3DLensElements(
         DrawingContext context,
         IReadOnlyList<Layout3DLensElement> elements,
         Func<Layout3DPoint, Point> project,
@@ -1103,9 +1178,11 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         bool solidModelStyle,
         int? highlightedSurfaceNumber)
     {
-        var edgePen = solidModelStyle ? SolidLensEdgePen : ThreeDLensEdgePen;
         foreach (var element in elements)
         {
+            var color = GlassColorFor(element.Material);
+            var edgePen = color is { } tint ? new Pen(new SolidColorBrush(tint), solidModelStyle ? 1.2 : 1.7)
+                : (IPen)(solidModelStyle ? SolidLensEdgePen : ThreeDLensEdgePen);
             DrawElementRim(
                 context,
                 element.FrontRim,
@@ -1126,7 +1203,8 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             {
                 DrawPolyline3D(
                     context,
-                    solidModelStyle ? SolidLensHighlightPen : ThreeDLensHighlightPen,
+                    color is { } highlight ? new Pen(new SolidColorBrush(WithAlpha(highlight, 180)), 0.9)
+                        : solidModelStyle ? SolidLensHighlightPen : ThreeDLensHighlightPen,
                     element.FrontRim,
                     project,
                     cutawayEnabled);
@@ -1148,7 +1226,8 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             {
                 DrawSegment3D(
                     context,
-                    solidModelStyle ? SolidLensMeridianPen : ThreeDWirePen,
+                    color is { } wire ? new Pen(new SolidColorBrush(WithAlpha(wire, 150)), 0.85)
+                        : solidModelStyle ? SolidLensMeridianPen : ThreeDWirePen,
                     element.FrontRim[index],
                     element.BackRim[index],
                     project,
@@ -1176,7 +1255,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         DrawPolyline3D(context, edgePen, rim, project, cutawayEnabled);
     }
 
-    private static void Draw3DSolidLensElements(
+    private void Draw3DSolidLensElements(
         DrawingContext context,
         IReadOnlyList<Layout3DLensElement> elements,
         IReadOnlyList<Layout3DSurfacePrimitive> surfaces,
@@ -1196,9 +1275,8 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             .Select(element => new
             {
                 Element = element,
-                Parameters = new GlassRenderParameters(
-                    element.RefractiveIndex,
-                    ElementThickness(element, surfacesByNumber))
+                Parameters = new GlassRenderParameters(element.RefractiveIndex,
+                    ElementThickness(element, surfacesByNumber), null)
             })
             .SelectMany(item => new[]
             {
@@ -1210,9 +1288,9 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         var renderedSurfaceNumbers = new HashSet<int>();
         foreach (var element in elements)
         {
-            var glass = glassBySurface.GetValueOrDefault(
-                element.FrontSurfaceNumber,
-                new GlassRenderParameters(element.RefractiveIndex, 4));
+            var glass = glassBySurface.GetValueOrDefault(element.FrontSurfaceNumber,
+                new GlassRenderParameters(element.RefractiveIndex, 4, null))
+                with { Tint = GlassColorFor(element.Material) };
             if (renderedSurfaceNumbers.Add(element.FrontSurfaceNumber))
             {
                 AddElementSurfaceFaces(
@@ -1244,9 +1322,9 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
 
         foreach (var element in elements)
         {
-            var glass = glassBySurface.GetValueOrDefault(
-                element.FrontSurfaceNumber,
-                new GlassRenderParameters(element.RefractiveIndex, 4));
+            var glass = glassBySurface.GetValueOrDefault(element.FrontSurfaceNumber,
+                new GlassRenderParameters(element.RefractiveIndex, 4, null))
+                with { Tint = GlassColorFor(element.Material) };
             var count = Math.Min(element.FrontRim.Count, element.BackRim.Count) - 1;
             for (var index = 0; index < count; index++)
             {
@@ -1266,7 +1344,8 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
                         glass.RefractiveIndex,
                         glass.ThicknessMillimeters,
                         isSideWall: true,
-                        transparent),
+                        transparent,
+                        glass.Tint),
                     depth);
             }
         }
@@ -1277,7 +1356,9 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             {
                 foreach (var cap in CutawayCapsForRendering(element))
                     AddProjectedFace(faces, cap,
-                        solidModelStyle ? SolidLensCutBrush : ThreeDLensCutBrush, depth);
+                        GlassColorFor(element.Material) is { } tint
+                            ? new SolidColorBrush(WithAlpha(tint, 170))
+                            : solidModelStyle ? SolidLensCutBrush : ThreeDLensCutBrush, depth);
             }
         }
 
@@ -1368,7 +1449,8 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
                         glass.RefractiveIndex,
                         glass.ThicknessMillimeters,
                         isSideWall: false,
-                        transparent),
+                        transparent,
+                        glass.Tint),
                 depth);
         }
     }
@@ -1379,7 +1461,8 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         double refractiveIndex,
         double thicknessMillimeters,
         bool isSideWall,
-        bool transparent)
+        bool transparent,
+        Color? materialColor)
     {
         if (!double.IsFinite(refractiveIndex))
             return ThreeDLensCutBrush;
@@ -1396,7 +1479,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             isSideWall);
         if (!transparent)
         {
-            return new SolidColorBrush(sample.Color);
+            return new SolidColorBrush(TintGlass(sample.Color, materialColor));
         }
 
         var highlight = Math.Clamp((sample.Reflectance * 1.8) + (facing * 0.14), 0, 0.42);
@@ -1404,12 +1487,17 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             ? 116 + (highlight * 90)
             : 54 + (highlight * 110);
         var shade = isSideWall ? 0.72 : 0.9;
-        return new SolidColorBrush(Color.FromArgb(
+        return new SolidColorBrush(TintGlass(Color.FromArgb(
             (byte)Math.Clamp(Math.Round(alpha), 28, 166),
             (byte)Math.Clamp(Math.Round((55 + (highlight * 120)) * shade), 0, 255),
             (byte)Math.Clamp(Math.Round((126 + (highlight * 105)) * shade), 0, 255),
-            (byte)Math.Clamp(Math.Round((190 + (highlight * 65)) * shade), 0, 255)));
+            (byte)Math.Clamp(Math.Round((190 + (highlight * 65)) * shade), 0, 255)), materialColor));
     }
+
+    private static Color TintGlass(Color shaded, Color? materialColor) => materialColor is { } tint
+        ? Color.FromArgb(shaded.A, (byte)Math.Round(shaded.R * 0.25 + tint.R * 0.75),
+            (byte)Math.Round(shaded.G * 0.25 + tint.G * 0.75), (byte)Math.Round(shaded.B * 0.25 + tint.B * 0.75))
+        : shaded;
 
     internal static IReadOnlyList<IReadOnlyList<Layout3DPoint>> SurfaceFacesForRendering(
         Layout3DSurfacePrimitive surface,
@@ -1509,7 +1597,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             : new Layout3DPoint(value.X / length, value.Y / length, value.Z / length);
     }
 
-    private static void Draw3DSurfaces(
+    private void Draw3DSurfaces(
         DrawingContext context,
         IReadOnlyList<Layout3DSurfacePrimitive> surfaces,
         Func<Layout3DPoint, Point> project,
@@ -1522,7 +1610,11 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         {
             foreach (var surface in surfaces.Where(surface => surface.SurfaceNumber != highlightedSurfaceNumber))
             {
-                Draw3DSurface(context, surface, project, showMeridians, cutawayEnabled, solidModelStyle, null);
+                _ = GlassMaterials;
+                var materialPen = !surface.IsReferencePlane && !surface.IsStandaloneStop
+                    && _glassSurfaceColors.TryGetValue(surface.SurfaceNumber, out var tint)
+                        ? new Pen(new SolidColorBrush(tint), 1.15) : null;
+                Draw3DSurface(context, surface, project, showMeridians, cutawayEnabled, solidModelStyle, materialPen);
             }
         }
 
@@ -1633,6 +1725,12 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
 
     private void DrawOrientationGizmo(DrawingContext context)
     {
+        if (VisualStyle == OpticSceneVisualStyle.SolidModel)
+        {
+            DrawRotatingOrientationGizmo(context);
+            return;
+        }
+
         var origin = new Point(48, Math.Max(48, Bounds.Height - 48));
         var red = new Pen(new SolidColorBrush(Color.FromRgb(210, 60, 52)), 2.2);
         var green = new Pen(new SolidColorBrush(Color.FromRgb(43, 154, 82)), 2.2);
@@ -1651,6 +1749,73 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         context.DrawLine(red, cubeCenter, cubeCenter + new Vector(15, 5));
         context.DrawLine(green, cubeCenter, cubeCenter + new Vector(-4, -16));
         context.DrawLine(blue, cubeCenter, cubeCenter + new Vector(-12, 9));
+    }
+
+    // The scene and its orientation indicator use the same camera rotation.
+    // Directions exclude camera pan/zoom, scene centering and display Y stretch.
+    internal Vector ProjectDirectionToView(Layout3DPoint direction)
+    {
+        var screenX = direction.Z * Math.Cos(_yaw) + direction.X * Math.Sin(_yaw);
+        var depth = -direction.Z * Math.Sin(_yaw) + direction.X * Math.Cos(_yaw);
+        var screenY = direction.Y * Math.Cos(_pitch) - depth * Math.Sin(_pitch);
+        return new Vector(screenX, -screenY);
+    }
+
+    internal IReadOnlyList<OrientationAxisProjection> OrientationAxesForRendering()
+    {
+        var viewDirection = ViewDirection(_yaw, _pitch);
+        return new[]
+        {
+            (Label: "X", Color: Color.FromRgb(210, 60, 52), Direction: new Layout3DPoint(1, 0, 0)),
+            (Label: "Y", Color: Color.FromRgb(43, 154, 82), Direction: new Layout3DPoint(0, 1, 0)),
+            (Label: "Z", Color: Color.FromRgb(38, 102, 196), Direction: new Layout3DPoint(0, 0, 1))
+        }.Select(axis => new OrientationAxisProjection(axis.Label, axis.Color,
+            ProjectDirectionToView(axis.Direction), Dot(axis.Direction, viewDirection))).ToArray();
+    }
+
+    private void DrawRotatingOrientationGizmo(DrawingContext context)
+    {
+        var axes = OrientationAxesForRendering().OrderBy(axis => axis.Depth).ToArray();
+        var origin = new Point(48, Math.Max(48, Bounds.Height - 48));
+        DrawAxes(origin, 26, labels: true);
+        var cube = new Rect(Math.Max(8, Bounds.Width - 66), Math.Max(8, Bounds.Height - 66), 46, 46);
+        context.DrawRectangle(ThemeBrush(ThemeResourceBindings.SceneOrientationFill, Brushes.White),
+            new Pen(ThemeBrush(ThemeResourceBindings.SceneOrientationBorder, Brushes.Gray), 1), cube);
+        DrawAxes(cube.Center, 17, labels: false);
+
+        void DrawAxes(Point center, double length, bool labels)
+        {
+            var labelBounds = new List<Rect>();
+            foreach (var axis in axes)
+            {
+                var brush = new SolidColorBrush(axis.Color);
+                var end = center + axis.Direction * length;
+                context.DrawLine(new Pen(brush, 2.2), center, end);
+                if (!labels) continue;
+
+                var text = new FormattedText(axis.Label, System.Globalization.CultureInfo.CurrentCulture,
+                    FlowDirection.LeftToRight, DisplayTypography.Typeface(), DisplayTypography.Scale(11), brush);
+                var direction = axis.Direction.Length > 0.1 ? axis.Direction / axis.Direction.Length
+                    : axis.Label switch { "X" => new Vector(-0.7, 0.7), "Y" => new Vector(-0.7, -0.7), _ => new Vector(0.7, 0.7) };
+                var labelCenter = center + direction * Math.Max(18, axis.Direction.Length * length + 10);
+                var position = labelCenter - new Vector(text.Width / 2, text.Height / 2);
+                var bounds = new Rect(position, new Size(text.Width, text.Height));
+                // At edge-on angles two axes can project onto the same line.
+                // Separate their letters while retaining the true axis endpoints.
+                for (var attempt = 0; attempt < 4 && labelBounds.Any(other => other.Inflate(2).Intersects(bounds)); attempt++)
+                {
+                    position += new Vector(0, attempt % 2 == 0 ? -text.Height : text.Height * 2);
+                    bounds = new Rect(position, bounds.Size);
+                }
+                position = new Point(Math.Clamp(position.X, 2, Math.Max(2, Bounds.Width - text.Width - 2)),
+                    Math.Clamp(position.Y, 2, Math.Max(2, Bounds.Height - text.Height - 2)));
+                bounds = new Rect(position, bounds.Size);
+                labelBounds.Add(bounds);
+                context.DrawText(text, position);
+            }
+            context.DrawEllipse(ThemeBrush(ThemeResourceBindings.SceneOrientationFill, Brushes.White),
+                new Pen(ThemeBrush(ThemeResourceBindings.SceneOrientationBorder, Brushes.Gray), 1), center, 4, 4);
+        }
     }
 
     private IPen SurfacePenFor(Layout2DSurfaceCurve surface)
@@ -2000,5 +2165,6 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
 
     private readonly record struct GlassRenderParameters(
         double RefractiveIndex,
-        double ThicknessMillimeters);
+        double ThicknessMillimeters,
+        Color? Tint);
 }

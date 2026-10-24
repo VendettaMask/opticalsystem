@@ -1,0 +1,347 @@
+{
+  "date": "2026-10-24",
+  "scope": "Reduce surplus spacing between paired fan square plots",
+  "baseCommit": "221b691f3d519b3fde8b43cc0d44b42439ced223",
+  "change": "Align left square canvas to the right and right canvas to the left of their cells. Retain native axis margins, child minima, field grouping and default centered square layout elsewhere.",
+  "builds": {
+    "Debug": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "defaultAppOutput": true
+    },
+    "Release": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "defaultAppOutput": true
+    }
+  },
+  "tests": {
+    "distinctPassed": 6,
+    "failed": 0,
+    "skipped": 0,
+    "groups": {
+      "RayFanLayoutRepairTests real Skia": 3,
+      "Existing AnalysisGuiContractTests paired grouping/shape": 3
+    },
+    "beforeBaselineRepeated": 3,
+    "newCases": 0,
+    "fullSuiteRun": false
+  },
+  "verification": {
+    "analyses": [
+      "Ray Fan",
+      "Pupil Aberration",
+      "Optical Path Difference"
+    ],
+    "windowsDip": [
+      [
+        1000,
+        460
+      ],
+      [
+        1000,
+        340
+      ],
+      [
+        600,
+        290
+      ],
+      [
+        1000,
+        460
+      ]
+    ],
+    "singleField": [
+      "Light 13 DIP",
+      "Dark 18 DIP"
+    ],
+    "comparisons": [
+      {
+        "analysis": "Ray-Fan",
+        "width": 1000,
+        "height": 460,
+        "previousAxisGaps": [
+          123.57142857142861,
+          122.85714285714278,
+          122.85714285714278
+        ],
+        "axisGaps": [
+          53.571428571428555,
+          54.28571428571422,
+          54.285714285714334
+        ],
+        "frameGaps": [
+          2.142857142857139,
+          2.857142857142776,
+          2.857142857142833
+        ],
+        "plotSizesUnchanged": true
+      },
+      {
+        "analysis": "Ray-Fan",
+        "width": 1000,
+        "height": 340,
+        "previousAxisGaps": [
+          157.05980066445184,
+          156.54485049833897,
+          157.05980066445187
+        ],
+        "axisGaps": [
+          38.62126245847176,
+          39.13621262458469,
+          38.62126245847179
+        ],
+        "frameGaps": [
+          1.5448504983388887,
+          2.0598006644518136,
+          1.544850498338917
+        ],
+        "plotSizesUnchanged": true
+      },
+      {
+        "analysis": "Ray-Fan",
+        "width": 600,
+        "height": 290,
+        "previousAxisGaps": [
+          70.23489932885904,
+          70.234899328859,
+          70.23489932885906
+        ],
+        "axisGaps": [
+          31.409395973154375,
+          31.40939597315429,
+          31.409395973154346
+        ],
+        "frameGaps": [
+          0,
+          0,
+          0
+        ],
+        "plotSizesUnchanged": true
+      },
+      {
+        "analysis": "Ray-Fan",
+        "width": 1000,
+        "height": 460,
+        "previousAxisGaps": [
+          123.57142857142861,
+          122.85714285714278,
+          122.85714285714278
+        ],
+        "axisGaps": [
+          53.571428571428555,
+          54.28571428571422,
+          54.285714285714334
+        ],
+        "frameGaps": [
+          2.142857142857139,
+          2.857142857142776,
+          2.857142857142833
+        ],
+        "plotSizesUnchanged": true
+      },
+      {
+        "analysis": "Pupil-Aberration",
+        "width": 1000,
+        "height": 460,
+        "previousAxisGaps": [
+          140.71428571428572,
+          140.0,
+          140.0
+        ],
+        "axisGaps": [
+          70.71428571428572,
+          71.42857142857144,
+          71.42857142857144
+        ],
+        "frameGaps": [
+          2.142857142857139,
+          2.857142857142776,
+          2.857142857142833
+        ],
+        "plotSizesUnchanged": true
+      },
+      {
+        "analysis": "Pupil-Aberration",
+        "width": 1000,
+        "height": 340,
+        "previousAxisGaps": [
+          169.41860465116284,
+          168.90365448504986,
+          169.41860465116275
+        ],
+        "axisGaps": [
+          50.98006644518276,
+          51.49501661129557,
+          50.980066445182786
+        ],
+        "frameGaps": [
+          1.5448504983388887,
+          2.0598006644518136,
+          1.544850498338917
+        ],
+        "plotSizesUnchanged": true
+      },
+      {
+        "analysis": "Pupil-Aberration",
+        "width": 600,
+        "height": 290,
+        "previousAxisGaps": [
+          80.70469798657716,
+          80.70469798657717,
+          80.70469798657717
+        ],
+        "axisGaps": [
+          41.87919463087249,
+          41.87919463087246,
+          41.87919463087252
+        ],
+        "frameGaps": [
+          0,
+          0,
+          0
+        ],
+        "plotSizesUnchanged": true
+      },
+      {
+        "analysis": "Pupil-Aberration",
+        "width": 1000,
+        "height": 460,
+        "previousAxisGaps": [
+          140.71428571428572,
+          140.0,
+          140.0
+        ],
+        "axisGaps": [
+          70.71428571428572,
+          71.42857142857144,
+          71.42857142857144
+        ],
+        "frameGaps": [
+          2.142857142857139,
+          2.857142857142776,
+          2.857142857142833
+        ],
+        "plotSizesUnchanged": true
+      },
+      {
+        "analysis": "Optical-Path-Difference",
+        "width": 1000,
+        "height": 460,
+        "previousAxisGaps": [
+          54.10596026490063,
+          54.10596026490066,
+          54.1059602649006
+        ],
+        "axisGaps": [
+          54.10596026490063,
+          54.10596026490066,
+          54.1059602649006
+        ],
+        "frameGaps": [
+          2.8476821192053023,
+          2.847682119205274,
+          2.847682119205217
+        ],
+        "plotSizesUnchanged": true
+      },
+      {
+        "analysis": "Optical-Path-Difference",
+        "width": 1000,
+        "height": 340,
+        "previousAxisGaps": [
+          39.00662251655629,
+          39.00662251655626,
+          39.00662251655626
+        ],
+        "axisGaps": [
+          39.00662251655629,
+          39.00662251655626,
+          39.00662251655626
+        ],
+        "frameGaps": [
+          2.0529801324503296,
+          2.0529801324503296,
+          2.0529801324503296
+        ],
+        "plotSizesUnchanged": true
+      },
+      {
+        "analysis": "Optical-Path-Difference",
+        "width": 600,
+        "height": 290,
+        "previousAxisGaps": [
+          32.71523178807948,
+          32.71523178807951,
+          32.71523178807945
+        ],
+        "axisGaps": [
+          32.71523178807948,
+          32.71523178807951,
+          32.71523178807945
+        ],
+        "frameGaps": [
+          1.7218543046357695,
+          1.7218543046358263,
+          1.7218543046357127
+        ],
+        "plotSizesUnchanged": true
+      },
+      {
+        "analysis": "Optical-Path-Difference",
+        "width": 1000,
+        "height": 460,
+        "previousAxisGaps": [
+          54.10596026490063,
+          54.10596026490066,
+          54.1059602649006
+        ],
+        "axisGaps": [
+          54.10596026490063,
+          54.10596026490066,
+          54.1059602649006
+        ],
+        "frameGaps": [
+          2.8476821192053023,
+          2.847682119205274,
+          2.847682119205217
+        ],
+        "plotSizesUnchanged": true
+      }
+    ],
+    "inputData": "Original DTO serialization unchanged through the resize sequence",
+    "reviewed": [
+      "Ray Fan single Light",
+      "Pupil Aberration single Light",
+      "Pupil Aberration single Dark"
+    ],
+    "renderDpi": 96
+  },
+  "scopeLimits": [
+    "Existing lens fixture used for UI regression only; no new independent optical residual investigation or accuracy certification",
+    "No full-suite or native high-DPI acceptance",
+    "No push or public package update"
+  ],
+  "sourceHashes": {
+    "src/OpticalSystemDesign.App/Controls/OptionalSquarePlotHost.cs": "ea41bb6dece8f242515c52bfd1294bd9f5f849865295a61b06082793e2b14acc",
+    "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Plots.cs": "e873a44bb2f44668f0adec9ae3b93f5da047a9bad5796c103a8aa3c32e44dc9b",
+    "tests/OpticalSystemDesign.Tests/RayFanLayoutRepairTests.cs": "87a5696226bd30937a83a8164c39ca24ce8373d9ef49343104e248d624460e1e",
+    "AGENTS.md": "66efdbfd547e8b21b9e0edbc33192959b168db1a4f229e8b673bdea3186d1b26",
+    "docs/UI_DESIGN_SPEC.md": "414d58e13a196b86f8fbcf040228441d692e3904427dd492bb87b363e1a97120",
+    "docs/USER_GUIDE.md": "3936139c75041d4245e741e296194f0faac282fdd6f5eb9dbd8bbb5621966dd5"
+  },
+  "evidence": {
+    "path": "validation/rechecks/2026-10-24/paired-fan-spacing-evidence.zip",
+    "sha256": "e3da08cfe239ca107187c828b9082d2c306e30136cce080f8e740ba4055de64a"
+  },
+  "documentation": {
+    "strictPassed": true,
+    "documents": 1076,
+    "brokenLinks": 0,
+    "guideBrokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-24",
+  "scope": "Glass material identification colors trial, restricted to the Solid Model viewer",
+  "baseCommit": "221b691f3d519b3fde8b43cc0d44b42439ced223",
+  "implemented": {
+    "viewer": "SolidModel only",
+    "modes": [
+      "solid",
+      "transparent",
+      "wireframe",
+      "cutaway"
+    ],
+    "materialIdentity": "Scene lens-element Material string, trimmed and case insensitive; no refractive-index inference",
+    "colorAssignment": "Material names sorted within current scene; eight initial colors followed by non-repeated generated colors. This is a scene legend, not a global glass catalog color standard.",
+    "legend": "Dedicated footer; wraps in narrow windows; 96 DIP maximum scroll viewport; no Air or empty material names",
+    "shading": "Tint existing rendered RGB while retaining existing shading alpha; ray color and optical data paths unchanged"
+  },
+  "preserved": [
+    "Separate 3D Layout colors and workspace layout",
+    "2D viewer",
+    "Ray colors and directions",
+    "Shared Core optical calculations and scene geometry"
+  ],
+  "builds": {
+    "Debug": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "defaultAppOutput": true
+    },
+    "Release": {
+      "passed": true,
+      "warnings": 0,
+      "errors": 0,
+      "defaultAppOutput": true
+    }
+  },
+  "tests": {
+    "passed": 7,
+    "failed": 0,
+    "skipped": 0,
+    "groups": {
+      "Viewer3DGeometryTests focused real Skia": 5,
+      "existing dielectric shading and UI theme-color contracts": 2
+    },
+    "fullSuiteRun": false,
+    "newCases": 2
+  },
+  "renders": {
+    "images": 12,
+    "dpi": 96,
+    "source": "Existing Zoom fixture, configuration 1/3",
+    "reviewed": [
+      "SolidModel Light",
+      "SolidModel Dark",
+      "SolidModel narrow Light",
+      "OpticalLayout Light"
+    ],
+    "evidenceType": "Headless Skia visual and layout checks, not native GUI or optical accuracy certification"
+  },
+  "priorStages": [
+    {
+      "result": "Debug compile failed with five errors and one warning",
+      "cause": "Initial container patch matched the 2D wrapper instead of only the 3D wrapper",
+      "resolution": "Restored the 2D wrapper and explicitly scoped the material footer to SolidModel"
+    },
+    {
+      "result": "4/4 focused passed before added Dark/narrow checks",
+      "countedInFinal": false
+    },
+    {
+      "result": "4/5 intermediate focused passed",
+      "cause": "Async scene publication preceded the next legend visual-tree layout pass",
+      "resolution": "Tick the actual window layout after scene publication; retain material label equality assertion",
+      "countedInFinal": false
+    }
+  ],
+  "sourceHashes": {
+    "src/OpticalSystemDesign.App/Controls/OpticSceneControl.cs": "a5e5878a4db1365364b95db3e5726b5c611f02e37ea0c0284641c0ff15313403",
+    "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs": "c1eba7f2c1e0f5de78a87e433c80eb8d4bab6586a4cf09a724af3ed943280911",
+    "src/OpticalSystemDesign.App/Services/UiLocalization.cs": "97fabf881f96e15904a4056721a092edc8bdd3e14c50f301a4e29d1fbd750ae6",
+    "tests/OpticalSystemDesign.Tests/Viewer3DGeometryTests.cs": "95971801303c3ec73dd741a756ae405f2662681d707ca6457e594285a87d5246"
+  },
+  "evidence": {
+    "path": "validation/rechecks/2026-10-24/solid-glass-colors-evidence.zip",
+    "sha256": "cabc0978043049c71941e4af78e4f963666bb180b88661bef63619941a74aecb"
+  },
+  "limits": [
+    "Identification colors do not represent measured glass spectral transmission",
+    "No full-suite, optical certification, native GUI or high-DPI acceptance",
+    "No push or public release update"
+  ],
+  "documentation": {
+    "strictPassed": true,
+    "documents": 1076,
+    "brokenLinks": 0,
+    "guideBrokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0
+  }
+}
