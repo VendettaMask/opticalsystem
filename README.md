@@ -112,6 +112,10 @@
 
 当前安装包未签名，系统可能显示未知发布者提示；源码更新不会自动替换已有安装。安装、修复和恢复方式见 [Windows 安装说明](docs/WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)，实际包身份以[交付记录](docs/BUILT_IN_MODULES_2026-10-13.md)为准。
 
+### 使用 Apple Silicon Mac 版
+
+Mac 发布仅支持 M 系列芯片（`osx-arm64`）。打开发布页的 DMG，将 **Optical System Design.app** 拖入“应用程序”；包内包含 .NET、两个必装模块和字体。当前包为 ad-hoc 签名、尚未公证，首次打开可能需要系统批准；Mac 通过发布页手动更新。具体可下载包及验证范围见[当前状态](docs/CURRENT_STATUS.md)，打包步骤见[云端发布指南](docs/GITHUB_CLOUD_RELEASE.md#apple-silicon-mac-包)。
+
 ### 从源码启动
 
 安装 [global.json](global.json) 指定兼容范围的 .NET SDK，在仓库根目录运行：
@@ -186,7 +190,7 @@ dotnet test OpticalSystemDesign.slnx -c Release --no-build --no-restore /m:1 /nr
 - **图形、文字与平台适配**：[SkiaSharp / HarfBuzzSharp](https://github.com/mono/SkiaSharp) 及其上游 [Skia](https://skia.org/)、[HarfBuzz](https://github.com/harfbuzz/harfbuzz)，以及 [Avalonia ANGLE](https://github.com/AvaloniaUI/angle)、[MicroCom](https://github.com/kekekeks/MicroCom)、[Tmds.DBus](https://github.com/tmds/Tmds.DBus)。
 - **光学算法与交互参考**：[Optiland](https://github.com/optiland/optiland)、[AutoLens](https://github.com/AI4Optics/AutoLens)、[DeepLens](https://github.com/vccimaging/DeepLens)、[TFStudio](https://github.com/aai2k/TFStudio)、[tmmcore](https://github.com/aai2k/tmmcore)。感谢其在光学建模、初始结构与镀膜设计方面的工作。
 - **开放材料数据**：[refractiveindex.info database](https://github.com/polyanskiy/refractiveindex.info-database)。
-- **字体**：[Noto Sans CJK](https://github.com/notofonts/noto-cjk)、[Inter](https://github.com/rsms/inter)、[Fusion Pixel Font](https://github.com/TakWolf/fusion-pixel-font)。
+- **字体**：[DM Sans](https://github.com/google/fonts/tree/main/ofl/dmsans)、[思源黑体](https://github.com/adobe-fonts/source-han-sans)、[JetBrains Mono](https://github.com/JetBrains/JetBrainsMono)、[Noto Sans CJK](https://github.com/notofonts/noto-cjk)、[Inter](https://github.com/rsms/inter)、[Fusion Pixel Font](https://github.com/TakWolf/fusion-pixel-font)。当前桌面字体分工与许可见[字体说明](docs/TYPOGRAPHY.md)。
 - **图标**：[Lucide](https://github.com/lucide-icons/lucide) 及其源项目 [Feather](https://github.com/feathericons/feather)、[Game-icons.net](https://game-icons.net/)（Delapouite、Lorc 等贡献者）、[FatCow / Farm-Fresh](https://github.com/gammasoft/fatcow)（FatCow Web Hosting / Marcis Gasuns）。
 - **构建、测试与测试依赖**：[MSBuild](https://github.com/dotnet/msbuild)、[NuGet](https://github.com/NuGet/NuGet.Client)、[PowerShell](https://github.com/PowerShell/PowerShell)、[VSTest / .NET Test SDK](https://github.com/microsoft/vstest)、[xUnit.net](https://github.com/xunit/xunit)、[Coverlet](https://github.com/coverlet-coverage/coverlet)、[Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)、[Inno Setup](https://github.com/jrsoftware/issrc)。
 - **离线验证与报告工具**：[Python](https://github.com/python/cpython)、[NumPy](https://github.com/numpy/numpy)、[SciPy](https://github.com/scipy/scipy)、[Matplotlib](https://github.com/matplotlib/matplotlib)、[Pillow](https://github.com/python-pillow/Pillow)、[pythonnet](https://github.com/pythonnet/pythonnet)、[python-docx](https://github.com/python-openxml/python-docx)、[ReportLab](https://pypi.org/project/reportlab/)、[FreeCAD](https://github.com/FreeCAD/FreeCAD) / [Open CASCADE Technology](https://github.com/Open-Cascade-SAS/OCCT)、[Node.js](https://github.com/nodejs/node)。这些工具不参与产品运行时光学计算。

@@ -1,0 +1,102 @@
+{
+  "date": "2026-10-24",
+  "baseCommit": "07259315200dc5eb128a27f740e9758bbc190bc2",
+  "scope": "Align surface role left and actual geometry name right within the lens-editor surface-type column. Prior typography, Dock and inset fixes retained.",
+  "implementation": {
+    "roleAlignment": "Left",
+    "geometryAlignment": "Right",
+    "cellContentAlignment": "Stretch",
+    "edgeMarginDip": 8,
+    "defaultColumnWidthDip": 180,
+    "ordinaryRolePlaceholder": false,
+    "narrowTypeText": "Character ellipsis with full-name tooltip",
+    "recyclingBindingsRetained": true,
+    "allThemes": true
+  },
+  "verification": {
+    "distinctPassed": 11,
+    "failed": 0,
+    "skipped": 0,
+    "groups": [
+      {
+        "trx": "surface-type-alignment-final.trx",
+        "passed": 10
+      },
+      {
+        "trx": "material-row-final.trx",
+        "passed": 1
+      }
+    ],
+    "themes": [
+      "Light",
+      "Dark",
+      "Pixel",
+      "Isekai",
+      "Lumen"
+    ],
+    "languages": [
+      "zh-CN",
+      "en-US",
+      "ja-JP"
+    ],
+    "fontSizesDip": [
+      13,
+      18
+    ],
+    "columnWidthsDip": [
+      140,
+      180,
+      240
+    ],
+    "rolesCovered": [
+      "Object",
+      "Stop",
+      "Image",
+      "Ordinary"
+    ],
+    "cellEdgeCoordinatesChecked": true,
+    "prescriptionRevisionUnchangedByLayout": true,
+    "headerAndNarrowImages": 20,
+    "materialImages": 4,
+    "productionRenderHasSurfaceTypeOverrides": false,
+    "visualReview": [
+      "Chinese Light workbench",
+      "English Dark narrow column at 18 DIP"
+    ],
+    "fullLocalizationAcceptanceClaimed": false,
+    "fullSuiteRun": false,
+    "opticalNumericalRegressionRun": false,
+    "installerPublished": false,
+    "pushed": false
+  },
+  "builds": [
+    {
+      "configuration": "Debug",
+      "output": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.dll",
+      "sha256": "2967ed65ae8c0a37c2602a10b232ec7463541b12c8f89275da6b30dfbf3aba1e",
+      "warnings": 0,
+      "errors": 0
+    },
+    {
+      "configuration": "Release",
+      "output": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "sha256": "12b20d52118df1a6abf693b89f70c5cde932fa198af4577e261a15aa537880f2",
+      "warnings": 0,
+      "errors": 0
+    }
+  ],
+  "documentationCheck": "Scoped local links and fences; full PowerShell audit not run",
+  "evidence": {
+    "path": "validation/rechecks/2026-10-24/surface-type-alignment-evidence.zip",
+    "bytes": 2844956,
+    "sha256": "c9de0e51222d8737d5f5016299d3f7e8be452d391a1bcddab76102e7c783d489"
+  },
+  "files": {
+    "AGENTS.md": "a288721ee98fdebdf395be1df977a944087e6bbe277584d962bf8675aa17f61f",
+    "src/OpticalSystemDesign.App/Panels/LensEditorPanel.cs": "4a701c24bad5d4a4b30c00e32d00b2f5e2f633430be65951d3b47fa205f0085c",
+    "tests/OpticalSystemDesign.Tests/LensHeaderTypographyTests.cs": "18c13744c27f13c29c5d1bff87794e4db2444f914ffbc5dd979ac41501b0a53a",
+    "docs/UI_DESIGN_SPEC.md": "717f27440a3c01ba91d82c83aa0b6a9491c7b5f53821bf4e59c2c3de0180b57b",
+    "docs/USER_GUIDE.md": "729060b5a2506000c1035e9522555314b5c04f2f06ee2a4cd1e0ebab00316f99",
+    "docs/CURRENT_STATUS.md": "f636ff31a294926104b9cd7585388389768b8d09efb2637ad0771e251b8c3269"
+  }
+}

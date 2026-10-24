@@ -715,6 +715,7 @@ public sealed partial class MainWindow
 
     private static Border StatusCell(TextBlock text, int column, double width)
     {
+        if (column > 0) text.Classes.Add(ProductFonts.NumericClass);
         text.FontSize = DisplayTypography.CompactBody;
         text.VerticalAlignment = VerticalAlignment.Center;
         text.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension(ThemeResourceBindings.TextSecondary));

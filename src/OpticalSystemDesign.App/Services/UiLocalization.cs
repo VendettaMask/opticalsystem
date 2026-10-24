@@ -1035,6 +1035,8 @@ internal static class UiLocalization
         Add("主题", "Theme", "テーマ");
         Add("从主题列表选择外观，下方可预览配色", "Choose a theme; preview its colours below", "テーマを選択し、下で配色をプレビューできます");
         Add("字体", "Font", "フォント");
+        Add("产品默认（推荐）", "Product default (recommended)", "製品の既定（推奨）");
+        Add("单位：DIP", "Unit: DIP", "単位：DIP");
         Add("字号", "Font Size", "フォントサイズ");
         Add("小数位数", "Decimal Places", "小数点以下の桁数");
         Add("操作失败", "Operation Failed", "操作に失敗しました");

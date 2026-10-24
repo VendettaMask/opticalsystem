@@ -52,7 +52,6 @@ public sealed partial class AnalysisPanel
 
         var original = view.Series.ToArray();
         var enabled = legendEntries.Select(entry => entry.Key).ToHashSet(StringComparer.Ordinal);
-        var legendBelow = view.PlotOptions.LegendBelow;
         var legend = BuildSelectableLegend(legendEntries, (key, isVisible) =>
         {
             if (isVisible)
@@ -67,26 +66,10 @@ public sealed partial class AnalysisPanel
             plot.Series = original.Where(series =>
                 !TryGetSelectableLegend(series, out var seriesKey, out _)
                 || enabled.Contains(seriesKey)).ToArray();
-        }, legendBelow ? Orientation.Horizontal : Orientation.Vertical);
+        });
         plot.PlotOptions = view.PlotOptions with { ShowLegend = false };
-        var layout = new Grid
-        {
-            ColumnDefinitions = legendBelow ? new ColumnDefinitions("*") : new ColumnDefinitions("*,Auto"),
-            RowDefinitions = legendBelow ? new RowDefinitions("*,Auto") : new RowDefinitions("*")
-        };
-        layout.Children.Add(plotRoot);
+        var layout = BuildPlotLegendLayout(plotRoot, legend);
         layout.Children.Add(EmptyPlotMessage(view.Series.Count == 0));
-        if (legendBelow)
-        {
-            Grid.SetRow(legend, 1);
-        }
-        else
-        {
-            Grid.SetColumn(legend, 1);
-            legend.VerticalAlignment = VerticalAlignment.Center;
-        }
-
-        layout.Children.Add(legend);
         return layout;
     }
 
@@ -354,7 +337,7 @@ public sealed partial class AnalysisPanel
                         : ConfigurationMatrixConfigurationLabel(panes[column].Title)
                     : MatrixWavelengthLabel(panes[column].Title),
                 FontSize = AnalysisPlotControl.PlotTextSize,
-                FontFamily = new FontFamily("Cascadia Mono, Consolas"),
+                Classes = { ProductFonts.NumericClass },
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Bottom,
                 Margin = new Thickness(0, 0, 0, 3)
@@ -377,9 +360,7 @@ public sealed partial class AnalysisPanel
                     ? panes[paneIndex].MatrixCell?.FieldLabel ?? ConfigurationMatrixFieldLabel(panes[paneIndex].Title)
                     : panes[paneIndex].Footer,
                 FontSize = AnalysisPlotControl.PlotTextSize,
-                FontFamily = configurationMatrix
-                    ? FontFamily.Default
-                    : new FontFamily("Cascadia Mono, Consolas"),
+                Classes = { configurationMatrix ? "interface-text" : ProductFonts.NumericClass },
                 FontWeight = configurationMatrix
                     ? FontWeight.SemiBold
                     : FontWeight.Normal,
@@ -448,7 +429,7 @@ public sealed partial class AnalysisPanel
                     : firstUnit == AnalysisAxisUnit.Radian ? AnalysisAxisUnit.Milliradian : firstUnit)
                     .ToString("0.000", CultureInfo.InvariantCulture),
                 FontSize = AnalysisPlotControl.PlotTextSize,
-                FontFamily = new FontFamily("Cascadia Mono, Consolas"),
+                Classes = { ProductFonts.NumericClass },
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(-22, 0, 0, 0),
@@ -533,20 +514,7 @@ public sealed partial class AnalysisPanel
                 plot.Series = isVisible ? originalSeries : Array.Empty<AnalysisSeriesDto>();
             }
         });
-        legend.Margin = new Thickness(14, 42, 14, 0);
-        legend.VerticalAlignment = VerticalAlignment.Top;
-
-        var layout = new Grid
-        {
-            ColumnDefinitions = new ColumnDefinitions("*,Auto"),
-            Children =
-            {
-                matrix,
-                legend
-            }
-        };
-        Grid.SetColumn(legend, 1);
-        return layout;
+        return BuildPlotLegendLayout(matrix, legend);
     }
 
     private static string MatrixWavelengthLabel(string title)
@@ -664,7 +632,7 @@ public sealed partial class AnalysisPanel
             {
                 Text = DefocusMicrometersLabel(panes[column].Title),
                 FontSize = AnalysisPlotControl.PlotTextSize,
-                FontFamily = new FontFamily("Cascadia Mono, Consolas"),
+                Classes = { ProductFonts.NumericClass },
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
             };
@@ -859,11 +827,13 @@ public sealed partial class AnalysisPanel
                         !TryGetSelectableLegend(series, out var seriesKey, out _)
                         || enabled.Contains(seriesKey)).ToArray();
                 }
-            }, Orientation.Horizontal);
+            });
             foreach (var plot in plots)
             {
                 plot.PlotOptions = plot.PlotOptions with { ShowLegend = false };
             }
+
+            return BuildPlotLegendLayout(plotRoot, legend);
         }
         else
         {
@@ -926,16 +896,27 @@ public sealed partial class AnalysisPanel
         return entries;
     }
 
+    private static Grid BuildPlotLegendLayout(Control plotRoot, Control legend)
+    {
+        // Every selectable plot legend uses the same page-relative anchor,
+        // independent of the plot's axes, pane count or square viewport.
+        legend.HorizontalAlignment = HorizontalAlignment.Right;
+        legend.VerticalAlignment = VerticalAlignment.Top;
+        legend.Margin = new Thickness(12);
+        var layout = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,Auto"),
+            Children = { plotRoot, legend }
+        };
+        Grid.SetColumn(legend, 1);
+        return layout;
+    }
+
     private static Panel BuildSelectableLegend(
         IReadOnlyList<(string Key, string Label, Color Color)> entries,
-        Action<string, bool> setVisibility,
-        Orientation orientation = Orientation.Vertical)
+        Action<string, bool> setVisibility)
     {
-        Panel legend = orientation == Orientation.Horizontal && entries.Count > 4
-            ? new WrapPanel { Orientation = Orientation.Horizontal }
-            : new StackPanel { Orientation = orientation, Spacing = orientation == Orientation.Horizontal ? 14 : 2 };
-        legend.HorizontalAlignment = HorizontalAlignment.Center;
-        legend.Margin = new Thickness(12, 4, 12, 12);
+        var legend = new StackPanel { Spacing = 2 };
         foreach (var entry in entries)
         {
             var brush = new SolidColorBrush(entry.Color);
@@ -957,8 +938,10 @@ public sealed partial class AnalysisPanel
                     {
                         Text = entry.Label,
                         Foreground = brush,
-                        FontFamily = new FontFamily("Cascadia Mono, Consolas"),
+                        Classes = { ProductFonts.NumericClass },
                         FontSize = AnalysisPlotControl.PlotTextSize,
+                        MaxWidth = 220,
+                        TextWrapping = TextWrapping.Wrap,
                         VerticalAlignment = VerticalAlignment.Center
                     }
                 }
@@ -967,7 +950,7 @@ public sealed partial class AnalysisPanel
             {
                 IsChecked = true,
                 Content = content,
-                Margin = new Thickness(legend is WrapPanel ? 7 : 2, 1)
+                Margin = new Thickness(2, 1)
             };
             checkBox.IsCheckedChanged += (_, _) =>
                 setVisibility(entry.Key, checkBox.IsChecked == true);

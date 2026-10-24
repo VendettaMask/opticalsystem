@@ -1,29 +1,29 @@
 # GitHub 云端构建与发布
 
-源码、依赖锁文件、Windows 安装器及全部打包脚本均随仓库维护，不需要维护者电脑持续开机。入口是 [Windows EXE build and publish](https://github.com/VendettaMask/opticalsystem/actions/workflows/release.yml)。这是生成完整安装包的流程，不是软件自动安装更新功能。
+源码、依赖锁文件、Windows 安装器、Apple Silicon Mac DMG 及全部打包脚本均随仓库维护，不需要维护者电脑持续开机。入口是 [Desktop build and publish](https://github.com/VendettaMask/opticalsystem/actions/workflows/release.yml)。这是生成完整安装包的流程，不是软件自动安装更新功能。
 
 ## 一键更新当前测试包
 
 1. 将要交付的代码同步到 GitHub `main`，在 Actions 打开上述工作流，点击 **Run workflow**。
-2. 选择 `main`，`release_tag` 保持 `v1.0.4-test.20261019`，架构选择 `win-x64`。
-3. 勾选 `replace_existing`，确认运行。需要仓库写权限；不勾选时不会覆盖已有附件。
-4. 等所有步骤成功，再从原测试发布页下载 EXE。失败记录在 Actions 查看，不把失败的流程当成新版交付。
+2. 选择 `main`，`release_tag` 保持 `v1.0.4-test.20261019`，平台选择 `all` 构建全部；仅补充 Mac 时选择 `osx-arm64`。
+3. 替换所选平台的已有包时勾选 `replace_existing`；新增尚不存在的 Mac 包无需覆盖开关。需要仓库写权限。
+4. 等所有步骤成功，再从原测试发布页下载对应的 EXE 或 DMG。失败记录在 Actions 查看，不把失败的流程当成新版交付。
 
 手动刷新旧发布不会移动标签。包内与发布说明中的源码提交才是本包实际来源；该标签的自动 Source code 压缩包仍是标签原始代码。操作入口和权限说明见 [GitHub 手动运行文档](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow)。
 
-手动流程只重建所选架构，已有其他架构的 EXE 会保留，不表示它也来自本轮源码；要求两个架构统一来源时，应使用新版本标签触发双架构构建。
+手动流程只重建所选平台，已有其他平台的附件及有效 Windows OTA 签名保持不变，不表示它们也来自本轮源码；要求全部平台统一来源时选择 `all` 或使用新版本标签。正文分别记录新包的源码，保留其他平台原记录。
 
 ## 发布新版本
 
-先修改 `ProductVersion.props`，更新 `packaging/windows/RELEASE_NOTES.md` 并完成检查，再推送代码和匹配的版本标签。`v1.0.5` 会构建两个架构并自动公开为正式版；`v1.0.5-test.20261022` 会公开为测试预发布、不标 Latest。标签和产品版本不一致直接失败。推送普通分支只运行通常的 CI，不发布安装包。
+先修改 `ProductVersion.props`，更新 `packaging/windows/RELEASE_NOTES.md` 并完成检查，再推送代码和匹配的版本标签。`v1.0.5` 会构建 Windows x64、Windows ARM64 和 Mac Apple Silicon 并自动公开为正式版；`v1.0.5-test.20261022` 会公开为测试预发布、不标 Latest。标签和产品版本不一致直接失败。推送普通分支只运行通常的 CI，不发布安装包。
 
-首次公开前创建草稿暂存已验证的 EXE，所有所选架构通过后才公开。刷新已有发布时先保存旧附件副本，再以临时名称上传完整新包并核对服务端 SHA-256，随后切换下载名并移除被替换的旧附件。GitHub 没有多附件原子事务；短暂的临时名和切换失败仍可能出现，错误时会尝试恢复旧名称，旧文件和备份不提前删除。发现未知附件或不可变发布时停止，需要维护者检查。
+首次公开前创建草稿暂存已验证的安装包，所有所选平台通过后才公开。刷新已有发布时先保存旧附件副本，再以临时名称上传完整新包并核对服务端 SHA-256，随后切换下载名并移除被替换的旧附件。GitHub 没有多附件原子事务；短暂的临时名和切换失败仍可能出现，错误时会尝试恢复旧名称，旧文件和备份不提前删除。发现未知附件或不可变发布时停止，需要维护者检查。
 
 ## 下载区与记录
 
 ### OTA 签名与纯云端密钥备份
 
-正式版与测试版在修改 Release 前都必须验证 RSA-4096 签名密钥与产品内置公钥相同，签名版本、架构、完整 EXE 大小/SHA-256、源码提交和载荷发布 ID；签名元数据放在发布正文的隐藏标记，不增加 Release 附件。正式版保留兼容的 v1 信封，测试版使用 v2，额外签名云端 `GITHUB_RUN_ID` 构建编号；该编号也写入主程序集及打包记录，发布时必须与本次工作流一致。测试预发布仍不标 Latest、不伪装正式版，但新版客户端默认“包含测试版”，可按更高版本或同版本更高构建编号 OTA；未勾选时仍只检查正式版。重跑同一个 Actions run 不产生更高编号，要交付新的测试构建应重新 Run workflow。此签名不是 Windows Authenticode，不能消除未知发布者提醒。
+Windows 正式版与测试版在修改 Release 前都必须验证 RSA-4096 签名密钥与产品内置公钥相同，签名版本、架构、完整 EXE 大小/SHA-256、源码提交和载荷发布 ID；签名元数据放在发布正文的隐藏标记，不增加 Release 附件。正式版保留兼容的 v1 信封，测试版使用 v2，额外签名云端 `GITHUB_RUN_ID` 构建编号；该编号也写入主程序集及打包记录，发布时必须与本次工作流一致。测试预发布仍不标 Latest、不伪装正式版，但新版客户端默认“包含测试版”，可按更高版本或同版本更高构建编号 OTA；未勾选时仍只检查正式版。重跑同一个 Actions run 不产生更高编号，要交付新的测试构建应重新 Run workflow。此签名不是 Windows Authenticode，不能消除未知发布者提醒。
 
 正常签名只读取主仓库的 `OPTICAL_OTA_SIGNING_KEY` Actions Secret。经用户批准建立的私有仓库 `VendettaMask/opticalsystem-ota-vault` 提供独立 Backup/Verify 工作流：恢复密码仅通过该私有仓库的 `OPTICAL_OTA_RECOVERY_PASSWORD` Secret 输入，不使用聊天、普通变量或可见的工作流输入。Backup 生成 AES-256-GCM、PBKDF2-HMAC-SHA256（600000 次）的加密文件并提交到私有仓库，再下载并解密核验；Verify 不读取原始签名 Secret，仅用已提交的加密文件和密码恢复并验证同一签名身份。备份不绑定电脑或 Windows 账户，也不依赖会过期的 Actions 产物。只需维护者保管一个独立强密码；软件用户不需要它。
 
@@ -31,15 +31,23 @@
 
 签名基础设施、客户端交付与真实安装分别记账；旧稳定通道客户端不会因云端规则改变就认识测试包，须先手动安装新引导包。客户端、真实安装和主仓库恢复发布的实际状态查看[当前状态](CURRENT_STATUS.md)。私有仓库操作说明的公开模板见[维护说明](../packaging/ota-vault/README.md)，早期备份验证见[云端密钥账目](validation/OTA_CLOUD_KEY_VAULT_2026-10-22.json)。
 
-- Releases 只附加 EXE；SHA-256 放在发布正文，构建元数据、测试结果、旧附件备份放在 Actions 工作流产物内，保留 30 天。仓库可见性和 GitHub 访问权限同样适用于这些产物，不应放秘密。
+- Releases 只附加 Windows EXE 和 Apple Silicon DMG；SHA-256 放在发布正文，构建元数据、测试结果、旧附件备份放在 Actions 工作流产物内，保留 30 天。仓库可见性和 GitHub 访问权限同样适用于这些产物，不应放秘密。
 - 自动生成的 Source code ZIP / tar.gz 是 GitHub 固定提供的源码入口，不是额外上传的安装文件。
 - 发布用本次运行的短期 `GITHUB_TOKEN`，只在发布任务授予仓库内容写权限，不需要在代码中保存个人令牌。
 - 当前包未作 Windows Authenticode 发布者签名；OTA 内置公钥验签不替代 Windows 证书。云端打包不会消除未知发布者提醒，也不会自动下载、安装或关闭用户软件。
 
 ## 验证范围
 
-云端构建完整解决方案，但只运行与交付、安装、界面和原生预设相关的定向测试，不把它称为全仓库测试。冻结证据与文档校验保留，x64 包执行内置模块完整性检查，ARM64 只有交叉打包检查。AutoLens 目标预设的存在和界面通过不等于设计达标；此前 24 次固定 CPU 运行仍为 0/24 达标。
+Windows 在 `windows-latest`、Mac 在 Apple Silicon `macos-15` runner 构建完整解决方案，但只运行与交付、安装、界面和原生预设相关的定向测试，不把它称为全仓库测试。冻结证据与文档校验保留，x64 包执行内置模块完整性检查，ARM64 只有交叉打包检查。AutoLens 目标预设的存在和界面通过不等于设计达标；此前 24 次固定 CPU 运行仍为 0/24 达标。
 
 流程源码见[工作流](../.github/workflows/release.yml)与[安全替换脚本](../scripts/publish-github-exe.ps1)，实际执行和交付结果以[当前状态](CURRENT_STATUS.md)为准。
 
 2026-10-22 已[实际跑通 x64 手动触发后的全自动构建与发布](https://github.com/VendettaMask/opticalsystem/actions/runs/39715666744)，没有操作用户桌面或本机安装。定向测试 97/97 和 23/23、包检查 14/14；首次发布的列表解析失败及其修复也保存在[交付账目](validation/GITHUB_CLOUD_RELEASE_2026-10-22.json)。本次没有实际触发新版本标签、执行 ARM64 包或重新认证完整光学矩阵。
+
+## Apple Silicon Mac 包
+
+Mac 仅生成 `osx-arm64` 的自包含 DMG，包含 .NET、两个必装模块、字体与许可。用户打开磁盘映像，将 `.app` 拖到“应用程序”；不要求安装 SDK。最低系统声明为 macOS 14，实际检查范围以账目为准；.NET 支持范围见 [Microsoft 文档](https://learn.microsoft.com/en-us/dotnet/core/install/macos)。
+
+构建使用标准 Resources/Frameworks 目录和内部相对链接，检查原生代码均为 arm64，逐项 ad-hoc 签名后校验整个 bundle。生成 DMG 后只读挂载，再运行包内 `--verify-installation` 并比较完整文件清单，确认运行时、初始结构和镀膜模块仍在主进程可用，不读取或写入用户设置。这是原生无界面载荷检查，不是完整 GUI 验收。
+
+当前无 Apple Developer ID 证书和公证凭据，文件名标记 `AdHoc` / `AdHocTest`，不宣称已公证。首次打开可能需要用户在系统设置中批准；不自动解除隔离或关闭安全保护。Mac 更新通过发布页手动替换 `.app`，Windows 安装 OTA 不适用于 Mac。打包入口见 [build-macos.sh](../scripts/build-macos.sh)、[载荷检查](../scripts/verify-macos-package.sh)和[安装说明](../packaging/macos/README.txt)。

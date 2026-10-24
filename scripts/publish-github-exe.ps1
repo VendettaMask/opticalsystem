@@ -16,11 +16,14 @@ $directory = (Resolve-Path -LiteralPath $DistributionDirectory).Path
 $version = ($Tag -replace '^v', '') -replace '-test\.[0-9]{8}$', ''
 $testPackage = $Tag.Contains('-test.')
 $suffix = if ($testPackage) { 'UnsignedTest' } else { 'Unsigned' }
-$files = @(Get-ChildItem -LiteralPath $directory -File -Filter '*.exe')
-if ($files.Count -eq 0) { throw 'No EXE installers in the handoff.' }
+$files = @(Get-ChildItem -LiteralPath $directory -File | Where-Object Extension -In @('.exe', '.dmg'))
+if ($files.Count -eq 0) { throw 'No desktop installers in the handoff.' }
 $packages = @($files | ForEach-Object {
     $file = $_
-    $pattern = '^OpticalSystemDesign-' + [regex]::Escape($version) + '-(win-x64|win-arm64)-' + $suffix + '-Setup\.exe$'
+    $isMac = $file.Extension -ceq '.dmg'
+    $macSuffix = if ($testPackage) { 'AdHocTest' } else { 'AdHoc' }
+    $pattern = if ($isMac) { '^OpticalSystemDesign-' + [regex]::Escape($version) + '-(osx-arm64)-' + $macSuffix + '\.dmg$' }
+        else { '^OpticalSystemDesign-' + [regex]::Escape($version) + '-(win-x64|win-arm64)-' + $suffix + '-Setup\.exe$' }
     if ($file.Name -cnotmatch $pattern) { throw "Unexpected installer name: $($file.Name)" }
     $runtime = $Matches[1]
     $record = Get-Content -LiteralPath (Join-Path $directory "release-$runtime.json") -Raw | ConvertFrom-Json
@@ -37,9 +40,20 @@ $packages = @($files | ForEach-Object {
         throw "Invalid build identity: $runtime"
     }
     if ($env:GITHUB_SHA -and $record.SourceCommit -cne $env:GITHUB_SHA) { throw 'Build source differs from the publishing workflow.' }
+    if ($isMac -and ($record.MacCodeSignature -cne 'AdHoc' -or $record.Notarized -isnot [bool] -or $record.Notarized)) {
+        throw 'Invalid Mac signing identity.'
+    }
     if ($file.Length -lt 2) { throw 'Empty installer.' }
     $stream = $file.OpenRead()
-    try { if ($stream.ReadByte() -ne 0x4d -or $stream.ReadByte() -ne 0x5a) { throw 'Installer is not a Windows EXE.' } }
+    try {
+        if ($isMac) {
+            if ($file.Length -lt 512) { throw 'Installer is not an Apple UDIF disk image.' }
+            $stream.Position = $file.Length - 512
+            foreach ($byte in @(0x6b, 0x6f, 0x6c, 0x79)) {
+                if ($stream.ReadByte() -ne $byte) { throw 'Installer is not an Apple UDIF disk image.' }
+            }
+        } elseif ($stream.ReadByte() -ne 0x4d -or $stream.ReadByte() -ne 0x5a) { throw 'Installer is not a Windows EXE.' }
+    }
     finally { $stream.Dispose() }
     [pscustomobject]@{
         Name = $file.Name; Path = $file.FullName; Size = $file.Length; Runtime = $runtime
@@ -52,8 +66,8 @@ if (@($packages.Runtime | Sort-Object -Unique).Count -ne $packages.Count -or
     @($packages.SourceCommit | Sort-Object -Unique).Count -ne 1) { throw 'Duplicate architecture or mixed source commits.' }
 $plan = [pscustomobject]@{ Repository = $Repository; Tag = $Tag; TestPackage = $testPackage; Packages = $packages }
 if ($PlanOnly) { $plan | ConvertTo-Json -Depth 6; return }
-if ($testPackage -and @($packages | Where-Object { $_.BuildSequence -le 0 -or
-    ($env:GITHUB_RUN_ID -and $_.BuildSequence -ne [long]$env:GITHUB_RUN_ID) }).Count -gt 0) {
+if ($testPackage -and @($packages | Where-Object { $_.Runtime -like 'win-*' -and ($_.BuildSequence -le 0 -or
+    ($env:GITHUB_RUN_ID -and $_.BuildSequence -ne [long]$env:GITHUB_RUN_ID)) }).Count -gt 0) {
     throw 'Test OTA build sequence is missing or differs from the publishing workflow.'
 }
 if ($Repository -cne 'VendettaMask/opticalsystem') { throw 'OTA signing is restricted to the product repository.' }
@@ -65,9 +79,16 @@ $notes = Get-Content -LiteralPath $NotesFile -Raw
 # envelope also binds the monotonic cloud run ID used by the compiled client.
 . (Join-Path $PSScriptRoot 'ota-key-crypto.ps1')
 $otaPublicKey = Get-Content -LiteralPath (Join-Path (Split-Path -Parent $PSScriptRoot) 'src/OpticalSystemDesign.App/Assets/Updates/ota-public-key.pem') -Raw
-$otaRsa = Get-OtaSigningRsa $otaPublicKey
-try { $otaMarkers = @($packages | ForEach-Object { New-OtaReleaseEnvelope $otaRsa $_ $version $Tag }) }
-finally { $otaRsa.Dispose(); $env:OPTICAL_OTA_SIGNING_KEY = $null; $env:OPTICAL_OTA_RECOVERY_PASSWORD = $null; $env:OPTICAL_OTA_ENCRYPTED_BACKUP = $null }
+$otaMarkers = @()
+$otaRsa = $null
+try {
+    $windowsPackages = @($packages | Where-Object Runtime -Like 'win-*')
+    if ($windowsPackages.Count -gt 0) {
+        $otaRsa = Get-OtaSigningRsa $otaPublicKey
+        $otaMarkers = @($windowsPackages | ForEach-Object { New-OtaReleaseEnvelope $otaRsa $_ $version $Tag })
+    }
+}
+finally { if ($otaRsa) { $otaRsa.Dispose() }; $env:OPTICAL_OTA_SIGNING_KEY = $null; $env:OPTICAL_OTA_RECOVERY_PASSWORD = $null; $env:OPTICAL_OTA_ENCRYPTED_BACKUP = $null }
 $evidence = Join-Path $directory 'release-evidence'
 [void][IO.Directory]::CreateDirectory($evidence)
 $plan | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $evidence 'plan.json') -Encoding utf8
@@ -83,7 +104,7 @@ function Invoke-ReleaseApi([string]$Method, [string]$Route, $Body = $null) {
 }
 function Assert-UploadedAsset($Asset, $Package) {
     if ($Asset.state -cne 'uploaded' -or $Asset.size -ne $Package.Size -or
-        $Asset.digest -cne "sha256:$($Package.Sha256)") { throw "Uploaded EXE verification failed: $($Package.Name)" }
+        $Asset.digest -cne "sha256:$($Package.Sha256)") { throw "Uploaded installer verification failed: $($Package.Name)" }
 }
 function Send-Installer($Release, $Package, [string]$Name) {
     $upload = "https://uploads.github.com/repos/$Repository/releases/$($Release.id)/assets?name=$([Uri]::EscapeDataString($Name))"
@@ -92,7 +113,8 @@ function Send-Installer($Release, $Package, [string]$Name) {
     foreach ($key in $headers.Keys) { [void]$client.DefaultRequestHeaders.TryAddWithoutValidation($key, $headers[$key]) }
     $stream = [IO.File]::OpenRead($Package.Path)
     $content = [Net.Http.StreamContent]::new($stream)
-    $content.Headers.ContentType = [Net.Http.Headers.MediaTypeHeaderValue]::new('application/vnd.microsoft.portable-executable')
+    $content.Headers.ContentType = [Net.Http.Headers.MediaTypeHeaderValue]::new(
+        $(if ($Package.Runtime -ceq 'osx-arm64') { 'application/x-apple-diskimage' } else { 'application/vnd.microsoft.portable-executable' }))
     $response = $null
     try {
         $response = $client.PostAsync($upload, $content).GetAwaiter().GetResult()
@@ -115,14 +137,40 @@ if (-not $release) {
 if ($release.immutable) { throw 'The release is immutable.' }
 $assets = @(Invoke-ReleaseApi GET "releases/$($release.id)/assets?per_page=100")
 if ($assets.Count -ge 100) { throw 'Too many release assets; review manually.' }
-if ($assets.Count -gt 0 -and -not $ReplaceExisting) { throw 'Existing attachments require explicit -ReplaceExisting.' }
-$canonicalPattern = '^OpticalSystemDesign-' + [regex]::Escape($version) + '-win-(?:x64|arm64)-' + $suffix + '-Setup\.exe$'
+$canonicalPattern = '^OpticalSystemDesign-' + [regex]::Escape($version) + '-(?:win-(?:x64|arm64)-' + $suffix + '-Setup\.exe|osx-arm64-' + $(if ($testPackage) { 'AdHocTest' } else { 'AdHoc' }) + '\.dmg)$'
 $sidecarPattern = '^(?:release(?:-win-(?:x64|arm64))?\.json|OpticalSystemDesign-' + [regex]::Escape($version) + '-win-(?:x64|arm64)-' + $suffix + '-Setup\.exe\.sha256)$'
 foreach ($asset in $assets) {
     if ($asset.name -cnotmatch $canonicalPattern -and $asset.name -cnotmatch $sidecarPattern) { throw "Unrecognized release asset; preserved for review: $($asset.name)" }
 }
 $previous = @($assets | Where-Object { $_.name -cin $packages.Name })
 $sidecars = @($assets | Where-Object { $_.name -cmatch $sidecarPattern })
+if (($previous.Count -gt 0 -or $sidecars.Count -gt 0) -and -not $ReplaceExisting) { throw 'Existing attachments require explicit -ReplaceExisting.' }
+# Keep untouched Windows download signatures when adding a Mac asset or updating
+# another architecture. Re-verify the old envelope against the pinned public key.
+function Get-PreservedOtaMarkers([string]$Body, $Assets, [string[]]$ReplacedNames, [string]$PublicKey) {
+    $rsa = [Security.Cryptography.RSA]::Create()
+    try {
+        $rsa.ImportFromPem($PublicKey)
+        foreach ($match in [regex]::Matches($Body, '(?s)<!-- optical-system-design-ota-v1\s+([A-Za-z0-9+/=]+)\.([A-Za-z0-9+/=]+)\s+-->')) {
+            $bytes = [Convert]::FromBase64String($match.Groups[1].Value)
+            $payload = [Text.Encoding]::UTF8.GetString($bytes) | ConvertFrom-Json
+            if ($payload.Name -cin $ReplacedNames) { continue }
+            $targets = @($Assets | Where-Object name -CEQ $payload.Name)
+            if ($targets.Count -ne 1 -or $payload.Runtime -notin @('win-x64','win-arm64') -or
+                $targets[0].size -ne $payload.Size -or $targets[0].digest -cne "sha256:$($payload.Sha256)" -or
+                -not $rsa.VerifyData($bytes, [Convert]::FromBase64String($match.Groups[2].Value),
+                    [Security.Cryptography.HashAlgorithmName]::SHA256, [Security.Cryptography.RSASignaturePadding]::Pss)) {
+                throw 'Existing OTA envelope does not match its preserved installer.'
+            }
+            $match.Value
+        }
+    } finally { $rsa.Dispose() }
+}
+$otaMarkers += @(Get-PreservedOtaMarkers ([string]$release.body) $assets @($packages.Name) $otaPublicKey)
+$preservedDetails = @(([string]$release.body -split '\r?\n') | Where-Object {
+    $line = $_
+    @($assets | Where-Object { $_.name -cnotin $packages.Name -and $line.StartsWith("- $($_.name) |", [StringComparison]::Ordinal) }).Count -gt 0
+})
 # Back up all managed attachments before changing them; retain the backup as an
 # Actions workflow artifact, never as a user-facing release attachment.
 foreach ($asset in @($previous) + @($sidecars)) {
@@ -175,13 +223,14 @@ try {
 # Every replacement EXE is now fully uploaded and hash-verified under its download name.
 foreach ($asset in @($renamed) + @($sidecars)) { $null = Invoke-ReleaseApi DELETE "releases/assets/$($asset.id)" }
 $runUrl = if ($env:GITHUB_RUN_ID) { "https://github.com/$Repository/actions/runs/$env:GITHUB_RUN_ID" } else { '' }
-$details = @('', '## 构建来源', '', "源码提交：$($packages[0].SourceCommit)", "云端记录：$runUrl", '')
-foreach ($package in $packages) { $details += "- $($package.Name) | SHA-256: $($package.Sha256) | 发布 ID: $($package.ReleaseId)" }
+$details = @('', '## 构建来源', '', "本次更新源码提交：$($packages[0].SourceCommit)", "云端记录：$runUrl", '')
+$details += $preservedDetails
+foreach ($package in $packages) { $details += "- $($package.Name) | SHA-256: $($package.Sha256) | 发布 ID: $($package.ReleaseId) | 源码: $($package.SourceCommit)" }
 $details += $otaMarkers
 $latest = if ($testPackage) { 'false' } else { 'true' }
 $release = Invoke-ReleaseApi PATCH "releases/$($release.id)" @{ name = "Optical System Design $version$(if ($testPackage) { ' 测试版' })"; body = $notes.TrimEnd() + "`n" + ($details -join "`n"); draft = $false; prerelease = $testPackage; make_latest = $latest }
 $final = @(Invoke-ReleaseApi GET "releases/$($release.id)/assets?per_page=100")
-foreach ($asset in $final) { if ($asset.name -cnotmatch $canonicalPattern) { throw 'Unexpected non-EXE attachment remains.' } }
+foreach ($asset in $final) { if ($asset.name -cnotmatch $canonicalPattern) { throw 'Unexpected desktop attachment remains.' } }
 foreach ($package in $packages) {
     $matches = @($final | Where-Object name -CEQ $package.Name)
     if ($matches.Count -ne 1) { throw 'Canonical installer is missing or duplicated.' }
@@ -189,4 +238,4 @@ foreach ($package in $packages) {
 }
 [pscustomobject]@{ PublishedUtc = [DateTime]::UtcNow.ToString('o'); ReleaseUrl = $release.html_url; WorkflowUrl = $runUrl; Plan = $plan; Assets = $final; RemovedAssetIds = @(@($renamed) + @($sidecars) | ForEach-Object id) } |
     ConvertTo-Json -Depth 10 | Set-Content -LiteralPath (Join-Path $evidence 'published.json') -Encoding utf8
-Write-Host "Published and verified EXE-only release: $($release.html_url)"
+Write-Host "Published and verified desktop release: $($release.html_url)"

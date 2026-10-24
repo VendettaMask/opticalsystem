@@ -37,6 +37,8 @@ public static class DisplayTypography
         _fontFamily = settings.FontFamily;
         _fontShape = settings.FontShape;
         _fontSize = settings.FontSize;
+        if (global::Avalonia.Application.Current is { } application)
+            PublishFontResources(application);
     }
 
     public static void Apply(TemplatedControl control)
@@ -105,10 +107,27 @@ public static class DisplayTypography
         state.LastAppliedSize = target;
     }
 
+    internal static void PublishFontResources(global::Avalonia.Application application, FontFamily? themeFamily = null)
+    {
+        themeFamily ??= ThemeRegistry.FromActualVariant(application.ActualThemeVariant).UiFontFamily;
+        application.Resources[ProductFonts.InterfaceResource] = FontFamily(themeFamily);
+        application.Resources[ProductFonts.NumericResource] = string.IsNullOrWhiteSpace(_fontFamily)
+            ? themeFamily == ProductFonts.Interface ? ProductFonts.Numeric : themeFamily
+            : new FontFamily(_fontFamily);
+    }
+
+    public static FontFamily ResolveFontFamily(string? family, string? theme, bool numeric = false)
+    {
+        if (!string.IsNullOrWhiteSpace(family)) return new FontFamily(family);
+        var themeFamily = ThemeRegistry.FromSettings(theme).ResolveVisual(
+            global::Avalonia.Application.Current?.ActualThemeVariant).UiFontFamily;
+        return numeric && themeFamily == ProductFonts.Interface ? ProductFonts.Numeric : themeFamily;
+    }
+
     private static FontFamily FontFamily(FontFamily? themeDefault = null)
     {
         return string.IsNullOrWhiteSpace(_fontFamily)
-            ? themeDefault ?? Avalonia.Media.FontFamily.Default
+            ? themeDefault ?? ThemeRegistry.FromActualVariant(global::Avalonia.Application.Current?.ActualThemeVariant).UiFontFamily
             : new FontFamily(_fontFamily);
     }
 

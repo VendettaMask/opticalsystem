@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Templates;
 using Avalonia.Layout;
 using Avalonia.Media;
 using OpticalSystemDesign.Application.Formatting;
@@ -11,7 +12,7 @@ namespace OpticalSystemDesign.App;
 
 public sealed class DisplaySettingsWindow : Window
 {
-    private const string SystemDefaultFont = "系统默认";
+    private const string ProductDefaultFont = "产品默认（推荐）";
 
     private readonly NumericUpDown _decimalPlaces = Number(0, 15, 1);
     private readonly NumericUpDown _upperExponent = Number(1, 15, 1);
@@ -26,6 +27,7 @@ public sealed class DisplaySettingsWindow : Window
         MinHeight = 82,
         VerticalAlignment = VerticalAlignment.Center
     };
+    private readonly TextBlock _numericPreview = new() { TextWrapping = TextWrapping.Wrap };
     private readonly TextBlock _validation = new()
     {
         MinHeight = 20
@@ -66,23 +68,29 @@ public sealed class DisplaySettingsWindow : Window
         var themes = ThemeRegistry.SelectableThemes;
         _theme.ItemsSource = themes;
         _theme.SelectedItem = ThemeRegistry.FromSettings(settings.Theme);
-        _theme.SelectionChanged += (_, _) => UpdateThemeSample();
+        _theme.SelectionChanged += (_, _) => { UpdateThemeSample(); UpdatePreview(); };
         ActualThemeVariantChanged += (_, _) => UpdateThemeSample();
 
         var fontFamilies = FontManager.Current.SystemFonts
             .Select(font => font.Name)
+            .Concat(ProductFonts.SelectableFamilies)
+            .Append(settings.FontFamily)
             .Where(name => !string.IsNullOrWhiteSpace(name))
             .Distinct(StringComparer.CurrentCultureIgnoreCase)
             .OrderBy(name => name, StringComparer.CurrentCultureIgnoreCase)
-            .Prepend(SystemDefaultFont)
+            .Prepend(ProductDefaultFont)
             .ToArray();
         _fontFamily.ItemsSource = fontFamilies;
+        _fontFamily.ItemTemplate = new FuncDataTemplate<string>((name, _) => new TextBlock
+        {
+            Text = name is not null && name.Contains('#') ? name[(name.LastIndexOf('#') + 1)..] : name
+        });
         _fontFamily.SelectedItem = string.IsNullOrWhiteSpace(settings.FontFamily)
-            ? SystemDefaultFont
+            ? ProductDefaultFont
             : fontFamilies.FirstOrDefault(name => string.Equals(
                 name,
                 settings.FontFamily,
-                StringComparison.CurrentCultureIgnoreCase)) ?? SystemDefaultFont;
+                StringComparison.CurrentCultureIgnoreCase)) ?? ProductDefaultFont;
 
         var shapes = new[]
         {
@@ -132,7 +140,7 @@ public sealed class DisplaySettingsWindow : Window
                         "界面字体",
                         SettingRow("字体", _fontFamily),
                         SettingRow("字形", _fontShape),
-                        SettingRow("大小", _fontSize, "单位：pt")), 2),
+                        SettingRow("大小", _fontSize, "单位：DIP")), 2),
                     At(PreviewBox(new Border
                     {
                         BorderThickness = new Thickness(1),
@@ -144,6 +152,7 @@ public sealed class DisplaySettingsWindow : Window
                             {
                                 new TextBlock { Text = "预览", FontWeight = FontWeight.SemiBold },
                                 _preview,
+                                _numericPreview,
                                 _validation
                             }
                         }
@@ -228,7 +237,7 @@ public sealed class DisplaySettingsWindow : Window
         _upperExponent.Value = AppSettings.DefaultUpperScientificExponent;
         _lowerExponent.Value = AppSettings.DefaultLowerScientificExponent;
         _theme.SelectedItem = ThemeRegistry.FromSettings(AppSettings.DefaultTheme);
-        _fontFamily.SelectedItem = SystemDefaultFont;
+        _fontFamily.SelectedItem = ProductDefaultFont;
         _fontShape.SelectedIndex = 0;
         _fontSize.Value = (decimal)AppSettings.DefaultFontSize;
         UpdatePreview();
@@ -244,17 +253,18 @@ public sealed class DisplaySettingsWindow : Window
         }
 
         _validation.Text = string.Empty;
-        _preview.Text = string.Join("   ", new[]
+        _preview.Text = "光学系统 Optical System · FFT PSF / MTF";
+        _numericPreview.Text = string.Join("   ", new[]
         {
             NumericDisplayFormatter.Format(1234.567891, options),
             NumericDisplayFormatter.Format(0.0123456789, options),
             NumericDisplayFormatter.Format(12_345_678.9, options),
-            NumericDisplayFormatter.Format(0.000000123456, options),
-            "光学系统 Optical System"
+            NumericDisplayFormatter.Format(0.000000123456, options)
         });
-        _preview.FontFamily = string.IsNullOrWhiteSpace(SelectedFontFamily())
-            ? Avalonia.Media.FontFamily.Default
-            : new FontFamily(SelectedFontFamily());
+        _preview.FontFamily = DisplayTypography.ResolveFontFamily(SelectedFontFamily(),
+            (_theme.SelectedItem as ThemeDefinition)?.SettingsValue);
+        _numericPreview.FontFamily = DisplayTypography.ResolveFontFamily(SelectedFontFamily(),
+            (_theme.SelectedItem as ThemeDefinition)?.SettingsValue, numeric: true);
         _preview.FontSize = (double)(_fontSize.Value ?? (decimal)AppSettings.DefaultFontSize);
         _preview.FontStyle = SelectedFontShape() is "Italic" or "BoldItalic"
             ? Avalonia.Media.FontStyle.Italic
@@ -262,6 +272,9 @@ public sealed class DisplaySettingsWindow : Window
         _preview.FontWeight = SelectedFontShape() is "Bold" or "BoldItalic"
             ? Avalonia.Media.FontWeight.Bold
             : Avalonia.Media.FontWeight.Normal;
+        _numericPreview.FontSize = _preview.FontSize;
+        _numericPreview.FontStyle = _preview.FontStyle;
+        _numericPreview.FontWeight = _preview.FontWeight;
     }
 
     private bool TryOptions(out NumericDisplayOptions options)
@@ -281,7 +294,7 @@ public sealed class DisplaySettingsWindow : Window
 
     private string SelectedFontFamily()
     {
-        return _fontFamily.SelectedItem is string selected && selected != SystemDefaultFont
+        return _fontFamily.SelectedItem is string selected && selected != ProductDefaultFont
             ? selected
             : string.Empty;
     }

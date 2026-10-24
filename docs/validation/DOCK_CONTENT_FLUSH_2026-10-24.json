@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-24",
+  "baseCommit": "07259315200dc5eb128a27f740e9758bbc190bc2",
+  "scope": "Remove ordinary Light lens editor inset rail while retaining approved 12 DIP Dock corners. Prior typography and Dock changes remain in the working tree.",
+  "implementation": {
+    "lensEditorContentMarginDip": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "previousMarginDip": [
+      6,
+      0,
+      6,
+      6
+    ],
+    "outerDockRadiusDip": 12,
+    "nativeFineBorderRetained": true,
+    "selectionRightEdgeRetained": true,
+    "otherThemesUnchanged": true
+  },
+  "verification": {
+    "distinctPassed": 22,
+    "failed": 0,
+    "skipped": 0,
+    "groups": [
+      {
+        "trx": "flush-layout-final.trx",
+        "passed": 7
+      },
+      {
+        "trx": "navigation-final.trx",
+        "passed": 9
+      },
+      {
+        "trx": "dock-content-flush-workbench.trx",
+        "passed": 6
+      }
+    ],
+    "productionRenderUsesPreviewCornerOverrides": false,
+    "workbenchImages": 9,
+    "navigationImages": 13,
+    "visualReview": [
+      "Production sample: no inset rail, rounded corners retained"
+    ],
+    "fullSuiteRun": false,
+    "opticalNumericalRegressionRun": false,
+    "nativePlatformAcceptance": false,
+    "installerPublished": false,
+    "pushed": false
+  },
+  "builds": [
+    {
+      "configuration": "Debug",
+      "output": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.dll",
+      "sha256": "9f7a21657b32c45e11c96a46ca640e2fc0fd0510a5d31dbbd03057813d2a42b2",
+      "warnings": 0,
+      "errors": 0
+    },
+    {
+      "configuration": "Release",
+      "output": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "sha256": "1c01af35914c05603216a6160e1864d22bdd5b2dd6c0b687ea02f9e9bd0b1c08",
+      "warnings": 0,
+      "errors": 0
+    }
+  ],
+  "earlierStage": "earlier-stage.json within evidence archive; first drawing-stub failure retained",
+  "documentationCheck": "Scoped local links and fences; full PowerShell audit not run",
+  "evidence": {
+    "path": "validation/rechecks/2026-10-24/dock-content-flush-evidence.zip",
+    "bytes": 3704135,
+    "sha256": "090aa3b7e5adb4cbf346bff5c856296626ffb5d62864a89996d88a55f06be7bf"
+  },
+  "files": {
+    "AGENTS.md": "508b5f4eeeb817acf02f8cbf4c9bde93e370a31068ab21a607df7ebdc095fd47",
+    "src/OpticalSystemDesign.App/Theming/LightTheme.cs": "35d1ed5a97881d02694dfc2b9bc9c5511645fe399f01c110935843b84e468ec6",
+    "tests/OpticalSystemDesign.Tests/DockWorkspaceCornerTests.cs": "fda80322802c05fe042b6f0c19afbbe63705cd1d43a9e9d1bbab59e32a720a2d",
+    "tests/OpticalSystemDesign.Tests/LensConfigurationNavigationTests.cs": "29ca085eb0a1d7e872f7c78cdf548d26e3ab26b4dbf900464afc64f4124d2cf0",
+    "docs/UI_DESIGN_SPEC.md": "f42ac429311bcf0b99117ba07dc2c6415f5d87eebd478be47ca21f4d737d79bc",
+    "docs/CURRENT_STATUS.md": "fbe6a2f8b596cee1849e4e4b8bfc3b371e954b79418a231e06a7954104afc003"
+  }
+}

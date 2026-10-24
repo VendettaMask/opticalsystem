@@ -102,7 +102,7 @@ public sealed partial class AnalysisPanel
             IsReadOnly = true,
             AcceptsReturn = true,
             TextWrapping = TextWrapping.NoWrap,
-            FontFamily = new FontFamily("Cascadia Mono, Consolas"),
+            Classes = { ProductFonts.NumericClass },
             Text = view.ReportText
         };
         report.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
@@ -328,7 +328,7 @@ public sealed partial class AnalysisPanel
             IsReadOnly = true,
             AcceptsReturn = true,
             TextWrapping = TextWrapping.NoWrap,
-            FontFamily = new FontFamily("Cascadia Mono, Consolas"),
+            Classes = { ProductFonts.NumericClass },
             FontSize = DisplayTypography.Body,
             Padding = new Thickness(14, 12),
             Text = text
@@ -364,7 +364,7 @@ public sealed partial class AnalysisPanel
             IsReadOnly = true,
             AcceptsReturn = true,
             TextWrapping = TextWrapping.NoWrap,
-            FontFamily = new FontFamily("Cascadia Mono, Consolas"),
+            Classes = { ProductFonts.NumericClass },
             FontSize = DisplayTypography.Body,
             Padding = new Thickness(14, 12),
             Text = text
@@ -529,7 +529,7 @@ public sealed partial class AnalysisPanel
                 Text = text,
                 FontSize = header ? DisplayTypography.BodySmall : DisplayTypography.CompactBody,
                 FontWeight = header ? FontWeight.SemiBold : FontWeight.Normal,
-                FontFamily = column == 0 ? FontFamily.Default : new FontFamily("Cascadia Mono, Consolas"),
+                Classes = { column == 0 ? "interface-text" : ProductFonts.NumericClass },
                 Margin = new Thickness(8, 3),
                 HorizontalAlignment = column == 0 ? HorizontalAlignment.Left : HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Center
@@ -1061,7 +1061,7 @@ public sealed partial class AnalysisPanel
                         ? series.LegendLabel : series.Name),
                     Foreground = brush,
                     FontSize = AnalysisFooterTextSize,
-                    FontFamily = new FontFamily("Cascadia Mono, Consolas")
+                    Classes = { ProductFonts.NumericClass }
                 }
             });
         }
@@ -1120,7 +1120,7 @@ public sealed partial class AnalysisPanel
                     Text = PupilWavelengthLabel(series.Name),
                     Foreground = brush,
                     FontSize = DisplayTypography.BodySmall,
-                    FontFamily = new FontFamily("Cascadia Mono, Consolas")
+                    Classes = { ProductFonts.NumericClass }
                 }
             });
         }
@@ -1140,7 +1140,7 @@ public sealed partial class AnalysisPanel
                 {
                     Text = $"最大缩放比例： ± {maximumScale.ToString("0.00E+00", CultureInfo.InvariantCulture)} Percent.",
                     FontSize = DisplayTypography.BodySmall,
-                    FontFamily = new FontFamily("Cascadia Mono, Consolas")
+                    Classes = { ProductFonts.NumericClass }
                 },
                 wavelengthLegend,
                 new TextBlock

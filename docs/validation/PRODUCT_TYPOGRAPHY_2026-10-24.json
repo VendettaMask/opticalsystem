@@ -1,0 +1,111 @@
+{
+  "date": "2026-10-24",
+  "baseCommit": "07259315200dc5eb128a27f740e9758bbc190bc2",
+  "scope": "Bundled desktop font roles, display settings and focused UI verification; no optical computation changes.",
+  "fonts": {
+    "interfaceLatin": "DM Sans",
+    "interfaceCjk": "Source Han Sans SC",
+    "numeric": "JetBrains Mono with Source Han Sans SC fallback",
+    "pixel": "Original Fusion Pixel file, isolated resource URI",
+    "drawing": "Existing Noto drawing font path unchanged",
+    "baseSizeDip": 13,
+    "explicitUserOverridePreserved": true
+  },
+  "sourceManifest": "src/OpticalSystemDesign.App/Assets/Fonts/Typography/manifest.json",
+  "builds": [
+    {
+      "configuration": "Debug",
+      "defaultOutput": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.dll",
+      "sha256": "675707e79a360d9769419c0378ab56054b7bf1f83e292b981084865f011e8a65",
+      "warnings": 0,
+      "errors": 0
+    },
+    {
+      "configuration": "Release",
+      "defaultOutput": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "sha256": "81379d07fa8e1a3ec0bad7fb27652e775495d137099f515e6cc81e3ea4767879",
+      "warnings": 0,
+      "errors": 0
+    }
+  ],
+  "verification": {
+    "distinctTestsPassed": 62,
+    "failed": 0,
+    "skipped": 0,
+    "groups": [
+      {
+        "trx": "product-typography-cell-glyphs.trx",
+        "passed": 9
+      },
+      {
+        "trx": "font-ui-regressions-verified.trx",
+        "passed": 46
+      },
+      {
+        "trx": "font-workbench-verified.trx",
+        "passed": 6
+      },
+      {
+        "trx": "font-settings-short-window.trx",
+        "passed": 1
+      }
+    ],
+    "workbenchCases": 6,
+    "workbenchImages": 9,
+    "extraIsolatedPixelRun": "Repeated existing case; not added to distinct total",
+    "visualReview": [
+      "Light 1280/13",
+      "Light 1024/18",
+      "Dark 1280/13",
+      "Pixel 1280/13 (existing capture limitation)"
+    ],
+    "licenseOutputCopiesChecked": 6,
+    "fullSuiteRun": false,
+    "opticalNumericalCertificationRun": false,
+    "installerPublished": false,
+    "pushed": false
+  },
+  "limitations": [
+    "Pixel headless capture retains pre-existing missing button/title drawing; glyph provenance is tested separately.",
+    "Full PowerShell documentation audit unavailable on this host; scoped Markdown link/fence and asset checks performed."
+  ],
+  "earlierStages": "earlier-stages.json within evidence archive",
+  "evidence": {
+    "path": "validation/rechecks/2026-10-24/product-typography-evidence.zip",
+    "bytes": 3883231,
+    "sha256": "cf3b542914449981660cbceaa568ae312704d7acc596e8320c785fa7573f0730"
+  },
+  "files": {
+    "README.md": "c187a0668210d6837962876df42ab8b20b345d4514cea8e2c679b9d7bb09983e",
+    "README_EN.md": "04f076e6f6eb6ae4c92b5ce5ef2fab8fddad68f968453f0e87c305e9be613231",
+    "docs/CURRENT_STATUS.md": "a692ef3cce732664569578f9908c4bafbd235824c12b0469bfc719708aee83e1",
+    "docs/THEME_PACKAGES.md": "82bbc2288dae09980f37fc1fe4790621e047f6a8a18992d2f51b8f02cd44079f",
+    "docs/TYPOGRAPHY.md": "156956b38bf29b421b524c315f3151ed3faa29a1e7fd721a9d09556db739da47",
+    "docs/UI_DESIGN_SPEC.md": "fe0b51b1cdb2127196eccdaa3907b907e82ac660d9e695b14f3be5c792f12a89",
+    "docs/USER_GUIDE.md": "564399e85123f8815d3b316e248e1e43723b0e963916a05b06d083b55abe5d23",
+    "src/OpticalSystemDesign.App/App.cs": "fc9aba6130aa1d165ae1758f2388cc12ef4873ad6097fc45d8f25f7f5487de5d",
+    "src/OpticalSystemDesign.App/Assets/Fonts/Typography/Cjk/SourceHanSansSC-Bold.otf": "df2b90f5bcc6d01dfc964cec5f6d535d6b6aebd26ed7fd79a9c1b3f2112fcb6b",
+    "src/OpticalSystemDesign.App/Assets/Fonts/Typography/Cjk/SourceHanSansSC-Regular.otf": "f1d8611151880c6c336aabeac4640ef434fa13cbfbf1ffe82d0a71b2a5637256",
+    "src/OpticalSystemDesign.App/Assets/Fonts/Typography/DM-Sans-OFL.txt": "9af36190332437f5ecd09974de43c1f7c77a310a996cdd8ceb25628b458840e1",
+    "src/OpticalSystemDesign.App/Assets/Fonts/Typography/JetBrains-Mono-OFL.txt": "a76abf002c49097d146e86740a3105a5d00450b1592e820a1109a8c5680cd697",
+    "src/OpticalSystemDesign.App/Assets/Fonts/Typography/Latin/DMSans.ttf": "8cd08d97e89c24d0aa92edd2f0f4c8ee6195eee9b7c9f154865a58b02f0c1c0d",
+    "src/OpticalSystemDesign.App/Assets/Fonts/Typography/Numeric/JetBrainsMono-Bold.ttf": "d22c4f3821d725eb01210d278d95dfcfcaadc34699a06658d47c8a5cc5830ada",
+    "src/OpticalSystemDesign.App/Assets/Fonts/Typography/Numeric/JetBrainsMono-Regular.ttf": "e6fd0d7e91550b3ed2b735d4312474362c4716edc4fc0577a0f61ed782d5aed1",
+    "src/OpticalSystemDesign.App/Assets/Fonts/Typography/Source-Han-Sans-OFL.txt": "fcac737e761ec63dbfbdce11030a1780161920d80315edba9c8beff1c2bac5a2",
+    "src/OpticalSystemDesign.App/Assets/Fonts/Typography/manifest.json": "a1f1da4f48b4dc4f57cc9e2e0c8402551059fb8d3bef5a031a0d9bf70d8e3446",
+    "src/OpticalSystemDesign.App/Controls/OpticSceneControl.cs": "a8c65ba9d4a619290f458f0f60e2c13bcf943f55fb9119160f62379bdca97207",
+    "src/OpticalSystemDesign.App/DisplaySettingsWindow.cs": "d8d441e56bcdf05c22120d36c99a13d79631c70f4b47f96c824f81b47cde25f4",
+    "src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj": "abcecc5997b4ffc3f94112d82936f6e60a7df4ac5f3ccb8d5e30086663432e80",
+    "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Plots.cs": "8f843b60a91444f36364828b73b36a55fc7495165fc56fb5dfe792b2d4420047",
+    "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs": "2b289826d33df16838c8050d586cb8b304bcd29fbbac3ac818c5631411697f2c",
+    "src/OpticalSystemDesign.App/Panels/LensEditorPanel.cs": "71fd8fb85245068dface3ea17c2e3d7116ab9f508bbf8d3142b1b8a6340edad1",
+    "src/OpticalSystemDesign.App/Panels/ToleranceTextDocumentPanel.cs": "7c55a0d7a5f267d3ec1ca57254ef169e830b3cd21308bc08e357242ff639039a",
+    "src/OpticalSystemDesign.App/Services/DisplayTypography.cs": "9c9b1933a7c08c4849d571981af931419548fe344433d5a07aa8a9788b85132a",
+    "src/OpticalSystemDesign.App/Services/ProductFonts.cs": "287c6e731994eb2c06b14093c31507ef55baf8dfdc58edccc085dc8eec071eac",
+    "src/OpticalSystemDesign.App/Services/UiLocalization.cs": "1e99336701f5545f51400dc5b6f3d61fa63f582e4a146745613be6506dfc4509",
+    "src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs": "254110bbf15fd3276b7d4606512888bed8be92ff5412e70ef7e9042d9acaf4db",
+    "src/OpticalSystemDesign.App/Theming/ThemeApplicationService.cs": "8c895776ec1eb0038b4179f98bf7c86aa1cdc182db7936d66efb3f2221981733",
+    "src/OpticalSystemDesign.App/Theming/ThemeRegistry.cs": "31455322206d314b5cc61e0d0ec2392caf878a211aff7b7c5eb7dbee468c670e",
+    "tests/OpticalSystemDesign.Tests/ProductTypographyTests.cs": "bf2b570ebebd5b0ad95621057fed75b7705f1aac08809a369c314b914481e061"
+  }
+}

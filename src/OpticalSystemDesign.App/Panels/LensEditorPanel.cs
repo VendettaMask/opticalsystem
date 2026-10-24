@@ -350,8 +350,16 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
             IsReadOnly = readOnly,
             Width = new DataGridLength(width),
             Tag = NumericColumnTag,
-            CellTheme = CellAlignmentTheme(HorizontalAlignment.Right)
+            CellTheme = NumericCellTheme()
         };
+
+    private static ControlTheme NumericCellTheme()
+    {
+        var theme = CellAlignmentTheme(HorizontalAlignment.Right);
+        theme.Setters.Add(new Setter(DataGridCell.FontFamilyProperty,
+            new Avalonia.Markup.Xaml.MarkupExtensions.DynamicResourceExtension(ProductFonts.NumericResource)));
+        return theme;
+    }
 
     private static ControlTheme CellAlignmentTheme(HorizontalAlignment alignment) => new(typeof(DataGridCell))
     {
@@ -388,6 +396,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
     {
         var editor = new TextBox
         {
+            Classes = { ProductFonts.NumericClass },
             Text = value,
             Background = Brushes.Transparent,
             BorderThickness = new Avalonia.Thickness(0),
@@ -455,6 +464,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         Header = "表面类型",
         IsReadOnly = true,
         Width = new DataGridLength(180),
+        CellTheme = CellAlignmentTheme(HorizontalAlignment.Stretch),
         CellTemplate = new FuncDataTemplate<SurfaceEditorRow>((row, _) =>
         {
             var content = new Grid
@@ -464,16 +474,22 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
             var role = new TextBlock
             {
                 Margin = new Avalonia.Thickness(8, 0),
+                HorizontalAlignment = HorizontalAlignment.Left,
+                TextAlignment = TextAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Center
             };
             var type = new TextBlock
             {
                 Margin = new Avalonia.Thickness(8, 0),
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                TextAlignment = TextAlignment.Right,
+                TextTrimming = TextTrimming.CharacterEllipsis,
                 VerticalAlignment = VerticalAlignment.Center
             };
             role.Bind(TextBlock.TextProperty, new Binding(nameof(SurfaceEditorRow.SurfaceRole)));
             role.Bind(IsVisibleProperty, new Binding(nameof(SurfaceEditorRow.ShowSurfaceRole)));
             type.Bind(TextBlock.TextProperty, new Binding(nameof(SurfaceEditorRow.SurfaceType)));
+            type.Bind(ToolTip.TipProperty, new Binding(nameof(SurfaceEditorRow.SurfaceType)));
             Grid.SetColumn(type, 1);
             content.Children.Add(role);
             content.Children.Add(type);

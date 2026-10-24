@@ -10,6 +10,7 @@ using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.Tests;
@@ -48,6 +49,10 @@ public sealed class LensHeaderTypographyTests
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
             DisplayTypography.Configure(new AppSettings { FontSize = fontSize });
             using var app = WorkbenchApplication.Create();
+            app.Prescription.AddSurface();
+            app.Prescription.AddSurface();
+            var stop = app.Prescription.GetSurfaces().Single(surface => surface.Number == 1);
+            app.Prescription.UpdateSurface(stop with { IsStop = true });
             var revision = app.Events.Revision;
             using var editor = new LensEditorPanel(app.Prescription, app.Events, new SurfaceSelectionService());
             DisplayTypography.Apply(editor);
@@ -81,11 +86,50 @@ public sealed class LensHeaderTypographyTests
                 Assert.All(grid.GetVisualDescendants().OfType<DataGridRow>(), row => Assert.Equal(FontWeight.Normal, row.FontWeight));
                 Assert.All(grid.GetVisualDescendants().OfType<TextBox>(), input => Assert.Equal(FontWeight.Normal, input.FontWeight));
                 Assert.All(comparison.GetVisualDescendants().OfType<DataGridColumnHeader>(), header => Assert.NotEqual(FontWeight.Bold, header.FontWeight));
-                Assert.Equal(revision, app.Events.Revision);
+                AssertSurfaceTypeAlignment(grid);
                 Capture(window, $"lens-headers-{theme}-{language}-{fontSize}.png");
+                grid.Columns[1].Width = new DataGridLength(240);
+                Tick(window);
+                AssertSurfaceTypeAlignment(grid);
+                grid.Columns[1].Width = new DataGridLength(140);
+                Tick(window);
+                AssertSurfaceTypeAlignment(grid);
+                Assert.Equal(revision, app.Events.Revision);
+                Capture(window, $"lens-type-narrow-{theme}-{language}-{fontSize}.png");
             }
             finally { window.Close(); UiLocalization.Apply(previousLanguage); DisplayTypography.Configure(new AppSettings()); }
         }, CancellationToken.None);
+    }
+
+    private static void AssertSurfaceTypeAlignment(DataGrid grid)
+    {
+        var rows = grid.ItemsSource!.Cast<SurfaceEditorRow>().ToArray();
+        Assert.Equal(3, rows.Count(row => row.ShowSurfaceRole));
+        Assert.Contains(rows, row => !row.ShowSurfaceRole);
+        foreach (var row in rows)
+        {
+            var cell = Assert.IsType<Grid>(grid.Columns[1].GetCellContent(row));
+            var role = cell.Children.OfType<TextBlock>().Single(text => Grid.GetColumn(text) == 0);
+            var type = cell.Children.OfType<TextBlock>().Single(text => Grid.GetColumn(text) == 1);
+            Assert.Equal(row.ShowSurfaceRole, role.IsVisible);
+            Assert.Equal(HorizontalAlignment.Left, role.HorizontalAlignment);
+            Assert.Equal(TextAlignment.Left, role.TextAlignment);
+            Assert.Equal(HorizontalAlignment.Stretch, type.HorizontalAlignment);
+            Assert.Equal(TextAlignment.Right, type.TextAlignment);
+            Assert.Equal(TextTrimming.CharacterEllipsis, type.TextTrimming);
+            Assert.NotNull(ToolTip.GetTip(type));
+            var typeOrigin = type.TranslatePoint(default, cell)!.Value;
+            Assert.Equal(cell.Bounds.Width - 8, typeOrigin.X + type.Bounds.Width, precision: 6);
+            var dataCell = cell.GetVisualAncestors().OfType<DataGridCell>().First();
+            var typeRight = type.TranslatePoint(new Point(type.Bounds.Width, 0), dataCell)!.Value.X;
+            Assert.InRange(dataCell.Bounds.Width - typeRight, 8, 9);
+            if (role.IsVisible)
+            {
+                var roleOrigin = role.TranslatePoint(default, cell)!.Value;
+                Assert.Equal(8, roleOrigin.X, precision: 6);
+                Assert.True(roleOrigin.X + role.Bounds.Width <= typeOrigin.X);
+            }
+        }
     }
 
     private static void Tick(Window window)

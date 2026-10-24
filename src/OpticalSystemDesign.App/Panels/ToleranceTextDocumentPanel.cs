@@ -18,7 +18,7 @@ public sealed class ToleranceTextDocumentPanel : UserControl
     private readonly TextBox _text = new()
     {
         AcceptsReturn = true,
-        FontFamily = new FontFamily("Consolas, Microsoft YaHei UI"),
+        Classes = { ProductFonts.NumericClass },
         IsReadOnly = true,
         TextWrapping = TextWrapping.NoWrap
     };

@@ -113,7 +113,7 @@ public sealed class ReferenceWorkbenchLayoutTests
                     var chrome = Assert.Single(window.GetVisualDescendants().OfType<ToolChromeControl>());
                     var toolHeader = Assert.Single(chrome.GetVisualDescendants().OfType<Border>(),
                         border => border.TemplatedParent == chrome && border.Name == "PART_Border");
-                    Assert.Equal(new CornerRadius(6, 6, 0, 0), toolHeader.CornerRadius);
+                    Assert.Equal(new CornerRadius(12, 12, 0, 0), toolHeader.CornerRadius);
                     Assert.True(toolHeader.ClipToBounds);
                     Assert.Equal(new Thickness(5, 0, 5, 6), Assert.IsType<Grid>(panels.WorkspaceControl.Parent).Margin);
                     Assert.Equal(new Thickness(6, 4, 6, 12), sections.Margin);

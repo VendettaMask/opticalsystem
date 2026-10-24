@@ -36,6 +36,18 @@ public sealed class App : Avalonia.Application
         Styles.Add(new DockFluentTheme());
         AddThemeResources();
         ThemeApplicationService.Apply(this, AppSettings.DefaultTheme);
+        Styles.Add(new Style(selector => selector.Is<Window>())
+        {
+            Setters = { new Setter(TextElement.FontFamilyProperty, new DynamicResourceExtension(ProductFonts.InterfaceResource)) }
+        });
+        Styles.Add(new Style(selector => selector.Is<Control>().Class(ProductFonts.NumericClass))
+        {
+            Setters = { new Setter(TextElement.FontFamilyProperty, new DynamicResourceExtension(ProductFonts.NumericResource)) }
+        });
+        Styles.Add(new Style(selector => selector.OfType<NumericUpDown>())
+        {
+            Setters = { new Setter(TextElement.FontFamilyProperty, new DynamicResourceExtension(ProductFonts.NumericResource)) }
+        });
         Styles.Add(new Style(selector => selector.OfType<LocalIcon>())
         {
             Setters =

@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-24",
+  "baseCommit": "07259315200dc5eb128a27f740e9758bbc190bc2",
+  "scope": "Apply the approved 12 DIP Light Dock preview through native-control styles bound to live bounds. Prior uncommitted typography work retained.",
+  "implementation": {
+    "outerRadiusDip": 12,
+    "headerTopRadiusDip": 12,
+    "nativeDocumentTabRadiusDip": 6,
+    "documentSelectionEdge": "2 DIP right",
+    "documentDivider": "Existing 1 DIP top edge",
+    "theme": "Ordinary Light only",
+    "liveBoundsBinding": true,
+    "templatesReplaced": false
+  },
+  "verification": {
+    "distinctPassed": 38,
+    "failed": 0,
+    "skipped": 0,
+    "groups": [
+      {
+        "trx": "dock-corners-regressions.trx",
+        "passed": 32
+      },
+      {
+        "trx": "dock-corners-workbench.trx",
+        "passed": 6
+      }
+    ],
+    "workbenchImages": 9,
+    "productionRenderHasNoCornerOverrides": true,
+    "matchesApprovedPreviewByteForByte": true,
+    "previewComparison": {
+      "approvedPreviewSha256": "b1d908c121bff28a07670da525b4371e786dd371f0be95f606adea3fe2895434",
+      "productionSha256": "b1d908c121bff28a07670da525b4371e786dd371f0be95f606adea3fe2895434",
+      "pngBytesIdentical": true
+    },
+    "nativeOsDragAndMultiMonitorAcceptance": false,
+    "fullSuiteRun": false,
+    "opticalNumericalRegressionRun": false,
+    "installerPublished": false,
+    "pushed": false
+  },
+  "builds": [
+    {
+      "configuration": "Debug",
+      "defaultOutput": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.dll",
+      "sha256": "fc6c7e1c9cb7cd6c5b394f1dece24a193456f061e7b21eab59a6be4782030891",
+      "warnings": 0,
+      "errors": 0
+    },
+    {
+      "configuration": "Release",
+      "defaultOutput": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "sha256": "eb2f9e29cf84c1209640d3ed1c757f69c0ebafea2d2cbd5e34c5ddcd2b7a45c0",
+      "warnings": 0,
+      "errors": 0
+    }
+  ],
+  "limitations": [
+    "Pixel headless capture retains the existing drawing limitation documented by the preceding typography task.",
+    "Scoped local Markdown link/fence checks; full PowerShell documentation audit not run."
+  ],
+  "evidence": {
+    "path": "validation/rechecks/2026-10-24/dock-corners-evidence.zip",
+    "bytes": 2506827,
+    "sha256": "b5061144ee5c702e75c874445bf59979a74ecfa80fffb420485003e3b7c0107e"
+  },
+  "files": {
+    "AGENTS.md": "d11a1914e911d838d54800f1802d2e426ed3c5de97546d63c8b5a05dc65280b1",
+    "src/OpticalSystemDesign.App/Theming/ThemeChrome.cs": "d3f44a01c669d3cd90b04ae03d8477de0218cb4b4e09cfef7eafba4df49a7a1f",
+    "src/OpticalSystemDesign.App/Theming/BlueThemeStyles.cs": "e6a805ce50028ba91c6fc89aaa39b6ebf5435a7eca9499284474b9331ed2a7c4",
+    "tests/OpticalSystemDesign.Tests/DockWorkspaceCornerTests.cs": "6e9d0460909f4f84294fcd0e1b833bc66009fe8c8532545dac2074022f2c5c45",
+    "tests/OpticalSystemDesign.Tests/ToolDockCornerTests.cs": "9378f4da5612e30776c37fb01b0085fe97098def0a0beba02b7fb73dedefe48b",
+    "tests/OpticalSystemDesign.Tests/ReferenceWorkbenchLayoutTests.cs": "231be13da5962b282d9d05509e5be67b2fd574c3453528a778bc2aa5a0f1a735",
+    "docs/UI_DESIGN_SPEC.md": "6787cf194ca350018a8214d323ba08758a071bdde8a8e4ade581155c88d0bdf2",
+    "docs/THEME_PACKAGES.md": "d6f87252ac0438e8d1b4c183b1b6acb69076a80e3c38175e40d8dce162caed6c",
+    "docs/CURRENT_STATUS.md": "3eb93482b0c1e4a9e90e0d1b9da927e3e15efb39814ae4b6b9abcc1c6b71cdde"
+  }
+}

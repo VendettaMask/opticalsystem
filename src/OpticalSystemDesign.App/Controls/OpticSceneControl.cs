@@ -1704,7 +1704,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             $"{OpticalSystemDesign.Application.Formatting.NumericDisplayFormatter.Format(units)} mm",
             System.Globalization.CultureInfo.CurrentCulture,
             FlowDirection.LeftToRight,
-            Typeface.Default,
+            DisplayTypography.Typeface(),
             12,
             darkBackground ? ThemeBrush(ThemeResourceBindings.TextOnAccent, Brushes.White) : ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         context.DrawText(label, new Point(centerX - (label.Width / 2.0), y - 21));

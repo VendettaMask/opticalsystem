@@ -62,6 +62,7 @@ internal static class ThemeApplicationService
             }
             application.Resources[key] = value;
         }
+        Services.DisplayTypography.PublishFontResources(application, visual.UiFontFamily);
     }
 
     private sealed class AppliedResources

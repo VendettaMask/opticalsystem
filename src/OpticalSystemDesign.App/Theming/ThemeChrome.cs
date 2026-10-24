@@ -124,7 +124,9 @@ internal static class ThemeChromeResources
     public static CornerRadius StandardOverlayCornerRadius { get; } = new(6);
     public static CornerRadius StandardSectionHeaderCornerRadius { get; } = new(6);
     public static CornerRadius StandardDocumentTabCornerRadius { get; } = new(6);
-    public static CornerRadius StandardToolHeaderCornerRadius { get; } = new(6, 6, 0, 0);
+    public const double StandardDockRadius = 12;
+    public static CornerRadius StandardDockCornerRadius { get; } = new(StandardDockRadius);
+    public static CornerRadius StandardToolHeaderCornerRadius { get; } = new(StandardDockRadius, StandardDockRadius, 0, 0);
     public static string BorderBrush(ThemeChromeRole role) => $"OpticalSystemDesignChrome{role}BorderBrush";
     public static string BorderThickness(ThemeChromeRole role) => $"OpticalSystemDesignChrome{role}BorderThickness";
     public static string CornerRadius(ThemeChromeRole role) => $"OpticalSystemDesignChrome{role}CornerRadius";

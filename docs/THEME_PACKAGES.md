@@ -44,7 +44,7 @@ dotnet run --project tools/previews/FuiThemePreview/FuiThemePreview.csproj -c Re
 
 | 设置值 | 显示名称 | 基础外观 | 图标包 | Chrome/装饰 |
 | --- | --- | --- | --- | --- |
-| `Light` | 普通模式 | Avalonia Light | `StandardLucide` | 正蓝菜单、白色主区、雾蓝侧栏与表头、统一蓝色交互，无投影 |
+| `Light` | 普通模式 | Avalonia Light | `StandardLucide` | 正蓝菜单、白色主区、12 DIP 圆角停靠区、雾蓝侧栏与表头、统一蓝色交互，无投影 |
 | `Dark` | 暗夜模式 | Avalonia Dark | `StandardLucide` | 现有圆角、边框和阴影 |
 | `Isekai` | 异世界 | Dark 派生 | `GameIconsFantasy` | 旧金锐角框、工作区/视口/对话框双框、皮革剑刃 Ribbon |
 | `Pixel` | 像素风格 | Light 派生 | `FarmFresh32` | 明亮 8-bit 色板、中文像素字、彩色 32×32 图标、方角硬边与紧凑点阵 Ribbon |
@@ -87,7 +87,7 @@ Ribbon 下沿通过 `ThemeChromeRole.Ribbon` 提供主题圆角，Light/Dark 为
 - 异世界主题由 `GameIconsFantasy` 包直接加载 Game-icons.net 上游填充式 SVG 路径；每项都记录作者和原始文件，未映射语义回退到同套 `help.svg`；
 - 像素风格由 `FarmFresh32` 包加载固定 3.92 版彩色 PNG 并使用最近邻插值保持像素边缘，目录逐项记录原始文件名，未知语义回退到同一包的 `question.png`；许可副本为 `Assets/Icons/FARM-FRESH-ICONS-LICENSE.txt`；
 
-像素字体固定使用 Fusion Pixel Font `2026.07.20` 的 `fusion-pixel-font-10px-monospaced-ttf` 发布包，下载包 SHA256 为 `3d2719a7720d405167b494b7fa1c8e721bfbda59183cccc696ef5d43b0be5945`。应用内嵌 `zh_hans` 矢量 TTF；用户显式选择显示字体时仍以用户设置优先。字体许可副本为 `Assets/Fonts/FUSION-PIXEL-FONT-OFL.txt`。
+像素字体固定使用 Fusion Pixel Font `2026.07.20` 的 `fusion-pixel-font-10px-monospaced-ttf` 发布包，下载包 SHA256 为 `3d2719a7720d405167b494b7fa1c8e721bfbda59183cccc696ef5d43b0be5945`。应用内嵌 `zh_hans` 矢量 TTF，并以完整文件 URI 限定资源集合，防止新增普通主题字体进入像素字形的候选集合；用户显式选择显示字体时仍以用户设置优先。字体许可副本为 `Assets/Fonts/FUSION-PIXEL-FONT-OFL.txt`。普通主题的内嵌字体及数值角色见[字体方案](TYPOGRAPHY.md)。
 - 未知语义统一回退到 `circle-question-mark`，不得显示空白；
 - 主题切换会使现有 `LocalIcon` 失效重绘，不要求重启。
 

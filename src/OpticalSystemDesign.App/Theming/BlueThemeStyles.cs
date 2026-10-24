@@ -6,6 +6,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Shapes;
 using Avalonia.Controls.Templates;
 using Avalonia.Data;
+using Avalonia.Data.Converters;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
@@ -23,6 +24,15 @@ namespace OpticalSystemDesign.App.Theming;
 /// </summary>
 internal sealed class BlueThemeStyles : Styles
 {
+    private static readonly FuncValueConverter<Rect, Geometry> DockClip = new(bounds =>
+        new RectangleGeometry(new Rect(bounds.Size), ThemeChromeResources.StandardDockRadius, ThemeChromeResources.StandardDockRadius));
+
+    private static Setter RoundedDockClip() => new(Visual.ClipProperty, new Binding(nameof(Visual.Bounds))
+    {
+        RelativeSource = new RelativeSource(RelativeSourceMode.Self),
+        Converter = DockClip
+    });
+
     private static IBrush B(Color color) => new ImmutableSolidColorBrush(color);
     private static Selector Light<T>(Selector? selector) where T : Control =>
         selector.OfType<T>().PropertyEquals(ThemeVariantScope.ActualThemeVariantProperty, ThemeVariant.Light);
@@ -48,7 +58,7 @@ internal sealed class BlueThemeStyles : Styles
         Shell();
         SelectedSurfaces();
         EmphasizedText();
-        // Keep the platform font and enable tabular figures where the font supports them.
+        // Keep the configured font and enable tabular figures where supported.
         Rule(s => Light<Window>(s), new Setter(TextElement.FontFeaturesProperty, FontFeatureCollection.Parse("tnum")));
     }
 
@@ -288,6 +298,13 @@ internal sealed class BlueThemeStyles : Styles
 
     private void Shell()
     {
+        // Bind to live bounds: resizing, restored layouts and newly docked panels
+        // get the same curve without replacing Dock's templates or hit targets.
+        Rule(s => Light<ToolDockControl>(s), RoundedDockClip());
+        Rule(s => Light<DocumentDockControl>(s), RoundedDockClip());
+        Rule(s => Light<DocumentControl>(s).Template().OfType<Border>().Name("PART_Border"),
+            new Setter(Border.CornerRadiusProperty, ThemeChromeResources.StandardDockCornerRadius),
+            new Setter(Visual.ClipToBoundsProperty, true), RoundedDockClip());
         // Round the actual Dock header surface, not only the cards below it.
         // Clipping keeps the grip's active/background fill inside the same arc.
         Rule(s => Light<ToolChromeControl>(s).Template().OfType<Border>().Name("PART_Border"),

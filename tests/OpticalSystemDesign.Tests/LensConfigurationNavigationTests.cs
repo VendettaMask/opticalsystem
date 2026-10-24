@@ -24,10 +24,10 @@ public sealed class LensConfigurationNavigationTests
 
     public static AppBuilder BuildAvaloniaApp()
     {
-        var capture = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(CaptureDirectory));
-        var builder = AppBuilder.Configure<global::OpticalSystemDesign.App.App>();
-        if (capture) builder.UseSkia();
-        return builder.UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = !capture });
+        // Mouse routing through Dock's rounded clip needs real geometry hit
+        // testing; the drawing stub does not model the rounded path correctly.
+        return AppBuilder.Configure<global::OpticalSystemDesign.App.App>().UseSkia()
+            .UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
     }
 
     [Fact]

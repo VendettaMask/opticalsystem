@@ -52,7 +52,7 @@ public sealed class ToolDockCornerTests
                             chrome.IsActive = active;
                             ((IPseudoClasses)chrome.Classes).Set(":pointerover", hovered);
                             window.UpdateLayout();
-                            Assert.Equal(theme == "Light" ? new CornerRadius(6, 6, 0, 0) : default, header.CornerRadius);
+                            Assert.Equal(theme == "Light" ? new CornerRadius(12, 12, 0, 0) : default, header.CornerRadius);
                             Assert.Equal(theme == "Light", header.ClipToBounds);
                             Assert.Equal(originalSize, chrome.Bounds.Size);
                             Assert.True(header.Bounds.Width > 0 && header.Bounds.Height > 0);

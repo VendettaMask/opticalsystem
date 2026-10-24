@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-24",
+  "stage": "Local implementation and native non-GUI package checks; cloud publication pending",
+  "baseCommit": "07259315200dc5eb128a27f740e9758bbc190bc2",
+  "sourceDirty": true,
+  "scope": "Apple Silicon-only self-contained Mac DMG plus safe coexistence with Windows EXE assets and OTA envelopes.",
+  "implementation": {
+    "runtime": "osx-arm64",
+    "minimumSystemVersionDeclared": "14.0",
+    "developerIdSigned": false,
+    "notarized": false,
+    "codeSigning": "AdHoc, each native file then bundle",
+    "bundleData": "Resources with relative apphost links",
+    "nativeLibraries": "Frameworks, all arm64",
+    "selfContained": true,
+    "bothModulesInProcess": true,
+    "fontsBundled": true,
+    "publishGateRejectsDirtySource": true,
+    "preserveUnselectedAssetsAndOta": true,
+    "macOtaImplemented": false
+  },
+  "verification": {
+    "focusedTests": 43,
+    "failed": 0,
+    "skipped": 0,
+    "nativeExecution": "Arm64, .NET 10.0.8, no user data written",
+    "bundleManifestEntries": 1548,
+    "dmgReadOnlyRoundTrip": true,
+    "sourceAndMountedManifestsEqual": true,
+    "completeGuiAcceptance": false,
+    "fullTestSuite": false,
+    "newOpticalNumericalCertification": false,
+    "frozenAssetsUnchanged": 2668,
+    "strictDocumentationPassed": true,
+    "earlyFailuresPreserved": [
+      "Test fixture interpolation compile error",
+      "Managed DLL and data under MacOS prevented complete bundle signing",
+      "Relocated runtime needed Resources-to-Frameworks links for self-contained host resolution"
+    ],
+    "published": false
+  },
+  "localPackage": {
+    "path": "artifacts/macos/package.FF6TATbz/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg",
+    "bytes": 110573469,
+    "sha256": "fe90ed7da24d08fc220b3bec5c7f42c0f0556af00c53fc7b384773268dd8f936",
+    "publishableSourceIdentity": false
+  },
+  "evidence": {
+    "path": "validation/rechecks/2026-10-24/macos-release-local-evidence.zip",
+    "bytes": 307105,
+    "sha256": "c2d9fc62a1081b690c5bae57c781972224dc81987bca1ca5c14c25b67176b1ed"
+  }
+}

@@ -73,7 +73,7 @@ public sealed class ProductVersionInfoTests
         }
         var workflow = File.ReadAllText(Path.Combine(root, ".github/workflows/release.yml"));
         Assert.Contains("$tag -cne \"v$version\"", workflow);
-        Assert.Contains("options: [win-x64, win-arm64]", workflow);
+        Assert.Contains("options: [all, win-x64, win-arm64, osx-arm64]", workflow);
         Assert.Contains("needs: [plan, package]", workflow);
         var publisher = File.ReadAllText(Path.Combine(root, "scripts/publish-github-exe.ps1"));
         Assert.Contains("git/ref/tags/$Tag", publisher);

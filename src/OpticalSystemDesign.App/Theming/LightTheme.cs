@@ -25,7 +25,7 @@ internal static class LightTheme
         resources[ThemeLayoutResources.SystemSectionsMargin] = new Thickness(6, 4, 6, 12);
         resources[ThemeLayoutResources.SystemSectionSpacing] = 6d;
         resources[ThemeLayoutResources.SystemLabelFontWeight] = FontWeight.Normal;
-        resources[ThemeLayoutResources.LensEditorContentMargin] = new Thickness(6, 0, 6, 6);
+        resources[ThemeLayoutResources.LensEditorContentMargin] = new Thickness(0);
         resources[ThemeLayoutResources.StatusMetricMinWidth] = 96d;
         Set(TableHeader, ThemeResourceBindings.TableHeader);
         Set(LensEditorHeaderBackground, ThemeResourceBindings.LensEditorHeaderBackground);

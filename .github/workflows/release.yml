@@ -1,4 +1,4 @@
-name: Windows EXE build and publish
+name: Desktop build and publish
 
 on:
   workflow_dispatch:
@@ -8,12 +8,12 @@ on:
         required: true
         default: v1.0.4-test.20261019
       runtime:
-        description: Windows architecture
+        description: Desktop platform (Mac supports Apple Silicon only)
         type: choice
-        options: [win-x64, win-arm64]
-        default: win-x64
+        options: [all, win-x64, win-arm64, osx-arm64]
+        default: all
       replace_existing:
-        description: Replace the existing EXE and remove old checksum/metadata attachments
+        description: Replace selected existing installers (other platforms are preserved)
         type: boolean
         default: false
   push:
@@ -46,15 +46,15 @@ jobs:
           $tag = if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch') { $env:REQUESTED_TAG } else { $env:GITHUB_REF_NAME }
           $test = $tag -cmatch ('^v' + [regex]::Escape($version) + '-test\.[0-9]{8}$')
           if (-not $test -and $tag -cne "v$version") { throw 'Tag and ProductVersion.props differ.' }
-          $runtimes = if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch') { @($env:REQUESTED_RUNTIME) } else { @('win-x64', 'win-arm64') }
-          foreach ($runtime in $runtimes) { if ($runtime -notin @('win-x64', 'win-arm64')) { throw 'Unsupported architecture.' } }
+          $runtimes = if ($env:GITHUB_EVENT_NAME -eq 'workflow_dispatch' -and $env:REQUESTED_RUNTIME -ne 'all') { @($env:REQUESTED_RUNTIME) } else { @('win-x64', 'win-arm64', 'osx-arm64') }
+          foreach ($runtime in $runtimes) { if ($runtime -notin @('win-x64', 'win-arm64', 'osx-arm64')) { throw 'Unsupported architecture.' } }
           "tag=$tag" >> $env:GITHUB_OUTPUT
           "runtimes=$($runtimes | ConvertTo-Json -Compress -AsArray)" >> $env:GITHUB_OUTPUT
           "test_package=$($test.ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
 
   package:
     needs: plan
-    runs-on: windows-latest
+    runs-on: ${{ matrix.runtime == 'osx-arm64' && 'macos-15' || 'windows-latest' }}
     timeout-minutes: 60
     strategy:
       fail-fast: false
@@ -75,6 +75,7 @@ jobs:
           dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false -p:ContinuousIntegrationBuild=true
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
       - name: Verify release and installation boundaries
+        if: matrix.runtime != 'osx-arm64'
         shell: pwsh
         run: |
           ./scripts/test-ota-key-crypto.ps1
@@ -82,10 +83,21 @@ jobs:
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           dotnet test labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~FlatStartDesktopTests|FullyQualifiedName~AutoLensOfficialExampleTests' --logger 'trx;LogFileName=initial-structure.trx' --results-directory artifacts/cloud-verification
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
+      - name: Verify Apple Silicon packaging and shared product boundaries
+        if: matrix.runtime == 'osx-arm64'
+        shell: pwsh
+        run: |
+          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~ProductVersionInfoTests|FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~MacPackagingTests|FullyQualifiedName~InitialStructureLabLauncherTests|FullyQualifiedName~ProductDependencyArchitectureTests' --logger 'trx;LogFileName=macos-release.trx' --results-directory artifacts/cloud-verification
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          dotnet test labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~FlatStartDesktopTests|FullyQualifiedName~AutoLensOfficialExampleTests' --logger 'trx;LogFileName=initial-structure.trx' --results-directory artifacts/cloud-verification
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
       - name: Verify lens headers and 2D/3D viewers
         shell: pwsh
         run: |
-          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~LensConfigurationNavigationTests|FullyQualifiedName~LensEditorLayoutTests|FullyQualifiedName~LensHeaderTypographyTests|FullyQualifiedName~LensMaterialRowThemeTests|FullyQualifiedName~ViewerSettingsInputThemeTests|FullyQualifiedName~ViewerConfigurationTests|FullyQualifiedName~Viewer3DGeometryTests' --logger 'trx;LogFileName=lens-viewers.trx' --results-directory artifacts/cloud-verification
+          # Real Skia navigation and drawing stubs must not share glyph caches.
+          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~LensConfigurationNavigationTests' --logger 'trx;LogFileName=lens-navigation.trx' --results-directory artifacts/cloud-verification
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~LensEditorLayoutTests|FullyQualifiedName~LensHeaderTypographyTests|FullyQualifiedName~LensMaterialRowThemeTests|FullyQualifiedName~ViewerSettingsInputThemeTests|FullyQualifiedName~ViewerConfigurationTests|FullyQualifiedName~Viewer3DGeometryTests' --logger 'trx;LogFileName=lens-viewers.trx' --results-directory artifacts/cloud-verification
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
       - name: Render update check feedback in three languages
         shell: pwsh
@@ -101,6 +113,7 @@ jobs:
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           ./scripts/verify-documentation.ps1 -Strict -OutputPath artifacts/cloud-verification/documentation.json
       - name: Build the complete self-contained EXE installer
+        if: matrix.runtime != 'osx-arm64'
         shell: pwsh
         env:
           TARGET_RUNTIME: ${{ matrix.runtime }}
@@ -116,6 +129,24 @@ jobs:
           Copy-Item -LiteralPath $package.Setup -Destination distribution
           Copy-Item -LiteralPath (Join-Path $package.Directory 'release.json') -Destination "distribution/release-$env:TARGET_RUNTIME.json"
           Get-FileHash -LiteralPath $package.Setup -Algorithm SHA256 | Format-List
+      - name: Build and verify the self-contained Apple Silicon DMG
+        if: matrix.runtime == 'osx-arm64'
+        shell: bash
+        env:
+          TEST_PACKAGE: ${{ needs.plan.outputs.test_package }}
+        run: |
+          options=()
+          if [[ "$TEST_PACKAGE" == true ]]; then options+=(--test-package); fi
+          bash scripts/build-macos.sh --output-root artifacts/cloud-macos "${options[@]}"
+          package_dir="$(find artifacts/cloud-macos -mindepth 1 -maxdepth 1 -type d ! -name '*.partial')"
+          test -n "$package_dir"
+          mkdir -p distribution artifacts/cloud-package-verification
+          cp "$package_dir"/*.dmg "$package_dir/release-osx-arm64.json" distribution/
+          cp "$package_dir/verification/"*.json artifacts/cloud-package-verification/
+          for report in "$package_dir/dmg-verification/"*.json; do
+            cp "$report" "artifacts/cloud-package-verification/dmg-$(basename "$report")"
+          done
+          shasum -a 256 distribution/*.dmg
       - uses: actions/upload-artifact@v4
         with:
           name: cloud-package-${{ matrix.runtime }}
@@ -145,7 +176,7 @@ jobs:
           pattern: cloud-package-*
           path: distribution
           merge-multiple: true
-      - name: Verify and publish only EXE installers
+      - name: Verify and publish EXE and Apple Silicon DMG installers
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}

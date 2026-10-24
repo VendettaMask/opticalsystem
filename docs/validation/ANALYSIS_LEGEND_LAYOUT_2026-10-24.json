@@ -1,0 +1,129 @@
+{
+  "date": "2026-10-24",
+  "baseCommit": "07259315200dc5eb128a27f740e9758bbc190bc2",
+  "scope": "Unify selectable analysis legends at one top-right page anchor. Retain prior local typography, Dock and lens-table changes.",
+  "implementation": {
+    "anchor": "TopRight",
+    "orientation": "Vertical",
+    "topInsetDip": 12,
+    "rightInsetDip": 12,
+    "labelMaxWidthDip": 220,
+    "labelWrapping": true,
+    "sharedLayout": "BuildPlotLegendLayout",
+    "paneSpecificOffsetsRemoved": true,
+    "legacyLegendBelowIgnoredForSelectableLegends": true,
+    "typedDataAndOpticalCalculationsChanged": false,
+    "numericalColorbarsAndFooterDescriptionsUnchanged": true
+  },
+  "verification": {
+    "distinctPassed": 69,
+    "failed": 0,
+    "skipped": 0,
+    "groups": [
+      {
+        "trx": "legend-layout-final.trx",
+        "passed": 15
+      },
+      {
+        "trx": "legend-responsive.trx",
+        "passed": 35
+      },
+      {
+        "trx": "legend-export.trx",
+        "passed": 6
+      },
+      {
+        "trx": "legend-configuration.trx",
+        "passed": 3
+      },
+      {
+        "trx": "legend-contracts.trx",
+        "passed": 10
+      }
+    ],
+    "themes": [
+      "Light",
+      "Dark",
+      "Pixel",
+      "Isekai",
+      "Lumen"
+    ],
+    "languages": [
+      "zh-CN",
+      "en-US",
+      "ja-JP"
+    ],
+    "fontSizesDip": [
+      13,
+      18
+    ],
+    "positionTestWindowSizesDip": [
+      [
+        980,
+        680
+      ],
+      [
+        420,
+        290
+      ],
+      [
+        640,
+        420
+      ]
+    ],
+    "physicalControlBoundsChecked": true,
+    "checkboxesClickedAndRestored": true,
+    "documentRevisionUnchangedByFiltering": true,
+    "realConfigurationFixture": "Zoom lens.zmx, three configurations",
+    "finalCaptureDpi": 96,
+    "finalPngCount": 76,
+    "diagnostic192DpiPngCount": 25,
+    "visualReview": [
+      "Single plot narrow",
+      "Paired fan wide",
+      "Wavelength matrix wide",
+      "Actual three-configuration matrix Chinese",
+      "Dark long-label legend",
+      "Light stacked plots"
+    ],
+    "diagnostics": [
+      "Initial fixture used two nonexistent axis enum members; corrected to existing PupilCoordinate/Coordinate metadata. Initial compile log retained.",
+      "The first 192-DPI offscreen capture showed self-drawn coordinate scaling anomalies. Final visual checks use the current headless-host/export ratio of 96 DPI; initial images retained. Native high-DPI visual acceptance is not claimed."
+    ],
+    "fullSuiteRun": false,
+    "externalOpticalNumericalComparisonRun": false,
+    "nativeHighDpiAccepted": false,
+    "installerPublished": false,
+    "pushed": false
+  },
+  "builds": [
+    {
+      "configuration": "Debug",
+      "output": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.dll",
+      "sha256": "ea9bc47a7b1df6d55744cad8aee1c0ec98dc9b7da513f4e1c4bd7f4b06da241d",
+      "warnings": 0,
+      "errors": 0
+    },
+    {
+      "configuration": "Release",
+      "output": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "sha256": "a05c036e5068260a6d4389159f2e49ecc168870d750975187bbe34486490258f",
+      "warnings": 0,
+      "errors": 0
+    }
+  ],
+  "documentationCheck": "Scoped local links, fences and git diff --check; full PowerShell audit not run",
+  "evidence": {
+    "path": "validation/rechecks/2026-10-24/analysis-legend-layout-evidence.zip",
+    "bytes": 4711678,
+    "sha256": "c3aa04c7b26a21445442b806c2ebce785e3d575a2d4db76c538ee1cc07a9c669"
+  },
+  "files": {
+    "AGENTS.md": "f04449a2bf584f0fb26b12db0517f9cfae44fa75e1b879965d78000de8ad0d5a",
+    "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Plots.cs": "51e56e86f159d64b0ca3faeb708d680a138632427899f20a77a481ef9e1305b6",
+    "tests/OpticalSystemDesign.Tests/AnalysisLegendLayoutTests.cs": "6d7c575087543247ca655b635f287074ccbb8afa98654671feb30f9c7bed487d",
+    "docs/UI_DESIGN_SPEC.md": "94b058fbe3ee024ee7141faa417010bfead89ba9bff67602aedfaee7ce9e28bb",
+    "docs/USER_GUIDE.md": "97e5801b59720985257b5b6298676d2e47cb6709b08fe1fd26585dc6d3ac74ff",
+    "docs/CURRENT_STATUS.md": "f934292eebae8f04c3a7f1636ef41afdcf6e6774bb47713fa5f0adcb65693537"
+  }
+}

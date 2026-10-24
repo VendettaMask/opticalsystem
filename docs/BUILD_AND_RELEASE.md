@@ -104,13 +104,13 @@ RID 专用锁文件放在项目 `obj` 下，不覆盖源锁文件。发布禁用
 
 OTA 云端签名、密钥备份和客户端实机验收分别记账。正式与测试 EXE 都在发布前生成 RSA-PSS/SHA-256 元数据，公钥不匹配或密钥不可用时停止；测试包额外校验构建编号与本次工作流一致，仍为预发布且不标 Latest。私有 GitHub 仓库保存密码加密备份，日常发布不依赖维护者电脑；恢复只需 GitHub 权限、加密文件与单独保管的恢复密码，不使用机器绑定、明文私钥附件或永久依赖 Actions artifact。步骤及安全边界见[云端发布指南](GITHUB_CLOUD_RELEASE.md#ota-签名与纯云端密钥备份)，实际结果见[当前状态](CURRENT_STATUS.md)。
 
-安装包分发地址为 [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases)。[发布工作流](../.github/workflows/release.yml) 在 GitHub 托管 Windows runner 编译完整解决方案，运行版本、升级、安装、内置模块、自动初始结构界面的定向测试及冻结证据/文档门禁，再生成自包含 Setup EXE。镜头表头/结构导航、材料行显示、二维结构选择和三维几何/显示模式另以定向集合检查，记录在 `lens-viewers.trx`，不扩大为全套或实机 GUI 验收。x64 对实际载荷的隔离副本运行完整性/内置模块探测；ARM64 在 x64 runner 上仅交叉打包，不宣称原生执行验收。全部所选架构通过后自动上传并公开发布；不再止于草稿。本地构建本身不会联网发布。
+安装包分发地址为 [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases)。[发布工作流](../.github/workflows/release.yml) 在 GitHub 托管 Windows / Apple Silicon Mac runner 编译完整解决方案，运行版本、升级、安装、内置模块、自动初始结构界面的定向测试及冻结证据/文档门禁，再生成自包含 Windows Setup EXE 或 Apple Silicon DMG。镜头表头/结构导航、材料行显示、二维结构选择和三维几何/显示模式另以定向集合检查，记录在 `lens-viewers.trx`，不扩大为全套或实机 GUI 验收。x64 对实际载荷的隔离副本运行完整性/内置模块探测；ARM64 在 x64 runner 上仅交叉打包，不宣称原生执行验收。全部所选架构通过后自动上传并公开发布；不再止于草稿。本地构建本身不会联网发布。
 
-推送与产品版本一致的 `v<产品版本>` 标签自动构建 x64/ARM64 并发布正式版；推送 `v<产品版本>-test.YYYYMMDD` 标签发布测试预发布、不标 Latest。维护者也可在 Actions 的 **Windows EXE build and publish → Run workflow** 选择分支、已有标签及单一架构，勾选 `replace_existing` 才允许覆盖已有附件。手动刷新不移动旧标签，发布说明记录实际源码提交。详细操作和边界见[云端发布指南](GITHUB_CLOUD_RELEASE.md)。
+推送与产品版本一致的 `v<产品版本>` 标签自动构建 Windows x64/ARM64 和 Mac `osx-arm64` 并发布正式版；推送 `v<产品版本>-test.YYYYMMDD` 标签发布测试预发布、不标 Latest。维护者也可在 Actions 的 **Desktop build and publish → Run workflow** 选择分支、已有标签及 `all` 或单个平台，勾选 `replace_existing` 才允许覆盖已有附件。手动刷新不移动旧标签，发布说明记录实际源码提交。详细操作和边界见[云端发布指南](GITHUB_CLOUD_RELEASE.md)。
 
-每个架构只上传一个 EXE 附件，目前云端未配置 Windows 发布者证书，文件名明确标注 `Unsigned` 或 `UnsignedTest`；测试包可在“包含测试版”范围内参与签名 OTA，但不成为正式版或 Latest。SHA-256 写在发布说明，元数据、检查结果和替换前附件保存在 Actions 的 30 天工作流产物中，不上传 `.sha256` 或 `release.json` 到 Releases。替换前备份旧附件，先上传临时名新 EXE 并核对 GitHub 的大小/完整 SHA-256，再切换原下载名；切换失败尝试恢复旧下载名。未知附件或不可变发布停止处理，不随意删除。GitHub 自动提供的 Source code ZIP/tar.gz 不是安装附件，也不代表手动刷新后的源码提交。API 约定见 [GitHub Releases REST 文档](https://docs.github.com/en/rest/releases/releases)。
+每个 Windows 架构上传一个 EXE，Mac 仅上传一个 Apple Silicon DMG；目前云端未配置 Windows 发布者证书，文件名明确标注 `Unsigned` 或 `UnsignedTest`；测试包可在“包含测试版”范围内参与签名 OTA，但不成为正式版或 Latest。SHA-256 写在发布说明，元数据、检查结果和替换前附件保存在 Actions 的 30 天工作流产物中，不上传 `.sha256` 或 `release.json` 到 Releases。替换前备份旧附件，先上传临时名新 EXE 并核对 GitHub 的大小/完整 SHA-256，再切换原下载名；切换失败尝试恢复旧下载名。未知附件或不可变发布停止处理，不随意删除。GitHub 自动提供的 Source code ZIP/tar.gz 不是安装附件，也不代表手动刷新后的源码提交。API 约定见 [GitHub Releases REST 文档](https://docs.github.com/en/rest/releases/releases)。
 
-当前 [1.0.4 x64 测试预发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)来自 [GitHub 构建 39888939610](https://github.com/VendettaMask/opticalsystem/actions/runs/39888939610)，源码 `fbbe454db9322b32492f28025341aed5a6183367`，包身份 `1.0.4-win-x64-820a153a9b73`。该引导包包含检查反馈与测试构建 OTA，公开 v2 签名已通过内置公钥独立核验；仅一个 EXE，服务端哈希与签名一致，旧包由发布任务备份。旧客户端必须先手动安装本包，再等待更高云端构建进行真实同版本 OTA 测试；同版本安装仍走原修复事务。云端通过不代替实装，详情见[最新交付账目](validation/OTA_TEST_CHANNEL_FEEDBACK_2026-10-23.json)，此前范围保存在[上一包账目](validation/EXE_RELEASE_2026-10-23.json)。
+2026-10-23 的 [1.0.4 x64 测试预发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)来自 [GitHub 构建 39888939610](https://github.com/VendettaMask/opticalsystem/actions/runs/39888939610)，源码 `fbbe454db9322b32492f28025341aed5a6183367`，包身份 `1.0.4-win-x64-820a153a9b73`。该引导包包含检查反馈与测试构建 OTA，公开 v2 签名已通过内置公钥独立核验；当时仅一个 EXE，服务端哈希与签名一致，旧包由发布任务备份。旧客户端必须先手动安装本包，再等待更高云端构建进行真实同版本 OTA 测试；同版本安装仍走原修复事务。云端通过不代替实装，详情见[最新交付账目](validation/OTA_TEST_CHANNEL_FEEDBACK_2026-10-23.json)，此前范围保存在[上一包账目](validation/EXE_RELEASE_2026-10-23.json)。
 
 ## 安装、修复和验证
 
@@ -134,7 +134,9 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/publish-windows.
 bash scripts/publish-cross-platform.sh
 ```
 
-跨平台脚本默认自包含，发布 `osx-arm64`、`osx-x64`、`win-x64`、`win-arm64` 并检查全部模块；macOS 生成 `.app`。可用 `CONFIGURATION` 和 `SELF_CONTAINED` 配置。脚本支持不等于目标硬件验收，macOS 签名/公证和 ARM64 实机状态不可从 x64 结果推断。Linux CI 构建不代表已有 Linux 正式安装包。
+Mac 请运行 `bash scripts/build-macos.sh --test-package`，生成自包含 `osx-arm64` DMG；不生成 Intel 版本。打开 DMG 后将 `.app` 拖入“应用程序”，无需 SDK。当前使用 ad-hoc 完整性签名，尚无 Developer ID 签名/公证；Mac 通过发布页手动更新，不使用 Windows OTA。该脚本包含标准 bundle 排布、arm64 检查、模块/字体许可校验、原生无界面执行及 DMG 只读挂载复查；临时目录失败保留，新构建不覆盖旧包。
+
+`publish-cross-platform.sh` 在 Mac 转入上述 DMG 打包，在其他主机保留 Windows 便携发布。脚本支持和原生载荷检查不等于全部桌面验收，系统及签名边界见[云端发布指南](GITHUB_CLOUD_RELEASE.md#apple-silicon-mac-包)。Linux CI 构建不代表已有 Linux 正式安装包。
 
 ## 基准与教学样例
 
