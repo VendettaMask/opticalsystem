@@ -1,0 +1,133 @@
+{
+  "date": "2026-10-24",
+  "scope": "Add Apple Silicon-only Mac DMG to existing 1.0.4 test release, preserving the Windows asset and OTA envelope.",
+  "workflow": {
+    "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/40053205871",
+    "id": 40053205871,
+    "conclusion": "success",
+    "sourceCommit": "c68b210dc4bf91ca7a6deff61908702bba93442d",
+    "sourceClean": true,
+    "runner": "macos-15 arm64",
+    "completeSolutionBuild": true,
+    "warnings": 0,
+    "errors": 0
+  },
+  "package": {
+    "name": "OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg",
+    "runtime": "osx-arm64",
+    "releaseId": "1.0.4-osx-arm64-329d3b4ae305",
+    "assetId": 671036096,
+    "bytes": 110452133,
+    "sha256": "c61f0da9ac1b91db5fdd19693be116f454fcb30dac939dd4087f6990ebda3561",
+    "downloadUrl": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg",
+    "selfContained": true,
+    "bundledRuntime": "10.0.10",
+    "minimumMacOsDeclared": "14.0",
+    "codeSignature": "AdHoc",
+    "developerIdSigned": false,
+    "notarized": false,
+    "modulesInMainProcess": [
+      "InitialStructure",
+      "CoatingDesign"
+    ],
+    "fontsBundled": true,
+    "macOtaImplemented": false
+  },
+  "verification": {
+    "distinctPassed": 138,
+    "failed": 0,
+    "skipped": 1,
+    "skippedNames": [
+      "OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.GpuDeviceChoiceRunsActualCudaAndRoundTripsWithoutChangingTheAlgorithm"
+    ],
+    "groups": [
+      {
+        "trx": "initial-structure.trx",
+        "Passed": 25,
+        "Failed": 0,
+        "NotExecuted": 1
+      },
+      {
+        "trx": "lens-navigation.trx",
+        "Passed": 9,
+        "Failed": 0,
+        "NotExecuted": 0
+      },
+      {
+        "trx": "lens-viewers.trx",
+        "Passed": 49,
+        "Failed": 0,
+        "NotExecuted": 0
+      },
+      {
+        "trx": "macos-release.trx",
+        "Passed": 52,
+        "Failed": 0,
+        "NotExecuted": 0
+      },
+      {
+        "trx": "update-feedback-render.trx",
+        "Passed": 3,
+        "Failed": 0,
+        "NotExecuted": 0
+      }
+    ],
+    "localEarlierTestsNotAddedToCloudCount": 43,
+    "nativeMachoArchitectures": [
+      "arm64"
+    ],
+    "bundleManifestEntries": 1548,
+    "cloudDmgReadOnlyRoundTrip": true,
+    "completeReleaseDownloadedAndHashChecked": true,
+    "anonymousDownloadHttpStatus": 206,
+    "udifTrailerVerified": true,
+    "publicBundleEqualsCloudManifest": true,
+    "publicPackageNativeExecution": true,
+    "isolatedSystemDotnetPathExecution": true,
+    "bundledHostfxrConfirmedByTrace": true,
+    "publicDmgUnmountedAfterVerification": true,
+    "userDataWritten": false,
+    "fullNativeGuiAccepted": false,
+    "nativeHighDpiAccepted": false,
+    "fullTestSuiteRun": false,
+    "newOpticalNumericalCertification": false,
+    "windowsRebuilt": false,
+    "windowsAssetUnchanged": true,
+    "windowsOtaEnvelopeUnchanged": true,
+    "originalTagUnchanged": true,
+    "frozenEvidenceUnchanged": 2668,
+    "validationOnlyFollowup": "Scan the whole bundle for independent module applications, including relocated Resources. An injected file in a disposable copy is rejected before execution; public bytes unchanged.",
+    "finalStrictDocumentationPassed": true,
+    "finalDocumentationCount": 1076
+  },
+  "previousWindows": {
+    "assetId": 667732296,
+    "bytes": 276868644,
+    "sha256": "a8d9fc78949348a253decc4039956ead04caefd4eb35a7c772609803d16fcbe0",
+    "otaMarkerSha256": "0807cb8e20a9fa4a01ba94e917eacfb58ca346d95583c09a15efe559d35f88fa"
+  },
+  "failuresPreserved": {
+    "firstCloudRun": "https://github.com/VendettaMask/opticalsystem/actions/runs/40052638652",
+    "firstCloudResult": "Stale single-Setter assertion failed, 48/49 in that group; publication skipped. Fixed by checking alignment and numeric font separately; local 2/2 and final cloud group 49/49.",
+    "firstCloudArchive": "validation/rechecks/2026-10-24/macos-cloud-first-failure.zip",
+    "localStageLedger": "docs/validation/MACOS_RELEASE_LOCAL_2026-10-24.json",
+    "downloadDiagnostics": "Premature mount of an incomplete download, then reuse of its empty output directory failed. Fresh final verification succeeded after full hash validation. Initial proxy range request returned 501; direct anonymous range request returned 206."
+  },
+  "evidence": {
+    "path": "validation/rechecks/2026-10-24/macos-release-cloud-evidence.zip",
+    "bytes": 2884156,
+    "sha256": "21a085ae3320043685e331a9791520eb4cb4185f58006202eeb486b7f7f7ff83"
+  },
+  "files": {
+    ".github/workflows/release.yml": "064295820a31f020e8122d6e06994fe5035aff42b39eafa7e1f985d35677eacc",
+    "scripts/build-macos.sh": "e7dbdaf1e3a052bcb7550ab7bbd9e1b1db8392e3e9fdb340cc981e6aba8b7d2d",
+    "scripts/verify-macos-package.sh": "9ccf47a6460e4ec4ca8a6fc0d7a282ef04d0a244c6faf282c7678747d11423d0",
+    "scripts/publish-github-exe.ps1": "f4b8031859028ec8be9e689011dedd8d58f2d3b3f8c049f1d2caaa5640c388ec",
+    "tests/OpticalSystemDesign.Tests/CloudReleaseTests.cs": "e28b6614f432daa42490e04ffad5350730e592f4cecb5f6f309c70efc01bfd7b",
+    "tests/OpticalSystemDesign.Tests/MacPackagingTests.cs": "39e0a2fe574ca793f47f5bfbbbae3c11ec8408c59abc6b42534bf00717c41b32",
+    "tests/OpticalSystemDesign.Tests/LensEditorLayoutTests.cs": "bc57204a565ef66aa153e81b82606c502ae95476ceb7e6db12522e8fa07eb38b",
+    "docs/CURRENT_STATUS.md": "d32b4023b7c1fd52d6e7dcd0553a8f0785475bda9d838169c37d2c771c964a69",
+    "docs/BUILD_AND_RELEASE.md": "8edb3ab0dd5334cb356324374fffc0bd6aeeb5bf9e269f77804a3b380eeff5c1",
+    "docs/GITHUB_CLOUD_RELEASE.md": "3cbc07ebe0abe543624db0cfbb551001fcd5f66048cc4494eea82763bd550b41"
+  }
+}

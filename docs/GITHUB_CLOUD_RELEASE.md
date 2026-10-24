@@ -48,6 +48,6 @@ Windows 在 `windows-latest`、Mac 在 Apple Silicon `macos-15` runner 构建完
 
 Mac 仅生成 `osx-arm64` 的自包含 DMG，包含 .NET、两个必装模块、字体与许可。用户打开磁盘映像，将 `.app` 拖到“应用程序”；不要求安装 SDK。最低系统声明为 macOS 14，实际检查范围以账目为准；.NET 支持范围见 [Microsoft 文档](https://learn.microsoft.com/en-us/dotnet/core/install/macos)。
 
-构建使用标准 Resources/Frameworks 目录和内部相对链接，检查原生代码均为 arm64，逐项 ad-hoc 签名后校验整个 bundle。生成 DMG 后只读挂载，再运行包内 `--verify-installation` 并比较完整文件清单，确认运行时、初始结构和镀膜模块仍在主进程可用，不读取或写入用户设置。这是原生无界面载荷检查，不是完整 GUI 验收。
+构建使用标准 Resources/Frameworks 目录和内部相对链接，检查原生代码均为 arm64，逐项 ad-hoc 签名后校验整个 bundle。生成 DMG 后只读挂载，检查整个 bundle 不包含独立模块启动程序，再运行包内 `--verify-installation` 并比较完整文件清单，确认运行时、初始结构和镀膜模块仍在主进程可用，不读取或写入用户设置。这是原生无界面载荷检查，不是完整 GUI 验收。
 
 当前无 Apple Developer ID 证书和公证凭据，文件名标记 `AdHoc` / `AdHocTest`，不宣称已公证。首次打开可能需要用户在系统设置中批准；不自动解除隔离或关闭安全保护。Mac 更新通过发布页手动替换 `.app`，Windows 安装 OTA 不适用于 Mac。打包入口见 [build-macos.sh](../scripts/build-macos.sh)、[载荷检查](../scripts/verify-macos-package.sh)和[安装说明](../packaging/macos/README.txt)。

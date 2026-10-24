@@ -20,7 +20,7 @@ done
 test -d "$payload/LensLibrary/StockCatalogs"
 test -x "$payload/OpticalSystemDesign.App"
 test -s "$bundle/Contents/Resources/AppIcon.icns"
-if find "$payload" -type f \( -name 'OpticalSystemDesign.InitialStructure.App*' -o -name 'OpticalSystemDesign.CoatingDesign.App*' \) | grep -q .; then
+if find "$bundle/Contents" -type f \( -name 'OpticalSystemDesign.InitialStructure.App*' -o -name 'OpticalSystemDesign.CoatingDesign.App*' \) | grep -q .; then
   echo 'Independent module executables are not permitted.' >&2; exit 1
 fi
 while IFS= read -r -d '' native; do

@@ -112,6 +112,8 @@ OTA 云端签名、密钥备份和客户端实机验收分别记账。正式与�
 
 2026-10-23 的 [1.0.4 x64 测试预发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)来自 [GitHub 构建 39888939610](https://github.com/VendettaMask/opticalsystem/actions/runs/39888939610)，源码 `fbbe454db9322b32492f28025341aed5a6183367`，包身份 `1.0.4-win-x64-820a153a9b73`。该引导包包含检查反馈与测试构建 OTA，公开 v2 签名已通过内置公钥独立核验；当时仅一个 EXE，服务端哈希与签名一致，旧包由发布任务备份。旧客户端必须先手动安装本包，再等待更高云端构建进行真实同版本 OTA 测试；同版本安装仍走原修复事务。云端通过不代替实装，详情见[最新交付账目](validation/OTA_TEST_CHANNEL_FEEDBACK_2026-10-23.json)，此前范围保存在[上一包账目](validation/EXE_RELEASE_2026-10-23.json)。
 
+2026-10-24 已向同一测试发布追加 [Apple Silicon Mac DMG](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg)，源码 `c68b210d`，Windows 原包及签名保持不变。Mac 当前使用 ad-hoc 签名、尚未公证，包内运行时和两个必装模块已做原生无界面与磁盘映像复查；实际范围见[最新 Mac 交付账目](validation/MACOS_RELEASE_CLOUD_2026-10-24.json)。
+
 ## 安装、修复和验证
 
 安装器按固定产品标识识别当前用户的已有安装：检测到后进入“更新”或“修复”，锁定原安装目录、开始菜单目录、无开始菜单选项和桌面快捷方式配置，跳过这些选择页；命令行 `/DIR`、`/GROUP`、`/NOICONS`、`/TASKS` 等也不能另建一份。同版本（含不同发布 ID 的重包）按修复处理，新版本原位升级，低版本拒绝；平铺安装没有 `release-state.ini` 时仍根据卸载注册版本拒绝降级。复制前持锁恢复未完成事务，再复核注册信息与状态版本。目录冲突、坏版本和无法确认的安装身份停止处理，不猜测新目录或删除旧目录。全用户同产品安装阻止当前用户包另建副本，不自动跨范围迁移。细节及验证边界见[安装维护策略](WINDOWS_INSTALLATION_POLICY_2026-10-22.md)。

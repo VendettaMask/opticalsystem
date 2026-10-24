@@ -6,6 +6,8 @@
 
 Optical System Design 按非商业产品维护。初始结构与镀膜设计已并入主程序同一进程和 UI 程序集；根解决方案、标准发布、安装、升级、修复和卸载统一管理全部必装模块。没有独立 App、选装组件、补装提示或外部程序路径查找。内部领域库、编辑状态和文件格式仍各自隔离，全部光学计算复用共享 Core。
 
+2026-10-24 已在同一 1.0.4 测试发布增加 Apple Silicon Mac 自包含 DMG，实际源码 `c68b210d`，随包 .NET 10.0.10；仅支持 M 系列，含两个必装模块和字体。原 Windows 附件与 OTA 签名保留原身份。Mac 当前为 ad-hoc 签名、未公证，实际交付与验证范围见下方 Mac 条目。
+
 2026-10-23 已在 **GitHub 云端**重新编译、检查、打包并覆盖原 Windows x64 自包含 **1.0.4 测试包**，当前身份 `1.0.4-win-x64-820a153a9b73`，构建编号 `39888939610`，实际源码为干净提交 `fbbe454db9322b32492f28025341aed5a6183367`。[原测试发布页](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)只保留一个 EXE，下载链接和标签不变；旧包在替换前由发布流程校验并备份至 Actions，保留至 2026-11-22。新包修复检查更新没有可见反馈的问题，默认包含测试 OTA，并按签名构建编号识别同版本新包；保留此前镜头/二维/三维修复及两个必装模块。测试预发布仍不标 Latest，OTA 元数据已有可信签名，但 EXE 没有 Windows 发布者证书。旧稳定通道客户端需先手动安装这一次新引导包；未操作用户本机安装。见[最新交付与验证账目](validation/OTA_TEST_CHANNEL_FEEDBACK_2026-10-23.json)，[此前 EXE 记录](validation/EXE_RELEASE_2026-10-23.json)保留原阶段身份。
 
 上一轮 2026-10-21 光学修复包来自 `b37d1b31c9ca6e2b861c776af4d2dc7e943f1d94`，身份 `1.0.4-win-x64-20f20ca93130`。当时 1131 个原 Pass 保持，加新增 11 项为 1142/1142，原生 22 个标量未变，包内数值守卫 64/64；这些是[该阶段交付范围](validation/UPDATE_SYNC_REFLECTIVE_PARAXIAL_PACKAGE_2026-10-21.json)，本次云端交付没有重跑或扩大为全目录数值认证。原测试标签继续保留在 `9242b31abf38b4d97f23d19e4b00f8df47abfabb`，因此 GitHub 自动源码压缩包不代表手动刷新后的包源码，应查看本次实际代码提交。未执行全测试、完整 3024 项矩阵、251 组全光线、跨平台或用户实际安装；其他全目录问题继续保留。
@@ -14,13 +16,17 @@ Optical System Design 按非商业产品维护。初始结构与镀膜设计已�
 
 ## 最新验证账目
 
-### 2026-10-24 Apple Silicon Mac 发布接入（本机验证完成）
+### 2026-10-24 Apple Silicon Mac DMG 已补充发布
 
-发布流程增加仅面向 M 系列的 `osx-arm64` 自包含 DMG；Windows x64/ARM64 保留，Mac 不生成 Intel 包。标准 bundle 使用 Resources/Frameworks 与内部相对链接，原生文件均为 arm64，签名后生成磁盘映像。包内包含共享 Core、初始结构和镀膜模块、字体与许可。发布脚本同时管理 EXE/DMG，新增或刷新单个平台时保留其他附件及经过内置公钥核验的 Windows OTA 签名。当前 Mac 为 ad-hoc 完整性签名，未作 Developer ID 签名/公证；Mac 通过发布页手动更新。
+已通过[云端构建 40053205871](https://github.com/VendettaMask/opticalsystem/actions/runs/40053205871)，向当前 [1.0.4 测试发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)追加仅面向 M 系列的 [Apple Silicon DMG](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg)。实际源码为干净提交 `c68b210dc4bf91ca7a6deff61908702bba93442d`，包身份 `1.0.4-osx-arm64-329d3b4ae305`，大小 110452133 字节，完整 SHA-256 为 `c61f0da9ac1b91db5fdd19693be116f454fcb30dac939dd4087f6990ebda3561`。Windows 附件 ID、大小、哈希和更新时间保持不变，原 OTA 签名正文逐字保留；旧标签未移动，仍为测试预发布、不标 Latest。
 
-本机 M 系列完成 **43/43** 打包/发布边界回归、整个应用包签名检查、原生无界面执行与 DMG 只读挂载复查，1548 条清单在生成前后相同，两个内置模块在主进程可用且未写用户数据。2668 项冻结资产未变，严格文档门禁通过。保留初次 bundle 排布、自包含运行时查找和夹具编译失败，修复后复验。此阶段本地包来自未提交工作区，不作为公开交付；按用户要求，下一步由干净提交的云端构建补到当前 1.0.4 测试发布，保留 Windows 原包。尚未声明云端交付、原生 GUI 全验收或新增光学数值认证。见[本机账目](validation/MACOS_RELEASE_LOCAL_2026-10-24.json)、[证据归档](../validation/rechecks/2026-10-24/macos-release-local-evidence.zip)和[Mac 发布说明](GITHUB_CLOUD_RELEASE.md#apple-silicon-mac-包)。
+完整 Release 编译零警告、零错误。云端定向 **138 个不同用例通过、0 失败、1 项 CUDA 硬件用例跳过**：发布边界 52、初始结构 25、镜头导航 9、表格/视图 49、三语更新反馈渲染 3；不把 Mac 上未运行的 NVIDIA CUDA 用例算作通过。2668 项冻结资产未变，严格文档门禁通过。包内原生代码均为 arm64；只读挂载前后 1548 条清单相同，随包 .NET 10.0.10 与两个必装模块实际在主进程执行。字体与许可随包交付。
 
-首轮[云端门禁](https://github.com/VendettaMask/opticalsystem/actions/runs/40052638652)完成完整 Release 编译、发布边界 52/52、内置模块 25 通过/1 项 CUDA 硬件用例跳过、镜头导航 9/9；其余界面为 48/49，发布被阻止。唯一失败是旧布局测试断言单元格只能有一个样式 Setter，未允许新增的数字字体资源。现按属性分别核对右对齐和字体，保留两项断言；本机两项布局回归通过，等待新一轮云端交付。首次失败和跳过范围保留，不算作全通过。
+独立完整下载核对服务端 SHA-256，并以无凭据 206 范围下载检查 UDIF 尾部。公开包再经本机只读挂载、完整清单与签名复查、隔离系统 .NET 路径启动，源码版本与云端一致，未写用户数据。追加修正验证脚本对独立模块文件的扫描范围，使其覆盖 Resources/Frameworks；向可丢弃副本注入独立模块文件后，在执行前被拒绝，公开原包未修改。
+
+首轮[云端门禁失败](https://github.com/VendettaMask/opticalsystem/actions/runs/40052638652)保留：旧布局断言把新增数字字体 Setter 误判为额外样式，修正为分别核对右对齐与数字字体，本机 2/2 及第二轮相关用例通过。初次 bundle 排布、运行时查找、本机未完成下载即尝试挂载及代理下载错误同样保留，不算通过。本机早期 43/43 与 .NET 10.0.8 包记录仅代表[原阶段](validation/MACOS_RELEASE_LOCAL_2026-10-24.json)，不与云端计数相加。
+
+当前 Mac 只提供 `osx-arm64`，最低系统声明为 macOS 14，采用 ad-hoc 完整性签名，尚无 Developer ID 签名/公证；Mac 通过发布页手动替换 `.app`，无 Mac 安装 OTA。此轮包含原生无界面载荷检查与 Headless 界面回归，未声明原生 GUI、高 DPI 或全部系统/硬件验收，没有新增光学数值认证。见[最终交付账目](validation/MACOS_RELEASE_CLOUD_2026-10-24.json)、[云端与公开包证据](../validation/rechecks/2026-10-24/macos-release-cloud-evidence.zip)、[首轮失败归档](../validation/rechecks/2026-10-24/macos-cloud-first-failure.zip)及[安装说明](GITHUB_CLOUD_RELEASE.md#apple-silicon-mac-包)。
 
 ### 2026-10-24 分析图例统一到右上侧
 
