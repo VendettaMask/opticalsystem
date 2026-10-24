@@ -104,7 +104,7 @@ RID 专用锁文件放在项目 `obj` 下，不覆盖源锁文件。发布禁用
 
 OTA 云端签名、密钥备份和客户端实机验收分别记账。正式与测试 EXE 都在发布前生成 RSA-PSS/SHA-256 元数据，公钥不匹配或密钥不可用时停止；测试包额外校验构建编号与本次工作流一致，仍为预发布且不标 Latest。私有 GitHub 仓库保存密码加密备份，日常发布不依赖维护者电脑；恢复只需 GitHub 权限、加密文件与单独保管的恢复密码，不使用机器绑定、明文私钥附件或永久依赖 Actions artifact。步骤及安全边界见[云端发布指南](GITHUB_CLOUD_RELEASE.md#ota-签名与纯云端密钥备份)，实际结果见[当前状态](CURRENT_STATUS.md)。
 
-安装包分发地址为 [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases)。[发布工作流](../.github/workflows/release.yml) 在 GitHub 托管 Windows / Apple Silicon Mac runner 编译完整解决方案，运行版本、升级、安装、内置模块、自动初始结构界面的定向测试及冻结证据/文档门禁，再生成自包含 Windows Setup EXE 或 Apple Silicon DMG。镜头表头/结构导航、材料行显示、二维结构选择和三维几何/显示模式另以定向集合检查，记录在 `lens-viewers.trx`，不扩大为全套或实机 GUI 验收。x64 对实际载荷的隔离副本运行完整性/内置模块探测；ARM64 在 x64 runner 上仅交叉打包，不宣称原生执行验收。全部所选架构通过后自动上传并公开发布；不再止于草稿。本地构建本身不会联网发布。
+安装包分发地址为 [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases)。[发布工作流](../.github/workflows/release.yml) 在 GitHub 托管 Windows / Apple Silicon Mac runner 编译完整解决方案，运行版本、升级、安装、内置模块、自动初始结构界面的定向测试及冻结证据/文档门禁，再生成自包含 Windows Setup EXE 或 Apple Silicon DMG。镜头表头/结构导航、材料行显示、二维结构选择和三维几何/显示模式另以定向集合检查，记录在 `lens-viewers.trx`，不扩大为全套或实机 GUI 验收。x64 对实际载荷的隔离副本运行完整性/内置模块探测；Windows ARM64 在 x64 runner 上仅交叉打包，不宣称原生执行验收。全部所选架构通过后自动上传并公开发布；不再止于草稿。本地构建本身不会联网发布。
 
 推送与产品版本一致的 `v<产品版本>` 标签自动构建 Windows x64/ARM64 和 Mac `osx-arm64` 并发布正式版；推送 `v<产品版本>-test.YYYYMMDD` 标签发布测试预发布、不标 Latest。维护者也可在 Actions 的 **Desktop build and publish → Run workflow** 选择分支、已有标签及 `all` 或单个平台，勾选 `replace_existing` 才允许覆盖已有附件。手动刷新不移动旧标签，发布说明记录实际源码提交。详细操作和边界见[云端发布指南](GITHUB_CLOUD_RELEASE.md)。
 

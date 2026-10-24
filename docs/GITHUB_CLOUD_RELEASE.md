@@ -38,7 +38,7 @@ Windows 正式版与测试版在修改 Release 前都必须验证 RSA-4096 签�
 
 ## 验证范围
 
-Windows 在 `windows-latest`、Mac 在 Apple Silicon `macos-15` runner 构建完整解决方案，但只运行与交付、安装、界面和原生预设相关的定向测试，不把它称为全仓库测试。冻结证据与文档校验保留，x64 包执行内置模块完整性检查，ARM64 只有交叉打包检查。AutoLens 目标预设的存在和界面通过不等于设计达标；此前 24 次固定 CPU 运行仍为 0/24 达标。
+Windows 在 `windows-latest`、Mac 在 Apple Silicon `macos-15` runner 构建完整解决方案，但只运行与交付、安装、界面和原生预设相关的定向测试，不把它称为全仓库测试。冻结证据与文档校验保留，Windows x64 包执行内置模块完整性检查，Windows ARM64 仍仅交叉打包；Mac ARM64 在原生 runner 执行包内程序与磁盘映像复查。AutoLens 目标预设的存在和界面通过不等于设计达标；此前 24 次固定 CPU 运行仍为 0/24 达标。
 
 流程源码见[工作流](../.github/workflows/release.yml)与[安全替换脚本](../scripts/publish-github-exe.ps1)，实际执行和交付结果以[当前状态](CURRENT_STATUS.md)为准。
 

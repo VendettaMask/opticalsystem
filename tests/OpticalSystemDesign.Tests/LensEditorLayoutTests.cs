@@ -1,8 +1,10 @@
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Styling;
 using OpticalSystemDesign.App.Panels;
+using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -42,8 +44,11 @@ public sealed class LensEditorLayoutTests
         Assert.Equal(HorizontalAlignment.Center, header.HorizontalAlignment);
 
         Assert.NotNull(column.CellTheme);
-        var alignment = Assert.IsType<Setter>(Assert.Single(column.CellTheme.Setters));
-        Assert.Equal(DataGridCell.HorizontalContentAlignmentProperty, alignment.Property);
+        var alignment = Assert.Single(column.CellTheme.Setters.OfType<Setter>(),
+            setter => setter.Property == DataGridCell.HorizontalContentAlignmentProperty);
         Assert.Equal(HorizontalAlignment.Right, alignment.Value);
+        var font = Assert.Single(column.CellTheme.Setters.OfType<Setter>(),
+            setter => setter.Property == DataGridCell.FontFamilyProperty);
+        Assert.Equal(ProductFonts.NumericResource, Assert.IsType<DynamicResourceExtension>(font.Value).ResourceKey);
     }
 }

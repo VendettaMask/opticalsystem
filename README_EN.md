@@ -103,7 +103,7 @@ Optical System Design is a non-commercial optical-design project maintained by S
 
 Installers are distributed through [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases). Run `OpticalSystemDesign-*-Setup.exe` from a published release and follow the installer. The standard Windows x64 package is self-contained, so users do not need to install .NET or the initial-structure and coating modules separately.
 
-See **Help → About** or **Help → Check for Updates** for the installed version. Update checks are manual and can open GitHub Releases to obtain the full installer. Online automatic upgrades are reserved, with no automatic downloading or installation. See the [version and release rules](docs/BUILD_AND_RELEASE.md#软件版本与-github-分发); a development version does not imply a publicly available installer.
+See **Help → About** or **Help → Check for Updates** for the installed version. Update checks are manual and can open GitHub Releases to obtain the full installer. Checks and downloads are user-initiated. Verified Windows updates can be applied after saving and closing normally; Mac uses manual DMG replacement. There is no background installation. See the [version and release rules](docs/BUILD_AND_RELEASE.md#软件版本与-github-分发); a development version does not imply a publicly available installer.
 
 Open the two built-in modules from **Laboratory → AI Initial Structure / Optical Coating Design** in the main application.
 
