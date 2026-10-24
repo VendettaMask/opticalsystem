@@ -6,15 +6,23 @@
 
 Optical System Design 按非商业产品维护。初始结构与镀膜设计已并入主程序同一进程和 UI 程序集；根解决方案、标准发布、安装、升级、修复和卸载统一管理全部必装模块。没有独立 App、选装组件、补装提示或外部程序路径查找。内部领域库、编辑状态和文件格式仍各自隔离，全部光学计算复用共享 Core。
 
-2026-10-24 已在同一 1.0.4 测试发布增加 Apple Silicon Mac 自包含 DMG，实际源码 `c68b210d`，随包 .NET 10.0.10；仅支持 M 系列，含两个必装模块和字体。原 Windows 附件与 OTA 签名保留原身份。Mac 当前为 ad-hoc 签名、未公证，实际交付与验证范围见下方 Mac 条目。
+2026-10-24 已在 GitHub 云端从同一源码 `376863d0` 重建并更新当前 **1.0.4 测试发布**的 Windows x64 EXE 与 Apple Silicon Mac 自包含 DMG，包含本轮实体模型、视图 PNG 导出、塞德尔配色及成对子图间距更新。Windows 包身份 `1.0.4-win-x64-c2d300335478`，Mac 包身份 `1.0.4-osx-arm64-a9d0f4f83406`；两个必装模块及字体随包交付。Mac 仅支持 M 系列，仍为 ad-hoc 签名、未公证。标签与下载链接不变，保持测试预发布；见[本轮云端交付账目](validation/DESKTOP_UI_CLOUD_RELEASE_2026-10-24.json)。此前首次补充 Mac 的 `c68b210d` 包记录保留原阶段范围。
 
-2026-10-23 已在 **GitHub 云端**重新编译、检查、打包并覆盖原 Windows x64 自包含 **1.0.4 测试包**，当前身份 `1.0.4-win-x64-820a153a9b73`，构建编号 `39888939610`，实际源码为干净提交 `fbbe454db9322b32492f28025341aed5a6183367`。[原测试发布页](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)只保留一个 EXE，下载链接和标签不变；旧包在替换前由发布流程校验并备份至 Actions，保留至 2026-11-22。新包修复检查更新没有可见反馈的问题，默认包含测试 OTA，并按签名构建编号识别同版本新包；保留此前镜头/二维/三维修复及两个必装模块。测试预发布仍不标 Latest，OTA 元数据已有可信签名，但 EXE 没有 Windows 发布者证书。旧稳定通道客户端需先手动安装这一次新引导包；未操作用户本机安装。见[最新交付与验证账目](validation/OTA_TEST_CHANNEL_FEEDBACK_2026-10-23.json)，[此前 EXE 记录](validation/EXE_RELEASE_2026-10-23.json)保留原阶段身份。
+2026-10-23 曾在 **GitHub 云端**重新编译、检查、打包并覆盖原 Windows x64 自包含 **1.0.4 测试包**，该阶段身份 `1.0.4-win-x64-820a153a9b73`，构建编号 `39888939610`，实际源码为干净提交 `fbbe454db9322b32492f28025341aed5a6183367`。[原测试发布页](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)当时只保留一个 EXE，下载链接和标签不变；旧包在替换前由发布流程校验并备份至 Actions，保留至 2026-11-22。该包修复检查更新没有可见反馈的问题，默认包含测试 OTA，并按签名构建编号识别同版本新包；保留此前镜头/二维/三维修复及两个必装模块。测试预发布仍不标 Latest，OTA 元数据已有可信签名，但 EXE 没有 Windows 发布者证书。旧稳定通道客户端需先手动安装支持测试通道的新引导包；未操作用户本机安装。见[该阶段交付与验证账目](validation/OTA_TEST_CHANNEL_FEEDBACK_2026-10-23.json)，[此前 EXE 记录](validation/EXE_RELEASE_2026-10-23.json)保留原阶段身份。
 
 上一轮 2026-10-21 光学修复包来自 `b37d1b31c9ca6e2b861c776af4d2dc7e943f1d94`，身份 `1.0.4-win-x64-20f20ca93130`。当时 1131 个原 Pass 保持，加新增 11 项为 1142/1142，原生 22 个标量未变，包内数值守卫 64/64；这些是[该阶段交付范围](validation/UPDATE_SYNC_REFLECTIVE_PARAXIAL_PACKAGE_2026-10-21.json)，本次云端交付没有重跑或扩大为全目录数值认证。原测试标签继续保留在 `9242b31abf38b4d97f23d19e4b00f8df47abfabb`，因此 GitHub 自动源码压缩包不代表手动刷新后的包源码，应查看本次实际代码提交。未执行全测试、完整 3024 项矩阵、251 组全光线、跨平台或用户实际安装；其他全目录问题继续保留。
 
 早期 `1.0.3-win-x64-e711a0d55d69`、`1.0.3-win-x64-5d26bc9bf9a4`、`1.0.3-win-x64-332991feffd8` 包仅保留原阶段的身份与[交付记录](BUILT_IN_MODULES_2026-10-13.md#最终标准安装包)，不代表当前源码。用户明确不需要一键版本回退；不将其列为缺陷或待办。
 
 ## 最新验证账目
+
+### 2026-10-24 最新界面更新已由云端打包发布
+
+从干净提交 `376863d06cb0a34fee46c09e87ac7312631d7883` 分别触发 [Windows x64 云端流程](https://github.com/VendettaMask/opticalsystem/actions/runs/40059961901)和 [Apple Silicon Mac 云端流程](https://github.com/VendettaMask/opticalsystem/actions/runs/40059974687)，两项均完成完整 Release 编译、定向门禁、安装包生成及公开发布，编译零警告、零错误。全程由 GitHub 托管 runner 打包；本机只触发、读取结果及核对公开元数据，没有生成安装包或操作用户安装。
+
+Windows 定向 **282 个不同用例通过、0 失败、1 项 CUDA 硬件用例跳过**，三语反馈重复执行 3 项不累加；按 TRX 唯一用例 ID 统计，初次按截断显示名统计的 281 已纠正。实际自包含载荷检查 **14/14**，1295 条清单，随包运行时 10.0.11。Mac 定向 **145 个不同用例通过、0 失败、1 项 CUDA 硬件用例跳过**；DMG 只读挂载前后均验证 1548 条清单，原生代码均为 arm64，随包运行时 10.0.10，两个模块均在主进程执行。两平台冻结证据均 2668/2668，严格文档检查均通过。此为发布工作流的有限定向范围，不把前面各 UI 阶段的本地测试或跨平台重复结果相加，也不代表全测试、完整光学或原生 GUI 验收。
+
+原测试发布和标签身份保持，仍为测试预发布、不标 Latest；只保留一个 [Windows EXE](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe)和一个 [M 系列 Mac DMG](https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg)。发布服务端附件大小与 SHA-256 和正文身份一致；新 Windows OTA 元数据已用内置公钥独立验签，Mac 发布后 Windows 附件及该签名正文逐字保留。旧包由工作流备份保留 30 天。本机未另行完整下载重验最终安装包；Mac 未增加 Developer ID、公证或 OTA。完整身份、实际测试和原始记录见[云端账目](validation/DESKTOP_UI_CLOUD_RELEASE_2026-10-24.json)及[证据归档](../validation/rechecks/2026-10-24/desktop-ui-cloud-release-evidence.zip)。
 
 ### 2026-10-24 实体模型视角图标视面加深
 

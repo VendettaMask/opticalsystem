@@ -1,0 +1,229 @@
+{
+  "date": "2026-10-24",
+  "scope": "Cloud rebuild and publish committed desktop UI updates for Windows x64 and Apple Silicon Mac to the existing 1.0.4 test release",
+  "sourceCommit": "376863d06cb0a34fee46c09e87ac7312631d7883",
+  "releaseTag": "v1.0.4-test.20261019",
+  "releaseUrl": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019",
+  "platforms": {
+    "windows": {
+      "workflow": {
+        "id": 40059961901,
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/40059961901",
+        "sourceCommit": "376863d06cb0a34fee46c09e87ac7312631d7883",
+        "conclusion": "success",
+        "sourceCleanValidatedByPublisher": true,
+        "completeSolutionReleaseBuild": true,
+        "compilerWarnings": 0,
+        "compilerErrors": 0,
+        "runner": "windows-latest"
+      },
+      "tests": {
+        "deduplication": "TRX testId; display names can truncate distinct parameter values",
+        "groups": [
+          {
+            "trx": "initial-structure.trx",
+            "passed": 25,
+            "failed": 0,
+            "skipped": 1
+          },
+          {
+            "trx": "lens-navigation.trx",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "trx": "lens-viewers.trx",
+            "passed": 56,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "trx": "release.trx",
+            "passed": 192,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "trx": "update-feedback-render.trx",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          }
+        ],
+        "distinct": {
+          "Passed": 282,
+          "Failed": 0,
+          "NotExecuted": 1
+        },
+        "repeatExecutionsNotAdded": 3,
+        "skippedNames": [
+          "OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.GpuDeviceChoiceRunsActualCudaAndRoundTripsWithoutChangingTheAlgorithm"
+        ]
+      },
+      "package": {
+        "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+        "sourceCommit": "376863d06cb0a34fee46c09e87ac7312631d7883",
+        "releaseId": "1.0.4-win-x64-c2d300335478",
+        "id": 671210789,
+        "size": 314808600,
+        "digest": "sha256:9088427881fcaae9f78a7c0995aa0182ac567cfc16cbfc58679ceb3c713fae54",
+        "browser_download_url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe"
+      },
+      "bundledRuntime": "10.0.11",
+      "packageVerification": {
+        "Passed": 14,
+        "Failed": 0,
+        "ManifestFiles": 1295,
+        "Source": "D:\\a\\opticalsystem\\opticalsystem\\artifacts\\installers\\installer-win-x64-28ab3d38\\payload\\app-faea710b",
+        "NativeGuiVerified": false,
+        "UserInstallationModified": false
+      },
+      "frozenEvidenceMatched": 2668,
+      "strictCloudDocumentationPassed": true,
+      "cloudDocuments": 1076
+    },
+    "mac": {
+      "workflow": {
+        "id": 40059974687,
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/40059974687",
+        "sourceCommit": "376863d06cb0a34fee46c09e87ac7312631d7883",
+        "conclusion": "success",
+        "sourceCleanValidatedByPublisher": true,
+        "completeSolutionReleaseBuild": true,
+        "compilerWarnings": 0,
+        "compilerErrors": 0,
+        "runner": "macos-15 arm64"
+      },
+      "tests": {
+        "deduplication": "TRX testId; display names can truncate distinct parameter values",
+        "groups": [
+          {
+            "trx": "initial-structure.trx",
+            "passed": 25,
+            "failed": 0,
+            "skipped": 1
+          },
+          {
+            "trx": "lens-navigation.trx",
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "trx": "lens-viewers.trx",
+            "passed": 56,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "trx": "macos-release.trx",
+            "passed": 52,
+            "failed": 0,
+            "skipped": 0
+          },
+          {
+            "trx": "update-feedback-render.trx",
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0
+          }
+        ],
+        "distinct": {
+          "Passed": 145,
+          "Failed": 0,
+          "NotExecuted": 1
+        },
+        "repeatExecutionsNotAdded": 0,
+        "skippedNames": [
+          "OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.GpuDeviceChoiceRunsActualCudaAndRoundTripsWithoutChangingTheAlgorithm"
+        ]
+      },
+      "package": {
+        "name": "OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg",
+        "sourceCommit": "376863d06cb0a34fee46c09e87ac7312631d7883",
+        "releaseId": "1.0.4-osx-arm64-a9d0f4f83406",
+        "id": 671228287,
+        "size": 110456808,
+        "digest": "sha256:f10d2e7d5850e0d7ad5793f8d3ad4b90d2286837a2899198b08501d6e7cf45a5",
+        "browser_download_url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg"
+      },
+      "bundledRuntime": "10.0.10",
+      "packageVerification": {
+        "Architecture": "Arm64",
+        "ManifestFiles": 1548,
+        "SelfContained": true,
+        "BothModulesInProcess": true,
+        "NativeCodeSignaturesVerified": true,
+        "DeveloperIdSigned": false,
+        "Notarized": false,
+        "GuiVerified": false,
+        "UserDataWritten": false
+      },
+      "frozenEvidenceMatched": 2668,
+      "strictCloudDocumentationPassed": true,
+      "cloudDocuments": 1076
+    }
+  },
+  "publicationVerification": {
+    "packages": [
+      {
+        "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+        "sourceCommit": "376863d06cb0a34fee46c09e87ac7312631d7883",
+        "releaseId": "1.0.4-win-x64-c2d300335478",
+        "id": 671210789,
+        "size": 314808600,
+        "digest": "sha256:9088427881fcaae9f78a7c0995aa0182ac567cfc16cbfc58679ceb3c713fae54",
+        "browser_download_url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe"
+      },
+      {
+        "name": "OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg",
+        "sourceCommit": "376863d06cb0a34fee46c09e87ac7312631d7883",
+        "releaseId": "1.0.4-osx-arm64-a9d0f4f83406",
+        "id": 671228287,
+        "size": 110456808,
+        "digest": "sha256:f10d2e7d5850e0d7ad5793f8d3ad4b90d2286837a2899198b08501d6e7cf45a5",
+        "browser_download_url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg"
+      }
+    ],
+    "originalTagUnchanged": true,
+    "releaseIdentityUnchanged": true,
+    "prerelease": true,
+    "windowsAssetPreservedByMacRun": true,
+    "newWindowsOtaMarkerPreservedByteForByteByMacRun": true,
+    "otaMarkerSha256": "4629315961eb8d2730374877a967453623cb1d6a53e0687fe2cdb9568be2f4b5",
+    "otaPublicKeySignatureVerified": true,
+    "publishedInstallerBytesDownloadedLocally": false
+  },
+  "scopeLimits": [
+    "Build, delivery tests, installer generation and publishing ran on GitHub-hosted runners; no local installer build",
+    "Cloud release tests are focused, not full-suite or full optical certification",
+    "Earlier local UI regressions and repeated cross-platform tests are not added to cloud distinct counts",
+    "Viewer PNG pixel checks and paired fan/Seidel checks retain their earlier scoped local evidence; no claim they were rerun by this release workflow",
+    "No user installation modified; no full native GUI or high-DPI acceptance",
+    "No Intel Mac or Windows ARM64 package generated in this refresh",
+    "Mac remains ad-hoc signed, not Developer ID signed or notarized; no Mac OTA",
+    "Published installers were not downloaded in full locally; public server sizes/digests, source records and Windows OTA public-key signature were checked"
+  ],
+  "countingCorrection": "Initial Windows summary deduplicated truncated TRX display names and undercounted one distinct parameterized case. Final uses stable TRX testId: 282 passed, 1 skipped; 3 repeated update-feedback cases not added. Original summary retained in evidence.",
+  "evidence": {
+    "path": "validation/rechecks/2026-10-24/desktop-ui-cloud-release-evidence.zip",
+    "bytes": 4836085,
+    "sha256": "1c70172ac61ef31cba501b6096be4a047d4a9da18b82c6d97065ae2f0f3e61a5"
+  },
+  "files": {
+    ".github/workflows/release.yml": "064295820a31f020e8122d6e06994fe5035aff42b39eafa7e1f985d35677eacc",
+    "scripts/publish-github-exe.ps1": "f4b8031859028ec8be9e689011dedd8d58f2d3b3f8c049f1d2caaa5640c388ec",
+    "scripts/build-macos.sh": "e7dbdaf1e3a052bcb7550ab7bbd9e1b1db8392e3e9fdb340cc981e6aba8b7d2d",
+    "scripts/verify-macos-package.sh": "9ccf47a6460e4ec4ca8a6fc0d7a282ef04d0a244c6faf282c7678747d11423d0",
+    "scripts/verify-built-in-package.ps1": "e3ccca9399020a81d0e34380ad4e10569fc40fcadbc82fbc1abb0e8d1b711eb8",
+    "docs/CURRENT_STATUS.md": "64003f56e5e879aeeefa3620c0ba0fb3cc5268a00f1020ecb32f425afabd97b9"
+  },
+  "finalReceiptDocumentation": {
+    "strictPassed": true,
+    "documents": 1076,
+    "brokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0
+  }
+}
