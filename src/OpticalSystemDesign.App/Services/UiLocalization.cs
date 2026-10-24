@@ -708,6 +708,7 @@ internal static class UiLocalization
         Add("正在准备更新，请稍候。", "Preparing the update. Please wait.", "更新を準備中です。お待ちください。");
         Add("正在下载并校验更新…", "Downloading and verifying the update…", "更新をダウンロードして検証中…");
         Add("校验通过。点击保存并重启更新；取消保存则不安装。", "Verified. Save and restart to update; canceling save prevents installation.", "検証済みです。保存して再起動すると更新します。保存を中止するとインストールしません。");
+        Add("更新校验通过；Windows 安装包未签名，系统可能提示未知发布者。保存并重启更新；取消保存则不安装。", "Update verified; the Windows installer is unsigned and may show an unknown publisher. Save and restart to update; canceling save prevents installation.", "更新を検証済みです。Windows インストーラーは未署名のため、発行元不明と表示される場合があります。保存して再起動すると更新します。保存の中止時はインストールしません。");
         Add("下载已取消，未执行安装。", "Download canceled. Nothing was installed.", "ダウンロードを中止しました。インストールは行っていません。");
         Add("下载更新超时，请检查网络后重试。", "The update download timed out. Check your connection and retry.", "更新のダウンロードがタイムアウトしました。ネットワークを確認して再試行してください。");
         Add("下载或校验失败，未执行安装。请重试或使用发布页。", "Download or verification failed. Nothing was installed. Retry or use the release page.", "ダウンロードまたは検証に失敗しました。インストールは行っていません。再試行するかリリースページをご利用ください。");

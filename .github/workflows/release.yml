@@ -79,7 +79,7 @@ jobs:
         shell: pwsh
         run: |
           ./scripts/test-ota-key-crypto.ps1
-          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~ProductVersionInfoTests|FullyQualifiedName~ReleaseUpdateTests|FullyQualifiedName~AboutUpdateTests|FullyQualifiedName~OtaClientTests|FullyQualifiedName~OtaUpdatePanelTests|FullyQualifiedName~OtaShutdownGuardTests|FullyQualifiedName~WindowsPackagingTests|FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~InitialStructureLabLauncherTests|FullyQualifiedName~ProductDependencyArchitectureTests' --logger 'trx;LogFileName=release.trx' --results-directory artifacts/cloud-verification
+          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~ProductVersionInfoTests|FullyQualifiedName~ReleaseUpdateTests|FullyQualifiedName~AboutUpdateTests|FullyQualifiedName~OtaClientTests|FullyQualifiedName~OtaHelperRuntimeTests|FullyQualifiedName~WindowsInstallationGateTests|FullyQualifiedName~WindowsInstallationLifetimeTests|FullyQualifiedName~OtaUpdatePanelTests|FullyQualifiedName~OtaShutdownGuardTests|FullyQualifiedName~WindowsPackagingTests|FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~InitialStructureLabLauncherTests|FullyQualifiedName~ProductDependencyArchitectureTests' --logger 'trx;LogFileName=release.trx' --results-directory artifacts/cloud-verification
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           dotnet test labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~FlatStartDesktopTests|FullyQualifiedName~AutoLensOfficialExampleTests' --logger 'trx;LogFileName=initial-structure.trx' --results-directory artifacts/cloud-verification
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
@@ -123,6 +123,10 @@ jobs:
           if ($env:TARGET_RUNTIME -eq 'win-x64') {
             $payload = Get-ChildItem -LiteralPath (Join-Path $package.Directory 'payload') -Directory | Select-Object -First 1 -ExpandProperty FullName
             ./scripts/verify-built-in-package.ps1 -PublishDirectory $payload -OutputDirectory artifacts/cloud-package-verification
+            $env:OPTICAL_SYSTEM_DESIGN_OTA_RUNTIME_SOURCE = $payload
+            dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~OtaHelperRuntimeTests' --logger 'trx;LogFileName=ota-runtime-package.trx' --results-directory artifacts/cloud-verification
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+            Remove-Item Env:OPTICAL_SYSTEM_DESIGN_OTA_RUNTIME_SOURCE
           }
           # Internal Actions handoff only. Publishing filters out these build records.
           New-Item -ItemType Directory -Path distribution | Out-Null

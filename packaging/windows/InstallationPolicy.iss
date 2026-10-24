@@ -90,7 +90,11 @@ begin
     if not HasRegisteredInstall then
       RaiseException(PolicyText('目标目录有本产品载荷，但缺少安装注册信息，无法确认原快捷方式配置。已停止，未另建副本或删除目录。',
         'Product payload exists without its installation registration. The original shortcuts cannot be verified. Setup stopped without creating another copy or deleting the directory.'));
-    if ComparePackedVersion(Target, Previous) > 0 then InstallationMode := 'Upgrade';
+    // A different side-by-side payload is an update even when the public
+    // version remains the same (for example a newer signed test build).
+    if (ComparePackedVersion(Target, Previous) > 0) or
+      ((ComparePackedVersion(Target, Previous) = 0) and (Release <> '{#ReleaseId}')) then
+      InstallationMode := 'Upgrade';
   end;
 end;
 

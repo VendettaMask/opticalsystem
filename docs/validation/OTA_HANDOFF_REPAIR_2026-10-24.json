@@ -1,0 +1,154 @@
+{
+  "Date": "2026-10-24",
+  "BaseCommit": "376863d06cb0a34fee46c09e87ac7312631d7883",
+  "SourceDirty": true,
+  "Problem": "Installed EXE also ran the waiting OTA helper; the native exclusive old-EXE guard rejected Setup with exit 7.",
+  "Repairs": [
+    "Cache runtime copy with bounded traversal and per-file SHA-256 verification",
+    "Original registered installation and active release bound to ticket; parent verified against original EXE",
+    "Normal parent exit and actual old-image handle release before Setup",
+    "Wait for final installer mutex and file-gate release before restart",
+    "Recovery always addresses original installation",
+    "Same-version different payload labelled Update; same payload labelled Repair",
+    "Unsigned Windows publisher state explained separately from OTA verification"
+  ],
+  "FocusedTests": {
+    "Passed": 149,
+    "Trx": "artifacts/validation/ota-handoff-20261024/tests/ota-final-v3.trx",
+    "NewCases": 8,
+    "Sha256": "145874dcbe12079457fa66cfe3b45a771282899307cd57fcdad115a3a330cfc9",
+    "Skipped": 0,
+    "Total": 149,
+    "Failed": 0
+  },
+  "NativeInstaller": {
+    "ProductAppId": "OpticalSystemDesign-UpgradeValidation-Policy-539306ade1",
+    "Passed": 49,
+    "Date": "2026-10-24",
+    "Sha256": "90dc659da8c86bd28ac084370517258443809c0bea4cb750e3f2b74bc282b4cc",
+    "Summary": "artifacts/validation/ota-handoff-20261024/native-policy-final/summary.json",
+    "TestFixtureOnly": true,
+    "Failed": 0
+  },
+  "RuntimeProof": {
+    "FullSelfContainedPayload": true,
+    "GuiVerified": false,
+    "OriginalExeExclusivelyAvailable": true,
+    "GlobalRuntimeRootDisabled": true,
+    "RealProductChild": true,
+    "CachedExeRemainedInUse": true
+  },
+  "Interface": {
+    "Languages": [
+      "zh-CN",
+      "en-US",
+      "ja-JP"
+    ],
+    "NativeHighDpiAccepted": false,
+    "HeadlessSkiaScreenshots": true,
+    "FontSizes": [
+      13,
+      18
+    ]
+  },
+  "Build": {
+    "SelfContainedX64": "passed",
+    "DefaultDebug": "passed",
+    "DefaultRelease": "passed, 0 warnings, 0 errors"
+  },
+  "Package": {
+    "WindowsPublisherSigned": false,
+    "SourceDirty": true,
+    "OtaBuildSequence": 0,
+    "ReleaseId": "1.0.4-win-x64-267c7152558f",
+    "SourceCommit": "376863d06cb0a34fee46c09e87ac7312631d7883",
+    "Path": "artifacts/ota-handoff-package-final/installer-win-x64-77be407c/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+    "Bytes": 314685959,
+    "ProductionInstalled": false,
+    "Sha256": "a5e6b2a0bafe8b6c06ae256bdd06e91086a2f3b62034352577918cafa67308a3",
+    "GitHubPublished": false,
+    "MetadataSha256": "6e098b2ad158c667dafe15300b9de574da27fdc77d19244c83e7795769ef853b",
+    "Version": "1.0.4"
+  },
+  "PreservedFailures": [
+    "Original setup exit 7 and handoff error logs",
+    "First isolated matrix stopped at fresh-noicons-install due to final uninstaller mutex release race",
+    "Intermediate 148-case stage and Windows-only test annotation warnings; not added to final totals"
+  ],
+  "Limits": [
+    "Existing installed or downloaded clients are unchanged and need one manual bootstrap install after normal exit",
+    "No real cloud-signed end-to-end OTA install/restart acceptance",
+    "No Windows publisher certificate supplied",
+    "No ARM64 hardware acceptance",
+    "No full repository suite",
+    "No optical calculation changes"
+  ],
+  "Sources": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/Updates/WindowsOtaHandoff.cs",
+      "Sha256": "21b337025ada1c5efbc2cf41e7eab9cdb187278f8602f5af817ee5d810471588"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/Updates/OtaHelperRuntime.cs",
+      "Sha256": "b19220ee7da82f385edf6869b85ebfdf3063b1880198b17ff0f2a1ff588d98e2"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/SoftwareUpdatePanel.cs",
+      "Sha256": "04c87f845f0d612479ce85d455b22673783477e9cbaaf20a5d78118c5ac58b66"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "Sha256": "f9ba1bc8ee5e7679d5296c06ea0558d016c132a54bcc2c0fef1207737a3ce2fd"
+    },
+    {
+      "Path": "packaging/windows/InstallationPolicy.iss",
+      "Sha256": "9863bddbaf4f60969f027c3d7443fdae23f7d89549c30893eaf8fea9b3f09eb9"
+    },
+    {
+      "Path": "packaging/windows/OpticalSystemDesign.iss",
+      "Sha256": "ebb4d52ae29ed0264d4db24738ebfd7d57b78d3306c0d7a75aa2f5e21fb93b9d"
+    },
+    {
+      "Path": "scripts/verify-windows-installation-policy.ps1",
+      "Sha256": "4b0570851013a43904390fc3bf5f09bc59e17f56f041241bfdb3987d21f37a13"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/OtaHelperRuntimeTests.cs",
+      "Sha256": "3328c93e1aaf8962979d43b459626808982317b389c5e08c089290ad014c30ed"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/OtaClientTests.cs",
+      "Sha256": "b1af981da5a5f7874551e1d5519299e2abd7633e233924f17d5fa4e397b7996f"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/OtaUpdatePanelTests.cs",
+      "Sha256": "3cb109a972d40b4be03f47a57691b47ba1a7dd51778b2721ffc44aa46d7637c3"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/WindowsPackagingTests.cs",
+      "Sha256": "a5882c256ebb12863e74f8948e2bb9fbe6050ffc24c5cfd793c232f27d1023eb"
+    }
+  ],
+  "Evidence": {
+    "Sha256": "ce080b106443196d19ef10bed78d70efb163abdc3c39c4ee002c3be53a2d9f1b",
+    "ReadbackVerified": true,
+    "Files": 192,
+    "Archive": "validation/rechecks/2026-10-24/ota-handoff-evidence.zip"
+  },
+  "OriginalFailedHelper": {
+    "ProcessId": 38624,
+    "NormalCloseRequested": true,
+    "Exited": true,
+    "Forced": false,
+    "OldExecutableExclusiveAccessAfterClose": true,
+    "ProductionInstallationUpdated": false,
+    "ExclusiveProbeEvidenceSha256": "cc067ff32e35f1f94daee40a429894beab8c7ca9a066a82df0256527cba88649"
+  },
+  "DocumentationAudit": {
+    "Documents": 1077,
+    "BrokenLinks": 0,
+    "MarkdownFenceIssues": 0,
+    "GuideRepeatedParagraphGroups": 0,
+    "Sha256": "ca35449c8a422235156134b5370eefeeb66ed242800ba25727b78a37ddf9062b"
+  }
+}

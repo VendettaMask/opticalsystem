@@ -42,6 +42,16 @@ function Run-Setup([string]$Executable, [string]$Label, [string]$Directory, [str
         ('/DIR="{0}"' -f $Directory), ('/GROUP="{0}"' -f $Group), ('/LOG="{0}"' -f (Join-Path $output "$Label.log"))) + $Extra
     $process = Start-Process -FilePath $Executable -ArgumentList $arguments -WindowStyle Hidden -PassThru
     if (-not $process.WaitForExit(60000)) { throw 'Test setup exceeded 60 seconds; no process was force-terminated.' }
+    # Inno's outer uninstaller can return while its final temporary process is
+    # still releasing the setup mutex. Wait for actual maintenance completion.
+    $releaseTimer = [Diagnostics.Stopwatch]::StartNew()
+    while ($true) {
+        $marker = $null
+        if (-not [Threading.Mutex]::TryOpenExisting("Local\$productAppId-Application-Setup", [ref]$marker)) { break }
+        $marker.Dispose()
+        if ($releaseTimer.Elapsed.TotalSeconds -ge 5) { throw 'Test maintenance marker was not released; no process was force-terminated.' }
+        Start-Sleep -Milliseconds 50
+    }
     return $process.ExitCode
 }
 function Mode-Logged([string]$Label, [string]$Mode) {
@@ -127,7 +137,7 @@ $shortcutHash = Hash $shortcut
 Check 'failed-maintenance-restored' ((Run-Setup $packages.repacked.Path 'fail-activation' $alternate $otherGroup @('/TESTFAILAFTERACTIVATION=1')) -eq 70)
 Check 'failed-maintenance-state-and-shortcut-preserved' ((Hash $state) -eq $stateHash -and (Hash $shortcut) -eq $shortcutHash) `
     @{ State = Hash $state; ExpectedState = $stateHash; Shortcut = Hash $shortcut; ExpectedShortcut = $shortcutHash }
-Check 'same-version-repacked-repair' ((Run-Setup $packages.repacked.Path 'repacked' $alternate $otherGroup) -eq 0 -and (Mode-Logged 'repacked' 'Repair'))
+Check 'same-version-repacked-update' ((Run-Setup $packages.repacked.Path 'repacked' $alternate $otherGroup) -eq 0 -and (Mode-Logged 'repacked' 'Upgrade'))
 Check 'old-payload-preserved' (Test-Path -LiteralPath (Join-Path $install "versions\$($packages.base.Release)\OpticalSystemDesign.App.exe"))
 Check 'newer-version-upgrade' ((Run-Setup $packages.newer.Path 'newer' $alternate $otherGroup) -eq 0 -and (Mode-Logged 'newer' 'Upgrade'))
 $currentExe = Join-Path $install "versions\$($packages.newer.Release)\OpticalSystemDesign.App.exe"
@@ -181,7 +191,7 @@ $inputs = @(Get-ChildItem -LiteralPath $output -Filter '*.exe' | ForEach-Object 
 $sources = @('OpticalSystemDesign.iss', 'InstallationRecovery.iss', 'InstallationPolicy.iss') | ForEach-Object {
     [ordered]@{ Path = "packaging/windows/$_"; Sha256 = Hash (Join-Path $repositoryRoot "packaging\windows\$_") }
 }
-$summary = [ordered]@{ Date = '2026-10-22'; ProductAppId = $productAppId; TestFixtureOnly = $true;
+$summary = [ordered]@{ Date = (Get-Date -Format 'yyyy-MM-dd'); ProductAppId = $productAppId; TestFixtureOnly = $true;
     ProductionInstallationModified = $false; GuiVerified = $false; MachineWideInstallExecuted = $false;
     Arm64HardwareVerified = $false; HarnessSha256 = Hash $PSCommandPath;
     Passed = $checks.Count; Failed = 0; Sources = @($sources); Inputs = $inputs; Checks = $checks.ToArray() }

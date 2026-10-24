@@ -7,9 +7,10 @@ using Microsoft.Win32;
 namespace OpticalSystemDesign.App.Services.Updates;
 
 internal sealed record OtaInstallation(string Root, string Version, string Active, string Executable);
-internal sealed record OtaHandoffTicket(string Envelope, string Nonce, int ParentId, long ParentStartUtcTicks, DateTime CreatedUtc);
+internal sealed record OtaHandoffTicket(string Envelope, string Nonce, int ParentId, long ParentStartUtcTicks, DateTime CreatedUtc,
+    string? InstallationRoot = null, string? ActiveRelease = null);
 
-// Runs in the same product executable, but outside the GUI/application installation gate.
+// Runs a verified copy of the product runtime from the owned update cache.
 // The helper is started ONLY from a successfully closed main window, never on save cancellation.
 internal static class WindowsOtaHandoff
 {
@@ -62,18 +63,21 @@ internal static class WindowsOtaHandoff
     internal static void StartAfterClose(PreparedOtaUpdate prepared)
     {
         if (!OperatingSystem.IsWindows()) throw new PlatformNotSupportedException();
-        _ = ReadCurrentInstallation();
+        var installed = ReadCurrentInstallation();
         var verified = OtaManifest.Verify(prepared.Update.Envelope);
         if (verified is null || verified.Payload.Runtime != ProductReleaseSource.CurrentRuntime ||
             !OtaManifest.IsNewer(verified.Payload, ProductVersionInfo.Current, ProductVersionInfo.OtaBuildSequence)) throw new InvalidDataException("Untrusted update.");
         ValidateCacheDirectory(prepared.Directory);
+        var helperPath = OtaHelperRuntime.Stage(Path.GetDirectoryName(installed.Executable)!, prepared.Directory);
         var nonce = Convert.ToHexString(RandomNumberGenerator.GetBytes(32));
         using var parent = Process.GetCurrentProcess();
-        var ticket = new OtaHandoffTicket(verified.Envelope, nonce, parent.Id, parent.StartTime.ToUniversalTime().Ticks, DateTime.UtcNow);
+        var ticket = new OtaHandoffTicket(verified.Envelope, nonce, parent.Id, parent.StartTime.ToUniversalTime().Ticks, DateTime.UtcNow,
+            installed.Root, installed.Active);
         var ticketPath = Path.Combine(prepared.Directory, "handoff.json");
         using (var stream = new FileStream(ticketPath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
         { JsonSerializer.Serialize(stream, ticket); stream.Flush(true); }
-        var start = new ProcessStartInfo(Environment.ProcessPath!) { UseShellExecute = false, CreateNoWindow = true };
+        var start = new ProcessStartInfo(helperPath)
+        { UseShellExecute = false, CreateNoWindow = true, WorkingDirectory = Path.GetDirectoryName(helperPath)! };
         start.ArgumentList.Add("--apply-update"); start.ArgumentList.Add(ticketPath); start.ArgumentList.Add(nonce);
         using var helper = Process.Start(start) ?? throw new IOException("Cannot start the update helper.");
         prepared.HandedOff = true;
@@ -119,6 +123,7 @@ internal static class WindowsOtaHandoff
         var ticketPath = Path.GetFullPath(args[1]);
         var directory = Path.GetDirectoryName(ticketPath)!;
         ValidateCacheDirectory(directory);
+        OtaHelperRuntime.ValidateLocation(directory, Environment.ProcessPath!);
         if (Path.GetFileName(ticketPath) != "handoff.json" || new FileInfo(ticketPath).Length > 32768)
             throw new InvalidDataException("Invalid update ticket.");
         WindowsInstallationRecovery.CheckPath(ticketPath);
@@ -127,7 +132,7 @@ internal static class WindowsOtaHandoff
             ticket = JsonSerializer.Deserialize<OtaHandoffTicket>(stream) ?? throw new InvalidDataException("Missing update ticket.");
         var update = ValidateTicket(ticket, args[2], DateTime.UtcNow, ProductReleaseSource.CurrentRuntime, ProductVersionInfo.Current,
             installedBuildSequence: ProductVersionInfo.OtaBuildSequence);
-        var installed = ReadCurrentInstallation();
+        var installed = ReadHandoffInstallation(ticket);
         // Verify a still-existing parent belongs to this exact executable, not a recycled PID.
         Process? parent = null;
         try { parent = Process.GetProcessById(ticket.ParentId); }
@@ -141,7 +146,7 @@ internal static class WindowsOtaHandoff
                     if (!parent.HasExited)
                     {
                         if (parent.StartTime.ToUniversalTime().Ticks != ticket.ParentStartUtcTicks ||
-                            !SamePath(parent.MainModule?.FileName ?? "", Environment.ProcessPath!))
+                            !SamePath(parent.MainModule?.FileName ?? "", installed.Executable))
                             throw new InvalidDataException("Update parent identity mismatch.");
                         using var wait = new CancellationTokenSource(TimeSpan.FromMinutes(2));
                         await parent.WaitForExitAsync(wait.Token).ConfigureAwait(false);
@@ -154,12 +159,13 @@ internal static class WindowsOtaHandoff
             }
         }
         // Recheck installation/version after waiting. Another maintenance operation may have won.
-        var current = ReadCurrentInstallation();
+        var current = ReadHandoffInstallation(ticket);
         if (current != installed || !OtaManifest.IsNewer(update.Payload, current.Version, ProductVersionInfo.OtaBuildSequence))
             throw new InvalidDataException("Installation changed during update handoff.");
         using (WindowsInstallationGate.Maintenance(installed.Root)) { }
         if (Mutex.TryOpenExisting(WindowsInstallationLifetime.MutexName(WindowsInstallationLifetime.ProductId), out var other))
         { other.Dispose(); throw new IOException("Please save and close other application windows first."); }
+        await WaitForExecutableReleaseAsync(installed.Executable).ConfigureAwait(false);
         using var prepared = new PreparedOtaUpdate(directory, update);
         var installerPath = prepared.InstallerPath;
         WindowsInstallationRecovery.CheckPath(installerPath);
@@ -177,16 +183,61 @@ internal static class WindowsOtaHandoff
         if (process.ExitCode != 0)
         {
             // Only the existing validated journal recovery may restore an interrupted transaction.
-            _ = WindowsInstallationRecovery.RecoverPending(AppContext.BaseDirectory, WindowsInstallationLifetime.ProductId);
+            _ = WindowsInstallationRecovery.RecoverPending(Path.GetDirectoryName(installed.Executable)!, WindowsInstallationLifetime.ProductId);
             throw new IOException("Setup did not complete (exit " + process.ExitCode + "). Log: " + Path.Combine(directory, "setup.log"));
         }
+        // An installer bootstrapper can return before its final maintenance
+        // handles disappear. Do not race the new application's startup gate.
+        await WaitForMaintenanceReleaseAsync(installed.Root, WindowsInstallationLifetime.ProductId).ConfigureAwait(false);
         var activated = ReadInstallation(installed.Root);
         if (activated.Version != update.Payload.Version || activated.Active != update.Payload.ReleaseId)
             throw new InvalidDataException("Setup did not activate the signed release identity.");
-        using var restarted = Process.Start(new ProcessStartInfo(activated.Executable) { UseShellExecute = true })
+        using var restarted = Process.Start(new ProcessStartInfo(activated.Executable)
+            { UseShellExecute = true, WorkingDirectory = Path.GetDirectoryName(activated.Executable)! })
             ?? throw new IOException("Installed successfully; please start the application from its shortcut.");
         // Dispose installer lock before deleting our downloaded copy; keep setup.log for diagnosis.
         installerLock.Dispose();
+    }
+
+    [System.Runtime.Versioning.SupportedOSPlatform("windows")]
+    private static OtaInstallation ReadHandoffInstallation(OtaHandoffTicket ticket)
+    {
+        if (string.IsNullOrWhiteSpace(ticket.InstallationRoot) || string.IsNullOrWhiteSpace(ticket.ActiveRelease))
+            throw new InvalidDataException("Missing original installation identity.");
+        var installed = ReadInstallation(ticket.InstallationRoot);
+        if (installed.Active != ticket.ActiveRelease || installed.Version != ProductVersionInfo.Current ||
+            WindowsInstallationLifetime.ReadProductId(Path.GetDirectoryName(installed.Executable)!) != WindowsInstallationLifetime.ProductId)
+            throw new InvalidDataException("Original installation changed during handoff.");
+        return installed;
+    }
+
+    internal static async Task WaitForExecutableReleaseAsync(string executable, TimeSpan? timeout = null)
+    {
+        var timer = Stopwatch.StartNew();
+        while (true)
+        {
+            try { using var probe = new FileStream(executable, FileMode.Open, FileAccess.ReadWrite, FileShare.None); return; }
+            catch (IOException) when (timer.Elapsed < (timeout ?? TimeSpan.FromSeconds(5)))
+            { await Task.Delay(50).ConfigureAwait(false); }
+        }
+    }
+
+    [System.Runtime.Versioning.SupportedOSPlatform("windows")]
+    internal static async Task WaitForMaintenanceReleaseAsync(string root, string productId, TimeSpan? timeout = null)
+    {
+        var timer = Stopwatch.StartNew();
+        while (true)
+        {
+            try
+            {
+                if (Mutex.TryOpenExisting(WindowsInstallationLifetime.MutexName(productId) + "-Setup", out var marker))
+                { marker.Dispose(); throw new IOException("Installer maintenance has not finished."); }
+                using var probe = WindowsInstallationGate.Maintenance(root);
+                return;
+            }
+            catch (IOException) when (timer.Elapsed < (timeout ?? TimeSpan.FromSeconds(5)))
+            { await Task.Delay(50).ConfigureAwait(false); }
+        }
     }
 
     internal static string[] SetupArguments(string directory) =>

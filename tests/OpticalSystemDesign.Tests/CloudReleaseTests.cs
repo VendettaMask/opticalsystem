@@ -21,6 +21,9 @@ public sealed class CloudReleaseTests
         Assert.Contains("AboutUpdateTests.CheckButtonShowsBusyProgressAndPersistentLocalizedResults", text);
         Assert.Contains("OPTICAL_SYSTEM_DESIGN_UPDATE_CAPTURE_DIR", text);
         Assert.Contains("verify-built-in-package.ps1", text);
+        Assert.Contains("FullyQualifiedName~OtaHelperRuntimeTests", text);
+        Assert.Contains("OPTICAL_SYSTEM_DESIGN_OTA_RUNTIME_SOURCE = $payload", text);
+        Assert.Contains("LogFileName=ota-runtime-package.trx", text);
         Assert.Contains("GitFrozenIntegrity.ps1", text);
         Assert.Contains("verify-documentation.ps1 -Strict", text);
         Assert.Contains("publish-github-exe.ps1", text);

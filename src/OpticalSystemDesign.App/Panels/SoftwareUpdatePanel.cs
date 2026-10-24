@@ -226,7 +226,9 @@ internal sealed class SoftwareUpdatePanel : StackPanel, IDisposable
             var prepared = await _downloader.DownloadAsync(_verifiedUpdate, ProductVersionInfo.Current, progress, _downloadCancellation.Token);
             if (_disposed) { prepared.Dispose(); return; }
             _prepared = prepared;
-            ShowOtaStatus("校验通过。点击保存并重启更新；取消保存则不安装。");
+            ShowOtaStatus(prepared.Update.Payload.Name.Contains("-Unsigned", StringComparison.Ordinal)
+                ? "更新校验通过；Windows 安装包未签名，系统可能提示未知发布者。保存并重启更新；取消保存则不安装。"
+                : "校验通过。点击保存并重启更新；取消保存则不安装。");
         }
         catch (OperationCanceledException) { if (!_disposed) ShowOtaStatus("下载已取消，未执行安装。"); }
         catch (TimeoutException) { if (!_disposed) ShowOtaStatus("下载更新超时，请检查网络后重试。"); }

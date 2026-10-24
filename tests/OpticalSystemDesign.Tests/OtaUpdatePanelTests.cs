@@ -60,6 +60,8 @@ public sealed class OtaUpdatePanelTests
                 var install = Named<Button>(panel, "InstallUpdate");
                 Assert.True(install.IsVisible); Assert.True(install.IsEnabled); Assert.Contains("accent", install.Classes);
                 Assert.Equal(UiLocalization.Text("保存并重启更新"), install.Content);
+                Assert.Equal(UiLocalization.Text("更新校验通过；Windows 安装包未签名，系统可能提示未知发布者。保存并重启更新；取消保存则不安装。"),
+                    Named<TextBlock>(panel, "OtaUpdateStatus").Text);
                 foreach (var name in new[] { "CheckForUpdates", "InstallUpdate", "UpdateReleasePage", "CloseAboutWindow" })
                 {
                     var button = Named<Button>(window, name);

@@ -137,7 +137,7 @@ public sealed class WindowsPackagingTests
         Assert.Contains("-WindowStyle Hidden", script);
         Assert.Contains("alternate-directory-not-created", script);
         Assert.Contains("flat-downgrade-blocked", script);
-        Assert.Contains("same-version-repacked-repair", script);
+        Assert.Contains("same-version-repacked-update", script);
         Assert.Contains("noicons-maintenance-preserved", script);
         Assert.Contains("user-data-byte-preserved", script);
     }
