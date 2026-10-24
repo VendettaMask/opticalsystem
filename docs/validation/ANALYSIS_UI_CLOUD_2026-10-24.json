@@ -1,0 +1,324 @@
+{
+  "date": "2026-10-24",
+  "scope": "Cloud build and publication of readable analysis pages, complete PNG export, bold document tabs and right-aligned materials",
+  "sourceCommit": "11de8bce286e24083a962b9dd4cf66da5944cb91",
+  "releaseTag": "v1.0.4-test.20261019",
+  "releaseUrl": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019",
+  "prerelease": true,
+  "tagUnchanged": true,
+  "tagCommit": "9242b31abf38b4d97f23d19e4b00f8df47abfabb",
+  "platforms": {
+    "windows": {
+      "workflow": {
+        "databaseId": 40086412195,
+        "headSha": "11de8bce286e24083a962b9dd4cf66da5944cb91",
+        "conclusion": "success",
+        "createdAt": "2026-10-24T10:33:51Z",
+        "updatedAt": "2026-10-24T10:47:24Z",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/40086412195"
+      },
+      "completeSolutionReleaseBuild": true,
+      "compilerWarnings": 0,
+      "compilerErrors": 0,
+      "tests": {
+        "groups": [
+          {
+            "trx": "analysis-contracts.trx",
+            "outcomes": {
+              "Passed": 190
+            }
+          },
+          {
+            "trx": "analysis-export.trx",
+            "outcomes": {
+              "Passed": 15
+            }
+          },
+          {
+            "trx": "analysis-render.trx",
+            "outcomes": {
+              "Passed": 42
+            }
+          },
+          {
+            "trx": "initial-structure.trx",
+            "outcomes": {
+              "NotExecuted": 1,
+              "Passed": 25
+            }
+          },
+          {
+            "trx": "lens-navigation.trx",
+            "outcomes": {
+              "Passed": 9
+            }
+          },
+          {
+            "trx": "lens-viewers.trx",
+            "outcomes": {
+              "Passed": 56
+            }
+          },
+          {
+            "trx": "ota-runtime-package.trx",
+            "outcomes": {
+              "Passed": 8
+            }
+          },
+          {
+            "trx": "release.trx",
+            "outcomes": {
+              "Passed": 219
+            }
+          },
+          {
+            "trx": "update-feedback-render.trx",
+            "outcomes": {
+              "Passed": 3
+            }
+          }
+        ],
+        "distinct": {
+          "Passed": 514,
+          "NotExecuted": 1
+        },
+        "executions": 568,
+        "nonPassingNames": [
+          "OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.GpuDeviceChoiceRunsActualCudaAndRoundTripsWithoutChangingTheAlgorithm"
+        ]
+      },
+      "package": {
+        "id": 672003898,
+        "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+        "size": 314821387,
+        "digest": "sha256:b0d6817e4aca6f6d4dc4dc5a9032acac239d85dedc9eb8c7056083e2710693e5",
+        "releaseId": "1.0.4-win-x64-2f68779c3435",
+        "sourceCommit": "11de8bce286e24083a962b9dd4cf66da5944cb91",
+        "url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe"
+      },
+      "framework": "10.0.11",
+      "packageVerification": {
+        "Passed": 14,
+        "Failed": 0,
+        "ManifestFiles": 1295,
+        "Source": "D:\\a\\opticalsystem\\opticalsystem\\artifacts\\installers\\installer-win-x64-9f9953df\\payload\\app-2160a98b",
+        "NativeGuiVerified": false,
+        "UserInstallationModified": false
+      },
+      "nativeProductVerification": {
+        "Success": true,
+        "Version": "1.0.4+11de8bce286e24083a962b9dd4cf66da5944cb91",
+        "Framework": "10.0.11",
+        "Architecture": "X64",
+        "ProductAppId": "OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A",
+        "Revision": 0,
+        "SurfaceCount": 2,
+        "ProjectOpened": false,
+        "SettingsLoaded": false,
+        "SettingsTheme": null,
+        "Modules": [
+          "InitialStructure",
+          "CoatingDesign"
+        ],
+        "ModuleLibraries": [
+          "OpticalSystemDesign.InitialStructure.Engine",
+          "OpticalSystemDesign.InitialStructure.Persistence",
+          "OpticalSystemDesign.InitialStructure.Contracts",
+          "OpticalSystemDesign.CoatingDesign.Engine",
+          "OpticalSystemDesign.Modules"
+        ],
+        "ModulesInProcess": true,
+        "UserDataWritten": false,
+        "GuiVerified": false
+      },
+      "frozenEvidenceMatched": 2668,
+      "strictCloudDocumentationPassed": true,
+      "cloudDocuments": 1079,
+      "completeAnalysisPageImages": 69
+    },
+    "mac": {
+      "workflow": {
+        "databaseId": 40086424849,
+        "headSha": "11de8bce286e24083a962b9dd4cf66da5944cb91",
+        "conclusion": "success",
+        "createdAt": "2026-10-24T10:34:03Z",
+        "updatedAt": "2026-10-24T11:01:41Z",
+        "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/40086424849"
+      },
+      "completeSolutionReleaseBuild": true,
+      "compilerWarnings": 0,
+      "compilerErrors": 0,
+      "tests": {
+        "groups": [
+          {
+            "trx": "analysis-contracts.trx",
+            "outcomes": {
+              "Passed": 190
+            }
+          },
+          {
+            "trx": "analysis-export.trx",
+            "outcomes": {
+              "Passed": 15
+            }
+          },
+          {
+            "trx": "analysis-render.trx",
+            "outcomes": {
+              "Passed": 42
+            }
+          },
+          {
+            "trx": "initial-structure.trx",
+            "outcomes": {
+              "Passed": 25,
+              "NotExecuted": 1
+            }
+          },
+          {
+            "trx": "lens-navigation.trx",
+            "outcomes": {
+              "Passed": 9
+            }
+          },
+          {
+            "trx": "lens-viewers.trx",
+            "outcomes": {
+              "Passed": 56
+            }
+          },
+          {
+            "trx": "macos-release.trx",
+            "outcomes": {
+              "Passed": 52
+            }
+          },
+          {
+            "trx": "update-feedback-render.trx",
+            "outcomes": {
+              "Passed": 3
+            }
+          }
+        ],
+        "distinct": {
+          "Passed": 350,
+          "NotExecuted": 1
+        },
+        "executions": 393,
+        "nonPassingNames": [
+          "OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.GpuDeviceChoiceRunsActualCudaAndRoundTripsWithoutChangingTheAlgorithm"
+        ]
+      },
+      "package": {
+        "id": 672035588,
+        "name": "OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg",
+        "size": 110461565,
+        "digest": "sha256:bd062e751ab81877538909a98f530a1afe0923fe381d7b7804563bec504d16c8",
+        "releaseId": "1.0.4-osx-arm64-bd7529cbe807",
+        "sourceCommit": "11de8bce286e24083a962b9dd4cf66da5944cb91",
+        "url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg"
+      },
+      "framework": "10.0.10",
+      "packageVerification": {
+        "Architecture": "Arm64",
+        "ManifestFiles": 1548,
+        "SelfContained": true,
+        "BothModulesInProcess": true,
+        "NativeCodeSignaturesVerified": true,
+        "DeveloperIdSigned": false,
+        "Notarized": false,
+        "GuiVerified": false,
+        "UserDataWritten": false
+      },
+      "nativeProductVerification": {
+        "Success": true,
+        "Version": "1.0.4+11de8bce286e24083a962b9dd4cf66da5944cb91",
+        "Framework": "10.0.10",
+        "Architecture": "Arm64",
+        "ProductAppId": "OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A",
+        "Revision": 0,
+        "SurfaceCount": 2,
+        "ProjectOpened": false,
+        "SettingsLoaded": false,
+        "SettingsTheme": null,
+        "Modules": [
+          "InitialStructure",
+          "CoatingDesign"
+        ],
+        "ModuleLibraries": [
+          "OpticalSystemDesign.InitialStructure.Engine",
+          "OpticalSystemDesign.InitialStructure.Persistence",
+          "OpticalSystemDesign.InitialStructure.Contracts",
+          "OpticalSystemDesign.CoatingDesign.Engine",
+          "OpticalSystemDesign.Modules"
+        ],
+        "ModulesInProcess": true,
+        "UserDataWritten": false,
+        "GuiVerified": false
+      },
+      "frozenEvidenceMatched": 2668,
+      "strictCloudDocumentationPassed": true,
+      "cloudDocuments": 1079,
+      "completeAnalysisPageImages": 69,
+      "mountedDmgVerification": {
+        "Architecture": "Arm64",
+        "ManifestFiles": 1548,
+        "SelfContained": true,
+        "BothModulesInProcess": true,
+        "NativeCodeSignaturesVerified": true,
+        "DeveloperIdSigned": false,
+        "Notarized": false,
+        "GuiVerified": false,
+        "UserDataWritten": false
+      }
+    }
+  },
+  "publicVerification": {
+    "sourceCommit": "11de8bce286e24083a962b9dd4cf66da5944cb91",
+    "releaseTag": "v1.0.4-test.20261019",
+    "releaseUrl": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019",
+    "prerelease": true,
+    "windowsBuildSequence": 40086412195,
+    "pinnedRsaPssSignatureVerified": true,
+    "signedIdentityMatchesPublicAsset": true,
+    "windowsPreservedByMacPublication": true,
+    "assets": [
+      {
+        "id": 672035588,
+        "name": "OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg",
+        "size": 110461565,
+        "digest": "sha256:bd062e751ab81877538909a98f530a1afe0923fe381d7b7804563bec504d16c8",
+        "releaseId": "1.0.4-osx-arm64-bd7529cbe807",
+        "sourceCommit": "11de8bce286e24083a962b9dd4cf66da5944cb91",
+        "url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg"
+      },
+      {
+        "id": 672003898,
+        "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+        "size": 314821387,
+        "digest": "sha256:b0d6817e4aca6f6d4dc4dc5a9032acac239d85dedc9eb8c7056083e2710693e5",
+        "releaseId": "1.0.4-win-x64-2f68779c3435",
+        "sourceCommit": "11de8bce286e24083a962b9dd4cf66da5944cb91",
+        "url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe"
+      }
+    ],
+    "fullInstallerDownloadedLocally": false,
+    "localInstallationModified": false
+  },
+  "localReleaseWorkflowChecks": {
+    "passed": 43,
+    "failed": 0,
+    "skipped": 0
+  },
+  "noCrossPlatformOrRepeatedTestCountSummation": true,
+  "limitations": [
+    "Focused release and UI tests, not the full repository or optical suite.",
+    "Cloud package checks do not certify native GUI, user installation, or a new end-to-end OTA session.",
+    "No Windows Authenticode certificate or Mac Developer ID/notarization.",
+    "Public installer size, digest and provenance were checked against cloud results; complete final installers were not downloaded to this computer."
+  ],
+  "selectedCloudImageReview": [
+    "Mac cardinal table at 420x280 and font 32",
+    "Windows complete Standard PNG at 420x280"
+  ]
+}

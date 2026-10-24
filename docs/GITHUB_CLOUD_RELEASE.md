@@ -42,6 +42,8 @@ Windows 在 `windows-latest`、Mac 在 Apple Silicon `macos-15` runner 构建完
 
 流程源码见[工作流](../.github/workflows/release.yml)与[安全替换脚本](../scripts/publish-github-exe.ps1)，实际执行和交付结果以[当前状态](CURRENT_STATUS.md)为准。
 
+2026-10-24 已从 `11de8bce` 分别重新构建并替换 Windows x64 与 Apple Silicon Mac 的现有测试包，新增分析排布、完整渲染和 PNG 导出门禁，发布保留原标签及下载地址。两平台的实际执行、去重测试、包内检查和签名核对见[本轮交付账目](validation/ANALYSIS_UI_CLOUD_2026-10-24.json)；这次没有替换用户本机安装。
+
 2026-10-24 的 Windows OTA 交接修复已执行云端重新打包并替换原测试 EXE，同时保留 Mac 附件与原标签。该流程还检查从完整自包含包准备的辅助进程缓存副本；具体源码、真实测试和公开下载核对见[本轮交付账目](validation/OTA_CLOUD_RELEASE_2026-10-24.json)。旧客户端仍需要正常退出后手动安装一次新完整包。
 
 2026-10-22 已[实际跑通 x64 手动触发后的全自动构建与发布](https://github.com/VendettaMask/opticalsystem/actions/runs/39715666744)，没有操作用户桌面或本机安装。定向测试 97/97 和 23/23、包检查 14/14；首次发布的列表解析失败及其修复也保存在[交付账目](validation/GITHUB_CLOUD_RELEASE_2026-10-22.json)。本次没有实际触发新版本标签、执行 ARM64 包或重新认证完整光学矩阵。
