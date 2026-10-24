@@ -2,6 +2,8 @@
 
 日期：2026-10-24。基于 `376863d0`，针对用户本机更新失败日志和实际辅助进程排查。未改变光学计算。
 
+后续交付：本地修复完成后，代码已推送，Windows x64 新包由 [GitHub 工作流 40064177748](https://github.com/VendettaMask/opticalsystem/actions/runs/40064177748)从干净提交 `e6631b79` 重建并发布。新包构建编号、实际哈希与独立验签见[云端账目](validation/OTA_CLOUD_RELEASE_2026-10-24.json)。下文及原机器账目保留此前本地修复阶段的范围。
+
 ## 问题与修复
 
 旧版从安装目录的主 EXE 启动 `--apply-update` 辅助进程。主窗口退出后，辅助进程仍加载旧 EXE 并等待安装器退出；安装器的 `ExclusiveFileAvailable(PreviousExe)` 检查因此失败。本机 `setup.log` 记录 `PrepareToInstall failed`，`handoff-error.log` 记录安装器退出码 7；进程核对显示旧安装载荷中的辅助进程仍在运行。这不是下载哈希失败。

@@ -5,7 +5,7 @@
 ## 一键更新当前测试包
 
 1. 将要交付的代码同步到 GitHub `main`，在 Actions 打开上述工作流，点击 **Run workflow**。
-2. 选择 `main`，`release_tag` 保持 `v1.0.4-test.20261019`，平台选择 `all` 构建全部；仅补充 Mac 时选择 `osx-arm64`。
+2. 选择 `main`，`release_tag` 保持 `v1.0.4-test.20261019`，平台选择 `all` 构建全部；仅更新 Windows x64 时选 `win-x64`，仅补充 Mac 时选择 `osx-arm64`。
 3. 替换所选平台的已有包时勾选 `replace_existing`；新增尚不存在的 Mac 包无需覆盖开关。需要仓库写权限。
 4. 等所有步骤成功，再从原测试发布页下载对应的 EXE 或 DMG。失败记录在 Actions 查看，不把失败的流程当成新版交付。
 
@@ -41,6 +41,8 @@ Windows 正式版与测试版在修改 Release 前都必须验证 RSA-4096 签�
 Windows 在 `windows-latest`、Mac 在 Apple Silicon `macos-15` runner 构建完整解决方案，但只运行与交付、安装、界面和原生预设相关的定向测试，不把它称为全仓库测试。冻结证据与文档校验保留，Windows x64 包执行内置模块完整性检查，Windows ARM64 仍仅交叉打包；Mac ARM64 在原生 runner 执行包内程序与磁盘映像复查。AutoLens 目标预设的存在和界面通过不等于设计达标；此前 24 次固定 CPU 运行仍为 0/24 达标。
 
 流程源码见[工作流](../.github/workflows/release.yml)与[安全替换脚本](../scripts/publish-github-exe.ps1)，实际执行和交付结果以[当前状态](CURRENT_STATUS.md)为准。
+
+2026-10-24 的 Windows OTA 交接修复已执行云端重新打包并替换原测试 EXE，同时保留 Mac 附件与原标签。该流程还检查从完整自包含包准备的辅助进程缓存副本；具体源码、真实测试和公开下载核对见[本轮交付账目](validation/OTA_CLOUD_RELEASE_2026-10-24.json)。旧客户端仍需要正常退出后手动安装一次新完整包。
 
 2026-10-22 已[实际跑通 x64 手动触发后的全自动构建与发布](https://github.com/VendettaMask/opticalsystem/actions/runs/39715666744)，没有操作用户桌面或本机安装。定向测试 97/97 和 23/23、包检查 14/14；首次发布的列表解析失败及其修复也保存在[交付账目](validation/GITHUB_CLOUD_RELEASE_2026-10-22.json)。本次没有实际触发新版本标签、执行 ARM64 包或重新认证完整光学矩阵。
 

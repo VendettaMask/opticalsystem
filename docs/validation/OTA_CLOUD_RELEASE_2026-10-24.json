@@ -1,0 +1,232 @@
+{
+  "Date": "2026-10-24",
+  "SourceCommit": "e6631b79f1b8ebf2b26fb5d4ca462dd90215ed90",
+  "SourceDirty": false,
+  "WorkflowRun": 40064177748,
+  "WorkflowUrl": "https://github.com/VendettaMask/opticalsystem/actions/runs/40064177748",
+  "WorkflowConclusion": "success",
+  "CloudHostedBuild": true,
+  "Scope": "Windows x64 OTA handoff repair and all committed product code through e6631b79; Mac package preserved.",
+  "Build": {
+    "Architecture": "X64",
+    "CompleteReleaseSolution": "passed, 0 warnings, 0 errors",
+    "Runtime": "10.0.11"
+  },
+  "LocalReleaseRules": {
+    "TrxSha256": "9f1240e4232d379654ae2fb44bcce336e71eb5ce01ec18fd568857ddf1ef6630",
+    "Failed": 0,
+    "Passed": 26
+  },
+  "CloudTests": {
+    "Suites": [
+      {
+        "Name": "initial-structure.trx",
+        "Total": 26,
+        "Passed": 25,
+        "Failed": 0,
+        "NotExecuted": 1
+      },
+      {
+        "Name": "lens-navigation.trx",
+        "Total": 9,
+        "Passed": 9,
+        "Failed": 0,
+        "NotExecuted": 0
+      },
+      {
+        "Name": "lens-viewers.trx",
+        "Total": 56,
+        "Passed": 56,
+        "Failed": 0,
+        "NotExecuted": 0
+      },
+      {
+        "Name": "ota-runtime-package.trx",
+        "Total": 8,
+        "Passed": 8,
+        "Failed": 0,
+        "NotExecuted": 0
+      },
+      {
+        "Name": "release.trx",
+        "Total": 214,
+        "Passed": 214,
+        "Failed": 0,
+        "NotExecuted": 0
+      },
+      {
+        "Name": "update-feedback-render.trx",
+        "Total": 3,
+        "Passed": 3,
+        "Failed": 0,
+        "NotExecuted": 0
+      }
+    ],
+    "Unique": 305,
+    "UniquePassed": 304,
+    "UniqueFailed": 0,
+    "UniqueSkipped": 1
+  },
+  "PackageVerification": {
+    "Passed": 14,
+    "Failed": 0,
+    "ManifestFiles": 1295,
+    "Source": "D:\\a\\opticalsystem\\opticalsystem\\artifacts\\installers\\installer-win-x64-758f1021\\payload\\app-8df9068b",
+    "NativeGuiVerified": false,
+    "UserInstallationModified": false
+  },
+  "Modules": {
+    "InProcess": true,
+    "Libraries": [
+      "OpticalSystemDesign.InitialStructure.Engine",
+      "OpticalSystemDesign.InitialStructure.Persistence",
+      "OpticalSystemDesign.InitialStructure.Contracts",
+      "OpticalSystemDesign.CoatingDesign.Engine",
+      "OpticalSystemDesign.Modules"
+    ],
+    "UserDataWritten": false,
+    "Modules": [
+      "InitialStructure",
+      "CoatingDesign"
+    ]
+  },
+  "FrozenEvidence": {
+    "Count": 2668,
+    "AggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "Unchanged": true,
+    "Matched": 2668
+  },
+  "Documentation": {
+    "SourceCommit": "e6631b79f1b8ebf2b26fb5d4ca462dd90215ed90",
+    "BrokenLinks": 0,
+    "Documents": 1077,
+    "SourceDirty": false
+  },
+  "Published": {
+    "Date": "2026-10-24",
+    "RunId": 40064177748,
+    "Workflow": "https://github.com/VendettaMask/opticalsystem/actions/runs/40064177748",
+    "SourceCommit": "e6631b79f1b8ebf2b26fb5d4ca462dd90215ed90",
+    "ReleaseUrl": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019",
+    "ReleaseId": "1.0.4-win-x64-5db7c0c40f73",
+    "BuildSequence": 40064177748,
+    "Version": "1.0.4",
+    "Runtime": "win-x64",
+    "AssetId": 671334070,
+    "Name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe",
+    "Sha256": "9c17cedcf5d15826b1bfadfc8fb2706599c61182426976dc79d4dbebc2b28389",
+    "Bytes": 314815789,
+    "PinnedRsaPssSignatureVerified": true,
+    "SignedIdentityVerified": true,
+    "FullPublicDownloadVerified": true,
+    "MacAssetPreserved": true,
+    "PreservedMac": {
+      "url": "https://api.github.com/repos/VendettaMask/opticalsystem/releases/assets/671228287",
+      "id": 671228287,
+      "node_id": "RA_kwDOTUWyHc4oAiF_",
+      "name": "OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg",
+      "label": "",
+      "uploader": {
+        "login": "github-actions[bot]",
+        "id": 41898282,
+        "node_id": "MDM6Qm90NDE4OTgyODI=",
+        "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/github-actions%5Bbot%5D",
+        "html_url": "https://github.com/apps/github-actions",
+        "followers_url": "https://api.github.com/users/github-actions%5Bbot%5D/followers",
+        "following_url": "https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}",
+        "gists_url": "https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/github-actions%5Bbot%5D/subscriptions",
+        "organizations_url": "https://api.github.com/users/github-actions%5Bbot%5D/orgs",
+        "repos_url": "https://api.github.com/users/github-actions%5Bbot%5D/repos",
+        "events_url": "https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/github-actions%5Bbot%5D/received_events",
+        "type": "Bot",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "content_type": "application/x-apple-diskimage",
+      "state": "uploaded",
+      "size": 110456808,
+      "digest": "sha256:f10d2e7d5850e0d7ad5793f8d3ad4b90d2286837a2899198b08501d6e7cf45a5",
+      "download_count": 0,
+      "created_at": "2026-10-24T04:12:49Z",
+      "updated_at": "2026-10-24T04:12:55Z",
+      "browser_download_url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg"
+    },
+    "TagUnchanged": true,
+    "TagCommit": "9242b31abf38b4d97f23d19e4b00f8df47abfabb",
+    "Prerelease": true,
+    "WindowsPublisherSigned": false,
+    "ProductionInstalled": false,
+    "FullRealOtaAccepted": false
+  },
+  "LocalRepairStage": "docs/validation/OTA_HANDOFF_REPAIR_2026-10-24.json",
+  "OldAttachmentBackup": {
+    "ActionsArtifact": "cloud-release-receipt",
+    "DownloadedLocally": false,
+    "RetentionDays": 30,
+    "Metadata": "artifacts/validation/ota-cloud-release-20261024/artifacts-final.json"
+  },
+  "Sources": [
+    {
+      "Sha256": "b40bd633e7e234d2d06c5e1a8ceee72700d608501d88f6ffce1a9da73467d4a2",
+      "Path": ".github/workflows/release.yml"
+    },
+    {
+      "Sha256": "bb24563e077a301f9b0fa42807ab42a6e4ba6e969772d4c314175f98166fb890",
+      "Path": "packaging/windows/RELEASE_NOTES.md"
+    },
+    {
+      "Sha256": "f4b8031859028ec8be9e689011dedd8d58f2d3b3f8c049f1d2caaa5640c388ec",
+      "Path": "scripts/publish-github-exe.ps1"
+    },
+    {
+      "Sha256": "34cd5d683028ff4451c17b2d9812adb878a1a58606fae8d89c5fd5e51065299d",
+      "Path": "scripts/build-installer.ps1"
+    },
+    {
+      "Sha256": "21b337025ada1c5efbc2cf41e7eab9cdb187278f8602f5af817ee5d810471588",
+      "Path": "src/OpticalSystemDesign.App/Services/Updates/WindowsOtaHandoff.cs"
+    },
+    {
+      "Sha256": "b19220ee7da82f385edf6869b85ebfdf3063b1880198b17ff0f2a1ff588d98e2",
+      "Path": "src/OpticalSystemDesign.App/Services/Updates/OtaHelperRuntime.cs"
+    },
+    {
+      "Sha256": "779d167562ee81223e21a992518fa69c9f1deaf436f0f93a9ec72570cb0776ea",
+      "Path": "src/OpticalSystemDesign.App/Assets/Updates/ota-public-key.pem"
+    },
+    {
+      "Sha256": "8b7f65e4c22cbf16f540e93e3ced352ede6ab9ec3ded178fb11b25dad95852c1",
+      "Path": "tests/OpticalSystemDesign.Tests/CloudReleaseTests.cs"
+    },
+    {
+      "Sha256": "3328c93e1aaf8962979d43b459626808982317b389c5e08c089290ad014c30ed",
+      "Path": "tests/OpticalSystemDesign.Tests/OtaHelperRuntimeTests.cs"
+    }
+  ],
+  "Evidence": {
+    "PublicInstallerIncluded": false,
+    "Files": 49,
+    "Archive": "validation/rechecks/2026-10-24/ota-cloud-release-evidence.zip",
+    "Sha256": "507c9e7fc6fd3c95ae6d33e1f9ba9757c49a3a233547b34a5959beba74c26bac",
+    "ReadbackVerified": true
+  },
+  "Boundaries": [
+    "No production installation modified",
+    "Existing broken clients need a one-time normal-exit/manual bootstrap install",
+    "No Windows Authenticode publisher certificate",
+    "No real end-to-end signed OTA installation/restart acceptance",
+    "No ARM64 or Mac rebuild in this run",
+    "No full repository test suite or renewed optical certification"
+  ],
+  "PostPublishDocumentation": {
+    "Documents": 1077,
+    "BrokenLinks": 0,
+    "MarkdownFenceIssues": 0,
+    "Sha256": "6de9a6d7fe502e55ad5d3671bcf70878795ac547f976bc39791ce42e57a35fcc"
+  }
+}
