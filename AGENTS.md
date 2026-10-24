@@ -2,6 +2,8 @@
 
 ## Persistent UI preferences
 
+- Manual Windows OTA must let users update without saving the current project or tolerance edits. Offer Save and continue, Don't save, and Cancel for dirty documents; no edits means no save prompt. Honor Don't save through the final close without a second save or prompt, preserve the original project file, and retain the current editor and verified download when the user cancels. Update action labels must not imply that saving is mandatory.
+
 - Desktop releases include an Apple Silicon-only macOS DMG (`osx-arm64`) alongside Windows installers. Do not build or publish an Intel Mac package. The Mac app is self-contained and includes both built-in modules and bundled fonts. Preserve untouched platform assets and Windows OTA signatures when updating one platform; do not claim Developer ID signing, notarization, native GUI acceptance or Mac OTA unless actually implemented and verified.
 
 - AI Initial Structure uses only managed AutoLens (`AutoLensManagedV1`, `TargetPolishEvaluations = 0`) for new searches, resumed runs and candidate refinement. Do not expose the former TrustRegion, AutoLens CPU heuristic, or native target-polish options in the desktop UI. Historical old-algorithm and hybrid records remain viewable/exportable with their original identities, but cannot resume or refine through this entry point. Preserve the shared Core and the existing historical engine/validation records.

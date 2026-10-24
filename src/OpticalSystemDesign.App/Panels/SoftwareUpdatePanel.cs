@@ -19,7 +19,7 @@ internal sealed class SoftwareUpdatePanel : StackPanel, IDisposable
     private readonly Func<PreparedOtaUpdate, Task<bool>>? _handoff;
     private readonly Func<string?> _unavailableReason;
     private readonly Button _download = new() { Name = "DownloadUpdate", Content = "下载更新" };
-    private readonly Button _install = new() { Name = "InstallUpdate", Content = "保存并重启更新", IsVisible = false };
+    private readonly Button _install = new() { Name = "InstallUpdate", Content = "安装更新并重启", IsVisible = false };
     private readonly Button _cancel = new() { Name = "CancelUpdateDownload", Content = "取消下载", IsVisible = false };
     private readonly ProgressBar _progress = new() { Name = "UpdateDownloadProgress", Minimum = 0, Maximum = 100, Height = 6, IsVisible = false };
     private readonly TextBlock _otaStatus = new() { Name = "OtaUpdateStatus", TextWrapping = TextWrapping.Wrap, IsVisible = false };
@@ -227,8 +227,8 @@ internal sealed class SoftwareUpdatePanel : StackPanel, IDisposable
             if (_disposed) { prepared.Dispose(); return; }
             _prepared = prepared;
             ShowOtaStatus(prepared.Update.Payload.Name.Contains("-Unsigned", StringComparison.Ordinal)
-                ? "更新校验通过；Windows 安装包未签名，系统可能提示未知发布者。保存并重启更新；取消保存则不安装。"
-                : "校验通过。点击保存并重启更新；取消保存则不安装。");
+                ? "更新校验通过；Windows 安装包未签名，系统可能提示未知发布者。安装前可选择保存或不保存当前修改；取消则不安装。"
+                : "校验通过。点击安装更新并重启；可选择保存或不保存当前修改，取消则不安装。");
         }
         catch (OperationCanceledException) { if (!_disposed) ShowOtaStatus("下载已取消，未执行安装。"); }
         catch (TimeoutException) { if (!_disposed) ShowOtaStatus("下载更新超时，请检查网络后重试。"); }

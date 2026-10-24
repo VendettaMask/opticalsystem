@@ -226,7 +226,9 @@ public sealed partial class MainWindow : Window
         try
         {
             if (!await Services.Updates.OtaShutdownGuard.PrepareAsync(
-                () => _pendingOtaUpdate is not null ? TrySaveAllChangesAsync() : ConfirmUnsavedChangesAsync("退出程序"),
+                // The update entry already confirmed Save or Discard while About
+                // was modal. Do not save or prompt again after an explicit Discard.
+                () => _pendingOtaUpdate is not null ? Task.FromResult(true) : ConfirmUnsavedChangesAsync("退出程序"),
                 async () => { SaveLayout(); return _laboratories is null || await _laboratories.TryCloseAsync(); },
                 async () =>
                 {

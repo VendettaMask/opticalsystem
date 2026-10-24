@@ -48,9 +48,9 @@ public sealed partial class MainWindow
         }
     }
 
-    private async Task<bool> TrySaveAsAsync()
+    private async Task<bool> TrySaveAsAsync(Window? owner = null)
     {
-        var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+        var file = await (owner ?? this).StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
             Title = "保存 STAROPT 项目",
             SuggestedFileName = "optical-system.staropt",
@@ -70,7 +70,7 @@ public sealed partial class MainWindow
         await TrySaveProjectAsync();
     }
 
-    private async Task<bool> TrySaveProjectAsync()
+    private async Task<bool> TrySaveProjectAsync(Window? owner = null)
     {
         var currentPath = _application.Documents.CurrentPath;
         if (currentPath is not null &&
@@ -79,7 +79,7 @@ public sealed partial class MainWindow
             return await TrySaveProjectToPathAsync(currentPath);
         }
 
-        return await TrySaveAsAsync();
+        return await TrySaveAsAsync(owner);
     }
 
     internal async Task<bool> TrySaveProjectToPathAsync(string path)
@@ -90,23 +90,23 @@ public sealed partial class MainWindow
         return current.Revision == revision && !current.IsDirty;
     }
 
-    private Task<bool> ConfirmUnsavedChangesAsync(string operationDescription)
+    private Task<bool> ConfirmUnsavedChangesAsync(string operationDescription, Window? owner = null)
     {
         return UnsavedChangesGuard.CanContinueAsync(
             _application.Documents.GetSnapshot().IsDirty || _panels.HasUnsavedToleranceChanges,
             () => new UnsavedChangesWindow(operationDescription)
-                .ShowDialog<UnsavedChangesChoice>(this),
-            TrySaveAllChangesAsync);
+                .ShowDialog<UnsavedChangesChoice>(owner ?? this),
+            () => TrySaveAllChangesAsync(owner));
     }
 
-    private async Task<bool> TrySaveAllChangesAsync()
+    private async Task<bool> TrySaveAllChangesAsync(Window? owner = null)
     {
-        if (_application.Documents.GetSnapshot().IsDirty && !await TrySaveProjectAsync())
+        if (_application.Documents.GetSnapshot().IsDirty && !await TrySaveProjectAsync(owner))
         {
             return false;
         }
 
-        if (_panels.HasUnsavedToleranceChanges && !await _panels.SaveUnsavedToleranceChangesAsync(this))
+        if (_panels.HasUnsavedToleranceChanges && !await _panels.SaveUnsavedToleranceChangesAsync(owner ?? this))
             return false;
         return !_application.Documents.GetSnapshot().IsDirty && !_panels.HasUnsavedToleranceChanges;
     }
@@ -173,8 +173,9 @@ public sealed partial class MainWindow
         dialog = CreateAboutDialog(authorBitmap, handoff: async prepared =>
         {
             if (_closed || _closeInProgress || _pendingOtaUpdate is not null) return false;
-            // OTA never chooses "don't save" for the main project or tolerance documents.
-            if (!await TrySaveAllChangesAsync()) return false;
+            // Updating and saving are separate choices. Keep About and its verified
+            // download open when the user cancels this prompt or a chosen save.
+            if (!await ConfirmUnsavedChangesAsync("安装更新并重启程序", dialog)) return false;
             if (_closed || _closeInProgress || dialog?.IsVisible != true) return false;
             _pendingOtaUpdate = prepared;
             prepared.HandedOff = true; // Closing About must not delete the verified download.

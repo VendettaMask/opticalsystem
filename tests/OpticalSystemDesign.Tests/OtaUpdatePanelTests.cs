@@ -8,10 +8,13 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using OpticalSystemDesign.App;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Services.Updates;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Services;
+using System.Reflection;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -59,8 +62,8 @@ public sealed class OtaUpdatePanelTests
                 Assert.Equal(1, downloader.Calls); Assert.Equal(0, installs);
                 var install = Named<Button>(panel, "InstallUpdate");
                 Assert.True(install.IsVisible); Assert.True(install.IsEnabled); Assert.Contains("accent", install.Classes);
-                Assert.Equal(UiLocalization.Text("保存并重启更新"), install.Content);
-                Assert.Equal(UiLocalization.Text("更新校验通过；Windows 安装包未签名，系统可能提示未知发布者。保存并重启更新；取消保存则不安装。"),
+                Assert.Equal(UiLocalization.Text("安装更新并重启"), install.Content);
+                Assert.Equal(UiLocalization.Text("更新校验通过；Windows 安装包未签名，系统可能提示未知发布者。安装前可选择保存或不保存当前修改；取消则不安装。"),
                     Named<TextBlock>(panel, "OtaUpdateStatus").Text);
                 foreach (var name in new[] { "CheckForUpdates", "InstallUpdate", "UpdateReleasePage", "CloseAboutWindow" })
                 {
@@ -196,6 +199,123 @@ public sealed class OtaUpdatePanelTests
             finally { window.Close(); }
         }, CancellationToken.None);
     }
+
+    [Theory]
+    [InlineData("zh-CN", 2)]
+    [InlineData("en-US", 2)]
+    [InlineData("ja-JP", 2)]
+    [InlineData("zh-CN", 1)]
+    [InlineData("zh-CN", 0)]
+    public async Task ActualUpdateEntryHonorsSaveDiscardAndCancelWithoutSavingTwice(string language, int choiceValue)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OtaUpdatePanelTests));
+        await session.Dispatch(async () =>
+        {
+            var previousSettings = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_SETTINGS_DIRECTORY");
+            var directory = Path.Combine(Path.GetTempPath(), "ota-save-choice-" + Guid.NewGuid().ToString("N"));
+            Environment.SetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_SETTINGS_DIRECTORY", Path.Combine(directory, "settings"));
+            Directory.CreateDirectory(directory);
+            MainWindow? main = null;
+            PreparedOtaUpdate? prepared = null;
+            EventHandler<WindowClosingEventArgs>? preventNativeClose = null;
+            try
+            {
+                UiLocalization.InstallGlobalHooks();
+                main = new MainWindow();
+                var closePrepared = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+                // Exercise real close preparation, but never launch the native installer
+                // or call the production helper from a headless test.
+                preventNativeClose = (_, args) =>
+                {
+                    args.Cancel = true;
+                    if (Field<bool>(main, "_closeAfterPersistence")) closePrepared.TrySetResult();
+                };
+                main.Closing += preventNativeClose;
+                var started = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+                main.StartupCompleted += (_, _) => started.TrySetResult();
+                main.Show();
+                await started.Task.WaitAsync(TimeSpan.FromSeconds(10));
+                UiLocalization.Apply(language);
+                var application = Field<WorkbenchApplication>(main, "_application");
+                var project = Path.Combine(directory, "existing.staropt");
+                await application.Documents.SaveAsync(project);
+                var originalBytes = await File.ReadAllBytesAsync(project);
+                var surface = application.Prescription.GetSurfaces()[0];
+                application.Prescription.UpdateSurface(surface with { Label = "unsaved update test" });
+                Assert.True(application.Documents.GetSnapshot().IsDirty);
+
+                var showing = (Task)typeof(MainWindow).GetMethod("ShowAboutAsync", BindingFlags.Instance | BindingFlags.NonPublic)!
+                    .Invoke(main, null)!;
+                var about = Assert.Single(main.OwnedWindows);
+                Tick(about);
+                var panel = Named<SoftwareUpdatePanel>(about, "AboutUpdates");
+                var handoff = Field<Func<PreparedOtaUpdate, Task<bool>>>(panel, "_handoff");
+                var updateDirectory = Path.Combine(directory, "update");
+                Directory.CreateDirectory(updateDirectory);
+                prepared = new PreparedOtaUpdate(updateDirectory, OtaTestData.Update());
+                await File.WriteAllBytesAsync(prepared.InstallerPath, OtaTestData.InstallerBytes);
+                var applying = handoff(prepared);
+                var prompt = Assert.IsType<UnsavedChangesWindow>(Assert.Single(about.OwnedWindows));
+                Assert.Same(about, prompt.Owner);
+                UiLocalization.Attach(prompt); Tick(prompt);
+                var choice = (UnsavedChangesChoice)choiceValue;
+                var label = choice switch
+                {
+                    UnsavedChangesChoice.Save => "保存并继续",
+                    UnsavedChangesChoice.Discard => "不保存",
+                    _ => "取消"
+                };
+                var buttons = prompt.GetVisualDescendants().OfType<Button>().ToArray();
+                Assert.Contains(buttons, button => Equals(button.Content, UiLocalization.Text("不保存")));
+                var capture = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_OTA_CAPTURE_DIR");
+                if (!string.IsNullOrWhiteSpace(capture))
+                {
+                    Directory.CreateDirectory(capture);
+                    using var bitmap = new RenderTargetBitmap(new((int)prompt.Width * 2, (int)prompt.Height * 2), new(192, 192));
+                    bitmap.Render(prompt); bitmap.Save(Path.Combine(capture, $"ota-save-choice-{language}-{choice}.png"), PngBitmapEncoderOptions.Default);
+                }
+                buttons.Single(button => Equals(button.Content, UiLocalization.Text(label)))
+                    .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                Assert.Equal(choice != UnsavedChangesChoice.Cancel, await applying.WaitAsync(TimeSpan.FromSeconds(10)));
+                if (choice == UnsavedChangesChoice.Cancel)
+                {
+                    Assert.True(about.IsVisible);
+                    Assert.False(prepared.HandedOff);
+                    Assert.True(File.Exists(prepared.InstallerPath));
+                    Assert.Null(Field<PreparedOtaUpdate?>(main, "_pendingOtaUpdate"));
+                }
+                else
+                {
+                    await closePrepared.Task.WaitAsync(TimeSpan.FromSeconds(10));
+                    await showing.WaitAsync(TimeSpan.FromSeconds(10));
+                    Assert.False(about.IsVisible);
+                    Assert.True(Field<bool>(main, "_closeAfterPersistence"));
+                }
+                var bytesAfterChoice = await File.ReadAllBytesAsync(project);
+                if (choice == UnsavedChangesChoice.Save) Assert.NotEqual(originalBytes, bytesAfterChoice);
+                else Assert.Equal(originalBytes, bytesAfterChoice);
+                Assert.Equal(choice != UnsavedChangesChoice.Save, application.Documents.GetSnapshot().IsDirty);
+            }
+            finally
+            {
+                if (main is not null)
+                {
+                    typeof(MainWindow).GetField("_pendingOtaUpdate", BindingFlags.Instance | BindingFlags.NonPublic)!.SetValue(main, null);
+                    typeof(MainWindow).GetField("_closeAfterPersistence", BindingFlags.Instance | BindingFlags.NonPublic)!.SetValue(main, true);
+                    if (preventNativeClose is not null) main.Closing -= preventNativeClose;
+                    foreach (var owned in main.OwnedWindows.ToArray()) owned.Close();
+                    main.Close();
+                }
+                if (prepared is not null) { prepared.HandedOff = false; prepared.Dispose(); }
+                UiLocalization.Apply(UiLocalization.Chinese);
+                Environment.SetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_SETTINGS_DIRECTORY", previousSettings);
+                Directory.Delete(directory, recursive: true);
+            }
+        }, CancellationToken.None);
+    }
+
+    private static T Field<T>(object instance, string name) =>
+        (T)instance.GetType().GetField(name, BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(instance)!;
 
     private sealed class FixedService : IReleaseUpdateService
     {

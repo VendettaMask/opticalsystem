@@ -1,0 +1,41 @@
+{
+  "Date": "2026-10-24",
+  "Scope": "Independent Save, Discard and Cancel choices before a user-initiated Windows OTA restart.",
+  "BaseCommit": "b9c4f81b5b3db28f47f3b9a56c23652cbd60dcd8",
+  "Local": {
+    "DebugPassed": 22,
+    "ReleasePassed": 85,
+    "Failed": 0,
+    "Skipped": 0,
+    "DebugIsSubsetOfRelease": true,
+    "NewActualMainWindowCases": 5,
+    "DiscardLanguages": ["zh-CN", "en-US", "ja-JP"],
+    "ExistingProjectBytesPreservedOnDiscardAndCancel": true,
+    "CancelRetainsVerifiedDownloadAndDirtyDocument": true,
+    "DiscardReachesClosePreparationWithoutASecondSave": true,
+    "DialogsOwnedByAbout": true,
+    "RealSkiaRendersInspected": true,
+    "NativeInstallerStartedByTests": false,
+    "DefaultDebugAndReleaseOutputsBuilt": true,
+    "FullSuiteRun": false
+  },
+  "PreviousNativeOta": {
+    "BootstrapBuild": 40064177748,
+    "TargetBuild": 40069593165,
+    "TargetReleaseId": "1.0.4-win-x64-51a272da02a7",
+    "SourceCommit": "b9c4f81b5b3db28f47f3b9a56c23652cbd60dcd8",
+    "InstalledManifestFilesMatched": 1295,
+    "ActualClientDownloadAndHashVerified": true,
+    "HelperRanFromUpdateCache": true,
+    "OldApplicationExitedNormally": true,
+    "SetupSucceededAndRestartedTarget": true,
+    "SaveAndWindowsRunConfirmedByHuman": true,
+    "GuiStoppedByHumanEscape": true,
+    "PostUpdateRecheckAndProjectReopenVerified": false,
+    "CoversNewDiscardChoice": false
+  },
+  "Stage": "Local fix and focused verification before cloud publication",
+  "FixPublishedToCloudAtThisStage": false,
+  "FixInstalledIntoUserInstallationAtThisStage": false,
+  "WindowsPublisherCertificate": false
+}
