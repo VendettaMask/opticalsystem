@@ -54,6 +54,8 @@ public sealed partial class MainWindow
         _actions.Register("show-solid-model", "显示实体模型", "视图", _panels.ShowSolidModel);
         _actions.Register("show-material-library", "打开材料库", "数据库", _panels.ShowMaterialLibrary);
         _actions.Register("show-lens-library", "打开镜头库", "数据库", _panels.ShowLensLibrary);
+        _actions.Register("export-markdown-report", "光学设计报告导出", "数据库", () => ShowMarkdownReportExport(true));
+        _actions.Register("configure-markdown-report", "报告导出设置", "数据库", () => ShowMarkdownReportExport());
         _actions.Register(
             "show-stock-lens-catalog",
             "打开库存镜头查看",
@@ -169,6 +171,7 @@ public sealed partial class MainWindow
             "优化",
             OpenGlassReplacementTemplate);
         _actions.Register("open-optical-assembly-lab", "光学装调（实验室）", "实验室", ShowOpticalAssembly);
+        _actions.Register("open-camera-imaging-lab", "相机成像仿真（实验室）", "实验室", ShowCameraImaging);
         _actions.Register("launch-initial-structure-lab", "AI 初始结构（实验室）", "实验室", () =>
         {
             Laboratories.OpenInitialStructure();

@@ -26,6 +26,8 @@ public sealed partial class OpticalSurface
     {
         OpticCapabilityPreflight.EnsureSurfaceSupported(this, OpticCapabilityOperation.RayTrace);
         var ray = inputRay.Normalize();
+        if (Geometry is OpticalSystemDesign.Core.Geometries.PolygonGroupGeometry group)
+            return group.Trace(this, ray, materialBefore, cumulativePathLength, cumulativeOpticalPathLength, ignoreMaterialAbsorption);
         if (materialBefore is GradientIndexMaterial unlocated)
         {
             if (materialBeforeCoordinates is null)

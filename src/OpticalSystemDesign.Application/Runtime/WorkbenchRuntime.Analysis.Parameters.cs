@@ -328,8 +328,8 @@ public partial class WorkbenchRuntime
                     new[] { "0" }.Concat(Enumerable.Range(1, Math.Max(1, CurrentOptic.Wavelengths.Count))
                         .Select(index => index.ToString(CultureInfo.InvariantCulture))).ToArray()),
                 ChoiceParameter("ScanDirection", "扫描方向", "+y", new[] { "+y", "+x", "-y", "-x" }),
-                DoubleParameter("ParabasalDelta", "傍轴光瞳间隔", "0.001", 1e-8, 0.1, 0.00001),
-                BoolParameter("ChiefRayParabasal", "以主光线为傍轴参考", "true"),
+                DoubleParameter("ParabasalDelta", "傍轴光瞳间隔", CurrentOptic.ImageSpaceAfocal ? "0.0001" : "0.001", 1e-8, 0.1, 0.00001),
+                BoolParameter("ChiefRayParabasal", "以主光线为傍轴参考", CurrentOptic.ImageSpaceAfocal ? "false" : "true"),
                 BoolParameter("IgnoreVignettingFactors", "忽略渐晕因数", "true")
             },
             "Color Focus Shift" => new[]
@@ -1049,7 +1049,7 @@ public partial class WorkbenchRuntime
                             .Select(surface => surface.Number.ToString(CultureInfo.InvariantCulture)))
                         .Distinct(StringComparer.Ordinal)
                         .ToArray()),
-                ChoiceParameter("DisplayAs", "显示为", "表面", new[] { "表面", "等高线" }),
+                ChoiceParameter("DisplayAs", "显示为", "表面", new[] { "表面", "等高线", "二维热力图" }),
                 BoolParameter("RemoveTilt", "除去倾斜", "false"),
                 DoubleParameter("PupilSx", "Sx", "0", -10, 10, 0.01),
                 DoubleParameter("PupilSy", "Sy", "0", -10, 10, 0.01),

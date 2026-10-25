@@ -1,0 +1,367 @@
+[
+  {
+    "id": "fullband/0009-001-afocal-riflescope-c1-primary-f0-w0-mtf",
+    "lens": "Afocal/Afocal Riflescope.ZMX",
+    "configuration": 1,
+    "key": "MTF",
+    "request": {
+      "canonicalAnalysisKey": "MTF",
+      "imageSpaceAfocal": true,
+      "nativeAfocalAngleUnit": "ArcMinute",
+      "configuration": 1,
+      "field": 0,
+      "wavelength": 0,
+      "surface": -1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "gridSize": 64,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 8.69956935595079,
+      "focusMinimum": -0.1,
+      "focusMaximum": 0.1,
+      "reference": "ChiefRay",
+      "polarization": false,
+      "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+      "deleteVignetted": true,
+      "useRayAiming": true,
+      "normalization": "NativePhysical",
+      "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+      "outputUnits": "TypedAxes",
+      "settingsOrigin": "CapturedSettings",
+      "workbenchSettings": {
+        "Sampling": "64",
+        "MaximumFrequency": "8.69956935595079",
+        "WavelengthNumber": "0",
+        "FieldNumber": "0",
+        "SurfaceNumber": "-1",
+        "Type": "调制",
+        "ShowDiffractionLimit": "false",
+        "UsePolarization": "False",
+        "UseDashes": "false",
+        "UseRayAiming": "True"
+      },
+      "zemaxSettings": {},
+      "zemaxCfgSettings": {},
+      "wavelengthScope": "Selected",
+      "wavelengthCount": 3,
+      "fieldDefinition": "Angle",
+      "maximumFieldRadius": 2.5,
+      "surfaceCount": 19,
+      "fieldCount": 3,
+      "definedFields": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1.75
+        ],
+        [
+          0,
+          2.5
+        ]
+      ],
+      "fieldScanDirection": "+y",
+      "primaryWavelengthMicrometers": 0.587,
+      "zemaxSettingsMode": "TypedProperties",
+      "sourceImagePath": null,
+      "sourceImageSha256": null
+    },
+    "nativeSha256": "32c5d2da16d87770e555282bd44124adef19d9deaf36315aaa94541f5237c21e",
+    "conclusion": "Pass"
+  },
+  {
+    "id": "fullband/0039-002-beam-expander-c1-primary-f0-w0-mtf",
+    "lens": "Afocal/Beam Expander.ZMX",
+    "configuration": 1,
+    "key": "MTF",
+    "request": {
+      "canonicalAnalysisKey": "MTF",
+      "imageSpaceAfocal": true,
+      "nativeAfocalAngleUnit": "ArcSecond",
+      "configuration": 1,
+      "field": 0,
+      "wavelength": 0,
+      "surface": -1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "gridSize": 64,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 56.44788150156187,
+      "focusMinimum": -0.1,
+      "focusMaximum": 0.1,
+      "reference": "ChiefRay",
+      "polarization": false,
+      "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 1,\r\n    \"factor\": 2\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+      "deleteVignetted": true,
+      "useRayAiming": false,
+      "normalization": "NativePhysical",
+      "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+      "outputUnits": "TypedAxes",
+      "settingsOrigin": "CapturedSettings",
+      "workbenchSettings": {
+        "Sampling": "64",
+        "MaximumFrequency": "56.44788150156187",
+        "WavelengthNumber": "0",
+        "FieldNumber": "0",
+        "SurfaceNumber": "-1",
+        "Type": "调制",
+        "ShowDiffractionLimit": "false",
+        "UsePolarization": "False",
+        "UseDashes": "false",
+        "UseRayAiming": "False"
+      },
+      "zemaxSettings": {},
+      "zemaxCfgSettings": {},
+      "wavelengthScope": "Selected",
+      "wavelengthCount": 1,
+      "fieldDefinition": "Angle",
+      "maximumFieldRadius": 0,
+      "surfaceCount": 7,
+      "fieldCount": 1,
+      "definedFields": [
+        [
+          0,
+          0
+        ]
+      ],
+      "fieldScanDirection": "+y",
+      "primaryWavelengthMicrometers": 0.55,
+      "zemaxSettingsMode": "TypedProperties",
+      "sourceImagePath": null,
+      "sourceImageSha256": null
+    },
+    "nativeSha256": "2deddbb419406d54b3de93cd8e3370517e52b50a9f2c4f992deaa0b67075b8b5",
+    "conclusion": "Pass"
+  },
+  {
+    "id": "fullband/0061-003-binocular_system-c1-primary-f0-w0-mtf",
+    "lens": "Afocal/Binocular_System.ZMX",
+    "configuration": 1,
+    "key": "MTF",
+    "request": {
+      "canonicalAnalysisKey": "MTF",
+      "imageSpaceAfocal": true,
+      "nativeAfocalAngleUnit": "Milliradian",
+      "configuration": 1,
+      "field": 0,
+      "wavelength": 0,
+      "surface": -1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "gridSize": 64,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 8.101680955869261,
+      "focusMinimum": -0.1,
+      "focusMaximum": 0.1,
+      "reference": "ChiefRay",
+      "polarization": false,
+      "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+      "deleteVignetted": true,
+      "useRayAiming": false,
+      "normalization": "NativePhysical",
+      "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+      "outputUnits": "TypedAxes",
+      "settingsOrigin": "CapturedSettings",
+      "workbenchSettings": {
+        "Sampling": "64",
+        "MaximumFrequency": "8.101680955869261",
+        "WavelengthNumber": "0",
+        "FieldNumber": "0",
+        "SurfaceNumber": "-1",
+        "Type": "调制",
+        "ShowDiffractionLimit": "false",
+        "UsePolarization": "False",
+        "UseDashes": "false",
+        "UseRayAiming": "False"
+      },
+      "zemaxSettings": {},
+      "zemaxCfgSettings": {},
+      "wavelengthScope": "Selected",
+      "wavelengthCount": 3,
+      "fieldDefinition": "Angle",
+      "maximumFieldRadius": 1.5,
+      "surfaceCount": 15,
+      "fieldCount": 5,
+      "definedFields": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0.75
+        ],
+        [
+          0,
+          1.5
+        ],
+        [
+          0,
+          -0.75
+        ],
+        [
+          0,
+          -1.5
+        ]
+      ],
+      "fieldScanDirection": "+y",
+      "primaryWavelengthMicrometers": 0.5875618,
+      "zemaxSettingsMode": "TypedProperties",
+      "sourceImagePath": null,
+      "sourceImageSha256": null
+    },
+    "nativeSha256": "dcf72126baca9ed02633116bc854d56d0cb9ad2a9771dae60afa3dcee6621965",
+    "conclusion": "Pass"
+  },
+  {
+    "id": "fullband/0091-003-binocular_system-c2-primary-f0-w0-mtf",
+    "lens": "Afocal/Binocular_System.ZMX",
+    "configuration": 2,
+    "key": "MTF",
+    "request": {
+      "canonicalAnalysisKey": "MTF",
+      "imageSpaceAfocal": true,
+      "nativeAfocalAngleUnit": "Milliradian",
+      "configuration": 2,
+      "field": 0,
+      "wavelength": 0,
+      "surface": -1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "gridSize": 64,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 8.101680955815915,
+      "focusMinimum": -0.1,
+      "focusMaximum": 0.1,
+      "reference": "ChiefRay",
+      "polarization": false,
+      "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+      "deleteVignetted": true,
+      "useRayAiming": false,
+      "normalization": "NativePhysical",
+      "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+      "outputUnits": "TypedAxes",
+      "settingsOrigin": "CapturedSettings",
+      "workbenchSettings": {
+        "Sampling": "64",
+        "MaximumFrequency": "8.101680955815915",
+        "WavelengthNumber": "0",
+        "FieldNumber": "0",
+        "SurfaceNumber": "-1",
+        "Type": "调制",
+        "ShowDiffractionLimit": "false",
+        "UsePolarization": "False",
+        "UseDashes": "false",
+        "UseRayAiming": "False"
+      },
+      "zemaxSettings": {},
+      "zemaxCfgSettings": {},
+      "wavelengthScope": "Selected",
+      "wavelengthCount": 3,
+      "fieldDefinition": "Angle",
+      "maximumFieldRadius": 1.5,
+      "surfaceCount": 15,
+      "fieldCount": 5,
+      "definedFields": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0.75
+        ],
+        [
+          0,
+          1.5
+        ],
+        [
+          0,
+          -0.75
+        ],
+        [
+          0,
+          -1.5
+        ]
+      ],
+      "fieldScanDirection": "+y",
+      "primaryWavelengthMicrometers": 0.5875618,
+      "zemaxSettingsMode": "TypedProperties",
+      "sourceImagePath": null,
+      "sourceImageSha256": null
+    },
+    "nativeSha256": "8ac232eeb88a4a4ad12866747dc42e11991479e2556f14465252d5b4436e3021",
+    "conclusion": "Pass"
+  },
+  {
+    "id": "fullband/0121-004-apochromat_prism-c1-primary-f0-w0-mtf",
+    "lens": "Miscellaneous/Apochromat_prism.zmx",
+    "configuration": 1,
+    "key": "MTF",
+    "request": {
+      "canonicalAnalysisKey": "MTF",
+      "imageSpaceAfocal": true,
+      "nativeAfocalAngleUnit": "Milliradian",
+      "configuration": 1,
+      "field": 0,
+      "wavelength": 0,
+      "surface": -1,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "gridSize": 64,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 23.579586892270314,
+      "focusMinimum": -0.1,
+      "focusMaximum": 0.1,
+      "reference": "ChiefRay",
+      "polarization": false,
+      "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+      "deleteVignetted": true,
+      "useRayAiming": false,
+      "normalization": "NativePhysical",
+      "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+      "outputUnits": "TypedAxes",
+      "settingsOrigin": "CapturedSettings",
+      "workbenchSettings": {
+        "Sampling": "64",
+        "MaximumFrequency": "23.579586892270314",
+        "WavelengthNumber": "0",
+        "FieldNumber": "0",
+        "SurfaceNumber": "-1",
+        "Type": "调制",
+        "ShowDiffractionLimit": "false",
+        "UsePolarization": "False",
+        "UseDashes": "false",
+        "UseRayAiming": "False"
+      },
+      "zemaxSettings": {},
+      "zemaxCfgSettings": {},
+      "wavelengthScope": "Selected",
+      "wavelengthCount": 5,
+      "fieldDefinition": "Angle",
+      "maximumFieldRadius": 0,
+      "surfaceCount": 8,
+      "fieldCount": 1,
+      "definedFields": [
+        [
+          0,
+          0
+        ]
+      ],
+      "fieldScanDirection": "+y",
+      "primaryWavelengthMicrometers": 0.546,
+      "zemaxSettingsMode": "TypedProperties",
+      "sourceImagePath": null,
+      "sourceImageSha256": null
+    },
+    "nativeSha256": "264cb319b14aecb42d6d27f89f11150a419c6448ba0d588b967649f0537841ee",
+    "conclusion": "Pass"
+  }
+]

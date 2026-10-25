@@ -1,0 +1,82 @@
+
+! This file defines a Right-Handed Porro pair of prisms for image inversion.
+! (Right-handed in a pair of binoculars)
+
+! The prisms have a nominal aperture of 20mm and are drawn in the orientation
+! usually found in a pair of binoculars. They are spaced 1 mm apart.
+  
+! The prism coordinates are defined with the optical axis (z-axis) passing
+! through the centre of the normal input face. The optical axis is thefore
+! displaced at the prism exit by -28.2843 in the x-direction
+
+!------------!
+
+! Define vertices
+
+! Prism 1
+
+V 1 0.0 -14.14213562 0.0
+V 2 14.14213562 0.0 0.0
+V 3 -14.14213562 28.28427125 0.0
+V 4 -28.28427125 14.14213562 0.0
+V 5 -14.14213562 0.0 20.0
+V 6 0.0 14.14213562 20.0
+
+! Prism 2
+
+V 7 0.0 14.14213562 -1.0
+V 8 -14.14213562 28.28427125 -1.0
+V 9 -42.42640687 0.0 -1.0
+V 10 -28.28427125 -14.14213562 -1.0
+V 11 -14.14213562 0.0 -21.0
+V 12 -28.28427125 14.14213562 -21.0
+
+!Define prisms
+
+! Prism 1
+
+! Input/output face (hypotenuse)
+
+R 1 2 3 4 0 0
+
+! Rear faces (TIR usually -- hence isreflective = 0 - set to 1 if silvered)
+
+R 1 2 6 5 0 0
+R 3 4 5 6 0 0
+
+! Top face (ground surface therefore isreflective = -1)
+
+T 2 6 3 -1 0
+
+! Bottom face ( - ditto - )
+
+T 1 5 4 -1 0
+
+! End of prism 1
+
+
+!------------!
+
+! Prism 2
+
+
+! Input/output face (hypotenuse)
+
+R 7 8 9 10 0 0
+
+! Rear faces (TIR usually -- hence isreflective = 0 - set to 1 if silvered)
+
+R 7 8 12 11 0 0
+R 9 10 11 12 0 0
+
+! Top face (ground surface therefore isreflective = -1)
+
+T 8 12 9 -1 0
+
+! Bottom face ( - ditto - )
+
+T 7 11 10 -1 0
+
+! End of prism 2
+
+!---End of file---!

@@ -51,6 +51,9 @@
       <LogicalName>OpticalSystemDesign.App.Assets.DrawingTemplates.%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
     <Content Include="Assets/Fonts/OFL-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../samples/camera-imaging/*.json;../../samples/camera-imaging/*.csv"
+             Link="Examples/CameraImaging/%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <EmbeddedResource Include="Assets/Fonts/NotoSansCJKsc-Regular.otf"
                       LogicalName="OpticalSystemDesign.App.Assets.Fonts.NotoSansCJKsc-Regular.otf" />
     <EmbeddedResource Include="Assets/Icons/lucide-icon-nodes.json"

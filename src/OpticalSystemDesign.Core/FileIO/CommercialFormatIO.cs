@@ -227,7 +227,7 @@ public sealed class ZemaxZmxImporter : IOpticalFormatImporter
             "ZMX document",
             cancellationToken).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
-        return Import(ZemaxZmxReader.Decode(bytes));
+        return ZemaxZmxReader.ImportConfigurationSet(ZemaxZmxReader.Decode(bytes), Path.GetDirectoryName(Path.GetFullPath(path))).ActiveOptic;
     }
 
     public async Task<ZemaxZmxImportResult> ImportConfigurationSetFileAsync(
@@ -240,7 +240,7 @@ public sealed class ZemaxZmxImporter : IOpticalFormatImporter
             "ZMX document",
             cancellationToken).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
-        return ImportConfigurationSet(ZemaxZmxReader.Decode(bytes));
+        return ZemaxZmxReader.ImportConfigurationSet(ZemaxZmxReader.Decode(bytes), Path.GetDirectoryName(Path.GetFullPath(path)));
     }
 }
 
@@ -273,6 +273,7 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
             ApodizationLine(optic),
             $"RAIM 0 {(optic.RayAimingEnabled ? 1 : 0)} 1 1 0 0 0 0 0 1",
             $"FTYP {FieldTypeCode(optic.FieldDefinition)} {(optic.ObjectSpaceTelecentric ? 1 : 0)} {optic.Fields.Count} {optic.Wavelengths.Count} 0 0 {(optic.ImageSpaceAfocal ? 1 : 0)}",
+            $"ROPD {(int)optic.ReferenceOpd}",
             $"XFLN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.X)))}",
             $"YFLN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.Y)))}",
             $"FWGN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.Weight)))}",

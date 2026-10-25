@@ -23,6 +23,8 @@ public static class AfocalAnalysisContracts
         var angle = unit.Length > 6 ? unit[6] switch
         {
             "AM" => "ArcMinute",
+            "AS" => "ArcSecond",
+            "UR" => "Microradian",
             "MR" => "Milliradian",
             "DG" => "Degree",
             "RA" => "Radian",
@@ -34,6 +36,8 @@ public static class AfocalAnalysisContracts
     public static string FrequencyUnit(CanonicalAnalysisRequest request) => request.NativeAfocalAngleUnit switch
     {
         "ArcMinute" => "CyclesPerArcMinute",
+        "ArcSecond" => "CyclesPerArcSecond",
+        "Microradian" => "CyclesPerMicroradian",
         "Milliradian" => "CyclesPerMilliradian",
         "Degree" => "CyclesPerDegree",
         "Radian" => "CyclesPerRadian",
@@ -57,7 +61,8 @@ public static class AfocalAnalysisContracts
                 ?? throw new InvalidDataException("Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.")
             };
         if (request.CanonicalAnalysisKey is "Field Curvature" or "Field Curvature and Distortion")
-            return config with { Quantities = config.Quantities.Where(pair => pair.Key == "Distortion").ToDictionary() };
+            return config with { Quantities = config.AfocalQuantities
+                ?? config.Quantities.Where(pair => pair.Key == "Distortion").ToDictionary() };
         return config;
     }
 
@@ -71,6 +76,8 @@ public static class AfocalAnalysisContracts
         var expected = request.NativeAfocalAngleUnit switch
         {
             "ArcMinute" => "ArcMinutes",
+            "ArcSecond" => "ArcSeconds",
+            "Microradian" => "Microradians",
             "Milliradian" => "Milliradians",
             "Degree" => "Degrees",
             "Radian" => "Radians",

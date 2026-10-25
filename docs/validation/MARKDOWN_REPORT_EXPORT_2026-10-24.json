@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-24",
+  "feature": "Markdown optical design report export",
+  "entry": "数据库 → 设计报告 → 一键导出 Markdown / 报告导出设置",
+  "defaults": ["Spot Diagram", "Ray Fan", "MTF", "Field Curvature and Distortion"],
+  "scope": "Independent current-document snapshot, prescription and system settings, standard 2D/3D layouts, configurable current-mode analyses, PNG screenshots, deterministic item progress and cancellation.",
+  "verification": {
+    "export_tests": { "passed": 6, "failed": 0, "trx": "../../validation/rechecks/2026-10-24/markdown-report/markdown-report-export-release.trx" },
+    "skia_ui_progress_tests": { "passed": 3, "failed": 0, "trx": "../../validation/rechecks/2026-10-24/markdown-report/markdown-report-images-release.trx" },
+    "latest_ui_configuration_recheck": { "passed": 2, "failed": 0, "overlaps_skia_ui_progress_tests": true, "trx": "../../validation/rechecks/2026-10-24/markdown-report/markdown-report-ui-release.trx" },
+    "additional_architecture_and_dependency_checks": { "passed": 29, "failed": 3, "total": 32, "includes_export_tests": true, "trx": "../../validation/rechecks/2026-10-24/markdown-report/markdown-report-regression-release.trx" },
+    "debug_build": "Default App output, zero warnings/errors; see build-debug.log in the evidence directory.",
+    "release_build": "Default Release App and test outputs rebuilt by the focused tests.",
+    "images": "../../validation/rechecks/2026-10-24/markdown-report/images/",
+    "manual_image_review": ["export-window.png", "2D layout", "3D layout", "Spot Diagram", "Ray Fan", "Seidel text page with unwrapped numeric columns"],
+    "not_claimed": ["Native desktop GUI acceptance", "Full test suite", "All catalog analyses evaluated", "External optical numerical certification", "Installer rebuild or publication"]
+  },
+  "remaining_unrelated_architecture_failures": [
+    { "test": "AppUiTableDensityUsesSharedTokens", "locations": ["Laboratories/InitialStructure/MainWindow.cs:195", "Laboratories/InitialStructure/MainWindow.Inputs.cs:104"], "reason": "Literal table row heights in the initial-structure UI." },
+    { "test": "LongRunningPanelsUseSharedOperationStatusBar", "locations": ["Panels/SoftwareUpdatePanel.cs:24"], "reason": "Existing software-update panel owns a local ProgressBar. The new report uses OperationStatusBar." },
+    { "test": "AppAssemblyDoesNotReferenceCore", "locations": ["Laboratories/InitialStructure/MainWindow.Inputs.cs", "Laboratories/InitialStructure/MainWindow.Workflow.cs"], "reason": "Other initial-structure UI source directly imports Core.Differentiation. Report files use Application contracts only." }
+  ],
+  "intermediate_failures": [
+    "Sandboxed VSTest loopback connections timed out; focused tests ran successfully outside the sandbox.",
+    "A separate camera/alignment test process temporarily locked the Debug test assembly. Its process was preserved; report tests used the standard Release configuration.",
+    "An unsaved-document capture path and the test parameter key were corrected after the first focused run.",
+    "The first UI test used a missing XAML name scope; it now uses visual-tree lookup.",
+    "Typography and progress-component violations introduced during implementation were corrected before final verification."
+  ],
+  "reference": "https://wp.optics.arizona.edu/jsasian/wp-content/uploads/sites/33/2019/10/Opti-517-Design-Process-Example-2019.pdf"
+}

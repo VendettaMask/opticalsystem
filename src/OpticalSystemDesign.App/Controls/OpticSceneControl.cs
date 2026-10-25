@@ -105,6 +105,9 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
     private static readonly ImmutablePen SolidLensMeridianPen = new(new ImmutableSolidColorBrush(Color.FromArgb(72, 177, 222, 235)), 0.75);
     private static readonly ImmutablePen SolidAxisPen = new(new ImmutableSolidColorBrush(Color.FromArgb(75, 154, 174, 190)), 0.8, new ImmutableDashStyle(DashStyle.Dash.Dashes, DashStyle.Dash.Offset));
     private static readonly ImmutablePen SolidReferencePlanePen = new(new ImmutableSolidColorBrush(Color.FromArgb(140, 188, 202, 215)), 1.7);
+    private static readonly IImmutableBrush SolidImageSurfaceBrush = new ImmutableSolidColorBrush(Color.FromArgb(42, 188, 202, 215));
+    private static readonly ImmutablePen SolidImageSurfacePen = new(new ImmutableSolidColorBrush(Color.FromArgb(205, 188, 202, 215)), 1.3,
+        new ImmutableDashStyle(DashStyle.Dash.Dashes, DashStyle.Dash.Offset));
     private static readonly ImmutablePen TargetPen = new(new ImmutableSolidColorBrush(Color.FromRgb(104, 119, 139)), 1.1);
     private static readonly ImmutablePen DetectorObjectPen = new(new ImmutableSolidColorBrush(Color.FromRgb(25, 117, 166)), 1.5);
     private static readonly ImmutablePen NonSequentialGeometryPen = new(new ImmutableSolidColorBrush(Color.FromArgb(62, 75, 89, 102)), 0.4);
@@ -903,6 +906,20 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             solidModelStyle ? SolidAxisPen : AxisPen,
             Project(new Layout3DPoint(0, 0, scene.ZMin)),
             Project(new Layout3DPoint(0, 0, scene.ZMax)));
+
+        if (solidModelStyle)
+        {
+            // Display the actual image surface as a ghost reference, behind the
+            // traced rays and glass. It is neither a lens body nor cutaway geometry.
+            foreach (var surface in scene.Surfaces.Where(surface => surface.IsImageSurface
+                         && surface.RenderRole == SceneSurfaceRenderRole.OpticalSurface))
+            {
+                foreach (var face in SurfaceFacesForRendering(surface, cutawayEnabled: false)
+                             .OrderBy(face => face.Average(Depth)))
+                    DrawProjectedPolygon(context, SolidImageSurfaceBrush, face, Project);
+                DrawPolyline3D(context, SolidImageSurfacePen, surface.Rim, Project);
+            }
+        }
 
         if (solidModelStyle && ShowRays)
         {
@@ -1777,13 +1794,9 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
     {
         var axes = OrientationAxesForRendering().OrderBy(axis => axis.Depth).ToArray();
         var origin = new Point(48, Math.Max(48, Bounds.Height - 48));
-        DrawAxes(origin, 26, labels: true);
-        var cube = new Rect(Math.Max(8, Bounds.Width - 66), Math.Max(8, Bounds.Height - 66), 46, 46);
-        context.DrawRectangle(ThemeBrush(ThemeResourceBindings.SceneOrientationFill, Brushes.White),
-            new Pen(ThemeBrush(ThemeResourceBindings.SceneOrientationBorder, Brushes.Gray), 1), cube);
-        DrawAxes(cube.Center, 17, labels: false);
+        DrawAxes(origin, 26);
 
-        void DrawAxes(Point center, double length, bool labels)
+        void DrawAxes(Point center, double length)
         {
             var labelBounds = new List<Rect>();
             foreach (var axis in axes)
@@ -1791,7 +1804,6 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
                 var brush = new SolidColorBrush(axis.Color);
                 var end = center + axis.Direction * length;
                 context.DrawLine(new Pen(brush, 2.2), center, end);
-                if (!labels) continue;
 
                 var text = new FormattedText(axis.Label, System.Globalization.CultureInfo.CurrentCulture,
                     FlowDirection.LeftToRight, DisplayTypography.Typeface(), DisplayTypography.Scale(11), brush);

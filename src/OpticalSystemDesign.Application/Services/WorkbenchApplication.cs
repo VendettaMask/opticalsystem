@@ -3,7 +3,7 @@ using OpticalSystemDesign.Core;
 
 namespace OpticalSystemDesign.Application.Services;
 
-public sealed class WorkbenchApplication : IWorkbenchApplication
+public sealed partial class WorkbenchApplication : IWorkbenchApplication
 {
     private readonly WorkspaceCoordinator _workspace;
     private readonly NonSequentialAnalysisSession _nonSequentialAnalysisSession;
@@ -37,6 +37,7 @@ public sealed class WorkbenchApplication : IWorkbenchApplication
         Optimization = new OptimizationService(_workspace);
         Tolerancing = new TolerancingService(_workspace);
         OpticalAssembly = new OpticalAssemblyService(_workspace, Modes);
+        CameraImaging = new CameraImagingService(_workspace, Modes);
         MultiConfiguration = new MultiConfigurationService(_workspace);
         Materials = new MaterialCatalogService(_workspace, userCatalogDirectory);
         Lenses = new LensLibraryService(lensLibraryDirectory);
@@ -64,6 +65,8 @@ public sealed class WorkbenchApplication : IWorkbenchApplication
     public ITolerancingService Tolerancing { get; }
 
     public IOpticalAssemblyService OpticalAssembly { get; }
+
+    public ICameraImagingService CameraImaging { get; }
 
     public IMultiConfigurationService MultiConfiguration { get; }
 

@@ -126,6 +126,8 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
             }
         }, series, new[] { series }, new AnalysisPlotOptions(
             Title: $"Relative Illumination, λ = {wavelength.Micrometers:0.0000} µm",
+            XMinimum: points.Min(point => point.X),
+            XMaximum: points.Max(point => point.X),
             YMinimum: 0,
             YMaximum: 1.05,
             ShowLegend: false,

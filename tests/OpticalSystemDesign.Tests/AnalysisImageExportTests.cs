@@ -71,8 +71,16 @@ public sealed class AnalysisImageExportTests
                     window.MouseMove(pointer + new Vector(35, 10));
                     window.MouseUp(pointer + new Vector(35, 10), MouseButton.Left);
                     window.MouseWheel(pointer, new Vector(0, 1)); Render(window);
-                    Assert.NotEqual(initialYaw, surface.ViewYawDegrees);
-                    Assert.True(surface.ViewZoom > 1);
+                    if (surface.DisplayAs == "二维热力图")
+                    {
+                        Assert.Equal(initialYaw, surface.ViewYawDegrees);
+                        Assert.Equal(1, surface.ViewZoom);
+                    }
+                    else
+                    {
+                        Assert.NotEqual(initialYaw, surface.ViewYawDegrees);
+                        Assert.True(surface.ViewZoom > 1);
+                    }
                 }
                 var camera = (surface?.ViewYawDegrees, surface?.ViewPitchDegrees, surface?.ViewZoom);
                 using var image = panel.CapturePlotImage();
@@ -324,6 +332,80 @@ public sealed class AnalysisImageExportTests
         }, CancellationToken.None);
     }
 
+    [PlotImageTheory]
+    [InlineData(AnalysisPresentationKind.Standard)]
+    [InlineData(AnalysisPresentationKind.OpticalPathDifference)]
+    public async Task AllHiddenWavelengthsExportAxesAndCanBeRestored(AnalysisPresentationKind kind)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisImageExportTests));
+        await session.Dispatch(() =>
+        {
+            ThemeApplicationService.Apply(Avalonia.Application.Current!, "Light");
+            using var application = WorkbenchApplication.Create();
+            using var panel = CreatePanel(application);
+            var series = new[] { 0.4861, 0.5876, 0.6563 }.Select((wavelength, index) => new AnalysisSeriesDto(
+                "P_y", "W", Enumerable.Range(-10, 21)
+                    .Select(x => new AnalysisPointDto(x / 10.0, Math.Pow(x / 10.0, 3) * (index + 1))).ToArray(),
+                Name: kind == AnalysisPresentationKind.Standard ? $"Field {index + 1}, Tangential" : $"{wavelength} µm",
+                LegendKey: kind == AnalysisPresentationKind.Standard ? "" : $"wavelength:{wavelength.ToString(System.Globalization.CultureInfo.InvariantCulture)}",
+                LegendLabel: kind == AnalysisPresentationKind.Standard ? "" : $"{wavelength} µm",
+                XQuantity: AnalysisAxisQuantity.PupilCoordinate, XUnit: AnalysisAxisUnit.Dimensionless,
+                YQuantity: AnalysisAxisQuantity.WavefrontError, YUnit: AnalysisAxisUnit.Wave)).ToArray();
+            var view = View(kind) with
+            {
+                Series = series,
+                PlotOptions = new AnalysisPlotOptionsDto(ShowLegend: true),
+                PlotPanes = kind == AnalysisPresentationKind.Standard ? [] : Enumerable.Range(0, 6)
+                    .Select(index => new AnalysisPlotPaneDto($"Field {index / 2 + 1}",
+                        series.Select(item => item with { XAxisLabel = index % 2 == 0 ? "P_y" : "P_x" }).ToArray(),
+                        new AnalysisPlotOptionsDto(EqualAspect: true))).ToArray()
+            };
+            panel.PresentResult(view, application.Documents.GetSnapshot(), DateTimeOffset.Now);
+            var window = new Window { Width = 980, Height = 680, Content = panel };
+            try
+            {
+                window.Show(); Render(window);
+                var revision = application.Documents.GetSnapshot().Revision;
+                using var shown = panel.CapturePlotImage();
+                var toggles = panel.GetVisualDescendants().OfType<CheckBox>().ToArray();
+                Assert.Equal(3, toggles.Length);
+                foreach (var toggle in toggles) toggle.IsChecked = false;
+                Render(window);
+                var plots = panel.GetVisualDescendants().OfType<AnalysisPlotControl>().ToArray();
+                Assert.All(plots, plot => Assert.Empty(plot.Series));
+                Assert.True(panel.GetVisualDescendants().OfType<Button>().Single(button => button.Name == "ExportAnalysisImage").IsEnabled);
+                using var hidden = panel.CapturePlotImage();
+                Assert.False(Pixels(shown).SequenceEqual(Pixels(hidden)));
+                var page = Assert.Single(panel.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>()).Child!;
+                var bytes = Pixels(hidden);
+                foreach (var plot in plots)
+                {
+                    var frame = (Rect)typeof(AnalysisPlotControl).GetField("_lastPlot", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(plot)!;
+                    var bounds = frame.TransformToAABB(plot.TransformToVisual(page)!.Value);
+                    var ink = 0;
+                    for (var y = Math.Max(0, (int)bounds.Top - 1); y < Math.Min(hidden.PixelSize.Height, (int)Math.Ceiling(bounds.Bottom) + 1); y++)
+                    for (var x = Math.Max(0, (int)bounds.Left - 1); x < Math.Min(hidden.PixelSize.Width, (int)Math.Ceiling(bounds.Right) + 1); x++)
+                    {
+                        var offset = (y * hidden.PixelSize.Width + x) * 4;
+                        if (bytes[offset + 3] > 0 && (bytes[offset] < 220 || bytes[offset + 1] < 220 || bytes[offset + 2] < 220)) ink++;
+                    }
+                    Assert.True(ink > 40, "Each exported empty plot must retain visible axes and grid.");
+                }
+                var capture = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR")!;
+                Directory.CreateDirectory(capture);
+                shown.Save(Path.Combine(capture, $"{kind}-legend-shown.png"), PngBitmapEncoderOptions.Default);
+                hidden.Save(Path.Combine(capture, $"{kind}-legend-hidden.png"), PngBitmapEncoderOptions.Default);
+                foreach (var toggle in toggles) toggle.IsChecked = true;
+                Render(window);
+                using var restored = panel.CapturePlotImage();
+                Assert.True(Pixels(shown).SequenceEqual(Pixels(restored)));
+                Assert.Equal(revision, application.Documents.GetSnapshot().Revision);
+                Assert.All(toggles, toggle => Assert.True(toggle.IsChecked));
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
+    }
+
     private static AnalysisPanel CreatePanel(WorkbenchApplication application)
     {
         var panel = new AnalysisPanel(application.Analyses, application.Visualization, application.Documents, application.Events, new AppSettings(), "Wavefront Map");
@@ -339,7 +421,9 @@ public sealed class AnalysisImageExportTests
         var series = new AnalysisSeriesDto("X", "Y", points, kind == AnalysisPresentationKind.Standard ? AnalysisSeriesKind.Line : AnalysisSeriesKind.Heatmap,
             XQuantity: AnalysisAxisQuantity.PupilCoordinate, XUnit: AnalysisAxisUnit.Dimensionless,
             YQuantity: AnalysisAxisQuantity.PupilCoordinate, YUnit: AnalysisAxisUnit.Dimensionless);
-        return new AnalysisViewDto("波前图", [new("RMS", "0.1 波")], "报告数据", [series], new(),
+        return new AnalysisViewDto("波前图", kind == AnalysisPresentationKind.WavefrontMap
+                ? [new("RMS", "0.1 波"), new("显示为", "二维热力图")] : [new("RMS", "0.1 波")],
+            "报告数据", [series], new(),
             kind == AnalysisPresentationKind.SpotDiagram ? [new AnalysisPlotPaneDto("视场 1", [series], new(), Footer: "0°")] : [],
             1, PresentationKind: kind);
     }

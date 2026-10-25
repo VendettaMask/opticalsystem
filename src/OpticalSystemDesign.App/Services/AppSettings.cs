@@ -51,6 +51,8 @@ public sealed class AppSettings
 
     public Dictionary<string, Dictionary<string, string>> AnalysisSettings { get; set; } = new();
 
+    public MarkdownReportSettings ReportExport { get; set; } = new();
+
     [JsonIgnore]
     public string? LoadWarning { get; private set; }
 

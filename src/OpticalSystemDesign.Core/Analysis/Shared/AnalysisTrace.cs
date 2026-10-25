@@ -197,6 +197,11 @@ internal static class AnalysisTrace
             var physicalSample = optic.SequentialRayTracer.TraceFinalSamples(bundle).SingleOrDefault()
                 ?? throw new InvalidOperationException("Ray tracing did not produce an image-plane sample.");
             var local = ToImageLocalSample(optic, physicalSample, requireUnvignetted);
+            if (optic.ImageSpaceAfocal)
+            {
+                var direction = optic.SurfaceGroup.Items[^1].CoordinateSystem.ToLocalDirection(physicalSample.Direction);
+                return (1000 * direction.X / direction.Z, 1000 * direction.Y / direction.Z);
+            }
             return (local.Position.X, local.Position.Y);
         }
         var normalized = FieldCoordinates.Normalize(optic.Fields, physical.X, physical.Y);
@@ -207,7 +212,9 @@ internal static class AnalysisTrace
             0,
             0,
             wavelengthMicrometers, requireUnvignetted);
-        return (sample.Position.X, sample.Position.Y);
+        return optic.ImageSpaceAfocal
+            ? (1000 * sample.Direction.X / sample.Direction.Z, 1000 * sample.Direction.Y / sample.Direction.Z)
+            : (sample.Position.X, sample.Position.Y);
     }
 
     public static DistortionReferenceMapping BuildDistortionReferenceMapping(
@@ -248,6 +255,10 @@ internal static class AnalysisTrace
             .DefaultIfEmpty(0)
             .Max();
         var delta = Math.Max(1e-8, Math.Max(1, maximumLinearRadius) * 1e-6);
+        // A fourth-order stencil permits a wider angular interval without the
+        // cubic field-aberration bias. This avoids amplifying tiny facet/trace
+        // roundoff into the afocal magnification used by percentage distortion.
+        if (optic.ImageSpaceAfocal) delta = Math.Max(delta, Math.Max(1, maximumLinearRadius) * 1e-3);
         if (maximumLinearRadius > 0) delta = Math.Min(delta, maximumLinearRadius / 4);
         var xColumn = DistortionDerivative(
             optic,
@@ -439,6 +450,19 @@ internal static class AnalysisTrace
             : (referenceLinear.X, referenceLinear.Y - delta);
         var canTracePlus = CanTraceLinearField(optic, plus, distortionType);
         var canTraceMinus = CanTraceLinearField(optic, minus, distortionType);
+        if (optic.ImageSpaceAfocal && canTracePlus && canTraceMinus)
+        {
+            var plus2 = xAxis ? (referenceLinear.X + 2 * delta, referenceLinear.Y) : (referenceLinear.X, referenceLinear.Y + 2 * delta);
+            var minus2 = xAxis ? (referenceLinear.X - 2 * delta, referenceLinear.Y) : (referenceLinear.X, referenceLinear.Y - 2 * delta);
+            if (CanTraceLinearField(optic, plus2, distortionType) && CanTraceLinearField(optic, minus2, distortionType))
+            {
+                var p1=TraceChiefAtLinearField(optic,plus.Item1,plus.Item2,wavelengthMicrometers,distortionType,requireUnvignetted);
+                var m1=TraceChiefAtLinearField(optic,minus.Item1,minus.Item2,wavelengthMicrometers,distortionType,requireUnvignetted);
+                var p2=TraceChiefAtLinearField(optic,plus2.Item1,plus2.Item2,wavelengthMicrometers,distortionType,requireUnvignetted);
+                var m2=TraceChiefAtLinearField(optic,minus2.Item1,minus2.Item2,wavelengthMicrometers,distortionType,requireUnvignetted);
+                return ((8*(p1.X-m1.X)-(p2.X-m2.X))/(12*delta),(8*(p1.Y-m1.Y)-(p2.Y-m2.Y))/(12*delta));
+            }
+        }
         if (canTracePlus && canTraceMinus)
         {
             var plusImage = TraceChiefAtLinearField(

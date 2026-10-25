@@ -41,7 +41,7 @@ public static partial class ExtendedResultNormalizer
             if (divisor == 0) series = PhysicalNormalization.ZeroFieldPoint(series, false, result.Transformations);
             if (r.ImageSpaceAfocal && r.CanonicalAnalysisKey is "Field Curvature" or "Field Curvature and Distortion"
                 && id is "tangential" or "sagittal")
-                y = series.YAxis; // Preserve unsupported Core mm output; never relabel it as diopters.
+                y = new Axis("Defocus", "Diopter");
             result.Series.Add(PhysicalNormalization.Convert(series, x, y, result.Transformations));
         }
         switch (r.CanonicalAnalysisKey)

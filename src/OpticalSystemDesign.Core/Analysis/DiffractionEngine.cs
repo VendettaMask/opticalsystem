@@ -203,7 +203,8 @@ public static partial class DiffractionEngine
 
         var pupilAimAtStop = aimAtStop ?? optic.RayAimingEnabled;
         var fallbackUsed = false;
-        if (!TryWorkingFNumbersAtPupilZone(optic, field, wavelength, pupilAimAtStop, false, 1, out var workingAxes))
+        var workingAxes = (Tangential: double.PositiveInfinity, Sagittal: double.PositiveInfinity);
+        if (!optic.ImageSpaceAfocal && !TryWorkingFNumbersAtPupilZone(optic, field, wavelength, pupilAimAtStop, false, 1, out workingAxes))
         {
             // A paraxial entrance-pupil launch can miss the real stop in high-NA systems.
             // Retry the entire pupil convention, not just the F-number used to scale its FFT.
@@ -219,7 +220,7 @@ public static partial class DiffractionEngine
             pupilAimAtStop = true;
         }
 
-        var fNumber = CombineWorkingFNumbers(workingAxes);
+        var fNumber = optic.ImageSpaceAfocal ? double.PositiveInfinity : CombineWorkingFNumbers(workingAxes);
         var pupilGridStretch = zemaxFftSampling && imageDelta >= 0
             ? Math.Sqrt(Math.Max(1, pupilSampling / 32.0))
             : 1;
@@ -320,7 +321,7 @@ public static partial class DiffractionEngine
                     pupilGridStretch: pupilGridStretch,
                     zemaxCentered: zemaxFftSampling)
             : null;
-        var (tangentialFNumber, sagittalFNumber) = cellCenteredPupil
+        var (tangentialFNumber, sagittalFNumber) = cellCenteredPupil && !optic.ImageSpaceAfocal
             ? WorkingFNumbers(
                 optic,
                 field,

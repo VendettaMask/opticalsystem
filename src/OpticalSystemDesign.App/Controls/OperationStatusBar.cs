@@ -64,8 +64,11 @@ internal sealed class OperationStatusBar : DockPanel, IDisposable
     private Action? _cancelAction;
     private bool _disposed;
 
-    public OperationStatusBar()
+    public OperationStatusBar() : this(null) { }
+
+    public OperationStatusBar(string? progressName)
     {
+        _progress.Name = progressName;
         LastChildFill = false;
         VerticalAlignment = VerticalAlignment.Center;
         Children.Add(_message);
@@ -107,6 +110,7 @@ internal sealed class OperationStatusBar : DockPanel, IDisposable
         _message.Text = message;
         _message.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextAccent);
         _progress.IsVisible = false;
+        _progress.IsIndeterminate = true;
         _longRunningHint.IsVisible = false;
         _cancel.IsEnabled = true;
         _cancel.IsVisible = cancelAction is not null;
@@ -119,6 +123,17 @@ internal sealed class OperationStatusBar : DockPanel, IDisposable
     public void MarkSynced(string message)
     {
         SetFinalState(OperationStatusKind.Synced, message, ThemeResourceBindings.TextSuccess);
+    }
+
+    public void ReportProgress(int completed, int total, string message)
+    {
+        if (_disposed || Kind != OperationStatusKind.Running) return;
+        _progress.IsIndeterminate = false;
+        _progress.Minimum = 0;
+        _progress.Maximum = Math.Max(1, total);
+        _progress.Value = Math.Clamp(completed, 0, Math.Max(1, total));
+        _progress.IsVisible = true;
+        _message.Text = message;
     }
 
     public void MarkStale(string message)

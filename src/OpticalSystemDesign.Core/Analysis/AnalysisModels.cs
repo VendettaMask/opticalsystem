@@ -88,7 +88,8 @@ public enum AnalysisAxisUnit
     PartsPerMillionPerKelvin,
     Watt,
     CyclesPerMilliradian,
-    Diopter
+    Diopter,
+    WattsPerSquareMeterPerNanometer
 }
 
 public sealed record AnalysisPoint(

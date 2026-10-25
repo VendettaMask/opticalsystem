@@ -143,7 +143,8 @@ public static partial class ExtendedAnalysisContracts
                 Set("DisplayAs", "伪彩色"); Set("DisplayMode", "绝对值"); break;
             case "Field Curvature":
             case "Field Curvature and Distortion":
-                Set("NumPoints", 101); Set("ParabasalDelta", 1e-5); Set("ScanDirection", "+y"); Set("IgnoreVignettingFactors", true);
+                Set("NumPoints", 101); Set("ParabasalDelta", r.ImageSpaceAfocal ? 1e-4 : 1e-5); Set("ScanDirection", "+y"); Set("IgnoreVignettingFactors", true);
+                if (r.ImageSpaceAfocal) Set("ChiefRayParabasal", false);
                 Set("DistortionType", "F-Tan(Theta)"); Set("DisplayAs", "百分比"); Set("ReferenceFieldNumber", r.Field); break;
             case "Color Focus Shift": Set("MaximumShift", 0); Set("PupilZone", 0); break;
             case "Lateral Color": Set("AllWavelengths", false); Set("ShowAiryDisk", true); Set("UseRealRays", true); Set("GraphScale", 0); break;

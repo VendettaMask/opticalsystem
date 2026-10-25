@@ -53,3 +53,14 @@ validation/zemax/2026-r1/reflective-paraxial-repair-2026-10-21/** -text -whitesp
 validation/repairs/2026-10-21/reflective-paraxial-repair-evidence.zip filter=lfs diff=lfs merge=lfs -text
 validation/repairs/2026-10-21/reflective-paraxial-package-delivery-evidence.zip filter=lfs diff=lfs merge=lfs -text
 validation/experiments/2026-10-22/autolens-official-targets-evidence.zip filter=lfs diff=lfs merge=lfs -text
+# Preserve original polygon objects and newly captured verification bytes.
+src/OpticalSystemDesign.App/Assets/SequentialExamples/Objects/**/*.[pP][oO][bB] -text -whitespace
+validation/zemax/2026-r1/afocal-repair-2026-10-24/** -whitespace
+validation/rechecks/2026-10-24/markdown-report/** -whitespace
+validation/rechecks/2026-10-24/markdown-report-vstest*.log -whitespace
+docs/validation/AFOCAL_REPAIR_2026-10-24.json -text whitespace=cr-at-eol
+docs/validation/CAMERA_CONTINUOUS_2026-10-25.json -text whitespace=cr-at-eol
+docs/validation/CAMERA_SENSOR_IMPORT_2026-10-24.json -text whitespace=cr-at-eol
+docs/validation/LABORATORY_PRESENTATION_2026-10-24.json -text whitespace=cr-at-eol
+docs/validation/MARKDOWN_REPORT_EXPORT_2026-10-24.json -text whitespace=cr-at-eol
+docs/validation/SOLID_MODEL_IMAGE_SURFACE_2026-10-24.json -text whitespace=cr-at-eol

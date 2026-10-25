@@ -1,0 +1,426 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-24",
+  "BaseCommit": "3f877d3c3139245929f3732135376799f7887736",
+  "WorkingTreeDirty": true,
+  "Scope": [
+    "Coating Design presentation and material editor",
+    "Optical Assembly presentation",
+    "Camera Imaging presentation"
+  ],
+  "AutoLensChangedByThisTask": false,
+  "CoreOpticalFormulasChangedByThisTask": false,
+  "DefaultsChangedByThisTask": false,
+  "SamplingChangedByThisTask": false,
+  "TolerancesChangedByThisTask": false,
+  "PersistenceChangedByThisTask": false,
+  "OtherWorkspaceChangesPreserved": true,
+  "FullSuiteRun": false,
+  "NativeDesktopAcceptance": false,
+  "ZemaxCertification": false,
+  "CommittedOrPushed": false,
+  "InstallerPackagedOrReplaced": false,
+  "InstalledApplicationReplaced": false,
+  "Rendering": "Avalonia Headless with Skia; actual UI and related calculations, not native desktop acceptance",
+  "SourceSnapshots": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/LaboratoryPresentation.cs",
+      "Sha256": "8d31383f9a97275b83021bc3096e0e73b5fa9bf55e6f45fca9651481479b39c1"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.cs",
+      "Sha256": "ad06360c4b8e36af3cfc75fb0459f3009584a1510a82636bc2bd84f4ce0d16fb"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Presentation.cs",
+      "Sha256": "181e3f3607d6b81a9a80520433fa15496ddd1770fa9f08dd8cf04e8c9a748703"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.cs",
+      "Sha256": "a45b2b1ddc88f5f462f28e8b32b9bf59664171b4b565b341b12fe3ffe780b199"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.cs",
+      "Sha256": "bb316d06c34cbcbb3600bddf4dcd070a197b2c2a4d5fb65a22ca360b5b5c8eec"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MaterialEditorWindow.cs",
+      "Sha256": "07843c5284df7e694683f1aace0df85094c56b636aa23971f64d7a6cf18c3dcd"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "Sha256": "0266bb71a7b531538669882e76100e105d1b2790bf9bff1adaa09ab034e283f0"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/LaboratoryPresentationTests.cs",
+      "Sha256": "46ef0f8a6250d23413d0f820b23a867e209b04ea5b3e762bc12bd3be54e9555d"
+    }
+  ],
+  "BuildResults": [
+    {
+      "Configuration": "Debug",
+      "Log": "build-debug-final.log",
+      "ExitCode": 0,
+      "Warnings": 0,
+      "Errors": 0,
+      "DefaultOutput": true
+    },
+    {
+      "Configuration": "Release",
+      "Log": "build-release-final.log",
+      "ExitCode": 0,
+      "Warnings": 0,
+      "Errors": 0,
+      "DefaultOutput": true
+    }
+  ],
+  "BinaryEvidence": [
+    {
+      "Configuration": "Debug",
+      "Path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "fe1474eb3c76224b41c8bb4b74eb8737e6ed778d13468455b4383c5e55898971"
+    },
+    {
+      "Configuration": "Debug",
+      "Path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Application.dll",
+      "Sha256": "0f6d5f55647513a6312d9e7d8c24c96307a65383e993862611d1f2e46fe76186"
+    },
+    {
+      "Configuration": "Debug",
+      "Path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "1dae85bb0c7282ca10c093075b5cb11af62147da5f8ceed2bbd79704fdafc36c"
+    },
+    {
+      "Configuration": "Release",
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "ad20acabd606626f7d643c37f97ce5d3ca562b5259481860dabe8d5a5ac60043"
+    },
+    {
+      "Configuration": "Release",
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+      "Sha256": "a0007b12404b464b0b7810a9a3007f802b5b9ffb890a9bdeef11e01d82f7e932"
+    },
+    {
+      "Configuration": "Release",
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "ac58cafdc92b932dd8bbab15e086a6ed0a51c4767195120ef4a34bb759a165b5"
+    }
+  ],
+  "TestRuns": [
+    {
+      "Trx": "tests/alignment-camera-debug.trx",
+      "Total": 8,
+      "Passed": 8,
+      "Failed": 0,
+      "Other": 0
+    },
+    {
+      "Trx": "tests/coating-desktop-debug.trx",
+      "Total": 18,
+      "Passed": 18,
+      "Failed": 0,
+      "Other": 0
+    },
+    {
+      "Trx": "tests/laboratory-layout-debug.trx",
+      "Total": 9,
+      "Passed": 9,
+      "Failed": 0,
+      "Other": 0
+    },
+    {
+      "Trx": "tests/coating-layout-final-debug.trx",
+      "Total": 3,
+      "Passed": 3,
+      "Failed": 0,
+      "Other": 0
+    },
+    {
+      "Trx": "tests/alignment-camera-layout-final-debug.trx",
+      "Total": 3,
+      "Passed": 3,
+      "Failed": 0,
+      "Other": 0
+    }
+  ],
+  "TestExecutions": 41,
+  "DistinctCases": 35,
+  "DistinctPassed": 35,
+  "DistinctFailed": 0,
+  "Skipped": 0,
+  "NewLayoutCases": 9,
+  "DistinctCaseResults": [
+    {
+      "TestId": "70563c5a-0e37-d6b9-f4f5-5301a15e6116",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"cancel\", canClose: False)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "6416726a-ebdb-f71d-fe94-549a578105da",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"changed-during-save\", canClose: False)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "939b8c1e-e731-5396-9958-70d33b8c8f07",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"clean\", canClose: True)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "1ce5d79f-fa86-f850-208a-e09292c57324",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"discard\", canClose: True)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "be182a79-70c9-9994-63c4-2c88ea1180ae",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"save-cancel\", canClose: False)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "613d9aaa-aa07-4893-3562-f04a5ceec3ca",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"save-failed\", canClose: False)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "0a159baa-eb48-e87d-e126-a69b7157aead",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"save-ok\", canClose: True)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "a387f6fc-a91a-9aeb-d8d4-49d45f43424e",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.MaterialDialogCreatesIndependentSnapshotAndInvalidatesOldResult",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "7253e2a1-98b5-80fa-417b-82fc8ae1c20b",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 1200, height: 900)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "6cdf051c-96a4-0e4e-ae0e-1a026c225303",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 820, height: 640)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "77af8df7-66a2-3466-31ca-a6eb64546b23",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 820, height: 900)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "e9ea5d8d-967d-1f84-0290-103c1b922204",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SaveOpenExportButtonsPreserveSnapshotAndBrokenFileClearsOldContent",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "89871bcf-55e6-7324-7a46-f94245c7cb32",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 0)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "b653c231-9da7-4ed0-a0b0-2b10aafba914",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 1)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "60b1f1ae-8451-c712-e84a-f0f58cd8ade5",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 2)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "dee2c14f-d070-3df2-dda0-a1556f91e652",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 3)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "6b922688-1510-3be4-0aa5-e8a8873e844c",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 4)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "4f8a1772-fe0c-936a-ca0b-ba7125c65cd3",
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ThicknessFormattingDoesNotRoundStoredValuesAndInvalidEditsRemainInvalid",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "ef8dd815-82bc-c256-a41a-f4881dfd1a82",
+      "Name": "OpticalSystemDesign.Tests.CameraImagingWindowTests.ClosingOrChangingParametersCancelsPendingWorkWithoutResurrectingResults",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "3bd39019-c277-d727-2672-536de207b389",
+      "Name": "OpticalSystemDesign.Tests.CameraImagingWindowTests.CurrentLensAtDefaultResolutionUsesSharedOpticalStageAndExplainsSizeLimit",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "0fe5e9ef-85f3-4090-1168-0b88e23f6db9",
+      "Name": "OpticalSystemDesign.Tests.CameraImagingWindowTests.LaboratoryRibbonOpensOneOwnedWindow",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "a7d1d5b4-64b7-688c-5a43-b5b5938660dc",
+      "Name": "OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(theme: \"Dark\")",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "365196a2-0057-00fc-b815-8fb04c391d70",
+      "Name": "OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(theme: \"Light\")",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "520a3644-fa67-f42e-779b-869aa00f206a",
+      "Name": "OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: \"assembly\", theme: \"Dark\", language: \"en-US\", width: 1100, height: 760, fontSize: 13)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "64eb77c3-3d77-dee7-2152-d6304add32c0",
+      "Name": "OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: \"assembly\", theme: \"Light\", language: \"ja-JP\", width: 760, height: 680, fontSize: 18)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "97ddbf99-943f-0178-a352-f48b86752260",
+      "Name": "OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: \"assembly\", theme: \"Light\", language: \"zh-CN\", width: 1260, height: 850, fontSize: 13)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "d8a20d4d-1d9d-889c-3456-a28b83363167",
+      "Name": "OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: \"camera\", theme: \"Dark\", language: \"en-US\", width: 1000, height: 760, fontSize: 13)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "305a16ed-9497-0f15-58e7-39fa6b2fe330",
+      "Name": "OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: \"camera\", theme: \"Light\", language: \"ja-JP\", width: 760, height: 680, fontSize: 18)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "2ce75b56-3a19-de1b-be17-e31b8ff8d2f9",
+      "Name": "OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: \"camera\", theme: \"Light\", language: \"zh-CN\", width: 1280, height: 900, fontSize: 13)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "5b9abed4-578e-4934-cb42-c418c128c0da",
+      "Name": "OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: \"coating\", theme: \"Dark\", language: \"en-US\", width: 1100, height: 800, fontSize: 13)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "d7e33247-e47b-2408-db0a-deab82f2484a",
+      "Name": "OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: \"coating\", theme: \"Light\", language: \"ja-JP\", width: 820, height: 680, fontSize: 18)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "38c61c8e-6e54-fab7-81fd-a884d4018b6c",
+      "Name": "OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: \"coating\", theme: \"Light\", language: \"zh-CN\", width: 1200, height: 900, fontSize: 13)",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "dbe93661-5f49-e842-5c29-8ca5df536c1a",
+      "Name": "OpticalSystemDesign.Tests.OpticalAssemblyWindowTests.CurrentLensWindowProducesMetricReticleAndClearsStaleData",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "9be56606-27e2-3806-2b3b-0003c7227f04",
+      "Name": "OpticalSystemDesign.Tests.OpticalAssemblyWindowTests.InfinityModeEnablesInfiniteRowsAndModeChangesDiscardPendingImages",
+      "Outcome": "Passed"
+    },
+    {
+      "TestId": "570ae01a-8788-3efe-a554-c7f699005f35",
+      "Name": "OpticalSystemDesign.Tests.OpticalAssemblyWindowTests.LaboratoryEntryReusesItsOwnedWindow",
+      "Outcome": "Passed"
+    }
+  ],
+  "IncompleteRuns": [
+    {
+      "Log": "tests-coating-layout-final-debug.compile-incomplete.log",
+      "Reason": "Transient CS0103 in independently edited ZemaxZmxReader.PolygonGroup.cs; no tests started; same focused filter passed after shared file updated."
+    }
+  ],
+  "Screenshots": [
+    "assembly/cooke-center-920x680.png",
+    "assembly/cooke-center-reticle.png",
+    "assembly/cooke-initial.png",
+    "assembly/cooke-vertex-reticle-2mm.png",
+    "assembly/empty-nonsequential-disabled.png",
+    "assembly/infinity-plane-920x680.png",
+    "assembly/infinity-plane-reticle.png",
+    "assembly-final/cooke-center-920x680.png",
+    "assembly-final/cooke-center-reticle.png",
+    "assembly-final/cooke-initial.png",
+    "assembly-final/cooke-vertex-reticle-2mm.png",
+    "assembly-final/empty-nonsequential-disabled.png",
+    "camera/Dark-AB.png",
+    "camera/Dark-narrow.png",
+    "camera/Dark-stages.png",
+    "camera/Light-AB.png",
+    "camera/Light-current-lens-stages.png",
+    "camera/Light-narrow.png",
+    "camera/Light-stages.png",
+    "camera-final/Dark-AB.png",
+    "camera-final/Dark-narrow.png",
+    "camera-final/Dark-stages.png",
+    "camera-final/Light-AB.png",
+    "camera-final/Light-narrow.png",
+    "camera-final/Light-stages.png",
+    "coating/ar-1200-900.png",
+    "coating/ar-820-640.png",
+    "coating/ar-820-900.png",
+    "coating/material-editor.png",
+    "coating/narrow-1200-900.png",
+    "coating/narrow-820-640.png",
+    "coating/narrow-820-900.png",
+    "coating/theme-0-820.png",
+    "coating/theme-1-820.png",
+    "coating/theme-2-820.png",
+    "coating/theme-3-820.png",
+    "coating/theme-4-820.png",
+    "coating-final/ar-1200-900.png",
+    "coating-final/ar-820-640.png",
+    "coating-final/ar-820-900.png",
+    "coating-final/narrow-1200-900.png",
+    "coating-final/narrow-820-640.png",
+    "coating-final/narrow-820-900.png",
+    "layout/assembly-en-US-Dark-1100-overview.png",
+    "layout/assembly-en-US-Dark-1100-scrolled.png",
+    "layout/assembly-ja-JP-Light-760-overview.png",
+    "layout/assembly-ja-JP-Light-760-scrolled.png",
+    "layout/assembly-zh-CN-Light-1260-overview.png",
+    "layout/assembly-zh-CN-Light-1260-scrolled.png",
+    "layout/camera-en-US-Dark-1000-overview.png",
+    "layout/camera-en-US-Dark-1000-scrolled.png",
+    "layout/camera-ja-JP-Light-760-overview.png",
+    "layout/camera-ja-JP-Light-760-scrolled.png",
+    "layout/camera-zh-CN-Light-1280-overview.png",
+    "layout/camera-zh-CN-Light-1280-scrolled.png",
+    "layout/coating-en-US-Dark-1100-overview.png",
+    "layout/coating-en-US-Dark-1100-scrolled.png",
+    "layout/coating-ja-JP-Light-820-overview.png",
+    "layout/coating-ja-JP-Light-820-scrolled.png",
+    "layout/coating-zh-CN-Light-1200-overview.png",
+    "layout/coating-zh-CN-Light-1200-scrolled.png"
+  ],
+  "VisualReview": [
+    "coating-final/ar-1200-900.png",
+    "camera-final/Light-stages.png",
+    "assembly-final/cooke-initial.png",
+    "coating/material-editor.png",
+    "layout/camera-ja-JP-Light-760-overview.png",
+    "layout/coating-ja-JP-Light-820-overview.png",
+    "layout/assembly-en-US-Dark-1100-overview.png"
+  ],
+  "DocumentationAudit": "documentation-audit.json",
+  "EvidenceArchive": "validation/rechecks/2026-10-24/laboratory-presentation-evidence.zip",
+  "Limitations": [
+    "Focused UI validation only; no full optical regression or tolerance change",
+    "Existing camera service and unrelated shared workspace changes are outside this presentation task",
+    "Existing untranslated text may remain; checks cover layout and preserving data during language switches",
+    "Only local source and default build output updated"
+  ],
+  "DocumentationAuditPassed": true,
+  "DiffCheckPassed": true,
+  "DocumentationAuditSummary": {
+    "Documents": 1084,
+    "GuideBrokenLinks": 0,
+    "BrokenLinks": 0,
+    "GuideRepeatedParagraphGroups": 0,
+    "MarkdownFenceIssues": 0
+  },
+  "ArchiveSha256": "e3a563c5787d96fb9fd8d382fa0717cde43f08318a11b4f98ecd41f24e6d522c",
+  "ArchiveBytes": 8726233
+}

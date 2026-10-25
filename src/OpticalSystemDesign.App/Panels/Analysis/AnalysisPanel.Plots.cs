@@ -24,7 +24,9 @@ public sealed partial class AnalysisPanel
         var plot = new AnalysisPlotControl
         {
             Series = view.Series,
-            PlotOptions = view.PlotOptions,
+            PlotOptions = view.PresentationKind == AnalysisPresentationKind.LateralColor
+                ? view.PlotOptions with { ShowLegend = false }
+                : view.PlotOptions,
             MinHeight = DisplayTypography.Scale(AnalysisPlotMinimumHeight),
             MinWidth = DisplayTypography.Scale(240)
         };
@@ -40,17 +42,9 @@ public sealed partial class AnalysisPanel
         var legendEntries = SelectableLegendEntries(view.Series);
         if (legendEntries.Count == 0)
         {
-            if (view.PlotOptions.ShowLegend && view.Series.Any(series => !string.IsNullOrWhiteSpace(series.Name)))
+            if (plot.PlotOptions.ShowLegend && view.Series.Any(series => !string.IsNullOrWhiteSpace(series.Name)))
             {
-                var labels = new StackPanel { Spacing = 4 };
-                foreach (var series in view.Series.Where(series => !string.IsNullOrWhiteSpace(series.Name)))
-                    labels.Children.Add(new TextBlock
-                    {
-                        Text = $"●  {series.Name}", Foreground = SeriesBrush(series),
-                        FontSize = DisplayTypography.CompactBody, TextWrapping = TextWrapping.Wrap, MaxWidth = 220
-                    });
-                plot.PlotOptions = view.PlotOptions with { ShowLegend = false };
-                return BuildPlotLegendLayout(plotRoot, labels);
+                return BuildPlotLegendLayout(plotRoot, BuildNamedSeriesLegend([plot]));
             }
             var content = new Grid
             {
@@ -76,9 +70,9 @@ public sealed partial class AnalysisPanel
                 enabled.Remove(key);
             }
 
-            plot.Series = original.Where(series =>
+            plot.SetVisibleSeries(original.Where(series =>
                 !TryGetSelectableLegend(series, out var seriesKey, out _)
-                || enabled.Contains(seriesKey)).ToArray();
+                || enabled.Contains(seriesKey)).ToArray());
         });
         plot.PlotOptions = view.PlotOptions with { ShowLegend = false };
         var layout = BuildPlotLegendLayout(plotRoot, legend);
@@ -469,9 +463,9 @@ public sealed partial class AnalysisPanel
 
                 foreach (var (plot, originalSeries) in columnPlots.SelectMany(items => items))
                 {
-                    plot.Series = originalSeries.Where(series =>
+                    plot.SetVisibleSeries(originalSeries.Where(series =>
                         !TryGetSelectableLegend(series, out var seriesKey, out _)
-                        || enabledLegendKeys.Contains(seriesKey)).ToArray();
+                        || enabledLegendKeys.Contains(seriesKey)).ToArray());
                 }
 
                 return;
@@ -485,7 +479,7 @@ public sealed partial class AnalysisPanel
 
             foreach (var (plot, originalSeries) in columnPlots[column])
             {
-                plot.Series = isVisible ? originalSeries : Array.Empty<AnalysisSeriesDto>();
+                plot.SetVisibleSeries(isVisible ? originalSeries : Array.Empty<AnalysisSeriesDto>());
             }
         });
         return BuildPlotLegendLayout(matrix, legend);
@@ -785,12 +779,11 @@ public sealed partial class AnalysisPanel
         plotRoot.MinHeight = Math.Max(plotRoot.MinHeight, AnalysisPlotMinimumHeight);
         var sourceSeries = panes.SelectMany(pane => pane.Series).ToArray();
         var legendEntries = SelectableLegendEntries(sourceSeries);
-        Control legend;
         if (legendEntries.Count > 0)
         {
             var originals = plots.Select(plot => plot.Series.ToArray()).ToArray();
             var enabled = legendEntries.Select(entry => entry.Key).ToHashSet(StringComparer.Ordinal);
-            legend = BuildSelectableLegend(legendEntries, (key, isVisible) =>
+            var legend = BuildSelectableLegend(legendEntries, (key, isVisible) =>
             {
                 if (isVisible)
                 {
@@ -803,9 +796,9 @@ public sealed partial class AnalysisPanel
 
                 for (var index = 0; index < plots.Count; index++)
                 {
-                    plots[index].Series = originals[index].Where(series =>
+                    plots[index].SetVisibleSeries(originals[index].Where(series =>
                         !TryGetSelectableLegend(series, out var seriesKey, out _)
-                        || enabled.Contains(seriesKey)).ToArray();
+                        || enabled.Contains(seriesKey)).ToArray());
                 }
             });
             foreach (var plot in plots)
@@ -815,34 +808,34 @@ public sealed partial class AnalysisPanel
 
             return BuildPlotLegendLayout(plotRoot, legend);
         }
-        else
+        return sourceSeries.Any(series => !string.IsNullOrWhiteSpace(series.Name))
+            ? BuildPlotLegendLayout(plotRoot, BuildNamedSeriesLegend(plots))
+            : plotRoot;
+    }
+
+    private static Panel BuildNamedSeriesLegend(IReadOnlyList<AnalysisPlotControl> plots)
+    {
+        var originals = plots.Select(plot => plot.Series).ToArray();
+        // Position identifies a curve within this result, even when labels repeat.
+        static string Key(int plot, int series) => $"series:{plot}:{series}";
+        var entries = originals.SelectMany((series, plotIndex) => series
+            .Select((item, seriesIndex) => (Key: Key(plotIndex, seriesIndex), Label: item.Name,
+                Color: AnalysisPlotControl.SeriesColor(item))))
+            .Where(entry => !string.IsNullOrWhiteSpace(entry.Label)).ToArray();
+        var enabled = entries.Select(entry => entry.Key).ToHashSet(StringComparer.Ordinal);
+        foreach (var plot in plots)
+            plot.PlotOptions = plot.PlotOptions with { ShowLegend = false };
+        return BuildSelectableLegend(entries, (key, isVisible) =>
         {
-            var plainLegend = new WrapPanel
+            if (isVisible) enabled.Add(key);
+            else enabled.Remove(key);
+            for (var index = 0; index < plots.Count; index++)
             {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Margin = new Thickness(12, 4, 12, 12)
-            };
-            foreach (var series in sourceSeries.Where(item => !string.IsNullOrWhiteSpace(item.Name)))
-            {
-                plainLegend.Children.Add(new TextBlock
-                {
-                    Text = $"●  {series.Name}",
-                    Foreground = SeriesBrush(series),
-                    FontSize = DisplayTypography.CompactBody,
-                    Margin = new Thickness(10, 2),
-                    MaxWidth = 220,
-                    TextWrapping = TextWrapping.Wrap
-                });
+                var plotIndex = index;
+                plots[index].SetVisibleSeries(originals[index].Where((series, seriesIndex) =>
+                    string.IsNullOrWhiteSpace(series.Name) || enabled.Contains(Key(plotIndex, seriesIndex))).ToArray());
             }
-
-            legend = plainLegend;
-        }
-
-        var content = new Grid { RowDefinitions = new RowDefinitions("*,Auto") };
-        content.Children.Add(plotRoot);
-        content.Children.Add(legend);
-        Grid.SetRow(legend, 1);
-        return content;
+        });
     }
 
     private static TextBlock EmptyPlotMessage(bool isVisible)

@@ -1,5 +1,6 @@
 using Avalonia;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Automation;
@@ -33,6 +34,131 @@ public sealed class Viewer3DGeometryTests
         var builder = AppBuilder.Configure<global::OpticalSystemDesign.App.App>();
         if (capture) builder.UseSkia();
         return builder.UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = !capture });
+    }
+
+    [Fact]
+    public void ImageSurfaceMetadataPreservesActualTiltSagAndSelectedSurfaceRange()
+    {
+        var optic = Zoom();
+        var image = optic.SurfaceGroup.Items[^1];
+        image.Label = "not a display-role selector";
+        optic.SurfaceGroup.Items[1].Label = "Image";
+        image.SemiDiameter = 4; image.ChipZone = 0;
+        image.Geometry = new PolynomialGeometry(new Dictionary<(int, int), double>
+            { [(2, 0)] = .02, [(0, 2)] = .01, [(1, 1)] = .003 });
+        image.CoordinateSystem = new CoordinateSystem(image.CoordinateSystem.Origin + new Vector3D(3, -2, 1), 12, -20, 8);
+        var snapshotOptions = new System.Text.Json.JsonSerializerOptions
+            { NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals };
+        var before = System.Text.Json.JsonSerializer.Serialize(optic.ToSnapshot(), snapshotOptions);
+        var core = Build(optic);
+        var surface = Assert.Single(core.Surfaces, s => s.IsImageSurface);
+        Assert.Equal(image.Number, surface.SurfaceNumber);
+        Assert.True(surface.IsReferencePlane);
+        foreach (var point in surface.Faces.SelectMany(face => face.Points).Concat(surface.Rim))
+        {
+            var local = image.CoordinateSystem.ToLocalPoint(new Vector3D(point.X, point.Y, point.Z));
+            Assert.InRange(Math.Abs(local.Z - (.02 * local.X * local.X + .01 * local.Y * local.Y + .003 * local.X * local.Y)), 0, 1e-10);
+        }
+        var mapped = Assert.Single(WorkbenchMapper.ToScene3Dto(core).Surfaces, s => s.IsImageSurface);
+        Assert.Equal(surface.SurfaceNumber, mapped.SurfaceNumber);
+        Assert.Equal(surface.Rim.Select(p => (p.X, p.Y, p.Z)), mapped.Rim.Select(p => (p.X, p.Y, p.Z)));
+        Assert.DoesNotContain(new Layout2DBuilder(optic).Build3D(options: new LayoutBuildOptions(
+            LastSurface: image.Number - 1, RayCount: 0)).Surfaces, s => s.IsImageSurface);
+        Assert.Equal(before, System.Text.Json.JsonSerializer.Serialize(optic.ToSnapshot(), snapshotOptions));
+    }
+
+    [Viewer3DRenderTheory]
+    [InlineData(OpticSceneRenderMode.Solid, false, "Light")]
+    [InlineData(OpticSceneRenderMode.Transparent, false, "Light")]
+    [InlineData(OpticSceneRenderMode.Wireframe, false, "Light")]
+    [InlineData(OpticSceneRenderMode.Solid, true, "Dark")]
+    [InlineData(OpticSceneRenderMode.Transparent, true, "Dark")]
+    [InlineData(OpticSceneRenderMode.Wireframe, true, "Dark")]
+    public async Task UnselectedImageSurfaceIsVisibleWithoutRaysAndStaysWholeInCutaway(
+        OpticSceneRenderMode mode, bool cutaway, string theme)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(Viewer3DGeometryTests));
+        await session.Dispatch(async () =>
+        {
+            ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
+            using var app = WorkbenchApplication.Create();
+            await app.Documents.OpenAsync(ConfigurationMatrixAnalysisTests.ZoomPath());
+            var dto = await app.Visualization.BuildSceneAsync(new VisualizationRequestDto(SceneDimension.ThreeDimensional, RayCount: 3));
+            var source = dto.ThreeDimensional!;
+            var image = Assert.Single(source.Surfaces, s => s.IsImageSurface);
+            Assert.True(image.Rim.Max(p => p.X) - image.Rim.Min(p => p.X) > .1);
+            Assert.True(image.Rim.Max(p => p.Y) - image.Rim.Min(p => p.Y) > .1);
+            var revision = app.Events.Revision;
+            var control = new OpticSceneControl
+            {
+                Scene = dto, ViewMode = OpticSceneViewMode.ThreeDimensional,
+                VisualStyle = OpticSceneVisualStyle.SolidModel, RenderMode = mode,
+                ShowRays = false, CutawayEnabled = cutaway
+            };
+            var window = new Window { Content = control, Width = 800, Height = 560 };
+            try
+            {
+                window.Show(); Tick(window);
+                var visible = RenderPixels(control);
+                Capture(window, $"image-surface-{mode}-{cutaway}-{theme}.png");
+                var unmarked = dto with { ThreeDimensional = source with
+                { Surfaces = source.Surfaces.Select(s => s with { IsImageSurface = false }).ToArray() } };
+                control.Scene = unmarked; Tick(window);
+                Assert.True(ChangedPixels(visible, RenderPixels(control), 800, new PixelRect(0, 0, 800, 560)) > 100,
+                    "An unselected image surface must produce visible reference pixels even with rays hidden.");
+                // The ordinary 3D Layout keeps its existing reference drawing.
+                control.VisualStyle = OpticSceneVisualStyle.OpticalLayout; Tick(window);
+                var layoutWithoutFlag = RenderPixels(control);
+                control.Scene = dto; Tick(window);
+                Assert.Equal(layoutWithoutFlag, RenderPixels(control));
+                // Only the real image surface is isolated here; cutaway must not clip it.
+                control.VisualStyle = OpticSceneVisualStyle.SolidModel;
+                control.Scene = dto with { ThreeDimensional = source with { Surfaces = [image], LensElements = [], Rays = [] } };
+                control.CutawayEnabled = false; Tick(window);
+                var whole = RenderPixels(control);
+                control.CutawayEnabled = true; Tick(window);
+                Assert.Equal(whole, RenderPixels(control));
+                Assert.Empty(control.GlassMaterials);
+                Assert.Equal(revision, app.Events.Revision);
+                Assert.Same(source, dto.ThreeDimensional);
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
+    }
+
+    [Viewer3DRenderTheory]
+    [InlineData("Light")]
+    [InlineData("Dark")]
+    public async Task SolidModelRemovesTheLowerRightGizmoAndKeepsTheLabelledTriad(string theme)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(Viewer3DGeometryTests));
+        await session.Dispatch(() =>
+        {
+            ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
+            using var app = WorkbenchApplication.Create();
+            var dto = new SceneDto(0, SceneDimension.ThreeDimensional, null,
+                new Scene3Dto([], [], [], 1, 1, 0, 10), app.Documents.GetSnapshot());
+            var control = new OpticSceneControl { ViewMode = OpticSceneViewMode.ThreeDimensional,
+                VisualStyle = OpticSceneVisualStyle.SolidModel, ShowScaleBar = false };
+            var window = new Window { Content = control, Width = 600, Height = 400 };
+            try
+            {
+                window.Show(); Tick(window);
+                var background = RenderPixels(control);
+                control.Scene = dto; Tick(window);
+                var solid = RenderPixels(control);
+                var right = new PixelRect(525, 325, 65, 65);
+                var left = new PixelRect(5, 300, 100, 95);
+                Assert.Equal(0, ChangedPixels(background, solid, 600, right));
+                Assert.True(ChangedPixels(background, solid, 600, left) > 80);
+                control.VisualStyle = OpticSceneVisualStyle.OpticalLayout;
+                control.Scene = null; Tick(window);
+                var layoutBackground = RenderPixels(control);
+                control.Scene = dto; Tick(window);
+                Assert.True(ChangedPixels(layoutBackground, RenderPixels(control), 600, right) > 500);
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
     }
 
     [Theory]
@@ -522,5 +648,40 @@ public sealed class Viewer3DGeometryTests
         Directory.CreateDirectory(directory);
         using var bitmap = new RenderTargetBitmap(new PixelSize((int)window.Width, (int)window.Height), new Vector(96, 96));
         bitmap.Render(window); bitmap.Save(Path.Combine(directory, name), PngBitmapEncoderOptions.Default);
+    }
+
+    private static byte[] RenderPixels(Control control)
+    {
+        var size = new PixelSize((int)control.Bounds.Width, (int)control.Bounds.Height);
+        using var image = new RenderTargetBitmap(size, new Vector(96, 96));
+        image.Render(control);
+        var stride = size.Width * 4;
+        var bytes = new byte[stride * size.Height];
+        var pointer = Marshal.AllocHGlobal(bytes.Length);
+        try { image.CopyPixels(new PixelRect(size), pointer, bytes.Length, stride); Marshal.Copy(pointer, bytes, 0, bytes.Length); }
+        finally { Marshal.FreeHGlobal(pointer); }
+        return bytes;
+    }
+
+    private static int ChangedPixels(byte[] first, byte[] second, int width, PixelRect region)
+    {
+        Assert.Equal(first.Length, second.Length);
+        var changed = 0;
+        for (var y = region.Y; y < region.Bottom; y++)
+            for (var x = region.X; x < region.Right; x++)
+            {
+                var offset = (y * width + x) * 4;
+                if (!first.AsSpan(offset, 4).SequenceEqual(second.AsSpan(offset, 4))) changed++;
+            }
+        return changed;
+    }
+
+    private sealed class Viewer3DRenderTheoryAttribute : TheoryAttribute
+    {
+        public Viewer3DRenderTheoryAttribute()
+        {
+            if (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(CaptureDirectory)))
+                Skip = "Set the viewer3d capture directory to run independent Skia pixel checks.";
+        }
     }
 }

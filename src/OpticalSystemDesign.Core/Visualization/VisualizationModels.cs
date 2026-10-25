@@ -118,7 +118,8 @@ public sealed record Layout3DSurfacePrimitive(
     IReadOnlyList<Layout3DPoint> Rim,
     IReadOnlyList<Layout3DPoint> MeridianY,
     IReadOnlyList<Layout3DPoint> MeridianX,
-    IReadOnlyList<Layout3DSurfaceFace> Faces);
+    IReadOnlyList<Layout3DSurfaceFace> Faces,
+    bool IsImageSurface = false);
 
 public sealed record Layout3DLensElement(
     int FrontSurfaceNumber,
@@ -351,7 +352,8 @@ public sealed class Layout2DBuilder
                 rim,
                 meridianY,
                 meridianX,
-                BuildSurfaceFaces(surface, semiDiameter, surfaceSamples, rimSamples)));
+                BuildSurfaceFaces(surface, semiDiameter, surfaceSamples, rimSamples),
+                IsImageSurface: surface.Number == surfaceCount - 1));
         }
 
         return primitives;

@@ -1,0 +1,26 @@
+{
+  "Format": "OpticalSystemDesign.CameraSensor",
+  "SchemaVersion": 1,
+  "Name": "Generic 3um laboratory sensor",
+  "Source": "Synthetic editable example; not a measured vendor sensor",
+  "Sensor": {
+    "ExposureMilliseconds": 10,
+    "PixelPitchMicrometers": 3,
+    "ReferenceIrradiance": 0.02,
+    "RedQe": 0.5,
+    "GreenQe": 0.6,
+    "BlueQe": 0.45,
+    "FullWellElectrons": 10000,
+    "ReadNoiseElectrons": 2,
+    "DarkElectronsPerSecond": 0.1,
+    "PrnuPercent": 1,
+    "DsnuElectrons": 0.5,
+    "GainDnPerElectron": 0.35,
+    "BlackLevel": 64,
+    "BitDepth": 12,
+    "NoiseEnabled": true,
+    "Seed": 42,
+    "Pattern": "RGGB"
+  },
+  "SpectralResponse": null
+}

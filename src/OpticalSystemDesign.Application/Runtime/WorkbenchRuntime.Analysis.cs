@@ -375,7 +375,7 @@ public partial class WorkbenchRuntime
             "Field Curvature and Distortion" => new FieldCurvatureAndDistortionAnalysis(
                 CurrentOptic,
                 Int("NumPoints", 128),
-                Double("ParabasalDelta", 1e-3),
+                Double("ParabasalDelta", CurrentOptic.ImageSpaceAfocal ? FieldCurvatureMetrics.DefaultAfocalPupilDelta : 1e-3),
                 Double("MaximumCurvature", 0),
                 Text("DistortionType", "F-Tan(Theta)"),
                 Int("WavelengthNumber", 0),
@@ -384,7 +384,7 @@ public partial class WorkbenchRuntime
                 Int("ReferenceFieldNumber", 1),
                 Bool("IgnoreVignettingFactors", true),
                 Double("MaximumDistortion", 0),
-                Bool("ChiefRayParabasal", true) ? ParabasalRayPair.ChiefAndPositive : ParabasalRayPair.Symmetric),
+                Bool("ChiefRayParabasal", !CurrentOptic.ImageSpaceAfocal) ? ParabasalRayPair.ChiefAndPositive : ParabasalRayPair.Symmetric),
             "Grid Distortion" => new GridDistortionAnalysis(
                 CurrentOptic,
                 Int("NumPoints", 12),
@@ -398,12 +398,12 @@ public partial class WorkbenchRuntime
             "Field Curvature" => new FieldCurvatureAnalysis(
                 CurrentOptic,
                 Int("NumPoints", 128),
-                Double("ParabasalDelta", 1e-3),
+                Double("ParabasalDelta", CurrentOptic.ImageSpaceAfocal ? FieldCurvatureMetrics.DefaultAfocalPupilDelta : 1e-3),
                 Double("MaximumCurvature", 0),
                 Int("WavelengthNumber", 0),
                 Text("ScanDirection", "+y"),
                 Bool("IgnoreVignettingFactors", true),
-                Bool("ChiefRayParabasal", true) ? ParabasalRayPair.ChiefAndPositive : ParabasalRayPair.Symmetric),
+                Bool("ChiefRayParabasal", !CurrentOptic.ImageSpaceAfocal) ? ParabasalRayPair.ChiefAndPositive : ParabasalRayPair.Symmetric),
             "Color Focus Shift" => new ColorFocusShiftAnalysis(
                 CurrentOptic,
                 Double("MaximumShift", 0),

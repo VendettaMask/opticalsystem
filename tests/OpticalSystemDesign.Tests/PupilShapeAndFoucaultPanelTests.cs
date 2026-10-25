@@ -81,8 +81,8 @@ public sealed class PupilShapeAndFoucaultPanelTests
             ThemeApplicationService.Apply(global::Avalonia.Application.Current!, "Light");
             var runtime = new WorkbenchRuntime(Optic.CreateCookeTriplet());
             var grid = new Grid { ColumnDefinitions = new("*,*"), RowDefinitions = new("*,*") };
-            Add("Entrance pupil coordinates", Build<WavefrontSurfaceControl>("BuildWavefrontMapPlot", WavefrontView(runtime, false, "伪彩色")), 0, 0);
-            Add("Exit pupil F-number projection", Build<WavefrontSurfaceControl>("BuildWavefrontMapPlot", WavefrontView(runtime, true, "伪彩色")), 0, 1);
+            Add("Entrance pupil coordinates", Build<WavefrontSurfaceControl>("BuildWavefrontMapPlot", WavefrontView(runtime, false, "二维热力图")), 0, 0);
+            Add("Exit pupil F-number projection", Build<WavefrontSurfaceControl>("BuildWavefrontMapPlot", WavefrontView(runtime, true, "二维热力图")), 0, 1);
             Add("Physical knife: linear intensity", Build<FoucaultPlotControl>("BuildFoucaultPlot", FoucaultView(runtime, "线性")), 1, 0);
             Add("Physical knife: logarithmic display", Build<FoucaultPlotControl>("BuildFoucaultPlot", FoucaultView(runtime, "对数")), 1, 1);
             var window = new Window { Content = grid, Width = 1240, Height = 940 };

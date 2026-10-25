@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-25",
+  "scope": "Camera laboratory continuous spectral integration; local source and default Release output",
+  "implementation": {
+    "model": "CameraLabV3-Continuous",
+    "defaultModelRetained": "CameraLabV1/CameraLabV2-QE three-band model",
+    "illuminantUnits": "Absolute ideal-white image-plane spectral irradiance, W/m^2/nm",
+    "reflectanceUnits": "Fraction 0–1, or explicitly labeled percent converted to fraction",
+    "spatialScene": "One material reflectance spectrum, modulated by linear grayscale .2126R+.7152G+.0722B",
+    "quadrature": "Merged input knots plus bounded subdivision, 3-point Gauss-Legendre per interval",
+    "optics": "Shared Core PSF, distortion and relative illumination at every quadrature wavelength, or explicit ideal optical control",
+    "sensor": "Integrate expected charge before a single shared noise/full-well/ADC/ISP operation",
+    "limits": { "maximumNodes": 36864, "maximumCurrentLensNodes": 32, "maximumNonIdentityPixelNodes": 100000000, "maximumCurrentLensConvolutionOperations": 300000000, "maximumInputFileBytes": 1048576, "maximumInputSamples": 4096 },
+    "denseIdealOptics": "Identity optical transfer sums spectral coefficients once before applying the spatial mask, preserving all knots without pixel-times-node work",
+    "defaults": { "minimumNanometers": 400, "maximumNanometers": 700, "maximumIntervalNanometers": 100 },
+    "export": ["Per-run metadata and frozen provenance", "illuminant.csv", "reflectance.csv", "integration.csv", "Existing sensor-profile.json, QE, RAW and PNG files"]
+  },
+  "verification": {
+    "distinctCurrentCasesPassed": 71,
+    "newCases": 23,
+    "numericAndFiles": 60,
+    "windowAndLayering": 11,
+    "failed": 0,
+    "skipped": 0,
+    "selection": "continuous-dense-final.trx 21 cases + CameraSensorFileTests 15 cases from continuous-final.trx + CameraSensorPipelineTests/CameraSpectralResponseTests/CameraImagingServiceTests 24 cases from continuous-numerical.trx + continuous-ui.trx 11 cases. Later UI rechecks repeat the two new theory cases. The superseded visible-coverage-on-import inline case is retained in raw history but excluded from current totals.",
+    "flatIntegral": {
+      "expectedRgbElectrons": [747.5663102800925, 1495.132620560185, 2242.698930840277],
+      "actualRgbElectrons": [747.5663102800926, 1495.1326205601852, 2242.698930840277],
+      "maximumAbsoluteErrorElectrons": 2.27373675443232e-13,
+      "illuminantIrradianceWattsPerSquareMeter": 0.03,
+      "reflectedIrradianceWattsPerSquareMeter": 0.015,
+      "noiselessRawRmseDn": 0
+    },
+    "linearProductAntiderivative": { "expectedElectrons": 2538.1008910236833, "coarseElectrons": 2538.1008910236833, "fineElectrons": 2538.1008910236833, "coarseNodes": 15, "fineNodes": 90 },
+    "nonlinearTransferConvergence": { "reference": "Closed form integral of lambda*exp(.01*(lambda-400))", "maximumIntervalsNanometers": [100, 50, 25], "relativeErrors": [9.417582391701984e-7, 1.515269454355206e-8, 2.3852031461046863e-10] },
+    "shotPlusReadNoise": { "samples": 16384, "expectedMeanElectrons": 747.5663102800925, "actualMeanElectrons": 747.4070778396143, "expectedVariance": 756.5663102800925, "actualVariance": 756.0068922239324, "varianceRelativeErrorPercent": -0.0739417085533489 },
+    "currentLens": { "quadratureWavelengths": 9, "effectiveMode": "Geometric", "fallbacks": 0, "meanPhotoElectrons": 562.3893658090569, "prescriptionUnchanged": true, "authority": "Shared-path integration check only, not external numerical certification" },
+    "additional": ["Narrow 532 nm peak retains its input area", "Dense 1 nm curve: all 301 knots and 900 nodes retained, 512x512 ideal result matches independent formula and streamed identity transfer", "Exposure, source and reflectance scaling", "Zero illuminant", "Infrared data without legacy visible QE coverage", "Strict units, finite values, ordering and full-range coverage", "Global aggregate work budget", "Cancellation", "Frozen A/B spectra and export/reimport", "Original three-band physics and RAW regressions", "Nullable UI range disables run safely", "Typed spectral axes and selectable legends preserve plot options"],
+    "visual": "Actual Skia Light/Dark full illuminant/reflectance plots, legacy A versus continuous B, existing window captures; inspected, not native desktop acceptance",
+    "build": "Default Release App output, zero warnings and errors",
+    "documentation": "Strict documentation audit and scoped tracked/untracked whitespace checks",
+    "documentationNotes": "First strict scan found CODE_READING_MAP pointing to a removed historical-method heading in the concurrently updated InitialStructure README; repaired the incoming link to the current module guide and retained the failed audit report.",
+    "earlyBuild": "Initial App build blocked by concurrent InitialStructure AutoLensReferenceDesign.cs CS0103 AutoLensReferenceHandoff; later module update allowed normal default-output builds. No unrelated code was changed to work around it.",
+    "evidenceArchive": "validation/rechecks/2026-10-25/camera-continuous-evidence.zip"
+  },
+  "limitations": ["No RGB-to-spectrum reconstruction or per-pixel material assignment", "No 3D illuminant geometry/BRDF or absolute lens throughput calibration", "No pixel-area integration, angular QE or vendor ISP added", "Different input/energy semantics between models; A/B is not an integration-error metric", "No new Zemax, EMVA or ImSym/Speos certification", "No full repository run, package publication or installed app replacement"]
+}

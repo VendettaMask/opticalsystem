@@ -249,9 +249,11 @@ public static partial class WorkbenchAnalysisCatalog
             "analysis-mtf",
             "analysis-fourier-through-focus-mtf",
             "analysis-fourier-mtf-field",
+            "-",
             "analysis-huygens-mtf",
             "analysis-huygens-through-focus-mtf",
             "analysis-huygens-mtf-field",
+            "-",
             "analysis-geometric-mtf",
             "analysis-geometric-through-focus-mtf",
             "analysis-geometric-mtf-field"

@@ -313,7 +313,8 @@ internal static class WorkbenchMapper
                  surface.MeridianX.Select(Point).ToArray(),
                  surface.Faces.Select(face => new SceneSurfaceFace3Dto(
                      face.Points.Select(Point).ToArray())).ToArray(),
-                 surface.IsStandaloneStop)).ToArray(),
+                 surface.IsStandaloneStop,
+                 IsImageSurface: surface.IsImageSurface)).ToArray(),
             scene.LensElements.Select(element => new SceneLensElement3Dto(
                 element.FrontSurfaceNumber,
                 element.BackSurfaceNumber,

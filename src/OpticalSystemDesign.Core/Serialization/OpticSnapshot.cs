@@ -22,7 +22,9 @@ public sealed record OpticSnapshot(
     List<SurfaceValuePickupSnapshot>? ThicknessPickups = null,
     List<SurfaceValuePickupSnapshot>? SemiDiameterPickups = null,
     int GlobalReferenceSurfaceNumber = 1,
-    PolarizationSnapshot? Polarization = null);
+    PolarizationSnapshot? Polarization = null,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    OpticalSystemDesign.Core.Domain.ReferenceOpdMode? ReferenceOpd = null);
 
 public sealed record PolarizationSnapshot(bool Unpolarized, double Jx, double Jy,
     double XPhaseDegrees, double YPhaseDegrees, string ReferenceAxis);

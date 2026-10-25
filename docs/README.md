@@ -12,6 +12,7 @@
 | 核对 AutoLens 原版优化规则 | [e58 逐项对齐、测试范围与保留差异](AUTOLENS_UPSTREAM_ALIGNMENT_2026-10-24.md)、[阶段交接修正](AUTOLENS_HANDOFF_REPAIR_2026-10-25.md) |
 | 维护代码与界面 | [架构](ARCHITECTURE.md)、[代码地图](CODE_READING_MAP.md)、[UI 规范](UI_DESIGN_SPEC.md)、[协作约束](../AGENTS.md) |
 | 查询文件和数值边界 | [文件格式](FILE_FORMATS_AND_PLUGINS.md)、[数值验证](NUMERICAL_PARITY.md)、[操作数支持](ZEMAX_OPERAND_SUPPORT.md) |
+| 一键导出镜头、布局与分析截图 | [Markdown 光学设计报告](MARKDOWN_REPORT_EXPORT.md) |
 
 ## 当前指南与功能契约
 
@@ -33,8 +34,11 @@
 - [非序列光源](NONSEQUENTIAL_SOURCES.md)
 - [非序列模式 Zemax 工作流对齐路线图](NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md)
 - [数值验证与冻结历史回归](NUMERICAL_PARITY.md)
+- [四无焦项目修复、复比与未关闭项（2026-10-24）](AFOCAL_REPAIR_2026-10-24.md)
 - [计算精度与发布待解决问题分类](OPEN_ISSUES_2026-10-08.md)
 - [光学装调实验室](OPTICAL_ASSEMBLY_LAB.md)
+- [相机成像仿真实验室：传感器、ISP 与 A/B 对照](CAMERA_IMAGING_LAB.md)
+- [镀膜、装调与相机实验室界面改版（2026-10-24）](LABORATORY_PRESENTATION_2026-10-24.md)
 - [优化算法真实性与兼容策略](OPTIMIZATION_ALGORITHMS.md)
 - [产品能力与格式兼容矩阵](PARITY_MATRIX.md)
 - [镜头数据求解入口](RADIUS_SOLVE_EDITOR.md)

@@ -155,6 +155,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
     }
 
     private IReadOnlyList<AnalysisSeries> _series = Array.Empty<AnalysisSeries>();
+    private IReadOnlyList<AnalysisSeries> _sourceSeries = Array.Empty<AnalysisSeries>();
     private AnalysisPlotOptions _plotOptions = new();
     private PlotViewport? _viewport;
     private Rect _lastPlot;
@@ -180,9 +181,18 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         set
         {
             _series = value ?? Array.Empty<AnalysisSeries>();
+            _sourceSeries = _series;
             ResetView();
             InvalidateVisual();
         }
+    }
+
+    internal void SetVisibleSeries(IReadOnlyList<AnalysisSeries> series)
+    {
+        // Legend filtering changes the drawn data, not the result's axes or view.
+        _series = series;
+        _hoverPointer = null;
+        InvalidateVisual();
     }
 
     public AnalysisPlotOptions PlotOptions
@@ -199,6 +209,8 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
     public void ResetView()
     {
         _viewport = null;
+        _lastPlot = default;
+        _lastRenderedViewport = default;
         _hoverPointer = null;
         InvalidateVisual();
     }
@@ -227,6 +239,8 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             }
             if (pointCount == 0)
             {
+                if (_sourceSeries.Any(series => series.Points.Any(IsFinite)))
+                    return $"{title}；所有数据系列已隐藏，坐标和网格保留。";
                 return $"{title}；没有可用数据。";
             }
             var names = string.Join("，", _series.Select(series => series.Name)
@@ -418,18 +432,24 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
     {
         base.Render(context);
         context.DrawRectangle(ThemeBrush(ThemeResourceBindings.PlotBackground, BackgroundBrush), null, Bounds);
-        var visibleSeries = NormalizeSeriesUnits(Series)
+        var axisSeries = NormalizeSeriesUnits(_sourceSeries)
             .Select(item => (Series: item, Points: item.Points.Where(IsFinite).ToArray()))
             .Where(item => item.Points.Length > 0)
             .ToArray();
-        if (visibleSeries.Length == 0 || Bounds.Width < 48 || Bounds.Height < 48)
+        if (axisSeries.Length == 0 || Bounds.Width < 48 || Bounds.Height < 48)
         {
             InteractiveCanvasFocus.Draw(context, this);
             return;
         }
 
         var compact = Bounds.Width < 160 || Bounds.Height < 140;
-        var primarySeries = visibleSeries[0].Series;
+        var primarySeries = axisSeries[0].Series;
+        var visibleSeries = ReferenceEquals(_series, _sourceSeries)
+            ? axisSeries
+            : _series.Select(item => NormalizeSeriesUnits(item, primarySeries))
+                .Select(item => (Series: item, Points: item.Points.Where(IsFinite).ToArray()))
+                .Where(item => item.Points.Length > 0)
+                .ToArray();
         var primaryXAxisLabel = AnalysisAxisFormatting.FormatLabel(
             primarySeries.XAxisLabel,
             primarySeries.XQuantity,
@@ -444,7 +464,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             PlotOptions.HideTickLabels,
             primaryXAxisLabel,
             primaryYAxisLabel);
-        var legendItems = visibleSeries.Where(item => !string.IsNullOrWhiteSpace(item.Series.Name)).ToArray();
+        var legendItems = axisSeries.Where(item => !string.IsNullOrWhiteSpace(item.Series.Name)).ToArray();
         var legendBelow = !compact
             && PlotOptions.ShowLegend
             && PlotOptions.LegendBelow
@@ -453,7 +473,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             ? Math.Min(190, Bounds.Width * 0.28)
             : 0;
         var legendBelowHeight = legendBelow ? 32.0 : 0;
-        var valueSeries = visibleSeries
+        var valueSeries = axisSeries
             .Where(item => item.Series.Kind is AnalysisSeriesKind.Heatmap or AnalysisSeriesKind.ColoredLine)
             .Select(item => item.Series)
             .FirstOrDefault();
@@ -498,12 +518,12 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             Math.Max(1, Bounds.Width - left - right),
             Math.Max(1, Bounds.Height - top - bottom));
 
-        var allPoints = visibleSeries.SelectMany(item => item.Points).ToArray();
+        var allPoints = axisSeries.SelectMany(item => item.Points).ToArray();
         var xMin = PlotOptions.XMinimum ?? allPoints.Min(point => point.X);
         var xMax = PlotOptions.XMaximum ?? allPoints.Max(point => point.X);
         var yMin = PlotOptions.YMinimum ?? allPoints.Min(point => point.Y);
         var yMax = PlotOptions.YMaximum ?? allPoints.Max(point => point.Y);
-        if (visibleSeries.Any(item => item.Series.Kind == AnalysisSeriesKind.Bar))
+        if (axisSeries.Any(item => item.Series.Kind == AnalysisSeriesKind.Bar))
         {
             yMin = Math.Min(0, yMin);
             yMax = Math.Max(0, yMax);
@@ -573,7 +593,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         {
             DrawAxisLabels(
                 context,
-                visibleSeries[0].Series,
+                primarySeries,
                 plot,
                 PlotOptions.HideTickLabels);
         }

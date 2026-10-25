@@ -119,19 +119,25 @@ public sealed class DistortionAnalysis : BaseAnalysis
                     : _displayMode == "absolute"
                         ? actualRadius - predictedRadius
                         : 100.0 * (actualRadius - predictedRadius) / predictedRadius;
+                // Afocal distortion uses direction tangents, not atan angles.
+                // Remove the helper's 1000 scale for the absolute dimensionless
+                // difference, matching native Real/Reference tangent output.
+                if (_displayMode == "absolute" && workingOptic.ImageSpaceAfocal) distortion /= 1000;
                 var displayField = displayFields[index];
                 maximumAbsoluteDistortion = Math.Max(maximumAbsoluteDistortion, Math.Abs(distortion));
                 points[index] = new AnalysisPoint(distortion, displayField.Coordinate, displayField.Label);
             }
 
             series.Add(new AnalysisSeries(
-                _displayMode == "absolute" ? "Distortion (mm)" : "Distortion (%)",
+                _displayMode == "absolute" ? workingOptic.ImageSpaceAfocal ? "Distortion (Δtan θ)" : "Distortion (mm)" : "Distortion (%)",
                 fieldAxisLabel,
                 points,
                 Name: $"{wavelength.Micrometers:0.0000} \u00B5m",
                 ColorIndex: wavelengthIndex,
                 XQuantity: AnalysisAxisQuantity.Distortion,
-                XUnit: _displayMode == "absolute" ? AnalysisAxisUnit.Millimeter : AnalysisAxisUnit.Percent,
+                XUnit: _displayMode == "absolute"
+                    ? workingOptic.ImageSpaceAfocal ? AnalysisAxisUnit.Dimensionless : AnalysisAxisUnit.Millimeter
+                    : AnalysisAxisUnit.Percent,
                 YQuantity: AnalysisTrace.FieldAxisQuantity(displayReference),
                 YUnit: AnalysisTrace.FieldAxisUnit(displayReference)));
         }
@@ -150,7 +156,9 @@ public sealed class DistortionAnalysis : BaseAnalysis
             ["Applicability"] = "Strictly valid for rotationally symmetric systems with plane object and image surfaces; generalized otherwise.",
             ["Samples"] = fields.Count,
             ["WavelengthCount"] = wavelengths.Length,
-            [_displayMode == "absolute" ? "MaximumAbsoluteDistortionMillimeters" : "MaximumAbsoluteDistortionPercent"] = maximumAbsoluteDistortion
+            [_displayMode == "absolute"
+                ? workingOptic.ImageSpaceAfocal ? "MaximumAbsoluteDistortionTangent" : "MaximumAbsoluteDistortionMillimeters"
+                : "MaximumAbsoluteDistortionPercent"] = maximumAbsoluteDistortion
         };
         if (_distortionType == "smia-tv" && wavelengths.Length > 0)
         {
@@ -268,7 +276,7 @@ public sealed class FieldCurvatureAndDistortionAnalysis : BaseAnalysis
     public FieldCurvatureAndDistortionAnalysis(
         Optic optic,
         int numPoints = 128,
-        double parabasalDelta = 1e-5,
+        double parabasalDelta = 0,
         double maximumCurvature = 0,
         string distortionType = "f-tan",
         int wavelengthNumber = 0,
@@ -353,7 +361,7 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
     public FieldCurvatureAnalysis(
         Optic optic,
         int numPoints = 128,
-        double parabasalDelta = 1e-5,
+        double parabasalDelta = 0,
         double maximumCurvature = 0,
         int wavelengthNumber = 0,
         string scanDirection = "+y",
@@ -363,7 +371,9 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
         if (!Enum.IsDefined(parabasalRayPair)) throw new ArgumentOutOfRangeException(nameof(parabasalRayPair));
         _parabasalRayPair = parabasalRayPair;
         _numPoints = Math.Max(2, numPoints);
-        _parabasalDelta = Math.Abs(parabasalDelta) <= 1e-12 ? 1e-5 : Math.Abs(parabasalDelta);
+        _parabasalDelta = Math.Abs(parabasalDelta) <= 1e-12
+            ? optic.ImageSpaceAfocal ? FieldCurvatureMetrics.DefaultAfocalPupilDelta : 1e-5
+            : Math.Abs(parabasalDelta);
         _maximumCurvature = Math.Max(0, maximumCurvature);
         _wavelengthNumber = Math.Max(0, wavelengthNumber);
         _scanDirection = AnalysisTrace.NormalizeScanDirection(scanDirection);
@@ -396,7 +406,14 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
                 var field = fields[index];
                 var scanUsesX = _scanDirection.EndsWith('x');
                 double tangentialDelta, sagittalDelta;
-                if (_parabasalRayPair == ParabasalRayPair.ChiefAndPositive)
+                if (workingOptic.ImageSpaceAfocal)
+                {
+                    var components = FieldCurvatureMetrics.AfocalVergences(
+                        workingOptic, field.Hx, field.Hy, wavelength.Micrometers, _parabasalDelta, _parabasalRayPair);
+                    (tangentialDelta, sagittalDelta) = scanUsesX
+                        ? (components.Sagittal, components.Tangential) : (components.Tangential, components.Sagittal);
+                }
+                else if (_parabasalRayPair == ParabasalRayPair.ChiefAndPositive)
                 {
                     var components = FieldCurvatureMetrics.GeneralizedImagePlaneDeltas(
                         workingOptic, field.Hx, field.Hy, wavelength.Micrometers, _parabasalDelta);
@@ -427,24 +444,24 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
 
             var wavelengthLabel = $"{wavelength.Micrometers:0.0000} \u00B5m";
             series.Add(new AnalysisSeries(
-                "Image Plane Delta (mm)",
+                workingOptic.ImageSpaceAfocal ? "Vergence (D)" : "Image Plane Delta (mm)",
                 fieldAxisLabel,
                 tangential,
                 Name: $"{wavelengthLabel}, Tangential",
                 ColorIndex: wavelengthIndex,
                 XQuantity: AnalysisAxisQuantity.Defocus,
-                XUnit: AnalysisAxisUnit.Millimeter,
+                XUnit: workingOptic.ImageSpaceAfocal ? AnalysisAxisUnit.Diopter : AnalysisAxisUnit.Millimeter,
                 YQuantity: AnalysisTrace.FieldAxisQuantity(workingOptic),
                 YUnit: AnalysisTrace.FieldAxisUnit(workingOptic)));
             series.Add(new AnalysisSeries(
-                "Image Plane Delta (mm)",
+                workingOptic.ImageSpaceAfocal ? "Vergence (D)" : "Image Plane Delta (mm)",
                 fieldAxisLabel,
                 sagittal,
                 Name: $"{wavelengthLabel}, Sagittal",
                 LineStyle: AnalysisLineStyle.Dashed,
                 ColorIndex: wavelengthIndex,
                 XQuantity: AnalysisAxisQuantity.Defocus,
-                XUnit: AnalysisAxisUnit.Millimeter,
+                XUnit: workingOptic.ImageSpaceAfocal ? AnalysisAxisUnit.Diopter : AnalysisAxisUnit.Millimeter,
                 YQuantity: AnalysisTrace.FieldAxisQuantity(workingOptic),
                 YUnit: AnalysisTrace.FieldAxisUnit(workingOptic)));
         }
@@ -463,8 +480,8 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
             ["IgnoreVignettingFactors"] = _ignoreVignettingFactors,
             ["VignettingFactorsApplied"] = !_ignoreVignettingFactors,
             ["Applicability"] = "Strictly valid for rotationally symmetric systems with plane object and image surfaces; generalized otherwise.",
-            ["MaximumTangentialFieldCurvatureMillimeters"] = maximumTangentialFieldCurvature,
-            ["MaximumSagittalFieldCurvatureMillimeters"] = maximumSagittalFieldCurvature,
+            [workingOptic.ImageSpaceAfocal ? "MaximumTangentialFieldCurvatureDiopters" : "MaximumTangentialFieldCurvatureMillimeters"] = maximumTangentialFieldCurvature,
+            [workingOptic.ImageSpaceAfocal ? "MaximumSagittalFieldCurvatureDiopters" : "MaximumSagittalFieldCurvatureMillimeters"] = maximumSagittalFieldCurvature,
             ["MaximumAbsoluteImagePlaneDelta"] = maximumAbsoluteDelta
         };
         return new AnalysisData(Name, values, first, series, new AnalysisPlotOptions(

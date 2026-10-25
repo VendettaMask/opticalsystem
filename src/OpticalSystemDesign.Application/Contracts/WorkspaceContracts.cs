@@ -966,7 +966,8 @@ public enum AnalysisAxisUnit
     PartsPerMillionPerKelvin,
     Watt,
     CyclesPerMilliradian,
-    Diopter
+    Diopter,
+    WattsPerSquareMeterPerNanometer
 }
 
 public sealed record AnalysisPointDto(
@@ -1299,7 +1300,8 @@ public sealed record SceneSurface3Dto(
     IReadOnlyList<SceneSurfaceFace3Dto> Faces,
     bool IsStandaloneStop = false,
     SceneSurfaceRenderRole RenderRole = SceneSurfaceRenderRole.OpticalSurface,
-    double? DisplayWavelengthNanometers = null);
+    double? DisplayWavelengthNanometers = null,
+    bool IsImageSurface = false);
 
 public sealed record SceneLensElement3Dto(
     int FrontSurfaceNumber,

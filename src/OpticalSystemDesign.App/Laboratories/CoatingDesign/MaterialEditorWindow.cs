@@ -29,6 +29,7 @@ public sealed class MaterialEditorWindow : Window
         Button Button(string text, Func<Task> action, bool primary = false)
         {
             var button = new Button { Content = text, Margin = new Thickness(0, 0, 8, 4) };
+            button.Classes.Add("lab-command");
             AutomationProperties.SetName(button, text);
             if (primary) button.Classes.Add("accent");
             button.Click += async (_, _) => { try { await action(); } catch (Exception e) { _status.Text = e.Message; } };
@@ -57,19 +58,25 @@ public sealed class MaterialEditorWindow : Window
         Button("取消", () => { Close(null); return Task.CompletedTask; });
         var form = new StackPanel
         {
-            Spacing = 8,
+            Spacing = 8, Margin = new Thickness(12),
             Children = {
             new TextBlock { Text = "选择实验材料（修改会使旧计算失效）" }, selector,
             new TextBlock { Text = "材料名称" }, _name, new TextBlock { Text = "数据来源 / 制备条件" }, _source,
-            new TextBlock { Text = "表头 wavelength_nm,n,k 或 wavelength_um,n,k；波长严格递增，n > 0，k ≥ 0。解析色散材料只读，复制时须显式提供表格。", TextWrapping = TextWrapping.Wrap }, tools }
+            LaboratoryPresentation.Hint("表头 wavelength_nm,n,k 或 wavelength_um,n,k；波长严格递增，n > 0，k ≥ 0。解析色散材料只读，复制时须显式提供表格。") }
         };
-        var root = new Grid { Margin = new Thickness(16), RowDefinitions = new RowDefinitions("Auto,*,Auto"), RowSpacing = 8 };
-        root.Children.Add(form); Grid.SetRow(_data, 1); root.Children.Add(_data); Grid.SetRow(_status, 2); root.Children.Add(_status);
+        var root = new Grid { Margin = new Thickness(16), RowDefinitions = new("Auto,Auto,*,Auto,Auto"), RowSpacing = 12 };
+        root.Children.Add(LaboratoryPresentation.Heading("实验材料管理", "layers", page: true));
+        var properties = LaboratoryPresentation.Card(form); Grid.SetRow(properties, 1); root.Children.Add(properties);
+        _data.MinHeight = 160;
+        var data = LaboratoryPresentation.Card(new Border { Padding = new Thickness(8), Child = _data });
+        Grid.SetRow(data, 2); root.Children.Add(data); Grid.SetRow(tools, 3); root.Children.Add(tools);
+        var status = LaboratoryPresentation.Status(_status); Grid.SetRow(status, 4); root.Children.Add(status);
         ScrollViewer.SetHorizontalScrollBarVisibility(_data, ScrollBarVisibility.Auto);
         AutomationProperties.SetName(_data, "n/k 表格"); AutomationProperties.SetName(_name, "材料名称"); AutomationProperties.SetName(_source, "数据来源");
-        Content = root;
+        Content = MainWindowTitleBar.Wrap(this, root);
         if (selected is not null) selector.SelectedIndex = Array.FindIndex(materials, m => m.Id == selected.Id);
         else { _name.Text = "用户材料"; _source.Text = "用户模型示例，非测量数据"; _data.Text = MaterialTable.Example; }
+        LaboratoryPresentation.Apply(this);
     }
     private MaterialSnapshot Parse() => MaterialTable.Parse(_name.Text ?? "", _source.Text ?? "", _data.Text ?? "", _editingId);
     private void Populate(MaterialSnapshot material)

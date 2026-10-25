@@ -129,6 +129,7 @@ internal static class Host
                 "configurationCount", system.MCE.NumberOfConfigurations, "fields", fields, "wavelengths", waves,
                 "aperture", Properties(system.SystemData.Aperture), "units", Properties(system.SystemData.Units),
                 "rayAiming", Properties(system.SystemData.RayAiming), "environment", Properties(system.SystemData.Environment),
+                "advanced", Properties(system.SystemData.Advanced),
                 "surfaces", Enumerable.Range(0, system.LDE.NumberOfSurfaces).Select(i => Properties(system.LDE.GetSurfaceAt(i))).ToArray(),
                 "warnings", system.GetCurrentStatus()));
             if ((string)Request["adapter"] == "probe") return 0;

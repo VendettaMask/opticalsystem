@@ -1,0 +1,429 @@
+{
+  "SchemaVersion": 1,
+  "Date": "2026-10-24",
+  "BaseCommit": "3f877d3c3139245929f3732135376799f7887736",
+  "WorkingTreeDirty": true,
+  "Scope": "Solid Model virtual reference at the actual image surface; remove redundant lower-right orientation square while retaining the labelled lower-left triad.",
+  "Implementation": [
+    "Core Layout3DSurfacePrimitive and SceneSurface3Dto publish IsImageSurface",
+    "Reference uses actual transformed surface mesh/rim with translucent neutral fill and dashed border before rays and glass",
+    "Image reference remains whole in cutaway and visible with rays hidden in all three Solid Model modes",
+    "No image-role inference from labels, global Z or the last surface in a cropped view",
+    "Ordinary 3D Layout drawing and its orientation graphics unchanged"
+  ],
+  "CoreOpticalFormulasChangedByThisTask": false,
+  "PrescriptionChanged": false,
+  "SamplingChanged": false,
+  "TolerancesChanged": false,
+  "WorkspaceHasOtherCoreChanges": true,
+  "OtherWorkspaceChangesPreserved": true,
+  "OwnedCodeSources": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Controls/OpticSceneControl.cs",
+      "Sha256": "98d85765175e38572a33b2b99d21b401a08b27fd2023beec919f6d049ede3319"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs",
+      "Sha256": "e3ab9f6f5e5322f7e12cfc22382f6c46348491b7a05cab0b763b5320dcd1ddc7"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/Mapping/WorkbenchMapper.cs",
+      "Sha256": "456017f38036e0bfed852942fd87f2eb9558a226fa127593ee50de26bbae146b"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Visualization/VisualizationModels.cs",
+      "Sha256": "41f929fcfad0287ce9790a5017cdfc7868fb257bafe4f332e4fd22edf8a09f8b"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/Viewer3DGeometryTests.cs",
+      "Sha256": "ecd65b20b61e508b016fb4a0dd8e288b5ea59d9678529570fde1e92a186fa030"
+    }
+  ],
+  "BinaryEvidence": [
+    {
+      "Configuration": "Debug",
+      "Path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "9bce20105a661177604f56f74d4ee81e00c47592947f7f19d32fe82a6f5455d4"
+    },
+    {
+      "Configuration": "Debug",
+      "Path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Application.dll",
+      "Sha256": "63b702fe075479df16d8d40b04e6536b997b7f4f64a50291b28c8092825663d0"
+    },
+    {
+      "Configuration": "Debug",
+      "Path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "99048be5ce4844a70b8dae79db408f18fd150697bfda7e4e0a4c381a6b27b54e"
+    },
+    {
+      "Configuration": "Release",
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "0681d5db25915bc8d4e8c164af8447f1bbcc743f6f75c9031bf55cbe1a54ad33"
+    },
+    {
+      "Configuration": "Release",
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+      "Sha256": "83c98800d36ab4d9c71ed5a67868bb9758c581a8308e8c8640366007b83146a0"
+    },
+    {
+      "Configuration": "Release",
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "9d9db801c27c0f0d11d92c18f9d5478562cb18ed5c2faba857f5e6a5f9edfb39"
+    }
+  ],
+  "BuildResults": [
+    {
+      "Log": "build-debug-final.log",
+      "ExitCode": 0,
+      "Warnings": 0,
+      "Errors": 0,
+      "Configuration": "Debug"
+    },
+    {
+      "Log": "build-release-final.log",
+      "ExitCode": 0,
+      "Warnings": 0,
+      "Errors": 0,
+      "Configuration": "Release"
+    }
+  ],
+  "TestRuns": [
+    {
+      "File": "tests/viewer3d-debug-final.trx",
+      "Total": 30,
+      "Passed": 29,
+      "Failed": 1,
+      "NotExecuted": 0
+    },
+    {
+      "File": "tests/image-surface-metadata-recheck.trx",
+      "Total": 1,
+      "Passed": 1,
+      "Failed": 0,
+      "NotExecuted": 0
+    },
+    {
+      "File": "tests/viewer-export-debug.trx",
+      "Total": 17,
+      "Passed": 17,
+      "Failed": 0,
+      "NotExecuted": 0
+    },
+    {
+      "File": "tests/image-surface-final-smoke.trx",
+      "Total": 9,
+      "Passed": 9,
+      "Failed": 0,
+      "NotExecuted": 0
+    }
+  ],
+  "FinalDistinctCases": 47,
+  "FinalDistinctPassed": 47,
+  "FinalDistinctUnresolved": 0,
+  "CountPolicy": "Latest outcome per exact test name; initial failing fixture replaced only by its successful recheck; final nine-case smoke is repeated scope, not added.",
+  "FinalCases": [
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.CutawayCapsComeFromTheActualMeshPlaneIntersection(centerX: -10, intersects: False)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.CutawayCapsComeFromTheActualMeshPlaneIntersection(centerX: 0.5, intersects: True)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.CutawayCapsComeFromTheActualMeshPlaneIntersection(centerX: 10, intersects: False)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.GlassColorsFollowMaterialIdentityAndClearOnSceneOrStyleChanges",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.ImageSurfaceMetadataPreservesActualTiltSagAndSelectedSurfaceRange",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.LayoutIsWireframeAndShadingControlsBelongToSolidModel(mode: OpticalLayout, theme: \"Dark\", language: \"en-US\")",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.LayoutIsWireframeAndShadingControlsBelongToSolidModel(mode: OpticalLayout, theme: \"Light\", language: \"zh-CN\")",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.LayoutIsWireframeAndShadingControlsBelongToSolidModel(mode: SolidModel, theme: \"Dark\", language: \"en-US\")",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.LayoutIsWireframeAndShadingControlsBelongToSolidModel(mode: SolidModel, theme: \"Light\", language: \"zh-CN\")",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.MechanicalShouldersStayFlatInTheirOwnFrameAndAreIncludedInBounds",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.MeshAndSurfacePrimitivesFollowTheSameRigidTransform(x: 0, y: -5, z: 0, rx: 0, ry: 0, rz: 0)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.MeshAndSurfacePrimitivesFollowTheSameRigidTransform(x: 10, y: -3, z: 7, rx: 20, ry: -30, rz: 15)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.MeshAndSurfacePrimitivesFollowTheSameRigidTransform(x: 10, y: 0, z: 0, rx: 0, ry: 0, rz: 0)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.NonRotationalSurfaceUsesItsFullLocalSagAfterTiltAndDecenter",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.SolidModelAxesTrackPresetsMouseAndKeyboardButIgnorePanZoomAndStretch(theme: \"Dark\", fontSize: 18)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.SolidModelAxesTrackPresetsMouseAndKeyboardButIgnorePanZoomAndStretch(theme: \"Light\", fontSize: 13)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.SolidModelRemovesTheLowerRightGizmoAndKeepsTheLabelledTriad(theme: \"Dark\")",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.SolidModelRemovesTheLowerRightGizmoAndKeepsTheLabelledTriad(theme: \"Light\")",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.SolidViewButtonsShowLabelsAndTrackTheActualCamera(theme: \"Dark\", language: \"en-US\", width: 400, fontSize: 13)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.SolidViewButtonsShowLabelsAndTrackTheActualCamera(theme: \"Light\", language: \"ja-JP\", width: 400, fontSize: 18)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.SolidViewButtonsShowLabelsAndTrackTheActualCamera(theme: \"Light\", language: \"zh-CN\", width: 1100, fontSize: 13)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.TiltedLensCapsRemainOnTheGlobalCutPlane(rx: -20, ry: -30, rz: 25)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.TiltedLensCapsRemainOnTheGlobalCutPlane(rx: 0, ry: 0, rz: 0)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.TiltedLensCapsRemainOnTheGlobalCutPlane(rx: 15, ry: 25, rz: 10)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.UnselectedImageSurfaceIsVisibleWithoutRaysAndStaysWholeInCutaway(mode: Solid, cutaway: False, theme: \"Light\")",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.UnselectedImageSurfaceIsVisibleWithoutRaysAndStaysWholeInCutaway(mode: Solid, cutaway: True, theme: \"Dark\")",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.UnselectedImageSurfaceIsVisibleWithoutRaysAndStaysWholeInCutaway(mode: Transparent, cutaway: False, theme: \"Light\")",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.UnselectedImageSurfaceIsVisibleWithoutRaysAndStaysWholeInCutaway(mode: Transparent, cutaway: True, theme: \"Dark\")",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.UnselectedImageSurfaceIsVisibleWithoutRaysAndStaysWholeInCutaway(mode: Wireframe, cutaway: False, theme: \"Light\")",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.UnselectedImageSurfaceIsVisibleWithoutRaysAndStaysWholeInCutaway(mode: Wireframe, cutaway: True, theme: \"Dark\")",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: ThreeDimensional, mode: SolidModel)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: TwoDimensional, mode: OpticalLayout)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: SolidModel)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: TwoDimensional, mode: OpticalLayout)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 420, height: 620, cutaway: True)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 840, height: 720, cutaway: False)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: ThreeDimensional, mode: SolidModel)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: TwoDimensional, mode: OpticalLayout)",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch",
+      "Outcome": "Passed"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.ViewerImageExportTests.SaveFailureShowsFeedbackAndKeepsSceneMetadata",
+      "Outcome": "Passed"
+    }
+  ],
+  "EarlierFailures": [
+    {
+      "Reason": "Default output locked by developer App process 4180; exact executable verified and closed normally, no force termination.",
+      "Result": "Build failed before tests",
+      "Log": "tests-viewer3d-debug.log"
+    },
+    {
+      "Reason": "New test serialized infinite object distance without named-floating-point support. Test serializer corrected; only failing case rerun, then nine changed cases repeated after concurrent Core update.",
+      "Result": "29/30 passed",
+      "Log": "tests-viewer3d-debug-final.log"
+    },
+    {
+      "Reason": "Concurrent FieldCurvatureMetrics update briefly lacked RayTraceSample namespace; concurrent work supplied it. This task did not edit that file. Default build then passed.",
+      "Result": "Build failed",
+      "Log": "build-debug.log"
+    }
+  ],
+  "UI": {
+    "Screenshots": [
+      "export/solid-complete-24-material-legend.png",
+      "export/ThreeDimensional-OpticalLayout-420x420.png",
+      "export/ThreeDimensional-OpticalLayout-840x620.png",
+      "export/ThreeDimensional-SolidModel-2x.png",
+      "export/ThreeDimensional-SolidModel-420x620.png",
+      "export/ThreeDimensional-SolidModel-840x720.png",
+      "export/TwoDimensional-OpticalLayout-2x.png",
+      "export/TwoDimensional-OpticalLayout-420x420.png",
+      "export/TwoDimensional-OpticalLayout-840x620.png",
+      "ui/axes-Dark-Back.png",
+      "ui/axes-Dark-Bottom.png",
+      "ui/axes-Dark-dragged.png",
+      "ui/axes-Dark-Front.png",
+      "ui/axes-Dark-isometric.png",
+      "ui/axes-Dark-Left.png",
+      "ui/axes-Dark-pan-zoom-stretch.png",
+      "ui/axes-Dark-Right.png",
+      "ui/axes-Dark-Top.png",
+      "ui/axes-Light-Back.png",
+      "ui/axes-Light-Bottom.png",
+      "ui/axes-Light-dragged.png",
+      "ui/axes-Light-Front.png",
+      "ui/axes-Light-isometric.png",
+      "ui/axes-Light-Left.png",
+      "ui/axes-Light-pan-zoom-stretch.png",
+      "ui/axes-Light-Right.png",
+      "ui/axes-Light-Top.png",
+      "ui/image-surface-Solid-False-Light.png",
+      "ui/image-surface-Solid-True-Dark.png",
+      "ui/image-surface-Transparent-False-Light.png",
+      "ui/image-surface-Transparent-True-Dark.png",
+      "ui/image-surface-Wireframe-False-Light.png",
+      "ui/image-surface-Wireframe-True-Dark.png",
+      "ui/view-buttons-Dark-en-US-400-free-rotation.png",
+      "ui/view-buttons-Dark-en-US-400-initial.png",
+      "ui/view-buttons-Dark-en-US-400-reset.png",
+      "ui/view-buttons-Dark-en-US-400-toolbar.png",
+      "ui/view-buttons-Light-ja-JP-400-free-rotation.png",
+      "ui/view-buttons-Light-ja-JP-400-initial.png",
+      "ui/view-buttons-Light-ja-JP-400-reset.png",
+      "ui/view-buttons-Light-ja-JP-400-toolbar.png",
+      "ui/view-buttons-Light-zh-CN-1100-free-rotation.png",
+      "ui/view-buttons-Light-zh-CN-1100-initial.png",
+      "ui/view-buttons-Light-zh-CN-1100-reset.png",
+      "ui/view-buttons-Light-zh-CN-1100-toolbar.png",
+      "ui/viewer3d-OpticalLayout-Dark-en-US.png",
+      "ui/viewer3d-OpticalLayout-Light-zh-CN.png",
+      "ui/viewer3d-solid-cutaway-Dark-en-US.png",
+      "ui/viewer3d-solid-cutaway-Light-zh-CN.png",
+      "ui/viewer3d-solid-narrow-Dark-en-US.png",
+      "ui/viewer3d-solid-narrow-Light-zh-CN.png",
+      "ui/viewer3d-solid-transparent-Dark-en-US.png",
+      "ui/viewer3d-solid-transparent-Light-zh-CN.png",
+      "ui/viewer3d-solid-wireframe-Dark-en-US.png",
+      "ui/viewer3d-solid-wireframe-Light-zh-CN.png",
+      "ui/viewer3d-SolidModel-Dark-en-US.png",
+      "ui/viewer3d-SolidModel-Light-zh-CN.png",
+      "ui-final/image-surface-Solid-False-Light.png",
+      "ui-final/image-surface-Solid-True-Dark.png",
+      "ui-final/image-surface-Transparent-False-Light.png",
+      "ui-final/image-surface-Transparent-True-Dark.png",
+      "ui-final/image-surface-Wireframe-False-Light.png",
+      "ui-final/image-surface-Wireframe-True-Dark.png"
+    ],
+    "CoreGeometryCase": 1,
+    "NativeDesktopInteractionCertified": false,
+    "Backend": "Avalonia Headless + Skia",
+    "ImageSurfacePixelCases": 6,
+    "OrientationCornerPixelCases": 2,
+    "VisuallyInspected": [
+      "ui/image-surface-Solid-False-Light.png",
+      "ui/image-surface-Transparent-True-Dark.png",
+      "ui/viewer3d-SolidModel-Light-zh-CN.png",
+      "export/ThreeDimensional-SolidModel-840x720.png"
+    ]
+  },
+  "NotRun": [
+    "Full test suite",
+    "Zemax numerical certification",
+    "Installer packaging or installation",
+    "Cloud publishing"
+  ],
+  "InstalledAppReplaced": false,
+  "GitPushed": false,
+  "Evidence": {
+    "Archive": "validation/rechecks/2026-10-24/solid-image-surface-evidence.zip",
+    "LocalRoot": "artifacts/solid-image-surface-20261024",
+    "ArchiveSha256": "49ac5976d315b0ba5e023324843c1a6b3f5fa3f9a494088543a5032ab0eec798"
+  },
+  "Documentation": {
+    "Report": "documentation-audit.json",
+    "Log": "documentation-audit.log",
+    "BrokenLinks": 0,
+    "StrictPassed": true,
+    "MarkdownFenceIssues": 0
+  }
+}

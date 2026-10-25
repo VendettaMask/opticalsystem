@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-24",
+  "scope": "Camera imaging laboratory sensor profile and absolute CFA QE import; local source and default Release output only",
+  "implementation": {
+    "sensorProfileFormat": "OpticalSystemDesign.CameraSensor",
+    "schemaVersion": 1,
+    "inputWavelengthsNanometers": [650, 550, 450],
+    "response": "Absolute total QE including CFA, linear interpolation, no extrapolation or normalization; replaces scalar QE",
+    "electronCalculation": "Each CFA type sums photoelectrons from the three discrete input bands in shared C# Core",
+    "fileLimits": {"maximumBytes": 1048576, "maximumSamples": 4096},
+    "comparison": "A and B freeze parameters, curve and origin separately; failed imports preserve both",
+    "exports": ["Original RAW CSV", "Display PNG", "Per-run sensor-profile.json", "Per-run spectral-response.csv when active", "Metadata and file fingerprints"],
+    "examples": "samples/camera-imaging; copied to Examples/CameraImaging in standard build and publish"
+  },
+  "verification": {
+    "numericAndFileCases": 39,
+    "windowAndLayeringCases": 9,
+    "finalWindowAndLocalizationCases": 4,
+    "finalSkiaWindowRecheckCases": 2,
+    "signedSeedAndFractionalParameterRecheckCases": 2,
+    "distinctTestIdsPassed": 50,
+    "newCases": 22,
+    "failed": 0,
+    "skipped": 0,
+    "counting": "Final rechecks overlap the same two window theory cases; only the two localization cases increase the original 48 to 50",
+    "independentPhotonReference": {
+      "expectedRgbElectrons": [1889.3039477987788, 1909.6921198973268, 910.6716870684761],
+      "actualRgbElectrons": [1889.303947798779, 1909.6921198973268, 910.6716870684761],
+      "maximumAbsoluteErrorElectrons": 2.27373675443232e-13,
+      "noiselessRawRmseDn": 0
+    },
+    "shotPlusReadNoiseReference": {
+      "samples": 16384,
+      "expectedMeanElectrons": 4938.468352759398,
+      "actualMeanElectrons": 4938.891903831105,
+      "expectedVarianceElectronsSquared": 4947.468352759398,
+      "actualVarianceElectronsSquared": 4910.711010199467,
+      "varianceRelativeErrorPercent": -0.742952555511145
+    },
+    "additionalChecks": ["Half QE gives half photocharge", "Diagonal response equals legacy RAW", "Fraction and percent imports give equivalent RAW", "Strict JSON/CSV rejection", "JSON and A/B export reimport", "Frozen caller arrays", "Cancelled atomic write preserves existing file", "Negative seed and fractional read noise preserved", "Independent curve visibility retains plot options and result"],
+    "visual": "Actual Skia Light/Dark response and A/B screenshots inspected; initial combined localization run initialized mock drawing and black captures were rejected, preserved separately and replaced by standalone Skia captures",
+    "build": "Default Release App output, zero warnings and errors",
+    "documentation": "Strict repository documentation audit and scoped whitespace checks",
+    "evidenceArchive": "validation/rechecks/2026-10-24/camera-sensor-import-evidence.zip"
+  },
+  "limits": [
+    "Three discrete spectral input bands; no continuous scene spectrum reconstruction or quadrature",
+    "Imported origin is not verified sensor calibration; bundled data is synthetic",
+    "No pixel-area integration, angular QE, temperature calibration, crosstalk or vendor ISP added",
+    "No new Zemax, ImSym/Speos or EMVA certification",
+    "No full repository test run, native desktop acceptance, package publication or installed application replacement",
+    "Previously recorded unrelated AppAssemblyDoesNotReferenceCore failure remains outside this selected run"
+  ]
+}

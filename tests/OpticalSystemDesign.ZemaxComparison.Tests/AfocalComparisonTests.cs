@@ -119,26 +119,27 @@ public sealed class AfocalComparisonTests
     }
 
     [Fact]
-    public void NativeAfocalFieldCurvatureIsPowerAndCorePhysicalMetadataIsRetained()
+    public void NativeAfocalFieldCurvatureRejectsFrozenLengthDataAndAcceptsFreshPowerMetadata()
     {
         var request = Request("field-curvature-distortion-w1");
         var entry = AnalysisComparisonRegistry.Get("Field Curvature and Distortion");
-        var actual = ResultNormalizer.Workbench(Data("field-curvature-distortion-w1", "workbench"), entry, request);
+        Assert.Throws<InvalidDataException>(() => ResultNormalizer.Workbench(Data("field-curvature-distortion-w1", "workbench"), entry, request));
         var native = ResultNormalizer.Zemax(Data("field-curvature-distortion-w1", "native"), entry, request);
         Assert.Equal("Diopter", native.Series[0].YAxis.Unit);
-        Assert.Equal("Millimeter", actual.Series[0].YAxis.Unit);
-        Assert.Throws<InvalidDataException>(() => ComparisonMetrics.Align(actual.Series[0], native.Series[0], []));
         var config = ComparisonConfiguration.Load(Path.Combine(AppContext.BaseDirectory, "comparison-settings.json"));
         Assert.Equal(config.Analyses[entry.CanonicalAnalysisKey].Quantities["Distortion"],
             AfocalAnalysisContracts.ComparisonSettings(config.Analyses[entry.CanonicalAnalysisKey], request).Quantities["Distortion"]);
         var output = Path.Combine(Path.GetTempPath(), "afocal-coverage-" + Guid.NewGuid().ToString("N"));
         try
         {
-            var run = new AnalysisRun { Key = entry.CanonicalAnalysisKey, Directory = "field-curvature", Request = request };
-            ComparisonRunner.Compare(run, entry, config.Analyses[entry.CanonicalAnalysisKey], actual, native, output);
-            Assert.Equal("distortion", Assert.Single(run.Metrics).Id);
-            Assert.Equal(Conclusion.Difference, run.Conclusion);
-            Assert.Contains("Millimeter/Diopter", run.Reason);
+            Directory.CreateDirectory(output);
+            var path = Path.Combine(output, "data.json");
+            var optic = OpticalFormatCatalog.Import(Source, ".zmx");
+            JsonFiles.Write(path, new WorkbenchRuntime(optic).BuildAnalysisData(entry.CanonicalAnalysisKey, request.WorkbenchSettings));
+            var actual = ResultNormalizer.Workbench(path, entry, request);
+            Assert.Equal("Diopter", actual.Series[0].YAxis.Unit);
+            Assert.Equal("Diopter", actual.Series[1].YAxis.Unit);
+            Assert.Equal("Percent", actual.Series[2].YAxis.Unit);
         }
         finally { if (Directory.Exists(output)) Directory.Delete(output, true); }
     }

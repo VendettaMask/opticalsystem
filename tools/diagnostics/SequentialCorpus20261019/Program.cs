@@ -28,7 +28,9 @@ if (mode == "prepare")
     if (Directory.Exists(root) && Directory.EnumerateFileSystemEntries(root).Any()) throw new IOException("Use a fresh run directory");
     Directory.CreateDirectory(root);
     using var runLock = new FileStream(Full(".prepare.lock"), FileMode.CreateNew, FileAccess.Write, FileShare.None);
-    var policyPath = Path.Combine(repo, "tools/OpticalSystemDesign.ZemaxComparison/comparison-settings.json");
+    var policyPath = args.Length == 5 && args[4].StartsWith("config:", StringComparison.Ordinal)
+        ? Path.GetFullPath(args[4][7..])
+        : Path.Combine(repo, "tools/OpticalSystemDesign.ZemaxComparison/comparison-settings.json");
     var policy = ComparisonConfiguration.Load(policyPath);
     policy.Validate();
     File.Copy(policyPath, Full("comparison-settings.json"));
@@ -110,7 +112,9 @@ if (mode == "prepare")
                 });
                 var probe = Full($"native-models/{slug}-c{c}");
                 if (c != 1) AddNative($"probe:{slug}:c{c}", probe, new { zosApiPath = api, input = copy, zemaxVersion = "2026 R1", adapter = "probe", configuration = c });
-                foreach (var key in primaryKeys) Analysis(key, "primary", 1, primary);
+                foreach (var key in primaryKeys)
+                    Analysis(key, "primary", optic.ImageSpaceAfocal && key == "MTF" && args.Length == 5 && args[4].StartsWith("config:", StringComparison.Ordinal) ? 0 : 1,
+                        optic.ImageSpaceAfocal && key == "MTF" && args.Length == 5 && args[4].StartsWith("config:", StringComparison.Ordinal) ? 0 : primary);
                 foreach (var w in waves)
                     foreach (var key in edgeKeys) Analysis(key, "edge", optic.Fields.Count, w);
                 foreach (var w in waves)

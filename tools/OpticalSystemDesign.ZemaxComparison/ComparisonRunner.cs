@@ -377,7 +377,9 @@ public sealed class ComparisonRunner
         run.Conclusion = run.Metrics.Any(m => m.Conclusion == Conclusion.Incomparable) ? Conclusion.Incomparable
             : run.Metrics.Any(m => m.Conclusion == Conclusion.Difference) ? Conclusion.Difference
             : run.Metrics.Any(m => m.Conclusion == Conclusion.Close) ? Conclusion.Close : Conclusion.Pass;
-        run.Reason = entry.Reason;
+        run.Reason = run.Request?.ImageSpaceAfocal == true && entry.CanonicalAnalysisKey is "Field Curvature" or "Field Curvature and Distortion"
+            ? "Afocal tangential/sagittal vergence in diopters and dimensionless percentage distortion, under the captured wavelength and field scan."
+            : entry.Reason;
         if (physicalGaps.Count > 0)
         {
             if (run.Conclusion is Conclusion.Pass or Conclusion.Close) run.Conclusion = Conclusion.Incomparable;

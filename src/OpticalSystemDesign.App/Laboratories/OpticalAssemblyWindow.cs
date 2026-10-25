@@ -13,7 +13,7 @@ using OpticalSystemDesign.App.Services;
 namespace OpticalSystemDesign.App.Laboratories;
 
 /// <summary>Explicit laboratory window; never part of the default document layout.</summary>
-public sealed class OpticalAssemblyWindow : Window
+public sealed partial class OpticalAssemblyWindow : Window
 {
     private readonly IWorkbenchApplication _application;
     private readonly ComboBox _probeMode = new()
@@ -62,79 +62,13 @@ public sealed class OpticalAssemblyWindow : Window
     {
         _application = application;
         Title = "光学装调 · 实验室";
-        Width = 1260; Height = 850; MinWidth = 920; MinHeight = 680;
+        Width = 1260; Height = 850; MinWidth = 760; MinHeight = 600;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
         var wavelength = application.Prescription.GetWavelengths().FirstOrDefault(x => x.IsPrimary)
             ?? application.Prescription.GetWavelengths().FirstOrDefault();
         if (wavelength is { Nanometers: >= 200 and <= 20000 }) _wavelength.Value = (decimal)wavelength.Nanometers;
 
-        var toolbar = new WrapPanel { Margin = new Thickness(0, 12, 0, 0) };
-        toolbar.Children.Add(_direction);
-        toolbar.Children.Add(Field("测量模式", _probeMode));
-        toolbar.Children.Add(Field("测量波长 (nm)", _wavelength));
-        toolbar.Children.Add(_calculate);
-        toolbar.Children.Add(_cancel);
-        toolbar.Children.Add(_sort);
-        foreach (var child in toolbar.Children) child.Margin = new Thickness(0, 0, 12, 6);
-        var header = new StackPanel
-        {
-            Margin = new Thickness(16, 12),
-            Spacing = 5,
-            Children = { _source, new TextBlock { Text = "基于当前打开的镜头（含未保存修改） · 位置以第一实体表面顶点为零，沿设计 +Z 为正", TextWrapping = TextWrapping.Wrap }, toolbar }
-        };
-        _grid.Columns.Add(Column("面", nameof(TableRow.Surface), 50));
-        _grid.Columns.Add(Column("表面名称", nameof(TableRow.Label), 95));
-        _grid.Columns.Add(Column("像类型", nameof(TableRow.Kind), 90));
-        _grid.Columns.Add(Column("位置 (mm)", nameof(TableRow.Position), 130));
-        _grid.Columns.Add(new DataGridTextColumn { Header = "计算说明", Binding = new Binding(nameof(TableRow.Message)), Width = new DataGridLength(1, DataGridLengthUnitType.Star) });
-        var preview = new DockPanel();
-        var previewTitle = new TextBlock { Text = "返回叉丝像 · 探测面物理尺寸", FontWeight = FontWeight.SemiBold, Margin = new Thickness(16, 8) };
-        DockPanel.SetDock(previewTitle, Avalonia.Controls.Dock.Top); preview.Children.Add(previewTitle);
-        DockPanel.SetDock(_imageInfo, Avalonia.Controls.Dock.Bottom); preview.Children.Add(_imageInfo);
-        preview.Children.Add(_image);
-        var body = new Grid { ColumnDefinitions = new ColumnDefinitions("*,5,420"), Margin = new Thickness(12, 0) };
-        body.Children.Add(_grid);
-        var splitter = new GridSplitter { ResizeDirection = GridResizeDirection.Columns, HorizontalAlignment = HorizontalAlignment.Stretch };
-        Grid.SetColumn(splitter, 1); body.Children.Add(splitter);
-        var previewScroll = new ScrollViewer
-        {
-            Content = preview,
-            HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
-            VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto
-        };
-        Grid.SetColumn(previewScroll, 2); body.Children.Add(previewScroll);
-
-        var inputs = new WrapPanel();
-        inputs.Children.Add(Field("自准直仪焦距 (mm)", _collimator));
-        foreach (var pair in new[] { ("附加物镜焦距 (mm)", _head), ("测量 NA（近轴）", _na), ("找像位置偏移 (mm)", _offset) })
-        {
-            var field = Field(pair.Item1, pair.Item2); inputs.Children.Add(field); _focusedFields.Add(field);
-        }
-        foreach (var pair in new[] { ("仪器通光直径 (mm)", _pupil), ("物镜到入口顶点距离 (mm)", _distance) })
-        {
-            var field = Field(pair.Item1, pair.Item2); inputs.Children.Add(field); _infinityFields.Add(field);
-        }
-        foreach (var pair in new[] { ("叉丝总长 (mm)", _length), ("线宽 (mm)", _lineWidth), ("探测面宽度 (mm)", _sensor) })
-            inputs.Children.Add(Field(pair.Item1, pair.Item2));
-        inputs.Children.Add(_simulate);
-        var footer = new StackPanel
-        {
-            Margin = new Thickness(16, 10),
-            Spacing = 8,
-            Children =
-            {
-                new TextBlock { Text = "模拟测量头参数（可修改）", FontWeight = FontWeight.SemiBold },
-                inputs,
-                _modeInfo,
-                new TextBlock { Text = "理想薄透镜测量头；镜组使用真实曲面往返追迹。显示几何像与归一化亮度，不含衍射、镀膜强度及实际仪器标定。", TextWrapping = TextWrapping.Wrap },
-                _status
-            }
-        };
-        var root = new DockPanel();
-        DockPanel.SetDock(header, Avalonia.Controls.Dock.Top); root.Children.Add(header);
-        DockPanel.SetDock(footer, Avalonia.Controls.Dock.Bottom); root.Children.Add(footer);
-        root.Children.Add(body); Content = root;
-        this.BindThemeResource(BackgroundProperty, ThemeResourceBindings.Surface);
+        Content = BuildPresentation();
 
         _calculate.Click += async (_, _) => await CalculateAsync();
         _simulate.Click += async (_, _) => await SimulateAsync();
@@ -170,6 +104,7 @@ public sealed class OpticalAssemblyWindow : Window
             _image.Dispose();
         };
         UpdateModeFields(); UpdateSource(); UpdateAvailability();
+        LaboratoryPresentation.Apply(this);
     }
 
     internal async Task CalculateAsync()
@@ -317,19 +252,25 @@ public sealed class OpticalAssemblyWindow : Window
         Maximum = maximum,
         Increment = increment,
         Width = 106,
-        Height = 32,
+        MinHeight = 32,
         FormatString = "0.###"
     };
     private static Control Field(string label, Control input)
     {
         AutomationProperties.SetName(input, label);
-        return new StackPanel
+        input.Width = double.NaN;
+        input.MinWidth = 0;
+        input.HorizontalAlignment = HorizontalAlignment.Stretch;
+        var caption = new TextBlock { Text = label, TextWrapping = TextWrapping.Wrap, VerticalAlignment = VerticalAlignment.Center };
+        caption.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
+        if (input is ComboBox)
+            return new StackPanel { Spacing = 5, Children = { caption, input } };
+        var field = new Grid
         {
-            Orientation = Orientation.Horizontal,
-            Spacing = 6,
-            Margin = new Thickness(0, 0, 12, 8),
-            Children = { new TextBlock { Text = label, VerticalAlignment = VerticalAlignment.Center }, input }
+            ColumnDefinitions = new("*,118"), ColumnSpacing = 8, Margin = new Thickness(0, 2)
         };
+        field.Children.Add(caption); Grid.SetColumn(input, 1); field.Children.Add(input);
+        return field;
     }
     private static DataGridTextColumn Column(string label, string property, double width) => new()
     { Header = label, Binding = new Binding(property), Width = new DataGridLength(width) };

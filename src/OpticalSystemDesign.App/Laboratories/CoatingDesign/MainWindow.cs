@@ -72,7 +72,7 @@ public sealed partial class MainWindow : Window
             CanUserReorderColumns = false,
             SelectionMode = DataGridSelectionMode.Single,
             GridLinesVisibility = DataGridGridLinesVisibility.Horizontal,
-            MinHeight = 180
+            MinHeight = 120
         };
         _table.Columns.Add(new DataGridTextColumn { Header = "层序", Binding = new Binding(nameof(LayerRow.Number)), IsReadOnly = true, Width = new DataGridLength(52) });
         _table.Columns.Add(new DataGridTextColumn { Header = "材料（入射侧 → 基板）", Binding = new Binding(nameof(LayerRow.MaterialName)), IsReadOnly = true, Width = new DataGridLength(1, DataGridLengthUnitType.Star) });
@@ -93,7 +93,7 @@ public sealed partial class MainWindow : Window
             }));
         toolbar.Children.Add(ActionButton("材料管理", ManageMaterialsAsync));
         var input = BuildInputs();
-        var layerTools = new StackPanel { Orientation = Orientation.Horizontal };
+        var layerTools = new WrapPanel { Orientation = Orientation.Horizontal };
         _layerMaterial.Width = 200;
         layerTools.Children.Add(_layerMaterial);
         layerTools.Children.Add(ActionButton("添加层", () => EditLayer("add")));
@@ -115,26 +115,49 @@ public sealed partial class MainWindow : Window
         scale.SelectionChanged += (_, _) => _plot.SetOpticalDensity(scale.SelectedIndex == 1);
         candidateBar.Children.Add(scale);
         candidateBar.Children.Add(ActionButton("采用候选", SelectCandidateAsync));
-        var right = new Grid { RowDefinitions = new RowDefinitions("Auto,Auto,2*,Auto,3*,Auto"), RowSpacing = 8 };
-        Put(right, actions, 0); Put(right, new ScrollViewer { Content = layerTools, AllowAutoHide = false, MinHeight = 48, HorizontalScrollBarVisibility = ScrollBarVisibility.Auto, VerticalScrollBarVisibility = ScrollBarVisibility.Disabled }, 1); Put(right, _table, 2); Put(right, candidateBar, 3); Put(right, _plot, 4);
-        Put(right, new ScrollViewer { Content = _summary, MaxHeight = 220 }, 5);
+        var layerPanel = new Grid { RowDefinitions = new("Auto,*") };
+        var layerHeading = new StackPanel { Margin = new Thickness(12), Spacing = 10, Children =
+            { LaboratoryPresentation.Heading("膜层处方", "layers"), layerTools } };
+        layerPanel.Children.Add(layerHeading);
+        _table.BorderThickness = new Thickness(0);
+        Put(layerPanel, _table, 1);
+        var plotPanel = new Grid { RowDefinitions = new("Auto,*") };
+        plotPanel.Children.Add(new StackPanel { Margin = new Thickness(12), Spacing = 10, Children =
+            { LaboratoryPresentation.Heading("光谱与候选", "chart-line"), candidateBar } });
+        _plot.Margin = new Thickness(4, 0, 4, 8); Put(plotPanel, _plot, 1);
+        _summary.FontSize = DisplayTypography.BodySmall;
+        var details = new Expander
+        {
+            Header = "指标与公差", Name = "CoatingResultDetails", HorizontalAlignment = HorizontalAlignment.Stretch,
+            HorizontalContentAlignment = HorizontalAlignment.Stretch,
+            Content = new Border { Padding = new Thickness(12), Child = new ScrollViewer { Content = _summary, MaxHeight = 220 } }
+        };
+        var right = new Grid { RowDefinitions = new("Auto,2*,3*,Auto"), RowSpacing = 12, Name = "CoatingResults" };
+        Put(right, actions, 0); Put(right, LaboratoryPresentation.Card(layerPanel, "CoatingLayerCard"), 1);
+        Put(right, LaboratoryPresentation.Card(plotPanel, "CoatingSpectrumCard"), 2); Put(right, details, 3);
         var main = new Grid { ColumnDefinitions = new ColumnDefinitions("256,*"), ColumnSpacing = 12 };
         var sidebar = new Border
         {
             Name = "CoatingSidebar",
             MinWidth = 240,
             MaxWidth = 280,
-            Padding = new Thickness(8),
-            Child = new ScrollViewer { Content = input, AllowAutoHide = false, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = ScrollBarVisibility.Auto }
+            Padding = new Thickness(0),
+            Child = new ScrollViewer { Content = input, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = ScrollBarVisibility.Hidden }
         };
-        sidebar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Sidebar);
-        ThemeChrome.Apply(sidebar, ThemeChromeRole.SettingsCard, shadow: false);
+        sidebar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Workspace);
         main.Children.Add(sidebar);
-        var workScroll = new ScrollViewer { Content = right, AllowAutoHide = false, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled };
+        var workScroll = new ScrollViewer { Content = right, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled };
         Grid.SetColumn(workScroll, 1); main.Children.Add(workScroll);
-        main.SizeChanged += (_, _) => right.Height = Math.Max(720 * Math.Max(1, FontSize / 13), main.Bounds.Height);
+        main.SizeChanged += (_, _) => right.Height = Math.Max((main.Bounds.Width - 268 < 650 ? 820 : 650)
+            * Math.Max(1, FontSize / 13), main.Bounds.Height);
         var root = new Grid { RowDefinitions = new RowDefinitions("Auto,*,Auto,Auto"), Margin = new Thickness(16), RowSpacing = 12 };
-        Put(root, toolbar, 0); Put(root, main, 1); Put(root, _operationStatus, 2); Put(root, _status, 3);
+        var heading = new StackPanel { Name = "LaboratoryHeader", Spacing = 7, Children =
+        {
+            LaboratoryPresentation.Heading("光学镀膜设计", "layers", page: true),
+            LaboratoryPresentation.Hint("定义指标与材料 → 编辑膜层 → 检查光谱与验收结果"), toolbar
+        } };
+        Put(root, heading, 0); Put(root, main, 1); Put(root, _operationStatus, 2);
+        Put(root, LaboratoryPresentation.Status(_status), 3);
         Content = MainWindowTitleBar.Wrap(this, root);
         KeyDown += async (_, e) =>
         {
@@ -147,30 +170,31 @@ public sealed partial class MainWindow : Window
         Closed += (_, _) => { _session.Dispose(); _operationStatus.Dispose(); };
         Closing += OnClosing;
         Load(_session.Current, markDirty: false); SetBusy(false);
+        LaboratoryPresentation.Apply(this);
     }
 
     private StackPanel BuildInputs()
     {
-        var panel = new StackPanel { Spacing = 8 };
-        panel.Children.Add(new TextBlock { Text = "指标与材料", FontSize = LaboratoryTypography.Section });
-        panel.Children.Add(Field("实验名称", _name));
-        panel.Children.Add(Field("设计类型", _kind));
-        panel.Children.Add(Field("入射介质（透明）", _incident));
-        panel.Children.Add(Field("基板（搜索选择）", _substrate));
-        panel.Children.Add(Field("低折射率 / 第一膜料", _low));
-        panel.Children.Add(Field("高折射率 / 第二膜料", _high));
-        panel.Children.Add(Number("center", "中心波长 (nm)"));
-        panel.Children.Add(Number("min", "目标 / 计算范围下限 (nm)"));
-        panel.Children.Add(Number("max", "目标 / 计算范围上限 (nm)"));
-        panel.Children.Add(_reflectanceField = Number("r", "目标反射率 (%)"));
-        panel.Children.Add(Number("layers", "层数上限"));
-        panel.Children.Add(Number("angle", "入射角 (°)"));
-        panel.Children.Add(Field("偏振", _polarization));
+        var panel = new StackPanel { Spacing = 12 };
+        var targets = new StackPanel { Spacing = 8 };
+        targets.Children.Add(Field("实验名称", _name));
+        targets.Children.Add(Field("设计类型", _kind));
+        targets.Children.Add(Number("center", "中心波长 (nm)"));
+        targets.Children.Add(Number("min", "目标 / 计算范围下限 (nm)"));
+        targets.Children.Add(Number("max", "目标 / 计算范围上限 (nm)"));
+        targets.Children.Add(_reflectanceField = Number("r", "目标反射率 (%)"));
+        targets.Children.Add(Number("layers", "层数上限"));
+        targets.Children.Add(Number("angle", "入射角 (°)"));
+        targets.Children.Add(Field("偏振", _polarization));
         _narrowFields.Children.Add(Number("fwhm", "目标 FWHM (nm)"));
         _narrowFields.Children.Add(Number("peak", "最低峰值透过率 (%)"));
         _narrowFields.Children.Add(Number("od", "截止深度 OD（0–12）"));
         _narrowFields.Children.Add(Field("截止波段 (nm)，例 490-510;590-610", _stopBands));
-        panel.Children.Add(_narrowFields);
+        targets.Children.Add(_narrowFields);
+        panel.Children.Add(LaboratoryPresentation.Section("设计目标", "sliders-horizontal", targets));
+        panel.Children.Add(LaboratoryPresentation.Section("介质与膜料", "layers",
+            Field("入射介质（透明）", _incident), Field("基板（搜索选择）", _substrate),
+            Field("低折射率 / 第一膜料", _low), Field("高折射率 / 第二膜料", _high)));
         var advanced = new StackPanel { Spacing = 8 };
         advanced.Children.Add(Number("dmin", "最小膜厚 (nm)")); advanced.Children.Add(Number("dmax", "最大膜厚 (nm)"));
         advanced.Children.Add(Number("preview", "预览基础间隔数")); advanced.Children.Add(Number("samples", "优化基础间隔数"));
@@ -219,8 +243,10 @@ public sealed partial class MainWindow : Window
     private static Control Field(string label, Control control)
     {
         AutomationProperties.SetName(control, label);
-        var row = new Grid { ColumnDefinitions = new ColumnDefinitions("102,*"), ColumnSpacing = 6, MinHeight = UiDensity.StandardControlHeight };
+        var row = new Grid { ColumnDefinitions = new ColumnDefinitions("90,*"), ColumnSpacing = 6, MinHeight = UiDensity.StandardControlHeight };
         var caption = new TextBlock { Text = label, TextWrapping = TextWrapping.Wrap, VerticalAlignment = VerticalAlignment.Center };
+        caption.FontSize = DisplayTypography.BodySmall;
+        caption.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
         ToolTip.SetTip(caption, label); row.Children.Add(caption); Grid.SetColumn(control, 1); row.Children.Add(control);
         control.MinWidth = 0; control.HorizontalAlignment = HorizontalAlignment.Stretch;
         return row;
@@ -228,6 +254,7 @@ public sealed partial class MainWindow : Window
     private Button ActionButton(string label, Func<Task> action)
     {
         var button = new Button { Content = label, Margin = new Thickness(0, 0, 8, 4) };
+        button.Classes.Add("lab-command");
         AutomationProperties.SetName(button, label); ToolTip.SetTip(button, label);
         button.Click += (_, _) => TrackOperation(action);
         return button;
@@ -450,6 +477,7 @@ public sealed partial class MainWindow : Window
     private void SetBusy(bool value)
     {
         _busy = value;
+        _operationStatus.IsVisible = value;
         if (value) _operationStatus.Start("正在计算镀膜设计…", () => _session.Cancel());
         else _operationStatus.MarkIdle(_status.Text ?? "计算已结束");
         foreach (var button in _computeButtons) ControlAvailability.Set(button, !value, "已有后台计算，请等待完成或先取消。");

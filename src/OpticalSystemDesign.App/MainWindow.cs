@@ -282,6 +282,7 @@ public sealed partial class MainWindow : Window
         _application.Events.Changed -= OnWorkspaceChanged;
         _application.Events.StatusChanged -= OnWorkspaceStatusChanged;
         _panels.Dispose();
+        _cameraImagingWindow?.Close();
         _application.Dispose();
     }
 

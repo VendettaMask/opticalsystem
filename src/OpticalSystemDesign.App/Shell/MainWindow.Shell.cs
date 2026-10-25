@@ -143,15 +143,14 @@ public sealed partial class MainWindow
                     RibbonGroup("镜头设计",
                         RibbonButton("show-lens-library", "telescope", "镜头库"),
                         RibbonButton("show-stock-lens-catalog", "package-search", "库存镜头查看"),
-                        RibbonButton("show-stock-lens-matching", "scan-search", "库存镜头匹配")))),
+                        RibbonButton("show-stock-lens-matching", "scan-search", "库存镜头匹配")),
+                    RibbonGroup("设计报告",
+                        RibbonButton("export-markdown-report", "file-down", "一键导出 Markdown"),
+                        RibbonButton("configure-markdown-report", "settings", "报告导出设置")))),
                 BuildLaboratoryRibbonTab(),
                 RibbonTab("窗口", BuildRibbonPage(
                     RibbonGroup("页面窗口布局",
-                        RibbonButton("analysis-dock-all", "panel-top", "保留分栏停靠"),
-                        RibbonButton("dock-single-pane", "panels-top-left", "合并单窗格"),
-                        RibbonButton("analysis-float-all", "picture-in-picture-2", "全部独立浮动"),
-                        RibbonButton("analysis-tile-all", "grid-2x2", "平铺全部"),
-                        RibbonButton("analysis-cascade-all", "rows-3", "层叠全部")),
+                        RibbonWindowLayoutMenuButton()),
                     RibbonGroup("页面",
                         RibbonButton("analysis-clone", "copy", "克隆分析"),
                         RibbonButton("toggle-page-lock", "lock-keyhole", "切换锁定"),
@@ -197,11 +196,7 @@ public sealed partial class MainWindow
                 BuildLaboratoryRibbonTab(),
                 RibbonTab("窗口", BuildRibbonPage(
                     RibbonGroup("页面窗口布局",
-                        RibbonButton("analysis-dock-all", "panel-top", "保留分栏停靠"),
-                        RibbonButton("dock-single-pane", "panels-top-left", "合并单窗格"),
-                        RibbonButton("analysis-float-all", "picture-in-picture-2", "全部独立浮动"),
-                        RibbonButton("analysis-tile-all", "grid-2x2", "平铺全部"),
-                        RibbonButton("analysis-cascade-all", "rows-3", "层叠全部")),
+                        RibbonWindowLayoutMenuButton()),
                     RibbonGroup("页面",
                         RibbonButton("analysis-clone", "copy", "克隆分析"),
                         RibbonButton("toggle-page-lock", "lock-keyhole", "切换锁定"),
@@ -285,7 +280,9 @@ public sealed partial class MainWindow
         RibbonGroup("镀膜设计",
             RibbonButton("launch-coating-design-lab", "layers", "光学镀膜设计")),
         RibbonGroup("装调计算",
-            RibbonButton("open-optical-assembly-lab", "scan-eye", "光学装调"))));
+            RibbonButton("open-optical-assembly-lab", "scan-eye", "光学装调")),
+        RibbonGroup("成像系统",
+            RibbonButton("open-camera-imaging-lab", "camera", "相机成像仿真"))));
 
     private static TabItem RibbonTab(string title, Control content)
     {
@@ -452,6 +449,14 @@ public sealed partial class MainWindow
         ToolTip.SetTip(button, $"选择{menu.Label}分析类型");
         return button;
     }
+
+    private DropDownButton RibbonWindowLayoutMenuButton() => RibbonMenuButton(
+        "window-layout", "panels-top-left", "窗口布局",
+        ("analysis-dock-all", "panel-top", "保留分栏停靠"),
+        ("dock-single-pane", "panels-top-left", "合并单窗格"),
+        ("analysis-float-all", "picture-in-picture-2", "全部独立浮动"),
+        ("analysis-tile-all", "grid-2x2", "平铺全部"),
+        ("analysis-cascade-all", "rows-3", "层叠全部"));
 
     private DropDownButton RibbonMaterialAnalysisMenuButton() => RibbonMenuButton(
         "material-analysis", "chart-scatter", "材料分析",

@@ -38,6 +38,7 @@ public static class AnalysisAxisFormatting
         AnalysisAxisUnit.Watt => "W",
         AnalysisAxisUnit.CyclesPerMilliradian => "cycles/mrad",
         AnalysisAxisUnit.Diopter => "D",
+        AnalysisAxisUnit.WattsPerSquareMeterPerNanometer => "W/m²/nm",
         _ => string.Empty
     };
 

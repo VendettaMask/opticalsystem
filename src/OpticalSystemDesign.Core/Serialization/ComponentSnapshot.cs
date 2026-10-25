@@ -99,6 +99,9 @@ public static partial class ComponentSnapshotFactory
     {
         return geometry switch
         {
+            PolygonGroupGeometry group => new ComponentSnapshot("polygon_group", new(),
+                new() { ["faces"] = System.Text.Json.JsonSerializer.Serialize(group.Faces) },
+                new() { ["volume"] = FromMaterial(group.VolumeMaterial) }),
             PlaneGeometry => ComponentSnapshot.Empty("plane"),
             PlaneGratingGeometry grating => new ComponentSnapshot("plane_grating", new Dictionary<string, double>
             {
@@ -183,6 +186,10 @@ public static partial class ComponentSnapshotFactory
         var n = snapshot.Numbers;
         return snapshot.Kind switch
         {
+            "polygon_group" => new PolygonGroupGeometry(
+                System.Text.Json.JsonSerializer.Deserialize<PolygonGroupGeometry.Face[]>(snapshot.Text["faces"])
+                    ?? throw new InvalidDataException("Missing polygon-group faces."),
+                ToMaterial(snapshot.Children!["volume"], "Air", new MaterialRegistry())),
             "plane" => new PlaneGeometry(),
             "plane_grating" => new PlaneGratingGeometry(
                 (int)Get(n, "order", 1),

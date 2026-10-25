@@ -331,6 +331,8 @@ public interface ILensLibraryService
 
 public interface IWorkbenchApplication : IDisposable
 {
+    DesignReportSnapshot CaptureReportSnapshot();
+
     IWorkbenchModeService Modes { get; }
 
     INonSequentialDocumentService NonSequential { get; }
@@ -352,6 +354,8 @@ public interface IWorkbenchApplication : IDisposable
     ITolerancingService Tolerancing { get; }
 
     IOpticalAssemblyService OpticalAssembly { get; }
+
+    ICameraImagingService CameraImaging { get; }
 
     IMultiConfigurationService MultiConfiguration { get; }
 

@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ff628499-4c0c-4e13-91a8-865ad9e968e3" name="allen@DESKTOP-SET3SNR 2026-10-24 20:23:22" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-24T20:23:22.2953047+08:00" queuing="2026-10-24T20:23:22.2953049+08:00" start="2026-10-24T20:23:18.4942105+08:00" finish="2026-10-24T20:23:22.3025173+08:00" />
+  <TestSettings name="default" id="0e213920-3cd8-4880-8071-492af259830c">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-24_20_23_22" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9b392fab-0c06-49ee-bbf3-f7c82aed8b24" testId="9ef3298a-fb1b-6ee7-d7f4-b2b3b63cbcc2" testName="OpticalSystemDesign.Tests.MarkdownReportExportTests.DefaultsSelectTheFourCommonAnalysesAndSafeTimeStampedFileNames" computerName="DESKTOP-SET3SNR" duration="00:00:00.0063187" startTime="2026-10-24T20:23:22.1260910+08:00" endTime="2026-10-24T20:23:22.1312851+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b392fab-0c06-49ee-bbf3-f7c82aed8b24" />
+    <UnitTestResult executionId="5bd6260c-e719-4dd5-8212-72723cb5ffc5" testId="4ffefd94-e7a4-f823-cfaf-40ecc1056a97" testName="OpticalSystemDesign.Tests.MarkdownReportExportTests.FailureIsReportedAndOtherAnalysesContinue" computerName="DESKTOP-SET3SNR" duration="00:00:00.5089055" startTime="2026-10-24T20:23:21.0861222+08:00" endTime="2026-10-24T20:23:21.5691909+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5bd6260c-e719-4dd5-8212-72723cb5ffc5">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotSupportedException : The selected optical document extension is not supported.</Message>
+          <StackTrace>   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ValidateDocumentExtension(String path) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.cs:line 231&#xD;
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.FormatNameForPath(String path) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.cs:line 217&#xD;
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ApplyLoadedDocument(LoadedOpticalDocument document, String path) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Documents.cs:line 189&#xD;
+   at OpticalSystemDesign.Application.Services.WorkbenchApplication.CaptureReportSnapshot() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkbenchApplication.Report.cs:line 19&#xD;
+   at OpticalSystemDesign.Tests.MarkdownReportExportTests.FailureIsReportedAndOtherAnalysesContinue() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportExportTests.cs:line 96&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="63e64827-ab7a-4053-88c8-e641318b4c61" testId="119bb7a1-72e6-51ca-ca26-580e830149dc" testName="OpticalSystemDesign.Tests.MarkdownReportExportTests.SnapshotFreezesUnsavedPrescriptionAndAllConfigurationsWithoutSavingSource" computerName="DESKTOP-SET3SNR" duration="00:00:00.1590686" startTime="2026-10-24T20:23:21.9654618+08:00" endTime="2026-10-24T20:23:22.1252099+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="63e64827-ab7a-4053-88c8-e641318b4c61" />
+    <UnitTestResult executionId="5e83e4cc-614a-486f-ad61-7af3613e3137" testId="b154b1cd-a6a9-9960-e02f-c8971759ede6" testName="OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles" computerName="DESKTOP-SET3SNR" duration="00:00:00.0074090" startTime="2026-10-24T20:23:22.1891006+08:00" endTime="2026-10-24T20:23:22.1961490+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5e83e4cc-614a-486f-ad61-7af3613e3137">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotSupportedException : The selected optical document extension is not supported.</Message>
+          <StackTrace>   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ValidateDocumentExtension(String path) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.cs:line 231&#xD;
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.FormatNameForPath(String path) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.cs:line 217&#xD;
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ApplyLoadedDocument(LoadedOpticalDocument document, String path) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Documents.cs:line 189&#xD;
+   at OpticalSystemDesign.Application.Services.WorkbenchApplication.CaptureReportSnapshot() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkbenchApplication.Report.cs:line 19&#xD;
+   at OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportExportTests.cs:line 78&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="bf7e45f5-e947-44f9-a84a-2490b722edc5" testId="8adbcde7-d77a-e4f7-46b2-fc5b0cda5625" testName="OpticalSystemDesign.Tests.MarkdownReportExportTests.EachConfigurationHasItsOwnPrescriptionAndLayout" computerName="DESKTOP-SET3SNR" duration="00:00:00.0566766" startTime="2026-10-24T20:23:22.1313885+08:00" endTime="2026-10-24T20:23:22.1882978+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bf7e45f5-e947-44f9-a84a-2490b722edc5">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotSupportedException : The selected optical document extension is not supported.</Message>
+          <StackTrace>   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ValidateDocumentExtension(String path) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.cs:line 231&#xD;
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.FormatNameForPath(String path) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.cs:line 217&#xD;
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ApplyLoadedDocument(LoadedOpticalDocument document, String path) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Documents.cs:line 189&#xD;
+   at OpticalSystemDesign.Application.Services.WorkbenchApplication.CaptureReportSnapshot() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkbenchApplication.Report.cs:line 19&#xD;
+   at OpticalSystemDesign.Tests.MarkdownReportExportTests.EachConfigurationHasItsOwnPrescriptionAndLayout() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportExportTests.cs:line 114&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e53b0f51-82e3-47ed-983a-5144081a6d6b" testId="8a87cbff-fa62-774b-34c0-9cd1e196aab7" testName="OpticalSystemDesign.Tests.MarkdownReportExportTests.ExportUsesSameDirectoryTimestampEscapedLinksAndActualAnalysisSettings" computerName="DESKTOP-SET3SNR" duration="00:00:00.3922979" startTime="2026-10-24T20:23:21.5878568+08:00" endTime="2026-10-24T20:23:21.9644179+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e53b0f51-82e3-47ed-983a-5144081a6d6b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Contains() Failure: Sub-string not found&#xD;
+String:    "# OpticalSystemDesign Cooke Triplet — 光学设"···&#xD;
+Not found: "NumRings"</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.MarkdownReportExportTests.ExportUsesSameDirectoryTimestampEscapedLinksAndActualAnalysisSettings() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportExportTests.cs:line 56&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.MarkdownReportExportTests.SnapshotFreezesUnsavedPrescriptionAndAllConfigurationsWithoutSavingSource" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\debug\net10.0\opticalsystemdesign.tests.dll" id="119bb7a1-72e6-51ca-ca26-580e830149dc">
+      <Execution id="63e64827-ab7a-4053-88c8-e641318b4c61" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MarkdownReportExportTests" name="SnapshotFreezesUnsavedPrescriptionAndAllConfigurationsWithoutSavingSource" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\debug\net10.0\opticalsystemdesign.tests.dll" id="b154b1cd-a6a9-9960-e02f-c8971759ede6">
+      <Execution id="5e83e4cc-614a-486f-ad61-7af3613e3137" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MarkdownReportExportTests" name="CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MarkdownReportExportTests.ExportUsesSameDirectoryTimestampEscapedLinksAndActualAnalysisSettings" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\debug\net10.0\opticalsystemdesign.tests.dll" id="8a87cbff-fa62-774b-34c0-9cd1e196aab7">
+      <Execution id="e53b0f51-82e3-47ed-983a-5144081a6d6b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MarkdownReportExportTests" name="ExportUsesSameDirectoryTimestampEscapedLinksAndActualAnalysisSettings" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MarkdownReportExportTests.EachConfigurationHasItsOwnPrescriptionAndLayout" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\debug\net10.0\opticalsystemdesign.tests.dll" id="8adbcde7-d77a-e4f7-46b2-fc5b0cda5625">
+      <Execution id="bf7e45f5-e947-44f9-a84a-2490b722edc5" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MarkdownReportExportTests" name="EachConfigurationHasItsOwnPrescriptionAndLayout" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MarkdownReportExportTests.DefaultsSelectTheFourCommonAnalysesAndSafeTimeStampedFileNames" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\debug\net10.0\opticalsystemdesign.tests.dll" id="9ef3298a-fb1b-6ee7-d7f4-b2b3b63cbcc2">
+      <Execution id="9b392fab-0c06-49ee-bbf3-f7c82aed8b24" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MarkdownReportExportTests" name="DefaultsSelectTheFourCommonAnalysesAndSafeTimeStampedFileNames" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MarkdownReportExportTests.FailureIsReportedAndOtherAnalysesContinue" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\debug\net10.0\opticalsystemdesign.tests.dll" id="4ffefd94-e7a4-f823-cfaf-40ecc1056a97">
+      <Execution id="5bd6260c-e719-4dd5-8212-72723cb5ffc5" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Debug\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MarkdownReportExportTests" name="FailureIsReportedAndOtherAnalysesContinue" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="9ef3298a-fb1b-6ee7-d7f4-b2b3b63cbcc2" executionId="9b392fab-0c06-49ee-bbf3-f7c82aed8b24" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4ffefd94-e7a4-f823-cfaf-40ecc1056a97" executionId="5bd6260c-e719-4dd5-8212-72723cb5ffc5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="119bb7a1-72e6-51ca-ca26-580e830149dc" executionId="63e64827-ab7a-4053-88c8-e641318b4c61" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b154b1cd-a6a9-9960-e02f-c8971759ede6" executionId="5e83e4cc-614a-486f-ad61-7af3613e3137" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8adbcde7-d77a-e4f7-46b2-fc5b0cda5625" executionId="bf7e45f5-e947-44f9-a84a-2490b722edc5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8a87cbff-fa62-774b-34c0-9cd1e196aab7" executionId="e53b0f51-82e3-47ed-983a-5144081a6d6b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="6" passed="2" failed="4" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.18]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.15]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.17]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.72]       System.NotSupportedException : The selected optical document extension is not supported.&#xD;
+[xUnit.net 00:00:02.72]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.72]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.cs(231,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ValidateDocumentExtension(String path)&#xD;
+[xUnit.net 00:00:02.72]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.cs(217,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.FormatNameForPath(String path)&#xD;
+[xUnit.net 00:00:02.72]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Documents.cs(189,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ApplyLoadedDocument(LoadedOpticalDocument document, String path)&#xD;
+[xUnit.net 00:00:02.72]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkbenchApplication.Report.cs(19,0): at OpticalSystemDesign.Application.Services.WorkbenchApplication.CaptureReportSnapshot()&#xD;
+[xUnit.net 00:00:02.72]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportExportTests.cs(96,0): at OpticalSystemDesign.Tests.MarkdownReportExportTests.FailureIsReportedAndOtherAnalysesContinue()&#xD;
+[xUnit.net 00:00:02.72]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.11]       Assert.Contains() Failure: Sub-string not found&#xD;
+[xUnit.net 00:00:03.11]       String:    "# OpticalSystemDesign Cooke Triplet — 光学设"···&#xD;
+[xUnit.net 00:00:03.11]       Not found: "NumRings"&#xD;
+[xUnit.net 00:00:03.11]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.11]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportExportTests.cs(56,0): at OpticalSystemDesign.Tests.MarkdownReportExportTests.ExportUsesSameDirectoryTimestampEscapedLinksAndActualAnalysisSettings()&#xD;
+[xUnit.net 00:00:03.11]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.33]       System.NotSupportedException : The selected optical document extension is not supported.&#xD;
+[xUnit.net 00:00:03.33]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.33]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.cs(231,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ValidateDocumentExtension(String path)&#xD;
+[xUnit.net 00:00:03.33]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.cs(217,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.FormatNameForPath(String path)&#xD;
+[xUnit.net 00:00:03.33]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Documents.cs(189,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ApplyLoadedDocument(LoadedOpticalDocument document, String path)&#xD;
+[xUnit.net 00:00:03.33]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkbenchApplication.Report.cs(19,0): at OpticalSystemDesign.Application.Services.WorkbenchApplication.CaptureReportSnapshot()&#xD;
+[xUnit.net 00:00:03.33]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportExportTests.cs(114,0): at OpticalSystemDesign.Tests.MarkdownReportExportTests.EachConfigurationHasItsOwnPrescriptionAndLayout()&#xD;
+[xUnit.net 00:00:03.33]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.34]       System.NotSupportedException : The selected optical document extension is not supported.&#xD;
+[xUnit.net 00:00:03.34]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.34]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.cs(231,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ValidateDocumentExtension(String path)&#xD;
+[xUnit.net 00:00:03.34]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.cs(217,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.FormatNameForPath(String path)&#xD;
+[xUnit.net 00:00:03.34]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Documents.cs(189,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ApplyLoadedDocument(LoadedOpticalDocument document, String path)&#xD;
+[xUnit.net 00:00:03.34]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Services\WorkbenchApplication.Report.cs(19,0): at OpticalSystemDesign.Application.Services.WorkbenchApplication.CaptureReportSnapshot()&#xD;
+[xUnit.net 00:00:03.34]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportExportTests.cs(78,0): at OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles()&#xD;
+[xUnit.net 00:00:03.34]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.36]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-24T20:23:21.5719291+08:00">
+        <Text>[xUnit.net 00:00:02.71]     OpticalSystemDesign.Tests.MarkdownReportExportTests.FailureIsReportedAndOtherAnalysesContinue [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-24T20:23:21.9647595+08:00">
+        <Text>[xUnit.net 00:00:03.11]     OpticalSystemDesign.Tests.MarkdownReportExportTests.ExportUsesSameDirectoryTimestampEscapedLinksAndActualAnalysisSettings [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-24T20:23:22.1887255+08:00">
+        <Text>[xUnit.net 00:00:03.33]     OpticalSystemDesign.Tests.MarkdownReportExportTests.EachConfigurationHasItsOwnPrescriptionAndLayout [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-24T20:23:22.1967552+08:00">
+        <Text>[xUnit.net 00:00:03.34]     OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

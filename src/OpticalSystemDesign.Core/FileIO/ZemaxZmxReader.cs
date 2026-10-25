@@ -20,9 +20,9 @@ internal static partial class ZemaxZmxReader
         return ImportConfigurationSet(text).ActiveOptic;
     }
 
-    public static ZemaxZmxImportResult ImportConfigurationSet(string text)
+    public static ZemaxZmxImportResult ImportConfigurationSet(string text, string? assetDirectory = null)
     {
-        var document = Parse(text);
+        var document = Parse(text, assetDirectory);
         Validate(document);
 
         var configurations = Enumerable.Range(0, Math.Max(1, document.ConfigurationCount))
@@ -53,7 +53,11 @@ internal static partial class ZemaxZmxReader
         ConfigureAperture(optic, document, configurationIndex);
         optic.Apodization = document.Apodization?.Clone();
         optic.RayAimingEnabled = document.RayAimingEnabled;
-        optic.ImageSpaceAfocal = document.AfocalImageSpace;
+        var configuredAfocal = document.ConfigurationDouble("AFOC", 0, configurationIndex);
+        if (configuredAfocal.HasValue && configuredAfocal.Value is not 0 and not 1)
+            throw new InvalidDataException("AFOC must be zero (focal) or one (afocal).");
+        optic.ImageSpaceAfocal = configuredAfocal.HasValue ? configuredAfocal.Value == 1 : document.AfocalImageSpace;
+        optic.ReferenceOpd = document.ReferenceOpd;
         ConfigureFields(optic, document, configurationIndex);
         ConfigureWavelengths(optic, document, configurationIndex);
         // Keep the stored prescription when dispersion is unavailable.
@@ -159,7 +163,7 @@ internal static partial class ZemaxZmxReader
         }
     }
 
-    private static ZemaxDocument Parse(string text)
+    private static ZemaxDocument Parse(string text, string? assetDirectory = null)
     {
         var document = new ZemaxDocument();
         ZemaxSurface? current = null;
@@ -231,6 +235,41 @@ internal static partial class ZemaxZmxReader
                     break;
                 case "FTYP":
                     ReadConfiguration(document, tokens);
+                    break;
+                case "ROPD":
+                    var referenceOpd = RequiredInt(tokens, 1, command);
+                    if (!Enum.IsDefined(typeof(ReferenceOpdMode), referenceOpd))
+                        throw new InvalidDataException("Unknown Zemax ROPD reference.");
+                    document.ReferenceOpd = (ReferenceOpdMode)referenceOpd;
+                    break;
+                case "NSOH":
+                    if (current is not null) current.PolygonObjectCount++;
+                    if (current is not null && current.Type == "NONSEQCO" && tokens.Length >= 5
+                        && tokens[1] == "NSC_POBJ" && tokens[2] == "0" && tokens[3] == "0")
+                    {
+                        current.PolygonAssetDirectory = assetDirectory;
+                        current.PolygonLengthScale = document.LengthScaleToMillimeters;
+                        current.PolygonPayload = ReadPolygonAsset(assetDirectory, tokens[4]);
+                    }
+                    break;
+                case "NSOP":
+                    if (current?.PolygonPayload is not null)
+                    {
+                        current.PolygonPose = Enumerable.Range(1,6).Select(i => RequiredDouble(tokens,i,command)).ToArray();
+                        current.PolygonMaterial = tokens[7];
+                    }
+                    break;
+                case "NSOD":
+                    if (current?.PolygonPayload is not null && tokens.Length > 2 && tokens[1] == "1")
+                        current.PolygonScale = RequiredDouble(tokens,2,command);
+                    if (current?.PolygonPayload is not null && tokens.Length > 2 && tokens[1] == "2")
+                        current.PolygonIsVolume = RequiredDouble(tokens,2,command) != 0;
+                    break;
+                case "NSCS":
+                    if (current?.PolygonPayload is not null && tokens.Length > 3
+                        && ((tokens[1] == "1" && tokens[3].Trim('"') is not "_NONE_" and not "")
+                            || (tokens[1] == "2" && tokens[3] != "0")))
+                        throw new NotSupportedException("Polygon face coating/scattering overrides are not supported.");
                     break;
                 case "XFLN":
                     document.FieldX = ReadValues(tokens, 1, document.FieldCount);
@@ -536,6 +575,8 @@ internal static partial class ZemaxZmxReader
                 case "GLSS":
                 case "STPS":
                 case "PRAM":
+                case "NCOM":
+                case "AFOC":
                     ReadConfigurationOperand(document, tokens, command);
                     break;
                 case "GCAT":
@@ -663,9 +704,19 @@ internal static partial class ZemaxZmxReader
             var configured = new ZemaxSurface(source.Number)
             {
                 Type = source.Type,
+                PolygonAssetDirectory = source.PolygonAssetDirectory,
+                PolygonObjectCount = source.PolygonObjectCount,
+                PolygonIsVolume = source.PolygonIsVolume,
+                PolygonLengthScale = source.PolygonLengthScale,
+                PolygonPayload = document.ConfigurationText("NCOM", source.Number, configurationIndex) is { } polygonName
+                    ? ReadPolygonAsset(source.PolygonAssetDirectory, polygonName)
+                    : source.PolygonPayload,
+                PolygonPose = source.PolygonPose,
+                PolygonMaterial = source.PolygonMaterial,
+                PolygonScale = source.PolygonScale,
                 RetainReferencePlane = source.Type == "COORDBRK" && document.MeritOperands.Any(operand =>
                     !operand.CompatibilityOnly && operand.Surface == source.Number
-                    && operand.Type is "REAX" or "REAY" or "REAR" or "REAZ"),
+                    && operand.Type is "REAX" or "REAY" or "REAR" or "REAZ" or "REAA" or "REAB" or "REAC"),
                 Comment = source.Comment,
                 Radius = RadiusFromConfiguredCurvature(
                     document,
@@ -763,15 +814,21 @@ internal static partial class ZemaxZmxReader
                 if (!source.RetainReferencePlane) continue;
             }
 
+            if (source.Type == "NONSEQCO" && source.PolygonPayload is not null)
+            {
+                if (source.PolygonLengthScale != 1)
+                    throw new NotSupportedException("Executable polygon groups currently require millimeter lens units; other units remain unsupported rather than being interpreted as millimeters.");
+                origin += rotation.Transform(new Vector3D(source.Parameter(0), source.Parameter(1), source.Parameter(2)));
+                rotation *= RotationMatrix(source.Parameter(3), source.Parameter(4), source.Parameter(5));
+            }
             var index = result.Count;
-            var surfaceOrigin = index == 0
-                ? ObjectSurfaceOrigin(source.Thickness)
-                : origin;
+            var surfaceOrigin = index == 0 ? ObjectSurfaceOrigin(source.Thickness) : origin;
             var coordinate = CoordinateFrom(surfaceOrigin, rotation);
-            // A referenced coordinate break is its own transparent plane, before
-            // its thickness translation; it is not the neighbouring curved face.
+            // A referenced coordinate break is transparent at its transformed plane.
             var referencePlane = source.RetainReferencePlane;
-            var geometry = referencePlane ? new PlaneGeometry() : CreateGeometry(source);
+            var geometry = source.Type == "NONSEQCO" && source.PolygonPayload is not null
+                ? CreatePolygonGroup(source, optic, glassCatalogs)
+                : referencePlane ? new PlaneGeometry() : CreateGeometry(source);
             var isReflective = !referencePlane && (source.IsMirror || source.Material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase));
             IMaterial materialAfter;
             if (isReflective || referencePlane)
@@ -886,15 +943,17 @@ internal static partial class ZemaxZmxReader
         ref Matrix3x3 rotation,
         bool includeThickness = true)
     {
-        if (Math.Abs(source.Parameter(5)) > 1e-12)
-        {
-            throw new NotSupportedException(
-                $"Zemax coordinate-break order flags are not supported (SURF {source.Number}, PARM 6).");
-        }
-
         var decenter = new Vector3D(source.Parameter(0), source.Parameter(1), 0);
-        origin += rotation.Transform(decenter);
-        rotation *= RotationMatrix(source.Parameter(2), source.Parameter(3), source.Parameter(4));
+        if (source.Parameter(5) == 0)
+        {
+            origin += rotation.Transform(decenter);
+            rotation *= RotationMatrix(source.Parameter(2), source.Parameter(3), source.Parameter(4));
+        }
+        else
+        {
+            rotation *= RotationMatrix(-source.Parameter(2), -source.Parameter(3), -source.Parameter(4)).Transpose();
+            origin += rotation.Transform(decenter);
+        }
         if (includeThickness && !double.IsInfinity(source.Thickness))
         {
             origin += rotation.Transform(new Vector3D(0, 0, source.Thickness));
@@ -1840,6 +1899,8 @@ internal static partial class ZemaxZmxReader
 
         public int GlobalReferenceSurfaceNumber { get; set; } = 1;
         public bool AfocalImageSpace { get; set; }
+
+        public ReferenceOpdMode ReferenceOpd { get; set; } = ReferenceOpdMode.ExitPupil;
         public List<double> FieldX { get; set; } = new();
         public List<double> FieldY { get; set; } = new();
         public List<double> FieldWeights { get; set; } = new();
@@ -1925,6 +1986,15 @@ internal static partial class ZemaxZmxReader
         public bool IsStop { get; set; }
         public bool IsMirror { get; set; }
         public bool RetainReferencePlane { get; set; }
+
+        public string? PolygonPayload { get; set; }
+        public string? PolygonAssetDirectory { get; set; }
+        public int PolygonObjectCount { get; set; }
+        public bool PolygonIsVolume { get; set; }
+        public double PolygonLengthScale { get; set; } = 1;
+        public double[] PolygonPose { get; set; } = new double[6];
+        public string PolygonMaterial { get; set; } = "Air";
+        public double PolygonScale { get; set; } = 1;
         public ZemaxMarginalRayHeightSolve? MarginalRayHeightSolve { get; set; }
         public ZemaxCurvatureSolve? CurvatureSolve { get; set; }
         public Dictionary<int, double> Parameters { get; } = new();

@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="edc41994-39c5-4f49-9d07-a76751b48c21" name="allen@DESKTOP-SET3SNR 2026-10-24 20:35:25" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-24T20:35:25.1410750+08:00" queuing="2026-10-24T20:35:25.1410760+08:00" start="2026-10-24T20:35:22.7807091+08:00" finish="2026-10-24T20:35:26.5515121+08:00" />
+  <TestSettings name="default" id="8b4315cf-4196-474c-8555-db61b5e0825f">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-24_20_35_25" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="3472d848-966c-4d9d-baa9-125fd78ecdaf" testId="d473a4ac-badc-3332-00fc-5e258f200c39" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.DesktopLaunchersRestorePackagesBeforeCleaningBuildOutputs" computerName="DESKTOP-SET3SNR" duration="00:00:00.0003886" startTime="2026-10-24T20:35:25.4904258+08:00" endTime="2026-10-24T20:35:25.4904518+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3472d848-966c-4d9d-baa9-125fd78ecdaf" />
+    <UnitTestResult executionId="8fe1c318-1fa7-4361-b5b5-c2c208f16465" testId="4d0bcda4-ce1b-6357-9d3e-9c13fc3f71ec" testName="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: &quot;Process.Start(\&quot;python\&quot;, \&quot;worker.py\&quot;)&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0000045" startTime="2026-10-24T20:35:25.1222607+08:00" endTime="2026-10-24T20:35:25.1222924+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8fe1c318-1fa7-4361-b5b5-c2c208f16465" />
+    <UnitTestResult executionId="880e6650-c03d-46be-9592-0c5bfd008ab3" testId="b0b38296-818b-1d10-8065-e0e50291d3b5" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiCardsUseSharedChromeTokens" computerName="DESKTOP-SET3SNR" duration="00:00:00.0598466" startTime="2026-10-24T20:35:25.2017512+08:00" endTime="2026-10-24T20:35:25.2616289+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="880e6650-c03d-46be-9592-0c5bfd008ab3" />
+    <UnitTestResult executionId="b5a2af1e-260b-494f-b4dd-146ae5cd0a3f" testId="a32bb372-d8bd-8b6f-759d-7422770d16b7" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.AppAssemblyDoesNotReferenceCore" computerName="DESKTOP-SET3SNR" duration="00:00:00.0036422" startTime="2026-10-24T20:35:25.4862758+08:00" endTime="2026-10-24T20:35:25.4899322+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b5a2af1e-260b-494f-b4dd-146ae5cd0a3f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.DoesNotContain() Failure: Filter matched in collection&#xD;
+                                                                                                                                                                                                                            ↓ (pos 25)&#xD;
+Collection: [···, System.Collections.Concurrent, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, OpticalSystemDesign.InitialStructure.Contracts, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null, OpticalSystemDesign.Core, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null, OpticalSystemDesign.Modules, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null, OpticalSystemDesign.InitialStructure.Persistence, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null, ···]</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.LayeringArchitectureTests.AppAssemblyDoesNotReferenceCore() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs:line 17&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6765abfa-5234-451a-87cf-cc368cf9ae9a" testId="3463c9e2-e6a7-caf4-ed22-09176b55d882" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.LongRunningPanelsUseSharedOperationStatusBar" computerName="DESKTOP-SET3SNR" duration="00:00:00.0269763" startTime="2026-10-24T20:35:25.4218714+08:00" endTime="2026-10-24T20:35:25.4489604+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6765abfa-5234-451a-87cf-cc368cf9ae9a">
+      <Output>
+        <ErrorInfo>
+          <Message>Use OperationStatusBar for long-running App UI progress instead of local ProgressBar instances:&#xD;
+Panels/SoftwareUpdatePanel.cs:24: private readonly ProgressBar _progress = new() { Name = "UpdateDownloadProgress", Minimum = 0, Maximum = 100, Height = 6, IsVisible = false };</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.LayeringArchitectureTests.LongRunningPanelsUseSharedOperationStatusBar() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs:line 432&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3f0203d4-46a6-4c87-9f0b-469c6149b179" testId="b154b1cd-a6a9-9960-e02f-c8971759ede6" testName="OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles" computerName="DESKTOP-SET3SNR" duration="00:00:00.0458977" startTime="2026-10-24T20:35:26.4186330+08:00" endTime="2026-10-24T20:35:26.4648217+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3f0203d4-46a6-4c87-9f0b-469c6149b179" />
+    <UnitTestResult executionId="de24a4e6-9951-44e4-a577-5d0289f1db85" testId="14adf5a1-535d-71b4-af54-510be7a7dc32" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiFontSizesUseTypographyTokens" computerName="DESKTOP-SET3SNR" duration="00:00:00.0283754" startTime="2026-10-24T20:35:25.3933847+08:00" endTime="2026-10-24T20:35:25.4217359+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="de24a4e6-9951-44e4-a577-5d0289f1db85" />
+    <UnitTestResult executionId="54bffa44-f4b6-4335-b166-b00aa1125319" testId="8adbcde7-d77a-e4f7-46b2-fc5b0cda5625" testName="OpticalSystemDesign.Tests.MarkdownReportExportTests.EachConfigurationHasItsOwnPrescriptionAndLayout" computerName="DESKTOP-SET3SNR" duration="00:00:00.1125072" startTime="2026-10-24T20:35:26.3058567+08:00" endTime="2026-10-24T20:35:26.4184907+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="54bffa44-f4b6-4335-b166-b00aa1125319" />
+    <UnitTestResult executionId="5d675669-3a17-48ba-a2a5-c35db5226119" testId="fe8e27a8-a5c2-896f-d3b4-a946c1e5c0c6" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.ProductionServicesDoNotReferenceLegacyNamespace" computerName="DESKTOP-SET3SNR" duration="00:00:00.0033559" startTime="2026-10-24T20:35:25.3177918+08:00" endTime="2026-10-24T20:35:25.3217746+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5d675669-3a17-48ba-a2a5-c35db5226119" />
+    <UnitTestResult executionId="d0e46bbe-191b-4e0e-a22d-5388d8fec847" testId="530df738-7ed8-f2b6-8bb0-9df0d8bef3be" testName="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: &quot;new ProcessStartInfo(\&quot;py\&quot;, \&quot;worker.py\&quot;)&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0001291" startTime="2026-10-24T20:35:25.1207030+08:00" endTime="2026-10-24T20:35:25.1214078+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d0e46bbe-191b-4e0e-a22d-5388d8fec847" />
+    <UnitTestResult executionId="3f885120-de98-4b41-81e1-13c93701e951" testId="07c6cbce-b94b-db51-9a76-e4f0de524cd3" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.ProductionServicesUseTheCanonicalRuntimeVocabulary" computerName="DESKTOP-SET3SNR" duration="00:00:00.0093770" startTime="2026-10-24T20:35:25.1734453+08:00" endTime="2026-10-24T20:35:25.1789189+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3f885120-de98-4b41-81e1-13c93701e951" />
+    <UnitTestResult executionId="a33cad71-a41c-4013-94c3-f51757919ef7" testId="2f6e26c4-31bb-bb7c-c0a5-c4e50d17c648" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.ApplicationContractsDoNotExposeCoreTypes" computerName="DESKTOP-SET3SNR" duration="00:00:00.0280503" startTime="2026-10-24T20:35:25.1294675+08:00" endTime="2026-10-24T20:35:25.1294945+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a33cad71-a41c-4013-94c3-f51757919ef7" />
+    <UnitTestResult executionId="aa929a66-3997-4bc8-93b7-6d2bfdf04258" testId="1bece3ed-d746-c06a-94a2-e25068227eed" testName="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.ProductSourcesAndBuildInputsHaveNoPythonOrValidationDependencies" computerName="DESKTOP-SET3SNR" duration="00:00:01.1008817" startTime="2026-10-24T20:35:25.1294202+08:00" endTime="2026-10-24T20:35:26.1943572+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aa929a66-3997-4bc8-93b7-6d2bfdf04258" />
+    <UnitTestResult executionId="b2bca9f4-28be-4bc3-96e0-30e6d759c21d" testId="119bb7a1-72e6-51ca-ca26-580e830149dc" testName="OpticalSystemDesign.Tests.MarkdownReportExportTests.SnapshotFreezesUnsavedPrescriptionAndAllConfigurationsWithoutSavingSource" computerName="DESKTOP-SET3SNR" duration="00:00:00.1268731" startTime="2026-10-24T20:35:26.1658108+08:00" endTime="2026-10-24T20:35:26.2926761+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b2bca9f4-28be-4bc3-96e0-30e6d759c21d" />
+    <UnitTestResult executionId="14e1bcf8-fff6-423b-8f55-4c08c95bd459" testId="a9e4740d-61ae-f7c6-eff3-0ee18da7b9da" testName="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: &quot;PackageReference Include=\&quot;pythonnet\&quot;&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0000056" startTime="2026-10-24T20:35:25.1224134+08:00" endTime="2026-10-24T20:35:25.1226793+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="14e1bcf8-fff6-423b-8f55-4c08c95bd459" />
+    <UnitTestResult executionId="3adc7e25-91c4-4094-8204-0876ed361553" testId="c9f253d9-53cc-c000-53d2-760dcad66db2" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.MainApplicationProjectDoesNotCompileTheLegacyNamespace" computerName="DESKTOP-SET3SNR" duration="00:00:00.0054642" startTime="2026-10-24T20:35:25.4497348+08:00" endTime="2026-10-24T20:35:25.4544651+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3adc7e25-91c4-4094-8204-0876ed361553" />
+    <UnitTestResult executionId="d42566cb-25cb-4a9c-804b-87c9732f7522" testId="9ef3298a-fb1b-6ee7-d7f4-b2b3b63cbcc2" testName="OpticalSystemDesign.Tests.MarkdownReportExportTests.DefaultsSelectTheFourCommonAnalysesAndSafeTimeStampedFileNames" computerName="DESKTOP-SET3SNR" duration="00:00:00.0118207" startTime="2026-10-24T20:35:26.2935425+08:00" endTime="2026-10-24T20:35:26.3056688+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d42566cb-25cb-4a9c-804b-87c9732f7522" />
+    <UnitTestResult executionId="8d102111-d4f5-41ab-93eb-a6358ed479c1" testId="fa2d44a7-18c0-35e1-ea60-ea90d1e824e3" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.CoreAndApplicationDoNotReferenceUiFrameworks" computerName="DESKTOP-SET3SNR" duration="00:00:00.0009102" startTime="2026-10-24T20:35:25.2009432+08:00" endTime="2026-10-24T20:35:25.2016458+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8d102111-d4f5-41ab-93eb-a6358ed479c1" />
+    <UnitTestResult executionId="ae7954f0-06ca-40a0-8b77-195fd499439e" testId="e0052968-caa6-cf58-d7e0-d1a3e23069cb" testName="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: &quot;Content Include=\&quot;../../tools/python-reference/inp&quot;···)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0000072" startTime="2026-10-24T20:35:25.1221475+08:00" endTime="2026-10-24T20:35:25.1221877+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ae7954f0-06ca-40a0-8b77-195fd499439e" />
+    <UnitTestResult executionId="97610c3a-5c5f-4044-84aa-157d5405e147" testId="10ff8159-cacc-cd8b-fa35-884a34628a51" testName="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: &quot;new ProcessStartInfo(\&quot;python3.exe\&quot;)&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0000063" startTime="2026-10-24T20:35:25.1223463+08:00" endTime="2026-10-24T20:35:25.1223716+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="97610c3a-5c5f-4044-84aa-157d5405e147" />
+    <UnitTestResult executionId="fb313e68-64ae-408d-b611-af8df70b53b1" testId="c6c413ca-444f-9984-a3c8-019758d45fb3" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.RuntimeDoesNotDiscoverOrParseAUserZemaxStockCatalog" computerName="DESKTOP-SET3SNR" duration="00:00:00.0558901" startTime="2026-10-24T20:35:25.2617602+08:00" endTime="2026-10-24T20:35:25.3176448+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fb313e68-64ae-408d-b611-af8df70b53b1" />
+    <UnitTestResult executionId="4d697c9c-b9c4-4215-bacb-72d437f91c55" testId="ed3e7c0c-0f2b-9bd8-eb61-05f0616512bc" testName="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: &quot;File.ReadAllText(\&quot;../../validation/history/refere&quot;···)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0032597" startTime="2026-10-24T20:35:25.1121658+08:00" endTime="2026-10-24T20:35:25.1129725+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4d697c9c-b9c4-4215-bacb-72d437f91c55" />
+    <UnitTestResult executionId="996d2796-6f1a-45b8-b291-2953e06f62eb" testId="a06fa30f-7ec1-94f5-db52-a154ac553380" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiTableDensityUsesSharedTokens" computerName="DESKTOP-SET3SNR" duration="00:00:00.0431728" startTime="2026-10-24T20:35:25.1297391+08:00" endTime="2026-10-24T20:35:25.1699206+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="996d2796-6f1a-45b8-b291-2953e06f62eb">
+      <Output>
+        <ErrorInfo>
+          <Message>Use UiDensity table tokens instead of literal row/header heights:&#xD;
+Laboratories/InitialStructure/MainWindow.cs:195: FontSize = DisplayTypography.BodySmall, RowHeight = 34&#xD;
+Laboratories/InitialStructure/MainWindow.Inputs.cs:104: _wavelengthGrid.RowHeight = 32;</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiTableDensityUsesSharedTokens() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs:line 346&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="96dacc88-9887-417f-92b4-03751feeca75" testId="ff4615dd-5cef-53bc-76b4-73c01c0bebb2" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.WorkbenchApplicationIsOnlyACompositionRoot" computerName="DESKTOP-SET3SNR" duration="00:00:00.0053125" startTime="2026-10-24T20:35:25.1122113+08:00" endTime="2026-10-24T20:35:25.1218974+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="96dacc88-9887-417f-92b4-03751feeca75" />
+    <UnitTestResult executionId="b428819d-d779-41dc-8e37-20d50be9c8ff" testId="8a87cbff-fa62-774b-34c0-9cd1e196aab7" testName="OpticalSystemDesign.Tests.MarkdownReportExportTests.ExportUsesSameDirectoryTimestampEscapedLinksAndActualAnalysisSettings" computerName="DESKTOP-SET3SNR" duration="00:00:00.2947196" startTime="2026-10-24T20:35:25.8699100+08:00" endTime="2026-10-24T20:35:26.1649902+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b428819d-d779-41dc-8e37-20d50be9c8ff" />
+    <UnitTestResult executionId="5aa82653-f733-4067-b7c5-be1505d19f49" testId="a6840615-6050-a4fd-8348-f0645d059124" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.GlobalNumericInputStyleUsesTheAcceptedArrowFreeChrome" computerName="DESKTOP-SET3SNR" duration="00:00:00.0004918" startTime="2026-10-24T20:35:25.1790213+08:00" endTime="2026-10-24T20:35:25.1794711+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5aa82653-f733-4067-b7c5-be1505d19f49" />
+    <UnitTestResult executionId="66792785-25d3-4fe4-8155-f6895c5bac86" testId="1461e8b3-6215-1e60-991c-cbc39c0a525c" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.ThemeSpecificUiCodeStaysInsideRegisteredThemePackages" computerName="DESKTOP-SET3SNR" duration="00:00:00.0720651" startTime="2026-10-24T20:35:25.3282636+08:00" endTime="2026-10-24T20:35:25.3932522+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="66792785-25d3-4fe4-8155-f6895c5bac86" />
+    <UnitTestResult executionId="23880482-5c5e-489e-ac30-26b279c3bafd" testId="e01801e0-35e4-868f-038f-2b621ffcee52" testName="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.ProductProjectReferencesStayInsideProductAndAssembliesExcludeRetiredAdapters" computerName="DESKTOP-SET3SNR" duration="00:00:00.0435482" startTime="2026-10-24T20:35:26.1944876+08:00" endTime="2026-10-24T20:35:26.2380057+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="23880482-5c5e-489e-ac30-26b279c3bafd" />
+    <UnitTestResult executionId="23fe3eaa-ea64-4fdf-b5d8-b1a94446d81f" testId="2eb558e1-6ca0-086f-66bb-0e9d904fe507" testName="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: &quot;Python.Runtime.PythonEngine.Initialize()&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.0000085" startTime="2026-10-24T20:35:25.1220495+08:00" endTime="2026-10-24T20:35:25.1220887+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="23fe3eaa-ea64-4fdf-b5d8-b1a94446d81f" />
+    <UnitTestResult executionId="00b0b4ea-10b2-4a03-acde-095b868a1e30" testId="1f5b6200-667d-f76e-d9b6-b96f6da1bda3" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.OrdinaryAppUiColorsUseThemeResources" computerName="DESKTOP-SET3SNR" duration="00:00:00.0315384" startTime="2026-10-24T20:35:25.4545967+08:00" endTime="2026-10-24T20:35:25.4861422+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="00b0b4ea-10b2-4a03-acde-095b868a1e30" />
+    <UnitTestResult executionId="985f6d29-bdd7-4e35-8706-037a7286bf6a" testId="c32ce533-ad9a-baa0-7dbe-8b8aa7b9d088" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.DockDocumentsDoNotRestoreLargeFixedMinimumWidths" computerName="DESKTOP-SET3SNR" duration="00:00:00.0210825" startTime="2026-10-24T20:35:25.1795451+08:00" endTime="2026-10-24T20:35:25.2006992+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="985f6d29-bdd7-4e35-8706-037a7286bf6a" />
+    <UnitTestResult executionId="f2b734de-36b8-4d2d-bcfb-b5042a59c745" testId="4ffefd94-e7a4-f823-cfaf-40ecc1056a97" testName="OpticalSystemDesign.Tests.MarkdownReportExportTests.FailureIsReportedAndOtherAnalysesContinue" computerName="DESKTOP-SET3SNR" duration="00:00:00.7790865" startTime="2026-10-24T20:35:25.1110691+08:00" endTime="2026-10-24T20:35:25.8689656+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f2b734de-36b8-4d2d-bcfb-b5042a59c745" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.MainApplicationProjectDoesNotCompileTheLegacyNamespace" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c9f253d9-53cc-c000-53d2-760dcad66db2">
+      <Execution id="3adc7e25-91c4-4094-8204-0876ed361553" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="MainApplicationProjectDoesNotCompileTheLegacyNamespace" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.WorkbenchApplicationIsOnlyACompositionRoot" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ff4615dd-5cef-53bc-76b4-73c01c0bebb2">
+      <Execution id="96dacc88-9887-417f-92b4-03751feeca75" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="WorkbenchApplicationIsOnlyACompositionRoot" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiCardsUseSharedChromeTokens" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b0b38296-818b-1d10-8065-e0e50291d3b5">
+      <Execution id="880e6650-c03d-46be-9592-0c5bfd008ab3" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="AppUiCardsUseSharedChromeTokens" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: &quot;PackageReference Include=\&quot;pythonnet\&quot;&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a9e4740d-61ae-f7c6-eff3-0ee18da7b9da">
+      <Execution id="14e1bcf8-fff6-423b-8f55-4c08c95bd459" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests" name="DependencyGuardDetectsProhibitedRuntimeAndAssetReferences" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.ProductSourcesAndBuildInputsHaveNoPythonOrValidationDependencies" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1bece3ed-d746-c06a-94a2-e25068227eed">
+      <Execution id="aa929a66-3997-4bc8-93b7-6d2bfdf04258" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests" name="ProductSourcesAndBuildInputsHaveNoPythonOrValidationDependencies" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.ProductProjectReferencesStayInsideProductAndAssembliesExcludeRetiredAdapters" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e01801e0-35e4-868f-038f-2b621ffcee52">
+      <Execution id="23880482-5c5e-489e-ac30-26b279c3bafd" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests" name="ProductProjectReferencesStayInsideProductAndAssembliesExcludeRetiredAdapters" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MarkdownReportExportTests.DefaultsSelectTheFourCommonAnalysesAndSafeTimeStampedFileNames" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9ef3298a-fb1b-6ee7-d7f4-b2b3b63cbcc2">
+      <Execution id="d42566cb-25cb-4a9c-804b-87c9732f7522" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MarkdownReportExportTests" name="DefaultsSelectTheFourCommonAnalysesAndSafeTimeStampedFileNames" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MarkdownReportExportTests.FailureIsReportedAndOtherAnalysesContinue" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4ffefd94-e7a4-f823-cfaf-40ecc1056a97">
+      <Execution id="f2b734de-36b8-4d2d-bcfb-b5042a59c745" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MarkdownReportExportTests" name="FailureIsReportedAndOtherAnalysesContinue" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.LongRunningPanelsUseSharedOperationStatusBar" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3463c9e2-e6a7-caf4-ed22-09176b55d882">
+      <Execution id="6765abfa-5234-451a-87cf-cc368cf9ae9a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="LongRunningPanelsUseSharedOperationStatusBar" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MarkdownReportExportTests.ExportUsesSameDirectoryTimestampEscapedLinksAndActualAnalysisSettings" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8a87cbff-fa62-774b-34c0-9cd1e196aab7">
+      <Execution id="b428819d-d779-41dc-8e37-20d50be9c8ff" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MarkdownReportExportTests" name="ExportUsesSameDirectoryTimestampEscapedLinksAndActualAnalysisSettings" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.AppAssemblyDoesNotReferenceCore" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a32bb372-d8bd-8b6f-759d-7422770d16b7">
+      <Execution id="b5a2af1e-260b-494f-b4dd-146ae5cd0a3f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="AppAssemblyDoesNotReferenceCore" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.ApplicationContractsDoNotExposeCoreTypes" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2f6e26c4-31bb-bb7c-c0a5-c4e50d17c648">
+      <Execution id="a33cad71-a41c-4013-94c3-f51757919ef7" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="ApplicationContractsDoNotExposeCoreTypes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: &quot;new ProcessStartInfo(\&quot;python3.exe\&quot;)&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="10ff8159-cacc-cd8b-fa35-884a34628a51">
+      <Execution id="97610c3a-5c5f-4044-84aa-157d5405e147" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests" name="DependencyGuardDetectsProhibitedRuntimeAndAssetReferences" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: &quot;new ProcessStartInfo(\&quot;py\&quot;, \&quot;worker.py\&quot;)&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="530df738-7ed8-f2b6-8bb0-9df0d8bef3be">
+      <Execution id="d0e46bbe-191b-4e0e-a22d-5388d8fec847" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests" name="DependencyGuardDetectsProhibitedRuntimeAndAssetReferences" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MarkdownReportExportTests.SnapshotFreezesUnsavedPrescriptionAndAllConfigurationsWithoutSavingSource" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="119bb7a1-72e6-51ca-ca26-580e830149dc">
+      <Execution id="b2bca9f4-28be-4bc3-96e0-30e6d759c21d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MarkdownReportExportTests" name="SnapshotFreezesUnsavedPrescriptionAndAllConfigurationsWithoutSavingSource" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: &quot;Python.Runtime.PythonEngine.Initialize()&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2eb558e1-6ca0-086f-66bb-0e9d904fe507">
+      <Execution id="23fe3eaa-ea64-4fdf-b5d8-b1a94446d81f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests" name="DependencyGuardDetectsProhibitedRuntimeAndAssetReferences" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.CoreAndApplicationDoNotReferenceUiFrameworks" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fa2d44a7-18c0-35e1-ea60-ea90d1e824e3">
+      <Execution id="8d102111-d4f5-41ab-93eb-a6358ed479c1" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="CoreAndApplicationDoNotReferenceUiFrameworks" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MarkdownReportExportTests.EachConfigurationHasItsOwnPrescriptionAndLayout" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8adbcde7-d77a-e4f7-46b2-fc5b0cda5625">
+      <Execution id="54bffa44-f4b6-4335-b166-b00aa1125319" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MarkdownReportExportTests" name="EachConfigurationHasItsOwnPrescriptionAndLayout" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiFontSizesUseTypographyTokens" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="14adf5a1-535d-71b4-af54-510be7a7dc32">
+      <Execution id="de24a4e6-9951-44e4-a577-5d0289f1db85" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="AppUiFontSizesUseTypographyTokens" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.ProductionServicesDoNotReferenceLegacyNamespace" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fe8e27a8-a5c2-896f-d3b4-a946c1e5c0c6">
+      <Execution id="5d675669-3a17-48ba-a2a5-c35db5226119" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="ProductionServicesDoNotReferenceLegacyNamespace" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MarkdownReportExportTests.CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b154b1cd-a6a9-9960-e02f-c8971759ede6">
+      <Execution id="3f0203d4-46a6-4c87-9f0b-469c6149b179" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MarkdownReportExportTests" name="CancellationRetiresOnlyOwnedIncompleteOutputAndPreservesExistingFiles" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: &quot;Process.Start(\&quot;python\&quot;, \&quot;worker.py\&quot;)&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4d0bcda4-ce1b-6357-9d3e-9c13fc3f71ec">
+      <Execution id="8fe1c318-1fa7-4361-b5b5-c2c208f16465" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests" name="DependencyGuardDetectsProhibitedRuntimeAndAssetReferences" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.OrdinaryAppUiColorsUseThemeResources" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1f5b6200-667d-f76e-d9b6-b96f6da1bda3">
+      <Execution id="00b0b4ea-10b2-4a03-acde-095b868a1e30" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="OrdinaryAppUiColorsUseThemeResources" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.RuntimeDoesNotDiscoverOrParseAUserZemaxStockCatalog" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c6c413ca-444f-9984-a3c8-019758d45fb3">
+      <Execution id="fb313e68-64ae-408d-b611-af8df70b53b1" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="RuntimeDoesNotDiscoverOrParseAUserZemaxStockCatalog" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.ThemeSpecificUiCodeStaysInsideRegisteredThemePackages" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1461e8b3-6215-1e60-991c-cbc39c0a525c">
+      <Execution id="66792785-25d3-4fe4-8155-f6895c5bac86" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="ThemeSpecificUiCodeStaysInsideRegisteredThemePackages" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: &quot;Content Include=\&quot;../../tools/python-reference/inp&quot;···)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e0052968-caa6-cf58-d7e0-d1a3e23069cb">
+      <Execution id="ae7954f0-06ca-40a0-8b77-195fd499439e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests" name="DependencyGuardDetectsProhibitedRuntimeAndAssetReferences" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.ProductionServicesUseTheCanonicalRuntimeVocabulary" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="07c6cbce-b94b-db51-9a76-e4f0de524cd3">
+      <Execution id="3f885120-de98-4b41-81e1-13c93701e951" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="ProductionServicesUseTheCanonicalRuntimeVocabulary" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.DockDocumentsDoNotRestoreLargeFixedMinimumWidths" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c32ce533-ad9a-baa0-7dbe-8b8aa7b9d088">
+      <Execution id="985f6d29-bdd7-4e35-8706-037a7286bf6a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="DockDocumentsDoNotRestoreLargeFixedMinimumWidths" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.DesktopLaunchersRestorePackagesBeforeCleaningBuildOutputs" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d473a4ac-badc-3332-00fc-5e258f200c39">
+      <Execution id="3472d848-966c-4d9d-baa9-125fd78ecdaf" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="DesktopLaunchersRestorePackagesBeforeCleaningBuildOutputs" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests.DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(source: &quot;File.ReadAllText(\&quot;../../validation/history/refere&quot;···)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ed3e7c0c-0f2b-9bd8-eb61-05f0616512bc">
+      <Execution id="4d697c9c-b9c4-4215-bacb-72d437f91c55" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ProductDependencyArchitectureTests" name="DependencyGuardDetectsProhibitedRuntimeAndAssetReferences" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.GlobalNumericInputStyleUsesTheAcceptedArrowFreeChrome" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a6840615-6050-a4fd-8348-f0645d059124">
+      <Execution id="5aa82653-f733-4067-b7c5-be1505d19f49" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="GlobalNumericInputStyleUsesTheAcceptedArrowFreeChrome" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiTableDensityUsesSharedTokens" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a06fa30f-7ec1-94f5-db52-a154ac553380">
+      <Execution id="996d2796-6f1a-45b8-b291-2953e06f62eb" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="AppUiTableDensityUsesSharedTokens" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="d473a4ac-badc-3332-00fc-5e258f200c39" executionId="3472d848-966c-4d9d-baa9-125fd78ecdaf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4d0bcda4-ce1b-6357-9d3e-9c13fc3f71ec" executionId="8fe1c318-1fa7-4361-b5b5-c2c208f16465" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b0b38296-818b-1d10-8065-e0e50291d3b5" executionId="880e6650-c03d-46be-9592-0c5bfd008ab3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a32bb372-d8bd-8b6f-759d-7422770d16b7" executionId="b5a2af1e-260b-494f-b4dd-146ae5cd0a3f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3463c9e2-e6a7-caf4-ed22-09176b55d882" executionId="6765abfa-5234-451a-87cf-cc368cf9ae9a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b154b1cd-a6a9-9960-e02f-c8971759ede6" executionId="3f0203d4-46a6-4c87-9f0b-469c6149b179" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="14adf5a1-535d-71b4-af54-510be7a7dc32" executionId="de24a4e6-9951-44e4-a577-5d0289f1db85" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8adbcde7-d77a-e4f7-46b2-fc5b0cda5625" executionId="54bffa44-f4b6-4335-b166-b00aa1125319" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fe8e27a8-a5c2-896f-d3b4-a946c1e5c0c6" executionId="5d675669-3a17-48ba-a2a5-c35db5226119" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="530df738-7ed8-f2b6-8bb0-9df0d8bef3be" executionId="d0e46bbe-191b-4e0e-a22d-5388d8fec847" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="07c6cbce-b94b-db51-9a76-e4f0de524cd3" executionId="3f885120-de98-4b41-81e1-13c93701e951" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2f6e26c4-31bb-bb7c-c0a5-c4e50d17c648" executionId="a33cad71-a41c-4013-94c3-f51757919ef7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1bece3ed-d746-c06a-94a2-e25068227eed" executionId="aa929a66-3997-4bc8-93b7-6d2bfdf04258" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="119bb7a1-72e6-51ca-ca26-580e830149dc" executionId="b2bca9f4-28be-4bc3-96e0-30e6d759c21d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a9e4740d-61ae-f7c6-eff3-0ee18da7b9da" executionId="14e1bcf8-fff6-423b-8f55-4c08c95bd459" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c9f253d9-53cc-c000-53d2-760dcad66db2" executionId="3adc7e25-91c4-4094-8204-0876ed361553" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9ef3298a-fb1b-6ee7-d7f4-b2b3b63cbcc2" executionId="d42566cb-25cb-4a9c-804b-87c9732f7522" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fa2d44a7-18c0-35e1-ea60-ea90d1e824e3" executionId="8d102111-d4f5-41ab-93eb-a6358ed479c1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e0052968-caa6-cf58-d7e0-d1a3e23069cb" executionId="ae7954f0-06ca-40a0-8b77-195fd499439e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="10ff8159-cacc-cd8b-fa35-884a34628a51" executionId="97610c3a-5c5f-4044-84aa-157d5405e147" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c6c413ca-444f-9984-a3c8-019758d45fb3" executionId="fb313e68-64ae-408d-b611-af8df70b53b1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ed3e7c0c-0f2b-9bd8-eb61-05f0616512bc" executionId="4d697c9c-b9c4-4215-bacb-72d437f91c55" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a06fa30f-7ec1-94f5-db52-a154ac553380" executionId="996d2796-6f1a-45b8-b291-2953e06f62eb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ff4615dd-5cef-53bc-76b4-73c01c0bebb2" executionId="96dacc88-9887-417f-92b4-03751feeca75" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8a87cbff-fa62-774b-34c0-9cd1e196aab7" executionId="b428819d-d779-41dc-8e37-20d50be9c8ff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a6840615-6050-a4fd-8348-f0645d059124" executionId="5aa82653-f733-4067-b7c5-be1505d19f49" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1461e8b3-6215-1e60-991c-cbc39c0a525c" executionId="66792785-25d3-4fe4-8155-f6895c5bac86" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e01801e0-35e4-868f-038f-2b621ffcee52" executionId="23880482-5c5e-489e-ac30-26b279c3bafd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2eb558e1-6ca0-086f-66bb-0e9d904fe507" executionId="23fe3eaa-ea64-4fdf-b5d8-b1a94446d81f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1f5b6200-667d-f76e-d9b6-b96f6da1bda3" executionId="00b0b4ea-10b2-4a03-acde-095b868a1e30" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c32ce533-ad9a-baa0-7dbe-8b8aa7b9d088" executionId="985f6d29-bdd7-4e35-8706-037a7286bf6a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4ffefd94-e7a4-f823-cfaf-40ecc1056a97" executionId="f2b734de-36b8-4d2d-bcfb-b5042a59c745" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="32" executed="32" passed="29" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.81]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.92]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.95]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.05]       Use UiDensity table tokens instead of literal row/header heights:&#xD;
+[xUnit.net 00:00:02.05]       Laboratories/InitialStructure/MainWindow.cs:195: FontSize = DisplayTypography.BodySmall, RowHeight = 34&#xD;
+[xUnit.net 00:00:02.05]       Laboratories/InitialStructure/MainWindow.Inputs.cs:104: _wavelengthGrid.RowHeight = 32;&#xD;
+[xUnit.net 00:00:02.05]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.05]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs(346,0): at OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiTableDensityUsesSharedTokens()&#xD;
+[xUnit.net 00:00:02.05]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.05]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.33]       Use OperationStatusBar for long-running App UI progress instead of local ProgressBar instances:&#xD;
+[xUnit.net 00:00:02.33]       Panels/SoftwareUpdatePanel.cs:24: private readonly ProgressBar _progress = new() { Name = "UpdateDownloadProgress", Minimum = 0, Maximum = 100, Height = 6, IsVisible = false };&#xD;
+[xUnit.net 00:00:02.33]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.33]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs(432,0): at OpticalSystemDesign.Tests.LayeringArchitectureTests.LongRunningPanelsUseSharedOperationStatusBar()&#xD;
+[xUnit.net 00:00:02.33]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.33]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.37]       Assert.DoesNotContain() Failure: Filter matched in collection&#xD;
+[xUnit.net 00:00:02.37]                                                                                                                                                                                                                                   ↓ (pos 25)&#xD;
+[xUnit.net 00:00:02.37]       Collection: [···, System.Collections.Concurrent, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, OpticalSystemDesign.InitialStructure.Contracts, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null, OpticalSystemDesign.Core, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null, OpticalSystemDesign.Modules, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null, OpticalSystemDesign.InitialStructure.Persistence, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null, ···]&#xD;
+[xUnit.net 00:00:02.37]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.37]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs(17,0): at OpticalSystemDesign.Tests.LayeringArchitectureTests.AppAssemblyDoesNotReferenceCore()&#xD;
+[xUnit.net 00:00:02.37]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.37]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:03.36]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-24T20:35:25.1718207+08:00">
+        <Text>[xUnit.net 00:00:02.05]     OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiTableDensityUsesSharedTokens [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-24T20:35:25.4494448+08:00">
+        <Text>[xUnit.net 00:00:02.33]     OpticalSystemDesign.Tests.LayeringArchitectureTests.LongRunningPanelsUseSharedOperationStatusBar [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-24T20:35:25.4902284+08:00">
+        <Text>[xUnit.net 00:00:02.37]     OpticalSystemDesign.Tests.LayeringArchitectureTests.AppAssemblyDoesNotReferenceCore [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

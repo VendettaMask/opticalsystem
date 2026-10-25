@@ -2,6 +2,7 @@ using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Rays;
+using OpticalSystemDesign.Core.Geometries;
 
 namespace OpticalSystemDesign.Core.Analysis;
 
@@ -273,6 +274,8 @@ public static class WavefrontEngine
 
         var imageIndex = (optic.SurfaceGroup.Items.LastOrDefault()?.MaterialAfter ?? optic.Materials.Resolve("Air"))
             .RefractiveIndex(wavelength.Nanometers);
+        if (optic.ImageSpaceAfocal)
+            referenceWavelength = optic.Wavelengths.FirstOrDefault(item => item.IsPrimary) ?? referenceWavelength ?? wavelength;
         var referenceChief = referenceWavelength is null || referenceWavelength.Nanometers == wavelength.Nanometers
             ? chief
             : optic.SequentialRayTracer.TraceFinalSamples(optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
@@ -291,7 +294,9 @@ public static class WavefrontEngine
                 chief,
                 imageIndex,
                 referenceChief,
-                referenceWavelength?.Nanometers ?? wavelength.Nanometers);
+                referenceWavelength?.Nanometers ?? wavelength.Nanometers,
+                forceReferencePlane,
+                chiefBundle);
         }
 
         var sphere = referenceSphere ?? CreateChiefRayReferenceSphere(
@@ -420,11 +425,39 @@ public static class WavefrontEngine
         RayTraceSample chief,
         double imageIndex,
         RayTraceSample referenceChief,
-        double referenceWavelengthNanometers)
+        double referenceWavelengthNanometers,
+        bool forceImageReference,
+        RealRayBundle chiefBundle)
     {
         var chiefDirection = Normalize(referenceChief.Direction);
+        var referencePoint = referenceChief.Position;
+        if (!forceImageReference)
+        {
+            if (optic.ReferenceOpd == ReferenceOpdMode.Absolute2)
+            {
+                var image = optic.SurfaceGroup.Items[^1].CoordinateSystem;
+                referencePoint = image.Origin;
+                chiefDirection = Normalize(image.ToGlobalDirection(new Vector3D(0, 0, 1)));
+            }
+            else if (optic.ReferenceOpd == ReferenceOpdMode.ExitPupil)
+            {
+                var distance = optic.SurfaceGroup.Items.Any(s => s.Geometry is PolygonGroupGeometry)
+                    ? ImageSpaceAnalysisSupport.CompoundExitPupil(optic).Position
+                    : optic.Paraxial.EstimateExitPupilLocation(referenceWavelengthNanometers / 1000);
+                if (!double.IsFinite(distance))
+                    throw new InvalidOperationException("Afocal exit-pupil OPD requires a finite exit-pupil reference position.");
+                var frame = optic.SurfaceGroup.Items[^1].CoordinateSystem;
+                var axialDirection = frame.ToLocalDirection(chiefDirection).Z;
+                if (Math.Abs(axialDirection) <= 1e-12)
+                    throw new InvalidOperationException("The reference chief ray is parallel to the exit-pupil location plane.");
+                referencePoint = referenceChief.Position + chiefDirection
+                    * ((distance - frame.ToLocalPoint(referenceChief.Position).Z) / axialDirection);
+            }
+            else if (optic.ReferenceOpd == ReferenceOpdMode.Infinity)
+                throw new NotSupportedException("The infinity OPD reference is not defined for an afocal image; select ExitPupil, Absolute or Absolute2.");
+        }
         var referenceOpticalPath = chief.CumulativeOpticalPathLength
-            - ImageToReferencePlane(chief, referenceChief.Position, chiefDirection, imageIndex);
+            - ImageToReferencePlane(chief, referencePoint, chiefDirection, imageIndex);
         var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
             field.Hx,
             field.Hy,
@@ -452,11 +485,14 @@ public static class WavefrontEngine
 
             var imagePath = ImageToReferencePlane(
                 ray,
-                referenceChief.Position,
+                referencePoint,
                 chiefDirection,
                 imageIndex);
             var tilt = EntrancePupilPhasePath((ux, uy), entrancePupilRadius,
                 vignetting.Transform(pupil.X, pupil.Y), chiefPupil);
+            if (ObjectConjugate.IsInfinite(optic.SurfaceGroup.Items.FirstOrDefault())
+                && (aimAtStop || chiefBundle.Rays[0].Direction.Z < 0))
+                tilt = Dot(bundle.Rays[index].Origin - chiefBundle.Rays[0].Origin, chiefBundle.Rays[0].Direction);
             var opticalPath = ray.CumulativeOpticalPathLength - imagePath + tilt;
             var opdWaves = (referenceOpticalPath - opticalPath) / (wavelength.Micrometers * 1e-3);
             var t = imageIndex <= 1e-30 ? 0 : imagePath / imageIndex;

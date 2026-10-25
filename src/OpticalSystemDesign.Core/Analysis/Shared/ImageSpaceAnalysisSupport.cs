@@ -1,6 +1,7 @@
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Rays;
+using OpticalSystemDesign.Core.Geometries;
 
 namespace OpticalSystemDesign.Core.Analysis;
 
@@ -212,6 +213,8 @@ internal static class ImageSpaceAnalysisSupport
 
     public static double AfocalDiffractionPupilDiameterMillimeters(Optic optic)
     {
+        if (optic.SurfaceGroup.Items.Any(s => s.Geometry is PolygonGroupGeometry))
+            return CompoundExitPupil(optic).Diameter;
         var exit = Math.Abs(optic.Paraxial.EstimateExitPupilDiameter());
         if (double.IsFinite(exit) && exit > 1e-12)
         {
@@ -220,6 +223,16 @@ internal static class ImageSpaceAnalysisSupport
 
         var entrance = Math.Abs(optic.Paraxial.EstimateEntrancePupilDiameter());
         return double.IsFinite(entrance) && entrance > 1e-12 ? entrance : 0;
+    }
+
+    internal static (double Position, double Diameter) CompoundExitPupil(Optic optic)
+    {
+        const double probe = 1e-3;
+        var wavelength = optic.Wavelengths.FirstOrDefault(w => w.IsPrimary) ?? optic.Wavelengths[0];
+        var result = ExitPupilGeometryEngine.Compute(optic, (0, 0), wavelength,
+            new[] { (0d, 0d), (probe, 0d), (0d, probe) });
+        return (optic.SurfaceGroup.Items[^1].CoordinateSystem.ToLocalPoint(result.Center).Z,
+            2 * result.DisplayRadiusMillimeters / probe);
     }
 
     public static double AfocalDefocusOpdWaves(

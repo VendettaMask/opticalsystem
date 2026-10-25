@@ -46,9 +46,15 @@ public sealed record ComparisonConfiguration
             ExtendedAnalysisContracts.ValidateRmsFieldSampling(key, a);
             if (entry.ZemaxSettingsMapper != "unimplemented" && a.WorkbenchSettings.Count != 0)
                 throw new ArgumentException($"{key}: comparable adapters accept canonical typed settings only; unmatched Workbench-only overrides would invalidate alignment");
-            if (a.AfocalQuantities is not null && (key != "Ray Fan"
-                || a.AfocalQuantities.Count != 1 || !a.AfocalQuantities.ContainsKey("IncidentAngle")))
-                throw new ArgumentException("AfocalQuantities currently requires Ray Fan/IncidentAngle in degrees.");
+            if (a.AfocalQuantities is not null)
+            {
+                var expected = key == "Ray Fan" ? new[] { "IncidentAngle" }
+                    : key == "Field Curvature" ? new[] { "Defocus" }
+                    : key == "Field Curvature and Distortion" ? new[] { "Defocus", "Distortion" }
+                    : Array.Empty<string>();
+                if (expected.Length == 0 || !a.AfocalQuantities.Keys.Order().SequenceEqual(expected.Order()))
+                    throw new ArgumentException("AfocalQuantities requires explicit angular Ray Fan or diopter Field Curvature quantities.");
+            }
             foreach (var (quantity, t) in a.Quantities.Concat(a.AfocalQuantities ?? []))
             {
                 if (t is null || new[] { t.Absolute, t.Relative, t.Nrmse, t.CloseNrmse, t.MinimumCoverage }.Any(v => !double.IsFinite(v))

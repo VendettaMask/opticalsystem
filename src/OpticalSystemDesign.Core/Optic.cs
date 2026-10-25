@@ -126,6 +126,18 @@ public sealed class Optic
         }
     }
 
+    public ReferenceOpdMode ReferenceOpd
+    {
+        get => _state.ReferenceOpd;
+        set
+        {
+            if (!Enum.IsDefined(value)) throw new ArgumentOutOfRangeException(nameof(value));
+            if (_state.ReferenceOpd == value) return;
+            _state.ReferenceOpd = value;
+            InvalidateRayTraceCache();
+        }
+    }
+
     public bool ImageSpaceAfocal
     {
         get => _state.ImageSpaceAfocal;
@@ -567,6 +579,7 @@ public sealed class Optic
             FieldGroupTelecentric: FieldGroupTelecentric,
             RayAimingEnabled: RayAimingEnabled,
             ImageSpaceAfocal: ImageSpaceAfocal,
+            ReferenceOpd: ReferenceOpd == ReferenceOpdMode.ExitPupil ? null : ReferenceOpd,
             Polarization: new PolarizationSnapshot(Polarization.Unpolarized, Polarization.Jx, Polarization.Jy,
                 Polarization.XPhaseDegrees, Polarization.YPhaseDegrees, Polarization.ReferenceAxis.ToString()),
             GlobalReferenceSurfaceNumber: GlobalReferenceSurfaceNumber,
@@ -668,6 +681,7 @@ public sealed class Optic
         FieldGroupTelecentric = snapshot.FieldGroupTelecentric;
         RayAimingEnabled = snapshot.RayAimingEnabled;
         ImageSpaceAfocal = snapshot.ImageSpaceAfocal;
+        ReferenceOpd = snapshot.ReferenceOpd ?? ReferenceOpdMode.ExitPupil;
         Polarization = snapshot.Polarization is { } polarization
             ? new(polarization.Unpolarized, polarization.Jx, polarization.Jy, polarization.XPhaseDegrees,
                 polarization.YPhaseDegrees, Enum.Parse<PolarizationReferenceAxis>(polarization.ReferenceAxis)) : new();
@@ -916,6 +930,8 @@ public sealed class Optic
         public bool RayAimingEnabled { get; set; }
 
         public bool ImageSpaceAfocal { get; set; }
+
+        public ReferenceOpdMode ReferenceOpd { get; set; } = ReferenceOpdMode.ExitPupil;
 
         public int GlobalReferenceSurfaceNumber { get; set; } = 1;
 

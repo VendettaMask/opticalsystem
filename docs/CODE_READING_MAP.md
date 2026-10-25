@@ -159,7 +159,7 @@ rg --files labs/InitialStructure/src | rg 'FlatStartSearch|FlatStartSearchCheckp
 
 UI 经 Modules 消费共享 Core 的正式布局/分析 DTO，候选导出由 `CandidateExportService` 写 STAROPT、重开并比对同一快照。操作、数据目录和支持范围分别见 [模块说明](../labs/InitialStructure/README.md) 与 [模块契约](INITIAL_STRUCTURE_LAB_PLAN.md)。
 
-`InitialStructureSearchService`、`FlatRootFactory → FirstOrderSeedGenerator → HybridCandidateRefiner` 和 `RunDirectoryStore` 是保留的历史 hybrid 路径，不是当前桌面的搜索/保存主线。其差分进化也不代表正式 `OptimizerCatalog` 已公开同名算法；旧记录、测试和外部验证入口在 [历史方法索引](../labs/InitialStructure/README.md#历史方法与验证) 中区分。
+`InitialStructureSearchService`、`FlatRootFactory → FirstOrderSeedGenerator → HybridCandidateRefiner` 和 `RunDirectoryStore` 是保留的历史 hybrid 路径，不是当前桌面的搜索/保存主线。其差分进化也不代表正式 `OptimizerCatalog` 已公开同名算法；旧记录的当前支持范围见 [模块说明](../labs/InitialStructure/README.md)。
 
 ## 10. 工具与测试如何配合
 
