@@ -13,7 +13,12 @@ public static class InitialStructurePresentation
         : WorkbenchMapper.ToScene2Dto(new Layout2DBuilder(Optic.FromSnapshot(candidate.Optic)).Build(
             options: new LayoutBuildOptions(RayCount: 7, LowerPupil: -1, UpperPupil: 1, DeleteVignetted: false)));
 
-    public static double TotalTrack(CandidateSnapshot candidate) => Optic.FromSnapshot(candidate.Optic).SurfaceGroup.TotalTrack;
+    public static double TotalTrack(CandidateSnapshot candidate)
+    {
+        var optic = Optic.FromSnapshot(candidate.Optic);
+        return Core.Domain.ObjectConjugate.IsInfinite(optic.SurfaceGroup.Items[0]) ? optic.SurfaceGroup.TotalTrack
+            : Core.Services.RotationalDesignGeometry.VertexSeparation(optic, 1, optic.SurfaceGroup.Items.Count - 1);
+    }
     public static double BackFocus(CandidateSnapshot candidate) => candidate.Optic.Surfaces[^2].Thickness;
     public static IReadOnlyList<PrescriptionSurface> Prescription(CandidateSnapshot candidate) => candidate.Optic.Surfaces
         .Select(surface => new PrescriptionSurface(surface.IsStop, surface.Radius, surface.RadiusVariable,

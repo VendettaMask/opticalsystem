@@ -176,11 +176,16 @@ public sealed partial class MainWindow
     }
     private const string HistoricalMethodMessage = "旧算法记录仅供查看和导出；新实验统一使用 AutoLens。";
     private static bool UsesOnlyAutoLens(InitialStructureSpecification specification) => specification.FlatStart is
-        { OptimizationMethod: FlatStartOptimizationMethod.AutoLensManagedV1, AutoLens.TargetPolishEvaluations: 0 };
+        { OptimizationMethod: FlatStartOptimizationMethod.AutoLensManagedV1, AutoLens: { TargetPolishEvaluations: 0, Policy: AutoLensManagedPolicy.UpstreamE58 } };
     private static bool CanResume(FlatStartSearchCheckpoint checkpoint) => UsesOnlyAutoLens(checkpoint.Specification)
         && checkpoint.Algorithm.Version == FlatStartAlgorithm.Version && checkpoint.UsableGlassNames.Count > 0
         && checkpoint.ChargedEvaluations < checkpoint.Specification.Budget.MaximumEvaluations
-        && checkpoint.ElapsedComputeTicks < checkpoint.Specification.Budget.TimeLimit.Ticks && checkpoint.Trials.Count < 256;
+        && checkpoint.ElapsedComputeTicks < checkpoint.Specification.Budget.TimeLimit.Ticks && checkpoint.Trials.Count < 256
+        && (checkpoint.Specification.FlatStart?.AutoLens?.Policy != AutoLensManagedPolicy.UpstreamE58
+            || checkpoint.Specification.Budget.MaximumEvaluations - checkpoint.ChargedEvaluations > 2
+                && (checkpoint.NextRootIndex < checkpoint.RootPlan.Count || checkpoint.Trials.Any(trial =>
+                    trial.AutoLensState is { Phase: AutoLensManagedPhase.Curriculum or AutoLensManagedPhase.CatalogRefinement or AutoLensManagedPhase.Finalization or AutoLensManagedPhase.PhysicalValidation }
+                    && trial.AllocatedEvaluations - trial.ChargedEvaluations > 2)));
 
     private async Task ValidateAsync()
     {
@@ -252,7 +257,7 @@ public sealed partial class MainWindow
         var cancellation = _runCancellation;
         var generation = _runGeneration;
         UpdateCommands();
-        _status.Text = checkpoint?.Origin is not null ? "正在细化选中方案，原实验保持不变…" : checkpoint is null ? "正在准备零曲率平板结构…" : "正在恢复原有剩余预算…";
+        _status.Text = checkpoint?.Origin is not null ? "正在细化选中方案，原实验保持不变…" : checkpoint is null ? "正在准备原版随机起点…" : "正在恢复原有剩余预算…";
         var result = await Task.Run(() => new FlatStartSearchService().RunAsync(specification, options, cancellation.Token, checkpoint,
             async (saved, token) =>
             {
@@ -280,7 +285,7 @@ public sealed partial class MainWindow
         _searchHistory.ItemsSource = checkpoint.Trials.Select(trial => new SearchHistoryRow(trial.TrialId,
             trial.Family.BinaryStart?.Signs ?? "—", trial.Operation switch
             {
-                "flat-root" => "起始形式搜索",
+                "flat-root" => checkpoint.Specification.FlatStart?.AutoLens?.Policy == AutoLensManagedPolicy.UpstreamE58 ? "独立随机起点" : "起始形式搜索",
                 "flat-root-retry" => "重新起步",
                 "refine" => "候选优化",
                 "refine-selected" => "追加优化",
@@ -334,6 +339,14 @@ public sealed partial class MainWindow
     private void ShowSearchPlan(InitialStructureSpecification spec, FlatStartSearchOptions options, FlatStartSearchCheckpoint? checkpoint = null)
     {
         var plan = DesignFormSearch.Preview(spec, options, checkpoint?.Algorithm.Version ?? FlatStartAlgorithm.Version);
+        if (spec.FlatStart?.AutoLens?.Policy == AutoLensManagedPolicy.UpstreamE58)
+        {
+            var settings = spec.FlatStart.AutoLens;
+            _searchPlan.Text = $"原版默认流程 · {plan.PlannedRoots} 个独立随机起点，每个至多 {plan.ScreeningEvaluationsPerRoot} 次评价。\n"
+                + $"课程 {settings.CurriculumIterations + 1} 次更新，目录精修 {settings.RefinementIterations + 1} 次更新；预算不足时保存进度。\n"
+                + "完成后的训练终点按目标视场、孔径和波长独立密采样验收。";
+            return;
+        }
         var completed = checkpoint is null ? 0 : DesignFormSearch.CompletedSignForms(checkpoint);
         _searchPlan.Text = $"{plan.Mode.ToString().ToUpperInvariant()} · 允许 {plan.DistinctSignForms} 种正负起始形式，计划覆盖 {plan.PlannedSignForms} 种，已完成 {completed} 种。\n"
             + $"{plan.PlannedRoots} 个起始试验，每个至多 {plan.ScreeningEvaluationsPerRoot} 次评价。\n"

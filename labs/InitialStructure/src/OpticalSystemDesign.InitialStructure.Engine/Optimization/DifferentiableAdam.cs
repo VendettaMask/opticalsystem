@@ -40,6 +40,31 @@ internal static class DifferentiableAdam
         return .5 * (1 + Math.Cos(Math.PI * (iteration % period) / period));
     }
 
+    public static double ReferenceSchedule(int iteration, int plannedIterations, bool curriculum)
+    {
+        if (curriculum) return CosineWarmRestart(iteration, plannedIterations);
+        // LambdaLR applies lambda(0) before the first optimizer.step().
+        if (iteration < 100) return iteration / 100.0;
+        var progress = (double)(iteration - 100) / Math.Max(1, plannedIterations - 100);
+        return .1 + .9 * .5 * (1 + Math.Cos(Math.PI * progress));
+    }
+
+    public static AutoLensAdamState ReferenceStep(AutoLensAdamState state, DifferentialScalar objective,
+        IReadOnlyList<double> learningRates)
+        => ReferenceStep(state, Enumerable.Range(0, state.Coordinates.Count).Select(objective.Derivative).ToArray(), learningRates);
+
+    public static AutoLensAdamState ReferenceStep(AutoLensAdamState state, IReadOnlyList<double> derivatives,
+        IReadOnlyList<double> learningRates)
+    {
+        if (derivatives.Count != state.Coordinates.Count) throw new ArgumentException("Incomplete Adam gradient.");
+        // torch.nan_to_num_(grad, nan=0, posinf=0, neginf=0), before ordinary Adam.
+        var gradient = Enumerable.Range(0, state.Coordinates.Count).Select(index =>
+            double.IsFinite(derivatives[index]) ? derivatives[index] : 0).ToArray();
+        DifferentialScalar sanitized = 0;
+        for (var index = 0; index < gradient.Length; index++) sanitized += DifferentialScalar.Variable(0, gradient.Length, index) * gradient[index];
+        return Propose(state, sanitized, learningRates);
+    }
+
     public static void Validate(AutoLensAdamState state)
     {
         if (state.Iteration is < 0 or > 100000 || state.MomentIteration < 0 || state.MomentIteration > state.Iteration

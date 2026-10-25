@@ -24,7 +24,8 @@ public static class InitialStructureLimits
 
 public enum ObjectConjugateMode
 {
-    Infinite
+    Infinite,
+    Finite
 }
 
 public enum CandidateStatus

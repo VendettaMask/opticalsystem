@@ -25,6 +25,8 @@ internal sealed class FlatStartProblem
         _specification = specification;
         _elementCount = elementCount;
         var optic = Optic.FromSnapshot(new FlatRootFactory().Create(specification, elementCount, stopVariant: 0, family: family));
+        if (specification.FlatStart.AutoLens?.Policy == AutoLensManagedPolicy.UpstreamE58)
+            Core.Materials.AutoLensReferenceMaterials.Register(optic.Materials);
         // The target, not an undefined flat-system focal length, establishes a nonzero pupil.
         optic.Aperture.Kind = ApertureKind.EntrancePupilDiameter;
         optic.Aperture.Value = specification.EffectiveFocalLengthMillimeters / specification.FNumber * pupilFraction;
@@ -144,15 +146,15 @@ internal sealed class FlatStartProblem
         && evaluation.RmsInterceptMillimeters / PupilRadius <= 0.02;
 
     internal IReadOnlyList<ConstraintViolation> GeometryViolations(Optic optic, List<double>? residuals = null,
-        double searchInteriorMillimeters = 0)
+        double searchInteriorMillimeters = 0, int surfaceOffset = 0)
     {
         var violations = new List<ConstraintViolation>();
         for (var element = 0; element < _elementCount; element++)
         {
-            var front = optic.SurfaceGroup.Items[2 * element + 1];
-            var back = optic.SurfaceGroup.Items[2 * element + 2];
+            var front = optic.SurfaceGroup.Items[2 * element + 1 + surfaceOffset];
+            var back = optic.SurfaceGroup.Items[2 * element + 2 + surfaceOffset];
             var radius = Math.Max(BodyRadius(front), BodyRadius(back));
-            var edge = AxialSurfaceSeparation.Evaluate(optic, 2 * element + 1, 0, radius);
+            var edge = AxialSurfaceSeparation.Evaluate(optic, 2 * element + 1 + surfaceOffset, 0, radius);
             Minimum(front.Thickness, _specification.MinimumCenterThicknessMillimeters, "geometry.center-thickness");
             Minimum(Math.Min(front.Thickness, edge), _specification.FlatStart!.MinimumEdgeThicknessMillimeters, "geometry.edge-thickness");
             if (element < _elementCount - 1)
@@ -162,9 +164,9 @@ internal sealed class FlatStartProblem
                 if (cemented && !AutoLensManagedTopology.IsValid(optic, element))
                     violations.Add(new("geometry.cemented-interface", ConstraintSeverity.Hard,
                         "A cemented interface requires coincident tied profiles and the same outgoing medium on its reference row.", null, null));
-                var nextRadius = Math.Max(BodyRadius(optic.SurfaceGroup.Items[2 * element + 3]),
-                    BodyRadius(optic.SurfaceGroup.Items[2 * element + 4]));
-                Minimum(AxialSurfaceSeparation.Evaluate(optic, 2 * element + 2, 0, Math.Min(radius, nextRadius)), 0, "geometry.edge-clearance", cemented);
+                var nextRadius = Math.Max(BodyRadius(optic.SurfaceGroup.Items[2 * element + 3 + surfaceOffset]),
+                    BodyRadius(optic.SurfaceGroup.Items[2 * element + 4 + surfaceOffset]));
+                Minimum(AxialSurfaceSeparation.Evaluate(optic, 2 * element + 2 + surfaceOffset, 0, Math.Min(radius, nextRadius)), 0, "geometry.edge-clearance", cemented);
             }
             else
             {
@@ -173,7 +175,9 @@ internal sealed class FlatStartProblem
                     violations.Add(new("geometry.fixed-back-focus", ConstraintSeverity.Hard, "Fixed back-focus distance changed.", back.Thickness, fixedBack));
             }
         }
-        Minimum(_specification.MaximumTrackLengthMillimeters - optic.SurfaceGroup.TotalTrack, 0, "geometry.maximum-track");
+        var track = surfaceOffset == 0 ? optic.SurfaceGroup.TotalTrack
+            : RotationalDesignGeometry.VertexSeparation(optic, 1, optic.SurfaceGroup.Items.Count - 1);
+        Minimum(_specification.MaximumTrackLengthMillimeters - track, 0, "geometry.maximum-track");
         return violations;
 
         double BodyRadius(OpticalSystemDesign.Core.Domain.OpticalSurface surface) => _specification.FlatStart!.UsePhysicalStop

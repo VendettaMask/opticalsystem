@@ -8,8 +8,13 @@ using OpticalSystemDesign.Core.Materials;
 
 namespace OpticalSystemDesign.Core.Raytrace;
 
+internal sealed class DesignRayUnavailableException(string message) : ArithmeticException(message);
+
 internal sealed record DesignRaySensitivity(DifferentialScalar X, DifferentialScalar Y,
-    DifferentialScalar DirectionZ, DifferentialScalar MinimumClearance, DifferentialScalar MinimumBendCosine);
+    DifferentialScalar DirectionZ, DifferentialScalar MinimumClearance, DifferentialScalar MinimumBendCosine)
+{
+    public DifferentialScalar BendPenalty { get; init; }
+}
 
 public sealed partial class SequentialRayTracer
 {
@@ -20,7 +25,8 @@ public sealed partial class SequentialRayTracer
     /// </summary>
     internal DesignRaySensitivity TraceDesignSensitivity(RealRay source, OpticalDifferentialContext context,
         int stopIndex, DifferentialScalar targetX, DifferentialScalar targetY, CancellationToken cancellationToken,
-        SequentialGpuSample[]? nominalSamples=null,int nominalOffset=0)
+        SequentialGpuSample[]? nominalSamples=null,int nominalOffset=0, bool constrainStop=true,
+        double bendCosineGate=1)
     {
         if (nominalSamples is null) SequentialTraceMeasurement.Record(1);
         var ray = RayState.FromRealRay(source.Normalize());
@@ -29,22 +35,23 @@ public sealed partial class SequentialRayTracer
         var opticalPath = 0.0;
         var dimension = context.Dimension;
         var parameterCount = context.ParameterCount;
-        var ox = DifferentialScalar.Variable(ray.Origin.X, dimension, parameterCount);
-        var oy = DifferentialScalar.Variable(ray.Origin.Y, dimension, parameterCount + 1);
+        var ox = constrainStop ? DifferentialScalar.Variable(ray.Origin.X, dimension, parameterCount) : (DifferentialScalar)ray.Origin.X;
+        var oy = constrainStop ? DifferentialScalar.Variable(ray.Origin.Y, dimension, parameterCount + 1) : (DifferentialScalar)ray.Origin.Y;
         DifferentialScalar oz = ray.Origin.Z;
         DifferentialScalar dx = ray.Direction.X, dy = ray.Direction.Y, dz = ray.Direction.Z;
         DifferentialScalar stopX = double.NaN, stopY = double.NaN;
         DifferentialScalar minimumClearance = double.PositiveInfinity, minimumBend = 1;
+        DifferentialScalar bendPenalty = 0;
         for (var index = 0; index < _optic.SurfaceGroup.Items.Count; index++)
         {
             cancellationToken.ThrowIfCancellationRequested();
             var surface = _optic.SurfaceGroup.Items[index];
             var result = nominalSamples is not null ? NominalResult(nominalSamples[nominalOffset+index],index,material) : TraceSequentialSurface(surface, index, ray, material, path, opticalPath,
-                ignorePhysicalAperture: true, bypassCoating: true,
+                ignorePhysicalAperture: constrainStop, bypassCoating: true,
                 allowVirtualIntersection: AllowsReferenceBacktrack(_optic.SurfaceGroup.Items, index),
                 ignoreMaterialAbsorption: true);
             if (result.StopTracing || result.Sample.Vignetted || result.InteractionKind is RayInteractionKind.TotalInternalReflection)
-                throw new ArithmeticException($"Design derivative has no transmitted formal ray at surface {index}.");
+                throw new DesignRayUnavailableException($"Design derivative has no transmitted formal ray at surface {index}.");
             if (index > 0)
             {
                 var center = context.Position(index);
@@ -74,7 +81,7 @@ public sealed partial class SequentialRayTracer
                 {
                     var radial = DifferentialScalar.Sqrt(qx * qx + qy * qy);
                     // The calibrated stop follows the declared EPD, not a fixed old aperture.
-                    var radius = index == stopIndex
+                    var radius = constrainStop && index == stopIndex
                         ? DifferentialScalar.Abs(context.Paraxial().StopHeight) : (DifferentialScalar)aperture.Radius;
                     var clearance = radius - radial;
                     if (clearance.Value < minimumClearance.Value) minimumClearance = clearance;
@@ -98,6 +105,7 @@ public sealed partial class SequentialRayTracer
                 OpticalDifferentialContext.Verify(nextZ, result.Ray.Direction.Z, $"refraction Z at surface {index}");
                 var bend = dx * nextX + dy * nextY + dz * nextZ;
                 if (bend.Value < minimumBend.Value) minimumBend = bend;
+                if (!constrainStop) bendPenalty += DifferentialScalar.PositivePart((bendCosineGate - bend) / Math.Max(1 - bendCosineGate, 1e-12));
                 dx = nextX.WithValue(result.Ray.Direction.X);
                 dy = nextY.WithValue(result.Ray.Direction.Y);
                 dz = nextZ.WithValue(result.Ray.Direction.Z);
@@ -110,6 +118,8 @@ public sealed partial class SequentialRayTracer
             path = result.CumulativePathLength;
             opticalPath = result.CumulativeOpticalPathLength;
         }
+        if (!constrainStop)
+            return new(ox, oy, dz, minimumClearance, minimumBend) { BendPenalty = bendPenalty };
         if (!stopX.IsFinite || !stopY.IsFinite
             || Math.Abs(stopX.Value - targetX.Value) > 1e-6 || Math.Abs(stopY.Value - targetY.Value) > 1e-6)
             throw new ArithmeticException("The nominal stop aiming constraint did not converge.");

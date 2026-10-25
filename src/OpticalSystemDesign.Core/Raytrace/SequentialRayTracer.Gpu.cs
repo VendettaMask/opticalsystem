@@ -17,9 +17,9 @@ public sealed partial class SequentialRayTracer
     internal SequentialGpuSurface[] GpuSurfaces(double wavelength)
     {
         var surfaces=_optic.SurfaceGroup.Items;
-        if (surfaces.Count is <2 or >128 || !ObjectConjugate.IsInfinite(surfaces[0])
+        if (surfaces.Count is <2 or >128
             || !_optic.Polarization.Unpolarized)
-            throw new NotSupportedException("CUDA design propagation requires an infinite, unpolarized rotational system with 2 to 128 surfaces.");
+            throw new NotSupportedException("CUDA design propagation requires an unpolarized rotational system with 2 to 128 surfaces.");
         var result=new SequentialGpuSurface[surfaces.Count];
         for (var i=0;i<surfaces.Count;i++)
         {
@@ -48,7 +48,7 @@ public sealed partial class SequentialRayTracer
     internal static SequentialGpuRay GpuRay(RealRay ray) => new()
     { Origin=ray.Origin,Direction=ray.Direction,Intensity=ray.Intensity,Opd=ray.OpticalPathDifference,WavelengthNanometers=ray.WavelengthNanometers,Valid=ray.CanTrace ? 1 : 0 };
 
-    internal SequentialGpuSample[]? TraceGpuNominal(IReadOnlyList<RealRay> sources,CancellationToken token,bool diagnostic=false)
+    internal SequentialGpuSample[]? TraceGpuNominal(IReadOnlyList<RealRay> sources,CancellationToken token,bool diagnostic=false,bool ignoreApertures=true)
     {
         var session=SequentialGpuSession.Current;
         if (session is not {Enabled:true} || sources.Count==0) return null;
@@ -62,7 +62,7 @@ public sealed partial class SequentialRayTracer
             {
                 var count=Math.Min(4096,sources.Count-start);
                 var input=Enumerable.Range(start,count).Select(i=>GpuRay(sources[i].Normalize())).ToArray();
-                var data=DesignGpu.Propagate(surfaces,input,true,surfaces.Length-1,token,ignoreAbsorption:!diagnostic);
+                var data=DesignGpu.Propagate(surfaces,input,ignoreApertures,surfaces.Length-1,token,ignoreAbsorption:!diagnostic);
                 Array.Copy(data.Samples,0,results,start*surfaces.Length,data.Samples.Length);
                 SequentialTraceMeasurement.Record(count); session.Record(0,0,count,data.Milliseconds);
             }

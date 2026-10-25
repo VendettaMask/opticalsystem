@@ -4,9 +4,16 @@ using OpticalSystemDesign.Core.Serialization;
 
 namespace OpticalSystemDesign.InitialStructure.Contracts;
 
+public enum AutoLensManagedPolicy { HistoricalV1, UpstreamE58 }
+
 /// <summary>Pure managed C# differentiation without a foreign runtime dependency.</summary>
 public sealed record AutoLensManagedSettings
 {
+    // Missing values must continue to identify historical runs, never reinterpret them.
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public AutoLensManagedPolicy Policy { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public AutoLensTrainingSampling? TrainingSampling { get; init; }
     // Omitted historical settings retain CPU execution and their specification identity.
     [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
     public DesignComputeMode ComputeMode { get; init; }
@@ -25,17 +32,36 @@ public sealed record AutoLensManagedSettings
     public IReadOnlyList<int> CementedGaps { get; init; } = [];
 }
 
-public enum AutoLensManagedPhase { Curriculum, CatalogProjection, CatalogRefinement, Completed, DomainFailure }
+public enum AutoLensManagedPhase { Curriculum, CatalogProjection, CatalogRefinement, Completed, DomainFailure, Finalization, PhysicalValidation }
 
 public sealed record AutoLensAdamState(int Iteration, IReadOnlyList<double> Coordinates,
     IReadOnlyList<double> FirstMoment, IReadOnlyList<double> SecondMoment, int MomentIteration = 0);
 
 public sealed record AutoLensManagedStep(AutoLensManagedPhase Phase, int Iteration, double PupilFraction,
-    double BeforeLoss, double AfterLoss, double StepFraction, int ChargedEvaluation);
+    double BeforeLoss, double AfterLoss, double StepFraction, int ChargedEvaluation)
+{
+    /// <summary>Upstream records the objective before its unconditional update, without a second loss probe.</summary>
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public bool IsPreUpdateObservation { get; init; }
+}
 
 /// <summary>Evaluated design state, never a physical acceptance certificate.</summary>
 public sealed record AutoLensManagedState
 {
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public AutoLensReferenceSamplingState? ReferenceSampling { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public OpticSnapshot? TrainingStartOptic { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public double ReferenceFocalLength { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public double ReferenceHalfFieldRadians { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public double ReferenceEffectiveHalfFieldRadians { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public bool ReferenceCentroid { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public IReadOnlyList<double>? ReferenceLearningRates { get; init; }
     [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public Core.Raytrace.SequentialGpuExecution? PropagationExecution { get; init; }
     [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
@@ -66,4 +92,24 @@ public sealed record AutoLensManagedState
     public long ElapsedComputeTicks { get; init; }
     public int TargetPolishEvaluationCount { get; init; }
     public double? LastLoss { get; init; }
+}
+
+/// <summary>The immutable sampling optic regenerates exactly the cached rays on resume.</summary>
+public sealed record AutoLensReferenceSamplingState(OpticSnapshot Optic, int Iteration, ulong Seed, double PupilFraction);
+
+/// <summary>Default values are the pinned upstream protocol; explicit overrides identify a different sampling experiment.</summary>
+public sealed record AutoLensTrainingSampling
+{
+    public int CurriculumRings { get; init; } = 8;
+    public int CurriculumArms { get; init; } = 1;
+    public int CurriculumRays { get; init; } = 512;
+    public int RefinementRings { get; init; } = 8;
+    public int RefinementArms { get; init; } = 2;
+    public int RefinementRays { get; init; } = 1024;
+    public int RegularizationRings { get; init; } = 16;
+    public int RegularizationRays { get; init; } = 1024;
+    public int ShapeRings { get; init; } = 16;
+    public int ShapeRays { get; init; } = 1024;
+    public int FieldScanRings { get; init; } = 64;
+    public int FieldScanRays { get; init; } = 256;
 }

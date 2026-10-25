@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Materials/Data/autolens-e58-materials.json" LogicalName="OpticalSystemDesign.Core.Materials.Data.autolens-e58-materials.json" />
     <PackageReference Include="ILGPU" Version="1.5.3" />
     <PackageReference Include="ILGPU.Algorithms" Version="1.5.3" />
   </ItemGroup>

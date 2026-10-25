@@ -1,0 +1,145 @@
+{
+  "upstreamCommit": "e58db32f3a0b07f25861b5839a45970f77b5c947",
+  "dtype": "float64 isolated serialization rule; not a final optimized output comparison",
+  "sourceFiles": {
+    "deeplens\\geolens_pkg\\io.py": "41599f0d07d55e799cd7e5a5f6d90dcc0cb71f43ba3deb3eb6f4dbe70b9d2894",
+    "deeplens\\geometric_surface\\aspheric.py": "15ac83b224155de40bd68912d24324b940558dc9e0cffda900fcf5fed2913a99",
+    "deeplens\\geometric_surface\\aperture.py": "ea88b9d6d4eca5f6290b554981b002e6782787f2b5696dc925f680ba352dd7a3"
+  },
+  "cases": [
+    {
+      "input": {
+        "surfaces": [
+          {
+            "d": 0.0,
+            "radius": 1.234567,
+            "curvature": 0.0,
+            "conic": 0.0,
+            "coefficients": []
+          },
+          {
+            "d": 0.10006,
+            "radius": 1.456789,
+            "curvature": 0.123456789,
+            "conic": -0.234567,
+            "coefficients": [
+              1.234567891e-05,
+              -2.345678912e-07
+            ]
+          },
+          {
+            "d": 0.50012,
+            "radius": 1.567891,
+            "curvature": -0.213456789,
+            "conic": 0.123456,
+            "coefficients": [
+              -3.456789123e-05,
+              4.567891234e-07
+            ]
+          }
+        ],
+        "sensor": 6.20018
+      },
+      "reloaded": {
+        "surfaces": [
+          {
+            "d": 0.0,
+            "radius": 1.2346,
+            "curvature": 0.0,
+            "conic": 0.0,
+            "coefficients": []
+          },
+          {
+            "d": 0.1001,
+            "radius": 1.4568,
+            "curvature": 0.1234567901234568,
+            "conic": -0.2346,
+            "coefficients": [
+              1.234568e-05,
+              -2.345679e-07
+            ]
+          },
+          {
+            "d": 0.5002,
+            "radius": 1.5679,
+            "curvature": -0.21345628415300547,
+            "conic": 0.1235,
+            "coefficients": [
+              -3.456789e-05,
+              4.567891e-07
+            ]
+          }
+        ],
+        "sensor": 6.2003
+      },
+      "originalJsonSha256": "65415b4a428e2474e5aa611bf4978475cfb02266a5ffc131f6a6a698c08a737d"
+    },
+    {
+      "input": {
+        "surfaces": [
+          {
+            "d": 0.00337,
+            "radius": 1.234567,
+            "curvature": 0.0,
+            "conic": 0.0,
+            "coefficients": []
+          },
+          {
+            "d": 0.10343,
+            "radius": 1.456789,
+            "curvature": 0.123456789,
+            "conic": -0.234567,
+            "coefficients": [
+              1.234567891e-05,
+              -2.345678912e-07
+            ]
+          },
+          {
+            "d": 0.50349,
+            "radius": 1.567891,
+            "curvature": 0.0,
+            "conic": 0.123456,
+            "coefficients": [
+              -3.456789123e-05,
+              4.567891234e-07
+            ]
+          }
+        ],
+        "sensor": 6.20355
+      },
+      "reloaded": {
+        "surfaces": [
+          {
+            "d": 0.0,
+            "radius": 1.2346,
+            "curvature": 0.0,
+            "conic": 0.0,
+            "coefficients": []
+          },
+          {
+            "d": 0.1001,
+            "radius": 1.4568,
+            "curvature": 0.1234567901234568,
+            "conic": -0.2346,
+            "coefficients": [
+              1.234568e-05,
+              -2.345679e-07
+            ]
+          },
+          {
+            "d": 0.5002,
+            "radius": 1.5679,
+            "curvature": 0.0,
+            "conic": 0.1235,
+            "coefficients": [
+              -3.456789e-05,
+              4.567891e-07
+            ]
+          }
+        ],
+        "sensor": 6.2003
+      },
+      "originalJsonSha256": "430413e37384097b42e59e1646a8e687722971f3ba76394fb31bb248f0b5e616"
+    }
+  ]
+}

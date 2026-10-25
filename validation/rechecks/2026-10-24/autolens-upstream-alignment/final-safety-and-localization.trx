@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="5199efdf-1861-44bc-9de2-2ef8830c6c4a" name="allen@DESKTOP-SET3SNR 2026-10-24 23:16:54" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-24T23:16:54.6325080+08:00" queuing="2026-10-24T23:16:54.6325082+08:00" start="2026-10-24T23:16:52.0645241+08:00" finish="2026-10-24T23:17:06.2360361+08:00" />
+  <TestSettings name="default" id="e8022449-2f12-4f5a-b51a-5df9e9af1167">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-24_23_16_54" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="f7c106a0-d503-459f-8335-6ebcd5cbce28" testId="acaa1faf-7f93-ebcf-f464-6b4ea01362a1" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenLinearBoundsProfilesMaterialsAndGradientsAgree" computerName="DESKTOP-SET3SNR" duration="00:00:00.0293254" startTime="2026-10-24T23:16:54.5692744+08:00" endTime="2026-10-24T23:16:54.5981140+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f7c106a0-d503-459f-8335-6ebcd5cbce28" />
+    <UnitTestResult executionId="6fcaccca-0681-45ae-825a-273b5aad5cdb" testId="ef0c77d8-a960-7b85-bf0d-6bb39813ab80" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenAdamMomentsAndBothSchedulesAgreeIncludingNonFiniteSanitization" computerName="DESKTOP-SET3SNR" duration="00:00:00.0005069" startTime="2026-10-24T23:16:54.6192718+08:00" endTime="2026-10-24T23:16:54.6193366+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6fcaccca-0681-45ae-825a-273b5aad5cdb" />
+    <UnitTestResult executionId="a8c75c20-683f-4692-b6cf-364bda5ae7db" testId="b27d81a2-6852-e172-cd8e-8277f903f4f5" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.BudgetPauseKeepsFullCourseAndSerializedCacheResumesIdentically" computerName="DESKTOP-SET3SNR" duration="00:00:00.3968917" startTime="2026-10-24T23:16:54.6556882+08:00" endTime="2026-10-24T23:16:55.0525926+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a8c75c20-683f-4692-b6cf-364bda5ae7db">
+      <Output>
+        <StdOut>design.autolens-upstream-e58-v2: Pinned e58 mobile protocol: random weak-curvature finite-object start, independent axial positions, cached un-aimed RGB input rays, detached green reference/weights, linear constraints, direct Adam, upstream schedules and full phase lengths. Shared double-precision Core and an explicit portable random stream remain numerical backend differences.
+design.acceptance: Training loss never certifies throughput or target compliance. Only the completed endpoint receives separate unchanged dense physical gates; no incumbent replacement or target polish.
+design.reference-curriculum: 1/2001 unconditional Adam updates; configured iterations=2000, inclusive upstream loop; 25 independent coordinates. Sampling interval=40; no schedule compression or loss backtracking.</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e818864a-bf7f-4015-a7d1-e5426705b436" testId="4c5f8c0f-7a85-5632-ec6f-5e1b89e05928" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.ResumeReservesWorkAtomicallyAndKeepsPreviousStateWhenCancelledBeforeDispatch" computerName="DESKTOP-SET3SNR" duration="00:00:00.9314850" startTime="2026-10-24T23:16:53.0749848+08:00" endTime="2026-10-24T23:16:54.0130381+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e818864a-bf7f-4015-a7d1-e5426705b436" />
+    <UnitTestResult executionId="6676b857-9cf8-4a86-bcd6-12e97c938d34" testId="06a800e2-2dd6-92a1-4deb-bd85772c4b1b" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.DerivativeWorkingSetIsBoundedBeforeTracingOrDeviceAllocation" computerName="DESKTOP-SET3SNR" duration="00:00:00.0106052" startTime="2026-10-24T23:16:54.5691214+08:00" endTime="2026-10-24T23:16:54.5691596+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6676b857-9cf8-4a86-bcd6-12e97c938d34" />
+    <UnitTestResult executionId="ff7bb817-7521-4d42-9e56-754638fb569f" testId="e611efb7-c2e9-375b-462c-54ff224f7531" testName="OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.OrganizedPresentationLocalizesAndTracksThemeResources" computerName="DESKTOP-SET3SNR" duration="00:00:11.0673598" startTime="2026-10-24T23:16:55.0574897+08:00" endTime="2026-10-24T23:17:06.1320630+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ff7bb817-7521-4d42-9e56-754638fb569f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 50&#xD;
+Actual:   5</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;OrganizedPresentationLocalizesAndTracksThemeResources&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FlatStartDesktopTests.cs:line 136&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.DesktopHost.&lt;&gt;c__DisplayClass12_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FlatStartDesktopTests.cs:line 712&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.DesktopHost.&lt;&gt;c__DisplayClass12_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FlatStartDesktopTests.cs:line 715&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.OrganizedPresentationLocalizesAndTracksThemeResources() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FlatStartDesktopTests.cs:line 94&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9c153968-adf5-4787-b66a-d29f95bdb07d" testId="9e562ca2-46e3-96cb-a039-a36aec3c33c5" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.AbsolutePositionsDoNotMoveDownstreamParametersAndRatesUsePhysicalUnits" computerName="DESKTOP-SET3SNR" duration="00:00:00.0012801" startTime="2026-10-24T23:16:55.0527433+08:00" endTime="2026-10-24T23:16:55.0539075+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9c153968-adf5-4787-b66a-d29f95bdb07d" />
+    <UnitTestResult executionId="f458716a-1014-423d-9b58-da05e2a6e9c3" testId="03a93353-165a-e5bf-87c2-23b65a58e0f2" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FinitePhysicalGpuTraceKeepsObjectPointAndDisclosesCpuDirectionAiming" computerName="DESKTOP-SET3SNR" duration="00:00:00.5437182" startTime="2026-10-24T23:16:54.0201020+08:00" endTime="2026-10-24T23:16:54.5581513+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f458716a-1014-423d-9b58-da05e2a6e9c3">
+      <Output>
+        <StdOut>{"DeviceName":"NVIDIA GeForce RTX 4060","AimRays":0,"AimTraces":0,"PropagatedRays":15,"Batches":3,"Milliseconds":12.6892,"CpuRecoveryRays":0,"FallbackReason":"Finite-object direction aiming uses formal Core CPU; CUDA propagation and derivatives remain enabled.","CpuAimingRays":15}</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="93da35f6-bfaa-4ed4-b571-4e7eec18b257" testId="4282c784-0c9f-2aeb-b9f0-cca5599b51f6" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.PythonNumpyAndTorchStartupStreamsReproduceOriginalStartingPrescriptions" computerName="DESKTOP-SET3SNR" duration="00:00:00.0008255" startTime="2026-10-24T23:16:54.6052360+08:00" endTime="2026-10-24T23:16:54.6060232+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="93da35f6-bfaa-4ed4-b571-4e7eec18b257" />
+    <UnitTestResult executionId="add19db3-a909-49e7-a26f-85432ed146ad" testId="f44a1794-4a17-51e5-c1e6-05fd9b549c8f" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.CancellationBeforeDispatchRefundsKnownZeroWorkAndPreservesPlan" computerName="DESKTOP-SET3SNR" duration="00:00:00.0031262" startTime="2026-10-24T23:16:54.6020604+08:00" endTime="2026-10-24T23:16:54.6051511+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="add19db3-a909-49e7-a26f-85432ed146ad" />
+    <UnitTestResult executionId="da42a66b-9f89-4ca6-8710-3c87d1593496" testId="a9da59b1-8a70-5b77-3dba-6b95c627846a" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.ReferenceDefaultIsPinnedMobileProtocolAndCatalog" computerName="DESKTOP-SET3SNR" duration="00:00:00.0065905" startTime="2026-10-24T23:16:54.6061216+08:00" endTime="2026-10-24T23:16:54.6126850+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="da42a66b-9f89-4ca6-8710-3c87d1593496" />
+    <UnitTestResult executionId="b86cb9ee-e495-4d16-9975-6c392dd83435" testId="fc41a6a5-0a9c-e01d-5619-256df373af9b" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu" computerName="DESKTOP-SET3SNR" duration="00:00:00.0422774" startTime="2026-10-24T23:16:54.6194571+08:00" endTime="2026-10-24T23:16:54.6555571+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b86cb9ee-e495-4d16-9975-6c392dd83435">
+      <Output>
+        <StdOut>{"Backend":"cuda-reverse-tape-v1","DeviceName":"NVIDIA GeForce RTX 4060","GpuBatches":6,"GpuRays":18,"GpuMilliseconds":8.4445,"FallbackReason":null}</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4977f3e8-30bf-411e-9ee0-ee7d7db22565" testId="e97fb688-00db-a1fc-1ca6-9c3d3036e98a" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenImageLossAndDetachedGradientsAgree" computerName="DESKTOP-SET3SNR" duration="00:00:00.0020230" startTime="2026-10-24T23:16:54.5982841+08:00" endTime="2026-10-24T23:16:54.6001845+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4977f3e8-30bf-411e-9ee0-ee7d7db22565" />
+    <UnitTestResult executionId="87a80ae9-5733-4005-96f6-0815eff80071" testId="b5c1925c-a53e-f697-ce69-02483c9d3da9" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.PinnedRealDispersionAndNominalMaterialCoordinatesAgree" computerName="DESKTOP-SET3SNR" duration="00:00:00.0017270" startTime="2026-10-24T23:16:54.6002951+08:00" endTime="2026-10-24T23:16:54.6019682+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="87a80ae9-5733-4005-96f6-0815eff80071" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.ReferenceDefaultIsPinnedMobileProtocolAndCatalog" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="a9da59b1-8a70-5b77-3dba-6b95c627846a">
+      <Execution id="da42a66b-9f89-4ca6-8710-3c87d1593496" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="ReferenceDefaultIsPinnedMobileProtocolAndCatalog" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.DerivativeWorkingSetIsBoundedBeforeTracingOrDeviceAllocation" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="06a800e2-2dd6-92a1-4deb-bd85772c4b1b">
+      <Execution id="6676b857-9cf8-4a86-bcd6-12e97c938d34" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="DerivativeWorkingSetIsBoundedBeforeTracingOrDeviceAllocation" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.PythonNumpyAndTorchStartupStreamsReproduceOriginalStartingPrescriptions" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="4282c784-0c9f-2aeb-b9f0-cca5599b51f6">
+      <Execution id="93da35f6-bfaa-4ed4-b571-4e7eec18b257" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="PythonNumpyAndTorchStartupStreamsReproduceOriginalStartingPrescriptions" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.PinnedRealDispersionAndNominalMaterialCoordinatesAgree" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="b5c1925c-a53e-f697-ce69-02483c9d3da9">
+      <Execution id="87a80ae9-5733-4005-96f6-0815eff80071" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="PinnedRealDispersionAndNominalMaterialCoordinatesAgree" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.AbsolutePositionsDoNotMoveDownstreamParametersAndRatesUsePhysicalUnits" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="9e562ca2-46e3-96cb-a039-a36aec3c33c5">
+      <Execution id="9c153968-adf5-4787-b66a-d29f95bdb07d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="AbsolutePositionsDoNotMoveDownstreamParametersAndRatesUsePhysicalUnits" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FinitePhysicalGpuTraceKeepsObjectPointAndDisclosesCpuDirectionAiming" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="03a93353-165a-e5bf-87c2-23b65a58e0f2">
+      <Execution id="f458716a-1014-423d-9b58-da05e2a6e9c3" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="FinitePhysicalGpuTraceKeepsObjectPointAndDisclosesCpuDirectionAiming" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenImageLossAndDetachedGradientsAgree" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="e97fb688-00db-a1fc-1ca6-9c3d3036e98a">
+      <Execution id="4977f3e8-30bf-411e-9ee0-ee7d7db22565" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="UpstreamFrozenImageLossAndDetachedGradientsAgree" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.ResumeReservesWorkAtomicallyAndKeepsPreviousStateWhenCancelledBeforeDispatch" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="4c5f8c0f-7a85-5632-ec6f-5e1b89e05928">
+      <Execution id="e818864a-bf7f-4015-a7d1-e5426705b436" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="ResumeReservesWorkAtomicallyAndKeepsPreviousStateWhenCancelledBeforeDispatch" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenLinearBoundsProfilesMaterialsAndGradientsAgree" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="acaa1faf-7f93-ebcf-f464-6b4ea01362a1">
+      <Execution id="f7c106a0-d503-459f-8335-6ebcd5cbce28" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="UpstreamFrozenLinearBoundsProfilesMaterialsAndGradientsAgree" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="fc41a6a5-0a9c-e01d-5619-256df373af9b">
+      <Execution id="b86cb9ee-e495-4d16-9975-6c392dd83435" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.BudgetPauseKeepsFullCourseAndSerializedCacheResumesIdentically" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="b27d81a2-6852-e172-cd8e-8277f903f4f5">
+      <Execution id="a8c75c20-683f-4692-b6cf-364bda5ae7db" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="BudgetPauseKeepsFullCourseAndSerializedCacheResumesIdentically" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenAdamMomentsAndBothSchedulesAgreeIncludingNonFiniteSanitization" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="ef0c77d8-a960-7b85-bf0d-6bb39813ab80">
+      <Execution id="6fcaccca-0681-45ae-825a-273b5aad5cdb" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="UpstreamFrozenAdamMomentsAndBothSchedulesAgreeIncludingNonFiniteSanitization" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.OrganizedPresentationLocalizesAndTracksThemeResources" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="e611efb7-c2e9-375b-462c-54ff224f7531">
+      <Execution id="ff7bb817-7521-4d42-9e56-754638fb569f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests" name="OrganizedPresentationLocalizesAndTracksThemeResources" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.CancellationBeforeDispatchRefundsKnownZeroWorkAndPreservesPlan" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="f44a1794-4a17-51e5-c1e6-05fd9b549c8f">
+      <Execution id="add19db3-a909-49e7-a26f-85432ed146ad" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="CancellationBeforeDispatchRefundsKnownZeroWorkAndPreservesPlan" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="acaa1faf-7f93-ebcf-f464-6b4ea01362a1" executionId="f7c106a0-d503-459f-8335-6ebcd5cbce28" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ef0c77d8-a960-7b85-bf0d-6bb39813ab80" executionId="6fcaccca-0681-45ae-825a-273b5aad5cdb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b27d81a2-6852-e172-cd8e-8277f903f4f5" executionId="a8c75c20-683f-4692-b6cf-364bda5ae7db" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4c5f8c0f-7a85-5632-ec6f-5e1b89e05928" executionId="e818864a-bf7f-4015-a7d1-e5426705b436" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="06a800e2-2dd6-92a1-4deb-bd85772c4b1b" executionId="6676b857-9cf8-4a86-bcd6-12e97c938d34" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e611efb7-c2e9-375b-462c-54ff224f7531" executionId="ff7bb817-7521-4d42-9e56-754638fb569f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9e562ca2-46e3-96cb-a039-a36aec3c33c5" executionId="9c153968-adf5-4787-b66a-d29f95bdb07d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="03a93353-165a-e5bf-87c2-23b65a58e0f2" executionId="f458716a-1014-423d-9b58-da05e2a6e9c3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4282c784-0c9f-2aeb-b9f0-cca5599b51f6" executionId="93da35f6-bfaa-4ed4-b571-4e7eec18b257" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f44a1794-4a17-51e5-c1e6-05fd9b549c8f" executionId="add19db3-a909-49e7-a26f-85432ed146ad" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a9da59b1-8a70-5b77-3dba-6b95c627846a" executionId="da42a66b-9f89-4ca6-8710-3c87d1593496" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fc41a6a5-0a9c-e01d-5619-256df373af9b" executionId="b86cb9ee-e495-4d16-9975-6c392dd83435" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e97fb688-00db-a1fc-1ca6-9c3d3036e98a" executionId="4977f3e8-30bf-411e-9ee0-ee7d7db22565" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b5c1925c-a53e-f697-ce69-02483c9d3da9" executionId="87a80ae9-5733-4005-96f6-0815eff80071" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="14" executed="14" passed="13" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.58]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.65]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.67]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:13.75]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:13.75]       Expected: 50&#xD;
+[xUnit.net 00:00:13.75]       Actual:   5&#xD;
+[xUnit.net 00:00:13.75]       Stack Trace:&#xD;
+[xUnit.net 00:00:13.75]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FlatStartDesktopTests.cs(136,0): at OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;OrganizedPresentationLocalizesAndTracksThemeResources&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:13.75]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.75]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FlatStartDesktopTests.cs(712,0): at OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.DesktopHost.&lt;&gt;c__DisplayClass12_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:13.75]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.75]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FlatStartDesktopTests.cs(715,0): at OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.DesktopHost.&lt;&gt;c__DisplayClass12_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:13.75]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.75]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:13.75]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.75]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FlatStartDesktopTests.cs(94,0): at OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.OrganizedPresentationLocalizesAndTracksThemeResources()&#xD;
+[xUnit.net 00:00:13.75]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.75]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-24T23:17:06.1340399+08:00">
+        <Text>[xUnit.net 00:00:13.75]     OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.OrganizedPresentationLocalizesAndTracksThemeResources [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

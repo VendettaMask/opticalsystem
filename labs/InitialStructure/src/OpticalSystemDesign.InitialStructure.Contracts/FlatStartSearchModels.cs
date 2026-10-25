@@ -54,7 +54,7 @@ public static class FlatStartAlgorithm
     public static string Name(string name, InitialStructureSpecification specification) => specification.FlatStart?.OptimizationMethod switch
     {
         FlatStartOptimizationMethod.AutoLensCpuExperimentV1 => name + "-autolens-cpu-experiment-v1",
-        FlatStartOptimizationMethod.AutoLensManagedV1 => name + "-autolens-managed-v1",
+        FlatStartOptimizationMethod.AutoLensManagedV1 => name + (specification.FlatStart.AutoLens?.Policy == AutoLensManagedPolicy.UpstreamE58 ? "-autolens-upstream-e58-v2" : "-autolens-managed-v1"),
         _ => name
     };
 
@@ -88,6 +88,9 @@ public sealed record FamilyTrial
     public IReadOnlyList<SearchDiagnostic> Diagnostics { get; init; } = [];
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public AutoLensManagedState? AutoLensState { get; init; }
+    /// <summary>Audit-only pre-resume state while a batch has unknown completion; its reserved quota is never restored.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public AutoLensManagedState? ReservedReferenceState { get; init; }
 }
 
 /// <summary>Reserved work is charged before dispatch; interrupted work never restores its quota.</summary>

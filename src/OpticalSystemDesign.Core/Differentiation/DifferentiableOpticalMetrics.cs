@@ -70,6 +70,7 @@ public static class DifferentiableOpticalMetrics
         ArgumentNullException.ThrowIfNull(normalizedFields);
         ArgumentNullException.ThrowIfNull(pupils);
         EnsureSupported(optic);
+        OpticalDesignParameters.Validate(optic, parameters);
         if (normalizedFields.Count is < 1 or > 101 || normalizedFields.Any(field => !double.IsFinite(field) || Math.Abs(field) > 1)
             || pupils.Count is < 1 or > 4096 || pupils.Any(pupil => !double.IsFinite(pupil.X) || !double.IsFinite(pupil.Y)
                 || pupil.X * pupil.X + pupil.Y * pupil.Y > 1 + 1e-12 || !double.IsFinite(pupil.Weight) || pupil.Weight <= 0))
@@ -154,23 +155,37 @@ public static class DifferentiableOpticalMetrics
             DifferentialScalar.FromGradient(value.Value, value.Gradient().Take(parameters.Count).ToArray());
     }
 
-    public static DifferentialScalar SurfaceSag(Optic optic, IReadOnlyList<OpticalDesignParameter> parameters, int surfaceIndex, double radius)
+    public static DifferentialScalar SurfaceSag(Optic optic, IReadOnlyList<OpticalDesignParameter> parameters, int surfaceIndex, double radius,
+        bool relaxedDomain = false, bool maskOutsideProfile = false)
     {
-        var result = new OpticalDifferentialContext(optic, parameters).Profile(surfaceIndex, radius, 0).Sag;
-        OpticalDifferentialContext.Verify(result, optic.SurfaceGroup.Items[surfaceIndex].Geometry.Sag(radius, 0), "surface sag");
+        if (maskOutsideProfile && !InsideProfile(optic, surfaceIndex, radius)) radius = 0;
+        var result = new OpticalDifferentialContext(optic, parameters).Profile(surfaceIndex, radius, 0, relaxedDomain).Sag;
+        if (!relaxedDomain) OpticalDifferentialContext.Verify(result, optic.SurfaceGroup.Items[surfaceIndex].Geometry.Sag(radius, 0), "surface sag");
         return result;
     }
 
     public static DifferentialScalar AxialSeparation(Optic optic, IReadOnlyList<OpticalDesignParameter> parameters,
-        int firstSurface, int secondSurface, double radius)
+        int firstSurface, int secondSurface, double radius, bool relaxedDomain = false, bool maskOutsideProfile = false)
     {
         var context = new OpticalDifferentialContext(optic, parameters);
         return context.Position(secondSurface) - context.Position(firstSurface)
-            + context.Profile(secondSurface, radius, 0).Sag - context.Profile(firstSurface, radius, 0).Sag;
+            + context.Profile(secondSurface, maskOutsideProfile && !InsideProfile(optic, secondSurface, radius) ? 0 : radius, 0, relaxedDomain).Sag
+            - context.Profile(firstSurface, maskOutsideProfile && !InsideProfile(optic, firstSurface, radius) ? 0 : radius, 0, relaxedDomain).Sag;
     }
 
-    public static DifferentialScalar SurfaceSlope(Optic optic, IReadOnlyList<OpticalDesignParameter> parameters, int surfaceIndex, double radius) =>
-        2 * radius * new OpticalDifferentialContext(optic, parameters).Profile(surfaceIndex, radius, 0).RadialSlope;
+    public static DifferentialScalar SurfaceSlope(Optic optic, IReadOnlyList<OpticalDesignParameter> parameters, int surfaceIndex, double radius,
+        bool relaxedDomain = false, bool maskOutsideProfile = false)
+    {
+        if (maskOutsideProfile && !InsideProfile(optic, surfaceIndex, radius)) radius = 0;
+        return 2 * radius * new OpticalDifferentialContext(optic, parameters).Profile(surfaceIndex, radius, 0, relaxedDomain).RadialSlope;
+    }
+
+    private static bool InsideProfile(Optic optic, int surfaceIndex, double radius)
+    {
+        var surface = optic.SurfaceGroup.Items[surfaceIndex];
+        var profile = OpticalDesignParameters.Profile(surface.Geometry);
+        return Math.Abs(radius) <= surface.SemiDiameter && (profile.Conic <= -1 || (1 + profile.Conic) * profile.Curvature * profile.Curvature * radius * radius < 1);
+    }
 
     public static double FirstOrderImageHeight(Optic optic, double focalLength, double normalizedFieldY)
     {
@@ -179,12 +194,12 @@ public static class DifferentiableOpticalMetrics
         return focalLength * Math.Tan(normalizedFieldY * FieldCoordinates.MaximumRadius(optic.Fields) * Math.PI / 180);
     }
 
-    public static void EnsureSupported(Optic optic)
+    public static void EnsureSupported(Optic optic, bool fixedInput = false)
     {
         ArgumentNullException.ThrowIfNull(optic);
         var surfaces = optic.SurfaceGroup.Items;
-        if (surfaces.Count < 3 || !ObjectConjugate.IsInfinite(surfaces[0]) || optic.FieldDefinition != Domain.FieldDefinitionKind.Angle
-            || optic.Aperture.Kind != ApertureKind.EntrancePupilDiameter || !double.IsFinite(optic.Aperture.Value) || optic.Aperture.Value <= 0
+        if (surfaces.Count < 3 || !fixedInput && !ObjectConjugate.IsInfinite(surfaces[0]) || optic.FieldDefinition != Domain.FieldDefinitionKind.Angle
+            || optic.Aperture.Kind != (fixedInput ? ApertureKind.FloatByStopSize : ApertureKind.EntrancePupilDiameter) || !double.IsFinite(optic.Aperture.Value) || optic.Aperture.Value <= 0
             || optic.ObjectSpaceTelecentric || optic.FieldGroupTelecentric || optic.Apodization is not null
             || optic.Wavelengths.Count(wave => wave.IsPrimary) != 1 || !optic.Wavelengths.Any(wave => wave.IsPrimary && wave.Weight > 0)
             || surfaces.Count(surface => surface.IsStop) != 1 || surfaces[0].IsStop || surfaces[^1].IsStop)

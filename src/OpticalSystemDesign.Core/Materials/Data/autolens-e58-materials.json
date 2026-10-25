@@ -1,0 +1,1534 @@
+{
+  "Commit": "e58db32f3a0b07f25861b5839a45970f77b5c947",
+  "Source": "https://github.com/AI4Optics/AutoLens",
+  "License": "Apache-2.0 (upstream redistribution; no manufacturer certification)",
+  "Sources": [
+    {
+      "File": "deeplens/material/MISC.AGF",
+      "Sha256": "a2329365c4063c96edf6be5fac4c1effff7f80716e562bfb2c61b51230a4f035"
+    },
+    {
+      "File": "deeplens/material/PLASTIC2022.AGF",
+      "Sha256": "c70b0a9f67ac86709b25f33f336fa81796cb0b0a9c3ed0c5ac33e8b922d36d5a"
+    },
+    {
+      "File": "deeplens/material/CDGM.AGF",
+      "Sha256": "6fc3e8719cc536192dfb1c87963602d06977d17893cf8f97f792a6a474d76df6"
+    },
+    {
+      "File": "deeplens/material/SCHOTT.AGF",
+      "Sha256": "9dbe6fdb682371fa35848e607f0648dfdffeb4c6bed63044708705b69ef6bf67"
+    },
+    {
+      "File": "deeplens/material/materials_data.json",
+      "Sha256": "25f80cb4074c4fcd3711db13c0f99c0350e1fca00e3b5c1bcd4caa707abb34be"
+    }
+  ],
+  "InitialNames": [
+    "n-bk7",
+    "n-sk16",
+    "h-k9l",
+    "n-lak14",
+    "n-sk2",
+    "bk7",
+    "n-lak7",
+    "f2",
+    "n-f2",
+    "n-sf5",
+    "n-sf11",
+    "n-sf1",
+    "pmma",
+    "coc",
+    "okp4"
+  ],
+  "ProjectionNames": [
+    "h-qk3l",
+    "d-fk61a-25",
+    "h-fk61",
+    "h-fk61b",
+    "d-fk61a",
+    "h-k9l",
+    "h-k9lgt",
+    "h-k9l*",
+    "h-k9la",
+    "h-k51",
+    "h-bak7",
+    "h-bak7gt",
+    "h-zpk7",
+    "h-zk3",
+    "h-zk3a",
+    "h-zpk5",
+    "h-zk14",
+    "h-tf3l",
+    "h-zpk1a",
+    "h-f4",
+    "h-zk9b",
+    "h-zk21",
+    "h-zk11",
+    "h-zf1",
+    "h-zf1a",
+    "h-zf2",
+    "h-lak51a",
+    "h-lak7a",
+    "h-zf3",
+    "h-zf4a",
+    "h-zf4agt",
+    "h-lak52",
+    "h-zf5",
+    "h-laf3b",
+    "h-lak53b",
+    "h-zf6",
+    "zf6",
+    "h-laf50b",
+    "d-laf50-25",
+    "d-laf50",
+    "h-zf13",
+    "h-zf13gt",
+    "h-laf10la",
+    "h-zlaf50e",
+    "h-zf7la",
+    "h-zf7lagt",
+    "zf7l",
+    "h-zlaf52a",
+    "h-zlaf56b",
+    "h-zlaf53b",
+    "h-zlaf53bgt",
+    "h-zlaf55d",
+    "h-zf52",
+    "h-zf52gt",
+    "h-zlaf68n",
+    "h-zlaf75a",
+    "h-zlaf4la",
+    "h-zlaf4lb",
+    "h-zf62",
+    "h-zf72a",
+    "h-zf88"
+  ],
+  "Entries": [
+    {
+      "Name": "n-bk7",
+      "Catalog": "SCHOTT",
+      "Formula": 2,
+      "Index": 1.5168,
+      "Abbe": 64.17,
+      "MinimumNm": 300.0,
+      "MaximumNm": 2500.0,
+      "Coefficients": [
+        1.03961212,
+        0.00600069867,
+        0.231792344,
+        0.0200179144,
+        1.01046945,
+        103.560653
+      ],
+      "MatchIndex": 0.0,
+      "MatchAbbe": 0.0
+    },
+    {
+      "Name": "n-sk16",
+      "Catalog": "SCHOTT",
+      "Formula": 2,
+      "Index": 1.62041,
+      "Abbe": 60.32,
+      "MinimumNm": 310.0,
+      "MaximumNm": 2500.0,
+      "Coefficients": [
+        1.34317774,
+        0.00704687339,
+        0.241144399,
+        0.0229005,
+        0.994317969,
+        92.7508526
+      ],
+      "MatchIndex": 0.0,
+      "MatchAbbe": 0.0
+    },
+    {
+      "Name": "h-k9l",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.5168,
+      "Abbe": 64.198732,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.614555251,
+        0.0145987884,
+        0.656775017,
+        0.00287769588,
+        1.02699346,
+        107.653051
+      ],
+      "MatchIndex": 1.5168,
+      "MatchAbbe": 64.2
+    },
+    {
+      "Name": "n-lak14",
+      "Catalog": "SCHOTT",
+      "Formula": 2,
+      "Index": 1.6968,
+      "Abbe": 55.41,
+      "MinimumNm": 310.0,
+      "MaximumNm": 2500.0,
+      "Coefficients": [
+        1.50781212,
+        0.00746098727,
+        0.318866829,
+        0.0242024834,
+        1.14287213,
+        80.9565165
+      ],
+      "MatchIndex": 0.0,
+      "MatchAbbe": 0.0
+    },
+    {
+      "Name": "n-sk2",
+      "Catalog": "SCHOTT",
+      "Formula": 2,
+      "Index": 1.60738,
+      "Abbe": 56.65,
+      "MinimumNm": 310.0,
+      "MaximumNm": 2500.0,
+      "Coefficients": [
+        1.28189012,
+        0.0072719164,
+        0.257738258,
+        0.0242823527,
+        0.96818604,
+        110.377773
+      ],
+      "MatchIndex": 0.0,
+      "MatchAbbe": 0.0
+    },
+    {
+      "Name": "bk7",
+      "Catalog": "SCHOTT",
+      "Formula": 2,
+      "Index": 1.5168,
+      "Abbe": 64.167336,
+      "MinimumNm": 310.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.03961212,
+        0.00600069867,
+        0.231792344,
+        0.0200179144,
+        1.01046945,
+        103.560653
+      ],
+      "MatchIndex": 0.0,
+      "MatchAbbe": 0.0
+    },
+    {
+      "Name": "n-lak7",
+      "Catalog": "SCHOTT",
+      "Formula": 2,
+      "Index": 1.6516,
+      "Abbe": 58.52,
+      "MinimumNm": 300.0,
+      "MaximumNm": 2500.0,
+      "Coefficients": [
+        1.23679889,
+        0.00610105538,
+        0.445051837,
+        0.0201388334,
+        1.01745888,
+        90.638038
+      ],
+      "MatchIndex": 0.0,
+      "MatchAbbe": 0.0
+    },
+    {
+      "Name": "f2",
+      "Catalog": "SCHOTT",
+      "Formula": 2,
+      "Index": 1.62004,
+      "Abbe": 36.37,
+      "MinimumNm": 320.0,
+      "MaximumNm": 2500.0,
+      "Coefficients": [
+        1.34533359,
+        0.00997743871,
+        0.209073176,
+        0.0470450767,
+        0.937357162,
+        111.886764
+      ],
+      "MatchIndex": 0.0,
+      "MatchAbbe": 0.0
+    },
+    {
+      "Name": "n-f2",
+      "Catalog": "SCHOTT",
+      "Formula": 2,
+      "Index": 1.62005,
+      "Abbe": 36.43,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2500.0,
+      "Coefficients": [
+        1.39757037,
+        0.00995906143,
+        0.159201403,
+        0.0546931752,
+        1.2686543,
+        119.248346
+      ],
+      "MatchIndex": 0.0,
+      "MatchAbbe": 0.0
+    },
+    {
+      "Name": "n-sf5",
+      "Catalog": "SCHOTT",
+      "Formula": 2,
+      "Index": 1.67271,
+      "Abbe": 32.25,
+      "MinimumNm": 370.0,
+      "MaximumNm": 2500.0,
+      "Coefficients": [
+        1.52481889,
+        0.011254756,
+        0.187085527,
+        0.0588995392,
+        1.42729015,
+        129.141675
+      ],
+      "MatchIndex": 0.0,
+      "MatchAbbe": 0.0
+    },
+    {
+      "Name": "n-sf11",
+      "Catalog": "SCHOTT",
+      "Formula": 2,
+      "Index": 1.78472,
+      "Abbe": 25.68,
+      "MinimumNm": 370.0,
+      "MaximumNm": 2500.0,
+      "Coefficients": [
+        1.73759695,
+        0.013188707,
+        0.313747346,
+        0.0623068142,
+        1.89878101,
+        155.23629
+      ],
+      "MatchIndex": 0.0,
+      "MatchAbbe": 0.0
+    },
+    {
+      "Name": "n-sf1",
+      "Catalog": "SCHOTT",
+      "Formula": 2,
+      "Index": 1.71736,
+      "Abbe": 29.62,
+      "MinimumNm": 370.0,
+      "MaximumNm": 2500.0,
+      "Coefficients": [
+        1.60865158,
+        0.0119654879,
+        0.237725916,
+        0.0590589722,
+        1.51530653,
+        135.521676
+      ],
+      "MatchIndex": 0.0,
+      "MatchAbbe": 0.0
+    },
+    {
+      "Name": "pmma",
+      "Catalog": "MISC",
+      "Formula": 1,
+      "Index": 1.491756,
+      "Abbe": 57.440791,
+      "MinimumNm": 365.0,
+      "MaximumNm": 1060.0,
+      "Coefficients": [
+        2.1864582,
+        -0.00024475348,
+        0.014155787,
+        -0.00044329781,
+        7.7664259E-05,
+        -2.9936382E-06
+      ],
+      "MatchIndex": 0.0,
+      "MatchAbbe": 0.0
+    },
+    {
+      "Name": "coc",
+      "Catalog": "MISC",
+      "Formula": 1,
+      "Index": 1.533732,
+      "Abbe": 56.227932,
+      "MinimumNm": 334.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        2.28448546,
+        0.0102952211,
+        0.0373493703,
+        -0.00928409653,
+        0.00173289808,
+        -0.000115203047
+      ],
+      "MatchIndex": 0.0,
+      "MatchAbbe": 0.0
+    },
+    {
+      "Name": "okp4",
+      "Catalog": "PLASTIC2022",
+      "Formula": 1,
+      "Index": 1.607283,
+      "Abbe": 26.645105,
+      "MinimumNm": 400.0,
+      "MaximumNm": 750.0,
+      "Coefficients": [
+        1.6768,
+        0.55567,
+        0.49774,
+        -0.1329,
+        0.01906,
+        -0.001068
+      ],
+      "MatchIndex": 0.0,
+      "MatchAbbe": 0.0
+    },
+    {
+      "Name": "h-qk3l",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.48749,
+      "Abbe": 70.440487,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.601737491,
+        0.012574974,
+        0.858737004,
+        92.3325663,
+        0.586761501,
+        0.002687509
+      ],
+      "MatchIndex": 1.48749,
+      "MatchAbbe": 70.44
+    },
+    {
+      "Name": "d-fk61a-25",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.49665,
+      "Abbe": 81.549116,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.714581002,
+        0.0108378966,
+        0.502174967,
+        0.00132310137,
+        0.838296164,
+        153.775939
+      ],
+      "MatchIndex": 1.49665,
+      "MatchAbbe": 81.55
+    },
+    {
+      "Name": "h-fk61",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.497,
+      "Abbe": 81.612838,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.502504076,
+        0.00132743798,
+        0.715240076,
+        0.0108378966,
+        0.836628986,
+        155.933755
+      ],
+      "MatchIndex": 1.497,
+      "MatchAbbe": 81.61
+    },
+    {
+      "Name": "h-fk61b",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.497,
+      "Abbe": 81.605419,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.714812161,
+        0.0108370689,
+        0.502984998,
+        0.00132155859,
+        0.836119846,
+        153.360674
+      ],
+      "MatchIndex": 1.497,
+      "MatchAbbe": 81.61
+    },
+    {
+      "Name": "d-fk61a",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.497,
+      "Abbe": 81.605419,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.714812161,
+        0.0108370689,
+        0.502984998,
+        0.00132155859,
+        0.836119846,
+        153.360674
+      ],
+      "MatchIndex": 1.497,
+      "MatchAbbe": 81.61
+    },
+    {
+      "Name": "h-k9lgt",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.5168,
+      "Abbe": 64.198732,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.614555251,
+        0.0145987884,
+        0.656775017,
+        0.00287769588,
+        1.02699346,
+        107.653051
+      ],
+      "MatchIndex": 1.5168,
+      "MatchAbbe": 64.2
+    },
+    {
+      "Name": "h-k9l*",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.5168,
+      "Abbe": 64.198732,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.614555251,
+        0.0145987884,
+        0.656775017,
+        0.00287769588,
+        1.02699346,
+        107.653051
+      ],
+      "MatchIndex": 1.5168,
+      "MatchAbbe": 64.2
+    },
+    {
+      "Name": "h-k9la",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.5168,
+      "Abbe": 64.198695,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.684743072,
+        0.00313539741,
+        0.586772376,
+        0.014810133,
+        1.14804248,
+        116.583792
+      ],
+      "MatchIndex": 1.5168,
+      "MatchAbbe": 64.2
+    },
+    {
+      "Name": "h-k51",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.52307,
+      "Abbe": 58.639792,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.960161808,
+        116.24248,
+        1.18368963,
+        0.0118029997,
+        0.102338243,
+        -0.0189575777
+      ],
+      "MatchIndex": 1.52307,
+      "MatchAbbe": 58.64
+    },
+    {
+      "Name": "h-bak7",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.56883,
+      "Abbe": 56.041308,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.659469741,
+        0.000766009635,
+        0.7621967,
+        0.0177403402,
+        1.19935835,
+        129.975103
+      ],
+      "MatchIndex": 1.56883,
+      "MatchAbbe": 56.04
+    },
+    {
+      "Name": "h-bak7gt",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.56883,
+      "Abbe": 56.041308,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.659469741,
+        0.000766009635,
+        0.7621967,
+        0.0177403402,
+        1.19935835,
+        129.975103
+      ],
+      "MatchIndex": 1.56883,
+      "MatchAbbe": 56.04
+    },
+    {
+      "Name": "h-zpk7",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.56907,
+      "Abbe": 71.304254,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.725400532,
+        0.00296983783,
+        0.703767661,
+        0.013434264,
+        0.77228314,
+        135.211711
+      ],
+      "MatchIndex": 1.56907,
+      "MatchAbbe": 71.3
+    },
+    {
+      "Name": "h-zk3",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.58913,
+      "Abbe": 61.253571,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.85567832,
+        0.00441734284,
+        0.897778708,
+        89.6045798,
+        0.631730586,
+        0.015804179
+      ],
+      "MatchIndex": 1.58913,
+      "MatchAbbe": 61.25
+    },
+    {
+      "Name": "h-zk3a",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.58913,
+      "Abbe": 61.2531,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.964352845,
+        94.8895042,
+        0.77489966,
+        0.014985413,
+        0.712663198,
+        0.00294423381
+      ],
+      "MatchIndex": 1.58913,
+      "MatchAbbe": 61.25
+    },
+    {
+      "Name": "h-zpk5",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.5928,
+      "Abbe": 68.342024,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.259562934,
+        0.0196231869,
+        1.24131969,
+        0.00619669959,
+        0.78723739,
+        123.753444
+      ],
+      "MatchIndex": 1.5928,
+      "MatchAbbe": 68.34
+    },
+    {
+      "Name": "h-zk14",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.60311,
+      "Abbe": 60.603787,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.821911395,
+        0.00369659724,
+        0.995367381,
+        97.9765358,
+        0.708381156,
+        0.0159409871
+      ],
+      "MatchIndex": 1.60311,
+      "MatchAbbe": 60.6
+    },
+    {
+      "Name": "h-tf3l",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.6134,
+      "Abbe": 44.107022,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.35609817,
+        0.00823370212,
+        0.192047799,
+        0.0410079104,
+        1.325836,
+        111.798686
+      ],
+      "MatchIndex": 1.6134,
+      "MatchAbbe": 44.11
+    },
+    {
+      "Name": "h-zpk1a",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.618,
+      "Abbe": 63.392702,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.944049498,
+        109.035762,
+        1.05017122,
+        0.0132903754,
+        0.527568709,
+        0.000741462968
+      ],
+      "MatchIndex": 1.618,
+      "MatchAbbe": 63.39
+    },
+    {
+      "Name": "h-f4",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.62005,
+      "Abbe": 36.345886,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.131898794,
+        0.05793195,
+        1.42441827,
+        0.0106270032,
+        1.21746316,
+        117.376535
+      ],
+      "MatchIndex": 1.62005,
+      "MatchAbbe": 36.35
+    },
+    {
+      "Name": "h-zk9b",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.62041,
+      "Abbe": 60.339343,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.874918734,
+        0.00373965378,
+        0.7096273,
+        0.0163972089,
+        1.09453882,
+        100.204324
+      ],
+      "MatchIndex": 1.62041,
+      "MatchAbbe": 60.34
+    },
+    {
+      "Name": "h-zk21",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.62299,
+      "Abbe": 58.120667,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.894248925,
+        0.00384521718,
+        0.696413489,
+        0.0174130132,
+        1.07122355,
+        102.205952
+      ],
+      "MatchIndex": 1.62299,
+      "MatchAbbe": 58.12
+    },
+    {
+      "Name": "h-zk11",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.63854,
+      "Abbe": 55.446553,
+      "MinimumNm": 313.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.053461546,
+        0.0456429986,
+        1.5837823,
+        0.00912260162,
+        0.918196297,
+        89.3234474
+      ],
+      "MatchIndex": 1.63854,
+      "MatchAbbe": 55.45
+    },
+    {
+      "Name": "h-zf1",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.64769,
+      "Abbe": 33.840317,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.06294164,
+        108.400406,
+        0.146910876,
+        0.0591797128,
+        1.48922543,
+        0.0115933111
+      ],
+      "MatchIndex": 1.64769,
+      "MatchAbbe": 33.84
+    },
+    {
+      "Name": "h-zf1a",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.64769,
+      "Abbe": 33.887993,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.157527094,
+        0.0585466694,
+        1.4792285,
+        0.0111805229,
+        1.18166385,
+        115.153843
+      ],
+      "MatchIndex": 1.64769,
+      "MatchAbbe": 33.89
+    },
+    {
+      "Name": "h-zf2",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.6727,
+      "Abbe": 32.171186,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.16764338,
+        0.0605177711,
+        1.54335076,
+        0.0118524273,
+        1.17313123,
+        113.6711
+      ],
+      "MatchIndex": 1.6727,
+      "MatchAbbe": 32.17
+    },
+    {
+      "Name": "h-lak51a",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.6968,
+      "Abbe": 55.526357,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.639398694,
+        5.67124825E-05,
+        1.18748481,
+        0.0158001968,
+        1.26545352,
+        91.097053
+      ],
+      "MatchIndex": 1.6968,
+      "MatchAbbe": 55.53
+    },
+    {
+      "Name": "h-lak7a",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.713,
+      "Abbe": 53.832974,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.20674811,
+        84.3499012,
+        1.06717731,
+        0.004381895,
+        0.811229515,
+        0.018982889
+      ],
+      "MatchIndex": 1.713,
+      "MatchAbbe": 53.83
+    },
+    {
+      "Name": "h-zf3",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.71736,
+      "Abbe": 29.49911,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.203624748,
+        0.0620712732,
+        1.64202576,
+        0.0127139992,
+        1.38768085,
+        128.254467
+      ],
+      "MatchIndex": 1.71736,
+      "MatchAbbe": 29.5
+    },
+    {
+      "Name": "h-zf4a",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.72825,
+      "Abbe": 28.318797,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.67238093,
+        0.0133653851,
+        1.34134437,
+        122.464022,
+        0.204305471,
+        0.0641192325
+      ],
+      "MatchIndex": 1.72825,
+      "MatchAbbe": 28.32
+    },
+    {
+      "Name": "h-zf4agt",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.72825,
+      "Abbe": 28.318797,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.67238093,
+        0.0133653851,
+        1.34134437,
+        122.464022,
+        0.204305471,
+        0.0641192325
+      ],
+      "MatchIndex": 1.72825,
+      "MatchAbbe": 28.32
+    },
+    {
+      "Name": "h-lak52",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.72916,
+      "Abbe": 54.684737,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.648528792,
+        0.000165816179,
+        1.28450424,
+        0.0158113883,
+        1.23774593,
+        85.7406109
+      ],
+      "MatchIndex": 1.72916,
+      "MatchAbbe": 54.68
+    },
+    {
+      "Name": "h-zf5",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.74,
+      "Abbe": 28.295649,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.70024855,
+        0.0133277515,
+        1.36322884,
+        122.33381,
+        0.214513422,
+        0.0635762871
+      ],
+      "MatchIndex": 1.74,
+      "MatchAbbe": 28.3
+    },
+    {
+      "Name": "h-laf3b",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.744,
+      "Abbe": 44.900027,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.66486969,
+        0.00895646712,
+        0.30162248,
+        0.0350299695,
+        1.1973888,
+        123.334438
+      ],
+      "MatchIndex": 1.744,
+      "MatchAbbe": 44.9
+    },
+    {
+      "Name": "h-lak53b",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.755,
+      "Abbe": 52.322058,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.0314122,
+        0.00395421648,
+        0.985282193,
+        0.0186863118,
+        1.17066017,
+        81.1326753
+      ],
+      "MatchIndex": 1.755,
+      "MatchAbbe": 52.32
+    },
+    {
+      "Name": "h-zf6",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.7552,
+      "Abbe": 27.530047,
+      "MinimumNm": 404.7,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.64768548,
+        0.0118179362,
+        0.314478021,
+        0.0585408205,
+        2.03864924,
+        173.964477
+      ],
+      "MatchIndex": 1.7552,
+      "MatchAbbe": 27.53
+    },
+    {
+      "Name": "zf6",
+      "Catalog": "CDGM",
+      "Formula": 1,
+      "Index": 1.755205,
+      "Abbe": 27.546239,
+      "MinimumNm": 365.0,
+      "MaximumNm": 1014.0,
+      "Coefficients": [
+        2.96285995,
+        -0.0104077823,
+        0.0356441238,
+        0.00245699205,
+        -0.000149615893,
+        1.77827751E-05
+      ],
+      "MatchIndex": 1.7552,
+      "MatchAbbe": 27.53
+    },
+    {
+      "Name": "h-laf50b",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.7725,
+      "Abbe": 49.598996,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.17461263,
+        82.6267633,
+        1.65889744,
+        0.0080512806,
+        0.413174064,
+        0.026961264
+      ],
+      "MatchIndex": 1.7725,
+      "MatchAbbe": 49.6
+    },
+    {
+      "Name": "d-laf50-25",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.77288,
+      "Abbe": 49.519338,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.734700246,
+        0.022666746,
+        1.33716574,
+        0.006016769,
+        1.13513348,
+        95.7512696
+      ],
+      "MatchIndex": 1.77288,
+      "MatchAbbe": 49.52
+    },
+    {
+      "Name": "d-laf50",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.774,
+      "Abbe": 49.590362,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.34473873,
+        0.006036194,
+        1.13288204,
+        95.5213185,
+        0.731048914,
+        0.022706198
+      ],
+      "MatchIndex": 1.774,
+      "MatchAbbe": 49.59
+    },
+    {
+      "Name": "h-zf13",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.78472,
+      "Abbe": 25.720045,
+      "MinimumNm": 404.7,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.73521591,
+        0.0131087904,
+        0.316277446,
+        0.0621421663,
+        2.16384634,
+        178.845558
+      ],
+      "MatchIndex": 1.78472,
+      "MatchAbbe": 25.72
+    },
+    {
+      "Name": "h-zf13gt",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.78472,
+      "Abbe": 25.720045,
+      "MinimumNm": 404.7,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.73521591,
+        0.0131087904,
+        0.316277446,
+        0.0621421663,
+        2.16384634,
+        178.845558
+      ],
+      "MatchIndex": 1.78472,
+      "MatchAbbe": 25.72
+    },
+    {
+      "Name": "h-laf10la",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.788,
+      "Abbe": 47.491731,
+      "MinimumNm": 302.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.93178403,
+        0.00997340769,
+        0.189897276,
+        0.0368891042,
+        1.09736515,
+        77.2777489
+      ],
+      "MatchIndex": 1.788,
+      "MatchAbbe": 47.49
+    },
+    {
+      "Name": "h-zlaf50e",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.804,
+      "Abbe": 46.574487,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.22239213,
+        0.00445444481,
+        0.952859931,
+        0.0229973985,
+        1.37994067,
+        99.1991267
+      ],
+      "MatchIndex": 1.804,
+      "MatchAbbe": 46.57
+    },
+    {
+      "Name": "h-zf7la",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.80518,
+      "Abbe": 25.456256,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.65846092,
+        144.874699,
+        0.298796445,
+        0.0635424599,
+        1.8184834,
+        0.0141908346
+      ],
+      "MatchIndex": 1.80518,
+      "MatchAbbe": 25.46
+    },
+    {
+      "Name": "h-zf7lagt",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.80518,
+      "Abbe": 25.456256,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.65846092,
+        144.874699,
+        0.298796445,
+        0.0635424599,
+        1.8184834,
+        0.0141908346
+      ],
+      "MatchIndex": 1.80518,
+      "MatchAbbe": 25.46
+    },
+    {
+      "Name": "zf7l",
+      "Catalog": "CDGM",
+      "Formula": 1,
+      "Index": 1.80519,
+      "Abbe": 25.471232,
+      "MinimumNm": 365.0,
+      "MaximumNm": 1014.0,
+      "Coefficients": [
+        3.11724527,
+        -0.00977958678,
+        0.0431752564,
+        0.00252279577,
+        -0.00011739974,
+        2.07881157E-05
+      ],
+      "MatchIndex": 1.80518,
+      "MatchAbbe": 25.46
+    },
+    {
+      "Name": "h-zlaf52a",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.8061,
+      "Abbe": 41.016887,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.85313688,
+        0.00985534639,
+        0.317938591,
+        0.0392611678,
+        1.16396318,
+        93.1032763
+      ],
+      "MatchIndex": 1.8061,
+      "MatchAbbe": 41.02
+    },
+    {
+      "Name": "h-zlaf56b",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.8061,
+      "Abbe": 33.268324,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.93771288,
+        0.0122003756,
+        1.56440326,
+        122.447532,
+        0.214505628,
+        0.0578880425
+      ],
+      "MatchIndex": 1.8061,
+      "MatchAbbe": 33.27
+    },
+    {
+      "Name": "h-zlaf53b",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.834,
+      "Abbe": 37.210555,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.302813825,
+        0.04559202,
+        1.25522353,
+        99.9412194,
+        1.95575794,
+        0.010816711
+      ],
+      "MatchIndex": 1.834,
+      "MatchAbbe": 37.21
+    },
+    {
+      "Name": "h-zlaf53bgt",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.834,
+      "Abbe": 37.210555,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.302813825,
+        0.04559202,
+        1.25522353,
+        99.9412194,
+        1.95575794,
+        0.010816711
+      ],
+      "MatchIndex": 1.834,
+      "MatchAbbe": 37.21
+    },
+    {
+      "Name": "h-zlaf55d",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.83481,
+      "Abbe": 42.725177,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.227765275,
+        0.0412221798,
+        2.04686906,
+        0.010748949,
+        1.20888928,
+        87.8518998
+      ],
+      "MatchIndex": 1.83481,
+      "MatchAbbe": 42.73
+    },
+    {
+      "Name": "h-zf52",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.84666,
+      "Abbe": 23.784497,
+      "MinimumNm": 404.7,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.409982615,
+        0.0621421199,
+        2.37517176,
+        185.055134,
+        1.83913582,
+        0.0136093459
+      ],
+      "MatchIndex": 1.84666,
+      "MatchAbbe": 23.78
+    },
+    {
+      "Name": "h-zf52gt",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.84666,
+      "Abbe": 23.784497,
+      "MinimumNm": 404.7,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.409982615,
+        0.0621421199,
+        2.37517176,
+        185.055134,
+        1.83913582,
+        0.0136093459
+      ],
+      "MatchIndex": 1.84666,
+      "MatchAbbe": 23.78
+    },
+    {
+      "Name": "h-zlaf68n",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.883,
+      "Abbe": 39.2182,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.49455025,
+        109.762523,
+        2.07574257,
+        0.010404077,
+        0.361138143,
+        0.041262142
+      ],
+      "MatchIndex": 1.883,
+      "MatchAbbe": 39.22
+    },
+    {
+      "Name": "h-zlaf75a",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.90366,
+      "Abbe": 31.31497,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        1.50615126,
+        102.994725,
+        2.18809221,
+        0.0127716105,
+        0.297955776,
+        0.0569661668
+      ],
+      "MatchIndex": 1.90366,
+      "MatchAbbe": 31.32
+    },
+    {
+      "Name": "h-zlaf4la",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.91082,
+      "Abbe": 35.25034,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        2.212551,
+        0.011817254,
+        0.312542616,
+        0.049586258,
+        1.56862457,
+        115.52649
+      ],
+      "MatchIndex": 1.91082,
+      "MatchAbbe": 35.25
+    },
+    {
+      "Name": "h-zlaf4lb",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.91082,
+      "Abbe": 35.282389,
+      "MinimumNm": 365.0,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.30378754,
+        0.050087732,
+        2.22145931,
+        0.011875826,
+        1.54968685,
+        113.957667
+      ],
+      "MatchIndex": 1.91082,
+      "MatchAbbe": 35.28
+    },
+    {
+      "Name": "h-zf62",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.92286,
+      "Abbe": 20.879915,
+      "MinimumNm": 404.7,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        2.55246796,
+        162.450683,
+        0.465681607,
+        0.069560081,
+        2.0289468,
+        0.014771138
+      ],
+      "MatchIndex": 1.92286,
+      "MatchAbbe": 20.88
+    },
+    {
+      "Name": "h-zf72a",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.92286,
+      "Abbe": 18.895887,
+      "MinimumNm": 404.7,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        0.470478653,
+        0.0736024509,
+        2.55040233,
+        149.306621,
+        2.00593441,
+        0.0162999226
+      ],
+      "MatchIndex": 1.92286,
+      "MatchAbbe": 18.9
+    },
+    {
+      "Name": "h-zf88",
+      "Catalog": "CDGM",
+      "Formula": 2,
+      "Index": 1.94595,
+      "Abbe": 17.941964,
+      "MinimumNm": 404.7,
+      "MaximumNm": 2325.0,
+      "Coefficients": [
+        2.04275349,
+        0.0169742976,
+        1.98276153,
+        109.068151,
+        0.504267829,
+        0.075171071
+      ],
+      "MatchIndex": 1.94595,
+      "MatchAbbe": 17.94
+    }
+  ]
+}

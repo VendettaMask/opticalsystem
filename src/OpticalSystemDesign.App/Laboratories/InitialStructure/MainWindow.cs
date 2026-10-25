@@ -66,6 +66,11 @@ public sealed partial class MainWindow : Window
         _refineButton.Classes.Add("accent");
         WireEvents();
         if (settings.InitialSpecification is { } specification) ApplySpecification(specification, settings.InitialOptions ?? new());
+        else
+        {
+            var reference = AutoLensReferenceExamples.Mobile();
+            ApplySpecification(reference.Specification, reference.Options);
+        }
         ApplyResponsiveLayout(Width);
         UpdateCommands();
         Ready = Task.WhenAll(RefreshResumeAvailabilityAsync(), RefreshGpuStatusAsync());

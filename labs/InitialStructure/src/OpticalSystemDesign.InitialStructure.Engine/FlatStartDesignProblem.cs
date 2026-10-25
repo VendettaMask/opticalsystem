@@ -17,6 +17,7 @@ internal sealed class FlatStartDesignProblem
     private readonly double _focalLength;
     private readonly double _maximumCurvature;
     private int SurfaceCount => 2 * _elementCount;
+    private bool Reference => _specification.FlatStart?.AutoLens?.Policy == AutoLensManagedPolicy.UpstreamE58;
     public int Dimension => 2 * SurfaceCount - (_specification.FlatStart!.FixedBackFocusMillimeters.HasValue ? 1 : 0);
     public long TracedRayCount { get; private set; }
     public static DesignStage FullStage { get; } = new(1, 1, true);
@@ -115,14 +116,14 @@ internal sealed class FlatStartDesignProblem
         var pupils = IntegrationPupils(_specification.FlatStart.SamplingPolicy, dense, independentValidation);
         var checks = area ? CheckPupils(dense, independentValidation) : [];
         var wavelengthNumber = stage.AllWavelengths ? 0 : optic.Wavelengths.ToList().FindIndex(wave => wave.IsPrimary) + 1;
-        var stopFailure = FlatStartProblem.PreparePhysicalStop(optic, _specification.FlatStart!);
-        var sizing = stopFailure is null && _specification.FlatStart!.AutomaticLensDiameters
+        var stopFailure = Reference ? null : FlatStartProblem.PreparePhysicalStop(optic, _specification.FlatStart!);
+        var sizing = !Reference && stopFailure is null && _specification.FlatStart!.AutomaticLensDiameters
             ? AutomaticSemiDiameterSolver.UpdateFromRayEnvelope(optic, FlatStartProblem.LensGroups(_elementCount),
                 fields.Select(field => (0.0, field * stage.FieldFraction)).ToArray(), pupils.Concat(checks).ToArray(),
                 _specification.SemiDiameterMarginFactor, wavelengthNumber, cancellationToken,
                 preserveStopAperture: _specification.FlatStart.UsePhysicalStop) : null;
         var geometryResiduals = new List<double>();
-        var violations = _geometry.GeometryViolations(optic, geometryResiduals, area ? .01 : 0).ToList();
+        var violations = _geometry.GeometryViolations(optic, geometryResiduals, area ? .01 : 0, Reference ? 1 : 0).ToList();
         if (_specification.FlatStart!.UsePhysicalStop) geometryResiduals.Add(stopFailure is null ? 0 : 1);
         if (stopFailure is not null) violations.Add(stopFailure);
         var geometryValid = violations.Count == 0;

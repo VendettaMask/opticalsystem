@@ -26,14 +26,14 @@ internal sealed class GpuRaySensitivityBatch(int parameters, CancellationToken c
         for (var ray = 0; ray < _pending.Count; ray++)
         {
             var values = Values(_pending[ray].Ray);
-            var materialized = new DifferentialScalar[5];
-            for (var component = 0; component < 5; component++)
+            var materialized = new DifferentialScalar[6];
+            for (var component = 0; component < 6; component++)
             {
                 var gradient = new double[parameters];
-                Array.Copy(result.Gradients, (ray * 5 + component) * parameters, gradient, 0, parameters);
+                Array.Copy(result.Gradients, (ray * 6 + component) * parameters, gradient, 0, parameters);
                 materialized[component] = DifferentialScalar.FromGradient(values[component].Value, gradient);
             }
-            _pending[ray].Complete(new(materialized[0], materialized[1], materialized[2], materialized[3], materialized[4]));
+            _pending[ray].Complete(new(materialized[0], materialized[1], materialized[2], materialized[3], materialized[4]) { BendPenalty = materialized[5] });
         }
         Batches++;
         Rays += _pending.Count;
@@ -43,5 +43,5 @@ internal sealed class GpuRaySensitivityBatch(int parameters, CancellationToken c
     }
 
     private static DifferentialScalar[] Values(DesignRaySensitivity ray) =>
-        [ray.X, ray.Y, ray.DirectionZ, ray.MinimumClearance, ray.MinimumBendCosine];
+        [ray.X, ray.Y, ray.DirectionZ, ray.MinimumClearance, ray.MinimumBendCosine, ray.BendPenalty];
 }

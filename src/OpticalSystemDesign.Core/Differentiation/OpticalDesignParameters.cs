@@ -5,11 +5,15 @@ using OpticalSystemDesign.Core.Serialization;
 
 namespace OpticalSystemDesign.Core.Differentiation;
 
-public enum OpticalDesignParameterKind { Curvature, Thickness, Conic, EvenAsphereCoefficient, MaterialIndex, MaterialAbbe }
+public enum OpticalDesignParameterKind { Curvature, Thickness, Conic, EvenAsphereCoefficient, MaterialIndex, MaterialAbbe, AxialPosition }
 
-/// <summary>The physical quantity equals the optimizer coordinate times Scale.</summary>
+/// <summary>The physical quantity equals the optimizer coordinate times Scale, plus OriginOffset for an axial position.</summary>
 public sealed record OpticalDesignParameter(int SurfaceIndex, OpticalDesignParameterKind Kind, double Scale = 1, int CoefficientIndex = 0,
-    int? LinkedSurfaceIndex = null);
+    int? LinkedSurfaceIndex = null)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public double OriginOffset { get; init; }
+}
 
 /// <summary>Core-owned parameter binding. No module needs geometry or dispersion equations.</summary>
 public static class OpticalDesignParameters
@@ -30,6 +34,7 @@ public static class OpticalDesignParameters
             throw new ArgumentException("Invalid design coordinate vector.");
         var optic = Optic.FromSnapshot(template);
         Validate(optic, parameters);
+        var positions = optic.SurfaceGroup.Items.Select(surface => surface.CoordinateSystem.Origin.Z).ToArray();
         // Rebuild each component once: changing legacy radius/conic can otherwise erase an asphere.
         foreach (var group in Expand(parameters).GroupBy(item => item.parameter.SurfaceIndex))
         {
@@ -51,6 +56,7 @@ public static class OpticalDesignParameters
                     case OpticalDesignParameterKind.Conic: conic = value; break;
                     case OpticalDesignParameterKind.EvenAsphereCoefficient: coefficients[parameter.CoefficientIndex] = value; break;
                     case OpticalDesignParameterKind.Thickness: surface.Thickness = value; break;
+                    case OpticalDesignParameterKind.AxialPosition: positions[parameter.SurfaceIndex] = value + parameter.OriginOffset; break;
                     case OpticalDesignParameterKind.MaterialIndex: nd = value; break;
                     case OpticalDesignParameterKind.MaterialAbbe: vd = value; break;
                 }
@@ -60,6 +66,10 @@ public static class OpticalDesignParameters
                 : new EvenAsphereGeometry(curvature == 0 ? 0 : 1 / curvature, conic, coefficients);
             if (hasMaterial) surface.MaterialAfter = CreateRelaxedGlass(material.Name, nd, vd);
         }
+        if (parameters.Any(parameter => parameter.Kind == OpticalDesignParameterKind.AxialPosition))
+            for (var index = 0; index + 1 < positions.Length; index++)
+                if (index != 0 || !ObjectConjugate.IsInfinite(optic.SurfaceGroup.Items[0]))
+                    optic.SurfaceGroup.Items[index].Thickness = positions[index + 1] - positions[index];
         optic.SurfaceGroup.Renumber();
         SynchronizeIncidentMedia(optic);
         optic.InvalidateRayTraceCache();
@@ -115,7 +125,9 @@ public static class OpticalDesignParameters
         return sum;
     }
 
-    internal static (double Curvature, double Conic, double[] Coefficients) Profile(IGeometry geometry) => geometry switch
+    /// <summary>Read a rotational design profile using the same conventions as Core parameter binding.
+    /// Returned coefficients are a copy; reading this descriptor never changes the geometry.</summary>
+    public static (double Curvature, double Conic, double[] Coefficients) Profile(IGeometry geometry) => geometry switch
     {
         PlaneGeometry => (0, 0, []),
         StandardGeometry standard => (Curvature(standard.Radius), standard.Conic, []),
@@ -127,9 +139,13 @@ public static class OpticalDesignParameters
 
     internal static void Validate(Optic optic, IReadOnlyList<OpticalDesignParameter> parameters)
     {
+        if (parameters.Any(parameter => parameter.Kind == OpticalDesignParameterKind.AxialPosition)
+            && parameters.Any(parameter => parameter.Kind == OpticalDesignParameterKind.Thickness))
+            throw new ArgumentException("Independent axial positions and relative thicknesses cannot share a coordinate vector.", nameof(parameters));
         if (parameters.Count == 0 || parameters.Count > 512 || parameters.Any(parameter =>
                 parameter.SurfaceIndex <= 0 || parameter.SurfaceIndex >= optic.SurfaceGroup.Items.Count
                 || !Enum.IsDefined(parameter.Kind) || !double.IsFinite(parameter.Scale) || parameter.Scale <= 0
+                || !double.IsFinite(parameter.OriginOffset) || parameter.Kind != OpticalDesignParameterKind.AxialPosition && parameter.OriginOffset != 0
                 || parameter.CoefficientIndex < 0 || parameter.Kind != OpticalDesignParameterKind.EvenAsphereCoefficient && parameter.CoefficientIndex != 0)
             || parameters.Any(parameter => parameter.LinkedSurfaceIndex is { } linked && (linked <= 0 || linked >= optic.SurfaceGroup.Items.Count || linked == parameter.SurfaceIndex))
             || Expand(parameters).Select(item => (item.parameter.SurfaceIndex, item.parameter.Kind, item.parameter.CoefficientIndex)).Distinct().Count() != Expand(parameters).Count())
@@ -174,6 +190,7 @@ public static class OpticalDesignParameters
             OpticalDesignParameterKind.Conic => profile.Conic,
             OpticalDesignParameterKind.EvenAsphereCoefficient => profile.Coefficients[parameter.CoefficientIndex],
             OpticalDesignParameterKind.Thickness => surface.Thickness,
+            OpticalDesignParameterKind.AxialPosition => surface.CoordinateSystem.Origin.Z - parameter.OriginOffset,
             OpticalDesignParameterKind.MaterialIndex => RelaxedGlassCoordinates(surface.MaterialAfter).Nd,
             OpticalDesignParameterKind.MaterialAbbe => RelaxedGlassCoordinates(surface.MaterialAfter).Vd,
             _ => throw new ArgumentOutOfRangeException(nameof(parameter))

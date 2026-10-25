@@ -73,15 +73,15 @@ public static partial class DesignGpu
             if (tapes.Count == 0 || outputs.Count != tapes.Count || parameters is < 1 or > 512)
                 throw new ArgumentException("Invalid CUDA tangent batch.");
             var nodes = new GradientTapeNode[Math.Max(1, nodeCount)];
-            var ranges = new int[tapes.Count * 7];
+            var ranges = new int[tapes.Count * 8];
             var offset = 0;
             for (var ray = 0; ray < tapes.Count; ray++)
             {
-                if (outputs[ray].Length != 5) throw new ArgumentException("A ray has five differentiable outputs.");
-                ranges[ray * 7] = offset;
-                ranges[ray * 7 + 1] = tapes[ray].Nodes.Count;
+                if (outputs[ray].Length != 6) throw new ArgumentException("A ray has six differentiable outputs.");
+                ranges[ray * 8] = offset;
+                ranges[ray * 8 + 1] = tapes[ray].Nodes.Count;
                 for (var index = 0; index < tapes[ray].Nodes.Count; index++) nodes[offset + index] = tapes[ray].Nodes[index];
-                for (var component = 0; component < 5; component++) ranges[ray * 7 + 2 + component] = outputs[ray][component];
+                for (var component = 0; component < 6; component++) ranges[ray * 8 + 2 + component] = outputs[ray][component];
                 offset += tapes[ray].Nodes.Count;
             }
             lock (_gate)
@@ -90,11 +90,11 @@ public static partial class DesignGpu
                 var timer = Stopwatch.StartNew();
                 using var deviceNodes = _accelerator.Allocate1D(nodes);
                 using var deviceRanges = _accelerator.Allocate1D(ranges);
-                using var adjoints = _accelerator.Allocate1D<double>(Math.Max(1, (long)nodeCount * 5));
-                using var gradients = _accelerator.Allocate1D<double>((long)tapes.Count * 5 * parameters);
+                using var adjoints = _accelerator.Allocate1D<double>(Math.Max(1, (long)nodeCount * 6));
+                using var gradients = _accelerator.Allocate1D<double>((long)tapes.Count * 6 * parameters);
                 adjoints.MemSetToZero();
                 gradients.MemSetToZero();
-                _kernel(tapes.Count * 5, deviceNodes.View, deviceRanges.View, adjoints.View, gradients.View, parameters);
+                _kernel(tapes.Count * 6, deviceNodes.View, deviceRanges.View, adjoints.View, gradients.View, parameters);
                 _accelerator.Synchronize();
                 var result = gradients.GetAsArray1D();
                 timer.Stop();
@@ -107,13 +107,13 @@ public static partial class DesignGpu
         private static void ReverseKernel(Index1D thread, ArrayView<GradientTapeNode> nodes, ArrayView<int> ranges,
             ArrayView<double> adjoints, ArrayView<double> gradients, int parameters)
         {
-            var ray = thread / 5;
-            var component = thread % 5;
-            var start = ranges[ray * 7];
-            var count = ranges[ray * 7 + 1];
-            var output = ranges[ray * 7 + 2 + component];
+            var ray = thread / 6;
+            var component = thread % 6;
+            var start = ranges[ray * 8];
+            var count = ranges[ray * 8 + 1];
+            var output = ranges[ray * 8 + 2 + component];
             if (output < 0) return;
-            var scratch = start * 5 + component * count;
+            var scratch = start * 6 + component * count;
             var gradient = thread * parameters;
             adjoints[scratch + output] = 1;
             for (var index = count - 1; index >= 0; index--)

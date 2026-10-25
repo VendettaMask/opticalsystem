@@ -30,6 +30,8 @@ internal static class FlatStartSearchPlanning
     public static SearchMaterialSet Materials(InitialStructureSpecification specification, FlatStartSearchOptions options)
     {
         var optic = new Optic("Family material preflight");
+        if (specification.FlatStart?.AutoLens?.Policy == AutoLensManagedPolicy.UpstreamE58)
+            Core.Materials.AutoLensReferenceMaterials.Register(optic.Materials);
         optic.Materials.SetPreferredGlassCatalogs(specification.GlassCatalogs);
         var names = new List<string>();
         var snapshots = new List<ComponentSnapshot>();

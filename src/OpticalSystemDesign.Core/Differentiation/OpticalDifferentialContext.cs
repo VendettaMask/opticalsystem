@@ -10,13 +10,15 @@ internal sealed class OpticalDifferentialContext
     private (DifferentialScalar Power, DifferentialScalar StopHeight)? _paraxial;
     public int Dimension { get; }
     public int ParameterCount => _parameters.Count;
+    private readonly bool _analyticNormals;
 
-    public OpticalDifferentialContext(Optic optic, IReadOnlyList<OpticalDesignParameter> parameters, int extraDimensions = 0)
+    public OpticalDifferentialContext(Optic optic, IReadOnlyList<OpticalDesignParameter> parameters, int extraDimensions = 0, bool analyticNormals = false)
     {
-        OpticalDesignParameters.Validate(optic, parameters);
+        if (parameters.Count > 0) OpticalDesignParameters.Validate(optic, parameters);
         _optic = optic;
         _parameters = parameters;
         Dimension = parameters.Count + extraDimensions;
+        _analyticNormals = analyticNormals;
     }
 
     public DifferentialScalar Parameter(int surface, OpticalDesignParameterKind kind, double value, int coefficient = 0)
@@ -30,6 +32,8 @@ internal sealed class OpticalDifferentialContext
 
     public DifferentialScalar Position(int surface)
     {
+        if (_parameters.Any(parameter => parameter.Kind == OpticalDesignParameterKind.AxialPosition))
+            return Parameter(surface, OpticalDesignParameterKind.AxialPosition, _optic.SurfaceGroup.Items[surface].CoordinateSystem.Origin.Z);
         DifferentialScalar position = _optic.SurfaceGroup.Items[surface].CoordinateSystem.Origin.Z;
         for (var index = 0; index < _parameters.Count; index++)
             if (_parameters[index] is { Kind: OpticalDesignParameterKind.Thickness } parameter)
@@ -55,17 +59,18 @@ internal sealed class OpticalDifferentialContext
         return nd + b * (1 / (micrometers * micrometers) - 1 / (.587 * .587));
     }
 
-    public (DifferentialScalar Sag, DifferentialScalar RadialSlope) Profile(int surface, DifferentialScalar x, DifferentialScalar y)
+    public (DifferentialScalar Sag, DifferentialScalar RadialSlope) Profile(int surface, DifferentialScalar x, DifferentialScalar y, bool relaxedDomain = false)
     {
         var profile = OpticalDesignParameters.Profile(_optic.SurfaceGroup.Items[surface].Geometry);
         var c = Parameter(surface, OpticalDesignParameterKind.Curvature, profile.Curvature);
         var k = Parameter(surface, OpticalDesignParameterKind.Conic, profile.Conic);
         var u = x * x + y * y;
         var argument = 1 - (1 + k) * c * c * u;
+        if (relaxedDomain && argument.Value < 1e-12) argument = 1e-12;
         if (argument.Value <= 1e-14) throw new ArithmeticException("The conic profile derivative is singular or outside its domain.");
         var root = DifferentialScalar.Sqrt(argument);
         var sag = c * u / (1 + root);
-        var slope = c / (2 * root);
+        var slope = relaxedDomain ? c * (1 + root + (1 + k) * c * c * u / (2 * root)) / ((1 + root) * (1 + root)) : c / (2 * root);
         DifferentialScalar power = 1;
         for (var index = 0; index < profile.Coefficients.Length; index++)
         {
@@ -80,10 +85,10 @@ internal sealed class OpticalDifferentialContext
     public (DifferentialScalar X, DifferentialScalar Y, DifferentialScalar Z) Normal(int surface, DifferentialScalar x, DifferentialScalar y)
     {
         DifferentialScalar nx, ny;
-        if (_optic.SurfaceGroup.Items[surface].Geometry is EvenAsphereGeometry)
+        if (!_analyticNormals && _optic.SurfaceGroup.Items[surface].Geometry is EvenAsphereGeometry)
         {
-            // Differentiate the SAME finite spatial-difference normal used by formal Core.
-            // These are not parameter-difference probes and do not create perturbed optics.
+            // Preserve the historical v1 tangent convention. Fixed-input derivatives
+            // use the analytic normal of the current formal Core and upstream model.
             const double step = 1e-5;
             nx = -(Profile(surface, x + step, y).Sag - Profile(surface, x - step, y).Sag) / (2 * step);
             ny = -(Profile(surface, x, y + step).Sag - Profile(surface, x, y - step).Sag) / (2 * step);
@@ -119,7 +124,9 @@ internal sealed class OpticalDifferentialContext
             d = power * b + ratio * d;
             if (double.IsFinite(surface.Thickness))
             {
-                var thickness = Parameter(index, OpticalDesignParameterKind.Thickness, surface.Thickness);
+                var thickness = _parameters.Any(parameter => parameter.Kind == OpticalDesignParameterKind.AxialPosition)
+                    && index + 1 < _optic.SurfaceGroup.Items.Count ? Position(index + 1) - Position(index)
+                    : Parameter(index, OpticalDesignParameterKind.Thickness, surface.Thickness);
                 a += thickness * c;
                 b += thickness * d;
             }

@@ -14,6 +14,7 @@ public sealed partial class RayGenerator
         bundle=null;
         var session=SequentialGpuSession.Current;
         if (session is not {Enabled:true} || !_optic.RayAimingEnabled) return false;
+        if (!ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items.FirstOrDefault())) return false;
         try
         {
             var stop=_optic.SurfaceGroup.Items.ToList().FindIndex(surface=>surface.IsStop);
@@ -70,6 +71,13 @@ public sealed partial class RayGenerator
     {
         var session=SequentialGpuSession.Current;
         if (session is not {Enabled:true}) return false;
+        if (!ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items.FirstOrDefault()))
+        {
+            // CUDA's origin-shift aim is for collimated objects. A finite source
+            // requires direction aiming with its object point held fixed.
+            session.RecordCpuAiming(samples.Length, "Finite-object direction aiming uses formal Core CPU; CUDA propagation and derivatives remain enabled.");
+            return false;
+        }
         try
         {
             var stopIndex=_optic.SurfaceGroup.Items.ToList().FindIndex(surface=>surface.IsStop);

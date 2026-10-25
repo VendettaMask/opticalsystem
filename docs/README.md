@@ -9,6 +9,7 @@
 | 了解产品、当前包和未解决问题 | [项目首页](../README.md)、[当前状态](CURRENT_STATUS.md)、[问题清单](OPEN_ISSUES_2026-10-08.md) |
 | 构建、测试、安装与恢复 | [构建发布](BUILD_AND_RELEASE.md)、[Windows 安装](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)、[内置模块交付](BUILT_IN_MODULES_2026-10-13.md) |
 | 使用桌面和两个模块 | [桌面工作流](GUI_QUICKSTART_REFACTOR.md)、[初始结构](../labs/InitialStructure/README.md)、[镀膜设计](../labs/CoatingDesign/README.md) |
+| 核对 AutoLens 原版优化规则 | [e58 逐项对齐、测试范围与保留差异](AUTOLENS_UPSTREAM_ALIGNMENT_2026-10-24.md)、[阶段交接修正](AUTOLENS_HANDOFF_REPAIR_2026-10-25.md) |
 | 维护代码与界面 | [架构](ARCHITECTURE.md)、[代码地图](CODE_READING_MAP.md)、[UI 规范](UI_DESIGN_SPEC.md)、[协作约束](../AGENTS.md) |
 | 查询文件和数值边界 | [文件格式](FILE_FORMATS_AND_PLUGINS.md)、[数值验证](NUMERICAL_PARITY.md)、[操作数支持](ZEMAX_OPERAND_SUPPORT.md) |
 

@@ -17,6 +17,21 @@ public sealed class FlatStartDesignService
         var stopwatch = Stopwatch.StartNew();
         using var compute = specification.FlatStart!.OptimizationMethod == FlatStartOptimizationMethod.AutoLensManagedV1
             ? new SequentialGpuSession(specification.FlatStart.AutoLens?.ComputeMode ?? Core.Differentiation.DesignComputeMode.Cpu,cancellationToken) : null;
+        if (specification.FlatStart.AutoLens?.Policy == AutoLensManagedPolicy.UpstreamE58)
+        {
+            // Preserve the archive's exact-flat ancestor as provenance only. No native
+            // bootstrap, binary form, validation incumbent or numerical optimizer selects the training start.
+            var root = new FlatRootFactory().Create(specification, elementCount, family: family);
+            var proof = new FlatStartBootstrapResult
+            {
+                Specification = specification, SpecificationFingerprint = ContentFingerprint.Compute(specification),
+                State = FlatStartBootstrapState.Initialized,
+                Steps = [new(0, "reference-provenance-flat-template", root, new())],
+                Diagnostics = [new("reference.random-start", "The flat ancestor is archive provenance only; TrainingStartOptic records the actual random e58-style start.")]
+            };
+            return AutoLensReferenceDesign.Run(specification, elementCount, proof, stopwatch, family,
+                allowedGlassNames ?? Core.Materials.AutoLensReferenceMaterials.ProjectionNames, cancellationToken);
+        }
         var budget = specification.Budget.MaximumEvaluations;
         var progressive = specification.FlatStart!.SamplingPolicy == FlatStartSamplingPolicy.UniformAreaGaussianV1;
         var bootstrap = new FlatStartBootstrap().Solve(specification with
@@ -35,6 +50,9 @@ public sealed class FlatStartDesignService
         IReadOnlyList<string>? allowedGlassNames = null)
     {
         SpecificationValidator.Validate(specification);
+        if (specification.FlatStart?.AutoLens?.Policy == AutoLensManagedPolicy.UpstreamE58)
+            return AutoLensReferenceDesign.Run(specification, family.ElementCount, rootProof, Stopwatch.StartNew(), family,
+                allowedGlassNames ?? Core.Materials.AutoLensReferenceMaterials.ProjectionNames, cancellationToken, restart: start, parent: parentCandidateId);
         if (specification.FlatStart!.OptimizationMethod == FlatStartOptimizationMethod.AutoLensManagedV1)
             return AutoLensManagedDesign.Run(specification, family.ElementCount, rootProof, Stopwatch.StartNew(), family, start, parentCandidateId,
                 allowedGlassNames ?? [specification.InitialGlass], cancellationToken, screenOnly: screenOnly);
@@ -52,6 +70,14 @@ public sealed class FlatStartDesignService
         if (rootProof.Steps is not { Count: > 0 }) throw new InvalidDataException("A saved strict-flat root proof is required.");
         var root = rootProof.Steps[0].Optic;
         OpticSnapshotValidator.Validate(root);
+        if (specification.FlatStart.AutoLens?.Policy == AutoLensManagedPolicy.UpstreamE58)
+        {
+            if (root.Surfaces.Count < 4 || (root.Surfaces.Count - 2) % 2 != 0 || state.Optic.Surfaces.Count != root.Surfaces.Count + 1
+                || root.Surfaces.Any(surface => surface.Radius != 0))
+                throw new InvalidDataException("The reference ancestor has another element count or is not flat provenance.");
+            return AutoLensReferenceDesign.Run(specification, (root.Surfaces.Count - 2) / 2, rootProof, Stopwatch.StartNew(), family,
+                allowedGlassNames, cancellationToken, state);
+        }
         if (root.Surfaces.Count < 4 || (root.Surfaces.Count - 2) % 2 != 0 || root.Surfaces.Count != state.Optic.Surfaces.Count
             || root.Surfaces.Any(surface => surface.Radius != 0 || surface.Components?.GeometryKind is not (null or "plane" or "standard")))
             throw new InvalidDataException("The saved ancestor is not an exact-flat design of the same topology.");

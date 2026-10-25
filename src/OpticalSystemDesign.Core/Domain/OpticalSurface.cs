@@ -364,10 +364,10 @@ public sealed partial class OpticalSurface : NotifyObject
             result.StopTracing);
     }
 
-    internal void InitializeFromLegacyProperties(double zPosition)
+    internal void InitializeFromLegacyProperties(double zPosition, MaterialRegistry? materials = null)
     {
         SynchronizeGeometryFromLegacyParameters();
-        MaterialAfter = new MaterialRegistry().Resolve(Material);
+        MaterialAfter = (materials ?? new MaterialRegistry()).Resolve(Material);
         CoatingModel = Coating.Equals("None", StringComparison.OrdinalIgnoreCase)
             ? new NoneCoatingModel()
             : new ApproximateTransmissionRippleCoating(new[] { new ThinFilmLayer(Coating, 120) });

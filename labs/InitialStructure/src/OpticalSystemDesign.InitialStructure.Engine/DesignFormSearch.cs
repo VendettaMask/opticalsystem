@@ -38,6 +38,11 @@ public static class DesignFormSearch
         string algorithmVersion = FlatStartAlgorithm.Version)
     {
         FlatStartSearchPlanning.Validate(spec, options);
+        if (spec.FlatStart?.AutoLens?.Policy == AutoLensManagedPolicy.UpstreamE58)
+        {
+            var seeds = Math.Min(spec.Budget.InitialSeedCount, Math.Max(1, spec.Budget.MaximumEvaluations / 2));
+            return new(0, seeds, 0, Math.Min(options.MaximumEvaluationsPerTrial, spec.Budget.MaximumEvaluations / seeds), DesignSearchMode.Full);
+        }
         var settings = options.DesignSearch ?? new();
         var count = FormCount(spec, settings);
         var roots = Math.Min(spec.Budget.InitialSeedCount, Math.Max(1, spec.Budget.MaximumEvaluations / 2));
@@ -58,6 +63,7 @@ public static class DesignFormSearch
 
     internal static int RootQuota(InitialStructureSpecification spec, FlatStartSearchOptions options, int roots,
         string algorithmVersion = FlatStartAlgorithm.Version) => roots == 0 ? 0
+        : spec.FlatStart?.AutoLens?.Policy == AutoLensManagedPolicy.UpstreamE58 ? Math.Min(options.MaximumEvaluationsPerTrial, spec.Budget.MaximumEvaluations / roots)
         : Math.Min((spec.Budget.MaximumEvaluations - (FlatStartAlgorithm.SchedulingPolicy(algorithmVersion, spec) == 2
             ? NeighborhoodBudget.RootReserve(spec, options) : 0)) / roots, (options.DesignSearch ?? new()).Mode == DesignSearchMode.Full
             ? options.MaximumEvaluationsPerTrial
@@ -71,6 +77,9 @@ public static class DesignFormSearch
         IReadOnlyList<string> glasses, string algorithmVersion = FlatStartAlgorithm.Version)
     {
         if (glasses.Count == 0) return [];
+        if (spec.FlatStart?.AutoLens?.Policy == AutoLensManagedPolicy.UpstreamE58)
+            return Enumerable.Range(0, Preview(spec, options, algorithmVersion).PlannedRoots)
+                .Select(index => FlatStartSearchPlanning.Family(spec, glasses, index) with { StopSurfaceIndex = 1, SeedIndex = index, BinaryStart = null }).ToArray();
         var settings = options.DesignSearch ?? new();
         Validate(spec, settings);
         var forms = new List<(int Count, string Signs)>();

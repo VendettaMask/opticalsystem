@@ -36,6 +36,8 @@ public sealed class FlatRootFactory
         }
 
         var optic = new Optic($"{specification.Name} - {elementCount} element flat root");
+        if (specification.FlatStart?.AutoLens?.Policy == AutoLensManagedPolicy.UpstreamE58)
+            Core.Materials.AutoLensReferenceMaterials.Register(optic.Materials);
         optic.Aperture.Kind = specification.FlatStart is null ? ApertureKind.FNumber : ApertureKind.EntrancePupilDiameter;
         optic.Aperture.Value = specification.FlatStart is null ? specification.FNumber
             : specification.EffectiveFocalLengthMillimeters / specification.FNumber;
@@ -55,7 +57,7 @@ public sealed class FlatRootFactory
             }
             for (var index = 0; index < surfaces.Count; index++) surfaces[index].IsStop = index == family.StopSurfaceIndex;
         }
-        optic.SurfaceGroup.ImportLegacySurfaces(surfaces);
+        optic.SurfaceGroup.ImportLegacySurfaces(surfaces, specification.FlatStart?.AutoLens?.Policy == AutoLensManagedPolicy.UpstreamE58 ? optic.Materials : null);
         AutoLensManagedTopology.Apply(optic, specification, elementCount);
         if (specification.FlatStart?.UsePhysicalStop == true)
         {

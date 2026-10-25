@@ -61,10 +61,17 @@ public static class FlatStartCheckpointValidation
         for (var index = 0; index < checkpoint.Trials.Count; index++)
         {
             var trial = checkpoint.Trials[index];
+            if (trial?.ReservedReferenceState is { } reserved)
+            {
+                AutoLensManagedStateValidation.Validate(reserved);
+                if (reserved.SchemaVersion != 2 || trial.AutoLensState is not null || trial.State == FamilyTrialState.Completed)
+                    throw new InvalidDataException("Invalid audit-only reference resume reservation.");
+            }
             if (trial?.AutoLensState is { } autoLens)
             {
                 AutoLensManagedStateValidation.Validate(autoLens);
                 if (checkpoint.Specification.FlatStart.OptimizationMethod != FlatStartOptimizationMethod.AutoLensManagedV1
+                    || (checkpoint.Specification.FlatStart.AutoLens?.Policy == AutoLensManagedPolicy.UpstreamE58) != (autoLens.SchemaVersion == 2)
                     || autoLens.EvaluationCount != trial.CompletedEvaluations || autoLens.TracedRayCount != trial.TracedRealRayCount)
                     throw new InvalidDataException("Native AutoLens state does not match its strategy or charged trial work.");
             }
@@ -84,7 +91,8 @@ public static class FlatStartCheckpointValidation
             charged += trial.ChargedEvaluations;
             if (trial.State == FamilyTrialState.Completed)
             {
-                if (trial.CompletedEvaluations is not > 0 || trial.CompletedEvaluations != trial.ChargedEvaluations
+                if (trial.CompletedEvaluations is null or < 0 || trial.CompletedEvaluations == 0 && trial.AutoLensState?.SchemaVersion != 2
+                    || trial.CompletedEvaluations != trial.ChargedEvaluations
                     || trial.FlatRoot is null || trial.DesignState is null)
                     throw new InvalidDataException("Completed work needs exact evaluation accounting and flat-root proof.");
                 OpticSnapshotValidator.Validate(trial.FlatRoot);

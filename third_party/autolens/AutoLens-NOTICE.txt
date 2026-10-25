@@ -33,12 +33,30 @@ numeric-Jacobian residual solvers, separately counted from the automatic-tangent
 Adam stages. Non-descent Adam momentum restarts retain phase progress and use
 an independent bias-correction age. Every accepted Adam step measures a decrease.
 
-Both paths are opt-in and pure C#. Neither includes Python, PyTorch, DeepLens
-runtime code, CUDA or pretrained model weights. The historical CPU experiment
+The historical paths are pure C#. They include no Python, PyTorch, DeepLens
+runtime code or pretrained model weights. The historical CPU experiment
 remains distinct and does not acquire the managed path's differentiation.
 All optical computation uses the existing shared Optical System Design Core.
-No upstream glass catalogs, trained weights or example prescriptions are copied.
+The original 2026-10-19 integration copied no upstream glass catalogs or prescriptions.
 No upstream numerical equivalence or endorsement is claimed.
+
+2026-10-24 reference-rule adaptation:
+New desktop runs explicitly use autolens-upstream-e58-v2. The e58 default mobile
+optimizer's initialization, fixed finite-object ray inputs, detached RGB losses,
+linear constraints, physical parameter rates, direct Adam, phase schedules,
+catalog handoff/rounding and periodic geometry pruning are implemented in C#.
+Optical calculations and CPU/CUDA execution remain in the shared product Core.
+Core remains double precision; training RNG and numerical-domain behavior do
+not claim bitwise PyTorch equivalence. The original camera configuration has
+not been reproduced as a separate complete topology.
+
+Selected real dispersion entries from upstream MISC.AGF, PLASTIC2022.AGF,
+CDGM.AGF and SCHOTT.AGF and the 61-entry CDGM_GLASS matching table are now
+redistributed in Materials/Data/autolens-e58-materials.json under the upstream
+Apache-2.0 notice. It contains original-file SHA256 hashes and the pinned
+commit; names are prefixed AutoLensE58 and do not overwrite existing catalogs.
+This records upstream data provenance and does not assert manufacturer
+certification. No upstream optimized lens prescription or weights are shipped.
 
 Target-preset adaptation, 2026-10-22: the pinned README's Lens Design Examples
 are offered as native specification presets, not copied optimized prescriptions.

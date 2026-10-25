@@ -498,6 +498,17 @@ internal static class UiLocalization
         Add("原生信赖域（默认）", "Native Trust Region (Default)", "ネイティブ信頼領域（既定）");
         Add("AutoLens 启发式 · C# CPU 试验", "AutoLens Heuristic · C# CPU Experiment", "AutoLens ヒューリスティック · C# CPU 実験");
         Add("AutoLens · C# 自动求导", "AutoLens · C# Automatic Differentiation", "AutoLens · C# 自動微分");
+        Add("原版脚本默认 · 5 mm F/1.8 全视场 90°", "Original script default · 5 mm F/1.8, 90° full field", "原版スクリプト既定 · 5 mm F/1.8、全画角 90°");
+        Add("原版训练物距 20000 mm · 中心旋转对称定焦系统；半视场为光轴到边缘的角度。", "Original training object distance: 20000 mm. Centered rotational fixed-focus system; half-field is measured from axis to edge.", "原版の学習物体距離は 20000 mm。中心回転対称の単焦点系で、半画角は光軸から端までの角度です。");
+        Add("使用前置独立实体光阑；镜片口径按原版周期修形更新。预算不足时保留训练状态。", "Uses a separate front stop and periodic aperture pruning. Training state is retained when the budget runs out.", "独立した前置絞りと周期的な口径修整を使用します。予算不足時は学習状態を保持します。");
+        Add("按原版执行 0 到设定值（含末次）的更新；两阶段计划不随预算缩短，预算不足则保存进度。", "Updates run from zero through the configured final index. Budgets pause progress without shortening either phase.", "更新は 0 から設定した最終番号まで実行します。予算により各段階を短縮せず、進捗を保存します。");
+        Add("随机弱曲率起点，固定输入光线求导，材料匹配后精修；全部光学计算使用共享 C# Core。", "Starts with random weak curvatures, differentiates fixed input rays and refines after material matching. Optical calculations use shared C# Core.", "ランダムな弱曲率から開始し、固定入力光線を微分して材料照合後に改良します。光学計算は共有 C# Core を使用します。");
+        Add("原版默认流程和 README 目标分别保留来源；运行预算见当前参数，不代表设计已经达标。", "The script default and README targets retain separate sources. Current settings show the budget; loaded targets do not certify a design.", "原版の既定フローと README の目標は出典を区別します。予算は現在の設定を参照し、設計の達成を意味しません。");
+        Add("正在准备原版随机起点…", "Preparing the original-protocol random start…", "原版フローのランダム初期形状を準備中…");
+        Add("偶次非球面至 r¹²", "Even asphere through r¹²", "r¹² までの偶数次非球面");
+        Add("偶次非球面至 r¹⁴", "Even asphere through r¹⁴", "r¹⁴ までの偶数次非球面");
+        Add("偶次非球面至 r¹⁶", "Even asphere through r¹⁶", "r¹⁶ までの偶数次非球面");
+        Add("偶次非球面至 r¹⁸", "Even asphere through r¹⁸", "r¹⁸ までの偶数次非球面");
         Add("最少片数", "Min. Elements", "最少枚数");
         Add("最多片数", "Max. Elements", "最多枚数");
         Add("最大总长 mm", "Max. Track / mm", "最大全長 / mm");

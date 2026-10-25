@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Coordinates;
 using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Core.Materials;
 
 namespace OpticalSystemDesign.Core.Domain;
 
@@ -71,14 +72,14 @@ public sealed class SurfaceGroup
         ReplaceCore(surfaces, initializeLegacyComposition: false);
     }
 
-    public void ImportLegacySurfaces(IEnumerable<OpticalSurface> surfaces)
+    public void ImportLegacySurfaces(IEnumerable<OpticalSurface> surfaces, MaterialRegistry? materials = null)
     {
-        ReplaceCore(surfaces, initializeLegacyComposition: true);
+        ReplaceCore(surfaces, initializeLegacyComposition: true, materials);
     }
 
     private void ReplaceCore(
         IEnumerable<OpticalSurface> surfaces,
-        bool initializeLegacyComposition)
+        bool initializeLegacyComposition, MaterialRegistry? materials = null)
     {
         _suppressRenumber = true;
         try
@@ -96,7 +97,7 @@ public sealed class SurfaceGroup
 
         if (initializeLegacyComposition)
         {
-            InitializeLegacyCompositionAndRenumber();
+            InitializeLegacyCompositionAndRenumber(materials);
             return;
         }
 
@@ -139,14 +140,14 @@ public sealed class SurfaceGroup
         }
     }
 
-    private void InitializeLegacyCompositionAndRenumber()
+    private void InitializeLegacyCompositionAndRenumber(MaterialRegistry? materials = null)
     {
         var z = 0.0;
         for (var index = 0; index < Items.Count; index++)
         {
             var surface = Items[index];
             surface.Number = index;
-            surface.InitializeFromLegacyProperties(z);
+            surface.InitializeFromLegacyProperties(z, materials);
             if (index != 0 || !ObjectConjugate.IsInfinite(surface))
             {
                 z += surface.Thickness;

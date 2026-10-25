@@ -1,0 +1,185 @@
+{
+  "Date": "2026-10-25",
+  "Scope": "AutoLens e58 JSON curriculum-to-refinement handoff only; no final optimized output comparison",
+  "UpstreamCommit": "e58db32f3a0b07f25861b5839a45970f77b5c947",
+  "UpstreamTrackedChanges": [],
+  "Boundary": "AutoLens-specific centroid/detach/epsilon loss and JSON handoff stay in laboratory. Identical geometry descriptor, physical tracing, dispersion and formal acceptance use Core.",
+  "Fixture": {
+    "ExistingPolicyFixtureChanged": false,
+    "ProductPythonDependency": false,
+    "Cases": 2,
+    "Dtype": "float64",
+    "Source": "Unmodified upstream write_lens_json and read_lens_json"
+  },
+  "Tests": {
+    "Cases": [
+      {
+        "Outcome": "Passed",
+        "Name": "OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamJsonHandoffRebuildsEveryPositionFromRoundedGaps",
+        "Duration": "00:00:00.3561027"
+      },
+      {
+        "Outcome": "Passed",
+        "Name": "OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenImageLossAndDetachedGradientsAgree",
+        "Duration": "00:00:00.3642519"
+      },
+      {
+        "Outcome": "Passed",
+        "Name": "OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.CompleteSmallProtocolIncludesBothInclusiveLoopsAndPersistsCatalogEndpoint",
+        "Duration": "00:01:42.5693159"
+      }
+    ],
+    "Passed": 3,
+    "Failed": 0,
+    "Total": 3,
+    "NotExecuted": 0,
+    "Configuration": "Release"
+  },
+  "Builds": {
+    "InitialAttempt": {
+      "Log": "release-build-and-tests.log",
+      "Error": "CS0117: Profile was internal before moving handoff out of Core; exposed identical read-only accessor",
+      "ExitCode": 1,
+      "TestsStarted": false
+    },
+    "Debug": {
+      "Log": "app-debug-build.log",
+      "Errors": 0,
+      "ExitCode": 0,
+      "Warnings": 0
+    },
+    "Release": {
+      "Log": "release-build-and-tests-corrected.log",
+      "Method": "Default App build included by the Release test command",
+      "ExitCode": 0
+    }
+  },
+  "SourceFiles": [
+    {
+      "File": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutoLensReferenceHandoff.cs",
+      "Sha256": "5f1469d237f8025a82f65a6a717bf54fccba1eb21b8cc5cc44df22fe535685ad"
+    },
+    {
+      "File": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutoLensReferenceDesign.cs",
+      "Sha256": "bd7f891d04df581c663bfc14398bc5f13f622e3baa589c35c1ff2072991b0b9c"
+    },
+    {
+      "File": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutoLensReferenceLoss.cs",
+      "Sha256": "31f9ece96776b93368b2ad4ba45e1afe93d78f1892bb97336eb1d74abc4287a2"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Services/RotationalDesignGeometry.cs",
+      "Sha256": "7174bb8599f51e276340d49f38e0a662d18279a113636e1d757341714f4a59e5"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Differentiation/OpticalDesignParameters.cs",
+      "Sha256": "efc31aeb395936f90364ffbe9bcebb7dd30e585e39ccfe691e44b53ad81560be"
+    },
+    {
+      "File": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/AutoLensReferenceTests.cs",
+      "Sha256": "5ec055928bcc6f6822e28b66f42d05ee3dc86fb271f0ff5638336fc882f710a3"
+    },
+    {
+      "File": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj",
+      "Sha256": "d585280de0dd99717dea481d6310a878a64b746c1be4a3488546bbe5196b45cd"
+    },
+    {
+      "File": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/Fixtures/autolens-e58-handoff.json",
+      "Sha256": "a43550ea22ddb21071e8d6d1b4d06ccd7b1319dcb931952c50d794d07a8816e0"
+    },
+    {
+      "File": "docs/AUTOLENS_HANDOFF_REPAIR_2026-10-25.md",
+      "Sha256": "4a61e783d36e901bc2ae41e1193338449c0361d4c96260cfcafae957d5e4bc79"
+    },
+    {
+      "File": "docs/CURRENT_STATUS.md",
+      "Sha256": "536cd276a3e0130f365c186bd2ab8c7053399abbbd0e134edd508cfa62c763ee"
+    },
+    {
+      "File": "docs/INITIAL_STRUCTURE_LAB_PLAN.md",
+      "Sha256": "f73c9b9968b7fb39acea522c0e8c93e8088b53076d8fb77c6893bfc324d6ccf5"
+    },
+    {
+      "File": "labs/InitialStructure/README.md",
+      "Sha256": "d37924973a2d8b18a27add4b19f1dc1c7f30e4ed91a8ff0c5dc31113f524cf4e"
+    }
+  ],
+  "EvidenceFiles": [
+    {
+      "File": "app-debug-build.log",
+      "Sha256": "f80c5ce4d444240b3aa88e9ea23ad6042d68b8c798fdea34b6899bb99a388f25"
+    },
+    {
+      "File": "autolens-e58-handoff.json",
+      "Sha256": "a43550ea22ddb21071e8d6d1b4d06ccd7b1319dcb931952c50d794d07a8816e0"
+    },
+    {
+      "File": "export_handoff_fixture.py",
+      "Sha256": "a67971a3dcc24a12c6bd09ab6fc26493ae26f55bfb00a6512954064b86f49e83"
+    },
+    {
+      "File": "handoff-and-loss-release.trx",
+      "Sha256": "5a2d8c22b814cebef6b3dc0e6fef5317b7bdef438ce520bf039a2627182e4f7c"
+    },
+    {
+      "File": "original-handoff-0.json",
+      "Sha256": "65415b4a428e2474e5aa611bf4978475cfb02266a5ffc131f6a6a698c08a737d"
+    },
+    {
+      "File": "original-handoff-1.json",
+      "Sha256": "430413e37384097b42e59e1646a8e687722971f3ba76394fb31bb248f0b5e616"
+    },
+    {
+      "File": "release-build-and-tests-corrected.log",
+      "Sha256": "d91b30fadc70cdf02a3d2406453b773ff0165024647dade230ba46eafdfa7b93"
+    },
+    {
+      "File": "release-build-and-tests.log",
+      "Sha256": "ed2a20995ae37ca1ebef4a99558bbc1e3614c2082d28c7f873432cb9ef31e33a"
+    }
+  ],
+  "BuildBinaries": [
+    {
+      "Sha256": "c68625d2f31d10e307dd70386ff34687a068937e07dd8af95e8e050b0c7dea2d",
+      "File": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.dll",
+      "Configuration": "Debug"
+    },
+    {
+      "Sha256": "562ce9914b679ef35e36f82f59bd4be8e93cac212f268088b3716d0c61763b0d",
+      "File": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+      "Configuration": "Debug"
+    },
+    {
+      "Sha256": "23ad22b1af5380fa77963c4da64b86aa0658441e8bdc560def257741e0e90988",
+      "File": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "Configuration": "Debug"
+    },
+    {
+      "Sha256": "976256e14d9b8a59f8b45638d2e68ccf63baa488b0e78da9a67d561831c7eb22",
+      "File": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Configuration": "Release"
+    },
+    {
+      "Sha256": "de9322a8808e5780f6e3ee00475fcc2def859ca11c6d5d80fb19357cef14ab86",
+      "File": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Configuration": "Release"
+    },
+    {
+      "Sha256": "2b9f9d71c8a35a6f6c140fc4348d0f1c7b99796133ea1f14840e3c3feaa9bc93",
+      "File": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "Configuration": "Release"
+    }
+  ],
+  "NotPerformed": [
+    "Full test suite",
+    "Full new default optimization",
+    "Final optical quality/success-rate/performance comparison",
+    "Installer publication"
+  ],
+  "RemainingDifferences": [
+    "Shared double-precision Core and formal solver conventions",
+    "Portable training RNG does not replay CUDA Philox/diagnostic draws",
+    "CAMERA_CONFIG internal-stop mixed topology not reproduced as a complete reference config",
+    "Separate product physical acceptance gates retained"
+  ]
+}

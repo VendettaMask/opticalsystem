@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="86865f6d-e5b7-4951-9699-ed9e520dac68" name="allen@DESKTOP-SET3SNR 2026-10-24 22:41:32" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-24T22:41:32.0468899+08:00" queuing="2026-10-24T22:41:32.0468910+08:00" start="2026-10-24T22:41:29.1334945+08:00" finish="2026-10-24T22:41:32.0566833+08:00" />
+  <TestSettings name="default" id="eba22a1f-3eee-4d18-8062-ac93e2a8ca88">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-24_22_41_32" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a0085aa5-0369-4ff0-84ef-61b964829a53" testId="acaa1faf-7f93-ebcf-f464-6b4ea01362a1" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenLinearBoundsProfilesMaterialsAndGradientsAgree" computerName="DESKTOP-SET3SNR" duration="00:00:00.7871963" startTime="2026-10-24T22:41:30.5990642+08:00" endTime="2026-10-24T22:41:31.4257663+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a0085aa5-0369-4ff0-84ef-61b964829a53">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : Optical material 'AutoLensE58:h-k9l' was not found in the local glass catalog.</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Materials.MaterialRegistry.Resolve(String name, IReadOnlyList`1 preferredManufacturers) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Materials\MaterialRegistry.cs:line 125&#xD;
+   at OpticalSystemDesign.Core.Materials.MaterialRegistry.Resolve(String name) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Materials\MaterialRegistry.cs:line 105&#xD;
+   at OpticalSystemDesign.Core.Domain.OpticalSurface.InitializeFromLegacyProperties(Double zPosition) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\OpticalSurface.cs:line 370&#xD;
+   at OpticalSystemDesign.Core.Domain.SurfaceGroup.InitializeLegacyCompositionAndRenumber() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs:line 149&#xD;
+   at OpticalSystemDesign.Core.Domain.SurfaceGroup.ReplaceCore(IEnumerable`1 surfaces, Boolean initializeLegacyComposition) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs:line 99&#xD;
+   at OpticalSystemDesign.Core.Domain.SurfaceGroup.ImportLegacySurfaces(IEnumerable`1 surfaces) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs:line 76&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceStart.Create(InitialStructureSpecification spec, Int32 elements, FlatStartFamily family, IReadOnlyList`1 allowed) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceStart.cs:line 46&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenLinearBoundsProfilesMaterialsAndGradientsAgree() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutoLensReferenceTests.cs:line 90&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fc16708c-0042-4a29-80d8-2e6d0003ae9e" testId="e97fb688-00db-a1fc-1ca6-9c3d3036e98a" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenImageLossAndDetachedGradientsAgree" computerName="DESKTOP-SET3SNR" duration="00:00:00.1543740" startTime="2026-10-24T22:41:31.4440020+08:00" endTime="2026-10-24T22:41:31.5808477+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fc16708c-0042-4a29-80d8-2e6d0003ae9e" />
+    <UnitTestResult executionId="70cd78ad-1c0f-4db8-afdf-edfaa99821ac" testId="ef0c77d8-a960-7b85-bf0d-6bb39813ab80" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenAdamMomentsAndBothSchedulesAgreeIncludingNonFiniteSanitization" computerName="DESKTOP-SET3SNR" duration="00:00:00.0044640" startTime="2026-10-24T22:41:31.9040616+08:00" endTime="2026-10-24T22:41:31.9073423+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="70cd78ad-1c0f-4db8-afdf-edfaa99821ac" />
+    <UnitTestResult executionId="25bf071d-acbe-471e-828b-65deb853ce02" testId="9e562ca2-46e3-96cb-a039-a36aec3c33c5" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.AbsolutePositionsDoNotMoveDownstreamParametersAndRatesUsePhysicalUnits" computerName="DESKTOP-SET3SNR" duration="00:00:00.0029248" startTime="2026-10-24T22:41:31.9142109+08:00" endTime="2026-10-24T22:41:31.9164038+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="25bf071d-acbe-471e-828b-65deb853ce02">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : Optical material 'AutoLensE58:h-k9l' was not found in the local glass catalog.</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Materials.MaterialRegistry.Resolve(String name, IReadOnlyList`1 preferredManufacturers) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Materials\MaterialRegistry.cs:line 125&#xD;
+   at OpticalSystemDesign.Core.Materials.MaterialRegistry.Resolve(String name) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Materials\MaterialRegistry.cs:line 105&#xD;
+   at OpticalSystemDesign.Core.Domain.OpticalSurface.InitializeFromLegacyProperties(Double zPosition) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\OpticalSurface.cs:line 370&#xD;
+   at OpticalSystemDesign.Core.Domain.SurfaceGroup.InitializeLegacyCompositionAndRenumber() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs:line 149&#xD;
+   at OpticalSystemDesign.Core.Domain.SurfaceGroup.ReplaceCore(IEnumerable`1 surfaces, Boolean initializeLegacyComposition) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs:line 99&#xD;
+   at OpticalSystemDesign.Core.Domain.SurfaceGroup.ImportLegacySurfaces(IEnumerable`1 surfaces) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs:line 76&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceStart.Create(InitialStructureSpecification spec, Int32 elements, FlatStartFamily family, IReadOnlyList`1 allowed) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceStart.cs:line 46&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.AbsolutePositionsDoNotMoveDownstreamParametersAndRatesUsePhysicalUnits() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutoLensReferenceTests.cs:line 163&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1e18c94f-76bd-4d2f-8204-bb612c7789a1" testId="fc41a6a5-0a9c-e01d-5619-256df373af9b" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu" computerName="DESKTOP-SET3SNR" duration="00:00:00.0036290" startTime="2026-10-24T22:41:31.9076672+08:00" endTime="2026-10-24T22:41:31.9098203+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1e18c94f-76bd-4d2f-8204-bb612c7789a1">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : Optical material 'AutoLensE58:h-k9l' was not found in the local glass catalog.</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Materials.MaterialRegistry.Resolve(String name, IReadOnlyList`1 preferredManufacturers) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Materials\MaterialRegistry.cs:line 125&#xD;
+   at OpticalSystemDesign.Core.Materials.MaterialRegistry.Resolve(String name) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Materials\MaterialRegistry.cs:line 105&#xD;
+   at OpticalSystemDesign.Core.Domain.OpticalSurface.InitializeFromLegacyProperties(Double zPosition) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\OpticalSurface.cs:line 370&#xD;
+   at OpticalSystemDesign.Core.Domain.SurfaceGroup.InitializeLegacyCompositionAndRenumber() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs:line 149&#xD;
+   at OpticalSystemDesign.Core.Domain.SurfaceGroup.ReplaceCore(IEnumerable`1 surfaces, Boolean initializeLegacyComposition) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs:line 99&#xD;
+   at OpticalSystemDesign.Core.Domain.SurfaceGroup.ImportLegacySurfaces(IEnumerable`1 surfaces) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs:line 76&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceStart.Create(InitialStructureSpecification spec, Int32 elements, FlatStartFamily family, IReadOnlyList`1 allowed) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceStart.cs:line 46&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutoLensReferenceTests.cs:line 187&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="637feb23-fdca-4c8a-a25d-e29a6e1e4c3a" testId="586164ed-c868-7343-32f5-8f9da3173cf6" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.CompleteSmallProtocolIncludesBothInclusiveLoopsAndPersistsCatalogEndpoint" computerName="DESKTOP-SET3SNR" duration="00:00:00.2846222" startTime="2026-10-24T22:41:31.5848918+08:00" endTime="2026-10-24T22:41:31.8808184+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="637feb23-fdca-4c8a-a25d-e29a6e1e4c3a">
+      <Output>
+        <StdOut>search.trial-failed: KeyNotFoundException: Optical material 'AutoLensE58:h-k9l' was not found in the local glass catalog. The reserved quota remains charged because completion is unknown.</StdOut>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: Completed&#xD;
+Actual:   Failed</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.CompleteSmallProtocolIncludesBothInclusiveLoopsAndPersistsCatalogEndpoint() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutoLensReferenceTests.cs:line 264&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7d813c1f-dbe2-4a8d-ac28-bd33d608de2a" testId="b27d81a2-6852-e172-cd8e-8277f903f4f5" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.BudgetPauseKeepsFullCourseAndSerializedCacheResumesIdentically" computerName="DESKTOP-SET3SNR" duration="00:00:00.0030560" startTime="2026-10-24T22:41:31.9109364+08:00" endTime="2026-10-24T22:41:31.9132356+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7d813c1f-dbe2-4a8d-ac28-bd33d608de2a">
+      <Output>
+        <ErrorInfo>
+          <Message>System.Collections.Generic.KeyNotFoundException : Optical material 'AutoLensE58:h-k9l' was not found in the local glass catalog.</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Materials.MaterialRegistry.Resolve(String name, IReadOnlyList`1 preferredManufacturers) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Materials\MaterialRegistry.cs:line 125&#xD;
+   at OpticalSystemDesign.Core.Materials.MaterialRegistry.Resolve(String name) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Materials\MaterialRegistry.cs:line 105&#xD;
+   at OpticalSystemDesign.Core.Domain.OpticalSurface.InitializeFromLegacyProperties(Double zPosition) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\OpticalSurface.cs:line 370&#xD;
+   at OpticalSystemDesign.Core.Domain.SurfaceGroup.InitializeLegacyCompositionAndRenumber() in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs:line 149&#xD;
+   at OpticalSystemDesign.Core.Domain.SurfaceGroup.ReplaceCore(IEnumerable`1 surfaces, Boolean initializeLegacyComposition) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs:line 99&#xD;
+   at OpticalSystemDesign.Core.Domain.SurfaceGroup.ImportLegacySurfaces(IEnumerable`1 surfaces) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs:line 76&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.FlatRootFactory.Create(InitialStructureSpecification specification, Int32 elementCount, Int32 stopVariant, FlatStartFamily family) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\FlatRootFactory.cs:line 60&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.FlatStartDesignService.Solve(InitialStructureSpecification specification, Int32 elementCount, CancellationToken cancellationToken, FlatStartFamily family, Boolean screenOnly, IReadOnlyList`1 allowedGlassNames) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\FlatStartDesignService.cs:line 24&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.BudgetPauseKeepsFullCourseAndSerializedCacheResumesIdentically() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutoLensReferenceTests.cs:line 234&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f88326cf-4e5d-4247-8d1c-25799ddd19c0" testId="b5c1925c-a53e-f697-ce69-02483c9d3da9" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.PinnedRealDispersionAndNominalMaterialCoordinatesAgree" computerName="DESKTOP-SET3SNR" duration="00:00:00.0040555" startTime="2026-10-24T22:41:31.5822219+08:00" endTime="2026-10-24T22:41:31.5846062+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f88326cf-4e5d-4247-8d1c-25799ddd19c0" />
+    <UnitTestResult executionId="67711271-5d37-4a27-aa45-79a403020a15" testId="a9da59b1-8a70-5b77-3dba-6b95c627846a" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.ReferenceDefaultIsPinnedMobileProtocolAndCatalog" computerName="DESKTOP-SET3SNR" duration="00:00:00.0189842" startTime="2026-10-24T22:41:31.8819750+08:00" endTime="2026-10-24T22:41:31.9036774+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="67711271-5d37-4a27-aa45-79a403020a15" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.ReferenceDefaultIsPinnedMobileProtocolAndCatalog" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="a9da59b1-8a70-5b77-3dba-6b95c627846a">
+      <Execution id="67711271-5d37-4a27-aa45-79a403020a15" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="ReferenceDefaultIsPinnedMobileProtocolAndCatalog" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.PinnedRealDispersionAndNominalMaterialCoordinatesAgree" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="b5c1925c-a53e-f697-ce69-02483c9d3da9">
+      <Execution id="f88326cf-4e5d-4247-8d1c-25799ddd19c0" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="PinnedRealDispersionAndNominalMaterialCoordinatesAgree" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.CompleteSmallProtocolIncludesBothInclusiveLoopsAndPersistsCatalogEndpoint" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="586164ed-c868-7343-32f5-8f9da3173cf6">
+      <Execution id="637feb23-fdca-4c8a-a25d-e29a6e1e4c3a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="CompleteSmallProtocolIncludesBothInclusiveLoopsAndPersistsCatalogEndpoint" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.AbsolutePositionsDoNotMoveDownstreamParametersAndRatesUsePhysicalUnits" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="9e562ca2-46e3-96cb-a039-a36aec3c33c5">
+      <Execution id="25bf071d-acbe-471e-828b-65deb853ce02" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="AbsolutePositionsDoNotMoveDownstreamParametersAndRatesUsePhysicalUnits" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenImageLossAndDetachedGradientsAgree" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="e97fb688-00db-a1fc-1ca6-9c3d3036e98a">
+      <Execution id="fc16708c-0042-4a29-80d8-2e6d0003ae9e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="UpstreamFrozenImageLossAndDetachedGradientsAgree" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenLinearBoundsProfilesMaterialsAndGradientsAgree" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="acaa1faf-7f93-ebcf-f464-6b4ea01362a1">
+      <Execution id="a0085aa5-0369-4ff0-84ef-61b964829a53" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="UpstreamFrozenLinearBoundsProfilesMaterialsAndGradientsAgree" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="fc41a6a5-0a9c-e01d-5619-256df373af9b">
+      <Execution id="1e18c94f-76bd-4d2f-8204-bb612c7789a1" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.BudgetPauseKeepsFullCourseAndSerializedCacheResumesIdentically" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="b27d81a2-6852-e172-cd8e-8277f903f4f5">
+      <Execution id="7d813c1f-dbe2-4a8d-ac28-bd33d608de2a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="BudgetPauseKeepsFullCourseAndSerializedCacheResumesIdentically" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenAdamMomentsAndBothSchedulesAgreeIncludingNonFiniteSanitization" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="ef0c77d8-a960-7b85-bf0d-6bb39813ab80">
+      <Execution id="70cd78ad-1c0f-4db8-afdf-edfaa99821ac" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="UpstreamFrozenAdamMomentsAndBothSchedulesAgreeIncludingNonFiniteSanitization" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="acaa1faf-7f93-ebcf-f464-6b4ea01362a1" executionId="a0085aa5-0369-4ff0-84ef-61b964829a53" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e97fb688-00db-a1fc-1ca6-9c3d3036e98a" executionId="fc16708c-0042-4a29-80d8-2e6d0003ae9e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ef0c77d8-a960-7b85-bf0d-6bb39813ab80" executionId="70cd78ad-1c0f-4db8-afdf-edfaa99821ac" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9e562ca2-46e3-96cb-a039-a36aec3c33c5" executionId="25bf071d-acbe-471e-828b-65deb853ce02" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fc41a6a5-0a9c-e01d-5619-256df373af9b" executionId="1e18c94f-76bd-4d2f-8204-bb612c7789a1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="586164ed-c868-7343-32f5-8f9da3173cf6" executionId="637feb23-fdca-4c8a-a25d-e29a6e1e4c3a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b27d81a2-6852-e172-cd8e-8277f903f4f5" executionId="7d813c1f-dbe2-4a8d-ac28-bd33d608de2a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b5c1925c-a53e-f697-ce69-02483c9d3da9" executionId="f88326cf-4e5d-4247-8d1c-25799ddd19c0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a9da59b1-8a70-5b77-3dba-6b95c627846a" executionId="67711271-5d37-4a27-aa45-79a403020a15" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="9" executed="9" passed="4" failed="5" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.77]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.86]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.88]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:01.72]       System.Collections.Generic.KeyNotFoundException : Optical material 'AutoLensE58:h-k9l' was not found in the local glass catalog.&#xD;
+[xUnit.net 00:00:01.72]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.73]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Materials\MaterialRegistry.cs(125,0): at OpticalSystemDesign.Core.Materials.MaterialRegistry.Resolve(String name, IReadOnlyList`1 preferredManufacturers)&#xD;
+[xUnit.net 00:00:01.73]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Materials\MaterialRegistry.cs(105,0): at OpticalSystemDesign.Core.Materials.MaterialRegistry.Resolve(String name)&#xD;
+[xUnit.net 00:00:01.73]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\OpticalSurface.cs(370,0): at OpticalSystemDesign.Core.Domain.OpticalSurface.InitializeFromLegacyProperties(Double zPosition)&#xD;
+[xUnit.net 00:00:01.73]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs(149,0): at OpticalSystemDesign.Core.Domain.SurfaceGroup.InitializeLegacyCompositionAndRenumber()&#xD;
+[xUnit.net 00:00:01.73]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs(99,0): at OpticalSystemDesign.Core.Domain.SurfaceGroup.ReplaceCore(IEnumerable`1 surfaces, Boolean initializeLegacyComposition)&#xD;
+[xUnit.net 00:00:01.73]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs(76,0): at OpticalSystemDesign.Core.Domain.SurfaceGroup.ImportLegacySurfaces(IEnumerable`1 surfaces)&#xD;
+[xUnit.net 00:00:01.73]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceStart.cs(46,0): at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceStart.Create(InitialStructureSpecification spec, Int32 elements, FlatStartFamily family, IReadOnlyList`1 allowed)&#xD;
+[xUnit.net 00:00:01.73]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutoLensReferenceTests.cs(90,0): at OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenLinearBoundsProfilesMaterialsAndGradientsAgree()&#xD;
+[xUnit.net 00:00:01.73]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.73]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.18]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:02.18]       Expected: Completed&#xD;
+[xUnit.net 00:00:02.18]       Actual:   Failed&#xD;
+[xUnit.net 00:00:02.18]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.18]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutoLensReferenceTests.cs(264,0): at OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.CompleteSmallProtocolIncludesBothInclusiveLoopsAndPersistsCatalogEndpoint()&#xD;
+[xUnit.net 00:00:02.18]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:02.18]       Output:&#xD;
+[xUnit.net 00:00:02.18]         search.trial-failed: KeyNotFoundException: Optical material 'AutoLensE58:h-k9l' was not found in the local glass catalog. The reserved quota remains charged because completion is unknown.&#xD;
+[xUnit.net 00:00:02.21]       System.Collections.Generic.KeyNotFoundException : Optical material 'AutoLensE58:h-k9l' was not found in the local glass catalog.&#xD;
+[xUnit.net 00:00:02.21]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Materials\MaterialRegistry.cs(125,0): at OpticalSystemDesign.Core.Materials.MaterialRegistry.Resolve(String name, IReadOnlyList`1 preferredManufacturers)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Materials\MaterialRegistry.cs(105,0): at OpticalSystemDesign.Core.Materials.MaterialRegistry.Resolve(String name)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\OpticalSurface.cs(370,0): at OpticalSystemDesign.Core.Domain.OpticalSurface.InitializeFromLegacyProperties(Double zPosition)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs(149,0): at OpticalSystemDesign.Core.Domain.SurfaceGroup.InitializeLegacyCompositionAndRenumber()&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs(99,0): at OpticalSystemDesign.Core.Domain.SurfaceGroup.ReplaceCore(IEnumerable`1 surfaces, Boolean initializeLegacyComposition)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs(76,0): at OpticalSystemDesign.Core.Domain.SurfaceGroup.ImportLegacySurfaces(IEnumerable`1 surfaces)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceStart.cs(46,0): at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceStart.Create(InitialStructureSpecification spec, Int32 elements, FlatStartFamily family, IReadOnlyList`1 allowed)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutoLensReferenceTests.cs(187,0): at OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu()&#xD;
+[xUnit.net 00:00:02.21]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.21]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.21]       System.Collections.Generic.KeyNotFoundException : Optical material 'AutoLensE58:h-k9l' was not found in the local glass catalog.&#xD;
+[xUnit.net 00:00:02.21]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Materials\MaterialRegistry.cs(125,0): at OpticalSystemDesign.Core.Materials.MaterialRegistry.Resolve(String name, IReadOnlyList`1 preferredManufacturers)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Materials\MaterialRegistry.cs(105,0): at OpticalSystemDesign.Core.Materials.MaterialRegistry.Resolve(String name)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\OpticalSurface.cs(370,0): at OpticalSystemDesign.Core.Domain.OpticalSurface.InitializeFromLegacyProperties(Double zPosition)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs(149,0): at OpticalSystemDesign.Core.Domain.SurfaceGroup.InitializeLegacyCompositionAndRenumber()&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs(99,0): at OpticalSystemDesign.Core.Domain.SurfaceGroup.ReplaceCore(IEnumerable`1 surfaces, Boolean initializeLegacyComposition)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs(76,0): at OpticalSystemDesign.Core.Domain.SurfaceGroup.ImportLegacySurfaces(IEnumerable`1 surfaces)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\FlatRootFactory.cs(60,0): at OpticalSystemDesign.InitialStructure.Engine.FlatRootFactory.Create(InitialStructureSpecification specification, Int32 elementCount, Int32 stopVariant, FlatStartFamily family)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\FlatStartDesignService.cs(24,0): at OpticalSystemDesign.InitialStructure.Engine.FlatStartDesignService.Solve(InitialStructureSpecification specification, Int32 elementCount, CancellationToken cancellationToken, FlatStartFamily family, Boolean screenOnly, IReadOnlyList`1 allowedGlassNames)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutoLensReferenceTests.cs(234,0): at OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.BudgetPauseKeepsFullCourseAndSerializedCacheResumesIdentically()&#xD;
+[xUnit.net 00:00:02.21]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.21]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.21]       System.Collections.Generic.KeyNotFoundException : Optical material 'AutoLensE58:h-k9l' was not found in the local glass catalog.&#xD;
+[xUnit.net 00:00:02.21]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Materials\MaterialRegistry.cs(125,0): at OpticalSystemDesign.Core.Materials.MaterialRegistry.Resolve(String name, IReadOnlyList`1 preferredManufacturers)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Materials\MaterialRegistry.cs(105,0): at OpticalSystemDesign.Core.Materials.MaterialRegistry.Resolve(String name)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\OpticalSurface.cs(370,0): at OpticalSystemDesign.Core.Domain.OpticalSurface.InitializeFromLegacyProperties(Double zPosition)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs(149,0): at OpticalSystemDesign.Core.Domain.SurfaceGroup.InitializeLegacyCompositionAndRenumber()&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs(99,0): at OpticalSystemDesign.Core.Domain.SurfaceGroup.ReplaceCore(IEnumerable`1 surfaces, Boolean initializeLegacyComposition)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Domain\SurfaceGroup.cs(76,0): at OpticalSystemDesign.Core.Domain.SurfaceGroup.ImportLegacySurfaces(IEnumerable`1 surfaces)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceStart.cs(46,0): at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceStart.Create(InitialStructureSpecification spec, Int32 elements, FlatStartFamily family, IReadOnlyList`1 allowed)&#xD;
+[xUnit.net 00:00:02.21]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutoLensReferenceTests.cs(163,0): at OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.AbsolutePositionsDoNotMoveDownstreamParametersAndRatesUsePhysicalUnits()&#xD;
+[xUnit.net 00:00:02.21]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.21]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.22]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-24T22:41:31.4288145+08:00">
+        <Text>[xUnit.net 00:00:01.72]     OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenLinearBoundsProfilesMaterialsAndGradientsAgree [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-24T22:41:31.8815120+08:00">
+        <Text>[xUnit.net 00:00:02.18]     OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.CompleteSmallProtocolIncludesBothInclusiveLoopsAndPersistsCatalogEndpoint [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-24T22:41:31.9106483+08:00">
+        <Text>[xUnit.net 00:00:02.21]     OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-24T22:41:31.9136896+08:00">
+        <Text>[xUnit.net 00:00:02.21]     OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.BudgetPauseKeepsFullCourseAndSerializedCacheResumesIdentically [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-24T22:41:31.9168387+08:00">
+        <Text>[xUnit.net 00:00:02.21]     OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.AbsolutePositionsDoNotMoveDownstreamParametersAndRatesUsePhysicalUnits [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

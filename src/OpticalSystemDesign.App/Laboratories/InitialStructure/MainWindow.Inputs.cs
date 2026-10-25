@@ -45,7 +45,7 @@ public sealed partial class MainWindow
     private readonly TextBlock _computeStatus = Named(Text("正在检测 GPU…"), "ComputeStatus", "计算设备状态");
     private DesignGpuStatus? _gpuStatus;
     private readonly CheckBox _autoLensMaterials = Named(new CheckBox { Content = "AutoLens 连续材料优化后匹配允许玻璃", IsChecked = true }, "AutoLensMaterials", "连续材料优化后匹配允许玻璃");
-    private readonly ComboBox _autoLensAsphere = Named(new ComboBox { ItemsSource = new[] { "仅球面", "偶次非球面至 r⁴", "偶次非球面至 r⁶", "偶次非球面至 r⁸", "偶次非球面至 r¹⁰" }, SelectedIndex = 3, HorizontalAlignment = HorizontalAlignment.Stretch }, "AutoLensAsphere", "AutoLens 面型");
+    private readonly ComboBox _autoLensAsphere = Named(new ComboBox { ItemsSource = new[] { "仅球面", "偶次非球面至 r⁴", "偶次非球面至 r⁶", "偶次非球面至 r⁸", "偶次非球面至 r¹⁰", "偶次非球面至 r¹²", "偶次非球面至 r¹⁴", "偶次非球面至 r¹⁶", "偶次非球面至 r¹⁸" }, SelectedIndex = 8, HorizontalAlignment = HorizontalAlignment.Stretch }, "AutoLensAsphere", "AutoLens 面型");
     private readonly NumericUpDown _autoLensCurriculum = Number("AutoLensCurriculum", "AutoLens 初始优化步数上限", 2000, 1, 10000, 100);
     private readonly NumericUpDown _autoLensRefinement = Number("AutoLensRefinement", "AutoLens 目录玻璃精修步数上限", 3000, 1, 10000, 100);
     private readonly TextBox _autoLensCemented = Named(new TextBox { Text = "", PlaceholderText = "如 1,2；为空时全部空气间隔" }, "AutoLensCemented", "AutoLens 胶合间隔编号");
@@ -94,7 +94,7 @@ public sealed partial class MainWindow
             Field("实验名称", _name),
             Pairs(Field("焦距 mm", _effectiveFocalLength), Field("最大半视场 °", _fieldAngle)),
             Pairs(Field("孔径定义", _apertureMode), apertureValue),
-            Hint("无限远物方 · 中心旋转对称定焦系统；半视场为光轴到边缘的角度。")));
+            Hint("原版训练物距 20000 mm · 中心旋转对称定焦系统；半视场为光轴到边缘的角度。")));
 
         _wavelengthGrid.ItemsSource = _wavelengths;
         _wavelengthGrid.Columns.Add(new DataGridTextColumn { Header = "波长 nm", Binding = new Binding(nameof(WavelengthRow.Nanometers)) { Mode = BindingMode.TwoWay }, Width = new DataGridLength(96) });
@@ -110,7 +110,7 @@ public sealed partial class MainWindow
         remove.Click += (_, _) => { if (_wavelengthGrid.SelectedItem is WavelengthRow row) { _wavelengths.Remove(row); ParametersChanged(); } };
         visible.Click += (_, _) => SetWaves(new InitialStructureSpecification().Wavelengths);
         systemPanel.Children.Add(Section("波长与权重", "activity", _wavelengthGrid, Buttons(add, remove, visible)));
-        SetWaves([new() { Label = "d", Nanometers = 587.6, Weight = 1, IsPrimary = true }]);
+        SetWaves(AutoLensReferenceExamples.Mobile().Specification.Wavelengths);
 
         goalsPanel.Children.Add(Section("结构规模", "layers",
             Pairs(Field("最少片数", _minimumElements), Field("最多片数", _maximumElements)),
@@ -130,11 +130,10 @@ public sealed partial class MainWindow
             Field("允许的目录玻璃（逗号分隔）", _glasses), Field("起始玻璃", _initialGlass),
             Field("优先玻璃目录（逗号分隔）", _catalogs)));
         goalsPanel.Children.Add(Disclosure("口径与光阑", "ApertureSettings",
-            _automaticDiameters, _physicalStop, Field("半口径裕量", _apertureMargin),
-            Hint("镜片外径按真实光束包络增减；实体光阑的通光口径由系统入瞳标定，不随镜片裕量放大。")));
+            Hint("使用前置独立实体光阑；镜片口径按原版周期修形更新。预算不足时保留训练状态。")));
 
         searchPanel.Children.Add(Section("搜索策略", "sliders-horizontal",
-            Field("搜索方式", _searchMode), Field("局部优化算法", _optimizationMethod),
+            Field("局部优化算法", _optimizationMethod),
             Field("计算设备", _computeMode), Field("设备检测", _computeStatus)));
         searchPanel.Children.Add(Section("运行预算", "timer",
             Pairs(Field("起始试验上限", _seedCount), Field("保留方案数", _retainedForms)),
@@ -145,14 +144,8 @@ public sealed partial class MainWindow
             Field("AutoLens 胶合间隔（从 1 编号）", _autoLensCemented),
             Field("AutoLens 初始优化步数上限", _autoLensCurriculum),
             Field("AutoLens 目录玻璃精修步数上限", _autoLensRefinement),
-            Hint("评价和时间预算始终优先；自动分配两阶段步数，不代表每次都会完成上述步数。"),
-            Hint("C# 自动求导：共享 Core 导数、渐进口径、真实玻璃匹配后精修。GPU 加速瞄准、正式追迹、批量梯度与密集物理验收；使用原采样和验收标准，未宣称与原版数值等效。")));
-        searchPanel.Children.Add(Disclosure("起始形式与光阑位置", "StartingSettings",
-            Field("起始半径 mm（0 = 10 倍目标焦距）", _startingRadius),
-            Pairs(Field("起始厚度 mm（0 自动）", _startingCenter), Field("起始空气隙 mm（0 自动）", _startingAir)),
-            Field("起始形式 + / - / *（固定片数时）", _signFilter),
-            Field("起始光阑面（0 = 中间面）", _stopSurface), _freeStop,
-            Hint("枚举正负初始形式，再比较与优化候选。+ / - 指起始方向，优化中可改变。自动厚度与空气隙使用目标页中的最小值。")));
+            Hint("按原版执行 0 到设定值（含末次）的更新；两阶段计划不随预算缩短，预算不足则保存进度。"),
+            Hint("随机弱曲率起点，固定输入光线求导，材料匹配后精修；全部光学计算使用共享 C# Core。")));
         searchPanel.Children.Add(Disclosure("候选细化预算", "RefinementSettings",
             Field("追加细化次数", _refineBudget), Hint("追加细化使用选中方案的原目标和新预算；不改变原实验。")));
         var tabs = Named(CompactTabs(), "InputTabs", "系统、目标与搜索设置");
@@ -173,6 +166,7 @@ public sealed partial class MainWindow
         if (Value(_minimumElements) > Value(_maximumElements)) throw new ArgumentException("最少片数不能大于最多片数。");
         return _inputTemplate with
         {
+            Conjugate = ObjectConjugateMode.Finite,
             Name = _name.Text?.Trim() ?? "",
             EffectiveFocalLengthMillimeters = focal,
             FNumber = _apertureMode.SelectedIndex == 1 ? focal / Value(_epd) : Value(_fNumber),
@@ -201,6 +195,7 @@ public sealed partial class MainWindow
                 OptimizationMethod = FlatStartOptimizationMethod.AutoLensManagedV1,
                 AutoLens = (_inputTemplate.FlatStart?.AutoLens ?? new AutoLensManagedSettings()) with
                 {
+                    Policy = AutoLensManagedPolicy.UpstreamE58,
                     ComputeMode = _computeMode.SelectedIndex switch { 1 => DesignComputeMode.Gpu, 2 => DesignComputeMode.Cpu, _ => DesignComputeMode.Automatic },
                     OptimizeMaterials = _autoLensMaterials.IsChecked == true,
                     EvenAsphereOrder = _autoLensAsphere.SelectedIndex == 0 ? 0 : _autoLensAsphere.SelectedIndex + 1,
@@ -209,7 +204,7 @@ public sealed partial class MainWindow
                     RefinementIterations = Integer(_autoLensRefinement),
                     TargetPolishEvaluations = 0
                 },
-                AutomaticLensDiameters = _automaticDiameters.IsChecked == true,
+                AutomaticLensDiameters = true,
                 UsePhysicalStop = true,
                 FixedBackFocusMillimeters = _fixedBack.IsChecked == true ? Value(_fixedBackValue) : null,
                 MinimumEdgeThicknessMillimeters = Value(_minimumEdge),
@@ -233,13 +228,7 @@ public sealed partial class MainWindow
         MaximumDisplayedCandidates = Integer(_retainedForms),
         DesignSearch = new()
         {
-            Mode = _searchMode.SelectedIndex == 1 ? DesignSearchMode.Full : DesignSearchMode.Quick,
-            StartingRadiusMillimeters = Optional(_startingRadius),
-            StartingCenterThicknessMillimeters = Optional(_startingCenter),
-            StartingAirGapMillimeters = Optional(_startingAir),
-            SignFilter = _signFilter.Text?.Trim() ?? "",
-            StopSurfaceIndex = Integer(_stopSurface) is var stop && stop > 0 ? stop : null,
-            ExploreStopPositions = _freeStop.IsChecked == true
+            Mode = DesignSearchMode.Full, StopSurfaceIndex = 1, ExploreStopPositions = false
         }
     };
     private static double? Optional(NumericUpDown control) => Value(control) is var value && value > 0 ? value : null;

@@ -5,7 +5,7 @@ namespace OpticalSystemDesign.App.Laboratories.InitialStructure;
 
 public sealed partial class MainWindow
 {
-    private readonly IReadOnlyList<AutoLensExamplePreset> _officialExamples = AutoLensOfficialExamples.Create();
+    private readonly IReadOnlyList<AutoLensExamplePreset> _officialExamples = new[] { AutoLensReferenceExamples.Mobile() }.Concat(AutoLensOfficialExamples.Create()).ToArray();
     private readonly ComboBox _officialExample = Named(new ComboBox { HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch },
         "OfficialExample", "AutoLens 官方目标预设");
     private readonly Button _loadOfficialExample = Command("载入预设", "LoadOfficialExample");
@@ -39,7 +39,8 @@ public sealed partial class MainWindow
         return Section("从预设开始", "sparkles", _officialExample, _loadOfficialExample,
             Hint("仅载入目标参数，不自动开始搜索。"),
             Disclosure("来源与适配说明", "OfficialExampleSource", _officialExampleNotes,
-                Hint("原生 C# 适配 · 非官方成功处方 · 每次上限 4000 次评价 / 1 分钟"),
+                Hint("原版默认流程和 README 目标分别保留来源；运行预算见当前参数，不代表设计已经达标。"),
+                Hint("https://github.com/AI4Optics/AutoLens/blob/" + AutoLensOfficialExamples.UpstreamCommit + "/1_autolens.py"),
                 Hint(AutoLensOfficialExamples.SourceUrl)));
     }
 }

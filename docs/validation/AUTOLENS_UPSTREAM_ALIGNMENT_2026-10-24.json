@@ -1,0 +1,672 @@
+{
+  "Date": "2026-10-24",
+  "Scope": "Pinned default mobile optimization-rule alignment; no final optical-quality, success-rate, image or performance comparison",
+  "UpstreamCommit": "e58db32f3a0b07f25861b5839a45970f77b5c947",
+  "UpstreamTrackedChanges": [],
+  "Runtime": "Pure C# product and tests; external Python used only to generate frozen upstream rule fixtures",
+  "OriginalDefaultRun": {
+    "ExitCode": 0,
+    "DurationSeconds": 5742.922,
+    "CurriculumUpdates": 2001,
+    "RefinementUpdates": 3001,
+    "ResultDirectory": "D:/Projects/autolens-upstream-20261024/source/results/1024-195541-AutoLens-OhbV"
+  },
+  "Tests": [
+    {
+      "File": "alignment-and-ui-01.trx",
+      "Outcome": "Completed",
+      "Total": 14,
+      "Passed": 13,
+      "Failed": 0,
+      "NotExecuted": 0,
+      "Start": "2026-10-24T22:55:38.5703411+08:00",
+      "Finish": "2026-10-24T22:58:47.8475673+08:00"
+    },
+    {
+      "File": "alignment-final-debug.trx",
+      "Outcome": "Completed",
+      "Total": 18,
+      "Passed": 18,
+      "Failed": 0,
+      "NotExecuted": 0,
+      "Start": "2026-10-24T23:04:30.4681669+08:00",
+      "Finish": "2026-10-24T23:07:29.0869723+08:00"
+    },
+    {
+      "File": "autolens-reference-rules-02.trx",
+      "Outcome": "Failed",
+      "Total": 9,
+      "Passed": 6,
+      "Failed": 3,
+      "NotExecuted": 0,
+      "Start": "2026-10-24T22:42:22.2491783+08:00",
+      "Finish": "2026-10-24T22:42:24.2909664+08:00"
+    },
+    {
+      "File": "autolens-reference-rules-03.trx",
+      "Outcome": "Failed",
+      "Total": 9,
+      "Passed": 7,
+      "Failed": 2,
+      "NotExecuted": 0,
+      "Start": "2026-10-24T22:43:52.7747743+08:00",
+      "Finish": "2026-10-24T22:43:57.7554254+08:00"
+    },
+    {
+      "File": "autolens-reference-rules-04.trx",
+      "Outcome": "Failed",
+      "Total": 9,
+      "Passed": 8,
+      "Failed": 1,
+      "NotExecuted": 0,
+      "Start": "2026-10-24T22:44:53.7176266+08:00",
+      "Finish": "2026-10-24T22:47:39.1844783+08:00"
+    },
+    {
+      "File": "autolens-reference-rules.trx",
+      "Outcome": "Failed",
+      "Total": 9,
+      "Passed": 4,
+      "Failed": 5,
+      "NotExecuted": 0,
+      "Start": "2026-10-24T22:41:29.1334945+08:00",
+      "Finish": "2026-10-24T22:41:32.0566833+08:00"
+    },
+    {
+      "File": "autolens-reference.trx",
+      "Outcome": "Failed",
+      "Total": 0,
+      "Passed": 0,
+      "Failed": 0,
+      "NotExecuted": 0,
+      "Start": "2026-10-24T22:39:00.881052+08:00",
+      "Finish": "2026-10-24T22:40:31.1794857+08:00"
+    },
+    {
+      "File": "final-safety-and-localization.trx",
+      "Outcome": "Failed",
+      "Total": 14,
+      "Passed": 13,
+      "Failed": 1,
+      "NotExecuted": 0,
+      "Start": "2026-10-24T23:16:52.0645241+08:00",
+      "Finish": "2026-10-24T23:17:06.2360361+08:00"
+    },
+    {
+      "File": "initialization.trx",
+      "Outcome": "Completed",
+      "Total": 1,
+      "Passed": 1,
+      "Failed": 0,
+      "NotExecuted": 0,
+      "Start": "2026-10-24T23:00:07.0732936+08:00",
+      "Finish": "2026-10-24T23:00:08.6796836+08:00"
+    },
+    {
+      "File": "localization-final-corrected.trx",
+      "Outcome": "Completed",
+      "Total": 1,
+      "Passed": 1,
+      "Failed": 0,
+      "NotExecuted": 0,
+      "Start": "2026-10-24T23:21:01.0407721+08:00",
+      "Finish": "2026-10-24T23:21:10.8601585+08:00"
+    },
+    {
+      "File": "localization-final.trx",
+      "Outcome": "Failed",
+      "Total": 1,
+      "Passed": 0,
+      "Failed": 1,
+      "NotExecuted": 0,
+      "Start": "2026-10-24T23:19:04.8772182+08:00",
+      "Finish": "2026-10-24T23:19:14.4928099+08:00"
+    },
+    {
+      "File": "reference-final-release.trx",
+      "Outcome": "Completed",
+      "Total": 13,
+      "Passed": 13,
+      "Failed": 0,
+      "NotExecuted": 0,
+      "Start": "2026-10-24T23:09:30.8599075+08:00",
+      "Finish": "2026-10-24T23:10:57.3034313+08:00"
+    },
+    {
+      "File": "shared-core-aggregation-final.trx",
+      "Outcome": "Completed",
+      "Total": 6,
+      "Passed": 6,
+      "Failed": 0,
+      "NotExecuted": 0,
+      "Start": "2026-10-24T23:28:26.7645625+08:00",
+      "Finish": "2026-10-24T23:28:29.0080011+08:00"
+    }
+  ],
+  "GpuEvidence": [
+    {
+      "File": "alignment-final-debug.trx",
+      "Test": "OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu",
+      "Outcome": "Passed",
+      "Output": "{\"Backend\":\"cuda-reverse-tape-v1\",\"DeviceName\":\"NVIDIA GeForce RTX 4060\",\"GpuBatches\":6,\"GpuRays\":18,\"GpuMilliseconds\":23.8777,\"FallbackReason\":null}"
+    },
+    {
+      "File": "reference-final-release.trx",
+      "Test": "OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu",
+      "Outcome": "Passed",
+      "Output": "{\"Backend\":\"cuda-reverse-tape-v1\",\"DeviceName\":\"NVIDIA GeForce RTX 4060\",\"GpuBatches\":6,\"GpuRays\":18,\"GpuMilliseconds\":22.243800000000004,\"FallbackReason\":null}"
+    },
+    {
+      "File": "reference-final-release.trx",
+      "Test": "OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FinitePhysicalGpuTraceKeepsObjectPointAndDisclosesCpuDirectionAiming",
+      "Outcome": "Passed",
+      "Output": "{\"DeviceName\":\"NVIDIA GeForce RTX 4060\",\"AimRays\":0,\"AimTraces\":0,\"PropagatedRays\":15,\"Batches\":3,\"Milliseconds\":14.9167,\"CpuRecoveryRays\":0,\"FallbackReason\":\"Finite-object direction aiming uses formal Core CPU; CUDA propagation and derivatives remain enabled.\",\"CpuAimingRays\":15}"
+    },
+    {
+      "File": "final-safety-and-localization.trx",
+      "Test": "OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FinitePhysicalGpuTraceKeepsObjectPointAndDisclosesCpuDirectionAiming",
+      "Outcome": "Passed",
+      "Output": "{\"DeviceName\":\"NVIDIA GeForce RTX 4060\",\"AimRays\":0,\"AimTraces\":0,\"PropagatedRays\":15,\"Batches\":3,\"Milliseconds\":12.6892,\"CpuRecoveryRays\":0,\"FallbackReason\":\"Finite-object direction aiming uses formal Core CPU; CUDA propagation and derivatives remain enabled.\",\"CpuAimingRays\":15}"
+    },
+    {
+      "File": "final-safety-and-localization.trx",
+      "Test": "OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu",
+      "Outcome": "Passed",
+      "Output": "{\"Backend\":\"cuda-reverse-tape-v1\",\"DeviceName\":\"NVIDIA GeForce RTX 4060\",\"GpuBatches\":6,\"GpuRays\":18,\"GpuMilliseconds\":8.4445,\"FallbackReason\":null}"
+    }
+  ],
+  "BuildLogs": [
+    "app-final-debug.log",
+    "app-final-release.log"
+  ],
+  "RemainingDifferences": [
+    "Shared Core double versus upstream default float32 and formal solver/domain conventions",
+    "Training pupil random stream is portable and resumable; not bitwise CUDA Philox including diagnostics consumption",
+    "CAMERA_CONFIG internal stop and mixed topology not reproduced as a separate complete reference config",
+    "Independent product physical acceptance gates retained separately"
+  ],
+  "SourceFingerprints": [
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Contracts\\AutoLensManagedModels.cs",
+      "Sha256": "451e3d83d010c01dfca13522535aa1d1f18adf16bb5e107124e0b435df280a99"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Contracts\\AutoLensManagedStateValidation.cs",
+      "Sha256": "dd8f0cd4c7c9c5f0e8201c2a0d11892929e00af931d11c585ff7ea5e46097206"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Contracts\\AutoLensOfficialExamples.cs",
+      "Sha256": "c10589a0426e2bcc6d3cb86ae01e1cb187598a11787f06cd2b0b13b410d7ef5e"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Contracts\\AutoLensReferenceExamples.cs",
+      "Sha256": "cb38fd72f437235f6602e7ae5b8bb30555b5882a3932a0c6d5900bf37e45e329"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Contracts\\FlatStartCheckpointValidation.cs",
+      "Sha256": "77e66a7555c0fb72d5112f9cb683ca695119dc210ffa7c13c0fef94469c67b73"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Contracts\\FlatStartDesignModels.cs",
+      "Sha256": "f825ebc134383984848692bad7b9d4621cfc36efbeb17c4de9f6bfb64f2ed4f6"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Contracts\\FlatStartModels.cs",
+      "Sha256": "f43ec7b92fbddf0c593712f2099649c511f070e2965ed8c72cebf7ba2fb78982"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Contracts\\FlatStartSearchModels.cs",
+      "Sha256": "6059ec9d83e4651438d35912f8879654cd9fadc288e0ed03f019aa42dc90101b"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Contracts\\InitialStructureModels.cs",
+      "Sha256": "bf8cb02f048adf679918c8abcd96d011acc0fe6321bed7f26caff5ef1aa0c8bb"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\AutoLensCpuCurriculum.cs",
+      "Sha256": "14f4a15468adad9257d76af8ab21604c03fedcf63c028c19f3fa9a7dad14ef40"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\AutoLensManagedDesign.cs",
+      "Sha256": "8f5ff6501489152a132b200ad9e4e41cf7d2c3f009986f9c4bbc47508212afa3"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\AutoLensManagedLoss.cs",
+      "Sha256": "916b57817d57b07bd847a643040bd19db7c86ec4719e20a14ade6a07162be744"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\AutoLensManagedTopology.cs",
+      "Sha256": "6f2a65ba08983bd3fc8fb0547c5e878e7fd69a1b997d252eb3d6c5010777d34e"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\AutoLensReferenceDesign.cs",
+      "Sha256": "94770f5fb0da6a44f47f1429a425657d4d919e8ee7a4ca50aaf5f8df2b279111"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\AutoLensReferenceLoss.cs",
+      "Sha256": "31f9ece96776b93368b2ad4ba45e1afe93d78f1892bb97336eb1d74abc4287a2"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\AutoLensReferenceStart.cs",
+      "Sha256": "e9950497876a882fb4776e7c94ec0b7c07cf0602e1d1a94754b6bcd143fb6df4"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\AutoLensTargetPolisher.cs",
+      "Sha256": "a1290426a03d87d1be2530fb30a12f00b47efb32103bb719135b1eadf54304aa"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\CandidateDiversityOrdering.cs",
+      "Sha256": "13fc5e2b2c578b3c2566ac2e4d70a0850897c5f5978196567326827f35491305"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\CandidateObjective.cs",
+      "Sha256": "da867d4dcd1b600e89a6f0a1845cf0c1f3d91777f2eb38aa4eeedd3ce834ba79"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\CandidateParameterization.cs",
+      "Sha256": "e055137fd7ed1c74484d84547f66d9844ed89508ae8f62fd20ae6ee0733352b0"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\ContentFingerprint.cs",
+      "Sha256": "78845766057792841e5dc1334e75bc859648fbce5813b56916b6b29a6db872d4"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\DesignFormScheduler.cs",
+      "Sha256": "b532b1e134e8e766097723d12ee1e2110db1c0c07fb77e06f74a58aec5b6b093"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\DesignFormSearch.cs",
+      "Sha256": "8058ae41d35476a0d223e5dd6d87227ba3dfd29c36e5b78da9b5854545f74635"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\DeterministicRandom.cs",
+      "Sha256": "41d54daf931279314c05fd29cac585a190176b9b6b6d0ac55814619b4ac4a636"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\FirstOrderSeedGenerator.cs",
+      "Sha256": "7827ae03d2eaf0ddfc3bd2ec9641ad67a6595a814525db6d6bb6b41d8374280a"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\FlatRootFactory.cs",
+      "Sha256": "3193e80a90e3ecceb9d65ead09628abf179baf774398f0cd3b58cf870f9924a4"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\FlatStartBootstrap.cs",
+      "Sha256": "78bceb07badde1fb940cc54c71d3f50c1cabb9745b5d4a40b22d6f493e0646b0"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\FlatStartCandidateArchive.cs",
+      "Sha256": "83ec320b7bd474c8e0f66991f32acbad5cda1a07ab6036f7108ce49870be7039"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\FlatStartContinuation.cs",
+      "Sha256": "44d9d974db5f779a74faa6df331b213df839d94c476fcdfc4292ad7c468bf703"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\FlatStartDesignProblem.cs",
+      "Sha256": "db67b9e8164badf6c05d29df6e498674953dcf133d546ea00369ba8056a37b63"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\FlatStartDesignService.cs",
+      "Sha256": "5c54d4812f3c9812ce2666e42e2e9c09f3dc5ee4280b8c17597946b6f45667e5"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\FlatStartFamilySupport.cs",
+      "Sha256": "e5f662b23f730b6b4a0d7a386e3cbef1e2ff21a9221f577a5aadcb3bba7af863"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\FlatStartLocalSolver.cs",
+      "Sha256": "461920b18897c18fb57b9581aeac748b0a64a9ff666477ab963dd7ea030bcef0"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\FlatStartProblem.cs",
+      "Sha256": "d3643a08255c5a45351eb385ee49ab97f8b505f621b4b9ec2a74d8a1da0559d4"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\FlatStartScheduler.cs",
+      "Sha256": "28c8f913db0d3300e398e342fc6b26e062c4401e232b7978af3786b420e0d6d3"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\FlatStartSearchPlanning.cs",
+      "Sha256": "47d6c85412a96adc20d098c317d558e33025ef49d6b46136113039c5dac5a6d5"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\FlatStartSearchService.cs",
+      "Sha256": "69faf93f9b4cc9916d7eb111fce6b0ac72e0736250aa159d6fb42abd720602cc"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\FlatStartSolverCoordinates.cs",
+      "Sha256": "ac55b975d41a3cb57148dc776e2b42d39ba0b6047a90ad8d49523f93039b7014"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\HybridCandidateRefiner.cs",
+      "Sha256": "e0273006e0dc6e211e345662e622f88257fc04e7e8eaca726015d3875c7aa9ab"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\InitialStructureSearchService.cs",
+      "Sha256": "58bd1dde72ba193703a9bc40f228827e728b918d4be972d6f9ce49ec61e4ffa6"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\NeighborhoodBudget.cs",
+      "Sha256": "a4d2c8c975fe9e9d28c1aaa9c5ecead6e79c086f29710cebe8d6be4e9ca0bdf2"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\Optimization\\AutoLensInitializationRandom.cs",
+      "Sha256": "7b63f4ae02ac2481067c4c6497280e96767d6f7efb374cb71b8b126643644454"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\Optimization\\BoundedAdam.cs",
+      "Sha256": "79c213c4c1389322a0d2425e2ece47932d09ba823624f316e61ce07045f562a8"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\Optimization\\BoundedTrustRegionLeastSquares.cs",
+      "Sha256": "59efbe9b57f7d0d019d83cbcdc8f23d5af579b5f7c6284aae36ba718740f49a3"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\Optimization\\DifferentiableAdam.cs",
+      "Sha256": "ed817481784deae4d6d761fc09f141f474c4d9eab7da544ba77f41825adf421d"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\Optimization\\LeastSquaresModels.cs",
+      "Sha256": "48b2cabe36e7997df774816346af6014049a9277dc0a7d0b02c6edad1fc13c72"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\Optimization\\PivotedLeastSquares.cs",
+      "Sha256": "174b61a6cfd8e473615039560f3941301ace967def37fe194f7a6d884c0c86f6"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\Optimization\\RegularizedLeastSquaresModel.cs",
+      "Sha256": "f82a729710bd0cb32d1bd212e572966baefe2424d245761bd7ca97dd550e17ad"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\ProjectedDampedStep.cs",
+      "Sha256": "d298a9d813ff0414a0ff71798376a5c7ae9ea2730f6f2965d2aa873a02b095ab"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\Properties\\AssemblyInfo.cs",
+      "Sha256": "1be164c63f930f72237ff052598001b1cd754fbd648f895c97b05fd896ece2c6"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Engine\\SpecificationValidator.cs",
+      "Sha256": "bb63159b3db7c6ff07209203050014a5ddf3919a83111009fc210afb91ac41f4"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Persistence\\CandidateExportService.cs",
+      "Sha256": "54e89768bdaa7d30dcb1034c8c725e5b359c146faea4497460747c82b19c2d3a"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Persistence\\FlatStartRunLibrary.cs",
+      "Sha256": "1b69b36359e87f723299a660e6ac312a0d91bd06e1d3e84bc8fc2f23640b790c"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Persistence\\FlatStartSearchCheckpointStore.cs",
+      "Sha256": "2d33a895146e3a6118fbea6003a22f3db9945c087895635fa54c410f4e067db8"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Persistence\\RunDirectoryStore.cs",
+      "Sha256": "f3ffd6b6aec7e256785816d2e7f8976d2f751d0aa84b6bcae73ad514510bc839"
+    },
+    {
+      "File": "labs/InitialStructure/src\\OpticalSystemDesign.InitialStructure.Persistence\\SearchCheckpointStore.cs",
+      "Sha256": "ec70ef98957c2851a165f3e9e36df63374b4a4a16209ad5e91d0735dbb5e3d82"
+    },
+    {
+      "File": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/AutoLensReferenceTests.cs",
+      "Sha256": "f7520133bce26b3dcf285a68d82c016cfa14d5cbd5bb0d1903105d535fa23e11"
+    },
+    {
+      "File": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/Fixtures/autolens-e58-policy.json",
+      "Sha256": "2e9f3da4742864d644e334111a3db7442eb84e2e1f89b961a4f3f08b3cc379f3"
+    },
+    {
+      "File": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/FlatStartDesktopTests.cs",
+      "Sha256": "ec23a001e66a1f4ae958e600511f251e2e0beb05fbe3a2178700e1981a2de267"
+    },
+    {
+      "File": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj",
+      "Sha256": "3b271b4ae1c20bd2cdd7af547fce4a64427e320d981426391d6d6b3fec6c1c06"
+    },
+    {
+      "File": "src/OpticalSystemDesign.App/Laboratories/InitialStructure\\CandidatePreviewControl.cs",
+      "Sha256": "95da84f1ee7ccf6b7f525b7242d3be18dbae3f49a10f86ce8e151f00b8ada7d3"
+    },
+    {
+      "File": "src/OpticalSystemDesign.App/Laboratories/InitialStructure\\CandidateRow.cs",
+      "Sha256": "9f3093d31e76d06fbd9c8c4c038e6eeda9007bc881dcba93ca945786901664cc"
+    },
+    {
+      "File": "src/OpticalSystemDesign.App/Laboratories/InitialStructure\\MainWindow.cs",
+      "Sha256": "bf157c8f6ffee2ecd078568f5cdd60cba8a30deb73c64e9f2b0cad3f9f3c27bc"
+    },
+    {
+      "File": "src/OpticalSystemDesign.App/Laboratories/InitialStructure\\MainWindow.Examples.cs",
+      "Sha256": "e2402357bbc7f88b34563e5fbe63c8b19a8b6a3ae16716da81035cf8053ef620"
+    },
+    {
+      "File": "src/OpticalSystemDesign.App/Laboratories/InitialStructure\\MainWindow.Inputs.cs",
+      "Sha256": "32a2c024951e15eda025b06eccea81cb09f3195950d9043708d84633ce3122ea"
+    },
+    {
+      "File": "src/OpticalSystemDesign.App/Laboratories/InitialStructure\\MainWindow.Presentation.cs",
+      "Sha256": "721de8eed28df4b49d1c6152d0829e43e617b1d742fa006c2964d626d7385b58"
+    },
+    {
+      "File": "src/OpticalSystemDesign.App/Laboratories/InitialStructure\\MainWindow.Workflow.cs",
+      "Sha256": "bfaf2e0b479b51cc09518aee60928446eeb4b7a6ffb92d8830f0df4c74cfe6eb"
+    },
+    {
+      "File": "src/OpticalSystemDesign.App/Laboratories/InitialStructure\\SpecificationNumberInput.cs",
+      "Sha256": "47a434e5cc0f42624c1f80c21ac332675eb56bdee0f389838db2edc09747b36a"
+    },
+    {
+      "File": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "Sha256": "e10adff8ce682f41e43daae26e83f3478e9973ec7a6f12bd0da05429eb101ab7"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Differentiation\\DesignGpu.cs",
+      "Sha256": "316c97a8238b04d27c5efe69dd74969f1c15b5299f9c757a0f695006e94039f6"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Differentiation\\DesignGpu.Propagation.cs",
+      "Sha256": "c12303cdb2c1507ff84a4409b41c6eb8019054f7fd948869d11571e0d5925432"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Differentiation\\DifferentiableOpticalMetrics.cs",
+      "Sha256": "9b305c94f75b08a7c6e03c4ec426f95cb7c47bc134505c2aa7bdc76c95d63a5a"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Differentiation\\DifferentialScalar.cs",
+      "Sha256": "ea91435cd9c171e5d09b7987a8ed6d682b2c228b88a99c1a1f90ce1f9d392aba"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Differentiation\\DifferentialScalar.Tape.cs",
+      "Sha256": "5509291f0031f54b80f1cd5391fc8af6fb237f9d9a472bb10eca30bb12abb061"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Differentiation\\DifferentialTape.cs",
+      "Sha256": "abbe0dd2a32b9dd614a010b3ee74eed4a770a4bda0f2a0489a635eae08f0818d"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Differentiation\\FixedInputOpticalMetrics.cs",
+      "Sha256": "04f226d7b8acf7b78d5a576a71058c2da2d77dc98ecabe8eb3a36e5a52fd4dfd"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Differentiation\\GpuRaySensitivityBatch.cs",
+      "Sha256": "1373ee772d43e62fdbfc77c99271425553ce59d9766d952e7e5a36482072e342"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Differentiation\\OpticalDesignParameters.cs",
+      "Sha256": "4427e255bb3745d28034695aa17d7f95e5f204629799c23310177ceecf3b54f2"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Differentiation\\OpticalDifferentialContext.cs",
+      "Sha256": "d8d075b154a384ac6ca754e25541384290e306d58e639496431f1f7e4c69e459"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Domain/OpticalSurface.cs",
+      "Sha256": "82aaf4ba4f1e67906b9295bb0a1052ae4070c56c1fa651d588532d19c99d0e21"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Domain/SurfaceGroup.cs",
+      "Sha256": "67c221ccb404f32ca5ad51a46432b9b7e15b065b8c4c7068d1b7d990545b274e"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Materials/AutoLensReferenceMaterials.cs",
+      "Sha256": "8d7196105da709d0de0aac8254f1f131221a38e611eb8fb737e4b06fd1adc01f"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Materials/Data/autolens-e58-materials.json",
+      "Sha256": "64103c1d0c4bddfb7ee07bc1fa3d8fc55dbce9b13f72cc2d767843f9a44c1c3d"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/OpticalSystemDesign.Core.csproj",
+      "Sha256": "f73b7ff5d73251c33d2bfc113597a0bd66d5a014fa7c21c9ae5016834baceff9"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Raytrace/RayGenerator.Gpu.cs",
+      "Sha256": "333314d782387ce21b70e7cb37c0478c24dbc9b35a9cf9bc3dee396ba234ff49"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Raytrace/SequentialGpuSession.cs",
+      "Sha256": "f16162b00f33f7900d7682d23b929a70c40062beccf285e459297d9981a2c76f"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.DesignSensitivity.cs",
+      "Sha256": "c97be1b99e5083541ac1e1cb35e92eb1dca6820e5348add22c2a5f22b488e9bf"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.Gpu.cs",
+      "Sha256": "ff410ab97c73c0b78c5e5cc5722e155f62bf43fa2ed47181e6ba2fb6b42f6965"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Core/Services/RotationalDesignGeometry.cs",
+      "Sha256": "b8ecc40bee60e0e2984a570abc78b9611d8fe5fb32aeccf8f622c5dc91bf3b2e"
+    },
+    {
+      "File": "src/OpticalSystemDesign.Modules/InitialStructurePresentation.cs",
+      "Sha256": "6076ca567d7b9800c4bc1f2fabac059b0130ebce738736a040247b9dfc9dccb3"
+    },
+    {
+      "File": "tools/diagnostics/ExtractAutoLensReferenceMaterials.ps1",
+      "Sha256": "c81c630d36b9d30c808308e750459839f6f7ef7a7bf3c1cc3475bd7dcc5c8d10"
+    }
+  ],
+  "EvidenceFiles": [
+    {
+      "File": "alignment-and-ui-01.trx",
+      "Sha256": "2bbecb7ed768049729c2c7b4b4ba63d1e4d40ad2ab49f0f30218647339bbbc2c"
+    },
+    {
+      "File": "alignment-final-debug.trx",
+      "Sha256": "9bbc1f47ef807f045366262480b4006533aa6504b4c2732bcfbd4e660de90d7d"
+    },
+    {
+      "File": "app-final-debug.log",
+      "Sha256": "030390cf5650c8310a122d66c256dbd08c702c71d8a9afc25d110b8f72b4b3d8"
+    },
+    {
+      "File": "app-final-release.log",
+      "Sha256": "e415749f91ff987c59cd72b5cb0000c25f2ead082b49e24c2bf2b453c942ddf5"
+    },
+    {
+      "File": "autolens-reference-rules-02.trx",
+      "Sha256": "41a3e63e5301d31992b0ab2ff6880db1407ad5b0bd38255f75c7bb11a33a7d52"
+    },
+    {
+      "File": "autolens-reference-rules-03.trx",
+      "Sha256": "9c43e125f962367613e61b0094f9feb60f73b05f47dc9830594fcf08096c4211"
+    },
+    {
+      "File": "autolens-reference-rules-04.trx",
+      "Sha256": "9e6d1b91ab60bcb373e144da435d49db02897ebc66e45a5a6143d7f25d446483"
+    },
+    {
+      "File": "autolens-reference-rules.trx",
+      "Sha256": "9ca8ce73b88fce1e3d0ccdeeeb0a9ea7741f174c588b4f5666514fafa2d326fe"
+    },
+    {
+      "File": "autolens-reference.trx",
+      "Sha256": "1b2e6e150fe3df0e8c45e7b8c4a51b5ac7cf51e6cc7cf84c04414cd83b515afa"
+    },
+    {
+      "File": "export_policy_fixtures.py",
+      "Sha256": "5daa086206b9202ad0e739edf5d6032a28002124df3c84ada634018e7f110078"
+    },
+    {
+      "File": "final-safety-and-localization.trx",
+      "Sha256": "8f7946d3413f69805cf3b0a08737133446ac7114b5f464b938097a72c3096768"
+    },
+    {
+      "File": "initialization.trx",
+      "Sha256": "097f5e136197e9a45825540488f5b57425a88035e9209f8272026c4f37b0a6d4"
+    },
+    {
+      "File": "localization-final-corrected.trx",
+      "Sha256": "86e1ca7988762a4267f7e1690ff2e94662085fe9882dd975a3c8f9decebde04d"
+    },
+    {
+      "File": "localization-final.trx",
+      "Sha256": "ac70d211d945a35e2582b051bb0e490a50775ea10ca372adfc93fec66a9f71b4"
+    },
+    {
+      "File": "reference-final-release.trx",
+      "Sha256": "04e6060e9f8ed1c1fb63af4d83770dcb3995ca103c2977757c58bd18748c0f76"
+    },
+    {
+      "File": "shared-core-aggregation-final.trx",
+      "Sha256": "5504117ae354bb44e109882d5bc0b787066f1495220e7c9cc6ed24900f6e1fb9"
+    },
+    {
+      "Sha256": "f380031cf9aec89839f423fabe1f6972b904bfb301638dbb7c311b5204476653",
+      "File": "shutdown-boundary-build.log"
+    },
+    {
+      "Sha256": "56c7f034846be46fa1698d74200819acb7c8176be4dd8fc228bf8a1475d42f50",
+      "File": "shutdown-boundary-build-retry.log"
+    }
+  ],
+  "BuildBinaries": [
+    {
+      "Configuration": "Debug",
+      "File": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "c4292db004210e9ac66dfd617d72383c95916bbc1476d1d759609b010a3ce22d"
+    },
+    {
+      "Configuration": "Debug",
+      "File": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "4457fb23e3b544b69241e62558d88553ec6072162f6f62d00eb8a0bb542e5237"
+    },
+    {
+      "Configuration": "Debug",
+      "File": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "Sha256": "54bcaba3232118cad562e62d187e7534aef59fa8d4475843efe28ff86cf76ebb"
+    },
+    {
+      "Configuration": "Release",
+      "File": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "9f5ec1f48a489f28d60f48cc9044522f2fa54e733d78844c5dbdb5ce7d7302c2"
+    },
+    {
+      "Configuration": "Release",
+      "File": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "80f8ba5bbc007c8fd9ebfd20febeff959787f84dac946097d8e2949f81f22369"
+    },
+    {
+      "Configuration": "Release",
+      "File": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "Sha256": "db97140a950f4fc3496d3163a216023e502fab2de33755457e140569191ff2eb"
+    }
+  ],
+  "FinalBoundaryAdjustment": {
+    "UserInstruction": "Different definitions remain in laboratory; only identical calculations are shared",
+    "PriorTestScope": "All recorded tests predate this final move",
+    "TestsRun": false,
+    "DebugBuildWarnings": 0,
+    "InitialSandboxBuild": "shutdown-boundary-build.log: exited 1 without compiler diagnostics",
+    "DebugBuildErrors": 0,
+    "Change": "AutoLens-only centroid/detach/epsilon RMS aggregation moved unchanged from Core to laboratory",
+    "ReleaseBinaries": "Built before final boundary adjustment; not rebuilt at user request to finish quickly",
+    "DebugBuildExitCode": 0,
+    "BuildLog": "shutdown-boundary-build-retry.log"
+  }
+}

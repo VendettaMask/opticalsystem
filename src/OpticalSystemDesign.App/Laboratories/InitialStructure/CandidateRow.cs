@@ -12,7 +12,7 @@ internal sealed class CandidateRow(int number, FamilyTrial trial, bool inherited
     public string Name => inherited ? "来源方案" : $"方案 {number}";
     public string Status => IncompleteAreaEvaluation ? "光线不完整" : Candidate.Status == CandidateStatus.LabAccepted ? "已达标" : "有差距";
     public int Elements => Candidate.Lineage.ElementCount;
-    public string InitialForm => Trial.Family.BinaryStart?.Signs ?? "历史方案";
+    public string InitialForm => Trial.AutoLensState?.SchemaVersion == 2 ? "随机起点" : Trial.Family.BinaryStart?.Signs ?? "历史方案";
     public string FocalLength => Format(Candidate.Evaluation.EffectiveFocalLengthMillimeters);
     public string Rms => IncompleteAreaEvaluation ? "光线不完整" : Format(Candidate.Evaluation.RmsSpotRadiusMillimeters);
     private bool AreaSampling => Candidate.Evaluation.FlatStartObjective?.SamplingPolicy == FlatStartSamplingPolicy.UniformAreaGaussianV1;
@@ -66,16 +66,18 @@ internal sealed class CandidateRow(int number, FamilyTrial trial, bool inherited
             checkpoint.Specification.FlatStart?.OptimizationMethod switch
             {
                 FlatStartOptimizationMethod.AutoLensCpuExperimentV1 => "算法：AutoLens 启发式 C# CPU 试验 v1；数值梯度 Adam + 原生完整目标细化，非原版可微/GPU。",
-                FlatStartOptimizationMethod.AutoLensManagedV1 => "算法：AutoLens C# 自动求导；共享 Core、两阶段 Adam、允许玻璃匹配及原生完整目标精修；CPU，非原版数值等效认证。",
+                FlatStartOptimizationMethod.AutoLensManagedV1 when Trial.AutoLensState?.SchemaVersion == 2 => "算法：AutoLens e58 原版规则；共享 Core、固定输入光线、两阶段直接 Adam、允许玻璃匹配；实际设备见下方记录。",
+                FlatStartOptimizationMethod.AutoLensManagedV1 => "算法：历史 AutoLens C# 自动求导；保留原求解与精修记录。",
                 _ => "算法：原生信赖域（默认）。"
             },
             AreaSampling ? "像质：均匀照明圆瞳面积 RMS；独立加密验收，边缘光线另行检查。"
                 : "像质：历史等圈离散 RMS；保留原采样含义，与面积积分结果不能直接比较。",
-            $"起始形式：{InitialForm}；这是初始曲率方向，最终光学性能以正式 Core 验证结果为准。",
+            Trial.AutoLensState?.SchemaVersion == 2 ? "随机弱曲率起点；最终光学性能以正式 Core 验证结果为准。" : $"起始形式：{InitialForm}；这是初始曲率方向，最终光学性能以正式 Core 验证结果为准。",
             "玻璃：" + string.Join(" / ", InitialStructurePresentation.Prescription(Candidate).Skip(1).Where(surface => !string.IsNullOrWhiteSpace(surface.Material) && !surface.Material.Equals("Air", StringComparison.OrdinalIgnoreCase)).Select(surface => surface.Material)),
-            $"光阑：面 {Trial.Family.StopSurfaceIndex}；从零曲率平板起步，当前为第 {Candidate.Lineage.Generation} 代。",
+            Trial.AutoLensState?.SchemaVersion == 2 ? "独立前置光阑 · 训练物距 20000 mm。" : $"光阑：面 {Trial.Family.StopSurfaceIndex}；从零曲率平板起步，当前为第 {Candidate.Lineage.Generation} 代。",
             Candidate.Evaluation.FlatStartObjective?.UsePhysicalStop == true
-                ? "实体光阑：净口径按系统入瞳标定并瞄准；镜片机械半径单独计算。" : "历史口径模式：按近轴入瞳发射，光阑面随镜片口径更新。",
+                ? Trial.AutoLensState?.SchemaVersion == 2 ? "实体光阑：课程按原版改变口径，精修保持；独立验收使用正式 Core 瞄准。"
+                    : "实体光阑：净口径按系统入瞳标定并瞄准；镜片机械半径单独计算。" : "历史口径模式：按近轴入瞳发射，光阑面随镜片口径更新。",
             $"本次已计入 {checkpoint.ChargedEvaluations}/{checkpoint.Specification.Budget.MaximumEvaluations} 次评价；已记录 {checkpoint.TracedRealRayCount:N0} "
                 + (measuredTraces ? "次真实光线追迹计算（含瞄准与诊断）。" : "个分析光线采样（历史计数，不含全部瞄准开销）。")
         };
@@ -87,6 +89,8 @@ internal sealed class CandidateRow(int number, FamilyTrial trial, bool inherited
             lines.Add("GPU · " + propagation.DeviceName + " · " + UiLocalization.Text("GPU 瞄准光线") + " " + propagation.AimRays
                 + " · " + UiLocalization.Text("GPU 追迹光线") + " " + propagation.PropagatedRays
                 + " · " + UiLocalization.Text("CPU 恢复光线") + " " + propagation.CpuRecoveryRays);
+        if (Trial.AutoLensState?.PropagationExecution is { CpuAimingRays: > 0 } cpuAim)
+            lines.Add("有限物距方向瞄准：Core CPU · " + cpuAim.CpuAimingRays + " 条光线。");
         if (checkpoint.Origin is { } origin) lines.Add($"本次是追加细化；来源运行已用 {origin.ChargedEvaluations} 次评价，未计入本次新预算。来源记录：{origin.RunId}");
         lines.Add("差距与约束：");
         lines.AddRange(Candidate.Violations.Count == 0 ? ["完整规格的最终验收通过。"] : Candidate.Violations.Select(violation =>

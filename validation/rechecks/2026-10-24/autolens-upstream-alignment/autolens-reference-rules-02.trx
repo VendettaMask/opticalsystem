@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="840c4ed7-a862-480a-a35e-c444dbd583c4" name="allen@DESKTOP-SET3SNR 2026-10-24 22:42:24" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-24T22:42:24.0794185+08:00" queuing="2026-10-24T22:42:24.0794188+08:00" start="2026-10-24T22:42:22.2491783+08:00" finish="2026-10-24T22:42:24.2909664+08:00" />
+  <TestSettings name="default" id="5fe1048e-62ce-406f-86a4-2dc631d4efd1">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-24_22_42_24" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b5a09b0d-5b79-4c5c-9082-ae74bb312636" testId="fc41a6a5-0a9c-e01d-5619-256df373af9b" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu" computerName="DESKTOP-SET3SNR" duration="00:00:00.0013613" startTime="2026-10-24T22:42:24.2247820+08:00" endTime="2026-10-24T22:42:24.2262820+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b5a09b0d-5b79-4c5c-9082-ae74bb312636">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.FileNotFoundException : Could not load file or assembly 'ILGPU, Version=1.5.3.0, Culture=neutral, PublicKeyToken=null'. 系统找不到指定的文件。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Differentiation.FixedInputOpticalMetrics.Evaluate(Optic optic, IReadOnlyList`1 parameters, FixedInputRaySet inputs, Double bendCosineGate, DesignComputeMode mode, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Differentiation\FixedInputOpticalMetrics.cs:line 66&#xD;
+   at OpticalSystemDesign.Core.Differentiation.FixedInputOpticalMetrics.Evaluate(Optic optic, IReadOnlyList`1 parameters, FixedInputRaySet inputs, Double bendCosineGate, DesignComputeMode mode, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Differentiation\FixedInputOpticalMetrics.cs:line 66&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutoLensReferenceTests.cs:line 190&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e748c6dd-9c88-4a9a-b81c-617207136296" testId="e97fb688-00db-a1fc-1ca6-9c3d3036e98a" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenImageLossAndDetachedGradientsAgree" computerName="DESKTOP-SET3SNR" duration="00:00:00.0083078" startTime="2026-10-24T22:42:23.9361231+08:00" endTime="2026-10-24T22:42:23.9368860+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e748c6dd-9c88-4a9a-b81c-617207136296" />
+    <UnitTestResult executionId="4b06f2e3-0c0e-4b9d-850d-b4344fd813d6" testId="ef0c77d8-a960-7b85-bf0d-6bb39813ab80" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenAdamMomentsAndBothSchedulesAgreeIncludingNonFiniteSanitization" computerName="DESKTOP-SET3SNR" duration="00:00:00.0017351" startTime="2026-10-24T22:42:24.2230255+08:00" endTime="2026-10-24T22:42:24.2246841+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4b06f2e3-0c0e-4b9d-850d-b4344fd813d6" />
+    <UnitTestResult executionId="ad63f8e3-4ab3-4093-b5ee-9a04cc967f48" testId="9e562ca2-46e3-96cb-a039-a36aec3c33c5" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.AbsolutePositionsDoNotMoveDownstreamParametersAndRatesUsePhysicalUnits" computerName="DESKTOP-SET3SNR" duration="00:00:00.0038070" startTime="2026-10-24T22:42:24.2289608+08:00" endTime="2026-10-24T22:42:24.2323896+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad63f8e3-4ab3-4093-b5ee-9a04cc967f48" />
+    <UnitTestResult executionId="222768b1-2f7b-4914-8ffa-fb9849ff322e" testId="b5c1925c-a53e-f697-ce69-02483c9d3da9" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.PinnedRealDispersionAndNominalMaterialCoordinatesAgree" computerName="DESKTOP-SET3SNR" duration="00:00:00.0026039" startTime="2026-10-24T22:42:23.9373478+08:00" endTime="2026-10-24T22:42:23.9395387+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="222768b1-2f7b-4914-8ffa-fb9849ff322e" />
+    <UnitTestResult executionId="7f1f7b5b-8ef8-4e2e-9687-275769090095" testId="a9da59b1-8a70-5b77-3dba-6b95c627846a" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.ReferenceDefaultIsPinnedMobileProtocolAndCatalog" computerName="DESKTOP-SET3SNR" duration="00:00:00.0142310" startTime="2026-10-24T22:42:24.2130336+08:00" endTime="2026-10-24T22:42:24.2228982+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7f1f7b5b-8ef8-4e2e-9687-275769090095" />
+    <UnitTestResult executionId="096eea3f-bb5a-4945-a386-72b7a5aaf950" testId="acaa1faf-7f93-ebcf-f464-6b4ea01362a1" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenLinearBoundsProfilesMaterialsAndGradientsAgree" computerName="DESKTOP-SET3SNR" duration="00:00:00.7226705" startTime="2026-10-24T22:42:23.2008692+08:00" endTime="2026-10-24T22:42:23.9284084+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="096eea3f-bb5a-4945-a386-72b7a5aaf950" />
+    <UnitTestResult executionId="fc3ee8e7-4a28-4de2-ae72-e7bb35f74bb0" testId="b27d81a2-6852-e172-cd8e-8277f903f4f5" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.BudgetPauseKeepsFullCourseAndSerializedCacheResumesIdentically" computerName="DESKTOP-SET3SNR" duration="00:00:00.0020747" startTime="2026-10-24T22:42:24.2267792+08:00" endTime="2026-10-24T22:42:24.2284747+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fc3ee8e7-4a28-4de2-ae72-e7bb35f74bb0">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.FileNotFoundException : Could not load file or assembly 'ILGPU, Version=1.5.3.0, Culture=neutral, PublicKeyToken=null'. 系统找不到指定的文件。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Differentiation.FixedInputOpticalMetrics.Evaluate(Optic optic, IReadOnlyList`1 parameters, FixedInputRaySet inputs, Double bendCosineGate, DesignComputeMode mode, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Differentiation\FixedInputOpticalMetrics.cs:line 66&#xD;
+   at OpticalSystemDesign.Core.Differentiation.FixedInputOpticalMetrics.Evaluate(Optic optic, IReadOnlyList`1 parameters, FixedInputRaySet inputs, Double bendCosineGate, DesignComputeMode mode, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Differentiation\FixedInputOpticalMetrics.cs:line 66&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceDesign.&lt;&gt;c__DisplayClass0_2.&lt;Run&gt;g__Evaluate|12(FixedInputRaySet inputs, Double bendGate, &lt;&gt;c__DisplayClass0_1&amp;) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceDesign.cs:line 240&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceDesign.&lt;&gt;c__DisplayClass0_0.&lt;Run&gt;g__Optimize|0(Boolean curriculum) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceDesign.cs:line 216&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceDesign.Run(InitialStructureSpecification spec, Int32 elements, FlatStartBootstrapResult bootstrap, Stopwatch clock, FlatStartFamily family, IReadOnlyList`1 allowed, CancellationToken token, AutoLensManagedState resume, OpticSnapshot restart, String parent) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceDesign.cs:line 62&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.FlatStartDesignService.Solve(InitialStructureSpecification specification, Int32 elementCount, CancellationToken cancellationToken, FlatStartFamily family, Boolean screenOnly, IReadOnlyList`1 allowedGlassNames) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\FlatStartDesignService.cs:line 32&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.BudgetPauseKeepsFullCourseAndSerializedCacheResumesIdentically() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutoLensReferenceTests.cs:line 234&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="faa90b06-fe1a-467f-9e6e-06238679fe98" testId="586164ed-c868-7343-32f5-8f9da3173cf6" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.CompleteSmallProtocolIncludesBothInclusiveLoopsAndPersistsCatalogEndpoint" computerName="DESKTOP-SET3SNR" duration="00:00:00.2505897" startTime="2026-10-24T22:42:23.9396479+08:00" endTime="2026-10-24T22:42:24.2080669+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="faa90b06-fe1a-467f-9e6e-06238679fe98">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.FileNotFoundException : Could not load file or assembly 'ILGPU, Version=1.5.3.0, Culture=neutral, PublicKeyToken=null'. 系统找不到指定的文件。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Differentiation.FixedInputOpticalMetrics.Evaluate(Optic optic, IReadOnlyList`1 parameters, FixedInputRaySet inputs, Double bendCosineGate, DesignComputeMode mode, CancellationToken cancellationToken)&#xD;
+   at OpticalSystemDesign.Core.Differentiation.FixedInputOpticalMetrics.Evaluate(Optic optic, IReadOnlyList`1 parameters, FixedInputRaySet inputs, Double bendCosineGate, DesignComputeMode mode, CancellationToken cancellationToken)&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceDesign.&lt;&gt;c__DisplayClass0_2.&lt;Run&gt;g__Evaluate|12(FixedInputRaySet inputs, Double bendGate, &lt;&gt;c__DisplayClass0_1&amp;) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceDesign.cs:line 240&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceDesign.&lt;&gt;c__DisplayClass0_0.&lt;Run&gt;g__Optimize|0(Boolean curriculum) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceDesign.cs:line 216&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceDesign.Run(InitialStructureSpecification spec, Int32 elements, FlatStartBootstrapResult bootstrap, Stopwatch clock, FlatStartFamily family, IReadOnlyList`1 allowed, CancellationToken token, AutoLensManagedState resume, OpticSnapshot restart, String parent) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceDesign.cs:line 62&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.FlatStartDesignService.Solve(InitialStructureSpecification specification, Int32 elementCount, CancellationToken cancellationToken, FlatStartFamily family, Boolean screenOnly, IReadOnlyList`1 allowedGlassNames) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\FlatStartDesignService.cs:line 32&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.FlatStartSearchService.Execute(InitialStructureSpecification specification, TrialWork work, TimeSpan timeLimit, IReadOnlyList`1 allowedGlassNames, CancellationToken cancellationToken) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\FlatStartSearchService.cs:line 275&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.FlatStartSearchService.&lt;&gt;c__DisplayClass6_3.&lt;RunAsync&gt;b__10() in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\FlatStartSearchService.cs:line 204&#xD;
+   at System.Threading.Tasks.Task`1.InnerInvoke()&#xD;
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task&amp; currentTaskSlot, Thread threadPoolThread)&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.InitialStructure.Engine.FlatStartSearchService.RunAsync(InitialStructureSpecification specification, FlatStartSearchOptions options, CancellationToken cancellationToken, FlatStartSearchCheckpoint checkpoint, Func`3 checkpointSink) in D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\FlatStartSearchService.cs:line 204&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.CompleteSmallProtocolIncludesBothInclusiveLoopsAndPersistsCatalogEndpoint() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutoLensReferenceTests.cs:line 261&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.ReferenceDefaultIsPinnedMobileProtocolAndCatalog" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="a9da59b1-8a70-5b77-3dba-6b95c627846a">
+      <Execution id="7f1f7b5b-8ef8-4e2e-9687-275769090095" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="ReferenceDefaultIsPinnedMobileProtocolAndCatalog" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.PinnedRealDispersionAndNominalMaterialCoordinatesAgree" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="b5c1925c-a53e-f697-ce69-02483c9d3da9">
+      <Execution id="222768b1-2f7b-4914-8ffa-fb9849ff322e" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="PinnedRealDispersionAndNominalMaterialCoordinatesAgree" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.CompleteSmallProtocolIncludesBothInclusiveLoopsAndPersistsCatalogEndpoint" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="586164ed-c868-7343-32f5-8f9da3173cf6">
+      <Execution id="faa90b06-fe1a-467f-9e6e-06238679fe98" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="CompleteSmallProtocolIncludesBothInclusiveLoopsAndPersistsCatalogEndpoint" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.AbsolutePositionsDoNotMoveDownstreamParametersAndRatesUsePhysicalUnits" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="9e562ca2-46e3-96cb-a039-a36aec3c33c5">
+      <Execution id="ad63f8e3-4ab3-4093-b5ee-9a04cc967f48" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="AbsolutePositionsDoNotMoveDownstreamParametersAndRatesUsePhysicalUnits" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenImageLossAndDetachedGradientsAgree" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="e97fb688-00db-a1fc-1ca6-9c3d3036e98a">
+      <Execution id="e748c6dd-9c88-4a9a-b81c-617207136296" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="UpstreamFrozenImageLossAndDetachedGradientsAgree" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenLinearBoundsProfilesMaterialsAndGradientsAgree" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="acaa1faf-7f93-ebcf-f464-6b4ea01362a1">
+      <Execution id="096eea3f-bb5a-4945-a386-72b7a5aaf950" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="UpstreamFrozenLinearBoundsProfilesMaterialsAndGradientsAgree" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="fc41a6a5-0a9c-e01d-5619-256df373af9b">
+      <Execution id="b5a09b0d-5b79-4c5c-9082-ae74bb312636" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.BudgetPauseKeepsFullCourseAndSerializedCacheResumesIdentically" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="b27d81a2-6852-e172-cd8e-8277f903f4f5">
+      <Execution id="fc3ee8e7-4a28-4de2-ae72-e7bb35f74bb0" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="BudgetPauseKeepsFullCourseAndSerializedCacheResumesIdentically" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenAdamMomentsAndBothSchedulesAgreeIncludingNonFiniteSanitization" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="ef0c77d8-a960-7b85-bf0d-6bb39813ab80">
+      <Execution id="4b06f2e3-0c0e-4b9d-850d-b4344fd813d6" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="UpstreamFrozenAdamMomentsAndBothSchedulesAgreeIncludingNonFiniteSanitization" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="fc41a6a5-0a9c-e01d-5619-256df373af9b" executionId="b5a09b0d-5b79-4c5c-9082-ae74bb312636" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e97fb688-00db-a1fc-1ca6-9c3d3036e98a" executionId="e748c6dd-9c88-4a9a-b81c-617207136296" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ef0c77d8-a960-7b85-bf0d-6bb39813ab80" executionId="4b06f2e3-0c0e-4b9d-850d-b4344fd813d6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9e562ca2-46e3-96cb-a039-a36aec3c33c5" executionId="ad63f8e3-4ab3-4093-b5ee-9a04cc967f48" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b5c1925c-a53e-f697-ce69-02483c9d3da9" executionId="222768b1-2f7b-4914-8ffa-fb9849ff322e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a9da59b1-8a70-5b77-3dba-6b95c627846a" executionId="7f1f7b5b-8ef8-4e2e-9687-275769090095" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="acaa1faf-7f93-ebcf-f464-6b4ea01362a1" executionId="096eea3f-bb5a-4945-a386-72b7a5aaf950" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b27d81a2-6852-e172-cd8e-8277f903f4f5" executionId="fc3ee8e7-4a28-4de2-ae72-e7bb35f74bb0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="586164ed-c868-7343-32f5-8f9da3173cf6" executionId="faa90b06-fe1a-467f-9e6e-06238679fe98" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="9" executed="9" passed="6" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.52]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.59]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.61]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:01.64]       System.IO.FileNotFoundException : Could not load file or assembly 'ILGPU, Version=1.5.3.0, Culture=neutral, PublicKeyToken=null'. 系统找不到指定的文件。&#xD;
+[xUnit.net 00:00:01.64]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.64]            at OpticalSystemDesign.Core.Differentiation.FixedInputOpticalMetrics.Evaluate(Optic optic, IReadOnlyList`1 parameters, FixedInputRaySet inputs, Double bendCosineGate, DesignComputeMode mode, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:01.64]            at OpticalSystemDesign.Core.Differentiation.FixedInputOpticalMetrics.Evaluate(Optic optic, IReadOnlyList`1 parameters, FixedInputRaySet inputs, Double bendCosineGate, DesignComputeMode mode, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:01.64]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceDesign.cs(240,0): at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceDesign.&lt;&gt;c__DisplayClass0_2.&lt;Run&gt;g__Evaluate|12(FixedInputRaySet inputs, Double bendGate, &lt;&gt;c__DisplayClass0_1&amp;)&#xD;
+[xUnit.net 00:00:01.64]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceDesign.cs(216,0): at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceDesign.&lt;&gt;c__DisplayClass0_0.&lt;Run&gt;g__Optimize|0(Boolean curriculum)&#xD;
+[xUnit.net 00:00:01.64]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceDesign.cs(62,0): at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceDesign.Run(InitialStructureSpecification spec, Int32 elements, FlatStartBootstrapResult bootstrap, Stopwatch clock, FlatStartFamily family, IReadOnlyList`1 allowed, CancellationToken token, AutoLensManagedState resume, OpticSnapshot restart, String parent)&#xD;
+[xUnit.net 00:00:01.64]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\FlatStartDesignService.cs(32,0): at OpticalSystemDesign.InitialStructure.Engine.FlatStartDesignService.Solve(InitialStructureSpecification specification, Int32 elementCount, CancellationToken cancellationToken, FlatStartFamily family, Boolean screenOnly, IReadOnlyList`1 allowedGlassNames)&#xD;
+[xUnit.net 00:00:01.64]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\FlatStartSearchService.cs(275,0): at OpticalSystemDesign.InitialStructure.Engine.FlatStartSearchService.Execute(InitialStructureSpecification specification, TrialWork work, TimeSpan timeLimit, IReadOnlyList`1 allowedGlassNames, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:01.64]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\FlatStartSearchService.cs(204,0): at OpticalSystemDesign.InitialStructure.Engine.FlatStartSearchService.&lt;&gt;c__DisplayClass6_3.&lt;RunAsync&gt;b__10()&#xD;
+[xUnit.net 00:00:01.64]            at System.Threading.Tasks.Task`1.InnerInvoke()&#xD;
+[xUnit.net 00:00:01.64]            at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+[xUnit.net 00:00:01.64]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:01.64]            at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+[xUnit.net 00:00:01.64]            at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task&amp; currentTaskSlot, Thread threadPoolThread)&#xD;
+[xUnit.net 00:00:01.64]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:01.64]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\FlatStartSearchService.cs(204,0): at OpticalSystemDesign.InitialStructure.Engine.FlatStartSearchService.RunAsync(InitialStructureSpecification specification, FlatStartSearchOptions options, CancellationToken cancellationToken, FlatStartSearchCheckpoint checkpoint, Func`3 checkpointSink)&#xD;
+[xUnit.net 00:00:01.64]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutoLensReferenceTests.cs(261,0): at OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.CompleteSmallProtocolIncludesBothInclusiveLoopsAndPersistsCatalogEndpoint()&#xD;
+[xUnit.net 00:00:01.64]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:01.65]       System.IO.FileNotFoundException : Could not load file or assembly 'ILGPU, Version=1.5.3.0, Culture=neutral, PublicKeyToken=null'. 系统找不到指定的文件。&#xD;
+[xUnit.net 00:00:01.65]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.65]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Differentiation\FixedInputOpticalMetrics.cs(66,0): at OpticalSystemDesign.Core.Differentiation.FixedInputOpticalMetrics.Evaluate(Optic optic, IReadOnlyList`1 parameters, FixedInputRaySet inputs, Double bendCosineGate, DesignComputeMode mode, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:01.65]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Differentiation\FixedInputOpticalMetrics.cs(66,0): at OpticalSystemDesign.Core.Differentiation.FixedInputOpticalMetrics.Evaluate(Optic optic, IReadOnlyList`1 parameters, FixedInputRaySet inputs, Double bendCosineGate, DesignComputeMode mode, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:01.65]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutoLensReferenceTests.cs(190,0): at OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu()&#xD;
+[xUnit.net 00:00:01.65]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.65]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.65]       System.IO.FileNotFoundException : Could not load file or assembly 'ILGPU, Version=1.5.3.0, Culture=neutral, PublicKeyToken=null'. 系统找不到指定的文件。&#xD;
+[xUnit.net 00:00:01.65]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.65]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Differentiation\FixedInputOpticalMetrics.cs(66,0): at OpticalSystemDesign.Core.Differentiation.FixedInputOpticalMetrics.Evaluate(Optic optic, IReadOnlyList`1 parameters, FixedInputRaySet inputs, Double bendCosineGate, DesignComputeMode mode, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:01.65]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Differentiation\FixedInputOpticalMetrics.cs(66,0): at OpticalSystemDesign.Core.Differentiation.FixedInputOpticalMetrics.Evaluate(Optic optic, IReadOnlyList`1 parameters, FixedInputRaySet inputs, Double bendCosineGate, DesignComputeMode mode, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:01.65]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceDesign.cs(240,0): at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceDesign.&lt;&gt;c__DisplayClass0_2.&lt;Run&gt;g__Evaluate|12(FixedInputRaySet inputs, Double bendGate, &lt;&gt;c__DisplayClass0_1&amp;)&#xD;
+[xUnit.net 00:00:01.65]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceDesign.cs(216,0): at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceDesign.&lt;&gt;c__DisplayClass0_0.&lt;Run&gt;g__Optimize|0(Boolean curriculum)&#xD;
+[xUnit.net 00:00:01.65]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\AutoLensReferenceDesign.cs(62,0): at OpticalSystemDesign.InitialStructure.Engine.AutoLensReferenceDesign.Run(InitialStructureSpecification spec, Int32 elements, FlatStartBootstrapResult bootstrap, Stopwatch clock, FlatStartFamily family, IReadOnlyList`1 allowed, CancellationToken token, AutoLensManagedState resume, OpticSnapshot restart, String parent)&#xD;
+[xUnit.net 00:00:01.65]         D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\FlatStartDesignService.cs(32,0): at OpticalSystemDesign.InitialStructure.Engine.FlatStartDesignService.Solve(InitialStructureSpecification specification, Int32 elementCount, CancellationToken cancellationToken, FlatStartFamily family, Boolean screenOnly, IReadOnlyList`1 allowedGlassNames)&#xD;
+[xUnit.net 00:00:01.65]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutoLensReferenceTests.cs(234,0): at OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.BudgetPauseKeepsFullCourseAndSerializedCacheResumesIdentically()&#xD;
+[xUnit.net 00:00:01.65]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:01.65]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.66]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-24T22:42:24.2103444+08:00">
+        <Text>[xUnit.net 00:00:01.63]     OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.CompleteSmallProtocolIncludesBothInclusiveLoopsAndPersistsCatalogEndpoint [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-24T22:42:24.2268023+08:00">
+        <Text>[xUnit.net 00:00:01.65]     OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.FrozenFiniteInputDerivativesMatchFormalCorePerturbationsAndGpu [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-24T22:42:24.2287628+08:00">
+        <Text>[xUnit.net 00:00:01.65]     OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.BudgetPauseKeepsFullCourseAndSerializedCacheResumesIdentically [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

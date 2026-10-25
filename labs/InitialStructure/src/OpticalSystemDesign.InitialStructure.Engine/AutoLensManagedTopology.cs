@@ -28,8 +28,9 @@ internal static class AutoLensManagedTopology
         for (var gap = 0; gap < elements - 1; gap++)
         {
             if (!IsCemented(specification, gap)) continue;
-            var back = optic.SurfaceGroup.Items[2 * gap + 2];
-            var next = optic.SurfaceGroup.Items[2 * gap + 3];
+            var offset = optic.SurfaceGroup.Items.Count == 2 * elements + 3 ? 1 : 0;
+            var back = optic.SurfaceGroup.Items[2 * gap + 2 + offset];
+            var next = optic.SurfaceGroup.Items[2 * gap + 3 + offset];
             back.Thickness = 0;
             back.MaterialAfter = next.MaterialAfter.Clone();
             next.Geometry = back.Geometry.Clone();
@@ -39,8 +40,9 @@ internal static class AutoLensManagedTopology
 
     public static bool IsValid(Optic optic, int gap)
     {
-        var back = optic.SurfaceGroup.Items[2 * gap + 2];
-        var next = optic.SurfaceGroup.Items[2 * gap + 3];
+        var offset = optic.SurfaceGroup.Items.Count % 2 == 1 ? 1 : 0;
+        var back = optic.SurfaceGroup.Items[2 * gap + 2 + offset];
+        var next = optic.SurfaceGroup.Items[2 * gap + 3 + offset];
         return back.Thickness == 0 && back.CoordinateSystem == next.CoordinateSystem
             && ContentFingerprint.Compute(ComponentSnapshotFactory.FromGeometry(back.Geometry)) == ContentFingerprint.Compute(ComponentSnapshotFactory.FromGeometry(next.Geometry))
             && ContentFingerprint.Compute(ComponentSnapshotFactory.FromMaterial(back.MaterialAfter)) == ContentFingerprint.Compute(ComponentSnapshotFactory.FromMaterial(next.MaterialAfter));

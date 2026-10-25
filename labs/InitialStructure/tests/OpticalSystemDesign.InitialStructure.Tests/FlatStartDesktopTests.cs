@@ -45,9 +45,7 @@ public sealed class FlatStartDesktopTests
             {
                 (1, "Advanced", ["MinimumCenter", "MinimumAir", "MinimumBack", "MinimumEdge", "FixedBack", "FixedBackValue"]),
                 (1, "MaterialSettings", ["AllowedGlasses", "InitialGlass", "Catalogs"]),
-                (1, "ApertureSettings", ["AutomaticDiameters", "PhysicalStop", "ApertureMargin"]),
                 (2, "AutoLensSettings", ["AutoLensAsphere", "AutoLensMaterials", "AutoLensCemented", "AutoLensCurriculum", "AutoLensRefinement"]),
-                (2, "StartingSettings", ["StartingRadius", "StartingCenter", "StartingAir", "SignFilter", "SearchStop", "FreeStop"]),
                 (2, "RefinementSettings", ["RefinementBudget"])
             };
             foreach (var group in groups)
@@ -78,9 +76,9 @@ public sealed class FlatStartDesktopTests
             Assert.True(fixedValue.IsEnabled);
             fixedBack.IsChecked = false;
             Assert.False(fixedValue.IsEnabled);
-            Assert.Equal(50m, Find<NumericUpDown>(window, "FocalLength").Value);
-            Assert.Equal(8m, Find<NumericUpDown>(window, "FNumber").Value);
-            Assert.Equal(2m, Find<NumericUpDown>(window, "MinimumCenter").Value);
+            Assert.Equal(5m, Find<NumericUpDown>(window, "FocalLength").Value);
+            Assert.Equal(1.8m, Find<NumericUpDown>(window, "FNumber").Value);
+            Assert.Equal(.4m, Find<NumericUpDown>(window, "MinimumCenter").Value);
             Assert.Null(window.CurrentCheckpoint);
             // Expanding/collapsing the reorganized sections must not alter the specification.
             Click(window, "Validate"); await window.PendingOperation;
@@ -135,8 +133,8 @@ public sealed class FlatStartDesktopTests
                 Assert.Same(brush, root.Background);
                 Assert.Equal(Avalonia.Styling.ThemeVariant.Dark, root.ActualThemeVariant);
                 Capture(window, "organized-dark");
-                Assert.Equal(50m, Find<NumericUpDown>(window, "FocalLength").Value);
-                Assert.Equal(8m, Find<NumericUpDown>(window, "FNumber").Value);
+                Assert.Equal(5m, Find<NumericUpDown>(window, "FocalLength").Value);
+                Assert.Equal(1.8m, Find<NumericUpDown>(window, "FNumber").Value);
                 Assert.Null(window.CurrentCheckpoint);
             }
             finally
@@ -159,9 +157,9 @@ public sealed class FlatStartDesktopTests
             Click(window, "Generate"); await window.PendingOperation;
             Assert.NotNull(window.CurrentCheckpoint);
             var selector = Find<ComboBox>(window, "OfficialExample");
-            var presets = AutoLensOfficialExamples.Create();
-            Assert.Equal(presets.Count, selector.ItemCount);
-            for (var index = 0; index < presets.Count; index++)
+            var presets = new[] { AutoLensReferenceExamples.Mobile() }.Concat(AutoLensOfficialExamples.Create()).ToArray();
+            Assert.Equal(presets.Length, selector.ItemCount);
+            for (var index = 0; index < presets.Length; index++)
             {
                 Find<TabControl>(window, "InputTabs").SelectedIndex = 0;
                 selector.SelectedIndex = index;
@@ -173,8 +171,8 @@ public sealed class FlatStartDesktopTests
                 Assert.Equal((decimal)presets[index].Specification.FNumber, Find<NumericUpDown>(window, "FNumber").Value);
                 Assert.Equal((decimal)presets[index].Specification.MaximumFieldAngleDegrees, Find<NumericUpDown>(window, "HalfField").Value);
                 Assert.Equal(UiLocalization.Text("AutoLens · C# 自动求导"), Find<TextBlock>(window, "OptimizationMethod").Text);
-                Assert.Equal(4, Find<ComboBox>(window, "AutoLensAsphere").SelectedIndex);
-                Assert.Equal(4000m, Find<NumericUpDown>(window, "EvaluationBudget").Value);
+                Assert.Equal(presets[index].Specification.FlatStart!.AutoLens!.EvenAsphereOrder - 1, Find<ComboBox>(window, "AutoLensAsphere").SelectedIndex);
+                Assert.Equal((decimal)presets[index].Specification.Budget.MaximumEvaluations, Find<NumericUpDown>(window, "EvaluationBudget").Value);
                 Assert.Contains("尚未运行", Find<TextBlock>(window, "Status").Text);
                 Click(window, "Validate"); await window.PendingOperation;
                 Assert.Contains("预检查通过", Find<TextBlock>(window, "Status").Text);
@@ -264,7 +262,8 @@ public sealed class FlatStartDesktopTests
             Find<TabControl>(window, "InputTabs").SelectedIndex = 2;
             Find<TextBlock>(window, "OptimizationMethod").BringIntoView(); window.UpdateLayout();
             Capture(window, "autolens-only-legacy-" + method);
-            Find<NumericUpDown>(window, "EvaluationBudget").Value = 8;
+            Click(window, "VisibleSpectrum");
+            Find<NumericUpDown>(window, "EvaluationBudget").Value = 1;
             Find<NumericUpDown>(window, "AutoLensCurriculum").Value = 1;
             Find<NumericUpDown>(window, "AutoLensRefinement").Value = 1;
             Click(window, "Generate"); await window.PendingOperation;
@@ -284,7 +283,7 @@ public sealed class FlatStartDesktopTests
         using var host = new DesktopHost();
         await host.Run(async () =>
         {
-            var window = host.Window(defaultInputs: true);
+            var window = host.Window();
             window.Show(); await window.Ready;
             Assert.DoesNotContain(window.GetLogicalDescendants().OfType<ComboBox>(), control => control.Name == "OptimizationMethod");
             Assert.Equal(0, Find<ComboBox>(window, "ComputeMode").SelectedIndex);
@@ -306,7 +305,7 @@ public sealed class FlatStartDesktopTests
                 Assert.DoesNotContain(trial.Diagnostics, diagnostic => diagnostic.Code.StartsWith("design.autolens-native-target-polish", StringComparison.Ordinal));
             });
             Assert.DoesNotContain(window.GetLogicalDescendants().OfType<NumericUpDown>(), control => control.Name == "AutoLensPolish");
-            Assert.Contains("autolens-managed-v1", checkpoint.Algorithm.Name);
+            Assert.Contains("autolens-upstream-e58-v2", checkpoint.Algorithm.Name);
             File.Copy(Path.Combine(host.Directory, checkpoint.RunId + ".family.json"), host.OpenPath);
             Find<TextBox>(window, "AutoLensCemented").Text = "";
             Assert.Null(window.CurrentCheckpoint);
@@ -353,21 +352,15 @@ public sealed class FlatStartDesktopTests
         });
     }
 
-    [Theory]
-    [InlineData("AutomaticDiameters")]
-    [InlineData("AutoLensMaterials")]
-    public async Task NewDesktopExperimentDefaultsToPhysicalStopAndAutomaticDiametersAndPolicyChangesClearResults(string changedControl)
+    [Fact]
+    public async Task NewDesktopExperimentDefaultsToPhysicalStopAndAutomaticDiametersAndPolicyChangesClearResults()
     {
         using var host = new DesktopHost();
         await host.Run(async () =>
         {
-            var window = host.Window(defaultInputs: true);
+            var window = host.Window();
             window.Show(); await window.Ready;
-            var automatic = Find<CheckBox>(window, "AutomaticDiameters");
-            Assert.True(automatic.IsChecked);
-            Assert.True(Find<CheckBox>(window, "PhysicalStop").IsChecked);
-            Assert.False(Find<CheckBox>(window, "PhysicalStop").IsEnabled);
-            Assert.NotNull(ToolTip.GetTip(Find<CheckBox>(window, "PhysicalStop")));
+            Assert.DoesNotContain(window.GetLogicalDescendants().OfType<CheckBox>(), control => control.Name is "AutomaticDiameters" or "PhysicalStop");
             Find<NumericUpDown>(window, "AutoLensCurriculum").Value = 1;
             Find<NumericUpDown>(window, "AutoLensRefinement").Value = 1;
             Find<NumericUpDown>(window, "EvaluationBudget").Value = 16;
@@ -389,7 +382,7 @@ public sealed class FlatStartDesktopTests
             Click(window, "Export"); await window.PendingOperation;
             var exported = await StarOptProjectStore.LoadAsync(host.ExportPath);
             Assert.Equal(row.Candidate.OpticFingerprint, ContentFingerprint.Compute(exported.Configurations[0].ToSnapshot()));
-            Find<CheckBox>(window, changedControl).IsChecked = false;
+            Find<CheckBox>(window, "AutoLensMaterials").IsChecked = false;
             Assert.Null(window.CurrentCheckpoint);
             Assert.Null(preview.PrimaryScene);
             Assert.False(Find<Button>(window, "Export").IsEnabled);
@@ -411,7 +404,7 @@ public sealed class FlatStartDesktopTests
             window.Show(); await window.Ready;
             Assert.True(Find<Border>(window, "CandidateEmpty").IsVisible);
             Assert.True(Find<Border>(window, "PreviewEmpty").IsVisible);
-            Assert.True(Find<CheckBox>(window, "PhysicalStop").IsChecked);
+            Assert.DoesNotContain(window.GetLogicalDescendants().OfType<CheckBox>(), control => control.Name == "PhysicalStop");
             Click(window, "Generate");
             Assert.False(Find<NumericUpDown>(window, "FocalLength").IsEffectivelyEnabled);
             await window.PendingOperation;
@@ -449,35 +442,28 @@ public sealed class FlatStartDesktopTests
     }
 
     [Fact]
-    public async Task FormSearchControlsPlanHistoryAndInvalidationUseActualWidgets()
+    public async Task ReferenceRandomStartPlanHistoryAndInvalidationUseActualWidgets()
     {
         using var host = new DesktopHost();
         await host.Run(async () =>
         {
             var window = host.Window(budget: 32); window.Show(); await window.Ready;
-            Find<ComboBox>(window, "SearchMode").SelectedIndex = 1;
-            Find<TextBox>(window, "SignFilter").Text = "+*-";
-            Find<NumericUpDown>(window, "StartingRadius").Value = 400;
-            Find<NumericUpDown>(window, "StartingCenter").Value = 3;
-            Find<NumericUpDown>(window, "StartingAir").Value = 2;
-            Find<NumericUpDown>(window, "SearchStop").Value = 2;
-            Find<CheckBox>(window, "FreeStop").IsChecked = false;
+            Assert.DoesNotContain(window.GetLogicalDescendants().OfType<Control>(), control => control.Name is "SearchMode" or "SignFilter" or "StartingRadius" or "SearchStop" or "FreeStop");
             Click(window, "Validate"); await window.PendingOperation;
-            Assert.Contains("允许 2 种", Find<TextBlock>(window, "SearchPlan").Text);
-            Assert.Contains("FULL", Find<TextBlock>(window, "SearchPlan").Text);
+            Assert.Contains("独立随机起点", Find<TextBlock>(window, "SearchPlan").Text);
             Click(window, "Generate"); await window.PendingOperation;
             var checkpoint = window.CurrentCheckpoint!;
-            Assert.Equal(400, checkpoint.Options.DesignSearch!.StartingRadiusMillimeters);
+            Assert.Null(checkpoint.Options.DesignSearch!.StartingRadiusMillimeters);
             Assert.Equal(DesignSearchMode.Full, checkpoint.Options.DesignSearch.Mode);
-            Assert.Equal("++-", checkpoint.RootPlan[0].BinaryStart!.Signs);
-            Assert.All(checkpoint.Trials, trial => Assert.Equal(2, trial.Family.StopSurfaceIndex));
+            Assert.Null(checkpoint.RootPlan[0].BinaryStart);
+            Assert.All(checkpoint.Trials, trial => Assert.Equal(1, trial.Family.StopSurfaceIndex));
             Assert.Equal(checkpoint.Trials.Count, Find<DataGrid>(window, "SearchHistory").ItemsSource.Cast<SearchHistoryRow>().Count());
             Find<TabControl>(window, "DetailsTabs").SelectedIndex = 5;
             Find<TabControl>(window, "InputTabs").SelectedIndex = 2;
             Capture(window, "form-search-plan");
             Assert.Same(checkpoint, window.CurrentCheckpoint);
             Assert.NotEmpty(Find<DataGrid>(window, "Candidates").ItemsSource.Cast<CandidateRow>());
-            Find<TextBox>(window, "SignFilter").Text = "***";
+            Find<NumericUpDown>(window, "RandomSeed").Value = 43;
             Assert.Null(window.CurrentCheckpoint);
             Assert.Null(Find<DataGrid>(window, "SearchHistory").ItemsSource);
             window.Close();
@@ -513,10 +499,11 @@ public sealed class FlatStartDesktopTests
             window.KeyPress(Key.Tab, RawInputModifiers.None, PhysicalKey.Tab, null);
             window.KeyRelease(Key.Tab, RawInputModifiers.None, PhysicalKey.Tab, null);
             var waves = Find<DataGrid>(window, "Wavelengths").ItemsSource.Cast<WavelengthRow>().ToArray();
-            waves[0].IsPrimary = false;
+            var primary = waves.Single(wave => wave.IsPrimary);
+            primary.IsPrimary = false;
             Click(window, "Validate"); await window.PendingOperation;
             Assert.Contains("主波长", Find<TextBlock>(window, "Status").Text);
-            waves[0].IsPrimary = true;
+            primary.IsPrimary = true;
             Find<TextBox>(window, "AllowedGlasses").Text = "MISSING-P4, N-BK7";
             Click(window, "Validate"); await window.PendingOperation;
             Assert.Contains("预检查通过", Find<TextBlock>(window, "Status").Text);
@@ -703,7 +690,7 @@ public sealed class FlatStartDesktopTests
             var window = new MainWindow(new LabDesktopSettings
             {
                 RunDirectory = Directory,
-                InitialSpecification = defaultInputs ? null : AutoLensManagedTests.Specification(budget),
+                InitialSpecification = defaultInputs ? null : ReferenceDesktopSpecification(budget),
                 InitialOptions = FlatStartRefinementTests.Options,
                 SavePicker = (_, _) => Task.FromResult<string?>(ExportPath),
                 OpenPicker = _ => Task.FromResult<string?>(OpenPath)
@@ -711,6 +698,14 @@ public sealed class FlatStartDesktopTests
             { Width = width, Height = 850 };
             _windows.Add(window);
             return window;
+        }
+        private static InitialStructureSpecification ReferenceDesktopSpecification(int budget)
+        {
+            var source = AutoLensManagedTests.Specification(budget);
+            return source with { Conjugate = ObjectConjugateMode.Finite, Wavelengths = AutoLensReferenceExamples.Mobile().Specification.Wavelengths,
+                FlatStart = source.FlatStart! with { AutoLens = source.FlatStart.AutoLens! with
+                { Policy = AutoLensManagedPolicy.UpstreamE58, ComputeMode = OpticalSystemDesign.Core.Differentiation.DesignComputeMode.Automatic,
+                    TrainingSampling = AutoLensReferenceTests.Small().FlatStart!.AutoLens!.TrainingSampling } } };
         }
         public Task Run(Func<Task> test) => _session.Dispatch(async () =>
         {

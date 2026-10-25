@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="634a64f0-ae7d-4a63-8448-c1fe9eac4e2f" name="allen@DESKTOP-SET3SNR 2026-10-25 10:21:48" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-25T10:21:48.1117872+08:00" queuing="2026-10-25T10:21:48.1117874+08:00" start="2026-10-25T10:21:45.2235687+08:00" finish="2026-10-25T10:23:31.0538191+08:00" />
+  <TestSettings name="default" id="a71cf0bf-05b9-48d7-9743-d728c4b28c88">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-25_10_21_48" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9939441b-2b56-473e-8336-3b779f18ffa6" testId="25a48a10-fa7c-a91e-e676-4a42be05bf74" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamJsonHandoffRebuildsEveryPositionFromRoundedGaps" computerName="DESKTOP-SET3SNR" duration="00:00:00.3561027" startTime="2026-10-25T10:21:48.0898580+08:00" endTime="2026-10-25T10:21:48.3934228+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9939441b-2b56-473e-8336-3b779f18ffa6" />
+    <UnitTestResult executionId="f5b5ddb3-e542-4011-9c63-49cdbdb347ed" testId="e97fb688-00db-a1fc-1ca6-9c3d3036e98a" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenImageLossAndDetachedGradientsAgree" computerName="DESKTOP-SET3SNR" duration="00:00:00.3642519" startTime="2026-10-25T10:21:47.6680157+08:00" endTime="2026-10-25T10:21:48.0371383+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f5b5ddb3-e542-4011-9c63-49cdbdb347ed" />
+    <UnitTestResult executionId="8b41a29f-a608-40b6-a6ca-b385f3820f23" testId="586164ed-c868-7343-32f5-8f9da3173cf6" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.CompleteSmallProtocolIncludesBothInclusiveLoopsAndPersistsCatalogEndpoint" computerName="DESKTOP-SET3SNR" duration="00:01:42.5693159" startTime="2026-10-25T10:21:48.3940797+08:00" endTime="2026-10-25T10:23:30.9661011+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8b41a29f-a608-40b6-a6ca-b385f3820f23">
+      <Output>
+        <StdOut>search.schedule: Independent e58-style random start; full configured phases, no binary screening or neighborhood mutation.
+design.autolens-upstream-e58-v2: Pinned e58 mobile protocol: random weak-curvature finite-object start, independent axial positions, cached un-aimed RGB input rays, detached green reference/weights, linear constraints, direct Adam, upstream schedules and full phase lengths. Shared double-precision Core and an explicit portable random stream remain numerical backend differences.
+design.acceptance: Training loss never certifies throughput or target compliance. Only the completed endpoint receives separate unchanged dense physical gates; no incumbent replacement or target polish.
+design.reference-curriculum: 5/5 unconditional Adam updates; configured iterations=4, inclusive upstream loop; 25 independent coordinates. Sampling interval=1; no schedule compression or loss backtracking.
+design.reference-refinement: 5/5 unconditional Adam updates; configured iterations=4, inclusive upstream loop; 23 independent coordinates. Sampling interval=1; no schedule compression or loss backtracking.</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamFrozenImageLossAndDetachedGradientsAgree" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="e97fb688-00db-a1fc-1ca6-9c3d3036e98a">
+      <Execution id="f5b5ddb3-e542-4011-9c63-49cdbdb347ed" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="UpstreamFrozenImageLossAndDetachedGradientsAgree" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.UpstreamJsonHandoffRebuildsEveryPositionFromRoundedGaps" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="25a48a10-fa7c-a91e-e676-4a42be05bf74">
+      <Execution id="9939441b-2b56-473e-8336-3b779f18ffa6" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="UpstreamJsonHandoffRebuildsEveryPositionFromRoundedGaps" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests.CompleteSmallProtocolIncludesBothInclusiveLoopsAndPersistsCatalogEndpoint" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="586164ed-c868-7343-32f5-8f9da3173cf6">
+      <Execution id="8b41a29f-a608-40b6-a6ca-b385f3820f23" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensReferenceTests" name="CompleteSmallProtocolIncludesBothInclusiveLoopsAndPersistsCatalogEndpoint" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="25a48a10-fa7c-a91e-e676-4a42be05bf74" executionId="9939441b-2b56-473e-8336-3b779f18ffa6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e97fb688-00db-a1fc-1ca6-9c3d3036e98a" executionId="f5b5ddb3-e542-4011-9c63-49cdbdb347ed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="586164ed-c868-7343-32f5-8f9da3173cf6" executionId="8b41a29f-a608-40b6-a6ca-b385f3820f23" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.95]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:01.04]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:01.06]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:01:44.38]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

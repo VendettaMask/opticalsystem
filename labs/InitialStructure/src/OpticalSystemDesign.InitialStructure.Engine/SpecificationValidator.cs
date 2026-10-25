@@ -30,6 +30,9 @@ public static class SpecificationValidator
         {
             errors.Add("object conjugate mode is invalid");
         }
+        if (specification.Conjugate == ObjectConjugateMode.Finite
+            && specification.FlatStart?.AutoLens?.Policy != AutoLensManagedPolicy.UpstreamE58)
+            errors.Add("finite object design requires the e58 reference protocol");
 
         if (string.IsNullOrWhiteSpace(specification.Name)
             || specification.Name.Length > InitialStructureLimits.MaximumNameLength)
@@ -193,15 +196,28 @@ public static class SpecificationValidator
             if (flat.OptimizationMethod == FlatStartOptimizationMethod.AutoLensManagedV1)
             {
                 var autoLens = flat.AutoLens ?? new();
+                var reference = autoLens.Policy == AutoLensManagedPolicy.UpstreamE58;
+                if (!Enum.IsDefined(autoLens.Policy)) errors.Add("AutoLens protocol policy is invalid");
+                if (reference && (budget.RandomSeed < 0 || budget.RandomSeed > uint.MaxValue - 128)) errors.Add("the reference initializer requires an unsigned 32-bit seed with space for the requested starts");
                 if (!Enum.IsDefined(autoLens.ComputeMode)) errors.Add("AutoLens compute device mode is invalid");
                 if (!flat.UsePhysicalStop) errors.Add("native AutoLens requires the physical stop and formal stop aiming");
                 if (autoLens.CurriculumIterations is < 1 or > 10000 || autoLens.RefinementIterations is < 1 or > 10000
-                    || autoLens.EvenAsphereOrder is not (0 or >= 2 and <= 5)
+                    || autoLens.EvenAsphereOrder != 0 && (autoLens.EvenAsphereOrder < 2 || autoLens.EvenAsphereOrder > (reference ? 9 : 5))
                     || autoLens.FieldRings is < 2 or > 21 || autoLens.PupilRings is < 1 or > 10 || autoLens.PupilArms is < 4 or > 64
                     || autoLens.ResampleInterval is < 1 or > 10000
                     || autoLens.TargetPolishEvaluations is < 0 or > 2000
                     || !double.IsFinite(autoLens.LearningRateFactor) || autoLens.LearningRateFactor is <= 0 or > 100)
                     errors.Add("native AutoLens iteration, profile, sampling or learning-rate settings are outside supported bounds");
+                if (reference && autoLens.TargetPolishEvaluations != 0) errors.Add("the upstream reference protocol does not use target polishing");
+                if (reference && (specification.Wavelengths ?? []).Where(wave => wave is not null && wave.Weight > 0).OrderByDescending(wave => wave.Nanometers).ToArray() is var rgb
+                    && (rgb.Length != 3 || !rgb[1].IsPrimary))
+                    errors.Add("the upstream reference protocol requires three active RGB wavelengths with the middle wavelength primary");
+                if (autoLens.TrainingSampling is { } sampling && (!reference
+                    || new[] { sampling.CurriculumRings, sampling.RefinementRings, sampling.RegularizationRings, sampling.ShapeRings }.Any(value => value is < 2 or > 21)
+                    || sampling.FieldScanRings is < 2 or > 101
+                    || new[] { sampling.CurriculumArms, sampling.RefinementArms }.Any(value => value is < 1 or > 16)
+                    || new[] { sampling.CurriculumRays, sampling.RefinementRays, sampling.RegularizationRays, sampling.ShapeRays, sampling.FieldScanRays }.Any(value => value is < 1 or > 4096)))
+                    errors.Add("explicit reference sampling is outside the bounded Core protocol");
                 if (autoLens.CementedGaps is null || autoLens.CementedGaps.Count > 7
                     || autoLens.CementedGaps.Distinct().Count() != autoLens.CementedGaps.Count
                     || autoLens.CementedGaps.Any(gap => gap < 0 || gap >= specification.MinimumElementCount - 1))
