@@ -202,6 +202,50 @@ public sealed class CloudReleaseTests
     }
 
     [Theory]
+    [InlineData("aaaaaaaa", true)]
+    [InlineData("bbbbbbbb", false)]
+    [InlineData("AAAAaaaa", false)]
+    [InlineData("aaaaaaa", false)]
+    [InlineData("aaaaaaaaa", false)]
+    public void SourceCodedHandoffMustMatchItsBuildRecord(string code, bool accepted)
+    {
+        using var fixture = new Handoff();
+        File.Move(Path.Combine(fixture.Directory, fixture.ExeName),
+            Path.Combine(fixture.Directory, fixture.ExeName.Replace(".exe", $"-{code}.exe", StringComparison.Ordinal)));
+        var result = fixture.Run();
+        Assert.Equal(accepted, result.ExitCode == 0);
+        Assert.DoesNotContain("GH_TOKEN is required", result.Output);
+    }
+
+    [Theory]
+    [InlineData("win-x64", 2)]
+    [InlineData("win-arm64", 1)]
+    [InlineData("osx-arm64", 1)]
+    public void RefreshReplacesLegacyAndCodedNamesOnlyForTheSelectedArchitecture(string runtime, int expected)
+    {
+        var path = Path.Combine(RepositoryRoot(), "scripts", "publish-github-exe.ps1").Replace("'", "''");
+        var script = $$"""
+            $ast = [Management.Automation.Language.Parser]::ParseFile('{{path}}', [ref]$null, [ref]$null)
+            $pattern = $ast.Find({ param($n) $n -is [Management.Automation.Language.AssignmentStatementAst] -and $n.Left.Extent.Text -eq '$canonicalPattern' }, $true)
+            $version = '1.0.4'; $suffix = 'UnsignedTest'; $testPackage = $true
+            Invoke-Expression $pattern.Extent.Text
+            $definition = $ast.Find({ param($n) $n -is [Management.Automation.Language.FunctionDefinitionAst] -and $n.Name -eq 'Get-ReplacedInstallerAssets' }, $true)
+            Invoke-Expression $definition.Extent.Text
+            $names = @('OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup.exe',
+                'OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-aaaaaaaa.exe',
+                'OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-bbbbbbbb.exe',
+                'OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg')
+            $assets = @($names | ForEach-Object { [pscustomobject]@{name=$_} })
+            @(Get-ReplacedInstallerAssets $assets @('{{runtime}}') $canonicalPattern) | ConvertTo-Json -AsArray -Compress
+            """;
+        var result = RunPowerShell("-Command", script);
+        Assert.Equal(0, result.ExitCode);
+        using var json = JsonDocument.Parse(result.Output);
+        Assert.Equal(expected, json.RootElement.GetArrayLength());
+        Assert.All(json.RootElement.EnumerateArray(), item => Assert.Contains($"-{runtime}-", item.GetProperty("name").GetString()));
+    }
+
+    [Theory]
     [InlineData(0)]
     [InlineData(1)]
     [InlineData(3)]

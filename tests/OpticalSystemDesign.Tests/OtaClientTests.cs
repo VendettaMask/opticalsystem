@@ -37,6 +37,22 @@ internal static class OtaTestData
 
 public sealed class OtaClientTests
 {
+    [Theory]
+    [InlineData(false, "aaaaaaaa", true)]
+    [InlineData(true, "aaaaaaaa", true)]
+    [InlineData(false, "bbbbbbbb", false)]
+    [InlineData(true, "bbbbbbbb", false)]
+    [InlineData(true, "AAAAaaaa", false)]
+    [InlineData(true, "aaaaaaa", false)]
+    [InlineData(true, "aaaaaaaaa", false)]
+    public void InstallerSourceCodeMustMatchTheSignedFullCommit(bool test, string code, bool accepted)
+    {
+        var payload = test ? OtaTestData.TestPayload() : OtaTestData.Payload();
+        payload = payload with { Name = payload.Name.Replace(".exe", $"-{code}.exe", StringComparison.Ordinal) };
+        var signed = OtaTestData.Update(payload);
+        Assert.Equal(accepted, OtaManifest.Verify(signed.Envelope, OtaTestData.PublicKey) is not null);
+    }
+
     [Fact]
     public void DevelopmentInstallationHasAnUnavailableReasonRatherThanThrowing() =>
         Assert.False(string.IsNullOrEmpty(WindowsOtaHandoff.UnavailableReason()));

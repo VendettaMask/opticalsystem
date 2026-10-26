@@ -81,6 +81,7 @@ $payloadRows = @(Get-ChildItem -LiteralPath $package.Directory -Recurse -File | 
 })
 [IO.File]::WriteAllLines((Join-Path $package.Directory 'release.files.sha256'), $payloadRows, [Text.UTF8Encoding]::new($false))
 $head = (& git -C $repositoryRoot rev-parse HEAD).Trim()
+if ($head -cnotmatch '^[0-9a-f]{40}$') { throw 'A full source commit is required for the installer name.' }
 $dirty = @(& git -C $repositoryRoot status --porcelain).Count -gt 0
 $metadata = [ordered]@{ FormatVersion = 1; ReleaseId = $releaseId; Version = $AppVersion; Runtime = $Runtime;
     OtaBuildSequence = [long]$env:GITHUB_RUN_ID;
@@ -94,7 +95,7 @@ $metadata = [ordered]@{ FormatVersion = 1; ReleaseId = $releaseId; Version = $Ap
     ManifestSha256 = (Get-FileHash -LiteralPath (Join-Path $package.Directory 'release.files.sha256')).Hash.ToLowerInvariant() }
 [IO.File]::WriteAllText((Join-Path $stagingDirectory 'release.json'), ($metadata | ConvertTo-Json), [Text.UTF8Encoding]::new($false))
 $suffix = if ($UnsignedTestPackage) { '-UnsignedTest' } elseif (-not $signing) { '-Unsigned' } else { '' }
-$outputName = "OpticalSystemDesign-$AppVersion-$Runtime$suffix-Setup"
+$outputName = "OpticalSystemDesign-$AppVersion-$Runtime$suffix-Setup-$($head.Substring(0, 8))"
 $setupPath = Join-Path $stagingDirectory "$outputName.exe"
 $script = Join-Path $repositoryRoot 'packaging\windows\OpticalSystemDesign.iss'
 Write-Host '[2/2] Compiling the installation wizard...'

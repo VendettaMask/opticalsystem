@@ -1,0 +1,93 @@
+{
+  "Date": "2026-10-26",
+  "Scope": "Windows EXE source-code suffix, signed source binding, compatible legacy reads and per-architecture release replacement",
+  "BaseCommit": "79ca14502234022dd671633b6fb3ad415281e1cd",
+  "WorkingTreeDirty": true,
+  "SourceHashes": [
+    {
+      "Path": "AGENTS.md",
+      "Sha256": "c60928441ca08d5588daee1a58d7ac52c0b7a599fa7ca0ba42069c1447bd512c"
+    },
+    {
+      "Path": "scripts/build-installer.ps1",
+      "Sha256": "700d673cb0911a0931b59e33382dcf6c2d216d0976d738d2d86a062792fc166a"
+    },
+    {
+      "Path": "scripts/ota-key-crypto.ps1",
+      "Sha256": "e9debd2fa2ddc03945638bc8192c946a9363ad399a1eab2b69876607d33204f3"
+    },
+    {
+      "Path": "scripts/publish-github-exe.ps1",
+      "Sha256": "59432a0e675da57208a04e36bf0cf857168119b489d724b2a6e6162bc69b84c4"
+    },
+    {
+      "Path": "scripts/test-ota-key-crypto.ps1",
+      "Sha256": "0b9ebc26be8c1e0213b004b360ac356edaa943897411876ccf00c04f6ea91363"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/Updates/OtaManifest.cs",
+      "Sha256": "d42f3708a8653e3311ea2d27787f1dc2a11dde60803f788e727fbc5b020d4de7"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/Updates/GitHubReleaseUpdateService.cs",
+      "Sha256": "fcd3f390822da85946cfa829aabc80378684b7ff8b2fe112e0f3f2a5d5080c00"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/OtaClientTests.cs",
+      "Sha256": "b5764867d93342a43d461df2b0a6b983d50c40ef3effd05fc8a13b6874f4b17c"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/ReleaseUpdateTests.cs",
+      "Sha256": "12b2b5da0f29174ad6a7c8a710608a54666543a63f46595da49288fe959b641c"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/CloudReleaseTests.cs",
+      "Sha256": "a1427b56a98bc3ff6a2a613049f6d5236c675f26ce682be604e1ca99991f8a28"
+    }
+  ],
+  "FinalTests": {
+    "Total": 162,
+    "File": "artifacts\\validation\\installer-source-code-2026-10-26\\installer-source-code-final.trx",
+    "Failed": 0,
+    "Passed": 162,
+    "Skipped": 0,
+    "Sha256": "c9052b3b575cf1d2b016280c5b724a9563780339a6b24b6ce555dd3b59b43c70"
+  },
+  "SyntheticKeyChecks": 38,
+  "PowerShellSyntax": "All four changed scripts parsed successfully",
+  "Build": "Default Release App and test assemblies rebuilt; final build has no compiler warning or error",
+  "Attempts": [
+    "Initial isolated VSTest run did not connect to testhost within 90 seconds and was aborted; not counted as passing.",
+    "Initial nullable-name warning fixed with an explicit null guard; final scoped build/tests succeeded."
+  ],
+  "OldCloudRun": {
+    "Reason": "User clarified that the source code belongs in the EXE filename, so the title-only task was stopped before publishing.",
+    "Conclusion": "cancelled",
+    "Id": 40252538242
+  },
+  "Coverage": [
+    "Stable/test signed suffix matches full source commit",
+    "Wrong, malformed and unsigned suffix rejected",
+    "Legacy release names retained",
+    "Duplicate legacy/coded assets rejected by client",
+    "Handoff file code matches build record before networking",
+    "Selected architecture replaces legacy and coded old names, preserves other platforms",
+    "Existing signature, digest, size, version/build and recovery tests"
+  ],
+  "Limits": [
+    "This is local scoped verification, not completed cloud package delivery.",
+    "Older installed clients require one manual update to learn the new filename rule.",
+    "No installer generated or executed locally; no full suite, new optical numerical certification or GPU performance run."
+  ],
+  "EvidenceArchive": {
+    "Path": "validation/rechecks/2026-10-26/installer-source-code-evidence.zip",
+    "Sha256": "2e06ecc0112da82550d47ae6619a8a6ba56b62f54cd8ab8ac8bf4ffe2822d79d"
+  },
+  "Documentation": {
+    "StrictExitCode": 0,
+    "Documents": 1099,
+    "BrokenLinks": 0,
+    "GuideRepeatedParagraphGroups": 0,
+    "ReportSha256": "610b49c5a03329d3351464f9a50fdd7ee0bf5ce0dd280b91b163eaa5ed2cd9c7"
+  }
+}

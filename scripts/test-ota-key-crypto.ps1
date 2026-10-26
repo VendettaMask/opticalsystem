@@ -79,6 +79,18 @@ try {
     Expect-Rejected { New-OtaReleaseEnvelope $rsa $testPackage '99.0.0' 'v99.0.0-test.20261023' }; $passed++
     $testPackage.BuildSequence = 40000000000L
     Expect-Rejected { New-OtaReleaseEnvelope $rsa $testPackage '99.0.0' 'v99.0.0' }; $passed++
+    foreach ($codedPackage in @($package, $testPackage)) {
+        $originalName = $codedPackage.Name
+        $codedPackage.Name = $originalName -creplace '\.exe$', '-bbbbbbbb.exe'
+        $codedTag = if ($codedPackage -eq $testPackage) { 'v99.0.0-test.20261023' } else { 'v99.0.0' }
+        $codedMarker = New-OtaReleaseEnvelope $rsa $codedPackage '99.0.0' $codedTag
+        $codedParts = ($codedMarker -split "`n")[1] -split '\.'
+        $codedBytes = [Convert]::FromBase64String($codedParts[0])
+        if (-not $rsa.VerifyData($codedBytes, [Convert]::FromBase64String($codedParts[1]), [Security.Cryptography.HashAlgorithmName]::SHA256, [Security.Cryptography.RSASignaturePadding]::Pss)) { throw 'Coded installer signature failed.' }; $passed++
+        $codedPackage.Name = $originalName -creplace '\.exe$', '-aaaaaaaa.exe'
+        Expect-Rejected { New-OtaReleaseEnvelope $rsa $codedPackage '99.0.0' $codedTag }; $passed++
+        $codedPackage.Name = $originalName
+    }
     $package.Name = '../untrusted.exe'
     Expect-Rejected { New-OtaReleaseEnvelope $rsa $package '99.0.0' 'v99.0.0' }; $passed++
     Write-Host "Portable OTA encryption and recovery: $passed checks passed. Throwaway keys only; no device-bound APIs or product installation."

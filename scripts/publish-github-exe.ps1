@@ -23,9 +23,10 @@ $packages = @($files | ForEach-Object {
     $isMac = $file.Extension -ceq '.dmg'
     $macSuffix = if ($testPackage) { 'AdHocTest' } else { 'AdHoc' }
     $pattern = if ($isMac) { '^OpticalSystemDesign-' + [regex]::Escape($version) + '-(osx-arm64)-' + $macSuffix + '\.dmg$' }
-        else { '^OpticalSystemDesign-' + [regex]::Escape($version) + '-(win-x64|win-arm64)-' + $suffix + '-Setup\.exe$' }
+        else { '^OpticalSystemDesign-' + [regex]::Escape($version) + '-(win-x64|win-arm64)-' + $suffix + '-Setup(?:-(?<SourceCode>[0-9a-f]{8}))?\.exe$' }
     if ($file.Name -cnotmatch $pattern) { throw "Unexpected installer name: $($file.Name)" }
     $runtime = $Matches[1]
+    $sourceCode = if (-not $isMac -and $Matches.ContainsKey('SourceCode')) { $Matches['SourceCode'] } else { $null }
     $record = Get-Content -LiteralPath (Join-Path $directory "release-$runtime.json") -Raw | ConvertFrom-Json
     if ($record.Version -cne $version -or $record.Runtime -cne $runtime -or
         $record.TestPackage -isnot [bool] -or $record.TestPackage -ne $testPackage -or
@@ -40,6 +41,7 @@ $packages = @($files | ForEach-Object {
         throw "Invalid build identity: $runtime"
     }
     if ($env:GITHUB_SHA -and $record.SourceCommit -cne $env:GITHUB_SHA) { throw 'Build source differs from the publishing workflow.' }
+    if ($sourceCode -and $sourceCode -cne $record.SourceCommit.Substring(0, 8)) { throw 'Installer source code differs from its build record.' }
     if ($isMac -and ($record.MacCodeSignature -cne 'AdHoc' -or $record.Notarized -isnot [bool] -or $record.Notarized)) {
         throw 'Invalid Mac signing identity.'
     }
@@ -137,12 +139,16 @@ if (-not $release) {
 if ($release.immutable) { throw 'The release is immutable.' }
 $assets = @(Invoke-ReleaseApi GET "releases/$($release.id)/assets?per_page=100")
 if ($assets.Count -ge 100) { throw 'Too many release assets; review manually.' }
-$canonicalPattern = '^OpticalSystemDesign-' + [regex]::Escape($version) + '-(?:win-(?:x64|arm64)-' + $suffix + '-Setup\.exe|osx-arm64-' + $(if ($testPackage) { 'AdHocTest' } else { 'AdHoc' }) + '\.dmg)$'
-$sidecarPattern = '^(?:release(?:-win-(?:x64|arm64))?\.json|OpticalSystemDesign-' + [regex]::Escape($version) + '-win-(?:x64|arm64)-' + $suffix + '-Setup\.exe\.sha256)$'
+$canonicalPattern = '^OpticalSystemDesign-' + [regex]::Escape($version) + '-(?:(?<Runtime>win-(?:x64|arm64))-' + $suffix + '-Setup(?:-[0-9a-f]{8})?\.exe|(?<Runtime>osx-arm64)-' + $(if ($testPackage) { 'AdHocTest' } else { 'AdHoc' }) + '\.dmg)$'
+$sidecarPattern = '^(?:release(?:-win-(?:x64|arm64))?\.json|OpticalSystemDesign-' + [regex]::Escape($version) + '-win-(?:x64|arm64)-' + $suffix + '-Setup(?:-[0-9a-f]{8})?\.exe\.sha256)$'
 foreach ($asset in $assets) {
     if ($asset.name -cnotmatch $canonicalPattern -and $asset.name -cnotmatch $sidecarPattern) { throw "Unrecognized release asset; preserved for review: $($asset.name)" }
 }
-$previous = @($assets | Where-Object { $_.name -cin $packages.Name })
+function Get-ReplacedInstallerAssets($Assets, [string[]]$Runtimes, [string]$Pattern) {
+    @($Assets | Where-Object { $_.name -cmatch $Pattern -and $Matches['Runtime'] -cin $Runtimes })
+}
+$previous = @(Get-ReplacedInstallerAssets $assets @($packages.Runtime) $canonicalPattern)
+$replacedNames = @($previous | ForEach-Object name) + @($packages.Name)
 $sidecars = @($assets | Where-Object { $_.name -cmatch $sidecarPattern })
 if (($previous.Count -gt 0 -or $sidecars.Count -gt 0) -and -not $ReplaceExisting) { throw 'Existing attachments require explicit -ReplaceExisting.' }
 # Keep untouched Windows download signatures when adding a Mac asset or updating
@@ -166,10 +172,10 @@ function Get-PreservedOtaMarkers([string]$Body, $Assets, [string[]]$ReplacedName
         }
     } finally { $rsa.Dispose() }
 }
-$otaMarkers += @(Get-PreservedOtaMarkers ([string]$release.body) $assets @($packages.Name) $otaPublicKey)
+$otaMarkers += @(Get-PreservedOtaMarkers ([string]$release.body) $assets $replacedNames $otaPublicKey)
 $preservedDetails = @(([string]$release.body -split '\r?\n') | Where-Object {
     $line = $_
-    @($assets | Where-Object { $_.name -cnotin $packages.Name -and $line.StartsWith("- $($_.name) |", [StringComparison]::Ordinal) }).Count -gt 0
+    @($assets | Where-Object { $_.name -cnotin $replacedNames -and $line.StartsWith("- $($_.name) |", [StringComparison]::Ordinal) }).Count -gt 0
 })
 # Back up all managed attachments before changing them; retain the backup as an
 # Actions workflow artifact, never as a user-facing release attachment.

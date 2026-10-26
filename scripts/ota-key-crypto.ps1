@@ -110,9 +110,12 @@ function Get-OtaSigningRsa([string]$TrustedPublicKey) {
 function New-OtaReleaseEnvelope([Security.Cryptography.RSA]$Rsa, $Package, [string]$Version, [string]$Tag) {
     $test = $Tag -cmatch ('^v' + [regex]::Escape($Version) + '-test\.[0-9]{8}$')
     $expectedName = "OpticalSystemDesign-$Version-$($Package.Runtime)-$(if ($test) { 'UnsignedTest' } else { 'Unsigned' })-Setup.exe"
+    $codedName = if ($Package.SourceCommit -cmatch '^[0-9a-f]{40}$') {
+        $expectedName -creplace '\.exe$', "-$($Package.SourceCommit.Substring(0, 8)).exe"
+    } else { '' }
     if ($Version -cnotmatch '^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$' -or (-not $test -and $Tag -cne "v$Version") -or
         $Package.Runtime -cnotin @('win-x64', 'win-arm64') -or $Package.Size -le 2 -or $Package.Size -gt 2147483648 -or
-        $Package.Name -cne $expectedName -or
+        ($Package.Name -cne $expectedName -and $Package.Name -cne $codedName) -or
         $Package.Sha256 -cnotmatch '^[0-9a-f]{64}$' -or $Package.SourceCommit -cnotmatch '^[0-9a-f]{40}$' -or
         $Package.ReleaseId -cnotmatch ('^' + [regex]::Escape("$Version-$($Package.Runtime)-") + '[0-9a-f]{12}$')) {
         throw 'Invalid OTA signing payload.'

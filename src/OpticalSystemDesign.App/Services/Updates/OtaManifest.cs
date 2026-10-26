@@ -81,15 +81,29 @@ internal static class OtaManifest
         p.Version == $"{version.Major}.{version.Minor}.{version.Patch}" && version.Major <= 65534 && version.Minor <= 65534 && version.Patch <= 65534 &&
         p.Runtime is "win-x64" or "win-arm64" && p.Size is > 2 and <= MaximumInstallerBytes &&
         ((p.Format == 1 && p.BuildSequence == 0 && p.Tag == "v" + p.Version &&
-          (p.Name == $"OpticalSystemDesign-{p.Version}-{p.Runtime}-Setup.exe" ||
-           p.Name == $"OpticalSystemDesign-{p.Version}-{p.Runtime}-Unsigned-Setup.exe")) ||
+          IsInstallerName(p.Name, p.Version, p.Runtime, false, p.SourceCommit)) ||
          (p.Format == 2 && p.BuildSequence > 0 && IsTestTag(p.Tag, p.Version) &&
-          p.Name == $"OpticalSystemDesign-{p.Version}-{p.Runtime}-UnsignedTest-Setup.exe")) &&
+          IsInstallerName(p.Name, p.Version, p.Runtime, true, p.SourceCommit))) &&
         Regex.IsMatch(p.Sha256 ?? "", "^[0-9a-f]{64}$", RegexOptions.CultureInvariant) &&
         Regex.IsMatch(p.SourceCommit ?? "", "^[0-9a-f]{40}$", RegexOptions.CultureInvariant) &&
         Regex.IsMatch(p.ReleaseId ?? "", "^" + Regex.Escape(p.Version + "-" + p.Runtime + "-") + "[0-9a-f]{12}$", RegexOptions.CultureInvariant);
 
     internal static Uri DownloadUri(OtaPayload p) => new($"https://github.com/{ProductReleaseSource.Repository}/releases/download/{p.Tag}/{p.Name}");
+
+    internal static bool IsInstallerName(string? name, string version, string runtime, bool test, string? sourceCommit = null)
+    {
+        if (name is null || runtime is not ("win-x64" or "win-arm64")) return false;
+        string[] suffixes = test ? ["-UnsignedTest"] : ["", "-Unsigned"];
+        foreach (var suffix in suffixes)
+        {
+            var stem = $"OpticalSystemDesign-{version}-{runtime}{suffix}-Setup";
+            if (name == stem + ".exe") return true; // Existing signed releases remain readable.
+            if (!Regex.IsMatch(name, "\\A" + Regex.Escape(stem) + @"-[0-9a-f]{8}\.exe\z", RegexOptions.CultureInvariant)) continue;
+            if (sourceCommit is null || Regex.IsMatch(sourceCommit, @"\A[0-9a-f]{40}\z", RegexOptions.CultureInvariant) &&
+                name == stem + "-" + sourceCommit[..8] + ".exe") return true;
+        }
+        return false;
+    }
 
     internal static bool IsTestTag(string? tag, string version) =>
         Regex.IsMatch(tag ?? "", "^v" + Regex.Escape(version) + @"-test\.[0-9]{8}$", RegexOptions.CultureInvariant);

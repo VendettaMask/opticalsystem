@@ -143,16 +143,13 @@ internal sealed class GitHubReleaseUpdateService(HttpClient client, string curre
                 return new(UpdateCheckStatus.UnsupportedPlatform, new(displayVersion!, page!, null));
             if (!root.TryGetProperty("assets", out var assets) || assets.ValueKind != JsonValueKind.Array)
                 return new(UpdateCheckStatus.InvalidResponse);
-            var signedName = $"OpticalSystemDesign-{version}-{runtime}-Setup.exe";
-            var unsignedName = $"OpticalSystemDesign-{version}-{runtime}-Unsigned-Setup.exe";
-            var testName = $"OpticalSystemDesign-{version}-{runtime}-UnsignedTest-Setup.exe";
             var matches = new List<ReleaseInstaller>();
             string? digest = null;
             foreach (var asset in assets.EnumerateArray())
             {
                 if (asset.ValueKind != JsonValueKind.Object) continue;
                 var name = String(asset, "name");
-                if (isTest ? name != testName : name != signedName && name != unsignedName) continue;
+                if (name is null || !OtaManifest.IsInstallerName(name, version!, runtime, isTest)) continue;
                 if (String(asset, "state") != "uploaded" ||
                     !asset.TryGetProperty("size", out var size) || !size.TryGetInt64Safe(out var bytes) || bytes <= 0 ||
                     !IsExpectedUrl(String(asset, "browser_download_url"),
@@ -161,10 +158,12 @@ internal sealed class GitHubReleaseUpdateService(HttpClient client, string curre
                 matches.Add(new(name, download!, bytes));
                 digest = String(asset, "digest");
             }
-            // Exactly one canonical installer per architecture and selected channel.
+            // Exactly one installer per architecture/channel, including legacy names.
             if (matches.Count > 1) return new(UpdateCheckStatus.InvalidResponse);
             if (matches.Count == 0) return new(UpdateCheckStatus.NoCompatibleInstaller, new(displayVersion!, page!, null));
             var ota = OtaManifest.FromReleaseBody(String(root, "body"), version!, runtime, matches[0], digest, otaPublicKey);
+            if (!matches[0].Name.EndsWith("-Setup.exe", StringComparison.Ordinal) && ota is null)
+                return new(UpdateCheckStatus.InvalidResponse); // Bind a displayed source code to the signed full commit.
             if (isTest && latest.CompareTo(installed) == 0 &&
                 (ota is null || !OtaManifest.IsNewer(ota.Payload, currentVersion, installedBuildSequence)))
                 return ota is null ? new(UpdateCheckStatus.InvalidResponse)

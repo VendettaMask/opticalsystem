@@ -234,11 +234,41 @@ public sealed class ReleaseUpdateTests
         Assert.Equal(UpdateCheckStatus.UpdateAvailable, (await new GitHubReleaseUpdateService(client, "1.0.4", "win-x64", includeTestReleases: true).CheckAsync(default)).Status);
     }
 
-    private static JsonObject SignedTestRelease(long sequence = 200)
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void SourceCodedInstallersRequireTheMatchingSignedCommitAndAnUnambiguousAsset(bool test)
     {
-        var update = OtaTestData.Update(OtaTestData.TestPayload(sequence));
+        var payload = test ? OtaTestData.TestPayload() : OtaTestData.Payload();
+        payload = payload with { Name = payload.Name.Replace(".exe", "-aaaaaaaa.exe", StringComparison.Ordinal) };
+        var root = SignedRelease(payload);
+        var result = GitHubReleaseUpdateService.Parse(Encoding.UTF8.GetBytes(root.ToJsonString()), "1.0.4", "win-x64",
+            OtaTestData.PublicKey, allowTestPackages: test);
+        Assert.Equal(UpdateCheckStatus.UpdateAvailable, result.Status);
+        Assert.Equal(payload, result.Release!.Ota!.Payload);
+        Assert.EndsWith("-Setup-aaaaaaaa.exe", result.Release.Installer!.DownloadUri.AbsoluteUri);
+
+        var wrongCode = SignedRelease(payload with { Name = payload.Name.Replace("aaaaaaaa.exe", "bbbbbbbb.exe", StringComparison.Ordinal) });
+        Assert.Equal(UpdateCheckStatus.InvalidResponse, GitHubReleaseUpdateService.Parse(
+            Encoding.UTF8.GetBytes(wrongCode.ToJsonString()), "1.0.4", "win-x64", OtaTestData.PublicKey, allowTestPackages: test).Status);
+        root.Remove("body");
+        Assert.Equal(UpdateCheckStatus.InvalidResponse, GitHubReleaseUpdateService.Parse(
+            Encoding.UTF8.GetBytes(root.ToJsonString()), "1.0.4", "win-x64", OtaTestData.PublicKey, allowTestPackages: test).Status);
+
+        root = SignedRelease(payload);
+        var legacy = SignedRelease(test ? OtaTestData.TestPayload() : OtaTestData.Payload());
+        ((JsonArray)root["assets"]!).Add(legacy["assets"]![0]!.DeepClone());
+        Assert.Equal(UpdateCheckStatus.InvalidResponse, GitHubReleaseUpdateService.Parse(
+            Encoding.UTF8.GetBytes(root.ToJsonString()), "1.0.4", "win-x64", OtaTestData.PublicKey, allowTestPackages: test).Status);
+    }
+
+    private static JsonObject SignedTestRelease(long sequence = 200) => SignedRelease(OtaTestData.TestPayload(sequence));
+
+    private static JsonObject SignedRelease(OtaPayload payload)
+    {
+        var update = OtaTestData.Update(payload);
         var root = Release("99.0.0");
-        root["tag_name"] = update.Payload.Tag; root["prerelease"] = true;
+        root["tag_name"] = update.Payload.Tag; root["prerelease"] = payload.Format == 2;
         root["html_url"] = $"https://github.com/{ProductReleaseSource.Repository}/releases/tag/{update.Payload.Tag}";
         root["body"] = OtaTestData.Body(update);
         root["assets"]![0]!["name"] = update.Payload.Name;
