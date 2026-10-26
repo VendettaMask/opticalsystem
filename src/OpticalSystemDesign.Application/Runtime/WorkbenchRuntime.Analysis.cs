@@ -239,6 +239,10 @@ public partial class WorkbenchRuntime
             return frequency <= 0 ? null : frequency;
         }
 
+        double HuygensImageDelta() => CurrentOptic.ImageSpaceAfocal
+            ? Double("ImageDeltaMilliradians", Double("ImageDeltaMicrometers", 0))
+            : Double("ImageDeltaMicrometers", 0) / 1000.0;
+
         MtfComputationSettings MtfScanSettings(
             bool zemaxCompatible = true,
             bool useHuygensImageSampling = false)
@@ -250,8 +254,8 @@ public partial class WorkbenchRuntime
                 ImageSize: zemaxCompatible && !useHuygensImageSampling
                     ? checked(pupilSampling * 2)
                     : Int("ImageSampling", Int("ImageSize", 64)),
-                PixelPitchMillimeters: imageDeltaMicrometers > 0
-                    ? imageDeltaMicrometers / 1000.0
+                PixelPitchMillimeters: (useHuygensImageSampling ? HuygensImageDelta() : imageDeltaMicrometers) > 0
+                    ? useHuygensImageSampling ? HuygensImageDelta() : imageDeltaMicrometers / 1000.0
                     : useHuygensImageSampling
                         ? 0
                         : Double("PixelPitchMillimeters", 0.005),
@@ -731,7 +735,7 @@ public partial class WorkbenchRuntime
                 CurrentOptic,
                 LeadingInt("PupilSampling", Int("NumRays", 32)),
                 LeadingInt("ImageSampling", Int("ImageSize", 32)),
-                Double("ImageDeltaMicrometers", 0) / 1000.0,
+                HuygensImageDelta(),
                 LeadingInt("WavelengthNumber", 0),
                 LeadingInt("FieldNumber", 1),
                 Double("Rotation", 0),
@@ -744,7 +748,7 @@ public partial class WorkbenchRuntime
                 CurrentOptic,
                 Int("PupilSampling", Int("NumRays", 32)),
                 Int("ImageSampling", Int("ImageSize", 32)),
-                Double("ImageDeltaMicrometers", 0) / 1000.0,
+                HuygensImageDelta(),
                 Int("WavelengthNumber", 0),
                 Int("FieldNumber", 1),
                 settings.ContainsKey("ProfileType")
@@ -769,7 +773,7 @@ public partial class WorkbenchRuntime
                 CurrentOptic,
                 Int("PupilSampling", Int("NumRays", 32)),
                 Int("ImageSampling", Int("ImageSize", 32)),
-                Double("ImageDeltaMicrometers", 0) / 1000.0,
+                HuygensImageDelta(),
                 maximumFrequency: OptionalFrequency(),
                 wavelengthNumber: Int("WavelengthNumber", 0),
                 fieldNumber: Int("FieldNumber", 0),

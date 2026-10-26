@@ -1,4 +1,5 @@
 using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Services;
@@ -38,7 +39,7 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
     {
         _settings = settings with
         {
-            RayDensity = Math.Clamp(settings.RayDensity, 1, 32),
+            RayDensity = Math.Clamp(settings.RayDensity, 1, 200),
             PlotScaleMicrometers = double.IsFinite(settings.PlotScaleMicrometers)
                 ? Math.Max(0, settings.PlotScaleMicrometers)
                 : 0
@@ -59,6 +60,23 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
             };
         var fields = fieldIndices.Select(index => allFields[index]).ToArray();
         var wavelengths = AnalysisTrace.SelectWavelengths(analysisOptic, _settings.WavelengthNumber);
+        IReadOnlyList<PupilSample>? importanceSamples = null;
+        if (analysisOptic.Apodization is ZemaxApodization { Type: ZemaxApodizationType.Gaussian, Factor: > 0 } gaussian
+            && _settings.Pattern.Equals("hexapolar", StringComparison.OrdinalIgnoreCase))
+        {
+            // Inverse cumulative intensity of a truncated Gaussian disk.
+            // Equal-flux sampling replaces illumination weighting; compensate
+            // the generator's physical apodization to avoid applying it twice.
+            var exponent = 2 * gaussian.Factor;
+            var enclosed = -double.ExpM1(-exponent);
+            importanceSamples = ApertureSampler.GenerateHexapolarRings(_settings.RayDensity).Select(sample =>
+            {
+                var radiusSquared = sample.X * sample.X + sample.Y * sample.Y;
+                var mappedSquared = radiusSquared >= 1 ? 1 : -double.LogP1(-radiusSquared * enclosed) / exponent;
+                var scale = radiusSquared > 0 ? Math.Sqrt(mappedSquared / radiusSquared) : 1;
+                return new PupilSample(sample.X * scale, sample.Y * scale, sample.Weight);
+            }).ToArray();
+        }
         var result = SpotAnalysisEngine.Generate(
             analysisOptic,
             fields,
@@ -71,7 +89,9 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
             usePolarization: _settings.UsePolarization,
             ignoreLateralColor: _settings.IgnoreLateralColor,
             aimAtStop: analysisOptic.RayAimingEnabled,
-            includeSurfaceTransmission: _settings.UsePolarization);
+            includeSurfaceTransmission: _settings.UsePolarization,
+            explicitPupilSamples: importanceSamples,
+            importanceSampledPupil: importanceSamples is not null);
         var imageSpace = ImageSpaceAnalysisSupport.CoordinateDescriptor(
             analysisOptic,
             _settings.SurfaceNumber,

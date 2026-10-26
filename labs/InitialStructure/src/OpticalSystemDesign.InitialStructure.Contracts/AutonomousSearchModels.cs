@@ -1,0 +1,111 @@
+using System.Collections.Immutable;
+using System.Text.Json.Serialization;
+using OpticalSystemDesign.Core.Differentiation;
+
+namespace OpticalSystemDesign.InitialStructure.Contracts;
+
+public sealed record AutonomousSearchOptions
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public TopologyExpansionOptions? Expansion { get; init; }
+    public int MaximumTrials { get; init; } = 32;
+    public int CandidatesPerElementCount { get; init; } = 4;
+    public int BranchesPerParent { get; init; } = 6;
+    public int MaximumFunctionEvaluations { get; init; } = 10_000;
+    public int MaximumGradientEvaluations { get; init; } = 2_000;
+    public long MaximumTracedRays { get; init; } = 10_000_000;
+    public long MaximumStageTracedRays { get; init; } = 2_000_000;
+    public long FinalValidationRayReserve { get; init; } = 200_000;
+    public TimeSpan TimeLimit { get; init; } = TimeSpan.FromMinutes(30);
+    public long Seed { get; init; } = 42;
+    public double CurvatureBoundPerMillimeter { get; init; } = .08;
+    public ImmutableArray<string> InsertionMaterials { get; init; } = ["N-BK7"];
+    public ParaxialRecoveryOptions Recovery { get; init; } = new();
+    public FixedTopologyOptions Local { get; init; } = new() { ComputeMode = DesignComputeMode.Cpu, PerformFinalAssessment = false };
+    public FixedTopologyOptions Full { get; init; } = new()
+    {
+        ComputeMode = DesignComputeMode.Cpu,
+        PerformFinalAssessment = false,
+        MaximumUpdates = 160,
+        MaximumFunctionEvaluations = 161,
+        MaximumGradientEvaluations = 161
+    };
+}
+
+public sealed record AutonomousSearchPlan
+{
+    public required ImmutableArray<DesignTopology> Seeds { get; init; }
+    public TopologyTargets Targets { get; init; } = new();
+    public TopologyConstraints Constraints { get; init; } = new();
+    public AutonomousSearchOptions Options { get; init; } = new();
+}
+
+/// <summary>CPU submissions include aiming, failed rays and diagnostics. Matrix/FD counts cover explicit recovery only.</summary>
+public sealed record AutonomousSearchWork
+{
+    public int FunctionEvaluations { get; init; }
+    public int GradientEvaluations { get; init; }
+    public int ValidationEvaluations { get; init; }
+    public int MatrixEvaluations { get; init; }
+    public int DifferenceEvaluations { get; init; }
+    public int JacobianBuilds { get; init; }
+    public long TracedRays { get; init; }
+    public long GeometryProbes { get; init; }
+    public TimeSpan Elapsed { get; init; }
+}
+
+public enum AutonomousSearchPhase { Recovery, Local, Full, Validation, TransitionValidation }
+public enum AutonomousSearchStatus { Ready, Running, Cancelled, BudgetExhausted, Completed }
+
+public sealed record AutonomousSearchCandidate(string Id, string? ParentId, DesignTopology Topology,
+    TopologyAssessment Assessment, double Score, int OperationCursor = 0);
+
+public sealed record AutonomousSearchPending
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public GradualDeletionState? GradualDeletion { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public TopologyChange? Change { get; init; }
+    public required string TrialId { get; init; }
+    public string? ParentId { get; init; }
+    public required string Operation { get; init; }
+    public required DesignTopology Template { get; init; }
+    public required AutonomousSearchPhase Phase { get; init; }
+    public FixedTopologyOptions? StageOptions { get; init; }
+    public FixedTopologyContinuation? Continuation { get; init; }
+    public ImmutableArray<TopologyVariableRequest> Variables { get; init; } = [];
+    public AutonomousSearchWork PhaseConsumed { get; init; } = new();
+}
+
+public sealed record AutonomousSearchReservation(string Id, AutonomousSearchPhase Phase, AutonomousSearchWork Maximum);
+public sealed record AutonomousSearchEvent(int Sequence, string TrialId, string? ParentId, string Operation,
+    AutonomousSearchPhase? Phase, string Outcome, string? Detail, AutonomousSearchWork Work,
+    DesignTopology? Endpoint = null, ParaxialRecoveryResult? Recovery = null, FixedTopologyResult? Optimization = null)
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public TopologyChange? Change { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public GradualDeletionState? GradualDeletion { get; init; }
+}
+
+/// <summary>Independent durable schema. Loading never executes this state.</summary>
+public sealed record AutonomousSearchCheckpoint
+{
+    public int SchemaVersion { get; init; } = 1;
+    public string Algorithm { get; init; } = AutonomousTopologyIdentity.Name;
+    public required string RunId { get; init; }
+    public required AutonomousSearchPlan Plan { get; init; }
+    public required string PlanFingerprint { get; init; }
+    public long Revision { get; init; }
+    public AutonomousSearchStatus Status { get; init; } = AutonomousSearchStatus.Ready;
+    public int SeedCursor { get; init; }
+    public int TrialCursor { get; init; }
+    public ulong RandomState { get; init; }
+    public AutonomousSearchWork Consumed { get; init; } = new();
+    public ImmutableArray<AutonomousSearchCandidate> Candidates { get; init; } = [];
+    public ImmutableArray<string> Pool { get; init; } = [];
+    public ImmutableArray<AutonomousSearchCandidate> AcceptedArchive { get; init; } = [];
+    public ImmutableArray<AutonomousSearchEvent> Events { get; init; } = [];
+    public AutonomousSearchPending? Pending { get; init; }
+    public AutonomousSearchReservation? Reservation { get; init; }
+}

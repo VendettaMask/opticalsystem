@@ -13,7 +13,9 @@ internal static class BoundedTrustRegionLeastSquares
         Func<IReadOnlyList<double>, CancellationToken, LeastSquaresEvaluation> evaluate,
         LeastSquaresOptions? options = null, CancellationToken cancellationToken = default,
         Func<bool>? stopRequested = null,
-        Action<IReadOnlyList<double>, LeastSquaresEvaluation>? acceptedStep = null)
+        Action<IReadOnlyList<double>, LeastSquaresEvaluation>? acceptedStep = null,
+        Action<bool>? evaluationStarted = null, Action? jacobianBuilt = null,
+        Action<LeastSquaresTrial>? trialEvaluated = null)
     {
         options ??= new();
         Validate(initial, lowerBounds, upperBounds, options);
@@ -47,7 +49,7 @@ internal static class BoundedTrustRegionLeastSquares
             reusedJacobian = null;
             var jacobian = rawJacobian is null ? null : (double[,])rawJacobian.Clone();
             if (jacobian is null) return Finish(interrupted ?? LeastSquaresTermination.DerivativeUnavailable);
-            if (!reused) { builds++; age = 0; }
+            if (!reused) { builds++; age = 0; jacobianBuilt?.Invoke(); }
             models++;
             if (options.ScaleByJacobian)
             {
@@ -147,6 +149,7 @@ internal static class BoundedTrustRegionLeastSquares
                     nextRadius = Math.Min(maximumRadius, 2 * radius);
                 trials.Add(new(models, count, workUnits, Array.AsReadOnly((double[])vector.Clone()),
                     Array.AsReadOnly(proposed), radius, nextRadius, predicted, actual, ratio, accepted));
+                trialEvaluated?.Invoke(trials[^1]);
                 radius = nextRadius;
                 if (!accepted)
                 {
@@ -180,6 +183,7 @@ internal static class BoundedTrustRegionLeastSquares
             if (!CanEvaluate()) return null;
             count++;
             if (difference) differences++;
+            evaluationStarted?.Invoke(difference);
             var value = evaluate(Array.AsReadOnly((double[])point.Clone()), cancellationToken);
             if (value.WorkUnits < 0) throw new InvalidOperationException("Evaluation work units cannot be negative.");
             workUnits = checked(workUnits + value.WorkUnits);

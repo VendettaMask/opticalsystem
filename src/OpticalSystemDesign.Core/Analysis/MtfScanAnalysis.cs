@@ -658,7 +658,8 @@ internal static class MtfMethodEvaluator
                 field,
                 wavelengths,
                 spatialFrequency,
-                settings);
+                settings,
+                defocusMillimeters);
         }
 
         var totalWeight = wavelengths.Sum(wavelength => wavelength.Weight);
@@ -963,10 +964,11 @@ internal static class MtfMethodEvaluator
         (double Hx, double Hy) field,
         IReadOnlyList<Wavelength> wavelengths,
         double spatialFrequency,
-        MtfComputationSettings settings)
+        MtfComputationSettings settings,
+        double defocus = 0)
     {
         return SampleHuygensMtf(
-            ComputeHuygensPolychromaticMtf(optic, field, wavelengths, settings),
+            ComputeHuygensPolychromaticMtf(optic, field, wavelengths, settings, defocus),
             Math.Max(4, settings.ImageSize), spatialFrequency, settings.UseZemaxHuygensSemantics);
     }
 
@@ -1001,17 +1003,19 @@ internal static class MtfMethodEvaluator
         Optic optic,
         (double Hx, double Hy) field,
         IReadOnlyList<Wavelength> wavelengths,
-        MtfComputationSettings settings)
+        MtfComputationSettings settings,
+        double defocus = 0)
     {
         return DiffractionEngine.ComputePsfMtf(
-            ComputeHuygensPolychromaticPsf(optic, field, wavelengths, settings));
+            ComputeHuygensPolychromaticPsf(optic, field, wavelengths, settings, defocus));
     }
 
     internal static PsfResult ComputeHuygensPolychromaticPsf(
         Optic optic,
         (double Hx, double Hy) field,
         IReadOnlyList<Wavelength> wavelengths,
-        MtfComputationSettings settings)
+        MtfComputationSettings settings,
+        double defocus = 0)
     {
         var pupilSampling = Math.Max(2, settings.PupilSampling);
         var imageSize = Math.Max(4, settings.ImageSize);
@@ -1031,7 +1035,7 @@ internal static class MtfMethodEvaluator
             : ((double X, double Y)?)null;
         return HuygensPsfSynthesis.Compute(optic, field, wavelengths, pupilSampling,
             imageSize, pixelPitchMillimeters, settings.UsePolarization,
-            referenceWavelength, imageCenterOffset).Psf;
+            referenceWavelength, imageCenterOffset, defocus).Psf;
     }
 
     internal static double ResolveHuygensImageDeltaMillimeters(

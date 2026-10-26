@@ -1,0 +1,203 @@
+{
+  "date": "2026-10-26",
+  "status": "Fresh four-file comparison completed; unresolved differences retained",
+  "generatedUtc": "2026-10-26T12:16:58.9482796Z",
+  "baseCommit": "dcb7e96f054fce8b03e3ed7cdc004510e73c7b3a",
+  "coreSha256": "bad36ba9b11d27b77a89ba573e2f4f98297cf8bf6733bae43df0181ad5ac545c",
+  "globalPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "scope": "Four original AF files, five configurations, 150 original scoped requests; not all analyses or a full 95-file rerun",
+  "native": {
+    "version": "OpticStudio 2026 R1",
+    "build": 260127,
+    "license": "EnterpriseEdition",
+    "originalAnalysisAttempts": 150,
+    "originalValidNumericalCaptures": 145,
+    "nativeRelativeIlluminationWithoutData": 5,
+    "allFreshJobAttemptsIncludingProbesAndControls": 218
+  },
+  "analysis": {
+    "total": 150,
+    "counts": {
+      "Close": 4,
+      "Difference": 20,
+      "Incomparable": 53,
+      "Pass": 73
+    },
+    "lenses": [
+      {
+        "lens": "Afocal/Afocal Riflescope.ZMX",
+        "total": 30,
+        "counts": {
+          "Close": 1,
+          "Difference": 3,
+          "Incomparable": 8,
+          "Pass": 18
+        }
+      },
+      {
+        "lens": "Afocal/Beam Expander.ZMX",
+        "total": 22,
+        "counts": {
+          "Difference": 3,
+          "Incomparable": 7,
+          "Pass": 12
+        }
+      },
+      {
+        "lens": "Afocal/Binocular_System.ZMX",
+        "total": 60,
+        "counts": {
+          "Close": 2,
+          "Difference": 8,
+          "Incomparable": 24,
+          "Pass": 26
+        }
+      },
+      {
+        "lens": "Miscellaneous/Apochromat_prism.zmx",
+        "total": 38,
+        "counts": {
+          "Close": 1,
+          "Difference": 6,
+          "Incomparable": 14,
+          "Pass": 17
+        }
+      }
+    ],
+    "results": "analysis-results.json",
+    "expandedWorkbenchExitCodes": {
+      "0": 110,
+      "3": 10
+    }
+  },
+  "physicalRays": {
+    "groups": 15,
+    "counts": {
+      "Pass": 15
+    },
+    "inputs": 3240.0,
+    "physicalSurfaceComparisons": 44496.0,
+    "failures": 0
+  },
+  "explicitOpd": {
+    "groups": 13,
+    "points": 169.0,
+    "counts": {
+      "Pass": 13
+    },
+    "maximumAbsoluteWaves": 8.496361065368774E-06,
+    "scope": "Native CurrentAndChief explicit points; does not certify full non-primary-wavelength OPD fan reference definition"
+  },
+  "mtfControls": {
+    "total": 10,
+    "counts": {
+      "Close": 2,
+      "Pass": 8
+    },
+    "physicalBand": "5 Pass",
+    "wide55": "3 Pass, 2 Close (both Binocular configurations)"
+  },
+  "fixedGridControls": {
+    "total": 20,
+    "counts": {
+      "Difference": 9,
+      "Incomparable": 5,
+      "Pass": 6
+    },
+    "fftPsf": "5 Pass",
+    "huygensPsf": "5 Incomparable; actual Core spacing is requested mrad / 1000",
+    "huygensMtf": "1 Pass, 4 Difference",
+    "huygensThroughFocus": "5 Difference",
+    "gridReadback": [
+      {
+        "lens": "Afocal/Afocal Riflescope.ZMX",
+        "configuration": 1,
+        "requestedMilliradian": 0.05,
+        "actualMilliradian": 5E-05,
+        "ratio": 0.001
+      },
+      {
+        "lens": "Afocal/Beam Expander.ZMX",
+        "configuration": 1,
+        "requestedMilliradian": 0.005,
+        "actualMilliradian": 5E-06,
+        "ratio": 0.001
+      },
+      {
+        "lens": "Afocal/Binocular_System.ZMX",
+        "configuration": 1,
+        "requestedMilliradian": 0.05,
+        "actualMilliradian": 5E-05,
+        "ratio": 0.001
+      },
+      {
+        "lens": "Afocal/Binocular_System.ZMX",
+        "configuration": 2,
+        "requestedMilliradian": 0.05,
+        "actualMilliradian": 5E-05,
+        "ratio": 0.001
+      },
+      {
+        "lens": "Miscellaneous/Apochromat_prism.zmx",
+        "configuration": 1,
+        "requestedMilliradian": 0.02,
+        "actualMilliradian": 2E-05,
+        "ratio": 0.001
+      }
+    ],
+    "interpretation": "Same declared angular input does not yield the same Huygens grid. Modulation differences are not certified equal-grid algorithm residuals."
+  },
+  "sources": [
+    {
+      "id": "Afocal/Afocal Riflescope.ZMX",
+      "sha256": "36db5e0bd00f9435dbd0495d0bff5f5ccfa121ae95114dc75b11efdccf66570b",
+      "allThreeCopiesMatch": true
+    },
+    {
+      "id": "Afocal/Beam Expander.ZMX",
+      "sha256": "21f7e12aa610b21ca489976c28333053e7c27ad2aad36e27e3472671004c2028",
+      "allThreeCopiesMatch": true
+    },
+    {
+      "id": "Afocal/Binocular_System.ZMX",
+      "sha256": "cee5760013d36157ff2d1fd825a03dfce63e5b7c5e1db91308732fe78eac6540",
+      "allThreeCopiesMatch": true
+    },
+    {
+      "id": "Miscellaneous/Apochromat_prism.zmx",
+      "sha256": "704a18d47e16536c6af269559990c7e38b1476cbda1b28ae7579c883934a8de7",
+      "allThreeCopiesMatch": true
+    }
+  ],
+  "polygonObjects": [
+    {
+      "id": "PORRO_PRISM-LH.POB",
+      "sha256": "8ba3b4bfe0092319a97e6169de6987132c0f9e2cda99f0b6a19a70eecc3a74f4",
+      "productRunAndNativeCopiesMatch": true
+    },
+    {
+      "id": "PORRO_PRISM-RH.POB",
+      "sha256": "c247ee42b9ec39fed6d0411e5f8b7c780ad3a6ff938bd6a642450d1e40dcef68",
+      "productRunAndNativeCopiesMatch": true
+    }
+  ],
+  "tests": {
+    "filter": "RegistryCatalogSynchronizationTests or Afocal",
+    "configuration": "Release",
+    "passed": 52,
+    "failed": 0,
+    "skipped": 0,
+    "scope": "Current comparison registry and existing afocal regressions; compiled separately from the frozen optical-run Core"
+  },
+  "frozen": {
+    "count": 2668,
+    "headAndWorkingTreeUnchanged": true,
+    "aggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10"
+  },
+  "limitations": [
+    "No optical product fix in this comparison task",
+    "No rerun of historical focal 1159 + 52 requests",
+    "No full 95-file rerun, convergence certification, push, installer or installed-app acceptance",
+    "Concurrent unrelated workspace edits were preserved; all optical run outputs bind to the recorded Core DLL, not later default-build binaries"
+  ]
+}

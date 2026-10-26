@@ -345,7 +345,8 @@ public sealed partial class SequentialRayTracer
             }
         }
 
-        SequentialTraceMeasurement.Record(rayCount);
+        try { SequentialTraceMeasurement.Record(rayCount); }
+        catch { requestedTrace.Dispose(); throw; }
         var surfaceSlots = new int[surfaces.Length];
         Array.Fill(surfaceSlots, -1);
         for (var slot = 0; slot < retainedCount; slot++)

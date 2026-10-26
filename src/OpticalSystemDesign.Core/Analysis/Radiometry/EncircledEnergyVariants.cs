@@ -108,7 +108,7 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
                 ColorIndex: 10,
                 LineWidth: 1.25,
                 XQuantity: AnalysisAxisQuantity.Radius,
-                XUnit: AnalysisAxisUnit.Micrometer,
+                XUnit: Optic.ImageSpaceAfocal ? AnalysisAxisUnit.Milliradian : AnalysisAxisUnit.Micrometer,
                 YQuantity: AnalysisAxisQuantity.EnergyFraction,
                 YUnit: AnalysisAxisUnit.Dimensionless));
         }
@@ -124,7 +124,7 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
                 ColorIndex: curve.FieldIndex,
                 LineWidth: 1.25,
                 XQuantity: AnalysisAxisQuantity.Radius,
-                XUnit: AnalysisAxisUnit.Micrometer,
+                XUnit: Optic.ImageSpaceAfocal ? AnalysisAxisUnit.Milliradian : AnalysisAxisUnit.Micrometer,
                 YQuantity: AnalysisAxisQuantity.EnergyFraction,
                 YUnit: AnalysisAxisUnit.Dimensionless));
         }
@@ -143,7 +143,8 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
                 ["FieldCount"] = curves.Count,
                 ["Reference"] = _reference,
                 ["Type"] = _type,
-                ["MaximumDistanceMicrometers"] = maximumDistance,
+                ["MaximumDistanceMicrometers"] = Optic.ImageSpaceAfocal ? 0 : maximumDistance,
+                ["MaximumDistanceMilliradians"] = Optic.ImageSpaceAfocal ? maximumDistance : 0,
                 ["DiffractionLimit"] = IsRadialEncircledEnergy(_type)
             },
             series.FirstOrDefault(),
@@ -162,24 +163,25 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
 
     private string RadiusAxisLabel()
     {
+        var unit = Optic.ImageSpaceAfocal ? "mrad" : "\u00b5m";
         if (_type.StartsWith("X", StringComparison.OrdinalIgnoreCase))
         {
-            return "X \u65b9\u5411\u8ddd\u79bb\uff08\u00b5m\uff09";
+            return $"X \u65b9\u5411\u8ddd\u79bb\uff08{unit}\uff09";
         }
 
         if (_type.StartsWith("Y", StringComparison.OrdinalIgnoreCase))
         {
-            return "Y \u65b9\u5411\u8ddd\u79bb\uff08\u00b5m\uff09";
+            return $"Y \u65b9\u5411\u8ddd\u79bb\uff08{unit}\uff09";
         }
 
         if (_type.Contains("square", StringComparison.OrdinalIgnoreCase))
         {
-            return "\u534a\u8fb9\u957f\uff08\u4ece\u8d28\u5fc3\u8d77\uff0c\u00b5m\uff09";
+            return $"\u534a\u8fb9\u957f\uff08\u4ece\u8d28\u5fc3\u8d77\uff0c{unit}\uff09";
         }
 
         return _reference.Equals("centroid", StringComparison.OrdinalIgnoreCase)
-            ? "\u534a\u5f84\uff08\u4ece\u8d28\u5fc3\u8d77\uff0c\u00b5m\uff09"
-            : "\u534a\u5f84\uff08\u00b5m\uff09";
+            ? $"\u534a\u5f84\uff08\u4ece\u8d28\u5fc3\u8d77\uff0c{unit}\uff09"
+            : $"\u534a\u5f84\uff08{unit}\uff09";
     }
 
     private string FieldSeriesName(int fieldIndex, (double Hx, double Hy) field)
@@ -207,7 +209,7 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
     }
 
     private bool UseFftCumulativeGrid => _integrationConvention == DiffractionEnergyIntegrationConvention.FftCumulative
-        && !Optic.ImageSpaceAfocal && _pupilSampling >= 32
+        && _pupilSampling >= 32
         && (_pupilSampling & (_pupilSampling - 1)) == 0;
 
     private IEnergyImageGrid? CreatePixelGrid(int fieldIndex, bool ignoreOpd)
@@ -1066,7 +1068,8 @@ internal static class EnergyCurveSupport
             "uniform",
             reference: "absolute");
         var ray = chief.Fields.FirstOrDefault()?.Wavelengths.FirstOrDefault()?.Rays.FirstOrDefault();
-        return ray is null ? Centroid(samples) : (ray.X * 1000, ray.Y * 1000);
+        var scale = optic.ImageSpaceAfocal ? 1 : 1000;
+        return ray is null ? Centroid(samples) : (ray.X * scale, ray.Y * scale);
     }
 
     public static AnalysisData CreateCurve(

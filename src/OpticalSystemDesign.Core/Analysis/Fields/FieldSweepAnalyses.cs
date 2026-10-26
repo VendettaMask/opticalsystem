@@ -119,7 +119,7 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
         var effectiveDistribution = RmsScanSupport.EffectiveDistribution(_method, _distribution);
         RmsScanSupport.ValidateSamplingWork(workingOptic, _numRings, _method, GaussianAzimuthalSamples,
             fields.Count, wavelengths.Count, tracePasses: 2);
-        var yAxisLabel = RmsScanSupport.AxisLabel(_data);
+        var yAxisLabel = RmsScanSupport.AxisLabel(workingOptic, _data);
         var series = wavelengths.Select((wavelength, wavelengthIndex) => new AnalysisSeries(
             AnalysisTrace.FieldAxisLabel(workingOptic),
             yAxisLabel,
@@ -141,7 +141,7 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
             XQuantity: AnalysisTrace.FieldAxisQuantity(workingOptic),
             XUnit: AnalysisTrace.FieldAxisUnit(workingOptic),
             YQuantity: RmsScanSupport.MetricQuantity(_data),
-            YUnit: RmsScanSupport.MetricUnit(_data))).ToList();
+            YUnit: RmsScanSupport.MetricUnit(workingOptic, _data))).ToList();
         var diffractionLimit = RmsScanSupport.DiffractionLimitValue(Optic, wavelengths, _data);
         if (_showDiffractionLimit && diffractionLimit > 0)
         {
@@ -155,7 +155,7 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
                 XQuantity: AnalysisTrace.FieldAxisQuantity(workingOptic),
                 XUnit: AnalysisTrace.FieldAxisUnit(workingOptic),
                 YQuantity: RmsScanSupport.MetricQuantity(_data),
-                YUnit: RmsScanSupport.MetricUnit(_data)));
+                YUnit: RmsScanSupport.MetricUnit(workingOptic, _data)));
         }
 
         var seriesArray = series.ToArray();
@@ -186,9 +186,10 @@ public sealed class RmsVsFieldAnalysis : BaseAnalysis
             ["Reference"] = _reference,
             ["WavelengthNumber"] = _wavelengthNumber,
             ["ShowDiffractionLimit"] = _showDiffractionLimit,
-            ["DiffractionLimitMillimeters"] = _data == "spot" ? diffractionLimit : 0,
+            ["DiffractionLimitMillimeters"] = _data == "spot" && !Optic.ImageSpaceAfocal ? diffractionLimit : 0,
+            ["DiffractionLimitMilliradians"] = _data == "spot" && Optic.ImageSpaceAfocal ? diffractionLimit : 0,
             ["DiffractionLimitValue"] = diffractionLimit,
-            ["DiffractionLimitUnit"] = RmsScanSupport.DiffractionLimitUnit(_data),
+            ["DiffractionLimitUnit"] = RmsScanSupport.DiffractionLimitUnit(Optic, _data),
             ["UsePolarization"] = _usePolarization,
             ["RemoveVignetting"] = _removeVignetting,
             [RmsScanSupport.MaximumValueKey(_data)] = maximum

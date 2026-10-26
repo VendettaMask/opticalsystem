@@ -111,7 +111,8 @@ internal static class SpotAnalysisEngine
         int gaussianAzimuthalSamples = 6,
         IReadOnlyList<PupilSample>? explicitPupilSamples = null,
         CancellationToken cancellationToken = default,
-        bool gaussianPupilIntegral = false)
+        bool gaussianPupilIntegral = false,
+        bool importanceSampledPupil = false)
     {
         var fieldArray = fields.ToArray();
         var wavelengthArray = wavelengths.ToArray();
@@ -132,6 +133,11 @@ internal static class SpotAnalysisEngine
                     wavelength.Micrometers,
                     pupilSamples,
                     aimAtStop: aimAtStop);
+                if (importanceSampledPupil)
+                {
+                    bundle = new RealRayBundle(bundle.Rays.Select((ray, index) =>
+                        ray with { Intensity = pupilSamples[index].Weight }));
+                }
                 if (usePolarization)
                 {
                     bundle = WithPolarization(bundle);

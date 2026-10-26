@@ -33,9 +33,13 @@ public static class TopologyValidation
                 TopologyFailureCode.InvalidInput, "Every element requires two faces and a material name.");
             AddId(element.Id); AddId(element.FrontSurfaceId); AddId(element.BackSurfaceId);
             Require(!element.Transition || constraints.AllowTransitionElements, TopologyFailureCode.TransitionNotAllowed, "Transition elements require an explicit exploration constraint.");
+            var scoped = element.Transition && constraints.TransitionAllowance?.ElementId == element.Id ? constraints.TransitionAllowance : null;
+            Require(constraints.TransitionAllowance is null || !element.Transition || scoped is not null,
+                TopologyFailureCode.TransitionNotAllowed, "Only the explicitly named target may use a transition exception.");
             Require(double.IsFinite(element.FrontZMillimeters) && double.IsFinite(element.ThicknessMillimeters) && double.IsFinite(element.BackZMillimeters)
                 && element.ThicknessMillimeters > 0 && element.BackZMillimeters > element.FrontZMillimeters
-                && (element.Transition || element.ThicknessMillimeters >= constraints.MinimumCenterThicknessMillimeters),
+                && (scoped is not null ? element.ThicknessMillimeters >= scoped.MinimumCenterThicknessMillimeters
+                    : element.Transition && constraints.TransitionAllowance is null || element.ThicknessMillimeters >= constraints.MinimumCenterThicknessMillimeters),
                 TopologyFailureCode.CenterThickness, "An element has nonrepresentable, nonpositive or insufficient center thickness.");
             Require(element.FrontZMillimeters >= topology.Reference.ZMillimeters && element.BackZMillimeters < topology.Image.ZMillimeters,
                 TopologyFailureCode.AxialOrder, "Element vertices must lie within the mechanical reference and image interval.");
@@ -138,7 +142,12 @@ public static class TopologyValidation
         && Positive(constraints.MinimumCenterThicknessMillimeters) && Positive(constraints.MinimumAirGapMillimeters)
         && Positive(constraints.MinimumBackFocusMillimeters) && Positive(constraints.MaximumMechanicalTrackMillimeters)
         && !constraints.AllowedGlassNames.IsDefault && constraints.AllowedGlassNames.Length <= 4096
-        && constraints.AllowedGlassNames.All(name => Identifier(name, InitialStructureLimits.MaximumIdentifierLength)),
+        && constraints.AllowedGlassNames.All(name => Identifier(name, InitialStructureLimits.MaximumIdentifierLength))
+        && (constraints.TransitionAllowance is null || constraints.AllowTransitionElements
+            && Identifier(constraints.TransitionAllowance.ElementId, InitialStructureLimits.MaximumIdentifierLength)
+            && Positive(constraints.TransitionAllowance.MinimumCenterThicknessMillimeters)
+            && constraints.TransitionAllowance.MinimumCenterThicknessMillimeters <= constraints.MinimumCenterThicknessMillimeters
+            && Positive(constraints.TransitionAllowance.MinimumEdgeThicknessMillimeters)),
         TopologyFailureCode.InvalidInput, "Invalid topology constraints or allowed material list.");
 
     private static bool Positive(double value) => double.IsFinite(value) && value > 0;

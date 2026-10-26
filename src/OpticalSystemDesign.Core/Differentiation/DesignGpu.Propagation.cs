@@ -37,11 +37,11 @@ public static partial class DesignGpu
 {
     internal static (SequentialGpuSample[] Samples, double Milliseconds) Propagate(SequentialGpuSurface[] surfaces,
         SequentialGpuRay[] rays, bool ignoreApertures, int last, CancellationToken token, bool ignoreAbsorption = false) =>
-        (Instance.Value ?? throw new NotSupportedException("CUDA is unavailable.")).Propagate(surfaces, rays, ignoreApertures, last, token, ignoreAbsorption);
+        RequireRuntime().Propagate(surfaces, rays, ignoreApertures, last, token, ignoreAbsorption);
 
     internal static (SequentialGpuRay[] Rays, double Milliseconds) Aim(SequentialGpuSurface[] surfaces,
         SequentialGpuRay[] rays, int stop, CancellationToken token) =>
-        (Instance.Value ?? throw new NotSupportedException("CUDA is unavailable.")).Aim(surfaces, rays, stop, token);
+        RequireRuntime().Aim(surfaces, rays, stop, token);
 
     private sealed partial class Runtime
     {

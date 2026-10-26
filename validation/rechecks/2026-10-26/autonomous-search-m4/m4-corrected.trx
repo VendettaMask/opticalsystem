@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="a1cddd6f-4bdb-41c9-b9f8-d45ab989ca30" name="allen@DESKTOP-SET3SNR 2026-10-26 20:22:33" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-26T20:22:33.4589017+08:00" queuing="2026-10-26T20:22:33.4589018+08:00" start="2026-10-26T20:22:30.0519736+08:00" finish="2026-10-26T20:22:33.4641006+08:00" />
+  <TestSettings name="default" id="55878375-8631-430f-a99c-06fb4e42374e">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-26_20_22_33" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="bbed7f26-8e05-4345-8981-5741e55ebb0a" testId="62925583-2e89-5dd7-9e00-694162cb6cd4" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.TinyRayBudgetCannotOverrunOrPublishPartialValidationAndNonCpuPlanIsExplicitlyRejected" computerName="DESKTOP-SET3SNR" duration="00:00:00.0095932" startTime="2026-10-26T20:22:32.7236228+08:00" endTime="2026-10-26T20:22:32.7268976+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bbed7f26-8e05-4345-8981-5741e55ebb0a" />
+    <UnitTestResult executionId="34161d78-123f-4d4c-87e3-18d44d1fdd57" testId="b8ddf7a9-06c2-912b-f2b8-56cef5f6b006" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.CpuQuotaReservesParallelSubmissionsAndAllowsCacheHitsWithoutOvershoot" computerName="DESKTOP-SET3SNR" duration="00:00:00.0077735" startTime="2026-10-26T20:22:32.2199829+08:00" endTime="2026-10-26T20:22:32.2264091+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="34161d78-123f-4d4c-87e3-18d44d1fdd57" />
+    <UnitTestResult executionId="e5deab99-dfe8-4c0f-b2c8-a7ecfbd4d58b" testId="730c6150-7ff8-60c4-a1bf-b26ae574edd1" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.FiniteLoopAutomaticallyOptimizesInsertsRecoversAndIndependentlyAssesses" computerName="DESKTOP-SET3SNR" duration="00:00:00.1439183" startTime="2026-10-26T20:22:32.5700186+08:00" endTime="2026-10-26T20:22:32.7177030+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e5deab99-dfe8-4c0f-b2c8-a7ecfbd4d58b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Single() Failure: The collection was empty</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.FiniteLoopAutomaticallyOptimizesInsertsRecoversAndIndependentlyAssesses() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousSearchTests.cs:line 83&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="58ffc85a-3955-4182-9d74-88e10c6a796a" testId="eba1c5d6-b42d-d3af-9cac-94c8466900d6" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.UnknownReservationIsChargedOnceAndKnownUndispatchedCancellationRefundsZeroWork" computerName="DESKTOP-SET3SNR" duration="00:00:00.3410224" startTime="2026-10-26T20:22:32.2288202+08:00" endTime="2026-10-26T20:22:32.5686559+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="58ffc85a-3955-4182-9d74-88e10c6a796a" />
+    <UnitTestResult executionId="cd772e91-1579-43a6-b6dc-f3142569537c" testId="fd73416e-e700-a6f1-e2ca-978f4c09542c" testName="OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.StructuralWorkflowReservesIndependentValidationAndPreCancellationUsesNoOpticalWork" computerName="DESKTOP-SET3SNR" duration="00:00:00.8480427" startTime="2026-10-26T20:22:31.2274590+08:00" endTime="2026-10-26T20:22:32.0599229+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cd772e91-1579-43a6-b6dc-f3142569537c" />
+    <UnitTestResult executionId="df034e66-aeab-440e-873f-16d19eef99df" testId="ebcbd286-f60a-7fa2-23e1-f5e695628636" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.DurableCancelResumePreservesAcceptedArchiveAndRejectsStaleOrCorruptWrites" computerName="DESKTOP-SET3SNR" duration="00:00:00.6391096" startTime="2026-10-26T20:22:32.7439711+08:00" endTime="2026-10-26T20:22:33.3816901+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="df034e66-aeab-440e-873f-16d19eef99df" />
+    <UnitTestResult executionId="e5a25ead-b923-4951-8a75-0e6d0a6a99ad" testId="968399aa-1504-555b-c1c3-8958a012cc0f" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.CacheHitNeedsNoSecondReservationAndFailedPhysicalRayStillCostsWork" computerName="DESKTOP-SET3SNR" duration="00:00:00.0072324" startTime="2026-10-26T20:22:32.7285070+08:00" endTime="2026-10-26T20:22:32.7422721+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e5a25ead-b923-4951-8a75-0e6d0a6a99ad">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentOutOfRangeException : Normalized coordinates must be finite values in [-1, 1]. (Parameter 'normalizedPupilY')</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Raytrace.RayGenerator.ValidateNormalized(Double value, String parameterName) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Raytrace\RayGenerator.cs:line 1414&#xD;
+   at OpticalSystemDesign.Core.Raytrace.RayGenerator.GenerateAtPhysicalFieldCore(Double fieldX, Double fieldY, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthMicrometers, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, Boolean allowOutsideUnitPupil) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Raytrace\RayGenerator.cs:line 188&#xD;
+   at OpticalSystemDesign.Core.Raytrace.RayGenerator.GenerateGeneric(Double normalizedFieldX, Double normalizedFieldY, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthMicrometers, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, Boolean allowOutsideUnitPupil) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Raytrace\RayGenerator.cs:line 153&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.CacheHitNeedsNoSecondReservationAndFailedPhysicalRayStillCostsWork() in D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousSearchTests.cs:line 39&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4c5dd7e7-eb17-4d73-9a7c-3a669b27e5a6" testId="0a09e8ae-68d3-8c65-5a27-d72ca74ac0a1" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.AdamCancellationContinuesTheSameMomentsAndRejectsChangedPhaseBeforeTracing" computerName="DESKTOP-SET3SNR" duration="00:00:01.0065109" startTime="2026-10-26T20:22:31.2285010+08:00" endTime="2026-10-26T20:22:32.2166636+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4c5dd7e7-eb17-4d73-9a7c-3a669b27e5a6" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.UnknownReservationIsChargedOnceAndKnownUndispatchedCancellationRefundsZeroWork" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="eba1c5d6-b42d-d3af-9cac-94c8466900d6">
+      <Execution id="58ffc85a-3955-4182-9d74-88e10c6a796a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests" name="UnknownReservationIsChargedOnceAndKnownUndispatchedCancellationRefundsZeroWork" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.CpuQuotaReservesParallelSubmissionsAndAllowsCacheHitsWithoutOvershoot" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="b8ddf7a9-06c2-912b-f2b8-56cef5f6b006">
+      <Execution id="34161d78-123f-4d4c-87e3-18d44d1fdd57" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests" name="CpuQuotaReservesParallelSubmissionsAndAllowsCacheHitsWithoutOvershoot" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.AdamCancellationContinuesTheSameMomentsAndRejectsChangedPhaseBeforeTracing" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="0a09e8ae-68d3-8c65-5a27-d72ca74ac0a1">
+      <Execution id="4c5dd7e7-eb17-4d73-9a7c-3a669b27e5a6" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests" name="AdamCancellationContinuesTheSameMomentsAndRejectsChangedPhaseBeforeTracing" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.CacheHitNeedsNoSecondReservationAndFailedPhysicalRayStillCostsWork" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="968399aa-1504-555b-c1c3-8958a012cc0f">
+      <Execution id="e5a25ead-b923-4951-8a75-0e6d0a6a99ad" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests" name="CacheHitNeedsNoSecondReservationAndFailedPhysicalRayStillCostsWork" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.FiniteLoopAutomaticallyOptimizesInsertsRecoversAndIndependentlyAssesses" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="730c6150-7ff8-60c4-a1bf-b26ae574edd1">
+      <Execution id="e5deab99-dfe8-4c0f-b2c8-a7ecfbd4d58b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests" name="FiniteLoopAutomaticallyOptimizesInsertsRecoversAndIndependentlyAssesses" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.DurableCancelResumePreservesAcceptedArchiveAndRejectsStaleOrCorruptWrites" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="ebcbd286-f60a-7fa2-23e1-f5e695628636">
+      <Execution id="df034e66-aeab-440e-873f-16d19eef99df" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests" name="DurableCancelResumePreservesAcceptedArchiveAndRejectsStaleOrCorruptWrites" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.StructuralWorkflowReservesIndependentValidationAndPreCancellationUsesNoOpticalWork" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="fd73416e-e700-a6f1-e2ca-978f4c09542c">
+      <Execution id="cd772e91-1579-43a6-b6dc-f3142569537c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests" name="StructuralWorkflowReservesIndependentValidationAndPreCancellationUsesNoOpticalWork" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.TinyRayBudgetCannotOverrunOrPublishPartialValidationAndNonCpuPlanIsExplicitlyRejected" storage="d:\projects\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\debug\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="62925583-2e89-5dd7-9e00-694162cb6cd4">
+      <Execution id="bbed7f26-8e05-4345-8981-5741e55ebb0a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Debug\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests" name="TinyRayBudgetCannotOverrunOrPublishPartialValidationAndNonCpuPlanIsExplicitlyRejected" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="62925583-2e89-5dd7-9e00-694162cb6cd4" executionId="bbed7f26-8e05-4345-8981-5741e55ebb0a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8ddf7a9-06c2-912b-f2b8-56cef5f6b006" executionId="34161d78-123f-4d4c-87e3-18d44d1fdd57" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="730c6150-7ff8-60c4-a1bf-b26ae574edd1" executionId="e5deab99-dfe8-4c0f-b2c8-a7ecfbd4d58b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="eba1c5d6-b42d-d3af-9cac-94c8466900d6" executionId="58ffc85a-3955-4182-9d74-88e10c6a796a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fd73416e-e700-a6f1-e2ca-978f4c09542c" executionId="cd772e91-1579-43a6-b6dc-f3142569537c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ebcbd286-f60a-7fa2-23e1-f5e695628636" executionId="df034e66-aeab-440e-873f-16d19eef99df" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="968399aa-1504-555b-c1c3-8958a012cc0f" executionId="e5a25ead-b923-4951-8a75-0e6d0a6a99ad" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0a09e8ae-68d3-8c65-5a27-d72ca74ac0a1" executionId="4c5dd7e7-eb17-4d73-9a7c-3a669b27e5a6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="8" executed="8" passed="6" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.53]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.61]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.63]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:02.16]       Assert.Single() Failure: The collection was empty&#xD;
+[xUnit.net 00:00:02.16]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.16]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousSearchTests.cs(83,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.FiniteLoopAutomaticallyOptimizesInsertsRecoversAndIndependentlyAssesses()&#xD;
+[xUnit.net 00:00:02.16]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.16]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.18]       System.ArgumentOutOfRangeException : Normalized coordinates must be finite values in [-1, 1]. (Parameter 'normalizedPupilY')&#xD;
+[xUnit.net 00:00:02.18]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.18]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Raytrace\RayGenerator.cs(1414,0): at OpticalSystemDesign.Core.Raytrace.RayGenerator.ValidateNormalized(Double value, String parameterName)&#xD;
+[xUnit.net 00:00:02.18]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Raytrace\RayGenerator.cs(188,0): at OpticalSystemDesign.Core.Raytrace.RayGenerator.GenerateAtPhysicalFieldCore(Double fieldX, Double fieldY, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthMicrometers, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, Boolean allowOutsideUnitPupil)&#xD;
+[xUnit.net 00:00:02.18]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\Raytrace\RayGenerator.cs(153,0): at OpticalSystemDesign.Core.Raytrace.RayGenerator.GenerateGeneric(Double normalizedFieldX, Double normalizedFieldY, Double normalizedPupilX, Double normalizedPupilY, Double wavelengthMicrometers, Boolean aimAtStop, Nullable`1 resolvedRealImageLaunch, Boolean allowOutsideUnitPupil)&#xD;
+[xUnit.net 00:00:02.18]         D:\Projects\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousSearchTests.cs(39,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.CacheHitNeedsNoSecondReservationAndFailedPhysicalRayStillCostsWork()&#xD;
+[xUnit.net 00:00:02.18]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.18]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.82]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-26T20:22:32.7196872+08:00">
+        <Text>[xUnit.net 00:00:02.16]     OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.FiniteLoopAutomaticallyOptimizesInsertsRecoversAndIndependentlyAssesses [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-10-26T20:22:32.7426841+08:00">
+        <Text>[xUnit.net 00:00:02.18]     OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.CacheHitNeedsNoSecondReservationAndFailedPhysicalRayStillCostsWork [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Warning" timestamp="2026-10-26T20:22:33.4228277+08:00">
+        <Text>数据收集器“Blame”消息: 所有测试都已运行完毕，将不生成序列文件。</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -3,6 +3,8 @@ namespace OpticalSystemDesign.InitialStructure.Engine;
 internal struct DeterministicRandom
 {
     private ulong _state;
+    public ulong State => _state;
+    public static DeterministicRandom Restore(ulong state) => new() { _state = state };
 
     public DeterministicRandom(long seed)
     {

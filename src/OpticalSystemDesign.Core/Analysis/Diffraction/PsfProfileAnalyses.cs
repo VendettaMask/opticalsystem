@@ -51,6 +51,15 @@ public sealed class FftPsfCrossSectionAnalysis : BaseAnalysis
             displayAs: "截面",
             usePolarization: _usePolarization,
             normalize: _normalize, zemaxCompatible: true).GenerateData();
+        var idealPeak = 1d;
+        if (!_normalize)
+        {
+            var ideal = new PsfAnalysis(Optic, _sampling, _gridSize ?? (_sampling * 2),
+                _wavelengthNumber, _fieldNumber, type: "linear", displayAs: "heatmap",
+                usePolarization: _usePolarization, zemaxCompatible: true, ignoreOpd: true).GenerateData();
+            idealPeak = ideal.PlotSeries.SelectMany(series => series.Points)
+                .Where(point => point.Value.HasValue).Select(point => point.Value!.Value).Max();
+        }
         return PsfProfilePresentation.CreateCrossSectionData(
             Name,
             _usePolarization
@@ -60,7 +69,7 @@ public sealed class FftPsfCrossSectionAnalysis : BaseAnalysis
             _type,
             _row,
             _graphScaleMicrometers,
-            interpolateFftProfile: true);
+            interpolateFftProfile: true, idealPeak: idealPeak);
     }
 }
 
@@ -175,7 +184,8 @@ public sealed class HuygensPsfCrossSectionAnalysis : BaseAnalysis
             usePolarization: _usePolarization,
             normalize: false,
             useCentroid: _useCentroid).GenerateData();
-        var graphScaleMicrometers = source.Values.TryGetValue("ImageExtentMicrometers", out var extent)
+        var extentKey = Optic.ImageSpaceAfocal ? "ImageExtentMilliradians" : "ImageExtentMicrometers";
+        var graphScaleMicrometers = source.Values.TryGetValue(extentKey, out var extent)
             ? Convert.ToDouble(extent) / 2
             : 0;
         return PsfProfilePresentation.CreateCrossSectionData(
@@ -196,7 +206,8 @@ internal static class PsfProfilePresentation
         string profileType = "Both",
         string row = "中心",
         double graphScaleMicrometers = 0,
-        bool interpolateFftProfile = false)
+        bool interpolateFftProfile = false,
+        double idealPeak = 1)
     {
         if (!TryReadHeatmap(source, out var heatmap))
         {
@@ -205,6 +216,10 @@ internal static class PsfProfilePresentation
 
         var horizontal = CenterProfile(heatmap.Points, horizontal: true);
         var vertical = CenterProfile(heatmap.Points, horizontal: false);
+        if (!(idealPeak > 0) || !double.IsFinite(idealPeak))
+            throw new AnalysisDataUnavailableException(name, "no finite same-pupil unaberrated peak");
+        horizontal = horizontal.Select(point => point with { Y = point.Y / idealPeak }).ToArray();
+        vertical = vertical.Select(point => point with { Y = point.Y / idealPeak }).ToArray();
         if (interpolateFftProfile)
         {
             horizontal = InterpolateFftProfile(horizontal);
@@ -255,11 +270,23 @@ internal static class PsfProfilePresentation
                         logarithmic: false,
                         independentAxisIsX: false)
                 };
+        series = series.Select(item => item with
+        {
+            XQuantity = heatmap.XQuantity,
+            XUnit = heatmap.XUnit,
+            XAxisLabel = heatmap.XUnit == AnalysisAxisUnit.Milliradian
+                ? $"{(item.Name.StartsWith("Y", StringComparison.Ordinal) ? "Y" : "X")}-位置 mrad"
+                : item.XAxisLabel
+        }).ToArray();
         var values = CopyValues(source, ("Display", "Cross Section")).ToDictionary(
             item => item.Key,
             item => item.Value);
         values["Row"] = row;
-        values["GraphScaleMicrometers"] = graphScaleMicrometers;
+        values["ProfileIdealPeak"] = idealPeak;
+        if (values.TryGetValue("StrehlRatio", out var strehl))
+            values["StrehlRatio"] = Convert.ToDouble(strehl) / idealPeak;
+        values["GraphScaleMicrometers"] = heatmap.XUnit == AnalysisAxisUnit.Milliradian ? 0 : graphScaleMicrometers;
+        values["GraphScaleMilliradians"] = heatmap.XUnit == AnalysisAxisUnit.Milliradian ? graphScaleMicrometers : 0;
         values["ProfileType"] = profileType;
         double? xMinimum = graphScaleMicrometers > 0 ? -graphScaleMicrometers : null;
         double? xMaximum = graphScaleMicrometers > 0 ? graphScaleMicrometers : null;
@@ -341,14 +368,14 @@ internal static class PsfProfilePresentation
 
         var functionName = edgeSpread ? "边缘扩散函数" : "线扩散函数";
         var series = new AnalysisSeries(
-            lineRunsAlongX ? "Y-位置 µm" : "X-位置 µm",
+            $"{(lineRunsAlongX ? "Y" : "X")}-位置 {(heatmap.XUnit == AnalysisAxisUnit.Milliradian ? "mrad" : "µm")}",
             logarithmic ? "相对辐射照度 (dB)" : "相对辐射照度",
             selected,
             Name: functionName,
             ColorIndex: 0,
             LineWidth: 1.8,
-            XQuantity: AnalysisAxisQuantity.ImageHeight,
-            XUnit: AnalysisAxisUnit.Micrometer,
+            XQuantity: heatmap.XQuantity,
+            XUnit: heatmap.XUnit,
             YQuantity: AnalysisAxisQuantity.Irradiance,
             YUnit: logarithmic ? AnalysisAxisUnit.Decibel : AnalysisAxisUnit.Dimensionless);
         var values = CopyValues(source, ("Display", functionName)).ToDictionary(

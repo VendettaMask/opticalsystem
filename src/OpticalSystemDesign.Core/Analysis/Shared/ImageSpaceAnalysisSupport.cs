@@ -250,7 +250,7 @@ internal static class ImageSpaceAnalysisSupport
         var radiusSquared = pupilRadius * pupilRadius
             * ((sample.NormalizedPupilX * sample.NormalizedPupilX)
                 + (sample.NormalizedPupilY * sample.NormalizedPupilY));
-        var opdMillimeters = defocusDiopters * radiusSquared / 2_000.0;
+        var opdMillimeters = -defocusDiopters * radiusSquared / 2_000.0;
         return opdMillimeters / (wavelength.Micrometers * 1e-3);
     }
 

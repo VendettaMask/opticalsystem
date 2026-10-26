@@ -1,0 +1,366 @@
+{
+  "Date": "2026-10-26",
+  "Phase": "M3",
+  "Algorithm": "AutonomousTopologyV1",
+  "BaseCommit": "dcb7e96f054fce8b03e3ed7cdc004510e73c7b3a",
+  "Scope": "Explicit insertion/deletion, fixed-frame first-order recovery, fresh local/full optimization and independent physical validation; no M4 search or stopped UpstreamE58 training",
+  "UniqueLatestTestCount": 8,
+  "UniqueLatestPassedCount": 8,
+  "UniqueLatestTests": [
+    {
+      "Outcome": "Passed",
+      "File": "native-roundtrip-final.trx",
+      "Duration": "00:00:02.1741084",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.ActualInsertionAndDeletionRecoverThenCompensateAndValidateWithProtectedImage(insert: False)"
+    },
+    {
+      "Outcome": "Passed",
+      "File": "native-roundtrip-final.trx",
+      "Duration": "00:00:01.9166344",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.ActualInsertionAndDeletionRecoverThenCompensateAndValidateWithProtectedImage(insert: True)"
+    },
+    {
+      "Outcome": "Passed",
+      "File": "module-contracts-corrected.trx",
+      "Duration": "00:00:00.6256495",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.ChildQ0HasItsOwnDimensionAndFirstLensDeletionKeepsTheMechanicalReference"
+    },
+    {
+      "Outcome": "Passed",
+      "File": "recovery-failure-contracts-final.trx",
+      "Duration": "00:00:00.7317388",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.RecoveryRecordsRankNoFreedomGeometryBudgetCancellationAndTimeoutSeparately"
+    },
+    {
+      "Outcome": "Passed",
+      "File": "structural-branches-final.trx",
+      "Duration": "00:00:00.0410222",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyRestorationTests.StructuralWorkflowReservesIndependentValidationAndPreCancellationUsesNoOpticalWork"
+    },
+    {
+      "Outcome": "Passed",
+      "File": "core-matrix.trx",
+      "Duration": "00:00:00.0008962",
+      "Name": "OpticalSystemDesign.Tests.ParaxialTransferMatrixTests.EndpointMediaAndFixedReferenceCoordinatesAreExplicitAndUnsupportedPathsAreRejected"
+    },
+    {
+      "Outcome": "Passed",
+      "File": "core-matrix.trx",
+      "Duration": "00:00:00.3946643",
+      "Name": "OpticalSystemDesign.Tests.ParaxialTransferMatrixTests.FullMatrixMatchesIndependentThickLensProductAndExcludesImagePlaceholderThickness"
+    },
+    {
+      "Outcome": "Passed",
+      "File": "core-matrix.trx",
+      "Duration": "00:00:00.0258458",
+      "Name": "OpticalSystemDesign.Tests.ParaxialTransferMatrixTests.MatrixMapsBothIndependentBasisRaysAndSmallPhysicalRaysUsingHeightAndSlopeOrder"
+    }
+  ],
+  "TestRuns": [
+    {
+      "File": "core-matrix.trx",
+      "Total": 3,
+      "Passed": 3,
+      "Failed": 0,
+      "NotExecuted": 0,
+      "Finished": "2026-10-26T19:33:45.1968678+08:00"
+    },
+    {
+      "File": "module-restoration.trx",
+      "Total": 5,
+      "Passed": 3,
+      "Failed": 2,
+      "NotExecuted": 0,
+      "Finished": "2026-10-26T19:35:00.4826558+08:00"
+    },
+    {
+      "File": "module-contracts-corrected.trx",
+      "Total": 2,
+      "Passed": 1,
+      "Failed": 1,
+      "NotExecuted": 0,
+      "Finished": "2026-10-26T19:36:55.9499194+08:00"
+    },
+    {
+      "File": "recovery-failure-contracts-final.trx",
+      "Total": 1,
+      "Passed": 1,
+      "Failed": 0,
+      "NotExecuted": 0,
+      "Finished": "2026-10-26T19:37:58.2678993+08:00"
+    },
+    {
+      "File": "structural-branches-final.trx",
+      "Total": 3,
+      "Passed": 3,
+      "Failed": 0,
+      "NotExecuted": 0,
+      "Finished": "2026-10-26T19:40:04.3297847+08:00"
+    },
+    {
+      "File": "native-roundtrip-final.trx",
+      "Total": 2,
+      "Passed": 2,
+      "Failed": 0,
+      "NotExecuted": 0,
+      "Finished": "2026-10-26T19:43:19.8342548+08:00"
+    }
+  ],
+  "Builds": {
+    "ReleaseAppAndTests": {
+      "Log": "native-roundtrip-final.log",
+      "ExitCode": 0,
+      "Method": "Default Release App/test outputs built by focused test commands"
+    },
+    "DebugApp": {
+      "Errors": 0,
+      "Warnings": 0,
+      "ExitCode": 0,
+      "Log": "app-debug-build.log"
+    }
+  },
+  "SelectedSourceFormat": {
+    "FormatExitCode": 0,
+    "Logs": [
+      "source-format.log",
+      "source-format-verify.log"
+    ],
+    "FileCount": 7,
+    "VerifyExitCode": 0
+  },
+  "Branches": [
+    {
+      "File": "insert-3-to-4.json",
+      "InitialElementCount": 3,
+      "FinalElementCount": 4,
+      "RecoveryAcceptedSteps": 2,
+      "RecoveryAError": 2.7436916405498835E-08,
+      "RecoveryFocalCError": 4.304285868700353E-08,
+      "FunctionRequests": 52,
+      "RecoveryMatrixRequests": 41,
+      "DifferenceRequests": 36,
+      "GradientRequests": 9,
+      "IndependentValidations": 2,
+      "TracedRays": 90390,
+      "FinalEflMillimeters": 48.56173482239258,
+      "FinalFNumber": 12.140433705598145,
+      "WorstRmsMicrometers": 110.71885758420242,
+      "MeetsTargets": false
+    },
+    {
+      "File": "delete-3-to-2.json",
+      "InitialElementCount": 3,
+      "FinalElementCount": 2,
+      "RecoveryAcceptedSteps": 3,
+      "RecoveryAError": 8.950462054846398E-07,
+      "RecoveryFocalCError": 1.2828977803691632E-06,
+      "FunctionRequests": 49,
+      "RecoveryMatrixRequests": 38,
+      "DifferenceRequests": 32,
+      "GradientRequests": 9,
+      "IndependentValidations": 2,
+      "TracedRays": 90390,
+      "FinalEflMillimeters": 48.471861985506074,
+      "FinalFNumber": 12.117965496376518,
+      "WorstRmsMicrometers": 111.91444226341629,
+      "MeetsTargets": false
+    }
+  ],
+  "FailureContractEvidence": "failure-contracts.json",
+  "NativeProjectRoundTrips": [
+    "insert-endpoint.staropt",
+    "delete-endpoint.staropt"
+  ],
+  "CounterScope": "Function requests are not equivalent optical costs. Recovery matrix requests exclude internal fixed-optimizer matrix calls. Traced rays and geometry probes are measured; hard ray quotas are not implemented.",
+  "FrozenInputChanges": [],
+  "SourceFiles": [
+    {
+      "Sha256": "9eaa2cd01bdba9fc088732c4e11c4b53623718db5ab51989a9c7f2718c88ab42",
+      "File": "src/OpticalSystemDesign.Core/Services/Paraxial.TransferMatrix.cs"
+    },
+    {
+      "Sha256": "924c960e1d056ed974542d20fff6ffb9511b85a880e87664c7599c32f1236bb4",
+      "File": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/TopologyRestorationModels.cs"
+    },
+    {
+      "Sha256": "7399fc7390121a0f212ce2f5fe05ff86f8f72133680d29c9f057c126feffd174",
+      "File": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/ParaxialRestorer.cs"
+    },
+    {
+      "Sha256": "374c5f691815d3bee52f2c8ffcda53cc71f8a918a42b7308e40789116c1177e5",
+      "File": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/TopologyRestorationWorkflow.cs"
+    },
+    {
+      "Sha256": "ec0d671b747dc352ee2866a5881659fa8964402b3528268f72c662c9a7e2d3ab",
+      "File": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/Optimization/BoundedTrustRegionLeastSquares.cs"
+    },
+    {
+      "Sha256": "d39d7d21131cf7d62b4abd0eaac995ffae41299ae4eb20a03a119da50b03c2fd",
+      "File": "tests/OpticalSystemDesign.Tests/ParaxialTransferMatrixTests.cs"
+    },
+    {
+      "Sha256": "26fe318423a0e587da62de54036b1cb5db0d0c8a701951922733852b6bf3ed9b",
+      "File": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/TopologyRestorationTests.cs"
+    },
+    {
+      "Sha256": "a14ebf12d4a9bda4a86df64b60bb12a3f13e364e36bcfac60f6973fd91696986",
+      "File": "labs/InitialStructure/benchmarks/autonomous-topology-v1/foundation-3.json"
+    },
+    {
+      "Sha256": "b6b771a808b1974baaa0d788bbfe38436cb0b5a260de2f74b9bdb8a89aac0702",
+      "File": "labs/InitialStructure/benchmarks/autonomous-topology-v1/restoration-m3.json"
+    }
+  ],
+  "FinalBuildBinaries": [
+    {
+      "File": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "424d85db960e6cd81d3e2e21f03043d0473b098ffdebaa68f8d4cee39ec4603f",
+      "Configuration": "Debug"
+    },
+    {
+      "File": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "61e7fb86c385133a78b99a1a27627b632c8c529640ea9f6d03f29154eba2577c",
+      "Configuration": "Debug"
+    },
+    {
+      "File": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.InitialStructure.Contracts.dll",
+      "Sha256": "49a4c222258ffa2eb1924ec495238279f3d4bf9b62072a40a7de80f7e4315ff2",
+      "Configuration": "Debug"
+    },
+    {
+      "File": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "Sha256": "1e193576b399c47d243e590681232c7b912d585a1f899c4ea2aff195d37e433f",
+      "Configuration": "Debug"
+    },
+    {
+      "File": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "45ecf1c48da055a1694bb488f4980ad7e854fcc1dc4ded048fdc6299bbaafa01",
+      "Configuration": "Release"
+    },
+    {
+      "File": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "55c4d0f3a43e6cf7d2616d9d88fdf9490a3bc2bf9ba5183040735338e937adc7",
+      "Configuration": "Release"
+    },
+    {
+      "File": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Contracts.dll",
+      "Sha256": "59b32fade83bac58e0f3a8890596f4e9ccb3cdd31765590c94bfc62ab1d27625",
+      "Configuration": "Release"
+    },
+    {
+      "File": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "Sha256": "b806681d01e3dba3eb558dbfd0f89d60afec3b56ddcbc28e289b8a32867aa7a9",
+      "Configuration": "Release"
+    }
+  ],
+  "EvidenceFiles": [
+    {
+      "File": "app-debug-build.log",
+      "Sha256": "6dfab9c25c0285e6f3c5cb7b7a54e1d5c002ad31d04d5a3dd321fe0d33c07cd3",
+      "Bytes": 1503
+    },
+    {
+      "File": "core-matrix.log",
+      "Sha256": "832d9fc4540a91bfb65fe7961828e47051cf6c581f5b37bf9e5a76ded555471c",
+      "Bytes": 2480
+    },
+    {
+      "File": "core-matrix.trx",
+      "Sha256": "b7eee9bee57eaedbb2c40d6363ee93e685b4d83a1d612155f769440d7844d78a",
+      "Bytes": 6479
+    },
+    {
+      "File": "delete-3-to-2.json",
+      "Sha256": "bca9bb08ce9aef25f55bd08d81aacd59807e83d57db1e897d99e18f753be2073",
+      "Bytes": 220307
+    },
+    {
+      "File": "delete-endpoint.staropt",
+      "Sha256": "a176bb95becbf4d2f1ef66bc09231f3816407dcef9e03551cda92094b585169f",
+      "Bytes": 2236
+    },
+    {
+      "File": "failure-contracts.json",
+      "Sha256": "539c974da04a9784384d501f1977e0cbf401f1d7b80896a26a05c161297b117c",
+      "Bytes": 42931
+    },
+    {
+      "File": "insert-3-to-4.json",
+      "Sha256": "06d4eb7d581b5c78b75da0e400761508317a08cce1d5c79918a5f72c35d8d154",
+      "Bytes": 269666
+    },
+    {
+      "File": "insert-endpoint.staropt",
+      "Sha256": "c3ef63363da68fbf1ba671c3150e118e11b02871294c8ff53eae43749eab97b3",
+      "Bytes": 2665
+    },
+    {
+      "File": "module-contracts-corrected.log",
+      "Sha256": "cc9ab083b54c69f5df31c8239536e9b0a7a044984b5724db21d04759e6293a33",
+      "Bytes": 3244
+    },
+    {
+      "File": "module-contracts-corrected.trx",
+      "Sha256": "3459cde24b8de9072f54c22501952090dd87630b6956de62b466cb9fbdee7772",
+      "Bytes": 7192
+    },
+    {
+      "File": "module-restoration.log",
+      "Sha256": "d08f7958be3436a5c0291c2bf4dc5e321e50c2a4047d4018f8faed108cef34e5",
+      "Bytes": 4873
+    },
+    {
+      "File": "module-restoration.trx",
+      "Sha256": "9eb9edd04b758d8ef32990450d84962c2248c81285c45b502cc1f7700d762140",
+      "Bytes": 16025
+    },
+    {
+      "File": "native-roundtrip-final.log",
+      "Sha256": "2aaae3d5a08bd27efee2cb2a008e28bb6b7c2cf00e1d8b771b188b2231389ff2",
+      "Bytes": 2290
+    },
+    {
+      "File": "native-roundtrip-final.trx",
+      "Sha256": "0b29c9d86a0d36540cafa72f0f9e332ec7a793c98a453bb41756595899ebfdef",
+      "Bytes": 5806
+    },
+    {
+      "File": "README.md",
+      "Sha256": "78e027d2c5f5d63efeca35ede8caa17586966300de1be84ad65687f46fe8137f",
+      "Bytes": 6632
+    },
+    {
+      "File": "recovery-failure-contracts-final.log",
+      "Sha256": "eab05c591ebc5bd49bddbcb65ecec107b92e646387d23e3912c4ae2be6224464",
+      "Bytes": 2303
+    },
+    {
+      "File": "recovery-failure-contracts-final.trx",
+      "Sha256": "78641da19daa0bad0eab3be33dae78944e6d283277cf13ea2cb44368da714c9b",
+      "Bytes": 3659
+    },
+    {
+      "File": "structural-branches-final.log",
+      "Sha256": "37e57682899a94cc23682c6103bd1923b27a317a7960055c16fa9540075ab315",
+      "Bytes": 2293
+    },
+    {
+      "File": "structural-branches-final.trx",
+      "Sha256": "dac520df7076e7efa38797cbd3031fed9e43bc41814d9b6a39d05395835770e1",
+      "Bytes": 7478
+    }
+  ],
+  "Remaining": [
+    "M4 candidate search, hard ray budget and durable checkpoints",
+    "M5 gradual deletion/split/merge/material branches",
+    "M6 desktop integration and same-budget comparison",
+    "Both M3 short-budget endpoints fail original full targets",
+    "No M3 whole-pipeline CUDA or new external optical certification"
+  ],
+  "NotPerformed": [
+    "Restart stopped old training",
+    "Full repository tests",
+    "Commit/push",
+    "Installer publication"
+  ]
+}

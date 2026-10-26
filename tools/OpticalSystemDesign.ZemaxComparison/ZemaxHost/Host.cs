@@ -162,10 +162,19 @@ internal static class Host
             if (applied != null && applied.ErrorCode != ErrorType.Success)
                 throw new CaptureFailure(applied.ErrorCode.ToString(), applied.Text);
             var results = analysis.GetResults();
+            // Preserve the native explanation even when numeric buffers are
+            // absent. An invalid result must never hide its report/messages.
+            bool text = results.GetTextFile(Path.Combine(Output, "data.txt"));
+            Write("result-diagnostics.json", Object("seriesCount", results.NumberOfDataSeries,
+                "gridCount", results.NumberOfDataGrids,
+                "messages", Enumerable.Range(0, results.NumberOfMessages).Select(i =>
+                {
+                    var message = results.GetMessageAt(i);
+                    return Object("errorCode", message.ErrorCode.ToString(), "text", message.Text);
+                }).ToArray()));
             var raw = Capture(results);
             adapter.Extra(system, results, raw);
             Write("data.json", raw);
-            bool text = results.GetTextFile(Path.Combine(Output, "data.txt"));
             for (var i = 0; i < results.NumberOfMessages; i++)
             {
                 var message = results.GetMessageAt(i);

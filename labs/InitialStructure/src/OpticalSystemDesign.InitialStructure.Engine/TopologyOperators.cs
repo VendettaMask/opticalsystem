@@ -6,7 +6,7 @@ using static OpticalSystemDesign.InitialStructure.Engine.TopologyValidation;
 namespace OpticalSystemDesign.InitialStructure.Engine;
 
 /// <summary>Vertex-level edits only; optical restoration/acceptance are separate stages.</summary>
-public static class TopologyOperators
+public static partial class TopologyOperators
 {
     public static TopologyEditResult Insert(DesignTopology parent, string leftSurfaceId, string rightSurfaceId,
         LensElement newElement, double positionFraction, TopologyConstraints? constraints = null)

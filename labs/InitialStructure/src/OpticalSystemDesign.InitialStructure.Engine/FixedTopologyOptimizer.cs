@@ -1,6 +1,7 @@
 using System.Collections.Immutable;
 using System.Diagnostics;
 using OpticalSystemDesign.Core.Differentiation;
+using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine.Optimization;
 using static OpticalSystemDesign.InitialStructure.Engine.TopologyValidation;
@@ -11,7 +12,8 @@ namespace OpticalSystemDesign.InitialStructure.Engine;
 public static class FixedTopologyOptimizer
 {
     public static FixedTopologyResult Run(CompiledTopology source, BoundTopologyParameters binding, TopologyTargets targets,
-        FixedTopologyOptions? options = null, CancellationToken cancellationToken = default, Action<FixedTopologyStep>? progress = null)
+        FixedTopologyOptions? options = null, CancellationToken cancellationToken = default, Action<FixedTopologyStep>? progress = null,
+        FixedTopologyContinuation? continuation = null)
     {
         options ??= new();
         Require(options.MaximumUpdates is >= 0 and <= 400 && options.MaximumFunctionEvaluations is >= 1 and <= 10000
@@ -20,37 +22,65 @@ public static class FixedTopologyOptimizer
             TopologyFailureCode.InvalidInput, "Invalid fixed-topology stage budget or learning rate.");
         var timer = Stopwatch.StartNew();
         using var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-        deadline.CancelAfter(options.TimeLimit);
+        var elapsedBefore = continuation?.Work.Elapsed ?? TimeSpan.Zero;
+        deadline.CancelAfter(options.TimeLimit > elapsedBefore ? options.TimeLimit - elapsedBefore : TimeSpan.Zero);
         var token = deadline.Token;
-        var steps = new List<FixedTopologyStep>();
+        var steps = continuation?.Steps.ToList() ?? new List<FixedTopologyStep>();
         var diagnostics = new HashSet<string>(StringComparer.Ordinal);
-        var functions = 0; var gradients = 0; var completedGradients = 0; var validations = 0; var updates = 0;
-        long rays = 0, probes = 0, gpuRays = 0, gpuBatches = 0;
-        var unknownGpuWork = false;
+        var previous = continuation?.Work;
+        var functions = previous?.FunctionEvaluations ?? 0; var gradients = previous?.GradientEvaluations ?? 0;
+        var completedGradients = previous?.CompletedGradientEvaluations ?? 0; var validations = previous?.ValidationEvaluations ?? 0;
+        var updates = continuation?.AcceptedUpdates ?? 0;
+        long rays = previous?.TracedRays ?? 0, probes = previous?.GeometryProbes ?? 0;
+        long gpuRays = previous?.GpuDerivativeRays ?? 0, gpuBatches = previous?.GpuBatches ?? 0;
+        var unknownGpuWork = previous is not null && previous.GpuDerivativeRays is null;
         var current = source;
-        TopologyObjectiveEvaluation? initial = null, endpoint = null;
+        TopologyObjectiveEvaluation? initial = continuation?.InitialEvaluation, endpoint = continuation?.EndpointEvaluation;
         TopologyAssessment? assessment = null;
         var termination = FixedTopologyTermination.UpdateLimit;
         FixedTopologyObjective? objective = null;
+        var state = continuation?.Adam ?? DifferentiableAdam.Initialize(binding.InitialCoordinates);
+        var rate = continuation?.LearningRate ?? options.LearningRate;
+        var phaseFingerprint = ContentFingerprint.Compute(new { Identity = "fixed-topology-continuation-v1", source.BindingFingerprint, binding.Fingerprint, targets, options });
+        if (continuation is not null)
+        {
+            DifferentiableAdam.Validate(state);
+            Require(continuation.PhaseFingerprint == phaseFingerprint && state.Coordinates.Count == binding.Slots.Length
+                && double.IsFinite(rate) && rate > 0 && rate <= options.LearningRate
+                && functions >= 0 && functions <= options.MaximumFunctionEvaluations && gradients >= 0 && gradients <= options.MaximumGradientEvaluations
+                && validations == 0 && rays >= 0 && probes >= 0 && elapsedBefore >= TimeSpan.Zero
+                && steps.Count <= options.MaximumUpdates && updates == steps.Count(step => step.Accepted)
+                && steps.Select(step => step.Attempt).SequenceEqual(Enumerable.Range(1, steps.Count)),
+                TopologyFailureCode.IdentityMismatch, "Continuation identity, optimizer state or consumed work does not match this phase.");
+            current = TopologyParameterBinder.Apply(source, binding, state.Coordinates);
+        }
         try { objective = new(source, binding, targets, options.Sampling); }
         catch (Exception error) when (TopologyEvaluationPlan.DomainError(error))
         {
             termination = FixedTopologyTermination.Unsupported;
             diagnostics.Add(error.Message);
         }
+        if (continuation is not null && endpoint is not null)
+            Require(endpoint.Available && endpoint.LayoutFingerprint == objective?.Fingerprint
+                && endpoint.OpticFingerprint == current.OpticFingerprint && endpoint.Gradient.Length == binding.Slots.Length
+                && endpoint.Gradient.All(double.IsFinite), TopologyFailureCode.IdentityMismatch, "Continuation residuals do not match the accepted point and layout.");
         if (objective is not null && !StopRequested())
         {
-            if (!CanDifferentiate()) termination = FixedTopologyTermination.BudgetExhausted;
+            if (endpoint is null && !CanDifferentiate()) termination = FixedTopologyTermination.BudgetExhausted;
             else
             {
-                var state = DifferentiableAdam.Initialize(binding.InitialCoordinates);
-                initial = endpoint = Evaluate(state.Coordinates);
-                if (!initial.Available) termination = FixedTopologyTermination.DomainFailure;
+                if (endpoint is null)
+                {
+                    var first = Evaluate(state.Coordinates);
+                    if (first.Available) initial = endpoint = first;
+                    else if (SequentialTraceMeasurement.CpuBudgetReached) termination = FixedTopologyTermination.BudgetExhausted;
+                    else if (!StopRequested()) termination = FixedTopologyTermination.DomainFailure;
+                }
+                if (endpoint is null) { /* An interrupted initial evaluation is charged but is not an accepted point. */ }
                 else
                 {
                     current = TopologyParameterBinder.Apply(source, binding, state.Coordinates);
-                    var rate = options.LearningRate;
-                    for (var attempt = 1; attempt <= options.MaximumUpdates; attempt++)
+                    for (var attempt = steps.Count + 1; attempt <= options.MaximumUpdates; attempt++)
                     {
                         if (StopRequested()) break;
                         if (!CanDifferentiate()) { termination = FixedTopologyTermination.BudgetExhausted; break; }
@@ -63,6 +93,9 @@ public static class FixedTopologyOptimizer
                             binding.Slots[index].LowerCoordinate, binding.Slots[index].UpperCoordinate)).ToArray();
                         if (coordinates.SequenceEqual(state.Coordinates)) { termination = FixedTopologyTermination.Stalled; break; }
                         var trial = Evaluate(coordinates);
+                        if (SequentialTraceMeasurement.CpuBudgetReached) { termination = FixedTopologyTermination.BudgetExhausted; break; }
+                        // Cancellation is not a rejected numerical update: preserve moments and rate.
+                        if (StopRequested()) break;
                         if (trial.Available)
                         {
                             current = TopologyParameterBinder.Apply(source, binding, coordinates);
@@ -83,7 +116,7 @@ public static class FixedTopologyOptimizer
                 }
             }
             // The last function slot is reserved for a fresh, independent physical endpoint assessment.
-            if (!StopRequested() && functions < options.MaximumFunctionEvaluations)
+            if (options.PerformFinalAssessment && !SequentialTraceMeasurement.CpuBudgetReached && !StopRequested() && functions < options.MaximumFunctionEvaluations)
             {
                 functions++; validations++;
                 assessment = TopologyValidator.Validate(current, targets, token);
@@ -110,14 +143,28 @@ public static class FixedTopologyOptimizer
             InitialEvaluation = initial,
             EndpointEvaluation = endpoint,
             FinalAssessment = assessment,
-            Work = new(functions, gradients, validations, rays, probes, unknownGpuWork ? null : gpuRays, unknownGpuWork ? null : gpuBatches, timer.Elapsed, completedGradients),
-            Diagnostics = diagnostics.ToImmutableArray()
+            Work = Work(),
+            Diagnostics = diagnostics.ToImmutableArray(),
+            Continuation = validations == 0 ? new()
+            {
+                PhaseFingerprint = phaseFingerprint,
+                Adam = state,
+                LearningRate = rate,
+                Work = Work(),
+                Steps = steps.ToImmutableArray(),
+                AcceptedUpdates = updates,
+                InitialEvaluation = initial,
+                EndpointEvaluation = endpoint
+            } : null
         };
 
-        bool CanDifferentiate() => functions < options.MaximumFunctionEvaluations - 1 && gradients < options.MaximumGradientEvaluations;
+        FixedTopologyWork Work() => new(functions, gradients, validations, rays, probes, unknownGpuWork ? null : gpuRays,
+            unknownGpuWork ? null : gpuBatches, elapsedBefore + timer.Elapsed, completedGradients);
+        bool CanDifferentiate() => functions < options.MaximumFunctionEvaluations - (options.PerformFinalAssessment ? 1 : 0)
+            && gradients < options.MaximumGradientEvaluations && !SequentialTraceMeasurement.CpuBudgetReached;
         bool StopRequested()
         {
-            if (!token.IsCancellationRequested && timer.Elapsed >= options.TimeLimit) deadline.Cancel();
+            if (!token.IsCancellationRequested && elapsedBefore + timer.Elapsed >= options.TimeLimit) deadline.Cancel();
             return token.IsCancellationRequested;
         }
         TopologyObjectiveEvaluation Evaluate(IReadOnlyList<double> coordinates)

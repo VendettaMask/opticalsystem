@@ -13,7 +13,7 @@ public static partial class ExtendedResultNormalizer
         _ => Field
     };
     private static Axis RmsMetricAxis(CanonicalAnalysisRequest r) => r.CanonicalAnalysisKey is "RMS vs Field" or "RMS vs Wavelength"
-        ? new("Radius", "Micrometer") : new("WavefrontError", "Wave");
+        ? new("Radius", r.ImageSpaceAfocal ? "Milliradian" : "Micrometer") : new("WavefrontError", "Wave");
     private static NumericResult? WorkbenchRmsScan(AnalysisData data, CanonicalAnalysisRequest r)
     {
         if (!ExtendedAnalysisContracts.IsRmsScan(r.CanonicalAnalysisKey)) return null;
@@ -59,9 +59,10 @@ public static partial class ExtendedResultNormalizer
         result.Transformations.Add("26.1 RMS enum-name discrepancy: physical reference and interval count verified from native report/data, not inferred from interface enum display names.");
         for (var i = 0; i < width; i++)
         {
-            var series = new Series1DResult("curve:" + i, "Native RMS column " + i, x, rows.Select(row => row[i]).ToArray(), RmsScanAxis(r), RmsMetricAxis(r));
+            var valueAxis = r.ImageSpaceAfocal && centroid ? new Axis("Radius", r.NativeAfocalAngleUnit!) : RmsMetricAxis(r);
+            var series = new Series1DResult("curve:" + i, "Native RMS column " + i, x, rows.Select(row => row[i]).ToArray(), RmsScanAxis(r), valueAxis);
             if (zeroField) series = PhysicalNormalization.ZeroFieldPoint(series, true, result.Transformations);
-            result.Series.Add(series);
+            result.Series.Add(PhysicalNormalization.Convert(series, RmsScanAxis(r), RmsMetricAxis(r), result.Transformations));
         }
         return result;
     }

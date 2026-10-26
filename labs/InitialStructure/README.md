@@ -2,7 +2,7 @@
 
 更新：2026-10-26。通过 **实验室 → AI 初始结构** 打开，与镀膜设计同在主程序进程内运行，随标准安装包交付。产品保持纯 C#；相同的基础光学计算使用共享 Core，AutoLens 专用的绿色参考、detach 与 epsilon RMS 损失统计留在实验室。
 
-后续镜片增删与自主搜索按[自主镜头拓扑设计实施计划](../../docs/AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md)推进。`AutonomousTopologyV1` 已完成 M0–M2：稳定 ID 模型、Core 编译/受限导入、参数绑定、结构插删，以及任意支持片数的固定拓扑 Adam、固定残差和独立 Core 验收。M0/M1 的 25 项见[基础层证据](../../validation/rechecks/2026-10-26/autonomous-topology-foundation/README.md)；本轮 Core 30 项、模块 41 项共 71 项定向通过，三片短程样例达标，两片/四片未达标，见[M2 完整记录](../../validation/rechecks/2026-10-26/autonomous-fixed-topology/README.md)。当前为库接口，近轴恢复、自动搜索、保存恢复和界面仍待 M3–M6；下述 `UpstreamE58` 行为保持独立。
+后续镜片增删与自主搜索按[自主镜头拓扑设计实施计划](../../docs/AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md)推进。`AutonomousTopologyV1` 已完成 M0–M5：稳定 ID、Core 编译/参数绑定、固定拓扑优化、真实增删恢复、有限多候选 CPU 搜索、硬追迹配额、独立归档和取消续跑，以及原始快照渐进删除、真实拆片/并片、目录材料和显式偶次面型分支。M3 两个短程终点未完整达标；[M4](../../validation/rechecks/2026-10-26/autonomous-search-m4/README.md)与[M5](../../validation/rechecks/2026-10-26/autonomous-expansion-m5/README.md)使用明确的小型流程目标，不证明原任务优化成功。M5 新计划设置 `Options.Expansion = new()` 开启扩展，空值保持 M4 行为和旧检查点校验；过渡片冻结全部变量，只给本片临时厚度例外，实体删除后恢复原约束独立验收。当前为显式 CPU 库接口，M6 界面待实施；下述 `UpstreamE58`、桌面自动优先 GPU 默认及已停止的旧训练保持独立。
 
 新实验使用 `AutoLensManagedV1` 入口的显式 `UpstreamE58` 策略，算法后缀 `autolens-upstream-e58-v2`、优化状态 schema 2。默认预设来自已实际跑通的原版 MOBILE_CONFIG：5 mm、F/1.8、全视场 90°、六片、独立前置光阑、20000 mm 物距、r⁴–r¹⁸、种子 42。另保留 README 的五项本地目标适配。载入不自动运行，也不代表成功处方。[逐项对齐及保留差异](../../docs/AUTOLENS_UPSTREAM_ALIGNMENT_2026-10-24.md)、[预设来源](../../docs/AUTOLENS_OFFICIAL_EXAMPLES.md)、[当前状态](../../docs/CURRENT_STATUS.md)分别说明范围。
 

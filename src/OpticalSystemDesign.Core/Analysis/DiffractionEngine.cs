@@ -1249,11 +1249,17 @@ public static partial class DiffractionEngine
                 throw new AnalysisDataUnavailableException("Huygens PSF", "coherent XYZ propagation requires a finite nonzero exit-pupil distance");
         }
 
-        var wavefront = WavefrontEngine.GenerateChiefRayUniform(
+        var afocalPupils = optic.ImageSpaceAfocal ? HuygensPupilSamples(numRays) : null;
+        var wavefront = afocalPupils is not null
+            ? WavefrontEngine.GenerateChiefRaySamples(optic, field, wavelength,
+                afocalPupils.Select(p => (p.X, p.Y)).ToArray(), aimAtStop: aimAtStop,
+                referenceWavelength: referenceWavelength)
+            : WavefrontEngine.GenerateChiefRayUniform(
             optic,
             field,
             wavelength,
             numRays,
+            cellCentered: optic.ImageSpaceAfocal,
             aimAtStop: aimAtStop,
             referenceWavelength: optic.ImageSpaceAfocal ? referenceWavelength : null);
         var polarization = usePolarization
@@ -1261,6 +1267,10 @@ public static partial class DiffractionEngine
             : null;
         if (optic.ImageSpaceAfocal)
         {
+            if (!usePolarization)
+                wavefront = wavefront with { Samples = wavefront.Samples.Select(sample =>
+                    sample.Intensity > 0 && sample.LaunchIntensity is { } launch
+                        ? sample with { Intensity = launch } : sample).ToArray() };
             var afocalRaw = HuygensFarFieldSummation(
                 wavefront,
                 wavelength,
@@ -1272,12 +1282,9 @@ public static partial class DiffractionEngine
                 imageCenterOffset);
             var afocalNormalizationWavefront = field.Hx == 0 && field.Hy == 0
                 ? wavefront
-                : WavefrontEngine.GenerateChiefRayUniform(
-                    optic,
-                    (0, 0),
-                    wavelength,
-                    numRays,
-                    aimAtStop: aimAtStop);
+                : WavefrontEngine.GenerateChiefRaySamples(optic, (0, 0), wavelength,
+                    afocalPupils!.Select(p => (p.X, p.Y)).ToArray(), aimAtStop: aimAtStop,
+                    referenceWavelength: referenceWavelength);
             var afocalNormalizationPolarization = !usePolarization
                 ? null
                 : field.Hx == 0 && field.Hy == 0
@@ -1288,6 +1295,13 @@ public static partial class DiffractionEngine
                         wavelength,
                         numRays,
                         useFresnelCoatings: true, aimAtStop: aimAtStop);
+            if (!usePolarization)
+                afocalNormalizationWavefront = afocalNormalizationWavefront with
+                {
+                    Samples = afocalNormalizationWavefront.Samples.Select(sample =>
+                        sample.Intensity > 0 && sample.LaunchIntensity is { } launch
+                            ? sample with { Intensity = launch } : sample).ToArray()
+                };
             var afocalNormalization = HuygensFarFieldSummation(
                 afocalNormalizationWavefront,
                 wavelength,
@@ -1548,8 +1562,9 @@ public static partial class DiffractionEngine
     {
         if (optic.ImageSpaceAfocal)
         {
-            var airy = ImageSpaceAnalysisSupport.AfocalAiryRadiusMilliradians(optic, wavelength);
-            return Math.Max(1e-12, airy / Math.Sqrt(Math.Max(2, pupilSampling)));
+            var diameter = ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(optic);
+            if (!(diameter > 0)) throw new AnalysisDataUnavailableException("Huygens PSF", "no finite exit-pupil diameter");
+            return Math.Max(1e-12, 2 * wavelength.Micrometers / (diameter * Math.Sqrt(Math.Max(2, pupilSampling))));
         }
 
         var workingFNumber = WorkingFNumber(
@@ -2013,7 +2028,7 @@ public static partial class DiffractionEngine
                     referenceWavelength.Micrometers, aimAtStop)
                     ?? throw new InvalidOperationException("Chief ray did not reach the image surface.")).Direction)
             : (X: 0.0, Y: 0.0);
-        var pupilSamples = !optic.ImageSpaceAfocal && pupilSampling >= 8 && pupilSampling % 2 == 0
+        var pupilSamples = pupilSampling >= 8 && pupilSampling % 2 == 0
             ? HuygensPupilSamples(pupilSampling) : SpotAnalysisEngine.CreatePupilSamples(pupilSampling, "uniform");
         var useWeights = wavelengths.Any(wavelength => wavelength.Weight > 0);
         var projected = new List<SpotRayData>();

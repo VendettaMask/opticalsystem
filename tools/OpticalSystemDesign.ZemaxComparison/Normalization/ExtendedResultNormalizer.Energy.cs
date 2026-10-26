@@ -7,6 +7,9 @@ namespace OpticalSystemDesign.ZemaxComparison.Normalization;
 public static partial class ExtendedResultNormalizer
 {
     private static Axis EnergyAxis(string key) => key == "Relative Illumination" ? Field : key == "Geometric Line Edge Spread" ? ImageHeight : new("Radius", "Micrometer");
+    private static Axis EnergyAxis(CanonicalAnalysisRequest r, bool native = false) => r.ImageSpaceAfocal
+        && r.CanonicalAnalysisKey is "Encircled Energy" or "Diffraction Encircled Energy"
+        ? new("Radius", native ? r.NativeAfocalAngleUnit! : "Milliradian") : EnergyAxis(r.CanonicalAnalysisKey);
     private static NumericResult? WorkbenchEnergy(AnalysisData data, CanonicalAnalysisRequest r)
     {
         var key = r.CanonicalAnalysisKey;
@@ -35,10 +38,11 @@ public static partial class ExtendedResultNormalizer
         {
             var s = data.PlotSeries[i];
             var x = s.Points.Select(p => key == "Relative Illumination" && r.MaximumFieldRadius != 0 ? p.X / r.MaximumFieldRadius : p.X).ToArray();
-            var series = new Series1DResult("curve:" + i, s.Name, x, s.Points.Select(p => p.Y).ToArray(), EnergyAxis(key), new(s.YQuantity.ToString(), s.YUnit.ToString()));
+            var series = new Series1DResult("curve:" + i, s.Name, x, s.Points.Select(p => p.Y).ToArray(),
+                key == "Relative Illumination" ? EnergyAxis(key) : new(s.XQuantity.ToString(), s.XUnit.ToString()), new(s.YQuantity.ToString(), s.YUnit.ToString()));
             if (key == "Relative Illumination" && r.MaximumFieldRadius == 0)
                 series = PhysicalNormalization.ZeroFieldPoint(series, false, result.Transformations);
-            result.Series.Add(series);
+            result.Series.Add(PhysicalNormalization.Convert(series, EnergyAxis(r), series.YAxis, result.Transformations));
         }
         return result;
     }
@@ -89,10 +93,10 @@ public static partial class ExtendedResultNormalizer
             foreach (var col in columns)
             {
                 var valueAxis = key is "Relative Illumination" or "Geometric Line Edge Spread" ? new Axis("Irradiance", "Dimensionless") : new Axis("EnergyFraction", "Dimensionless");
-                var series = new Series1DResult("curve:" + id++, "Native column " + col, x, rows.Select(v => v[col]).ToArray(), EnergyAxis(key), valueAxis);
+                var series = new Series1DResult("curve:" + id++, "Native column " + col, x, rows.Select(v => v[col]).ToArray(), EnergyAxis(r, native: true), valueAxis);
                 if (key == "Relative Illumination" && r.MaximumFieldRadius == 0)
                     series = PhysicalNormalization.ZeroFieldPoint(series, true, result.Transformations);
-                result.Series.Add(series);
+                result.Series.Add(PhysicalNormalization.Convert(series, EnergyAxis(r), valueAxis, result.Transformations));
             }
         }
         return result;

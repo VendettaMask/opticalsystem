@@ -277,7 +277,7 @@ public static class WavefrontEngine
         var imageIndex = (optic.SurfaceGroup.Items.LastOrDefault()?.MaterialAfter ?? optic.Materials.Resolve("Air"))
             .RefractiveIndex(wavelength.Nanometers);
         if (optic.ImageSpaceAfocal)
-            referenceWavelength = optic.Wavelengths.FirstOrDefault(item => item.IsPrimary) ?? referenceWavelength ?? wavelength;
+            referenceWavelength ??= optic.Wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelength;
         var referenceChief = referenceWavelength is null || referenceWavelength.Nanometers == wavelength.Nanometers
             ? chief
             : optic.SequentialRayTracer.TraceFinalSamples(optic.SequentialRayTracer.RayGenerator.GenerateGeneric(

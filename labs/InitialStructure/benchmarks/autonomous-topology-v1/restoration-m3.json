@@ -1,0 +1,30 @@
+{
+  "SchemaVersion": 1,
+  "Algorithm": "AutonomousTopologyV1",
+  "Scope": "M3 explicit structural branches; not M4 autonomous candidate search",
+  "Source": "foundation-3.json",
+  "ImageProtected": true,
+  "Targets": {
+    "EffectiveFocalLengthMillimeters": 50,
+    "FNumber": 12.5,
+    "FocalLengthRelativeTolerance": 0.02,
+    "FNumberRelativeTolerance": 0.02,
+    "MaximumRmsRadiusMillimeters": 0.05,
+    "MaximumSpotRadiusMillimeters": 0.15,
+    "MaximumDistortionFraction": 0.03,
+    "MinimumValidRayFraction": 0.98
+  },
+  "Insert": { "LeftSurfaceId": "lens-1:back", "RightSurfaceId": "lens-2:front", "PositionFraction": 0.5,
+    "ThicknessMillimeters": 1, "ClearSemiDiameterMillimeters": 7.5, "Material": "N-BK7", "FrontCurvature": 0.003, "BackCurvature": -0.003 },
+  "DeleteElementId": "lens-2",
+  "CurvatureBounds": [-0.08, 0.08],
+  "CurvatureScale": 0.01,
+  "Recovery": { "AScale": 0.01, "FocalCScale": 0.01, "ATolerance": 0.0001, "FocalCTolerance": 0.0001,
+    "MinimumChangeWeight": 0.000001, "MaximumAcceptedSteps": 30, "MaximumFunctionEvaluations": 400, "ProfileRadialSamples": 16,
+    "NewElementFrozen": true },
+  "LocalUpdates": 2,
+  "FullUpdates": 5,
+  "Training": { "FieldsPerDirection": 3, "PupilRings": 1, "PupilArms": 8, "ProfileRadialSamples": 8, "LearningRate": 0.02, "ComputeMode": "CPU" },
+  "FinalValidation": { "FieldsPerDirection": 21, "PupilRings": 10, "PupilArms": 32, "BoundaryPoints": 32, "IncludeCenter": true, "ProfileRadialSamples": 64, "ComputeMode": "CPU" },
+  "Budget": { "MaximumFunctionEvaluations": 1000, "MaximumGradientEvaluations": 400, "TimeLimitMinutes": 10 }
+}

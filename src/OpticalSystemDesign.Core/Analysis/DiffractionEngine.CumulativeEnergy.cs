@@ -10,6 +10,16 @@ public static partial class DiffractionEngine
     {
         var reference = optic.Wavelengths.FirstOrDefault(w => w.IsPrimary) ?? optic.Wavelengths[0];
         var longest = wavelengths.MaxBy(w => w.Nanometers)!;
+        if (optic.ImageSpaceAfocal)
+        {
+            var diameter = ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(optic);
+            if (!(diameter > 0)) throw new AnalysisDataUnavailableException("Diffraction Encircled Energy", "no finite exit pupil");
+            var angularPitch = 2 * longest.Micrometers / (diameter * Math.Sqrt(pupilSampling));
+            return ComputeFftPsfSpectrum(optic, field, wavelengths, pupilSampling, 2 * pupilSampling,
+                cellCenteredPupil: true, zemaxFftSampling: true, ignoreOpd: ignoreOpd,
+                aimAtStop: optic.RayAimingEnabled, referenceWavelength: reference,
+                imageDelta: angularPitch, ignoreScalarTransmission: true);
+        }
         var scaleWave = wavelengths.Count == 1 ? reference : longest;
         if (pupilSampling == 32 && wavelengths.Count == 1
             && TryComputeCircularEnergy32(optic, field, wavelengths[0], reference, ignoreOpd, out var smallGrid))

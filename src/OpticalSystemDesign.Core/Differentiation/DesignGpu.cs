@@ -3,6 +3,7 @@ using ILGPU;
 using ILGPU.Algorithms;
 using ILGPU.Runtime;
 using ILGPU.Runtime.Cuda;
+using OpticalSystemDesign.Core.Raytrace;
 
 namespace OpticalSystemDesign.Core.Differentiation;
 
@@ -35,8 +36,15 @@ public static partial class DesignGpu
     internal static (double[] Gradients, double Milliseconds) Differentiate(IReadOnlyList<DifferentialTape> tapes,
         IReadOnlyList<int[]> outputs, int parameters, CancellationToken cancellationToken)
     {
-        var runtime = Instance.Value ?? throw new NotSupportedException("CUDA is unavailable: " + Status.UnavailableReason);
+        var runtime = RequireRuntime();
         return runtime.Differentiate(tapes, outputs, parameters, cancellationToken);
+    }
+
+    private static Runtime RequireRuntime()
+    {
+        if (SequentialTraceMeasurement.HasCpuBudget)
+            throw new NotSupportedException("CUDA computation cannot execute inside a hard CPU trace quota.");
+        return Instance.Value ?? throw new NotSupportedException("CUDA is unavailable: " + Status.UnavailableReason);
     }
 
     private sealed partial class Runtime

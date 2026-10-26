@@ -96,7 +96,11 @@ public sealed record TopologyConstraints
     public double MaximumMechanicalTrackMillimeters { get; init; } = 10_000;
     public bool AllowTransitionElements { get; init; }
     public ImmutableArray<string> AllowedGlassNames { get; init; } = [];
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public TopologyTransitionAllowance? TransitionAllowance { get; init; }
 }
+
+public sealed record TopologyTransitionAllowance(string ElementId, double MinimumCenterThicknessMillimeters, double MinimumEdgeThicknessMillimeters);
 
 public enum TopologyFailureCode
 {
@@ -119,7 +123,7 @@ public sealed record TopologyAirInterval(string LeftSurfaceId, string RightSurfa
     [JsonIgnore] public double LengthMillimeters => RightZMillimeters - LeftZMillimeters;
 }
 
-public enum TopologyOperationKind { Insert, Delete }
+public enum TopologyOperationKind { Insert, Delete, Split, Merge, Material, Profile, ScaleForDeletion }
 public sealed record TopologyChange(TopologyOperationKind Operation, string ParentFingerprint, string ChildFingerprint,
     ImmutableArray<string> CreatedElementIds, ImmutableArray<string> RemovedElementIds);
 public sealed record TopologyEditResult(DesignTopology? Topology, TopologyChange? Change, TopologyFailure? Failure)

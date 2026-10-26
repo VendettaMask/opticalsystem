@@ -1,0 +1,380 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "AutonomousTopologyV1",
+  "date": "2026-10-26",
+  "scope": "CPU expansion, transition constraint and persistence contracts; not optimization-effect comparison",
+  "source": "foundation-3.json",
+  "sourceOverrides": {
+    "fields": [
+      {
+        "yAngleDegrees": 0,
+        "xAngleDegrees": 0,
+        "label": "Axis"
+      }
+    ]
+  },
+  "gradual": {
+    "actualWork": {
+      "FunctionEvaluations": 234,
+      "GradientEvaluations": 24,
+      "ValidationEvaluations": 7,
+      "MatrixEvaluations": 203,
+      "DifferenceEvaluations": 168,
+      "JacobianBuilds": 21,
+      "TracedRays": 16040,
+      "GeometryProbes": 29367,
+      "Elapsed": "00:00:01.0013126"
+    },
+    "finalCount": 2,
+    "note": "Direct deletion recovery is deliberately capped at two function attempts to exercise fallback; this does not establish direct deletion cannot recover or the original 50-micrometer task succeeds.",
+    "acceptedArchiveCount": 2,
+    "initialCount": 3,
+    "scalingReference": "Immutable original element; center fixed; thickness/curvature/every even coefficient original*s; conic/order unchanged",
+    "targetElement": "lens-1",
+    "options": {
+      "Expansion": {
+        "EnableInsertion": false,
+        "EnableDeletion": true,
+        "EnableGradualDeletion": true,
+        "EnableSplit": false,
+        "EnableMerge": false,
+        "EnableMaterial": false,
+        "EnableProfile": false,
+        "MaterialAlternatives": [
+          "N-BK7",
+          "N-F2"
+        ],
+        "DeletionScales": [
+          0.7,
+          0.4,
+          0.2,
+          0.1,
+          0.02
+        ],
+        "DirectDeletionRecoveryMaximumFunctionEvaluations": 2,
+        "SplitAirGapMillimeters": 0.05,
+        "SplitFirstFraction": 0.55,
+        "MaximumEvenPower": 8,
+        "MaximumAbsoluteConic": 2,
+        "CoefficientCoordinateSagMillimeters": 0.02
+      },
+      "MaximumTrials": 1,
+      "CandidatesPerElementCount": 4,
+      "BranchesPerParent": 6,
+      "MaximumFunctionEvaluations": 1500,
+      "MaximumGradientEvaluations": 100,
+      "MaximumTracedRays": 1000000,
+      "MaximumStageTracedRays": 100000,
+      "FinalValidationRayReserve": 50000,
+      "TimeLimit": "00:03:00",
+      "Seed": 42,
+      "CurvatureBoundPerMillimeter": 0.08,
+      "InsertionMaterials": [
+        "N-BK7"
+      ],
+      "Recovery": {
+        "MaximumAcceptedSteps": 30,
+        "MaximumFunctionEvaluations": 300,
+        "TimeLimit": "00:01:00",
+        "AScale": 0.01,
+        "FocalCScale": 0.01,
+        "ATolerance": 0.0001,
+        "FocalCTolerance": 0.0001,
+        "MinimumChangeWeight": 1E-06,
+        "RelativeDifferenceStep": 6.055454452393343E-06,
+        "RelativeRankTolerance": 1E-08,
+        "ProfileRadialSamples": 8
+      },
+      "Local": {
+        "MaximumUpdates": 1,
+        "MaximumFunctionEvaluations": 2,
+        "MaximumGradientEvaluations": 2,
+        "TimeLimit": "00:05:00",
+        "LearningRate": 0.001,
+        "ComputeMode": 0,
+        "Sampling": {
+          "FieldsPerDirection": 3,
+          "PupilRings": 1,
+          "PupilArms": 8,
+          "ProfileRadialSamples": 8
+        },
+        "PerformFinalAssessment": false
+      },
+      "Full": {
+        "MaximumUpdates": 1,
+        "MaximumFunctionEvaluations": 2,
+        "MaximumGradientEvaluations": 2,
+        "TimeLimit": "00:05:00",
+        "LearningRate": 0.001,
+        "ComputeMode": 0,
+        "Sampling": {
+          "FieldsPerDirection": 3,
+          "PupilRings": 1,
+          "PupilArms": 8,
+          "ProfileRadialSamples": 8
+        },
+        "PerformFinalAssessment": false
+      }
+    },
+    "targets": {
+      "EffectiveFocalLengthMillimeters": 50,
+      "FNumber": 12.5,
+      "FocalLengthRelativeTolerance": 1,
+      "FNumberRelativeTolerance": 1,
+      "MaximumRmsRadiusMillimeters": 5,
+      "MaximumSpotRadiusMillimeters": 10,
+      "MaximumDistortionFraction": 1,
+      "MinimumValidRayFraction": 0.1,
+      "MinimumEdgeThicknessMillimeters": 0.1,
+      "MinimumEdgeAirGapMillimeters": 0.01,
+      "MaximumOpticalTrackMillimeters": 10000,
+      "MaximumAbsoluteSurfaceSlope": 10
+    }
+  },
+  "automaticCases": [
+    {
+      "operation": "split",
+      "targets": {
+        "EffectiveFocalLengthMillimeters": 50,
+        "FNumber": 12.5,
+        "FocalLengthRelativeTolerance": 0.02,
+        "FNumberRelativeTolerance": 0.02,
+        "MaximumRmsRadiusMillimeters": 1E-09,
+        "MaximumSpotRadiusMillimeters": 0.15,
+        "MaximumDistortionFraction": 0.03,
+        "MinimumValidRayFraction": 0.98,
+        "MinimumEdgeThicknessMillimeters": 0.1,
+        "MinimumEdgeAirGapMillimeters": 0.01,
+        "MaximumOpticalTrackMillimeters": 10000,
+        "MaximumAbsoluteSurfaceSlope": 10
+      },
+      "expansion": {
+        "EnableInsertion": false,
+        "EnableDeletion": false,
+        "EnableGradualDeletion": false,
+        "EnableSplit": true,
+        "EnableMerge": false,
+        "EnableMaterial": false,
+        "EnableProfile": false,
+        "MaterialAlternatives": [
+          "N-BK7",
+          "N-F2"
+        ],
+        "DeletionScales": [
+          0.7,
+          0.4,
+          0.2,
+          0.1,
+          0.02
+        ],
+        "DirectDeletionRecoveryMaximumFunctionEvaluations": null,
+        "SplitAirGapMillimeters": 0.05,
+        "SplitFirstFraction": 0.55,
+        "MaximumEvenPower": 8,
+        "MaximumAbsoluteConic": 2,
+        "CoefficientCoordinateSagMillimeters": 0.02
+      },
+      "stageMaximumUpdates": 0,
+      "recoveryMaximumFunctionEvaluations": 300,
+      "work": {
+        "FunctionEvaluations": 26,
+        "GradientEvaluations": 3,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 20,
+        "DifferenceEvaluations": 16,
+        "JacobianBuilds": 2,
+        "TracedRays": 6510,
+        "GeometryProbes": 5981,
+        "Elapsed": "00:00:00.3246577"
+      },
+      "recovery": "Recovered"
+    },
+    {
+      "operation": "merge",
+      "targets": {
+        "EffectiveFocalLengthMillimeters": 50,
+        "FNumber": 12.5,
+        "FocalLengthRelativeTolerance": 1,
+        "FNumberRelativeTolerance": 1,
+        "MaximumRmsRadiusMillimeters": 5,
+        "MaximumSpotRadiusMillimeters": 10,
+        "MaximumDistortionFraction": 1,
+        "MinimumValidRayFraction": 0.1,
+        "MinimumEdgeThicknessMillimeters": 0.1,
+        "MinimumEdgeAirGapMillimeters": 0.01,
+        "MaximumOpticalTrackMillimeters": 10000,
+        "MaximumAbsoluteSurfaceSlope": 10
+      },
+      "expansion": {
+        "EnableInsertion": false,
+        "EnableDeletion": false,
+        "EnableGradualDeletion": false,
+        "EnableSplit": false,
+        "EnableMerge": true,
+        "EnableMaterial": false,
+        "EnableProfile": false,
+        "MaterialAlternatives": [
+          "N-BK7",
+          "N-F2"
+        ],
+        "DeletionScales": [
+          0.7,
+          0.4,
+          0.2,
+          0.1,
+          0.02
+        ],
+        "DirectDeletionRecoveryMaximumFunctionEvaluations": null,
+        "SplitAirGapMillimeters": 0.05,
+        "SplitFirstFraction": 0.55,
+        "MaximumEvenPower": 8,
+        "MaximumAbsoluteConic": 2,
+        "CoefficientCoordinateSagMillimeters": 0.02
+      },
+      "stageMaximumUpdates": 0,
+      "recoveryMaximumFunctionEvaluations": 300,
+      "work": {
+        "FunctionEvaluations": 60,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 1,
+        "MatrixEvaluations": 59,
+        "DifferenceEvaluations": 46,
+        "JacobianBuilds": 12,
+        "TracedRays": 2120,
+        "GeometryProbes": 5423,
+        "Elapsed": "00:00:00.2229291"
+      },
+      "recovery": "NoParaxialRecovery"
+    },
+    {
+      "operation": "material",
+      "targets": {
+        "EffectiveFocalLengthMillimeters": 50,
+        "FNumber": 12.5,
+        "FocalLengthRelativeTolerance": 0.02,
+        "FNumberRelativeTolerance": 0.02,
+        "MaximumRmsRadiusMillimeters": 1E-09,
+        "MaximumSpotRadiusMillimeters": 0.15,
+        "MaximumDistortionFraction": 0.03,
+        "MinimumValidRayFraction": 0.98,
+        "MinimumEdgeThicknessMillimeters": 0.1,
+        "MinimumEdgeAirGapMillimeters": 0.01,
+        "MaximumOpticalTrackMillimeters": 10000,
+        "MaximumAbsoluteSurfaceSlope": 10
+      },
+      "expansion": {
+        "EnableInsertion": false,
+        "EnableDeletion": false,
+        "EnableGradualDeletion": false,
+        "EnableSplit": false,
+        "EnableMerge": false,
+        "EnableMaterial": true,
+        "EnableProfile": false,
+        "MaterialAlternatives": [
+          "N-BK7",
+          "N-F2"
+        ],
+        "DeletionScales": [
+          0.7,
+          0.4,
+          0.2,
+          0.1,
+          0.02
+        ],
+        "DirectDeletionRecoveryMaximumFunctionEvaluations": null,
+        "SplitAirGapMillimeters": 0.05,
+        "SplitFirstFraction": 0.55,
+        "MaximumEvenPower": 8,
+        "MaximumAbsoluteConic": 2,
+        "CoefficientCoordinateSagMillimeters": 0.02
+      },
+      "stageMaximumUpdates": 0,
+      "recoveryMaximumFunctionEvaluations": 300,
+      "work": {
+        "FunctionEvaluations": 47,
+        "GradientEvaluations": 3,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 41,
+        "DifferenceEvaluations": 36,
+        "JacobianBuilds": 3,
+        "TracedRays": 6510,
+        "GeometryProbes": 7382,
+        "Elapsed": "00:00:00.3565781"
+      },
+      "recovery": "Recovered"
+    },
+    {
+      "operation": "profile",
+      "targets": {
+        "EffectiveFocalLengthMillimeters": 50,
+        "FNumber": 12.5,
+        "FocalLengthRelativeTolerance": 0.02,
+        "FNumberRelativeTolerance": 0.02,
+        "MaximumRmsRadiusMillimeters": 1E-09,
+        "MaximumSpotRadiusMillimeters": 0.15,
+        "MaximumDistortionFraction": 0.03,
+        "MinimumValidRayFraction": 0.98,
+        "MinimumEdgeThicknessMillimeters": 0.1,
+        "MinimumEdgeAirGapMillimeters": 0.01,
+        "MaximumOpticalTrackMillimeters": 10000,
+        "MaximumAbsoluteSurfaceSlope": 10
+      },
+      "expansion": {
+        "EnableInsertion": false,
+        "EnableDeletion": false,
+        "EnableGradualDeletion": false,
+        "EnableSplit": false,
+        "EnableMerge": false,
+        "EnableMaterial": false,
+        "EnableProfile": true,
+        "MaterialAlternatives": [
+          "N-BK7",
+          "N-F2"
+        ],
+        "DeletionScales": [
+          0.7,
+          0.4,
+          0.2,
+          0.1,
+          0.02
+        ],
+        "DirectDeletionRecoveryMaximumFunctionEvaluations": null,
+        "SplitAirGapMillimeters": 0.05,
+        "SplitFirstFraction": 0.55,
+        "MaximumEvenPower": 8,
+        "MaximumAbsoluteConic": 2,
+        "CoefficientCoordinateSagMillimeters": 0.02
+      },
+      "stageMaximumUpdates": 0,
+      "recoveryMaximumFunctionEvaluations": 300,
+      "work": {
+        "FunctionEvaluations": 8,
+        "GradientEvaluations": 3,
+        "ValidationEvaluations": 3,
+        "MatrixEvaluations": 2,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 6510,
+        "GeometryProbes": 2975,
+        "Elapsed": "00:00:00.9011576"
+      },
+      "recovery": "Recovered"
+    }
+  ],
+  "validation": {
+    "pupilArms": 32,
+    "profileRadialSamples": 64,
+    "backend": "CPU",
+    "boundaryAndCenterChecks": 33,
+    "axisOnlyDistinctFields": 1,
+    "pupilRings": 10,
+    "fieldsPerDirection": 21
+  },
+  "limitations": [
+    "Explicit Expansion opt-in library; no new desktop selector",
+    "No old full training resumed",
+    "No original-task success or performance-equivalence claim",
+    "Merge sample does not recover; preserve failure",
+    "M6 UI remains pending"
+  ]
+}

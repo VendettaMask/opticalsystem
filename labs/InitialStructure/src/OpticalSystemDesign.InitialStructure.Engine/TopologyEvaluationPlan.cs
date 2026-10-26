@@ -53,11 +53,14 @@ internal static class TopologyEvaluationPlan
             var radius = Math.Max(element.Front.MechanicalSemiDiameterMillimeters ?? element.Front.ClearSemiDiameterMillimeters,
                 element.Back.MechanicalSemiDiameterMillimeters ?? element.Back.ClearSemiDiameterMillimeters);
             bodies[mapping.FrontIndex] = bodies[mapping.BackIndex] = radius;
-            rows.Add(new(element.Id + ":center", mapping.FrontIndex, mapping.BackIndex, 0, source.Constraints.MinimumCenterThicknessMillimeters));
+            var allowance = element.Transition && source.Constraints.TransitionAllowance?.ElementId == element.Id ? source.Constraints.TransitionAllowance : null;
+            rows.Add(new(element.Id + ":center", mapping.FrontIndex, mapping.BackIndex, 0,
+                allowance?.MinimumCenterThicknessMillimeters ?? source.Constraints.MinimumCenterThicknessMillimeters));
             for (var sample = 1; sample <= points; sample++)
             {
                 var radial = radius * sample / points;
-                rows.Add(new(element.Id + ":edge:" + sample, mapping.FrontIndex, mapping.BackIndex, radial, targets.MinimumEdgeThicknessMillimeters));
+                rows.Add(new(element.Id + ":edge:" + sample, mapping.FrontIndex, mapping.BackIndex, radial,
+                    allowance?.MinimumEdgeThicknessMillimeters ?? targets.MinimumEdgeThicknessMillimeters));
                 rows.Add(new(element.FrontSurfaceId + ":slope:" + sample, mapping.FrontIndex, mapping.FrontIndex, radial, targets.MaximumAbsoluteSurfaceSlope, true, true));
                 rows.Add(new(element.BackSurfaceId + ":slope:" + sample, mapping.BackIndex, mapping.BackIndex, radial, targets.MaximumAbsoluteSurfaceSlope, true, true));
             }
@@ -92,7 +95,8 @@ internal static class TopologyEvaluationPlan
     internal static double FormalMeasure(Core.Optic optic, TopologyGeometryRow row) => row.Slope
         ? Measure(optic, [], row).Value : AxialSurfaceSeparation.EvaluateBetween(optic, row.First, row.Second, row.Radius, 0);
 
-    internal static bool DomainError(Exception error) => error is ArithmeticException or InvalidOperationException or NotSupportedException or ArgumentException;
+    internal static bool DomainError(Exception error) => error is ArithmeticException or InvalidOperationException or NotSupportedException or ArgumentException
+        || Core.Raytrace.SequentialTraceBudgetExceededException.IsBudgetException(error);
 
     internal static PupilSample[] Checks() => [new(0, 0, 1), .. Enumerable.Range(0, 32)
         .Select(index => new PupilSample(Math.Cos(2 * Math.PI * index / 32), Math.Sin(2 * Math.PI * index / 32), 1))];

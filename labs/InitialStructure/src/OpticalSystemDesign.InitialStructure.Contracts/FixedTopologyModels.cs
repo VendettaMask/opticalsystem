@@ -38,6 +38,7 @@ public sealed record FixedTopologyOptions
     public double LearningRate { get; init; } = .01;
     public DesignComputeMode ComputeMode { get; init; } = DesignComputeMode.Automatic;
     public TopologyTrainingSampling Sampling { get; init; } = new();
+    public bool PerformFinalAssessment { get; init; } = true;
 }
 
 public sealed record TopologyFieldCoordinate(double X, double Y);
@@ -83,6 +84,19 @@ public enum FixedTopologyTermination { UpdateLimit, Converged, BudgetExhausted, 
 public sealed record FixedTopologyWork(int FunctionEvaluations, int GradientEvaluations, int ValidationEvaluations,
     long TracedRays, long GeometryProbes, long? GpuDerivativeRays, long? GpuBatches, TimeSpan Elapsed, int CompletedGradientEvaluations);
 public sealed record FixedTopologyStep(int Attempt, bool Accepted, double? Objective, string? Failure);
+
+/// <summary>Same-template continuation only. Structural/variable/protocol changes require a fresh phase.</summary>
+public sealed record FixedTopologyContinuation
+{
+    public required string PhaseFingerprint { get; init; }
+    public required AutoLensAdamState Adam { get; init; }
+    public required double LearningRate { get; init; }
+    public required FixedTopologyWork Work { get; init; }
+    public int AcceptedUpdates { get; init; }
+    public ImmutableArray<FixedTopologyStep> Steps { get; init; } = [];
+    public TopologyObjectiveEvaluation? InitialEvaluation { get; init; }
+    public TopologyObjectiveEvaluation? EndpointEvaluation { get; init; }
+}
 public sealed record FixedTopologyResult
 {
     public string Algorithm { get; init; } = AutonomousTopologyIdentity.Name;
@@ -99,4 +113,5 @@ public sealed record FixedTopologyResult
     public TopologyObjectiveEvaluation? EndpointEvaluation { get; init; }
     public TopologyAssessment? FinalAssessment { get; init; }
     public ImmutableArray<string> Diagnostics { get; init; } = [];
+    public FixedTopologyContinuation? Continuation { get; init; }
 }

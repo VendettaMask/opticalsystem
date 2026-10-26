@@ -1,0 +1,6937 @@
+{
+  "SchemaVersion": 1,
+  "Algorithm": "AutonomousTopologyV1",
+  "RunId": "m4-finite",
+  "Plan": {
+    "Seeds": [
+      {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Autonomous topology foundation 3",
+        "Conjugate": 0,
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 0,
+          "ClearSemiDiameterMillimeters": 2,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 55,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "lens-1",
+            "FrontSurfaceId": "lens-1:front",
+            "BackSurfaceId": "lens-1:back",
+            "FrontZMillimeters": 3,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 2,
+                "CurvaturePerMillimeter": 0.022222222222222223,
+                "Conic": -0.25,
+                "MaximumEvenPower": 18,
+                "Terms": [
+                  {
+                    "Power": 4,
+                    "Coefficient": 1E-07
+                  },
+                  {
+                    "Power": 10,
+                    "Coefficient": -1E-14
+                  },
+                  {
+                    "Power": 18,
+                    "Coefficient": 1E-22
+                  }
+                ]
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.01818181818181818,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-2",
+            "FrontSurfaceId": "lens-2:front",
+            "BackSurfaceId": "lens-2:back",
+            "FrontZMillimeters": 10,
+            "ThicknessMillimeters": 2,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.015384615384615385,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.014285714285714285,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-3",
+            "FrontSurfaceId": "lens-3:front",
+            "BackSurfaceId": "lens-3:back",
+            "FrontZMillimeters": 18,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.016666666666666666,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.02,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "Axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "F",
+            "Nanometers": 486.1,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "d",
+            "Nanometers": 587.6,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "C",
+            "Nanometers": 656.3,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      }
+    ],
+    "Targets": {
+      "EffectiveFocalLengthMillimeters": 50,
+      "FNumber": 12.5,
+      "FocalLengthRelativeTolerance": 0.02,
+      "FNumberRelativeTolerance": 0.02,
+      "MaximumRmsRadiusMillimeters": 1E-09,
+      "MaximumSpotRadiusMillimeters": 0.15,
+      "MaximumDistortionFraction": 0.03,
+      "MinimumValidRayFraction": 0.98,
+      "MinimumEdgeThicknessMillimeters": 0.1,
+      "MinimumEdgeAirGapMillimeters": 0.01,
+      "MaximumOpticalTrackMillimeters": 10000,
+      "MaximumAbsoluteSurfaceSlope": 10
+    },
+    "Constraints": {
+      "MinimumElementCount": 1,
+      "MaximumElementCount": 8,
+      "MinimumCenterThicknessMillimeters": 0.1,
+      "MinimumAirGapMillimeters": 0.05,
+      "MinimumBackFocusMillimeters": 0.1,
+      "MaximumMechanicalTrackMillimeters": 10000,
+      "AllowTransitionElements": false,
+      "AllowedGlassNames": []
+    },
+    "Options": {
+      "MaximumTrials": 4,
+      "CandidatesPerElementCount": 2,
+      "BranchesPerParent": 6,
+      "MaximumFunctionEvaluations": 600,
+      "MaximumGradientEvaluations": 100,
+      "MaximumTracedRays": 1000000,
+      "MaximumStageTracedRays": 100000,
+      "FinalValidationRayReserve": 50000,
+      "TimeLimit": "00:03:00",
+      "Seed": 42,
+      "CurvatureBoundPerMillimeter": 0.08,
+      "InsertionMaterials": [
+        "N-BK7"
+      ],
+      "Recovery": {
+        "MaximumAcceptedSteps": 30,
+        "MaximumFunctionEvaluations": 150,
+        "TimeLimit": "00:01:00",
+        "AScale": 0.01,
+        "FocalCScale": 0.01,
+        "ATolerance": 0.0001,
+        "FocalCTolerance": 0.0001,
+        "MinimumChangeWeight": 1E-06,
+        "RelativeDifferenceStep": 6.055454452393343E-06,
+        "RelativeRankTolerance": 1E-08,
+        "ProfileRadialSamples": 8
+      },
+      "Local": {
+        "MaximumUpdates": 1,
+        "MaximumFunctionEvaluations": 2,
+        "MaximumGradientEvaluations": 2,
+        "TimeLimit": "00:05:00",
+        "LearningRate": 0.01,
+        "ComputeMode": 0,
+        "Sampling": {
+          "FieldsPerDirection": 3,
+          "PupilRings": 1,
+          "PupilArms": 8,
+          "ProfileRadialSamples": 8
+        },
+        "PerformFinalAssessment": false
+      },
+      "Full": {
+        "MaximumUpdates": 1,
+        "MaximumFunctionEvaluations": 2,
+        "MaximumGradientEvaluations": 2,
+        "TimeLimit": "00:05:00",
+        "LearningRate": 0.01,
+        "ComputeMode": 0,
+        "Sampling": {
+          "FieldsPerDirection": 3,
+          "PupilRings": 1,
+          "PupilArms": 8,
+          "ProfileRadialSamples": 8
+        },
+        "PerformFinalAssessment": false
+      }
+    }
+  },
+  "PlanFingerprint": "e1106c51e87d33489362531378a36193510ed95b7875d7021831f4181d8296f6",
+  "Revision": 15,
+  "Status": 4,
+  "SeedCursor": 1,
+  "TrialCursor": 4,
+  "RandomState": 1663341875487337619,
+  "Consumed": {
+    "FunctionEvaluations": 50,
+    "GradientEvaluations": 6,
+    "ValidationEvaluations": 3,
+    "MatrixEvaluations": 41,
+    "DifferenceEvaluations": 36,
+    "JacobianBuilds": 3,
+    "TracedRays": 6660,
+    "GeometryProbes": 9475,
+    "Elapsed": "00:00:00.5352784"
+  },
+  "Candidates": [
+    {
+      "Id": "seed-0",
+      "ParentId": null,
+      "Topology": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Autonomous topology foundation 3",
+        "Conjugate": 0,
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 0,
+          "ClearSemiDiameterMillimeters": 2,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 55,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "lens-1",
+            "FrontSurfaceId": "lens-1:front",
+            "BackSurfaceId": "lens-1:back",
+            "FrontZMillimeters": 3,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 2,
+                "CurvaturePerMillimeter": 0.022222222222222223,
+                "Conic": -0.25,
+                "MaximumEvenPower": 18,
+                "Terms": [
+                  {
+                    "Power": 4,
+                    "Coefficient": 1E-07
+                  },
+                  {
+                    "Power": 10,
+                    "Coefficient": -1E-14
+                  },
+                  {
+                    "Power": 18,
+                    "Coefficient": 1E-22
+                  }
+                ]
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.01818181818181818,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-2",
+            "FrontSurfaceId": "lens-2:front",
+            "BackSurfaceId": "lens-2:back",
+            "FrontZMillimeters": 10,
+            "ThicknessMillimeters": 2,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.015384615384615385,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.014285714285714285,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-3",
+            "FrontSurfaceId": "lens-3:front",
+            "BackSurfaceId": "lens-3:back",
+            "FrontZMillimeters": 18,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.016666666666666666,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.02,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "Axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "F",
+            "Nanometers": 486.1,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "d",
+            "Nanometers": 587.6,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "C",
+            "Nanometers": 656.3,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      },
+      "Assessment": {
+        "OpticFingerprint": "8c773639664a4b3c7ecb285a241cd4d7074b1685a8895c4aa01fce63e60dccf5",
+        "ProtocolFingerprint": "1c878f2d06199141d2200788d538ad2e0c77de83992cbcc6c23674aa74f03f96",
+        "Targets": {
+          "EffectiveFocalLengthMillimeters": 50,
+          "FNumber": 12.5,
+          "FocalLengthRelativeTolerance": 0.02,
+          "FNumberRelativeTolerance": 0.02,
+          "MaximumRmsRadiusMillimeters": 1E-09,
+          "MaximumSpotRadiusMillimeters": 0.15,
+          "MaximumDistortionFraction": 0.03,
+          "MinimumValidRayFraction": 0.98,
+          "MinimumEdgeThicknessMillimeters": 0.1,
+          "MinimumEdgeAirGapMillimeters": 0.01,
+          "MaximumOpticalTrackMillimeters": 10000,
+          "MaximumAbsoluteSurfaceSlope": 10
+        },
+        "StructuralConstraints": {
+          "MinimumElementCount": 1,
+          "MaximumElementCount": 8,
+          "MinimumCenterThicknessMillimeters": 0.1,
+          "MinimumAirGapMillimeters": 0.05,
+          "MinimumBackFocusMillimeters": 0.1,
+          "MaximumMechanicalTrackMillimeters": 10000,
+          "AllowTransitionElements": false,
+          "AllowedGlassNames": []
+        },
+        "EffectiveFocalLengthMillimeters": 49.0692209888653,
+        "FNumber": 12.267305247216324,
+        "Fields": [
+          {
+            "Field": {
+              "X": 0,
+              "Y": 0
+            },
+            "AttemptedRays": 960,
+            "ValidRays": 960,
+            "CheckAttemptedRays": 99,
+            "CheckValidRays": 99,
+            "RmsRadiusMillimeters": 0.15128897439178038,
+            "MaximumRadiusMillimeters": 0.21774761497584436,
+            "DistortionFraction": 0,
+            "WavelengthValidFractions": [
+              1,
+              1,
+              1
+            ]
+          }
+        ],
+        "Violations": [
+          {
+            "Code": "field:0:rms",
+            "Actual": 0.15128897439178038,
+            "Limit": 1E-09
+          },
+          {
+            "Code": "field:0:maximum",
+            "Actual": 0.21774761497584436,
+            "Limit": 0.15
+          }
+        ],
+        "Completed": true,
+        "MeetsTargets": false,
+        "TracedRayCount": 2120,
+        "GeometryProbes": 841,
+        "Failure": null
+      },
+      "Score": 151288976.39178038,
+      "OperationCursor": 2
+    },
+    {
+      "Id": "trial-0",
+      "ParentId": "seed-0",
+      "Topology": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Autonomous topology foundation 3",
+        "Conjugate": 0,
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 0,
+          "ClearSemiDiameterMillimeters": 2,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 55,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "lens-1",
+            "FrontSurfaceId": "lens-1:front",
+            "BackSurfaceId": "lens-1:back",
+            "FrontZMillimeters": 3,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 2,
+                "CurvaturePerMillimeter": 0.022322222222222222,
+                "Conic": -0.25,
+                "MaximumEvenPower": 18,
+                "Terms": [
+                  {
+                    "Power": 4,
+                    "Coefficient": 1E-07
+                  },
+                  {
+                    "Power": 10,
+                    "Coefficient": -1E-14
+                  },
+                  {
+                    "Power": 18,
+                    "Coefficient": 1E-22
+                  }
+                ]
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.01828181818181818,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-2",
+            "FrontSurfaceId": "lens-2:front",
+            "BackSurfaceId": "lens-2:back",
+            "FrontZMillimeters": 10,
+            "ThicknessMillimeters": 2,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.015284615384615384,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.014185714285714286,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-3",
+            "FrontSurfaceId": "lens-3:front",
+            "BackSurfaceId": "lens-3:back",
+            "FrontZMillimeters": 18,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.016766666666666666,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.0201,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "Axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "F",
+            "Nanometers": 486.1,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "d",
+            "Nanometers": 587.6,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "C",
+            "Nanometers": 656.3,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      },
+      "Assessment": {
+        "OpticFingerprint": "a9046742f7d1ce369bc27ddb1d0a8674bdc13af75c4a11a536d8287da1a38c8f",
+        "ProtocolFingerprint": "1c878f2d06199141d2200788d538ad2e0c77de83992cbcc6c23674aa74f03f96",
+        "Targets": {
+          "EffectiveFocalLengthMillimeters": 50,
+          "FNumber": 12.5,
+          "FocalLengthRelativeTolerance": 0.02,
+          "FNumberRelativeTolerance": 0.02,
+          "MaximumRmsRadiusMillimeters": 1E-09,
+          "MaximumSpotRadiusMillimeters": 0.15,
+          "MaximumDistortionFraction": 0.03,
+          "MinimumValidRayFraction": 0.98,
+          "MinimumEdgeThicknessMillimeters": 0.1,
+          "MinimumEdgeAirGapMillimeters": 0.01,
+          "MaximumOpticalTrackMillimeters": 10000,
+          "MaximumAbsoluteSurfaceSlope": 10
+        },
+        "StructuralConstraints": {
+          "MinimumElementCount": 1,
+          "MaximumElementCount": 8,
+          "MinimumCenterThicknessMillimeters": 0.1,
+          "MinimumAirGapMillimeters": 0.05,
+          "MinimumBackFocusMillimeters": 0.1,
+          "MaximumMechanicalTrackMillimeters": 10000,
+          "AllowTransitionElements": false,
+          "AllowedGlassNames": []
+        },
+        "EffectiveFocalLengthMillimeters": 48.43998824757712,
+        "FNumber": 12.10999706189428,
+        "Fields": [
+          {
+            "Field": {
+              "X": 0,
+              "Y": 0
+            },
+            "AttemptedRays": 960,
+            "ValidRays": 960,
+            "CheckAttemptedRays": 99,
+            "CheckValidRays": 99,
+            "RmsRadiusMillimeters": 0.13464476571565573,
+            "MaximumRadiusMillimeters": 0.194332477583388,
+            "DistortionFraction": 0,
+            "WavelengthValidFractions": [
+              1,
+              1,
+              1
+            ]
+          }
+        ],
+        "Violations": [
+          {
+            "Code": "focal-length",
+            "Actual": 0.031200235048457592,
+            "Limit": 0.02
+          },
+          {
+            "Code": "f-number",
+            "Actual": 0.031200235048457592,
+            "Limit": 0.02
+          },
+          {
+            "Code": "field:0:rms",
+            "Actual": 0.13464476571565573,
+            "Limit": 1E-09
+          },
+          {
+            "Code": "field:0:maximum",
+            "Actual": 0.194332477583388,
+            "Limit": 0.15
+          }
+        ],
+        "Completed": true,
+        "MeetsTargets": false,
+        "TracedRayCount": 2120,
+        "GeometryProbes": 841,
+        "Failure": null
+      },
+      "Score": 134644769.7156557,
+      "OperationCursor": 3
+    },
+    {
+      "Id": "trial-3",
+      "ParentId": "trial-0",
+      "Topology": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Autonomous topology foundation 3",
+        "Conjugate": 0,
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 0,
+          "ClearSemiDiameterMillimeters": 2,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 55,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "trial-3-lens",
+            "FrontSurfaceId": "trial-3-front",
+            "BackSurfaceId": "trial-3-back",
+            "FrontZMillimeters": 0.5611286601132338,
+            "ThicknessMillimeters": 1,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.0028,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 8
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.0028,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 8
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-1",
+            "FrontSurfaceId": "lens-1:front",
+            "BackSurfaceId": "lens-1:back",
+            "FrontZMillimeters": 3,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 2,
+                "CurvaturePerMillimeter": 0.025547144860014658,
+                "Conic": -0.25,
+                "MaximumEvenPower": 18,
+                "Terms": [
+                  {
+                    "Power": 4,
+                    "Coefficient": 1E-07
+                  },
+                  {
+                    "Power": 10,
+                    "Coefficient": -1E-14
+                  },
+                  {
+                    "Power": 18,
+                    "Coefficient": 1E-22
+                  }
+                ]
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.021078565076961025,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-2",
+            "FrontSurfaceId": "lens-2:front",
+            "BackSurfaceId": "lens-2:back",
+            "FrontZMillimeters": 10,
+            "ThicknessMillimeters": 2,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.014020576416896762,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.013350328067411599,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-3",
+            "FrontSurfaceId": "lens-3:front",
+            "BackSurfaceId": "lens-3:back",
+            "FrontZMillimeters": 18,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.01590001080544015,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.018928011548881553,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "Axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "F",
+            "Nanometers": 486.1,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "d",
+            "Nanometers": 587.6,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "C",
+            "Nanometers": 656.3,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      },
+      "Assessment": {
+        "OpticFingerprint": "8978d7de59a9c42312a108b8a96f5c5375a0746788049b50fa4c8d2c17f53ddb",
+        "ProtocolFingerprint": "1c878f2d06199141d2200788d538ad2e0c77de83992cbcc6c23674aa74f03f96",
+        "Targets": {
+          "EffectiveFocalLengthMillimeters": 50,
+          "FNumber": 12.5,
+          "FocalLengthRelativeTolerance": 0.02,
+          "FNumberRelativeTolerance": 0.02,
+          "MaximumRmsRadiusMillimeters": 1E-09,
+          "MaximumSpotRadiusMillimeters": 0.15,
+          "MaximumDistortionFraction": 0.03,
+          "MinimumValidRayFraction": 0.98,
+          "MinimumEdgeThicknessMillimeters": 0.1,
+          "MinimumEdgeAirGapMillimeters": 0.01,
+          "MaximumOpticalTrackMillimeters": 10000,
+          "MaximumAbsoluteSurfaceSlope": 10
+        },
+        "StructuralConstraints": {
+          "MinimumElementCount": 1,
+          "MaximumElementCount": 8,
+          "MinimumCenterThicknessMillimeters": 0.1,
+          "MinimumAirGapMillimeters": 0.05,
+          "MinimumBackFocusMillimeters": 0.1,
+          "MaximumMechanicalTrackMillimeters": 10000,
+          "AllowTransitionElements": false,
+          "AllowedGlassNames": []
+        },
+        "EffectiveFocalLengthMillimeters": 47.44807029965731,
+        "FNumber": 11.862017574914328,
+        "Fields": [
+          {
+            "Field": {
+              "X": 0,
+              "Y": 0
+            },
+            "AttemptedRays": 960,
+            "ValidRays": 960,
+            "CheckAttemptedRays": 99,
+            "CheckValidRays": 99,
+            "RmsRadiusMillimeters": 0.10408190808055859,
+            "MaximumRadiusMillimeters": 0.15122120227262043,
+            "DistortionFraction": 0,
+            "WavelengthValidFractions": [
+              1,
+              1,
+              1
+            ]
+          }
+        ],
+        "Violations": [
+          {
+            "Code": "focal-length",
+            "Actual": 0.051038594006853844,
+            "Limit": 0.02
+          },
+          {
+            "Code": "f-number",
+            "Actual": 0.051038594006853844,
+            "Limit": 0.02
+          },
+          {
+            "Code": "geometry:lens-1:edge:64",
+            "Actual": 0.007263906644411927,
+            "Limit": 0
+          },
+          {
+            "Code": "field:0:rms",
+            "Actual": 0.10408190808055859,
+            "Limit": 1E-09
+          },
+          {
+            "Code": "field:0:maximum",
+            "Actual": 0.15122120227262043,
+            "Limit": 0.15
+          }
+        ],
+        "Completed": true,
+        "MeetsTargets": false,
+        "TracedRayCount": 2120,
+        "GeometryProbes": 1099,
+        "Failure": null
+      },
+      "Score": 104081913.08055858,
+      "OperationCursor": 1
+    }
+  ],
+  "Pool": [
+    "trial-0",
+    "seed-0",
+    "trial-3"
+  ],
+  "AcceptedArchive": [],
+  "Events": [
+    {
+      "Sequence": 1,
+      "TrialId": "seed-0",
+      "ParentId": null,
+      "Operation": "seed",
+      "Phase": 3,
+      "Outcome": "UnmetTargets",
+      "Detail": null,
+      "Work": {
+        "FunctionEvaluations": 1,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 1,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 2120,
+        "GeometryProbes": 841,
+        "Elapsed": "00:00:00.0435759"
+      },
+      "Endpoint": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Autonomous topology foundation 3",
+        "Conjugate": 0,
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 0,
+          "ClearSemiDiameterMillimeters": 2,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 55,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "lens-1",
+            "FrontSurfaceId": "lens-1:front",
+            "BackSurfaceId": "lens-1:back",
+            "FrontZMillimeters": 3,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 2,
+                "CurvaturePerMillimeter": 0.022222222222222223,
+                "Conic": -0.25,
+                "MaximumEvenPower": 18,
+                "Terms": [
+                  {
+                    "Power": 4,
+                    "Coefficient": 1E-07
+                  },
+                  {
+                    "Power": 10,
+                    "Coefficient": -1E-14
+                  },
+                  {
+                    "Power": 18,
+                    "Coefficient": 1E-22
+                  }
+                ]
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.01818181818181818,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-2",
+            "FrontSurfaceId": "lens-2:front",
+            "BackSurfaceId": "lens-2:back",
+            "FrontZMillimeters": 10,
+            "ThicknessMillimeters": 2,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.015384615384615385,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.014285714285714285,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-3",
+            "FrontSurfaceId": "lens-3:front",
+            "BackSurfaceId": "lens-3:back",
+            "FrontZMillimeters": 18,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.016666666666666666,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.02,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "Axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "F",
+            "Nanometers": 486.1,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "d",
+            "Nanometers": 587.6,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "C",
+            "Nanometers": 656.3,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      },
+      "Recovery": null,
+      "Optimization": null
+    },
+    {
+      "Sequence": 2,
+      "TrialId": "trial-0",
+      "ParentId": "seed-0",
+      "Operation": "optimize",
+      "Phase": 2,
+      "Outcome": "UpdateLimit",
+      "Detail": null,
+      "Work": {
+        "FunctionEvaluations": 2,
+        "GradientEvaluations": 2,
+        "ValidationEvaluations": 0,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 100,
+        "GeometryProbes": 226,
+        "Elapsed": "00:00:00.0468056"
+      },
+      "Endpoint": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Autonomous topology foundation 3",
+        "Conjugate": 0,
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 0,
+          "ClearSemiDiameterMillimeters": 2,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 55,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "lens-1",
+            "FrontSurfaceId": "lens-1:front",
+            "BackSurfaceId": "lens-1:back",
+            "FrontZMillimeters": 3,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 2,
+                "CurvaturePerMillimeter": 0.022322222222222222,
+                "Conic": -0.25,
+                "MaximumEvenPower": 18,
+                "Terms": [
+                  {
+                    "Power": 4,
+                    "Coefficient": 1E-07
+                  },
+                  {
+                    "Power": 10,
+                    "Coefficient": -1E-14
+                  },
+                  {
+                    "Power": 18,
+                    "Coefficient": 1E-22
+                  }
+                ]
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.01828181818181818,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-2",
+            "FrontSurfaceId": "lens-2:front",
+            "BackSurfaceId": "lens-2:back",
+            "FrontZMillimeters": 10,
+            "ThicknessMillimeters": 2,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.015284615384615384,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.014185714285714286,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-3",
+            "FrontSurfaceId": "lens-3:front",
+            "BackSurfaceId": "lens-3:back",
+            "FrontZMillimeters": 18,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.016766666666666666,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.0201,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "Axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "F",
+            "Nanometers": 486.1,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "d",
+            "Nanometers": 587.6,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "C",
+            "Nanometers": 656.3,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      },
+      "Recovery": null,
+      "Optimization": {
+        "Algorithm": "AutonomousTopologyV1",
+        "ObjectiveFingerprint": "54d3108a815dc12b3d414bc313d96fe6cb76117e38a4c6dd379a33a784f13f13",
+        "Topology": {
+          "SchemaVersion": 1,
+          "Algorithm": "AutonomousTopologyV1",
+          "Name": "Autonomous topology foundation 3",
+          "Conjugate": 0,
+          "Reference": {
+            "Id": "reference",
+            "ZMillimeters": 0
+          },
+          "Stop": {
+            "Id": "stop",
+            "ZMillimeters": 0,
+            "ClearSemiDiameterMillimeters": 2,
+            "MechanicalSemiDiameterMillimeters": null
+          },
+          "Image": {
+            "Id": "image",
+            "ZMillimeters": 55,
+            "Protected": true
+          },
+          "Elements": [
+            {
+              "Id": "lens-1",
+              "FrontSurfaceId": "lens-1:front",
+              "BackSurfaceId": "lens-1:back",
+              "FrontZMillimeters": 3,
+              "ThicknessMillimeters": 2,
+              "Material": "N-BK7",
+              "Front": {
+                "Profile": {
+                  "Kind": 2,
+                  "CurvaturePerMillimeter": 0.022322222222222222,
+                  "Conic": -0.25,
+                  "MaximumEvenPower": 18,
+                  "Terms": [
+                    {
+                      "Power": 4,
+                      "Coefficient": 1E-07
+                    },
+                    {
+                      "Power": 10,
+                      "Coefficient": -1E-14
+                    },
+                    {
+                      "Power": 18,
+                      "Coefficient": 1E-22
+                    }
+                  ]
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 9
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": -0.01828181818181818,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 7.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "lens-2",
+              "FrontSurfaceId": "lens-2:front",
+              "BackSurfaceId": "lens-2:back",
+              "FrontZMillimeters": 10,
+              "ThicknessMillimeters": 2,
+              "Material": "N-F2",
+              "Front": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": -0.015284615384615384,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 9
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": 0.014185714285714286,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 7.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "lens-3",
+              "FrontSurfaceId": "lens-3:front",
+              "BackSurfaceId": "lens-3:back",
+              "FrontZMillimeters": 18,
+              "ThicknessMillimeters": 2,
+              "Material": "N-BK7",
+              "Front": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": 0.016766666666666666,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 9
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": -0.0201,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 7.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            }
+          ],
+          "Fields": [
+            {
+              "Label": "Axis",
+              "XAngleDegrees": 0,
+              "YAngleDegrees": 0,
+              "Weight": 1
+            }
+          ],
+          "Wavelengths": [
+            {
+              "Label": "F",
+              "Nanometers": 486.1,
+              "Weight": 1,
+              "IsPrimary": false
+            },
+            {
+              "Label": "d",
+              "Nanometers": 587.6,
+              "Weight": 1,
+              "IsPrimary": true
+            },
+            {
+              "Label": "C",
+              "Nanometers": 656.3,
+              "Weight": 1,
+              "IsPrimary": false
+            }
+          ],
+          "GlassCatalogs": [],
+          "RayAimingEnabled": true,
+          "MatchRefractiveIndexData": true,
+          "TemperatureCelsius": 20,
+          "PressureAtmospheres": 1
+        },
+        "Constraints": {
+          "MinimumElementCount": 1,
+          "MaximumElementCount": 8,
+          "MinimumCenterThicknessMillimeters": 0.1,
+          "MinimumAirGapMillimeters": 0.05,
+          "MinimumBackFocusMillimeters": 0.1,
+          "MaximumMechanicalTrackMillimeters": 10000,
+          "AllowTransitionElements": false,
+          "AllowedGlassNames": []
+        },
+        "Targets": {
+          "EffectiveFocalLengthMillimeters": 50,
+          "FNumber": 12.5,
+          "FocalLengthRelativeTolerance": 0.02,
+          "FNumberRelativeTolerance": 0.02,
+          "MaximumRmsRadiusMillimeters": 1E-09,
+          "MaximumSpotRadiusMillimeters": 0.15,
+          "MaximumDistortionFraction": 0.03,
+          "MinimumValidRayFraction": 0.98,
+          "MinimumEdgeThicknessMillimeters": 0.1,
+          "MinimumEdgeAirGapMillimeters": 0.01,
+          "MaximumOpticalTrackMillimeters": 10000,
+          "MaximumAbsoluteSurfaceSlope": 10
+        },
+        "Variables": [
+          {
+            "SurfaceId": "lens-1:front",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "lens-1:back",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "lens-2:front",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "lens-2:back",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "lens-3:front",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "lens-3:back",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          }
+        ],
+        "Termination": 0,
+        "Work": {
+          "FunctionEvaluations": 2,
+          "GradientEvaluations": 2,
+          "ValidationEvaluations": 0,
+          "TracedRays": 100,
+          "GeometryProbes": 226,
+          "GpuDerivativeRays": 0,
+          "GpuBatches": 0,
+          "Elapsed": "00:00:00.0455081",
+          "CompletedGradientEvaluations": 2
+        },
+        "AcceptedUpdates": 1,
+        "Steps": [
+          {
+            "Attempt": 1,
+            "Accepted": true,
+            "Objective": 36547537986307470,
+            "Failure": null
+          }
+        ],
+        "InitialEvaluation": {
+          "LayoutFingerprint": "54d3108a815dc12b3d414bc313d96fe6cb76117e38a4c6dd379a33a784f13f13",
+          "OpticFingerprint": "8c773639664a4b3c7ecb285a241cd4d7074b1685a8895c4aa01fce63e60dccf5",
+          "Residuals": [
+            0.948434672873566,
+            0.948434672873566,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            151810008.79240784,
+            0.03685018832401976,
+            0,
+            0,
+            30039329.480018415,
+            -3.540989467475308E-09,
+            0,
+            21241013.57761803,
+            21241013.57761803,
+            0,
+            1.662328961438096E-09,
+            30039329.480018407,
+            0,
+            -21241013.577617962,
+            21241013.57761803,
+            0,
+            -30039329.480018415,
+            1.3776740214841478E-10,
+            0,
+            -21241013.57761803,
+            -21241013.577617966,
+            0,
+            -5.695184777809357E-09,
+            -30039329.48001842,
+            0,
+            21241013.577617984,
+            -21241013.577618033,
+            0,
+            31153754.189085092,
+            -3.540989467475308E-09,
+            0,
+            22029030.846520852,
+            22029030.84652085,
+            0,
+            1.7305677940805595E-09,
+            31153754.189085085,
+            0,
+            -22029030.846520875,
+            22029030.84652085,
+            0,
+            -31153754.189085092,
+            2.742450674333417E-10,
+            0,
+            -22029030.846520852,
+            -22029030.846520875,
+            0,
+            -5.899901275736733E-09,
+            -31153754.189085096,
+            0,
+            22029030.846520852,
+            -22029030.846520852,
+            0,
+            31746923.763781134,
+            -3.540989467475308E-09,
+            0,
+            22448465.07518201,
+            22448465.07518201,
+            0,
+            1.7668889551307101E-09,
+            31746923.76378113,
+            0,
+            -22448465.075181965,
+            22448465.07518201,
+            0,
+            -31746923.763781134,
+            3.468873895336429E-10,
+            0,
+            -22448465.07518201,
+            -22448465.07518197,
+            0,
+            -6.008864758887195E-09,
+            -31746923.76378114,
+            0,
+            22448465.075181987,
+            -22448465.075182013
+          ],
+          "Gradient": [
+            -1.9863757688726576E+17,
+            1.9260910977600784E+17,
+            -1.8239539481794013E+17,
+            1.750508656983743E+17,
+            -1.33681875106619E+17,
+            1.2848769875590382E+17
+          ],
+          "Jacobian": [],
+          "Objective": 46092557842721890,
+          "Available": true,
+          "Failure": null,
+          "TracedRayCount": 50,
+          "GeometryProbes": 113,
+          "Execution": {
+            "Backend": "cpu-forward-v1",
+            "DeviceName": "CPU",
+            "GpuBatches": 0,
+            "GpuRays": 0,
+            "GpuMilliseconds": 0,
+            "FallbackReason": null
+          },
+          "PropagationExecution": {
+            "DeviceName": "CPU",
+            "AimRays": 0,
+            "AimTraces": 0,
+            "PropagatedRays": 0,
+            "Batches": 0,
+            "Milliseconds": 0,
+            "CpuRecoveryRays": 0,
+            "FallbackReason": null
+          }
+        },
+        "EndpointEvaluation": {
+          "LayoutFingerprint": "54d3108a815dc12b3d414bc313d96fe6cb76117e38a4c6dd379a33a784f13f13",
+          "OpticFingerprint": "a9046742f7d1ce369bc27ddb1d0a8674bdc13af75c4a11a536d8287da1a38c8f",
+          "Residuals": [
+            1.6102519930946801,
+            1.6102519930946801,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            135180504.72598937,
+            0,
+            0,
+            0,
+            26609659.76092231,
+            -7.613127355071913E-09,
+            0,
+            18815870.862015028,
+            18815870.86201502,
+            0,
+            -1.411230011069714E-10,
+            26609659.7609223,
+            0,
+            -18815870.862014964,
+            18815870.86201502,
+            0,
+            -26609659.76092231,
+            -4.354383889810547E-09,
+            0,
+            -18815870.86201503,
+            -18815870.86201497,
+            0,
+            -6.658609931629692E-09,
+            -26609659.760922313,
+            0,
+            18815870.862014983,
+            -18815870.86201504,
+            0,
+            27765574.95806332,
+            -7.613127355071913E-09,
+            0,
+            19633226.336389996,
+            19633226.33638999,
+            0,
+            -7.034360879374785E-11,
+            27765574.958063312,
+            0,
+            -19633226.336389955,
+            19633226.33638999,
+            0,
+            -27765574.95806332,
+            -4.2128251051841005E-09,
+            0,
+            -19633226.33639,
+            -19633226.33638996,
+            0,
+            -6.8709481085693926E-09,
+            -27765574.958063323,
+            0,
+            19633226.336389974,
+            -19633226.336390007,
+            0,
+            28376398.56813929,
+            -7.613127355071913E-09,
+            0,
+            20065143.853183564,
+            20065143.853183556,
+            0,
+            -3.294144984758488E-11,
+            28376398.56813928,
+            0,
+            -20065143.8531835,
+            20065143.853183556,
+            0,
+            -28376398.56813929,
+            -4.138020787291774E-09,
+            0,
+            -20065143.85318357,
+            -20065143.853183508,
+            0,
+            -6.983154585407854E-09,
+            -28376398.568139292,
+            0,
+            20065143.853183497,
+            -20065143.853183575
+          ],
+          "Gradient": [
+            -1.7650606910361626E+17,
+            1.711873451611977E+17,
+            -1.6215534564789907E+17,
+            1.556173311830946E+17,
+            -1.1871823935515256E+17,
+            1.1406659652750755E+17
+          ],
+          "Jacobian": [],
+          "Objective": 36547537986307470,
+          "Available": true,
+          "Failure": null,
+          "TracedRayCount": 50,
+          "GeometryProbes": 113,
+          "Execution": {
+            "Backend": "cpu-forward-v1",
+            "DeviceName": "CPU",
+            "GpuBatches": 0,
+            "GpuRays": 0,
+            "GpuMilliseconds": 0,
+            "FallbackReason": null
+          },
+          "PropagationExecution": {
+            "DeviceName": "CPU",
+            "AimRays": 0,
+            "AimTraces": 0,
+            "PropagatedRays": 0,
+            "Batches": 0,
+            "Milliseconds": 0,
+            "CpuRecoveryRays": 0,
+            "FallbackReason": null
+          }
+        },
+        "FinalAssessment": null,
+        "Diagnostics": [],
+        "Continuation": {
+          "PhaseFingerprint": "69cb8488030c6804865cda97c8a93fa44f85db320f52f5d32b89738fc9f18c5a",
+          "Adam": {
+            "Iteration": 1,
+            "Coordinates": [
+              2.232222222222222,
+              -1.8281818181818181,
+              -1.5284615384615385,
+              1.4185714285714286,
+              1.6766666666666665,
+              -2.01
+            ],
+            "FirstMoment": [
+              -19863757688726576,
+              19260910977600784,
+              -18239539481794012,
+              17505086569837432,
+              -13368187510661902,
+              12848769875590384
+            ],
+            "SecondMoment": [
+              3.9456886951644415E+31,
+              3.709826916870624E+31,
+              3.326808005079226E+31,
+              3.064280558175028E+31,
+              1.7870843732021684E+31,
+              1.6509088731587889E+31
+            ],
+            "MomentIteration": 1
+          },
+          "LearningRate": 0.01,
+          "Work": {
+            "FunctionEvaluations": 2,
+            "GradientEvaluations": 2,
+            "ValidationEvaluations": 0,
+            "TracedRays": 100,
+            "GeometryProbes": 226,
+            "GpuDerivativeRays": 0,
+            "GpuBatches": 0,
+            "Elapsed": "00:00:00.0455093",
+            "CompletedGradientEvaluations": 2
+          },
+          "AcceptedUpdates": 1,
+          "Steps": [
+            {
+              "Attempt": 1,
+              "Accepted": true,
+              "Objective": 36547537986307470,
+              "Failure": null
+            }
+          ],
+          "InitialEvaluation": {
+            "LayoutFingerprint": "54d3108a815dc12b3d414bc313d96fe6cb76117e38a4c6dd379a33a784f13f13",
+            "OpticFingerprint": "8c773639664a4b3c7ecb285a241cd4d7074b1685a8895c4aa01fce63e60dccf5",
+            "Residuals": [
+              0.948434672873566,
+              0.948434672873566,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              151810008.79240784,
+              0.03685018832401976,
+              0,
+              0,
+              30039329.480018415,
+              -3.540989467475308E-09,
+              0,
+              21241013.57761803,
+              21241013.57761803,
+              0,
+              1.662328961438096E-09,
+              30039329.480018407,
+              0,
+              -21241013.577617962,
+              21241013.57761803,
+              0,
+              -30039329.480018415,
+              1.3776740214841478E-10,
+              0,
+              -21241013.57761803,
+              -21241013.577617966,
+              0,
+              -5.695184777809357E-09,
+              -30039329.48001842,
+              0,
+              21241013.577617984,
+              -21241013.577618033,
+              0,
+              31153754.189085092,
+              -3.540989467475308E-09,
+              0,
+              22029030.846520852,
+              22029030.84652085,
+              0,
+              1.7305677940805595E-09,
+              31153754.189085085,
+              0,
+              -22029030.846520875,
+              22029030.84652085,
+              0,
+              -31153754.189085092,
+              2.742450674333417E-10,
+              0,
+              -22029030.846520852,
+              -22029030.846520875,
+              0,
+              -5.899901275736733E-09,
+              -31153754.189085096,
+              0,
+              22029030.846520852,
+              -22029030.846520852,
+              0,
+              31746923.763781134,
+              -3.540989467475308E-09,
+              0,
+              22448465.07518201,
+              22448465.07518201,
+              0,
+              1.7668889551307101E-09,
+              31746923.76378113,
+              0,
+              -22448465.075181965,
+              22448465.07518201,
+              0,
+              -31746923.763781134,
+              3.468873895336429E-10,
+              0,
+              -22448465.07518201,
+              -22448465.07518197,
+              0,
+              -6.008864758887195E-09,
+              -31746923.76378114,
+              0,
+              22448465.075181987,
+              -22448465.075182013
+            ],
+            "Gradient": [
+              -1.9863757688726576E+17,
+              1.9260910977600784E+17,
+              -1.8239539481794013E+17,
+              1.750508656983743E+17,
+              -1.33681875106619E+17,
+              1.2848769875590382E+17
+            ],
+            "Jacobian": [],
+            "Objective": 46092557842721890,
+            "Available": true,
+            "Failure": null,
+            "TracedRayCount": 50,
+            "GeometryProbes": 113,
+            "Execution": {
+              "Backend": "cpu-forward-v1",
+              "DeviceName": "CPU",
+              "GpuBatches": 0,
+              "GpuRays": 0,
+              "GpuMilliseconds": 0,
+              "FallbackReason": null
+            },
+            "PropagationExecution": {
+              "DeviceName": "CPU",
+              "AimRays": 0,
+              "AimTraces": 0,
+              "PropagatedRays": 0,
+              "Batches": 0,
+              "Milliseconds": 0,
+              "CpuRecoveryRays": 0,
+              "FallbackReason": null
+            }
+          },
+          "EndpointEvaluation": {
+            "LayoutFingerprint": "54d3108a815dc12b3d414bc313d96fe6cb76117e38a4c6dd379a33a784f13f13",
+            "OpticFingerprint": "a9046742f7d1ce369bc27ddb1d0a8674bdc13af75c4a11a536d8287da1a38c8f",
+            "Residuals": [
+              1.6102519930946801,
+              1.6102519930946801,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              135180504.72598937,
+              0,
+              0,
+              0,
+              26609659.76092231,
+              -7.613127355071913E-09,
+              0,
+              18815870.862015028,
+              18815870.86201502,
+              0,
+              -1.411230011069714E-10,
+              26609659.7609223,
+              0,
+              -18815870.862014964,
+              18815870.86201502,
+              0,
+              -26609659.76092231,
+              -4.354383889810547E-09,
+              0,
+              -18815870.86201503,
+              -18815870.86201497,
+              0,
+              -6.658609931629692E-09,
+              -26609659.760922313,
+              0,
+              18815870.862014983,
+              -18815870.86201504,
+              0,
+              27765574.95806332,
+              -7.613127355071913E-09,
+              0,
+              19633226.336389996,
+              19633226.33638999,
+              0,
+              -7.034360879374785E-11,
+              27765574.958063312,
+              0,
+              -19633226.336389955,
+              19633226.33638999,
+              0,
+              -27765574.95806332,
+              -4.2128251051841005E-09,
+              0,
+              -19633226.33639,
+              -19633226.33638996,
+              0,
+              -6.8709481085693926E-09,
+              -27765574.958063323,
+              0,
+              19633226.336389974,
+              -19633226.336390007,
+              0,
+              28376398.56813929,
+              -7.613127355071913E-09,
+              0,
+              20065143.853183564,
+              20065143.853183556,
+              0,
+              -3.294144984758488E-11,
+              28376398.56813928,
+              0,
+              -20065143.8531835,
+              20065143.853183556,
+              0,
+              -28376398.56813929,
+              -4.138020787291774E-09,
+              0,
+              -20065143.85318357,
+              -20065143.853183508,
+              0,
+              -6.983154585407854E-09,
+              -28376398.568139292,
+              0,
+              20065143.853183497,
+              -20065143.853183575
+            ],
+            "Gradient": [
+              -1.7650606910361626E+17,
+              1.711873451611977E+17,
+              -1.6215534564789907E+17,
+              1.556173311830946E+17,
+              -1.1871823935515256E+17,
+              1.1406659652750755E+17
+            ],
+            "Jacobian": [],
+            "Objective": 36547537986307470,
+            "Available": true,
+            "Failure": null,
+            "TracedRayCount": 50,
+            "GeometryProbes": 113,
+            "Execution": {
+              "Backend": "cpu-forward-v1",
+              "DeviceName": "CPU",
+              "GpuBatches": 0,
+              "GpuRays": 0,
+              "GpuMilliseconds": 0,
+              "FallbackReason": null
+            },
+            "PropagationExecution": {
+              "DeviceName": "CPU",
+              "AimRays": 0,
+              "AimTraces": 0,
+              "PropagatedRays": 0,
+              "Batches": 0,
+              "Milliseconds": 0,
+              "CpuRecoveryRays": 0,
+              "FallbackReason": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "Sequence": 3,
+      "TrialId": "trial-0",
+      "ParentId": "seed-0",
+      "Operation": "optimize",
+      "Phase": 3,
+      "Outcome": "UnmetTargets",
+      "Detail": null,
+      "Work": {
+        "FunctionEvaluations": 1,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 1,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 2120,
+        "GeometryProbes": 841,
+        "Elapsed": "00:00:00.0430441"
+      },
+      "Endpoint": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Autonomous topology foundation 3",
+        "Conjugate": 0,
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 0,
+          "ClearSemiDiameterMillimeters": 2,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 55,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "lens-1",
+            "FrontSurfaceId": "lens-1:front",
+            "BackSurfaceId": "lens-1:back",
+            "FrontZMillimeters": 3,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 2,
+                "CurvaturePerMillimeter": 0.022322222222222222,
+                "Conic": -0.25,
+                "MaximumEvenPower": 18,
+                "Terms": [
+                  {
+                    "Power": 4,
+                    "Coefficient": 1E-07
+                  },
+                  {
+                    "Power": 10,
+                    "Coefficient": -1E-14
+                  },
+                  {
+                    "Power": 18,
+                    "Coefficient": 1E-22
+                  }
+                ]
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.01828181818181818,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-2",
+            "FrontSurfaceId": "lens-2:front",
+            "BackSurfaceId": "lens-2:back",
+            "FrontZMillimeters": 10,
+            "ThicknessMillimeters": 2,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.015284615384615384,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.014185714285714286,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-3",
+            "FrontSurfaceId": "lens-3:front",
+            "BackSurfaceId": "lens-3:back",
+            "FrontZMillimeters": 18,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.016766666666666666,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.0201,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "Axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "F",
+            "Nanometers": 486.1,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "d",
+            "Nanometers": 587.6,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "C",
+            "Nanometers": 656.3,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      },
+      "Recovery": null,
+      "Optimization": null
+    },
+    {
+      "Sequence": 4,
+      "TrialId": "trial-1",
+      "ParentId": "trial-0",
+      "Operation": "insert",
+      "Phase": 0,
+      "Outcome": "EditRejected",
+      "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+      "Work": {
+        "FunctionEvaluations": 0,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 0,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 0,
+        "GeometryProbes": 0,
+        "Elapsed": "00:00:00"
+      },
+      "Endpoint": null,
+      "Recovery": null,
+      "Optimization": null
+    },
+    {
+      "Sequence": 5,
+      "TrialId": "trial-2",
+      "ParentId": "seed-0",
+      "Operation": "insert",
+      "Phase": 0,
+      "Outcome": "EditRejected",
+      "Detail": "NoSpace: The air interval cannot represent this thickness and both minimum gaps.",
+      "Work": {
+        "FunctionEvaluations": 0,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 0,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 0,
+        "GeometryProbes": 0,
+        "Elapsed": "00:00:00"
+      },
+      "Endpoint": null,
+      "Recovery": null,
+      "Optimization": null
+    },
+    {
+      "Sequence": 6,
+      "TrialId": "trial-3",
+      "ParentId": "trial-0",
+      "Operation": "insert",
+      "Phase": 0,
+      "Outcome": "Recovered",
+      "Detail": null,
+      "Work": {
+        "FunctionEvaluations": 41,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 0,
+        "MatrixEvaluations": 41,
+        "DifferenceEvaluations": 36,
+        "JacobianBuilds": 3,
+        "TracedRays": 0,
+        "GeometryProbes": 5880,
+        "Elapsed": "00:00:00.2411327"
+      },
+      "Endpoint": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Autonomous topology foundation 3",
+        "Conjugate": 0,
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 0,
+          "ClearSemiDiameterMillimeters": 2,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 55,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "trial-3-lens",
+            "FrontSurfaceId": "trial-3-front",
+            "BackSurfaceId": "trial-3-back",
+            "FrontZMillimeters": 0.5611286601132338,
+            "ThicknessMillimeters": 1,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.003,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 8
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.003,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 8
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-1",
+            "FrontSurfaceId": "lens-1:front",
+            "BackSurfaceId": "lens-1:back",
+            "FrontZMillimeters": 3,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 2,
+                "CurvaturePerMillimeter": 0.025447144860014658,
+                "Conic": -0.25,
+                "MaximumEvenPower": 18,
+                "Terms": [
+                  {
+                    "Power": 4,
+                    "Coefficient": 1E-07
+                  },
+                  {
+                    "Power": 10,
+                    "Coefficient": -1E-14
+                  },
+                  {
+                    "Power": 18,
+                    "Coefficient": 1E-22
+                  }
+                ]
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.020978565076961025,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-2",
+            "FrontSurfaceId": "lens-2:front",
+            "BackSurfaceId": "lens-2:back",
+            "FrontZMillimeters": 10,
+            "ThicknessMillimeters": 2,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.014120576416896763,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.013450328067411602,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-3",
+            "FrontSurfaceId": "lens-3:front",
+            "BackSurfaceId": "lens-3:back",
+            "FrontZMillimeters": 18,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.015800010805440152,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.018828011548881553,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "Axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "F",
+            "Nanometers": 486.1,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "d",
+            "Nanometers": 587.6,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "C",
+            "Nanometers": 656.3,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      },
+      "Recovery": {
+        "Algorithm": "AutonomousTopologyV1",
+        "ProtocolFingerprint": "03453b871ebdc52404d2b558e27001c09e335eeb2b980362bb260bbbacdd684a",
+        "Topology": {
+          "SchemaVersion": 1,
+          "Algorithm": "AutonomousTopologyV1",
+          "Name": "Autonomous topology foundation 3",
+          "Conjugate": 0,
+          "Reference": {
+            "Id": "reference",
+            "ZMillimeters": 0
+          },
+          "Stop": {
+            "Id": "stop",
+            "ZMillimeters": 0,
+            "ClearSemiDiameterMillimeters": 2,
+            "MechanicalSemiDiameterMillimeters": null
+          },
+          "Image": {
+            "Id": "image",
+            "ZMillimeters": 55,
+            "Protected": true
+          },
+          "Elements": [
+            {
+              "Id": "trial-3-lens",
+              "FrontSurfaceId": "trial-3-front",
+              "BackSurfaceId": "trial-3-back",
+              "FrontZMillimeters": 0.5611286601132338,
+              "ThicknessMillimeters": 1,
+              "Material": "N-BK7",
+              "Front": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": -0.003,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 8
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": 0.003,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 8
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "lens-1",
+              "FrontSurfaceId": "lens-1:front",
+              "BackSurfaceId": "lens-1:back",
+              "FrontZMillimeters": 3,
+              "ThicknessMillimeters": 2,
+              "Material": "N-BK7",
+              "Front": {
+                "Profile": {
+                  "Kind": 2,
+                  "CurvaturePerMillimeter": 0.025447144860014658,
+                  "Conic": -0.25,
+                  "MaximumEvenPower": 18,
+                  "Terms": [
+                    {
+                      "Power": 4,
+                      "Coefficient": 1E-07
+                    },
+                    {
+                      "Power": 10,
+                      "Coefficient": -1E-14
+                    },
+                    {
+                      "Power": 18,
+                      "Coefficient": 1E-22
+                    }
+                  ]
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 9
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": -0.020978565076961025,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 7.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "lens-2",
+              "FrontSurfaceId": "lens-2:front",
+              "BackSurfaceId": "lens-2:back",
+              "FrontZMillimeters": 10,
+              "ThicknessMillimeters": 2,
+              "Material": "N-F2",
+              "Front": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": -0.014120576416896763,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 9
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": 0.013450328067411602,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 7.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "lens-3",
+              "FrontSurfaceId": "lens-3:front",
+              "BackSurfaceId": "lens-3:back",
+              "FrontZMillimeters": 18,
+              "ThicknessMillimeters": 2,
+              "Material": "N-BK7",
+              "Front": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": 0.015800010805440152,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 9
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": -0.018828011548881553,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 7.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            }
+          ],
+          "Fields": [
+            {
+              "Label": "Axis",
+              "XAngleDegrees": 0,
+              "YAngleDegrees": 0,
+              "Weight": 1
+            }
+          ],
+          "Wavelengths": [
+            {
+              "Label": "F",
+              "Nanometers": 486.1,
+              "Weight": 1,
+              "IsPrimary": false
+            },
+            {
+              "Label": "d",
+              "Nanometers": 587.6,
+              "Weight": 1,
+              "IsPrimary": true
+            },
+            {
+              "Label": "C",
+              "Nanometers": 656.3,
+              "Weight": 1,
+              "IsPrimary": false
+            }
+          ],
+          "GlassCatalogs": [],
+          "RayAimingEnabled": true,
+          "MatchRefractiveIndexData": true,
+          "TemperatureCelsius": 20,
+          "PressureAtmospheres": 1
+        },
+        "Termination": 0,
+        "Work": {
+          "FunctionEvaluations": 41,
+          "DifferenceEvaluations": 36,
+          "MatrixEvaluations": 41,
+          "JacobianBuilds": 3,
+          "GeometryProbes": 5880,
+          "Elapsed": "00:00:00.2377260"
+        },
+        "Variables": [
+          {
+            "SurfaceId": "lens-1:front",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "lens-1:back",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "lens-2:front",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "lens-2:back",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "lens-3:front",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "lens-3:back",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          }
+        ],
+        "ChildInitialCoordinates": [
+          2.232222222222222,
+          -1.828181818181818,
+          -1.5284615384615383,
+          1.4185714285714286,
+          1.6766666666666665,
+          -2.01
+        ],
+        "EndpointCoordinates": [
+          2.544714486001466,
+          -2.0978565076961027,
+          -1.4120576416896762,
+          1.34503280674116,
+          1.580001080544015,
+          -1.8828011548881551
+        ],
+        "ParentMatrix": {
+          "A": 0.09731673863090895,
+          "B": 44.8259440526447,
+          "C": -0.02064410079723787,
+          "D": 0.7666583744531782,
+          "InputIndex": 1,
+          "OutputIndex": 1,
+          "InputZMillimeters": 0,
+          "OutputZMillimeters": 55,
+          "InputSurfaceIndex": 1,
+          "OutputSurfaceIndex": 9,
+          "WavelengthNanometers": 587.6
+        },
+        "InitialMatrix": {
+          "A": 0.23601179029023256,
+          "B": 44.91627593430694,
+          "C": -0.018186756453223957,
+          "D": 0.7758876307483098,
+          "InputIndex": 1,
+          "OutputIndex": 1,
+          "InputZMillimeters": 0,
+          "OutputZMillimeters": 55,
+          "InputSurfaceIndex": 1,
+          "OutputSurfaceIndex": 11,
+          "WavelengthNanometers": 587.6
+        },
+        "EndpointMatrix": {
+          "A": 0.09731600791403905,
+          "B": 44.77227149493264,
+          "C": -0.02064411871825715,
+          "D": 0.7780416973068969,
+          "InputIndex": 1,
+          "OutputIndex": 1,
+          "InputZMillimeters": 0,
+          "OutputZMillimeters": 55,
+          "InputSurfaceIndex": 1,
+          "OutputSurfaceIndex": 11,
+          "WavelengthNanometers": 587.6
+        },
+        "InitialAError": 0.1386950516593236,
+        "InitialFocalCError": 0.12286721720069574,
+        "EndpointAError": -7.307168699011157E-07,
+        "EndpointFocalCError": -8.960509639832637E-07,
+        "InitialJacobianRank": 2,
+        "Steps": [
+          {
+            "AcceptedStep": 1,
+            "Coordinates": [
+              2.5400959290207528,
+              -2.0947210480986196,
+              -1.4081222278925065,
+              1.339977994451467,
+              1.5836401960472077,
+              -1.8850605809048793
+            ],
+            "AError": -0.0010016061428399503,
+            "FocalCError": -0.001708572918526774,
+            "CoordinateDisplacementNorm": 0.4590769441577818
+          },
+          {
+            "AcceptedStep": 2,
+            "Coordinates": [
+              2.544714486001466,
+              -2.0978565076961027,
+              -1.4120576416896762,
+              1.34503280674116,
+              1.580001080544015,
+              -1.8828011548881551
+            ],
+            "AError": -7.307168699011157E-07,
+            "FocalCError": -8.960509639832637E-07,
+            "CoordinateDisplacementNorm": 0.4635271630757952
+          }
+        ],
+        "Trials": [
+          {
+            "FunctionEvaluations": 28,
+            "Accepted": true,
+            "BaseCoordinates": [
+              2.232222222222222,
+              -1.828181818181818,
+              -1.5284615384615383,
+              1.4185714285714286,
+              1.6766666666666665,
+              -2.01
+            ],
+            "TrialCoordinates": [
+              2.5400959290207528,
+              -2.0947210480986196,
+              -1.4081222278925065,
+              1.339977994451467,
+              1.5836401960472077,
+              -1.8850605809048793
+            ],
+            "Radius": 1,
+            "NextRadius": 1,
+            "PredictedReduction": 171.6633519817511,
+            "ActualReduction": 171.6437398003346,
+            "ReductionRatio": 0.9998857520770154
+          },
+          {
+            "FunctionEvaluations": 41,
+            "Accepted": true,
+            "BaseCoordinates": [
+              2.5400959290207528,
+              -2.0947210480986196,
+              -1.4081222278925065,
+              1.339977994451467,
+              1.5836401960472077,
+              -1.8850605809048793
+            ],
+            "TrialCoordinates": [
+              2.544714486001466,
+              -2.0978565076961027,
+              -1.4120576416896762,
+              1.34503280674116,
+              1.580001080544015,
+              -1.8828011548881551
+            ],
+            "Radius": 1,
+            "NextRadius": 1,
+            "PredictedReduction": 0.019612179363591463,
+            "ActualReduction": 0.01961217267932161,
+            "ReductionRatio": 0.9999996591776096
+          }
+        ],
+        "Diagnostics": [
+          "Trust-region termination: StopRequested"
+        ]
+      },
+      "Optimization": null
+    },
+    {
+      "Sequence": 7,
+      "TrialId": "trial-3",
+      "ParentId": "trial-0",
+      "Operation": "insert",
+      "Phase": 1,
+      "Outcome": "UpdateLimit",
+      "Detail": null,
+      "Work": {
+        "FunctionEvaluations": 2,
+        "GradientEvaluations": 2,
+        "ValidationEvaluations": 0,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 100,
+        "GeometryProbes": 294,
+        "Elapsed": "00:00:00.0426908"
+      },
+      "Endpoint": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Autonomous topology foundation 3",
+        "Conjugate": 0,
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 0,
+          "ClearSemiDiameterMillimeters": 2,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 55,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "trial-3-lens",
+            "FrontSurfaceId": "trial-3-front",
+            "BackSurfaceId": "trial-3-back",
+            "FrontZMillimeters": 0.5611286601132338,
+            "ThicknessMillimeters": 1,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.0029,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 8
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.0029,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 8
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-1",
+            "FrontSurfaceId": "lens-1:front",
+            "BackSurfaceId": "lens-1:back",
+            "FrontZMillimeters": 3,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 2,
+                "CurvaturePerMillimeter": 0.025447144860014658,
+                "Conic": -0.25,
+                "MaximumEvenPower": 18,
+                "Terms": [
+                  {
+                    "Power": 4,
+                    "Coefficient": 1E-07
+                  },
+                  {
+                    "Power": 10,
+                    "Coefficient": -1E-14
+                  },
+                  {
+                    "Power": 18,
+                    "Coefficient": 1E-22
+                  }
+                ]
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.020978565076961025,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-2",
+            "FrontSurfaceId": "lens-2:front",
+            "BackSurfaceId": "lens-2:back",
+            "FrontZMillimeters": 10,
+            "ThicknessMillimeters": 2,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.014120576416896763,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.013450328067411602,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-3",
+            "FrontSurfaceId": "lens-3:front",
+            "BackSurfaceId": "lens-3:back",
+            "FrontZMillimeters": 18,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.015800010805440152,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.018828011548881553,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "Axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "F",
+            "Nanometers": 486.1,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "d",
+            "Nanometers": 587.6,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "C",
+            "Nanometers": 656.3,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      },
+      "Recovery": null,
+      "Optimization": {
+        "Algorithm": "AutonomousTopologyV1",
+        "ObjectiveFingerprint": "18f1ff463d30a63c81faafc0ba936c3ef8949d1df48a72174f46bbca859351db",
+        "Topology": {
+          "SchemaVersion": 1,
+          "Algorithm": "AutonomousTopologyV1",
+          "Name": "Autonomous topology foundation 3",
+          "Conjugate": 0,
+          "Reference": {
+            "Id": "reference",
+            "ZMillimeters": 0
+          },
+          "Stop": {
+            "Id": "stop",
+            "ZMillimeters": 0,
+            "ClearSemiDiameterMillimeters": 2,
+            "MechanicalSemiDiameterMillimeters": null
+          },
+          "Image": {
+            "Id": "image",
+            "ZMillimeters": 55,
+            "Protected": true
+          },
+          "Elements": [
+            {
+              "Id": "trial-3-lens",
+              "FrontSurfaceId": "trial-3-front",
+              "BackSurfaceId": "trial-3-back",
+              "FrontZMillimeters": 0.5611286601132338,
+              "ThicknessMillimeters": 1,
+              "Material": "N-BK7",
+              "Front": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": -0.0029,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 8
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": 0.0029,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 8
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "lens-1",
+              "FrontSurfaceId": "lens-1:front",
+              "BackSurfaceId": "lens-1:back",
+              "FrontZMillimeters": 3,
+              "ThicknessMillimeters": 2,
+              "Material": "N-BK7",
+              "Front": {
+                "Profile": {
+                  "Kind": 2,
+                  "CurvaturePerMillimeter": 0.025447144860014658,
+                  "Conic": -0.25,
+                  "MaximumEvenPower": 18,
+                  "Terms": [
+                    {
+                      "Power": 4,
+                      "Coefficient": 1E-07
+                    },
+                    {
+                      "Power": 10,
+                      "Coefficient": -1E-14
+                    },
+                    {
+                      "Power": 18,
+                      "Coefficient": 1E-22
+                    }
+                  ]
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 9
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": -0.020978565076961025,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 7.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "lens-2",
+              "FrontSurfaceId": "lens-2:front",
+              "BackSurfaceId": "lens-2:back",
+              "FrontZMillimeters": 10,
+              "ThicknessMillimeters": 2,
+              "Material": "N-F2",
+              "Front": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": -0.014120576416896763,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 9
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": 0.013450328067411602,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 7.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "lens-3",
+              "FrontSurfaceId": "lens-3:front",
+              "BackSurfaceId": "lens-3:back",
+              "FrontZMillimeters": 18,
+              "ThicknessMillimeters": 2,
+              "Material": "N-BK7",
+              "Front": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": 0.015800010805440152,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 9
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": -0.018828011548881553,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 7.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            }
+          ],
+          "Fields": [
+            {
+              "Label": "Axis",
+              "XAngleDegrees": 0,
+              "YAngleDegrees": 0,
+              "Weight": 1
+            }
+          ],
+          "Wavelengths": [
+            {
+              "Label": "F",
+              "Nanometers": 486.1,
+              "Weight": 1,
+              "IsPrimary": false
+            },
+            {
+              "Label": "d",
+              "Nanometers": 587.6,
+              "Weight": 1,
+              "IsPrimary": true
+            },
+            {
+              "Label": "C",
+              "Nanometers": 656.3,
+              "Weight": 1,
+              "IsPrimary": false
+            }
+          ],
+          "GlassCatalogs": [],
+          "RayAimingEnabled": true,
+          "MatchRefractiveIndexData": true,
+          "TemperatureCelsius": 20,
+          "PressureAtmospheres": 1
+        },
+        "Constraints": {
+          "MinimumElementCount": 1,
+          "MaximumElementCount": 8,
+          "MinimumCenterThicknessMillimeters": 0.1,
+          "MinimumAirGapMillimeters": 0.05,
+          "MinimumBackFocusMillimeters": 0.1,
+          "MaximumMechanicalTrackMillimeters": 10000,
+          "AllowTransitionElements": false,
+          "AllowedGlassNames": []
+        },
+        "Targets": {
+          "EffectiveFocalLengthMillimeters": 50,
+          "FNumber": 12.5,
+          "FocalLengthRelativeTolerance": 0.02,
+          "FNumberRelativeTolerance": 0.02,
+          "MaximumRmsRadiusMillimeters": 1E-09,
+          "MaximumSpotRadiusMillimeters": 0.15,
+          "MaximumDistortionFraction": 0.03,
+          "MinimumValidRayFraction": 0.98,
+          "MinimumEdgeThicknessMillimeters": 0.1,
+          "MinimumEdgeAirGapMillimeters": 0.01,
+          "MaximumOpticalTrackMillimeters": 10000,
+          "MaximumAbsoluteSurfaceSlope": 10
+        },
+        "Variables": [
+          {
+            "SurfaceId": "trial-3-front",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "trial-3-back",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          }
+        ],
+        "Termination": 0,
+        "Work": {
+          "FunctionEvaluations": 2,
+          "GradientEvaluations": 2,
+          "ValidationEvaluations": 0,
+          "TracedRays": 100,
+          "GeometryProbes": 294,
+          "GpuDerivativeRays": 0,
+          "GpuBatches": 0,
+          "Elapsed": "00:00:00.0415405",
+          "CompletedGradientEvaluations": 2
+        },
+        "AcceptedUpdates": 1,
+        "Steps": [
+          {
+            "Attempt": 1,
+            "Accepted": true,
+            "Objective": 32808190654162100,
+            "Failure": null
+          }
+        ],
+        "InitialEvaluation": {
+          "LayoutFingerprint": "18f1ff463d30a63c81faafc0ba936c3ef8949d1df48a72174f46bbca859351db",
+          "OpticFingerprint": "ee49f8dd7a89c6cb5b8e2b8b9dc07df2a7fb8636bd3666651fbb72600b9bbc47",
+          "Residuals": [
+            1.6102967956428738,
+            1.6102967956428738,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            134629423.15660438,
+            0,
+            0,
+            0,
+            26425961.304359272,
+            4.072137887596605E-09,
+            0,
+            18685976.43768576,
+            18685976.437685758,
+            0,
+            5.867310807259148E-09,
+            26425961.304359272,
+            0,
+            -18685976.437685795,
+            18685976.437685758,
+            0,
+            -26425961.30435926,
+            7.30838478017416E-09,
+            0,
+            -18685976.43768575,
+            -18685976.4376858,
+            0,
+            -6.051829778959565E-10,
+            -26425961.30435926,
+            0,
+            18685976.437685806,
+            -18685976.43768575,
+            0,
+            27669443.340868104,
+            4.072137887596605E-09,
+            0,
+            19565251.017984908,
+            19565251.017984904,
+            0,
+            5.943452122049536E-09,
+            27669443.340868104,
+            0,
+            -19565251.017984875,
+            19565251.017984904,
+            0,
+            -27669443.340868093,
+            7.460667409754937E-09,
+            0,
+            -19565251.017984897,
+            -19565251.017984875,
+            0,
+            -8.336069222671285E-10,
+            -27669443.340868093,
+            0,
+            19565251.017984863,
+            -19565251.017984897,
+            0,
+            28314408.089157663,
+            4.072137887596605E-09,
+            0,
+            20021309.965126526,
+            20021309.965126526,
+            0,
+            5.982944822777304E-09,
+            28314408.089157663,
+            0,
+            -20021309.965126585,
+            20021309.965126526,
+            0,
+            -28314408.089157652,
+            7.539652811210475E-09,
+            0,
+            -20021309.965126514,
+            -20021309.965126585,
+            0,
+            -9.520850244504498E-10,
+            -28314408.089157652,
+            0,
+            20021309.965126526,
+            -20021309.96512652
+          ],
+          "Gradient": [
+            -1.7633362859044906E+17,
+            1.7646215789876765E+17
+          ],
+          "Jacobian": [],
+          "Objective": 36250163428218940,
+          "Available": true,
+          "Failure": null,
+          "TracedRayCount": 50,
+          "GeometryProbes": 147,
+          "Execution": {
+            "Backend": "cpu-forward-v1",
+            "DeviceName": "CPU",
+            "GpuBatches": 0,
+            "GpuRays": 0,
+            "GpuMilliseconds": 0,
+            "FallbackReason": null
+          },
+          "PropagationExecution": {
+            "DeviceName": "CPU",
+            "AimRays": 0,
+            "AimTraces": 0,
+            "PropagatedRays": 0,
+            "Batches": 0,
+            "Milliseconds": 0,
+            "CpuRecoveryRays": 0,
+            "FallbackReason": null
+          }
+        },
+        "EndpointEvaluation": {
+          "LayoutFingerprint": "18f1ff463d30a63c81faafc0ba936c3ef8949d1df48a72174f46bbca859351db",
+          "OpticFingerprint": "0f1b71b2182d08c51bfc4ab76c08504e51dae9c8f59e489176ac33b7cba96ca4",
+          "Residuals": [
+            1.8163008320538188,
+            1.8163008320538188,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            128078472.816483,
+            0,
+            0,
+            0,
+            25077262.469972648,
+            8.85247366868827E-11,
+            0,
+            17732302.34611255,
+            17732302.34611255,
+            0,
+            2.9619314714514717E-10,
+            25077262.469972648,
+            0,
+            -17732302.34611255,
+            17732302.34611255,
+            0,
+            -25077262.469972648,
+            3.159603658209893E-09,
+            0,
+            -17732302.34611255,
+            -17732302.34611255,
+            0,
+            -5.845964695900878E-09,
+            -25077262.469972648,
+            0,
+            17732302.34611257,
+            -17732302.34611255,
+            0,
+            26333888.08531251,
+            8.85247366868827E-11,
+            0,
+            18620870.8401321,
+            18620870.8401321,
+            0,
+            3.7313927402277006E-10,
+            26333888.08531251,
+            0,
+            -18620870.840132054,
+            18620870.8401321,
+            0,
+            -26333888.08531251,
+            3.3134959119651387E-09,
+            0,
+            -18620870.8401321,
+            -18620870.840132054,
+            0,
+            -6.076803076533742E-09,
+            -26333888.08531251,
+            0,
+            18620870.8401321,
+            -18620870.8401321,
+            0,
+            26984610.00676645,
+            8.85247366868827E-11,
+            0,
+            19081000.723458905,
+            19081000.723458905,
+            0,
+            4.1298449993495046E-10,
+            26984610.00676645,
+            0,
+            -19081000.72345895,
+            19081000.723458905,
+            0,
+            -26984610.00676645,
+            3.3931863637894995E-09,
+            0,
+            -19081000.723458905,
+            -19081000.72345895,
+            0,
+            -6.196338754270288E-09,
+            -26984610.00676645,
+            0,
+            19081000.723458927,
+            -19081000.723458905
+          ],
+          "Gradient": [
+            -1.6773857022937062E+17,
+            1.678604413543264E+17
+          ],
+          "Jacobian": [],
+          "Objective": 32808190654162100,
+          "Available": true,
+          "Failure": null,
+          "TracedRayCount": 50,
+          "GeometryProbes": 147,
+          "Execution": {
+            "Backend": "cpu-forward-v1",
+            "DeviceName": "CPU",
+            "GpuBatches": 0,
+            "GpuRays": 0,
+            "GpuMilliseconds": 0,
+            "FallbackReason": null
+          },
+          "PropagationExecution": {
+            "DeviceName": "CPU",
+            "AimRays": 0,
+            "AimTraces": 0,
+            "PropagatedRays": 0,
+            "Batches": 0,
+            "Milliseconds": 0,
+            "CpuRecoveryRays": 0,
+            "FallbackReason": null
+          }
+        },
+        "FinalAssessment": null,
+        "Diagnostics": [],
+        "Continuation": {
+          "PhaseFingerprint": "6948898445baab82a60e687dbc1899df57ce13c020804638099001ec7bd2fe10",
+          "Adam": {
+            "Iteration": 1,
+            "Coordinates": [
+              -0.29,
+              0.29
+            ],
+            "FirstMoment": [
+              -17633362859044906,
+              17646215789876766
+            ],
+            "SecondMoment": [
+              3.1093548571874433E+31,
+              3.1138893170289605E+31
+            ],
+            "MomentIteration": 1
+          },
+          "LearningRate": 0.01,
+          "Work": {
+            "FunctionEvaluations": 2,
+            "GradientEvaluations": 2,
+            "ValidationEvaluations": 0,
+            "TracedRays": 100,
+            "GeometryProbes": 294,
+            "GpuDerivativeRays": 0,
+            "GpuBatches": 0,
+            "Elapsed": "00:00:00.0415420",
+            "CompletedGradientEvaluations": 2
+          },
+          "AcceptedUpdates": 1,
+          "Steps": [
+            {
+              "Attempt": 1,
+              "Accepted": true,
+              "Objective": 32808190654162100,
+              "Failure": null
+            }
+          ],
+          "InitialEvaluation": {
+            "LayoutFingerprint": "18f1ff463d30a63c81faafc0ba936c3ef8949d1df48a72174f46bbca859351db",
+            "OpticFingerprint": "ee49f8dd7a89c6cb5b8e2b8b9dc07df2a7fb8636bd3666651fbb72600b9bbc47",
+            "Residuals": [
+              1.6102967956428738,
+              1.6102967956428738,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              134629423.15660438,
+              0,
+              0,
+              0,
+              26425961.304359272,
+              4.072137887596605E-09,
+              0,
+              18685976.43768576,
+              18685976.437685758,
+              0,
+              5.867310807259148E-09,
+              26425961.304359272,
+              0,
+              -18685976.437685795,
+              18685976.437685758,
+              0,
+              -26425961.30435926,
+              7.30838478017416E-09,
+              0,
+              -18685976.43768575,
+              -18685976.4376858,
+              0,
+              -6.051829778959565E-10,
+              -26425961.30435926,
+              0,
+              18685976.437685806,
+              -18685976.43768575,
+              0,
+              27669443.340868104,
+              4.072137887596605E-09,
+              0,
+              19565251.017984908,
+              19565251.017984904,
+              0,
+              5.943452122049536E-09,
+              27669443.340868104,
+              0,
+              -19565251.017984875,
+              19565251.017984904,
+              0,
+              -27669443.340868093,
+              7.460667409754937E-09,
+              0,
+              -19565251.017984897,
+              -19565251.017984875,
+              0,
+              -8.336069222671285E-10,
+              -27669443.340868093,
+              0,
+              19565251.017984863,
+              -19565251.017984897,
+              0,
+              28314408.089157663,
+              4.072137887596605E-09,
+              0,
+              20021309.965126526,
+              20021309.965126526,
+              0,
+              5.982944822777304E-09,
+              28314408.089157663,
+              0,
+              -20021309.965126585,
+              20021309.965126526,
+              0,
+              -28314408.089157652,
+              7.539652811210475E-09,
+              0,
+              -20021309.965126514,
+              -20021309.965126585,
+              0,
+              -9.520850244504498E-10,
+              -28314408.089157652,
+              0,
+              20021309.965126526,
+              -20021309.96512652
+            ],
+            "Gradient": [
+              -1.7633362859044906E+17,
+              1.7646215789876765E+17
+            ],
+            "Jacobian": [],
+            "Objective": 36250163428218940,
+            "Available": true,
+            "Failure": null,
+            "TracedRayCount": 50,
+            "GeometryProbes": 147,
+            "Execution": {
+              "Backend": "cpu-forward-v1",
+              "DeviceName": "CPU",
+              "GpuBatches": 0,
+              "GpuRays": 0,
+              "GpuMilliseconds": 0,
+              "FallbackReason": null
+            },
+            "PropagationExecution": {
+              "DeviceName": "CPU",
+              "AimRays": 0,
+              "AimTraces": 0,
+              "PropagatedRays": 0,
+              "Batches": 0,
+              "Milliseconds": 0,
+              "CpuRecoveryRays": 0,
+              "FallbackReason": null
+            }
+          },
+          "EndpointEvaluation": {
+            "LayoutFingerprint": "18f1ff463d30a63c81faafc0ba936c3ef8949d1df48a72174f46bbca859351db",
+            "OpticFingerprint": "0f1b71b2182d08c51bfc4ab76c08504e51dae9c8f59e489176ac33b7cba96ca4",
+            "Residuals": [
+              1.8163008320538188,
+              1.8163008320538188,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              128078472.816483,
+              0,
+              0,
+              0,
+              25077262.469972648,
+              8.85247366868827E-11,
+              0,
+              17732302.34611255,
+              17732302.34611255,
+              0,
+              2.9619314714514717E-10,
+              25077262.469972648,
+              0,
+              -17732302.34611255,
+              17732302.34611255,
+              0,
+              -25077262.469972648,
+              3.159603658209893E-09,
+              0,
+              -17732302.34611255,
+              -17732302.34611255,
+              0,
+              -5.845964695900878E-09,
+              -25077262.469972648,
+              0,
+              17732302.34611257,
+              -17732302.34611255,
+              0,
+              26333888.08531251,
+              8.85247366868827E-11,
+              0,
+              18620870.8401321,
+              18620870.8401321,
+              0,
+              3.7313927402277006E-10,
+              26333888.08531251,
+              0,
+              -18620870.840132054,
+              18620870.8401321,
+              0,
+              -26333888.08531251,
+              3.3134959119651387E-09,
+              0,
+              -18620870.8401321,
+              -18620870.840132054,
+              0,
+              -6.076803076533742E-09,
+              -26333888.08531251,
+              0,
+              18620870.8401321,
+              -18620870.8401321,
+              0,
+              26984610.00676645,
+              8.85247366868827E-11,
+              0,
+              19081000.723458905,
+              19081000.723458905,
+              0,
+              4.1298449993495046E-10,
+              26984610.00676645,
+              0,
+              -19081000.72345895,
+              19081000.723458905,
+              0,
+              -26984610.00676645,
+              3.3931863637894995E-09,
+              0,
+              -19081000.723458905,
+              -19081000.72345895,
+              0,
+              -6.196338754270288E-09,
+              -26984610.00676645,
+              0,
+              19081000.723458927,
+              -19081000.723458905
+            ],
+            "Gradient": [
+              -1.6773857022937062E+17,
+              1.678604413543264E+17
+            ],
+            "Jacobian": [],
+            "Objective": 32808190654162100,
+            "Available": true,
+            "Failure": null,
+            "TracedRayCount": 50,
+            "GeometryProbes": 147,
+            "Execution": {
+              "Backend": "cpu-forward-v1",
+              "DeviceName": "CPU",
+              "GpuBatches": 0,
+              "GpuRays": 0,
+              "GpuMilliseconds": 0,
+              "FallbackReason": null
+            },
+            "PropagationExecution": {
+              "DeviceName": "CPU",
+              "AimRays": 0,
+              "AimTraces": 0,
+              "PropagatedRays": 0,
+              "Batches": 0,
+              "Milliseconds": 0,
+              "CpuRecoveryRays": 0,
+              "FallbackReason": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "Sequence": 8,
+      "TrialId": "trial-3",
+      "ParentId": "trial-0",
+      "Operation": "insert",
+      "Phase": 2,
+      "Outcome": "UpdateLimit",
+      "Detail": null,
+      "Work": {
+        "FunctionEvaluations": 2,
+        "GradientEvaluations": 2,
+        "ValidationEvaluations": 0,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 100,
+        "GeometryProbes": 294,
+        "Elapsed": "00:00:00.0595616"
+      },
+      "Endpoint": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Autonomous topology foundation 3",
+        "Conjugate": 0,
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 0,
+          "ClearSemiDiameterMillimeters": 2,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 55,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "trial-3-lens",
+            "FrontSurfaceId": "trial-3-front",
+            "BackSurfaceId": "trial-3-back",
+            "FrontZMillimeters": 0.5611286601132338,
+            "ThicknessMillimeters": 1,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.0028,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 8
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.0028,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 8
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-1",
+            "FrontSurfaceId": "lens-1:front",
+            "BackSurfaceId": "lens-1:back",
+            "FrontZMillimeters": 3,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 2,
+                "CurvaturePerMillimeter": 0.025547144860014658,
+                "Conic": -0.25,
+                "MaximumEvenPower": 18,
+                "Terms": [
+                  {
+                    "Power": 4,
+                    "Coefficient": 1E-07
+                  },
+                  {
+                    "Power": 10,
+                    "Coefficient": -1E-14
+                  },
+                  {
+                    "Power": 18,
+                    "Coefficient": 1E-22
+                  }
+                ]
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.021078565076961025,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-2",
+            "FrontSurfaceId": "lens-2:front",
+            "BackSurfaceId": "lens-2:back",
+            "FrontZMillimeters": 10,
+            "ThicknessMillimeters": 2,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.014020576416896762,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.013350328067411599,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-3",
+            "FrontSurfaceId": "lens-3:front",
+            "BackSurfaceId": "lens-3:back",
+            "FrontZMillimeters": 18,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.01590001080544015,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.018928011548881553,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "Axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "F",
+            "Nanometers": 486.1,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "d",
+            "Nanometers": 587.6,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "C",
+            "Nanometers": 656.3,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      },
+      "Recovery": null,
+      "Optimization": {
+        "Algorithm": "AutonomousTopologyV1",
+        "ObjectiveFingerprint": "6a3202f17cfad23bf991509df20bfb6b9187e4bc55d5d7f8f49738a178de272e",
+        "Topology": {
+          "SchemaVersion": 1,
+          "Algorithm": "AutonomousTopologyV1",
+          "Name": "Autonomous topology foundation 3",
+          "Conjugate": 0,
+          "Reference": {
+            "Id": "reference",
+            "ZMillimeters": 0
+          },
+          "Stop": {
+            "Id": "stop",
+            "ZMillimeters": 0,
+            "ClearSemiDiameterMillimeters": 2,
+            "MechanicalSemiDiameterMillimeters": null
+          },
+          "Image": {
+            "Id": "image",
+            "ZMillimeters": 55,
+            "Protected": true
+          },
+          "Elements": [
+            {
+              "Id": "trial-3-lens",
+              "FrontSurfaceId": "trial-3-front",
+              "BackSurfaceId": "trial-3-back",
+              "FrontZMillimeters": 0.5611286601132338,
+              "ThicknessMillimeters": 1,
+              "Material": "N-BK7",
+              "Front": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": -0.0028,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 8
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": 0.0028,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 8
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "lens-1",
+              "FrontSurfaceId": "lens-1:front",
+              "BackSurfaceId": "lens-1:back",
+              "FrontZMillimeters": 3,
+              "ThicknessMillimeters": 2,
+              "Material": "N-BK7",
+              "Front": {
+                "Profile": {
+                  "Kind": 2,
+                  "CurvaturePerMillimeter": 0.025547144860014658,
+                  "Conic": -0.25,
+                  "MaximumEvenPower": 18,
+                  "Terms": [
+                    {
+                      "Power": 4,
+                      "Coefficient": 1E-07
+                    },
+                    {
+                      "Power": 10,
+                      "Coefficient": -1E-14
+                    },
+                    {
+                      "Power": 18,
+                      "Coefficient": 1E-22
+                    }
+                  ]
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 9
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": -0.021078565076961025,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 7.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "lens-2",
+              "FrontSurfaceId": "lens-2:front",
+              "BackSurfaceId": "lens-2:back",
+              "FrontZMillimeters": 10,
+              "ThicknessMillimeters": 2,
+              "Material": "N-F2",
+              "Front": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": -0.014020576416896762,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 9
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": 0.013350328067411599,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 7.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            },
+            {
+              "Id": "lens-3",
+              "FrontSurfaceId": "lens-3:front",
+              "BackSurfaceId": "lens-3:back",
+              "FrontZMillimeters": 18,
+              "ThicknessMillimeters": 2,
+              "Material": "N-BK7",
+              "Front": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": 0.01590001080544015,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 8,
+                "MechanicalSemiDiameterMillimeters": 9
+              },
+              "Back": {
+                "Profile": {
+                  "Kind": 1,
+                  "CurvaturePerMillimeter": -0.018928011548881553,
+                  "Conic": 0,
+                  "MaximumEvenPower": 0,
+                  "Terms": []
+                },
+                "ClearSemiDiameterMillimeters": 7.5,
+                "MechanicalSemiDiameterMillimeters": null
+              },
+              "Protected": false,
+              "Transition": false
+            }
+          ],
+          "Fields": [
+            {
+              "Label": "Axis",
+              "XAngleDegrees": 0,
+              "YAngleDegrees": 0,
+              "Weight": 1
+            }
+          ],
+          "Wavelengths": [
+            {
+              "Label": "F",
+              "Nanometers": 486.1,
+              "Weight": 1,
+              "IsPrimary": false
+            },
+            {
+              "Label": "d",
+              "Nanometers": 587.6,
+              "Weight": 1,
+              "IsPrimary": true
+            },
+            {
+              "Label": "C",
+              "Nanometers": 656.3,
+              "Weight": 1,
+              "IsPrimary": false
+            }
+          ],
+          "GlassCatalogs": [],
+          "RayAimingEnabled": true,
+          "MatchRefractiveIndexData": true,
+          "TemperatureCelsius": 20,
+          "PressureAtmospheres": 1
+        },
+        "Constraints": {
+          "MinimumElementCount": 1,
+          "MaximumElementCount": 8,
+          "MinimumCenterThicknessMillimeters": 0.1,
+          "MinimumAirGapMillimeters": 0.05,
+          "MinimumBackFocusMillimeters": 0.1,
+          "MaximumMechanicalTrackMillimeters": 10000,
+          "AllowTransitionElements": false,
+          "AllowedGlassNames": []
+        },
+        "Targets": {
+          "EffectiveFocalLengthMillimeters": 50,
+          "FNumber": 12.5,
+          "FocalLengthRelativeTolerance": 0.02,
+          "FNumberRelativeTolerance": 0.02,
+          "MaximumRmsRadiusMillimeters": 1E-09,
+          "MaximumSpotRadiusMillimeters": 0.15,
+          "MaximumDistortionFraction": 0.03,
+          "MinimumValidRayFraction": 0.98,
+          "MinimumEdgeThicknessMillimeters": 0.1,
+          "MinimumEdgeAirGapMillimeters": 0.01,
+          "MaximumOpticalTrackMillimeters": 10000,
+          "MaximumAbsoluteSurfaceSlope": 10
+        },
+        "Variables": [
+          {
+            "SurfaceId": "trial-3-front",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "trial-3-back",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "lens-1:front",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "lens-1:back",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "lens-2:front",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "lens-2:back",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "lens-3:front",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          },
+          {
+            "SurfaceId": "lens-3:back",
+            "Kind": 0,
+            "LowerBound": -0.08,
+            "UpperBound": 0.08,
+            "Scale": 0.01,
+            "Power": 0
+          }
+        ],
+        "Termination": 0,
+        "Work": {
+          "FunctionEvaluations": 2,
+          "GradientEvaluations": 2,
+          "ValidationEvaluations": 0,
+          "TracedRays": 100,
+          "GeometryProbes": 294,
+          "GpuDerivativeRays": 0,
+          "GpuBatches": 0,
+          "Elapsed": "00:00:00.0579482",
+          "CompletedGradientEvaluations": 2
+        },
+        "AcceptedUpdates": 1,
+        "Steps": [
+          {
+            "Attempt": 1,
+            "Accepted": true,
+            "Objective": 21962840104039440,
+            "Failure": null
+          }
+        ],
+        "InitialEvaluation": {
+          "LayoutFingerprint": "6a3202f17cfad23bf991509df20bfb6b9187e4bc55d5d7f8f49738a178de272e",
+          "OpticFingerprint": "0f1b71b2182d08c51bfc4ab76c08504e51dae9c8f59e489176ac33b7cba96ca4",
+          "Residuals": [
+            1.8163008320538188,
+            1.8163008320538188,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            128078472.816483,
+            0,
+            0,
+            0,
+            25077262.469972648,
+            8.85247366868827E-11,
+            0,
+            17732302.34611255,
+            17732302.34611255,
+            0,
+            2.9619314714514717E-10,
+            25077262.469972648,
+            0,
+            -17732302.34611255,
+            17732302.34611255,
+            0,
+            -25077262.469972648,
+            3.159603658209893E-09,
+            0,
+            -17732302.34611255,
+            -17732302.34611255,
+            0,
+            -5.845964695900878E-09,
+            -25077262.469972648,
+            0,
+            17732302.34611257,
+            -17732302.34611255,
+            0,
+            26333888.08531251,
+            8.85247366868827E-11,
+            0,
+            18620870.8401321,
+            18620870.8401321,
+            0,
+            3.7313927402277006E-10,
+            26333888.08531251,
+            0,
+            -18620870.840132054,
+            18620870.8401321,
+            0,
+            -26333888.08531251,
+            3.3134959119651387E-09,
+            0,
+            -18620870.8401321,
+            -18620870.840132054,
+            0,
+            -6.076803076533742E-09,
+            -26333888.08531251,
+            0,
+            18620870.8401321,
+            -18620870.8401321,
+            0,
+            26984610.00676645,
+            8.85247366868827E-11,
+            0,
+            19081000.723458905,
+            19081000.723458905,
+            0,
+            4.1298449993495046E-10,
+            26984610.00676645,
+            0,
+            -19081000.72345895,
+            19081000.723458905,
+            0,
+            -26984610.00676645,
+            3.3931863637894995E-09,
+            0,
+            -19081000.723458905,
+            -19081000.72345895,
+            0,
+            -6.196338754270288E-09,
+            -26984610.00676645,
+            0,
+            19081000.723458927,
+            -19081000.723458905
+          ],
+          "Gradient": [
+            -1.6773857022937062E+17,
+            1.678604413543264E+17,
+            -1.690727952433267E+17,
+            1.6461113448459974E+17,
+            -1.559330545653521E+17,
+            1.4942056519250093E+17,
+            -1.1241406224843771E+17,
+            1.07791648652247E+17
+          ],
+          "Jacobian": [],
+          "Objective": 32808190654162100,
+          "Available": true,
+          "Failure": null,
+          "TracedRayCount": 50,
+          "GeometryProbes": 147,
+          "Execution": {
+            "Backend": "cpu-forward-v1",
+            "DeviceName": "CPU",
+            "GpuBatches": 0,
+            "GpuRays": 0,
+            "GpuMilliseconds": 0,
+            "FallbackReason": null
+          },
+          "PropagationExecution": {
+            "DeviceName": "CPU",
+            "AimRays": 0,
+            "AimTraces": 0,
+            "PropagatedRays": 0,
+            "Batches": 0,
+            "Milliseconds": 0,
+            "CpuRecoveryRays": 0,
+            "FallbackReason": null
+          }
+        },
+        "EndpointEvaluation": {
+          "LayoutFingerprint": "6a3202f17cfad23bf991509df20bfb6b9187e4bc55d5d7f8f49738a178de272e",
+          "OpticFingerprint": "8978d7de59a9c42312a108b8a96f5c5375a0746788049b50fa4c8d2c17f53ddb",
+          "Residuals": [
+            2.6891817562084475,
+            2.6891817562084475,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.7263906644411927,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            104792270.45554191,
+            0,
+            0,
+            0,
+            20275499.52293405,
+            -7.967226301819443E-10,
+            0,
+            14336943.204611331,
+            14336943.204611331,
+            0,
+            1.949714173088807E-09,
+            20275499.52293405,
+            0,
+            -14336943.204611285,
+            14336943.204611331,
+            0,
+            -20275499.52293405,
+            1.6863099290055466E-09,
+            0,
+            -14336943.204611331,
+            -14336943.204611285,
+            0,
+            -3.0163509452861745E-09,
+            -20275499.52293405,
+            0,
+            14336943.204611309,
+            -14336943.204611331,
+            0,
+            21587188.49952397,
+            -7.967226301819443E-10,
+            0,
+            15264447.374765636,
+            15264447.374765636,
+            0,
+            2.0300319584216905E-09,
+            21587188.49952397,
+            0,
+            -15264447.374765659,
+            15264447.374765636,
+            0,
+            -21587188.49952397,
+            1.846945499671313E-09,
+            0,
+            -15264447.374765636,
+            -15264447.374765659,
+            0,
+            -3.2573043012848245E-09,
+            -21587188.49952397,
+            0,
+            15264447.374765612,
+            -15264447.374765636,
+            0,
+            22261512.33368973,
+            -7.967226301819443E-10,
+            0,
+            15741266.330619926,
+            15741266.330619926,
+            0,
+            2.071322384676681E-09,
+            22261512.33368973,
+            0,
+            -15741266.330619926,
+            15741266.330619926,
+            0,
+            -22261512.33368973,
+            1.929526352181295E-09,
+            0,
+            -15741266.330619926,
+            -15741266.330619926,
+            0,
+            -3.3811755800497974E-09,
+            -22261512.33368973,
+            0,
+            15741266.33061995,
+            -15741266.330619926
+          ],
+          "Gradient": [
+            -1.3684289949236598E+17,
+            1.369659625225342E+17,
+            -1.3798802461598493E+17,
+            1.3436089527737803E+17,
+            -1.2723455370756691E+17,
+            1.2189254147458803E+17,
+            -91529999749571540,
+            87718412151888540
+          ],
+          "Jacobian": [],
+          "Objective": 21962840104039440,
+          "Available": true,
+          "Failure": null,
+          "TracedRayCount": 50,
+          "GeometryProbes": 147,
+          "Execution": {
+            "Backend": "cpu-forward-v1",
+            "DeviceName": "CPU",
+            "GpuBatches": 0,
+            "GpuRays": 0,
+            "GpuMilliseconds": 0,
+            "FallbackReason": null
+          },
+          "PropagationExecution": {
+            "DeviceName": "CPU",
+            "AimRays": 0,
+            "AimTraces": 0,
+            "PropagatedRays": 0,
+            "Batches": 0,
+            "Milliseconds": 0,
+            "CpuRecoveryRays": 0,
+            "FallbackReason": null
+          }
+        },
+        "FinalAssessment": null,
+        "Diagnostics": [],
+        "Continuation": {
+          "PhaseFingerprint": "8d1ff7f574feaca6add2944bf5b85f8520d8a405f9fe05af081a44b5164493be",
+          "Adam": {
+            "Iteration": 1,
+            "Coordinates": [
+              -0.27999999999999997,
+              0.27999999999999997,
+              2.5547144860014654,
+              -2.1078565076961024,
+              -1.4020576416896762,
+              1.33503280674116,
+              1.5900010805440152,
+              -1.8928011548881554
+            ],
+            "FirstMoment": [
+              -16773857022937064,
+              16786044135432640,
+              -16907279524332670,
+              16461113448459976,
+              -15593305456535210,
+              14942056519250094,
+              -11241406224843772,
+              10779164865224702
+            ],
+            "SecondMoment": [
+              2.81362279425935E+31,
+              2.8177127771669253E+31,
+              2.858561009139187E+31,
+              2.7096825596306983E+31,
+              2.4315117506081076E+31,
+              2.232650530244642E+31,
+              1.263692139119563E+31,
+              1.1619039519169465E+31
+            ],
+            "MomentIteration": 1
+          },
+          "LearningRate": 0.01,
+          "Work": {
+            "FunctionEvaluations": 2,
+            "GradientEvaluations": 2,
+            "ValidationEvaluations": 0,
+            "TracedRays": 100,
+            "GeometryProbes": 294,
+            "GpuDerivativeRays": 0,
+            "GpuBatches": 0,
+            "Elapsed": "00:00:00.0579493",
+            "CompletedGradientEvaluations": 2
+          },
+          "AcceptedUpdates": 1,
+          "Steps": [
+            {
+              "Attempt": 1,
+              "Accepted": true,
+              "Objective": 21962840104039440,
+              "Failure": null
+            }
+          ],
+          "InitialEvaluation": {
+            "LayoutFingerprint": "6a3202f17cfad23bf991509df20bfb6b9187e4bc55d5d7f8f49738a178de272e",
+            "OpticFingerprint": "0f1b71b2182d08c51bfc4ab76c08504e51dae9c8f59e489176ac33b7cba96ca4",
+            "Residuals": [
+              1.8163008320538188,
+              1.8163008320538188,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              128078472.816483,
+              0,
+              0,
+              0,
+              25077262.469972648,
+              8.85247366868827E-11,
+              0,
+              17732302.34611255,
+              17732302.34611255,
+              0,
+              2.9619314714514717E-10,
+              25077262.469972648,
+              0,
+              -17732302.34611255,
+              17732302.34611255,
+              0,
+              -25077262.469972648,
+              3.159603658209893E-09,
+              0,
+              -17732302.34611255,
+              -17732302.34611255,
+              0,
+              -5.845964695900878E-09,
+              -25077262.469972648,
+              0,
+              17732302.34611257,
+              -17732302.34611255,
+              0,
+              26333888.08531251,
+              8.85247366868827E-11,
+              0,
+              18620870.8401321,
+              18620870.8401321,
+              0,
+              3.7313927402277006E-10,
+              26333888.08531251,
+              0,
+              -18620870.840132054,
+              18620870.8401321,
+              0,
+              -26333888.08531251,
+              3.3134959119651387E-09,
+              0,
+              -18620870.8401321,
+              -18620870.840132054,
+              0,
+              -6.076803076533742E-09,
+              -26333888.08531251,
+              0,
+              18620870.8401321,
+              -18620870.8401321,
+              0,
+              26984610.00676645,
+              8.85247366868827E-11,
+              0,
+              19081000.723458905,
+              19081000.723458905,
+              0,
+              4.1298449993495046E-10,
+              26984610.00676645,
+              0,
+              -19081000.72345895,
+              19081000.723458905,
+              0,
+              -26984610.00676645,
+              3.3931863637894995E-09,
+              0,
+              -19081000.723458905,
+              -19081000.72345895,
+              0,
+              -6.196338754270288E-09,
+              -26984610.00676645,
+              0,
+              19081000.723458927,
+              -19081000.723458905
+            ],
+            "Gradient": [
+              -1.6773857022937062E+17,
+              1.678604413543264E+17,
+              -1.690727952433267E+17,
+              1.6461113448459974E+17,
+              -1.559330545653521E+17,
+              1.4942056519250093E+17,
+              -1.1241406224843771E+17,
+              1.07791648652247E+17
+            ],
+            "Jacobian": [],
+            "Objective": 32808190654162100,
+            "Available": true,
+            "Failure": null,
+            "TracedRayCount": 50,
+            "GeometryProbes": 147,
+            "Execution": {
+              "Backend": "cpu-forward-v1",
+              "DeviceName": "CPU",
+              "GpuBatches": 0,
+              "GpuRays": 0,
+              "GpuMilliseconds": 0,
+              "FallbackReason": null
+            },
+            "PropagationExecution": {
+              "DeviceName": "CPU",
+              "AimRays": 0,
+              "AimTraces": 0,
+              "PropagatedRays": 0,
+              "Batches": 0,
+              "Milliseconds": 0,
+              "CpuRecoveryRays": 0,
+              "FallbackReason": null
+            }
+          },
+          "EndpointEvaluation": {
+            "LayoutFingerprint": "6a3202f17cfad23bf991509df20bfb6b9187e4bc55d5d7f8f49738a178de272e",
+            "OpticFingerprint": "8978d7de59a9c42312a108b8a96f5c5375a0746788049b50fa4c8d2c17f53ddb",
+            "Residuals": [
+              2.6891817562084475,
+              2.6891817562084475,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0.7263906644411927,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              104792270.45554191,
+              0,
+              0,
+              0,
+              20275499.52293405,
+              -7.967226301819443E-10,
+              0,
+              14336943.204611331,
+              14336943.204611331,
+              0,
+              1.949714173088807E-09,
+              20275499.52293405,
+              0,
+              -14336943.204611285,
+              14336943.204611331,
+              0,
+              -20275499.52293405,
+              1.6863099290055466E-09,
+              0,
+              -14336943.204611331,
+              -14336943.204611285,
+              0,
+              -3.0163509452861745E-09,
+              -20275499.52293405,
+              0,
+              14336943.204611309,
+              -14336943.204611331,
+              0,
+              21587188.49952397,
+              -7.967226301819443E-10,
+              0,
+              15264447.374765636,
+              15264447.374765636,
+              0,
+              2.0300319584216905E-09,
+              21587188.49952397,
+              0,
+              -15264447.374765659,
+              15264447.374765636,
+              0,
+              -21587188.49952397,
+              1.846945499671313E-09,
+              0,
+              -15264447.374765636,
+              -15264447.374765659,
+              0,
+              -3.2573043012848245E-09,
+              -21587188.49952397,
+              0,
+              15264447.374765612,
+              -15264447.374765636,
+              0,
+              22261512.33368973,
+              -7.967226301819443E-10,
+              0,
+              15741266.330619926,
+              15741266.330619926,
+              0,
+              2.071322384676681E-09,
+              22261512.33368973,
+              0,
+              -15741266.330619926,
+              15741266.330619926,
+              0,
+              -22261512.33368973,
+              1.929526352181295E-09,
+              0,
+              -15741266.330619926,
+              -15741266.330619926,
+              0,
+              -3.3811755800497974E-09,
+              -22261512.33368973,
+              0,
+              15741266.33061995,
+              -15741266.330619926
+            ],
+            "Gradient": [
+              -1.3684289949236598E+17,
+              1.369659625225342E+17,
+              -1.3798802461598493E+17,
+              1.3436089527737803E+17,
+              -1.2723455370756691E+17,
+              1.2189254147458803E+17,
+              -91529999749571540,
+              87718412151888540
+            ],
+            "Jacobian": [],
+            "Objective": 21962840104039440,
+            "Available": true,
+            "Failure": null,
+            "TracedRayCount": 50,
+            "GeometryProbes": 147,
+            "Execution": {
+              "Backend": "cpu-forward-v1",
+              "DeviceName": "CPU",
+              "GpuBatches": 0,
+              "GpuRays": 0,
+              "GpuMilliseconds": 0,
+              "FallbackReason": null
+            },
+            "PropagationExecution": {
+              "DeviceName": "CPU",
+              "AimRays": 0,
+              "AimTraces": 0,
+              "PropagatedRays": 0,
+              "Batches": 0,
+              "Milliseconds": 0,
+              "CpuRecoveryRays": 0,
+              "FallbackReason": null
+            }
+          }
+        }
+      }
+    },
+    {
+      "Sequence": 9,
+      "TrialId": "trial-3",
+      "ParentId": "trial-0",
+      "Operation": "insert",
+      "Phase": 3,
+      "Outcome": "UnmetTargets",
+      "Detail": null,
+      "Work": {
+        "FunctionEvaluations": 1,
+        "GradientEvaluations": 0,
+        "ValidationEvaluations": 1,
+        "MatrixEvaluations": 0,
+        "DifferenceEvaluations": 0,
+        "JacobianBuilds": 0,
+        "TracedRays": 2120,
+        "GeometryProbes": 1099,
+        "Elapsed": "00:00:00.0549446"
+      },
+      "Endpoint": {
+        "SchemaVersion": 1,
+        "Algorithm": "AutonomousTopologyV1",
+        "Name": "Autonomous topology foundation 3",
+        "Conjugate": 0,
+        "Reference": {
+          "Id": "reference",
+          "ZMillimeters": 0
+        },
+        "Stop": {
+          "Id": "stop",
+          "ZMillimeters": 0,
+          "ClearSemiDiameterMillimeters": 2,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Image": {
+          "Id": "image",
+          "ZMillimeters": 55,
+          "Protected": true
+        },
+        "Elements": [
+          {
+            "Id": "trial-3-lens",
+            "FrontSurfaceId": "trial-3-front",
+            "BackSurfaceId": "trial-3-back",
+            "FrontZMillimeters": 0.5611286601132338,
+            "ThicknessMillimeters": 1,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.0028,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 8
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.0028,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 8
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-1",
+            "FrontSurfaceId": "lens-1:front",
+            "BackSurfaceId": "lens-1:back",
+            "FrontZMillimeters": 3,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 2,
+                "CurvaturePerMillimeter": 0.025547144860014658,
+                "Conic": -0.25,
+                "MaximumEvenPower": 18,
+                "Terms": [
+                  {
+                    "Power": 4,
+                    "Coefficient": 1E-07
+                  },
+                  {
+                    "Power": 10,
+                    "Coefficient": -1E-14
+                  },
+                  {
+                    "Power": 18,
+                    "Coefficient": 1E-22
+                  }
+                ]
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.021078565076961025,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-2",
+            "FrontSurfaceId": "lens-2:front",
+            "BackSurfaceId": "lens-2:back",
+            "FrontZMillimeters": 10,
+            "ThicknessMillimeters": 2,
+            "Material": "N-F2",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.014020576416896762,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.013350328067411599,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          },
+          {
+            "Id": "lens-3",
+            "FrontSurfaceId": "lens-3:front",
+            "BackSurfaceId": "lens-3:back",
+            "FrontZMillimeters": 18,
+            "ThicknessMillimeters": 2,
+            "Material": "N-BK7",
+            "Front": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": 0.01590001080544015,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 8,
+              "MechanicalSemiDiameterMillimeters": 9
+            },
+            "Back": {
+              "Profile": {
+                "Kind": 1,
+                "CurvaturePerMillimeter": -0.018928011548881553,
+                "Conic": 0,
+                "MaximumEvenPower": 0,
+                "Terms": []
+              },
+              "ClearSemiDiameterMillimeters": 7.5,
+              "MechanicalSemiDiameterMillimeters": null
+            },
+            "Protected": false,
+            "Transition": false
+          }
+        ],
+        "Fields": [
+          {
+            "Label": "Axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "F",
+            "Nanometers": 486.1,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "d",
+            "Nanometers": 587.6,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "C",
+            "Nanometers": 656.3,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "GlassCatalogs": [],
+        "RayAimingEnabled": true,
+        "MatchRefractiveIndexData": true,
+        "TemperatureCelsius": 20,
+        "PressureAtmospheres": 1
+      },
+      "Recovery": null,
+      "Optimization": null
+    }
+  ],
+  "Pending": null,
+  "Reservation": null
+}

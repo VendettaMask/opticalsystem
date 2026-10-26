@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "AutonomousTopologyV1",
+  "scope": "CPU finite-search, budget and persistence contracts; not optical-performance comparison",
+  "source": "foundation-3.json",
+  "sourceOverrides": { "fields": [{ "label": "Axis", "xAngleDegrees": 0, "yAngleDegrees": 0 }] },
+  "finiteLoop": {
+    "targetOverrides": { "maximumRmsRadiusMillimeters": 1e-9 },
+    "maximumTrials": 4,
+    "candidatesPerElementCount": 2,
+    "branchesPerParent": 6,
+    "maximumFunctionEvaluations": 600,
+    "maximumGradientEvaluations": 100,
+    "maximumTracedRays": 1000000,
+    "maximumStageTracedRays": 100000,
+    "finalValidationRayReserve": 50000,
+    "timeLimitSeconds": 180,
+    "recoveryMaximumFunctionEvaluations": 150,
+    "recoveryMaximumAcceptedSteps": 30,
+    "recoveryProfileRadialSamples": 8,
+    "localAndFull": { "maximumUpdates": 1, "maximumFunctionEvaluations": 2, "maximumGradientEvaluations": 2,
+      "computeMode": "Cpu", "performFinalAssessment": false,
+      "sampling": { "fieldsPerDirection": 3, "pupilRings": 1, "pupilArms": 8, "profileRadialSamples": 8 } },
+    "actual": { "functionEvaluations": 50, "gradientEvaluations": 6, "validationEvaluations": 3,
+      "matrixEvaluations": 41, "differenceEvaluations": 36, "jacobianBuilds": 3, "tracedRays": 6660,
+      "acceptedArchiveCount": 0, "insertRecovery": "Recovered", "zeroWorkRejectedEdits": 2 }
+  },
+  "archiveContractOnly": {
+    "maximumTrials": 1,
+    "targetOverrides": { "focalLengthRelativeTolerance": 1, "fNumberRelativeTolerance": 1,
+      "maximumRmsRadiusMillimeters": 5, "maximumSpotRadiusMillimeters": 10,
+      "maximumDistortionFraction": 1, "minimumValidRayFraction": 0.1 },
+    "observed": "Seed independently accepted under these relaxed targets; deletion recovery exhausted its budget; original archive retained."
+  },
+  "midPhaseResume": {
+    "maximumTrials": 1,
+    "fullMaximumUpdates": 3,
+    "fullMaximumFunctionEvaluations": 5,
+    "fullMaximumGradientEvaluations": 5,
+    "cancelAfterAcceptedUpdate": 1,
+    "continuousAndResumedActual": { "functionEvaluations": 6, "gradientEvaluations": 4, "validationEvaluations": 2, "tracedRays": 4440 }
+  },
+  "finalValidation": { "fieldsPerDirection": 21, "pupilRings": 10, "pupilArms": 32, "boundaryAndCenterChecks": 33,
+    "profileRadialSamples": 64, "backend": "CPU", "note": "Axis-only task deduplicates to one physical validation field." },
+  "limitations": ["Library interface only; no new desktop selector", "No GPU hard-quota certification",
+    "No old stopped training resumed", "No original-task success or performance-equivalence claim", "M5 expanded operators and M6 UI remain pending"]
+}

@@ -11,6 +11,8 @@ public static partial class ExtendedResultNormalizer
     private static Axis DiffractionAxis(string key) => key.Contains("Through Focus", StringComparison.Ordinal) ? Defocus
         : key.Contains("vs Field", StringComparison.Ordinal) ? Field : key == "Geometric MTF" ? new("SpatialFrequency", "CyclesPerMillimeter") : ImageHeight;
     private static Axis DiffractionValueAxis(string key) => ExtendedAnalysisContracts.IsMtfContract(key) ? new("Modulation", "Dimensionless") : new("Irradiance", "Dimensionless");
+    private static Axis DiffractionAxis(CanonicalAnalysisRequest r, bool native = false) => r.ImageSpaceAfocal && ExtendedAnalysisContracts.IsPsfProfile(r.CanonicalAnalysisKey)
+        ? new("IncidentAngle", native ? r.NativeAfocalAngleUnit! : "Milliradian") : DiffractionAxis(r.CanonicalAnalysisKey);
     private static NumericResult? WorkbenchDiffraction(AnalysisData data, CanonicalAnalysisRequest r)
     {
         var key = r.CanonicalAnalysisKey;
@@ -20,7 +22,7 @@ public static partial class ExtendedResultNormalizer
         {
             var s = data.PlotSeries[i];
             result.Series.Add(PhysicalNormalization.Convert(new("curve:" + i, s.Name, s.Points.Select(p => p.X).ToArray(), s.Points.Select(p => p.Y).ToArray(),
-                new(s.XQuantity.ToString(), s.XUnit.ToString()), new(s.YQuantity.ToString(), s.YUnit.ToString())), DiffractionAxis(key), DiffractionValueAxis(key), result.Transformations));
+                new(s.XQuantity.ToString(), s.XUnit.ToString()), new(s.YQuantity.ToString(), s.YUnit.ToString())), DiffractionAxis(r), DiffractionValueAxis(key), result.Transformations));
         }
         return result;
     }
@@ -34,7 +36,8 @@ public static partial class ExtendedResultNormalizer
             var rows = File.ReadAllLines(Path.ChangeExtension(path, ".txt")).Select(l => Regex.Match(l, @"^\s*(\d+)\s+(" + Number + @")\s+(" + Number + @")\s*$")).Where(m => m.Success)
                 .Select(m => new[] { double.Parse(m.Groups[1].Value, CultureInfo.InvariantCulture), Parse(m.Groups[2].Value), Parse(m.Groups[3].Value) }).ToArray();
             Require(rows.Length >= 2 && rows.Select((v, i) => v[0] == i).All(v => v), "Native profile sample indices are missing or discontinuous");
-            result.Series.Add(new("curve:0", "Native X profile", rows.Select(v => v[1]).ToArray(), rows.Select(v => v[2]).ToArray(), ImageHeight, DiffractionValueAxis(key)));
+            result.Series.Add(PhysicalNormalization.Convert(new("curve:0", "Native X profile", rows.Select(v => v[1]).ToArray(), rows.Select(v => v[2]).ToArray(), DiffractionAxis(r, native: true), DiffractionValueAxis(key)),
+                DiffractionAxis(r), DiffractionValueAxis(key), result.Transformations));
             return result;
         }
         using var doc = JsonDocument.Parse(File.ReadAllText(path)); var groups = doc.RootElement.GetProperty("dataSeries");

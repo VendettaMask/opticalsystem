@@ -39,6 +39,8 @@ public sealed class SequentialGpuSession : IDisposable
     public SequentialGpuSession(DesignComputeMode mode, CancellationToken cancellationToken = default)
     {
         if (!Enum.IsDefined(mode)) throw new ArgumentOutOfRangeException(nameof(mode));
+        if (mode != DesignComputeMode.Cpu && SequentialTraceMeasurement.HasCpuBudget)
+            throw new NotSupportedException("An active hard CPU trace quota requires explicit CPU execution.");
         cancellationToken.ThrowIfCancellationRequested();
         Mode = mode; CancellationToken = cancellationToken; _previous = Active.Value;
         if (mode != DesignComputeMode.Cpu)

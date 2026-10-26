@@ -78,6 +78,7 @@ Contrast Loss Map|ContrastLoss|contract
 Optical Path Difference|OpticalPathFan|fan
 Foucault Analysis|Foucault|capability-audit
 Wavefront|WavefrontMap|wavefront
+Interferogram|Interferogram
 Centroid Sphere Wavefront|
 Best Fit Sphere Wavefront|
 Zernike|ZernikeFringeCoefficients|contract
@@ -122,7 +123,10 @@ Classified Data Report|
             throw new InvalidOperationException("Comparison registry must explicitly audit every Core canonical analysis");
         return keys.Select(key =>
         {
-            if (!WorkbenchAnalysisCatalog.TryGetDescriptor(key, out var descriptor) || descriptor.CanonicalKey != key)
+            // Retired desktop keys remain explicit historical Core validation
+            // identities; they must not prevent unrelated analyses from running.
+            if (!WorkbenchAnalysisCatalog.IsRetiredAnalysis(key)
+                && (!WorkbenchAnalysisCatalog.TryGetDescriptor(key, out var descriptor) || descriptor.CanonicalKey != key))
                 throw new InvalidOperationException($"Missing canonical Application descriptor: {key}");
             var row = rows[key];
             var mapper = row.Length > 2 ? row[2] : "unimplemented";

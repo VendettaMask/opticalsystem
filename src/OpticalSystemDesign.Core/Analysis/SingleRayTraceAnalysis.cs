@@ -1,6 +1,8 @@
 using System.Globalization;
 using OpticalSystemDesign.Core.Backend;
+using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Visualization;
 
@@ -81,7 +83,19 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
         var table = IsTangentAngleType()
             ? TangentAngleTable(rows)
             : DirectionCosineTable(rows);
-        var pane = BuildLayoutPane(realRows, paraxialRows);
+        AnalysisPlotPane? pane = null;
+        string? layoutUnavailableReason = null;
+        try
+        {
+            pane = BuildLayoutPane(realRows, paraxialRows);
+        }
+        catch (OpticCapabilityException exception) when (exception.Operation == OpticCapabilityOperation.Visualization)
+        {
+            // The physical trace and numeric report are independently valid.
+            // Keep the unsupported scene explicit; never draw a straight path
+            // through a folded group whose internal segments are unavailable.
+            layoutUnavailableReason = exception.Message;
+        }
         var vignettedSurface = history.FirstOrDefault(sample => sample.Vignetted)?.SurfaceNumber ?? 0;
         var lastSurface = history.LastOrDefault()?.SurfaceNumber ?? -1;
 
@@ -106,13 +120,19 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
                     row.Direction.X, row.Direction.Y, row.Direction.Z, row.Normal.X, row.Normal.Y, row.Normal.Z,
                     row.IncidenceAngleDegrees, row.PathLength
                 }).ToArray(),
+                ["CompoundPortOpticalPathLengths"] = history.Where(sample =>
+                    Optic.SurfaceGroup.Items.Any(surface => surface.Number == sample.SurfaceNumber && surface.Geometry is PolygonGroupGeometry))
+                    .Select(sample => new[] { (double)sample.SurfaceNumber, sample.SegmentOpticalPathLength }).ToArray(),
+                ["PathLengthConvention"] = "Geometric segment lengths; compound-port optical lengths are published separately for mixed-mode report interoperability.",
                 ["VignettedSurface"] = vignettedSurface,
-                ["ShowRaySegments"] = _showRaySegments
+                ["ShowRaySegments"] = _showRaySegments,
+                ["LayoutAvailable"] = pane is not null,
+                ["LayoutUnavailableReason"] = layoutUnavailableReason ?? string.Empty
             },
-            pane.Series[0],
-            pane.Series,
-            pane.PlotOptions,
-            new[] { pane },
+            pane?.Series.FirstOrDefault(),
+            pane?.Series,
+            pane?.PlotOptions,
+            pane is null ? Array.Empty<AnalysisPlotPane>() : new[] { pane },
             PlotPaneColumns: 1,
             Table: table,
             ReportText: BuildZemaxDirectionCosineReport(field, realRows, paraxialRows));

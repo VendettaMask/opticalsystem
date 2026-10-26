@@ -140,10 +140,26 @@ public static partial class ExtendedResultNormalizer
         {
             if (ReadRow(lines[index]) is not { } first || first[0] != 1) continue;
             var rows = new List<double[]> { first };
-            while (index + 1 < lines.Length && ReadRow(lines[index + 1]) is { } next)
+            while (index + 1 < lines.Length)
             {
-                rows.Add(next);
-                index++;
+                var nextLine = lines[index + 1];
+                if (ReadRow(nextLine) is { } next && next[0] == rows[^1][0] + 1)
+                {
+                    rows.Add(next);
+                    index++;
+                    continue;
+                }
+                // An NSC internal interaction has eleven physical columns and
+                // no sequential row number. The next numbered port already
+                // reports that accumulated path; do not add it a second time.
+                var tokens = Regex.Split(nextLine.Trim(), @"\s+");
+                if (tokens.Length >= 11 && !Regex.IsMatch(tokens[0], @"^\d+$")
+                    && tokens.Take(11).All(token => double.TryParse(token, NumberStyles.Float, CultureInfo.InvariantCulture, out var value) && double.IsFinite(value)))
+                {
+                    index++;
+                    continue;
+                }
+                break;
             }
             tables.Add(rows.ToArray());
         }
@@ -153,11 +169,14 @@ public static partial class ExtendedResultNormalizer
         static double[]? ReadRow(string line)
         {
             var tokens = Regex.Split(line.Trim(), @"\s+");
-            if (tokens.Length < 12) return null;
+            if (tokens.Length < 12 || !Regex.IsMatch(tokens[0], @"^\d+$")) return null;
             var values = new double[12];
             for (var i = 0; i < values.Length; i++)
+            {
+                if (i >= 7 && tokens[i] == "-") { values[i] = double.NaN; continue; }
                 if (!double.TryParse(tokens[i], NumberStyles.Float, CultureInfo.InvariantCulture, out values[i])
                     || !double.IsFinite(values[i])) return null;
+            }
             return values;
         }
     }

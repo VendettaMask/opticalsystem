@@ -94,7 +94,10 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
                             primaryReferenceSphere.CenterX,
                             primaryReferenceSphere.CenterY,
                             primaryReferenceSphere.CenterZ,
-                            wavelengthReferenceSpheres[wavelengthIndex].Radius));
+                            wavelengthReferenceSpheres[wavelengthIndex].Radius),
+                    referenceWavelength: analysisOptic.ImageSpaceAfocal
+                        ? _wavelengthNumber == 0 ? primaryWavelength : wavelengths[wavelengthIndex]
+                        : null);
                 waves.Add(new OpdWave(
                     wavelengths[wavelengthIndex],
                     wavelengthIndices[wavelengthIndex],

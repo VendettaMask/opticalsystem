@@ -1,0 +1,434 @@
+{
+  "Stage": "M5",
+  "Date": "2026-10-26",
+  "Algorithm": "AutonomousTopologyV1",
+  "CheckpointSchema": 1,
+  "BaseCommit": "dcb7e96f054fce8b03e3ed7cdc004510e73c7b3a",
+  "WorktreeIsUncommitted": true,
+  "Ownership": "Scoped InitialStructure changes; other concurrent Core/analysis edits are not attributed to M5.",
+  "UniqueTests": 14,
+  "LatestPassed": 14,
+  "LatestFailed": 0,
+  "NewM5Tests": 13,
+  "RelatedM4Regressions": 1,
+  "Attempts": [
+    {
+      "File": "m5-first.trx",
+      "Passed": 13,
+      "Failed": 0
+    },
+    {
+      "File": "m5-branch-limit-final.trx",
+      "Passed": 1,
+      "Failed": 0
+    }
+  ],
+  "LatestTests": [
+    {
+      "Outcome": "Passed",
+      "Evidence": "m5-first.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.AutonomousSearchTests.FiniteLoopAutomaticallyOptimizesInsertsRecoversAndIndependentlyAssesses"
+    },
+    {
+      "Outcome": "Passed",
+      "Evidence": "m5-branch-limit-final.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyExpansionTests.AcceptedParentGetsExactlyItsConfiguredBranchLimitWithoutAnExtraZeroIndexedBranch"
+    },
+    {
+      "Outcome": "Passed",
+      "Evidence": "m5-first.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyExpansionTests.EveryDeletionScaleUsesTheUnscaledOriginAndOnlyItsTargetGetsThicknessExceptions"
+    },
+    {
+      "Outcome": "Passed",
+      "Evidence": "m5-first.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyExpansionTests.ExistingM4FilesRetainTheirChecksumProtocolAndReadWithoutExecuting"
+    },
+    {
+      "Outcome": "Passed",
+      "Evidence": "m5-first.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyExpansionTests.ExpandedSchedulerDispatchesRealOperatorsAndRetainsCompensationOrFailure(operation: \"material\")"
+    },
+    {
+      "Outcome": "Passed",
+      "Evidence": "m5-first.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyExpansionTests.ExpandedSchedulerDispatchesRealOperatorsAndRetainsCompensationOrFailure(operation: \"merge\")"
+    },
+    {
+      "Outcome": "Passed",
+      "Evidence": "m5-first.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyExpansionTests.ExpandedSchedulerDispatchesRealOperatorsAndRetainsCompensationOrFailure(operation: \"profile\")"
+    },
+    {
+      "Outcome": "Passed",
+      "Evidence": "m5-first.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyExpansionTests.ExpandedSchedulerDispatchesRealOperatorsAndRetainsCompensationOrFailure(operation: \"split\")"
+    },
+    {
+      "Outcome": "Passed",
+      "Evidence": "m5-first.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyExpansionTests.ExtendedEditsRejectProtectionStopCrossingInsufficientSpaceAndNonCatalogGlass"
+    },
+    {
+      "Outcome": "Passed",
+      "Evidence": "m5-first.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyExpansionTests.FailedDirectDeleteRunsAllOriginalRelativeStagesThenPhysicallyDeletesAndUsesOriginalAcceptance"
+    },
+    {
+      "Outcome": "Passed",
+      "Evidence": "m5-first.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyExpansionTests.MidTransitionSaveResumePreservesOriginAccountingAndArchiveAndUnknownWorkCannotPublishTransitions"
+    },
+    {
+      "Outcome": "Passed",
+      "Evidence": "m5-first.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyExpansionTests.RealMaterialAndExplicitProfileBranchesRequireFreshBindingsAndAdamState"
+    },
+    {
+      "Outcome": "Passed",
+      "Evidence": "m5-first.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyExpansionTests.SplitAndMergePreserveOuterFacesFrameAndUntouchedElementsAndCompileRealGlass(split: False)"
+    },
+    {
+      "Outcome": "Passed",
+      "Evidence": "m5-first.trx",
+      "Name": "OpticalSystemDesign.InitialStructure.Tests.TopologyExpansionTests.SplitAndMergePreserveOuterFacesFrameAndUntouchedElementsAndCompileRealGlass(split: True)"
+    }
+  ],
+  "Checks": {
+    "DefaultAppOutput": "Debug/net10.0",
+    "DiffWhitespace": 0,
+    "SourceFormatVerify": 0,
+    "Documentation": 0,
+    "SourceFormat": 0
+  },
+  "ActualGradualWork": {
+    "FunctionEvaluations": 234,
+    "GradientEvaluations": 24,
+    "ValidationEvaluations": 7,
+    "MatrixEvaluations": 203,
+    "DifferenceEvaluations": 168,
+    "JacobianBuilds": 21,
+    "TracedRays": 16040,
+    "GeometryProbes": 29367,
+    "Elapsed": "00:00:01.0013126"
+  },
+  "TransitionStages": 5,
+  "CompensatedStagesIncludingPhysicalDeletion": 6,
+  "IndependentAssessments": 7,
+  "Resume": {
+    "SameFunctionCount": true,
+    "SameGradientCount": true,
+    "SameRayCount": true,
+    "EndpointEqualityProvedBy": "MidTransitionSaveResumePreservesOriginAccountingAndArchiveAndUnknownWorkCannotPublishTransitions"
+  },
+  "LegacyM4": {
+    "TracedRaysDuringRead": 0,
+    "ActualFilesRead": 3,
+    "ExpandedPolicyRemainsNull": true,
+    "Schema": 1
+  },
+  "Limitations": [
+    "Explicit Expansion opt-in, CPU library; no new UI or M5 GPU hard-quota certification",
+    "Direct-delete recovery test deliberately limited to two requests; not evidence of inherent non-recoverability",
+    "Loose gradual targets and strict branch-test targets are control fixtures, not original-task success",
+    "Merge sample returns NoParaxialRecovery; original accepted archive preserved",
+    "No old full training, output-effect comparison, full repository suite, external certification, commit, push or release"
+  ],
+  "FrozenInput": {
+    "File": {
+      "Bytes": 4195,
+      "Sha256": "a14ebf12d4a9bda4a86df64b60bb12a3f13e364e36bcfac60f6973fd91696986",
+      "Path": "labs/InitialStructure/benchmarks/autonomous-topology-v1/foundation-3.json"
+    },
+    "Unchanged": true,
+    "HeadGitObject": "7de109b71732c8006092ab8ec3daca3fd99fa716",
+    "WorktreeGitObject": "7de109b71732c8006092ab8ec3daca3fd99fa716"
+  },
+  "Sources": [
+    {
+      "Bytes": 7092,
+      "Sha256": "9c2386d7810ae6f14a415f27e8fd1539bb66a6fc31b9e2b7cb4d84e04067f70a",
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/DesignTopology.cs"
+    },
+    {
+      "Bytes": 5598,
+      "Sha256": "d7d537a6c55325c0b53542e3c5e3aeffa3feb6db889c429ed74cde72ae8cf159",
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/AutonomousSearchModels.cs"
+    },
+    {
+      "Bytes": 1653,
+      "Sha256": "e205adfc4aad9047cf1849f6bcd50d768289c8a1b53d14ec2f78973b04c375d6",
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/TopologyExpansionModels.cs"
+    },
+    {
+      "Bytes": 5053,
+      "Sha256": "0f2f899f678e022041e8143e2ccc0a03eca9faad8e170f548325e0fe104ddf8c",
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/TopologyOperators.cs"
+    },
+    {
+      "Bytes": 14797,
+      "Sha256": "b4feae875f0170b072786ddb87ff0978d66882d90ee7506b27ed8c967995e9cd",
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/TopologyOperators.Expansion.cs"
+    },
+    {
+      "Bytes": 13734,
+      "Sha256": "706f8ffe800ed68f203e889bcd330e4c4b227021e8e3840b04eae3a3f4ff03af",
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/TopologyValidation.cs"
+    },
+    {
+      "Bytes": 7230,
+      "Sha256": "eaba893ad7b7e987af6f7bff5eaddf982dacd7fed0e0df810ca4844034dd81f6",
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/TopologyEvaluationPlan.cs"
+    },
+    {
+      "Bytes": 33927,
+      "Sha256": "1eda52101071cf5a567f9eb8d94831d9cc03b24332b0b7e23bb80cf34760fb35",
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutonomousSearchService.cs"
+    },
+    {
+      "Bytes": 12544,
+      "Sha256": "204ce78e9a479144cd175f7bd858b16bc0fffb4590a2b0e6b4a4bbab2f379d06",
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutonomousSearchService.Expansion.cs"
+    },
+    {
+      "Bytes": 24215,
+      "Sha256": "9d9b0800b1bc0c87d697579eab3e1c20c8a06a856267959309d43413fc210cef",
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/TopologyExpansionTests.cs"
+    },
+    {
+      "Bytes": 25463,
+      "Sha256": "936eacb7c09ad0fae6a6b3be2c6d206d0fbdcfe20ccf8a5b8e04171a36bd2096",
+      "Path": "AGENTS.md"
+    },
+    {
+      "Bytes": 28364,
+      "Sha256": "d166302b3e0ec67d81699da11718a4cf0bdaf656370d6ea55f1f14bf6cea9f17",
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/TopologyCompiler.cs"
+    },
+    {
+      "Bytes": 7427,
+      "Sha256": "ddfe0df469a2c0038f34bf624d8e29b4170a58aeec461ca780a0e6251dc1f789",
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/TopologyParameterBinder.cs"
+    },
+    {
+      "Bytes": 12379,
+      "Sha256": "71083924a350ac8f6de2994c647878fd64c106b05e2349e2c1b900ad2cbd7af0",
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FixedTopologyOptimizer.cs"
+    },
+    {
+      "Bytes": 8125,
+      "Sha256": "89da19be2a4bca2d7792ce0736d3020745288e86e687e9ffa281e7733a36af81",
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/FixedTopologyObjective.cs"
+    },
+    {
+      "Bytes": 6347,
+      "Sha256": "576f6e85905f044c571803cb3a20bc4bdeee8fcb26ee979b65901fa4e5aef28f",
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/TopologyValidator.cs"
+    },
+    {
+      "Bytes": 15595,
+      "Sha256": "e713661ceaf7a7d80fa94aeaffff73e6b11e86d8ed0e60b5ddb28e0dcbad0739",
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/ParaxialRestorer.cs"
+    },
+    {
+      "Bytes": 4824,
+      "Sha256": "12fb4f41ff072dccd1674a81fe1f190044a1da4881d867bea224b9bfa3c99982",
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Persistence/AutonomousSearchCheckpointStore.cs"
+    },
+    {
+      "Bytes": 41610,
+      "Sha256": "a7a0e82dd4fd46c78c1773c05956fce9332d19434de5716c1ba275e46ca37186",
+      "Path": "docs/AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md"
+    },
+    {
+      "Bytes": 305881,
+      "Sha256": "9535d7549d121ec55022129c9647a7d2e144ca749c7c7f9e426c2f437baa25de",
+      "Path": "docs/CURRENT_STATUS.md"
+    },
+    {
+      "Bytes": 5594,
+      "Sha256": "b4efa88326d324f9853ffa2f86b884661cc14b5376b12c63f1ca2fc60e97ecd2",
+      "Path": "labs/InitialStructure/README.md"
+    },
+    {
+      "Bytes": 3287,
+      "Sha256": "bf1a83b0ef018dcd0f4598d502f24862547e660dcfe1a136a7dbf32d160b4b98",
+      "Path": "labs/InitialStructure/benchmarks/autonomous-topology-v1/README.md"
+    },
+    {
+      "Bytes": 12005,
+      "Sha256": "b0fe6bbec196d4f8c281a1b4de6b67d3ad9f0a3072b8d0de2d17d7fd3c5710fb",
+      "Path": "labs/InitialStructure/benchmarks/autonomous-topology-v1/expansion-m5.json"
+    }
+  ],
+  "Binaries": [
+    {
+      "Bytes": 60356096,
+      "Sha256": "6082f7e42683a9f6dd045f538d74c0eb7208178865a9363a249565935201bdfd",
+      "Path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.App.dll"
+    },
+    {
+      "Bytes": 6018560,
+      "Sha256": "230bd7398b64ec644babbf5503ebb169ce13d772431acaf22e0e48b5d3fff4c8",
+      "Path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.Core.dll"
+    },
+    {
+      "Bytes": 479744,
+      "Sha256": "f7b59cee4750d16dc144833f2a602fd98e1380b56a45981788bad8d11e730af0",
+      "Path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll"
+    },
+    {
+      "Bytes": 322560,
+      "Sha256": "1a120121d05a43acd61946d1e9c3517ec4bd2f36675e7e043bbf80a2891be268",
+      "Path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.InitialStructure.Contracts.dll"
+    },
+    {
+      "Bytes": 56320,
+      "Sha256": "ba70bb4bdd93b23dee38a0cfd9f462cc0085a5345b971b3a4d647bd75b219725",
+      "Path": "src/OpticalSystemDesign.App/bin/Debug/net10.0/OpticalSystemDesign.InitialStructure.Persistence.dll"
+    },
+    {
+      "Bytes": 642048,
+      "Sha256": "7b8d33f912950fddc3141903b85392a71505763d1e6ab7afe233f1f60a1d0c4c",
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/bin/Debug/net10.0/OpticalSystemDesign.InitialStructure.Tests.dll"
+    }
+  ],
+  "Evidence": [
+    {
+      "Bytes": 177964,
+      "Sha256": "0c43bef53b5df4e09acdef667f52f3a14512a7b5e9f8a506bf47c79537fc72dd",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\automatic-material.json"
+    },
+    {
+      "Bytes": 50130,
+      "Sha256": "b5383e4c9f96cc5760810a256ed6e8251d7a7c102ec7edb4e56f5b7bd4fc7cfc",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\automatic-merge.json"
+    },
+    {
+      "Bytes": 188714,
+      "Sha256": "88ea932b83eb87986385181ad1e1c3b95c9dc63e3908ae21032c9c5be5cb811d",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\automatic-profile.json"
+    },
+    {
+      "Bytes": 190677,
+      "Sha256": "d0cab4f2391a082c6c0b6010ab3a1d862ce7e27f2c66c8724db31ac6ac430ac1",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\automatic-split.json"
+    },
+    {
+      "Bytes": 582,
+      "Sha256": "dcf3d2ca05de8595f1064863d75ef8236f6f2141a3fa34de97e5727f71c0f893",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\compile-initial.log"
+    },
+    {
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\diff-check.log"
+    },
+    {
+      "Bytes": 321396,
+      "Sha256": "a47cc8444b0b3c5711a42a2b91c8c943814ecfe414b10d2aaa4a102d70ebe85c",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\documentation-check.json"
+    },
+    {
+      "Bytes": 246,
+      "Sha256": "e399d464a32e537d63f111b473655ec580decbcb2ea315e13935e7bbe12e4b03",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\documentation-check.log"
+    },
+    {
+      "Bytes": 1036,
+      "Sha256": "67006766072977af19b6eae2ae50160e2e5b21c25c34a58bc0723bf5355bb796",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\format-files.json"
+    },
+    {
+      "Bytes": 796264,
+      "Sha256": "49cf4c0d9e1581ebb4986603507bcf8d906ab924cfea718fef53c4ed901cfc03",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\gradual-complete.json"
+    },
+    {
+      "Bytes": 307430,
+      "Sha256": "345e2fc7164c403f161723b4bd194e3a03f2a5ce34faf3a3a524a8110155d745",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\gradual-partial.json"
+    },
+    {
+      "Bytes": 2361715,
+      "Sha256": "580b2777c8b5b473fcdbe748577d520e941e9c9dd17c655b4e407a8875a48ed7",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\gradual-resume.json"
+    },
+    {
+      "Bytes": 2270,
+      "Sha256": "47e8e01af76e99da45f35f379ac7733effbd33c4b0732938c424802d0fb17750",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\m5-branch-limit-final.log"
+    },
+    {
+      "Bytes": 3667,
+      "Sha256": "9a608b932f8340b1baa93666dcb2a7942c0c9881a4dceef0b5ebead332478ac9",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\m5-branch-limit-final.trx"
+    },
+    {
+      "Bytes": 2254,
+      "Sha256": "4955c2192937a479fc4f71afdd998d5a9622e4b83bc770b5c1898e9c750bf49a",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\m5-first.log"
+    },
+    {
+      "Bytes": 24513,
+      "Sha256": "9204ea9d02e7fe90ddad00474cdf68a953c47e2d0b8ee1df078471c5e46d2103",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\m5-first.trx"
+    },
+    {
+      "Bytes": 19648,
+      "Sha256": "49de8bb8cc8d40435d73c8a0483dc6709cd54e6b63c49cd603dd93552bfc0d00",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\material-profile-identities.json"
+    },
+    {
+      "Bytes": 31711,
+      "Sha256": "4a97e1f2355632585d910ad157f843bcdcf5e798439f85440e5c12d901d15419",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\merge-operator.json"
+    },
+    {
+      "Bytes": 16712,
+      "Sha256": "999d4d193831baf1415aaf1c273715a8c383dcf38657ec86515b37087a584b39",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\original-relative-scales.json"
+    },
+    {
+      "Bytes": 31517,
+      "Sha256": "a65d7e2a952e0a54de66ac0dba0f01c5d66608355b15978cd4702c2f445c9764",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\parent-branch-limit.json"
+    },
+    {
+      "Bytes": 7581,
+      "Sha256": "676104daecfd4ba597d4c6e86f7909d90450a548b99c40cf355272f53dd96db8",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\README.md"
+    },
+    {
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\source-format-verify.log"
+    },
+    {
+      "Bytes": 0,
+      "Sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\source-format.log"
+    },
+    {
+      "Bytes": 50168,
+      "Sha256": "c7b705d9334f26270b2d8db76f6b7b6f861bceb436f1558cdce0fbd72708a76c",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\split-operator.json"
+    },
+    {
+      "Bytes": 150137,
+      "Sha256": "16d5058df497e06a65761c0b5cd235e9262f43fe748e778bb49a1a965532fbab",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\transition-checkpoint.json"
+    },
+    {
+      "Bytes": 150817,
+      "Sha256": "a98424ac9d00b79a5fa7c9a64785ba322c56ef544cb279e69a65ddb3f808a0fd",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\transition-inflight-checkpoint.json"
+    },
+    {
+      "Bytes": 6453,
+      "Sha256": "d334396a03c9f1a9d7c89ecc1f221ce4ed5262d023ad0b876899b45dfb7805fb",
+      "Path": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-10-26\\autonomous-expansion-m5\\write-summary.ps1"
+    }
+  ]
+}

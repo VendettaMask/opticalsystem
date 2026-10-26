@@ -9,6 +9,14 @@ namespace OpticalSystemDesign.InitialStructure.Engine;
 /// <summary>Fresh physical Core CPU acceptance; training coordinates and loss do not supply this result.</summary>
 public static class TopologyValidator
 {
+    public static string GetProtocolFingerprint(CompiledTopology source, TopologyTargets targets)
+    {
+        var fields = TopologyEvaluationPlan.Fields(source, 21);
+        var pupils = ApertureSampler.GenerateGaussianQuadrature(10, 32).ToArray();
+        var checks = TopologyEvaluationPlan.Checks();
+        return ContentFingerprint.Compute(new { Identity = "autonomous-physical-validation-v1", targets, StructuralConstraints = source.Constraints, fields, pupils, checks, ProfileRadialSamples = 64, Backend = "CPU", Reference = "common-polychromatic-centroid", DistortionReference = "primary-chief/current-image-paraxial", IncludeSurfaceTransmission = false });
+    }
+
     public static TopologyAssessment Validate(CompiledTopology source, TopologyTargets targets, CancellationToken cancellationToken = default)
     {
         TopologyEvaluationPlan.Validate(targets, new());
@@ -16,7 +24,7 @@ public static class TopologyValidator
         var rows = TopologyEvaluationPlan.Geometry(source, targets, 64);
         var pupils = ApertureSampler.GenerateGaussianQuadrature(10, 32).ToArray();
         var checks = TopologyEvaluationPlan.Checks();
-        var protocol = ContentFingerprint.Compute(new { Identity = "autonomous-physical-validation-v1", targets, StructuralConstraints = source.Constraints, fields, pupils, checks, ProfileRadialSamples = 64, Backend = "CPU", Reference = "common-polychromatic-centroid", DistortionReference = "primary-chief/current-image-paraxial", IncludeSurfaceTransmission = false });
+        var protocol = GetProtocolFingerprint(source, targets);
         var violations = new List<TopologyMetricViolation>();
         var assessments = new List<TopologyFieldAssessment>();
         using var measurement = SequentialTraceMeasurement.Begin();

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="8b5477ee-4fd7-4e79-9580-bebd5c3491d3" name="allen@DESKTOP-SET3SNR 2026-10-26 19:33:45" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-26T19:33:45.1915715+08:00" queuing="2026-10-26T19:33:45.1915717+08:00" start="2026-10-26T19:33:41.1800502+08:00" finish="2026-10-26T19:33:45.1968678+08:00" />
+  <TestSettings name="default" id="f4c449c8-5e53-48c7-8bc0-d3c2006ef805">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-10-26_19_33_45" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9c406798-b966-4c42-a318-57013c48cb70" testId="751ad868-ebb2-59fe-f59b-d8186a29e73d" testName="OpticalSystemDesign.Tests.ParaxialTransferMatrixTests.MatrixMapsBothIndependentBasisRaysAndSmallPhysicalRaysUsingHeightAndSlopeOrder" computerName="DESKTOP-SET3SNR" duration="00:00:00.0258458" startTime="2026-10-26T19:33:45.0957505+08:00" endTime="2026-10-26T19:33:45.1041144+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9c406798-b966-4c42-a318-57013c48cb70" />
+    <UnitTestResult executionId="e1a7ae3e-e479-43b2-b019-f117c8ecfc09" testId="b8828901-d150-e4d1-07cf-820fe3d1f1c6" testName="OpticalSystemDesign.Tests.ParaxialTransferMatrixTests.EndpointMediaAndFixedReferenceCoordinatesAreExplicitAndUnsupportedPathsAreRejected" computerName="DESKTOP-SET3SNR" duration="00:00:00.0008962" startTime="2026-10-26T19:33:45.0931925+08:00" endTime="2026-10-26T19:33:45.0932864+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e1a7ae3e-e479-43b2-b019-f117c8ecfc09" />
+    <UnitTestResult executionId="a2240035-e6a1-4801-9db2-885d51310601" testId="3c303d1a-3b69-4054-f629-9445f4106331" testName="OpticalSystemDesign.Tests.ParaxialTransferMatrixTests.FullMatrixMatchesIndependentThickLensProductAndExcludesImagePlaceholderThickness" computerName="DESKTOP-SET3SNR" duration="00:00:00.3946643" startTime="2026-10-26T19:33:44.7129014+08:00" endTime="2026-10-26T19:33:45.0773099+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a2240035-e6a1-4801-9db2-885d51310601" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.ParaxialTransferMatrixTests.MatrixMapsBothIndependentBasisRaysAndSmallPhysicalRaysUsingHeightAndSlopeOrder" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="751ad868-ebb2-59fe-f59b-d8186a29e73d">
+      <Execution id="9c406798-b966-4c42-a318-57013c48cb70" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ParaxialTransferMatrixTests" name="MatrixMapsBothIndependentBasisRaysAndSmallPhysicalRaysUsingHeightAndSlopeOrder" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ParaxialTransferMatrixTests.EndpointMediaAndFixedReferenceCoordinatesAreExplicitAndUnsupportedPathsAreRejected" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b8828901-d150-e4d1-07cf-820fe3d1f1c6">
+      <Execution id="e1a7ae3e-e479-43b2-b019-f117c8ecfc09" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ParaxialTransferMatrixTests" name="EndpointMediaAndFixedReferenceCoordinatesAreExplicitAndUnsupportedPathsAreRejected" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ParaxialTransferMatrixTests.FullMatrixMatchesIndependentThickLensProductAndExcludesImagePlaceholderThickness" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3c303d1a-3b69-4054-f629-9445f4106331">
+      <Execution id="a2240035-e6a1-4801-9db2-885d51310601" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ParaxialTransferMatrixTests" name="FullMatrixMatchesIndependentThickLensProductAndExcludesImagePlaceholderThickness" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="751ad868-ebb2-59fe-f59b-d8186a29e73d" executionId="9c406798-b966-4c42-a318-57013c48cb70" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8828901-d150-e4d1-07cf-820fe3d1f1c6" executionId="e1a7ae3e-e479-43b2-b019-f117c8ecfc09" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3c303d1a-3b69-4054-f629-9445f4106331" executionId="a2240035-e6a1-4801-9db2-885d51310601" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.96]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.07]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.09]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.54]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Warning" timestamp="2026-10-26T19:33:45.1570099+08:00">
+        <Text>数据收集器“Blame”消息: 所有测试都已运行完毕，将不生成序列文件。</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

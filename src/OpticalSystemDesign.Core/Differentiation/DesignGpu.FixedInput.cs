@@ -14,7 +14,7 @@ public static partial class DesignGpu
     {
         // Relative-thickness and historical implicit-aim derivatives retain the recorded path.
         if (parameters.Any(p => p.Kind == OpticalDesignParameterKind.Thickness)) return null;
-        var runtime = Instance.Value ?? throw new NotSupportedException("CUDA is unavailable.");
+        var runtime = RequireRuntime();
         var bindings = new int[optic.SurfaceGroup.Items.Count * 16];
         Array.Fill(bindings, -1);
         var scales = parameters.Select(p => p.Scale).ToArray();

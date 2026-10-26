@@ -58,8 +58,8 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
         {
             var samples = field.Wavelengths
                 .SelectMany(wavelength => wavelength.Rays.Select(ray => new EnergySample(
-                    ray.X * 1000,
-                    ray.Y * 1000,
+                    ray.X * (Optic.ImageSpaceAfocal ? 1 : 1000),
+                    ray.Y * (Optic.ImageSpaceAfocal ? 1 : 1000),
                     ray.Intensity * EnergyCurveSupport.WavelengthWeight(wavelength.Wavelength))))
                 .Where(sample => sample.Weight > 0)
                 .ToArray();
@@ -96,7 +96,9 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
             ? wavelengths.Select(wavelength => (
                     Wavelength: wavelength.Micrometers,
                     Weight: EnergyCurveSupport.WavelengthWeight(wavelength),
-                    FNumber: DiffractionEngine.WorkingFNumber(Optic, (0, 0), wavelength, aimAtStop: Optic.RayAimingEnabled)))
+                    FNumber: Optic.ImageSpaceAfocal
+                        ? 1 / ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(Optic)
+                        : DiffractionEngine.WorkingFNumber(Optic, (0, 0), wavelength, aimAtStop: Optic.RayAimingEnabled)))
                 .Where(component => component.Wavelength > 0
                     && component.Weight > 0
                     && double.IsFinite(component.FNumber)
@@ -122,13 +124,13 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
             }
             if (ZemaxCompatibleOutput) points = EnergyPlotSampling.Geometric(points);
             return new AnalysisSeries(
-                "Radius (µm)",
+                Optic.ImageSpaceAfocal ? "Radius (mrad)" : "Radius (µm)",
                 "Fraction of Energy",
                 points,
                 Name: MtfPresentation.FieldName(Optic, (curve.Hx, curve.Hy)),
                 ColorIndex: curve.FieldIndex,
                 XQuantity: AnalysisAxisQuantity.Radius,
-                XUnit: AnalysisAxisUnit.Micrometer,
+                XUnit: Optic.ImageSpaceAfocal ? AnalysisAxisUnit.Milliradian : AnalysisAxisUnit.Micrometer,
                 YQuantity: AnalysisAxisQuantity.EnergyFraction,
                 YUnit: AnalysisAxisUnit.Dimensionless);
         }).ToArray();
@@ -154,12 +156,14 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
             ["PlotPointCount"] = series[0].Points.Count,
             ["ZemaxCompatibleOutput"] = ZemaxCompatibleOutput,
             ["PupilGridConvention"] = ZemaxCompatibleOutput && _distribution.Equals("uniform", StringComparison.OrdinalIgnoreCase) ? "N intervals, N+1 axis nodes, inclusive disk boundary" : _distribution,
-            ["MaximumDistanceMicrometers"] = radiusMaximumMicrometers,
-            ["MaximumGeometricSpotRadius"] = geometricMaximumMicrometers / 1000,
+            ["MaximumDistanceMicrometers"] = Optic.ImageSpaceAfocal ? 0 : radiusMaximumMicrometers,
+            ["MaximumDistanceMilliradians"] = Optic.ImageSpaceAfocal ? radiusMaximumMicrometers : 0,
+            ["RadiusUnit"] = Optic.ImageSpaceAfocal ? "mrad" : "mm",
+            ["MaximumGeometricSpotRadius"] = geometricMaximumMicrometers / (Optic.ImageSpaceAfocal ? 1 : 1000),
             ["TotalWeight"] = totalWeight,
-            ["Radius50"] = RadiusAtEnergy(weightedRadii, totalWeight, 0.50) / 1000,
-            ["Radius80"] = RadiusAtEnergy(weightedRadii, totalWeight, 0.80) / 1000,
-            ["Radius95"] = RadiusAtEnergy(weightedRadii, totalWeight, 0.95) / 1000
+            ["Radius50"] = RadiusAtEnergy(weightedRadii, totalWeight, 0.50) / (Optic.ImageSpaceAfocal ? 1 : 1000),
+            ["Radius80"] = RadiusAtEnergy(weightedRadii, totalWeight, 0.80) / (Optic.ImageSpaceAfocal ? 1 : 1000),
+            ["Radius95"] = RadiusAtEnergy(weightedRadii, totalWeight, 0.95) / (Optic.ImageSpaceAfocal ? 1 : 1000)
         }, series.FirstOrDefault(), series, new AnalysisPlotOptions(
             Title: wavelengths.Count == 1
                 ? $"Wavelength: {primary.Micrometers:0.0000} \u00B5m"
