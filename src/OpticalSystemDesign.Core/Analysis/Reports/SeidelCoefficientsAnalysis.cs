@@ -219,7 +219,9 @@ public sealed class SeidelDiagramAnalysis : BaseAnalysis
         double gridInterval = 0.01) : base(optic)
     {
         _wavelengthNumber = wavelengthNumber;
-        _maximumAberration = maximumAberration > 0 ? maximumAberration : 0.1;
+        _maximumAberration = double.IsFinite(maximumAberration) && maximumAberration >= 0
+            ? maximumAberration
+            : 0.1;
         _gridInterval = gridInterval > 0 ? gridInterval : 0.01;
     }
 
@@ -256,8 +258,28 @@ public sealed class SeidelDiagramAnalysis : BaseAnalysis
                 YQuantity: AnalysisAxisQuantity.Coefficient,
                 YUnit: AnalysisAxisUnit.Millimeter))
             .ToArray();
+        var maximum = _maximumAberration;
+        if (maximum == 0)
+        {
+            // Include the displayed table values as well as unrounded series values:
+            // the desktop bars currently use the table's printed coefficients.
+            var peak = series.SelectMany(item => item.Points)
+                .Select(point => point.Y)
+                .Concat(rows.SelectMany(row => row.Skip(1)).Select(value =>
+                    double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var parsed)
+                        ? parsed
+                        : 0))
+                .Where(double.IsFinite)
+                .Select(Math.Abs)
+                .DefaultIfEmpty(0)
+                .Max();
+            maximum = peak > 0
+                ? peak > double.MaxValue / 1.1 ? double.MaxValue : peak * 1.1
+                : 0.1;
+        }
+
         var values = coefficients.Values.ToDictionary(item => item.Key, item => item.Value);
-        values["MaximumAberration"] = _maximumAberration;
+        values["MaximumAberration"] = maximum;
         values["GridInterval"] = _gridInterval;
 
         return new AnalysisData(
@@ -266,8 +288,8 @@ public sealed class SeidelDiagramAnalysis : BaseAnalysis
             series.FirstOrDefault(),
             series,
             new AnalysisPlotOptions(
-                YMinimum: -_maximumAberration,
-                YMaximum: _maximumAberration,
+                YMinimum: -maximum,
+                YMaximum: maximum,
                 ShowLegend: true,
                 HideTickLabels: true,
                 LegendBelow: true),

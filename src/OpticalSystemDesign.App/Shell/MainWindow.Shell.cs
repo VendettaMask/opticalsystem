@@ -2,22 +2,22 @@ using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Layout;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Platform.Storage;
 using Avalonia.Styling;
 using Avalonia.Threading;
-using Avalonia.Controls.Shapes;
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Formatting;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Manufacturing;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Formatting;
+using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.App;
 

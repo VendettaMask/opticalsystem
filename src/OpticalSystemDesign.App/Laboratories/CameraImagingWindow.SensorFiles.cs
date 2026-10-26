@@ -2,8 +2,8 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Laboratories;
 
@@ -20,8 +20,11 @@ public sealed partial class CameraImagingWindow
     private readonly AnalysisPlotControl _responsePlot = new() { Name = "camera-response-plot", Height = 340, IsVisible = false };
     private readonly StackPanel _responseLegend = new()
     {
-        Name = "camera-response-legend", Spacing = 2, IsVisible = false,
-        HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Top,
+        Name = "camera-response-legend",
+        Spacing = 2,
+        IsVisible = false,
+        HorizontalAlignment = HorizontalAlignment.Right,
+        VerticalAlignment = VerticalAlignment.Top,
         Margin = new Avalonia.Thickness(ResponsivePlotLegendGrid.LegendInset)
     };
     private readonly Button _clearResponse = new() { Name = "camera-clear-response", Content = "移除响应曲线" };
@@ -54,7 +57,8 @@ public sealed partial class CameraImagingWindow
 
     private Control BuildResponsePage() => Scroll(new StackPanel
     {
-        Spacing = 12, Children =
+        Spacing = 12,
+        Children =
         {
             LaboratoryPresentation.Card(new Border { Padding = new Avalonia.Thickness(12), Child = _responsePageInfo }),
             LaboratoryPresentation.Card(new ResponsivePlotLegendGrid(_responsePlot, _responseLegend)),
@@ -123,7 +127,9 @@ public sealed partial class CameraImagingWindow
                 ReadSensor(), _spectralResponse);
             var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
             {
-                Title = "保存传感器参数/模板", SuggestedFileName = "sensor.camera-sensor.json", DefaultExtension = "json",
+                Title = "保存传感器参数/模板",
+                SuggestedFileName = "sensor.camera-sensor.json",
+                DefaultExtension = "json",
                 FileTypeChoices = new[] { new FilePickerFileType("传感器 JSON") { Patterns = new[] { "*.json" } } }
             });
             if (file is null || _closed) return;
@@ -180,10 +186,14 @@ public sealed partial class CameraImagingWindow
             var index = c;
             var check = new CheckBox
             {
-                Name = "camera-response-visible-" + c, IsChecked = true, Margin = new Avalonia.Thickness(2, 1),
+                Name = "camera-response-visible-" + c,
+                IsChecked = true,
+                Margin = new Avalonia.Thickness(2, 1),
                 Content = new TextBlock
                 {
-                    Text = series[c].Name, TextWrapping = TextWrapping.Wrap, VerticalAlignment = VerticalAlignment.Center,
+                    Text = series[c].Name,
+                    TextWrapping = TextWrapping.Wrap,
+                    VerticalAlignment = VerticalAlignment.Center,
                     Foreground = new SolidColorBrush(AnalysisPlotControl.SeriesColor(series[c]))
                 }
             };

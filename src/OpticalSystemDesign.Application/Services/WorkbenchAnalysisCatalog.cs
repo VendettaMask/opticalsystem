@@ -76,7 +76,6 @@ public static partial class WorkbenchAnalysisCatalog
         ["Wavefront"] = "波前",
         ["Centroid Sphere Wavefront"] = "质心参考球波前",
         ["Best Fit Sphere Wavefront"] = "最佳拟合球波前",
-        ["Zernike"] = "Zernike 系数",
         ["Zernike Fringe"] = "Zernike Fringe系数",
         ["Zernike Standard"] = "Zernike Standard系数",
         ["Zernike Annular"] = "Zernike Annular系数",
@@ -211,12 +210,15 @@ public static partial class WorkbenchAnalysisCatalog
 
     public static bool IsAvailableInMode(string name, OpticalWorkbenchMode mode)
     {
+        if (IsRetiredAnalysis(name)) return false;
         var canonical = CanonicalKey(name);
         var isNonSequential = canonical is "Non-Sequential Ray Trace" or "Non-Sequential Detector Viewer";
         return isNonSequential
             ? mode == OpticalWorkbenchMode.NonSequential
             : mode == OpticalWorkbenchMode.Sequential;
     }
+
+    public static bool IsRetiredAnalysis(string name) => name is "Zernike" or "Zernike 系数";
 
     public static IReadOnlyList<WorkbenchAnalysisDescriptor> DescriptorsForMode(
         OpticalWorkbenchMode mode) => Descriptors

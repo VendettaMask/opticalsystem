@@ -159,9 +159,9 @@ internal sealed class FlatStartDesignProblem
         var waves = optic.Wavelengths.Where(wave => wave.Weight > 0 && (stage.AllWavelengths || wave.IsPrimary)).ToArray();
         var throughputValid = geometryValid && sizing is not { Applied: false };
         var continuousResiduals = traceGeometry && sizing is not { Applied: false };
-        var gpuAssessments=area && traceGeometry ? SpotMetricEvaluator.EvaluateGpuPupilGridWithChecks(optic,
-            fields.Select(field=>(0.0,field*stage.FieldFraction)).ToArray(),pupils,checks,wavelengthNumber,
-            includeSurfaceTransmission:false,cancellationToken:cancellationToken) : null;
+        var gpuAssessments = area && traceGeometry ? SpotMetricEvaluator.EvaluateGpuPupilGridWithChecks(optic,
+            fields.Select(field => (0.0, field * stage.FieldFraction)).ToArray(), pupils, checks, wavelengthNumber,
+            includeSurfaceTransmission: false, cancellationToken: cancellationToken) : null;
         foreach (var field in fields)
         {
             cancellationToken.ThrowIfCancellationRequested();

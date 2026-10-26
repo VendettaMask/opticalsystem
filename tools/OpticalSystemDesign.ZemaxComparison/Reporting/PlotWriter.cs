@@ -1,5 +1,5 @@
-using SkiaSharp;
 using OpticalSystemDesign.ZemaxComparison.Metrics;
+using SkiaSharp;
 
 namespace OpticalSystemDesign.ZemaxComparison.Reporting;
 

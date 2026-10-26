@@ -55,17 +55,30 @@ public sealed partial class OpticalAssemblyWindow
         _grid.Columns.Add(Column("表面名称", nameof(TableRow.Label), 85));
         _grid.Columns.Add(Column("像类型", nameof(TableRow.Kind), 75));
         _grid.Columns.Add(Column("位置 (mm)", nameof(TableRow.Position), 110));
-        _grid.Columns.Add(new DataGridTextColumn { Header = "计算说明", Binding = new Binding(nameof(TableRow.Message)),
-            Width = new DataGridLength(1, DataGridLengthUnitType.Star) });
+        _grid.Columns.Add(new DataGridTextColumn
+        {
+            Header = "计算说明",
+            Binding = new Binding(nameof(TableRow.Message)),
+            Width = new DataGridLength(1, DataGridLengthUnitType.Star)
+        });
         _grid.BorderThickness = new Thickness(0);
         var table = new Grid { RowDefinitions = new("Auto,*") };
-        table.Children.Add(new StackPanel { Spacing = 10, Margin = new Thickness(14, 12),
-            Children = { LaboratoryPresentation.Heading("表面共轭位置", "list-filter"), _sort } });
+        table.Children.Add(new StackPanel
+        {
+            Spacing = 10,
+            Margin = new Thickness(14, 12),
+            Children = { LaboratoryPresentation.Heading("表面共轭位置", "list-filter"), _sort }
+        });
         Grid.SetRow(_grid, 1); table.Children.Add(_grid);
         var tableCard = LaboratoryPresentation.Card(table, "AssemblyConjugateCard");
         var preview = new Grid { RowDefinitions = new("Auto,*,Auto") };
-        preview.Children.Add(new StackPanel { Spacing = 5, Margin = new Thickness(14, 12), Children =
-            { LaboratoryPresentation.Heading("返回叉丝像", "scan-eye"), LaboratoryPresentation.Hint("探测面物理尺寸 · 固定毫米刻度") } });
+        preview.Children.Add(new StackPanel
+        {
+            Spacing = 5,
+            Margin = new Thickness(14, 12),
+            Children =
+            { LaboratoryPresentation.Heading("返回叉丝像", "scan-eye"), LaboratoryPresentation.Hint("探测面物理尺寸 · 固定毫米刻度") }
+        });
         _image.Margin = new Thickness(12, 0, 12, 12);
         Grid.SetRow(_image, 1); preview.Children.Add(_image);
         _imageInfo.FontSize = DisplayTypography.BodySmall;

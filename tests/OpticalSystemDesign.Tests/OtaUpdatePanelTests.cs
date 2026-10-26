@@ -1,3 +1,4 @@
+using System.Reflection;
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
@@ -14,7 +15,6 @@ using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Services.Updates;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Services;
-using System.Reflection;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -30,7 +30,9 @@ public sealed class OtaUpdatePanelTests
     }
 
     [Theory]
-    [InlineData("zh-CN", "Light", 13)][InlineData("en-US", "Dark", 18)][InlineData("ja-JP", "Light", 18)]
+    [InlineData("zh-CN", "Light", 13)]
+    [InlineData("en-US", "Dark", 18)]
+    [InlineData("ja-JP", "Light", 18)]
     public async Task ManualDownloadAndCanceledSaveAreLocalizedAndNeverAutoInstall(string language, string theme, double fontSize)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OtaUpdatePanelTests));
@@ -353,7 +355,8 @@ public sealed class OtaUpdatePanelTests
 public sealed class OtaShutdownGuardTests
 {
     [Theory]
-    [InlineData(false, true, false, "save")][InlineData(true, false, false, "save,windows")]
+    [InlineData(false, true, false, "save")]
+    [InlineData(true, false, false, "save,windows")]
     [InlineData(true, true, true, "save,windows,persist")]
     public async Task SaveAndWorkspaceCancellationStopBeforeClose(bool saved, bool windows, bool expected, string order)
     {

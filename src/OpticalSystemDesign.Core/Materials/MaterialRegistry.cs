@@ -2,6 +2,7 @@ namespace OpticalSystemDesign.Core.Materials;
 
 public sealed class MaterialRegistry
 {
+    public event EventHandler? Changed;
     private static readonly IReadOnlyList<string> DefaultGlassCatalogPriority = new[]
     {
         "SCHOTT",
@@ -89,6 +90,7 @@ public sealed class MaterialRegistry
                 ? normalized
                 : DefaultGlassCatalogPriority.ToArray();
         }
+        Changed?.Invoke(this, EventArgs.Empty);
     }
 
     public void Register(IMaterial material)
@@ -98,6 +100,7 @@ public sealed class MaterialRegistry
         {
             _materials[material.Name] = material.Clone();
         }
+        Changed?.Invoke(this, EventArgs.Empty);
     }
 
     public IMaterial Resolve(string name)

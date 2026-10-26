@@ -1,0 +1,131 @@
+{
+  "CapturedAtUtc": "2026-10-26T07:27:25.875979+00:00",
+  "SourceCommit": "4b9ea06f3ac0348eacd48d688b1dc4ea71e25a82",
+  "SourceDirty": true,
+  "Scope": "Focused interferogram, footer and shared wavefront rendering regression; not full suite or native GUI acceptance.",
+  "TestCounters": {
+    "total": 33,
+    "executed": 33,
+    "passed": 33,
+    "failed": 0,
+    "error": 0,
+    "timeout": 0,
+    "aborted": 0,
+    "inconclusive": 0,
+    "passedButRunAborted": 0,
+    "notRunnable": 0,
+    "notExecuted": 0,
+    "disconnected": 0,
+    "warning": 0,
+    "completed": 0,
+    "inProgress": 0,
+    "pending": 0
+  },
+  "ExternalNumericalReference": {
+    "Capture": "123456.ZMX, OpticStudio 2026 R1, analysis 054",
+    "Sampling": 64,
+    "WavelengthMicrometers": 0.44,
+    "FieldNumber": 1,
+    "ScaleFactor": 1,
+    "XTilt": 0,
+    "YTilt": 0,
+    "ValidPoints": 3001,
+    "MaximumAbsoluteIntensityError": 7.546728131302416e-09,
+    "Threshold": 1e-08,
+    "CoreOpdPeakToValleyWaves": 0.12616552489610264,
+    "NoNewNativeCapture": true
+  },
+  "RenderCases": [
+    {
+      "Mode": "gray",
+      "Theme": "Light",
+      "Sampling": 128,
+      "Canvas": [
+        1200,
+        900
+      ],
+      "DecodedChannelDifferenceCount": 0
+    },
+    {
+      "Mode": "color",
+      "Theme": "Light",
+      "Sampling": 32,
+      "Canvas": [
+        1200,
+        900
+      ],
+      "DecodedChannelDifferenceCount": 0
+    },
+    {
+      "Mode": "contour",
+      "Theme": "Light",
+      "Sampling": 32,
+      "Canvas": [
+        1200,
+        900
+      ],
+      "DecodedChannelDifferenceCount": 0
+    },
+    {
+      "Mode": "gray",
+      "Theme": "Dark",
+      "Sampling": 32,
+      "Canvas": [
+        1200,
+        900
+      ],
+      "DecodedChannelDifferenceCount": 0
+    }
+  ],
+  "DesktopIsolation": {
+    "Backend": "Avalonia Headless + Skia",
+    "PhysicalInput": false,
+    "ForegroundWindows": false,
+    "ClipboardAccess": false,
+    "InstalledApplicationUpdated": false
+  },
+  "Limitations": [
+    "External numerical reference covers one frozen axial condition only.",
+    "Vertex reference uses small-chief-deviation approximation at unit scale.",
+    "Aimed intermediate surfaces before stop are explicitly unsupported.",
+    "Equal-intensity, perfectly overlapping normalized pupils; no lateral, magnification or transmission differences."
+  ],
+  "Sha256": {
+    "src/OpticalSystemDesign.Core/Analysis/Wavefront/InterferogramAnalysis.cs": "1426ddd9120dc36b533c5e6e856fc15e53b02471823dad0fa7b7f74156f12d59",
+    "src/OpticalSystemDesign.Core/Analysis/Wavefront/InterferogramSurfacePreparation.cs": "5e824de51723636689f9c1ef9a4f60dab40fc351ed30670c711a0c60fb7ed3d5",
+    "src/OpticalSystemDesign.Core/Analysis/WavefrontEngine.cs": "b450531e6f7b6dae153bbba4a9d026f087b1b6e85ac50eb27cc8e3038c6ee310",
+    "src/OpticalSystemDesign.Core/Analysis/AnalysisModels.cs": "3ee46dc15be40f1d86e02182800843c2009d7a38fd5ae82d75861d2b7e28ab49",
+    "src/OpticalSystemDesign.Core/Analysis/AnalysisCatalog.cs": "f782d614be40ffe416737f90b7c1f1cfbe6dd636b1c4398b461dcbc8b7c97cf4",
+    "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs": "d443fa1b7e4fdd8248a3cb586ce3e8ded5eb723d1e966143e7b4fb5c63d4c34b",
+    "src/OpticalSystemDesign.Application/Runtime/RuntimeModels.cs": "a12042469c8a0540e25025e7df0b1d2f394a3f649f6ffd97f5d3d57696bcd11d",
+    "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs": "1125db827985217457256bec0a3014451846cd39f019257c98b445a95bae3f34",
+    "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs": "3395d211e1812cbb030068ce5d4b619811568fa78511eaf1e3197a7485876416",
+    "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Localization.cs": "86b83db9abbf0d405695f89cc8e27a97a1734316b2c25e4b8de79febe433adc5",
+    "src/OpticalSystemDesign.Application/Services/AnalysisService.cs": "50c38e1874a6655b94be035f25953032c91fee3bb954fb80c0be90a6c32b09a4",
+    "src/OpticalSystemDesign.App/Controls/AnalysisPlotControl.cs": "103d40cc7d6903f1dd3505b10dc934cea8dd21b855bff737f2a65d5c19a59096",
+    "src/OpticalSystemDesign.App/Controls/WavefrontSurfaceControl.cs": "4d65877380faaff9aceab16d65037bee3873804971d0c36135ce933f43efabe5",
+    "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs": "787ab177a0a146990917b9fc7949f973dbf8e50291a556d3bff98f75d4da162f",
+    "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Parameters.cs": "ca12c0cfcc7f44587f8e185b014b64f3db6f9edef3e85d40c99f2153f15b2fb0",
+    "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll": "4788a606dcf65445622b1517135667f4d4c54df30aab189a88afe00048fd982e",
+    "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Application.dll": "897f0b82515497c0a71ff359e64a35da627375ec28fa797697dc8232e8e2876b",
+    "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll": "e1d59034f6c6424b7e8665d1814163e870235df395441ce0db6044100abd1a7d",
+    "tests/OpticalSystemDesign.Tests/InterferogramAnalysisTests.cs": "bc54e8dd4f413297d645fd6bf3ae709300d3ed686c1328e0df9a182669fa5c13",
+    "tests/OpticalSystemDesign.Tests/InterferogramRenderingTests.cs": "24b228c8d840fe08b3053751be5ee0ad3a28566e82f804d007c61a3aa0795da8",
+    "tests/OpticalSystemDesign.Tests/InterferogramFooterTests.cs": "ece210e940b73ad863fd35a01f7c947ffafabb96b303a1f565fe3aea77746dd4",
+    "tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj": "f6bcdaa161e6fa03c79b26b30bf19fa3c2f396f741723cd4e9c9e49a240b2c18",
+    "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.dll": "cf4abc455863ebeda21ec048030fa59f9f9d1822b618b315c00a1757ae6ca0b0",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/054-interferogram/data.json": "ff21c04667206783573bfd154b5cf1f355e17882ff3c06e49b925ae767d5c595",
+    "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/054-interferogram/data.txt": "18b1e9a99c8e1afb0b055c0c369d2ca16acc0e6b986d868e1be9a410ca10b531",
+    "validation/rechecks/2026-10-26/interferogram/first-core-failed.trx": "fbb5f2f8190f0f161973b88f75f06ec3d5331bb0059190b4540e3dc4bbdbe420",
+    "validation/rechecks/2026-10-26/interferogram/interferogram-core.trx": "2fb94f4cfdb30cf384fd0135417a25d4d648e05d64843b96c3a825462d9a1576",
+    "validation/rechecks/2026-10-26/interferogram/interferogram-regression.trx": "363a4f2a3c280393c2a9fc9023921f7a3f41af378ff8ef19e4bf20f5f75fa318",
+    "validation/rechecks/2026-10-26/interferogram/intermediate-guard-first.trx": "45120db275473e90d8c989d4cf0de270ad215080cd655af2b56ac9cdb1d83809",
+    "validation/rechecks/2026-10-26/interferogram/native-grid-first.trx": "7ddf42968f10c2a13af4471f7ad7b8f5c3d080692136fb06ee50ef8c874ab57e",
+    "validation/rechecks/2026-10-26/interferogram/native-orientation-failed.trx": "2fb94f4cfdb30cf384fd0135417a25d4d648e05d64843b96c3a825462d9a1576",
+    "validation/rechecks/2026-10-26/interferogram/captures/fringes-color-Light.png": "695e04e36791c64d89f405a969e3a6de1d99e2ae0f07bc420625186e2ce6f5d2",
+    "validation/rechecks/2026-10-26/interferogram/captures/fringes-contour-Light.png": "e1ff05c12f8eba30fcaff7f38c52749fba4b812f0a65ac32475c7e32b705840f",
+    "validation/rechecks/2026-10-26/interferogram/captures/fringes-gray-Dark.png": "3b4500867aaff3f33bc2612d170d408fa7492e9303bc1b700db0794d7c4e6ce8",
+    "validation/rechecks/2026-10-26/interferogram/captures/fringes-gray-Light.png": "a3a9f7bab5808e6407643681e8330d33ec22e6ffb98860f65c22a6b452f27c0d",
+    "validation/rechecks/2026-10-26/interferogram/captures/native-grid-comparison.json": "6f7e7129ffe830358dd3b99d1efe87861b24a8f98dac7de53b643e2fe1be64b3"
+  }
+}

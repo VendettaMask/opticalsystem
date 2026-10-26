@@ -65,3 +65,15 @@ budgets are explicitly local choices. The README body F/2 full-frame target is
 retained despite inconsistent F/3 animation alt text. Ultra targets do not claim
 reproduction of the eight unpublished prescriptions. See the product guide
 docs/AUTOLENS_OFFICIAL_EXAMPLES.md for the source and adaptation boundaries.
+
+2026-10-26 native GPU implementation update:
+The fixed finite-object input path uses cuda-fixed-input-forward-v1 for batched
+double-precision directional derivatives of image X/Y, direction Z and bend
+penalty, along the existing shared Core's authoritative nominal intersections
+and refracted directions. No additional optical root finder is introduced.
+The recorded six-output path remains for historical implicit aiming and
+relative-thickness parameters, with bounded graph and workspace reuse.
+Sampling, loss definitions, optimizer schedules and independent physical
+acceptance remain unchanged. Equal-input default-sized single-update timings
+and numerical differences are recorded in docs/AUTOLENS_GPU.md; they do not
+establish full-run speed, final-design quality or PyTorch equivalence.

@@ -13,13 +13,16 @@ public struct GradientTapeNode
 
 internal sealed class DifferentialTape : IDisposable
 {
+    private static readonly System.Collections.Concurrent.ConcurrentBag<DifferentialTape> Pool = [];
+    private static int _pooledCount;
     [ThreadStatic] private static DifferentialTape? _current;
     public static DifferentialTape? Current => _current;
-    private readonly DifferentialTape? _previous;
+    private DifferentialTape? _previous;
     private readonly List<GradientTapeNode> _nodes = new(2048);
     private readonly Dictionary<double[], int> _imports = new(ReferenceEqualityComparer.Instance);
     private readonly Dictionary<(int Parameter, double Scale), int> _seeds = [];
-    public int ParameterCount { get; }
+    private bool _rented, _returned;
+    public int ParameterCount { get; private set; }
     public int Dimension => ParameterCount + 2;
     public IReadOnlyList<GradientTapeNode> Nodes => _nodes;
 
@@ -29,6 +32,41 @@ internal sealed class DifferentialTape : IDisposable
         ParameterCount = parameters;
         _previous = _current;
         _current = this;
+    }
+
+    // The scope ends before its pending CUDA batch consumes the recorded nodes.
+    // The batch releases storage separately after consuming or abandoning the ray.
+    internal static DifferentialTape Rent(int parameters)
+    {
+        if (parameters is < 1 or > 512) throw new GpuTapeRangeException("GPU parameter count must be between 1 and 512.");
+        DifferentialTape tape;
+        if (Pool.TryTake(out var reused))
+        {
+            Interlocked.Decrement(ref _pooledCount);
+            tape = reused;
+            tape.ParameterCount = parameters;
+            tape._previous = _current;
+            _current = tape;
+        }
+        else tape = new(parameters);
+        tape._rented = true;
+        tape._returned = false;
+        return tape;
+    }
+
+    internal void Release()
+    {
+        if (!_rented || _returned) return;
+        if (ReferenceEquals(_current, this)) throw new InvalidOperationException("An active ray scope cannot be returned to the pool.");
+        _returned = true;
+        _previous = null;
+        _nodes.Clear();
+        _imports.Clear();
+        _seeds.Clear();
+        // At most 32 MiB of ordinary graph-node storage is retained.
+        if (_nodes.Capacity > 8192) return;
+        if (Interlocked.Increment(ref _pooledCount) <= 128) Pool.Add(this);
+        else Interlocked.Decrement(ref _pooledCount);
     }
 
     public DifferentialScalar Variable(double value, int dimension, int index, double scale)

@@ -1,0 +1,56 @@
+{
+  "Algorithm": "AutonomousTopologyV1",
+  "Phase": "M2",
+  "ObjectiveIdentity": "autonomous-fixed-residual-v1",
+  "ValidationIdentity": "autonomous-physical-validation-v1",
+  "Sources": ["foundation-2.json", "foundation-3.json"],
+  "FourthElementCase": "Insert a 2 mm N-BK7 singlet with radii +150/-150 in lens-3:back -> image at fraction 0.2; preserve other vertices.",
+  "Targets": {
+    "EffectiveFocalLengthMillimeters": 50,
+    "FNumber": 12.5,
+    "FocalLengthRelativeTolerance": 0.02,
+    "FNumberRelativeTolerance": 0.02,
+    "MaximumRmsRadiusMillimeters": 0.05,
+    "MaximumSpotRadiusMillimeters": 0.15,
+    "MaximumDistortionFraction": 0.03,
+    "MinimumValidRayFraction": 0.98,
+    "MinimumEdgeThicknessMillimeters": 0.1,
+    "MinimumEdgeAirGapMillimeters": 0.01,
+    "MaximumOpticalTrackMillimeters": 10000,
+    "MaximumAbsoluteSurfaceSlope": 10
+  },
+  "Variables": {
+    "AllRefractingFaceCurvatures": { "LowerBound": -0.1, "UpperBound": 0.1, "Scale": 0.01 },
+    "ExplicitlyUnprotectedImagePosition": { "LowerBound": 30, "UpperBound": 250, "Scale": 10 }
+  },
+  "Training": {
+    "FieldsPerDirection": 3,
+    "PupilRings": 1,
+    "PupilArms": 8,
+    "ProfileRadialSamples": 8,
+    "MaximumUpdates": 20,
+    "MaximumFunctionEvaluations": 22,
+    "MaximumGradientEvaluations": 21,
+    "LearningRate": 0.02,
+    "ComputeMode": "CPU",
+    "TimeLimitSeconds": 300
+  },
+  "Acceptance": {
+    "FieldsPerDirection": 21,
+    "PupilRings": 10,
+    "PupilArms": 32,
+    "BoundaryArms": 32,
+    "IncludeCenterCheck": true,
+    "ProfileRadialSamples": 64,
+    "ComputeMode": "CPU",
+    "SpotReference": "common-polychromatic-centroid",
+    "DistortionReference": "primary-chief/current-image-paraxial",
+    "IncludeSurfaceTransmission": false
+  },
+  "Notes": [
+    "The three short benchmarks explicitly allow image movement; the separate protected-stage case verifies fixed image and protected lens preservation.",
+    "Training sampling is independent of the final acceptance protocol and never modifies UpstreamE58 sampling or iteration schedules.",
+    "The initial physical comparison is a separate measured benchmark evaluation, outside each optimizer stage budget.",
+    "No random resampling, full curriculum, full refinement, topology restoration or autonomous search is run."
+  ]
+}

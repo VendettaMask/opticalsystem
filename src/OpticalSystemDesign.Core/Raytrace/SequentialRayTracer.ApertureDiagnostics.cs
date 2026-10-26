@@ -1,3 +1,4 @@
+using System.Numerics;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Capabilities;
@@ -8,7 +9,6 @@ using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Propagation;
 using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Services;
-using System.Numerics;
 
 namespace OpticalSystemDesign.Core.Raytrace;
 
@@ -39,32 +39,32 @@ public sealed partial class SequentialRayTracer
 {
     /// <summary>Batch continuation; original apertures are measured but never treated as accepted throughput.</summary>
     public IReadOnlyList<CircularApertureRayDiagnostic> DiagnoseCircularApertures(RealRayBundle bundle,
-        CancellationToken cancellationToken=default)
+        CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(bundle);
         cancellationToken.ThrowIfCancellationRequested();
-        var nominal=TraceGpuNominal(bundle.Rays,cancellationToken,diagnostic:true);
-        if (nominal is null) return bundle.Rays.Select(ray=>DiagnoseCircularApertures(ray,cancellationToken)).ToArray();
-        var surfaces=_optic.SurfaceGroup.Items;
-        var result=new CircularApertureRayDiagnostic[bundle.Rays.Count];
-        for (var ray=0;ray<result.Length;ray++)
+        var nominal = TraceGpuNominal(bundle.Rays, cancellationToken, diagnostic: true);
+        if (nominal is null) return bundle.Rays.Select(ray => DiagnoseCircularApertures(ray, cancellationToken)).ToArray();
+        var surfaces = _optic.SurfaceGroup.Items;
+        var result = new CircularApertureRayDiagnostic[bundle.Rays.Count];
+        for (var ray = 0; ray < result.Length; ray++)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            double? minimum=null; int? limiting=null; RayTraceSample? image=null;
-            for (var index=0;index<surfaces.Count;index++)
+            double? minimum = null; int? limiting = null; RayTraceSample? image = null;
+            for (var index = 0; index < surfaces.Count; index++)
             {
-                var value=nominal[ray*surfaces.Count+index];
-                if (value.Present==0 || value.Miss!=0 || value.Blocked!=0 || value.Intensity<=0) break;
-                if (index>0 && surfaces[index].PhysicalAperture is CircularAperture aperture)
+                var value = nominal[ray * surfaces.Count + index];
+                if (value.Present == 0 || value.Miss != 0 || value.Blocked != 0 || value.Intensity <= 0) break;
+                if (index > 0 && surfaces[index].PhysicalAperture is CircularAperture aperture)
                 {
-                    var local=value.Point-surfaces[index].CoordinateSystem.Origin;
-                    var clearance=aperture.Radius-Math.Sqrt(local.X*local.X+local.Y*local.Y);
+                    var local = value.Point - surfaces[index].CoordinateSystem.Origin;
+                    var clearance = aperture.Radius - Math.Sqrt(local.X * local.X + local.Y * local.Y);
                     if (!double.IsFinite(clearance)) break;
-                    if (minimum is null || clearance<minimum) {minimum=clearance;limiting=index;}
+                    if (minimum is null || clearance < minimum) { minimum = clearance; limiting = index; }
                 }
-                if (index==surfaces.Count-1) image=GpuSample(value,index).ToRayTraceSample();
+                if (index == surfaces.Count - 1) image = GpuSample(value, index).ToRayTraceSample();
             }
-            result[ray]=new(image,minimum,limiting);
+            result[ray] = new(image, minimum, limiting);
         }
         return result;
     }

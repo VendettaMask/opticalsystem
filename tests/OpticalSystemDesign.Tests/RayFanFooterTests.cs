@@ -5,12 +5,12 @@ using Avalonia.Headless;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.VisualTree;
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Runtime;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Runtime;
+using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
 
 namespace OpticalSystemDesign.Tests;

@@ -209,8 +209,8 @@ public sealed class EvenAsphereGeometry : IGeometry
     public double Sag(double x, double y)
     {
         if (Coefficients.Count <= 10) return RotationalSurfaceEquation.From(this).Sag(x, y);
-        var r2 = x*x + y*y; var sag = Base.Sag(x, y); var power = r2;
-        foreach (var coefficient in Coefficients) { sag += coefficient*power; power *= r2; }
+        var r2 = x * x + y * y; var sag = Base.Sag(x, y); var power = r2;
+        foreach (var coefficient in Coefficients) { sag += coefficient * power; power *= r2; }
         return sag;
     }
 

@@ -5,12 +5,12 @@ using Avalonia.Headless;
 using Avalonia.LogicalTree;
 using Avalonia.Media;
 using Avalonia.VisualTree;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.Tests;
 

@@ -1,8 +1,8 @@
 using System.Collections.ObjectModel;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Coordinates;
-using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Core.Raytrace;
 
 namespace OpticalSystemDesign.Core.Domain;
 

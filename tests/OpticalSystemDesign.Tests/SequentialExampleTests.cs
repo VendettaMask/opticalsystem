@@ -80,16 +80,15 @@ public sealed class SequentialExampleTests
     }
 
     [Fact]
-    public async Task UnsupportedExampleKeepsExistingImportErrorAndCurrentDocument()
+    public async Task PrismExampleLoadsTheNowSupportedCoordinateBreaks()
     {
         var example = SequentialExampleCatalog.Examples.Single(item => item.RelativePath == "Miscellaneous/Apochromat_prism.zmx");
         using var application = WorkbenchApplication.Create();
         var before = application.Documents.GetSnapshot();
-        var error = await Assert.ThrowsAsync<NotSupportedException>(() => application.Documents.OpenAsync(example.FilePath));
-        Assert.Contains("coordinate", error.Message, StringComparison.OrdinalIgnoreCase);
+        await application.Documents.OpenAsync(example.FilePath);
         var after = application.Documents.GetSnapshot();
-        Assert.Equal(before.Revision, after.Revision);
-        Assert.Equal(before.Name, after.Name);
-        Assert.Null(application.Documents.CurrentPath);
+        Assert.True(after.Revision > before.Revision);
+        Assert.Equal(example.FilePath, application.Documents.CurrentPath);
+        Assert.True(after.SurfaceCount > 2);
     }
 }

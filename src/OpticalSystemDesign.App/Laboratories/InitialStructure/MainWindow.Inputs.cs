@@ -1,12 +1,12 @@
-using OpticalSystemDesign.App.Services;
-using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Layout;
-using OpticalSystemDesign.InitialStructure.Contracts;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Core.Differentiation;
+using OpticalSystemDesign.InitialStructure.Contracts;
 
 namespace OpticalSystemDesign.App.Laboratories.InitialStructure;
 
@@ -40,7 +40,9 @@ public sealed partial class MainWindow
     private readonly TextBlock _optimizationMethod = Named(Text("AutoLens · C# 自动求导"), "OptimizationMethod", "局部优化算法");
     private readonly ComboBox _computeMode = Named(new ComboBox
     {
-        ItemsSource = new[] { "自动（优先 GPU）", "GPU", "CPU" }, SelectedIndex = 0, HorizontalAlignment = HorizontalAlignment.Stretch
+        ItemsSource = new[] { "自动（优先 GPU）", "GPU", "CPU" },
+        SelectedIndex = 0,
+        HorizontalAlignment = HorizontalAlignment.Stretch
     }, "ComputeMode", "计算设备");
     private readonly TextBlock _computeStatus = Named(Text("正在检测 GPU…"), "ComputeStatus", "计算设备状态");
     private DesignGpuStatus? _gpuStatus;
@@ -101,7 +103,7 @@ public sealed partial class MainWindow
         _wavelengthGrid.Columns.Add(new DataGridTextColumn { Header = "权重", Binding = new Binding(nameof(WavelengthRow.Weight)) { Mode = BindingMode.TwoWay }, Width = new DataGridLength(70) });
         _wavelengthGrid.Columns.Add(new DataGridCheckBoxColumn { Header = "主波长", Binding = new Binding(nameof(WavelengthRow.IsPrimary)) { Mode = BindingMode.TwoWay }, Width = new DataGridLength(84) });
         _wavelengthGrid.FontSize = DisplayTypography.BodySmall;
-        _wavelengthGrid.RowHeight = 32;
+        _wavelengthGrid.RowHeight = Controls.UiDensity.InlineTableRowHeight;
         _wavelengthGrid.Columns[2].Width = new DataGridLength(1, DataGridLengthUnitType.Star);
         var add = Command("添加", "AddWave");
         var remove = Command("移除", "RemoveWave");
@@ -228,7 +230,9 @@ public sealed partial class MainWindow
         MaximumDisplayedCandidates = Integer(_retainedForms),
         DesignSearch = new()
         {
-            Mode = DesignSearchMode.Full, StopSurfaceIndex = 1, ExploreStopPositions = false
+            Mode = DesignSearchMode.Full,
+            StopSurfaceIndex = 1,
+            ExploreStopPositions = false
         }
     };
     private static double? Optional(NumericUpDown control) => Value(control) is var value && value > 0 ? value : null;

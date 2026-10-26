@@ -5,12 +5,12 @@ using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Media.Imaging;
 using Avalonia.VisualTree;
+using OpticalSystemDesign.App.Panels;
+using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Application.Services;
-using OpticalSystemDesign.App.Panels;
-using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Domain;
 
@@ -50,7 +50,7 @@ public sealed class InterferogramFooterTests
         Assert.Equal(Math.Abs(optic.Paraxial.EstimateExitPupilDiameter(data.WavelengthMicrometers!.Value)),
             data.ExitPupilDiameterMillimeters!.Value, 10);
         var raw = new WorkbenchRuntime(optic).BuildAnalysisData("Interferogram",
-            new Dictionary<string, string> { ["NumRings"] = "3", ["MapSize"] = "17" });
+            new Dictionary<string, string> { ["Sampling"] = "16", ["FieldNumber"] = optic.Fields.Count.ToString(CultureInfo.InvariantCulture) });
         Assert.Equal(Assert.IsType<double>(raw.Values["PeakToValleyWaves"]), data.PeakToValleyWaves!.Value);
         Assert.Equal(NumericDisplayFormatter.Format(data.PeakToValleyWaves.Value, CultureInfo.InvariantCulture),
             view.Rows.Single(row => row.Metric == "波峰到波谷").Value);
@@ -150,7 +150,7 @@ public sealed class InterferogramFooterTests
     private static AnalysisViewDto CreateView(Optic optic)
     {
         var raw = new WorkbenchRuntime(optic).BuildAnalysisView("Interferogram",
-            new Dictionary<string, string> { ["NumRings"] = "3", ["MapSize"] = "17" });
+            new Dictionary<string, string> { ["Sampling"] = "16", ["FieldNumber"] = optic.Fields.Count.ToString(CultureInfo.InvariantCulture) });
         var mapper = typeof(WorkbenchApplication).Assembly.GetType("OpticalSystemDesign.Application.Services.WorkbenchMapper")!;
         return Assert.IsType<AnalysisViewDto>(mapper.GetMethod("ToAnalysisViewDto", BindingFlags.Static | BindingFlags.NonPublic)!
             .Invoke(null, new object[] { raw })) with

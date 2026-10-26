@@ -55,7 +55,8 @@ public sealed class AnalysisConfigurationSelectionTests
             Series = result.View.Series.Select(series => series with { Name = "custom series" }).ToArray(),
             PlotPanes = result.View.PlotPanes.Select(pane => pane with
             {
-                Title = "custom pane", Series = pane.Series.Select(series => series with { Name = "custom series" }).ToArray()
+                Title = "custom pane",
+                Series = pane.Series.Select(series => series with { Name = "custom series" }).ToArray()
             }).ToArray()
         };
         using var reader = new StringReader(OpticalSystemDesign.Application.Formatting.AnalysisCsvFormatter.Format(view));

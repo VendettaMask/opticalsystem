@@ -1,11 +1,11 @@
+using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Controls.Shapes;
-using Avalonia.Automation;
 using Avalonia.Headless;
 using Avalonia.VisualTree;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.Tests;
 

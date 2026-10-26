@@ -1,6 +1,6 @@
 # 项目文档索引
 
-整理日期：2026-10-14。先按任务阅读当前指南；带日期的记录只证明对应阶段，不能把旧通过数、旧独立模块架构或旧命令当作当前状态。
+整理日期：2026-10-26。先按任务阅读当前指南；带日期的记录只证明对应阶段，不能把旧通过数、旧独立模块架构或旧命令当作当前状态。
 
 ## 从这里开始
 
@@ -10,6 +10,7 @@
 | 构建、测试、安装与恢复 | [构建发布](BUILD_AND_RELEASE.md)、[Windows 安装](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)、[内置模块交付](BUILT_IN_MODULES_2026-10-13.md) |
 | 使用桌面和两个模块 | [桌面工作流](GUI_QUICKSTART_REFACTOR.md)、[初始结构](../labs/InitialStructure/README.md)、[镀膜设计](../labs/CoatingDesign/README.md) |
 | 核对 AutoLens 原版优化规则 | [e58 逐项对齐、测试范围与保留差异](AUTOLENS_UPSTREAM_ALIGNMENT_2026-10-24.md)、[阶段交接修正](AUTOLENS_HANDOFF_REPAIR_2026-10-25.md) |
+| 按计划建设自主镜片增删流程 | [自主镜头拓扑设计实施计划](AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md)，M0–M2 基础层与固定拓扑优化已实现，增删恢复为下一阶段 |
 | 维护代码与界面 | [架构](ARCHITECTURE.md)、[代码地图](CODE_READING_MAP.md)、[UI 规范](UI_DESIGN_SPEC.md)、[协作约束](../AGENTS.md) |
 | 查询文件和数值边界 | [文件格式](FILE_FORMATS_AND_PLUGINS.md)、[数值验证](NUMERICAL_PARITY.md)、[操作数支持](ZEMAX_OPERAND_SUPPORT.md) |
 | 一键导出镜头、布局与分析截图 | [Markdown 光学设计报告](MARKDOWN_REPORT_EXPORT.md) |
@@ -26,6 +27,7 @@
 - [文件格式与插件](FILE_FORMATS_AND_PLUGINS.md)
 - [GUI 工作流与重构对照](GUI_QUICKSTART_REFACTOR.md)
 - [初始结构内置模块：范围与后续计划](INITIAL_STRUCTURE_LAB_PLAN.md)
+- [自主镜头拓扑设计实施计划](AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md)
 - [打包镜头库](LENS_LIBRARY.md)
 - [本地矢量图标库](LOCAL_ICONS.md)
 - [可制造性审查与光学制图](MANUFACTURING_DRAWINGS.md)

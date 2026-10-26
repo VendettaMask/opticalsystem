@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="b91904f8-cc8d-4b42-8caa-e96268391462" name="optics@LAPTOP-G4BBBCS0 2026-10-26 16:25:34" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-26T16:25:34.4852443+08:00" queuing="2026-10-26T16:25:34.4852444+08:00" start="2026-10-26T16:25:30.4958788+08:00" finish="2026-10-26T16:25:38.7906035+08:00" />
+  <TestSettings name="default" id="f060407f-9a59-4ba1-b2da-5c2aab3af4d8">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-26_16_25_34" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1607286d-817c-400b-bc5f-15fd9b46e80f" testId="c2d20d13-c694-4ab1-3093-37b04cef38e2" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.IndependentValidationIsReservedWhenThereIsNoTrainingBudget" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3702370" startTime="2026-10-26T16:25:38.1413692+08:00" endTime="2026-10-26T16:25:38.5097861+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1607286d-817c-400b-bc5f-15fd9b46e80f" />
+    <UnitTestResult executionId="80f28a80-7959-4bf3-9441-47358abf3ff7" testId="abceae68-a8c8-f5d8-7527-395bfaf523c7" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 3)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.4344478" startTime="2026-10-26T16:25:31.9726087+08:00" endTime="2026-10-26T16:25:34.4272647+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="80f28a80-7959-4bf3-9441-47358abf3ff7">
+      <Output>
+        <ErrorInfo>
+          <Message>Automatic differentiation dimensions differ.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(Int32 count) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 31&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e4e5b67c-c37f-4579-a7e9-77c63127fa5b" testId="26cd0c85-b456-65b4-7616-c78652c38792" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.EverySelectedParameterAndFixedResidualJacobianMatchesCentralDifferences" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0686732" startTime="2026-10-26T16:25:38.0545816+08:00" endTime="2026-10-26T16:25:38.1217240+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e4e5b67c-c37f-4579-a7e9-77c63127fa5b">
+      <Output>
+        <ErrorInfo>
+          <Message>Automatic differentiation dimensions differ.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.EverySelectedParameterAndFixedResidualJacobianMatchesCentralDifferences() in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 61&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="dd13547b-5aef-4f7b-ac82-76493e60819a" testId="dadd0997-dbda-3c91-8ca8-efb1e9197438" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.CancellationBeforeDispatchUsesNoOpticalWorkAndDuringUpdatesRetainsTheLastChargedState" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.8112808" startTime="2026-10-26T16:25:37.2432406+08:00" endTime="2026-10-26T16:25:38.0526919+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dd13547b-5aef-4f7b-ac82-76493e60819a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: Cancelled&#xD;
+Actual:   DomainFailure</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.CancellationBeforeDispatchUsesNoOpticalWorkAndDuringUpdatesRetainsTheLastChargedState() in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 166&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1234e93a-37ad-4e15-b7ef-2fa4e1afe01a" testId="10fa74bf-fa33-cff0-6132-4599c524851b" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ChangedTargetsSamplingAndBindingsCannotShareAnObjectiveIdentity" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0173567" startTime="2026-10-26T16:25:38.1229069+08:00" endTime="2026-10-26T16:25:38.1398115+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1234e93a-37ad-4e15-b7ef-2fa4e1afe01a" />
+    <UnitTestResult executionId="c3854fda-dda6-4db9-8dce-5d93069fbe5d" testId="1f4ac5c4-d4b3-cbc4-77d9-89393148dcef" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 4)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.7917661" startTime="2026-10-26T16:25:35.4503351+08:00" endTime="2026-10-26T16:25:37.2394549+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c3854fda-dda6-4db9-8dce-5d93069fbe5d">
+      <Output>
+        <ErrorInfo>
+          <Message>Automatic differentiation dimensions differ.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(Int32 count) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 31&#xD;
+   at InvokeStub_FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="70fc1448-4419-4cba-b4f3-545a7d4368c0" testId="c39baecd-9f8c-af64-622d-e58d70d817bc" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 2)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.0195425" startTime="2026-10-26T16:25:34.4623436+08:00" endTime="2026-10-26T16:25:35.4474297+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="70fc1448-4419-4cba-b4f3-545a7d4368c0">
+      <Output>
+        <ErrorInfo>
+          <Message>Automatic differentiation dimensions differ.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(Int32 count) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 31&#xD;
+   at InvokeStub_FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="40d71f7b-1290-492c-be0f-07149324fb17" testId="490c08de-b5b8-7dcf-85f7-407137800f37" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SingularProfileAndMissingCoordinatesKeepAFailedFixedLayoutAndChargeTheirAttempts" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1213242" startTime="2026-10-26T16:25:38.5101507+08:00" endTime="2026-10-26T16:25:38.6316088+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="40d71f7b-1290-492c-be0f-07149324fb17" />
+    <UnitTestResult executionId="22c820b5-28dc-4378-be6e-be312ac4ceff" testId="a302971f-3eae-89e9-e15f-903c7f8daf27" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ClippingCannotRemoveResidualSlotsOrObtainFalseAcceptance" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0476390" startTime="2026-10-26T16:25:38.6319829+08:00" endTime="2026-10-26T16:25:38.6792581+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="22c820b5-28dc-4378-be6e-be312ac4ceff">
+      <Output>
+        <ErrorInfo>
+          <Message>Automatic differentiation dimensions differ.</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ClippingCannotRemoveResidualSlotsOrObtainFalseAcceptance() in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 105&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ChangedTargetsSamplingAndBindingsCannotShareAnObjectiveIdentity" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="10fa74bf-fa33-cff0-6132-4599c524851b">
+      <Execution id="1234e93a-37ad-4e15-b7ef-2fa4e1afe01a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="ChangedTargetsSamplingAndBindingsCannotShareAnObjectiveIdentity" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ClippingCannotRemoveResidualSlotsOrObtainFalseAcceptance" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="a302971f-3eae-89e9-e15f-903c7f8daf27">
+      <Execution id="22c820b5-28dc-4378-be6e-be312ac4ceff" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="ClippingCannotRemoveResidualSlotsOrObtainFalseAcceptance" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.IndependentValidationIsReservedWhenThereIsNoTrainingBudget" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="c2d20d13-c694-4ab1-3093-37b04cef38e2">
+      <Execution id="1607286d-817c-400b-bc5f-15fd9b46e80f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="IndependentValidationIsReservedWhenThereIsNoTrainingBudget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SingularProfileAndMissingCoordinatesKeepAFailedFixedLayoutAndChargeTheirAttempts" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="490c08de-b5b8-7dcf-85f7-407137800f37">
+      <Execution id="40d71f7b-1290-492c-be0f-07149324fb17" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="SingularProfileAndMissingCoordinatesKeepAFailedFixedLayoutAndChargeTheirAttempts" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.EverySelectedParameterAndFixedResidualJacobianMatchesCentralDifferences" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="26cd0c85-b456-65b4-7616-c78652c38792">
+      <Execution id="e4e5b67c-c37f-4579-a7e9-77c63127fa5b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="EverySelectedParameterAndFixedResidualJacobianMatchesCentralDifferences" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.CancellationBeforeDispatchUsesNoOpticalWorkAndDuringUpdatesRetainsTheLastChargedState" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="dadd0997-dbda-3c91-8ca8-efb1e9197438">
+      <Execution id="dd13547b-5aef-4f7b-ac82-76493e60819a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="CancellationBeforeDispatchUsesNoOpticalWorkAndDuringUpdatesRetainsTheLastChargedState" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 3)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="abceae68-a8c8-f5d8-7527-395bfaf523c7">
+      <Execution id="80f28a80-7959-4bf3-9441-47358abf3ff7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 2)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="c39baecd-9f8c-af64-622d-e58d70d817bc">
+      <Execution id="70fc1448-4419-4cba-b4f3-545a7d4368c0" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 4)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="1f4ac5c4-d4b3-cbc4-77d9-89393148dcef">
+      <Execution id="c3854fda-dda6-4db9-8dce-5d93069fbe5d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="c2d20d13-c694-4ab1-3093-37b04cef38e2" executionId="1607286d-817c-400b-bc5f-15fd9b46e80f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="abceae68-a8c8-f5d8-7527-395bfaf523c7" executionId="80f28a80-7959-4bf3-9441-47358abf3ff7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="26cd0c85-b456-65b4-7616-c78652c38792" executionId="e4e5b67c-c37f-4579-a7e9-77c63127fa5b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dadd0997-dbda-3c91-8ca8-efb1e9197438" executionId="dd13547b-5aef-4f7b-ac82-76493e60819a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="10fa74bf-fa33-cff0-6132-4599c524851b" executionId="1234e93a-37ad-4e15-b7ef-2fa4e1afe01a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1f4ac5c4-d4b3-cbc4-77d9-89393148dcef" executionId="c3854fda-dda6-4db9-8dce-5d93069fbe5d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c39baecd-9f8c-af64-622d-e58d70d817bc" executionId="70fc1448-4419-4cba-b4f3-545a7d4368c0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="490c08de-b5b8-7dcf-85f7-407137800f37" executionId="40d71f7b-1290-492c-be0f-07149324fb17" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a302971f-3eae-89e9-e15f-903c7f8daf27" executionId="22c820b5-28dc-4378-be6e-be312ac4ceff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="9" executed="9" passed="3" failed="6" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.86]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.96]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.99]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:03.48]       Automatic differentiation dimensions differ.&#xD;
+[xUnit.net 00:00:03.48]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.48]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs(31,0): at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(Int32 count)&#xD;
+[xUnit.net 00:00:03.48]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:03.48]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:04.49]       Automatic differentiation dimensions differ.&#xD;
+[xUnit.net 00:00:04.49]       Stack Trace:&#xD;
+[xUnit.net 00:00:04.49]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs(31,0): at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(Int32 count)&#xD;
+[xUnit.net 00:00:04.49]            at InvokeStub_FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(Object, Span`1)&#xD;
+[xUnit.net 00:00:04.49]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:06.28]       Automatic differentiation dimensions differ.&#xD;
+[xUnit.net 00:00:06.28]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.28]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs(31,0): at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(Int32 count)&#xD;
+[xUnit.net 00:00:06.28]            at InvokeStub_FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(Object, Span`1)&#xD;
+[xUnit.net 00:00:06.28]            at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:07.10]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:07.10]       Expected: Cancelled&#xD;
+[xUnit.net 00:00:07.10]       Actual:   DomainFailure&#xD;
+[xUnit.net 00:00:07.10]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.10]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs(166,0): at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.CancellationBeforeDispatchUsesNoOpticalWorkAndDuringUpdatesRetainsTheLastChargedState()&#xD;
+[xUnit.net 00:00:07.10]            at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+[xUnit.net 00:00:07.10]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:07.10]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:07.16]       Automatic differentiation dimensions differ.&#xD;
+[xUnit.net 00:00:07.16]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.16]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs(61,0): at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.EverySelectedParameterAndFixedResidualJacobianMatchesCentralDifferences()&#xD;
+[xUnit.net 00:00:07.16]            at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+[xUnit.net 00:00:07.16]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:07.16]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:07.72]       Automatic differentiation dimensions differ.&#xD;
+[xUnit.net 00:00:07.72]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.72]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs(105,0): at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ClippingCannotRemoveResidualSlotsOrObtainFalseAcceptance()&#xD;
+[xUnit.net 00:00:07.72]            at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+[xUnit.net 00:00:07.72]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:07.72]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:07.73]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T16:25:34.4316787+08:00">
+        <Text>[xUnit.net 00:00:03.47]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 3) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T16:25:35.4485598+08:00">
+        <Text>[xUnit.net 00:00:04.49]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 2) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T16:25:37.2401801+08:00">
+        <Text>[xUnit.net 00:00:06.28]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 4) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T16:25:38.0532162+08:00">
+        <Text>[xUnit.net 00:00:07.10]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.CancellationBeforeDispatchUsesNoOpticalWorkAndDuringUpdatesRetainsTheLastChargedState [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T16:25:38.1222425+08:00">
+        <Text>[xUnit.net 00:00:07.16]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.EverySelectedParameterAndFixedResidualJacobianMatchesCentralDifferences [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T16:25:38.6797122+08:00">
+        <Text>[xUnit.net 00:00:07.72]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ClippingCannotRemoveResidualSlotsOrObtainFalseAcceptance [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

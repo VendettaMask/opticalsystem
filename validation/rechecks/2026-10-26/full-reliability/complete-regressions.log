@@ -1,0 +1,81 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.Tests -> D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:04.29]     OpticalSystemDesign.Tests.SharedInfrastructureRefactorTests.CommercialSubsetTextKeepsDialectPrecisionAndCurrentCultureIndependence(codeV: True) [FAIL]
+[xUnit.net 00:00:04.33]     OpticalSystemDesign.Tests.SharedInfrastructureRefactorTests.CommercialSubsetTextKeepsDialectPrecisionAndCurrentCultureIndependence(codeV: False) [FAIL]
+  失败 OpticalSystemDesign.Tests.SharedInfrastructureRefactorTests.CommercialSubsetTextKeepsDialectPrecisionAndCurrentCultureIndependence(codeV: True) [8 ms]
+  错误消息:
+   Assert.Contains() Failure: Sub-string not found
+String:    "! OpticalSystemDesign CODE V SEQ common s"···
+Not found: "S 1\r\n  COM Stop mirror\r\n  RDY 25.12345678"···
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.SharedInfrastructureRefactorTests.CommercialSubsetTextKeepsDialectPrecisionAndCurrentCultureIndependence(Boolean codeV) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SharedInfrastructureRefactorTests.cs:line 151
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.SharedInfrastructureRefactorTests.CommercialSubsetTextKeepsDialectPrecisionAndCurrentCultureIndependence(codeV: False) [< 1 ms]
+  错误消息:
+   Assert.Contains() Failure: Sub-string not found
+String:    "! OpticalSystemDesign OSLO LEN common seq"···
+Not found: "SRF 1\r\n  NOTE Stop mirror\r\n  RD 25.123456"···
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.SharedInfrastructureRefactorTests.CommercialSubsetTextKeepsDialectPrecisionAndCurrentCultureIndependence(Boolean codeV) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SharedInfrastructureRefactorTests.cs:line 151
+   at InvokeStub_SharedInfrastructureRefactorTests.CommercialSubsetTextKeepsDialectPrecisionAndCurrentCultureIndependence(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:01:35.07]     OpticalSystemDesign.Tests.WorkspaceDockModelTests.OpticalDrawingNationalStandardEditionsUseSeparateStableDocuments [FAIL]
+  失败 OpticalSystemDesign.Tests.WorkspaceDockModelTests.OpticalDrawingNationalStandardEditionsUseSeparateStableDocuments [107 ms]
+  错误消息:
+   System.InvalidOperationException : Unable to locate 'Avalonia.Platform.IPlatformRenderInterface'.
+  堆栈跟踪:
+     at Avalonia.LocatorExtensions.GetRequiredService[T](IAvaloniaDependencyResolver resolver)
+   at Avalonia.Media.StreamGeometry.CreateDefiningGeometry()
+   at Avalonia.Media.Geometry.get_PlatformImpl()
+   at Avalonia.Media.StreamGeometry.Open()
+   at Avalonia.Media.StreamGeometry.Parse(String s)
+   at Avalonia.Media.Geometry.Parse(String s)
+   at OpticalSystemDesign.App.BrandAssets.LoadCompanyLogoImage(Nullable`1 color) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\BrandAssets.CompanyLogo.cs:line 19
+   at OpticalSystemDesign.App.Controls.CompanyLogoControl..ctor(Nullable`1 color) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Controls\CompanyLogoControl.cs:line 16
+   at OpticalSystemDesign.App.Controls.CompanyLogoControl..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Controls\CompanyLogoControl.cs:line 11
+   at OpticalSystemDesign.App.Panels.OpticalDrawingPanel..ctor(IPrescriptionService prescription, IMaterialCatalogService materials, IWorkspaceEventStream events, IVisualizationService visualization, OpticalDrawingStandard drawingStandard) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Panels\OpticalDrawingPanel.cs:line 55
+   at OpticalSystemDesign.App.Services.WorkspaceDockFactory.ResolveContent(String id) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\WorkspaceDockFactory.cs:line 710
+   at OpticalSystemDesign.App.Services.WorkspaceDockFactory.CreateDocument(WorkspaceDocumentDescriptor descriptor) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\WorkspaceDockFactory.cs:line 620
+   at OpticalSystemDesign.App.Services.WorkspaceDockFactory.OpenDocument(WorkspaceDocumentDescriptor descriptor) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\WorkspaceDockFactory.cs:line 334
+   at OpticalSystemDesign.App.Services.PanelManager.ShowOpticalDrawing(OpticalDrawingStandard standard) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\PanelManager.cs:line 253
+   at OpticalSystemDesign.Tests.WorkspaceDockModelTests.OpticalDrawingNationalStandardEditionsUseSeparateStableDocuments() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockModelTests.cs:line 656
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:01:35.65]     OpticalSystemDesign.Tests.WorkspaceDockModelTests.ManufacturingDocumentsCreateTheirExpectedPanels [FAIL]
+  失败 OpticalSystemDesign.Tests.WorkspaceDockModelTests.ManufacturingDocumentsCreateTheirExpectedPanels [45 ms]
+  错误消息:
+   System.InvalidOperationException : Unable to locate 'Avalonia.Platform.IPlatformRenderInterface'.
+  堆栈跟踪:
+     at Avalonia.LocatorExtensions.GetRequiredService[T](IAvaloniaDependencyResolver resolver)
+   at Avalonia.Media.StreamGeometry.CreateDefiningGeometry()
+   at Avalonia.Media.Geometry.get_PlatformImpl()
+   at Avalonia.Media.StreamGeometry.Open()
+   at Avalonia.Media.StreamGeometry.Parse(String s)
+   at Avalonia.Media.Geometry.Parse(String s)
+   at OpticalSystemDesign.App.BrandAssets.LoadCompanyLogoImage(Nullable`1 color) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\BrandAssets.CompanyLogo.cs:line 19
+   at OpticalSystemDesign.App.Controls.CompanyLogoControl..ctor(Nullable`1 color) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Controls\CompanyLogoControl.cs:line 16
+   at OpticalSystemDesign.App.Controls.CompanyLogoControl..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Controls\CompanyLogoControl.cs:line 11
+   at OpticalSystemDesign.App.Panels.OpticalDrawingPanel..ctor(IPrescriptionService prescription, IMaterialCatalogService materials, IWorkspaceEventStream events, IVisualizationService visualization, OpticalDrawingStandard drawingStandard) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Panels\OpticalDrawingPanel.cs:line 55
+   at OpticalSystemDesign.App.Services.WorkspaceDockFactory.ResolveContent(String id) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\WorkspaceDockFactory.cs:line 710
+   at OpticalSystemDesign.App.Services.WorkspaceDockFactory.CreateDocument(WorkspaceDocumentDescriptor descriptor) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\WorkspaceDockFactory.cs:line 620
+   at OpticalSystemDesign.App.Services.WorkspaceDockFactory.OpenDocument(WorkspaceDocumentDescriptor descriptor) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\WorkspaceDockFactory.cs:line 334
+   at OpticalSystemDesign.Tests.WorkspaceDockModelTests.ManufacturingDocumentsCreateTheirExpectedPanels() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockModelTests.cs:line 640
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\full-reliability\complete-regressions.trx
+
+失败!  - 失败:     4，通过:   599，已跳过:     0，总计:   603，持续时间: 3 m 1 s - OpticalSystemDesign.Tests.dll (net10.0)

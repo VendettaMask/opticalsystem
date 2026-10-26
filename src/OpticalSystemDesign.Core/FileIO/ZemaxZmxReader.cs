@@ -255,15 +255,15 @@ internal static partial class ZemaxZmxReader
                 case "NSOP":
                     if (current?.PolygonPayload is not null)
                     {
-                        current.PolygonPose = Enumerable.Range(1,6).Select(i => RequiredDouble(tokens,i,command)).ToArray();
+                        current.PolygonPose = Enumerable.Range(1, 6).Select(i => RequiredDouble(tokens, i, command)).ToArray();
                         current.PolygonMaterial = tokens[7];
                     }
                     break;
                 case "NSOD":
                     if (current?.PolygonPayload is not null && tokens.Length > 2 && tokens[1] == "1")
-                        current.PolygonScale = RequiredDouble(tokens,2,command);
+                        current.PolygonScale = RequiredDouble(tokens, 2, command);
                     if (current?.PolygonPayload is not null && tokens.Length > 2 && tokens[1] == "2")
-                        current.PolygonIsVolume = RequiredDouble(tokens,2,command) != 0;
+                        current.PolygonIsVolume = RequiredDouble(tokens, 2, command) != 0;
                     break;
                 case "NSCS":
                     if (current?.PolygonPayload is not null && tokens.Length > 3

@@ -1,0 +1,191 @@
+{
+  "Date": "2026-10-26",
+  "Scope": "DUP-01 through DUP-05 architecture refactoring, preserving established adapter differences",
+  "BaseCommit": "4b9ea06f3ac0348eacd48d688b1dc4ea71e25a82",
+  "WorkingTreeDirty": true,
+  "Items": [
+    "DUP-01 shared detector accumulator",
+    "DUP-02 ASCII STL TextReader parser",
+    "DUP-03 camera spectral CSV infrastructure",
+    "DUP-04 immutable non-sequential wavelength index",
+    "DUP-05 commercial subset text writer"
+  ],
+  "Build": {
+    "DefaultAppAndTestOutputsUpdated": true,
+    "Configuration": "Release",
+    "FinalCompilerErrors": 0,
+    "FinalCompilerWarnings": 0,
+    "Log": "targeted-regression-final.log"
+  },
+  "Tests": {
+    "Added": 14,
+    "TrxSha256": "ec1d3392cee0d8c3d4c5591f965d2383bd20beba1ed9c591423794d3ef4dd88f",
+    "Classes": [
+      {
+        "Count": 13,
+        "Class": "OpticalSystemDesign.Tests.CameraContinuousServiceTests"
+      },
+      {
+        "Count": 15,
+        "Class": "OpticalSystemDesign.Tests.CameraSensorFileTests"
+      },
+      {
+        "Count": 23,
+        "Class": "OpticalSystemDesign.Tests.NonSequentialRayTracerTests"
+      },
+      {
+        "Count": 38,
+        "Class": "OpticalSystemDesign.Tests.NonSequentialStrayLightTests"
+      },
+      {
+        "Count": 6,
+        "Class": "OpticalSystemDesign.Tests.OpticCapabilityPreflightTests"
+      },
+      {
+        "Count": 2,
+        "Class": "OpticalSystemDesign.Tests.PriorityDataSafetyTests"
+      },
+      {
+        "Count": 4,
+        "Class": "OpticalSystemDesign.Tests.PriorityPhysicsReliabilityTests"
+      },
+      {
+        "Count": 14,
+        "Class": "OpticalSystemDesign.Tests.SharedInfrastructureRefactorTests"
+      }
+    ],
+    "Skipped": 0,
+    "Trx": "targeted-regression-final.trx",
+    "Failed": 0,
+    "Passed": 115,
+    "Total": 115
+  },
+  "Frozen": {
+    "WorkingMatched": 2668,
+    "Matched": 2668,
+    "Unchanged": true,
+    "Count": 2668
+  },
+  "EarlierRuns": [
+    "Initial build: missing exporter capability import and shared-workspace multi-configuration namespace errors.",
+    "Next build: two further namespace errors in concurrently edited guards, and an existing unreachable-code warning; retained.",
+    "First test build: new fixture used mesh asset rather than GetGeometry() accessors; corrected.",
+    "First completed 14-case set: 12 passed, 2 failed during legacy reflective fixture construction before exporter execution. Fixture split into non-reflective round trip and reflective output checks; product importer unchanged.",
+    "Next attempt interrupted by another compiler locking App obj output; no test results, not a pass.",
+    "Final scoped collection 115/115 includes all repaired 14 cases; earlier passes are not added."
+  ],
+  "AncillaryCompileRepair": "Only FileIO.StarOptProjectStore references changed to Serialization.StarOptProjectStore in existing multi-configuration limits; limit semantics preserved.",
+  "Sources": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialTracingEngine.cs",
+      "BeforeSha256": "f7712adb00fa125a55e587c133fb9b65832a91d4dc2256cbbb469cc3325472bf",
+      "AfterSha256": "fc7e6ee787e0abd2625f7eb3ec70db0b69ee5eb1e8a0eea47deab7a2b640a2af"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDetectorReconstruction.cs",
+      "BeforeSha256": "2cdc519f6ad851f48a410923334167c24e6034c8686a7b774e579030d27cfa36",
+      "AfterSha256": "6c1f935a258528f1a5206692917dcc9f8d334c15897a132da799cd7e70d7f29c"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDetectorAccumulator.cs",
+      "BeforeSha256": null,
+      "AfterSha256": "506a8f21e6dd6552aea8d2c58862fc8438e38acec39e213fb60523c4887f4f34"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialMesh.cs",
+      "BeforeSha256": "604e5cb545c4043d1827515eac8e61d199126ab135fed3414cccb5795c8a6e0d",
+      "AfterSha256": "36ce43c19e9468d34950f8f94e1f27bb49df9fe7e89c43f51bdfca4bbcedb287"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialPathFilter.cs",
+      "BeforeSha256": "1bde6771ef414df8f1ce700b8e6beba08dab2b49c871e534dcbe92f27a265a65",
+      "AfterSha256": "49b7c78392a12cb5ad9712fc87d411a5cef4132f702291a97bebbade08df8df8"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialWavelengthIndex.cs",
+      "BeforeSha256": null,
+      "AfterSha256": "cd03dc1bd4a5a9bcb1b60936067c9da001b0a02032c7fa2b29b5fb7201196bf4"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/NonSequentialVisualizationBuilder.cs",
+      "BeforeSha256": "3b2027d5f6d7a9b61d7a9a41ccf170b4de1106be20b417fca0bf293c33f6d1ec",
+      "AfterSha256": "e8bd8cd7e3225b05195ea51cfe1dbba356614e28cc9ca719f5cf795e23b6dd2c"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/CameraImagingService.Files.cs",
+      "BeforeSha256": "6ff16b62e19bfdf0ffae84660b2cd554095a34aadff015a531e8ad1be7741a3e",
+      "AfterSha256": "0d0c1c2de61e988790580d9325d980c2bc9ac513c13bfcfb4869467fc3f8a164"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/CameraImagingService.SpectrumFiles.cs",
+      "BeforeSha256": "336536e0aaa48c3cc64d4bf267d0f112eb9ef1250dd46991685fb37c54148366",
+      "AfterSha256": "eae3ade9623794243813fac439d64b7ff6ae9a6855b7b6492eca2ce71741d059"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/CameraSpectralCsvReader.cs",
+      "BeforeSha256": null,
+      "AfterSha256": "87eea25b6818b52cac4ef8fd1a38dcc34ec436e279050b8fe0d54e265c3a3480"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/FileIO/CommercialFormatIO.cs",
+      "BeforeSha256": "c6798a54fca5c1bb1229e31b5847a3dbf8b9b160a95787a17c6f2d5bdea6ac0b",
+      "AfterSha256": "3538f4f127ccb1c9395ecd34485dd6ecb05b254e677c61a9d78cc59e3f4adf55"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/FileIO/SequentialSubsetTextWriter.cs",
+      "BeforeSha256": null,
+      "AfterSha256": "131735a46c79e9036b398116f1ae99f7b0daccd57fb2bd3cb31e74eb676dd873"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Multiconfig/MultiConfiguration.cs",
+      "BeforeSha256": null,
+      "AfterSha256": "e4f3f80300c379c59ce932a65f69c593768221b950e6b431bb765e9d14f523b0"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/SharedInfrastructureRefactorTests.cs",
+      "BeforeSha256": null,
+      "AfterSha256": "5f8286084d77d34943a381488e0f1e2ff6d76f4c81fe08b84259f4efe24aa40d"
+    },
+    {
+      "Path": "docs/CURRENT_STATUS.md",
+      "BeforeSha256": "707c56b8efd9139dbb791dced54246e5aa3cdd79b4d49154d799650969a42b48",
+      "AfterSha256": "fc4370b25d785e6c6eec6362e6ed15f872ad6f1846bd019abcc75d06d1838070"
+    },
+    {
+      "Path": "docs/NON_SEQUENTIAL_TRACING.md",
+      "BeforeSha256": "5eafd8b77e8773080417724ec143ad7a66c7cd37f47a2113be7307fe84cdecc1",
+      "AfterSha256": "51f45a64767a71bc8ed5340510b7b5c10d73f40d1e23fff1516b5af693f19186"
+    },
+    {
+      "Path": "docs/FILE_FORMATS_AND_PLUGINS.md",
+      "BeforeSha256": "6aab919f25533406380049fb4fab8a09cfe8895659a15b30f7604dc2907ceca9",
+      "AfterSha256": "c1a2e4493ef12e09e7ec7b44d4bb4465430b22665caafd865fb3c724831c9aad"
+    },
+    {
+      "Path": "docs/CAMERA_IMAGING_LAB.md",
+      "BeforeSha256": "87c8a002b60ecd962fd6e16adeeb5805963fd3b270b5ae2f87022e554f2653eb",
+      "AfterSha256": "0cbee6c457611c41912b637d356de6117700d59ced7e63c0b7eecaa776f8ea3f"
+    },
+    {
+      "Path": "docs/DUPLICATE_CODE_REFACTOR_2026-10-26.md",
+      "BeforeSha256": null,
+      "AfterSha256": "7068dcd0beb5cf35a00ccd18161bf06ec87d0668fbfa3a98bef7cf09ef625c24"
+    }
+  ],
+  "Limits": [
+    "Existing unrelated uncommitted changes preserved; these results describe the observed shared working tree.",
+    "No full repository suite, new Zemax numerical certification, installer build/execution, remote publishing or installed-application replacement.",
+    "No new support for commercial reflective import, quoted CSV fields, or changes to format subsets/optical tolerances.",
+    "No commit or push performed for this refactor."
+  ],
+  "EvidenceArchive": "evidence.zip",
+  "EvidenceArchiveSha256": "d24759d51d5b79de4f00ea2069dcc16a54636723cb77a6e6f46825c0a43845cb",
+  "Documentation": {
+    "StrictPassed": true,
+    "Documents": 1115,
+    "BrokenLinks": 0,
+    "MarkdownFenceIssues": 0,
+    "GuideDuplicateGroups": 0,
+    "ReportSha256": "b017519db7a57a70fc46034a59df9c7987fa963566b1e617e8fd035982e7363a"
+  }
+}

@@ -1,7 +1,7 @@
 using OpticalSystemDesign.Core.Analysis;
-using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Rays;
 
 namespace OpticalSystemDesign.Core.Services;
@@ -32,33 +32,33 @@ public static class FieldCurvatureMetrics
             var slope = Project(ray.Direction, axis) / ray.Direction.Z;
             return (Project(p, axis) - slope * p.Z, slope - Project(chief.Direction, axis) / chief.Direction.Z);
         }
-        var xBase = rayPair == ParabasalRayPair.Symmetric ? AnalysisTrace.FinalSample(optic,hx,hy,-pupilDelta,0,wavelength) : chief;
-        var yBase = rayPair == ParabasalRayPair.Symmetric ? AnalysisTrace.FinalSample(optic,hx,hy,0,-pupilDelta,wavelength) : chief;
-        (double P,double A) Difference(RayTraceSample positive,RayTraceSample negative,Vector3D axis)
+        var xBase = rayPair == ParabasalRayPair.Symmetric ? AnalysisTrace.FinalSample(optic, hx, hy, -pupilDelta, 0, wavelength) : chief;
+        var yBase = rayPair == ParabasalRayPair.Symmetric ? AnalysisTrace.FinalSample(optic, hx, hy, 0, -pupilDelta, wavelength) : chief;
+        (double P, double A) Difference(RayTraceSample positive, RayTraceSample negative, Vector3D axis)
         {
-            var a=Response(positive,axis);var b=Response(negative,axis);
-            return (a.P-b.P,a.A-b.A);
+            var a = Response(positive, axis); var b = Response(negative, axis);
+            return (a.P - b.P, a.A - b.A);
         }
-        var xx = Difference(x,xBase,xAxis);
-        var yx = Difference(x,xBase,yAxis);
-        var xy = Difference(y,yBase,xAxis);
-        var yy = Difference(y,yBase,yAxis);
-        return AfocalVergencesFromResponse(xx.P,yx.P,xy.P,yy.P,xx.A,yx.A,xy.A,yy.A,chief.Direction.Z);
+        var xx = Difference(x, xBase, xAxis);
+        var yx = Difference(x, xBase, yAxis);
+        var xy = Difference(y, yBase, xAxis);
+        var yy = Difference(y, yBase, yAxis);
+        return AfocalVergencesFromResponse(xx.P, yx.P, xy.P, yy.P, xx.A, yx.A, xy.A, yy.A, chief.Direction.Z);
     }
 
     // A P^-1 is the angular response to transverse position. Invert P, not
     // angular power A: a genuinely collimated axis has zero power and must
     // remain valid when the orthogonal axis has finite vergence.
-    internal static (double Sagittal,double Tangential) AfocalVergencesFromResponse(
-        double pxx,double pyx,double pxy,double pyy,double axx,double ayx,double axy,double ayy,double chiefCosine)
+    internal static (double Sagittal, double Tangential) AfocalVergencesFromResponse(
+        double pxx, double pyx, double pxy, double pyy, double axx, double ayx, double axy, double ayy, double chiefCosine)
     {
-        var determinant=pxx*pyy-pxy*pyx;
-        if(Math.Abs(determinant)<=1e-30)throw new InvalidOperationException("Degenerate afocal parabasal footprint.");
-        var scale=-1000*chiefCosine/determinant;
-        var sagittal=scale*(axx*pyy-axy*pyx);
-        var tangential=scale*(ayy*pxx-ayx*pxy);
-        if(!double.IsFinite(sagittal)||!double.IsFinite(tangential))throw new InvalidOperationException("Afocal vergence is not finite.");
-        return(sagittal,tangential);
+        var determinant = pxx * pyy - pxy * pyx;
+        if (Math.Abs(determinant) <= 1e-30) throw new InvalidOperationException("Degenerate afocal parabasal footprint.");
+        var scale = -1000 * chiefCosine / determinant;
+        var sagittal = scale * (axx * pyy - axy * pyx);
+        var tangential = scale * (ayy * pxx - ayx * pxy);
+        if (!double.IsFinite(sagittal) || !double.IsFinite(tangential)) throw new InvalidOperationException("Afocal vergence is not finite.");
+        return (sagittal, tangential);
     }
 
     public static double Evaluate(Optic optic, double wavelength, double hx, double hy, bool sagittal)

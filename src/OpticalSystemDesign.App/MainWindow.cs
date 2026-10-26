@@ -2,19 +2,19 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Layout;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Platform.Storage;
 using Avalonia.Styling;
 using Avalonia.Threading;
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Formatting;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Manufacturing;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Formatting;
+using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.App;
 
@@ -144,7 +144,7 @@ public sealed partial class MainWindow : Window
             startup.Sample,
             UserGlassCatalogDirectory(),
             BundledLensLibraryDirectory());
-        if (Enum.TryParse<OpticalWorkbenchMode>(_settings.WorkbenchMode, out var savedMode))
+        if (Enum.TryParse<OpticalWorkbenchMode>(_settings.WorkbenchMode, out var savedMode) && Enum.IsDefined(savedMode))
         {
             _application.Modes.SwitchTo(savedMode);
         }
@@ -157,6 +157,7 @@ public sealed partial class MainWindow : Window
         RegisterActions();
         _commandSearch = new CommandSearchControl(_actions);
         _actions.ExecutionFailed += OnActionExecutionFailed;
+        ClipboardExceptionBoundary.ReadFailed += OnClipboardReadFailed;
         _panels.PersistenceFailed += OnWorkspacePersistenceFailed;
 
         Title = "Optical System Design";
@@ -278,12 +279,19 @@ public sealed partial class MainWindow : Window
         Closed -= OnClosed;
         KeyDown -= OnWindowKeyDown;
         _actions.ExecutionFailed -= OnActionExecutionFailed;
+        ClipboardExceptionBoundary.ReadFailed -= OnClipboardReadFailed;
         _panels.PersistenceFailed -= OnWorkspacePersistenceFailed;
         _application.Events.Changed -= OnWorkspaceChanged;
         _application.Events.StatusChanged -= OnWorkspaceStatusChanged;
         _panels.Dispose();
         _cameraImagingWindow?.Close();
         _application.Dispose();
+    }
+
+    private void OnClipboardReadFailed(object? sender, EventArgs args)
+    {
+        if (!_closed && !_closeInProgress)
+            _statusText.Text = UiLocalization.Text(ClipboardExceptionBoundary.FailureMessage);
     }
 
 }

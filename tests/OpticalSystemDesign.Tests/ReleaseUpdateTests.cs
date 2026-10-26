@@ -193,7 +193,9 @@ public sealed class ReleaseUpdateTests
     }
 
     [Theory]
-    [InlineData(199, "UpdateAvailable")][InlineData(200, "UpToDate")][InlineData(201, "UpToDate")]
+    [InlineData(199, "UpdateAvailable")]
+    [InlineData(200, "UpToDate")]
+    [InlineData(201, "UpToDate")]
     public void TestDiscoveryUsesSignedBuildSequenceAndPreservesStableOnlyChecks(long sequence, string status)
     {
         var release = SignedTestRelease();

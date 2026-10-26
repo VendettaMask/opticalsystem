@@ -1,8 +1,8 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using OpticalSystemDesign.App.Laboratories.InitialStructure;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Serialization;
-using OpticalSystemDesign.App.Laboratories.InitialStructure;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 

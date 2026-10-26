@@ -33,7 +33,7 @@ internal static class LaboratoryPresentation
     }
 
     internal static TextBlock Hint(string text) => Muted(new TextBlock
-        { Text = text, TextWrapping = TextWrapping.Wrap, FontSize = DisplayTypography.BodySmall });
+    { Text = text, TextWrapping = TextWrapping.Wrap, FontSize = DisplayTypography.BodySmall });
 
     internal static TextBlock Muted(TextBlock text)
     {
@@ -43,21 +43,35 @@ internal static class LaboratoryPresentation
 
     internal static Control Heading(string title, string icon, bool page = false)
     {
-        var glyph = new LocalIcon { IconName = icon, Width = page ? 26 : 18, Height = page ? 26 : 18,
-            VerticalAlignment = VerticalAlignment.Center };
+        var glyph = new LocalIcon
+        {
+            IconName = icon,
+            Width = page ? 26 : 18,
+            Height = page ? 26 : 18,
+            VerticalAlignment = VerticalAlignment.Center
+        };
         glyph.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.TextAccent);
         var row = new Grid { ColumnDefinitions = new("Auto,*"), ColumnSpacing = page ? 10 : 8 };
         row.Children.Add(glyph);
-        var label = new TextBlock { Text = title, FontWeight = FontWeight.SemiBold,
+        var label = new TextBlock
+        {
+            Text = title,
+            FontWeight = FontWeight.SemiBold,
             FontSize = page ? DisplayTypography.PageTitle : DisplayTypography.CardTitle,
-            TextWrapping = TextWrapping.Wrap, VerticalAlignment = VerticalAlignment.Center };
+            TextWrapping = TextWrapping.Wrap,
+            VerticalAlignment = VerticalAlignment.Center
+        };
         Grid.SetColumn(label, 1); row.Children.Add(label);
         return row;
     }
 
     internal static Control Header(string title, string icon, string description, Control context, params Control[] actions) =>
-        new StackPanel { Name = "LaboratoryHeader", Spacing = 7,
-            Children = { Heading(title, icon, page: true), Hint(description), context, Commands(actions) } };
+        new StackPanel
+        {
+            Name = "LaboratoryHeader",
+            Spacing = 7,
+            Children = { Heading(title, icon, page: true), Hint(description), context, Commands(actions) }
+        };
 
     internal static WrapPanel Commands(params Control[] controls)
     {
@@ -100,7 +114,8 @@ internal static class LaboratoryPresentation
 
     internal static ScrollViewer Scroll(Control content) => new()
     {
-        Content = content, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
+        Content = content,
+        HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
         VerticalScrollBarVisibility = ScrollBarVisibility.Auto
     };
 }

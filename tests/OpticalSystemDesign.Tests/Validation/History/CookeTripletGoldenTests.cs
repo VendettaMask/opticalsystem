@@ -1,8 +1,8 @@
 using System.Globalization;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
-using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Coordinates;

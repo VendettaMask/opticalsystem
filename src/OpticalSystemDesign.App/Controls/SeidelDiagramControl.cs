@@ -4,8 +4,8 @@ using Avalonia.Automation;
 using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Media;
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Controls;
 

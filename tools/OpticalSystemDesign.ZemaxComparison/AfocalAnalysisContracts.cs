@@ -61,8 +61,11 @@ public static class AfocalAnalysisContracts
                 ?? throw new InvalidDataException("Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.")
             };
         if (request.CanonicalAnalysisKey is "Field Curvature" or "Field Curvature and Distortion")
-            return config with { Quantities = config.AfocalQuantities
-                ?? config.Quantities.Where(pair => pair.Key == "Distortion").ToDictionary() };
+            return config with
+            {
+                Quantities = config.AfocalQuantities
+                ?? config.Quantities.Where(pair => pair.Key == "Distortion").ToDictionary()
+            };
         return config;
     }
 

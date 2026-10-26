@@ -1,9 +1,9 @@
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Capabilities;
-using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Coatings;
-using OpticalSystemDesign.Core.Interactions;
+using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Geometries;
+using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Propagation;
 using OpticalSystemDesign.Core.Rays;
@@ -20,6 +20,7 @@ public sealed partial class SequentialRayTracer
     private readonly Optic _optic;
     private RayTraceCache? _traceCache;
     private long _cacheOpticRevision;
+    private string? _cacheOpticIdentity;
 
     public SequentialRayTracer(Optic optic)
     {
@@ -29,10 +30,11 @@ public sealed partial class SequentialRayTracer
 
     public RayGenerator RayGenerator { get; }
 
-    internal void ConfigureCache(RayTraceCache? cache, long opticRevision)
+    internal void ConfigureCache(RayTraceCache? cache, long opticRevision, string? opticIdentity = null)
     {
         _traceCache = cache;
         _cacheOpticRevision = opticRevision;
+        _cacheOpticIdentity = opticIdentity;
     }
 
     public SequentialTrace Trace()
@@ -332,6 +334,7 @@ public sealed partial class SequentialRayTracer
         {
             cacheKey = RayTraceCacheKey.Create(
                 _cacheOpticRevision,
+                _cacheOpticIdentity!,
                 _optic.Backend.Current.Name + (SequentialGpuSession.Current is { Enabled: true } ? "/cuda-propagation-v1" : ""),
                 request,
                 retainedSurfaceIndices,
@@ -373,7 +376,7 @@ public sealed partial class SequentialRayTracer
 
         try
         {
-            var usedGpu=TryTraceGpu(bundle,request,surfaceSlots,maximumRequiredSurface,samples,hasSamples,finalOpticalPaths,hasFinalOpticalPath);
+            var usedGpu = TryTraceGpu(bundle, request, surfaceSlots, maximumRequiredSurface, samples, hasSamples, finalOpticalPaths, hasFinalOpticalPath);
             if (!usedGpu)
                 TraceSurfaceMajor(
                 bundle,
@@ -405,7 +408,7 @@ public sealed partial class SequentialRayTracer
                 _optic.SurfaceGroup.RecordTrace(BuildSurfaceTraceData(surfaces, histories));
             }
 
-            if (cacheKey is not null && (SequentialGpuSession.Current is not {Enabled:true} || usedGpu))
+            if (cacheKey is not null && (SequentialGpuSession.Current is not { Enabled: true } || usedGpu))
             {
                 _traceCache?.Store(cacheKey, samples, hasSamples, sampleCount);
             }

@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
@@ -9,7 +10,6 @@ using Avalonia.VisualTree;
 using Dock.Avalonia.Controls;
 using Dock.Model.Core;
 using Dock.Settings;
-using System.Runtime.CompilerServices;
 
 namespace OpticalSystemDesign.App.Services;
 

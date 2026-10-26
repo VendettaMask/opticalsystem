@@ -1,0 +1,39 @@
+{
+  "correctedUtc": "2026-10-26T06:39:56.522741+00:00",
+  "issue": "Original import omitted physical clipping apertures; numerical model metadata was incomplete.",
+  "fix": "Explicit Core SetRadius call on every physical original row; all 13 physical radii checked against original JSON.",
+  "allOriginalPhysicalAperturesVerified": true,
+  "physicalApertureCount": 13,
+  "sameFrozenOpticsAndSettings": true,
+  "metricChangesCsharpOrOriginal": [
+    {
+      "FocalLengthMm": 0.0,
+      "EntrancePupilDiameterMm": 0.0,
+      "FNumber": 0.0,
+      "SensorPositionMm": 0.0,
+      "WorstValidFieldRmsMm": 0.0,
+      "ValidFieldCount": 0,
+      "AttemptedRays": 0,
+      "ValidRays": 0,
+      "ValidRayFraction": 0.0
+    },
+    {
+      "FocalLengthMm": 0.0,
+      "EntrancePupilDiameterMm": 0.0,
+      "FNumber": 0.0,
+      "SensorPositionMm": 0.0,
+      "WorstValidFieldRmsMm": 0.0,
+      "ValidFieldCount": 0,
+      "AttemptedRays": 0,
+      "ValidRays": 0,
+      "ValidRayFraction": 0.0
+    }
+  ],
+  "maximumPerFieldMetricAbsoluteDifference": 0.0,
+  "allComparedMetricsUnchangedWithin1e12": true,
+  "oldRawEvidencePreserved": true,
+  "correctedData": "common-analysis-corrected-apertures/common-analysis.json",
+  "correctedOriginalSnapshot": "common-analysis-corrected-apertures/original-imported.optic.json",
+  "oldSnapshot": "common-analysis/original-imported.optic.json",
+  "note": "No effect was observed for these two sampled optics. This does not excuse the missing aperture or establish equivalence for arbitrary optics."
+}

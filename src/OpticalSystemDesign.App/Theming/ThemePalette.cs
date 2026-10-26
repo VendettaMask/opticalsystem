@@ -269,10 +269,8 @@ internal sealed record ThemePalette(
             [ThemeResourceBindings.SceneOrientationFill] = Brush(SceneOrientationFill),
             [ThemeResourceBindings.SceneOrientationBorder] = Brush(SceneOrientationBorder)
         };
-        if (BrandAssets.TryLoadCompanyLogoBitmap() is { } companyLogo)
-        {
+        if (BrandAssets.TryLoadCompanyLogoImage(TextPrimary) is { } companyLogo)
             resources[ThemeAssetBindings.CompanyLogo] = companyLogo;
-        }
 
         return resources;
     }

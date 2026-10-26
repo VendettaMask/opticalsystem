@@ -2,8 +2,8 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Laboratories;
 
@@ -35,12 +35,16 @@ public sealed partial class CameraImagingWindow
     }
     private static StackPanel SpectrumLegend() => new()
     {
-        Spacing = 2, IsVisible = false, HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Top,
+        Spacing = 2,
+        IsVisible = false,
+        HorizontalAlignment = HorizontalAlignment.Right,
+        VerticalAlignment = VerticalAlignment.Top,
         Margin = new Thickness(ResponsivePlotLegendGrid.LegendInset)
     };
     private Control BuildSceneSpectraPage() => Scroll(new StackPanel
     {
-        Spacing = 12, Children =
+        Spacing = 12,
+        Children =
         {
             LaboratoryPresentation.Card(new Border { Padding = new Thickness(12), Child = _scenePageInfo }),
             LaboratoryPresentation.Card(new ResponsivePlotLegendGrid(_illuminantPlot, _illuminantLegend)),

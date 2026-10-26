@@ -20,7 +20,7 @@ internal static class AutoLensManagedDesign
         AutoLensManagedState? resume = null, bool screenOnly = false)
     {
         var settings = specification.FlatStart!.AutoLens ?? new();
-        using var ownedCompute = SequentialGpuSession.Current is null ? new SequentialGpuSession(settings.ComputeMode,cancellationToken) : null;
+        using var ownedCompute = SequentialGpuSession.Current is null ? new SequentialGpuSession(settings.ComputeMode, cancellationToken) : null;
         var propagation = SequentialGpuSession.Current!;
         var budget = specification.Budget.MaximumEvaluations;
         var count = restart is null ? bootstrap.EvaluationCount : 0;
@@ -198,10 +198,14 @@ internal static class AutoLensManagedDesign
         };
         if (state is not null) state = state with
         {
-            TrainingSteps = trainingSteps.ToArray(), TargetPolishEvaluationCount = polishEvaluations,
-            LastComputeExecution = lastComputeExecution, GpuBatches = gpuBatches, GpuRays = gpuRays, GpuMilliseconds = gpuMilliseconds,
+            TrainingSteps = trainingSteps.ToArray(),
+            TargetPolishEvaluationCount = polishEvaluations,
+            LastComputeExecution = lastComputeExecution,
+            GpuBatches = gpuBatches,
+            GpuRays = gpuRays,
+            GpuMilliseconds = gpuMilliseconds,
             PropagationExecution = settings.ComputeMode == DesignComputeMode.Cpu ? resume?.PropagationExecution
-                : MergePropagation(resume?.PropagationExecution,propagation.Execution)
+                : MergePropagation(resume?.PropagationExecution, propagation.Execution)
         };
         if (lastComputeExecution is { } execution)
             diagnostics.Add(new("design.autolens-compute", $"{execution.Backend}; {execution.DeviceName}; {gpuBatches} CUDA batches, {gpuRays} differentiated rays; CPU formal tracing and independent physical validation retained."
@@ -433,13 +437,16 @@ internal static class AutoLensManagedDesign
         }
     }
 
-    private static SequentialGpuExecution MergePropagation(SequentialGpuExecution? previous,SequentialGpuExecution current) =>
+    private static SequentialGpuExecution MergePropagation(SequentialGpuExecution? previous, SequentialGpuExecution current) =>
         previous is null ? current : current with
         {
-            AimRays=checked(previous.AimRays+current.AimRays),AimTraces=checked(previous.AimTraces+current.AimTraces),
-            PropagatedRays=checked(previous.PropagatedRays+current.PropagatedRays),Batches=checked(previous.Batches+current.Batches),
-            Milliseconds=previous.Milliseconds+current.Milliseconds,CpuRecoveryRays=checked(previous.CpuRecoveryRays+current.CpuRecoveryRays),
-            FallbackReason=current.FallbackReason ?? previous.FallbackReason
+            AimRays = checked(previous.AimRays + current.AimRays),
+            AimTraces = checked(previous.AimTraces + current.AimTraces),
+            PropagatedRays = checked(previous.PropagatedRays + current.PropagatedRays),
+            Batches = checked(previous.Batches + current.Batches),
+            Milliseconds = previous.Milliseconds + current.Milliseconds,
+            CpuRecoveryRays = checked(previous.CpuRecoveryRays + current.CpuRecoveryRays),
+            FallbackReason = current.FallbackReason ?? previous.FallbackReason
         };
 
     private static IReadOnlyList<OpticalDesignParameter> Parameters(Optic optic, InitialStructureSpecification specification, int elements, bool materials)

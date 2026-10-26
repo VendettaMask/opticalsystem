@@ -24,59 +24,58 @@ public sealed class BrandAssetTests
     }
 
     [Fact]
-    public void EmbeddedCompanyLogoCanBeLoadedByTheAnalysisFooter()
+    public void CompanyLogoIsOutlinedVectorWithoutRasterOrLiveText()
     {
         using var stream = OpticalSystemDesign.App.BrandAssets.OpenCompanyLogoStream();
-        using var memory = new MemoryStream();
-        stream.CopyTo(memory);
+        var svg = System.Xml.Linq.XDocument.Load(stream);
+        System.Xml.Linq.XNamespace ns = "http://www.w3.org/2000/svg";
+        var root = Assert.IsType<System.Xml.Linq.XElement>(svg.Root);
+        Assert.Equal(ns + "svg", root.Name);
+        var path = Assert.Single(root.Elements(ns + "path"));
+        Assert.True(path.Attribute("d")!.Value.Length > 1000);
+        Assert.All(root.Descendants(), element => Assert.Contains(element.Name.LocalName, new[] { "title", "desc", "path" }));
+        Assert.DoesNotContain("data:", svg.ToString(), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("font-family", svg.ToString(), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain(typeof(OpticalSystemDesign.App.BrandAssets).Assembly.GetManifestResourceNames(),
+            name => name.EndsWith("CompanyLogo.png", StringComparison.Ordinal));
+    }
 
-        AssertPng(memory.ToArray(), 2172, 724);
+    [Theory]
+    [InlineData(240)]
+    [InlineData(1200)]
+    [InlineData(4800)]
+    public void VectorLogoRendersAtTargetResolutionWithTransparentMargins(int width)
+    {
+        var height = (int)Math.Ceiling(width * 104d / 1183);
+        using var surface = SKSurface.Create(new SKImageInfo(width, height));
+        surface.Canvas.Clear(SKColors.Transparent);
+        OpticalSystemDesign.App.BrandAssets.DrawCompanyLogo(surface.Canvas, SKRect.Create(width, height));
+        using var image = surface.Snapshot();
+        using var bitmap = SKBitmap.FromImage(image);
+        Assert.Equal((byte)0, bitmap.GetPixel(0, 0).Alpha);
+        Assert.Equal((byte)0, bitmap.GetPixel(width - 1, height - 1).Alpha);
+        Assert.Contains(bitmap.Pixels, color => color.Alpha == 255 && color.Blue > color.Red && color.Blue > color.Green);
+        var directory = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_BRAND_CAPTURE_DIR");
+        if (!string.IsNullOrWhiteSpace(directory))
+        {
+            Directory.CreateDirectory(directory);
+            using var png = image.Encode(SKEncodedImageFormat.Png, 100);
+            File.WriteAllBytes(Path.Combine(directory, $"vector-logo-{width}.png"), png.ToArray());
+        }
     }
 
     [Fact]
-    public void PreparedCompanyLogoHasTransparentBackgroundAndVisibleArtwork()
+    public void VectorLogoTintPreservesTransparencyAndUsesRequestedColor()
     {
-        var png = OpticalSystemDesign.App.BrandAssets.GetPreparedCompanyLogoPng();
-        using var logo = SKBitmap.Decode(png);
-
-        Assert.NotNull(logo);
-        Assert.Equal((byte)0, logo.GetPixel(0, 0).Alpha);
-        Assert.Contains(
-            Enumerable.Range(0, logo.Height),
-            y => Enumerable.Range(0, logo.Width).Any(x => logo.GetPixel(x, y).Alpha == 255));
-    }
-
-    [Fact]
-    public void PreparedCompanyLogoKeepsOriginalBrandColor()
-    {
-        var png = OpticalSystemDesign.App.BrandAssets.GetPreparedCompanyLogoPng();
-        using var logo = SKBitmap.Decode(png);
-        Assert.NotNull(logo);
-
-        var visibleColors = Enumerable.Range(0, logo.Height)
-            .SelectMany(y => Enumerable.Range(0, logo.Width).Select(x => logo.GetPixel(x, y)))
-            .Where(pixel => pixel.Alpha == 255)
-            .Select(pixel => (pixel.Red, pixel.Green, pixel.Blue))
-            .Distinct()
-            .Take(8)
-            .ToArray();
-
-        Assert.Contains(visibleColors, color => color.Blue > color.Red && color.Blue > color.Green);
-        Assert.DoesNotContain(visibleColors, color => color is ((byte)32, (byte)34, (byte)38));
-    }
-
-    [Fact]
-    public void ThemeColoredCompanyLogoPreservesTransparencyAndUsesRequestedColor()
-    {
-        var requested = Avalonia.Media.Color.FromRgb(32, 34, 38);
-        var png = OpticalSystemDesign.App.BrandAssets.GetThemeColoredCompanyLogoPng(requested);
-        using var logo = SKBitmap.Decode(png);
-        Assert.NotNull(logo);
-        Assert.Equal((byte)0, logo.GetPixel(0, 0).Alpha);
-        var visible = Enumerable.Range(0, logo.Height)
-            .SelectMany(y => Enumerable.Range(0, logo.Width).Select(x => logo.GetPixel(x, y)))
-            .First(pixel => pixel.Alpha == 255);
-        Assert.Equal((requested.R, requested.G, requested.B), (visible.Red, visible.Green, visible.Blue));
+        var requested = new SKColor(246, 176, 116);
+        using var surface = SKSurface.Create(new SKImageInfo(1200, 110));
+        surface.Canvas.Clear(SKColors.Transparent);
+        OpticalSystemDesign.App.BrandAssets.DrawCompanyLogo(surface.Canvas, SKRect.Create(1200, 110), requested);
+        using var image = surface.Snapshot();
+        using var bitmap = SKBitmap.FromImage(image);
+        Assert.Equal((byte)0, bitmap.GetPixel(0, 0).Alpha);
+        Assert.Contains(bitmap.Pixels, color => color == requested);
+        Assert.All(bitmap.Pixels.Where(color => color.Alpha == 255), color => Assert.Equal(requested, color));
     }
 
     private static string Asset(string name) => Path.Combine(

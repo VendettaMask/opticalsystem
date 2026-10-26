@@ -1,0 +1,16 @@
+{
+  "Algorithm": "AutonomousTopologyV1",
+  "SchemaVersion": 1,
+  "Phase": "M0-M1",
+  "Inputs": ["foundation-2.json", "foundation-3.json"],
+  "Conjugate": "infinite",
+  "FieldsDegrees": [0, 5],
+  "ComparisonNormalizedFieldY": [0, 0.5, 1],
+  "WavelengthsNanometers": [486.1, 587.6, 656.3],
+  "PrimaryWavelengthNanometers": 587.6,
+  "PupilSampling": { "Kind": "GaussianQuadrature", "Rings": 4, "Arms": 16 },
+  "SpotReference": "centroid",
+  "IncludeSurfaceTransmission": false,
+  "TrainingUpdates": 0,
+  "Purpose": "Short Core compilation/import/parameter consistency; not full physical acceptance or optimization success."
+}

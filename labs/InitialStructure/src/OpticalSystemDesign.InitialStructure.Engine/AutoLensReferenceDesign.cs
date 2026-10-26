@@ -87,12 +87,16 @@ internal static class AutoLensReferenceDesign
                 count++;
                 using (var measurement = SequentialTraceMeasurement.Begin())
                 {
-                    try { real = RotationalDesignGeometry.SensorEdgeHalfField(optic, imageRadius, focal, Seed(0, 8), token,
-                        samplingSettings.FieldScanRings, samplingSettings.FieldScanRays); }
+                    try
+                    {
+                        real = RotationalDesignGeometry.SensorEdgeHalfField(optic, imageRadius, focal, Seed(0, 8), token,
+                        samplingSettings.FieldScanRings, samplingSettings.FieldScanRays);
+                    }
                     finally { rays += measurement.RayCount; }
                 }
                 state = Initialize(optic, AutoLensManagedPhase.CatalogRefinement, false, matches, focal,
-                    effective) with { ReferenceHalfFieldRadians = real };
+                    effective) with
+                { ReferenceHalfFieldRadians = real };
                 cached = null;
             }
             if (state.Phase == AutoLensManagedPhase.CatalogRefinement) Optimize(curriculum: false);
@@ -103,8 +107,11 @@ internal static class AutoLensReferenceDesign
                 var optic = Optic.FromSnapshot(state.Optic);
                 count++;
                 using var measurement = SequentialTraceMeasurement.Begin();
-                try { RotationalDesignGeometry.PruneClearApertures(optic, state.ReferenceHalfFieldRadians, state.ReferenceFocalLength, Seed(0, 9), token, referenceRows,
-                    samplingSettings.ShapeRings, samplingSettings.ShapeRays); }
+                try
+                {
+                    RotationalDesignGeometry.PruneClearApertures(optic, state.ReferenceHalfFieldRadians, state.ReferenceFocalLength, Seed(0, 9), token, referenceRows,
+                    samplingSettings.ShapeRings, samplingSettings.ShapeRays);
+                }
                 finally { rays += measurement.RayCount; }
                 state = state with { Optic = optic.ToSnapshot(), Phase = AutoLensManagedPhase.PhysicalValidation };
             }
@@ -140,34 +147,56 @@ internal static class AutoLensReferenceDesign
             var valid = validation.Fields.Sum(field => field.ValidRays + field.CheckValidRays);
             candidate = new()
             {
-                CandidateId = "autolens-e58-" + fingerprint[..24], OpticFingerprint = fingerprint, Optic = snapshot,
+                CandidateId = "autolens-e58-" + fingerprint[..24],
+                OpticFingerprint = fingerprint,
+                Optic = snapshot,
                 FlatRootOptic = bootstrap.Steps[0].Optic,
                 Status = validation.MeetsTargets ? CandidateStatus.LabAccepted : validation.IsFeasible ? CandidateStatus.TraceValid : CandidateStatus.Rejected,
                 Lineage = new()
                 {
                     RootFingerprint = ContentFingerprint.Compute(bootstrap.Steps[0].Optic),
-                    Operation = FlatStartAlgorithm.Name("reference-random-start", spec), ParentCandidateId = parent ?? state.ParentCandidateId,
-                    ElementCount = elements, StopVariant = 1, SeedIndex = family?.SeedIndex ?? 0, Generation = steps.Count,
+                    Operation = FlatStartAlgorithm.Name("reference-random-start", spec),
+                    ParentCandidateId = parent ?? state.ParentCandidateId,
+                    ElementCount = elements,
+                    StopVariant = 1,
+                    SeedIndex = family?.SeedIndex ?? 0,
+                    Generation = steps.Count,
                     InitialForm = family?.BinaryStart?.Signs
                 },
                 Evaluation = new()
                 {
-                    FlatStartObjective = validation.Objective, EffectiveFocalLengthMillimeters = validation.EffectiveFocalLengthMillimeters,
-                    FNumber = validation.FNumber, RmsSpotRadiusMillimeters = validation.Fields.Max(field => field.RmsRadiusMillimeters),
+                    FlatStartObjective = validation.Objective,
+                    EffectiveFocalLengthMillimeters = validation.EffectiveFocalLengthMillimeters,
+                    FNumber = validation.FNumber,
+                    RmsSpotRadiusMillimeters = validation.Fields.Max(field => field.RmsRadiusMillimeters),
                     MaximumSpotRadiusMillimeters = validation.Fields.Max(field => field.MaximumRadiusMillimeters),
-                    EvaluatedRayCount = attempted, ValidRayCount = valid, ValidRayFraction = attempted == 0 ? 0 : (double)valid / attempted
+                    EvaluatedRayCount = attempted,
+                    ValidRayCount = valid,
+                    ValidRayFraction = attempted == 0 ? 0 : (double)valid / attempted
                 },
                 Violations = validation.Violations
             };
         }
-        state = state with { EvaluationCount = count, TracedRayCount = rays, ElapsedComputeTicks = previousTicks + clock.Elapsed.Ticks,
-            TrainingSteps = steps.ToArray(), FullTargetIncumbent = null,
-            PropagationExecution = SequentialGpuSession.Current is { } active ? SequentialGpuExecution.Merge(resume?.PropagationExecution, active.Execution) : resume?.PropagationExecution };
+        state = state with
+        {
+            EvaluationCount = count,
+            TracedRayCount = rays,
+            ElapsedComputeTicks = previousTicks + clock.Elapsed.Ticks,
+            TrainingSteps = steps.ToArray(),
+            FullTargetIncumbent = null,
+            PropagationExecution = SequentialGpuSession.Current is { } active ? SequentialGpuExecution.Merge(resume?.PropagationExecution, active.Execution) : resume?.PropagationExecution
+        };
         return new()
         {
             Algorithm = new(FlatStartAlgorithm.Name("strict-flat-family-design", spec), FlatStartAlgorithm.Version, "Managed CPU", true),
-            Specification = spec, SpecificationFingerprint = ContentFingerprint.Compute(spec), Bootstrap = bootstrap,
-            EvaluationCount = count, TracedRayCount = rays, AutoLensState = state, Candidate = candidate, FinalValidation = validation,
+            Specification = spec,
+            SpecificationFingerprint = ContentFingerprint.Compute(spec),
+            Bootstrap = bootstrap,
+            EvaluationCount = count,
+            TracedRayCount = rays,
+            AutoLensState = state,
+            Candidate = candidate,
+            FinalValidation = validation,
             State = validation?.MeetsTargets == true ? FlatStartDesignState.Accepted
                 : previousTicks + clock.Elapsed.Ticks >= spec.Budget.TimeLimit.Ticks ? FlatStartDesignState.TimeLimit
                 : count >= spec.Budget.MaximumEvaluations - 2 ? FlatStartDesignState.BudgetExhausted : FlatStartDesignState.TargetsNotMet,
@@ -201,8 +230,12 @@ internal static class AutoLensReferenceDesign
                         }
                         finally { rays += measurement.RayCount; }
                     }
-                    state = state with { Optic = optic.ToSnapshot(), Adam = state.Adam with { Coordinates = OpticalDesignParameters.Read(optic, parameters) },
-                        ReferenceSampling = new(optic.ToSnapshot(), checkpoint, Seed(checkpoint, 2), fraction) };
+                    state = state with
+                    {
+                        Optic = optic.ToSnapshot(),
+                        Adam = state.Adam with { Coordinates = OpticalDesignParameters.Read(optic, parameters) },
+                        ReferenceSampling = new(optic.ToSnapshot(), checkpoint, Seed(checkpoint, 2), fraction)
+                    };
                     cached = null;
                 }
                 if (!CanWork(reserve: 2)) break;
@@ -243,8 +276,13 @@ internal static class AutoLensReferenceDesign
                 FixedInputOpticalResult Evaluate(FixedInputRaySet inputs, double bendGate)
                 {
                     var result = FixedInputOpticalMetrics.Evaluate(optic, parameters, inputs, bendGate, settings.ComputeMode, token);
-                    state = state with { LastComputeExecution = result.Execution, GpuBatches = state.GpuBatches + result.Execution.GpuBatches,
-                        GpuRays = state.GpuRays + result.Execution.GpuRays, GpuMilliseconds = state.GpuMilliseconds + result.Execution.GpuMilliseconds };
+                    state = state with
+                    {
+                        LastComputeExecution = result.Execution,
+                        GpuBatches = state.GpuBatches + result.Execution.GpuBatches,
+                        GpuRays = state.GpuRays + result.Execution.GpuRays,
+                        GpuMilliseconds = state.GpuMilliseconds + result.Execution.GpuMilliseconds
+                    };
                     return result;
                 }
             }
@@ -258,16 +296,28 @@ internal static class AutoLensReferenceDesign
             var parameters = AutoLensReferenceStart.Parameters(optic, spec, material);
             return new()
             {
-                SchemaVersion = 2, SpecificationFingerprint = AutoLensReferenceStart.TrainingFingerprint(spec),
-                AllowedGlassFingerprint = ContentFingerprint.Compute(allowed), RootFingerprint = ContentFingerprint.Compute(bootstrap.Steps[0].Optic),
-                ParentCandidateId = parent ?? state?.ParentCandidateId, Phase = phase,
-                PlannedCurriculumIterations = settings.CurriculumIterations, PlannedRefinementIterations = settings.RefinementIterations,
-                Optic = optic.ToSnapshot(), TrainingStartOptic = initial, Parameters = parameters, Adam = DifferentiableAdam.Initialize(OpticalDesignParameters.Read(optic, parameters)),
+                SchemaVersion = 2,
+                SpecificationFingerprint = AutoLensReferenceStart.TrainingFingerprint(spec),
+                AllowedGlassFingerprint = ContentFingerprint.Compute(allowed),
+                RootFingerprint = ContentFingerprint.Compute(bootstrap.Steps[0].Optic),
+                ParentCandidateId = parent ?? state?.ParentCandidateId,
+                Phase = phase,
+                PlannedCurriculumIterations = settings.CurriculumIterations,
+                PlannedRefinementIterations = settings.RefinementIterations,
+                Optic = optic.ToSnapshot(),
+                TrainingStartOptic = initial,
+                Parameters = parameters,
+                Adam = DifferentiableAdam.Initialize(OpticalDesignParameters.Read(optic, parameters)),
                 ReferenceLearningRates = parameters.Select(parameter => AutoLensReferenceStart.LearningRate(optic, parameter)).ToArray(),
-                ReferenceFocalLength = focal, ReferenceHalfFieldRadians = halfField, ReferenceEffectiveHalfFieldRadians = halfField,
-                ReferenceCentroid = phase == AutoLensManagedPhase.Curriculum || spec.MaximumFieldAngleDegrees / 57.3 > .52, GlassMatches = matches,
-                LastComputeExecution = state?.LastComputeExecution, GpuBatches = state?.GpuBatches ?? 0,
-                GpuRays = state?.GpuRays ?? 0, GpuMilliseconds = state?.GpuMilliseconds ?? 0
+                ReferenceFocalLength = focal,
+                ReferenceHalfFieldRadians = halfField,
+                ReferenceEffectiveHalfFieldRadians = halfField,
+                ReferenceCentroid = phase == AutoLensManagedPhase.Curriculum || spec.MaximumFieldAngleDegrees / 57.3 > .52,
+                GlassMatches = matches,
+                LastComputeExecution = state?.LastComputeExecution,
+                GpuBatches = state?.GpuBatches ?? 0,
+                GpuRays = state?.GpuRays ?? 0,
+                GpuMilliseconds = state?.GpuMilliseconds ?? 0
             };
         }
         bool CanWork(int reserve = 0) => !token.IsCancellationRequested && count < spec.Budget.MaximumEvaluations - reserve

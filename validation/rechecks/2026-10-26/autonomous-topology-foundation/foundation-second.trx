@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2d955372-1374-4f2d-8c43-a56685da8a72" name="optics@LAPTOP-G4BBBCS0 2026-10-26 15:53:12" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-26T15:53:12.7808477+08:00" queuing="2026-10-26T15:53:12.7808479+08:00" start="2026-10-26T15:53:07.4068723+08:00" finish="2026-10-26T15:53:13.8558035+08:00" />
+  <TestSettings name="default" id="8136c9a8-1cc7-436c-b9c3-d0217c6e5500">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-26_15_53_12" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="135185c1-8cbb-4ced-940e-c45675c8cdb9" testId="177e3e30-7e97-c498-4fc1-c974a964f0fa" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.UnsupportedImportFeaturesAreExplicitFailures" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0084575" startTime="2026-10-26T15:53:13.4884860+08:00" endTime="2026-10-26T15:53:13.4966570+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="135185c1-8cbb-4ced-940e-c45675c8cdb9" />
+    <UnitTestResult executionId="248bb450-c8bb-4db6-b7fa-d818565d65bc" testId="e792e991-d2da-7d4e-e23d-919118ddf6f4" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.AxialAndAllEvenPowersUseCoreBindingsWithoutMovingOtherVertices" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3628555" startTime="2026-10-26T15:53:12.7561174+08:00" endTime="2026-10-26T15:53:13.0869510+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="248bb450-c8bb-4db6-b7fa-d818565d65bc" />
+    <UnitTestResult executionId="6938927e-ac6b-4da8-b324-d3ae50e6934f" testId="ed364871-7d13-f0d9-c3a3-2348ef1da286" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.MutableCoreCopiesAndReturnedSnapshotsCannotAlterTheParent" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.5356818" startTime="2026-10-26T15:53:11.2160461+08:00" endTime="2026-10-26T15:53:12.7232466+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6938927e-ac6b-4da8-b324-d3ae50e6934f" />
+    <UnitTestResult executionId="985e572e-93b4-4f09-8c41-5632d9e621db" testId="401ef313-dde9-2441-e0f8-87a6ef52ca7e" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(count: 2, asphere: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0040588" startTime="2026-10-26T15:53:13.5488252+08:00" endTime="2026-10-26T15:53:13.5490084+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="985e572e-93b4-4f09-8c41-5632d9e621db">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 11 decimal places&#xD;
+Expected: 217.57704984195999 (rounded from 217.57704984196289)&#xD;
+Actual:   214.47913535887 (rounded from 214.47913535886579)</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.AssertSameOptics(Optic expected, Optic actual) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousTopologyFoundationTests.cs:line 356&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(Int32 count, Boolean asphere) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousTopologyFoundationTests.cs:line 55&#xD;
+   at InvokeStub_AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1c0472ec-b316-46e4-9087-5fa998ae6af5" testId="b40d24c5-266a-37e2-3f4a-e2a92ab90822" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.ImportRoundTripPreservesOpticsAndUsesAnExplicitMechanicalFrame(origin: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1107162" startTime="2026-10-26T15:53:13.2528583+08:00" endTime="2026-10-26T15:53:13.3638479+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1c0472ec-b316-46e4-9087-5fa998ae6af5" />
+    <UnitTestResult executionId="5eaa1c0c-417c-4bcb-81de-da85f549f783" testId="62f43749-5ff0-395f-6953-1559d1a84698" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.ZeroStepPreservesSparseProfileRequestedMaterialAndProtectedElementMetadata" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0071101" startTime="2026-10-26T15:53:13.4969660+08:00" endTime="2026-10-26T15:53:13.5049157+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5eaa1c0c-417c-4bcb-81de-da85f549f783" />
+    <UnitTestResult executionId="084da744-c34b-4aa2-95dc-8f26d880b4a7" testId="d922e6f7-3429-a738-2ed9-7bfbbdb45c41" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.UpdateRejectsSettingsIdentityAndProtectedChangesInsteadOfSilentlyDiscardingThem" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0104368" startTime="2026-10-26T15:53:13.4778967+08:00" endTime="2026-10-26T15:53:13.4881557+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="084da744-c34b-4aa2-95dc-8f26d880b4a7" />
+    <UnitTestResult executionId="c74a19a9-43c4-4577-8257-63bdc1153dce" testId="a6e724f6-3265-c20c-73e8-46d74b272af7" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.ProtectedElementsAndElementLimitsRejectStructuralEdits" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0042302" startTime="2026-10-26T15:53:13.4735245+08:00" endTime="2026-10-26T15:53:13.4775884+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c74a19a9-43c4-4577-8257-63bdc1153dce" />
+    <UnitTestResult executionId="1ee17767-a8bd-414f-b327-4689fef56147" testId="9bef28ca-0767-98e6-5fd3-f27caf50194a" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.StructuralInvalidInputsFailBeforeCoreCanClampOrReorderThem" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0091562" startTime="2026-10-26T15:53:13.7383296+08:00" endTime="2026-10-26T15:53:13.7471829+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1ee17767-a8bd-414f-b327-4689fef56147" />
+    <UnitTestResult executionId="0b8cdb53-0371-477b-944f-3cdd00794e6b" testId="5d1d5be2-69f7-9da4-3882-15e63fc389cb" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.IndependentStopSplitsAirIntervalsAndCannotBeCrossedByInsertion" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2095113" startTime="2026-10-26T15:53:13.5500501+08:00" endTime="2026-10-26T15:53:13.7379571+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0b8cdb53-0371-477b-944f-3cdd00794e6b" />
+    <UnitTestResult executionId="94652268-e94c-4926-b30d-0b8cb505ec40" testId="398ba7a0-56a9-c34f-3d03-b40956379d2d" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.InsertDeleteKeepStableIdsParentDataAndEveryRetainedVertex" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1087305" startTime="2026-10-26T15:53:13.3643553+08:00" endTime="2026-10-26T15:53:13.4731621+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="94652268-e94c-4926-b30d-0b8cb505ec40" />
+    <UnitTestResult executionId="51599e52-90f0-4ef7-b6fe-bf20e95e5349" testId="55610856-a5c4-c4b7-f22e-a500fd3872ea" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.BindingsRejectProtectedUnsupportedAndStaleCoordinates" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0108651" startTime="2026-10-26T15:53:13.7475076+08:00" endTime="2026-10-26T15:53:13.7581754+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="51599e52-90f0-4ef7-b6fe-bf20e95e5349" />
+    <UnitTestResult executionId="fde4ee28-8157-4340-967c-ce506dc0619f" testId="2617bfa6-04ba-1aeb-6cf4-ef81858f3cac" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(count: 3, asphere: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0106050" startTime="2026-10-26T15:53:13.5052328+08:00" endTime="2026-10-26T15:53:13.5271778+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fde4ee28-8157-4340-967c-ce506dc0619f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values are not within 11 decimal places&#xD;
+Expected: 48.856933279739998 (rounded from 48.856933279736658)&#xD;
+Actual:   49.069220988870001 (rounded from 49.069220988865297)</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.AssertSameOptics(Optic expected, Optic actual) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousTopologyFoundationTests.cs:line 356&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(Int32 count, Boolean asphere) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousTopologyFoundationTests.cs:line 55&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0d0a84b7-5297-4fd9-aaa1-e813ff14ef30" testId="d883ad8d-ecfe-23c2-0ca7-9d3156738421" testName="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.ImportRoundTripPreservesOpticsAndUsesAnExplicitMechanicalFrame(origin: 100)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1653300" startTime="2026-10-26T15:53:13.0881289+08:00" endTime="2026-10-26T15:53:13.2523283+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0d0a84b7-5297-4fd9-aaa1-e813ff14ef30" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.UpdateRejectsSettingsIdentityAndProtectedChangesInsteadOfSilentlyDiscardingThem" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="d922e6f7-3429-a738-2ed9-7bfbbdb45c41">
+      <Execution id="084da744-c34b-4aa2-95dc-8f26d880b4a7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests" name="UpdateRejectsSettingsIdentityAndProtectedChangesInsteadOfSilentlyDiscardingThem" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.ImportRoundTripPreservesOpticsAndUsesAnExplicitMechanicalFrame(origin: 100)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="d883ad8d-ecfe-23c2-0ca7-9d3156738421">
+      <Execution id="0d0a84b7-5297-4fd9-aaa1-e813ff14ef30" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests" name="ImportRoundTripPreservesOpticsAndUsesAnExplicitMechanicalFrame" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(count: 2, asphere: False)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="401ef313-dde9-2441-e0f8-87a6ef52ca7e">
+      <Execution id="985e572e-93b4-4f09-8c41-5632d9e621db" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests" name="CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.StructuralInvalidInputsFailBeforeCoreCanClampOrReorderThem" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="9bef28ca-0767-98e6-5fd3-f27caf50194a">
+      <Execution id="1ee17767-a8bd-414f-b327-4689fef56147" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests" name="StructuralInvalidInputsFailBeforeCoreCanClampOrReorderThem" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.ImportRoundTripPreservesOpticsAndUsesAnExplicitMechanicalFrame(origin: 0)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="b40d24c5-266a-37e2-3f4a-e2a92ab90822">
+      <Execution id="1c0472ec-b316-46e4-9087-5fa998ae6af5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests" name="ImportRoundTripPreservesOpticsAndUsesAnExplicitMechanicalFrame" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.BindingsRejectProtectedUnsupportedAndStaleCoordinates" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="55610856-a5c4-c4b7-f22e-a500fd3872ea">
+      <Execution id="51599e52-90f0-4ef7-b6fe-bf20e95e5349" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests" name="BindingsRejectProtectedUnsupportedAndStaleCoordinates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.AxialAndAllEvenPowersUseCoreBindingsWithoutMovingOtherVertices" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="e792e991-d2da-7d4e-e23d-919118ddf6f4">
+      <Execution id="248bb450-c8bb-4db6-b7fa-d818565d65bc" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests" name="AxialAndAllEvenPowersUseCoreBindingsWithoutMovingOtherVertices" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(count: 3, asphere: True)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="2617bfa6-04ba-1aeb-6cf4-ef81858f3cac">
+      <Execution id="fde4ee28-8157-4340-967c-ce506dc0619f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests" name="CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.ProtectedElementsAndElementLimitsRejectStructuralEdits" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="a6e724f6-3265-c20c-73e8-46d74b272af7">
+      <Execution id="c74a19a9-43c4-4577-8257-63bdc1153dce" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests" name="ProtectedElementsAndElementLimitsRejectStructuralEdits" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.MutableCoreCopiesAndReturnedSnapshotsCannotAlterTheParent" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="ed364871-7d13-f0d9-c3a3-2348ef1da286">
+      <Execution id="6938927e-ac6b-4da8-b324-d3ae50e6934f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests" name="MutableCoreCopiesAndReturnedSnapshotsCannotAlterTheParent" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.UnsupportedImportFeaturesAreExplicitFailures" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="177e3e30-7e97-c498-4fc1-c974a964f0fa">
+      <Execution id="135185c1-8cbb-4ced-940e-c45675c8cdb9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests" name="UnsupportedImportFeaturesAreExplicitFailures" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.ZeroStepPreservesSparseProfileRequestedMaterialAndProtectedElementMetadata" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="62f43749-5ff0-395f-6953-1559d1a84698">
+      <Execution id="5eaa1c0c-417c-4bcb-81de-da85f549f783" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests" name="ZeroStepPreservesSparseProfileRequestedMaterialAndProtectedElementMetadata" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.InsertDeleteKeepStableIdsParentDataAndEveryRetainedVertex" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="398ba7a0-56a9-c34f-3d03-b40956379d2d">
+      <Execution id="94652268-e94c-4926-b30d-0b8cb505ec40" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests" name="InsertDeleteKeepStableIdsParentDataAndEveryRetainedVertex" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.IndependentStopSplitsAirIntervalsAndCannotBeCrossedByInsertion" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="5d1d5be2-69f7-9da4-3882-15e63fc389cb">
+      <Execution id="0b8cdb53-0371-477b-944f-3cdd00794e6b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests" name="IndependentStopSplitsAirIntervalsAndCannotBeCrossedByInsertion" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="177e3e30-7e97-c498-4fc1-c974a964f0fa" executionId="135185c1-8cbb-4ced-940e-c45675c8cdb9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e792e991-d2da-7d4e-e23d-919118ddf6f4" executionId="248bb450-c8bb-4db6-b7fa-d818565d65bc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ed364871-7d13-f0d9-c3a3-2348ef1da286" executionId="6938927e-ac6b-4da8-b324-d3ae50e6934f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="401ef313-dde9-2441-e0f8-87a6ef52ca7e" executionId="985e572e-93b4-4f09-8c41-5632d9e621db" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b40d24c5-266a-37e2-3f4a-e2a92ab90822" executionId="1c0472ec-b316-46e4-9087-5fa998ae6af5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="62f43749-5ff0-395f-6953-1559d1a84698" executionId="5eaa1c0c-417c-4bcb-81de-da85f549f783" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d922e6f7-3429-a738-2ed9-7bfbbdb45c41" executionId="084da744-c34b-4aa2-95dc-8f26d880b4a7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a6e724f6-3265-c20c-73e8-46d74b272af7" executionId="c74a19a9-43c4-4577-8257-63bdc1153dce" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9bef28ca-0767-98e6-5fd3-f27caf50194a" executionId="1ee17767-a8bd-414f-b327-4689fef56147" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5d1d5be2-69f7-9da4-3882-15e63fc389cb" executionId="0b8cdb53-0371-477b-944f-3cdd00794e6b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="398ba7a0-56a9-c34f-3d03-b40956379d2d" executionId="94652268-e94c-4926-b30d-0b8cb505ec40" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="55610856-a5c4-c4b7-f22e-a500fd3872ea" executionId="51599e52-90f0-4ef7-b6fe-bf20e95e5349" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2617bfa6-04ba-1aeb-6cf4-ef81858f3cac" executionId="fde4ee28-8157-4340-967c-ce506dc0619f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d883ad8d-ecfe-23c2-0ca7-9d3156738421" executionId="0d0a84b7-5297-4fd9-aaa1-e813ff14ef30" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="14" executed="14" passed="12" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.42]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:01.67]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:01.71]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:04.11]       Assert.Equal() Failure: Values are not within 11 decimal places&#xD;
+[xUnit.net 00:00:04.11]       Expected: 48.856933279739998 (rounded from 48.856933279736658)&#xD;
+[xUnit.net 00:00:04.11]       Actual:   49.069220988870001 (rounded from 49.069220988865297)&#xD;
+[xUnit.net 00:00:04.11]       Stack Trace:&#xD;
+[xUnit.net 00:00:04.12]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousTopologyFoundationTests.cs(356,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.AssertSameOptics(Optic expected, Optic actual)&#xD;
+[xUnit.net 00:00:04.12]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousTopologyFoundationTests.cs(55,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(Int32 count, Boolean asphere)&#xD;
+[xUnit.net 00:00:04.12]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:04.12]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:04.13]       Assert.Equal() Failure: Values are not within 11 decimal places&#xD;
+[xUnit.net 00:00:04.13]       Expected: 217.57704984195999 (rounded from 217.57704984196289)&#xD;
+[xUnit.net 00:00:04.13]       Actual:   214.47913535887 (rounded from 214.47913535886579)&#xD;
+[xUnit.net 00:00:04.13]       Stack Trace:&#xD;
+[xUnit.net 00:00:04.13]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousTopologyFoundationTests.cs(356,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.AssertSameOptics(Optic expected, Optic actual)&#xD;
+[xUnit.net 00:00:04.13]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousTopologyFoundationTests.cs(55,0): at OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(Int32 count, Boolean asphere)&#xD;
+[xUnit.net 00:00:04.13]            at InvokeStub_AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(Object, Span`1)&#xD;
+[xUnit.net 00:00:04.13]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:04.35]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T15:53:13.5312208+08:00">
+        <Text>[xUnit.net 00:00:04.11]     OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(count: 3, asphere: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T15:53:13.5556865+08:00">
+        <Text>[xUnit.net 00:00:04.13]     OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(count: 2, asphere: False) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

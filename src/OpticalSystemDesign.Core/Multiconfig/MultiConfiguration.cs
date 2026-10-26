@@ -1,5 +1,5 @@
-using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Serialization;
 
 namespace OpticalSystemDesign.Core.Multiconfig;
 
@@ -25,7 +25,10 @@ public sealed partial class MultiConfiguration
         IReadOnlyList<MultiConfigurationPickup>? operandPickups = null)
     {
         ArgumentNullException.ThrowIfNull(configurations);
-        Configurations.AddRange(configurations.Select(configuration => configuration.Clone()));
+        var bounded = configurations.Take(Serialization.StarOptProjectStore.MaximumConfigurationCount + 1).ToArray();
+        if (bounded.Length > Serialization.StarOptProjectStore.MaximumConfigurationCount)
+            throw new ArgumentException("Configuration count exceeds the native project save limit.", nameof(configurations));
+        Configurations.AddRange(bounded.Select(configuration => configuration.Clone()));
         if (Configurations.Count == 0)
         {
             throw new ArgumentException("At least one optical configuration is required.", nameof(configurations));
@@ -60,7 +63,7 @@ public sealed partial class MultiConfiguration
             SetOperandVariable(_operandRows.IndexOf(variable.Operand) + 1, variable.ConfigurationIndex, true);
     }
 
-    public List<Optic> Configurations { get; } = new();
+    public OpticalConfigurationCollection Configurations { get; } = new();
 
     public IReadOnlyList<MultiConfigurationLinkOverride> BrokenLinks => _brokenLinks
         .OrderBy(link => link.Config)
@@ -71,6 +74,8 @@ public sealed partial class MultiConfiguration
 
     public int AddConfiguration(int sourceConfigIndex = 0)
     {
+        if (Configurations.Count >= Serialization.StarOptProjectStore.MaximumConfigurationCount)
+            throw new InvalidOperationException("Configuration count exceeds the native project save limit.");
         if (sourceConfigIndex < 0 || sourceConfigIndex >= Configurations.Count)
         {
             throw new ArgumentOutOfRangeException(nameof(sourceConfigIndex));

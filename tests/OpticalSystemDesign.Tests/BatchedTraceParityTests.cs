@@ -1,6 +1,6 @@
 using OpticalSystemDesign.Core;
-using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Rays;
+using OpticalSystemDesign.Core.Raytrace;
 
 namespace OpticalSystemDesign.Tests;
 

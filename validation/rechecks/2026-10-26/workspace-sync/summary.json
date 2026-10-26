@@ -1,0 +1,71 @@
+{
+  "Date": "2026-10-26T17:33:09.8077630+08:00",
+  "Scope": "All current workspace changes, explicitly confirmed by user",
+  "Branch": "main",
+  "Remote": "origin",
+  "StartingCommit": "4b9ea06f3ac0348eacd48d688b1dc4ea71e25a82",
+  "FullReleaseBuildPassed": true,
+  "BuildWarnings": 0,
+  "BuildErrors": 0,
+  "FormatVerificationPassed": true,
+  "FocusedTests": [
+    {
+      "File": "core.trx",
+      "Counters": {
+        "total": 30,
+        "executed": 30,
+        "passed": 30,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      }
+    },
+    {
+      "File": "module.trx",
+      "Counters": {
+        "total": 41,
+        "executed": 41,
+        "passed": 41,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      }
+    }
+  ],
+  "FrozenIndexFiles": 2668,
+  "FrozenIndexAndWorkingMatched": true,
+  "RawSourceAttachmentSha256": "5E27FDC94BD19DA6C3F9C06321F79BEB24C1B13D40C791E61B644A913A69F936",
+  "ArchiveAndBenchmarkIndexBytesMatch": true,
+  "InitialUntrackedMegabytes": 321.31,
+  "LargestNewFileMegabytes": 41.98,
+  "CredentialPatternScan": "No high-confidence matches",
+  "FormatFix": {
+    "ImportDiagnostics": 244,
+    "WhitespaceDiagnostics": 185
+  },
+  "Limitations": [
+    "Focused tests only; no full local test suite.",
+    "Remote CI has not been evaluated in this pre-commit record.",
+    "No product version bump, tag, installer publication or stopped training restart."
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "Date": "2026-10-26",
+  "Checks": {
+    "FocusedTests28Passed": true,
+    "BaselineComCrashReproducedTwice": true,
+    "Native13ExpectedOutcomes": true,
+    "ProtectedAndNormalProcessesExitZero": true,
+    "FailedPastesPreserveQueryAndSelection": true,
+    "RecoveryThenSuccess": true,
+    "LiveClipboardFiveSuccessfulPastes": true,
+    "NativeUndoRedoPreserved": true,
+    "UnrelatedComErrorNotSwallowed": true,
+    "EveryNativeWindowRemainedHidden": true,
+    "MatrixLoadedOneAppIdentity": true,
+    "DefaultOutputRecheckFourExpectedOutcomes": true
+  },
+  "AllChecksPassed": true,
+  "ClipboardSequenceUnchangedInObservedAttempts": true,
+  "NativeMatrixAppSha256": [
+    "902A4862B5408993113C01E17795CFE465109DEB8A720BD1E8B9F3474D077B1B"
+  ],
+  "DefaultOutputRecheckAppSha256": [
+    "E1EF175DA85CEB8FBFB748A84A11D11E087E4E4330BA4F7A71B56D00DA211CE3"
+  ],
+  "CurrentDefaultAppSha256": "E1EF175DA85CEB8FBFB748A84A11D11E087E4E4330BA4F7A71B56D00DA211CE3",
+  "Sources": [
+    {
+      "Path": "src/OpticalSystemDesign.App/App.cs",
+      "Sha256": "9B857847E4AB84EE3A361EB0872917657CD6EF683372B75A6A8CE8722A53159C"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Controls/CommandSearchControl.cs",
+      "Sha256": "232609ACE387844E197B96E7E915E8919D1A5CF745A00227E96D73A4F6BA3704"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/MainWindow.cs",
+      "Sha256": "F52C2B2B84B91D41A65E614B425619ABDA712942AE8DF054EDC6BA0F6FE18B4D"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/ClipboardExceptionBoundary.cs",
+      "Sha256": "77A25B2BD49EC1A80A6605F79F6FCD4D3BD0609BEB35239484EDEED272471620"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "Sha256": "47BEB86431C282F97EBECAA34C019D2E0A73BCA466EF915E4A6A8077C72DF1F7"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/ClipboardExceptionBoundaryTests.cs",
+      "Sha256": "96ADCD641D880FA2B83D9EE1966F58CF6CF4020E8883FFF4572D4CFC5D41DD97"
+    }
+  ],
+  "NoInstalledApplicationReplacement": true,
+  "NoForegroundAutomationDuringBackgroundRegression": true
+}

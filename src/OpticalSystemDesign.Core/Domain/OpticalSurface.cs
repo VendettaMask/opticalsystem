@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Coatings;
@@ -7,7 +8,6 @@ using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Scattering;
-using System.ComponentModel;
 
 namespace OpticalSystemDesign.Core.Domain;
 

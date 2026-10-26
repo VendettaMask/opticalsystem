@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f90d6be1-1247-4990-bca4-e5d2406bd576" name="optics@LAPTOP-G4BBBCS0 2026-10-26 11:06:09" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-26T11:06:09.2071240+08:00" queuing="2026-10-26T11:06:09.2071243+08:00" start="2026-10-26T11:05:59.5779007+08:00" finish="2026-10-26T11:06:09.4408082+08:00" />
+  <TestSettings name="default" id="c070c264-c083-4311-bcfe-9bab20876be0">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-26_11_06_09" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ef79151d-9b0a-427a-b579-7b9938bcd345" testId="f2e2b02d-fd44-2062-a7c3-d67a8ded9597" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensManagedTests.RealTwoPhaseSolveUsesCoreAutomaticTangentsAndNeverExportsRelaxedGlass" computerName="LAPTOP-G4BBBCS0" duration="00:00:08.1381246" startTime="2026-10-26T11:06:01.0026909+08:00" endTime="2026-10-26T11:06:09.1546625+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ef79151d-9b0a-427a-b579-7b9938bcd345">
+      <Output>
+        <StdOut>monochrome-two-phase: Accepted; evaluations 56; rays 284128; RMS 0.019208313634496255; max 0.05551374164550804; violations 0; phase Completed</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="664fb735-d33e-433e-8de6-dca7f0c635a7" testId="0841dfd3-fa7c-ed69-cd8e-15d328757f0b" testName="OpticalSystemDesign.InitialStructure.Tests.AutoLensManagedTests.CementedGroupTiesTheSharedProfileAndMediumAndRejectsAnEditedGap" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1773193" startTime="2026-10-26T11:06:09.1855270+08:00" endTime="2026-10-26T11:06:09.3392566+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="664fb735-d33e-433e-8de6-dca7f0c635a7" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensManagedTests.RealTwoPhaseSolveUsesCoreAutomaticTangentsAndNeverExportsRelaxedGlass" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="f2e2b02d-fd44-2062-a7c3-d67a8ded9597">
+      <Execution id="ef79151d-9b0a-427a-b579-7b9938bcd345" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensManagedTests" name="RealTwoPhaseSolveUsesCoreAutomaticTangentsAndNeverExportsRelaxedGlass" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.AutoLensManagedTests.CementedGroupTiesTheSharedProfileAndMediumAndRejectsAnEditedGap" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="0841dfd3-fa7c-ed69-cd8e-15d328757f0b">
+      <Execution id="664fb735-d33e-433e-8de6-dca7f0c635a7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.AutoLensManagedTests" name="CementedGroupTiesTheSharedProfileAndMediumAndRejectsAnEditedGap" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f2e2b02d-fd44-2062-a7c3-d67a8ded9597" executionId="ef79151d-9b0a-427a-b579-7b9938bcd345" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0841dfd3-fa7c-ed69-cd8e-15d328757f0b" executionId="664fb735-d33e-433e-8de6-dca7f0c635a7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.76]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.87]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.90]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:09.26]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

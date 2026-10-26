@@ -4,6 +4,7 @@ namespace OpticalSystemDesign.Core.FileIO;
 
 public static class BoundedFile
 {
+    private static readonly Encoding StrictUtf8 = new UTF8Encoding(false, true);
     public const long MaximumOpticalDocumentBytes = 64L * 1024 * 1024;
     public const long MaximumSettingsBytes = 4L * 1024 * 1024;
     public const long MaximumCatalogBytes = 64L * 1024 * 1024;
@@ -213,11 +214,12 @@ public static class BoundedFile
         await using var stream = OpenRead(path, maximumBytes, description);
         using var reader = new StreamReader(
             stream,
-            Encoding.UTF8,
+            StrictUtf8,
             detectEncodingFromByteOrderMarks: true,
             bufferSize: 16 * 1024,
             leaveOpen: false);
-        return await reader.ReadToEndAsync(cancellationToken).ConfigureAwait(false);
+        try { return await reader.ReadToEndAsync(cancellationToken).ConfigureAwait(false); }
+        catch (DecoderFallbackException error) { throw new InvalidDataException($"{description} contains invalid UTF-8.", error); }
     }
 
     public static string ReadAllText(string path, long maximumBytes, string description)
@@ -225,11 +227,12 @@ public static class BoundedFile
         using var stream = OpenRead(path, maximumBytes, description);
         using var reader = new StreamReader(
             stream,
-            Encoding.UTF8,
+            StrictUtf8,
             detectEncodingFromByteOrderMarks: true,
             bufferSize: 16 * 1024,
             leaveOpen: false);
-        return reader.ReadToEnd();
+        try { return reader.ReadToEnd(); }
+        catch (DecoderFallbackException error) { throw new InvalidDataException($"{description} contains invalid UTF-8.", error); }
     }
 
     public static byte[] ReadToEnd(Stream stream, long maximumBytes, string description)

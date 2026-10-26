@@ -1,26 +1,26 @@
-using Avalonia;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using Avalonia;
+using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
-using Avalonia.Automation;
 using Avalonia.Headless;
 using Avalonia.Input;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
-using Vector3D = OpticalSystemDesign.Core.Backend.Vector3D;
 using OpticalSystemDesign.Core.Coordinates;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Visualization;
+using Vector3D = OpticalSystemDesign.Core.Backend.Vector3D;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -45,10 +45,10 @@ public sealed class Viewer3DGeometryTests
         optic.SurfaceGroup.Items[1].Label = "Image";
         image.SemiDiameter = 4; image.ChipZone = 0;
         image.Geometry = new PolynomialGeometry(new Dictionary<(int, int), double>
-            { [(2, 0)] = .02, [(0, 2)] = .01, [(1, 1)] = .003 });
+        { [(2, 0)] = .02, [(0, 2)] = .01, [(1, 1)] = .003 });
         image.CoordinateSystem = new CoordinateSystem(image.CoordinateSystem.Origin + new Vector3D(3, -2, 1), 12, -20, 8);
         var snapshotOptions = new System.Text.Json.JsonSerializerOptions
-            { NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals };
+        { NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals };
         var before = System.Text.Json.JsonSerializer.Serialize(optic.ToSnapshot(), snapshotOptions);
         var core = Build(optic);
         var surface = Assert.Single(core.Surfaces, s => s.IsImageSurface);
@@ -91,9 +91,12 @@ public sealed class Viewer3DGeometryTests
             var revision = app.Events.Revision;
             var control = new OpticSceneControl
             {
-                Scene = dto, ViewMode = OpticSceneViewMode.ThreeDimensional,
-                VisualStyle = OpticSceneVisualStyle.SolidModel, RenderMode = mode,
-                ShowRays = false, CutawayEnabled = cutaway
+                Scene = dto,
+                ViewMode = OpticSceneViewMode.ThreeDimensional,
+                VisualStyle = OpticSceneVisualStyle.SolidModel,
+                RenderMode = mode,
+                ShowRays = false,
+                CutawayEnabled = cutaway
             };
             var window = new Window { Content = control, Width = 800, Height = 560 };
             try
@@ -101,8 +104,11 @@ public sealed class Viewer3DGeometryTests
                 window.Show(); Tick(window);
                 var visible = RenderPixels(control);
                 Capture(window, $"image-surface-{mode}-{cutaway}-{theme}.png");
-                var unmarked = dto with { ThreeDimensional = source with
-                { Surfaces = source.Surfaces.Select(s => s with { IsImageSurface = false }).ToArray() } };
+                var unmarked = dto with
+                {
+                    ThreeDimensional = source with
+                    { Surfaces = source.Surfaces.Select(s => s with { IsImageSurface = false }).ToArray() }
+                };
                 control.Scene = unmarked; Tick(window);
                 Assert.True(ChangedPixels(visible, RenderPixels(control), 800, new PixelRect(0, 0, 800, 560)) > 100,
                     "An unselected image surface must produce visible reference pixels even with rays hidden.");
@@ -138,8 +144,12 @@ public sealed class Viewer3DGeometryTests
             using var app = WorkbenchApplication.Create();
             var dto = new SceneDto(0, SceneDimension.ThreeDimensional, null,
                 new Scene3Dto([], [], [], 1, 1, 0, 10), app.Documents.GetSnapshot());
-            var control = new OpticSceneControl { ViewMode = OpticSceneViewMode.ThreeDimensional,
-                VisualStyle = OpticSceneVisualStyle.SolidModel, ShowScaleBar = false };
+            var control = new OpticSceneControl
+            {
+                ViewMode = OpticSceneViewMode.ThreeDimensional,
+                VisualStyle = OpticSceneVisualStyle.SolidModel,
+                ShowScaleBar = false
+            };
             var window = new Window { Content = control, Width = 600, Height = 400 };
             try
             {
@@ -206,7 +216,7 @@ public sealed class Viewer3DGeometryTests
         front.MechanicalSemiDiameter = back.MechanicalSemiDiameter = 5;
         front.ChipZone = back.ChipZone = 0;
         front.Geometry = new PolynomialGeometry(new Dictionary<(int, int), double>
-            { [(2, 0)] = .02, [(0, 2)] = .005, [(1, 1)] = .003 });
+        { [(2, 0)] = .02, [(0, 2)] = .005, [(1, 1)] = .003 });
         front.CoordinateSystem = new CoordinateSystem(front.CoordinateSystem.Origin + new Vector3D(2, -3, 0), 12, -20, 8);
         var element = Build(optic).LensElements[0];
         foreach (var point in element.FrontFaces.SelectMany(face => face.Points).Concat(element.FrontRim))
@@ -309,7 +319,8 @@ public sealed class Viewer3DGeometryTests
                         File.WriteAllText(Path.Combine(directory, $"ray-count-{theme}-{language}.json"),
                             System.Text.Json.JsonSerializer.Serialize(new
                             {
-                                previousSampling = 7, sampling = request.RayCount,
+                                previousSampling = 7,
+                                sampling = request.RayCount,
                                 previousDisplayedRays = sparse.ThreeDimensional.Rays.Count,
                                 displayedRays = scene.Scene.ThreeDimensional.Rays.Count,
                                 widthDip = scene.RayLineWidth
@@ -400,7 +411,8 @@ public sealed class Viewer3DGeometryTests
                 source with { LensElements = elements }, app.Documents.GetSnapshot());
             var control = new OpticSceneControl
             {
-                Scene = dto, ViewMode = OpticSceneViewMode.ThreeDimensional,
+                Scene = dto,
+                ViewMode = OpticSceneViewMode.ThreeDimensional,
                 VisualStyle = OpticSceneVisualStyle.SolidModel
             };
             Assert.Equal(2, control.GlassMaterials.Count);
@@ -415,10 +427,13 @@ public sealed class Viewer3DGeometryTests
             Assert.Empty(control.GlassMaterials); Assert.Null(control.GlassColorFor("F2"));
             control.VisualStyle = OpticSceneVisualStyle.SolidModel;
             Assert.Equal(f2, control.GlassColorFor("F2"));
-            control.Scene = dto with { ThreeDimensional = source with
+            control.Scene = dto with
             {
-                LensElements = Enumerable.Range(0, 24).Select(index => element with { Material = $"Glass {index:00}" }).ToArray()
-            } };
+                ThreeDimensional = source with
+                {
+                    LensElements = Enumerable.Range(0, 24).Select(index => element with { Material = $"Glass {index:00}" }).ToArray()
+                }
+            };
             Assert.Equal(24, control.GlassMaterials.Select(entry => entry.Color).Distinct().Count());
             Assert.DoesNotContain(control.GlassMaterials, entry => entry.Material == "F2");
             control.Scene = null;
@@ -451,9 +466,11 @@ public sealed class Viewer3DGeometryTests
     }
 
     [Theory]
-    [InlineData("Light", 13)]
-    [InlineData("Dark", 18)]
-    public async Task SolidModelAxesTrackPresetsMouseAndKeyboardButIgnorePanZoomAndStretch(string theme, double fontSize)
+    [InlineData(OpticSceneVisualStyle.SolidModel, "Light", 13)]
+    [InlineData(OpticSceneVisualStyle.SolidModel, "Dark", 18)]
+    [InlineData(OpticSceneVisualStyle.OpticalLayout, "Light", 13)]
+    [InlineData(OpticSceneVisualStyle.OpticalLayout, "Dark", 18)]
+    public async Task AxesTrackPresetsMouseAndKeyboardButIgnorePanZoomAndStretch(OpticSceneVisualStyle style, string theme, double fontSize)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(Viewer3DGeometryTests));
         await session.Dispatch(async () =>
@@ -465,14 +482,27 @@ public sealed class Viewer3DGeometryTests
             var dto = await app.Visualization.BuildSceneAsync(new VisualizationRequestDto(SceneDimension.ThreeDimensional, RayCount: 5));
             var control = new OpticSceneControl
             {
-                Scene = dto, ViewMode = OpticSceneViewMode.ThreeDimensional,
-                VisualStyle = OpticSceneVisualStyle.SolidModel, RenderMode = OpticSceneRenderMode.Solid,
+                Scene = dto,
+                ViewMode = OpticSceneViewMode.ThreeDimensional,
+                VisualStyle = style,
+                RenderMode = style == OpticSceneVisualStyle.SolidModel
+                    ? OpticSceneRenderMode.Solid : OpticSceneRenderMode.Wireframe,
                 RayLineWidth = 0.7
             };
             var window = new Window { Width = 800, Height = 560, Content = control };
             try
             {
                 window.Show(); Tick(window);
+                var capturePixels = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(CaptureDirectory));
+                var capturePrefix = $"axes-{style}-{theme}";
+                byte[]? frontPixels = null;
+                byte[]? backgroundPixels = null;
+                if (capturePixels)
+                {
+                    control.Scene = null; control.InvalidateVisual(); Tick(window);
+                    backgroundPixels = RenderPixels(control);
+                    control.Scene = dto; control.InvalidateVisual(); Tick(window);
+                }
                 // Independent canonical screen directions: model Z is horizontal in Front,
                 // X becomes horizontal in Left/Right, and Y points into the Top/Bottom view.
                 var expected = new[]
@@ -495,31 +525,48 @@ public sealed class Viewer3DGeometryTests
                         Assert.InRange(Math.Abs(axes[i].Direction.X - directions[i].X), 0, 0.02);
                         Assert.InRange(Math.Abs(axes[i].Direction.Y - directions[i].Y), 0, 0.02);
                     }
-                    Capture(window, $"axes-{theme}-{preset}.png");
+                    if (capturePixels && preset == OpticSceneViewPreset.Front) frontPixels = RenderPixels(control);
+                    if (capturePixels && preset == OpticSceneViewPreset.Back) AssertGizmoChanged(frontPixels!, RenderPixels(control));
+                    Capture(window, $"{capturePrefix}-{preset}.png");
                 }
                 control.SetViewPreset(OpticSceneViewPreset.Isometric); Tick(window);
                 Vector[] Directions() => control.OrientationAxesForRendering().Select(axis => axis.Direction).ToArray();
                 var initial = Directions();
-                Capture(window, $"axes-{theme}-isometric.png");
+                var initialPixels = capturePixels ? RenderPixels(control) : null;
+                Capture(window, $"{capturePrefix}-isometric.png");
                 var pointer = new Point(400, 260);
                 window.MouseDown(pointer, MouseButton.Left);
                 window.MouseMove(pointer + new Vector(65, 28));
                 window.MouseUp(pointer + new Vector(65, 28), MouseButton.Left); Tick(window);
                 var dragged = Directions();
                 Assert.False(initial.SequenceEqual(dragged));
-                Capture(window, $"axes-{theme}-dragged.png");
+                var draggedPixels = capturePixels ? RenderPixels(control) : null;
+                if (capturePixels) AssertGizmoChanged(initialPixels!, draggedPixels!);
+                Capture(window, $"{capturePrefix}-dragged.png");
                 window.KeyPress(Key.Right, RawInputModifiers.None, PhysicalKey.None, null); Tick(window);
                 var rotated = Directions();
                 Assert.False(dragged.SequenceEqual(rotated));
+                if (capturePixels) AssertGizmoChanged(draggedPixels!, RenderPixels(control));
                 window.KeyPress(Key.Left, RawInputModifiers.Shift, PhysicalKey.None, null);
                 window.MouseWheel(pointer, new Vector(0, 1));
                 control.VerticalStretch = 2.5; Tick(window);
                 Assert.Equal(rotated, Directions());
-                Capture(window, $"axes-{theme}-pan-zoom-stretch.png");
+                Capture(window, $"{capturePrefix}-pan-zoom-stretch.png");
                 window.KeyPress(Key.Home, RawInputModifiers.None, PhysicalKey.None, null); Tick(window);
                 Assert.Equal(initial, Directions());
+                Capture(window, $"{capturePrefix}-reset.png");
                 Assert.Same(dto, control.Scene);
                 Assert.Equal(dto.SourceRevision, app.Events.Revision);
+
+                void AssertGizmoChanged(byte[] before, byte[] after)
+                {
+                    var pixelWidth = (int)control.Bounds.Width;
+                    var pixelHeight = (int)control.Bounds.Height;
+                    Assert.True(ChangedPixels(before, after, pixelWidth, new PixelRect(0, pixelHeight - 100, 100, 100)) > 5,
+                        "The lower-left rendered axes must rotate with the camera.");
+                    var corner = new PixelRect(pixelWidth - 76, pixelHeight - 76, 60, 60);
+                    Assert.Equal(0, ChangedPixels(backgroundPixels!, after, pixelWidth, corner));
+                }
             }
             finally
             {
@@ -531,10 +578,13 @@ public sealed class Viewer3DGeometryTests
     }
 
     [Theory]
-    [InlineData("Light", "zh-CN", 1100, 13)]
-    [InlineData("Dark", "en-US", 400, 13)]
-    [InlineData("Light", "ja-JP", 400, 18)]
-    public async Task SolidViewButtonsShowLabelsAndTrackTheActualCamera(string theme, string language, int width, double fontSize)
+    [InlineData(ViewerPresentationMode.SolidModel, "Light", "zh-CN", 1100, 13)]
+    [InlineData(ViewerPresentationMode.SolidModel, "Dark", "en-US", 400, 13)]
+    [InlineData(ViewerPresentationMode.SolidModel, "Light", "ja-JP", 400, 18)]
+    [InlineData(ViewerPresentationMode.OpticalLayout, "Light", "zh-CN", 1100, 13)]
+    [InlineData(ViewerPresentationMode.OpticalLayout, "Dark", "en-US", 400, 13)]
+    [InlineData(ViewerPresentationMode.OpticalLayout, "Light", "ja-JP", 400, 18)]
+    public async Task ViewButtonsShowLabelsAndTrackTheActualCamera(ViewerPresentationMode mode, string theme, string language, int width, double fontSize)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(Viewer3DGeometryTests));
         await session.Dispatch(async () =>
@@ -546,7 +596,9 @@ public sealed class Viewer3DGeometryTests
             using var app = WorkbenchApplication.Create();
             await app.Documents.OpenAsync(ConfigurationMatrixAnalysisTests.ZoomPath());
             using var viewer = new ViewerPanel(app.Visualization, app.Events, new SurfaceSelectionService(),
-                SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel);
+                SceneDimension.ThreeDimensional, mode);
+            var namePrefix = mode == ViewerPresentationMode.SolidModel ? "SolidModel" : "Viewer3D";
+            var capturePrefix = $"view-buttons-{mode}-{theme}-{language}-{width}";
             var window = new Window { Width = width, Height = 700, FontSize = fontSize, Content = viewer };
             try
             {
@@ -556,22 +608,22 @@ public sealed class Viewer3DGeometryTests
                 Assert.NotNull(scene.Scene); Tick(window);
                 var originalScene = scene.Scene;
                 var revision = app.Events.Revision;
-                var toolbar = viewer.GetVisualDescendants().OfType<Border>().Single(item => item.Name == "SolidModelViewPresets");
+                var toolbar = viewer.GetVisualDescendants().OfType<Border>().Single(item => item.Name == $"{namePrefix}ViewPresets");
                 var buttons = toolbar.GetVisualDescendants().OfType<ToggleButton>().ToArray();
                 Assert.Equal(7, buttons.Length);
                 AssertSelected(OpticSceneViewPreset.Isometric);
-                Capture(window, $"view-buttons-{theme}-{language}-{width}-initial.png");
+                Capture(window, $"{capturePrefix}-initial.png");
                 var captureDirectory = Environment.GetEnvironmentVariable(CaptureDirectory);
                 if (!string.IsNullOrWhiteSpace(captureDirectory) && toolbar.Child is Control row)
                 {
                     using var rowImage = new RenderTargetBitmap(new PixelSize((int)Math.Ceiling(row.Bounds.Width),
                         (int)Math.Ceiling(row.Bounds.Height)), new Vector(96, 96));
                     rowImage.Render(row);
-                    rowImage.Save(Path.Combine(captureDirectory, $"view-buttons-{theme}-{language}-{width}-toolbar.png"), PngBitmapEncoderOptions.Default);
+                    rowImage.Save(Path.Combine(captureDirectory, $"{capturePrefix}-toolbar.png"), PngBitmapEncoderOptions.Default);
                 }
                 foreach (var preset in Enum.GetValues<OpticSceneViewPreset>())
                 {
-                    var button = buttons.Single(item => item.Name == $"SolidModelView{preset}");
+                    var button = buttons.Single(item => item.Name == $"{namePrefix}View{preset}");
                     var label = button.GetVisualDescendants().OfType<TextBlock>().Single();
                     Assert.False(string.IsNullOrWhiteSpace(label.Text));
                     Assert.Equal(fontSize, label.FontSize);
@@ -588,13 +640,13 @@ public sealed class Viewer3DGeometryTests
                 window.MouseUp(pointer + new Vector(35, 15), MouseButton.Left); Tick(window);
                 Assert.Null(scene.ActiveViewPreset);
                 Assert.DoesNotContain(buttons, item => item.IsChecked == true);
-                Capture(window, $"view-buttons-{theme}-{language}-{width}-free-rotation.png");
-                var front = buttons.Single(item => item.Name == "SolidModelViewFront");
+                Capture(window, $"{capturePrefix}-free-rotation.png");
+                var front = buttons.Single(item => item.Name == $"{namePrefix}ViewFront");
                 front.Focus();
                 window.KeyPress(Key.Space, RawInputModifiers.None, PhysicalKey.Space, " ");
                 window.KeyRelease(Key.Space, RawInputModifiers.None, PhysicalKey.Space, " "); Tick(window);
                 AssertSelected(OpticSceneViewPreset.Front);
-                Click(toolbar.GetVisualDescendants().OfType<Button>().Single(item => item.Name == "SolidModelFitView"));
+                Click(toolbar.GetVisualDescendants().OfType<Button>().Single(item => item.Name == $"{namePrefix}FitView"));
                 AssertSelected(OpticSceneViewPreset.Front);
                 scene.Focus();
                 window.KeyPress(Key.Left, RawInputModifiers.Shift, PhysicalKey.None, null); Tick(window);
@@ -604,13 +656,20 @@ public sealed class Viewer3DGeometryTests
                 Assert.DoesNotContain(buttons, item => item.IsChecked == true);
                 window.KeyPress(Key.Home, RawInputModifiers.None, PhysicalKey.None, null); Tick(window);
                 AssertSelected(OpticSceneViewPreset.Isometric);
-                var legend = viewer.GetVisualDescendants().OfType<Border>().Single(item => item.Name == "Viewer3DGlassLegend");
-                Assert.True(VisualBounds(scene).Bottom <= VisualBounds(toolbar).Top);
-                Assert.True(VisualBounds(toolbar).Bottom <= VisualBounds(legend).Top);
-                Assert.InRange(VisualBounds(legend).Bottom, 0, window.Height);
+                Assert.Same(scene.Parent, toolbar.Parent);
+                Assert.True(VisualBounds(scene).Top < VisualBounds(toolbar).Top);
+                Assert.InRange(VisualBounds(toolbar).Left, VisualBounds(scene).Left + 72, VisualBounds(scene).Right);
+                Assert.InRange(VisualBounds(toolbar).Right, VisualBounds(scene).Left, VisualBounds(scene).Right - 72);
+                Assert.True(VisualBounds(toolbar).Bottom <= VisualBounds(scene).Bottom - 40);
+                if (mode == ViewerPresentationMode.SolidModel)
+                {
+                    var legend = viewer.GetVisualDescendants().OfType<Border>().Single(item => item.Name == "Viewer3DGlassLegend");
+                    Assert.True(VisualBounds(toolbar).Bottom <= VisualBounds(legend).Top);
+                    Assert.InRange(VisualBounds(legend).Bottom, 0, window.Height);
+                }
                 Assert.Same(originalScene, scene.Scene);
                 Assert.Equal(revision, app.Events.Revision);
-                Capture(window, $"view-buttons-{theme}-{language}-{width}-reset.png");
+                Capture(window, $"{capturePrefix}-reset.png");
 
                 Rect VisualBounds(Control control) => new Rect(control.Bounds.Size).TransformToAABB(control.TransformToVisual(window)!.Value);
                 void Click(Control control)
@@ -621,7 +680,7 @@ public sealed class Viewer3DGeometryTests
                 void AssertSelected(OpticSceneViewPreset expected)
                 {
                     Assert.Equal(expected, scene.ActiveViewPreset);
-                    Assert.Equal($"SolidModelView{expected}", Assert.Single(buttons, item => item.IsChecked == true).Name);
+                    Assert.Equal($"{namePrefix}View{expected}", Assert.Single(buttons, item => item.IsChecked == true).Name);
                 }
             }
             finally

@@ -2,7 +2,7 @@ using OpticalSystemDesign.Core.Raytrace;
 
 namespace OpticalSystemDesign.Core.Differentiation;
 
-internal sealed class GpuRaySensitivityBatch(int parameters, CancellationToken cancellationToken)
+internal sealed class GpuRaySensitivityBatch(int parameters, CancellationToken cancellationToken) : IDisposable
 {
     private readonly List<(DifferentialTape Tape, DesignRaySensitivity Ray, Action<DesignRaySensitivity> Complete)> _pending = [];
     private int _nodes;
@@ -12,7 +12,8 @@ internal sealed class GpuRaySensitivityBatch(int parameters, CancellationToken c
 
     public void Add(DifferentialTape tape, DesignRaySensitivity ray, Action<DesignRaySensitivity> complete)
     {
-        if (_nodes + tape.Nodes.Count > 1_750_000) Flush();
+        try { if (_nodes + tape.Nodes.Count > 1_750_000) Flush(); }
+        catch { tape.Release(); throw; }
         _pending.Add((tape, ray, complete));
         _nodes += tape.Nodes.Count;
         if (_pending.Count >= 128) Flush();
@@ -21,23 +22,32 @@ internal sealed class GpuRaySensitivityBatch(int parameters, CancellationToken c
     public void Flush()
     {
         if (_pending.Count == 0) return;
-        var outputs = _pending.Select(item => Values(item.Ray).Select(value => value.TapeNode(item.Tape)).ToArray()).ToArray();
-        var result = DesignGpu.Differentiate(_pending.Select(item => item.Tape).ToArray(), outputs, parameters, cancellationToken);
-        for (var ray = 0; ray < _pending.Count; ray++)
+        try
         {
-            var values = Values(_pending[ray].Ray);
-            var materialized = new DifferentialScalar[6];
-            for (var component = 0; component < 6; component++)
+            var outputs = _pending.Select(item => Values(item.Ray).Select(value => value.TapeNode(item.Tape)).ToArray()).ToArray();
+            var result = DesignGpu.Differentiate(_pending.Select(item => item.Tape).ToArray(), outputs, parameters, cancellationToken);
+            for (var ray = 0; ray < _pending.Count; ray++)
             {
-                var gradient = new double[parameters];
-                Array.Copy(result.Gradients, (ray * 6 + component) * parameters, gradient, 0, parameters);
-                materialized[component] = DifferentialScalar.FromGradient(values[component].Value, gradient);
+                var values = Values(_pending[ray].Ray);
+                var materialized = new DifferentialScalar[6];
+                for (var component = 0; component < 6; component++)
+                {
+                    var gradient = new double[parameters];
+                    Array.Copy(result.Gradients, (ray * 6 + component) * parameters, gradient, 0, parameters);
+                    materialized[component] = DifferentialScalar.FromGradient(values[component].Value, gradient);
+                }
+                _pending[ray].Complete(new(materialized[0], materialized[1], materialized[2], materialized[3], materialized[4]) { BendPenalty = materialized[5] });
             }
-            _pending[ray].Complete(new(materialized[0], materialized[1], materialized[2], materialized[3], materialized[4]) { BendPenalty = materialized[5] });
+            Batches++;
+            Rays += _pending.Count;
+            Milliseconds += result.Milliseconds;
         }
-        Batches++;
-        Rays += _pending.Count;
-        Milliseconds += result.Milliseconds;
+        finally { Dispose(); }
+    }
+
+    public void Dispose()
+    {
+        foreach (var item in _pending) item.Tape.Release();
         _pending.Clear();
         _nodes = 0;
     }

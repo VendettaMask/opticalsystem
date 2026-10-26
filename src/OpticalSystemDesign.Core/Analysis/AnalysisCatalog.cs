@@ -76,6 +76,7 @@ public sealed class AnalysisCatalog
         "Optical Path Difference",
         "Foucault Analysis",
         "Wavefront",
+        "Interferogram",
         "Centroid Sphere Wavefront",
         "Best Fit Sphere Wavefront",
         "Zernike",
@@ -159,6 +160,7 @@ public sealed class AnalysisCatalog
             "Optical Path Difference" => new OpticalPathDifferenceAnalysis(_optic),
             "Foucault Analysis" => new FoucaultAnalysis(_optic),
             "Wavefront" => new WavefrontAnalysis(_optic),
+            "Interferogram" => new InterferogramAnalysis(_optic),
             "Centroid Sphere Wavefront" => new ReferenceSphereWavefrontAnalysis(
                 _optic,
                 ReferenceSphereStrategy.CentroidSphere,

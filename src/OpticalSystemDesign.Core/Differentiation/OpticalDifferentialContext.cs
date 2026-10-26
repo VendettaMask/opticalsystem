@@ -7,10 +7,14 @@ internal sealed class OpticalDifferentialContext
 {
     private readonly Optic _optic;
     private readonly IReadOnlyList<OpticalDesignParameter> _parameters;
-    private (DifferentialScalar Power, DifferentialScalar StopHeight)? _paraxial;
+    private (DifferentialScalar Power, DifferentialScalar StopHeight, DifferentialScalar EntrancePupilDiameter, DifferentialScalar ChiefImageScale)? _paraxial;
     public int Dimension { get; }
     public int ParameterCount => _parameters.Count;
     private readonly bool _analyticNormals;
+    private readonly bool _hasAbsolutePositions;
+    private readonly Dictionary<(int Surface, OpticalDesignParameterKind Kind, int Coefficient), (int Slot, double Scale)>? _bindings;
+    private readonly (double Curvature, double Conic, double[] Coefficients)[]? _profiles;
+    private readonly bool[]? _materialParameters;
 
     public OpticalDifferentialContext(Optic optic, IReadOnlyList<OpticalDesignParameter> parameters, int extraDimensions = 0, bool analyticNormals = false)
     {
@@ -19,10 +23,34 @@ internal sealed class OpticalDifferentialContext
         _parameters = parameters;
         Dimension = parameters.Count + extraDimensions;
         _analyticNormals = analyticNormals;
+        _hasAbsolutePositions = parameters.Any(parameter => parameter.Kind == OpticalDesignParameterKind.AxialPosition);
+        // A tracing context is scoped to one immutable evaluation. Scalar geometry
+        // probes keep their inexpensive direct binding path instead of building a table each time.
+        if (extraDimensions > 0)
+        {
+            _bindings = [];
+            _materialParameters = new bool[optic.SurfaceGroup.Items.Count];
+            for (var slot = 0; slot < parameters.Count; slot++)
+            {
+                var parameter = parameters[slot];
+                Bind(parameter.SurfaceIndex);
+                if (parameter.LinkedSurfaceIndex is { } linked) Bind(linked);
+                void Bind(int surface)
+                {
+                    _bindings[(surface, parameter.Kind, parameter.CoefficientIndex)] = (slot, parameter.Scale);
+                    if (parameter.Kind is OpticalDesignParameterKind.MaterialIndex or OpticalDesignParameterKind.MaterialAbbe)
+                        _materialParameters[surface] = true;
+                }
+            }
+            _profiles = optic.SurfaceGroup.Items.Select(surface => OpticalDesignParameters.Profile(surface.Geometry)).ToArray();
+        }
     }
 
     public DifferentialScalar Parameter(int surface, OpticalDesignParameterKind kind, double value, int coefficient = 0)
     {
+        if (_bindings is not null)
+            return _bindings.TryGetValue((surface, kind, coefficient), out var binding)
+                ? DifferentialScalar.Variable(value, Dimension, binding.Slot, binding.Scale) : value;
         for (var index = 0; index < _parameters.Count; index++)
             if (_parameters[index] is var parameter && (parameter.SurfaceIndex == surface || parameter.LinkedSurfaceIndex == surface) && parameter.Kind == kind
                 && (kind != OpticalDesignParameterKind.EvenAsphereCoefficient || parameter.CoefficientIndex == coefficient))
@@ -32,7 +60,7 @@ internal sealed class OpticalDifferentialContext
 
     public DifferentialScalar Position(int surface)
     {
-        if (_parameters.Any(parameter => parameter.Kind == OpticalDesignParameterKind.AxialPosition))
+        if (_hasAbsolutePositions)
             return Parameter(surface, OpticalDesignParameterKind.AxialPosition, _optic.SurfaceGroup.Items[surface].CoordinateSystem.Origin.Z);
         DifferentialScalar position = _optic.SurfaceGroup.Items[surface].CoordinateSystem.Origin.Z;
         for (var index = 0; index < _parameters.Count; index++)
@@ -48,8 +76,9 @@ internal sealed class OpticalDifferentialContext
     {
         if (surface < 0) return 1;
         var material = _optic.SurfaceGroup.Items[surface].MaterialAfter;
-        if (!_parameters.Any(parameter => (parameter.SurfaceIndex == surface || parameter.LinkedSurfaceIndex == surface)
-                && parameter.Kind is OpticalDesignParameterKind.MaterialIndex or OpticalDesignParameterKind.MaterialAbbe))
+        if (!(_materialParameters is not null ? _materialParameters[surface] : _parameters.Any(parameter =>
+                (parameter.SurfaceIndex == surface || parameter.LinkedSurfaceIndex == surface)
+                && parameter.Kind is OpticalDesignParameterKind.MaterialIndex or OpticalDesignParameterKind.MaterialAbbe)))
             return material.RefractiveIndex(wavelength);
         var (ndValue, vdValue) = OpticalDesignParameters.RelaxedGlassCoordinates(material);
         var nd = Parameter(surface, OpticalDesignParameterKind.MaterialIndex, ndValue);
@@ -61,7 +90,7 @@ internal sealed class OpticalDifferentialContext
 
     public (DifferentialScalar Sag, DifferentialScalar RadialSlope) Profile(int surface, DifferentialScalar x, DifferentialScalar y, bool relaxedDomain = false)
     {
-        var profile = OpticalDesignParameters.Profile(_optic.SurfaceGroup.Items[surface].Geometry);
+        var profile = _profiles is not null ? _profiles[surface] : OpticalDesignParameters.Profile(_optic.SurfaceGroup.Items[surface].Geometry);
         var c = Parameter(surface, OpticalDesignParameterKind.Curvature, profile.Curvature);
         var k = Parameter(surface, OpticalDesignParameterKind.Conic, profile.Conic);
         var u = x * x + y * y;
@@ -103,7 +132,7 @@ internal sealed class OpticalDifferentialContext
         return (nx / length, ny / length, 1 / length);
     }
 
-    public (DifferentialScalar Power, DifferentialScalar StopHeight) Paraxial()
+    public (DifferentialScalar Power, DifferentialScalar StopHeight, DifferentialScalar EntrancePupilDiameter, DifferentialScalar ChiefImageScale) Paraxial()
     {
         if (_paraxial is { } cached) return cached;
         if (_parameters.Any(parameter => parameter.Kind == OpticalDesignParameterKind.EvenAsphereCoefficient && parameter.CoefficientIndex == 0))
@@ -111,18 +140,30 @@ internal sealed class OpticalDifferentialContext
         var wavelength = _optic.Wavelengths.First(wave => wave.IsPrimary).Nanometers;
         DifferentialScalar a = 1, b = 0, c = 0, d = 1;
         DifferentialScalar stopHeight = double.NaN;
+        DifferentialScalar entrancePupilDiameter = _optic.Aperture.Value;
+        DifferentialScalar stopA = double.NaN, stopB = double.NaN;
         var indexBefore = Index(-1, wavelength);
         for (var index = 0; index < _optic.SurfaceGroup.Items.Count; index++)
         {
             var surface = _optic.SurfaceGroup.Items[index];
-            if (surface.IsStop) stopHeight = a * _optic.Aperture.Value / 2;
+            if (surface.IsStop)
+            {
+                stopA = a; stopB = b;
+                if (_optic.Aperture.Kind == Core.Apertures.ApertureKind.FloatByStopSize)
+                {
+                    if (Math.Abs(a.Value) <= 1e-15) throw new ArithmeticException("The independent stop has no finite pupil magnification.");
+                    entrancePupilDiameter = 2 * _optic.SurfaceGroup.ApertureRadius() / DifferentialScalar.Abs(a);
+                    stopHeight = a * entrancePupilDiameter / 2;
+                }
+                else stopHeight = a * _optic.Aperture.Value / 2;
+            }
             var indexAfter = Index(index, wavelength);
             var curvature = Parameter(index, OpticalDesignParameterKind.Curvature, OpticalDesignParameters.Profile(surface.Geometry).Curvature);
             var power = -(indexAfter - indexBefore) * curvature / indexAfter;
             var ratio = indexBefore / indexAfter;
             c = power * a + ratio * c;
             d = power * b + ratio * d;
-            if (double.IsFinite(surface.Thickness))
+            if (index + 1 < _optic.SurfaceGroup.Items.Count && double.IsFinite(surface.Thickness))
             {
                 var thickness = _parameters.Any(parameter => parameter.Kind == OpticalDesignParameterKind.AxialPosition)
                     && index + 1 < _optic.SurfaceGroup.Items.Count ? Position(index + 1) - Position(index)
@@ -137,7 +178,14 @@ internal sealed class OpticalDifferentialContext
         var stopIndex = _optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
         var formalStop = _optic.Paraxial.TraceNormalizedPupil(0, [1.0], wavelength / 1000).Heights[stopIndex][0];
         Verify(stopHeight, formalStop, "stop calibration");
-        _paraxial = ((-c).WithValue(formalPower), stopHeight.WithValue(formalStop));
+        Verify(entrancePupilDiameter, _optic.Paraxial.EstimateEntrancePupilDiameter(), "entrance pupil diameter");
+        DifferentialScalar chiefScale = double.NaN;
+        if (_optic.Aperture.Kind == Core.Apertures.ApertureKind.FloatByStopSize)
+        {
+            chiefScale = b - a * stopB / stopA;
+            Verify(chiefScale, _optic.Paraxial.EstimateChiefRayImageScale(), "chief image scale");
+        }
+        _paraxial = ((-c).WithValue(formalPower), stopHeight.WithValue(formalStop), entrancePupilDiameter, chiefScale);
         return _paraxial.Value;
     }
 

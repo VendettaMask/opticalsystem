@@ -103,7 +103,9 @@ public sealed class WorkspaceSessionStore
 
     public string DefaultLayoutPath => Path.Combine(_rootDirectory, "workspace-default.json");
 
-    public string SlotPath(int slot) => Path.Combine(_rootDirectory, $"workspace-slot-{Math.Clamp(slot, 1, 9)}.json");
+    public string SlotPath(int slot) => slot is >= 1 and <= 9
+        ? Path.Combine(_rootDirectory, $"workspace-slot-{slot}.json")
+        : throw new ArgumentOutOfRangeException(nameof(slot), "Layout slot must be between 1 and 9.");
 
     public string SessionPath(string documentPath)
     {
@@ -112,67 +114,47 @@ public sealed class WorkspaceSessionStore
 
     public static string PathHash(string documentPath)
     {
-        var normalized = CanonicalizeExistingPath(Path.TrimEndingDirectorySeparator(
-            Path.GetFullPath(documentPath)));
+        var normalized = Path.TrimEndingDirectorySeparator(Path.GetFullPath(documentPath));
+        try
+        {
+            if (File.Exists(normalized) && (OperatingSystem.IsWindows() || OperatingSystem.IsMacOS()))
+            {
+                // Ask the filesystem for this file's spelling without listing parents.
+                using var handle = File.OpenHandle(normalized);
+                if (OperatingSystem.IsWindows())
+                {
+                    var buffer = new StringBuilder(32768);
+                    var length = GetFinalPathNameByHandle(handle, buffer, buffer.Capacity, 0);
+                    if (length > 0 && length < buffer.Capacity)
+                    {
+                        normalized = buffer.ToString();
+                        if (normalized.StartsWith(@"\\?\UNC\", StringComparison.Ordinal)) normalized = @"\\" + normalized[8..];
+                        else if (normalized.StartsWith(@"\\?\", StringComparison.Ordinal)) normalized = normalized[4..];
+                    }
+                }
+                else
+                {
+                    var buffer = new byte[4096];
+                    if (GetMacPath(handle.DangerousGetHandle().ToInt32(), 50, buffer) == 0
+                        && Array.IndexOf(buffer, (byte)0) is > 0 and var length)
+                        normalized = Encoding.UTF8.GetString(buffer, 0, length);
+                }
+            }
+        }
+        catch (Exception error) when (error is IOException or UnauthorizedAccessException)
+        {
+            // A busy/inaccessible project must not prevent layout persistence.
+            if (OperatingSystem.IsWindows()) normalized = normalized.ToUpperInvariant();
+        }
         return Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(normalized))).ToLowerInvariant();
     }
 
-    private static string CanonicalizeExistingPath(string fullPath)
-    {
-        var root = Path.GetPathRoot(fullPath);
-        if (string.IsNullOrEmpty(root) || fullPath.Length <= root.Length)
-        {
-            return fullPath;
-        }
+    [System.Runtime.InteropServices.DllImport("kernel32.dll", CharSet = System.Runtime.InteropServices.CharSet.Unicode, SetLastError = true, EntryPoint = "GetFinalPathNameByHandleW")]
+    private static extern uint GetFinalPathNameByHandle(Microsoft.Win32.SafeHandles.SafeFileHandle handle, StringBuilder path, int length, uint flags);
 
-        if (!File.Exists(fullPath) && !Directory.Exists(fullPath))
-        {
-            return fullPath;
-        }
+    [System.Runtime.InteropServices.DllImport("libc", SetLastError = true, EntryPoint = "fcntl")]
+    private static extern int GetMacPath(int descriptor, int command, byte[] buffer);
 
-        try
-        {
-            var current = root;
-            var segments = fullPath[root.Length..].Split(
-                new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar },
-                StringSplitOptions.RemoveEmptyEntries);
-            foreach (var segment in segments)
-            {
-                var entries = Directory.EnumerateFileSystemEntries(current).ToArray();
-                var match = entries.FirstOrDefault(entry =>
-                    string.Equals(Path.GetFileName(entry), segment, StringComparison.Ordinal));
-                if (match is null)
-                {
-                    var caseInsensitiveMatches = entries
-                        .Where(entry => string.Equals(
-                            Path.GetFileName(entry),
-                            segment,
-                            StringComparison.OrdinalIgnoreCase))
-                        .Take(2)
-                        .ToArray();
-                    if (caseInsensitiveMatches.Length != 1)
-                    {
-                        return fullPath;
-                    }
-
-                    match = caseInsensitiveMatches[0];
-                }
-
-                current = match;
-            }
-
-            return current;
-        }
-        catch (Exception exception) when (
-            exception is IOException
-            or UnauthorizedAccessException
-            or System.Security.SecurityException)
-        {
-            return OperatingSystem.IsWindows()
-                ? fullPath.ToUpperInvariant()
-                : fullPath;
-        }
-    }
 
     public async Task<WorkspaceSession?> LoadAsync(
         string? documentPath,

@@ -106,22 +106,28 @@ public sealed class CommercialReliabilityTests
     {
         using var cancellation = new CancellationTokenSource();
         var started = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        using var releaseCheckpoint = new ManualResetEventSlim();
         var psf = new PsfResult(new double[367, 367], 4, 367, 5, 2);
         var pending = Task.Factory.StartNew(() =>
         {
             using var scope = ComputationCancellation.Push(cancellation.Token);
-            started.SetResult();
+            using var checkpoint = ComputationCancellation.ObserveCheckpoints(() =>
+            {
+                started.TrySetResult();
+                if (!releaseCheckpoint.Wait(TimeSpan.FromSeconds(5))) throw new TimeoutException();
+            });
             return DiffractionEngine.ComputePsfMtf(psf);
         }, CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         try
         {
             await started.Task.WaitAsync(TimeSpan.FromSeconds(5));
-            await Task.Delay(30);
+
             Assert.False(pending.IsCompleted);
             cancellation.Cancel();
+            releaseCheckpoint.Set();
             await Assert.ThrowsAnyAsync<OperationCanceledException>(() => pending.WaitAsync(TimeSpan.FromSeconds(3)));
         }
-        finally { cancellation.Cancel(); }
+        finally { cancellation.Cancel(); releaseCheckpoint.Set(); }
     }
 
     [Fact]

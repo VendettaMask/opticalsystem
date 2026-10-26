@@ -60,7 +60,7 @@ public static class ExperimentStore
     }
 
     private static string Number(double v) => v.ToString("G17", CultureInfo.InvariantCulture);
-    private static string Csv(string text) => '"' + text.Replace("\"", "\"\"") + '"';
+    private static string Csv(string text) => CsvCell.Escape(text);
     private static void CheckResult(Experiment d)
     {
         if (d.Result is not null && !d.MatchesFingerprint(d.Result.Fingerprint))

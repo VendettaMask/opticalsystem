@@ -1,5 +1,5 @@
-using System.Security.Cryptography;
 using System.Diagnostics;
+using System.Security.Cryptography;
 using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.Tests;

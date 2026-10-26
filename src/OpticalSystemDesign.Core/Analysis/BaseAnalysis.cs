@@ -1,5 +1,5 @@
-using OpticalSystemDesign.Core.Services;
 using OpticalSystemDesign.Core.Capabilities;
+using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Core.Analysis;
 

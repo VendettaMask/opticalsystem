@@ -4,9 +4,9 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Panels;
 

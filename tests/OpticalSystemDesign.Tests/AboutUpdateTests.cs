@@ -238,8 +238,10 @@ public sealed class AboutUpdateTests
         {
             Exception exception = failure switch
             {
-                "http" => new System.Net.Http.HttpRequestException("fixture"), "io" => new IOException("fixture"),
-                "timeout" => new TimeoutException("fixture"), "cancel" => new OperationCanceledException("fixture"),
+                "http" => new System.Net.Http.HttpRequestException("fixture"),
+                "io" => new IOException("fixture"),
+                "timeout" => new TimeoutException("fixture"),
+                "cancel" => new OperationCanceledException("fixture"),
                 _ => new InvalidDataException("fixture")
             };
             using var panel = new SoftwareUpdatePanel(new ThrowingService(exception),

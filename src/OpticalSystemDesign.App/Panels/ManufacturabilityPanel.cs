@@ -6,10 +6,10 @@ using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Threading;
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Manufacturing;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Panels;
 

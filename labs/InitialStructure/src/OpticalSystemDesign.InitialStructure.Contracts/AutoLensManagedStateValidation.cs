@@ -7,18 +7,19 @@ public static class AutoLensManagedStateValidation
     public static void Validate(AutoLensManagedState state)
     {
         var reference = state.SchemaVersion == 2;
-        if (state.PropagationExecution is { } gpu && (gpu.DeviceName is not {Length:>0 and <=512}
-            || gpu.AimRays<0 || gpu.AimTraces<0 || gpu.PropagatedRays<0 || gpu.Batches<0 || gpu.CpuRecoveryRays<0 || gpu.CpuAimingRays < 0
-            || gpu.CpuRecoveryRays>gpu.AimRays || !double.IsFinite(gpu.Milliseconds) || gpu.Milliseconds<0
-            || gpu.FallbackReason is {Length:>4096}
-            || gpu.Batches==0 && (gpu.AimRays!=0 || gpu.PropagatedRays!=0 || gpu.AimTraces!=0 || gpu.Milliseconds!=0)))
+        if (state.PropagationExecution is { } gpu && (gpu.DeviceName is not { Length: > 0 and <= 512 }
+            || gpu.AimRays < 0 || gpu.AimTraces < 0 || gpu.PropagatedRays < 0 || gpu.Batches < 0 || gpu.CpuRecoveryRays < 0 || gpu.CpuAimingRays < 0
+            || gpu.CpuRecoveryRays > gpu.AimRays || !double.IsFinite(gpu.Milliseconds) || gpu.Milliseconds < 0
+            || gpu.FallbackReason is { Length: > 4096 }
+            || gpu.Batches == 0 && (gpu.AimRays != 0 || gpu.PropagatedRays != 0 || gpu.AimTraces != 0 || gpu.Milliseconds != 0)))
             throw new InvalidDataException("Invalid AutoLens CUDA aiming/physical propagation evidence.");
         if (state.GpuBatches < 0 || state.GpuRays < 0 || !double.IsFinite(state.GpuMilliseconds) || state.GpuMilliseconds < 0
-            || state.LastComputeExecution is { } execution && (execution.Backend is not ("cpu-forward-v1" or "cuda-reverse-tape-v1")
+            || state.LastComputeExecution is { } execution && (execution.Backend is not ("cpu-forward-v1" or "cuda-reverse-tape-v1" or "cuda-fixed-input-forward-v1")
                 || execution.DeviceName is not { Length: > 0 and <= 512 } || execution.GpuBatches < 0 || execution.GpuRays < 0
                 || !double.IsFinite(execution.GpuMilliseconds) || execution.GpuMilliseconds < 0
                 || execution.Backend == "cpu-forward-v1" && (execution.GpuBatches != 0 || execution.GpuRays != 0 || execution.GpuMilliseconds != 0)
                 || execution.Backend == "cuda-reverse-tape-v1" && (execution.GpuBatches == 0 || execution.GpuRays == 0 || execution.FallbackReason is not null)
+                || execution.Backend == "cuda-fixed-input-forward-v1" && (execution.GpuBatches == 0 || execution.FallbackReason is not null)
                 || state.GpuBatches < execution.GpuBatches || state.GpuRays < execution.GpuRays
                 || execution.FallbackReason is { Length: > 4096 }))
             throw new InvalidDataException("Invalid AutoLens compute-device evidence.");

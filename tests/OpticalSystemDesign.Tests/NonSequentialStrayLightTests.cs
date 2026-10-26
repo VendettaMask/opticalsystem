@@ -1,9 +1,9 @@
 using System.Buffers.Binary;
 using System.Security.Cryptography;
 using System.Text;
+using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
-using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Coordinates;
@@ -11,9 +11,9 @@ using OpticalSystemDesign.Core.NonSequential;
 using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Serialization;
+using CoreBehavior = OpticalSystemDesign.Core.NonSequential.NonSequentialSurfaceBehavior;
 using CoreKind = OpticalSystemDesign.Core.NonSequential.NonSequentialObjectKind;
 using CoreMeshParameters = OpticalSystemDesign.Core.NonSequential.MeshObjectParameters;
-using CoreBehavior = OpticalSystemDesign.Core.NonSequential.NonSequentialSurfaceBehavior;
 
 namespace OpticalSystemDesign.Tests;
 

@@ -3,10 +3,10 @@ using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Avalonia.Layout;
 using Avalonia.Media;
-using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Formatting;
 
 namespace OpticalSystemDesign.App;
 

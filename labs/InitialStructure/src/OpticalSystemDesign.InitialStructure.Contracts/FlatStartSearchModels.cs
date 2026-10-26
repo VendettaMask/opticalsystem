@@ -1,5 +1,5 @@
-using OpticalSystemDesign.Core.Serialization;
 using System.Text.Json.Serialization;
+using OpticalSystemDesign.Core.Serialization;
 
 namespace OpticalSystemDesign.InitialStructure.Contracts;
 

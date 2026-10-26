@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="20af0e0d-f1b2-4940-9324-f0e58e23aca2" name="optics@LAPTOP-G4BBBCS0 2026-10-26 16:40:31" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-26T16:40:31.2985058+08:00" queuing="2026-10-26T16:40:31.2985061+08:00" start="2026-10-26T16:40:28.5601320+08:00" finish="2026-10-26T16:40:31.3046720+08:00" />
+  <TestSettings name="default" id="ef20635f-fdc9-4461-a896-41231d522629">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-26_16_40_31" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="601c7a11-c4e3-41e9-bb0e-006eb4bae052" testId="1feb0e68-cca3-9f7f-ceab-44496155d8e9" testName="OpticalSystemDesign.Tests.PhysicalStopDerivativeTests.GenericSeparationAndSharedAssessmentCentroidKeepTheirPhysicalMeaning" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.6516345" startTime="2026-10-26T16:40:30.5433545+08:00" endTime="2026-10-26T16:40:31.1851559+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="601c7a11-c4e3-41e9-bb0e-006eb4bae052">
+      <Output>
+        <StdOut>scale=125.41282988413076, ray=124.1460336289492, inputSlope=1.0000000000000003E-05, stopY=4.682221949568743E-15&#xD;
+surface 1: z=0, y=-0.00013171685005062365, slope=1.0000000000000003E-05, para-y=-0.00013171685005062365, n=1, R=0&#xD;
+surface 2: z=2.000000000178295, y=-0.0001117168500488407, slope=7.680370582799559E-06, para-y=-0.00011171685005062365, n=1.5167984379050088, R=35&#xD;
+surface 3: z=4.999999999912629, y=-8.867573830248244E-05, slope=1.2667962615151121E-05, para-y=-8.867573830191066E-05, n=1, R=-45&#xD;
+surface 4: z=12, y=4.682221949568743E-15, slope=1.2667962615151121E-05, para-y=1.3552527156068805E-20, n=1, R=0&#xD;
+surface 5: z=110, y=0.0012414603362894921, slope=1.2667962615151121E-05, para-y=0.0012414603362267494, n=1, R=0</StdOut>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 9.9999999999999995E-07)&#xD;
+Actual: 1.2667962551815606</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.PhysicalStopDerivativeTests.GenericSeparationAndSharedAssessmentCentroidKeepTheirPhysicalMeaning() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PhysicalStopDerivativeTests.cs:line 112&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.PhysicalStopDerivativeTests.GenericSeparationAndSharedAssessmentCentroidKeepTheirPhysicalMeaning" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1feb0e68-cca3-9f7f-ceab-44496155d8e9">
+      <Execution id="601c7a11-c4e3-41e9-bb0e-006eb4bae052" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PhysicalStopDerivativeTests" name="GenericSeparationAndSharedAssessmentCentroidKeepTheirPhysicalMeaning" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="1feb0e68-cca3-9f7f-ceab-44496155d8e9" executionId="601c7a11-c4e3-41e9-bb0e-006eb4bae052" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.18]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.44]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.47]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.16]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:02.16]       Range:  (0 - 9.9999999999999995E-07)&#xD;
+[xUnit.net 00:00:02.16]       Actual: 1.2667962551815606&#xD;
+[xUnit.net 00:00:02.16]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.17]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PhysicalStopDerivativeTests.cs(112,0): at OpticalSystemDesign.Tests.PhysicalStopDerivativeTests.GenericSeparationAndSharedAssessmentCentroidKeepTheirPhysicalMeaning()&#xD;
+[xUnit.net 00:00:02.17]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.17]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:02.17]       Output:&#xD;
+[xUnit.net 00:00:02.17]         scale=125.41282988413076, ray=124.1460336289492, inputSlope=1.0000000000000003E-05, stopY=4.682221949568743E-15&#xD;
+[xUnit.net 00:00:02.17]         surface 1: z=0, y=-0.00013171685005062365, slope=1.0000000000000003E-05, para-y=-0.00013171685005062365, n=1, R=0&#xD;
+[xUnit.net 00:00:02.17]         surface 2: z=2.000000000178295, y=-0.0001117168500488407, slope=7.680370582799559E-06, para-y=-0.00011171685005062365, n=1.5167984379050088, R=35&#xD;
+[xUnit.net 00:00:02.17]         surface 3: z=4.999999999912629, y=-8.867573830248244E-05, slope=1.2667962615151121E-05, para-y=-8.867573830191066E-05, n=1, R=-45&#xD;
+[xUnit.net 00:00:02.17]         surface 4: z=12, y=4.682221949568743E-15, slope=1.2667962615151121E-05, para-y=1.3552527156068805E-20, n=1, R=0&#xD;
+[xUnit.net 00:00:02.17]         surface 5: z=110, y=0.0012414603362894921, slope=1.2667962615151121E-05, para-y=0.0012414603362267494, n=1, R=0&#xD;
+[xUnit.net 00:00:02.18]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T16:40:31.1881118+08:00">
+        <Text>[xUnit.net 00:00:02.16]     OpticalSystemDesign.Tests.PhysicalStopDerivativeTests.GenericSeparationAndSharedAssessmentCentroidKeepTheirPhysicalMeaning [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

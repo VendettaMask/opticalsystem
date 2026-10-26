@@ -1,0 +1,28 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.Tests -> D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:03.98]     OpticalSystemDesign.Tests.OpticalDesignDerivativeTests.AFlatSeedHasFiniteCurvatureTangentsWithoutPerturbedOptics [FAIL]
+  失败 OpticalSystemDesign.Tests.OpticalDesignDerivativeTests.AFlatSeedHasFiniteCurvatureTangentsWithoutPerturbedOptics [31 ms]
+  错误消息:
+   System.ArithmeticException : Formal Core and derivative inverse f-number values disagree or are unavailable: formal=∞, derivative=-0.
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Differentiation.OpticalDifferentialContext.Verify(DifferentialScalar result, Double formal, String quantity) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\Differentiation\OpticalDifferentialContext.cs:line 195
+   at OpticalSystemDesign.Core.Differentiation.DifferentiableOpticalMetrics.EvaluateCore(Optic optic, IReadOnlyList`1 parameters, IReadOnlyList`1 normalizedFields, IReadOnlyList`1 pupils, CancellationToken cancellationToken, Boolean gpu, Boolean usePhysicalStop) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\Differentiation\DifferentiableOpticalMetrics.cs:line 162
+   at OpticalSystemDesign.Core.Differentiation.DifferentiableOpticalMetrics.EvaluateAtFields(Optic optic, IReadOnlyList`1 parameters, IReadOnlyList`1 normalizedFields, IReadOnlyList`1 pupils, CancellationToken cancellationToken, DesignComputeMode computeMode, Boolean usePhysicalStop) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\Differentiation\DifferentiableOpticalMetrics.cs:line 52
+   at OpticalSystemDesign.Core.Differentiation.DifferentiableOpticalMetrics.Evaluate(Optic optic, IReadOnlyList`1 parameters, IReadOnlyList`1 normalizedFields, IReadOnlyList`1 pupils, CancellationToken cancellationToken, DesignComputeMode computeMode) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\Differentiation\DifferentiableOpticalMetrics.cs:line 40
+   at OpticalSystemDesign.Tests.OpticalDesignDerivativeTests.AFlatSeedHasFiniteCurvatureTangentsWithoutPerturbedOptics() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalDesignDerivativeTests.cs:line 83
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autonomous-fixed-topology\core-second.trx
+
+失败!  - 失败:     1，通过:    29，已跳过:     0，总计:    30，持续时间: 4 s - OpticalSystemDesign.Tests.dll (net10.0)

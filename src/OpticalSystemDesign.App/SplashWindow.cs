@@ -138,7 +138,7 @@ internal sealed class SplashWindow : Window
                     FontSize = DisplayTypography.SplashTitle,
                     FontWeight = FontWeight.SemiBold,
                     Foreground = Brushes.White,
-                    TextWrapping = TextWrapping.NoWrap
+                    TextWrapping = TextWrapping.Wrap
                 },
                 new TextBlock
                 {
@@ -152,13 +152,13 @@ internal sealed class SplashWindow : Window
                     FontSize = DisplayTypography.BodySmall,
                     Foreground = new SolidColorBrush(Color.FromRgb(155, 161, 170))
                 },
-                new TextBlock
+                new Controls.CompanyLogoControl(Color.FromRgb(246, 176, 116))
                 {
-                    Text = "S.T.A.R. Labs",
+                    Name = "SplashCompanyLogo",
                     Margin = new Thickness(0, 8, 0, 0),
-                    FontSize = DisplayTypography.Body,
-                    FontWeight = FontWeight.SemiBold,
-                    Foreground = new SolidColorBrush(Color.FromRgb(246, 176, 116))
+                    Width = 200,
+                    Height = 26,
+                    HorizontalAlignment = HorizontalAlignment.Left
                 },
                 new TextBlock
                 {

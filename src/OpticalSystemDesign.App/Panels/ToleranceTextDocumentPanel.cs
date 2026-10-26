@@ -4,9 +4,9 @@ using Avalonia.Input.Platform;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.App.Panels;
 

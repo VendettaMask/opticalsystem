@@ -1,7 +1,7 @@
 using System.Text.Json;
 using OpticalSystemDesign.App.ViewModels;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Application.Runtime;
+using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Domain;
@@ -10,8 +10,8 @@ using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Raytrace;
-using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Scattering;
+using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Tests;

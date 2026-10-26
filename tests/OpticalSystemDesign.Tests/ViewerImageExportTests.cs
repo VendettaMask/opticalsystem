@@ -168,10 +168,13 @@ public sealed class ViewerImageExportTests
             using var fixture = await Fixture.Create(SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel, 420, 620);
             var original = fixture.Scene.Scene!;
             var model = original.ThreeDimensional!;
-            fixture.Scene.Scene = original with { ThreeDimensional = model with
+            fixture.Scene.Scene = original with
             {
-                LensElements = Enumerable.Range(0, 24).Select(index => model.LensElements[0] with { Material = $"GLASS-{index:00}-LONG-MATERIAL" }).ToArray()
-            } };
+                ThreeDimensional = model with
+                {
+                    LensElements = Enumerable.Range(0, 24).Select(index => model.LensElements[0] with { Material = $"GLASS-{index:00}-LONG-MATERIAL" }).ToArray()
+                }
+            };
             typeof(ViewerPanel).GetMethod("UpdateGlassLegend", BindingFlags.Instance | BindingFlags.NonPublic)!.Invoke(fixture.Viewer, null);
             fixture.Scene.InvalidateVisual(); Tick(fixture.Window);
             using var image = fixture.Viewer.CaptureViewerImage();
@@ -303,7 +306,9 @@ public sealed class ViewerImageExportTests
         proxy.Arguments = args => options = Assert.IsType<FilePickerSaveOptions>(Assert.Single(args!));
         proxy.Handler = method => method.Name switch
         {
-            "get_CanSave" => true, "SaveFilePickerAsync" => save(options), _ => throw new InvalidOperationException(method.Name)
+            "get_CanSave" => true,
+            "SaveFilePickerAsync" => save(options),
+            _ => throw new InvalidOperationException(method.Name)
         };
         typeof(TopLevel).GetField("_storageProvider", BindingFlags.Instance | BindingFlags.NonPublic)!.SetValue(window, provider);
     }

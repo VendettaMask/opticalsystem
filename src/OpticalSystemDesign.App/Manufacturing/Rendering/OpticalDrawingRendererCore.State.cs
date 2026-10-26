@@ -32,7 +32,6 @@ internal static partial class OpticalDrawingRendererCore
         0.01d
     };
     private static readonly Lazy<SKTypeface> ChineseTypeface = new(ResolveChineseTypeface);
-    private static readonly Lazy<byte[]?> DefaultCompanyLogoPng = new(LoadDefaultCompanyLogo);
     private static readonly ConcurrentDictionary<int, SKTypeface> FallbackTypefaces = new();
 
     internal static (float Width, float Height) PageDimensions(OpticalDrawingPageSize pageSize) =>

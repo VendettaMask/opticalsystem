@@ -2,20 +2,20 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Layout;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Platform.Storage;
 using Avalonia.Styling;
 using Avalonia.Threading;
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Formatting;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Manufacturing;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Services.Updates;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Formatting;
+using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.App;
 
@@ -238,6 +238,11 @@ public sealed partial class MainWindow
                 },
                 versionText,
                 new TextBlock { Name = "AboutBuild", Text = $"构建编号 {ProductVersionInfo.OtaBuildSequence.ToString(System.Globalization.CultureInfo.InvariantCulture)}", TextWrapping = TextWrapping.Wrap },
+                new CompanyLogoControl
+                {
+                    Name = "AboutCompanyLogo", Width = 220, Height = 28,
+                    HorizontalAlignment = HorizontalAlignment.Left
+                },
                 brandText,
                 new TextBlock
                 {
@@ -283,7 +288,8 @@ public sealed partial class MainWindow
         Grid.SetRow(footer, 1);
         root.Children.Add(new ScrollViewer
         {
-            Name = "AboutDetailsScroll", Content = main,
+            Name = "AboutDetailsScroll",
+            Content = main,
             HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled,
             VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto
         });

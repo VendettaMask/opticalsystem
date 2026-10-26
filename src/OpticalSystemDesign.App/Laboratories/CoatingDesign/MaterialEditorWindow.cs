@@ -58,7 +58,8 @@ public sealed class MaterialEditorWindow : Window
         Button("取消", () => { Close(null); return Task.CompletedTask; });
         var form = new StackPanel
         {
-            Spacing = 8, Margin = new Thickness(12),
+            Spacing = 8,
+            Margin = new Thickness(12),
             Children = {
             new TextBlock { Text = "选择实验材料（修改会使旧计算失效）" }, selector,
             new TextBlock { Text = "材料名称" }, _name, new TextBlock { Text = "数据来源 / 制备条件" }, _source,

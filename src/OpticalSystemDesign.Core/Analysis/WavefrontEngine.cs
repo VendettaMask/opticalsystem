@@ -1,8 +1,8 @@
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Domain;
-using OpticalSystemDesign.Core.Raytrace;
-using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Geometries;
+using OpticalSystemDesign.Core.Rays;
+using OpticalSystemDesign.Core.Raytrace;
 
 namespace OpticalSystemDesign.Core.Analysis;
 
@@ -32,6 +32,8 @@ public sealed record WavefrontResult(
     bool ImageSpaceAfocal = false,
     double AfocalPupilDiameterMillimeters = 0)
 {
+    /// <summary>Physical chief-ray OPL to the image, before reference-sphere subtraction.</summary>
+    public double? ChiefOpticalPathLength { get; init; }
     public bool? UseRayAiming { get; init; }
     public (double Hx, double Hy)? SourceField { get; init; }
     public double? SourceWavelengthNanometers { get; init; }
@@ -404,6 +406,7 @@ public static class WavefrontEngine
             chief.Direction.Z,
             imageIndex)
         {
+            ChiefOpticalPathLength = chief.CumulativeOpticalPathLength,
             UseRayAiming = aimAtStop,
             SourceField = field,
             SourceWavelengthNanometers = wavelength.Nanometers,
@@ -526,6 +529,7 @@ public static class WavefrontEngine
             AfocalPupilDiameterMillimeters:
                 ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(optic))
         {
+            ChiefOpticalPathLength = chief.CumulativeOpticalPathLength,
             UseRayAiming = aimAtStop,
             SourceField = field,
             SourceWavelengthNanometers = wavelength.Nanometers,

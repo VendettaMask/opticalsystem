@@ -304,23 +304,28 @@ public sealed class AuditReliabilityFixTests
     {
         using var cancellation = new CancellationTokenSource();
         var started = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        using var releaseCheckpoint = new ManualResetEventSlim();
         var pending = Task.Factory.StartNew(() =>
         {
             using var scope = ComputationCancellation.Push(cancellation.Token);
             var source = new double[384, 384];
             var kernel = new double[32, 32];
-            started.SetResult();
+            using var checkpoint = ComputationCancellation.ObserveCheckpoints(() =>
+            {
+                started.TrySetResult();
+                if (!releaseCheckpoint.Wait(TimeSpan.FromSeconds(5))) throw new TimeoutException();
+            });
             return ImageSimulationEngine.SpatiallyVariableConvolution(source, [], new double[0, 384, 384], kernel);
         }, CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
-        // Run cancellation on a dedicated worker. Under the full suite a delayed
-        // test continuation can resume after convolution finishes, even though
-        // its nominal delay was only 20 ms. That did not test cancellation.
+        // Handshake at an actual computation checkpoint; scheduler delays do not
+        // decide whether cancellation happens before computation completes.
         var cancelDuringWork = Task.Factory.StartNew(() =>
         {
             started.Task.WaitAsync(TimeSpan.FromSeconds(5)).GetAwaiter().GetResult();
-            Thread.Sleep(20);
+
             var wasComputing = !pending.IsCompleted;
             cancellation.Cancel();
+            releaseCheckpoint.Set();
             return wasComputing;
         }, CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         Assert.True(await cancelDuringWork);

@@ -12,8 +12,8 @@ using Avalonia.VisualTree;
 using Dock.Avalonia.Controls;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Panels;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.Tests;
 

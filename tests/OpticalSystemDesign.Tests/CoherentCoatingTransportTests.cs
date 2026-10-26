@@ -6,8 +6,8 @@ using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
-using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Rays;
+using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
 

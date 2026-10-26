@@ -1,0 +1,425 @@
+{
+  "Algorithm": "AutonomousTopologyV1",
+  "Phase": "M2",
+  "RecordedAt": "2026-10-26T16:57:39.2813060+08:00",
+  "TestTotal": 71,
+  "Tests": [
+    {
+      "File": "core-complete.trx",
+      "Counters": {
+        "total": 30,
+        "executed": 30,
+        "passed": 30,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      }
+    },
+    {
+      "File": "module-accounted.trx",
+      "Counters": {
+        "total": 41,
+        "executed": 41,
+        "passed": 41,
+        "failed": 0,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "inconclusive": 0,
+        "passedButRunAborted": 0,
+        "notRunnable": 0,
+        "notExecuted": 0,
+        "disconnected": 0,
+        "warning": 0,
+        "completed": 0,
+        "inProgress": 0,
+        "pending": 0
+      }
+    }
+  ],
+  "NewM2ModuleCases": 16,
+  "NewCoreCases": 5,
+  "Benchmarks": [
+    {
+      "ElementCount": 2,
+      "Evidence": "optimization-2.json",
+      "InitialEffectiveFocalLengthMillimeters": 214.4791353588658,
+      "FinalEffectiveFocalLengthMillimeters": 77.29002098863947,
+      "FinalFNumber": 19.322505247159867,
+      "InitialWorstRmsMicrometers": 940.7474125774909,
+      "FinalWorstRmsMicrometers": 319.1983551051526,
+      "FinalMaximumRadiusMicrometers": 455.16932710948146,
+      "FinalMaximumDistortionFraction": 0.00013440868440278936,
+      "MinimumValidFraction": 1.0,
+      "InitialImageZMillimeters": 55,
+      "FinalImageZMillimeters": 59.02114068152577,
+      "ImageMovementExplicitlyAllowed": true,
+      "InitialObjective": 4323.370317134411,
+      "FinalObjective": 793.3134711084491,
+      "MeetsTargets": false,
+      "StageWork": {
+        "FunctionEvaluations": 22,
+        "GradientEvaluations": 21,
+        "ValidationEvaluations": 1,
+        "TracedRays": 47670,
+        "GeometryProbes": 2242,
+        "GpuDerivativeRays": 0,
+        "GpuBatches": 0,
+        "Elapsed": "00:00:00.6401116",
+        "CompletedGradientEvaluations": 21
+      },
+      "SeparateInitialAssessmentRays": 44520,
+      "BenchmarkTotalTracedRays": 92190,
+      "ProtocolFingerprint": "68a761c207a7fad829ebd748a9c229e11037df983d61e1a6edf9ea65c1fadab4"
+    },
+    {
+      "ElementCount": 3,
+      "Evidence": "optimization-3.json",
+      "InitialEffectiveFocalLengthMillimeters": 49.0692209888653,
+      "FinalEffectiveFocalLengthMillimeters": 49.57769266699713,
+      "FinalFNumber": 12.394423166749283,
+      "InitialWorstRmsMicrometers": 151.28897439178039,
+      "FinalWorstRmsMicrometers": 43.47846497778718,
+      "FinalMaximumRadiusMicrometers": 65.94210315491,
+      "FinalMaximumDistortionFraction": 0.0019590419510462018,
+      "MinimumValidFraction": 1.0,
+      "InitialImageZMillimeters": 55,
+      "FinalImageZMillimeters": 58.46954383197516,
+      "ImageMovementExplicitlyAllowed": true,
+      "InitialObjective": 22.175966494809153,
+      "FinalObjective": 1.0130757050598875,
+      "MeetsTargets": true,
+      "StageWork": {
+        "FunctionEvaluations": 22,
+        "GradientEvaluations": 21,
+        "ValidationEvaluations": 1,
+        "TracedRays": 47670,
+        "GeometryProbes": 3214,
+        "GpuDerivativeRays": 0,
+        "GpuBatches": 0,
+        "Elapsed": "00:00:02.0687916",
+        "CompletedGradientEvaluations": 21
+      },
+      "SeparateInitialAssessmentRays": 44520,
+      "BenchmarkTotalTracedRays": 92190,
+      "ProtocolFingerprint": "68a761c207a7fad829ebd748a9c229e11037df983d61e1a6edf9ea65c1fadab4"
+    },
+    {
+      "ElementCount": 4,
+      "Evidence": "optimization-4.json",
+      "InitialEffectiveFocalLengthMillimeters": 39.97987378320578,
+      "FinalEffectiveFocalLengthMillimeters": 47.87691121181457,
+      "FinalFNumber": 11.969227802953643,
+      "InitialWorstRmsMicrometers": 15.665084055594834,
+      "FinalWorstRmsMicrometers": 119.87103154763481,
+      "FinalMaximumRadiusMicrometers": 173.8277656405498,
+      "FinalMaximumDistortionFraction": 0.002379706527865723,
+      "MinimumValidFraction": 1.0,
+      "InitialImageZMillimeters": 55,
+      "FinalImageZMillimeters": 58.37207495330313,
+      "ImageMovementExplicitlyAllowed": true,
+      "InitialObjective": 314.1252458308277,
+      "FinalObjective": 20.77250720230659,
+      "MeetsTargets": false,
+      "StageWork": {
+        "FunctionEvaluations": 22,
+        "GradientEvaluations": 21,
+        "ValidationEvaluations": 1,
+        "TracedRays": 47670,
+        "GeometryProbes": 4186,
+        "GpuDerivativeRays": 0,
+        "GpuBatches": 0,
+        "Elapsed": "00:00:01.0577267",
+        "CompletedGradientEvaluations": 21
+      },
+      "SeparateInitialAssessmentRays": 44520,
+      "BenchmarkTotalTracedRays": 92190,
+      "ProtocolFingerprint": "68a761c207a7fad829ebd748a9c229e11037df983d61e1a6edf9ea65c1fadab4"
+    }
+  ],
+  "GradientCheck": {
+    "Targets": {
+      "EffectiveFocalLengthMillimeters": 50,
+      "FNumber": 12.5,
+      "FocalLengthRelativeTolerance": 0.02,
+      "FNumberRelativeTolerance": 0.02,
+      "MaximumRmsRadiusMillimeters": 0.05,
+      "MaximumSpotRadiusMillimeters": 0.15,
+      "MaximumDistortionFraction": 0.0005,
+      "MinimumValidRayFraction": 0.98,
+      "MinimumEdgeThicknessMillimeters": 0.4,
+      "MinimumEdgeAirGapMillimeters": 0.01,
+      "MaximumOpticalTrackMillimeters": 10000,
+      "MaximumAbsoluteSurfaceSlope": 10
+    },
+    "Parameters": [
+      {
+        "SurfaceId": "lens-1:front",
+        "Kind": 0,
+        "LowerBound": -0.1,
+        "UpperBound": 0.1,
+        "Scale": 0.01,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-1:front",
+        "Kind": 6,
+        "LowerBound": 2.75,
+        "UpperBound": 3.25,
+        "Scale": 1,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-1:front",
+        "Kind": 2,
+        "LowerBound": -2,
+        "UpperBound": 2,
+        "Scale": 1,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-1:front",
+        "Kind": 3,
+        "LowerBound": -1,
+        "UpperBound": 1,
+        "Scale": 0.0001,
+        "Power": 4
+      },
+      {
+        "SurfaceId": "lens-1:front",
+        "Kind": 3,
+        "LowerBound": -1,
+        "UpperBound": 1,
+        "Scale": 1E-06,
+        "Power": 6
+      },
+      {
+        "SurfaceId": "lens-1:front",
+        "Kind": 3,
+        "LowerBound": -1,
+        "UpperBound": 1,
+        "Scale": 1E-08,
+        "Power": 8
+      },
+      {
+        "SurfaceId": "lens-1:front",
+        "Kind": 3,
+        "LowerBound": -1,
+        "UpperBound": 1,
+        "Scale": 1E-10,
+        "Power": 10
+      },
+      {
+        "SurfaceId": "lens-1:front",
+        "Kind": 3,
+        "LowerBound": -1,
+        "UpperBound": 1,
+        "Scale": 1E-12,
+        "Power": 12
+      },
+      {
+        "SurfaceId": "lens-1:front",
+        "Kind": 3,
+        "LowerBound": -1,
+        "UpperBound": 1,
+        "Scale": 1E-14,
+        "Power": 14
+      },
+      {
+        "SurfaceId": "lens-1:front",
+        "Kind": 3,
+        "LowerBound": -1,
+        "UpperBound": 1,
+        "Scale": 1E-16,
+        "Power": 16
+      },
+      {
+        "SurfaceId": "lens-1:front",
+        "Kind": 3,
+        "LowerBound": -1,
+        "UpperBound": 1,
+        "Scale": 1E-18,
+        "Power": 18
+      },
+      {
+        "SurfaceId": "lens-1:back",
+        "Kind": 0,
+        "LowerBound": -0.1,
+        "UpperBound": 0.1,
+        "Scale": 0.01,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-1:back",
+        "Kind": 6,
+        "LowerBound": 4.75,
+        "UpperBound": 5.25,
+        "Scale": 1,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-1:back",
+        "Kind": 2,
+        "LowerBound": -2,
+        "UpperBound": 2,
+        "Scale": 1,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-2:front",
+        "Kind": 0,
+        "LowerBound": -0.1,
+        "UpperBound": 0.1,
+        "Scale": 0.01,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-2:front",
+        "Kind": 6,
+        "LowerBound": 9.75,
+        "UpperBound": 10.25,
+        "Scale": 1,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-2:front",
+        "Kind": 2,
+        "LowerBound": -2,
+        "UpperBound": 2,
+        "Scale": 1,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-2:back",
+        "Kind": 0,
+        "LowerBound": -0.1,
+        "UpperBound": 0.1,
+        "Scale": 0.01,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-2:back",
+        "Kind": 6,
+        "LowerBound": 11.75,
+        "UpperBound": 12.25,
+        "Scale": 1,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-2:back",
+        "Kind": 2,
+        "LowerBound": -2,
+        "UpperBound": 2,
+        "Scale": 1,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-3:front",
+        "Kind": 0,
+        "LowerBound": -0.1,
+        "UpperBound": 0.1,
+        "Scale": 0.01,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-3:front",
+        "Kind": 6,
+        "LowerBound": 17.75,
+        "UpperBound": 18.25,
+        "Scale": 1,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-3:front",
+        "Kind": 2,
+        "LowerBound": -2,
+        "UpperBound": 2,
+        "Scale": 1,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-3:back",
+        "Kind": 0,
+        "LowerBound": -0.1,
+        "UpperBound": 0.1,
+        "Scale": 0.01,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-3:back",
+        "Kind": 6,
+        "LowerBound": 19.75,
+        "UpperBound": 20.25,
+        "Scale": 1,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-3:back",
+        "Kind": 2,
+        "LowerBound": -2,
+        "UpperBound": 2,
+        "Scale": 1,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "image",
+        "Kind": 6,
+        "LowerBound": 30,
+        "UpperBound": 250,
+        "Scale": 10,
+        "Power": 0
+      }
+    ],
+    "Residuals": 340,
+    "ScalarJacobianEntries": 9180,
+    "MaximumObjectiveNormalizedError": 6.029559402314226E-07,
+    "MaximumResidualNormalizedError": 5.254368585193292E-08,
+    "DifferenceStep": 0.0001,
+    "EvaluationAndGradientRequests": 55,
+    "TotalTracedRays": 8250
+  },
+  "Cuda": {
+    "Backend": "cuda-reverse-tape-v1",
+    "Device": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "DerivativeRays": 225,
+    "Batches": 9,
+    "EndpointObjectiveAbsoluteDifference": 3.552713678800501E-15
+  },
+  "Binaries": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "SHA256": "1CC1FD8AF8CB86A6FE864A45E48FE389E746305AAD1BBFC38A4FD62246276502"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Contracts.dll",
+      "SHA256": "3A43E5C318B222CCAA4D1B090B1DADADE28CCDF89595B90A508E50139A72BDAD"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "SHA256": "6402C9FF5B3C3E6C36918363BC051DA39666DFFFABE8A35FBE0C472DC1B6486A"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "SHA256": "7FE120489B4A3D13BF521D95901564CC1F21C32915DDB30EF2C7360B234056B5"
+    }
+  ],
+  "CoreCopiesMatch": true,
+  "OldFullTrainingResumed": false,
+  "Limitations": [
+    "Short stages allow image movement; protected image/lens tested separately.",
+    "Two- and four-element cases fail; four-element RMS worsens despite decreasing objective.",
+    "Paraxial chief reference is not the fitted real-chief Grid Distortion reference.",
+    "Extreme residual scaling has a retained finite-difference resolution diagnostic; no universal accuracy claim.",
+    "No hard ray quota, checkpoint resume, first-order restoration, autonomous search or UI integration yet."
+  ]
+}

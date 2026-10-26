@@ -1,12 +1,12 @@
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
-using OpticalSystemDesign.Core.Backend;
-using OpticalSystemDesign.Core.Coordinates;
-using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Apodization;
+using OpticalSystemDesign.Core.Backend;
+using OpticalSystemDesign.Core.Coordinates;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Geometries;
 
 namespace OpticalSystemDesign.Tests;
 

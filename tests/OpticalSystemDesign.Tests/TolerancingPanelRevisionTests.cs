@@ -1,8 +1,8 @@
 using System.Reflection;
 using Avalonia.Headless;
+using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
-using OpticalSystemDesign.App.Panels;
 
 namespace OpticalSystemDesign.Tests;
 

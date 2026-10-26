@@ -27,8 +27,11 @@ public sealed class CameraContinuousServiceTests
         var a = await app.CameraImaging.SimulateAsync(request);
         var b = await app.CameraImaging.SimulateAsync(request with { Reflectance = percent });
         Assert.Equal(a.RawDn, b.RawDn); Assert.Equal(.03, a.Integration!.IlluminantIrradianceWattsPerSquareMeter, 12);
-        var scaled = await app.CameraImaging.SimulateAsync(request with { Illuminant = request.Illuminant with
-        { Samples = request.Illuminant.Samples.Select(s => s with { Value = s.Value / 2 }).ToArray() } });
+        var scaled = await app.CameraImaging.SimulateAsync(request with
+        {
+            Illuminant = request.Illuminant with
+            { Samples = request.Illuminant.Samples.Select(s => s with { Value = s.Value / 2 }).ToArray() }
+        });
         Assert.Equal(a.MeanPhotoElectrons / 2, scaled.MeanPhotoElectrons, 9);
     }
 
@@ -84,8 +87,14 @@ public sealed class CameraContinuousServiceTests
         Assert.Equal(before, app.Documents.GetSnapshot()); Assert.Equal(9, result.Integration!.Nodes.Count);
         Assert.Equal(9, result.Integration.Nodes.Select(n => n.WavelengthNanometers).Distinct().Count());
         Assert.Contains("Geometric", result.OpticalModel); Assert.True(result.MeanPhotoElectrons > 0);
-        CameraContinuousSpectrumTests.Record("current-lens-continuous", new { Nodes = result.Integration.Nodes.Count, result.OpticalModel,
-            result.OpticalFallbackCount, result.MeanPhotoElectrons, UnchangedSnapshot = before == app.Documents.GetSnapshot() });
+        CameraContinuousSpectrumTests.Record("current-lens-continuous", new
+        {
+            Nodes = result.Integration.Nodes.Count,
+            result.OpticalModel,
+            result.OpticalFallbackCount,
+            result.MeanPhotoElectrons,
+            UnchangedSnapshot = before == app.Documents.GetSnapshot()
+        });
     }
 
     [Fact]

@@ -5,10 +5,10 @@ using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Dock.Avalonia.Controls;
 using Dock.Model.Core;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.Tests;
 

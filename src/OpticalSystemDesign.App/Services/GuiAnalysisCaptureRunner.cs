@@ -7,8 +7,8 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Media.Imaging;
 using Avalonia.Styling;
 using Avalonia.Threading;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Panels;
+using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.App.Services;
 

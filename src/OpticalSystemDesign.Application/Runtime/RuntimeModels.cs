@@ -4,8 +4,8 @@ using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
-using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.FileIO;
@@ -43,7 +43,8 @@ public enum AnalysisParameterKind
     Double,
     Choice,
     Boolean,
-    File
+    File,
+    Text
 }
 
 public sealed record AnalysisParameterDescriptor(

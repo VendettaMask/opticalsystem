@@ -1,0 +1,53 @@
+{
+  "Algorithm": "AutonomousTopologyV1",
+  "SchemaVersion": 1,
+  "Date": "2026-10-26T16:05:15.9177146+08:00",
+  "Stage": "M0-M1",
+  "Runtime": "10.0.300",
+  "Tests": {
+    "total": 25,
+    "executed": 25,
+    "passed": 25,
+    "failed": 0,
+    "error": 0,
+    "timeout": 0,
+    "aborted": 0,
+    "inconclusive": 0,
+    "passedButRunAborted": 0,
+    "notRunnable": 0,
+    "notExecuted": 0,
+    "disconnected": 0,
+    "warning": 0,
+    "completed": 0,
+    "inProgress": 0,
+    "pending": 0
+  },
+  "ResultsFile": "foundation-complete.trx",
+  "Total": 25,
+  "NewFoundationCases": 22,
+  "ExistingUpstreamCases": 3,
+  "TrainingUpdates": 0,
+  "Binaries": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "SHA256": "E1D59034F6C6424B7E8665D1814163E870235DF395441CE0DB6044100ABD1A7D"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Contracts.dll",
+      "SHA256": "7463DB08C5C41C1811D08782F5E9D2A879781BA4956BCD50A81781897DE8839C"
+    },
+    {
+      "Path": "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/bin/Release/net10.0/OpticalSystemDesign.InitialStructure.Engine.dll",
+      "SHA256": "930F38E563488318540B9E559947C4BDB37C8471BBC462F86FF886000057BD1B"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "SHA256": "89ACCFB86AF3F13A1CEB29DFE1063BE24AE89B5CF0205F0F13BEA94178779451"
+    }
+  ],
+  "Limitations": [
+    "No fixed-topology optimization, first-order restoration, automatic search, UI or A/B/C/D experiment in M0-M1.",
+    "Core-to-Core consistency only; no new external certification.",
+    "Gaussian 4x16 and three comparison field positions are short consistency checks, not final 21-field 10x32 acceptance."
+  ]
+}

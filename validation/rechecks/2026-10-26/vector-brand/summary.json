@@ -1,0 +1,93 @@
+{
+  "date": "2026-10-26",
+  "scope": "Shared true-vector company logo; ordinary brand text retained",
+  "configuration": "Release",
+  "committed": false,
+  "pushed": false,
+  "fullSuiteRun": false,
+  "installedApplicationReplaced": false,
+  "tests": {
+    "evidence": "vector-brand-ui-pdf.trx",
+    "total": 77,
+    "passed": 77,
+    "failed": 0,
+    "skipped": 0
+  },
+  "splashAndUiRecheck": {
+    "evidence": "splash-wrap-final.trx",
+    "total": 8,
+    "passed": 8,
+    "failed": 0,
+    "skipped": 0
+  },
+  "distinctPassingCases": 77,
+  "recheckCountIsNotAdded": true,
+  "fuiPreview": {
+    "passed": true,
+    "sharedVectorArtwork": true,
+    "evidence": "captures/fui-vector-logo.json"
+  },
+  "rendering": {
+    "nativePaths": true,
+    "bitmapEmbeddedInSvg": false,
+    "liveFontDependency": false,
+    "widthsVerified": [
+      240,
+      1200,
+      4800
+    ],
+    "defaultEngineeringPdfImageObjects": 0,
+    "customPngPdfImageObjectsPresent": true,
+    "screenshotsVisuallyReviewed": [
+      "splash enlarged type",
+      "about dark English",
+      "analysis footer dark",
+      "drawing settings and system title",
+      "FUI preview"
+    ]
+  },
+  "source": {
+    "svg": "src/OpticalSystemDesign.App/Assets/Brand/CompanyLogo.svg",
+    "svgSha256": "dfbf5bd1655003410292f89df6cc23a1a9bf1bd55568cd5c12582d6589db90b0",
+    "font": "Nasalization Rg.otf",
+    "fontSha256": "aefedadd5c49e84537ba3add3c487e1e8c2d1e27b4dbf4fefecd19000374a9d1",
+    "fontIsLocalAuthoringOnly": true,
+    "regeneration": "reproducibility.json",
+    "scan": "docs/validation/VECTOR_BRAND_SCAN_2026-10-26.json"
+  },
+  "preservedFailures": [
+    {
+      "evidence": "first-vector-brand.log",
+      "status": "Compilation incomplete because the shared workspace had an ambiguous AnalysisOutcome test reference; not counted as a pass."
+    }
+  ],
+  "captures": [
+    "AboutCompanyLogo-Dark-13-en-US.png",
+    "AboutCompanyLogo-Light-13-zh-CN.png",
+    "AboutCompanyLogo-Light-18-ja-JP.png",
+    "AnalysisCompanyLogo-Dark-13-en-US.png",
+    "AnalysisCompanyLogo-Light-13-zh-CN.png",
+    "AnalysisCompanyLogo-Light-18-ja-JP.png",
+    "DrawingCompanyLogo-Dark-13-en-US.png",
+    "DrawingCompanyLogo-Light-13-zh-CN.png",
+    "DrawingCompanyLogo-Light-18-ja-JP.png",
+    "SplashCompanyLogo-Dark-13-en-US.png",
+    "SplashCompanyLogo-Light-13-zh-CN.png",
+    "SplashCompanyLogo-Light-18-ja-JP.png",
+    "engineering-custom-png.pdf",
+    "engineering-vector-logo.pdf",
+    "fui-vector-logo-controls.png",
+    "fui-vector-logo.json",
+    "fui-vector-logo.png",
+    "vector-logo-1200.png",
+    "vector-logo-240.png",
+    "vector-logo-4800.png"
+  ],
+  "checks": {
+    "fuiFormatApplied": true,
+    "scopedMainFormatVerified": true,
+    "frozenCount": 2668,
+    "frozenEvidenceUnchanged": true,
+    "documentationPassed": true
+  }
+}

@@ -17,8 +17,11 @@ public sealed partial class ViewerPanel
     private readonly Button _exportImageButton = CompactButton("camera", "导出图片（PNG）");
     private readonly TextBlock _imageExportFeedback = new()
     {
-        Name = "ViewerImageExportFeedback", IsVisible = false, TextWrapping = TextWrapping.Wrap,
-        MaxWidth = 280, Margin = new Thickness(0, 4, 0, 0)
+        Name = "ViewerImageExportFeedback",
+        IsVisible = false,
+        TextWrapping = TextWrapping.Wrap,
+        MaxWidth = 280,
+        Margin = new Thickness(0, 4, 0, 0)
     };
     private bool _isRefreshing;
     private bool _isExportingImage;
@@ -82,7 +85,9 @@ public sealed partial class ViewerPanel
                     - swatch.Width - source.Spacing - source.Margin.Left - source.Margin.Right));
                 entries.Children.Add(new StackPanel
                 {
-                    Orientation = Orientation.Horizontal, Spacing = source.Spacing, Margin = source.Margin,
+                    Orientation = Orientation.Horizontal,
+                    Spacing = source.Spacing,
+                    Margin = source.Margin,
                     Children =
                     {
                         new Border { Width = swatch.Width, Height = swatch.Height, CornerRadius = swatch.CornerRadius,
@@ -95,13 +100,19 @@ public sealed partial class ViewerPanel
             page.Children.Add(new Border { Background = _glassLegend.Background, Padding = _glassLegend.Padding, Child = entries });
         }
         if (_staleLayoutBanner.IsVisible)
-            page.Children.Add(new Border { Background = _staleLayoutBanner.Background, Padding = new Thickness(10, 5),
-                Child = CopyImageLabel(_staleLayoutMessage) });
+            page.Children.Add(new Border
+            {
+                Background = _staleLayoutBanner.Background,
+                Padding = new Thickness(10, 5),
+                Child = CopyImageLabel(_staleLayoutMessage)
+            });
         if (_summaryBar.IsVisible)
             page.Children.Add(new Border
             {
-                Background = _summaryBar.Background, BorderBrush = _summaryBar.BorderBrush,
-                BorderThickness = _summaryBar.BorderThickness, Padding = _summaryBar.Padding,
+                Background = _summaryBar.Background,
+                BorderBrush = _summaryBar.BorderBrush,
+                BorderThickness = _summaryBar.BorderThickness,
+                Padding = _summaryBar.Padding,
                 Child = CopyImageLabel(_summary)
             });
 
@@ -117,9 +128,14 @@ public sealed partial class ViewerPanel
 
     private static TextBlock CopyImageLabel(TextBlock source) => new()
     {
-        Text = source.Text, FontFamily = source.FontFamily, FontSize = source.FontSize,
-        FontWeight = source.FontWeight, FontStyle = source.FontStyle, Foreground = source.Foreground,
-        FlowDirection = source.FlowDirection, TextWrapping = TextWrapping.Wrap,
+        Text = source.Text,
+        FontFamily = source.FontFamily,
+        FontSize = source.FontSize,
+        FontWeight = source.FontWeight,
+        FontStyle = source.FontStyle,
+        Foreground = source.Foreground,
+        FlowDirection = source.FlowDirection,
+        TextWrapping = TextWrapping.Wrap,
         VerticalAlignment = VerticalAlignment.Center
     };
 
@@ -160,8 +176,10 @@ public sealed partial class ViewerPanel
             UpdateImageExportButton();
             var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
             {
-                Title = UiLocalization.Text("导出视图图片"), SuggestedFileName = suggestedName,
-                DefaultExtension = "png", ShowOverwritePrompt = true,
+                Title = UiLocalization.Text("导出视图图片"),
+                SuggestedFileName = suggestedName,
+                DefaultExtension = "png",
+                ShowOverwritePrompt = true,
                 FileTypeChoices = [new FilePickerFileType(UiLocalization.Text("PNG 图片"))
                     { Patterns = ["*.png"], MimeTypes = ["image/png"] }]
             });

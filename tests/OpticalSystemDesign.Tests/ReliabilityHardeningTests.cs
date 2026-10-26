@@ -1,6 +1,6 @@
 using System.Text;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Panels;
+using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;

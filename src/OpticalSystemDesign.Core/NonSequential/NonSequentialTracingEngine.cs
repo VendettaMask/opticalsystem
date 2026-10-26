@@ -146,6 +146,7 @@ public sealed class NonSequentialDocumentTracer
             throw new ArgumentOutOfRangeException(nameof(request), "最小相对能量必须大于等于 0 且小于 1。");
         }
         var pathFilter = NonSequentialPathFilter.Parse(request.PathFilterExpression);
+        var matchesPath = pathFilter.Bind(document);
         var settings = document.TraceSettings with
         {
             RandomSeed = request.RandomSeed ?? document.TraceSettings.RandomSeed,
@@ -158,10 +159,14 @@ public sealed class NonSequentialDocumentTracer
                 ? NonSequentialSplittingMode.FullFresnel
                 : NonSequentialSplittingMode.None);
         var objects = document.Objects.Where(item => item.Enabled && !IsSource(item.Kind)).ToArray();
+        var hasRefractiveSolids = objects.Any(item => Behavior(item) == NonSequentialSurfaceBehavior.Refractive
+            && item.Kind is NonSequentialObjectKind.Sphere or NonSequentialObjectKind.Cylinder or NonSequentialObjectKind.Box
+                or NonSequentialObjectKind.StandardLens or NonSequentialObjectKind.Mesh);
         var bvh = BvhNode.Build(objects.Select(item => BoundedObject.Create(document, item)).ToArray());
         var detectors = objects
             .Where(item => item.Kind == NonSequentialObjectKind.DetectorRectangle)
-            .ToDictionary(item => item.Id, item => new DetectorAccumulator(item));
+            .ToDictionary(item => item.Id, item => new NonSequentialDetectorAccumulator(item));
+        var wavelengths = new NonSequentialWavelengthIndex(document.Wavelengths);
         var sourceCount = CountSourceRays(document, request);
         if (sourceCount > settings.MaximumTotalSourceRays)
         {
@@ -189,6 +194,11 @@ public sealed class NonSequentialDocumentTracer
             if (queue.Count == 0)
             {
                 var source = sourceEnumerator.Current;
+                var initialInside = !hasRefractiveSolids ? Array.Empty<SceneHit?>() : (bvh?.Candidates(source.Ray) ?? Array.Empty<BoundedObject>())
+                    .Where(item => Behavior(item.Item) == NonSequentialSurfaceBehavior.Refractive)
+                    .Select(item => Intersect(document, item.Item, source.Ray))
+                    .Where(hit => hit is { IsSolid: true, Entering: false })
+                    .OrderBy(hit => hit!.Distance).ToArray();
                 sourcePower += source.Ray.Intensity;
                 queue.Enqueue(new BranchState(
                     nextBranchId++,
@@ -196,8 +206,8 @@ public sealed class NonSequentialDocumentTracer
                     0,
                     source.SourceObjectId,
                     source.Ray.Normalize(),
-                    source.InitialMaterial,
-                    new HashSet<Guid>(),
+                    initialInside.Length > 0 ? SolidMaterial(initialInside[0]!.Item) : source.InitialMaterial,
+                    initialInside.Select(hit => hit!.Item.Id).ToHashSet(),
                     new List<NonSequentialRaySegment>(),
                     0,
                     0,
@@ -250,8 +260,8 @@ public sealed class NonSequentialDocumentTracer
                     {
                         detectors[hit.Item.Id].Add(
                             hit.LocalPoint,
-                            hit.LocalDirection,
-                            WavelengthNumber(document, state.Ray.WavelengthNanometers),
+                            Normalize(hit.LocalDirection),
+                            wavelengths.FindNumber(state.Ray.WavelengthNanometers),
                             incomingIntensity);
                         state.Segments.Add(Segment(state, hit, path, opticalPath, state.Ray.Direction, null));
                         if (detector.Absorb)
@@ -300,7 +310,7 @@ public sealed class NonSequentialDocumentTracer
                 var nextMaterialName = hit.IsSolid
                     ? hit.Entering
                         ? SolidMaterial(hit.Item)
-                        : OutsideMaterial(document, hit.Item)
+                        : ExitMaterial(document, state, hit.Item)
                     : PlaneDestination((PlaneRectangleParameters)hit.Item.Parameters, hit.LocalDirection);
                 var nextMaterial = materials.Resolve(nextMaterialName);
                 var n1 = incidentMaterial.RefractiveIndex(state.Ray.WavelengthNanometers);
@@ -462,7 +472,7 @@ public sealed class NonSequentialDocumentTracer
         {
             totalBranchCount++;
             totalSegmentCount += branch.Segments.Count;
-            if (!pathFilter.IsMatch(document, branch)) return;
+            if (!matchesPath(branch)) return;
             matchedBranchCount++;
             sink?.OnBranch(branch);
             var retain = request.OutputMode switch
@@ -655,10 +665,20 @@ public sealed class NonSequentialDocumentTracer
 
     private static LocalHit? IntersectSphere(Vector3D origin, Vector3D direction, double radius)
     {
-        var roots = Quadratic(Dot(direction, direction), 2 * Dot(origin, direction), Dot(origin, origin) - radius * radius);
-        var distance = PositiveRoot(roots);
-        if (distance is null) return null;
-        var point = origin + direction * distance.Value;
+        // Solve around closest approach, avoiding subtraction of two squared
+        // source distances when the source is far away compared with the radius.
+        var a = Dot(direction, direction);
+        var closestDistance = -Dot(origin, direction) / a;
+        var closest = new Vector3D(Math.FusedMultiplyAdd(direction.X, closestDistance, origin.X),
+            Math.FusedMultiplyAdd(direction.Y, closestDistance, origin.Y),
+            Math.FusedMultiplyAdd(direction.Z, closestDistance, origin.Z));
+        var remaining = radius * radius - Dot(closest, closest);
+        if (remaining < 0) return null;
+        var halfChord = Math.Sqrt(remaining / a);
+        Vector3D point;
+        if (closestDistance - halfChord > OriginOffset) point = closest - direction * halfChord;
+        else if (closestDistance + halfChord > OriginOffset) point = closest + direction * halfChord;
+        else return null;
         var normal = Normalize(point);
         return new LocalHit(point, normal, 1, Dot(direction, normal) < 0, true);
     }
@@ -815,6 +835,14 @@ public sealed class NonSequentialDocumentTracer
         return document.TryFindObject(containerId, out var container)
             ? SolidMaterial(container)
             : document.AmbientMaterial;
+    }
+
+    private static string ExitMaterial(NonSequentialDocument document, BranchState state, NonSequentialObjectDefinition exiting)
+    {
+        var remaining = state.InsideObjects.Where(id => id != exiting.Id)
+            .Select(id => document.TryFindObject(id, out var item) ? Intersect(document, item, state.Ray) : null)
+            .Where(hit => hit is not null).MinBy(hit => hit!.Distance);
+        return remaining is not null ? SolidMaterial(remaining.Item) : OutsideMaterial(document, exiting);
     }
 
     private static string PlaneDestination(PlaneRectangleParameters plane, Vector3D localDirection) =>
@@ -1206,13 +1234,6 @@ public sealed class NonSequentialDocumentTracer
         return Math.Sqrt(-2 * Math.Log(u1)) * Math.Cos(2 * Math.PI * random.NextDouble());
     }
 
-    private static int WavelengthNumber(NonSequentialDocument document, double wavelengthNanometers)
-    {
-        var index = document.Wavelengths.ToList().FindIndex(item =>
-            Math.Abs(item.Nanometers - wavelengthNanometers) <= 1e-9);
-        return Math.Max(1, index + 1);
-    }
-
     private sealed record GeneratedRay(Guid? SourceObjectId, RealRay Ray, string InitialMaterial);
     private sealed record LocalHit(Vector3D Point, Vector3D Normal, int FaceNumber, bool Entering, bool IsSolid);
     private sealed record SceneHit(
@@ -1238,86 +1259,6 @@ public sealed class NonSequentialDocumentTracer
         double PathLength,
         double OpticalPathLength,
         double InitialIntensity);
-
-    private sealed class DetectorAccumulator
-    {
-        private readonly NonSequentialObjectDefinition _item;
-        private readonly DetectorRectangleParameters _parameters;
-        private readonly Dictionary<int, double[]> _pixels = new();
-        private readonly Dictionary<int, long[]> _hits = new();
-        private readonly Dictionary<int, double[]> _angularPixels = new();
-        private readonly Dictionary<int, long[]> _angularHits = new();
-
-        public DetectorAccumulator(NonSequentialObjectDefinition item)
-        {
-            _item = item;
-            _parameters = (DetectorRectangleParameters)item.Parameters;
-        }
-
-        public void Add(Vector3D localPoint, Vector3D localDirection, int wavelengthNumber, double power)
-        {
-            var x = (int)Math.Floor((localPoint.X / _parameters.WidthMillimeters + 0.5) * _parameters.PixelsX);
-            var y = (int)Math.Floor((localPoint.Y / _parameters.HeightMillimeters + 0.5) * _parameters.PixelsY);
-            if (x < 0 || x >= _parameters.PixelsX || y < 0 || y >= _parameters.PixelsY) return;
-            if (!_pixels.TryGetValue(wavelengthNumber, out var values))
-            {
-                values = new double[_parameters.PixelsX * _parameters.PixelsY];
-                _pixels[wavelengthNumber] = values;
-            }
-            values[y * _parameters.PixelsX + x] += power;
-            if (!_hits.TryGetValue(wavelengthNumber, out var hitValues))
-            {
-                hitValues = new long[_parameters.PixelsX * _parameters.PixelsY];
-                _hits[wavelengthNumber] = hitValues;
-            }
-            hitValues[y * _parameters.PixelsX + x]++;
-
-            var normalized = Normalize(localDirection);
-            var angleX = Math.Atan2(normalized.X, Math.Abs(normalized.Z)) * 180 / Math.PI;
-            var angleY = Math.Atan2(normalized.Y, Math.Abs(normalized.Z)) * 180 / Math.PI;
-            var angularX = Math.Clamp((int)Math.Floor((angleX / 180 + 0.5) * _parameters.PixelsX), 0, _parameters.PixelsX - 1);
-            var angularY = Math.Clamp((int)Math.Floor((angleY / 180 + 0.5) * _parameters.PixelsY), 0, _parameters.PixelsY - 1);
-            if (!_angularPixels.TryGetValue(wavelengthNumber, out var angularValues))
-            {
-                angularValues = new double[_parameters.PixelsX * _parameters.PixelsY];
-                _angularPixels[wavelengthNumber] = angularValues;
-            }
-            angularValues[angularY * _parameters.PixelsX + angularX] += power;
-            if (!_angularHits.TryGetValue(wavelengthNumber, out var angularHitValues))
-            {
-                angularHitValues = new long[_parameters.PixelsX * _parameters.PixelsY];
-                _angularHits[wavelengthNumber] = angularHitValues;
-            }
-            angularHitValues[angularY * _parameters.PixelsX + angularX]++;
-        }
-
-        public NonSequentialDetectorFrame ToFrame()
-        {
-            var byWavelength = Snapshot(_pixels);
-            return new NonSequentialDetectorFrame(
-                _item.Id,
-                _item.Name,
-                _parameters.PixelsX,
-                _parameters.PixelsY,
-                byWavelength,
-                byWavelength.Values.Sum(values => values.Sum()),
-                Snapshot(_hits),
-                Snapshot(_angularPixels),
-                Snapshot(_angularHits));
-        }
-
-        private static IReadOnlyDictionary<int, IReadOnlyList<double>> Snapshot(Dictionary<int, double[]> source) =>
-            new System.Collections.ObjectModel.ReadOnlyDictionary<int, IReadOnlyList<double>>(
-                source.ToDictionary(item => item.Key, item => Snapshot(item.Value)));
-
-        private static IReadOnlyDictionary<int, IReadOnlyList<long>> Snapshot(Dictionary<int, long[]> source) =>
-            new System.Collections.ObjectModel.ReadOnlyDictionary<int, IReadOnlyList<long>>(
-                source.ToDictionary(item => item.Key, item => Snapshot(item.Value)));
-
-        private static IReadOnlyList<double> Snapshot(double[] values) => Array.AsReadOnly(values.ToArray());
-
-        private static IReadOnlyList<long> Snapshot(long[] values) => Array.AsReadOnly(values.ToArray());
-    }
 
     private sealed record Aabb(Vector3D Minimum, Vector3D Maximum)
     {

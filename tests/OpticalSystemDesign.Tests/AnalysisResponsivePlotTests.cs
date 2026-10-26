@@ -144,10 +144,13 @@ public sealed class AnalysisResponsivePlotTests
                 {
                     var view = View(kind) with { Name = "Extended analysis title 长标题 / " + kind };
                     if (kind == AnalysisPresentationKind.SpotDiagram)
-                        view = view with { PlotPanes = view.PlotPanes.Select(pane => pane with
+                        view = view with
                         {
-                            Metrics = [new("RMS radius 均方根半径", 0.012345, "mm"), new("Geometric radius 几何半径", 0.04321, "mm")]
-                        }).ToArray() };
+                            PlotPanes = view.PlotPanes.Select(pane => pane with
+                            {
+                                Metrics = [new("RMS radius 均方根半径", 0.012345, "mm"), new("Geometric radius 几何半径", 0.04321, "mm")]
+                            }).ToArray()
+                        };
                     var document = application.Documents.GetSnapshot() with
                     { Name = "A long optical document description 复杂镜头结构与波长分析.staropt" };
                     var tabs = Assert.IsType<TabControl>(typeof(AnalysisPanel)
@@ -204,8 +207,11 @@ public sealed class AnalysisResponsivePlotTests
         await session.Dispatch(() =>
         {
             using var application = WorkbenchApplication.Create();
-            var view = View(kind) with { ReportText = string.Join(Environment.NewLine,
-                Enumerable.Range(0, 100).Select(index => $"Z{index}: " + new string('0', 90))) };
+            var view = View(kind) with
+            {
+                ReportText = string.Join(Environment.NewLine,
+                Enumerable.Range(0, 100).Select(index => $"Z{index}: " + new string('0', 90)))
+            };
             var content = Assert.IsAssignableFrom<Control>(typeof(AnalysisPanel)
                 .GetMethod("BuildResultContent", BindingFlags.Static | BindingFlags.NonPublic)!
                 .Invoke(null, [view, application.Documents.GetSnapshot(), DateTimeOffset.Now, null]));

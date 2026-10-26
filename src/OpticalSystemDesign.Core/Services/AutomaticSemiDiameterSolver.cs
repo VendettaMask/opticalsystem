@@ -1,5 +1,5 @@
-using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Domain;
 
 namespace OpticalSystemDesign.Core.Services;
 

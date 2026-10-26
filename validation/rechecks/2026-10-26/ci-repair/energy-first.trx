@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="d8043de9-c0ba-45be-a182-f3265d361972" name="optics@LAPTOP-G4BBBCS0 2026-10-26 10:56:54" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-26T10:56:54.5530277+08:00" queuing="2026-10-26T10:56:54.5530283+08:00" start="2026-10-26T10:56:50.8140633+08:00" finish="2026-10-26T10:57:02.9501349+08:00" />
+  <TestSettings name="default" id="6faf32d5-133f-4579-a736-04a2e3dacb9a">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-26_10_56_54" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="0b873575-b3c2-4102-ad8f-6d224618afa9" testId="714613eb-5266-d658-3279-61d59b6b71bd" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;0308-all-waves&quot;, series: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1149413" startTime="2026-10-26T10:57:00.1137846+08:00" endTime="2026-10-26T10:57:00.2286786+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0b873575-b3c2-4102-ad8f-6d224618afa9">
+      <Output>
+        <ErrorInfo>
+          <Message>0308-all-waves/1: limit 1E-08, measured 0.0009228656967504088</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 48&#xD;
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="53d60f53-1ec4-4601-9be3-1de32aa61f35" testId="95e43a11-896a-150c-3956-1a4991dc03d8" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;0472-all-waves&quot;, series: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1972920" startTime="2026-10-26T10:57:02.3318345+08:00" endTime="2026-10-26T10:57:02.5279188+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="53d60f53-1ec4-4601-9be3-1de32aa61f35" />
+    <UnitTestResult executionId="17f9fcbd-0877-4b07-a63e-b1f9b3d542ee" testId="01b7552c-aed1-006e-dec3-b2b03dd61151" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;apo-poly128&quot;, series: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.5536427" startTime="2026-10-26T10:56:59.5599731+08:00" endTime="2026-10-26T10:57:00.1135454+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="17f9fcbd-0877-4b07-a63e-b1f9b3d542ee" />
+    <UnitTestResult executionId="e5b419a4-7fa4-4cf6-921d-74c33481e31a" testId="349c2d17-d7e0-d2c3-439b-e4c920169f02" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w2&quot;, series: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3206922" startTime="2026-10-26T10:56:55.1221153+08:00" endTime="2026-10-26T10:56:55.4408062+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e5b419a4-7fa4-4cf6-921d-74c33481e31a" />
+    <UnitTestResult executionId="883c4bb3-ebd6-4f1c-9751-bead49657ea4" testId="779c042b-f138-e863-7009-53256cd2bfbf" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;0472-all-waves&quot;, series: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2076018" startTime="2026-10-26T10:57:01.9083329+08:00" endTime="2026-10-26T10:57:02.1159277+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="883c4bb3-ebd6-4f1c-9751-bead49657ea4" />
+    <UnitTestResult executionId="3e9627ae-8a9f-4033-8f5b-b125fdf3aa74" testId="16787c61-5191-73fa-6d6d-db0ab1058a6f" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;0014-all-waves&quot;, series: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3694679" startTime="2026-10-26T10:56:54.4097407+08:00" endTime="2026-10-26T10:56:54.7539581+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3e9627ae-8a9f-4033-8f5b-b125fdf3aa74">
+      <Output>
+        <ErrorInfo>
+          <Message>0014-all-waves/1: limit 1E-08, measured 0.0007993713699932848</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 48&#xD;
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="412f9e8d-7200-4d15-968c-78b1238dec1f" testId="b8d2fbc1-9dcf-9a35-a4ed-ca5c8acf2daf" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;0852-all-waves&quot;, series: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.0788864" startTime="2026-10-26T10:56:55.4410051+08:00" endTime="2026-10-26T10:56:57.5200581+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="412f9e8d-7200-4d15-968c-78b1238dec1f" />
+    <UnitTestResult executionId="8568b25c-30aa-4d31-ac35-112e3ff60f3f" testId="6760252a-24c4-0d8b-19ee-43df52a9f202" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;0852-all-waves&quot;, series: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.4339482" startTime="2026-10-26T10:57:01.4746094+08:00" endTime="2026-10-26T10:57:01.9081918+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8568b25c-30aa-4d31-ac35-112e3ff60f3f" />
+    <UnitTestResult executionId="e678f773-d2ff-4bf6-bfeb-ceefe97566cc" testId="af650e4b-039c-058e-f2b7-123be0c89c3d" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;apo-poly128&quot;, series: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3944494" startTime="2026-10-26T10:57:00.7884602+08:00" endTime="2026-10-26T10:57:01.1828240+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e678f773-d2ff-4bf6-bfeb-ceefe97566cc" />
+    <UnitTestResult executionId="7ee2c921-8c3f-432c-8a48-8e9c263a49ac" testId="8ff3630a-f456-d494-b292-f44c3f484ef2" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w7&quot;, series: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3798429" startTime="2026-10-26T10:56:57.5209093+08:00" endTime="2026-10-26T10:56:57.8997815+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7ee2c921-8c3f-432c-8a48-8e9c263a49ac" />
+    <UnitTestResult executionId="c162b13a-5cc7-4c57-81b9-53deba16ba60" testId="b8c1c5b7-40fc-7934-e0f9-0abca4bc225d" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;apo-poly64&quot;, series: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1808732" startTime="2026-10-26T10:57:01.2939246+08:00" endTime="2026-10-26T10:57:01.4741466+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c162b13a-5cc7-4c57-81b9-53deba16ba60">
+      <Output>
+        <ErrorInfo>
+          <Message>apo-poly64/1: limit 1E-08, measured 0.0007993713699932848</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 48&#xD;
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1195757a-2cd1-4dcd-b953-a80f76bbb087" testId="197bbb76-69fd-2575-736e-56be07f39d0e" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w5&quot;, series: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1051873" startTime="2026-10-26T10:57:02.1160950+08:00" endTime="2026-10-26T10:57:02.2213074+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1195757a-2cd1-4dcd-b953-a80f76bbb087" />
+    <UnitTestResult executionId="607f2c84-6c92-473d-98c6-815d8dfdf084" testId="3bc21315-5379-1ee1-0ca4-f49c22f56aa8" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w1&quot;, series: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0683329" startTime="2026-10-26T10:57:02.5681998+08:00" endTime="2026-10-26T10:57:02.6364973+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="607f2c84-6c92-473d-98c6-815d8dfdf084" />
+    <UnitTestResult executionId="92b6c511-b6ea-4de9-ac70-953e6a856167" testId="7ef39ecd-c337-4734-bbcd-518389ce485d" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w3&quot;, series: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3285082" startTime="2026-10-26T10:56:58.7371715+08:00" endTime="2026-10-26T10:56:59.0656329+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="92b6c511-b6ea-4de9-ac70-953e6a856167" />
+    <UnitTestResult executionId="6606bbf2-b370-4bbc-bee5-dc8fed32b57e" testId="2d432171-acfe-3ae6-4f4c-be291f73f7f5" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w5&quot;, series: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3659615" startTime="2026-10-26T10:56:54.7557618+08:00" endTime="2026-10-26T10:56:55.1204596+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6606bbf2-b370-4bbc-bee5-dc8fed32b57e" />
+    <UnitTestResult executionId="a5d8a9ba-27fd-4373-a2f7-a4e455c70043" testId="2ca8ea56-23e5-7a30-11cc-08c80d1ce403" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w4&quot;, series: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0763604" startTime="2026-10-26T10:57:02.6826660+08:00" endTime="2026-10-26T10:57:02.7582580+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5d8a9ba-27fd-4373-a2f7-a4e455c70043" />
+    <UnitTestResult executionId="5a8b06a3-6b91-4fee-96d2-507e7a7abdb7" testId="043cb6c6-1fdb-e51b-8d03-028e835f3dca" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;apo-poly32&quot;, series: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1774697" startTime="2026-10-26T10:56:58.5604128+08:00" endTime="2026-10-26T10:56:58.7370039+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5a8b06a3-6b91-4fee-96d2-507e7a7abdb7" />
+    <UnitTestResult executionId="7f8ca77d-d005-4144-9f1b-8d58c9406e33" testId="5b7d0f38-2090-932d-af41-16122b6267e3" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w4&quot;, series: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2028575" startTime="2026-10-26T10:57:00.2296984+08:00" endTime="2026-10-26T10:57:00.4316324+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7f8ca77d-d005-4144-9f1b-8d58c9406e33" />
+    <UnitTestResult executionId="871fe2b7-9881-4f62-b449-e4daface7374" testId="dae16a26-dff4-12f8-3764-85118769b811" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w6&quot;, series: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0701931" startTime="2026-10-26T10:57:02.7583858+08:00" endTime="2026-10-26T10:57:02.8285583+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="871fe2b7-9881-4f62-b449-e4daface7374" />
+    <UnitTestResult executionId="7e463c33-9d6e-4774-8296-f795acccb708" testId="8e4c15b0-b966-56a7-07c4-548501da85d2" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;apo-poly64&quot;, series: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3227206" startTime="2026-10-26T10:56:58.2364991+08:00" endTime="2026-10-26T10:56:58.5594246+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7e463c33-9d6e-4774-8296-f795acccb708">
+      <Output>
+        <ErrorInfo>
+          <Message>apo-poly64/0: limit 1E-08, measured 0.0008000485931277022</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 48&#xD;
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="79edf930-238d-4874-a223-8ee9886ab0c4" testId="309f8c7a-8de6-006d-9854-3822ee769c1a" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w8&quot;, series: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1089823" startTime="2026-10-26T10:57:02.2214338+08:00" endTime="2026-10-26T10:57:02.3306091+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="79edf930-238d-4874-a223-8ee9886ab0c4">
+      <Output>
+        <ErrorInfo>
+          <Message>isolate-w8/1: limit 1E-08, measured 0.006504698149090131</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 48&#xD;
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="eb18f077-d746-4ad1-8b22-3d4d9cb7a02d" testId="514eeb3c-cf01-58ca-d177-8abd93dacc57" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;0308-all-waves&quot;, series: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0450553" startTime="2026-10-26T10:57:02.6366238+08:00" endTime="2026-10-26T10:57:02.6818064+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eb18f077-d746-4ad1-8b22-3d4d9cb7a02d">
+      <Output>
+        <ErrorInfo>
+          <Message>0308-all-waves/0: limit 1E-08, measured 0.001733847291679791</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 48&#xD;
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="91dfb9f7-3675-4c48-b212-9376a8fa6205" testId="04ef252d-e59d-b484-7ba6-703281e3c4bb" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w2&quot;, series: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2591692" startTime="2026-10-26T10:56:59.0658563+08:00" endTime="2026-10-26T10:56:59.3249445+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="91dfb9f7-3675-4c48-b212-9376a8fa6205" />
+    <UnitTestResult executionId="ba2c2816-f6be-4eb8-9bb9-b748c7f7d46c" testId="6bf73d7f-8a32-0e83-a1c1-dacf85446b12" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w3&quot;, series: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1768632" startTime="2026-10-26T10:57:00.6114611+08:00" endTime="2026-10-26T10:57:00.7882341+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba2c2816-f6be-4eb8-9bb9-b748c7f7d46c" />
+    <UnitTestResult executionId="fa5069f7-4b70-4d6c-ba35-1bfbec489a9b" testId="27afcb0f-d883-a64c-2830-c7033108e257" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w7&quot;, series: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2346934" startTime="2026-10-26T10:56:59.3250871+08:00" endTime="2026-10-26T10:56:59.5597491+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fa5069f7-4b70-4d6c-ba35-1bfbec489a9b" />
+    <UnitTestResult executionId="714b162a-8929-4f6d-9807-8b9a893bcf7e" testId="e4e86b93-2da8-6e78-04ca-14aa573dfa82" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w1&quot;, series: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3364029" startTime="2026-10-26T10:56:57.9000667+08:00" endTime="2026-10-26T10:56:58.2363297+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="714b162a-8929-4f6d-9807-8b9a893bcf7e" />
+    <UnitTestResult executionId="1b9a0919-8554-4a71-b4a1-d9bfa761bcc2" testId="3e1be863-d50d-2fa6-0466-f8f5d0f4effb" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;apo-poly32&quot;, series: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0400621" startTime="2026-10-26T10:57:02.5280573+08:00" endTime="2026-10-26T10:57:02.5680691+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1b9a0919-8554-4a71-b4a1-d9bfa761bcc2" />
+    <UnitTestResult executionId="fd6ccbaf-d4a8-46ef-8336-5856f5f91811" testId="b4042f06-52b7-4a50-fee0-ef40b3591922" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;0014-all-waves&quot;, series: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1100143" startTime="2026-10-26T10:57:01.1829667+08:00" endTime="2026-10-26T10:57:01.2930598+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fd6ccbaf-d4a8-46ef-8336-5856f5f91811">
+      <Output>
+        <ErrorInfo>
+          <Message>0014-all-waves/0: limit 1E-08, measured 0.0008000485931277022</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 48&#xD;
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="42a218d9-aee2-4d29-afbe-874e05c4d209" testId="c49c66d9-710b-6049-52c8-d2f1d77f0d3d" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w8&quot;, series: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.3629016" startTime="2026-10-26T10:56:53.0319288+08:00" endTime="2026-10-26T10:56:54.3843378+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="42a218d9-aee2-4d29-afbe-874e05c4d209">
+      <Output>
+        <ErrorInfo>
+          <Message>isolate-w8/0: limit 1E-08, measured 0.0065122771766361566</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 48&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0f0064a8-ce62-4536-a869-8957244683e8" testId="efd8f8be-6c1f-70b1-7911-027b45b882ad" testName="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w6&quot;, series: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1794745" startTime="2026-10-26T10:57:00.4317929+08:00" endTime="2026-10-26T10:57:00.6113031+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0f0064a8-ce62-4536-a869-8957244683e8" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w7&quot;, series: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8ff3630a-f456-d494-b292-f44c3f484ef2">
+      <Execution id="7ee2c921-8c3f-432c-8a48-8e9c263a49ac" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;apo-poly32&quot;, series: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="043cb6c6-1fdb-e51b-8d03-028e835f3dca">
+      <Execution id="5a8b06a3-6b91-4fee-96d2-507e7a7abdb7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;0852-all-waves&quot;, series: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6760252a-24c4-0d8b-19ee-43df52a9f202">
+      <Execution id="8568b25c-30aa-4d31-ac35-112e3ff60f3f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;apo-poly128&quot;, series: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="af650e4b-039c-058e-f2b7-123be0c89c3d">
+      <Execution id="e678f773-d2ff-4bf6-bfeb-ceefe97566cc" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w3&quot;, series: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7ef39ecd-c337-4734-bbcd-518389ce485d">
+      <Execution id="92b6c511-b6ea-4de9-ac70-953e6a856167" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w5&quot;, series: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="197bbb76-69fd-2575-736e-56be07f39d0e">
+      <Execution id="1195757a-2cd1-4dcd-b953-a80f76bbb087" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;apo-poly64&quot;, series: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b8c1c5b7-40fc-7934-e0f9-0abca4bc225d">
+      <Execution id="c162b13a-5cc7-4c57-81b9-53deba16ba60" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w7&quot;, series: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="27afcb0f-d883-a64c-2830-c7033108e257">
+      <Execution id="fa5069f7-4b70-4d6c-ba35-1bfbec489a9b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w2&quot;, series: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="349c2d17-d7e0-d2c3-439b-e4c920169f02">
+      <Execution id="e5b419a4-7fa4-4cf6-921d-74c33481e31a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;0472-all-waves&quot;, series: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="95e43a11-896a-150c-3956-1a4991dc03d8">
+      <Execution id="53d60f53-1ec4-4601-9be3-1de32aa61f35" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w4&quot;, series: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2ca8ea56-23e5-7a30-11cc-08c80d1ce403">
+      <Execution id="a5d8a9ba-27fd-4373-a2f7-a4e455c70043" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w3&quot;, series: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6bf73d7f-8a32-0e83-a1c1-dacf85446b12">
+      <Execution id="ba2c2816-f6be-4eb8-9bb9-b748c7f7d46c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;0014-all-waves&quot;, series: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b4042f06-52b7-4a50-fee0-ef40b3591922">
+      <Execution id="fd6ccbaf-d4a8-46ef-8336-5856f5f91811" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w6&quot;, series: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="dae16a26-dff4-12f8-3764-85118769b811">
+      <Execution id="871fe2b7-9881-4f62-b449-e4daface7374" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;apo-poly32&quot;, series: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3e1be863-d50d-2fa6-0466-f8f5d0f4effb">
+      <Execution id="1b9a0919-8554-4a71-b4a1-d9bfa761bcc2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w8&quot;, series: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="309f8c7a-8de6-006d-9854-3822ee769c1a">
+      <Execution id="79edf930-238d-4874-a223-8ee9886ab0c4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;0308-all-waves&quot;, series: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="714613eb-5266-d658-3279-61d59b6b71bd">
+      <Execution id="0b873575-b3c2-4102-ad8f-6d224618afa9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;0472-all-waves&quot;, series: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="779c042b-f138-e863-7009-53256cd2bfbf">
+      <Execution id="883c4bb3-ebd6-4f1c-9751-bead49657ea4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w4&quot;, series: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5b7d0f38-2090-932d-af41-16122b6267e3">
+      <Execution id="7f8ca77d-d005-4144-9f1b-8d58c9406e33" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w6&quot;, series: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="efd8f8be-6c1f-70b1-7911-027b45b882ad">
+      <Execution id="0f0064a8-ce62-4536-a869-8957244683e8" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;apo-poly128&quot;, series: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="01b7552c-aed1-006e-dec3-b2b03dd61151">
+      <Execution id="17f9fcbd-0877-4b07-a63e-b1f9b3d542ee" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;0852-all-waves&quot;, series: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b8d2fbc1-9dcf-9a35-a4ed-ca5c8acf2daf">
+      <Execution id="412f9e8d-7200-4d15-968c-78b1238dec1f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;0308-all-waves&quot;, series: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="514eeb3c-cf01-58ca-d177-8abd93dacc57">
+      <Execution id="eb18f077-d746-4ad1-8b22-3d4d9cb7a02d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w2&quot;, series: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="04ef252d-e59d-b484-7ba6-703281e3c4bb">
+      <Execution id="91dfb9f7-3675-4c48-b212-9376a8fa6205" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w5&quot;, series: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2d432171-acfe-3ae6-4f4c-be291f73f7f5">
+      <Execution id="6606bbf2-b370-4bbc-bee5-dc8fed32b57e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w1&quot;, series: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e4e86b93-2da8-6e78-04ca-14aa573dfa82">
+      <Execution id="714b162a-8929-4f6d-9807-8b9a893bcf7e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;0014-all-waves&quot;, series: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="16787c61-5191-73fa-6d6d-db0ab1058a6f">
+      <Execution id="3e9627ae-8a9f-4033-8f5b-b125fdf3aa74" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w8&quot;, series: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c49c66d9-710b-6049-52c8-d2f1d77f0d3d">
+      <Execution id="42a218d9-aee2-4d29-afbe-874e05c4d209" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;apo-poly64&quot;, series: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8e4c15b0-b966-56a7-07c4-548501da85d2">
+      <Execution id="7e463c33-9d6e-4774-8296-f795acccb708" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: &quot;isolate-w1&quot;, series: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3bc21315-5379-1ee1-0ca4-f49c22f56aa8">
+      <Execution id="607f2c84-6c92-473d-98c6-815d8dfdf084" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests" name="ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="714613eb-5266-d658-3279-61d59b6b71bd" executionId="0b873575-b3c2-4102-ad8f-6d224618afa9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="95e43a11-896a-150c-3956-1a4991dc03d8" executionId="53d60f53-1ec4-4601-9be3-1de32aa61f35" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="01b7552c-aed1-006e-dec3-b2b03dd61151" executionId="17f9fcbd-0877-4b07-a63e-b1f9b3d542ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="349c2d17-d7e0-d2c3-439b-e4c920169f02" executionId="e5b419a4-7fa4-4cf6-921d-74c33481e31a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="779c042b-f138-e863-7009-53256cd2bfbf" executionId="883c4bb3-ebd6-4f1c-9751-bead49657ea4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="16787c61-5191-73fa-6d6d-db0ab1058a6f" executionId="3e9627ae-8a9f-4033-8f5b-b125fdf3aa74" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8d2fbc1-9dcf-9a35-a4ed-ca5c8acf2daf" executionId="412f9e8d-7200-4d15-968c-78b1238dec1f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6760252a-24c4-0d8b-19ee-43df52a9f202" executionId="8568b25c-30aa-4d31-ac35-112e3ff60f3f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="af650e4b-039c-058e-f2b7-123be0c89c3d" executionId="e678f773-d2ff-4bf6-bfeb-ceefe97566cc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8ff3630a-f456-d494-b292-f44c3f484ef2" executionId="7ee2c921-8c3f-432c-8a48-8e9c263a49ac" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8c1c5b7-40fc-7934-e0f9-0abca4bc225d" executionId="c162b13a-5cc7-4c57-81b9-53deba16ba60" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="197bbb76-69fd-2575-736e-56be07f39d0e" executionId="1195757a-2cd1-4dcd-b953-a80f76bbb087" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3bc21315-5379-1ee1-0ca4-f49c22f56aa8" executionId="607f2c84-6c92-473d-98c6-815d8dfdf084" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7ef39ecd-c337-4734-bbcd-518389ce485d" executionId="92b6c511-b6ea-4de9-ac70-953e6a856167" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2d432171-acfe-3ae6-4f4c-be291f73f7f5" executionId="6606bbf2-b370-4bbc-bee5-dc8fed32b57e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2ca8ea56-23e5-7a30-11cc-08c80d1ce403" executionId="a5d8a9ba-27fd-4373-a2f7-a4e455c70043" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="043cb6c6-1fdb-e51b-8d03-028e835f3dca" executionId="5a8b06a3-6b91-4fee-96d2-507e7a7abdb7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5b7d0f38-2090-932d-af41-16122b6267e3" executionId="7f8ca77d-d005-4144-9f1b-8d58c9406e33" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dae16a26-dff4-12f8-3764-85118769b811" executionId="871fe2b7-9881-4f62-b449-e4daface7374" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8e4c15b0-b966-56a7-07c4-548501da85d2" executionId="7e463c33-9d6e-4774-8296-f795acccb708" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="309f8c7a-8de6-006d-9854-3822ee769c1a" executionId="79edf930-238d-4874-a223-8ee9886ab0c4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="514eeb3c-cf01-58ca-d177-8abd93dacc57" executionId="eb18f077-d746-4ad1-8b22-3d4d9cb7a02d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="04ef252d-e59d-b484-7ba6-703281e3c4bb" executionId="91dfb9f7-3675-4c48-b212-9376a8fa6205" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6bf73d7f-8a32-0e83-a1c1-dacf85446b12" executionId="ba2c2816-f6be-4eb8-9bb9-b748c7f7d46c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="27afcb0f-d883-a64c-2830-c7033108e257" executionId="fa5069f7-4b70-4d6c-ba35-1bfbec489a9b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e4e86b93-2da8-6e78-04ca-14aa573dfa82" executionId="714b162a-8929-4f6d-9807-8b9a893bcf7e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3e1be863-d50d-2fa6-0466-f8f5d0f4effb" executionId="1b9a0919-8554-4a71-b4a1-d9bfa761bcc2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b4042f06-52b7-4a50-fee0-ef40b3591922" executionId="fd6ccbaf-d4a8-46ef-8336-5856f5f91811" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c49c66d9-710b-6049-52c8-d2f1d77f0d3d" executionId="42a218d9-aee2-4d29-afbe-874e05c4d209" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="efd8f8be-6c1f-70b1-7911-027b45b882ad" executionId="0f0064a8-ce62-4536-a869-8957244683e8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="30" executed="30" passed="22" failed="8" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.18]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.54]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.59]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.00]       isolate-w8/0: limit 1E-08, measured 0.0065122771766361566&#xD;
+[xUnit.net 00:00:03.00]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.00]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs(48,0): at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series)&#xD;
+[xUnit.net 00:00:03.00]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:03.00]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:03.36]       0014-all-waves/1: limit 1E-08, measured 0.0007993713699932848&#xD;
+[xUnit.net 00:00:03.36]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.36]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs(48,0): at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series)&#xD;
+[xUnit.net 00:00:03.36]            at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)&#xD;
+[xUnit.net 00:00:03.36]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:07.17]       apo-poly64/0: limit 1E-08, measured 0.0008000485931277022&#xD;
+[xUnit.net 00:00:07.17]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.17]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs(48,0): at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series)&#xD;
+[xUnit.net 00:00:07.17]            at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)&#xD;
+[xUnit.net 00:00:07.17]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:08.83]       0308-all-waves/1: limit 1E-08, measured 0.0009228656967504088&#xD;
+[xUnit.net 00:00:08.84]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.84]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs(48,0): at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series)&#xD;
+[xUnit.net 00:00:08.84]            at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)&#xD;
+[xUnit.net 00:00:08.84]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:09.90]       0014-all-waves/0: limit 1E-08, measured 0.0008000485931277022&#xD;
+[xUnit.net 00:00:09.90]       Stack Trace:&#xD;
+[xUnit.net 00:00:09.90]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs(48,0): at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series)&#xD;
+[xUnit.net 00:00:09.90]            at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)&#xD;
+[xUnit.net 00:00:09.90]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:10.08]       apo-poly64/1: limit 1E-08, measured 0.0007993713699932848&#xD;
+[xUnit.net 00:00:10.08]       Stack Trace:&#xD;
+[xUnit.net 00:00:10.08]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs(48,0): at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series)&#xD;
+[xUnit.net 00:00:10.08]            at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)&#xD;
+[xUnit.net 00:00:10.08]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:10.94]       isolate-w8/1: limit 1E-08, measured 0.006504698149090131&#xD;
+[xUnit.net 00:00:10.94]       Stack Trace:&#xD;
+[xUnit.net 00:00:10.94]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs(48,0): at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series)&#xD;
+[xUnit.net 00:00:10.94]            at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)&#xD;
+[xUnit.net 00:00:10.94]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:11.29]       0308-all-waves/0: limit 1E-08, measured 0.001733847291679791&#xD;
+[xUnit.net 00:00:11.29]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.29]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs(48,0): at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series)&#xD;
+[xUnit.net 00:00:11.29]            at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)&#xD;
+[xUnit.net 00:00:11.29]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:11.45]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T10:56:54.3874313+08:00">
+        <Text>[xUnit.net 00:00:02.99]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w8", series: 0) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T10:56:54.7556707+08:00">
+        <Text>[xUnit.net 00:00:03.36]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0014-all-waves", series: 1) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T10:56:58.5598474+08:00">
+        <Text>[xUnit.net 00:00:07.17]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly64", series: 0) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T10:57:00.2290485+08:00">
+        <Text>[xUnit.net 00:00:08.83]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0308-all-waves", series: 1) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T10:57:01.2934225+08:00">
+        <Text>[xUnit.net 00:00:09.90]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0014-all-waves", series: 0) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T10:57:01.4744882+08:00">
+        <Text>[xUnit.net 00:00:10.08]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly64", series: 1) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T10:57:02.3309806+08:00">
+        <Text>[xUnit.net 00:00:10.94]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w8", series: 1) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T10:57:02.6821621+08:00">
+        <Text>[xUnit.net 00:00:11.29]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0308-all-waves", series: 0) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

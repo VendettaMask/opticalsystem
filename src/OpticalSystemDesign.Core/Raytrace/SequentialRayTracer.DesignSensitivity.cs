@@ -1,10 +1,10 @@
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Differentiation;
-using OpticalSystemDesign.Core.Interactions;
-using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Core.Rays;
 
 namespace OpticalSystemDesign.Core.Raytrace;
 
@@ -25,8 +25,8 @@ public sealed partial class SequentialRayTracer
     /// </summary>
     internal DesignRaySensitivity TraceDesignSensitivity(RealRay source, OpticalDifferentialContext context,
         int stopIndex, DifferentialScalar targetX, DifferentialScalar targetY, CancellationToken cancellationToken,
-        SequentialGpuSample[]? nominalSamples=null,int nominalOffset=0, bool constrainStop=true,
-        double bendCosineGate=1)
+        SequentialGpuSample[]? nominalSamples = null, int nominalOffset = 0, bool constrainStop = true,
+        double bendCosineGate = 1)
     {
         if (nominalSamples is null) SequentialTraceMeasurement.Record(1);
         var ray = RayState.FromRealRay(source.Normalize());
@@ -46,7 +46,7 @@ public sealed partial class SequentialRayTracer
         {
             cancellationToken.ThrowIfCancellationRequested();
             var surface = _optic.SurfaceGroup.Items[index];
-            var result = nominalSamples is not null ? NominalResult(nominalSamples[nominalOffset+index],index,material) : TraceSequentialSurface(surface, index, ray, material, path, opticalPath,
+            var result = nominalSamples is not null ? NominalResult(nominalSamples[nominalOffset + index], index, material) : TraceSequentialSurface(surface, index, ray, material, path, opticalPath,
                 ignorePhysicalAperture: constrainStop, bypassCoating: true,
                 allowVirtualIntersection: AllowsReferenceBacktrack(_optic.SurfaceGroup.Items, index),
                 ignoreMaterialAbsorption: true);
@@ -161,15 +161,15 @@ public sealed partial class SequentialRayTracer
             return DifferentialScalar.FromGradient(value.Value, gradient);
         }
 
-        SurfaceRayTraceStateResult NominalResult(SequentialGpuSample v,int index,IMaterial before)
+        SurfaceRayTraceStateResult NominalResult(SequentialGpuSample v, int index, IMaterial before)
         {
-            var surface=_optic.SurfaceGroup.Items[index];
-            var outgoing=index==0 || v.Kind==(int)RayInteractionKind.Transmitted ? surface.MaterialAfter : before;
-            var kind=v.Kind<0 ? (RayInteractionKind?)null : (RayInteractionKind)v.Kind;
-            var state=new RayState(v.Point,v.Direction,source.WavelengthNanometers,v.Intensity,v.Opd,null,true);
-            return new(state,GpuSample(v,index),index==0 ? outgoing.RefractiveIndex(source.WavelengthNanometers)
-                : kind==RayInteractionKind.Transmitted ? v.After : v.Before,outgoing,kind,v.Path,v.OpticalPath,
-                v.Present==0 || v.Miss!=0 || v.Blocked!=0 || !state.CanTrace);
+            var surface = _optic.SurfaceGroup.Items[index];
+            var outgoing = index == 0 || v.Kind == (int)RayInteractionKind.Transmitted ? surface.MaterialAfter : before;
+            var kind = v.Kind < 0 ? (RayInteractionKind?)null : (RayInteractionKind)v.Kind;
+            var state = new RayState(v.Point, v.Direction, source.WavelengthNanometers, v.Intensity, v.Opd, null, true);
+            return new(state, GpuSample(v, index), index == 0 ? outgoing.RefractiveIndex(source.WavelengthNanometers)
+                : kind == RayInteractionKind.Transmitted ? v.After : v.Before, outgoing, kind, v.Path, v.OpticalPath,
+                v.Present == 0 || v.Miss != 0 || v.Blocked != 0 || !state.CanTrace);
         }
     }
 }

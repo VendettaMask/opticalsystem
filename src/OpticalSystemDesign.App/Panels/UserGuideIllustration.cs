@@ -1,5 +1,4 @@
 using Avalonia;
-using OpticalSystemDesign.App.Theming;
 using Avalonia.Automation;
 using Avalonia.Collections;
 using Avalonia.Controls;
@@ -9,6 +8,7 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
 
 namespace OpticalSystemDesign.App.Panels;
 

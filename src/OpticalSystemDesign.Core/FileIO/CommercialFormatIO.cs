@@ -458,7 +458,7 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
         ? "INFINITY"
         : FormatDouble(value);
 
-    private static string FormatDouble(double value) => value.ToString("0.##########", CultureInfo.InvariantCulture);
+    private static string FormatDouble(double value) => value.ToString("G17", CultureInfo.InvariantCulture);
 }
 
 public sealed class CodeVSeqImporter : IOpticalFormatImporter
@@ -479,43 +479,9 @@ public sealed class CodeVSeqExporter : IOpticalFormatExporter
 
     public string[] Extensions { get; } = { ".seq" };
 
-    public string Export(Optic optic)
-    {
-        if (optic.Polarization != new OpticalSystemDesign.Core.Rays.SystemPolarization())
-            throw new NotSupportedException("此文本格式尚未映射系统偏振设置；请保存 STAROPT，避免丢失 Jones 输入与参考轴。");
-        OpticCapabilityPreflight.EnsureSupported(
-            optic,
-            OpticCapabilityOperation.Export,
-            FormatName);
-        var lines = new List<string>
-        {
-            "! OpticalSystemDesign CODE V SEQ common sequential subset"
-        };
+    public string Export(Optic optic) =>
+        SequentialSubsetTextWriter.Write(optic, FormatName, SequentialSubsetTextWriter.CodeV);
 
-        foreach (var surface in SequentialLensDocument.FromOptic(optic).Surfaces)
-        {
-            lines.Add($"S {surface.Number}");
-            lines.Add($"  COM {surface.Label}");
-            lines.Add($"  RDY {FormatDouble(surface.Radius)}");
-            lines.Add($"  THI {FormatDouble(surface.Thickness)}");
-            lines.Add($"  GLA {surface.Material}");
-            lines.Add($"  SDIA {FormatDouble(surface.SemiDiameter)}");
-            lines.Add($"  CON {FormatDouble(surface.Conic)}");
-            if (surface.IsStop)
-            {
-                lines.Add("  STO");
-            }
-
-            if (surface.IsReflective)
-            {
-                lines.Add("  REFL");
-            }
-        }
-
-        return string.Join(Environment.NewLine, lines);
-    }
-
-    private static string FormatDouble(double value) => value.ToString("0.##########", CultureInfo.InvariantCulture);
 }
 
 public sealed class OsloLenImporter : IOpticalFormatImporter
@@ -536,43 +502,9 @@ public sealed class OsloLenExporter : IOpticalFormatExporter
 
     public string[] Extensions { get; } = { ".len" };
 
-    public string Export(Optic optic)
-    {
-        if (optic.Polarization != new OpticalSystemDesign.Core.Rays.SystemPolarization())
-            throw new NotSupportedException("此文本格式尚未映射系统偏振设置；请保存 STAROPT，避免丢失 Jones 输入与参考轴。");
-        OpticCapabilityPreflight.EnsureSupported(
-            optic,
-            OpticCapabilityOperation.Export,
-            FormatName);
-        var lines = new List<string>
-        {
-            "! OpticalSystemDesign OSLO LEN common sequential subset"
-        };
+    public string Export(Optic optic) =>
+        SequentialSubsetTextWriter.Write(optic, FormatName, SequentialSubsetTextWriter.Oslo);
 
-        foreach (var surface in SequentialLensDocument.FromOptic(optic).Surfaces)
-        {
-            lines.Add($"SRF {surface.Number}");
-            lines.Add($"  NOTE {surface.Label}");
-            lines.Add($"  RD {FormatDouble(surface.Radius)}");
-            lines.Add($"  TH {FormatDouble(surface.Thickness)}");
-            lines.Add($"  GLA {surface.Material}");
-            lines.Add($"  AP {FormatDouble(surface.SemiDiameter)}");
-            lines.Add($"  CC {FormatDouble(surface.Conic)}");
-            if (surface.IsStop)
-            {
-                lines.Add("  STO");
-            }
-
-            if (surface.IsReflective)
-            {
-                lines.Add("  REFL");
-            }
-        }
-
-        return string.Join(Environment.NewLine, lines);
-    }
-
-    private static string FormatDouble(double value) => value.ToString("0.##########", CultureInfo.InvariantCulture);
 }
 
 internal static class SequentialLensParser
@@ -675,6 +607,11 @@ internal static class SequentialLensParser
             }
 
             var command = NormalizeCommand(tokens[0]);
+            if (command is "NAME" or "TITLE" or "TIT")
+            {
+                name = line[(line.IndexOfAny([' ', '\t']) + 1)..].Trim().Trim('"');
+                continue;
+            }
             if (beginCommands.Contains(command, StringComparer.OrdinalIgnoreCase))
             {
                 if (current is not null)
@@ -768,7 +705,10 @@ internal static class SequentialLensParser
     {
         foreach (var rawLine in text.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n'))
         {
-            var line = StripComment(rawLine).Trim();
+            var trimmed = rawLine.Trim();
+            var command = trimmed.Split([' ', '\t'], 2)[0].ToUpperInvariant();
+            var line = command is "NAME" or "TITLE" or "TIT" or "COM" or "COMM" or "NOTE"
+                ? trimmed : StripComment(rawLine).Trim();
             if (!string.IsNullOrWhiteSpace(line))
             {
                 yield return line;
@@ -868,7 +808,7 @@ internal static class SequentialLensParser
                 number,
                 string.IsNullOrWhiteSpace(Label) ? $"Surface {number}" : Label,
                 Radius,
-                Math.Max(0, Thickness),
+                Thickness,
                 NormalizeMaterial(Material),
                 string.IsNullOrWhiteSpace(Coating) ? "None" : Coating,
                 Math.Max(0.1, SemiDiameter),

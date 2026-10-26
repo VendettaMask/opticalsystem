@@ -6,10 +6,10 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.ViewModels;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Panels;
 

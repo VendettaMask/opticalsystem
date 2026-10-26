@@ -84,7 +84,6 @@ public static partial class WorkbenchAnalysisCatalog
         new("analysis-contrast-loss", "对比度损失图", "对比度损失图", "gauge", "波前"),
         new("analysis-centroid-wavefront", "质心参考球波前", "质心球波前", "circle-dot", "波前"),
         new("analysis-best-fit-wavefront", "最佳拟合球波前", "最佳拟合波前", "focus", "波前"),
-        new("analysis-zernike", "Zernike 系数", "Zernike", "sigma", "波前"),
         new("analysis-zernike-fringe", "Zernike Fringe系数", "Zernike Fringe系数", "sigma", "波前"),
         new("analysis-zernike-standard", "Zernike Standard系数", "Zernike Standard系数", "sigma", "波前"),
         new("analysis-zernike-annular", "Zernike Annular系数", "Zernike Annular系数", "sigma", "波前"),

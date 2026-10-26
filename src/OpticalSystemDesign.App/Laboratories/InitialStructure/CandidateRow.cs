@@ -1,7 +1,7 @@
 using System.Globalization;
-using OpticalSystemDesign.Modules;
-using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.InitialStructure.Contracts;
+using OpticalSystemDesign.Modules;
 
 namespace OpticalSystemDesign.App.Laboratories.InitialStructure;
 
@@ -85,7 +85,7 @@ internal sealed class CandidateRow(int number, FamilyTrial trial, bool inherited
         if (Trial.AutoLensState?.LastComputeExecution is { } execution)
             lines.Add(UiLocalization.Text("计算设备") + "：" + (execution.GpuBatches > 0 ? "GPU · " + execution.DeviceName : "CPU")
                 + (execution.FallbackReason is { } reason ? " · " + reason : ""));
-        if (Trial.AutoLensState?.PropagationExecution is { Batches: >0 } propagation)
+        if (Trial.AutoLensState?.PropagationExecution is { Batches: > 0 } propagation)
             lines.Add("GPU · " + propagation.DeviceName + " · " + UiLocalization.Text("GPU 瞄准光线") + " " + propagation.AimRays
                 + " · " + UiLocalization.Text("GPU 追迹光线") + " " + propagation.PropagatedRays
                 + " · " + UiLocalization.Text("CPU 恢复光线") + " " + propagation.CpuRecoveryRays);

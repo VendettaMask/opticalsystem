@@ -6,14 +6,18 @@ namespace OpticalSystemDesign.Core.Analysis;
 public static class AxialSurfaceSeparation
 {
     public static double Evaluate(Optic optic, int frontSurfaceIndex, double x, double y)
+        => EvaluateBetween(optic, frontSurfaceIndex, frontSurfaceIndex + 1, x, y);
+
+    /// <summary>Shared signed axial gap; non-refracting reference/stop rows may lie between the selected faces.</summary>
+    public static double EvaluateBetween(Optic optic, int frontSurfaceIndex, int backSurfaceIndex, double x, double y)
     {
         ArgumentNullException.ThrowIfNull(optic);
-        if (frontSurfaceIndex < 1 || frontSurfaceIndex + 1 >= optic.SurfaceGroup.Items.Count)
+        if (frontSurfaceIndex < 1 || backSurfaceIndex <= frontSurfaceIndex || backSurfaceIndex >= optic.SurfaceGroup.Items.Count)
             throw new ArgumentOutOfRangeException(nameof(frontSurfaceIndex));
         if (!double.IsFinite(x) || !double.IsFinite(y))
             throw new ArgumentOutOfRangeException(nameof(x));
         var front = optic.SurfaceGroup.Items[frontSurfaceIndex];
-        var back = optic.SurfaceGroup.Items[frontSurfaceIndex + 1];
+        var back = optic.SurfaceGroup.Items[backSurfaceIndex];
         OpticCapabilityPreflight.EnsureSurfaceSupported(front, OpticCapabilityOperation.Analysis);
         OpticCapabilityPreflight.EnsureSurfaceSupported(back, OpticCapabilityOperation.Analysis);
         var axis = front.CoordinateSystem.ToGlobalDirection(new(0, 0, 1));

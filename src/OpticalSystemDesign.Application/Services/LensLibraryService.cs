@@ -2,9 +2,9 @@ using System.Text.Json;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Visualization;
-using OpticalSystemDesign.Core.Raytrace;
 
 namespace OpticalSystemDesign.Application.Services;
 
@@ -261,12 +261,23 @@ internal sealed class LensLibraryService : ILensLibraryService
         var prefix = fullRoot.EndsWith(Path.DirectorySeparatorChar)
             ? fullRoot
             : $"{fullRoot}{Path.DirectorySeparatorChar}";
-        if (!candidate.StartsWith(prefix, StringComparison.Ordinal) &&
-            !candidate.Equals(fullRoot, StringComparison.Ordinal))
+        var comparison = OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+        if (!candidate.StartsWith(prefix, comparison) &&
+            !candidate.Equals(fullRoot, comparison))
         {
             throw new InvalidDataException("镜头库索引包含越界路径。");
         }
 
+        // Reject links within the trusted library, including the final file.
+        var current = fullRoot;
+        foreach (var segment in Path.GetRelativePath(fullRoot, candidate).Split(
+                     [Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar], StringSplitOptions.RemoveEmptyEntries))
+        {
+            current = Path.Combine(current, segment);
+            if ((File.Exists(current) || Directory.Exists(current))
+                && (File.GetAttributes(current) & FileAttributes.ReparsePoint) != 0)
+                throw new InvalidDataException("镜头库路径不能包含符号链接或目录联接。");
+        }
         return candidate;
     }
 

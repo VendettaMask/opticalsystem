@@ -1,0 +1,46 @@
+{
+  "state": "stopped-by-user",
+  "updatedUtc": "2026-10-26T06:03:28.714513+00:00",
+  "reason": "User explicitly requested stopping training and preserving existing results.",
+  "csharpProgress": {
+    "State": "incomplete",
+    "ProcessId": 20236,
+    "StartedUtc": "2026-10-26T05:33:53.6800184+00:00",
+    "UpdatedUtc": "2026-10-26T06:03:28.5353695+00:00",
+    "Phase": "CatalogRefinement",
+    "PhaseIteration": 609,
+    "CurriculumUpdates": 2001,
+    "RefinementUpdates": 609,
+    "ExpectedCurriculumUpdates": 2001,
+    "ExpectedRefinementUpdates": 3001,
+    "Evaluations": 2671,
+    "LastLoss": 0.0589088380737666,
+    "SecondsThisProcess": 1774.8554198,
+    "PreviousElapsedComputeSeconds": 5937.3064137,
+    "GpuBatches": 160776,
+    "GpuRays": 134972708,
+    "LastComputeExecution": {
+      "Backend": "cuda-fixed-input-forward-v1",
+      "DeviceName": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "GpuBatches": 16,
+      "GpuRays": 16384,
+      "GpuMilliseconds": 470.579,
+      "FallbackReason": null
+    },
+    "PropagationExecution": {
+      "DeviceName": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "AimRays": 0,
+      "AimTraces": 0,
+      "PropagatedRays": 141045760,
+      "Batches": 161800,
+      "Milliseconds": 477385.17979999975,
+      "CpuRecoveryRays": 0,
+      "FallbackReason": null
+    },
+    "Scope": "Same default sampling and seed; complete existing implementation with one-update exact resumes; resource caps do not shorten stages"
+  },
+  "originalResultDirectory": "D:\\optical system design\\tmp\\autolens-upstream-20261026\\source\\results\\1026-133407-AutoLens-OhbV",
+  "stopRecord": "D:\\optical system design\\opticalsystem\\validation\\rechecks\\2026-10-26\\autolens-full-comparison\\user-stop-record.json",
+  "fullComparisonCompleted": false,
+  "existingStageComparison": "D:\\optical system design\\opticalsystem\\validation\\rechecks\\2026-10-26\\autolens-full-comparison\\available-results-comparison\\FIRST_STAGE_REPORT.md"
+}

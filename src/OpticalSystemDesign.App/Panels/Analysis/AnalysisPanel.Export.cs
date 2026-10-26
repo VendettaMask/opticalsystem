@@ -10,13 +10,13 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
-using Avalonia.VisualTree;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
+using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.Application.Services;
-using OpticalSystemDesign.App.Controls;
-using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.App.Panels;
 

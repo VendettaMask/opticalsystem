@@ -45,8 +45,9 @@
                       LogicalName="OpticalSystemDesign.App.SequentialExamples.index.json" />
     <EmbeddedResource Include="Assets/Updates/ota-public-key.pem"
                       LogicalName="OpticalSystemDesign.App.Updates.PublicKey" />
-    <EmbeddedResource Include="Assets/Brand/CompanyLogo.png"
-                      LogicalName="OpticalSystemDesign.App.Assets.Brand.CompanyLogo.png" />
+    <EmbeddedResource Include="Assets/Brand/CompanyLogo.svg"
+                      LogicalName="OpticalSystemDesign.App.Assets.Brand.CompanyLogo.svg" />
+    <Content Include="Assets/Brand/CompanyLogo.svg" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <EmbeddedResource Include="Assets/DrawingTemplates/*.xml">
       <LogicalName>OpticalSystemDesign.App.Assets.DrawingTemplates.%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>

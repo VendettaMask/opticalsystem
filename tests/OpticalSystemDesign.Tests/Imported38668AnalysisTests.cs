@@ -1,10 +1,10 @@
+using System.Security.Cryptography;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
-using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Apertures;
-using System.Security.Cryptography;
+using OpticalSystemDesign.Core.FileIO;
 using Xunit.Abstractions;
 
 namespace OpticalSystemDesign.Tests;

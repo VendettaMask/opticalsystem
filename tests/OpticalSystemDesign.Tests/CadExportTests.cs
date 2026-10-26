@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
+using OpticalSystemDesign.App;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
-using OpticalSystemDesign.App;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.FileIO;
 

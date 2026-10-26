@@ -1,0 +1,104 @@
+{
+  "scope": "Same first stage: 2001 curriculum updates and catalog handoff; excludes refinement updates from all compared metrics. Focal/F-number are handoff metrics; objective is last pre-update observation before handoff.",
+  "bothCurriculumUpdates": 2001,
+  "metrics": [
+    {
+      "metric": "FocalLengthMm",
+      "original": 4.965516396405576,
+      "csharp": 4.949565801955438,
+      "differenceCsharpMinusOriginal": -0.015950594450138134,
+      "relativeDifferencePercent": -0.32122730400577076,
+      "provenance": "C# ReferenceFocalLength is computed once after curriculum catalog handoff, before refinement, and retained across refinement/resume."
+    },
+    {
+      "metric": "FNumber",
+      "original": 1.7874429072734255,
+      "csharp": 1.7817011526117486,
+      "differenceCsharpMinusOriginal": -0.005741754661676923,
+      "relativeDifferencePercent": -0.32122730400577804,
+      "provenance": "Derived from retained catalog-boundary focal length / front-stop diameter. This independent first stop is fixed; both diameter and physical aperture radius agree, and pruning excludes stops."
+    },
+    {
+      "metric": "LastPreUpdateCurriculumObjective",
+      "original": 0.073587079,
+      "csharp": 0.07305038968056737,
+      "differenceCsharpMinusOriginal": -0.0005366893194326261,
+      "relativeDifferencePercent": -0.7293254831226907,
+      "provenance": "Both complete 2001-update curriculum histories; original reconstructed from finite-precision TSV columns as loss_rms + 0.1*(loss_reg+loss_distortion)."
+    }
+  ],
+  "originalOnly": {
+    "WorstValidFieldRmsMm": 0.10236770808143016,
+    "ValidRayFraction": 0.5311069882498454,
+    "ValidFields": 21
+  },
+  "csharpUnrefinedSpotAndThroughputAvailable": false,
+  "limitation": "A dedicated C# first-stage boundary optic was not retained. Only its unchanged recorded handoff focal length and fixed front pupil permit first-order comparison. Do not substitute the current 469-refinement-step geometry as unrefined.",
+  "csharpCurrentRefinementUpdatesExcludedFromComparison": 469,
+  "capture": {
+    "capturedUtc": "2026-10-26T05:52:41.763769+00:00",
+    "scope": "Available persisted snapshots, NOT equal-stage no-refinement comparison: original completed curriculum + catalog handoff versus current C# snapshot after partial refinement.",
+    "counts": {
+      "originalCurriculum": 2001,
+      "originalRefinement": 0,
+      "csharpCurriculum": 2001,
+      "csharpRefinement": 469
+    },
+    "originalSource": "D:\\optical system design\\tmp\\autolens-upstream-20261026\\source\\results\\1026-104613-AutoLens-OhbV\\curriculum_final.json",
+    "csharpSource": "D:\\optical system design\\opticalsystem\\validation\\rechecks\\2026-10-26\\autolens-full-comparison\\csharp-optimized\\state.json",
+    "sha256": {
+      "original": "6c0db71663902b004fe42ef1485592c862b4773f08be83ddae49f50ac72d0649",
+      "csharpState": "cd96b12af1839046c5bb3ba30d1c0c88bf3d97bd9642ee4cccfc915b0bb07e49"
+    },
+    "lastCsharpLoss": 0.059894087134258686
+  },
+  "sourceIntegrity": {
+    "originalCurriculumHistorySha256": "3c6e9ff40774d4d2fc0e1473f08f6c5e0466732a5eecc1e31a34e2a0564052db",
+    "originalAnalysisSha256": "60048725500813cb38e64602bcadf72cc257a6b6f00de7c37168804eb688da04",
+    "correctedOriginalAnalysisSha256": "4f7809b8309e0fcc0505b2587f31af2f3bd11c9441ab9a7bdb8e90395354096d"
+  },
+  "codeProvenance": [
+    "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutoLensReferenceDesign.cs:80-99,293-320",
+    "src/OpticalSystemDesign.Core/Services/RotationalDesignGeometry.cs:48-54",
+    "labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutoLensReferenceHandoff.cs:15-31"
+  ],
+  "apertureCorrection": {
+    "correctedUtc": "2026-10-26T06:39:56.522741+00:00",
+    "issue": "Original import omitted physical clipping apertures; numerical model metadata was incomplete.",
+    "fix": "Explicit Core SetRadius call on every physical original row; all 13 physical radii checked against original JSON.",
+    "allOriginalPhysicalAperturesVerified": true,
+    "physicalApertureCount": 13,
+    "sameFrozenOpticsAndSettings": true,
+    "metricChangesCsharpOrOriginal": [
+      {
+        "FocalLengthMm": 0.0,
+        "EntrancePupilDiameterMm": 0.0,
+        "FNumber": 0.0,
+        "SensorPositionMm": 0.0,
+        "WorstValidFieldRmsMm": 0.0,
+        "ValidFieldCount": 0,
+        "AttemptedRays": 0,
+        "ValidRays": 0,
+        "ValidRayFraction": 0.0
+      },
+      {
+        "FocalLengthMm": 0.0,
+        "EntrancePupilDiameterMm": 0.0,
+        "FNumber": 0.0,
+        "SensorPositionMm": 0.0,
+        "WorstValidFieldRmsMm": 0.0,
+        "ValidFieldCount": 0,
+        "AttemptedRays": 0,
+        "ValidRays": 0,
+        "ValidRayFraction": 0.0
+      }
+    ],
+    "maximumPerFieldMetricAbsoluteDifference": 0.0,
+    "allComparedMetricsUnchangedWithin1e12": true,
+    "oldRawEvidencePreserved": true,
+    "correctedData": "common-analysis-corrected-apertures/common-analysis.json",
+    "correctedOriginalSnapshot": "common-analysis-corrected-apertures/original-imported.optic.json",
+    "oldSnapshot": "common-analysis/original-imported.optic.json",
+    "note": "No effect was observed for these two sampled optics. This does not excuse the missing aperture or establish equivalence for arbitrary optics."
+  }
+}

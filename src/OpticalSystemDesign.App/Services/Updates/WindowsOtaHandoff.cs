@@ -193,7 +193,7 @@ internal static class WindowsOtaHandoff
         if (activated.Version != update.Payload.Version || activated.Active != update.Payload.ReleaseId)
             throw new InvalidDataException("Setup did not activate the signed release identity.");
         using var restarted = Process.Start(new ProcessStartInfo(activated.Executable)
-            { UseShellExecute = true, WorkingDirectory = Path.GetDirectoryName(activated.Executable)! })
+        { UseShellExecute = true, WorkingDirectory = Path.GetDirectoryName(activated.Executable)! })
             ?? throw new IOException("Installed successfully; please start the application from its shortcut.");
         // Dispose installer lock before deleting our downloaded copy; keep setup.log for diagnosis.
         installerLock.Dispose();

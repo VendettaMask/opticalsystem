@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\054-interferogram\data.json"
+          Link="Fixtures\zemax-123456-interferogram.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\artifacts\zemax\123456-zemax-2026-r1-baseline\analyses\054-interferogram\data.txt"
+          Link="Fixtures\zemax-123456-interferogram.txt" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\validation\zemax\2026-r1\huygens-extensions-2026-10-11\**\*"
           Link="Validation\Zemax\HuygensExtensions\%(RecursiveDir)%(Filename)%(Extension)"
           CopyToOutputDirectory="PreserveNewest" />

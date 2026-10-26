@@ -6,9 +6,9 @@ using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Threading;
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Laboratories;
 
@@ -267,7 +267,9 @@ public sealed partial class OpticalAssemblyWindow : Window
             return new StackPanel { Spacing = 5, Children = { caption, input } };
         var field = new Grid
         {
-            ColumnDefinitions = new("*,118"), ColumnSpacing = 8, Margin = new Thickness(0, 2)
+            ColumnDefinitions = new("*,118"),
+            ColumnSpacing = 8,
+            Margin = new Thickness(0, 2)
         };
         field.Children.Add(caption); Grid.SetColumn(input, 1); field.Children.Add(input);
         return field;

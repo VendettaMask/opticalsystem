@@ -34,14 +34,23 @@ internal sealed partial class CameraImagingService
     {
         var image = ImageSimulationEngine.Simulate(optic, source, new ImageSimulationConfig
         {
-            ImageWidth = request.Width, ImageHeight = request.Height,
-            OutputWidth = request.Width + 16, OutputHeight = request.Height + 16,
+            ImageWidth = request.Width,
+            ImageHeight = request.Height,
+            OutputWidth = request.Width + 16,
+            OutputHeight = request.Height + 16,
             PixelSizeMillimeters = sensor.PixelPitchMicrometers * .001,
             FieldHeight = request.Height * sensor.PixelPitchMicrometers * .001,
-            Padding = 8, PsfSize = 16, PsfGridColumns = 3, PsfGridRows = 3,
-            NumRays = 12, Components = 3, DistortionGridSize = 5, DistortionPolynomialDegree = 3,
+            Padding = 8,
+            PsfSize = 16,
+            PsfGridColumns = 3,
+            PsfGridRows = 3,
+            NumRays = 12,
+            Components = 3,
+            DistortionGridSize = 5,
+            DistortionPolynomialDegree = 3,
             WavelengthsMicrometers = wavelengths.Select(w => w / 1000).ToArray(),
-            AberrationMode = request.Aberration.ToString(), UseRelativeIllumination = true
+            AberrationMode = request.Aberration.ToString(),
+            UseRelativeIllumination = true
         });
         var active = new double[wavelengths.Count, request.Height, request.Width];
         for (var c = 0; c < wavelengths.Count; c++) for (var y = 0; y < request.Height; y++) for (var x = 0; x < request.Width; x++)

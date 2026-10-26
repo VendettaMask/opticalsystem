@@ -1,6 +1,6 @@
 using Avalonia.Controls;
-using InitialStructureWindow = OpticalSystemDesign.App.Laboratories.InitialStructure.MainWindow;
 using CoatingDesignWindow = OpticalSystemDesign.App.Laboratories.CoatingDesign.MainWindow;
+using InitialStructureWindow = OpticalSystemDesign.App.Laboratories.InitialStructure.MainWindow;
 
 namespace OpticalSystemDesign.App.Services;
 

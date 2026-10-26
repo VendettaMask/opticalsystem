@@ -1,7 +1,7 @@
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Manufacturing;
 using OpticalSystemDesign.App.ViewModels;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Visualization;
 
@@ -129,9 +129,9 @@ public sealed class ManufacturingDrawingTests
         Assert.NotNull(font);
         Assert.True(font.Length > 15_000_000);
         using var companyLogo = typeof(OpticalDrawingRenderer).Assembly.GetManifestResourceStream(
-            "OpticalSystemDesign.App.Assets.Brand.CompanyLogo.png");
+            "OpticalSystemDesign.App.Assets.Brand.CompanyLogo.svg");
         Assert.NotNull(companyLogo);
-        Assert.True(companyLogo.Length > 10_000);
+        Assert.Contains("<path", new StreamReader(companyLogo).ReadToEnd(), StringComparison.Ordinal);
 
         var sheet = Sheet(element) with { MaterialData = material };
         Assert.Equal(0.0005, sheet.RefractiveIndexTolerance);
@@ -560,6 +560,34 @@ public sealed class ManufacturingDrawingTests
 
     private static readonly byte[] TransparentPng = Convert.FromBase64String(
         "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=");
+
+    [Fact]
+    public void DefaultCompanyLogoStaysVectorInEngineeringPdfWhileCustomPngRemainsAnImage()
+    {
+        using var application = WorkbenchApplication.Create("cooke");
+        var sheet = Sheet(OpticalManufacturingModel.BuildElements(application.Prescription.GetSurfaces())[0]);
+        var capture = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_BRAND_CAPTURE_DIR");
+        var directory = capture ?? Path.Combine(Path.GetTempPath(), "vector-logo-pdf-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(directory);
+        var vectorPath = Path.Combine(directory, "engineering-vector-logo.pdf");
+        var customPath = Path.Combine(directory, "engineering-custom-png.pdf");
+        try
+        {
+            OpticalDrawingRenderer.ExportPdf(vectorPath, sheet);
+            using var bitmap = new SkiaSharp.SKBitmap(2, 2);
+            bitmap.Erase(SkiaSharp.SKColors.Red);
+            using var image = SkiaSharp.SKImage.FromBitmap(bitmap);
+            using var png = image.Encode(SkiaSharp.SKEncodedImageFormat.Png, 100);
+            OpticalDrawingRenderer.ExportPdf(customPath, sheet with { CompanyLogoPng = png.ToArray() });
+            const string imageObject = @"/Subtype\s*/Image\b";
+            Assert.DoesNotMatch(imageObject, System.Text.Encoding.Latin1.GetString(File.ReadAllBytes(vectorPath)));
+            Assert.Matches(imageObject, System.Text.Encoding.Latin1.GetString(File.ReadAllBytes(customPath)));
+        }
+        finally
+        {
+            if (capture is null) Directory.Delete(directory, true);
+        }
+    }
 
     private static OpticalDrawingSheet Sheet(OpticalDrawingElementDefinition element) => new(
         element,

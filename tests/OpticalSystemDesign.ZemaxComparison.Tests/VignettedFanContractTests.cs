@@ -1,8 +1,8 @@
 using System.Text.Json;
 using OpticalSystemDesign.ZemaxComparison;
 using OpticalSystemDesign.ZemaxComparison.Configuration;
-using OpticalSystemDesign.ZemaxComparison.Normalization;
 using OpticalSystemDesign.ZemaxComparison.Metrics;
+using OpticalSystemDesign.ZemaxComparison.Normalization;
 
 namespace OpticalSystemDesign.ZemaxComparison.Tests;
 

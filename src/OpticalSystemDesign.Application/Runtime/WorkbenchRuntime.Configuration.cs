@@ -3,9 +3,9 @@ using System.Globalization;
 using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
+using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Capabilities;
-using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.FileIO;
@@ -120,7 +120,7 @@ public partial class WorkbenchRuntime
     {
         CaptureCurrentState();
         var index = _multiConfiguration.AddConfiguration(_activeConfigurationIndex);
-        SetStatus($"已添加配置 {index}。");
+        SetStatus($"已添加配置 {index + 1}。");
         OpticChanged?.Invoke(this, EventArgs.Empty);
         return index;
     }
@@ -140,7 +140,7 @@ public partial class WorkbenchRuntime
         CaptureCurrentState();
         _activeConfigurationIndex = configIndex;
         CurrentOptic = _multiConfiguration.Configurations[configIndex].Clone();
-        SetStatus($"已激活配置 {configIndex}。");
+        SetStatus($"已激活配置 {configIndex + 1}。");
         SurfaceDataChanged?.Invoke(this, EventArgs.Empty);
         OpticChanged?.Invoke(this, EventArgs.Empty);
     }

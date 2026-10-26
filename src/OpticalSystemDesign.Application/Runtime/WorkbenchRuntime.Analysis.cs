@@ -4,8 +4,8 @@ using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
-using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Domain;
@@ -53,6 +53,7 @@ public partial class WorkbenchRuntime
         var canonicalName = WorkbenchAnalysisCatalog.CanonicalKey(analysisName);
         var rows = data.Values
             .Where(item => item.Value is not IReadOnlyList<AnalysisSeries>)
+            .Where(item => canonicalName != "Interferogram" || item.Key is not ("ContourLevels" or "FieldIsAngular"))
             .Select(item => new AnalysisRow(DisplayAnalysisKey(item.Key), FormatAnalysisValue(item.Value)))
             .ToArray();
         var plotSeries = data.PlotSeries;
@@ -111,14 +112,16 @@ public partial class WorkbenchRuntime
             ? (int?)number : null;
         return new Contracts.InterferogramSummaryDto(
             Number("WavelengthMicrometers"),
-            Number("FieldHx") * radius,
-            Number("FieldHy") * radius,
-            CurrentOptic.FieldDefinition == FieldDefinitionKind.Angle
+            Number("FieldX") ?? Number("FieldHx") * radius,
+            Number("FieldY") ?? Number("FieldHy") * radius,
+            (data.Values.GetValueOrDefault("FieldIsAngular") as bool? ?? CurrentOptic.FieldDefinition == FieldDefinitionKind.Angle)
                 ? Contracts.AnalysisAxisUnit.Degree : Contracts.AnalysisAxisUnit.Millimeter,
             Number("PeakToValleyWaves"),
             surfaceNumber,
             surfaceNumber.HasValue && surfaceNumber == CurrentOptic.SurfaceGroup.Items.LastOrDefault()?.Number,
-            Number("PupilDiameterMillimeters"));
+            Number("PupilDiameterMillimeters"), Number("ScaleFactor"), Number("XTilt"), Number("YTilt"),
+            data.Values.GetValueOrDefault("DisplayAs") as string,
+            data.Values.GetValueOrDefault("ContourLevels") as double[]);
     }
 
     public string CanonicalAnalysisKey(string analysisName)
@@ -183,6 +186,10 @@ public partial class WorkbenchRuntime
                 ? result
                 : fallback;
         }
+
+        int SignedLeadingInt(string key, int fallback) => int.TryParse(
+            Text(key, fallback.ToString(CultureInfo.InvariantCulture)).Split(' ', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault(),
+            NumberStyles.Integer, CultureInfo.InvariantCulture, out var value) ? value : fallback;
 
         IReadOnlyList<double> ImageSimulationWavelengths(bool primaryDefault = false)
         {
@@ -332,7 +339,7 @@ public partial class WorkbenchRuntime
             "Seidel Diagram" => new SeidelDiagramAnalysis(
                 CurrentOptic,
                 Int("WavelengthNumber", 0),
-                Double("MaximumAberration", 0.1),
+                Double("MaximumAberration", 0),
                 Double("GridInterval", 0.01)),
             "Spot Diagram" => new SpotDiagramAnalysis(CurrentOptic, SpotSettings()),
             "Full Field Spot Diagram" => new SpotDiagramVariantAnalysis(
@@ -845,12 +852,16 @@ public partial class WorkbenchRuntime
                 knifeDistanceMillimeters: Double("KnifeDistanceMillimeters", 0),
                 observationDistanceMillimeters: Double("ObservationDistanceMillimeters", 0),
                 observationHalfWidthMillimeters: Double("ObservationHalfWidthMillimeters", 0)),
-            "Interferogram" => new WavefrontAnalysis(
-                CurrentOptic,
-                Int("NumRings", 15),
-                Int("MapSize", 65),
-                name: "Interferogram",
-                defaultSquareViewport: true),
+            "Interferogram" => new InterferogramAnalysis(CurrentOptic, new InterferogramSettings(
+                Sampling: LeadingInt("Sampling", 64), SurfaceNumber: SignedLeadingInt("SurfaceNumber", -1),
+                ScaleFactor: Double("ScaleFactor", 1), ShowAs: Text("ShowAs", "灰度"),
+                WavelengthNumber: LeadingInt("WavelengthNumber", 0), FieldNumber: LeadingInt("FieldNumber", 1),
+                XTilt: Double("XTilt", 0), YTilt: Double("YTilt", 0),
+                Beam1: SignedLeadingInt("Beam1", -1), Beam2: SignedLeadingInt("Beam2", 0),
+                RefBeamToVertex: Bool("RefBeamToVertex", false), UseExitPupilShape: Bool("UseExitPupilShape", true),
+                ConsiderPathLengthDifference: Bool("ConsiderPathLengthDifference", false),
+                ContourFormat: Text("ContourFormat", ""), Sx: Double("PupilSx", 0), Sy: Double("PupilSy", 0), Sr: Double("PupilSr", 1)),
+                _multiConfiguration.Configurations.Select((optic, index) => index == _activeConfigurationIndex ? CurrentOptic : optic).ToArray()),
             "Centroid Sphere Wavefront" => new ReferenceSphereWavefrontAnalysis(
                 CurrentOptic,
                 ReferenceSphereStrategy.CentroidSphere,

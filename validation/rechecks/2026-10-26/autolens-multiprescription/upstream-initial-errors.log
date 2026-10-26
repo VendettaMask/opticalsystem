@@ -1,0 +1,97 @@
+D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-multiprescription\export_upstream.py:160: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:837.)
+  return {"name":label,"value":float(loss),"gradient":[x if math.isfinite(x) else 0.0 for x in raw],
+{"name": "initial-seed-42", "parameters": 145, "valid": 216, "rays": 264, "seconds": 6.941824599984102}
+{"name": "initial-seed-101", "parameters": 145, "valid": 216, "rays": 264, "seconds": 6.366185699997004}
+{"name": "nonzero-asphere-1", "parameters": 145, "valid": 216, "rays": 264, "seconds": 6.288880699954461}
+{"name": "nonzero-asphere-2", "parameters": 145, "valid": 216, "rays": 264, "seconds": 6.004823099996429}
+{"name": "active-material-and-clearance", "parameters": 145, "valid": 216, "rays": 264, "seconds": 5.983612300013192}
+{"name": "trained-curriculum-catalog", "parameters": 133, "valid": 216, "rays": 264, "seconds": 5.931151500029955}
+{"name": "trained-refine-720-catalog", "parameters": 133, "valid": 216, "rays": 264, "seconds": 5.878264700004365}
+Traceback (most recent call last):
+  File "D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-multiprescription\export_upstream.py", line 228, in <module>
+    output.append(run(*case))
+                  ^^^^^^^^^^
+  File "D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-multiprescription\export_upstream.py", line 140, in run
+    fields, backups, ideals = inputs(lens,rows,kind)
+                              ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-multiprescription\export_upstream.py", line 132, in inputs
+    backups.append(Ray(torch.tensor(origins).reshape(len(angles),2,len(pupils),3),
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\optical system design\tmp\autolens-upstream-20261026\source\deeplens\ray.py", line 71, in __init__
+    self.d = F.normalize(self.d, p=2, dim=-1)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\19851\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\functional.py", line 5707, in normalize
+    denom = input.norm(p, dim, keepdim=True).clamp_min(eps).expand_as(input)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\19851\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\_tensor.py", line 908, in norm
+    return torch.norm(self, p, dim, keepdim, dtype=dtype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\19851\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\functional.py", line 1839, in norm
+    return torch.linalg.vector_norm(input, _p, _dim, keepdim, dtype=dtype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: linalg.vector_norm: Expected a floating point or complex tensor as input. Got Long
+
+Traceback (most recent call last):
+  File "D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-multiprescription\export_upstream.py", line 228, in <module>
+    output.append(run(*case))
+                  ^^^^^^^^^^
+  File "D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-multiprescription\export_upstream.py", line 140, in run
+    fields, backups, ideals = inputs(lens,rows,kind)
+                              ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-multiprescription\export_upstream.py", line 105, in inputs
+    n = float(lens.surfaces[1].mat2.ior(wave))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\optical system design\tmp\autolens-upstream-20261026\source\deeplens\material\materials.py", line 266, in ior
+    assert wvln.min() > 0.1 and wvln.max() < 10, "Wavelength should be in [um]."
+           ^^^^^^^^
+AttributeError: 'float' object has no attribute 'min'
+
+Traceback (most recent call last):
+  File "D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-multiprescription\export_upstream.py", line 228, in <module>
+    output.append(run(*case))
+                  ^^^^^^^^^^
+  File "D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-multiprescription\export_upstream.py", line 140, in run
+    fields, backups, ideals = inputs(lens,rows,kind)
+                              ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-multiprescription\export_upstream.py", line 132, in inputs
+    backups.append(Ray(torch.tensor(origins).reshape(len(angles),2,len(pupils),3),
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\optical system design\tmp\autolens-upstream-20261026\source\deeplens\ray.py", line 71, in __init__
+    self.d = F.normalize(self.d, p=2, dim=-1)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\19851\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\functional.py", line 5707, in normalize
+    denom = input.norm(p, dim, keepdim=True).clamp_min(eps).expand_as(input)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\19851\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\_tensor.py", line 908, in norm
+    return torch.norm(self, p, dim, keepdim, dtype=dtype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\19851\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\functional.py", line 1839, in norm
+    return torch.linalg.vector_norm(input, _p, _dim, keepdim, dtype=dtype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: linalg.vector_norm: Expected a floating point or complex tensor as input. Got Long
+
+Traceback (most recent call last):
+  File "D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-multiprescription\export_upstream.py", line 228, in <module>
+    output.append(run(*case))
+                  ^^^^^^^^^^
+  File "D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-multiprescription\export_upstream.py", line 140, in run
+    fields, backups, ideals = inputs(lens,rows,kind)
+                              ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-multiprescription\export_upstream.py", line 132, in inputs
+    backups.append(Ray(torch.tensor(origins).reshape(len(angles),2,len(pupils),3),
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\optical system design\tmp\autolens-upstream-20261026\source\deeplens\ray.py", line 71, in __init__
+    self.d = F.normalize(self.d, p=2, dim=-1)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\19851\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\nn\functional.py", line 5707, in normalize
+    denom = input.norm(p, dim, keepdim=True).clamp_min(eps).expand_as(input)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\19851\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\_tensor.py", line 908, in norm
+    return torch.norm(self, p, dim, keepdim, dtype=dtype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\19851\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\functional.py", line 1839, in norm
+    return torch.linalg.vector_norm(input, _p, _dim, keepdim, dtype=dtype)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: linalg.vector_norm: Expected a floating point or complex tensor as input. Got Long
+

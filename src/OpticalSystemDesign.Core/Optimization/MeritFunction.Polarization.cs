@@ -1,6 +1,6 @@
+using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Services;
-using OpticalSystemDesign.Core.Domain;
 
 namespace OpticalSystemDesign.Core.Optimization;
 

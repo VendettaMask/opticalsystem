@@ -1,0 +1,297 @@
+{
+  "date": "2026-10-26",
+  "timezone": "Asia/Shanghai",
+  "scope": "Original Python execution, frozen optimization rules, same-input initial-lens CPU/CUDA trace and image-loss gradients; short original mobile training. No full default output equivalence claim.",
+  "upstreamRepository": "https://github.com/AI4Optics/AutoLens",
+  "upstreamCommit": "e58db32f3a0b07f25861b5839a45970f77b5c947",
+  "upstreamSourceDirectory": "D:\\optical system design\\tmp\\autolens-upstream-20261026\\source",
+  "upstreamTrackedChanges": [],
+  "repositoryHead": "4b9ea06f3ac0348eacd48d688b1dc4ea71e25a82",
+  "productNumericalCodeChangesThisTask": [],
+  "checks": {
+    "regeneratedPolicyExactlyEqualsFrozenJson": true,
+    "regeneratedHandoffExactlyEqualsFrozenJson": true,
+    "sameInputValidityAgrees": true,
+    "sameInputPositionWithin1eMinus7Mm": true,
+    "sameInputImageLossWithin1eMinus8": true,
+    "sameInputSelectedGradientWithin1eMinus6": true,
+    "referenceTests15Passed": true,
+    "shortTraining9Plus9Updates": true
+  },
+  "allChecksPassed": true,
+  "tests": {
+    "total": 15,
+    "executed": 15,
+    "passed": 15,
+    "failed": 0,
+    "error": 0,
+    "timeout": 0,
+    "aborted": 0,
+    "inconclusive": 0,
+    "passedButRunAborted": 0,
+    "notRunnable": 0,
+    "notExecuted": 0,
+    "disconnected": 0,
+    "warning": 0,
+    "completed": 0,
+    "inProgress": 0,
+    "pending": 0
+  },
+  "fixedRays": {
+    "scope": "Six-element initial lens; identical fixed rays and float64; not final optimized output",
+    "results": [
+      {
+        "mode": "Cpu",
+        "rays": 168,
+        "validCount": 144,
+        "validityMismatches": [],
+        "maximumPositionAbsoluteErrorMm": 1.1938894317609083e-10,
+        "losses": [
+          {
+            "centroid": false,
+            "upstream": 3.3456777242411992,
+            "actual": 3.3456777242097746,
+            "absoluteError": 3.142464066741013e-11,
+            "upstreamGradient": [
+              -9.932394539974265,
+              0.49905940529755594,
+              -0.4017704636751782,
+              1.0713274594574165
+            ],
+            "gradient": [
+              -9.932394539888474,
+              0.4990594052951348,
+              -0.401770463679183,
+              1.0713274594755406
+            ],
+            "maximumGradientAbsoluteError": 8.57909299156745e-11
+          },
+          {
+            "centroid": true,
+            "upstream": 2.3729416071948766,
+            "actual": 2.3729416071804836,
+            "absoluteError": 1.439293129124053e-11,
+            "upstreamGradient": [
+              -7.888872918575685,
+              0.29077427952902635,
+              -0.24415510882824254,
+              0.6375359159607735
+            ],
+            "gradient": [
+              -7.888872918502345,
+              0.2907742795280179,
+              -0.2441551088316655,
+              0.6375359159717573
+            ],
+            "maximumGradientAbsoluteError": 7.333955664989844e-11
+          }
+        ],
+        "execution": {
+          "Backend": "cpu-forward-v1",
+          "DeviceName": "CPU",
+          "GpuBatches": 0,
+          "GpuRays": 0,
+          "GpuMilliseconds": 0,
+          "FallbackReason": null
+        }
+      },
+      {
+        "mode": "Gpu",
+        "rays": 168,
+        "validCount": 144,
+        "validityMismatches": [],
+        "maximumPositionAbsoluteErrorMm": 1.2018386286172245e-10,
+        "losses": [
+          {
+            "centroid": false,
+            "upstream": 3.3456777242411992,
+            "actual": 3.3456777242099216,
+            "absoluteError": 3.127764713894976e-11,
+            "upstreamGradient": [
+              -9.932394539974265,
+              0.49905940529755594,
+              -0.4017704636751782,
+              1.0713274594574165
+            ],
+            "gradient": [
+              -9.9323945398904,
+              0.49905940529514226,
+              -0.4017704636791912,
+              1.071327459475551
+            ],
+            "maximumGradientAbsoluteError": 8.386535910176462e-11
+          },
+          {
+            "centroid": true,
+            "upstream": 2.3729416071948766,
+            "actual": 2.3729416071805423,
+            "absoluteError": 1.4334311515540321e-11,
+            "upstreamGradient": [
+              -7.888872918575685,
+              0.29077427952902635,
+              -0.24415510882824254,
+              0.6375359159607735
+            ],
+            "gradient": [
+              -7.888872918503396,
+              0.29077427952801765,
+              -0.24415510883166736,
+              0.6375359159717554
+            ],
+            "maximumGradientAbsoluteError": 7.228884157939319e-11
+          }
+        ],
+        "execution": {
+          "Backend": "cuda-reverse-tape-v1",
+          "DeviceName": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "GpuBatches": 24,
+          "GpuRays": 144,
+          "GpuMilliseconds": 36.9672,
+          "FallbackReason": null
+        }
+      }
+    ]
+  },
+  "shortTraining": {
+    "scope": "Short smoke run; 9+9 updates, default ray counts; not default complete optimization or quality comparison",
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "torch": "2.11.0+cu128",
+    "durationSeconds": 209.5202663000091,
+    "tag": "OhbV",
+    "curriculumUpdates": 9,
+    "refinementUpdates": 9,
+    "focalLengthMm": 18.201416303161977,
+    "halfFovRadians": 0.26809090601098023,
+    "fNumber": 6.551985710281489,
+    "sensorRadiusMm": 5.0
+  },
+  "trainingLossHistory": {
+    "curriculum": {
+      "rows": 9,
+      "first": {
+        "iter": "0",
+        "loss_rms": "4.790277e-01",
+        "loss_reg": "1.999325e-01",
+        "loss_distortion": "1.683764e+01",
+        "loss_clearance": "0.000000e+00",
+        "loss_envelope": "0.000000e+00",
+        "loss_profile": "0.000000e+00",
+        "loss_cra": "2.208753e-02",
+        "loss_ray_bend": "1.683450e-01",
+        "loss_mat": "9.499979e-03"
+      },
+      "last": {
+        "iter": "8",
+        "loss_rms": "6.984215e-01",
+        "loss_reg": "8.796756e-02",
+        "loss_distortion": "8.900759e+00",
+        "loss_clearance": "1.554350e-03",
+        "loss_envelope": "0.000000e+00",
+        "loss_profile": "0.000000e+00",
+        "loss_cra": "0.000000e+00",
+        "loss_ray_bend": "7.841317e-02",
+        "loss_mat": "8.000040e-03"
+      }
+    },
+    "refinement": {
+      "rows": 9,
+      "first": {
+        "iter": "0",
+        "loss_rms": "7.091824e-01",
+        "loss_reg": "1.027460e-01",
+        "loss_distortion": "2.002102e+01",
+        "loss_clearance": "5.896634e-03",
+        "loss_envelope": "0.000000e+00",
+        "loss_profile": "0.000000e+00",
+        "loss_cra": "9.684932e-02",
+        "loss_ray_bend": "0.000000e+00",
+        "loss_mat": "0.000000e+00"
+      },
+      "last": {
+        "iter": "8",
+        "loss_rms": "7.017189e-01",
+        "loss_reg": "9.381597e-02",
+        "loss_distortion": "2.001456e+01",
+        "loss_clearance": "0.000000e+00",
+        "loss_envelope": "0.000000e+00",
+        "loss_profile": "0.000000e+00",
+        "loss_cra": "9.381597e-02",
+        "loss_ray_bend": "0.000000e+00",
+        "loss_mat": "0.000000e+00"
+      }
+    }
+  },
+  "knownNonEquivalence": [
+    "Default Python run uses float32; shared product Core uses double. The direct fixed-ray comparison explicitly uses float64 on both sides.",
+    "Training sample stream is not PyTorch CUDA Philox, including diagnostic random-number consumption; same seed does not imply the same training trajectory.",
+    "The separate CAMERA_CONFIG topology is not fully reproduced by the mobile policy.",
+    "Product hard physical acceptance gates remain separate from upstream training losses.",
+    "This short original run ends at about 18.2014 mm and F/6.552; it does not meet the 5 mm F/1.8 target and is not a quality-success result."
+  ],
+  "previousFullDefaultRun": {
+    "source": "docs/validation/AUTOLENS_UPSTREAM_ALIGNMENT_2026-10-24.json",
+    "historicalOnly": true,
+    "exitCode": 0,
+    "durationSeconds": 5742.922,
+    "updates": [
+      2001,
+      3001
+    ],
+    "oldAbsoluteSourceDirectoryPresentOnThisComputer": false
+  },
+  "intermediateFailuresPreserved": [
+    "Sandbox testhost connection abort (reference-rerun.trx)",
+    "Initial development probe missing namespace and invalid parameter-origin declarations; corrected probe succeeds, original logs retained"
+  ],
+  "evidenceSha256": {
+    "csharp-fixed-rays-host-02.log": "d1ee24aee82f39381c55c2130cd4ee981f8ac9791ba20af4b99345d55a4c98c1",
+    "csharp-fixed-rays-host-03.log": "0b4b984456c4a246a73c81fcb7169c881c118e802a6d8de42bbcaaa34ae8c340",
+    "csharp-fixed-rays-host.log": "fdd804e3110172dbe5a7fc661c39561c549d543de011e0278612834857d97f1e",
+    "csharp-fixed-rays.log": "302c77234ef1c632e138c038b38365d5a86ad37f53c7a3b10d2be36f1c7fcc65",
+    "csharp-test-host.log": "29e21b6365681c72115042df6eab3ad23ff5d42b0d2fe87e16804b36db854534",
+    "csharp-test.log": "21a6c94c7eaeaa63d8088c5fa342ef1db423568fb51b744878faa6e0e2f2d4e5",
+    "fixed-ray-comparison.json": "0b4b984456c4a246a73c81fcb7169c881c118e802a6d8de42bbcaaa34ae8c340",
+    "fixed-ray-probe/FixedRayProbe.csproj": "20980e4554896d5fab7a8c29214bdd2a5b3f3bbf5b5b5a3106ff80d35da8ee64",
+    "fixed-ray-probe/packages.lock.json": "245a9383a4732f1debe6385934e9c33dde4927e8c50fce4ae753e80f4d2e39c0",
+    "fixed-ray-probe/Program.cs": "4f4df693d5c977af439a4ee808299fdfc1d73b718ffee0902b43be65945eda63",
+    "original-handoff-0.json": "65415b4a428e2474e5aa611bf4978475cfb02266a5ffc131f6a6a698c08a737d",
+    "original-handoff-1.json": "430413e37384097b42e59e1646a8e687722971f3ba76394fb31bb248f0b5e616",
+    "python-fixed-rays.log": "22fcb4ea436a1dd49f1e5e299c182b657735afe2cc9fa7cb26394b98c03d1028",
+    "python-handoff.log": "ed9161d316de7d16d594d4c8a9b0dd27870ad50aacb49f97ce260f26638f3833",
+    "python-policy.log": "32a3df894711c3457150beee9436df6c5e1ee2c4bf96b77db03c8104c669e3ae",
+    "python-short-training.log": "1073a9733d4358fd9c49b265a5ba4d0c6fff01eccce08a9ad244a5f3be033e73",
+    "README.md": "6627ad326f1067795b38df69a44df4c40ae909c7e7fd5c1098937f8ba5250dc9",
+    "reference-rerun-host.trx": "2fa3d8c77eeb0cfaddf6e3561e1401491b1db860c705dd2e8c939785bc4c5b55",
+    "reference-rerun.trx": "19e09f1119cafe49f3e36230caac98daf0b661751c8f14e169d2e5d1aa82f6d0",
+    "regenerated-handoff.json": "a43550ea22ddb21071e8d6d1b4d06ccd7b1319dcb931952c50d794d07a8816e0",
+    "regenerated-policy.json": "2e9f3da4742864d644e334111a3db7442eb84e2e1f89b961a4f3f08b3cc379f3",
+    "run_upstream_probe.py": "a55fbf111fa5eb4604e7035162302220f12b29eae69332a3d8cf40eefce29c32",
+    "summarize_comparison.py": "76e09d7a7e16bf9083ecc64c1c05e79ce13576f06caccdd23c938ff50c3f03ae",
+    "upstream-fixed-rays.json": "5fd3efb1ad681b68d2c3aac2253c34d79adb069cd080735ee77b8061213a61d6",
+    "upstream-short-training/config.json": "5b7c29d516d2fc6993cc8f143682b95ebc772897e1f58da5ba2fe322c2d00c8a",
+    "upstream-short-training/curriculum_final.json": "2e1bdcd2dfdf624c988747be931d19c2267d046efe240dd71c8df38f213fc021",
+    "upstream-short-training/final_lens.json": "122d6881682b66bc33d66e04dcbb41139178d146e0cc0c692bdc9425e2383194",
+    "upstream-short-training/final_lens.png": "b93a5c610178e697e6abf79b613844c822c7fcc13f2e53d39c9ba6936149da37",
+    "upstream-short-training/iter0.json": "60832fa612d49ec77d52d4b6d8e0d9b5a9f4ecbc5420c47787301a8466dcc248",
+    "upstream-short-training/iter0.png": "db00846f3b151b2d43371c9047a9b84e52ae77743cf59fee9533d3cb54764d1d",
+    "upstream-short-training/iter4.json": "5baab36746c1bbb3e423baa69c81a564c3d2b6138c243c4c041e8cacce9eac19",
+    "upstream-short-training/iter4.png": "c7e83ec71e15703022fb0a7b268616a2262fc5305fefd46db5490cea7745fd48",
+    "upstream-short-training/iter8.json": "3ea668cba209d274e844c9db83b2afb20f353f580cce5a4b983e1d4fad801a79",
+    "upstream-short-training/iter8.png": "22de863511bb0bba4bbab91ede5224fd969d2087c32a4406d4fca298692b544b",
+    "upstream-short-training/loss_curve.png": "e5691d8f71086eb3247dd8f3dbbbb6cb46a1075325d71aeb351d95e8551744c0",
+    "upstream-short-training/loss_history.tsv": "2cc40ede2de8de2bf029e22443eedc9adc60f26e648d7041caca6c9cb5c23ad3",
+    "upstream-short-training/output.log": "b7ce60ba15b7ca464cfea2e3893413fbfdff308d6e44c58c859892b36501fdbb",
+    "upstream-short-training/refine/iter0.json": "89e7017cea289d9fcd115b7d629771d1a9e2a6a315da0909f96ab99b83ba82dd",
+    "upstream-short-training/refine/iter0.png": "e28182a759db97b06a078bbd24ebfe7769a32375743906f3db27e6998a000400",
+    "upstream-short-training/refine/iter4.json": "acc2e90cb348a11ce9c9c94888f80404a35fce7a19f007f954a71cf02e6a3fa8",
+    "upstream-short-training/refine/iter4.png": "705f44c93ba63b39a2bc389b967918a0e5186b2dbaccc11611827588ca8bd164",
+    "upstream-short-training/refine/iter8.json": "0584c9c88468e30d94c6c6e38e9b1e9ad3cb97397f205970592091fa4bd4ec07",
+    "upstream-short-training/refine/iter8.png": "1500015896d88ffb3dcd6e55e88ec8533b7a607eba012874a0d1b70dd0256d61",
+    "upstream-short-training/refine/loss_curve.png": "a927e23381f4a09660d3321bfc3c7464f7caff2c42c8f42f963049c4a4b7e441",
+    "upstream-short-training/refine/loss_history.tsv": "1c1eeffc67aa899436a2f2c332094957eda1ac4a753c22b9ee3138aa3709a28c",
+    "upstream-short-training/run-summary.json": "b7f9a0d0c456e6ba3f88e204fefedac949522db81fe823a9a79671b02540dcf1",
+    "upstream-short-training/starting_point_f5.0mm_imgh5.0_fnum1.8.json": "6419b74535ce7772b774f40bc747382803a9f78ad4069cae89a0193abd8e2945",
+    "upstream-short-training/starting_point_f5.0mm_imgh5.0_fnum1.8.png": "6f56b29db42a3641f1088aae4a074b7944237b5fa9d447c7825db1d0f4b5ed03"
+  }
+}

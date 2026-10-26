@@ -1,0 +1,42 @@
+{
+  "ordinary": {
+    "caseCount": 7,
+    "cpuGpuEvaluations": 14,
+    "allAgreed": true,
+    "maskMismatches": 0,
+    "maximumPositionAbsoluteErrorMm": 3.1174529624422576e-10,
+    "maximumValueNormalizedError": 4.163852156482778e-09,
+    "maximumGradientNormalizedError": 8.678814244707238e-07,
+    "maximumGradientScaledError": 1.1143221224022115e-07,
+    "gradientSlotsCompared": 19820,
+    "finiteDifferenceDirections": 21,
+    "allFiniteDifferenceMasksStable": true,
+    "maximumFiniteDifferenceAbsoluteError": 1.8037318004222175e-11,
+    "maximumFiniteDifferenceRelativeError": 9.31663280908078e-05,
+    "finiteDifferenceProbe": "traceX + 0.37*traceY + 0.1*traceDirectionZ + 0.01*traceBend; all coordinates simultaneously perturbed, no detached image-weight finite difference claim"
+  },
+  "substantiveBoundaryDifferences": {
+    "aperture": {
+      "mismatchingRaysPerBackend": 24,
+      "inputRays": 132,
+      "upstreamValid": 60,
+      "csharpValid": 84,
+      "affectedRadii": "Exactly +r or -r on the planar stop; +/-1e-10 and +/-1e-7 relative offsets agree",
+      "reason": "Upstream Aperture inherits Plane.intersect with r^2 strict comparison; Core circular physical aperture includes boundary with numerical tolerance."
+    },
+    "criticalNear": {
+      "minimumRelativeHeightMargin": 1e-10,
+      "maskMismatches": 0,
+      "maximumGradientNormalizedDifference": 0.009990654544396441,
+      "maximumTotalObjectiveGradientNormalizedDifference": 0.0031978418483315668,
+      "controlledNoEpsilonMaximumGradientDifference": 1.0121417532269942e-06,
+      "attribution": "Temporarily setting only upstream base module EPSILON=0 reduces the gradient discrepancy greatly. This controlled output is not the baseline. Residual is consistent with ill conditioning/roundoff; not claimed bit equality."
+    },
+    "criticalExact": {
+      "upstream": "Original baseline produced finite stabilized outputs and gradients in this case.",
+      "csharp": "CPU and CUDA reject the singular derivative for a batch containing the critical ray. One affected ray can make the fixed-input request fail.",
+      "scope": "Physical/AD domain policy difference; not changed or treated as agreement."
+    }
+  },
+  "cpuGpuMaxGradientDifference": 2.1725675820074268e-09
+}

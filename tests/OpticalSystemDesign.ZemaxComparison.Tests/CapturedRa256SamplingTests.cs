@@ -1,11 +1,11 @@
 using System.Text.Json;
-using OpticalSystemDesign.Core;
-using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Application.Runtime;
+using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
+using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.ZemaxComparison;
-using OpticalSystemDesign.ZemaxComparison.Normalization;
 using OpticalSystemDesign.ZemaxComparison.Metrics;
+using OpticalSystemDesign.ZemaxComparison.Normalization;
 using OpticalSystemDesign.ZemaxComparison.Workbench;
 
 namespace OpticalSystemDesign.ZemaxComparison.Tests;

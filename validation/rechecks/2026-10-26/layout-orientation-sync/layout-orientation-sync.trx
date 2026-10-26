@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="4eccb93a-8e2e-4e92-8e7f-f83f46d1f2ad" name="optics@LAPTOP-G4BBBCS0 2026-10-26 10:31:01" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-26T10:31:01.6010116+08:00" queuing="2026-10-26T10:31:01.6010121+08:00" start="2026-10-26T10:30:42.3824986+08:00" finish="2026-10-26T10:31:15.6105080+08:00" />
+  <TestSettings name="default" id="59e480db-bc3f-463f-b5d9-74e34f3b14e5">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-26_10_31_01" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="80f2cd9e-580d-4000-95b6-66c1ddb4b1d9" testId="516b94eb-6713-8cb7-e4e8-5eb774ab3a3f" testName="OpticalSystemDesign.Tests.Viewer3DGeometryTests.AxesTrackPresetsMouseAndKeyboardButIgnorePanZoomAndStretch(style: SolidModel, theme: &quot;Light&quot;, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:11.0859599" startTime="2026-10-26T10:31:03.0249123+08:00" endTime="2026-10-26T10:31:14.1101176+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="80f2cd9e-580d-4000-95b6-66c1ddb4b1d9" />
+    <UnitTestResult executionId="2b7db00a-1b9f-4e1c-a8ba-51aad034a7b8" testId="bc3b8905-af8d-46a1-6eee-b473bb8a5295" testName="OpticalSystemDesign.Tests.Viewer3DGeometryTests.AxesTrackPresetsMouseAndKeyboardButIgnorePanZoomAndStretch(style: SolidModel, theme: &quot;Dark&quot;, fontSize: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:16.6926006" startTime="2026-10-26T10:30:44.8705417+08:00" endTime="2026-10-26T10:31:01.5504002+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2b7db00a-1b9f-4e1c-a8ba-51aad034a7b8" />
+    <UnitTestResult executionId="0b354689-d798-4afe-876b-1f4d1ade6931" testId="8a55e380-3698-1451-3ca9-aa35292a0658" testName="OpticalSystemDesign.Tests.Viewer3DGeometryTests.AxesTrackPresetsMouseAndKeyboardButIgnorePanZoomAndStretch(style: OpticalLayout, theme: &quot;Dark&quot;, fontSize: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.4712899" startTime="2026-10-26T10:31:01.5773027+08:00" endTime="2026-10-26T10:31:03.0237262+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0b354689-d798-4afe-876b-1f4d1ade6931" />
+    <UnitTestResult executionId="a8b73485-7fef-4f99-b2f9-01d47df12534" testId="a7dacae5-a161-9703-f322-c32d119f07b6" testName="OpticalSystemDesign.Tests.Viewer3DGeometryTests.AxesTrackPresetsMouseAndKeyboardButIgnorePanZoomAndStretch(style: OpticalLayout, theme: &quot;Light&quot;, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.3527174" startTime="2026-10-26T10:31:14.1107760+08:00" endTime="2026-10-26T10:31:15.4635778+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a8b73485-7fef-4f99-b2f9-01d47df12534" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.Viewer3DGeometryTests.AxesTrackPresetsMouseAndKeyboardButIgnorePanZoomAndStretch(style: SolidModel, theme: &quot;Light&quot;, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="516b94eb-6713-8cb7-e4e8-5eb774ab3a3f">
+      <Execution id="80f2cd9e-580d-4000-95b6-66c1ddb4b1d9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.Viewer3DGeometryTests" name="AxesTrackPresetsMouseAndKeyboardButIgnorePanZoomAndStretch" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.Viewer3DGeometryTests.AxesTrackPresetsMouseAndKeyboardButIgnorePanZoomAndStretch(style: OpticalLayout, theme: &quot;Light&quot;, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a7dacae5-a161-9703-f322-c32d119f07b6">
+      <Execution id="a8b73485-7fef-4f99-b2f9-01d47df12534" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.Viewer3DGeometryTests" name="AxesTrackPresetsMouseAndKeyboardButIgnorePanZoomAndStretch" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.Viewer3DGeometryTests.AxesTrackPresetsMouseAndKeyboardButIgnorePanZoomAndStretch(style: SolidModel, theme: &quot;Dark&quot;, fontSize: 18)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="bc3b8905-af8d-46a1-6eee-b473bb8a5295">
+      <Execution id="2b7db00a-1b9f-4e1c-a8ba-51aad034a7b8" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.Viewer3DGeometryTests" name="AxesTrackPresetsMouseAndKeyboardButIgnorePanZoomAndStretch" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.Viewer3DGeometryTests.AxesTrackPresetsMouseAndKeyboardButIgnorePanZoomAndStretch(style: OpticalLayout, theme: &quot;Dark&quot;, fontSize: 18)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8a55e380-3698-1451-3ca9-aa35292a0658">
+      <Execution id="0b354689-d798-4afe-876b-1f4d1ade6931" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.Viewer3DGeometryTests" name="AxesTrackPresetsMouseAndKeyboardButIgnorePanZoomAndStretch" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="516b94eb-6713-8cb7-e4e8-5eb774ab3a3f" executionId="80f2cd9e-580d-4000-95b6-66c1ddb4b1d9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bc3b8905-af8d-46a1-6eee-b473bb8a5295" executionId="2b7db00a-1b9f-4e1c-a8ba-51aad034a7b8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8a55e380-3698-1451-3ca9-aa35292a0658" executionId="0b354689-d798-4afe-876b-1f4d1ade6931" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a7dacae5-a161-9703-f322-c32d119f07b6" executionId="a8b73485-7fef-4f99-b2f9-01d47df12534" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.54]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.95]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.98]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:32.64]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

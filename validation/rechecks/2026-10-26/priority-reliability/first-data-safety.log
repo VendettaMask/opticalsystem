@@ -1,0 +1,35 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.Tests -> D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:04.38]     OpticalSystemDesign.Tests.PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(extension: ".len", text: "SRF 1; RD 40; TH -12; GL AIR; SRF 2; RD -40; TH 2;"···) [FAIL]
+[xUnit.net 00:00:04.38]     OpticalSystemDesign.Tests.PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(extension: ".seq", text: "SUR 1; RD 40; TH -12; GL AIR; SUR 2; RD -40; TH 2;"···) [FAIL]
+  失败 OpticalSystemDesign.Tests.PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(extension: ".len", text: "SRF 1; RD 40; TH -12; GL AIR; SRF 2; RD -40; TH 2;"···) [11 ms]
+  错误消息:
+   Assert.Contains() Failure: Filter not matched in collection
+Collection: [0: Surface 0]
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(String extension, String text) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PriorityDataSafetyTests.cs:line 86
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(extension: ".seq", text: "SUR 1; RD 40; TH -12; GL AIR; SUR 2; RD -40; TH 2;"···) [< 1 ms]
+  错误消息:
+   Assert.Contains() Failure: Filter not matched in collection
+Collection: [0: Surface 0]
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(String extension, String text) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PriorityDataSafetyTests.cs:line 86
+   at InvokeStub_PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\priority-reliability\first-data-safety.trx
+
+失败!  - 失败:     2，通过:    11，已跳过:     0，总计:    13，持续时间: 804 ms - OpticalSystemDesign.Tests.dll (net10.0)

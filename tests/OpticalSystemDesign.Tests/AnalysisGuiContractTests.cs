@@ -1,24 +1,24 @@
-using System.Text.Json;
 using System.Globalization;
-using OpticalSystemDesign.Application.Formatting;
-using OpticalSystemDesign.Application.Runtime;
-using OpticalSystemDesign.Application.Services;
+using System.Text.Json;
 using OpticalSystemDesign.App;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.Application.Formatting;
+using OpticalSystemDesign.Application.Runtime;
+using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
-using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Phase;
+using AnalysisContracts = OpticalSystemDesign.Application.Contracts;
 using ContractLensLibraryService = OpticalSystemDesign.Application.Contracts.ILensLibraryService;
 using ContractMaterialCatalogService = OpticalSystemDesign.Application.Contracts.IMaterialCatalogService;
-using AnalysisContracts = OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -1624,7 +1624,7 @@ public sealed class AnalysisGuiContractTests
                 "扩展图像分析"
             },
             MainWindow.AnalysisRibbonCategories);
-        Assert.Equal(71, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
+        Assert.Equal(70, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
         Assert.All(MainWindow.AnalysisRibbonCategories, category =>
         {
             Assert.NotEmpty(MainWindow.AnalysisRibbonCommandsByCategory[category]);
@@ -1644,7 +1644,8 @@ public sealed class AnalysisGuiContractTests
         Assert.Contains("FFT PSF", displayNames);
         Assert.Contains("FFT PSF截面图", displayNames);
         Assert.Contains("傅里叶 MTF VS 视场", displayNames);
-        Assert.Contains("Zernike", displayNames);
+        Assert.DoesNotContain("Zernike", displayNames);
+        Assert.Contains("Zernike Fringe系数", displayNames);
         Assert.Contains("Jones 瞳", displayNames);
         Assert.Contains("Y-Ybar", displayNames);
         Assert.Equal(

@@ -1,6 +1,6 @@
 using System.Diagnostics;
-using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.InitialStructure.Contracts;
 
 namespace OpticalSystemDesign.InitialStructure.Engine;
@@ -16,7 +16,7 @@ public sealed class FlatStartDesignService
         SpecificationValidator.Validate(specification);
         var stopwatch = Stopwatch.StartNew();
         using var compute = specification.FlatStart!.OptimizationMethod == FlatStartOptimizationMethod.AutoLensManagedV1
-            ? new SequentialGpuSession(specification.FlatStart.AutoLens?.ComputeMode ?? Core.Differentiation.DesignComputeMode.Cpu,cancellationToken) : null;
+            ? new SequentialGpuSession(specification.FlatStart.AutoLens?.ComputeMode ?? Core.Differentiation.DesignComputeMode.Cpu, cancellationToken) : null;
         if (specification.FlatStart.AutoLens?.Policy == AutoLensManagedPolicy.UpstreamE58)
         {
             // Preserve the archive's exact-flat ancestor as provenance only. No native
@@ -24,7 +24,8 @@ public sealed class FlatStartDesignService
             var root = new FlatRootFactory().Create(specification, elementCount, family: family);
             var proof = new FlatStartBootstrapResult
             {
-                Specification = specification, SpecificationFingerprint = ContentFingerprint.Compute(specification),
+                Specification = specification,
+                SpecificationFingerprint = ContentFingerprint.Compute(specification),
                 State = FlatStartBootstrapState.Initialized,
                 Steps = [new(0, "reference-provenance-flat-template", root, new())],
                 Diagnostics = [new("reference.random-start", "The flat ancestor is archive provenance only; TrainingStartOptic records the actual random e58-style start.")]

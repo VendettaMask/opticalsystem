@@ -7,10 +7,10 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Laboratories;
 
@@ -190,8 +190,16 @@ public sealed partial class CameraImagingWindow : Window
     { Name = name, ItemsSource = labels, SelectedIndex = 0, HorizontalAlignment = HorizontalAlignment.Stretch };
     private Control Number(string name, string label, decimal value, decimal min, decimal max, decimal increment)
     {
-        var number = new NumericUpDown { Name = "camera-" + name, Value = value, Minimum = min, Maximum = max,
-            Increment = increment, FormatString = name is "black" or "bits" or "seed" ? "0" : "0.###############", Width = 130 };
+        var number = new NumericUpDown
+        {
+            Name = "camera-" + name,
+            Value = value,
+            Minimum = min,
+            Maximum = max,
+            Increment = increment,
+            FormatString = name is "black" or "bits" or "seed" ? "0" : "0.###############",
+            Width = 130
+        };
         AutomationProperties.SetName(number, label); _numbers[name] = number; return Field(label, number);
     }
     private static Control Field(string label, Control input)
@@ -212,8 +220,12 @@ public sealed partial class CameraImagingWindow : Window
 
     private sealed class CameraFrameView : Border, IDisposable
     {
-        private readonly TextBlock _title = new() { TextWrapping = TextWrapping.Wrap, FontWeight = FontWeight.SemiBold,
-            FontSize = DisplayTypography.BodySmall };
+        private readonly TextBlock _title = new()
+        {
+            TextWrapping = TextWrapping.Wrap,
+            FontWeight = FontWeight.SemiBold,
+            FontSize = DisplayTypography.BodySmall
+        };
         private readonly Image _image = new() { Height = 180, Stretch = Stretch.Uniform };
         private readonly TextBlock _empty = LaboratoryPresentation.Hint("运行仿真后显示图像");
         private WriteableBitmap? _bitmap;

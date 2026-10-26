@@ -142,16 +142,16 @@ public sealed class ZoomWideAngleNativeParityTests
     [InlineData("wide-angle-lens-210-degree-field")]
     public void TransverseFtanReferenceReportsUnavailableWithoutFoldingTheField(string slug)
     {
-        using var archive=OpenReference();
-        var optic=new ZemaxZmxImporter().ImportConfigurationSet(Read(archive,$"run/sources/{slug}.zmx")).Configurations[0];
-        var options=new JsonSerializerOptions {NumberHandling=System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals};
-        var before=JsonSerializer.Serialize(optic.ToSnapshot(),options);
-        foreach(var type in new[]{"F-Tan(Theta)","Calibrated F-Tan(Theta)"})
+        using var archive = OpenReference();
+        var optic = new ZemaxZmxImporter().ImportConfigurationSet(Read(archive, $"run/sources/{slug}.zmx")).Configurations[0];
+        var options = new JsonSerializerOptions { NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals };
+        var before = JsonSerializer.Serialize(optic.ToSnapshot(), options);
+        foreach (var type in new[] { "F-Tan(Theta)", "Calibrated F-Tan(Theta)" })
         {
-            var error=Assert.Throws<OpticalSystemDesign.Core.Analysis.AnalysisDataUnavailableException>(()=>
-                new OpticalSystemDesign.Core.Analysis.FieldCurvatureAndDistortionAnalysis(optic,distortionType:type).GenerateData());
-            Assert.Contains("select F-Theta",error.Reason);
-            Assert.Equal(before,JsonSerializer.Serialize(optic.ToSnapshot(),options));
+            var error = Assert.Throws<OpticalSystemDesign.Core.Analysis.AnalysisDataUnavailableException>(() =>
+                new OpticalSystemDesign.Core.Analysis.FieldCurvatureAndDistortionAnalysis(optic, distortionType: type).GenerateData());
+            Assert.Contains("select F-Theta", error.Reason);
+            Assert.Equal(before, JsonSerializer.Serialize(optic.ToSnapshot(), options));
         }
     }
 

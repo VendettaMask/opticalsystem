@@ -148,7 +148,18 @@ internal sealed class FuiPreviewWindow : Window, IDisposable
             Spacing = 4,
             Children =
         {
-            Readout("S.T.A.R. LABS    /    OPTICAL ENGINEERING ENVIRONMENT", 10),
+            new StackPanel
+            {
+                Orientation = Orientation.Horizontal, Spacing = 12,
+                Children =
+                {
+                    new CompanyLogoControl(Color.Parse("#AABDB2"))
+                    {
+                        Name = "FuiCompanyLogo", Width = 150, Height = 20
+                    },
+                    Readout("OPTICAL ENGINEERING ENVIRONMENT", 10)
+                }
+            },
             new TextBlock { Text = "Optical System Design", Foreground = B("#D9DEDA"), FontSize = 23, FontWeight = FontWeight.Light }
         }
         });
@@ -299,6 +310,9 @@ internal sealed class FuiPreviewWindow : Window, IDisposable
 
     internal async Task<object> VerifyAsync()
     {
+        var logo = this.GetVisualDescendants().OfType<CompanyLogoControl>().Single();
+        if (logo.Source is not DrawingImage || !logo.IsEffectivelyVisible)
+            throw new InvalidOperationException("The company mark must use the shared vector artwork.");
         if (_sceneError is not null) throw new InvalidOperationException("Core model build failed.", _sceneError);
         if (_stage.Scene?.ThreeDimensional is not { LensElements.Count: 3 } model || _stage.Scene.SourceRevision != _workbench.Events.Revision)
             throw new InvalidOperationException("The spatial stage does not show the current Core model.");
@@ -340,6 +354,7 @@ internal sealed class FuiPreviewWindow : Window, IDisposable
             DecorativeDialRemoved = true,
             StructureText = _surfaceInfo.Text,
             CSharpNativeControls = true,
+            CompanyLogoUsesSharedVectorArtwork = true,
             SurfaceRows = 8,
             ActualTableColumns = grid.Columns.Count,
             MaterialRowsBlue = materials.Length,

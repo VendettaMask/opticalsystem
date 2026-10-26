@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f82d29ee-5003-41c3-970f-78bd6e3e6024" name="optics@LAPTOP-G4BBBCS0 2026-10-26 11:14:42" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-26T11:14:42.5963793+08:00" queuing="2026-10-26T11:14:42.5963797+08:00" start="2026-10-26T11:14:35.0925212+08:00" finish="2026-10-26T11:15:51.9748897+08:00" />
+  <TestSettings name="default" id="583e60f5-10ca-4cbf-a969-8741fa73f3b7">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-26_11_14_42" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="358dcf1e-587c-4e48-8172-e929a9b72ad4" testId="4f2dc8ce-de71-5d64-c9a0-acf629cc24d1" testName="OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.TinyInitialRoundoffDoesNotLoseTheOriginalFullTarget(perturbation: -9.9999999999999998E-13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:14.4742310" startTime="2026-10-26T11:15:37.4089837+08:00" endTime="2026-10-26T11:15:51.8839730+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="358dcf1e-587c-4e48-8172-e929a9b72ad4">
+      <Output>
+        <StdOut>{"index":9,"perturbation":-1E-12,"strictRequestedTarget":true,"Evaluations":600,"Termination":2,"updates":44,"MeetsTargets":false,"GeometryFeasible":true,"maximumRms":0.03104476551779151,"Violations":[{"Code":"field.0.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.03104476551779151,"Limit":0.03},{"Code":"field.1.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.030829890029728864,"Limit":0.03},{"Code":"field.2.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.030187268812709927,"Limit":0.03}]}</StdOut>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.ValidateOpticalCase(Int32 index, Double perturbation, Boolean strictRequestedTarget) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\SecantLeastSquaresTests.cs:line 59&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.TinyInitialRoundoffDoesNotLoseTheOriginalFullTarget(Double perturbation) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\SecantLeastSquaresTests.cs:line 22&#xD;
+   at InvokeStub_SecantLeastSquaresTests.TinyInitialRoundoffDoesNotLoseTheOriginalFullTarget(Object, Span`1)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="32df8891-dd61-4cc0-8a9f-6f751c1cf121" testId="ff05b4f8-0303-a77c-1c1b-a48ca8fcb3d8" testName="OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.FeasibleRestartUsesFullDenseTargetsAndRetainsTheIncumbent(name: &quot;03-50mm-monochrome.json&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:06.0494845" startTime="2026-10-26T11:14:36.4838188+08:00" endTime="2026-10-26T11:14:42.5437246+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="32df8891-dd61-4cc0-8a9f-6f751c1cf121" />
+    <UnitTestResult executionId="51ad2680-b0cf-41c4-ad85-2276b2f180d0" testId="d0f0dfd8-4105-f7b7-bd41-fb89bd4e16c3" testName="OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.TinyInitialRoundoffDoesNotLoseTheOriginalFullTarget(perturbation: 9.9999999999999998E-13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:14.6668435" startTime="2026-10-26T11:15:22.7420202+08:00" endTime="2026-10-26T11:15:37.4080501+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="51ad2680-b0cf-41c4-ad85-2276b2f180d0">
+      <Output>
+        <StdOut>{"index":9,"perturbation":1E-12,"strictRequestedTarget":true,"Evaluations":600,"Termination":2,"updates":40,"MeetsTargets":true,"GeometryFeasible":true,"maximumRms":0.0194577095284896,"Violations":[]}</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cfd2b1c8-a859-4a4b-a6c5-e5b54ccc0997" testId="a75db72a-db21-21ed-8c4d-2e9c4e67fbae" testName="OpticalSystemDesign.InitialStructure.Tests.FlatStartProgressiveRecoveryTests.FailedFullFieldEntryRecoversThroughMeasuredBridgeAndStillEnforcesFinalTargets" computerName="LAPTOP-G4BBBCS0" duration="00:00:46.3578141" startTime="2026-10-26T11:14:36.4838793+08:00" endTime="2026-10-26T11:15:22.8482641+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cfd2b1c8-a859-4a4b-a6c5-e5b54ccc0997" />
+    <UnitTestResult executionId="03e45437-51dc-4b38-99de-197386ee0769" testId="ae749624-081f-8a43-1f10-e97d72da6ebf" testName="OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.FrozenOpticalCasesReachOriginalTargetsWithFreshCoreValidation(index: 6)" computerName="LAPTOP-G4BBBCS0" duration="00:00:23.5354940" startTime="2026-10-26T11:14:59.2259494+08:00" endTime="2026-10-26T11:15:22.7411852+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="03e45437-51dc-4b38-99de-197386ee0769">
+      <Output>
+        <StdOut>{"index":6,"perturbation":0,"strictRequestedTarget":false,"Evaluations":600,"Termination":2,"updates":75,"MeetsTargets":true,"GeometryFeasible":true,"maximumRms":0.008364585946459462,"Violations":[]}</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6220e1ac-3847-4fc4-b2d6-b21257bfa59a" testId="8c5ec39a-882a-a149-4694-c9ce4ae37d4d" testName="OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.FrozenOpticalCasesReachOriginalTargetsWithFreshCoreValidation(index: 9)" computerName="LAPTOP-G4BBBCS0" duration="00:00:22.7005518" startTime="2026-10-26T11:14:36.4824483+08:00" endTime="2026-10-26T11:14:59.2066698+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6220e1ac-3847-4fc4-b2d6-b21257bfa59a">
+      <Output>
+        <StdOut>{"index":9,"perturbation":0,"strictRequestedTarget":false,"Evaluations":600,"Termination":2,"updates":45,"MeetsTargets":false,"GeometryFeasible":true,"maximumRms":0.034961014885415434,"Violations":[{"Code":"field.0.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.03266427285174434,"Limit":0.03},{"Code":"field.1.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.03243629040069135,"Limit":0.03},{"Code":"field.2.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.031754391955515465,"Limit":0.03},{"Code":"field.3.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.03062488192146653,"Limit":0.03},{"Code":"field.19.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.03215366710406217,"Limit":0.03},{"Code":"field.20.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.034961014885415434,"Limit":0.03}]}</StdOut>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.ValidateOpticalCase(Int32 index, Double perturbation, Boolean strictRequestedTarget) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\SecantLeastSquaresTests.cs:line 59&#xD;
+   at OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.FrozenOpticalCasesReachOriginalTargetsWithFreshCoreValidation(Int32 index) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\SecantLeastSquaresTests.cs:line 16&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2f26c5ff-caac-484f-8039-3f46627cc507" testId="a8bc5eb8-4b68-8d88-561f-a80cc28171ca" testName="OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.FeasibleRestartUsesFullDenseTargetsAndRetainsTheIncumbent(name: &quot;04-75mm-visible.json&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.8508100" startTime="2026-10-26T11:14:42.5750192+08:00" endTime="2026-10-26T11:14:46.3947900+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2f26c5ff-caac-484f-8039-3f46627cc507" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.TinyInitialRoundoffDoesNotLoseTheOriginalFullTarget(perturbation: 9.9999999999999998E-13)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="d0f0dfd8-4105-f7b7-bd41-fb89bd4e16c3">
+      <Execution id="51ad2680-b0cf-41c4-ad85-2276b2f180d0" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests" name="TinyInitialRoundoffDoesNotLoseTheOriginalFullTarget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.FrozenOpticalCasesReachOriginalTargetsWithFreshCoreValidation(index: 6)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="ae749624-081f-8a43-1f10-e97d72da6ebf">
+      <Execution id="03e45437-51dc-4b38-99de-197386ee0769" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests" name="FrozenOpticalCasesReachOriginalTargetsWithFreshCoreValidation" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.FeasibleRestartUsesFullDenseTargetsAndRetainsTheIncumbent(name: &quot;04-75mm-visible.json&quot;)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="a8bc5eb8-4b68-8d88-561f-a80cc28171ca">
+      <Execution id="2f26c5ff-caac-484f-8039-3f46627cc507" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests" name="FeasibleRestartUsesFullDenseTargetsAndRetainsTheIncumbent" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests.FeasibleRestartUsesFullDenseTargetsAndRetainsTheIncumbent(name: &quot;03-50mm-monochrome.json&quot;)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="ff05b4f8-0303-a77c-1c1b-a48ca8fcb3d8">
+      <Execution id="32df8891-dd61-4cc0-8a9f-6f751c1cf121" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FlatStartFullTargetRefinementTests" name="FeasibleRestartUsesFullDenseTargetsAndRetainsTheIncumbent" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.FrozenOpticalCasesReachOriginalTargetsWithFreshCoreValidation(index: 9)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="8c5ec39a-882a-a149-4694-c9ce4ae37d4d">
+      <Execution id="6220e1ac-3847-4fc4-b2d6-b21257bfa59a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests" name="FrozenOpticalCasesReachOriginalTargetsWithFreshCoreValidation" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.TinyInitialRoundoffDoesNotLoseTheOriginalFullTarget(perturbation: -9.9999999999999998E-13)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="4f2dc8ce-de71-5d64-c9a0-acf629cc24d1">
+      <Execution id="358dcf1e-587c-4e48-8172-e929a9b72ad4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests" name="TinyInitialRoundoffDoesNotLoseTheOriginalFullTarget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FlatStartProgressiveRecoveryTests.FailedFullFieldEntryRecoversThroughMeasuredBridgeAndStillEnforcesFinalTargets" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="a75db72a-db21-21ed-8c4d-2e9c4e67fbae">
+      <Execution id="cfd2b1c8-a859-4a4b-a6c5-e5b54ccc0997" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FlatStartProgressiveRecoveryTests" name="FailedFullFieldEntryRecoversThroughMeasuredBridgeAndStillEnforcesFinalTargets" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="4f2dc8ce-de71-5d64-c9a0-acf629cc24d1" executionId="358dcf1e-587c-4e48-8172-e929a9b72ad4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ff05b4f8-0303-a77c-1c1b-a48ca8fcb3d8" executionId="32df8891-dd61-4cc0-8a9f-6f751c1cf121" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d0f0dfd8-4105-f7b7-bd41-fb89bd4e16c3" executionId="51ad2680-b0cf-41c4-ad85-2276b2f180d0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a75db72a-db21-21ed-8c4d-2e9c4e67fbae" executionId="cfd2b1c8-a859-4a4b-a6c5-e5b54ccc0997" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ae749624-081f-8a43-1f10-e97d72da6ebf" executionId="03e45437-51dc-4b38-99de-197386ee0769" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8c5ec39a-882a-a149-4694-c9ce4ae37d4d" executionId="6220e1ac-3847-4fc4-b2d6-b21257bfa59a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a8bc5eb8-4b68-8d88-561f-a80cc28171ca" executionId="2f26c5ff-caac-484f-8039-3f46627cc507" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="7" executed="7" passed="5" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.75]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.84]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.87]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:23.63]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:23.63]       Expected: True&#xD;
+[xUnit.net 00:00:23.63]       Actual:   False&#xD;
+[xUnit.net 00:00:23.63]       Stack Trace:&#xD;
+[xUnit.net 00:00:23.64]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\SecantLeastSquaresTests.cs(59,0): at OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.ValidateOpticalCase(Int32 index, Double perturbation, Boolean strictRequestedTarget)&#xD;
+[xUnit.net 00:00:23.64]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\SecantLeastSquaresTests.cs(16,0): at OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.FrozenOpticalCasesReachOriginalTargetsWithFreshCoreValidation(Int32 index)&#xD;
+[xUnit.net 00:00:23.64]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:23.64]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:23.64]       Output:&#xD;
+[xUnit.net 00:00:23.64]         {"index":9,"perturbation":0,"strictRequestedTarget":false,"Evaluations":600,"Termination":2,"updates":45,"MeetsTargets":false,"GeometryFeasible":true,"maximumRms":0.034961014885415434,"Violations":[{"Code":"field.0.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.03266427285174434,"Limit":0.03},{"Code":"field.1.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.03243629040069135,"Limit":0.03},{"Code":"field.2.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.031754391955515465,"Limit":0.03},{"Code":"field.3.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.03062488192146653,"Limit":0.03},{"Code":"field.19.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.03215366710406217,"Limit":0.03},{"Code":"field.20.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.034961014885415434,"Limit":0.03}]}&#xD;
+[xUnit.net 00:01:16.30]       Assert.True() Failure&#xD;
+[xUnit.net 00:01:16.30]       Expected: True&#xD;
+[xUnit.net 00:01:16.30]       Actual:   False&#xD;
+[xUnit.net 00:01:16.30]       Stack Trace:&#xD;
+[xUnit.net 00:01:16.30]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\SecantLeastSquaresTests.cs(59,0): at OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.ValidateOpticalCase(Int32 index, Double perturbation, Boolean strictRequestedTarget)&#xD;
+[xUnit.net 00:01:16.30]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\SecantLeastSquaresTests.cs(22,0): at OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.TinyInitialRoundoffDoesNotLoseTheOriginalFullTarget(Double perturbation)&#xD;
+[xUnit.net 00:01:16.30]            at InvokeStub_SecantLeastSquaresTests.TinyInitialRoundoffDoesNotLoseTheOriginalFullTarget(Object, Span`1)&#xD;
+[xUnit.net 00:01:16.30]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:01:16.30]       Output:&#xD;
+[xUnit.net 00:01:16.30]         {"index":9,"perturbation":-1E-12,"strictRequestedTarget":true,"Evaluations":600,"Termination":2,"updates":44,"MeetsTargets":false,"GeometryFeasible":true,"maximumRms":0.03104476551779151,"Violations":[{"Code":"field.0.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.03104476551779151,"Limit":0.03},{"Code":"field.1.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.030829890029728864,"Limit":0.03},{"Code":"field.2.rms","Severity":2,"Message":"The requested design bound was not met.","Actual":0.030187268812709927,"Limit":0.03}]}&#xD;
+[xUnit.net 00:01:16.31]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T11:14:59.2125656+08:00">
+        <Text>[xUnit.net 00:00:23.63]     OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.FrozenOpticalCasesReachOriginalTargetsWithFreshCoreValidation(index: 9) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T11:15:51.8847105+08:00">
+        <Text>[xUnit.net 00:01:16.30]     OpticalSystemDesign.InitialStructure.Tests.SecantLeastSquaresTests.TinyInitialRoundoffDoesNotLoseTheOriginalFullTarget(perturbation: -9.9999999999999998E-13) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

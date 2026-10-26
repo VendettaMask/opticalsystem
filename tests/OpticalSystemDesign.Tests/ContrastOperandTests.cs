@@ -210,7 +210,7 @@ public sealed class ContrastOperandTests
             var row = Row(direction == 0 ? "MECS" : "MECT", frequency: frequency,
                 px: .25 + (direction == 0 ? shift / 2 : 0), py: .25 + (direction == 1 ? shift / 2 : 0));
             var difference = Value(optic, row);
-            Assert.Equal(.5 * (1 - Math.Cos(2 * Math.PI * difference)), point.Value!.Value, 9);
+            Assert.InRange(Math.Abs(.5 * (1 - Math.Cos(2 * Math.PI * difference)) - point.Value!.Value), 0, .5e-9);
             Assert.True(ContrastMetrics.TryPair(.25, .25, shift, direction == 0, true, out var pair));
             var result = ContrastMetrics.EvaluatePair(optic, field, wave, pair, (.25, .25));
             var phase = Assert.Single(map.PlotPanes![direction + 2].Series[0].Points, p => p.X == .25 && p.Y == .25).Value!.Value;

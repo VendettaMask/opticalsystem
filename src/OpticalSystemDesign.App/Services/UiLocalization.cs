@@ -1170,6 +1170,9 @@ internal static class UiLocalization
             "Desktop software for optical system design, ray tracing, and image-quality analysis.",
             "光学システム設計、光線追跡、像質解析のためのデスクトップソフトウェアです。");
         Add("S.T.A.R. Labs 出品", "Created by S.T.A.R. Labs", "S.T.A.R. Labs 制作");
+        Add(ClipboardExceptionBoundary.FailureMessage,
+            "The clipboard is temporarily unavailable. Nothing was pasted. Retry or type the text.",
+            "クリップボードを利用できないため貼り付けませんでした。再試行するか、直接入力してください。");
 
         return values;
     }

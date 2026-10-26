@@ -80,26 +80,26 @@ public static partial class AutomaticSemiDiameterSolver
         var completed = 0;
         var retained = indices.Append(count - 1).ToArray();
         foreach (var bundle in Bundles())
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            using var trace = working.SequentialRayTracer.Trace(bundle, TraceRequest.Selected(retained));
+            for (var ray = 0; ray < trace.RayCount; ray++)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                using var trace = working.SequentialRayTracer.Trace(bundle, TraceRequest.Selected(retained));
-                for (var ray = 0; ray < trace.RayCount; ray++)
+                var valid = trace.TryGetSample(ray, count - 1, out var image) && !image.Vignetted
+                    && image.Intensity > 0 && double.IsFinite(image.Position.X) && double.IsFinite(image.Position.Y);
+                foreach (var index in indices)
                 {
-                    cancellationToken.ThrowIfCancellationRequested();
-                    var valid = trace.TryGetSample(ray, count - 1, out var image) && !image.Vignetted
-                        && image.Intensity > 0 && double.IsFinite(image.Position.X) && double.IsFinite(image.Position.Y);
-                    foreach (var index in indices)
-                    {
-                        if (!trace.TryGetSample(ray, index, out var sample) || sample.Vignetted || sample.Intensity <= 0)
-                        { valid = false; continue; }
-                        var local = working.SurfaceGroup.Items[index].CoordinateSystem.ToLocalPoint(sample.Position);
-                        var radius = double.Hypot(local.X, local.Y);
-                        if (!double.IsFinite(radius)) { valid = false; continue; }
-                        maxima[index] = Math.Max(maxima[index], radius);
-                    }
-                    if (valid) completed++;
+                    if (!trace.TryGetSample(ray, index, out var sample) || sample.Vignetted || sample.Intensity <= 0)
+                    { valid = false; continue; }
+                    var local = working.SurfaceGroup.Items[index].CoordinateSystem.ToLocalPoint(sample.Position);
+                    var radius = double.Hypot(local.X, local.Y);
+                    if (!double.IsFinite(radius)) { valid = false; continue; }
+                    maxima[index] = Math.Max(maxima[index], radius);
                 }
+                if (valid) completed++;
             }
+        }
         var sizes = surfaceGroups.SelectMany(group =>
         {
             // OpticalSurface's minimum supported clear semi-diameter is 0.1 mm.
@@ -133,23 +133,23 @@ public static partial class AutomaticSemiDiameterSolver
 
         IEnumerable<OpticalSystemDesign.Core.Rays.RealRayBundle> Bundles()
         {
-            if (SequentialGpuSession.Current is {Enabled:true})
+            if (SequentialGpuSession.Current is { Enabled: true })
             {
                 foreach (var wave in wavelengths)
                 {
-                    if (working.SequentialRayTracer.RayGenerator.TryGenerateGpuPupilGrid(normalizedFields,pupilSamples,
-                        wave.Micrometers,false,out var grid)) yield return grid!;
+                    if (working.SequentialRayTracer.RayGenerator.TryGenerateGpuPupilGrid(normalizedFields, pupilSamples,
+                        wave.Micrometers, false, out var grid)) yield return grid!;
                     else foreach (var field in normalizedFields)
-                        yield return Generate(field,wave.Micrometers);
+                        yield return Generate(field, wave.Micrometers);
                 }
             }
             else foreach (var field in normalizedFields)
-                foreach (var wave in wavelengths) yield return Generate(field,wave.Micrometers);
+                foreach (var wave in wavelengths) yield return Generate(field, wave.Micrometers);
         }
 
-        OpticalSystemDesign.Core.Rays.RealRayBundle Generate((double X,double Y) field,double wave) =>
-            working.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(field.X,field.Y,wave,pupilSamples,
-                aimAtStop:working.RayAimingEnabled,applyVignettingFactors:false);
+        OpticalSystemDesign.Core.Rays.RealRayBundle Generate((double X, double Y) field, double wave) =>
+            working.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(field.X, field.Y, wave, pupilSamples,
+                aimAtStop: working.RayAimingEnabled, applyVignettingFactors: false);
 
     }
 }

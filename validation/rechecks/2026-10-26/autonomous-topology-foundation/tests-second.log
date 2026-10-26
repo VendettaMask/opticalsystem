@@ -1,0 +1,36 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.InitialStructure.Tests -> D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll
+D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:04.11]     OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(count: 3, asphere: True) [FAIL]
+  失败 OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(count: 3, asphere: True) [10 ms]
+  错误消息:
+   Assert.Equal() Failure: Values are not within 11 decimal places
+Expected: 48.856933279739998 (rounded from 48.856933279736658)
+Actual:   49.069220988870001 (rounded from 49.069220988865297)
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.AssertSameOptics(Optic expected, Optic actual) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousTopologyFoundationTests.cs:line 356
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(Int32 count, Boolean asphere) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousTopologyFoundationTests.cs:line 55
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:04.13]     OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(count: 2, asphere: False) [FAIL]
+  失败 OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(count: 2, asphere: False) [4 ms]
+  错误消息:
+   Assert.Equal() Failure: Values are not within 11 decimal places
+Expected: 217.57704984195999 (rounded from 217.57704984196289)
+Actual:   214.47913535887 (rounded from 214.47913535886579)
+  堆栈跟踪:
+     at OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.AssertSameOptics(Optic expected, Optic actual) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousTopologyFoundationTests.cs:line 356
+   at OpticalSystemDesign.InitialStructure.Tests.AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(Int32 count, Boolean asphere) in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\AutonomousTopologyFoundationTests.cs:line 55
+   at InvokeStub_AutonomousTopologyFoundationTests.CompiledPrescriptionMatchesIndependentCoreAssemblyAndFreezesSmallBaselines(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autonomous-topology-foundation\foundation-second.trx
+
+失败!  - 失败:     2，通过:    12，已跳过:     0，总计:    14，持续时间: 2 s - OpticalSystemDesign.InitialStructure.Tests.dll (net10.0)

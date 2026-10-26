@@ -5,17 +5,17 @@ using System.Runtime.CompilerServices;
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
-using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
-using Avalonia.Controls.Primitives;
+using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Modules;
 
@@ -116,19 +116,31 @@ public sealed partial class MainWindow : Window
         candidateBar.Children.Add(scale);
         candidateBar.Children.Add(ActionButton("采用候选", SelectCandidateAsync));
         var layerPanel = new Grid { RowDefinitions = new("Auto,*") };
-        var layerHeading = new StackPanel { Margin = new Thickness(12), Spacing = 10, Children =
-            { LaboratoryPresentation.Heading("膜层处方", "layers"), layerTools } };
+        var layerHeading = new StackPanel
+        {
+            Margin = new Thickness(12),
+            Spacing = 10,
+            Children =
+            { LaboratoryPresentation.Heading("膜层处方", "layers"), layerTools }
+        };
         layerPanel.Children.Add(layerHeading);
         _table.BorderThickness = new Thickness(0);
         Put(layerPanel, _table, 1);
         var plotPanel = new Grid { RowDefinitions = new("Auto,*") };
-        plotPanel.Children.Add(new StackPanel { Margin = new Thickness(12), Spacing = 10, Children =
-            { LaboratoryPresentation.Heading("光谱与候选", "chart-line"), candidateBar } });
+        plotPanel.Children.Add(new StackPanel
+        {
+            Margin = new Thickness(12),
+            Spacing = 10,
+            Children =
+            { LaboratoryPresentation.Heading("光谱与候选", "chart-line"), candidateBar }
+        });
         _plot.Margin = new Thickness(4, 0, 4, 8); Put(plotPanel, _plot, 1);
         _summary.FontSize = DisplayTypography.BodySmall;
         var details = new Expander
         {
-            Header = "指标与公差", Name = "CoatingResultDetails", HorizontalAlignment = HorizontalAlignment.Stretch,
+            Header = "指标与公差",
+            Name = "CoatingResultDetails",
+            HorizontalAlignment = HorizontalAlignment.Stretch,
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
             Content = new Border { Padding = new Thickness(12), Child = new ScrollViewer { Content = _summary, MaxHeight = 220 } }
         };
@@ -151,11 +163,16 @@ public sealed partial class MainWindow : Window
         main.SizeChanged += (_, _) => right.Height = Math.Max((main.Bounds.Width - 268 < 650 ? 820 : 650)
             * Math.Max(1, FontSize / 13), main.Bounds.Height);
         var root = new Grid { RowDefinitions = new RowDefinitions("Auto,*,Auto,Auto"), Margin = new Thickness(16), RowSpacing = 12 };
-        var heading = new StackPanel { Name = "LaboratoryHeader", Spacing = 7, Children =
+        var heading = new StackPanel
+        {
+            Name = "LaboratoryHeader",
+            Spacing = 7,
+            Children =
         {
             LaboratoryPresentation.Heading("光学镀膜设计", "layers", page: true),
             LaboratoryPresentation.Hint("定义指标与材料 → 编辑膜层 → 检查光谱与验收结果"), toolbar
-        } };
+        }
+        };
         Put(root, heading, 0); Put(root, main, 1); Put(root, _operationStatus, 2);
         Put(root, LaboratoryPresentation.Status(_status), 3);
         Content = MainWindowTitleBar.Wrap(this, root);

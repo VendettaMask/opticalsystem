@@ -1,10 +1,10 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.Application.Services;
-using OpticalSystemDesign.App.Theming;
 
 namespace OpticalSystemDesign.App.Services;
 
@@ -60,6 +60,10 @@ public sealed class AppSettings
 
     public void NormalizeDisplaySettings()
     {
+        LayoutSlots ??= new();
+        AnalysisSettings ??= new();
+        foreach (var key in AnalysisSettings.Keys.ToArray()) AnalysisSettings[key] ??= new();
+        ReportExport ??= new();
         LeftPaneWidth = Math.Clamp(double.IsFinite(LeftPaneWidth) ? LeftPaneWidth : UiDensity.SystemOptionsPreferredWidth,
             UiDensity.SystemOptionsMinimumWidth, UiDensity.SystemOptionsMaximumWidth);
         Theme = ThemeRegistry.NormalizeSettingsValue(Theme);
@@ -77,7 +81,7 @@ public sealed class AppSettings
             ? FontShape
             : "Regular";
         FontSize = Math.Clamp(double.IsFinite(FontSize) ? FontSize : DefaultFontSize, 9, 32);
-        WorkbenchMode = Enum.TryParse<OpticalWorkbenchMode>(WorkbenchMode, out var mode)
+        WorkbenchMode = Enum.TryParse<OpticalWorkbenchMode>(WorkbenchMode, out var mode) && Enum.IsDefined(mode)
             ? mode.ToString()
             : nameof(OpticalWorkbenchMode.Sequential);
     }
@@ -103,12 +107,14 @@ public sealed class AppSettings
 
     public void SaveLayoutSlot(int slot, WorkspaceLayoutState layout)
     {
+        if (slot is < 1 or > 9) throw new ArgumentOutOfRangeException(nameof(slot));
         LayoutSlots[slot] = layout;
         Save();
     }
 
     public WorkspaceLayoutState? LoadLayoutSlot(int slot)
     {
+        if (slot is < 1 or > 9) throw new ArgumentOutOfRangeException(nameof(slot));
         return LayoutSlots.TryGetValue(slot, out var layout) ? layout : null;
     }
 

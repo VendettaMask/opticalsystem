@@ -28,9 +28,9 @@ public sealed class PolygonGroupGeometry : IGeometry
         if (triangles.Length > 8192) throw new ArgumentException("Polygon triangle budget exceeded.");
         foreach (var triangle in triangles)
         {
-            var a=triangle.Vertices[1]-triangle.Vertices[0];var b=triangle.Vertices[2]-triangle.Vertices[0];
-            var normal=new Vector3D(a.Y*b.Z-a.Z*b.Y,a.Z*b.X-a.X*b.Z,a.X*b.Y-a.Y*b.X);
-            if(!double.IsFinite(normal.Length)||normal.Length<=1e-14*a.Length*b.Length)
+            var a = triangle.Vertices[1] - triangle.Vertices[0]; var b = triangle.Vertices[2] - triangle.Vertices[0];
+            var normal = new Vector3D(a.Y * b.Z - a.Z * b.Y, a.Z * b.X - a.X * b.Z, a.X * b.Y - a.Y * b.X);
+            if (!double.IsFinite(normal.Length) || normal.Length <= 1e-14 * a.Length * b.Length)
                 throw new ArgumentException("Polygon volume contains a degenerate triangle.");
         }
         Faces = Array.AsReadOnly(triangles.Select(f => f with { Vertices = Array.AsReadOnly(f.Vertices.ToArray()) }).ToArray());
@@ -71,16 +71,25 @@ public sealed class PolygonGroupGeometry : IGeometry
                 var end = exit.TraceRayState(ray, currentMaterial, ambient, path, opd, ignorePhysicalAperture: true,
                     ignoreMaterialAbsorption: ignoreAbsorption);
                 var globalRay = end.Ray with { Origin = frame.ToGlobalPoint(end.Ray.Origin), Direction = frame.ToGlobalDirection(end.Ray.Direction) };
-                var sample = end.Sample with { SurfaceNumber = port.Number, SurfaceLabel = port.Label,
-                    Position = globalRay.Origin, Direction = globalRay.Direction,
+                var sample = end.Sample with
+                {
+                    SurfaceNumber = port.Number,
+                    SurfaceLabel = port.Label,
+                    Position = globalRay.Origin,
+                    Direction = globalRay.Direction,
                     IncidentDirection = end.Sample.IncidentDirection is { } incoming ? frame.ToGlobalDirection(incoming) : null,
                     SegmentLength = end.CumulativePathLength - cumulativePath,
-                    SegmentOpticalPathLength = end.CumulativeOpticalPathLength - cumulativeOpd };
+                    SegmentOpticalPathLength = end.CumulativeOpticalPathLength - cumulativeOpd
+                };
                 return end with { Ray = globalRay, Sample = sample };
             }
             if (selected is null) break;
-            var surface = new OpticalSurface { Geometry = new PolygonFaceGeometry(selected.Vertices),
-                CoordinateSystem = CoordinateSystem.Global, IsReflective = selected.Reflective };
+            var surface = new OpticalSurface
+            {
+                Geometry = new PolygonFaceGeometry(selected.Vertices),
+                CoordinateSystem = CoordinateSystem.Global,
+                IsReflective = selected.Reflective
+            };
             if (selected.Absorbing) break;
             var next = inside ? ambient : VolumeMaterial;
             var result = surface.TraceRayState(ray, currentMaterial, next, path, opd,
@@ -128,6 +137,6 @@ internal sealed class PolygonFaceGeometry(IReadOnlyList<Vector3D> vertices) : IG
         }
         return new IntersectionResult(IntersectionStatus.Success, distance, point, normal, 0, 0, 1);
     }
-    private static double Dot(Vector3D a, Vector3D b) => a.X*b.X+a.Y*b.Y+a.Z*b.Z;
-    private static Vector3D Cross(Vector3D a, Vector3D b) => new(a.Y*b.Z-a.Z*b.Y,a.Z*b.X-a.X*b.Z,a.X*b.Y-a.Y*b.X);
+    private static double Dot(Vector3D a, Vector3D b) => a.X * b.X + a.Y * b.Y + a.Z * b.Z;
+    private static Vector3D Cross(Vector3D a, Vector3D b) => new(a.Y * b.Z - a.Z * b.Y, a.Z * b.X - a.X * b.Z, a.X * b.Y - a.Y * b.X);
 }

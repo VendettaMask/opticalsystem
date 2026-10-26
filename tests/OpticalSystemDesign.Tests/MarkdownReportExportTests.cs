@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
-using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -43,7 +43,9 @@ public sealed class MarkdownReportExportTests
         var progress = new List<ReportExportProgress>();
         var options = new MarkdownReportSettings
         {
-            AnalysisKeys = ["Spot Diagram"], Include2DLayout = true, Include3DLayout = true,
+            AnalysisKeys = ["Spot Diagram"],
+            Include2DLayout = true,
+            Include3DLayout = true,
             AnalysisParameters = new() { ["Spot Diagram"] = new() { ["RayDensity"] = "3" } }
         };
         var result = await MarkdownReportExporter.ExportAsync(snapshot, options,
@@ -86,6 +88,42 @@ public sealed class MarkdownReportExportTests
             }, cancellationToken: cancellation.Token));
         Assert.Equal("keep", await File.ReadAllTextAsync(existing));
         Assert.Equal([existing], Directory.GetFileSystemEntries(directory.Path));
+    }
+
+    [Fact]
+    public async Task SavedGenericZernikeSelectionsAreOmittedWithoutChangingExplicitCoefficientAnalyses()
+    {
+        using var directory = new ReportTestDirectory();
+        using var application = WorkbenchApplication.Create();
+        await application.Documents.OpenAsync(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
+        using var snapshot = application.CaptureReportSnapshot();
+        var keys = new[] { "Zernike Fringe", "Zernike Standard", "Zernike Annular" };
+        var options = new MarkdownReportSettings
+        {
+            AnalysisKeys = ["Zernike", "Zernike 系数", .. keys],
+            Include2DLayout = false,
+            Include3DLayout = false,
+            AnalysisParameters = keys.ToDictionary(key => key, _ => new Dictionary<string, string>
+            { ["PupilSampling"] = "32 x 32", ["ZernikeTerms"] = "12", ["FieldNumber"] = "1 - 轴上视场" })
+        };
+        var seen = new List<AnalysisPresentationKind>();
+        var result = await MarkdownReportExporter.ExportAsync(snapshot, options, directory.Path,
+            (request, output, stem, token) =>
+            {
+                seen.Add(request.Analysis!.View.PresentationKind);
+                return WritePlaceholder(request, output, stem, token);
+            });
+        var markdown = await File.ReadAllTextAsync(result.MarkdownPath);
+        Assert.True(result.Succeeded == 3, string.Join(Environment.NewLine,
+            markdown.Split('\n').Where(line => line.Contains("未完成", StringComparison.Ordinal))));
+        Assert.Equal(0, result.Failed);
+        Assert.Equal(new[] { AnalysisPresentationKind.ZernikeFringe, AnalysisPresentationKind.ZernikeStandard,
+            AnalysisPresentationKind.ZernikeAnnular }, seen);
+        Assert.DoesNotContain("Zernike Fringe Fit", markdown);
+        Assert.DoesNotContain("### Zernike 系数", markdown);
+        Assert.DoesNotContain("未完成", markdown);
+        foreach (var key in keys) Assert.Contains(WorkbenchAnalysisCatalog.DisplayName(key), markdown);
+        Assert.Equal(new[] { "Zernike", "Zernike 系数" }.Concat(keys), options.AnalysisKeys);
     }
 
     [Fact]

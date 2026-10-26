@@ -86,7 +86,8 @@ public static class FixedInputOpticalMetrics
             && error is GpuTapeRangeException or ILGPU.Runtime.Cuda.CudaException or NotSupportedException)
         {
             return EvaluateCore(optic, parameters, inputs, bendCosineGate, false, cancellationToken)
-                with { Execution = DesignComputeExecution.Cpu with { FallbackReason = error.Message } };
+                with
+            { Execution = DesignComputeExecution.Cpu with { FallbackReason = error.Message } };
         }
     }
 
@@ -95,9 +96,11 @@ public static class FixedInputOpticalMetrics
     {
         DifferentiableOpticalMetrics.EnsureSupported(optic, fixedInput: true);
         OpticalDesignParameters.Validate(optic, parameters);
+        if (gpu && DesignGpu.EvaluateFixedInput(optic, parameters, inputs, bendCosineGate, cancellationToken) is { } direct)
+            return direct;
         var context = new OpticalDifferentialContext(optic, parameters, gpu ? 2 : 0, analyticNormals: true);
         var stop = optic.SurfaceGroup.Items.ToList().FindIndex(surface => surface.IsStop);
-        var batch = gpu ? new GpuRaySensitivityBatch(parameters.Count, cancellationToken) : null;
+        using var batch = gpu ? new GpuRaySensitivityBatch(parameters.Count, cancellationToken) : null;
         var fields = new List<FixedInputSpotField>();
         foreach (var field in inputs.Fields)
         {
@@ -114,10 +117,14 @@ public static class FixedInputOpticalMetrics
                         stop, 0, 0, cancellationToken, constrainStop: false, bendCosineGate: bendCosineGate));
                     else
                     {
-                        var tape = new DifferentialTape(parameters.Count);
+                        var tape = DifferentialTape.Rent(parameters.Count);
                         DesignRaySensitivity ray;
-                        using (tape) ray = optic.SequentialRayTracer.TraceDesignSensitivity(field.Rays[index], context, stop,
-                            0, 0, cancellationToken, nominal, index * optic.SurfaceGroup.Items.Count, false, bendCosineGate);
+                        try
+                        {
+                            using (tape) ray = optic.SequentialRayTracer.TraceDesignSensitivity(field.Rays[index], context, stop,
+                                0, 0, cancellationToken, nominal, index * optic.SurfaceGroup.Items.Count, false, bendCosineGate);
+                        }
+                        catch { tape.Release(); throw; }
                         batch.Add(tape, ray, Complete);
                     }
                 }
@@ -131,6 +138,7 @@ public static class FixedInputOpticalMetrics
             ? new("cuda-reverse-tape-v1", DesignGpu.Status.DeviceName, batch.Batches, batch.Rays, batch.Milliseconds)
             : DesignComputeExecution.Cpu);
     }
+
 }
 
 /// <summary>Explicit stable stream: storage/resume does not depend on System.Random or a device's hidden RNG state.</summary>

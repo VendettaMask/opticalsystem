@@ -67,7 +67,8 @@ internal sealed partial class MarkdownReportWindow : Window
             var check = new CheckBox
             {
                 Content = new TextBlock { Text = UiLocalization.Text(WorkbenchAnalysisCatalog.DisplayName(key)), TextWrapping = TextWrapping.Wrap },
-                IsChecked = _options.AnalysisKeys.Contains(key), HorizontalContentAlignment = HorizontalAlignment.Stretch
+                IsChecked = _options.AnalysisKeys.Contains(key),
+                HorizontalContentAlignment = HorizontalAlignment.Stretch
             };
             AutomationProperties.SetAutomationId(check, "report-analysis-" + key);
             var edit = new Button { Content = "分析设置", Width = 86, MinWidth = 0, Padding = new Thickness(8, 3) };

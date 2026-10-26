@@ -1,14 +1,14 @@
+using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Media;
 using Avalonia.Styling;
-using System.Collections.Concurrent;
-using System.Runtime.CompilerServices;
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -142,8 +142,10 @@ public sealed class SafeHeadlessUnitTestSession : IDisposable
             try
             {
                 var builder = ConfigureApplication(null, applicationType);
-                if (builder.WindowingSubsystemName != "Headless")
-                    builder.UseHeadless(new AvaloniaHeadlessPlatformOptions());
+                // Rounded clips take part in hit testing, and report tests render
+                // bitmaps. Both need the real geometry/render backend in every
+                // isolated session, including suites that do not save screenshots.
+                builder.UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
                 if (builder.TextShapingSubsystemInitializer is null)
                     builder.UseHarfBuzz();
                 started.SetResult(CreateSession(builder, cancellation, queue, worker!, true));

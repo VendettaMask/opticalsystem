@@ -1,0 +1,25 @@
+Unhandled exception. System.Runtime.InteropServices.COMException (0x8007000E): Expected unrelated test provider error
+   at IsolatedOleClipboard.TryGetDataAsync() in D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\clipboard-native\background-probe\Program.cs:line 194
+   at Avalonia.Input.Platform.ClipboardExtensions.TryGetValueAsync[T](IClipboard clipboard, DataFormat`1 format)
+   at Avalonia.Controls.TextBox.Paste()
+   at System.Threading.Tasks.Task.<>c.<ThrowAsync>b__124_0(Object state)
+   at Avalonia.Threading.SendOrPostCallbackDispatcherOperation.InvokeCore()
+   at Avalonia.Threading.DispatcherOperation.<>c.<Execute>b__56_0(Object s)
+   at Avalonia.Threading.CulturePreservingExecutionContext.CallbackWrapper(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at Avalonia.Threading.CulturePreservingExecutionContext.Run(CulturePreservingExecutionContext executionContext, ContextCallback callback, Object state)
+   at Avalonia.Threading.DispatcherOperation.Execute()
+   at Avalonia.Threading.Dispatcher.ExecuteJob(DispatcherOperation job)
+   at Avalonia.Threading.Dispatcher.ExecuteJobsCore(Boolean fromExplicitBackgroundProcessingCallback)
+   at Avalonia.Threading.Dispatcher.Signaled()
+   at Avalonia.Win32.Win32DispatcherImpl.DispatchWorkItem()
+   at Avalonia.Win32.Win32Platform.WndProc(IntPtr hWnd, UInt32 msg, IntPtr wParam, IntPtr lParam)
+   at Avalonia.Win32.Interop.UnmanagedMethods.DispatchMessage(MSG& lpmsg)
+   at Avalonia.Win32.Win32DispatcherImpl.RunLoop(CancellationToken cancellationToken)
+   at Avalonia.Threading.DispatcherFrame.Run(IControlledDispatcherImpl impl)
+   at Avalonia.Threading.Dispatcher.PushFrame(DispatcherFrame frame)
+   at Avalonia.Threading.Dispatcher.MainLoop(CancellationToken cancellationToken)
+   at Probe.Run() in D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\clipboard-native\background-probe\Program.cs:line 180
+   at Program.Main(String[] args) in D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\clipboard-native\background-probe\Program.cs:line 42

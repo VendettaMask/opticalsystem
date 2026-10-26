@@ -643,10 +643,39 @@ public static class NonSequentialStlImporter
             throw new InvalidDataException("STL 既不是有效 Binary STL，也不是 UTF-8 ASCII STL。", exception);
         }
 
+        using var reader = new StringReader(text);
+        return ParseAscii(reader, scale, cancellationToken);
+    }
+
+    private static List<RawTriangle> ParseAscii(
+        Stream stream,
+        double scale,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            using var reader = new StreamReader(
+                stream,
+                new UTF8Encoding(false, true),
+                detectEncodingFromByteOrderMarks: true,
+                bufferSize: 64 * 1024,
+                leaveOpen: true);
+            return ParseAscii(reader, scale, cancellationToken);
+        }
+        catch (DecoderFallbackException exception)
+        {
+            throw new InvalidDataException("STL 既不是有效 Binary STL，也不是 UTF-8 ASCII STL。", exception);
+        }
+    }
+
+    private static List<RawTriangle> ParseAscii(
+        TextReader reader,
+        double scale,
+        CancellationToken cancellationToken)
+    {
         var result = new List<RawTriangle>();
         var vertices = new Vector3D[3];
         var vertexOffset = 0;
-        using var reader = new StringReader(text);
         while (reader.ReadLine() is { } line)
         {
             if ((result.Count & 0x3ff) == 0)
@@ -660,21 +689,7 @@ public static class NonSequentialStlImporter
                 continue;
             }
 
-            var parts = trimmed.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries);
-            if (parts.Length != 4
-                || !double.TryParse(parts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out var x)
-                || !double.TryParse(parts[2], NumberStyles.Float, CultureInfo.InvariantCulture, out var y)
-                || !double.TryParse(parts[3], NumberStyles.Float, CultureInfo.InvariantCulture, out var z))
-            {
-                throw new InvalidDataException($"ASCII STL 顶点行无效：“{trimmed}”。");
-            }
-
-            var value = new Vector3D(x * scale, y * scale, z * scale);
-            if (!Finite(value))
-            {
-                throw new InvalidDataException("ASCII STL 包含非有限顶点坐标。");
-            }
-            vertices[vertexOffset++] = value;
+            vertices[vertexOffset++] = ParseAsciiVertex(trimmed, scale);
             if (vertexOffset == 3)
             {
                 result.Add(new RawTriangle(vertices[0], vertices[1], vertices[2]));
@@ -695,66 +710,10 @@ public static class NonSequentialStlImporter
         return result;
     }
 
-    private static List<RawTriangle> ParseAscii(
-        Stream stream,
-        double scale,
-        CancellationToken cancellationToken)
-    {
-        stream.Position = 0;
-        var result = new List<RawTriangle>();
-        var vertices = new Vector3D[3];
-        var vertexOffset = 0;
-        try
-        {
-            using var reader = new StreamReader(
-                stream,
-                new UTF8Encoding(false, true),
-                detectEncodingFromByteOrderMarks: true,
-                bufferSize: 64 * 1024,
-                leaveOpen: true);
-            while (reader.ReadLine() is { } line)
-            {
-                if ((result.Count & 0x3ff) == 0)
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-                }
-
-                var trimmed = line.Trim();
-                if (!trimmed.StartsWith("vertex", StringComparison.OrdinalIgnoreCase))
-                {
-                    continue;
-                }
-
-                vertices[vertexOffset++] = ParseAsciiVertex(trimmed, scale);
-                if (vertexOffset == 3)
-                {
-                    result.Add(new RawTriangle(vertices[0], vertices[1], vertices[2]));
-                    vertexOffset = 0;
-                    if (result.Count > MaximumTriangleCount)
-                    {
-                        throw new InvalidDataException($"STL 超过 {MaximumTriangleCount} 个三角形上限。");
-                    }
-                    ValidateTriangleBudget(result.Count);
-                }
-            }
-        }
-        catch (DecoderFallbackException exception)
-        {
-            throw new InvalidDataException("STL 既不是有效 Binary STL，也不是 UTF-8 ASCII STL。", exception);
-        }
-
-        if (result.Count == 0 || vertexOffset != 0)
-        {
-            throw new InvalidDataException("ASCII STL 的顶点数量不是三角形所需的三倍数。");
-        }
-
-        return result;
-    }
-
     private static Vector3D ParseAsciiVertex(string trimmed, double scale)
     {
         var parts = trimmed.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries);
-        if (parts.Length != 4
+        if (parts.Length != 4 || !parts[0].Equals("vertex", StringComparison.OrdinalIgnoreCase)
             || !double.TryParse(parts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out var x)
             || !double.TryParse(parts[2], NumberStyles.Float, CultureInfo.InvariantCulture, out var y)
             || !double.TryParse(parts[3], NumberStyles.Float, CultureInfo.InvariantCulture, out var z))

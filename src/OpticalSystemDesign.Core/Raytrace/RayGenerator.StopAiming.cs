@@ -45,8 +45,8 @@ public sealed partial class RayGenerator
             (x, y) = fixedAxis == 2 ? (guess.X, guess.Y) : fixedAxis == 1 ? (guess.X, guess.Z) : (guess.Y, guess.Z);
         }
         var map = new DelegateStopMap(Sample);
-        if (!StopAimingSolver.Solve(ref map,targetX,targetY,tolerance,ref x,ref y,out residual)) return false;
-        (aimedOrigin,aimedDirection)=Geometry(x,y);
+        if (!StopAimingSolver.Solve(ref map, targetX, targetY, tolerance, ref x, ref y, out residual)) return false;
+        (aimedOrigin, aimedDirection) = Geometry(x, y);
         return true;
 
         (Vector3D Origin, Vector3D Direction) Geometry(double u, double v) => infinite
@@ -67,10 +67,10 @@ public sealed partial class RayGenerator
             return double.IsFinite(point.X) && double.IsFinite(point.Y);
         }
     }
-    private delegate bool StopSample(double x,double y,out Vector3D point);
+    private delegate bool StopSample(double x, double y, out Vector3D point);
     private readonly record struct DelegateStopMap(StopSample Sampler) : IStopMap
     {
-        public bool Sample(double x,double y,out Vector3D point) => Sampler(x,y,out point);
+        public bool Sample(double x, double y, out Vector3D point) => Sampler(x, y, out point);
     }
 
 }

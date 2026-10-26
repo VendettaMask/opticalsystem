@@ -37,8 +37,15 @@ public sealed class CameraContinuousSpectrumTests
         Assert.Equal(.5, result.OpticalPreview[0, 4, 4], 12);
         var sensor = CameraSensorPipeline.SimulatePhotoElectrons(result.PhotoElectrons, 16, 16, Clean, new());
         Assert.Equal(0, sensor.RawNoiseRmseDn);
-        Record("flat-integral", new { ExpectedRgbElectrons = expected, ActualRgbElectrons = actual,
-            plan.IlluminantIrradiance, plan.ReflectedIrradiance, Nodes = plan.Nodes.Count, sensor.RawNoiseRmseDn });
+        Record("flat-integral", new
+        {
+            ExpectedRgbElectrons = expected,
+            ActualRgbElectrons = actual,
+            plan.IlluminantIrradiance,
+            plan.ReflectedIrradiance,
+            Nodes = plan.Nodes.Count,
+            sensor.RawNoiseRmseDn
+        });
     }
 
     [Fact]
@@ -167,8 +174,15 @@ public sealed class CameraContinuousSpectrumTests
         var expected = .0001 * .5 * .2 * 9e-12 * .01 * 1e-9 * (700d * 700 - 400d * 400) / (2 * Hc);
         Assert.Equal(expected, ideal.PhotoElectrons[0], 9);
         Assert.Throws<ArgumentException>(() => CameraContinuousSpectrum.Integrate(image, Clean, plan, (mask, _) => mask));
-        Record("dense-one-nanometer", new { Nodes = plan.Nodes.Count, ImagePixels = 512 * 512, Expected = expected,
-            Ideal = ideal.PhotoElectrons[0], Streamed = reference.PhotoElectrons[0], EveryKnotRetained = plan.Intervals == 300 });
+        Record("dense-one-nanometer", new
+        {
+            Nodes = plan.Nodes.Count,
+            ImagePixels = 512 * 512,
+            Expected = expected,
+            Ideal = ideal.PhotoElectrons[0],
+            Streamed = reference.PhotoElectrons[0],
+            EveryKnotRetained = plan.Intervals == 300
+        });
     }
 
     internal static void Record(string name, object data)

@@ -30,7 +30,9 @@ internal static class OtaTestData
     internal static string Body(SignedOtaUpdate update) => OtaManifest.Marker + update.Envelope + "\n-->";
     internal static OtaPayload TestPayload(long sequence = 200) => Payload() with
     {
-        Format = 2, BuildSequence = sequence, Tag = "v99.0.0-test.20261023",
+        Format = 2,
+        BuildSequence = sequence,
+        Tag = "v99.0.0-test.20261023",
         Name = "OpticalSystemDesign-99.0.0-win-x64-UnsignedTest-Setup.exe"
     };
 }
@@ -88,23 +90,41 @@ public sealed class OtaClientTests
     }
 
     [Theory]
-    [InlineData("product")][InlineData("repository")][InlineData("format")][InlineData("prerelease")]
-    [InlineData("metadata")][InlineData("overflowVersion")][InlineData("runtime")][InlineData("traversal")]
-    [InlineData("testExe")][InlineData("empty")][InlineData("oversized")][InlineData("hash")]
-    [InlineData("releaseId")][InlineData("commit")][InlineData("tag")]
+    [InlineData("product")]
+    [InlineData("repository")]
+    [InlineData("format")]
+    [InlineData("prerelease")]
+    [InlineData("metadata")]
+    [InlineData("overflowVersion")]
+    [InlineData("runtime")]
+    [InlineData("traversal")]
+    [InlineData("testExe")]
+    [InlineData("empty")]
+    [InlineData("oversized")]
+    [InlineData("hash")]
+    [InlineData("releaseId")]
+    [InlineData("commit")]
+    [InlineData("tag")]
     public void EvenAValidSignatureCannotAuthorizeAnUnsafePayload(string change)
     {
         var p = OtaTestData.Payload();
         p = change switch
         {
-            "product" => p with { ProductAppId = "other" }, "repository" => p with { Repository = "other/repo" },
-            "format" => p with { Format = 2 }, "prerelease" => p with { Version = "99.0.0-test" },
-            "metadata" => p with { Version = "99.0.0+build" }, "overflowVersion" => p with { Version = "65535.0.0" },
-            "runtime" => p with { Runtime = "linux-x64" }, "traversal" => p with { Name = "../installer.exe" },
+            "product" => p with { ProductAppId = "other" },
+            "repository" => p with { Repository = "other/repo" },
+            "format" => p with { Format = 2 },
+            "prerelease" => p with { Version = "99.0.0-test" },
+            "metadata" => p with { Version = "99.0.0+build" },
+            "overflowVersion" => p with { Version = "65535.0.0" },
+            "runtime" => p with { Runtime = "linux-x64" },
+            "traversal" => p with { Name = "../installer.exe" },
             "testExe" => p with { Name = "OpticalSystemDesign-99.0.0-win-x64-UnsignedTest-Setup.exe" },
-            "empty" => p with { Size = 0 }, "oversized" => p with { Size = OtaManifest.MaximumInstallerBytes + 1 },
-            "hash" => p with { Sha256 = "not-a-hash" }, "releaseId" => p with { ReleaseId = "../other" },
-            "commit" => p with { SourceCommit = "unknown" }, _ => p with { Tag = "v98.0.0" }
+            "empty" => p with { Size = 0 },
+            "oversized" => p with { Size = OtaManifest.MaximumInstallerBytes + 1 },
+            "hash" => p with { Sha256 = "not-a-hash" },
+            "releaseId" => p with { ReleaseId = "../other" },
+            "commit" => p with { SourceCommit = "unknown" },
+            _ => p with { Tag = "v98.0.0" }
         };
         Assert.Null(OtaManifest.Verify(OtaTestData.Update(p).Envelope, OtaTestData.PublicKey));
     }
@@ -138,13 +158,18 @@ public sealed class OtaClientTests
     }
 
     [Theory]
-    [InlineData("99.0.0", false)][InlineData("100.0.0", false)][InlineData("98.9.9", true)][InlineData("invalid", false)]
+    [InlineData("99.0.0", false)]
+    [InlineData("100.0.0", false)]
+    [InlineData("98.9.9", true)]
+    [InlineData("invalid", false)]
     public void SameVersionAndDowngradesCannotUseOta(string installed, bool expected) =>
         Assert.Equal(expected, OtaManifest.IsNewer(OtaTestData.Payload(), installed));
 
     [Theory]
-    [InlineData("99.0.0", 199, true)][InlineData("99.0.0", 200, false)]
-    [InlineData("99.0.0", 201, false)][InlineData("100.0.0", 0, false)]
+    [InlineData("99.0.0", 199, true)]
+    [InlineData("99.0.0", 200, false)]
+    [InlineData("99.0.0", 201, false)]
+    [InlineData("100.0.0", 0, false)]
     [InlineData("98.0.0", 999, true)]
     public void TestUpdatesCompareSignedBuildSequencesWithoutAllowingVersionDowngrades(string installed, long sequence, bool expected)
     {
@@ -168,7 +193,9 @@ public sealed class OtaClientTests
     }
 
     [Theory]
-    [InlineData(199, true)][InlineData(200, false)][InlineData(201, false)]
+    [InlineData(199, true)]
+    [InlineData(200, false)]
+    [InlineData(201, false)]
     public async Task SameVersionTestDownloadAndHandoffRejectAlreadyInstalledBuilds(long installedBuild, bool allowed)
     {
         using var directory = new CacheFixture();
@@ -209,7 +236,10 @@ public sealed class OtaClientTests
     }
 
     [Theory]
-    [InlineData("hash")][InlineData("truncated")][InlineData("oversized")][InlineData("notExe")]
+    [InlineData("hash")]
+    [InlineData("truncated")]
+    [InlineData("oversized")]
+    [InlineData("notExe")]
     public async Task InvalidPayloadBytesNeverBecomeAnInstallerAndAreCleaned(string condition)
     {
         using var directory = new CacheFixture();
@@ -229,8 +259,10 @@ public sealed class OtaClientTests
     }
 
     [Theory]
-    [InlineData("http://github.com/file")][InlineData("https://example.invalid/file")]
-    [InlineData("https://github.com.evil.invalid/file")][InlineData("https://name@github.com/file")]
+    [InlineData("http://github.com/file")]
+    [InlineData("https://example.invalid/file")]
+    [InlineData("https://github.com.evil.invalid/file")]
+    [InlineData("https://name@github.com/file")]
     [InlineData("https://github.com:444/file")]
     public async Task UntrustedRedirectsStopBeforeAnySecondRequest(string location)
     {
@@ -283,17 +315,25 @@ public sealed class OtaClientTests
     }
 
     [Theory]
-    [InlineData("nonce")][InlineData("expired")][InlineData("future")][InlineData("parent")]
-    [InlineData("startTime")][InlineData("runtime")][InlineData("replay")]
+    [InlineData("nonce")]
+    [InlineData("expired")]
+    [InlineData("future")]
+    [InlineData("parent")]
+    [InlineData("startTime")]
+    [InlineData("runtime")]
+    [InlineData("replay")]
     public void HandoffRejectsExpiredMismatchedAndReplayedTickets(string change)
     {
         var now = DateTime.UtcNow; var nonce = new string('A', 64);
         var ticket = new OtaHandoffTicket(OtaTestData.Update().Envelope, nonce, 123, 123456, now);
         ticket = change switch
         {
-            "nonce" => ticket with { Nonce = new string('B', 64) }, "expired" => ticket with { CreatedUtc = now.AddMinutes(-11) },
-            "future" => ticket with { CreatedUtc = now.AddSeconds(1) }, "parent" => ticket with { ParentId = 0 },
-            "startTime" => ticket with { ParentStartUtcTicks = 0 }, _ => ticket
+            "nonce" => ticket with { Nonce = new string('B', 64) },
+            "expired" => ticket with { CreatedUtc = now.AddMinutes(-11) },
+            "future" => ticket with { CreatedUtc = now.AddSeconds(1) },
+            "parent" => ticket with { ParentId = 0 },
+            "startTime" => ticket with { ParentStartUtcTicks = 0 },
+            _ => ticket
         };
         Assert.Throws<InvalidDataException>(() => WindowsOtaHandoff.ValidateTicket(ticket, nonce, now,
             change == "runtime" ? "win-arm64" : "win-x64", change == "replay" ? "99.0.0" : "1.0.4", OtaTestData.PublicKey));

@@ -4,11 +4,11 @@ using Dock.Avalonia.Controls;
 using Dock.Model.Controls;
 using Dock.Model.Core;
 using Dock.Model.Mvvm.Controls;
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Manufacturing;
 using OpticalSystemDesign.App.Panels;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.App.Services;
 
@@ -636,6 +636,9 @@ public sealed class PanelManager : IDisposable
             return false;
         }
 
+        var previousLayout = Layout;
+        var previousDescriptors = Factory.SnapshotDescriptors();
+        Action<bool>? completeContent = null;
         try
         {
             var requiredPrimaryType = _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
@@ -654,14 +657,15 @@ public sealed class PanelManager : IDisposable
                 && (descriptor.TypeId != WorkspaceDocumentTypes.Analysis
                     || knownAnalyses.Contains(_application.Analyses.CanonicalKey(descriptor.AnalysisName ?? descriptor.Title))))
                 .ToArray();
-            Factory.RegisterDescriptors(descriptors);
             var restored = _layoutSerializer.Deserialize(session.DockLayoutJson);
             if (restored is null)
             {
                 return false;
             }
 
-            ReplaceLayout(restored);
+            Factory.RegisterDescriptors(descriptors);
+            completeContent = Factory.BeginContentReplacement();
+            ReplaceLayout(restored, disposePrevious: false);
             var active = session.ActiveDocumentId is null
                 ? null
                 : Factory.OpenDocuments().FirstOrDefault(document => document.Id == session.ActiveDocumentId);
@@ -680,17 +684,22 @@ public sealed class PanelManager : IDisposable
                 }
             }
 
+            completeContent(true);
             return true;
         }
         catch
         {
+            completeContent?.Invoke(false);
+            Factory.RegisterDescriptors(previousDescriptors);
+            if (!ReferenceEquals(Layout, previousLayout))
+                ReplaceLayout(previousLayout, disposePrevious: false);
             return false;
         }
     }
 
-    private void ReplaceLayout(IRootDock layout)
+    private void ReplaceLayout(IRootDock layout, bool disposePrevious = true)
     {
-        Factory.DisposeContent();
+        if (disposePrevious) Factory.DisposeContent();
         ClampFloatingWindows(layout);
         Layout = layout;
         Factory.InitLayout(layout);

@@ -5,9 +5,9 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Services;
 using SkiaSharp;
 
 namespace OpticalSystemDesign.App.Panels;

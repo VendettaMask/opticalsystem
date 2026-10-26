@@ -745,11 +745,12 @@ public sealed class MonteCarlo
         CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        var random = new Random(seed);
+        ValidateBudget(trials, compensationIterations);
         var results = new List<TolerancingTrialResult>();
         for (var trial = 0; trial < Math.Max(0, trials); trial++)
         {
             cancellationToken.ThrowIfCancellationRequested();
+            var random = new Random(DeriveTrialSeed(seed, trial));
             var snapshot = _optic.ToSnapshot();
             try
             {
@@ -808,18 +809,7 @@ public sealed class MonteCarlo
         {
             throw new ArgumentOutOfRangeException(nameof(maxDegreeOfParallelism));
         }
-        if (trials < 0 || trials > MaximumTrialCount)
-        {
-            throw new ArgumentOutOfRangeException(
-                nameof(trials),
-                $"Monte Carlo trial count must be between 0 and {MaximumTrialCount:N0}.");
-        }
-        if (compensationIterations < 0 || compensationIterations > MaximumCompensationIterations)
-        {
-            throw new ArgumentOutOfRangeException(
-                nameof(compensationIterations),
-                $"Compensation iterations must be between 0 and {MaximumCompensationIterations:N0}.");
-        }
+        ValidateBudget(trials, compensationIterations);
 
         var trialCount = trials;
         if (trialCount == 0)
@@ -887,6 +877,13 @@ public sealed class MonteCarlo
             value ^= value >> 16;
             return (int)value;
         }
+    }
+
+    private static void ValidateBudget(int trials, int compensationIterations)
+    {
+        if (trials < 0 || trials > MaximumTrialCount) throw new ArgumentOutOfRangeException(nameof(trials));
+        if (compensationIterations < 0 || compensationIterations > MaximumCompensationIterations)
+            throw new ArgumentOutOfRangeException(nameof(compensationIterations));
     }
 
     private static ToleranceEvaluation EvaluateCompensatedWorker(

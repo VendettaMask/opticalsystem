@@ -62,8 +62,12 @@ public sealed class CameraSensorFileTests
     }
 
     [Theory]
-    [InlineData("missing")] [InlineData("unknown")] [InlineData("duplicate")]
-    [InlineData("schema")] [InlineData("negative")] [InlineData("enum")]
+    [InlineData("missing")]
+    [InlineData("unknown")]
+    [InlineData("duplicate")]
+    [InlineData("schema")]
+    [InlineData("negative")]
+    [InlineData("enum")]
     public async Task InvalidProfilesCannotSilentlyFillMissingFieldsOrAcceptTypos(string kind)
     {
         using var files = new TemporaryFiles(); using var app = WorkbenchApplication.Create();

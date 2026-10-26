@@ -1,0 +1,62 @@
+{
+  "firstStageObjective": {
+    "original": 0.073587079,
+    "csharp": 0.07305038968056737,
+    "difference": -0.0005366893194326261,
+    "relativeDifferencePercent": -0.7293254831226907,
+    "scope": "Last pre-update objective of each complete 2001-update curriculum, before catalog handoff. Original logged components have limited decimal precision. Different dtype and random streams remain.",
+    "formula": "loss_rms + 0.1*(loss_reg + loss_distortion)",
+    "opticalQualityCertificate": false
+  },
+  "availableOpticalResults": [
+    {
+      "metric": "FocalLengthMm",
+      "original": 4.965516396405576,
+      "csharp": 4.888773058113372,
+      "difference": -0.07674333829220359,
+      "relativeDifferencePercent": -1.5455258258286357
+    },
+    {
+      "metric": "FNumber",
+      "original": 1.7874429072734255,
+      "csharp": 1.7598175155195726,
+      "difference": -0.027625391753852924,
+      "relativeDifferencePercent": -1.5455258258286324
+    },
+    {
+      "metric": "EntrancePupilDiameterMm",
+      "original": 2.778,
+      "csharp": 2.778,
+      "difference": 0.0,
+      "relativeDifferencePercent": 0.0
+    },
+    {
+      "metric": "SensorPositionMm",
+      "original": 9.38890000000174,
+      "csharp": 9.381818597776146,
+      "difference": -0.007081402225594502,
+      "relativeDifferencePercent": -0.07542312971267336
+    },
+    {
+      "metric": "WorstValidFieldRmsMm",
+      "original": 0.10236770808143016,
+      "csharp": 0.09236279932116197,
+      "difference": -0.010004908760268189,
+      "relativeDifferencePercent": -9.77350079217326
+    },
+    {
+      "metric": "ValidFieldCount",
+      "original": 21,
+      "csharp": 21,
+      "difference": 0,
+      "relativeDifferencePercent": 0.0
+    },
+    {
+      "metric": "ValidRayFraction",
+      "original": 0.5311069882498454,
+      "csharp": 0.5311069882498454,
+      "difference": 0.0,
+      "relativeDifferencePercent": 0.0
+    }
+  ]
+}

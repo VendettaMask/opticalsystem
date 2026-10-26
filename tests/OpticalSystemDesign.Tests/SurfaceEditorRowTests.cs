@@ -1,5 +1,5 @@
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.ViewModels;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.Tests;
 

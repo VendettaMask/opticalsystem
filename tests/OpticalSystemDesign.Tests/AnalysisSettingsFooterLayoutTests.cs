@@ -6,10 +6,10 @@ using Avalonia.Headless;
 using Avalonia.Layout;
 using Avalonia.Media.Imaging;
 using Avalonia.VisualTree;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.Tests;
 

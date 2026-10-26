@@ -98,7 +98,7 @@ internal sealed class DocumentRecoveryStore : IAsyncDisposable
     internal IReadOnlyList<DocumentRecoveryCandidate> ListCandidates()
     {
         var candidates = new List<DocumentRecoveryCandidate>();
-        foreach (var session in Directory.EnumerateDirectories(_root).Order(StringComparer.Ordinal).Take(1000))
+        foreach (var session in Directory.EnumerateDirectories(_root))
         {
             if (!Guid.TryParseExact(Path.GetFileName(session), "N", out _) || session == _session) continue;
             try
@@ -107,13 +107,18 @@ internal sealed class DocumentRecoveryStore : IAsyncDisposable
                 var lockPath = Path.Combine(session, "owner.lock");
                 using var probe = File.Exists(lockPath)
                     ? new FileStream(lockPath, FileMode.Open, FileAccess.Read, FileShare.None) : null;
-                foreach (var metadata in Directory.EnumerateFiles(session, "*.json").Take(100))
+                foreach (var metadata in Directory.EnumerateFiles(session, "*.json"))
                 {
                     try
                     {
                         var entry = ReadEntry(metadata);
                         var project = Path.Combine(session, entry.Id + ".staropt");
-                        if (Hash(project) == entry.Sha256) candidates.Add(new(session, entry));
+                        if (Hash(project) == entry.Sha256)
+                        {
+                            candidates.Add(new(session, entry));
+                            if (candidates.Count > MaximumListedEntries)
+                                candidates.Remove(candidates.MinBy(c => c.Entry.CapturedAt)!);
+                        }
                     }
                     catch (Exception error) when (error is IOException or UnauthorizedAccessException
                         or JsonException or InvalidDataException)

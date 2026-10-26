@@ -27,9 +27,13 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
     {
         ArgumentNullException.ThrowIfNull(request); cancellationToken.ThrowIfCancellationRequested();
         request = request with { Sensor = request.Sensor ?? new(), Isp = request.Isp ?? new() };
-        request = request with { SpectralResponse = FreezeResponse(request.SpectralResponse),
-            Illuminant = FreezeSpectrum(request.Illuminant), Reflectance = FreezeSpectrum(request.Reflectance),
-            Integration = request.Integration ?? new() };
+        request = request with
+        {
+            SpectralResponse = FreezeResponse(request.SpectralResponse),
+            Illuminant = FreezeSpectrum(request.Illuminant),
+            Reflectance = FreezeSpectrum(request.Reflectance),
+            Integration = request.Integration ?? new()
+        };
         CameraSensorPipeline.ValidateDimensions(request.Width, request.Height);
         if (!Enum.IsDefined(request.Source) || !Enum.IsDefined(request.Optics) || !Enum.IsDefined(request.Aberration)
             || !Enum.IsDefined(request.SpectralModel))
@@ -72,8 +76,7 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
                 {
                     if (optic.SurfaceGroup.Items.Count < 4) throw new InvalidOperationException("请先打开有效顺序镜头，或使用理想光学对照。");
                     // Set an image-plane sampling field on the independent snapshot, in the actual sensor dimensions.
-                    optic.FieldDefinition = FieldDefinitionKind.ParaxialImageHeight;
-                    optic.Fields.Clear(); optic.Fields.Add(new FieldPoint { Y = request.Width * sensor.PixelPitchMicrometers * 0.001 / 2 });
+                    ConfigureSensorField(optic, request, sensor.PixelPitchMicrometers);
                 }
                 CameraSensorResult sensorResult;
                 if (plan is not null)
@@ -110,6 +113,13 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
             }, linked.Token).ConfigureAwait(false);
     }
 
+    internal static void ConfigureSensorField(Optic optic, CameraImagingRequest request, double pixelPitchMicrometers)
+    {
+        optic.FieldDefinition = FieldDefinitionKind.ParaxialImageHeight;
+        optic.Fields.Clear();
+        optic.Fields.Add(new FieldPoint { Y = request.Height * pixelPitchMicrometers * 0.001 / 2 });
+    }
+
     public Task ExportAsync(CameraImagingResult result, string path, CameraImagingResult? comparison = null,
         CancellationToken cancellationToken = default) => Task.Run(async () =>
     {
@@ -134,8 +144,15 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
         {
             Write(folder + "/metadata.json", JsonSerializer.SerializeToUtf8Bytes(new
             {
-                run.DocumentName, run.SourceRevision, run.Request, run.ModelScope, run.OpticalModel, run.OpticalFallbackCount,
-                run.MeanPhotoElectrons, run.RawNoiseRmseDn, run.SaturatedPixels,
+                run.DocumentName,
+                run.SourceRevision,
+                run.Request,
+                run.ModelScope,
+                run.OpticalModel,
+                run.OpticalFallbackCount,
+                run.MeanPhotoElectrons,
+                run.RawNoiseRmseDn,
+                run.SaturatedPixels,
                 BandsNanometers = run.Integration is null ? CameraSensorPipeline.BandWavelengthsNanometers
                     : run.Integration.Nodes.Select(n => n.WavelengthNanometers).ToArray(),
                 run.Integration,

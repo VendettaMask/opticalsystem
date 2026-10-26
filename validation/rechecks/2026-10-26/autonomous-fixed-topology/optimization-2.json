@@ -1,0 +1,3378 @@
+{
+  "Source": {
+    "SchemaVersion": 1,
+    "Algorithm": "AutonomousTopologyV1",
+    "Name": "Autonomous topology foundation 2",
+    "Conjugate": 0,
+    "Reference": {
+      "Id": "reference",
+      "ZMillimeters": 0
+    },
+    "Stop": {
+      "Id": "stop",
+      "ZMillimeters": 0,
+      "ClearSemiDiameterMillimeters": 2,
+      "MechanicalSemiDiameterMillimeters": null
+    },
+    "Image": {
+      "Id": "image",
+      "ZMillimeters": 55,
+      "Protected": false
+    },
+    "Elements": [
+      {
+        "Id": "lens-1",
+        "FrontSurfaceId": "lens-1:front",
+        "BackSurfaceId": "lens-1:back",
+        "FrontZMillimeters": 3,
+        "ThicknessMillimeters": 2,
+        "Material": "N-BK7",
+        "Front": {
+          "Profile": {
+            "Kind": 1,
+            "CurvaturePerMillimeter": 0.022222222222222223,
+            "Conic": 0,
+            "MaximumEvenPower": 0,
+            "Terms": []
+          },
+          "ClearSemiDiameterMillimeters": 8,
+          "MechanicalSemiDiameterMillimeters": 9
+        },
+        "Back": {
+          "Profile": {
+            "Kind": 1,
+            "CurvaturePerMillimeter": -0.01818181818181818,
+            "Conic": 0,
+            "MaximumEvenPower": 0,
+            "Terms": []
+          },
+          "ClearSemiDiameterMillimeters": 7.5,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Protected": false,
+        "Transition": false
+      },
+      {
+        "Id": "lens-2",
+        "FrontSurfaceId": "lens-2:front",
+        "BackSurfaceId": "lens-2:back",
+        "FrontZMillimeters": 10,
+        "ThicknessMillimeters": 2,
+        "Material": "N-F2",
+        "Front": {
+          "Profile": {
+            "Kind": 1,
+            "CurvaturePerMillimeter": -0.015384615384615385,
+            "Conic": 0,
+            "MaximumEvenPower": 0,
+            "Terms": []
+          },
+          "ClearSemiDiameterMillimeters": 8,
+          "MechanicalSemiDiameterMillimeters": 9
+        },
+        "Back": {
+          "Profile": {
+            "Kind": 1,
+            "CurvaturePerMillimeter": 0.014285714285714285,
+            "Conic": 0,
+            "MaximumEvenPower": 0,
+            "Terms": []
+          },
+          "ClearSemiDiameterMillimeters": 7.5,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Protected": false,
+        "Transition": false
+      }
+    ],
+    "Fields": [
+      {
+        "Label": "Axis",
+        "XAngleDegrees": 0,
+        "YAngleDegrees": 0,
+        "Weight": 1
+      },
+      {
+        "Label": "Edge",
+        "XAngleDegrees": 0,
+        "YAngleDegrees": 5,
+        "Weight": 1
+      }
+    ],
+    "Wavelengths": [
+      {
+        "Label": "F",
+        "Nanometers": 486.1,
+        "Weight": 1,
+        "IsPrimary": false
+      },
+      {
+        "Label": "d",
+        "Nanometers": 587.6,
+        "Weight": 1,
+        "IsPrimary": true
+      },
+      {
+        "Label": "C",
+        "Nanometers": 656.3,
+        "Weight": 1,
+        "IsPrimary": false
+      }
+    ],
+    "GlassCatalogs": [],
+    "RayAimingEnabled": true,
+    "MatchRefractiveIndexData": true,
+    "TemperatureCelsius": 20,
+    "PressureAtmospheres": 1
+  },
+  "Options": {
+    "MaximumUpdates": 20,
+    "MaximumFunctionEvaluations": 22,
+    "MaximumGradientEvaluations": 21,
+    "TimeLimit": "00:05:00",
+    "LearningRate": 0.02,
+    "ComputeMode": 0,
+    "Sampling": {
+      "FieldsPerDirection": 3,
+      "PupilRings": 1,
+      "PupilArms": 8,
+      "ProfileRadialSamples": 8
+    }
+  },
+  "InitialPhysical": {
+    "OpticFingerprint": "86c18e948bcdbae95e001a6cccef8134f4e9528c31614417e5289a909edddf77",
+    "ProtocolFingerprint": "68a761c207a7fad829ebd748a9c229e11037df983d61e1a6edf9ea65c1fadab4",
+    "Targets": {
+      "EffectiveFocalLengthMillimeters": 50,
+      "FNumber": 12.5,
+      "FocalLengthRelativeTolerance": 0.02,
+      "FNumberRelativeTolerance": 0.02,
+      "MaximumRmsRadiusMillimeters": 0.05,
+      "MaximumSpotRadiusMillimeters": 0.15,
+      "MaximumDistortionFraction": 0.03,
+      "MinimumValidRayFraction": 0.98,
+      "MinimumEdgeThicknessMillimeters": 0.1,
+      "MinimumEdgeAirGapMillimeters": 0.01,
+      "MaximumOpticalTrackMillimeters": 10000,
+      "MaximumAbsoluteSurfaceSlope": 10
+    },
+    "StructuralConstraints": {
+      "MinimumElementCount": 1,
+      "MaximumElementCount": 8,
+      "MinimumCenterThicknessMillimeters": 0.1,
+      "MinimumAirGapMillimeters": 0.05,
+      "MinimumBackFocusMillimeters": 0.1,
+      "MaximumMechanicalTrackMillimeters": 10000,
+      "AllowTransitionElements": false,
+      "AllowedGlassNames": []
+    },
+    "EffectiveFocalLengthMillimeters": 214.4791353588658,
+    "FNumber": 53.61978383971645,
+    "Fields": [
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9407474125774908,
+        "MaximumRadiusMillimeters": 1.332141817570207,
+        "DistortionFraction": 0,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.05
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9407315701058558,
+        "MaximumRadiusMillimeters": 1.3324605093052435,
+        "DistortionFraction": 1.9736358030245254E-06,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.1
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9406840385661277,
+        "MaximumRadiusMillimeters": 1.332714286913808,
+        "DistortionFraction": 7.895127395028218E-06,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.15
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9406048055818187,
+        "MaximumRadiusMillimeters": 1.332903224538169,
+        "DistortionFraction": 1.7766227675357075E-05,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.2
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9404938505186529,
+        "MaximumRadiusMillimeters": 1.3330273743060195,
+        "DistortionFraction": 3.158985931095785E-05,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.25
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9403511444743843,
+        "MaximumRadiusMillimeters": 1.3330867663571635,
+        "DistortionFraction": 4.93701164958676E-05,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.3
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9401766502645237,
+        "MaximumRadiusMillimeters": 1.3330814088540448,
+        "DistortionFraction": 7.11122674106756E-05,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.35
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9399703224039964,
+        "MaximumRadiusMillimeters": 1.3330112879762808,
+        "DistortionFraction": 9.682275739315076E-05,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.4
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9397321070846918,
+        "MaximumRadiusMillimeters": 1.3328763678990634,
+        "DistortionFraction": 0.00012650921281657073,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.45
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9394619421489268,
+        "MaximumRadiusMillimeters": 1.3326772373214026,
+        "DistortionFraction": 0.00016018044568563258,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.5
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9391597570588004,
+        "MaximumRadiusMillimeters": 1.332436132803288,
+        "DistortionFraction": 0.0001978464589532841,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.55
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9388254728614283,
+        "MaximumRadiusMillimeters": 1.332174773021455,
+        "DistortionFraction": 0.00023951845256296094,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.6
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9384590021500618,
+        "MaximumRadiusMillimeters": 1.331886795500857,
+        "DistortionFraction": 0.0002852088302158759,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.65
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9380602490210624,
+        "MaximumRadiusMillimeters": 1.3315731143582743,
+        "DistortionFraction": 0.0003349312068901032,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.7
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9376291090267206,
+        "MaximumRadiusMillimeters": 1.3312159665625696,
+        "DistortionFraction": 0.00038870041709716303,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.75
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9371654691239383,
+        "MaximumRadiusMillimeters": 1.3308692437246656,
+        "DistortionFraction": 0.0004465325238988979,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.8
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9366692076186988,
+        "MaximumRadiusMillimeters": 1.3304848295319638,
+        "DistortionFraction": 0.0005084448286890681,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.85
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9361401941063844,
+        "MaximumRadiusMillimeters": 1.3300626352170122,
+        "DistortionFraction": 0.0005744558817488562,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.9
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9355782894078695,
+        "MaximumRadiusMillimeters": 1.329602563298422,
+        "DistortionFraction": 0.0006445854935956789,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 0.95
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.934983345501411,
+        "MaximumRadiusMillimeters": 1.3291175139143312,
+        "DistortionFraction": 0.0007188547471270563,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "Field": {
+          "X": 0,
+          "Y": 1
+        },
+        "AttemptedRays": 960,
+        "ValidRays": 960,
+        "CheckAttemptedRays": 99,
+        "CheckValidRays": 99,
+        "RmsRadiusMillimeters": 0.9343552054503003,
+        "MaximumRadiusMillimeters": 1.3286473783117783,
+        "DistortionFraction": 0.0007972860105801947,
+        "WavelengthValidFractions": [
+          1,
+          1,
+          1
+        ]
+      }
+    ],
+    "Violations": [
+      {
+        "Code": "focal-length",
+        "Actual": 3.289582707177316,
+        "Limit": 0.02
+      },
+      {
+        "Code": "f-number",
+        "Actual": 3.289582707177316,
+        "Limit": 0.02
+      },
+      {
+        "Code": "field:0:rms",
+        "Actual": 0.9407474125774908,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:0:maximum",
+        "Actual": 1.332141817570207,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:1:rms",
+        "Actual": 0.9407315701058558,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:1:maximum",
+        "Actual": 1.3324605093052435,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:2:rms",
+        "Actual": 0.9406840385661277,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:2:maximum",
+        "Actual": 1.332714286913808,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:3:rms",
+        "Actual": 0.9406048055818187,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:3:maximum",
+        "Actual": 1.332903224538169,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:4:rms",
+        "Actual": 0.9404938505186529,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:4:maximum",
+        "Actual": 1.3330273743060195,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:5:rms",
+        "Actual": 0.9403511444743843,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:5:maximum",
+        "Actual": 1.3330867663571635,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:6:rms",
+        "Actual": 0.9401766502645237,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:6:maximum",
+        "Actual": 1.3330814088540448,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:7:rms",
+        "Actual": 0.9399703224039964,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:7:maximum",
+        "Actual": 1.3330112879762808,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:8:rms",
+        "Actual": 0.9397321070846918,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:8:maximum",
+        "Actual": 1.3328763678990634,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:9:rms",
+        "Actual": 0.9394619421489268,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:9:maximum",
+        "Actual": 1.3326772373214026,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:10:rms",
+        "Actual": 0.9391597570588004,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:10:maximum",
+        "Actual": 1.332436132803288,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:11:rms",
+        "Actual": 0.9388254728614283,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:11:maximum",
+        "Actual": 1.332174773021455,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:12:rms",
+        "Actual": 0.9384590021500618,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:12:maximum",
+        "Actual": 1.331886795500857,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:13:rms",
+        "Actual": 0.9380602490210624,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:13:maximum",
+        "Actual": 1.3315731143582743,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:14:rms",
+        "Actual": 0.9376291090267206,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:14:maximum",
+        "Actual": 1.3312159665625696,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:15:rms",
+        "Actual": 0.9371654691239383,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:15:maximum",
+        "Actual": 1.3308692437246656,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:16:rms",
+        "Actual": 0.9366692076186988,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:16:maximum",
+        "Actual": 1.3304848295319638,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:17:rms",
+        "Actual": 0.9361401941063844,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:17:maximum",
+        "Actual": 1.3300626352170122,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:18:rms",
+        "Actual": 0.9355782894078695,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:18:maximum",
+        "Actual": 1.329602563298422,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:19:rms",
+        "Actual": 0.934983345501411,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:19:maximum",
+        "Actual": 1.3291175139143312,
+        "Limit": 0.15
+      },
+      {
+        "Code": "field:20:rms",
+        "Actual": 0.9343552054503003,
+        "Limit": 0.05
+      },
+      {
+        "Code": "field:20:maximum",
+        "Actual": 1.3286473783117783,
+        "Limit": 0.15
+      }
+    ],
+    "Completed": true,
+    "MeetsTargets": false,
+    "TracedRayCount": 44520,
+    "GeometryProbes": 583,
+    "Failure": null
+  },
+  "Result": {
+    "Algorithm": "AutonomousTopologyV1",
+    "ObjectiveFingerprint": "9df48e1edfc7dbb65e3a9a9dbc6b347a81f0b0a908a53fd2ecddf494a375e7fe",
+    "Topology": {
+      "SchemaVersion": 1,
+      "Algorithm": "AutonomousTopologyV1",
+      "Name": "Autonomous topology foundation 2",
+      "Conjugate": 0,
+      "Reference": {
+        "Id": "reference",
+        "ZMillimeters": 0
+      },
+      "Stop": {
+        "Id": "stop",
+        "ZMillimeters": 0,
+        "ClearSemiDiameterMillimeters": 2,
+        "MechanicalSemiDiameterMillimeters": null
+      },
+      "Image": {
+        "Id": "image",
+        "ZMillimeters": 59.02114068152577,
+        "Protected": false
+      },
+      "Elements": [
+        {
+          "Id": "lens-1",
+          "FrontSurfaceId": "lens-1:front",
+          "BackSurfaceId": "lens-1:back",
+          "FrontZMillimeters": 3,
+          "ThicknessMillimeters": 2,
+          "Material": "N-BK7",
+          "Front": {
+            "Profile": {
+              "Kind": 1,
+              "CurvaturePerMillimeter": 0.025987554948741963,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 8,
+            "MechanicalSemiDiameterMillimeters": 9
+          },
+          "Back": {
+            "Profile": {
+              "Kind": 1,
+              "CurvaturePerMillimeter": -0.021948873464158296,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 7.5,
+            "MechanicalSemiDiameterMillimeters": null
+          },
+          "Protected": false,
+          "Transition": false
+        },
+        {
+          "Id": "lens-2",
+          "FrontSurfaceId": "lens-2:front",
+          "BackSurfaceId": "lens-2:back",
+          "FrontZMillimeters": 10,
+          "ThicknessMillimeters": 2,
+          "Material": "N-F2",
+          "Front": {
+            "Profile": {
+              "Kind": 1,
+              "CurvaturePerMillimeter": -0.011603746261639325,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 8,
+            "MechanicalSemiDiameterMillimeters": 9
+          },
+          "Back": {
+            "Profile": {
+              "Kind": 1,
+              "CurvaturePerMillimeter": 0.010506340934001587,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 7.5,
+            "MechanicalSemiDiameterMillimeters": null
+          },
+          "Protected": false,
+          "Transition": false
+        }
+      ],
+      "Fields": [
+        {
+          "Label": "Axis",
+          "XAngleDegrees": 0,
+          "YAngleDegrees": 0,
+          "Weight": 1
+        },
+        {
+          "Label": "Edge",
+          "XAngleDegrees": 0,
+          "YAngleDegrees": 5,
+          "Weight": 1
+        }
+      ],
+      "Wavelengths": [
+        {
+          "Label": "F",
+          "Nanometers": 486.1,
+          "Weight": 1,
+          "IsPrimary": false
+        },
+        {
+          "Label": "d",
+          "Nanometers": 587.6,
+          "Weight": 1,
+          "IsPrimary": true
+        },
+        {
+          "Label": "C",
+          "Nanometers": 656.3,
+          "Weight": 1,
+          "IsPrimary": false
+        }
+      ],
+      "GlassCatalogs": [],
+      "RayAimingEnabled": true,
+      "MatchRefractiveIndexData": true,
+      "TemperatureCelsius": 20,
+      "PressureAtmospheres": 1
+    },
+    "Constraints": {
+      "MinimumElementCount": 1,
+      "MaximumElementCount": 8,
+      "MinimumCenterThicknessMillimeters": 0.1,
+      "MinimumAirGapMillimeters": 0.05,
+      "MinimumBackFocusMillimeters": 0.1,
+      "MaximumMechanicalTrackMillimeters": 10000,
+      "AllowTransitionElements": false,
+      "AllowedGlassNames": []
+    },
+    "Targets": {
+      "EffectiveFocalLengthMillimeters": 50,
+      "FNumber": 12.5,
+      "FocalLengthRelativeTolerance": 0.02,
+      "FNumberRelativeTolerance": 0.02,
+      "MaximumRmsRadiusMillimeters": 0.05,
+      "MaximumSpotRadiusMillimeters": 0.15,
+      "MaximumDistortionFraction": 0.03,
+      "MinimumValidRayFraction": 0.98,
+      "MinimumEdgeThicknessMillimeters": 0.1,
+      "MinimumEdgeAirGapMillimeters": 0.01,
+      "MaximumOpticalTrackMillimeters": 10000,
+      "MaximumAbsoluteSurfaceSlope": 10
+    },
+    "Variables": [
+      {
+        "SurfaceId": "lens-1:front",
+        "Kind": 0,
+        "LowerBound": -0.1,
+        "UpperBound": 0.1,
+        "Scale": 0.01,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-1:back",
+        "Kind": 0,
+        "LowerBound": -0.1,
+        "UpperBound": 0.1,
+        "Scale": 0.01,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-2:front",
+        "Kind": 0,
+        "LowerBound": -0.1,
+        "UpperBound": 0.1,
+        "Scale": 0.01,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "lens-2:back",
+        "Kind": 0,
+        "LowerBound": -0.1,
+        "UpperBound": 0.1,
+        "Scale": 0.01,
+        "Power": 0
+      },
+      {
+        "SurfaceId": "image",
+        "Kind": 6,
+        "LowerBound": 30,
+        "UpperBound": 250,
+        "Scale": 10,
+        "Power": 0
+      }
+    ],
+    "Termination": 0,
+    "Work": {
+      "FunctionEvaluations": 22,
+      "GradientEvaluations": 21,
+      "ValidationEvaluations": 1,
+      "TracedRays": 47670,
+      "GeometryProbes": 2242,
+      "GpuDerivativeRays": 0,
+      "GpuBatches": 0,
+      "Elapsed": "00:00:00.6401116",
+      "CompletedGradientEvaluations": 21
+    },
+    "AcceptedUpdates": 20,
+    "Steps": [
+      {
+        "Attempt": 1,
+        "Accepted": true,
+        "Objective": 4060.9398919657274,
+        "Failure": null
+      },
+      {
+        "Attempt": 2,
+        "Accepted": true,
+        "Objective": 3806.6774845703985,
+        "Failure": null
+      },
+      {
+        "Attempt": 3,
+        "Accepted": true,
+        "Objective": 3560.7632790957095,
+        "Failure": null
+      },
+      {
+        "Attempt": 4,
+        "Accepted": true,
+        "Objective": 3323.3637725373214,
+        "Failure": null
+      },
+      {
+        "Attempt": 5,
+        "Accepted": true,
+        "Objective": 3094.643691820369,
+        "Failure": null
+      },
+      {
+        "Attempt": 6,
+        "Accepted": true,
+        "Objective": 2874.782609328904,
+        "Failure": null
+      },
+      {
+        "Attempt": 7,
+        "Accepted": true,
+        "Objective": 2663.879910797091,
+        "Failure": null
+      },
+      {
+        "Attempt": 8,
+        "Accepted": true,
+        "Objective": 2461.9879938462946,
+        "Failure": null
+      },
+      {
+        "Attempt": 9,
+        "Accepted": true,
+        "Objective": 2269.1849687211466,
+        "Failure": null
+      },
+      {
+        "Attempt": 10,
+        "Accepted": true,
+        "Objective": 2085.528385448342,
+        "Failure": null
+      },
+      {
+        "Attempt": 11,
+        "Accepted": true,
+        "Objective": 1911.0538456624563,
+        "Failure": null
+      },
+      {
+        "Attempt": 12,
+        "Accepted": true,
+        "Objective": 1745.775482114257,
+        "Failure": null
+      },
+      {
+        "Attempt": 13,
+        "Accepted": true,
+        "Objective": 1589.6803116128465,
+        "Failure": null
+      },
+      {
+        "Attempt": 14,
+        "Accepted": true,
+        "Objective": 1442.7297433404515,
+        "Failure": null
+      },
+      {
+        "Attempt": 15,
+        "Accepted": true,
+        "Objective": 1304.8598234870146,
+        "Failure": null
+      },
+      {
+        "Attempt": 16,
+        "Accepted": true,
+        "Objective": 1176.6688100976578,
+        "Failure": null
+      },
+      {
+        "Attempt": 17,
+        "Accepted": true,
+        "Objective": 1061.461935713504,
+        "Failure": null
+      },
+      {
+        "Attempt": 18,
+        "Accepted": true,
+        "Objective": 959.4735884698357,
+        "Failure": null
+      },
+      {
+        "Attempt": 19,
+        "Accepted": true,
+        "Objective": 870.2874502895992,
+        "Failure": null
+      },
+      {
+        "Attempt": 20,
+        "Accepted": true,
+        "Objective": 793.3134711084491,
+        "Failure": null
+      }
+    ],
+    "InitialEvaluation": {
+      "LayoutFingerprint": "9df48e1edfc7dbb65e3a9a9dbc6b347a81f0b0a908a53fd2ecddf494a375e7fe",
+      "OpticFingerprint": "86c18e948bcdbae95e001a6cccef8134f4e9528c31614417e5289a909edddf77",
+      "Residuals": [
+        -38.343854539431035,
+        -38.343854539431035,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        17.819792929268345,
+        5.284693562023377,
+        0,
+        0,
+        2.2219747176930835,
+        -5.724295422284596E-17,
+        0,
+        1.5711733905058427,
+        1.5711733905058427,
+        0,
+        2.2600992506921674E-16,
+        2.2219747176930835,
+        0,
+        -1.5711733905058423,
+        1.5711733905058427,
+        0,
+        -2.2219747176930835,
+        2.1487046835807168E-16,
+        0,
+        -1.5711733905058427,
+        -1.5711733905058423,
+        0,
+        -3.1821692009261876E-16,
+        -2.2219747176930835,
+        0,
+        1.571173390505842,
+        -1.5711733905058427,
+        0,
+        2.2164814805739885,
+        -5.724295422284596E-17,
+        0,
+        1.567289085288266,
+        1.567289085288266,
+        0,
+        2.2567356130647404E-16,
+        2.2164814805739885,
+        0,
+        -1.5672890852882648,
+        1.567289085288266,
+        0,
+        -2.2164814805739885,
+        2.141977408325862E-16,
+        0,
+        -1.567289085288266,
+        -1.5672890852882648,
+        0,
+        -3.172078288043901E-16,
+        -2.2164814805739885,
+        0,
+        1.5672890852882648,
+        -1.567289085288266,
+        0,
+        2.2153397285129284,
+        -5.724295422284596E-17,
+        0,
+        1.5664817446634576,
+        1.5664817446634576,
+        0,
+        2.256036491561241E-16,
+        2.2153397285129284,
+        0,
+        -1.5664817446634574,
+        1.5664817446634576,
+        0,
+        -2.2153397285129284,
+        2.1405791653188645E-16,
+        0,
+        -1.5664817446634576,
+        -1.5664817446634574,
+        0,
+        -3.1699809235334067E-16,
+        -2.2153397285129284,
+        0,
+        1.5664817446634567,
+        -1.5664817446634576,
+        17.788077536325467,
+        5.290211761592204,
+        0,
+        0,
+        2.2198855396150683,
+        0.006842501678524467,
+        0,
+        1.5699524236563345,
+        1.5744513804749374,
+        0,
+        2.586235456095739E-16,
+        2.2239256958606126,
+        0,
+        -1.569952423656334,
+        1.5744513804749374,
+        0,
+        -2.2198855396150683,
+        0.00684250167852342,
+        0,
+        -1.5694357748892054,
+        -1.5602463354299716,
+        0,
+        -2.8502692770840663E-16,
+        -2.209200597627955,
+        0,
+        1.569435774889204,
+        -1.5602463354299723,
+        0,
+        2.214392182753094,
+        -0.0020290350027513254,
+        0,
+        1.5660566848853557,
+        1.561692657869275,
+        0,
+        2.582857869252172E-16,
+        2.2095502062012806,
+        0,
+        -1.566056684885355,
+        1.561692657869275,
+        0,
+        -2.214392182753094,
+        -0.0020290350027502785,
+        0,
+        -1.565562822958272,
+        -1.5652535784678763,
+        0,
+        -2.840220234735891E-16,
+        -2.2126139662707573,
+        0,
+        1.565562822958271,
+        -1.565253578467877,
+        0,
+        2.2132521421071556,
+        -0.005565558770280159,
+        0,
+        1.565245514984715,
+        1.5573503770645392,
+        0,
+        2.5821536339285726E-16,
+        2.2048712201185636,
+        0,
+        -1.5652455149847142,
+        1.5573503770645392,
+        0,
+        -2.2132521421071556,
+        -0.005565558770277018,
+        0,
+        -1.5647617706012256,
+        -1.5679945099051118,
+        0,
+        -2.8381447003233107E-16,
+        -2.2150283573043223,
+        0,
+        1.5647617706012245,
+        -1.5679945099051125,
+        17.69210122851066,
+        5.271820348071456,
+        0,
+        0,
+        2.2135892835369706,
+        0.013862873804449057,
+        0,
+        1.5657609128884684,
+        1.5701461949388864,
+        0,
+        2.828023125568004E-16,
+        2.2150838945180586,
+        0,
+        -1.565760912888468,
+        1.5701461949388864,
+        0,
+        -2.2135892835369697,
+        0.013862873804449057,
+        0,
+        -1.5647107416684023,
+        -1.541342590781217,
+        0,
+        -2.592364219018478E-16,
+        -2.1852023391181574,
+        0,
+        1.5647107416684016,
+        -1.541342590781217,
+        0,
+        2.2080956022634752,
+        -0.004125641605296146,
+        0,
+        1.5618534708955072,
+        1.5482852427750846,
+        0,
+        2.824631356756807E-16,
+        2.1916054577959017,
+        0,
+        -1.5618534708955063,
+        1.5482852427750846,
+        0,
+        -2.208095602263475,
+        -0.004125641605296146,
+        0,
+        -1.5608493057423976,
+        -1.5555055351568636,
+        0,
+        -2.582357941748127E-16,
+        -2.197794667769575,
+        0,
+        1.560849305742397,
+        -1.5555055351568636,
+        0,
+        2.2069607361609958,
+        -0.01129677579328335,
+        0,
+        1.561040859915207,
+        1.5403235497711805,
+        0,
+        2.823924073742227E-16,
+        2.183310318524147,
+        0,
+        -1.5610408599152068,
+        1.5403235497711805,
+        0,
+        -2.2069607361609953,
+        -0.011296775793285444,
+        0,
+        -1.5600571303290423,
+        -1.5619069306649338,
+        0,
+        -2.580311174249243E-16,
+        -2.2038834385263777,
+        0,
+        1.560057130329042,
+        -1.5619069306649338
+      ],
+      "Gradient": [
+        -3473.9205221118636,
+        3363.7612025942526,
+        -3197.7420113464145,
+        3078.9953641881743,
+        -204.83874878463757
+      ],
+      "Jacobian": [],
+      "Objective": 4323.370317134411,
+      "Available": true,
+      "Failure": null,
+      "TracedRayCount": 150,
+      "GeometryProbes": 79,
+      "Execution": {
+        "Backend": "cpu-forward-v1",
+        "DeviceName": "CPU",
+        "GpuBatches": 0,
+        "GpuRays": 0,
+        "GpuMilliseconds": 0,
+        "FallbackReason": null
+      },
+      "PropagationExecution": {
+        "DeviceName": "CPU",
+        "AimRays": 0,
+        "AimTraces": 0,
+        "PropagatedRays": 0,
+        "Batches": 0,
+        "Milliseconds": 0,
+        "CpuRecoveryRays": 0,
+        "FallbackReason": null
+      }
+    },
+    "EndpointEvaluation": {
+      "LayoutFingerprint": "9df48e1edfc7dbb65e3a9a9dbc6b347a81f0b0a908a53fd2ecddf494a375e7fe",
+      "OpticFingerprint": "42d24d841871056fcceddf9ad509bf037d4e873d54e6632448d200fd49c5712a",
+      "Residuals": [
+        -17.65429782497453,
+        -17.65429782497453,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        6.5072264706104965,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5.398039781699018,
+        1.1596334376912272,
+        0,
+        0,
+        0.7421030393046245,
+        4.906538933386796E-17,
+        0,
+        0.5247460914314465,
+        0.5247460914314466,
+        0,
+        7.815096514200857E-17,
+        0.7421030393046245,
+        0,
+        -0.5247460914314476,
+        0.5247460914314466,
+        0,
+        -0.7421030393046245,
+        1.3994680050606114E-16,
+        0,
+        -0.5247460914314465,
+        -0.5247460914314475,
+        0,
+        -1.0361185720237733E-16,
+        -0.7421030393046245,
+        0,
+        0.5247460914314468,
+        -0.5247460914314465,
+        0,
+        0.7562422779202805,
+        4.906538933386796E-17,
+        0,
+        0.5347440429373916,
+        0.5347440429373918,
+        0,
+        7.901674380766071E-17,
+        0.7562422779202805,
+        0,
+        -0.5347440429373916,
+        0.5347440429373918,
+        0,
+        -0.7562422779202805,
+        1.4167835783736543E-16,
+        0,
+        -0.5347440429373916,
+        -0.5347440429373915,
+        0,
+        -1.0620919319933439E-16,
+        -0.7562422779202805,
+        0,
+        0.5347440429373922,
+        -0.5347440429373915,
+        0,
+        0.7635457243343409,
+        4.906538933386796E-17,
+        0,
+        0.5399083594228051,
+        0.5399083594228051,
+        0,
+        7.946395092134691E-17,
+        0.7635457243343409,
+        0,
+        -0.5399083594228057,
+        0.5399083594228051,
+        0,
+        -0.7635457243343409,
+        1.4257277206473782E-16,
+        0,
+        -0.5399083594228051,
+        -0.5399083594228056,
+        0,
+        -1.0755081454039215E-16,
+        -0.7635457243343409,
+        0,
+        0.5399083594228054,
+        -0.539908359422805,
+        5.335650011897664,
+        1.1472291327636905,
+        0,
+        0,
+        0.7376598646788816,
+        0.0030714022329840825,
+        0,
+        0.5224904313291874,
+        0.5213682583277837,
+        0,
+        4.527697531489467E-17,
+        0.7365719647636249,
+        0,
+        -0.5224904313291882,
+        0.5213682583277837,
+        0,
+        -0.7376598646788816,
+        0.003071402232983036,
+        0,
+        -0.5207108285754496,
+        -0.5134387932537775,
+        0,
+        -1.351771057306278E-16,
+        -0.7268558130267663,
+        0,
+        0.5207108285754496,
+        -0.5134387932537786,
+        0,
+        0.7518317577563612,
+        -0.0019051097122838683,
+        0,
+        0.5324909087495062,
+        0.5264325947124658,
+        0,
+        4.6142238925240594E-17,
+        0.7457833153857656,
+        0,
+        -0.5324909087495062,
+        0.5264325947124658,
+        0,
+        -0.7518317577563612,
+        -0.0019051097122828216,
+        0,
+        -0.5307525867390335,
+        -0.5284976325598043,
+        0,
+        -1.377880630222848E-16,
+        -0.7461031464843974,
+        0,
+        0.5307525867390335,
+        -0.5284976325598033,
+        0,
+        0.7591506546143401,
+        -0.0037950194014898463,
+        0,
+        0.5376564347962028,
+        0.5297268667236917,
+        0,
+        4.6589203999314637E-17,
+        0.7512192561568919,
+        0,
+        -0.5376564347962028,
+        0.5297268667236917,
+        0,
+        -0.7591506546143401,
+        -0.0037950194014898463,
+        0,
+        -0.5359376116029727,
+        -0.5355913129523123,
+        0,
+        -1.3913612206507725E-16,
+        -0.7553580850296084,
+        0,
+        0.5359376116029737,
+        -0.5355913129523123,
+        5.147584385738931,
+        1.1098580150823305,
+        0,
+        0,
+        0.7242716595466986,
+        0.006196964369830776,
+        0,
+        0.5139280428880871,
+        0.5031890018803576,
+        0,
+        1.0998791222696235E-16,
+        0.7101032328007852,
+        0,
+        -0.5139280428880872,
+        0.5031890018803576,
+        0,
+        -0.7242716595466986,
+        0.006196964369830776,
+        0,
+        -0.5103171088097596,
+        -0.4871265323243288,
+        0,
+        -6.695498572897713E-17,
+        -0.6903720079264124,
+        0,
+        0.5103171088097594,
+        -0.487126532324333,
+        0,
+        0.7385420919491873,
+        -0.003882943934555838,
+        0,
+        0.5239772012800323,
+        0.5033216261833933,
+        0,
+        1.1085664988219588E-16,
+        0.7144414656928462,
+        0,
+        -0.5239772012800319,
+        0.5033216261833933,
+        0,
+        -0.7385420919491873,
+        -0.0038829439345537445,
+        0,
+        -0.5204500075022829,
+        -0.507504333482415,
+        0,
+        -6.95919657000427E-17,
+        -0.7150407852169546,
+        0,
+        0.5204500075022825,
+        -0.5075043334824171,
+        0,
+        0.7459075945655224,
+        -0.007711410076625959,
+        0,
+        0.5291657643171859,
+        0.504757172051071,
+        0,
+        1.113052592724135E-16,
+        0.718045835213638,
+        0,
+        -0.5291657643171863,
+        0.504757172051071,
+        0,
+        -0.7459075945655224,
+        -0.007711410076623865,
+        0,
+        -0.5256781131431122,
+        -0.5166370907308715,
+        0,
+        -7.095232216941875E-17,
+        -0.7263826484355279,
+        0,
+        0.5256781131431125,
+        -0.5166370907308736
+      ],
+      "Gradient": [
+        -835.0364819951893,
+        807.1997851908952,
+        -1292.5676809828994,
+        1239.5551354034444,
+        -171.88889047956226
+      ],
+      "Jacobian": [],
+      "Objective": 793.3134711084491,
+      "Available": true,
+      "Failure": null,
+      "TracedRayCount": 150,
+      "GeometryProbes": 79,
+      "Execution": {
+        "Backend": "cpu-forward-v1",
+        "DeviceName": "CPU",
+        "GpuBatches": 0,
+        "GpuRays": 0,
+        "GpuMilliseconds": 0,
+        "FallbackReason": null
+      },
+      "PropagationExecution": {
+        "DeviceName": "CPU",
+        "AimRays": 0,
+        "AimTraces": 0,
+        "PropagatedRays": 0,
+        "Batches": 0,
+        "Milliseconds": 0,
+        "CpuRecoveryRays": 0,
+        "FallbackReason": null
+      }
+    },
+    "FinalAssessment": {
+      "OpticFingerprint": "42d24d841871056fcceddf9ad509bf037d4e873d54e6632448d200fd49c5712a",
+      "ProtocolFingerprint": "68a761c207a7fad829ebd748a9c229e11037df983d61e1a6edf9ea65c1fadab4",
+      "Targets": {
+        "EffectiveFocalLengthMillimeters": 50,
+        "FNumber": 12.5,
+        "FocalLengthRelativeTolerance": 0.02,
+        "FNumberRelativeTolerance": 0.02,
+        "MaximumRmsRadiusMillimeters": 0.05,
+        "MaximumSpotRadiusMillimeters": 0.15,
+        "MaximumDistortionFraction": 0.03,
+        "MinimumValidRayFraction": 0.98,
+        "MinimumEdgeThicknessMillimeters": 0.1,
+        "MinimumEdgeAirGapMillimeters": 0.01,
+        "MaximumOpticalTrackMillimeters": 10000,
+        "MaximumAbsoluteSurfaceSlope": 10
+      },
+      "StructuralConstraints": {
+        "MinimumElementCount": 1,
+        "MaximumElementCount": 8,
+        "MinimumCenterThicknessMillimeters": 0.1,
+        "MinimumAirGapMillimeters": 0.05,
+        "MinimumBackFocusMillimeters": 0.1,
+        "MaximumMechanicalTrackMillimeters": 10000,
+        "AllowTransitionElements": false,
+        "AllowedGlassNames": []
+      },
+      "EffectiveFocalLengthMillimeters": 77.29002098863947,
+      "FNumber": 19.322505247159867,
+      "Fields": [
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.3191983551051526,
+          "MaximumRadiusMillimeters": 0.45516932710948144,
+          "DistortionFraction": 0,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.05
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.31916716312006604,
+          "MaximumRadiusMillimeters": 0.45514962019899013,
+          "DistortionFraction": 3.331474217944477E-07,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.1
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.31907358250415846,
+          "MaximumRadiusMillimeters": 0.45507042265695646,
+          "DistortionFraction": 1.3326758537288487E-06,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.15
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.3189175992862713,
+          "MaximumRadiusMillimeters": 0.45493772310124886,
+          "DistortionFraction": 2.998843817938291E-06,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.2
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.3186991902171508,
+          "MaximumRadiusMillimeters": 0.45474951703572275,
+          "DistortionFraction": 5.332082251799356E-06,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.25
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.3184183228238151,
+          "MaximumRadiusMillimeters": 0.4545088924183741,
+          "DistortionFraction": 8.332994618355043E-06,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.3
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.31807495548638004,
+          "MaximumRadiusMillimeters": 0.45421818776837714,
+          "DistortionFraction": 1.2002357052224626E-05,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.35
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.317669037538047,
+          "MaximumRadiusMillimeters": 0.45387453835801433,
+          "DistortionFraction": 1.6341118547276E-05,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.4
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.3172005093891999,
+          "MaximumRadiusMillimeters": 0.4534778994649574,
+          "DistortionFraction": 2.1350401194108053E-05,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.45
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.31666930267675764,
+          "MaximumRadiusMillimeters": 0.45302821945758504,
+          "DistortionFraction": 2.7031500448954022E-05,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.5
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.3160753404401936,
+          "MaximumRadiusMillimeters": 0.4525254397826242,
+          "DistortionFraction": 3.338588545120902E-05,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.55
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.315418537325869,
+          "MaximumRadiusMillimeters": 0.451969494951115,
+          "DistortionFraction": 4.041519938116685E-05,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.6
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.31469879982161436,
+          "MaximumRadiusMillimeters": 0.4513603125227267,
+          "DistortionFraction": 4.8121259858553846E-05,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.65
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.31391602652377737,
+          "MaximumRadiusMillimeters": 0.4506978130884618,
+          "DistortionFraction": 5.650605938134198E-05,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.7
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.31307010843928196,
+          "MaximumRadiusMillimeters": 0.44998191025171275,
+          "DistortionFraction": 6.557176580772678E-05,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.75
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.31216092932558726,
+          "MaximumRadiusMillimeters": 0.44921251060768447,
+          "DistortionFraction": 7.532072287554609E-05,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.8
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.31118836607181977,
+          "MaximumRadiusMillimeters": 0.4483895137212002,
+          "DistortionFraction": 8.575545076542773E-05,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.85
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.3101522891247656,
+          "MaximumRadiusMillimeters": 0.4475128121028922,
+          "DistortionFraction": 9.687864670101589E-05,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.9
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.3090525629638804,
+          "MaximumRadiusMillimeters": 0.4465822911837668,
+          "DistortionFraction": 0.00010869318559096616,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0.95
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.3078890466299722,
+          "MaximumRadiusMillimeters": 0.44559782928820035,
+          "DistortionFraction": 0.0001212021207063759,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "Field": {
+            "X": 0,
+            "Y": 1
+          },
+          "AttemptedRays": 960,
+          "ValidRays": 960,
+          "CheckAttemptedRays": 99,
+          "CheckValidRays": 99,
+          "RmsRadiusMillimeters": 0.30666159431280143,
+          "MaximumRadiusMillimeters": 0.4445592976053025,
+          "DistortionFraction": 0.00013440868440278936,
+          "WavelengthValidFractions": [
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "Violations": [
+        {
+          "Code": "focal-length",
+          "Actual": 0.5458004197727895,
+          "Limit": 0.02
+        },
+        {
+          "Code": "f-number",
+          "Actual": 0.5458004197727895,
+          "Limit": 0.02
+        },
+        {
+          "Code": "geometry:lens-1:edge:63",
+          "Actual": 0.003415599067680436,
+          "Limit": 0
+        },
+        {
+          "Code": "geometry:lens-1:edge:64",
+          "Actual": 0.06507226470610497,
+          "Limit": 0
+        },
+        {
+          "Code": "field:0:rms",
+          "Actual": 0.3191983551051526,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:0:maximum",
+          "Actual": 0.45516932710948144,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:1:rms",
+          "Actual": 0.31916716312006604,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:1:maximum",
+          "Actual": 0.45514962019899013,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:2:rms",
+          "Actual": 0.31907358250415846,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:2:maximum",
+          "Actual": 0.45507042265695646,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:3:rms",
+          "Actual": 0.3189175992862713,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:3:maximum",
+          "Actual": 0.45493772310124886,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:4:rms",
+          "Actual": 0.3186991902171508,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:4:maximum",
+          "Actual": 0.45474951703572275,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:5:rms",
+          "Actual": 0.3184183228238151,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:5:maximum",
+          "Actual": 0.4545088924183741,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:6:rms",
+          "Actual": 0.31807495548638004,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:6:maximum",
+          "Actual": 0.45421818776837714,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:7:rms",
+          "Actual": 0.317669037538047,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:7:maximum",
+          "Actual": 0.45387453835801433,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:8:rms",
+          "Actual": 0.3172005093891999,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:8:maximum",
+          "Actual": 0.4534778994649574,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:9:rms",
+          "Actual": 0.31666930267675764,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:9:maximum",
+          "Actual": 0.45302821945758504,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:10:rms",
+          "Actual": 0.3160753404401936,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:10:maximum",
+          "Actual": 0.4525254397826242,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:11:rms",
+          "Actual": 0.315418537325869,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:11:maximum",
+          "Actual": 0.451969494951115,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:12:rms",
+          "Actual": 0.31469879982161436,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:12:maximum",
+          "Actual": 0.4513603125227267,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:13:rms",
+          "Actual": 0.31391602652377737,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:13:maximum",
+          "Actual": 0.4506978130884618,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:14:rms",
+          "Actual": 0.31307010843928196,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:14:maximum",
+          "Actual": 0.44998191025171275,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:15:rms",
+          "Actual": 0.31216092932558726,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:15:maximum",
+          "Actual": 0.44921251060768447,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:16:rms",
+          "Actual": 0.31118836607181977,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:16:maximum",
+          "Actual": 0.4483895137212002,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:17:rms",
+          "Actual": 0.3101522891247656,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:17:maximum",
+          "Actual": 0.4475128121028922,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:18:rms",
+          "Actual": 0.3090525629638804,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:18:maximum",
+          "Actual": 0.4465822911837668,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:19:rms",
+          "Actual": 0.3078890466299722,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:19:maximum",
+          "Actual": 0.44559782928820035,
+          "Limit": 0.15
+        },
+        {
+          "Code": "field:20:rms",
+          "Actual": 0.30666159431280143,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:20:maximum",
+          "Actual": 0.4445592976053025,
+          "Limit": 0.15
+        }
+      ],
+      "Completed": true,
+      "MeetsTargets": false,
+      "TracedRayCount": 44520,
+      "GeometryProbes": 583,
+      "Failure": null
+    },
+    "Diagnostics": []
+  },
+  "FinalSnapshot": {
+    "SchemaVersion": 6,
+    "Name": "Autonomous topology foundation 2",
+    "Aperture": {
+      "Kind": "FloatByStopSize",
+      "Value": 4,
+      "ObjectSpaceTelecentric": false
+    },
+    "BackendName": "managed-cpu",
+    "Fields": [
+      {
+        "Label": "Axis",
+        "XAngleDegrees": 0,
+        "YAngleDegrees": 0,
+        "Weight": 1,
+        "VignetteFactorX": 0,
+        "VignetteFactorY": 0,
+        "VignetteDecenterX": 0,
+        "VignetteDecenterY": 0,
+        "VignetteAngleDegrees": 0
+      },
+      {
+        "Label": "Edge",
+        "XAngleDegrees": 0,
+        "YAngleDegrees": 5,
+        "Weight": 1,
+        "VignetteFactorX": 0,
+        "VignetteFactorY": 0,
+        "VignetteDecenterX": 0,
+        "VignetteDecenterY": 0,
+        "VignetteAngleDegrees": 0
+      }
+    ],
+    "Wavelengths": [
+      {
+        "Label": "F",
+        "Nanometers": 486.1,
+        "Weight": 1,
+        "IsPrimary": false
+      },
+      {
+        "Label": "d",
+        "Nanometers": 587.6,
+        "Weight": 1,
+        "IsPrimary": true
+      },
+      {
+        "Label": "C",
+        "Nanometers": 656.3,
+        "Weight": 1,
+        "IsPrimary": false
+      }
+    ],
+    "Surfaces": [
+      {
+        "Number": 0,
+        "Label": "Object",
+        "Radius": 0,
+        "Thickness": "Infinity",
+        "Material": "Air",
+        "Coating": "None",
+        "SemiDiameter": 10,
+        "Conic": 0,
+        "IsStop": false,
+        "IsReflective": false,
+        "Components": {
+          "GeometryKind": "plane",
+          "MaterialBefore": "Air",
+          "MaterialAfter": "Air",
+          "CoatingKind": "none",
+          "InteractionKind": "refractive",
+          "PhysicalApertureKind": null,
+          "ScatteringKind": null,
+          "Geometry": {
+            "Kind": "plane",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "MaterialBeforeComponent": {
+            "Kind": "air",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "MaterialAfterComponent": {
+            "Kind": "air",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "Coating": {
+            "Kind": "none",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "Interaction": {
+            "Kind": "refractive",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "PhysicalAperture": null,
+          "Scattering": null
+        },
+        "RadiusVariable": false,
+        "ThicknessVariable": false,
+        "SemiDiameterFixed": false,
+        "CoordinateSystem": {
+          "OriginX": 0,
+          "OriginY": 0,
+          "OriginZ": 0,
+          "RotationXDegrees": 0,
+          "RotationYDegrees": 0,
+          "RotationZDegrees": 0
+        },
+        "MechanicalSemiDiameter": null,
+        "MechanicalSemiDiameterSolveCode": 0,
+        "SemiDiameterDefinesPhysicalAperture": false,
+        "ThermalExpansionPpmPerC": 0,
+        "ChipZone": 0
+      },
+      {
+        "Number": 1,
+        "Label": "reference",
+        "Radius": 0,
+        "Thickness": 0,
+        "Material": "Air",
+        "Coating": "None",
+        "SemiDiameter": 1,
+        "Conic": 0,
+        "IsStop": false,
+        "IsReflective": false,
+        "Components": {
+          "GeometryKind": "plane",
+          "MaterialBefore": "Air",
+          "MaterialAfter": "Air",
+          "CoatingKind": "none",
+          "InteractionKind": "refractive",
+          "PhysicalApertureKind": null,
+          "ScatteringKind": null,
+          "Geometry": {
+            "Kind": "plane",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "MaterialBeforeComponent": {
+            "Kind": "air",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "MaterialAfterComponent": {
+            "Kind": "air",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "Coating": {
+            "Kind": "none",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "Interaction": {
+            "Kind": "refractive",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "PhysicalAperture": null,
+          "Scattering": null
+        },
+        "RadiusVariable": false,
+        "ThicknessVariable": false,
+        "SemiDiameterFixed": true,
+        "CoordinateSystem": {
+          "OriginX": 0,
+          "OriginY": 0,
+          "OriginZ": 0,
+          "RotationXDegrees": 0,
+          "RotationYDegrees": 0,
+          "RotationZDegrees": 0
+        },
+        "MechanicalSemiDiameter": null,
+        "MechanicalSemiDiameterSolveCode": 0,
+        "SemiDiameterDefinesPhysicalAperture": false,
+        "ThermalExpansionPpmPerC": 0,
+        "ChipZone": 0
+      },
+      {
+        "Number": 2,
+        "Label": "stop",
+        "Radius": 0,
+        "Thickness": 3,
+        "Material": "Air",
+        "Coating": "None",
+        "SemiDiameter": 2,
+        "Conic": 0,
+        "IsStop": true,
+        "IsReflective": false,
+        "Components": {
+          "GeometryKind": "plane",
+          "MaterialBefore": "Air",
+          "MaterialAfter": "Air",
+          "CoatingKind": "none",
+          "InteractionKind": "refractive",
+          "PhysicalApertureKind": "circular",
+          "ScatteringKind": null,
+          "Geometry": {
+            "Kind": "plane",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "MaterialBeforeComponent": {
+            "Kind": "air",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "MaterialAfterComponent": {
+            "Kind": "air",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "Coating": {
+            "Kind": "none",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "Interaction": {
+            "Kind": "refractive",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "PhysicalAperture": {
+            "Kind": "circular",
+            "Numbers": {
+              "radius": 2
+            },
+            "Text": {},
+            "Children": null
+          },
+          "Scattering": null
+        },
+        "RadiusVariable": false,
+        "ThicknessVariable": false,
+        "SemiDiameterFixed": true,
+        "CoordinateSystem": {
+          "OriginX": 0,
+          "OriginY": 0,
+          "OriginZ": 0,
+          "RotationXDegrees": 0,
+          "RotationYDegrees": 0,
+          "RotationZDegrees": 0
+        },
+        "MechanicalSemiDiameter": null,
+        "MechanicalSemiDiameterSolveCode": 0,
+        "SemiDiameterDefinesPhysicalAperture": false,
+        "ThermalExpansionPpmPerC": 0,
+        "ChipZone": 0
+      },
+      {
+        "Number": 3,
+        "Label": "lens-1:front",
+        "Radius": 38.4799571168741,
+        "Thickness": 2,
+        "Material": "N-BK7",
+        "Coating": "None",
+        "SemiDiameter": 8,
+        "Conic": 0,
+        "IsStop": false,
+        "IsReflective": false,
+        "Components": {
+          "GeometryKind": "standard",
+          "MaterialBefore": "Air",
+          "MaterialAfter": "N-BK7",
+          "CoatingKind": "none",
+          "InteractionKind": "refractive",
+          "PhysicalApertureKind": "circular",
+          "ScatteringKind": null,
+          "Geometry": {
+            "Kind": "standard",
+            "Numbers": {
+              "radius": 38.4799571168741,
+              "conic": 0
+            },
+            "Text": {},
+            "Children": null
+          },
+          "MaterialBeforeComponent": {
+            "Kind": "air",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "MaterialAfterComponent": {
+            "Kind": "catalog_glass",
+            "Numbers": {
+              "minimumWavelengthNanometers": 300,
+              "maximumWavelengthNanometers": 2500,
+              "c0": 0,
+              "c1": 1.03961212,
+              "c2": 0.00600069867,
+              "c3": 0.231792344,
+              "c4": 0.0200179144,
+              "c5": 1.01046945,
+              "c6": 103.560653,
+              "kw0": 300,
+              "kw1": 310,
+              "kw2": 320,
+              "kw3": 334,
+              "kw4": 350,
+              "kw5": 365,
+              "kw6": 370,
+              "kw7": 380,
+              "kw8": 390,
+              "kw9": 400,
+              "kw10": 405,
+              "kw11": 420,
+              "kw12": 436,
+              "kw13": 460,
+              "kw14": 500,
+              "kw15": 546,
+              "kw16": 580,
+              "kw17": 620,
+              "kw18": 660,
+              "kw19": 700,
+              "kw20": 1060,
+              "kw21": 1530,
+              "kw22": 1970,
+              "kw23": 2325,
+              "kw24": 2500,
+              "k0": 2.8607E-06,
+              "k1": 1.3679E-06,
+              "k2": 6.6608E-07,
+              "k3": 2.6415E-07,
+              "k4": 9.2894E-08,
+              "k5": 3.4191E-08,
+              "k6": 2.7405E-08,
+              "k7": 2.074E-08,
+              "k8": 1.3731E-08,
+              "k9": 1.0227E-08,
+              "k10": 9.0558E-09,
+              "k11": 9.3912E-09,
+              "k12": 1.1147E-08,
+              "k13": 1.0286E-08,
+              "k14": 9.5781E-09,
+              "k15": 6.9658E-09,
+              "k16": 9.2541E-09,
+              "k17": 1.1877E-08,
+              "k18": 1.2643E-08,
+              "k19": 8.9305E-09,
+              "k20": 1.0137E-08,
+              "k21": 9.839E-08,
+              "k22": 1.0933E-06,
+              "k23": 4.2911E-06,
+              "k24": 8.13E-06
+            },
+            "Text": {
+              "name": "N-BK7",
+              "manufacturer": "SCHOTT",
+              "formula": "formula 2"
+            },
+            "Children": null
+          },
+          "Coating": {
+            "Kind": "none",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "Interaction": {
+            "Kind": "refractive",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "PhysicalAperture": {
+            "Kind": "circular",
+            "Numbers": {
+              "radius": 8
+            },
+            "Text": {},
+            "Children": null
+          },
+          "Scattering": null
+        },
+        "RadiusVariable": false,
+        "ThicknessVariable": false,
+        "SemiDiameterFixed": true,
+        "CoordinateSystem": {
+          "OriginX": 0,
+          "OriginY": 0,
+          "OriginZ": 3,
+          "RotationXDegrees": 0,
+          "RotationYDegrees": 0,
+          "RotationZDegrees": 0
+        },
+        "MechanicalSemiDiameter": 9,
+        "MechanicalSemiDiameterSolveCode": 0,
+        "SemiDiameterDefinesPhysicalAperture": false,
+        "ThermalExpansionPpmPerC": 0,
+        "ChipZone": 0
+      },
+      {
+        "Number": 4,
+        "Label": "lens-1:back",
+        "Radius": -45.56042484972922,
+        "Thickness": 5,
+        "Material": "Air",
+        "Coating": "None",
+        "SemiDiameter": 7.5,
+        "Conic": 0,
+        "IsStop": false,
+        "IsReflective": false,
+        "Components": {
+          "GeometryKind": "standard",
+          "MaterialBefore": "N-BK7",
+          "MaterialAfter": "Air",
+          "CoatingKind": "none",
+          "InteractionKind": "refractive",
+          "PhysicalApertureKind": "circular",
+          "ScatteringKind": null,
+          "Geometry": {
+            "Kind": "standard",
+            "Numbers": {
+              "radius": -45.56042484972922,
+              "conic": 0
+            },
+            "Text": {},
+            "Children": null
+          },
+          "MaterialBeforeComponent": {
+            "Kind": "catalog_glass",
+            "Numbers": {
+              "minimumWavelengthNanometers": 300,
+              "maximumWavelengthNanometers": 2500,
+              "c0": 0,
+              "c1": 1.03961212,
+              "c2": 0.00600069867,
+              "c3": 0.231792344,
+              "c4": 0.0200179144,
+              "c5": 1.01046945,
+              "c6": 103.560653,
+              "kw0": 300,
+              "kw1": 310,
+              "kw2": 320,
+              "kw3": 334,
+              "kw4": 350,
+              "kw5": 365,
+              "kw6": 370,
+              "kw7": 380,
+              "kw8": 390,
+              "kw9": 400,
+              "kw10": 405,
+              "kw11": 420,
+              "kw12": 436,
+              "kw13": 460,
+              "kw14": 500,
+              "kw15": 546,
+              "kw16": 580,
+              "kw17": 620,
+              "kw18": 660,
+              "kw19": 700,
+              "kw20": 1060,
+              "kw21": 1530,
+              "kw22": 1970,
+              "kw23": 2325,
+              "kw24": 2500,
+              "k0": 2.8607E-06,
+              "k1": 1.3679E-06,
+              "k2": 6.6608E-07,
+              "k3": 2.6415E-07,
+              "k4": 9.2894E-08,
+              "k5": 3.4191E-08,
+              "k6": 2.7405E-08,
+              "k7": 2.074E-08,
+              "k8": 1.3731E-08,
+              "k9": 1.0227E-08,
+              "k10": 9.0558E-09,
+              "k11": 9.3912E-09,
+              "k12": 1.1147E-08,
+              "k13": 1.0286E-08,
+              "k14": 9.5781E-09,
+              "k15": 6.9658E-09,
+              "k16": 9.2541E-09,
+              "k17": 1.1877E-08,
+              "k18": 1.2643E-08,
+              "k19": 8.9305E-09,
+              "k20": 1.0137E-08,
+              "k21": 9.839E-08,
+              "k22": 1.0933E-06,
+              "k23": 4.2911E-06,
+              "k24": 8.13E-06
+            },
+            "Text": {
+              "name": "N-BK7",
+              "manufacturer": "SCHOTT",
+              "formula": "formula 2"
+            },
+            "Children": null
+          },
+          "MaterialAfterComponent": {
+            "Kind": "air",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "Coating": {
+            "Kind": "none",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "Interaction": {
+            "Kind": "refractive",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "PhysicalAperture": {
+            "Kind": "circular",
+            "Numbers": {
+              "radius": 7.5
+            },
+            "Text": {},
+            "Children": null
+          },
+          "Scattering": null
+        },
+        "RadiusVariable": false,
+        "ThicknessVariable": false,
+        "SemiDiameterFixed": true,
+        "CoordinateSystem": {
+          "OriginX": 0,
+          "OriginY": 0,
+          "OriginZ": 5,
+          "RotationXDegrees": 0,
+          "RotationYDegrees": 0,
+          "RotationZDegrees": 0
+        },
+        "MechanicalSemiDiameter": null,
+        "MechanicalSemiDiameterSolveCode": 0,
+        "SemiDiameterDefinesPhysicalAperture": false,
+        "ThermalExpansionPpmPerC": 0,
+        "ChipZone": 0
+      },
+      {
+        "Number": 5,
+        "Label": "lens-2:front",
+        "Radius": -86.17906471342683,
+        "Thickness": 2,
+        "Material": "N-F2",
+        "Coating": "None",
+        "SemiDiameter": 8,
+        "Conic": 0,
+        "IsStop": false,
+        "IsReflective": false,
+        "Components": {
+          "GeometryKind": "standard",
+          "MaterialBefore": "Air",
+          "MaterialAfter": "N-F2",
+          "CoatingKind": "none",
+          "InteractionKind": "refractive",
+          "PhysicalApertureKind": "circular",
+          "ScatteringKind": null,
+          "Geometry": {
+            "Kind": "standard",
+            "Numbers": {
+              "radius": -86.17906471342683,
+              "conic": 0
+            },
+            "Text": {},
+            "Children": null
+          },
+          "MaterialBeforeComponent": {
+            "Kind": "air",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "MaterialAfterComponent": {
+            "Kind": "catalog_glass",
+            "Numbers": {
+              "minimumWavelengthNanometers": 365,
+              "maximumWavelengthNanometers": 2500,
+              "c0": 0,
+              "c1": 1.39757037,
+              "c2": 0.00995906143,
+              "c3": 0.159201403,
+              "c4": 0.0546931752,
+              "c5": 1.2686543,
+              "c6": 119.248346,
+              "kw0": 365,
+              "kw1": 370,
+              "kw2": 380,
+              "kw3": 390,
+              "kw4": 400,
+              "kw5": 405,
+              "kw6": 420,
+              "kw7": 436,
+              "kw8": 460,
+              "kw9": 500,
+              "kw10": 546,
+              "kw11": 580,
+              "kw12": 620,
+              "kw13": 660,
+              "kw14": 700,
+              "kw15": 1060,
+              "kw16": 1530,
+              "kw17": 1970,
+              "kw18": 2325,
+              "kw19": 2500,
+              "k0": 3.7398E-06,
+              "k1": 2.1583E-06,
+              "k2": 8.1446E-07,
+              "k3": 3.5713E-07,
+              "k4": 1.7731E-07,
+              "k5": 1.3583E-07,
+              "k6": 6.8574E-08,
+              "k7": 5.2324E-08,
+              "k8": 4.0078E-08,
+              "k9": 2.5671E-08,
+              "k10": 1.396E-08,
+              "k11": 1.2969E-08,
+              "k12": 1.7842E-08,
+              "k13": 2.1114E-08,
+              "k14": 1.7897E-08,
+              "k15": 1.3523E-08,
+              "k16": 1.1332E-07,
+              "k17": 8.0161E-07,
+              "k18": 3.3028E-06,
+              "k19": 5.8407E-06
+            },
+            "Text": {
+              "name": "N-F2",
+              "manufacturer": "SCHOTT",
+              "formula": "formula 2"
+            },
+            "Children": null
+          },
+          "Coating": {
+            "Kind": "none",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "Interaction": {
+            "Kind": "refractive",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "PhysicalAperture": {
+            "Kind": "circular",
+            "Numbers": {
+              "radius": 8
+            },
+            "Text": {},
+            "Children": null
+          },
+          "Scattering": null
+        },
+        "RadiusVariable": false,
+        "ThicknessVariable": false,
+        "SemiDiameterFixed": true,
+        "CoordinateSystem": {
+          "OriginX": 0,
+          "OriginY": 0,
+          "OriginZ": 10,
+          "RotationXDegrees": 0,
+          "RotationYDegrees": 0,
+          "RotationZDegrees": 0
+        },
+        "MechanicalSemiDiameter": 9,
+        "MechanicalSemiDiameterSolveCode": 0,
+        "SemiDiameterDefinesPhysicalAperture": false,
+        "ThermalExpansionPpmPerC": 0,
+        "ChipZone": 0
+      },
+      {
+        "Number": 6,
+        "Label": "lens-2:back",
+        "Radius": 95.18061580923079,
+        "Thickness": 47.02114068152577,
+        "Material": "Air",
+        "Coating": "None",
+        "SemiDiameter": 7.5,
+        "Conic": 0,
+        "IsStop": false,
+        "IsReflective": false,
+        "Components": {
+          "GeometryKind": "standard",
+          "MaterialBefore": "N-F2",
+          "MaterialAfter": "Air",
+          "CoatingKind": "none",
+          "InteractionKind": "refractive",
+          "PhysicalApertureKind": "circular",
+          "ScatteringKind": null,
+          "Geometry": {
+            "Kind": "standard",
+            "Numbers": {
+              "radius": 95.18061580923079,
+              "conic": 0
+            },
+            "Text": {},
+            "Children": null
+          },
+          "MaterialBeforeComponent": {
+            "Kind": "catalog_glass",
+            "Numbers": {
+              "minimumWavelengthNanometers": 365,
+              "maximumWavelengthNanometers": 2500,
+              "c0": 0,
+              "c1": 1.39757037,
+              "c2": 0.00995906143,
+              "c3": 0.159201403,
+              "c4": 0.0546931752,
+              "c5": 1.2686543,
+              "c6": 119.248346,
+              "kw0": 365,
+              "kw1": 370,
+              "kw2": 380,
+              "kw3": 390,
+              "kw4": 400,
+              "kw5": 405,
+              "kw6": 420,
+              "kw7": 436,
+              "kw8": 460,
+              "kw9": 500,
+              "kw10": 546,
+              "kw11": 580,
+              "kw12": 620,
+              "kw13": 660,
+              "kw14": 700,
+              "kw15": 1060,
+              "kw16": 1530,
+              "kw17": 1970,
+              "kw18": 2325,
+              "kw19": 2500,
+              "k0": 3.7398E-06,
+              "k1": 2.1583E-06,
+              "k2": 8.1446E-07,
+              "k3": 3.5713E-07,
+              "k4": 1.7731E-07,
+              "k5": 1.3583E-07,
+              "k6": 6.8574E-08,
+              "k7": 5.2324E-08,
+              "k8": 4.0078E-08,
+              "k9": 2.5671E-08,
+              "k10": 1.396E-08,
+              "k11": 1.2969E-08,
+              "k12": 1.7842E-08,
+              "k13": 2.1114E-08,
+              "k14": 1.7897E-08,
+              "k15": 1.3523E-08,
+              "k16": 1.1332E-07,
+              "k17": 8.0161E-07,
+              "k18": 3.3028E-06,
+              "k19": 5.8407E-06
+            },
+            "Text": {
+              "name": "N-F2",
+              "manufacturer": "SCHOTT",
+              "formula": "formula 2"
+            },
+            "Children": null
+          },
+          "MaterialAfterComponent": {
+            "Kind": "air",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "Coating": {
+            "Kind": "none",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "Interaction": {
+            "Kind": "refractive",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "PhysicalAperture": {
+            "Kind": "circular",
+            "Numbers": {
+              "radius": 7.5
+            },
+            "Text": {},
+            "Children": null
+          },
+          "Scattering": null
+        },
+        "RadiusVariable": false,
+        "ThicknessVariable": false,
+        "SemiDiameterFixed": true,
+        "CoordinateSystem": {
+          "OriginX": 0,
+          "OriginY": 0,
+          "OriginZ": 12,
+          "RotationXDegrees": 0,
+          "RotationYDegrees": 0,
+          "RotationZDegrees": 0
+        },
+        "MechanicalSemiDiameter": null,
+        "MechanicalSemiDiameterSolveCode": 0,
+        "SemiDiameterDefinesPhysicalAperture": false,
+        "ThermalExpansionPpmPerC": 0,
+        "ChipZone": 0
+      },
+      {
+        "Number": 7,
+        "Label": "image",
+        "Radius": 0,
+        "Thickness": 0,
+        "Material": "Air",
+        "Coating": "None",
+        "SemiDiameter": 1,
+        "Conic": 0,
+        "IsStop": false,
+        "IsReflective": false,
+        "Components": {
+          "GeometryKind": "plane",
+          "MaterialBefore": "Air",
+          "MaterialAfter": "Air",
+          "CoatingKind": "none",
+          "InteractionKind": "refractive",
+          "PhysicalApertureKind": null,
+          "ScatteringKind": null,
+          "Geometry": {
+            "Kind": "plane",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "MaterialBeforeComponent": {
+            "Kind": "air",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "MaterialAfterComponent": {
+            "Kind": "air",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "Coating": {
+            "Kind": "none",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "Interaction": {
+            "Kind": "refractive",
+            "Numbers": {},
+            "Text": {},
+            "Children": null
+          },
+          "PhysicalAperture": null,
+          "Scattering": null
+        },
+        "RadiusVariable": false,
+        "ThicknessVariable": false,
+        "SemiDiameterFixed": true,
+        "CoordinateSystem": {
+          "OriginX": 0,
+          "OriginY": 0,
+          "OriginZ": 59.02114068152577,
+          "RotationXDegrees": 0,
+          "RotationYDegrees": 0,
+          "RotationZDegrees": 0
+        },
+        "MechanicalSemiDiameter": null,
+        "MechanicalSemiDiameterSolveCode": 0,
+        "SemiDiameterDefinesPhysicalAperture": false,
+        "ThermalExpansionPpmPerC": 0,
+        "ChipZone": 0
+      }
+    ],
+    "Apodization": null,
+    "FieldDefinition": "Angle",
+    "ObjectSpaceTelecentric": false,
+    "FieldGroupTelecentric": false,
+    "RadiusPickups": [],
+    "SolveSettings": {
+      "DesiredBackFocus": 30,
+      "KeepImageAtBackFocus": false
+    },
+    "MeritOperands": [],
+    "Environment": {
+      "MatchRefractiveIndexData": true,
+      "TemperatureCelsius": 20,
+      "PressureAtmospheres": 1
+    },
+    "GlassCatalogs": [
+      "SCHOTT",
+      "OHARA",
+      "HOYA",
+      "HIKARI",
+      "NIKON-HIKARI",
+      "SUMITA",
+      "CDGM-ZEMAX202309",
+      "CDGM",
+      "CHENGDU",
+      "GBJ",
+      "NHG",
+      "555CHINESES"
+    ],
+    "RayAimingEnabled": true,
+    "ImageSpaceAfocal": false,
+    "ThicknessPickups": [],
+    "SemiDiameterPickups": [],
+    "GlobalReferenceSurfaceNumber": 1,
+    "Polarization": {
+      "Unpolarized": true,
+      "Jx": 1,
+      "Jy": 0,
+      "XPhaseDegrees": 0,
+      "YPhaseDegrees": 0,
+      "ReferenceAxis": "X"
+    }
+  },
+  "BenchmarkTotalTracedRays": 92190
+}

@@ -1,5 +1,5 @@
-using OpticalSystemDesign.Core.Services;
 using OpticalSystemDesign.Core.Optimization;
+using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Core.Tolerancing;
 

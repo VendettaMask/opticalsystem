@@ -1,5 +1,6 @@
 #requires -Version 7.0
 $ErrorActionPreference = 'Stop'
+. (Join-Path $PSScriptRoot '../lib/initial-structure-test-results.ps1')
 $runner = Join-Path $PSScriptRoot '../test-initial-structure-partition.ps1'
 $plans = @('contracts', 'survey-first', 'survey-second') | ForEach-Object {
     (& $runner -Partition $_ -PlanOnly) | ConvertFrom-Json
@@ -19,3 +20,24 @@ foreach ($plan in $plans | Select-Object -Skip 1) {
     }
 }
 [pscustomobject]@{ passed = 3; failed = 0; surveyCases = $actual.Count; droppedCases = 0 }
+
+$hardware = 'OpticalSystemDesign.InitialStructure.Tests.AutoLensGpuTests.GeneratedMultiElementSeedEveryGpuHitMatchesCpu'
+function Result([string]$Name, [string]$Outcome, [string]$Summary = 'Completed') {
+    [xml]"<TestRun><Results><UnitTestResult testName='$Name' outcome='$Outcome'/></Results><ResultSummary outcome='$Summary'/></TestRun>"
+}
+Assert-InitialStructureTestResults (Result 'ordinary' 'Passed') 'contracts'
+Assert-InitialStructureTestResults (Result $hardware 'NotExecuted') 'contracts'
+$rejected = 0
+foreach ($sample in @(
+    @{ Trx = (Result 'ordinary' 'Failed'); Partition = 'contracts' },
+    @{ Trx = (Result 'ordinary' 'NotExecuted'); Partition = 'contracts' },
+    @{ Trx = (Result $hardware 'NotExecuted'); Partition = 'survey-first' },
+    @{ Trx = (Result $hardware 'Failed'); Partition = 'contracts' },
+    @{ Trx = (Result 'ordinary' 'Passed' 'Aborted'); Partition = 'contracts' },
+    @{ Trx = ([xml]"<TestRun><Results/><ResultSummary outcome='Completed'/></TestRun>"); Partition = 'contracts' }
+)) {
+    try { Assert-InitialStructureTestResults @sample }
+    catch { $rejected++; continue }
+    throw 'Invalid, empty, aborted or unexpectedly skipped test results must fail.'
+}
+[pscustomobject]@{ outcomeChecks = 8; rejected = $rejected; failed = 0 }

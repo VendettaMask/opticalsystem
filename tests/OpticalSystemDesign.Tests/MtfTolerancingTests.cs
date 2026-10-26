@@ -1,8 +1,8 @@
 using System.Globalization;
+using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Application.Services;
-using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Services;

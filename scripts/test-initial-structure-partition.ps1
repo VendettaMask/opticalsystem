@@ -9,6 +9,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $repository = Split-Path -Parent $PSScriptRoot
+. (Join-Path $PSScriptRoot 'lib/initial-structure-test-results.ps1')
 $sourcePath = Join-Path $repository 'labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/FlatStartSearchTests.cs'
 $method = 'FrozenSpecificationSurveyKeepsTargetsAndReportsActualFamilyOutcomes'
 $source = [IO.File]::ReadAllText($sourcePath)
@@ -44,10 +45,7 @@ try {
     if ($testExit -ne 0) { exit $testExit }
     [xml]$trx = [IO.File]::ReadAllText((Join-Path $results $logName))
     $cases = @($trx.TestRun.Results.UnitTestResult)
-    if ($trx.TestRun.ResultSummary.outcome -ne 'Completed' -or $cases.Count -eq 0 `
-        -or @($cases | Where-Object { $_.outcome -ne 'Passed' }).Count -ne 0) {
-        throw 'The selected partition did not complete with every selected case passing.'
-    }
+    Assert-InitialStructureTestResults -Trx $trx -Partition $Partition
     if ($Partition -ne 'contracts') {
         if ($cases.Count -ne $selected.Count) { throw 'Survey partition coverage changed or the filter selected no tests.' }
         foreach ($name in $selected) {

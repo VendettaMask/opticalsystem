@@ -100,8 +100,11 @@ internal sealed partial class AnalysisService
             options.All(option => select(option).HasValue) ? options.Max(option => select(option)) : null;
         return options[0] with
         {
-            XMinimum = Minimum(option => option.XMinimum), XMaximum = Maximum(option => option.XMaximum),
-            YMinimum = Minimum(option => option.YMinimum), YMaximum = Maximum(option => option.YMaximum), ShowLegend = true
+            XMinimum = Minimum(option => option.XMinimum),
+            XMaximum = Maximum(option => option.XMaximum),
+            YMinimum = Minimum(option => option.YMinimum),
+            YMaximum = Maximum(option => option.YMaximum),
+            ShowLegend = true
         };
     }
 

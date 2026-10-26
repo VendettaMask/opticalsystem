@@ -1,0 +1,125 @@
+{
+  "date": "2026-10-26",
+  "repository": "VendettaMask/opticalsystem",
+  "baseCommit": "4b9ea06f3ac0348eacd48d688b1dc4ea71e25a82",
+  "scope": "Test conditions and CI only; no numerical algorithm experiment or energy tolerance change.",
+  "configuration": "Release",
+  "platform": "Windows local; Linux/macOS runtime validation pending",
+  "changesCommitted": false,
+  "changesPushed": false,
+  "newFullCiRun": false,
+  "fullCiGreen": false,
+  "passingRepairGroups": [
+    {
+      "group": "main-targeted",
+      "evidence": "final-test-only.trx",
+      "sourceRunOutcome": "Completed",
+      "selected": 252,
+      "passed": 252,
+      "failed": 0,
+      "skipped": 0,
+      "excludedFromThisGroup": ""
+    },
+    {
+      "group": "autolens-contract-conditions",
+      "evidence": "autolens-conditions.trx",
+      "sourceRunOutcome": "Completed",
+      "selected": 2,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "excludedFromThisGroup": ""
+    },
+    {
+      "group": "secant-strict-request",
+      "evidence": "secant-consistent-target-budget.trx",
+      "sourceRunOutcome": "Completed",
+      "selected": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "excludedFromThisGroup": ""
+    },
+    {
+      "group": "full-target-and-progressive-release",
+      "evidence": "legacy-solver-conditions.trx",
+      "sourceRunOutcome": "Failed",
+      "selected": 3,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "excludedFromThisGroup": "*SecantLeastSquaresTests*"
+    },
+    {
+      "group": "offline-comparison-and-real-png",
+      "evidence": "comparison-platform-smoke.trx",
+      "sourceRunOutcome": "Completed",
+      "selected": 9,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "excludedFromThisGroup": ""
+    }
+  ],
+  "distinctPassingRepairCases": 270,
+  "priorSolverRunNote": "legacy-solver-conditions.trx retains 2 failing Secant rows at the earlier budget. All four Secant rows are superseded by secant-consistent-target-budget.trx. Only its three other passing rows are selected above.",
+  "strictEnergy": {
+    "evidence": "energy-captured-inputs.trx",
+    "total": 30,
+    "passed": 22,
+    "failed": 8,
+    "failingCases": [
+      "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"isolate-w8\", series: 0)",
+      "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"0014-all-waves\", series: 1)",
+      "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"apo-poly64\", series: 1)",
+      "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"isolate-w8\", series: 1)",
+      "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"0014-all-waves\", series: 0)",
+      "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"0308-all-waves\", series: 0)",
+      "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"0308-all-waves\", series: 1)",
+      "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"apo-poly64\", series: 0)"
+    ],
+    "curveTolerance": 1E-08,
+    "geometryInputTolerance": 1E-10,
+    "otherHistoricEnergyFailuresNotRerun": 26
+  },
+  "partitionChecks": [
+    {
+      "passed": 3,
+      "failed": 0,
+      "surveyCases": 12,
+      "droppedCases": 0
+    },
+    {
+      "outcomeChecks": 8,
+      "rejected": 6,
+      "failed": 0
+    }
+  ],
+  "workflowParse": {
+    "yaml": "parsed",
+    "jobCount": 10,
+    "configuration": "Release"
+  },
+  "format": {
+    "command": "dotnet format OpticalSystemDesign.slnx --verify-no-changes --no-restore",
+    "exitCode": 0,
+    "verifiedAt": "2026-10-26T11:38:40.8099903+08:00"
+  },
+  "lockedRestore": {
+    "passed": true,
+    "evidence": "logs/ci-restore-locked.log"
+  },
+  "frozen": {
+    "evidence": "frozen-integrity.json",
+    "matched": 2668,
+    "count": 2668,
+    "unchanged": true
+  },
+  "originalFailuresRetained": true,
+  "documentation": {
+    "evidence": "documentation-final.json",
+    "guideRepeatedParagraphGroups": 0,
+    "brokenLinks": 0,
+    "passed": true
+  }
+}

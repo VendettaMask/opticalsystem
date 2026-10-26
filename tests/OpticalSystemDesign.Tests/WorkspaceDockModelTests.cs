@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+using System.Reflection;
 using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.VisualTree;
@@ -6,14 +8,12 @@ using Dock.Model.Controls;
 using Dock.Model.Core;
 using Dock.Model.Mvvm.Controls;
 using Dock.Model.Mvvm.Core;
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Manufacturing;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
-using System.Collections.ObjectModel;
-using System.Reflection;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -521,147 +521,158 @@ public sealed class WorkspaceDockModelTests
     [Fact]
     public async Task NonSequentialThreeDimensionalViewerPreparesLayoutRaysAutomatically()
     {
-        using var application = WorkbenchApplication.Create("blank");
-        var sourceId = application.NonSequential.AddObject(NonSequentialObjectKind.SourcePoint);
-        var detectorId = application.NonSequential.AddObject(NonSequentialObjectKind.DetectorRectangle);
-        var detector = application.NonSequential.GetDocument().Objects.Single(item => item.Id == detectorId);
-        application.NonSequential.UpdateObject(new NonSequentialObjectUpdateDto(
-            detector.Id,
-            detector.Enabled,
-            detector.Visible,
-            detector.Kind,
-            detector.Name,
-            detector.ReferenceObjectId,
-            detector.ContainingObjectId,
-            detector.X,
-            detector.Y,
-            20,
-            detector.TiltXDegrees,
-            detector.TiltYDegrees,
-            detector.TiltZDegrees,
-            detector.Parameters));
-        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
-        using var manager = new PanelManager(application, new AppSettings());
+        using var ui = SafeHeadlessUnitTestSession.StartNew(typeof(OpticalSystemDesign.App.App));
+        await ui.Dispatch(async () =>
+        {
+            using var application = WorkbenchApplication.Create("blank");
+            var sourceId = application.NonSequential.AddObject(NonSequentialObjectKind.SourcePoint);
+            var detectorId = application.NonSequential.AddObject(NonSequentialObjectKind.DetectorRectangle);
+            var detector = application.NonSequential.GetDocument().Objects.Single(item => item.Id == detectorId);
+            application.NonSequential.UpdateObject(new NonSequentialObjectUpdateDto(
+                detector.Id,
+                detector.Enabled,
+                detector.Visible,
+                detector.Kind,
+                detector.Name,
+                detector.ReferenceObjectId,
+                detector.ContainingObjectId,
+                detector.X,
+                detector.Y,
+                20,
+                detector.TiltXDegrees,
+                detector.TiltYDegrees,
+                detector.TiltZDegrees,
+                detector.Parameters));
+            application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+            using var manager = new PanelManager(application, new AppSettings());
 
-        manager.ShowViewer(OpticSceneViewMode.ThreeDimensional);
-        Assert.Single(
-            manager.Factory.OpenDocuments(),
-            item => item.Id == "document:viewer-3d");
+            manager.ShowViewer(OpticSceneViewMode.ThreeDimensional);
+            Assert.Single(
+                manager.Factory.OpenDocuments(),
+                item => item.Id == "document:viewer-3d");
 
-        Assert.Null(application.NonSequentialAnalysis.GetCurrentSession());
-        var session = await WaitForFreshLayoutSessionAsync(application);
-        Assert.True(session.BranchCount > 0);
-        Assert.False(session.IsStale);
-        var scene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
-        Assert.NotEmpty(Assert.IsType<Scene3Dto>(scene.ThreeDimensional).Rays);
-        Assert.True(Assert.IsType<NonSequentialLayoutResultDto>(
-            scene.NonSequentialLayoutResult).HasResult);
+            Assert.Null(application.NonSequentialAnalysis.GetCurrentSession());
+            var session = await WaitForFreshLayoutSessionAsync(application);
+            Assert.True(session.BranchCount > 0);
+            Assert.False(session.IsStale);
+            var scene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+            Assert.NotEmpty(Assert.IsType<Scene3Dto>(scene.ThreeDimensional).Rays);
+            Assert.True(Assert.IsType<NonSequentialLayoutResultDto>(
+                scene.NonSequentialLayoutResult).HasResult);
 
-        var reused = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
-        Assert.Equal(session.Id, reused.Id);
+            var reused = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+            Assert.Equal(session.Id, reused.Id);
 
-        var source = application.NonSequential.GetDocument().Objects.Single(item => item.Id == sourceId);
-        application.NonSequential.UpdateObject(new NonSequentialObjectUpdateDto(
-            source.Id,
-            source.Enabled,
-            source.Visible,
-            source.Kind,
-            source.Name,
-            source.ReferenceObjectId,
-            source.ContainingObjectId,
-            source.X + 1,
-            source.Y,
-            source.Z,
-            source.TiltXDegrees,
-            source.TiltYDegrees,
-            source.TiltZDegrees,
-            source.Parameters));
-        Assert.True(application.NonSequentialAnalysis.GetCurrentLayoutSession()!.IsStale);
-        Assert.Equal(session.Id, application.NonSequentialAnalysis.GetCurrentLayoutSession()!.Id);
-        Assert.True(File.Exists(session.RayDatabasePath));
-        var staleScene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
-        Assert.Empty(Assert.IsType<Scene3Dto>(staleScene.ThreeDimensional).Rays);
+            var source = application.NonSequential.GetDocument().Objects.Single(item => item.Id == sourceId);
+            application.NonSequential.UpdateObject(new NonSequentialObjectUpdateDto(
+                source.Id,
+                source.Enabled,
+                source.Visible,
+                source.Kind,
+                source.Name,
+                source.ReferenceObjectId,
+                source.ContainingObjectId,
+                source.X + 1,
+                source.Y,
+                source.Z,
+                source.TiltXDegrees,
+                source.TiltYDegrees,
+                source.TiltZDegrees,
+                source.Parameters));
+            Assert.True(application.NonSequentialAnalysis.GetCurrentLayoutSession()!.IsStale);
+            Assert.Equal(session.Id, application.NonSequentialAnalysis.GetCurrentLayoutSession()!.Id);
+            Assert.True(File.Exists(session.RayDatabasePath));
+            var staleScene = await application.Visualization.BuildSceneAsync(SceneDimension.ThreeDimensional);
+            Assert.Empty(Assert.IsType<Scene3Dto>(staleScene.ThreeDimensional).Rays);
+        }, CancellationToken.None);
     }
 
     [Fact]
     public async Task OpeningViewerRefreshesExistingStaleManagedLayoutDatabase()
     {
-        using var application = WorkbenchApplication.Create("blank");
-        var sourceId = application.NonSequential.AddObject(NonSequentialObjectKind.SourcePoint);
-        application.NonSequential.AddObject(NonSequentialObjectKind.DetectorRectangle);
-        application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
-#pragma warning disable xUnit1031 // This headless-Avalonia test must remain on its UI test thread after preparation.
-        var session = application.NonSequentialAnalysis
-            .PrepareLayoutSessionAsync()
-            .GetAwaiter()
-            .GetResult();
-#pragma warning restore xUnit1031
-        var source = application.NonSequential.GetDocument().Objects.Single(item => item.Id == sourceId);
-        application.NonSequential.UpdateObject(new NonSequentialObjectUpdateDto(
-            source.Id,
-            source.Enabled,
-            source.Visible,
-            source.Kind,
-            source.Name,
-            source.ReferenceObjectId,
-            source.ContainingObjectId,
-            source.X + 1,
-            source.Y,
-            source.Z,
-            source.TiltXDegrees,
-            source.TiltYDegrees,
-            source.TiltZDegrees,
-            source.Parameters));
-        Assert.True(application.NonSequentialAnalysis.GetCurrentLayoutSession()!.IsStale);
+        using var ui = SafeHeadlessUnitTestSession.StartNew(typeof(OpticalSystemDesign.App.App));
+        await ui.Dispatch(async () =>
+        {
+            using var application = WorkbenchApplication.Create("blank");
+            var sourceId = application.NonSequential.AddObject(NonSequentialObjectKind.SourcePoint);
+            application.NonSequential.AddObject(NonSequentialObjectKind.DetectorRectangle);
+            application.Modes.SwitchTo(OpticalWorkbenchMode.NonSequential);
+            var session = await application.NonSequentialAnalysis.PrepareLayoutSessionAsync();
+            var source = application.NonSequential.GetDocument().Objects.Single(item => item.Id == sourceId);
+            application.NonSequential.UpdateObject(new NonSequentialObjectUpdateDto(
+                source.Id,
+                source.Enabled,
+                source.Visible,
+                source.Kind,
+                source.Name,
+                source.ReferenceObjectId,
+                source.ContainingObjectId,
+                source.X + 1,
+                source.Y,
+                source.Z,
+                source.TiltXDegrees,
+                source.TiltYDegrees,
+                source.TiltZDegrees,
+                source.Parameters));
+            Assert.True(application.NonSequentialAnalysis.GetCurrentLayoutSession()!.IsStale);
 
-        using var manager = new PanelManager(application, new AppSettings());
-        manager.ShowViewer(OpticSceneViewMode.ThreeDimensional);
+            using var manager = new PanelManager(application, new AppSettings());
+            manager.ShowViewer(OpticSceneViewMode.ThreeDimensional);
 
-        var afterOpen = await WaitForFreshLayoutSessionAsync(application, session.Id);
-        Assert.NotEqual(session.RayDatabasePath, afterOpen.RayDatabasePath);
-        Assert.True(File.Exists(afterOpen.RayDatabasePath));
+            var afterOpen = await WaitForFreshLayoutSessionAsync(application, session.Id);
+            Assert.NotEqual(session.RayDatabasePath, afterOpen.RayDatabasePath);
+            Assert.True(File.Exists(afterOpen.RayDatabasePath));
+        }, CancellationToken.None);
     }
 
     [Fact]
-    public void ManufacturingDocumentsCreateTheirExpectedPanels()
+    public async Task ManufacturingDocumentsCreateTheirExpectedPanels()
     {
-        using var application = WorkbenchApplication.Create("cooke");
-        var factory = new WorkspaceDockFactory(application, new AppSettings());
-        var layout = factory.CreateLayout();
-        factory.InitLayout(layout);
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OpticalSystemDesign.App.App));
+        await session.Dispatch(() =>
+        {
+            using var application = WorkbenchApplication.Create("cooke");
+            var factory = new WorkspaceDockFactory(application, new AppSettings());
+            var layout = factory.CreateLayout();
+            factory.InitLayout(layout);
 
-        var manufacturability = factory.OpenDocument(new WorkspaceDocumentDescriptor(
-            "document:manufacturability",
-            WorkspaceDocumentTypes.Manufacturability,
-            "可加工性评估"));
-        var drawing = factory.OpenDocument(new WorkspaceDocumentDescriptor(
-            "document:optical-drawing",
-            WorkspaceDocumentTypes.OpticalDrawing,
-            "光学制图"));
+            var manufacturability = factory.OpenDocument(new WorkspaceDocumentDescriptor(
+                "document:manufacturability",
+                WorkspaceDocumentTypes.Manufacturability,
+                "可加工性评估"));
+            var drawing = factory.OpenDocument(new WorkspaceDocumentDescriptor(
+                "document:optical-drawing",
+                WorkspaceDocumentTypes.OpticalDrawing,
+                "光学制图"));
 
-        Assert.IsType<ManufacturabilityPanel>(manufacturability.Context);
-        Assert.IsType<OpticalDrawingPanel>(drawing.Context);
-        factory.DisposeContent();
+            Assert.IsType<ManufacturabilityPanel>(manufacturability.Context);
+            Assert.IsType<OpticalDrawingPanel>(drawing.Context);
+            factory.DisposeContent();
+        }, CancellationToken.None);
     }
 
     [Fact]
-    public void OpticalDrawingNationalStandardEditionsUseSeparateStableDocuments()
+    public async Task OpticalDrawingNationalStandardEditionsUseSeparateStableDocuments()
     {
-        using var application = WorkbenchApplication.Create("cooke");
-        using var manager = new PanelManager(application, new AppSettings());
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OpticalSystemDesign.App.App));
+        await session.Dispatch(() =>
+        {
+            using var application = WorkbenchApplication.Create("cooke");
+            using var manager = new PanelManager(application, new AppSettings());
 
-        manager.ShowOpticalDrawing(OpticalDrawingStandard.GbT13323_1991);
-        manager.ShowOpticalDrawing(OpticalDrawingStandard.GbT13323_2009);
+            manager.ShowOpticalDrawing(OpticalDrawingStandard.GbT13323_1991);
+            manager.ShowOpticalDrawing(OpticalDrawingStandard.GbT13323_2009);
 
-        var legacy = manager.Factory.Descriptor("document:optical-drawing-gb-1991");
-        var current = manager.Factory.Descriptor("document:optical-drawing-gb");
+            var legacy = manager.Factory.Descriptor("document:optical-drawing-gb-1991");
+            var current = manager.Factory.Descriptor("document:optical-drawing-gb");
 
-        Assert.NotNull(legacy);
-        Assert.NotNull(current);
-        Assert.Equal("光学制图 · GB/T 13323—1991", legacy.Title);
-        Assert.Equal("光学制图 · GB/T 13323—2009", current.Title);
-        Assert.Equal(nameof(OpticalDrawingStandard.GbT13323_1991), legacy.Settings!["standard"]);
-        Assert.Equal(nameof(OpticalDrawingStandard.GbT13323_2009), current.Settings!["standard"]);
+            Assert.NotNull(legacy);
+            Assert.NotNull(current);
+            Assert.Equal("光学制图 · GB/T 13323—1991", legacy.Title);
+            Assert.Equal("光学制图 · GB/T 13323—2009", current.Title);
+            Assert.Equal(nameof(OpticalDrawingStandard.GbT13323_1991), legacy.Settings!["standard"]);
+            Assert.Equal(nameof(OpticalDrawingStandard.GbT13323_2009), current.Settings!["standard"]);
+        }, CancellationToken.None);
     }
 
     [Fact]

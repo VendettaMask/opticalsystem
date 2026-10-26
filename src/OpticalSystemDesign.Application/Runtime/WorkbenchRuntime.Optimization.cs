@@ -4,8 +4,8 @@ using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Domain;
-using OpticalSystemDesign.Core.Multiconfig;
 using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Core.Multiconfig;
 using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Services;
 

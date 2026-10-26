@@ -1,12 +1,12 @@
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Services;
-using OpticalSystemDesign.Application.Runtime;
+using System.Globalization;
 using OpticalSystemDesign.App.Panels;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Runtime;
+using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Tolerancing;
-using System.Globalization;
 
 namespace OpticalSystemDesign.Tests;
 

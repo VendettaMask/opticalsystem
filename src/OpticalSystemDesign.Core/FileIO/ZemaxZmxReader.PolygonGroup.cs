@@ -28,31 +28,31 @@ internal static partial class ZemaxZmxReader
         var vertices = new Dictionary<int, Vector3D>();
         var faces = new List<PolygonGroupGeometry.Face>();
         var port = new Vector3D(source.Parameter(0), source.Parameter(1), source.Parameter(2));
-        var portRotation = RotationMatrix(source.Parameter(3),source.Parameter(4),source.Parameter(5));
+        var portRotation = RotationMatrix(source.Parameter(3), source.Parameter(4), source.Parameter(5));
         var pose = source.PolygonPose;
         var objectRotation = RotationMatrix(pose[3], pose[4], pose[5]);
-        var objectPosition = new Vector3D(pose[0],pose[1],pose[2]);
+        var objectPosition = new Vector3D(pose[0], pose[1], pose[2]);
         foreach (var line in source.PolygonPayload!.Split('\n'))
         {
-            var t = line.Split('!',2)[0].Split((char[]?)null,StringSplitOptions.RemoveEmptyEntries);
-            if(t.Length == 0) continue;
-            if(t[0] == "V" && t.Length == 5)
+            var t = line.Split('!', 2)[0].Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries);
+            if (t.Length == 0) continue;
+            if (t[0] == "V" && t.Length == 5)
             {
-                var v = new Vector3D(RequiredDouble(t,2,"V"),RequiredDouble(t,3,"V"),RequiredDouble(t,4,"V"));
-                vertices.Add(RequiredInt(t,1,"V"), portRotation.Transpose().Transform(objectPosition + objectRotation.Transform(v * source.PolygonScale) - port));
+                var v = new Vector3D(RequiredDouble(t, 2, "V"), RequiredDouble(t, 3, "V"), RequiredDouble(t, 4, "V"));
+                vertices.Add(RequiredInt(t, 1, "V"), portRotation.Transpose().Transform(objectPosition + objectRotation.Transform(v * source.PolygonScale) - port));
             }
-            else if(t[0] is "T" or "R")
+            else if (t[0] is "T" or "R")
             {
                 var count = t[0] == "T" ? 3 : 4;
-                if(t.Length != count+2 && t.Length != count+3) throw new InvalidDataException("Unsupported polygon face record.");
-                var type=RequiredInt(t,count+1,t[0]);
-                if(type is < -1 or > 1 || (t.Length == count+3 && RequiredInt(t,count+2,t[0]) < 0))
+                if (t.Length != count + 2 && t.Length != count + 3) throw new InvalidDataException("Unsupported polygon face record.");
+                var type = RequiredInt(t, count + 1, t[0]);
+                if (type is < -1 or > 1 || (t.Length == count + 3 && RequiredInt(t, count + 2, t[0]) < 0))
                     throw new InvalidDataException("Invalid polygon interaction flag or face group.");
-                faces.Add(new(Enumerable.Range(1,count).Select(i=>vertices[RequiredInt(t,i,t[0])]).ToArray(),type<0,type>0));
+                faces.Add(new(Enumerable.Range(1, count).Select(i => vertices[RequiredInt(t, i, t[0])]).ToArray(), type < 0, type > 0));
             }
-            else if(t[0] is "I" or "C" or "N") continue; // Cosmetic edge/name/group labels.
-            else throw new NotSupportedException("Unsupported polygon object record: "+t[0]);
-            if(vertices.Count > 16384 || faces.Count > 4096) throw new InvalidDataException("Polygon object exceeds geometry budget.");
+            else if (t[0] is "I" or "C" or "N") continue; // Cosmetic edge/name/group labels.
+            else throw new NotSupportedException("Unsupported polygon object record: " + t[0]);
+            if (vertices.Count > 16384 || faces.Count > 4096) throw new InvalidDataException("Polygon object exceeds geometry budget.");
         }
         return new PolygonGroupGeometry(faces, optic.Materials.Resolve(source.PolygonMaterial));
     }

@@ -101,7 +101,9 @@ public sealed partial class MainWindow
         foreach (var control in controls) content.Children.Add(control);
         return Named(new Expander
         {
-            Header = title, Content = content, IsExpanded = false,
+            Header = title,
+            Content = content,
+            IsExpanded = false,
             FontSize = DisplayTypography.BodySmall,
             HorizontalAlignment = HorizontalAlignment.Stretch,
             HorizontalContentAlignment = HorizontalAlignment.Stretch

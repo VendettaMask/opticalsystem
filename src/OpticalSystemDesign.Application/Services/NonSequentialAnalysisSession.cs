@@ -137,13 +137,14 @@ internal abstract class NonSequentialResultSession : IDisposable
             && candidatePath.Equals(selection.Path, StringComparison.Ordinal);
     }
 
-    public NonSequentialTraceSessionDto? Snapshot(NonSequentialDocument document, long revision)
+    public NonSequentialTraceSessionDto? Snapshot(NonSequentialDocument document, long revision,
+        OpticalSystemDesign.Core.Materials.MaterialRegistry? materials = null)
     {
         lock (_gate)
         {
             if (_selection is null || !File.Exists(_selection.Path)) return null;
             var stale = !_selection.Session.SceneHash.Equals(
-                NonSequentialSceneHasher.Compute(document),
+                NonSequentialSceneHasher.Compute(document, materials),
                 StringComparison.OrdinalIgnoreCase);
             return _selection.Session with
             {
@@ -166,13 +167,14 @@ internal abstract class NonSequentialResultSession : IDisposable
     public NonSequentialLayoutBranchSet? LoadLayoutBranches(
         NonSequentialDocument document,
         bool includeStale = false,
-        int maximumCount = 2_000)
+        int maximumCount = 2_000,
+        OpticalSystemDesign.Core.Materials.MaterialRegistry? materials = null)
     {
         var selection = SelectionSnapshot();
         if (selection is null || !File.Exists(selection.Path)) return null;
         using var stream = new FileStream(selection.Path, FileMode.Open, FileAccess.Read, FileShare.Read);
         using var reader = new NonSequentialRayDatabaseReader(stream);
-        var currentSceneHash = NonSequentialSceneHasher.Compute(document);
+        var currentSceneHash = NonSequentialSceneHasher.Compute(document, materials);
         var stale = !reader.Header.SceneHash.Equals(
             currentSceneHash,
             StringComparison.OrdinalIgnoreCase);
@@ -199,13 +201,14 @@ internal abstract class NonSequentialResultSession : IDisposable
 
     public IReadOnlyList<NonSequentialDetectorFrame>? ReconstructDetectors(
         NonSequentialDocument document,
-        Guid? sourceObjectId = null)
+        Guid? sourceObjectId = null,
+        OpticalSystemDesign.Core.Materials.MaterialRegistry? materials = null)
     {
         var selection = SelectionSnapshot();
         if (selection is null || !File.Exists(selection.Path)) return null;
         using var stream = new FileStream(selection.Path, FileMode.Open, FileAccess.Read, FileShare.Read);
         using var reader = new NonSequentialRayDatabaseReader(stream);
-        if (reader.IsStale(document)) return null;
+        if (reader.IsStale(document, materials)) return null;
         var filter = NonSequentialPathFilter.Parse(selection.FilterExpression);
         return NonSequentialDetectorReconstruction.Reconstruct(
             document,

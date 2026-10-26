@@ -1,0 +1,252 @@
+{
+  "date": "2026-10-26",
+  "scope": "10 user-prioritized reliability defect groups",
+  "gitHead": "4b9ea06f3ac0348eacd48d688b1dc4ea71e25a82",
+  "sharedDirtyWorkspace": true,
+  "issues": [
+    "NEW-30",
+    "first-round commercial catalog deletion",
+    "NEW-29",
+    "NEW-12",
+    "NEW-36",
+    "NEW-19",
+    "NEW-25",
+    "NEW-26",
+    "NEW-01",
+    "NEW-05",
+    "NEW-23",
+    "NEW-24",
+    "NEW-09",
+    "NEW-10"
+  ],
+  "tests": {
+    "configuration": "Release",
+    "defaultBuildOutputs": true,
+    "total": 181,
+    "passed": 181,
+    "failed": 0,
+    "skipped": 0,
+    "newRegressionCases": 26,
+    "trx": "priority-reliability-final.trx",
+    "log": "priority-reliability-final.log",
+    "fullSuiteRun": false,
+    "filter": "FullyQualifiedName~PriorityDataSafetyTests|FullyQualifiedName~PriorityPhysicsReliabilityTests|FullyQualifiedName~NonSequentialStrayLightTests|FullyQualifiedName~NonSequentialDocumentTests|FullyQualifiedName~HighPerformanceTracingTests|FullyQualifiedName~AuditReliabilityFixTests|FullyQualifiedName~LensLibraryTests|FullyQualifiedName~OptimizationRouteTests|FullyQualifiedName~CameraImagingServiceTests|FullyQualifiedName~DocumentFormatBoundaryTests|FullyQualifiedName~GradientIndexTransportTests.CacheIsSharedForEquivalent"
+  },
+  "failedHistory": [
+    "first-data-safety.trx: two malformed semicolon-delimited import fixtures, corrected to newlines",
+    "priority-reliability.log: missing test namespace import, corrected",
+    "priority-reliability-second.trx: invalid synthetic mesh SHA length, corrected to 64 characters"
+  ],
+  "frozen": {
+    "source": "HEAD",
+    "commit": "4b9ea06f3ac0348eacd48d688b1dc4ea71e25a82",
+    "count": 2668,
+    "matched": 2668,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true,
+    "mismatches": [],
+    "relocationMap": {
+      "path": "tools/validation/frozen-evidence-relocations.json",
+      "count": 4,
+      "expectedSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+      "actualSha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+      "gitBlob": "54fb7863a30f8808fd335a62332dd3301c1243ea",
+      "gitLinkPath": null,
+      "matches": true
+    },
+    "relocations": [
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+        "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+        "actualSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+        "gitBlob": "8ce33ef8a9c26d3b26cfef84d8f88e03acf30286",
+        "bytes": 10182,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+        "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+        "actualSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+        "gitBlob": "16aefa0dc68de132b63abb9260bac174ad652b7b",
+        "bytes": 6098,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+        "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+        "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+        "actualSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+        "gitBlob": "31bef72740c8acfb69c3ade3e0c03cc2a2f63b7a",
+        "bytes": 2010,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      },
+      {
+        "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+        "resolvedPath": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+        "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "actualSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+        "gitBlob": "1356ccedaee37e9e41da3c9074ae375dbca33bab",
+        "bytes": 17236,
+        "originalPathPresent": false,
+        "gitLinkPath": null,
+        "matches": true
+      }
+    ],
+    "workingTree": {
+      "count": 2668,
+      "matched": 2668,
+      "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+      "unchanged": true,
+      "mismatches": [],
+      "relocationMap": {
+        "path": "tools/validation/frozen-evidence-relocations.json",
+        "sha256": "6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e",
+        "count": 4
+      },
+      "relocations": [
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/beam-expander-266nm-6x.zmx",
+          "expectedSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+          "actualSha256": "c1397ba987f38dcf7e4de11c8539fc98b54a4a7139f634613acb8e1874eba3c0",
+          "matches": true
+        },
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zemax-2026-r1-official-merit-operand-catalog.json",
+          "expectedSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+          "actualSha256": "b511c2f841a76000576c64d38a58ac0e89148cb01bf4b0619c0624aa8a6f0335",
+          "matches": true
+        },
+        {
+          "path": "tests/OptilandWorkbench.Tests/Fixtures/zmax_38668.ZMX",
+          "resolvedPath": "tests/OpticalSystemDesign.Tests/Fixtures/zmax_38668.ZMX",
+          "expectedSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+          "actualSha256": "8407918b31b4addd03bc0207368ac3571be43549aade2f5d395efe703bc22684",
+          "matches": true
+        },
+        {
+          "path": "tools/OptilandWorkbench.ZemaxComparison/comparison-settings.json",
+          "resolvedPath": "validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json",
+          "expectedSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+          "actualSha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+          "matches": true
+        }
+      ]
+    }
+  },
+  "formatting": {
+    "appliedExitCode": 0,
+    "verification": "passed",
+    "log": "format-verify.log",
+    "scope": [
+      "src/OpticalSystemDesign.App/MainWindow.cs",
+      "src/OpticalSystemDesign.App/Services/AppSettings.cs",
+      "src/OpticalSystemDesign.Application/Services/CameraImagingService.cs",
+      "src/OpticalSystemDesign.Application/Services/CommercialLensCatalogStore.cs",
+      "src/OpticalSystemDesign.Application/Services/NonSequentialAnalysisService.cs",
+      "src/OpticalSystemDesign.Core/FileIO/CommercialFormatIO.cs",
+      "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDetectorReconstruction.cs",
+      "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDetectorPixels.cs",
+      "src/OpticalSystemDesign.Core/NonSequential/NonSequentialRayDatabase.cs",
+      "src/OpticalSystemDesign.Core/NonSequential/NonSequentialTracingEngine.cs",
+      "src/OpticalSystemDesign.Core/Optic.cs",
+      "src/OpticalSystemDesign.Core/Optimization/NumericalOptimizers.cs",
+      "src/OpticalSystemDesign.Core/Raytrace/RayTraceCache.cs",
+      "src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.cs",
+      "tests/OpticalSystemDesign.Tests/PriorityDataSafetyTests.cs",
+      "tests/OpticalSystemDesign.Tests/PriorityPhysicsReliabilityTests.cs"
+    ],
+    "verificationExitCode": 0
+  },
+  "documentation": {
+    "evidence": "documentation-final.json",
+    "status": "passed",
+    "exitCode": 0,
+    "note": "Strict check: no broken links, fence issues or local-only links; no repeated guide paragraphs."
+  },
+  "sources": [
+    {
+      "sha256": "b3941e8678f73c471ee733e17104a2e9f5a75f9d9e025cb576bfa192c143b715",
+      "path": "src/OpticalSystemDesign.App/MainWindow.cs"
+    },
+    {
+      "sha256": "c9b2b549890b8c5cb419968e17fb61b922c662d29a81386c943b19a3697c7419",
+      "path": "src/OpticalSystemDesign.App/Services/AppSettings.cs"
+    },
+    {
+      "sha256": "8c7efb47594cfec4fbcdd039017c5d81f7957fd2dac1913eb50a876404605dc0",
+      "path": "src/OpticalSystemDesign.Application/Services/CameraImagingService.cs"
+    },
+    {
+      "sha256": "fa3cfac416e39f74833b425195a9a73408d2719358d17118a0c4bac3d1d6e751",
+      "path": "src/OpticalSystemDesign.Application/Services/CommercialLensCatalogStore.cs"
+    },
+    {
+      "sha256": "745979346dc751574a9097e89db333e2bf92f9aa269a8f7d7463bb2fe603088f",
+      "path": "src/OpticalSystemDesign.Application/Services/NonSequentialAnalysisService.cs"
+    },
+    {
+      "sha256": "94c4f9801308f9d05eeee5820cb8d43ee53bae2234e5130570c51bc6cd9e8b3c",
+      "path": "src/OpticalSystemDesign.Core/FileIO/CommercialFormatIO.cs"
+    },
+    {
+      "sha256": "b9026fa2da263ba42ac3ae546778d167951f6919db55824f8fec2636517815f0",
+      "path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDetectorReconstruction.cs"
+    },
+    {
+      "sha256": "9f9fe2e29f6811db6ef5dcdf3d6299d6b64a202b1c9fe8d8903018ab2f90d7ee",
+      "path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDetectorPixels.cs"
+    },
+    {
+      "sha256": "5a7faa3d6fdc086368ac86a1a41a42af8c02206748200347b36cff69f9dd1e09",
+      "path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialRayDatabase.cs"
+    },
+    {
+      "sha256": "ee03f3d3d091a0774784858711c778cc5b49142db5691bf01079df6bbd35eb78",
+      "path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialTracingEngine.cs"
+    },
+    {
+      "sha256": "eef3c44d63fa5b45d8ddc372557c53e42301e622d5aa67b35fdcea800d190d62",
+      "path": "src/OpticalSystemDesign.Core/Optic.cs"
+    },
+    {
+      "sha256": "4d1b3f0ffd9c92aa34075962844880b612c59dd07cb1b8cab575b43aaab63abd",
+      "path": "src/OpticalSystemDesign.Core/Optimization/NumericalOptimizers.cs"
+    },
+    {
+      "sha256": "7cd826700ed088221af1eaabdd494d211314c65966f9ac571d6a75eb70a22aae",
+      "path": "src/OpticalSystemDesign.Core/Raytrace/RayTraceCache.cs"
+    },
+    {
+      "sha256": "6240096127f6adf85fd9dfc7f7eb4881541e62f48ed1a962056d982d2a10ccc1",
+      "path": "src/OpticalSystemDesign.Core/Raytrace/SequentialRayTracer.cs"
+    },
+    {
+      "sha256": "0e9bd50adde93cb32fbe1e2af863f271a7cf22807c0b96822155556b586e3c28",
+      "path": "tests/OpticalSystemDesign.Tests/PriorityDataSafetyTests.cs"
+    },
+    {
+      "sha256": "1009e219c64d49505fe0c33fccbb1fa8447582cd6fa8e2512eace7cc28fc9cbc",
+      "path": "tests/OpticalSystemDesign.Tests/PriorityPhysicsReliabilityTests.cs"
+    }
+  ],
+  "boundaries": [
+    "Local focused verification only; no GitHub CI run, commit or push",
+    "No full suite, package or installed-app acceptance",
+    "Frozen references and strict numeric thresholds unchanged",
+    "Old nonsequential hash databases remain readable but require retrace to become current",
+    "Catalog files are individually atomic; directory is not a transaction",
+    "Prior strict energy regression differences retain previous reported status"
+  ]
+}

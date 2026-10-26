@@ -1,0 +1,104 @@
+{
+  "AtUtc": "2026-10-26T08:23:37.311011+00:00",
+  "SourceCommit": "4b9ea06f3ac0348eacd48d688b1dc4ea71e25a82",
+  "SourceDirty": true,
+  "Scope": "Desktop generic Zernike entry retirement, saved report filtering, retained coefficient analyses; not full repository or new native optical certification.",
+  "Tests": {
+    "total": 16,
+    "executed": 16,
+    "passed": 16,
+    "failed": 0,
+    "error": 0,
+    "timeout": 0,
+    "aborted": 0,
+    "inconclusive": 0,
+    "passedButRunAborted": 0,
+    "notRunnable": 0,
+    "notExecuted": 0,
+    "disconnected": 0,
+    "warning": 0,
+    "completed": 0,
+    "inProgress": 0,
+    "pending": 0
+  },
+  "Comparison": {
+    "originals_loaded_and_matched": 67,
+    "inline_originals": 11,
+    "default_image": "c001-analysis-062.png",
+    "seidel_scope_preserved": true,
+    "radiant_single_window_preserved": true,
+    "responsive": [
+      {
+        "viewport": 1400,
+        "width": 1400,
+        "scrollWidth": 1400
+      },
+      {
+        "viewport": 1024,
+        "width": 1024,
+        "scrollWidth": 1024
+      },
+      {
+        "viewport": 736,
+        "width": 736,
+        "scrollWidth": 736
+      },
+      {
+        "viewport": 360,
+        "width": 360,
+        "scrollWidth": 360
+      }
+    ],
+    "inline": {
+      "width": 748,
+      "scrollWidth": 748
+    },
+    "errors": []
+  },
+  "ReviewImageIntegrity": {
+    "image_count": 67,
+    "pixel_exact_images_verified": 67,
+    "inline_images": 11,
+    "inline_bytes": 591230,
+    "standalone_bytes": 3674701,
+    "default_image": "c001-analysis-062.png"
+  },
+  "NoPhysicalDesktopInteraction": true,
+  "InstalledApplicationUpdated": false,
+  "SourceAndArtifactSha256": {
+    "src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisCatalog.cs": "daf9b710e0364b2d4759d6e3f861d7b56c08a31a129dc7fc2fac63f8d812f0a6",
+    "src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs": "7f6139d1cb230548050c3ea7034d53d1bcf63b4fd9b1d2c5a3108b3624994052",
+    "src/OpticalSystemDesign.Application/Services/AnalysisService.cs": "a88ddb0782a612d441ffd0d91c76eeba6bcad22624702a18f55ffa5e69c44c62",
+    "src/OpticalSystemDesign.App/Services/MarkdownReportExporter.cs": "205fb3a19551363c2d95b0af2c262462869d150cb88b7d529990e616cbc5f4e3",
+    "src/OpticalSystemDesign.Core/Differentiation/OpticalDifferentialContext.cs": "7e27244396fadf5db9c811c1ca6231698c66d75434675656f0972bdd8380c178",
+    "tests/OpticalSystemDesign.Tests/AnalysisGuiContractTests.cs": "f8122ca93de00b3c0d82fe8455f21718dd31fe7db6fb40cfe25576e27a074f7a",
+    "tests/OpticalSystemDesign.Tests/MarkdownReportImageTests.cs": "72ae6c27cd74616e8085f4bb3af4ce122a7008353fc433c7977272ea746be659",
+    "tests/OpticalSystemDesign.Tests/MarkdownReportExportTests.cs": "75ba02268b356b555c6d2739bf484cc10dd11fe6976bb9114ed1c47a77ed9c38",
+    "tests/OpticalSystemDesign.Tests/ZernikeEntryRemovalTests.cs": "c009e7271cac622306b8446bbfb75bd1db6ebff208157f3d1badadc03de6f2d1",
+    "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll": "a885234c21fe9f49aa51aa9d93a1e0aa203bba1d970079948db153b313b3e61a",
+    "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Application.dll": "5d1f8b5071d879002f46abe737fedf7a48c4e3316bf8c25b80483a966e63898b",
+    "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll": "315707230dcbe20cab7f2fb675a676f3c4f870b7b6891a054fd19bb027b8a055",
+    "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.dll": "b312c5c2fd964452633a3473e3d4f371337f6db814de38d61b09aa6541f09634",
+    "validation/rechecks/2026-10-26/zernike-entry-removal/comparison-check.log": "ceef8f679773baf777810a7ba1431331bb6503306a58d32e2589b054152e666a",
+    "validation/rechecks/2026-10-26/zernike-entry-removal/comparison-runtime-verification.json": "44fe0af5af04ade820c60c60cf13d655880db05c99166307cac43a686eba50dd",
+    "validation/rechecks/2026-10-26/zernike-entry-removal/export-diagnostic.trx": "4b86b89e56f10862b8fa435eebec2e6d4de451d3cbec3e967e0fdbe47785b80d",
+    "validation/rechecks/2026-10-26/zernike-entry-removal/export-first-failure.trx": "e15a657569357617c3157c18cd5d33354a589d51194a3c47334905da2f79d524",
+    "validation/rechecks/2026-10-26/zernike-entry-removal/first-build-failure.txt": "31b7570b7740d21d9241ce6aedc15f21fadb9fa8ea75335f8b0313f66c3b21fe",
+    "validation/rechecks/2026-10-26/zernike-entry-removal/README.md": "962376be3411e2774f64693aaa27828fde8e804b85f963e5f627ad4c44be1611",
+    "validation/rechecks/2026-10-26/zernike-entry-removal/zernike-entry-removal.trx": "ca263144bb68e3aa4129359990d155f5db6c0f071aa5bbc954b6af0170a518ab",
+    "validation/rechecks/2026-10-26/zernike-entry-removal/captures/export-window.png": "e211835decefd4f2263b9ec0d68b720ff7d4d5bc9866e33f7313ef48383ed768"
+  },
+  "ReviewSha256": {
+    "D:\\optical system design\\image-review-2026-10-26\\write_review.py": "a215bc5e639a18f47452fe2edb6a89807bd65f0ab97916896c810513e01bc542",
+    "D:\\optical system design\\image-review-2026-10-26\\build_comparison.py": "abda1fea8eae570cf17719f60928fe11a603bc4736470599f028363ca05e7a6b",
+    "D:\\optical system design\\image-review-2026-10-26\\check_comparison.cjs": "aabe48ebb3116a697af087c45d01b4197aec2bfb909639392f696481e315de9f",
+    "D:\\optical system design\\image-review-2026-10-26\\image-review.json": "512c3faf7802d2c172d366e571788770e09c80e551eb4ee205994fde6c182d3b",
+    "D:\\optical system design\\image-review-2026-10-26\\original-and-recommendations-all.html": "25fe059067e051c7c61f0dd1f4b997c1529d0f480ed74b2ed9d89a24ad37a8ff",
+    "C:\\Users\\19851\\.codex\\visualizations\\2026\\10\\26\\01a1761a-8476-73f2-b0fc-7767fcbf9231\\original-and-recommendations.html": "1a29193ba488dc3b3bc21807c3d68fb848b18e7eee5e46c4da240d1cc3ac5041"
+  },
+  "Limitations": [
+    "General Core fitting API remains; retired desktop analysis is rejected.",
+    "Report orchestration uses placeholder images in its isolated test; actual report settings controls and coefficient text scrolling tested through Headless Avalonia.",
+    "No full test suite, installer replacement or native foreground GUI acceptance."
+  ]
+}

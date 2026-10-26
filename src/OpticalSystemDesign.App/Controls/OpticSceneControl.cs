@@ -7,17 +7,17 @@ using Avalonia.Media;
 using Avalonia.Media.Immutable;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Contracts;
-using Layout2DPoint = OpticalSystemDesign.Application.Contracts.ScenePoint2Dto;
-using Layout3DPoint = OpticalSystemDesign.Application.Contracts.ScenePoint3Dto;
-using Layout2DSurfaceCurve = OpticalSystemDesign.Application.Contracts.SceneSurface2Dto;
 using Layout2DLensEdge = OpticalSystemDesign.Application.Contracts.SceneLensEdge2Dto;
 using Layout2DLensElement = OpticalSystemDesign.Application.Contracts.SceneLensElement2Dto;
+using Layout2DPoint = OpticalSystemDesign.Application.Contracts.ScenePoint2Dto;
 using Layout2DRayPath = OpticalSystemDesign.Application.Contracts.SceneRay2Dto;
 using Layout2DScene = OpticalSystemDesign.Application.Contracts.Scene2Dto;
-using Layout3DSurfacePrimitive = OpticalSystemDesign.Application.Contracts.SceneSurface3Dto;
+using Layout2DSurfaceCurve = OpticalSystemDesign.Application.Contracts.SceneSurface2Dto;
 using Layout3DLensElement = OpticalSystemDesign.Application.Contracts.SceneLensElement3Dto;
+using Layout3DPoint = OpticalSystemDesign.Application.Contracts.ScenePoint3Dto;
 using Layout3DRayPath = OpticalSystemDesign.Application.Contracts.SceneRay3Dto;
 using Layout3DScene = OpticalSystemDesign.Application.Contracts.Scene3Dto;
+using Layout3DSurfacePrimitive = OpticalSystemDesign.Application.Contracts.SceneSurface3Dto;
 
 namespace OpticalSystemDesign.App.Controls;
 
@@ -1307,7 +1307,8 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         {
             var glass = glassBySurface.GetValueOrDefault(element.FrontSurfaceNumber,
                 new GlassRenderParameters(element.RefractiveIndex, 4, null))
-                with { Tint = GlassColorFor(element.Material) };
+                with
+            { Tint = GlassColorFor(element.Material) };
             if (renderedSurfaceNumbers.Add(element.FrontSurfaceNumber))
             {
                 AddElementSurfaceFaces(
@@ -1341,7 +1342,8 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         {
             var glass = glassBySurface.GetValueOrDefault(element.FrontSurfaceNumber,
                 new GlassRenderParameters(element.RefractiveIndex, 4, null))
-                with { Tint = GlassColorFor(element.Material) };
+                with
+            { Tint = GlassColorFor(element.Material) };
             var count = Math.Min(element.FrontRim.Count, element.BackRim.Count) - 1;
             for (var index = 0; index < count; index++)
             {
@@ -1740,34 +1742,6 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         context.DrawLine(targetPen, center + new Vector(0, -13), center + new Vector(0, 13));
     }
 
-    private void DrawOrientationGizmo(DrawingContext context)
-    {
-        if (VisualStyle == OpticSceneVisualStyle.SolidModel)
-        {
-            DrawRotatingOrientationGizmo(context);
-            return;
-        }
-
-        var origin = new Point(48, Math.Max(48, Bounds.Height - 48));
-        var red = new Pen(new SolidColorBrush(Color.FromRgb(210, 60, 52)), 2.2);
-        var green = new Pen(new SolidColorBrush(Color.FromRgb(43, 154, 82)), 2.2);
-        var blue = new Pen(new SolidColorBrush(Color.FromRgb(38, 102, 196)), 2.2);
-        context.DrawLine(red, origin, origin + new Vector(23, 7));
-        context.DrawLine(green, origin, origin + new Vector(-6, -24));
-        context.DrawLine(blue, origin, origin + new Vector(-18, 12));
-        context.DrawEllipse(ThemeBrush(ThemeResourceBindings.SceneOrientationFill, Brushes.White), new Pen(ThemeBrush(ThemeResourceBindings.SceneOrientationBorder, new SolidColorBrush(Color.FromRgb(108, 122, 140))), 1), origin, 4, 4);
-
-        var cube = new Rect(Math.Max(8, Bounds.Width - 66), Math.Max(8, Bounds.Height - 66), 46, 46);
-        context.DrawRectangle(
-            ThemeBrush(ThemeResourceBindings.SceneOrientationFill, new SolidColorBrush(Color.FromArgb(214, 255, 255, 255))),
-            new Pen(ThemeBrush(ThemeResourceBindings.SceneOrientationBorder, new SolidColorBrush(Color.FromRgb(120, 132, 147))), 1),
-            cube);
-        var cubeCenter = cube.Center;
-        context.DrawLine(red, cubeCenter, cubeCenter + new Vector(15, 5));
-        context.DrawLine(green, cubeCenter, cubeCenter + new Vector(-4, -16));
-        context.DrawLine(blue, cubeCenter, cubeCenter + new Vector(-12, 9));
-    }
-
     // The scene and its orientation indicator use the same camera rotation.
     // Directions exclude camera pan/zoom, scene centering and display Y stretch.
     internal Vector ProjectDirectionToView(Layout3DPoint direction)
@@ -1790,7 +1764,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             ProjectDirectionToView(axis.Direction), Dot(axis.Direction, viewDirection))).ToArray();
     }
 
-    private void DrawRotatingOrientationGizmo(DrawingContext context)
+    private void DrawOrientationGizmo(DrawingContext context)
     {
         var axes = OrientationAxesForRendering().OrderBy(axis => axis.Depth).ToArray();
         var origin = new Point(48, Math.Max(48, Bounds.Height - 48));

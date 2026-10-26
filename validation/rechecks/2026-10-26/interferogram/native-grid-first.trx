@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1a5d554b-1e44-44d6-be21-d70da94e3cc6" name="optics@LAPTOP-G4BBBCS0 2026-10-26 14:36:44" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-26T14:36:44.4553205+08:00" queuing="2026-10-26T14:36:44.4553209+08:00" start="2026-10-26T14:36:40.6849405+08:00" finish="2026-10-26T14:36:44.4747722+08:00" />
+  <TestSettings name="default" id="d1b5d382-73fc-44db-998b-bcef31d55a1b">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-26_14_36_44" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="3eb6e0cf-6d45-4279-b92a-8b0094281270" testId="7134f394-e42a-c7dc-6601-9080a049ee32" testName="OpticalSystemDesign.Tests.InterferogramAnalysisTests.CapturedZemax2026R1InterferogramMatchesItsPrintedGrid" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.5435981" startTime="2026-10-26T14:36:42.6591962+08:00" endTime="2026-10-26T14:36:44.2073617+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3eb6e0cf-6d45-4279-b92a-8b0094281270">
+      <Output>
+        <ErrorInfo>
+          <Message>Captured five-decimal intensity: maximum error 0.882484140068446</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.InterferogramAnalysisTests.CapturedZemax2026R1InterferogramMatchesItsPrintedGrid() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\InterferogramAnalysisTests.cs:line 207&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.InterferogramAnalysisTests.CapturedZemax2026R1InterferogramMatchesItsPrintedGrid" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7134f394-e42a-c7dc-6601-9080a049ee32">
+      <Execution id="3eb6e0cf-6d45-4279-b92a-8b0094281270" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.InterferogramAnalysisTests" name="CapturedZemax2026R1InterferogramMatchesItsPrintedGrid" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="7134f394-e42a-c7dc-6601-9080a049ee32" executionId="3eb6e0cf-6d45-4279-b92a-8b0094281270" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.19]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.42]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.45]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.06]       Captured five-decimal intensity: maximum error 0.882484140068446&#xD;
+[xUnit.net 00:00:03.06]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.06]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\InterferogramAnalysisTests.cs(207,0): at OpticalSystemDesign.Tests.InterferogramAnalysisTests.CapturedZemax2026R1InterferogramMatchesItsPrintedGrid()&#xD;
+[xUnit.net 00:00:03.06]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:03.06]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:03.10]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T14:36:44.2161700+08:00">
+        <Text>[xUnit.net 00:00:03.05]     OpticalSystemDesign.Tests.InterferogramAnalysisTests.CapturedZemax2026R1InterferogramMatchesItsPrintedGrid [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

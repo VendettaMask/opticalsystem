@@ -1,12 +1,12 @@
 using Avalonia;
+using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
-using Avalonia.Automation;
 using Avalonia.VisualTree;
-using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Services;
@@ -97,7 +97,11 @@ public sealed class MarkdownReportImageTests
         {
             using var application = WorkbenchApplication.Create("cooke");
             application.MultiConfiguration.Add();
-            var settings = new AppSettings { AnalysisSettings = new() { ["Spot Diagram"] = new() { ["RayDensity"] = "3" } } };
+            var settings = new AppSettings
+            {
+                AnalysisSettings = new() { ["Spot Diagram"] = new() { ["RayDensity"] = "3" } },
+                ReportExport = new() { AnalysisKeys = [.. MarkdownReportSettings.CommonAnalyses, "Zernike", "Zernike 系数"] }
+            };
             var window = new MarkdownReportWindow(application, settings);
             try
             {
@@ -108,6 +112,9 @@ public sealed class MarkdownReportImageTests
                 Assert.True(controls.OfType<Button>().Single(item => item.Name == "ExportMarkdownReport").IsEnabled);
                 var checks = controls.OfType<CheckBox>().Where(item => AutomationProperties.GetAutomationId(item)?.StartsWith("report-analysis-") == true).ToArray();
                 Assert.Equal(application.Analyses.AnalysisNames.Count, checks.Length);
+                Assert.DoesNotContain(checks, check => AutomationProperties.GetAutomationId(check) is "report-analysis-Zernike" or "report-analysis-Zernike 系数");
+                foreach (var key in new[] { "Zernike Fringe", "Zernike Standard", "Zernike Annular" })
+                    Assert.Contains(checks, check => AutomationProperties.GetAutomationId(check) == "report-analysis-" + key);
                 Assert.Equal(4, checks.Count(item => item.IsChecked == true));
                 Assert.Equal(3, controls.OfType<NumericUpDown>().Single(item => AutomationProperties.GetName(item) == "光线密度").Value);
                 var configuration = controls.OfType<ComboBox>().Single(item => AutomationProperties.GetName(item) == "结构");

@@ -3,10 +3,10 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
-using OpticalSystemDesign.CoatingDesign.Engine;
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Modules;
 
 namespace OpticalSystemDesign.App.Laboratories.CoatingDesign;

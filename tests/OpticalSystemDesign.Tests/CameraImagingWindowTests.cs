@@ -7,11 +7,11 @@ using Avalonia.Interactivity;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Laboratories;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -27,7 +27,8 @@ public sealed class CameraImagingWindowTests
     }
 
     [Theory]
-    [InlineData("Light")] [InlineData("Dark")]
+    [InlineData("Light")]
+    [InlineData("Dark")]
     public async Task StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(string theme)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(CameraImagingWindowTests));
@@ -139,7 +140,8 @@ public sealed class CameraImagingWindowTests
     }
 
     [Theory]
-    [InlineData("Light")] [InlineData("Dark")]
+    [InlineData("Light")]
+    [InlineData("Dark")]
     public async Task ImportedProfilesAndResponsePlotsPreserveFrozenABAndRejectBadFiles(string theme)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(CameraImagingWindowTests));
@@ -200,7 +202,8 @@ public sealed class CameraImagingWindowTests
     }
 
     [Theory]
-    [InlineData("Light")] [InlineData("Dark")]
+    [InlineData("Light")]
+    [InlineData("Dark")]
     public async Task ContinuousSceneImportsAndModeSwitchKeepLegacyReferenceAndTypedSpectralPlots(string theme)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(CameraImagingWindowTests));

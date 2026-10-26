@@ -1,6 +1,6 @@
-using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Apodization;
+using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Rays;
@@ -298,10 +298,10 @@ public sealed partial class RayGenerator
                 nameof(stopTargets));
         }
         var rays = new RealRay[samples.Length];
-        if (aimAtStop && resolvedStopTargets is not null && TryGenerateGpuPupils(samples,resolvedStopTargets,
-            wavelengthNanometers,apertureRadius,vignetting,rays,
-            index => CreateRay(field.X,field.Y,samples[index].X,samples[index].Y,apertureRadius,
-                wavelengthNanometers,samples[index].Weight,realImageLaunch,aimAtStop:false,fieldRayContext:fieldRayContext),GenerateRay))
+        if (aimAtStop && resolvedStopTargets is not null && TryGenerateGpuPupils(samples, resolvedStopTargets,
+            wavelengthNanometers, apertureRadius, vignetting, rays,
+            index => CreateRay(field.X, field.Y, samples[index].X, samples[index].Y, apertureRadius,
+                wavelengthNanometers, samples[index].Weight, realImageLaunch, aimAtStop: false, fieldRayContext: fieldRayContext), GenerateRay))
             return new RealRayBundle(rays);
         void GenerateRay(int index)
         {

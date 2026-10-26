@@ -1,0 +1,18 @@
+{
+  "Label": "fault-unhandled-02",
+  "Mode": "fault-unhandled",
+  "StartedUtc": "2026-10-26T03:00:28.7877696+00:00",
+  "FinishedUtc": "2026-10-26T03:00:30.5619430+00:00",
+  "ProcessId": 43384,
+  "ExitCode": -532462766,
+  "TimedOut": false,
+  "Complete": false,
+  "Unhandled": [
+    {
+      "IsTerminating": true,
+      "Exception": "System.Runtime.InteropServices.COMException (0x8007000E): EnumFormatEtc failed\r\n   at Avalonia.Win32.Win32Com.Impl.__MicroComIDataObjectProxy.EnumFormatEtc(Int32 dwDirection)\r\n   at Avalonia.Win32.OleDataObjectToDataTransferWrapper.ProvideFormats()\r\n   at Avalonia.Input.Platform.PlatformDataTransfer.get_Formats()\r\n   at Avalonia.Input.Platform.PlatformDataTransfer.Avalonia.Input.IDataTransfer.get_Formats()\r\n   at IsolatedOleClipboard.TryGetDataAsync() in D:\\optical system design\\opticalsystem\\validation\\rechecks\\2026-10-26\\clipboard-native\\background-probe\\Program.cs:line 149\r\n   at Avalonia.Input.Platform.ClipboardExtensions.TryGetValueAsync[T](IClipboard clipboard, DataFormat`1 format)\r\n   at Avalonia.Controls.TextBox.Paste()\r\n   at System.Threading.Tasks.Task.<>c.<ThrowAsync>b__124_0(Object state)\r\n   at Avalonia.Threading.SendOrPostCallbackDispatcherOperation.InvokeCore()\r\n   at Avalonia.Threading.DispatcherOperation.<>c.<Execute>b__56_0(Object s)\r\n   at Avalonia.Threading.CulturePreservingExecutionContext.CallbackWrapper(Object obj)\r\n   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)\r\n--- End of stack trace from previous location ---\r\n   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)\r\n   at Avalonia.Threading.CulturePreservingExecutionContext.Run(CulturePreservingExecutionContext executionContext, ContextCallback callback, Object state)\r\n   at Avalonia.Threading.DispatcherOperation.Execute()\r\n   at Avalonia.Threading.Dispatcher.ExecuteJob(DispatcherOperation job)\r\n   at Avalonia.Threading.Dispatcher.ExecuteJobsCore(Boolean fromExplicitBackgroundProcessingCallback)\r\n   at Avalonia.Threading.Dispatcher.Signaled()\r\n   at Avalonia.Win32.Win32DispatcherImpl.DispatchWorkItem()\r\n   at Avalonia.Win32.Win32Platform.WndProc(IntPtr hWnd, UInt32 msg, IntPtr wParam, IntPtr lParam)\r\n   at Avalonia.Win32.Interop.UnmanagedMethods.DispatchMessage(MSG& lpmsg)\r\n   at Avalonia.Win32.Win32DispatcherImpl.RunLoop(CancellationToken cancellationToken)\r\n   at Avalonia.Threading.DispatcherFrame.Run(IControlledDispatcherImpl impl)\r\n   at Avalonia.Threading.Dispatcher.PushFrame(DispatcherFrame frame)\r\n   at Avalonia.Threading.Dispatcher.MainLoop(CancellationToken cancellationToken)\r\n   at Probe.Run() in D:\\optical system design\\opticalsystem\\validation\\rechecks\\2026-10-26\\clipboard-native\\background-probe\\Program.cs:line 126\r\n   at Program.Main(String[] args) in D:\\optical system design\\opticalsystem\\validation\\rechecks\\2026-10-26\\clipboard-native\\background-probe\\Program.cs:line 41",
+      "HResult": "8007000E"
+    }
+  ],
+  "PasteObservations": []
+}

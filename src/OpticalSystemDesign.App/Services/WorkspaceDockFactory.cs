@@ -8,11 +8,11 @@ using Dock.Model.Controls;
 using Dock.Model.Core;
 using Dock.Model.Mvvm;
 using Dock.Model.Mvvm.Controls;
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Manufacturing;
 using OpticalSystemDesign.App.Panels;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Services;
 using Orientation = Dock.Model.Core.Orientation;
 
 namespace OpticalSystemDesign.App.Services;
@@ -585,6 +585,34 @@ public sealed class WorkspaceDockFactory : Factory
         }
 
         _content.Clear();
+    }
+
+    internal Action<bool> BeginContentReplacement()
+    {
+        var previous = _content.ToArray();
+        _content.Clear();
+        var completed = false;
+        return commit =>
+        {
+            if (completed) return;
+            completed = true;
+            if (commit)
+            {
+                foreach (var item in previous.Select(pair => pair.Value).OfType<IDisposable>()) DisposeRetired(item);
+            }
+            else
+            {
+                foreach (var item in _content.Values.OfType<IDisposable>()) DisposeRetired(item);
+                _content.Clear();
+                foreach (var (key, value) in previous) _content[key] = value;
+            }
+        };
+
+        static void DisposeRetired(IDisposable item)
+        {
+            try { item.Dispose(); }
+            catch (Exception error) { System.Diagnostics.Trace.TraceWarning($"Retired workspace content cleanup failed: {error}"); }
+        }
     }
 
     private Document CreateDocument(WorkspaceDocumentDescriptor descriptor)

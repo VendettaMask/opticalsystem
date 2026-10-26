@@ -6,11 +6,11 @@ using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Threading;
+using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
-using OpticalSystemDesign.App.Services;
-using OpticalSystemDesign.App.Controls;
-using OpticalSystemDesign.App.Theming;
 
 namespace OpticalSystemDesign.App.Panels;
 

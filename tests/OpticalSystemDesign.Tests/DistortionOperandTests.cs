@@ -259,7 +259,9 @@ public sealed class DistortionOperandTests(Xunit.Abstractions.ITestOutputHelper 
     [MemberData(nameof(Codes))]
     public void AfocalAndBlockedChiefRayAreExplicitErrors(string code)
     {
-        var optic = ThinLens(); optic.ImageSpaceAfocal = true; Invalid(optic, Row(code));
+        var optic = ThinLens(); optic.ImageSpaceAfocal = true;
+        if (code is "FCGS" or "FCGT") Assert.True(double.IsFinite(Evaluate(optic, Row(code))));
+        else Invalid(optic, Row(code));
         optic.ImageSpaceAfocal = false;
         optic.SurfaceGroup.Items[1].PhysicalAperture = new RectangularAperture(.01, .01, 100, 100);
         Invalid(optic, Row(code));

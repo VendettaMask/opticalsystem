@@ -4,8 +4,8 @@ using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
-using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.FileIO;
@@ -303,6 +303,16 @@ public partial class WorkbenchRuntime
         ["ValidSampleCount"] = "有效采样数",
         ["MaximumAberration"] = "最大像差范围",
         ["GridInterval"] = "网格线间隔",
+        ["ScaleFactor"] = "条纹数/波长",
+        ["XTilt"] = "X 倾斜（条纹）",
+        ["YTilt"] = "Y 倾斜（条纹）",
+        ["Beam1"] = "光束 1",
+        ["Beam2"] = "光束 2",
+        ["RefBeamToVertex"] = "参考光束到顶点",
+        ["ConsiderPathLengthDifference"] = "考虑光程差",
+        ["PathLengthDifferenceMillimeters"] = "主光线光程差（毫米）",
+        ["ContourFormat"] = "等高线格式",
+        ["InterferogramModel"] = "干涉模型",
         ["MaximumFocalShiftChangeMicrometers"] = "最大焦移变化",
         ["DiffractionLimitChangeMicrometers"] = "衍射极限变化",
         ["PupilZone"] = "光瞳区域",

@@ -1,7 +1,7 @@
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Domain;
-using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Geometries;
+using OpticalSystemDesign.Core.Rays;
 
 namespace OpticalSystemDesign.Core.Analysis;
 

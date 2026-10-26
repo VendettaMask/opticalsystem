@@ -1,0 +1,28 @@
+initial-seed-42 Cpu: masks=0 outputs=0 valid=216/216 params=145 2.45s
+initial-seed-42 Gpu: masks=0 outputs=0 valid=216/216 params=145 2.46s
+initial-seed-101 Cpu: masks=0 outputs=0 valid=216/216 params=145 1.50s
+initial-seed-101 Gpu: masks=0 outputs=0 valid=216/216 params=145 0.40s
+nonzero-asphere-1 Cpu: masks=0 outputs=0 valid=216/216 params=145 1.57s
+nonzero-asphere-1 Gpu: masks=0 outputs=0 valid=216/216 params=145 0.37s
+nonzero-asphere-2 Cpu: masks=0 outputs=0 valid=216/216 params=145 1.56s
+nonzero-asphere-2 Gpu: masks=0 outputs=0 valid=216/216 params=145 0.52s
+active-material-and-clearance Cpu: masks=0 outputs=0 valid=216/216 params=145 1.67s
+active-material-and-clearance Gpu: masks=0 outputs=0 valid=216/216 params=145 0.52s
+trained-curriculum-catalog Cpu: masks=0 outputs=0 valid=216/216 params=133 1.35s
+trained-curriculum-catalog Gpu: masks=0 outputs=0 valid=216/216 params=133 0.41s
+trained-refine-720-catalog Cpu: masks=0 outputs=0 valid=216/216 params=133 1.46s
+trained-refine-720-catalog Gpu: masks=0 outputs=0 valid=216/216 params=133 0.36s
+aperture Cpu: masks=24 outputs=0 valid=84/60 params=25 0.03s
+aperture Gpu: masks=24 outputs=0 valid=84/60 params=25 0.03s
+critical Cpu: ArithmeticException: The critical refraction derivative is singular.
+critical Gpu: ArithmeticException: A CUDA fixed-input intersection/refraction derivative is singular or disagrees with formal Core.
+critical-below Cpu: masks=0 outputs=0 valid=132/132 params=25 0.04s
+critical-below Gpu: masks=0 outputs=0 valid=132/132 params=25 0.03s
+critical-near-below Cpu: masks=0 outputs=60 valid=132/132 params=25 0.03s
+critical-near-below Gpu: masks=0 outputs=60 valid=132/132 params=25 0.03s
+critical-above Cpu: masks=0 outputs=0 valid=0/0 params=25 0.03s
+critical-above Gpu: masks=0 outputs=0 valid=0/0 params=25 0.02s
+grazing Cpu: masks=0 outputs=0 valid=48/48 params=25 0.04s
+grazing Gpu: masks=0 outputs=0 valid=48/48 params=25 0.35s
+all-invalid Cpu: masks=0 outputs=0 valid=0/0 params=25 0.02s
+all-invalid Gpu: masks=0 outputs=0 valid=0/0 params=25 0.09s

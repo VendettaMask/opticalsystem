@@ -1,31 +1,31 @@
-using System.Text.Json;
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
-using System.Globalization;
+using System.Text.Json;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
-using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Core.NonSequential;
 using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Phase;
+using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Services;
 using OpticalSystemDesign.Core.Visualization;
-using OpticalSystemDesign.Core.Raytrace;
-using OpticalSystemDesign.Core.NonSequential;
+using static OpticalSystemDesign.Application.Services.WorkbenchMapper;
 using ContractAnalysisColorMap = OpticalSystemDesign.Application.Contracts.AnalysisColorMap;
 using ContractAnalysisLineStyle = OpticalSystemDesign.Application.Contracts.AnalysisLineStyle;
 using ContractAnalysisMarkerStyle = OpticalSystemDesign.Application.Contracts.AnalysisMarkerStyle;
 using ContractAnalysisParameterDescriptor = OpticalSystemDesign.Application.Contracts.AnalysisParameterDescriptor;
 using ContractAnalysisParameterKind = OpticalSystemDesign.Application.Contracts.AnalysisParameterKind;
 using ContractAnalysisSeriesKind = OpticalSystemDesign.Application.Contracts.AnalysisSeriesKind;
-using static OpticalSystemDesign.Application.Services.WorkbenchMapper;
 
 namespace OpticalSystemDesign.Application.Services;
 
@@ -66,7 +66,9 @@ internal sealed partial class AnalysisService : WorkbenchServiceBase, IAnalysisS
             {
                 var index = AnalysisConfigurationSelection.Resolve(selection, navigation.ActiveIndex, navigation.Count);
                 var document = Runtime.CaptureDocument();
-                worker = new WorkbenchRuntime(document.Configurations[index]);
+                worker = CanonicalKey(analysisName) == "Interferogram"
+                    ? WorkbenchRuntime.CreateComputationRuntime(document with { ActiveOptic = document.Configurations[index], ActiveConfigurationIndex = index })
+                    : new WorkbenchRuntime(document.Configurations[index]);
             }
             var parameters = worker.GetAnalysisParameters(analysisName).Select(parameter => new ContractAnalysisParameterDescriptor(
                 parameter.Key,
@@ -140,6 +142,8 @@ internal sealed partial class AnalysisService : WorkbenchServiceBase, IAnalysisS
 
     private void EnsureAvailable(string analysisName)
     {
+        if (WorkbenchAnalysisCatalog.IsRetiredAnalysis(analysisName))
+            throw new InvalidOperationException("通用 Zernike 系数入口已移除，请选择 Zernike Fringe、Standard 或 Annular 系数分析。");
         if (!WorkbenchAnalysisCatalog.IsAvailableInMode(analysisName, _modes.CurrentMode))
         {
             throw new InvalidOperationException(
@@ -169,7 +173,9 @@ internal sealed partial class AnalysisService : WorkbenchServiceBase, IAnalysisS
                 AnalysisConfigurationSelection.Validate(canonicalAnalysisKey, selection, activeIndex, count);
                 var selectedIndex = AnalysisConfigurationSelection.Resolve(selection, activeIndex, count);
                 var selectedOptic = configurationSnapshot?.Configurations[selectedIndex] ?? snapshot;
-                var parameterWorker = selection == AnalysisConfigurationSelection.All
+                var parameterWorker = canonicalAnalysisKey == "Interferogram" && configurationSnapshot is not null
+                    ? WorkbenchRuntime.CreateComputationRuntime(configurationSnapshot with { ActiveOptic = selectedOptic, ActiveConfigurationIndex = selectedIndex })
+                    : selection == AnalysisConfigurationSelection.All
                     && canonicalAnalysisKey == "Configuration Matrix Spot Diagram" && configurationSnapshot is not null
                     ? WorkbenchRuntime.CreateComputationRuntime(configurationSnapshot)
                     : new WorkbenchRuntime(selectedOptic, nonSequentialSnapshot);
@@ -200,7 +206,7 @@ internal sealed partial class AnalysisService : WorkbenchServiceBase, IAnalysisS
                     }
                 }
                 var databaseDetectors = canonicalAnalysisKey == "Non-Sequential Detector Viewer"
-                    ? analysisSession?.ReconstructDetectors(nonSequentialSnapshot, selectedSourceId)
+                    ? analysisSession?.ReconstructDetectors(nonSequentialSnapshot, selectedSourceId, selectedOptic.Materials)
                     : null;
                 var worker = databaseDetectors is null ? parameterWorker
                     : new WorkbenchRuntime(selectedOptic, nonSequentialSnapshot, databaseDetectors);
@@ -277,6 +283,7 @@ internal sealed partial class AnalysisService : WorkbenchServiceBase, IAnalysisS
                     flag ? "true" : "false",
                 OpticalSystemDesign.Application.Runtime.AnalysisParameterKind.Choice => NormalizeChoice(descriptor, merged[key]),
                 OpticalSystemDesign.Application.Runtime.AnalysisParameterKind.File => merged[key].Trim(),
+                OpticalSystemDesign.Application.Runtime.AnalysisParameterKind.Text => merged[key].Trim(),
                 _ => throw InvalidParameter(descriptor, merged[key])
             };
             merged[key] = normalized;

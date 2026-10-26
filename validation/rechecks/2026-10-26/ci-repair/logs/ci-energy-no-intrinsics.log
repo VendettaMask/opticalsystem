@@ -1,0 +1,71 @@
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:05.40]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w8", series: 0) [FAIL]
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w8", series: 0) [2 s]
+  错误消息:
+   isolate-w8/0: limit 1E-08, measured 0.0065122771766361566
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 48
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:06.06]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0014-all-waves", series: 1) [FAIL]
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0014-all-waves", series: 1) [667 ms]
+  错误消息:
+   0014-all-waves/1: limit 1E-08, measured 0.0007993713699932848
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 48
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:09.58]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly64", series: 0) [FAIL]
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly64", series: 0) [156 ms]
+  错误消息:
+   apo-poly64/0: limit 1E-08, measured 0.0008000485931277022
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 48
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:10.61]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0308-all-waves", series: 1) [FAIL]
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0308-all-waves", series: 1) [67 ms]
+  错误消息:
+   0308-all-waves/1: limit 1E-08, measured 0.0009228656967504088
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 48
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:11.61]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0014-all-waves", series: 0) [FAIL]
+[xUnit.net 00:00:11.75]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly64", series: 1) [FAIL]
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0014-all-waves", series: 0) [156 ms]
+  错误消息:
+   0014-all-waves/0: limit 1E-08, measured 0.0008000485931277022
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 48
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly64", series: 1) [138 ms]
+  错误消息:
+   apo-poly64/1: limit 1E-08, measured 0.0007993713699932848
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 48
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:13.07]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w8", series: 1) [FAIL]
+[xUnit.net 00:00:13.66]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0308-all-waves", series: 0) [FAIL]
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w8", series: 1) [137 ms]
+  错误消息:
+   isolate-w8/1: limit 1E-08, measured 0.006504698149090131
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 48
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0308-all-waves", series: 0) [58 ms]
+  错误消息:
+   0308-all-waves/0: limit 1E-08, measured 0.001733847291679791
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 48
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\ci-repair\energy-no-intrinsics.trx
+
+失败!  - 失败:     8，通过:    22，已跳过:     0，总计:    30，持续时间: 11 s - OpticalSystemDesign.Tests.dll (net10.0)

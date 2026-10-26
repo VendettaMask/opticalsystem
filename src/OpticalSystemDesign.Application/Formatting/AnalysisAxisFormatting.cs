@@ -245,7 +245,7 @@ public static class AnalysisCsvFormatter
         foreach (var value in values)
         {
             if (!first) builder.Append(',');
-            builder.Append('"').Append(value.Replace("\"", "\"\"")).Append('"');
+            builder.Append(OpticalSystemDesign.Core.FileIO.CsvCell.Escape(value));
             first = false;
         }
         builder.AppendLine();
@@ -253,7 +253,7 @@ public static class AnalysisCsvFormatter
 
     private static void Append(StringBuilder builder, string value, bool endOfRow = false)
     {
-        builder.Append('"').Append(value.Replace("\"", "\"\"")).Append('"');
+        builder.Append(OpticalSystemDesign.Core.FileIO.CsvCell.Escape(value));
         builder.Append(endOfRow ? Environment.NewLine : ',');
     }
 }

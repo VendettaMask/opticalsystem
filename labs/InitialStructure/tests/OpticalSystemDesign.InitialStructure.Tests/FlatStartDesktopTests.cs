@@ -7,12 +7,12 @@ using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
 using Avalonia.VisualTree;
-using OpticalSystemDesign.Core;
-using OpticalSystemDesign.Core.Serialization;
-using OpticalSystemDesign.Core.Visualization;
 using OpticalSystemDesign.App.Laboratories.InitialStructure;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.Serialization;
+using OpticalSystemDesign.Core.Visualization;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Persistence;
@@ -212,11 +212,15 @@ public sealed class FlatStartDesktopTests
         {
             var specification = method == FlatStartOptimizationMethod.AutoLensManagedV1
                 ? AutoLensManagedTests.Specification(400) : FlatStartRefinementTests.Spec(400);
-            specification = specification with { FlatStart = specification.FlatStart! with
+            specification = specification with
             {
-                OptimizationMethod = method, SamplingPolicy = FlatStartSamplingPolicy.UniformAreaGaussianV1,
-                AutoLens = specification.FlatStart.AutoLens is { } autoLens ? autoLens with { TargetPolishEvaluations = 2 } : null
-            } };
+                FlatStart = specification.FlatStart! with
+                {
+                    OptimizationMethod = method,
+                    SamplingPolicy = FlatStartSamplingPolicy.UniformAreaGaussianV1,
+                    AutoLens = specification.FlatStart.AutoLens is { } autoLens ? autoLens with { TargetPolishEvaluations = 2 } : null
+                }
+            };
             using var cancellation = new CancellationTokenSource();
             var result = await new FlatStartSearchService().RunAsync(specification, FlatStartRefinementTests.Options, cancellation.Token,
                 checkpointSink: (saved, _) =>
@@ -731,10 +735,20 @@ public sealed class FlatStartDesktopTests
         private static InitialStructureSpecification ReferenceDesktopSpecification(int budget)
         {
             var source = AutoLensManagedTests.Specification(budget);
-            return source with { Conjugate = ObjectConjugateMode.Finite, Wavelengths = AutoLensReferenceExamples.Mobile().Specification.Wavelengths,
-                FlatStart = source.FlatStart! with { AutoLens = source.FlatStart.AutoLens! with
-                { Policy = AutoLensManagedPolicy.UpstreamE58, ComputeMode = OpticalSystemDesign.Core.Differentiation.DesignComputeMode.Automatic,
-                    TrainingSampling = AutoLensReferenceTests.Small().FlatStart!.AutoLens!.TrainingSampling } } };
+            return source with
+            {
+                Conjugate = ObjectConjugateMode.Finite,
+                Wavelengths = AutoLensReferenceExamples.Mobile().Specification.Wavelengths,
+                FlatStart = source.FlatStart! with
+                {
+                    AutoLens = source.FlatStart.AutoLens! with
+                    {
+                        Policy = AutoLensManagedPolicy.UpstreamE58,
+                        ComputeMode = OpticalSystemDesign.Core.Differentiation.DesignComputeMode.Automatic,
+                        TrainingSampling = AutoLensReferenceTests.Small().FlatStart!.AutoLens!.TrainingSampling
+                    }
+                }
+            };
         }
         public Task Run(Func<Task> test) => _session.Dispatch(async () =>
         {

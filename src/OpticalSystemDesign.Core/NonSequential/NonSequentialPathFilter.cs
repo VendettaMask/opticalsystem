@@ -54,23 +54,28 @@ public sealed class NonSequentialPathFilter
     {
         ArgumentNullException.ThrowIfNull(document);
         ArgumentNullException.ThrowIfNull(branch);
-        return _root.Evaluate(new EvaluationContext(document, branch));
+        return Bind(document)(branch);
+    }
+
+    public Func<NonSequentialRayBranch, bool> Bind(NonSequentialDocument document)
+    {
+        ArgumentNullException.ThrowIfNull(document);
+        if (_root is ConstantNode constant) return _ => constant.Value;
+        var objects = document.Objects.Select((item, index) => (item.Id, Number: index + 1, item.Kind))
+            .ToDictionary(item => item.Id, item => (item.Number, item.Kind));
+        var wavelengths = new NonSequentialWavelengthIndex(document.Wavelengths);
+        return branch => _root.Evaluate(new EvaluationContext(objects, wavelengths, branch));
     }
 
     private sealed class EvaluationContext
     {
-        private readonly Dictionary<Guid, int> _numbers;
-
-        public EvaluationContext(NonSequentialDocument document, NonSequentialRayBranch branch)
+        public EvaluationContext(IReadOnlyDictionary<Guid, (int Number, NonSequentialObjectKind Kind)> objects,
+            NonSequentialWavelengthIndex wavelengths, NonSequentialRayBranch branch)
         {
-            Document = document;
             Branch = branch;
-            _numbers = document.Objects.Select((item, index) => (item.Id, Number: index + 1))
-                .ToDictionary(item => item.Id, item => item.Number);
-            Events = BuildEvents(document, branch, _numbers);
+            Events = BuildEvents(wavelengths, branch, objects);
         }
 
-        public NonSequentialDocument Document { get; }
         public NonSequentialRayBranch Branch { get; }
         public IReadOnlyList<PathEvent> Events { get; }
 
@@ -84,14 +89,14 @@ public sealed class NonSequentialPathFilter
         }
 
         private static IReadOnlyList<PathEvent> BuildEvents(
-            NonSequentialDocument document,
+            NonSequentialWavelengthIndex wavelengths,
             NonSequentialRayBranch branch,
-            IReadOnlyDictionary<Guid, int> numbers)
+            IReadOnlyDictionary<Guid, (int Number, NonSequentialObjectKind Kind)> numbers)
         {
             var result = new List<PathEvent>();
             if (branch.SourceObjectId is Guid source && numbers.TryGetValue(source, out var sourceNumber))
             {
-                result.Add(new PathEvent(AtomKind.Source, sourceNumber));
+                result.Add(new PathEvent(AtomKind.Source, sourceNumber.Number));
             }
 
             var wavelength = branch.WavelengthNanometers > 0
@@ -99,17 +104,16 @@ public sealed class NonSequentialPathFilter
                 : branch.Segments.FirstOrDefault()?.WavelengthNanometers ?? 0;
             if (wavelength > 0)
             {
-                var wavelengthNumber = document.Wavelengths.ToList().FindIndex(item =>
-                    Math.Abs(item.Nanometers - wavelength) <= 1e-9) + 1;
+                var wavelengthNumber = wavelengths.FindNumber(wavelength);
                 if (wavelengthNumber > 0) result.Add(new PathEvent(AtomKind.Wavelength, wavelengthNumber));
             }
 
             foreach (var segment in branch.Segments)
             {
-                if (segment.ObjectId is not Guid objectId || !numbers.TryGetValue(objectId, out var number)) continue;
+                if (segment.ObjectId is not Guid objectId || !numbers.TryGetValue(objectId, out var info)) continue;
+                var number = info.Number;
                 result.Add(new PathEvent(AtomKind.Hit, number));
-                if (document.Objects.FirstOrDefault(item => item.Id == objectId)?.Kind
-                    == NonSequentialObjectKind.DetectorRectangle)
+                if (info.Kind == NonSequentialObjectKind.DetectorRectangle)
                 {
                     result.Add(new PathEvent(AtomKind.Detected, number));
                 }
@@ -390,6 +394,7 @@ public static class NonSequentialPathAnalyzer
                 item.Kind))
             .ToDictionary(item => item.Id);
         var groups = new Dictionary<(string Path, string Filter), PathAccumulator>();
+        var wavelengths = new NonSequentialWavelengthIndex(document.Wavelengths);
         var totalPower = 0.0;
         foreach (var branch in branches)
         {
@@ -406,7 +411,7 @@ public static class NonSequentialPathAnalyzer
             }
             var power = Math.Max(0, branch.FinalIntensity);
             var opticalPath = branch.Segments.LastOrDefault()?.CumulativeOpticalPathLength ?? 0;
-            accumulator.Add(power, opticalPath, WavelengthNumber(document, branch));
+            accumulator.Add(power, opticalPath, wavelengths.FindNumber(branch));
             totalPower += power;
         }
 
@@ -463,15 +468,6 @@ public static class NonSequentialPathAnalyzer
         NonSequentialTerminationReason.Escaped => "E",
         _ => "X"
     };
-
-    private static int WavelengthNumber(NonSequentialDocument document, NonSequentialRayBranch branch)
-    {
-        var wavelength = branch.WavelengthNanometers > 0
-            ? branch.WavelengthNanometers
-            : branch.Segments.FirstOrDefault()?.WavelengthNanometers ?? 0;
-        var index = document.Wavelengths.ToList().FindIndex(item => Math.Abs(item.Nanometers - wavelength) <= 1e-9);
-        return Math.Max(1, index + 1);
-    }
 
     private static bool IsTerminal(NonSequentialRayBranch branch) =>
         branch.TerminationReason != NonSequentialTerminationReason.Split;

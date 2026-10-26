@@ -1,8 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Panels;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.Tests;
 

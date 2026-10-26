@@ -46,9 +46,10 @@ public sealed class CoherentThinFilmSolver
     {
         ArgumentNullException.ThrowIfNull(incident);
         ArgumentNullException.ThrowIfNull(substrate);
-        var layers = films.ToArray();
+        ArgumentNullException.ThrowIfNull(films);
+        var layers = films.Take(MaximumLayers + 1).ToArray();
         if (layers.Length > MaximumLayers) throw new ArgumentException("膜层数量超过计算上限。");
-        if (layers.Any(x => !double.IsFinite(x.ThicknessNanometers) || x.ThicknessNanometers < 0))
+        if (layers.Any(x => x is null || x.Material is null || !double.IsFinite(x.ThicknessNanometers) || x.ThicknessNanometers < 0))
             throw new ArgumentException("膜层厚度必须是非负有限数值（nm）。");
         foreach (var layer in layers) layer.Adjustment.Validate();
         _media = new[] { incident.Clone() }.Concat(layers.Select(x => x.Material.Clone()))

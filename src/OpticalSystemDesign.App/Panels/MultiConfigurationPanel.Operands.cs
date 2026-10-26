@@ -5,15 +5,15 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Data;
-using Avalonia.Layout;
-using Avalonia.Interactivity;
 using Avalonia.Input;
+using Avalonia.Interactivity;
+using Avalonia.Layout;
 using Avalonia.LogicalTree;
 using Avalonia.Media;
 using Avalonia.Styling;
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Panels;
 

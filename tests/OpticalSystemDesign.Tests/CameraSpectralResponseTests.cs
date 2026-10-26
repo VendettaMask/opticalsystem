@@ -50,9 +50,13 @@ public sealed class CameraSpectralResponseTests
             Assert.Equal(expected[c], result.PhotoElectrons[y * 16 + x], 9);
         }
         Assert.Equal(0, result.RawNoiseRmseDn);
-        Record("spectral-photon-reference", new { ExpectedRgbElectrons = expected,
+        Record("spectral-photon-reference", new
+        {
+            ExpectedRgbElectrons = expected,
             ActualRgbElectrons = new[] { result.PhotoElectrons[0], result.PhotoElectrons[1], result.PhotoElectrons[17] },
-            result.RawNoiseRmseDn, Model = "Three discrete input bands, overlapping absolute CFA QE" });
+            result.RawNoiseRmseDn,
+            Model = "Three discrete input bands, overlapping absolute CFA QE"
+        });
     }
 
     [Fact]
@@ -80,8 +84,14 @@ public sealed class CameraSpectralResponseTests
         var mean = red.Average(); var variance = red.Sum(x => Math.Pow(x - mean, 2)) / (red.Length - 1);
         Assert.InRange(Math.Abs(mean - expected), 0, 6 * Math.Sqrt((expected + 9) / red.Length));
         Assert.InRange(variance / (expected + 9), .94, 1.06);
-        Record("spectral-noise-reference", new { ExpectedMean = expected, ActualMean = mean,
-            ExpectedVariance = expected + 9, ActualVariance = variance, Samples = red.Length });
+        Record("spectral-noise-reference", new
+        {
+            ExpectedMean = expected,
+            ActualMean = mean,
+            ExpectedVariance = expected + 9,
+            ActualVariance = variance,
+            Samples = red.Length
+        });
     }
 
     [Fact]

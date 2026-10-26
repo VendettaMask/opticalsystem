@@ -27,12 +27,14 @@
 | 规范名称 | 版本 | 当前实现 | 诊断信息 |
 |---|---|---|---|
 | `Damped Least Squares` | `damped-least-squares/2` | 带阻尼的残差雅可比最小二乘步进、精确约束处理、无效试探步拒绝与差分探测恢复 | 停止原因、梯度范数、函数评价次数、无效试探步计数警告 |
-| `Nelder-Mead` | `nelder-mead/1` | 单纯形反射、扩张、收缩和缩小 | 停止原因、函数评价次数 |
+| `Nelder-Mead` | `nelder-mead/2` | 有界单纯形反射、扩张、内/外收缩和缩小；固定变量不占单纯形维度 | 停止原因、函数评价次数 |
 | `Coordinate Pattern Search` | `coordinate-pattern-search/1` | 有界坐标方向模式试探和步长收缩 | 停止原因、函数评价次数 |
 | `Momentum Gradient Descent` | `momentum-gradient-descent/2` | 有限差分梯度、动量方向和回退步长；非有限梯度明确失败 | 停止原因、梯度范数、函数评价次数 |
 | `Greedy Random Perturbation` | `greedy-random-perturbation/1` | 固定种子的逐坐标随机扰动，只接受更优候选 | 停止原因、函数评价次数、随机种子 |
 
 `Greedy Random Perturbation` 是启发式局部/区域搜索，不宣称具有全局最优保证。
+
+2026-10-26 起 Nelder–Mead 区分反射点优于最差点时的外收缩和反射更差时的内收缩，并使用对应接受条件。初点与每个顶点均投影到变量边界，保存的单纯形坐标与实际评价坐标一致；上界初点向区间内部生成顶点，等上下界变量保留数值但不占搜索维度。实现版本更新为 `/2`，历史 `/1` 记录不改写；具体回归见[修复记录](PRIORITY_RELIABILITY_REPAIR_2026-10-26.md)。
 
 ## 名称兼容与拒绝边界
 
@@ -70,7 +72,7 @@
 
 `CreateOperand`、`CreateOperands` 和独立批量评价对不可用值抛出带操作数名称与原因的 `OptimizationEvaluationException`，不再用固定大数替代。无效起点直接失败；DLS 对无效试探步提高阻尼，并在差分探测失败时尝试反向和缩短扰动。所有探测都失败时明确中止，不能产生零导数。其它公开求解器目前遇到无效评价会中止；应用层仍完整回滚文档和历史，不宣称已具备可行性恢复。
 
-DLS 和动量梯度下降不再把非有限梯度标记为 `GradientTolerance`；残差平方和溢出也立即报错。梯度诊断仍非完整的约束投影梯度，`Success` 仍表示一次有效运行未恶化总 merit，不等于达到局部极小值或满足光学用途。修复与验证见 [实施记录](OPTIMIZATION_ENTRY_FIX_2026-09-27.md)。
+DLS 和动量梯度下降不再把非有限梯度标记为 `GradientTolerance`；残差平方和溢出也立即报错。2026-10-26 起，`Success` 要求初末 merit 有限、不恶化，并且有严格改善、零残差或梯度收敛依据；固定非零残差且无改善不再报成功。梯度诊断仍非完整的约束投影梯度，有改善的有效运行也不等于已达到局部极小值或满足光学用途。原阶段修复见 [实施记录](OPTIMIZATION_ENTRY_FIX_2026-09-27.md)，本轮语义见[续修说明](FULL_RELIABILITY_REPAIR_2026-10-26.md)。
 
 ## 运行记录约定
 

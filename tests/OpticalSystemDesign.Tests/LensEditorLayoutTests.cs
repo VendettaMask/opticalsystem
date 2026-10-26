@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Layout;
-using Avalonia.Media;
 using Avalonia.Markup.Xaml.MarkupExtensions;
+using Avalonia.Media;
 using Avalonia.Styling;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;

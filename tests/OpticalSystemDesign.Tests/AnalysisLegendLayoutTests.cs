@@ -127,7 +127,8 @@ public sealed class AnalysisLegendLayoutTests
             var micrometers = millimeters with
             {
                 Points = [new(-5, -10), new(5, 10)],
-                XUnit = AnalysisAxisUnit.Micrometer, YUnit = AnalysisAxisUnit.Micrometer
+                XUnit = AnalysisAxisUnit.Micrometer,
+                YUnit = AnalysisAxisUnit.Micrometer
             };
             var plot = new AnalysisPlotControl { Series = [millimeters, micrometers] };
             var window = new Window { Width = 640, Height = 480, Content = plot };
@@ -201,11 +202,14 @@ public sealed class AnalysisLegendLayoutTests
             DisplayTypography.Configure(new AppSettings { FontSize = fontSize });
             using var app = WorkbenchApplication.Create();
             var view = View(AnalysisPresentationKind.Standard, true);
-            view = view with { Series = Enumerable.Range(1, 8).Select(index => view.Series[0] with
+            view = view with
             {
-                ConfigurationNumber = index,
-                LegendLabel = $"Configuration {index}: wavelength 0.4860 µm / extended descriptive label"
-            }).ToArray() };
+                Series = Enumerable.Range(1, 8).Select(index => view.Series[0] with
+                {
+                    ConfigurationNumber = index,
+                    LegendLabel = $"Configuration {index}: wavelength 0.4860 µm / extended descriptive label"
+                }).ToArray()
+            };
             var tabs = Build(view, app);
             DisplayTypography.Apply(tabs);
             var window = new Window { Width = 640, Height = 420, Content = tabs };
@@ -260,11 +264,23 @@ public sealed class AnalysisLegendLayoutTests
             var runtime = new WorkbenchRuntime(Optic.CreateCookeTriplet());
             var view = WorkbenchMapper.ToAnalysisViewDto(runtime.BuildAnalysisView(analysis, new Dictionary<string, string>
             {
-                ["Sampling"] = "8", ["PupilSampling"] = "8", ["ImageSampling"] = "16", ["NumRays"] = "8",
-                ["PlotPointCount"] = "16", ["ZernikeTerms"] = "9", ["NumberOfSteps"] = "3", ["Steps"] = "3",
-                ["FieldDensity"] = "3", ["WavelengthNumber"] = "1", ["ShowDiffractionLimit"] = "true",
-                ["Frequency1"] = "10", ["Frequency2"] = "20", ["Frequency3"] = "30",
-                ["Frequency4"] = "0", ["Frequency5"] = "0", ["Frequency6"] = "0"
+                ["Sampling"] = "8",
+                ["PupilSampling"] = "8",
+                ["ImageSampling"] = "16",
+                ["NumRays"] = "8",
+                ["PlotPointCount"] = "16",
+                ["ZernikeTerms"] = "9",
+                ["NumberOfSteps"] = "3",
+                ["Steps"] = "3",
+                ["FieldDensity"] = "3",
+                ["WavelengthNumber"] = "1",
+                ["ShowDiffractionLimit"] = "true",
+                ["Frequency1"] = "10",
+                ["Frequency2"] = "20",
+                ["Frequency3"] = "30",
+                ["Frequency4"] = "0",
+                ["Frequency5"] = "0",
+                ["Frequency6"] = "0"
             }));
             Assert.Equal(AnalysisOutcome.Success, view.Outcome);
             Assert.True(view.PlotOptions.ShowLegend);
@@ -315,7 +331,7 @@ public sealed class AnalysisLegendLayoutTests
             using var app = WorkbenchApplication.Create();
             var view = View(AnalysisPresentationKind.Standard, false);
             var series = view.Series.Select((item, index) => item with
-                { Name = index < 2 ? "Repeated label" : "", LegendKey = "", LegendLabel = "" }).ToArray();
+            { Name = index < 2 ? "Repeated label" : "", LegendKey = "", LegendLabel = "" }).ToArray();
             view = view with { Series = series };
             foreach (var usePanes in new[] { false, true })
             {

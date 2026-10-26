@@ -29,7 +29,9 @@ public enum AnalysisColorMap
 {
     Viridis,
     Inferno,
-    Jet
+    Jet,
+    Gray,
+    InverseGray
 }
 
 public enum AnalysisAxisQuantity

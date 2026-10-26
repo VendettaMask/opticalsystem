@@ -117,16 +117,23 @@ internal static class AutoLensOfficialBenchmarks
 
         async Task SaveSummary() => await Save(Path.Combine(output, "summary.json"), new
         {
-            Protocol = AutoLensOfficialExamples.ProtocolVersion, AutoLensOfficialExamples.UpstreamCommit, AutoLensOfficialExamples.SourceUrl,
-            CreatedUtc = created, UpdatedUtc = DateTimeOffset.UtcNow,
+            Protocol = AutoLensOfficialExamples.ProtocolVersion,
+            AutoLensOfficialExamples.UpstreamCommit,
+            AutoLensOfficialExamples.SourceUrl,
+            CreatedUtc = created,
+            UpdatedUtc = DateTimeOffset.UtcNow,
             Machine = new { OS = RuntimeInformation.OSDescription, Runtime = RuntimeInformation.FrameworkDescription, Environment.ProcessorCount },
-            BinarySha256 = binaries, PresetFingerprint = ContentFingerprint.Compute(presets),
-            Presets = selected, ExpectedRuns = expectedRuns, CompletedRuns = runs.Count,
+            BinarySha256 = binaries,
+            PresetFingerprint = ContentFingerprint.Compute(presets),
+            Presets = selected,
+            ExpectedRuns = expectedRuns,
+            CompletedRuns = runs.Count,
             CompleteRequestedProtocol = runs.Count == expectedRuns,
             CompleteCatalogProtocol = args.Length == 1 && runs.Count == expectedRuns,
             AcceptedDesigns = runs.Count(run => run.DesignAccepted),
             AllRequestedDesignsAccepted = runs.Count == expectedRuns && runs.All(run => run.DesignAccepted),
-            UpstreamNumericalEquivalence = false, OfficialEightUltraPrescriptionsReproduced = false,
+            UpstreamNumericalEquivalence = false,
+            OfficialEightUltraPrescriptionsReproduced = false,
             ActualSensorDiagonalCoverageCertified = false,
             Scope = "Native CPU target adaptation. 4000 evaluations/60 seconds per independent seed; full-aperture dense physical replay and STAROPT replay are outside search budgets. Original upstream prescriptions, seed ids and unspecified parameters are not invented. Failed candidates remain failed.",
             Results = runs

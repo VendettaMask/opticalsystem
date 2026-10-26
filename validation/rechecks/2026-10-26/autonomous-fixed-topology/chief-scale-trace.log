@@ -1,0 +1,35 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.Tests -> D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:02.16]     OpticalSystemDesign.Tests.PhysicalStopDerivativeTests.GenericSeparationAndSharedAssessmentCentroidKeepTheirPhysicalMeaning [FAIL]
+  失败 OpticalSystemDesign.Tests.PhysicalStopDerivativeTests.GenericSeparationAndSharedAssessmentCentroidKeepTheirPhysicalMeaning [651 ms]
+  错误消息:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 9.9999999999999995E-07)
+Actual: 1.2667962551815606
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.PhysicalStopDerivativeTests.GenericSeparationAndSharedAssessmentCentroidKeepTheirPhysicalMeaning() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PhysicalStopDerivativeTests.cs:line 112
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  标准输出消息:
+ scale=125.41282988413076, ray=124.1460336289492, inputSlope=1.0000000000000003E-05, stopY=4.682221949568743E-15
+ surface 1: z=0, y=-0.00013171685005062365, slope=1.0000000000000003E-05, para-y=-0.00013171685005062365, n=1, R=0
+ surface 2: z=2.000000000178295, y=-0.0001117168500488407, slope=7.680370582799559E-06, para-y=-0.00011171685005062365, n=1.5167984379050088, R=35
+ surface 3: z=4.999999999912629, y=-8.867573830248244E-05, slope=1.2667962615151121E-05, para-y=-8.867573830191066E-05, n=1, R=-45
+ surface 4: z=12, y=4.682221949568743E-15, slope=1.2667962615151121E-05, para-y=1.3552527156068805E-20, n=1, R=0
+ surface 5: z=110, y=0.0012414603362894921, slope=1.2667962615151121E-05, para-y=0.0012414603362267494, n=1, R=0
+
+
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autonomous-fixed-topology\chief-scale-trace.trx
+
+失败!  - 失败:     1，通过:     0，已跳过:     0，总计:     1，持续时间: 651 ms - OpticalSystemDesign.Tests.dll (net10.0)

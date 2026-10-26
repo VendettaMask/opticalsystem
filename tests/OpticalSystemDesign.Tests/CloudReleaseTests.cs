@@ -286,11 +286,17 @@ public sealed class CloudReleaseTests
             File.WriteAllBytes(Path.Combine(Directory, ExeName), [0x4d, 0x5a, 0, 0]);
             Record = new()
             {
-                ["Version"] = Version, ["Runtime"] = "win-x64", ["TestPackage"] = true,
-                ["SourceDirty"] = false, ["ValidationHooks"] = false, ["Signed"] = false,
-                ["ModulesInProcess"] = true, ["RequiredModules"] = new[] { "InitialStructure", "CoatingDesign" },
+                ["Version"] = Version,
+                ["Runtime"] = "win-x64",
+                ["TestPackage"] = true,
+                ["SourceDirty"] = false,
+                ["ValidationHooks"] = false,
+                ["Signed"] = false,
+                ["ModulesInProcess"] = true,
+                ["RequiredModules"] = new[] { "InitialStructure", "CoatingDesign" },
                 ["ProductAppId"] = "OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A",
-                ["SourceCommit"] = new string('a', 40), ["ReleaseId"] = $"{Version}-win-x64-0123456789ab"
+                ["SourceCommit"] = new string('a', 40),
+                ["ReleaseId"] = $"{Version}-win-x64-0123456789ab"
             };
             SaveRecord();
         }
@@ -304,8 +310,10 @@ public sealed class CloudReleaseTests
             File.WriteAllBytes(Path.Combine(Directory, MacName), bytes);
             var record = new Dictionary<string, object>(Record)
             {
-                ["Runtime"] = "osx-arm64", ["ReleaseId"] = $"{Version}-osx-arm64-0123456789ab",
-                ["MacCodeSignature"] = "AdHoc", ["Notarized"] = false
+                ["Runtime"] = "osx-arm64",
+                ["ReleaseId"] = $"{Version}-osx-arm64-0123456789ab",
+                ["MacCodeSignature"] = "AdHoc",
+                ["Notarized"] = false
             };
             File.WriteAllText(Path.Combine(Directory, "release-osx-arm64.json"), JsonSerializer.Serialize(record));
         }
@@ -325,7 +333,10 @@ public sealed class CloudReleaseTests
     {
         var start = new ProcessStartInfo("pwsh")
         {
-            UseShellExecute = false, CreateNoWindow = true, RedirectStandardOutput = true, RedirectStandardError = true
+            UseShellExecute = false,
+            CreateNoWindow = true,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true
         };
         start.Environment["GH_TOKEN"] = "";
         start.Environment["GITHUB_SHA"] = "";

@@ -104,6 +104,9 @@ public sealed record Experiment(int SchemaVersion, Guid Id, string Name, DesignT
         if (SchemaVersion != CurrentSchema) throw new InvalidDataException($"不支持实验格式版本 {SchemaVersion}。");
         if (Id == Guid.Empty || string.IsNullOrWhiteSpace(Name) || Target is null || Settings is null || Materials is null || Layers is null)
             throw new InvalidDataException("实验缺少名称、参数或材料快照。");
+        if (Materials.Any(m => m is null) || Layers.Any(l => l is null)
+            || Target.StopBands?.Any(b => b is null) == true)
+            throw new InvalidDataException("材料、膜层或截止波段不能包含空元素。");
         var t = Target; var s = Settings;
         var search = s.Search ?? new(); var tolerance = s.Tolerancing ?? new();
         if ((t.Structure?.Cavities ?? 1) is < 1 or > 5 || search.Starts is < 1 or > 32

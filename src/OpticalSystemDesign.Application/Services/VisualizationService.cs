@@ -3,26 +3,26 @@ using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
-using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.NonSequential;
-using NonSequentialObjectKind = OpticalSystemDesign.Core.NonSequential.NonSequentialObjectKind;
 using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Phase;
 using OpticalSystemDesign.Core.Services;
 using OpticalSystemDesign.Core.Visualization;
+using static OpticalSystemDesign.Application.Services.WorkbenchMapper;
 using ContractAnalysisColorMap = OpticalSystemDesign.Application.Contracts.AnalysisColorMap;
 using ContractAnalysisLineStyle = OpticalSystemDesign.Application.Contracts.AnalysisLineStyle;
 using ContractAnalysisMarkerStyle = OpticalSystemDesign.Application.Contracts.AnalysisMarkerStyle;
 using ContractAnalysisParameterDescriptor = OpticalSystemDesign.Application.Contracts.AnalysisParameterDescriptor;
 using ContractAnalysisParameterKind = OpticalSystemDesign.Application.Contracts.AnalysisParameterKind;
 using ContractAnalysisSeriesKind = OpticalSystemDesign.Application.Contracts.AnalysisSeriesKind;
-using static OpticalSystemDesign.Application.Services.WorkbenchMapper;
+using NonSequentialObjectKind = OpticalSystemDesign.Core.NonSequential.NonSequentialObjectKind;
 
 namespace OpticalSystemDesign.Application.Services;
 
@@ -147,10 +147,10 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
             {
                 linked.Token.ThrowIfCancellationRequested();
                 using var cancellationScope = ComputationCancellation.Push(linked.Token);
-                var currentSceneHash = NonSequentialSceneHasher.Compute(document);
+                var currentSceneHash = NonSequentialSceneHasher.Compute(document, optic.Materials);
                 var layout = layoutSession?.LoadLayoutBranches(
                     document,
-                    request.IncludeStaleNonSequentialRays);
+                    request.IncludeStaleNonSequentialRays, materials: optic.Materials);
                 var scene = NonSequentialVisualizationBuilder.Build(
                     optic,
                     document,

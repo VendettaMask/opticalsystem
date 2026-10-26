@@ -3,8 +3,8 @@ using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
-using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Geometries;
@@ -14,13 +14,13 @@ using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Phase;
 using OpticalSystemDesign.Core.Services;
 using OpticalSystemDesign.Core.Visualization;
+using static OpticalSystemDesign.Application.Services.WorkbenchMapper;
 using ContractAnalysisColorMap = OpticalSystemDesign.Application.Contracts.AnalysisColorMap;
 using ContractAnalysisLineStyle = OpticalSystemDesign.Application.Contracts.AnalysisLineStyle;
 using ContractAnalysisMarkerStyle = OpticalSystemDesign.Application.Contracts.AnalysisMarkerStyle;
 using ContractAnalysisParameterDescriptor = OpticalSystemDesign.Application.Contracts.AnalysisParameterDescriptor;
 using ContractAnalysisParameterKind = OpticalSystemDesign.Application.Contracts.AnalysisParameterKind;
 using ContractAnalysisSeriesKind = OpticalSystemDesign.Application.Contracts.AnalysisSeriesKind;
-using static OpticalSystemDesign.Application.Services.WorkbenchMapper;
 
 namespace OpticalSystemDesign.Application.Services;
 

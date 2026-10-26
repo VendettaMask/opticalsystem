@@ -6,6 +6,23 @@ namespace OpticalSystemDesign.Core.Services;
 /// <summary>Generalized image distortion using the formal grid-distortion reference and ray tracer.</summary>
 public static class DistortionMetrics
 {
+    /// <summary>Unsigned primary chief distortion against the actual image-plane paraxial mapping, as a fraction, not percent.
+    /// This explicit paraxial reference differs from the fitted real-chief reference of Generalized/Grid Distortion.</summary>
+    public static double ParaxialChiefFractionAtField(Optic optic, double normalizedX, double normalizedY)
+    {
+        if (!double.IsFinite(normalizedX) || !double.IsFinite(normalizedY) || double.Hypot(normalizedX, normalizedY) > 1 + 1e-12)
+            throw new ArgumentOutOfRangeException(nameof(normalizedX));
+        var wavelength = optic.Wavelengths.Single(wave => wave.IsPrimary).Micrometers;
+        var sample = AnalysisTrace.FinalSample(optic, normalizedX, normalizedY, 0, 0, wavelength, requireUnvignetted: true);
+        if (double.Hypot(normalizedX, normalizedY) <= 1e-12) return 0;
+        var scale = optic.Paraxial.EstimateChiefRayImageScale();
+        var unit = Differentiation.DifferentiableOpticalMetrics.FirstOrderImagePoint(optic, 1, normalizedX, normalizedY);
+        var idealX = scale * unit.X; var idealY = scale * unit.Y;
+        var radius = double.Hypot(idealX, idealY);
+        if (!double.IsFinite(radius) || radius <= 1e-15) throw new ArithmeticException("Paraxial chief distortion has zero reference height.");
+        return RequireFinite(double.Hypot(sample.Position.X - idealX, sample.Position.Y - idealY) / radius);
+    }
+
     /// <summary>Chief-ray distortion relative to an explicitly supplied grid-reference matrix.</summary>
     public static double WithReferenceMatrix(Optic optic, double wavelengthMicrometers, int referenceField,
         int fieldNumber, int component, double a, double b, double c, double d)

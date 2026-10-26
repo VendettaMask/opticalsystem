@@ -3,10 +3,10 @@ using Avalonia.LogicalTree;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.Core.Differentiation;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Persistence;
-using OpticalSystemDesign.Core.Differentiation;
 
 namespace OpticalSystemDesign.App.Laboratories.InitialStructure;
 
@@ -176,7 +176,7 @@ public sealed partial class MainWindow
     }
     private const string HistoricalMethodMessage = "旧算法记录仅供查看和导出；新实验统一使用 AutoLens。";
     private static bool UsesOnlyAutoLens(InitialStructureSpecification specification) => specification.FlatStart is
-        { OptimizationMethod: FlatStartOptimizationMethod.AutoLensManagedV1, AutoLens: { TargetPolishEvaluations: 0, Policy: AutoLensManagedPolicy.UpstreamE58 } };
+    { OptimizationMethod: FlatStartOptimizationMethod.AutoLensManagedV1, AutoLens: { TargetPolishEvaluations: 0, Policy: AutoLensManagedPolicy.UpstreamE58 } };
     private static bool CanResume(FlatStartSearchCheckpoint checkpoint) => UsesOnlyAutoLens(checkpoint.Specification)
         && checkpoint.Algorithm.Version == FlatStartAlgorithm.Version && checkpoint.UsableGlassNames.Count > 0
         && checkpoint.ChargedEvaluations < checkpoint.Specification.Budget.MaximumEvaluations

@@ -8,12 +8,12 @@ using Avalonia.Input.Platform;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
-using Avalonia.VisualTree;
 using Avalonia.Threading;
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Formatting;
+using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Formatting;
 
 namespace OpticalSystemDesign.App.Panels;
 

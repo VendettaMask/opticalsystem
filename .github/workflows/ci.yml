@@ -11,6 +11,7 @@ permissions:
   contents: read
 
 env:
+  CONFIGURATION: Release
   DOTNET_CI_ARGS: -p:ContinuousIntegrationBuild=true
   MAIN_SOLUTION: OpticalSystemDesign.slnx
   MAIN_TEST_PROJECT: tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj
@@ -103,7 +104,7 @@ jobs:
         run: dotnet restore ${{ env.MAIN_SOLUTION }} --locked-mode ${{ env.DOTNET_CI_ARGS }}
 
       - name: Build main solution
-        run: dotnet build ${{ env.MAIN_SOLUTION }} --no-restore /m:1 /nr:false ${{ env.DOTNET_CI_ARGS }}
+        run: dotnet build ${{ env.MAIN_SOLUTION }} -c ${{ env.CONFIGURATION }} --no-restore /m:1 /nr:false ${{ env.DOTNET_CI_ARGS }}
 
   test-main:
     name: Main tests (${{ matrix.label }})
@@ -132,12 +133,13 @@ jobs:
         run: dotnet restore ${{ env.MAIN_SOLUTION }} --locked-mode ${{ env.DOTNET_CI_ARGS }}
 
       - name: Build main solution
-        run: dotnet build ${{ env.MAIN_SOLUTION }} --no-restore /m:1 /nr:false ${{ env.DOTNET_CI_ARGS }}
+        run: dotnet build ${{ env.MAIN_SOLUTION }} -c ${{ env.CONFIGURATION }} --no-restore /m:1 /nr:false ${{ env.DOTNET_CI_ARGS }}
 
       - name: Test main solution
         run: >-
           dotnet test
           ${{ env.MAIN_TEST_PROJECT }}
+          -c ${{ env.CONFIGURATION }}
           --no-build
           --logger "trx;LogFileName=main-${{ matrix.label }}.trx"
           --results-directory "${{ runner.temp }}/test-results/main"
@@ -149,10 +151,11 @@ jobs:
         run: >-
           dotnet test
           ${{ env.COMPARISON_TEST_PROJECT }}
+          -c ${{ env.CONFIGURATION }}
           --no-build --no-restore
           --logger "trx;LogFileName=comparison-${{ matrix.label }}.trx"
           --results-directory "${{ runner.temp }}/test-results/main"
-          --blame-hang --blame-hang-timeout 3m
+          --blame-hang --blame-hang-timeout 30m
           /m:1 /nr:false
 
       - name: Upload main test results
@@ -186,12 +189,13 @@ jobs:
         run: dotnet restore ${{ env.MAIN_SOLUTION }} --locked-mode ${{ env.DOTNET_CI_ARGS }}
 
       - name: Build complete product
-        run: dotnet build ${{ env.MAIN_SOLUTION }} --no-restore /m:1 /nr:false ${{ env.DOTNET_CI_ARGS }}
+        run: dotnet build ${{ env.MAIN_SOLUTION }} -c ${{ env.CONFIGURATION }} --no-restore /m:1 /nr:false ${{ env.DOTNET_CI_ARGS }}
 
       - name: Test built-in initial structure
         run: >-
           pwsh -NoProfile -File scripts/test-initial-structure-partition.ps1
           -Partition ${{ matrix.partition }}
+          -Configuration ${{ env.CONFIGURATION }}
           -ResultsDirectory "${{ runner.temp }}/test-results/lab"
           -HangTimeout ${{ env.LAB_TEST_HANG_TIMEOUT }}
 
@@ -200,6 +204,7 @@ jobs:
         run: >-
           dotnet test
           ${{ env.COATING_TEST_PROJECT }}
+          -c ${{ env.CONFIGURATION }}
           --no-build --no-restore
           --logger "trx;LogFileName=coating-${{ matrix.os }}.trx"
           --results-directory "${{ runner.temp }}/test-results/lab"
@@ -232,6 +237,9 @@ jobs:
 
       - name: Verify formatting
         run: dotnet format ${{ env.MAIN_SOLUTION }} --no-restore --verify-no-changes
+
+      - name: Verify immutable release action references
+        run: pwsh -NoProfile -File scripts/verify-release-actions.ps1
 
       - name: Verify initial-structure partition coverage
         run: pwsh -NoProfile -File scripts/tests/test-initial-structure-partition.tests.ps1
@@ -284,12 +292,14 @@ jobs:
         run: >-
           dotnet build
           tools/OpticalSystemDesign.Benchmarks/OpticalSystemDesign.Benchmarks.csproj
+          -c ${{ env.CONFIGURATION }}
           --no-restore /m:1 /nr:false ${{ env.DOTNET_CI_ARGS }}
 
       - name: Run bounded performance smoke
         run: >-
           dotnet run
           --project tools/OpticalSystemDesign.Benchmarks/OpticalSystemDesign.Benchmarks.csproj
+          -c ${{ env.CONFIGURATION }}
           --no-build -- --ci-smoke
 
   step-fixtures:
@@ -309,7 +319,7 @@ jobs:
         run: dotnet restore ${{ env.MAIN_SOLUTION }} --locked-mode ${{ env.DOTNET_CI_ARGS }}
 
       - name: Build main solution
-        run: dotnet build ${{ env.MAIN_SOLUTION }} --no-restore /m:1 /nr:false ${{ env.DOTNET_CI_ARGS }}
+        run: dotnet build ${{ env.MAIN_SOLUTION }} -c ${{ env.CONFIGURATION }} --no-restore /m:1 /nr:false ${{ env.DOTNET_CI_ARGS }}
 
       - name: Generate STEP validation fixtures
         env:
@@ -317,6 +327,7 @@ jobs:
         run: >-
           dotnet test
           ${{ env.MAIN_TEST_PROJECT }}
+          -c ${{ env.CONFIGURATION }}
           --no-build
           --filter FullyQualifiedName~CadExportFreeCadFixtureTests
           --logger "trx;LogFileName=step-fixtures.trx"

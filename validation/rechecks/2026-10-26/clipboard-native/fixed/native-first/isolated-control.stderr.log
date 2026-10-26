@@ -1,0 +1,14 @@
+Unhandled exception. System.TypeInitializationException: The type initializer for 'SkiaSharp.SKImageInfo' threw an exception.
+ ---> System.DllNotFoundException: Unable to load DLL 'libSkiaSharp' or one of its dependencies: 找不到指定的模块。 (0x8007007E)
+   at SkiaSharp.SkiaApi.sk_colortype_get_default_8888()
+   at SkiaSharp.SkiaApi.sk_colortype_get_default_8888()
+   at SkiaSharp.SKImageInfo..cctor()
+   --- End of inner exception stack trace ---
+   at Avalonia.Skia.PlatformRenderInterface..ctor(Nullable`1 maxResourceBytes, Nullable`1 useStencilBuffers)
+   at Avalonia.Skia.SkiaPlatform.Initialize(SkiaOptions options)
+   at Avalonia.SkiaApplicationExtensions.<>c.<UseSkia>b__0_0()
+   at Avalonia.AppBuilder.SetupUnsafe()
+   at Avalonia.AppBuilder.Setup()
+   at Avalonia.AppBuilder.SetupWithoutStarting()
+   at Probe.Run() in D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\clipboard-native\background-probe\Program.cs:line 59
+   at Program.Main(String[] args) in D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\clipboard-native\background-probe\Program.cs:line 41

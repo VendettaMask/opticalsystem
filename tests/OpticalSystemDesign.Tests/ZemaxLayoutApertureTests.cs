@@ -1,5 +1,5 @@
-using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Analysis;
+using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Visualization;
 

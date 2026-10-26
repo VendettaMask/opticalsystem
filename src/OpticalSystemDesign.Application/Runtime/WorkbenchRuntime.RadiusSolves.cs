@@ -1,8 +1,8 @@
-using OpticalSystemDesign.Core.Multiconfig;
 using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Geometries;
-using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Multiconfig;
 
 namespace OpticalSystemDesign.Application.Runtime;
 

@@ -261,7 +261,7 @@ Workbench 一侧引用 `images/gui-current`。
 
 - 设置内容：通常与 wavefront map 类似，围绕采样、波长、视场、显示方式。
 - 结果展现：干涉条纹或由波前误差转换出的干涉图样。
-- Workbench 展示契约：当前实现复用瞳面波前热图，二维 X/Y 数据等比例，单图外层固定为正方形，不随结果区比例拉伸。
+- Workbench 展示契约：当前由独立干涉分析计算归一化条纹强度，二维 X/Y 数据等比例，并可按出瞳形状调整显示比例；波前 OPD 与条纹相位另存数据表。完整设置与限制见[干涉条纹实现](INTERFEROGRAM_2026-10-26.md)。
 - 实现方式：以 wavefront OPD 为基础，将相位误差映射为干涉强度/条纹显示，用于直观查看波前形状。
 
 ### 傅科分析 / Foucault Analysis
@@ -281,7 +281,7 @@ Workbench 一侧引用 `images/gui-current`。
 ### Zernike Fringe 系数 / Zernike Fringe Coefficients
 
 - 设置内容：采样、项数、波长、视场、subaperture 等。
-- 结果展现：Zernike coefficient 文本/表格和可能的波前重建图。
+- 结果展现：各项 Zernike 系数文本/表格，以及 PV、RMS、方差、Strehl 估计和拟合误差等统计；这不代表独立的波前重建图或系数柱形图。
 - 实现方式：对 pupil OPD 拟合 Fringe Zernike 多项式。Subaperture 由 `Sx/Sy/Sr` 定义。
 
 ### Zernike Standard 系数 / Zernike Standard Coefficients
@@ -582,9 +582,10 @@ Workbench 一侧引用 `images/gui-current`。
 ## Workbench 当前实现对照注意点
 
 - 本文描述 Zemax/OpticStudio 官方方法。Workbench 当前实现可能只覆盖其中一部分设置或用简化参数名映射。
+- 2026-10-26 移除桌面通用 `Zernike` / “Zernike 系数”重复入口及搜索、报告导出选项；三种具名 Fringe/Standard/Annular 系数表与拟合统计保留，波前分布使用已有 Wavefront Map。旧报告通用项会跳过，底层通用拟合 API 与历史捕获保留，不将重建波前冒充系数分析。见[本轮范围与验证](../validation/rechecks/2026-10-26/zernike-entry-removal/README.md)。
 - 2026-09-04 修正 MS-L7 高 NA 镜头 FFT PSF 的工作 F 数探针缺失：失败时协调切换光阑瞄准、波前和偏振光瞳，保留真实遮挡/取消错误。定向数值回归及默认桌面构建占用的待办见 [FFT PSF 光阑瞄准修正](FFT_PSF_STOP_AIMING.md)，不等同于 Zemax 精度验收。
 - Workbench 不再提供独立“畸变”入口；场曲与畸变统一由 `Field Curvature and Distortion` 页面展示。底层 `DistortionAnalysis` 仍负责组合页中的畸变曲线，旧 `Distortion`/“畸变”名称会迁移到组合分析。
-- Workbench 当前“干涉图”实际复用 `WavefrontAnalysis` 的 OPD 热图，仍缺少独立干涉条纹显示、条纹数/波长及参考波 X/Y 倾斜设置。2026-09-04 仅补齐左下角专用摘要（实际波长/视场、PV、分析面、出瞳直径），未提供的条纹/倾斜项显示 `—`；不能将该页脚外观修正视为干涉图计算已与 Zemax 等价。
+- Workbench 自 2026-10-26 起使用独立 `InterferogramAnalysis`，由共享 Core 的双光束 OPD 差计算归一化干涉强度，支持灰度/伪彩色/等高线、波前倍率、X/Y 倾斜、光束结构、分析面、波长/视场、顶点参考、出瞳形状、主光线总光程差和子孔径。OPD 差与条纹相位另存数据表；不再复用 OPD 热图。已冻结原生轴上网格通过数值核对，其余设置的解析和后台界面/导出回归不等同于全部 Zemax 设置原生认证。适用范围及光阑前 Ray Aiming 等限制见[干涉条纹实现说明](INTERFEROGRAM_2026-10-26.md)。2026-09-04 的页脚修正仅是当时的历史阶段。
 - 官方菜单包含 `FFT Surface MTF`、`FFT MTF Map`、`Huygens Surface MTF`、`Geometric MTF Map` 等 MTF 变体；若需要“所有 Zemax 方法”完全覆盖，应在 Workbench MTF 分组中补齐这些入口。
 
 ## 2026-09-05 数值修复

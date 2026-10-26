@@ -26,10 +26,13 @@ internal sealed class ReportImageRenderer(Border host)
                 {
                     var canvas = new OpticSceneControl
                     {
-                        Scene = scene, Width = 1200, Height = 650,
+                        Scene = scene,
+                        Width = 1200,
+                        Height = 650,
                         ViewMode = scene.Dimension == SceneDimension.TwoDimensional
                             ? OpticSceneViewMode.TwoDimensional : OpticSceneViewMode.ThreeDimensional,
-                        ShowRays = true, ShowScaleBar = true
+                        ShowRays = true,
+                        ShowScaleBar = true
                     };
                     var page = Page(request.Title, request.Document);
                     page.Children.Add(canvas);
@@ -64,8 +67,11 @@ internal sealed class ReportImageRenderer(Border host)
                             var page = Page($"{request.Title} ({i + 1}/{pages.Length})", request.Document);
                             var reportText = new TextBlock
                             {
-                                Text = string.Join("\n", pages[i]), TextWrapping = TextWrapping.NoWrap,
-                                Classes = { ProductFonts.NumericClass }, FontSize = DisplayTypography.CardTitle, Margin = new Thickness(16)
+                                Text = string.Join("\n", pages[i]),
+                                TextWrapping = TextWrapping.NoWrap,
+                                Classes = { ProductFonts.NumericClass },
+                                FontSize = DisplayTypography.CardTitle,
+                                Margin = new Thickness(16)
                             };
                             page.Children.Add(reportText);
                             Attach(page);
@@ -124,12 +130,16 @@ internal sealed class ReportImageRenderer(Border host)
         page.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.PlotBackground);
         page.Children.Add(new TextBlock
         {
-            Text = title, FontSize = DisplayTypography.LargeTitle, FontWeight = FontWeight.Bold, Margin = new Thickness(16, 12)
+            Text = title,
+            FontSize = DisplayTypography.LargeTitle,
+            FontWeight = FontWeight.Bold,
+            Margin = new Thickness(16, 12)
         });
         page.Children.Add(new TextBlock
         {
             Text = $"{document.Name} | EFL {document.EffectiveFocalLength:G6} mm | F/# {document.FNumber:G5} | TTL {document.TotalTrack:G6} mm",
-            TextWrapping = TextWrapping.Wrap, Margin = new Thickness(16, 0)
+            TextWrapping = TextWrapping.Wrap,
+            Margin = new Thickness(16, 0)
         });
         return page;
     }

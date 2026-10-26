@@ -4,8 +4,8 @@ using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
-using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.FileIO;
@@ -73,7 +73,7 @@ public partial class WorkbenchRuntime
                     Enumerable.Range(1, Math.Max(1, CurrentOptic.Wavelengths.Count))
                         .Select(index => index.ToString(CultureInfo.InvariantCulture))
                         .ToArray()),
-                DoubleParameter("MaximumAberration", "最大像差范围（毫米）", "0.1", 0.000001, 1000, 0.01),
+                DoubleParameter("MaximumAberration", "最大像差范围（毫米，0=自动）", "0", 0, 1000, 0.01),
                 DoubleParameter("GridInterval", "网格线间隔（毫米）", "0.01", 0.000001, 1000, 0.001)
             },
             "Single Ray Trace" => new[]
@@ -1095,8 +1095,23 @@ public partial class WorkbenchRuntime
             },
             "Interferogram" => new[]
             {
-                IntParameter("NumRings", "六角采样环数", "15", 1, 32),
-                IntParameter("MapSize", "波前图尺寸", "65", 17, 257)
+                ChoiceParameter("Sampling", "瞳面采样", "64 x 64", new[] { "32 x 32", "64 x 64", "128 x 128", "256 x 256", "512 x 512" }),
+                ChoiceParameter("SurfaceNumber", "分析面", "-1 - 像面", new[] { "-1 - 像面" }.Concat(CurrentOptic.SurfaceGroup.Items.Skip(1).SkipLast(1).Select(surface => surface.Number.ToString(CultureInfo.InvariantCulture))).ToArray()),
+                DoubleParameter("ScaleFactor", "条纹数/波长", "1", 0.001, 1000, 0.1),
+                ChoiceParameter("ShowAs", "显示为", "灰度", new[] { "灰度", "伪彩色", "等高线" }),
+                ChoiceParameter("WavelengthNumber", "波长", primaryWavelengthNumber.ToString(CultureInfo.InvariantCulture), Enumerable.Range(1, Math.Max(1, CurrentOptic.Wavelengths.Count)).Select(i => i.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                ChoiceParameter("FieldNumber", "视场", "1", Enumerable.Range(1, Math.Max(1, CurrentOptic.Fields.Count)).Select(i => i.ToString(CultureInfo.InvariantCulture)).ToArray()),
+                DoubleParameter("XTilt", "X 倾斜（条纹）", "0", -1000, 1000, 0.1),
+                DoubleParameter("YTilt", "Y 倾斜（条纹）", "0", -1000, 1000, 0.1),
+                ChoiceParameter("Beam1", "光束 1", "-1 - 当前结构", new[] { "-1 - 当前结构", "0 - 参考光束" }.Concat(Enumerable.Range(1, _multiConfiguration.Configurations.Count).Select(i => i.ToString(CultureInfo.InvariantCulture))).ToArray()),
+                ChoiceParameter("Beam2", "光束 2", "0 - 参考光束", new[] { "0 - 参考光束", "-1 - 当前结构" }.Concat(Enumerable.Range(1, _multiConfiguration.Configurations.Count).Select(i => i.ToString(CultureInfo.InvariantCulture))).ToArray()),
+                BoolParameter("RefBeamToVertex", "参考光束到顶点（倍率须为 1）", "false"),
+                BoolParameter("UseExitPupilShape", "使用出瞳形状", "true"),
+                BoolParameter("ConsiderPathLengthDifference", "考虑光程差", "false"),
+                new AnalysisParameterDescriptor("ContourFormat", "等高线格式（间隔或空格分隔值）", AnalysisParameterKind.Text, ""),
+                DoubleParameter("PupilSx", "子孔径 Sx", "0", -1, 1, 0.01),
+                DoubleParameter("PupilSy", "子孔径 Sy", "0", -1, 1, 0.01),
+                DoubleParameter("PupilSr", "子孔径 Sr", "1", 0.000001, 1, 0.01)
             },
             "Centroid Sphere Wavefront" or "Best Fit Sphere Wavefront" => new[]
             {

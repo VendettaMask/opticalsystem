@@ -1,0 +1,57 @@
+{
+  "Label": "fault-recovery",
+  "Mode": "fault-recovery",
+  "StartedUtc": "2026-10-26T03:22:08.5991455+00:00",
+  "FinishedUtc": "2026-10-26T03:22:13.6626629+00:00",
+  "ProcessId": 35652,
+  "ExitCode": 0,
+  "TimedOut": false,
+  "Complete": true,
+  "Unhandled": [],
+  "PasteObservations": [
+    {
+      "Attempt": 1,
+      "HasText": true,
+      "MatchesControlledText": null,
+      "TextAndSelectionUnchanged": true,
+      "Warnings": 1,
+      "ProviderReads": 1,
+      "SequenceBefore": 410,
+      "SequenceAfter": 410,
+      "WindowVisible": false
+    },
+    {
+      "Attempt": 2,
+      "HasText": true,
+      "MatchesControlledText": true,
+      "TextAndSelectionUnchanged": false,
+      "Warnings": 0,
+      "ProviderReads": 3,
+      "SequenceBefore": 410,
+      "SequenceAfter": 410,
+      "WindowVisible": false
+    }
+  ],
+  "Initialized": [
+    {
+      "ProductVersion": "1.0.4+4b9ea06f3ac0348eacd48d688b1dc4ea71e25a82",
+      "ProductModuleVersionId": "3abd03f6-9db3-48cf-aecc-ebfbde41344b",
+      "ProductDllSha256": "E1EF175DA85CEB8FBFB748A84A11D11E087E4E4330BA4F7A71B56D00DA211CE3",
+      "AvaloniaVersion": "12.1.0+a21b9f573172f705a944dcc8aad7f036b9986f39",
+      "Control": "OpticalSystemDesign.App.Controls.CommandSearchControl",
+      "Box": "Avalonia.Controls.TextBox",
+      "Attached": true,
+      "WindowVisible": false,
+      "Platform": "Avalonia.Win32.WindowImpl",
+      "Clipboard": "Avalonia.Input.Platform.Clipboard",
+      "SynchronizationContext": "Avalonia.Threading.AvaloniaSynchronizationContext"
+    }
+  ],
+  "UndoRedo": [
+    {
+      "UndoRestored": true,
+      "RedoRestored": true
+    }
+  ],
+  "ExpectedOutcomeMatched": true
+}

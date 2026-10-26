@@ -1,0 +1,22 @@
+initial-seed-42 Cpu: ArgumentException: Invalid, duplicate or excessive design parameters. (Parameter 'parameters')
+initial-seed-42 Gpu: masks=48 outputs=0 valid=264/216 params=145 2.10s
+initial-seed-101 Cpu: ArgumentException: Invalid, duplicate or excessive design parameters. (Parameter 'parameters')
+initial-seed-101 Gpu: masks=48 outputs=0 valid=264/216 params=145 0.33s
+nonzero-asphere-1 Cpu: ArgumentException: Invalid, duplicate or excessive design parameters. (Parameter 'parameters')
+nonzero-asphere-1 Gpu: masks=48 outputs=0 valid=264/216 params=145 0.32s
+nonzero-asphere-2 Cpu: ArgumentException: Invalid, duplicate or excessive design parameters. (Parameter 'parameters')
+nonzero-asphere-2 Gpu: masks=48 outputs=0 valid=264/216 params=145 0.32s
+active-material-and-clearance Cpu: ArgumentException: Invalid, duplicate or excessive design parameters. (Parameter 'parameters')
+active-material-and-clearance Gpu: masks=48 outputs=0 valid=264/216 params=145 0.34s
+trained-curriculum-catalog Cpu: ArgumentException: Invalid, duplicate or excessive design parameters. (Parameter 'parameters')
+trained-curriculum-catalog Gpu: masks=48 outputs=0 valid=264/216 params=133 0.31s
+trained-refine-720-catalog Cpu: ArgumentException: Invalid, duplicate or excessive design parameters. (Parameter 'parameters')
+trained-refine-720-catalog Gpu: masks=48 outputs=0 valid=264/216 params=133 0.32s
+aperture Cpu: masks=72 outputs=0 valid=132/60 params=25 0.04s
+aperture Gpu: masks=72 outputs=0 valid=132/60 params=25 0.03s
+critical Cpu: ArithmeticException: The critical refraction derivative is singular.
+critical Gpu: ArithmeticException: A CUDA fixed-input intersection/refraction derivative is singular or disagrees with formal Core.
+grazing Cpu: masks=0 outputs=0 valid=48/48 params=25 0.05s
+grazing Gpu: masks=0 outputs=0 valid=48/48 params=25 0.34s
+all-invalid Cpu: masks=132 outputs=0 valid=132/0 params=25 0.03s
+all-invalid Gpu: masks=132 outputs=0 valid=132/0 params=25 0.02s

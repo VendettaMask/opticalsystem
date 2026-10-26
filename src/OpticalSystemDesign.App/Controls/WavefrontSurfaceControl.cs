@@ -5,8 +5,8 @@ using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Controls;
 
@@ -75,6 +75,13 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
     internal Rect PlanarPlotBounds => PlanarPlotRect();
 
     public string DisplayAs { get; init; } = "表面";
+
+    public AnalysisColorMap? ColorMapOverride { get; init; }
+    public IReadOnlyList<double>? ContourLevels { get; init; }
+    private Color PlotColor(double value) => ColorMapOverride is { } map
+        ? AnalysisPlotControl.ColorFor(map, value) : JetColor(value);
+    private IEnumerable<double> Levels(double minimum, double maximum) => ContourLevels
+        ?? Enumerable.Range(0, ContourLevelCount).Select(i => minimum + (maximum - minimum) * i / (ContourLevelCount - 1));
 
     public string ColorBarTitle { get; init; } = "波前函数";
 
@@ -400,7 +407,7 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
                         var top = MapY(grid.Ys[row] + (yStep / 2));
                         var bottom = MapY(grid.Ys[row] - (yStep / 2));
                         context.DrawRectangle(
-                            new SolidColorBrush(JetColor(normalized)),
+                            new SolidColorBrush(PlotColor(normalized)),
                             null,
                             new Rect(
                                 Math.Min(left, right),
@@ -530,7 +537,7 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
                 }
 
                 context.DrawGeometry(
-                    new SolidColorBrush(JetColor(triangle.Value)),
+                    new SolidColorBrush(PlotColor(triangle.Value)),
                     edgePen,
                     geometry);
             }
@@ -600,12 +607,12 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
                     stream.BeginFigure(positions[0], true); stream.LineTo(positions[1]);
                     stream.LineTo(positions[2]); stream.EndFigure(true);
                 }
-                context.DrawGeometry(new SolidColorBrush(JetColor((values.Average() - minimum) / range)), null, shape);
+                context.DrawGeometry(new SolidColorBrush(PlotColor((values.Average() - minimum) / range)), null, shape);
                 return;
             }
-            for (var levelIndex = 0; levelIndex < ContourLevelCount; levelIndex++)
+            foreach (var level in Levels(minimum, maximum))
             {
-                var fraction = levelIndex / (double)(ContourLevelCount - 1); var level = minimum + range * fraction;
+                var fraction = (level - minimum) / range;
                 var intersections = new List<Point>();
                 for (var i = 0; i < 3; i++)
                 {
@@ -615,7 +622,7 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
                     intersections.Add(positions[i] + (positions[j] - positions[i]) * t);
                 }
                 if (intersections.Count == 2)
-                    context.DrawLine(new Pen(new SolidColorBrush(JetColor(fraction)), 1.15), intersections[0], intersections[1]);
+                    context.DrawLine(new Pen(new SolidColorBrush(PlotColor(fraction)), 1.15), intersections[0], intersections[1]);
             }
         }
     }
@@ -630,11 +637,10 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
         var range = Math.Max(1e-12, maximum - minimum);
         using (context.PushClip(plot))
         {
-            for (var index = 0; index < ContourLevelCount; index++)
+            foreach (var level in Levels(minimum, maximum))
             {
-                var fraction = index / (double)(ContourLevelCount - 1);
-                var level = minimum + (range * fraction);
-                var pen = new Pen(new SolidColorBrush(JetColor(fraction)), 1.15);
+                var fraction = (level - minimum) / range;
+                var pen = new Pen(new SolidColorBrush(PlotColor(fraction)), 1.15);
                 foreach (var segment in BuildContourSegments(grid.Values, level))
                 {
                     var start = new Point(
@@ -828,7 +834,7 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
             var fraction = index / (double)(strips - 1);
             var y = bar.Bottom - ((index + 1) * bar.Height / strips);
             context.DrawRectangle(
-                new SolidColorBrush(JetColor(fraction)),
+                new SolidColorBrush(PlotColor(fraction)),
                 null,
                 new Rect(bar.Left, y, bar.Width, (bar.Height / strips) + 1));
         }
@@ -845,13 +851,12 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
     {
         var title = Text(ColorBarTitle, 12, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         context.DrawText(title, new Point(bar.Center.X - (title.Width / 2), bar.Top - title.Height - 8));
-        for (var index = 0; index < ContourLevelCount; index++)
+        foreach (var value in Levels(minimum, maximum))
         {
-            var fraction = index / (double)(ContourLevelCount - 1);
+            var fraction = (value - minimum) / Math.Max(1e-12, maximum - minimum);
             var y = bar.Bottom - (fraction * bar.Height);
-            var pen = new Pen(new SolidColorBrush(JetColor(fraction)), 1.3);
+            var pen = new Pen(new SolidColorBrush(PlotColor(fraction)), 1.3);
             context.DrawLine(pen, new Point(bar.Left - 8, y), new Point(bar.Right + 8, y));
-            var value = minimum + ((maximum - minimum) * fraction);
             var label = Text(value.ToString("0.####", CultureInfo.InvariantCulture), 10, ThemeBrush(ThemeResourceBindings.PlotTick, Brushes.Black));
             context.DrawText(label, new Point(bar.Right + 13, y - (label.Height / 2)));
         }

@@ -1,0 +1,102 @@
+using System.Collections.Immutable;
+using OpticalSystemDesign.Core.Differentiation;
+using OpticalSystemDesign.Core.Raytrace;
+
+namespace OpticalSystemDesign.InitialStructure.Contracts;
+
+public sealed record TopologyTargets
+{
+    public double EffectiveFocalLengthMillimeters { get; init; } = 50;
+    public double FNumber { get; init; } = 12.5;
+    public double FocalLengthRelativeTolerance { get; init; } = .02;
+    public double FNumberRelativeTolerance { get; init; } = .02;
+    public double MaximumRmsRadiusMillimeters { get; init; } = .05;
+    public double MaximumSpotRadiusMillimeters { get; init; } = .15;
+    public double MaximumDistortionFraction { get; init; } = .03;
+    public double MinimumValidRayFraction { get; init; } = .98;
+    public double MinimumEdgeThicknessMillimeters { get; init; } = .1;
+    public double MinimumEdgeAirGapMillimeters { get; init; } = .01;
+    public double MaximumOpticalTrackMillimeters { get; init; } = 10_000;
+    public double MaximumAbsoluteSurfaceSlope { get; init; } = 10;
+}
+
+/// <summary>Immutable within an objective. Final acceptance always uses the separate 21/10/32 protocol.</summary>
+public sealed record TopologyTrainingSampling
+{
+    public int FieldsPerDirection { get; init; } = 3;
+    public int PupilRings { get; init; } = 3;
+    public int PupilArms { get; init; } = 12;
+    public int ProfileRadialSamples { get; init; } = 64;
+}
+
+public sealed record FixedTopologyOptions
+{
+    public int MaximumUpdates { get; init; } = 80;
+    public int MaximumFunctionEvaluations { get; init; } = 82;
+    public int MaximumGradientEvaluations { get; init; } = 81;
+    public TimeSpan TimeLimit { get; init; } = TimeSpan.FromMinutes(5);
+    public double LearningRate { get; init; } = .01;
+    public DesignComputeMode ComputeMode { get; init; } = DesignComputeMode.Automatic;
+    public TopologyTrainingSampling Sampling { get; init; } = new();
+}
+
+public sealed record TopologyFieldCoordinate(double X, double Y);
+public sealed record TopologyMetricViolation(string Code, double? Actual, double Limit);
+public sealed record TopologyFieldAssessment(TopologyFieldCoordinate Field, int AttemptedRays, int ValidRays,
+    int CheckAttemptedRays, int CheckValidRays, double? RmsRadiusMillimeters, double? MaximumRadiusMillimeters,
+    double? DistortionFraction, ImmutableArray<double> WavelengthValidFractions);
+
+public sealed record TopologyAssessment
+{
+    public required string OpticFingerprint { get; init; }
+    public required string ProtocolFingerprint { get; init; }
+    public required TopologyTargets Targets { get; init; }
+    public TopologyConstraints StructuralConstraints { get; init; } = new();
+    public double? EffectiveFocalLengthMillimeters { get; init; }
+    public double? FNumber { get; init; }
+    public ImmutableArray<TopologyFieldAssessment> Fields { get; init; } = [];
+    public ImmutableArray<TopologyMetricViolation> Violations { get; init; } = [];
+    public bool Completed { get; init; }
+    public bool MeetsTargets { get; init; }
+    public long TracedRayCount { get; init; }
+    public long GeometryProbes { get; init; }
+    public string? Failure { get; init; }
+}
+
+public sealed record TopologyObjectiveEvaluation
+{
+    public required string LayoutFingerprint { get; init; }
+    public required string OpticFingerprint { get; init; }
+    public ImmutableArray<double> Residuals { get; init; } = [];
+    public ImmutableArray<double> Gradient { get; init; } = [];
+    public ImmutableArray<ImmutableArray<double>> Jacobian { get; init; } = [];
+    public double? Objective { get; init; }
+    public bool Available { get; init; }
+    public string? Failure { get; init; }
+    public long TracedRayCount { get; init; }
+    public long GeometryProbes { get; init; }
+    public DesignComputeExecution? Execution { get; init; }
+    public SequentialGpuExecution? PropagationExecution { get; init; }
+}
+
+public enum FixedTopologyTermination { UpdateLimit, Converged, BudgetExhausted, TimeLimit, Cancelled, DomainFailure, Unsupported, Stalled }
+public sealed record FixedTopologyWork(int FunctionEvaluations, int GradientEvaluations, int ValidationEvaluations,
+    long TracedRays, long GeometryProbes, long? GpuDerivativeRays, long? GpuBatches, TimeSpan Elapsed, int CompletedGradientEvaluations);
+public sealed record FixedTopologyStep(int Attempt, bool Accepted, double? Objective, string? Failure);
+public sealed record FixedTopologyResult
+{
+    public string Algorithm { get; init; } = AutonomousTopologyIdentity.Name;
+    public required string ObjectiveFingerprint { get; init; }
+    public required DesignTopology Topology { get; init; }
+    public TopologyConstraints Constraints { get; init; } = new();
+    public TopologyTargets Targets { get; init; } = new();
+    public ImmutableArray<TopologyVariableRequest> Variables { get; init; } = [];
+    public required FixedTopologyTermination Termination { get; init; }
+    public required FixedTopologyWork Work { get; init; }
+    public int AcceptedUpdates { get; init; }
+    public ImmutableArray<FixedTopologyStep> Steps { get; init; } = [];
+    public TopologyObjectiveEvaluation? InitialEvaluation { get; init; }
+    public TopologyObjectiveEvaluation? EndpointEvaluation { get; init; }
+    public TopologyAssessment? FinalAssessment { get; init; }
+    public ImmutableArray<string> Diagnostics { get; init; } = [];
+}

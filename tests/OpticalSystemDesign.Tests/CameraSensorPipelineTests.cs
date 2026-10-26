@@ -31,8 +31,14 @@ public sealed class CameraSensorPipelineTests
         Assert.Equal(0, result.RawNoiseRmseDn);
         Assert.Equal(result.RawDn, result.ReferenceRawDn);
         Assert.Equal(result.Developed.Values.Cast<double>(), result.ReferenceDeveloped.Values.Cast<double>());
-        Evidence("photon-formula", new { result.MeanPhotoElectrons, Pixel00 = result.PhotoElectrons[0],
-            Pixel01 = result.PhotoElectrons[1], Pixel11 = result.PhotoElectrons[17], result.RawNoiseRmseDn });
+        Evidence("photon-formula", new
+        {
+            result.MeanPhotoElectrons,
+            Pixel00 = result.PhotoElectrons[0],
+            Pixel01 = result.PhotoElectrons[1],
+            Pixel11 = result.PhotoElectrons[17],
+            result.RawNoiseRmseDn
+        });
     }
 
     [Fact]
@@ -53,16 +59,20 @@ public sealed class CameraSensorPipelineTests
     }
 
     [Theory]
-    [InlineData(BayerPattern.RGGB)] [InlineData(BayerPattern.BGGR)]
-    [InlineData(BayerPattern.GRBG)] [InlineData(BayerPattern.GBRG)]
+    [InlineData(BayerPattern.RGGB)]
+    [InlineData(BayerPattern.BGGR)]
+    [InlineData(BayerPattern.GRBG)]
+    [InlineData(BayerPattern.GBRG)]
     public void DemosaicPreservesKnownConstantChannelLevelsIncludingBorders(BayerPattern pattern)
     {
         var settings = new CameraSensorSettings(Pattern: pattern); var levels = new[] { 320, 940, 1880 };
         var raw = new ushort[16 * 16];
         var tile = pattern switch
         {
-            BayerPattern.RGGB => new[] { 0, 1, 1, 2 }, BayerPattern.BGGR => new[] { 2, 1, 1, 0 },
-            BayerPattern.GRBG => new[] { 1, 0, 2, 1 }, _ => new[] { 1, 2, 0, 1 }
+            BayerPattern.RGGB => new[] { 0, 1, 1, 2 },
+            BayerPattern.BGGR => new[] { 2, 1, 1, 0 },
+            BayerPattern.GRBG => new[] { 1, 0, 2, 1 },
+            _ => new[] { 1, 2, 0, 1 }
         };
         for (var y = 0; y < 16; y++) for (var x = 0; x < 16; x++)
             raw[y * 16 + x] = (ushort)(settings.BlackLevel + levels[tile[(y % 2) * 2 + x % 2]]);
@@ -72,7 +82,9 @@ public sealed class CameraSensorPipelineTests
     }
 
     [Theory]
-    [InlineData(4)] [InlineData(100)] [InlineData(5000)]
+    [InlineData(4)]
+    [InlineData(100)]
+    [InlineData(5000)]
     public void PoissonAndReadNoiseMatchIndependentFlatFieldMeanAndVariance(double expected)
     {
         var settings = Clean with { NoiseEnabled = true, ReadNoiseElectrons = 3 };
@@ -87,8 +99,14 @@ public sealed class CameraSensorPipelineTests
         var variance = result.MeasuredElectrons.Sum(x => Math.Pow(x - mean, 2)) / (result.MeasuredElectrons.Length - 1);
         Assert.InRange(Math.Abs(mean - expected), 0, 6 * Math.Sqrt((expected + 9) / result.MeasuredElectrons.Length));
         Assert.InRange(variance / (expected + 9), 0.96, 1.04);
-        Evidence("flat-field-" + expected, new { ExpectedMean = expected, ActualMean = mean,
-            ExpectedVariance = expected + 9, ActualVariance = variance, Pixels = result.MeasuredElectrons.Length });
+        Evidence("flat-field-" + expected, new
+        {
+            ExpectedMean = expected,
+            ActualMean = mean,
+            ExpectedVariance = expected + 9,
+            ActualVariance = variance,
+            Pixels = result.MeasuredElectrons.Length
+        });
     }
 
     [Fact]

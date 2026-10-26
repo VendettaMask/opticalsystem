@@ -4,8 +4,8 @@ using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
-using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Rays;
+using OpticalSystemDesign.Core.Raytrace;
 
 namespace OpticalSystemDesign.Core.Visualization;
 

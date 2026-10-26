@@ -1,0 +1,316 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.Tests -> D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:02.39]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w8", series: 0) [FAIL]
+[xUnit.net 00:00:02.41]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0014-all-waves", series: 1) [FAIL]
+[xUnit.net 00:00:02.41]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w5", series: 1) [FAIL]
+[xUnit.net 00:00:02.41]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w2", series: 1) [FAIL]
+[xUnit.net 00:00:02.41]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0852-all-waves", series: 0) [FAIL]
+[xUnit.net 00:00:02.41]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w7", series: 1) [FAIL]
+[xUnit.net 00:00:02.42]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w1", series: 0) [FAIL]
+[xUnit.net 00:00:02.42]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly64", series: 0) [FAIL]
+[xUnit.net 00:00:02.42]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly32", series: 0) [FAIL]
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w8", series: 0) [661 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0014-all-waves", series: 1) [2 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w5", series: 1) [19 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w2", series: 1) [3 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0852-all-waves", series: 0) [15 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w7", series: 1) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w1", series: 0) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly64", series: 0) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly32", series: 0) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:02.43]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w3", series: 1) [FAIL]
+[xUnit.net 00:00:02.43]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w2", series: 0) [FAIL]
+[xUnit.net 00:00:02.43]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w7", series: 0) [FAIL]
+[xUnit.net 00:00:02.43]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly128", series: 0) [FAIL]
+[xUnit.net 00:00:02.43]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0308-all-waves", series: 1) [FAIL]
+[xUnit.net 00:00:02.43]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w4", series: 1) [FAIL]
+[xUnit.net 00:00:02.43]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w6", series: 0) [FAIL]
+[xUnit.net 00:00:02.43]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w3", series: 0) [FAIL]
+[xUnit.net 00:00:02.43]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly128", series: 1) [FAIL]
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w3", series: 1) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w2", series: 0) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w7", series: 0) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly128", series: 0) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0308-all-waves", series: 1) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w4", series: 1) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w6", series: 0) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w3", series: 0) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly128", series: 1) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:02.44]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0014-all-waves", series: 0) [FAIL]
+[xUnit.net 00:00:02.44]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly64", series: 1) [FAIL]
+[xUnit.net 00:00:02.44]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0852-all-waves", series: 1) [FAIL]
+[xUnit.net 00:00:02.44]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0472-all-waves", series: 1) [FAIL]
+[xUnit.net 00:00:02.44]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w5", series: 0) [FAIL]
+[xUnit.net 00:00:02.45]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w8", series: 1) [FAIL]
+[xUnit.net 00:00:02.45]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0472-all-waves", series: 0) [FAIL]
+[xUnit.net 00:00:02.45]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly32", series: 1) [FAIL]
+[xUnit.net 00:00:02.45]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w1", series: 1) [FAIL]
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0014-all-waves", series: 0) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly64", series: 1) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0852-all-waves", series: 1) [4 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0472-all-waves", series: 1) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w5", series: 0) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w8", series: 1) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0472-all-waves", series: 0) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "apo-poly32", series: 1) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w1", series: 1) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:02.45]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0308-all-waves", series: 0) [FAIL]
+[xUnit.net 00:00:02.45]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w4", series: 0) [FAIL]
+[xUnit.net 00:00:02.46]     OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w6", series: 1) [FAIL]
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "0308-all-waves", series: 0) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w4", series: 0) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: "isolate-w6", series: 1) [1 ms]
+  错误消息:
+   System.InvalidOperationException : The requested operation requires an element of type 'Number', but the target element has type 'Null'.
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowJsonElementWrongTypeException(JsonTokenType expectedType, JsonTokenType actualType)
+   at System.Text.Json.JsonDocument.TryGetValue(Int32 index, Double& value)
+   at OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(String id, Int32 series) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromaticCumulativeEnergyTests.cs:line 35
+   at InvokeStub_PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\ci-repair\energy-input-condition.trx
+
+失败!  - 失败:    30，通过:     0，已跳过:     0，总计:    30，持续时间: 745 ms - OpticalSystemDesign.Tests.dll (net10.0)

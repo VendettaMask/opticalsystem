@@ -1,0 +1,37 @@
+{
+  "State": "running",
+  "ProcessId": 40480,
+  "StartedUtc": "2026-10-26T02:49:17.2484598+00:00",
+  "UpdatedUtc": "2026-10-26T02:58:32.0833682+00:00",
+  "Phase": "Curriculum",
+  "PhaseIteration": 34,
+  "CurriculumUpdates": 34,
+  "RefinementUpdates": 0,
+  "ExpectedCurriculumUpdates": 2001,
+  "ExpectedRefinementUpdates": 3001,
+  "Evaluations": 34,
+  "LastLoss": 0.36978551297186024,
+  "SecondsThisProcess": 554.8349111,
+  "PreviousElapsedComputeSeconds": 0,
+  "GpuBatches": 11968,
+  "GpuRays": 1493790,
+  "LastComputeExecution": {
+    "Backend": "cuda-reverse-tape-v1",
+    "DeviceName": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "GpuBatches": 128,
+    "GpuRays": 16384,
+    "GpuMilliseconds": 867.0543000000002,
+    "FallbackReason": null
+  },
+  "PropagationExecution": {
+    "DeviceName": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "AimRays": 0,
+    "AimTraces": 0,
+    "PropagatedRays": 1531904,
+    "Batches": 1904,
+    "Milliseconds": 4984.2747,
+    "CpuRecoveryRays": 0,
+    "FallbackReason": null
+  },
+  "Scope": "Same default sampling and seed; complete existing implementation with one-update exact resumes; resource caps do not shorten stages"
+}

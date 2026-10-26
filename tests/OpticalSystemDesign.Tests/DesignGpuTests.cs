@@ -36,14 +36,14 @@ public sealed class DesignGpuTests
         };
         var rays = new SequentialGpuRay[] { new() {Origin=new(1,2,-1),Direction=new(0,0,1),Intensity=1,Valid=1,
             TargetX=1,TargetY=2,AimTolerance=2.5e-12} };
-        var aimed=DesignGpu.Aim(surfaces,rays,1,default);
-        Assert.Equal(1,aimed.Rays[0].Valid);
-        var result=DesignGpu.Propagate(surfaces,aimed.Rays,false,2,default);
-        Assert.Equal(1,result.Samples[2].Present);
-        Assert.Equal(0,result.Samples[2].Blocked);
-        Assert.InRange(Math.Abs(result.Samples[1].Point.X-1),0,1e-10);
-        Assert.InRange(Math.Abs(result.Samples[1].Point.Y-2),0,1e-10);
-        Assert.InRange(Math.Abs(result.Samples[2].Point.Z-20),0,1e-10);
+        var aimed = DesignGpu.Aim(surfaces, rays, 1, default);
+        Assert.Equal(1, aimed.Rays[0].Valid);
+        var result = DesignGpu.Propagate(surfaces, aimed.Rays, false, 2, default);
+        Assert.Equal(1, result.Samples[2].Present);
+        Assert.Equal(0, result.Samples[2].Blocked);
+        Assert.InRange(Math.Abs(result.Samples[1].Point.X - 1), 0, 1e-10);
+        Assert.InRange(Math.Abs(result.Samples[1].Point.Y - 2), 0, 1e-10);
+        Assert.InRange(Math.Abs(result.Samples[2].Point.Z - 20), 0, 1e-10);
     }
 
     [Fact]
@@ -113,7 +113,7 @@ public sealed class DesignGpuTests
 
         static void Close(DifferentialScalar expected, DifferentialScalar actual)
         {
-            Assert.True(Math.Abs(expected.Value-actual.Value)<=2e-10*Math.Max(1,Math.Abs(expected.Value)),
+            Assert.True(Math.Abs(expected.Value - actual.Value) <= 2e-10 * Math.Max(1, Math.Abs(expected.Value)),
                 $"Nominal CPU {expected.Value:R}, CUDA {actual.Value:R}");
             Assert.Equal(expected.Dimension, actual.Dimension);
             for (var parameter = 0; parameter < expected.Dimension; parameter++)
@@ -130,9 +130,64 @@ public sealed class DesignGpuTests
         var x = DifferentialScalar.Variable(3, 4, 0);
         var y = DifferentialScalar.Variable(4, 4, 1);
         var z = DifferentialScalar.Sqrt(x * x + y * y);
-        var result = DesignGpu.Differentiate([tape], [[z.TapeNode(tape), -1, -1, -1, -1]], 2, default);
+        var result = DesignGpu.Differentiate([tape], [[z.TapeNode(tape), -1, -1, -1, -1, -1]], 2, default);
         Assert.Equal(.6, result.Gradients[0], 12);
         Assert.Equal(.8, result.Gradients[1], 12);
         Assert.All(result.Gradients.Skip(2), value => Assert.Equal(0, value));
+    }
+
+    [CudaFact]
+    public void ReusedRayGraphsAndCudaBuffersKeepIndependentLayoutsAndZeroOutputs()
+    {
+        foreach (var (rays, parameters) in new[] { (9, 3), (1, 1), (17, 5), (2, 2), (9, 3) })
+        {
+            using var batch = new GpuRaySensitivityBatch(parameters, default);
+            var actual = new double[rays];
+            for (var index = 0; index < rays; index++)
+            {
+                var slot = index;
+                var tape = DifferentialTape.Rent(parameters);
+                DifferentialScalar value;
+                using (tape)
+                {
+                    var x = DifferentialScalar.Variable(index + 2, parameters + 2, parameters - 1);
+                    value = x * x + x * 3;
+                }
+                batch.Add(tape, new(value, 0, 0, 0, 0), ray =>
+                {
+                    actual[slot] = ray.X.Derivative(parameters - 1);
+                    for (var parameter = 0; parameter < parameters; parameter++)
+                    {
+                        if (parameter != parameters - 1) Assert.Equal(0, ray.X.Derivative(parameter));
+                        Assert.Equal(0, ray.Y.Derivative(parameter));
+                        Assert.Equal(0, ray.BendPenalty.Derivative(parameter));
+                    }
+                });
+            }
+            batch.Flush();
+            for (var index = 0; index < rays; index++) Assert.Equal(2 * (index + 2) + 3, actual[index]);
+        }
+        Assert.Null(DifferentialTape.Current);
+    }
+
+    [Fact]
+    public void AbandonedPooledRayRestoresOuterScopeAndCanBeReused()
+    {
+        using var outer = new DifferentialTape(1);
+        var ray = DifferentialTape.Rent(2);
+        try
+        {
+            using (ray)
+            {
+                var invalid = DifferentialScalar.Variable(-1, 4, 0, 1e308);
+                Assert.Throws<GpuTapeRangeException>(() => invalid * 1e308);
+            }
+        }
+        finally { ray.Release(); }
+        Assert.Same(outer, DifferentialTape.Current);
+        var next = DifferentialTape.Rent(1);
+        using (next) Assert.True(DifferentialScalar.Variable(2, 3, 0).IsFinite);
+        next.Release();
+        Assert.Same(outer, DifferentialTape.Current);
     }
 }

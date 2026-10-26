@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
-using OpticalSystemDesign.Core.Services;
 using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Core.Analysis;
 

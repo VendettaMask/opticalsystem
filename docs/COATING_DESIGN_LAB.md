@@ -6,6 +6,8 @@
 
 当前具备材料表管理、有限结构搜索、1–5 腔设计、可复现公差、中文界面、保存重开与导出；高反和窄带示例仍未达到全部目标。每个实验有单独编辑状态，但属于同一个必装产品。原数值与失败记录见 [历史验收](../validation/coating/README.md)。
 
+实验 JSON 的材料、膜层与截止波段数组不能含空元素，输入校验会明确拒绝。共享薄膜求解器最多读取 4097 个输入层来判定是否超过 4096 层上限，避免先完整枚举任意长度的输入；这不扩大实验编辑器原有的 200 层限制。CSV 文本使用共享公式保护规则，有限光谱数值保持原精度。
+
 ## 本地审计与复用
 
 本地为 .NET 10 / C#、Avalonia 12.1.0、Dock.Avalonia 12.0.0.2。2026-10-13 起，镀膜 UI 位于主程序程序集，由 `IntegratedLaboratories` 创建同进程的受主窗口管理的工作区；没有独立进程或外部启动器。编辑状态不隐式访问当前镜头优化事务。Core 继续共享材料、复数计算、优化器、ComputationCancellation、AnalysisSeries 类型化轴、ComponentSnapshotFactory 与 BoundedFile 原子文件接口。Engine 定义目标/候选/流程，Modules 映射显示 DTO，App 负责交互。

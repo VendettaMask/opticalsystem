@@ -8,12 +8,12 @@ using Avalonia.Input.Platform;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
-using Avalonia.VisualTree;
 using Avalonia.Threading;
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Formatting;
+using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Formatting;
 
 namespace OpticalSystemDesign.App.Panels;
 
@@ -79,6 +79,8 @@ public sealed partial class AnalysisPanel
                 : BuildPanePlot(view.PlotPanes, view.PlotPaneColumns)
             : IsSeidelDiagramView(view)
                 ? BuildSeidelDiagramPlot(view)
+                : view.PresentationKind == AnalysisPresentationKind.Interferogram
+                    ? BuildInterferogramPlot(view)
                 : IsWavefrontMapView(view)
                     ? BuildWavefrontMapPlot(view)
                 : IsFftPsfView(view)
@@ -202,6 +204,22 @@ public sealed partial class AnalysisPanel
         };
     }
 
+    private static Control BuildInterferogramPlot(AnalysisViewDto view) => new WavefrontSurfaceControl
+    {
+        Series = view.Series.FirstOrDefault(),
+        DisplayAs = view.InterferogramSummary?.ShowAs ?? "灰度",
+        ColorMapOverride = view.Series.FirstOrDefault()?.ColorMap ?? AnalysisColorMap.InverseGray,
+        ContourLevels = view.InterferogramSummary?.ContourLevels,
+        SpatialDisplayScaleX = view.PlotOptions.SpatialDisplayScaleX,
+        SpatialDisplayScaleY = view.PlotOptions.SpatialDisplayScaleY,
+        ColorBarTitle = "条纹强度",
+        ColorBarUnit = "归一化",
+        ValueMinimum = 0,
+        ValueMaximum = 1,
+        MinHeight = DisplayTypography.Scale(AnalysisPlotMinimumHeight),
+        MinWidth = DisplayTypography.Scale(360)
+    };
+
     private static bool IsFftPsfView(AnalysisViewDto view)
     {
         return view.PresentationKind == AnalysisPresentationKind.FftPsf;
@@ -299,7 +317,9 @@ public sealed partial class AnalysisPanel
         return new SeidelDiagramControl
         {
             Table = view.Table,
-            MaximumAberration = FindRowNumber(view, "最大像差范围", 0.1),
+            MaximumAberration = view.PlotOptions.YMaximum is { } maximum && double.IsFinite(maximum) && maximum > 0
+                ? maximum
+                : FindRowNumber(view, "最大像差范围", 0.1),
             GridInterval = FindRowNumber(view, "网格线间隔", 0.01),
             MinHeight = DisplayTypography.Scale(AnalysisPlotMinimumHeight),
             MinWidth = DisplayTypography.Scale(Math.Max(360, (view.Table?.Rows.Count ?? 0) * 36 + 48))
@@ -755,7 +775,7 @@ public sealed partial class AnalysisPanel
         resultSummary.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
         if (view.PresentationKind == AnalysisPresentationKind.Interferogram)
         {
-            ToolTip.SetTip(resultSummary, "当前干涉图复用 OPD 波前图；条纹数/波长及 X/Y 倾斜未提供，以 — 表示。");
+            ToolTip.SetTip(resultSummary, "条纹由两光束 OPD 差生成；等强度、出瞳完全重叠。X/Y 倾斜为全瞳直径上的附加条纹数，倍率先于倾斜应用。");
         }
         var paneMetrics = showPaneMetrics
             ? BuildPaneMetricsSummary(view.PlotPanes)
@@ -787,14 +807,14 @@ public sealed partial class AnalysisPanel
             }
         }
 
-        var productLogo = new Image
+        var productLogo = new CompanyLogoControl
         {
+            Name = "AnalysisCompanyLogo",
             Width = 180,
             Height = 28,
             HorizontalAlignment = HorizontalAlignment.Center,
             Stretch = Stretch.Uniform
         };
-        productLogo.BindThemeResource(Image.SourceProperty, ThemeAssetBindings.CompanyLogo);
         var productDescription = new TextBlock
         {
             Text = $"Optical System Design  {version}",
@@ -1237,10 +1257,10 @@ public sealed partial class AnalysisPanel
                 : data?.SurfaceNumber?.ToString(CultureInfo.InvariantCulture) ?? "—";
             return new CompactAnalysisSummary("干涉图", string.Join(Environment.NewLine,
                 $"{Number(data?.WavelengthMicrometers, "0.0000")} µm 对于 {field} {fieldUnit}",
-                $"峰谷 = {Number(data?.PeakToValleyWaves, "0.0000")} 个波长，条纹数/波长 = —",
+                $"峰谷 = {Number(data?.PeakToValleyWaves, "0.0000")} 个波长，条纹数/波长 = {Number(data?.ScaleFactor, "0.####")}",
                 $"面：{surface}",
                 $"出瞳直径：{Number(data?.ExitPupilDiameterMillimeters, "0.0000E+00")} 毫米",
-                "X倾斜 = —，Y倾斜 = —"));
+                $"X倾斜 = {Number(data?.XTilt, "0.####")}，Y倾斜 = {Number(data?.YTilt, "0.####")}"));
         }
 
         if (view.PresentationKind == AnalysisPresentationKind.FootprintDiagram)

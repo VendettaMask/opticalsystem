@@ -1,6 +1,6 @@
 using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls.Documents;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Templates;
@@ -30,6 +30,7 @@ public sealed class App : Avalonia.Application
     public override void Initialize()
     {
         Name = "Optical System Design";
+        ClipboardExceptionBoundary.Install();
         UiLocalization.InstallGlobalHooks();
         WorkspaceDockGuidance.Install();
         Styles.Add(new FluentTheme());

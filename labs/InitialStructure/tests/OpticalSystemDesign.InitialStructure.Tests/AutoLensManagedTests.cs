@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Differentiation;
 using OpticalSystemDesign.Core.Geometries;
@@ -7,7 +8,6 @@ using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Engine.Optimization;
 using OpticalSystemDesign.InitialStructure.Persistence;
-using System.Text.Json.Serialization;
 using Xunit.Abstractions;
 
 namespace OpticalSystemDesign.InitialStructure.Tests;
@@ -83,7 +83,17 @@ public sealed class AutoLensManagedTests(ITestOutputHelper output)
     [Fact]
     public async Task RealTwoPhaseSolveUsesCoreAutomaticTangentsAndNeverExportsRelaxedGlass()
     {
-        var spec = Specification();
+        var original = Specification();
+        // This is a two-phase contract check, not a training benchmark. Keep
+        // both real phases while using a bounded CPU pupil/field sample.
+        var spec = original with
+        {
+            FlatStart = original.FlatStart! with
+            {
+                AutoLens = original.FlatStart.AutoLens! with { FieldRings = 2, PupilRings = 1, PupilArms = 4, ComputeMode = DesignComputeMode.Cpu }
+            },
+            Budget = original.Budget with { TimeLimit = TimeSpan.FromMinutes(5) }
+        };
         var result = new FlatStartDesignService().Solve(spec, spec.MinimumElementCount, allowedGlassNames: ["N-BK7", "N-F2", "N-SF6"]);
         Assert.InRange(result.EvaluationCount, 1, spec.Budget.MaximumEvaluations);
         var state = Assert.IsType<AutoLensManagedState>(result.AutoLensState);
@@ -196,19 +206,21 @@ public sealed class AutoLensManagedTests(ITestOutputHelper output)
         var spec = original with { FlatStart = original.FlatStart! with { AutoLens = original.FlatStart.AutoLens! with { CementedGaps = [0, 1], CurriculumIterations = 1, RefinementIterations = 1 } } };
         var family = DesignFormSearch.Roots(spec, new(), ["N-BK7", "N-F2", "N-SF6"])[0];
         Assert.Equal(new[] { 0.0, 0.0 }, family.AirGaps);
-        var result = new FlatStartDesignService().Solve(spec, 3, family: family, allowedGlassNames: ["N-BK7", "N-F2", "N-SF6"]);
-        var candidate = Assert.IsType<CandidateSnapshot>(result.Candidate);
-        var optic = Optic.FromSnapshot(candidate.Optic);
+        // Validate the production topology and parameter ties directly. A
+        // topology test must not run an unconstrained random optimization.
+        var optic = AutoLensReferenceStart.Create(spec, 3, family, ["N-BK7", "N-F2", "N-SF6"]);
+        var snapshot = optic.ToSnapshot();
+        var parameters = AutoLensReferenceStart.Parameters(optic, spec, materials: false);
         Assert.True(AutoLensManagedTopology.IsValid(optic, 0));
         Assert.True(AutoLensManagedTopology.IsValid(optic, 1));
-        Assert.Contains(result.AutoLensState!.Parameters, parameter => parameter.LinkedSurfaceIndex is not null);
-        Assert.DoesNotContain(result.AutoLensState.Parameters, parameter => parameter.Kind == OpticalDesignParameterKind.Thickness && parameter.SurfaceIndex is 2 or 4);
-        optic.SurfaceGroup.Items[2].Thickness = .001;
+        Assert.Contains(parameters, parameter => parameter.LinkedSurfaceIndex == 4);
+        Assert.Contains(parameters, parameter => parameter.LinkedSurfaceIndex == 6);
+        Assert.DoesNotContain(parameters, parameter => parameter.SurfaceIndex is 4 or 6);
+        optic.SurfaceGroup.Items[3].Thickness = .001;
         optic.SurfaceGroup.Renumber();
-        var rejected = new FlatStartDesignProblem(spec, 3, candidate.Optic, family).Evaluate(optic, FlatStartDesignProblem.FullStage, true, default, true);
+        var rejected = new FlatStartDesignProblem(spec, 3, snapshot, family).Evaluate(optic, FlatStartDesignProblem.FullStage, true, default, true);
         Assert.Contains(rejected.Violations, violation => violation.Code == "geometry.cemented-interface");
         Assert.False(rejected.MeetsTargets);
-        Record("cemented-three-element", result);
     }
 
     [Theory]

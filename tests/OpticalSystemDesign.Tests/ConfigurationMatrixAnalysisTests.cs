@@ -25,14 +25,14 @@ public sealed class ConfigurationMatrixAnalysisTests
         Assert.Equal(fieldCount * 3, matrix.PlotPanes!.Count);
         Assert.Equal(wavelength == 0 ? 3 : 1, matrix.Values["WavelengthCount"]);
         for (var row = 0; row < fieldCount; row++)
-        for (var column = 0; column < 3; column++)
-        {
-            var pane = matrix.PlotPanes[row * 3 + column];
-            Assert.Equal(new AnalysisMatrixCell(column + 1, field == 0 ? row + 1 : field, expected[column].PlotPanes![row].Title), pane.MatrixCell);
-            Assert.Equal(expected[column].PlotPanes![row].Series.Select(series => series.Points), pane.Series.Select(series => series.Points));
-            Assert.Equal(expected[column].PlotPanes![row].Metrics, pane.Metrics);
-            Assert.All(pane.Series, series => Assert.Equal(CoreSeriesKind.Scatter, series.Kind));
-        }
+            for (var column = 0; column < 3; column++)
+            {
+                var pane = matrix.PlotPanes[row * 3 + column];
+                Assert.Equal(new AnalysisMatrixCell(column + 1, field == 0 ? row + 1 : field, expected[column].PlotPanes![row].Title), pane.MatrixCell);
+                Assert.Equal(expected[column].PlotPanes![row].Series.Select(series => series.Points), pane.Series.Select(series => series.Points));
+                Assert.Equal(expected[column].PlotPanes![row].Metrics, pane.Metrics);
+                Assert.All(pane.Series, series => Assert.Equal(CoreSeriesKind.Scatter, series.Kind));
+            }
         Assert.Single(matrix.PlotPanes.Select(pane => (pane.PlotOptions.XMinimum, pane.PlotOptions.XMaximum)).Distinct());
         Assert.False(matrix.PlotPanes[0].Series[0].Points.SequenceEqual(matrix.PlotPanes[1].Series[0].Points));
     }

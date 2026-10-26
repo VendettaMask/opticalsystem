@@ -21,9 +21,13 @@ public static class AutoLensReferenceMaterials
         {
             var definition = new OpticalGlassDefinition
             {
-                Name = Prefix + entry.Name, ReferenceIndexD = entry.Index, ReferenceAbbeNumber = entry.Abbe,
-                DispersionFormulaNumber = entry.Formula, DispersionCoefficients = entry.Coefficients.ToList(),
-                MinimumWavelengthMicrometers = entry.MinimumNm / 1000, MaximumWavelengthMicrometers = entry.MaximumNm / 1000,
+                Name = Prefix + entry.Name,
+                ReferenceIndexD = entry.Index,
+                ReferenceAbbeNumber = entry.Abbe,
+                DispersionFormulaNumber = entry.Formula,
+                DispersionCoefficients = entry.Coefficients.ToList(),
+                MinimumWavelengthMicrometers = entry.MinimumNm / 1000,
+                MaximumWavelengthMicrometers = entry.MaximumNm / 1000,
                 Comment = $"AutoLens e58 snapshot of {entry.Catalog}.AGF; source hashes in embedded asset; upstream redistribution, no manufacturer certification."
             };
             registry.Register(new CatalogGlassMaterial(Prefix + entry.Name, $"AutoLens e58 / {entry.Catalog}",

@@ -5,8 +5,8 @@ using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.FileIO;
-using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Serialization;
 
 namespace OpticalSystemDesign.Tests;

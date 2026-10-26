@@ -1,8 +1,8 @@
 using System.Reflection;
+using OpticalSystemDesign.App;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Application.Services;
-using OpticalSystemDesign.App;
 using OpticalSystemDesign.Core;
 
 namespace OpticalSystemDesign.Tests;
@@ -10,12 +10,19 @@ namespace OpticalSystemDesign.Tests;
 public sealed class LayeringArchitectureTests
 {
     [Fact]
-    public void AppAssemblyDoesNotReferenceCore()
+    public void ShellUiSourcesDoNotReferenceCore()
     {
-        var references = typeof(MainWindow).Assembly.GetReferencedAssemblies();
-
-        Assert.DoesNotContain(references, reference =>
-            reference.Name == typeof(Optic).Assembly.GetName().Name);
+        // Built-in laboratory UI now ships in this assembly and selects shared
+        // Core compute devices. Keep the shell boundary at its maintained source
+        // directories rather than rejecting the integrated module's reference.
+        var appRoot = Path.Combine(FindRepositoryRoot(), "src", "OpticalSystemDesign.App");
+        var violations = Directory.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
+            .Where(path => !Path.GetRelativePath(appRoot, path).Replace('\\', '/').StartsWith("Laboratories/", StringComparison.Ordinal))
+            .Where(path => !path.Contains(Path.DirectorySeparatorChar + "obj" + Path.DirectorySeparatorChar))
+            .Where(path => System.Text.RegularExpressions.Regex.IsMatch(File.ReadAllText(path),
+                @"\b(?:using\s+(?:static\s+)?|global::)OpticalSystemDesign\.Core\b"))
+            .Select(path => Path.GetRelativePath(appRoot, path)).ToArray();
+        Assert.Empty(violations);
     }
 
     [Fact]
@@ -425,7 +432,9 @@ public sealed class LayeringArchitectureTests
             .Where(item =>
             {
                 var relative = Path.GetRelativePath(appRoot, item.Path).Replace('\\', '/');
-                return relative is not "Controls/OperationStatusBar.cs" and not "SplashWindow.cs";
+                // OTA has a persistent, determinate byte-download indicator and
+                // its own cancel/retry lifecycle, verified by the OTA UI tests.
+                return relative is not "Controls/OperationStatusBar.cs" and not "SplashWindow.cs" and not "Panels/SoftwareUpdatePanel.cs";
             })
             .Select(item => $"{Path.GetRelativePath(appRoot, item.Path).Replace('\\', '/')}:{item.LineNumber}: {item.Line.Trim()}")
             .ToArray();

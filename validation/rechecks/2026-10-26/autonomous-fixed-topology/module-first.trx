@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7df5d27a-872c-46b6-a06b-d297558bc702" name="optics@LAPTOP-G4BBBCS0 2026-10-26 16:22:05" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-26T16:22:05.0921604+08:00" queuing="2026-10-26T16:22:05.0921606+08:00" start="2026-10-26T16:21:58.3507300+08:00" finish="2026-10-26T16:22:10.1782150+08:00" />
+  <TestSettings name="default" id="815cfbc1-f2b8-467c-9fd0-c64d3d09be66">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-26_16_22_05" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="5c2ceb1b-67e7-433b-a76e-fa2c3b5e9e53" testId="26cd0c85-b456-65b4-7616-c78652c38792" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.EverySelectedParameterAndFixedResidualJacobianMatchesCentralDifferences" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.3554908" startTime="2026-10-26T16:22:08.3808536+08:00" endTime="2026-10-26T16:22:09.7354165+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5c2ceb1b-67e7-433b-a76e-fa2c3b5e9e53">
+      <Output>
+        <StdOut>27 parameters, 340 residuals; objective max=1.234121867477178E-07, residual max=4.178531945800423E-09</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="01850777-6697-4e7e-adf6-eb1c6e7a9369" testId="1f4ac5c4-d4b3-cbc4-77d9-89393148dcef" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 4)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.8273958" startTime="2026-10-26T16:22:06.5090576+08:00" endTime="2026-10-26T16:22:08.3356534+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="01850777-6697-4e7e-adf6-eb1c6e7a9369">
+      <Output>
+        <StdOut>4 elements: objective 4133.854944619126 -&gt; 309.93179894187114; accepted=20; RMS=0.37158919521409034; meets=False; 47628 rays</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d5413a9e-aecc-486b-995c-243713fc65fa" testId="c39baecd-9f8c-af64-622d-e58d70d817bc" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 2)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.4763930" startTime="2026-10-26T16:22:05.0680469+08:00" endTime="2026-10-26T16:22:06.5082498+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d5413a9e-aecc-486b-995c-243713fc65fa">
+      <Output>
+        <StdOut>2 elements: objective 5480.203392099288 -&gt; 993.4317923724964; accepted=20; RMS=0.45775036682268017; meets=False; 47628 rays</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="58cc978c-55a6-446a-89b8-2213f8e2a122" testId="a302971f-3eae-89e9-e15f-903c7f8daf27" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ClippingCannotRemoveResidualSlotsOrObtainFalseAcceptance" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0164906" startTime="2026-10-26T16:22:10.0404914+08:00" endTime="2026-10-26T16:22:10.0671533+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="58cc978c-55a6-446a-89b8-2213f8e2a122">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+Expected: ["target:power", "target:f-number", "geometry:lens-1:center", "geometry:lens-1:edge:1", "geometry:lens-1:front:slope:1", ···]&#xD;
+Actual:   ["target:power", "target:f-number", "geometry:lens-1:center", "geometry:lens-1:edge:1", "geometry:lens-1:front:slope:1", ···]</Message>
+          <StackTrace>   at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ClippingCannotRemoveResidualSlotsOrObtainFalseAcceptance() in D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs:line 102&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="801df6b7-8815-4963-974c-d5f6d36f74e7" testId="490c08de-b5b8-7dcf-85f7-407137800f37" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SingularProfileAndMissingCoordinatesKeepAFailedFixedLayoutAndChargeTheirAttempts" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0346423" startTime="2026-10-26T16:22:10.0052377+08:00" endTime="2026-10-26T16:22:10.0400664+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="801df6b7-8815-4963-974c-d5f6d36f74e7" />
+    <UnitTestResult executionId="27777063-d854-4b89-b492-eaa2fd41cf92" testId="dadd0997-dbda-3c91-8ca8-efb1e9197438" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.CancellationBeforeDispatchUsesNoOpticalWorkAndDuringUpdatesRetainsTheLastChargedState" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0434174" startTime="2026-10-26T16:22:08.3384357+08:00" endTime="2026-10-26T16:22:08.3803806+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="27777063-d854-4b89-b492-eaa2fd41cf92" />
+    <UnitTestResult executionId="b1add51c-ea42-46ce-97bc-dea019f57196" testId="c2d20d13-c694-4ab1-3093-37b04cef38e2" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.IndependentValidationIsReservedWhenThereIsNoTrainingBudget" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2586897" startTime="2026-10-26T16:22:09.7463057+08:00" endTime="2026-10-26T16:22:10.0049158+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b1add51c-ea42-46ce-97bc-dea019f57196" />
+    <UnitTestResult executionId="3d7dd217-a34f-4f12-b1b9-320b9f9d9d6f" testId="10fa74bf-fa33-cff0-6132-4599c524851b" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ChangedTargetsSamplingAndBindingsCannotShareAnObjectiveIdentity" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0103912" startTime="2026-10-26T16:22:09.7359207+08:00" endTime="2026-10-26T16:22:09.7459939+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d7dd217-a34f-4f12-b1b9-320b9f9d9d6f" />
+    <UnitTestResult executionId="75a86baf-6237-455c-b692-1f3334e61036" testId="abceae68-a8c8-f5d8-7527-395bfaf523c7" testName="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 3)" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.2433896" startTime="2026-10-26T16:21:59.7784383+08:00" endTime="2026-10-26T16:22:05.0314629+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="75a86baf-6237-455c-b692-1f3334e61036">
+      <Output>
+        <StdOut>3 elements: objective 244.30179272557467 -&gt; 2.5248234095579583; accepted=20; RMS=0.026161510485787152; meets=False; 47628 rays</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ChangedTargetsSamplingAndBindingsCannotShareAnObjectiveIdentity" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="10fa74bf-fa33-cff0-6132-4599c524851b">
+      <Execution id="3d7dd217-a34f-4f12-b1b9-320b9f9d9d6f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="ChangedTargetsSamplingAndBindingsCannotShareAnObjectiveIdentity" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ClippingCannotRemoveResidualSlotsOrObtainFalseAcceptance" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="a302971f-3eae-89e9-e15f-903c7f8daf27">
+      <Execution id="58cc978c-55a6-446a-89b8-2213f8e2a122" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="ClippingCannotRemoveResidualSlotsOrObtainFalseAcceptance" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.IndependentValidationIsReservedWhenThereIsNoTrainingBudget" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="c2d20d13-c694-4ab1-3093-37b04cef38e2">
+      <Execution id="b1add51c-ea42-46ce-97bc-dea019f57196" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="IndependentValidationIsReservedWhenThereIsNoTrainingBudget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SingularProfileAndMissingCoordinatesKeepAFailedFixedLayoutAndChargeTheirAttempts" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="490c08de-b5b8-7dcf-85f7-407137800f37">
+      <Execution id="801df6b7-8815-4963-974c-d5f6d36f74e7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="SingularProfileAndMissingCoordinatesKeepAFailedFixedLayoutAndChargeTheirAttempts" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.EverySelectedParameterAndFixedResidualJacobianMatchesCentralDifferences" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="26cd0c85-b456-65b4-7616-c78652c38792">
+      <Execution id="5c2ceb1b-67e7-433b-a76e-fa2c3b5e9e53" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="EverySelectedParameterAndFixedResidualJacobianMatchesCentralDifferences" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.CancellationBeforeDispatchUsesNoOpticalWorkAndDuringUpdatesRetainsTheLastChargedState" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="dadd0997-dbda-3c91-8ca8-efb1e9197438">
+      <Execution id="27777063-d854-4b89-b492-eaa2fd41cf92" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="CancellationBeforeDispatchUsesNoOpticalWorkAndDuringUpdatesRetainsTheLastChargedState" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 3)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="abceae68-a8c8-f5d8-7527-395bfaf523c7">
+      <Execution id="75a86baf-6237-455c-b692-1f3334e61036" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 2)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="c39baecd-9f8c-af64-622d-e58d70d817bc">
+      <Execution id="d5413a9e-aecc-486b-995c-243713fc65fa" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint(count: 4)" storage="d:\optical system design\opticalsystem\labs\initialstructure\tests\opticalsystemdesign.initialstructure.tests\bin\release\net10.0\opticalsystemdesign.initialstructure.tests.dll" id="1f4ac5c4-d4b3-cbc4-77d9-89393148dcef">
+      <Execution id="01850777-6697-4e7e-adf6-eb1c6e7a9369" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests" name="SmallBudgetOptimizesRealArbitraryTopologyAndIndependentlyValidatesItsActualEndpoint" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="26cd0c85-b456-65b4-7616-c78652c38792" executionId="5c2ceb1b-67e7-433b-a76e-fa2c3b5e9e53" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1f4ac5c4-d4b3-cbc4-77d9-89393148dcef" executionId="01850777-6697-4e7e-adf6-eb1c6e7a9369" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c39baecd-9f8c-af64-622d-e58d70d817bc" executionId="d5413a9e-aecc-486b-995c-243713fc65fa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a302971f-3eae-89e9-e15f-903c7f8daf27" executionId="58cc978c-55a6-446a-89b8-2213f8e2a122" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="490c08de-b5b8-7dcf-85f7-407137800f37" executionId="801df6b7-8815-4963-974c-d5f6d36f74e7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dadd0997-dbda-3c91-8ca8-efb1e9197438" executionId="27777063-d854-4b89-b492-eaa2fd41cf92" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c2d20d13-c694-4ab1-3093-37b04cef38e2" executionId="b1add51c-ea42-46ce-97bc-dea019f57196" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="10fa74bf-fa33-cff0-6132-4599c524851b" executionId="3d7dd217-a34f-4f12-b1b9-320b9f9d9d6f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="abceae68-a8c8-f5d8-7527-395bfaf523c7" executionId="75a86baf-6237-455c-b692-1f3334e61036" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="9" executed="9" passed="8" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.78]   Discovering: OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.88]   Discovered:  OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:00.90]   Starting:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+[xUnit.net 00:00:11.22]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:11.22]       Expected: ["target:power", "target:f-number", "geometry:lens-1:center", "geometry:lens-1:edge:1", "geometry:lens-1:front:slope:1", ···]&#xD;
+[xUnit.net 00:00:11.22]       Actual:   ["target:power", "target:f-number", "geometry:lens-1:center", "geometry:lens-1:edge:1", "geometry:lens-1:front:slope:1", ···]&#xD;
+[xUnit.net 00:00:11.22]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.23]         D:\optical system design\opticalsystem\labs\InitialStructure\tests\OpticalSystemDesign.InitialStructure.Tests\FixedTopologyOptimizerTests.cs(102,0): at OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ClippingCannotRemoveResidualSlotsOrObtainFalseAcceptance()&#xD;
+[xUnit.net 00:00:11.23]            at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+[xUnit.net 00:00:11.23]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:11.23]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:11.23]   Finished:    OpticalSystemDesign.InitialStructure.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T16:22:10.0735774+08:00">
+        <Text>[xUnit.net 00:00:11.22]     OpticalSystemDesign.InitialStructure.Tests.FixedTopologyOptimizerTests.ClippingCannotRemoveResidualSlotsOrObtainFalseAcceptance [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

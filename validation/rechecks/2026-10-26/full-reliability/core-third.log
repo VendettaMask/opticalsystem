@@ -1,0 +1,94 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.Tests -> D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:03.05]     OpticalSystemDesign.Tests.FullReliabilityCoreTests.DatabaseRejectsChecksummedButInvalidHeader(defect: "version") [FAIL]
+  失败 OpticalSystemDesign.Tests.FullReliabilityCoreTests.DatabaseRejectsChecksummedButInvalidHeader(defect: "version") [< 1 ms]
+  错误消息:
+   System.ArgumentOutOfRangeException : 光线数据库文件头版本无效。 (Parameter 'header')
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.NonSequential.NonSequentialRayDatabaseWriter..ctor(Stream stream, NonSequentialRayDatabaseHeader header, Boolean leaveOpen) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialRayDatabase.cs:line 97
+   at OpticalSystemDesign.Tests.FullReliabilityCoreTests.DatabaseRejectsChecksummedButInvalidHeader(String defect) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FullReliabilityCoreTests.cs:line 128
+   at InvokeStub_FullReliabilityCoreTests.DatabaseRejectsChecksummedButInvalidHeader(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:03.10]     OpticalSystemDesign.Tests.FullReliabilityServiceTests.DisposingWhileTraceIsPendingDoesNotDisposeItsReleaseGate [FAIL]
+  失败 OpticalSystemDesign.Tests.FullReliabilityServiceTests.DisposingWhileTraceIsPendingDoesNotDisposeItsReleaseGate [28 ms]
+  错误消息:
+   Assert.ThrowsAny() Failure: Exception type was not compatible
+Expected: typeof(System.OperationCanceledException)
+Actual:   typeof(System.ObjectDisposedException)
+---- System.ObjectDisposedException : Cannot access a disposed object.
+Object name: 'OpticalSystemDesign.Application.Services.NonSequentialAnalysisService'.
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.FullReliabilityServiceTests.DisposingWhileTraceIsPendingDoesNotDisposeItsReleaseGate() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FullReliabilityServiceTests.cs:line 69
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceSerializedAsync(NonSequentialTraceRunRequestDto request, NonSequentialResultSession targetSession, SemaphoreSlim traceGate, CancellationToken cancellationToken) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 137
+   at OpticalSystemDesign.Application.Services.NonSequentialAnalysisService.TraceAsync(NonSequentialTraceRunRequestDto request, CancellationToken cancellationToken) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Services\NonSequentialAnalysisService.cs:line 119
+[xUnit.net 00:00:03.14]     OpticalSystemDesign.Tests.FullReliabilityCoreTests.TextExportRetainsDoublePrecision(extension: ".len") [FAIL]
+  失败 OpticalSystemDesign.Tests.FullReliabilityCoreTests.TextExportRetainsDoublePrecision(extension: ".len") [11 ms]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 1.2345678901234567E-11
+Actual:   0
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.FullReliabilityCoreTests.TextExportRetainsDoublePrecision(String extension) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FullReliabilityCoreTests.cs:line 194
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:03.19]     OpticalSystemDesign.Tests.FullReliabilityCoreTests.TextExportRetainsDoublePrecision(extension: ".seq") [FAIL]
+  失败 OpticalSystemDesign.Tests.FullReliabilityCoreTests.TextExportRetainsDoublePrecision(extension: ".seq") [1 ms]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 1.2345678901234567E-11
+Actual:   0
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.FullReliabilityCoreTests.TextExportRetainsDoublePrecision(String extension) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FullReliabilityCoreTests.cs:line 194
+   at InvokeStub_FullReliabilityCoreTests.TextExportRetainsDoublePrecision(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:03.24]     OpticalSystemDesign.Tests.FullReliabilityCoreTests.ZeroIterationNonzeroMeritIsNotReportedAsOptimizationSuccess [FAIL]
+[xUnit.net 00:00:03.25]     OpticalSystemDesign.Tests.FullReliabilityCoreTests.TextPrescriptionNameKeepsCommentCharacters(extension: ".seq") [FAIL]
+  失败 OpticalSystemDesign.Tests.FullReliabilityCoreTests.ZeroIterationNonzeroMeritIsNotReportedAsOptimizationSuccess [< 1 ms]
+  错误消息:
+   System.ArgumentOutOfRangeException : Optimization iteration count must be between 1 and 1000. (Parameter 'maxIterations')
+Actual value was 0.
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.Optimization.OptimizationLimits.RequireIterationCount(Int32 value, String parameterName) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\Optimization\OptimizationFramework.cs:line 15
+   at OpticalSystemDesign.Core.Optimization.NelderMeadOptimizer.Optimize(OptimizationProblem problem, Int32 maxIterations) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\Optimization\NumericalOptimizers.cs:line 620
+   at OpticalSystemDesign.Tests.FullReliabilityCoreTests.ZeroIterationNonzeroMeritIsNotReportedAsOptimizationSuccess() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FullReliabilityCoreTests.cs:line 173
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.FullReliabilityCoreTests.TextPrescriptionNameKeepsCommentCharacters(extension: ".seq") [2 ms]
+  错误消息:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "lens ! # // literal"
+Actual:   "Imported CODE V SEQ"
+           ↑ (pos 0)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.FullReliabilityCoreTests.TextPrescriptionNameKeepsCommentCharacters(String extension) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FullReliabilityCoreTests.cs:line 266
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:03.25]     OpticalSystemDesign.Tests.FullReliabilityCoreTests.TextPrescriptionNameKeepsCommentCharacters(extension: ".len") [FAIL]
+  失败 OpticalSystemDesign.Tests.FullReliabilityCoreTests.TextPrescriptionNameKeepsCommentCharacters(extension: ".len") [< 1 ms]
+  错误消息:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "lens ! # // literal"
+Actual:   "Imported OSLO LEN"
+           ↑ (pos 0)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.FullReliabilityCoreTests.TextPrescriptionNameKeepsCommentCharacters(String extension) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FullReliabilityCoreTests.cs:line 266
+   at InvokeStub_FullReliabilityCoreTests.TextPrescriptionNameKeepsCommentCharacters(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\full-reliability\core-third.trx
+
+失败!  - 失败:     7，通过:   204，已跳过:     0，总计:   211，持续时间: 1 m 1 s - OpticalSystemDesign.Tests.dll (net10.0)

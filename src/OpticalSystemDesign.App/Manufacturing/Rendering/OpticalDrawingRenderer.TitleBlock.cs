@@ -153,18 +153,7 @@ internal static partial class OpticalDrawingRendererCore
             return;
         }
 
-        if (DefaultCompanyLogoPng.Value is { Length: > 0 } defaultLogo
-            && DrawImportedLogo(canvas, defaultLogo, bounds))
-        {
-            return;
-        }
-
-        var centerX = bounds.MidX;
-        var centerY = bounds.MidY;
-        DrawText(canvas, "S.T.A.R.", centerX, centerY - 8, 18, SKTextAlign.Center, true);
-        using var accent = Stroke(new SKColor(39, 93, 119), 1.2f);
-        canvas.DrawLine(bounds.Left + 24, centerY, bounds.Right - 24, centerY, accent);
-        DrawText(canvas, "L A B S", centerX, centerY + 14, 8.5f, SKTextAlign.Center, true);
+        BrandAssets.DrawCompanyLogo(canvas, bounds);
     }
 
     private static bool DrawImportedLogo(
@@ -200,8 +189,4 @@ internal static partial class OpticalDrawingRendererCore
         }
     }
 
-    private static byte[]? LoadDefaultCompanyLogo()
-    {
-        return BrandAssets.GetPreparedCompanyLogoPng();
-    }
 }

@@ -5,8 +5,8 @@ using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Propagation;
-using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Rays;
+using OpticalSystemDesign.Core.Raytrace;
 
 namespace OpticalSystemDesign.Core.Services;
 

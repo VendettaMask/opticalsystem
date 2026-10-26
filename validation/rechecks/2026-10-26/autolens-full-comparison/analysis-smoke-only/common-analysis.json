@@ -1,0 +1,2501 @@
+{
+  "Scope": "Persisted endpoints in one shared Core CPU/double evaluator; prescribed sensor planes, no refocus or aperture resizing",
+  "RequestedFullFieldDegrees": 90,
+  "WavelengthsNm": [
+    656,
+    587,
+    486
+  ],
+  "PupilIntegration": "10 Gaussian area nodes x 32 azimuths",
+  "IndependentChecks": "Center \u002B 64 pupil-boundary positions",
+  "Axes": "Meridional Y, 21 field positions from 0 to 45 degrees",
+  "IncludeSurfaceTransmission": false,
+  "Results": [
+    {
+      "Name": "original-python",
+      "FocalLengthMm": 18.201401365417304,
+      "EntrancePupilDiameterMm": 2.778,
+      "FNumber": 6.55198033312358,
+      "SensorPositionMm": 9.440999999995256,
+      "TargetRelativeFocalError": 2.640280273083461,
+      "TargetRelativeFNumberError": 2.6399890739575445,
+      "WorstValidFieldRmsMm": 0.7153551369117856,
+      "ValidFieldCount": 21,
+      "ExpectedFieldCount": 21,
+      "AttemptedRays": 24255,
+      "ValidRays": 12882,
+      "ValidRayFraction": 0.5311069882498454,
+      "AllFieldsHaveMetrics": true,
+      "SnapshotFingerprintBefore": "afcd3ebb16c3b472414c8bf17e1819f6a94e1ad0f4a4603b9bc3afaf6d6fc55c",
+      "SnapshotFingerprintAfter": "afcd3ebb16c3b472414c8bf17e1819f6a94e1ad0f4a4603b9bc3afaf6d6fc55c",
+      "PrescriptionUnchangedByAnalysis": true,
+      "RaysTraced": 55385034,
+      "Fields": [
+        {
+          "NormalizedField": 0,
+          "HalfAngleDegrees": 0,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 960,
+          "CheckAttempted": 195,
+          "CheckValid": 195,
+          "RmsMm": 0.7153551369117856,
+          "MaximumRadiusMm": 1.0104022156796009,
+          "Radius80Mm": 0.922387437142748,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.05,
+          "HalfAngleDegrees": 2.25,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 960,
+          "CheckAttempted": 195,
+          "CheckValid": 195,
+          "RmsMm": 0.7150380212067605,
+          "MaximumRadiusMm": 1.0113396627527607,
+          "Radius80Mm": 0.9219776978751176,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.1,
+          "HalfAngleDegrees": 4.5,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 960,
+          "CheckAttempted": 195,
+          "CheckValid": 195,
+          "RmsMm": 0.7140843208265913,
+          "MaximumRadiusMm": 1.0111864596429165,
+          "Radius80Mm": 0.9207108345743787,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.15,
+          "HalfAngleDegrees": 6.75,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 960,
+          "CheckAttempted": 195,
+          "CheckValid": 195,
+          "RmsMm": 0.7124869675659117,
+          "MaximumRadiusMm": 1.009939472590427,
+          "Radius80Mm": 0.9185162419224289,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.2,
+          "HalfAngleDegrees": 9,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 882,
+          "CheckAttempted": 195,
+          "CheckValid": 177,
+          "RmsMm": 0.7136906323508371,
+          "MaximumRadiusMm": 1.023495390372415,
+          "Radius80Mm": 0.901167952349061,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 294
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 294
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 294
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 59
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 59
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 59
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.25,
+          "HalfAngleDegrees": 11.25,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 819,
+          "CheckAttempted": 195,
+          "CheckValid": 183,
+          "RmsMm": 0.7038688476264562,
+          "MaximumRadiusMm": 1.0049453466318345,
+          "Radius80Mm": 0.9108903680039633,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 273
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 273
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 273
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 61
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 61
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 61
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.3,
+          "HalfAngleDegrees": 13.5,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 690,
+          "CheckAttempted": 195,
+          "CheckValid": 147,
+          "RmsMm": 0.6973657022686964,
+          "MaximumRadiusMm": 1.0002508587043208,
+          "Radius80Mm": 0.9034170474275433,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 230
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 230
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 230
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 49
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 49
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 49
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.35,
+          "HalfAngleDegrees": 15.749999999999998,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 552,
+          "CheckAttempted": 195,
+          "CheckValid": 105,
+          "RmsMm": 0.6908027200389069,
+          "MaximumRadiusMm": 0.9927991612301817,
+          "Radius80Mm": 0.9059102435549543,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 184
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 184
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 184
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 35
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 35
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 35
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.4,
+          "HalfAngleDegrees": 18,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 525,
+          "CheckAttempted": 195,
+          "CheckValid": 126,
+          "RmsMm": 0.6689559761463534,
+          "MaximumRadiusMm": 1.0022912727010707,
+          "Radius80Mm": 0.8708187074779181,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 175
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 175
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 175
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 42
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 42
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 42
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.45,
+          "HalfAngleDegrees": 20.25,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 522,
+          "CheckAttempted": 195,
+          "CheckValid": 111,
+          "RmsMm": 0.6853966853455176,
+          "MaximumRadiusMm": 0.9889485190710838,
+          "Radius80Mm": 0.883882979740488,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 174
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 174
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 174
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 37
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 37
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 37
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.5,
+          "HalfAngleDegrees": 22.5,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 387,
+          "CheckAttempted": 195,
+          "CheckValid": 57,
+          "RmsMm": 0.6978953003389451,
+          "MaximumRadiusMm": 0.9759087842118844,
+          "Radius80Mm": 0.8690513301725256,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 129
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 129
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 129
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 19
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 19
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 19
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.55,
+          "HalfAngleDegrees": 24.750000000000004,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 381,
+          "CheckAttempted": 195,
+          "CheckValid": 51,
+          "RmsMm": 0.6945041668672038,
+          "MaximumRadiusMm": 0.9699609874084596,
+          "Radius80Mm": 0.8627698221752578,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 127
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 127
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 127
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 17
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 17
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 17
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.6,
+          "HalfAngleDegrees": 27,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 288,
+          "CheckAttempted": 195,
+          "CheckValid": 39,
+          "RmsMm": 0.6871341720169506,
+          "MaximumRadiusMm": 0.9588754641522654,
+          "Radius80Mm": 0.8606656444232251,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 96
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 96
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 96
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 13
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 13
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 13
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.65,
+          "HalfAngleDegrees": 29.25,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 267,
+          "CheckAttempted": 195,
+          "CheckValid": 57,
+          "RmsMm": 0.6578749767323719,
+          "MaximumRadiusMm": 0.959999955936229,
+          "Radius80Mm": 0.8155915669220738,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 89
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 89
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 89
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 19
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 19
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 19
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.7,
+          "HalfAngleDegrees": 31.499999999999996,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 294,
+          "CheckAttempted": 195,
+          "CheckValid": 42,
+          "RmsMm": 0.651438817176597,
+          "MaximumRadiusMm": 0.9346570523167171,
+          "Radius80Mm": 0.805452592788335,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 98
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 98
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 98
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 14
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 14
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 14
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.75,
+          "HalfAngleDegrees": 33.75,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 219,
+          "CheckAttempted": 195,
+          "CheckValid": 51,
+          "RmsMm": 0.6454881522923717,
+          "MaximumRadiusMm": 0.9226023039668407,
+          "Radius80Mm": 0.7861217310161956,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 73
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 73
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 73
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 17
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 17
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 17
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.8,
+          "HalfAngleDegrees": 36,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 264,
+          "CheckAttempted": 195,
+          "CheckValid": 30,
+          "RmsMm": 0.6414464644039705,
+          "MaximumRadiusMm": 0.9133828314605703,
+          "Radius80Mm": 0.7743766218634748,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 88
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 88
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 88
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 10
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 10
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 10
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.85,
+          "HalfAngleDegrees": 38.25,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 243,
+          "CheckAttempted": 195,
+          "CheckValid": 39,
+          "RmsMm": 0.6208920067227629,
+          "MaximumRadiusMm": 0.9406387264049513,
+          "Radius80Mm": 0.7776258974792679,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 81
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 81
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 81
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 13
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 13
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 13
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.9,
+          "HalfAngleDegrees": 40.5,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 192,
+          "CheckAttempted": 195,
+          "CheckValid": 45,
+          "RmsMm": 0.6035479004603775,
+          "MaximumRadiusMm": 0.8833357518903939,
+          "Radius80Mm": 0.757194623159134,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 64
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 64
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 64
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 15
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 15
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 15
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.95,
+          "HalfAngleDegrees": 42.75,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 198,
+          "CheckAttempted": 195,
+          "CheckValid": 42,
+          "RmsMm": 0.5890696871952522,
+          "MaximumRadiusMm": 0.8708068566180148,
+          "Radius80Mm": 0.7489782519292644,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 66
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 66
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 66
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 14
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 14
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 14
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 1,
+          "HalfAngleDegrees": 45,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 198,
+          "CheckAttempted": 195,
+          "CheckValid": 39,
+          "RmsMm": 0.5618825872848942,
+          "MaximumRadiusMm": 0.8610209202093568,
+          "Radius80Mm": 0.734133842985949,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 66
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 66
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 66
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 13
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 13
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 13
+            }
+          ],
+          "Error": null
+        }
+      ],
+      "Prescription": {
+        "Surfaces": [
+          {
+            "Number": 1,
+            "IsStop": true,
+            "PositionMm": 0,
+            "RadiusMm": 1.389,
+            "Curvature": 0,
+            "Conic": 0,
+            "Coefficients": [],
+            "Material": "Air"
+          },
+          {
+            "Number": 2,
+            "IsStop": false,
+            "PositionMm": 0.09999999999854481,
+            "RadiusMm": 1.5316,
+            "Curvature": 0.0073080824468629325,
+            "Conic": 0.0397,
+            "Coefficients": [
+              0,
+              4.134086E-05,
+              1.017441E-05,
+              2.548577E-06,
+              6.630374E-07,
+              1.825354E-07,
+              5.3833E-08,
+              1.705351E-08,
+              5.763183E-09
+            ],
+            "Material": "AutoLensE58:h-zk21"
+          },
+          {
+            "Number": 3,
+            "IsStop": false,
+            "PositionMm": 1.0141999999977998,
+            "RadiusMm": 1.7423,
+            "Curvature": -0.007915462856690545,
+            "Conic": 0.0541,
+            "Coefficients": [
+              0,
+              -9.753879E-06,
+              -1.230606E-06,
+              -1.723809E-07,
+              -2.789675E-08,
+              -5.240969E-09,
+              -1.10638E-09,
+              -2.512107E-10,
+              -5.932718E-11
+            ],
+            "Material": "Air"
+          },
+          {
+            "Number": 4,
+            "IsStop": false,
+            "PositionMm": 1.4335999999966589,
+            "RadiusMm": 1.9149,
+            "Curvature": 0.007712651293295931,
+            "Conic": 0.0544,
+            "Coefficients": [
+              0,
+              5.544309E-06,
+              5.099004E-07,
+              4.981075E-08,
+              5.300675E-09,
+              6.252756E-10,
+              8.173558E-11,
+              1.162941E-11,
+              1.756255E-12
+            ],
+            "Material": "AutoLensE58:h-lak51a"
+          },
+          {
+            "Number": 5,
+            "IsStop": false,
+            "PositionMm": 2.368899999997666,
+            "RadiusMm": 2.108,
+            "Curvature": -0.007552972774554336,
+            "Conic": 0.0551,
+            "Coefficients": [
+              0,
+              -2.150767E-06,
+              -1.302247E-07,
+              -9.017399E-09,
+              -7.399306E-10,
+              -7.11711E-11,
+              -7.651012E-12,
+              -8.757091E-13,
+              -1.033896E-13
+            ],
+            "Material": "Air"
+          },
+          {
+            "Number": 6,
+            "IsStop": false,
+            "PositionMm": 2.7919999999976426,
+            "RadiusMm": 2.2819,
+            "Curvature": 0.007180941780514515,
+            "Conic": 0.0483,
+            "Coefficients": [
+              0,
+              1.468539E-06,
+              7.081301E-08,
+              3.726063E-09,
+              2.210309E-10,
+              1.496924E-11,
+              1.137287E-12,
+              9.363114E-14,
+              8.086617E-15
+            ],
+            "Material": "AutoLensE58:h-lak51a"
+          },
+          {
+            "Number": 7,
+            "IsStop": false,
+            "PositionMm": 3.5564999999987776,
+            "RadiusMm": 2.4336,
+            "Curvature": -0.007122816589609662,
+            "Conic": 0.0493,
+            "Coefficients": [
+              0,
+              -8.202584E-07,
+              -3.093377E-08,
+              -1.350822E-09,
+              -7.073608E-11,
+              -4.359129E-12,
+              -2.993237E-13,
+              -2.178146E-14,
+              -1.629269E-15
+            ],
+            "Material": "Air"
+          },
+          {
+            "Number": 8,
+            "IsStop": false,
+            "PositionMm": 3.9156999999977415,
+            "RadiusMm": 2.5746,
+            "Curvature": 0.007084275246763017,
+            "Conic": 0.0482,
+            "Coefficients": [
+              0,
+              6.339589E-07,
+              2.040653E-08,
+              7.334843E-10,
+              3.053289E-11,
+              1.476023E-12,
+              8.012021E-14,
+              4.673231E-15,
+              2.832905E-16
+            ],
+            "Material": "AutoLensE58:h-k9l"
+          },
+          {
+            "Number": 9,
+            "IsStop": false,
+            "PositionMm": 4.772099999998318,
+            "RadiusMm": 2.7512,
+            "Curvature": -0.007867065474439118,
+            "Conic": 0.0617,
+            "Coefficients": [
+              0,
+              -3.74995E-07,
+              -9.660602E-09,
+              -2.929779E-10,
+              -1.081876E-11,
+              -4.719592E-13,
+              -2.283067E-14,
+              -1.163369E-15,
+              -6.068292E-17
+            ],
+            "Material": "Air"
+          },
+          {
+            "Number": 10,
+            "IsStop": false,
+            "PositionMm": 5.457499999996799,
+            "RadiusMm": 2.9951,
+            "Curvature": 0.007674932825150449,
+            "Conic": 0.0575,
+            "Coefficients": [
+              0,
+              2.307387E-07,
+              3.380282E-09,
+              3.968197E-11,
+              -9.843274E-14,
+              -3.569507E-14,
+              -1.955804E-15,
+              -8.411263E-17,
+              -3.438316E-18
+            ],
+            "Material": "AutoLensE58:h-zf3"
+          },
+          {
+            "Number": 11,
+            "IsStop": false,
+            "PositionMm": 5.998999999996158,
+            "RadiusMm": 3.0784,
+            "Curvature": -0.007669488015658027,
+            "Conic": 0.0599,
+            "Coefficients": [
+              0,
+              -1.677197E-07,
+              -2.001846E-09,
+              -1.403735E-11,
+              3.931561E-13,
+              2.918561E-14,
+              1.328494E-15,
+              5.334976E-17,
+              2.056362E-18
+            ],
+            "Material": "Air"
+          },
+          {
+            "Number": 12,
+            "IsStop": false,
+            "PositionMm": 6.681399999997666,
+            "RadiusMm": 3.2954,
+            "Curvature": 0.007092118103624356,
+            "Conic": 0.049,
+            "Coefficients": [
+              0,
+              1.380078E-07,
+              2.1019E-09,
+              3.659712E-11,
+              7.579084E-13,
+              1.846864E-14,
+              5.036405E-16,
+              1.461626E-17,
+              4.371691E-19
+            ],
+            "Material": "AutoLensE58:h-zk9b"
+          },
+          {
+            "Number": 13,
+            "IsStop": false,
+            "PositionMm": 7.442399999996269,
+            "RadiusMm": 3.4081,
+            "Curvature": -0.00803442590813116,
+            "Conic": 0.0631,
+            "Coefficients": [
+              0,
+              -1.006334E-07,
+              -1.365473E-09,
+              -2.241135E-11,
+              -4.578183E-13,
+              -1.107325E-14,
+              -2.943004E-16,
+              -8.166255E-18,
+              -2.306815E-19
+            ],
+            "Material": "Air"
+          }
+        ],
+        "SensorPositionMm": 9.440999999995256
+      }
+    },
+    {
+      "Name": "existing-csharp",
+      "FocalLengthMm": 12.693713135995797,
+      "EntrancePupilDiameterMm": 1.3890495905781048,
+      "FNumber": 9.138416095506592,
+      "SensorPositionMm": 9.998931443118636,
+      "TargetRelativeFocalError": 1.5387426271991593,
+      "TargetRelativeFNumberError": 4.076897830836995,
+      "WorstValidFieldRmsMm": 0.30193476946009895,
+      "ValidFieldCount": 21,
+      "ExpectedFieldCount": 21,
+      "AttemptedRays": 24255,
+      "ValidRays": 11976,
+      "ValidRayFraction": 0.49375386518243664,
+      "AllFieldsHaveMetrics": true,
+      "SnapshotFingerprintBefore": "7beb4c30bf30625b70aa1b81d82885a269736692eb819bc5edb6bad4b280d99e",
+      "SnapshotFingerprintAfter": "7beb4c30bf30625b70aa1b81d82885a269736692eb819bc5edb6bad4b280d99e",
+      "PrescriptionUnchangedByAnalysis": true,
+      "RaysTraced": 56750496,
+      "Fields": [
+        {
+          "NormalizedField": 0,
+          "HalfAngleDegrees": 0,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 960,
+          "CheckAttempted": 195,
+          "CheckValid": 195,
+          "RmsMm": 0.29959543176456455,
+          "MaximumRadiusMm": 0.42522326186550496,
+          "Radius80Mm": 0.385778006946596,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.05,
+          "HalfAngleDegrees": 2.25,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 960,
+          "CheckAttempted": 195,
+          "CheckValid": 195,
+          "RmsMm": 0.29941081172011846,
+          "MaximumRadiusMm": 0.4259384111702804,
+          "Radius80Mm": 0.3855673284250071,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.1,
+          "HalfAngleDegrees": 4.5,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 960,
+          "CheckAttempted": 195,
+          "CheckValid": 195,
+          "RmsMm": 0.2988563882150626,
+          "MaximumRadiusMm": 0.4260672130245925,
+          "Radius80Mm": 0.38493481254433815,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.15,
+          "HalfAngleDegrees": 6.75,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 960,
+          "CheckAttempted": 195,
+          "CheckValid": 195,
+          "RmsMm": 0.2979304931309699,
+          "MaximumRadiusMm": 0.42561190102748325,
+          "Radius80Mm": 0.38387903716626426,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 320
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 65
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.2,
+          "HalfAngleDegrees": 9,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 759,
+          "CheckAttempted": 195,
+          "CheckValid": 177,
+          "RmsMm": 0.29763592650820964,
+          "MaximumRadiusMm": 0.42751259236746186,
+          "Radius80Mm": 0.3802801918212332,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 253
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 253
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 253
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 59
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 59
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 59
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.25,
+          "HalfAngleDegrees": 11.25,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 813,
+          "CheckAttempted": 195,
+          "CheckValid": 153,
+          "RmsMm": 0.29861695070204547,
+          "MaximumRadiusMm": 0.43101238007874976,
+          "Radius80Mm": 0.37489462603148543,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 271
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 271
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 271
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 51
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 51
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 51
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.3,
+          "HalfAngleDegrees": 13.5,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 576,
+          "CheckAttempted": 195,
+          "CheckValid": 159,
+          "RmsMm": 0.291224637932335,
+          "MaximumRadiusMm": 0.4179902619981064,
+          "Radius80Mm": 0.37977125085027824,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 192
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 192
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 192
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 53
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 53
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 53
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.35,
+          "HalfAngleDegrees": 15.749999999999998,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 429,
+          "CheckAttempted": 195,
+          "CheckValid": 99,
+          "RmsMm": 0.30193476946009895,
+          "MaximumRadiusMm": 0.43730893391045944,
+          "Radius80Mm": 0.3802691533089135,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 143
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 143
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 143
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 33
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 33
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 33
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.4,
+          "HalfAngleDegrees": 18,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 420,
+          "CheckAttempted": 195,
+          "CheckValid": 111,
+          "RmsMm": 0.29209387269142334,
+          "MaximumRadiusMm": 0.42053522085594386,
+          "Radius80Mm": 0.3768313620594208,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 140
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 140
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 140
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 37
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 37
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 37
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.45,
+          "HalfAngleDegrees": 20.25,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 438,
+          "CheckAttempted": 195,
+          "CheckValid": 96,
+          "RmsMm": 0.29123700699840466,
+          "MaximumRadiusMm": 0.40861065570033267,
+          "Radius80Mm": 0.36863212658147004,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 146
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 146
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 146
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 32
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 32
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 32
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.5,
+          "HalfAngleDegrees": 22.5,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 342,
+          "CheckAttempted": 195,
+          "CheckValid": 57,
+          "RmsMm": 0.27043802984110893,
+          "MaximumRadiusMm": 0.40635111111542055,
+          "Radius80Mm": 0.3568478458351716,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 114
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 114
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 114
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 19
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 19
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 19
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.55,
+          "HalfAngleDegrees": 24.750000000000004,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 342,
+          "CheckAttempted": 195,
+          "CheckValid": 51,
+          "RmsMm": 0.268059207169831,
+          "MaximumRadiusMm": 0.40131276665406973,
+          "Radius80Mm": 0.3494793736238885,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 114
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 114
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 114
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 17
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 17
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 17
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.6,
+          "HalfAngleDegrees": 27,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 237,
+          "CheckAttempted": 195,
+          "CheckValid": 33,
+          "RmsMm": 0.26770996426768623,
+          "MaximumRadiusMm": 0.40086375123459145,
+          "Radius80Mm": 0.345942098052469,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 79
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 79
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 79
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 11
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 11
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 11
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.65,
+          "HalfAngleDegrees": 29.25,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 261,
+          "CheckAttempted": 195,
+          "CheckValid": 39,
+          "RmsMm": 0.2570269671595572,
+          "MaximumRadiusMm": 0.39896036583092376,
+          "Radius80Mm": 0.3339572289113971,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 87
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 87
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 87
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 13
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 13
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 13
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.7,
+          "HalfAngleDegrees": 31.499999999999996,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 240,
+          "CheckAttempted": 195,
+          "CheckValid": 24,
+          "RmsMm": 0.24486625017653804,
+          "MaximumRadiusMm": 0.3841219102598727,
+          "Radius80Mm": 0.33034352372618464,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 80
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 80
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 80
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 8
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 8
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 8
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.75,
+          "HalfAngleDegrees": 33.75,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 255,
+          "CheckAttempted": 195,
+          "CheckValid": 45,
+          "RmsMm": 0.24135166192948515,
+          "MaximumRadiusMm": 0.3738908048460713,
+          "Radius80Mm": 0.3152390745216213,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 85
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 85
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 85
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 15
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 15
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 15
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.8,
+          "HalfAngleDegrees": 36,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 261,
+          "CheckAttempted": 195,
+          "CheckValid": 36,
+          "RmsMm": 0.2391710907746941,
+          "MaximumRadiusMm": 0.3693011965068355,
+          "Radius80Mm": 0.3169295578336854,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 87
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 87
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 87
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 12
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 12
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 12
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.85,
+          "HalfAngleDegrees": 38.25,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 237,
+          "CheckAttempted": 195,
+          "CheckValid": 33,
+          "RmsMm": 0.23367523402927962,
+          "MaximumRadiusMm": 0.3614805955203168,
+          "Radius80Mm": 0.30114341111636594,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 79
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 79
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 79
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 11
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 11
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 11
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.9,
+          "HalfAngleDegrees": 40.5,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 180,
+          "CheckAttempted": 195,
+          "CheckValid": 45,
+          "RmsMm": 0.23775730092669342,
+          "MaximumRadiusMm": 0.35285247348934595,
+          "Radius80Mm": 0.2993733384206766,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 60
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 60
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 60
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 15
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 15
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 15
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 0.95,
+          "HalfAngleDegrees": 42.75,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 186,
+          "CheckAttempted": 195,
+          "CheckValid": 36,
+          "RmsMm": 0.23392070690104952,
+          "MaximumRadiusMm": 0.34168853752927486,
+          "Radius80Mm": 0.29672760332863124,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 62
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 62
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 62
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 12
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 12
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 12
+            }
+          ],
+          "Error": null
+        },
+        {
+          "NormalizedField": 1,
+          "HalfAngleDegrees": 45,
+          "IntegrationAttempted": 960,
+          "IntegrationValid": 147,
+          "CheckAttempted": 195,
+          "CheckValid": 39,
+          "RmsMm": 0.2275009644812099,
+          "MaximumRadiusMm": 0.34306886579398416,
+          "Radius80Mm": 0.28448290041299945,
+          "Wavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 49
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 49
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 320,
+              "ValidRayCount": 49
+            }
+          ],
+          "CheckWavelengths": [
+            {
+              "Nanometers": 656,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 13
+            },
+            {
+              "Nanometers": 587,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 13
+            },
+            {
+              "Nanometers": 486,
+              "AttemptedRayCount": 65,
+              "ValidRayCount": 13
+            }
+          ],
+          "Error": null
+        }
+      ],
+      "Prescription": {
+        "Surfaces": [
+          {
+            "Number": 1,
+            "IsStop": true,
+            "PositionMm": 0,
+            "RadiusMm": 0.6945247952890524,
+            "Curvature": 0,
+            "Conic": 0,
+            "Coefficients": [],
+            "Material": "Air"
+          },
+          {
+            "Number": 2,
+            "IsStop": false,
+            "PositionMm": 0.6578251610444568,
+            "RadiusMm": 2.0477738314204745,
+            "Curvature": 0.011113090449445402,
+            "Conic": 0.07078147048292568,
+            "Coefficients": [
+              0,
+              6.074772160239552E-05,
+              1.442046612831678E-05,
+              3.4259254981878317E-06,
+              8.14499052083567E-07,
+              1.9376080348964803E-07,
+              4.611641584061487E-08,
+              1.0980414177231774E-08,
+              2.6153067187356602E-09
+            ],
+            "Material": "AutoLensRelaxed-2"
+          },
+          {
+            "Number": 3,
+            "IsStop": false,
+            "PositionMm": 1.5727898009645287,
+            "RadiusMm": 2.96059685283237,
+            "Curvature": -0.011634841602440934,
+            "Conic": 0.08566545646934398,
+            "Coefficients": [
+              0,
+              -1.3785373930627725E-05,
+              -1.5622963938204653E-06,
+              -1.7725532695913694E-07,
+              -2.0125009796419237E-08,
+              -2.2860700699061397E-09,
+              -2.597847784763351E-10,
+              -2.9530949921737E-11,
+              -3.3578152470043476E-12
+            ],
+            "Material": "Air"
+          },
+          {
+            "Number": 4,
+            "IsStop": false,
+            "PositionMm": 1.991467573618138,
+            "RadiusMm": 3.3814306788974333,
+            "Curvature": 0.011366549020861932,
+            "Conic": 0.08553940165927523,
+            "Coefficients": [
+              0,
+              8.028088713180224E-06,
+              6.956716052791274E-07,
+              6.040722306088836E-08,
+              5.2518626561019E-09,
+              4.5700393214425667E-10,
+              3.9794552198633604E-11,
+              3.4671239706016583E-12,
+              3.0221525351376775E-13
+            ],
+            "Material": "AutoLensRelaxed-4"
+          },
+          {
+            "Number": 5,
+            "IsStop": false,
+            "PositionMm": 2.927564663492376,
+            "RadiusMm": 4.315370851092868,
+            "Curvature": -0.01115108232581246,
+            "Conic": 0.08597954847369026,
+            "Coefficients": [
+              0,
+              -2.989047911951156E-06,
+              -1.5839873166584703E-07,
+              -8.41289772130699E-09,
+              -4.473837388919779E-10,
+              -2.3809756493978223E-11,
+              -1.2678557771492778E-12,
+              -6.754140735570069E-14,
+              -3.599330697973111E-15
+            ],
+            "Material": "Air"
+          },
+          {
+            "Number": 6,
+            "IsStop": false,
+            "PositionMm": 3.349852108847699,
+            "RadiusMm": 4.7398200564914275,
+            "Curvature": 0.010881914761640835,
+            "Conic": 0.07828766295832087,
+            "Coefficients": [
+              0,
+              2.100770105279694E-06,
+              9.27297314414592E-08,
+              4.099699094180732E-09,
+              1.8141219091294524E-10,
+              8.031613892534326E-12,
+              3.556952572111619E-13,
+              1.5756067298269594E-14,
+              6.980505444154531E-16
+            ],
+            "Material": "AutoLensRelaxed-6"
+          },
+          {
+            "Number": 7,
+            "IsStop": false,
+            "PositionMm": 4.1151091591054865,
+            "RadiusMm": 5.502916865878634,
+            "Curvature": -0.010729602099442124,
+            "Conic": 0.07950857881122383,
+            "Coefficients": [
+              0,
+              -1.1291525826551136E-06,
+              -3.666819783649584E-08,
+              -1.1934119032135004E-09,
+              -3.8890376773126555E-11,
+              -1.2682790431658659E-12,
+              -4.1379401545041244E-14,
+              -1.3504705060700994E-15,
+              -4.408429059060585E-17
+            ],
+            "Material": "Air"
+          },
+          {
+            "Number": 8,
+            "IsStop": false,
+            "PositionMm": 4.473582708207687,
+            "RadiusMm": 5.863551669650606,
+            "Curvature": 0.010732993060251866,
+            "Conic": 0.07823058406406613,
+            "Coefficients": [
+              0,
+              8.886209061829345E-07,
+              2.5514748477607355E-08,
+              7.338421321797777E-10,
+              2.1127219458278574E-11,
+              6.08597772453911E-13,
+              1.7537303964154905E-14,
+              5.054531008113643E-16,
+              1.4569739723311292E-17
+            ],
+            "Material": "AutoLensRelaxed-8"
+          },
+          {
+            "Number": 9,
+            "IsStop": false,
+            "PositionMm": 5.330712302034954,
+            "RadiusMm": 6.718524985843233,
+            "Curvature": -0.011466320251123265,
+            "Conic": 0.09322328152019763,
+            "Coefficients": [
+              0,
+              -5.082023194872841E-07,
+              -1.1028995636795506E-08,
+              -2.396931932306102E-10,
+              -5.213693704241848E-12,
+              -1.134646129981861E-13,
+              -2.4701437555432653E-15,
+              -5.378901814651227E-17,
+              -1.1715520378174686E-18
+            ],
+            "Material": "Air"
+          },
+          {
+            "Number": 10,
+            "IsStop": false,
+            "PositionMm": 6.015306471559597,
+            "RadiusMm": 7.405296378665499,
+            "Curvature": 0.011209035727510606,
+            "Conic": 0.09117297336171888,
+            "Coefficients": [
+              0,
+              3.4108994278664113E-07,
+              5.808735670918421E-09,
+              8.528481891293592E-11,
+              6.21473856189448E-13,
+              -5.083645724222677E-15,
+              -2.46321575396676E-16,
+              -6.076178635930234E-18,
+              -1.2359151904217727E-19
+            ],
+            "Material": "AutoLensRelaxed-10"
+          },
+          {
+            "Number": 11,
+            "IsStop": false,
+            "PositionMm": 6.557656911922095,
+            "RadiusMm": 7.945450835757784,
+            "Curvature": -0.011061524552213613,
+            "Conic": 0.09418270301353762,
+            "Coefficients": [
+              0,
+              -2.4675723036310564E-07,
+              -3.6162537691637657E-09,
+              -4.886424855929642E-11,
+              -5.036382648006078E-13,
+              -1.784756572741896E-15,
+              4.9709996032096415E-17,
+              1.5165806512155879E-18,
+              3.106471463335378E-20
+            ],
+            "Material": "Air"
+          },
+          {
+            "Number": 12,
+            "IsStop": false,
+            "PositionMm": 7.2393033048902,
+            "RadiusMm": 8.62927918963962,
+            "Curvature": 0.010560342805633253,
+            "Conic": 0.08198420178453193,
+            "Coefficients": [
+              0,
+              1.813880675423348E-07,
+              2.2302074105060572E-09,
+              2.4270213479595465E-11,
+              2.0897338331537464E-13,
+              1.449955005425359E-15,
+              8.807816634258394E-18,
+              5.15880800126081E-20,
+              2.875070645109887E-22
+            ],
+            "Material": "AutoLensRelaxed-12"
+          },
+          {
+            "Number": 13,
+            "IsStop": false,
+            "PositionMm": 8.00107227269109,
+            "RadiusMm": 9.388888888888888,
+            "Curvature": -0.011465142924084685,
+            "Conic": 0.09776571605982293,
+            "Coefficients": [
+              0,
+              -1.27747203145432E-07,
+              -1.3289212305652887E-09,
+              -1.2821799466237527E-11,
+              -1.0708312707512134E-13,
+              -7.500519668331623E-16,
+              -4.503317843639901E-18,
+              -2.3609780987090086E-20,
+              -1.0380654182499719E-22
+            ],
+            "Material": "Air"
+          }
+        ],
+        "SensorPositionMm": 9.998931443118636
+      }
+    }
+  ]
+}

@@ -130,8 +130,11 @@ public sealed class FlatStartSearchService
         {
             // A cancelled reference trial resumes the same ray cache/moments in place.
             // It is never replaced by a new native mutation or a shortened curriculum.
-            foreach (var paused in current.Trials.Where(trial => trial.AutoLensState is { SchemaVersion: 2,
-                Phase: AutoLensManagedPhase.Curriculum or AutoLensManagedPhase.CatalogRefinement or AutoLensManagedPhase.Finalization or AutoLensManagedPhase.PhysicalValidation }).ToArray())
+            foreach (var paused in current.Trials.Where(trial => trial.AutoLensState is
+            {
+                SchemaVersion: 2,
+                Phase: AutoLensManagedPhase.Curriculum or AutoLensManagedPhase.CatalogRefinement or AutoLensManagedPhase.Finalization or AutoLensManagedPhase.PhysicalValidation
+            }).ToArray())
             {
                 if (RemainingEvaluations() < 3 || RemainingTime() <= TimeSpan.Zero || cancellationToken.IsCancellationRequested) break;
                 var allocation = Math.Min(paused.AllocatedEvaluations, paused.ChargedEvaluations + RemainingEvaluations());
@@ -139,9 +142,19 @@ public sealed class FlatStartSearchService
                 var limit = RemainingTime();
                 var ancestor = paused;
                 while (ancestor.ParentTrialId is { } parentId) ancestor = Parent(current, parentId);
-                var reservation = paused with { State = FamilyTrialState.Reserved, AllocatedEvaluations = allocation,
-                    ChargedEvaluations = allocation, CompletedEvaluations = null, TracedRealRayCount = 0, AutoLensState = null,
-                    ReservedReferenceState = paused.AutoLensState, Candidate = null, FinalValidation = null, Stages = [] };
+                var reservation = paused with
+                {
+                    State = FamilyTrialState.Reserved,
+                    AllocatedEvaluations = allocation,
+                    ChargedEvaluations = allocation,
+                    CompletedEvaluations = null,
+                    TracedRealRayCount = 0,
+                    AutoLensState = null,
+                    ReservedReferenceState = paused.AutoLensState,
+                    Candidate = null,
+                    FinalValidation = null,
+                    Stages = []
+                };
                 var reservedTrials = current.Trials.ToArray();
                 reservedTrials[paused.Index] = reservation;
                 current = current with { Trials = reservedTrials, ReservedComputeTicks = limit.Ticks, ElapsedComputeTicks = previousTicks + clock.Elapsed.Ticks };
@@ -176,8 +189,11 @@ public sealed class FlatStartSearchService
             {
                 var index = current.Trials.Count + offset;
                 var family = isRootBatch ? roots[current.NextRootIndex + offset] : null;
-                var proposal = family is not null ? new TrialWork(family, "flat-root", null, null, null) { ScreenOnly = !reference && (options.DesignSearch ?? new()).Mode == DesignSearchMode.Quick,
-                    Reason = reference ? "Independent e58-style random start; full configured phases, no binary screening or neighborhood mutation." : "Explore a binary initial form." }
+                var proposal = family is not null ? new TrialWork(family, "flat-root", null, null, null)
+                {
+                    ScreenOnly = !reference && (options.DesignSearch ?? new()).Mode == DesignSearchMode.Quick,
+                    Reason = reference ? "Independent e58-style random start; full configured phases, no binary screening or neighborhood mutation." : "Explore a binary initial form."
+                }
                     : Propose(specification, materials.Names, current);
                 var allocation = Math.Min(remaining, isRootBatch ? quota
                     : FlatStartAlgorithm.SchedulingPolicy(current.Algorithm.Version, specification) == 2 && proposal.Parent is not null && current.Origin is null
@@ -221,10 +237,18 @@ public sealed class FlatStartSearchService
             {
                 // No worker has started: this is known zero work, unlike a lost in-flight batch.
                 var decision = current.NextRefinementIndex - (isRootBatch ? 0 : work.Count);
-                current = current with { Trials = current.Trials.Take(current.Trials.Count - work.Count).ToArray(),
-                    NextRootIndex = current.NextRootIndex - (isRootBatch ? work.Count : 0), NextRefinementIndex = decision,
-                    ReservedComputeTicks = 0, Schedule = current.Schedule! with { NextDecisionIndex = decision,
-                        NextRandomSeed = FlatStartScheduler.Seed(specification.Budget.RandomSeed, decision) } };
+                current = current with
+                {
+                    Trials = current.Trials.Take(current.Trials.Count - work.Count).ToArray(),
+                    NextRootIndex = current.NextRootIndex - (isRootBatch ? work.Count : 0),
+                    NextRefinementIndex = decision,
+                    ReservedComputeTicks = 0,
+                    Schedule = current.Schedule! with
+                    {
+                        NextDecisionIndex = decision,
+                        NextRandomSeed = FlatStartScheduler.Seed(specification.Budget.RandomSeed, decision)
+                    }
+                };
                 break;
             }
             var completed = await Task.WhenAll(work.Select(item => Task.Run(() => Execute(specification, item, timeLimit, materials.Names, reference ? cancellationToken : CancellationToken.None))));
@@ -294,8 +318,11 @@ public sealed class FlatStartSearchService
             var request = specification with
             {
                 Budget = specification.Budget with
-                { MaximumEvaluations = trial.AllocatedEvaluations, MaximumParallelism = 1,
-                    TimeLimit = timeLimit + TimeSpan.FromTicks(work.ResumeState?.ElapsedComputeTicks ?? 0) }
+                {
+                    MaximumEvaluations = trial.AllocatedEvaluations,
+                    MaximumParallelism = 1,
+                    TimeLimit = timeLimit + TimeSpan.FromTicks(work.ResumeState?.ElapsedComputeTicks ?? 0)
+                }
             };
             var service = new FlatStartDesignService();
             var result = work.ResumeState is { } state ? service.ResumeAutoLens(request, work.RootProof!, state, allowedGlassNames, work.Family, cancellationToken)
@@ -336,8 +363,11 @@ public sealed class FlatStartSearchService
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
-            return trial with { State = FamilyTrialState.Interrupted,
-                Diagnostics = [new("search.cancelled-before-state", "Cancellation preceded a completed training state; the in-flight reserved quota remains charged.")] };
+            return trial with
+            {
+                State = FamilyTrialState.Interrupted,
+                Diagnostics = [new("search.cancelled-before-state", "Cancellation preceded a completed training state; the in-flight reserved quota remains charged.")]
+            };
         }
         catch (Exception exception) when (exception is InvalidOperationException or ArgumentException or ArithmeticException or KeyNotFoundException or InvalidDataException)
         {

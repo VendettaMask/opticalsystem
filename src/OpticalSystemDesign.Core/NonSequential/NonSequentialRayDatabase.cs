@@ -3,7 +3,9 @@ using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Core.Serialization;
 
 namespace OpticalSystemDesign.Core.NonSequential;
 
@@ -29,9 +31,10 @@ public sealed record NonSequentialRayDatabaseHeader(
     public static NonSequentialRayDatabaseHeader Create(
         NonSequentialDocument document,
         long sourceRevision = 0,
-        string? pathFilterExpression = null) => new(
+        string? pathFilterExpression = null,
+        MaterialRegistry? materials = null) => new(
             1,
-            NonSequentialSceneHasher.Compute(document),
+            NonSequentialSceneHasher.Compute(document, materials),
             sourceRevision,
             DateTimeOffset.UtcNow,
             "mm",
@@ -237,6 +240,8 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
     private readonly Stream _stream;
     private readonly bool _leaveOpen;
     private readonly IReadOnlyList<ChunkIndex> _index;
+    private readonly object _streamGate = new();
+    private readonly HashSet<Guid> _objectIds;
 
     public NonSequentialRayDatabaseReader(Stream stream, bool leaveOpen = false)
     {
@@ -248,13 +253,14 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         _stream = stream;
         _leaveOpen = leaveOpen;
         (Header, _index, BranchCount) = ReadStructure();
+        _objectIds = Header.Objects.Select(item => item.Id).ToHashSet();
     }
 
     public NonSequentialRayDatabaseHeader Header { get; }
     public long BranchCount { get; }
 
-    public bool IsStale(NonSequentialDocument document) =>
-        !Header.SceneHash.Equals(NonSequentialSceneHasher.Compute(document), StringComparison.OrdinalIgnoreCase);
+    public bool IsStale(NonSequentialDocument document, MaterialRegistry? materials = null) =>
+        !Header.SceneHash.Equals(NonSequentialSceneHasher.Compute(document, materials), StringComparison.OrdinalIgnoreCase);
 
     public IReadOnlyList<NonSequentialRayBranch> ReadAllBranches(NonSequentialPathFilter? filter = null)
     {
@@ -268,12 +274,13 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         if (maximumCount <= 0) throw new ArgumentOutOfRangeException(nameof(maximumCount));
         filter ??= NonSequentialPathFilter.MatchAll;
         var document = CreateHeaderDocument();
+        var matches = filter.Bind(document);
         var count = 0;
         foreach (var entry in _index)
         {
             foreach (var branch in ReadChunk(entry))
             {
-                if (!filter.IsMatch(document, branch)) continue;
+                if (!matches(branch)) continue;
                 yield return branch;
                 count++;
                 if (count >= maximumCount) yield break;
@@ -286,12 +293,13 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
     {
         filter ??= NonSequentialPathFilter.MatchAll;
         var document = CreateHeaderDocument();
+        var matches = filter.Bind(document);
         long index = 0;
         foreach (var entry in _index)
         {
             foreach (var branch in ReadChunk(entry))
             {
-                if (filter.IsMatch(document, branch)) yield return (index, branch);
+                if (matches(branch)) yield return (index, branch);
                 index++;
             }
         }
@@ -373,7 +381,7 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
 
     public void Dispose()
     {
-        if (!_leaveOpen) _stream.Dispose();
+        lock (_streamGate) { if (!_leaveOpen) _stream.Dispose(); }
     }
 
     private (NonSequentialRayDatabaseHeader Header, IReadOnlyList<ChunkIndex> Index, long BranchCount) ReadStructure()
@@ -410,6 +418,12 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         }
         var header = JsonSerializer.Deserialize<NonSequentialRayDatabaseHeader>(json, JsonOptions)
             ?? throw new InvalidDataException("光线数据库文件头为空。");
+        ValidateHeader(header);
+        header = header with
+        {
+            Wavelengths = Array.AsReadOnly(header.Wavelengths.ToArray()),
+            Objects = Array.AsReadOnly(header.Objects.ToArray())
+        };
 
         _stream.Position = _stream.Length - 20;
         Span<byte> trailer = stackalloc byte[20];
@@ -462,6 +476,11 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
 
     private IReadOnlyList<NonSequentialRayBranch> ReadChunk(ChunkIndex entry)
     {
+        lock (_streamGate) return ReadChunkLocked(entry);
+    }
+
+    private IReadOnlyList<NonSequentialRayBranch> ReadChunkLocked(ChunkIndex entry)
+    {
         _stream.Position = entry.Offset;
         Span<byte> header = stackalloc byte[ChunkHeaderLength];
         ReadExactly(header);
@@ -482,7 +501,52 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         var branches = JsonSerializer.Deserialize<List<NonSequentialRayBranch>>(json, JsonOptions)
             ?? throw new InvalidDataException("光线数据库分块为空。");
         if (branches.Count != entry.BranchCount) throw new InvalidDataException("光线数据库分块数量不一致。");
+        foreach (var branch in branches) ValidateBranch(branch, _objectIds);
         return branches;
+    }
+
+    private static void ValidateHeader(NonSequentialRayDatabaseHeader header)
+    {
+        if (header.FormatVersion != NonSequentialRayDatabaseWriter.CurrentVersion
+            || header.SceneHash is not { Length: 64 } || !header.SceneHash.All(Uri.IsHexDigit)
+            || header.SourceRevision < 0 || header.LengthUnit != "mm" || header.TraceSettings is null
+            || header.Wavelengths is null || header.Wavelengths.Any(w => w is null)
+            || header.Objects is null || header.Objects.Count > NonSequentialDocument.MaximumObjectCount
+            || header.Objects.Any(o => o is null || o.Id == Guid.Empty || o.Name is null || !Enum.IsDefined(o.Kind))
+            || header.Objects.Select(o => o.Id).Distinct().Count() != header.Objects.Count
+            || !header.Objects.Select(o => o.ObjectNumber).SequenceEqual(Enumerable.Range(1, header.Objects.Count))
+            || header.SplittingMode is { } mode && !Enum.IsDefined(mode))
+            throw new InvalidDataException("光线数据库文件头的结构或场景标识无效。");
+        try
+        {
+            _ = new NonSequentialDocument("header validation", header.Wavelengths, traceSettings: header.TraceSettings);
+            _ = NonSequentialPathFilter.Parse(header.PathFilterExpression);
+        }
+        catch (Exception error) when (error is ArgumentException or FormatException or InvalidOperationException)
+        { throw new InvalidDataException("光线数据库文件头参数无效。", error); }
+    }
+
+    private static void ValidateBranch(NonSequentialRayBranch? branch, HashSet<Guid> objects)
+    {
+        static bool Nonnegative(double value) => double.IsFinite(value) && value >= 0;
+        static bool Vector(Backend.Vector3D? value) => value is null
+            || double.IsFinite(value.Value.X) && double.IsFinite(value.Value.Y) && double.IsFinite(value.Value.Z);
+        if (branch is null || branch.Id <= 0 || branch.Level < 0
+            || branch.ParentId is { } parent && (parent <= 0 || parent >= branch.Id)
+            || branch.SourceObjectId is { } source && !objects.Contains(source)
+            || !Enum.IsDefined(branch.TerminationReason) || !Nonnegative(branch.FinalIntensity)
+            || !Nonnegative(branch.WavelengthNanometers) || !Vector(branch.FinalOrigin) || !Vector(branch.FinalDirection)
+            || branch.Segments is null || branch.Segments.Count > NonSequentialDocument.MaximumSegmentsPerRay)
+            throw new InvalidDataException("光线数据库分支结构无效。");
+        foreach (var segment in branch.Segments)
+            if (segment is null || segment.BranchId <= 0 || segment.BranchId > branch.Id
+                || segment.ObjectId is { } objectId && !objects.Contains(objectId) || segment.FaceNumber < 0
+                || !Vector(segment.Start) || !Vector(segment.End) || !Vector(segment.OutgoingDirection) || !Vector(segment.SurfaceNormal)
+                || !Nonnegative(segment.Intensity) || !Nonnegative(segment.SegmentLength)
+                || !Nonnegative(segment.CumulativePathLength) || !Nonnegative(segment.CumulativeOpticalPathLength)
+                || !double.IsFinite(segment.WavelengthNanometers) || segment.WavelengthNanometers <= 0
+                || segment.InteractionKind is { } kind && !Enum.IsDefined(kind))
+                throw new InvalidDataException("光线数据库分段对象或数值无效。");
     }
 
     public NonSequentialDocument CreateHeaderDocument()
@@ -552,30 +616,67 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
 
 public static class NonSequentialSceneHasher
 {
-    public static string Compute(NonSequentialDocument document)
+    private static readonly Lazy<MaterialRegistry> DefaultMaterials = new(() => new MaterialRegistry());
+
+    public static string Compute(NonSequentialDocument document, MaterialRegistry? materials = null)
     {
         ArgumentNullException.ThrowIfNull(document);
         using var hash = IncrementalHash.CreateHash(HashAlgorithmName.SHA256);
-        void Add(string value) => hash.AppendData(Encoding.UTF8.GetBytes(value));
+        void Add(string value)
+        {
+            var bytes = Encoding.UTF8.GetBytes(value);
+            Span<byte> length = stackalloc byte[4];
+            BinaryPrimitives.WriteInt32LittleEndian(length, bytes.Length);
+            hash.AppendData(length);
+            hash.AppendData(bytes);
+        }
+        Add("non-sequential-scene/v3");
         Add(document.Name);
         Add(document.AmbientMaterial);
+        materials ??= DefaultMaterials.Value;
+        var materialNames = document.Objects.SelectMany(item => item.Parameters switch
+        {
+            PlaneRectangleParameters p => new[] { p.MaterialBefore, p.MaterialAfter },
+            SphereParameters p => new[] { p.Material },
+            CylinderParameters p => new[] { p.Material },
+            BoxParameters p => new[] { p.Material },
+            StandardLensParameters p => new[] { p.Material },
+            MeshObjectParameters p => new[] { p.Material },
+            _ => Array.Empty<string>()
+        }).Append(document.AmbientMaterial).Distinct(StringComparer.OrdinalIgnoreCase)
+            .Order(StringComparer.OrdinalIgnoreCase);
+        foreach (var name in materialNames)
+        {
+            Add(name);
+            if (!materials.TryResolve(name, null, out var material)) { Add("unresolved"); continue; }
+            var model = ComponentSnapshotFactory.FromMaterial(material);
+            if (model.Kind == "catalog")
+                throw new NotSupportedException($"Material '{name}' has no serializable optical model identity.");
+            Add(JsonSerializer.Serialize(model));
+        }
         Add(JsonSerializer.Serialize(document.TraceSettings));
+        Add(JsonSerializer.Serialize(document.Wavelengths.Count));
         foreach (var wavelength in document.Wavelengths) Add(JsonSerializer.Serialize(wavelength));
+        Add(JsonSerializer.Serialize(document.Objects.Count));
         foreach (var item in document.Objects)
         {
             Add(item.Id.ToString("N"));
             Add(item.Name);
             Add(item.Kind.ToString());
             Add(item.Enabled.ToString());
+            Add(item.Visible.ToString());
             Add(JsonSerializer.Serialize(item.LocalCoordinateSystem));
             Add(item.ReferenceObjectId?.ToString("N") ?? string.Empty);
             Add(item.ContainingObjectId?.ToString("N") ?? string.Empty);
             Add(JsonSerializer.Serialize(item.Parameters, item.Parameters.GetType()));
         }
+        Add(JsonSerializer.Serialize(document.MeshAssets.Count));
         foreach (var asset in document.MeshAssets.OrderBy(item => item.Id))
         {
             Add(asset.Id.ToString("N"));
-            Add(asset.Sha256);
+            // Metadata (including unit scale and closed-volume identity) changes
+            // scene interpretation even when the mesh byte hash is unchanged.
+            Add(JsonSerializer.Serialize(asset));
         }
         return Convert.ToHexString(hash.GetHashAndReset());
     }

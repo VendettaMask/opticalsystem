@@ -362,7 +362,7 @@ public enum NonSequentialTraceSessionState
 }
 
 public sealed record NonSequentialTraceRunRequestDto(
-    NonSequentialTraceOutputMode OutputMode = NonSequentialTraceOutputMode.InMemory,
+    NonSequentialTraceOutputMode OutputMode = NonSequentialTraceOutputMode.RayDatabase,
     Guid? SourceObjectId = null,
     bool AnalysisRays = true,
     bool? SplitFresnelRays = null,
@@ -861,7 +861,8 @@ public enum AnalysisParameterKind
     Double,
     Choice,
     Boolean,
-    File
+    File,
+    Text
 }
 
 public sealed record AnalysisParameterDescriptor(
@@ -904,7 +905,9 @@ public enum AnalysisColorMap
 {
     Viridis,
     Inferno,
-    Jet
+    Jet,
+    Gray,
+    InverseGray
 }
 
 public enum AnalysisAxisQuantity
@@ -1099,7 +1102,12 @@ public sealed record InterferogramSummaryDto(
     double? PeakToValleyWaves,
     int? SurfaceNumber,
     bool IsImageSurface,
-    double? ExitPupilDiameterMillimeters);
+    double? ExitPupilDiameterMillimeters,
+    double? ScaleFactor = null,
+    double? XTilt = null,
+    double? YTilt = null,
+    string? ShowAs = null,
+    IReadOnlyList<double>? ContourLevels = null);
 
 public enum AnalysisOutcome
 {

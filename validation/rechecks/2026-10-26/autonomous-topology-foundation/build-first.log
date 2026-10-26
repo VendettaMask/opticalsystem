@@ -1,0 +1,15 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyCompiler.cs(134,37): error CS7036: 未提供与“MaterialRegistry.TryResolve(string, IReadOnlyList<string>?, out IMaterial)”的所需参数“material”对应的参数 [D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\OpticalSystemDesign.InitialStructure.Engine.csproj]
+D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyCompiler.cs(134,75): error CS0184: 给定表达式始终不是所提供的(“CatalogGlassMaterial”)类型 [D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\OpticalSystemDesign.InitialStructure.Engine.csproj]
+D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyCompiler.cs(136,27): error CS0030: 无法将类型“System.Collections.Generic.IReadOnlyList<string>”转换为“OpticalSystemDesign.Core.Materials.CatalogGlassMaterial” [D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\OpticalSystemDesign.InitialStructure.Engine.csproj]
+
+生成失败。
+
+D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyCompiler.cs(134,37): error CS7036: 未提供与“MaterialRegistry.TryResolve(string, IReadOnlyList<string>?, out IMaterial)”的所需参数“material”对应的参数 [D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\OpticalSystemDesign.InitialStructure.Engine.csproj]
+D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyCompiler.cs(134,75): error CS0184: 给定表达式始终不是所提供的(“CatalogGlassMaterial”)类型 [D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\OpticalSystemDesign.InitialStructure.Engine.csproj]
+D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\TopologyCompiler.cs(136,27): error CS0030: 无法将类型“System.Collections.Generic.IReadOnlyList<string>”转换为“OpticalSystemDesign.Core.Materials.CatalogGlassMaterial” [D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\OpticalSystemDesign.InitialStructure.Engine.csproj]
+    0 个警告
+    3 个错误
+
+已用时间 00:00:04.69

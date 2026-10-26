@@ -3,10 +3,10 @@ using System.Security.Cryptography;
 using System.Text;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Core.NonSequential;
-using CoreSplittingMode = OpticalSystemDesign.Core.NonSequential.NonSequentialSplittingMode;
 using CoreDetectorRectangleParameters = OpticalSystemDesign.Core.NonSequential.DetectorRectangleParameters;
 using CoreObjectKind = OpticalSystemDesign.Core.NonSequential.NonSequentialObjectKind;
 using CoreSourceParameters = OpticalSystemDesign.Core.NonSequential.SourceParameters;
+using CoreSplittingMode = OpticalSystemDesign.Core.NonSequential.NonSequentialSplittingMode;
 
 namespace OpticalSystemDesign.Application.Services;
 
@@ -18,6 +18,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
     private readonly SemaphoreSlim _analysisTraceGate = new(1, 1);
     private readonly SemaphoreSlim _layoutTraceGate = new(1, 1);
     private readonly object _cacheGate = new();
+    private readonly CancellationTokenSource _lifetime = new();
     private long _cacheGeneration;
     private FilterIndexCacheEntry? _filterIndexCache;
     private DetectorFrameCacheEntry? _detectorFrameCache;
@@ -54,12 +55,12 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
 
     public NonSequentialTraceSessionDto? GetCurrentSession()
     {
-        lock (Gate) return _analysisSession.Snapshot(Runtime.CurrentNonSequentialDocument, Workspace.Revision);
+        lock (Gate) return _analysisSession.Snapshot(Runtime.CurrentNonSequentialDocument, Workspace.Revision, Runtime.CurrentOptic.Materials);
     }
 
     public NonSequentialTraceSessionDto? GetCurrentLayoutSession()
     {
-        lock (Gate) return _layoutSession.Snapshot(Runtime.CurrentNonSequentialDocument, Workspace.Revision);
+        lock (Gate) return _layoutSession.Snapshot(Runtime.CurrentNonSequentialDocument, Workspace.Revision, Runtime.CurrentOptic.Materials);
     }
 
     public async Task<NonSequentialTraceSessionDto> PrepareLayoutSessionAsync(
@@ -128,10 +129,14 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         SemaphoreSlim traceGate,
         CancellationToken cancellationToken)
     {
-        await traceGate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        ObjectDisposedException.ThrowIf(_disposed, this);
+        using var lifetime = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, _lifetime.Token);
+        await traceGate.WaitAsync(lifetime.Token).ConfigureAwait(false);
         try
         {
-            return await TraceCoreAsync(request, targetSession, cancellationToken).ConfigureAwait(false);
+            lifetime.Token.ThrowIfCancellationRequested();
+            ObjectDisposedException.ThrowIf(_disposed, this);
+            return await TraceCoreAsync(request, targetSession, lifetime.Token).ConfigureAwait(false);
         }
         finally
         {
@@ -150,6 +155,8 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(request);
+        if (request.OutputMode != OpticalSystemDesign.Application.Contracts.NonSequentialTraceOutputMode.RayDatabase)
+            throw new NotSupportedException("工作台追迹会话仅支持光线数据库输出；内存、布局采样与摘要输出请使用 Core 追迹接口。");
         if (request.Command == NonSequentialTraceCommand.ClearOnly)
         {
             targetSession.Clear();
@@ -173,11 +180,11 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
             revision = Workspace.Revision;
             documentGeneration = Workspace.DocumentGeneration;
             publicationGeneration = targetSession.PublicationGeneration;
-            previous = targetSession.Snapshot(Runtime.CurrentNonSequentialDocument, Workspace.Revision);
+            previous = targetSession.Snapshot(Runtime.CurrentNonSequentialDocument, Workspace.Revision, Runtime.CurrentOptic.Materials);
             linkedCancellation = Workspace.LinkDocumentToken(cancellationToken);
         }
         using var linkedCancellationScope = linkedCancellation;
-        var sceneHash = NonSequentialSceneHasher.Compute(document);
+        var sceneHash = NonSequentialSceneHasher.Compute(document, materials);
         var splitting = request.SplittingMode
             ?? ((request.SplitFresnelRays ?? document.TraceSettings.SplitFresnelRays)
                 ? OpticalSystemDesign.Application.Contracts.NonSequentialSplittingMode.FullFresnel
@@ -200,11 +207,19 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
                 throw new InvalidOperationException("光源、射线数量、随机种子、分裂模式、追迹限制或保存筛选已经改变；请执行“清空并追迹”。");
             }
         }
+        else
+        {
+            // A fresh database must have fresh totals, timestamps and elapsed time.
+            // Keep the old published session intact until this run succeeds.
+            previous = null;
+        }
 
         var requestedPath = string.IsNullOrWhiteSpace(request.RayDatabasePath)
             ? null
             : Path.GetFullPath(request.RayDatabasePath);
         var targetPath = requestedPath ?? CreateManagedDatabasePath();
+        if (File.Exists(targetPath))
+            throw new IOException("光线数据库目标已存在，请选择新的文件名；现有文件不会被覆盖。");
         var ownsDatabase = requestedPath is null;
         var passCount = request.Command == NonSequentialTraceCommand.TraceOnly
             ? (previous?.TracePassCount ?? 0) + 1
@@ -227,7 +242,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
                 using (var stream = new FileStream(temporaryPath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
                 using (var writer = new NonSequentialRayDatabaseWriter(
                     stream,
-                    NonSequentialRayDatabaseHeader.Create(document, revision, request.PathFilterExpression) with
+                    NonSequentialRayDatabaseHeader.Create(document, revision, request.PathFilterExpression, materials) with
                     {
                         RandomSeed = randomSeed,
                         SplittingMode = (CoreSplittingMode)(int)splitting,
@@ -386,7 +401,12 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
         NonSequentialDocument document;
-        lock (Gate) document = Runtime.CurrentNonSequentialDocument.Clone();
+        OpticalSystemDesign.Core.Materials.MaterialRegistry materials;
+        lock (Gate)
+        {
+            document = Runtime.CurrentNonSequentialDocument.Clone();
+            materials = Runtime.CurrentOptic.Materials.CreateSnapshot();
+        }
         using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
         using var reader = new NonSequentialRayDatabaseReader(stream);
         long cacheGeneration;
@@ -423,7 +443,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         var cacheKey = DatabaseCacheKey.Create(
             path,
             pathFilterExpression,
-            NonSequentialSceneHasher.Compute(document),
+            NonSequentialSceneHasher.Compute(document, materials),
             stream.Length,
             reader.Header,
             reader.BranchCount);
@@ -438,7 +458,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         }
         return new NonSequentialRayDatabaseDto(
             Path.GetFullPath(path), reader.Header.SceneHash, reader.Header.SourceRevision,
-            reader.Header.CreatedUtc, reader.BranchCount, reader.IsStale(document),
+            reader.Header.CreatedUtc, reader.BranchCount, reader.IsStale(document, materials),
             reader.Header.PathFilterExpression, paths);
     }
 
@@ -457,7 +477,12 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         path = string.IsNullOrWhiteSpace(path) ? _analysisSession.SelectedPath : Path.GetFullPath(path);
         if (string.IsNullOrWhiteSpace(path)) throw new InvalidOperationException("当前没有可用的光线数据库。");
         NonSequentialDocument document;
-        lock (Gate) document = Runtime.CurrentNonSequentialDocument.Clone();
+        OpticalSystemDesign.Core.Materials.MaterialRegistry materials;
+        lock (Gate)
+        {
+            document = Runtime.CurrentNonSequentialDocument.Clone();
+            materials = Runtime.CurrentOptic.Materials.CreateSnapshot();
+        }
         using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
         using var reader = new NonSequentialRayDatabaseReader(stream);
         cancellationToken.ThrowIfCancellationRequested();
@@ -475,7 +500,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
             var cacheKey = DatabaseCacheKey.Create(
                 path,
                 selectedFilter,
-                NonSequentialSceneHasher.Compute(document),
+                NonSequentialSceneHasher.Compute(document, materials),
                 stream.Length,
                 reader.Header,
                 reader.BranchCount);
@@ -508,7 +533,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
             .Select(branch => MapBranch(branch, objectMap))
             .ToArray();
         return new NonSequentialRayDatabasePageDto(
-            path, reader.BranchCount, pageIndex, pageSize, reader.IsStale(document), branches);
+            path, reader.BranchCount, pageIndex, pageSize, reader.IsStale(document, materials), branches);
 
         static IEnumerable<NonSequentialRayBranch> WithCancellation(
             IEnumerable<NonSequentialRayBranch> branches,
@@ -556,10 +581,12 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         }
         NonSequentialDocument document;
         long revision;
+        OpticalSystemDesign.Core.Materials.MaterialRegistry materials;
         lock (Gate)
         {
             document = Runtime.CurrentNonSequentialDocument.Clone();
             revision = Workspace.Revision;
+            materials = Runtime.CurrentOptic.Materials.CreateSnapshot();
         }
         var path = string.IsNullOrWhiteSpace(request.RayDatabasePath)
             ? _analysisSession.SelectedPath
@@ -576,13 +603,15 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
         using var reader = new NonSequentialRayDatabaseReader(stream);
         cancellationToken.ThrowIfCancellationRequested();
+        if (reader.IsStale(document, materials))
+            throw new InvalidOperationException("光线数据库与当前场景或材料不一致，请重新追迹后查看探测器结果。");
         long cacheGeneration;
         lock (_cacheGate) cacheGeneration = _cacheGeneration;
         var filter = NonSequentialPathFilter.Parse(request.PathFilterExpression ?? _analysisSession.SelectedFilter);
         var detectorCacheKey = DatabaseCacheKey.Create(
             path,
             request.PathFilterExpression ?? _analysisSession.SelectedFilter,
-            NonSequentialSceneHasher.Compute(document),
+            NonSequentialSceneHasher.Compute(document, materials),
             stream.Length,
             reader.Header,
             reader.BranchCount);
@@ -635,7 +664,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
             NonSequentialDetectorDataType.HitCount => "count",
             _ => "W/sr"
         };
-        var selectedSession = _analysisSession.Snapshot(document, revision);
+        var selectedSession = _analysisSession.Snapshot(document, revision, materials);
         var selectedSessionIsStale = selectedSession is not null
             && Path.GetFullPath(path).Equals(selectedSession.RayDatabasePath, StringComparison.OrdinalIgnoreCase)
             && selectedSession.IsStale;
@@ -645,7 +674,7 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
             request.Space == NonSequentialDetectorSpace.Position ? "mm" : "deg",
             request.Space == NonSequentialDetectorSpace.Position ? "mm" : "deg",
             valueUnit, values, xProfile, yProfile, statistics,
-            reader.IsStale(document) || selectedSessionIsStale,
+            reader.IsStale(document, materials) || selectedSessionIsStale,
             Path.GetFullPath(path));
     }
 
@@ -718,7 +747,8 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
 
     private static void PublishFile(string temporaryPath, string targetPath)
     {
-        File.Move(temporaryPath, targetPath, overwrite: true);
+        // The no-replace move also closes the race after the initial path check.
+        File.Move(temporaryPath, targetPath, overwrite: false);
     }
 
     public void Dispose()
@@ -729,10 +759,11 @@ internal sealed class NonSequentialAnalysisService : WorkbenchServiceBase, INonS
         }
 
         _disposed = true;
+        _lifetime.Cancel();
         _analysisSession.Changed -= OnAnalysisSessionChanged;
         _layoutSession.Changed -= OnLayoutSessionChanged;
-        _analysisTraceGate.Dispose();
-        _layoutTraceGate.Dispose();
+        // Pending asynchronous operations still release these gates in finally.
+        // They have no allocated wait handles and are reclaimed with the service.
     }
 
     private void NotifySessionObservers(

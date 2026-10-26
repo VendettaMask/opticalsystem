@@ -64,3 +64,7 @@ docs/validation/CAMERA_SENSOR_IMPORT_2026-10-24.json -text whitespace=cr-at-eol
 docs/validation/LABORATORY_PRESENTATION_2026-10-24.json -text whitespace=cr-at-eol
 docs/validation/MARKDOWN_REPORT_EXPORT_2026-10-24.json -text whitespace=cr-at-eol
 docs/validation/SOLID_MODEL_IMAGE_SURFACE_2026-10-24.json -text whitespace=cr-at-eol
+# Preserve user source text and dated raw console/capture evidence byte for byte.
+docs/design-inputs/** -text -whitespace
+validation/rechecks/2026-10-26/** -whitespace
+labs/InitialStructure/benchmarks/autonomous-topology-v1/*.json -text whitespace=cr-at-eol

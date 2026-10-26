@@ -153,6 +153,7 @@ public sealed class ImagePsfSafetyRepairTests
     {
         using var cancellation = new CancellationTokenSource();
         var started = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        using var releaseCheckpoint = new ManualResetEventSlim();
         var pending = Task.Factory.StartNew(() =>
         {
             using var scope = ComputationCancellation.Push(cancellation.Token);
@@ -160,15 +161,20 @@ public sealed class ImagePsfSafetyRepairTests
             var kernel = new double[32, 32];
             for (var y = 0; y < 256; y++) for (var x = 0; x < 256; x++) source[y, x] = 1;
             for (var y = 0; y < 32; y++) for (var x = 0; x < 32; x++) kernel[y, x] = 1d / 1024;
-            started.SetResult();
+            using var checkpoint = ComputationCancellation.ObserveCheckpoints(() =>
+            {
+                started.TrySetResult();
+                if (!releaseCheckpoint.Wait(TimeSpan.FromSeconds(5))) throw new TimeoutException();
+            });
             return ImageSimulationEngine.ConvolvePsfIntensity(source, [], new double[0, 256, 256], kernel);
         }, CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         var cancelDuringWork = Task.Factory.StartNew(() =>
         {
             started.Task.WaitAsync(TimeSpan.FromSeconds(5)).GetAwaiter().GetResult();
-            Thread.Sleep(20);
+
             var wasComputing = !pending.IsCompleted;
             cancellation.Cancel();
+            releaseCheckpoint.Set();
             return wasComputing;
         }, CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         Assert.True(await cancelDuringWork);

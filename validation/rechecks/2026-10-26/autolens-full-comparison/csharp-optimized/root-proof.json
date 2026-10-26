@@ -1,0 +1,1272 @@
+{
+  "Algorithm": {
+    "Name": "strict-flat-bootstrap",
+    "Version": "2",
+    "NumericBackend": "Managed CPU",
+    "Deterministic": true
+  },
+  "Specification": {
+    "SchemaVersion": 1,
+    "Name": "AutoLens e58 MOBILE_CONFIG",
+    "Conjugate": 1,
+    "EffectiveFocalLengthMillimeters": 5,
+    "FNumber": 1.8,
+    "MaximumFieldAngleDegrees": 45,
+    "Wavelengths": [
+      {
+        "Label": "R",
+        "Nanometers": 656,
+        "Weight": 1,
+        "IsPrimary": false
+      },
+      {
+        "Label": "G",
+        "Nanometers": 587,
+        "Weight": 1,
+        "IsPrimary": true
+      },
+      {
+        "Label": "B",
+        "Nanometers": 486,
+        "Weight": 1,
+        "IsPrimary": false
+      }
+    ],
+    "MinimumElementCount": 6,
+    "MaximumElementCount": 6,
+    "MaximumTrackLengthMillimeters": 10,
+    "MinimumCenterThicknessMillimeters": 0.4,
+    "MinimumAirGapMillimeters": 0.05,
+    "MinimumBackFocusMillimeters": 2,
+    "SemiDiameterMarginFactor": 1.25,
+    "MaximumRmsSpotRadiusMillimeters": 0.01,
+    "MaximumSpotRadiusMillimeters": 0.03,
+    "InitialGlass": "AutoLensE58:h-k9l",
+    "GlassCatalogs": [],
+    "Budget": {
+      "InitialSeedCount": 1,
+      "MaximumEvaluations": 3,
+      "MaximumParallelism": 1,
+      "TimeLimit": "1.00:00:00",
+      "RandomSeed": 42
+    },
+    "FlatStart": {
+      "OptimizationMethod": 3,
+      "AutoLens": {
+        "Policy": 1,
+        "ComputeMode": 2,
+        "CurriculumIterations": 2000,
+        "RefinementIterations": 3000,
+        "OptimizeMaterials": true,
+        "EvenAsphereOrder": 9,
+        "LearningRateFactor": 1,
+        "FieldRings": 5,
+        "PupilRings": 3,
+        "PupilArms": 12,
+        "ResampleInterval": 20,
+        "TargetPolishEvaluations": 0,
+        "CementedGaps": []
+      },
+      "SamplingPolicy": 1,
+      "AutomaticLensDiameters": true,
+      "UsePhysicalStop": true,
+      "FixedBackFocusMillimeters": null,
+      "MinimumEdgeThicknessMillimeters": 0.4,
+      "EffectiveFocalLengthRelativeTolerance": 0.02,
+      "FNumberRelativeTolerance": 0.05,
+      "MinimumValidRayFraction": 0.98
+    }
+  },
+  "SpecificationFingerprint": "4b9684400f174a1da1c692289e00b0e28fe4be822fe56921895ea8845e57b7ca",
+  "State": 4,
+  "EntrancePupilFraction": 0,
+  "EvaluationCount": 0,
+  "TracedRayCount": 0,
+  "Steps": [
+    {
+      "EvaluationNumber": 0,
+      "Operation": "reference-provenance-flat-template",
+      "Optic": {
+        "SchemaVersion": 6,
+        "Name": "AutoLens e58 MOBILE_CONFIG - 6 element flat root",
+        "Aperture": {
+          "Kind": "EntrancePupilDiameter",
+          "Value": 2.7777777777777777,
+          "ObjectSpaceTelecentric": false
+        },
+        "BackendName": "managed-cpu",
+        "Fields": [
+          {
+            "Label": "On axis",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 0,
+            "Weight": 1,
+            "VignetteFactorX": 0,
+            "VignetteFactorY": 0,
+            "VignetteDecenterX": 0,
+            "VignetteDecenterY": 0,
+            "VignetteAngleDegrees": 0
+          },
+          {
+            "Label": "Mid field",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 22.5,
+            "Weight": 1,
+            "VignetteFactorX": 0,
+            "VignetteFactorY": 0,
+            "VignetteDecenterX": 0,
+            "VignetteDecenterY": 0,
+            "VignetteAngleDegrees": 0
+          },
+          {
+            "Label": "Full field",
+            "XAngleDegrees": 0,
+            "YAngleDegrees": 45,
+            "Weight": 1,
+            "VignetteFactorX": 0,
+            "VignetteFactorY": 0,
+            "VignetteDecenterX": 0,
+            "VignetteDecenterY": 0,
+            "VignetteAngleDegrees": 0
+          }
+        ],
+        "Wavelengths": [
+          {
+            "Label": "R",
+            "Nanometers": 656,
+            "Weight": 1,
+            "IsPrimary": false
+          },
+          {
+            "Label": "G",
+            "Nanometers": 587,
+            "Weight": 1,
+            "IsPrimary": true
+          },
+          {
+            "Label": "B",
+            "Nanometers": 486,
+            "Weight": 1,
+            "IsPrimary": false
+          }
+        ],
+        "Surfaces": [
+          {
+            "Number": 0,
+            "Label": "Object",
+            "Radius": 0,
+            "Thickness": "Infinity",
+            "Material": "Air",
+            "Coating": "None",
+            "SemiDiameter": 1.7361111111111112,
+            "Conic": 0,
+            "IsStop": false,
+            "IsReflective": false,
+            "Components": {
+              "GeometryKind": "plane",
+              "MaterialBefore": "Air",
+              "MaterialAfter": "Air",
+              "CoatingKind": "none",
+              "InteractionKind": "refractive",
+              "PhysicalApertureKind": null,
+              "ScatteringKind": null,
+              "Geometry": {
+                "Kind": "plane",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialBeforeComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialAfterComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Coating": {
+                "Kind": "none",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Interaction": {
+                "Kind": "refractive",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "PhysicalAperture": null,
+              "Scattering": null
+            },
+            "RadiusVariable": false,
+            "ThicknessVariable": false,
+            "SemiDiameterFixed": false,
+            "CoordinateSystem": {
+              "OriginX": 0,
+              "OriginY": 0,
+              "OriginZ": 0,
+              "RotationXDegrees": 0,
+              "RotationYDegrees": 0,
+              "RotationZDegrees": 0
+            },
+            "MechanicalSemiDiameter": null,
+            "MechanicalSemiDiameterSolveCode": 0,
+            "SemiDiameterDefinesPhysicalAperture": false,
+            "ThermalExpansionPpmPerC": 0,
+            "ChipZone": 0
+          },
+          {
+            "Number": 1,
+            "Label": "Element 1 front",
+            "Radius": 0,
+            "Thickness": 0.4,
+            "Material": "AutoLensE58:h-k9l",
+            "Coating": "None",
+            "SemiDiameter": 1.7361111111111112,
+            "Conic": 0,
+            "IsStop": false,
+            "IsReflective": false,
+            "Components": {
+              "GeometryKind": "plane",
+              "MaterialBefore": "Air",
+              "MaterialAfter": "AutoLensE58:h-k9l",
+              "CoatingKind": "none",
+              "InteractionKind": "refractive",
+              "PhysicalApertureKind": null,
+              "ScatteringKind": null,
+              "Geometry": {
+                "Kind": "plane",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialBeforeComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialAfterComponent": {
+                "Kind": "catalog_glass",
+                "Numbers": {
+                  "minimumWavelengthNanometers": 302,
+                  "maximumWavelengthNanometers": 2325,
+                  "c0": 0.614555251,
+                  "c1": 0.0145987884,
+                  "c2": 0.656775017,
+                  "c3": 0.00287769588,
+                  "c4": 1.02699346,
+                  "c5": 107.653051
+                },
+                "Text": {
+                  "name": "AutoLensE58:h-k9l",
+                  "manufacturer": "AutoLens e58 / CDGM",
+                  "formula": "zemax formula 2",
+                  "zemaxData": "{\u0022Name\u0022:\u0022AutoLensE58:h-k9l\u0022,\u0022DispersionFormulaNumber\u0022:2,\u0022MilNumber\u0022:\u0022\u0022,\u0022ReferenceIndexD\u0022:1.5168,\u0022ReferenceAbbeNumber\u0022:64.198732,\u0022ExcludeSubstitution\u0022:false,\u0022Status\u0022:0,\u0022MeltFrequency\u0022:0,\u0022Comment\u0022:\u0022AutoLens e58 snapshot of CDGM.AGF; source hashes in embedded asset; upstream redistribution, no manufacturer certification.\u0022,\u0022ThermalExpansionLow\u0022:null,\u0022ThermalExpansionHigh\u0022:null,\u0022Density\u0022:null,\u0022RelativePartialDispersionDeviation\u0022:null,\u0022IgnoreThermalExpansion\u0022:false,\u0022DispersionCoefficients\u0022:[0.614555251,0.0145987884,0.656775017,0.00287769588,1.02699346,107.653051],\u0022ThermalCoefficients\u0022:[],\u0022MechanicalData\u0022:[],\u0022OtherData\u0022:[],\u0022MinimumWavelengthMicrometers\u0022:0.302,\u0022MaximumWavelengthMicrometers\u0022:2.325,\u0022InternalTransmissions\u0022:[],\u0022StressData\u0022:[],\u0022UnrecognizedRecords\u0022:[]}"
+                },
+                "Children": null
+              },
+              "Coating": {
+                "Kind": "none",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Interaction": {
+                "Kind": "refractive",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "PhysicalAperture": null,
+              "Scattering": null
+            },
+            "RadiusVariable": true,
+            "ThicknessVariable": true,
+            "SemiDiameterFixed": true,
+            "CoordinateSystem": {
+              "OriginX": 0,
+              "OriginY": 0,
+              "OriginZ": 0,
+              "RotationXDegrees": 0,
+              "RotationYDegrees": 0,
+              "RotationZDegrees": 0
+            },
+            "MechanicalSemiDiameter": null,
+            "MechanicalSemiDiameterSolveCode": 0,
+            "SemiDiameterDefinesPhysicalAperture": false,
+            "ThermalExpansionPpmPerC": 0,
+            "ChipZone": 0
+          },
+          {
+            "Number": 2,
+            "Label": "Element 1 back",
+            "Radius": 0,
+            "Thickness": 0.05,
+            "Material": "Air",
+            "Coating": "None",
+            "SemiDiameter": 1.7361111111111112,
+            "Conic": 0,
+            "IsStop": false,
+            "IsReflective": false,
+            "Components": {
+              "GeometryKind": "plane",
+              "MaterialBefore": "Air",
+              "MaterialAfter": "Air",
+              "CoatingKind": "none",
+              "InteractionKind": "refractive",
+              "PhysicalApertureKind": null,
+              "ScatteringKind": null,
+              "Geometry": {
+                "Kind": "plane",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialBeforeComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialAfterComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Coating": {
+                "Kind": "none",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Interaction": {
+                "Kind": "refractive",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "PhysicalAperture": null,
+              "Scattering": null
+            },
+            "RadiusVariable": true,
+            "ThicknessVariable": true,
+            "SemiDiameterFixed": true,
+            "CoordinateSystem": {
+              "OriginX": 0,
+              "OriginY": 0,
+              "OriginZ": 0.4,
+              "RotationXDegrees": 0,
+              "RotationYDegrees": 0,
+              "RotationZDegrees": 0
+            },
+            "MechanicalSemiDiameter": null,
+            "MechanicalSemiDiameterSolveCode": 0,
+            "SemiDiameterDefinesPhysicalAperture": false,
+            "ThermalExpansionPpmPerC": 0,
+            "ChipZone": 0
+          },
+          {
+            "Number": 3,
+            "Label": "Element 2 front",
+            "Radius": 0,
+            "Thickness": 0.4,
+            "Material": "AutoLensE58:h-k9l",
+            "Coating": "None",
+            "SemiDiameter": 1.7361111111111112,
+            "Conic": 0,
+            "IsStop": false,
+            "IsReflective": false,
+            "Components": {
+              "GeometryKind": "plane",
+              "MaterialBefore": "Air",
+              "MaterialAfter": "AutoLensE58:h-k9l",
+              "CoatingKind": "none",
+              "InteractionKind": "refractive",
+              "PhysicalApertureKind": null,
+              "ScatteringKind": null,
+              "Geometry": {
+                "Kind": "plane",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialBeforeComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialAfterComponent": {
+                "Kind": "catalog_glass",
+                "Numbers": {
+                  "minimumWavelengthNanometers": 302,
+                  "maximumWavelengthNanometers": 2325,
+                  "c0": 0.614555251,
+                  "c1": 0.0145987884,
+                  "c2": 0.656775017,
+                  "c3": 0.00287769588,
+                  "c4": 1.02699346,
+                  "c5": 107.653051
+                },
+                "Text": {
+                  "name": "AutoLensE58:h-k9l",
+                  "manufacturer": "AutoLens e58 / CDGM",
+                  "formula": "zemax formula 2",
+                  "zemaxData": "{\u0022Name\u0022:\u0022AutoLensE58:h-k9l\u0022,\u0022DispersionFormulaNumber\u0022:2,\u0022MilNumber\u0022:\u0022\u0022,\u0022ReferenceIndexD\u0022:1.5168,\u0022ReferenceAbbeNumber\u0022:64.198732,\u0022ExcludeSubstitution\u0022:false,\u0022Status\u0022:0,\u0022MeltFrequency\u0022:0,\u0022Comment\u0022:\u0022AutoLens e58 snapshot of CDGM.AGF; source hashes in embedded asset; upstream redistribution, no manufacturer certification.\u0022,\u0022ThermalExpansionLow\u0022:null,\u0022ThermalExpansionHigh\u0022:null,\u0022Density\u0022:null,\u0022RelativePartialDispersionDeviation\u0022:null,\u0022IgnoreThermalExpansion\u0022:false,\u0022DispersionCoefficients\u0022:[0.614555251,0.0145987884,0.656775017,0.00287769588,1.02699346,107.653051],\u0022ThermalCoefficients\u0022:[],\u0022MechanicalData\u0022:[],\u0022OtherData\u0022:[],\u0022MinimumWavelengthMicrometers\u0022:0.302,\u0022MaximumWavelengthMicrometers\u0022:2.325,\u0022InternalTransmissions\u0022:[],\u0022StressData\u0022:[],\u0022UnrecognizedRecords\u0022:[]}"
+                },
+                "Children": null
+              },
+              "Coating": {
+                "Kind": "none",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Interaction": {
+                "Kind": "refractive",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "PhysicalAperture": null,
+              "Scattering": null
+            },
+            "RadiusVariable": true,
+            "ThicknessVariable": true,
+            "SemiDiameterFixed": true,
+            "CoordinateSystem": {
+              "OriginX": 0,
+              "OriginY": 0,
+              "OriginZ": 0.45,
+              "RotationXDegrees": 0,
+              "RotationYDegrees": 0,
+              "RotationZDegrees": 0
+            },
+            "MechanicalSemiDiameter": null,
+            "MechanicalSemiDiameterSolveCode": 0,
+            "SemiDiameterDefinesPhysicalAperture": false,
+            "ThermalExpansionPpmPerC": 0,
+            "ChipZone": 0
+          },
+          {
+            "Number": 4,
+            "Label": "Element 2 back",
+            "Radius": 0,
+            "Thickness": 0.05,
+            "Material": "Air",
+            "Coating": "None",
+            "SemiDiameter": 1.7361111111111112,
+            "Conic": 0,
+            "IsStop": false,
+            "IsReflective": false,
+            "Components": {
+              "GeometryKind": "plane",
+              "MaterialBefore": "Air",
+              "MaterialAfter": "Air",
+              "CoatingKind": "none",
+              "InteractionKind": "refractive",
+              "PhysicalApertureKind": null,
+              "ScatteringKind": null,
+              "Geometry": {
+                "Kind": "plane",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialBeforeComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialAfterComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Coating": {
+                "Kind": "none",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Interaction": {
+                "Kind": "refractive",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "PhysicalAperture": null,
+              "Scattering": null
+            },
+            "RadiusVariable": true,
+            "ThicknessVariable": true,
+            "SemiDiameterFixed": true,
+            "CoordinateSystem": {
+              "OriginX": 0,
+              "OriginY": 0,
+              "OriginZ": 0.8500000000000001,
+              "RotationXDegrees": 0,
+              "RotationYDegrees": 0,
+              "RotationZDegrees": 0
+            },
+            "MechanicalSemiDiameter": null,
+            "MechanicalSemiDiameterSolveCode": 0,
+            "SemiDiameterDefinesPhysicalAperture": false,
+            "ThermalExpansionPpmPerC": 0,
+            "ChipZone": 0
+          },
+          {
+            "Number": 5,
+            "Label": "Element 3 front",
+            "Radius": 0,
+            "Thickness": 0.4,
+            "Material": "AutoLensE58:h-k9l",
+            "Coating": "None",
+            "SemiDiameter": 1.7361111111111112,
+            "Conic": 0,
+            "IsStop": false,
+            "IsReflective": false,
+            "Components": {
+              "GeometryKind": "plane",
+              "MaterialBefore": "Air",
+              "MaterialAfter": "AutoLensE58:h-k9l",
+              "CoatingKind": "none",
+              "InteractionKind": "refractive",
+              "PhysicalApertureKind": null,
+              "ScatteringKind": null,
+              "Geometry": {
+                "Kind": "plane",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialBeforeComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialAfterComponent": {
+                "Kind": "catalog_glass",
+                "Numbers": {
+                  "minimumWavelengthNanometers": 302,
+                  "maximumWavelengthNanometers": 2325,
+                  "c0": 0.614555251,
+                  "c1": 0.0145987884,
+                  "c2": 0.656775017,
+                  "c3": 0.00287769588,
+                  "c4": 1.02699346,
+                  "c5": 107.653051
+                },
+                "Text": {
+                  "name": "AutoLensE58:h-k9l",
+                  "manufacturer": "AutoLens e58 / CDGM",
+                  "formula": "zemax formula 2",
+                  "zemaxData": "{\u0022Name\u0022:\u0022AutoLensE58:h-k9l\u0022,\u0022DispersionFormulaNumber\u0022:2,\u0022MilNumber\u0022:\u0022\u0022,\u0022ReferenceIndexD\u0022:1.5168,\u0022ReferenceAbbeNumber\u0022:64.198732,\u0022ExcludeSubstitution\u0022:false,\u0022Status\u0022:0,\u0022MeltFrequency\u0022:0,\u0022Comment\u0022:\u0022AutoLens e58 snapshot of CDGM.AGF; source hashes in embedded asset; upstream redistribution, no manufacturer certification.\u0022,\u0022ThermalExpansionLow\u0022:null,\u0022ThermalExpansionHigh\u0022:null,\u0022Density\u0022:null,\u0022RelativePartialDispersionDeviation\u0022:null,\u0022IgnoreThermalExpansion\u0022:false,\u0022DispersionCoefficients\u0022:[0.614555251,0.0145987884,0.656775017,0.00287769588,1.02699346,107.653051],\u0022ThermalCoefficients\u0022:[],\u0022MechanicalData\u0022:[],\u0022OtherData\u0022:[],\u0022MinimumWavelengthMicrometers\u0022:0.302,\u0022MaximumWavelengthMicrometers\u0022:2.325,\u0022InternalTransmissions\u0022:[],\u0022StressData\u0022:[],\u0022UnrecognizedRecords\u0022:[]}"
+                },
+                "Children": null
+              },
+              "Coating": {
+                "Kind": "none",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Interaction": {
+                "Kind": "refractive",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "PhysicalAperture": null,
+              "Scattering": null
+            },
+            "RadiusVariable": true,
+            "ThicknessVariable": true,
+            "SemiDiameterFixed": true,
+            "CoordinateSystem": {
+              "OriginX": 0,
+              "OriginY": 0,
+              "OriginZ": 0.9000000000000001,
+              "RotationXDegrees": 0,
+              "RotationYDegrees": 0,
+              "RotationZDegrees": 0
+            },
+            "MechanicalSemiDiameter": null,
+            "MechanicalSemiDiameterSolveCode": 0,
+            "SemiDiameterDefinesPhysicalAperture": false,
+            "ThermalExpansionPpmPerC": 0,
+            "ChipZone": 0
+          },
+          {
+            "Number": 6,
+            "Label": "Element 3 back",
+            "Radius": 0,
+            "Thickness": 0.05,
+            "Material": "Air",
+            "Coating": "None",
+            "SemiDiameter": 1.7361111111111112,
+            "Conic": 0,
+            "IsStop": false,
+            "IsReflective": false,
+            "Components": {
+              "GeometryKind": "plane",
+              "MaterialBefore": "Air",
+              "MaterialAfter": "Air",
+              "CoatingKind": "none",
+              "InteractionKind": "refractive",
+              "PhysicalApertureKind": null,
+              "ScatteringKind": null,
+              "Geometry": {
+                "Kind": "plane",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialBeforeComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialAfterComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Coating": {
+                "Kind": "none",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Interaction": {
+                "Kind": "refractive",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "PhysicalAperture": null,
+              "Scattering": null
+            },
+            "RadiusVariable": true,
+            "ThicknessVariable": true,
+            "SemiDiameterFixed": true,
+            "CoordinateSystem": {
+              "OriginX": 0,
+              "OriginY": 0,
+              "OriginZ": 1.3000000000000003,
+              "RotationXDegrees": 0,
+              "RotationYDegrees": 0,
+              "RotationZDegrees": 0
+            },
+            "MechanicalSemiDiameter": null,
+            "MechanicalSemiDiameterSolveCode": 0,
+            "SemiDiameterDefinesPhysicalAperture": false,
+            "ThermalExpansionPpmPerC": 0,
+            "ChipZone": 0
+          },
+          {
+            "Number": 7,
+            "Label": "Element 4 front",
+            "Radius": 0,
+            "Thickness": 0.4,
+            "Material": "AutoLensE58:h-k9l",
+            "Coating": "None",
+            "SemiDiameter": 1.3888888888888888,
+            "Conic": 0,
+            "IsStop": true,
+            "IsReflective": false,
+            "Components": {
+              "GeometryKind": "plane",
+              "MaterialBefore": "Air",
+              "MaterialAfter": "AutoLensE58:h-k9l",
+              "CoatingKind": "none",
+              "InteractionKind": "refractive",
+              "PhysicalApertureKind": "circular",
+              "ScatteringKind": null,
+              "Geometry": {
+                "Kind": "plane",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialBeforeComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialAfterComponent": {
+                "Kind": "catalog_glass",
+                "Numbers": {
+                  "minimumWavelengthNanometers": 302,
+                  "maximumWavelengthNanometers": 2325,
+                  "c0": 0.614555251,
+                  "c1": 0.0145987884,
+                  "c2": 0.656775017,
+                  "c3": 0.00287769588,
+                  "c4": 1.02699346,
+                  "c5": 107.653051
+                },
+                "Text": {
+                  "name": "AutoLensE58:h-k9l",
+                  "manufacturer": "AutoLens e58 / CDGM",
+                  "formula": "zemax formula 2",
+                  "zemaxData": "{\u0022Name\u0022:\u0022AutoLensE58:h-k9l\u0022,\u0022DispersionFormulaNumber\u0022:2,\u0022MilNumber\u0022:\u0022\u0022,\u0022ReferenceIndexD\u0022:1.5168,\u0022ReferenceAbbeNumber\u0022:64.198732,\u0022ExcludeSubstitution\u0022:false,\u0022Status\u0022:0,\u0022MeltFrequency\u0022:0,\u0022Comment\u0022:\u0022AutoLens e58 snapshot of CDGM.AGF; source hashes in embedded asset; upstream redistribution, no manufacturer certification.\u0022,\u0022ThermalExpansionLow\u0022:null,\u0022ThermalExpansionHigh\u0022:null,\u0022Density\u0022:null,\u0022RelativePartialDispersionDeviation\u0022:null,\u0022IgnoreThermalExpansion\u0022:false,\u0022DispersionCoefficients\u0022:[0.614555251,0.0145987884,0.656775017,0.00287769588,1.02699346,107.653051],\u0022ThermalCoefficients\u0022:[],\u0022MechanicalData\u0022:[],\u0022OtherData\u0022:[],\u0022MinimumWavelengthMicrometers\u0022:0.302,\u0022MaximumWavelengthMicrometers\u0022:2.325,\u0022InternalTransmissions\u0022:[],\u0022StressData\u0022:[],\u0022UnrecognizedRecords\u0022:[]}"
+                },
+                "Children": null
+              },
+              "Coating": {
+                "Kind": "none",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Interaction": {
+                "Kind": "refractive",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "PhysicalAperture": {
+                "Kind": "circular",
+                "Numbers": {
+                  "radius": 1.3888888888888888
+                },
+                "Text": {},
+                "Children": null
+              },
+              "Scattering": null
+            },
+            "RadiusVariable": true,
+            "ThicknessVariable": true,
+            "SemiDiameterFixed": true,
+            "CoordinateSystem": {
+              "OriginX": 0,
+              "OriginY": 0,
+              "OriginZ": 1.3500000000000003,
+              "RotationXDegrees": 0,
+              "RotationYDegrees": 0,
+              "RotationZDegrees": 0
+            },
+            "MechanicalSemiDiameter": 1.7361111111111112,
+            "MechanicalSemiDiameterSolveCode": 0,
+            "SemiDiameterDefinesPhysicalAperture": true,
+            "ThermalExpansionPpmPerC": 0,
+            "ChipZone": 0
+          },
+          {
+            "Number": 8,
+            "Label": "Element 4 back",
+            "Radius": 0,
+            "Thickness": 0.05,
+            "Material": "Air",
+            "Coating": "None",
+            "SemiDiameter": 1.7361111111111112,
+            "Conic": 0,
+            "IsStop": false,
+            "IsReflective": false,
+            "Components": {
+              "GeometryKind": "plane",
+              "MaterialBefore": "Air",
+              "MaterialAfter": "Air",
+              "CoatingKind": "none",
+              "InteractionKind": "refractive",
+              "PhysicalApertureKind": null,
+              "ScatteringKind": null,
+              "Geometry": {
+                "Kind": "plane",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialBeforeComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialAfterComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Coating": {
+                "Kind": "none",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Interaction": {
+                "Kind": "refractive",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "PhysicalAperture": null,
+              "Scattering": null
+            },
+            "RadiusVariable": true,
+            "ThicknessVariable": true,
+            "SemiDiameterFixed": true,
+            "CoordinateSystem": {
+              "OriginX": 0,
+              "OriginY": 0,
+              "OriginZ": 1.7500000000000004,
+              "RotationXDegrees": 0,
+              "RotationYDegrees": 0,
+              "RotationZDegrees": 0
+            },
+            "MechanicalSemiDiameter": null,
+            "MechanicalSemiDiameterSolveCode": 0,
+            "SemiDiameterDefinesPhysicalAperture": false,
+            "ThermalExpansionPpmPerC": 0,
+            "ChipZone": 0
+          },
+          {
+            "Number": 9,
+            "Label": "Element 5 front",
+            "Radius": 0,
+            "Thickness": 0.4,
+            "Material": "AutoLensE58:h-k9l",
+            "Coating": "None",
+            "SemiDiameter": 1.7361111111111112,
+            "Conic": 0,
+            "IsStop": false,
+            "IsReflective": false,
+            "Components": {
+              "GeometryKind": "plane",
+              "MaterialBefore": "Air",
+              "MaterialAfter": "AutoLensE58:h-k9l",
+              "CoatingKind": "none",
+              "InteractionKind": "refractive",
+              "PhysicalApertureKind": null,
+              "ScatteringKind": null,
+              "Geometry": {
+                "Kind": "plane",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialBeforeComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialAfterComponent": {
+                "Kind": "catalog_glass",
+                "Numbers": {
+                  "minimumWavelengthNanometers": 302,
+                  "maximumWavelengthNanometers": 2325,
+                  "c0": 0.614555251,
+                  "c1": 0.0145987884,
+                  "c2": 0.656775017,
+                  "c3": 0.00287769588,
+                  "c4": 1.02699346,
+                  "c5": 107.653051
+                },
+                "Text": {
+                  "name": "AutoLensE58:h-k9l",
+                  "manufacturer": "AutoLens e58 / CDGM",
+                  "formula": "zemax formula 2",
+                  "zemaxData": "{\u0022Name\u0022:\u0022AutoLensE58:h-k9l\u0022,\u0022DispersionFormulaNumber\u0022:2,\u0022MilNumber\u0022:\u0022\u0022,\u0022ReferenceIndexD\u0022:1.5168,\u0022ReferenceAbbeNumber\u0022:64.198732,\u0022ExcludeSubstitution\u0022:false,\u0022Status\u0022:0,\u0022MeltFrequency\u0022:0,\u0022Comment\u0022:\u0022AutoLens e58 snapshot of CDGM.AGF; source hashes in embedded asset; upstream redistribution, no manufacturer certification.\u0022,\u0022ThermalExpansionLow\u0022:null,\u0022ThermalExpansionHigh\u0022:null,\u0022Density\u0022:null,\u0022RelativePartialDispersionDeviation\u0022:null,\u0022IgnoreThermalExpansion\u0022:false,\u0022DispersionCoefficients\u0022:[0.614555251,0.0145987884,0.656775017,0.00287769588,1.02699346,107.653051],\u0022ThermalCoefficients\u0022:[],\u0022MechanicalData\u0022:[],\u0022OtherData\u0022:[],\u0022MinimumWavelengthMicrometers\u0022:0.302,\u0022MaximumWavelengthMicrometers\u0022:2.325,\u0022InternalTransmissions\u0022:[],\u0022StressData\u0022:[],\u0022UnrecognizedRecords\u0022:[]}"
+                },
+                "Children": null
+              },
+              "Coating": {
+                "Kind": "none",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Interaction": {
+                "Kind": "refractive",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "PhysicalAperture": null,
+              "Scattering": null
+            },
+            "RadiusVariable": true,
+            "ThicknessVariable": true,
+            "SemiDiameterFixed": true,
+            "CoordinateSystem": {
+              "OriginX": 0,
+              "OriginY": 0,
+              "OriginZ": 1.8000000000000005,
+              "RotationXDegrees": 0,
+              "RotationYDegrees": 0,
+              "RotationZDegrees": 0
+            },
+            "MechanicalSemiDiameter": null,
+            "MechanicalSemiDiameterSolveCode": 0,
+            "SemiDiameterDefinesPhysicalAperture": false,
+            "ThermalExpansionPpmPerC": 0,
+            "ChipZone": 0
+          },
+          {
+            "Number": 10,
+            "Label": "Element 5 back",
+            "Radius": 0,
+            "Thickness": 0.05,
+            "Material": "Air",
+            "Coating": "None",
+            "SemiDiameter": 1.7361111111111112,
+            "Conic": 0,
+            "IsStop": false,
+            "IsReflective": false,
+            "Components": {
+              "GeometryKind": "plane",
+              "MaterialBefore": "Air",
+              "MaterialAfter": "Air",
+              "CoatingKind": "none",
+              "InteractionKind": "refractive",
+              "PhysicalApertureKind": null,
+              "ScatteringKind": null,
+              "Geometry": {
+                "Kind": "plane",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialBeforeComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialAfterComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Coating": {
+                "Kind": "none",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Interaction": {
+                "Kind": "refractive",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "PhysicalAperture": null,
+              "Scattering": null
+            },
+            "RadiusVariable": true,
+            "ThicknessVariable": true,
+            "SemiDiameterFixed": true,
+            "CoordinateSystem": {
+              "OriginX": 0,
+              "OriginY": 0,
+              "OriginZ": 2.2000000000000006,
+              "RotationXDegrees": 0,
+              "RotationYDegrees": 0,
+              "RotationZDegrees": 0
+            },
+            "MechanicalSemiDiameter": null,
+            "MechanicalSemiDiameterSolveCode": 0,
+            "SemiDiameterDefinesPhysicalAperture": false,
+            "ThermalExpansionPpmPerC": 0,
+            "ChipZone": 0
+          },
+          {
+            "Number": 11,
+            "Label": "Element 6 front",
+            "Radius": 0,
+            "Thickness": 0.4,
+            "Material": "AutoLensE58:h-k9l",
+            "Coating": "None",
+            "SemiDiameter": 1.7361111111111112,
+            "Conic": 0,
+            "IsStop": false,
+            "IsReflective": false,
+            "Components": {
+              "GeometryKind": "plane",
+              "MaterialBefore": "Air",
+              "MaterialAfter": "AutoLensE58:h-k9l",
+              "CoatingKind": "none",
+              "InteractionKind": "refractive",
+              "PhysicalApertureKind": null,
+              "ScatteringKind": null,
+              "Geometry": {
+                "Kind": "plane",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialBeforeComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialAfterComponent": {
+                "Kind": "catalog_glass",
+                "Numbers": {
+                  "minimumWavelengthNanometers": 302,
+                  "maximumWavelengthNanometers": 2325,
+                  "c0": 0.614555251,
+                  "c1": 0.0145987884,
+                  "c2": 0.656775017,
+                  "c3": 0.00287769588,
+                  "c4": 1.02699346,
+                  "c5": 107.653051
+                },
+                "Text": {
+                  "name": "AutoLensE58:h-k9l",
+                  "manufacturer": "AutoLens e58 / CDGM",
+                  "formula": "zemax formula 2",
+                  "zemaxData": "{\u0022Name\u0022:\u0022AutoLensE58:h-k9l\u0022,\u0022DispersionFormulaNumber\u0022:2,\u0022MilNumber\u0022:\u0022\u0022,\u0022ReferenceIndexD\u0022:1.5168,\u0022ReferenceAbbeNumber\u0022:64.198732,\u0022ExcludeSubstitution\u0022:false,\u0022Status\u0022:0,\u0022MeltFrequency\u0022:0,\u0022Comment\u0022:\u0022AutoLens e58 snapshot of CDGM.AGF; source hashes in embedded asset; upstream redistribution, no manufacturer certification.\u0022,\u0022ThermalExpansionLow\u0022:null,\u0022ThermalExpansionHigh\u0022:null,\u0022Density\u0022:null,\u0022RelativePartialDispersionDeviation\u0022:null,\u0022IgnoreThermalExpansion\u0022:false,\u0022DispersionCoefficients\u0022:[0.614555251,0.0145987884,0.656775017,0.00287769588,1.02699346,107.653051],\u0022ThermalCoefficients\u0022:[],\u0022MechanicalData\u0022:[],\u0022OtherData\u0022:[],\u0022MinimumWavelengthMicrometers\u0022:0.302,\u0022MaximumWavelengthMicrometers\u0022:2.325,\u0022InternalTransmissions\u0022:[],\u0022StressData\u0022:[],\u0022UnrecognizedRecords\u0022:[]}"
+                },
+                "Children": null
+              },
+              "Coating": {
+                "Kind": "none",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Interaction": {
+                "Kind": "refractive",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "PhysicalAperture": null,
+              "Scattering": null
+            },
+            "RadiusVariable": true,
+            "ThicknessVariable": true,
+            "SemiDiameterFixed": true,
+            "CoordinateSystem": {
+              "OriginX": 0,
+              "OriginY": 0,
+              "OriginZ": 2.2500000000000004,
+              "RotationXDegrees": 0,
+              "RotationYDegrees": 0,
+              "RotationZDegrees": 0
+            },
+            "MechanicalSemiDiameter": null,
+            "MechanicalSemiDiameterSolveCode": 0,
+            "SemiDiameterDefinesPhysicalAperture": false,
+            "ThermalExpansionPpmPerC": 0,
+            "ChipZone": 0
+          },
+          {
+            "Number": 12,
+            "Label": "Element 6 back",
+            "Radius": 0,
+            "Thickness": 2,
+            "Material": "Air",
+            "Coating": "None",
+            "SemiDiameter": 1.7361111111111112,
+            "Conic": 0,
+            "IsStop": false,
+            "IsReflective": false,
+            "Components": {
+              "GeometryKind": "plane",
+              "MaterialBefore": "Air",
+              "MaterialAfter": "Air",
+              "CoatingKind": "none",
+              "InteractionKind": "refractive",
+              "PhysicalApertureKind": null,
+              "ScatteringKind": null,
+              "Geometry": {
+                "Kind": "plane",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialBeforeComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialAfterComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Coating": {
+                "Kind": "none",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Interaction": {
+                "Kind": "refractive",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "PhysicalAperture": null,
+              "Scattering": null
+            },
+            "RadiusVariable": true,
+            "ThicknessVariable": true,
+            "SemiDiameterFixed": true,
+            "CoordinateSystem": {
+              "OriginX": 0,
+              "OriginY": 0,
+              "OriginZ": 2.6500000000000004,
+              "RotationXDegrees": 0,
+              "RotationYDegrees": 0,
+              "RotationZDegrees": 0
+            },
+            "MechanicalSemiDiameter": null,
+            "MechanicalSemiDiameterSolveCode": 0,
+            "SemiDiameterDefinesPhysicalAperture": false,
+            "ThermalExpansionPpmPerC": 0,
+            "ChipZone": 0
+          },
+          {
+            "Number": 13,
+            "Label": "Image",
+            "Radius": 0,
+            "Thickness": 0,
+            "Material": "Air",
+            "Coating": "None",
+            "SemiDiameter": 1.7361111111111112,
+            "Conic": 0,
+            "IsStop": false,
+            "IsReflective": false,
+            "Components": {
+              "GeometryKind": "plane",
+              "MaterialBefore": "Air",
+              "MaterialAfter": "Air",
+              "CoatingKind": "none",
+              "InteractionKind": "refractive",
+              "PhysicalApertureKind": null,
+              "ScatteringKind": null,
+              "Geometry": {
+                "Kind": "plane",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialBeforeComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "MaterialAfterComponent": {
+                "Kind": "air",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Coating": {
+                "Kind": "none",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "Interaction": {
+                "Kind": "refractive",
+                "Numbers": {},
+                "Text": {},
+                "Children": null
+              },
+              "PhysicalAperture": null,
+              "Scattering": null
+            },
+            "RadiusVariable": false,
+            "ThicknessVariable": false,
+            "SemiDiameterFixed": false,
+            "CoordinateSystem": {
+              "OriginX": 0,
+              "OriginY": 0,
+              "OriginZ": 4.65,
+              "RotationXDegrees": 0,
+              "RotationYDegrees": 0,
+              "RotationZDegrees": 0
+            },
+            "MechanicalSemiDiameter": null,
+            "MechanicalSemiDiameterSolveCode": 0,
+            "SemiDiameterDefinesPhysicalAperture": false,
+            "ThermalExpansionPpmPerC": 0,
+            "ChipZone": 0
+          }
+        ],
+        "Apodization": null,
+        "FieldDefinition": "Angle",
+        "ObjectSpaceTelecentric": false,
+        "FieldGroupTelecentric": false,
+        "RadiusPickups": [],
+        "SolveSettings": {
+          "DesiredBackFocus": 30,
+          "KeepImageAtBackFocus": true
+        },
+        "MeritOperands": [],
+        "Environment": {
+          "MatchRefractiveIndexData": true,
+          "TemperatureCelsius": 20,
+          "PressureAtmospheres": 1
+        },
+        "GlassCatalogs": [
+          "SCHOTT",
+          "OHARA",
+          "HOYA",
+          "HIKARI",
+          "NIKON-HIKARI",
+          "SUMITA",
+          "CDGM-ZEMAX202309",
+          "CDGM",
+          "CHENGDU",
+          "GBJ",
+          "NHG",
+          "555CHINESES"
+        ],
+        "RayAimingEnabled": true,
+        "ImageSpaceAfocal": false,
+        "ThicknessPickups": [],
+        "SemiDiameterPickups": [],
+        "GlobalReferenceSurfaceNumber": 1,
+        "Polarization": {
+          "Unpolarized": true,
+          "Jx": 1,
+          "Jy": 0,
+          "XPhaseDegrees": 0,
+          "YPhaseDegrees": 0,
+          "ReferenceAxis": "X"
+        }
+      },
+      "Evaluation": {
+        "OpticalPowerPerMillimeter": 0,
+        "Merit": 0,
+        "RmsInterceptMillimeters": null,
+        "ValidRayFraction": 0,
+        "Residuals": [],
+        "Violations": []
+      }
+    }
+  ],
+  "Diagnostics": [
+    {
+      "Code": "reference.random-start",
+      "Message": "The flat ancestor is archive provenance only; TrainingStartOptic records the actual random e58-style start.",
+      "CandidateId": null
+    }
+  ]
+}

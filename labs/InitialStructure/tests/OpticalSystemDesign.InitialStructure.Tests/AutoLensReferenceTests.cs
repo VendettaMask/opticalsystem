@@ -31,14 +31,32 @@ public sealed class AutoLensReferenceTests(ITestOutputHelper output)
     internal static InitialStructureSpecification Small(int budget = 100) => AutoLensReferenceExamples.Mobile().Specification is var source
         ? source with
         {
-            Name = "Reference rule verification", MinimumElementCount = 1, MaximumElementCount = 1,
-            FlatStart = source.FlatStart! with { AutoLens = source.FlatStart.AutoLens! with
+            Name = "Reference rule verification",
+            MinimumElementCount = 1,
+            MaximumElementCount = 1,
+            FlatStart = source.FlatStart! with
             {
-                ComputeMode = DesignComputeMode.Cpu, CurriculumIterations = 4, RefinementIterations = 4,
-                TrainingSampling = new() { CurriculumRings = 2, CurriculumRays = 4, RefinementRings = 2,
-                    RefinementArms = 2, RefinementRays = 4, RegularizationRings = 2, RegularizationRays = 4,
-                    ShapeRings = 2, ShapeRays = 8, FieldScanRings = 2, FieldScanRays = 16 }
-            } },
+                AutoLens = source.FlatStart.AutoLens! with
+                {
+                    ComputeMode = DesignComputeMode.Cpu,
+                    CurriculumIterations = 4,
+                    RefinementIterations = 4,
+                    TrainingSampling = new()
+                    {
+                        CurriculumRings = 2,
+                        CurriculumRays = 4,
+                        RefinementRings = 2,
+                        RefinementArms = 2,
+                        RefinementRays = 4,
+                        RegularizationRings = 2,
+                        RegularizationRays = 4,
+                        ShapeRings = 2,
+                        ShapeRays = 8,
+                        FieldScanRings = 2,
+                        FieldScanRays = 16
+                    }
+                }
+            },
             Budget = source.Budget with { MaximumEvaluations = budget, TimeLimit = TimeSpan.FromMinutes(3) }
         } : throw new InvalidOperationException();
 
@@ -105,8 +123,13 @@ public sealed class AutoLensReferenceTests(ITestOutputHelper output)
             for (var index = 0; index < original.Length; index++)
             {
                 var next = index + 1 < original.Length ? original[index + 1].GetProperty("d").GetDouble() : input.GetProperty("sensor").GetDouble();
-                surfaces.Add(new() { Material = index == 1 ? "AutoLensE58:h-k9l" : "Air", IsStop = index == 0,
-                    SemiDiameter = original[index].GetProperty("radius").GetDouble(), Thickness = next - original[index].GetProperty("d").GetDouble() });
+                surfaces.Add(new()
+                {
+                    Material = index == 1 ? "AutoLensE58:h-k9l" : "Air",
+                    IsStop = index == 0,
+                    SemiDiameter = original[index].GetProperty("radius").GetDouble(),
+                    Thickness = next - original[index].GetProperty("d").GetDouble()
+                });
             }
             surfaces.Add(new() { Label = "Image", Material = "Air" });
             optic.SurfaceGroup.ImportLegacySurfaces(surfaces, optic.Materials);
@@ -317,6 +340,44 @@ public sealed class AutoLensReferenceTests(ITestOutputHelper output)
         Assert.Throws<ArgumentException>(() => FixedInputOpticalMetrics.Evaluate(optic, parameters, new(fields), .94, DesignComputeMode.Cpu));
     }
 
+    [AutoLensCudaFact]
+    public void DirectFiniteInputCudaMatchesAllCpuOutputsAndGradientsAcrossRepeatedEvaluations()
+    {
+        Assert.True(DesignGpu.Status.IsAvailable, DesignGpu.Status.UnavailableReason);
+        var spec = Small();
+        var optic = AutoLensReferenceStart.Create(spec, 1, null, AutoLensReferenceMaterials.ProjectionNames);
+        var parameters = AutoLensReferenceStart.Parameters(optic, spec, materials: true);
+        var inputs = FixedInputOpticalMetrics.SampleRingArm(optic, .05, 5, 2, 1, 96, .2, 42);
+        var coordinates = OpticalDesignParameters.Read(optic, parameters);
+        for (var index = 0; index < parameters.Count; index++)
+        {
+            if (parameters[index].Kind == OpticalDesignParameterKind.Conic) coordinates[index] = -.2;
+            if (parameters[index].Kind == OpticalDesignParameterKind.EvenAsphereCoefficient && parameters[index].CoefficientIndex == 1)
+                coordinates[index] = parameters[index].SurfaceIndex % 2 == 0 ? 1e-5 : -2e-5;
+        }
+        optic = OpticalDesignParameters.Apply(optic.ToSnapshot(), parameters, coordinates);
+        var cpu = FixedInputOpticalMetrics.Evaluate(optic, parameters, inputs, .94, DesignComputeMode.Cpu);
+        for (var repeat = 0; repeat < 2; repeat++)
+        {
+            var gpu = FixedInputOpticalMetrics.Evaluate(optic, parameters, inputs, .94, DesignComputeMode.Gpu);
+            Assert.True(gpu.Execution.GpuBatches > 0);
+            Assert.Equal("cuda-fixed-input-forward-v1", gpu.Execution.Backend);
+            Assert.Equal(inputs.Fields.Sum(field => field.Rays.Count), gpu.Execution.GpuRays);
+            for (var field = 0; field < cpu.Fields.Count; field++)
+                for (var ray = 0; ray < cpu.Fields[field].Rays.Count; ray++)
+                {
+                    var a = cpu.Fields[field].Rays[ray]; var b = gpu.Fields[field].Rays[ray];
+                    Assert.Equal(a.Valid, b.Valid);
+                    Check(a.X, b.X); Check(a.Y, b.Y); Check(a.DirectionZ, b.DirectionZ); Check(a.BendPenalty, b.BendPenalty);
+                }
+        }
+        void Check(DifferentialScalar a, DifferentialScalar b)
+        {
+            Close(a.Value, b.Value, 2e-10);
+            for (var parameter = 0; parameter < parameters.Count; parameter++) Close(a.Derivative(parameter), b.Derivative(parameter), 2e-8);
+        }
+    }
+
     [Fact]
     public void FinitePhysicalGpuTraceKeepsObjectPointAndDisclosesCpuDirectionAiming()
     {
@@ -400,9 +461,15 @@ public sealed class AutoLensReferenceTests(ITestOutputHelper output)
         var previous = Assert.Single(paused.Trials).AutoLensState!;
         var spec = shortSpec with { Budget = shortSpec.Budget with { MaximumEvaluations = 100 } };
         var options = shortOptions with { MaximumEvaluationsPerTrial = 100 };
-        var checkpoint = paused with { Specification = spec, Options = options, SpecificationFingerprint = ContentFingerprint.Compute(spec),
-            OptionsFingerprint = ContentFingerprint.Compute(options), RootEvaluationQuota = 100,
-            Trials = [paused.Trials[0] with { AllocatedEvaluations = 100 }] };
+        var checkpoint = paused with
+        {
+            Specification = spec,
+            Options = options,
+            SpecificationFingerprint = ContentFingerprint.Compute(spec),
+            OptionsFingerprint = ContentFingerprint.Compute(options),
+            RootEvaluationQuota = 100,
+            Trials = [paused.Trials[0] with { AllocatedEvaluations = 100 }]
+        };
         using var cancellation = new CancellationTokenSource();
         var reserved = false;
         var result = await new FlatStartSearchService().RunAsync(spec, options, cancellation.Token, checkpoint, (saved, _) =>
@@ -444,6 +511,44 @@ public sealed class AutoLensReferenceTests(ITestOutputHelper output)
         await store.SaveAsync(result.Checkpoint, path);
         var loaded = await store.LoadAsync(path);
         Assert.Equal(trial.AutoLensState.Adam.Coordinates, loaded.Trials[0].AutoLensState!.Adam.Coordinates);
+    }
+
+    [AutoLensCudaFact]
+    public void DirectCudaProtocolCompletesBothPhasesAndRestoresItsRecordedBackend()
+    {
+        Assert.True(DesignGpu.Status.IsAvailable, DesignGpu.Status.UnavailableReason);
+        var source = Small();
+        var spec = source with { FlatStart = source.FlatStart! with { AutoLens = source.FlatStart.AutoLens! with { ComputeMode = DesignComputeMode.Gpu } } };
+        var result = new FlatStartDesignService().Solve(spec, 1, allowedGlassNames: AutoLensReferenceMaterials.ProjectionNames);
+        var state = Assert.IsType<AutoLensManagedState>(result.AutoLensState);
+        Assert.Equal(AutoLensManagedPhase.Completed, state.Phase);
+        Assert.Equal(5, state.TrainingSteps.Count(step => step.Phase == AutoLensManagedPhase.Curriculum));
+        Assert.Equal(5, state.TrainingSteps.Count(step => step.Phase == AutoLensManagedPhase.CatalogRefinement));
+        Assert.Equal("cuda-fixed-input-forward-v1", state.LastComputeExecution!.Backend);
+        Assert.True(state.GpuBatches > 0);
+        Assert.NotNull(result.FinalValidation);
+        Assert.NotNull(result.Candidate);
+        Assert.Equal(0, state.TargetPolishEvaluationCount);
+        var json = new JsonSerializerOptions { NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals };
+        var restored = JsonSerializer.Deserialize<AutoLensManagedState>(JsonSerializer.Serialize(state, json), json)!;
+        AutoLensManagedStateValidation.Validate(restored);
+        Assert.Equal(state.LastComputeExecution, restored.LastComputeExecution);
+        Assert.Equal(state.Adam.Coordinates, restored.Adam.Coordinates);
+    }
+
+    [AutoLensCudaFact]
+    public void DirectCudaInvalidRayStaysMaskedAndDoesNotCountAsACompletedGradient()
+    {
+        Assert.True(DesignGpu.Status.IsAvailable, DesignGpu.Status.UnavailableReason);
+        var spec = Small();
+        var optic = AutoLensReferenceStart.Create(spec, 1, null, AutoLensReferenceMaterials.ProjectionNames);
+        var parameters = AutoLensReferenceStart.Parameters(optic, spec, materials: true);
+        var input = new FixedInputRaySet([new(0, 0, 0, 0, 0, [new(new(1000, 0, 0), new(0, 0, 1), 587)])]);
+        var result = FixedInputOpticalMetrics.Evaluate(optic, parameters, input, .94, DesignComputeMode.Gpu);
+        Assert.False(Assert.Single(Assert.Single(result.Fields).Rays).Valid);
+        Assert.Equal("cuda-fixed-input-forward-v1", result.Execution.Backend);
+        Assert.Equal(1, result.Execution.GpuBatches);
+        Assert.Equal(0, result.Execution.GpuRays);
     }
 
     private static void Close(double expected, double actual, double tolerance = 2e-12) =>

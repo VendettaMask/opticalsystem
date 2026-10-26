@@ -161,12 +161,14 @@ internal sealed class RayTraceCacheKey : IEquatable<RayTraceCacheKey>
 
     private RayTraceCacheKey(
         long opticRevision,
+        string opticIdentity,
         string backendName,
         TraceRequest request,
         IReadOnlyList<int> surfaceIndices,
         IReadOnlyList<RealRay> rays)
     {
         OpticRevision = opticRevision;
+        OpticIdentity = opticIdentity;
         BackendName = backendName;
         NormalizeOpticalPathDifference = request.NormalizeOpticalPathDifference;
         UseBatchedBackend = request.UseBatchedBackend;
@@ -176,6 +178,7 @@ internal sealed class RayTraceCacheKey : IEquatable<RayTraceCacheKey>
 
         var hash = new HashCode();
         hash.Add(OpticRevision);
+        hash.Add(OpticIdentity, StringComparer.Ordinal);
         hash.Add(BackendName, StringComparer.Ordinal);
         hash.Add(NormalizeOpticalPathDifference);
         hash.Add(UseBatchedBackend);
@@ -194,6 +197,7 @@ internal sealed class RayTraceCacheKey : IEquatable<RayTraceCacheKey>
     }
 
     public long OpticRevision { get; }
+    private string OpticIdentity { get; }
 
     private string BackendName { get; }
 
@@ -204,16 +208,18 @@ internal sealed class RayTraceCacheKey : IEquatable<RayTraceCacheKey>
 
     public static RayTraceCacheKey Create(
         long opticRevision,
+        string opticIdentity,
         string backendName,
         TraceRequest request,
         IReadOnlyList<int> surfaceIndices,
         IReadOnlyList<RealRay> rays) =>
-        new(opticRevision, backendName, request, surfaceIndices, rays);
+        new(opticRevision, opticIdentity, backendName, request, surfaceIndices, rays);
 
     public bool Equals(RayTraceCacheKey? other)
     {
         return other is not null
             && OpticRevision == other.OpticRevision
+            && string.Equals(OpticIdentity, other.OpticIdentity, StringComparison.Ordinal)
             && string.Equals(BackendName, other.BackendName, StringComparison.Ordinal)
             && NormalizeOpticalPathDifference == other.NormalizeOpticalPathDifference
             && UseBatchedBackend == other.UseBatchedBackend

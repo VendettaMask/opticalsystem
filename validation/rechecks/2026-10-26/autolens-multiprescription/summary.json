@@ -1,0 +1,412 @@
+{
+  "createdUtc": "2026-10-26T06:42:00.721808+00:00",
+  "scope": "Short fixed-input checks only; no optimizer updates, no complete refinement, no long-run restart",
+  "cases": 14,
+  "distinctFixedImageRays": 2772,
+  "distinctPrescriptionCount": 10,
+  "allOptimizerParameters": true,
+  "parameterKinds": [
+    "AxialPosition",
+    "Curvature",
+    "Conic",
+    "EvenAsphereCoefficient(r4-r18)",
+    "MaterialIndex",
+    "MaterialAbbe"
+  ],
+  "lossesAndProbes": [
+    "image centroid",
+    "image pinhole",
+    "geometry/material constraints",
+    "CRA+bend",
+    "full centroid objective",
+    "full pinhole objective",
+    "weighted image X/Y, direction Z, bend VJPs"
+  ],
+  "ordinary": {
+    "caseCount": 7,
+    "cpuGpuEvaluations": 14,
+    "allAgreed": true,
+    "maskMismatches": 0,
+    "maximumPositionAbsoluteErrorMm": 3.1174529624422576e-10,
+    "maximumValueNormalizedError": 4.163852156482778e-09,
+    "maximumGradientNormalizedError": 8.678814244707238e-07,
+    "maximumGradientScaledError": 1.1143221224022115e-07,
+    "gradientSlotsCompared": 19820,
+    "finiteDifferenceDirections": 21,
+    "allFiniteDifferenceMasksStable": true,
+    "maximumFiniteDifferenceAbsoluteError": 1.8037318004222175e-11,
+    "maximumFiniteDifferenceRelativeError": 9.31663280908078e-05,
+    "finiteDifferenceProbe": "traceX + 0.37*traceY + 0.1*traceDirectionZ + 0.01*traceBend; all coordinates simultaneously perturbed, no detached image-weight finite difference claim"
+  },
+  "perCase": [
+    {
+      "name": "initial-seed-42",
+      "boundary": false,
+      "parameters": 145,
+      "rays": 264,
+      "cpuAgrees": true,
+      "gpuAgrees": true,
+      "errors": [],
+      "maximumMaskMismatches": 0,
+      "maximumValueNormalizedError": 3.916537461797765e-09,
+      "maximumGradientNormalizedError": 3.2357650170400376e-09
+    },
+    {
+      "name": "initial-seed-101",
+      "boundary": false,
+      "parameters": 145,
+      "rays": 264,
+      "cpuAgrees": true,
+      "gpuAgrees": true,
+      "errors": [],
+      "maximumMaskMismatches": 0,
+      "maximumValueNormalizedError": 1.9499392973045106e-09,
+      "maximumGradientNormalizedError": 1.4229794657699308e-09
+    },
+    {
+      "name": "nonzero-asphere-1",
+      "boundary": false,
+      "parameters": 145,
+      "rays": 264,
+      "cpuAgrees": true,
+      "gpuAgrees": true,
+      "errors": [],
+      "maximumMaskMismatches": 0,
+      "maximumValueNormalizedError": 4.163852156482778e-09,
+      "maximumGradientNormalizedError": 3.3562193488753173e-09
+    },
+    {
+      "name": "nonzero-asphere-2",
+      "boundary": false,
+      "parameters": 145,
+      "rays": 264,
+      "cpuAgrees": true,
+      "gpuAgrees": true,
+      "errors": [],
+      "maximumMaskMismatches": 0,
+      "maximumValueNormalizedError": 3.469200371419845e-09,
+      "maximumGradientNormalizedError": 1.3945616174520566e-09
+    },
+    {
+      "name": "active-material-and-clearance",
+      "boundary": false,
+      "parameters": 145,
+      "rays": 264,
+      "cpuAgrees": true,
+      "gpuAgrees": true,
+      "errors": [],
+      "maximumMaskMismatches": 0,
+      "maximumValueNormalizedError": 1.948356724052661e-09,
+      "maximumGradientNormalizedError": 1.424761791124068e-09
+    },
+    {
+      "name": "trained-curriculum-catalog",
+      "boundary": false,
+      "parameters": 133,
+      "rays": 264,
+      "cpuAgrees": true,
+      "gpuAgrees": true,
+      "errors": [],
+      "maximumMaskMismatches": 0,
+      "maximumValueNormalizedError": 1.2957200867802499e-09,
+      "maximumGradientNormalizedError": 8.678814244707238e-07
+    },
+    {
+      "name": "trained-refine-720-catalog",
+      "boundary": false,
+      "parameters": 133,
+      "rays": 264,
+      "cpuAgrees": true,
+      "gpuAgrees": true,
+      "errors": [],
+      "maximumMaskMismatches": 0,
+      "maximumValueNormalizedError": 8.468695189556286e-11,
+      "maximumGradientNormalizedError": 3.0641877303230876e-09
+    },
+    {
+      "name": "aperture",
+      "boundary": true,
+      "parameters": 25,
+      "rays": 132,
+      "cpuAgrees": false,
+      "gpuAgrees": false,
+      "errors": [],
+      "maximumMaskMismatches": 24,
+      "maximumValueNormalizedError": 0.7064821518037598,
+      "maximumGradientNormalizedError": 1.0191067929184734
+    },
+    {
+      "name": "critical",
+      "boundary": true,
+      "parameters": 25,
+      "rays": 132,
+      "cpuAgrees": false,
+      "gpuAgrees": false,
+      "errors": [
+        "System.ArithmeticException: The critical refraction derivative is singular.\r\n   at OpticalSystemDesign.Core.Raytrace.SequentialRayTracer.TraceDesignSensitivity(RealRay source, OpticalDifferentialContext context, Int32 stopIndex, DifferentialScalar targetX, DifferentialScalar targetY, CancellationToken cancellationToken, SequentialGpuSample[] nominalSamples, Int32 nominalOffset, Boolean constrainStop, Double bendCosineGate) in D:\\optical system design\\opticalsystem\\src\\OpticalSystemDesign.Core\\Raytrace\\SequentialRayTracer.DesignSensitivity.cs:line 94\r\n   at OpticalSystemDesign.Core.Differentiation.FixedInputOpticalMetrics.EvaluateCore(Optic optic, IReadOnlyList`1 parameters, FixedInputRaySet inputs, Double bendCosineGate, Boolean gpu, CancellationToken cancellationToken) in D:\\optical system design\\opticalsystem\\src\\OpticalSystemDesign.Core\\Differentiation\\FixedInputOpticalMetrics.cs:line 97\r\n   at OpticalSystemDesign.Core.Differentiation.FixedInputOpticalMetrics.Evaluate(Optic optic, IReadOnlyList`1 parameters, FixedInputRaySet inputs, Double bendCosineGate, DesignComputeMode mode, CancellationToken cancellationToken) in D:\\optical system design\\opticalsystem\\src\\OpticalSystemDesign.Core\\Differentiation\\FixedInputOpticalMetrics.cs:line 81\r\n   at Program.<Main>$(String[] args) in D:\\optical system design\\opticalsystem\\validation\\rechecks\\2026-10-26\\autolens-multiprescription\\probe\\Program.cs:line 17",
+        "System.ArithmeticException: A CUDA fixed-input intersection/refraction derivative is singular or disagrees with formal Core.\r\n   at OpticalSystemDesign.Core.Differentiation.DesignGpu.EvaluateFixedInput(Optic optic, IReadOnlyList`1 parameters, FixedInputRaySet inputs, Double bendGate, CancellationToken token) in D:\\optical system design\\opticalsystem\\src\\OpticalSystemDesign.Core\\Differentiation\\DesignGpu.FixedInput.cs:line 62\r\n   at OpticalSystemDesign.Core.Differentiation.FixedInputOpticalMetrics.EvaluateCore(Optic optic, IReadOnlyList`1 parameters, FixedInputRaySet inputs, Double bendCosineGate, Boolean gpu, CancellationToken cancellationToken) in D:\\optical system design\\opticalsystem\\src\\OpticalSystemDesign.Core\\Differentiation\\FixedInputOpticalMetrics.cs:line 99\r\n   at OpticalSystemDesign.Core.Differentiation.FixedInputOpticalMetrics.Evaluate(Optic optic, IReadOnlyList`1 parameters, FixedInputRaySet inputs, Double bendCosineGate, DesignComputeMode mode, CancellationToken cancellationToken) in D:\\optical system design\\opticalsystem\\src\\OpticalSystemDesign.Core\\Differentiation\\FixedInputOpticalMetrics.cs:line 81\r\n   at Program.<Main>$(String[] args) in D:\\optical system design\\opticalsystem\\validation\\rechecks\\2026-10-26\\autolens-multiprescription\\probe\\Program.cs:line 17"
+      ],
+      "maximumMaskMismatches": 0,
+      "maximumValueNormalizedError": 0,
+      "maximumGradientNormalizedError": 0
+    },
+    {
+      "name": "critical-below",
+      "boundary": true,
+      "parameters": 25,
+      "rays": 132,
+      "cpuAgrees": true,
+      "gpuAgrees": true,
+      "errors": [],
+      "maximumMaskMismatches": 0,
+      "maximumValueNormalizedError": 1.874637106726312e-10,
+      "maximumGradientNormalizedError": 5.970468428631172e-09
+    },
+    {
+      "name": "critical-near-below",
+      "boundary": true,
+      "parameters": 25,
+      "rays": 132,
+      "cpuAgrees": false,
+      "gpuAgrees": false,
+      "errors": [],
+      "maximumMaskMismatches": 0,
+      "maximumValueNormalizedError": 6.483337500196029e-08,
+      "maximumGradientNormalizedError": 0.009990654544396441
+    },
+    {
+      "name": "critical-above",
+      "boundary": true,
+      "parameters": 25,
+      "rays": 132,
+      "cpuAgrees": true,
+      "gpuAgrees": true,
+      "errors": [],
+      "maximumMaskMismatches": 0,
+      "maximumValueNormalizedError": 4.3931188839694313e-13,
+      "maximumGradientNormalizedError": 9.94042348097909e-16
+    },
+    {
+      "name": "grazing",
+      "boundary": true,
+      "parameters": 25,
+      "rays": 132,
+      "cpuAgrees": true,
+      "gpuAgrees": true,
+      "errors": [],
+      "maximumMaskMismatches": 0,
+      "maximumValueNormalizedError": 5.308401861036517e-12,
+      "maximumGradientNormalizedError": 6.988581596153518e-12
+    },
+    {
+      "name": "all-invalid",
+      "boundary": true,
+      "parameters": 25,
+      "rays": 132,
+      "cpuAgrees": true,
+      "gpuAgrees": true,
+      "errors": [],
+      "maximumMaskMismatches": 0,
+      "maximumValueNormalizedError": 0,
+      "maximumGradientNormalizedError": 0
+    }
+  ],
+  "cpuVsGpu": [
+    {
+      "name": "initial-seed-42",
+      "maskDifferences": 0,
+      "maximumValueNormalizedDifference": 2.380178737983021e-13,
+      "maximumGradientNormalizedDifference": 1.3010643372335681e-11,
+      "actualBackend": "cuda-fixed-input-forward-v1"
+    },
+    {
+      "name": "initial-seed-101",
+      "maskDifferences": 0,
+      "maximumValueNormalizedDifference": 1.1966703239598655e-13,
+      "maximumGradientNormalizedDifference": 4.359673547390533e-12,
+      "actualBackend": "cuda-fixed-input-forward-v1"
+    },
+    {
+      "name": "nonzero-asphere-1",
+      "maskDifferences": 0,
+      "maximumValueNormalizedDifference": 4.727493146983404e-13,
+      "maximumGradientNormalizedDifference": 1.853308653210238e-10,
+      "actualBackend": "cuda-fixed-input-forward-v1"
+    },
+    {
+      "name": "nonzero-asphere-2",
+      "maskDifferences": 0,
+      "maximumValueNormalizedDifference": 7.315259509255156e-13,
+      "maximumGradientNormalizedDifference": 1.2185589857010825e-11,
+      "actualBackend": "cuda-fixed-input-forward-v1"
+    },
+    {
+      "name": "active-material-and-clearance",
+      "maskDifferences": 0,
+      "maximumValueNormalizedDifference": 9.476847230254761e-14,
+      "maximumGradientNormalizedDifference": 4.6035228305055946e-11,
+      "actualBackend": "cuda-fixed-input-forward-v1"
+    },
+    {
+      "name": "trained-curriculum-catalog",
+      "maskDifferences": 0,
+      "maximumValueNormalizedDifference": 3.0150326679745376e-12,
+      "maximumGradientNormalizedDifference": 2.1725675820074268e-09,
+      "actualBackend": "cuda-fixed-input-forward-v1"
+    },
+    {
+      "name": "trained-refine-720-catalog",
+      "maskDifferences": 0,
+      "maximumValueNormalizedDifference": 1.7494372437165314e-13,
+      "maximumGradientNormalizedDifference": 2.5001618991045655e-11,
+      "actualBackend": "cuda-fixed-input-forward-v1"
+    },
+    {
+      "name": "aperture",
+      "maskDifferences": 0,
+      "maximumValueNormalizedDifference": 0.0,
+      "maximumGradientNormalizedDifference": 0.0,
+      "actualBackend": "cuda-fixed-input-forward-v1"
+    },
+    {
+      "name": "critical-below",
+      "maskDifferences": 0,
+      "maximumValueNormalizedDifference": 1.0612175674614777e-15,
+      "maximumGradientNormalizedDifference": 3.831894766625676e-15,
+      "actualBackend": "cuda-fixed-input-forward-v1"
+    },
+    {
+      "name": "critical-near-below",
+      "maskDifferences": 0,
+      "maximumValueNormalizedDifference": 1.5650120088750441e-12,
+      "maximumGradientNormalizedDifference": 3.310697950759844e-10,
+      "actualBackend": "cuda-fixed-input-forward-v1"
+    },
+    {
+      "name": "critical-above",
+      "maskDifferences": 0,
+      "maximumValueNormalizedDifference": 0.0,
+      "maximumGradientNormalizedDifference": 0.0,
+      "actualBackend": "cuda-fixed-input-forward-v1"
+    },
+    {
+      "name": "grazing",
+      "maskDifferences": 0,
+      "maximumValueNormalizedDifference": 2.9187793332667456e-16,
+      "maximumGradientNormalizedDifference": 5.932140638880124e-16,
+      "actualBackend": "cuda-fixed-input-forward-v1"
+    },
+    {
+      "name": "all-invalid",
+      "maskDifferences": 0,
+      "maximumValueNormalizedDifference": 0.0,
+      "maximumGradientNormalizedDifference": 0.0,
+      "actualBackend": "cuda-fixed-input-forward-v1"
+    }
+  ],
+  "totalScalarGradientSlotsCompared": 22820,
+  "upstreamNonfiniteGradientSlots": 0,
+  "substantiveBoundaryDifferences": {
+    "aperture": {
+      "mismatchingRaysPerBackend": 24,
+      "inputRays": 132,
+      "upstreamValid": 60,
+      "csharpValid": 84,
+      "affectedRadii": "Exactly +r or -r on the planar stop; +/-1e-10 and +/-1e-7 relative offsets agree",
+      "reason": "Upstream Aperture inherits Plane.intersect with r^2 strict comparison; Core circular physical aperture includes boundary with numerical tolerance."
+    },
+    "criticalNear": {
+      "minimumRelativeHeightMargin": 1e-10,
+      "maskMismatches": 0,
+      "maximumGradientNormalizedDifference": 0.009990654544396441,
+      "maximumTotalObjectiveGradientNormalizedDifference": 0.0031978418483315668,
+      "controlledNoEpsilonMaximumGradientDifference": 1.0121417532269942e-06,
+      "attribution": "Temporarily setting only upstream base module EPSILON=0 reduces the gradient discrepancy greatly. This controlled output is not the baseline. Residual is consistent with ill conditioning/roundoff; not claimed bit equality."
+    },
+    "criticalExact": {
+      "upstream": "Original baseline produced finite stabilized outputs and gradients in this case.",
+      "csharp": "CPU and CUDA reject the singular derivative for a batch containing the critical ray. One affected ray can make the fixed-input request fail.",
+      "scope": "Physical/AD domain policy difference; not changed or treated as agreement."
+    }
+  },
+  "tolerances": {
+    "valueNormalized": 5e-08,
+    "gradientNormalized": 5e-06,
+    "normalization": "abs(actual-reference)/max(1,abs(reference)); specified in the probe before the final measurements",
+    "scaledGradient": "abs(gradient error)*characteristic parameter scale: axial/conic/nd=1, curvature=1/max(1,r), ai=1/max(1,r)^order, V=50. Distinct units require scaled or relative interpretation."
+  },
+  "timingSeconds": {
+    "upstreamBaseline": 51.5553862999659,
+    "csharpBaseline": 17.9607171,
+    "controlledCsharp": 2.1064134
+  },
+  "buildScope": "Core and Engine were successfully compiled in this task. A later project rebuild encountered concurrent unrelated Interferogram source errors; retained that log and compiled the probe alone against the successful binary set. Results bind to the exact binary SHA256, not an assertion that all current concurrent workspace edits compile.",
+  "upstreamCommit": "e58db32f3a0b07f25861b5839a45970f77b5c947",
+  "upstreamTrackedSourcesUnchanged": true,
+  "upstreamSourceSha256": {
+    "1_autolens.py": "87fc66c8f272bb5e8d2ee7fcbe76d9dfd4e8c032f17e4e3044265ad073cdf051",
+    "deeplens/config.py": "f66bae210b41f32a6b3c9dba7a59f5219a0baad0d3cc86a5a7d3465abf7b9200",
+    "deeplens/ray.py": "736449d442ba7bdf2ee30d4351c53b90eebd93b1bb1bb95cedf3cdc9ad934c32",
+    "deeplens/geolens.py": "281ef3f49fa77c4eb98debab554c7e5c1c917cca60f1e8a20d1b9caa51907fd9",
+    "deeplens/geometric_surface/base.py": "1ac9bb553db85e9dda44d9724e025fcbfe412ed912cb3b9b28a8f2770ddd123f",
+    "deeplens/geometric_surface/plane.py": "858fbd772586fd105b6d63d378767f790e4467384efddbe168263099d4e1e7e5",
+    "deeplens/geometric_surface/aperture.py": "ea88b9d6d4eca5f6290b554981b002e6782787f2b5696dc925f680ba352dd7a3",
+    "deeplens/geometric_surface/aspheric.py": "15ac83b224155de40bd68912d24324b940558dc9e0cffda900fcf5fed2913a99",
+    "deeplens/geolens_pkg/optim.py": "97f168509c981e27601d2e9ccf496eeddee1b83fc43bcc54ebb83dab782a98fd",
+    "deeplens/material/materials.py": "79971316a6303f5e5ab7d1d770576cd42279ad0a239bbc752b2a78d5c190760a"
+  },
+  "binaries": {
+    "OpticalSystemDesign.Core.dll": "5B7E1DAF1A7AC3021FF6DEF4E01CACF1C26E4449A6DAEAF48486A6772C68072A",
+    "OpticalSystemDesign.InitialStructure.Engine.dll": "4A14B82FA3045BC594DA791086F3FA40643317148249121E9FF62CCB379DC882",
+    "OpticalSystemDesign.InitialStructure.Benchmarks.dll": "F32D341E4EA3FF41C2FED391ED043F5DDCE0C39CEDB807D7D030F396B4DFAC93"
+  },
+  "productNumericCodeChanged": false,
+  "longTrainingRemainsStopped": true,
+  "frozenRuntime": "D:\\optical system design\\tmp\\autolens-multiprescription-runtime",
+  "earlierAssessmentToolCorrection": "Earlier EndpointComparison.ImportOriginal only imported mechanical semi-diameters and omitted physical apertures. It is now corrected with explicit Core SetRadius calls for every physical row. Old raw evidence is retained; corrected saved-optic assessment is stored separately in autolens-full-comparison/available-results-comparison/common-analysis-corrected-apertures. First-order focal and training-objective comparisons have independent provenance.",
+  "earlierAssessmentCorrectionVerification": {
+    "correctedUtc": "2026-10-26T06:39:56.522741+00:00",
+    "issue": "Original import omitted physical clipping apertures; numerical model metadata was incomplete.",
+    "fix": "Explicit Core SetRadius call on every physical original row; all 13 physical radii checked against original JSON.",
+    "allOriginalPhysicalAperturesVerified": true,
+    "physicalApertureCount": 13,
+    "sameFrozenOpticsAndSettings": true,
+    "metricChangesCsharpOrOriginal": [
+      {
+        "FocalLengthMm": 0.0,
+        "EntrancePupilDiameterMm": 0.0,
+        "FNumber": 0.0,
+        "SensorPositionMm": 0.0,
+        "WorstValidFieldRmsMm": 0.0,
+        "ValidFieldCount": 0,
+        "AttemptedRays": 0,
+        "ValidRays": 0,
+        "ValidRayFraction": 0.0
+      },
+      {
+        "FocalLengthMm": 0.0,
+        "EntrancePupilDiameterMm": 0.0,
+        "FNumber": 0.0,
+        "SensorPositionMm": 0.0,
+        "WorstValidFieldRmsMm": 0.0,
+        "ValidFieldCount": 0,
+        "AttemptedRays": 0,
+        "ValidRays": 0,
+        "ValidRayFraction": 0.0
+      }
+    ],
+    "maximumPerFieldMetricAbsoluteDifference": 0.0,
+    "allComparedMetricsUnchangedWithin1e12": true,
+    "oldRawEvidencePreserved": true,
+    "correctedData": "common-analysis-corrected-apertures/common-analysis.json",
+    "correctedOriginalSnapshot": "common-analysis-corrected-apertures/original-imported.optic.json",
+    "oldSnapshot": "common-analysis/original-imported.optic.json",
+    "note": "No effect was observed for these two sampled optics. This does not excuse the missing aperture or establish equivalence for arbitrary optics."
+  },
+  "remainingScope": [
+    "No complete paired refinement endpoints or multi-seed success rates",
+    "Centered front-stop spherical/even-aspheric prescriptions only; no full CAMERA_CONFIG topology",
+    "Same float64 and fixed inputs isolate mathematics; original float32/Philox long-training differences remain",
+    "VJPs and scalar loss gradients cover every optimizer coordinate; not a full per-ray Jacobian in every case"
+  ]
+}

@@ -1,8 +1,8 @@
 using Avalonia.Controls;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Laboratories;
 
@@ -54,7 +54,8 @@ public sealed partial class CameraImagingWindow
     {
         var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
-            Title = "选择相机仿真输入图像", AllowMultiple = false,
+            Title = "选择相机仿真输入图像",
+            AllowMultiple = false,
             FileTypeFilter = new[] { new FilePickerFileType("图像") { Patterns = new[] { "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.tif", "*.tiff", "*.webp" } } }
         });
         if (files.Count == 0 || _closed) return;
@@ -68,7 +69,9 @@ public sealed partial class CameraImagingWindow
         if (result is null || _busy) return;
         var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
         {
-            Title = "导出相机成像对照包", SuggestedFileName = "camera-imaging-comparison.zip", DefaultExtension = "zip",
+            Title = "导出相机成像对照包",
+            SuggestedFileName = "camera-imaging-comparison.zip",
+            DefaultExtension = "zip",
             FileTypeChoices = new[] { new FilePickerFileType("ZIP 对照包") { Patterns = new[] { "*.zip" } } }
         });
         if (file is null || _closed) return;

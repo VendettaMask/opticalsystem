@@ -1,0 +1,557 @@
+{
+  "Source": {
+    "SchemaVersion": 1,
+    "Algorithm": "AutonomousTopologyV1",
+    "Name": "Critical refraction",
+    "Conjugate": 0,
+    "Reference": {
+      "Id": "reference",
+      "ZMillimeters": 0
+    },
+    "Stop": {
+      "Id": "stop",
+      "ZMillimeters": 0,
+      "ClearSemiDiameterMillimeters": 1,
+      "MechanicalSemiDiameterMillimeters": null
+    },
+    "Image": {
+      "Id": "image",
+      "ZMillimeters": 5,
+      "Protected": true
+    },
+    "Elements": [
+      {
+        "Id": "critical",
+        "FrontSurfaceId": "critical:front",
+        "BackSurfaceId": "critical:back",
+        "FrontZMillimeters": 1,
+        "ThicknessMillimeters": 1,
+        "Material": "N-BK7",
+        "Front": {
+          "Profile": {
+            "Kind": 0,
+            "CurvaturePerMillimeter": 0,
+            "Conic": 0,
+            "MaximumEvenPower": 0,
+            "Terms": []
+          },
+          "ClearSemiDiameterMillimeters": 0.8,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Back": {
+          "Profile": {
+            "Kind": 1,
+            "CurvaturePerMillimeter": 0.9323674965847029,
+            "Conic": 0,
+            "MaximumEvenPower": 0,
+            "Terms": []
+          },
+          "ClearSemiDiameterMillimeters": 0.8,
+          "MechanicalSemiDiameterMillimeters": null
+        },
+        "Protected": false,
+        "Transition": false
+      }
+    ],
+    "Fields": [
+      {
+        "Label": "axis",
+        "XAngleDegrees": 0,
+        "YAngleDegrees": 0,
+        "Weight": 1
+      }
+    ],
+    "Wavelengths": [
+      {
+        "Label": "d",
+        "Nanometers": 587.6,
+        "Weight": 1,
+        "IsPrimary": true
+      }
+    ],
+    "GlassCatalogs": [],
+    "RayAimingEnabled": true,
+    "MatchRefractiveIndexData": true,
+    "TemperatureCelsius": 20,
+    "PressureAtmospheres": 1
+  },
+  "Evaluation": {
+    "LayoutFingerprint": "9bbe1271f1441a7d888ae0876696ded9495a1eca3e41bc120b0cad6509dab3a9",
+    "OpticFingerprint": "d1f226734c9a931b665d35b1c2ec8fef65628e1cbb29a62ad35bb92e5895a2dd",
+    "Residuals": [
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000,
+      1000000
+    ],
+    "Gradient": [],
+    "Jacobian": [],
+    "Objective": null,
+    "Available": false,
+    "Failure": "The critical refraction derivative is singular.",
+    "TracedRayCount": 5,
+    "GeometryProbes": 0,
+    "Execution": null,
+    "PropagationExecution": {
+      "DeviceName": "CPU",
+      "AimRays": 0,
+      "AimTraces": 0,
+      "PropagatedRays": 0,
+      "Batches": 0,
+      "Milliseconds": 0,
+      "CpuRecoveryRays": 0,
+      "FallbackReason": null
+    }
+  },
+  "Result": {
+    "Algorithm": "AutonomousTopologyV1",
+    "ObjectiveFingerprint": "9bbe1271f1441a7d888ae0876696ded9495a1eca3e41bc120b0cad6509dab3a9",
+    "Topology": {
+      "SchemaVersion": 1,
+      "Algorithm": "AutonomousTopologyV1",
+      "Name": "Critical refraction",
+      "Conjugate": 0,
+      "Reference": {
+        "Id": "reference",
+        "ZMillimeters": 0
+      },
+      "Stop": {
+        "Id": "stop",
+        "ZMillimeters": 0,
+        "ClearSemiDiameterMillimeters": 1,
+        "MechanicalSemiDiameterMillimeters": null
+      },
+      "Image": {
+        "Id": "image",
+        "ZMillimeters": 5,
+        "Protected": true
+      },
+      "Elements": [
+        {
+          "Id": "critical",
+          "FrontSurfaceId": "critical:front",
+          "BackSurfaceId": "critical:back",
+          "FrontZMillimeters": 1,
+          "ThicknessMillimeters": 1,
+          "Material": "N-BK7",
+          "Front": {
+            "Profile": {
+              "Kind": 0,
+              "CurvaturePerMillimeter": 0,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 0.8,
+            "MechanicalSemiDiameterMillimeters": null
+          },
+          "Back": {
+            "Profile": {
+              "Kind": 1,
+              "CurvaturePerMillimeter": 0.9323674965847029,
+              "Conic": 0,
+              "MaximumEvenPower": 0,
+              "Terms": []
+            },
+            "ClearSemiDiameterMillimeters": 0.8,
+            "MechanicalSemiDiameterMillimeters": null
+          },
+          "Protected": false,
+          "Transition": false
+        }
+      ],
+      "Fields": [
+        {
+          "Label": "axis",
+          "XAngleDegrees": 0,
+          "YAngleDegrees": 0,
+          "Weight": 1
+        }
+      ],
+      "Wavelengths": [
+        {
+          "Label": "d",
+          "Nanometers": 587.6,
+          "Weight": 1,
+          "IsPrimary": true
+        }
+      ],
+      "GlassCatalogs": [],
+      "RayAimingEnabled": true,
+      "MatchRefractiveIndexData": true,
+      "TemperatureCelsius": 20,
+      "PressureAtmospheres": 1
+    },
+    "Constraints": {
+      "MinimumElementCount": 1,
+      "MaximumElementCount": 8,
+      "MinimumCenterThicknessMillimeters": 0.1,
+      "MinimumAirGapMillimeters": 0.05,
+      "MinimumBackFocusMillimeters": 0.1,
+      "MaximumMechanicalTrackMillimeters": 10000,
+      "AllowTransitionElements": false,
+      "AllowedGlassNames": []
+    },
+    "Targets": {
+      "EffectiveFocalLengthMillimeters": 50,
+      "FNumber": 12.5,
+      "FocalLengthRelativeTolerance": 0.02,
+      "FNumberRelativeTolerance": 0.02,
+      "MaximumRmsRadiusMillimeters": 0.05,
+      "MaximumSpotRadiusMillimeters": 0.15,
+      "MaximumDistortionFraction": 0.03,
+      "MinimumValidRayFraction": 0.98,
+      "MinimumEdgeThicknessMillimeters": 0.1,
+      "MinimumEdgeAirGapMillimeters": 0.01,
+      "MaximumOpticalTrackMillimeters": 10000,
+      "MaximumAbsoluteSurfaceSlope": 10
+    },
+    "Variables": [
+      {
+        "SurfaceId": "critical:back",
+        "Kind": 0,
+        "LowerBound": 0,
+        "UpperBound": 2,
+        "Scale": 0.1,
+        "Power": 0
+      }
+    ],
+    "Termination": 5,
+    "Work": {
+      "FunctionEvaluations": 2,
+      "GradientEvaluations": 1,
+      "ValidationEvaluations": 1,
+      "TracedRays": 713,
+      "GeometryProbes": 325,
+      "GpuDerivativeRays": 0,
+      "GpuBatches": 0,
+      "Elapsed": "00:00:00.0076061",
+      "CompletedGradientEvaluations": 0
+    },
+    "AcceptedUpdates": 0,
+    "Steps": [],
+    "InitialEvaluation": {
+      "LayoutFingerprint": "9bbe1271f1441a7d888ae0876696ded9495a1eca3e41bc120b0cad6509dab3a9",
+      "OpticFingerprint": "d1f226734c9a931b665d35b1c2ec8fef65628e1cbb29a62ad35bb92e5895a2dd",
+      "Residuals": [
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000
+      ],
+      "Gradient": [],
+      "Jacobian": [],
+      "Objective": null,
+      "Available": false,
+      "Failure": "The critical refraction derivative is singular.",
+      "TracedRayCount": 5,
+      "GeometryProbes": 0,
+      "Execution": null,
+      "PropagationExecution": {
+        "DeviceName": "CPU",
+        "AimRays": 0,
+        "AimTraces": 0,
+        "PropagatedRays": 0,
+        "Batches": 0,
+        "Milliseconds": 0,
+        "CpuRecoveryRays": 0,
+        "FallbackReason": null
+      }
+    },
+    "EndpointEvaluation": {
+      "LayoutFingerprint": "9bbe1271f1441a7d888ae0876696ded9495a1eca3e41bc120b0cad6509dab3a9",
+      "OpticFingerprint": "d1f226734c9a931b665d35b1c2ec8fef65628e1cbb29a62ad35bb92e5895a2dd",
+      "Residuals": [
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000,
+        1000000
+      ],
+      "Gradient": [],
+      "Jacobian": [],
+      "Objective": null,
+      "Available": false,
+      "Failure": "The critical refraction derivative is singular.",
+      "TracedRayCount": 5,
+      "GeometryProbes": 0,
+      "Execution": null,
+      "PropagationExecution": {
+        "DeviceName": "CPU",
+        "AimRays": 0,
+        "AimTraces": 0,
+        "PropagatedRays": 0,
+        "Batches": 0,
+        "Milliseconds": 0,
+        "CpuRecoveryRays": 0,
+        "FallbackReason": null
+      }
+    },
+    "FinalAssessment": {
+      "OpticFingerprint": "d1f226734c9a931b665d35b1c2ec8fef65628e1cbb29a62ad35bb92e5895a2dd",
+      "ProtocolFingerprint": "725bee4f99b4f59d79a735cb6e6f27915d3798deb063efd67a1efb066931e806",
+      "Targets": {
+        "EffectiveFocalLengthMillimeters": 50,
+        "FNumber": 12.5,
+        "FocalLengthRelativeTolerance": 0.02,
+        "FNumberRelativeTolerance": 0.02,
+        "MaximumRmsRadiusMillimeters": 0.05,
+        "MaximumSpotRadiusMillimeters": 0.15,
+        "MaximumDistortionFraction": 0.03,
+        "MinimumValidRayFraction": 0.98,
+        "MinimumEdgeThicknessMillimeters": 0.1,
+        "MinimumEdgeAirGapMillimeters": 0.01,
+        "MaximumOpticalTrackMillimeters": 10000,
+        "MaximumAbsoluteSurfaceSlope": 10
+      },
+      "StructuralConstraints": {
+        "MinimumElementCount": 1,
+        "MaximumElementCount": 8,
+        "MinimumCenterThicknessMillimeters": 0.1,
+        "MinimumAirGapMillimeters": 0.05,
+        "MinimumBackFocusMillimeters": 0.1,
+        "MaximumMechanicalTrackMillimeters": 10000,
+        "AllowTransitionElements": false,
+        "AllowedGlassNames": []
+      },
+      "EffectiveFocalLengthMillimeters": -2.075351592554436,
+      "FNumber": 1.037675796277218,
+      "Fields": [
+        {
+          "Field": {
+            "X": 0,
+            "Y": 0
+          },
+          "AttemptedRays": 320,
+          "ValidRays": 192,
+          "CheckAttemptedRays": 33,
+          "CheckValidRays": 1,
+          "RmsRadiusMillimeters": 1007.492698958809,
+          "MaximumRadiusMillimeters": 2109.4426997987875,
+          "DistortionFraction": 0,
+          "WavelengthValidFractions": [
+            0.6
+          ]
+        }
+      ],
+      "Violations": [
+        {
+          "Code": "focal-length",
+          "Actual": null,
+          "Limit": 0.02
+        },
+        {
+          "Code": "f-number",
+          "Actual": 0.9169859362978225,
+          "Limit": 0.02
+        },
+        {
+          "Code": "field:0:lost-fraction",
+          "Actual": 0.4,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field:0:wave:0:lost-fraction",
+          "Actual": 0.4,
+          "Limit": 0.020000000000000018
+        },
+        {
+          "Code": "field:0:check-lost",
+          "Actual": 32,
+          "Limit": 0
+        },
+        {
+          "Code": "field:0:rms",
+          "Actual": 1007.492698958809,
+          "Limit": 0.05
+        },
+        {
+          "Code": "field:0:maximum",
+          "Actual": 2109.4426997987875,
+          "Limit": 0.15
+        }
+      ],
+      "Completed": true,
+      "MeetsTargets": false,
+      "TracedRayCount": 708,
+      "GeometryProbes": 325,
+      "Failure": null
+    },
+    "Diagnostics": [
+      "The critical refraction derivative is singular."
+    ]
+  }
+}

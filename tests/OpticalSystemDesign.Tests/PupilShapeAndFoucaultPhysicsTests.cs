@@ -1,9 +1,9 @@
 using System.Numerics;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
-using OpticalSystemDesign.Core.Rays;
-using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Coatings;
+using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Tests;

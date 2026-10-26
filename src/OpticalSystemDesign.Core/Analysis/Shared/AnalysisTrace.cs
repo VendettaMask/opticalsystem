@@ -1,5 +1,5 @@
-using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Services;
 
@@ -456,11 +456,11 @@ internal static class AnalysisTrace
             var minus2 = xAxis ? (referenceLinear.X - 2 * delta, referenceLinear.Y) : (referenceLinear.X, referenceLinear.Y - 2 * delta);
             if (CanTraceLinearField(optic, plus2, distortionType) && CanTraceLinearField(optic, minus2, distortionType))
             {
-                var p1=TraceChiefAtLinearField(optic,plus.Item1,plus.Item2,wavelengthMicrometers,distortionType,requireUnvignetted);
-                var m1=TraceChiefAtLinearField(optic,minus.Item1,minus.Item2,wavelengthMicrometers,distortionType,requireUnvignetted);
-                var p2=TraceChiefAtLinearField(optic,plus2.Item1,plus2.Item2,wavelengthMicrometers,distortionType,requireUnvignetted);
-                var m2=TraceChiefAtLinearField(optic,minus2.Item1,minus2.Item2,wavelengthMicrometers,distortionType,requireUnvignetted);
-                return ((8*(p1.X-m1.X)-(p2.X-m2.X))/(12*delta),(8*(p1.Y-m1.Y)-(p2.Y-m2.Y))/(12*delta));
+                var p1 = TraceChiefAtLinearField(optic, plus.Item1, plus.Item2, wavelengthMicrometers, distortionType, requireUnvignetted);
+                var m1 = TraceChiefAtLinearField(optic, minus.Item1, minus.Item2, wavelengthMicrometers, distortionType, requireUnvignetted);
+                var p2 = TraceChiefAtLinearField(optic, plus2.Item1, plus2.Item2, wavelengthMicrometers, distortionType, requireUnvignetted);
+                var m2 = TraceChiefAtLinearField(optic, minus2.Item1, minus2.Item2, wavelengthMicrometers, distortionType, requireUnvignetted);
+                return ((8 * (p1.X - m1.X) - (p2.X - m2.X)) / (12 * delta), (8 * (p1.Y - m1.Y) - (p2.Y - m2.Y)) / (12 * delta));
             }
         }
         if (canTracePlus && canTraceMinus)

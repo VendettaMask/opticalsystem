@@ -6,8 +6,8 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
-using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Persistence;
 
@@ -197,7 +197,8 @@ public sealed partial class MainWindow : Window
             CanUserSortColumns = false,
             GridLinesVisibility = DataGridGridLinesVisibility.Horizontal,
             SelectionMode = DataGridSelectionMode.Single,
-            FontSize = DisplayTypography.BodySmall, RowHeight = 34
+            FontSize = DisplayTypography.BodySmall,
+            RowHeight = UiDensity.DenseTableRowHeight
         }, id, id);
         foreach (var column in columns) grid.Columns.Add(new DataGridTextColumn { Header = column.Header, Binding = new Binding(column.Property), Width = new DataGridLength(column.Width) });
         return grid;

@@ -10,10 +10,12 @@ using OpticalSystemDesign.Core.Coordinates;
 using OpticalSystemDesign.Core.NonSequential;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Serialization;
+using BoxParameters = OpticalSystemDesign.Core.NonSequential.BoxParameters;
 using ContractDetectorRectangleParameters = OpticalSystemDesign.Application.Contracts.DetectorRectangleParameters;
 using ContractKind = OpticalSystemDesign.Application.Contracts.NonSequentialObjectKind;
 using ContractSphereParameters = OpticalSystemDesign.Application.Contracts.SphereParameters;
-using BoxParameters = OpticalSystemDesign.Core.NonSequential.BoxParameters;
+using CoreSourceRadialParameters = OpticalSystemDesign.Core.NonSequential.SourceRadialParameters;
+using CoreSourceRadialSample = OpticalSystemDesign.Core.NonSequential.SourceRadialSample;
 using CylinderParameters = OpticalSystemDesign.Core.NonSequential.CylinderParameters;
 using DetectorRectangleParameters = OpticalSystemDesign.Core.NonSequential.DetectorRectangleParameters;
 using NonSequentialObjectKind = OpticalSystemDesign.Core.NonSequential.NonSequentialObjectKind;
@@ -22,8 +24,6 @@ using NonSequentialSurfaceBehavior = OpticalSystemDesign.Core.NonSequential.NonS
 using NonSequentialTraceSettings = OpticalSystemDesign.Core.NonSequential.NonSequentialTraceSettings;
 using PlaneRectangleParameters = OpticalSystemDesign.Core.NonSequential.PlaneRectangleParameters;
 using SourceRectangleParameters = OpticalSystemDesign.Core.NonSequential.SourceRectangleParameters;
-using CoreSourceRadialParameters = OpticalSystemDesign.Core.NonSequential.SourceRadialParameters;
-using CoreSourceRadialSample = OpticalSystemDesign.Core.NonSequential.SourceRadialSample;
 using SphereParameters = OpticalSystemDesign.Core.NonSequential.SphereParameters;
 using StandardLensParameters = OpticalSystemDesign.Core.NonSequential.StandardLensParameters;
 

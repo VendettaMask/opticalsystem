@@ -35,7 +35,10 @@ public sealed class ScalarBackendAdapterTests
             Assert.Equal(
                 scalar.TryGetSample(index, finalSurface, out var expected),
                 adapted.TryGetSample(index, finalSurface, out var actual));
-            Assert.Equal(expected, actual);
+            // The adapter normalizes the outgoing direction once more. Keep
+            // every other sample field exact and bound only its roundoff.
+            Assert.InRange((expected.Direction - actual.Direction).Length, 0, 1e-14);
+            Assert.Equal(expected with { Direction = actual.Direction }, actual);
         }
     }
 

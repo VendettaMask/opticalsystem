@@ -6,11 +6,11 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Threading;
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Formatting;
 
 namespace OpticalSystemDesign.App.Panels;
 
@@ -332,37 +332,18 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
             },
             HorizontalAlignment.Right);
 
-        var fitView = CompactButton("maximize-2", "适配窗口");
-        fitView.Click += (_, _) => _scene.FitView();
-        var presetToolbar = _presentationMode == ViewerPresentationMode.SolidModel ? BuildSolidViewPresetToolbar() : Toolbar(
-            new Control[]
-            {
-                fitView,
-                PresetButton(ViewCubeFace.Front, "前视图", OpticSceneViewPreset.Front),
-                PresetButton(ViewCubeFace.Back, "后视图", OpticSceneViewPreset.Back),
-                PresetButton(ViewCubeFace.Left, "左视图", OpticSceneViewPreset.Left),
-                PresetButton(ViewCubeFace.Right, "右视图", OpticSceneViewPreset.Right),
-                PresetButton(ViewCubeFace.Top, "俯视图", OpticSceneViewPreset.Top),
-                PresetButton(ViewCubeFace.Bottom, "仰视图", OpticSceneViewPreset.Bottom),
-                PresetButton(ViewCubeFace.Isometric, "等轴测视图", OpticSceneViewPreset.Isometric)
-            },
-            HorizontalAlignment.Center,
-            VerticalAlignment.Bottom);
+        var presetToolbar = BuildViewPresetToolbar();
         var topOverlay = new ViewerToolbarLayout
         {
             VerticalAlignment = VerticalAlignment.Top,
             Children = { BuildSettingsOverlay(), topToolbar }
         };
-        var sceneContent = SceneWithOverlay(_scene, _presentationMode == ViewerPresentationMode.SolidModel
-            ? [topOverlay, _staleLayoutBanner]
-            : [topOverlay, presetToolbar, _staleLayoutBanner]);
+        var sceneContent = SceneWithOverlay(_scene, topOverlay, presetToolbar, _staleLayoutBanner);
         if (_presentationMode != ViewerPresentationMode.SolidModel)
             return ThemeChrome.WrapWithDecoration(sceneContent, ThemeChromeRole.Viewport);
 
-        var workspace = new Grid { RowDefinitions = new RowDefinitions("*,Auto,Auto") };
+        var workspace = new Grid { RowDefinitions = new RowDefinitions("*,Auto") };
         workspace.Children.Add(sceneContent);
-        Grid.SetRow(presetToolbar, 1);
-        workspace.Children.Add(presetToolbar);
         _glassLegend.Padding = new Thickness(10, 4);
         _glassLegend.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SceneBackground);
         _glassLegend.Child = new ScrollViewer
@@ -374,7 +355,7 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         };
         AutomationProperties.SetName(_glassLegend, UiLocalization.Text("玻璃材质图例"));
         ToolTip.SetTip(_glassLegend, UiLocalization.Text("颜色用于区分玻璃型号"));
-        Grid.SetRow(_glassLegend, 2);
+        Grid.SetRow(_glassLegend, 1);
         workspace.Children.Add(_glassLegend);
         return ThemeChrome.WrapWithDecoration(workspace, ThemeChromeRole.Viewport);
     }
@@ -387,20 +368,27 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         {
             var swatch = new Border
             {
-                Width = 16, Height = 12, CornerRadius = new CornerRadius(2),
+                Width = 16,
+                Height = 12,
+                CornerRadius = new CornerRadius(2),
                 Background = new SolidColorBrush(entry.Color, 0.35),
-                BorderBrush = new SolidColorBrush(entry.Color), BorderThickness = new Thickness(1),
+                BorderBrush = new SolidColorBrush(entry.Color),
+                BorderThickness = new Thickness(1),
                 VerticalAlignment = VerticalAlignment.Center
             };
             var label = new TextBlock
             {
-                Text = entry.Material, MaxWidth = 200, TextWrapping = TextWrapping.Wrap,
+                Text = entry.Material,
+                MaxWidth = 200,
+                TextWrapping = TextWrapping.Wrap,
                 VerticalAlignment = VerticalAlignment.Center
             };
             label.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.PlotText);
             var item = new StackPanel
             {
-                Orientation = Orientation.Horizontal, Spacing = 7, Margin = new Thickness(0, 3, 18, 3),
+                Orientation = Orientation.Horizontal,
+                Spacing = 7,
+                Margin = new Thickness(0, 3, 18, 3),
                 Children = { swatch, label }
             };
             AutomationProperties.SetName(item, entry.Material);
@@ -698,34 +686,21 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         QueueRefresh(TimeSpan.Zero);
     }
 
-    private Button PresetButton(ViewCubeFace face, string tooltip, OpticSceneViewPreset preset)
+    private Control BuildViewPresetToolbar()
     {
-        var button = new Button
-        {
-            Content = new ViewCubeIcon(face)
-            {
-                Width = 26,
-                Height = 24
-            },
-            Width = 40,
-            MinWidth = 0,
-            Height = 32,
-            Padding = new Thickness(0)
-        };
-        ToolTip.SetTip(button, tooltip);
-        button.Click += (_, _) => _scene.SetViewPreset(preset);
-        return button;
-    }
-
-    private Control BuildSolidViewPresetToolbar()
-    {
+        var namePrefix = _presentationMode == ViewerPresentationMode.SolidModel ? "SolidModel" : "Viewer3D";
         var items = new WrapPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Center };
         var fitIcon = new LocalIcon { IconName = "maximize-2", Width = 26, Height = 24 };
         fitIcon.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.TextPrimary);
         var fit = new Button
         {
-            Name = "SolidModelFitView", MinWidth = 64, MinHeight = 56, Height = double.NaN, Margin = new Thickness(3),
-            Padding = new Thickness(8, 4), Content = CaptionedIcon(fitIcon, "适配")
+            Name = $"{namePrefix}FitView",
+            MinWidth = 64,
+            MinHeight = 56,
+            Height = double.NaN,
+            Margin = new Thickness(3),
+            Padding = new Thickness(8, 4),
+            Content = CaptionedIcon(fitIcon, "适配")
         };
         AutomationProperties.SetName(fit, UiLocalization.Text("适配窗口"));
         ToolTip.SetTip(fit, UiLocalization.Text("适配窗口"));
@@ -744,8 +719,13 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         {
             var button = new ToggleButton
             {
-                Name = $"SolidModelView{preset}", MinWidth = 64, MinHeight = 56, Height = double.NaN,
-                Margin = new Thickness(3), Padding = new Thickness(8, 4), BorderThickness = new Thickness(2),
+                Name = $"{namePrefix}View{preset}",
+                MinWidth = 64,
+                MinHeight = 56,
+                Height = double.NaN,
+                Margin = new Thickness(3),
+                Padding = new Thickness(8, 4),
+                BorderThickness = new Thickness(2),
                 Content = CaptionedIcon(new ViewCubeIcon(face) { Width = 26, Height = 24, EmphasizeFace = true }, title)
             };
             button.Styles.Add(new Style(selector => selector.OfType<ToggleButton>().PropertyEquals(ToggleButton.IsCheckedProperty, true))
@@ -766,9 +746,14 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         UpdateViewPresetSelection();
         var toolbar = new Border
         {
-            Name = "SolidModelViewPresets", Padding = new Thickness(7, 5), Child = items
+            Name = $"{namePrefix}ViewPresets",
+            Padding = new Thickness(7, 5),
+            Child = items,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Bottom,
+            Margin = new Thickness(72, 10, 72, 48)
         };
-        toolbar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        SettingsPanelChrome.ApplySurfaceCardStyle(toolbar);
         return toolbar;
     }
 
@@ -777,7 +762,8 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         icon.HorizontalAlignment = HorizontalAlignment.Center;
         return new StackPanel
         {
-            Spacing = 2, HorizontalAlignment = HorizontalAlignment.Center,
+            Spacing = 2,
+            HorizontalAlignment = HorizontalAlignment.Center,
             Children =
             {
                 icon,

@@ -5,24 +5,24 @@ using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.NonSequential;
 using BoxParameters = OpticalSystemDesign.Core.NonSequential.BoxParameters;
+using CoreTerminationReason = OpticalSystemDesign.Core.Raytrace.NonSequentialTerminationReason;
 using CylinderParameters = OpticalSystemDesign.Core.NonSequential.CylinderParameters;
 using DetectorRectangleParameters = OpticalSystemDesign.Core.NonSequential.DetectorRectangleParameters;
+using MeshObjectParameters = OpticalSystemDesign.Core.NonSequential.MeshObjectParameters;
 using NonSequentialObjectKind = OpticalSystemDesign.Core.NonSequential.NonSequentialObjectKind;
 using PlaneRectangleParameters = OpticalSystemDesign.Core.NonSequential.PlaneRectangleParameters;
+using SourceEllipseParameters = OpticalSystemDesign.Core.NonSequential.SourceEllipseParameters;
+using SourceGaussianParameters = OpticalSystemDesign.Core.NonSequential.SourceGaussianParameters;
+using SourcePointParameters = OpticalSystemDesign.Core.NonSequential.SourcePointParameters;
+using SourceRadialParameters = OpticalSystemDesign.Core.NonSequential.SourceRadialParameters;
+using SourceRayParameters = OpticalSystemDesign.Core.NonSequential.SourceRayParameters;
+using SourceRectangleParameters = OpticalSystemDesign.Core.NonSequential.SourceRectangleParameters;
+using SourceTwoAngleParameters = OpticalSystemDesign.Core.NonSequential.SourceTwoAngleParameters;
+using SourceVolumeCylinderParameters = OpticalSystemDesign.Core.NonSequential.SourceVolumeCylinderParameters;
+using SourceVolumeEllipseParameters = OpticalSystemDesign.Core.NonSequential.SourceVolumeEllipseParameters;
+using SourceVolumeRectangleParameters = OpticalSystemDesign.Core.NonSequential.SourceVolumeRectangleParameters;
 using SphereParameters = OpticalSystemDesign.Core.NonSequential.SphereParameters;
 using StandardLensParameters = OpticalSystemDesign.Core.NonSequential.StandardLensParameters;
-using MeshObjectParameters = OpticalSystemDesign.Core.NonSequential.MeshObjectParameters;
-using SourceRayParameters = OpticalSystemDesign.Core.NonSequential.SourceRayParameters;
-using SourcePointParameters = OpticalSystemDesign.Core.NonSequential.SourcePointParameters;
-using SourceRectangleParameters = OpticalSystemDesign.Core.NonSequential.SourceRectangleParameters;
-using SourceGaussianParameters = OpticalSystemDesign.Core.NonSequential.SourceGaussianParameters;
-using SourceEllipseParameters = OpticalSystemDesign.Core.NonSequential.SourceEllipseParameters;
-using SourceTwoAngleParameters = OpticalSystemDesign.Core.NonSequential.SourceTwoAngleParameters;
-using SourceRadialParameters = OpticalSystemDesign.Core.NonSequential.SourceRadialParameters;
-using SourceVolumeRectangleParameters = OpticalSystemDesign.Core.NonSequential.SourceVolumeRectangleParameters;
-using SourceVolumeEllipseParameters = OpticalSystemDesign.Core.NonSequential.SourceVolumeEllipseParameters;
-using SourceVolumeCylinderParameters = OpticalSystemDesign.Core.NonSequential.SourceVolumeCylinderParameters;
-using CoreTerminationReason = OpticalSystemDesign.Core.Raytrace.NonSequentialTerminationReason;
 
 namespace OpticalSystemDesign.Application.Services;
 
@@ -42,6 +42,7 @@ internal static class NonSequentialVisualizationBuilder
         var branches = databaseBranches ?? Array.Empty<NonSequentialRayBranch>();
         var geometryPoints = surfaces.SelectMany(surface => surface.Faces.SelectMany(face => face.Points)).ToArray();
         var escapeTailLength = EscapeTailLength(geometryPoints);
+        var wavelengths = new NonSequentialWavelengthIndex(document.Wavelengths);
         var rays = branches.Select((branch, index) =>
         {
             var segments = branch.Segments.Select((segment, segmentIndex) => new SceneRaySegment3Dto(
@@ -76,7 +77,7 @@ internal static class NonSequentialVisualizationBuilder
                 index + 1,
                 0,
                 0,
-                WavelengthIndex(document, branch),
+                WavelengthIndex(wavelengths, branch),
                 branch.Segments.FirstOrDefault()?.WavelengthNanometers ?? document.Wavelengths[0].Nanometers,
                 false,
                 branch.FinalIntensity,
@@ -345,11 +346,11 @@ internal static class NonSequentialVisualizationBuilder
         _ => string.Empty
     };
 
-    private static int WavelengthIndex(NonSequentialDocument document, NonSequentialRayBranch branch)
+    private static int WavelengthIndex(NonSequentialWavelengthIndex wavelengths, NonSequentialRayBranch branch)
     {
         var wavelength = branch.Segments.FirstOrDefault()?.WavelengthNanometers;
         if (wavelength is null) return 0;
-        var index = document.Wavelengths.ToList().FindIndex(item => Math.Abs(item.Nanometers - wavelength.Value) < 1e-9);
+        var index = wavelengths.FindIndex(wavelength.Value, includeToleranceBoundary: false);
         return Math.Max(0, index);
     }
 

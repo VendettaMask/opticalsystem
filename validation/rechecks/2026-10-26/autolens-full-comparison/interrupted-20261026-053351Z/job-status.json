@@ -1,0 +1,50 @@
+{
+  "state": "running",
+  "updatedUtc": "2026-10-26T05:25:56.604488+00:00",
+  "csharpPid": 29680,
+  "runtime": "D:\\optical system design\\tmp\\autolens-comparison-optimized-runtime\\OpticalSystemDesign.InitialStructure.Benchmarks.dll",
+  "originalProgress": {
+    "curriculum": 2001,
+    "refinement": 720,
+    "livePhase": "refinement",
+    "liveUpdates": 747,
+    "livePlanned": 3001
+  },
+  "csharpProgress": {
+    "State": "running",
+    "ProcessId": 29680,
+    "StartedUtc": "2026-10-26T03:46:52.0554382+00:00",
+    "UpdatedUtc": "2026-10-26T05:25:55.920128+00:00",
+    "Phase": "CatalogRefinement",
+    "PhaseIteration": 184,
+    "CurriculumUpdates": 2001,
+    "RefinementUpdates": 184,
+    "ExpectedCurriculumUpdates": 2001,
+    "ExpectedRefinementUpdates": 3001,
+    "Evaluations": 2239,
+    "LastLoss": 0.06657113296050451,
+    "SecondsThisProcess": 5943.8647071,
+    "PreviousElapsedComputeSeconds": 0,
+    "GpuBatches": 126776,
+    "GpuRays": 102092693,
+    "LastComputeExecution": {
+      "Backend": "cuda-fixed-input-forward-v1",
+      "DeviceName": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "GpuBatches": 16,
+      "GpuRays": 16384,
+      "GpuMilliseconds": 564.8452,
+      "FallbackReason": null
+    },
+    "PropagationExecution": {
+      "DeviceName": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "AimRays": 0,
+      "AimTraces": 0,
+      "PropagatedRays": 106115072,
+      "Batches": 127688,
+      "Milliseconds": 367818.2903999997,
+      "CpuRecoveryRays": 0,
+      "FallbackReason": null
+    },
+    "Scope": "Same default sampling and seed; complete existing implementation with one-update exact resumes; resource caps do not shorten stages"
+  }
+}

@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="a074871c-cbbb-4908-b782-dfb7c190272c" name="optics@LAPTOP-G4BBBCS0 2026-10-26 13:01:36" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-26T13:01:36.4514775+08:00" queuing="2026-10-26T13:01:36.4514778+08:00" start="2026-10-26T13:01:30.1452806+08:00" finish="2026-10-26T13:01:36.6362298+08:00" />
+  <TestSettings name="default" id="d8895f5b-8f23-4088-a2bb-71e01fe3fb94">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-10-26_13_01_36" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="e099b61e-3797-4987-b4a0-3a25a65a79c8" testId="3102f85e-140a-d71f-14d6-7c6fc3ed3e5a" testName="OpticalSystemDesign.Tests.PriorityDataSafetyTests.ClearAndTraceResetsTotalsWhileTraceOnlyAccumulates" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0359347" startTime="2026-10-26T13:01:36.4741065+08:00" endTime="2026-10-26T13:01:36.5043344+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e099b61e-3797-4987-b4a0-3a25a65a79c8" />
+    <UnitTestResult executionId="06183bc5-2c0f-4deb-9bca-fc76d377b0b9" testId="c4e5199e-1320-1f75-1cc9-44d122d281b2" testName="OpticalSystemDesign.Tests.PriorityDataSafetyTests.TraceDestinationNeverReplacesAnExistingFile(extension: &quot;.staropt&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0064280" startTime="2026-10-26T13:01:36.3615664+08:00" endTime="2026-10-26T13:01:36.3681316+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="06183bc5-2c0f-4deb-9bca-fc76d377b0b9" />
+    <UnitTestResult executionId="b6b067ef-eda7-4667-9e71-854a17b65aef" testId="35d8b7d9-fcc2-e62b-46ef-8e2a9dee3f55" testName="OpticalSystemDesign.Tests.PriorityDataSafetyTests.TraceDestinationNeverReplacesAnExistingFile(extension: &quot;.starrdb&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.5999383" startTime="2026-10-26T13:01:35.7537817+08:00" endTime="2026-10-26T13:01:36.3289894+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b6b067ef-eda7-4667-9e71-854a17b65aef" />
+    <UnitTestResult executionId="bdb03c1c-1c65-4172-ac64-682f9da4a4d5" testId="cbefe216-2317-8b43-08e3-99e31a2c8c64" testName="OpticalSystemDesign.Tests.NonSequentialStrayLightTests.AnalysisSessionAccumulatesTraceOnlyAndDrivesDetectorAndDatabaseViews" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.8047263" startTime="2026-10-26T13:01:35.7538515+08:00" endTime="2026-10-26T13:01:36.5335239+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bdb03c1c-1c65-4172-ac64-682f9da4a4d5" />
+    <UnitTestResult executionId="785ff60a-3c8b-4a2b-b0d0-9f6e941172d9" testId="140a408a-3791-95df-ee70-f4603202dca1" testName="OpticalSystemDesign.Tests.PriorityDataSafetyTests.InvalidSavedModeFallsBackToSequential(mode: &quot;-1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0002244" startTime="2026-10-26T13:01:36.4294750+08:00" endTime="2026-10-26T13:01:36.4295296+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="785ff60a-3c8b-4a2b-b0d0-9f6e941172d9" />
+    <UnitTestResult executionId="1a95bdfc-9739-4ac6-ab15-cf8ea9006b55" testId="6969afbb-b405-a996-8c4c-faf6b426f6b4" testName="OpticalSystemDesign.Tests.PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(extension: &quot;.seq&quot;, text: &quot;SUR 1; RD 40; TH -12; GL AIR; SUR 2; RD -40; TH 2;&quot;···)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0008115" startTime="2026-10-26T13:01:36.4726848+08:00" endTime="2026-10-26T13:01:36.4736264+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1a95bdfc-9739-4ac6-ab15-cf8ea9006b55">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Contains() Failure: Filter not matched in collection&#xD;
+Collection: [0: Surface 0]</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(String extension, String text) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PriorityDataSafetyTests.cs:line 86&#xD;
+   at InvokeStub_PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3d35d525-879c-4b26-80bb-3c3690698ac9" testId="8285e638-dba2-61a2-b2ea-f6645a0957ab" testName="OpticalSystemDesign.Tests.PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(extension: &quot;.len&quot;, text: &quot;SRF 1; RD 40; TH -12; GL AIR; SRF 2; RD -40; TH 2;&quot;···)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0119908" startTime="2026-10-26T13:01:36.4486419+08:00" endTime="2026-10-26T13:01:36.4672068+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d35d525-879c-4b26-80bb-3c3690698ac9">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Contains() Failure: Filter not matched in collection&#xD;
+Collection: [0: Surface 0]</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(String extension, String text) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PriorityDataSafetyTests.cs:line 86&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="aeca88fb-a073-461c-b0ab-9b82f7b79b4d" testId="c69592ba-b098-650f-ddce-b214bc029ae1" testName="OpticalSystemDesign.Tests.PriorityDataSafetyTests.SavingCatalogPreservesUnrelatedJsonAndSelectsOnlyItsActiveFiles" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0175045" startTime="2026-10-26T13:01:36.4364976+08:00" endTime="2026-10-26T13:01:36.4476447+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aeca88fb-a073-461c-b0ab-9b82f7b79b4d" />
+    <UnitTestResult executionId="8d0ee013-4519-409d-ac79-b0720d5c5cd1" testId="acb2061d-f12d-1959-1db7-885c50c8afb3" testName="OpticalSystemDesign.Tests.PriorityDataSafetyTests.InvalidSavedModeFallsBackToSequential(mode: &quot;unrecognized&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0000113" startTime="2026-10-26T13:01:36.4297451+08:00" endTime="2026-10-26T13:01:36.4297898+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8d0ee013-4519-409d-ac79-b0720d5c5cd1" />
+    <UnitTestResult executionId="09670356-d9b6-4c61-ac42-0350cc791574" testId="664a7d5b-1179-da3f-30a6-6d3b183bb2d8" testName="OpticalSystemDesign.Tests.PriorityDataSafetyTests.InvalidSavedModeFallsBackToSequential(mode: &quot;999&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0607299" startTime="2026-10-26T13:01:36.3683481+08:00" endTime="2026-10-26T13:01:36.4292827+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="09670356-d9b6-4c61-ac42-0350cc791574" />
+    <UnitTestResult executionId="eaef1448-8ae6-416f-b190-21d37b7a8928" testId="40bca216-07c5-5f50-6f45-602a317e0dce" testName="OpticalSystemDesign.Tests.LensLibraryTests.CommercialLensServiceCachesFilteredSortedStockCatalog" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1039082" startTime="2026-10-26T13:01:35.7518024+08:00" endTime="2026-10-26T13:01:35.8374527+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eaef1448-8ae6-416f-b190-21d37b7a8928" />
+    <UnitTestResult executionId="ae93e67e-d973-49ad-a81c-811af35feb7a" testId="e1ab79fe-2265-d818-2f52-0436a2699edc" testName="OpticalSystemDesign.Tests.PriorityDataSafetyTests.InvalidSavedModeFallsBackToSequential(mode: null)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0000075" startTime="2026-10-26T13:01:36.4296236+08:00" endTime="2026-10-26T13:01:36.4296660+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ae93e67e-d973-49ad-a81c-811af35feb7a" />
+    <UnitTestResult executionId="9c8a3a9a-9c9a-4143-b501-25ec9d2ba2eb" testId="f4dee2ce-5e0d-3924-60cd-f9203439f517" testName="OpticalSystemDesign.Tests.PriorityDataSafetyTests.TraceDestinationNeverReplacesAnExistingFile(extension: &quot;.json&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0319750" startTime="2026-10-26T13:01:36.3300200+08:00" endTime="2026-10-26T13:01:36.3613985+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9c8a3a9a-9c9a-4143-b501-25ec9d2ba2eb" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(extension: &quot;.len&quot;, text: &quot;SRF 1; RD 40; TH -12; GL AIR; SRF 2; RD -40; TH 2;&quot;···)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8285e638-dba2-61a2-b2ea-f6645a0957ab">
+      <Execution id="3d35d525-879c-4b26-80bb-3c3690698ac9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PriorityDataSafetyTests" name="CommercialImportKeepsSignedThickness" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PriorityDataSafetyTests.TraceDestinationNeverReplacesAnExistingFile(extension: &quot;.staropt&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c4e5199e-1320-1f75-1cc9-44d122d281b2">
+      <Execution id="06183bc5-2c0f-4deb-9bca-fc76d377b0b9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PriorityDataSafetyTests" name="TraceDestinationNeverReplacesAnExistingFile" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PriorityDataSafetyTests.SavingCatalogPreservesUnrelatedJsonAndSelectsOnlyItsActiveFiles" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c69592ba-b098-650f-ddce-b214bc029ae1">
+      <Execution id="aeca88fb-a073-461c-b0ab-9b82f7b79b4d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PriorityDataSafetyTests" name="SavingCatalogPreservesUnrelatedJsonAndSelectsOnlyItsActiveFiles" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PriorityDataSafetyTests.InvalidSavedModeFallsBackToSequential(mode: &quot;-1&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="140a408a-3791-95df-ee70-f4603202dca1">
+      <Execution id="785ff60a-3c8b-4a2b-b0d0-9f6e941172d9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PriorityDataSafetyTests" name="InvalidSavedModeFallsBackToSequential" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PriorityDataSafetyTests.TraceDestinationNeverReplacesAnExistingFile(extension: &quot;.starrdb&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="35d8b7d9-fcc2-e62b-46ef-8e2a9dee3f55">
+      <Execution id="b6b067ef-eda7-4667-9e71-854a17b65aef" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PriorityDataSafetyTests" name="TraceDestinationNeverReplacesAnExistingFile" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PriorityDataSafetyTests.TraceDestinationNeverReplacesAnExistingFile(extension: &quot;.json&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f4dee2ce-5e0d-3924-60cd-f9203439f517">
+      <Execution id="9c8a3a9a-9c9a-4143-b501-25ec9d2ba2eb" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PriorityDataSafetyTests" name="TraceDestinationNeverReplacesAnExistingFile" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PriorityDataSafetyTests.ClearAndTraceResetsTotalsWhileTraceOnlyAccumulates" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3102f85e-140a-d71f-14d6-7c6fc3ed3e5a">
+      <Execution id="e099b61e-3797-4987-b4a0-3a25a65a79c8" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PriorityDataSafetyTests" name="ClearAndTraceResetsTotalsWhileTraceOnlyAccumulates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PriorityDataSafetyTests.InvalidSavedModeFallsBackToSequential(mode: null)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e1ab79fe-2265-d818-2f52-0436a2699edc">
+      <Execution id="ae93e67e-d973-49ad-a81c-811af35feb7a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PriorityDataSafetyTests" name="InvalidSavedModeFallsBackToSequential" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PriorityDataSafetyTests.InvalidSavedModeFallsBackToSequential(mode: &quot;999&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="664a7d5b-1179-da3f-30a6-6d3b183bb2d8">
+      <Execution id="09670356-d9b6-4c61-ac42-0350cc791574" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PriorityDataSafetyTests" name="InvalidSavedModeFallsBackToSequential" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LensLibraryTests.CommercialLensServiceCachesFilteredSortedStockCatalog" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="40bca216-07c5-5f50-6f45-602a317e0dce">
+      <Execution id="eaef1448-8ae6-416f-b190-21d37b7a8928" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LensLibraryTests" name="CommercialLensServiceCachesFilteredSortedStockCatalog" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(extension: &quot;.seq&quot;, text: &quot;SUR 1; RD 40; TH -12; GL AIR; SUR 2; RD -40; TH 2;&quot;···)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6969afbb-b405-a996-8c4c-faf6b426f6b4">
+      <Execution id="1a95bdfc-9739-4ac6-ab15-cf8ea9006b55" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PriorityDataSafetyTests" name="CommercialImportKeepsSignedThickness" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialStrayLightTests.AnalysisSessionAccumulatesTraceOnlyAndDrivesDetectorAndDatabaseViews" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="cbefe216-2317-8b43-08e3-99e31a2c8c64">
+      <Execution id="bdb03c1c-1c65-4172-ac64-682f9da4a4d5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialStrayLightTests" name="AnalysisSessionAccumulatesTraceOnlyAndDrivesDetectorAndDatabaseViews" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PriorityDataSafetyTests.InvalidSavedModeFallsBackToSequential(mode: &quot;unrecognized&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="acb2061d-f12d-1959-1db7-885c50c8afb3">
+      <Execution id="8d0ee013-4519-409d-ac79-b0720d5c5cd1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PriorityDataSafetyTests" name="InvalidSavedModeFallsBackToSequential" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="3102f85e-140a-d71f-14d6-7c6fc3ed3e5a" executionId="e099b61e-3797-4987-b4a0-3a25a65a79c8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c4e5199e-1320-1f75-1cc9-44d122d281b2" executionId="06183bc5-2c0f-4deb-9bca-fc76d377b0b9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="35d8b7d9-fcc2-e62b-46ef-8e2a9dee3f55" executionId="b6b067ef-eda7-4667-9e71-854a17b65aef" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cbefe216-2317-8b43-08e3-99e31a2c8c64" executionId="bdb03c1c-1c65-4172-ac64-682f9da4a4d5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="140a408a-3791-95df-ee70-f4603202dca1" executionId="785ff60a-3c8b-4a2b-b0d0-9f6e941172d9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6969afbb-b405-a996-8c4c-faf6b426f6b4" executionId="1a95bdfc-9739-4ac6-ab15-cf8ea9006b55" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8285e638-dba2-61a2-b2ea-f6645a0957ab" executionId="3d35d525-879c-4b26-80bb-3c3690698ac9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c69592ba-b098-650f-ddce-b214bc029ae1" executionId="aeca88fb-a073-461c-b0ab-9b82f7b79b4d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="acb2061d-f12d-1959-1db7-885c50c8afb3" executionId="8d0ee013-4519-409d-ac79-b0720d5c5cd1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="664a7d5b-1179-da3f-30a6-6d3b183bb2d8" executionId="09670356-d9b6-4c61-ac42-0350cc791574" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="40bca216-07c5-5f50-6f45-602a317e0dce" executionId="eaef1448-8ae6-416f-b190-21d37b7a8928" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e1ab79fe-2265-d818-2f52-0436a2699edc" executionId="ae93e67e-d973-49ad-a81c-811af35feb7a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f4dee2ce-5e0d-3924-60cd-f9203439f517" executionId="9c8a3a9a-9c9a-4143-b501-25ec9d2ba2eb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="13" executed="13" passed="11" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.97]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.57]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.60]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:04.38]       Assert.Contains() Failure: Filter not matched in collection&#xD;
+[xUnit.net 00:00:04.38]       Collection: [0: Surface 0]&#xD;
+[xUnit.net 00:00:04.38]       Stack Trace:&#xD;
+[xUnit.net 00:00:04.38]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PriorityDataSafetyTests.cs(86,0): at OpticalSystemDesign.Tests.PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(String extension, String text)&#xD;
+[xUnit.net 00:00:04.38]            at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+[xUnit.net 00:00:04.38]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:04.38]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:04.38]       Assert.Contains() Failure: Filter not matched in collection&#xD;
+[xUnit.net 00:00:04.38]       Collection: [0: Surface 0]&#xD;
+[xUnit.net 00:00:04.38]       Stack Trace:&#xD;
+[xUnit.net 00:00:04.38]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PriorityDataSafetyTests.cs(86,0): at OpticalSystemDesign.Tests.PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(String extension, String text)&#xD;
+[xUnit.net 00:00:04.38]            at InvokeStub_PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(Object, Span`1)&#xD;
+[xUnit.net 00:00:04.38]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:04.45]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T13:01:36.4699267+08:00">
+        <Text>[xUnit.net 00:00:04.38]     OpticalSystemDesign.Tests.PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(extension: ".len", text: "SRF 1; RD 40; TH -12; GL AIR; SRF 2; RD -40; TH 2;"···) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-10-26T13:01:36.4739400+08:00">
+        <Text>[xUnit.net 00:00:04.38]     OpticalSystemDesign.Tests.PriorityDataSafetyTests.CommercialImportKeepsSignedThickness(extension: ".seq", text: "SUR 1; RD 40; TH -12; GL AIR; SUR 2; RD -40; TH 2;"···) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

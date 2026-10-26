@@ -29,6 +29,14 @@ public sealed class PolychromaticCumulativeEnergyTests
         using var source = new StreamReader(new MemoryStream(files[id + "/source.zmx"]));
         var optic = OpticalFormatCatalog.Import(source.ReadToEnd(), ".zmx");
         optic.RayAimingEnabled = model.RootElement.GetProperty("rayAiming").GetProperty("RayAiming").GetString() != "Off";
+        foreach (var surface in model.RootElement.GetProperty("surfaces").EnumerateArray())
+        {
+            var index = surface.GetProperty("SurfaceNumber").GetInt32();
+            if (surface.GetProperty("Radius").ValueKind == JsonValueKind.Number && surface.GetProperty("Radius").TryGetDouble(out var radius))
+                Assert.InRange(Math.Abs(optic.SurfaceGroup.Items[index].Radius - radius), 0, 1e-10);
+            if (surface.GetProperty("Thickness").ValueKind == JsonValueKind.Number && surface.GetProperty("Thickness").TryGetDouble(out var thickness))
+                Assert.InRange(Math.Abs(optic.SurfaceGroup.Items[index].Thickness - thickness), 0, 1e-10);
+        }
         var r = request.RootElement;
         var sampling = r.GetProperty("pupilSampling").GetInt32();
         var result = new DiffractionEncircledEnergyAnalysis(optic, sampling, 2 * sampling, 401,

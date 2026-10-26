@@ -1,8 +1,8 @@
 using System.Numerics;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Domain;
-using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Propagation;
+using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Core.Analysis;

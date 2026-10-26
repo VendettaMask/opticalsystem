@@ -1,6 +1,6 @@
 using OpticalSystemDesign.ZemaxComparison;
-using OpticalSystemDesign.ZemaxComparison.Workbench;
 using OpticalSystemDesign.ZemaxComparison.Diagnostics;
+using OpticalSystemDesign.ZemaxComparison.Workbench;
 
 if (args.Length == 2 && args[0] == "--workbench-worker")
 {

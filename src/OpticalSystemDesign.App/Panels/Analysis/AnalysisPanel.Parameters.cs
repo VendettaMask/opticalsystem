@@ -9,13 +9,13 @@ using Avalonia.Input.Platform;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
-using Avalonia.VisualTree;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
+using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.Application.Services;
-using OpticalSystemDesign.App.Controls;
-using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.App.Panels;
 
@@ -97,6 +97,13 @@ public sealed partial class AnalysisPanel
         if (string.Equals(AnalysisKey, "Wavefront Map", StringComparison.Ordinal))
         {
             _parameterPanel.Children.Add(BuildWavefrontMapSettings(descriptors));
+            return;
+        }
+        if (AnalysisKey == "Interferogram")
+        {
+            _parameterPanel.Children.Add(BuildReferenceStyleSettings(descriptors,
+                new[] { "Sampling", "ScaleFactor", "ShowAs", "XTilt", "YTilt", "Beam1", "Beam2", "RefBeamToVertex", "UseExitPupilShape" },
+                new[] { "WavelengthNumber", "FieldNumber", "SurfaceNumber", "ConsiderPathLengthDifference", "ContourFormat", "PupilSx", "PupilSy", "PupilSr" }));
             return;
         }
         if (string.Equals(AnalysisKey, "PSF", StringComparison.Ordinal))
@@ -897,6 +904,7 @@ public sealed partial class AnalysisPanel
         Control control = descriptor.Kind switch
         {
             AnalysisParameterKind.Choice => ChoiceInput(descriptor, value),
+            AnalysisParameterKind.Text => new TextBox { Text = value, MinWidth = 120 },
             AnalysisParameterKind.Boolean => BooleanInput(value),
             AnalysisParameterKind.File when descriptor.Key == "OutputFile" =>
                 new FilePathInput(value, SelectImageOutputFileAsync, "选择输出 BMP、PNG 或 JPEG 文件"),
@@ -906,6 +914,19 @@ public sealed partial class AnalysisPanel
         var automationTarget = control is FilePathInput file ? file.Input : control;
         AutomationProperties.SetName(automationTarget, descriptor.DisplayName);
         AutomationProperties.SetAutomationId(automationTarget, $"analysis-parameter-{descriptor.Key}");
+        if (AnalysisKey == "Interferogram")
+        {
+            var help = descriptor.Key switch
+            {
+                "RefBeamToVertex" => "仅用于主光线靠近分析面顶点的小倾斜情况；条纹倍率必须为 1。",
+                "Beam1" or "Beam2" => "参考光束的 OPD 为零；不同结构光束假定等强度且出瞳完全重叠，不补偿横移或放大率差异。",
+                "XTilt" or "YTilt" => "全瞳直径上的附加条纹数，在 OPD 条纹倍率之后应用。",
+                "ConsiderPathLengthDifference" => "使用两束光到各自像面的主光线总光程差改变整体条纹相位；参考光束光程为零。",
+                "ContourFormat" => "留空自动选择；单个正数指定间隔，多个空格分隔的数指定等高线值（强度 0–1）。",
+                _ => null
+            };
+            if (help is not null) { ToolTip.SetTip(control, help); AutomationProperties.SetHelpText(automationTarget, help); }
+        }
         return control;
     }
 

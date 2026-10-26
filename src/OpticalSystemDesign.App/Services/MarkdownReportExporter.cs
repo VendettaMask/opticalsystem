@@ -53,7 +53,9 @@ internal static class MarkdownReportExporter
         var navigation = workspace.MultiConfiguration.GetNavigationState();
         var configurations = settings.AllConfigurations && workspace.Modes.CurrentMode == OpticalWorkbenchMode.Sequential
             ? Enumerable.Range(0, navigation.Count).ToArray() : [navigation.ActiveIndex];
-        var analyses = settings.AnalysisKeys.Select(workspace.Analyses.CanonicalKey).Distinct(StringComparer.Ordinal).ToArray();
+        var analyses = settings.AnalysisKeys
+            .Where(key => !WorkbenchAnalysisCatalog.IsRetiredAnalysis(key))
+            .Select(workspace.Analyses.CanonicalKey).Distinct(StringComparer.Ordinal).ToArray();
         var layoutCount = (settings.Include2DLayout ? 1 : 0) + (settings.Include3DLayout ? 1 : 0);
         var total = configurations.Length * (analyses.Length + layoutCount + 1) + 1;
         var text = new StringBuilder();

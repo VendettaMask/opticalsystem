@@ -1,0 +1,44 @@
+2026-10-26T03:18:24.8940143+00:00 Clipboard read cancelled; System.Runtime.InteropServices.COMException; HRESULT=0x8007000E
+   at Avalonia.Win32.Win32Com.Impl.__MicroComIDataObjectProxy.EnumFormatEtc(Int32 dwDirection)
+   at Avalonia.Win32.OleDataObjectToDataTransferWrapper.ProvideFormats()
+   at Avalonia.Input.Platform.PlatformDataTransfer.get_Formats()
+   at Avalonia.Input.Platform.PlatformDataTransfer.Avalonia.Input.IDataTransfer.get_Formats()
+   at IsolatedOleClipboard.TryGetDataAsync() in D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\clipboard-native\background-probe\Program.cs:line 209
+   at Avalonia.Input.Platform.ClipboardExtensions.TryGetValueAsync[T](IClipboard clipboard, DataFormat`1 format)
+   at OpticalSystemDesign.App.Services.ClipboardExceptionBoundary.TryReadTextAsync(Func`1 read) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\ClipboardExceptionBoundary.cs:line 27
+2026-10-26T03:18:28.0734855+00:00 Clipboard read cancelled; System.Runtime.InteropServices.COMException; HRESULT=0x8007000E
+   at Avalonia.Win32.Win32Com.Impl.__MicroComIDataObjectProxy.EnumFormatEtc(Int32 dwDirection)
+   at Avalonia.Win32.OleDataObjectToDataTransferWrapper.ProvideFormats()
+   at Avalonia.Input.Platform.PlatformDataTransfer.get_Formats()
+   at Avalonia.Input.Platform.PlatformDataTransfer.Avalonia.Input.IDataTransfer.get_Formats()
+   at IsolatedOleClipboard.TryGetDataAsync() in D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\clipboard-native\background-probe\Program.cs:line 209
+   at Avalonia.Input.Platform.ClipboardExtensions.TryGetValueAsync[T](IClipboard clipboard, DataFormat`1 format)
+   at Avalonia.Controls.TextBox.Paste()
+   at System.Threading.Tasks.Task.<>c.<ThrowAsync>b__124_0(Object state)
+   at Avalonia.Threading.SendOrPostCallbackDispatcherOperation.InvokeCore()
+2026-10-26T03:18:31.4749125+00:00 Clipboard read cancelled; System.Runtime.InteropServices.COMException; HRESULT=0x8007000E
+   at Avalonia.Win32.Win32Com.Impl.__MicroComIDataObjectProxy.EnumFormatEtc(Int32 dwDirection)
+   at Avalonia.Win32.OleDataObjectToDataTransferWrapper.ProvideFormats()
+   at Avalonia.Input.Platform.PlatformDataTransfer.get_Formats()
+   at Avalonia.Input.Platform.PlatformDataTransfer.Avalonia.Input.IDataTransfer.get_Formats()
+   at IsolatedOleClipboard.TryGetDataAsync() in D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\clipboard-native\background-probe\Program.cs:line 209
+   at Avalonia.Input.Platform.ClipboardExtensions.TryGetValueAsync[T](IClipboard clipboard, DataFormat`1 format)
+   at Avalonia.Controls.TextBox.Paste()
+   at System.Threading.Tasks.Task.<>c.<ThrowAsync>b__124_0(Object state)
+   at Avalonia.Threading.SendOrPostCallbackDispatcherOperation.InvokeCore()
+2026-10-26T03:18:34.7728265+00:00 Clipboard read cancelled; System.Runtime.InteropServices.COMException; HRESULT=0x8007000E
+   at Avalonia.Win32.Win32Com.Impl.__MicroComIDataObjectProxy.EnumFormatEtc(Int32 dwDirection)
+   at Avalonia.Win32.OleDataObjectToDataTransferWrapper.ProvideFormats()
+   at Avalonia.Input.Platform.PlatformDataTransfer.get_Formats()
+   at Avalonia.Input.Platform.PlatformDataTransfer.Avalonia.Input.IDataTransfer.get_Formats()
+   at IsolatedOleClipboard.TryGetDataAsync() in D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\clipboard-native\background-probe\Program.cs:line 209
+   at Avalonia.Input.Platform.ClipboardExtensions.TryGetValueAsync[T](IClipboard clipboard, DataFormat`1 format)
+   at OpticalSystemDesign.App.Services.ClipboardExceptionBoundary.TryReadTextAsync(Func`1 read) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\ClipboardExceptionBoundary.cs:line 27
+2026-10-26T03:18:53.5934465+00:00 Clipboard read cancelled; System.Runtime.InteropServices.COMException; HRESULT=0x8007000E
+   at Avalonia.Win32.Win32Com.Impl.__MicroComIDataObjectProxy.EnumFormatEtc(Int32 dwDirection)
+   at Avalonia.Win32.OleDataObjectToDataTransferWrapper.ProvideFormats()
+   at Avalonia.Input.Platform.PlatformDataTransfer.get_Formats()
+   at Avalonia.Input.Platform.PlatformDataTransfer.Avalonia.Input.IDataTransfer.get_Formats()
+   at IsolatedOleClipboard.TryGetDataAsync() in D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\clipboard-native\background-probe\Program.cs:line 209
+   at Avalonia.Input.Platform.ClipboardExtensions.TryGetValueAsync[T](IClipboard clipboard, DataFormat`1 format)
+   at OpticalSystemDesign.App.Services.ClipboardExceptionBoundary.TryReadTextAsync(Func`1 read) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\ClipboardExceptionBoundary.cs:line 27

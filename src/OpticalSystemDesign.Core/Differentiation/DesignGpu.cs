@@ -45,6 +45,11 @@ public static partial class DesignGpu
         private readonly Accelerator _accelerator;
         private readonly Action<Index1D, ArrayView<GradientTapeNode>, ArrayView<int>, ArrayView<double>, ArrayView<double>, int> _kernel;
         private readonly object _gate = new();
+        private GradientTapeNode[] _hostGradientNodes = [];
+        private int[] _hostGradientRanges = [];
+        private MemoryBuffer1D<GradientTapeNode, Stride1D.Dense>? _gradientNodes;
+        private MemoryBuffer1D<int, Stride1D.Dense>? _gradientRanges;
+        private MemoryBuffer1D<double, Stride1D.Dense>? _gradientAdjoints, _gradientResults;
         public string DeviceName => _accelerator.Name;
 
         public Runtime()
@@ -60,7 +65,7 @@ public static partial class DesignGpu
                 _accelerator = initialized = device.CreateAccelerator(_context);
                 if (_accelerator.AcceleratorType != AcceleratorType.Cuda) throw new NotSupportedException("A hardware CUDA accelerator is required.");
                 _kernel = _accelerator.LoadAutoGroupedStreamKernel<Index1D, ArrayView<GradientTapeNode>, ArrayView<int>, ArrayView<double>, ArrayView<double>, int>(ReverseKernel);
-                AppDomain.CurrentDomain.ProcessExit += (_, _) => { lock (_gate) { DisposePropagationBuffers(); _accelerator.Dispose(); _context.Dispose(); } };
+                AppDomain.CurrentDomain.ProcessExit += (_, _) => { lock (_gate) { DisposePropagationBuffers(); DisposeDifferentiationBuffers(); DisposeFixedInputBuffers(); _accelerator.Dispose(); _context.Dispose(); } };
             }
             catch { initialized?.Dispose(); _context.Dispose(); throw; }
         }
@@ -72,37 +77,52 @@ public static partial class DesignGpu
             if (nodeCount > 2_000_000) throw new GpuTapeRangeException("The CUDA batch exceeds its bounded graph capacity.");
             if (tapes.Count == 0 || outputs.Count != tapes.Count || parameters is < 1 or > 512)
                 throw new ArgumentException("Invalid CUDA tangent batch.");
-            var nodes = new GradientTapeNode[Math.Max(1, nodeCount)];
-            var ranges = new int[tapes.Count * 8];
-            var offset = 0;
-            for (var ray = 0; ray < tapes.Count; ray++)
-            {
-                if (outputs[ray].Length != 6) throw new ArgumentException("A ray has six differentiable outputs.");
-                ranges[ray * 8] = offset;
-                ranges[ray * 8 + 1] = tapes[ray].Nodes.Count;
-                for (var index = 0; index < tapes[ray].Nodes.Count; index++) nodes[offset + index] = tapes[ray].Nodes[index];
-                for (var component = 0; component < 6; component++) ranges[ray * 8 + 2 + component] = outputs[ray][component];
-                offset += tapes[ray].Nodes.Count;
-            }
             lock (_gate)
             {
                 cancellationToken.ThrowIfCancellationRequested();
+                if (_hostGradientNodes.Length < Math.Max(1, nodeCount)) _hostGradientNodes = new GradientTapeNode[Math.Max(1, nodeCount)];
+                if (_hostGradientRanges.Length < tapes.Count * 8) _hostGradientRanges = new int[tapes.Count * 8];
+                var nodes = _hostGradientNodes;
+                var ranges = _hostGradientRanges;
+                var offset = 0;
+                for (var ray = 0; ray < tapes.Count; ray++)
+                {
+                    if (outputs[ray].Length != 6) throw new ArgumentException("A ray has six differentiable outputs.");
+                    ranges[ray * 8] = offset;
+                    ranges[ray * 8 + 1] = tapes[ray].Nodes.Count;
+                    for (var index = 0; index < tapes[ray].Nodes.Count; index++) nodes[offset + index] = tapes[ray].Nodes[index];
+                    for (var component = 0; component < 6; component++) ranges[ray * 8 + 2 + component] = outputs[ray][component];
+                    offset += tapes[ray].Nodes.Count;
+                }
+                cancellationToken.ThrowIfCancellationRequested();
                 var timer = Stopwatch.StartNew();
-                using var deviceNodes = _accelerator.Allocate1D(nodes);
-                using var deviceRanges = _accelerator.Allocate1D(ranges);
-                using var adjoints = _accelerator.Allocate1D<double>(Math.Max(1, (long)nodeCount * 6));
-                using var gradients = _accelerator.Allocate1D<double>((long)tapes.Count * 6 * parameters);
+                EnsureBuffer(ref _gradientNodes, Math.Max(1, nodeCount));
+                EnsureBuffer(ref _gradientRanges, tapes.Count * 8);
+                EnsureBuffer(ref _gradientAdjoints, Math.Max(1, nodeCount * 6));
+                EnsureBuffer(ref _gradientResults, tapes.Count * 6 * parameters);
+                var deviceNodes = _gradientNodes!.View.BaseView.SubView(0, Math.Max(1, nodeCount));
+                var deviceRanges = _gradientRanges!.View.BaseView.SubView(0, tapes.Count * 8);
+                var adjoints = _gradientAdjoints!.View.BaseView.SubView(0, Math.Max(1, nodeCount * 6));
+                var gradients = _gradientResults!.View.BaseView.SubView(0, tapes.Count * 6 * parameters);
+                ReadOnlySpan<GradientTapeNode> nodeSpan = nodes.AsSpan(0, Math.Max(1, nodeCount));
+                ReadOnlySpan<int> rangeSpan = ranges.AsSpan(0, tapes.Count * 8);
+                deviceNodes.CopyFromCPU(nodeSpan);
+                deviceRanges.CopyFromCPU(rangeSpan);
                 adjoints.MemSetToZero();
                 gradients.MemSetToZero();
-                _kernel(tapes.Count * 6, deviceNodes.View, deviceRanges.View, adjoints.View, gradients.View, parameters);
+                _kernel(tapes.Count * 6, deviceNodes, deviceRanges, adjoints, gradients, parameters);
                 _accelerator.Synchronize();
-                var result = gradients.GetAsArray1D();
+                var result = new double[tapes.Count * 6 * parameters];
+                gradients.CopyToCPU(result);
                 timer.Stop();
                 cancellationToken.ThrowIfCancellationRequested();
                 if (result.Any(value => !double.IsFinite(value))) throw new GpuTapeRangeException("A CUDA tangent is outside the finite double range.");
                 return (result, timer.Elapsed.TotalMilliseconds);
             }
         }
+
+        private void DisposeDifferentiationBuffers()
+        { _gradientNodes?.Dispose(); _gradientRanges?.Dispose(); _gradientAdjoints?.Dispose(); _gradientResults?.Dispose(); }
 
         private static void ReverseKernel(Index1D thread, ArrayView<GradientTapeNode> nodes, ArrayView<int> ranges,
             ArrayView<double> adjoints, ArrayView<double> gradients, int parameters)

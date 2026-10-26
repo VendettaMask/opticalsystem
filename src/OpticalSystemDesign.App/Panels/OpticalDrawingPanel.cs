@@ -2,14 +2,14 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using Avalonia.Layout;
+using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Manufacturing;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Panels;
 
@@ -51,6 +51,13 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         Text = "内置 S.T.A.R.Labs",
         MaxWidth = 190,
         TextTrimming = TextTrimming.CharacterEllipsis
+    };
+    private readonly CompanyLogoControl _builtInLogoPreview = new()
+    {
+        Name = "DrawingCompanyLogo",
+        Width = 180,
+        Height = 26,
+        HorizontalAlignment = HorizontalAlignment.Left
     };
     private readonly DrawingPreviewControl _preview = new();
     private readonly TextBlock _zoomStatus = new()
@@ -226,6 +233,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
                     LineSpacing = 4,
                     Children = { importLogo, resetLogo }
                 },
+                _builtInLogoPreview,
                 _logoStatus
             }
         }, ref row);
@@ -632,6 +640,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             }
 
             _companyLogoPng = bytes;
+            _builtInLogoPreview.IsVisible = false;
             _logoStatus.Text = files[0].Name;
             UpdatePreview();
         }
@@ -644,6 +653,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
     private void ResetLogo()
     {
         _companyLogoPng = null;
+        _builtInLogoPreview.IsVisible = true;
         _logoStatus.Text = "内置 S.T.A.R.Labs";
         UpdatePreview();
     }

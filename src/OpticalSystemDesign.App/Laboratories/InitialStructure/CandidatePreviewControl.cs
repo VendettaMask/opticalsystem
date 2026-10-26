@@ -4,11 +4,11 @@ using Avalonia.Automation.Provider;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
-using OpticalSystemDesign.Modules;
+using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.InitialStructure.Contracts;
+using OpticalSystemDesign.Modules;
 
 namespace OpticalSystemDesign.App.Laboratories.InitialStructure;
 

@@ -11,12 +11,12 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -384,11 +384,11 @@ public sealed class AnalysisImageExportTests
                     var bounds = frame.TransformToAABB(plot.TransformToVisual(page)!.Value);
                     var ink = 0;
                     for (var y = Math.Max(0, (int)bounds.Top - 1); y < Math.Min(hidden.PixelSize.Height, (int)Math.Ceiling(bounds.Bottom) + 1); y++)
-                    for (var x = Math.Max(0, (int)bounds.Left - 1); x < Math.Min(hidden.PixelSize.Width, (int)Math.Ceiling(bounds.Right) + 1); x++)
-                    {
-                        var offset = (y * hidden.PixelSize.Width + x) * 4;
-                        if (bytes[offset + 3] > 0 && (bytes[offset] < 220 || bytes[offset + 1] < 220 || bytes[offset + 2] < 220)) ink++;
-                    }
+                        for (var x = Math.Max(0, (int)bounds.Left - 1); x < Math.Min(hidden.PixelSize.Width, (int)Math.Ceiling(bounds.Right) + 1); x++)
+                        {
+                            var offset = (y * hidden.PixelSize.Width + x) * 4;
+                            if (bytes[offset + 3] > 0 && (bytes[offset] < 220 || bytes[offset + 1] < 220 || bytes[offset + 2] < 220)) ink++;
+                        }
                     Assert.True(ink > 40, "Each exported empty plot must retain visible axes and grid.");
                 }
                 var capture = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR")!;

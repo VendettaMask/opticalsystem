@@ -18,16 +18,12 @@ internal sealed partial class CameraImagingService
         var bytes = await BoundedFile.ReadAllBytesAsync(path, MaximumSensorFileBytes, "Camera spectrum", token).ConfigureAwait(false);
         try
         {
-            var lines = new UTF8Encoding(false, true).GetString(bytes).TrimStart('\uFEFF').Split('\n');
             var samples = new List<CameraSpectrumSample>(); var seenHeader = false; var scale = 1d;
-            for (var i = 0; i < lines.Length; i++)
+            foreach (var row in CameraSpectralCsvReader.Read(bytes, token))
             {
-                token.ThrowIfCancellationRequested(); var line = lines[i].Trim();
-                if (line.Length == 0 || line.StartsWith('#')) continue;
-                var cells = line.Split(',').Select(x => x.Trim()).ToArray();
                 if (!seenHeader)
                 {
-                    var header = string.Join(',', cells).ToLowerInvariant();
+                    var header = row.Header;
                     if (kind == CameraSpectrumKind.Illuminant && header != "wavelength_nm,irradiance_w_m2_nm")
                         throw new InvalidDataException("光源表头应为 wavelength_nm,irradiance_w_m2_nm，使用绝对 W/m²/nm，不自动归一化。");
                     if (kind == CameraSpectrumKind.Reflectance)
@@ -39,11 +35,10 @@ internal sealed partial class CameraImagingService
                         };
                     seenHeader = true; continue;
                 }
-                if (cells.Length != 2 || samples.Count >= SensorSpectralResponse.MaximumSamples
-                    || !double.TryParse(cells[0], NumberStyles.Float, CultureInfo.InvariantCulture, out var wavelength)
-                    || !double.TryParse(cells[1], NumberStyles.Float, CultureInfo.InvariantCulture, out var value))
-                    throw new InvalidDataException($"光谱 CSV 第 {i + 1} 行无效：需要两列数值，最多 4096 点。");
-                samples.Add(new(wavelength, value * scale));
+                if (row.Cells.Length != 2 || samples.Count >= SensorSpectralResponse.MaximumSamples
+                    || !row.TryNumbers(out var values, requireFinite: false))
+                    throw new InvalidDataException($"光谱 CSV 第 {row.LineNumber} 行无效：需要两列数值，最多 4096 点。");
+                samples.Add(new(values[0], values[1] * scale));
             }
             return FreezeSpectrum(new(Path.GetFileNameWithoutExtension(path),
                 kind == CameraSpectrumKind.Illuminant ? "CSV absolute ideal-white image-plane spectral irradiance, W/m²/nm"

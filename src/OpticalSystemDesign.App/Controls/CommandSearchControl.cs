@@ -5,6 +5,8 @@ using Avalonia.Controls.Chrome;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using Avalonia.Input;
+using Avalonia.Input.Platform;
+using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Styling;
@@ -25,6 +27,8 @@ internal sealed class CommandSearchControl : Grid
     private readonly LocalIcon _icon;
     private bool _executing;
     private bool _suppressNextRefresh;
+    private bool _forwardingPaste;
+    private long _pasteRequest;
 
     internal CommandSearchControl(ActionManager actions)
     {
@@ -40,6 +44,7 @@ internal sealed class CommandSearchControl : Grid
             Padding = new Thickness(28, 3, 7, 3)
         };
         SearchBox.Classes.Add("caption-search");
+        SearchBox.PastingFromClipboard += OnSearchPasting;
         AutomationProperties.SetName(SearchBox, "搜索功能");
         AutomationProperties.SetHelpText(SearchBox, "Ctrl+Q 聚焦；输入命令名称、类别或标识；上下选择，Enter 执行，Esc 关闭。");
         ToolTip.SetTip(SearchBox, "搜索功能 (Ctrl+Q)");
@@ -114,6 +119,35 @@ internal sealed class CommandSearchControl : Grid
     }
 
     internal void CloseResults() => ResultsPopup.IsOpen = false;
+
+    private async void OnSearchPasting(object? sender, RoutedEventArgs args)
+    {
+        if (_forwardingPaste || args.Handled) return;
+        args.Handled = true;
+        await PasteSafelyAsync();
+    }
+
+    internal async Task PasteSafelyAsync(Func<Task<string?>>? readClipboard = null)
+    {
+        var topLevel = TopLevel.GetTopLevel(SearchBox);
+        if (topLevel?.Clipboard is not { } clipboard || SearchBox.IsReadOnly) return;
+        var request = ++_pasteRequest;
+        var originalText = SearchBox.Text;
+        var selectionStart = SearchBox.SelectionStart;
+        var selectionEnd = SearchBox.SelectionEnd;
+        var read = await ClipboardExceptionBoundary.TryReadTextAsync(readClipboard ?? (() => clipboard.TryGetTextAsync()));
+        if (!read.Succeeded || string.IsNullOrEmpty(read.Text) || request != _pasteRequest
+            || SearchBox.IsReadOnly || SearchBox.Text != originalText
+            || SearchBox.SelectionStart != selectionStart || SearchBox.SelectionEnd != selectionEnd
+            || !ReferenceEquals(TopLevel.GetTopLevel(SearchBox), topLevel)) return;
+
+        // Keep Avalonia's native selection, max-length and atomic undo behavior.
+        // It reads again; the narrowly scoped dispatcher boundary covers a provider
+        // that fails only on this second read. Never write to the clipboard.
+        _forwardingPaste = true;
+        try { SearchBox.Paste(); }
+        finally { _forwardingPaste = false; }
+    }
 
     internal bool TryHandleShortcut(KeyEventArgs args)
     {

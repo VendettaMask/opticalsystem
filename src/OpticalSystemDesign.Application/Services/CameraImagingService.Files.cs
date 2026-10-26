@@ -21,7 +21,9 @@ internal sealed partial class CameraImagingService
         + "Not an ImSym/Speos numerical comparison or EMVA certification.";
     private static readonly JsonSerializerOptions SensorJsonOptions = new()
     {
-        WriteIndented = true, PropertyNameCaseInsensitive = true, MaxDepth = 16,
+        WriteIndented = true,
+        PropertyNameCaseInsensitive = true,
+        MaxDepth = 16,
         UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
         Converters = { new JsonStringEnumConverter(allowIntegerValues: false) }
     };
@@ -54,17 +56,12 @@ internal sealed partial class CameraImagingService
     {
         var bytes = await BoundedFile.ReadAllBytesAsync(path, MaximumSensorFileBytes, "Camera spectral response", cancellationToken).ConfigureAwait(false);
         cancellationToken.ThrowIfCancellationRequested();
-        var rows = new UTF8Encoding(false, true).GetString(bytes).TrimStart('\uFEFF').Split('\n');
         var samples = new List<CameraResponseSample>(); var headerSeen = false; var scale = 1d;
-        for (var i = 0; i < rows.Length; i++)
+        foreach (var row in CameraSpectralCsvReader.Read(bytes, cancellationToken))
         {
-            cancellationToken.ThrowIfCancellationRequested();
-            var line = rows[i].Trim(); if (line.Length == 0 || line.StartsWith('#')) continue;
-            var cells = line.Split(',').Select(x => x.Trim()).ToArray();
             if (!headerSeen)
             {
-                var header = string.Join(',', cells).ToLowerInvariant();
-                scale = header switch
+                scale = row.Header switch
                 {
                     "wavelength_nm,qe_r,qe_g,qe_b" => 1,
                     "wavelength_nm,qe_r_percent,qe_g_percent,qe_b_percent" => 0.01,
@@ -72,12 +69,10 @@ internal sealed partial class CameraImagingService
                 };
                 headerSeen = true; continue;
             }
-            if (samples.Count >= SensorSpectralResponse.MaximumSamples || cells.Length != 4)
-                throw new InvalidDataException($"CSV 第 {i + 1} 行：需要四列，最多 4096 个采样点。");
-            var numbers = new double[4];
-            for (var j = 0; j < 4; j++)
-                if (!double.TryParse(cells[j], NumberStyles.Float, CultureInfo.InvariantCulture, out numbers[j]) || !double.IsFinite(numbers[j]))
-                    throw new InvalidDataException($"CSV 第 {i + 1} 行：请使用有限数值和小数点。");
+            if (samples.Count >= SensorSpectralResponse.MaximumSamples || row.Cells.Length != 4)
+                throw new InvalidDataException($"CSV 第 {row.LineNumber} 行：需要四列，最多 4096 个采样点。");
+            if (!row.TryNumbers(out var numbers, requireFinite: true))
+                throw new InvalidDataException($"CSV 第 {row.LineNumber} 行：请使用有限数值和小数点。");
             samples.Add(new(numbers[0], numbers[1] * scale, numbers[2] * scale, numbers[3] * scale));
         }
         try

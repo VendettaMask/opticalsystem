@@ -1,0 +1,148 @@
+Using CUDA: NVIDIA GeForce RTX 5060 Laptop GPU for DeepLens
+Lens design constraints initialized with default values.
+Lens written to D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-python-comparison\upstream-short-training\starting_point_f5.0mm_imgh5.0_fnum1.8.json
+Ray spot analysis results for depth -20000.0:
+RMS radius: FoV (0.0) 962.441 um, FoV (0.5) 963.367 um, FoV (1.0) 964.009 um
+Geo radius: FoV (0.0) 1365.173 um, FoV (0.5) 1368.004 um, FoV (1.0) 1366.996 um
+2026-10-26 10:36:05:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:36:05:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:36:05:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:36:05:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:36:05:WARNING:findfont: Font family 'Nimbus Sans' not found.
+Ray spot analysis results for depth -20000.0:
+RMS radius: FoV (0.0) 963.149 um, FoV (0.5) 960.500 um, FoV (1.0) 964.056 um
+Geo radius: FoV (0.0) 1367.537 um, FoV (0.5) 1368.442 um, FoV (1.0) 1366.260 um
+2026-10-26 10:36:09:INFO:lr:[0.0001, 0.001, 0.01, 0.0001], iterations:8, spp:512, num_ring:8, num_arm:1.
+
+Lens written to D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-python-comparison\upstream-short-training/iter0.json
+Ray spot analysis results for depth -20000.0:
+RMS radius: FoV (0.0) 481.950 um, FoV (0.5) 480.653 um, FoV (1.0) 473.847 um
+Geo radius: FoV (0.0) 685.082 um, FoV (0.5) 683.573 um, FoV (1.0) 678.198 um
+Curriculum:   0%|          | 0/9 [00:00<?, ?it/s, loss_reg=0, loss_rms=0]2026-10-26 10:36:27:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:36:27:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:36:27:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:36:27:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:36:27:WARNING:findfont: Font family 'Nimbus Sans' not found.
+Ray spot analysis results for depth -20000.0:
+RMS radius: FoV (0.0) 481.462 um, FoV (0.5) 480.437 um, FoV (1.0) 473.419 um
+Geo radius: FoV (0.0) 683.969 um, FoV (0.5) 684.206 um, FoV (1.0) 678.956 um
+
+Curriculum:   0%|          | 0/9 [00:20<?, ?it/s, loss_clearance=0, loss_cra=0.0221, loss_distortion=16.8, loss_envelope=0, loss_mat=0.0095, loss_profile=0, loss_ray_bend=0.168, loss_reg=0.2, loss_rms=0.479]
+Curriculum:  11%|��         | 1/9 [00:20<02:42, 20.26s/it, loss_clearance=0, loss_cra=0.0221, loss_distortion=16.8, loss_envelope=0, loss_mat=0.0095, loss_profile=0, loss_ray_bend=0.168, loss_reg=0.2, loss_rms=0.479]
+Curriculum:  11%|��         | 1/9 [00:27<02:42, 20.26s/it, loss_clearance=0, loss_cra=0.00652, loss_distortion=15.7, loss_envelope=0, loss_mat=0.00925, loss_profile=0, loss_ray_bend=0.0639, loss_reg=0.0796, loss_rms=0.455]
+Curriculum:  22%|������       | 2/9 [00:27<01:27, 12.44s/it, loss_clearance=0, loss_cra=0.00652, loss_distortion=15.7, loss_envelope=0, loss_mat=0.00925, loss_profile=0, loss_ray_bend=0.0639, loss_reg=0.0796, loss_rms=0.455]
+Curriculum:  22%|������       | 2/9 [00:34<01:27, 12.44s/it, loss_clearance=0, loss_cra=0.00213, loss_distortion=15.2, loss_envelope=0, loss_mat=0.00912, loss_profile=0, loss_ray_bend=0.0474, loss_reg=0.0587, loss_rms=0.444]
+Curriculum:  33%|��������      | 3/9 [00:34<01:00, 10.09s/it, loss_clearance=0, loss_cra=0.00213, loss_distortion=15.2, loss_envelope=0, loss_mat=0.00912, loss_profile=0, loss_ray_bend=0.0474, loss_reg=0.0587, loss_rms=0.444]
+Curriculum:  33%|��������      | 3/9 [00:42<01:00, 10.09s/it, loss_clearance=0.00351, loss_cra=0, loss_distortion=14.2, loss_envelope=0, loss_mat=0.00887, loss_profile=0, loss_ray_bend=0.0384, loss_reg=0.0508, loss_rms=0.422]
+Lens written to D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-python-comparison\upstream-short-training/iter4.json
+Ray spot analysis results for depth -20000.0:
+RMS radius: FoV (0.0) 643.726 um, FoV (0.5) 628.636 um, FoV (1.0) 571.571 um
+Geo radius: FoV (0.0) 911.792 um, FoV (0.5) 897.849 um, FoV (1.0) 844.294 um
+Curriculum:  44%|����������     | 4/9 [00:42<00:45,  9.11s/it, loss_clearance=0.00351, loss_cra=0, loss_distortion=14.2, loss_envelope=0, loss_mat=0.00887, loss_profile=0, loss_ray_bend=0.0384, loss_reg=0.0508, loss_rms=0.422]2026-10-26 10:37:10:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:37:10:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:37:10:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:37:10:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:37:10:WARNING:findfont: Font family 'Nimbus Sans' not found.
+Ray spot analysis results for depth -20000.0:
+RMS radius: FoV (0.0) 641.561 um, FoV (0.5) 630.120 um, FoV (1.0) 571.019 um
+Geo radius: FoV (0.0) 913.052 um, FoV (0.5) 896.536 um, FoV (1.0) 845.529 um
+
+Curriculum:  44%|����������     | 4/9 [01:05<00:45,  9.11s/it, loss_clearance=0, loss_cra=0, loss_distortion=10.9, loss_envelope=0, loss_mat=0.00875, loss_profile=0, loss_ray_bend=0.0711, loss_reg=0.0798, loss_rms=0.614]      
+Curriculum:  56%|������������    | 5/9 [01:05<00:56, 14.11s/it, loss_clearance=0, loss_cra=0, loss_distortion=10.9, loss_envelope=0, loss_mat=0.00875, loss_profile=0, loss_ray_bend=0.0711, loss_reg=0.0798, loss_rms=0.614]
+Curriculum:  56%|������������    | 5/9 [01:09<00:56, 14.11s/it, loss_clearance=0, loss_cra=0, loss_distortion=10.2, loss_envelope=0, loss_mat=0.0085, loss_profile=0, loss_ray_bend=0.0684, loss_reg=0.0769, loss_rms=0.583] 
+Curriculum:  67%|��������������   | 6/9 [01:09<00:32, 10.84s/it, loss_clearance=0, loss_cra=0, loss_distortion=10.2, loss_envelope=0, loss_mat=0.0085, loss_profile=0, loss_ray_bend=0.0684, loss_reg=0.0769, loss_rms=0.583]
+Curriculum:  67%|��������������   | 6/9 [01:14<00:32, 10.84s/it, loss_clearance=0, loss_cra=0, loss_distortion=9.81, loss_envelope=0, loss_mat=0.00838, loss_profile=0, loss_ray_bend=0.0653, loss_reg=0.0736, loss_rms=0.568]
+Curriculum:  78%|����������������  | 7/9 [01:14<00:17,  8.79s/it, loss_clearance=0, loss_cra=0, loss_distortion=9.81, loss_envelope=0, loss_mat=0.00838, loss_profile=0, loss_ray_bend=0.0653, loss_reg=0.0736, loss_rms=0.568]
+Curriculum:  78%|����������������  | 7/9 [01:19<00:17,  8.79s/it, loss_clearance=0, loss_cra=0, loss_distortion=9.11, loss_envelope=0, loss_mat=0.00813, loss_profile=0, loss_ray_bend=0.0636, loss_reg=0.0717, loss_rms=0.539]
+No intersection points found, use the last surface as exit pupil.
+Lens written to D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-python-comparison\upstream-short-training/iter8.json
+Ray spot analysis results for depth -20000.0:
+RMS radius: FoV (0.0) 756.309 um, FoV (0.5) 725.130 um, FoV (1.0) 613.090 um
+Geo radius: FoV (0.0) 1070.765 um, FoV (0.5) 1039.735 um, FoV (1.0) 926.264 um
+Curriculum:  89%|������������������ | 8/9 [01:19<00:07,  7.57s/it, loss_clearance=0, loss_cra=0, loss_distortion=9.11, loss_envelope=0, loss_mat=0.00813, loss_profile=0, loss_ray_bend=0.0636, loss_reg=0.0717, loss_rms=0.539]2026-10-26 10:37:43:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:37:43:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:37:43:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:37:43:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:37:43:WARNING:findfont: Font family 'Nimbus Sans' not found.
+Ray spot analysis results for depth -20000.0:
+RMS radius: FoV (0.0) 754.728 um, FoV (0.5) 725.500 um, FoV (1.0) 613.029 um
+Geo radius: FoV (0.0) 1071.597 um, FoV (0.5) 1039.979 um, FoV (1.0) 927.667 um
+
+Curriculum:  89%|������������������ | 8/9 [01:35<00:07,  7.57s/it, loss_clearance=0.00155, loss_cra=0, loss_distortion=8.9, loss_envelope=0, loss_mat=0.008, loss_profile=0, loss_ray_bend=0.0784, loss_reg=0.088, loss_rms=0.698]
+Curriculum: 100%|��������������������| 9/9 [01:35<00:00, 10.32s/it, loss_clearance=0.00155, loss_cra=0, loss_distortion=8.9, loss_envelope=0, loss_mat=0.008, loss_profile=0, loss_ray_bend=0.0784, loss_reg=0.088, loss_rms=0.698]
+Curriculum: 100%|��������������������| 9/9 [01:37<00:00, 10.83s/it, loss_clearance=0.00155, loss_cra=0, loss_distortion=8.9, loss_envelope=0, loss_mat=0.008, loss_profile=0, loss_ray_bend=0.0784, loss_reg=0.088, loss_rms=0.698]
+Lens written to D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-python-comparison\upstream-short-training\curriculum_final.json
+Using CUDA: NVIDIA GeForce RTX 5060 Laptop GPU for DeepLens
+Lens design constraints initialized with default values.
+2026-10-26 10:37:57:INFO:lr:[5e-05, 0.0005, 0.005, 5e-05], iterations:8, num_ring:8, num_arm:2, rays_per_fov:1024.
+
+Lens written to D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-python-comparison\upstream-short-training\refine/iter0.json
+Ray spot analysis results for depth -20000.0:
+RMS radius: FoV (0.0) 723.391 um, FoV (0.5) 715.839 um, FoV (1.0) 689.221 um
+Geo radius: FoV (0.0) 1022.004 um, FoV (0.5) 1013.095 um, FoV (1.0) 986.704 um
+Progress:   0%|          | 0/9 [00:00<?, ?it/s, loss_reg=0, loss_rms=0]2026-10-26 10:38:03:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:38:03:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:38:03:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:38:03:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:38:03:WARNING:findfont: Font family 'Nimbus Sans' not found.
+Ray spot analysis results for depth -20000.0:
+RMS radius: FoV (0.0) 719.552 um, FoV (0.5) 715.013 um, FoV (1.0) 691.605 um
+Geo radius: FoV (0.0) 1022.755 um, FoV (0.5) 1014.020 um, FoV (1.0) 987.521 um
+
+Progress:   0%|          | 0/9 [00:13<?, ?it/s, loss_clearance=0.0059, loss_cra=0.0968, loss_distortion=20, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.103, loss_rms=0.709]
+Progress:  11%|��         | 1/9 [00:13<01:47, 13.41s/it, loss_clearance=0.0059, loss_cra=0.0968, loss_distortion=20, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.103, loss_rms=0.709]
+Progress:  11%|��         | 1/9 [00:18<01:47, 13.41s/it, loss_clearance=0.0059, loss_cra=0.0967, loss_distortion=20, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.103, loss_rms=0.709]
+Progress:  22%|������       | 2/9 [00:18<00:57,  8.26s/it, loss_clearance=0.0059, loss_cra=0.0967, loss_distortion=20, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.103, loss_rms=0.709]
+Progress:  22%|������       | 2/9 [00:22<00:57,  8.26s/it, loss_clearance=0.00592, loss_cra=0.0969, loss_distortion=20, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.103, loss_rms=0.709]
+Progress:  33%|��������      | 3/9 [00:22<00:39,  6.61s/it, loss_clearance=0.00592, loss_cra=0.0969, loss_distortion=20, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.103, loss_rms=0.709]
+Progress:  33%|��������      | 3/9 [00:27<00:39,  6.61s/it, loss_clearance=0.00598, loss_cra=0.0965, loss_distortion=20, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.102, loss_rms=0.709]
+Lens written to D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-python-comparison\upstream-short-training\refine/iter4.json
+Ray spot analysis results for depth -20000.0:
+RMS radius: FoV (0.0) 721.012 um, FoV (0.5) 714.030 um, FoV (1.0) 688.812 um
+Geo radius: FoV (0.0) 1019.761 um, FoV (0.5) 1012.148 um, FoV (1.0) 986.506 um
+Progress:  44%|����������     | 4/9 [00:27<00:28,  5.77s/it, loss_clearance=0.00598, loss_cra=0.0965, loss_distortion=20, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.102, loss_rms=0.709]2026-10-26 10:38:30:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:38:30:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:38:30:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:38:30:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:38:30:WARNING:findfont: Font family 'Nimbus Sans' not found.
+Ray spot analysis results for depth -20000.0:
+RMS radius: FoV (0.0) 719.881 um, FoV (0.5) 712.120 um, FoV (1.0) 687.783 um
+Geo radius: FoV (0.0) 1019.268 um, FoV (0.5) 1013.347 um, FoV (1.0) 988.940 um
+
+Progress:  44%|����������     | 4/9 [00:43<00:28,  5.77s/it, loss_clearance=0, loss_cra=0.0964, loss_distortion=20, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.0964, loss_rms=0.707]     
+Progress:  56%|������������    | 5/9 [00:43<00:37,  9.47s/it, loss_clearance=0, loss_cra=0.0964, loss_distortion=20, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.0964, loss_rms=0.707]
+Progress:  56%|������������    | 5/9 [00:47<00:37,  9.47s/it, loss_clearance=0, loss_cra=0.0956, loss_distortion=20, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.0956, loss_rms=0.706]
+Progress:  67%|��������������   | 6/9 [00:47<00:23,  7.74s/it, loss_clearance=0, loss_cra=0.0956, loss_distortion=20, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.0956, loss_rms=0.706]
+Progress:  67%|��������������   | 6/9 [00:52<00:23,  7.74s/it, loss_clearance=0, loss_cra=0.095, loss_distortion=20, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.095, loss_rms=0.706]  
+Progress:  78%|����������������  | 7/9 [00:52<00:13,  6.65s/it, loss_clearance=0, loss_cra=0.095, loss_distortion=20, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.095, loss_rms=0.706]
+Progress:  78%|����������������  | 7/9 [00:56<00:13,  6.65s/it, loss_clearance=0, loss_cra=0.0945, loss_distortion=20.1, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.0945, loss_rms=0.704]
+Lens written to D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-python-comparison\upstream-short-training\refine/iter8.json
+Ray spot analysis results for depth -20000.0:
+RMS radius: FoV (0.0) 716.989 um, FoV (0.5) 710.439 um, FoV (1.0) 684.564 um
+Geo radius: FoV (0.0) 1014.068 um, FoV (0.5) 1008.837 um, FoV (1.0) 980.192 um
+Progress:  89%|������������������ | 8/9 [00:56<00:05,  5.99s/it, loss_clearance=0, loss_cra=0.0945, loss_distortion=20.1, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.0945, loss_rms=0.704]2026-10-26 10:39:00:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:39:00:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:39:00:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:39:00:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:39:00:WARNING:findfont: Font family 'Nimbus Sans' not found.
+Ray spot analysis results for depth -20000.0:
+RMS radius: FoV (0.0) 716.492 um, FoV (0.5) 707.784 um, FoV (1.0) 685.515 um
+Geo radius: FoV (0.0) 1015.287 um, FoV (0.5) 1007.312 um, FoV (1.0) 981.373 um
+
+Progress:  89%|������������������ | 8/9 [01:12<00:05,  5.99s/it, loss_clearance=0, loss_cra=0.0938, loss_distortion=20, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.0938, loss_rms=0.702]  
+Progress: 100%|��������������������| 9/9 [01:12<00:00,  9.18s/it, loss_clearance=0, loss_cra=0.0938, loss_distortion=20, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.0938, loss_rms=0.702]
+Progress: 100%|��������������������| 9/9 [01:15<00:00,  8.33s/it, loss_clearance=0, loss_cra=0.0938, loss_distortion=20, loss_envelope=0, loss_mat=0, loss_profile=0, loss_ray_bend=0, loss_reg=0.0938, loss_rms=0.702]
+Lens design constraints initialized with default values.
+Lens written to D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\autolens-python-comparison\upstream-short-training\final_lens.json
+Ray spot analysis results for depth -20000.0:
+RMS radius: FoV (0.0) 715.916 um, FoV (0.5) 706.755 um, FoV (1.0) 683.490 um
+Geo radius: FoV (0.0) 1015.454 um, FoV (0.5) 1005.025 um, FoV (1.0) 977.119 um
+2026-10-26 10:39:20:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:39:20:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:39:20:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:39:20:WARNING:findfont: Font family 'Nimbus Sans' not found.
+2026-10-26 10:39:20:WARNING:findfont: Font family 'Nimbus Sans' not found.
+Ray spot analysis results for depth -20000.0:
+RMS radius: FoV (0.0) 714.461 um, FoV (0.5) 705.712 um, FoV (1.0) 679.989 um
+Geo radius: FoV (0.0) 1011.569 um, FoV (0.5) 1003.706 um, FoV (1.0) 979.694 um
+{"scope": "Short smoke run; 9+9 updates, default ray counts; not default complete optimization or quality comparison", "device": "cuda", "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU", "torch": "2.11.0+cu128", "durationSeconds": 209.5202663000091, "tag": "OhbV", "curriculumUpdates": 9, "refinementUpdates": 9, "focalLengthMm": 18.201416303161977, "halfFovRadians": 0.26809090601098023, "fNumber": 6.551985710281489, "sensorRadiusMm": 5.0}

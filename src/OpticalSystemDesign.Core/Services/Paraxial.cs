@@ -1,9 +1,9 @@
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
-using OpticalSystemDesign.Core.Geometries;
 
 namespace OpticalSystemDesign.Core.Services;
 

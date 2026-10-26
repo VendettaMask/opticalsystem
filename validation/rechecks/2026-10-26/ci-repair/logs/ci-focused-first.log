@@ -1,0 +1,508 @@
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:01.80]     OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiTableDensityUsesSharedTokens [FAIL]
+  失败 OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiTableDensityUsesSharedTokens [88 ms]
+  错误消息:
+   Use UiDensity table tokens instead of literal row/header heights:
+Laboratories/InitialStructure/MainWindow.cs:200: FontSize = DisplayTypography.BodySmall, RowHeight = 34
+Laboratories/InitialStructure/MainWindow.Inputs.cs:104: _wavelengthGrid.RowHeight = 32;
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiTableDensityUsesSharedTokens() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs:line 346
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:02.12]     OpticalSystemDesign.Tests.LayeringArchitectureTests.LongRunningPanelsUseSharedOperationStatusBar [FAIL]
+[xUnit.net 00:00:02.16]     OpticalSystemDesign.Tests.LayeringArchitectureTests.AppAssemblyDoesNotReferenceCore [FAIL]
+  失败 OpticalSystemDesign.Tests.LayeringArchitectureTests.LongRunningPanelsUseSharedOperationStatusBar [35 ms]
+  错误消息:
+   Use OperationStatusBar for long-running App UI progress instead of local ProgressBar instances:
+Panels/SoftwareUpdatePanel.cs:24: private readonly ProgressBar _progress = new() { Name = "UpdateDownloadProgress", Minimum = 0, Maximum = 100, Height = 6, IsVisible = false };
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.LayeringArchitectureTests.LongRunningPanelsUseSharedOperationStatusBar() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs:line 432
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.LayeringArchitectureTests.AppAssemblyDoesNotReferenceCore [4 ms]
+  错误消息:
+   Assert.DoesNotContain() Failure: Filter matched in collection
+                                                                                                                                                                                                                            ↓ (pos 25)
+Collection: [···, System.Collections.Concurrent, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, OpticalSystemDesign.InitialStructure.Contracts, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null, OpticalSystemDesign.Core, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null, OpticalSystemDesign.Modules, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null, OpticalSystemDesign.InitialStructure.Persistence, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null, ···]
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.LayeringArchitectureTests.AppAssemblyDoesNotReferenceCore() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs:line 17
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:02.36]     OpticalSystemDesign.Tests.DistortionOperandTests.AfocalAndBlockedChiefRayAreExplicitErrors(code: "FCGT") [FAIL]
+[xUnit.net 00:00:02.36]     OpticalSystemDesign.Tests.DistortionOperandTests.AfocalAndBlockedChiefRayAreExplicitErrors(code: "FCGS") [FAIL]
+[xUnit.net 00:00:02.36]     OpticalSystemDesign.Tests.ScalarBackendAdapterTests.ScalarThirdPartyBackendAutomaticallyUsesBatchAdapter [FAIL]
+[xUnit.net 00:00:02.60]     OpticalSystemDesign.Tests.ContrastOperandTests.MapAndOperandsShareRayPairsReferenceAndAiming(aiming: True, afocal: False) [FAIL]
+  失败 OpticalSystemDesign.Tests.DistortionOperandTests.AfocalAndBlockedChiefRayAreExplicitErrors(code: "FCGT") [2 ms]
+  错误消息:
+   Assert.NotEmpty() Failure: Collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.DistortionOperandTests.Invalid(Optic optic, MeritOperandDefinition row) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DistortionOperandTests.cs:line 486
+   at OpticalSystemDesign.Tests.DistortionOperandTests.AfocalAndBlockedChiefRayAreExplicitErrors(String code) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DistortionOperandTests.cs:line 262
+   at InvokeStub_DistortionOperandTests.AfocalAndBlockedChiefRayAreExplicitErrors(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.DistortionOperandTests.AfocalAndBlockedChiefRayAreExplicitErrors(code: "FCGS") [< 1 ms]
+  错误消息:
+   Assert.NotEmpty() Failure: Collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.DistortionOperandTests.Invalid(Optic optic, MeritOperandDefinition row) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DistortionOperandTests.cs:line 486
+   at OpticalSystemDesign.Tests.DistortionOperandTests.AfocalAndBlockedChiefRayAreExplicitErrors(String code) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DistortionOperandTests.cs:line 262
+   at InvokeStub_DistortionOperandTests.AfocalAndBlockedChiefRayAreExplicitErrors(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.ScalarBackendAdapterTests.ScalarThirdPartyBackendAutomaticallyUsesBatchAdapter [835 ms]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: RayTraceSampleValue { SurfaceNumber = 6, SurfaceLabel = Image, Position = Vector3D { X = 1.6699630595252117, Y = 3.345803527446801, Z = 64, Length = 64.10915050025584 }, Direction = Vector3D { X = 0.03862059938473538, Y = 0.07737712335403103, Z = 0.996253597275623, Length = 1.0000000000000002 }, Intensity = 0.7199147707892967, Vignetted = False, SegmentLength = 30.115508750499924, SegmentOpticalPathLength = 30.115508750499924, CumulativePathLength = 64.23415088685944, CumulativeOpticalPathLength = 69.30527075679939, OpticalPathDifference = 0, InteractionKind = Transmitted, IncidentDirection = Vector3D { X = 0.03862059938473538, Y = 0.07737712335403103, Z = 0.996253597275623, Length = 1.0000000000000002 }, PhaseInclusiveOpticalPathLength = 69.30527075679939, RefractiveIndexBefore = 1, RefractiveIndexAfter = 1 }
+Actual:   RayTraceSampleValue { SurfaceNumber = 6, SurfaceLabel = Image, Position = Vector3D { X = 1.6699630595252117, Y = 3.345803527446801, Z = 64, Length = 64.10915050025584 }, Direction = Vector3D { X = 0.03862059938473538, Y = 0.07737712335403103, Z = 0.9962535972756229, Length = 1 }, Intensity = 0.7199147707892967, Vignetted = False, SegmentLength = 30.115508750499924, SegmentOpticalPathLength = 30.115508750499924, CumulativePathLength = 64.23415088685944, CumulativeOpticalPathLength = 69.30527075679939, OpticalPathDifference = 0, InteractionKind = Transmitted, IncidentDirection = Vector3D { X = 0.03862059938473538, Y = 0.07737712335403103, Z = 0.996253597275623, Length = 1.0000000000000002 }, PhaseInclusiveOpticalPathLength = 69.30527075679939, RefractiveIndexBefore = 1, RefractiveIndexAfter = 1 }
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ScalarBackendAdapterTests.ScalarThirdPartyBackendAutomaticallyUsesBatchAdapter() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScalarBackendAdapterTests.cs:line 38
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.ContrastOperandTests.MapAndOperandsShareRayPairsReferenceAndAiming(aiming: True, afocal: False) [1 s]
+  错误消息:
+   Assert.Equal() Failure: Values are not within 9 decimal places
+Expected: 0.085830548000000007 (rounded from 0.085830547501288879)
+Actual:   0.085830546999999993 (rounded from 0.085830547371022303)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ContrastOperandTests.MapAndOperandsShareRayPairsReferenceAndAiming(Boolean aiming, Boolean afocal) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ContrastOperandTests.cs:line 213
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+[xUnit.net 00:00:07.78]     OpticalSystemDesign.Tests.WorkspaceMdiInteractionTests.MdiChromeStaysCompactAndWindowCommandsPreserveContent(theme: "Light") [FAIL]
+  失败 OpticalSystemDesign.Tests.WorkspaceMdiInteractionTests.MdiChromeStaysCompactAndWindowCommandsPreserveContent(theme: "Light") [4 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: #ffeaf1ff
+Actual:   White
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceMdiInteractionTests.Equal(String color, IBrush brush) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceMdiInteractionTests.cs:line 274
+   at OpticalSystemDesign.Tests.WorkspaceMdiInteractionTests.<>c__DisplayClass2_0.<MdiChromeStaysCompactAndWindowCommandsPreserveContent>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceMdiInteractionTests.cs:line 202
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceMdiInteractionTests.MdiChromeStaysCompactAndWindowCommandsPreserveContent(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceMdiInteractionTests.cs:line 165
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:12.59]     OpticalSystemDesign.Tests.WorkspaceMdiInteractionTests.TiledDocumentsKeepInteractiveContentAcrossActivationAndLayoutChanges [FAIL]
+  失败 OpticalSystemDesign.Tests.WorkspaceMdiInteractionTests.TiledDocumentsKeepInteractiveContentAcrossActivationAndLayoutChanges [2 s]
+  错误消息:
+   Assert.Equal() Failure: Strings differ
+                    ↓ (pos 9)
+Expected: "document:lens-editor"
+Actual:   "document:tolerancing"
+                    ↑ (pos 9)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceMdiInteractionTests.<>c.<TiledDocumentsKeepInteractiveContentAcrossActivationAndLayoutChanges>b__1_0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceMdiInteractionTests.cs:line 63
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceMdiInteractionTests.TiledDocumentsKeepInteractiveContentAcrossActivationAndLayoutChanges() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceMdiInteractionTests.cs:line 38
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:23.14]     OpticalSystemDesign.Tests.WorkspaceDockModelTests.NonSequentialThreeDimensionalViewerPreparesLayoutRaysAutomatically [FAIL]
+  失败 OpticalSystemDesign.Tests.WorkspaceDockModelTests.NonSequentialThreeDimensionalViewerPreparesLayoutRaysAutomatically [355 ms]
+  错误消息:
+   System.InvalidOperationException : The calling thread cannot access this object because a different thread owns it.
+  堆栈跟踪:
+     at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+   at Avalonia.Input.InputElement.set_IsEnabled(Boolean value)
+   at OpticalSystemDesign.App.Panels.ViewerPanel.UpdateImageExportButton() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Panels\ViewerPanel.Export.cs:line 52
+   at OpticalSystemDesign.App.Panels.ViewerPanel.Dispose() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Panels\ViewerPanel.cs:line 212
+   at OpticalSystemDesign.App.Services.WorkspaceDockFactory.DisposeContent() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\WorkspaceDockFactory.cs:line 582
+   at OpticalSystemDesign.App.Services.PanelManager.Dispose() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\PanelManager.cs:line 564
+   at OpticalSystemDesign.Tests.WorkspaceDockModelTests.NonSequentialThreeDimensionalViewerPreparesLayoutRaysAutomatically() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockModelTests.cs:line 583
+   at OpticalSystemDesign.Tests.WorkspaceDockModelTests.NonSequentialThreeDimensionalViewerPreparesLayoutRaysAutomatically()
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:23.27]     OpticalSystemDesign.Tests.WorkspaceDockModelTests.OpeningViewerRefreshesExistingStaleManagedLayoutDatabase [FAIL]
+  失败 OpticalSystemDesign.Tests.WorkspaceDockModelTests.OpeningViewerRefreshesExistingStaleManagedLayoutDatabase [105 ms]
+  错误消息:
+   System.InvalidOperationException : The calling thread cannot access this object because a different thread owns it.
+  堆栈跟踪:
+     at Avalonia.Threading.Dispatcher.<VerifyAccess>g__ThrowVerifyAccess|17_0()
+   at Avalonia.Input.InputElement.set_IsEnabled(Boolean value)
+   at OpticalSystemDesign.App.Panels.ViewerPanel.UpdateImageExportButton() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Panels\ViewerPanel.Export.cs:line 52
+   at OpticalSystemDesign.App.Panels.ViewerPanel.Dispose() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Panels\ViewerPanel.cs:line 212
+   at OpticalSystemDesign.App.Services.WorkspaceDockFactory.DisposeContent() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\WorkspaceDockFactory.cs:line 582
+   at OpticalSystemDesign.App.Services.PanelManager.Dispose() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\PanelManager.cs:line 564
+   at OpticalSystemDesign.Tests.WorkspaceDockModelTests.OpeningViewerRefreshesExistingStaleManagedLayoutDatabase() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockModelTests.cs:line 622
+   at OpticalSystemDesign.Tests.WorkspaceDockModelTests.OpeningViewerRefreshesExistingStaleManagedLayoutDatabase()
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:24.92]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.SplitLayoutRoundTripsThroughExplicitSlot(direction: Top) [FAIL]
+[xUnit.net 00:00:25.17]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.SplitLayoutRoundTripsThroughExplicitSlot(direction: Bottom) [FAIL]
+[xUnit.net 00:00:25.40]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.SplitLayoutRoundTripsThroughExplicitSlot(direction: Left) [FAIL]
+[xUnit.net 00:00:25.64]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.SplitLayoutRoundTripsThroughExplicitSlot(direction: Right) [FAIL]
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.SplitLayoutRoundTripsThroughExplicitSlot(direction: Top) [203 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass6_0.<<SplitLayoutRoundTripsThroughExplicitSlot>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 223
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.SplitLayoutRoundTripsThroughExplicitSlot(DockOperation direction) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 213
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.SplitLayoutRoundTripsThroughExplicitSlot(direction: Bottom) [243 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass6_0.<<SplitLayoutRoundTripsThroughExplicitSlot>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 223
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.SplitLayoutRoundTripsThroughExplicitSlot(DockOperation direction) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 213
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.SplitLayoutRoundTripsThroughExplicitSlot(direction: Left) [231 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass6_0.<<SplitLayoutRoundTripsThroughExplicitSlot>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 223
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.SplitLayoutRoundTripsThroughExplicitSlot(DockOperation direction) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 213
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.SplitLayoutRoundTripsThroughExplicitSlot(direction: Right) [239 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass6_0.<<SplitLayoutRoundTripsThroughExplicitSlot>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 223
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.SplitLayoutRoundTripsThroughExplicitSlot(DockOperation direction) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 213
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:27.24]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.GuidanceUsesCurrentThemeAndLanguage(theme: "Light", language: "zh-CN", hint: "停靠到左侧") [FAIL]
+[xUnit.net 00:00:27.62]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.EscapeCancelsAndCenterMergesWithoutReplacingPageContent(mdi: True, reverseMerge: False) [FAIL]
+[xUnit.net 00:00:27.95]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.EscapeCancelsAndCenterMergesWithoutReplacingPageContent(mdi: False, reverseMerge: True) [FAIL]
+[xUnit.net 00:00:28.30]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.EscapeCancelsAndCenterMergesWithoutReplacingPageContent(mdi: True, reverseMerge: True) [FAIL]
+[xUnit.net 00:00:28.54]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.EscapeCancelsAndCenterMergesWithoutReplacingPageContent(mdi: False, reverseMerge: False) [FAIL]
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.GuidanceUsesCurrentThemeAndLanguage(theme: "Light", language: "zh-CN", hint: "停靠到左侧") [217 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass5_0.<GuidanceUsesCurrentThemeAndLanguage>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 184
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.GuidanceUsesCurrentThemeAndLanguage(String theme, String language, String hint) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 172
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.EscapeCancelsAndCenterMergesWithoutReplacingPageContent(mdi: True, reverseMerge: False) [377 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass4_0.<EscapeCancelsAndCenterMergesWithoutReplacingPageContent>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 129
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.EscapeCancelsAndCenterMergesWithoutReplacingPageContent(Boolean mdi, Boolean reverseMerge) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 115
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.EscapeCancelsAndCenterMergesWithoutReplacingPageContent(mdi: False, reverseMerge: True) [322 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass4_0.<EscapeCancelsAndCenterMergesWithoutReplacingPageContent>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 129
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.EscapeCancelsAndCenterMergesWithoutReplacingPageContent(Boolean mdi, Boolean reverseMerge) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 115
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.EscapeCancelsAndCenterMergesWithoutReplacingPageContent(mdi: True, reverseMerge: True) [355 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass4_0.<EscapeCancelsAndCenterMergesWithoutReplacingPageContent>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 129
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.EscapeCancelsAndCenterMergesWithoutReplacingPageContent(Boolean mdi, Boolean reverseMerge) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 115
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.EscapeCancelsAndCenterMergesWithoutReplacingPageContent(mdi: False, reverseMerge: False) [240 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass4_0.<EscapeCancelsAndCenterMergesWithoutReplacingPageContent>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 129
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.EscapeCancelsAndCenterMergesWithoutReplacingPageContent(Boolean mdi, Boolean reverseMerge) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 115
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:28.89]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingOverSystemOptionsDoesNotOfferDocumentDocking(mdi: True) [FAIL]
+[xUnit.net 00:00:29.10]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingOverSystemOptionsDoesNotOfferDocumentDocking(mdi: False) [FAIL]
+[xUnit.net 00:00:29.63]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.RepeatedSplitsUseOnlyTheTargetPaneAndPreserveEveryPage [FAIL]
+[xUnit.net 00:00:29.88]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: False, direction: Top) [FAIL]
+[xUnit.net 00:00:30.12]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: False, direction: Bottom) [FAIL]
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingOverSystemOptionsDoesNotOfferDocumentDocking(mdi: True) [344 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass9_0.<DraggingOverSystemOptionsDoesNotOfferDocumentDocking>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 317
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingOverSystemOptionsDoesNotOfferDocumentDocking(Boolean mdi) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 303
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingOverSystemOptionsDoesNotOfferDocumentDocking(mdi: False) [212 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass9_0.<DraggingOverSystemOptionsDoesNotOfferDocumentDocking>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 317
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingOverSystemOptionsDoesNotOfferDocumentDocking(Boolean mdi) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 303
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.RepeatedSplitsUseOnlyTheTargetPaneAndPreserveEveryPage [184 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c.<RepeatedSplitsUseOnlyTheTargetPaneAndPreserveEveryPage>b__10_0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 349
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.RepeatedSplitsUseOnlyTheTargetPaneAndPreserveEveryPage() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 335
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: False, direction: Top) [247 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass3_0.<DraggingAPageShowsFourDirectionsAndAPreview>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 63
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(Boolean mdi, DockOperation direction) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 45
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: False, direction: Bottom) [244 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass3_0.<DraggingAPageShowsFourDirectionsAndAPreview>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 63
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(Boolean mdi, DockOperation direction) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 45
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:30.47]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: True, direction: Left) [FAIL]
+[xUnit.net 00:00:30.68]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: False, direction: Left) [FAIL]
+[xUnit.net 00:00:31.00]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: True, direction: Right) [FAIL]
+[xUnit.net 00:00:31.34]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: True, direction: Bottom) [FAIL]
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: True, direction: Left) [345 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass3_0.<DraggingAPageShowsFourDirectionsAndAPreview>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 63
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(Boolean mdi, DockOperation direction) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 45
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: False, direction: Left) [207 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass3_0.<DraggingAPageShowsFourDirectionsAndAPreview>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 63
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(Boolean mdi, DockOperation direction) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 45
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: True, direction: Right) [318 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass3_0.<DraggingAPageShowsFourDirectionsAndAPreview>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 63
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(Boolean mdi, DockOperation direction) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 45
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: True, direction: Bottom) [344 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass3_0.<DraggingAPageShowsFourDirectionsAndAPreview>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 63
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(Boolean mdi, DockOperation direction) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 45
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:31.67]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: True, direction: Top) [FAIL]
+[xUnit.net 00:00:31.90]     OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: False, direction: Right) [FAIL]
+[xUnit.net 00:00:31.99]     OpticalSystemDesign.Tests.SequentialExampleTests.UnsupportedExampleKeepsExistingImportErrorAndCurrentDocument [FAIL]
+[xUnit.net 00:00:33.10]     OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels [FAIL]
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: True, direction: Top) [322 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass3_0.<DraggingAPageShowsFourDirectionsAndAPreview>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 63
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(Boolean mdi, DockOperation direction) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 45
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: False, direction: Right) [228 ms]
+  错误消息:
+   Assert.Single() Failure: The collection was empty
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DragTo(Window window, Document source, Document target, Double grabOffset) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 387
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.<>c__DisplayClass3_0.<DraggingAPageShowsFourDirectionsAndAPreview>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 63
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(Boolean mdi, DockOperation direction) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WorkspaceDockGuidanceTests.cs:line 45
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.SequentialExampleTests.UnsupportedExampleKeepsExistingImportErrorAndCurrentDocument [90 ms]
+  错误消息:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(System.NotSupportedException)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.SequentialExampleTests.UnsupportedExampleKeepsExistingImportErrorAndCurrentDocument() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SequentialExampleTests.cs:line 88
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels [1 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 0
+Actual:   8
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.MarkdownReportImageTests.<>c__DisplayClass2_0.<<FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportImageTests.cs:line 58
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 192
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.MarkdownReportImageTests.FullReportRendersRealLayoutsPlotsAndPaginatedTextWithVisiblePixels() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportImageTests.cs:line 45
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:33.37]     OpticalSystemDesign.Tests.MarkdownReportImageTests.ConfigurationWindowListsEveryAnalysisAndShowsProgressAndDefaultDirectory [FAIL]
+  失败 OpticalSystemDesign.Tests.MarkdownReportImageTests.ConfigurationWindowListsEveryAnalysisAndShowsProgressAndDefaultDirectory [259 ms]
+  错误消息:
+   System.InvalidCastException : Unable to cast object of type 'HeadlessGlyphRunStub' to type 'Avalonia.Skia.GlyphRunImpl'.
+  堆栈跟踪:
+     at Avalonia.Skia.DrawingContextImpl.DrawGlyphRun(IBrush foreground, IGlyphRunImpl glyphRun)
+   at Avalonia.Media.PlatformDrawingContext.DrawGlyphRun(IBrush foreground, GlyphRun glyphRun)
+   at Avalonia.Media.TextFormatting.ShapedTextRun.Draw(DrawingContext drawingContext, Point origin)
+   at Avalonia.Media.TextFormatting.TextLineImpl.Draw(DrawingContext drawingContext, Point lineOrigin)
+   at Avalonia.Controls.TextBlock.RenderCore(DrawingContext context)
+   at Avalonia.Rendering.ImmediateRenderer.Render(DrawingContext context, Visual visual, Rect bounds, Matrix parentTransform, Rect clipRect)
+   at Avalonia.Rendering.ImmediateRenderer.Render(DrawingContext context, Visual visual, Rect bounds, Matrix parentTransform, Rect clipRect)
+   at Avalonia.Rendering.ImmediateRenderer.Render(DrawingContext context, Visual visual, Rect bounds, Matrix parentTransform, Rect clipRect)
+   at Avalonia.Rendering.ImmediateRenderer.Render(DrawingContext context, Visual visual, Rect bounds, Matrix parentTransform, Rect clipRect)
+   at Avalonia.Rendering.ImmediateRenderer.Render(DrawingContext context, Visual visual, Rect bounds, Matrix parentTransform, Rect clipRect)
+   at Avalonia.Rendering.ImmediateRenderer.Render(DrawingContext context, Visual visual, Rect bounds, Matrix parentTransform, Rect clipRect)
+   at Avalonia.Rendering.ImmediateRenderer.Render(DrawingContext context, Visual visual, Rect bounds, Matrix parentTransform, Rect clipRect)
+   at Avalonia.Rendering.ImmediateRenderer.Render(DrawingContext context, Visual visual, Rect clipRect)
+   at Avalonia.Rendering.ImmediateRenderer.Render(DrawingContext context, Visual visual)
+   at Avalonia.Media.Imaging.RenderTargetBitmap.Render(Visual visual)
+   at OpticalSystemDesign.Tests.MarkdownReportImageTests.<>c.<ConfigurationWindowListsEveryAnalysisAndShowsProgressAndDefaultDirectory>b__3_0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportImageTests.cs:line 123
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.MarkdownReportImageTests.ConfigurationWindowListsEveryAnalysisAndShowsProgressAndDefaultDirectory() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\MarkdownReportImageTests.cs:line 96
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:36.52]     OpticalSystemDesign.Tests.LensConfigurationNavigationTests.NavigationCommitsValidInputButPreservesInvalidDraft(invalid: True) [FAIL]
+[xUnit.net 00:00:37.15]     OpticalSystemDesign.Tests.LensConfigurationNavigationTests.NavigationCommitsValidInputButPreservesInvalidDraft(invalid: False) [FAIL]
+[xUnit.net 00:00:37.57]     OpticalSystemDesign.Tests.LensConfigurationNavigationTests.ActiveStructureAndSelectionTrackUndoRedoAndProjectRoundTrip [FAIL]
+  失败 OpticalSystemDesign.Tests.LensConfigurationNavigationTests.NavigationCommitsValidInputButPreservesInvalidDraft(invalid: True) [563 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.LensConfigurationNavigationTests.<>c__DisplayClass3_0.<<NavigationCommitsValidInputButPreservesInvalidDraft>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LensConfigurationNavigationTests.cs:line 134
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.LensConfigurationNavigationTests.NavigationCommitsValidInputButPreservesInvalidDraft(Boolean invalid) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LensConfigurationNavigationTests.cs:line 112
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.LensConfigurationNavigationTests.NavigationCommitsValidInputButPreservesInvalidDraft(invalid: False) [623 ms]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 1
+Actual:   0
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.LensConfigurationNavigationTests.<>c__DisplayClass3_0.<<NavigationCommitsValidInputButPreservesInvalidDraft>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LensConfigurationNavigationTests.cs:line 141
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.LensConfigurationNavigationTests.NavigationCommitsValidInputButPreservesInvalidDraft(Boolean invalid) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LensConfigurationNavigationTests.cs:line 112
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.LensConfigurationNavigationTests.ActiveStructureAndSelectionTrackUndoRedoAndProjectRoundTrip [417 ms]
+  错误消息:
+   Assert.Equal() Failure: Strings differ
+              ↓ (pos 3)
+Expected: "结构 2/3"
+Actual:   "结构 1/3"
+              ↑ (pos 3)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.LensConfigurationNavigationTests.<>c.<<ActiveStructureAndSelectionTrackUndoRedoAndProjectRoundTrip>b__6_0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LensConfigurationNavigationTests.cs:line 290
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.LensConfigurationNavigationTests.ActiveStructureAndSelectionTrackUndoRedoAndProjectRoundTrip() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LensConfigurationNavigationTests.cs:line 276
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:39.23]     OpticalSystemDesign.Tests.LensConfigurationNavigationTests.ImportedZoomSwitchesThreeRealConfigurationsAndOpensExistingEditor [FAIL]
+  失败 OpticalSystemDesign.Tests.LensConfigurationNavigationTests.ImportedZoomSwitchesThreeRealConfigurationsAndOpensExistingEditor [1 s]
+  错误消息:
+   Assert.Equal() Failure: Strings differ
+              ↓ (pos 3)
+Expected: "结构 2/3"
+Actual:   "结构 1/3"
+              ↑ (pos 3)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.LensConfigurationNavigationTests.<>c.<<ImportedZoomSwitchesThreeRealConfigurationsAndOpensExistingEditor>b__2_0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LensConfigurationNavigationTests.cs:line 69
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.LensConfigurationNavigationTests.ImportedZoomSwitchesThreeRealConfigurationsAndOpensExistingEditor() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LensConfigurationNavigationTests.cs:line 37
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:39.98]     OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: "Light") [FAIL]
+  失败 OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: "Light") [211 ms]
+  错误消息:
+   Assert.DoesNotContain() Failure: Item found in collection
+                                                                                                                                                     ↓ (pos 1)
+Collection: [Document { AllowedDockOperations = All, AllowedDropOperations = All, CanClose = False, CanDockAsDocument = True, CanDrag = True, ··· }, Document { AllowedDockOperations = All, AllowedDropOperations = All, CanClose = True, CanDockAsDocument = True, CanDrag = True, ··· }]
+Found:      Document { AllowedDockOperations = All, AllowedDropOperations = All, CanClose = True, CanDockAsDocument = True, CanDrag = True, ··· }
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.DocumentCloseButtonTests.<>c__DisplayClass1_0.<ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 99
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\WavefrontSurfaceRenderTests.cs:line 189
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 38
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-10-26\ci-repair\first-focused.trx
+
+失败!  - 失败:    39，通过:    69，已跳过:     0，总计:   108，持续时间: 39 s - OpticalSystemDesign.Tests.dll (net10.0)

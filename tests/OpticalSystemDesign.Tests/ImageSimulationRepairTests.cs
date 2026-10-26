@@ -5,8 +5,8 @@ using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Materials;
-using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Rays;
+using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Tests;

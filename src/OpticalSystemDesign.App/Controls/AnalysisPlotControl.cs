@@ -6,12 +6,12 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
-using OpticalSystemDesign.App.Services;
+using AnalysisPlotOptions = OpticalSystemDesign.Application.Contracts.AnalysisPlotOptionsDto;
 using AnalysisPoint = OpticalSystemDesign.Application.Contracts.AnalysisPointDto;
 using AnalysisSeries = OpticalSystemDesign.Application.Contracts.AnalysisSeriesDto;
-using AnalysisPlotOptions = OpticalSystemDesign.Application.Contracts.AnalysisPlotOptionsDto;
 
 namespace OpticalSystemDesign.App.Controls;
 
@@ -1079,12 +1079,14 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         return points[^1].Value;
     }
 
-    private static Color ColorFor(AnalysisColorMap colorMap, double value)
+    internal static Color ColorFor(AnalysisColorMap colorMap, double value)
     {
         return colorMap switch
         {
             AnalysisColorMap.Inferno => Inferno(value),
             AnalysisColorMap.Jet => Jet(value),
+            AnalysisColorMap.Gray => Color.FromRgb((byte)Math.Round(Math.Clamp(value, 0, 1) * 255), (byte)Math.Round(Math.Clamp(value, 0, 1) * 255), (byte)Math.Round(Math.Clamp(value, 0, 1) * 255)),
+            AnalysisColorMap.InverseGray => Color.FromRgb((byte)Math.Round((1 - Math.Clamp(value, 0, 1)) * 255), (byte)Math.Round((1 - Math.Clamp(value, 0, 1)) * 255), (byte)Math.Round((1 - Math.Clamp(value, 0, 1)) * 255)),
             _ => Viridis(value)
         };
     }

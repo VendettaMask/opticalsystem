@@ -11,10 +11,10 @@ using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 using OpticalSystemDesign.App;
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.ViewModels;
+using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.App.Panels;

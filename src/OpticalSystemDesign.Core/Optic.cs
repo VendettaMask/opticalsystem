@@ -1,14 +1,14 @@
 using System.Collections.ObjectModel;
 using OpticalSystemDesign.Core.Analysis;
-using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Optimization;
-using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Rays;
+using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
 using OpticalSystemDesign.Core.Tolerancing;
@@ -19,6 +19,8 @@ public sealed class Optic
 {
     private OpticState _state;
     private RayTraceCacheBinding? _rayTraceCacheBinding;
+    private static readonly System.Text.Json.JsonSerializerOptions TraceIdentityJson = new()
+    { NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals };
 
     public Optic(string name = "Untitled optic")
     {
@@ -180,11 +182,34 @@ public sealed class Optic
     {
         _rayTraceCacheBinding?.Dispose();
         _rayTraceCacheBinding = null;
-        SequentialRayTracer.ConfigureCache(cache, opticRevision);
+        SequentialRayTracer.ConfigureCache(null, 0);
         if (cache is null)
         {
             return;
         }
+
+        string identity;
+        try
+        {
+            var snapshot = ToSnapshot();
+            snapshot = snapshot with
+            {
+                Name = "",
+                MeritOperands = null,
+                Fields = snapshot.Fields.Select(field => field with { Label = "" }).ToList(),
+                Wavelengths = snapshot.Wavelengths.Select(wave => wave with { Label = "" }).ToList(),
+                Surfaces = snapshot.Surfaces.Select(surface => surface with { Label = "" }).ToList()
+            };
+            identity = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(
+                System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(snapshot, TraceIdentityJson)));
+        }
+        catch (NotSupportedException)
+        {
+            // An opaque plug-in component may trace successfully without having
+            // a serializable identity. Decline caching rather than guess equality.
+            return;
+        }
+        SequentialRayTracer.ConfigureCache(cache, opticRevision, identity);
 
         cache.SetCurrentRevision(opticRevision);
         _rayTraceCacheBinding = new RayTraceCacheBinding(this, InvalidateRayTraceCache);
@@ -643,6 +668,7 @@ public sealed class Optic
 
     private void ReplaceState(Optic staged)
     {
+        InvalidateRayTraceCache();
         staged.Pickups.Rebind(this);
         staged.Solves.Rebind(this);
         _state = staged._state;

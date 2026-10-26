@@ -44,7 +44,7 @@ public static class SampledApertureDiagnostics
             var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
                 normalizedFieldX, normalizedFieldY, wave.Micrometers, pupilSamples, aimAtStop: optic.RayAimingEnabled);
             var rays = new List<SpotRayData>();
-            var traced=optic.SequentialRayTracer.DiagnoseCircularApertures(bundle,cancellationToken);
+            var traced = optic.SequentialRayTracer.DiagnoseCircularApertures(bundle, cancellationToken);
             for (var index = 0; index < bundle.Rays.Count; index++)
             {
                 var diagnostic = traced[index];

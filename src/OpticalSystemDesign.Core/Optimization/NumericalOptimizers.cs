@@ -1,6 +1,6 @@
 using OpticalSystemDesign.Core.Analysis;
-using SvdFactor = OpticalSystemDesign.Core.Analysis.JacobiSvd.Factorization;
 using OpticalSystemDesign.Core.Services;
+using SvdFactor = OpticalSystemDesign.Core.Analysis.JacobiSvd.Factorization;
 
 namespace OpticalSystemDesign.Core.Optimization;
 
@@ -619,27 +619,37 @@ public sealed class NelderMeadOptimizer : IOptimizer
         ArgumentNullException.ThrowIfNull(problem);
         OptimizationLimits.RequireIterationCount(maxIterations);
         var evaluationStart = problem.FunctionEvaluationCount;
-        var dimension = problem.Variables.Count;
+        var coordinateCount = problem.Variables.Count;
+        var activeAxes = Enumerable.Range(0, coordinateCount)
+            .Where(axis => problem.Variables[axis].LowerBound < problem.Variables[axis].UpperBound).ToArray();
+        var dimension = activeAxes.Length;
+        problem.SetVariableVector(problem.VariableVector());
         var initial = problem.SumSquared();
         if (dimension == 0)
         {
             return OptimizationResults.Create(
                 Name,
-                "nelder-mead/1",
+                "nelder-mead/2",
                 "NoVariables",
                 initial,
                 initial,
                 0,
-                Array.Empty<double>(),
+                problem.VariableVector(),
                 new[] { initial },
                 problem.FunctionEvaluationCount - evaluationStart);
         }
 
         var simplex = new List<double[]> { problem.VariableVector() };
-        for (var axis = 0; axis < dimension; axis++)
+        foreach (var axis in activeAxes)
         {
             var vertex = problem.VariableVector();
-            vertex[axis] += Math.Max(1e-9, problem.Variables[axis].StepHint);
+            var variable = problem.Variables[axis];
+            var original = vertex[axis];
+            vertex[axis] = Math.Min(variable.UpperBound, original + variable.StepHint);
+            if (vertex[axis] == original)
+                vertex[axis] = Math.Max(variable.LowerBound, original - variable.StepHint);
+            if (vertex[axis] == original)
+                vertex[axis] = original < variable.UpperBound ? variable.UpperBound : variable.LowerBound;
             simplex.Add(vertex);
         }
 
@@ -663,10 +673,10 @@ public sealed class NelderMeadOptimizer : IOptimizer
 
             var best = simplex[0];
             var worst = simplex[^1];
-            var centroid = new double[dimension];
+            var centroid = new double[coordinateCount];
             for (var vertexIndex = 0; vertexIndex < dimension; vertexIndex++)
             {
-                for (var axis = 0; axis < dimension; axis++)
+                for (var axis = 0; axis < coordinateCount; axis++)
                 {
                     centroid[axis] += simplex[vertexIndex][axis] / dimension;
                 }
@@ -688,9 +698,10 @@ public sealed class NelderMeadOptimizer : IOptimizer
             }
             else
             {
-                var contracted = Combine(centroid, worst, 0.5);
+                var outside = reflectedValue < values[^1];
+                var contracted = Combine(centroid, worst, outside ? 0.5 : -0.5);
                 var contractedValue = Evaluate(problem, contracted);
-                if (contractedValue < values[^1])
+                if (outside ? contractedValue <= reflectedValue : contractedValue < values[^1])
                 {
                     simplex[^1] = contracted;
                     values[^1] = contractedValue;
@@ -732,7 +743,7 @@ public sealed class NelderMeadOptimizer : IOptimizer
         problem.SetVariableVector(bestVector);
         return OptimizationResults.Create(
             Name,
-            "nelder-mead/1",
+            "nelder-mead/2",
             stopReason,
             initial,
             final,
@@ -742,9 +753,13 @@ public sealed class NelderMeadOptimizer : IOptimizer
             problem.FunctionEvaluationCount - evaluationStart);
     }
 
-    private static double Evaluate(OptimizationProblem problem, IReadOnlyList<double> vector)
+    private static double Evaluate(OptimizationProblem problem, double[] vector)
     {
+        for (var axis = 0; axis < vector.Length; axis++)
+            vector[axis] = Math.Clamp(vector[axis], problem.Variables[axis].LowerBound, problem.Variables[axis].UpperBound);
         problem.SetVariableVector(vector);
+        // Stored simplex geometry must match the coordinates actually evaluated.
+        problem.VariableVector().CopyTo(vector, 0);
         return problem.SumSquared();
     }
 
@@ -989,15 +1004,17 @@ internal static class OptimizationResults
         int? randomSeed = null,
         IReadOnlyList<string>? warnings = null)
     {
+        var success = double.IsFinite(initial) && double.IsFinite(final) && final <= initial
+            && (final < initial || final == 0 || stopReason == "GradientTolerance");
         return new OptimizerResult
         {
-            Success = final <= initial,
+            Success = success,
             InitialMerit = initial,
             FinalMerit = final,
             Iterations = iterations,
             BestVariables = bestVector.ToArray(),
             MeritHistory = history.ToArray(),
-            Message = $"Optimized with {name}",
+            Message = success ? $"Optimized with {name}" : $"No improvement or convergence with {name} ({stopReason})",
             Algorithm = name,
             AlgorithmVersion = algorithmVersion,
             StopReason = stopReason,
