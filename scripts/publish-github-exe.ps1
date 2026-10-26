@@ -228,7 +228,7 @@ $details += $preservedDetails
 foreach ($package in $packages) { $details += "- $($package.Name) | SHA-256: $($package.Sha256) | 发布 ID: $($package.ReleaseId) | 源码: $($package.SourceCommit)" }
 $details += $otaMarkers
 $latest = if ($testPackage) { 'false' } else { 'true' }
-$release = Invoke-ReleaseApi PATCH "releases/$($release.id)" @{ name = "Optical System Design $version$(if ($testPackage) { ' 测试版' })"; body = $notes.TrimEnd() + "`n" + ($details -join "`n"); draft = $false; prerelease = $testPackage; make_latest = $latest }
+$release = Invoke-ReleaseApi PATCH "releases/$($release.id)" @{ name = "Optical System Design $version$(if ($testPackage) { ' 测试版' }) · $($packages[0].SourceCommit.Substring(0, 8))"; body = $notes.TrimEnd() + "`n" + ($details -join "`n"); draft = $false; prerelease = $testPackage; make_latest = $latest }
 $final = @(Invoke-ReleaseApi GET "releases/$($release.id)/assets?per_page=100")
 foreach ($asset in $final) { if ($asset.name -cnotmatch $canonicalPattern) { throw 'Unexpected desktop attachment remains.' } }
 foreach ($package in $packages) {

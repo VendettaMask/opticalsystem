@@ -11,6 +11,8 @@
 
 手动刷新旧发布不会移动标签。包内与发布说明中的源码提交才是本包实际来源；该标签的自动 Source code 压缩包仍是标签原始代码。操作入口和权限说明见 [GitHub 手动运行文档](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow)。
 
+发布标题末尾显示本次构建源码的八位提交短码，例如 `Optical System Design 1.0.4 测试版 · 6edad153`。EXE 文件名、下载链接与 OTA 签名规则保持原样；分平台源码仍以正文逐项记录为准，更新 Windows 不代表同时重建 Mac。
+
 手动流程只重建所选平台，已有其他平台的附件及有效 Windows OTA 签名保持不变，不表示它们也来自本轮源码；要求全部平台统一来源时选择 `all` 或使用新版本标签。正文分别记录新包的源码，保留其他平台原记录。
 
 ## 发布新版本
