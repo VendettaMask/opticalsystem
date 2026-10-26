@@ -1,0 +1,30 @@
+{
+  "Date": "2026-10-26",
+  "Scope": "User-requested Windows x64 cloud package and publication, with source short code in the release title.",
+  "SourceCommit": "48e647e609cc2236875dfb25bb32e43465bac30a",
+  "Workflow": "Desktop build and publish",
+  "WorkflowRunId": 40252538242,
+  "WorkflowUrl": "https://github.com/VendettaMask/opticalsystem/actions/runs/40252538242",
+  "CreatedUtc": "2026-10-26T01:06:10Z",
+  "Inputs": {
+    "ref": "main",
+    "release_tag": "v1.0.4-test.20261019",
+    "runtime": "win-x64",
+    "replace_existing": true
+  },
+  "DispatchHttpStatus": 204,
+  "ObservedStatusAfterDispatch": "in_progress",
+  "ConclusionAtDispatch": null,
+  "ReleaseTitleAfterSuccessfulPublication": "Optical System Design 1.0.4 测试版 · 48e647e6",
+  "Preserved": ["Existing test tag", "Canonical EXE name and OTA checks", "Mac asset and its per-platform source record"],
+  "PreparationChecks": {
+    "PublisherPowerShellSyntax": "passed",
+    "StrictDocumentation": "1099 documents; zero broken links, fences, local-only links or duplicated guide paragraphs",
+    "GitDiffCheck": "passed"
+  },
+  "Limits": [
+    "Dispatch and an in-progress run confirm scheduling only; this record does not claim package or publication success.",
+    "The cloud workflow retains its existing scoped build, test, signing, backup and upload gates.",
+    "No local product build, installer generation, installer execution or new full-suite test run."
+  ]
+}
