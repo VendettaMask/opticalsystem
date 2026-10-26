@@ -1,3 +1,4 @@
+using System.Collections.Specialized;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless;
@@ -262,7 +263,11 @@ public sealed class FlatStartDesktopTests
             Find<TabControl>(window, "InputTabs").SelectedIndex = 2;
             Find<TextBlock>(window, "OptimizationMethod").BringIntoView(); window.UpdateLayout();
             Capture(window, "autolens-only-legacy-" + method);
+            Find<TabControl>(window, "InputTabs").SelectedIndex = 0;
+            window.UpdateLayout();
             Click(window, "VisibleSpectrum");
+            Find<TabControl>(window, "InputTabs").SelectedIndex = 2;
+            window.UpdateLayout();
             Find<NumericUpDown>(window, "EvaluationBudget").Value = 1;
             Find<NumericUpDown>(window, "AutoLensCurriculum").Value = 1;
             Find<NumericUpDown>(window, "AutoLensRefinement").Value = 1;
@@ -530,19 +535,22 @@ public sealed class FlatStartDesktopTests
         using var host = new DesktopHost();
         await host.Run(async () =>
         {
-            var window = host.Window(budget: 24); window.Show(); await window.Ready;
+            const int budget = 48; // Two complete reference roots, one remaining after the cancellation checkpoint.
+            var window = host.Window(budget: budget); window.Show(); await window.Ready;
+            Find<NumericUpDown>(window, "RootCount").Value = 2;
+            var stopRequested = AtFirstCandidate(window, () => Click(window, "Cancel"));
             Click(window, "Generate");
-            await Until(() => window.CurrentCheckpoint?.Trials.Any(trial => trial.State == FamilyTrialState.Completed) == true);
-            Click(window, "Cancel"); await window.PendingOperation;
+            await stopRequested;
+            await window.PendingOperation;
             var stopped = window.CurrentCheckpoint!;
             Assert.Equal(FlatStartSearchState.Cancelled, stopped.State);
-            Assert.InRange(stopped.ChargedEvaluations, 1, 23);
+            Assert.InRange(stopped.ChargedEvaluations, 1, budget - 1);
             Click(window, "Export"); await window.PendingOperation;
             Assert.True(File.Exists(host.ExportPath));
             Click(window, "Resume"); await window.PendingOperation;
             Assert.Equal(stopped.RunId, window.CurrentCheckpoint!.RunId);
-            Assert.Equal(24, window.CurrentCheckpoint.Specification.Budget.MaximumEvaluations);
-            Assert.InRange(window.CurrentCheckpoint.ChargedEvaluations, stopped.ChargedEvaluations, 24);
+            Assert.Equal(budget, window.CurrentCheckpoint.Specification.Budget.MaximumEvaluations);
+            Assert.InRange(window.CurrentCheckpoint.ChargedEvaluations, stopped.ChargedEvaluations, budget);
             Assert.Equal(stopped.Trials[0].Candidate!.CandidateId, window.CurrentCheckpoint.Trials[0].Candidate!.CandidateId);
             window.Close();
         });
@@ -554,10 +562,12 @@ public sealed class FlatStartDesktopTests
         using var host = new DesktopHost();
         await host.Run(async () =>
         {
-            var window = host.Window(budget: 24); window.Show(); await window.Ready;
+            var window = host.Window(budget: 48); window.Show(); await window.Ready;
+            Find<NumericUpDown>(window, "RootCount").Value = 2;
+            var closeRequested = AtFirstCandidate(window, window.Close);
             Click(window, "Generate");
-            await Until(() => window.CurrentCheckpoint?.Trials.Any(trial => trial.State == FamilyTrialState.Completed) == true);
-            window.Close(); await window.PendingOperation;
+            await closeRequested;
+            await window.PendingOperation;
             await Until(() => !window.IsVisible);
             var saved = await new FlatStartRunLibrary(host.Directory).LoadLastAsync();
             Assert.NotNull(saved);
@@ -652,12 +662,31 @@ public sealed class FlatStartDesktopTests
     }
 
     private static T Find<T>(Window window, string name) where T : Control => window.GetLogicalDescendants().OfType<T>().Distinct().Single(control => control.Name == name);
+    private static Task AtFirstCandidate(MainWindow window, Action action)
+    {
+        var source = Assert.IsAssignableFrom<INotifyCollectionChanged>(Find<DataGrid>(window, "Candidates").ItemsSource);
+        var requested = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        source.CollectionChanged += CandidateAdded;
+        return requested.Task.WaitAsync(TimeSpan.FromSeconds(30));
+
+        void CandidateAdded(object? sender, NotifyCollectionChangedEventArgs args)
+        {
+            if (args.NewItems is not { Count: > 0 } ||
+                window.CurrentCheckpoint?.Trials.Any(trial => trial.State == FamilyTrialState.Completed) != true) return;
+            // The UI checkpoint callback is still awaiting publication: cancel before the next root can start.
+            source.CollectionChanged -= CandidateAdded;
+            try { action(); requested.SetResult(true); }
+            catch (Exception exception) { requested.SetException(exception); }
+        }
+    }
     private static void Click(Window window, string name)
     {
         var control = Find<Button>(window, name);
         Assert.True(control.IsEffectivelyEnabled, name + " is disabled");
         control.BringIntoView(); window.UpdateLayout();
-        var point = control.TranslatePoint(new Point(control.Bounds.Width / 2, control.Bounds.Height / 2), window)!.Value;
+        var translated = control.TranslatePoint(new Point(control.Bounds.Width / 2, control.Bounds.Height / 2), window);
+        Assert.True(translated.HasValue, name + " is not attached to the active view");
+        var point = translated.GetValueOrDefault();
         Assert.InRange(point.X, 0, window.Bounds.Width);
         Assert.InRange(point.Y, 0, window.Bounds.Height);
         window.MouseDown(point, MouseButton.Left); window.MouseUp(point, MouseButton.Left);

@@ -1,0 +1,94 @@
+{
+  "Date": "2026-10-26",
+  "Scope": "Repair cloud release gate false positives and obsolete desktop test sequencing without changing production optics or acceptance gates",
+  "BaseCommit": "c591aa0bd0145147f78ae84eeee4668f2cbdeffd",
+  "WorkingTreeDirty": true,
+  "SourceHashes": [
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/ProductDependencyArchitectureTests.cs",
+      "Sha256": "9241101ddfbef23e33cdddd968c198f5bca76db316fb13cfccde94bd9f8ec78d"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj",
+      "Sha256": "de40bf854da1e0e460e463591c99298af1ba600a6c2ef951ea75cf83a217cc5a"
+    },
+    {
+      "Path": "labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/FlatStartDesktopTests.cs",
+      "Sha256": "86e287095f63aab8c4c95f04b3afb6fec4f500ec726242f8c03e9ce5be788ad4"
+    }
+  ],
+  "FailedCloudRun": {
+    "JobId": 121351053499,
+    "Publication": "skipped; EXE generation not reached",
+    "FullBuild": "succeeded, zero warnings/errors",
+    "Passed": 235,
+    "Url": "https://github.com/VendettaMask/opticalsystem/actions/runs/40253680051",
+    "Failed": 1,
+    "Failure": "Plain-text dependency regex matched source-provenance comments and the native C# random stream parameter python",
+    "Id": 40253680051
+  },
+  "LocalRuns": [
+    {
+      "Path": "artifacts\\validation\\cloud-release-repair-2026-10-26\\release-boundaries-final.trx",
+      "Sha256": "5fef7806d78dbc393eab87bd50cadfbeb81a989ac320874f1413044c6703c750",
+      "Total": 256,
+      "Passed": 256,
+      "Failed": 0,
+      "Skipped": 0
+    },
+    {
+      "Path": "artifacts\\validation\\cloud-release-repair-2026-10-26\\initial-structure-release-final.trx",
+      "Sha256": "e1549c3312372430a7d7aead52016ade67e47ce0711594ee2bb68b9da8911894",
+      "Total": 25,
+      "Passed": 22,
+      "Failed": 2,
+      "Skipped": 1
+    },
+    {
+      "Path": "artifacts\\validation\\cloud-release-repair-2026-10-26\\initial-structure-cancellation.trx",
+      "Sha256": "c6700275073d6bb08bbc9007aecb04d41a903b8ee35a6db3bd5413e45e926b4a",
+      "Total": 2,
+      "Passed": 2,
+      "Failed": 0,
+      "Skipped": 0
+    }
+  ],
+  "CurrentModuleCases": {
+    "Rule": "22 unaffected passing cases in the module gate plus the two repaired cancellation cases; repeats are not added. NotExecuted is counted from result outcomes because the TRX counter is zero for the xUnit hardware skip.",
+    "HardwareSkipped": 1,
+    "Passed": 24
+  },
+  "LockedRestore": "19-project locked restore passed; no package lock changes",
+  "Build": "Default Release App and test assemblies, final builds without compiler warnings/errors",
+  "Changes": [
+    "SDK compiler syntax parsing in tests only; imports, string values, interop and inactive branches checked; no Python execution",
+    "Existing build/assembly/resource bans retained; Python files excluded across all product source roots",
+    "Active tab selection before real spectrum-button click",
+    "Two complete training roots; cancellation fixture budget increased from 24 to 48; stop/close triggered in first-candidate publication callback"
+  ],
+  "Attempts": [
+    "Original cloud 235/236 failed and never published.",
+    "First local revised gate 251/252 exposed optical Py labels; executable context was added for the py launcher.",
+    "First local module gate: 20 passed, 4 failed, 1 GPU hardware skip; hidden-tab click and completed-single-root cancellation found.",
+    "Next module gate: 22 passed, 2 failed, 1 skip; two roots needed a complete per-root budget.",
+    "A test helper window-type compile error was corrected; log retained.",
+    "Final cancellation cases passed 2/2 at original phase lengths with total fixture budget 48.",
+    "Initial restricted restore returned no diagnostic and is not counted as passing; normal-host locked restore succeeded."
+  ],
+  "Limits": [
+    "Local scoped verification only; cloud package delivery still requires a successful rerun.",
+    "No production optical code or hard acceptance changes, local installer generation/execution, full test suite or new numerical certification.",
+    "Historical dispatch records and prior evidence archives remain unchanged."
+  ],
+  "EvidenceArchive": {
+    "Path": "validation/rechecks/2026-10-26/cloud-release-gate-repair-evidence.zip",
+    "Sha256": "2a8be36ec1282af24a8798af410a0968fff12b529683cf0ea1f9873c3554391c"
+  },
+  "Documentation": {
+    "ReportSha256": "e20c03f19de3e71a009c29046a6e2341d6c1ee0411091ba7434b94c23fd4a0c5",
+    "StrictExitCode": 0,
+    "Documents": 1099,
+    "BrokenLinks": 0,
+    "GuideDuplicates": 0
+  }
+}
