@@ -1,0 +1,216 @@
+{
+  "Date": "2026-10-26",
+  "Scope": "Successful Windows x64 cloud build after dependency-guard and desktop-fixture repairs; EXE filename ends in actual source short code.",
+  "SourceCommit": "45cce15b2949ce66168341bbfab22c00a3a1e60e",
+  "SourceDirty": false,
+  "WorkflowRun": 40255818669,
+  "WorkflowUrl": "https://github.com/VendettaMask/opticalsystem/actions/runs/40255818669",
+  "WorkflowConclusion": "success",
+  "CloudHostedBuild": true,
+  "Build": {
+    "CryptoChecks": 38,
+    "LockedRestore": "passed",
+    "CompleteReleaseSolution": "passed, zero compiler warnings/errors"
+  },
+  "CloudTests": {
+    "Suites": [
+      {
+        "Name": "analysis-contracts.trx",
+        "Total": 202,
+        "Passed": 202,
+        "Failed": 0,
+        "Skipped": [],
+        "Sha256": "4190dfe045e74d4ec87be5f57ea3b9c55aaef58ade8126e5c3af8a58af523ccb"
+      },
+      {
+        "Name": "analysis-export.trx",
+        "Total": 17,
+        "Passed": 17,
+        "Failed": 0,
+        "Skipped": [],
+        "Sha256": "3a6c933373d252854e305b9e4e92b7a9a370843a6c41eae43ed11f8770cd056e"
+      },
+      {
+        "Name": "analysis-render.trx",
+        "Total": 42,
+        "Passed": 42,
+        "Failed": 0,
+        "Skipped": [],
+        "Sha256": "2c378b49c1c16ce947c8f0136ea484a1b79094f14b2cd7e1110ac1d3c1d79864"
+      },
+      {
+        "Name": "initial-structure.trx",
+        "Total": 25,
+        "Passed": 24,
+        "Failed": 0,
+        "Skipped": [
+          {
+            "Name": "OpticalSystemDesign.InitialStructure.Tests.FlatStartDesktopTests.GpuDeviceChoiceRunsActualCudaAndRoundTripsWithoutChangingTheAlgorithm",
+            "Reason": "Requires explicit CUDA hardware validation."
+          }
+        ],
+        "Sha256": "4476b54568f88711a846c19656773797df63eb8f40bda5f256fa8bed7c0f6173"
+      },
+      {
+        "Name": "lens-navigation.trx",
+        "Total": 9,
+        "Passed": 9,
+        "Failed": 0,
+        "Skipped": [],
+        "Sha256": "66a7a414fbfa282d89c488ceceaf80c5b75f378febdbacdc139af59fb81cb1d2"
+      },
+      {
+        "Name": "lens-viewers.trx",
+        "Total": 59,
+        "Passed": 57,
+        "Failed": 0,
+        "Skipped": [
+          {
+            "Name": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.UnselectedImageSurfaceIsVisibleWithoutRaysAndStaysWholeInCutaway",
+            "Reason": "Set the viewer3d capture directory to run independent Skia pixel checks."
+          },
+          {
+            "Name": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.SolidModelRemovesTheLowerRightGizmoAndKeepsTheLabelledTriad",
+            "Reason": "Set the viewer3d capture directory to run independent Skia pixel checks."
+          }
+        ],
+        "Sha256": "a5d0062148cbec2e357e0acd4040dd7ca166ba797075127f0a9adcdaa837d0d2"
+      },
+      {
+        "Name": "ota-runtime-package.trx",
+        "Total": 8,
+        "Passed": 8,
+        "Failed": 0,
+        "Skipped": [],
+        "Sha256": "df33e0705d2cefabb88da3eec6fae4bbbe3ba710e684e7d90167d787a946b3ee"
+      },
+      {
+        "Name": "release.trx",
+        "Total": 256,
+        "Passed": 256,
+        "Failed": 0,
+        "Skipped": [],
+        "Sha256": "77b6dd20a8dae468a476b44a8464a88a67ab20749d0bc863b9e5a42ec015d925"
+      },
+      {
+        "Name": "update-feedback-render.trx",
+        "Total": 3,
+        "Passed": 3,
+        "Failed": 0,
+        "Skipped": [],
+        "Sha256": "20532e5ce483a97b7bbdbcbecdd73a5d754b6b4b2f736f3b432af03d6d849b0b"
+      }
+    ],
+    "UniqueTotal": 568,
+    "UniquePassed": 565,
+    "UniqueFailed": 0,
+    "UniqueSkipped": 3,
+    "Deduplication": "TRX testId across repeated cloud groups; skip outcomes counted from result nodes, not unreliable counters."
+  },
+  "PackageVerification": {
+    "Passed": 14,
+    "Failed": 0,
+    "ManifestFiles": 1303,
+    "Source": "D:\\a\\opticalsystem\\opticalsystem\\artifacts\\installers\\installer-win-x64-cf4805d5\\payload\\app-88f44475",
+    "NativeGuiVerified": false,
+    "UserInstallationModified": false
+  },
+  "NativePayload": {
+    "Success": true,
+    "Version": "1.0.4+45cce15b2949ce66168341bbfab22c00a3a1e60e",
+    "Framework": "10.0.11",
+    "Architecture": "X64",
+    "ProductAppId": "OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A",
+    "Revision": 0,
+    "SurfaceCount": 2,
+    "ProjectOpened": false,
+    "SettingsLoaded": false,
+    "SettingsTheme": null,
+    "Modules": [
+      "InitialStructure",
+      "CoatingDesign"
+    ],
+    "ModuleLibraries": [
+      "OpticalSystemDesign.InitialStructure.Engine",
+      "OpticalSystemDesign.InitialStructure.Persistence",
+      "OpticalSystemDesign.InitialStructure.Contracts",
+      "OpticalSystemDesign.CoatingDesign.Engine",
+      "OpticalSystemDesign.Modules"
+    ],
+    "ModulesInProcess": true,
+    "UserDataWritten": false,
+    "GuiVerified": false
+  },
+  "Published": {
+    "VerifiedUtc": "2026-10-26T09:59:54.7600748+08:00",
+    "WorkflowRunId": 40255818669,
+    "SourceCommit": "45cce15b2949ce66168341bbfab22c00a3a1e60e",
+    "Name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-45cce15b.exe",
+    "Size": 315315327,
+    "Sha256": "cbe2995bb108134900b467ade5904844c481fd75fbf95845423b1f5ada616404",
+    "ReleaseId": "1.0.4-win-x64-824c7b3e674e",
+    "BuildSequence": 40255818669,
+    "SignatureVerified": true,
+    "MacAssetPreserved": true,
+    "MacSourceDetailPreserved": true,
+    "ReleaseUrl": "https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019",
+    "DownloadUrl": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-45cce15b.exe",
+    "LocalInstallerExecuted": false
+  },
+  "Tag": {
+    "Name": "v1.0.4-test.20261019",
+    "Moved": false,
+    "Commit": "9242b31abf38b4d97f23d19e4b00f8df47abfabb"
+  },
+  "PreservedMac": {
+    "Name": "OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg",
+    "Sha256": "bd062e751ab81877538909a98f530a1afe0923fe381d7b7804563bec504d16c8",
+    "AssetId": 672035588,
+    "SourceCommit": "11de8bce286e24083a962b9dd4cf66da5944cb91",
+    "Unchanged": true,
+    "Size": 110461565
+  },
+  "Frozen": {
+    "AggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "Count": 2668,
+    "Unchanged": true,
+    "Matched": 2668
+  },
+  "CloudDocumentation": {
+    "LocalOnlyLinks": 0,
+    "MarkdownFenceIssues": 0,
+    "GuideDuplicates": 0,
+    "BrokenLinks": 0,
+    "Documents": 1099
+  },
+  "ChecksArtifact": {
+    "LocalDigestMatched": true,
+    "Sha256": "c044475302590cf88dd257d8cd2ed18744fbd6543eaf751ee14cc634f2a01a78",
+    "Id": 12622577660
+  },
+  "PreviousAssetBackup": {
+    "DownloadedLocally": false,
+    "ArtifactId": 12622348316,
+    "Name": "cloud-release-receipt",
+    "ExpiresUtc": "2026-11-25T01:59:19Z"
+  },
+  "PriorFailures": {
+    "CancelledTitleOnlyRun": 40252538242,
+    "FailedCodedRun": 40253680051,
+    "HistoricalRecordsPreserved": true,
+    "LocalRepairRecord": "docs/validation/WINDOWS_CLOUD_GATE_REPAIR_2026-10-26.json",
+    "FailedCodedPublication": "skipped, installer generation not reached"
+  },
+  "Upgrade": "New clients accept legacy and coded names; old clients need one manual cover installation to recognize coded EXE names.",
+  "Limits": [
+    "Scoped cloud release gates, not the full repository test suite or new optical numerical certification.",
+    "One explicit CUDA hardware case and two opt-in 3D Skia capture cases skipped; not counted as passing.",
+    "No local installer execution, user installation replacement, new native GUI acceptance or actual OTA application.",
+    "EXE remains an unsigned test installer; OTA metadata signature is independently verified with the pinned RSA-4096 public key.",
+    "Mac preserved, not rebuilt or newly validated."
+  ],
+  "EvidenceArchive": {
+    "Sha256": "65d32a6e1cd26c97e3bb1a2a0e2ef90a33662e6c16772859d69772eb9f7d0bdc",
+    "Path": "validation/rechecks/2026-10-26/windows-coded-exe-cloud-evidence.zip"
+  }
+}
