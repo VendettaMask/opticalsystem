@@ -1,0 +1,29 @@
+{
+  "Date": "2026-10-26",
+  "Scope": "Replacement cloud dispatch after user clarified that the source short code belongs at the end of the EXE filename.",
+  "SourceCommit": "e7913f3691147cecb428eaaf4c4e99652997361d",
+  "ExpectedExe": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-e7913f36.exe",
+  "WorkflowRunId": 40253680051,
+  "WorkflowUrl": "https://github.com/VendettaMask/opticalsystem/actions/runs/40253680051",
+  "CreatedUtc": "2026-10-26T01:19:42Z",
+  "DispatchHttpStatus": 204,
+  "ObservedStatusAfterDispatch": "in_progress",
+  "ConclusionAtDispatch": null,
+  "Inputs": {
+    "ref": "main",
+    "release_tag": "v1.0.4-test.20261019",
+    "runtime": "win-x64",
+    "replace_existing": true
+  },
+  "SupersededRun": {
+    "Id": 40252538242,
+    "Conclusion": "cancelled",
+    "PublicationCompleted": false
+  },
+  "LocalVerification": "docs/validation/INSTALLER_SOURCE_CODE_2026-10-26.json",
+  "Limits": [
+    "Dispatch and an in-progress run confirm scheduling, not generated EXE bytes or successful publication.",
+    "Mac attachment is preserved; no local installer build, installation or full-suite run.",
+    "Existing installed clients need one manual update before they can discover source-coded installer names."
+  ]
+}
