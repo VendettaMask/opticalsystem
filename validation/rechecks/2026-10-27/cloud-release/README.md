@@ -49,3 +49,21 @@ dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false -p:
 随后核对源代码确认 `WorkspaceSessionStore.PathHash` 固定参数声明调用了 Darwin `fcntl` 的可变参数指针。Apple Silicon 可变参数放置约定与固定第三参数不同，可能将路径写入栈；该问题与故障地址的路径字节相符。实现替换为固定签名 `realpath`，显式 UTF-8 输入及输出缓冲区；Apple libc 源码明确按文件系统实际名称恢复大小写。新增 16 轮真实 Unicode 文件布局保存/读取，Mac 云门禁同时执行整个工作区持久化测试类。保留原始数据文件和不存在路径的后备，不更改光学计算；原生结果待后续追加。
 
 修正后本地定向 **9/9** 通过（工作区持久化类、原崩溃导航方法、发布流程守卫），零失败/跳过；TRX 留在本机发布工作目录，不推送。Windows 本地结果不执行 Mac 分支，不能替代待运行的 Apple Silicon 验证。
+
+## 最终三平台公开交付
+
+第七次诊断 [40438556564](https://github.com/VendettaMask/opticalsystem/actions/runs/40438556564) 的授权云报告保留在工件 `12705187548`。LLDB 捕获的返回寄存器为 `0x6f772f72656e6e75`、帧指针为 `0x000073726573552f`，解码为构建路径文字片段；原生栈已遭覆盖，因此 SOS 也不能恢复有效调用链。结合 Apple ARM64 可变参数约定及具体 `fcntl(F_GETPATH)` 声明定位路径查询问题，未把不完整栈伪称为完整函数栈。
+
+修复源码 `a31fb444e6a4fe4a19f13fd8a506702af63ad383` 的 [40439094476](https://github.com/VendettaMask/opticalsystem/actions/runs/40439094476) 三个平台与发布任务全部成功。Mac 七项工作区持久化和全部九项导航完整通过；原先在标签切换退出的测试现在执行到工作区断言、关闭和 headless dispatch 完成，无调试器参与正常发布。
+
+| 平台 | 不同用例 | 通过 | 条件跳过 | 失败／中止 | 检查工件 |
+| --- | ---: | ---: | ---: | ---: | --- |
+| win-x64 | 572 | 569 | 3 | 0 | 12706126789 |
+| win-arm64 | 572 | 569 | 3 | 0 | 12705508313 |
+| osx-arm64 | 407 | 404 | 3 | 0 | 12705414009 |
+
+不累计跨平台重复用例。每个平台均跳过同一项需显式真实 CUDA 硬件的检查及两项需显式设置截图目录的 3D 像素检查，其余套件完整结束。Windows ARM64 为交叉打包，Mac 在原生 Apple Silicon runner 运行；不宣称全仓测试或原生 GUI 验收。全部 2668 冻结文件与文档门禁通过，Windows x64 包内 14/14、Mac 包及挂载后 1557 文件清单相同，两个必装模块保持进程内运行。
+
+[原测试发布页](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019) 已更新三个安装文件，两个 Windows 名称末尾均为 `-Setup-a31fb444.exe`。三个公开文件实际下载的完整大小/SHA-256 全部匹配，两个 Windows 格式 2 OTA 载荷分别经内置 RSA-4096-PSS-SHA256 公钥验签，绑定本次源码及 `BuildSequence=40439094476`。原标签仍指向 `9242b31abf38b4d97f23d19e4b00f8df47abfabb`。旧附件备份及替换回执工件 `12706003140` 按 30 天保留，未增加公开 Release 附件。
+
+公开元数据、完整去重计数、跳过理由、包核对和实际下载指纹见[机器账目](../../../../docs/validation/CLOUD_RELEASE_2026-10-27.json)。新增本机测试报告及下载文件只留本机，未执行安装器、读取用户崩溃报告或操作桌面。经授权的原始临时 Mac 报告只保留在 Actions 工件及本机诊断工作目录，不新增提交到 Git。

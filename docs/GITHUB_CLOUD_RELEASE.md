@@ -2,6 +2,8 @@
 
 源码、依赖锁文件、Windows 安装器、Apple Silicon Mac DMG 及全部打包脚本均随仓库维护，不需要维护者电脑持续开机。入口是 [Desktop build and publish](https://github.com/VendettaMask/opticalsystem/actions/workflows/release.yml)。这是生成完整安装包的流程，不是软件自动安装更新功能。
 
+2026-10-27 已从 `a31fb444` 完成三平台构建与公开替换，原测试标签不动；Windows x64/ARM64 和 Mac Apple Silicon 均为同一源码。三个实际公开下载的大小与 SHA-256、两份 Windows OTA 签名及来源已核对。实际测试、条件跳过、Mac 布局崩溃修复及交付范围见[当前状态](CURRENT_STATUS.md)和[本轮机器账目](validation/CLOUD_RELEASE_2026-10-27.json)。
+
 ## 一键更新当前测试包
 
 1. 将要交付的代码同步到 GitHub `main`，在 Actions 打开上述工作流，点击 **Run workflow**。

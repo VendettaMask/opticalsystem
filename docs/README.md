@@ -1,12 +1,13 @@
 # 项目文档索引
 
-整理日期：2026-10-26。先按任务阅读当前指南；带日期的记录只证明对应阶段，不能把旧通过数、旧独立模块架构或旧命令当作当前状态。
+整理日期：2026-10-27。先按任务阅读当前指南；带日期的记录只证明对应阶段，不能把旧通过数、旧独立模块架构或旧命令当作当前状态。
 
 ## 从这里开始
 
 | 需要做什么 | 入口 |
 | --- | --- |
 | 了解产品、当前包和未解决问题 | [项目首页](../README.md)、[当前状态](CURRENT_STATUS.md)、[问题清单](OPEN_ISSUES_2026-10-08.md) |
+| 核对最新三平台云发布 | [云发布指南](GITHUB_CLOUD_RELEASE.md)、[2026-10-27 交付账目](validation/CLOUD_RELEASE_2026-10-27.json) |
 | 构建、测试、安装与恢复 | [构建发布](BUILD_AND_RELEASE.md)、[Windows 安装](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)、[内置模块交付](BUILT_IN_MODULES_2026-10-13.md) |
 | 使用桌面和两个模块 | [桌面工作流](GUI_QUICKSTART_REFACTOR.md)、[初始结构](../labs/InitialStructure/README.md)、[镀膜设计](../labs/CoatingDesign/README.md) |
 | 核对 AutoLens 原版优化规则 | [e58 逐项对齐、测试范围与保留差异](AUTOLENS_UPSTREAM_ALIGNMENT_2026-10-24.md)、[阶段交接修正](AUTOLENS_HANDOFF_REPAIR_2026-10-25.md) |
