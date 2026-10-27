@@ -32,6 +32,22 @@ internal static class InstallationVerification
         var settings = settingsPath is null ? null : AppSettings.Load(settingsPath);
         if (settings?.LoadWarning is not null) throw new InvalidDataException(settings.LoadWarning);
         var modules = ProductModules.Verify();
+        var macOtaBridgeVerified = false;
+        if (OperatingSystem.IsMacOS())
+        {
+            var bridge = Path.Combine(AppContext.BaseDirectory, "libOpticalSystemDesign.Updater.dylib");
+            if (File.Exists(bridge))
+            {
+                var handle = System.Runtime.InteropServices.NativeLibrary.Load(bridge);
+                try
+                {
+                    foreach (var symbol in new[] { "osd_updater_initialize", "osd_updater_check", "osd_updater_download", "osd_updater_install", "osd_updater_cancel" })
+                        _ = System.Runtime.InteropServices.NativeLibrary.GetExport(handle, symbol);
+                    macOtaBridgeVerified = true;
+                }
+                finally { System.Runtime.InteropServices.NativeLibrary.Free(handle); }
+            }
+        }
         var report = new
         {
             Success = true,
@@ -48,6 +64,7 @@ internal static class InstallationVerification
             modules.Modules,
             ModuleLibraries = modules.Libraries,
             ModulesInProcess = modules.InProcess,
+            MacOtaNativeBridgeVerified = macOtaBridgeVerified,
             UserDataWritten = false,
             GuiVerified = false
         };

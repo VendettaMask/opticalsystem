@@ -68,10 +68,11 @@ public sealed class MacOtaPanelTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MacOtaPanelTests));
         await session.Dispatch(async () =>
         {
-            var engine = new Engine(); var closes = 0;
-            using var panel = new MacSoftwareUpdatePanel(engine, () => { engine.Set(MacOtaState.Error); return Task.FromResult(true); }, () => closes++);
+            var engine = new Engine(); var closes = 0; var recovered = 0;
+            using var panel = new MacSoftwareUpdatePanel(engine, () => { engine.Set(MacOtaState.Error); return Task.FromResult(true); }, () => closes++, () => recovered++);
             engine.Set(MacOtaState.Ready); await panel.InstallAsync();
             Assert.Equal(0, closes); Assert.Equal(0, engine.Installs);
+            Assert.Equal(1, recovered);
         }, CancellationToken.None);
     }
 

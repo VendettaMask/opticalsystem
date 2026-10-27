@@ -1,6 +1,9 @@
 # Proposed production OTA publishing change
 
-This proposal has not been applied to the production release workflow.
+The maintainer authorized this publishing change on 2026-10-27, conditional on
+cloud regression success. The workflow implementation is prepared on the
+isolated branch. Production main and public releases remain unchanged until
+those checks pass.
 
 The prepared code adds the native Sparkle bridge and Mac update panel, derives
 the Mac Ed25519 identity from the existing protected Windows RSA key, verifies

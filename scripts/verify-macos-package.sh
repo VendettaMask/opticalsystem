@@ -44,12 +44,13 @@ bundle, output = map(pathlib.Path, sys.argv[1:])
 report = json.loads((output/'native-product.json').read_text())
 assert report['Success'] and report['Architecture']=='Arm64' and report['ModulesInProcess']
 assert report['Modules']==['InitialStructure','CoatingDesign'] and len(report['ModuleLibraries'])==5
+assert report['MacOtaNativeBridgeVerified']
 assert not report['UserDataWritten'] and not report['GuiVerified']
 info = plistlib.loads((bundle/'Contents/Info.plist').read_bytes())
 assert info['CFBundleShortVersionString']==report['Version'].split('+')[0]
 assert len(info['CFBundleVersion'].split('.')) == 3
 assert info['SUFeedURL']=='https://raw.githubusercontent.com/VendettaMask/opticalsystem/main/updates/macos/appcast.xml'
-assert info['SUVerifyUpdateBeforeExtraction'] and not info['SUEnableAutomaticChecks'] and not info['SUAutomaticallyUpdate']
+assert info['SUVerifyUpdateBeforeExtraction'] and info['SURequireSignedFeed'] and not info['SUEnableAutomaticChecks'] and not info['SUAutomaticallyUpdate']
 assert len(__import__('base64').b64decode(info['SUPublicEDKey'], validate=True))==32
 assert info['LSArchitecturePriority']==['arm64']
 files = {str(p.relative_to(bundle)):hashlib.file_digest(p.open('rb'), 'sha256').hexdigest()

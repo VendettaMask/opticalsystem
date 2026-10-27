@@ -170,6 +170,7 @@ public sealed partial class MainWindow
             new Uri("avares://OpticalSystemDesign.App/Assets/Author.jpg"));
         using var authorBitmap = new Bitmap(authorStream);
         Window? dialog = null;
+        var recoveryStoppedForUpdate = false;
         dialog = CreateAboutDialog(authorBitmap, handoff: async prepared =>
         {
             if (_closed || _closeInProgress || _pendingOtaUpdate is not null) return false;
@@ -195,7 +196,11 @@ public sealed partial class MainWindow
                     {
                         await _panels.SaveCurrentSessionAsync();
                         _recoveryTimer?.Stop();
-                        if (_recovery is not null) await _recovery.StopAsync(cleanExit: true);
+                        if (_recovery is not null)
+                        {
+                            recoveryStoppedForUpdate = true;
+                            await _recovery.StopAsync(cleanExit: true);
+                        }
                     });
             }
             finally { _closeInProgress = false; }
@@ -204,6 +209,15 @@ public sealed partial class MainWindow
             _closeAfterPersistence = true;
             dialog!.Close();
             Close();
+        }, macPreparationCancelled: () =>
+        {
+            if (!recoveryStoppedForUpdate || _closed) return;
+            recoveryStoppedForUpdate = false;
+            // A denied native install (for example another running instance)
+            // must leave the editor's periodic recovery protection working.
+            try { _recovery = new(_application.Documents, DocumentRecoveryStore.DefaultDirectory); _recoveryTimer?.Start(); }
+            catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+            { _statusText.Text = $"工程恢复保护未启动：{exception.Message}"; }
         });
         await dialog.ShowDialog(this);
     }
@@ -211,7 +225,7 @@ public sealed partial class MainWindow
     internal static Window CreateAboutDialog(Bitmap authorBitmap, IReleaseUpdateService? updateService = null,
         Func<Uri, Task<bool>>? openReleasePage = null, Func<PreparedOtaUpdate, Task<bool>>? handoff = null,
         IOtaDownloader? downloader = null, Func<string?>? unavailableReason = null,
-        Func<Task<bool>>? macPrepare = null, Action? macClosePrepared = null)
+        Func<Task<bool>>? macPrepare = null, Action? macClosePrepared = null, Action? macPreparationCancelled = null)
     {
         ArgumentNullException.ThrowIfNull(authorBitmap);
         var dialog = new Window
@@ -304,7 +318,7 @@ public sealed partial class MainWindow
             RowSpacing = 18
         };
         Control updates = OperatingSystem.IsMacOS() && updateService is null && macPrepare is not null && macClosePrepared is not null
-            ? new MacSoftwareUpdatePanel(Services.Updates.MacOtaUpdater.Current, macPrepare, macClosePrepared)
+            ? new MacSoftwareUpdatePanel(Services.Updates.MacOtaUpdater.Current, macPrepare, macClosePrepared, macPreparationCancelled)
             : new SoftwareUpdatePanel(updateService, openReleasePage, handoff, downloader, unavailableReason);
         var footer = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 16 };
         footer.Children.Add(updates);

@@ -53,6 +53,7 @@ cp packaging/macos/Info.plist "$bundle/Contents/Info.plist"
 /usr/libexec/PlistBuddy -c 'Add :LSArchitecturePriority:0 string arm64' "$bundle/Contents/Info.plist"
 cp src/OpticalSystemDesign.App/Assets/Brand/AppIcon.icns "$bundle/Contents/Resources/AppIcon.icns"
 bash scripts/prepare-macos-updater.sh "$output_root/.dependencies" "$bundle"
+bash scripts/test-macos-updater.sh "$output_root/.dependencies" "$stage/native-updater-tests"
 cp src/OpticalSystemDesign.App/Assets/Icons/LUCIDE-LICENSE.txt "$payload/Assets/Icons/"
 chmod +x "$payload/OpticalSystemDesign.App"
 

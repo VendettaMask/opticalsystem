@@ -12,6 +12,7 @@ internal sealed class MacSoftwareUpdatePanel : StackPanel, IDisposable
     private readonly IMacOtaUpdater _updater;
     private readonly Func<Task<bool>> _prepare;
     private readonly Action _closePrepared;
+    private readonly Action? _cancelPreparation;
     private readonly Button _check = new() { Name = "CheckForUpdates", Content = "检查更新" };
     private readonly Button _download = new() { Name = "DownloadUpdate", Content = "下载更新", IsVisible = false };
     private readonly Button _install = new() { Name = "InstallUpdate", Content = "安装更新并重启", IsVisible = false };
@@ -24,10 +25,10 @@ internal sealed class MacSoftwareUpdatePanel : StackPanel, IDisposable
     private bool _disposed;
     private string? _failure;
 
-    internal MacSoftwareUpdatePanel(IMacOtaUpdater updater, Func<Task<bool>> prepare, Action closePrepared)
+    internal MacSoftwareUpdatePanel(IMacOtaUpdater updater, Func<Task<bool>> prepare, Action closePrepared, Action? cancelPreparation = null)
     {
         Name = "AboutUpdates"; Spacing = 10;
-        _updater = updater; _prepare = prepare; _closePrepared = closePrepared;
+        _updater = updater; _prepare = prepare; _closePrepared = closePrepared; _cancelPreparation = cancelPreparation;
         _updater.Changed += Refresh;
         _check.Classes.Add("accent"); _download.Classes.Add("accent"); _install.Classes.Add("accent");
         _check.Click += (_, _) => _updater.Check(_tests.IsChecked == true);
@@ -56,15 +57,26 @@ internal sealed class MacSoftwareUpdatePanel : StackPanel, IDisposable
     {
         if (_disposed || _preparing || _updater.Status.State != MacOtaState.Ready) return;
         _failure = null; _preparing = true; Refresh();
+        var installed = false;
         try
         {
             // No native install reply (or quit request) before all document,
             // module and persistence decisions have succeeded.
-            if (await _prepare() && !_disposed && _updater.Install()) _closePrepared();
+            if (await _prepare() && !_disposed)
+            {
+                installed = _updater.Install();
+                if (installed) _closePrepared();
+                else _failure = "无法准备更新，未执行安装。";
+            }
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or InvalidOperationException)
         { _failure = "无法准备更新，未执行安装。"; }
-        finally { _preparing = false; if (!_disposed) Refresh(); }
+        finally
+        {
+            _preparing = false;
+            if (!installed) _cancelPreparation?.Invoke();
+            if (!_disposed) Refresh();
+        }
     }
 
     private void Refresh()

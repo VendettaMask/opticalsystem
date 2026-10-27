@@ -30,5 +30,9 @@ workflow validates the native bridge, throwaway signed/tampered archives,
 headless UI contracts and a disposable packaged application/DMG. It does not
 publish to Releases or update `main`.
 
-Public release wiring and an installed old-to-new replacement regression remain
-pending. Neither the bootstrap release nor the production feed has been changed.
+Release wiring is prepared, with archive/feed signing before release mutation,
+the existing Windows attachment publisher, and a final archive-identity gate
+before activating the appcast. The maintainer authorized main integration and
+cloud publication after successful regression. An installed old-to-new
+replacement regression remains pending; neither the bootstrap release nor the
+production feed has yet been changed.
